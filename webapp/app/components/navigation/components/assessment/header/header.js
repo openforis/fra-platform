@@ -9,7 +9,7 @@ import { Area } from '@common/country'
 import * as BasePaths from '@webapp/main/basePaths'
 
 import Icon from '@webapp/components/icon'
-import { useCountryIso, useI18n, useUserInfo } from '@webapp/components/hooks'
+import { useCountryIso, useUserInfo } from '@webapp/components/hooks'
 
 import Title from './title'
 import Status from './status'
@@ -21,7 +21,6 @@ const Header = (props) => {
   const assessmentType = Assessment.getType(assessment)
   const countryIso = useCountryIso()
   const userInfo = useUserInfo()
-  const i18n = useI18n()
 
   const isCountry = Area.isISOCountry(countryIso)
   const isFRA = Assessment.isTypeFRA(assessmentType)
@@ -31,30 +30,26 @@ const Header = (props) => {
       <div className="nav-assessment-header__label">
         <Title assessment={assessment} lockEnabled={Boolean(userInfo && isFRA && isCountry)} />
 
-        {isFRA && (
+        {isFRA && isCountry && (
           <div className="links-download">
             <Link
               className="btn-s btn-secondary"
-              to={
-                isCountry
-                  ? BasePaths.getAssessmentPrintLink(countryIso, assessmentType, true)
-                  : `/api/fileRepository/statisticalFactsheets/${countryIso}/${i18n.language}`
-              }
-              target={isCountry ? '_blank' : '_top'}
+              to={BasePaths.getAssessmentPrintLink(countryIso, assessmentType, true)}
+              target="_blank"
+              alt=""
             >
               <Icon name="small-print" className="icon-margin-left" />
               <Icon name="icon-table2" className="icon-no-margin" />
             </Link>
 
-            {isCountry && (
-              <Link
-                className="btn-s btn-secondary"
-                to={BasePaths.getAssessmentPrintLink(countryIso, assessmentType)}
-                target="_blank"
-              >
-                <Icon name="small-print" className="icon-no-margin" />
-              </Link>
-            )}
+            <Link
+              className="btn-s btn-secondary"
+              to={BasePaths.getAssessmentPrintLink(countryIso, assessmentType)}
+              target="_blank"
+              alt=""
+            >
+              <Icon name="small-print" className="icon-no-margin" />
+            </Link>
           </div>
         )}
       </div>
