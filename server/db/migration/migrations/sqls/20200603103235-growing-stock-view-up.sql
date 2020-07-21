@@ -99,9 +99,10 @@ SELECT q.country_iso,
        sum(q.growing_stock_total) FILTER (WHERE q.year = 2020::NUMERIC) AS "2020"
 FROM (SELECT g_1.country_iso,
              g_1.year,
-             sum(COALESCE(g_1.naturally_regenerating_forest, 0::NUMERIC) +
-                 COALESCE(g_1.plantation_forest, 0::NUMERIC) + COALESCE(g_1.forest, 0::NUMERIC) +
-                 COALESCE(g_1.other_wooded_land, 0::NUMERIC)) AS growing_stock_total
+             sum(
+                         COALESCE(g_1.naturally_regenerating_forest, 0::NUMERIC) +
+                         COALESCE(g_1.planted_forest, 0::NUMERIC) + COALESCE(g_1.forest, 0::NUMERIC)
+                 ) AS growing_stock_total
       FROM growing_stock_total g_1
       GROUP BY g_1.country_iso, g_1.year
       ORDER BY g_1.country_iso, g_1.year) q
