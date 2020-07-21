@@ -16,7 +16,7 @@ module.exports = {
     title: 'Área forestal (1990 — 2020)',
   },
   carbonAndGrowingStock: {
-    title: 'Existencias en formación y carbono (1990 — 2020)',
+    title: 'Existencias en formación y carbono en los bosques (1990 — 2020)',
     rowName: '',
     carbon_stock_biomass_total: 'Carbono en la biomasa',
     carbon_stock_total: 'Total de carbono',

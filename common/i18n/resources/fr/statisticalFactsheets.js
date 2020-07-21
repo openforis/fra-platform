@@ -16,7 +16,7 @@ module.exports = {
     title: 'Superficie forestière (1990 — 2020)',
   },
   carbonAndGrowingStock: {
-    title: 'Volume de bois sur pied et Carbone (1990 — 2020)',
+    title: 'Volume de bois sur pied et Carbone dans les forêts (1990 — 2020)',
     rowName: '',
     carbon_stock_biomass_total: 'Stock de carbone dans la biomasse',
     carbon_stock_total: 'Stock de carbone total',
