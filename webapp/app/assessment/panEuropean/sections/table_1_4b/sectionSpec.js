@@ -8,6 +8,8 @@ const variables = [
   'harvested_wood_products',
 ]
 
+const years = [...PanEuropean.years90_15].reverse();
+
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_1_4b,
   [SectionSpec.KEYS_TABLE.columnsExport]: ['total_carbon_stock_in_hwp'],
@@ -28,7 +30,7 @@ const tableSpec = SectionSpec.newTableSpec({
 
     // rows data
     ...variables.flatMap((variable) =>
-      PanEuropean.years90_15.reverse().map((year) =>
+      years.map((year) =>
         SectionSpec.newRowData({
           [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.carbonStockInHarvestedWoodProductsHWP.${variable}`,
           [SectionSpec.KEYS_ROW.labelParams]: { year },
