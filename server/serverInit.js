@@ -14,6 +14,11 @@ module.exports = () => {
 
   const app = express()
 
+  if (process.env.NODE_ENV === 'development') {
+    const morgan = require('morgan')
+    app.use(morgan('dev'))
+  }
+
   app.use(bodyParser.json({ limit: '5000kb' }))
 
   resourceCacheControl.init(app)

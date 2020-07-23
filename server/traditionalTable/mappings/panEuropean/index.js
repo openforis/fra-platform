@@ -5,10 +5,9 @@ const table64b = require('./table6_4b')
 const table64c = require('./table6_4c')
 
 module.exports = {
-  panEuropean11a: table11a,
-  panEuropean12a: table12a,
-  panEuropean14b: table14b,
-  panEuropean64b: table64b,
-  panEuropean64c: table64c,  
+  table_1_1a: table11a,
+  table_1_2a: table12a,
+  table_1_4b: table14b,
+  table_6_4b: table64b,
+  table_6_4c: table64c,
 }
-
