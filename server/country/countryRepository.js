@@ -74,7 +74,7 @@ const getAllCountries = (role, schemaName = 'public') => {
   const tableNameFraAudit = `${schemaName}.fra_audit`
   const tableNameCountry = `${schemaName}.country`
   const tableNameAssessment = `${schemaName}.assessment`
-  
+
   return db.query(`
     WITH fa AS (
       SELECT country_iso, to_char(max(time), 'YYYY-MM-DD"T"HH24:MI:ssZ') as last_edited
@@ -98,19 +98,29 @@ const getAllCountries = (role, schemaName = 'public') => {
 
 const getAllCountriesList = async () => {
   const rs = await db.query(`
-      SELECT c.country_iso,
-             c.region,
-             c.list_name_en,
-             c.full_name_en,
-             c.list_name_es,
-             c.full_name_es,
-             c.list_name_fr,
-             c.full_name_fr,
-             c.list_name_ru,
-             c.full_name_ru,
-             c.pan_european
-      FROM country c
-      ORDER BY c.country_iso
+WITH assessment AS (
+    SELECT a.country_iso,
+           json_object_agg(a.type::TEXT,
+                           json_build_object('desk_study', a.desk_study, 'status', a.status)) AS assessment
+    FROM assessment a
+    GROUP BY a.country_iso
+)
+SELECT c.country_iso,
+       c.region,
+       c.list_name_en,
+       c.full_name_en,
+       c.list_name_es,
+       c.full_name_es,
+       c.list_name_fr,
+       c.full_name_fr,
+       c.list_name_ru,
+       c.full_name_ru,
+       c.pan_european,
+       a.assessment
+FROM country c
+LEFT JOIN assessment a
+ON c.country_iso = a.country_iso
+ORDER BY c.country_iso
   `)
   return camelize(rs.rows)
 }

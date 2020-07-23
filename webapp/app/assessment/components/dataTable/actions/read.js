@@ -26,7 +26,7 @@ export const fetchTableData = (assessmentType, sectionName, tableName) => async 
 
     if (!R.isEmpty(tableName)) {
       let url = urlFetchData[tableName]
-      url = url ? `${url}${countryIso}` : `/api/traditionalTable/${countryIso}/${tableName}`
+      url = url ? `${url}${countryIso}` : `/api/traditionalTable/${assessmentType}/${countryIso}/${tableName}`
 
       const { data } = await axios.get(url)
 
