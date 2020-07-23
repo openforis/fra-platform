@@ -8,6 +8,8 @@ const variables = [
   'forestry_isic_nace_02',
 ]
 
+const years = [...PanEuropean.years90_15].reverse();
+
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_6_4c,
   [SectionSpec.KEYS_TABLE.columnsExport]: ['capital_transfers'],
@@ -28,7 +30,7 @@ const tableSpec = SectionSpec.newTableSpec({
 
     // rows data
     ...variables.flatMap((variable) =>
-      PanEuropean.years90_15.reverse().map((year) =>
+      years.map((year) =>
         SectionSpec.newRowData({
           [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.totalCapitalTransfersInForestsAndForestry.${variable}`,
           [SectionSpec.KEYS_ROW.labelParams]: { year },
