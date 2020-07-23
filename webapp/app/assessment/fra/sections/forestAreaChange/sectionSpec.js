@@ -13,6 +13,7 @@ const { yearsRange } = FRA
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.forestAreaChange,
   [SectionSpec.KEYS_TABLE.columnsExport]: yearsRange,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.haThousandPerYear,
   [SectionSpec.KEYS_TABLE.updateTableDataCell]: updateForestAreaChangeCell,
   [SectionSpec.KEYS_TABLE.tableDataRequired]: [
     {
@@ -84,7 +85,6 @@ const tableSpec = SectionSpec.newTableSpec({
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'forestAreaChange.forestAreaNetChange',
-      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.forest_area_net_change,
       [SectionSpec.KEYS_ROW.variableNo]: 'a-b',
       [SectionSpec.KEYS_ROW.linkToSection]: FRA.sections['1'].children.a.name,
       [SectionSpec.KEYS_ROW.cols]: yearsRange.map(() =>

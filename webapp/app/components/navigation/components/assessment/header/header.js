@@ -10,16 +10,22 @@ import { Link } from 'react-router-dom'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import { useIsDataExportView } from '@webapp/components/hooks'
 
+import { isTypePanEuropean } from '@common/assessment/assessment'
 import Lock from './lock'
 import Status from './status'
-import AssessmentTitle from './titleAssessment'
+import AssessmentTitle from './title'
 import ToggleAllButton from './buttonToggleAll'
 
 const Header = (props) => {
-  const { assessment, assessmentType, showSections, setShowSections } = props
+  const {
+    assessment,
+    assessment: { type: assessmentType },
+    showSections,
+    setShowSections,
+  } = props
 
   const countryIso = useCountryIso()
-  if (useIsDataExportView()) {
+  if (useIsDataExportView() || isTypePanEuropean(assessmentType)) {
     return (
       <div className="nav-assessment-header">
         <div className="nav-assessment-header__label">
@@ -63,7 +69,6 @@ const Header = (props) => {
 }
 
 Header.propTypes = {
-  assessmentType: PropTypes.string.isRequired,
   assessment: PropTypes.object.isRequired,
   showSections: PropTypes.bool.isRequired,
   setShowSections: PropTypes.func.isRequired,

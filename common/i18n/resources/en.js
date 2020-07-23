@@ -1,4 +1,8 @@
+const area = require('./en/area')
+
 module.exports.translation = {
+  area,
+
   language: {
     en: 'English',
     es: 'Español',
@@ -13,8 +17,71 @@ module.exports.translation = {
     dataExport: 'Data Export',
     selectAll: 'Select all',
     unselectAll: 'Unselect all',
-    variable: 'Variable',
+    variable: 'FRA Variable',
     column: 'Column',
+    other: 'Other',
+    unknown: 'None/unknown',
+  },
+
+  statisticalFactsheets: {
+    rowName: {
+      forest_area: 'Forest area',
+      natural_forest_area: 'Natural forest area',
+      planted_forest: 'Planted forest',
+      forest_area_within_protected_areas: 'Forest Area within Protected Areas',
+      land_area: 'Land Area',
+      primary_forest: 'Primary Forest',
+      private_ownership: 'Private ownership',
+      public_ownership: 'Public ownership',
+      other_or_unknown: 'Other or unknown',
+    },
+    forestArea: {
+      title: 'Forest Area (1990 - 2020)',
+    },
+    carbonAndGrowingStock: {
+      title: 'Carbon and Growing Stock (1990 - 2020)',
+      rowName: '',
+      carbon_stock_biomass_total: 'Carbon stock in biomass',
+      carbon_stock_total: 'Total carbon stock',
+      growing_stock_total: 'Growing stock',
+    },
+    forestAreaPercent: {
+      title: 'Forest Area (2020)',
+    },
+    primaryForest: {
+      title: 'Primary forest % of forest area (2020)',
+    },
+    forestOwnership: {
+      title: 'Forest Ownership (2015)',
+    },
+    forestAreaWithinProtectedAreas: {
+      title: 'Forest Area within Protected Areas (1990 - 2020)',
+    },
+    primaryDesignatedManagementObjective: {
+      title: 'Primary Designated Management Objective (1990 - 2020)',
+      rowName: '',
+      multiple_use: 'Multiple use',
+      other: 'Other',
+      production: 'Production',
+      protection_of_soil_and_water: 'Protection of soil and water',
+      social_services: 'Social services',
+    },
+    naturallyRegeneratingForest: {
+      title: 'Naturally regenerating forest and planted forest (1990 - 2020)',
+    },
+  },
+
+  unit: {
+    haThousand: '1000 ha',
+    ha: 'ha',
+    kmSq: 'km²',
+    mileSq: 'mi²',
+    acre1000: '1000 acres',
+    acre: 'acre',
+    haMillion: 'million hectares',
+    haThousandPerYear: '1000 ha/year',
+    tonnesPerHa: 'tonnes/ha',
+    millionsCubicMeterOverBark: 'million m³ over bark',
   },
 
   countrySelection: {
@@ -906,6 +973,7 @@ The FRA team fra@fao.org
 
   assessment: {
     fra2020: 'FRA 2020',
+    panEuropean: 'Pan European',
     deskStudy: 'Desk study',
     statusChangeNotification: {
       subject: '{{country}} status changed to {{status}} on FRA Platform',
@@ -1035,6 +1103,10 @@ The FRA team
   fraReportPrint: {
     title: 'FRA 2020 report',
     titleTables: 'FRA 2020 reporting tables',
+    tableOfContent: 'Table of contents',
+    disclaimer: `FAO has been monitoring the world's forests at 5 to 10 year intervals since 1946. The Global Forest Resources Assessments (FRA) are now produced every five years in an attempt to provide a consistent approach to describing the world's forests and how they are changing. The FRA is a country-driven process and the assessments are based on reports prepared by officially nominated National Correspondents. If a report is not available, the FRA Secretariat prepares a desk study using earlier reports, existing information and/or remote sensing based analysis.`,
+    disclaimerGenerated: `This document was generated automatically using the report made available as a contribution to the FAO Global Forest Resources Assessment 2020, and submitted to FAO as an official government document. The content and the views expressed in this report are the responsibility of the entity submitting the report to FAO. FAO cannot be held responsible for any use made of the information contained in this document.`,
+    disclaimerGeneratedDeskStudy: `This document was generated automatically from a desk study. FAO cannot be held responsible for any use made of the information contained in this document.`,
   },
 
   panEuropean: {
@@ -1046,6 +1118,7 @@ The FRA team
 
 	// table 1.1a
     forestArea: {
+      forestArea: 'Forest Area',
       categoryYear: 'Category - Year',
       area: 'Area (1000 ha)',
       forest: 'Forest - {{year}}',

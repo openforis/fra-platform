@@ -17,7 +17,12 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 import { useIsDataExportView } from '@webapp/components/hooks'
 
 const Section = (props) => {
-  const { assessmentType, section, showSections, prefix } = props
+  const {
+    assessment: { type: assessmentType },
+    section,
+    showSections,
+    prefix,
+  } = props
 
   const i18n = useI18n()
   const isDataExport = useIsDataExportView()
@@ -89,7 +94,7 @@ const Section = (props) => {
 }
 
 Section.propTypes = {
-  assessmentType: PropTypes.string.isRequired,
+  assessment: PropTypes.object.isRequired,
   section: PropTypes.object.isRequired,
   showSections: PropTypes.bool.isRequired,
   prefix: PropTypes.string.isRequired,
