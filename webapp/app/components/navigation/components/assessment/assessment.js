@@ -1,31 +1,24 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
 
 import Header from '@webapp/app/components/navigation/components/assessment/header'
 import Section from '@webapp/app/components/navigation/components/assessment/section'
 
-import * as AssessmentState from '@webapp/app/assessment/assessmentState'
-
 const Assessment = (props) => {
-  const { assessmentType, sections } = props
-
-  const assessment = useSelector(AssessmentState.getAssessment(assessmentType))
+  const {
+    assessment,
+    assessment: { sections },
+  } = props
 
   const [showSections, setShowSections] = useState(false)
 
   return (
     <div className="nav-assessment">
-      <Header
-        assessmentType={assessmentType}
-        assessment={assessment}
-        showSections={showSections}
-        setShowSections={setShowSections}
-      />
+      <Header assessment={assessment} showSections={showSections} setShowSections={setShowSections} />
 
       {Object.entries(sections).map(([key, section]) => (
         <Section
-          assessmentType={assessmentType}
+          assessment={assessment}
           prefix={key > 0 ? key : ''}
           key={key}
           section={section}
@@ -37,8 +30,7 @@ const Assessment = (props) => {
 }
 
 Assessment.propTypes = {
-  assessmentType: PropTypes.string.isRequired,
-  sections: PropTypes.object.isRequired,
+  assessment: PropTypes.object.isRequired,
 }
 
 export default Assessment

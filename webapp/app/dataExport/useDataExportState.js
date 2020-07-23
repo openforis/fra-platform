@@ -8,20 +8,24 @@ import { TableSpec } from '@webapp/app/assessment/components/section/sectionSpec
 import { throttle } from '@webapp/utils/functionUtils'
 
 import { formatColumn, formatSection } from '@webapp/app/dataExport/utils/format'
+import Assessment from '@common/assessment/assessment'
+import * as Country from '@common/country/country'
+
+const initialSelection = {
+  countries: [],
+  columns: [],
+  // { param, label }
+  variable: {},
+}
 
 export default () => {
   const { section = '', assessmentType } = useParams()
   const [variables, setVariables] = useState([])
   const [columns, setColumns] = useState([])
 
-  const [selection, setSelection] = useState({
-    countries: [],
-    columns: [],
-    // { param, label }
-    variable: {},
-  })
+  const [selection, setSelection] = useState({ ...initialSelection })
 
-  const { data: countries = [], dispatch: fetchCountries } = useGetRequest(`/api/countries`)
+  const { data: allCountries = [], dispatch: fetchCountries } = useGetRequest(`/api/countries`)
 
   const hasSelection = !!(selection.countries.length && selection.columns.length && selection.variable.param)
 
@@ -30,7 +34,7 @@ export default () => {
     dispatch: fetchResults,
     setState: setResultState,
     loading: resultsLoading,
-  } = useGetRequest(`/api/export/${snake(formatSection(section))}`, {
+  } = useGetRequest(`/api/export/${assessmentType}/${snake(formatSection(section, assessmentType))}`, {
     params: {
       columns: selection.columns.map(({ param }) => param).map((column) => formatColumn(column, section)),
       countries: selection.countries.map(({ param }) => param),
@@ -59,6 +63,12 @@ export default () => {
     }
   }, [section])
 
+  // If assessmentType (panEuropean -> FRA2020 -> panEuropean) changes,
+  // reset countries
+  useEffect(() => {
+    setSelection({ ...initialSelection })
+  }, [assessmentType])
+
   useEffect(() => {
     if (section && hasSelection) {
       throttle(fetchResults, `fetchDataExportResults`, 800)()
@@ -68,6 +78,9 @@ export default () => {
   const setSelectionCountries = (value) => setSelection({ ...selection, countries: value })
   const setSelectionColumns = (value) => setSelection({ ...selection, columns: value })
   const setSelectionVariable = (value) => setSelection({ ...selection, variable: value })
+
+  const panEuropeanCountries = allCountries.filter(Country.isPanEuropean)
+  const countries = Assessment.isTypePanEuropean(assessmentType) ? panEuropeanCountries : allCountries
 
   return {
     results,

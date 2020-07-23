@@ -5,6 +5,9 @@
  */
 import * as NumberUtils from '@common/bignumberUtils'
 import { UnitSpec } from '@webapp/app/assessment/components/section/sectionSpec'
+import { format } from 'date-fns'
+import { getPanEuropeanTableMapping } from '@webapp/app/dataExport/utils/panEuropean'
+import { isTypePanEuropean } from '@common/assessment/assessment'
 
 export const regex = {
   yearRange: /\d{4}-\d{4}/,
@@ -32,9 +35,14 @@ export const getColumnLabel = (column, section) =>
  * Returns the possible i18n mapping
  * @param column - column value
  * @param section - url params: current section
+ * @param assessmentType - type, ex. fra2020 / panEuropean
  * @returns {array} - i18n keys
  */
-export const getI18nKey = (column, section) => {
+export const getI18nKey = (column, section, assessmentType) => {
+  if (isTypePanEuropean(assessmentType)) {
+    return [`${assessmentType}.${section}.${column}`]
+  }
+
   if (isYearWithWord(column)) {
     const [year, word] = splitYearWithWord(column)
     return [year, `${section}.${word}`]
@@ -94,7 +102,7 @@ export const getValue = (column, countryIso, results, section) => {
 }
 
 export const valueConverted = (value, base, unit) =>
-  base && base !== unit ? UnitSpec.convert(value, base, unit) : value
+  base && base !== unit && Object.keys(UnitSpec.factors).includes(base) ? UnitSpec.convert(value, base, unit) : value
 
 const sections = {
   designatedManagementObjective: 'primary_designated_management_objective',
@@ -103,6 +111,48 @@ const sections = {
 /**
  * Helper function to handle datamase mapping for table names
  * @param section
+ * @param assessmentType
  * @returns {*}
  */
-export const formatSection = (section) => (sections[section] ? sections[section] : section)
+export const formatSection = (section, assessmentType) => {
+  if (isTypePanEuropean(assessmentType)) {
+    return getPanEuropeanTableMapping(section)
+  }
+  return sections[section] ? sections[section] : section
+}
+
+/**
+ * Get timestamp for today in given format or default YYYY-MM-DD
+ * @param formatStr {string} - format string for
+ * @returns {*} - return new timestamp
+ */
+export const getTimeStamp = (formatStr = 'yyyy-MM-dd') => format(new Date(), formatStr)
+
+const variableI18nMappings = {
+  other: 'common.other',
+  otherOrUnknown: 'common.unknown',
+}
+
+/**
+ * Some variable's might have custom mappings, check for the special cases and return accordingly
+ * @param i18nKey - i18n key of format 'foo.bar' to check for custom mapping(s)
+ * @returns {*} - return either the original i18nKey or new key from variableI18nMappings
+ */
+export const getCustomVariableI18nMappings = (i18nKey) => {
+  // get the last part of the i18n key,
+  // ex: foo.bar.other => other
+  const key = i18nKey.split('.').pop()
+  return variableI18nMappings[key] ? variableI18nMappings[key] : i18nKey
+}
+
+const unitI18nMappings = {
+  ha: 'ha',
+  kmSq: 'kmSq',
+  mileSq: 'mileSq',
+  acre1000: 'acre1000',
+  acre: 'acre',
+  haMillion: 'haMillion',
+  [UnitSpec.units.haThousand]: UnitSpec.units.haThousand,
+}
+
+export const getUnitI18nMappings = (unit) => (unitI18nMappings[unit] ? `unit.${unitI18nMappings[unit]}` : unit)

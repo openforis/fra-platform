@@ -1,4 +1,8 @@
+const area = require('./fr/area')
+
 module.exports.translation = {
+  area,
+
   language: {
     en: 'English',
     es: 'Español',
@@ -13,8 +17,23 @@ module.exports.translation = {
     dataExport: 'Exportation de données',
     selectAll: 'Tout sélectionner',
     unselectAll: 'Tout déselectionner',
-    variable: 'Variable',
+    variable: 'FRA Variable',
     column: 'Colonne',
+    other: 'Autre',
+    unknown: 'Aucune fonction/Fonction inconnue',
+  },
+
+  unit: {
+    haThousand: '1000 ha',
+    ha: 'ha',
+    kmSq: 'km²',
+    mileSq: 'mi²',
+    acre1000: '1000 acres',
+    acre: 'acre',
+    haMillion: "millions d'hectares",
+    haThousandPerYear: '1000 ha / an',
+    tonnesPerHa: 'tonnes / ha',
+    millionsCubicMeterOverBark: 'millions de m³ sur écorce',
   },
 
   countrySelection: {
@@ -210,7 +229,7 @@ L'équipe de FRA
     assessment: {
       transitionNotAllowed:
         "Erreur: La transition depuis {{currentStatus}} à {{status}} n'est pas autorisée pour le rôle {{role}}",
-      deskStudyNotAllowed: "Erreur: Seulement l'administrateur peut changer le statut de l'étude théorique",
+      deskStudyNotAllowed: "Erreur: Seulement l'administrateur peut changer le statut de l'étude de bureau",
     },
     review: {
       commentDeleteNotOwner:
@@ -805,7 +824,7 @@ L'équipe de FRA fra@fao.org
 
   assessment: {
     fra2020: 'FRA 2020',
-    deskStudy: 'Étude théorique',
+    deskStudy: 'Étude de bureau',
     statusChangeNotification: {
       subject: 'Le statut de {{country}} a été changé à {{status}} dans la plateforme de FRA',
       textMessage: `Cher {{recipientName}},
@@ -930,5 +949,9 @@ L'équipe de FRA
   fraReportPrint: {
     title: 'Rapport FRA 2020',
     titleTables: 'Tableaux du rapport FRA 2020',
+    tableOfContent: 'Table des matières',
+    disclaimer: `Depuis 1946, la FAO assure un suivi des ressources forestières mondiales tous les 5 à 10 ans. Les évaluations des ressources forestières mondiales (FRA) sont désormais produites tous les cinq ans afin de fournir une approche cohérente pour décrire les forêts du monde et leur évolution. FRA est un processus piloté par les pays et les évaluations reposent sur les rapports préparés par les correspondants nationaux nommés officiellement. Si aucun rapport n'est disponible, le secrétariat de FRA prépare une étude de bureau à l'aide de rapports antérieurs, d'informations existantes et/ou d'analyses basées sur des études par télédétection.`,
+    disclaimerGenerated: `Ce document a été généré automatiquement à l'aide du rapport fourni en tant que contribution à l'Évaluation des ressources forestières mondiales 2020 de la FAO et soumis à la FAO en tant que document officiel du gouvernement. Le contenu et les points de vue exprimés dans le présent rapport sont la responsabilité de l'entité qui a soumis le rapport à la FAO. La FAO ne peut être tenu responsable de l'utilisation qui pourrait être faite des informations contenues dans le présent rapport.`,
+    disclaimerGeneratedDeskStudy: `Ce document a été généré automatiquement à partir d'une étude de bureau. La FAO ne peut être tenu responsable de l'utilisation qui pourrait être faite des informations contenues dans le présent rapport.`,
   },
 }

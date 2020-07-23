@@ -8,11 +8,12 @@ const variables = ['aboveGround', 'belowGround', 'deadWood']
 const variablesMappings = {
   aboveGround: SectionSpec.VARIABLES.forest_above_ground,
   belowGround: SectionSpec.VARIABLES.forest_below_ground,
-  deadwood: SectionSpec.VARIABLES.forest_deadwood,
+  deadWood: SectionSpec.VARIABLES.forest_deadwood,
 }
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.biomassStock,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.tonnesPerHa,
   [SectionSpec.KEYS_TABLE.columnsExport]: years,
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
