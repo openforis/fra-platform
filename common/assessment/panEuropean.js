@@ -14,7 +14,7 @@ const PanEuropean = {
           tables: {
             table_1_1a: 'table_1_1a',
           },
-		},
+		    },
 		
         '14b': {
           name: 'carbonStockInHarvestedWoodProductsHWP',
@@ -22,7 +22,7 @@ const PanEuropean = {
           tables: {
             table_1_4b: 'table_1_4b',
           },
-		},
+		    },
 		
       },
     },
