@@ -1109,7 +1109,6 @@ The FRA team
     // navigation
     navigation: {
       forestResourcesAndCarbon: 'Forest Resources and Carbon',
-      socioEconomicFunctionsAndConditions: 'Socio-economic functions and conditions'
     },
 
 	// table 1.1a
@@ -1126,7 +1125,8 @@ The FRA team
     },
 
 	// table 1.2a
-    forestArea: {
+    growingStock: {
+      growingStock: 'Growing Stock',
       categoryYear: 'Category - Year',
       total: 'Total',
       coniferous: 'Coniferous',
@@ -1135,27 +1135,6 @@ The FRA team
       _of_which_available_for_wood_supply: '… of which available for wood supply - {{year}}',
       other_wooded_land: 'Other wooded land - {{year}}',
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
-    },
-
-	// table 1.4b
-    carbonStockInHarvestedWoodProductsHWP: {
-      categoryYear: 'Category - Year',
-      total_carbon_stock_in_hwp: 'Total carbon stock in HWP (million metric tonnes)',
-      harvested_wood_products: 'Harvested wood products - {{year}}',
-    },
-	
-	// table 6.4b
-    totalFixedCapitalConsumptionInForestsAndForestry: {
-      categoryYear: 'Category - Year',
-      fixed_capital_consumption: 'Fixed capital consumption (million national currency)',
-      forestry_isic_nace_02: 'Forestry (ISIC/NACE 02) - {{year}}',
-    },
-	
-	// table 6.4c
-    totalCapitalTransfersInForestsAndForestry: {
-      categoryYear: 'Category - Year',
-      capital_transfers: 'Capital transfers (million national currency)',
-      forestry_isic_nace_02: 'Forestry (ISIC/NACE 02) - {{year}}',
     },
 	
   },
