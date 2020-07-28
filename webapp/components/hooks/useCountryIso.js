@@ -1,10 +1,12 @@
 import { useSelector } from 'react-redux'
 import * as AppState from '@webapp/app/appState'
 
-import { useIsHome } from './useIsPath'
+import { useIsHome, useIsAdmin } from './useIsPath'
 
 export default () => {
   const countryIso = useSelector(AppState.getCountryIso)
   const isHome = useIsHome()
-  return isHome ? null : countryIso
+  const isAdmin = useIsAdmin()
+
+  return isHome || isAdmin ? null : countryIso
 }
