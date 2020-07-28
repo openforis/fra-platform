@@ -7,16 +7,19 @@ import * as FRA from '@common/assessment/fra'
 // import * as PanEuropean from '@common/assessment/panEuropean'
 // import * as Country from '@common/country/country'
 
-// import { useCountryIso } from '@webapp/components/hooks'
+import { useCountryIso } from '@webapp/components/hooks'
 // import * as CountryState from '@webapp/app/country/countryState'
 
 import Assessment from './components/assessment'
 import LinkPanEuropeanIndicators from './components/linkPanEuropeanIndicators'
 
 const Navigation = () => {
-  // const countryIso = useCountryIso()
+  const countryIso = useCountryIso()
   // const country = useSelector(CountryState.getCountryByCountryIso(countryIso))
   // const showPanEuropean = country && Country.isPanEuropean(country)
+
+  // admin view - navigation is not rendered
+  if (!countryIso) return null
 
   return (
     <div className="nav no-print">

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 
-import { useIsHome } from '@webapp/components/hooks'
+import { useIsAdmin, useIsHome } from '@webapp/components/hooks'
 import Icon from '@webapp/components/icon'
 
 import { toggleNavigation } from '@webapp/app/components/navigation/actions'
@@ -9,12 +9,13 @@ import { toggleNavigation } from '@webapp/app/components/navigation/actions'
 const ToggleNavigationControl = () => {
   const dispatch = useDispatch()
   const isHome = useIsHome()
+  const isAdmin = useIsAdmin()
 
   return (
     <button
       type="button"
       className="btn app-header__toggle-navigation-visible"
-      disabled={isHome}
+      disabled={isHome || isAdmin}
       onClick={() => {
         dispatch(toggleNavigation())
       }}
