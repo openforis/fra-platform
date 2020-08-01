@@ -7,14 +7,23 @@ const PanEuropean = {
     1: {
       label: 'panEuropean.navigation.forestResourcesAndCarbon',
       children: {
-
+		  
         '11a': {
           name: 'forestArea',
           anchor: '1.1a',
           tables: {
             table_1_1a: 'table_1_1a',
           },
-    		},	
+		    },
+		
+        '14b': {
+          name: 'carbonStockInHarvestedWoodProductsHWP',
+          anchor: '1.4b',
+          tables: {
+            table_1_4b: 'table_1_4b',
+          },
+		    },
+		
       },
     },
     
