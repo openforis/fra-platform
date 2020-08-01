@@ -2,7 +2,7 @@ import * as PanEuropean from '@common/assessment/panEuropean'
 
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
-const section = PanEuropean.sections['1'].children['64b']
+const section = PanEuropean.sections['6'].children['64b']
 
 const variables = [
   'forestry_isic_nace_02',
