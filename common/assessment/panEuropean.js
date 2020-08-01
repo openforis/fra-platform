@@ -16,6 +16,14 @@ const PanEuropean = {
           },
 		    },
 		
+        '14b': {
+          name: 'carbonStockInHarvestedWoodProductsHWP',
+          anchor: '1.4b',
+          tables: {
+            table_1_4b: 'table_1_4b',
+          },
+		    },
+		
       },
     },
     
