@@ -90,7 +90,7 @@
     "dotenv": "^8.2.0",
     "emoji-mart-lite": "^0.6.1",
     "express": "^4.15.2",
-    "express-fileupload": "^1.1.7-alpha.3",
+    "express-fileupload": "^1.1.9",
     "express-session": "^1.17.1",
     "i18next": "^19.4.4",
     "json2csv": "^5.0.1",
