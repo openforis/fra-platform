@@ -25,11 +25,35 @@ const tableSpec = SectionSpec.newTableSpec({
       [SectionSpec.KEYS_ROW.cols]: [
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.growingStock.categoryYear',
+          //[SectionSpec.KEYS_COL.rowSpan]: 2,
+          [SectionSpec.KEYS_COL.rowSpan]: 3,
           [SectionSpec.KEYS_COL.left]: true,
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.growingStock.total',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.growingStock.growingStockMillionM3OB',
+          [SectionSpec.KEYS_COL.colSpan]: 3,
         }),
+      ],
+    }),
+
+    SectionSpec.newRowHeader({
+      [SectionSpec.KEYS_ROW.cols]: [
+        SectionSpec.newColHeader({
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.growingStock.total',
+          [SectionSpec.KEYS_COL.rowSpan]: 2,
+        }),
+        SectionSpec.newColHeader({
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.growingStock._ofWhich',
+          [SectionSpec.KEYS_COL.colSpan]: 2,
+        }),
+      ],
+    }),
+
+    SectionSpec.newRowHeader({
+      [SectionSpec.KEYS_ROW.cols]: [
+        // SectionSpec.newColHeader({
+        //   [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.growingStock.total',
+        // }),
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.growingStock.coniferous',
         }),
@@ -46,7 +70,11 @@ const tableSpec = SectionSpec.newTableSpec({
           [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.growingStock.${variable}`,
           [SectionSpec.KEYS_ROW.labelParams]: { year },
           [SectionSpec.KEYS_ROW.variableExport]: `${variable}_${year}`,
-          [SectionSpec.KEYS_ROW.cols]: [SectionSpec.newColDecimal()],
+          [SectionSpec.KEYS_ROW.cols]: [
+            SectionSpec.newColDecimal(),
+            SectionSpec.newColDecimal(),
+            SectionSpec.newColDecimal(),
+          ],
         })
       )
     ),
