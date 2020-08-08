@@ -31,10 +31,12 @@ const PanEuropean = {
           tables: {
             table_1_4b: 'table_1_4b',
           },
-        },
+		    },
+		
       },
     },
   },
+  
 }
 
 module.exports = PanEuropean
