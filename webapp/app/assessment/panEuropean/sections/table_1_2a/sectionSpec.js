@@ -25,7 +25,6 @@ const tableSpec = SectionSpec.newTableSpec({
       [SectionSpec.KEYS_ROW.cols]: [
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.growingStock.categoryYear',
-          //[SectionSpec.KEYS_COL.rowSpan]: 2,
           [SectionSpec.KEYS_COL.rowSpan]: 3,
           [SectionSpec.KEYS_COL.left]: true,
         }),
@@ -51,9 +50,6 @@ const tableSpec = SectionSpec.newTableSpec({
 
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
-        // SectionSpec.newColHeader({
-        //   [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.growingStock.total',
-        // }),
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.growingStock.coniferous',
         }),
