@@ -1116,7 +1116,7 @@ The FRA team
       socioEconomicFunctionsAndConditions: 'Socio-economic functions and conditions'
     },
 
-	// table 1.1a
+    // table 1.1a
     forestArea: {
       forestArea: 'Forest Area',
       categoryYear: 'Category - Year',
@@ -1129,13 +1129,31 @@ The FRA team
       _of_which_with_tree_cover: '… of which with tree cover - {{year}}',
     },
 
-	// table 1.4b
+    // table 1.3a1
+    ageClassDistributionAreaOfEvenAgedStands: {
+      ageClassDistributionAreaOfEvenAgedStands: 'Age class distribution (area of even-aged stands)',
+      categoryYear: 'Category - Year',
+      developmentPhases1000ha: 'Development phases (1 000 ha)', //??? - //Что тебя смутило здесь? Всё правильно.
+      //totalArea1000ha: 'Total area (1000 ha)', //А почему эту колонку не переименовал в total_area согласно базе данных? Поэтому данные из БД не подтягивались.
+      total_area: 'Total area (1000 ha)', //А почему эту колонку не переименовал в total_area согласно базе данных?
+      regeneration_phase: 'Regeneration phase',
+      intermediate_phase: 'Intermediate phase',
+      mature_phase: 'Mature phase',
+      unspecified: 'Unspecified',
+      forest_even_aged_stands_of_which: 'Forest (even-aged stands), of which: - {{year}}',
+      available_for_wood_supply_of_which: '__Available for wood supply, of which: - {{year}}',
+      predominantly_coniferous_forest: '____Predominantly coniferous forest - {{year}}',
+      predominantly_broadleaved_forest: '____Predominantly broadleaved forest - {{year}}',
+      mixed_forest: '____Mixed forest - {{year}}',
+    },
+
+    // table 1.4b
     carbonStockInHarvestedWoodProductsHWP: {
       carbonStockInHarvestedWoodProductsHWP: 'Carbon Stock In Harvested Wood Products (HWP)',
       categoryYear: 'Category - Year',
       total_carbon_stock_in_hwp: 'Total carbon stock in HWP (million metric tonnes)',
       harvested_wood_products: 'Harvested wood products - {{year}}',
     },
-	
+
   },
 }
