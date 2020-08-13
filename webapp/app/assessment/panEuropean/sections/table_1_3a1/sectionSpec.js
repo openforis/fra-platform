@@ -5,9 +5,7 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 const section = PanEuropean.sections['1'].children['13a1']
 
 const variables = [
-  //'forest_even_aged_stands_of_which:', //Двоеточие нельзя в названии переменной. Переменные заданы в en.js. Копируй точно от туда.
   'forest_even_aged_stands_of_which',
-  //'available_for_wood_supply_of_which:', //Двоеточие нельзя в названии переменной. Переменные заданы в en.js. Копируй точно от туда.
   'available_for_wood_supply_of_which',
   'predominantly_coniferous_forest',
   'predominantly_broadleaved_forest',
@@ -66,7 +64,6 @@ const tableSpec = SectionSpec.newTableSpec({
     ...variables.flatMap((variable) =>
       years.map((year) =>
         SectionSpec.newRowData({
-          //[SectionSpec.KEYS_ROW.labelKey]: `panEuropean.growingStock.${variable}`, //Это - ageClassDistributionAreaOfEvenAgedStands. А ты берёшь из 1.2a. См. en.js.
           [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.ageClassDistributionAreaOfEvenAgedStands.${variable}`,
           [SectionSpec.KEYS_ROW.labelParams]: { year },
           [SectionSpec.KEYS_ROW.variableExport]: `${variable}_${year}`,
@@ -74,7 +71,7 @@ const tableSpec = SectionSpec.newTableSpec({
             SectionSpec.newColDecimal(),
             SectionSpec.newColDecimal(),
             SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(), //Эти две последние строки я добавил. В 1.2a 3 колонки, здесь их 5.
+            SectionSpec.newColDecimal(),
             SectionSpec.newColDecimal(),
           ],
         })
@@ -87,12 +84,10 @@ const tableSection = SectionSpec.newTableSection({
   [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
 })
 
-//const growingStock = SectionSpec.newSectionSpec({ //Это - ageClassDistributionAreaOfEvenAgedStands. А ты берёшь из 1.2a. См. en.js.
 const ageClassDistributionAreaOfEvenAgedStands = SectionSpec.newSectionSpec({
   [SectionSpec.KEYS_SECTION.sectionName]: section.name,
   [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
   [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
 })
 
-//export default growingStock //Это - ageClassDistributionAreaOfEvenAgedStands. А ты берёшь из 1.2a. См. en.js.
 export default ageClassDistributionAreaOfEvenAgedStands

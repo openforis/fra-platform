@@ -1133,9 +1133,8 @@ The FRA team
     ageClassDistributionAreaOfEvenAgedStands: {
       ageClassDistributionAreaOfEvenAgedStands: 'Age class distribution (area of even-aged stands)',
       categoryYear: 'Category - Year',
-      developmentPhases1000ha: 'Development phases (1 000 ha)', //??? - //Что тебя смутило здесь? Всё правильно.
-      //totalArea1000ha: 'Total area (1000 ha)', //А почему эту колонку не переименовал в total_area согласно базе данных? Поэтому данные из БД не подтягивались.
-      total_area: 'Total area (1000 ha)', //А почему эту колонку не переименовал в total_area согласно базе данных?
+      developmentPhases1000ha: 'Development phases (1 000 ha)',
+      total_area: 'Total area (1000 ha)',
       regeneration_phase: 'Regeneration phase',
       intermediate_phase: 'Intermediate phase',
       mature_phase: 'Mature phase',
