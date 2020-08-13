@@ -3,6 +3,7 @@
 .home-introduction {
   position: relative;
   height: 75vh;
+  overflow: hidden;
 }
 
 .home-introduction__about-fra {
@@ -58,8 +59,25 @@
   }
 }
 
-.home-introduction__video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+//-ms-ime-align: auto is used to check whether is non chromium edge version
+
+@supports not (-ms-ime-align: auto) {
+  .home-introduction__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+@supports (-ms-ime-align: auto) {
+  .home-introduction__video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    height: auto;
+    min-width: 100%;
+    min-height: 100%;
+  }
 }

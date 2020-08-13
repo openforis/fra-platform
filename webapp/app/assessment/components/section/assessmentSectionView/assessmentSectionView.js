@@ -26,7 +26,13 @@ const AssessmentSectionView = () => {
 
   // eslint-disable-next-line consistent-return
   useEffect(() => {
-    document.documentElement.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+    const { documentElement } = document
+    if (documentElement.scrollTo) {
+      documentElement.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+    } else {
+      // Non Chromium based Edge version
+      documentElement.scrollIntoView(true)
+    }
 
     if (!isDataExport) {
       dispatch(
