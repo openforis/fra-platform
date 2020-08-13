@@ -34,7 +34,10 @@ const PrimaryForest = (props) => {
   const chartData = {
     datasets: [
       {
-        data: [primaryForestPercent.toString(), otherForestPercent.toString()],
+        data: [
+          primaryForestPercent && primaryForestPercent.toString(),
+          otherForestPercent && otherForestPercent.toString(),
+        ],
         borderWidth: 0,
         backgroundColor: [ChartUtils.colors.green, ChartUtils.colors.lightGreen],
         hoverBackgroundColor: [ChartUtils.colors.greenHover, ChartUtils.colors.lightGreenHover],
