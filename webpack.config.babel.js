@@ -55,7 +55,7 @@ if (buildReport) {
 const appConfig = {
   mode: config.mode,
   devtool: 'source-map',
-  entry: ['regenerator-runtime/runtime', './webapp/main.js'],
+  entry: ['./webapp/main.js'],
   resolve: {
     extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js', '.js', '.jsx'],
     alias: {
@@ -77,10 +77,6 @@ const appConfig = {
         exclude: /(node_modules)/,
         use: {
           loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env', '@babel/react'],
-            plugins: ['@babel/plugin-proposal-object-rest-spread', '@babel/plugin-syntax-dynamic-import'],
-          },
         },
       },
       {
