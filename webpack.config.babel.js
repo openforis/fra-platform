@@ -21,6 +21,8 @@ const config = {
 
 const gitRevisionPlugin = config.mode === 'production' ? null : new GitRevisionPlugin()
 
+const fontCssFileName = 'woff2.css'
+
 const plugins = [
   new GoogleFontsPlugin({
     fonts: [
@@ -30,6 +32,7 @@ const plugins = [
       },
     ],
     formats: ['woff2'],
+    filename: fontCssFileName,
   }),
   ...(gitRevisionPlugin ? [gitRevisionPlugin] : []),
   new MiniCssExtractPlugin({ filename: 'style/styles-[hash].css' }),
@@ -86,7 +89,27 @@ const appConfig = {
           {
             loader: MiniCssExtractPlugin.loader,
           },
-          'css-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              url: (url) => {
+                // Don't handle /img/ urls
+                if (url.includes('/img/')) {
+                  return false
+                }
+
+                return true
+              },
+              import: (url) => {
+                // Don't handle font css file import
+                if (url.includes(fontCssFileName)) {
+                  return false
+                }
+
+                return true
+              },
+            },
+          },
           'less-loader',
         ],
       },
