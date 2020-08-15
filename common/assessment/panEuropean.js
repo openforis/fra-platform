@@ -14,6 +14,14 @@ const PanEuropean = {
           tables: {
             table_1_1a: 'table_1_1a',
           },
+        },
+        
+        '13b': {
+          name: 'diameterDistributionAndTotalAreaUnevenAgedStands',
+          anchor: '1.3b',
+          tables: {
+            table_1_3b: 'table_1_3b',
+          },
 		    },
 		
         '14b': {
