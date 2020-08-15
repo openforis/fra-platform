@@ -15,7 +15,15 @@ const PanEuropean = {
             table_1_1a: 'table_1_1a',
           },
 		    },
-		
+      
+        '13a2': {
+          name: 'ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply',
+          anchor: '1.3a2',
+          tables: {
+            table_1_3a2: 'table_1_3a2',
+          },
+        },
+        
         '14b': {
           name: 'carbonStockInHarvestedWoodProductsHWP',
           anchor: '1.4b',
