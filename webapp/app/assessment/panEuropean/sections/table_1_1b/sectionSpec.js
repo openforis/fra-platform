@@ -42,16 +42,16 @@ const tableSpec = SectionSpec.newTableSpec({
         })
       ]
     }),
-    /* OFF Based on 2d
+
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: years.map((year) =>
         SectionSpec.newColHeader({
-          //ORIG [SectionSpec.KEYS_COL.label]: year,
           [SectionSpec.KEYS_COL.labelKey]: year,
         })
       ),
     }),
-    */
+
+    /* KTB Every single column defined.
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
         SectionSpec.newColHeader({
@@ -75,6 +75,7 @@ const tableSpec = SectionSpec.newTableSpec({
         }),
       ],
     }),
+    */
 
     // rows data
     ...variables.flatMap((variable) =>
