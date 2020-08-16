@@ -1103,10 +1103,6 @@ The FRA team
   fraReportPrint: {
     title: 'FRA 2020 report',
     titleTables: 'FRA 2020 reporting tables',
-    tableOfContent: 'Table of contents',
-    disclaimer: `FAO has been monitoring the world's forests at 5 to 10 year intervals since 1946. The Global Forest Resources Assessments (FRA) are now produced every five years in an attempt to provide a consistent approach to describing the world's forests and how they are changing. The FRA is a country-driven process and the assessments are based on reports prepared by officially nominated National Correspondents. If a report is not available, the FRA Secretariat prepares a desk study using earlier reports, existing information and/or remote sensing based analysis.`,
-    disclaimerGenerated: `This document was generated automatically using the report made available as a contribution to the FAO Global Forest Resources Assessment 2020, and submitted to FAO as an official government document. The content and the views expressed in this report are the responsibility of the entity submitting the report to FAO. FAO cannot be held responsible for any use made of the information contained in this document.`,
-    disclaimerGeneratedDeskStudy: `This document was generated automatically from a desk study. FAO cannot be held responsible for any use made of the information contained in this document.`,
   },
 
   panEuropean: {
@@ -1116,7 +1112,7 @@ The FRA team
       socioEconomicFunctionsAndConditions: 'Socio-economic functions and conditions'
     },
 
-	// table 1.1a
+	  // table 1.1a
     forestArea: {
       forestArea: 'Forest Area',
       categoryYear: 'Category - Year',
@@ -1129,7 +1125,23 @@ The FRA team
       _of_which_with_tree_cover: '… of which with tree cover - {{year}}',
     },
 
-	// table 1.4b
+    // table 1.4a
+    carbonStock: {
+      carbonStock: 'Carbon stock',
+      categoryYear: 'Category - Year',
+      carbonInAboveGroundAndBelowGroundLivingBiomass: 'Carbon in above-ground and below-ground living biomass',
+      carbonInDeadwoodAndLitter: 'Carbon in deadwood and litter',
+      above_ground: 'Above-ground',
+      below_ground: 'Below-ground',
+      deadwood: 'Deadwood',
+      litter: 'Litter',
+      soil_carbon: 'Soil carbon',
+      forest: 'Forest - {{year}}',
+      other_wooded_land: 'Other wooded land - {{year}}',
+      total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
+    },
+
+    // table 1.4b
     carbonStockInHarvestedWoodProductsHWP: {
       carbonStockInHarvestedWoodProductsHWP: 'Carbon Stock In Harvested Wood Products (HWP)',
       categoryYear: 'Category - Year',
