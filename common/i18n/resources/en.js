@@ -1131,6 +1131,7 @@ The FRA team
       categoryYear: 'Category - Year',
       carbonInAboveGroundAndBelowGroundLivingBiomass: 'Carbon in above-ground and below-ground living biomass',
       carbonInDeadwoodAndLitter: 'Carbon in deadwood and litter',
+      millionMetricTonnes: 'Million metric tonnes',      
       above_ground: 'Above-ground',
       below_ground: 'Below-ground',
       deadwood: 'Deadwood',

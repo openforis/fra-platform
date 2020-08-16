@@ -26,7 +26,7 @@ const tableSpec = SectionSpec.newTableSpec({
       [SectionSpec.KEYS_ROW.cols]: [
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.carbonStock.categoryYear',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
+          [SectionSpec.KEYS_COL.rowSpan]: 3,
           [SectionSpec.KEYS_COL.left]: true,
         }),
         SectionSpec.newColHeader({
@@ -61,7 +61,16 @@ const tableSpec = SectionSpec.newTableSpec({
         }),
       ],
     }),
-  
+
+    SectionSpec.newRowHeader({
+      [SectionSpec.KEYS_ROW.cols]: [
+        SectionSpec.newColHeader({
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.carbonStock.millionMetricTonnes',
+          [SectionSpec.KEYS_COL.colSpan]: 5,
+        }),
+      ],
+    }),
+
     // rows data
     ...variables.flatMap((variable) =>
       years.map((year) =>
