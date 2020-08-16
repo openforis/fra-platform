@@ -1129,6 +1129,16 @@ The FRA team
       _of_which_with_tree_cover: '… of which with tree cover - {{year}}',
     },
 
+    // table 1.2b
+    growingStockByForestType: {
+      growingStockByForestType: 'Growing stock by forest type',
+      category: 'Category',
+      growingStockMillionM3OB: 'Growing stock (million m³ o.b.)',
+      predominantly_coniferous_forest: 'Predominantly coniferous forest',
+      predominantly_broadleaved_forest: 'Predominantly broadleaved forest',
+      mixed_forest: 'Mixed forest'
+    },
+
 	// table 1.4b
     carbonStockInHarvestedWoodProductsHWP: {
       carbonStockInHarvestedWoodProductsHWP: 'Carbon Stock In Harvested Wood Products (HWP)',
