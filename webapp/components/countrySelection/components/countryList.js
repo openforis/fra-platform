@@ -1,6 +1,7 @@
 import './countryList.less'
 
-import React, { useState } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 
 import { Area } from '@common/country'
@@ -13,9 +14,9 @@ import CountryListDownload from './countryListDownload'
 import CountryListRoleSection from './countryListRoleSection'
 import CountryListRow from './countryListRow'
 
-const CountryList = () => {
+const CountryList = (props) => {
+  const { query } = props
   const countries = useSelector(CountryState.getCountries)
-  const [query, setQuery] = useState('')
 
   const i18n = useI18n()
 
@@ -24,20 +25,6 @@ const CountryList = () => {
   return (
     <div className="country-selection-list">
       <CountryListDownload />
-
-      <div className="country-selection-list-header">
-        <input
-          type="text"
-          className="text-input"
-          // eslint-disable-next-line
-          autoFocus={true}
-          onClick={(event) => event.stopPropagation()}
-          placeholder={i18n.t('emoji.picker.search')}
-          onChange={(event) => setQuery(event.target.value)}
-        />
-      </div>
-
-      <hr />
 
       <div className="country-selection-list__content">
         <div className="country-selection-list__global">
@@ -59,6 +46,14 @@ const CountryList = () => {
       </div>
     </div>
   )
+}
+
+CountryList.defaultProps = {
+  query: '',
+}
+
+CountryList.propTypes = {
+  query: PropTypes.string,
 }
 
 export default CountryList
