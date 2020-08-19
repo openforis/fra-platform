@@ -19,6 +19,8 @@ const CountryList = () => {
 
   const i18n = useI18n()
 
+  const filteredRegions = Area.levels.regions.filter((region) => checkMatch(i18n.t(`area.${region}.listName`), query))
+
   return (
     <div className="country-selection-list">
       <CountryListDownload />
@@ -29,6 +31,7 @@ const CountryList = () => {
           className="text-input"
           // eslint-disable-next-line
           autoFocus={true}
+          onClick={(event) => event.stopPropagation()}
           placeholder={i18n.t('emoji.picker.search')}
           onChange={(event) => setQuery(event.target.value)}
         />
@@ -39,15 +42,15 @@ const CountryList = () => {
       <div className="country-selection-list__content">
         <div className="country-selection-list__global">
           {checkMatch(i18n.t(`area.${Area.levels.global}.listName`), query) && (
-            <CountryListRow role={noRole.role} country={{ countryIso: Area.levels.global }} />
+            <>
+              <CountryListRow role={noRole.role} country={{ countryIso: Area.levels.global }} />
+              <hr />
+            </>
           )}
-          <hr />
-          {Area.levels.regions
-            .filter((region) => checkMatch(i18n.t(`area.${region}.listName`), query))
-            .map((region) => (
-              <CountryListRow key={region} role={noRole.role} country={{ countryIso: region }} />
-            ))}
-          <hr />
+          {filteredRegions.map((region) => (
+            <CountryListRow key={region} role={noRole.role} country={{ countryIso: region }} />
+          ))}
+          {filteredRegions.length > 0 && <hr />}
         </div>
 
         {Object.keys(countries).map((role) => (
