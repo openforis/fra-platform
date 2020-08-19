@@ -26,6 +26,7 @@ const CountrySelection = () => {
 
   const countrySelectionRef = useRef(null)
   const [open, setOpen] = useState(false)
+  const [query, setQuery] = useState('')
 
   const outsideClick = (evt) => {
     if (!countrySelectionRef.current.contains(evt.target)) setOpen(false)
@@ -40,6 +41,8 @@ const CountrySelection = () => {
       window.removeEventListener('click', outsideClick)
     }
   }, [])
+
+  useEffect(() => setQuery(''), [open])
 
   return (
     <div className="country-selection">
@@ -57,7 +60,18 @@ const CountrySelection = () => {
         disabled={!countriesLoaded}
       >
         <div>
-          {countryIso ? (
+          {open && (
+            <input
+              type="text"
+              className="text-input"
+              // eslint-disable-next-line
+              autoFocus={true}
+              onClick={(event) => event.stopPropagation()}
+              placeholder={i18n.t('emoji.picker.search')}
+              onChange={(event) => setQuery(event.target.value)}
+            />
+          )}
+          {countryIso && !open && (
             <div className="country-selection__country">
               {Area.isISOCountry(countryIso) && (
                 <div
@@ -71,13 +85,12 @@ const CountrySelection = () => {
               <div className="name">{i18n.t(`area.${countryIso}.listName`)}</div>
               {userInfo && <div className="user-role">{i18n.t(getRoleForCountryLabelKey(countryIso, userInfo))}</div>}
             </div>
-          ) : (
-            `- ${i18n.t('common.select')} -`
           )}
+          {!countryIso && !open && `- ${i18n.t('common.select')} -`}
         </div>
         <Icon name="small-down" />
 
-        {open && <CountryList />}
+        {open && <CountryList query={query} />}
       </button>
 
       <AutoSaveStatusText />
