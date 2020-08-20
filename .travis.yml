@@ -8,7 +8,7 @@ script:
   - yarn test
 before_deploy:
   - if [ "$TRAVIS_TAG" != "" ]; then heroku config:set APP_VERSION=$(git describe --always) --app=dev-fra-platform; fi
-  - if [ "$TRAVIS_BRANCH" = "production" ]; then heroku config:set APP_VERSION=$(git describe --always) --app=fra-platform; fi
+  - if [ "$TRAVIS_BRANCH" = "test" ]; then heroku config:set APP_VERSION=$(git describe --always) --app=fra-platform-test; fi
 deploy:
   - provider: heroku
     app: dev-fra-platform
@@ -22,3 +22,9 @@ deploy:
       branch: production
     api_key:
       secure: ocbekH515Gj+SQ3a7o4HkWAOiWlkvPzgyPZLUtfzvF567o1fv0Aqo/04AvPrvz1JViIx8PGR1JOORT/xD1luI8fQ/pSq/P6tRmIcD5s1DFDBUbAXVyLKvfmC6JWw+oVZf/f1XhSZenPS45rFPFHNPmnrEGps5PJfuSJOii6C/uW5QFAy7PeB5LUStEynE/JURKvZQCPW4hW5659XlBbCrEPQxraOCTgpknAGKYGOFOMUwxqj1n+7DJBHKye3Fhd4lclexMp2N2PNEMLjO+uNN/feInPAB6FW0LWqiC7bo6ue0mlFFny6F0PU+WsOeTRbhw0A5btDLhqhZ5rE55F/x7PJPjqEERFErbUrIUxlUjNjLKginq9iAtDkR2wS3+uMJFaVlvfoJ56vQ3igaSy/pKPBuC59+bHbh7W6REuXOot6LPqwr/oLpzGledQdeT/kwDMI3h0hhJ8/spGBGQdX+reo8i71vwV3ytgsJ2P7pf6BSzMZ6+TcTHW6MDhKhB5cly4ZB7DkjXaO5m5ioK8RbNZSq0lWfncxynQR2VUM943A6roNprqI/cl8Fea/vqugoVwhyx2GHETL7fvFjeuN7JsbVrye1p4FlTap5o/k7w7D3ZYUmLnJ3LQ2tA5yuIZfvPpUKOU0sGrDnLSLSnxTW1o8v0MQWgGBgfjTzjj+Sr0=
+- provider: heroku
+    app: fra-platform-test
+    on:
+      branch: test
+    api_key:
+      secure: iyeYfyGaUwQ/fT6ixrBkm1zpfWPl5FH2VyIeRNXU2ZAPGEBFSYQIP3fna3tCRs7O0Qe6Q3+jDidciX2yBub5MZgvpIGbS9S4yM/44DYH23bGDQy0XvPRZ1qwYYIlqW6oJX8In0cjPyNKdF2u5U0Qg721AoNIf0bbB+Kzf5SiELCknwafNtzeU03653IWIH0Idzi03yq3RW0Y3x+zg12b7jG5j8d5bCnkWcTLJupCffTUPbdhl8EwMjMJ+5hAgPYOLs9q2gviBTzAUOWDdwVhIvCej1iJnXB/X3SdNRfoWFTxD8EeGmAnz7SzuG40X0GlaKu8M2L3NcETlFdhnWX4pGVqxUWiSYJxMCzYaduuQssKS5e1c/d9GVMBjKWwUQDXhcZ7aO6Hjqmzzlc6Yi5C3iAXgzS4uAfhdTQKl6kBWvU8uGSAcvG75+Mnd7lHG2obsGS9AF7abSZ7mmO3LHDe4WHwP7zJF9YwbcywUvoDq6eATJ4Yc0oJGcG3CACoT7KdBU98eXXVcq2Yl9J+riuzrlmNZXdwsZ8noSKaVhIGDJovZxL338voqz/4ArnI9YzaANBk6dlmci+xRUVjLZqC4nzQ8Fofbdg8m4glvArPs4zW24tHCXOSylu5noIXwO5hA50a7yf/GN8mEkoXWCidt7VLciIhRnjGNFRO4q/7P78=
