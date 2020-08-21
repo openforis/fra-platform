@@ -22,12 +22,11 @@ module.exports.init = (app) => {
     }
   })
 
-  app.get('/dataExport/bulk', async (req, res) => {
+  app.get('/export/FRA-bulk-download', async (req, res) => {
     try {
       const files = await ExportService.exportPublicData()
 
       const zip = new JSZip()
-
       Object.values(files).forEach((file) => zip.file(file.fileName, file.content))
       zip
         .generateNodeStream({ type: 'nodebuffer', streamFiles: true })
