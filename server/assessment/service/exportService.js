@@ -1,8 +1,6 @@
 const R = require('ramda')
 const Promise = require('bluebird')
 
-const AccessControl = require('../../utils/accessControl')
-
 const CountryService = require('../../country/countryService')
 
 const FRAYearsExporter = require('./fraYears/fraYearsExporter')
@@ -25,9 +23,9 @@ const exportPublicData = async () => {
   const countriesAll = await CountryService.getAllCountriesList()
   const countries = R.reject(R.propEq('region', 'atlantis'), countriesAll)
 
-  const fraYearsOutput = FRAYearsExporter.getCsvOutput()
+  const fraYearsOutput = FRAYearsExporter.getCsvOutput(true)
   const intervalsOutput = IntervalYearsExporter.getCsvOutput()
-  const annualOutput = AnnualYearsExporter.getCsvOutput()
+  const annualOutput = AnnualYearsExporter.getCsvOutput(true)
 
   await Promise.each(
     countries.map(
@@ -57,9 +55,7 @@ const exportPublicData = async () => {
   }
 }
 
-const exportData = async (user, exportType = EXPORT_TYPE.JSON) => {
-  AccessControl.checkAdminAccess(user)
-
+const exportData = async (exportType = EXPORT_TYPE.JSON) => {
   const countriesAll = await CountryService.getAllCountriesList()
   const countries = R.reject(R.propEq('region', 'atlantis'), countriesAll)
 
