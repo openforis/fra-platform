@@ -20,6 +20,43 @@ const EXPORT_TYPE = {
   CSV: 'csv',
 }
 
+// This is used in Global => navigation => Bulk Download
+const exportPublicData = async () => {
+  const countriesAll = await CountryService.getAllCountriesList()
+  const countries = R.reject(R.propEq('region', 'atlantis'), countriesAll)
+
+  const fraYearsOutput = FRAYearsExporter.getCsvOutput()
+  const intervalsOutput = IntervalYearsExporter.getCsvOutput()
+  const annualOutput = AnnualYearsExporter.getCsvOutput()
+
+  await Promise.each(
+    countries.map(
+      async (country) =>
+        await Promise.all([
+          FRAYearsExporter.getCountryData(country),
+          IntervalYearsExporter.getCountryData(country),
+          AnnualYearsExporter.getCountryData(country),
+        ])
+    ),
+
+    ([fraYearsRes, intervalsRes, annualRes], idx) => {
+      fraYearsOutput.pushContent(fraYearsRes, idx)
+      intervalsOutput.pushContent(intervalsRes)
+      annualOutput.pushContent(annualRes, idx)
+    }
+  )
+
+  fraYearsOutput.pushContentDone()
+  intervalsOutput.pushContentDone()
+  annualOutput.pushContentDone()
+
+  return {
+    ...fraYearsOutput.output,
+    ...intervalsOutput.output,
+    ...annualOutput.output,
+  }
+}
+
 const exportData = async (user, exportType = EXPORT_TYPE.JSON) => {
   AccessControl.checkAdminAccess(user)
 
@@ -37,16 +74,17 @@ const exportData = async (user, exportType = EXPORT_TYPE.JSON) => {
   const sdgOutput = isExportTypeJson ? new JSONOutput('sdg') : SDGExporter.getCsvOutput()
 
   await Promise.each(
-    countries.map(async country =>
-      await Promise.all([
-        FRAYearsExporter.getCountryData(country),
-        IntervalYearsExporter.getCountryData(country),
-        AnnualYearsExporter.getCountryData(country),
-        NdpExporter.getCountryData(country),
-        NwfpExporter.getCountryData(country),
-        GSCompExporter.getCountryData(country),
-        SDGExporter.getCountryData(country),
-      ])
+    countries.map(
+      async (country) =>
+        await Promise.all([
+          FRAYearsExporter.getCountryData(country),
+          IntervalYearsExporter.getCountryData(country),
+          AnnualYearsExporter.getCountryData(country),
+          NdpExporter.getCountryData(country),
+          NwfpExporter.getCountryData(country),
+          GSCompExporter.getCountryData(country),
+          SDGExporter.getCountryData(country),
+        ])
     ),
 
     ([fraYearsRes, intervalsRes, annualRes, ndps, nwfp, gsComp, sdg], idx) => {
@@ -83,4 +121,5 @@ module.exports = {
   EXPORT_TYPE,
 
   exportData,
+  exportPublicData,
 }
