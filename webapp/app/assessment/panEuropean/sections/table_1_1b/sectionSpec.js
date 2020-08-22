@@ -51,32 +51,6 @@ const tableSpec = SectionSpec.newTableSpec({
       ),
     }),
 
-    /* KTB Every single column defined.
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 1990,
-        }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 2000,
-        }),
-
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 2005,
-        }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 2010,
-        }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 2015,
-        }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 2020,
-        }),
-      ],
-    }),
-    */
-
     // rows data
     ...variables.flatMap((variable) =>
       SectionSpec.newRowData({
