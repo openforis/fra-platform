@@ -1125,20 +1125,6 @@ The FRA team
       _of_which_with_tree_cover: '… of which with tree cover - {{year}}',
     },
 
-    // table 1.2a
-    growingStock: {
-      growingStock: 'Growing Stock',
-      categoryYear: 'Category - Year',
-      growingStockMillionM3OB: 'Growing stock (million m³ o.b.)',
-      total: 'Total',
-      _ofWhich: '… of which',
-      coniferous: 'Coniferous',
-      broadleaved: 'Broadleaved',
-      forest: 'Forest - {{year}}',
-      _of_which_available_for_wood_supply: '… of which available for wood supply - {{year}}',
-      other_wooded_land: 'Other wooded land - {{year}}',
-      total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
-    },
 
     // table 1.4b
     carbonStockInHarvestedWoodProductsHWP: {
@@ -1147,6 +1133,17 @@ The FRA team
       total_carbon_stock_in_hwp: 'Total carbon stock in HWP (million metric tonnes)',
       harvested_wood_products: 'Harvested wood products - {{year}}',
     },
+   
+    // table 6.10a
+    accessibilityForRecreation: {
+      accessibilityForRecreation: 'Accessibility for recreation',
+      categoryYear: 'Category - Year',
+      areaAvailableForPublicRecreation: 'Area available for public recreation',
+      total1000Ha: 'Total (1000 ha)',
+      _oftotal: '% of total',
+      areaPrimarilyDesignatedOrManagedForPublicRecreation: 'Area primarily designated or managed for public recreation',
+      total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
+    }, 
 	
   },
 }
