@@ -1109,7 +1109,8 @@ The FRA team
     // navigation
     navigation: {
       forestResourcesAndCarbon: 'Forest Resources and Carbon',
-      socioEconomicFunctionsAndConditions: 'Socio-economic functions and conditions'
+      socioEconomicFunctionsAndConditions: 'Socio-economic functions and conditions',
+      biologicalDiversityInForestEcosystems: 'Biological Diversity in Forest Ecosystems'
     },
 
 	  // table 1.1a
@@ -1125,27 +1126,26 @@ The FRA team
       _of_which_with_tree_cover: '… of which with tree cover - {{year}}',
     },
 
-    // table 1.2a
-    growingStock: {
-      growingStock: 'Growing Stock',
-      categoryYear: 'Category - Year',
-      growingStockMillionM3OB: 'Growing stock (million m³ o.b.)',
-      total: 'Total',
-      _ofWhich: '… of which',
-      coniferous: 'Coniferous',
-      broadleaved: 'Broadleaved',
-      forest: 'Forest - {{year}}',
-      _of_which_available_for_wood_supply: '… of which available for wood supply - {{year}}',
-      other_wooded_land: 'Other wooded land - {{year}}',
-      total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
-    },
-
     // table 1.4b
     carbonStockInHarvestedWoodProductsHWP: {
       carbonStockInHarvestedWoodProductsHWP: 'Carbon Stock In Harvested Wood Products (HWP)',
       categoryYear: 'Category - Year',
       total_carbon_stock_in_hwp: 'Total carbon stock in HWP (million metric tonnes)',
       harvested_wood_products: 'Harvested wood products - {{year}}',
+    },
+
+    // table 4.1
+    treeSpeciesComposition: {
+      treeSpeciesComposition: 'Tree species composition',
+      categoryYear: 'Category - Year',
+      areaWithNumberOfTreeSpeciesOccurring1000ha: 'Area with number of tree species occurring (1000 ha)',
+      area_with_number_of_tree_species_occurring_1: '1',
+      area_with_number_of_tree_species_occurring_2_3: '2-3',
+      area_with_number_of_tree_species_occurring_4_5: '4-5',
+      area_with_number_of_tree_species_occurring_6_pl: '6+',
+      forest: 'Forest - {{year}}',
+      other_wooded_land: 'Other wooded land - {{year}}',
+      total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
     },
 	
   },
