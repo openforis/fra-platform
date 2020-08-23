@@ -1109,7 +1109,8 @@ The FRA team
     // navigation
     navigation: {
       forestResourcesAndCarbon: 'Forest Resources and Carbon',
-      socioEconomicFunctionsAndConditions: 'Socio-economic functions and conditions'
+      socioEconomicFunctionsAndConditions: 'Socio-economic functions and conditions',
+      biologicalDiversityInForestEcosystems: 'Biological Diversity in Forest Ecosystems'
     },
 
 	  // table 1.1a
@@ -1125,27 +1126,23 @@ The FRA team
       _of_which_with_tree_cover: '… of which with tree cover - {{year}}',
     },
 
-    // table 1.2a
-    growingStock: {
-      growingStock: 'Growing Stock',
-      categoryYear: 'Category - Year',
-      growingStockMillionM3OB: 'Growing stock (million m³ o.b.)',
-      total: 'Total',
-      _ofWhich: '… of which',
-      coniferous: 'Coniferous',
-      broadleaved: 'Broadleaved',
-      forest: 'Forest - {{year}}',
-      _of_which_available_for_wood_supply: '… of which available for wood supply - {{year}}',
-      other_wooded_land: 'Other wooded land - {{year}}',
-      total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
-    },
-
     // table 1.4b
     carbonStockInHarvestedWoodProductsHWP: {
       carbonStockInHarvestedWoodProductsHWP: 'Carbon Stock In Harvested Wood Products (HWP)',
       categoryYear: 'Category - Year',
       total_carbon_stock_in_hwp: 'Total carbon stock in HWP (million metric tonnes)',
       harvested_wood_products: 'Harvested wood products - {{year}}',
+    },
+
+    // table 4.2a
+    totalForestAreaByExpansionAndRegenerationType: {
+      totalForestAreaByExpansionAndRegenerationType: 'Total forest area by expansion and regeneration type',
+      categoryYear: 'Category - Year',
+      totalAreaOfForestByExpansionRegenerationType1000ha: 'Total area of forest by expansion/regeneration type (1000 ha)',
+      natural_expansion_and_natural_regeneration: 'Natural expansion and natural regeneration',
+      afforestation_and_regeneration_by_planting_and_or_seeding: 'Afforestation and regeneration by planting and/or seeding',
+      coppice: 'Coppice',
+      forest: 'Forest - {{year}}',
     },
 	
   },

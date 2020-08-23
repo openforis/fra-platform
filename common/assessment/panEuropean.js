@@ -16,14 +16,6 @@ const PanEuropean = {
             table_1_1a: 'table_1_1a',
           },
 		    },
-		  
-        '12a': {
-          name: 'growingStock',
-          anchor: '1.2a',
-          tables: {
-            table_1_2a: 'table_1_2a',
-          },
-        },
 
         '14b': {
           name: 'carbonStockInHarvestedWoodProductsHWP',
@@ -35,6 +27,22 @@ const PanEuropean = {
 		
       },
     },
+
+    4: {
+      label: 'panEuropean.navigation.biologicalDiversityInForestEcosystems',
+      children: {
+		  
+        '42a': {
+          name: 'totalForestAreaByExpansionAndRegenerationType',
+          anchor: '4.2a',
+          tables: {
+            table_4_2a: 'table_4_2a',
+          },
+		    },
+      		
+      },
+    },
+
   },
   
 }
