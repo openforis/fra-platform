@@ -1103,6 +1103,10 @@ The FRA team
   fraReportPrint: {
     title: 'FRA 2020 report',
     titleTables: 'FRA 2020 reporting tables',
+    tableOfContent: 'Table of contents',
+    disclaimer: `FAO has been monitoring the world's forests at 5 to 10 year intervals since 1946. The Global Forest Resources Assessments (FRA) are now produced every five years in an attempt to provide a consistent approach to describing the world's forests and how they are changing. The FRA is a country-driven process and the assessments are based on reports prepared by officially nominated National Correspondents. If a report is not available, the FRA Secretariat prepares a desk study using earlier reports, existing information and/or remote sensing based analysis.`,
+    disclaimerGenerated: `This document was generated automatically using the report made available as a contribution to the FAO Global Forest Resources Assessment 2020, and submitted to FAO as an official government document. The content and the views expressed in this report are the responsibility of the entity submitting the report to FAO. FAO cannot be held responsible for any use made of the information contained in this document.`,
+    disclaimerGeneratedDeskStudy: `This document was generated automatically from a desk study. FAO cannot be held responsible for any use made of the information contained in this document.`,
   },
 
   panEuropean: {
@@ -1112,7 +1116,7 @@ The FRA team
       socioEconomicFunctionsAndConditions: 'Socio-economic functions and conditions'
     },
 
-	  // table 1.1a
+	// table 1.1a
     forestArea: {
       forestArea: 'Forest Area',
       categoryYear: 'Category - Year',
@@ -1125,27 +1129,29 @@ The FRA team
       _of_which_with_tree_cover: '… of which with tree cover - {{year}}',
     },
 
-    // table 1.2a
-    growingStock: {
-      growingStock: 'Growing Stock',
-      categoryYear: 'Category - Year',
-      growingStockMillionM3OB: 'Growing stock (million m³ o.b.)',
-      total: 'Total',
-      _ofWhich: '… of which',
-      coniferous: 'Coniferous',
-      broadleaved: 'Broadleaved',
-      forest: 'Forest - {{year}}',
-      _of_which_available_for_wood_supply: '… of which available for wood supply - {{year}}',
-      other_wooded_land: 'Other wooded land - {{year}}',
-      total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
-    },
-
-    // table 1.4b
+	// table 1.4b
     carbonStockInHarvestedWoodProductsHWP: {
       carbonStockInHarvestedWoodProductsHWP: 'Carbon Stock In Harvested Wood Products (HWP)',
       categoryYear: 'Category - Year',
       total_carbon_stock_in_hwp: 'Total carbon stock in HWP (million metric tonnes)',
       harvested_wood_products: 'Harvested wood products - {{year}}',
+    },
+
+	// table 6.5b
+    employmentByEducationAndJobCharacteristics: {
+      employmentByEducationAndJobCharacteristics: 'Employment by education and job characteristics',
+      categoryYear: 'Category - Year',
+      education: 'Education (Categories ISCED 1997)',
+      jobCharacteristics: 'Job characteristics',
+      _0_2: '0-2',
+      _3_4: '3-4',
+      _5_6: '5-6',
+      employees: 'Employees',
+      selfEmployed: 'Self-employed',
+      _1000Persons: '1000 persons',
+      forestry: 'Forestry (ISIC/NACE 02) - {{year}}',
+      manufacture_of_wood_and_articles_in_wood: 'Manufacture of wood and articles in wood (ISIC/NACE 16) - {{year}}',
+      manufacture_of_paper_and_paper_products: 'Manufacture of paper and paper products (ISIC/NACE 17) - {{year}}',
     },
 	
   },
