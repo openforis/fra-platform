@@ -1109,7 +1109,8 @@ The FRA team
     // navigation
     navigation: {
       forestResourcesAndCarbon: 'Forest Resources and Carbon',
-      socioEconomicFunctionsAndConditions: 'Socio-economic functions and conditions'
+      socioEconomicFunctionsAndConditions: 'Socio-economic functions and conditions',
+      biologicalDiversityInForestEcosystems: 'Biological Diversity in Forest Ecosystems'
     },
 
 	  // table 1.1a
@@ -1125,31 +1126,6 @@ The FRA team
       _of_which_with_tree_cover: '… of which with tree cover - {{year}}',
     },
 
-    // table 1.2a
-    growingStock: {
-      growingStock: 'Growing Stock',
-      categoryYear: 'Category - Year',
-      growingStockMillionM3OB: 'Growing stock (million m³ o.b.)',
-      total: 'Total',
-      _ofWhich: '… of which',
-      coniferous: 'Coniferous',
-      broadleaved: 'Broadleaved',
-      forest: 'Forest - {{year}}',
-      _of_which_available_for_wood_supply: '… of which available for wood supply - {{year}}',
-      other_wooded_land: 'Other wooded land - {{year}}',
-      total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
-    },
-
-    // table 1.2b
-    growingStockByForestType: {
-      growingStockByForestType: 'Growing stock by forest type',
-      category: 'Category',
-      growingStockMillionM3OB: 'Growing stock (million m³ o.b.)',
-      predominantly_coniferous_forest: 'Predominantly coniferous forest',
-      predominantly_broadleaved_forest: 'Predominantly broadleaved forest',
-      mixed_forest: 'Mixed forest'
-    },
-
     // table 1.4b
     carbonStockInHarvestedWoodProductsHWP: {
       carbonStockInHarvestedWoodProductsHWP: 'Carbon Stock In Harvested Wood Products (HWP)',
@@ -1157,6 +1133,19 @@ The FRA team
       total_carbon_stock_in_hwp: 'Total carbon stock in HWP (million metric tonnes)',
       harvested_wood_products: 'Harvested wood products - {{year}}',
     },
-	
+
+    // table 4.3a
+    naturalness: {
+      naturalness: 'Naturalness',
+      categoryYear: 'Category - Year',
+      area1000ha: 'Area (1000 ha)',
+      undisturbed_by_man: 'Undisturbed by man',
+      semi_natural: 'Semi-natural',
+      plantations: 'Plantations',
+      forest: 'Forest - {{year}}',
+      other_wooded_land: 'Other wooded land - {{year}}',
+      total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
+    },
+    
   },
 }
