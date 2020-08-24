@@ -1,6 +1,7 @@
 const PanEuropean = {
   type: 'panEuropean',
   years: [1990, 2000, 2005, 2010, 2015, 2020],
+  years90_20: [1990, 2000, 2005, 2010, 2015, 2020],
   years90_15: [1990, 2000, 2005, 2010, 2015],
 
   sections: {
@@ -16,6 +17,22 @@ const PanEuropean = {
           },
 		    },
 		
+        '12a': {
+          name: 'growingStock',
+          anchor: '1.2a',
+          tables: {
+            table_1_2a: 'table_1_2a',
+          },
+        },
+
+        '12b': {
+          name: 'growingStockByForestType',
+          anchor: '1.2b',
+          tables: {
+            table_1_2b: 'table_1_2b',
+          },
+		    },
+		  
         '14b': {
           name: 'carbonStockInHarvestedWoodProductsHWP',
           anchor: '1.4b',
