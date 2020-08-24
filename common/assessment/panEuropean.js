@@ -16,7 +16,7 @@ const PanEuropean = {
             table_1_1a: 'table_1_1a',
           },
 		    },
-		  
+		
         '12a': {
           name: 'growingStock',
           anchor: '1.2a',
@@ -25,6 +25,14 @@ const PanEuropean = {
           },
         },
 
+        '12b': {
+          name: 'growingStockByForestType',
+          anchor: '1.2b',
+          tables: {
+            table_1_2b: 'table_1_2b',
+          },
+		    },
+		  
         '14b': {
           name: 'carbonStockInHarvestedWoodProductsHWP',
           anchor: '1.4b',
