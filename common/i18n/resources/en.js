@@ -1166,8 +1166,24 @@ The FRA team
       predominantly_broadleaved_forest: '____Predominantly broadleaved forest - {{year}}',
       mixed_forest: '____Mixed forest - {{year}}',
     },
-  
-    // table 1.4b
+
+    // table 1.3b
+    diameterDistributionAndTotalAreaUnevenAgedStands: {
+      diameterDistributionAndTotalAreaUnevenAgedStands: 'Table 1.3b Diameter distribution and total area (uneven-aged stands)',
+      categoryYear: 'Category - Year',
+      volumeByDiameterClasses1000mob: 'Volume by diameter classes (1 000 m³ o.b.)',
+      area: 'Area (1000 ha)',
+      total_volume: 'Total volume (1 000 m³ o.b.)',
+      less_or_equal_20_cm: '<20 cm',
+      _21_40_cm: '21-40 cm',
+      _41_60_cm: '41-60 cm',
+      greater_60_cm: '>60 cm',
+      unspecified: 'Unspecified',
+      forest_uneven_aged_stands: 'Forest uneven-aged stands - {{year}}',
+      _of_which_forest_available_for_wood_supply: '... of which: Forest available for wood supply - {{year}}',
+    },
+
+	  // table 1.4b
     carbonStockInHarvestedWoodProductsHWP: {
       carbonStockInHarvestedWoodProductsHWP: 'Carbon Stock In Harvested Wood Products (HWP)',
       categoryYear: 'Category - Year',
