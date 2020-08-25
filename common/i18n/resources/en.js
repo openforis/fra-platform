@@ -1149,7 +1149,24 @@ The FRA team
       predominantly_broadleaved_forest: 'Predominantly broadleaved forest',
       mixed_forest: 'Mixed forest'
     },
-
+  
+    // table 1.3a1
+    ageClassDistributionAreaOfEvenAgedStands: {
+      ageClassDistributionAreaOfEvenAgedStands: 'Age class distribution (area of even-aged stands)',
+      categoryYear: 'Category - Year',
+      developmentPhases1000ha: 'Development phases (1 000 ha)',
+      total_area: 'Total area (1000 ha)',
+      regeneration_phase: 'Regeneration phase',
+      intermediate_phase: 'Intermediate phase',
+      mature_phase: 'Mature phase',
+      unspecified: 'Unspecified',
+      forest_even_aged_stands_of_which: 'Forest (even-aged stands), of which: - {{year}}',
+      available_for_wood_supply_of_which: '__Available for wood supply, of which: - {{year}}',
+      predominantly_coniferous_forest: '____Predominantly coniferous forest - {{year}}',
+      predominantly_broadleaved_forest: '____Predominantly broadleaved forest - {{year}}',
+      mixed_forest: '____Mixed forest - {{year}}',
+    },
+  
     // table 1.4b
     carbonStockInHarvestedWoodProductsHWP: {
       carbonStockInHarvestedWoodProductsHWP: 'Carbon Stock In Harvested Wood Products (HWP)',
