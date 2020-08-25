@@ -16,28 +16,27 @@ const PanEuropean = {
             table_1_1a: 'table_1_1a',
           },
 		    },
-		
-        '12a': {
-          name: 'growingStock',
-          anchor: '1.2a',
-          tables: {
-            table_1_2a: 'table_1_2a',
-          },
-        },
-
-        '12b': {
-          name: 'growingStockByForestType',
-          anchor: '1.2b',
-          tables: {
-            table_1_2b: 'table_1_2b',
-          },
-		    },
 		  
         '14b': {
           name: 'carbonStockInHarvestedWoodProductsHWP',
           anchor: '1.4b',
           tables: {
             table_1_4b: 'table_1_4b',
+          },
+		    },
+		
+      },
+    },
+
+    4: {
+      label: 'panEuropean.navigation.biologicalDiversityInForestEcosystems',
+      children: {
+		  
+        '43b': {
+          name: 'naturalnessBySubclasses',
+          anchor: '4.3b',
+          tables: {
+            table_4_3b: 'table_4_3b',
           },
 		    },
 		
