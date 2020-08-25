@@ -43,6 +43,20 @@ const PanEuropean = {
 		
       },
     },
+    
+    6: {
+      label: 'panEuropean.navigation.socioEconomicFunctionsAndConditions',
+      children: {
+		  
+        '64b': {
+          name: 'totalFixedCapitalConsumptionInForestsAndForestry',
+          anchor: '6.4b',
+          tables: {
+            table_6_4b: 'table_6_4b',
+          },
+		    },
+      },
+    },    
   },
   
 }

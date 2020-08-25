@@ -1157,6 +1157,13 @@ The FRA team
       total_carbon_stock_in_hwp: 'Total carbon stock in HWP (million metric tonnes)',
       harvested_wood_products: 'Harvested wood products - {{year}}',
     },
-	
-  },
+
+    // table 6.4b
+    totalFixedCapitalConsumptionInForestsAndForestry: {
+        totalFixedCapitalConsumptionInForestsAndForestry: 'Total Fixed Capital Consumption In Forests And Forestry',
+        categoryYear: 'Category - Year',
+        fixed_capital_consumption: 'Fixed capital consumption (million national currency)',
+        forestry_isic_nace_02: 'Forestry (ISIC/NACE 02) - {{year}}',
+    },
+  }
 }
