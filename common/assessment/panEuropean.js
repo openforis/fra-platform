@@ -55,6 +55,15 @@ const PanEuropean = {
             table_6_4b: 'table_6_4b',
           },
 		    },
+
+        '64c': {
+          name: 'totalCapitalTransfersInForestsAndForestry',
+          anchor: '6.4c',
+          tables: {
+            table_6_4c: 'table_6_4c',
+          },
+        },
+		
       },
     },    
   },

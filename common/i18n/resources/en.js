@@ -1165,5 +1165,13 @@ The FRA team
         fixed_capital_consumption: 'Fixed capital consumption (million national currency)',
         forestry_isic_nace_02: 'Forestry (ISIC/NACE 02) - {{year}}',
     },
+
+    // table 6.4c
+    totalCapitalTransfersInForestsAndForestry: {
+      totalCapitalTransfersInForestsAndForestry: 'Total Capital Transfers In Forests And Forestry',
+      categoryYear: 'Category - Year',
+      capital_transfers: 'Capital transfers (million national currency)',
+      forestry_isic_nace_02: 'Forestry (ISIC/NACE 02) - {{year}}',
+    },
   }
 }
