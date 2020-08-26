@@ -3,7 +3,7 @@ import * as NumberUtils from '@common/bignumberUtils'
 
 import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestState'
 
-export const getExtentOfForestChange = colIdx => state => {
+export const getExtentOfForestChange = (colIdx) => (state) => {
   const range = FRA.yearsRange[colIdx]
   const years = range.split('-')
   const yearStart = Number(years[0])
