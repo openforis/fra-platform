@@ -32,6 +32,7 @@ import * as NavigationState from '@webapp/app/components/navigation/navigationSt
 
 const reducers = [
   { name: AssessmentState.stateKey, fn: assessment },
+  // todo: USED ONLY by content check
   { name: 'extentOfForest', fn: extentOfForest },
   { name: 'forestCharacteristics', fn: forestCharacteristics },
   { name: 'growingStock', fn: growingStock },

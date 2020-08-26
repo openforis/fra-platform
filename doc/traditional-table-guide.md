@@ -100,7 +100,7 @@ After this we copy/paste the _create table_ statemenet above into
 
 Next time we start the server, the table will be created.
 
-## 3. Create tableSpec for the UI
+## 3. Create tableSpec for the UI (deprecated)
 
 The front-end table is described via a *tableSpec* js-file which
 contains the description of the table and possibly also some code.
