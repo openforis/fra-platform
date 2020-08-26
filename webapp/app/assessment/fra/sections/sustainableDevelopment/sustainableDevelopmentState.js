@@ -17,7 +17,7 @@ export const yearsRange = years.reduce((ranges, year, idx) => {
 }, [])
 
 // SDG 15.1.1
-export const getForestAreaProportionLandArea2015 = colIdx => state => {
+export const getForestAreaProportionLandArea2015 = (colIdx) => (state) => {
   const year = years[colIdx]
   const faoStatArea = ExtentOfForestState.getFaoStatAreaByYear(2015)(state)
   const forestArea = ExtentOfForestState.getForestByYear(year)(state)
@@ -25,7 +25,7 @@ export const getForestAreaProportionLandArea2015 = colIdx => state => {
 }
 
 // SDG 15.2.1 - sub-indicator 2
-export const getForestAreaAnnualNetChangeRate = colIdx => state => {
+export const getForestAreaAnnualNetChangeRate = (colIdx) => (state) => {
   const range = yearsRange[colIdx].split('-')
   const yearFrom = Number(range[0])
   const yearTo = Number(range[1])
@@ -49,10 +49,10 @@ export const getForestAreaAnnualNetChangeRate = colIdx => state => {
 }
 
 // SDG 15.2.1 - sub-indicator 2
-export const getBiomassStock = colIdx => BiomassStockState.getAboveGroundBiomassByYear(years[colIdx])
+export const getBiomassStock = (colIdx) => BiomassStockState.getAboveGroundBiomassByYear(years[colIdx])
 
 // SDG 15.2.1 - sub-indicator 3
-export const getForestAreaProportionProtectedAreas = colIdx => state => {
+export const getForestAreaProportionProtectedAreas = (colIdx) => (state) => {
   const forestAreaWithinProtectedAreas = ForestAreaWithinProtectedAreasState.getForestAreaWithinProtectedAreasByYear(
     years[colIdx]
   )(state)
@@ -63,7 +63,7 @@ export const getForestAreaProportionProtectedAreas = colIdx => state => {
 }
 
 // SDG 15.2.1 - sub-indicator 4
-export const getForestAreaProportionLongTermForestManagement = colIdx => state => {
+export const getForestAreaProportionLongTermForestManagement = (colIdx) => (state) => {
   const forestAreaLongTermForestManagementPlan = ForestAreaWithinProtectedAreasState.getForestAreaLongTermForestManagementPlanByYear(
     years[colIdx]
   )(state)
@@ -75,4 +75,4 @@ export const getForestAreaProportionLongTermForestManagement = colIdx => state =
 }
 
 // SDG 15.2.1 - sub-indicator 5
-export const getCertifiedArea = colIdx => CountryState.getConfigCertifiedAreaByYear(years[colIdx])
+export const getCertifiedArea = (colIdx) => CountryState.getConfigCertifiedAreaByYear(years[colIdx])
