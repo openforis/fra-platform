@@ -15,6 +15,6 @@ const _getValueByYear = (year, rowIdx) =>
     rowIdx,
   })
 
-export const getForestAreaWithinProtectedAreasByYear = year => _getValueByYear(year, 0)
+export const getForestAreaWithinProtectedAreasByYear = (year) => _getValueByYear(year, 0)
 
-export const getForestAreaLongTermForestManagementPlanByYear = year => _getValueByYear(year, 1)
+export const getForestAreaLongTermForestManagementPlanByYear = (year) => _getValueByYear(year, 1)
