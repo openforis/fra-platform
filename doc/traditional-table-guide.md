@@ -106,7 +106,7 @@ The front-end table is described via a *tableSpec* js-file which
 contains the description of the table and possibly also some code.
 
 First, we add a new js file
-`webapp/designatedManagementObjectives/tableSpec.js` and add
+`webapp/designatedManagementObjectives/areaAffectedByFire.js` and add
 React import there: `import React from 'react'`. The tableSpec is a JavaScript
 object exported from the module. Let's create an empty one (we'll fill
 in the attributes next).
