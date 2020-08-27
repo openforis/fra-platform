@@ -1126,7 +1126,108 @@ The FRA team
       _of_which_with_tree_cover: '… of which with tree cover - {{year}}',
     },
 
-    // table 1.4b
+    // table 1.1b
+    forestAreaByForestTypes: {
+      forestAreaByForestTypes: 'Forest area by forest types',
+      category: 'Category',
+      forestArea1000Ha: 'Forest area (1000 ha)',
+      predominantly_coniferous_forest: 'Predominantly coniferous forest',
+      predominantly_broadleaved_forest: 'Predominantly broadleaved forest',
+      mixed_forest: 'Mixed forest'
+    },
+
+    // table 1.2a
+    growingStock: {
+      growingStock: 'Growing Stock',
+      categoryYear: 'Category - Year',
+      growingStockMillionM3OB: 'Growing stock (million m³ o.b.)',
+      total: 'Total',
+      _ofWhich: '… of which',
+      coniferous: 'Coniferous',
+      broadleaved: 'Broadleaved',
+      forest: 'Forest - {{year}}',
+      _of_which_available_for_wood_supply: '… of which available for wood supply - {{year}}',
+      other_wooded_land: 'Other wooded land - {{year}}',
+      total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
+    },
+
+    // table 1.2b
+    growingStockByForestType: {
+      growingStockByForestType: 'Growing stock by forest type',
+      category: 'Category',
+      growingStockMillionM3OB: 'Growing stock (million m³ o.b.)',
+      predominantly_coniferous_forest: 'Predominantly coniferous forest',
+      predominantly_broadleaved_forest: 'Predominantly broadleaved forest',
+      mixed_forest: 'Mixed forest'
+    },
+  
+    // table 1.3a1
+    ageClassDistributionAreaOfEvenAgedStands: {
+      ageClassDistributionAreaOfEvenAgedStands: 'Age class distribution (area of even-aged stands)',
+      categoryYear: 'Category - Year',
+      developmentPhases1000ha: 'Development phases (1 000 ha)',
+      total_area: 'Total area (1000 ha)',
+      regeneration_phase: 'Regeneration phase',
+      intermediate_phase: 'Intermediate phase',
+      mature_phase: 'Mature phase',
+      unspecified: 'Unspecified',
+      forest_even_aged_stands_of_which: 'Forest (even-aged stands), of which: - {{year}}',
+      available_for_wood_supply_of_which: '__Available for wood supply, of which: - {{year}}',
+      predominantly_coniferous_forest: '____Predominantly coniferous forest - {{year}}',
+      predominantly_broadleaved_forest: '____Predominantly broadleaved forest - {{year}}',
+      mixed_forest: '____Mixed forest - {{year}}',
+    },
+
+    // table 1.3a2
+    ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply: {
+      ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply: 'Age class distribution (volume of even-aged stands) in forest available for wood supply',
+      categoryYear: 'Category - Year',
+      developmentPhases1000ha: 'Development phases (1 000 ha)',
+      total_volume: 'Total volume (1 000 m³)',
+      regeneration_phase: 'Regeneration phase',
+      intermediate_phase: 'Intermediate phase',
+      mature_phase: 'Mature phase',
+      unspecified: 'Unspecified',
+      forest_available_for_wood_supply_even_aged_stands_of_which: 'Forest available for wood supply (even-aged stands), of which: - {{year}}',
+      predominantly_coniferous_forest: 'Predominantly coniferous forest - {{year}}',
+      predominantly_broadleaved_forest: 'Predominantly broadleaved forest - {{year}}',
+      mixed_forest: 'Mixed forest - {{year}}',
+    },
+          
+    // table 1.3b
+    diameterDistributionAndTotalAreaUnevenAgedStands: {
+      diameterDistributionAndTotalAreaUnevenAgedStands: 'Table 1.3b Diameter distribution and total area (uneven-aged stands)',
+      categoryYear: 'Category - Year',
+      volumeByDiameterClasses1000mob: 'Volume by diameter classes (1 000 m³ o.b.)',
+      area: 'Area (1000 ha)',
+      total_volume: 'Total volume (1 000 m³ o.b.)',
+      less_or_equal_20_cm: '<20 cm',
+      _21_40_cm: '21-40 cm',
+      _41_60_cm: '41-60 cm',
+      greater_60_cm: '>60 cm',
+      unspecified: 'Unspecified',
+      forest_uneven_aged_stands: 'Forest uneven-aged stands - {{year}}',
+      _of_which_forest_available_for_wood_supply: '... of which: Forest available for wood supply - {{year}}',
+    },
+
+    // table 1.4a
+    carbonStock: {
+      carbonStock: 'Carbon stock',
+      categoryYear: 'Category - Year',
+      carbonInAboveGroundAndBelowGroundLivingBiomass: 'Carbon in above-ground and below-ground living biomass',
+      carbonInDeadwoodAndLitter: 'Carbon in deadwood and litter',
+      millionMetricTonnes: 'Million metric tonnes',      
+      above_ground: 'Above-ground',
+      below_ground: 'Below-ground',
+      deadwood: 'Deadwood',
+      litter: 'Litter',
+      soil_carbon: 'Soil carbon',
+      forest: 'Forest - {{year}}',
+      other_wooded_land: 'Other wooded land - {{year}}',
+      total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
+    },
+
+	  // table 1.4b
     carbonStockInHarvestedWoodProductsHWP: {
       carbonStockInHarvestedWoodProductsHWP: 'Carbon Stock In Harvested Wood Products (HWP)',
       categoryYear: 'Category - Year',
@@ -1155,7 +1256,23 @@ The FRA team
       forest: 'Forest - {{year}}',
       other_wooded_land: 'Other wooded land - {{year}}',
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
-    },
-  	
+    }, 	
   },
+
+    // table 6.4b
+    totalFixedCapitalConsumptionInForestsAndForestry: {
+        totalFixedCapitalConsumptionInForestsAndForestry: 'Total Fixed Capital Consumption In Forests And Forestry',
+        categoryYear: 'Category - Year',
+        fixed_capital_consumption: 'Fixed capital consumption (million national currency)',
+        forestry_isic_nace_02: 'Forestry (ISIC/NACE 02) - {{year}}',
+    },
+
+    // table 6.4c
+    totalCapitalTransfersInForestsAndForestry: {
+      totalCapitalTransfersInForestsAndForestry: 'Total Capital Transfers In Forests And Forestry',
+      categoryYear: 'Category - Year',
+      capital_transfers: 'Capital transfers (million national currency)',
+      forestry_isic_nace_02: 'Forestry (ISIC/NACE 02) - {{year}}',
+    },
+  }
 }
