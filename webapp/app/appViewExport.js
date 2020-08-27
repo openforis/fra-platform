@@ -10,7 +10,6 @@ import navigation from '@webapp/app/components/navigation/reducer'
 import traditionalTable from '@webapp/app/assessment/components/traditionalTable/reducer'
 import review from '@webapp/app/assessment/components/review/reducer'
 import userManagement from '@webapp/app/user/userManagement/reducer'
-import sustainableDevelopment from '@webapp/app/assessment/fra/sections/sustainableDevelopment/reducer'
 import landing from '@webapp/app/countryLanding/reducer'
 import panEuropeanIndicators from '@webapp/app/assessment/panEuropean/sections/indicators/reducer'
 import admin from '@webapp/app/admin/reducer'
@@ -44,7 +43,6 @@ const reducers = [
   { name: 'traditionalTable', fn: traditionalTable },
   { name: ReviewState.stateKey, fn: review },
   { name: UserManagementState.stateKey, fn: userManagement },
-  { name: 'sustainableDevelopment', fn: sustainableDevelopment },
   { name: LandingState.stateKey, fn: landing },
   { name: 'panEuropeanIndicators', fn: panEuropeanIndicators },
   { name: 'userChat', fn: userChat },
