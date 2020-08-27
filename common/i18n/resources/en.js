@@ -1177,6 +1177,22 @@ The FRA team
       mixed_forest: '____Mixed forest - {{year}}',
     },
 
+    // table 1.3a2
+    ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply: {
+      ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply: 'Age class distribution (volume of even-aged stands) in forest available for wood supply',
+      categoryYear: 'Category - Year',
+      developmentPhases1000ha: 'Development phases (1 000 ha)',
+      total_volume: 'Total volume (1 000 m³)',
+      regeneration_phase: 'Regeneration phase',
+      intermediate_phase: 'Intermediate phase',
+      mature_phase: 'Mature phase',
+      unspecified: 'Unspecified',
+      forest_available_for_wood_supply_even_aged_stands_of_which: 'Forest available for wood supply (even-aged stands), of which: - {{year}}',
+      predominantly_coniferous_forest: 'Predominantly coniferous forest - {{year}}',
+      predominantly_broadleaved_forest: 'Predominantly broadleaved forest - {{year}}',
+      mixed_forest: 'Mixed forest - {{year}}',
+    },
+          
     // table 1.3b
     diameterDistributionAndTotalAreaUnevenAgedStands: {
       diameterDistributionAndTotalAreaUnevenAgedStands: 'Table 1.3b Diameter distribution and total area (uneven-aged stands)',
