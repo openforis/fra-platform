@@ -1,4 +1,5 @@
 import forestArea from '@webapp/app/assessment/panEuropean/sections/table_1_1a/sectionSpec'
+import forestAreaByForestTypes from '@webapp/app/assessment/panEuropean/sections/table_1_1b/sectionSpec'
 import growingStock from '@webapp/app/assessment/panEuropean/sections/table_1_2a/sectionSpec'
 import growingStockByForestType from '@webapp/app/assessment/panEuropean/sections/table_1_2b/sectionSpec'
 import ageClassDistributionAreaOfEvenAgedStands from '@webapp/app/assessment/panEuropean/sections/table_1_3a1/sectionSpec'
@@ -10,6 +11,7 @@ import totalCapitalTransfersInForestsAndForestry from '@webapp/app/assessment/pa
 
 export default {
   [forestArea.sectionName]: forestArea,
+  [forestAreaByForestTypes.sectionName]: forestAreaByForestTypes,
   [growingStock.sectionName]: growingStock,
   [growingStockByForestType.sectionName]: growingStockByForestType,
   [ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.sectionName]: ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply,

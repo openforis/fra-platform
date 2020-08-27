@@ -1125,6 +1125,16 @@ The FRA team
       _of_which_with_tree_cover: '… of which with tree cover - {{year}}',
     },
 
+    // table 1.1b
+    forestAreaByForestTypes: {
+      forestAreaByForestTypes: 'Forest area by forest types',
+      category: 'Category',
+      forestArea1000Ha: 'Forest area (1000 ha)',
+      predominantly_coniferous_forest: 'Predominantly coniferous forest',
+      predominantly_broadleaved_forest: 'Predominantly broadleaved forest',
+      mixed_forest: 'Mixed forest'
+    },
+
     // table 1.2a
     growingStock: {
       growingStock: 'Growing Stock',

@@ -17,6 +17,12 @@ const PanEuropean = {
           },
         },
         
+        '11b': {
+          name: 'forestAreaByForestTypes',
+          anchor: '1.1b',
+          tables: { table_1_1b: 'table_1_1b' }
+		    },
+
         '13b': {
           name: 'diameterDistributionAndTotalAreaUnevenAgedStands',
           anchor: '1.3b',
