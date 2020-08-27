@@ -22,7 +22,7 @@ const PanEuropean = {
           anchor: '1.1b',
           tables: { table_1_1b: 'table_1_1b' }
 		    },
-
+		  
         '13b': {
           name: 'diameterDistributionAndTotalAreaUnevenAgedStands',
           anchor: '1.3b',
@@ -63,6 +63,14 @@ const PanEuropean = {
           },
         },
         
+        '14a': {
+          name: 'carbonStock',
+          anchor: '1.4a',
+          tables: {
+            table_1_4a: 'table_1_4a',
+          },
+		    },
+
         '14b': {
           name: 'carbonStockInHarvestedWoodProductsHWP',
           anchor: '1.4b',

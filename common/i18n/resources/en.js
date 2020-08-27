@@ -1209,6 +1209,23 @@ The FRA team
       _of_which_forest_available_for_wood_supply: '... of which: Forest available for wood supply - {{year}}',
     },
 
+    // table 1.4a
+    carbonStock: {
+      carbonStock: 'Carbon stock',
+      categoryYear: 'Category - Year',
+      carbonInAboveGroundAndBelowGroundLivingBiomass: 'Carbon in above-ground and below-ground living biomass',
+      carbonInDeadwoodAndLitter: 'Carbon in deadwood and litter',
+      millionMetricTonnes: 'Million metric tonnes',      
+      above_ground: 'Above-ground',
+      below_ground: 'Below-ground',
+      deadwood: 'Deadwood',
+      litter: 'Litter',
+      soil_carbon: 'Soil carbon',
+      forest: 'Forest - {{year}}',
+      other_wooded_land: 'Other wooded land - {{year}}',
+      total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
+    },
+
 	  // table 1.4b
     carbonStockInHarvestedWoodProductsHWP: {
       carbonStockInHarvestedWoodProductsHWP: 'Carbon Stock In Harvested Wood Products (HWP)',
