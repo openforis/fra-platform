@@ -1273,5 +1273,17 @@ The FRA team
       capital_transfers: 'Capital transfers (million national currency)',
       forestry_isic_nace_02: 'Forestry (ISIC/NACE 02) - {{year}}',
     },
+
+    // table 6.10a
+    accessibilityForRecreation: {
+      accessibilityForRecreation: 'Accessibility for recreation',
+      categoryYear: 'Category - Year',
+      areaAvailableForPublicRecreation: 'Area available for public recreation',
+      total1000Ha: 'Total (1000 ha)',
+      _oftotal: '% of total',
+      areaPrimarilyDesignatedOrManagedForPublicRecreation: 'Area primarily designated or managed for public recreation',
+      total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
+    }, 
+
   }
 }

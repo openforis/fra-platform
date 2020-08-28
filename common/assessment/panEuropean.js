@@ -81,6 +81,20 @@ const PanEuropean = {
 
       },
     },
+
+    2: {
+      label: 'panEuropean.navigation.maintenanceOfForestEcosystemHealthAndVitality',
+      children: {
+		  
+        '24': {
+          name: 'forestAreaWithDamage',
+          anchor: '2.4',
+          tables: {
+            table_2_4: 'table_2_4',
+          },
+		    },
+      },
+    },    
     
     6: {
       label: 'panEuropean.navigation.socioEconomicFunctionsAndConditions',
@@ -101,23 +115,18 @@ const PanEuropean = {
             table_6_4c: 'table_6_4c',
           },
         },
+
+        '610a': {
+          name: 'accessibilityForRecreation',
+          anchor: '6.10a',
+          tables: {
+            table_6_10a: 'table_6_10a',
+          },
+        },        
 		
       },
     },
     
-    2: {
-      label: 'panEuropean.navigation.maintenanceOfForestEcosystemHealthAndVitality',
-      children: {
-		  
-        '24': {
-          name: 'forestAreaWithDamage',
-          anchor: '2.4',
-          tables: {
-            table_2_4: 'table_2_4',
-          },
-		    },
-      },
-    },    
   },
 }
 
