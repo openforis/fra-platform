@@ -1,8 +1,8 @@
 const PanEuropean = {
   type: 'panEuropean',
   years: [1990, 2000, 2005, 2010, 2015, 2020],
-  years90_20: [1990, 2000, 2005, 2010, 2015, 2020],
   years90_15: [1990, 2000, 2005, 2010, 2015],
+  years05_15: [2005, 2010, 2015],
 
   sections: {
     1: {
@@ -16,25 +16,30 @@ const PanEuropean = {
             table_1_1a: 'table_1_1a',
           },
 		    },
-		  
-        '12a': {
-          name: 'growingStock',
-          anchor: '1.2a',
-          tables: {
-            table_1_2a: 'table_1_2a',
-          },
-        },
-
+		
         '14b': {
           name: 'carbonStockInHarvestedWoodProductsHWP',
           anchor: '1.4b',
           tables: {
             table_1_4b: 'table_1_4b',
           },
-		    },
-		
+		    },		
       },
     },
+
+    6: {
+      label: 'panEuropean.navigation.socioEconomicFunctionsAndConditions',
+      children: {
+
+        '610b': {
+          name: 'intensityOfUse',
+          anchor: '6.10b',
+          tables: {
+            table_6_10b: 'table_6_10b',
+          },
+        },
+      },
+    },		  
   },
   
 }
