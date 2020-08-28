@@ -78,6 +78,18 @@ const PanEuropean = {
           tables: {
             table_1_4b: 'table_1_4b',
           },
+        },
+
+      },
+    },
+
+    2: {
+      label: 'panEuropean.navigation.maintenanceOfForestEcosystemHealthAndVitality',
+      children: {
+		  
+        '24': {
+          name: 'forestAreaWithDamage',
+          anchor: '2.4',
           tables: {
             table_2_4: 'table_2_4',
           },
