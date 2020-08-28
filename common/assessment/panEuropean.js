@@ -116,6 +116,14 @@ const PanEuropean = {
           },
         },
 
+        '66': {
+          name: 'occupationalAccidents',
+          anchor: '6.6',
+          tables: {
+            table_6_6: 'table_6_6',
+          },
+        },
+
         '610a': {
           name: 'accessibilityForRecreation',
           anchor: '6.10a',
