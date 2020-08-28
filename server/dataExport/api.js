@@ -22,7 +22,7 @@ module.exports.init = (app) => {
     }
   })
 
-  app.get('/export/FRA-bulk-download', async (req, res) => {
+  app.get('/export/bulk-download', async (req, res) => {
     try {
       const files = await ExportService.exportData(ExportService.EXPORT_TYPE.CSV, true)
 
