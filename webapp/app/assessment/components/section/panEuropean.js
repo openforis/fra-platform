@@ -12,6 +12,7 @@ import totalFixedCapitalConsumptionInForestsAndForestry from '@webapp/app/assess
 import totalCapitalTransfersInForestsAndForestry from '@webapp/app/assessment/panEuropean/sections/table_6_4c/sectionSpec'
 import occupationalAccidents from '@webapp/app/assessment/panEuropean/sections/table_6_6/sectionSpec'
 import accessibilityForRecreation from '@webapp/app/assessment/panEuropean/sections/table_6_10a/sectionSpec'
+import recreationFacilities from '@webapp/app/assessment/panEuropean/sections/table_6_10c/sectionSpec'
 
 export default {
   [forestArea.sectionName]: forestArea,
@@ -28,4 +29,5 @@ export default {
   [totalCapitalTransfersInForestsAndForestry.sectionName]: totalCapitalTransfersInForestsAndForestry,
   [occupationalAccidents.sectionName]: occupationalAccidents,
   [accessibilityForRecreation.sectionName]: accessibilityForRecreation,
+  [recreationFacilities.sectionName]: recreationFacilities,
 }

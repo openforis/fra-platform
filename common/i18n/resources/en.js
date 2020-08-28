@@ -1264,10 +1264,10 @@ The FRA team
 
     // table 6.4b
     totalFixedCapitalConsumptionInForestsAndForestry: {
-        totalFixedCapitalConsumptionInForestsAndForestry: 'Total Fixed Capital Consumption In Forests And Forestry',
-        categoryYear: 'Category - Year',
-        fixed_capital_consumption: 'Fixed capital consumption (million national currency)',
-        forestry_isic_nace_02: 'Forestry (ISIC/NACE 02) - {{year}}',
+      totalFixedCapitalConsumptionInForestsAndForestry: 'Total Fixed Capital Consumption In Forests And Forestry',
+      categoryYear: 'Category - Year',
+      fixed_capital_consumption: 'Fixed capital consumption (million national currency)',
+      forestry_isic_nace_02: 'Forestry (ISIC/NACE 02) - {{year}}',
     },
 
     // table 6.4c
@@ -1298,7 +1298,17 @@ The FRA team
       _oftotal: '% of total',
       areaPrimarilyDesignatedOrManagedForPublicRecreation: 'Area primarily designated or managed for public recreation',
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
-    }, 
+    },
+    
+	  // table 6.10c
+    recreationFacilities: {
+      recreationFacilities: 'Recreation facilities',
+      categoryYear: 'Category - Year',
+      forestRoadsAndPathsAvailableForPublicRecreation: 'Forest roads and paths available for public recreation',
+      _ofWhichDesignatedForHikingBikingCrossCountrySkiingEtc: '... of which designated for hiking, biking, cross country skiing, etc.',
+      facilityLengthIn1000Km: 'Facility (length in 1000 km)',
+      area_available_for_public_recreation: 'Area available for public recreation - {{year}}',
+    },    
 
   }
 }

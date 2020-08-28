@@ -3,6 +3,7 @@ const PanEuropean = {
   years: [1990, 2000, 2005, 2010, 2015, 2020],
   years90_20: [1990, 2000, 2005, 2010, 2015, 2020],
   years90_15: [1990, 2000, 2005, 2010, 2015],
+  years15: [2015],
 
   sections: {
     1: {
@@ -129,6 +130,14 @@ const PanEuropean = {
           anchor: '6.10a',
           tables: {
             table_6_10a: 'table_6_10a',
+          },
+        },        
+
+        '610c': {
+          name: 'recreationFacilities',
+          anchor: '6.10c',
+          tables: {
+            table_6_10c: 'table_6_10c',
           },
         },        
 		
