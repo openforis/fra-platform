@@ -18,23 +18,23 @@ const EXPORT_TYPE = {
   CSV: 'csv',
 }
 
-// if simple flag is true, only return fra years, intervals and annualoutput without subfolders
-const exportData = async (exportType = EXPORT_TYPE.JSON, simple) => {
+// if excludeSubFolders flag is true, only return fra years, intervals and annualoutput without subfolders
+const exportData = async (exportType = EXPORT_TYPE.JSON, excludeSubFolders) => {
   const countriesAll = await CountryService.getAllCountriesList()
   const countries = R.reject(R.propEq('region', 'atlantis'), countriesAll)
 
   const isExportTypeJson = exportType === EXPORT_TYPE.JSON
 
-  const fraYearsOutput = isExportTypeJson ? new JSONOutput('fraYears') : FRAYearsExporter.getCsvOutput(simple)
+  const fraYearsOutput = isExportTypeJson ? new JSONOutput('fraYears') : FRAYearsExporter.getCsvOutput(excludeSubFolders)
   const intervalsOutput = isExportTypeJson ? new JSONOutput('intervals') : IntervalYearsExporter.getCsvOutput()
-  const annualOutput = isExportTypeJson ? new JSONOutput('annual') : AnnualYearsExporter.getCsvOutput(simple)
+  const annualOutput = isExportTypeJson ? new JSONOutput('annual') : AnnualYearsExporter.getCsvOutput(excludeSubFolders)
 
   let ndpOutput
   let nwfpOutput
   let gscompOutput
   let sdgOutput
 
-  if (!simple) {
+  if (!excludeSubFolders) {
     ndpOutput = isExportTypeJson ? new JSONOutput('ndp') : NdpExporter.getCsvOutput()
     nwfpOutput = isExportTypeJson ? new JSONOutput('nwfp') : NwfpExporter.getCsvOutput()
     gscompOutput = isExportTypeJson ? new JSONOutput('gscomp') : GSCompExporter.getCsvOutput()
@@ -62,7 +62,7 @@ const exportData = async (exportType = EXPORT_TYPE.JSON, simple) => {
   intervalsOutput.pushContentDone()
   annualOutput.pushContentDone()
 
-  if (!simple) {
+  if (!excludeSubFolders) {
     await Promise.each(
       countries.map(
         async (country) =>
