@@ -1109,7 +1109,8 @@ The FRA team
     // navigation
     navigation: {
       forestResourcesAndCarbon: 'Forest Resources and Carbon',
-      socioEconomicFunctionsAndConditions: 'Socio-economic functions and conditions'
+      socioEconomicFunctionsAndConditions: 'Socio-economic functions and conditions',
+      maintenanceOfForestEcosystemHealthAndVitality: 'Maintenance of Forest Ecosystem Health and Vitality'
     },
 
 	  // table 1.1a
@@ -1233,6 +1234,29 @@ The FRA team
       total_carbon_stock_in_hwp: 'Total carbon stock in HWP (million metric tonnes)',
       harvested_wood_products: 'Harvested wood products - {{year}}',
     },
+
+    // table 2.4
+    forestAreaWithDamage: {
+      forestAreaWithDamage: 'Forest area with damage',
+      categoryYear: 'Category - Year',
+      areaWithDamageByDifferentAgents: 'Area with damage by different agents',
+      primarilyDamagedByBioticAgents: 'Primarily damaged by biotic agents',
+      damagePrimarilyHumanInduced: 'Damage primarily human induced',
+      primarilyDamagedByFire: 'Primarily damaged by fire',
+      thousandHa: '1000 ha',
+      total_area_with_damage: 'Total area with damage',
+      insects_and_disease: 'Insects and disease',
+      wildlife_and_grazing: 'Wildlife and grazing',
+      forest_operations: 'Forest operations',
+      other: 'Other',
+      primarily_damaged_by_abiotic_agents: 'Primarily damaged by abiotic agents (storm, wind, snow, etc.)',
+      primarily_damaged_by_fire_total: 'Total',
+      of_which_human_induced: 'of which human induced',
+      unspecified_mixed_damage: 'Unspecified / Mixed damage',
+      forest: 'Forest - {{year}}',
+      other_wooded_land: 'Other wooded land - {{year}}',
+      total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
+    }, 	
 
     // table 6.4b
     totalFixedCapitalConsumptionInForestsAndForestry: {
