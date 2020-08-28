@@ -12,9 +12,9 @@ module.exports = {
     ],
   },
   columns: [
-      { name: 'area_available_for_public_recreation_total', type: 'numeric' },
-      { name: 'area_available_for_public_recreation_percent', type: 'numeric' },
-      { name: 'area_designated_or_managed_for_public_recreation_total', type: 'numeric' },
-      { name: 'area_designated_or_managed_for_public_recreation_percent', type: 'numeric' },
-      ],
+    { name: 'area_available_for_public_recreation_total', type: 'numeric' },
+    { name: 'area_available_for_public_recreation_percent', type: 'numeric' },
+    { name: 'area_designated_or_managed_for_public_recreation_total', type: 'numeric' },
+    { name: 'area_designated_or_managed_for_public_recreation_percent', type: 'numeric' },
+  ],
 }
