@@ -1278,6 +1278,23 @@ The FRA team
       forestry_isic_nace_02: 'Forestry (ISIC/NACE 02) - {{year}}',
     },
 
+	  // table 6.5a
+    employmentByGenderAndAge: {
+      employmentByGenderAndAge: 'Employment by gender and age',
+      categoryYear: 'Category - Year',
+      total: 'Total',
+      gender: 'Gender',
+      ageGroup: 'Age group',
+      male: 'Male',
+      female: 'Female',
+      _15_49: '15-49',
+      _50_: '50+',
+      _1000Persons: '1000 persons',
+      forestry: 'Forestry (ISIC/NACE 02) - {{year}}',
+      manufacture_of_wood_and_articles_in_wood: 'Manufacture of wood and articles in wood (ISIC/NACE 16) - {{year}}',
+      manufacture_of_paper_and_paper_products: 'Manufacture of paper and paper products (ISIC/NACE 17) - {{year}}',
+    },
+
     // table 6.6
     occupationalAccidents: {
       occupationalAccidents: 'Occupational Accidents',

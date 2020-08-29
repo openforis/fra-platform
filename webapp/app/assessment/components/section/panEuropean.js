@@ -10,6 +10,7 @@ import carbonStockInHarvestedWoodProductsHWP from '@webapp/app/assessment/panEur
 import forestAreaWithDamage from '@webapp/app/assessment/panEuropean/sections/table_2_4/sectionSpec'
 import totalFixedCapitalConsumptionInForestsAndForestry from '@webapp/app/assessment/panEuropean/sections/table_6_4b/sectionSpec'
 import totalCapitalTransfersInForestsAndForestry from '@webapp/app/assessment/panEuropean/sections/table_6_4c/sectionSpec'
+import employmentByGenderAndAge from '@webapp/app/assessment/panEuropean/sections/table_6_5a/sectionSpec'
 import occupationalAccidents from '@webapp/app/assessment/panEuropean/sections/table_6_6/sectionSpec'
 import accessibilityForRecreation from '@webapp/app/assessment/panEuropean/sections/table_6_10a/sectionSpec'
 import recreationFacilities from '@webapp/app/assessment/panEuropean/sections/table_6_10c/sectionSpec'
@@ -27,6 +28,7 @@ export default {
   [forestAreaWithDamage.sectionName]: forestAreaWithDamage,
   [totalFixedCapitalConsumptionInForestsAndForestry.sectionName]: totalFixedCapitalConsumptionInForestsAndForestry,
   [totalCapitalTransfersInForestsAndForestry.sectionName]: totalCapitalTransfersInForestsAndForestry,
+  [employmentByGenderAndAge.sectionName]: employmentByGenderAndAge,
   [occupationalAccidents.sectionName]: occupationalAccidents,
   [accessibilityForRecreation.sectionName]: accessibilityForRecreation,
   [recreationFacilities.sectionName]: recreationFacilities,

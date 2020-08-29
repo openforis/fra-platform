@@ -117,6 +117,14 @@ const PanEuropean = {
           },
         },
 
+        '65a': {
+          name: 'employmentByGenderAndAge',
+          anchor: '6.5a',
+          tables: {
+            table_6_5a: 'table_6_5a',
+          },
+        },
+
         '66': {
           name: 'occupationalAccidents',
           anchor: '6.6',
