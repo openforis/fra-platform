@@ -1146,4 +1146,5 @@ The FRA team
       other_wooded_land: 'Other wooded land - {{year}}',
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
     },
+  }
 }
