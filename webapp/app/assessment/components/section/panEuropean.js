@@ -9,6 +9,7 @@ import carbonStock from '@webapp/app/assessment/panEuropean/sections/table_1_4a/
 import carbonStockInHarvestedWoodProductsHWP from '@webapp/app/assessment/panEuropean/sections/table_1_4b/sectionSpec'
 import totalFixedCapitalConsumptionInForestsAndForestry from '@webapp/app/assessment/panEuropean/sections/table_6_4b/sectionSpec'
 import totalCapitalTransfersInForestsAndForestry from '@webapp/app/assessment/panEuropean/sections/table_6_4c/sectionSpec'
+import woodConsumption from '@webapp/app/assessment/panEuropean/sections/table_6_7/sectionSpec'
 
 export default {
   [forestArea.sectionName]: forestArea,
@@ -22,4 +23,5 @@ export default {
   [carbonStockInHarvestedWoodProductsHWP.sectionName]: carbonStockInHarvestedWoodProductsHWP,
   [totalFixedCapitalConsumptionInForestsAndForestry.sectionName]: totalFixedCapitalConsumptionInForestsAndForestry,
   [totalCapitalTransfersInForestsAndForestry.sectionName]: totalCapitalTransfersInForestsAndForestry,
+  [woodConsumption.sectionName]: woodConsumption,
 }

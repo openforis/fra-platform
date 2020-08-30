@@ -1249,5 +1249,38 @@ The FRA team
       capital_transfers: 'Capital transfers (million national currency)',
       forestry_isic_nace_02: 'Forestry (ISIC/NACE 02) - {{year}}',
     },
+
+    // table 6.7
+    woodConsumption: {
+      woodConsumption: 'Wood consumption',
+      category: 'Category',
+      _1992: '1992',
+      _1993: '1993',
+      _1994: '1994',
+      _1995: '1995',
+      _1996: '1996',
+      _1997: '1997',
+      _1998: '1998',
+      _1999: '1999',
+      _2000: '2000',
+      _2001: '2001',
+      _2002: '2002',
+      _2003: '2003',
+      _2004: '2004',
+      _2005: '2005',
+      _2006: '2006',
+      _2007: '2007',
+      _2008: '2008',
+      _2009: '2009',
+      _2010: '2010',
+      _2011: '2011',
+      _2012: '2012',
+      _2013: '2013',
+      _2014: '2014',
+      _2015: '2015',
+      _2016: '2016',
+      _2017: '2017',
+      wood_consumption: 'Consumption of forest products (1000 m³ RWE)'
+    },
   }
 }
