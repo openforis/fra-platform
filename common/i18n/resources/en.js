@@ -1295,6 +1295,23 @@ The FRA team
       manufacture_of_paper_and_paper_products: 'Manufacture of paper and paper products (ISIC/NACE 17) - {{year}}',
     },
 
+	  // table 6.5b
+    employmentByEducationAndJobCharacteristics: {
+      employmentByEducationAndJobCharacteristics: 'Employment by education and job characteristics',
+      categoryYear: 'Category - Year',
+      education: 'Education (Categories ISCED 1997)',
+      jobCharacteristics: 'Job characteristics',
+      _0_2: '0-2',
+      _3_4: '3-4',
+      _5_6: '5-6',
+      employees: 'Employees',
+      selfEmployed: 'Self-employed',
+      _1000Persons: '1000 persons',
+      forestry: 'Forestry (ISIC/NACE 02) - {{year}}',
+      manufacture_of_wood_and_articles_in_wood: 'Manufacture of wood and articles in wood (ISIC/NACE 16) - {{year}}',
+      manufacture_of_paper_and_paper_products: 'Manufacture of paper and paper products (ISIC/NACE 17) - {{year}}',
+    },
+
     // table 6.6
     occupationalAccidents: {
       occupationalAccidents: 'Occupational Accidents',

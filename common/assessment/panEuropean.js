@@ -125,6 +125,14 @@ const PanEuropean = {
           },
         },
 
+        '65b': {
+          name: 'employmentByEducationAndJobCharacteristics',
+          anchor: '6.5b',
+          tables: {
+            table_6_5b: 'table_6_5b',
+          },
+        },
+
         '66': {
           name: 'occupationalAccidents',
           anchor: '6.6',
