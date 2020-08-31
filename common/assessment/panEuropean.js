@@ -94,6 +94,14 @@ const PanEuropean = {
             table_2_4: 'table_2_4',
           },
 		    },
+		  
+        '25': {
+          name: 'areaWithForestLandDegradation',
+          anchor: '2.5',
+          tables: {
+            table_2_5: 'table_2_5',
+          },
+		    },
       },
     },    
     
@@ -122,14 +130,6 @@ const PanEuropean = {
           anchor: '6.5a',
           tables: {
             table_6_5a: 'table_6_5a',
-          },
-        },
-
-        '65b': {
-          name: 'employmentByEducationAndJobCharacteristics',
-          anchor: '6.5b',
-          tables: {
-            table_6_5b: 'table_6_5b',
           },
         },
 

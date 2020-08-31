@@ -1260,7 +1260,29 @@ The FRA team
       forest: 'Forest - {{year}}',
       other_wooded_land: 'Other wooded land - {{year}}',
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
-    }, 	
+    },
+
+    // table 2.5
+    areaWithForestLandDegradation: {
+      areaWithForestLandDegradation: 'Area with forest land degradation',
+      categoryYear: 'Category - Year',
+      totalAreaOfDegradedLand: 'Total area of degraded land',
+      areaPrimarilyDegradedBy: 'Area primarily degraded by',
+      formerDegradedLandRestored: 'Former degraded land restored',
+      grazing: 'Grazing',
+      repeatedFires: 'Repeated fires',
+      airPollution: 'Air pollution',
+      desertification: 'Desertification',
+      other1: 'Other 1',
+      other2: 'Other 2',
+      other3: 'Other 3',
+      unknown: 'Unknown',
+      nA: '',      
+      thousandHa: '1000 ha',
+      forest: 'Forest - {{year}}',
+      other_wooded_land: 'Other wooded land - {{year}}',
+      total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
+    },
 
     // table 6.4b
     totalFixedCapitalConsumptionInForestsAndForestry: {
@@ -1289,23 +1311,6 @@ The FRA team
       female: 'Female',
       _15_49: '15-49',
       _50_: '50+',
-      _1000Persons: '1000 persons',
-      forestry: 'Forestry (ISIC/NACE 02) - {{year}}',
-      manufacture_of_wood_and_articles_in_wood: 'Manufacture of wood and articles in wood (ISIC/NACE 16) - {{year}}',
-      manufacture_of_paper_and_paper_products: 'Manufacture of paper and paper products (ISIC/NACE 17) - {{year}}',
-    },
-
-	  // table 6.5b
-    employmentByEducationAndJobCharacteristics: {
-      employmentByEducationAndJobCharacteristics: 'Employment by education and job characteristics',
-      categoryYear: 'Category - Year',
-      education: 'Education (Categories ISCED 1997)',
-      jobCharacteristics: 'Job characteristics',
-      _0_2: '0-2',
-      _3_4: '3-4',
-      _5_6: '5-6',
-      employees: 'Employees',
-      selfEmployed: 'Self-employed',
       _1000Persons: '1000 persons',
       forestry: 'Forestry (ISIC/NACE 02) - {{year}}',
       manufacture_of_wood_and_articles_in_wood: 'Manufacture of wood and articles in wood (ISIC/NACE 16) - {{year}}',
