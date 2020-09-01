@@ -1416,6 +1416,16 @@ The FRA team
       areaPrimarilyDesignatedOrManagedForPublicRecreation: 'Area primarily designated or managed for public recreation',
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
     },
+
+	  // table 6.10b
+    intensityOfUse: {
+      intensityOfUse: 'Intensity of use',
+      categoryYear: 'Category - Year',
+      annualNumberOfVisitsMillion: 'Annual number of visits (million)',
+      areaAvailableForPublicRecreation: 'Area available for public recreation',
+      areaPrimarilyDesignatedAndOrManagedForPublicRecreation: 'Area primarily designated and/or managed for public recreation',
+      total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
+    },
     
 	  // table 6.10c
     recreationFacilities: {

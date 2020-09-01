@@ -20,6 +20,7 @@ import employmentByGenderAndAge from '@webapp/app/assessment/panEuropean/section
 import employmentByEducationAndJobCharacteristics from '@webapp/app/assessment/panEuropean/sections/table_6_5b/sectionSpec'
 import occupationalAccidents from '@webapp/app/assessment/panEuropean/sections/table_6_6/sectionSpec'
 import accessibilityForRecreation from '@webapp/app/assessment/panEuropean/sections/table_6_10a/sectionSpec'
+import intensityOfUse from '@webapp/app/assessment/panEuropean/sections/table_6_10b/sectionSpec'
 import recreationFacilities from '@webapp/app/assessment/panEuropean/sections/table_6_10c/sectionSpec'
 
 export default {
@@ -45,5 +46,6 @@ export default {
   [employmentByEducationAndJobCharacteristics.sectionName]: employmentByEducationAndJobCharacteristics,
   [occupationalAccidents.sectionName]: occupationalAccidents,
   [accessibilityForRecreation.sectionName]: accessibilityForRecreation,
+  [intensityOfUse.sectionName]: intensityOfUse,  
   [recreationFacilities.sectionName]: recreationFacilities,
 }
