@@ -10,6 +10,7 @@ import carbonStockInHarvestedWoodProductsHWP from '@webapp/app/assessment/panEur
 import forestAreaWithDamage from '@webapp/app/assessment/panEuropean/sections/table_2_4/sectionSpec'
 import treeSpeciesComposition from '@webapp/app/assessment/panEuropean/sections/table_4_1/sectionSpec'
 import totalForestAreaByExpansionAndRegenerationType from '@webapp/app/assessment/panEuropean/sections/table_4_2a/sectionSpec'
+import annualForestExpansionAndRegeneration from '@webapp/app/assessment/panEuropean/sections/table_4_2b/sectionSpec'
 import totalGrossFixedCapitalFormationInForestsAndForestry from '@webapp/app/assessment/panEuropean/sections/table_6_4a/sectionSpec'
 import totalFixedCapitalConsumptionInForestsAndForestry from '@webapp/app/assessment/panEuropean/sections/table_6_4b/sectionSpec'
 import totalCapitalTransfersInForestsAndForestry from '@webapp/app/assessment/panEuropean/sections/table_6_4c/sectionSpec'
@@ -31,7 +32,8 @@ export default {
   [carbonStockInHarvestedWoodProductsHWP.sectionName]: carbonStockInHarvestedWoodProductsHWP,
   [forestAreaWithDamage.sectionName]: forestAreaWithDamage,
   [treeSpeciesComposition.sectionName]: treeSpeciesComposition,
-  [totalForestAreaByExpansionAndRegenerationType.sectionName]: totalForestAreaByExpansionAndRegenerationType,  
+  [totalForestAreaByExpansionAndRegenerationType.sectionName]: totalForestAreaByExpansionAndRegenerationType,
+  [annualForestExpansionAndRegeneration.sectionName]: annualForestExpansionAndRegeneration,
   [totalGrossFixedCapitalFormationInForestsAndForestry.sectionName]: totalGrossFixedCapitalFormationInForestsAndForestry,
   [totalFixedCapitalConsumptionInForestsAndForestry.sectionName]: totalFixedCapitalConsumptionInForestsAndForestry,
   [totalCapitalTransfersInForestsAndForestry.sectionName]: totalCapitalTransfersInForestsAndForestry,

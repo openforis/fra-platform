@@ -1113,6 +1113,7 @@ The FRA team
     // navigation
     navigation: {
       forestResourcesAndCarbon: 'Forest Resources and Carbon',
+      maintenanceOfForestEcosystemHealthAndVitality: 'Maintenance of Forest Ecosystem Health and Vitality',
       biologicalDiversityInForestEcosystems: 'Biological Diversity in Forest Ecosystems',
       socioEconomicFunctionsAndConditions: 'Socio-economic functions and conditions',
     },
@@ -1287,6 +1288,21 @@ The FRA team
       forest: 'Forest - {{year}}',
     },
     
+    // table 4.2b
+    annualForestExpansionAndRegeneration: {
+      annualForestExpansionAndRegeneration: 'Annual forest expansion and regeneration',
+      categoryYear: 'Category - Year',
+      annualForestExpansionAndRegeneration1000ha: 'Annual forest expansion and regeneration (1000 ha)',
+      expansionOfForestArea: 'Expansion of forest area',
+      regenerationOfForestArea: 'Regeneration of forest area',
+      afforestation: 'Afforestation',
+      natural_expansion: 'Natural expansion',
+      natural_regeneration: 'Natural regeneration',
+      planting_and_seeding: 'Planting and seeding',
+      coppice: 'Coppice',
+      forest: 'Forest - {{year}}',
+    },
+
     // table 6.4a
     totalGrossFixedCapitalFormationInForestsAndForestry: {
       totalGrossFixedCapitalFormationInForestsAndForestry: 'Total gross fixed capital formation in forests and forestry',
