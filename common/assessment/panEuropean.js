@@ -131,6 +131,14 @@ const PanEuropean = {
           tables: {
             table_4_3a: 'table_4_3a',
           },
+        },        
+
+        '43b': {
+          name: 'naturalnessBySubclasses',
+          anchor: '4.3b',
+          tables: {
+            table_4_3b: 'table_4_3b',
+          },
 		    },        
         
       },

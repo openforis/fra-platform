@@ -1316,6 +1316,23 @@ The FRA team
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
     },
 
+    // table 4.3b
+    naturalnessBySubclasses: {
+      naturalnessBySubclasses: 'Naturalness by subclasses',
+      categoryYear: 'Category - Year',
+      area1000ha: 'Area (1000 ha)',
+      semiNatural: 'Semi-natural',
+      plantations: 'Plantations',
+      naturally_established: 'Naturally established',
+      naturalised_introduced_species: 'Naturalised introduced species',
+      established_by_planting_and_or_seeding: 'Established by planting and/or seeding',
+      coppice: 'Coppice',
+      unknown_origin: 'Unknown origin',
+      native_species: 'Native species',
+      introduced_species: 'Introduced species',
+      forest: 'Forest - {{year}}',
+    },
+
     // table 6.4a
     totalGrossFixedCapitalFormationInForestsAndForestry: {
       totalGrossFixedCapitalFormationInForestsAndForestry: 'Total gross fixed capital formation in forests and forestry',
