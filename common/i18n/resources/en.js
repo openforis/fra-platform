@@ -1262,6 +1262,18 @@ The FRA team
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
     }, 	
 
+    // table 6.4a
+    totalGrossFixedCapitalFormationInForestsAndForestry: {
+      totalGrossFixedCapitalFormationInForestsAndForestry: 'Total gross fixed capital formation in forests and forestry',
+      categoryYear: 'Category - Year',
+      grossFixedCapitalFormationMillionNationalCurrency: 'Gross fixed capital formation (million national currency)',
+      plantingOfTreesToProvideRegularIncome: 'Planting of trees to provide regular income',
+      equipmentAndBuildings: 'Equipment and buildings',
+      otherGrossFixedCapitalFormation: 'Other Gross fixed capital formation',
+      total: 'Total',
+      forestry_isic_nace_02: 'Forestry (ISIC/NACE 02) - {{year}}',
+    },
+
     // table 6.4b
     totalFixedCapitalConsumptionInForestsAndForestry: {
       totalFixedCapitalConsumptionInForestsAndForestry: 'Total Fixed Capital Consumption In Forests And Forestry',
