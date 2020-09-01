@@ -1113,11 +1113,11 @@ The FRA team
     // navigation
     navigation: {
       forestResourcesAndCarbon: 'Forest Resources and Carbon',
+      biologicalDiversityInForestEcosystems: 'Biological Diversity in Forest Ecosystems',
       socioEconomicFunctionsAndConditions: 'Socio-economic functions and conditions',
-      maintenanceOfForestEcosystemHealthAndVitality: 'Maintenance of Forest Ecosystem Health and Vitality'
     },
 
-	// table 1.1a
+	  // table 1.1a
     forestArea: {
       forestArea: 'Forest Area',
       categoryYear: 'Category - Year',
@@ -1261,6 +1261,20 @@ The FRA team
       other_wooded_land: 'Other wooded land - {{year}}',
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
     }, 	
+
+    // table 4.1
+    treeSpeciesComposition: {
+      treeSpeciesComposition: 'Tree species composition',
+      categoryYear: 'Category - Year',
+      areaWithNumberOfTreeSpeciesOccurring1000ha: 'Area with number of tree species occurring (1000 ha)',
+      area_with_number_of_tree_species_occurring_1: '1',
+      area_with_number_of_tree_species_occurring_2_3: '2-3',
+      area_with_number_of_tree_species_occurring_4_5: '4-5',
+      area_with_number_of_tree_species_occurring_6_pl: '6+',
+      forest: 'Forest - {{year}}',
+      other_wooded_land: 'Other wooded land - {{year}}',
+      total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
+    },
 
     // table 6.4a
     totalGrossFixedCapitalFormationInForestsAndForestry: {

@@ -97,6 +97,21 @@ const PanEuropean = {
       },
     },    
     
+    4: {
+      label: 'panEuropean.navigation.biologicalDiversityInForestEcosystems',
+      children: {
+		  
+        '41': {
+          name: 'treeSpeciesComposition',
+          anchor: '4.1',
+          tables: {
+            table_4_1: 'table_4_1',
+          },
+		    },  
+		
+      },
+    },
+
     6: {
       label: 'panEuropean.navigation.socioEconomicFunctionsAndConditions',
       children: {		  
@@ -166,7 +181,6 @@ const PanEuropean = {
 		
       },
     },
-    
   },
 }
 
