@@ -1303,6 +1303,19 @@ The FRA team
       forest: 'Forest - {{year}}',
     },
 
+    // table 4.3a
+    naturalness: {
+      naturalness: 'Naturalness',
+      categoryYear: 'Category - Year',
+      area1000ha: 'Area (1000 ha)',
+      undisturbed_by_man: 'Undisturbed by man',
+      semi_natural: 'Semi-natural',
+      plantations: 'Plantations',
+      forest: 'Forest - {{year}}',
+      other_wooded_land: 'Other wooded land - {{year}}',
+      total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
+    },
+
     // table 6.4a
     totalGrossFixedCapitalFormationInForestsAndForestry: {
       totalGrossFixedCapitalFormationInForestsAndForestry: 'Total gross fixed capital formation in forests and forestry',

@@ -123,7 +123,15 @@ const PanEuropean = {
           tables: {
             table_4_2b: 'table_4_2b',
           },
-		    },
+        },
+
+        '43a': {
+          name: 'naturalness',
+          anchor: '4.3a',
+          tables: {
+            table_4_3a: 'table_4_3a',
+          },
+		    },        
         
       },
     },
