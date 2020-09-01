@@ -3,8 +3,8 @@ const PanEuropean = {
   years: [1990, 2000, 2005, 2010, 2015, 2020],
   years90_20: [1990, 2000, 2005, 2010, 2015, 2020],
   years90_15: [1990, 2000, 2005, 2010, 2015],
-  years05_15: [2005, 2010, 2015],
   years15: [2015],
+  years88_17: [1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017],  
 
   sections: {
     1: {
@@ -25,6 +25,14 @@ const PanEuropean = {
           tables: { table_1_1b: 'table_1_1b' }
 		    },
 		  
+        '13b': {
+          name: 'diameterDistributionAndTotalAreaUnevenAgedStands',
+          anchor: '1.3b',
+          tables: {
+            table_1_3b: 'table_1_3b',
+          },
+		    },
+      		
         '12a': {
           name: 'growingStock',
           anchor: '1.2a',
@@ -56,14 +64,6 @@ const PanEuropean = {
             table_1_3a2: 'table_1_3a2',
           },
         },
-
-        '13b': {
-          name: 'diameterDistributionAndTotalAreaUnevenAgedStands',
-          anchor: '1.3b',
-          tables: {
-            table_1_3b: 'table_1_3b',
-          },
-		    },
         
         '14a': {
           name: 'carbonStock',
@@ -96,66 +96,26 @@ const PanEuropean = {
           },
 		    },
       },
-    },    
-    
-    4: {
-      label: 'panEuropean.navigation.biologicalDiversityInForestEcosystems',
-      children: {
-		  
-        '41': {
-          name: 'treeSpeciesComposition',
-          anchor: '4.1',
-          tables: {
-            table_4_1: 'table_4_1',
-          },
-		    },  
-
-        '42a': {
-          name: 'totalForestAreaByExpansionAndRegenerationType',
-          anchor: '4.2a',
-          tables: {
-            table_4_2a: 'table_4_2a',
-          },
-        },
-        
-        '42b': {
-          name: 'annualForestExpansionAndRegeneration',
-          anchor: '4.2b',
-          tables: {
-            table_4_2b: 'table_4_2b',
-          },
-        },
-
-        '43a': {
-          name: 'naturalness',
-          anchor: '4.3a',
-          tables: {
-            table_4_3a: 'table_4_3a',
-          },
-        },        
-
-        '43b': {
-          name: 'naturalnessBySubclasses',
-          anchor: '4.3b',
-          tables: {
-            table_4_3b: 'table_4_3b',
-          },
-		    },        
-        
-      },
     },
 
+    3: {
+      label: 'panEuropean.navigation.productiveFunctionsOfForestsWoodAndNonWood',
+      children: {
+		  
+        '32': {
+          name: 'removals',
+          anchor: '3.2',
+          tables: {
+            table_3_2: 'table_3_2',
+          },
+		    },
+      },
+    },  
+    
     6: {
       label: 'panEuropean.navigation.socioEconomicFunctionsAndConditions',
-      children: {		  
-        '64a': {
-          name: 'totalGrossFixedCapitalFormationInForestsAndForestry',
-          anchor: '6.4a',
-          tables: {
-            table_6_4a: 'table_6_4a',
-          },
-        },
-
+      children: {
+		  
         '64b': {
           name: 'totalFixedCapitalConsumptionInForestsAndForestry',
           anchor: '6.4b',
@@ -180,14 +140,6 @@ const PanEuropean = {
           },
         },
 
-        '65b': {
-          name: 'employmentByEducationAndJobCharacteristics',
-          anchor: '6.5b',
-          tables: {
-            table_6_5b: 'table_6_5b',
-          },
-        },
-
         '66': {
           name: 'occupationalAccidents',
           anchor: '6.6',
@@ -204,14 +156,6 @@ const PanEuropean = {
           },
         },        
 
-        '610b': {
-          name: 'intensityOfUse',
-          anchor: '6.10b',
-          tables: {
-            table_6_10b: 'table_6_10b',
-          },
-        },
-
         '610c': {
           name: 'recreationFacilities',
           anchor: '6.10c',
@@ -222,7 +166,7 @@ const PanEuropean = {
 		
       },
     },
-
+    
   },
 }
 
