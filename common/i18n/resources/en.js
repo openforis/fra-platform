@@ -1113,6 +1113,7 @@ The FRA team
     // navigation
     navigation: {
       forestResourcesAndCarbon: 'Forest Resources and Carbon',
+      maintenanceOfForestEcosystemHealthAndVitality: 'Maintenance of Forest Ecosystem Health and Vitality',
       biologicalDiversityInForestEcosystems: 'Biological Diversity in Forest Ecosystems',
       socioEconomicFunctionsAndConditions: 'Socio-economic functions and conditions',
     },

@@ -40,5 +40,6 @@ module.exports = {
   table_6_5a: table65a,
   table_6_5b: table65b,
   table_6_6: table66,
+  table_6_10a: table610a,
   table_6_10c: table610c,
 }
