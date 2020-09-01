@@ -108,7 +108,15 @@ const PanEuropean = {
             table_4_1: 'table_4_1',
           },
 		    },  
-		
+
+        '42a': {
+          name: 'totalForestAreaByExpansionAndRegenerationType',
+          anchor: '4.2a',
+          tables: {
+            table_4_2a: 'table_4_2a',
+          },
+		    },
+        
       },
     },
 
@@ -179,21 +187,6 @@ const PanEuropean = {
           },
         },        
 		
-      },
-    },
-
-    4: {
-      label: 'panEuropean.navigation.biologicalDiversityInForestEcosystems',
-      children: {
-		  
-        '42a': {
-          name: 'totalForestAreaByExpansionAndRegenerationType',
-          anchor: '4.2a',
-          tables: {
-            table_4_2a: 'table_4_2a',
-          },
-		    },
-      		
       },
     },
 
