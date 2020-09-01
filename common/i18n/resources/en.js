@@ -1276,6 +1276,17 @@ The FRA team
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
     },
 
+    // table 4.2a
+    totalForestAreaByExpansionAndRegenerationType: {
+      totalForestAreaByExpansionAndRegenerationType: 'Total forest area by expansion and regeneration type',
+      categoryYear: 'Category - Year',
+      totalAreaOfForestByExpansionRegenerationType1000ha: 'Total area of forest by expansion/regeneration type (1000 ha)',
+      natural_expansion_and_natural_regeneration: 'Natural expansion and natural regeneration',
+      afforestation_and_regeneration_by_planting_and_or_seeding: 'Afforestation and regeneration by planting and/or seeding',
+      coppice: 'Coppice',
+      forest: 'Forest - {{year}}',
+    },
+    
     // table 6.4a
     totalGrossFixedCapitalFormationInForestsAndForestry: {
       totalGrossFixedCapitalFormationInForestsAndForestry: 'Total gross fixed capital formation in forests and forestry',
