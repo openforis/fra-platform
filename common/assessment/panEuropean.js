@@ -140,7 +140,15 @@ const PanEuropean = {
           tables: {
             table_4_3b: 'table_4_3b',
           },
-		    },        
+        },        
+        
+        '49': {
+          name: 'protectedForests',
+          anchor: '4.9',
+          tables: {
+            table_4_9: 'table_4_9',
+          },
+        },        
         
       },
     },
