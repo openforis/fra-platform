@@ -16,7 +16,7 @@ import defaultYears from '@server/eof/defaultYears'
 import * as AppState from '@webapp/app/appState'
 import * as CountryState from '@webapp/app/country/countryState'
 
-import { fetchItem } from '@webapp/app/assessment/fra/components/tableWithOdp/actions'
+import { fetchItem } from '@webapp/app/countryLanding/views/contentCheck/tableWithOdp/actions'
 import { fetchTableData } from '@webapp/app/assessment/components/traditionalTable/actions'
 import { fetch } from '@webapp/app/assessment/fra/sections/growingStock/actions'
 

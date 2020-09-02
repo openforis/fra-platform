@@ -1,6 +1,6 @@
 import { applyReducerFunction } from '@webapp/utils/reduxUtils'
-import * as tableWithOdpActions from '../../components/tableWithOdp/actions'
-import { updateValueReducer, updateValuesReducer } from '../../components/tableWithOdp/reducerFunctions'
+import * as tableWithOdpActions from '../../../../countryLanding/views/contentCheck/tableWithOdp/actions'
+import { updateValueReducer, updateValuesReducer } from '../../../../countryLanding/views/contentCheck/tableWithOdp/reducerFunctions'
 
 const actionHandlers = {
   [tableWithOdpActions.valueChangeStart('forestCharacteristics')]: (state, action) => updateValueReducer(state, action),
