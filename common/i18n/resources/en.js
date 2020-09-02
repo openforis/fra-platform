@@ -1109,8 +1109,9 @@ The FRA team
     // navigation
     navigation: {
       forestResourcesAndCarbon: 'Forest Resources and Carbon',
+      maintenanceOfForestEcosystemHealthAndVitality: 'Maintenance of Forest Ecosystem Health and Vitality',
+      biologicalDiversityInForestEcosystems: 'Biological Diversity in Forest Ecosystems',
       socioEconomicFunctionsAndConditions: 'Socio-economic functions and conditions',
-      biologicalDiversityInForestEcosystems: 'Biological Diversity in Forest Ecosystems'
     },
 
 	  // table 1.1a
@@ -1134,6 +1135,99 @@ The FRA team
       harvested_wood_products: 'Harvested wood products - {{year}}',
     },
 
+    // table 2.4
+    forestAreaWithDamage: {
+      forestAreaWithDamage: 'Forest area with damage',
+      categoryYear: 'Category - Year',
+      areaWithDamageByDifferentAgents: 'Area with damage by different agents',
+      primarilyDamagedByBioticAgents: 'Primarily damaged by biotic agents',
+      damagePrimarilyHumanInduced: 'Damage primarily human induced',
+      primarilyDamagedByFire: 'Primarily damaged by fire',
+      thousandHa: '1000 ha',
+      total_area_with_damage: 'Total area with damage',
+      insects_and_disease: 'Insects and disease',
+      wildlife_and_grazing: 'Wildlife and grazing',
+      forest_operations: 'Forest operations',
+      other: 'Other',
+      primarily_damaged_by_abiotic_agents: 'Primarily damaged by abiotic agents (storm, wind, snow, etc.)',
+      primarily_damaged_by_fire_total: 'Total',
+      of_which_human_induced: 'of which human induced',
+      unspecified_mixed_damage: 'Unspecified / Mixed damage',
+      forest: 'Forest - {{year}}',
+      other_wooded_land: 'Other wooded land - {{year}}',
+      total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
+    }, 	
+
+    // table 4.1
+    treeSpeciesComposition: {
+      treeSpeciesComposition: 'Tree species composition',
+      categoryYear: 'Category - Year',
+      areaWithNumberOfTreeSpeciesOccurring1000ha: 'Area with number of tree species occurring (1000 ha)',
+      area_with_number_of_tree_species_occurring_1: '1',
+      area_with_number_of_tree_species_occurring_2_3: '2-3',
+      area_with_number_of_tree_species_occurring_4_5: '4-5',
+      area_with_number_of_tree_species_occurring_6_pl: '6+',
+      forest: 'Forest - {{year}}',
+      other_wooded_land: 'Other wooded land - {{year}}',
+      total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
+    },
+
+    // table 4.2a
+    totalForestAreaByExpansionAndRegenerationType: {
+      totalForestAreaByExpansionAndRegenerationType: 'Total forest area by expansion and regeneration type',
+      categoryYear: 'Category - Year',
+      totalAreaOfForestByExpansionRegenerationType1000ha: 'Total area of forest by expansion/regeneration type (1000 ha)',
+      natural_expansion_and_natural_regeneration: 'Natural expansion and natural regeneration',
+      afforestation_and_regeneration_by_planting_and_or_seeding: 'Afforestation and regeneration by planting and/or seeding',
+      coppice: 'Coppice',
+      forest: 'Forest - {{year}}',
+    },
+    
+    // table 4.2b
+    annualForestExpansionAndRegeneration: {
+      annualForestExpansionAndRegeneration: 'Annual forest expansion and regeneration',
+      categoryYear: 'Category - Year',
+      annualForestExpansionAndRegeneration1000ha: 'Annual forest expansion and regeneration (1000 ha)',
+      expansionOfForestArea: 'Expansion of forest area',
+      regenerationOfForestArea: 'Regeneration of forest area',
+      afforestation: 'Afforestation',
+      natural_expansion: 'Natural expansion',
+      natural_regeneration: 'Natural regeneration',
+      planting_and_seeding: 'Planting and seeding',
+      coppice: 'Coppice',
+      forest: 'Forest - {{year}}',
+    },
+
+    // table 4.3a
+    naturalness: {
+      naturalness: 'Naturalness',
+      categoryYear: 'Category - Year',
+      area1000ha: 'Area (1000 ha)',
+      undisturbed_by_man: 'Undisturbed by man',
+      semi_natural: 'Semi-natural',
+      plantations: 'Plantations',
+      forest: 'Forest - {{year}}',
+      other_wooded_land: 'Other wooded land - {{year}}',
+      total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
+    },
+
+    // table 4.3b
+    naturalnessBySubclasses: {
+      naturalnessBySubclasses: 'Naturalness by subclasses',
+      categoryYear: 'Category - Year',
+      area1000ha: 'Area (1000 ha)',
+      semiNatural: 'Semi-natural',
+      plantations: 'Plantations',
+      naturally_established: 'Naturally established',
+      naturalised_introduced_species: 'Naturalised introduced species',
+      established_by_planting_and_or_seeding: 'Established by planting and/or seeding',
+      coppice: 'Coppice',
+      unknown_origin: 'Unknown origin',
+      native_species: 'Native species',
+      introduced_species: 'Introduced species',
+      forest: 'Forest - {{year}}',
+    },
+
     // table 4.8
     threatenedForestSpecies: {
       threatenedForestSpecies: 'Threatened forest species',
@@ -1152,6 +1246,100 @@ The FRA team
       invertebrates: 'Invertebrates - {{year}}',
       vascular_plants: 'Vascular plants - {{year}}',
       cryptogams_and_fungi: 'Cryptogams and fungi - {{year}}',
+    },
+
+    // table 6.4a
+    totalGrossFixedCapitalFormationInForestsAndForestry: {
+      totalGrossFixedCapitalFormationInForestsAndForestry: 'Total gross fixed capital formation in forests and forestry',
+      categoryYear: 'Category - Year',
+      grossFixedCapitalFormationMillionNationalCurrency: 'Gross fixed capital formation (million national currency)',
+      plantingOfTreesToProvideRegularIncome: 'Planting of trees to provide regular income',
+      equipmentAndBuildings: 'Equipment and buildings',
+      otherGrossFixedCapitalFormation: 'Other Gross fixed capital formation',
+      total: 'Total',
+      forestry_isic_nace_02: 'Forestry (ISIC/NACE 02) - {{year}}',
+    },
+
+    // table 6.4b
+    totalFixedCapitalConsumptionInForestsAndForestry: {
+      totalFixedCapitalConsumptionInForestsAndForestry: 'Total Fixed Capital Consumption In Forests And Forestry',
+      categoryYear: 'Category - Year',
+      fixed_capital_consumption: 'Fixed capital consumption (million national currency)',
+      forestry_isic_nace_02: 'Forestry (ISIC/NACE 02) - {{year}}',
+    },
+
+    // table 6.4c
+    totalCapitalTransfersInForestsAndForestry: {
+      totalCapitalTransfersInForestsAndForestry: 'Total Capital Transfers In Forests And Forestry',
+      categoryYear: 'Category - Year',
+      capital_transfers: 'Capital transfers (million national currency)',
+      forestry_isic_nace_02: 'Forestry (ISIC/NACE 02) - {{year}}',
+    },
+
+	  // table 6.5a
+    employmentByGenderAndAge: {
+      employmentByGenderAndAge: 'Employment by gender and age',
+      categoryYear: 'Category - Year',
+      total: 'Total',
+      gender: 'Gender',
+      ageGroup: 'Age group',
+      male: 'Male',
+      female: 'Female',
+      _15_49: '15-49',
+      _50_: '50+',
+      _1000Persons: '1000 persons',
+      forestry: 'Forestry (ISIC/NACE 02) - {{year}}',
+      manufacture_of_wood_and_articles_in_wood: 'Manufacture of wood and articles in wood (ISIC/NACE 16) - {{year}}',
+      manufacture_of_paper_and_paper_products: 'Manufacture of paper and paper products (ISIC/NACE 17) - {{year}}',
+    },
+
+	  // table 6.5b
+    employmentByEducationAndJobCharacteristics: {
+      employmentByEducationAndJobCharacteristics: 'Employment by education and job characteristics',
+      categoryYear: 'Category - Year',
+      education: 'Education (Categories ISCED 1997)',
+      jobCharacteristics: 'Job characteristics',
+      _0_2: '0-2',
+      _3_4: '3-4',
+      _5_6: '5-6',
+      employees: 'Employees',
+      selfEmployed: 'Self-employed',
+      _1000Persons: '1000 persons',
+      forestry: 'Forestry (ISIC/NACE 02) - {{year}}',
+      manufacture_of_wood_and_articles_in_wood: 'Manufacture of wood and articles in wood (ISIC/NACE 16) - {{year}}',
+      manufacture_of_paper_and_paper_products: 'Manufacture of paper and paper products (ISIC/NACE 17) - {{year}}',
+    },
+
+    // table 6.6
+    occupationalAccidents: {
+      occupationalAccidents: 'Occupational Accidents',
+      categoryYear: 'Category - Year',
+      fatalOccupationalAccidents: 'Fatal occupational accidents',
+      nonFatalOccupationalAccidents: 'Non-fatal occupational accidents',
+      number: 'Number',
+      annualRatePer1000Workers: 'Annual rate per 1000 workers',
+      forestry_isic_nace_02: 'Forestry (ISIC/NACE 02) - {{year}}',
+    },
+
+    // table 6.10a
+    accessibilityForRecreation: {
+      accessibilityForRecreation: 'Accessibility for recreation',
+      categoryYear: 'Category - Year',
+      areaAvailableForPublicRecreation: 'Area available for public recreation',
+      total1000Ha: 'Total (1000 ha)',
+      _oftotal: '% of total',
+      areaPrimarilyDesignatedOrManagedForPublicRecreation: 'Area primarily designated or managed for public recreation',
+      total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
+    },
+
+	  // table 6.10b
+    intensityOfUse: {
+      intensityOfUse: 'Intensity of use',
+      categoryYear: 'Category - Year',
+      annualNumberOfVisitsMillion: 'Annual number of visits (million)',
+      areaAvailableForPublicRecreation: 'Area available for public recreation',
+      areaPrimarilyDesignatedAndOrManagedForPublicRecreation: 'Area primarily designated and/or managed for public recreation',
+      total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
     },
     
   },
