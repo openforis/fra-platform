@@ -1333,6 +1333,20 @@ The FRA team
       forest: 'Forest - {{year}}',
     },
 
+    // table 4.9
+    protectedForests: {
+      protectedForests: 'Protected forests',
+      categoryYear: 'Category - Year',
+      ha1000: '1000 ha',
+      mcpfe_class_1_1: 'MCPFE Class 1.1',
+      mcpfe_class_1_2: 'MCPFE Class 1.2',
+      mcpfe_class_1_3: 'MCPFE Class 1.3',
+      mcpfe_class_2: 'MCPFE Class 2',
+      forest: 'Forest - {{year}}',
+      other_wooded_land: 'Other wooded land - {{year}}',
+      total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
+    },
+
     // table 6.4a
     totalGrossFixedCapitalFormationInForestsAndForestry: {
       totalGrossFixedCapitalFormationInForestsAndForestry: 'Total gross fixed capital formation in forests and forestry',
