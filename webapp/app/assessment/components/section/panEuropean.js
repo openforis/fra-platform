@@ -15,6 +15,7 @@ import naturalness from '@webapp/app/assessment/panEuropean/sections/table_4_3a/
 import naturalnessBySubclasses from '@webapp/app/assessment/panEuropean/sections/table_4_3b/sectionSpec'
 import threatenedForestSpecies from '@webapp/app/assessment/panEuropean/sections/table_4_8/sectionSpec'
 import protectedForests from '@webapp/app/assessment/panEuropean/sections/table_4_9/sectionSpec'
+import protectiveForestsSoilWaterAndOtherEcosystemFunctions from '@webapp/app/assessment/panEuropean/sections/table_5_1/sectionSpec'
 import totalGrossFixedCapitalFormationInForestsAndForestry from '@webapp/app/assessment/panEuropean/sections/table_6_4a/sectionSpec'
 import totalFixedCapitalConsumptionInForestsAndForestry from '@webapp/app/assessment/panEuropean/sections/table_6_4b/sectionSpec'
 import totalCapitalTransfersInForestsAndForestry from '@webapp/app/assessment/panEuropean/sections/table_6_4c/sectionSpec'
@@ -43,6 +44,7 @@ export default {
   [naturalnessBySubclasses.sectionName]: naturalnessBySubclasses,  
   [threatenedForestSpecies.sectionName]: threatenedForestSpecies,
   [protectedForests.sectionName]: protectedForests,
+  [protectiveForestsSoilWaterAndOtherEcosystemFunctions.sectionName]: protectiveForestsSoilWaterAndOtherEcosystemFunctions,  
   [totalGrossFixedCapitalFormationInForestsAndForestry.sectionName]: totalGrossFixedCapitalFormationInForestsAndForestry,
   [totalFixedCapitalConsumptionInForestsAndForestry.sectionName]: totalFixedCapitalConsumptionInForestsAndForestry,
   [totalCapitalTransfersInForestsAndForestry.sectionName]: totalCapitalTransfersInForestsAndForestry,
