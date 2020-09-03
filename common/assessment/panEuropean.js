@@ -161,6 +161,21 @@ const PanEuropean = {
       },
     },
 
+    5: {
+      label: 'panEuropean.navigation.protectiveFunctionsInForestManagement',
+      children: {
+		  
+        '51': {
+          name: 'protectiveForestsSoilWaterAndOtherEcosystemFunctions',
+          anchor: '5.1',
+          tables: {
+            table_5_1: 'table_5_1',
+          },
+        },
+        
+      },
+    },
+
     6: {
       label: 'panEuropean.navigation.socioEconomicFunctionsAndConditions',
       children: {		  

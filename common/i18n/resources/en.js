@@ -1115,6 +1115,7 @@ The FRA team
       forestResourcesAndCarbon: 'Forest Resources and Carbon',
       maintenanceOfForestEcosystemHealthAndVitality: 'Maintenance of Forest Ecosystem Health and Vitality',
       biologicalDiversityInForestEcosystems: 'Biological Diversity in Forest Ecosystems',
+      protectiveFunctionsInForestManagement: 'Protective Functions in Forest Management',
       socioEconomicFunctionsAndConditions: 'Socio-economic functions and conditions',
     },
 
@@ -1362,6 +1363,19 @@ The FRA team
       mcpfe_class_1_2: 'MCPFE Class 1.2',
       mcpfe_class_1_3: 'MCPFE Class 1.3',
       mcpfe_class_2: 'MCPFE Class 2',
+      forest: 'Forest - {{year}}',
+      other_wooded_land: 'Other wooded land - {{year}}',
+      total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
+    },
+
+    // table 5.1
+    protectiveForestsSoilWaterAndOtherEcosystemFunctions: {
+      protectiveForestsSoilWaterAndOtherEcosystemFunctions: 'Protective forests – soil, water and other ecosystem functions; infrastructure and managed natural resources',
+      categoryYear: 'Category - Year',
+      protectiveForestsMCPFEClass31000ha: 'Protective forests - MCPFE Class 3 (1000 ha)',
+      soil_water_and_other_forest_ecosystem_functions: 'Soil, water and other forest ecosystem functions',
+      infrastructure_and_managed_natural_resources: 'Infrastructure and managed natural resources',
+      total: 'Total',
       forest: 'Forest - {{year}}',
       other_wooded_land: 'Other wooded land - {{year}}',
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
