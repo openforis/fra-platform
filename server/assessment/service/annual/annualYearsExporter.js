@@ -48,7 +48,7 @@ const getCountryData = async (country) => {
   }))
 }
 
-const getCsvOutput = (noVariableFolder) => {
+const getCsvOutput = (includeVariableFolders = true) => {
   const fieldsVariables = [
     // 5a, 5b
     ...DisturbancesExporter.fieldsWithLabels,
@@ -57,7 +57,13 @@ const getCsvOutput = (noVariableFolder) => {
 
   const fieldsCountryConfig = CountryConfigExporter.fieldsWithLabels
 
-  return new CSVOutputWithVariables('Annual', fieldsVariables, fieldsCountryConfig, YEARS_ANNUAL, noVariableFolder)
+  return new CSVOutputWithVariables(
+    'Annual',
+    fieldsVariables,
+    fieldsCountryConfig,
+    YEARS_ANNUAL,
+    includeVariableFolders
+  )
 }
 
 module.exports = {

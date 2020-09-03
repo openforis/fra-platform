@@ -24,7 +24,7 @@ module.exports.init = (app) => {
 
   app.get('/export/bulk-download', async (req, res) => {
     try {
-      const files = await ExportService.exportData(ExportService.EXPORT_TYPE.CSV, true)
+      const files = await ExportService.exportData(ExportService.EXPORT_TYPE.CSV, false)
 
       const zip = new JSZip()
       Object.values(files).forEach((file) => zip.file(file.fileName, file.content))

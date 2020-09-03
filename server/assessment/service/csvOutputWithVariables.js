@@ -5,14 +5,14 @@ const CsvOutput = require('./csvOutput')
 const VariablesUnit = require('./variablesUnit')
 
 class CsvOutputWithVariables extends CsvOutput {
-  constructor(fileName, fieldsVariables, fieldsCountryConfig, years, noVariableFolder) {
+  constructor(fileName, fieldsVariables, fieldsCountryConfig, years, includeVariableFolders = true) {
     super(fileName, ['year', ...fieldsCountryConfig, ...fieldsVariables])
 
     this._fieldsVariables = fieldsVariables
     this._fieldsCountryConfig = R.prepend({ value: 'forestArea2020', label: 'Forest area 2020' }, fieldsCountryConfig)
     this._years = years
     this._variablesOutputFiles = {}
-    this._noVariableFolder = noVariableFolder
+    this._includeVariableFolders = includeVariableFolders
 
     // singe variable output files
     this._fieldsVariables.forEach((field) => {
@@ -28,7 +28,7 @@ class CsvOutputWithVariables extends CsvOutput {
   get output() {
     let output = super.output
 
-    if (this._noVariableFolder) {
+    if (!this._includeVariableFolders) {
       return output
     }
 
