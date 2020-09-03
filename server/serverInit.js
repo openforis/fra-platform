@@ -46,7 +46,8 @@ module.exports = () => {
   // Custom error-handling for handling custom exceptions and
   // sending the uncaught errors as json instead of HTML
   // http://expressjs.com/en/guide/error-handling.html
-  app.use((err, req, res) => {
+  // NB: This must not be an arrow function to make express detect this as an error handler.
+  app.use(function (err, req, res, _next) {
     if (err) sendErr(res, err)
   })
 
