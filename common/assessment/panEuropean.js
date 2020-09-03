@@ -142,6 +142,14 @@ const PanEuropean = {
           },
         },        
         
+        '48': {
+          name: 'threatenedForestSpecies',
+          anchor: '4.8',
+          tables: {
+            table_4_8: 'table_4_8',
+          },
+		    },
+
         '49': {
           name: 'protectedForests',
           anchor: '4.9',

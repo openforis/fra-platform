@@ -1333,6 +1333,26 @@ The FRA team
       forest: 'Forest - {{year}}',
     },
 
+    // table 4.8
+    threatenedForestSpecies: {
+      threatenedForestSpecies: 'Threatened forest species',
+      categoryYear: 'Category - Year',
+      threatenedForestSpeciesCol: 'Threatened forest species',
+      absoluteNumber: 'Absolute number',
+      total_of_taxa: 'Total of taxa',
+      vulnerable: 'Vulnerable',
+      endangered: 'Endangered',
+      critically_endangered: 'Critically endangered',
+      extinct_in_the_wild: 'Extinct in the wild',
+      trees: 'Trees - {{year}}',
+      birds: 'Birds - {{year}}',
+      mammals: 'Mammals - {{year}}',
+      other_vertebrates: 'Other vertebrates - {{year}}',
+      invertebrates: 'Invertebrates - {{year}}',
+      vascular_plants: 'Vascular plants - {{year}}',
+      cryptogams_and_fungi: 'Cryptogams and fungi - {{year}}',
+    },
+
     // table 4.9
     protectedForests: {
       protectedForests: 'Protected forests',
