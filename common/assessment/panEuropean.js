@@ -179,6 +179,14 @@ const PanEuropean = {
     6: {
       label: 'panEuropean.navigation.socioEconomicFunctionsAndConditions',
       children: {		  
+        '62': {
+          name: 'grossValueAdded',
+          anchor: '6.2',
+          tables: {
+            table_6_2: 'table_6_2',
+          },
+		    },
+
         '64a': {
           name: 'totalGrossFixedCapitalFormationInForestsAndForestry',
           anchor: '6.4a',
