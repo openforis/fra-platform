@@ -1381,6 +1381,18 @@ The FRA team
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
     },
 
+    // table 6.2
+    grossValueAdded: {
+      grossValueAdded: 'Gross Value Added',
+      categoryYear: 'Category - Year',
+      grossValueAddedCol: 'Gross Value Added',
+      million_national_currency: 'Million national currency',
+      percent_of_total_gva: '% of total GVA',
+      forestry: 'Forestry (ISIC/NACE 02) - {{year}}',
+      manufacture_of_wood_and_articles_in_wood: 'Manufacture of wood and articles in wood (ISIC/NACE 16) - {{year}}',
+      manufacture_of_paper_and_paper_products: 'Manufacture of paper and paper products (ISIC/NACE 17) - {{year}}',
+    },
+
     // table 6.4a
     totalGrossFixedCapitalFormationInForestsAndForestry: {
       totalGrossFixedCapitalFormationInForestsAndForestry: 'Total gross fixed capital formation in forests and forestry',
