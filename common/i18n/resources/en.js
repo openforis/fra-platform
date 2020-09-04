@@ -1393,6 +1393,16 @@ The FRA team
       manufacture_of_paper_and_paper_products: 'Manufacture of paper and paper products (ISIC/NACE 17) - {{year}}',
     },
 
+    // table 6.3
+    factorIncomeAndEntrepreneurialIncome: {
+      factorIncomeAndEntrepreneurialIncome: 'Factor income and entrepreneurial income',
+      categoryYear: 'Category - Year',
+      millionNationalCurrency: 'Million national currency',
+      factor_income: 'Factor income',
+      net_operating_surplus: 'Net operating surplus',
+      forestry: 'Forestry (ISIC/NACE 02) - {{year}}',
+    },
+
     // table 6.4a
     totalGrossFixedCapitalFormationInForestsAndForestry: {
       totalGrossFixedCapitalFormationInForestsAndForestry: 'Total gross fixed capital formation in forests and forestry',
