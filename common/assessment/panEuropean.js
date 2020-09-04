@@ -187,6 +187,14 @@ const PanEuropean = {
           },
 		    },
 
+        '63': {
+          name: 'factorIncomeAndEntrepreneurialIncome',
+          anchor: '6.3',
+          tables: {
+            table_6_3: 'table_6_3',
+          },
+		    },
+
         '64a': {
           name: 'totalGrossFixedCapitalFormationInForestsAndForestry',
           anchor: '6.4a',
