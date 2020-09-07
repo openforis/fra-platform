@@ -1381,6 +1381,27 @@ The FRA team
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
     },
 
+    // table 6.1
+    forestHoldings: {
+      forestHoldings: 'Forest holdings',
+      categoryYear: 'Category - Year',
+      areaAndNumberOfForestHoldingsInSizeClasses: 'Area and number of forest holdings in size classes',
+      less10ha: '≤ 10 ha',
+      _11_500ha: '11 - 500 ha',
+      more500ha: '≥ 500 ha',
+      total_forest_area: 'Total forest area (1000 ha)',
+      total_number_of_holdings: 'Total number of holdings',
+      less_10_ha_area: 'Area (1000 ha)',
+      less_10_ha_number: 'Number of holdings',
+      _11_500_ha_area: 'Area (1000 ha)',
+      _11_500_ha_number: 'Number of holdings',
+      more_500_ha_area: 'Area (1000 ha)',
+      more_500_ha_number: 'Number of holdings',
+      in_public_ownership: 'In public ownership - {{year}}',
+      in_private_ownership: 'In private ownership - {{year}}',
+      other_types_of_ownership_unknown: 'Other types of ownership/unknown - {{year}}',
+    },
+
     // table 6.2
     grossValueAdded: {
       grossValueAdded: 'Gross Value Added',

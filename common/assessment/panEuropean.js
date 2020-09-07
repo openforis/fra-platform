@@ -179,6 +179,14 @@ const PanEuropean = {
     6: {
       label: 'panEuropean.navigation.socioEconomicFunctionsAndConditions',
       children: {		  
+        '61': {
+          name: 'forestHoldings',
+          anchor: '6.1',
+          tables: {
+            table_6_1: 'table_6_1',
+          },
+        },
+
         '62': {
           name: 'grossValueAdded',
           anchor: '6.2',
