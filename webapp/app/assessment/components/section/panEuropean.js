@@ -26,6 +26,7 @@ import totalCapitalTransfersInForestsAndForestry from '@webapp/app/assessment/pa
 import employmentByGenderAndAge from '@webapp/app/assessment/panEuropean/sections/table_6_5a/sectionSpec'
 import employmentByEducationAndJobCharacteristics from '@webapp/app/assessment/panEuropean/sections/table_6_5b/sectionSpec'
 import occupationalAccidents from '@webapp/app/assessment/panEuropean/sections/table_6_6/sectionSpec'
+import woodConsumption from '@webapp/app/assessment/panEuropean/sections/table_6_7/sectionSpec'
 import tradeInWood from '@webapp/app/assessment/panEuropean/sections/table_6_8/sectionSpec'
 import accessibilityForRecreation from '@webapp/app/assessment/panEuropean/sections/table_6_10a/sectionSpec'
 import intensityOfUse from '@webapp/app/assessment/panEuropean/sections/table_6_10b/sectionSpec'
@@ -60,6 +61,7 @@ export default {
   [employmentByGenderAndAge.sectionName]: employmentByGenderAndAge,
   [employmentByEducationAndJobCharacteristics.sectionName]: employmentByEducationAndJobCharacteristics,
   [occupationalAccidents.sectionName]: occupationalAccidents,
+  [woodConsumption.sectionName]: woodConsumption,
   [tradeInWood.sectionName]: tradeInWood,
   [accessibilityForRecreation.sectionName]: accessibilityForRecreation,
   [intensityOfUse.sectionName]: intensityOfUse,  

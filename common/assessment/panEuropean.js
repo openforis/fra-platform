@@ -266,6 +266,14 @@ const PanEuropean = {
           },
         },
 
+        '67': {
+          name: 'woodConsumption',
+          anchor: '6.7',
+          tables: {
+            table_6_7: 'table_6_7',
+          },
+        },
+
         '68': {
           name: 'tradeInWood',
           anchor: '6.8',
