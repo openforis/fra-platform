@@ -13,7 +13,7 @@ const variables = [
   '_of_which_with_tree_cover',
 ]
 
-const years = [...PanEuropean.years].reverse();
+const years = [...PanEuropean.years90_20].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_1_1a,
