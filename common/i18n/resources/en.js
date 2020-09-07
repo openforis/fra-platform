@@ -1114,6 +1114,7 @@ The FRA team
     navigation: {
       forestResourcesAndCarbon: 'Forest Resources and Carbon',
       maintenanceOfForestEcosystemHealthAndVitality: 'Maintenance of Forest Ecosystem Health and Vitality',
+      productiveFunctionsOfForestsWoodAndNonWood: 'Productive Functions of Forests (Wood and Non-Wood)',
       biologicalDiversityInForestEcosystems: 'Biological Diversity in Forest Ecosystems',
       protectiveFunctionsInForestManagement: 'Protective Functions in Forest Management',
       socioEconomicFunctionsAndConditions: 'Socio-economic functions and conditions',
@@ -1263,6 +1264,19 @@ The FRA team
       other_wooded_land: 'Other wooded land - {{year}}',
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
     }, 	
+
+    // table 3.2
+    removals: {
+      removals: 'Removals',
+      categoryYear: 'Category - Year',
+      woodRemovals: 'Wood removals',
+      total: 'Total',
+      industrialRoundwood: 'Industrial roundwood',
+      woodfuel: 'Woodfuel',
+      volume1000M3UB: 'Volume (1000 m³ u.b.)',
+      marketValue1000NationalCurrency: 'Market Value (1000  national currency)',
+      roundwood: 'Roundwood - {{year}}',
+    },
 
     // table 4.1
     treeSpeciesComposition: {
