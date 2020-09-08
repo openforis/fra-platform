@@ -15,6 +15,7 @@ import totalForestAreaByExpansionAndRegenerationType from '@webapp/app/assessmen
 import annualForestExpansionAndRegeneration from '@webapp/app/assessment/panEuropean/sections/table_4_2b/sectionSpec'
 import naturalness from '@webapp/app/assessment/panEuropean/sections/table_4_3a/sectionSpec'
 import naturalnessBySubclasses from '@webapp/app/assessment/panEuropean/sections/table_4_3b/sectionSpec'
+import introducedTreeSpecies from '@webapp/app/assessment/panEuropean/sections/table_4_4a/sectionSpec'
 import threatenedForestSpecies from '@webapp/app/assessment/panEuropean/sections/table_4_8/sectionSpec'
 import protectedForests from '@webapp/app/assessment/panEuropean/sections/table_4_9/sectionSpec'
 import protectiveForestsSoilWaterAndOtherEcosystemFunctions from '@webapp/app/assessment/panEuropean/sections/table_5_1/sectionSpec'
@@ -51,6 +52,7 @@ export default {
   [annualForestExpansionAndRegeneration.sectionName]: annualForestExpansionAndRegeneration,
   [naturalness.sectionName]: naturalness,
   [naturalnessBySubclasses.sectionName]: naturalnessBySubclasses,  
+  [introducedTreeSpecies.sectionName]: introducedTreeSpecies,
   [threatenedForestSpecies.sectionName]: threatenedForestSpecies,
   [protectedForests.sectionName]: protectedForests,
   [protectiveForestsSoilWaterAndOtherEcosystemFunctions.sectionName]: protectiveForestsSoilWaterAndOtherEcosystemFunctions,  
