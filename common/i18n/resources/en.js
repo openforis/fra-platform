@@ -1265,6 +1265,21 @@ The FRA team
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
     }, 	
 
+    // table 3.1
+    incrementAndFellings: {
+      incrementAndFellings: 'Increment and fellings',
+      categoryYear: 'Category - Year',
+      fellings: 'Fellings',
+      volume1000mob: 'Volume (1000 m³ o.b.)',
+      gross_annual_increment: 'Gross annual increment',
+      natural_losses: 'Natural losses',
+      net_annual_increment: 'Net annual increment',
+      fellings_total: 'Total',
+      _of_which_of_natural_losses: '... of which: of natural losses',
+      forest: 'Forest - {{year}}',
+      _of_which_forest_available_for_wood_supply: '... of which: Forest available for wood supply - {{year}}',
+    },
+    
     // table 3.2
     removals: {
       removals: 'Removals',

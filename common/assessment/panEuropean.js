@@ -166,6 +166,14 @@ const PanEuropean = {
       label: 'panEuropean.navigation.productiveFunctionsOfForestsWoodAndNonWood',
       children: {
 
+        '31': {
+          name: 'incrementAndFellings',
+          anchor: '3.1',
+          tables: {
+            table_3_1: 'table_3_1',
+          },
+        },
+
         '32': {
           name: 'removals',
           anchor: '3.2',
