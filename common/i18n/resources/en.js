@@ -1363,6 +1363,18 @@ The FRA team
       forest: 'Forest - {{year}}',
     },
 
+    // table4.4a
+    introducedTreeSpecies: {
+      introducedTreeSpecies: 'Introduced tree species',
+      categoryYear: 'Category - Year',
+      areaOfStandsDominatedByIntroducedTreeSpecies1000ha: 'Area of stands dominated by introduced tree species (1000 ha)',
+      total: 'Total',
+      _of_which_invasive: '… of which: invasive',
+      forest: 'Forest - {{year}}',
+      other_wooded_land: 'Other wooded land - {{year}}',
+      total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
+    },
+    
     // table 4.8
     threatenedForestSpecies: {
       threatenedForestSpecies: 'Threatened forest species',
