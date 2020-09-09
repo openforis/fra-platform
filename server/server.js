@@ -8,36 +8,35 @@ const cluster = require('cluster')
 
 const VersioningScheduler = require('./system/schedulers/versioningScheduler')
 
-if (cluster.isMaster) {
+const initialize = async () => {
+  if (cluster.isMaster) {
+    await migrations()
+    const numWorkers = process.env.WEB_CONCURRENCY || require('os').cpus().length
 
-  // check db migrations in master process
-  migrations()
+    console.log('Master cluster setting up ' + numWorkers + ' workers...')
 
-  const numWorkers = process.env.WEB_CONCURRENCY || require('os').cpus().length
+    for (let i = 0; i < numWorkers; i++) {
+      cluster.fork()
+    }
 
-  console.log('Master cluster setting up ' + numWorkers + ' workers...')
+    cluster.on('online', function (worker) {
+      console.log('Worker ' + worker.process.pid + ' is online')
+    })
 
-  for (let i = 0; i < numWorkers; i++) {
-    cluster.fork()
+    cluster.on('exit', function (worker, code, signal) {
+      console.log('Worker ' + worker.process.pid + ' died with code: ' + code + ', and signal: ' + signal)
+      console.log('Starting a new worker')
+      cluster.fork()
+    })
+
+    // ====== schedulers
+    const createSchedulers = async () => {
+      await VersioningScheduler.init()
+    }
+    createSchedulers()
+  } else {
+    serverInit()
   }
-
-  cluster.on('online', function (worker) {
-    console.log('Worker ' + worker.process.pid + ' is online')
-  })
-
-  cluster.on('exit', function (worker, code, signal) {
-    console.log('Worker ' + worker.process.pid + ' died with code: ' + code + ', and signal: ' + signal)
-    console.log('Starting a new worker')
-    cluster.fork()
-  })
-
-  // ====== schedulers
-  const createSchedulers = async () => {
-    await VersioningScheduler.init()
-  } 
-  createSchedulers()
-
-} else {
-  serverInit()
 }
 
+initialize()
