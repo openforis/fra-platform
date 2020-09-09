@@ -1,7 +1,7 @@
 const dbmigrate = require('db-migrate')
 
 module.exports = async () => {
-  console.log('running migrations')
+  console.log('Running db migrations')
   const dbm = dbmigrate.getInstance(true, {
     config: `${__dirname}/database.json`,
     cwd: `${__dirname}/`,
@@ -10,7 +10,7 @@ module.exports = async () => {
 
   try {
     await dbm.up()
-    console.log('successfully migrated')
+    console.log('DB successfully migrated')
   } catch (err) {
     console.log('error running migrations', err)
   }
