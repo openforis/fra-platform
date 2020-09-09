@@ -7,6 +7,7 @@ module.exports = async () => {
       config: `${__dirname}/database.json`,
       cwd: `${__dirname}/`,
       env: process.env.NODE_ENV,
+      throwUncatched: true,
     })
 
     await dbm.up()
