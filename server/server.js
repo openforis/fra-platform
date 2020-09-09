@@ -30,10 +30,7 @@ const initialize = async () => {
     })
 
     // ====== schedulers
-    const createSchedulers = async () => {
-      await VersioningScheduler.init()
-    }
-    createSchedulers()
+    await VersioningScheduler.init()
   } else {
     serverInit()
   }
