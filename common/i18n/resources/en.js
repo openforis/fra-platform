@@ -1277,11 +1277,12 @@ The FRA team
       other2: 'Other 2',
       other3: 'Other 3',
       unknown: 'Unknown',
-      nA: '',      
+      nA: '',
       thousandHa: '1000 ha',
       forest: 'Forest - {{year}}',
       other_wooded_land: 'Other wooded land - {{year}}',
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
+      otherNames: 'The names of other factors that area is primarily degraded by',
     },
 
     // table 6.4b

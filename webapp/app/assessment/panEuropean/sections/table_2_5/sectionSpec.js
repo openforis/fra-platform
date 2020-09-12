@@ -12,7 +12,7 @@ const variables = [
 
 const years = [...PanEuropean.years90_15].reverse()
 
-const tableSpec = SectionSpec.newTableSpec({
+const tableSpec1 = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_2_5,
   [SectionSpec.KEYS_TABLE.columnsExport]: ['total_area_of_degraded_land'],
   [SectionSpec.KEYS_TABLE.columnsExport]: ['grazing'],
@@ -141,8 +141,25 @@ const tableSpec = SectionSpec.newTableSpec({
   ],
 })
 
+// const tableSpec2 = SectionSpec.newTableSpec({
+//   [SectionSpec.KEYS_TABLE.name]: section.tables.table_2_5oth,
+//   [SectionSpec.KEYS_TABLE.secondary]: true,
+//   [SectionSpec.KEYS_TABLE.rows]: [
+//     SectionSpec.newRowData({
+//       [SectionSpec.KEYS_ROW.labelKey]: 'panEuropean.areaWithForestLandDegradation.otherNames',
+//       [SectionSpec.KEYS_ROW.mainCategory]: true,
+//       [SectionSpec.KEYS_ROW.cols]: [
+//         SectionSpec.newColText(),
+//         SectionSpec.newColText(),
+//         SectionSpec.newColText(),
+//       ],
+//     }),
+//   ],
+// })
+
 const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
+  // [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec1, tableSpec2],
+  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec1],
 })
 
 const areaWithForestLandDegradation = SectionSpec.newSectionSpec({

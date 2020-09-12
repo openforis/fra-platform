@@ -100,6 +100,7 @@ const PanEuropean = {
           anchor: '2.5',
           tables: {
             table_2_5: 'table_2_5',
+            table_2_5oth: 'table_2_5oth',
           },
 		    },
       },
