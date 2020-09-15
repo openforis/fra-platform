@@ -294,6 +294,7 @@ module.exports.translation = {
   },
 
   navigation: {
+    bulkDownload: 'Пакетная загрузка',
     hideAll: 'Скрыть все',
     showAll: 'Показать все',
     support: {

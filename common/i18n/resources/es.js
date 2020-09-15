@@ -293,6 +293,7 @@ El equipo de FRA
   },
 
   navigation: {
+    bulkDownload: 'Descarga masiva',
     hideAll: 'Esconder todo',
     showAll: 'Mostrar todo',
     support: {
