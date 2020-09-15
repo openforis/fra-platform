@@ -7,7 +7,7 @@ import * as ForestCharacteristicsState from '@webapp/app/assessment/fra/sections
 
 // ==== Datum validator functions
 
-export const plantationForestValidator = datum => () => {
+export const plantationForestValidator = (datum) => () => {
   const plantationForest = ForestCharacteristicsState.getPlantationForest(datum)()
   const plantationForestIntroduced = ForestCharacteristicsState.getPlantationForestIntroduced(datum)()
 
@@ -20,7 +20,7 @@ export const plantationForestValidator = datum => () => {
   return greaterThan(difference, tolerance)
 }
 
-export const totalForestAreaNotEqualToExtentOfForestValidator = datum => state => {
+export const totalForestAreaNotEqualToExtentOfForestValidator = (datum) => (state) => {
   const { name: year } = datum
   const forest = ExtentOfForestState.getForestByYear(year)(state)
   const totalForest = ForestCharacteristicsState.getTotalForest(datum)()
@@ -36,8 +36,8 @@ export const totalForestAreaNotEqualToExtentOfForestValidator = datum => state =
 
 //= === Validation messages
 
-export const getValidationMessages = data => state =>
-  data.map(datum => {
+export const getValidationMessages = (data) => (state) =>
+  data.map((datum) => {
     const messages = []
 
     if (!plantationForestValidator(datum)()) {

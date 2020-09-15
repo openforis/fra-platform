@@ -14,19 +14,19 @@ export const rowIndexes = {
   introduced: R.range(13, 18),
 }
 
-export const getTotalNativeTreeSpecies = colIdx =>
+export const getTotalNativeTreeSpecies = (colIdx) =>
   R.pipe(
     AssessmentState.getSectionData(FRA.type, section.name, section.tables.growingStockComposition),
     FRAUtils.sumTableColumn(colIdx, [...rowIndexes.native, 10])
   )
 
-export const getTotalIntroducedTreeSpecies = colIdx =>
+export const getTotalIntroducedTreeSpecies = (colIdx) =>
   R.pipe(
     AssessmentState.getSectionData(FRA.type, section.name, section.tables.growingStockComposition),
     FRAUtils.sumTableColumn(colIdx, [...rowIndexes.introduced, 18])
   )
 
-export const getTotalGrowingStock = colIdx => state => {
+export const getTotalGrowingStock = (colIdx) => (state) => {
   const totalNative = getTotalNativeTreeSpecies(colIdx)(state)
   const totalIntroduced = getTotalIntroducedTreeSpecies(colIdx)(state)
   return NumberUtils.sum([totalNative, totalIntroduced])
