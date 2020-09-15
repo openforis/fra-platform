@@ -26,8 +26,6 @@ const gitRevisionPlugin = config.mode === 'production' ? null : new GitRevisionP
 const fontCssFileName = 'woff2.css'
 
 const plugins = [
-  isDevelopment && new webpack.HotModuleReplacementPlugin(),
-  isDevelopment && new ReactRefreshWebpackPlugin(),
   new GoogleFontsPlugin({
     fonts: [
       {
@@ -50,7 +48,12 @@ const plugins = [
     __URL_STATISTICAL_FACTSHEETS__: JSON.stringify(process.env.URL_STATISTICAL_FACTSHEETS),
   }),
   new CleanWebpackPlugin(),
-].filter(Boolean)
+]
+
+if (isDevelopment) {
+  plugins.push(new webpack.HotModuleReplacementPlugin())
+  plugins.push(new ReactRefreshWebpackPlugin())
+}
 
 if (buildReport) {
   plugins.push(new BundleAnalyzerPlugin())
@@ -76,11 +79,13 @@ const appConfig = {
   },
   devServer: {
     hot: true,
-    proxy: [{
+    proxy: [
+      {
         // Proxy all server-served routes:
         context: ['/img', '/css', '/ckeditor', '/video', '/api'],
         target: 'http://localhost:9001',
-      }],
+      },
+    ],
     compress: false,
     port: 9000,
     historyApiFallback: true,
@@ -91,15 +96,10 @@ const appConfig = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: [
-          // ... other loaders
           {
             loader: 'babel-loader',
             options: {
-              // ... other options
-              plugins: [
-                // ... other plugins
-                isDevelopment && require.resolve('react-refresh/babel'),
-              ].filter(Boolean),
+              plugins: isDevelopment ? [require.resolve('react-refresh/babel')] : [],
             },
           },
         ],
