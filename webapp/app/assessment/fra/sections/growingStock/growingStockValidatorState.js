@@ -4,7 +4,7 @@ import { abs, add, eq, greaterThan, sub } from '@common/bignumberUtils'
 
 import * as GrowingStockState from '@webapp/app/assessment/fra/sections/growingStock/growingStockState'
 
-export const equalToTotalGrowingStockValidator = (year, value) => state => {
+export const equalToTotalGrowingStockValidator = (year, value) => (state) => {
   const totalForest = GrowingStockState.getTotalTableValue(year, GrowingStockState.variables.forest)(state)
 
   const tolerance = 1
@@ -14,7 +14,7 @@ export const equalToTotalGrowingStockValidator = (year, value) => state => {
   return R.isNil(value) || eq(totalForest, 0) || result
 }
 
-const subCategoryValidator = (parentVariable, childVariables) => datum => state => {
+const subCategoryValidator = (parentVariable, childVariables) => (datum) => (state) => {
   const { year } = datum
   const parentValue = GrowingStockState.getTotalTableValue(year, parentVariable)(state)
   const childValues = childVariables.reduce((childValuesTotal, childVariable) => {
@@ -27,7 +27,7 @@ const subCategoryValidator = (parentVariable, childVariables) => datum => state 
   return parentValue ? greaterThan(difference, tolerance) : true
 }
 
-const equalToTotalGrowingStockSubCategoryValidator = datum => state => {
+const equalToTotalGrowingStockSubCategoryValidator = (datum) => (state) => {
   const { year } = datum
 
   const plantedForest = GrowingStockState.getTotalTableValue(year, GrowingStockState.variables.plantedForest)(state)
@@ -47,7 +47,7 @@ const totalForestSubCategoryValidator = subCategoryValidator(GrowingStockState.v
   GrowingStockState.variables.naturallyRegeneratingForest,
 ])
 
-export const totalForestValidator = datum => state =>
+export const totalForestValidator = (datum) => (state) =>
   totalForestSubCategoryValidator(datum)(state) && equalToTotalGrowingStockSubCategoryValidator(datum)(state)
 
 export const totalPlantedForestValidator = subCategoryValidator(GrowingStockState.variables.plantedForest, [
@@ -57,8 +57,8 @@ export const totalPlantedForestValidator = subCategoryValidator(GrowingStockStat
 
 // ==== Validation messages
 
-export const getValidationMessages = data => state =>
-  data.map(datum => {
+export const getValidationMessages = (data) => (state) =>
+  data.map((datum) => {
     const messages = []
 
     if (!equalToTotalGrowingStockSubCategoryValidator(datum)(state)) {

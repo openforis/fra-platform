@@ -3,10 +3,9 @@
  * Don't put your verySpecificValidatorUsedInOnePlace here, leave it in tableSpec instead
  */
 import * as R from 'ramda'
-import { abs, greaterThan, greaterThanOrEqualTo, lessThan, sub, eq } from '@common/bignumberUtils'
+import { greaterThan, greaterThanOrEqualTo, sub } from '@common/bignumberUtils'
 import { totalSum } from '@common/aggregate'
 import { getForestAreaForYear, getOtherLandAreaForYear } from '@common/extentOfForestHelper'
-import { getTotalGrowingStockInForest } from '@webapp/app/assessment/fra/sections/growingStock/growingStock'
 
 /**
  * @deprecated
@@ -26,22 +25,6 @@ export const subCategoryValidator = (totalRowIndex, rowIndexes) => (
   return {
     valid,
     message: valid ? null : props.i18n.t('generalValidation.subCategoryExceedsParent'),
-  }
-}
-
-/**
- * @deprecated
- */
-export const forestAreaSameAsExtentOfForestValidator = (year, extentOfForest, rowIndexes) => (props, _, colIdx) => {
-  const eofForestArea = getForestAreaForYear(extentOfForest, year)
-  const forestArea = totalSum(props.tableData, colIdx, rowIndexes)
-  if (!eofForestArea || !forestArea) return { valid: true }
-  const tolerance = 1
-  const absDifference = abs(sub(eofForestArea, forestArea))
-  const result = lessThan(absDifference, tolerance)
-  return {
-    valid: result,
-    message: result ? null : props.i18n.t('generalValidation.forestAreaDoesNotMatchExtentOfForest'),
   }
 }
 
@@ -96,25 +79,5 @@ export const positiveOrZero = () => (props, row, column) => {
   return {
     valid,
     message: valid ? null : i18n.t('generalValidation.valueMustBePositive'),
-  }
-}
-
-/**
- * @deprecated
- */
-export const equalToTotalGrowingStock = (year, growingStock, aggregateFunction = null) => (props, row, column) => {
-  const { i18n, tableData } = props
-  const value = R.isNil(aggregateFunction) ? tableData[row][column] : aggregateFunction(tableData, column)
-  const totalGrowingStock = getTotalGrowingStockInForest(growingStock, year)
-
-  const tolerance = 1
-  const difference = sub(totalGrowingStock, value)
-  const result = !greaterThan(abs(difference), tolerance)
-
-  const valid = R.isNil(value) || eq(totalGrowingStock, 0) || result
-
-  return {
-    valid,
-    message: valid ? null : i18n.t('generalValidation.mustBeEqualToTotalGrowingStock'),
   }
 }

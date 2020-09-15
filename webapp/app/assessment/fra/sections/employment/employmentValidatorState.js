@@ -14,7 +14,7 @@ export const genderSubCategoryValidator = AssessmentStateValidator.subCategoryVa
   R.range(1, 5)
 )
 
-export const getValidationMessages = data => state => {
+export const getValidationMessages = (data) => (state) => {
   const colNo = data[0].length
   const messages = []
 

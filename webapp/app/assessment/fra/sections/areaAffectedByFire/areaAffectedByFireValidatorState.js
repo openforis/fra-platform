@@ -12,7 +12,7 @@ export const totalForestLandAreaAreaValidator = AssessmentStateValidator.subCate
   [1]
 )
 
-export const getValidationMessages = data => state => {
+export const getValidationMessages = (data) => (state) => {
   const colNo = data[0].length
   const messages = []
 

@@ -2,7 +2,7 @@ import React from 'react'
 import * as R from 'ramda'
 
 import TraditionalTable from '@webapp/app/assessment/components/traditionalTable/traditionalTable'
-import { primaryDesignatedManagementObjectiveTableSpec } from '@webapp/app/assessment/fra/sections/designatedManagementObjective/tableSpecs'
+import { primaryDesignatedManagementObjectiveTableSpec } from './tableSpec/designatedManagementObjective'
 
 const PrimaryDesignatedManagementObjectiveView = (props) => {
   const {years, countryIso, i18n, extentOfForest} = props

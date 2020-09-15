@@ -15,4 +15,4 @@ const _getValueByYear = (year, rowIdx) =>
     rowIdx,
   })
 
-export const getAboveGroundBiomassByYear = year => _getValueByYear(year, 0)
+export const getAboveGroundBiomassByYear = (year) => _getValueByYear(year, 0)
