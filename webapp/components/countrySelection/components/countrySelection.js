@@ -16,6 +16,11 @@ import CountryList from './countryList'
 import ToggleNavigationControl from './toggleNavigationControl'
 import AutoSaveStatusText from './autoSaveStatusText'
 
+const findElementRoot = (el) => {
+  if (el.parentElement === null) return el
+  return findElementRoot(el.parentElement)
+}
+
 const CountrySelection = () => {
   const dispatch = useDispatch()
   const countryIso = useCountryIso()
@@ -29,7 +34,13 @@ const CountrySelection = () => {
   const [query, setQuery] = useState('')
 
   const outsideClick = (evt) => {
-    if (!countrySelectionRef.current.contains(evt.target)) setOpen(false)
+    const elRoot = findElementRoot(evt.target)
+
+    // We need to check these two, since React can unmount the other element before we get here.
+    if (elRoot.className.includes('country-selection__country')) return
+    if (countrySelectionRef.current.contains(evt.target)) return
+
+    setOpen(false)
   }
 
   useEffect(() => {
