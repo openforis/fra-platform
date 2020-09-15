@@ -398,6 +398,7 @@ The FRA team
   },
 
   navigation: {
+    bulkDownload: 'Bulk Download',
     hideAll: 'Hide all',
     showAll: 'Show all',
     support: {

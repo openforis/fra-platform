@@ -36,9 +36,7 @@ module.exports.init = app => {
 
   app.get('/assessment/admin/export', Auth.requireAdminPermission, async (req, res) => {
     try {
-      const user = req.user
-
-      const files = await ExportService.exportData(user, ExportService.EXPORT_TYPE.CSV)
+      const files = await ExportService.exportData(ExportService.EXPORT_TYPE.CSV)
 
       const zip = new JSZip()
 
