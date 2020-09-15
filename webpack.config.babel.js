@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import path from 'path'
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import webpack from 'webpack'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -18,6 +19,7 @@ const config = {
   mode: process.env.NODE_ENV || 'development',
   path: path.resolve(__dirname, 'dist'),
 }
+const isDevelopment = process.env.NODE_ENV !== 'production'
 
 const gitRevisionPlugin = config.mode === 'production' ? null : new GitRevisionPlugin()
 
@@ -48,6 +50,11 @@ const plugins = [
   new CleanWebpackPlugin(),
 ]
 
+if (isDevelopment) {
+  plugins.push(new webpack.HotModuleReplacementPlugin())
+  plugins.push(new ReactRefreshWebpackPlugin())
+}
+
 if (buildReport) {
   plugins.push(new BundleAnalyzerPlugin())
 }
@@ -70,14 +77,32 @@ const appConfig = {
     path: config.path,
     publicPath: '/',
   },
+  devServer: {
+    hot: true,
+    proxy: [
+      {
+        // Proxy all server-served routes:
+        context: ['/img', '/css', '/ckeditor', '/video', '/api'],
+        target: 'http://localhost:9001',
+      },
+    ],
+    compress: false,
+    port: 9000,
+    historyApiFallback: true,
+  },
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        exclude: /(node_modules)/,
-        use: {
-          loader: 'babel-loader',
-        },
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              plugins: isDevelopment ? [require.resolve('react-refresh/babel')] : [],
+            },
+          },
+        ],
       },
       {
         test: /\.(less|css)$/,
