@@ -293,6 +293,7 @@ L'équipe de FRA
   },
 
   navigation: {
+    bulkDownload: 'Téléchargement groupé',
     hideAll: 'Masquer tout',
     showAll: 'Montrer tout',
     support: {
