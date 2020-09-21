@@ -2,6 +2,7 @@ const table11a = require('./table1_1a')
 const table11b = require('./table1_1b')
 const table12a = require('./table1_2a')
 const table12b = require('./table1_2b')
+const table12c = require('./table1_2c')
 const table13a1 = require('./table1_3a1')
 const table13a2 = require('./table1_3a2')
 const table13b = require('./table1_3b')
@@ -39,6 +40,7 @@ module.exports = {
   table_1_1b: table11b,
   table_1_2a: table12a,
   table_1_2b: table12b,
+  table_1_2c: table12c,
   table_1_3a1: table13a1,
   table_1_3a2: table13a2,
   table_1_3b: table13b,  

@@ -19,13 +19,13 @@ const PanEuropean = {
             table_1_1a: 'table_1_1a',
           },
         },
-        
+
         '11b': {
           name: 'forestAreaByForestTypes',
           anchor: '1.1b',
           tables: { table_1_1b: 'table_1_1b' }
-		    },
-		  
+        },
+
         '12a': {
           name: 'growingStock',
           anchor: '1.2a',
@@ -40,8 +40,16 @@ const PanEuropean = {
           tables: {
             table_1_2b: 'table_1_2b',
           },
-		    },
-		  
+        },
+
+        '12c': {
+          name: 'growingStockComposition',
+          anchor: '1.2c',
+          tables: {
+            table_1_2c: 'table_1_2c',
+          },
+        },
+
         '13a1': {
           name: 'ageClassDistributionAreaOfEvenAgedStands',
           anchor: '1.3a1',

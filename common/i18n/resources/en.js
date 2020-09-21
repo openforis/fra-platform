@@ -1167,7 +1167,29 @@ The FRA team
       predominantly_broadleaved_forest: 'Predominantly broadleaved forest',
       mixed_forest: 'Mixed forest'
     },
-  
+
+    // table 1.2c
+    growingStockComposition: {
+      growingStockComposition: 'Growing stock composition',
+      speciesName: 'Species name',
+      growingStockInForestMillionM3OB: 'Growing stock in forest (million m³ o.b.)',
+      rank: 'Rank',
+      scientificName: 'Scientific name',
+      commonName: 'Common name',
+      no1_ranked_in_terms_of_volume: '#1 Ranked in terms of volume',
+      no2_ranked_in_terms_of_volume: '#2 Ranked in terms of volume',
+      no3_ranked_in_terms_of_volume: '#3 Ranked in terms of volume',
+      no4_ranked_in_terms_of_volume: '#4 Ranked in terms of volume',
+      no5_ranked_in_terms_of_volume: '#5 Ranked in terms of volume',
+      no6_ranked_in_terms_of_volume: '#6 Ranked in terms of volume',
+      no7_ranked_in_terms_of_volume: '#7 Ranked in terms of volume',
+      no8_ranked_in_terms_of_volume: '#8 Ranked in terms of volume',
+      no9_ranked_in_terms_of_volume: '#9 Ranked in terms of volume',
+      no10_ranked_in_terms_of_volume: '#10 Ranked in terms of volume',
+      remaining: 'Remaining',
+      total: 'TOTAL',
+    },
+ 
     // table 1.3a1
     ageClassDistributionAreaOfEvenAgedStands: {
       ageClassDistributionAreaOfEvenAgedStands: 'Age class distribution (area of even-aged stands)',
@@ -1317,7 +1339,7 @@ The FRA team
       coppice: 'Coppice',
       forest: 'Forest - {{year}}',
     },
-    
+
     // table 4.2b
     annualForestExpansionAndRegeneration: {
       annualForestExpansionAndRegeneration: 'Annual forest expansion and regeneration',
