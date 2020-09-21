@@ -2,6 +2,7 @@ import forestArea from '@webapp/app/assessment/panEuropean/sections/table_1_1a/s
 import forestAreaByForestTypes from '@webapp/app/assessment/panEuropean/sections/table_1_1b/sectionSpec'
 import growingStock from '@webapp/app/assessment/panEuropean/sections/table_1_2a/sectionSpec'
 import growingStockByForestType from '@webapp/app/assessment/panEuropean/sections/table_1_2b/sectionSpec'
+import growingStockComposition from '@webapp/app/assessment/panEuropean/sections/table_1_2c/sectionSpec'
 import ageClassDistributionAreaOfEvenAgedStands from '@webapp/app/assessment/panEuropean/sections/table_1_3a1/sectionSpec'
 import ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply from '@webapp/app/assessment/panEuropean/sections/table_1_3a2/sectionSpec'
 import diameterDistributionAndTotalAreaUnevenAgedStands from '@webapp/app/assessment/panEuropean/sections/table_1_3b/sectionSpec'
@@ -39,6 +40,7 @@ export default {
   [forestAreaByForestTypes.sectionName]: forestAreaByForestTypes,
   [growingStock.sectionName]: growingStock,
   [growingStockByForestType.sectionName]: growingStockByForestType,
+  [growingStockComposition.sectionName]: growingStockComposition,  
   [ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.sectionName]: ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply,
   [ageClassDistributionAreaOfEvenAgedStands.sectionName]: ageClassDistributionAreaOfEvenAgedStands,
   [diameterDistributionAndTotalAreaUnevenAgedStands.sectionName]: diameterDistributionAndTotalAreaUnevenAgedStands,  
