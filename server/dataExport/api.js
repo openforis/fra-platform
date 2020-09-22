@@ -11,11 +11,11 @@ const panEuropean = (assessmentType) => (assessmentType === 'panEuropean' ? 'pan
 module.exports.init = (app) => {
   app.get('/export/:assessmentType/:section', async (req, res) => {
     try {
-      const { countries, columns, variable } = req.query
+      const { countries, columns, variables } = req.query
       const { assessmentType, section } = req.params
       const schemaName = panEuropean(assessmentType) || (await VersionService.getDatabaseSchema(req))
 
-      const result = await DataExportRepository.getExportData(schemaName, section, variable, countries, columns)
+      const result = await DataExportRepository.getExportData(schemaName, section, variables, countries, columns)
       res.json(result)
     } catch (err) {
       Request.sendErr(res, err)
