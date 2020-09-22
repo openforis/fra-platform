@@ -87,13 +87,14 @@ export const formatColumn = (column, section) => {
  * @param {string} section - url params: current section
  * @returns {{columnKey: *, value: *}} - formatted column and value, from results
  */
-export const getValue = (column, countryIso, results, section) => {
+export const getValue = (column, countryIso, results, section, variable) => {
   let columnKey = column
 
   if (isForestPolicySection(section)) columnKey = forestPolicy[column]
   if (isYearRange(column)) columnKey = yearRangeToUnderscore(column)
 
-  let value = results && results[countryIso] && results[countryIso][columnKey]
+  let value =
+    results && results[countryIso] && results[countryIso][variable] && results[countryIso][variable][columnKey]
   // Convert value to string and check if it's a number
   if (!Number.isNaN(+value)) value = NumberUtils.formatNumber(value)
   if (value === 'NaN') value = ''

@@ -132,7 +132,7 @@ const ResultsTable = (props) => {
                 {i18n.t(label)} {deskStudy && `(${i18n.t('assessment.deskStudy')})`}
               </th>
               {columnsResults.map((column) => {
-                const { columnKey, value } = getValue(column, countryIso, results, section)
+                const { columnKey, value } = getValue(column, countryIso, results, section, selection.variable.param)
 
                 return (
                   <td key={`${countryIso}${columnKey || column}`} className="fra-table__cell">
