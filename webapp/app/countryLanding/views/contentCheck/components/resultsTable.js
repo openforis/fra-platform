@@ -50,10 +50,8 @@ const ResultsTable = (props) => {
       </thead>
       <tbody>
         {rowHeaders.map((rowHeader) => (
-          <tr>
-            <th className="fra-table__category-cell" key={rowHeader}>
-              {i18n.t(`contentCheck.${rowHeader}`)}
-            </th>
+          <tr key={rowHeader}>
+            <th className="fra-table__category-cell">{i18n.t(`contentCheck.${rowHeader}`)}</th>
             {FRA.years.map((year) => (
               <td key={`${rowHeader}/${year}`} className="fra-table__cell">
                 {getValue(rowHeader, year)}
