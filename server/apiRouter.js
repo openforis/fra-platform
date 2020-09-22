@@ -21,6 +21,7 @@ const countryMessageBoardApi = require('./countryMessageBoard/countryMessageBoar
 const versioningApi = require('./versioning/api')
 const statisticalFactsheetsApi = require('./statisticalFactsheets/api')
 const dataExportApi = require('./dataExport/api')
+const contentCheck = require('./contentCheck/api')
 
 const apiRouter = express.Router()
 // Nothing should be cached by default with the APIs
@@ -50,5 +51,6 @@ countryMessageBoardApi.init(apiRouter)
 versioningApi.init(apiRouter)
 statisticalFactsheetsApi.init(apiRouter)
 dataExportApi.init(apiRouter)
+contentCheck.init(apiRouter)
 
 module.exports.router = apiRouter
