@@ -1,5 +1,5 @@
 module.exports = {
-  tableName: 'content_check_view_extent_view',
+  tableName: 'content_check_extent_view',
   rows: {
     names: [
       'forest_area',
