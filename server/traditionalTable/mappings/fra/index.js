@@ -35,6 +35,8 @@ const sustainableDevelopmentAgencySubIndicator2 = require('./sustainableDevelopm
 const sustainableDevelopmentAgencySubIndicator3 = require('./sustainableDevelopmentAgencySubIndicator3')
 const sustainableDevelopmentAgencySubIndicator4 = require('./sustainableDevelopmentAgencySubIndicator4')
 
+const contentCheck = require('./contentCheck')
+
 module.exports = {
   specificForestCategories,
   forestAreaChange,
@@ -72,4 +74,5 @@ module.exports = {
   sustainableDevelopmentAgencySubIndicator2,
   sustainableDevelopmentAgencySubIndicator3,
   sustainableDevelopmentAgencySubIndicator4,
+  ...contentCheck,
 }
