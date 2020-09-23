@@ -1,4 +1,5 @@
 const area = require('./fr/area')
+const statisticalFactsheets = require('./fr/statisticalFactsheets')
 
 module.exports.translation = {
   area,
@@ -11,16 +12,54 @@ module.exports.translation = {
   },
 
   common: {
-    fraPlatform: 'Plateforme de FRA',
-    login: 'Connexion',
-    statisticalFactsheets: 'Fiches statistiques',
+    column: 'Colonne',
+    countries: 'Pays',
     dataExport: 'Exportation de données',
+    fraPlatform: 'Plateforme de FRA',
+    globalFRA: 'Évaluation des ressources forestières mondiales',
+    login: 'Connexion',
+    other: 'Autre',
+    regions: 'Régions',
+    select: 'Choisissez',
     selectAll: 'Tout sélectionner',
+    selectArea: 'Choisissez une zone géographique',
+    statisticalFactsheets: 'Fiches statistiques',
+    unknown: 'Aucune fonction/Fonction inconnue',
     unselectAll: 'Tout déselectionner',
     variable: 'FRA Variable',
-    column: 'Colonne',
-    other: 'Autre',
-    unknown: 'Aucune fonction/Fonction inconnue',
+    year: 'Année',
+  },
+
+  home: {
+    keyFindings: `Le monde compte une superficie forestière totale de 4,06 milliards d'hectares
+(ha), ce qui correspond à 31 pour cent de la superficie totale des terres. Cela
+équivaut à 0,52 ha par personne - bien que les forêts ne soient pas également
+réparties entre les populations du monde ou sur le plan géographique. Le domaine
+tropical compte la plus grande part de forêts du monde (45 pour cent), suivi
+des domaines boréal, tempéré et sous-tropical`,
+  },
+
+  footer: {
+    contactUs: 'Contactez-nous',
+    termsAndConditions: 'Termes et conditions',
+    scamAlert: 'Alerte aux messages frauduleux',
+    reportMisconduct: 'Signaler un cas de mauvaise conduite',
+    userGuide: "Guide de l'utilisateur",
+    sendFeedback: 'Envoyer réactions',
+  },
+
+  statisticalFactsheets,
+
+  disclaimer: {
+    part1: `Ce site a été élaboré avec l’aide de l'`,
+    europeanUnion: 'Union européenne',
+    part2: ',  du ',
+    govFinland: 'Gouvernement de Finlande',
+    part3: ', du ',
+    govNorway: 'Gouvernement de Norvège',
+    part4: ' et du ',
+    gef: `Fonds pour l'environnement mondial`,
+    part5: `. Son contenu relève de la seule responsabilité de la FAO  et ne peut en aucun cas être considéré comme reflétant la position de l'Union européenne du Gouvernement de Finlande, du Gouvernement de Norvège ou du Fonds pour l'environnement mondial.`,
   },
 
   unit: {
@@ -30,10 +69,14 @@ module.exports.translation = {
     mileSq: 'mi²',
     acre1000: '1000 acres',
     acre: 'acre',
-    haMillion: "millions d'hectares",
+    haMillion: "millions d'ha",
     haThousandPerYear: '1000 ha / an',
     tonnesPerHa: 'tonnes / ha',
     millionsCubicMeterOverBark: 'millions de m³ sur écorce',
+    billionCubicMeter: 'billion m³',
+    gt: 'Gt',
+    fte1000: '1000 EPT',
+    numberOfStudents: '$t(graduationOfStudents.numberOfStudents)',
   },
 
   countrySelection: {
@@ -96,6 +139,7 @@ module.exports.translation = {
     home: 'Accueil',
     sections: {
       overview: 'Aperçu',
+      messageBoard: "Panneau d'affichage",
       about: 'À propos de FRA',
       recentActivity: 'Activité récente',
       userManagement: 'Gérer collaborateurs',
@@ -249,17 +293,16 @@ L'équipe de FRA
   },
 
   navigation: {
+    bulkDownload: 'Téléchargement groupé',
     hideAll: 'Masquer tout',
     showAll: 'Montrer tout',
     support: {
       dontDelete: 'Information de système, ne pas supprimer',
-      sendFeedback: 'Envoyer réactions',
       feedbackEmailSubject: 'Réactions sur la plateforme de FRA',
       platformVersion: 'Version plateforme',
       userAgent: 'Agent utilisateur',
       user: 'Utilisateur',
       manageCollaborators: 'Gérer collaborateurs',
-      userGuide: "Guide de l'utilisateur",
     },
     sectionHeaders: {
       introduction: 'Introduction',
@@ -581,6 +624,8 @@ L'équipe de FRA fra@fao.org
   },
 
   growingStockComposition: {
+    native: 'Indigène',
+    introduced: 'Introduite',
     growingStockComposition: 'Composition du matériel sur pied',
     categoryHeader: 'Catégories de FRA',
     nativeTreeSpecies: "Espèce d'arbre indigène",

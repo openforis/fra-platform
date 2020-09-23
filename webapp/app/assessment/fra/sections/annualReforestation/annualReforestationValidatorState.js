@@ -10,7 +10,7 @@ export const positiveOrZeroValidator = AssessmentStateValidator.positiveOrZeroVa
   section.tables.annualReforestation
 )
 
-export const getValidationMessages = data => state => {
+export const getValidationMessages = (data) => (state) => {
   const colNo = data[0].length
   const messages = []
 

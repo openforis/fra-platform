@@ -5,7 +5,7 @@ import * as ExtentOfForestValidatorState from '@webapp/app/assessment/fra/sectio
 
 const section = FRA.sections['6'].children.b
 
-export const areaOfPermanentEstateValidator = colIdx => state =>
+export const areaOfPermanentEstateValidator = (colIdx) => (state) =>
   ExtentOfForestValidatorState.lessThanOrEqualToForestValidator(
     FRA.yearsTable[colIdx - 1],
     AssessmentState.getTableDataCell({
@@ -17,7 +17,7 @@ export const areaOfPermanentEstateValidator = colIdx => state =>
     })(state)
   )(state)
 
-export const getValidationMessages = data => state => {
+export const getValidationMessages = (data) => (state) => {
   const colNo = data[0].length
   const messages = [[]]
 

@@ -1,4 +1,4 @@
-@import (reference) "~@webapp/main/styles/config";
+@import (reference) 'webapp/main/styles/config';
 
 /*
   Inspiration from:
@@ -20,12 +20,12 @@
 [data-tooltip]:after {
   opacity: 0;
   pointer-events: none;
-  transition: opacity .2s ease-out .1s;
+  transition: opacity 0.2s ease-out 0.1s;
 }
 
 /* Position tooltip above the element */
 [data-tooltip]:before {
-  z-index: 10;
+  z-index: @z-index-popover;
   position: absolute;
   bottom: 75%;
   left: 50%;
@@ -45,7 +45,7 @@
 /* Triangle hack to make tooltip look like a speech bubble */
 [data-tooltip]:after {
   position: absolute;
-  z-index: 10;
+  z-index: @z-index-popover;
   bottom: 75%;
   left: 50%;
   margin-left: -5px;
@@ -53,7 +53,7 @@
   border-top: 5px solid @ui-accent;
   border-right: 5px solid transparent;
   border-left: 5px solid transparent;
-  content: " ";
+  content: ' ';
   font-size: 0;
   line-height: 0;
 }

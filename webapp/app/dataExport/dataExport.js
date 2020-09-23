@@ -1,9 +1,5 @@
 import './dataExport.less'
 import React from 'react'
-import { Redirect, Route, Switch } from 'react-router'
-
-import * as BasePaths from '@webapp/main/basePaths'
-import * as FRA from '@common/assessment/fra'
 
 import ResultsTable from '@webapp/app/dataExport/components/resultsTable'
 import useDataExportState from './useDataExportState'
@@ -17,6 +13,7 @@ const DataExport = () => {
     selection,
     variables,
     columns,
+    columnsAlwaysExport,
     results,
     resultsLoading,
     hasSelection,
@@ -25,41 +22,39 @@ const DataExport = () => {
     setSelectionColumns,
   } = useDataExportState()
 
-  return (
-    <Switch>
-      <Route path={BasePaths.dataExport} exact>
-        <Redirect
-          to={BasePaths.getDataExportSectionLink(FRA.type, Object.values(FRA.sections['1'].children)[0].name)}
-        />
-      </Route>
+  if (countries.length === 0) return null
 
-      <Route>
-        <div className="app-view__content export">
-          <div className="export__form">
-            <CountrySelect
-              countries={countries}
-              selectionCountries={selection.countries}
-              setSelectionCountries={setSelectionCountries}
-            />
-            <VariableSelect
-              variables={variables}
-              selectionVariable={selection.variable}
-              setSelectionVariable={setSelectionVariable}
-            />
-            <ColumnSelect
-              columns={columns}
-              selectionColumns={selection.columns}
-              setSelectionColumns={setSelectionColumns}
-            />
-          </div>
-          <div className="export__table">
-            {hasSelection && (
-              <ResultsTable resultsLoading={resultsLoading} columns={columns} selection={selection} results={results} />
-            )}
-          </div>
-        </div>
-      </Route>
-    </Switch>
+  return (
+    <div className="app-view__content export">
+      <div className="export__form">
+        <CountrySelect
+          countries={countries}
+          selectionCountries={selection.countries}
+          setSelectionCountries={setSelectionCountries}
+        />
+        <VariableSelect
+          variables={variables}
+          selectionVariable={selection.variable}
+          setSelectionVariable={setSelectionVariable}
+        />
+        <ColumnSelect
+          columns={columns}
+          selectionColumns={selection.columns}
+          setSelectionColumns={setSelectionColumns}
+        />
+      </div>
+      <div className="export__table">
+        {hasSelection && (
+          <ResultsTable
+            resultsLoading={resultsLoading}
+            columns={columns}
+            columnsAlwaysExport={columnsAlwaysExport}
+            selection={selection}
+            results={results}
+          />
+        )}
+      </div>
+    </div>
   )
 }
 

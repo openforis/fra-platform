@@ -29,6 +29,7 @@ const getDataCols = (validator = null) =>
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.employment,
   [SectionSpec.KEYS_TABLE.columnsExport]: years.flatMap((year) => categories.map((category) => `${year}_${category}`)),
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.fte1000,
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [

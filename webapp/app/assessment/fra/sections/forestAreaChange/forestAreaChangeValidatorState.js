@@ -19,7 +19,7 @@ export const positiveOrZeroValidator = AssessmentStateValidator.positiveOrZeroVa
   section.tables.forestAreaChange
 )
 
-export const getValidationMessages = data => state => {
+export const getValidationMessages = (data) => (state) => {
   const colNo = data[0].length
   const messages = []
 

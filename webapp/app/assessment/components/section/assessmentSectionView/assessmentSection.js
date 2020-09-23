@@ -1,6 +1,6 @@
 import './assessmentSectionView.less'
 
-import React, { forwardRef } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 
@@ -17,7 +17,7 @@ import { useI18n, usePrintView } from '@webapp/components/hooks'
 import * as FraState from '@webapp/app/assessment/fra/fraState'
 import { isTypePanEuropean } from '@common/assessment/assessment'
 
-const AssessmentSection = forwardRef((props, ref) => {
+const AssessmentSection = (props) => {
   const { assessmentType, sectionName } = props
   const sectionSpec = SectionSpecs.getSectionSpec(assessmentType, sectionName)
 
@@ -29,7 +29,7 @@ const AssessmentSection = forwardRef((props, ref) => {
   const disabled = isTypePanEuropean(assessmentType) || isSectionDisabled
 
   return (
-    <div className={`app-view__content assessment-section__${sectionName}`} ref={ref}>
+    <div className={`app-view__content assessment-section__${sectionName}`}>
       {showTitle && printView && (
         <h2 className="title only-print">
           {`${printOnlyTablesView ? '' : `${sectionAnchor} `}${i18n.t(`${sectionName}.${sectionName}`)}`}
@@ -77,7 +77,7 @@ const AssessmentSection = forwardRef((props, ref) => {
       <div className="page-break" />
     </div>
   )
-})
+}
 
 AssessmentSection.propTypes = {
   assessmentType: PropTypes.string.isRequired,

@@ -1,13 +1,26 @@
 // Inspiration/base from cheerio-tableparser
 //
 
-export const getData = (
-  tableElement,
-  dupCols = true,
-  dupRows = true,
-  textMode = true,
-) => {
+const normalizeString = (string = '') => string.trim().replace(/\s/g, ' ')
 
+const getElementText = ({ element }) => {
+  const { children, innerText } = element
+
+  if (element.nodeName === 'SELECT') {
+    return normalizeString(element.options[element.selectedIndex].text)
+  }
+
+  if (children.length > 0) {
+    return Array.from(children).reduce(
+      (text, child) => normalizeString(`${text} ${getElementText({ element: child })}`),
+      ''
+    )
+  }
+
+  return normalizeString(innerText)
+}
+
+export const getData = (tableElement, dupCols = true, dupRows = true, textMode = true, formatToNumber = true) => {
   if (!tableElement) {
     return []
   }
@@ -18,16 +31,18 @@ export const getData = (
   let currentX = 0
   let currentY = 0
 
-  Array.from(tableElement.rows).forEach(row => {
+  Array.from(tableElement.rows).forEach((row) => {
     currentY = 0
     // Handle both table haders and table cells
-    Array.from(row.cells).forEach(column => {
+    Array.from(row.cells).forEach((column) => {
       const { rowSpan, colSpan } = column
-      const content = textMode ? column.innerText.trim().replace(/\s/g, ' ') : column.innerHTML
+      let content = textMode ? getElementText({ element: column }) : column.innerHTML
+      if (formatToNumber)
+        content = Number.isNaN(Number.parseFloat(content.replace(/\s/g, ''))) ? content : content.replace(/\s/g, '')
 
       // Handle spanning cells
-      for (let x = 0; x < rowSpan; x++) {
-        for (let y = 0; y < colSpan; y++) {
+      for (let x = 0; x < rowSpan; x += 1) {
+        for (let y = 0; y < colSpan; y += 1) {
           if (columns[currentY + y] === undefined) {
             columns[currentY + y] = []
           }
@@ -41,7 +56,6 @@ export const getData = (
 
           const condition = (x === 0 || dupRows) && (y === 0 || dupCols)
           columns[currentY + y][currentX + x] = condition ? content : ''
-
         }
       }
       currentY += 1
@@ -50,5 +64,5 @@ export const getData = (
   })
 
   // transpose matrix
-  return columns[0].map((_, i) => columns.map(row => row[i]))
+  return columns[0].map((_, i) => columns.map((row) => row[i]))
 }

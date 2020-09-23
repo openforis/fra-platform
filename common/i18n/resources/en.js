@@ -1,4 +1,5 @@
 const area = require('./en/area')
+const statisticalFactsheets = require('./en/statisticalFactsheets')
 
 module.exports.translation = {
   area,
@@ -11,65 +12,55 @@ module.exports.translation = {
   },
 
   common: {
-    fraPlatform: 'Fra platform',
-    login: 'Login',
-    statisticalFactsheets: 'Statistical factsheets',
+    column: 'Column',
+    countries: 'Countries',
     dataExport: 'Data Export',
+    fraPlatform: 'Fra platform',
+    globalFRA: 'Global Forest Resources Assessment',
+    login: 'Login',
+    other: 'Other',
+    regions: 'Regions',
+    select: 'Select',
     selectAll: 'Select all',
+    selectArea: 'Select geographical area',
+    statisticalFactsheets: 'Statistical factsheets',
+    unknown: 'None/unknown',
     unselectAll: 'Unselect all',
     variable: 'FRA Variable',
-    column: 'Column',
-    other: 'Other',
-    unknown: 'None/unknown',
+    year: 'Year',
   },
 
-  statisticalFactsheets: {
-    rowName: {
-      forest_area: 'Forest area',
-      natural_forest_area: 'Natural forest area',
-      planted_forest: 'Planted forest',
-      forest_area_within_protected_areas: 'Forest Area within Protected Areas',
-      land_area: 'Land Area',
-      primary_forest: 'Primary Forest',
-      private_ownership: 'Private ownership',
-      public_ownership: 'Public ownership',
-      other_or_unknown: 'Other or unknown',
-    },
-    forestArea: {
-      title: 'Forest Area (1990 - 2020)',
-    },
-    carbonAndGrowingStock: {
-      title: 'Carbon and Growing Stock (1990 - 2020)',
-      rowName: '',
-      carbon_stock_biomass_total: 'Carbon stock in biomass',
-      carbon_stock_total: 'Total carbon stock',
-      growing_stock_total: 'Growing stock',
-    },
-    forestAreaPercent: {
-      title: 'Forest Area (2020)',
-    },
-    primaryForest: {
-      title: 'Primary forest % of forest area (2020)',
-    },
-    forestOwnership: {
-      title: 'Forest Ownership (2015)',
-    },
-    forestAreaWithinProtectedAreas: {
-      title: 'Forest Area within Protected Areas (1990 - 2020)',
-    },
-    primaryDesignatedManagementObjective: {
-      title: 'Primary Designated Management Objective (1990 - 2020)',
-      rowName: '',
-      multiple_use: 'Multiple use',
-      other: 'Other',
-      production: 'Production',
-      protection_of_soil_and_water: 'Protection of soil and water',
-      social_services: 'Social services',
-    },
-    naturallyRegeneratingForest: {
-      title: 'Naturally regenerating forest and planted forest (1990 - 2020)',
-    },
+  disclaimer: {
+    part1: 'This website has been produced with the assistance of the ',
+    europeanUnion: 'European Union',
+    part2: ', the ',
+    govFinland: 'Government of Finland',
+    part3: ', the ',
+    govNorway: 'Government of Norway',
+    part4: ' and the ',
+    gef: 'Global Environment Facility',
+    part5:
+      '. Its contents are the sole responsibility of FAO and can in no way be taken to reflect the views of the European Union, the Government of Finland, the Government of Norway and the Global Environment Facility.',
   },
+
+  home: {
+    keyFindings: `The world has a total forest area of 4.06 billion hectares (ha), which is 31 percent 
+of the total land area. This area is equivalent to 0.52 ha per person - although 
+forests are not distributed equally among the world's peoples or geographically. 
+The tropical domain has the largest proportion of the world's forests (45 percent), 
+followed by the boreal, temperate and subtropical domains.`,
+  },
+
+  footer: {
+    contactUs: 'Contact us',
+    termsAndConditions: 'Terms and Conditions',
+    scamAlert: 'Scam Alert',
+    reportMisconduct: 'Report Misconduct',
+    userGuide: 'User guide',
+    sendFeedback: 'Send feedback',
+  },
+
+  statisticalFactsheets,
 
   unit: {
     haThousand: '1000 ha',
@@ -78,10 +69,14 @@ module.exports.translation = {
     mileSq: 'mi²',
     acre1000: '1000 acres',
     acre: 'acre',
-    haMillion: 'million hectares',
+    haMillion: 'million ha',
     haThousandPerYear: '1000 ha/year',
     tonnesPerHa: 'tonnes/ha',
     millionsCubicMeterOverBark: 'million m³ over bark',
+    billionCubicMeter: 'billion m³',
+    gt: 'Gt',
+    fte1000: '1000 FTE',
+    numberOfStudents: '$t(graduationOfStudents.numberOfStudents)',
   },
 
   countrySelection: {
@@ -174,13 +169,13 @@ The FRA team fra@fao.org
     home: 'Home',
     sections: {
       overview: 'Overview',
+      messageBoard: 'Message board',
       about: 'About FRA',
       recentActivity: 'Recent activity',
       userManagement: 'Manage collaborators',
       externalData: 'External data',
       links: 'Links & Repository',
       contentCheck: 'Content / Check',
-      dataExport: 'Data export',
       versioning: 'Versioning',
     },
     overview: {
@@ -403,17 +398,16 @@ The FRA team
   },
 
   navigation: {
+    bulkDownload: 'Bulk Download',
     hideAll: 'Hide all',
     showAll: 'Show all',
     support: {
       dontDelete: 'System information please don’t remove',
-      sendFeedback: 'Send feedback',
       feedbackEmailSubject: 'FRA Platform Feedback',
       platformVersion: 'Platform version',
       userAgent: 'User agent',
       user: 'User',
       manageCollaborators: 'Manage collaborators',
-      userGuide: 'User guide',
     },
     sectionHeaders: {
       introduction: 'Introduction',
@@ -732,6 +726,8 @@ The FRA team fra@fao.org
   },
 
   growingStockComposition: {
+    native: 'Native',
+    introduced: 'Introduced',
     growingStockComposition: 'Growing stock composition',
     categoryHeader: 'FRA categories',
     nativeTreeSpecies: 'Native tree species',

@@ -1,6 +1,6 @@
-@import (reference) "~@webapp/main/styles/config";
-@import (reference) "~@webapp/main/styles/statusMixins";
-@import (reference) "~@webapp/app/components/navigation/navigationMixins.less";
+@import (reference) 'webapp/main/styles/config';
+@import (reference) 'webapp/main/styles/statusMixins';
+@import (reference) 'webapp/app/components/navigation/navigationMixins.less';
 
 .nav-base {
   background-color: @ui-bg;
@@ -13,8 +13,13 @@
   overflow-x: hidden;
   overflow-y: auto;
   height: 100%;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding: 8px 0;
+
+  .nav__bulk-download {
+    margin-left: 16px;
+    margin-top: 24px;
+  }
+
 }
 
 .nav__divider {
@@ -26,7 +31,7 @@
 .nav__scroll-content {
   overflow-x: hidden;
   overflow-y: auto;
-  height: calc(~"100vh - 64px");
+  height: calc(~'100vh - 64px');
   padding-top: 8px;
   padding-bottom: 8px;
 }

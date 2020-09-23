@@ -1,5 +1,5 @@
-import * as tableWithOdpActions from '../../components/tableWithOdp/actions'
-import { updateValueReducer, updateValuesReducer } from '../../components/tableWithOdp/reducerFunctions'
+import * as tableWithOdpActions from '../../../../countryLanding/views/contentCheck/tableWithOdp/actions'
+import { updateValueReducer, updateValuesReducer } from '../../../../countryLanding/views/contentCheck/tableWithOdp/reducerFunctions'
 import { applyReducerFunction } from '@webapp/utils/reduxUtils'
 
 const actionHandlers = {

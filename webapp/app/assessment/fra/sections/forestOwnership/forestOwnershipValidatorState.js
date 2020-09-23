@@ -18,12 +18,12 @@ export const privateOwnershipValidator = AssessmentStateValidator.subCategoryVal
   rowsPrivateOwnership
 )
 
-export const otherOrUnknownValidator = colIdx => state => {
+export const otherOrUnknownValidator = (colIdx) => (state) => {
   const value = ForestOwnershipState.getOtherOrUnknown(colIdx)(state)
   return R.isNil(value) || NumberUtils.greaterThanOrEqualTo(value, 0)
 }
 
-export const getValidationMessages = data => state => {
+export const getValidationMessages = (data) => (state) => {
   const colNo = data[0].length
   const messages = []
 

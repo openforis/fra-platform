@@ -9,7 +9,8 @@ const years = FRA.yearsTable
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.growingStockComposition,
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['common_name', 'scientific_name', ...years],
+  [SectionSpec.KEYS_TABLE.columnsExport]: years,
+  [SectionSpec.KEYS_TABLE.columnsExportAlways]: ['common_name', 'scientific_name'],
   [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.millionsCubicMeterOverBark,
   [SectionSpec.KEYS_TABLE.tableDataRequired]: [
     {
@@ -62,6 +63,7 @@ const tableSpec = SectionSpec.newTableSpec({
     ...GrowingStockCompositionState.rowIndexes.native.map((idx) =>
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.labelKey]: 'growingStockComposition.rank',
+        [SectionSpec.KEYS_ROW.labelPrefixKey]: 'growingStockComposition.native',
         [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES[`native_rank${idx + 1}`],
         [SectionSpec.KEYS_ROW.labelParams]: { idx: idx + 1 },
         [SectionSpec.KEYS_ROW.cols]: [
@@ -103,6 +105,7 @@ const tableSpec = SectionSpec.newTableSpec({
     ...GrowingStockCompositionState.rowIndexes.introduced.map((rowIdx, idx) =>
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.labelKey]: 'growingStockComposition.rank',
+        [SectionSpec.KEYS_ROW.labelPrefixKey]: 'growingStockComposition.introduced',
         [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES[`introduced_rank${idx + 1}`],
         [SectionSpec.KEYS_ROW.labelParams]: { idx: idx + 1 },
         [SectionSpec.KEYS_ROW.cols]: [

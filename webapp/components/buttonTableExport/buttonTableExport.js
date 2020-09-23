@@ -22,7 +22,7 @@ const ButtonTableExport = (props) => {
     <CSVLink
       className={`fra-table__btn-export btn-xs btn-primary${isLocked && !disabled ? '' : ' disabled'}`}
       target="_blank"
-      filename={filename}
+      filename={`${filename}.csv`}
       data={Utils.getData(tableRef.current)}
     >
       <Icon className="icon-sub icon-white" name="hit-down" />

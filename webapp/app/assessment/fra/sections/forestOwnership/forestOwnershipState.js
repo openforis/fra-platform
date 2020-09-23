@@ -17,9 +17,9 @@ const _getTableDataCell = (colIdx, rowIdx) =>
     rowIdx,
   })
 
-export const getPublicOwnership = colIdx => _getTableDataCell(colIdx, 4)
+export const getPublicOwnership = (colIdx) => _getTableDataCell(colIdx, 4)
 
-export const getOtherOrUnknown = colIdx => state => {
+export const getOtherOrUnknown = (colIdx) => (state) => {
   const forestArea = ExtentOfForestState.getForestByYearFraIdx(colIdx)(state)
   return [0, 4].reduce((value, rowIdx) => {
     return NumberUtils.sub(value, _getTableDataCell(colIdx, rowIdx)(state))

@@ -1,5 +1,6 @@
 const R = require('ramda')
-
+const FRA = require('./fra')
+const PanEuropean = require('./panEuropean')
 const { assessmentStatus } = require('../assessment')
 
 const keys = {
@@ -9,7 +10,6 @@ const keys = {
   canEditData: 'canEditData',
   canEditComments: 'canEditComments',
   tablesAccess: 'tablesAccess',
-  panEuropean: 'panEuropean',
 }
 
 // ====== READ
@@ -19,7 +19,9 @@ const getDeskStudy = R.propEq(keys.deskStudy, true)
 const getCanEditData = R.propEq(keys.canEditData, true)
 const getTablesAccess = R.propOr([], keys.tablesAccess)
 const isStatusChanging = R.pipe(getStatus, R.equals(assessmentStatus.changing))
-const isTypePanEuropean = R.equals(keys.panEuropean)
+// Type utils
+const isTypePanEuropean = R.equals(PanEuropean.type)
+const isTypeFRA = R.equals(FRA.type)
 
 // ====== UPDATE
 const assocStatus = R.assoc(keys.status)
@@ -35,6 +37,7 @@ module.exports = {
   getTablesAccess,
   isStatusChanging,
   isTypePanEuropean,
+  isTypeFRA,
 
   assocStatus,
   assocDeskStudy,

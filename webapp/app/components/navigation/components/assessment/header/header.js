@@ -2,66 +2,60 @@ import './header.less'
 
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
+import * as Assessment from '@common/assessment/assessment'
+import { Area } from '@common/country'
 import * as BasePaths from '@webapp/main/basePaths'
 
 import Icon from '@webapp/components/icon'
-import { Link } from 'react-router-dom'
-import useCountryIso from '@webapp/components/hooks/useCountryIso'
-import { useIsDataExportView } from '@webapp/components/hooks'
+import { useCountryIso, useUserInfo } from '@webapp/components/hooks'
 
-import { isTypePanEuropean } from '@common/assessment/assessment'
-import Lock from './lock'
+import Title from './title'
 import Status from './status'
-import AssessmentTitle from './title'
 import ToggleAllButton from './buttonToggleAll'
 
 const Header = (props) => {
-  const {
-    assessment,
-    assessment: { type: assessmentType },
-    showSections,
-    setShowSections,
-  } = props
+  const { assessment, showSections, setShowSections } = props
 
+  const assessmentType = Assessment.getType(assessment)
   const countryIso = useCountryIso()
-  if (useIsDataExportView() || isTypePanEuropean(assessmentType)) {
-    return (
-      <div className="nav-assessment-header">
-        <div className="nav-assessment-header__label">
-          <AssessmentTitle type={assessmentType} />
-          <ToggleAllButton setShowSections={setShowSections} showSections={showSections} />
-        </div>
-      </div>
-    )
-  }
+  const userInfo = useUserInfo()
+
+  const isCountry = Area.isISOCountry(countryIso)
+  const isFRA = Assessment.isTypeFRA(assessmentType)
 
   return (
     <div className="nav-assessment-header">
       <div className="nav-assessment-header__label">
-        <Lock assessment={assessment} />
+        <Title assessment={assessment} lockEnabled={Boolean(userInfo && isFRA && isCountry)} />
 
-        <div>
-          <Link
-            className="btn-s btn-secondary"
-            to={BasePaths.getAssessmentPrintLink(countryIso, assessmentType, true)}
-            target="_blank"
-          >
-            <Icon name="small-print" className="icon-margin-left" />
-            <Icon name="icon-table2" className="icon-no-margin" />
-          </Link>
-          <Link
-            className="btn-s btn-secondary"
-            to={BasePaths.getAssessmentPrintLink(countryIso, assessmentType)}
-            target="_blank"
-          >
-            <Icon name="small-print" className="icon-no-margin" />
-          </Link>
-        </div>
+        {isFRA && isCountry && (
+          <div className="links-download">
+            <Link
+              className="btn-s btn-secondary"
+              to={BasePaths.getAssessmentPrintLink(countryIso, assessmentType, true)}
+              target="_blank"
+              alt=""
+            >
+              <Icon name="small-print" className="icon-margin-left" />
+              <Icon name="icon-table2" className="icon-no-margin" />
+            </Link>
+
+            <Link
+              className="btn-s btn-secondary"
+              to={BasePaths.getAssessmentPrintLink(countryIso, assessmentType)}
+              target="_blank"
+              alt=""
+            >
+              <Icon name="small-print" className="icon-no-margin" />
+            </Link>
+          </div>
+        )}
       </div>
 
       <div className="nav-assessment-header__status-container">
-        <Status assessment={assessment} />
+        {isFRA && isCountry ? <Status assessment={assessment} /> : <div />}
         <ToggleAllButton showSections={showSections} setShowSections={setShowSections} />
       </div>
     </div>

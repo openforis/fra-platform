@@ -73,7 +73,7 @@ WITH s AS (
            ROUND("2010", 2) AS "2010",
            ROUND("2015", 2) AS "2015",
            ROUND("2020", 2) AS "2020"
-    FROM primary_designated_management_objective
+    FROM primary_designated_management_objective_view
     WHERE row_name = 'production'
        OR row_name = 'protection_of_soil_and_water'
        OR row_name = 'conservation_of_biodiversity'
@@ -88,12 +88,11 @@ WITH s AS (
            ROUND("2010", 2) AS "2010",
            ROUND("2015", 2) AS "2015",
            NULL             AS "2020"
-    FROM forest_ownership
+    FROM forest_ownership_view
     WHERE row_name = 'private_ownership'
        OR row_name = 'public_ownership'
        OR row_name = 'other_or_unknown'
-    GROUP BY country_iso, row_name
-    ORDER BY country_iso),
+    ),
      s2 AS (
          SELECT c.country_iso AS level,
                 s.row_name,
