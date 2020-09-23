@@ -72,3 +72,4 @@ SELECT country_iso
 FROM specific_forest_categories
 WHERE row_name = 'bamboo'
    OR row_name = 'mangroves';
+
