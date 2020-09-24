@@ -4,7 +4,7 @@ const levels = {
 }
 
 const isISOGlobal = (isoCode) => isoCode === levels.global
-const isISOCountry = (isoCode) => isoCode.length === 3
+const isISOCountry = (isoCode) => /^[a-zA-Z0-9]{3}$/.test(isoCode)
 const isISORegion = (isoCode) => levels.regions.includes(isoCode)
 
 module.exports = {

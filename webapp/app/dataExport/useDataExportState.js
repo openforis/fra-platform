@@ -42,7 +42,7 @@ export default () => {
     params: {
       columns: [...columnsAlwaysExport, ...selection.columns.map(({ param }) => formatColumn(param, section))],
       countries: selection.countries.map(({ param }) => param),
-      variable: selection.variable.param,
+      variables: [selection.variable.param],
     },
   })
 
