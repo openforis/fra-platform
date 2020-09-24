@@ -57,7 +57,7 @@ const tableSection = SectionSpec.newTableSection({
   [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpecExtent],
 })
 
-const contentCheckView = SectionSpec.newSectionSpec({
+const sectionSpec = SectionSpec.newSectionSpec({
   [SectionSpec.KEYS_SECTION.sectionName]: section.name,
   [SectionSpec.KEYS_SECTION.sectionAnchor]: '',
   [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
@@ -70,4 +70,4 @@ const contentCheckView = SectionSpec.newSectionSpec({
   },
 })
 
-export default contentCheckView
+export default sectionSpec
