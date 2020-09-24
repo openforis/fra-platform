@@ -8,7 +8,7 @@ import MessageBoard from '@webapp/app/countryLanding/views/messageBoard'
 import RecentActivityView from '@webapp/app/countryLanding/views/recentActivityView'
 import LinksView from '@webapp/app/countryLanding/views/linksView'
 import ManageCollaboratorsView from '@webapp/app/countryLanding/views/manageCollaboratorsView'
-import ContentCheck from '@webapp/app/countryLanding/views/contentCheck/contentCheck'
+import ContentCheck from '@webapp/app/countryLanding/views/contentCheck'
 import StatisticalFactsheets from '@webapp/app/countryLanding/views/statisticalFactsheets'
 
 const getSections = (countryIso, userInfo) => {
