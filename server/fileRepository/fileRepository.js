@@ -1,24 +1,30 @@
 const fs = require('fs')
+const path = require('path')
 
 const fileTypes = {
   userGuide: {
     key: 'userGuide',
+    folder: 'userGuide',
     downloadName: 'User Guide FRA Platform',
     fileType: 'pdf',
   },
   panEuropeanQuestionnaire: {
     key: 'panEuropeanQuestionnaire',
+    folder: 'panEuropeanQuestionnaire',
     downloadName: 'Pan European Questionnaire',
     fileType: 'xls',
   },
+  statisticalFactsheets: (levelIso) => ({
+    key: levelIso,
+    folder: 'statisticalFactsheets',
+    downloadName: `Statistical Factsheets (${levelIso})`,
+    fileType: 'ods',
+  }),
 }
 
+const getFilepath = (type, lang) => path.resolve(__dirname, type.folder, `${type.key}_${lang}.${type.fileType}`)
+
 const downloadFile = (res, type, lang) => {
-
-  const rootPath = `${__dirname}/${type.key}/${type.key}`
-
-  const getFilepath = (type, lang) => `${rootPath}_${lang}.${type.fileType}`
-
   const filePath = getFilepath(type, lang)
   const fallbackFilePath = getFilepath(type, 'en')
 
@@ -27,7 +33,6 @@ const downloadFile = (res, type, lang) => {
   } else {
     res.download(fallbackFilePath, `${type.downloadName}.${type.fileType}`)
   }
-
 }
 
 module.exports = {

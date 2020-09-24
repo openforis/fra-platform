@@ -1,4 +1,5 @@
 const area = require('./es/area')
+const statisticalFactsheets = require('./es/statisticalFactsheets')
 
 module.exports.translation = {
   area,
@@ -11,16 +12,56 @@ module.exports.translation = {
   },
 
   common: {
-    fraPlatform: 'Plataforma de FRA',
-    login: 'Entrar',
-    statisticalFactsheets: 'Fichas estadísticas',
+    column: 'Columna',
+    countries: 'Países',
     dataExport: 'Exportación de datos',
+    fraPlatform: 'Plataforma de FRA',
+    globalFRA: 'Evaluación de los recursos forestales mundiales',
+    login: 'Entrar',
+    other: 'Otros',
+    regions: 'Regiones',
+    select: 'Seleccionar',
     selectAll: 'Seleccionar todo',
+    selectArea: 'Seleccionar área geográfica',
+    statisticalFactsheets: 'Fichas estadísticas',
+    unknown: 'Ninguno/desconocido',
     unselectAll: 'Deseleccionar todo',
     variable: 'FRA Variable',
-    column: 'Columna',
-    other: 'Otros',
-    unknown: 'Ninguno/desconocido',
+    year: 'Año',
+  },
+
+  home: {
+    keyFindings: `El área total de bosques en el mundo es de 4 060 millones de hectáreas (ha),
+que corresponde al 31 por ciento de la superficie total de la tierra. Esta área
+es equivalente a 0,52 ha por persona
+, aunque los bosques no están distribuidos
+de manera equitativa por población mundial o situación geográfica. Las zonas
+tropicales poseen la mayor proporción de los bosques del mundo (45 por ciento),
+el resto está localizado en las regiones boreales, templadas y subtropicales.`,
+  },
+
+  footer: {
+    contactUs: 'Contacto',
+    termsAndConditions: 'Términos y condiciones',
+    scamAlert: 'Alerta de estafa',
+    reportMisconduct: 'Reportar mala conducta',
+    userGuide: 'Guía del usuario',
+    sendFeedback: 'Enviar comentarios',
+  },
+
+  statisticalFactsheets,
+
+  disclaimer: {
+    part1: 'Este portal se ha realizado con la asistencia de la ',
+    europeanUnion: 'Unión Europea',
+    part2: ', el ',
+    govFinland: 'Gobierno de Finlandia',
+    part3: ', el ',
+    govNorway: 'Gobierno de Noruega',
+    part4: ' y el ',
+    gef: 'Fondo para el Medio Ambiente Mundial',
+    part5:
+      '. Su contenido es responsabilidad exclusiva de la FAO y no puede considerarse que refleje en modo alguno las opiniones de la Unión Europea, el Gobierno de Finlandia, el Gobierno de Noruega y el Fondo para el Medio Ambiente Mundial.',
   },
 
   unit: {
@@ -30,10 +71,14 @@ module.exports.translation = {
     mileSq: 'mi²',
     acre1000: '1000 acres',
     acre: 'acre',
-    haMillion: 'millones de hectáreas',
+    haMillion: 'millones de ha',
     haThousandPerYear: '1000 ha / an',
     tonnesPerHa: 'toneladas / ha',
     millionsCubicMeterOverBark: 'millones de m³ sobre corteza',
+    billionCubicMeter: 'mil millones m³',
+    gt: 'Gt',
+    fte1000: '1000 EDC',
+    numberOfStudents: '$t(graduationOfStudents.numberOfStudents)',
   },
 
   countrySelection: {
@@ -96,6 +141,7 @@ module.exports.translation = {
     home: 'Inicio',
     sections: {
       overview: 'Visión general',
+      messageBoard: 'Tablero de mensajes',
       about: 'Acerca de FRA',
       recentActivity: 'Actividad reciente',
       userManagement: 'Gestionar colaboradores',
@@ -247,17 +293,16 @@ El equipo de FRA
   },
 
   navigation: {
+    bulkDownload: 'Descarga masiva',
     hideAll: 'Esconder todo',
     showAll: 'Mostrar todo',
     support: {
       dontDelete: 'No elimine la información del sistema',
-      sendFeedback: 'Enviar comentarios',
       feedbackEmailSubject: 'Comentarios de la plataforma de FRA',
       platformVersion: 'Versión de la plataforma',
       userAgent: 'Agente de usuario',
       user: 'Usuario',
       manageCollaborators: 'Gestionar colaboradores',
-      userGuide: 'Guía del usuario',
     },
     sectionHeaders: {
       introduction: 'Introducción',
@@ -577,6 +622,8 @@ El equipo de FRA
   },
 
   growingStockComposition: {
+    native: 'Nativa',
+    introduced: 'Introducida',
     growingStockComposition: 'Composición de las existencias en formación',
     categoryHeader: 'Categorías de FRA',
     nativeTreeSpecies: 'Especies de árboles nativos',

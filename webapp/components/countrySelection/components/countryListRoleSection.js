@@ -1,0 +1,54 @@
+import React from 'react'
+import PropTypes from 'prop-types'
+import * as R from 'ramda'
+
+import { getRoleLabelKey, noRole } from '@common/countryRole'
+import { Country } from '@common/country'
+
+import CountryListRow from '@webapp/components/countrySelection/components/countryListRow'
+import useI18n from '@webapp/components/hooks/useI18n'
+import useUserInfo from '@webapp/components/hooks/useUserInfo'
+import { checkMatch } from '@webapp/components/countrySelection/utils/checkMatch'
+
+const CountryListRoleSection = (props) => {
+  const { role, roleCountries, query } = props
+  const i18n = useI18n()
+  const userInfo = useUserInfo()
+
+  const isCountryAtlantis = R.pipe(Country.getCountryIso, R.startsWith('X'))
+
+  // Atlantis countries are hidden in public view
+  const countryListNameMatch = (country) => checkMatch(i18n.t(`area.${Country.getCountryIso(country)}.listName`), query)
+  const countryRegionIsoMatch = (country) => checkMatch(i18n.t(`area.${Country.getRegionIso(country)}.listName`), query)
+  const renderRow = (country) =>
+    (userInfo || !isCountryAtlantis(country)) && (countryListNameMatch(country) || countryRegionIsoMatch(country))
+
+  return (
+    <div className="country-selection-list__section">
+      {role !== noRole.role && (
+        <div className="country-selection-list__header">
+          <span className="country-selection-list__primary-col">{i18n.t(getRoleLabelKey(role))}</span>
+          <span className="country-selection-list__secondary-col">{i18n.t('countryListing.fra2020')}</span>
+          <span className="country-selection-list__secondary-col">{i18n.t('audit.edited')}</span>
+        </div>
+      )}
+
+      {roleCountries.map(
+        (country) =>
+          renderRow(country) && <CountryListRow key={Country.getCountryIso(country)} role={role} country={country} />
+      )}
+    </div>
+  )
+}
+
+CountryListRoleSection.defaultProps = {
+  query: '',
+}
+
+CountryListRoleSection.propTypes = {
+  role: PropTypes.string.isRequired,
+  query: PropTypes.string,
+  roleCountries: PropTypes.array.isRequired,
+}
+
+export default CountryListRoleSection

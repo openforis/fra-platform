@@ -20,9 +20,8 @@ const VariableSelect = (props) => {
       <div className="export__form-section-variables">
         {variables.map((variable) => {
           const { cols, variableExport } = variable
-          const label = getCustomVariableI18nMappings(cols[0].labelKey)
-
-          const labelParam = cols[0].labelParams
+          const { labelKey, labelParams: labelParam, labelPrefixKey } = cols[0]
+          const label = getCustomVariableI18nMappings(labelKey)
           // Some variables have special mapping: ex.
           // Other (specify in comments) => Other
 
@@ -31,11 +30,18 @@ const VariableSelect = (props) => {
             <ButtonCheckBox
               key={variableExport}
               checked={selected}
-              label={label}
+              label={[labelPrefixKey, label]}
               labelParam={labelParam}
               onClick={() => {
                 setSelectionVariable(
-                  selected ? {} : { param: variableExport, label: cols[0].labelKey, labelParam: cols[0].labelParams }
+                  selected
+                    ? {}
+                    : {
+                        param: variableExport,
+                        label: labelKey,
+                        labelParam,
+                        labelPrefixKey,
+                      }
                 )
               }}
             />

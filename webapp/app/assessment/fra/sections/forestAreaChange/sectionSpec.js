@@ -5,7 +5,7 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 import * as ForestAreaChangeState from '@webapp/app/assessment/fra/sections/forestAreaChange/forestAreaChangeState'
 import * as ForestAreaChangeValidatorState from '@webapp/app/assessment/fra/sections/forestAreaChange/forestAreaChangeValidatorState'
 
-import { updateForestAreaChangeCell } from '@webapp/app/assessment/fra/sections/forestAreaChange/actions'
+import * as ForestAreaChangeActions from './actions'
 
 const section = FRA.sections['1'].children.d
 const { yearsRange } = FRA
@@ -14,7 +14,7 @@ const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.forestAreaChange,
   [SectionSpec.KEYS_TABLE.columnsExport]: yearsRange,
   [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.haThousandPerYear,
-  [SectionSpec.KEYS_TABLE.updateTableDataCell]: updateForestAreaChangeCell,
+  [SectionSpec.KEYS_TABLE.updateTableDataCell]: ForestAreaChangeActions.updateForestAreaChangeCell,
   [SectionSpec.KEYS_TABLE.tableDataRequired]: [
     {
       [SectionSpec.KEYS_TABLE_DATA_REQUIRED.assessmentType]: FRA.type,

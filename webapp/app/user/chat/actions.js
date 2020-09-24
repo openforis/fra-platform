@@ -1,7 +1,7 @@
 import axios from 'axios'
-import { applicationError } from '../../components/error/actions'
+import { applicationError } from '../../../components/error/actions'
 
-import { getCountryOverview } from '../../landing/actions'
+import { getCountryOverview } from '../../countryLanding/actions'
 
 export const userChatLoaded = 'userChat/chat/loaded'
 export const userChatClose = 'userChat/chat/close'

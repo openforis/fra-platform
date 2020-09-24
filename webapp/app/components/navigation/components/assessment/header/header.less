@@ -1,4 +1,4 @@
-@import (reference) "~@webapp/main/styles/config";
+@import (reference) '~@webapp/main/styles/config';
 
 .nav-assessment-header {
   padding: 8px 8px 8px 16px;
@@ -15,8 +15,15 @@
   align-items: center;
   justify-content: space-between;
 
+  .links-download {
+    display: flex;
+  }
+
   .btn-s {
-    padding: 3px 6px;
+    display: flex;
+    align-items: center;
+    padding: 4px 6px;
+    margin: 0 2px;
   }
 }
 
@@ -43,7 +50,7 @@
 //====== Status
 .nav-assessment-header__status-container {
   display: grid;
-  grid-template-columns: repeat(2, .5fr);
+  grid-template-columns: repeat(2, 0.5fr);
 }
 
 .nav-assessment-header__status {

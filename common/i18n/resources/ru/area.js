@@ -182,7 +182,7 @@ module.exports = {
   PRK: { listName: 'Корейская Народно-Демократическая Республика' },
   PRT: { listName: 'Португалия' },
   PRY: { listName: 'Парагвай' },
-  PSE: { listName: 'Государство Палестина' },
+  PSE: { listName: 'Палестина' },
   PYF: { listName: 'Французская Полинезия' },
   QAT: { listName: 'Катар' },
   REU: { listName: 'Реюньон' },

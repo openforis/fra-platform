@@ -4,17 +4,17 @@ import { NavLink } from 'react-router-dom'
 
 import * as Country from '@common/country/country'
 
-import useI18n from '@webapp/components/hooks/useI18n'
-import useCountryIso from '@webapp/components/hooks/useCountryIso'
+import { useCountryIso, useI18n, useUserInfo } from '@webapp/components/hooks'
 
 import * as CountryState from '@webapp/app/country/countryState'
 
 const LinkPanEuropeanIndicators = () => {
   const countryIso = useCountryIso()
   const i18n = useI18n()
+  const userInfo = useUserInfo()
   const country = useSelector(CountryState.getCountryByCountryIso(countryIso))
 
-  if (!country || !Country.isPanEuropean(country)) {
+  if (!country || !Country.isPanEuropean(country) || !userInfo) {
     return null
   }
 

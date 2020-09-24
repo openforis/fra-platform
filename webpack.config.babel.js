@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import path from 'path'
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import webpack from 'webpack'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -9,6 +10,8 @@ import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import GitRevisionPlugin from 'git-revision-webpack-plugin'
+import GoogleFontsPlugin from 'google-fonts-plugin'
+import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 
 const buildReport = process.env.BUILD_REPORT === 'true'
 
@@ -16,10 +19,23 @@ const config = {
   mode: process.env.NODE_ENV || 'development',
   path: path.resolve(__dirname, 'dist'),
 }
+const isDevelopment = process.env.NODE_ENV !== 'production'
 
 const gitRevisionPlugin = config.mode === 'production' ? null : new GitRevisionPlugin()
 
+const fontCssFileName = 'woff2.css'
+
 const plugins = [
+  new GoogleFontsPlugin({
+    fonts: [
+      {
+        family: 'Open Sans',
+        variants: ['300', '400', '600', '700'],
+      },
+    ],
+    formats: ['woff2'],
+    filename: fontCssFileName,
+  }),
   ...(gitRevisionPlugin ? [gitRevisionPlugin] : []),
   new MiniCssExtractPlugin({ filename: 'style/styles-[hash].css' }),
   new HtmlWebpackPlugin({ template: './web-resources/index.html' }),
@@ -31,7 +47,13 @@ const plugins = [
       : JSON.stringify(process.env.APP_VERSION),
     __URL_STATISTICAL_FACTSHEETS__: JSON.stringify(process.env.URL_STATISTICAL_FACTSHEETS),
   }),
+  new CleanWebpackPlugin(),
 ]
+
+if (isDevelopment) {
+  plugins.push(new webpack.HotModuleReplacementPlugin())
+  plugins.push(new ReactRefreshWebpackPlugin())
+}
 
 if (buildReport) {
   plugins.push(new BundleAnalyzerPlugin())
@@ -40,7 +62,7 @@ if (buildReport) {
 const appConfig = {
   mode: config.mode,
   devtool: 'source-map',
-  entry: ['regenerator-runtime/runtime', './webapp/main.js'],
+  entry: ['./webapp/main.js'],
   resolve: {
     extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js', '.js', '.jsx'],
     alias: {
@@ -55,18 +77,32 @@ const appConfig = {
     path: config.path,
     publicPath: '/',
   },
+  devServer: {
+    hot: true,
+    proxy: [
+      {
+        // Proxy all server-served routes:
+        context: ['/img', '/css', '/ckeditor', '/video', '/api'],
+        target: 'http://localhost:9001',
+      },
+    ],
+    compress: false,
+    port: 9000,
+    historyApiFallback: true,
+  },
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        exclude: /(node_modules)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env', '@babel/react'],
-            plugins: ['@babel/plugin-proposal-object-rest-spread', '@babel/plugin-syntax-dynamic-import'],
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              plugins: isDevelopment ? [require.resolve('react-refresh/babel')] : [],
+            },
           },
-        },
+        ],
       },
       {
         test: /\.(less|css)$/,
@@ -74,7 +110,27 @@ const appConfig = {
           {
             loader: MiniCssExtractPlugin.loader,
           },
-          'css-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              url: (url) => {
+                // Don't handle /img/ urls
+                if (url.includes('/img/')) {
+                  return false
+                }
+
+                return true
+              },
+              import: (url) => {
+                // Don't handle font css file import
+                if (url.includes(fontCssFileName)) {
+                  return false
+                }
+
+                return true
+              },
+            },
+          },
           'less-loader',
         ],
       },

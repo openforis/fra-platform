@@ -14,7 +14,7 @@ export const protectedAreaValidator = AssessmentStateValidator.subCategoryValida
   [2]
 )
 
-export const forestAreaValidator = (colIdx, rowIdx) => state =>
+export const forestAreaValidator = (colIdx, rowIdx) => (state) =>
   ExtentOfForestValidatorState.lessThanOrEqualToForestValidator(
     FRA.years[colIdx],
     AssessmentState.getTableDataCell({
@@ -26,7 +26,7 @@ export const forestAreaValidator = (colIdx, rowIdx) => state =>
     })(state)
   )(state)
 
-export const getValidationMessages = data => state => {
+export const getValidationMessages = (data) => (state) => {
   const colNo = data[0].length
   const messages = []
 

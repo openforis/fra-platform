@@ -25,6 +25,7 @@ export const KEYS_TABLE = {
   updateTableDataCell: 'updateTableDataCell',
   dataExport: 'dataExport',
   columnsExport: 'columnsExport',
+  columnsExportAlways: 'columnsAlwaysExport',
 }
 
 export const KEYS_TABLE_DATA_REQUIRED = {
@@ -54,6 +55,7 @@ const tableDefault = {
   [KEYS_TABLE.updateTableDataCell]: updateTableDataCell,
   [KEYS_TABLE.dataExport]: true,
   [KEYS_TABLE.columnsExport]: null,
+  [KEYS_TABLE.columnsExportAlways]: [],
 }
 
 const assocRows = (tableSpec) => {
@@ -90,4 +92,5 @@ export const getRowsExport = R.pipe(
   R.filter((row) => !!row[KEYS_ROW.variableExport])
 )
 export const getColumnsExport = R.prop(KEYS_TABLE.columnsExport)
+export const getColumnsExportAlways = R.prop(KEYS_TABLE.columnsExportAlways)
 export const getUnit = R.prop(KEYS_TABLE.unit)

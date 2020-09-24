@@ -1,4 +1,8 @@
-@import (reference) "~@webapp/main/styles/config";
+@import (reference) 'webapp/main/styles/config';
+
+button {
+  color: @text-body;
+}
 
 button:hover {
   cursor: pointer;
@@ -26,7 +30,7 @@ button:hover {
   }
 
   &:active {
-    box-shadow: inset 0 0 4px rgba(0, 0, 0, .1);
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1);
   }
 }
 
@@ -42,7 +46,7 @@ button:hover {
   }
 
   &:active {
-    box-shadow: inset 0 0 4px rgba(0, 0, 0, .1);
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1);
   }
 }
 
@@ -56,7 +60,7 @@ button:hover {
   }
 
   &:active {
-    box-shadow: inset 0 0 4px rgba(0, 0, 0, .1);
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1);
   }
 }
 
@@ -102,7 +106,7 @@ button:hover {
   display: inline-block;
   font-family: inherit;
   font-size: @fontSize;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 20px;
   padding: @padding;
   text-align: center;
@@ -114,12 +118,12 @@ button:hover {
 
   &.disabled,
   &:disabled {
-   cursor: not-allowed;
-   opacity: .4;
-   pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.4;
+    pointer-events: none;
   }
 
   .icon {
-   margin-right: 6px;
+    margin-right: 6px;
   }
 }

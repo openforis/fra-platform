@@ -1,4 +1,5 @@
 const area = require('./ru/area')
+const statisticalFactsheets = require('./ru/statisticalFactsheets')
 
 module.exports.translation = {
   area,
@@ -11,16 +12,50 @@ module.exports.translation = {
   },
 
   common: {
-    fraPlatform: 'Платформой ОЛР',
-    login: 'Логин',
-    statisticalFactsheets: 'Статистические бюллетени',
+    column: 'Столбец',
+    countries: 'Страны',
     dataExport: 'Экспорт данных',
+    fraPlatform: 'Платформой ОЛР',
+    globalFRA: 'Глобальная оценка лесных ресурсов',
+    login: 'Логин',
+    other: 'Другое',
+    regions: 'Регионы',
+    select: 'Выбрать',
     selectAll: 'Выделить все',
+    selectArea: 'Выбрать географический район',
+    statisticalFactsheets: 'Статистические бюллетени',
+    unknown: 'Отсутствует/неизвестна',
     unselectAll: 'Снять выделение',
     variable: 'ОЛР Переменная',
-    column: 'Столбец',
-    other: 'Другое',
-    unknown: 'Отсутствует/неизвестна',
+    year: 'Год',
+  },
+
+  home: {
+    keyFindings: `Общая площадь лесов в мире составляет 4,06 млрд гектаров (га), или 31 процент от общей площади суши. Это значит, что на душу населения приходится по 0,52 га, однако леса неравномерно распределены между народами и регионами мира. Наибольшая часть лесов (45 процентов) находится в тропическом поясе, далее следуют бореальный, умеренный и субтропический пояса.`,
+  },
+
+  footer: {
+    contactUs: 'Связь с нами',
+    termsAndConditions: 'Положения и условия',
+    scamAlert: 'Опасайтесь мошенников',
+    reportMisconduct: 'Сообщить о нарушении',
+    userGuide: 'Руководство пользователя',
+    sendFeedback: 'Направить отзыв',
+  },
+
+  statisticalFactsheets,
+
+  disclaimer: {
+    part1: 'Этот веб-сайт был создан при содействии ',
+    europeanUnion: 'Европейского союза',
+    part2: ', ',
+    govFinland: 'правительства Финляндии',
+    part3: ' и ',
+    govNorway: 'правительства Норвегии',
+    part4: ' и ',
+    gef: 'Фонда глобальной окружающей среды',
+    part5:
+      '. Его содержание является исключительной обязанностью ФАО и никоим образом не может рассматриваться как отражающее мнения Европейского союза, правительства Финляндии, правительства Норвегии и Фонда глобальной окружающей среды.',
   },
 
   unit: {
@@ -34,6 +69,10 @@ module.exports.translation = {
     haThousandPerYear: '1000 га/год',
     tonnesPerHa: 'тонн/га',
     millionsCubicMeterOverBark: 'млн. м³ с корой',
+    billionCubicMeter: 'млрд. м³',
+    gt: 'гт',
+    fte1000: '1000 ЭПЗ',
+    numberOfStudents: '$t(graduationOfStudents.numberOfStudents)',
   },
 
   countrySelection: {
@@ -104,6 +143,7 @@ module.exports.translation = {
     home: 'Главная',
     sections: {
       overview: 'Обзор',
+      messageBoard: 'Доска сообщений',
       about: 'Информация об ОЛР',
       recentActivity: 'Недавняя активность',
       userManagement: 'Координировать сотрудников',
@@ -254,17 +294,16 @@ module.exports.translation = {
   },
 
   navigation: {
+    bulkDownload: 'Пакетная загрузка',
     hideAll: 'Скрыть все',
     showAll: 'Показать все',
     support: {
       dontDelete: 'Системная информация, просьба не удалять',
-      sendFeedback: 'Направить отзыв',
       feedbackEmailSubject: 'Обратная связь с платформой ОЛР',
       platformVersion: 'Версия платформы',
       userAgent: 'Агент пользователя',
       user: 'Пользователь',
       manageCollaborators: 'Координировать сотрудников',
-      userGuide: 'Руководство пользователя',
     },
     sectionHeaders: {
       introduction: 'Введение',
@@ -589,6 +628,8 @@ module.exports.translation = {
   },
 
   growingStockComposition: {
+    native: 'Местные',
+    introduced: 'Интродуцированные',
     growingStockComposition: 'Состав древостоя',
     categoryHeader: 'Категории ОЛР',
     nativeTreeSpecies: 'Местные древесные породы',

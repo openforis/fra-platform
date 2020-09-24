@@ -1,6 +1,7 @@
 //===WARNING====
 // DO NOT IMPORT SPECIFIC COMPONENT STYLES HERE,
 // ONLY MORE GENERAL STUFF USED IN MANY PLACES
+@import url('/woff2.css');
 @import 'webapp/main/styles/config';
 //Import all common application styles
 @import 'webapp/main/styles/buttons';
@@ -29,6 +30,8 @@ body {
   line-height: 20px;
   margin: 0;
   height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 h1,
@@ -36,8 +39,8 @@ h2,
 h3,
 h4,
 h5 {
-  color: @text-heading;
-  font-weight: 700;
+  color: @text-body;
+  font-weight: 600;
   line-height: 1.25;
   margin-bottom: 0;
   margin-top: 0;
