@@ -1,14 +1,14 @@
 import './navigation.less'
 
 import React from 'react'
-// import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import * as FRA from '@common/assessment/fra'
-// import * as PanEuropean from '@common/assessment/panEuropean'
-// import * as Country from '@common/country/country'
+import * as PanEuropean from '@common/assessment/panEuropean'
+import * as Country from '@common/country/country'
 
 import { useCountryIso, useI18n } from '@webapp/components/hooks'
-// import * as CountryState from '@webapp/app/country/countryState'
+import * as CountryState from '@webapp/app/country/countryState'
 
 import Icon from '@webapp/components/icon'
 import { isISOGlobal } from '@common/country/area'
@@ -18,8 +18,8 @@ import LinkPanEuropeanIndicators from './components/linkPanEuropeanIndicators'
 const Navigation = () => {
   const countryIso = useCountryIso()
   const i18n = useI18n()
-  // const country = useSelector(CountryState.getCountryByCountryIso(countryIso))
-  // const showPanEuropean = country && Country.isPanEuropean(country)
+  const country = useSelector(CountryState.getCountryByCountryIso(countryIso))
+  const showPanEuropean = country && Country.isPanEuropean(country)
 
   // admin view - navigation is not rendered
   if (!countryIso) return null
@@ -37,12 +37,12 @@ const Navigation = () => {
         </a>
       )}
 
-      {/* {showPanEuropean && ( */}
-      {/*   <> */}
-      {/*     <Assessment assessment={PanEuropean} /> */}
-      {/*     <div className="nav__divider" /> */}
-      {/*   </> */}
-      {/* )} */}
+      {showPanEuropean && (
+        <>
+          <Assessment assessment={PanEuropean} />
+          <div className="nav__divider" />
+        </>
+      )}
     </div>
   )
 }
