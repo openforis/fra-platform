@@ -1,3 +1,4 @@
+DROP VIEW IF EXISTS content_check_extent_view CASCADE;
 CREATE VIEW content_check_extent_view AS
 
 SELECT *
