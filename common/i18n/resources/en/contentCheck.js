@@ -1,0 +1,51 @@
+module.exports = {
+  '//': 'Keys are in same format as the database fields',
+  extent: 'Extent',
+  forest_area: 'Forest (1000 ha)',
+  other_wooded_land: 'Other wooded land (1000 ha)',
+  primary_forest_percent: 'Primary forest (% of forest)',
+  protected_forest_percent: 'Forest in protected areas (% of forest)',
+  management_plan_percent: 'Forest area with mgmt plan (% of forest)',
+  certified_area: 'Certified forest area (1000 ha)',
+  bamboo: '$t(specificForestCategories.bamboo)',
+  mangroves: '$t(specificForestCategories.mangroves)',
+
+  periodicChangeRate: 'Periodic change rates (annual rates)',
+  forestAreaNetChange: 'Forest area annual net change (1000 hectares)',
+  forestAreaNetChangeRate: 'Forest area annual net change rate (%)',
+  owlNetChange: 'OWL area annual net change (1000 ha)',
+  owlNetChangeRate: 'OWL area annual net change rate(%)',
+  primaryForestNetChange: 'Primary forest annual net change (1000 ha)',
+  primaryForestNetChangeRate: 'Primary forest area change rate (%)',
+  naturallyRegeneratingForestNetChange: 'Naturally regenerating forest annual net change',
+  naturallyRegeneratingForestNetChangeRate: 'Naturally regenerating forest change rate (%)',
+  plantedForestNetChange: 'Planted forest annual net change',
+  plantedForestNetChangeRate: 'Planted forest change rate (%)',
+
+  forestGSBiomassCarbon: 'FOREST growing stock, biomass and carbon',
+  gs: 'GS (m3/ha)',
+  agb: 'Above-ground biomass (t/ha)',
+  bgb: 'Below-ground biomass (t/ha)',
+  deadwood: 'Dead wood (t/ha)',
+  carbonAgb: 'C in above-ground biomass (t/ha)',
+  carbonBgb: 'C in below-ground biomass (t/ha)',
+  carbonDeadwood: 'C in dead wood (t/ha)',
+  carbonLitter: 'C in litter (t/ha)',
+  carbonSoil: 'C in soil (t/ha)',
+  ratioAgb: 'Ratio (above-ground biomass) / GS (t/m3)',
+  rootShootRatio: 'Root-Shoot ratio',
+  ratioDeadwood: 'Ratio (Dead wood / Living biomass)',
+  ratioCarbonAgb: 'Ratio (Carbon/biomass) for above-ground biomass',
+  ratioCarbonBgb: 'Ratio (Carbon/biomass) for below-ground biomass',
+  ratioCarbonDeadwood: 'Ratio (Carbon/biomass) for dead wood',
+
+  primaryDesignatedManagementObjective: 'Primary designated management objective',
+
+  totalAreaDesignatedManagementObjective: 'Total area with designated management objective',
+
+  forestOwnership: 'Ownership',
+
+  managementRightsOfPublicForests: 'Management rights of public forests',
+
+  disturbances: 'Disturbances',
+}

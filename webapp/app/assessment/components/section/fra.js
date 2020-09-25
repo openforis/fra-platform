@@ -33,6 +33,9 @@ import nonWoodForestProductsRemovals from '@webapp/app/assessment/fra/sections/n
 // 8
 import sustainableDevelopment from '@webapp/app/assessment/fra/sections/sustainableDevelopment/sectionSpec'
 
+// Other
+import contentCheck from '@webapp/app/assessment/fra/sections/contentCheck/sectionSpec'
+
 export default {
   // 0
   [contactPersons.sectionName]: contactPersons,
@@ -67,4 +70,7 @@ export default {
   [nonWoodForestProductsRemovals.sectionName]: nonWoodForestProductsRemovals,
   // 8
   [sustainableDevelopment.sectionName]: sustainableDevelopment,
+
+  // Other
+  [contentCheck.sectionName]: contentCheck,
 }

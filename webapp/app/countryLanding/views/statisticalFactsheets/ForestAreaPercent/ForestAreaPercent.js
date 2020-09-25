@@ -17,8 +17,8 @@ const ForestAreaPercent = (props) => {
   }
 
   // Get the value for year 2020
-  const forestArea = Number(data[0]['2020'])
-  const otherArea = 100 - forestArea
+  const forestArea = data.length ? Number(data[0]['2020']) : null
+  const otherArea = data.length ? 100 - forestArea : null
 
   const chartData = {
     datasets: [
