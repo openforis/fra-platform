@@ -26,7 +26,7 @@ const tableSpec = SectionSpec.newTableSpec({
       ),
     }),
 
-    ...extent.rowNames.map((variable) =>
+    ...extent.rows.names.map((variable) =>
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.labelKey]: `contentCheck.${variable}`,
         [SectionSpec.KEYS_ROW.variableExport]: `${variable}`,
