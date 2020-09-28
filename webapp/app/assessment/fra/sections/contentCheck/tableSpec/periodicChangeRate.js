@@ -1,10 +1,6 @@
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
-import * as FRA from '@common/assessment/fra'
-
 import periodicChangeRate from '@common/model/traditionalTable/contentCheck/periodicChangeRate'
 import section from '../section'
-
-const asRange = (arr) => arr.map((_, i) => i < arr.length - 1 && `${arr[i]}-${arr[i + 1]}`).filter(Boolean)
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.periodicChangeRate,
@@ -20,9 +16,9 @@ const tableSpec = SectionSpec.newTableSpec({
     }),
 
     SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: asRange(FRA.years).map((yearRange) =>
+      [SectionSpec.KEYS_ROW.cols]: periodicChangeRate.columns.map(({ name }) =>
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.label]: yearRange,
+          [SectionSpec.KEYS_COL.label]: name,
         })
       ),
     }),
@@ -31,7 +27,7 @@ const tableSpec = SectionSpec.newTableSpec({
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.labelKey]: `contentCheck.${variable}`,
         [SectionSpec.KEYS_ROW.variableExport]: `${variable}`,
-        [SectionSpec.KEYS_ROW.cols]: asRange(FRA.years).map(() => SectionSpec.newColDecimal()),
+        [SectionSpec.KEYS_ROW.cols]: periodicChangeRate.columns.map(() => SectionSpec.newColDecimal()),
       })
     ),
   ],

@@ -1,8 +1,5 @@
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
-import * as FRA from '@common/assessment/fra'
-
 import { extent } from '@common/model/traditionalTable/contentCheck'
-
 import section from '../section'
 
 const tableSpec = SectionSpec.newTableSpec({
@@ -19,9 +16,9 @@ const tableSpec = SectionSpec.newTableSpec({
     }),
 
     SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: FRA.years.map((year) =>
+      [SectionSpec.KEYS_ROW.cols]: extent.columns.map(({ name }) =>
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.label]: year,
+          [SectionSpec.KEYS_COL.label]: name,
         })
       ),
     }),
@@ -30,7 +27,7 @@ const tableSpec = SectionSpec.newTableSpec({
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.labelKey]: `contentCheck.${variable}`,
         [SectionSpec.KEYS_ROW.variableExport]: `${variable}`,
-        [SectionSpec.KEYS_ROW.cols]: FRA.years.map(() => SectionSpec.newColDecimal()),
+        [SectionSpec.KEYS_ROW.cols]: extent.columns.map(() => SectionSpec.newColDecimal()),
       })
     ),
   ],
