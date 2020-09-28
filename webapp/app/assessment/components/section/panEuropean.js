@@ -12,6 +12,7 @@ import forestAreaWithDamage from '@webapp/app/assessment/panEuropean/sections/ta
 import incrementAndFellings from '@webapp/app/assessment/panEuropean/sections/table_3_1/sectionSpec'
 import removals from '@webapp/app/assessment/panEuropean/sections/table_3_2/sectionSpec'
 import nonWoodGoods2015 from '@webapp/app/assessment/panEuropean/sections/table_3_3/sectionSpec'
+import marketedServices2015 from '@webapp/app/assessment/panEuropean/sections/table_3_4/sectionSpec'
 import treeSpeciesComposition from '@webapp/app/assessment/panEuropean/sections/table_4_1/sectionSpec'
 import totalForestAreaByExpansionAndRegenerationType from '@webapp/app/assessment/panEuropean/sections/table_4_2a/sectionSpec'
 import annualForestExpansionAndRegeneration from '@webapp/app/assessment/panEuropean/sections/table_4_2b/sectionSpec'
@@ -51,6 +52,7 @@ export default {
   [incrementAndFellings.sectionName]: incrementAndFellings,
   [removals.sectionName]: removals,
   [nonWoodGoods2015.sectionName]: nonWoodGoods2015,
+  [marketedServices2015.sectionName]: marketedServices2015,  
   [treeSpeciesComposition.sectionName]: treeSpeciesComposition,
   [totalForestAreaByExpansionAndRegenerationType.sectionName]: totalForestAreaByExpansionAndRegenerationType,
   [annualForestExpansionAndRegeneration.sectionName]: annualForestExpansionAndRegeneration,

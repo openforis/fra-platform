@@ -88,7 +88,6 @@ const PanEuropean = {
             table_1_4b: 'table_1_4b',
           },
         },
-
       },
     },
 
@@ -100,6 +99,42 @@ const PanEuropean = {
           anchor: '2.4',
           tables: {
             table_2_4: 'table_2_4',
+          },
+        },
+      },
+    },
+
+    3: {
+      label: 'panEuropean.navigation.productiveFunctionsOfForestsWoodAndNonWood',
+      children: {
+        '31': {
+          name: 'incrementAndFellings',
+          anchor: '3.1',
+          tables: {
+            table_3_1: 'table_3_1',
+          },
+        },
+
+        '32': {
+          name: 'removals',
+          anchor: '3.2',
+          tables: {
+            table_3_2: 'table_3_2',
+          },
+        },
+
+        '33': {
+          name: 'nonWoodGoods2015',
+          anchor: '3.3',
+          tables: {
+            table_3_3: 'table_3_3',
+          },
+        },
+        '34': {
+          name: 'marketedServices2015',
+          anchor: '3.4',
+          tables: {
+            table_3_4: 'table_3_4',
           },
         },
       },
@@ -169,35 +204,6 @@ const PanEuropean = {
           anchor: '4.9',
           tables: {
             table_4_9: 'table_4_9',
-          },
-        },
-      },
-    },
-
-    3: {
-      label: 'panEuropean.navigation.productiveFunctionsOfForestsWoodAndNonWood',
-      children: {
-        '31': {
-          name: 'incrementAndFellings',
-          anchor: '3.1',
-          tables: {
-            table_3_1: 'table_3_1',
-          },
-        },
-
-        '32': {
-          name: 'removals',
-          anchor: '3.2',
-          tables: {
-            table_3_2: 'table_3_2',
-          },
-        },
-
-        '33': {
-          name: 'nonWoodGoods2015',
-          anchor: '3.3',
-          tables: {
-            table_3_3: 'table_3_3',
           },
         },
       },

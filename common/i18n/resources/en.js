@@ -1289,6 +1289,30 @@ The FRA team
       total: 'TOTAL',
     },
 
+    // table 3.4
+    marketedServices2015: {
+      marketedServices2015: 'Marketed Services (2015)',
+      rankValue: 'Rank (value)',
+      nameOfServiceProduct: 'Name of service/product',
+      unit: 'Unit',
+      serviceProvision: 'Service provision',
+      forestServiceCategory: 'Forest service category',
+      amountOfServiceProduct: 'Amount of service/product',
+      value1000NationalCurrency: 'Value (1000 national currency)',
+      _01st: '1st',
+      _02nd: '2nd',
+      _03rd: '3rd',
+      _04th: '4th',
+      _05th: '5th',
+      _06th: '6th',
+      _07th: '7th',
+      _08th: '8th',
+      _09th: '9th',
+      _10th: '10th',
+      remaining_total: 'Remaining total',
+      total: 'Total',
+    },
+
     // table 4.1
     treeSpeciesComposition: {
       treeSpeciesComposition: 'Tree species composition',
