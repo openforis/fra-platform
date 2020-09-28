@@ -11,6 +11,7 @@ import carbonStockInHarvestedWoodProductsHWP from '@webapp/app/assessment/panEur
 import forestAreaWithDamage from '@webapp/app/assessment/panEuropean/sections/table_2_4/sectionSpec'
 import incrementAndFellings from '@webapp/app/assessment/panEuropean/sections/table_3_1/sectionSpec'
 import removals from '@webapp/app/assessment/panEuropean/sections/table_3_2/sectionSpec'
+import nonWoodGoods2015 from '@webapp/app/assessment/panEuropean/sections/table_3_3/sectionSpec'
 import treeSpeciesComposition from '@webapp/app/assessment/panEuropean/sections/table_4_1/sectionSpec'
 import totalForestAreaByExpansionAndRegenerationType from '@webapp/app/assessment/panEuropean/sections/table_4_2a/sectionSpec'
 import annualForestExpansionAndRegeneration from '@webapp/app/assessment/panEuropean/sections/table_4_2b/sectionSpec'
@@ -40,24 +41,25 @@ export default {
   [forestAreaByForestTypes.sectionName]: forestAreaByForestTypes,
   [growingStock.sectionName]: growingStock,
   [growingStockByForestType.sectionName]: growingStockByForestType,
-  [growingStockComposition.sectionName]: growingStockComposition,  
+  [growingStockComposition.sectionName]: growingStockComposition,
   [ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.sectionName]: ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply,
   [ageClassDistributionAreaOfEvenAgedStands.sectionName]: ageClassDistributionAreaOfEvenAgedStands,
-  [diameterDistributionAndTotalAreaUnevenAgedStands.sectionName]: diameterDistributionAndTotalAreaUnevenAgedStands,  
+  [diameterDistributionAndTotalAreaUnevenAgedStands.sectionName]: diameterDistributionAndTotalAreaUnevenAgedStands,
   [carbonStock.sectionName]: carbonStock,
   [carbonStockInHarvestedWoodProductsHWP.sectionName]: carbonStockInHarvestedWoodProductsHWP,
   [forestAreaWithDamage.sectionName]: forestAreaWithDamage,
   [incrementAndFellings.sectionName]: incrementAndFellings,
   [removals.sectionName]: removals,
+  [nonWoodGoods2015.sectionName]: nonWoodGoods2015,
   [treeSpeciesComposition.sectionName]: treeSpeciesComposition,
   [totalForestAreaByExpansionAndRegenerationType.sectionName]: totalForestAreaByExpansionAndRegenerationType,
   [annualForestExpansionAndRegeneration.sectionName]: annualForestExpansionAndRegeneration,
   [naturalness.sectionName]: naturalness,
-  [naturalnessBySubclasses.sectionName]: naturalnessBySubclasses,  
+  [naturalnessBySubclasses.sectionName]: naturalnessBySubclasses,
   [introducedTreeSpecies.sectionName]: introducedTreeSpecies,
   [threatenedForestSpecies.sectionName]: threatenedForestSpecies,
   [protectedForests.sectionName]: protectedForests,
-  [protectiveForestsSoilWaterAndOtherEcosystemFunctions.sectionName]: protectiveForestsSoilWaterAndOtherEcosystemFunctions,  
+  [protectiveForestsSoilWaterAndOtherEcosystemFunctions.sectionName]: protectiveForestsSoilWaterAndOtherEcosystemFunctions,
   [forestHoldings.sectionName]: forestHoldings,
   [grossValueAdded.sectionName]: grossValueAdded,
   [factorIncomeAndEntrepreneurialIncome.sectionName]: factorIncomeAndEntrepreneurialIncome,
@@ -70,6 +72,6 @@ export default {
   [woodConsumption.sectionName]: woodConsumption,
   [tradeInWood.sectionName]: tradeInWood,
   [accessibilityForRecreation.sectionName]: accessibilityForRecreation,
-  [intensityOfUse.sectionName]: intensityOfUse,  
+  [intensityOfUse.sectionName]: intensityOfUse,
   [recreationFacilities.sectionName]: recreationFacilities,
 }

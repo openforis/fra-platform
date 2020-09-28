@@ -11,6 +11,7 @@ const table14b = require('./table1_4b')
 const table24 = require('./table2_4')
 const table31 = require('./table3_1')
 const table32 = require('./table3_2')
+const table33 = require('./table3_3')
 const table41 = require('./table4_1')
 const table42a = require('./table4_2a')
 const table42b = require('./table4_2b')
@@ -43,12 +44,13 @@ module.exports = {
   table_1_2c: table12c,
   table_1_3a1: table13a1,
   table_1_3a2: table13a2,
-  table_1_3b: table13b,  
+  table_1_3b: table13b,
   table_1_4a: table14a,
   table_1_4b: table14b,
   table_2_4: table24,
   table_3_1: table31,
   table_3_2: table32,
+  table_3_3: table33,
   table_4_1: table41,
   table_4_2a: table42a,
   table_4_2b: table42b,
@@ -57,12 +59,12 @@ module.exports = {
   table_4_4a: table44a,
   table_4_8: table48,
   table_4_9: table49,
-  table_5_1: table51,  
+  table_5_1: table51,
   table_6_1: table61,
   table_6_2: table62,
   table_6_3: table63,
   table_6_4a: table64a,
-  table_6_4b: table64b,  
+  table_6_4b: table64b,
   table_6_4c: table64c,
   table_6_5a: table65a,
   table_6_5b: table65b,
@@ -70,6 +72,6 @@ module.exports = {
   table_6_7: table67,
   table_6_8: table68,
   table_6_10a: table610a,
-  table_6_10b: table610b,  
+  table_6_10b: table610b,
   table_6_10c: table610c,
 }

@@ -11,7 +11,6 @@ const PanEuropean = {
     1: {
       label: 'panEuropean.navigation.forestResourcesAndCarbon',
       children: {
-
         '11a': {
           name: 'forestArea',
           anchor: '1.1a',
@@ -72,15 +71,15 @@ const PanEuropean = {
           tables: {
             table_1_3b: 'table_1_3b',
           },
-		    },
-        
+        },
+
         '14a': {
           name: 'carbonStock',
           anchor: '1.4a',
           tables: {
             table_1_4a: 'table_1_4a',
           },
-		    },
+        },
 
         '14b': {
           name: 'carbonStockInHarvestedWoodProductsHWP',
@@ -96,28 +95,26 @@ const PanEuropean = {
     2: {
       label: 'panEuropean.navigation.maintenanceOfForestEcosystemHealthAndVitality',
       children: {
-		  
         '24': {
           name: 'forestAreaWithDamage',
           anchor: '2.4',
           tables: {
             table_2_4: 'table_2_4',
           },
-		    },
+        },
       },
-    },    
-    
+    },
+
     4: {
       label: 'panEuropean.navigation.biologicalDiversityInForestEcosystems',
       children: {
-		  
         '41': {
           name: 'treeSpeciesComposition',
           anchor: '4.1',
           tables: {
             table_4_1: 'table_4_1',
           },
-		    },  
+        },
 
         '42a': {
           name: 'totalForestAreaByExpansionAndRegenerationType',
@@ -126,7 +123,7 @@ const PanEuropean = {
             table_4_2a: 'table_4_2a',
           },
         },
-        
+
         '42b': {
           name: 'annualForestExpansionAndRegeneration',
           anchor: '4.2b',
@@ -141,7 +138,7 @@ const PanEuropean = {
           tables: {
             table_4_3a: 'table_4_3a',
           },
-        },        
+        },
 
         '43b': {
           name: 'naturalnessBySubclasses',
@@ -149,7 +146,7 @@ const PanEuropean = {
           tables: {
             table_4_3b: 'table_4_3b',
           },
-        },        
+        },
 
         '44a': {
           name: 'introducedTreeSpecies',
@@ -158,14 +155,14 @@ const PanEuropean = {
             table_4_4a: 'table_4_4a',
           },
         },
-        
+
         '48': {
           name: 'threatenedForestSpecies',
           anchor: '4.8',
           tables: {
             table_4_8: 'table_4_8',
           },
-		    },
+        },
 
         '49': {
           name: 'protectedForests',
@@ -173,15 +170,13 @@ const PanEuropean = {
           tables: {
             table_4_9: 'table_4_9',
           },
-        },        
-        
+        },
       },
     },
 
     3: {
       label: 'panEuropean.navigation.productiveFunctionsOfForestsWoodAndNonWood',
       children: {
-
         '31': {
           name: 'incrementAndFellings',
           anchor: '3.1',
@@ -197,13 +192,20 @@ const PanEuropean = {
             table_3_2: 'table_3_2',
           },
         },
+
+        '33': {
+          name: 'nonWoodGoods2015',
+          anchor: '3.3',
+          tables: {
+            table_3_3: 'table_3_3',
+          },
+        },
       },
     },
 
     5: {
       label: 'panEuropean.navigation.protectiveFunctionsInForestManagement',
       children: {
-		  
         '51': {
           name: 'protectiveForestsSoilWaterAndOtherEcosystemFunctions',
           anchor: '5.1',
@@ -211,13 +213,12 @@ const PanEuropean = {
             table_5_1: 'table_5_1',
           },
         },
-        
       },
     },
 
     6: {
       label: 'panEuropean.navigation.socioEconomicFunctionsAndConditions',
-      children: {		  
+      children: {
         '61': {
           name: 'forestHoldings',
           anchor: '6.1',
@@ -232,7 +233,7 @@ const PanEuropean = {
           tables: {
             table_6_2: 'table_6_2',
           },
-		    },
+        },
 
         '63': {
           name: 'factorIncomeAndEntrepreneurialIncome',
@@ -240,7 +241,7 @@ const PanEuropean = {
           tables: {
             table_6_3: 'table_6_3',
           },
-		    },
+        },
 
         '64a': {
           name: 'totalGrossFixedCapitalFormationInForestsAndForestry',
@@ -256,7 +257,7 @@ const PanEuropean = {
           tables: {
             table_6_4b: 'table_6_4b',
           },
-		    },
+        },
 
         '64c': {
           name: 'totalCapitalTransfersInForestsAndForestry',
@@ -312,7 +313,7 @@ const PanEuropean = {
           tables: {
             table_6_10a: 'table_6_10a',
           },
-        },        
+        },
 
         '610b': {
           name: 'intensityOfUse',
@@ -328,11 +329,9 @@ const PanEuropean = {
           tables: {
             table_6_10c: 'table_6_10c',
           },
-        },        
-		
+        },
       },
     },
-
   },
 }
 

@@ -1068,7 +1068,7 @@ The FRA team
       socioEconomicFunctionsAndConditions: 'Socio-economic functions and conditions',
     },
 
-	  // table 1.1a
+    // table 1.1a
     forestArea: {
       forestArea: 'Forest Area',
       categoryYear: 'Category - Year',
@@ -1137,7 +1137,7 @@ The FRA team
       remaining: 'Remaining',
       total: 'TOTAL',
     },
- 
+
     // table 1.3a1
     ageClassDistributionAreaOfEvenAgedStands: {
       ageClassDistributionAreaOfEvenAgedStands: 'Age class distribution (area of even-aged stands)',
@@ -1170,7 +1170,7 @@ The FRA team
       predominantly_broadleaved_forest: 'Predominantly broadleaved forest - {{year}}',
       mixed_forest: 'Mixed forest - {{year}}',
     },
-          
+
     // table 1.3b
     diameterDistributionAndTotalAreaUnevenAgedStands: {
       diameterDistributionAndTotalAreaUnevenAgedStands: 'Table 1.3b Diameter distribution and total area (uneven-aged stands)',
@@ -1204,7 +1204,7 @@ The FRA team
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
     },
 
-	  // table 1.4b
+    // table 1.4b
     carbonStockInHarvestedWoodProductsHWP: {
       carbonStockInHarvestedWoodProductsHWP: 'Carbon Stock In Harvested Wood Products (HWP)',
       categoryYear: 'Category - Year',
@@ -1233,7 +1233,7 @@ The FRA team
       forest: 'Forest - {{year}}',
       other_wooded_land: 'Other wooded land - {{year}}',
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
-    }, 	
+    },
 
     // table 3.1
     incrementAndFellings: {
@@ -1249,7 +1249,7 @@ The FRA team
       forest: 'Forest - {{year}}',
       _of_which_forest_available_for_wood_supply: '... of which: Forest available for wood supply - {{year}}',
     },
-    
+
     // table 3.2
     removals: {
       removals: 'Removals',
@@ -1261,6 +1261,32 @@ The FRA team
       volume1000M3UB: 'Volume (1000 m³ u.b.)',
       marketValue1000NationalCurrency: 'Market Value (1000  national currency)',
       roundwood: 'Roundwood - {{year}}',
+    },
+
+    // table 3.3
+    nonWoodGoods2015: {
+      nonWoodGoods2015: 'Non-wood goods (2015)',
+      rankValue: 'Rank (value)',
+      nameOfGroupsOfProduct: 'Name of (groups of) product',
+      keySpecies: 'Key species',
+      totalHarvestedNonWoodGoods: 'Total harvested non-wood goods',
+      unit: 'Unit',
+      quantity: 'Quantity',
+      marketValue1000NationalCurrency: 'Market value (1000 national currency)',
+      nwfpCategory: 'NWFP category',
+      _01st: '1st',
+      _02nd: '2nd',
+      _03rd: '3rd',
+      _04th: '4th',
+      _05th: '5th',
+      _06th: '6th',
+      _07th: '7th',
+      _08th: '8th',
+      _09th: '9th',
+      _10th: '10th',
+      all_other_plant_products: 'All other plant products',
+      all_other_animal_products: 'All other animal products',
+      total: 'TOTAL',
     },
 
     // table 4.1
@@ -1344,7 +1370,7 @@ The FRA team
       other_wooded_land: 'Other wooded land - {{year}}',
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
     },
-    
+
     // table 4.8
     threatenedForestSpecies: {
       threatenedForestSpecies: 'Threatened forest species',
@@ -1463,7 +1489,7 @@ The FRA team
       forestry_isic_nace_02: 'Forestry (ISIC/NACE 02) - {{year}}',
     },
 
-	  // table 6.5a
+    // table 6.5a
     employmentByGenderAndAge: {
       employmentByGenderAndAge: 'Employment by gender and age',
       categoryYear: 'Category - Year',
@@ -1480,7 +1506,7 @@ The FRA team
       manufacture_of_paper_and_paper_products: 'Manufacture of paper and paper products (ISIC/NACE 17) - {{year}}',
     },
 
-	  // table 6.5b
+    // table 6.5b
     employmentByEducationAndJobCharacteristics: {
       employmentByEducationAndJobCharacteristics: 'Employment by education and job characteristics',
       categoryYear: 'Category - Year',
@@ -1588,7 +1614,7 @@ The FRA team
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
     },
 
-	  // table 6.10b
+    // table 6.10b
     intensityOfUse: {
       intensityOfUse: 'Intensity of use',
       categoryYear: 'Category - Year',
@@ -1597,8 +1623,8 @@ The FRA team
       areaPrimarilyDesignatedAndOrManagedForPublicRecreation: 'Area primarily designated and/or managed for public recreation',
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
     },
-    
-	  // table 6.10c
+
+    // table 6.10c
     recreationFacilities: {
       recreationFacilities: 'Recreation facilities',
       categoryYear: 'Category - Year',
@@ -1606,7 +1632,6 @@ The FRA team
       _ofWhichDesignatedForHikingBikingCrossCountrySkiingEtc: '... of which designated for hiking, biking, cross country skiing, etc.',
       facilityLengthIn1000Km: 'Facility (length in 1000 km)',
       area_available_for_public_recreation: 'Area available for public recreation - {{year}}',
-    },    
-
+    },
   }
 }
