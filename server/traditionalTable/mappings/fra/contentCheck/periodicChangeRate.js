@@ -1,18 +1,9 @@
+const { periodicChangeRate } = require('../../../../../common/model/traditionalTable/contentCheck')
+
 module.exports = {
   tableName: 'content_check_periodic_change_rates_view',
   rows: {
-    names: [
-      'forest_area_annual_net_change',
-      'forest_area_annual_net_change_rate',
-      'natural_forest_area_annual_net_change',
-      'natural_forest_area_annual_net_change_rate',
-      'other_wooded_land_annual_net_change',
-      'other_wooded_land_annual_net_change_rate',
-      'planted_forest_annual_net_change',
-      'planted_forest_annual_net_change_rate',
-      'primary_forest_annual_net_change',
-      'primary_forest_annual_net_change_rate',
-    ],
+    names: periodicChangeRate.rowNames
   },
   columns: [
     { name: '1990-2000', type: 'numeric' },

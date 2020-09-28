@@ -1,16 +1,9 @@
+const { extent } = require('../../../../../common/model/traditionalTable/contentCheck')
+
 module.exports = {
   tableName: 'content_check_extent_view',
   rows: {
-    names: [
-      'forest_area',
-      'protected_forest_percent',
-      'bamboo',
-      'primary_forest_percent',
-      'mangroves',
-      'other_wooded_land',
-      'management_plan_percent',
-      'certified_area',
-    ],
+    names: extent.rowNames,
   },
   columns: [
     { name: '1990', type: 'numeric' },
