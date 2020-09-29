@@ -40,6 +40,13 @@ module.exports = {
   ratioCarbonDeadwood: 'Ratio (Carbon/biomass) for dead wood',
 
   primaryDesignatedManagementObjective: 'Primary designated management objective',
+  production: '$t(designatedManagementObjective.production)',
+  protection_of_soil_and_water: '$t(designatedManagementObjective.soilWaterProtection)',
+  conservation_of_biodiversity: '$t(designatedManagementObjective.biodiversityConservation)',
+  social_services: '$t(designatedManagementObjective.socialServices)',
+  multiple_use: '$t(designatedManagementObjective.multipleUse)',
+  other: '$t(designatedManagementObjective.other)',
+  no_unknown: '$t(designatedManagementObjective.unknown)',
 
   totalAreaDesignatedManagementObjective: 'Total area with designated management objective',
 
