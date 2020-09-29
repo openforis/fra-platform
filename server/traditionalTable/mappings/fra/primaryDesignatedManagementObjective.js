@@ -9,13 +9,14 @@ module.exports = {
       'social_services',
       'multiple_use',
       'other',
-      'no_unknown']
+      'no_unknown',
+    ],
   },
   columns: [
-    {name: '1990', type: 'numeric'},
-    {name: '2000', type: 'numeric'},
-    {name: '2010', type: 'numeric'},
-    {name: '2015', type: 'numeric'},
-    {name: '2020', type: 'numeric'}
-  ]
+    { name: '1990', type: 'numeric' },
+    { name: '2000', type: 'numeric' },
+    { name: '2010', type: 'numeric' },
+    { name: '2015', type: 'numeric' },
+    { name: '2020', type: 'numeric' },
+  ],
 }

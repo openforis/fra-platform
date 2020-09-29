@@ -37,6 +37,7 @@ const sustainableDevelopmentAgencySubIndicator4 = require('./sustainableDevelopm
 
 const extent = require('../../../../common/model/traditionalTable/contentCheck/extent')
 const periodicChangeRate = require('../../../../common/model/traditionalTable/contentCheck/periodicChangeRate')
+const forestGrowingStockBiomassCarbon = require('../../../../common/model/traditionalTable/contentCheck/forestGrowingStockBiomassCarbon')
 
 module.exports = {
   specificForestCategories,
@@ -79,4 +80,5 @@ module.exports = {
   // contentCheck
   extent,
   periodicChangeRate,
+  forestGrowingStockBiomassCarbon,
 }
