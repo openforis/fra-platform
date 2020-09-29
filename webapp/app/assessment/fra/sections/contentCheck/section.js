@@ -3,6 +3,7 @@ const section = {
   tables: {
     extent: 'extent',
     periodicChangeRate: 'periodicChangeRate',
+    holderOfManagementRights: 'holderOfManagementRights',
   },
 }
 

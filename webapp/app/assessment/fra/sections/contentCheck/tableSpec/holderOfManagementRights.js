@@ -3,7 +3,7 @@ import holderOfManagementRights from '@server/traditionalTable/mappings/fra/hold
 import section from '../section'
 
 const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.extent,
+  [SectionSpec.KEYS_TABLE.name]: section.tables.holderOfManagementRights,
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
