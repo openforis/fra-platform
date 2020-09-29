@@ -48,4 +48,8 @@ module.exports = {
   managementRightsOfPublicForests: 'Management rights of public forests',
 
   disturbances: 'Disturbances',
+  insects: '$t(disturbances.insects)',
+  diseases: '$t(disturbances.diseases)',
+  severe_weather_events: '$t(disturbances.severeWeatherEvents)',
+  other: '$t(disturbances.other)',
 }
