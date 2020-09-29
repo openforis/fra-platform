@@ -5,6 +5,7 @@ const section = {
     periodicChangeRate: 'periodicChangeRate',
     primaryDesignatedManagementObjective: 'primaryDesignatedManagementObjective',
     forestGrowingStockBiomassCarbon: 'forestGrowingStockBiomassCarbon',
+    forestOwnership: 'forestOwnership',
   },
 }
 
