@@ -3,7 +3,7 @@ import primaryDesignatedManagementObjective from '@server/traditionalTable/mappi
 import section from '../section'
 
 const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.extent,
+  [SectionSpec.KEYS_TABLE.name]: section.tables.primaryDesignatedManagementObjective,
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
