@@ -1395,6 +1395,22 @@ The FRA team
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
     },
 
+    // table4.5
+    deadwood: {
+      deadwood: 'Deadwood',
+      categoryYear: 'Category - Year',
+      volumeOfDeadwoodM3Ha: 'Volume of deadwood (m³/ha)',
+      total: 'Total',
+      standing: 'Standing',
+      lying: 'Lying',
+      forest: 'Forest - {{year}}',
+      other_wooded_land: 'Other wooded land - {{year}}',
+      total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
+      volumeOfDeadwoodInFOWLBySpeciesGroups: 'Volume of deadwood in FOWL by species groups',
+      coniferous: 'Coniferous - {{year}}',
+      broadleaved: 'Broadleaved - {{year}}',
+    },
+
     // table 4.8
     threatenedForestSpecies: {
       threatenedForestSpecies: 'Threatened forest species',
