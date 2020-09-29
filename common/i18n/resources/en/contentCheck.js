@@ -44,6 +44,9 @@ module.exports = {
   totalAreaDesignatedManagementObjective: 'Total area with designated management objective',
 
   forestOwnership: 'Ownership',
+  private_ownership: '$t(forestOwnership.privateOwnership)',
+  public_ownership: '$t(forestOwnership.publicOwnership)',
+  other_or_unknown: '$t(forestOwnership.otherOrUnknown)',
 
   managementRightsOfPublicForests: 'Management rights of public forests',
 
