@@ -46,6 +46,11 @@ module.exports = {
   forestOwnership: 'Ownership',
 
   managementRightsOfPublicForests: 'Management rights of public forests',
+  public_administration: '$t(holderOfManagementRights.publicAdministration)',
+  individuals: '$t(holderOfManagementRights.individuals)',
+  private_businesses: '$t(holderOfManagementRights.privateBusinesses)',
+  communities: '$t(holderOfManagementRights.communities)',
+  other: '$t(holderOfManagementRights.other)',
 
   disturbances: 'Disturbances',
 }
