@@ -8,7 +8,7 @@ const tableSpec = SectionSpec.newTableSpec({
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'contentCheck.forestOwnership',
+          [SectionSpec.KEYS_COL.labelKey]: 'contentCheck.forestOwnership.title',
           [SectionSpec.KEYS_COL.rowSpan]: 2,
           [SectionSpec.KEYS_COL.left]: true,
         }),
@@ -27,7 +27,7 @@ const tableSpec = SectionSpec.newTableSpec({
       .filter((row) => !row.includes('of_which'))
       .map((variable) =>
         SectionSpec.newRowData({
-          [SectionSpec.KEYS_ROW.labelKey]: `contentCheck.${variable}`,
+          [SectionSpec.KEYS_ROW.labelKey]: `contentCheck.forestOwnership.${variable}`,
           [SectionSpec.KEYS_ROW.variableExport]: `${variable}`,
           [SectionSpec.KEYS_ROW.cols]: forestOwnership.columns.map(() => SectionSpec.newColDecimal()),
         })
