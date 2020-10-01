@@ -1,8 +1,10 @@
 const R = require('ramda')
-const db = require('../db/db')
 const camelize = require('camelize')
 
+const db = require('../db/db')
+
 const CountryRole = require('../../common/countryRole')
+const Area = require('../../common/country/area')
 
 /*
  * Determine the "overall status" from multiple statuses.
@@ -84,7 +86,7 @@ const getAllCountries = (role, schemaName = 'public') => {
       GROUP BY country_iso
     )
     SELECT
-      c.country_iso, c.region, c.region_iso, c.list_name_en, c.full_name_en, c.list_name_es, c.full_name_es, c.list_name_fr, c.full_name_fr, c.list_name_ru, c.full_name_ru, c.pan_european,
+      c.country_iso, c.list_name_en, c.full_name_en, c.list_name_es, c.full_name_es, c.list_name_fr, c.full_name_fr, c.list_name_ru, c.full_name_ru, c.pan_european,
       a.type, a.status, a.desk_study,
       fa.last_edited
     FROM
@@ -107,8 +109,6 @@ WITH assessment AS (
     GROUP BY a.country_iso
 )
 SELECT c.country_iso,
-       c.region,
-       c.region_iso,
        c.list_name_en,
        c.full_name_en,
        c.list_name_es,
@@ -125,6 +125,42 @@ ON c.country_iso = a.country_iso
 ORDER BY c.country_iso
   `)
   return camelize(rs.rows)
+}
+
+const getRegionCountriesList = async (region) => {
+  if (!Area.isISORegion(region)) {
+    return []
+  }
+
+  const query = `
+WITH assessment AS (
+    SELECT a.country_iso,
+           json_object_agg(a.type::TEXT,
+                           json_build_object('desk_study', a.desk_study, 'status', a.status)) AS assessment
+    FROM assessment a
+    GROUP BY a.country_iso
+)
+SELECT c.country_iso,
+       c.list_name_en,
+       c.full_name_en,
+       c.list_name_es,
+       c.full_name_es,
+       c.list_name_fr,
+       c.full_name_fr,
+       c.list_name_ru,
+       c.full_name_ru,
+       c.pan_european,
+       a.assessment
+FROM country c
+LEFT JOIN assessment a
+ON c.country_iso = a.country_iso
+WHERE c.country_iso in (
+        SELECT cr.country_iso FROM country_region cr WHERE cr.region_code = '${region}'
+)
+ORDER BY c.country_iso
+  `
+  const result = await db.query(query)
+  return camelize(result.rows)
 }
 
 const getAllowedCountries = (roles, schemaName = 'public') => {
@@ -147,7 +183,7 @@ const getAllowedCountries = (roles, schemaName = 'public') => {
         GROUP BY country_iso
       )
       SELECT
-        c.country_iso, c.region, c.region_iso, c.list_name_en, c.full_name_en, c.list_name_es, c.full_name_es, c.list_name_fr, c.full_name_fr, c.list_name_ru, c.full_name_ru, c.pan_european,
+        c.country_iso, c.list_name_en, c.full_name_en, c.list_name_es, c.full_name_es, c.list_name_fr, c.full_name_fr, c.list_name_ru, c.full_name_ru, c.pan_european,
         a.type, a.status, a.desk_study,
         fa.last_edited
       FROM
@@ -216,6 +252,7 @@ const getCountry = countryIso =>
 
 module.exports.getAllowedCountries = getAllowedCountries
 module.exports.getAllCountriesList = getAllCountriesList
+module.exports.getRegionCountriesList = getRegionCountriesList
 module.exports.getDynamicCountryConfiguration = getDynamicCountryConfiguration
 module.exports.saveDynamicConfigurationVariable = saveDynamicConfigurationVariable
 module.exports.getFirstAllowedCountry = roles =>
