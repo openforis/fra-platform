@@ -191,6 +191,14 @@ const PanEuropean = {
           },
         },
 
+        '44b': {
+          name: 'introducedTreeSpecies4_4b',
+          anchor: '4.4b',
+          tables: {
+            table_4_4b: 'table_4_4b',
+          },
+        },
+
         '45a': {
           name: 'deadwood',
           anchor: '4.5a',

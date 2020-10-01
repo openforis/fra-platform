@@ -1395,6 +1395,13 @@ The FRA team
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
     },
 
+    // table 4.4b
+    introducedTreeSpecies4_4b: {
+      introducedTreeSpecies4_4b: 'Introduced tree species',
+      scientificNameOfIntroducedTreeSpecies: 'Scientific name of introduced tree species',
+      forestAreaOccupied1000Ha: 'Forest area occupied (1000 ha)'
+    },
+
     // table4.5
     deadwood: {
       deadwood: 'Deadwood',
