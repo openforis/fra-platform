@@ -74,9 +74,11 @@ module.exports = {
     other: '$t(holderOfManagementRights.other)',
   },
 
-  disturbances: 'Disturbances',
-  insects: '$t(disturbances.insects)',
-  diseases: '$t(disturbances.diseases)',
-  severe_weather_events: '$t(disturbances.severeWeatherEvents)',
-  other: '$t(disturbances.other)',
+  disturbances: {
+    title: 'Disturbances',
+    insects: '$t(disturbances.insects)',
+    diseases: '$t(disturbances.diseases)',
+    severe_weather_events: '$t(disturbances.severeWeatherEvents)',
+    other: '$t(disturbances.other)',
+  },
 }
