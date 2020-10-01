@@ -29,7 +29,8 @@ export default () => {
 
   const [selection, setSelection] = useState({ ...initialSelection })
 
-  const { data: allCountries = [], dispatch: fetchCountries } = useGetRequest(`/api/countries`)
+  const countryListUrl = `/api/countries/${Area.isISORegion(countryIso) ? countryIso : ''}`
+  const { data: allCountries = [], dispatch: fetchCountries } = useGetRequest(countryListUrl)
 
   const hasSelection = !!(selection.countries.length && selection.columns.length && selection.variable.param)
 
@@ -91,8 +92,6 @@ export default () => {
   })
 
   if (Assessment.isTypePanEuropean(assessmentType)) countries = countries.filter(Country.isPanEuropean)
-  if (Area.isISORegion(countryIso))
-    countries = countries.filter((country) => Country.getRegionIso(country) === countryIso)
 
   return {
     results,
