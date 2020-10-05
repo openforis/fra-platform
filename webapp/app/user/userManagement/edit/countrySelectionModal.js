@@ -13,7 +13,7 @@ const CountrySelectionModalBody = (props) => {
 
   const i18n = useI18n()
   const regionsLoaded = useSelector(CountryState.hasRegions)
-  const { countryRegions } = useSelector(CountryState.getRegions)
+  const countryRegions = useSelector(CountryState.getCountryRegions)
 
   useEffect(() => {
     if (!regionsLoaded) dispatch(fetchRegionList())
@@ -26,24 +26,25 @@ const CountrySelectionModalBody = (props) => {
   const isSelected = (countryIso) => R.contains(countryIso, selection)
   const isUnselactable = (countryIso) => R.contains(countryIso, unselectableCountries)
 
-  const countries3 = {}
+  // Sort given countries (from props) to hashmap: {regionCode}: [{countryIso},..]
+  const regionCountries = {}
 
   countries.forEach((country) => {
     const { countryIso } = country
     const regionCodes = countryRegions[countryIso]
 
     regionCodes.forEach((regionCode) => {
-      if (!Array.isArray(countries3[regionCode])) {
-        countries3[regionCode] = []
+      if (!Array.isArray(regionCountries[regionCode])) {
+        regionCountries[regionCode] = []
       }
-      countries3[regionCode].push(countryIso)
+      regionCountries[regionCode].push(countryIso)
     })
   })
 
   return (
     <ModalBody>
       <div className="edit-user__form-field-country-selection">
-        {Object.entries(countries3).map(([regionCode, countryIsos]) => (
+        {Object.entries(regionCountries).map(([regionCode, countryIsos]) => (
           <div key={regionCode} className="edit-user__form-field-region-container">
             <div className="edit-user__form-field-region-label">{i18n.t(`area.${regionCode}.listName`)}</div>
 
@@ -89,7 +90,6 @@ const CountrySelectionModal = (props) => {
         <CountrySelectionModalBody
           countries={countries}
           toggleCountry={toggleCountry}
-          onClose={onClose}
           selection={selection}
           unselectableCountries={unselectableCountries}
         />
