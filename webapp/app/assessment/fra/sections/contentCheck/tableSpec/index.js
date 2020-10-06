@@ -4,6 +4,7 @@ import holderOfManagementRights from './holderOfManagementRights'
 import ownership from './forestOwnership'
 import primaryDesignatedManagementObjective from './primaryDesignatedManagementObjective'
 import forestGrowingStockBiomassCarbon from './forestGrowingStockBiomassCarbon'
+import disturbances from './disturbances'
 
 export default [
   extent,
@@ -12,4 +13,5 @@ export default [
   forestGrowingStockBiomassCarbon,
   ownership,
   holderOfManagementRights,
+  disturbances,
 ]

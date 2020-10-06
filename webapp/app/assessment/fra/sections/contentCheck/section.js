@@ -7,6 +7,7 @@ const section = {
     primaryDesignatedManagementObjective: 'primaryDesignatedManagementObjective',
     forestGrowingStockBiomassCarbon: 'forestGrowingStockBiomassCarbon',
     forestOwnership: 'forestOwnership',
+    disturbances: 'disturbances',
   },
 }
 
