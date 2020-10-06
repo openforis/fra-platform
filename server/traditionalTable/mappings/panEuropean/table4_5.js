@@ -1,7 +1,7 @@
 module.exports = {
-  tableName: 'table_4_5a',
+  tableName: 'table_4_5',
   schemaName: 'pan_european',
-  section: 'panEuropean_4_5_a',
+  section: 'panEuropean_4_5',
   rows: {
     names: [
       'forest_2015',
