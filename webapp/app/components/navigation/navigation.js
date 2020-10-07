@@ -31,7 +31,7 @@ const Navigation = () => {
       <LinkPanEuropeanIndicators />
 
       {isISOGlobal(countryIso) && (
-        <a className="btn btn-primary nav__bulk-download" href="/api/export/bulk-download" alt="">
+        <a className="btn-s btn-primary nav__bulk-download" href="/api/export/bulk-download" alt="">
           <Icon className="icon-sub icon-white" name="hit-down" />
           {i18n.t('navigation.bulkDownload')}
         </a>
