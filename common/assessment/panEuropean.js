@@ -199,11 +199,11 @@ const PanEuropean = {
           },
         },
 
-        '45a': {
+        '45': {
           name: 'deadwood',
-          anchor: '4.5a',
+          anchor: '4.5',
           tables: {
-            table_4_5a: 'table_4_5a',
+            table_4_5: 'table_4_5',
           },
         },
 

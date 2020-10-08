@@ -20,7 +20,7 @@ import naturalness from '@webapp/app/assessment/panEuropean/sections/table_4_3a/
 import naturalnessBySubclasses from '@webapp/app/assessment/panEuropean/sections/table_4_3b/sectionSpec'
 import introducedTreeSpecies from '@webapp/app/assessment/panEuropean/sections/table_4_4a/sectionSpec'
 import introducedTreeSpecies4_4b from '@webapp/app/assessment/panEuropean/sections/table_4_4b/sectionSpec'
-import deadwood from '@webapp/app/assessment/panEuropean/sections/table_4_5a/sectionSpec'
+import deadwood from '@webapp/app/assessment/panEuropean/sections/table_4_5/sectionSpec'
 import threatenedForestSpecies from '@webapp/app/assessment/panEuropean/sections/table_4_8/sectionSpec'
 import protectedForests from '@webapp/app/assessment/panEuropean/sections/table_4_9/sectionSpec'
 import protectiveForestsSoilWaterAndOtherEcosystemFunctions from '@webapp/app/assessment/panEuropean/sections/table_5_1/sectionSpec'
