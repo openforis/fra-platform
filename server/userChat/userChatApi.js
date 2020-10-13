@@ -1,5 +1,4 @@
 const Promise = require('bluebird')
-const R = require('ramda')
 
 const db = require('../db/db')
 

@@ -63,10 +63,3 @@ export const changeAssessment = (countryIso, assessment, notifyUsers) => async (
   dispatch(fetchCountryList())
   dispatch(fetchCountryOverviewStatus(countryIso))
 }
-
-// ====== Methods below are DEPRECATED - use them from country model object
-/**
- * @deprecated
- */
-const getCountry = (countryIso) =>
-  R.pipe(R.path(['country', 'countries']), R.values, R.flatten, R.find(R.propEq('countryIso', countryIso)))

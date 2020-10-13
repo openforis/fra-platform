@@ -3,7 +3,6 @@ import './fraPrintView.less'
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-import * as Country from '@common/country/country'
 import * as Assessment from '@common/assessment/assessment'
 import * as FRA from '@common/assessment/fra'
 
