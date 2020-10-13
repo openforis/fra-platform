@@ -39,14 +39,15 @@ module.exports = () => {
 
   app.use('/style', express.static(`${__dirname}/../dist/style`))
   app.use('/js', express.static(`${__dirname}/../dist/js`))
-  app.use('/font/woff2.css', express.static(`${__dirname}/../dist/woff2.css`))
+  app.use('/woff2.css', express.static(`${__dirname}/../dist/woff2.css`))
 
   app.use('/*', express.static(path.resolve(__dirname, '..', 'dist')))
 
   // Custom error-handling for handling custom exceptions and
   // sending the uncaught errors as json instead of HTML
   // http://expressjs.com/en/guide/error-handling.html
-  app.use((err, req, res) => {
+  // NB: This must not be an arrow function to make express detect this as an error handler.
+  app.use(function (err, req, res, _next) {
     if (err) sendErr(res, err)
   })
 

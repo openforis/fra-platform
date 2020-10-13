@@ -55,12 +55,10 @@ export const getTotalTableValue = (year, variableName) => _getTableValue(getTabl
 
 export const calculateTotalValue = (year, variableName, avgValue) => (state) => {
   const baseValue = _getBaseTableValue(year, variableName)(state)
-  const value = NumberUtils.toString(NumberUtils.div(NumberUtils.mul(avgValue, baseValue), 1000))
-  return value
+  return NumberUtils.toString(NumberUtils.div(NumberUtils.mul(avgValue, baseValue), 1000))
 }
 
 export const calculateAvgValue = (year, variableName, totalValue) => (state) => {
   const baseValue = _getBaseTableValue(year, variableName)(state)
-  const value = NumberUtils.toString(NumberUtils.div(NumberUtils.mul(totalValue, 1000), baseValue))
-  return value
+  return NumberUtils.toString(NumberUtils.div(NumberUtils.mul(totalValue, 1000), baseValue))
 }

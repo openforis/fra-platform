@@ -1,13 +1,10 @@
 import * as FRA from '@common/assessment/fra'
 
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
-import * as GrowingStockState from '@webapp/app/assessment/fra/sections/growingStock/growingStockState'
-import * as GrowingStockValidatorState from '@webapp/app/assessment/fra/sections/growingStock/growingStockValidatorState'
+import * as GrowingStockState from './growingStockState'
+import * as GrowingStockValidatorState from './growingStockValidatorState'
 
-import {
-  updateGrowingStockAvgCell,
-  updateGrowingStockTotalCell,
-} from '@webapp/app/assessment/fra/sections/growingStock/actions'
+import * as GrowingStockActions from './actions'
 
 const section = FRA.sections['2'].children.a
 
@@ -44,7 +41,7 @@ const table1 = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.odpVariables]: GrowingStockState.variables,
   [SectionSpec.KEYS_TABLE.dataExport]: false,
   [SectionSpec.KEYS_TABLE.getSectionData]: GrowingStockState.getTableDataAvg,
-  [SectionSpec.KEYS_TABLE.updateTableDataCell]: updateGrowingStockAvgCell,
+  [SectionSpec.KEYS_TABLE.updateTableDataCell]: GrowingStockActions.updateGrowingStockAvgCell,
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
@@ -81,7 +78,7 @@ const table2 = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.odp]: true,
   [SectionSpec.KEYS_TABLE.odpVariables]: GrowingStockState.variables,
   [SectionSpec.KEYS_TABLE.getSectionData]: GrowingStockState.getTableDataTotal,
-  [SectionSpec.KEYS_TABLE.updateTableDataCell]: updateGrowingStockTotalCell,
+  [SectionSpec.KEYS_TABLE.updateTableDataCell]: GrowingStockActions.updateGrowingStockTotalCell,
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [

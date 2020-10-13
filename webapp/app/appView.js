@@ -34,7 +34,7 @@ const LoggedInView = () => {
   }, [])
 
   useEffect(() => {
-    dispatch(fetchCountryInitialData(countryIso, printView, printOnlyTablesView))
+    if (countryIso) dispatch(fetchCountryInitialData(countryIso, printView, printOnlyTablesView))
   }, [countryIso])
 
   if (!countryStatusLoaded) {
@@ -60,6 +60,7 @@ const LoggedInView = () => {
 
         <div className={`app-view ${navigationVisible ? ' navigation-on' : ''}`}>
           <Navigation />
+
           <Switch>
             {routes.map((route) => (
               <Route key={route.path} path={route.path} component={route.component} />

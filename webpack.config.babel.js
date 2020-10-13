@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import path from 'path'
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import webpack from 'webpack'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -18,8 +19,11 @@ const config = {
   mode: process.env.NODE_ENV || 'development',
   path: path.resolve(__dirname, 'dist'),
 }
+const isDevelopment = process.env.NODE_ENV !== 'production'
 
 const gitRevisionPlugin = config.mode === 'production' ? null : new GitRevisionPlugin()
+
+const fontCssFileName = 'woff2.css'
 
 const plugins = [
   new GoogleFontsPlugin({
@@ -30,6 +34,7 @@ const plugins = [
       },
     ],
     formats: ['woff2'],
+    filename: fontCssFileName,
   }),
   ...(gitRevisionPlugin ? [gitRevisionPlugin] : []),
   new MiniCssExtractPlugin({ filename: 'style/styles-[hash].css' }),
@@ -45,6 +50,11 @@ const plugins = [
   new CleanWebpackPlugin(),
 ]
 
+if (isDevelopment) {
+  plugins.push(new webpack.HotModuleReplacementPlugin())
+  plugins.push(new ReactRefreshWebpackPlugin())
+}
+
 if (buildReport) {
   plugins.push(new BundleAnalyzerPlugin())
 }
@@ -52,7 +62,7 @@ if (buildReport) {
 const appConfig = {
   mode: config.mode,
   devtool: 'source-map',
-  entry: ['regenerator-runtime/runtime', './webapp/main.js'],
+  entry: ['./webapp/main.js'],
   resolve: {
     extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js', '.js', '.jsx'],
     alias: {
@@ -67,18 +77,32 @@ const appConfig = {
     path: config.path,
     publicPath: '/',
   },
+  devServer: {
+    hot: true,
+    proxy: [
+      {
+        // Proxy all server-served routes:
+        context: ['/auth', '/img', '/css', '/ckeditor', '/video', '/api'],
+        target: 'http://localhost:9001',
+      },
+    ],
+    compress: false,
+    port: 9000,
+    historyApiFallback: true,
+  },
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        exclude: /(node_modules)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env', '@babel/react'],
-            plugins: ['@babel/plugin-proposal-object-rest-spread', '@babel/plugin-syntax-dynamic-import'],
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              plugins: isDevelopment ? [require.resolve('react-refresh/babel')] : [],
+            },
           },
-        },
+        ],
       },
       {
         test: /\.(less|css)$/,
@@ -86,7 +110,27 @@ const appConfig = {
           {
             loader: MiniCssExtractPlugin.loader,
           },
-          'css-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              url: (url) => {
+                // Don't handle /img/ urls
+                if (url.includes('/img/')) {
+                  return false
+                }
+
+                return true
+              },
+              import: (url) => {
+                // Don't handle font css file import
+                if (url.includes(fontCssFileName)) {
+                  return false
+                }
+
+                return true
+              },
+            },
+          },
           'less-loader',
         ],
       },

@@ -16,7 +16,7 @@ module.exports = {
     title: 'Площадь лесов (1990 — 2020)',
   },
   carbonAndGrowingStock: {
-    title: 'Запасы древостоя и углерода (1990 — 2020)',
+    title: 'Запасы древостоя и углерода в лесах (1990 — 2020)',
     rowName: '',
     carbon_stock_biomass_total: 'Запас углерода в биомассе',
     carbon_stock_total: 'Общий запас углерода',

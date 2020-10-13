@@ -5,46 +5,56 @@ import * as R from 'ramda'
 import Extent from '@webapp/app/countryLanding/views/contentCheck/extent'
 import PeriodicChangeRate from '@webapp/app/countryLanding/views/contentCheck/periodicChangeRate'
 import ForestGSBiomassCarbon from '@webapp/app/countryLanding/views/contentCheck/forestGSBiomassCarbon'
-import PrimaryDesignatedManagementObjectiveView from '@webapp/app/countryLanding/views/contentCheck/primaryDesignatedManagementObjective'
-import TotalAreaDesignatedManagementObjectiveView from '@webapp/app/countryLanding/views/contentCheck/totalAreaDesignatedManagementObjective'
+
 import ForestOwnership from '@webapp/app/countryLanding/views/contentCheck/forestOwnership'
 import ManagementRightsOfPublicForests from '@webapp/app/countryLanding/views/contentCheck/managementRightsOfPublicForests'
 import Disturbances from '@webapp/app/countryLanding/views/contentCheck/disturbances'
 import useI18n from '@webapp/components/hooks/useI18n'
-
-import forestAreaWithinProtectedAreasTableSpec from '@webapp/app/assessment/fra/sections/forestAreaWithinProtectedAreas/tableSpec'
-import specificForestCategoriesTableSpec from '@webapp/app/assessment/fra/sections/specificForestCategories/tableSpec'
-import biomassStockTableSpec from '@webapp/app/assessment/fra/sections/biomassStock/tableSpec'
-import carbonStockTableSpec from '@webapp/app/assessment/fra/sections/carbonStock/tableSpec'
-import forestOwnershipTableSpec from '@webapp/app/assessment/fra/sections/forestOwnership/tableSpec'
-// import holderOfManagementRightsTableSpec from '@webapp/assessmentFra/holderOfManagementRights/tableSpec'
-import disturbancesTableSpec from '@webapp/app/assessment/fra/sections/disturbances/tableSpec'
-import areaAffectedByFireTableSpec from '@webapp/app/assessment/fra/sections/areaAffectedByFire/tableSpec'
 
 
 import defaultYears from '@server/eof/defaultYears'
 import * as AppState from '@webapp/app/appState'
 import * as CountryState from '@webapp/app/country/countryState'
 
-import { fetchItem } from '@webapp/app/assessment/fra/components/tableWithOdp/actions'
+import { fetchItem } from '@webapp/app/countryLanding/views/contentCheck/tableWithOdp/actions'
 import { fetchTableData } from '@webapp/app/assessment/components/traditionalTable/actions'
 import { fetch } from '@webapp/app/assessment/fra/sections/growingStock/actions'
 
-const ContentCheckView = props => {
+/* ************************ */
+
+import PrimaryDesignatedManagementObjectiveView from './primaryDesignatedManagementObjective'
+import TotalAreaDesignatedManagementObjectiveView from './totalAreaDesignatedManagementObjective'
+
+import areaAffectedByFireTableSpec from './tableSpec/areaAffectedByFire'
+import biomassStockTableSpec from './tableSpec/biomassStock'
+import carbonStockTableSpec from './tableSpec/carbonStock'
+import disturbancesTableSpec from './tableSpec/disturbances'
+import forestAreaWithinProtectedAreasTableSpec from './tableSpec/forestAreaWithinProtectedAreas'
+import forestOwnershipTableSpec from './tableSpec/forestOwnership'
+import specificForestCategoriesTableSpec from './tableSpec/specificForestCategories'
+
+const ContentCheckView = (props) => {
   const i18n = useI18n()
 
   const {
-    fetchItem, fetchTableData, fetch,
+    fetchItem,
+    fetchTableData,
+    fetch,
     //1
-    extentOfForest, forestCharacteristics, specificForestCategories,
+    extentOfForest,
+    forestCharacteristics,
+    specificForestCategories,
     //2
-    growingStock, biomassStock, carbonStock,
+    growingStock,
+    biomassStock,
+    carbonStock,
     //3
     forestAreaWithinProtectedAreas,
     //4
     forestOwnership,
     //5
-    disturbances, areaAffectedByFire,
+    disturbances,
+    areaAffectedByFire,
     //8
     certifiedAreas,
   } = props
@@ -71,86 +81,102 @@ const ContentCheckView = props => {
 
   useEffect(fetchData, [countryIso])
 
-  const getFraValue = (variable, year, source = extentOfForest) => R.pipe(
-    R.prop('fra'),
-    R.find(R.propEq('year', year)),
-    R.prop(variable),
-  )(source)
+  const getFraValue = (variable, year, source = extentOfForest) =>
+    R.pipe(R.prop('fra'), R.find(R.propEq('year', year)), R.prop(variable))(source)
 
   const tableData5YearsMapping = { 1990: 1, 2000: 2, 2010: 3, 2015: 4, 2020: 5 }
 
-  return forestCharacteristics && specificForestCategories &&
-  growingStock && biomassStock && carbonStock &&
-  forestAreaWithinProtectedAreas &&
-  forestOwnership &&
-  disturbances && areaAffectedByFire
-    ? (
-      <div>
+  return forestCharacteristics &&
+    specificForestCategories &&
+    growingStock &&
+    biomassStock &&
+    carbonStock &&
+    forestAreaWithinProtectedAreas &&
+    forestOwnership &&
+    disturbances &&
+    areaAffectedByFire ? (
+    <div>
+      <Extent
+        i18n={i18n}
+        years={defaultYears}
+        getFraValue={getFraValue}
+        tableData5YearsMapping={tableData5YearsMapping}
+        extentOfForest={extentOfForest}
+        specificForestCategories={specificForestCategories}
+        forestAreaWithinProtectedAreas={forestAreaWithinProtectedAreas}
+        certifiedAreas={certifiedAreas}
+      />
 
-        <Extent i18n={i18n} years={defaultYears}
-                getFraValue={getFraValue} tableData5YearsMapping={tableData5YearsMapping}
-                extentOfForest={extentOfForest}
-                specificForestCategories={specificForestCategories}
-                forestAreaWithinProtectedAreas={forestAreaWithinProtectedAreas}
-                certifiedAreas={certifiedAreas}/>
+      <PeriodicChangeRate
+        i18n={i18n}
+        years={defaultYears}
+        getFraValue={getFraValue}
+        tableData5YearsMapping={tableData5YearsMapping}
+        extentOfForest={extentOfForest}
+        forestCharacteristics={forestCharacteristics}
+        specificForestCategories={specificForestCategories}
+      />
 
+      <ForestGSBiomassCarbon
+        i18n={i18n}
+        years={defaultYears}
+        biomassStock={biomassStock}
+        growingStock={growingStock}
+        carbonStock={carbonStock}
+      />
 
-        <PeriodicChangeRate i18n={i18n} years={defaultYears}
-                            getFraValue={getFraValue} tableData5YearsMapping={tableData5YearsMapping}
-                            extentOfForest={extentOfForest} forestCharacteristics={forestCharacteristics}
-                            specificForestCategories={specificForestCategories}/>
+      <PrimaryDesignatedManagementObjectiveView
+        i18n={i18n}
+        countryIso={countryIso}
+        years={defaultYears}
+        extentOfForest={extentOfForest}
+      />
 
-        <ForestGSBiomassCarbon i18n={i18n} years={defaultYears}
-                               biomassStock={biomassStock}
-                               growingStock={growingStock}
-                               carbonStock={carbonStock}/>
+      <TotalAreaDesignatedManagementObjectiveView i18n={i18n} countryIso={countryIso} years={defaultYears} />
 
-        <PrimaryDesignatedManagementObjectiveView i18n={i18n} countryIso={countryIso}
-                                                  years={defaultYears}
-                                                  extentOfForest={extentOfForest}/>
+      <ForestOwnership
+        i18n={i18n}
+        countryIso={countryIso}
+        years={defaultYears}
+        extentOfForest={extentOfForest}
+        forestOwnership={forestOwnership}
+      />
 
-        <TotalAreaDesignatedManagementObjectiveView i18n={i18n} countryIso={countryIso}
-                                                    years={defaultYears}/>
+      <ManagementRightsOfPublicForests
+        i18n={i18n}
+        countryIso={countryIso}
+        years={defaultYears}
+        forestOwnership={forestOwnership}
+      />
 
-        <ForestOwnership i18n={i18n} countryIso={countryIso}
-                         years={defaultYears}
-                         extentOfForest={extentOfForest}
-                         forestOwnership={forestOwnership}/>
-
-        <ManagementRightsOfPublicForests i18n={i18n} countryIso={countryIso}
-                                         years={defaultYears}
-                                         forestOwnership={forestOwnership}/>
-
-        <Disturbances i18n={i18n} countryIso={countryIso}
-                      disturbances={disturbances} areaAffectedByFire={areaAffectedByFire}/>
-
-      </div>
-    )
-    : null
-
+      <Disturbances
+        i18n={i18n}
+        countryIso={countryIso}
+        disturbances={disturbances}
+        areaAffectedByFire={areaAffectedByFire}
+      />
+    </div>
+  ) : null
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   extentOfForest: R.prop('extentOfForest')(state), //1a
   forestCharacteristics: R.prop('forestCharacteristics')(state), //1b
-  specificForestCategories: R.path(['traditionalTable', 'specificForestCategories'])(state),//1e
+  specificForestCategories: R.path(['traditionalTable', 'specificForestCategories'])(state), //1e
 
   growingStock: R.prop('growingStock')(state), //2a
-  biomassStock: R.path(['traditionalTable', 'biomassStock'])(state),//2c
-  carbonStock: R.path(['traditionalTable', 'carbonStock'])(state),//2d
+  biomassStock: R.path(['traditionalTable', 'biomassStock'])(state), //2c
+  carbonStock: R.path(['traditionalTable', 'carbonStock'])(state), //2d
 
-  forestAreaWithinProtectedAreas: R.path(['traditionalTable', 'forestAreaWithinProtectedAreas'])(state),//3b
+  forestAreaWithinProtectedAreas: R.path(['traditionalTable', 'forestAreaWithinProtectedAreas'])(state), //3b
 
-  forestOwnership: R.path(['traditionalTable', 'forestOwnership'])(state),//4a
+  forestOwnership: R.path(['traditionalTable', 'forestOwnership'])(state), //4a
   // holderOfManagementRights: R.path(['traditionalTable', 'holderOfManagementRights'])(state),//4b
 
-  disturbances: R.path(['traditionalTable', 'disturbances'])(state),//5a
-  areaAffectedByFire: R.path(['traditionalTable', 'areaAffectedByFire'])(state),//5b
+  disturbances: R.path(['traditionalTable', 'disturbances'])(state), //5a
+  areaAffectedByFire: R.path(['traditionalTable', 'areaAffectedByFire'])(state), //5b
 
   certifiedAreas: CountryState.getConfigCertifiedAreas(state),
 })
 
-export default connect(
-  mapStateToProps,
-  { fetchItem, fetchTableData, fetch }
-)(ContentCheckView)
+export default connect(mapStateToProps, { fetchItem, fetchTableData, fetch })(ContentCheckView)

@@ -1,8 +1,11 @@
 const area = require('./en/area')
 const statisticalFactsheets = require('./en/statisticalFactsheets')
+const contentCheck = require('./en/contentCheck')
 
 module.exports.translation = {
   area,
+  contentCheck,
+  statisticalFactsheets,
 
   language: {
     en: 'English',
@@ -59,8 +62,6 @@ followed by the boreal, temperate and subtropical domains.`,
     userGuide: 'User guide',
     sendFeedback: 'Send feedback',
   },
-
-  statisticalFactsheets,
 
   unit: {
     haThousand: '1000 ha',
@@ -252,54 +253,6 @@ The FRA team fra@fao.org
       uploadFile: 'Upload a file',
       confirmDelete: 'Delete {{file}}? This cannot be undone.',
     },
-    contentCheck: {
-      extent: 'Extent',
-      forest: 'Forest (1000 ha)',
-      owl: 'Other wooded land (1000 ha)',
-      primaryForest: 'Primary forest (% of forest)',
-      forestProtectedArea: 'Forest in protected areas (% of forest)',
-      forestMgmtPlan: 'Forest area with mgmt plan (% of forest)',
-      certifiedForestArea: 'Certified forest area (1000 ha)',
-
-      periodicChangeRate: 'Periodic change rates (annual rates)',
-      forestAreaNetChange: 'Forest area annual net change (1000 hectares)',
-      forestAreaNetChangeRate: 'Forest area annual net change rate (%)',
-      owlNetChange: 'OWL area annual net change (1000 ha)',
-      owlNetChangeRate: 'OWL area annual net change rate(%)',
-      primaryForestNetChange: 'Primary forest annual net change (1000 ha)',
-      primaryForestNetChangeRate: 'Primary forest area change rate (%)',
-      naturallyRegeneratingForestNetChange: 'Naturally regenerating forest annual net change',
-      naturallyRegeneratingForestNetChangeRate: 'Naturally regenerating forest change rate (%)',
-      plantedForestNetChange: 'Planted forest annual net change',
-      plantedForestNetChangeRate: 'Planted forest change rate (%)',
-
-      forestGSBiomassCarbon: 'FOREST growing stock, biomass and carbon',
-      gs: 'GS (m3/ha)',
-      agb: 'Above-ground biomass (t/ha)',
-      bgb: 'Below-ground biomass (t/ha)',
-      deadwood: 'Dead wood (t/ha)',
-      carbonAgb: 'C in above-ground biomass (t/ha)',
-      carbonBgb: 'C in below-ground biomass (t/ha)',
-      carbonDeadwood: 'C in dead wood (t/ha)',
-      carbonLitter: 'C in litter (t/ha)',
-      carbonSoil: 'C in soil (t/ha)',
-      ratioAgb: 'Ratio (above-ground biomass) / GS (t/m3)',
-      rootShootRatio: 'Root-Shoot ratio',
-      ratioDeadwood: 'Ratio (Dead wood / Living biomass)',
-      ratioCarbonAgb: 'Ratio (Carbon/biomass) for above-ground biomass',
-      ratioCarbonBgb: 'Ratio (Carbon/biomass) for below-ground biomass',
-      ratioCarbonDeadwood: 'Ratio (Carbon/biomass) for dead wood',
-
-      primaryDesignatedManagementObjective: 'Primary designated management objective',
-
-      totalAreaDesignatedManagementObjective: 'Total area with designated management objective',
-
-      forestOwnership: 'Ownership',
-
-      managementRightsOfPublicForests: 'Management rights of public forests',
-
-      disturbances: 'Disturbances',
-    },
     dataExport: {
       downloadData: 'Download data',
     },
@@ -329,7 +282,6 @@ The FRA team fra@fao.org
       },
     },
   },
-
   userChat: {
     chatHeader: 'Messages with {{user}}',
     noMessages: 'No messages',
@@ -398,6 +350,7 @@ The FRA team
   },
 
   navigation: {
+    bulkDownload: 'Bulk Download',
     hideAll: 'Hide all',
     showAll: 'Show all',
     support: {

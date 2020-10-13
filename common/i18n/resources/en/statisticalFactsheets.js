@@ -16,7 +16,7 @@ module.exports = {
     title: 'Forest Area (1990 — 2020)',
   },
   carbonAndGrowingStock: {
-    title: 'Growing Stock and Carbon (1990 — 2020)',
+    title: 'Forest growing stock and carbon (1990 — 2020)',
     rowName: '',
     carbon_stock_biomass_total: 'Carbon stock in biomass',
     carbon_stock_total: 'Total carbon stock',

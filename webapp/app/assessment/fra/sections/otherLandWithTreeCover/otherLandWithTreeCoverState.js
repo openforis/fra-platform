@@ -9,10 +9,10 @@ import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extent
 const section = FRA.sections['1'].children.f
 const rowsIdxOtherLand = R.range(0, 5)
 
-export const getOtherLandWithTreeCoverTotal = colIdx =>
+export const getOtherLandWithTreeCoverTotal = (colIdx) =>
   R.pipe(
     AssessmentState.getSectionData(FRA.type, section.name, section.tables.otherLandWithTreeCover),
     FRAUtils.sumTableColumn(colIdx, rowsIdxOtherLand)
   )
 
-export const getOtherLand = colIdx => ExtentOfForestState.getOtherLandByYear(FRA.yearsTable[colIdx])
+export const getOtherLand = (colIdx) => ExtentOfForestState.getOtherLandByYear(FRA.yearsTable[colIdx])
