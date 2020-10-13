@@ -23,7 +23,7 @@ const CountryListDownload = () => {
   const countries = useSelector(CountryState.getCountriesList)
 
   const data = countries.map((country) => ({
-    name: Country.getListName(i18n.language)(country),
+    name: i18n.t(`area.${country.countryIso}.listName`),
     status: i18n.t(`assessment.status.${Country.getFra2020Assessment(country)}.label`),
     edited: getRelativeDate(Country.getLastEdit(country), i18n) || i18n.t('audit.notStarted'),
     deskStudy: i18n.t(`yesNoTextSelect.${Country.isFra2020DeskStudy(country) ? 'yes' : 'no'}`),

@@ -30,18 +30,6 @@ const getStatuses = (groupedRows) => R.pipe(R.map(R.pick(['type', 'status'])), R
 const getCountryProperties = (country) => ({
   countryIso: country.countryIso,
   regions: country.regions,
-  listName: {
-    en: country.listNameEn,
-    es: country.listNameEs,
-    fr: country.listNameFr,
-    ru: country.listNameRu,
-  },
-  fullName: {
-    en: country.fullNameEn,
-    es: country.fullNameEs,
-    fr: country.fullNameFr,
-    ru: country.fullNameRu,
-  },
   panEuropean: country.panEuropean,
   lastEdit: country.lastEdited,
 })
@@ -82,14 +70,6 @@ WITH fa AS (
     GROUP BY country_iso
 )
 SELECT c.country_iso,
-       c.list_name_en,
-       c.full_name_en,
-       c.list_name_es,
-       c.full_name_es,
-       c.list_name_fr,
-       c.full_name_fr,
-       c.list_name_ru,
-       c.full_name_ru,
        c.pan_european,
        a.type,
        a.status,
@@ -105,8 +85,7 @@ USING (country_iso)
 LEFT OUTER JOIN
 fa
 USING (country_iso)
-GROUP BY c.country_iso, a.type, a.type, a.status, a.desk_study, fa.last_edited, c.list_name_en
-ORDER BY c.list_name_en ASC
+GROUP BY c.country_iso, a.type, a.type, a.status, a.desk_study, fa.last_edited
 `
   return db.query(query, [excludedMsgs]).then(handleCountryResult(() => role))
 }
@@ -121,14 +100,6 @@ WITH assessment AS (
     GROUP BY a.country_iso
 )
 SELECT c.country_iso,
-       c.list_name_en,
-       c.full_name_en,
-       c.list_name_es,
-       c.full_name_es,
-       c.list_name_fr,
-       c.full_name_fr,
-       c.list_name_ru,
-       c.full_name_ru,
        c.pan_european,
        a.assessment::TEXT::jsonb,
        json_agg(cr.region_code) AS regions
@@ -157,14 +128,6 @@ WITH assessment AS (
     GROUP BY a.country_iso
 )
 SELECT c.country_iso,
-       c.list_name_en,
-       c.full_name_en,
-       c.list_name_es,
-       c.full_name_es,
-       c.list_name_fr,
-       c.full_name_fr,
-       c.list_name_ru,
-       c.full_name_ru,
        c.pan_european,
        a.assessment::TEXT::jsonb,
        json_agg(cr.region_code) AS regions
@@ -214,14 +177,6 @@ const getAllowedCountries = (roles, schemaName = 'public') => {
         GROUP BY country_iso
       )
        SELECT c.country_iso,
-       c.list_name_en,
-       c.full_name_en,
-       c.list_name_es,
-       c.full_name_es,
-       c.list_name_fr,
-       c.full_name_fr,
-       c.list_name_ru,
-       c.full_name_ru,
        c.pan_european,
        a.type,
        a.status,
@@ -237,8 +192,7 @@ const getAllowedCountries = (roles, schemaName = 'public') => {
       LEFT OUTER JOIN
         fa ON fa.country_iso = c.country_iso
       WHERE c.country_iso in (${allowedIsoQueryPlaceholders})
-      GROUP BY c.country_iso, a.type, a.type, a.status, a.desk_study, fa.last_edited, c.list_name_en
-      ORDER BY c.list_name_en ASC`,
+      GROUP BY c.country_iso, a.type, a.type, a.status, a.desk_study, fa.last_edited`,
       [excludedMsgs, ...allowedCountryIsos]
     )
     .then(handleCountryResult(determineRole(roles)))
@@ -284,14 +238,6 @@ const getCountry = (countryIso) =>
     .query(
       `
       SELECT c.country_iso,
-       c.list_name_en,
-       c.full_name_en,
-       c.list_name_es,
-       c.full_name_es,
-       c.list_name_fr,
-       c.full_name_fr,
-       c.list_name_ru,
-       c.full_name_ru,
        c.pan_european,
        json_agg(cr.region_code) AS regions
 FROM country c

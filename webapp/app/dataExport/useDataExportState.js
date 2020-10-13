@@ -83,13 +83,11 @@ export default () => {
   const setSelectionColumns = (value) => setSelection({ ...selection, columns: value })
   const setSelectionVariable = (value) => setSelection({ ...selection, variable: value })
 
-  // Can't use Country.getListName here - the data struct is different (no subkeys)
-  const _formatLanguage = ([first, ...rest]) => `${first.toUpperCase()}${rest.join('')}`
-  const _getListName = (country, language) => country[`listName${_formatLanguage(language)}`]
   // Sort countries by listname
-  let countries = allCountries.sort((country1, country2) => {
-    return _getListName(country1, i18n.language) > _getListName(country2, i18n.language) ? 1 : -1
-  })
+  const _getListName = (_countryIso) => i18n.t(`area.${_countryIso}.listName`)
+  let countries = allCountries.sort((country1, country2) =>
+    _getListName(country1.countryIso) > _getListName(country2.countryIso) ? 1 : -1
+  )
 
   if (Assessment.isTypePanEuropean(assessmentType)) countries = countries.filter(Country.isPanEuropean)
 

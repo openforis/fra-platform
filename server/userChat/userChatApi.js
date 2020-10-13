@@ -16,7 +16,7 @@ const Auth = require('../auth/authApiMiddleware')
 
 const createMail = async (country, i18n, sender, recipient, url) => {
   const link = `${url}/country/${country.countryIso}/`
-  const countryName = R.path(['listName', 'en'], country)
+  const countryName = i18n.t(`area.${country.countryIso}.listName`)
 
   return {
     to: recipient.email,
