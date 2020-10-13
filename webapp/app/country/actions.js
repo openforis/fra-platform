@@ -70,8 +70,3 @@ export const changeAssessment = (countryIso, assessment, notifyUsers) => async (
  */
 const getCountry = (countryIso) =>
   R.pipe(R.path(['country', 'countries']), R.values, R.flatten, R.find(R.propEq('countryIso', countryIso)))
-/**
- * @deprecated
- */
-export const getCountryName = (countryIso, lang) => (dispatch, getState) =>
-  R.pipe(getCountry(countryIso), R.path(['listName', lang]))(getState())

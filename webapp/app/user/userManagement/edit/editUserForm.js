@@ -15,8 +15,6 @@ import {
 } from '@common/countryRole'
 import { i18nUserRole, validate, profilePictureUri } from '@common/userUtils'
 
-import { getCountryName } from '@webapp/app/country/actions'
-
 import TextInput from '@webapp/components/textInput'
 
 import * as AppState from '@webapp/app/appState'
@@ -55,7 +53,6 @@ class EditUserForm extends React.Component {
       userInfo,
       countryIso,
       countries,
-      getCountryName,
       persistUser,
       onCancel = defaultOnCancel,
     } = this.props
@@ -190,16 +187,14 @@ class EditUserForm extends React.Component {
                   <div className="edit-user__form-field-role-countries">
                     {R.filter((userRole) => userRole.role === role, user.roles).map((userRole) => (
                       <div key={userRole.countryIso} className="edit-user__form-field-country-box">
-                        {getCountryName(userRole.countryIso, userInfo.lang)}
+                        {i18n.t(`area.${userRole.countryIso}.listName`)}
                       </div>
                     ))}
                   </div>
 
                   {R.path(['editingRole', role], this.state) ? (
                     <CountrySelectionModal
-                      i18n={i18n}
                       countries={countries}
-                      userInfo={userInfo}
                       headerLabel={i18nUserRole(i18n, role)}
                       selection={R.pipe(
                         R.filter((userRole) => userRole.role === role),
@@ -209,7 +204,6 @@ class EditUserForm extends React.Component {
                         R.filter((userRole) => userRole.role !== role),
                         R.map(R.prop('countryIso'))
                       )(user.roles)}
-                      getCountryName={getCountryName}
                       onClose={() => this.setState(R.dissocPath(['editingRole', role], this.state))}
                       toggleCountry={R.partialRight(toggleCountryRole, [role])}
                     />
@@ -270,4 +264,4 @@ const mapStateToProps = (state) => ({
     : null,
 })
 
-export default connect(mapStateToProps, { loadUserToEdit, getCountryName, persistUser })(EditUserForm)
+export default connect(mapStateToProps, { loadUserToEdit, persistUser })(EditUserForm)
