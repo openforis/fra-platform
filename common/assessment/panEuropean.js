@@ -101,6 +101,15 @@ const PanEuropean = {
             table_2_4: 'table_2_4',
           },
         },
+
+        '25': {
+          name: 'areaWithForestLandDegradation',
+          anchor: '2.5',
+          tables: {
+            table_2_5: 'table_2_5',
+            table_2_5oth: 'table_2_5oth',
+          },
+        },
       },
     },
 
@@ -191,7 +200,15 @@ const PanEuropean = {
           },
         },
 
-          '45': {
+        '44b': {
+          name: 'introducedTreeSpecies4_4b',
+          anchor: '4.4b',
+          tables: {
+            table_4_4b: 'table_4_4b',
+          },
+        },
+
+        '45': {
           name: 'deadwood',
           anchor: '4.5',
           tables: {

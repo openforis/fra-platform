@@ -9,6 +9,8 @@ const table13b = require('./table1_3b')
 const table14a = require('./table1_4a')
 const table14b = require('./table1_4b')
 const table24 = require('./table2_4')
+const table25 = require('./table2_5')
+const table25oth = require('./table2_5oth')
 const table31 = require('./table3_1')
 const table32 = require('./table3_2')
 const table33 = require('./table3_3')
@@ -19,6 +21,7 @@ const table42b = require('./table4_2b')
 const table43a = require('./table4_3a')
 const table43b = require('./table4_3b')
 const table44a = require('./table4_4a')
+const table44b = require('./table4_4b')
 const table45 = require('./table4_5')
 const table48 = require('./table4_8')
 const table49 = require('./table4_9')
@@ -50,6 +53,8 @@ module.exports = {
   table_1_4a: table14a,
   table_1_4b: table14b,
   table_2_4: table24,
+  table_2_5: table25,
+  table_2_5oth: table25oth,
   table_3_1: table31,
   table_3_2: table32,
   table_3_3: table33,
@@ -60,6 +65,7 @@ module.exports = {
   table_4_3a: table43a,
   table_4_3b: table43b,
   table_4_4a: table44a,
+  table_4_4b: table44b,
   table_4_5: table45,
   table_4_8: table48,
   table_4_9: table49,
