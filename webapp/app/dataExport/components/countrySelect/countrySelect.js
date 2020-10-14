@@ -15,8 +15,7 @@ const CountrySelect = (props) => {
   const { assessmentType } = useParams()
   const [countriesFiltered, setCountriesFiltered] = useState(countries)
 
-  const isDeskStudy = (country) =>
-    !isTypePanEuropean(assessmentType) && country.assessment.fra2020 && country.assessment.fra2020.deskStudy
+  const isDeskStudy = (country) => !isTypePanEuropean(assessmentType) && Country.isDeskStudy(country)
   const getDeskStudyValue = (country) => (isDeskStudy(country) ? ` (${i18n.t('assessment.deskStudy')})` : null)
 
   const normalizeString = (str) => str.trim().toLowerCase().replace(/\s/g, '')
