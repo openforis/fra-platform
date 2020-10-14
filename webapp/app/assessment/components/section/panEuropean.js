@@ -9,6 +9,7 @@ import diameterDistributionAndTotalAreaUnevenAgedStands from '@webapp/app/assess
 import carbonStock from '@webapp/app/assessment/panEuropean/sections/table_1_4a/sectionSpec'
 import carbonStockInHarvestedWoodProductsHWP from '@webapp/app/assessment/panEuropean/sections/table_1_4b/sectionSpec'
 import forestAreaWithDamage from '@webapp/app/assessment/panEuropean/sections/table_2_4/sectionSpec'
+import areaWithForestLandDegradation from '@webapp/app/assessment/panEuropean/sections/table_2_5/sectionSpec'
 import incrementAndFellings from '@webapp/app/assessment/panEuropean/sections/table_3_1/sectionSpec'
 import removals from '@webapp/app/assessment/panEuropean/sections/table_3_2/sectionSpec'
 import nonWoodGoods2015 from '@webapp/app/assessment/panEuropean/sections/table_3_3/sectionSpec'
@@ -51,6 +52,7 @@ export default {
   [carbonStock.sectionName]: carbonStock,
   [carbonStockInHarvestedWoodProductsHWP.sectionName]: carbonStockInHarvestedWoodProductsHWP,
   [forestAreaWithDamage.sectionName]: forestAreaWithDamage,
+  [areaWithForestLandDegradation.sectionName]: areaWithForestLandDegradation,
   [incrementAndFellings.sectionName]: incrementAndFellings,
   [removals.sectionName]: removals,
   [nonWoodGoods2015.sectionName]: nonWoodGoods2015,

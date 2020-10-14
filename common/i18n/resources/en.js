@@ -1235,6 +1235,29 @@ The FRA team
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
     },
 
+    // table 2.5
+    areaWithForestLandDegradation: {
+      areaWithForestLandDegradation: 'Area with forest land degradation',
+      categoryYear: 'Category - Year',
+      totalAreaOfDegradedLand: 'Total area of degraded land',
+      areaPrimarilyDegradedBy: 'Area primarily degraded by',
+      formerDegradedLandRestored: 'Former degraded land restored',
+      grazing: 'Grazing',
+      repeatedFires: 'Repeated fires',
+      airPollution: 'Air pollution',
+      desertification: 'Desertification',
+      other1: 'Other 1',
+      other2: 'Other 2',
+      other3: 'Other 3',
+      unknown: 'Unknown',
+      nA: '',
+      thousandHa: '1000 ha',
+      forest: 'Forest - {{year}}',
+      other_wooded_land: 'Other wooded land - {{year}}',
+      total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
+      otherNames: 'The names of the other factors that area is primarily degraded by',
+    },
+
     // table 3.1
     incrementAndFellings: {
       incrementAndFellings: 'Increment and fellings',
