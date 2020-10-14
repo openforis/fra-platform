@@ -33,8 +33,15 @@ export const fetchCountryInitialData = (countryIso, printView, printOnlyTablesVi
   )
 }
 
-export const fetchCountryList = () => async (dispatch) => {
+export const fetchCountryList = () => async (dispatch, getState) => {
   const { data: countries } = await axios.get('/api/country/all')
+  const i18n = AppState.getI18n(getState())
+  const _getListname = (country) => i18n.t(`area.${country.countryIso}.listName`)
+  // TODO: Do this every time language changes
+  // Sort countries by their localized name
+  Object.entries(countries).forEach(([_, _countries]) => {
+    _countries.sort((country1, country2) => (_getListname(country1) > _getListname(country2) ? 1 : -1))
+  })
   dispatch({ type: listCountries, countries })
 }
 
