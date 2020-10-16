@@ -29,7 +29,7 @@ const getStatuses = (groupedRows) => R.pipe(R.map(R.pick(['type', 'status'])), R
 
 const getCountryProperties = (country) => ({
   countryIso: country.countryIso,
-  regions: country.regions,
+  regionCodes: country.regionCodes,
   panEuropean: country.panEuropean,
   lastEdit: country.lastEdited,
 })
@@ -75,7 +75,7 @@ SELECT c.country_iso,
        a.status,
        a.desk_study,
        fa.last_edited,
-       json_agg(cr.region_code) AS regions
+       json_agg(cr.region_code) AS region_codes
 FROM ${tableNameCountry} c
 JOIN ${tableNameCountryRegion} cr
 USING (country_iso)
@@ -102,7 +102,7 @@ WITH assessment AS (
 SELECT c.country_iso,
        c.pan_european,
        a.assessment::TEXT::jsonb,
-       json_agg(cr.region_code) AS regions
+       json_agg(cr.region_code) AS region_codes
 FROM country c
 JOIN country_region cr
 USING (country_iso)
@@ -130,7 +130,7 @@ WITH assessment AS (
 SELECT c.country_iso,
        c.pan_european,
        a.assessment::TEXT::jsonb,
-       json_agg(cr.region_code) AS regions
+       json_agg(cr.region_code) AS region_codes
 FROM country c
 JOIN country_region cr
 USING (country_iso)
@@ -182,7 +182,7 @@ const getAllowedCountries = (roles, schemaName = 'public') => {
        a.status,
        a.desk_study,
        fa.last_edited,
-       json_agg(cr.region_code) AS regions
+       json_agg(cr.region_code) AS region_codes
       FROM
         country c
       JOIN country_region cr
@@ -239,7 +239,7 @@ const getCountry = (countryIso) =>
       `
       SELECT c.country_iso,
        c.pan_european,
-       json_agg(cr.region_code) AS regions
+       json_agg(cr.region_code) AS region_codes
 FROM country c
 JOIN country_region cr
 USING (country_iso)
