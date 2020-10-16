@@ -15,21 +15,17 @@ const actionHandlers = {
   [listCountries]: (state, { countries }) => CountryState.assocCountries(countries)(state),
 
   [listRegions]: (state, { regions }) => {
-    // Create 2 sub maps with either [countryIso] or [regionCode] keys
-    const result = {
-      countryRegions: {},
-      regionCountries: {},
-    }
+    // Format regions of type
+    // [{ regionIso: R, countryIso: C }, { regionIso: R, countryIso: C1 }, ... ]
+    // { R: [ C, C1, ... ]
+    const result = {}
+
     regions.forEach(({ regionCode, countryIso }) => {
-      if (!result.regionCountries[regionCode]) {
-        result.regionCountries[regionCode] = []
-      }
-      if (!result.countryRegions[countryIso]) {
-        result.countryRegions[countryIso] = []
+      if (!result[regionCode]) {
+        result[regionCode] = []
       }
 
-      result.regionCountries[regionCode].push(countryIso)
-      result.countryRegions[countryIso].push(regionCode)
+      result[regionCode].push(countryIso)
     })
     return CountryState.assocRegions(result)(state)
   },

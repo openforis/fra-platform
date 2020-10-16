@@ -34,10 +34,6 @@ export const getCountryByCountryIso = (countryIso) =>
 // Regions
 export const getRegions = R.pipe(getState, R.propOr({}, keys.regions))
 export const hasRegions = R.pipe(getRegions, _isNotEmpty)
-export const getCountryRegions = R.pipe(getRegions, R.propOr({}, keys.countryRegions))
-export const getRegionCountries = R.pipe(getRegions, R.propOr({}, keys.regionCountries))
-export const getRegionsList = R.pipe(getCountries, R.values, R.flatten)
-export const getRegionsByCountryIso = (countryIso) => R.pipe(getCountryRegions, R.prop(countryIso))
 
 export const getConfig = R.pipe(getState, R.propOr({}, keys.config))
 export const getStatus = R.pipe(getState, R.propOr({}, keys.status))

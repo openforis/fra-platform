@@ -1,27 +1,13 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import * as R from 'ramda'
 
 import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from '@webapp/components/modal'
 import { useI18n } from '@webapp/components/hooks'
-import { useDispatch, useSelector } from 'react-redux'
-import * as CountryState from '@webapp/app/country/countryState'
-import { fetchRegionList } from '@webapp/app/country/actions'
 
 const CountrySelectionModalBody = (props) => {
   const { countries, toggleCountry, selection, unselectableCountries } = props
-  const dispatch = useDispatch()
 
   const i18n = useI18n()
-  const regionsLoaded = useSelector(CountryState.hasRegions)
-  const countryRegions = useSelector(CountryState.getCountryRegions)
-
-  useEffect(() => {
-    if (!regionsLoaded) dispatch(fetchRegionList())
-  }, [])
-
-  if (!regionsLoaded) {
-    return null
-  }
 
   const isSelected = (countryIso) => R.contains(countryIso, selection)
   const isUnselactable = (countryIso) => R.contains(countryIso, unselectableCountries)
@@ -30,9 +16,7 @@ const CountrySelectionModalBody = (props) => {
   const regionCountries = {}
 
   countries.forEach((country) => {
-    const { countryIso } = country
-    const regionCodes = countryRegions[countryIso]
-
+    const { countryIso, regionCodes } = country
     regionCodes.forEach((regionCode) => {
       if (!Array.isArray(regionCountries[regionCode])) {
         regionCountries[regionCode] = []
