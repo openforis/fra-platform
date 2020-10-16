@@ -5,7 +5,7 @@ const keys = {
   assessment: 'assessment',
   lastEdit: 'lastEdit',
   region: 'region',
-  regionIso: 'regionIso',
+  regionCodes: 'regionCodes',
   fra2020: 'fra2020',
   deskStudy: 'deskStudy',
   fra2020Assessment: 'fra2020Assessment',
@@ -14,7 +14,7 @@ const keys = {
 }
 
 const getCountryIso = R.prop(keys.countryIso)
-const getRegionIso = R.prop(keys.regionIso)
+const getRegionCodes = R.propOr([], keys.regionCodes)
 const getLastEdit = R.prop(keys.lastEdit)
 const getFra2020Assessment = R.prop(keys.fra2020Assessment)
 const isFra2020DeskStudy = R.propEq(keys.fra2020DeskStudy, true)
@@ -25,7 +25,7 @@ module.exports = {
   keys,
 
   getCountryIso,
-  getRegionIso,
+  getRegionCodes,
   getLastEdit,
   getFra2020Assessment,
   isFra2020DeskStudy,
