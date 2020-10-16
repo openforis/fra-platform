@@ -4,7 +4,6 @@ const keys = {
   countryIso: 'countryIso',
   assessment: 'assessment',
   lastEdit: 'lastEdit',
-  region: 'region',
   regionCodes: 'regionCodes',
   fra2020: 'fra2020',
   deskStudy: 'deskStudy',
