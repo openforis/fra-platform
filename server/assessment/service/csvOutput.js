@@ -30,8 +30,8 @@ class CsvOutput extends ExportOutput {
   get fieldsCommon () {
     return [
       {
-        value: 'region',
-        label: 'region',
+        value: 'regionCodes',
+        label: 'regions',
       },
       {
         value: 'countryIso',
