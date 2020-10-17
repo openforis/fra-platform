@@ -35,7 +35,9 @@ const sustainableDevelopmentAgencySubIndicator2 = require('./sustainableDevelopm
 const sustainableDevelopmentAgencySubIndicator3 = require('./sustainableDevelopmentAgencySubIndicator3')
 const sustainableDevelopmentAgencySubIndicator4 = require('./sustainableDevelopmentAgencySubIndicator4')
 
-const contentCheck = require('./contentCheck')
+const extent = require('../../../../common/model/traditionalTable/contentCheck/extent')
+const periodicChangeRate = require('../../../../common/model/traditionalTable/contentCheck/periodicChangeRate')
+const forestGrowingStockBiomassCarbon = require('../../../../common/model/traditionalTable/contentCheck/forestGrowingStockBiomassCarbon')
 
 module.exports = {
   specificForestCategories,
@@ -74,5 +76,9 @@ module.exports = {
   sustainableDevelopmentAgencySubIndicator2,
   sustainableDevelopmentAgencySubIndicator3,
   sustainableDevelopmentAgencySubIndicator4,
-  ...contentCheck,
+
+  // contentCheck
+  extent,
+  periodicChangeRate,
+  forestGrowingStockBiomassCarbon,
 }
