@@ -36,6 +36,13 @@ export const resetPassword = _pathGenerator(pathFragments.login, pathFragments.r
 export const country = _pathGenerator(pathFragments.params.countryIso)
 export const admin = _pathGenerator(pathFragments.admin)
 
+// /:countryIso/assessment/
+export const assessment = _pathGenerator(
+  pathFragments.params.countryIso,
+  pathFragments.assessment,
+  pathFragments.params.assessmentType
+)
+
 // /:countryIso/assessment/:assessmentType/:section/
 export const assessmentSection = _pathGenerator(
   pathFragments.params.countryIso,
@@ -71,6 +78,10 @@ export const getCountryHomeLink = (countryIso) => _pathGenerator(countryIso)
 
 // /:countryIso/:section
 export const getCountrySectionLink = (countryIso, section) => _pathGenerator(countryIso, section)
+
+// /:countryIso/assessment/:assessmentType/:sectionName/
+export const getAssessmentLink = (countryIso, assessmentType) =>
+  _pathGenerator(countryIso, pathFragments.assessment, assessmentType)
 
 // /:countryIso/assessment/:assessmentType/:sectionName/
 export const getAssessmentSectionLink = (countryIso, assessmentType, sectionName) =>

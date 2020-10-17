@@ -11,7 +11,7 @@ import Icon from '@webapp/components/icon'
 import useCountryLandingSections from '@webapp/app/countryLanding/useCountryLandingSections'
 import StatisticalFactsheets from '@webapp/app/countryLanding/views/statisticalFactsheets'
 
-const CountryLandingView = () => {
+const Assessment = () => {
   const { pathname } = useLocation()
   const countryIso = useCountryIso()
   const userInfo = useUserInfo()
@@ -78,4 +78,4 @@ const CountryLandingView = () => {
   )
 }
 
-export default CountryLandingView
+export default Assessment

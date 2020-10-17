@@ -1,8 +1,9 @@
 import './appView.less'
-import React, { useEffect, memo } from 'react'
+import React, { memo, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { matchPath, Route, Switch, useLocation, useParams } from 'react-router-dom'
+import { matchPath, Redirect, Route, Switch, useLocation, useParams } from 'react-router-dom'
 
+import FRA from '@common/assessment/fra'
 import * as BasePaths from '@webapp/main/basePaths'
 
 import { useNavigationVisible, useUserInfo } from '@webapp/components/hooks'
@@ -14,8 +15,8 @@ import AssessmentPrintView from '@webapp/app/assessment/components/print/assessm
 
 import * as CountryState from '@webapp/app/country/countryState'
 import { fetchCountryInitialData } from '@webapp/app/country/actions'
-
 import { toggleNavigation } from '@webapp/app/components/navigation/actions'
+
 import routes from './routes'
 
 const LoggedInView = () => {
@@ -28,6 +29,7 @@ const LoggedInView = () => {
 
   const printView = !!matchPath(pathname, { path: BasePaths.assessmentPrint })
   const printOnlyTablesView = !!matchPath(pathname, { path: BasePaths.assessmentPrintOnlyTables, exact: true })
+  const countryView = matchPath(pathname, { path: BasePaths.country, exact: true })
 
   useEffect(() => {
     if (!navigationVisible && countryStatusLoaded) dispatch(toggleNavigation())
@@ -39,6 +41,10 @@ const LoggedInView = () => {
 
   if (!countryStatusLoaded) {
     return null
+  }
+
+  if (countryView) {
+    return <Redirect to={BasePaths.getAssessmentLink(countryIso, FRA.type)} />
   }
 
   return (
