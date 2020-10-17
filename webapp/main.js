@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 
-import Routes from './main/routes'
+import Routes from './main/Routes'
 import store from './main/store'
 
 function renderApp() {

@@ -6,7 +6,7 @@ import Assessment from '@webapp/pages/Assessment'
 import AssessmentSectionView from '@webapp/app/assessment/components/section/assessmentSectionView'
 import EditUserView from './user/userManagement/editUserView'
 import OriginalDataPointView from './assessment/fra/sections/originalDataPoint/originalDataPointView'
-import Landing from './landing'
+import Landing from '../pages/Landing'
 
 const routes = [
   { path: BasePaths.assessmentSection, component: AssessmentSectionView },
