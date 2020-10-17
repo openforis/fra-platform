@@ -1,6 +1,6 @@
 import * as BasePaths from '@webapp/main/basePaths'
 
-import AdminView from '@webapp/app/admin/adminView'
+import AdminView from '@webapp/pages/Admin/adminView'
 import Assessment from '@webapp/pages/Assessment'
 
 import AssessmentSectionView from '@webapp/app/assessment/components/section/assessmentSectionView'

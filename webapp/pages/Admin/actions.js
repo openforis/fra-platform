@@ -2,7 +2,7 @@ import axios from 'axios'
 import { applicationError } from '@webapp/components/error/actions'
 
 import FRAVersion from '@common/versioning/fraVersion'
-import * as AdminState from '@webapp/app/admin/adminState'
+import * as AdminState from '@webapp/pages/Admin/adminState'
 
 export const versioningGetSuccess = 'versioning/get/success'
 export const versioningDeleteSuccess = 'versioning/get/success'

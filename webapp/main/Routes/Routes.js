@@ -46,7 +46,7 @@ const Routes = () => {
 
         <Route
           path={[BasePaths.user, BasePaths.admin, BasePaths.country]}
-          render={(props) => <DynamicImport {...props} load={() => import('../app/appViewExport')} />}
+          render={(props) => <DynamicImport {...props} load={() => import('../../app/appViewExport')} />}
         />
       </Switch>
 
