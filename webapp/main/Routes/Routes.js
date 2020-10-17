@@ -35,25 +35,33 @@ const Routes = () => {
   const pathsLogin = [BasePaths.login, BasePaths.resetPassword]
 
   return (
-    <>
-      <Header />
-      {!isLogin && <CountrySelection />}
+    <Switch>
+      <Route
+        exact
+        path={[BasePaths.assessmentPrint, BasePaths.assessmentPrintOnlyTables]}
+        render={(props) => <DynamicImport {...props} load={() => import('../../pages/AssessmentPrint/export')} />}
+      />
 
-      <Switch>
-        <Route exact path={BasePaths.root} component={Landing} />
+      <Route>
+        <Header />
+        {!isLogin && <CountrySelection />}
 
-        <Route exact path={pathsLogin} component={Login} />
+        <Switch>
+          <Route exact path={BasePaths.root} component={Landing} />
 
-        <Route
-          path={[BasePaths.user, BasePaths.admin, BasePaths.country]}
-          render={(props) => <DynamicImport {...props} load={() => import('../../app/appViewExport')} />}
-        />
-      </Switch>
+          <Route exact path={pathsLogin} component={Login} />
 
-      <Route exact path={[BasePaths.root, ...pathsLogin]} component={Partners} />
-      <Footer />
-      <ErrorComponent />
-    </>
+          <Route
+            path={[BasePaths.user, BasePaths.admin, BasePaths.country]}
+            render={(props) => <DynamicImport {...props} load={() => import('../../app/appViewExport')} />}
+          />
+        </Switch>
+
+        <Route exact path={[BasePaths.root, ...pathsLogin]} component={Partners} />
+        <Footer />
+        <ErrorComponent />
+      </Route>
+    </Switch>
   )
 }
 

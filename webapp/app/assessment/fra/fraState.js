@@ -1,6 +1,6 @@
 import { isCollaborator } from '@common/countryRole'
 import { isCollaboratorAllowedToEditSectionData } from '@common/assessmentRoleAllowance'
-import { isPrintingMode } from '@webapp/app/assessment/components/print/printAssessment'
+import { isPrintingMode } from '@webapp/pages/AssessmentPrint/printAssessment'
 
 import * as Assessment from '@common/assessment/assessment'
 

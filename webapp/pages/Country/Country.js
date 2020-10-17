@@ -1,7 +1,7 @@
 import './country.less'
 import React, { memo, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { matchPath, Redirect, Route, Switch, useLocation, useParams } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { matchPath, Redirect, Route, Switch, useLocation } from 'react-router-dom'
 
 import FRA from '@common/assessment/fra'
 import * as BasePaths from '@webapp/main/basePaths'
@@ -11,11 +11,9 @@ import Navigation from '@webapp/app/components/navigation/navigation'
 import Review from '@webapp/app/assessment/components/review/review'
 import UserChat from '@webapp/app/user/chat/userChatView'
 import MessageBoardPanel from '@webapp/app/countryLanding/views/messageBoard/messageBoardPanel'
-import AssessmentPrintView from '@webapp/app/assessment/components/print/assessmentPrintView'
 
-import * as CountryState from '@webapp/app/country/countryState'
-import { fetchCountryInitialData } from '@webapp/app/country/actions'
 import { toggleNavigation } from '@webapp/app/components/navigation/actions'
+import { useInitCountry, useIsCountryStatusLoaded } from '@webapp/store/country'
 
 import AssessmentSectionView from '@webapp/app/assessment/components/section/assessmentSectionView'
 import OriginalDataPointView from '@webapp/app/assessment/fra/sections/originalDataPoint/originalDataPointView'
@@ -26,22 +24,16 @@ import EditUserView from '@webapp/app/user/userManagement/editUserView'
 const LoggedInView = () => {
   const dispatch = useDispatch()
   const { pathname } = useLocation()
-  const { countryIso } = useParams()
   const userInfo = useUserInfo()
-  const countryStatusLoaded = useSelector(CountryState.hasStatus)
+  const countryIso = useInitCountry()
+  const countryStatusLoaded = useIsCountryStatusLoaded()
   const navigationVisible = useNavigationVisible()
 
-  const printView = !!matchPath(pathname, { path: BasePaths.assessmentPrint })
-  const printOnlyTablesView = !!matchPath(pathname, { path: BasePaths.assessmentPrintOnlyTables, exact: true })
   const countryRootPath = matchPath(pathname, { path: BasePaths.country, exact: true })
 
   useEffect(() => {
     if (!navigationVisible && countryStatusLoaded) dispatch(toggleNavigation())
   }, [])
-
-  useEffect(() => {
-    if (countryIso) dispatch(fetchCountryInitialData(countryIso, printView, printOnlyTablesView))
-  }, [countryIso])
 
   if (!countryStatusLoaded) {
     return null
@@ -53,12 +45,6 @@ const LoggedInView = () => {
 
   return (
     <Switch>
-      <Route
-        exact
-        path={[BasePaths.assessmentPrint, BasePaths.assessmentPrintOnlyTables]}
-        component={AssessmentPrintView}
-      />
-
       <Route>
         {userInfo && (
           <>

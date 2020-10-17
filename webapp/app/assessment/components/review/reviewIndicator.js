@@ -5,7 +5,7 @@ import * as R from 'ramda'
 import Icon from '@webapp/components/icon'
 
 import { getIssueSummary, openCommentThread, closeCommentThread } from './actions'
-import { isPrintingMode } from '../print/printAssessment'
+import { isPrintingMode } from '../../../../pages/AssessmentPrint/printAssessment'
 
 const CommentStatus = ({ count, active, issueStatus, hasUnreadIssues, ...props }) => {
   const getIssueStatusCssClass = () =>

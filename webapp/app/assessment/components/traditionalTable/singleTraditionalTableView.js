@@ -14,7 +14,7 @@ import { fetchLastSectionUpdateTimestamp } from '@webapp/app/components/audit/ac
 import DefinitionLink from '@webapp/components/definitionLink'
 import * as R from 'ramda'
 import * as table from './table'
-import { isPrintingOnlyTables } from '@webapp/app/assessment/components/print/printAssessment'
+import { isPrintingOnlyTables } from '@webapp/pages/AssessmentPrint/printAssessment'
 import FraUtils from '@common/fraUtils'
 import { fetchTableData } from './actions'
 
