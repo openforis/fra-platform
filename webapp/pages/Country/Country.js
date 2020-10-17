@@ -1,4 +1,4 @@
-import './appView.less'
+import './country.less'
 import React, { memo, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { matchPath, Redirect, Route, Switch, useLocation, useParams } from 'react-router-dom'
@@ -17,7 +17,11 @@ import * as CountryState from '@webapp/app/country/countryState'
 import { fetchCountryInitialData } from '@webapp/app/country/actions'
 import { toggleNavigation } from '@webapp/app/components/navigation/actions'
 
-import routes from './routes'
+import AssessmentSectionView from '@webapp/app/assessment/components/section/assessmentSectionView'
+import OriginalDataPointView from '@webapp/app/assessment/fra/sections/originalDataPoint/originalDataPointView'
+import Assessment from '@webapp/pages/Country/Assessment'
+import AdminView from '@webapp/pages/Admin/adminView'
+import EditUserView from '@webapp/app/user/userManagement/editUserView'
 
 const LoggedInView = () => {
   const dispatch = useDispatch()
@@ -29,7 +33,7 @@ const LoggedInView = () => {
 
   const printView = !!matchPath(pathname, { path: BasePaths.assessmentPrint })
   const printOnlyTablesView = !!matchPath(pathname, { path: BasePaths.assessmentPrintOnlyTables, exact: true })
-  const countryView = matchPath(pathname, { path: BasePaths.country, exact: true })
+  const countryRootPath = matchPath(pathname, { path: BasePaths.country, exact: true })
 
   useEffect(() => {
     if (!navigationVisible && countryStatusLoaded) dispatch(toggleNavigation())
@@ -43,7 +47,7 @@ const LoggedInView = () => {
     return null
   }
 
-  if (countryView) {
+  if (countryRootPath) {
     return <Redirect to={BasePaths.getAssessmentLink(countryIso, FRA.type)} />
   }
 
@@ -68,9 +72,11 @@ const LoggedInView = () => {
           <Navigation />
 
           <Switch>
-            {routes.map((route) => (
-              <Route key={route.path} path={route.path} component={route.component} />
-            ))}
+            <Route path={BasePaths.assessmentSection} component={AssessmentSectionView} />
+            <Route path={[`${BasePaths.odp}:odpId/`, BasePaths.odp]} component={OriginalDataPointView} />
+            <Route path={BasePaths.assessment} component={Assessment} />
+            <Route path={BasePaths.admin} component={AdminView} />
+            <Route path={BasePaths.user} component={EditUserView} />
           </Switch>
         </div>
       </Route>
