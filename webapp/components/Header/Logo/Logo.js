@@ -4,7 +4,7 @@ import React from 'react'
 import * as Fra from '@common/assessment/fra'
 import * as PanEuropean from '@common/assessment/panEuropean'
 
-import { useI18n, useIsAdmin, useIsHome, useIsLogin } from '@webapp/components/hooks'
+import { useI18n, useIsAssessment } from '@webapp/components/hooks'
 import { useAssessmentType } from '@webapp/store/app'
 
 const LogoFRA = () => {
@@ -47,16 +47,14 @@ const Components = {
 }
 
 const Logo = () => {
-  const isAdmin = useIsAdmin()
-  const isHome = useIsHome()
-  const isLogin = useIsLogin()
+  const isAssessment = useIsAssessment()
   const assessmentType = useAssessmentType()
 
-  if (isAdmin || isHome || isLogin) {
-    return <LogoFRA />
+  if (isAssessment) {
+    return React.createElement(Components[assessmentType])
   }
 
-  return React.createElement(Components[assessmentType])
+  return <LogoFRA />
 }
 
 export default Logo

@@ -17,7 +17,10 @@ import ErrorComponent from '@webapp/components/error/errorComponent'
 import * as AppState from '@webapp/app/appState'
 import { initApp } from '@webapp/app/actions'
 
+import { useTheme } from './useTheme'
+
 const Routes = () => {
+  useTheme()
   const dispatch = useDispatch()
   const appStatus = useSelector(AppState.getApplicationStatus)
   const isLogin = useIsLogin()
