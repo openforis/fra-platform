@@ -1,7 +1,32 @@
-export const pathFragments = {
+// ###### ROUTES:
+// #### ROOT
+// /
+//
+// #### Admin
+// /admin
+// /admin/usersManagement/
+// /admin/dataExport/
+// /admin/versioning/
+//
+// #### User
+// /user/:userId
+//
+// #### Login
+// /login
+// /login/resetPassword
+//
+// #### Assessment
+// /:countryIso/:assessmentType/print/
+// /:countryIso/:assessmentType/print/onlyTables/
+// /:countryIso/:assessmentType/home/
+// /:countryIso/:assessmentType/home/:section/
+// /:countryIso/:assessmentType/:section/
+// /:countryIso/odp/
+// /:countryIso/odp/:tab/
+
+const FRAGMENTS = {
   admin: 'admin',
   api: 'api',
-  assessment: 'assessment',
   home: 'home',
   login: 'login',
   odp: 'odp',
@@ -12,14 +37,14 @@ export const pathFragments = {
   user: 'user',
   users: 'users',
   versioning: 'versioning',
-  params: {
-    countryIso: ':countryIso',
-    assessmentType: ':assessmentType',
-    section: ':section',
-    userId: ':userId',
-    tab: ':tab',
-    levelIso: ':levelIso',
-  },
+}
+const PARAMS = {
+  countryIso: ':countryIso',
+  assessmentType: ':assessmentType',
+  section: ':section',
+  userId: ':userId',
+  tab: ':tab',
+  levelIso: ':levelIso',
 }
 
 /**
@@ -27,100 +52,62 @@ export const pathFragments = {
  *
  * @param {string[]} parts - url parts from which the url is generated
  */
-const _pathGenerator = (...parts) => `/${parts.filter((p) => !!p).join('/')}/`
+const _generate = (...parts) => `/${parts.filter((p) => !!p).join('/')}/`
 
-// ==== application paths
-export const root = '/'
-export const login = _pathGenerator(pathFragments.login)
-export const resetPassword = _pathGenerator(pathFragments.login, pathFragments.resetPassword)
-
-export const country = _pathGenerator(pathFragments.params.countryIso)
-export const admin = _pathGenerator(pathFragments.admin)
-
-// /:countryIso/assessment/
-export const assessment = _pathGenerator(
-  pathFragments.params.countryIso,
-  pathFragments.assessment,
-  pathFragments.params.assessmentType
-)
-
-// /:countryIso/assessment/home/
-export const assessmentHome = _pathGenerator(
-  pathFragments.params.countryIso,
-  pathFragments.assessment,
-  pathFragments.params.assessmentType,
-  pathFragments.home
-)
-
-// /:countryIso/assessment/:assessmentType/:section/
-export const assessmentSection = _pathGenerator(
-  pathFragments.params.countryIso,
-  pathFragments.assessment,
-  pathFragments.params.assessmentType,
-  pathFragments.params.section
-)
-
-// /:countryIso/print/:assessmentType/
-export const assessmentPrint = _pathGenerator(
-  pathFragments.params.countryIso,
-  pathFragments.print,
-  pathFragments.params.assessmentType
-)
-
-// /:countryIso/print/:assessmentType/onlyTables/
-export const assessmentPrintOnlyTables = _pathGenerator(
-  pathFragments.params.countryIso,
-  pathFragments.print,
-  pathFragments.params.assessmentType,
-  pathFragments.onlyTables
-)
-
-// /:countryIso/odp/:tab/
-export const odp = _pathGenerator(pathFragments.params.countryIso, pathFragments.odp, pathFragments.params.tab)
-
-// /users/:userId/
-export const user = _pathGenerator(pathFragments.users, pathFragments.params.userId)
-
-// ==== getter utilities
-// /:countryIso/
 /**
  * @deprecated
  */
-export const getCountryHomeLink = (countryIso) => _pathGenerator(countryIso)
+export const country = _generate(PARAMS.countryIso)
+/**
+ * @deprecated
+ */
+export const getCountryHomeLink = (countryIso) => _generate(countryIso)
 
-// /:countryIso/assessment/:assessmentType/home/
+// ==== Root
+export const root = '/'
+
+// ==== Admin
+export const admin = _generate(FRAGMENTS.admin)
+
+export const getAdminVersioningLink = () => _generate(FRAGMENTS.admin, FRAGMENTS.versioning)
+
+// ==== User
+export const user = _generate(FRAGMENTS.users, PARAMS.userId)
+
+export const getUserProfileLink = (userId) => _generate(FRAGMENTS.users, userId)
+
+// ==== Login
+export const login = _generate(FRAGMENTS.login)
+export const resetPassword = _generate(FRAGMENTS.login, FRAGMENTS.resetPassword)
+
+// ==== Assessment
+export const assessment = _generate(PARAMS.countryIso, PARAMS.assessmentType)
+export const assessmentHome = _generate(PARAMS.countryIso, PARAMS.assessmentType, FRAGMENTS.home)
+export const assessmentSection = _generate(PARAMS.countryIso, PARAMS.assessmentType, PARAMS.section)
+export const assessmentPrint = _generate(PARAMS.countryIso, PARAMS.assessmentType, FRAGMENTS.print)
+export const assessmentPrintOnlyTables = _generate(
+  PARAMS.countryIso,
+  PARAMS.assessmentType,
+  FRAGMENTS.print,
+  FRAGMENTS.onlyTables
+)
+
 export const getAssessmentHomeLink = (countryIso, assessmentType) =>
-  _pathGenerator(countryIso, pathFragments.assessment, assessmentType, pathFragments.home)
+  _generate(countryIso, assessmentType, FRAGMENTS.home)
 
-// /:countryIso/assessment/:assessmentType/home/:section
 export const getAssessmentHomeSectionLink = (countryIso, assessmentType, section) =>
-  _pathGenerator(countryIso, pathFragments.assessment, assessmentType, pathFragments.home, section)
+  _generate(countryIso, assessmentType, FRAGMENTS.home, section)
 
-// /:countryIso/assessment/:assessmentType/:sectionName/
 export const getAssessmentSectionLink = (countryIso, assessmentType, sectionName) =>
-  _pathGenerator(countryIso, pathFragments.assessment, assessmentType, sectionName)
+  _generate(countryIso, assessmentType, sectionName)
 
-// /:countryIso/print/:assessmentType/
 export const getAssessmentPrintLink = (countryIso, assessmentType, onlyTables = false) =>
-  _pathGenerator(countryIso, pathFragments.print, assessmentType, onlyTables && pathFragments.onlyTables)
+  _generate(countryIso, assessmentType, FRAGMENTS.print, onlyTables && FRAGMENTS.onlyTables)
 
-// /:countryIso/odp/:sectionName/:odpId/
-export const getOdpLink = (countryIso, sectionName, odpId) =>
-  _pathGenerator(countryIso, pathFragments.odp, sectionName, odpId)
+// ==== Assessment ODP
+export const odp = _generate(PARAMS.countryIso, FRAGMENTS.odp, PARAMS.tab)
+export const getOdpLink = (countryIso, sectionName, odpId) => _generate(countryIso, FRAGMENTS.odp, sectionName, odpId)
 
 // /api/users/:countryIso/user/:userId/profilePicture
 export const getUserProfilePictureLink = (countryIso, userId) =>
-  _pathGenerator(
-    pathFragments.api,
-    pathFragments.users,
-    countryIso,
-    pathFragments.user,
-    userId,
-    pathFragments.profilePicture
-  )
-
-// /users/:userId/
-export const getUserProfileLink = (userId) => _pathGenerator(pathFragments.users, userId)
-
-// /admin/versioning/
-export const getAdminVersioningLink = () => _pathGenerator(pathFragments.admin, pathFragments.versioning)
+  _generate(FRAGMENTS.api, FRAGMENTS.users, countryIso, FRAGMENTS.user, userId, FRAGMENTS.profilePicture)
