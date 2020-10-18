@@ -1,22 +1,23 @@
-import './Fra/fra.less'
+import './FraHome/fraHome.less'
 
 import React from 'react'
 
-import { useAssessmentType } from '@webapp/components/hooks'
 import * as FRA from '@common/assessment/fra'
 import * as PanEuropean from '@common/assessment/panEuropean'
 
 import Notfound from '@webapp/app/notfound'
 
-import Fra from './Fra'
-import PanEuropeanComponent from './PanEuropean'
+import { useAssessmentType } from '@webapp/store/app'
+
+import FraHome from './FraHome'
+import PanEuropeanHome from './PanEuropeanHome'
 
 const Components = {
-  [FRA.type]: Fra,
-  [PanEuropean.type]: PanEuropeanComponent,
+  [FRA.type]: FraHome,
+  [PanEuropean.type]: PanEuropeanHome,
 }
 
-const Assessment = () => {
+const AssessmentHome = () => {
   const assessmentType = useAssessmentType()
   const Component = Components[assessmentType]
 
@@ -27,4 +28,4 @@ const Assessment = () => {
   return <div className="app-view__content">{React.createElement(Component)}</div>
 }
 
-export default Assessment
+export default AssessmentHome

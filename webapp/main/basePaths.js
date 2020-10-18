@@ -1,7 +1,8 @@
-const pathFragments = {
+export const pathFragments = {
   admin: 'admin',
   api: 'api',
   assessment: 'assessment',
+  home: 'home',
   login: 'login',
   odp: 'odp',
   onlyTables: 'onlyTables',
@@ -43,6 +44,14 @@ export const assessment = _pathGenerator(
   pathFragments.params.assessmentType
 )
 
+// /:countryIso/assessment/home/
+export const assessmentHome = _pathGenerator(
+  pathFragments.params.countryIso,
+  pathFragments.assessment,
+  pathFragments.params.assessmentType,
+  pathFragments.home
+)
+
 // /:countryIso/assessment/:assessmentType/:section/
 export const assessmentSection = _pathGenerator(
   pathFragments.params.countryIso,
@@ -74,14 +83,18 @@ export const user = _pathGenerator(pathFragments.users, pathFragments.params.use
 
 // ==== getter utilities
 // /:countryIso/
+/**
+ * @deprecated
+ */
 export const getCountryHomeLink = (countryIso) => _pathGenerator(countryIso)
 
-// /:countryIso/:section
-export const getCountrySectionLink = (countryIso, section) => _pathGenerator(countryIso, section)
+// /:countryIso/assessment/:assessmentType/home/
+export const getAssessmentHomeLink = (countryIso, assessmentType) =>
+  _pathGenerator(countryIso, pathFragments.assessment, assessmentType, pathFragments.home)
 
-// /:countryIso/assessment/:assessmentType/:sectionName/
-export const getAssessmentLink = (countryIso, assessmentType) =>
-  _pathGenerator(countryIso, pathFragments.assessment, assessmentType)
+// /:countryIso/assessment/:assessmentType/home/:section
+export const getAssessmentHomeSectionLink = (countryIso, assessmentType, section) =>
+  _pathGenerator(countryIso, pathFragments.assessment, assessmentType, pathFragments.home, section)
 
 // /:countryIso/assessment/:assessmentType/:sectionName/
 export const getAssessmentSectionLink = (countryIso, assessmentType, sectionName) =>

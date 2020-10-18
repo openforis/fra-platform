@@ -1,9 +1,8 @@
-import './country.less'
+import './assessment.less'
 import React, { memo, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { matchPath, Redirect, Route, Switch, useLocation } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 
-import FRA from '@common/assessment/fra'
 import * as BasePaths from '@webapp/main/basePaths'
 
 import { useNavigationVisible, useUserInfo } from '@webapp/components/hooks'
@@ -15,33 +14,24 @@ import MessageBoardPanel from '@webapp/app/countryLanding/views/messageBoard/mes
 import { toggleNavigation } from '@webapp/app/components/navigation/actions'
 import { useInitCountry, useIsCountryStatusLoaded } from '@webapp/store/country'
 
+import AssessmentHome from '@webapp/pages/Assessment/AssessmentHome'
 import AssessmentSectionView from '@webapp/app/assessment/components/section/assessmentSectionView'
 import OriginalDataPointView from '@webapp/app/assessment/fra/sections/originalDataPoint/originalDataPointView'
-import Assessment from '@webapp/pages/Country/Assessment'
 import AdminView from '@webapp/pages/Admin/adminView'
 import EditUserView from '@webapp/app/user/userManagement/editUserView'
 
-const Country = () => {
+const Assessment = () => {
   const dispatch = useDispatch()
-  const { pathname } = useLocation()
   const userInfo = useUserInfo()
-  const countryIso = useInitCountry()
-  const countryStatusLoaded = useIsCountryStatusLoaded()
   const navigationVisible = useNavigationVisible()
-
-  const countryRootPath = matchPath(pathname, { path: BasePaths.country, exact: true })
+  useInitCountry()
+  const countryStatusLoaded = useIsCountryStatusLoaded()
 
   useEffect(() => {
     if (!navigationVisible && countryStatusLoaded) dispatch(toggleNavigation())
   }, [])
 
-  if (!countryStatusLoaded) {
-    return null
-  }
-
-  if (countryRootPath) {
-    return <Redirect to={BasePaths.getAssessmentLink(countryIso, FRA.type)} />
-  }
+  if (!countryStatusLoaded) return null
 
   return (
     <Switch>
@@ -58,11 +48,22 @@ const Country = () => {
           <Navigation />
 
           <Switch>
-            <Route path={BasePaths.assessmentSection} component={AssessmentSectionView} />
-            <Route path={[`${BasePaths.odp}:odpId/`, BasePaths.odp]} component={OriginalDataPointView} />
-            <Route path={BasePaths.assessment} component={Assessment} />
-            <Route path={BasePaths.admin} component={AdminView} />
-            <Route path={BasePaths.user} component={EditUserView} />
+            <Route
+              exact
+              path={[
+                BasePaths.assessmentHome,
+                BasePaths.getAssessmentHomeSectionLink(
+                  BasePaths.pathFragments.params.countryIso,
+                  BasePaths.pathFragments.params.assessmentType,
+                  BasePaths.pathFragments.params.section
+                ),
+              ]}
+              component={AssessmentHome}
+            />
+            <Route exact path={BasePaths.assessmentSection} component={AssessmentSectionView} />
+            <Route exact path={[`${BasePaths.odp}:odpId/`, BasePaths.odp]} component={OriginalDataPointView} />
+            <Route exact path={BasePaths.admin} component={AdminView} />
+            <Route exact path={BasePaths.user} component={EditUserView} />
           </Switch>
         </div>
       </Route>
@@ -70,4 +71,4 @@ const Country = () => {
   )
 }
 
-export default memo(Country)
+export default memo(Assessment)

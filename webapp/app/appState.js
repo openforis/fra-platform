@@ -5,6 +5,7 @@ export const stateLoadedKey = 'loaded'
 
 const keys = {
   countryIso: 'countryIso',
+  assessmentType: 'assessmentType',
   status: 'status',
   i18n: 'i18n',
   printView: 'printView',
@@ -18,6 +19,7 @@ const getState = R.prop(stateKey)
 
 // === READ
 export const getCountryIso = R.pipe(getState, R.propOr(null, keys.countryIso))
+export const getAssessmentType = R.pipe(getState, R.propOr(null, keys.assessmentType))
 export const getApplicationStatus = R.pipe(getState, R.propOr(null, keys.status))
 export const getI18n = R.pipe(getState, R.propOr(null, keys.i18n))
 
@@ -31,9 +33,10 @@ export const isPrintOnlyTablesView = R.ifElse(
 
 // === UPDATE
 
-export const assocCountryIso = (countryIso, printView, printOnlyTablesView) =>
+export const assocCountryIso = (countryIso, assessmentType, printView, printOnlyTablesView) =>
   R.pipe(
     R.assoc(keys.countryIso, countryIso),
+    R.assoc(keys.assessmentType, assessmentType),
     R.when(R.always(printView), R.assoc(keys.printView, { [keysPrintView.onlyTables]: printOnlyTablesView }))
   )
 

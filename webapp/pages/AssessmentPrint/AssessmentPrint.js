@@ -4,10 +4,10 @@ import React, { memo } from 'react'
 
 import * as FRA from '@common/assessment/fra'
 
-import { useAssessmentType } from '@webapp/components/hooks'
 import Loading from '@webapp/components/loading'
 import FraPrintView from '@webapp/app/assessment/fra/print/fraPrintView'
 
+import { useAssessmentType } from '@webapp/store/app'
 import { useInitCountry, useIsCountryStatusLoaded } from '@webapp/store/country'
 
 const Components = {

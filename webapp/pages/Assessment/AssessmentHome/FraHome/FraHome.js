@@ -2,6 +2,7 @@ import React from 'react'
 import { Link, matchPath, NavLink, Redirect, Route, Switch, useLocation } from 'react-router-dom'
 
 import { Area } from '@common/country'
+import * as FRA from '@common/assessment/fra'
 import * as BasePaths from '@webapp/main/basePaths'
 
 import { useCountryIso, useI18n, useUserInfo } from '@webapp/components/hooks'
@@ -10,7 +11,7 @@ import StatisticalFactsheets from '@webapp/app/countryLanding/views/statisticalF
 
 import useCountryLandingSections from '@webapp/app/countryLanding/useCountryLandingSections'
 
-const Fra = () => {
+const FraHome = () => {
   const { pathname } = useLocation()
   const countryIso = useCountryIso()
   const userInfo = useUserInfo()
@@ -18,9 +19,9 @@ const Fra = () => {
   const sections = useCountryLandingSections()
 
   const isCountry = Area.isISOCountry(countryIso)
-  const overviewPath = BasePaths.getCountrySectionLink(countryIso, 'overview')
+  const overviewPath = BasePaths.getAssessmentHomeSectionLink(countryIso, FRA.type, 'overview')
   const matchOverview = matchPath(pathname, {
-    path: [BasePaths.getCountryHomeLink(countryIso), overviewPath],
+    path: [BasePaths.getAssessmentHomeLink(countryIso, FRA.type), overviewPath],
     exact: true,
   })
   // tabs are available when user is logged-in and selected area is country
@@ -50,7 +51,7 @@ const Fra = () => {
             {sections.map(({ name: section }) => (
               <NavLink
                 key={section}
-                to={BasePaths.getCountrySectionLink(countryIso, section)}
+                to={BasePaths.getAssessmentHomeSectionLink(countryIso, FRA.type, section)}
                 className="landing__page-menu-button"
                 activeClassName="disabled"
               >
@@ -63,11 +64,15 @@ const Fra = () => {
 
       {displayTabs ? (
         <Switch>
-          <Route exact path={BasePaths.getCountryHomeLink(countryIso)}>
+          <Route exact path={BasePaths.getAssessmentHomeLink(countryIso, FRA.type)}>
             <Redirect to={overviewPath} />
           </Route>
           {sections.map(({ name: section, component }) => (
-            <Route key={section} path={BasePaths.getCountrySectionLink(':countryIso', section)} component={component} />
+            <Route
+              key={section}
+              path={BasePaths.getAssessmentHomeSectionLink(':countryIso', FRA.type, section)}
+              component={component}
+            />
           ))}
         </Switch>
       ) : (
@@ -77,4 +82,4 @@ const Fra = () => {
   )
 }
 
-export default Fra
+export default FraHome

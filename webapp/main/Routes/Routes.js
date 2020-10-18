@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Route, Switch } from 'react-router-dom'
+import { Redirect, Route, Switch, useLocation, useParams } from 'react-router-dom'
 
 import * as BasePaths from '@webapp/main/basePaths'
 
@@ -17,9 +17,11 @@ import ErrorComponent from '@webapp/components/error/errorComponent'
 
 import * as AppState from '@webapp/app/appState'
 import { initApp } from '@webapp/app/actions'
+import FRA from '@common/assessment/fra'
 
 const Routes = () => {
   const dispatch = useDispatch()
+  const { pathname } = useLocation()
   const appStatus = useSelector(AppState.getApplicationStatus)
   const isLogin = useIsLogin()
 
@@ -51,8 +53,13 @@ const Routes = () => {
 
           <Route exact path={pathsLogin} component={Login} />
 
+          <Route exact path={BasePaths.country}>
+            <Redirect to={BasePaths.getAssessmentHomeLink(pathname.replaceAll('/', ''), FRA.type)} />
+          </Route>
+
+          {/*// TODO: Move user and admin to a separate bundle*/}
           <Route
-            path={[BasePaths.user, BasePaths.admin, BasePaths.country]}
+            path={[BasePaths.user, BasePaths.admin, BasePaths.assessment]}
             render={(props) => <DynamicImport {...props} load={() => import('../../app/appViewExport')} />}
           />
         </Switch>

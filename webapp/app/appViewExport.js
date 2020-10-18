@@ -1,4 +1,4 @@
-import component from '@webapp/pages/Country'
+import component from '@webapp/pages/Assessment'
 
 import assessment from '@webapp/app/assessment/reducer'
 import extentOfForest from '@webapp/app/assessment/fra/sections/extentOfForest/reducers'

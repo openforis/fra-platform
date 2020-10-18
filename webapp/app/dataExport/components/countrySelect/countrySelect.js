@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-import { useAssessmentType, useI18n } from '@webapp/components/hooks'
-import ButtonCheckBox from '@webapp/components/buttonCheckBox'
-
 import { isTypePanEuropean } from '@common/assessment/assessment'
 import { Country } from '@common/country'
+
+import { useI18n } from '@webapp/components/hooks'
+import ButtonCheckBox from '@webapp/components/buttonCheckBox'
+
+import { useAssessmentType } from '@webapp/store/app'
 
 const CountrySelect = (props) => {
   const { countries, selectionCountries, setSelectionCountries } = props

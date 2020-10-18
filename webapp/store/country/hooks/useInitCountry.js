@@ -8,13 +8,13 @@ import { fetchCountryInitialData } from '@webapp/app/country/actions'
 export const useInitCountry = () => {
   const dispatch = useDispatch()
   const { pathname } = useLocation()
-  const { countryIso } = useParams()
+  const { assessmentType, countryIso } = useParams()
   const printView = !!matchPath(pathname, { path: BasePaths.assessmentPrint })
   const printOnlyTablesView = !!matchPath(pathname, { path: BasePaths.assessmentPrintOnlyTables, exact: true })
 
   useEffect(() => {
-    if (countryIso) dispatch(fetchCountryInitialData(countryIso, printView, printOnlyTablesView))
+    if (countryIso) {
+      dispatch(fetchCountryInitialData(countryIso, assessmentType, printView, printOnlyTablesView))
+    }
   }, [countryIso])
-
-  return countryIso
 }
