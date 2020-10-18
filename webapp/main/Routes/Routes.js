@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 
 import * as BasePaths from '@webapp/main/basePaths'
 
@@ -16,11 +16,9 @@ import ErrorComponent from '@webapp/components/error/errorComponent'
 
 import * as AppState from '@webapp/app/appState'
 import { initApp } from '@webapp/app/actions'
-import FRA from '@common/assessment/fra'
 
 const Routes = () => {
   const dispatch = useDispatch()
-  const { pathname } = useLocation()
   const appStatus = useSelector(AppState.getApplicationStatus)
   const isLogin = useIsLogin()
 
@@ -58,9 +56,6 @@ const Routes = () => {
             path={BasePaths.user}
             render={() => <DynamicImport load={() => import('../../app/appViewExport')} />}
           />
-          <Route exact path={BasePaths.country}>
-            <Redirect to={BasePaths.getAssessmentHomeLink(pathname.replaceAll('/', ''), FRA.type)} />
-          </Route>
           <Route
             path={BasePaths.assessment}
             render={() => <DynamicImport load={() => import('../../app/appViewExport')} />}

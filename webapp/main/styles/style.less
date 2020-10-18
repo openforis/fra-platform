@@ -81,10 +81,16 @@ hr {
 }
 
 .notfound {
+  position: fixed;
+  top: 0;
+  left: 0;
   padding: 100px;
-  width: 500px;
+  width: 100vw;
+  height: 100%;
   text-align: center;
   margin: 0 auto;
+  background-color: rgb(white, 0.8);
+  z-index: @z-index-loader;
 
   img {
     animation: wobble 0.3s ease-in-out 0.1s;
