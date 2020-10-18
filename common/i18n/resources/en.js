@@ -1058,6 +1058,7 @@ The FRA team
   },
 
   panEuropean: {
+    govSwitzerland: 'Government of Switzerland',
     landing: {
       select: 'Select an area to access Pan European assessment data',
     },
