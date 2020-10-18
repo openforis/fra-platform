@@ -50,11 +50,12 @@ const Logo = () => {
   const isAdmin = useIsAdmin()
   const isHome = useIsHome()
   const isLogin = useIsLogin()
+  const assessmentType = useAssessmentType()
+
   if (isAdmin || isHome || isLogin) {
     return <LogoFRA />
   }
 
-  const assessmentType = useAssessmentType()
   return React.createElement(Components[assessmentType])
 }
 
