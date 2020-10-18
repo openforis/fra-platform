@@ -11,7 +11,6 @@ import Landing from '@webapp/pages/Landing'
 import Login from '@webapp/pages/Login'
 import Header from '@webapp/components/Header'
 import CountrySelection from '@webapp/components/countrySelection'
-import Partners from '@webapp/components/Partners'
 import Footer from '@webapp/components/footer'
 import ErrorComponent from '@webapp/components/error/errorComponent'
 
@@ -68,7 +67,6 @@ const Routes = () => {
           />
         </Switch>
 
-        <Route exact path={[BasePaths.root, ...pathsLogin]} component={Partners} />
         <Footer />
         <ErrorComponent />
       </Route>

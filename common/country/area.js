@@ -1,6 +1,9 @@
+const EU = 'EU'
+
 const levels = {
   global: 'WO',
-  regions: ['AF', 'AS', 'EU', 'NA', 'OC', 'SA'],
+  EU,
+  regions: ['AF', 'AS', EU, 'NA', 'OC', 'SA'],
 }
 
 const isISOGlobal = (isoCode) => isoCode === levels.global

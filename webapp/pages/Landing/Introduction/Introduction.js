@@ -14,7 +14,12 @@ const Introduction = () => {
       <div className="home-introduction__about-fra">
         <div className="header">{i18n.t(`common.globalFRA`)}</div>
         <div className="process">{i18n.t('landing.about.fraProcess')}</div>
-        <a href={`http://www.fao.org/forest-resources-assessment/${i18n.language}/`} target="_blank" rel="noreferrer">
+        <a
+          className="home-link link-fra-process"
+          href={`http://www.fao.org/forest-resources-assessment/${i18n.language}/`}
+          target="_blank"
+          rel="noreferrer"
+        >
           &gt; {i18n.t('landing.about.linkFraProcess')}
         </a>
 

@@ -1058,6 +1058,10 @@ The FRA team
   },
 
   panEuropean: {
+    landing: {
+      select: 'Select an area to access Pan European assessment data',
+    },
+
     // navigation
     navigation: {
       forestResourcesAndCarbon: 'Forest Resources and Carbon',
@@ -1088,7 +1092,7 @@ The FRA team
       forestArea1000Ha: 'Forest area (1000 ha)',
       predominantly_coniferous_forest: 'Predominantly coniferous forest',
       predominantly_broadleaved_forest: 'Predominantly broadleaved forest',
-      mixed_forest: 'Mixed forest'
+      mixed_forest: 'Mixed forest',
     },
 
     // table 1.2a
@@ -1113,7 +1117,7 @@ The FRA team
       growingStockMillionM3OB: 'Growing stock (million m³ o.b.)',
       predominantly_coniferous_forest: 'Predominantly coniferous forest',
       predominantly_broadleaved_forest: 'Predominantly broadleaved forest',
-      mixed_forest: 'Mixed forest'
+      mixed_forest: 'Mixed forest',
     },
 
     // table 1.2c
@@ -1157,7 +1161,8 @@ The FRA team
 
     // table 1.3a2
     ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply: {
-      ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply: 'Age class distribution (volume of even-aged stands) in forest available for wood supply',
+      ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply:
+        'Age class distribution (volume of even-aged stands) in forest available for wood supply',
       categoryYear: 'Category - Year',
       developmentPhases1000ha: 'Development phases (1 000 ha)',
       total_volume: 'Total volume (1 000 m³)',
@@ -1165,7 +1170,8 @@ The FRA team
       intermediate_phase: 'Intermediate phase',
       mature_phase: 'Mature phase',
       unspecified: 'Unspecified',
-      forest_available_for_wood_supply_even_aged_stands_of_which: 'Forest available for wood supply (even-aged stands), of which: - {{year}}',
+      forest_available_for_wood_supply_even_aged_stands_of_which:
+        'Forest available for wood supply (even-aged stands), of which: - {{year}}',
       predominantly_coniferous_forest: 'Predominantly coniferous forest - {{year}}',
       predominantly_broadleaved_forest: 'Predominantly broadleaved forest - {{year}}',
       mixed_forest: 'Mixed forest - {{year}}',
@@ -1173,7 +1179,8 @@ The FRA team
 
     // table 1.3b
     diameterDistributionAndTotalAreaUnevenAgedStands: {
-      diameterDistributionAndTotalAreaUnevenAgedStands: 'Table 1.3b Diameter distribution and total area (uneven-aged stands)',
+      diameterDistributionAndTotalAreaUnevenAgedStands:
+        'Table 1.3b Diameter distribution and total area (uneven-aged stands)',
       categoryYear: 'Category - Year',
       volumeByDiameterClasses1000mob: 'Volume by diameter classes (1 000 m³ o.b.)',
       area: 'Area (1000 ha)',
@@ -1193,7 +1200,7 @@ The FRA team
       categoryYear: 'Category - Year',
       carbonInAboveGroundAndBelowGroundLivingBiomass: 'Carbon in above-ground and below-ground living biomass',
       carbonInDeadwoodAndLitter: 'Carbon in deadwood and litter',
-      millionMetricTonnes: 'Million metric tonnes',      
+      millionMetricTonnes: 'Million metric tonnes',
       above_ground: 'Above-ground',
       below_ground: 'Below-ground',
       deadwood: 'Deadwood',
@@ -1354,9 +1361,11 @@ The FRA team
     totalForestAreaByExpansionAndRegenerationType: {
       totalForestAreaByExpansionAndRegenerationType: 'Total forest area by expansion and regeneration type',
       categoryYear: 'Category - Year',
-      totalAreaOfForestByExpansionRegenerationType1000ha: 'Total area of forest by expansion/regeneration type (1000 ha)',
+      totalAreaOfForestByExpansionRegenerationType1000ha:
+        'Total area of forest by expansion/regeneration type (1000 ha)',
       natural_expansion_and_natural_regeneration: 'Natural expansion and natural regeneration',
-      afforestation_and_regeneration_by_planting_and_or_seeding: 'Afforestation and regeneration by planting and/or seeding',
+      afforestation_and_regeneration_by_planting_and_or_seeding:
+        'Afforestation and regeneration by planting and/or seeding',
       coppice: 'Coppice',
       forest: 'Forest - {{year}}',
     },
@@ -1410,7 +1419,8 @@ The FRA team
     introducedTreeSpecies: {
       introducedTreeSpecies: 'Introduced tree species',
       categoryYear: 'Category - Year',
-      areaOfStandsDominatedByIntroducedTreeSpecies1000ha: 'Area of stands dominated by introduced tree species (1000 ha)',
+      areaOfStandsDominatedByIntroducedTreeSpecies1000ha:
+        'Area of stands dominated by introduced tree species (1000 ha)',
       total: 'Total',
       _of_which_invasive: '… of which: invasive',
       forest: 'Forest - {{year}}',
@@ -1422,7 +1432,7 @@ The FRA team
     introducedTreeSpecies4_4b: {
       introducedTreeSpecies4_4b: 'Introduced tree species',
       scientificNameOfIntroducedTreeSpecies: 'Scientific name of introduced tree species',
-      forestAreaOccupied1000Ha: 'Forest area occupied (1000 ha)'
+      forestAreaOccupied1000Ha: 'Forest area occupied (1000 ha)',
     },
 
     // table4.5
@@ -1477,7 +1487,8 @@ The FRA team
 
     // table 5.1
     protectiveForestsSoilWaterAndOtherEcosystemFunctions: {
-      protectiveForestsSoilWaterAndOtherEcosystemFunctions: 'Protective forests – soil, water and other ecosystem functions; infrastructure and managed natural resources',
+      protectiveForestsSoilWaterAndOtherEcosystemFunctions:
+        'Protective forests – soil, water and other ecosystem functions; infrastructure and managed natural resources',
       categoryYear: 'Category - Year',
       protectiveForestsMCPFEClass31000ha: 'Protective forests - MCPFE Class 3 (1000 ha)',
       soil_water_and_other_forest_ecosystem_functions: 'Soil, water and other forest ecosystem functions',
@@ -1533,7 +1544,8 @@ The FRA team
 
     // table 6.4a
     totalGrossFixedCapitalFormationInForestsAndForestry: {
-      totalGrossFixedCapitalFormationInForestsAndForestry: 'Total gross fixed capital formation in forests and forestry',
+      totalGrossFixedCapitalFormationInForestsAndForestry:
+        'Total gross fixed capital formation in forests and forestry',
       categoryYear: 'Category - Year',
       grossFixedCapitalFormationMillionNationalCurrency: 'Gross fixed capital formation (million national currency)',
       plantingOfTreesToProvideRegularIncome: 'Planting of trees to provide regular income',
@@ -1690,7 +1702,8 @@ The FRA team
       categoryYear: 'Category - Year',
       annualNumberOfVisitsMillion: 'Annual number of visits (million)',
       areaAvailableForPublicRecreation: 'Area available for public recreation',
-      areaPrimarilyDesignatedAndOrManagedForPublicRecreation: 'Area primarily designated and/or managed for public recreation',
+      areaPrimarilyDesignatedAndOrManagedForPublicRecreation:
+        'Area primarily designated and/or managed for public recreation',
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
     },
 
@@ -1699,9 +1712,10 @@ The FRA team
       recreationFacilities: 'Recreation facilities',
       categoryYear: 'Category - Year',
       forestRoadsAndPathsAvailableForPublicRecreation: 'Forest roads and paths available for public recreation',
-      _ofWhichDesignatedForHikingBikingCrossCountrySkiingEtc: '... of which designated for hiking, biking, cross country skiing, etc.',
+      _ofWhichDesignatedForHikingBikingCrossCountrySkiingEtc:
+        '... of which designated for hiking, biking, cross country skiing, etc.',
       facilityLengthIn1000Km: 'Facility (length in 1000 km)',
       area_available_for_public_recreation: 'Area available for public recreation - {{year}}',
     },
-  }
+  },
 }

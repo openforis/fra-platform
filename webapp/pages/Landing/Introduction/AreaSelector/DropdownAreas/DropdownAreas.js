@@ -2,17 +2,21 @@ import React, { useLayoutEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
+import * as Fra from '@common/assessment/fra'
+import * as PanEuropean from '@common/assessment/panEuropean'
 import * as BasePaths from '@webapp/main/basePaths'
 
 import { useI18n } from '@webapp/components/hooks'
 import Icon from '@webapp/components/icon'
 
 const DropdownAreas = (props) => {
-  const { area, areaISOs, dropdownOpened, setDropdownOpened } = props
+  const { area, areaISOs, assessmentType, dropdownOpened, setDropdownOpened } = props
   const dialogOpened = dropdownOpened === area
 
   const i18n = useI18n()
   const buttonRef = useRef(null)
+
+  const fra = assessmentType === Fra.type
 
   useLayoutEffect(() => {
     const outsideClick = ({ target }) => dialogOpened && !buttonRef.current.contains(target) && setDropdownOpened('')
@@ -41,7 +45,12 @@ const DropdownAreas = (props) => {
           <div className="country-selection-list__content">
             <div className="country-selection-list__section">
               {areaISOs.map((iso) => (
-                <Link key={iso} to={BasePaths.getCountryHomeLink(iso)} className="country-selection-list__row">
+                <Link
+                  key={iso}
+                  to={BasePaths.getAssessmentHomeLink(iso, assessmentType)}
+                  className="country-selection-list__row"
+                  target={fra ? '_self' : '_blank'}
+                >
                   <span className="country-selection-list__primary-col">{i18n.t(`area.${iso}.listName`)}</span>
                 </Link>
               ))}
@@ -56,6 +65,7 @@ const DropdownAreas = (props) => {
 DropdownAreas.propTypes = {
   area: PropTypes.string.isRequired,
   areaISOs: PropTypes.arrayOf(String).isRequired,
+  assessmentType: PropTypes.oneOf([Fra.type, PanEuropean.type]).isRequired,
   dropdownOpened: PropTypes.string.isRequired,
   setDropdownOpened: PropTypes.func.isRequired,
 }
