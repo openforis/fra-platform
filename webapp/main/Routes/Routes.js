@@ -29,7 +29,6 @@ const Routes = () => {
     dispatch(initApp())
   }, [])
 
-  // If application is not yet loaded, display Loading tucan bird
   if (appStatus !== AppState.stateLoadedKey) {
     return <Loading />
   }
@@ -39,8 +38,7 @@ const Routes = () => {
   return (
     <Switch>
       <Route
-        exact
-        path={[BasePaths.assessmentPrint, BasePaths.assessmentPrintOnlyTables]}
+        path={BasePaths.assessmentPrint}
         render={() => <DynamicImport load={() => import('../../pages/AssessmentPrint/export')} />}
       />
 
