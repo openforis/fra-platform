@@ -31,8 +31,6 @@ const Assessment = () => {
     if (!navigationVisible && countryStatusLoaded) dispatch(toggleNavigation())
   }, [])
 
-  if (!countryStatusLoaded) return null
-
   return (
     <>
       {userInfo && (

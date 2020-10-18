@@ -23,7 +23,11 @@ const Introduction = () => {
           &gt; {i18n.t('landing.about.linkFraProcess')}
         </a>
 
-        <AreaSelector />
+        <div className="home-introduction__area-selector">
+          <hr />
+          <div>{i18n.t('landing.about.selectArea')}</div>
+          <AreaSelector />
+        </div>
       </div>
     </div>
   )

@@ -5,8 +5,6 @@ import React from 'react'
 import * as FRA from '@common/assessment/fra'
 import * as PanEuropean from '@common/assessment/panEuropean'
 
-import Notfound from '@webapp/app/notfound'
-
 import { useAssessmentType } from '@webapp/store/app'
 
 import FraHome from './FraHome'
@@ -22,7 +20,7 @@ const AssessmentHome = () => {
   const Component = Components[assessmentType]
 
   if (!Component) {
-    return <Notfound />
+    return null
   }
 
   return <div className="app-view__content">{React.createElement(Component)}</div>
