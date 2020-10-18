@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect, Route, Switch, useLocation, useParams } from 'react-router-dom'
+import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
 
 import * as BasePaths from '@webapp/main/basePaths'
 
@@ -41,7 +41,7 @@ const Routes = () => {
       <Route
         exact
         path={[BasePaths.assessmentPrint, BasePaths.assessmentPrintOnlyTables]}
-        render={(props) => <DynamicImport {...props} load={() => import('../../pages/AssessmentPrint/export')} />}
+        render={() => <DynamicImport load={() => import('../../pages/AssessmentPrint/export')} />}
       />
 
       <Route>
@@ -50,17 +50,21 @@ const Routes = () => {
 
         <Switch>
           <Route exact path={BasePaths.root} component={Landing} />
-
           <Route exact path={pathsLogin} component={Login} />
-
+          <Route
+            path={BasePaths.admin}
+            render={() => <DynamicImport load={() => import('../../app/appViewExport')} />}
+          />
+          <Route
+            path={BasePaths.user}
+            render={() => <DynamicImport load={() => import('../../app/appViewExport')} />}
+          />
           <Route exact path={BasePaths.country}>
             <Redirect to={BasePaths.getAssessmentHomeLink(pathname.replaceAll('/', ''), FRA.type)} />
           </Route>
-
-          {/*// TODO: Move user and admin to a separate bundle*/}
           <Route
-            path={[BasePaths.user, BasePaths.admin, BasePaths.assessment]}
-            render={(props) => <DynamicImport {...props} load={() => import('../../app/appViewExport')} />}
+            path={BasePaths.assessment}
+            render={() => <DynamicImport load={() => import('../../app/appViewExport')} />}
           />
         </Switch>
 

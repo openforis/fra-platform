@@ -34,40 +34,27 @@ const Assessment = () => {
   if (!countryStatusLoaded) return null
 
   return (
-    <Switch>
-      <Route>
-        {userInfo && (
-          <>
-            <Review />
-            <UserChat />
-            <MessageBoardPanel />
-          </>
-        )}
+    <>
+      {userInfo && (
+        <>
+          <Review />
+          <UserChat />
+          <MessageBoardPanel />
+        </>
+      )}
 
-        <div className={`app-view ${navigationVisible ? ' navigation-on' : ''}`}>
-          <Navigation />
+      <div className={`app-view ${navigationVisible ? ' navigation-on' : ''}`}>
+        <Navigation />
 
-          <Switch>
-            <Route
-              exact
-              path={[
-                BasePaths.assessmentHome,
-                BasePaths.getAssessmentHomeSectionLink(
-                  BasePaths.pathFragments.params.countryIso,
-                  BasePaths.pathFragments.params.assessmentType,
-                  BasePaths.pathFragments.params.section
-                ),
-              ]}
-              component={AssessmentHome}
-            />
-            <Route exact path={BasePaths.assessmentSection} component={AssessmentSectionView} />
-            <Route exact path={[`${BasePaths.odp}:odpId/`, BasePaths.odp]} component={OriginalDataPointView} />
-            <Route exact path={BasePaths.admin} component={AdminView} />
-            <Route exact path={BasePaths.user} component={EditUserView} />
-          </Switch>
-        </div>
-      </Route>
-    </Switch>
+        <Switch>
+          <Route path={BasePaths.admin} component={AdminView} />
+          <Route path={BasePaths.user} component={EditUserView} />
+          <Route path={BasePaths.assessmentHome} component={AssessmentHome} />
+          <Route exact path={BasePaths.assessmentSection} component={AssessmentSectionView} />
+          <Route exact path={[`${BasePaths.odp}:odpId/`, BasePaths.odp]} component={OriginalDataPointView} />
+        </Switch>
+      </div>
+    </>
   )
 }
 
