@@ -19,7 +19,7 @@ import { initApp } from '@webapp/app/actions'
 
 import { useTheme } from './useTheme'
 
-const Routes = () => {
+const PageRoutes = () => {
   useTheme()
   const dispatch = useDispatch()
   const appStatus = useSelector(AppState.getApplicationStatus)
@@ -39,7 +39,7 @@ const Routes = () => {
     <Switch>
       <Route
         path={BasePaths.assessmentPrint}
-        render={() => <DynamicImport load={() => import('../../pages/AssessmentPrint/export')} />}
+        render={() => <DynamicImport load={() => import('../AssessmentPrint/export')} />}
       />
 
       <Route>
@@ -70,4 +70,4 @@ const Routes = () => {
   )
 }
 
-export default Routes
+export default PageRoutes
