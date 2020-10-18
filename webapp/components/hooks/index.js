@@ -1,3 +1,4 @@
+export { useAssessmentType } from './useAssessmentType'
 export { default as useI18n } from './useI18n'
 export { default as useCountryIso } from './useCountryIso'
 export { default as useUserInfo } from './useUserInfo'

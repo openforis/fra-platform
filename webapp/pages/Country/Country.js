@@ -21,7 +21,7 @@ import Assessment from '@webapp/pages/Country/Assessment'
 import AdminView from '@webapp/pages/Admin/adminView'
 import EditUserView from '@webapp/app/user/userManagement/editUserView'
 
-const LoggedInView = () => {
+const Country = () => {
   const dispatch = useDispatch()
   const { pathname } = useLocation()
   const userInfo = useUserInfo()
@@ -70,4 +70,4 @@ const LoggedInView = () => {
   )
 }
 
-export default memo(LoggedInView)
+export default memo(Country)

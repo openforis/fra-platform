@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { useParams } from 'react-router'
 
-import { useI18n } from '@webapp/components/hooks'
+import { useAssessmentType, useI18n } from '@webapp/components/hooks'
 import ButtonCheckBox from '@webapp/components/buttonCheckBox'
 
 import { isTypePanEuropean } from '@common/assessment/assessment'
@@ -12,7 +11,7 @@ const CountrySelect = (props) => {
   const { countries, selectionCountries, setSelectionCountries } = props
 
   const i18n = useI18n()
-  const { assessmentType } = useParams()
+  const assessmentType = useAssessmentType()
   const [countriesFiltered, setCountriesFiltered] = useState(countries)
 
   const isDeskStudy = (country) => !isTypePanEuropean(assessmentType) && Country.isDeskStudy(country)

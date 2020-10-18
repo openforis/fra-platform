@@ -1,81 +1,30 @@
-import './style.less'
+import './Fra/fra.less'
 
 import React from 'react'
-import { Link, matchPath, NavLink, Redirect, Route, Switch, useLocation } from 'react-router-dom'
 
-import { Area } from '@common/country'
-import * as BasePaths from '@webapp/main/basePaths'
+import { useAssessmentType } from '@webapp/components/hooks'
+import * as FRA from '@common/assessment/fra'
+import * as PanEuropean from '@common/assessment/panEuropean'
 
-import { useCountryIso, useI18n, useUserInfo } from '@webapp/components/hooks'
-import Icon from '@webapp/components/icon'
-import useCountryLandingSections from '@webapp/app/countryLanding/useCountryLandingSections'
-import StatisticalFactsheets from '@webapp/app/countryLanding/views/statisticalFactsheets'
+import Notfound from '@webapp/app/notfound'
+
+import Fra from './Fra'
+import PanEuropeanComponent from './PanEuropean'
+
+const Components = {
+  [FRA.type]: Fra,
+  [PanEuropean.type]: PanEuropeanComponent,
+}
 
 const Assessment = () => {
-  const { pathname } = useLocation()
-  const countryIso = useCountryIso()
-  const userInfo = useUserInfo()
-  const i18n = useI18n()
-  const sections = useCountryLandingSections()
+  const assessmentType = useAssessmentType()
+  const Component = Components[assessmentType]
 
-  const isCountry = Area.isISOCountry(countryIso)
-  const overviewPath = BasePaths.getCountrySectionLink(countryIso, 'overview')
-  const matchOverview = matchPath(pathname, {
-    path: [BasePaths.getCountryHomeLink(countryIso), overviewPath],
-    exact: true,
-  })
-  // tabs are available when user is logged-in and selected area is country
-  const displayTabs = userInfo && isCountry
+  if (!Component) {
+    return <Notfound />
+  }
 
-  return (
-    <div className="app-view__content">
-      <div className="landing__page-header">
-        <h1 className="landing__page-title">
-          {i18n.t(`area.${countryIso}.listName`)}
-
-          {!isCountry && matchOverview && (
-            <Link
-              className="btn-s btn-primary landing__btn-download"
-              to={`/api/fileRepository/statisticalFactsheets/${countryIso}/${i18n.language}`}
-              target="_top"
-              alt=""
-            >
-              <Icon name="hit-down" className="icon-hit-down icon-white" />
-              <Icon name="icon-table2" className="icon-no-margin icon-white" />
-            </Link>
-          )}
-        </h1>
-
-        {displayTabs && (
-          <div className="landing__page-menu">
-            {sections.map(({ name: section }) => (
-              <NavLink
-                key={section}
-                to={BasePaths.getCountrySectionLink(countryIso, section)}
-                className="landing__page-menu-button"
-                activeClassName="disabled"
-              >
-                {i18n.t(`landing.sections.${section}`)}
-              </NavLink>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {displayTabs ? (
-        <Switch>
-          <Route exact path={BasePaths.getCountryHomeLink(countryIso)}>
-            <Redirect to={overviewPath} />
-          </Route>
-          {sections.map(({ name: section, component }) => (
-            <Route key={section} path={BasePaths.getCountrySectionLink(':countryIso', section)} component={component} />
-          ))}
-        </Switch>
-      ) : (
-        <StatisticalFactsheets />
-      )}
-    </div>
-  )
+  return <div className="app-view__content">{React.createElement(Component)}</div>
 }
 
 export default Assessment
