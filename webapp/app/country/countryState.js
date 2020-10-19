@@ -11,8 +11,6 @@ const keys = {
   status: 'status',
   countries: 'countries',
   regions: 'regions',
-  countryRegions: 'countryRegions',
-  regionCountries: 'regionCountries',
 }
 
 const keysStatus = {
