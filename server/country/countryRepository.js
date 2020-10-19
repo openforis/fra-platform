@@ -146,12 +146,6 @@ ORDER BY c.country_iso
   return camelize(result.rows)
 }
 
-const getCountryRegions = async () => {
-  const query = `SELECT * FROM country_region`
-  const result = await db.query(query)
-  return camelize(result.rows)
-}
-
 const getAllowedCountries = (roles, schemaName = 'public') => {
   const isAdmin = R.find(R.propEq('role', CountryRole.administrator.role), roles)
   if (R.isEmpty(roles)) {
@@ -254,7 +248,6 @@ GROUP BY c.country_iso
 module.exports.getAllowedCountries = getAllowedCountries
 module.exports.getAllCountriesList = getAllCountriesList
 module.exports.getRegionCountriesList = getRegionCountriesList
-module.exports.getCountryRegions = getCountryRegions
 module.exports.getDynamicCountryConfiguration = getDynamicCountryConfiguration
 module.exports.saveDynamicConfigurationVariable = saveDynamicConfigurationVariable
 module.exports.getFirstAllowedCountry = (roles) =>

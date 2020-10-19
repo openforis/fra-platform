@@ -10,7 +10,6 @@ const keys = {
   config: 'config',
   status: 'status',
   countries: 'countries',
-  regions: 'regions',
 }
 
 const keysStatus = {
@@ -29,9 +28,6 @@ export const hasCountries = R.pipe(getCountries, _isNotEmpty)
 export const getCountriesList = R.pipe(getCountries, R.values, R.flatten)
 export const getCountryByCountryIso = (countryIso) =>
   R.pipe(getCountriesList, R.find(R.propEq(Country.keys.countryIso, countryIso)))
-// Regions
-export const getRegions = R.pipe(getState, R.propOr({}, keys.regions))
-export const hasRegions = R.pipe(getRegions, _isNotEmpty)
 
 export const getConfig = R.pipe(getState, R.propOr({}, keys.config))
 export const getStatus = R.pipe(getState, R.propOr({}, keys.status))

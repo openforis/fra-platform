@@ -8,7 +8,6 @@ import * as autosave from '@webapp/app/components/autosave/actions'
 import { appCountryIsoUpdate } from '@webapp/app/actions'
 
 export const listCountries = 'country/country/list'
-export const listRegions = 'country/regions/list'
 export const fetchCountryOverviewStatusCompleted = 'country/status/completed'
 export const countryConfig = 'country/countryConfig'
 export const changeCountryConfigSetting = '/country/changeSetting'
@@ -43,11 +42,6 @@ export const fetchCountryList = () => async (dispatch, getState) => {
     _countries.sort((country1, country2) => (_getListname(country1) > _getListname(country2) ? 1 : -1))
   })
   dispatch({ type: listCountries, countries })
-}
-
-export const fetchRegionList = () => async (dispatch) => {
-  const { data: regions } = await axios.get('/api/country/regions')
-  dispatch({ type: listRegions, regions })
 }
 
 export const saveCountryConfigSetting = (key, value) => async (dispatch, getState) => {
