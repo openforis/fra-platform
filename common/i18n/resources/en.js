@@ -1673,6 +1673,26 @@ The FRA team
       imports_of_forest_products_value: 'Imports of forest products (million Euro/ECU)',
     },
 
+    // table 6.9
+    totalEnergySupplyFromWood: {
+      totalEnergySupplyFromWood: 'Total energy supply from wood',
+      category: 'Category',
+      tj: 'TJ',
+      _1000MetricTonnesDryMatter: '1000 metric tonnes dry matter',
+      total_primary_energy_supply: 'Total primary energy supply',
+      total_renewable_energy_supply: 'Total renewable energy supply',
+      total_energy_supply_from_wood: 'Total energy supply from wood:',
+      energy_from_direct_wood_fibre_sources: '- Energy from direct wood fibre sources:',
+      of_which_from_forests: 'of which from forests',
+      of_which_from_other_wooded_land: 'of which from other wooded land and other land (trees outside forests)',
+      energy_from_co_products: '- Energy from co-products and residues of the wood processing industries:',
+      of_which_solid_residues: 'of which solid residues (chips, particles, wood residues, bark, excluding processed wood-based fuels)',
+      energy_from_processed_wood_based_fuels: '- Energy from processed wood-based fuels (pellets, briquettes, charcoal):',
+      of_which_imported: 'of which imported',
+      energy_from_post_consumer_recovered_wood: '- Energy from post-consumer recovered wood',
+      energy_from_unknown_unspecified_sources: '- Energy from unknown/unspecified sources',
+    },
+
     // table 6.10a
     accessibilityForRecreation: {
       accessibilityForRecreation: 'Accessibility for recreation',
