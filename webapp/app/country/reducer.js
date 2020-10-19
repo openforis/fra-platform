@@ -14,21 +14,7 @@ import {
 const actionHandlers = {
   [listCountries]: (state, { countries }) => CountryState.assocCountries(countries)(state),
 
-  [listRegions]: (state, { regions }) => {
-    // Format regions of type
-    // [{ regionIso: R, countryIso: C }, { regionIso: R, countryIso: C1 }, ... ]
-    // { R: [ C, C1, ... ]
-    const result = {}
-
-    regions.forEach(({ regionCode, countryIso }) => {
-      if (!result[regionCode]) {
-        result[regionCode] = []
-      }
-
-      result[regionCode].push(countryIso)
-    })
-    return CountryState.assocRegions(result)(state)
-  },
+  [listRegions]: (state, { regions }) => CountryState.assocRegions(regions)(state),
 
   [fetchCountryOverviewStatusCompleted]: (state, { status }) => CountryState.assocStatus(status)(state),
 

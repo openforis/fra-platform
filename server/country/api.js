@@ -50,8 +50,8 @@ module.exports.init = (app) => {
   // Returns all regions from country_region table
   app.get('/country/regions', async (req, res) => {
     try {
-      const countryRegions = await CountryService.getCountryRegions()
-      res.json(countryRegions)
+      const getRegions = await CountryService.getRegions()
+      res.json(getRegions.map((region) => region.regionCode))
     } catch (err) {
       Request.sendErr(res, err)
     }

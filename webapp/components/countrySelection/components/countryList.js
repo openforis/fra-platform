@@ -25,7 +25,7 @@ const CountryList = (props) => {
   if (!hasRegions) {
     dispatch(fetchRegionList())
   }
-  const regions = useSelector(CountryState.getRegionsList)
+  const regions = useSelector(CountryState.getRegions)
   const filteredRegions = regions.filter((region) => checkMatch(i18n.t(`area.${region}.listName`), query))
 
   return (

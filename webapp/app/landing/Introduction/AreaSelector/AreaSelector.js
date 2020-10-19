@@ -26,7 +26,7 @@ const AreaSelector = () => {
   if (!hasRegions) {
     dispatch(fetchRegionList())
   }
-  const regions = useSelector(CountryState.getRegionsList)
+  const regions = useSelector(CountryState.getRegions)
   const [dropdownOpened, setDropdownOpened] = useState('')
   const [countryISOs, setCountryISOs] = useState([])
 

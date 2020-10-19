@@ -36,7 +36,7 @@ export default () => {
   if (!hasRegions) {
     dispatch(fetchRegionList())
   }
-  const regions = useSelector(CountryState.getRegionsList)
+  const regions = useSelector(CountryState.getRegions)
   const countryListUrl = `/api/countries/${regions.includes(countryIso) ? countryIso : ''}`
   const { data: allCountries = [], dispatch: fetchCountries } = useGetRequest(countryListUrl)
 

@@ -141,8 +141,8 @@ ORDER BY c.country_iso
   return camelize(result.rows)
 }
 
-const getCountryRegions = async () => {
-  const query = `SELECT * FROM country_region`
+const getRegions = async () => {
+  const query = `SELECT region_code FROM region`
   const result = await db.query(query)
   return camelize(result.rows)
 }
@@ -249,7 +249,7 @@ GROUP BY c.country_iso
 module.exports.getAllowedCountries = getAllowedCountries
 module.exports.getAllCountriesList = getAllCountriesList
 module.exports.getRegionCountriesList = getRegionCountriesList
-module.exports.getCountryRegions = getCountryRegions
+module.exports.getRegions = getRegions
 module.exports.getDynamicCountryConfiguration = getDynamicCountryConfiguration
 module.exports.saveDynamicConfigurationVariable = saveDynamicConfigurationVariable
 module.exports.getFirstAllowedCountry = (roles) =>
