@@ -47,6 +47,16 @@ module.exports.init = (app) => {
     }
   })
 
+  // Returns all regions from country_region table
+  app.get('/country/regions', async (req, res) => {
+    try {
+      const countryRegions = await CountryService.getCountryRegions()
+      res.json(countryRegions)
+    } catch (err) {
+      Request.sendErr(res, err)
+    }
+  })
+
   app.get('/country/overviewStatus/:countryIso', async (req, res) => {
     try {
       //TODO - REFACTOR

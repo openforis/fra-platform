@@ -4,7 +4,6 @@ const camelize = require('camelize')
 const db = require('../db/db')
 
 const CountryRole = require('../../common/countryRole')
-const Area = require('../../common/country/area')
 
 /*
  * Determine the "overall status" from multiple statuses.
@@ -115,10 +114,6 @@ ORDER BY c.country_iso
 }
 
 const getRegionCountriesList = async (region) => {
-  if (!Area.isISORegion(region)) {
-    return []
-  }
-
   const query = `
 WITH assessment AS (
     SELECT a.country_iso,
@@ -143,6 +138,12 @@ GROUP BY c.country_iso, a.assessment::TEXT::jsonb
 ORDER BY c.country_iso
   `
   const result = await db.query(query, [region])
+  return camelize(result.rows)
+}
+
+const getCountryRegions = async () => {
+  const query = `SELECT * FROM country_region`
+  const result = await db.query(query)
   return camelize(result.rows)
 }
 
@@ -248,6 +249,7 @@ GROUP BY c.country_iso
 module.exports.getAllowedCountries = getAllowedCountries
 module.exports.getAllCountriesList = getAllCountriesList
 module.exports.getRegionCountriesList = getRegionCountriesList
+module.exports.getCountryRegions = getCountryRegions
 module.exports.getDynamicCountryConfiguration = getDynamicCountryConfiguration
 module.exports.saveDynamicConfigurationVariable = saveDynamicConfigurationVariable
 module.exports.getFirstAllowedCountry = (roles) =>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import snake from 'to-snake-case'
 
@@ -9,8 +10,10 @@ import { throttle } from '@webapp/utils/functionUtils'
 
 import { formatColumn, formatSection } from '@webapp/app/dataExport/utils/format'
 import Assessment from '@common/assessment/assessment'
-import { Area, Country } from '@common/country'
+import { Country } from '@common/country'
 import { useCountryIso, useI18n } from '@webapp/components/hooks'
+import * as CountryState from '@webapp/app/country/countryState'
+import { fetchRegionList } from '@webapp/app/country/actions'
 
 const initialSelection = {
   countries: [],
@@ -22,14 +25,19 @@ const initialSelection = {
 export default () => {
   const countryIso = useCountryIso()
   const i18n = useI18n()
+  const dispatch = useDispatch()
   const { assessmentType, section } = useParams()
   const [variables, setVariables] = useState([])
   const [columns, setColumns] = useState([])
   const [columnsAlwaysExport, setColumnsAlwaysExport] = useState([])
 
   const [selection, setSelection] = useState({ ...initialSelection })
-
-  const countryListUrl = `/api/countries/${Area.isISORegion(countryIso) ? countryIso : ''}`
+  const hasRegions = useSelector(CountryState.hasRegions)
+  if (!hasRegions) {
+    dispatch(fetchRegionList())
+  }
+  const regions = useSelector(CountryState.getRegionsList)
+  const countryListUrl = `/api/countries/${regions.includes(countryIso) ? countryIso : ''}`
   const { data: allCountries = [], dispatch: fetchCountries } = useGetRequest(countryListUrl)
 
   const hasSelection = !!(selection.countries.length && selection.columns.length && selection.variable.param)
