@@ -1149,10 +1149,10 @@ The FRA team
       mature_phase: 'Mature phase',
       unspecified: 'Unspecified',
       forest_even_aged_stands_of_which: 'Forest (even-aged stands), of which: - {{year}}',
-      available_for_wood_supply_of_which: '__Available for wood supply, of which: - {{year}}',
-      predominantly_coniferous_forest: '____Predominantly coniferous forest - {{year}}',
-      predominantly_broadleaved_forest: '____Predominantly broadleaved forest - {{year}}',
-      mixed_forest: '____Mixed forest - {{year}}',
+      available_for_wood_supply_of_which: 'Available for wood supply, of which: - {{year}}',
+      predominantly_coniferous_forest: 'Predominantly coniferous forest - {{year}}',
+      predominantly_broadleaved_forest: 'Predominantly broadleaved forest - {{year}}',
+      mixed_forest: 'Mixed forest - {{year}}',
     },
 
     // table 1.3a2
