@@ -142,7 +142,7 @@ ORDER BY c.country_iso
 }
 
 const getRegions = async () => {
-  const query = `SELECT region_code FROM region`
+  const query = `SELECT region_code, name FROM region`
   const result = await db.query(query)
   return camelize(result.rows)
 }

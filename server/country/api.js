@@ -50,8 +50,11 @@ module.exports.init = (app) => {
   // Returns all regions from country_region table
   app.get('/country/regions', async (req, res) => {
     try {
-      const getRegions = await CountryService.getRegions()
-      res.json(getRegions.map((region) => region.regionCode))
+      const regions = await CountryService.getRegions()
+      const sortedRegions = regions
+        .sort((region1, region2) => (region1.name > region2.name ? 1 : -1))
+        .map((region) => region.regionCode)
+      res.json(sortedRegions)
     } catch (err) {
       Request.sendErr(res, err)
     }
