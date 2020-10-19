@@ -1,6 +1,8 @@
 const R = require('ramda')
 const Promise = require('bluebird')
 
+const { createI18nPromise } = require('../../../common/i18n/i18nFactory')
+
 const CountryService = require('../../country/countryService')
 
 const FRAYearsExporter = require('./fraYears/fraYearsExporter')
@@ -20,9 +22,15 @@ const EXPORT_TYPE = {
 
 // if excludeSubFolders flag is true, only return fra years, intervals and annualoutput without subfolders
 const exportData = async (exportType = EXPORT_TYPE.JSON, includeVariableFolders = true) => {
+  const i18n = await createI18nPromise('en')
   const countriesAll = await CountryService.getAllCountriesList()
-  const countries = R.reject(R.propEq('region', 'atlantis'), countriesAll)
-
+  const countriesFiltered = R.reject(R.propEq('region', 'atlantis'), countriesAll)
+  // list_name_en has been removed from database country table but it is still used in exports/csv
+  const countries = countriesFiltered.map((country) => ({
+    ...country,
+    listNameEn: i18n.t(`area.${country.countryIso}.listName`),
+    regionCodes: country.regionCodes.map((region) => i18n.t(`area.${region}.listName`)).join(', '),
+  }))
   const isExportTypeJson = exportType === EXPORT_TYPE.JSON
 
   const fraYearsOutput = isExportTypeJson

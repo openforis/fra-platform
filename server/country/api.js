@@ -14,15 +14,14 @@ const Auth = require('../auth/authApiMiddleware')
 
 const {
   isUserRoleAllowedToEditAssessmentData,
-  isUserRoleAllowedToEditAssessmentComments
+  isUserRoleAllowedToEditAssessmentComments,
 } = require('../../common/assessmentRoleAllowance')
 const { roleForCountry, isCollaborator } = require('../../common/countryRole')
 
 const CountryService = require('./countryService')
 const VersionService = require('../versioning/service')
 
-module.exports.init = app => {
-
+module.exports.init = (app) => {
   app.get('/country/all', async (req, res) => {
     try {
       const schmeName = await VersionService.getDatabaseSchema(req)
@@ -35,10 +34,13 @@ module.exports.init = app => {
     }
   })
 
-  app.get('/countries', async (req, res) => {
+  app.get('/countries/:region?', async (req, res) => {
     try {
+      const { region } = req.params
       // This endpoint does not return Atlantis countries (first countryIso character = X)
-      const countries = (await CountryService.getAllCountriesList()).filter((country) => country.countryIso[0] !== 'X')
+      const countries = region
+        ? await CountryService.getRegionCountriesList(region)
+        : (await CountryService.getAllCountriesList()).filter((country) => country.countryIso[0] !== 'X')
       res.json(countries)
     } catch (err) {
       Request.sendErr(res, err)
@@ -59,19 +61,20 @@ module.exports.init = app => {
         const odpDataPromise = odpRepository.listAndValidateOriginalDataPoints(countryIso)
         const reviewStatusPromise = reviewRepository.getCountryIssuesSummary(countryIso, userInfo)
 
-        const [odps, reviewStatus, assessmentsDB] = await Promise.all([odpDataPromise, reviewStatusPromise, assessmentsPromise])
+        const [odps, reviewStatus, assessmentsDB] = await Promise.all([
+          odpDataPromise,
+          reviewStatusPromise,
+          assessmentsPromise,
+        ])
 
         const userRole = roleForCountry(countryIso, userInfo)
         const assessments = R.reduce(
           (assessmentsObj, assessmentKey) => {
-            const assessment = R.pipe(
-              R.prop(assessmentKey),
-              a => ({
-                ...a,
-                canEditData: isUserRoleAllowedToEditAssessmentData(userRole, a.status),
-                canEditComments: isUserRoleAllowedToEditAssessmentComments(userRole, a.status)
-              })
-            )(assessmentsDB)
+            const assessment = R.pipe(R.prop(assessmentKey), (a) => ({
+              ...a,
+              canEditData: isUserRoleAllowedToEditAssessmentData(userRole, a.status),
+              canEditComments: isUserRoleAllowedToEditAssessmentComments(userRole, a.status),
+            }))(assessmentsDB)
             return R.assoc(assessmentKey, assessment, assessmentsObj)
           },
           {},
@@ -84,28 +87,24 @@ module.exports.init = app => {
 
         const odpStatus = {
           count: odps.length,
-          errors: R.filter(o => !o.validationStatus.valid, odps).length !== 0,
+          errors: R.filter((o) => !o.validationStatus.valid, odps).length !== 0,
         }
 
         res.json({
           odpStatus,
           reviewStatus,
-          assessments
+          assessments,
         })
       } else {
-
         const assessmentsDB = await assessmentsPromise
 
         const assessments = R.reduce(
           (assessmentsObj, assessmentKey) => {
-            const assessment = R.pipe(
-              R.prop(assessmentKey),
-              a => ({
-                ...a,
-                canEditData: false,
-                canEditComments: false
-              })
-            )(assessmentsDB)
+            const assessment = R.pipe(R.prop(assessmentKey), (a) => ({
+              ...a,
+              canEditData: false,
+              canEditComments: false,
+            }))(assessmentsDB)
             return R.assoc(assessmentKey, assessment, assessmentsObj)
           },
           {},
@@ -113,7 +112,6 @@ module.exports.init = app => {
         )
         res.json({ assessments })
       }
-
     } catch (err) {
       Request.sendErr(res, err)
     }
@@ -122,13 +120,11 @@ module.exports.init = app => {
   // Changes one key/value pair
   app.post('/country/config/:countryIso', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      await db.transaction(countryRepository.saveDynamicConfigurationVariable,
-        [
-          req.params.countryIso,
-          req.body.key,
-          req.body.value
-        ]
-      )
+      await db.transaction(countryRepository.saveDynamicConfigurationVariable, [
+        req.params.countryIso,
+        req.body.key,
+        req.body.value,
+      ])
       res.json({})
     } catch (e) {
       Request.sendErr(res, e)

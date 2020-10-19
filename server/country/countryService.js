@@ -41,4 +41,5 @@ module.exports = {
   getCountryConfigFull,
 
   getAllCountriesList: countryRepository.getAllCountriesList,
+  getRegionCountriesList: countryRepository.getRegionCountriesList,
 }
