@@ -9,7 +9,7 @@
 // /admin/versioning/
 //
 // #### User
-// /user/:userId
+// /users/:userId
 //
 // #### Login
 // /login
@@ -52,8 +52,9 @@ const PARAMS = {
  *
  * @param {string[]} parts - url parts from which the url is generated
  */
-const _generate = (...parts) => `/${parts.filter((p) => !!p).join('/')}/`
+const _generate = (...parts) => `/${parts.filter(Boolean).join('/')}/`
 
+const _split = (path) => path.split('/').filter(Boolean)
 /**
  * @deprecated
  */
@@ -76,21 +77,21 @@ export const user = _generate(FRAGMENTS.users, PARAMS.userId)
 
 export const getUserProfileLink = (userId) => _generate(FRAGMENTS.users, userId)
 
+// TODO: introduce API
+// /api/users/:countryIso/user/:userId/profilePicture
+export const getUserProfilePictureLink = (countryIso, userId) =>
+  _generate(FRAGMENTS.api, FRAGMENTS.users, countryIso, FRAGMENTS.user, userId, FRAGMENTS.profilePicture)
+
 // ==== Login
 export const login = _generate(FRAGMENTS.login)
 export const resetPassword = _generate(FRAGMENTS.login, FRAGMENTS.resetPassword)
 
 // ==== Assessment
 export const assessment = _generate(PARAMS.countryIso, PARAMS.assessmentType)
-export const assessmentHome = _generate(PARAMS.countryIso, PARAMS.assessmentType, FRAGMENTS.home)
-export const assessmentSection = _generate(PARAMS.countryIso, PARAMS.assessmentType, PARAMS.section)
-export const assessmentPrint = _generate(PARAMS.countryIso, PARAMS.assessmentType, FRAGMENTS.print)
-export const assessmentPrintOnlyTables = _generate(
-  PARAMS.countryIso,
-  PARAMS.assessmentType,
-  FRAGMENTS.print,
-  FRAGMENTS.onlyTables
-)
+export const assessmentHome = _generate(..._split(assessment), FRAGMENTS.home)
+export const assessmentSection = _generate(..._split(assessment), PARAMS.section)
+export const assessmentPrint = _generate(..._split(assessment), FRAGMENTS.print)
+export const assessmentPrintOnlyTables = _generate(..._split(assessmentPrint), FRAGMENTS.onlyTables)
 
 export const getAssessmentHomeLink = (countryIso, assessmentType) =>
   _generate(countryIso, assessmentType, FRAGMENTS.home)
@@ -107,7 +108,3 @@ export const getAssessmentPrintLink = (countryIso, assessmentType, onlyTables = 
 // ==== Assessment ODP
 export const odp = _generate(PARAMS.countryIso, FRAGMENTS.odp, PARAMS.tab)
 export const getOdpLink = (countryIso, sectionName, odpId) => _generate(countryIso, FRAGMENTS.odp, sectionName, odpId)
-
-// /api/users/:countryIso/user/:userId/profilePicture
-export const getUserProfilePictureLink = (countryIso, userId) =>
-  _generate(FRAGMENTS.api, FRAGMENTS.users, countryIso, FRAGMENTS.user, userId, FRAGMENTS.profilePicture)

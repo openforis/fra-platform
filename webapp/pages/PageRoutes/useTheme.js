@@ -8,6 +8,7 @@ import { useAssessmentType } from '@webapp/store/app'
 const defaultTheme = {
   '--ui-accent-light': '#c4e7eb',
   '--ui-bg': '#f5f5f5',
+  '--ui-bg-hover': '#ebebeb',
 }
 
 const themes = {
@@ -15,6 +16,7 @@ const themes = {
   [PanEuropean.type]: {
     '--ui-accent-light': '#F9E6D6',
     '--ui-bg': '#FFF7F3',
+    '--ui-bg-hover': '#FFE9DF',
   },
   null: defaultTheme,
 }

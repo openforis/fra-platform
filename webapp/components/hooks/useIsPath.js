@@ -13,4 +13,7 @@ export const useIsAdmin = () => useIsPath({ path: BasePaths.admin, exact: false 
 
 export const useIsLogin = () => useIsPath({ path: [BasePaths.login, BasePaths.resetPassword] })
 
-export const useIsAssessment = () => useIsPath({ path: BasePaths.assessment, exact: false })
+export const useIsUsers = () => useIsPath({ path: [BasePaths.user, BasePaths.resetPassword] })
+
+export const useIsAssessment = () =>
+  useIsPath({ path: [BasePaths.assessmentHome, BasePaths.assessmentSection], exact: false })
