@@ -43,7 +43,8 @@ const variablesMappings = {
 
 const years = [...PanEuropean.years07_15]
 const categories = [tj, _1000MetricTonnesDryMatter]
-const subcategories = variables.slice(3)
+const mainCategories = variables.slice(0, 3)
+const subcategories = variables.filter((item) => item.includes('of_which'))
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_6_9,
@@ -86,6 +87,7 @@ const tableSpec = SectionSpec.newTableSpec({
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.variableExport]: variablesMappings[variable],
         [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.totalEnergySupplyFromWood.${variable}`,
+        [SectionSpec.KEYS_ROW.mainCategory]: mainCategories.includes(variable) ? true : false,
         [SectionSpec.KEYS_ROW.subcategory]: subcategories.includes(variable) ? true : false,
         [SectionSpec.KEYS_ROW.cols]: years.map(() =>
           categories.map((category) => {
