@@ -1,60 +1,10 @@
-import * as FRA from '@common/assessment/fra'
-
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
-const section = {
-  name: 'contentCheck',
-  tables: {
-    extent: 'extent',
-  },
-}
-
-const variables = [
-  'forest_area',
-  'other_wooded_land',
-
-  'primary_forest_percent',
-  'protected_forest_percent',
-  'management_plan_percent',
-
-  'certified_area',
-  'mangroves',
-  'bamboo',
-]
-
-const tableSpecExtent = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.extent,
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'contentCheck.extent',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
-          [SectionSpec.KEYS_COL.left]: true,
-        }),
-      ],
-    }),
-
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: FRA.years.map((year) =>
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.label]: year,
-        })
-      ),
-    }),
-
-    ...variables.map((variable) =>
-      SectionSpec.newRowData({
-        [SectionSpec.KEYS_ROW.labelKey]: `contentCheck.${variable}`,
-        [SectionSpec.KEYS_ROW.variableExport]: `${variable}`,
-        [SectionSpec.KEYS_ROW.cols]: FRA.years.map(() => SectionSpec.newColDecimal()),
-      })
-    ),
-  ],
-})
+import section from './section'
+import TableSpec from './tableSpec'
 
 const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpecExtent],
+  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: TableSpec,
 })
 
 const sectionSpec = SectionSpec.newSectionSpec({

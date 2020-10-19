@@ -1,3 +1,7 @@
+const path = require('path')
+const fs = require('fs')
+const util = require('util')
+
 const JSZip = require('jszip')
 
 const ExportService = require('../assessment/service/exportService')
@@ -27,7 +31,16 @@ module.exports.init = (app) => {
       const files = await ExportService.exportData(ExportService.EXPORT_TYPE.CSV, false)
 
       const zip = new JSZip()
-      Object.values(files).forEach((file) => zip.file(file.fileName, file.content))
+
+      // Include README.txt in the zipfile
+
+      const readFile = util.promisify(fs.readFile)
+      const readmeFileName = 'README.txt'
+      const readmeContent = await readFile(path.resolve(__dirname, `./${readmeFileName}`))
+
+      zip.file(readmeFileName, readmeContent)
+      Object.values(files).forEach(({ fileName, content }) => zip.file(fileName, content))
+
       zip
         .generateNodeStream({ type: 'nodebuffer', streamFiles: true })
         .pipe(res)

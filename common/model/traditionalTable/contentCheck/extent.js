@@ -3,13 +3,15 @@ module.exports = {
   rows: {
     names: [
       'forest_area',
-      'protected_forest_percent',
-      'bamboo',
-      'primary_forest_percent',
-      'mangroves',
       'other_wooded_land',
+
+      'primary_forest_percent',
+      'protected_forest_percent',
       'management_plan_percent',
+
       'certified_area',
+      'mangroves',
+      'bamboo',
     ],
   },
   columns: [
