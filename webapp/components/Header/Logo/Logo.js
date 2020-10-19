@@ -4,8 +4,8 @@ import React from 'react'
 import * as Fra from '@common/assessment/fra'
 import * as PanEuropean from '@common/assessment/panEuropean'
 
-import { useI18n, useIsAssessment } from '@webapp/components/hooks'
-import { useAssessmentType } from '@webapp/store/app'
+import { useI18n } from '@webapp/components/hooks'
+import AssessmentComponent from '@webapp/components/AssessmentComponent'
 
 const LogoFRA = () => {
   const i18n = useI18n()
@@ -46,15 +46,6 @@ const Components = {
   null: LogoPlaceholder,
 }
 
-const Logo = () => {
-  const isAssessment = useIsAssessment()
-  const assessmentType = useAssessmentType()
-
-  if (isAssessment) {
-    return React.createElement(Components[assessmentType])
-  }
-
-  return <LogoFRA />
-}
+const Logo = () => <AssessmentComponent components={Components} />
 
 export default Logo
