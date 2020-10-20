@@ -35,7 +35,6 @@ const tableSpec = SectionSpec.newTableSpec({
       ),
     }),
 
-    // rows data
     ...variables.flatMap((variable) =>
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.variableExport]: variablesMappings[variable],
