@@ -45,8 +45,13 @@ export const fetchCountryList = () => async (dispatch, getState) => {
   dispatch({ type: listCountries, countries })
 }
 
-export const fetchRegionList = () => async (dispatch) => {
+export const fetchRegionList = () => async (dispatch, getState) => {
   const { data: regions } = await axios.get('/api/country/regions')
+  const i18n = AppState.getI18n(getState())
+  const _getListname = (regionCode) => i18n.t(`area.${regionCode}.listName`)
+
+  regions.sort((region1, region2) => (_getListname(region1) > _getListname(region2) ? 1 : -1))
+
   dispatch({ type: listRegions, regions })
 }
 
