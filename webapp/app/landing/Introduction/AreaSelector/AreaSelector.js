@@ -1,15 +1,14 @@
 import './areaSelector.less'
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 import * as BasePaths from '@webapp/main/basePaths'
 
 import { Area, Country } from '@common/country'
-import * as CountryState from '@webapp/app/country/countryState'
 
 import { useI18n } from '@webapp/components/hooks'
+import { useRegions } from '@webapp/app/hooks'
 
 import DropdownAreas from './DropdownAreas'
 
@@ -20,7 +19,7 @@ const areas = {
 
 const AreaSelector = () => {
   const i18n = useI18n()
-  const regions = useSelector(CountryState.getRegions)
+  const regions = useRegions()
   const [dropdownOpened, setDropdownOpened] = useState('')
   const [countryISOs, setCountryISOs] = useState([])
 

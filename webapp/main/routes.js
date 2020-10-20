@@ -17,7 +17,6 @@ import ErrorComponent from '@webapp/components/error/errorComponent'
 
 import * as AppState from '@webapp/app/appState'
 import { initApp } from '@webapp/app/actions'
-import { fetchRegionList } from '@webapp/app/country/actions'
 
 const Routes = () => {
   const dispatch = useDispatch()
@@ -26,7 +25,6 @@ const Routes = () => {
 
   useEffect(() => {
     dispatch(initApp())
-    dispatch(fetchRegionList())
   }, [])
 
   // If application is not yet loaded, display Loading tucan bird

@@ -4,7 +4,6 @@ import * as CountryState from '@webapp/app/country/countryState'
 
 import {
   listCountries,
-  listRegions,
   fetchCountryOverviewStatusCompleted,
   countryConfig,
   changeCountryConfigSetting,
@@ -13,8 +12,6 @@ import {
 
 const actionHandlers = {
   [listCountries]: (state, { countries }) => CountryState.assocCountries(countries)(state),
-
-  [listRegions]: (state, { regions }) => CountryState.assocRegions(regions)(state),
 
   [fetchCountryOverviewStatusCompleted]: (state, { status }) => CountryState.assocStatus(status)(state),
 
