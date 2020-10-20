@@ -51,9 +51,7 @@ module.exports.init = (app) => {
   app.get('/country/regions', async (req, res) => {
     try {
       const regions = await CountryService.getRegions()
-      const sortedRegions = regions
-        .sort((region1, region2) => (region1.name > region2.name ? 1 : -1))
-        .map((region) => region.regionCode)
+      const sortedRegions = regions.map((region) => region.regionCode)
       res.json(sortedRegions)
     } catch (err) {
       Request.sendErr(res, err)
