@@ -1,44 +1,45 @@
-DROP VIEW IF EXISTS forest_characteristics_view CASCADE;
-CREATE VIEW
+-- DROP VIEW IF EXISTS forest_characteristics_view CASCADE;
+CREATE OR REPLACE VIEW
     forest_characteristics_view AS
 (
-WITH config as (
-    select c.country_iso,
-           case
-               when (cf.config ->> 'useOriginalDataPointsInFoc')::boolean = true then 1
-               else 2
-               end
-               as source
-    from country c
-             left join dynamic_country_configuration cf
-                on c.country_iso = cf.country_iso
+WITH config AS (
+    SELECT c.country_iso,
+           CASE
+               WHEN (cf.config ->> 'useOriginalDataPointsInFoc')::BOOLEAN = TRUE THEN 1
+               ELSE 2
+               END
+               AS source
+    FROM country c
+    LEFT JOIN dynamic_country_configuration cf
+    ON c.country_iso = cf.country_iso
 ),
-     data as (
+     data AS (
          SELECT n.country_iso,
                 n.year,
-                1 AS source,
+                CASE WHEN c.source = 1 THEN 1 ELSE 2 END AS source,
                 n.natural_forest_area,
                 n.plantation_forest_area,
                 n.plantation_forest_introduced_area,
                 n.other_planted_forest_area
          FROM ndp_view n
+         JOIN config c
+         ON c.country_iso = n.country_iso
          UNION
          SELECT f.country_iso,
                 f.year,
-                2 AS source,
+                CASE WHEN c.source = 1 THEN 2 ELSE 1 END AS source,
                 f.natural_forest_area,
                 f.plantation_forest_area,
                 f.plantation_forest_introduced_area,
                 f.other_planted_forest_area
          FROM foc_fra_values f
+         JOIN config c
+         ON c.country_iso = f.country_iso
          ORDER BY 1, 2, 3
      ),
-     forest_characteristics as (
-         SELECT d.*
+     forest_characteristics AS (
+         SELECT d.*, row_number() OVER (PARTITION BY d.country_iso, d.year) AS row_number
          FROM data d
-                  join config c
-                       on d.country_iso = c.country_iso
-         where d.source = c.source
      ),
      natural_forest_area AS (
          SELECT f.country_iso,
@@ -53,6 +54,7 @@ WITH config as (
                 SUM(f.natural_forest_area) FILTER (WHERE f.year = 2019) AS "2019",
                 SUM(f.natural_forest_area) FILTER (WHERE f.year = 2020) AS "2020"
          FROM forest_characteristics f
+         WHERE f.row_number = 1
          GROUP BY 1
      ),
      plantation_forest_area AS (
@@ -68,6 +70,7 @@ WITH config as (
                 SUM(f.plantation_forest_area) FILTER (WHERE f.year = 2019) AS "2019",
                 SUM(f.plantation_forest_area) FILTER (WHERE f.year = 2020) AS "2020"
          FROM forest_characteristics f
+         WHERE f.row_number = 1
          GROUP BY 1
      ),
      plantation_forest_introduced_area AS (
@@ -83,6 +86,7 @@ WITH config as (
                 SUM(f.plantation_forest_introduced_area) FILTER (WHERE f.year = 2019) AS "2019",
                 SUM(f.plantation_forest_introduced_area) FILTER (WHERE f.year = 2020) AS "2020"
          FROM forest_characteristics f
+         WHERE f.row_number = 1
          GROUP BY 1
      ),
      other_planted_forest_area AS (
@@ -98,6 +102,7 @@ WITH config as (
                 SUM(f.other_planted_forest_area) FILTER (WHERE f.year = 2019) AS "2019",
                 SUM(f.other_planted_forest_area) FILTER (WHERE f.year = 2020) AS "2020"
          FROM forest_characteristics f
+         WHERE f.row_number = 1
          GROUP BY 1
      )
 SELECT *
@@ -142,8 +147,8 @@ SELECT o.country_iso,
            WHEN o."2020" IS NULL AND p."2020" IS NULL THEN NULL
            ELSE coalesce(o."2020", 0) + coalesce(p."2020", 0) END AS "2020"
 FROM other_planted_forest_area o
-         LEFT JOIN plantation_forest_area p
-                   ON o.country_iso = p.country_iso
+LEFT JOIN plantation_forest_area p
+ON o.country_iso = p.country_iso
 ORDER BY 1
     )
 ;
