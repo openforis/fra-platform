@@ -2,7 +2,7 @@ import './countryList.less'
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import { Area } from '@common/country'
 import { noRole } from '@common/countryRole'
@@ -10,21 +10,16 @@ import * as CountryState from '@webapp/app/country/countryState'
 
 import { useI18n } from '@webapp/components/hooks'
 import { checkMatch } from '@webapp/components/countrySelection/utils/checkMatch'
-import { fetchRegionList } from '@webapp/app/country/actions'
 import CountryListDownload from './countryListDownload'
 import CountryListRoleSection from './countryListRoleSection'
 import CountryListRow from './countryListRow'
 
 const CountryList = (props) => {
   const { query } = props
-  const dispatch = useDispatch()
   const countries = useSelector(CountryState.getCountries)
 
   const i18n = useI18n()
-  const hasRegions = useSelector(CountryState.hasRegions)
-  if (!hasRegions) {
-    dispatch(fetchRegionList())
-  }
+
   const regions = useSelector(CountryState.getRegions)
   const filteredRegions = regions.filter((region) => checkMatch(i18n.t(`area.${region}.listName`), query))
 
