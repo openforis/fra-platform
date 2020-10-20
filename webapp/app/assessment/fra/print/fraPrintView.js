@@ -3,7 +3,6 @@ import './fraPrintView.less'
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-import * as Country from '@common/country/country'
 import * as Assessment from '@common/assessment/assessment'
 import * as FRA from '@common/assessment/fra'
 
@@ -22,7 +21,6 @@ const FraPrintView = () => {
   const i18n = useI18n()
 
   const [, printOnlyTablesView] = usePrintView()
-  const country = useSelector(CountryState.getCountryByCountryIso(countryIso))
   const assessment = useSelector(CountryState.getAssessmentFra2020)
   const deskStudy = Assessment.getDeskStudy(assessment)
 
@@ -42,7 +40,7 @@ const FraPrintView = () => {
   return (
     <div>
       <div className="fra-print__header">
-        <h1>{Country.getListName(i18n.language)(country)}</h1>
+        <h1>{i18n.t(`area.${countryIso}.listName`)}</h1>
         <h1>{title}</h1>
       </div>
 

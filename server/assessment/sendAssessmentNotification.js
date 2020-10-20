@@ -9,7 +9,7 @@ const {assessmentStatus} = require('../../common/assessment')
 const createMail = async (countryIso, assessment, user, loggedInUser, i18n, serverUrl) => {
   const country = await getCountry(countryIso)
   const emailLocalizationParameters = {
-    country: country.listName.en,
+    country: i18n.t(`area.${country.countryIso}.listName`),
     serverUrl,
     recipientName: user.name,
     status: i18n.t('assessment.status.' + assessment.status + '.label'),

@@ -9,8 +9,9 @@ import { throttle } from '@webapp/utils/functionUtils'
 
 import { formatColumn, formatSection } from '@webapp/app/dataExport/utils/format'
 import Assessment from '@common/assessment/assessment'
-import { Area, Country } from '@common/country'
+import { Country } from '@common/country'
 import { useCountryIso, useI18n } from '@webapp/components/hooks'
+import { useRegions } from '@webapp/app/hooks'
 
 const initialSelection = {
   countries: [],
@@ -21,6 +22,8 @@ const initialSelection = {
 
 export default () => {
   const countryIso = useCountryIso()
+  const regions = useRegions()
+  const isRegion = regions.includes(countryIso)
   const i18n = useI18n()
   const { assessmentType, section } = useParams()
   const [variables, setVariables] = useState([])
@@ -28,8 +31,8 @@ export default () => {
   const [columnsAlwaysExport, setColumnsAlwaysExport] = useState([])
 
   const [selection, setSelection] = useState({ ...initialSelection })
-
-  const { data: allCountries = [], dispatch: fetchCountries } = useGetRequest(`/api/countries`)
+  const countryListUrl = `/api/countries/`
+  const { data: allCountries = [], dispatch: fetchCountries } = useGetRequest(countryListUrl)
 
   const hasSelection = !!(selection.countries.length && selection.columns.length && selection.variable.param)
 
@@ -82,22 +85,23 @@ export default () => {
   const setSelectionColumns = (value) => setSelection({ ...selection, columns: value })
   const setSelectionVariable = (value) => setSelection({ ...selection, variable: value })
 
-  // Can't use Country.getListName here - the data struct is different (no subkeys)
-  const _formatLanguage = ([first, ...rest]) => `${first.toUpperCase()}${rest.join('')}`
-  const _getListName = (country, language) => country[`listName${_formatLanguage(language)}`]
   // Sort countries by listname
-  let countries = allCountries.sort((country1, country2) => {
-    return _getListName(country1, i18n.language) > _getListName(country2, i18n.language) ? 1 : -1
-  })
+  const _getListName = (_countryIso) => i18n.t(`area.${_countryIso}.listName`)
+  let countries = allCountries.sort((country1, country2) =>
+    _getListName(country1.countryIso) > _getListName(country2.countryIso) ? 1 : -1
+  )
 
   if (Assessment.isTypePanEuropean(assessmentType)) countries = countries.filter(Country.isPanEuropean)
-  if (Area.isISORegion(countryIso))
-    countries = countries.filter((country) => Country.getRegionIso(country) === countryIso)
+
+  const filteredCountries = isRegion
+    ? countries.filter((country) => country.regionCodes.includes(countryIso))
+    : countries
 
   return {
     results,
     resultsLoading,
-    countries,
+    // Note: countryIso iso in this case is regionCode, but in the url the param is 'countryIso'
+    countries: filteredCountries,
     columns,
     columnsAlwaysExport,
     selection,

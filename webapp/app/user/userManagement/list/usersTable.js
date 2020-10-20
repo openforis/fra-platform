@@ -82,7 +82,6 @@ class UserRow extends React.Component {
       onEditClick,
       userInfo,
       isAdminTable,
-      getCountryName,
       filter,
       persistCollaboratorCountryAccess
     } = this.props
@@ -100,13 +99,13 @@ class UserRow extends React.Component {
         isAdminTable
           ? getFilterRoles(filter).map(role =>
             <UserRoleColumn user={user} i18n={i18n}
-                            lang={userInfo.lang} getCountryName={getCountryName}
+                            lang={userInfo.lang}
                             isAdminTable={isAdminTable}
                             key={role} role={role}/>
           )
           : <UserRoleColumn user={user} i18n={i18n}
                             isAdminTable={isAdminTable}
-                            lang={userInfo.lang} getCountryName={getCountryName}/>
+                            lang={userInfo.lang}/>
 
       }
 
@@ -187,13 +186,13 @@ const UserColumn = ({user, field}) => <td className="user-list__cell">
   <div className="user-list__cell--read-only">{user[field] ? user[field] : '\xA0'}</div>
 </td>
 
-const UserRoleColumn = ({i18n, user, role = null, lang, getCountryName, isAdminTable}) => {
+const UserRoleColumn = ({i18n, user, role = null, isAdminTable}) => {
 
   const roleLabel = userRole => i18n.t(getRoleLabelKey(userRole.role))
 
   const invitationColumnValue = user => isAdminTable
     ? user.role === role
-      ? getCountryName(user.countryIso, lang)
+      ? i18n.t(`area.${user.countryIso}.listName`)
       : null
     : roleLabel(user)
 
@@ -207,7 +206,7 @@ const UserRoleColumn = ({i18n, user, role = null, lang, getCountryName, isAdminT
             R.filter(userRole => role ? userRole.role === role : role),
             R.map(userRole => userRole.role === administrator.role
               ? roleLabel(userRole)
-              : i18n.t(getCountryName(userRole.countryIso, lang))
+              : i18n.t(`area.${userRole.countryIso}.listName`)
             ),
             R.join(', ')
           )(user.roles)
