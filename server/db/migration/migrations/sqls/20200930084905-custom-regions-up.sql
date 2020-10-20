@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS region
-DROP TABLE IF EXISTS country_region
+DROP TABLE IF EXISTS region;
+DROP TABLE IF EXISTS country_region;
 
 CREATE TABLE region
 (
