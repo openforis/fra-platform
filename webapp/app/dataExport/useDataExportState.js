@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import snake from 'to-snake-case'
 
@@ -12,7 +11,6 @@ import { formatColumn, formatSection } from '@webapp/app/dataExport/utils/format
 import Assessment from '@common/assessment/assessment'
 import { Country } from '@common/country'
 import { useCountryIso, useI18n } from '@webapp/components/hooks'
-import * as CountryState from '@webapp/app/country/countryState'
 
 const initialSelection = {
   countries: [],
@@ -30,8 +28,7 @@ export default () => {
   const [columnsAlwaysExport, setColumnsAlwaysExport] = useState([])
 
   const [selection, setSelection] = useState({ ...initialSelection })
-  const regions = useSelector(CountryState.getRegions)
-  const countryListUrl = `/api/countries/${regions.includes(countryIso) ? countryIso : ''}`
+  const countryListUrl = `/api/countries/`
   const { data: allCountries = [], dispatch: fetchCountries } = useGetRequest(countryListUrl)
 
   const hasSelection = !!(selection.countries.length && selection.columns.length && selection.variable.param)
@@ -96,7 +93,8 @@ export default () => {
   return {
     results,
     resultsLoading,
-    countries,
+    // Note: countryIso iso in this case is regionCode, but in the url the param is 'countryIso'
+    countries: countries.filter((country) => country.regionCodes.includes(countryIso)),
     columns,
     columnsAlwaysExport,
     selection,

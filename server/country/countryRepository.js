@@ -113,34 +113,6 @@ ORDER BY c.country_iso
   return camelize(rs.rows)
 }
 
-const getRegionCountriesList = async (region) => {
-  const query = `
-WITH assessment AS (
-    SELECT a.country_iso,
-           json_object_agg(a.type::TEXT,
-                           json_build_object('desk_study', a.desk_study, 'status', a.status)) AS assessment
-    FROM assessment a
-    GROUP BY a.country_iso
-)
-SELECT c.country_iso,
-       c.pan_european,
-       a.assessment::TEXT::jsonb,
-       json_agg(cr.region_code) AS region_codes
-FROM country c
-JOIN country_region cr
-USING (country_iso)
-    LEFT JOIN assessment a
-ON c.country_iso = a.country_iso
-WHERE c.country_iso in (
-        SELECT cr.country_iso FROM country_region cr WHERE cr.region_code in ($1)
-)
-GROUP BY c.country_iso, a.assessment::TEXT::jsonb
-ORDER BY c.country_iso
-  `
-  const result = await db.query(query, [region])
-  return camelize(result.rows)
-}
-
 const getRegions = async () => {
   const query = `SELECT region_code, name FROM region`
   const result = await db.query(query)
@@ -248,7 +220,6 @@ GROUP BY c.country_iso
 
 module.exports.getAllowedCountries = getAllowedCountries
 module.exports.getAllCountriesList = getAllCountriesList
-module.exports.getRegionCountriesList = getRegionCountriesList
 module.exports.getRegions = getRegions
 module.exports.getDynamicCountryConfiguration = getDynamicCountryConfiguration
 module.exports.saveDynamicConfigurationVariable = saveDynamicConfigurationVariable
