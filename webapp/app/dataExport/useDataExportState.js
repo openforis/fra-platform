@@ -9,8 +9,9 @@ import { throttle } from '@webapp/utils/functionUtils'
 
 import { formatColumn, formatSection } from '@webapp/app/dataExport/utils/format'
 import Assessment from '@common/assessment/assessment'
-import { Area, Country } from '@common/country'
+import { Country } from '@common/country'
 import { useCountryIso, useI18n } from '@webapp/components/hooks'
+import { useRegions } from '@webapp/app/hooks'
 
 const initialSelection = {
   countries: [],
@@ -21,6 +22,8 @@ const initialSelection = {
 
 export default () => {
   const countryIso = useCountryIso()
+  const regions = useRegions()
+  const isRegion = regions.includes(countryIso)
   const i18n = useI18n()
   const { assessmentType, section } = useParams()
   const [variables, setVariables] = useState([])
@@ -28,8 +31,7 @@ export default () => {
   const [columnsAlwaysExport, setColumnsAlwaysExport] = useState([])
 
   const [selection, setSelection] = useState({ ...initialSelection })
-
-  const countryListUrl = `/api/countries/${Area.isISORegion(countryIso) ? countryIso : ''}`
+  const countryListUrl = `/api/countries/`
   const { data: allCountries = [], dispatch: fetchCountries } = useGetRequest(countryListUrl)
 
   const hasSelection = !!(selection.countries.length && selection.columns.length && selection.variable.param)
@@ -91,10 +93,15 @@ export default () => {
 
   if (Assessment.isTypePanEuropean(assessmentType)) countries = countries.filter(Country.isPanEuropean)
 
+  const filteredCountries = isRegion
+    ? countries.filter((country) => country.regionCodes.includes(countryIso))
+    : countries
+
   return {
     results,
     resultsLoading,
-    countries,
+    // Note: countryIso iso in this case is regionCode, but in the url the param is 'countryIso'
+    countries: filteredCountries,
     columns,
     columnsAlwaysExport,
     selection,

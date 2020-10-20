@@ -38,7 +38,6 @@ export const getReviewStatus = R.pipe(getStatus, R.propOr({}, keysStatus.reviewS
 // === UPDATE
 export const assocConfig = R.assoc(keys.config)
 export const assocCountries = R.assoc(keys.countries)
-export const assocRegions = R.assoc(keys.regions)
 export const assocStatus = R.assoc(keys.status)
 
 // config functions
