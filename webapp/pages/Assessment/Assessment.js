@@ -24,8 +24,8 @@ const Assessment = () => {
   const dispatch = useDispatch()
   const userInfo = useUserInfo()
   const navigationVisible = useNavigationVisible()
-  useInitCountry()
   const countryStatusLoaded = useIsCountryStatusLoaded()
+  useInitCountry()
 
   useEffect(() => {
     if (!navigationVisible && countryStatusLoaded) dispatch(toggleNavigation())

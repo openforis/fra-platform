@@ -19,7 +19,7 @@ class UsersTableFilter extends React.Component {
 
   render () {
 
-    const {i18n, userInfo, filter, onChange, countries, getCountryName} = this.props
+    const {i18n, userInfo, filter, onChange, countries} = this.props
 
     return <div className="users__table-filter">
 
@@ -70,7 +70,7 @@ class UsersTableFilter extends React.Component {
               {
                 R.isEmpty(filter.countries)
                   ? <span className="multi-select__placeholder">{i18n.t('multiSelect.placeholder')}</span>
-                  : filter.countries.map(c => getCountryName(c, userInfo.lang)).join(', ')
+                  : filter.countries.map(c => i18n.t(`area.${c}.listName`)).join(', ')
               }
             </div>
           </div>
@@ -84,7 +84,6 @@ class UsersTableFilter extends React.Component {
                 headerLabel={''}
                 selection={filter.countries}
                 unselectableCountries={[]}
-                getCountryName={getCountryName}
                 onClose={() => this.setState({filterCountryOpen: false})}
                 toggleCountry={country => {
                   const updateCountries = R.contains(country, filter.countries)

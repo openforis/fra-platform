@@ -9,8 +9,9 @@ import * as Fra from '@common/assessment/fra'
 import * as PanEuropean from '@common/assessment/panEuropean'
 import * as BasePaths from '@webapp/main/basePaths'
 
-import { useI18n } from '@webapp/components/hooks'
+import { useRegions } from '@webapp/app/hooks'
 
+import { useI18n } from '@webapp/components/hooks'
 import DropdownAreas from './DropdownAreas'
 
 const areas = {
@@ -19,20 +20,23 @@ const areas = {
 }
 
 const AreaSelector = (props) => {
-  const i18n = useI18n()
   const { assessmentType } = props
+  const i18n = useI18n()
+  const regions = useRegions()
 
   const [dropdownOpened, setDropdownOpened] = useState('')
   const [countryISOs, setCountryISOs] = useState([])
 
   const fra = assessmentType === Fra.type
-  const globalCode = fra ? Area.levels.global : Area.levels.EU
+  const globalCode = fra ? Area.levels.global : Area.levels.europe
 
   // on mount fetch countries
   useEffect(() => {
     ;(async () => {
       const { data } = await axios.get(`/api/countries`)
-      const countries = fra ? data : data.filter((country) => Country.getRegionIso(country) === Area.levels.EU)
+      const countries = fra
+        ? data
+        : data.filter((country) => Country.getRegionCodes(country).includes(Area.levels.europe))
       setCountryISOs(countries.map(Country.getCountryIso))
     })()
   }, [])
@@ -54,7 +58,7 @@ const AreaSelector = (props) => {
           <div>{i18n.t('common.regions')}</div>
           <DropdownAreas
             area={areas.regions}
-            areaISOs={Area.levels.regions}
+            areaISOs={regions}
             assessmentType={assessmentType}
             dropdownOpened={dropdownOpened}
             setDropdownOpened={setDropdownOpened}

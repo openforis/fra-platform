@@ -9,7 +9,9 @@ import { noRole } from '@common/countryRole'
 import * as CountryState from '@webapp/app/country/countryState'
 
 import { useI18n } from '@webapp/components/hooks'
+import { useRegions } from '@webapp/app/hooks'
 import { checkMatch } from '@webapp/components/countrySelection/utils/checkMatch'
+
 import CountryListDownload from './countryListDownload'
 import CountryListRoleSection from './countryListRoleSection'
 import CountryListRow from './countryListRow'
@@ -20,7 +22,8 @@ const CountryList = (props) => {
 
   const i18n = useI18n()
 
-  const filteredRegions = Area.levels.regions.filter((region) => checkMatch(i18n.t(`area.${region}.listName`), query))
+  const regions = useRegions()
+  const filteredRegions = regions.filter((region) => checkMatch(i18n.t(`area.${region}.listName`), query))
 
   return (
     <div className="country-selection-list">

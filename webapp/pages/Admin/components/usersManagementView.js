@@ -2,27 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { connect, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
-import UsersTableFilterWrapper from '@webapp/app/user/userManagement/list/usersTableFilterWrapper'
-import UsersCount from './usersCount'
-
-import EditUserForm from '@webapp/app/user/userManagement/edit/editUserForm'
-
-import { fetchAllUsers, removeUser, sendInvitationEmail } from '../../../app/user/userManagement/actions'
-import { getCountryName } from '@webapp/app/country/actions'
 import { administrator } from '@common/countryRole'
 
 import * as AppState from '@webapp/app/appState'
 import * as UserState from '@webapp/user/userState'
 import * as UserManagementState from '@webapp/app/user/userManagement/userManagementState'
+import { fetchAllUsers, removeUser, sendInvitationEmail } from '@webapp/app/user/userManagement/actions'
 
-const UsersManagementView = props => {
-  const {
-    fetchAllUsers,
-    editUserStatus,
-    i18n,
-    allUsers,
-    userCounts,
-  } = props
+import UsersTableFilterWrapper from '@webapp/app/user/userManagement/list/usersTableFilterWrapper'
+import EditUserForm from '@webapp/app/user/userManagement/edit/editUserForm'
+import UsersCount from './usersCount'
+
+const UsersManagementView = (props) => {
+  const { fetchAllUsers, editUserStatus, i18n, allUsers, userCounts } = props
   const countryIso = useSelector(AppState.getCountryIso)
   const [editingUserId, setEditingUserId] = useState(null)
 
@@ -31,7 +23,7 @@ const UsersManagementView = props => {
   }, [])
 
   useEffect(() => {
-    if (editingUserId && editUserStatus == 'completed') {
+    if (editingUserId && editUserStatus === 'completed') {
       setEditingUserId(null)
       fetchAllUsers()
     }
@@ -45,19 +37,20 @@ const UsersManagementView = props => {
   //   }
   // }
   if (editingUserId) {
-    return <EditUserForm userId={editingUserId}
-                         countryIso={countryIso}
-                         onCancel={userId => setEditingUserId(null)}
-    />
+    return <EditUserForm userId={editingUserId} countryIso={countryIso} onCancel={() => setEditingUserId(null)} />
   }
 
-  return <>
-    <UsersTableFilterWrapper {...props}
-                             isAdminTable={true}
-                             users={allUsers}
-                             onEditClick={userId => setEditingUserId(userId)}/>
-    <UsersCount i18n={i18n} userCounts={userCounts}/>
-  </>
+  return (
+    <>
+      <UsersTableFilterWrapper
+        {...props}
+        isAdminTable
+        users={allUsers}
+        onEditClick={(userId) => setEditingUserId(userId)}
+      />
+      <UsersCount i18n={i18n} userCounts={userCounts} />
+    </>
+  )
 }
 
 const mapStateToProps = (state) => ({
@@ -66,10 +59,7 @@ const mapStateToProps = (state) => ({
   allUsers: UserManagementState.getAllUsers(state),
   userCounts: UserManagementState.getUserCounts(state),
   editUserStatus: UserManagementState.getEditUserStatus(state),
-  countries: R.path(['country', 'countries', administrator.role], state)
+  countries: R.path(['country', 'countries', administrator.role], state),
 })
 
-export default connect(
-  mapStateToProps,
-  { fetchAllUsers, removeUser, sendInvitationEmail, getCountryName }
-)(UsersManagementView)
+export default connect(mapStateToProps, { fetchAllUsers, removeUser, sendInvitationEmail })(UsersManagementView)

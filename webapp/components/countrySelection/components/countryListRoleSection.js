@@ -19,9 +19,13 @@ const CountryListRoleSection = (props) => {
 
   // Atlantis countries are hidden in public view
   const countryListNameMatch = (country) => checkMatch(i18n.t(`area.${Country.getCountryIso(country)}.listName`), query)
-  const countryRegionIsoMatch = (country) => checkMatch(i18n.t(`area.${Country.getRegionIso(country)}.listName`), query)
+  const countryRegionCodeMatch = (country) =>
+    Country.getRegionCodes(country)
+      .map((regionCode) => checkMatch(i18n.t(`area.${regionCode}.listName`), query))
+      .some(Boolean)
+
   const renderRow = (country) =>
-    (userInfo || !isCountryAtlantis(country)) && (countryListNameMatch(country) || countryRegionIsoMatch(country))
+    (userInfo || !isCountryAtlantis(country)) && (countryListNameMatch(country) || countryRegionCodeMatch(country))
 
   return (
     <div className="country-selection-list__section">
