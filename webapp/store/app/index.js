@@ -1,1 +1,1 @@
-export { useAssessmentType, useCountries, useCountriesPanEuropean } from './hooks'
+export { useAssessmentType, useCountries, useCountriesPanEuropean, useRegions } from './hooks'

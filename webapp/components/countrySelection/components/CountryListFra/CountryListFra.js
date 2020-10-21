@@ -9,7 +9,7 @@ import { checkMatch } from '@webapp/components/countrySelection/utils/checkMatch
 
 import * as CountryState from '@webapp/app/country/countryState'
 import { useI18n } from '@webapp/components/hooks'
-import { useRegions } from '@webapp/app/hooks'
+import { useRegions } from '@webapp/store/app'
 
 import CountryListDownload from '../countryListDownload'
 import CountryListRow from '../countryListRow'

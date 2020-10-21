@@ -8,9 +8,8 @@ import * as Fra from '@common/assessment/fra'
 import * as PanEuropean from '@common/assessment/panEuropean'
 import * as BasePaths from '@webapp/main/basePaths'
 
-import { useCountries } from '@webapp/store/app'
+import { useCountries, useRegions } from '@webapp/store/app'
 
-import { useRegions } from '@webapp/app/hooks'
 import { useI18n } from '@webapp/components/hooks'
 
 import DropdownAreas from './DropdownAreas'

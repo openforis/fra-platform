@@ -6,12 +6,11 @@ import Assessment from '@common/assessment/assessment'
 import { throttle } from '@webapp/utils/functionUtils'
 import { formatColumn, formatSection } from '@webapp/app/dataExport/utils/format'
 
-import { useRegions } from '@webapp/app/hooks'
+import { useAssessmentType, useCountries, useCountriesPanEuropean, useRegions } from '@webapp/store/app'
 
 import { useCountryIso, useGetRequest } from '@webapp/components/hooks'
 import * as SectionSpecs from '@webapp/app/assessment/components/section/sectionSpecs'
 import { TableSpec } from '@webapp/app/assessment/components/section/sectionSpec'
-import { useAssessmentType, useCountries, useCountriesPanEuropean } from '@webapp/store/app'
 
 const initialSelection = {
   countries: [],
