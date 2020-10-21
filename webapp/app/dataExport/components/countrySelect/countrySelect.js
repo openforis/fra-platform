@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 
 import { isTypePanEuropean } from '@common/assessment/assessment'
 import { Country } from '@common/country'
 
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n, useOnUpdate } from '@webapp/components/hooks'
 import ButtonCheckBox from '@webapp/components/buttonCheckBox'
 
 import { useAssessmentType } from '@webapp/store/app'
@@ -15,6 +15,7 @@ const CountrySelect = (props) => {
   const i18n = useI18n()
   const assessmentType = useAssessmentType()
   const [countriesFiltered, setCountriesFiltered] = useState(countries)
+  const inputRef = useRef(null)
 
   const isDeskStudy = (country) => !isTypePanEuropean(assessmentType) && Country.isDeskStudy(country)
   const getDeskStudyValue = (country) => (isDeskStudy(country) ? ` (${i18n.t('assessment.deskStudy')})` : null)
@@ -27,26 +28,31 @@ const CountrySelect = (props) => {
     return searchString.includes(value)
   }
 
+  const updateCountries = () => {
+    const value = normalizeString(inputRef.current.value)
+    if (value === '') {
+      setCountriesFiltered(countries)
+    } else {
+      setCountriesFiltered(
+        countries.filter((country) => {
+          return checkMatch(country, value)
+        })
+      )
+    }
+  }
+
+  useOnUpdate(updateCountries, [countries])
+
   return (
     <div className="export__form-section export-select-all">
       <div className="export__form-section-header">
         <h4>{i18n.t('admin.country')}</h4>
         <input
+          ref={inputRef}
           type="text"
           className="text-input"
           placeholder={i18n.t('emoji.picker.search')}
-          onChange={(event) => {
-            const value = normalizeString(event.target.value)
-            if (value === '') {
-              setCountriesFiltered(countries)
-            } else {
-              setCountriesFiltered(
-                countries.filter((country) => {
-                  return checkMatch(country, value)
-                })
-              )
-            }
-          }}
+          onChange={updateCountries}
         />
       </div>
 

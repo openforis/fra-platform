@@ -13,18 +13,20 @@ export const appI18nUpdate = 'app/i18n/update'
 export const initApp = () => async (dispatch) => {
   const lang = getRequestParam('lang')
   try {
+    const getCountries = axios.get('/api/countries')
     const getRegions = axios.get('/api/country/regions/')
     const getUserInfo = axios.get(`/api/loggedInUser/`)
 
     const [
+      { data: countries },
       { data: regions },
       {
         data: { userInfo = null },
       },
-    ] = await axios.all([getRegions, getUserInfo])
+    ] = await axios.all([getCountries, getRegions, getUserInfo])
 
     const i18n = await createI18nPromise(lang || userInfo ? userInfo.lang : 'en')
-    dispatch({ type: appInitDone, userInfo, i18n, regions })
+    dispatch({ type: appInitDone, userInfo, i18n, countries, regions })
   } catch (err) {
     // 401 (Unauthorized) | Display error if any other status
     if (err.response && err.response.status !== 401) {

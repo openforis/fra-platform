@@ -6,8 +6,12 @@ import { appCountryIsoUpdate, appI18nUpdate, appInitDone } from './actions'
 import * as AppState from './appState'
 
 const actionHandlers = {
-  [appInitDone]: (state, { i18n, regions }) =>
-    R.pipe(AppState.setAppStatusLoaded(i18n), AppState.assocRegions(regions))(state),
+  [appInitDone]: (state, { i18n, countries, regions }) =>
+    R.pipe(
+      AppState.assocCountries(countries),
+      AppState.assocRegions(regions),
+      AppState.setAppStatusLoaded(i18n)
+    )(state),
 
   [appCountryIsoUpdate]: (state, { countryIso, assessmentType, printView, printOnlyTablesView }) =>
     AppState.assocCountryIso(countryIso, assessmentType, printView, printOnlyTablesView)(state),

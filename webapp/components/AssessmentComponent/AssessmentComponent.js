@@ -10,10 +10,10 @@ const AssessmentComponent = (props) => {
   const isAssessment = useIsAssessment()
   const assessmentType = useAssessmentType()
 
-  const { components, defaultKey } = props
+  const { components, defaultKey, ...otherProps } = props
   const key = isAssessment ? assessmentType : defaultKey
 
-  return React.createElement(components[key])
+  return React.createElement(components[key], otherProps)
 }
 
 AssessmentComponent.propTypes = {

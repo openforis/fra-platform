@@ -9,6 +9,7 @@ const keys = {
   status: 'status',
   i18n: 'i18n',
   regions: 'regions',
+  countries: 'countries',
   printView: 'printView',
 }
 
@@ -23,7 +24,7 @@ export const getCountryIso = R.pipe(getState, R.propOr(null, keys.countryIso))
 export const getAssessmentType = R.pipe(getState, R.propOr(null, keys.assessmentType))
 export const getApplicationStatus = R.pipe(getState, R.propOr(null, keys.status))
 export const getI18n = R.pipe(getState, R.propOr(null, keys.i18n))
-// Regions
+export const getCountries = R.pipe(getState, R.propOr([], keys.countries))
 export const getRegions = R.pipe(getState, R.propOr([], keys.regions))
 
 const getPrintView = R.pipe(getState, R.propOr(null, keys.printView))
@@ -44,6 +45,7 @@ export const assocCountryIso = (countryIso, assessmentType, printView, printOnly
   )
 
 export const assocI18n = R.assoc(keys.i18n)
+export const assocCountries = R.assoc(keys.countries)
 export const assocRegions = R.assoc(keys.regions)
 
 export const setAppStatusLoaded = (i18n) => R.pipe(R.assoc(keys.status, stateLoadedKey), assocI18n(i18n))

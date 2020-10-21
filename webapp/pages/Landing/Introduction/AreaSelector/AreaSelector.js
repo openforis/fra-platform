@@ -2,16 +2,17 @@ import './areaSelector.less'
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
 
 import { Area, Country } from '@common/country'
 import * as Fra from '@common/assessment/fra'
 import * as PanEuropean from '@common/assessment/panEuropean'
 import * as BasePaths from '@webapp/main/basePaths'
 
-import { useRegions } from '@webapp/app/hooks'
+import { useCountries } from '@webapp/store/app'
 
+import { useRegions } from '@webapp/app/hooks'
 import { useI18n } from '@webapp/components/hooks'
+
 import DropdownAreas from './DropdownAreas'
 
 const areas = {
@@ -23,6 +24,7 @@ const AreaSelector = (props) => {
   const { assessmentType } = props
   const i18n = useI18n()
   const regions = useRegions()
+  const countries = useCountries()
 
   const [dropdownOpened, setDropdownOpened] = useState('')
   const [countryISOs, setCountryISOs] = useState([])
@@ -32,13 +34,10 @@ const AreaSelector = (props) => {
 
   // on mount fetch countries
   useEffect(() => {
-    ;(async () => {
-      const { data } = await axios.get(`/api/countries`)
-      const countries = fra
-        ? data
-        : data.filter((country) => Country.getRegionCodes(country).includes(Area.levels.europe))
-      setCountryISOs(countries.map(Country.getCountryIso))
-    })()
+    const countriesFiltered = fra
+      ? countries
+      : countries.filter((country) => Country.getRegionCodes(country).includes(Area.levels.europe))
+    setCountryISOs(countriesFiltered.map(Country.getCountryIso))
   }, [])
 
   return (
