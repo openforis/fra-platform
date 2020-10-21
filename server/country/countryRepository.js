@@ -114,7 +114,8 @@ ORDER BY c.country_iso
 }
 
 const getRegions = async () => {
-  const query = `SELECT region_code, name FROM region`
+  // Exclude Atlantis from regions
+  const query = `SELECT region_code, name FROM region WHERE region_code != 'AT'`
   const result = await db.query(query)
   return camelize(result.rows)
 }
