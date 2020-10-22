@@ -20,7 +20,6 @@ const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.columnsExport]: ['area_with_number_of_tree_species_occurring_6_pl'],
 
   [SectionSpec.KEYS_TABLE.rows]: [
-    // row header
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
         SectionSpec.newColHeader({
@@ -52,7 +51,6 @@ const tableSpec = SectionSpec.newTableSpec({
       ],
     }),
 
-    // rows data
     ...variables.flatMap((variable) =>
       years.map((year) =>
         SectionSpec.newRowData({

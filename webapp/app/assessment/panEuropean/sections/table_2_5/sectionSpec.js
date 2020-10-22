@@ -26,7 +26,6 @@ const tableSpec1 = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.columnsExport]: ['former_degraded_land_restored'],
 
   [SectionSpec.KEYS_TABLE.rows]: [
-    // row header
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
         SectionSpec.newColHeader({
@@ -87,7 +86,6 @@ const tableSpec1 = SectionSpec.newTableSpec({
       ],
     }),
 
-    // rows data
     ...variables.flatMap((variable) =>
       years.map((year) =>
         SectionSpec.newRowData({

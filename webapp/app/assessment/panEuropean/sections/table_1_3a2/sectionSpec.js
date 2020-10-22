@@ -12,6 +12,7 @@ const variables = [
 ]
 
 const years = [...PanEuropean.years90_15].reverse()
+const subcategories = variables.slice(1)
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_1_3a2,
@@ -22,7 +23,6 @@ const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.columnsExport]: ['unspecified'],
 
   [SectionSpec.KEYS_TABLE.rows]: [
-    // row header
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
         SectionSpec.newColHeader({
@@ -59,13 +59,13 @@ const tableSpec = SectionSpec.newTableSpec({
       ],
     }),
 
-    // rows data
     ...variables.flatMap((variable) =>
       years.map((year) =>
         SectionSpec.newRowData({
           [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.${variable}`,
           [SectionSpec.KEYS_ROW.labelParams]: { year },
           [SectionSpec.KEYS_ROW.variableExport]: `${variable}_${year}`,
+          [SectionSpec.KEYS_ROW.subcategory]: subcategories.includes(variable) ? true : false,
           [SectionSpec.KEYS_ROW.cols]: [
             SectionSpec.newColDecimal(),
             SectionSpec.newColDecimal(),

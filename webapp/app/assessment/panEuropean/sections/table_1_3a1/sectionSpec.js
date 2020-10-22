@@ -4,8 +4,10 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 
 const section = PanEuropean.sections['1'].children['13a1']
 
+const forest_even_aged_stands_of_which = 'forest_even_aged_stands_of_which'
+
 const variables = [
-  'forest_even_aged_stands_of_which',
+  forest_even_aged_stands_of_which,
   'available_for_wood_supply_of_which',
   'predominantly_coniferous_forest',
   'predominantly_broadleaved_forest',
@@ -13,6 +15,7 @@ const variables = [
 ]
 
 const years = [...PanEuropean.years90_15].reverse()
+const subcategories = variables.slice(2)
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_1_3a1,
@@ -23,7 +26,6 @@ const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.columnsExport]: ['unspecified'],
 
   [SectionSpec.KEYS_TABLE.rows]: [
-    // row header
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
         SectionSpec.newColHeader({
@@ -60,13 +62,14 @@ const tableSpec = SectionSpec.newTableSpec({
       ],
     }),
 
-    // rows data
     ...variables.flatMap((variable) =>
       years.map((year) =>
         SectionSpec.newRowData({
           [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.ageClassDistributionAreaOfEvenAgedStands.${variable}`,
           [SectionSpec.KEYS_ROW.labelParams]: { year },
           [SectionSpec.KEYS_ROW.variableExport]: `${variable}_${year}`,
+          [SectionSpec.KEYS_ROW.mainCategory]: variable === forest_even_aged_stands_of_which ? true : false,
+          [SectionSpec.KEYS_ROW.subcategory]: subcategories.includes(variable) ? true : false,
           [SectionSpec.KEYS_ROW.cols]: [
             SectionSpec.newColDecimal(),
             SectionSpec.newColDecimal(),

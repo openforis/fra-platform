@@ -28,7 +28,6 @@ const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.columnsExport]: 'forest_area_2020',
 
   [SectionSpec.KEYS_TABLE.rows]: [
-    // row header
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
         SectionSpec.newColHeader({
@@ -51,7 +50,6 @@ const tableSpec = SectionSpec.newTableSpec({
       ),
     }),
 
-    // rows data
     ...variables.flatMap((variable) =>
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.variableExport]: variablesMappings[variable],

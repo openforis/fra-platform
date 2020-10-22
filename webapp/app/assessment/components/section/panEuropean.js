@@ -36,6 +36,7 @@ import employmentByEducationAndJobCharacteristics from '@webapp/app/assessment/p
 import occupationalAccidents from '@webapp/app/assessment/panEuropean/sections/table_6_6/sectionSpec'
 import woodConsumption from '@webapp/app/assessment/panEuropean/sections/table_6_7/sectionSpec'
 import tradeInWood from '@webapp/app/assessment/panEuropean/sections/table_6_8/sectionSpec'
+import totalEnergySupplyFromWood from '@webapp/app/assessment/panEuropean/sections/table_6_9/sectionSpec'
 import accessibilityForRecreation from '@webapp/app/assessment/panEuropean/sections/table_6_10a/sectionSpec'
 import intensityOfUse from '@webapp/app/assessment/panEuropean/sections/table_6_10b/sectionSpec'
 import recreationFacilities from '@webapp/app/assessment/panEuropean/sections/table_6_10c/sectionSpec'
@@ -79,6 +80,7 @@ export default {
   [occupationalAccidents.sectionName]: occupationalAccidents,
   [woodConsumption.sectionName]: woodConsumption,
   [tradeInWood.sectionName]: tradeInWood,
+  [totalEnergySupplyFromWood.sectionName]: totalEnergySupplyFromWood,
   [accessibilityForRecreation.sectionName]: accessibilityForRecreation,
   [intensityOfUse.sectionName]: intensityOfUse,
   [recreationFacilities.sectionName]: recreationFacilities,
