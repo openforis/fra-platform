@@ -2,8 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import * as R from 'ramda'
 
+import * as Fra from '@common/assessment/fra'
+import { Area, Country } from '@common/country'
 import { getRoleLabelKey, noRole } from '@common/countryRole'
-import { Country } from '@common/country'
 
 import CountryListRow from '@webapp/components/countrySelection/components/countryListRow'
 import useI18n from '@webapp/components/hooks/useI18n'
@@ -18,10 +19,14 @@ const CountryListRoleSection = (props) => {
   const isCountryAtlantis = R.pipe(Country.getCountryIso, R.startsWith('X'))
 
   // Atlantis countries are hidden in public view
-  const countryListNameMatch = (country) => checkMatch(i18n.t(`area.${Country.getCountryIso(country)}.listName`), query)
-  const countryRegionIsoMatch = (country) => checkMatch(i18n.t(`area.${Country.getRegionIso(country)}.listName`), query)
+  const countryListNameMatch = (country) => checkMatch(Area.getListName(Country.getCountryIso(country), i18n), query)
+  const countryRegionCodeMatch = (country) =>
+    Country.getRegionCodes(country)
+      .map((regionCode) => checkMatch(i18n.t(`area.${regionCode}.listName`), query))
+      .some(Boolean)
+
   const renderRow = (country) =>
-    (userInfo || !isCountryAtlantis(country)) && (countryListNameMatch(country) || countryRegionIsoMatch(country))
+    (userInfo || !isCountryAtlantis(country)) && (countryListNameMatch(country) || countryRegionCodeMatch(country))
 
   return (
     <div className="country-selection-list__section">
@@ -35,7 +40,14 @@ const CountryListRoleSection = (props) => {
 
       {roleCountries.map(
         (country) =>
-          renderRow(country) && <CountryListRow key={Country.getCountryIso(country)} role={role} country={country} />
+          renderRow(country) && (
+            <CountryListRow
+              key={Country.getCountryIso(country)}
+              assessmentType={Fra.type}
+              role={role}
+              country={country}
+            />
+          )
       )}
     </div>
   )

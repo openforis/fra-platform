@@ -11,7 +11,6 @@ import UsersTable from '@webapp/app/user/userManagement/list/usersTable'
 
 import { rolesAllowedToChange } from '@common/userManagementAccessControl'
 
-import { getCountryName } from '@webapp/app/country/actions'
 import {
   addNewUser,
   fetchUsers,
@@ -85,7 +84,6 @@ export default connect(mapStateToProps, {
   removeUser,
   updateNewUser,
   addNewUser,
-  getCountryName,
   sendInvitationEmail,
   persistCollaboratorCountryAccess
 })(ManageCollaboratorsView)

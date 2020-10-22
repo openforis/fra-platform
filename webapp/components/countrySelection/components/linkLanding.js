@@ -8,19 +8,22 @@ import { useCountryIso, useI18n } from '@webapp/components/hooks'
 import useCountryLandingSections from '@webapp/app/countryLanding/useCountryLandingSections'
 import Icon from '@webapp/components/icon'
 
+import { useAssessmentType } from '@webapp/store/app'
+
 const LinkLanding = () => {
   const i18n = useI18n()
 
   const countryIso = useCountryIso()
   const location = useLocation()
   const sections = useCountryLandingSections()
+  const assessmentType = useAssessmentType()
 
   const isActive = (match) =>
     match && (match.isExact || sections.find((section) => location.pathname.indexOf(section.name) > 0))
 
   return (
     <NavLink
-      to={BasePaths.getCountryHomeLink(countryIso)}
+      to={BasePaths.getAssessmentHomeLink(countryIso, assessmentType)}
       className="country-selection-link-landing"
       activeClassName="selected"
       isActive={isActive}
