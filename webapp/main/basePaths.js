@@ -1,28 +1,30 @@
-// ###### ROUTES:
-// #### ROOT
-// /
-//
-// #### Admin
-// /admin
-// /admin/usersManagement/
-// /admin/dataExport/
-// /admin/versioning/
-//
-// #### User
-// /users/:userId
-//
-// #### Login
-// /login
-// /login/resetPassword
-//
-// #### Assessment
-// /:countryIso/:assessmentType/print/
-// /:countryIso/:assessmentType/print/onlyTables/
-// /:countryIso/:assessmentType/home/
-// /:countryIso/:assessmentType/home/:section/
-// /:countryIso/:assessmentType/:section/
-// /:countryIso/odp/
-// /:countryIso/odp/:tab/
+/*
+  ###### ROUTES:
+  #### Root
+  /
+
+  #### Admin
+  /admin
+  /admin/usersManagement/
+  /admin/dataExport/
+  /admin/versioning/
+
+  #### User
+  /users/:userId
+
+  #### Login
+  /login
+  /login/resetPassword
+
+  #### Assessment
+  /:countryIso/:assessmentType/print/
+  /:countryIso/:assessmentType/print/onlyTables/
+  /:countryIso/:assessmentType/home/
+  /:countryIso/:assessmentType/home/:section/
+  /:countryIso/:assessmentType/:section/
+  /:countryIso/odp/
+  /:countryIso/odp/:tab/
+*/
 
 const FRAGMENTS = {
   admin: 'admin',
@@ -59,10 +61,6 @@ const _split = (path) => path.split('/').filter(Boolean)
  * @deprecated
  */
 export const country = _generate(PARAMS.countryIso)
-/**
- * @deprecated
- */
-export const getCountryHomeLink = (countryIso) => _generate(countryIso)
 
 // ==== Root
 export const root = '/'
