@@ -1,18 +1,21 @@
 import './panEuropeanLinks.less'
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import * as PanEuropean from '@common/assessment/panEuropean'
 
 import { useI18n } from '@webapp/components/hooks'
-import AreaSelector from '@webapp/pages/Landing/Introduction/AreaSelector'
+import * as BasePaths from '@webapp/main/basePaths'
+import * as Area from '@common/country/area'
 
 const PanEuropeanLinks = () => {
   const i18n = useI18n()
 
   return (
     <div className="pan-eu-links">
-      <div>&gt; {i18n.t('panEuropean.landing.select')}</div>
-      <AreaSelector assessmentType={PanEuropean.type} />
+      <Link to={BasePaths.getAssessmentHomeLink(Area.levels.europe, PanEuropean.type)}>
+        &gt; {i18n.t('panEuropean.landing.link')}
+      </Link>
     </div>
   )
 }
