@@ -1,6 +1,6 @@
 export const ACTION_TYPE = {
-  updateCountries: 'app/update/countries',
-  updateRegions: 'app/update/regions',
+  updateCountries: 'app/countries/update',
+  updateRegions: 'app/regions/update',
 }
 
 export const updateCountries = (countries) => ({ type: ACTION_TYPE.updateCountries, countries })
