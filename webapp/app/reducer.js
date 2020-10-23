@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 import { exportReducer } from '@webapp/utils/reduxUtils'
 
-import { actions } from '@webapp/store/app/actions'
+import { ACTION_TYPE } from '@webapp/store/app/actions'
 
 import { appCountryIsoUpdate, appI18nUpdate, appInitDone } from './actions'
 import * as AppState from './appState'
@@ -14,9 +14,9 @@ const actionHandlers = {
       AppState.setAppStatusLoaded(i18n)
     )(state),
 
-  [actions.updateCountries]: (state, { countries }) => AppState.assocCountries(countries)(state),
+  [ACTION_TYPE.updateCountries]: (state, { countries }) => AppState.assocCountries(countries)(state),
 
-  [actions.updateRegions]: (state, { regions }) => AppState.assocRegions(regions)(state),
+  [ACTION_TYPE.updateRegions]: (state, { regions }) => AppState.assocRegions(regions)(state),
 
   [appCountryIsoUpdate]: (state, { countryIso, assessmentType, printView, printOnlyTablesView }) =>
     AppState.assocCountryIso(countryIso, assessmentType, printView, printOnlyTablesView)(state),
