@@ -20,10 +20,10 @@ export const useCountries = () => {
   const countries = useSelector(AppState.getCountries)
 
   useOnUpdate(() => {
-    dispatch(AppActions.updateCountries(countries))
+    dispatch(AppActions.updateCountries(sortCountries(countries, i18n)))
   }, [i18n])
 
-  return sortCountries(countries, i18n)
+  return countries
 }
 
 export const useCountriesPanEuropean = () =>
@@ -40,8 +40,8 @@ export const useRegions = () => {
   const regions = useSelector(AppState.getRegions)
 
   useOnUpdate(() => {
-    dispatch(AppActions.updateRegions(regions))
+    dispatch(AppActions.updateRegions(sortRegions(regions, i18n)))
   }, [i18n])
 
-  return sortRegions(regions, i18n)
+  return regions
 }
