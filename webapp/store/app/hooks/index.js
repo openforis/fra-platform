@@ -8,7 +8,7 @@ import * as AppActions from '../actions'
 
 export const useAssessmentType = () => useSelector(AppState.getAssessmentType)
 
-const sortCountries = (countries, i18n) => {
+export const sortCountries = (countries, i18n) => {
   const compareListName = Area.getCompareListName(i18n)
   const compareCountries = (country1, country2) => compareListName(country1.countryIso, country2.countryIso)
   return [...countries].sort(compareCountries)
@@ -29,7 +29,7 @@ export const useCountries = () => {
 export const useCountriesPanEuropean = () =>
   useCountries().filter((country) => Country.getRegionCodes(country).includes(Area.levels.europe))
 
-const sortRegions = (regionsToSort, i18n) => {
+export const sortRegions = (regionsToSort, i18n) => {
   const compareListName = Area.getCompareListName(i18n)
   return [...regionsToSort].sort(compareListName)
 }
