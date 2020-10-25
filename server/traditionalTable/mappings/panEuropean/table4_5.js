@@ -22,6 +22,8 @@ module.exports = {
       'total_forest_and_other_wooded_land_2000',
       'total_forest_and_other_wooded_land_1990',
 
+      'volumeOfDeadwoodInFOWLBySpeciesGroups',
+
       'coniferous_2015',
       'broadleaved_2015',
     ],

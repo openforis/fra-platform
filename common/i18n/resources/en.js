@@ -1499,8 +1499,8 @@ The FRA team
       other_wooded_land: 'Other wooded land - {{year}}',
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
       volumeOfDeadwoodInFOWLBySpeciesGroups: 'Volume of deadwood in FOWL by species groups',
-      coniferous: 'Total forest and other wooded land - Coniferous - {{year}}',
-      broadleaved: 'Total forest and other wooded land - Broadleaved - {{year}}',
+      coniferous: 'Coniferous - {{year}}',
+      broadleaved: 'Broadleaved - {{year}}',
     },
 
     // table 4.8
