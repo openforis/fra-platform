@@ -1459,6 +1459,34 @@ The FRA team
       _20: 20,
     },
 
+    // table 4.4c
+    invasiveTreeSpecies: {
+      invasiveTreeSpecies: 'Invasive tree species',
+      no: '#',
+      scientificNameOfInvasiveTreeSpecies: 'Scientific name of invasive tree species',
+      forestAreaAffected1000Ha: 'Forest area affected (1000 ha)',
+      _01: 1,
+      _02: 2,
+      _03: 3,
+      _04: 4,
+      _05: 5,
+      _06: 6,
+      _07: 7,
+      _08: 8,
+      _09: 9,
+      _10: 10,
+      _11: 11,
+      _12: 12,
+      _13: 13,
+      _14: 14,
+      _15: 15,
+      _16: 16,
+      _17: 17,
+      _18: 18,
+      _19: 19,
+      _20: 20,
+    },
+
     // table4.5
     deadwood: {
       deadwood: 'Deadwood',
