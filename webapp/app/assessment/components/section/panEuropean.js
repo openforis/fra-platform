@@ -21,6 +21,7 @@ import naturalness from '@webapp/app/assessment/panEuropean/sections/table_4_3a/
 import naturalnessBySubclasses from '@webapp/app/assessment/panEuropean/sections/table_4_3b/sectionSpec'
 import introducedTreeSpecies from '@webapp/app/assessment/panEuropean/sections/table_4_4a/sectionSpec'
 import introducedTreeSpecies4_4b from '@webapp/app/assessment/panEuropean/sections/table_4_4b/sectionSpec'
+import invasiveTreeSpecies from '@webapp/app/assessment/panEuropean/sections/table_4_4c/sectionSpec'
 import deadwood from '@webapp/app/assessment/panEuropean/sections/table_4_5/sectionSpec'
 import threatenedForestSpecies from '@webapp/app/assessment/panEuropean/sections/table_4_8/sectionSpec'
 import protectedForests from '@webapp/app/assessment/panEuropean/sections/table_4_9/sectionSpec'
@@ -65,6 +66,7 @@ export default {
   [naturalnessBySubclasses.sectionName]: naturalnessBySubclasses,
   [introducedTreeSpecies.sectionName]: introducedTreeSpecies,
   [introducedTreeSpecies4_4b.sectionName]: introducedTreeSpecies4_4b,
+  [invasiveTreeSpecies.sectionName]: invasiveTreeSpecies,
   [deadwood.sectionName]: deadwood,
   [threatenedForestSpecies.sectionName]: threatenedForestSpecies,
   [protectedForests.sectionName]: protectedForests,
