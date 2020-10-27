@@ -96,7 +96,7 @@ const tableSpec = SectionSpec.newTableSpec({
           SectionSpec.newColText(),
           SectionSpec.newColDecimal(),
           SectionSpec.newColDecimal(),
-          SectionSpec.newColInteger(),
+          SectionSpec.newColText(),
         ]
       })
     ),

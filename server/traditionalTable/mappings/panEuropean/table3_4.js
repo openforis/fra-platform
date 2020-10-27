@@ -23,6 +23,6 @@ module.exports = {
     {name: 'unit', type: 'text'},
     {name: 'service_provision_amount_of_service_product', type: 'numeric'},
     {name: 'service_provision_value_1000_national_currency', type: 'numeric'},
-    {name: 'forest_service_category', type: 'numeric'},
+    {name: 'forest_service_category', type: 'text'},
   ]
 }

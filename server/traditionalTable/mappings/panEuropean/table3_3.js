@@ -25,6 +25,6 @@ module.exports = {
     {name: 'total_harvested_non_wood_goods_unit', type: 'text'},
     {name: 'total_harvested_non_wood_goods_quantity', type: 'numeric'},
     {name: 'market_value_1000_national_currency', type: 'numeric'},
-    {name: 'nwfp_category', type: 'numeric'},
+    {name: 'nwfp_category', type: 'text'},
   ]
 }
