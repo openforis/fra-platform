@@ -1062,7 +1062,7 @@ The FRA team
     panEuropeanAssessment: 'Pan European Assessment',
     govSwitzerland: 'Government of Switzerland',
     landing: {
-      select: 'Select an area to access Pan European assessment data',
+      link: 'Click here to access Pan European data',
     },
 
     // navigation
