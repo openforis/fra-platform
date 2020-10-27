@@ -67,6 +67,12 @@ const tableSpec = SectionSpec.newTableSpec({
         })
       )
     ),
+    // Volume of deadwood in FOWL by species groups
+    SectionSpec.newRowData({
+      [SectionSpec.KEYS_ROW.labelKey]: 'panEuropean.deadwood.volumeOfDeadwoodInFOWLBySpeciesGroups',
+      [SectionSpec.KEYS_ROW.colSpan]: 4,
+      [SectionSpec.KEYS_ROW.mainCategory]: true,
+    }),
     ...variables2.flatMap((variable) =>
       years2.map((year) =>
         SectionSpec.newRowData({

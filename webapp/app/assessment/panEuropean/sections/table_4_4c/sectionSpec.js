@@ -2,7 +2,7 @@ import * as PanEuropean from '@common/assessment/panEuropean'
 
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
-const section = PanEuropean.sections['4'].children['44b']
+const section = PanEuropean.sections['4'].children['44c']
 
 const variables = [
   '_01',
@@ -53,27 +53,27 @@ const variablesMappings = {
 const years = [...PanEuropean.years05_15]
 
 const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.table_4_4b,
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'scientific_name_of_introduced_tree_species',
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'forest_area_occupied_2005',
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'forest_area_occupied_2010',
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'forest_area_occupied_2015',
+  [SectionSpec.KEYS_TABLE.name]: section.tables.table_4_4c,
+  [SectionSpec.KEYS_TABLE.columnsExport]: 'scientific_name_of_invasive_tree_species',
+  [SectionSpec.KEYS_TABLE.columnsExport]: 'forest_area_affected_2005',
+  [SectionSpec.KEYS_TABLE.columnsExport]: 'forest_area_affected_2010',
+  [SectionSpec.KEYS_TABLE.columnsExport]: 'forest_area_affected_2015',
 
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.introducedTreeSpecies4_4b.no',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.invasiveTreeSpecies.no',
           [SectionSpec.KEYS_COL.rowSpan]: 2,
           [SectionSpec.KEYS_COL.left]: true,
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.introducedTreeSpecies4_4b.scientificNameOfIntroducedTreeSpecies',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.invasiveTreeSpecies.scientificNameOfInvasiveTreeSpecies',
           [SectionSpec.KEYS_COL.rowSpan]: 2,
           [SectionSpec.KEYS_COL.left]: true,
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.introducedTreeSpecies4_4b.forestAreaOccupied1000Ha',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.invasiveTreeSpecies.forestAreaAffected1000Ha',
           [SectionSpec.KEYS_COL.colSpan]: years.length,
         })
       ]
@@ -90,7 +90,7 @@ const tableSpec = SectionSpec.newTableSpec({
     ...variables.flatMap((variable) =>
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.variableExport]: variablesMappings[variable],
-        [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.introducedTreeSpecies4_4b.${variable}`,
+        [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.invasiveTreeSpecies.${variable}`,
         [SectionSpec.KEYS_ROW.cols]: [
           SectionSpec.newColText(),
           ...years.map(() => SectionSpec.newColDecimal())
@@ -104,10 +104,10 @@ const tableSection = SectionSpec.newTableSection({
   [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
 })
 
-const introducedTreeSpecies4_4b = SectionSpec.newSectionSpec({
+const invasiveTreeSpecies = SectionSpec.newSectionSpec({
   [SectionSpec.KEYS_SECTION.sectionName]: section.name,
   [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
   [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
 })
 
-export default introducedTreeSpecies4_4b
+export default invasiveTreeSpecies
