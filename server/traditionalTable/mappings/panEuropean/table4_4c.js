@@ -1,7 +1,7 @@
 ﻿module.exports = {
-  tableName: 'table_4_4b',
+  tableName: 'table_4_4c',
   schemaName: 'pan_european',
-  section: 'panEuropean_4_4_b',
+  section: 'panEuropean_4_4_c',
   rows: {
     names: [
       '_01',
@@ -27,9 +27,9 @@
     ]
   },
     columns: [
-    {name: 'scientific_name_of_introduced_tree_species', type: 'text'},
-    {name: 'forest_area_occupied_2005', type: 'numeric'},
-    {name: 'forest_area_occupied_2010', type: 'numeric'},
-    {name: 'forest_area_occupied_2015', type: 'numeric'}
+    {name: 'scientific_name_of_invasive_tree_species', type: 'text'},
+    {name: 'forest_area_affected_2005', type: 'numeric'},
+    {name: 'forest_area_affected_2010', type: 'numeric'},
+    {name: 'forest_area_affected_2015', type: 'numeric'}
   ]
 }
