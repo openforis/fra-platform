@@ -2,7 +2,7 @@ import * as PanEuropean from '@common/assessment/panEuropean'
 
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
-const section = PanEuropean.sections['6'].children['10d']
+const section = PanEuropean.sections['6'].children['610d']
 
 const variables = [
   'no1_area_available_for_public_recreation',
@@ -88,7 +88,6 @@ const tableSpec = SectionSpec.newTableSpec({
         [SectionSpec.KEYS_ROW.variableExport]: variablesMappings[variable],
         [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.otherRecreationFacilitiesPilotReporting2015.${variable}`,
         [SectionSpec.KEYS_ROW.cols]: [
-          SectionSpec.newColText(),
           SectionSpec.newColText(),
           SectionSpec.newColText(),
           SectionSpec.newColDecimal(),
