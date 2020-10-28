@@ -2,7 +2,7 @@ const Strings = require('../strings')
 
 const levels = {
   global: 'WO',
-  europe: 'EU',
+  forest_europe: 'FE',
 }
 
 const getListName = (isoCode, i18n) => i18n.t(`area.${isoCode}.listName`)
