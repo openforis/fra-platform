@@ -97,7 +97,7 @@ export const cancelDraft = (countryIso, odpId, destination, history) => async (d
     dispatch(batchActions(getUpdateTablesWithOdp(getState(), odp)))
     history.push(BasePaths.getAssessmentSectionLink(countryIso, FRA.type, destination))
   } else {
-    history.push(BasePaths.getCountryHomeLink(countryIso))
+    history.push(BasePaths.getAssessmentHomeLink(countryIso, FRA.type))
   }
 }
 

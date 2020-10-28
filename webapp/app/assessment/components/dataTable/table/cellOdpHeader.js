@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import Icon from '@webapp/components/icon'
 import Tooltip from '@webapp/components/tooltip'
 import { useCountryIso, useI18n, usePrintView, useUserInfo } from '@webapp/components/hooks'
+import * as FRA from '@common/assessment/fra'
 
 const CellOdpHeader = (props) => {
   const countryIso = useCountryIso()
@@ -25,7 +26,7 @@ const CellOdpHeader = (props) => {
     <th className={className}>
       {odp && !printView ? (
         <Tooltip text={i18n.t('nationalDataPoint.clickOnNDP')}>
-          <Link className="link" to={BasePaths.getOdpLink(countryIso, sectionName, odpId)}>
+          <Link className="link" to={BasePaths.getOdpLink(countryIso, FRA.type, sectionName, odpId)}>
             {draft && userInfo && <Icon className="icon-sub icon-margin-right" name="pencil" />}
             {label}
           </Link>
