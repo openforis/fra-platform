@@ -80,7 +80,7 @@ export default () => {
   return {
     results,
     resultsLoading,
-    // Note: countryIso iso in this case is regionCode, but in the url the param is 'countryIso'
+    // Note: countryIso in this case is regionCode, but in the url the param it's 'countryIso'
     countries: countriesFiltered,
     columns,
     columnsAlwaysExport,
