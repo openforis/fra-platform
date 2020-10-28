@@ -1062,7 +1062,13 @@ The FRA team
     panEuropeanAssessment: 'Pan European Assessment',
     govSwitzerland: 'Government of Switzerland',
     landing: {
-      link: 'Click here to access Pan European data',
+      link: 'Joint FOREST EUROPE / UNECE / FAO reporting on pan-European indicators for SFM : FOREST EUROPE',
+    },
+    home: {
+      description1:
+        'This dataset consists of information provided by the National Correspondents in response to the joint FOREST EUROPE, UNECE, FAO questionnaire on the quantitative pan-European indicators for sustainable forest management.',
+      description2:
+        'Note: The pan-European reporting 2020 was carried out in parallel to FRA 2020, however as they consist separate processes, some variables appear in both of them. Within the process of State of Europe’s Forest (SoEF) 2020 elaboration some information was further consulted with national correspondents and may differ from these presented in the FRA Platform.',
     },
 
     // navigation
@@ -1750,8 +1756,10 @@ The FRA team
       of_which_from_forests: 'of which from forests',
       of_which_from_other_wooded_land: 'of which from other wooded land and other land (trees outside forests)',
       energy_from_co_products: '- Energy from co-products and residues of the wood processing industries:',
-      of_which_solid_residues: 'of which solid residues (chips, particles, wood residues, bark, excluding processed wood-based fuels)',
-      energy_from_processed_wood_based_fuels: '- Energy from processed wood-based fuels (pellets, briquettes, charcoal):',
+      of_which_solid_residues:
+        'of which solid residues (chips, particles, wood residues, bark, excluding processed wood-based fuels)',
+      energy_from_processed_wood_based_fuels:
+        '- Energy from processed wood-based fuels (pellets, briquettes, charcoal):',
       of_which_imported: 'of which imported',
       energy_from_post_consumer_recovered_wood: '- Energy from post-consumer recovered wood',
       energy_from_unknown_unspecified_sources: '- Energy from unknown/unspecified sources',
