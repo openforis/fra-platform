@@ -1,28 +1,30 @@
-// ###### ROUTES:
-// #### ROOT
-// /
-//
-// #### Admin
-// /admin
-// /admin/usersManagement/
-// /admin/dataExport/
-// /admin/versioning/
-//
-// #### User
-// /users/:userId
-//
-// #### Login
-// /login
-// /login/resetPassword
-//
-// #### Assessment
-// /:countryIso/:assessmentType/print/
-// /:countryIso/:assessmentType/print/onlyTables/
-// /:countryIso/:assessmentType/home/
-// /:countryIso/:assessmentType/home/:section/
-// /:countryIso/:assessmentType/:section/
-// /:countryIso/odp/
-// /:countryIso/odp/:tab/
+/*
+  ###### ROUTES:
+  #### Root
+  /
+
+  #### Admin
+  /admin
+  /admin/usersManagement/
+  /admin/dataExport/
+  /admin/versioning/
+
+  #### User
+  /users/:userId
+
+  #### Login
+  /login
+  /login/resetPassword
+
+  #### Assessment
+  /:countryIso/:assessmentType/print/
+  /:countryIso/:assessmentType/print/onlyTables/
+  /:countryIso/:assessmentType/home/
+  /:countryIso/:assessmentType/home/:section/
+  /:countryIso/:assessmentType/:section/
+  /:countryIso/:assessmentType/odp/
+  /:countryIso/:assessmentType/odp/:tab/
+*/
 
 const FRAGMENTS = {
   admin: 'admin',
@@ -38,13 +40,14 @@ const FRAGMENTS = {
   users: 'users',
   versioning: 'versioning',
 }
-const PARAMS = {
+export const PARAMS = {
   countryIso: ':countryIso',
   assessmentType: ':assessmentType',
   section: ':section',
   userId: ':userId',
   tab: ':tab',
   levelIso: ':levelIso',
+  odpId: ':odpId',
 }
 
 /**
@@ -59,10 +62,6 @@ const _split = (path) => path.split('/').filter(Boolean)
  * @deprecated
  */
 export const country = _generate(PARAMS.countryIso)
-/**
- * @deprecated
- */
-export const getCountryHomeLink = (countryIso) => _generate(countryIso)
 
 // ==== Root
 export const root = '/'
@@ -106,5 +105,6 @@ export const getAssessmentPrintLink = (countryIso, assessmentType, onlyTables = 
   _generate(countryIso, assessmentType, FRAGMENTS.print, onlyTables && FRAGMENTS.onlyTables)
 
 // ==== Assessment ODP
-export const odp = _generate(PARAMS.countryIso, FRAGMENTS.odp, PARAMS.tab)
-export const getOdpLink = (countryIso, sectionName, odpId) => _generate(countryIso, FRAGMENTS.odp, sectionName, odpId)
+export const odp = _generate(PARAMS.countryIso, PARAMS.assessmentType, FRAGMENTS.odp, PARAMS.tab)
+export const getOdpLink = (countryIso, assessmentType, sectionName, odpId) =>
+  _generate(countryIso, assessmentType, FRAGMENTS.odp, sectionName, odpId)
