@@ -8,8 +8,9 @@ import Icon from '@webapp/components/icon'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 import useI18n from '@webapp/components/hooks/useI18n'
+import * as FRA from '@common/assessment/fra'
 
-const ExtentOfForest = props => {
+const ExtentOfForest = (props) => {
   const { sectionName, disabled } = props
 
   const countryIso = useCountryIso()
@@ -24,7 +25,7 @@ const ExtentOfForest = props => {
     <>
       <Link
         className={`btn btn-primary no-print${disabled ? ' disabled' : ''}`}
-        to={BasePaths.getOdpLink(countryIso, sectionName)}
+        to={BasePaths.getOdpLink(countryIso, FRA.type, sectionName)}
         style={{ marginRight: 16 }}
       >
         <Icon className="icon-sub icon-white" name="small-add" />
