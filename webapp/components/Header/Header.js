@@ -2,46 +2,18 @@ import './header.less'
 import React from 'react'
 
 import * as PanEuropean from '@common/assessment/panEuropean'
-import { useAssessmentType } from '@webapp/store/app'
-import { useI18n } from '@webapp/components/hooks'
+import * as Fra from '@common/assessment/fra'
+import AssessmentComponent from '@webapp/components/AssessmentComponent'
 
-import Logo from './Logo'
-import UserLinks from './UserLinks'
-import LanguageSelection from './components/languageSelection'
-import LinkHome from './components/linkHome'
+import PanEuropeanHeader from './PanEuropeanHeader'
+import FraHeader from './FraHeader'
 
-const PanEuropeanHeader = () => {
-  const i18n = useI18n()
-  return (
-    <div className="app-header pan-european no-print">
-      <LinkHome />
-      <LanguageSelection />
-      <div className="app-header__separator" />
-      <div className="app-header__global-fra">{i18n.t('panEuropean.panEuropeanAssessment')}</div>
-
-      <div className="app-header__menu">
-        <Logo />
-      </div>
-    </div>
-  )
+const Components = {
+  [Fra.type]: FraHeader,
+  [PanEuropean.type]: PanEuropeanHeader,
+  null: () => <div />,
 }
 
-const FRAHeader = () => (
-  <div className="app-header no-print">
-    <Logo />
-
-    <div className="app-header__menu">
-      <LanguageSelection />
-      <UserLinks />
-      <LinkHome />
-    </div>
-  </div>
-)
-
-const Header = () => {
-  const assessmentType = useAssessmentType()
-  const isPanEuropean = assessmentType === PanEuropean.type
-  return isPanEuropean ? <PanEuropeanHeader /> : <FRAHeader />
-}
+const Header = () => <AssessmentComponent components={Components} />
 
 export default Header
