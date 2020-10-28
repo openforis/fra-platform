@@ -1032,6 +1032,7 @@ The FRA team
       south_america: 'South America',
       africa: 'Africa',
       atlantis: 'Atlantis',
+      forest_europe: 'Forest Europe',
     },
   },
 
