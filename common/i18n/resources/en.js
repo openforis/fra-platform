@@ -1063,7 +1063,13 @@ The FRA team
     panEuropeanAssessment: 'Pan European Assessment',
     govSwitzerland: 'Government of Switzerland',
     landing: {
-      link: 'Click here to access Pan European data',
+      link: 'Joint FOREST EUROPE / UNECE / FAO reporting on pan-European indicators for SFM : FOREST EUROPE',
+    },
+    home: {
+      description1:
+        'This dataset consists of information provided by the National Correspondents in response to the joint FOREST EUROPE, UNECE, FAO questionnaire on the quantitative pan-European indicators for sustainable forest management.',
+      description2:
+        'Note: The pan-European reporting 2020 was carried out in parallel to FRA 2020, however as they consist separate processes, some variables appear in both of them. Within the process of State of Europe’s Forest (SoEF) 2020 elaboration some information was further consulted with national correspondents and may differ from these presented in the FRA Platform.',
     },
 
     // navigation
@@ -1751,8 +1757,10 @@ The FRA team
       of_which_from_forests: 'of which from forests',
       of_which_from_other_wooded_land: 'of which from other wooded land and other land (trees outside forests)',
       energy_from_co_products: '- Energy from co-products and residues of the wood processing industries:',
-      of_which_solid_residues: 'of which solid residues (chips, particles, wood residues, bark, excluding processed wood-based fuels)',
-      energy_from_processed_wood_based_fuels: '- Energy from processed wood-based fuels (pellets, briquettes, charcoal):',
+      of_which_solid_residues:
+        'of which solid residues (chips, particles, wood residues, bark, excluding processed wood-based fuels)',
+      energy_from_processed_wood_based_fuels:
+        '- Energy from processed wood-based fuels (pellets, briquettes, charcoal):',
       of_which_imported: 'of which imported',
       energy_from_post_consumer_recovered_wood: '- Energy from post-consumer recovered wood',
       energy_from_unknown_unspecified_sources: '- Energy from unknown/unspecified sources',
@@ -1790,5 +1798,35 @@ The FRA team
       facilityLengthIn1000Km: 'Facility (length in 1000 km)',
       area_available_for_public_recreation: 'Area available for public recreation - {{year}}',
     },
+
+    // table 6.10d
+    otherRecreationFacilitiesPilotReporting2015: {
+      otherRecreationFacilitiesPilotReporting2015: 'Other recreation facilities - pilot reporting (2015)',
+      category: 'Category',
+      facility: 'Facility',      
+      measurement_unit: 'Measurement unit',
+      extent_multiplicity: 'Extent / Multiplicity',
+      facility_category: 'Facility category',
+      no1_area_available_for_public_recreation: 'Area available for public recreation 1',
+      no2_area_available_for_public_recreation: 'Area available for public recreation 2',
+      no3_area_available_for_public_recreation: 'Area available for public recreation 3',
+      no4_area_available_for_public_recreation: 'Area available for public recreation 4',
+      no5_area_available_for_public_recreation: 'Area available for public recreation 5',
+      no6_area_available_for_public_recreation: 'Area available for public recreation 6',
+      no7_area_available_for_public_recreation: 'Area available for public recreation 7',
+      no8_area_available_for_public_recreation: 'Area available for public recreation 8',
+      no9_area_available_for_public_recreation: 'Area available for public recreation 9',
+      no10_area_available_for_public_recreation: 'Area available for public recreation 10',
+      no11_area_available_for_public_recreation: 'Area available for public recreation 11',
+      no12_area_available_for_public_recreation: 'Area available for public recreation 12',
+      no13_area_available_for_public_recreation: 'Area available for public recreation 13',
+      no14_area_available_for_public_recreation: 'Area available for public recreation 14',
+      no15_area_available_for_public_recreation: 'Area available for public recreation 15',
+      no16_area_available_for_public_recreation: 'Area available for public recreation 16',
+      no17_area_available_for_public_recreation: 'Area available for public recreation 17',
+      no18_area_available_for_public_recreation: 'Area available for public recreation 18',
+      no19_area_available_for_public_recreation: 'Area available for public recreation 19',
+      no20_area_available_for_public_recreation: 'Area available for public recreation 20',
+    },    
   },
 }

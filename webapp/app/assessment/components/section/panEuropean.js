@@ -41,6 +41,7 @@ import totalEnergySupplyFromWood from '@webapp/app/assessment/panEuropean/sectio
 import accessibilityForRecreation from '@webapp/app/assessment/panEuropean/sections/table_6_10a/sectionSpec'
 import intensityOfUse from '@webapp/app/assessment/panEuropean/sections/table_6_10b/sectionSpec'
 import recreationFacilities from '@webapp/app/assessment/panEuropean/sections/table_6_10c/sectionSpec'
+import otherRecreationFacilitiesPilotReporting2015 from '@webapp/app/assessment/panEuropean/sections/table_6_10d/sectionSpec'
 
 export default {
   [forestArea.sectionName]: forestArea,
@@ -86,4 +87,5 @@ export default {
   [accessibilityForRecreation.sectionName]: accessibilityForRecreation,
   [intensityOfUse.sectionName]: intensityOfUse,
   [recreationFacilities.sectionName]: recreationFacilities,
+  [otherRecreationFacilitiesPilotReporting2015.sectionName]: otherRecreationFacilitiesPilotReporting2015,
 }
