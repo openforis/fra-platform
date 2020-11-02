@@ -378,6 +378,14 @@ const PanEuropean = {
             table_6_10c: 'table_6_10c',
           },
         },
+
+        '610d': {
+          name: 'otherRecreationFacilitiesPilotReporting2015',
+          anchor: '6.10d',
+          tables: {
+            table_6_10d: 'table_6_10d',
+          },
+        },
       },
     },
   },
