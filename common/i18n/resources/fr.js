@@ -974,6 +974,7 @@ L'équipe de FRA
       south_america: 'Amérique du sud',
       africa: 'Afrique',
       atlantis: 'Atlantis',
+      forest_europe: 'Forest Europe',
     },
   },
 

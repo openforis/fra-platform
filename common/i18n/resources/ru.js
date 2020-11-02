@@ -979,6 +979,7 @@ module.exports.translation = {
       south_america: 'Южная Америка',
       africa: 'Африка',
       atlantis: 'Атлантида',
+      forest_europe: 'Forest Europe',
     },
   },
 
