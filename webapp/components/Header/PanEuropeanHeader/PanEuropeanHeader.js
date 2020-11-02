@@ -1,8 +1,8 @@
+import './style.less'
 import React from 'react'
 import { useI18n } from '@webapp/components/hooks'
 import LinkHome from '../components/linkHome'
 import LanguageSelection from '../components/languageSelection'
-import Logo from '../Logo'
 
 const PanEuropeanHeader = () => {
   const i18n = useI18n()
@@ -14,7 +14,11 @@ const PanEuropeanHeader = () => {
       <div className="app-header__global-fra">{i18n.t('panEuropean.panEuropeanAssessment')}</div>
 
       <div className="app-header__menu">
-        <Logo />
+        <div className="logo-pan-eu">
+          <img alt="" src={`/img/fao/FAO${i18n.language}.svg`} />
+          <img alt="" src="/img/partners/UNECE.gif" />
+          <img alt="" src="/img/partners/ForestEurope.png" />
+        </div>
       </div>
     </div>
   )
