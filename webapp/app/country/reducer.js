@@ -1,9 +1,9 @@
 import { applyReducerFunction } from '@webapp/utils/reduxUtils'
 
 import * as CountryState from '@webapp/app/country/countryState'
+import { ACTION_TYPE } from '@webapp/store/country/actions'
 
 import {
-  listCountries,
   fetchCountryOverviewStatusCompleted,
   countryConfig,
   changeCountryConfigSetting,
@@ -11,7 +11,7 @@ import {
 } from './actions'
 
 const actionHandlers = {
-  [listCountries]: (state, { countries }) => CountryState.assocCountries(countries)(state),
+  [ACTION_TYPE.updateCountries]: (state, { countries }) => CountryState.assocCountries(countries)(state),
 
   [fetchCountryOverviewStatusCompleted]: (state, { status }) => CountryState.assocStatus(status)(state),
 

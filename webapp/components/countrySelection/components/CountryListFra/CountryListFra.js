@@ -1,15 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
 
 import * as Fra from '@common/assessment/fra'
 import { Area } from '@common/country'
 import { noRole } from '@common/countryRole'
 import { checkMatch } from '@webapp/components/countrySelection/utils/checkMatch'
 
-import * as CountryState from '@webapp/app/country/countryState'
 import { useI18n } from '@webapp/components/hooks'
 import { useRegions } from '@webapp/store/app'
+import { useCountries } from '@webapp/store/country/hooks/useCountries'
 
 import CountryListDownload from '../countryListDownload'
 import CountryListRow from '../countryListRow'
@@ -17,8 +16,7 @@ import CountryListRoleSection from '../countryListRoleSection'
 
 const CountryListFra = (props) => {
   const { query } = props
-  const countries = useSelector(CountryState.getCountries)
-
+  const countries = useCountries()
   const i18n = useI18n()
 
   const regions = useRegions()
