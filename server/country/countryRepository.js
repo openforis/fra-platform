@@ -29,7 +29,6 @@ const getStatuses = (groupedRows) => R.pipe(R.map(R.pick(['type', 'status'])), R
 const getCountryProperties = (country) => ({
   countryIso: country.countryIso,
   regionCodes: country.regionCodes,
-  panEuropean: country.panEuropean,
   lastEdit: country.lastEdited,
 })
 
@@ -69,7 +68,6 @@ WITH fa AS (
     GROUP BY country_iso
 )
 SELECT c.country_iso,
-       c.pan_european,
        a.type,
        a.status,
        a.desk_study,
@@ -99,7 +97,6 @@ WITH assessment AS (
     GROUP BY a.country_iso
 )
 SELECT c.country_iso,
-       c.pan_european,
        a.assessment::TEXT::jsonb,
        json_agg(cr.region_code) AS region_codes
 FROM country c
@@ -145,7 +142,6 @@ const getAllowedCountries = (roles, schemaName = 'public') => {
         GROUP BY country_iso
       )
        SELECT c.country_iso,
-       c.pan_european,
        a.type,
        a.status,
        a.desk_study,
@@ -206,7 +202,6 @@ const getCountry = (countryIso) =>
     .query(
       `
       SELECT c.country_iso,
-       c.pan_european,
        json_agg(cr.region_code) AS region_codes
 FROM country c
 JOIN country_region cr
