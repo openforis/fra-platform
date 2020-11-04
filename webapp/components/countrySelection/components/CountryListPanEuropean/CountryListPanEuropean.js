@@ -27,7 +27,7 @@ const CountryListPanEuropean = (props) => {
         <div className="country-selection-list__global">
           <CountryListRow
             role={noRole.role}
-            country={{ countryIso: Area.levels.europe }}
+            country={{ countryIso: Area.levels.forest_europe }}
             assessmentType={PanEuropean.type}
           />
           <hr />

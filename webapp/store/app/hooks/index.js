@@ -27,7 +27,7 @@ export const useCountries = () => {
 }
 
 export const useCountriesPanEuropean = () =>
-  useCountries().filter((country) => Country.getRegionCodes(country).includes(Area.levels.europe))
+  useCountries().filter((country) => Country.getRegionCodes(country).includes(Area.levels.forest_europe))
 
 export const sortRegions = (regionsToSort, i18n) => {
   const compareListName = Area.getCompareListName(i18n)
