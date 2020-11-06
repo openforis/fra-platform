@@ -1,13 +1,9 @@
 import component from '@webapp/pages/Assessment'
 
 import assessment from '@webapp/app/assessment/reducer'
-import extentOfForest from '@webapp/app/assessment/fra/sections/extentOfForest/reducers'
-import forestCharacteristics from '@webapp/app/assessment/fra/sections/forestCharacteristics/reducer'
-import growingStock from '@webapp/app/assessment/fra/sections/growingStock/reducer'
 import originalDataPoint from '@webapp/app/assessment/fra/sections/originalDataPoint/reducers'
 import autoSave from '@webapp/app/components/autosave/reducer'
 import navigation from '@webapp/app/components/navigation/reducer'
-import traditionalTable from '@webapp/app/assessment/components/traditionalTable/reducer'
 import review from '@webapp/app/assessment/components/review/reducer'
 import userManagement from '@webapp/app/user/userManagement/reducer'
 import landing from '@webapp/app/countryLanding/reducer'
@@ -31,16 +27,11 @@ import * as NavigationState from '@webapp/app/components/navigation/navigationSt
 
 const reducers = [
   { name: AssessmentState.stateKey, fn: assessment },
-  // todo: USED ONLY by content check
-  { name: 'extentOfForest', fn: extentOfForest },
-  { name: 'forestCharacteristics', fn: forestCharacteristics },
-  { name: 'growingStock', fn: growingStock },
 
   { name: OriginalDataPointState.stateKey, fn: originalDataPoint },
   { name: AutosaveState.stateKey, fn: autoSave },
 
   { name: NavigationState.stateKey, fn: navigation },
-  { name: 'traditionalTable', fn: traditionalTable },
   { name: ReviewState.stateKey, fn: review },
   { name: UserManagementState.stateKey, fn: userManagement },
   { name: LandingState.stateKey, fn: landing },
