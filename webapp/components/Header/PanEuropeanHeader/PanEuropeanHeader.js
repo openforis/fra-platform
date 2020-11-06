@@ -7,9 +7,11 @@ import LanguageSelection from '../components/languageSelection'
 const PanEuropeanHeader = () => {
   const i18n = useI18n()
   return (
-    <div className="app-header pan-european no-print">
-      <LinkHome />
-      <LanguageSelection />
+    <div className="app-header no-print">
+      <div>
+        <LinkHome />
+        <LanguageSelection />
+      </div>
       <div className="app-header__separator" />
       <div className="app-header__global-fra">{i18n.t('panEuropean.panEuropeanAssessment')}</div>
 
