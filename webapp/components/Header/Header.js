@@ -1,21 +1,19 @@
 import './header.less'
 import React from 'react'
 
-import Logo from './Logo'
-import UserLinks from './UserLinks'
-import LanguageSelection from './components/languageSelection'
-import LinkHome from './components/linkHome'
+import * as PanEuropean from '@common/assessment/panEuropean'
+import * as Fra from '@common/assessment/fra'
+import AssessmentComponent from '@webapp/components/AssessmentComponent'
 
-const Header = () => (
-  <div className="app-header no-print">
-    <Logo />
+import PanEuropeanHeader from './PanEuropeanHeader'
+import FraHeader from './FraHeader'
 
-    <div className="app-header__menu">
-      <LanguageSelection />
-      <UserLinks />
-      <LinkHome />
-    </div>
-  </div>
-)
+const Components = {
+  [Fra.type]: FraHeader,
+  [PanEuropean.type]: PanEuropeanHeader,
+  null: () => <div />,
+}
+
+const Header = () => <AssessmentComponent components={Components} />
 
 export default Header
