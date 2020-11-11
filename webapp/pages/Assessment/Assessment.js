@@ -18,7 +18,7 @@ import AssessmentHome from '@webapp/pages/Assessment/AssessmentHome'
 import AssessmentSectionView from '@webapp/app/assessment/components/section/assessmentSectionView'
 import OriginalDataPointView from '@webapp/app/assessment/fra/sections/originalDataPoint/originalDataPointView'
 import AdminView from '@webapp/pages/Admin/Admin'
-import EditUserView from '@webapp/app/user/userManagement/editUserView'
+import EditUserView from '@webapp/pages/User/User'
 import CountrySelection from '@webapp/components/countrySelection'
 
 const Assessment = () => {

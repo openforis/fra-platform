@@ -29,21 +29,6 @@ class UsersTableFilter extends React.Component {
 
       <div className="users__table-filter-container">
 
-        {/*<div className="users__table-filter-item">*/}
-        {/*<div className="users__table-filter-item-label">*/}
-        {/*<h4>{i18n.t('admin.language')}</h4>*/}
-        {/*</div>*/}
-        {/*<div>*/}
-        {/*<MultiSelect*/}
-        {/*i18n={i18n}*/}
-        {/*localizationPrefix="language"*/}
-        {/*values={filter.langs}*/}
-        {/*options={languages}*/}
-        {/*onChange={values => onChange(R.assoc('langs', values, filter))}*/}
-        {/*/>*/}
-        {/*</div>*/}
-        {/*</div>*/}
-
         {/*ROLE*/}
         <div className="users__table-filter-item">
           <div className="users__table-filter-item-label">
