@@ -7,7 +7,6 @@ import navigation from '@webapp/app/components/navigation/reducer'
 import review from '@webapp/app/assessment/components/review/reducer'
 import userManagement from '@webapp/app/user/userManagement/reducer'
 import landing from '@webapp/app/countryLanding/reducer'
-import panEuropeanIndicators from '@webapp/app/assessment/panEuropean/sections/indicators/reducer'
 import admin from '@webapp/store/admin/reducer'
 import userChat from '@webapp/app/user/chat/reducer'
 import countryMessageBoard from '@webapp/app/countryLanding/views/messageBoard/reducer'
@@ -35,7 +34,6 @@ const reducers = [
   { name: ReviewState.stateKey, fn: review },
   { name: UserManagementState.stateKey, fn: userManagement },
   { name: LandingState.stateKey, fn: landing },
-  { name: 'panEuropeanIndicators', fn: panEuropeanIndicators },
   { name: 'userChat', fn: userChat },
   { name: 'countryMessageBoard', fn: countryMessageBoard },
   { name: AdminState.stateKey, fn: admin },
