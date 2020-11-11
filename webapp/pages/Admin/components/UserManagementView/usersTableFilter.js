@@ -6,7 +6,7 @@ import camelize from 'camelize'
 import snake from 'to-snake-case'
 
 import MultiSelect from '@webapp/components/multiSelect'
-import CountrySelectionModal from '../edit/countrySelectionModal'
+import CountrySelectionModal from '../../../../app/user/userManagement/edit/countrySelectionModal'
 
 import { roleKeys } from '@common/countryRole'
 

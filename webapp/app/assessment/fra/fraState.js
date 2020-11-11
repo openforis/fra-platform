@@ -5,7 +5,7 @@ import { isPrintingMode } from '@webapp/pages/AssessmentPrint/printAssessment'
 import * as Assessment from '@common/assessment/assessment'
 
 import * as AppState from '@webapp/app/appState'
-import * as UserState from '@webapp/user/userState'
+import * as UserState from '@webapp/store/user/userState'
 import * as CountryState from '@webapp/app/country/countryState'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 

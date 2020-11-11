@@ -5,13 +5,13 @@ import * as R from 'ramda'
 import { administrator } from '@common/countryRole'
 
 import * as AppState from '@webapp/app/appState'
-import * as UserState from '@webapp/user/userState'
+import * as UserState from '@webapp/store/user/userState'
 import * as UserManagementState from '@webapp/app/user/userManagement/userManagementState'
 import { fetchAllUsers, removeUser, sendInvitationEmail } from '@webapp/app/user/userManagement/actions'
 
-import UsersTableFilterWrapper from '@webapp/app/user/userManagement/list/usersTableFilterWrapper'
+import UsersTableFilterWrapper from '@webapp/pages/Admin/components/UserManagementView/usersTableFilterWrapper'
 import EditUserForm from '@webapp/app/user/userManagement/edit/editUserForm'
-import UsersCount from './usersCount'
+import UsersCount from '../usersCount'
 
 const UsersManagementView = (props) => {
   const { fetchAllUsers, editUserStatus, i18n, allUsers, userCounts } = props
@@ -29,13 +29,6 @@ const UsersManagementView = (props) => {
     }
   }, [editUserStatus])
 
-  // constructor(props) {
-  //   super(props)
-  //   this.state = {
-  //     editUserStatus: null,
-  //     editingUserId: null
-  //   }
-  // }
   if (editingUserId) {
     return <EditUserForm userId={editingUserId} countryIso={countryIso} onCancel={() => setEditingUserId(null)} />
   }

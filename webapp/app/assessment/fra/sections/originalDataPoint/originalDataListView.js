@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import Icon from '@webapp/components/icon'
 
 import * as AppState from '@webapp/app/appState'
-import * as UserState from '@webapp/user/userState'
+import * as UserState from '@webapp/store/user/userState'
 
 const TableRow = ({odp, i18n, countryIso, removeFromList}) => {
   const odpUrl = `/country/${countryIso}/odp/extentOfForest/${odp.odpId}`

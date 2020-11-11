@@ -17,8 +17,9 @@ import { useInitCountry, useIsCountryStatusLoaded } from '@webapp/store/country'
 import AssessmentHome from '@webapp/pages/Assessment/AssessmentHome'
 import AssessmentSectionView from '@webapp/app/assessment/components/section/assessmentSectionView'
 import OriginalDataPointView from '@webapp/app/assessment/fra/sections/originalDataPoint/originalDataPointView'
-import AdminView from '@webapp/pages/Admin/adminView'
+import AdminView from '@webapp/pages/Admin/Admin'
 import EditUserView from '@webapp/app/user/userManagement/editUserView'
+import CountrySelection from '@webapp/components/countrySelection'
 
 const Assessment = () => {
   const dispatch = useDispatch()
@@ -33,6 +34,8 @@ const Assessment = () => {
 
   return (
     <>
+      <CountrySelection />
+
       {userInfo && (
         <>
           <Review />

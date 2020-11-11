@@ -12,7 +12,7 @@ import { fetchLastSectionUpdateTimestamp } from '@webapp/app/components/audit/ac
 import { uploadQuestionnaire, getUploadedQuestionareInfo, deleteQuestionare } from './actions'
 
 import * as AppState from '@webapp/app/appState'
-import * as UserState from '@webapp/user/userState'
+import * as UserState from '@webapp/store/user/userState'
 import * as CountryState from '@webapp/app/country/countryState'
 import * as AutosaveState from '@webapp/app/components/autosave/autosaveState'
 

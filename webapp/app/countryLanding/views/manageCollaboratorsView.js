@@ -21,7 +21,7 @@ import {
 } from '@webapp/app/user/userManagement/actions'
 
 import * as AppState from '@webapp/app/appState'
-import * as UserState from '@webapp/user/userState'
+import * as UserState from '@webapp/store/user/userState'
 import * as UserManagementState from '@webapp/app/user/userManagement/userManagementState'
 
 const ManageCollaboratorsView = props => {

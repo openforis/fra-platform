@@ -3,14 +3,14 @@ import './versioningViewStyle.less'
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Switch, Route, useRouteMatch } from 'react-router-dom'
-import { getVersions, createVersion, deleteVersion, onChangeNewVersionForm } from '../../actions'
+import { getVersions, createVersion, deleteVersion, onChangeNewVersionForm } from '../../../../store/admin/actions'
 import useI18n from '@webapp/components/hooks/useI18n'
 
 import NewVersionButton from './NewVersionButton'
 import NewVersionForm from './NewVersionForm'
 import VersioningViewTable from './VersioningViewTable'
 
-import * as AdminState from '@webapp/pages/Admin/adminState'
+import * as AdminState from '@webapp/store/admin/adminState'
 
 const VersioningView = (props) => {
   const {
