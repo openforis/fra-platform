@@ -7,7 +7,6 @@ import navigation from '@webapp/app/components/navigation/reducer'
 import review from '@webapp/app/assessment/components/review/reducer'
 import userManagement from '@webapp/app/user/userManagement/reducer'
 import landing from '@webapp/app/countryLanding/reducer'
-import admin from '@webapp/store/admin/reducer'
 import userChat from '@webapp/app/user/chat/reducer'
 import countryMessageBoard from '@webapp/app/countryLanding/views/messageBoard/reducer'
 
@@ -18,7 +17,7 @@ import * as ReviewState from '@webapp/app/assessment/components/review/reviewSta
 import * as UserManagementState from '@webapp/app/user/userManagement/userManagementState'
 
 import * as LandingState from '@webapp/app/countryLanding/landingState'
-import { AdminState } from '@webapp/store/admin'
+import { AdminState, AdminReducer } from '@webapp/store/admin'
 import * as NavigationState from '@webapp/app/components/navigation/navigationState'
 
 // TODO: Add for each file '<module>/state.js and add state key as ex.:
@@ -36,7 +35,7 @@ const reducers = [
   { name: LandingState.stateKey, fn: landing },
   { name: 'userChat', fn: userChat },
   { name: 'countryMessageBoard', fn: countryMessageBoard },
-  { name: AdminState.stateKey, fn: admin },
+  { name: AdminState.stateKey, fn: AdminReducer },
 ]
 
 export { component, reducers }
