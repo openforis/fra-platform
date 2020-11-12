@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { Switch, Redirect, Route, useRouteMatch } from 'react-router-dom'
 
 import useI18n from '@webapp/components/hooks/useI18n'
-import * as UserState from '@webapp/store/user/userState'
+import { UserState } from '@webapp/store/user'
 import * as BasePaths from '@webapp/main/basePaths'
 
 import { isAdministrator } from '@common/countryRole'

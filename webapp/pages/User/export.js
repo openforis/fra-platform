@@ -1,4 +1,4 @@
-import * as UserState from '@webapp/store/user/userState'
+import { UserState } from '@webapp/store/user'
 import user from '@webapp/store/user/reducer'
 
 import * as UserManagementState from '@webapp/app/user/userManagement/userManagementState'

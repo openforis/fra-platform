@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import * as UserState from '@webapp/store/user/userState'
+import { UserState } from '@webapp/store/user'
 
 export const lastSectionUpdateTimestampReceived = 'audit/lastSectionUpdate/timestamp/received'
 export const lastSectionUpdateTimestampReset = 'audit/lastSectionUpdate/timestamp/reset'

@@ -9,7 +9,7 @@ import { isStatusSaving } from '@webapp/app/components/autosave/autosave'
 import Icon from '@webapp/components/icon'
 import useI18n from '@webapp/components/hooks/useI18n'
 
-import * as UserState from '@webapp/store/user/userState'
+import { UserState } from '@webapp/store/user'
 import * as AutosaveState from '@webapp/app/components/autosave/autosaveState'
 import * as AppState from '@webapp/app/appState'
 

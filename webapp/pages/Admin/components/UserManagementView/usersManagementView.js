@@ -5,7 +5,7 @@ import * as R from 'ramda'
 import { administrator } from '@common/countryRole'
 
 import * as AppState from '@webapp/app/appState'
-import * as UserState from '@webapp/store/user/userState'
+import { UserState } from '@webapp/store/user'
 import * as UserManagementState from '@webapp/app/user/userManagement/userManagementState'
 import { fetchAllUsers, removeUser, sendInvitationEmail } from '@webapp/app/user/userManagement/actions'
 import { useI18n } from '@webapp/components/hooks'

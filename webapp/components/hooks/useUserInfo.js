@@ -1,4 +1,4 @@
 import { useSelector } from 'react-redux'
-import * as UserState from '@webapp/store/user/userState'
+import { UserState } from '@webapp/store/user'
 
 export default () => useSelector(UserState.getUserInfo)

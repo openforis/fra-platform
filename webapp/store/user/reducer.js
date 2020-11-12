@@ -1,6 +1,6 @@
 import { exportReducer } from '@webapp/utils/reduxUtils'
 
-import * as UserState from '@webapp/store/user/userState'
+import { UserState } from '@webapp/store/user'
 
 import { appI18nUpdate, appInitDone } from '@webapp/app/actions'
 import { appUserLogout } from '@webapp/store/user/actions'
