@@ -3,23 +3,16 @@ import './versioningViewStyle.less'
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Switch, Route, useRouteMatch } from 'react-router-dom'
-import { getVersions, createVersion, deleteVersion, onChangeNewVersionForm } from '../../../../store/admin/actions'
 import useI18n from '@webapp/components/hooks/useI18n'
 
 import NewVersionButton from './NewVersionButton'
 import NewVersionForm from './NewVersionForm'
 import VersioningViewTable from './VersioningViewTable'
 
-import { AdminState } from '@webapp/store/admin'
+import { AdminState, AdminActions } from '@webapp/store/admin'
 
 const VersioningView = (props) => {
-  const {
-    getVersions,
-    versions,
-    createVersion,
-    deleteVersion,
-    onChangeNewVersionForm,
-  } = props
+  const { getVersions, versions, createVersion, deleteVersion, onChangeNewVersionForm } = props
   const i18n = useI18n()
   const { path } = useRouteMatch()
   const versionsExist = versions.length > 0
@@ -31,13 +24,11 @@ const VersioningView = (props) => {
   return (
     <Switch>
       <Route exact path={path}>
-        {versionsExist ?
-          <VersioningViewTable
-            deleteVersion={deleteVersion}
-            versions={versions}
-            getVersions={getVersions} />
-          :
-          <h1>{i18n.t('landing.versioning.table.noVersions')}</h1>}
+        {versionsExist ? (
+          <VersioningViewTable deleteVersion={deleteVersion} versions={versions} getVersions={getVersions} />
+        ) : (
+          <h1>{i18n.t('landing.versioning.table.noVersions')}</h1>
+        )}
         <NewVersionButton />
       </Route>
       <Route path={`${path}new/`}>
@@ -48,17 +39,16 @@ const VersioningView = (props) => {
 }
 
 VersioningView.defaultProps = {
-  versions: []
+  versions: [],
 }
 
 const mapStateToProps = (state) => ({
   versions: AdminState.getVersions(state),
 })
 
-export default connect(mapStateToProps,
-  {
-    getVersions,
-    createVersion,
-    deleteVersion,
-    onChangeNewVersionForm
-  })(VersioningView)
+export default connect(mapStateToProps, {
+  getVersions: AdminActions.getVersions,
+  createVersion: AdminActions.createVersion,
+  deleteVersion: AdminActions.deleteVersion,
+  onChangeNewVersionForm: AdminActions.onChangeNewVersionForm,
+})(VersioningView)
