@@ -17,7 +17,6 @@ import * as ReviewState from '@webapp/app/assessment/components/review/reviewSta
 import * as UserManagementState from '@webapp/app/user/userManagement/userManagementState'
 
 import * as LandingState from '@webapp/app/countryLanding/landingState'
-import { AdminState, AdminReducer } from '@webapp/store/admin'
 import * as NavigationState from '@webapp/app/components/navigation/navigationState'
 
 // TODO: Add for each file '<module>/state.js and add state key as ex.:
@@ -35,7 +34,6 @@ const reducers = [
   { name: LandingState.stateKey, fn: landing },
   { name: 'userChat', fn: userChat },
   { name: 'countryMessageBoard', fn: countryMessageBoard },
-  { name: AdminState.stateKey, fn: AdminReducer },
 ]
 
 export { component, reducers }
