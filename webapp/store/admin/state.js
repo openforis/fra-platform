@@ -4,7 +4,7 @@ export const stateKey = 'admin'
 
 const keys = {
   versions: 'versions',
-  newVersionForm: 'newVersionForm'
+  newVersionForm: 'newVersionForm',
 }
 
 const getState = R.prop(stateKey)
@@ -16,4 +16,3 @@ export const getNewVersionForm = R.pipe(getState, R.propOr({}, keys.newVersionFo
 // === UPDATE
 export const assocVersions = R.assoc(keys.versions)
 export const assocNewVersionForm = R.assoc(keys.NewVersionForm)
-

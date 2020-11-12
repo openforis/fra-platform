@@ -1,5 +1,5 @@
-import AdminActions from './actions'
+import * as AdminActions from './actions'
 import AdminReducer from './reducer'
-import AdminState from './state'
+import * as AdminState from './state'
 
 export { AdminActions, AdminReducer, AdminState }
