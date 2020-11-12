@@ -1,9 +1,9 @@
 import { exportReducer } from '@webapp/utils/reduxUtils'
 
-import { UserState } from '@webapp/store/user'
+import * as UserState from '@webapp/store/user/state'
 
-import { appI18nUpdate, appInitDone } from '@webapp/app/actions'
 import { appUserLogout } from '@webapp/store/user/actions'
+import { appI18nUpdate, appInitDone } from '@webapp/app/actions'
 
 const actionHandlers = {
   [appInitDone]: (state, { userInfo }) => UserState.assocUserInfo(userInfo)(state),

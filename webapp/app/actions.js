@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { UserState } from '@webapp/store/user'
+import * as UserState from '@webapp/store/user/state'
 import { applicationError } from '@webapp/components/error/actions'
 import { createI18nPromise } from '@common/i18n/i18nFactory'
 
