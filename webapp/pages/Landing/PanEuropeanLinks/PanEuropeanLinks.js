@@ -13,7 +13,11 @@ const PanEuropeanLinks = () => {
 
   return (
     <div className="pan-eu-links">
-      <Link className="home-link" to={BasePaths.getAssessmentHomeLink(Area.levels.forest_europe, PanEuropean.type)}>
+      <Link
+        target="_blank"
+        className="home-link"
+        to={BasePaths.getAssessmentHomeLink(Area.levels.forest_europe, PanEuropean.type)}
+      >
         &gt; {i18n.t('panEuropean.landing.link')}
       </Link>
     </div>
