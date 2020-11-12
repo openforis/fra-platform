@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { useParams } from 'react-router-dom'
 
 import NotFound from '@webapp/app/notfound'
@@ -12,7 +12,7 @@ function canEdit(userInfo, userId) {
   return isAdministrator(userInfo) || userInfo.id === userId
 }
 
-const EditUserView = () => {
+const User = () => {
   const { countryIso, userId } = useParams()
   const userInfo = useUserInfo()
 
@@ -25,4 +25,4 @@ const EditUserView = () => {
   )
 }
 
-export default EditUserView
+export default memo(User)

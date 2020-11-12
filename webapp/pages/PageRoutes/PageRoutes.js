@@ -45,11 +45,8 @@ const PageRoutes = () => {
         <Switch>
           <Route exact path={BasePaths.root} component={Landing} />
           <Route exact path={pathsLogin} component={Login} />
-          <Route path={BasePaths.admin} render={() => <DynamicImport load={() => import('../Admin')} />} />
-          <Route
-            path={BasePaths.user}
-            render={() => <DynamicImport load={() => import('../../app/appViewExport')} />}
-          />
+          <Route path={BasePaths.admin} render={() => <DynamicImport load={() => import('../Admin/export')} />} />
+          <Route path={BasePaths.user} render={() => <DynamicImport load={() => import('../User/export')} />} />
           <Route
             path={BasePaths.assessment}
             render={() => <DynamicImport load={() => import('../../app/appViewExport')} />}

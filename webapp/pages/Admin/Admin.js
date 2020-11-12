@@ -6,6 +6,7 @@ import { Switch, Redirect, Route, useRouteMatch } from 'react-router-dom'
 
 import useI18n from '@webapp/components/hooks/useI18n'
 import * as UserState from '@webapp/store/user/userState'
+import * as BasePaths from '@webapp/main/basePaths'
 
 import { isAdministrator } from '@common/countryRole'
 import NotFound from '@webapp/app/notfound'
@@ -33,7 +34,7 @@ const Admin = (props) => {
       </div>
 
       <Switch>
-        <Route exact path={path}>
+        <Route exact path={BasePaths.admin}>
           <Redirect to={`${url}usersManagement/`} />
         </Route>
         <Route path={`${path}usersManagement/`}>
