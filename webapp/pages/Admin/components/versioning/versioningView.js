@@ -10,7 +10,7 @@ import NewVersionButton from './NewVersionButton'
 import NewVersionForm from './NewVersionForm'
 import VersioningViewTable from './VersioningViewTable'
 
-import * as AdminState from '@webapp/store/admin/adminState'
+import { AdminState } from '@webapp/store/admin'
 
 const VersioningView = (props) => {
   const {

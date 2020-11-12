@@ -18,7 +18,7 @@ import * as ReviewState from '@webapp/app/assessment/components/review/reviewSta
 import * as UserManagementState from '@webapp/app/user/userManagement/userManagementState'
 
 import * as LandingState from '@webapp/app/countryLanding/landingState'
-import * as AdminState from '@webapp/store/admin/adminState'
+import { AdminState } from '@webapp/store/admin'
 import * as NavigationState from '@webapp/app/components/navigation/navigationState'
 
 // TODO: Add for each file '<module>/state.js and add state key as ex.:

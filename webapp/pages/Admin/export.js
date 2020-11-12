@@ -1,7 +1,7 @@
 import * as UserManagementState from '@webapp/app/user/userManagement/userManagementState'
 import userManagement from '@webapp/app/user/userManagement/reducer'
 
-import * as AdminState from '../../store/admin/adminState'
+import * as AdminState from '../../store/admin/state'
 import component from './Admin'
 import admin from '../../store/admin/reducer'
 
