@@ -19,7 +19,6 @@ import AssessmentSectionView from '@webapp/app/assessment/components/section/ass
 import OriginalDataPointView from '@webapp/app/assessment/fra/sections/originalDataPoint/originalDataPointView'
 import AdminView from '@webapp/pages/Admin/Admin'
 import EditUserView from '@webapp/pages/User/User'
-import CountrySelection from '@webapp/components/countrySelection'
 
 const Assessment = () => {
   const dispatch = useDispatch()
@@ -34,8 +33,6 @@ const Assessment = () => {
 
   return (
     <>
-      <CountrySelection />
-
       {userInfo && (
         <>
           <Review />

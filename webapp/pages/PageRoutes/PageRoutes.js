@@ -11,7 +11,9 @@ import Login from '@webapp/pages/Login'
 import Header from '@webapp/components/Header'
 import Footer from '@webapp/components/footer'
 import ErrorComponent from '@webapp/components/error/errorComponent'
+import CountrySelection from '@webapp/components/countrySelection'
 
+import { useIsLogin } from '@webapp/components/hooks'
 import * as AppState from '@webapp/app/appState'
 import { initApp } from '@webapp/app/actions'
 
@@ -21,6 +23,7 @@ const PageRoutes = () => {
   useTheme()
   const dispatch = useDispatch()
   const appStatus = useSelector(AppState.getApplicationStatus)
+  const isLogin = useIsLogin()
 
   useEffect(() => {
     dispatch(initApp())
@@ -41,6 +44,7 @@ const PageRoutes = () => {
 
       <Route>
         <Header />
+        {!isLogin && <CountrySelection />}
 
         <Switch>
           <Route exact path={BasePaths.root} component={Landing} />
