@@ -8,16 +8,16 @@ import * as AppState from '@webapp/app/appState'
 import * as UserState from '@webapp/store/user/userState'
 import * as UserManagementState from '@webapp/app/user/userManagement/userManagementState'
 import { fetchAllUsers, removeUser, sendInvitationEmail } from '@webapp/app/user/userManagement/actions'
+import { useI18n } from '@webapp/components/hooks'
 
 import UsersTableFilterWrapper from '@webapp/pages/Admin/components/UserManagementView/usersTableFilterWrapper'
 import EditUserForm from '@webapp/app/user/userManagement/edit/editUserForm'
 import UsersCount from '../usersCount'
-import { useI18n } from '@webapp/components/hooks'
 
 const UsersManagementView = (props) => {
   const i18n = useI18n()
   const dispatch = useDispatch()
-  const { editUserStatus, allUsers, userCounts } = props
+  const { editUserStatus, allUsers } = props
   const countryIso = useSelector(AppState.getCountryIso)
   const [editingUserId, setEditingUserId] = useState(null)
 
