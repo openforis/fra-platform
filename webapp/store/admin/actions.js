@@ -2,26 +2,28 @@ import axios from 'axios'
 import { applicationError } from '@webapp/components/error/actions'
 
 import FRAVersion from '@common/versioning/fraVersion'
-import * as AdminState from '@webapp/pages/Admin/adminState'
+import * as AdminState from '@webapp/store/admin/state'
 
 export const versioningGetSuccess = 'versioning/get/success'
 export const versioningDeleteSuccess = 'versioning/get/success'
 export const versioningPostMissingData = 'versioning/post/missingdata'
-export const versioningPostVersionInvalid = 'versioning/post/versioninvalid'
 export const versioningPostSuccess = 'versioning/post/success'
 export const versioningUpdateForm = 'versioning/update/form'
 
-export const getVersions = () => dispatch => {
-  axios.get(`/api/versioning/`).then(({ data }) => {
-    dispatch({
-      type: versioningGetSuccess,
-      versions: data
+export const getVersions = () => (dispatch) => {
+  axios
+    .get(`/api/versioning/`)
+    .then(({ data }) => {
+      dispatch({
+        type: versioningGetSuccess,
+        versions: data,
+      })
     })
-  }).catch(err => dispatch(applicationError(err)))
+    .catch((err) => dispatch(applicationError(err)))
 }
 
-export const createVersion = (e) => (dispatch, getState) => {
-  const state = getState();
+export const createVersion = (_) => (dispatch, getState) => {
+  const state = getState()
   const newVersionForm = AdminState.getNewVersionForm(state)
 
   // Required fields for new version: version number and publishedAt
@@ -30,7 +32,7 @@ export const createVersion = (e) => (dispatch, getState) => {
   // Form missing data?
   if (!validForm) {
     dispatch({
-      type: versioningPostMissingData
+      type: versioningPostMissingData,
     })
     return
   }
@@ -41,7 +43,7 @@ export const createVersion = (e) => (dispatch, getState) => {
   const versionValid = /\d+\.\d+\.\d+/.test(FRAVersion.getVersionNumber(newVersionForm))
   if (!versionValid) {
     dispatch({
-      type: versioningPostMissingData
+      type: versioningPostMissingData,
     })
     return
   }
@@ -49,30 +51,36 @@ export const createVersion = (e) => (dispatch, getState) => {
   // use iso-String, for correct date/time in db
   newVersionForm.publishedAt = new Date(FRAVersion.getPublishedAt(newVersionForm)).toISOString()
 
-  axios.post(`/api/versioning/`, newVersionForm).then(res => {
-    return dispatch({
-      type: versioningPostSuccess,
-      versions: res.data
+  axios
+    .post(`/api/versioning/`, newVersionForm)
+    .then((res) => {
+      return dispatch({
+        type: versioningPostSuccess,
+        versions: res.data,
+      })
     })
-  }).catch(err => dispatch(applicationError(err)))
+    .catch((err) => dispatch(applicationError(err)))
 }
 
-export const deleteVersion = (id) => (dispatch, getState) => {
+export const deleteVersion = (id) => (dispatch) => {
   if (!window.confirm('Are you sure?')) {
     return
   }
   console.log(id)
-  axios.delete(`/api/versioning/${id}`).then(res => {
-    return dispatch({
-      type: versioningDeleteSuccess,
-      versions: res.data
+  axios
+    .delete(`/api/versioning/${id}`)
+    .then((res) => {
+      return dispatch({
+        type: versioningDeleteSuccess,
+        versions: res.data,
+      })
     })
-  }).catch(err => dispatch(applicationError(err)))
+    .catch((err) => dispatch(applicationError(err)))
 }
 
-export const onChangeNewVersionForm = (e) => dispatch => {
+export const onChangeNewVersionForm = (e) => (dispatch) => {
   dispatch({
     type: versioningUpdateForm,
-    payload: { [e.target.name]: e.target.value }
+    payload: { [e.target.name]: e.target.value },
   })
 }

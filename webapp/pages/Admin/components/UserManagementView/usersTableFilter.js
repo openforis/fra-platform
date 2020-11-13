@@ -6,7 +6,7 @@ import camelize from 'camelize'
 import snake from 'to-snake-case'
 
 import MultiSelect from '@webapp/components/multiSelect'
-import CountrySelectionModal from '../edit/countrySelectionModal'
+import CountrySelectionModal from '../../../../app/user/userManagement/edit/countrySelectionModal'
 
 import { roleKeys } from '@common/countryRole'
 
@@ -28,21 +28,6 @@ class UsersTableFilter extends React.Component {
       </div>
 
       <div className="users__table-filter-container">
-
-        {/*<div className="users__table-filter-item">*/}
-        {/*<div className="users__table-filter-item-label">*/}
-        {/*<h4>{i18n.t('admin.language')}</h4>*/}
-        {/*</div>*/}
-        {/*<div>*/}
-        {/*<MultiSelect*/}
-        {/*i18n={i18n}*/}
-        {/*localizationPrefix="language"*/}
-        {/*values={filter.langs}*/}
-        {/*options={languages}*/}
-        {/*onChange={values => onChange(R.assoc('langs', values, filter))}*/}
-        {/*/>*/}
-        {/*</div>*/}
-        {/*</div>*/}
 
         {/*ROLE*/}
         <div className="users__table-filter-item">

@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom'
 import { format } from 'date-fns'
 import useI18n from '@webapp/components/hooks/useI18n'
 
-import * as AdminState from '@webapp/pages/Admin/adminState'
+import { AdminState } from '@webapp/store/admin'
 import * as BasePaths from '@webapp/main/basePaths'
 
 import * as FRAVersion from '@common/versioning/fraVersion'
