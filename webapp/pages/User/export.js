@@ -1,5 +1,4 @@
-import { UserState } from '@webapp/store/user'
-import user from '@webapp/store/user/reducer'
+import { UserState, UserReducer } from '@webapp/store/user'
 
 import * as UserManagementState from '@webapp/app/user/userManagement/userManagementState'
 import userManagement from '@webapp/app/user/userManagement/reducer'
@@ -7,7 +6,7 @@ import userManagement from '@webapp/app/user/userManagement/reducer'
 import component from './User'
 
 const reducers = [
-  { name: UserState.stateKey, fn: user },
+  { name: UserState.stateKey, fn: UserReducer },
   { name: UserManagementState.stateKey, fn: userManagement },
 ]
 
