@@ -9,7 +9,7 @@ import { useI18n, useIsLogin, useUserInfo } from '@webapp/components/hooks'
 import { PopoverControl } from '@webapp/components/popoverControl'
 import Icon from '@webapp/components/icon'
 
-import { logout } from '@webapp/user/actions'
+import { logout } from '@webapp/store/user/actions'
 
 const getLinks = (i18n, userInfo, dispatch) => {
   const items = [

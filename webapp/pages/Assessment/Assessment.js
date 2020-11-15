@@ -17,8 +17,6 @@ import { useInitCountry, useIsCountryStatusLoaded } from '@webapp/store/country'
 import AssessmentHome from '@webapp/pages/Assessment/AssessmentHome'
 import AssessmentSectionView from '@webapp/app/assessment/components/section/assessmentSectionView'
 import OriginalDataPointView from '@webapp/app/assessment/fra/sections/originalDataPoint/originalDataPointView'
-import AdminView from '@webapp/pages/Admin/adminView'
-import EditUserView from '@webapp/app/user/userManagement/editUserView'
 
 const Assessment = () => {
   const dispatch = useDispatch()
@@ -45,8 +43,6 @@ const Assessment = () => {
         <Navigation />
 
         <Switch>
-          <Route path={BasePaths.admin} component={AdminView} />
-          <Route path={BasePaths.user} component={EditUserView} />
           <Route path={BasePaths.assessmentHome} component={AssessmentHome} />
           <Route exact path={BasePaths.assessmentSection} component={AssessmentSectionView} />
           <Route exact path={[`${BasePaths.odp}:odpId/`, BasePaths.odp]} component={OriginalDataPointView} />
