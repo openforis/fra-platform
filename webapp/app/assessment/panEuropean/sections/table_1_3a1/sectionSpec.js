@@ -4,9 +4,11 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 
 const section = PanEuropean.sections['1'].children['13a1']
 
+// eslint-disable-next-line
 const forest_even_aged_stands_of_which = 'forest_even_aged_stands_of_which'
 
 const variables = [
+  // eslint-disable-next-line
   forest_even_aged_stands_of_which,
   'available_for_wood_supply_of_which',
   'predominantly_coniferous_forest',
@@ -19,11 +21,13 @@ const subcategories = variables.slice(2)
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_1_3a1,
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['total_area'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['regeneration_phase'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['intermediate_phase'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['mature_phase'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['unspecified'],
+  [SectionSpec.KEYS_TABLE.columnsExport]: [
+    'total_area',
+    'regeneration_phase',
+    'intermediate_phase',
+    'mature_phase',
+    'unspecified',
+  ],
 
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
@@ -38,7 +42,8 @@ const tableSpec = SectionSpec.newTableSpec({
           [SectionSpec.KEYS_COL.rowSpan]: 2,
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.developmentPhases1000ha',
+          [SectionSpec.KEYS_COL.labelKey]:
+            'panEuropean.ageClassDistributionAreaOfEvenAgedStands.developmentPhases1000ha',
           [SectionSpec.KEYS_COL.colSpan]: 4,
         }),
       ],
@@ -58,7 +63,6 @@ const tableSpec = SectionSpec.newTableSpec({
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.unspecified',
         }),
-
       ],
     }),
 

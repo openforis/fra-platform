@@ -4,19 +4,19 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 
 const section = PanEuropean.sections['3'].children['32']
 
-const variables = [
-  'roundwood',
-]
+const variables = ['roundwood']
 
-const years = [...PanEuropean.years88_17].reverse();
+const years = [...PanEuropean.years88_17].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_3_2,
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['total_volume'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['industrial_roundwood_volume'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['industrial_roundwood_market_value'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['woodfuel_volume'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['woodfuel_market_value'],
+  [SectionSpec.KEYS_TABLE.columnsExport]: [
+    'total_volume',
+    'industrial_roundwood_volume',
+    'industrial_roundwood_market_value',
+    'woodfuel_volume',
+    'woodfuel_market_value',
+  ],
 
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({

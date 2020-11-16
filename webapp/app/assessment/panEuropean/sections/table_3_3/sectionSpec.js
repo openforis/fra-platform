@@ -4,24 +4,9 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 
 const section = PanEuropean.sections['3'].children['33']
 
-const variables1 = [
-  '_01st',
-  '_02nd',
-  '_03rd',
-  '_04th',
-  '_05th',
-  '_06th',
-  '_07th',
-  '_08th',
-  '_09th',
-  '_10th',
-]
+const variables1 = ['_01st', '_02nd', '_03rd', '_04th', '_05th', '_06th', '_07th', '_08th', '_09th', '_10th']
 
-const variables2 = [
-  'all_other_plant_products',
-  'all_other_animal_products',
-  'total',
-]
+const variables2 = ['all_other_plant_products', 'all_other_animal_products', 'total']
 
 const variablesMappings = {
   _01st: SectionSpec.VARIABLES._01st,
@@ -34,16 +19,22 @@ const variablesMappings = {
   _08th: SectionSpec.VARIABLES._08th,
   _09th: SectionSpec.VARIABLES._09th,
   _10th: SectionSpec.VARIABLES._10th,
+
+  all_other_plant_products: 'all_other_plant_products',
+  all_other_animal_products: 'all_other_animal_products',
+  total: 'total',
 }
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_3_3,
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'name_of_groups_of_product',
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'key_species',
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'total_harvested_non_wood_goods_unit',
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'total_harvested_non_wood_goods_quantity',
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'market_value_1000_national_currency',
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'nwfp_category',
+  [SectionSpec.KEYS_TABLE.columnsExport]: [
+    'name_of_groups_of_product',
+    'key_species',
+    'total_harvested_non_wood_goods_unit',
+    'total_harvested_non_wood_goods_quantity',
+    'market_value_1000_national_currency',
+    'nwfp_category',
+  ],
 
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
@@ -72,7 +63,7 @@ const tableSpec = SectionSpec.newTableSpec({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.nonWoodGoods2015.nwfpCategory',
           [SectionSpec.KEYS_COL.rowSpan]: 2,
         }),
-      ]
+      ],
     }),
 
     SectionSpec.newRowHeader({
@@ -83,7 +74,7 @@ const tableSpec = SectionSpec.newTableSpec({
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.nonWoodGoods2015.quantity',
         }),
-      ]
+      ],
     }),
 
     ...variables1.flatMap((variable) =>
@@ -97,7 +88,7 @@ const tableSpec = SectionSpec.newTableSpec({
           SectionSpec.newColDecimal(),
           SectionSpec.newColDecimal(),
           SectionSpec.newColText(),
-        ]
+        ],
       })
     ),
     ...variables2.flatMap((variable) =>
@@ -110,7 +101,7 @@ const tableSpec = SectionSpec.newTableSpec({
             [SectionSpec.KEYS_COL.idx]: 4,
           }),
           SectionSpec.newColPlaceholder(),
-        ]
+        ],
       })
     ),
   ],

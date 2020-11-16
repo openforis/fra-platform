@@ -4,17 +4,14 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 
 const section = PanEuropean.sections['6'].children['63']
 
-const variables = [
-  'forestry',
-]
+const variables = ['forestry']
 
-const years = [...PanEuropean.years90_15].reverse();
+const years = [...PanEuropean.years90_15].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_6_3,
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['factor_income'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['net_operating_surplus'],
-  
+  [SectionSpec.KEYS_TABLE.columnsExport]: ['factor_income', 'net_operating_surplus'],
+
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
@@ -36,7 +33,7 @@ const tableSpec = SectionSpec.newTableSpec({
       [SectionSpec.KEYS_ROW.cols]: [
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.factorIncomeAndEntrepreneurialIncome.millionNationalCurrency',
-          [SectionSpec.KEYS_COL.colSpan]: 2,          
+          [SectionSpec.KEYS_COL.colSpan]: 2,
         }),
       ],
     }),
@@ -47,10 +44,7 @@ const tableSpec = SectionSpec.newTableSpec({
           [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.factorIncomeAndEntrepreneurialIncome.${variable}`,
           [SectionSpec.KEYS_ROW.labelParams]: { year },
           [SectionSpec.KEYS_ROW.variableExport]: `${variable}_${year}`,
-          [SectionSpec.KEYS_ROW.cols]: [
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-          ],
+          [SectionSpec.KEYS_ROW.cols]: [SectionSpec.newColDecimal(), SectionSpec.newColDecimal()],
         })
       )
     ),

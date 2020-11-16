@@ -52,10 +52,7 @@ const variablesMappings = {
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_6_10d,
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'facility',
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'measurement_unit',
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'extent_multiplicity',
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'facility_category',
+  [SectionSpec.KEYS_TABLE.columnsExport]: ['facility', 'measurement_unit', 'extent_multiplicity', 'facility_category'],
 
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
@@ -73,14 +70,15 @@ const tableSpec = SectionSpec.newTableSpec({
           [SectionSpec.KEYS_COL.left]: true,
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.otherRecreationFacilitiesPilotReporting2015.extent_multiplicity',
+          [SectionSpec.KEYS_COL.labelKey]:
+            'panEuropean.otherRecreationFacilitiesPilotReporting2015.extent_multiplicity',
           [SectionSpec.KEYS_COL.left]: true,
         }),
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.otherRecreationFacilitiesPilotReporting2015.facility_category',
           [SectionSpec.KEYS_COL.left]: true,
         }),
-      ]
+      ],
     }),
 
     ...variables.flatMap((variable) =>
@@ -91,8 +89,8 @@ const tableSpec = SectionSpec.newTableSpec({
           SectionSpec.newColText(),
           SectionSpec.newColText(),
           SectionSpec.newColDecimal(),
-          SectionSpec.newColText()
-        ]
+          SectionSpec.newColText(),
+        ],
       })
     ),
   ],

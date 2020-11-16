@@ -4,22 +4,21 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 
 const section = PanEuropean.sections['1'].children['13b']
 
-const variables = [
-  'forest_uneven_aged_stands',
-  '_of_which_forest_available_for_wood_supply',
-]
+const variables = ['forest_uneven_aged_stands', '_of_which_forest_available_for_wood_supply']
 
 const years = [...PanEuropean.years90_15].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_1_3b,
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['area'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['total_volume'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['less_or_equal_20_cm'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['_21_40_cm'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['_41_60_cm'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['greater_60_cm'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['unspecified'],
+  [SectionSpec.KEYS_TABLE.columnsExport]: [
+    'area',
+    'total_volume',
+    'less_or_equal_20_cm',
+    '_21_40_cm',
+    '_41_60_cm',
+    'greater_60_cm',
+    'unspecified',
+  ],
 
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
@@ -33,14 +32,15 @@ const tableSpec = SectionSpec.newTableSpec({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.area',
           [SectionSpec.KEYS_COL.rowSpan]: 2,
         }),
-        
+
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.total_volume',
           [SectionSpec.KEYS_COL.rowSpan]: 2,
         }),
 
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.volumeByDiameterClasses1000mob',   //???
+          [SectionSpec.KEYS_COL.labelKey]:
+            'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.volumeByDiameterClasses1000mob', //???
           [SectionSpec.KEYS_COL.colSpan]: 5,
         }),
       ],
@@ -49,7 +49,8 @@ const tableSpec = SectionSpec.newTableSpec({
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.less_or_equal_20_cm',
+          [SectionSpec.KEYS_COL.labelKey]:
+            'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.less_or_equal_20_cm',
         }),
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands._21_40_cm',
@@ -63,7 +64,6 @@ const tableSpec = SectionSpec.newTableSpec({
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.unspecified',
         }),
-
       ],
     }),
 
@@ -81,8 +81,6 @@ const tableSpec = SectionSpec.newTableSpec({
             SectionSpec.newColDecimal(),
             SectionSpec.newColDecimal(),
             SectionSpec.newColDecimal(),
-
-
           ],
         })
       )

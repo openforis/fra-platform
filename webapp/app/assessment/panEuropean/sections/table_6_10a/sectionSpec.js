@@ -4,18 +4,18 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 
 const section = PanEuropean.sections['6'].children['610a']
 
-const variables = [
-  'total_forest_and_other_wooded_land',
-]
+const variables = ['total_forest_and_other_wooded_land']
 
-const years = [...PanEuropean.years90_15].reverse();
+const years = [...PanEuropean.years90_15].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_6_10a,
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['area_available_for_public_recreation_total'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['area_available_for_public_recreation_percent'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['area_designated_or_managed_for_public_recreation_total'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['area_designated_or_managed_for_public_recreation_percent'],
+  [SectionSpec.KEYS_TABLE.columnsExport]: [
+    'area_available_for_public_recreation_total',
+    'area_available_for_public_recreation_percent',
+    'area_designated_or_managed_for_public_recreation_total',
+    'area_designated_or_managed_for_public_recreation_percent',
+  ],
 
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
@@ -30,7 +30,8 @@ const tableSpec = SectionSpec.newTableSpec({
           [SectionSpec.KEYS_COL.colSpan]: 2,
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.accessibilityForRecreation.areaPrimarilyDesignatedOrManagedForPublicRecreation',
+          [SectionSpec.KEYS_COL.labelKey]:
+            'panEuropean.accessibilityForRecreation.areaPrimarilyDesignatedOrManagedForPublicRecreation',
           [SectionSpec.KEYS_COL.colSpan]: 2,
         }),
       ],

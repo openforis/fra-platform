@@ -4,18 +4,18 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 
 const section = PanEuropean.sections['6'].children['66']
 
-const variables = [
-  'forestry_isic_nace_02',
-]
+const variables = ['forestry_isic_nace_02']
 
-const years = [...PanEuropean.years90_15].reverse();
+const years = [...PanEuropean.years90_15].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_6_6,
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['fatal_occupational_accidents_number'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['fatal_occupational_accidents_per_1000_workers'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['non_fatal_occupational_accidents_number'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['non_fatal_occupational_accidents_per_1000_workers'],
+  [SectionSpec.KEYS_TABLE.columnsExport]: [
+    'fatal_occupational_accidents_number',
+    'fatal_occupational_accidents_per_1000_workers',
+    'non_fatal_occupational_accidents_number',
+    'non_fatal_occupational_accidents_per_1000_workers',
+  ],
 
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({

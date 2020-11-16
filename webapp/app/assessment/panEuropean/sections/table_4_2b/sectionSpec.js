@@ -4,19 +4,19 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 
 const section = PanEuropean.sections['4'].children['42b']
 
-const variables = [
-  'forest',
-]
+const variables = ['forest']
 
-const years = [...PanEuropean.years90_15].reverse();
+const years = [...PanEuropean.years90_15].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_4_2b,
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['afforestation'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['natural_expansion'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['natural_regeneration'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['planting_and_seeding'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['coppice'],
+  [SectionSpec.KEYS_TABLE.columnsExport]: [
+    'afforestation',
+    'natural_expansion',
+    'natural_regeneration',
+    'planting_and_seeding',
+    'coppice',
+  ],
 
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
@@ -27,7 +27,8 @@ const tableSpec = SectionSpec.newTableSpec({
           [SectionSpec.KEYS_COL.left]: true,
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.annualForestExpansionAndRegeneration.annualForestExpansionAndRegeneration1000ha',
+          [SectionSpec.KEYS_COL.labelKey]:
+            'panEuropean.annualForestExpansionAndRegeneration.annualForestExpansionAndRegeneration1000ha',
           [SectionSpec.KEYS_COL.colSpan]: 5,
         }),
       ],

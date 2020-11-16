@@ -4,11 +4,9 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 
 const section = PanEuropean.sections['1'].children['14b']
 
-const variables = [
-  'harvested_wood_products',
-]
+const variables = ['harvested_wood_products']
 
-const years = [...PanEuropean.years90_15].reverse();
+const years = [...PanEuropean.years90_15].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_1_4b,
@@ -22,7 +20,8 @@ const tableSpec = SectionSpec.newTableSpec({
           [SectionSpec.KEYS_COL.left]: true,
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.carbonStockInHarvestedWoodProductsHWP.total_carbon_stock_in_hwp',
+          [SectionSpec.KEYS_COL.labelKey]:
+            'panEuropean.carbonStockInHarvestedWoodProductsHWP.total_carbon_stock_in_hwp',
         }),
       ],
     }),

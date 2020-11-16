@@ -4,8 +4,66 @@ const PanEuropean = {
   years90_15: [1990, 2000, 2005, 2010, 2015],
   years05_15: [2005, 2010, 2015],
   years15: [2015],
-  years88_17: [1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017],
-  years92_17: [1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017],
+  years88_17: [
+    1988,
+    1989,
+    1990,
+    1991,
+    1992,
+    1993,
+    1994,
+    1995,
+    1996,
+    1997,
+    1998,
+    1999,
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+  ],
+  years92_17: [
+    1992,
+    1993,
+    1994,
+    1995,
+    1996,
+    1997,
+    1998,
+    1999,
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+  ],
   years07_15: [2007, 2009, 2011, 2013, 2015],
 
   sections: {
@@ -23,7 +81,9 @@ const PanEuropean = {
         '11b': {
           name: 'forestAreaByForestTypes',
           anchor: '1.1b',
-          tables: { table_1_1b: 'table_1_1b' }
+          tables: {
+            table_1_1b: 'table_1_1b',
+          },
         },
 
         '12a': {
@@ -95,7 +155,7 @@ const PanEuropean = {
     2: {
       label: 'panEuropean.navigation.maintenanceOfForestEcosystemHealthAndVitality',
       children: {
-        '24': {
+        24: {
           name: 'forestAreaWithDamage',
           anchor: '2.4',
           tables: {
@@ -103,7 +163,7 @@ const PanEuropean = {
           },
         },
 
-        '25': {
+        25: {
           name: 'areaWithForestLandDegradation',
           anchor: '2.5',
           tables: {
@@ -117,7 +177,7 @@ const PanEuropean = {
     3: {
       label: 'panEuropean.navigation.productiveFunctionsOfForestsWoodAndNonWood',
       children: {
-        '31': {
+        31: {
           name: 'incrementAndFellings',
           anchor: '3.1',
           tables: {
@@ -125,7 +185,7 @@ const PanEuropean = {
           },
         },
 
-        '32': {
+        32: {
           name: 'removals',
           anchor: '3.2',
           tables: {
@@ -133,14 +193,14 @@ const PanEuropean = {
           },
         },
 
-        '33': {
+        33: {
           name: 'nonWoodGoods2015',
           anchor: '3.3',
           tables: {
             table_3_3: 'table_3_3',
           },
         },
-        '34': {
+        34: {
           name: 'marketedServices2015',
           anchor: '3.4',
           tables: {
@@ -153,7 +213,7 @@ const PanEuropean = {
     4: {
       label: 'panEuropean.navigation.biologicalDiversityInForestEcosystems',
       children: {
-        '41': {
+        41: {
           name: 'treeSpeciesComposition',
           anchor: '4.1',
           tables: {
@@ -217,7 +277,7 @@ const PanEuropean = {
           },
         },
 
-        '45': {
+        45: {
           name: 'deadwood',
           anchor: '4.5',
           tables: {
@@ -225,7 +285,7 @@ const PanEuropean = {
           },
         },
 
-        '48': {
+        48: {
           name: 'threatenedForestSpecies',
           anchor: '4.8',
           tables: {
@@ -233,7 +293,7 @@ const PanEuropean = {
           },
         },
 
-        '49': {
+        49: {
           name: 'protectedForests',
           anchor: '4.9',
           tables: {
@@ -246,7 +306,7 @@ const PanEuropean = {
     5: {
       label: 'panEuropean.navigation.protectiveFunctionsInForestManagement',
       children: {
-        '51': {
+        51: {
           name: 'protectiveForestsSoilWaterAndOtherEcosystemFunctions',
           anchor: '5.1',
           tables: {
@@ -259,7 +319,7 @@ const PanEuropean = {
     6: {
       label: 'panEuropean.navigation.socioEconomicFunctionsAndConditions',
       children: {
-        '61': {
+        61: {
           name: 'forestHoldings',
           anchor: '6.1',
           tables: {
@@ -267,7 +327,7 @@ const PanEuropean = {
           },
         },
 
-        '62': {
+        62: {
           name: 'grossValueAdded',
           anchor: '6.2',
           tables: {
@@ -275,7 +335,7 @@ const PanEuropean = {
           },
         },
 
-        '63': {
+        63: {
           name: 'factorIncomeAndEntrepreneurialIncome',
           anchor: '6.3',
           tables: {
@@ -323,7 +383,7 @@ const PanEuropean = {
           },
         },
 
-        '66': {
+        66: {
           name: 'occupationalAccidents',
           anchor: '6.6',
           tables: {
@@ -331,7 +391,7 @@ const PanEuropean = {
           },
         },
 
-        '67': {
+        67: {
           name: 'woodConsumption',
           anchor: '6.7',
           tables: {
@@ -339,7 +399,7 @@ const PanEuropean = {
           },
         },
 
-        '68': {
+        68: {
           name: 'tradeInWood',
           anchor: '6.8',
           tables: {
@@ -347,7 +407,7 @@ const PanEuropean = {
           },
         },
 
-        '69': {
+        69: {
           name: 'totalEnergySupplyFromWood',
           anchor: '6.9',
           tables: {

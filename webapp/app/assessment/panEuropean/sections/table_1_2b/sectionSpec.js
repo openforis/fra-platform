@@ -4,28 +4,26 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 
 const section = PanEuropean.sections['1'].children['12b']
 
-const variables = [
-  'predominantly_coniferous_forest',
-  'predominantly_broadleaved_forest',
-  'mixed_forest',
-]
+const variables = ['predominantly_coniferous_forest', 'predominantly_broadleaved_forest', 'mixed_forest']
 
 const variablesMappings = {
-  predominantlyConiferousForest: SectionSpec.VARIABLES.predominantly_coniferous_forest,
-  predominantlyBroadleavedForest: SectionSpec.VARIABLES.predominantly_broadleaved_forest,
-  mixedForest: SectionSpec.VARIABLES.mixed_forest,
+  predominantly_coniferous_forest: SectionSpec.VARIABLES.predominantly_coniferous_forest,
+  predominantly_broadleaved_forest: SectionSpec.VARIABLES.predominantly_broadleaved_forest,
+  mixed_forest: SectionSpec.VARIABLES.mixed_forest,
 }
 
 const years = [...PanEuropean.years90_20]
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_1_2b,
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'growing_stock_1990',
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'growing_stock_2000',
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'growing_stock_2005',
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'growing_stock_2010',
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'growing_stock_2015',
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'growing_stock_2020',
+  [SectionSpec.KEYS_TABLE.columnsExport]: [
+    'growing_stock_1990',
+    'growing_stock_2000',
+    'growing_stock_2005',
+    'growing_stock_2010',
+    'growing_stock_2015',
+    'growing_stock_2020',
+  ],
 
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
@@ -38,10 +36,10 @@ const tableSpec = SectionSpec.newTableSpec({
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.growingStockByForestType.growingStockMillionM3OB',
           [SectionSpec.KEYS_COL.colSpan]: years.length,
-        })
-      ]
+        }),
+      ],
     }),
- 
+
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: years.map((year) =>
         SectionSpec.newColHeader({
