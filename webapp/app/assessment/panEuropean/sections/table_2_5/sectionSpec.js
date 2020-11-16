@@ -4,26 +4,24 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 
 const section = PanEuropean.sections['2'].children['25']
 
-const variables = [
-  'forest',
-  'other_wooded_land',
-  'total_forest_and_other_wooded_land',
-]
+const variables = ['forest', 'other_wooded_land', 'total_forest_and_other_wooded_land']
 
 const years = [...PanEuropean.years90_15].reverse()
 
 const tableSpec1 = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_2_5,
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['total_area_of_degraded_land'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['grazing'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['repeated_fires'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['air_pollution'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['desertification'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['other_1'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['other_2'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['other_3'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['unknown'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['former_degraded_land_restored'],
+  [SectionSpec.KEYS_TABLE.columnsExport]: [
+    'total_area_of_degraded_land',
+    'grazing',
+    'repeated_fires',
+    'air_pollution',
+    'desertification',
+    'other_1',
+    'other_2',
+    'other_3',
+    'unknown',
+    'former_degraded_land_restored',
+  ],
 
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
@@ -134,11 +132,7 @@ const tableSpec2 = SectionSpec.newTableSpec({
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'panEuropean.areaWithForestLandDegradation.otherNames',
       [SectionSpec.KEYS_ROW.mainCategory]: true,
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColText(),
-        SectionSpec.newColText(),
-        SectionSpec.newColText(),
-      ],
+      [SectionSpec.KEYS_ROW.cols]: [SectionSpec.newColText(), SectionSpec.newColText(), SectionSpec.newColText()],
     }),
   ],
 })

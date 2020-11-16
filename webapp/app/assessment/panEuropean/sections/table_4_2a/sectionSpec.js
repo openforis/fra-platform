@@ -4,17 +4,17 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 
 const section = PanEuropean.sections['4'].children['42a']
 
-const variables = [
-  'forest',
-]
+const variables = ['forest']
 
-const years = [...PanEuropean.years90_15].reverse();
+const years = [...PanEuropean.years90_15].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_4_2a,
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['natural_expansion_and_natural_regeneration'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['afforestation_and_regeneration_by_planting_and_or_seeding'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['coppice'],
+  [SectionSpec.KEYS_TABLE.columnsExport]: [
+    'natural_expansion_and_natural_regeneration',
+    'afforestation_and_regeneration_by_planting_and_or_seeding',
+    'coppice',
+  ],
 
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
@@ -25,7 +25,8 @@ const tableSpec = SectionSpec.newTableSpec({
           [SectionSpec.KEYS_COL.left]: true,
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.totalAreaOfForestByExpansionRegenerationType1000ha',
+          [SectionSpec.KEYS_COL.labelKey]:
+            'panEuropean.totalForestAreaByExpansionAndRegenerationType.totalAreaOfForestByExpansionRegenerationType1000ha',
           [SectionSpec.KEYS_COL.colSpan]: 3,
         }),
       ],
@@ -34,15 +35,16 @@ const tableSpec = SectionSpec.newTableSpec({
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.natural_expansion_and_natural_regeneration',
+          [SectionSpec.KEYS_COL.labelKey]:
+            'panEuropean.totalForestAreaByExpansionAndRegenerationType.natural_expansion_and_natural_regeneration',
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.afforestation_and_regeneration_by_planting_and_or_seeding',
+          [SectionSpec.KEYS_COL.labelKey]:
+            'panEuropean.totalForestAreaByExpansionAndRegenerationType.afforestation_and_regeneration_by_planting_and_or_seeding',
         }),
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.coppice',
         }),
-
       ],
     }),
 

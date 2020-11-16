@@ -4,21 +4,21 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 
 const section = PanEuropean.sections['4'].children['43b']
 
-const variables = [
-  'forest',
-]
+const variables = ['forest']
 
-const years = [...PanEuropean.years90_20].reverse();
+const years = [...PanEuropean.years90_20].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_4_3b,
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['naturally_established'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['naturalised_introduced_species'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['established_by_planting_and_or_seeding'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['coppice'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['unknown_origin'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['native_species'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['introduced_species'],
+  [SectionSpec.KEYS_TABLE.columnsExport]: [
+    'naturally_established',
+    'naturalised_introduced_species',
+    'established_by_planting_and_or_seeding',
+    'coppice',
+    'unknown_origin',
+    'native_species',
+    'introduced_species',
+  ],
 
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({

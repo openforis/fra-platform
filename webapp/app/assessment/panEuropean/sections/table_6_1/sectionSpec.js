@@ -4,24 +4,22 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 
 const section = PanEuropean.sections['6'].children['61']
 
-const variables = [
-  'in_public_ownership',
-  'in_private_ownership',
-  'other_types_of_ownership_unknown',
-]
+const variables = ['in_public_ownership', 'in_private_ownership', 'other_types_of_ownership_unknown']
 
-const years = [...PanEuropean.years90_15].reverse();
+const years = [...PanEuropean.years90_15].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_6_1,
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['total_forest_area'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['total_number_of_holdings'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['less_10_ha_area'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['less_10_ha_number'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['_11_500_ha_area'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['_11_500_ha_number'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['more_500_ha_area'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['more_500_ha_number'],
+  [SectionSpec.KEYS_TABLE.columnsExport]: [
+    'total_forest_area',
+    'total_number_of_holdings',
+    'less_10_ha_area',
+    'less_10_ha_number',
+    '_11_500_ha_area',
+    '_11_500_ha_number',
+    'more_500_ha_area',
+    'more_500_ha_number',
+  ],
 
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({

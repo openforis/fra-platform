@@ -14,15 +14,17 @@ const variables = [
   'cryptogams_and_fungi',
 ]
 
-const years = [...PanEuropean.years90_15].reverse();
+const years = [...PanEuropean.years90_15].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_4_8,
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['total_of_taxa'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['vulnerable'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['endangered'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['critically_endangered'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['extinct_in_the_wild'],
+  [SectionSpec.KEYS_TABLE.columnsExport]: [
+    'total_of_taxa',
+    'vulnerable',
+    'endangered',
+    'critically_endangered',
+    'extinct_in_the_wild',
+  ],
 
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({

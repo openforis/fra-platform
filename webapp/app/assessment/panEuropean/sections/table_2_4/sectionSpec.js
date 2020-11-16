@@ -4,25 +4,23 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 
 const section = PanEuropean.sections['2'].children['24']
 
-const variables = [
-  'forest',
-  'other_wooded_land',
-  'total_forest_and_other_wooded_land',
-]
+const variables = ['forest', 'other_wooded_land', 'total_forest_and_other_wooded_land']
 
 const years = [...PanEuropean.years90_15].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_2_4,
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['total_area_with_damage'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['insects_and_disease'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['wildlife_and_grazing'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['forest_operations'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['other'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['primarily_damaged_by_abiotic_agents'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['primarily_damaged_by_fire_total'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['of_which_human_induced'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['unspecified_mixed_damage'],
+  [SectionSpec.KEYS_TABLE.columnsExport]: [
+    'total_area_with_damage',
+    'insects_and_disease',
+    'wildlife_and_grazing',
+    'forest_operations',
+    'other',
+    'primarily_damaged_by_abiotic_agents',
+    'primarily_damaged_by_fire_total',
+    'of_which_human_induced',
+    'unspecified_mixed_damage',
+  ],
 
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({

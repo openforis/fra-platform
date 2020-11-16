@@ -4,23 +4,9 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 
 const section = PanEuropean.sections['3'].children['34']
 
-const variables1 = [
-  '_01st',
-  '_02nd',
-  '_03rd',
-  '_04th',
-  '_05th',
-  '_06th',
-  '_07th',
-  '_08th',
-  '_09th',
-  '_10th',
-]
+const variables1 = ['_01st', '_02nd', '_03rd', '_04th', '_05th', '_06th', '_07th', '_08th', '_09th', '_10th']
 
-const variables2 = [
-  'remaining_total',
-  'total',
-]
+const variables2 = ['remaining_total', 'total']
 
 const variablesMappings = {
   _01st: SectionSpec.VARIABLES._01st,
@@ -33,15 +19,20 @@ const variablesMappings = {
   _08th: SectionSpec.VARIABLES._08th,
   _09th: SectionSpec.VARIABLES._09th,
   _10th: SectionSpec.VARIABLES._10th,
+
+  remaining_total: 'remaining_total',
+  total: 'total',
 }
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_3_4,
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'name_of_service_product',
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'unit',
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'service_provision_amount_of_service_product',
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'service_provision_value_1000_national_currency',
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'forest_service_category',
+  [SectionSpec.KEYS_TABLE.columnsExport]: [
+    'name_of_service_product',
+    'unit',
+    'service_provision_amount_of_service_product',
+    'service_provision_value_1000_national_currency',
+    'forest_service_category',
+  ],
 
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
@@ -66,7 +57,7 @@ const tableSpec = SectionSpec.newTableSpec({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.marketedServices2015.forestServiceCategory',
           [SectionSpec.KEYS_COL.rowSpan]: 2,
         }),
-      ]
+      ],
     }),
 
     SectionSpec.newRowHeader({
@@ -77,7 +68,7 @@ const tableSpec = SectionSpec.newTableSpec({
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.marketedServices2015.value1000NationalCurrency',
         }),
-      ]
+      ],
     }),
 
     ...variables1.flatMap((variable) =>
@@ -90,7 +81,7 @@ const tableSpec = SectionSpec.newTableSpec({
           SectionSpec.newColDecimal(),
           SectionSpec.newColDecimal(),
           SectionSpec.newColText(),
-        ]
+        ],
       })
     ),
     ...variables2.flatMap((variable) =>
@@ -103,7 +94,7 @@ const tableSpec = SectionSpec.newTableSpec({
             [SectionSpec.KEYS_COL.idx]: 3,
           }),
           SectionSpec.newColPlaceholder(),
-        ]
+        ],
       })
     ),
   ],
