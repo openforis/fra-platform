@@ -4,19 +4,14 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 
 const section = PanEuropean.sections['4'].children['44a']
 
-const variables = [
-  'forest',
-  'other_wooded_land',
-  'total_forest_and_other_wooded_land',
-]
+const variables = ['forest', 'other_wooded_land', 'total_forest_and_other_wooded_land']
 
-const years = [...PanEuropean.years90_20].reverse();
+const years = [...PanEuropean.years90_20].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_4_4a,
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['total'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['_of_which_invasive'],
-  
+  [SectionSpec.KEYS_TABLE.columnsExport]: ['total', '_of_which_invasive'],
+
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
@@ -26,7 +21,8 @@ const tableSpec = SectionSpec.newTableSpec({
           [SectionSpec.KEYS_COL.left]: true,
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.introducedTreeSpecies.areaOfStandsDominatedByIntroducedTreeSpecies1000ha',
+          [SectionSpec.KEYS_COL.labelKey]:
+            'panEuropean.introducedTreeSpecies.areaOfStandsDominatedByIntroducedTreeSpecies1000ha',
           [SectionSpec.KEYS_COL.colSpan]: 2,
         }),
       ],
@@ -42,17 +38,14 @@ const tableSpec = SectionSpec.newTableSpec({
         }),
       ],
     }),
-    
+
     ...variables.flatMap((variable) =>
       years.map((year) =>
         SectionSpec.newRowData({
           [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.introducedTreeSpecies.${variable}`,
           [SectionSpec.KEYS_ROW.labelParams]: { year },
           [SectionSpec.KEYS_ROW.variableExport]: `${variable}_${year}`,
-          [SectionSpec.KEYS_ROW.cols]: [
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-          ],
+          [SectionSpec.KEYS_ROW.cols]: [SectionSpec.newColDecimal(), SectionSpec.newColDecimal()],
         })
       )
     ),
@@ -61,7 +54,10 @@ const tableSpec = SectionSpec.newTableSpec({
 
 // remove other_wooded_land_2020 & total_forest_and_other_wooded_land_2020 that are not available in the database
 for (var i = 0; i < tableSpec.rows.length; ++i) {
-  if (tableSpec.rows[i].variableExport === 'other_wooded_land_2020' || tableSpec.rows[i].variableExport === 'total_forest_and_other_wooded_land_2020')
+  if (
+    tableSpec.rows[i].variableExport === 'other_wooded_land_2020' ||
+    tableSpec.rows[i].variableExport === 'total_forest_and_other_wooded_land_2020'
+  )
     tableSpec.rows.splice(i, 1)
 }
 

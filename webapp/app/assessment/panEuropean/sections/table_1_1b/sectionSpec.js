@@ -4,28 +4,26 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 
 const section = PanEuropean.sections['1'].children['11b']
 
-const variables = [
-  'predominantly_coniferous_forest',
-  'predominantly_broadleaved_forest',
-  'mixed_forest',
-]
+const variables = ['predominantly_coniferous_forest', 'predominantly_broadleaved_forest', 'mixed_forest']
 
 const variablesMappings = {
-  predominantlyConiferousForest: SectionSpec.VARIABLES.predominantly_coniferous_forest,
-  predominantlyBroadleavedForest: SectionSpec.VARIABLES.predominantly_broadleaved_forest,
-  mixedForest: SectionSpec.VARIABLES.mixed_forest,
+  predominantly_coniferous_forest: SectionSpec.VARIABLES.predominantly_coniferous_forest,
+  predominantly_broadleaved_forest: SectionSpec.VARIABLES.predominantly_broadleaved_forest,
+  mixed_forest: SectionSpec.VARIABLES.mixed_forest,
 }
 
 const years = [...PanEuropean.years90_20]
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_1_1b,
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'forest_area_1990',
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'forest_area_2000',
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'forest_area_2005',
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'forest_area_2010',
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'forest_area_2015',
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'forest_area_2020',
+  [SectionSpec.KEYS_TABLE.columnsExport]: [
+    'forest_area_1990',
+    'forest_area_2000',
+    'forest_area_2005',
+    'forest_area_2010',
+    'forest_area_2015',
+    'forest_area_2020',
+  ],
 
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
@@ -38,8 +36,8 @@ const tableSpec = SectionSpec.newTableSpec({
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaByForestTypes.forestArea1000Ha',
           [SectionSpec.KEYS_COL.colSpan]: years.length,
-        })
-      ]
+        }),
+      ],
     }),
 
     SectionSpec.newRowHeader({

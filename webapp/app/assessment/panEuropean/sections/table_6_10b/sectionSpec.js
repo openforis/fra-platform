@@ -4,16 +4,16 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 
 const section = PanEuropean.sections['6'].children['610b']
 
-const variables = [
-  'total_forest_and_other_wooded_land',
-]
+const variables = ['total_forest_and_other_wooded_land']
 
-const years = [...PanEuropean.years05_15].reverse();
+const years = [...PanEuropean.years05_15].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_6_10b,
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['area_available_for_public_recreation'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['area_designated_and_or_managed_for_public_recreation'],
+  [SectionSpec.KEYS_TABLE.columnsExport]: [
+    'area_available_for_public_recreation',
+    'area_designated_and_or_managed_for_public_recreation',
+  ],
 
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
@@ -36,7 +36,8 @@ const tableSpec = SectionSpec.newTableSpec({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.intensityOfUse.areaAvailableForPublicRecreation',
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.intensityOfUse.areaPrimarilyDesignatedAndOrManagedForPublicRecreation',
+          [SectionSpec.KEYS_COL.labelKey]:
+            'panEuropean.intensityOfUse.areaPrimarilyDesignatedAndOrManagedForPublicRecreation',
         }),
       ],
     }),
@@ -47,10 +48,7 @@ const tableSpec = SectionSpec.newTableSpec({
           [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.intensityOfUse.${variable}`,
           [SectionSpec.KEYS_ROW.labelParams]: { year },
           [SectionSpec.KEYS_ROW.variableExport]: `${variable}_${year}`,
-          [SectionSpec.KEYS_ROW.cols]: [
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-          ],
+          [SectionSpec.KEYS_ROW.cols]: [SectionSpec.newColDecimal(), SectionSpec.newColDecimal()],
         })
       )
     ),

@@ -4,20 +4,18 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 
 const section = PanEuropean.sections['4'].children['41']
 
-const variables = [
-  'forest',
-  'other_wooded_land',
-  'total_forest_and_other_wooded_land',
-]
+const variables = ['forest', 'other_wooded_land', 'total_forest_and_other_wooded_land']
 
-const years = [...PanEuropean.years90_15].reverse();
+const years = [...PanEuropean.years90_15].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_4_1,
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['area_with_number_of_tree_species_occurring_1'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['area_with_number_of_tree_species_occurring_2_3'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['area_with_number_of_tree_species_occurring_4_5'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['area_with_number_of_tree_species_occurring_6_pl'],
+  [SectionSpec.KEYS_TABLE.columnsExport]: [
+    'area_with_number_of_tree_species_occurring_1',
+    'area_with_number_of_tree_species_occurring_2_3',
+    'area_with_number_of_tree_species_occurring_4_5',
+    'area_with_number_of_tree_species_occurring_6_pl',
+  ],
 
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
@@ -28,7 +26,8 @@ const tableSpec = SectionSpec.newTableSpec({
           [SectionSpec.KEYS_COL.left]: true,
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.treeSpeciesComposition.areaWithNumberOfTreeSpeciesOccurring1000ha',
+          [SectionSpec.KEYS_COL.labelKey]:
+            'panEuropean.treeSpeciesComposition.areaWithNumberOfTreeSpeciesOccurring1000ha',
           [SectionSpec.KEYS_COL.colSpan]: 4,
         }),
       ],
@@ -37,16 +36,20 @@ const tableSpec = SectionSpec.newTableSpec({
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.treeSpeciesComposition.area_with_number_of_tree_species_occurring_1',
+          [SectionSpec.KEYS_COL.labelKey]:
+            'panEuropean.treeSpeciesComposition.area_with_number_of_tree_species_occurring_1',
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.treeSpeciesComposition.area_with_number_of_tree_species_occurring_2_3',
+          [SectionSpec.KEYS_COL.labelKey]:
+            'panEuropean.treeSpeciesComposition.area_with_number_of_tree_species_occurring_2_3',
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.treeSpeciesComposition.area_with_number_of_tree_species_occurring_4_5',
+          [SectionSpec.KEYS_COL.labelKey]:
+            'panEuropean.treeSpeciesComposition.area_with_number_of_tree_species_occurring_4_5',
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.treeSpeciesComposition.area_with_number_of_tree_species_occurring_6_pl',
+          [SectionSpec.KEYS_COL.labelKey]:
+            'panEuropean.treeSpeciesComposition.area_with_number_of_tree_species_occurring_6_pl',
         }),
       ],
     }),

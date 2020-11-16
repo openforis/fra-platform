@@ -4,21 +4,13 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 
 const section = PanEuropean.sections['1'].children['14a']
 
-const variables = [
-  'forest',
-  'other_wooded_land',
-  'total_forest_and_other_wooded_land',
-]
+const variables = ['forest', 'other_wooded_land', 'total_forest_and_other_wooded_land']
 
-const years = [...PanEuropean.years90_20].reverse();
+const years = [...PanEuropean.years90_20].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_1_4a,
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['above_ground'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['below_ground'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['deadwood'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['litter'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['soil_carbon'],
+  [SectionSpec.KEYS_TABLE.columnsExport]: ['above_ground', 'below_ground', 'deadwood', 'litter', 'soil_carbon'],
 
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
@@ -36,7 +28,7 @@ const tableSpec = SectionSpec.newTableSpec({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.carbonStock.carbonInDeadwoodAndLitter',
           [SectionSpec.KEYS_COL.colSpan]: 2,
         }),
-        SectionSpec.newColHeader({        
+        SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.carbonStock.soil_carbon',
           [SectionSpec.KEYS_COL.rowSpan]: 2,
           [SectionSpec.KEYS_COL.left]: true,

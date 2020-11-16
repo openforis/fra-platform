@@ -11,13 +11,11 @@ const variables = [
   'total_forest_and_other_wooded_land',
 ]
 
-const years = [...PanEuropean.years90_20].reverse();
+const years = [...PanEuropean.years90_20].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_1_2a,
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['total'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['coniferous'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['broadleaved'],
+  [SectionSpec.KEYS_TABLE.columnsExport]: ['total', 'coniferous', 'broadleaved'],
 
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({

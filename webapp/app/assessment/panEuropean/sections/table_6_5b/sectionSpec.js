@@ -4,21 +4,19 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 
 const section = PanEuropean.sections['6'].children['65b']
 
-const variables = [
-  'forestry',
-  'manufacture_of_wood_and_articles_in_wood',
-  'manufacture_of_paper_and_paper_products',
-]
+const variables = ['forestry', 'manufacture_of_wood_and_articles_in_wood', 'manufacture_of_paper_and_paper_products']
 
-const years = [...PanEuropean.years90_15].reverse();
+const years = [...PanEuropean.years90_15].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_6_5b,
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['education_0_2'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['education_3_4'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['education_5_6'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['employees'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['self_employed'],
+  [SectionSpec.KEYS_TABLE.columnsExport]: [
+    'education_0_2',
+    'education_3_4',
+    'education_5_6',
+    'employees',
+    'self_employed',
+  ],
 
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({

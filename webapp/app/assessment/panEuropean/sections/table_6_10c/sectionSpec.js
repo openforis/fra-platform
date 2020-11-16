@@ -4,16 +4,16 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 
 const section = PanEuropean.sections['6'].children['610c']
 
-const variables = [
-  'area_available_for_public_recreation',
-]
+const variables = ['area_available_for_public_recreation']
 
-const years = [...PanEuropean.years15].reverse();
+const years = [...PanEuropean.years15].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_6_10c,
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['forest_roads_and_paths_available_for_public_recreation'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['_of_which_designated_for_hiking_biking_cross_country_skiing_etc'],
+  [SectionSpec.KEYS_TABLE.columnsExport]: [
+    'forest_roads_and_paths_available_for_public_recreation',
+    '_of_which_designated_for_hiking_biking_cross_country_skiing_etc',
+  ],
 
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
@@ -24,10 +24,12 @@ const tableSpec = SectionSpec.newTableSpec({
           [SectionSpec.KEYS_COL.left]: true,
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.recreationFacilities.forestRoadsAndPathsAvailableForPublicRecreation',
+          [SectionSpec.KEYS_COL.labelKey]:
+            'panEuropean.recreationFacilities.forestRoadsAndPathsAvailableForPublicRecreation',
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.recreationFacilities._ofWhichDesignatedForHikingBikingCrossCountrySkiingEtc',
+          [SectionSpec.KEYS_COL.labelKey]:
+            'panEuropean.recreationFacilities._ofWhichDesignatedForHikingBikingCrossCountrySkiingEtc',
         }),
       ],
     }),
@@ -47,10 +49,7 @@ const tableSpec = SectionSpec.newTableSpec({
           [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.recreationFacilities.${variable}`,
           [SectionSpec.KEYS_ROW.labelParams]: { year },
           [SectionSpec.KEYS_ROW.variableExport]: `${variable}_${year}`,
-          [SectionSpec.KEYS_ROW.cols]: [
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-          ],
+          [SectionSpec.KEYS_ROW.cols]: [SectionSpec.newColDecimal(), SectionSpec.newColDecimal()],
         })
       )
     ),

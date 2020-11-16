@@ -4,11 +4,9 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 
 const section = PanEuropean.sections['6'].children['64b']
 
-const variables = [
-  'forestry_isic_nace_02',
-]
+const variables = ['forestry_isic_nace_02']
 
-const years = [...PanEuropean.years90_15].reverse();
+const years = [...PanEuropean.years90_15].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_6_4b,
@@ -22,7 +20,8 @@ const tableSpec = SectionSpec.newTableSpec({
           [SectionSpec.KEYS_COL.left]: true,
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.totalFixedCapitalConsumptionInForestsAndForestry.fixed_capital_consumption',
+          [SectionSpec.KEYS_COL.labelKey]:
+            'panEuropean.totalFixedCapitalConsumptionInForestsAndForestry.fixed_capital_consumption',
         }),
       ],
     }),

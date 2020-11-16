@@ -4,26 +4,17 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 
 const section = PanEuropean.sections['4'].children['45']
 
-const variables1 = [
-  'forest',
-  'other_wooded_land',
-  'total_forest_and_other_wooded_land',
-]
+const variables1 = ['forest', 'other_wooded_land', 'total_forest_and_other_wooded_land']
 
-const variables2 = [
-  'coniferous',
-  'broadleaved',
-]
+const variables2 = ['coniferous', 'broadleaved']
 
-const years1 = [...PanEuropean.years90_15].reverse();
+const years1 = [...PanEuropean.years90_15].reverse()
 
 const years2 = [...PanEuropean.years15]
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_4_5,
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['total'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['standing'],
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['lying'],
+  [SectionSpec.KEYS_TABLE.columnsExport]: ['total', 'standing', 'lying'],
 
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({

@@ -24,7 +24,7 @@ const variables = [
   '_17',
   '_18',
   '_19',
-  '_20'
+  '_20',
 ]
 
 const variablesMappings = {
@@ -54,10 +54,12 @@ const years = [...PanEuropean.years05_15]
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_4_4b,
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'scientific_name_of_introduced_tree_species',
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'forest_area_occupied_2005',
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'forest_area_occupied_2010',
-  [SectionSpec.KEYS_TABLE.columnsExport]: 'forest_area_occupied_2015',
+  [SectionSpec.KEYS_TABLE.columnsExport]: [
+    'scientific_name_of_introduced_tree_species',
+    'forest_area_occupied_2005',
+    'forest_area_occupied_2010',
+    'forest_area_occupied_2015',
+  ],
 
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
@@ -68,15 +70,16 @@ const tableSpec = SectionSpec.newTableSpec({
           [SectionSpec.KEYS_COL.left]: true,
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.introducedTreeSpecies4_4b.scientificNameOfIntroducedTreeSpecies',
+          [SectionSpec.KEYS_COL.labelKey]:
+            'panEuropean.introducedTreeSpecies4_4b.scientificNameOfIntroducedTreeSpecies',
           [SectionSpec.KEYS_COL.rowSpan]: 2,
           [SectionSpec.KEYS_COL.left]: true,
         }),
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.introducedTreeSpecies4_4b.forestAreaOccupied1000Ha',
           [SectionSpec.KEYS_COL.colSpan]: years.length,
-        })
-      ]
+        }),
+      ],
     }),
 
     SectionSpec.newRowHeader({
@@ -91,10 +94,7 @@ const tableSpec = SectionSpec.newTableSpec({
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.variableExport]: variablesMappings[variable],
         [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.introducedTreeSpecies4_4b.${variable}`,
-        [SectionSpec.KEYS_ROW.cols]: [
-          SectionSpec.newColText(),
-          ...years.map(() => SectionSpec.newColDecimal())
-        ]
+        [SectionSpec.KEYS_ROW.cols]: [SectionSpec.newColText(), ...years.map(() => SectionSpec.newColDecimal())],
       })
     ),
   ],
