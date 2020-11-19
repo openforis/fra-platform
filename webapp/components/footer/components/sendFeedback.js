@@ -9,11 +9,16 @@ const SendFeedback = () => {
 
   const newLine = `%0D%0A`
   const subject = i18n.t('navigation.support.feedbackEmailSubject')
+  let userInformationLine = ''
+  if (userInfo) {
+    userInformationLine = `${i18n.t('navigation.support.user')}: ${userInfo.name} (${userInfo.id})`
+  }
+
   const body = `
 ${newLine}${newLine}
 *** ${i18n.t('navigation.support.dontDelete')} ***
 ${newLine}${newLine}
-${i18n.t('navigation.support.user')}: ${userInfo.name} (${userInfo.id})
+${userInformationLine}
 ${newLine}
 ${i18n.t('navigation.support.platformVersion')}: ${__APPLICATION_VERSION__}
 ${newLine}
