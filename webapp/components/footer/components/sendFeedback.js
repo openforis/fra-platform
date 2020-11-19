@@ -9,7 +9,7 @@ const SendFeedback = () => {
 
   const newLine = `%0D%0A`
   const subject = i18n.t('navigation.support.feedbackEmailSubject')
-  let userInformationLine = `${i18n.t('navigation.support.user')}: Not logged in`
+  let userInformationLine = ''
   if (userInfo) {
     userInformationLine = `${i18n.t('navigation.support.user')}: ${userInfo.name} (${userInfo.id})`
   }
