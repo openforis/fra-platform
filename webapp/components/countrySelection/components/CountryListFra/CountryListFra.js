@@ -22,7 +22,10 @@ const CountryListFra = (props) => {
   const i18n = useI18n()
 
   const regions = useRegions()
-  const filteredRegions = regions.filter((region) => checkMatch(Area.getListName(region, i18n), query))
+
+  const filteredRegions = regions
+    .filter((region) => checkMatch(Area.getListName(region, i18n), query))
+    .filter((region) => region !== Area.levels.forest_europe)
 
   return (
     <div className="country-selection-list">

@@ -41,7 +41,7 @@ const AreaSelector = () => {
         <div>{i18n.t('common.regions')}</div>
         <DropdownAreas
           area={areas.regions}
-          areaISOs={regions}
+          areaISOs={regions.filter((region) => region !== Area.levels.forest_europe)}
           assessmentType={Fra.type}
           dropdownOpened={dropdownOpened}
           setDropdownOpened={setDropdownOpened}

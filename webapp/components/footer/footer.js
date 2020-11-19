@@ -46,10 +46,10 @@ const Footer = () => {
           <a target="_top" href={`/api/fileRepository/userGuide/${language}`}>
             {i18n.t('footer.userGuide')}
           </a>
-          <div className="separator" />
-          <SendFeedback />
         </>
       )}
+      <div className="separator" />
+      <SendFeedback />
 
       <span className="copyright">&copy; FAO, {new Date().getFullYear()}</span>
     </footer>
