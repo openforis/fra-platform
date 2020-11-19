@@ -104,10 +104,10 @@ const ResultsTable = (props) => {
       <table ref={tableRef} className="fra-table data-table">
         <thead>
           <tr>
-            <th className="fra-table__header-cell-left" colSpan="1" rowSpan="2">
+            <th className="fra-table__header-cell-left" rowSpan="2">
               &nbsp;
             </th>
-            <th className="fra-table__header-cell" colSpan={columnsResults.length + 1}>
+            <th className="fra-table__header-cell" colSpan={columnsResults.length}>
               <ResultsTableTitle
                 baseUnit={baseUnit}
                 selected={unit}
