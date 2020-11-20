@@ -2,8 +2,8 @@ name: Deploy to development
 
 on:
   push:
-    branches:
-      - 'feature/github-actions'
+    tags:
+      - '*'
 
 jobs:
   build:
@@ -12,25 +12,24 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: "0"
+          fetch-depth: "0" # fetch all tags, default 1
 
       - name: Use Node.js 14.15.0
         uses: actions/setup-node@v1
         with:
           node-version: '14.15.0'
-#      - run: yarn
-#      - run: yarn test
+
+      - run: yarn
+      - run: yarn test
+
       - name: Get the version
         id: app_version
         run: echo ::set-output name=APP_VERSION::$(git describe --always --tags)
-      - name: test
-        run: echo ${{ steps.app_version.outputs.APP_VERSION }}
-      - run: echo "$GITHUB_REF"
 
-#    - uses: akhileshns/heroku-deploy@v3.6.8 # This is the action
-#      with:
-#       heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-#       heroku_app_name: ${{secrets.HEROKU_APP_NAME_DEVELOPMENT}}
-#       heroku_email: ${{secrets.HEROKU_EMAIL}}
-#     env:
-#       APP_VERSION:
+      - uses: akhileshns/heroku-deploy@v3.6.8 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME_DEVELOPMENT}}
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+        env:
+          APP_VERSION: ${{ steps.app_version.outputs.APP_VERSION }}
