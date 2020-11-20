@@ -17,5 +17,6 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '14.15.0'
+    - run: yarn
     - run: yarn test
       
