@@ -1,0 +1,34 @@
+name: Deploy to development
+
+on:
+  push:
+    branches:
+      - 'feature/github-actions'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js 14.15.0
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.15.0'
+      #    - run: yarn
+      #    - run: yarn test
+      - name: Get APP_VERSION number
+        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+        id: get_version
+
+      - run: echo "app version is: ${{ steps.get_version.outputs.VERSION }}"
+      - run: echo $GITHUB_REF
+
+#    - uses: akhileshns/heroku-deploy@v3.6.8 # This is the action
+#      with:
+#       heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+#       heroku_app_name: ${{secrets.HEROKU_APP_NAME_DEVELOPMENT}}
+#       heroku_email: ${{secrets.HEROKU_EMAIL}}
+#     env:
+#       APP_VERSION:
