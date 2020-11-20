@@ -1,10 +1,6 @@
-name: Node.js CI
+name: Run yarn test
 
-on:
-  push:
-    branches: [ feature/github-actions ]
-  pull_request:
-    branches: [ feature/github-actions ]
+on: [push]
 
 jobs:
   build:
