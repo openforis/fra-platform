@@ -84,6 +84,7 @@
     "cluster": "^0.7.7",
     "compression": "^1.6.2",
     "connect-pg-simple": "^6.2.1",
+    "connect-wwwhisper": "^0.1.21",
     "cookie-parser": "^1.4.5",
     "core-js": "^3.7.0",
     "d3": "^6.2.0",

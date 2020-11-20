@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const compression = require('compression')
 const fileUpload = require('express-fileupload')
 const morgan = require('morgan')
+const wwwhisper = require('connect-wwwhisper')
 
 const sessionInit = require('./sessionInit')
 const apiRouter = require('./apiRouter')
@@ -14,6 +15,7 @@ const { sendErr } = require('./utils/requestUtils')
 
 module.exports = () => {
   const app = express()
+  app.use(wwwhisper())
 
   if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'))
