@@ -8,6 +8,8 @@ module.exports = {
   NA: { listName: 'North and Central America' },
   OC: { listName: 'Oceania' },
   SA: { listName: 'South America' },
+  EU27: { listName: 'EU-27' },
+
   ABW: { listName: 'Aruba' },
   AFG: { listName: 'Afghanistan' },
   AGO: { listName: 'Angola' },

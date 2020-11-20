@@ -3,10 +3,12 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
-import { Area, Country } from '@common/country'
 import * as BasePaths from '@webapp/main/basePaths'
 
+import { Area, Country } from '@common/country'
+
 import { useI18n } from '@webapp/components/hooks'
+import { useRegions } from '@webapp/app/hooks'
 
 import DropdownAreas from './DropdownAreas'
 
@@ -17,6 +19,7 @@ const areas = {
 
 const AreaSelector = () => {
   const i18n = useI18n()
+  const regions = useRegions()
   const [dropdownOpened, setDropdownOpened] = useState('')
   const [countryISOs, setCountryISOs] = useState([])
 
@@ -39,7 +42,7 @@ const AreaSelector = () => {
       <div>{i18n.t('common.regions')}</div>
       <DropdownAreas
         area={areas.regions}
-        areaISOs={Area.levels.regions}
+        areaISOs={regions}
         dropdownOpened={dropdownOpened}
         setDropdownOpened={setDropdownOpened}
       />

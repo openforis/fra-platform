@@ -8,7 +8,6 @@ import UsersCount from './usersCount'
 import EditUserForm from '@webapp/app/user/userManagement/edit/editUserForm'
 
 import { fetchAllUsers, removeUser, sendInvitationEmail } from '../../user/userManagement/actions'
-import { getCountryName } from '@webapp/app/country/actions'
 import { administrator } from '@common/countryRole'
 
 import * as AppState from '@webapp/app/appState'
@@ -71,5 +70,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  { fetchAllUsers, removeUser, sendInvitationEmail, getCountryName }
+  { fetchAllUsers, removeUser, sendInvitationEmail }
 )(UsersManagementView)
