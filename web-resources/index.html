@@ -1,11 +1,35 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>FRA platform</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script src="/ckeditor/ckeditor.js"></script>
-</head>
-<body>
-<div id="main"></div>
-</body>
+  </head>
+  <body>
+    <div id="main"></div>
+
+    <!-- Google Analytics -->
+    <script>
+      ;(function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r
+        ;(i[r] =
+          i[r] ||
+          function () {
+            ;(i[r].q = i[r].q || []).push(arguments)
+          }),
+          (i[r].l = 1 * new Date())
+        ;(a = s.createElement(o)), (m = s.getElementsByTagName(o)[0])
+        a.async = 1
+        a.src = g
+        m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', '//www.google-analytics.com/analytics.js', '_gaTracker')
+      _gaTracker('create', ' UA-28772471-44', 'fao.org')
+      _gaTracker('send', 'pageview')
+      _gaTracker('create', 'UA-16796074-1', { name: 'allTracker' })
+      _gaTracker('allTracker.send', 'pageview')
+      _gaTracker('create', 'UA-16957552-1', { name: 'allSites' })
+      _gaTracker('allSites.send', 'pageview')
+    </script>
+    <!-- End Google Analytics -->
+  </body>
 </html>
