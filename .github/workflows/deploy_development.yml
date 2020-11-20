@@ -23,6 +23,7 @@ jobs:
         run: echo ::set-output name=APP_VERSION::$(git describe --always)
       - name: test
         run: echo ${{ steps.app_version.outputs.APP_VERSION }}
+      - run: echo $GITHUB_REF
 
 #    - uses: akhileshns/heroku-deploy@v3.6.8 # This is the action
 #      with:
