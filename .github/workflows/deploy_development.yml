@@ -18,9 +18,11 @@ jobs:
           node-version: '14.15.0'
 #      - run: yarn
 #      - run: yarn test
+      - name: Get the version
+        id: app_version
+        run: echo ::set-output name=APP_VERSION::$(git describe --always)
       - name: test
-        run: echo $APP_VERSION
-        env: APP_VERSION=git describe --always
+        run: echo ${{ steps.app_version.outputs.APP_VERSION }}
 
 #    - uses: akhileshns/heroku-deploy@v3.6.8 # This is the action
 #      with:
