@@ -50,7 +50,7 @@ const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_6_9,
   [SectionSpec.KEYS_TABLE.columnsExport]: years.flatMap((year) =>
     categories.map((category) => 
-      `${year}_${category}`
+      `_${year}_${category}`
     )
   ),
 

@@ -1103,6 +1103,12 @@ The FRA team
       predominantly_coniferous_forest: 'Predominantly coniferous forest',
       predominantly_broadleaved_forest: 'Predominantly broadleaved forest',
       mixed_forest: 'Mixed forest',
+      forest_area_1990: 'Forest area (1000 ha) - 1990',
+      forest_area_2000: 'Forest area (1000 ha) - 2000',
+      forest_area_2005: 'Forest area (1000 ha) - 2005',
+      forest_area_2010: 'Forest area (1000 ha) - 2010',
+      forest_area_2015: 'Forest area (1000 ha) - 2015',
+      forest_area_2020: 'Forest area (1000 ha) - 2020',
     },
 
     // table 1.2a
@@ -1128,6 +1134,12 @@ The FRA team
       predominantly_coniferous_forest: 'Predominantly coniferous forest',
       predominantly_broadleaved_forest: 'Predominantly broadleaved forest',
       mixed_forest: 'Mixed forest',
+      growing_stock_1990: 'Growing stock (million m³ o.b.) - 1990',
+      growing_stock_2000: 'Growing stock (million m³ o.b.) - 2000',
+      growing_stock_2005: 'Growing stock (million m³ o.b.) - 2005',
+      growing_stock_2010: 'Growing stock (million m³ o.b.) - 2010',
+      growing_stock_2015: 'Growing stock (million m³ o.b.) - 2015',
+      growing_stock_2020: 'Growing stock (million m³ o.b.) - 2020',
     },
 
     // table 1.2c
@@ -1150,6 +1162,14 @@ The FRA team
       no10_ranked_in_terms_of_volume: '#10 Ranked in terms of volume',
       remaining: 'Remaining',
       total: 'TOTAL',
+      scientific_name: 'Scientific name',
+      common_name: 'Common name',
+      growing_stock_in_forest_1990: 'Growing stock in forest (million m³ o.b.) - 1990',
+      growing_stock_in_forest_2000: 'Growing stock in forest (million m³ o.b.) - 2000',
+      growing_stock_in_forest_2005: 'Growing stock in forest (million m³ o.b.) - 2005',
+      growing_stock_in_forest_2010: 'Growing stock in forest (million m³ o.b.) - 2010',
+      growing_stock_in_forest_2015: 'Growing stock in forest (million m³ o.b.) - 2015',
+      growing_stock_in_forest_2020: 'Growing stock in forest (million m³ o.b.) - 2020',
     },
 
     // table 1.3a1
@@ -1273,6 +1293,13 @@ The FRA team
       other_wooded_land: 'Other wooded land - {{year}}',
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
       otherNames: 'The names of the other factors that area is primarily degraded by',
+      total_area_of_degraded_land: 'Total area of degraded land',
+      repeated_fires: 'Repeated fires',
+      air_pollution: 'Air pollution',
+      other_1: 'Other 1',
+      other_2: 'Other 2',
+      other_3: 'Other 3',
+      former_degraded_land_restored: 'Former degraded land restored',
     },
 
     // table 3.1
@@ -1301,6 +1328,11 @@ The FRA team
       volume1000M3UB: 'Volume (1000 m³ u.b.)',
       marketValue1000NationalCurrency: 'Market Value (1000  national currency)',
       roundwood: 'Roundwood - {{year}}',
+      total_volume: 'Wood removals - Total - Volume (1000 m³ u.b.)',
+      industrial_roundwood_volume: 'Wood removals - Industrial roundwood - Volume (1000 m³ u.b.)',
+      industrial_roundwood_market_value: 'Wood removals - Industrial roundwood - Market Value (1000  national currency)',
+      woodfuel_volume: 'Wood removals - Woodfuel - Volume (1000 m³ u.b.)',
+      woodfuel_market_value: 'Wood removals - Woodfuel - Market Value (1000  national currency)',
     },
 
     // table 3.3
@@ -1327,6 +1359,12 @@ The FRA team
       all_other_plant_products: 'All other plant products',
       all_other_animal_products: 'All other animal products',
       total: 'TOTAL',
+      name_of_groups_of_product: 'Name of (groups of) product',
+      key_species: 'Key species',
+      total_harvested_non_wood_goods_unit: 'Total harvested non-wood goods - Unit',
+      total_harvested_non_wood_goods_quantity: 'Total harvested non-wood goods - Quantity',
+      market_value_1000_national_currency: 'Market value (1000 national currency)',
+      nwfp_category: 'NWFP category',
     },
 
     // table 3.4
@@ -1351,6 +1389,10 @@ The FRA team
       _10th: '10th',
       remaining_total: 'Remaining total',
       total: 'Total',
+      name_of_service_product: 'Name of service/product',
+      service_provision_amount_of_service_product: 'Service provision - Amount of service/product',
+      service_provision_value_1000_national_currency: 'Service provision - Value (1000 national currency)',
+      forest_service_category: 'Forest service category',
     },
 
     // table 4.1
@@ -1464,6 +1506,10 @@ The FRA team
       _18: 18,
       _19: 19,
       _20: 20,
+      scientific_name_of_introduced_tree_species: 'Scientific name of introduced tree species',
+      forest_area_occupied_2005: 'Forest area occupied (1000 ha) - 2005',
+      forest_area_occupied_2010: 'Forest area occupied (1000 ha) - 2010',
+      forest_area_occupied_2015: 'Forest area occupied (1000 ha) - 2015',
     },
 
     // table 4.4c
@@ -1492,6 +1538,10 @@ The FRA team
       _18: 18,
       _19: 19,
       _20: 20,
+      scientific_name_of_invasive_tree_species: 'Scientific name of invasive tree species',
+      forest_area_affected_2005: 'Forest area affected (1000 ha) - 2005',
+      forest_area_affected_2010: 'Forest area affected (1000 ha) - 2010',
+      forest_area_affected_2015: 'Forest area affected (1000 ha) - 2015',
     },
 
     // table4.5
@@ -1612,6 +1662,9 @@ The FRA team
       otherGrossFixedCapitalFormation: 'Other Gross fixed capital formation',
       total: 'Total',
       forestry_isic_nace_02: 'Forestry (ISIC/NACE 02) - {{year}}',
+      planting_of_trees_to_provide_regular_income: 'Planting of trees to provide regular income',
+      equipment_and_buildings: 'Equipment and buildings',
+      other_gross_fixed_capital_formation: 'Other Gross fixed capital formation',
     },
 
     // table 6.4b
@@ -1645,6 +1698,10 @@ The FRA team
       forestry: 'Forestry (ISIC/NACE 02) - {{year}}',
       manufacture_of_wood_and_articles_in_wood: 'Manufacture of wood and articles in wood (ISIC/NACE 16) - {{year}}',
       manufacture_of_paper_and_paper_products: 'Manufacture of paper and paper products (ISIC/NACE 17) - {{year}}',
+      gender_male: 'Gender - Male',
+      gender_female: 'Gender - Female',
+      age_group_15_49: 'Age group - 15-49',
+      age_group_50_plus: 'Age group - 50+',
     },
 
     // table 6.5b
@@ -1662,6 +1719,10 @@ The FRA team
       forestry: 'Forestry (ISIC/NACE 02) - {{year}}',
       manufacture_of_wood_and_articles_in_wood: 'Manufacture of wood and articles in wood (ISIC/NACE 16) - {{year}}',
       manufacture_of_paper_and_paper_products: 'Manufacture of paper and paper products (ISIC/NACE 17) - {{year}}',
+      education_0_2: 'Education (Categories ISCED 1997) - 0-2',
+      education_3_4: 'Education (Categories ISCED 1997) - 3-4',
+      education_5_6: 'Education (Categories ISCED 1997) - 5-6',
+      self_employed: 'Self-employed',
     },
 
     // table 6.6
@@ -1673,6 +1734,10 @@ The FRA team
       number: 'Number',
       annualRatePer1000Workers: 'Annual rate per 1000 workers',
       forestry_isic_nace_02: 'Forestry (ISIC/NACE 02) - {{year}}',
+      fatal_occupational_accidents_number: 'Fatal occupational accidents - Number',
+      fatal_occupational_accidents_per_1000_workers: 'Fatal occupational accidents - Annual rate per 1000 workers',
+      non_fatal_occupational_accidents_number: 'Non-fatal occupational accidents - Number',
+      non_fatal_occupational_accidents_per_1000_workers: 'Non-fatal occupational accidents - Annual rate per 1000 workers',
     },
 
     // table 6.7
@@ -1764,6 +1829,16 @@ The FRA team
       of_which_imported: 'of which imported',
       energy_from_post_consumer_recovered_wood: '- Energy from post-consumer recovered wood',
       energy_from_unknown_unspecified_sources: '- Energy from unknown/unspecified sources',
+      _2007_tj: '2007 - TJ',
+      _2009_tj: '2009 - TJ',
+      _2011_tj: '2011 - TJ',
+      _2013_tj: '2013 - TJ',
+      _2015_tj: '2015 - TJ',
+      _2007__1000MetricTonnesDryMatter: '2007 - 1000 metric tonnes dry matter',
+      _2009__1000MetricTonnesDryMatter: '2009 - 1000 metric tonnes dry matter',
+      _2011__1000MetricTonnesDryMatter: '2011 - 1000 metric tonnes dry matter',
+      _2013__1000MetricTonnesDryMatter: '2013 - 1000 metric tonnes dry matter',
+      _2015__1000MetricTonnesDryMatter: '2015 - 1000 metric tonnes dry matter',
     },
 
     // table 6.10a
@@ -1775,6 +1850,10 @@ The FRA team
       _oftotal: '% of total',
       areaPrimarilyDesignatedOrManagedForPublicRecreation: 'Area primarily designated or managed for public recreation',
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
+      area_available_for_public_recreation_total: 'Area available for public recreation - Total (1000 ha)',
+      area_available_for_public_recreation_percent: 'Area available for public recreation - % of total',
+      area_designated_or_managed_for_public_recreation_total: 'Area primarily designated or managed for public recreation - Total (1000 ha)',
+      area_designated_or_managed_for_public_recreation_percent: 'Area primarily designated or managed for public recreation - % of total',
     },
 
     // table 6.10b
@@ -1786,6 +1865,9 @@ The FRA team
       areaPrimarilyDesignatedAndOrManagedForPublicRecreation:
         'Area primarily designated and/or managed for public recreation',
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
+      area_available_for_public_recreation: 'Area available for public recreation - Annual number of visits (million)',
+      area_designated_and_or_managed_for_public_recreation: 
+        'Area primarily designated and/or managed for public recreation - Annual number of visits (million)',
     },
 
     // table 6.10c
@@ -1797,6 +1879,9 @@ The FRA team
         '... of which designated for hiking, biking, cross country skiing, etc.',
       facilityLengthIn1000Km: 'Facility (length in 1000 km)',
       area_available_for_public_recreation: 'Area available for public recreation - {{year}}',
+      forest_roads_and_paths_available_for_public_recreation: 'Forest roads and paths available for public recreation - Facility (length in 1000 km)',
+      _of_which_designated_for_hiking_biking_cross_country_skiing_etc:
+        '... of which designated for hiking, biking, cross country skiing, etc. - Facility (length in 1000 km)',
     },
 
     // table 6.10d
