@@ -48,6 +48,7 @@ const Section = (props) => {
   }, [])
 
   const children = Object.values(section.children)
+
   const filteredChildren = isDataExport
     ? children.filter((subsection) => SectionSpec.getSectionSpec(assessmentType, subsection.name).dataExport.included)
     : children
@@ -55,6 +56,8 @@ const Section = (props) => {
   if (!filteredChildren.length) {
     return null
   }
+
+  filteredChildren.sort((child1, child2) => child1.anchor.localeCompare(child2.anchor, undefined, { numeric: true }))
 
   return (
     <div className="nav-section">

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as LandingState from '@webapp/app/countryLanding/landingState'
 import { i18nUserRole, profilePictureUri } from '@common/userUtils'
 import Icon from '@webapp/components/icon'
-import * as UserState from '@webapp/user/userState'
+import { UserState } from '@webapp/store/user'
 
 import { openChat } from '@webapp/app/user/chat/actions'
 import { closeCountryMessageBoard } from '@webapp/app/countryLanding/views/messageBoard/actions'

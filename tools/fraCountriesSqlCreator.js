@@ -73,7 +73,6 @@ const getCountrySqlUpdates = async (countriesFileName, fraCountriesFileName, euC
         full_name_fr = '${c.fullNameFr.replaceAll(`'`, `''`)}',
         list_name_ru = '${c.listNameRu.replaceAll(`'`, `''`)}',
         full_name_ru = '${c.fullNameRu.replaceAll(`'`, `''`)}',
-        pan_european = ${c.panEuropean}
     WHERE
         country_iso = '${c.iso3}';
     `)

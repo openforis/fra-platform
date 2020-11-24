@@ -12,12 +12,12 @@
   & when (@hover=true) {
     &:hover {
       color: inherit;
-      background-color: darken(@ui-bg, 4%);
+      background-color: var(--ui-bg-hover);
       transition: @ease-out;
     }
 
     &.selected {
-      background-color: @ui-accent-light;
+      background-color: var(--ui-accent-light);
       pointer-events: none;
     }
   }

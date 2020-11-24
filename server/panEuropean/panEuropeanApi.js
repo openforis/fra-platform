@@ -7,6 +7,7 @@ const {getCountry} = require('./../country/countryRepository')
 const {sendErr} = require('../utils/requestUtils')
 
 const {fileTypes, downloadFile} = require('../fileRepository/fileRepository')
+const Country = require('../../common/country/country')
 
 const Auth = require('../auth/authApiMiddleware')
 const VersionService = require('../versioning/service')
@@ -15,7 +16,7 @@ module.exports.init = app => {
 
   const isPanEuropeanCountry = async (countryIso) => {
     const country = await getCountry(countryIso)
-    return country.panEuropean
+    return Country.isPanEuropean(country)
   }
 
   app.get('/panEuropean/:countryIso/uploadedQuestionareInfo', async (req, res) => {

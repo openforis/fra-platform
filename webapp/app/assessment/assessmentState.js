@@ -9,7 +9,7 @@ import { assessmentStatus } from '@common/assessment'
 
 import * as AppState from '@webapp/app/appState'
 import * as CountryState from '@webapp/app/country/countryState'
-import * as UserState from '@webapp/user/userState'
+import { UserState } from '@webapp/store/user'
 
 export const stateKey = 'assessment'
 
