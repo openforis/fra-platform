@@ -19,7 +19,7 @@ import TextInput from '@webapp/components/textInput'
 
 import * as AppState from '@webapp/app/appState'
 import * as CountryState from '@webapp/app/country/countryState'
-import * as UserState from '@webapp/user/userState'
+import { UserState } from '@webapp/store/user'
 
 import { loadUserToEdit, persistUser } from '../actions'
 import CountrySelectionModal from './countrySelectionModal'

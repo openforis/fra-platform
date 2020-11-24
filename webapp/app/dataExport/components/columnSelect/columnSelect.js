@@ -13,6 +13,8 @@ const ColumnSelect = (props) => {
 
   const getLabel = (column) => getI18nKey(column, section, assessmentType)
 
+  const columnsAsArray = Array.isArray(columns) ? columns : [columns]
+
   return (
     <div className="export__form-section export-select-all">
       <div className="export__form-section-header">
@@ -32,7 +34,7 @@ const ColumnSelect = (props) => {
       <div className="divider" />
 
       <div className="export__form-section-variables">
-        {columns.map((column) => {
+        {columnsAsArray.map((column) => {
           const selected = !!selectionColumns.find(({ param }) => param === column)
           const label = getLabel(column)
           return (

@@ -1,11 +1,11 @@
 import { isCollaborator } from '@common/countryRole'
 import { isCollaboratorAllowedToEditSectionData } from '@common/assessmentRoleAllowance'
-import { isPrintingMode } from '@webapp/app/assessment/components/print/printAssessment'
+import { isPrintingMode } from '@webapp/pages/AssessmentPrint/printAssessment'
 
 import * as Assessment from '@common/assessment/assessment'
 
 import * as AppState from '@webapp/app/appState'
-import * as UserState from '@webapp/user/userState'
+import { UserState } from '@webapp/store/user'
 import * as CountryState from '@webapp/app/country/countryState'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 

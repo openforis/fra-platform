@@ -31,24 +31,40 @@ const OriginalData = (props) => {
         <NavLink
           className="odp__tab-item"
           activeClassName="active"
-          to={BasePaths.getOdpLink(countryIso, extentOfForest.name, odpId)}
+          to={BasePaths.getOdpLink(countryIso, FRA.type, extentOfForest.name, odpId)}
         >
           {`${extentOfForest.anchor} ${i18n.t('nationalDataPoint.forestCategoriesLabel')}`}
         </NavLink>
         <NavLink
           className={`odp__tab-item${useOriginalDataPointsInFoc ? '' : ' disabled'}`}
           activeClassName="active"
-          to={BasePaths.getOdpLink(countryIso, forestCharacteristics.name, odpId)}
+          to={BasePaths.getOdpLink(countryIso, FRA.type, forestCharacteristics.name, odpId)}
         >
           {`${forestCharacteristics.anchor} ${i18n.t('nationalDataPoint.forestCharacteristics')}`}
         </NavLink>
       </div>
 
       <Switch>
-        <Route path={BasePaths.getOdpLink(':countryIso', extentOfForest.name, ':odpId')} exact>
+        <Route
+          path={BasePaths.getOdpLink(
+            BasePaths.PARAMS.countryIso,
+            BasePaths.PARAMS.assessmentType,
+            extentOfForest.name,
+            BasePaths.PARAMS.odpId
+          )}
+          exact
+        >
           <ExtentOfForest canEditData={canEditData} odp={odp} />
         </Route>
-        <Route path={BasePaths.getOdpLink(':countryIso', forestCharacteristics.name, ':odpId')} exact>
+        <Route
+          path={BasePaths.getOdpLink(
+            BasePaths.PARAMS.countryIso,
+            BasePaths.PARAMS.assessmentType,
+            forestCharacteristics.name,
+            BasePaths.PARAMS.odpId
+          )}
+          exact
+        >
           <ForestCharacteristics canEditData={canEditData} odp={odp} />
         </Route>
       </Switch>

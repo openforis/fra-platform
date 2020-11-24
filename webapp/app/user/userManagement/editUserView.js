@@ -7,7 +7,7 @@ import EditUserForm from './edit/editUserForm'
 
 import { isAdministrator } from '@common/countryRole'
 
-import * as UserState from '@webapp/user/userState'
+import { UserState } from '@webapp/store/user'
 
 function canEdit(userInfo, userId) {
   return isAdministrator(userInfo) || userInfo.id === userId

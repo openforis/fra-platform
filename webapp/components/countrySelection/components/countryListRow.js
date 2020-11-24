@@ -10,7 +10,7 @@ import { getRelativeDate } from '@webapp/utils/relativeDate'
 import { useIsHome, useCountryIso, useI18n } from '@webapp/components/hooks'
 
 const CountryListRow = (props) => {
-  const { role, country } = props
+  const { assessmentType, role, country } = props
   const hasRole = role !== noRole.role
 
   const i18n = useI18n()
@@ -30,7 +30,7 @@ const CountryListRow = (props) => {
 
   return (
     <Link
-      to={BasePaths.getCountryHomeLink(countryIsoCurrent)}
+      to={BasePaths.getAssessmentHomeLink(countryIsoCurrent, assessmentType)}
       className={`country-selection-list__row${selected ? ' selected' : ''}`}
     >
       <span className="country-selection-list__primary-col" ref={countryNameRef}>
@@ -54,8 +54,9 @@ const CountryListRow = (props) => {
 }
 
 CountryListRow.propTypes = {
-  role: PropTypes.string.isRequired,
+  assessmentType: PropTypes.string.isRequired,
   country: PropTypes.object.isRequired,
+  role: PropTypes.string.isRequired,
 }
 
 export default CountryListRow
