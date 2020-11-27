@@ -174,6 +174,8 @@ const variables = {
   _19: '_19',
   _20: '_20',
 
+  wood_consumption: 'wood_consumption',
+  
   no1_area_available_for_public_recreation: 'no1_area_available_for_public_recreation',
   no2_area_available_for_public_recreation: 'no2_area_available_for_public_recreation',
   no3_area_available_for_public_recreation: 'no3_area_available_for_public_recreation',
