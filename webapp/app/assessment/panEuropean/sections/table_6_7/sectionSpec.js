@@ -9,7 +9,7 @@ const variables = [
 ]
 
 const variablesMappings = {
-  woodConsumption: SectionSpec.VARIABLES.wood_consumption,
+  wood_consumption: SectionSpec.VARIABLES.wood_consumption,
 }
 
 const years = [...PanEuropean.years92_17]

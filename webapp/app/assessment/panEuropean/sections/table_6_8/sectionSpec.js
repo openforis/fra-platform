@@ -12,10 +12,10 @@ const variables = [
 ]
 
 const variablesMappings = {
-  exportsOfForestProductsQuantity: SectionSpec.VARIABLES.exports_of_forest_products_quantity,
-  exportsOfForestProductsValue: SectionSpec.VARIABLES.exports_of_forest_products_value,
-  importsOfForestProductsQuantity: SectionSpec.VARIABLES.imports_of_forest_products_quantity,
-  importsOfForestProductsValue: SectionSpec.VARIABLES.imports_of_forest_products_value,
+  exports_of_forest_products_quantity: SectionSpec.VARIABLES.exports_of_forest_products_quantity,
+  exports_of_forest_products_value: SectionSpec.VARIABLES.exports_of_forest_products_value,
+  imports_of_forest_products_quantity: SectionSpec.VARIABLES.imports_of_forest_products_quantity,
+  imports_of_forest_products_value: SectionSpec.VARIABLES.imports_of_forest_products_value,
 }
 
 const years = [...PanEuropean.years92_17]
