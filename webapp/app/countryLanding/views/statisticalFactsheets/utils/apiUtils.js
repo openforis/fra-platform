@@ -1,5 +1,5 @@
 const baseUrl = '/api/statisticalFactsheets/'
-export const getUrl = (levelIso) => `${baseUrl}${levelIso}`
+export const getUrl = () => `${baseUrl}`
 
 const sections = {
   forestArea: ['forest_area'],
@@ -18,7 +18,9 @@ const sections = {
   ],
   naturallyRegeneratingForest: ['natural_forest_area', 'planted_forest'],
 }
+const getRowNames = (section) => ({ rowNames: sections[section] })
+const getLevel = (level) => ({ level })
 
-export const getParams = (section) => {
-  return sections[section] ? { rowNames: sections[section] } : []
+export const getParams = (section, level) => {
+  return sections[section] ? { ...getRowNames(section), ...getLevel(level) } : []
 }
