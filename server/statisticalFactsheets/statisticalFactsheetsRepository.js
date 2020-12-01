@@ -5,7 +5,7 @@ const _joinArray = (arr) => arr.map((entry) => `'${entry}'`).join(', ')
 
 const getGlobalStatisticalFactsheetData = async (schemaName, rowNames) => {
   const query = `
-SELECT 'WO'                     AS country_iso,
+SELECT
        row_name,
        sum(coalesce("1990", 0)) AS "1990",
        sum(coalesce("2000", 0)) AS "2000",
@@ -24,7 +24,7 @@ GROUP BY row_name
 const getStatisticalFactsheetData = async (schemaName, rowNames, countries) => {
   // TODO: give country_iso - is this even needed?
   const query = `
-SELECT 'TODO'                     AS country_iso,
+SELECT
        row_name,
        sum(coalesce("1990", 0)) AS "1990",
        sum(coalesce("2000", 0)) AS "2000",
@@ -43,7 +43,7 @@ GROUP BY row_name
 
 const getSingleCountryStatisticalFactsheetData = async (schemaName, rowNames, countryIso) => {
   const query = `
-SELECT 'WO'                     AS country_iso,
+SELECT
        row_name,
        sum(coalesce("1990", 0)) AS "1990",
        sum(coalesce("2000", 0)) AS "2000",
