@@ -1,20 +1,6 @@
 const camelize = require('camelize')
 const db = require('../db/db')
 
-const getCountries = async (regionCode) => {
-  const query = `select country_iso from country_region ${regionCode ? `where region_code = '${regionCode}' ` : ''}`
-
-  const result = await db.query(query)
-  return camelize(result.rows).map((region) => region.countryIso)
-}
-
-const getRegions = async () => {
-  const query = `select distinct region_code from country_region`
-
-  const result = await db.query(query)
-  return camelize(result.rows).map((region) => region.regionCode)
-}
-
 const _joinArray = (arr) => arr.map((entry) => `'${entry}'`).join(', ')
 
 const getGlobalStatisticalFactsheetData = async (schemaName, rowNames) => {
@@ -75,8 +61,6 @@ GROUP BY row_name
 }
 
 module.exports = {
-  getCountries,
-  getRegions,
   getSingleCountryStatisticalFactsheetData,
   getGlobalStatisticalFactsheetData,
   getStatisticalFactsheetData,

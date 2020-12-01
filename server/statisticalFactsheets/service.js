@@ -1,3 +1,4 @@
+const CountryRepository = require('../country/countryRepository')
 const Repository = require('./statisticalFactsheetsRepository')
 const Area = require('../../common/country/area')
 
@@ -15,15 +16,15 @@ const getStatisticalFactsheetData = async (schemaName, level, rowNames) => {
   }
 
   // - regionCode        - AF, AS, EU...
-  const regions = await Repository.getRegions()
+  const regions = await CountryRepository.getRegionCodes()
   if (regions.includes(level)) {
     // Get countries for region
-    const countries = await Repository.getCountries(level)
+    const countries = await CountryRepository.getCountryIsos(level)
     return Repository.getStatisticalFactsheetData(schemaName, rowNames, countries)
   }
 
   // - countryIso        - FIN, ITA...
-  const countries = await Repository.getCountries()
+  const countries = await CountryRepository.getCountryIsos()
   if (countries.includes(level)) {
     return Repository.getSingleCountryStatisticalFactsheetData(schemaName, rowNames, level)
   }
