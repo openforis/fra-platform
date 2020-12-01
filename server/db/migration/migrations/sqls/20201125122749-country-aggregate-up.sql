@@ -1,6 +1,6 @@
 create table country_aggregate
 (
-	country_iso VARCHAR not null,
+	country_iso VARCHAR not null references country,
 	row_name VARCHAR not null,
 	"1990" NUMERIC,
 	"2000" NUMERIC,
