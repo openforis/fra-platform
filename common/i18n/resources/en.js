@@ -1062,6 +1062,7 @@ The FRA team
   panEuropean: {
     panEuropeanAssessment: 'Pan European Assessment',
     govSwitzerland: 'Government of Switzerland',
+    variable: 'Variable',
     landing: {
       link: 'Joint FOREST EUROPE / UNECE / FAO reporting on pan-European indicators for SFM : FOREST EUROPE',
     },
