@@ -24,12 +24,12 @@ const ForestAreaWithinProtectedAreas = (props) => {
   const year = '2020'
   const { rowNames: variables } = APIUtils.getParams('forestAreaWithinProtectedAreas')
 
-  const [forestArea = 0, protectedArea = 0] = getVariableValuesByYear({ data, variables, year })
+  const [forestArea = 0, forestAreaWithinProtectedAreas = 0] = getVariableValuesByYear({ data, variables, year })
 
   const chartData = {
     datasets: [
       {
-        data: [forestArea, protectedArea],
+        data: [forestArea, forestAreaWithinProtectedAreas],
         borderWidth: 0,
         backgroundColor: [ChartUtils.colors.green, ChartUtils.colors.lightGreen],
         hoverBackgroundColor: [ChartUtils.colors.greenHover, ChartUtils.colors.lightGreenHover],

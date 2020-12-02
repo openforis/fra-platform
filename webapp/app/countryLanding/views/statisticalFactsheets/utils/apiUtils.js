@@ -7,7 +7,7 @@ const sections = {
   forestAreaPercent: ['forest_area_percent'],
   primaryForest: ['forest_area', 'primary_forest'],
   forestOwnership: ['private_ownership', 'public_ownership', 'other_or_unknown'],
-  forestAreaWithinProtectedAreas: ['forest_area', 'protected_area'],
+  forestAreaWithinProtectedAreas: ['forest_area', 'forest_area_within_protected_areas'],
   primaryDesignatedManagementObjective: [
     'production',
     'multiple_use',
