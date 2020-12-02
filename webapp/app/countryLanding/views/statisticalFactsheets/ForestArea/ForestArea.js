@@ -10,12 +10,10 @@ import useStatisticalFactsheetsState from '../hooks/useStatisticalFactsheetsStat
 import Chart from '../components/chart'
 
 const ForestArea = (props) => {
-  // Todo: update this
   const { levelIso } = props
   const i18n = useI18n()
   const section = 'forestArea'
   const chartHeads = ['1990', '2000', '2010', '2020']
-  // Todo: update this
   const unit = Area.isISOCountry(levelIso[0]) ? i18n.t('unit.haThousand') : i18n.t('unit.haMillion')
 
   const { data, loaded } = useStatisticalFactsheetsState(section, levelIso)
