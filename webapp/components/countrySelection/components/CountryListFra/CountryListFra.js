@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
 
 import * as Fra from '@common/assessment/fra'
 import { Area } from '@common/country'
@@ -9,7 +8,7 @@ import { checkMatch } from '@webapp/components/countrySelection/utils/checkMatch
 
 import { useI18n } from '@webapp/components/hooks'
 import { useRegions, useCountries } from '@webapp/store/app'
-import * as UserState from '@webapp/store/user/state'
+import { useUserCountries } from '@webapp/store/user'
 
 import CountryListDownload from '../countryListDownload'
 import CountryListRow from '../countryListRow'
@@ -20,9 +19,9 @@ const CountryListFra = (props) => {
   const i18n = useI18n()
 
   const allCountries = useCountries()
-  const userCountries = useSelector(UserState.getUserAssesmentRoles(Fra.type))
 
   const regions = useRegions()
+  const userCountries = useUserCountries()
 
   const filteredRegions = regions
     .filter((region) => checkMatch(Area.getListName(region, i18n), query))
