@@ -7,9 +7,9 @@ import { Area } from '@common/country'
 import { noRole } from '@common/countryRole'
 import { checkMatch } from '@webapp/components/countrySelection/utils/checkMatch'
 
-import * as CountryState from '@webapp/app/country/countryState'
 import { useI18n } from '@webapp/components/hooks'
-import { useRegions } from '@webapp/store/app'
+import { useRegions, useCountries } from '@webapp/store/app'
+import * as UserState from '@webapp/store/user/state'
 
 import CountryListDownload from '../countryListDownload'
 import CountryListRow from '../countryListRow'
@@ -17,15 +17,28 @@ import CountryListRoleSection from '../countryListRoleSection'
 
 const CountryListFra = (props) => {
   const { query } = props
-  const countries = useSelector(CountryState.getCountries)
-
   const i18n = useI18n()
+
+  const allCountries = useCountries()
+  const userCountries = useSelector(UserState.getUserAssesmentRoles(Fra.type))
 
   const regions = useRegions()
 
   const filteredRegions = regions
     .filter((region) => checkMatch(Area.getListName(region, i18n), query))
     .filter((region) => region !== Area.levels.forest_europe)
+
+  const userCountryIsos = []
+
+  Object.keys(userCountries).forEach((role) => {
+    if (Array.isArray(userCountries[role]))
+      userCountries[role].forEach((country) => userCountryIsos.push(country.countryIso))
+  })
+
+  const countryMap = {
+    ...userCountries,
+    [noRole.role]: allCountries.filter((country) => !userCountryIsos.includes(country.countryIso)),
+  }
 
   return (
     <div className="country-selection-list">
@@ -54,8 +67,8 @@ const CountryListFra = (props) => {
           {filteredRegions.length > 0 && <hr />}
         </div>
 
-        {Object.keys(countries).map((role) => (
-          <CountryListRoleSection key={role} role={role} roleCountries={countries[role]} query={query} />
+        {Object.keys(countryMap).map((role) => (
+          <CountryListRoleSection key={role} role={role} roleCountries={countryMap[role]} query={query} />
         ))}
       </div>
     </div>
