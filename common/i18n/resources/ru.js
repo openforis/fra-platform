@@ -1034,7 +1034,8 @@ module.exports.translation = {
     forestArea: {
       forestArea: 'Площадь лесов',
       categoryYear: 'Категория - Год',
-      area: 'Площадь (1000 га)',
+      area: 'Площадь',
+      area1000Ha: 'Площадь (1000 га)',
       forest: 'Лес - {{year}}',
       _of_which_available_for_wood_supply: '… в т. ч. доступный для поставки древесины - {{year}}',
       other_wooded_land: 'Прочая лесопокрытая земля - {{year}}',
@@ -1051,12 +1052,12 @@ module.exports.translation = {
       predominantly_coniferous_forest: 'Преимущественно хвойный лес',
       predominantly_broadleaved_forest: 'Преимущественно лиственный лес',
       mixed_forest: 'Смешанный лес',
-      forest_area_1990: 'Площадь леса (1000 га) - 1990',
-      forest_area_2000: 'Площадь леса (1000 га) - 2000',
-      forest_area_2005: 'Площадь леса (1000 га) - 2005',
-      forest_area_2010: 'Площадь леса (1000 га) - 2010',
-      forest_area_2015: 'Площадь леса (1000 га) - 2015',
-      forest_area_2020: 'Площадь леса (1000 га) - 2020',
+      forest_area_1990: 'Площадь леса - 1990',
+      forest_area_2000: 'Площадь леса - 2000',
+      forest_area_2005: 'Площадь леса - 2005',
+      forest_area_2010: 'Площадь леса - 2010',
+      forest_area_2015: 'Площадь леса - 2015',
+      forest_area_2020: 'Площадь леса - 2020',
     },
 
     // table 1.2a
