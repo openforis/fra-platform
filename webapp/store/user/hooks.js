@@ -19,3 +19,8 @@ export const useUserCountries = () => {
   const userCountries = useSelector(UserState.getUserAssesmentRoles(Fra.type))
   return sortCountries(userCountries, i18n)
 }
+
+export const useUserCountriesAsList = () => {
+  const userCountries = useUserCountries()
+  return Object.values(userCountries).flat()
+}
