@@ -44,7 +44,7 @@ const tableSpec = SectionSpec.newTableSpec({
         }),
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]:
-            'panEuropean.ageClassDistributionAreaOfEvenAgedStands.developmentPhases1000ha',
+            'panEuropean.ageClassDistributionAreaOfEvenAgedStands.developmentPhases',
           [SectionSpec.KEYS_COL.colSpan]: 4,
         }),
       ],
