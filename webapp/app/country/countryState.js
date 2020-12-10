@@ -8,7 +8,6 @@ export const stateKey = 'country'
 const keys = {
   config: 'config',
   status: 'status',
-  countries: 'countries',
 }
 
 const keysStatus = {
@@ -29,7 +28,6 @@ export const getReviewStatus = R.pipe(getStatus, R.propOr({}, keysStatus.reviewS
 
 // === UPDATE
 export const assocConfig = R.assoc(keys.config)
-export const assocCountries = R.assoc(keys.countries)
 export const assocStatus = R.assoc(keys.status)
 
 // config functions
