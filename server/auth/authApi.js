@@ -27,7 +27,7 @@ const authenticationSuccessful = (req, user, next, res, done) => {
         // More here:
         // https://github.com/voxpelli/node-connect-pg-simple/issues/31#issuecomment-230596077
         req.session.save(() => {
-          done(`${appUri}/${defaultCountry.countryIso}/`)
+          done(`${appUri}`)
         })
       }).catch(err => sendErr(res, err))
     }
