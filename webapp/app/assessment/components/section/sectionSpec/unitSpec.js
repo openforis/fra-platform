@@ -4,7 +4,10 @@ export const units = {
   haThousand: 'haThousand',
   haThousandPerYear: 'haThousandPerYear',
   tonnesPerHa: 'tonnesPerHa',
+  millionTonnes: 'millionTonnes',
   millionsCubicMeterOverBark: 'millionsCubicMeterOverBark',
+  thousandCubicMeter: 'thousandCubicMeter',
+  thousandCubicMeterOverBark: 'thousandCubicMeterOverBark',
   fte1000: 'fte1000',
   numberOfStudents: 'numberOfStudents',
 }

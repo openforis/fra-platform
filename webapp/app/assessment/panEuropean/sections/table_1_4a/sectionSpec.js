@@ -10,6 +10,7 @@ const years = [...PanEuropean.years90_20].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_1_4a,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.millionTonnes,
   [SectionSpec.KEYS_TABLE.columnsExport]: ['above_ground', 'below_ground', 'deadwood', 'litter', 'soil_carbon'],
 
   [SectionSpec.KEYS_TABLE.rows]: [

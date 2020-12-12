@@ -9,7 +9,7 @@ module.exports = {
       'forest_available_for_wood_supply_even_aged_stands_of_which_2005',
       'forest_available_for_wood_supply_even_aged_stands_of_which_2000',
       'forest_available_for_wood_supply_even_aged_stands_of_which_1990',
-      
+
       'predominantly_coniferous_forest_2015',
       'predominantly_coniferous_forest_2010',
       'predominantly_coniferous_forest_2005',

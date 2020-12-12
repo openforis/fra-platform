@@ -10,6 +10,7 @@ const years = [...PanEuropean.years90_15].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_2_4,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.haThousand,
   [SectionSpec.KEYS_TABLE.columnsExport]: [
     'total_area_with_damage',
     'insects_and_disease',
