@@ -10,6 +10,7 @@ const years = [...PanEuropean.years90_20].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_4_3b,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.haThousand,
   [SectionSpec.KEYS_TABLE.columnsExport]: [
     'naturally_established',
     'naturalised_introduced_species',

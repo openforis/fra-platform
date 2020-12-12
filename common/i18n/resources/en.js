@@ -73,14 +73,21 @@ followed by the boreal, temperate and subtropical domains.`,
     haMillion: 'million ha',
     haThousandPerYear: '1000 ha/year',
     tonnesPerHa: 'tonnes/ha',
+    cubicMeterPerHa: 'm³/ha',
     millionTonnes: 'million metric tonnes',
     millionsCubicMeterOverBark: 'million m³ over bark',
     thousandCubicMeterOverBark: '1000 m³ over bark',
     billionCubicMeter: 'billion m³',
     thousandCubicMeter: '1000 m³',
+    thousandCubicMeterRWE: '1000 m³ round-wood equivalent',
+    thousandPersons: '1000 persons',
     gt: 'Gt',
     fte1000: '1000 FTE',
     numberOfStudents: '$t(graduationOfStudents.numberOfStudents)',
+    absoluteNumber: 'absolute number',
+    annualNumberOfVisitsMillion: 'annual number of visits (million)',
+    millionNationalCurrency: 'million national currency',
+    facilityLengthIn1000Km: 'facility (length in 1000 km)',
   },
 
   countrySelection: {
@@ -1333,13 +1340,13 @@ The FRA team
       total: 'Total',
       industrialRoundwood: 'Industrial roundwood',
       woodfuel: 'Woodfuel',
-      volume1000M3UB: 'Volume (1000 m³ u.b.)',
+      volume1000M3UB: 'Volume (1000 m³ under bark)',
       marketValue1000NationalCurrency: 'Market Value (1000  national currency)',
       roundwood: 'Roundwood - {{year}}',
-      total_volume: 'Wood removals - Total - Volume (1000 m³ u.b.)',
-      industrial_roundwood_volume: 'Wood removals - Industrial roundwood - Volume (1000 m³ u.b.)',
+      total_volume: 'Wood removals - Total - Volume (1000 m³ under bark)',
+      industrial_roundwood_volume: 'Wood removals - Industrial roundwood - Volume (1000 m³ under bark)',
       industrial_roundwood_market_value: 'Wood removals - Industrial roundwood - Market Value (1000  national currency)',
-      woodfuel_volume: 'Wood removals - Woodfuel - Volume (1000 m³ u.b.)',
+      woodfuel_volume: 'Wood removals - Woodfuel - Volume (1000 m³ under bark)',
       woodfuel_market_value: 'Wood removals - Woodfuel - Market Value (1000  national currency)',
     },
 
@@ -1679,7 +1686,8 @@ The FRA team
     totalFixedCapitalConsumptionInForestsAndForestry: {
       totalFixedCapitalConsumptionInForestsAndForestry: 'Total Fixed Capital Consumption In Forests And Forestry',
       categoryYear: 'Category - Year',
-      fixed_capital_consumption: 'Fixed capital consumption (million national currency)',
+      fixedCapitalConsumptionMillionNationalCurrency: 'Fixed capital consumption (million national currency)',
+      fixed_capital_consumption: 'Fixed capital consumption',
       forestry_isic_nace_02: 'Forestry (ISIC/NACE 02) - {{year}}',
     },
 
@@ -1687,7 +1695,8 @@ The FRA team
     totalCapitalTransfersInForestsAndForestry: {
       totalCapitalTransfersInForestsAndForestry: 'Total Capital Transfers In Forests And Forestry',
       categoryYear: 'Category - Year',
-      capital_transfers: 'Capital transfers (million national currency)',
+      capitalTransfersMillionNationalCurrency: 'Capital transfers (million national currency)',
+      capital_transfers: 'Capital transfers',
       forestry_isic_nace_02: 'Forestry (ISIC/NACE 02) - {{year}}',
     },
 
@@ -1752,6 +1761,7 @@ The FRA team
     woodConsumption: {
       woodConsumption: 'Wood consumption',
       category: 'Category',
+      woodConsumption1000M3RWE: 'Wood consumption (1000 m³ round-wood equivalent)',
       _1992: '1992',
       _1993: '1993',
       _1994: '1994',
@@ -1778,7 +1788,7 @@ The FRA team
       _2015: '2015',
       _2016: '2016',
       _2017: '2017',
-      wood_consumption: 'Consumption of forest products (1000 m³ RWE)',
+      wood_consumption: 'Consumption of forest products',
     },
 
     // table 6.8
@@ -1811,9 +1821,9 @@ The FRA team
       _2015: '2015',
       _2016: '2016',
       _2017: '2017',
-      exports_of_forest_products_quantity: 'Exports of forest products (million m³ RWE)',
+      exports_of_forest_products_quantity: 'Exports of forest products (million m³ round-wood equivalent)',
       exports_of_forest_products_value: 'Exports of forest products (million Euro/ECU)',
-      imports_of_forest_products_quantity: 'Imports of forest products (million m³ RWE)',
+      imports_of_forest_products_quantity: 'Imports of forest products (million m³ round-wood equivalent)',
       imports_of_forest_products_value: 'Imports of forest products (million Euro/ECU)',
     },
 
@@ -1873,9 +1883,8 @@ The FRA team
       areaPrimarilyDesignatedAndOrManagedForPublicRecreation:
         'Area primarily designated and/or managed for public recreation',
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
-      area_available_for_public_recreation: 'Area available for public recreation - Annual number of visits (million)',
-      area_designated_and_or_managed_for_public_recreation: 
-        'Area primarily designated and/or managed for public recreation - Annual number of visits (million)',
+      area_available_for_public_recreation: 'Area available for public recreation',
+      area_designated_and_or_managed_for_public_recreation: 'Area primarily designated and/or managed for public recreation',
     },
 
     // table 6.10c
@@ -1887,9 +1896,8 @@ The FRA team
         '... of which designated for hiking, biking, cross country skiing, etc.',
       facilityLengthIn1000Km: 'Facility (length in 1000 km)',
       area_available_for_public_recreation: 'Area available for public recreation - {{year}}',
-      forest_roads_and_paths_available_for_public_recreation: 'Forest roads and paths available for public recreation - Facility (length in 1000 km)',
-      _of_which_designated_for_hiking_biking_cross_country_skiing_etc:
-        '... of which designated for hiking, biking, cross country skiing, etc. - Facility (length in 1000 km)',
+      forest_roads_and_paths_available_for_public_recreation: 'Forest roads and paths available for public recreation',
+      _of_which_designated_for_hiking_biking_cross_country_skiing_etc: '... of which designated for hiking, biking, cross country skiing, etc.',
     },
 
     // table 6.10d

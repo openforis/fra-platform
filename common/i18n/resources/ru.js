@@ -65,17 +65,24 @@ module.exports.translation = {
     mileSq: 'кв. миль',
     acre1000: '1000 акров',
     acre: 'акр',
-    haMillion: 'млн. га',
+    haMillion: 'млн га',
     haThousandPerYear: '1000 га/год',
     tonnesPerHa: 'тонн/га',
-    millionTonnes: 'млн. метрических тонн',
-    millionsCubicMeterOverBark: 'млн. м³ с корой',
+    cubicMeterPerHa: 'м³/га',
+    millionTonnes: 'млн метрических тонн',
+    millionsCubicMeterOverBark: 'млн м³ с корой',
     thousandCubicMeterOverBark: '1000 м³ с корой',
-    billionCubicMeter: 'млрд. м³',
+    billionCubicMeter: 'млрд м³',
     thousandCubicMeter: '1000 м³',
+    thousandCubicMeterRWE: '1000 м³ эквивалента круглого леса',
+    thousandPersons: '1000 человек',
     gt: 'гт',
     fte1000: '1000 ЭПЗ',
     numberOfStudents: '$t(graduationOfStudents.numberOfStudents)',
+    absoluteNumber: 'абсолютное количество',
+    annualNumberOfVisitsMillion: 'ежегодное число посещений (млн)',
+    millionNationalCurrency: 'млн ед. нац. валюты',
+    facilityLengthIn1000Km: 'объект (протяжённость в 1000 км)',
   },
 
   countrySelection: {
@@ -1013,6 +1020,7 @@ module.exports.translation = {
   panEuropean: {
     panEuropeanAssessment: 'Общеевропейская оценка',
     govSwitzerland: 'Правительство Швейцарии',
+    variable: 'Переменная',
     landing: {
       link: 'Объединенный отчёт ЛЕСА ЕВРОПЫ / ЕЭК ООН / ФАО по общеевропейским индикаторам для устойчивого управления лесами: ЛЕСА ЕВРОПЫ',
     },
@@ -1624,7 +1632,8 @@ module.exports.translation = {
     totalFixedCapitalConsumptionInForestsAndForestry: {
       totalFixedCapitalConsumptionInForestsAndForestry: 'Общее потребление основного капитала в лесах и лесном хозяйстве',
       categoryYear: 'Категория - Год',
-      fixed_capital_consumption: 'Потребление основного капитал (млн ед. нац. валюты)',
+      fixedCapitalConsumptionMillionNationalCurrency: 'Потребление основного капитал (млн ед. нац. валюты)',
+      fixed_capital_consumption: 'Потребление основного капитал',
       forestry_isic_nace_02: 'Лесное хозяйство (ISIC/NACE 02) - {{year}}',
     },
 
@@ -1632,7 +1641,8 @@ module.exports.translation = {
     totalCapitalTransfersInForestsAndForestry: {
       totalCapitalTransfersInForestsAndForestry: 'Общие капитальные трансферты в лесах и лесном хозяйстве',
       categoryYear: 'Категория - Год',
-      capital_transfers: 'Капитальные трансферты (млн ед. нац. валюты)',
+      capitalTransfersMillionNationalCurrency: 'Капитальные трансферты (млн ед. нац. валюты)',
+      capital_transfers: 'Капитальные трансферты',
       forestry_isic_nace_02: 'Лесное хозяйство (ISIC/NACE 02) - {{year}}',
     },
 
@@ -1697,6 +1707,7 @@ module.exports.translation = {
     woodConsumption: {
       woodConsumption: 'Потребление древесины',
       category: 'Категория',
+      woodConsumption1000M3RWE: 'Потребление древесины (1000 м³ эквивалента круглого леса)',
       _1992: '1992',
       _1993: '1993',
       _1994: '1994',
@@ -1723,7 +1734,7 @@ module.exports.translation = {
       _2015: '2015',
       _2016: '2016',
       _2017: '2017',
-      wood_consumption: 'Потребление древесных продуктов (1000 м³ эквивалента круглого леса)',
+      wood_consumption: 'Потребление древесных продуктов',
     },
 
     // table 6.8
@@ -1756,10 +1767,10 @@ module.exports.translation = {
       _2015: '2015',
       _2016: '2016',
       _2017: '2017',
-      exports_of_forest_products_quantity: 'Экспорт древесных продуктов (миллион м³ эквивалента круглого леса)',
-      exports_of_forest_products_value: 'Экспорт древесных продуктов (миллион евро/ЭКЮ)',
-      imports_of_forest_products_quantity: 'Импорт древесных продуктов (миллион м³ эквивалента круглого леса)',
-      imports_of_forest_products_value: 'Импорт древесных продуктов (миллион евро/ЭКЮ)',
+      exports_of_forest_products_quantity: 'Экспорт древесных продуктов (млн м³ эквивалента круглого леса)',
+      exports_of_forest_products_value: 'Экспорт древесных продуктов (млн евро/ЭКЮ)',
+      imports_of_forest_products_quantity: 'Импорт древесных продуктов (млн м³ эквивалента круглого леса)',
+      imports_of_forest_products_value: 'Импорт древесных продуктов (млн евро/ЭКЮ)',
     },
 
     // table 6.9
@@ -1811,13 +1822,12 @@ module.exports.translation = {
     intensityOfUse: {
       intensityOfUse: 'Интенсивность использования',
       categoryYear: 'Категория - Год',
-      annualNumberOfVisitsMillion: 'Ежегодное число посещений (миллион)',
+      annualNumberOfVisitsMillion: 'Ежегодное число посещений (млн)',
       areaAvailableForPublicRecreation: 'Площадь с общественным доступом в рекреационных целях',
       areaPrimarilyDesignatedAndOrManagedForPublicRecreation: 'Площадь, предназначенная или управляемая, в первую очередь, для общественной рекреации',
       total_forest_and_other_wooded_land: 'Всего лес и прочая лесопокрытая земля - {{year}}',
-      area_available_for_public_recreation: 'Площадь с общественным доступом в рекреационных целях - Ежегодное число посещений (миллион)',
-      area_designated_and_or_managed_for_public_recreation: 
-        'Площадь, предназначенная или управляемая, в первую очередь, для общественной рекреации - Ежегодное число посещений (миллион)',
+      area_available_for_public_recreation: 'Площадь с общественным доступом в рекреационных целях',
+      area_designated_and_or_managed_for_public_recreation: 'Площадь, предназначенная или управляемая, в первую очередь, для общественной рекреации',
     },
 
     // table 6.10c
