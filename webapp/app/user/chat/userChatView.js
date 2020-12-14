@@ -41,7 +41,7 @@ class UserChatMessages extends React.Component {
   }
 
   render () {
-    const { i18n, chat, countryIso } = this.props
+    const { i18n, chat } = this.props
     const { messages, sessionUser, recipientUser } = chat
 
     const messageUser = message =>
@@ -132,7 +132,7 @@ const UserChatView = props => {
     <div className="fra-review__container">
       <div className="fra-review user-chat">
         <UserChatHeader i18n={i18n} chat={chat} closeChat={closeChat}/>
-        <UserChatMessages i18n={i18n} chat={chat} countryIso={countryIso}/>
+        <UserChatMessages i18n={i18n} chat={chat} />
         <UsersChatAddMessage i18n={i18n} chat={chat} closeChat={closeChat} sendMessage={sendMessage}
                              countryIso={countryIso}/>
       </div>

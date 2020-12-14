@@ -32,7 +32,6 @@ const NoMessages = ({ i18n }) =>
 
 const MessageBoardMessages = props => {
   const { i18n, messages = [], userInfo } = props
-  const countryIso = useSelector(AppState.getCountryIso)
   const messageContainerRef = useRef(null)
 
   useEffect(() => {
