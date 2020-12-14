@@ -186,20 +186,22 @@ module.exports.init = (app) => {
   })
 
   // update user
-  app.post('/users/:countryIso/user/edit/', Auth.requireCountryEditPermission, async (req, res) => {
+  app.put('/users/user/', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      const user = req.user
+      const { user } = req
+      const countryIso = JSON.parse(req.body.countryIso)
       const userToUpdate = JSON.parse(req.body.user)
-      const countryIso = req.params.countryIso
+
+      let withCountryIso = false
+      if (countryIso) {
+        withCountryIso =
+          (isNationalCorrespondent(countryIso, user) || isAlternateNationalCorrespondent(countryIso, userToUpdate)) &&
+          isCollaborator(countryIso, userToUpdate)
+      }
       const editingSelf = user.id === userToUpdate.id
 
       // checking permission to edit user
-      if (
-        isAdministrator(user) ||
-        editingSelf ||
-        ((isNationalCorrespondent(countryIso, user) || isAlternateNationalCorrespondent(countryIso, userToUpdate)) &&
-          isCollaborator(countryIso, userToUpdate))
-      ) {
+      if (isAdministrator(user) || editingSelf || withCountryIso) {
         const validation = validateUser(userToUpdate)
         if (validation.valid) {
           const profilePicture = await userRepository.getUserProfilePicture(userToUpdate.id)
@@ -209,7 +211,13 @@ module.exports.init = (app) => {
             R.defaultTo({ data: profilePicture.data, name: profilePicture.name })
           )(req)
 
-          await db.transaction(userRepository.updateUser, [user, countryIso, userToUpdate, profilePictureFile, !editingSelf])
+          await db.transaction(userRepository.updateUser, [
+            user,
+            countryIso,
+            userToUpdate,
+            profilePictureFile,
+            !editingSelf,
+          ])
 
           Request.sendOk(res)
         } else {
@@ -251,7 +259,7 @@ module.exports.init = (app) => {
           await sendInvitation(invitation.countryIso, invitation, req.user, url)
           return `<p>Email sent to ${invitation.name} (${invitation.email}) invited as ${invitation.role} for ${invitation.countryIso}</p>`
         } else {
-          return `<p style="color:red">Email could not be sent to ${invitation.name} (${invitation.email}) invited as ${invitation.role} for ${invitation.countryIso}</p>`
+          return `<p style="color:#ff0000">Email could not be sent to ${invitation.name} (${invitation.email}) invited as ${invitation.role} for ${invitation.countryIso}</p>`
         }
       })
 
