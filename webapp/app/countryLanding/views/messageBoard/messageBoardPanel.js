@@ -53,7 +53,7 @@ const MessageBoardMessages = props => {
         <div key={i} className={`fra-review__comment`}>
           <div className="fra-review__comment-header">
             <img className="fra-review__comment-avatar"
-              src={profilePictureUri(countryIso, message.fromUserId)} />
+              src={profilePictureUri(message.fromUserId)} />
             <div className="fra-review__comment-author-section">
               <div
                 className={`fra-review__comment-author ${userInfo.id === message.fromUserId ? 'author-me' : ''}`}>

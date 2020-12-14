@@ -62,7 +62,7 @@ class UserChatMessages extends React.Component {
             <div key={i} className={`fra-review__comment`}>
               <div className="fra-review__comment-header">
                 <img className="fra-review__comment-avatar"
-                     src={profilePictureUri(countryIso, messageUser(message).id)}/>
+                     src={profilePictureUri(messageUser(message).id)}/>
                 <div className="fra-review__comment-author-section">
                   <div className={`fra-review__comment-author ${isSessionUserMessageSender(message) ? 'author-me' : ''}`}>
                     {messageUser(message).name}

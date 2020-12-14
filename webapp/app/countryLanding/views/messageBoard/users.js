@@ -33,7 +33,7 @@ const Users = () => {
         <div key={user.id} className="landing__user-outer-container">
           <div className={`landing__user-container${user.active ? '' : ' user-list__inactive-user'}`}>
             <div className="landing__user-header">
-              <img alt="" className="landing__user-avatar" src={profilePictureUri(countryIso, user.id)} />
+              <img alt="" className="landing__user-avatar" src={profilePictureUri(user.id)} />
               <div className="landing__user-info">
                 <div className={`landing__user-name${userInfo.id === user.id ? ' session-user' : ''}`}>{user.name}</div>
                 <div className="landing__user-role">{i18nUserRole(i18n, user.role)}</div>

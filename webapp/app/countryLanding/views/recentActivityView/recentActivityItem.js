@@ -22,7 +22,7 @@ const RecentActivityItem = (props) => {
       <img
         className="landing__activity-avatar"
         alt={fullName}
-        src={BasePaths.getUserProfilePictureLink(countryIso, userId)}
+        src={BasePaths.getUserProfilePictureLink(userId)}
       />
       <div className="landing__activity-name">
         <strong>{fullName}</strong>

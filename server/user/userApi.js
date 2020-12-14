@@ -159,8 +159,8 @@ module.exports.init = (app) => {
     }
   })
 
-  // get user for editing page
-  app.get('/users/:countryIso/user/edit/:userId', Auth.requireCountryEditPermission, async (req, res) => {
+  // get user
+  app.get('/users/user/:userId', Auth.requireCountryEditPermission, async (req, res) => {
     try {
       const user = await userRepository.findUserById(req.params.userId)
 
@@ -171,7 +171,7 @@ module.exports.init = (app) => {
   })
 
   // get user profile picture
-  app.get('/users/:countryIso/user/:userId/profilePicture/', Auth.requireCountryEditPermission, async (req, res) => {
+  app.get('/users/user/:userId/profilePicture/', Auth.requireCountryEditPermission, async (req, res) => {
     try {
       const profilePicture = await userRepository.getUserProfilePicture(req.params.userId)
 
