@@ -45,7 +45,6 @@ export const sendInvitationEmail = (countryIso, invitationUuid) => (dispatch) =>
     .get(`/api/users/${countryIso}/invitations/${invitationUuid}/send`)
     .catch((err) => dispatch(applicationError(err)))
 
-
 const postCollaboratorCountryAccess = (countryIso, userId, tables) => {
   const dispatched = (dispatch) => {
     axios
@@ -108,10 +107,11 @@ export const loadUserToEdit = (userId) => async (dispatch) => {
   }
 }
 
-export const persistUser = (countryIso, user) => (dispatch) => {
+export const persistUser = (countryIso, user) => async (dispatch) => {
   const formData = new FormData()
   formData.append('profilePicture', user.profilePicture)
   formData.append('user', JSON.stringify(R.dissoc('profilePicture', user)))
+  formData.append('countryIso', countryIso)
 
   const config = {
     headers: {
@@ -120,12 +120,11 @@ export const persistUser = (countryIso, user) => (dispatch) => {
   }
 
   dispatch(autosave.start)
-
-  axios
-    .post(`/api/users/${countryIso}/user/edit`, formData, config)
-    .then(() => {
-      dispatch(autosave.complete)
-      dispatch({ type: userManagementEditUserComplete })
-    })
-    .catch((err) => dispatch(applicationError(err)))
+  try {
+    await axios.put(`/api/users/user/`, formData, config)
+    dispatch(autosave.complete)
+    dispatch({ type: userManagementEditUserComplete })
+  } catch (err) {
+    dispatch(applicationError(err))
+  }
 }
