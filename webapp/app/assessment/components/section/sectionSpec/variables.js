@@ -141,6 +141,7 @@ const variables = {
   no8_ranked_in_terms_of_volume: 'no8_ranked_in_terms_of_volume',
   no9_ranked_in_terms_of_volume: 'no9_ranked_in_terms_of_volume',
   no10_ranked_in_terms_of_volume: 'no10_ranked_in_terms_of_volume',
+  remaining: 'remaining',
 
   _01st: '_01st',
   _02nd: '_02nd',
