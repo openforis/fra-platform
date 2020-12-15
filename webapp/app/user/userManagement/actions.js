@@ -111,7 +111,7 @@ export const persistUser = (countryIso, user) => async (dispatch) => {
   const formData = new FormData()
   formData.append('profilePicture', user.profilePicture)
   formData.append('user', JSON.stringify(R.dissoc('profilePicture', user)))
-  formData.append('countryIso', countryIso)
+  formData.append('countryIso', JSON.stringify(countryIso))
 
   const config = {
     headers: {
