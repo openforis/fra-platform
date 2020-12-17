@@ -1,9 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Area } from '@common/country'
 import Chart from '@webapp/app/countryLanding/views/statisticalFactsheets/components/chart/Chart'
 import * as ChartUtils from '@webapp/app/countryLanding/views/statisticalFactsheets/utils/chartUtils'
 import { useI18n } from '@webapp/components/hooks'
 import useStatisticalFactsheetsState from '@webapp/app/countryLanding/views/statisticalFactsheets/hooks/useStatisticalFactsheetsState'
+import { formatValue } from '@webapp/app/countryLanding/views/statisticalFactsheets/utils/numberUtils'
 import { getVariableValuesByYear } from '../utils/propUtils'
 
 import * as APIUtils from '../utils/apiUtils'
@@ -12,7 +14,8 @@ const ForestOwnership = (props) => {
   const { levelIso } = props
   const i18n = useI18n()
   const section = 'forestOwnership'
-  const unit = i18n.t('unit.haThousand')
+  const isIsoCountry = Area.isISOCountry(levelIso)
+  const unit = isIsoCountry ? i18n.t('unit.haThousand') : i18n.t('unit.haMillion')
 
   const { data, loaded } = useStatisticalFactsheetsState(section, levelIso)
 
@@ -28,7 +31,11 @@ const ForestOwnership = (props) => {
   const chartData = {
     datasets: [
       {
-        data: [publicOwnership, privateOwnership, otherOrUnknown],
+        data: [
+          formatValue(publicOwnership, isIsoCountry),
+          formatValue(privateOwnership, isIsoCountry),
+          formatValue(otherOrUnknown, isIsoCountry),
+        ],
         backgroundColor: [ChartUtils.colors.purple, ChartUtils.colors.orange, ChartUtils.colors.gray],
         borderWidth: 0,
         hoverBackgroundColor: [
