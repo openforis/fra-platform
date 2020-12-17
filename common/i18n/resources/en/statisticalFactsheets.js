@@ -34,7 +34,7 @@ module.exports = {
     private: 'Private',
   },
   forestAreaWithinProtectedAreas: {
-    title: '$t(forestAreaWithinProtectedAreas.header) (1990 — 2020)',
+    title: 'Forest area within protected areas 2020 (% of forest area)',
   },
   primaryDesignatedManagementObjective: {
     title: '$t(designatedManagementObjective.primaryDesignatedManagementObjective) (1990 — 2020)',
