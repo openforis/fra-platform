@@ -2,6 +2,7 @@ import './editUserForm.less'
 
 import React from 'react'
 import { connect } from 'react-redux'
+import * as Fra from '@common/assessment/fra'
 import * as R from 'ramda'
 
 import {
@@ -18,7 +19,6 @@ import { i18nUserRole, validate, profilePictureUri } from '@common/userUtils'
 import TextInput from '@webapp/components/textInput'
 
 import * as AppState from '@webapp/app/appState'
-import * as CountryState from '@webapp/app/country/countryState'
 import { UserState } from '@webapp/store/user'
 
 import { loadUserToEdit, persistUser } from '../actions'
@@ -260,7 +260,7 @@ const mapStateToProps = (state) => ({
   ...state.userManagement.editUser,
   // get countries if is admin.
   countries: isAdministrator(UserState.getUserInfo(state))
-    ? R.pipe(CountryState.getCountries, R.prop(administrator.role))(state)
+    ? R.pipe(UserState.getUserAssesmentRoles(Fra.type), R.prop(administrator.role))(state)
     : null,
 })
 

@@ -9,6 +9,7 @@ import Icon from '@webapp/components/icon'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import { toggleAssessmentLock } from '@webapp/app/assessment/actions'
+import { useCanToggleLock } from '@webapp/store/assessment/hooks'
 
 const Title = (props) => {
   const { assessment, lockEnabled } = props
@@ -20,7 +21,7 @@ const Title = (props) => {
   const isDataExportView = useIsDataExportView()
 
   const locked = useSelector(AssessmentState.isLocked(assessment))
-  const canToggleLock = useSelector(AssessmentState.canToggleLock(assessment))
+  const canToggleLock = useCanToggleLock()
 
   return (
     <div className="nav-assessment-header__lock">
