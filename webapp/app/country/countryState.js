@@ -1,6 +1,5 @@
 import * as R from 'ramda'
 
-import * as Country from '@common/country/country'
 import * as Assessment from '@common/assessment/assessment'
 import { assessmentStatus } from '@common/assessment'
 
@@ -9,7 +8,6 @@ export const stateKey = 'country'
 const keys = {
   config: 'config',
   status: 'status',
-  countries: 'countries',
 }
 
 const keysStatus = {
@@ -22,13 +20,6 @@ const getState = R.prop(stateKey)
 const _isNotEmpty = R.pipe(R.isEmpty, R.not)
 // === READ
 
-// Countries
-export const getCountries = R.pipe(getState, R.propOr({}, keys.countries))
-export const hasCountries = R.pipe(getCountries, _isNotEmpty)
-export const getCountriesList = R.pipe(getCountries, R.values, R.flatten)
-export const getCountryByCountryIso = (countryIso) =>
-  R.pipe(getCountriesList, R.find(R.propEq(Country.keys.countryIso, countryIso)))
-
 export const getConfig = R.pipe(getState, R.propOr({}, keys.config))
 export const getStatus = R.pipe(getState, R.propOr({}, keys.status))
 export const hasStatus = R.pipe(getStatus, _isNotEmpty)
@@ -37,7 +28,6 @@ export const getReviewStatus = R.pipe(getStatus, R.propOr({}, keysStatus.reviewS
 
 // === UPDATE
 export const assocConfig = R.assoc(keys.config)
-export const assocCountries = R.assoc(keys.countries)
 export const assocStatus = R.assoc(keys.status)
 
 // config functions
@@ -47,7 +37,6 @@ export const getConfigClimaticDomainPercents2015 = _getConfigProp('climaticDomai
 export const getConfigDomain = _getConfigProp('domain')
 export const getConfigFaoStat = _getConfigProp('faoStat')
 export const getConfigFra2015ForestAreas = _getConfigProp('fra2015ForestAreas')
-export const getConfigpanEuropean = _getConfigProp('panEuropean')
 export const getConfigUseOriginalDataPointsInFoc = _getConfigProp('useOriginalDataPointsInFoc')
 
 export const getConfigCertifiedAreaByYear = (year) => R.pipe(getConfigCertifiedAreas, R.propOr(null, String(year)))

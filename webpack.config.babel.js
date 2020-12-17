@@ -79,6 +79,7 @@ const appConfig = {
   },
   devServer: {
     hot: true,
+    disableHostCheck: true,
     proxy: [
       {
         // Proxy all server-served routes:
