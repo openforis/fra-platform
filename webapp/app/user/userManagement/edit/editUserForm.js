@@ -32,12 +32,12 @@ class EditUserForm extends React.Component {
   }
 
   componentDidMount() {
-    this.props.loadUserToEdit(this.props.countryIso, this.props.userId)
+    this.props.loadUserToEdit(this.props.userId)
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.props.userId !== prevProps.userId || this.props.countryIso !== prevProps.countryIso) {
-      this.props.loadUserToEdit(this.props.countryIso, this.props.userId)
+      this.props.loadUserToEdit(this.props.userId)
     }
 
     if (R.path(['user', 'id'], this.state) !== R.path(['user', 'id'], this.props)) {
@@ -114,7 +114,7 @@ class EditUserForm extends React.Component {
                 reader.readAsDataURL(this.refs.profilePictureFile.files[0])
               }}
             />
-            <img ref="profilePicture" src={profilePictureUri(countryIso, user.id)} className="edit-user__picture-img" />
+            <img ref="profilePicture" src={profilePictureUri(user.id)} className="edit-user__picture-img" />
             <button
               className="btn btn-primary btn-xs"
               onClick={() => this.refs.profilePictureFile.dispatchEvent(new MouseEvent('click'))}
