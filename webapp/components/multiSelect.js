@@ -12,7 +12,7 @@ const optionClick = (currentValues, onChange, option) => (evt) => {
 }
 
 const outsideClick = that => evt => {
-  if (!that.refs.multiSelect.contains(evt.target)) {
+  if (!that.refs.multiSelect && !that.refs.multiSelect.contains(evt.target)) {
     that.setState({open: false})
   }
 }
