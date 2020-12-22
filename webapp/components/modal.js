@@ -24,8 +24,8 @@ export const ModalFooter = ({children}) =>
     {children}
   </div>
 
-export const Modal = ({children, isOpen}) =>
-  <div className="modal"
+export const Modal = ({children, isOpen, className = ''}) => isOpen &&
+  <div className={`modal ${className}`}
        tabIndex="-1"
        role="dialog"
        style={{display: isOpen ? 'block' : 'none'}}>
