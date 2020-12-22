@@ -63,7 +63,13 @@ const CountrySelectionModal = (props) => {
     <Modal className="country-selection" isOpen={isOpen}>
       <ModalHeader>
         {headerLabel} {showCount && `(${selection.length})`}
-        <input className="text-input filter" ref={inputRef} type="text" placeholder={i18n.t('emoji.picker.search')} onChange={updateCountries} />
+        <input
+          className="text-input filter"
+          ref={inputRef}
+          type="text"
+          placeholder={i18n.t('emoji.picker.search')}
+          onChange={updateCountries}
+        />
         <ModalClose onClose={_onClose} />
       </ModalHeader>
 
