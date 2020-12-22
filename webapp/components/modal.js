@@ -28,7 +28,6 @@ export const Modal = ({children, isOpen, className = ''}) => isOpen &&
   <div className={`modal ${className}`}
        tabIndex="-1"
        role="dialog"
-       style={{display: isOpen ? 'block' : 'none'}}>
     <div className="modal-content">
       {children}
     </div>
