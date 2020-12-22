@@ -34,7 +34,7 @@ const CountrySelector = () => {
         canSave={canSave}
         showCount
       />
-      <button onClick={() => setModalOpen(true)} className="btn btn-primary filter-countries">
+      <button onClick={() => setModalOpen(true)} className="btn-s btn btn-primary filter-countries">
         Filter countries
       </button>
     </div>
