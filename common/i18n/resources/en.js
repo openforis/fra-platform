@@ -15,6 +15,8 @@ module.exports.translation = {
   },
 
   common: {
+    resetAll: 'Reset all',
+    done: 'Done',
     column: 'Column',
     countries: 'Countries',
     dataExport: 'Data Export',
