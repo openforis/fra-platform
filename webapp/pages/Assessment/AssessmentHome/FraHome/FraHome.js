@@ -30,7 +30,7 @@ const FraHome = () => {
 
   return (
     <>
-      <div className="landing__page-header">
+      <div className="landing__page-header space-between">
         <h1 className="landing__page-title">
           {i18n.t(`area.${countryIso}.listName`)}
 
@@ -49,22 +49,22 @@ const FraHome = () => {
 
         {Area.isISOGlobal(countryIso) && <CountrySelector />}
 
-        {displayTabs && (
-          <div className="landing__page-menu">
-            {sections.map(({ name: section }) => (
-              <NavLink
-                key={section}
-                to={BasePaths.getAssessmentHomeSectionLink(countryIso, FRA.type, section)}
-                className="landing__page-menu-button"
-                activeClassName="disabled"
-              >
-                {i18n.t(`landing.sections.${section}`)}
-              </NavLink>
-            ))}
-          </div>
-        )}
-      </div>
 
+      </div>
+      {displayTabs && (
+        <div className="landing__page-menu">
+          {sections.map(({ name: section }) => (
+            <NavLink
+              key={section}
+              to={BasePaths.getAssessmentHomeSectionLink(countryIso, FRA.type, section)}
+              className="landing__page-menu-button"
+              activeClassName="disabled"
+            >
+              {i18n.t(`landing.sections.${section}`)}
+            </NavLink>
+          ))}
+        </div>
+      )}
       {displayTabs ? (
         <Switch>
           <Route exact path={BasePaths.getAssessmentHomeLink(countryIso, FRA.type)}>

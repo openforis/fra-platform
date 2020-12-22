@@ -3,13 +3,21 @@
 @import (reference) 'webapp/main/styles/buttons';
 
 .landing__page-header {
-  padding-bottom: 24px;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  .space-between {
+    justify-content: space-between;
+  }
 }
 
 .landing__page-title {
   .title;
   display: flex;
   align-items: center;
+  flex: 1;
 }
 
 .landing__btn-download {
