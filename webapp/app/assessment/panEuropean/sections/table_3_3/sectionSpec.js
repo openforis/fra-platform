@@ -81,6 +81,7 @@ const tableSpec = SectionSpec.newTableSpec({
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.variableExport]: variablesMappings[variable],
         [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.nonWoodGoods2015.${variable}`,
+        // [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.nonWoodGoods2015.${variable}_`,
         [SectionSpec.KEYS_ROW.cols]: [
           SectionSpec.newColText(),
           SectionSpec.newColText(),
