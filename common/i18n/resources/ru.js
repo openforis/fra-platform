@@ -1337,8 +1337,8 @@ module.exports.translation = {
       total: 'ВСЕГО',
       name_of_groups_of_product: 'Название продукта (группы продуктов)',
       key_species: 'Ключевые виды',
-      total_harvested_non_wood_goods_unit: 'Всего заготовлено недревесных продуктов - Единица измерения',
-      total_harvested_non_wood_goods_quantity: 'Всего заготовлено недревесных продуктов - Количество',
+      total_harvested_non_wood_goods_unit: 'Всего заготовлено недревесных продуктов: единица измерения',
+      total_harvested_non_wood_goods_quantity: 'Всего заготовлено недревесных продуктов: количество',
       market_value_1000_national_currency: 'Рыночная стоимость (1000 ед. нац. валюты)',
       nwfp_category: 'Категория недревесных лесных продуктов',
     },
@@ -1366,8 +1366,8 @@ module.exports.translation = {
       remaining_total: 'Итого остальное',
       total: 'Всего',
       name_of_service_product: 'Название услуги/продукта',
-      service_provision_amount_of_service_product: 'Предоставление услуг - Объем услуги / продукта',
-      service_provision_value_1000_national_currency: 'Предоставление услуг - Стоимость (1000 ед. нац. валюты)',
+      service_provision_amount_of_service_product: 'Предоставление услуг: объем услуги / продукта',
+      service_provision_value_1000_national_currency: 'Предоставление услуг: стоимость (1000 ед. нац. валюты)',
       forest_service_category: 'Категория лесных услуг',
     },
 
@@ -1859,9 +1859,9 @@ module.exports.translation = {
       _ofWhichDesignatedForHikingBikingCrossCountrySkiingEtc: '… в т. ч. предназначенные для походов, езды на велосипеде, беговых лыжах, и т.д.',
       facilityLengthIn1000Km: 'Объект (протяжённость в 1000 км)',
       area_available_for_public_recreation: 'Площадь с общественным доступом в рекреационных целях - {{year}}',
-      forest_roads_and_paths_available_for_public_recreation: 'Лесные дороги и тропы, доступные для общественных рекреационных целей - Объект (протяжённость в 1000 км)',
+      forest_roads_and_paths_available_for_public_recreation: 'Лесные дороги и тропы, доступные для общественных рекреационных целей',
       _of_which_designated_for_hiking_biking_cross_country_skiing_etc:
-        '… в т. ч. предназначенные для походов, езды на велосипеде, беговых лыжах, и т.д. - Объект (протяжённость в 1000 км)',
+        '… в т. ч. предназначенные для походов, езды на велосипеде, беговых лыжах, и т.д.',
     },
 
     // table 6.10d

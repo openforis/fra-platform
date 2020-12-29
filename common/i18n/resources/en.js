@@ -1085,17 +1085,17 @@ The FRA team
 
     // navigation
     navigation: {
-      forestResourcesAndCarbon: 'Forest Resources and Carbon',
-      maintenanceOfForestEcosystemHealthAndVitality: 'Maintenance of Forest Ecosystem Health and Vitality',
-      productiveFunctionsOfForestsWoodAndNonWood: 'Productive Functions of Forests (Wood and Non-Wood)',
-      biologicalDiversityInForestEcosystems: 'Biological Diversity in Forest Ecosystems',
-      protectiveFunctionsInForestManagement: 'Protective Functions in Forest Management',
+      forestResourcesAndCarbon: 'Forest resources and carbon',
+      maintenanceOfForestEcosystemHealthAndVitality: 'Maintenance of forest ecosystem health and vitality',
+      productiveFunctionsOfForestsWoodAndNonWood: 'Productive functions of forests (wood and non-wood)',
+      biologicalDiversityInForestEcosystems: 'Biological diversity in forest ecosystems',
+      protectiveFunctionsInForestManagement: 'Protective functions in forest management',
       socioEconomicFunctionsAndConditions: 'Socio-economic functions and conditions',
     },
 
     // table 1.1a
     forestArea: {
-      forestArea: 'Forest Area',
+      forestArea: 'Forest area',
       categoryYear: 'Category - Year',
       area: 'Area',
       area1000Ha: 'Area (1000 ha)',
@@ -1125,7 +1125,7 @@ The FRA team
 
     // table 1.2a
     growingStock: {
-      growingStock: 'Growing Stock',
+      growingStock: 'Growing stock',
       categoryYear: 'Category - Year',
       growingStockMillionM3OB: 'Growing stock (million m³ over bark)',
       total: 'Total',
@@ -1224,7 +1224,7 @@ The FRA team
     // table 1.3b
     diameterDistributionAndTotalAreaUnevenAgedStands: {
       diameterDistributionAndTotalAreaUnevenAgedStands:
-        'Table 1.3b Diameter distribution and total area (uneven-aged stands)',
+        'Diameter distribution and total area (uneven-aged stands)',
       categoryYear: 'Category - Year',
       volumeByDiameterClasses1000mob: 'Volume by diameter classes',
       area: 'Area (1000 ha)',
@@ -1261,7 +1261,7 @@ The FRA team
 
     // table 1.4b
     carbonStockInHarvestedWoodProductsHWP: {
-      carbonStockInHarvestedWoodProductsHWP: 'Carbon Stock In Harvested Wood Products (HWP)',
+      carbonStockInHarvestedWoodProductsHWP: 'Carbon stock in harvested wood products (HWP)',
       categoryYear: 'Category - Year',
       totalCarbonStockInHWPMillionMetricTonnes: 'Total carbon stock in HWP (million metric tonnes)',
       total_carbon_stock_in_hwp: 'Total carbon stock in HWP',
@@ -1389,15 +1389,15 @@ The FRA team
       total: 'TOTAL',
       name_of_groups_of_product: 'Name of (groups of) product',
       key_species: 'Key species',
-      total_harvested_non_wood_goods_unit: 'Total harvested non-wood goods - Unit',
-      total_harvested_non_wood_goods_quantity: 'Total harvested non-wood goods - Quantity',
+      total_harvested_non_wood_goods_unit: 'Total harvested non-wood goods: Unit',
+      total_harvested_non_wood_goods_quantity: 'Total harvested non-wood goods: Quantity',
       market_value_1000_national_currency: 'Market value (1000 national currency)',
       nwfp_category: 'NWFP category',
     },
 
     // table 3.4
     marketedServices2015: {
-      marketedServices2015: 'Marketed Services (2015)',
+      marketedServices2015: 'Marketed services (2015)',
       rankValue: 'Rank (value)',
       nameOfServiceProduct: 'Name of service/product',
       unit: 'Unit',
@@ -1418,8 +1418,8 @@ The FRA team
       remaining_total: 'Remaining total',
       total: 'Total',
       name_of_service_product: 'Name of service/product',
-      service_provision_amount_of_service_product: 'Service provision - Amount of service/product',
-      service_provision_value_1000_national_currency: 'Service provision - Value (1000 national currency)',
+      service_provision_amount_of_service_product: 'Service provision: Amount of service/product',
+      service_provision_value_1000_national_currency: 'Service provision: Value (1000 national currency)',
       forest_service_category: 'Forest service category',
     },
 
@@ -1665,9 +1665,9 @@ The FRA team
 
     // table 6.2
     grossValueAdded: {
-      grossValueAdded: 'Gross Value Added',
+      grossValueAdded: 'Gross value added',
       categoryYear: 'Category - Year',
-      grossValueAddedCol: 'Gross Value Added',
+      grossValueAddedCol: 'Gross value added',
       million_national_currency: 'Million national currency',
       percent_of_total_gva: '% of total GVA',
       forestry: 'Forestry (ISIC/NACE 02) - {{year}}',
@@ -1703,7 +1703,7 @@ The FRA team
 
     // table 6.4b
     totalFixedCapitalConsumptionInForestsAndForestry: {
-      totalFixedCapitalConsumptionInForestsAndForestry: 'Total Fixed Capital Consumption In Forests And Forestry',
+      totalFixedCapitalConsumptionInForestsAndForestry: 'Total fixed capital consumption in forests and forestry',
       categoryYear: 'Category - Year',
       fixedCapitalConsumptionMillionNationalCurrency: 'Fixed capital consumption (million national currency)',
       fixed_capital_consumption: 'Fixed capital consumption',
@@ -1712,7 +1712,7 @@ The FRA team
 
     // table 6.4c
     totalCapitalTransfersInForestsAndForestry: {
-      totalCapitalTransfersInForestsAndForestry: 'Total Capital Transfers In Forests And Forestry',
+      totalCapitalTransfersInForestsAndForestry: 'Total capital transfers in forests and forestry',
       categoryYear: 'Category - Year',
       capitalTransfersMillionNationalCurrency: 'Capital transfers (million national currency)',
       capital_transfers: 'Capital transfers',
@@ -1764,7 +1764,7 @@ The FRA team
 
     // table 6.6
     occupationalAccidents: {
-      occupationalAccidents: 'Occupational Accidents',
+      occupationalAccidents: 'Occupational accidents',
       categoryYear: 'Category - Year',
       fatalOccupationalAccidents: 'Fatal occupational accidents',
       nonFatalOccupationalAccidents: 'Non-fatal occupational accidents',
