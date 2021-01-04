@@ -50,7 +50,7 @@ const tableSpec = SectionSpec.newTableSpec({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.employmentByEducationAndJobCharacteristics._5_6',
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.employmentByEducationAndJobCharacteristics.employees',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.employmentByEducationAndJobCharacteristics.employees_',
         }),
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.employmentByEducationAndJobCharacteristics.selfEmployed',

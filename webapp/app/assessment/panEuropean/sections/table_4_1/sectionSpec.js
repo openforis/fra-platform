@@ -38,19 +38,19 @@ const tableSpec = SectionSpec.newTableSpec({
       [SectionSpec.KEYS_ROW.cols]: [
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]:
-            'panEuropean.treeSpeciesComposition.area_with_number_of_tree_species_occurring_1',
+            'panEuropean.treeSpeciesComposition.areaWithNumberOfTreeSpeciesOccurring1',
         }),
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]:
-            'panEuropean.treeSpeciesComposition.area_with_number_of_tree_species_occurring_2_3',
+            'panEuropean.treeSpeciesComposition.areaWithNumberOfTreeSpeciesOccurring2_3',
         }),
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]:
-            'panEuropean.treeSpeciesComposition.area_with_number_of_tree_species_occurring_4_5',
+            'panEuropean.treeSpeciesComposition.areaWithNumberOfTreeSpeciesOccurring4_5',
         }),
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]:
-            'panEuropean.treeSpeciesComposition.area_with_number_of_tree_species_occurring_6_pl',
+            'panEuropean.treeSpeciesComposition.areaWithNumberOfTreeSpeciesOccurring6_pl',
         }),
       ],
     }),

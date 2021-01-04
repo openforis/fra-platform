@@ -37,7 +37,7 @@ const tableSpec = SectionSpec.newTableSpec({
         }),
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.threatenedForestSpecies.total_of_taxa',
-          [SectionSpec.KEYS_COL.rowSpan]: 3,
+          [SectionSpec.KEYS_COL.rowSpan]: 2,
         }),
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.threatenedForestSpecies.threatenedForestSpeciesCol',
