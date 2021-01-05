@@ -10,7 +10,8 @@ import Icon from '@webapp/components/icon'
 import StatisticalFactsheets from '@webapp/app/countryLanding/views/statisticalFactsheets'
 
 import useCountryLandingSections from '@webapp/app/countryLanding/useCountryLandingSections'
-import CountrySelector from '@webapp/pages/Assessment/AssessmentHome/FraHome/components/CountrySelector'
+import CountrySelector from './components/CountrySelector'
+import SelectedCountries from './components/SelectedCountries'
 
 const FraHome = () => {
   const { pathname } = useLocation()
@@ -48,9 +49,10 @@ const FraHome = () => {
         </h1>
 
         {Area.isISOGlobal(countryIso) && <CountrySelector />}
-
-
       </div>
+
+      {Area.isISOGlobal(countryIso) && <SelectedCountries />}
+
       {displayTabs && (
         <div className="landing__page-menu">
           {sections.map(({ name: section }) => (

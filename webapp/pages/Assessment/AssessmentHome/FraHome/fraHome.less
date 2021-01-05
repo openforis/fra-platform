@@ -20,6 +20,23 @@
   flex: 1;
 }
 
+.landing__page-subtitle {
+  margin-top: 12px;
+  font-weight: 500;
+}
+
+// TODO: Make this common component
+.landng__page-country-label {
+  display: inline-block;
+  border: @ui-thin-border;
+  padding: 4px 8px;
+  border-radius: 3px;
+  background-color: lighten(@ui-bg, 1%);
+  color: darken(@text-disabled, 15%);
+  margin: 5px 2.5px 0;
+  font-size: @font-s;
+}
+
 .landing__btn-download {
   margin-left: 12px;
   display: flex;
@@ -134,7 +151,7 @@
 
   button {
     margin-left: 14px;
-    margin-top: 0px !important;
+    margin-top: 0 !important;
   }
 
   .support-text {
@@ -165,7 +182,7 @@
 .landing__users-container {
   .landing__page-container;
   width: 100%;
-  padding: 32px 8px 0px 8px;
+  padding: 32px 8px 0 8px;
 }
 
 .landing__user-outer-container {
