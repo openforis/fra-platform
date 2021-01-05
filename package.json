@@ -73,7 +73,7 @@
   },
   "dependencies": {
     "assert": "^2.0.0",
-    "axios": "^0.21.0",
+    "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "bignumber.js": "^9.0.1",
     "bluebird": "^3.7.2",
