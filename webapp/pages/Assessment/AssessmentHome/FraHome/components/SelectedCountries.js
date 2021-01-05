@@ -8,7 +8,7 @@ const SelectedCountries = () => {
   const i18n = useI18n()
   const selectedCountries = useSelector(UiState.getSelectedCountries)
 
-  if (!selectedCountries.length > 0) {
+  if (!selectedCountries || selectedCountries.length === 0) {
     return null
   }
 
