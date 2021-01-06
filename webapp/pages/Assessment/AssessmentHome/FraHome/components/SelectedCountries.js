@@ -13,14 +13,13 @@ const SelectedCountries = () => {
   }
 
   return (
-    <h2 className="landing__page-subtitle">
-      Filter:
+    <>
       {selectedCountries.map((countryIso) => (
         <span key={countryIso} className="landng__page-country-label">
           {Area.getListName(countryIso, i18n)}
         </span>
       ))}
-    </h2>
+    </>
   )
 }
 
