@@ -9,7 +9,17 @@ import { Country } from '@common/country'
 import CountrySelectionModalBody from './CountrySelectionModalBody'
 
 const CountrySelectionModal = (props) => {
-  const { countries, showCount, canSave, isOpen, onChange, onClose, unselectableCountries, headerLabel } = props
+  const {
+    countries,
+    showCount,
+    canSave,
+    isOpen,
+    onChange,
+    onClose,
+    unselectableCountries,
+    headerLabel,
+    excludedRegions,
+  } = props
   const [selection, setSelection] = useState([])
   const [countriesFiltered, setCountriesFiltered] = useState(countries)
   const inputRef = useRef(null)
@@ -78,6 +88,7 @@ const CountrySelectionModal = (props) => {
         onChange={_onChange}
         selection={selection}
         unselectableCountries={unselectableCountries}
+        excludedRegions={excludedRegions}
       />
 
       <ModalFooter>
@@ -97,6 +108,7 @@ CountrySelectionModal.defaultProps = {
   canSave: () => true,
   onChange: () => true,
   showCount: true,
+  excludedRegions: [],
 }
 
 CountrySelectionModal.propTypes = {
@@ -104,6 +116,7 @@ CountrySelectionModal.propTypes = {
 
   countries: PropTypes.array.isRequired,
   unselectableCountries: PropTypes.array,
+  excludedRegions: PropTypes.array,
 
   isOpen: PropTypes.bool.isRequired,
   showCount: PropTypes.bool,

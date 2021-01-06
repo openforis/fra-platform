@@ -4,7 +4,7 @@ import { useI18n } from '@webapp/components/hooks'
 import { ModalBody } from '@webapp/components/modal'
 
 const CountrySelectionModalBody = (props) => {
-  const { countries, onChange, selection = [], unselectableCountries } = props
+  const { countries, onChange, selection = [], unselectableCountries, excludedRegions } = props
 
   const i18n = useI18n()
 
@@ -13,10 +13,17 @@ const CountrySelectionModalBody = (props) => {
 
   countries.forEach((country) => {
     const { countryIso, regionCodes } = country
+
     regionCodes.forEach((regionCode) => {
+      // We can have excluded regions, ignore these
+      const excluded = excludedRegions.includes(regionCode)
+      if (excluded) {
+        return
+      }
       if (!Array.isArray(regionCountries[regionCode])) {
         regionCountries[regionCode] = []
       }
+
       regionCountries[regionCode].push(countryIso)
     })
   })
@@ -44,11 +51,7 @@ const CountrySelectionModalBody = (props) => {
               if (_isCountryUnselectable(countryIso)) classCountry += ' disabled'
 
               return (
-                <div
-                  key={countryIso}
-                  className={classCountry}
-                  onClick={() => _onClick(countryIso)}
-                >
+                <div key={countryIso} className={classCountry} onClick={() => _onClick(countryIso)}>
                   <div className={classChecked} />
                   <div className="edit-user__form-field-country-label">{i18n.t(`area.${countryIso}.listName`)}</div>
                 </div>
@@ -65,6 +68,7 @@ CountrySelectionModalBody.propTypes = {
   countries: PropTypes.array.isRequired,
   selection: PropTypes.array.isRequired,
   unselectableCountries: PropTypes.array.isRequired,
+  excludedRegions: PropTypes.array.isRequired,
 
   onChange: PropTypes.func.isRequired,
 }
