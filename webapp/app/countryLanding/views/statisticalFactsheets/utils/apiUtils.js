@@ -4,7 +4,7 @@ export const getUrl = () => `${baseUrl}`
 const sections = {
   forestArea: ['forest_area'],
   carbonAndGrowingStock: ['growing_stock_total', 'carbon_stock_biomass_total', 'carbon_stock_total'],
-  forestAreaPercent: ['forest_area_percent'],
+  forestAreaPercent: ['forest_area', 'land_area'],
   primaryForest: ['forest_area', 'primary_forest'],
   forestOwnership: ['private_ownership', 'public_ownership', 'other_or_unknown'],
   forestAreaWithinProtectedAreas: ['forest_area', 'forest_area_within_protected_areas'],

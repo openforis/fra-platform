@@ -15,6 +15,7 @@ SELECT
 FROM ${schemaName}.country_aggregate
 WHERE row_name IN (${_joinArray(rowNames)})
 GROUP BY row_name
+ORDER BY row_name
 `
 
   const result = await db.query(query)
@@ -35,6 +36,7 @@ FROM ${schemaName}.country_aggregate
 WHERE row_name IN (${_joinArray(rowNames)})
 AND country_iso IN (${_joinArray(countries)})
 GROUP BY row_name
+ORDER BY row_name
 `
 
   const result = await db.query(query)
@@ -54,6 +56,7 @@ FROM ${schemaName}.statistical_factsheets_view
 WHERE row_name IN (${_joinArray(rowNames)})
 AND level = '${countryIso}'
 GROUP BY row_name
+ORDER BY row_name
 `
 
   const result = await db.query(query)

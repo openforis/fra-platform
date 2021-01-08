@@ -8,6 +8,7 @@ import Chart from '../components/chart'
 const ForestAreaPercent = (props) => {
   const { levelIso } = props
   const i18n = useI18n()
+
   const section = 'forestAreaPercent'
 
   const { data, loaded } = useStatisticalFactsheetsState(section, levelIso)
@@ -16,14 +17,15 @@ const ForestAreaPercent = (props) => {
     return null
   }
 
-  // Get the value for year 2020
-  const forestArea = data.length ? Number(data[0]['2020']) : null
-  const otherArea = data.length ? 100 - forestArea : null
+  const forestArea = data[0] && data[0]['2020']
+  const landArea = data[1] && data[1]['2015']
+
+  const forestAreaAsPercentage = 100 * (forestArea / landArea)
 
   const chartData = {
     datasets: [
       {
-        data: [forestArea, otherArea],
+        data: [forestAreaAsPercentage, 100 - forestAreaAsPercentage],
         borderWidth: 0,
         backgroundColor: [ChartUtils.colors.green, ChartUtils.colors.gray],
         hoverBackgroundColor: [ChartUtils.colors.greenHover, ChartUtils.colors.grayHover],
