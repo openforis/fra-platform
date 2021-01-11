@@ -7,6 +7,7 @@ const getGlobalStatisticalFactsheetData = async (schemaName, rowNames) => {
   const query = `
 SELECT
        row_name,
+       count(country_iso) as count,
        sum(coalesce("1990", 0)) AS "1990",
        sum(coalesce("2000", 0)) AS "2000",
        sum(coalesce("2010", 0)) AS "2010",
@@ -27,6 +28,7 @@ const getStatisticalFactsheetData = async (schemaName, rowNames, countries) => {
   const query = `
 SELECT
        row_name,
+       count(country_iso) as count,
        sum(coalesce("1990", 0)) AS "1990",
        sum(coalesce("2000", 0)) AS "2000",
        sum(coalesce("2010", 0)) AS "2010",
@@ -47,6 +49,7 @@ const getSingleCountryStatisticalFactsheetData = async (schemaName, rowNames, co
   const query = `
 SELECT
        row_name,
+       count(level) as count,
        sum(coalesce("1990", 0)) AS "1990",
        sum(coalesce("2000", 0)) AS "2000",
        sum(coalesce("2010", 0)) AS "2010",
