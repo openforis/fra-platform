@@ -12,10 +12,10 @@ with x as (select country_iso
      s AS (
          select primary_forest.country_iso
               , 'primary_forest_ratio'                                as row_name
-              , null                                                  as "1990"
-              , null                                                  as "2000"
-              , null                                                  as "2015"
-              , null                                                  as "2010"
+              , NULL::NUMERIC                                         as "1990"
+              , NULL::NUMERIC                                         as "2000"
+              , NULL::NUMERIC                                         as "2010"
+              , NULL::NUMERIC                                         as "2015"
               , primary_forest."2020" / NULLIF(forest_area."2020", 0) as "2020"
 
          from specific_forest_categories primary_forest
@@ -25,11 +25,11 @@ with x as (select country_iso
          UNION
          SELECT country_iso
               , 'land_area' as row_name
-              , null AS "1990"
-              , null AS "2000"
-              , null AS "2010"
-              , "2015"
-              , null AS "2020"
+              , null        AS "1990"
+              , null        AS "2000"
+              , null        AS "2010"
+              , "2015"      AS "2015"
+              , null        AS "2020"
          FROM extent_of_forest_view
          WHERE row_name = 'total_land_area'
          UNION
