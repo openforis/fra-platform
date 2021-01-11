@@ -66,8 +66,35 @@ ORDER BY row_name
   return camelize(result.rows)
 }
 
+const getPrimaryForestData = async (schemaName, countryIsos = []) => {
+  const hasCountries = countryIsos.length > 0
+  let validCountries = ''
+  if (hasCountries) {
+    validCountries = `AND country_iso in (${_joinArray(countryIsos)})`
+  }
+  const query = `
+with valid_countries as (
+    select country_iso from ${schemaName}.country_aggregate where "2020" is not null and row_name = 'primary_forest' ${validCountries}
+)
+SELECT 'primary_forest_ratio' as row_name,
+       SUM(pf."2020") / SUM(fa."2020") as "2020"
+FROM ${schemaName}.country_aggregate pf
+JOIN ${schemaName}.country_aggregate fa USING (country_iso)
+WHERE pf.row_name = 'primary_forest'
+  AND pf.country_iso in
+      (SELECT * FROM valid_countries)
+  AND fa.country_iso in
+      (SELECT * FROM valid_countries)
+  AND fa.row_name = 'forest_area'
+`
+
+  const result = await db.query(query)
+  return camelize(result.rows)
+}
+
 module.exports = {
   getSingleCountryStatisticalFactsheetData,
   getGlobalStatisticalFactsheetData,
   getStatisticalFactsheetData,
+  getPrimaryForestData,
 }

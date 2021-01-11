@@ -24,9 +24,8 @@ const PrimaryForest = (props) => {
   const year = '2020'
   const { rowNames: variables } = APIUtils.getParams('primaryForest')
   const [primaryForestRatio = 0] = getVariableValuesByYear({ data, variables, year })
-  const countryCount = data[0] && data[0].count
 
-  const primaryForestPercent = (primaryForestRatio / countryCount) * 100
+  const primaryForestPercent = primaryForestRatio * 100
   const otherForestPercent = 100 - primaryForestPercent
 
   const chartData = {
