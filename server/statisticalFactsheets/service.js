@@ -3,6 +3,7 @@ const Repository = require('./statisticalFactsheetsRepository')
 const Area = require('../../common/country/area')
 
 const getStatisticalFactsheetData = async (schemaName, level, rowNames) => {
+  const isPrimaryForest = rowNames.includes('primary_forest_ratio')
   /*
     CountryIsos can be
     - WO                - all countries
@@ -12,6 +13,7 @@ const getStatisticalFactsheetData = async (schemaName, level, rowNames) => {
   */
   // - WO - all countries
   if (Area.isISOGlobal(level)) {
+    if (isPrimaryForest) return Repository.getPrimaryForestData(schemaName)
     return Repository.getGlobalStatisticalFactsheetData(schemaName, rowNames)
   }
 
@@ -20,6 +22,7 @@ const getStatisticalFactsheetData = async (schemaName, level, rowNames) => {
   if (regions.includes(level)) {
     // Get countries for region
     const countries = await CountryRepository.getCountryIsos(level)
+    if (isPrimaryForest) return Repository.getPrimaryForestData(schemaName, countries)
     return Repository.getStatisticalFactsheetData(schemaName, rowNames, countries)
   }
 
