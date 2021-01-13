@@ -79,7 +79,7 @@ const CountrySelection = () => {
                 <div
                   className="flag"
                   style={{
-                    backgroundImage: `url('/img/flags/1x1/${countryIso}.svg'), url('/img/flags/1x1/ATL.svg')`,
+                    backgroundImage: `url('/img/flags/1x1/${countryIso}.svg')`,
                   }}
                 />
               )}
