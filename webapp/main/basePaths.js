@@ -77,9 +77,9 @@ export const user = _generate(FRAGMENTS.users, PARAMS.userId)
 export const getUserProfileLink = (userId) => _generate(FRAGMENTS.users, userId)
 
 // TODO: introduce API
-// /api/users/:countryIso/user/:userId/profilePicture
-export const getUserProfilePictureLink = (countryIso, userId) =>
-  _generate(FRAGMENTS.api, FRAGMENTS.users, countryIso, FRAGMENTS.user, userId, FRAGMENTS.profilePicture)
+// /api/users/user/:userId/profilePicture
+export const getUserProfilePictureLink = (userId) =>
+  _generate(FRAGMENTS.api, FRAGMENTS.users, FRAGMENTS.user, userId, FRAGMENTS.profilePicture)
 
 // ==== Login
 export const login = _generate(FRAGMENTS.login)

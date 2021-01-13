@@ -17,17 +17,24 @@ import { useInitCountry, useIsCountryStatusLoaded } from '@webapp/store/country'
 import AssessmentHome from '@webapp/pages/Assessment/AssessmentHome'
 import AssessmentSectionView from '@webapp/app/assessment/components/section/assessmentSectionView'
 import OriginalDataPointView from '@webapp/app/assessment/fra/sections/originalDataPoint/originalDataPointView'
+import useCountryIso from '@webapp/components/hooks/useCountryIso'
 
 const Assessment = () => {
   const dispatch = useDispatch()
   const userInfo = useUserInfo()
   const navigationVisible = useNavigationVisible()
   const countryStatusLoaded = useIsCountryStatusLoaded()
+  const countryIso = useCountryIso()
   useInitCountry()
 
   useEffect(() => {
     if (!navigationVisible && countryStatusLoaded) dispatch(toggleNavigation())
   }, [])
+
+  // This is required - otherwise app will crash on slow connections or builds
+  if (!countryIso) {
+    return null
+  }
 
   return (
     <>

@@ -1,6 +1,5 @@
 import './countryListDownload.less'
 import React from 'react'
-import { useSelector } from 'react-redux'
 
 import * as Country from '@common/country/country'
 import { isAdministrator } from '@common/countryRole'
@@ -11,7 +10,7 @@ import Icon from '@webapp/components/icon'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 import useI18n from '@webapp/components/hooks/useI18n'
 
-import * as CountryState from '@webapp/app/country/countryState'
+import { useUserCountriesAsList } from '@webapp/store/user/hooks'
 
 const CountryListDownload = () => {
   const userInfo = useUserInfo()
@@ -20,9 +19,9 @@ const CountryListDownload = () => {
   }
 
   const i18n = useI18n()
-  const countries = useSelector(CountryState.getCountriesList)
+  const userCountriesAsList = useUserCountriesAsList()
 
-  const data = countries.map((country) => ({
+  const data = userCountriesAsList.map((country) => ({
     name: i18n.t(`area.${country.countryIso}.listName`),
     status: i18n.t(`assessment.status.${Country.getFra2020Assessment(country)}.label`),
     edited: getRelativeDate(Country.getLastEdit(country), i18n) || i18n.t('audit.notStarted'),

@@ -3,7 +3,6 @@ const R = require('ramda')
 const db = require('../db/db')
 
 const Request = require('../utils/requestUtils')
-const { checkCountryAccessFromReqParams } = require('../utils/accessControl')
 
 const countryRepository = require('./countryRepository')
 const reviewRepository = require('../review/reviewRepository')
@@ -64,8 +63,6 @@ module.exports.init = (app) => {
 
       const assessmentsPromise = assessmentRepository.getAssessments(countryIso)
       if (userInfo) {
-        checkCountryAccessFromReqParams(req)
-
         const odpDataPromise = odpRepository.listAndValidateOriginalDataPoints(countryIso)
         const reviewStatusPromise = reviewRepository.getCountryIssuesSummary(countryIso, userInfo)
 

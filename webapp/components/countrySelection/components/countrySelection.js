@@ -1,15 +1,11 @@
 import './countrySelection.less'
 import React, { useEffect, useRef, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 
 import { getRoleForCountryLabelKey } from '@common/countryRole'
 import { Area } from '@common/country'
 
 import { useCountryIso, useI18n, useNavigationVisible, useUserInfo } from '@webapp/components/hooks'
 import Icon from '@webapp/components/icon'
-
-import * as CountryState from '@webapp/app/country/countryState'
-import { fetchCountryList } from '@webapp/app/country/actions'
 
 import LinkLanding from './linkLanding'
 import CountryList from './countryList'
@@ -22,12 +18,10 @@ const findElementRoot = (el) => {
 }
 
 const CountrySelection = () => {
-  const dispatch = useDispatch()
   const countryIso = useCountryIso()
   const userInfo = useUserInfo()
   const i18n = useI18n()
   const navigationVisible = useNavigationVisible()
-  const countriesLoaded = useSelector(CountryState.hasCountries)
 
   const countrySelectionRef = useRef(null)
   const [open, setOpen] = useState(false)
@@ -38,14 +32,12 @@ const CountrySelection = () => {
 
     // We need to check these two, since React can unmount the other element before we get here.
     if (elRoot.className.includes('country-selection__country')) return
-    if (countrySelectionRef.current.contains(evt.target)) return
+    if (countrySelectionRef.current && countrySelectionRef.current.contains(evt.target)) return
 
     setOpen(false)
   }
 
   useEffect(() => {
-    if (!countriesLoaded) dispatch(fetchCountryList())
-
     window.addEventListener('click', outsideClick)
 
     return () => {
@@ -68,7 +60,6 @@ const CountrySelection = () => {
         className="btn btn-country-selection no-print"
         ref={countrySelectionRef}
         onClick={() => setOpen(!open)}
-        disabled={!countriesLoaded}
       >
         <div>
           {open && (
@@ -88,7 +79,7 @@ const CountrySelection = () => {
                 <div
                   className="flag"
                   style={{
-                    backgroundImage: `url('/img/flags/1x1/${countryIso}.svg'), url('/img/flags/1x1/ATL.svg')`,
+                    backgroundImage: `url('/img/flags/1x1/${countryIso}.svg')`,
                   }}
                 />
               )}

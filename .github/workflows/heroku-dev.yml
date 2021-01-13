@@ -2,8 +2,8 @@ name: Deploy to development
 
 on:
   push:
-    tags:
-      - '*'
+    branches:
+      - 'master'
 
 jobs:
   build:
