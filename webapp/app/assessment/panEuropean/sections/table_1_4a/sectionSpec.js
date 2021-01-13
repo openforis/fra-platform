@@ -46,10 +46,10 @@ const tableSpec = SectionSpec.newTableSpec({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.carbonStock.belowGround',
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.carbonStock.deadwood_',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.carbonStock.deadwoodCarbon',
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.carbonStock.litter_',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.carbonStock.litterCarbon',
         }),
       ],
     }),

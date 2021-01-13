@@ -51,7 +51,7 @@ const tableSpec = SectionSpec.newTableSpec({
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.annualForestExpansionAndRegeneration.afforestation_',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.annualForestExpansionAndRegeneration.afforestationExpansion',
         }),
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.annualForestExpansionAndRegeneration.naturalExpansion',
@@ -63,7 +63,7 @@ const tableSpec = SectionSpec.newTableSpec({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.annualForestExpansionAndRegeneration.plantingAndSeeding',
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.annualForestExpansionAndRegeneration.coppice_',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.annualForestExpansionAndRegeneration.coppiceRegeneration',
         }),
       ],
     }),
