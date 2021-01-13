@@ -1,5 +1,5 @@
 INSERT INTO region
-VALUES ('ECOMIFAC', 'espace comifac');
+VALUES ('ECOMIFAC', 'espace_comifac');
 
 INSERT INTO country_region
 VALUES ('ECOMIFAC', 'BDI'),
