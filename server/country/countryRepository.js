@@ -117,6 +117,15 @@ const getRegions = async () => {
   return camelize(result.rows)
 }
 
+const getRegionGroups = async () => {
+  // Exclude Atlantis from region groups
+  const query = `
+        SELECT region_group, ARRAY_AGG(region_code) as regions FROM region  WHERE region_code != 'AT' GROUP BY region_group
+        `
+  const result = await db.query(query)
+  return camelize(result.rows)
+}
+
 // Get all countryIsos, or countryIsos for certain region
 const getCountryIsos = async (regionCode) => {
   const query = `select country_iso from country_region ${regionCode ? `where region_code = '${regionCode}' ` : ''}`
@@ -240,3 +249,4 @@ module.exports.getFirstAllowedCountry = (roles) =>
   getAllowedCountries(roles).then((result) => R.pipe(R.values, R.head, R.head)(result))
 module.exports.getCountry = getCountry
 module.exports.getCountryIsos = getCountryIsos
+module.exports.getRegionGroups = getRegionGroups
