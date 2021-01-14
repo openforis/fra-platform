@@ -7,9 +7,10 @@ import { noRole } from '@common/countryRole'
 import { checkMatch } from '@webapp/components/countrySelection/utils/checkMatch'
 
 import { useI18n } from '@webapp/components/hooks'
-import { useRegions, useCountries } from '@webapp/store/app'
+import { useCountries } from '@webapp/store/app'
 import { useUserCountries } from '@webapp/store/user'
 
+import { sortRegionGroups, useRegionGroups } from '@webapp/store/app/hooks'
 import CountryListDownload from '../countryListDownload'
 import CountryListRow from '../countryListRow'
 import CountryListRoleSection from '../countryListRoleSection'
@@ -20,12 +21,13 @@ const CountryListFra = (props) => {
 
   const allCountries = useCountries()
 
-  const regions = useRegions()
+  const regionGroups = useRegionGroups()
   const userCountries = useUserCountries()
 
-  const filteredRegions = regions
-    .filter((region) => checkMatch(Area.getListName(region, i18n), query))
-    .filter((region) => region !== Area.levels.forest_europe)
+  const filterRegions = (regions) =>
+    regions
+      .filter((region) => checkMatch(Area.getListName(region, i18n), query))
+      .filter((region) => region !== Area.levels.forest_europe)
 
   const userCountryIsos = []
 
@@ -55,15 +57,19 @@ const CountryListFra = (props) => {
               <hr />
             </>
           )}
-          {filteredRegions.map((region) => (
-            <CountryListRow
-              key={region}
-              role={noRole.role}
-              country={{ countryIso: region }}
-              assessmentType={Fra.type}
-            />
+          {Object.entries(sortRegionGroups(regionGroups, i18n)).map(([key, regions]) => (
+            <div key={key}>
+              {filterRegions(regions).map((region) => (
+                <CountryListRow
+                  key={region}
+                  role={noRole.role}
+                  country={{ countryIso: region }}
+                  assessmentType={Fra.type}
+                />
+              ))}
+              {filterRegions(regions).length > 0 && <hr />}
+            </div>
           ))}
-          {filteredRegions.length > 0 && <hr />}
         </div>
 
         {Object.keys(countryMap).map((role) => (
