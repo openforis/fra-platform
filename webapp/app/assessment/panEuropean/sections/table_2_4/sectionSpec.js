@@ -85,7 +85,7 @@ const tableSpec = SectionSpec.newTableSpec({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.forestOperations',
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.other_',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.otherHumanInduced',
         }),
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.primarilyDamagedByFireTotal',
