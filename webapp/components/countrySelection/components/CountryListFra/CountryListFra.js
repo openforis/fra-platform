@@ -10,7 +10,7 @@ import { useI18n } from '@webapp/components/hooks'
 import { useCountries } from '@webapp/store/app'
 import { useUserCountries } from '@webapp/store/user'
 
-import { sortRegionGroups, useRegionGroups } from '@webapp/store/app/hooks'
+import { useGroupedRegions } from '@webapp/store/app/hooks'
 import CountryListDownload from '../countryListDownload'
 import CountryListRow from '../countryListRow'
 import CountryListRoleSection from '../countryListRoleSection'
@@ -21,7 +21,7 @@ const CountryListFra = (props) => {
 
   const allCountries = useCountries()
 
-  const regionGroups = useRegionGroups()
+  const groupedRegions = useGroupedRegions()
   const userCountries = useUserCountries()
 
   const filterRegions = (regions) =>
@@ -57,13 +57,13 @@ const CountryListFra = (props) => {
               <hr />
             </>
           )}
-          {Object.entries(sortRegionGroups(regionGroups, i18n)).map(([key, regions]) => (
-            <div key={key}>
-              {filterRegions(regions).map((region) => (
+          {groupedRegions.map(({ regions, name }) => (
+            <div key={name}>
+              {filterRegions(regions).map(({ regionCode }) => (
                 <CountryListRow
-                  key={region}
+                  key={regionCode}
                   role={noRole.role}
-                  country={{ countryIso: region }}
+                  country={{ countryIso: regionCode }}
                   assessmentType={Fra.type}
                 />
               ))}

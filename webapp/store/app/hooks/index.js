@@ -46,18 +46,16 @@ export const useRegions = () => {
   return regions
 }
 
-export const sortRegionGroups = (regionGroups, i18n) => {
-  return Object.fromEntries(Object.entries(regionGroups).map(([key, regions]) => [key, sortRegions(regions, i18n)]))
+export const sortRegionGroups = (regionGroups) => {
+  return [...regionGroups].sort((rg1, rg2) => rg1.order > rg2.order)
 }
 
-export const useRegionGroups = () => {
-  const i18n = useI18n()
-  const dispatch = useDispatch()
+export const useGroupedRegions = () => {
   const regionGroups = useSelector(AppState.getRegionGroups)
+  const regions = useRegions()
 
-  useOnUpdate(() => {
-    dispatch(AppActions.updateRegionGroups(sortRegionGroups(regionGroups, i18n)))
-  }, [i18n])
-
-  return regionGroups
+  return regionGroups.map((rg) => ({
+    ...rg,
+    regions: regions.filter((region) => region.regionGroup === rg.id),
+  }))
 }

@@ -10,7 +10,7 @@ import { useCountries } from '@webapp/store/app'
 
 import { useI18n } from '@webapp/components/hooks'
 
-import { sortRegionGroups, useRegionGroups } from '@webapp/store/app/hooks'
+import { useGroupedRegions } from '@webapp/store/app/hooks'
 import DropdownAreas from './DropdownAreas'
 
 const areas = {
@@ -20,7 +20,7 @@ const areas = {
 
 const AreaSelector = () => {
   const i18n = useI18n()
-  const regionGroups = useRegionGroups()
+  const groupedRegions = useGroupedRegions()
   const countries = useCountries()
 
   const [dropdownOpened, setDropdownOpened] = useState('')
@@ -29,9 +29,11 @@ const AreaSelector = () => {
   useEffect(() => {
     setCountryISOs(countries.map(Country.getCountryIso))
   }, [])
-  const sortedRegions = Object.values(sortRegionGroups(regionGroups, i18n))
+
+  const sortedRegions = groupedRegions
+    .map((rg) => rg.regions.flatMap(({ regionCode }) => regionCode))
     .flat()
-    .filter((region) => region !== Area.levels.forest_europe)
+    .filter((regionCode) => regionCode !== Area.levels.forest_europe)
 
   return (
     <div className="home-area-selector">
