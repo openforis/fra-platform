@@ -50,6 +50,14 @@ export const sortRegionGroups = (regionGroups) => {
   return [...regionGroups].sort((rg1, rg2) => rg1.order > rg2.order)
 }
 
+/**
+ * regionGroup =
+ {
+    "id": 1,
+    "name": "fra",
+    "order": 0
+  },
+ */
 export const useGroupedRegions = () => {
   const regionGroups = useSelector(AppState.getRegionGroups)
 
