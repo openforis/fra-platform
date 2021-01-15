@@ -13,7 +13,7 @@ import { useI18n } from '@webapp/components/hooks'
 import { useGroupedRegions } from '@webapp/store/app/hooks'
 import DropdownAreas from './DropdownAreas'
 
-const areas = {
+export const areas = {
   countries: 'countries',
   regions: 'regions',
 }
@@ -30,11 +30,6 @@ const AreaSelector = () => {
     setCountryISOs(countries.map(Country.getCountryIso))
   }, [])
 
-  const sortedRegions = groupedRegions
-    .map((rg) => rg.regions.flatMap(({ regionCode }) => regionCode))
-    .flat()
-    .filter((regionCode) => regionCode !== Area.levels.forest_europe)
-
   return (
     <div className="home-area-selector">
       <img alt="" src="/img/iconGlobal.svg" />
@@ -47,7 +42,7 @@ const AreaSelector = () => {
         <div>{i18n.t('common.regions')}</div>
         <DropdownAreas
           area={areas.regions}
-          areaISOs={sortedRegions}
+          areaISOs={groupedRegions}
           assessmentType={Fra.type}
           dropdownOpened={dropdownOpened}
           setDropdownOpened={setDropdownOpened}
