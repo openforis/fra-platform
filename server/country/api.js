@@ -53,7 +53,7 @@ module.exports.init = (app) => {
     }
   })
 
-  // Returns all regions from country_region table
+  // Returns all region groups from region_group table
   app.get('/country/regionGroups', async (req, res) => {
     try {
       const regionGroups = await CountryService.getRegionGroups()
