@@ -29,9 +29,9 @@ export const useCountries = () => {
 export const useCountriesPanEuropean = () =>
   useCountries().filter((country) => Country.getRegionCodes(country).includes(Area.levels.forest_europe))
 
-export const sortRegions = (regionsToSort, i18n) => {
+export const sortRegions = (regions, i18n) => {
   const compareListName = Area.getCompareListName(i18n)
-  return [...regionsToSort].sort(compareListName)
+  return [...regions].sort((r1, r2) => compareListName(r1.regionCode, r2.regionCode))
 }
 
 export const useRegions = () => {
@@ -52,8 +52,8 @@ export const sortRegionGroups = (regionGroups) => {
 
 export const useGroupedRegions = () => {
   const regionGroups = useSelector(AppState.getRegionGroups)
-  const regions = useRegions()
 
+  const regions = useRegions()
   return regionGroups.map((rg) => ({
     ...rg,
     regions: regions.filter((region) => region.regionGroup === rg.id),
