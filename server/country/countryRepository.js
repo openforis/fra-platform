@@ -112,7 +112,7 @@ ORDER BY c.country_iso
 
 const getRegions = async () => {
   // Exclude Atlantis from regions
-  const query = `SELECT region_code, name FROM region WHERE region_code != 'AT'`
+  const query = `SELECT region_code, name, region_group FROM region WHERE region_code != 'AT'`
   const result = await db.query(query)
   return camelize(result.rows)
 }
@@ -120,7 +120,7 @@ const getRegions = async () => {
 const getRegionGroups = async () => {
   // Exclude Atlantis from region groups
   const query = `
-        SELECT region_group, ARRAY_AGG(region_code) as regions FROM region  WHERE region_code != 'AT' GROUP BY region_group
+        SELECT * FROM region_group
         `
   const result = await db.query(query)
   return camelize(result.rows)
