@@ -4,13 +4,14 @@ import CountrySelectionModal from '@webapp/components/CountrySelectionModal'
 import { useCountries } from '@webapp/store/app'
 import { useI18n } from '@webapp/components/hooks'
 import { UiActions } from '@webapp/store/ui'
-import Area from '@common/country/area'
+import { useSecondaryGroupedRegions } from '@webapp/store/app/hooks'
 
 export const __MIN_COUNTRIES__ = 9
 
 const CountrySelector = () => {
   const dispatch = useDispatch()
   const countries = useCountries()
+  const secondaryRegions = useSecondaryGroupedRegions()
   const [modalOpen, setModalOpen] = useState(false)
   const i18n = useI18n()
 
@@ -24,7 +25,6 @@ const CountrySelector = () => {
   }
 
   const canSave = (selectedCountries) => selectedCountries.length >= __MIN_COUNTRIES__
-
   return (
     <div className="country-selector">
       <CountrySelectionModal
@@ -33,7 +33,7 @@ const CountrySelector = () => {
         headerLabel={i18n.t('common.select')}
         onClose={onClose}
         canSave={canSave}
-        excludedRegions={[Area.levels.forest_europe]}
+        excludedRegions={secondaryRegions.regions.map((r) => r.regionCode)}
         showCount
       />
       <button onClick={() => setModalOpen(true)} className="btn-s btn btn-primary filter-countries">

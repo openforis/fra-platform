@@ -3,8 +3,11 @@ import * as R from 'ramda'
 
 import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from '@webapp/components/modal'
 import { useI18n } from '@webapp/components/hooks'
+import { useSecondaryGroupedRegions } from '@webapp/store/app/hooks'
 
 const CountrySelectionModalBody = (props) => {
+  const secondaryRegions = useSecondaryGroupedRegions()
+
   const { countries, toggleCountry, selection, unselectableCountries } = props
 
   const i18n = useI18n()
@@ -18,6 +21,7 @@ const CountrySelectionModalBody = (props) => {
   countries.forEach((country) => {
     const { countryIso, regionCodes } = country
     regionCodes.forEach((regionCode) => {
+      if (secondaryRegions.regions.map((r) => r.regionCode).includes(regionCode)) return
       if (!Array.isArray(regionCountries[regionCode])) {
         regionCountries[regionCode] = []
       }

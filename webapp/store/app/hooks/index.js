@@ -67,3 +67,8 @@ export const useGroupedRegions = () => {
     regions: regions.filter((region) => region.regionGroup === rg.id),
   }))
 }
+
+export const useSecondaryGroupedRegions = () => {
+  const groupedRegions = useGroupedRegions()
+  return groupedRegions.filter((rg) => rg.name === 'secondary')[0]
+}
