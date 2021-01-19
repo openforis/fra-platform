@@ -112,7 +112,16 @@ ORDER BY c.country_iso
 
 const getRegions = async () => {
   // Exclude Atlantis from regions
-  const query = `SELECT region_code, name FROM region WHERE region_code != 'AT'`
+  const query = `SELECT region_code, name, region_group FROM region WHERE region_code != 'AT'`
+  const result = await db.query(query)
+  return camelize(result.rows)
+}
+
+const getRegionGroups = async () => {
+  // Exclude Atlantis from region groups
+  const query = `
+        SELECT * FROM region_group
+        `
   const result = await db.query(query)
   return camelize(result.rows)
 }
@@ -240,3 +249,4 @@ module.exports.getFirstAllowedCountry = (roles) =>
   getAllowedCountries(roles).then((result) => R.pipe(R.values, R.head, R.head)(result))
 module.exports.getCountry = getCountry
 module.exports.getCountryIsos = getCountryIsos
+module.exports.getRegionGroups = getRegionGroups
