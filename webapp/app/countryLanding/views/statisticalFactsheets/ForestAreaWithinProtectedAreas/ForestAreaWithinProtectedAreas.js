@@ -3,8 +3,6 @@ import PropTypes from 'prop-types'
 
 import { useI18n } from '@webapp/components/hooks'
 
-import { formatValue } from '@webapp/app/countryLanding/views/statisticalFactsheets/utils/numberUtils'
-import { Area } from '@common/country'
 import Chart from '../components/chart'
 import useStatisticalFactsheetsState from '../hooks/useStatisticalFactsheetsState'
 import * as APIUtils from '../utils/apiUtils'
@@ -15,8 +13,6 @@ const ForestAreaWithinProtectedAreas = (props) => {
   const { levelIso } = props
   const i18n = useI18n()
   const section = 'forestAreaWithinProtectedAreas'
-  const isIsoCountry = Area.isISOCountry(levelIso)
-  const unit = isIsoCountry ? i18n.t('unit.haThousand') : i18n.t('unit.haMillion')
 
   const { data, loaded } = useStatisticalFactsheetsState(section, levelIso)
 
@@ -29,15 +25,16 @@ const ForestAreaWithinProtectedAreas = (props) => {
   const { rowNames: variables } = APIUtils.getParams('forestAreaWithinProtectedAreas')
 
   const [forestArea = 0, forestAreaWithinProtectedAreas = 0] = getVariableValuesByYear({ data, variables, year })
+  const forestAreaWithinProtectedAreasAsPercentage = 100 * (forestAreaWithinProtectedAreas / forestArea)
 
   const chartData = {
     datasets: [
       {
-        data: [formatValue(forestArea, isIsoCountry), formatValue(forestAreaWithinProtectedAreas, isIsoCountry)],
+        data: [100 - forestAreaWithinProtectedAreasAsPercentage, forestAreaWithinProtectedAreasAsPercentage],
         borderWidth: 0,
         backgroundColor: [ChartUtils.colors.green, ChartUtils.colors.lightGreen],
         hoverBackgroundColor: [ChartUtils.colors.greenHover, ChartUtils.colors.lightGreenHover],
-        unit,
+        unit: '%',
       },
     ],
 

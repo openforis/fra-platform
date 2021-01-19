@@ -42,4 +42,5 @@ module.exports = {
 
   getAllCountriesList: countryRepository.getAllCountriesList,
   getRegions: countryRepository.getRegions,
+  getRegionGroups: countryRepository.getRegionGroups,
 }

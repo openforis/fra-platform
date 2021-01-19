@@ -6,20 +6,21 @@ import { Area, Country } from '@common/country'
 import * as Fra from '@common/assessment/fra'
 import * as BasePaths from '@webapp/main/basePaths'
 
-import { useCountries, useRegions } from '@webapp/store/app'
+import { useCountries } from '@webapp/store/app'
 
 import { useI18n } from '@webapp/components/hooks'
 
+import { useGroupedRegions } from '@webapp/store/app/hooks'
 import DropdownAreas from './DropdownAreas'
 
-const areas = {
+export const areas = {
   countries: 'countries',
   regions: 'regions',
 }
 
 const AreaSelector = () => {
   const i18n = useI18n()
-  const regions = useRegions()
+  const groupedRegions = useGroupedRegions()
   const countries = useCountries()
 
   const [dropdownOpened, setDropdownOpened] = useState('')
@@ -41,7 +42,7 @@ const AreaSelector = () => {
         <div>{i18n.t('common.regions')}</div>
         <DropdownAreas
           area={areas.regions}
-          areaISOs={regions.filter((region) => region !== Area.levels.forest_europe)}
+          areaISOs={groupedRegions}
           assessmentType={Fra.type}
           dropdownOpened={dropdownOpened}
           setDropdownOpened={setDropdownOpened}

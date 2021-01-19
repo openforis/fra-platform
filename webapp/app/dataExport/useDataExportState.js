@@ -34,7 +34,7 @@ export default () => {
     countries = countries.filter(({ countryIso: _countryIso }) => selectedCountries.includes(_countryIso))
   }
 
-  const isRegion = regions.includes(countryIso)
+  const isRegion = regions.map((region) => region.regionCode).includes(countryIso)
   const countriesFiltered = isRegion
     ? countries.filter((country) => country.regionCodes.includes(countryIso))
     : countries
