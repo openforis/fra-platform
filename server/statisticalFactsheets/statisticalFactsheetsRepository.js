@@ -48,17 +48,15 @@ ORDER BY row_name
 const getSingleCountryStatisticalFactsheetData = async (schemaName, rowNames, countryIso) => {
   const query = `
 SELECT
-       row_name,
-       count(level) as count,
-       sum(coalesce("1990", 0)) AS "1990",
-       sum(coalesce("2000", 0)) AS "2000",
-       sum(coalesce("2010", 0)) AS "2010",
-       sum(coalesce("2015", 0)) AS "2015",
-       sum(coalesce("2020", 0)) AS "2020"
+    row_name,
+    "1990",
+    "2000",
+    "2010",
+    "2015",
+    "2020"
 FROM ${schemaName}.statistical_factsheets_view
 WHERE row_name IN (${_joinArray(rowNames)})
-AND level = '${countryIso}'
-GROUP BY row_name
+  AND level = '${countryIso}'
 ORDER BY row_name
 `
 
