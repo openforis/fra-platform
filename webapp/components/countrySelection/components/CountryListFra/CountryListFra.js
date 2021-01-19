@@ -26,8 +26,8 @@ const CountryListFra = (props) => {
 
   const filterRegions = (regions) =>
     regions
-      .filter((region) => checkMatch(Area.getListName(region, i18n), query))
-      .filter((region) => region !== Area.levels.forest_europe)
+      .filter((region) => checkMatch(Area.getListName(region.regionCode, i18n), query))
+      .filter((region) => region.regionCode !== Area.levels.forest_europe)
 
   const userCountryIsos = []
 
