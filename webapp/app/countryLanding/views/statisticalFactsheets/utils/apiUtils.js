@@ -1,7 +1,7 @@
 const baseUrl = '/api/statisticalFactsheets/'
 export const getUrl = () => `${baseUrl}`
 
-const sections = {
+export const sections = {
   forestArea: ['forest_area'],
   carbonAndGrowingStock: ['growing_stock_total', 'carbon_stock_biomass_total', 'carbon_stock_total'],
   forestAreaPercent: ['forest_area', 'land_area'],
