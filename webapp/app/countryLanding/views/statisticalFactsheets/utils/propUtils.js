@@ -13,7 +13,7 @@ const safeProp = (propName, data, year) => {
   return value
 }
 
-const safePropAsNumber = (data, year, propName) => Number(safeProp(propName, data, year)) || undefined
+const safePropAsNumber = (data, year, propName) => safeProp(propName, data, year)
 
 export const getVariableValuesByYear = ({ data, variables, year }) => {
   return variables.map((variable) => safePropAsNumber(data, year, variable))

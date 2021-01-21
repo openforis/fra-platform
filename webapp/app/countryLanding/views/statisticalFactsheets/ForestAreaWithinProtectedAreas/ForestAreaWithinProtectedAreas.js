@@ -24,7 +24,7 @@ const ForestAreaWithinProtectedAreas = (props) => {
   const year = '2020'
   const { rowNames: variables } = APIUtils.getParams('forestAreaWithinProtectedAreas')
 
-  const [forestArea = 0, forestAreaWithinProtectedAreas = 0] = getVariableValuesByYear({ data, variables, year })
+  const [forestArea, forestAreaWithinProtectedAreas] = getVariableValuesByYear({ data, variables, year })
   const forestAreaWithinProtectedAreasAsPercentage = 100 * (forestAreaWithinProtectedAreas / forestArea)
 
   const chartData = {
@@ -47,7 +47,11 @@ const ForestAreaWithinProtectedAreas = (props) => {
   return (
     <div className="row-s">
       <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
-      <Chart type="pie" data={chartData} options={ChartUtils.getOptions({ type: ChartUtils.types.pie })} />
+      {forestAreaWithinProtectedAreas && forestArea ? (
+        <Chart type="pie" data={chartData} options={ChartUtils.getOptions({ type: ChartUtils.types.pie })} />
+      ) : (
+        <h6 className="header">{i18n.t('statisticalFactsheets.noData')}</h6>
+      )}
     </div>
   )
 }
