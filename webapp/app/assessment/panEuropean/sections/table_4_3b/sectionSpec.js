@@ -52,25 +52,25 @@ const tableSpec = SectionSpec.newTableSpec({
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.naturalnessBySubclasses.naturally_established',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.naturalnessBySubclasses.naturallyEstablished',
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.naturalnessBySubclasses.naturalised_introduced_species',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.naturalnessBySubclasses.naturalisedIntroducedSpecies',
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.naturalnessBySubclasses.established_by_planting_and_or_seeding',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.naturalnessBySubclasses.establishedByPlantingAndOrSeeding',
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.naturalnessBySubclasses.coppice',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.naturalnessBySubclasses.coppiceSemiNatural',
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.naturalnessBySubclasses.unknown_origin',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.naturalnessBySubclasses.unknownOrigin',
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.naturalnessBySubclasses.native_species',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.naturalnessBySubclasses.nativeSpecies',
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.naturalnessBySubclasses.introduced_species',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.naturalnessBySubclasses.introducedSpecies',
         }),
       ],
     }),
