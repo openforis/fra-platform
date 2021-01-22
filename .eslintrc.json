@@ -1,6 +1,19 @@
 {
-  "parser": "babel-eslint",
-  "extends": ["airbnb", "plugin:prettier/recommended", "prettier/react"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2021,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "prettier/@typescript-eslint",
+    "airbnb",
+    "plugin:prettier/recommended",
+    "prettier/react"
+  ],
   "env": {
     "browser": true,
     "commonjs": true,
@@ -15,9 +28,14 @@
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/forbid-prop-types": 0,
     "import/prefer-default-export": 0,
-    "no-unused-vars": ["error", { "argsIgnorePattern": "^_$" }]
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_$" }],
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error"]
   },
   "settings": {
+    "react": {
+      "version": "detect"
+    },
     "import/resolver": {
       "node": {},
       "webpack": {
