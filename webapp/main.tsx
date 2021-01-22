@@ -11,7 +11,7 @@ import { BrowserRouter } from 'react-router-dom'
 import PageRoutes from './pages/PageRoutes'
 import store from './main/store'
 
-const App = () => {
+const Main = () => {
   ReactDOM.render(
     <Provider store={store}>
       <BrowserRouter>
@@ -22,4 +22,4 @@ const App = () => {
   )
 }
 
-App()
+Main()
