@@ -44,7 +44,7 @@ const Table = (props) => {
                       </th>
                     ) : (
                       <td key={`${tableRow}-${column}`} className="fra-table__cell">
-                        {formatValue(t(row[column] || ''), isIsoCountry, row.rowName)}
+                        {formatValue(t(row[column] || ''), isIsoCountry, row.rowName) || '-'}
                       </td>
                     )
                   )}
