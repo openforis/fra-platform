@@ -92,11 +92,12 @@ const CountrySelectionModal = (props) => {
       />
 
       <ModalFooter>
-        <button className="btn btn-primary" disabled={!canSave(selection)} onClick={_onClose}>
-          {i18n.t('common.done')}
-        </button>
         <button className="btn btn-secondary" onClick={resetAll}>
           {i18n.t('common.resetAll')}
+        </button>
+
+        <button className="btn btn-primary" disabled={!canSave(selection)} onClick={_onClose}>
+          {i18n.t('common.apply')}
         </button>
       </ModalFooter>
     </Modal>

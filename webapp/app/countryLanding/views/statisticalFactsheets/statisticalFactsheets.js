@@ -4,6 +4,10 @@ import { useParams } from 'react-router'
 
 import { Area } from '@common/country'
 
+import useI18n from '@webapp/components/hooks/useI18n'
+import { useSelector } from 'react-redux'
+import { UiState } from '@webapp/store/ui'
+import { __MIN_COUNTRIES__ } from '@webapp/pages/Assessment/AssessmentHome/FraHome/components/CountrySelector'
 import ForestArea from './ForestArea'
 import CarbonGrowingStock from './CarbonGrowingStock'
 import ForestAreaPercent from './ForestAreaPercent'
@@ -15,20 +19,29 @@ import PrimaryDesignatedManagementObjective from './PrimaryDesignatedManagementO
 
 const StatisticalFactsheets = () => {
   const { countryIso: levelIso } = useParams()
+  const i18n = useI18n()
   const isCountry = Area.isISOCountry(levelIso)
+  const selectedCountries = useSelector(UiState.getSelectedCountries)
+
   return (
-    <div className={`statistical-factsheets${isCountry ? ' country' : ''}`}>
-      <ForestArea levelIso={levelIso} />
-      <CarbonGrowingStock levelIso={levelIso} />
+    <div>
+      {selectedCountries.length > __MIN_COUNTRIES__ && (
+        <p className="statistical-factsheets__disclaimer">{i18n.t('disclaimer.statisticalFactsheets')}</p>
+      )}
 
-      <ForestAreaPercent levelIso={levelIso} />
-      <PrimaryForest levelIso={levelIso} />
+      <div className={`statistical-factsheets${isCountry ? ' country' : ''}`}>
+        <ForestArea levelIso={levelIso} />
+        <CarbonGrowingStock levelIso={levelIso} />
 
-      <ForestAreaWithinProtectedAreas levelIso={levelIso} />
-      <ForestOwnership levelIso={levelIso} />
+        <ForestAreaPercent levelIso={levelIso} />
+        <PrimaryForest levelIso={levelIso} />
 
-      <PrimaryDesignatedManagementObjective levelIso={levelIso} />
-      <NaturallyRegeneratingForest levelIso={levelIso} />
+        <ForestAreaWithinProtectedAreas levelIso={levelIso} />
+        <ForestOwnership levelIso={levelIso} />
+
+        <PrimaryDesignatedManagementObjective levelIso={levelIso} />
+        <NaturallyRegeneratingForest levelIso={levelIso} />
+      </div>
     </div>
   )
 }
