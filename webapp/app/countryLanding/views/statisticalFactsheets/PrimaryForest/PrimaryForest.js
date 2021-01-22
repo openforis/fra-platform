@@ -23,7 +23,7 @@ const PrimaryForest = (props) => {
   // Get the value for year 2020
   const year = '2020'
   const { rowNames: variables } = APIUtils.getParams('primaryForest')
-  const [primaryForestRatio = 0] = getVariableValuesByYear({ data, variables, year })
+  const [primaryForestRatio] = getVariableValuesByYear({ data, variables, year })
 
   const primaryForestPercent = primaryForestRatio * 100
   const otherForestPercent = 100 - primaryForestPercent
@@ -48,7 +48,11 @@ const PrimaryForest = (props) => {
   return (
     <div className="row-s">
       <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
-      <Chart type="pie" data={chartData} options={ChartUtils.getOptions({ type: ChartUtils.types.pie })} />
+      {primaryForestRatio ? (
+        <Chart type="pie" data={chartData} options={ChartUtils.getOptions({ type: ChartUtils.types.pie })} />
+      ) : (
+        <h6 className="header">{i18n.t('statisticalFactsheets.noData')}</h6>
+      )}
     </div>
   )
 }

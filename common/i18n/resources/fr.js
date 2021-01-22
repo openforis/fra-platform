@@ -3,6 +3,7 @@ const statisticalFactsheets = require('./fr/statisticalFactsheets')
 
 module.exports.translation = {
   area,
+  statisticalFactsheets,
 
   language: {
     en: 'English',
@@ -50,7 +51,6 @@ des domaines boréal, tempéré et sous-tropical`,
     sendFeedback: 'Envoyer réactions',
   },
 
-  statisticalFactsheets,
 
   disclaimer: {
     statisticalFactsheets:
