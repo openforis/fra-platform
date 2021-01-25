@@ -1458,7 +1458,7 @@ module.exports.translation = {
       forest: 'Лес - {{year}}',
     },
 
-    // table4.4a
+    // table 4.4a
     introducedTreeSpecies: {
       introducedTreeSpecies: 'Площадь насаждений с доминирующими интродуцированными видами деревьев',
       categoryYear: 'Категория - Год',
@@ -1535,7 +1535,7 @@ module.exports.translation = {
       forest_area_affected_2015: 'Пораженная площадь леса (1000 га) - 2015',
     },
 
-    // table4.5
+    // table 4.5
     deadwood: {
       deadwood: 'Мертвая древесина',
       categoryYear: 'Категория - Год',
@@ -1546,7 +1546,7 @@ module.exports.translation = {
       forest: 'Лес - {{year}}',
       other_wooded_land: 'Прочая лесопокрытая земля - {{year}}',
       total_forest_and_other_wooded_land: 'Всего лес и прочая лесопокрытая земля - {{year}}',
-      volumeOfDeadwoodInFOWLBySpeciesGroups: 'Запас мертвой древесины в лесе и прочей лесопокрытой земли по группам пород',
+      volumeOfDeadwoodInFOWLBySpeciesGroups: 'Запас мертвой древесины в лесе и прочей лесопокрытой земле по группам пород',
       coniferous: 'Хвойные - {{year}}',
       broadleaved: 'Лиственные - {{year}}',
     },
