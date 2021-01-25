@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import CountrySelectionModal from '@webapp/components/CountrySelectionModal'
 import { useCountries } from '@webapp/store/app'
 import { useI18n } from '@webapp/components/hooks'
-import { UiActions } from '@webapp/store/ui'
+import { HomeActions } from '@webapp/store/ui'
 import { useSecondaryGroupedRegions } from '@webapp/store/app/hooks'
 
 export const __MIN_COUNTRIES__ = 9
@@ -17,9 +17,9 @@ const CountrySelector = () => {
 
   const onClose = (selectedCountries) => {
     if (selectedCountries.length >= __MIN_COUNTRIES__) {
-      dispatch(UiActions.updateSelectedCountries(selectedCountries))
+      dispatch(HomeActions.updateSelectedCountries(selectedCountries))
     } else {
-      dispatch(UiActions.updateSelectedCountries([]))
+      dispatch(HomeActions.updateSelectedCountries([]))
     }
     setModalOpen(false)
   }

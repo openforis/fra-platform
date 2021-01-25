@@ -1,9 +1,6 @@
-import { exportReducer } from '@webapp/utils/reduxUtils'
-import * as UiActions from './actions'
-import * as UiState from './state'
+import { combineReducers } from 'redux'
+import { HomeState, HomeReducer } from './home'
 
-const actionHandlers = {
-  [UiActions.uiHomeUpdateSelectedCountries]: (state, { countries }) => UiState.assocSelectedCountries(countries)(state),
-}
-
-export default exportReducer(actionHandlers)
+export default combineReducers({
+  [HomeState.stateKey]: HomeReducer,
+})

@@ -6,7 +6,7 @@ import { Area } from '@common/country'
 
 import useI18n from '@webapp/components/hooks/useI18n'
 import { useSelector } from 'react-redux'
-import { UiState } from '@webapp/store/ui'
+import { HomeState } from '@webapp/store/ui'
 import { __MIN_COUNTRIES__ } from '@webapp/pages/Assessment/AssessmentHome/FraHome/components/CountrySelector'
 import ForestArea from './ForestArea'
 import CarbonGrowingStock from './CarbonGrowingStock'
@@ -21,7 +21,7 @@ const StatisticalFactsheets = () => {
   const { countryIso: levelIso } = useParams()
   const i18n = useI18n()
   const isCountry = Area.isISOCountry(levelIso)
-  const selectedCountries = useSelector(UiState.getSelectedCountries)
+  const selectedCountries = useSelector(HomeState.getSelectedCountries)
 
   return (
     <div>
