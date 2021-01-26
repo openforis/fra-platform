@@ -1,25 +1,46 @@
-const { v4:uuidv4 } = require('uuid')
+const { v4: uuidv4 } = require('uuid')
 const camelize = require('camelize')
 const Promise = require('bluebird')
 const R = require('ramda')
 const bcrypt = require('bcrypt')
 
+const FRA = require('../../common/assessment/fra')
+
 const db = require('../db/db')
-const auditRepository = require('./../audit/auditRepository')
-const {fetchCollaboratorCountryAccessTables} = require('./../collaborators/collaboratorsRepository')
-const {AccessControlException} = require('../utils/accessControl')
+const auditRepository = require('../audit/auditRepository')
+const CountryRepository = require('../country/countryRepository')
+const { fetchCollaboratorCountryAccessTables } = require('../collaborators/collaboratorsRepository')
+const { AccessControlException } = require('../utils/accessControl')
 
-const {nationalCorrespondent, reviewer, collaborator, alternateNationalCorrespondent} = require('../../common/countryRole')
-const {userType} = require('../../common/userUtils')
+const {
+  nationalCorrespondent,
+  reviewer,
+  collaborator,
+  alternateNationalCorrespondent,
+} = require('../../common/countryRole')
+const { userType } = require('../../common/userUtils')
 
-const {loginUrl} = require('./sendInvitation')
+const { loginUrl } = require('./sendInvitation')
 
 const findUserById = async (userId, client = db) => {
-  const res = await client.query('SELECT id, name, email, login_email, institution, position, lang, type, active FROM fra_user WHERE id = $1', [userId])
+  const res = await client.query(
+    'SELECT id, name, email, login_email, institution, position, lang, type, active FROM fra_user WHERE id = $1',
+    [userId]
+  )
   if (res.rows.length < 1) return null
   const resultUser = camelize(res.rows[0])
-  const resultRoles = await client.query('SELECT country_iso, role FROM user_country_role WHERE user_id = $1', [resultUser.id])
-  return {...resultUser, roles: camelize(resultRoles.rows)}
+  const res2 = await client.query('SELECT country_iso, role, assessment FROM user_country_role WHERE user_id = $1', [
+    resultUser.id,
+  ])
+  const roles = await camelize(res2.rows)
+  // TODO: For each assessment type, handle roles.
+  // We currently have only fra2020
+  const role = {
+    [FRA.type]: await CountryRepository.getAllowedCountries(roles),
+  }
+  // TODO: Refactor backend to use role
+  // roles is left here because it is used widely
+  return { ...resultUser, role, roles }
 }
 
 const findUserByLoginEmail = (loginEmail, client = db) =>

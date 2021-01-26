@@ -8,6 +8,8 @@ import * as BasePaths from '@webapp/main/basePaths'
 
 import { useI18n } from '@webapp/components/hooks'
 import Icon from '@webapp/components/icon'
+import { areas } from '@webapp/pages/Landing/Introduction/AreaSelector/AreaSelector'
+import { Area } from '@common/country'
 
 const DropdownAreas = (props) => {
   const { area, areaISOs, assessmentType, dropdownOpened, setDropdownOpened } = props
@@ -43,18 +45,42 @@ const DropdownAreas = (props) => {
       {dialogOpened && (
         <div className="country-selection-list">
           <div className="country-selection-list__content">
-            <div className="country-selection-list__section">
-              {areaISOs.map((iso) => (
-                <Link
-                  key={iso}
-                  to={BasePaths.getAssessmentHomeLink(iso, assessmentType)}
-                  className="country-selection-list__row"
-                  target={fra ? '_self' : '_blank'}
-                >
-                  <span className="country-selection-list__primary-col">{i18n.t(`area.${iso}.listName`)}</span>
-                </Link>
-              ))}
-            </div>
+            {areas.regions === area ? (
+              <>
+                {areaISOs.map(({ regions, name }) => (
+                  <div key={name} className="country-selection-list__section">
+                    {regions.map(
+                      ({ regionCode }) =>
+                        regionCode !== Area.levels.forest_europe && (
+                          <Link
+                            key={regionCode}
+                            to={BasePaths.getAssessmentHomeLink(regionCode, assessmentType)}
+                            className="country-selection-list__row"
+                            target={fra ? '_self' : '_blank'}
+                          >
+                            <span className="country-selection-list__primary-col">
+                              {i18n.t(`area.${regionCode}.listName`)}
+                            </span>
+                          </Link>
+                        )
+                    )}
+                  </div>
+                ))}
+              </>
+            ) : (
+              <div className="country-selection-list__section">
+                {areaISOs.map((iso) => (
+                  <Link
+                    key={iso}
+                    to={BasePaths.getAssessmentHomeLink(iso, assessmentType)}
+                    className="country-selection-list__row"
+                    target={fra ? '_self' : '_blank'}
+                  >
+                    <span className="country-selection-list__primary-col">{i18n.t(`area.${iso}.listName`)}</span>
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       )}

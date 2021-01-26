@@ -13,9 +13,12 @@ const NaturallyRegeneratingForest = (props) => {
   const i18n = useI18n()
   const section = 'naturallyRegeneratingForest'
   const chartHeads = ['1990', '2000', '2010', '2020']
-  const unit = Area.isISOCountry(levelIso) ? i18n.t('unit.haThousand') : i18n.t('unit.haMillion')
+  const isIsoCountry = Area.isISOCountry(levelIso)
+  const unit = isIsoCountry ? i18n.t('unit.haThousand') : i18n.t('unit.haMillion')
 
   const { data, loaded } = useStatisticalFactsheetsState(section, levelIso)
+
+  const chartData = ChartUtils.getData(data, chartHeads, section, loaded, i18n, unit, isIsoCountry)
 
   return (
     <div className="row-l">
@@ -23,7 +26,7 @@ const NaturallyRegeneratingForest = (props) => {
       {loaded && (
         <Chart
           type="bar"
-          data={ChartUtils.getData(data, chartHeads, section, loaded, i18n, unit)}
+          data={chartData}
           options={ChartUtils.getOptions({
             type: ChartUtils.types.bar,
             xAxisLabel: i18n.t('common.year'),

@@ -78,6 +78,7 @@ const isCollaboratorAllowedToEditSectionData = (section, allowedTables) => {
 }
 
 module.exports = {
+  roleAllowances,
   /**
    * @deprecated
    */
