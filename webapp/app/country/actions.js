@@ -5,7 +5,7 @@ import { batchActions } from '@webapp/main/reduxBatch'
 import * as AppState from '@webapp/app/appState'
 
 import * as autosave from '@webapp/app/components/autosave/actions'
-import { appCountryIsoUpdate } from '@webapp/store/app/actions'
+import ActionTypes from '@webapp/store/app/actions/actionTypes'
 
 export const fetchCountryOverviewStatusCompleted = 'country/status/completed'
 export const countryConfig = 'country/countryConfig'
@@ -24,7 +24,7 @@ export const getCountryConfig = (countryIso) => async (dispatch) => {
 export const fetchCountryInitialData = (countryIso, assessmentType, printView, printOnlyTablesView) => (dispatch) => {
   dispatch(
     batchActions([
-      { type: appCountryIsoUpdate, countryIso, assessmentType, printView, printOnlyTablesView },
+      { type: ActionTypes.appCountryIsoUpdate, countryIso, assessmentType, printView, printOnlyTablesView },
       fetchCountryOverviewStatus(countryIso),
       getCountryConfig(countryIso),
     ])

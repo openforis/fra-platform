@@ -4,15 +4,10 @@ import * as AppState from '@webapp/app/appState'
 import { Area, Country } from '@common/country'
 import { useI18n, useOnUpdate } from '@webapp/components/hooks'
 
+import { sortCountries, sortRegions } from '@webapp/store/app/utils'
 import * as AppActions from '../actions'
 
 export const useAssessmentType = () => useSelector(AppState.getAssessmentType)
-
-export const sortCountries = (countries, i18n) => {
-  const compareListName = Area.getCompareListName(i18n)
-  const compareCountries = (country1, country2) => compareListName(country1.countryIso, country2.countryIso)
-  return [...countries].sort(compareCountries)
-}
 
 export const useCountries = () => {
   const i18n = useI18n()
@@ -29,11 +24,6 @@ export const useCountries = () => {
 export const useCountriesPanEuropean = () =>
   useCountries().filter((country) => Country.getRegionCodes(country).includes(Area.levels.forest_europe))
 
-export const sortRegions = (regions, i18n) => {
-  const compareListName = Area.getCompareListName(i18n)
-  return [...regions].sort((r1, r2) => compareListName(r1.regionCode, r2.regionCode))
-}
-
 export const useRegions = () => {
   const i18n = useI18n()
   const dispatch = useDispatch()
@@ -44,10 +34,6 @@ export const useRegions = () => {
   }, [i18n])
 
   return regions
-}
-
-export const sortRegionGroups = (regionGroups) => {
-  return [...regionGroups].sort((rg1, rg2) => rg1.order > rg2.order)
 }
 
 /**

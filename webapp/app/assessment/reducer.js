@@ -1,8 +1,8 @@
 import { exportReducer } from '@webapp/utils/reduxUtils'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
+import ActionTypes from '@webapp/store/app/actions/actionTypes'
 
-import { appCountryIsoUpdate } from '@webapp/store/app/actions'
 import { assessmentLockUpdate, assessmentSectionPropUpdate } from '@webapp/app/assessment/actions'
 import {
   assessmentSectionDataGeneratingValuesUpdate,
@@ -11,7 +11,7 @@ import {
 
 const actionHandlers = {
   // ====== reset state on country update
-  [appCountryIsoUpdate]: () => ({}),
+  [ActionTypes.appCountryIsoUpdate]: () => ({}),
 
   // ====== lock
   [assessmentLockUpdate]: (state, { assessmentType, lock }) => AssessmentState.assocLock(assessmentType, lock)(state),

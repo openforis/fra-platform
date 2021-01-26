@@ -1,24 +1,18 @@
 import { getRequestParam } from '@webapp/utils/urlUtils'
 import axios from 'axios'
 import { createI18nPromise } from '@common/i18n/i18nFactory'
-import { sortCountries, sortRegionGroups, sortRegions } from '@webapp/store/app/hooks'
 import { applicationError } from '@webapp/components/error/actions'
 
 import * as UserState from '@webapp/store/user/state'
 
-export const appCountryIsoUpdate = 'app/countryIso/update'
-export const appInitDone = 'app/init/done'
-export const appI18nUpdate = 'app/i18n/update'
+import { sortCountries, sortRegionGroups, sortRegions } from '../utils'
+import ActionTypes from './actionTypes'
 
-export const ACTION_TYPE = {
-  updateCountries: 'app/countries/update',
-  updateRegions: 'app/regions/update',
-  updateRegionGroups: 'app/regionGroups/update',
-}
+export { ActionTypes }
 
-export const updateCountries = (countries) => ({ type: ACTION_TYPE.updateCountries, countries })
-export const updateRegions = (regions) => ({ type: ACTION_TYPE.updateRegions, regions })
-export const updateRegionGroups = (regionGroups) => ({ type: ACTION_TYPE.updateRegionGroups, regionGroups })
+export const updateCountries = (countries) => ({ type: ActionTypes.updateCountries, countries })
+export const updateRegions = (regions) => ({ type: ActionTypes.updateRegions, regions })
+export const updateRegionGroups = (regionGroups) => ({ type: ActionTypes.updateRegionGroups, regionGroups })
 
 export const initApp = () => async (dispatch) => {
   const lang = getRequestParam('lang')
@@ -39,7 +33,7 @@ export const initApp = () => async (dispatch) => {
 
     const i18n = await createI18nPromise(lang || userInfo ? userInfo.lang : 'en')
     dispatch({
-      type: appInitDone,
+      type: ActionTypes.appInitDone,
       userInfo,
       i18n,
       countries: sortCountries(countries, i18n),
@@ -51,7 +45,7 @@ export const initApp = () => async (dispatch) => {
     if (err.response && err.response.status !== 401) {
       dispatch(applicationError(err))
     }
-    dispatch({ type: appInitDone, i18n: await createI18nPromise(lang || 'en') })
+    dispatch({ type: ActionTypes.appInitDone, i18n: await createI18nPromise(lang || 'en') })
   }
 }
 
@@ -62,7 +56,7 @@ export const switchLanguage = (lang) => async (dispatch, getState) => {
       await axios.post(`/api/user/lang?lang=${lang}`)
     }
     const i18n = await createI18nPromise(lang)
-    dispatch({ type: appI18nUpdate, i18n })
+    dispatch({ type: ActionTypes.appI18nUpdate, i18n })
   } catch (err) {
     dispatch(applicationError(err))
   }
