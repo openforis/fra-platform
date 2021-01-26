@@ -5,7 +5,7 @@ import { applicationError } from '@webapp/components/error/actions'
 import { createI18nPromise } from '@common/i18n/i18nFactory'
 
 import { getRequestParam } from '@webapp/utils/urlUtils'
-import { sortCountries, sortRegions } from '@webapp/store/app/hooks'
+import { sortCountries, sortRegionGroups, sortRegions } from '@webapp/store/app/hooks'
 
 export const appCountryIsoUpdate = 'app/countryIso/update'
 export const appInitDone = 'app/init/done'
@@ -16,15 +16,17 @@ export const initApp = () => async (dispatch) => {
   try {
     const getCountries = axios.get('/api/countries')
     const getRegions = axios.get('/api/country/regions/')
+    const getRegionGroups = axios.get('/api/country/regionGroups/')
     const getUserInfo = axios.get(`/api/loggedInUser/`)
 
     const [
       { data: countries },
       { data: regions },
+      { data: regionGroups },
       {
         data: { userInfo = null },
       },
-    ] = await axios.all([getCountries, getRegions, getUserInfo])
+    ] = await axios.all([getCountries, getRegions, getRegionGroups, getUserInfo])
 
     const i18n = await createI18nPromise(lang || userInfo ? userInfo.lang : 'en')
     dispatch({
@@ -33,6 +35,7 @@ export const initApp = () => async (dispatch) => {
       i18n,
       countries: sortCountries(countries, i18n),
       regions: sortRegions(regions, i18n),
+      regionGroups: sortRegionGroups(regionGroups),
     })
   } catch (err) {
     // 401 (Unauthorized) | Display error if any other status

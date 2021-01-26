@@ -2,12 +2,13 @@ import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
 import { useI18n } from '@webapp/components/hooks'
 import ButtonTableExport from '@webapp/components/buttonTableExport'
+import { formatValue } from '@webapp/app/countryLanding/views/statisticalFactsheets/utils/numberUtils'
 
 import useStatisticalFactsheetsState from '../../hooks/useStatisticalFactsheetsState'
 
 const Table = (props) => {
   const i18n = useI18n()
-  const { columns, rows, section, levelIso, units } = props
+  const { columns, rows, section, levelIso, units, isIsoCountry } = props
   const tableRef = useRef(null)
 
   const { data, loaded } = useStatisticalFactsheetsState(section, levelIso)
@@ -43,7 +44,7 @@ const Table = (props) => {
                       </th>
                     ) : (
                       <td key={`${tableRow}-${column}`} className="fra-table__cell">
-                        {t(row[column] || '')}
+                        {formatValue(t(row[column] || ''), isIsoCountry, row.rowName) || '-'}
                       </td>
                     )
                   )}
@@ -57,12 +58,17 @@ const Table = (props) => {
   )
 }
 
+Table.defaultProps = {
+  isIsoCountry: false,
+}
+
 Table.propTypes = {
   columns: PropTypes.array.isRequired,
   rows: PropTypes.array.isRequired,
   units: PropTypes.array.isRequired,
   levelIso: PropTypes.string.isRequired,
   section: PropTypes.string.isRequired,
+  isIsoCountry: PropTypes.bool,
 }
 
 export default Table

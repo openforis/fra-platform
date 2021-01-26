@@ -71,7 +71,7 @@ const CommentThread = props => {
               <div key={i} className={`fra-review__comment ${isCommentDeleted(c) ? 'fra-review__comment-deleted' : ''}`}>
                 <div className="fra-review__comment-header">
                   <img className="fra-review__comment-avatar"
-                       src={profilePictureUri(countryIso, c.userId)}/>
+                       src={profilePictureUri(c.userId)}/>
                   <div className="fra-review__comment-author-section">
                     <div className={`fra-review__comment-author ${isThisMe(c) ? 'author-me' : ''}`}>
                       {c.username}

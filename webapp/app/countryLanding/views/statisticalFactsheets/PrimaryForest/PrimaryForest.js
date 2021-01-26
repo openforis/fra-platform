@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import * as NumberUtils from '@common/bignumberUtils'
 import { useI18n } from '@webapp/components/hooks'
 
 import Chart from '../components/chart'
@@ -24,20 +23,15 @@ const PrimaryForest = (props) => {
   // Get the value for year 2020
   const year = '2020'
   const { rowNames: variables } = APIUtils.getParams('primaryForest')
+  const [primaryForestRatio] = getVariableValuesByYear({ data, variables, year })
 
-  const [forestArea = 0, primaryForest = 0] = getVariableValuesByYear({ data, variables, year })
-  const otherForest = NumberUtils.sub(forestArea, primaryForest) || 0
-
-  const primaryForestPercent = NumberUtils.mul(NumberUtils.div(primaryForest, forestArea), 100)
-  const otherForestPercent = NumberUtils.mul(NumberUtils.div(otherForest, forestArea), 100)
+  const primaryForestPercent = primaryForestRatio * 100
+  const otherForestPercent = 100 - primaryForestPercent
 
   const chartData = {
     datasets: [
       {
-        data: [
-          primaryForestPercent && primaryForestPercent.toString(),
-          otherForestPercent && otherForestPercent.toString(),
-        ],
+        data: [primaryForestPercent, otherForestPercent],
         borderWidth: 0,
         backgroundColor: [ChartUtils.colors.green, ChartUtils.colors.lightGreen],
         hoverBackgroundColor: [ChartUtils.colors.greenHover, ChartUtils.colors.lightGreenHover],
@@ -54,7 +48,11 @@ const PrimaryForest = (props) => {
   return (
     <div className="row-s">
       <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
-      <Chart type="pie" data={chartData} options={ChartUtils.getOptions({ type: ChartUtils.types.pie })} />
+      {primaryForestRatio ? (
+        <Chart type="pie" data={chartData} options={ChartUtils.getOptions({ type: ChartUtils.types.pie })} />
+      ) : (
+        <h6 className="header">{i18n.t('statisticalFactsheets.noData')}</h6>
+      )}
     </div>
   )
 }

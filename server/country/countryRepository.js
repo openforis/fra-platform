@@ -112,9 +112,34 @@ ORDER BY c.country_iso
 
 const getRegions = async () => {
   // Exclude Atlantis from regions
-  const query = `SELECT region_code, name FROM region WHERE region_code != 'AT'`
+  const query = `SELECT region_code, name, region_group FROM region WHERE region_code != 'AT'`
   const result = await db.query(query)
   return camelize(result.rows)
+}
+
+const getRegionGroups = async () => {
+  // Exclude Atlantis from region groups
+  const query = `
+        SELECT * FROM region_group
+        `
+  const result = await db.query(query)
+  return camelize(result.rows)
+}
+
+// Get all countryIsos, or countryIsos for certain region
+const getCountryIsos = async (regionCode) => {
+  const query = `select country_iso from country_region ${regionCode ? `where region_code = '${regionCode}' ` : ''}`
+
+  const result = await db.query(query)
+  return camelize(result.rows).map((region) => region.countryIso)
+}
+
+// Get all region codes
+const getRegionCodes = async () => {
+  const query = `select distinct region_code from country_region`
+
+  const result = await db.query(query)
+  return camelize(result.rows).map((region) => region.regionCode)
 }
 
 const getAllowedCountries = (roles, schemaName = 'public') => {
@@ -217,8 +242,11 @@ GROUP BY c.country_iso
 module.exports.getAllowedCountries = getAllowedCountries
 module.exports.getAllCountriesList = getAllCountriesList
 module.exports.getRegions = getRegions
+module.exports.getRegionCodes = getRegionCodes
 module.exports.getDynamicCountryConfiguration = getDynamicCountryConfiguration
 module.exports.saveDynamicConfigurationVariable = saveDynamicConfigurationVariable
 module.exports.getFirstAllowedCountry = (roles) =>
   getAllowedCountries(roles).then((result) => R.pipe(R.values, R.head, R.head)(result))
 module.exports.getCountry = getCountry
+module.exports.getCountryIsos = getCountryIsos
+module.exports.getRegionGroups = getRegionGroups

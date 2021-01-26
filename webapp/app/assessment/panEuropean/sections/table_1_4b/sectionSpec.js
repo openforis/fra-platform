@@ -10,6 +10,7 @@ const years = [...PanEuropean.years90_15].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_1_4b,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.millionTonnes,
   [SectionSpec.KEYS_TABLE.columnsExport]: ['total_carbon_stock_in_hwp'],
 
   [SectionSpec.KEYS_TABLE.rows]: [
@@ -21,7 +22,7 @@ const tableSpec = SectionSpec.newTableSpec({
         }),
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]:
-            'panEuropean.carbonStockInHarvestedWoodProductsHWP.total_carbon_stock_in_hwp',
+            'panEuropean.carbonStockInHarvestedWoodProductsHWP.totalCarbonStockInHWPMillionMetricTonnes',
         }),
       ],
     }),
