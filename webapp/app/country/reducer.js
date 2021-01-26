@@ -3,7 +3,6 @@ import { applyReducerFunction } from '@webapp/utils/reduxUtils'
 import * as CountryState from '@webapp/app/country/countryState'
 
 import {
-  listCountries,
   fetchCountryOverviewStatusCompleted,
   countryConfig,
   changeCountryConfigSetting,
@@ -11,8 +10,6 @@ import {
 } from './actions'
 
 const actionHandlers = {
-  [listCountries]: (state, { countries }) => CountryState.assocCountries(countries)(state),
-
   [fetchCountryOverviewStatusCompleted]: (state, { status }) => CountryState.assocStatus(status)(state),
 
   [countryConfig]: (state, { config }) => CountryState.assocConfig(config)(state),

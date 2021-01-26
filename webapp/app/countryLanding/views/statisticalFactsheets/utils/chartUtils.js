@@ -1,5 +1,6 @@
 import * as R from 'ramda'
 import * as NumberUtils from '@common/bignumberUtils'
+import { formatValue } from '@webapp/app/countryLanding/views/statisticalFactsheets/utils/numberUtils'
 
 export const types = {
   bar: 'bar',
@@ -53,7 +54,7 @@ const preferences = [
 
 const arrayHasKey = (array, key) => array.includes(key)
 
-const getDatasetAndLabel = (data, chartHeads) => {
+const getDatasetAndLabel = (data, chartHeads, isIsoCountry) => {
   const filteredData = Object.fromEntries(
     Object.entries(data)
       // Filter away values not needed / check they exist in chartHeads, save rowName for label
@@ -63,16 +64,16 @@ const getDatasetAndLabel = (data, chartHeads) => {
   return {
     data: Object.entries(filteredData)
       .filter(([key, _]) => arrayHasKey(chartHeads, key))
-      .map(([_, value]) => value),
+      .map(([_, value]) => formatValue(value, isIsoCountry)),
     label: filteredData.rowName,
   }
 }
 
-export const getData = (fetchedData, chartHeads, chartName, loaded, i18n, unit) => {
+export const getData = (fetchedData, chartHeads, chartName, loaded, i18n, unit, isIsoCountry) => {
   if (!loaded) return {}
 
   const datasets = fetchedData
-    .map((entry) => getDatasetAndLabel(entry, chartHeads))
+    .map((entry) => getDatasetAndLabel(entry, chartHeads, isIsoCountry))
     .map(({ data, label }, i) => ({
       ...preferences[i],
       label: i18n ? i18n.t(i18n.t(`statisticalFactsheets.rowName.${label}`)) : label,

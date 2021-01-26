@@ -5,7 +5,7 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 const section = PanEuropean.sections['6'].children['69']
 
 const tj = 'tj'
-const _1000MetricTonnesDryMatter = '_1000MetricTonnesDryMatter'
+const _1000_metric_tonnes_dry_matter = '_1000_metric_tonnes_dry_matter'
 
 const total_primary_energy_supply = 'total_primary_energy_supply'
 const total_renewable_energy_supply = 'total_renewable_energy_supply'
@@ -42,7 +42,7 @@ const variablesMappings = {
 }
 
 const years = [...PanEuropean.years07_15]
-const categories = [tj, _1000MetricTonnesDryMatter]
+const categories = [tj, _1000_metric_tonnes_dry_matter]
 const mainCategories = variables.slice(0, 3)
 const subcategories = variables.filter((item) => item.includes('of_which'))
 
@@ -50,7 +50,7 @@ const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_6_9,
   [SectionSpec.KEYS_TABLE.columnsExport]: years.flatMap((year) =>
     categories.map((category) => 
-      `${year}_${category}`
+      `${category}_${year}`
     )
   ),
 
@@ -94,7 +94,7 @@ const tableSpec = SectionSpec.newTableSpec({
               case total_renewable_energy_supply:
                 return category === tj ? SectionSpec.newColDecimal() : SectionSpec.newColPlaceholder()
               case of_which_imported:
-                return category === _1000MetricTonnesDryMatter ? SectionSpec.newColDecimal() : SectionSpec.newColPlaceholder()
+                return category === _1000_metric_tonnes_dry_matter ? SectionSpec.newColDecimal() : SectionSpec.newColPlaceholder()
               default:
                 return SectionSpec.newColDecimal()
             }

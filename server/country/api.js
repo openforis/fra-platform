@@ -3,7 +3,6 @@ const R = require('ramda')
 const db = require('../db/db')
 
 const Request = require('../utils/requestUtils')
-const { checkCountryAccessFromReqParams } = require('../utils/accessControl')
 
 const countryRepository = require('./countryRepository')
 const reviewRepository = require('../review/reviewRepository')
@@ -48,8 +47,17 @@ module.exports.init = (app) => {
   app.get('/country/regions', async (req, res) => {
     try {
       const regions = await CountryService.getRegions()
-      const sortedRegions = regions.map((region) => region.regionCode)
-      res.json(sortedRegions)
+      res.json(regions)
+    } catch (err) {
+      Request.sendErr(res, err)
+    }
+  })
+
+  // Returns all region groups from region_group table
+  app.get('/country/regionGroups', async (req, res) => {
+    try {
+      const regionGroups = await CountryService.getRegionGroups()
+      res.json(regionGroups)
     } catch (err) {
       Request.sendErr(res, err)
     }
@@ -64,8 +72,6 @@ module.exports.init = (app) => {
 
       const assessmentsPromise = assessmentRepository.getAssessments(countryIso)
       if (userInfo) {
-        checkCountryAccessFromReqParams(req)
-
         const odpDataPromise = odpRepository.listAndValidateOriginalDataPoints(countryIso)
         const reviewStatusPromise = reviewRepository.getCountryIssuesSummary(countryIso, userInfo)
 

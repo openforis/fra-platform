@@ -10,6 +10,7 @@ const years = [...PanEuropean.years90_20].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_1_4a,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.millionTonnes,
   [SectionSpec.KEYS_TABLE.columnsExport]: ['above_ground', 'below_ground', 'deadwood', 'litter', 'soil_carbon'],
 
   [SectionSpec.KEYS_TABLE.rows]: [
@@ -39,16 +40,16 @@ const tableSpec = SectionSpec.newTableSpec({
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.carbonStock.above_ground',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.carbonStock.aboveGround',
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.carbonStock.below_ground',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.carbonStock.belowGround',
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.carbonStock.deadwood',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.carbonStock.deadwoodCarbon',
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.carbonStock.litter',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.carbonStock.litterCarbon',
         }),
       ],
     }),

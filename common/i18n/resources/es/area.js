@@ -11,6 +11,10 @@ module.exports = {
 
   FE: { listName: 'Forest Europe' },
   EU27: { listName: 'EU-27' },
+  ECOMIFAC: { listName: 'Espace COMIFAC' },
+  MP: { listName: 'Montreal Process' },
+  UNECE: { listName: 'UNECE' },
+  ITTO: { listName: 'International Tropical Timber Organization' },
 
   ABW: { listName: 'Aruba' },
   AFG: { listName: 'Afganistán' },
