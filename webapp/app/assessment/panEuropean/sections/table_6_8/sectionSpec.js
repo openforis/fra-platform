@@ -31,6 +31,7 @@ const tableSpec = SectionSpec.newTableSpec({
       [SectionSpec.KEYS_ROW.cols]: [...categYears].map((year) =>
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: year,
+          [SectionSpec.KEYS_COL.left]: true,
         })
       ),
     }),

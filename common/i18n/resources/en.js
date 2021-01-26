@@ -1511,7 +1511,7 @@ The FRA team
       forest: 'Forest - {{year}}',
     },
 
-    // table4.4a
+    // table 4.4a
     introducedTreeSpecies: {
       introducedTreeSpecies: 'Area of stands dominated by introduced tree species',
       categoryYear: 'Category - Year',
@@ -1588,7 +1588,7 @@ The FRA team
       forest_area_affected_2015: 'Forest area affected (1000 ha) - 2015',
     },
 
-    // table4.5
+    // table 4.5
     deadwood: {
       deadwood: 'Deadwood',
       categoryYear: 'Category - Year',
