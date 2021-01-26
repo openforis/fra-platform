@@ -2,11 +2,26 @@
   "compilerOptions": {
     "outDir": "./dist/",
     "noImplicitAny": true,
-    "module": "es6",
-    "target": "es5",
+    "module": "CommonJS",
+    "target": "ES6",
     "jsx": "react",
     "allowJs": true,
     "moduleResolution": "Node",
     "allowSyntheticDefaultImports": true,
-  }
+
+    "baseUrl": "./",
+    "paths": {
+      "@common/*": [
+        "./common/*"
+      ],
+      "@server/*": [
+        "./server/*"
+      ],
+      "@webapp/*": [
+        "./webapp/*"
+      ]
+    }
+  },
+
+  "include": ["common", "server", "webapp", "test"]
 }
