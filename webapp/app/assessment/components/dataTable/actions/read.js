@@ -3,7 +3,7 @@ import * as R from 'ramda'
 import * as FRA from '@common/assessment/fra'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
-import * as AppState from '@webapp/app/appState'
+import * as AppState from '@webapp/store/app/state'
 
 import { updateTableData } from './update'
 

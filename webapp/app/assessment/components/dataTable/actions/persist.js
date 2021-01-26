@@ -1,5 +1,5 @@
 import axios from 'axios'
-import * as AppState from '@webapp/app/appState'
+import * as AppState from '@webapp/store/app/state'
 
 import * as FRA from '@common/assessment/fra'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'

@@ -10,7 +10,7 @@ import { closeChat, sendMessage } from './actions'
 
 import { getRelativeDate } from '@webapp/utils/relativeDate'
 import { profilePictureUri } from '@common/userUtils'
-import * as AppState from '@webapp/app/appState'
+import * as AppState from '@webapp/store/app/state'
 
 const UserChatHeader = ({ i18n, chat, closeChat }) =>
   <div className="fra-review__header">

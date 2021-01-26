@@ -7,7 +7,7 @@ import * as FRAUtils from '@common/fraUtils'
 import { isReviewer, isAdministrator } from '@common/countryRole'
 import { assessmentStatus } from '@common/assessment'
 
-import * as AppState from '@webapp/app/appState'
+import * as AppState from '@webapp/store/app/state'
 import * as CountryState from '@webapp/app/country/countryState'
 import { UserState } from '@webapp/store/user'
 

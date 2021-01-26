@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { closeChat } from '@webapp/app/user/chat/actions'
 import { closeCountryMessageBoard } from '@webapp/app/countryLanding/views/messageBoard/actions'
 
-import * as AppState from '@webapp/app/appState'
+import * as AppState from '@webapp/store/app/state'
 
 import { getCountryOverview } from '@webapp/app/countryLanding/actions'
 

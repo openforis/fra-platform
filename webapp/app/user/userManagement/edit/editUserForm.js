@@ -18,7 +18,7 @@ import { i18nUserRole, validate, profilePictureUri } from '@common/userUtils'
 
 import TextInput from '@webapp/components/textInput'
 
-import * as AppState from '@webapp/app/appState'
+import * as AppState from '@webapp/store/app/state'
 import { UserState } from '@webapp/store/user'
 
 import { loadUserToEdit, persistUser } from '../actions'

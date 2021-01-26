@@ -4,7 +4,7 @@ import { clearApplicationError } from './actions'
 import Icon from '@webapp/components/icon'
 import './style.less'
 
-import * as AppState from '@webapp/app/appState'
+import * as AppState from '@webapp/store/app/state'
 import * as ApplicationErrorState from '@webapp/components/error/applicationErrorState'
 
 const ErrorBox = ({error, i18n, clearApplicationError}) =>

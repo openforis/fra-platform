@@ -13,7 +13,7 @@ import FraReviewFooter from '@webapp/app/assessment/components/review/reviewFoot
 import Icon from '@webapp/components/icon'
 import useI18n from '@webapp/components/hooks/useI18n'
 
-import * as AppState from '@webapp/app/appState'
+import * as AppState from '@webapp/store/app/state'
 
 const mapIndexed = R.addIndex(R.map)
 

@@ -8,7 +8,7 @@ import d3Tip from 'd3-tip'
 import { formatNumber } from '@common/bignumberUtils'
 import { defaultTransitionDuration } from '../chart'
 
-import * as AppState from '@webapp/app/appState'
+import * as AppState from '@webapp/store/app/state'
 
 class DataPoint extends Component {
 

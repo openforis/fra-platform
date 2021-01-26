@@ -2,7 +2,7 @@ import axios from 'axios'
 import { batchActions } from '@webapp/main/reduxBatch'
 import * as autosave from '@webapp/app/components/autosave/actions'
 
-import * as AppState from '@webapp/app/appState'
+import * as AppState from '@webapp/store/app/state'
 import { updateTableData } from './update'
 
 export const assessmentSectionDataGeneratingValuesUpdate = 'assessment/section/data/generatingValues/update'

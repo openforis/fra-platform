@@ -4,7 +4,7 @@ import * as FRA from '@common/assessment/fra'
 import * as FraUtils from '@common/fraUtils'
 import * as NumberUtils from '@common/bignumberUtils'
 
-import * as AppState from '@webapp/app/appState'
+import * as AppState from '@webapp/store/app/state'
 import * as CountryState from '@webapp/app/country/countryState'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestState'

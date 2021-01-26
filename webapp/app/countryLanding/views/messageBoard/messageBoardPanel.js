@@ -9,7 +9,7 @@ import useI18n from '@webapp/components/hooks/useI18n'
 import { getRelativeDate } from '@webapp/utils/relativeDate'
 import { profilePictureUri } from '@common/userUtils'
 
-import * as AppState from '@webapp/app/appState'
+import * as AppState from '@webapp/store/app/state'
 import { UserState } from '@webapp/store/user'
 
 import { closeCountryMessageBoard, fetchAllCountryMessageBoardMessages, sendCountryMessageBoard, } from './actions'

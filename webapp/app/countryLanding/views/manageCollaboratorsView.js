@@ -20,7 +20,7 @@ import {
   updateNewUser
 } from '@webapp/app/user/userManagement/actions'
 
-import * as AppState from '@webapp/app/appState'
+import * as AppState from '@webapp/store/app/state'
 import { UserState } from '@webapp/store/user'
 import * as UserManagementState from '@webapp/app/user/userManagement/userManagementState'
 

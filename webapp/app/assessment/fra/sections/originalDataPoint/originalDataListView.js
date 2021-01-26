@@ -6,7 +6,7 @@ import { fetchOdps, removeFromList } from './actions'
 import { Link } from 'react-router-dom'
 import Icon from '@webapp/components/icon'
 
-import * as AppState from '@webapp/app/appState'
+import * as AppState from '@webapp/store/app/state'
 import { UserState } from '@webapp/store/user'
 
 const TableRow = ({odp, i18n, countryIso, removeFromList}) => {

@@ -11,7 +11,7 @@ import useI18n from '@webapp/components/hooks/useI18n'
 
 import { UserState } from '@webapp/store/user'
 import * as AutosaveState from '@webapp/app/components/autosave/autosaveState'
-import * as AppState from '@webapp/app/appState'
+import * as AppState from '@webapp/store/app/state'
 
 import { getFilesList, uploadFile, deleteFile } from '@webapp/app/countryLanding/actions'
 

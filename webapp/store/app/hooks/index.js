@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 
-import * as AppState from '@webapp/app/appState'
+import * as AppState from '@webapp/store/app/state'
 import { Area, Country } from '@common/country'
 import { useI18n, useOnUpdate } from '@webapp/components/hooks'
 

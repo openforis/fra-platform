@@ -14,7 +14,7 @@ import ErrorComponent from '@webapp/components/error/errorComponent'
 import CountrySelection from '@webapp/components/countrySelection'
 
 import { useIsLogin } from '@webapp/components/hooks'
-import * as AppState from '@webapp/app/appState'
+import * as AppState from '@webapp/store/app/state'
 import { AppActions } from '@webapp/store/app'
 
 import { useTheme } from './useTheme'
