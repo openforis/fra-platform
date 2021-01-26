@@ -62,7 +62,7 @@ if (buildReport) {
 const appConfig = {
   mode: config.mode,
   devtool: 'source-map',
-  entry: ['./webapp/main.js'],
+  entry: ['./webapp/main.tsx'],
   resolve: {
     extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js', '.js', '.jsx'],
     alias: {
@@ -79,6 +79,7 @@ const appConfig = {
   },
   devServer: {
     hot: true,
+    disableHostCheck: true,
     proxy: [
       {
         // Proxy all server-served routes:
@@ -92,6 +93,10 @@ const appConfig = {
   },
   module: {
     rules: [
+      {
+        test: /\.tsx?$/,
+        loader: 'babel-loader',
+      },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,

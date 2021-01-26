@@ -4,9 +4,9 @@ import useGetRequest from '@webapp/components/hooks/useGetRequest'
 
 import * as APIUtils from '../utils/apiUtils'
 
-export default (section, levelIso) => {
-  const url = APIUtils.getUrl(levelIso)
-  const params = APIUtils.getParams(section)
+export default (section, level) => {
+  const url = APIUtils.getUrl()
+  const params = APIUtils.getParams(section, level)
 
   const { data, dispatch: fetchData, loaded } = useGetRequest(url, {
     params,
@@ -14,7 +14,7 @@ export default (section, levelIso) => {
 
   useEffect(() => {
     fetchData()
-  }, [levelIso])
+  }, [level])
 
   return {
     data,

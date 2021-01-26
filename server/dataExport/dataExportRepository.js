@@ -10,6 +10,7 @@ const views = [
   'forest_ownership',
   'holder_of_management_rights',
   'disturbances',
+  'primary_designated_management_objective',
 ]
 
 // schemaName can be either:
@@ -30,6 +31,7 @@ const getExportData = async (schemaName, table, variables, countries, columns) =
     AND t.row_name IN (SELECT value #>> '{}' from json_array_elements($1::json))
     ORDER BY t.country_iso, t.row_name;
   `
+
   const result = await db.query(query, [JSON.stringify(variables)])
 
   const res = {}

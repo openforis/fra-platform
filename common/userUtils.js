@@ -1,7 +1,7 @@
 const R = require('ramda')
 const camelize = require('camelize')
 
-const profilePictureUri = (countryIso, userId) => `/api/users/${countryIso}/user/${userId}/profilePicture`
+const profilePictureUri = (userId) => `/api/users/user/${userId}/profilePicture`
 
 const i18nUserRole = (i18n, role, count = 1) => i18n.t(`user.roles.${camelize(role.toLowerCase())}`, { count })
 
