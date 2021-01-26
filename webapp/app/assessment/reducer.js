@@ -2,7 +2,7 @@ import { exportReducer } from '@webapp/utils/reduxUtils'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 
-import { appCountryIsoUpdate } from '@webapp/app/actions'
+import { appCountryIsoUpdate } from '@webapp/store/app/actions'
 import { assessmentLockUpdate, assessmentSectionPropUpdate } from '@webapp/app/assessment/actions'
 import {
   assessmentSectionDataGeneratingValuesUpdate,

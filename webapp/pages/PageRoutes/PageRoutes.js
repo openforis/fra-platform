@@ -15,7 +15,7 @@ import CountrySelection from '@webapp/components/countrySelection'
 
 import { useIsLogin } from '@webapp/components/hooks'
 import * as AppState from '@webapp/app/appState'
-import { initApp } from '@webapp/app/actions'
+import { AppActions } from '@webapp/store/app'
 
 import { useTheme } from './useTheme'
 
@@ -26,7 +26,7 @@ const PageRoutes = () => {
   const isLogin = useIsLogin()
 
   useEffect(() => {
-    dispatch(initApp())
+    dispatch(AppActions.initApp())
   }, [])
 
   if (appStatus !== AppState.stateLoadedKey) {

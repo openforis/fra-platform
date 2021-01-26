@@ -5,7 +5,7 @@ import { batchActions } from '@webapp/main/reduxBatch'
 import * as AppState from '@webapp/app/appState'
 
 import * as autosave from '@webapp/app/components/autosave/actions'
-import { appCountryIsoUpdate } from '@webapp/app/actions'
+import { appCountryIsoUpdate } from '@webapp/store/app/actions'
 
 export const fetchCountryOverviewStatusCompleted = 'country/status/completed'
 export const countryConfig = 'country/countryConfig'

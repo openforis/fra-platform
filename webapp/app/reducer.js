@@ -3,7 +3,7 @@ import { exportReducer } from '@webapp/utils/reduxUtils'
 
 import { ACTION_TYPE } from '@webapp/store/app/actions'
 
-import { appCountryIsoUpdate, appI18nUpdate, appInitDone } from './actions'
+import { appCountryIsoUpdate, appI18nUpdate, appInitDone } from '../store/app/actions'
 import * as AppState from './appState'
 
 const actionHandlers = {

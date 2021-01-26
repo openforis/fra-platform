@@ -6,7 +6,7 @@ import { PopoverControl } from '@webapp/components/popoverControl'
 import Icon from '@webapp/components/icon'
 import useI18n from '@webapp/components/hooks/useI18n'
 
-import { switchLanguage } from '@webapp/app/actions'
+import { AppActions } from '@webapp/store/app'
 
 const LanguageSelection = () => {
   const dispatch = useDispatch()
@@ -17,7 +17,7 @@ const LanguageSelection = () => {
     R.reject((l) => l === i18n.language),
     R.map((lang) => ({
       content: i18n.t(`language.${lang}`),
-      onClick: () => dispatch(switchLanguage(lang)),
+      onClick: () => dispatch(AppActions.switchLanguage(lang)),
     }))
   )(supportedLangs)
 
