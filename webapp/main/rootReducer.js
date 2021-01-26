@@ -1,6 +1,6 @@
 import applicationError from '@webapp/components/error/reducer' // Reducers available before login
 import { UserReducer, UserState } from '@webapp/store/user'
-import app from '@webapp/app/reducer'
+import app from '@webapp/store/app/reducer'
 import login from '@webapp/pages/Login/reducer'
 import country from '@webapp/app/country/reducer'
 

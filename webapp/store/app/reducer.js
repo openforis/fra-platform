@@ -3,7 +3,7 @@ import { exportReducer } from '@webapp/utils/reduxUtils'
 
 import { ActionTypes } from '@webapp/store/app/actions'
 
-import * as AppState from './appState'
+import * as AppState from '../../app/appState'
 
 const actionHandlers = {
   [ActionTypes.appInitDone]: (state, { i18n, countries, regions, regionGroups }) =>
