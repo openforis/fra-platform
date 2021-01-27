@@ -1,7 +1,11 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as FRA from '@common/assessment/fra'
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as FraUtils from '@common/fraUtils'
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as NumberUtils from '@common/bignumberUtils'
 
 import * as AppState from '@webapp/store/app/state'
@@ -19,7 +23,8 @@ export const keys = {
 
 const section = FRA.sections['1'].children.a
 
-const _getSectionProp = (propName, defaultValue = null) =>
+// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'defaultValue' implicitly has an 'any' t... Remove this comment to see the full error message
+const _getSectionProp = (propName: any, defaultValue = null) =>
   AssessmentState.getSectionProp(FRA.type, section.name, propName, defaultValue)
 
 export const getFra = AssessmentState.getFra(FRA.type, section.name, section.tables.extentOfForest)
@@ -33,7 +38,7 @@ export const showOriginalDataPoints = _getSectionProp(keys.showOdps, true)
 
 export const isExtentOfForestEmpty = () => R.pipe(getFra, FraUtils.isTableWithOdpEmpty)
 
-export const getExtentOfForestData = () => (state) =>
+export const getExtentOfForestData = () => (state: any) =>
   R.pipe(
     R.ifElse(showOriginalDataPoints, getFra, _getFraNoOdps),
     R.when(R.always(AppState.isPrintView(state)), FraUtils.filterFraYears)
@@ -41,19 +46,19 @@ export const getExtentOfForestData = () => (state) =>
 
 // ==== Assessment Fra config areas getter functions
 
-export const getForestArea2015Value = (year) => R.pipe(CountryState.getConfigFra2015ForestAreas, R.prop(year))
+export const getForestArea2015Value = (year: any) => R.pipe(CountryState.getConfigFra2015ForestAreas, R.prop(year))
 
-export const getFaoStatAreaByYear = (year) => R.pipe(CountryState.getConfigFaoStat, R.path([year, 'area']))
+export const getFaoStatAreaByYear = (year: any) => R.pipe(CountryState.getConfigFaoStat, R.path([year, 'area']))
 
-export const getFaoStatArea = (datum) => getFaoStatAreaByYear(datum.name)
+export const getFaoStatArea = (datum: any) => getFaoStatAreaByYear(datum.name)
 
 // ==== Datum getter functions
 
-export const getForest = (datum) => () => R.propOr(null, 'forestArea', datum)
+export const getForest = (datum: any) => () => R.propOr(null, 'forestArea', datum)
 
-export const getOtherWoodedLand = (datum) => () => R.propOr(null, 'otherWoodedLand', datum)
+export const getOtherWoodedLand = (datum: any) => () => R.propOr(null, 'otherWoodedLand', datum)
 
-export const getOtherLand = (datum) => (state) => {
+export const getOtherLand = (datum: any) => (state: any) => {
   const forestArea = getForest(datum)()
   const otherWoodedLand = getOtherWoodedLand(datum)()
   const faoStatArea = getFaoStatArea(datum)(state)
@@ -63,22 +68,22 @@ export const getOtherLand = (datum) => (state) => {
 
 // ==== By Year getter functions
 
-const _getDatumValueByYear = (year, getDatumValueFn) => (state) =>
-  R.pipe(getFra, FraUtils.getDatumByYear(year), (datum) => getDatumValueFn(datum)(state))(state)
+const _getDatumValueByYear = (year: any, getDatumValueFn: any) => (state: any) =>
+  R.pipe(getFra, FraUtils.getDatumByYear(year), (datum: any) => getDatumValueFn(datum)(state))(state)
 
-export const getForestByYear = (year) => _getDatumValueByYear(year, getForest)
+export const getForestByYear = (year: any) => _getDatumValueByYear(year, getForest)
 
-export const getOtherLandByYear = (year) => _getDatumValueByYear(year, getOtherLand)
+export const getOtherLandByYear = (year: any) => _getDatumValueByYear(year, getOtherLand)
 
 // ==== By Year index getter functions
 
-export const getForestByYearFraIdx = (idx) => getForestByYear(FRA.yearsTable[idx])
+export const getForestByYearFraIdx = (idx: any) => getForestByYear(FRA.yearsTable[idx])
 
-export const getForestByYearAnnualIdx = (idx) => getForestByYear(FRA.yearsAnnual[idx])
+export const getForestByYearAnnualIdx = (idx: any) => getForestByYear(FRA.yearsAnnual[idx])
 
 // ====== Climatic domain table functions
 
 export const rowsClimaticDomain = ['boreal', 'temperate', 'subtropical', 'tropical']
 
-export const getClimaticDomainConfigValue = (colIdx, rowIdx) =>
+export const getClimaticDomainConfigValue = (colIdx: any, rowIdx: any) =>
   R.pipe(CountryState.getConfigClimaticDomainPercents2015, R.prop(rowsClimaticDomain[rowIdx]))

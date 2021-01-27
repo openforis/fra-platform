@@ -1,33 +1,33 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as NumberUtils from '@common/bignumberUtils'
 import DefinitionLink from '@webapp/components/definitionLink'
 import { useI18n, usePrintView } from '@webapp/components/hooks'
-
 import * as ODP from '../../../originalDataPoint'
 import ForestCharacteristicsRow from './forestCharacteristicsRow'
 import ForestCharacteristicsPlantation from './forestCharacteristicsPlantation'
 
-const ForestCharacteristics = (props) => {
+type Props = {
+  canEditData: boolean
+  odp: any
+}
+const ForestCharacteristics = (props: Props) => {
   const { canEditData, odp } = props
-  const nationalClasses = odp.nationalClasses.filter((nationalClass) => !nationalClass.placeHolder)
+  const nationalClasses = odp.nationalClasses.filter((nationalClass: any) => !nationalClass.placeHolder)
   const plantationTotal = ODP.subClassTotalArea(odp, 'forestPercent', 'plantationPercent')
   const hasPlantation = plantationTotal && NumberUtils.greaterThan(plantationTotal, 0)
-
   const i18n = useI18n()
   const [printView] = usePrintView()
-
   return (
     <div className="odp__section">
       {!printView && (
         <div className="odp__section-header">
-          <h3 className="subhead">{i18n.t('nationalDataPoint.forestCharacteristics')}</h3>
+          <h3 className="subhead">{(i18n as any).t('nationalDataPoint.forestCharacteristics')}</h3>
           <DefinitionLink
             document="tad"
             anchor="1b"
-            title={i18n.t('definition.definitionLabel')}
-            lang={i18n.language}
+            title={(i18n as any).t('definition.definitionLabel')}
+            lang={(i18n as any).language}
           />
         </div>
       )}
@@ -42,24 +42,32 @@ const ForestCharacteristics = (props) => {
                     {odp.year}
                   </th>
                 )}
+                {/* @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number'. */}
                 <th className="fra-table__header-cell fra-table__divider" colSpan="2">
-                  {i18n.t('nationalDataPoint.nationalClasses')}
+                  {(i18n as any).t('nationalDataPoint.nationalClasses')}
                 </th>
+                {/* @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number'. */}
                 <th className="fra-table__header-cell" colSpan="3">
-                  {i18n.t('nationalDataPoint.fraClasses')}
+                  {(i18n as any).t('nationalDataPoint.fraClasses')}
                 </th>
               </tr>
               <tr>
-                <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.class')}</th>
-                <th className="fra-table__header-cell fra-table__divider">{i18n.t('nationalDataPoint.area')}</th>
-                <th className="fra-table__header-cell">
-                  {i18n.t('fraForestCharacteristicsClass.naturallyRegeneratingForest')}
+                <th className="fra-table__header-cell-left">{(i18n as any).t('nationalDataPoint.class')}</th>
+                <th className="fra-table__header-cell fra-table__divider">
+                  {(i18n as any).t('nationalDataPoint.area')}
                 </th>
-                <th className="fra-table__header-cell">{i18n.t('fraForestCharacteristicsClass.plantationForest')}</th>
-                <th className="fra-table__header-cell">{i18n.t('fraForestCharacteristicsClass.otherPlantedForest')}</th>
+                <th className="fra-table__header-cell">
+                  {(i18n as any).t('fraForestCharacteristicsClass.naturallyRegeneratingForest')}
+                </th>
+                <th className="fra-table__header-cell">
+                  {(i18n as any).t('fraForestCharacteristicsClass.plantationForest')}
+                </th>
+                <th className="fra-table__header-cell">
+                  {(i18n as any).t('fraForestCharacteristicsClass.otherPlantedForest')}
+                </th>
               </tr>
 
-              {nationalClasses.map((nationalClass, index) => (
+              {nationalClasses.map((nationalClass: any, index: any) => (
                 <ForestCharacteristicsRow
                   key={nationalClass.className}
                   canEditData={canEditData}
@@ -68,7 +76,7 @@ const ForestCharacteristics = (props) => {
                 />
               ))}
               <tr>
-                <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.total')}</th>
+                <th className="fra-table__header-cell-left">{(i18n as any).t('nationalDataPoint.total')}</th>
                 <th className="fra-table__calculated-cell fra-table__divider">
                   {NumberUtils.formatNumber(ODP.classTotalArea(odp, 'forestPercent'))}
                 </th>
@@ -91,10 +99,4 @@ const ForestCharacteristics = (props) => {
     </div>
   )
 }
-
-ForestCharacteristics.propTypes = {
-  canEditData: PropTypes.bool.isRequired,
-  odp: PropTypes.object.isRequired,
-}
-
 export default ForestCharacteristics

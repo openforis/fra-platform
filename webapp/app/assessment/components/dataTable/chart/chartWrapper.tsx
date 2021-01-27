@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react'
-import PropTypes from 'prop-types'
 
 import { elementOffset } from '@webapp/utils/domUtils'
 
@@ -7,7 +6,12 @@ import { useOnResize, usePrintView } from '@webapp/components/hooks'
 
 import ChartContainer from './chartContainer'
 
-const ChartWrapper = (props) => {
+type Props = {
+  fra: any[]
+  trends: any[]
+}
+
+const ChartWrapper = (props: Props) => {
   const { fra, trends } = props
 
   const [printView] = usePrintView()
@@ -30,11 +34,6 @@ const ChartWrapper = (props) => {
       {width && <ChartContainer fra={fra} wrapperWidth={width} trends={trends} />}
     </div>
   )
-}
-
-ChartWrapper.propTypes = {
-  fra: PropTypes.array.isRequired,
-  trends: PropTypes.array.isRequired,
 }
 
 export default ChartWrapper

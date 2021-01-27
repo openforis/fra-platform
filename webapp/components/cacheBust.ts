@@ -1,4 +1,4 @@
-const { v4:uuidv4 } = require('uuid')
+const { v4: uuidv4 } = require('uuid')
 
 let bustString = uuidv4()
 // For some reason, incremental build with watch loses
@@ -7,6 +7,9 @@ let bustString = uuidv4()
 // is set when the page is loaded. This is only a local
 // issue for developers and only causes the svgs to
 // reload when the page is reloaded
-try { bustString = __BUST__ } catch (e) {}
+try {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '__BUST__'.
+  bustString = __BUST__
+} catch (e) {}
 
 export default bustString

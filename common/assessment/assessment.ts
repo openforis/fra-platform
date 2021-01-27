@@ -1,8 +1,13 @@
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
 const R = require('ramda')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'FRA'.
 const FRA = require('./fra')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'PanEuropea... Remove this comment to see the full error message
 const PanEuropean = require('./panEuropean')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'assessment... Remove this comment to see the full error message
 const { assessmentStatus } = require('../assessment')
 
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'keys'.
 const keys = {
   status: 'status',
   type: 'type',
@@ -13,6 +18,7 @@ const keys = {
 }
 
 // ====== READ
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getStatus'... Remove this comment to see the full error message
 const getStatus = R.propOr('', keys.status)
 const getType = R.prop(keys.type)
 const getDeskStudy = R.propEq(keys.deskStudy, true)

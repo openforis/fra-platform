@@ -1,4 +1,4 @@
-﻿module.exports = {
+module.exports = {
   tableName: 'table_4_4c',
   schemaName: 'pan_european',
   section: 'panEuropean_4_4_c',
@@ -23,13 +23,13 @@
       '_17',
       '_18',
       '_19',
-      '_20'
-    ]
+      '_20',
+    ],
   },
-    columns: [
-    {name: 'scientific_name_of_invasive_tree_species', type: 'text'},
-    {name: 'forest_area_affected_2005', type: 'numeric'},
-    {name: 'forest_area_affected_2010', type: 'numeric'},
-    {name: 'forest_area_affected_2015', type: 'numeric'}
-  ]
+  columns: [
+    { name: 'scientific_name_of_invasive_tree_species', type: 'text' },
+    { name: 'forest_area_affected_2005', type: 'numeric' },
+    { name: 'forest_area_affected_2010', type: 'numeric' },
+    { name: 'forest_area_affected_2015', type: 'numeric' },
+  ],
 }

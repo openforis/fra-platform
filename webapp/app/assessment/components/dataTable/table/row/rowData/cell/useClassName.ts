@@ -4,7 +4,7 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 
 import { useUserInfo } from '@webapp/components/hooks'
 
-export default (col, rowIdx) => {
+export default (col: any, rowIdx: any) => {
   const { type, validator } = col
   const userInfo = useUserInfo()
 

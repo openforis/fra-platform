@@ -1,14 +1,13 @@
 import React from 'react'
 import { Link, matchPath, NavLink, Redirect, Route, Switch, useLocation } from 'react-router-dom'
-
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { Area } from '@common/country'
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as FRA from '@common/assessment/fra'
 import * as BasePaths from '@webapp/main/basePaths'
-
 import { useCountryIso, useI18n, useUserInfo } from '@webapp/components/hooks'
 import Icon from '@webapp/components/icon'
 import StatisticalFactsheets from '@webapp/app/countryLanding/views/statisticalFactsheets'
-
 import useCountryLandingSections from '@webapp/app/countryLanding/useCountryLandingSections'
 
 const FraHome = () => {
@@ -17,7 +16,6 @@ const FraHome = () => {
   const userInfo = useUserInfo()
   const i18n = useI18n()
   const sections = useCountryLandingSections()
-
   const isCountry = Area.isISOCountry(countryIso)
   const overviewPath = BasePaths.getAssessmentHomeSectionLink(countryIso, FRA.type, 'overview')
   const matchOverview = matchPath(pathname, {
@@ -26,21 +24,23 @@ const FraHome = () => {
   })
   // tabs are available when user is logged-in and selected area is country
   const displayTabs = userInfo && isCountry
-
   return (
     <>
       <div className="landing__page-header">
         <h1 className="landing__page-title">
-          {i18n.t(`area.${countryIso}.listName`)}
+          {(i18n as any).t(`area.${countryIso}.listName`)}
 
           {!isCountry && matchOverview && (
             <Link
               className="btn-s btn-primary landing__btn-download"
-              to={`/api/fileRepository/statisticalFactsheets/${countryIso}/${i18n.language}`}
+              to={`/api/fileRepository/statisticalFactsheets/${countryIso}/${(i18n as any).language}`}
               target="_top"
+              // @ts-expect-error ts-migrate(2322) FIXME: Type '{ children: Element[]; className: string; to... Remove this comment to see the full error message
               alt=""
             >
+              {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ name: string; className: string; }' is not... Remove this comment to see the full error message */}
               <Icon name="hit-down" className="icon-hit-down icon-white" />
+              {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ name: string; className: string; }' is not... Remove this comment to see the full error message */}
               <Icon name="icon-table2" className="icon-no-margin icon-white" />
             </Link>
           )}
@@ -55,7 +55,7 @@ const FraHome = () => {
                 className="landing__page-menu-button"
                 activeClassName="disabled"
               >
-                {i18n.t(`landing.sections.${section}`)}
+                {(i18n as any).t(`landing.sections.${section}`)}
               </NavLink>
             ))}
           </div>
@@ -81,5 +81,4 @@ const FraHome = () => {
     </>
   )
 }
-
 export default FraHome

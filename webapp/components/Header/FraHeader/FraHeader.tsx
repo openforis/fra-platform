@@ -8,9 +8,9 @@ const FraHeader = () => {
   const i18n = useI18n()
   return (
     <div className="app-header no-print">
-      <img alt="FAO" src={`/img/fao/FAO${i18n.language}.svg`} />
+      <img alt="FAO" src={`/img/fao/FAO${(i18n as any).language}.svg`} />
       <div className="app-header__separator" />
-      <div className="app-header__global-fra">{i18n.t('common.globalFRA')}</div>
+      <div className="app-header__global-fra">{(i18n as any).t('common.globalFRA')}</div>
 
       <div className="app-header__menu">
         <LanguageSelection />
@@ -20,5 +20,4 @@ const FraHeader = () => {
     </div>
   )
 }
-
 export default FraHeader

@@ -1,3 +1,4 @@
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as FRA from '@common/assessment/fra'
 
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
@@ -17,7 +18,9 @@ const getDataCols = () => years.map(() => categories.map(() => SectionSpec.newCo
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.graduationOfStudents,
-  [SectionSpec.KEYS_TABLE.columnsExport]: years.flatMap((year) => categories.map((category) => `${year}_${category}`)),
+  [SectionSpec.KEYS_TABLE.columnsExport]: years.flatMap((year: any) =>
+    categories.map((category) => `${year}_${category}`)
+  ),
   [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.numberOfStudents,
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
@@ -34,7 +37,7 @@ const tableSpec = SectionSpec.newTableSpec({
       ],
     }),
     SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: years.map((year) =>
+      [SectionSpec.KEYS_ROW.cols]: years.map((year: any) =>
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.label]: year,
           [SectionSpec.KEYS_COL.colSpan]: categories.length,
@@ -55,6 +58,7 @@ const tableSpec = SectionSpec.newTableSpec({
     ...['doctoralDegree', 'mastersDegree', 'bachelorsDegree', 'technicianCertificate', 'total'].map((variable) =>
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.labelKey]: `graduationOfStudents.${variable}`,
+        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         [SectionSpec.KEYS_ROW.variableExport]: variableMappings[variable],
         [SectionSpec.KEYS_ROW.cols]: getDataCols(),
       })

@@ -1,4 +1,4 @@
-﻿module.exports = {
+module.exports = {
   tableName: 'table_6_10d',
   schemaName: 'pan_european',
   section: 'panEuropean_6_10_d',
@@ -24,12 +24,12 @@
       'no18_area_available_for_public_recreation',
       'no19_area_available_for_public_recreation',
       'no20_area_available_for_public_recreation',
-    ]
+    ],
   },
-    columns: [
-    {name: 'facility', type: 'text'},
-    {name: 'measurement_unit', type: 'text'},
-    {name: 'extent_multiplicity', type: 'numeric'},
-    {name: 'facility_category', type: 'text'}
-  ]
+  columns: [
+    { name: 'facility', type: 'text' },
+    { name: 'measurement_unit', type: 'text' },
+    { name: 'extent_multiplicity', type: 'numeric' },
+    { name: 'facility_category', type: 'text' },
+  ],
 }

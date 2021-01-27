@@ -1,3 +1,4 @@
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as FRA from '@common/assessment/fra'
 
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
@@ -6,7 +7,7 @@ import * as SustainableDevelopmentState from '@webapp/app/assessment/fra/section
 
 const section = FRA.sections['8'].children.a
 
-const newTableSpecResponsibleAgency = (tableName, printPageBreakAfter = false) =>
+const newTableSpecResponsibleAgency = (tableName: any, printPageBreakAfter = false) =>
   SectionSpec.newTableSpec({
     [SectionSpec.KEYS_TABLE.name]: tableName,
     [SectionSpec.KEYS_TABLE.secondary]: true,
@@ -23,14 +24,15 @@ const newTableSpecResponsibleAgency = (tableName, printPageBreakAfter = false) =
   })
 
 const newTableSDGIndicator = (
-  yearsTable,
-  labelKeyHeader1,
-  labelKeyHeader2,
-  labelKeyRowData,
-  calculateFnRowData,
+  yearsTable: any,
+  labelKeyHeader1: any,
+  labelKeyHeader2: any,
+  labelKeyRowData: any,
+  calculateFnRowData: any,
   labelHeader1Params = {}
 ) =>
   SectionSpec.newTableSpec({
+    // @ts-expect-error ts-migrate(7011) FIXME: Function expression, which lacks return-type annot... Remove this comment to see the full error message
     [SectionSpec.KEYS_TABLE.getSectionData]: () => () => [],
     [SectionSpec.KEYS_TABLE.rows]: [
       SectionSpec.newRowHeader({
@@ -48,7 +50,7 @@ const newTableSDGIndicator = (
         ],
       }),
       SectionSpec.newRowHeader({
-        [SectionSpec.KEYS_ROW.cols]: yearsTable.map((year) =>
+        [SectionSpec.KEYS_ROW.cols]: yearsTable.map((year: any) =>
           SectionSpec.newColHeader({
             [SectionSpec.KEYS_COL.label]: year,
           })

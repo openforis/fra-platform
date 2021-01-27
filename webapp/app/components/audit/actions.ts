@@ -6,7 +6,10 @@ export const lastSectionUpdateTimestampReceived = 'audit/lastSectionUpdate/times
 export const lastSectionUpdateTimestampReset = 'audit/lastSectionUpdate/timestamp/reset'
 export const lastAuditFeedReceived = 'audit/lastAuditFeedReceived'
 
-export const fetchLastSectionUpdateTimestamp = (countryIso, section) => async (dispatch, getState) => {
+export const fetchLastSectionUpdateTimestamp = (countryIso: any, section: any) => async (
+  dispatch: any,
+  getState: any
+) => {
   const userInfo = UserState.getUserInfo(getState())
   if (userInfo) {
     const {
@@ -18,7 +21,7 @@ export const fetchLastSectionUpdateTimestamp = (countryIso, section) => async (d
 
 export const resetSectionUpdateTimestamp = () => ({ type: lastSectionUpdateTimestampReset })
 
-export const fetchAuditFeed = (countryIso) => async (dispatch) => {
+export const fetchAuditFeed = (countryIso: any) => async (dispatch: any) => {
   const {
     data: { feed },
   } = await axios.get(`/api/audit/getAuditFeed/${countryIso}`)

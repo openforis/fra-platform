@@ -3,7 +3,7 @@ module.exports = {
   schemaName: 'pan_european',
   section: 'panEuropean_6_10_b',
   rows: {
-   names: [
+    names: [
       'total_forest_and_other_wooded_land_2015',
       'total_forest_and_other_wooded_land_2010',
       'total_forest_and_other_wooded_land_2005',

@@ -12,14 +12,14 @@ import {
 } from './actions'
 
 const actionHandlers = {
-  [odpSaveDraftStart]: (state, { active }) => OriginalDataPointState.assocActive(active)(state),
-  [odpSaveDraftCompleted]: (state, { odpId }) => OriginalDataPointState.assocActiveId(Number(odpId))(state),
-  [odpValidationCompleted]: (state, { data }) => OriginalDataPointState.assocActiveValidation(data)(state),
+  [odpSaveDraftStart]: (state: any, { active }: any) => OriginalDataPointState.assocActive(active)(state),
+  [odpSaveDraftCompleted]: (state: any, { odpId }: any) => OriginalDataPointState.assocActiveId(Number(odpId))(state),
+  [odpValidationCompleted]: (state: any, { data }: any) => OriginalDataPointState.assocActiveValidation(data)(state),
 
-  [odpFetchCompleted]: (state, { active }) => OriginalDataPointState.assocActive(active)(state),
-  [odpListFetchCompleted]: (state, { data }) => OriginalDataPointState.assocOdps(data)(state),
+  [odpFetchCompleted]: (state: any, { active }: any) => OriginalDataPointState.assocActive(active)(state),
+  [odpListFetchCompleted]: (state: any, { data }: any) => OriginalDataPointState.assocOdps(data)(state),
 
-  [odpClearActiveAction]: (state) => OriginalDataPointState.assocActive(ODP.emptyDataPoint())(state),
+  [odpClearActiveAction]: (state: any) => OriginalDataPointState.assocActive(ODP.emptyDataPoint())(state),
 }
 
 export default exportReducer(actionHandlers)

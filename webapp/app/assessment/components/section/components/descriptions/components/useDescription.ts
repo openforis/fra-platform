@@ -9,7 +9,7 @@ import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useOnUpdate from '@webapp/components/hooks/useOnUpdate'
 import * as autosave from '@webapp/app/components/autosave/actions'
 
-export default (name, section, template) => {
+export default (name: any, section: any, template: any) => {
   const dispatch = useDispatch()
   const countryIso = useCountryIso()
   const canPostData = useRef(false)
@@ -21,7 +21,7 @@ export default (name, section, template) => {
   // ====== data update
   const { dispatch: postData, loaded: postDataLoaded } = usePostRequest(url, { content: data })
 
-  const onChange = (content) => {
+  const onChange = (content: any) => {
     dispatch(autosave.start)
     canPostData.current = true
     setState({ data: content })

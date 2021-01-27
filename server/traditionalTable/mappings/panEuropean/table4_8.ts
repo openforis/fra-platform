@@ -9,7 +9,7 @@ module.exports = {
       'trees_2005',
       'trees_2000',
       'trees_1990',
-      
+
       'birds_2015',
       'birds_2010',
       'birds_2005',
@@ -27,7 +27,7 @@ module.exports = {
       'other_vertebrates_2005',
       'other_vertebrates_2000',
       'other_vertebrates_1990',
-      
+
       'invertebrates_2015',
       'invertebrates_2010',
       'invertebrates_2005',
@@ -48,10 +48,10 @@ module.exports = {
     ],
   },
   columns: [
-      { name: 'total_of_taxa', type: 'numeric' },
-      { name: 'vulnerable', type: 'numeric' },
-      { name: 'endangered', type: 'numeric' },
-      { name: 'critically_endangered', type: 'numeric' },
-      { name: 'extinct_in_the_wild', type: 'numeric' },      
-    ],
+    { name: 'total_of_taxa', type: 'numeric' },
+    { name: 'vulnerable', type: 'numeric' },
+    { name: 'endangered', type: 'numeric' },
+    { name: 'critically_endangered', type: 'numeric' },
+    { name: 'extinct_in_the_wild', type: 'numeric' },
+  ],
 }

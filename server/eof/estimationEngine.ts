@@ -1,43 +1,46 @@
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
 const R = require('ramda')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'assert'.
 const assert = require('assert')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'NumberUtil... Remove this comment to see the full error message
 const NumberUtils = require('../../common/bignumberUtils')
 
-const linearInterpolation = (x, xa, ya, xb, yb) =>
+const linearInterpolation = (x: any, xa: any, ya: any, xb: any, yb: any) =>
   NumberUtils.add(
     ya,
     NumberUtils.div(NumberUtils.mul(NumberUtils.sub(yb, ya), NumberUtils.sub(x, xa)), NumberUtils.sub(xb, xa))
   )
 
-const linearExtrapolationForwards = (x, xa, ya, xb, yb) =>
+const linearExtrapolationForwards = (x: any, xa: any, ya: any, xb: any, yb: any) =>
   NumberUtils.add(
     ya,
     NumberUtils.mul(NumberUtils.div(NumberUtils.sub(x, xa), NumberUtils.sub(xb, xa)), NumberUtils.sub(yb, ya))
   )
 
-const linearExtrapolationBackwards = (x, xa, ya, xb, yb) =>
+const linearExtrapolationBackwards = (x: any, xa: any, ya: any, xb: any, yb: any) =>
   NumberUtils.add(
     yb,
     NumberUtils.mul(NumberUtils.div(NumberUtils.sub(xb, x), NumberUtils.sub(xb, xa)), NumberUtils.sub(ya, yb))
   )
 
-const getNextValues = (year) =>
+const getNextValues = (year: any) =>
   R.pipe(
-    R.filter((v) => v.year > year),
-    R.sort((a, b) => a.year - b.year)
+    R.filter((v: any) => v.year > year),
+    R.sort((a: any, b: any) => a.year - b.year)
   )
 
-const getPreviousValues = (year) =>
+const getPreviousValues = (year: any) =>
   R.pipe(
-    R.filter((v) => v.year < year),
-    R.sort((a, b) => b.year - a.year)
+    R.filter((v: any) => v.year < year),
+    R.sort((a: any, b: any) => b.year - a.year)
   )
 
-const applyEstimationFunction = (year, pointA, pointB, field, estFunction) => {
+const applyEstimationFunction = (year: any, pointA: any, pointB: any, field: any, estFunction: any) => {
   const estimated = estFunction(year, pointA.year, pointA[field], pointB.year, pointB[field])
   return estimated < 0 ? '0' : estimated
 }
 
-const linearExtrapolation = (year, values, _, field) => {
+const linearExtrapolation = (year: any, values: any, _: any, field: any) => {
   const previous2Values = getPreviousValues(year)(values).slice(0, 2)
   const next2Values = getNextValues(year)(values).slice(0, 2)
 
@@ -50,7 +53,7 @@ const linearExtrapolation = (year, values, _, field) => {
   return null
 }
 
-const repeatLastExtrapolation = (year, values, _, field) => {
+const repeatLastExtrapolation = (year: any, values: any, _: any, field: any) => {
   const previousValues = getPreviousValues(year)(values)
   const nextValues = getNextValues(year)(values)
   if (previousValues.length >= 1) return R.head(previousValues)[field]
@@ -58,18 +61,19 @@ const repeatLastExtrapolation = (year, values, _, field) => {
   return null
 }
 
+// @ts-expect-error ts-migrate(7011) FIXME: Function expression, which lacks return-type annot... Remove this comment to see the full error message
 const clearTableValues = () => {
   return null
 }
 
-const annualChangeExtrapolation = (year, values, odpValues, field, { changeRates }) => {
+const annualChangeExtrapolation = (year: any, values: any, odpValues: any, field: any, { changeRates }: any) => {
   assert(changeRates, 'changeRates must be given for annualChange extrapolation method')
 
   const previousValues = getPreviousValues(year)(odpValues)
   const nextValues = getNextValues(year)(odpValues)
   if (previousValues.length >= 1) {
     const previousOdp = R.pipe(
-      R.reject((o) => R.isNil(o[field])),
+      R.reject((o: any) => R.isNil(o[field])),
       R.head,
       R.defaultTo(R.head(previousValues))
     )(previousValues)
@@ -95,13 +99,15 @@ const generateMethods = {
   clearTable: clearTableValues,
 }
 
-const extrapolate = (year, values, odpValues, field, generateSpec) => {
+const extrapolate = (year: any, values: any, odpValues: any, field: any, generateSpec: any) => {
+  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   const extrapolationMethod = generateMethods[generateSpec.method]
   assert(extrapolationMethod, `Invalid extrapolation method: ${generateSpec.method}`)
   return extrapolationMethod(year, values, odpValues, field, generateSpec)
 }
 
-const estimateField = (values = [], odpValues, field, year, generateSpec) => {
+// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'values' implicitly has an 'any[]' type.
+const estimateField = (values = [], odpValues: any, field: any, year: any, generateSpec: any) => {
   const odp = R.find(R.propEq('year', year))(values)
   const previousValue = getPreviousValues(year)(values)[0]
   const nextValue = getNextValues(year)(values)[0]
@@ -119,17 +125,17 @@ const estimateField = (values = [], odpValues, field, year, generateSpec) => {
   return extrapolate(year, values, odpValues, field, generateSpec)
 }
 
-const estimateFraValue = (year, values, odpValues, generateSpec) => {
-  const estimateFieldReducer = (newFraObj, field) => {
+const estimateFraValue = (year: any, values: any, odpValues: any, generateSpec: any) => {
+  const estimateFieldReducer = (newFraObj: any, field: any) => {
     const fraEstimatedYears = R.pipe(
-      R.filter((v) => v.store),
-      R.map((v) => v.year)
+      R.filter((v: any) => v.store),
+      R.map((v: any) => v.year)
     )(values)
 
-    const isEstimatedOdp = (v) => v.type === 'odp' && R.contains(v.year, fraEstimatedYears)
+    const isEstimatedOdp = (v: any) => v.type === 'odp' && R.contains(v.year, fraEstimatedYears)
 
     // Filtering out objects with field value null or already estimated
-    const fieldValues = R.reject((v) => !v[field] || isEstimatedOdp(v), values)
+    const fieldValues = R.reject((v: any) => !v[field] || isEstimatedOdp(v), values)
 
     const estValue = estimateField(fieldValues, odpValues, field, year, generateSpec)
 
@@ -144,16 +150,16 @@ const estimateFraValue = (year, values, odpValues, generateSpec) => {
 }
 
 // Pure function, no side-effects
-const estimateFraValues = (years, odpValues, generateSpec) => {
-  const estimateFraValuesReducer = (values, year) => {
+const estimateFraValues = (years: any, odpValues: any, generateSpec: any) => {
+  const estimateFraValuesReducer = (values: any, year: any) => {
     const newValue = estimateFraValue(year, values, odpValues, generateSpec)
     return [...values, newValue]
   }
 
   const estimatedValues = R.pipe(
     R.partial(R.reduce, [estimateFraValuesReducer, odpValues]),
-    R.filter((v) => v.store),
-    R.map((v) => R.dissoc('store', v))
+    R.filter((v: any) => v.store),
+    R.map((v: any) => R.dissoc('store', v))
   )(years)
 
   return estimatedValues
@@ -161,10 +167,16 @@ const estimateFraValues = (years, odpValues, generateSpec) => {
 
 module.exports.estimateFraValues = estimateFraValues
 
-module.exports.estimateAndWrite = async (odpReader, fraWriter, countryIso, years, generateSpec) => {
+module.exports.estimateAndWrite = async (
+  odpReader: any,
+  fraWriter: any,
+  countryIso: any,
+  years: any,
+  generateSpec: any
+) => {
   const values = await odpReader(countryIso)
   const estimated = estimateFraValues(years, R.values(values), generateSpec)
   return Promise.all(
-    R.map((estimatedValues) => fraWriter(countryIso, estimatedValues.year, estimatedValues, true), estimated)
+    R.map((estimatedValues: any) => fraWriter(countryIso, estimatedValues.year, estimatedValues, true), estimated)
   )
 }

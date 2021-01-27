@@ -1,20 +1,20 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { toFixed } from '@common/bignumberUtils'
 
-const trim = (value) => value.replace(/\s|\,/g, '')
+const trim = (value: any) => value.replace(/\s|\,/g, '')
 
-export const acceptableAsInteger = (newValue) => {
+export const acceptableAsInteger = (newValue: any) => {
   const newValueTrimmed = trim(newValue)
   if (newValueTrimmed === '') return true
   if (R.contains('e', newValueTrimmed)) return false
-  return !isNaN(newValueTrimmed) &&
-    newValueTrimmed.indexOf('.') === -1 &&
-    isFinite(newValueTrimmed)
+  return !isNaN(newValueTrimmed) && newValueTrimmed.indexOf('.') === -1 && isFinite(newValueTrimmed)
 }
 
 // Util function for UI fields which require integer values to be stored
 // Gives previous value if new can't be converted to Integer
-export const acceptNextInteger = (newValue, currentValue) => {
+export const acceptNextInteger = (newValue: any, currentValue: any) => {
   if (R.isNil(newValue)) return null
   const newValueTrimmed = trim(newValue)
   if (newValueTrimmed === '') return null
@@ -23,27 +23,25 @@ export const acceptNextInteger = (newValue, currentValue) => {
   return Math.round(Number(newValueTrimmed))
 }
 
-const isValidDecimalPart = (d, checkNoDecimals) => {
+const isValidDecimalPart = (d: any, checkNoDecimals: any) => {
   if (checkNoDecimals) {
     const ds = d.split('.')
-    return ds.length === 2 ? (ds[1].length <= 2) : true
+    return ds.length === 2 ? ds[1].length <= 2 : true
   }
   return true
 }
 
-export const acceptableAsDecimal = (newValue, checkNoDecimals = true) => {
+export const acceptableAsDecimal = (newValue: any, checkNoDecimals = true) => {
   const newValueTrimmed = trim(newValue)
   if (newValueTrimmed === '') return true
   if (R.contains('e', newValueTrimmed)) return false
   if (!R.test(/^(-)?[0-9]*(\.{1}[0-9]*)?$/)) return false
-  return !isNaN(newValueTrimmed) &&
-    isValidDecimalPart(newValueTrimmed, checkNoDecimals) &&
-    isFinite(newValueTrimmed)
+  return !isNaN(newValueTrimmed) && isValidDecimalPart(newValueTrimmed, checkNoDecimals) && isFinite(newValueTrimmed)
 }
 
 // Util function for UI fields which require integer values to be stored
 // Gives previous value if new can't be converted to Integer
-export const acceptNextDecimal = (newValue, currentValue) => {
+export const acceptNextDecimal = (newValue: any, currentValue: any) => {
   if (R.isNil(newValue)) return null
   const newValueTrimmed = trim(newValue)
   if (newValueTrimmed === '') return null

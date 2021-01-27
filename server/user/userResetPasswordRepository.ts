@@ -1,80 +1,98 @@
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'camelize'.
 const camelize = require('camelize')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
 const R = require('ramda')
-const {differenceInSeconds, parseISO} = require('date-fns')
-const {toUTCSelectParam} = require('../db/queryHelper')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'parseISO'.
+const { differenceInSeconds, parseISO } = require('date-fns')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'toUTCSelec... Remove this comment to see the full error message
+const { toUTCSelectParam } = require('../db/queryHelper')
 
-const createResetPassword = async (client, userId) => {
-
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'createRese... Remove this comment to see the full error message
+const createResetPassword = async (client: any, userId: any) => {
   // invalidate old reset password request first
-  await  client.query(`
+  await client.query(
+    `
     UPDATE fra_user_reset_password 
     SET active = false
     WHERE user_id = $1
-  `, [userId])
+  `,
+    [userId]
+  )
 
-  const res = await  client.query(`
+  const res = await client.query(
+    `
     INSERT INTO fra_user_reset_password (user_id)
     VALUES ($1)
     RETURNING 
       user_id, uuid, created_time, active
-  `, [userId])
+  `,
+    [userId]
+  )
 
   return camelize(res.rows[0])
 }
 
-const invalidateResetPassword = async (client, uuid) =>
-  await client.query(`
+const invalidateResetPassword = async (client: any, uuid: any) =>
+  await client.query(
+    `
     UPDATE fra_user_reset_password 
     SET active = false
     WHERE uuid = $1
-  `, [uuid])
+  `,
+    [uuid]
+  )
 
-const findResetPassword = async (client, uuid) => {
-  const res = await client.query(`
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'findResetP... Remove this comment to see the full error message
+const findResetPassword = async (client: any, uuid: any) => {
+  const res = await client.query(
+    `
   SELECT
     user_id, uuid, ${toUTCSelectParam('created_time')}
   FROM
     fra_user_reset_password
   WHERE active = true
   AND uuid = $1
-  `, [uuid])
+  `,
+    [uuid]
+  )
 
   if (R.isEmpty(res.rows)) {
     return null
-  } else {
-    const resetPassword = camelize(res.rows[0])
-
-    const oneWeek = 1 * 60 * 60 * 24 * 7
-    if (differenceInSeconds(parseISO(resetPassword.createdTime), new Date()) > oneWeek + 1) {
-      // if reset password is older than one week, invalidate the reset password request
-      await invalidateResetPassword(client, resetPassword.uuid)
-
-      return null
-    } else {
-      return resetPassword
-    }
   }
+  const resetPassword = camelize(res.rows[0])
+
+  const oneWeek = 1 * 60 * 60 * 24 * 7
+  if (differenceInSeconds(parseISO(resetPassword.createdTime), new Date()) > oneWeek + 1) {
+    // if reset password is older than one week, invalidate the reset password request
+    await invalidateResetPassword(client, resetPassword.uuid)
+
+    return null
+  }
+  return resetPassword
 }
 
-const changePassword = async (client, uuid, userId, newPassword) => {
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'changePass... Remove this comment to see the full error message
+const changePassword = async (client: any, uuid: any, userId: any, newPassword: any) => {
   const resetPassword = await findResetPassword(client, uuid)
   if (resetPassword && resetPassword.userId === userId) {
-    await client.query(`
+    await client.query(
+      `
       UPDATE fra_user 
       SET password = $1
       WHERE id = $2 
-    `, [newPassword, userId])
+    `,
+      [newPassword, userId]
+    )
 
     await invalidateResetPassword(client, uuid)
 
     return true
-  } else {
-    return false
   }
+  return false
 }
 
 module.exports = {
   createResetPassword,
   findResetPassword,
-  changePassword
+  changePassword,
 }

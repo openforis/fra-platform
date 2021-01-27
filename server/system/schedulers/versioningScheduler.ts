@@ -1,16 +1,12 @@
 const schedule = require('node-schedule')
 const versioningRepository = require('../../versioning/versioningRepository')
 
-const handleNewVersion = async (version) => {
-  const {
-    id,
-    versionNumber,
-  } = version
+const handleNewVersion = async (version: any) => {
+  const { id, versionNumber } = version
 
   try {
-
     await versioningRepository.updateVersionStatus(id, 'running')
-    
+
     try {
       await versioningRepository.newSchemaVersion(`public_${versionNumber}`)
     } catch (error) {
@@ -20,13 +16,13 @@ const handleNewVersion = async (version) => {
     }
 
     await versioningRepository.updateVersionStatus(id, 'completed')
-
   } catch (error) {
     await versioningRepository.updateVersionStatus(id, 'failed')
     console.error(`Error creating new schema: ${error.toString()}`)
   }
 }
 
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'init'.
 const init = async () => {
   // Check every 5 minutes for new entries/if we need to do something
   // For debugging, it is suggested to add a star in the end for 5 sec interval
@@ -35,7 +31,7 @@ const init = async () => {
       3. lock system
     */
 
-    const versions = await versioningRepository.getPendingVersions();
+    const versions = await versioningRepository.getPendingVersions()
     // If no versions, do nothing
     if (!versions.length) {
       return
@@ -48,5 +44,5 @@ const init = async () => {
 }
 
 module.exports = {
-  init
+  init,
 }

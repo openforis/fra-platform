@@ -1,26 +1,35 @@
 import React, { useEffect, useRef } from 'react'
-import PropTypes from 'prop-types'
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'd3'.... Remove this comment to see the full error message
 import * as d3 from 'd3'
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'd3-i... Remove this comment to see the full error message
 import { interpolatePath } from 'd3-interpolate-path'
 
 import { usePrevious } from '@webapp/components/hooks'
 
 import * as Chart from '../chart'
 
-const DataPath = (props) => {
+type Props = {
+  data: any[]
+  style: any
+  xScale: (...args: any[]) => any
+  yScale: (...args: any[]) => any
+}
+
+const DataPath = (props: Props) => {
   const { data, xScale, yScale, style } = props
   const dataPrev = usePrevious(data, data)
   const pathElementRef = useRef(null)
 
-  const getPath = (dataPath) =>
+  const getPath = (dataPath: any) =>
     d3
       .line()
-      .x((d) => xScale(d.year))
-      .y((d) => yScale(d.value))
+      .x((d: any) => xScale(d.year))
+      .y((d: any) => yScale(d.value))
       .curve(d3.curveLinear)(dataPath)
 
-  const getPathDefault = (dataPath) =>
+  const getPathDefault = (dataPath: any) =>
     getPath([
       { year: R.head(dataPath).year, value: 0 },
       { year: R.last(dataPath).year, value: 0 },
@@ -31,7 +40,7 @@ const DataPath = (props) => {
     const hasData = data.length > 1
     const hasPrevData = dataPrev.length > 1
 
-    let pathNext = null
+    let pathNext: any = null
     if (hasData) pathNext = getPath(data) // interpolating to next data
     if (!hasData && hasPrevData) pathNext = getPathDefault(dataPrev) // exiting from view
 
@@ -51,13 +60,6 @@ const DataPath = (props) => {
   }, [data])
 
   return <path ref={pathElementRef} style={{ ...style, opacity: 0 }} className="chart__data-path" d={null} />
-}
-
-DataPath.propTypes = {
-  data: PropTypes.array.isRequired,
-  style: PropTypes.object.isRequired,
-  xScale: PropTypes.func.isRequired,
-  yScale: PropTypes.func.isRequired,
 }
 
 export default DataPath

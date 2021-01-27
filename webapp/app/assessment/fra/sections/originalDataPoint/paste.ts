@@ -1,16 +1,23 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 import { acceptNextInteger, acceptNextDecimal } from '@webapp/utils/numberInput'
 import * as originalDataPoint from './originalDataPoint'
 
 const mapIndexed = R.addIndex(R.map)
 
-export default (columns, allowedClass, odp, allowGrow, rawPastedData, rowIndex, colIndex) => {
-  const sanitizerFor = type =>
-    type === 'decimal'
-      ? acceptNextDecimal
-      : type === 'integer' ? acceptNextInteger : R.identity
+export default (
+  columns: any,
+  allowedClass: any,
+  odp: any,
+  allowGrow: any,
+  rawPastedData: any,
+  rowIndex: any,
+  colIndex: any
+) => {
+  const sanitizerFor = (type: any) =>
+    type === 'decimal' ? acceptNextDecimal : type === 'integer' ? acceptNextInteger : R.identity
 
-  const updateOdp = (odp, rowNo, colNo, rawValue) => {
+  const updateOdp = (odp: any, rowNo: any, colNo: any, rawValue: any) => {
     if (R.isNil(columns[colNo])) return odp
     const value = sanitizerFor(columns[colNo].type)(rawValue, null)
     const fieldName = columns[colNo].name
@@ -18,8 +25,8 @@ export default (columns, allowedClass, odp, allowGrow, rawPastedData, rowIndex, 
   }
 
   const allowedClasses = R.filter(
-    nc => !nc.placeHolder && allowedClass(nc),
-    mapIndexed((nc, i) => ({...nc, rowIndex: i}), odp.nationalClasses)
+    (nc: any) => !nc.placeHolder && allowedClass(nc),
+    mapIndexed((nc: any, i: any) => ({ ...nc, rowIndex: i }), odp.nationalClasses)
   )
 
   const rowCount = allowedClasses.length
@@ -28,31 +35,35 @@ export default (columns, allowedClass, odp, allowGrow, rawPastedData, rowIndex, 
     ? R.range(0, R.max(rawPastedData.length, allowedClasses.length + 1))
     : R.pluck('rowIndex', allowedClasses)
 
-  const rowOffset = R.findIndex(i => i === rowIndex, allowedIndexes)
+  const rowOffset = R.findIndex((i: any) => i === rowIndex, allowedIndexes)
 
-  const pastedData = allowGrow
-    ? rawPastedData
-    : R.take(rowCount - rowOffset, rawPastedData)
+  const pastedData = allowGrow ? rawPastedData : R.take(rowCount - rowOffset, rawPastedData)
 
-  const handleRow = (pastedRowIndex, pastedRow, odp) =>
+  const handleRow = (pastedRowIndex: any, pastedRow: any, odp: any) =>
     R.reduce(
-      (accu, pastedColumnValue) =>
-        ({
-          odp: updateOdp(accu.odp, allowedIndexes[pastedRowIndex] + rowOffset, accu.colIndex + colIndex, pastedColumnValue),
-          colIndex: accu.colIndex + 1
-        }),
-      {odp: odp, colIndex: 0},
-      pastedRow).odp
-
-  const updatedOdp =
-    R.reduce(
-      (accu, pastedRow) =>
-        ({odp: handleRow(accu.pastedRowIndex, pastedRow, accu.odp), pastedRowIndex: accu.pastedRowIndex + 1}),
-      {odp: odp, pastedRowIndex: 0},
-      pastedData
+      (accu: any, pastedColumnValue: any) => ({
+        odp: updateOdp(
+          accu.odp,
+          allowedIndexes[pastedRowIndex] + rowOffset,
+          accu.colIndex + colIndex,
+          pastedColumnValue
+        ),
+        colIndex: accu.colIndex + 1,
+      }),
+      { odp, colIndex: 0 },
+      pastedRow
     ).odp
+
+  const updatedOdp = R.reduce(
+    (accu: any, pastedRow: any) => ({
+      odp: handleRow(accu.pastedRowIndex, pastedRow, accu.odp),
+      pastedRowIndex: accu.pastedRowIndex + 1,
+    }),
+    { odp, pastedRowIndex: 0 },
+    pastedData
+  ).odp
 
   const firstPastedCellData = sanitizerFor(columns[colIndex].type)(pastedData[0][0])
 
-  return {updatedOdp, firstPastedCellData}
+  return { updatedOdp, firstPastedCellData }
 }

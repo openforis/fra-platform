@@ -6,7 +6,7 @@ import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import { persistTableData } from '../../../../actions'
 import * as Sanitizer from './sanitizer'
 
-export default (props) => {
+export default (props: any) => {
   const { assessmentType, sectionName, tableSpec, rowIdx, col, datum: valuePrev } = props
   const tableName = TableSpec.getName(tableSpec)
   const updateTableDataCell = TableSpec.getUpdateTableDataCell(tableSpec)
@@ -19,7 +19,7 @@ export default (props) => {
   const state = useSelector((_state) => _state)
   const data = AssessmentState.getSectionData(assessmentType, sectionName, tableName)(state)
 
-  const _persistSanitizedValue = (value) => {
+  const _persistSanitizedValue = (value: any) => {
     if (Sanitizer.isAcceptable(type, value)) {
       const valueUpdate = Sanitizer.sanitize(type, value, valuePrev, options)
       const dataUpdate = updateTableDataCell({ state, rowIdx, colIdx, value: valueUpdate })(data)
@@ -27,12 +27,12 @@ export default (props) => {
     }
   }
 
-  const onChange = (event) => {
+  const onChange = (event: any) => {
     const { value } = event.target
     _persistSanitizedValue(value)
   }
 
-  const onPaste = (event) => {
+  const onPaste = (event: any) => {
     event.stopPropagation()
     event.preventDefault()
 

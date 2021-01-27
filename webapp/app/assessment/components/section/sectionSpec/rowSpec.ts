@@ -1,3 +1,4 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 import { TYPE, TYPES, getType } from '@webapp/app/assessment/components/section/sectionSpec/keysType'
 import { KEYS_COL } from '@webapp/app/assessment/components/section/sectionSpec/colSpec'
@@ -31,8 +32,10 @@ export const KEYS_ROW_CHART = {
   color: 'color',
 }
 
+// @ts-expect-error ts-migrate(7005) FIXME: Variable 'rowHeaderDefault' implicitly has an '{ [... Remove this comment to see the full error message
 const rowHeaderDefault = { [KEYS_ROW.type]: TYPES.header, [KEYS_ROW.cols]: [] }
 
+// @ts-expect-error ts-migrate(7005) FIXME: Variable 'rowDataDefault' implicitly has an '{ [x:... Remove this comment to see the full error message
 const rowDataDefault = {
   [KEYS_ROW.type]: TYPES.data,
   [KEYS_ROW.cols]: [],
@@ -52,11 +55,13 @@ const rowDataDefault = {
   [KEYS_ROW.variableExport]: null,
 }
 
+// @ts-expect-error ts-migrate(7005) FIXME: Variable 'rowValidationMessagesDefault' implicitly... Remove this comment to see the full error message
 const rowValidationMessagesDefault = {
   [KEYS_ROW.type]: TYPES.validationMessages,
   [KEYS_ROW.getValidationMessages]: null,
 }
 
+// @ts-expect-error ts-migrate(7005) FIXME: Variable 'rowNoticeMessageDefault' implicitly has ... Remove this comment to see the full error message
 const rowNoticeMessageDefault = {
   [KEYS_ROW.type]: TYPES.noticeMessage,
   [KEYS_ROW.labelKey]: null,
@@ -65,7 +70,7 @@ const rowNoticeMessageDefault = {
   [KEYS_ROW.colSpan]: 1,
 }
 
-const assocColHeader = (row) => {
+const assocColHeader = (row: any) => {
   const labelKey = row[KEYS_ROW.labelKey]
   const labelParams = row[KEYS_ROW.labelParams]
   const label = row[KEYS_ROW.label]
@@ -112,15 +117,15 @@ const assocColHeader = (row) => {
   }
 }
 
-const assocCols = (row) => {
-  const cols = row[KEYS_ROW.cols].map((col, i) => ({
+const assocCols = (row: any) => {
+  const cols = row[KEYS_ROW.cols].map((col: any, i: any) => ({
     ...col,
     [KEYS_COL.idx]: R.defaultTo(i, col[KEYS_COL.idx]),
   }))
   return { ...row, [KEYS_ROW.cols]: cols }
 }
 
-const assocColNoticeMessage = (row) => {
+const assocColNoticeMessage = (row: any) => {
   const labelKey = row[KEYS_ROW.labelKey]
   const rowSpan = row[KEYS_ROW.rowSpan]
   const colSpan = row[KEYS_ROW.colSpan]
@@ -141,4 +146,4 @@ export const newRowValidationMessages = R.mergeDeepRight(rowValidationMessagesDe
 
 export { getType, TYPES }
 export const getCols = R.propOr([], KEYS_ROW.cols)
-export const getColByIdx = (idx) => R.pipe(getCols, R.find(R.propEq(KEYS_COL.idx, idx)))
+export const getColByIdx = (idx: any) => R.pipe(getCols, R.find(R.propEq(KEYS_COL.idx, idx)))

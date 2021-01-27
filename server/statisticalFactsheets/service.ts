@@ -1,8 +1,11 @@
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'CountryRep... Remove this comment to see the full error message
 const CountryRepository = require('../country/countryRepository')
 const Repository = require('./statisticalFactsheetsRepository')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Area'.
 const Area = require('../../common/country/area')
 
-const getStatisticalFactsheetData = async (schemaName, level, rowNames) => {
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getStatist... Remove this comment to see the full error message
+const getStatisticalFactsheetData = async (schemaName: any, level: any, rowNames: any) => {
   const isPrimaryForest = rowNames.includes('primary_forest_ratio')
   /*
     CountryIsos can be

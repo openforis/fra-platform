@@ -17,6 +17,7 @@ import AssessmentSection from './assessmentSection'
 import useSectionTables from './useSectionTables'
 
 const AssessmentSectionView = () => {
+  // @ts-expect-error ts-migrate(2339) FIXME: Property 'assessmentType' does not exist on type '... Remove this comment to see the full error message
   const { assessmentType, section: sectionName } = useParams()
 
   const countryIso = useCountryIso()
@@ -37,7 +38,7 @@ const AssessmentSectionView = () => {
     if (!isDataExport) {
       dispatch(
         batchActions([
-          ...tables.map((table) =>
+          ...tables.map((table: any) =>
             fetchTableData(
               table[SectionSpec.KEYS_TABLE_DATA_REQUIRED.assessmentType],
               table[SectionSpec.KEYS_TABLE_DATA_REQUIRED.sectionName],

@@ -1,5 +1,7 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as FraUtils from '@common/fraUtils'
 
 export const methods = {
@@ -9,7 +11,7 @@ export const methods = {
   clearTable: 'clearTable',
 }
 
-export const isMethodValid = (data, method, fields) => {
+export const isMethodValid = (data: any, method: any, fields: any) => {
   // Clear table doesn't need any fields selected
   if (method === methods.clearTable) {
     return true
@@ -22,7 +24,7 @@ export const isMethodValid = (data, method, fields) => {
   // Annual change
   // check that for all selected fields, past and future chage rates are not empty
   if (method === methods.annualChange) {
-    return fieldsSelected.every(field => {
+    return fieldsSelected.every((field: any) => {
       const annualChangeRates = R.prop('annualChangeRates', field)
       return !R.isEmpty(annualChangeRates.past) && !R.isEmpty(annualChangeRates.future)
     })

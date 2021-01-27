@@ -1,7 +1,6 @@
 import './footer.less'
 import React from 'react'
 import { useI18n, useUserInfo } from '@webapp/components/hooks'
-
 import SendFeedback from './components/sendFeedback'
 
 const links = [
@@ -22,12 +21,11 @@ const links = [
     to: 'http://www.fao.org/contact-us/report-fraud/',
   },
 ]
-
 const Footer = () => {
   const i18n = useI18n()
   const userInfo = useUserInfo()
+  // @ts-expect-error ts-migrate(2339) FIXME: Property 'language' does not exist on type '{}'.
   const { language } = i18n
-
   return (
     <footer>
       {links.map((link, i) => (
@@ -35,7 +33,7 @@ const Footer = () => {
           {i !== 0 && <div className="separator" />}
 
           <a target="_blank" rel="noreferrer" href={`${link.to}${language}`}>
-            {i18n.t(link.key)}
+            {(i18n as any).t(link.key)}
           </a>
         </React.Fragment>
       ))}
@@ -44,7 +42,7 @@ const Footer = () => {
         <>
           <div className="separator" />
           <a target="_top" href={`/api/fileRepository/userGuide/${language}`}>
-            {i18n.t('footer.userGuide')}
+            {(i18n as any).t('footer.userGuide')}
           </a>
         </>
       )}
@@ -55,5 +53,4 @@ const Footer = () => {
     </footer>
   )
 }
-
 export default Footer

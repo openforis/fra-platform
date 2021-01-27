@@ -1,4 +1,6 @@
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'path'.
 const path = require('path')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'express'.
 const express = require('express')
 const bodyParser = require('body-parser')
 const compression = require('compression')
@@ -6,10 +8,12 @@ const fileUpload = require('express-fileupload')
 const morgan = require('morgan')
 
 const sessionInit = require('./sessionInit')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'apiRouter'... Remove this comment to see the full error message
 const apiRouter = require('./apiRouter')
 const authApi = require('./auth/authApi')
 const resourceCacheControl = require('./resourceCacheControl')
 const definitionsApi = require('./definitions/api')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'sendErr'.
 const { sendErr } = require('./utils/requestUtils')
 
 module.exports = () => {
@@ -47,7 +51,7 @@ module.exports = () => {
   // sending the uncaught errors as json instead of HTML
   // http://expressjs.com/en/guide/error-handling.html
   // NB: This must not be an arrow function to make express detect this as an error handler.
-  app.use(function (err, req, res, _next) {
+  app.use(function (err: any, req: any, res: any, _next: any) {
     if (err) sendErr(res, err)
   })
 

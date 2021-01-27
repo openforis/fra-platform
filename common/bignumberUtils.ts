@@ -1,79 +1,80 @@
 const BigNumber = require('bignumber.js')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
 const R = require('ramda')
 
-//disabling BigNumber Error: new BigNumber() number type has more than 15 significant digits
+// disabling BigNumber Error: new BigNumber() number type has more than 15 significant digits
 const groupSeparator = '\xA0'
 BigNumber.config({
   ERRORS: false,
   FORMAT: {
     decimalSeparator: '.',
     groupSeparator, // non-breaking space
-    groupSize: 3
-  }
+    groupSize: 3,
+  },
 })
 
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'defaultTo0... Remove this comment to see the full error message
 const defaultTo0 = R.defaultTo(0)
 
 const toBigNumber = (value = '') => {
-  if (value instanceof BigNumber) return value //Do not wrap unnecessarily
-  return new BigNumber(
-    R.is(String, value)
-      ? value.split(groupSeparator).join('')
-      : value
-  )
+  // @ts-expect-error ts-migrate(2358) FIXME: The left-hand side of an 'instanceof' expression m... Remove this comment to see the full error message
+  if (value instanceof BigNumber) return value // Do not wrap unnecessarily
+  return new BigNumber(R.is(String, value) ? value.split(groupSeparator).join('') : value)
 }
 
-const applyOperator = (x, y, op) => {
+const applyOperator = (x: any, y: any, op: any) => {
   const result = toBigNumber(x)[op](toBigNumber(y))
   return result.isFinite() ? result : null
 }
 
-const applyComparison = (x, y, comp) => {
+const applyComparison = (x: any, y: any, comp: any) => {
   const xNum = toBigNumber(x)
   const yNum = toBigNumber(y)
   return xNum.isFinite() && yNum.isFinite() && xNum[comp](yNum)
 }
 
-const sum = array => R.isEmpty(array) || array.every(v => !v)
-  ? null
-  : R.reduce((total, f) => add(total, defaultTo0(f)), 0, array)
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'sum'.
+const sum = (array: any) =>
+  R.isEmpty(array) || array.every((v: any) => !v)
+    ? null
+    : R.reduce((total: any, f: any) => add(total, defaultTo0(f)), 0, array)
 
 // API has changed, updated applyOperator params
-const add = (x, y) => applyOperator(x, y, 'plus')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'add'.
+const add = (x: any, y: any) => applyOperator(x, y, 'plus')
 
-const sub = (x, y) => applyOperator(x, y, 'minus')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'sub'.
+const sub = (x: any, y: any) => applyOperator(x, y, 'minus')
 
-const mul = (x, y) => applyOperator(x, y, 'times')
+const mul = (x: any, y: any) => applyOperator(x, y, 'times')
 
-const div = (x, y) => applyOperator(x, y, 'div')
+const div = (x: any, y: any) => applyOperator(x, y, 'div')
 
-const greaterThanOrEqualTo = (x, y) => applyComparison(x, y, 'gte')
+const greaterThanOrEqualTo = (x: any, y: any) => applyComparison(x, y, 'gte')
 
-const lessThanOrEqualTo = (x, y) => applyComparison(x, y, 'lte')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'lessThanOr... Remove this comment to see the full error message
+const lessThanOrEqualTo = (x: any, y: any) => applyComparison(x, y, 'lte')
 
-const greaterThan = (x, y) => applyComparison(x, y, 'gt')
-const greaterThanWithTolerance = (x, y, tolerance = -1) => greaterThan(sub(x,y), tolerance)
+const greaterThan = (x: any, y: any) => applyComparison(x, y, 'gt')
+const greaterThanWithTolerance = (x: any, y: any, tolerance = -1) => greaterThan(sub(x, y), tolerance)
 
-const lessThan = (x, y) => applyComparison(x, y, 'lt')
+const lessThan = (x: any, y: any) => applyComparison(x, y, 'lt')
 
-const eq = (x, y) => applyComparison(x, y, 'eq')
+const eq = (x: any, y: any) => applyComparison(x, y, 'eq')
 
-const abs = (x) => {
+const abs = (x: any) => {
   const xNum = toBigNumber(x)
   return xNum.isFinite() ? xNum.abs() : null
 }
 
-const toFixed = (value, precision = 2) => R.isNil(value)
-  ? null
-  : toBigNumber(value).toFixed(precision)
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'toFixed'.
+const toFixed = (value: any, precision = 2) => (R.isNil(value) ? null : toBigNumber(value).toFixed(precision))
 
-const toString = (value) => R.isNil(value)
-  ? null
-  : toBigNumber(value).toString()
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'toString'.
+const toString = (value: any) => (R.isNil(value) ? null : toBigNumber(value).toString())
 
-const formatNumber = (value, precision = 2) => R.isNil(value)
-  ? null
-  : toBigNumber(value).toFormat(precision)
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'formatNumb... Remove this comment to see the full error message
+const formatNumber = (value: any, precision = 2) => (R.isNil(value) ? null : toBigNumber(value).toFormat(precision))
 
 module.exports.groupSeparator = groupSeparator
 module.exports.sum = sum

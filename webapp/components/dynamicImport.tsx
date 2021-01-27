@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
 import { injectReducers } from '@webapp/main/store'
 
 import Loading from '@webapp/components/loading'
 
-const DynamicImport = (props) => {
+type Props = {
+  load: (...args: any[]) => any
+}
+
+const DynamicImport = (props: Props) => {
   const { load } = props
   const [Component, setComponent] = useState(null)
 
@@ -13,7 +16,7 @@ const DynamicImport = (props) => {
       const module = await load()
       const { component, reducers } = module
       if (reducers) {
-        reducers.forEach((reducer) => {
+        reducers.forEach((reducer: any) => {
           injectReducers(reducer.name, reducer.fn)
         })
       }
@@ -23,10 +26,6 @@ const DynamicImport = (props) => {
   }, [])
 
   return Component ? React.createElement(Component) : <Loading />
-}
-
-DynamicImport.propTypes = {
-  load: PropTypes.func.isRequired,
 }
 
 export default DynamicImport

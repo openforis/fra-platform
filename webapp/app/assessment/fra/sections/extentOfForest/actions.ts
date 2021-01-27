@@ -1,3 +1,4 @@
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as FRA from '@common/assessment/fra'
 
 import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestState'
@@ -9,8 +10,8 @@ const assessmentType = FRA.type
 const section = FRA.sections['1'].children.a
 const sectionName = section.name
 
-export const toggleOdps = (show) => (dispatch) =>
+export const toggleOdps = (show: any) => (dispatch: any) =>
   dispatch(updateSectionProp(assessmentType, sectionName, ExtentOfForestState.keys.showOdps, show))
 
-export const fetchExtentOfForest = () => (dispatch) =>
+export const fetchExtentOfForest = () => (dispatch: any) =>
   dispatch(fetchTableData(assessmentType, sectionName, section.tables.extentOfForest))

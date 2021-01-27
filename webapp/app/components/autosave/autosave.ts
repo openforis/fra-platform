@@ -10,9 +10,9 @@ export const status = {
 /**
  * @deprecated
  */
-export const isStatusSaving = (s) => s === status.saving
+export const isStatusSaving = (s: any) => s === status.saving
 
 /**
  * @deprecated
  */
-export const isStatusComplete = (s) => s === status.complete
+export const isStatusComplete = (s: any) => s === status.complete

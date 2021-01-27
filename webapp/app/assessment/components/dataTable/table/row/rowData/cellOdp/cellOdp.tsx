@@ -1,7 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { formatNumber } from '@common/bignumberUtils'
 
 import { ThousandSeparatedDecimalInput } from '@webapp/components/thousandSeparatedDecimalInput'
@@ -9,7 +9,23 @@ import { usePrintView, useUserInfo } from '@webapp/components/hooks'
 
 import useOnChange from './useOnChange'
 
-const CellOdp = (props) => {
+type OwnProps = {
+  assessmentType: string
+  sectionName: string
+  tableSpec: any
+  variableName: string
+  disabled: boolean
+  data: any[]
+  datum: any
+  validator?: (...args: any[]) => any
+  calculateFn?: (...args: any[]) => any
+}
+
+// @ts-expect-error ts-migrate(2456) FIXME: Type alias 'Props' circularly references itself.
+type Props = OwnProps & typeof CellOdp.defaultProps
+
+// @ts-expect-error ts-migrate(7022) FIXME: 'CellOdp' implicitly has type 'any' because it doe... Remove this comment to see the full error message
+const CellOdp = (props: Props) => {
   const { assessmentType, sectionName, tableSpec, variableName, disabled, data, datum, validator, calculateFn } = props
 
   const userInfo = useUserInfo()
@@ -43,6 +59,7 @@ const CellOdp = (props) => {
 
       {!calculated && !odp && (
         <ThousandSeparatedDecimalInput
+          // @ts-expect-error ts-migrate(2322) FIXME: Type '{ numberValue: any; onPaste: (event: any) =>... Remove this comment to see the full error message
           numberValue={datumValue}
           onPaste={onPaste}
           onChange={onChange}
@@ -51,18 +68,6 @@ const CellOdp = (props) => {
       )}
     </td>
   )
-}
-
-CellOdp.propTypes = {
-  assessmentType: PropTypes.string.isRequired,
-  sectionName: PropTypes.string.isRequired,
-  tableSpec: PropTypes.object.isRequired,
-  variableName: PropTypes.string.isRequired,
-  disabled: PropTypes.bool.isRequired,
-  data: PropTypes.array.isRequired,
-  datum: PropTypes.object.isRequired,
-  validator: PropTypes.func,
-  calculateFn: PropTypes.func,
 }
 
 CellOdp.defaultProps = {

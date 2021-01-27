@@ -1,3 +1,4 @@
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as FRA from '@common/assessment/fra'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
@@ -14,7 +15,7 @@ export const protectedAreaValidator = AssessmentStateValidator.subCategoryValida
   [2]
 )
 
-export const forestAreaValidator = (colIdx, rowIdx) => (state) =>
+export const forestAreaValidator = (colIdx: any, rowIdx: any) => (state: any) =>
   ExtentOfForestValidatorState.lessThanOrEqualToForestValidator(
     FRA.years[colIdx],
     AssessmentState.getTableDataCell({
@@ -26,12 +27,12 @@ export const forestAreaValidator = (colIdx, rowIdx) => (state) =>
     })(state)
   )(state)
 
-export const getValidationMessages = (data) => (state) => {
+export const getValidationMessages = (data: any) => (state: any) => {
   const colNo = data[0].length
   const messages = []
 
   for (let colIdx = 0; colIdx < colNo; colIdx += 1) {
-    const colMessages = []
+    const colMessages: any = []
     messages.push(colMessages)
 
     if (!protectedAreaValidator(colIdx, 2)(state)) {

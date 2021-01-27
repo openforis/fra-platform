@@ -1,3 +1,4 @@
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as NumberUtils from '@common/bignumberUtils'
 
 export const units = {
@@ -21,4 +22,5 @@ export const factors = {
   },
 }
 
-export const convert = (value, unit, factor) => NumberUtils.formatNumber(NumberUtils.mul(value, factors[unit][factor]))
+export const convert = (value: any, unit: any, factor: any) =>
+  NumberUtils.formatNumber(NumberUtils.mul(value, factors[unit][factor]))

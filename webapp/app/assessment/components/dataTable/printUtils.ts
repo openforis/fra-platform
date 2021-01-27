@@ -1,10 +1,14 @@
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
-const getColHeader = (colsLength, sliceEnd, sliceStart, rowIdx) => (col, colIdx, cols) => {
+const getColHeader = (colsLength: any, sliceEnd: any, sliceStart: any, rowIdx: any) => (
+  col: any,
+  colIdx: any,
+  cols: any
+) => {
   const colSpan = col[SectionSpec.KEYS_COL.colSpan]
   const colStart = cols
     .slice(0, colIdx)
-    .reduce((idxCurrent, colCurrent) => colCurrent[SectionSpec.KEYS_COL.colSpan] + idxCurrent, 0)
+    .reduce((idxCurrent: any, colCurrent: any) => colCurrent[SectionSpec.KEYS_COL.colSpan] + idxCurrent, 0)
 
   // column is occupying all data columns
   if (colSpan === colsLength) {
@@ -22,7 +26,7 @@ const getColHeader = (colsLength, sliceEnd, sliceStart, rowIdx) => (col, colIdx,
   return null
 }
 
-const getRowHeader = (colsLength, sliceStart, sliceEnd) => (row, rowIdx) => {
+const getRowHeader = (colsLength: any, sliceStart: any, sliceEnd: any) => (row: any, rowIdx: any) => {
   const cols = row[SectionSpec.KEYS_ROW.cols]
 
   if (cols.length === colsLength) {
@@ -36,11 +40,11 @@ const getRowHeader = (colsLength, sliceStart, sliceEnd) => (row, rowIdx) => {
     ...row,
     [SectionSpec.KEYS_ROW.cols]: cols
       .map(getColHeader(colsLength, sliceEnd, sliceStart, rowIdx))
-      .filter((col) => !!col),
+      .filter((col: any) => !!col),
   }
 }
 
-const getRowData = (sliceStart, sliceEnd) => (row) => {
+const getRowData = (sliceStart: any, sliceEnd: any) => (row: any) => {
   const cols = row[SectionSpec.KEYS_ROW.cols]
 
   if (cols) {
@@ -56,10 +60,10 @@ const getRowData = (sliceStart, sliceEnd) => (row) => {
   return row
 }
 
-export const getRowsSliced = (breakPoints, breakPointIdx, rows) => {
+export const getRowsSliced = (breakPoints: any, breakPointIdx: any, rows: any) => {
   const rowsHeader = rows.filter(SectionSpec.isHeader)
   const rowsData = rows.filter(SectionSpec.isData)
-  const rowsRest = rows.filter((row) => SectionSpec.isNotHeader(row) && SectionSpec.isNotData(row))
+  const rowsRest = rows.filter((row: any) => SectionSpec.isNotHeader(row) && SectionSpec.isNotData(row))
   const colsLength = rowsData[0][SectionSpec.KEYS_ROW.cols].filter(SectionSpec.isNotHeader).length
 
   const sliceStart = breakPoints[breakPointIdx]

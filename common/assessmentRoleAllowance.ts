@@ -1,82 +1,80 @@
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
 const R = require('ramda')
-const {assessmentStatus: status} = require('./assessment')
-
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'status'.
+const { assessmentStatus: status } = require('./assessment')
 const {
+  // @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'noRole'.
   noRole,
+  // @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'collaborat... Remove this comment to see the full error message
   collaborator,
+  // @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'alternateN... Remove this comment to see the full error message
   alternateNationalCorrespondent,
+  // @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'nationalCo... Remove this comment to see the full error message
   nationalCorrespondent,
+  // @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'reviewer'.
   reviewer,
-  administrator
+  // @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'administra... Remove this comment to see the full error message
+  administrator,
 } = require('./countryRole')
-
 /**
  * @deprecated
  */
+// @ts-expect-error ts-migrate(7005) FIXME: Variable 'roleAllowances' implicitly has an '{ [x:... Remove this comment to see the full error message
 const roleAllowances = {
   [noRole.role]: {
     comments: [],
-    data: []
+    data: [],
   },
-
   [collaborator.role]: {
-    comments: [status.editing],
-    data: [status.editing]
+    comments: [(status as any).editing],
+    data: [(status as any).editing],
   },
-
   [alternateNationalCorrespondent.role]: {
-    comments: [status.editing],
-    data: [status.editing]
+    comments: [(status as any).editing],
+    data: [(status as any).editing],
   },
-
   [nationalCorrespondent.role]: {
-    comments: [status.editing],
-    data: [status.editing]
+    comments: [(status as any).editing],
+    data: [(status as any).editing],
   },
-
   [reviewer.role]: {
-    comments: [status.editing, status.review],
-    data: [status.editing, status.review]
+    comments: [(status as any).editing, (status as any).review],
+    data: [(status as any).editing, (status as any).review],
   },
-
   [administrator.role]: {
-    comments: [status.editing, status.review, status.approval, status.accepted],
-    data: [status.editing, status.review, status.approval, status.accepted]
-  }
+    comments: [(status as any).editing, (status as any).review, (status as any).approval, (status as any).accepted],
+    data: [(status as any).editing, (status as any).review, (status as any).approval, (status as any).accepted],
+  },
 }
-
 /**
  * @deprecated
  */
-const isUserRoleAllowedToEdit = (role, assessmentStatus, editType) => {
+const isUserRoleAllowedToEdit = (role: any, assessmentStatus: any, editType: any) => {
   if (R.isNil(role) || R.isNil(role.role)) return false
   const allowedStatusesForRole = R.path([role.role, editType], roleAllowances)
   return R.includes(assessmentStatus, allowedStatusesForRole)
 }
-
 /**
  * @deprecated
  */
-const isUserRoleAllowedToEditAssessmentComments = (role, assessmentStatus) =>
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'isUserRole... Remove this comment to see the full error message
+const isUserRoleAllowedToEditAssessmentComments = (role: any, assessmentStatus: any) =>
   isUserRoleAllowedToEdit(role, assessmentStatus, 'comments')
-
 /**
  * @deprecated
  */
-const isUserRoleAllowedToEditAssessmentData = (role, assessmentStatus) =>
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'isUserRole... Remove this comment to see the full error message
+const isUserRoleAllowedToEditAssessmentData = (role: any, assessmentStatus: any) =>
   isUserRoleAllowedToEdit(role, assessmentStatus, 'data')
-
 /**
  * @deprecated
  */
-const isCollaboratorAllowedToEditSectionData = (section, allowedTables) => {
-  const allowedSections = allowedTables.map(t => t.section)
-
-  if (R.includes('all', allowedSections) || R.includes(section, allowedSections))
-    return true
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'isCollabor... Remove this comment to see the full error message
+const isCollaboratorAllowedToEditSectionData = (section: any, allowedTables: any) => {
+  const allowedSections = allowedTables.map((t: any) => t.section)
+  if (R.includes('all', allowedSections) || R.includes(section, allowedSections)) return true
   return false
 }
-
 module.exports = {
   roleAllowances,
   /**
@@ -94,5 +92,5 @@ module.exports = {
   /**
    * @deprecated
    */
-  isCollaboratorAllowedToEditSectionData
+  isCollaboratorAllowedToEditSectionData,
 }

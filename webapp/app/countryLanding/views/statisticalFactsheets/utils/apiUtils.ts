@@ -18,9 +18,16 @@ export const sections = {
   ],
   naturallyRegeneratingForest: ['natural_forest_area', 'planted_forest'],
 }
-const getRowNames = (section) => ({ rowNames: sections[section] })
-const getLevel = (level) => ({ level })
+const getRowNames = (section: any) => ({
+  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+  rowNames: sections[section],
+})
+const getLevel = (level: any) => ({
+  level,
+})
 
-export const getParams = (section, level) => {
+// @ts-expect-error ts-migrate(7011) FIXME: Function expression, which lacks return-type annot... Remove this comment to see the full error message
+export const getParams = (section: any, level: any) => {
+  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   return sections[section] ? { ...getRowNames(section), ...getLevel(level) } : []
 }

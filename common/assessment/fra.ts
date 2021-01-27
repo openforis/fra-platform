@@ -1,5 +1,7 @@
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
 const R = require('ramda')
 
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'FRA'.
 const FRA = {
   type: 'fra2020',
   years: [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020],

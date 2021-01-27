@@ -1,9 +1,8 @@
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as PanEuropean from '@common/assessment/panEuropean'
-
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
 const section = PanEuropean.sections['1'].children['12c']
-
 const variables = [
   'no1_ranked_in_terms_of_volume',
   'no2_ranked_in_terms_of_volume',
@@ -16,7 +15,6 @@ const variables = [
   'no9_ranked_in_terms_of_volume',
   'no10_ranked_in_terms_of_volume',
 ]
-
 const variablesMappings = {
   no1_ranked_in_terms_of_volume: SectionSpec.VARIABLES.no1_ranked_in_terms_of_volume,
   no2_ranked_in_terms_of_volume: SectionSpec.VARIABLES.no2_ranked_in_terms_of_volume,
@@ -29,9 +27,7 @@ const variablesMappings = {
   no9_ranked_in_terms_of_volume: SectionSpec.VARIABLES.no9_ranked_in_terms_of_volume,
   no10_ranked_in_terms_of_volume: SectionSpec.VARIABLES.no10_ranked_in_terms_of_volume,
 }
-
 const years = [...PanEuropean.years90_20]
-
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_1_2c,
   [SectionSpec.KEYS_TABLE.columnsExport]: [
@@ -44,7 +40,6 @@ const tableSpec = SectionSpec.newTableSpec({
     'growing_stock_in_forest_2015',
     'growing_stock_in_forest_2020',
   ],
-
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
@@ -58,7 +53,6 @@ const tableSpec = SectionSpec.newTableSpec({
         }),
       ],
     }),
-
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
         SectionSpec.newColHeader({
@@ -77,9 +71,10 @@ const tableSpec = SectionSpec.newTableSpec({
         ),
       ],
     }),
-
-    ...variables.flatMap((variable) =>
+    // @ts-expect-error ts-migrate(2550) FIXME: Property 'flatMap' does not exist on type 'string[... Remove this comment to see the full error message
+    ...variables.flatMap((variable: any) =>
       SectionSpec.newRowData({
+        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         [SectionSpec.KEYS_ROW.variableExport]: variablesMappings[variable],
         [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.growingStockComposition.${variable}`,
         [SectionSpec.KEYS_ROW.cols]: [
@@ -91,7 +86,7 @@ const tableSpec = SectionSpec.newTableSpec({
     ),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'panEuropean.growingStockComposition.remaining',
-      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.remaining,
+      [SectionSpec.KEYS_ROW.variableExport]: (SectionSpec.VARIABLES as any).remaining,
       [SectionSpec.KEYS_ROW.colSpan]: 3,
       [SectionSpec.KEYS_ROW.cols]: years.map((year, idx) =>
         SectionSpec.newColDecimal({
@@ -111,15 +106,12 @@ const tableSpec = SectionSpec.newTableSpec({
     }),
   ],
 })
-
 const tableSection = SectionSpec.newTableSection({
   [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
 })
-
 const growingStockComposition = SectionSpec.newSectionSpec({
   [SectionSpec.KEYS_SECTION.sectionName]: section.name,
   [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
   [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
 })
-
 export default growingStockComposition

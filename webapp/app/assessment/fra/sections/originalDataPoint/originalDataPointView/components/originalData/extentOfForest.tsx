@@ -1,31 +1,30 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as NumberFormat from '@common/numberFormat'
-
 import DefinitionLink from '@webapp/components/definitionLink'
 import { useI18n, usePrintView } from '@webapp/components/hooks'
-
 import * as ODP from '../../../originalDataPoint'
 import ExtentOfForestRow from './extentOfForestRow'
 
-const ExtentOfForest = (props) => {
+type Props = {
+  canEditData: boolean
+  odp: any
+}
+const ExtentOfForest = (props: Props) => {
   const { canEditData, odp } = props
-  const nationalClasses = odp.nationalClasses.filter((nationalClass) => !nationalClass.placeHolder)
-
+  const nationalClasses = odp.nationalClasses.filter((nationalClass: any) => !nationalClass.placeHolder)
   const i18n = useI18n()
   const [printView] = usePrintView()
-
   return (
     <div className="odp__section">
       {!printView && (
         <div className="odp__section-header">
-          <h3 className="subhead">{i18n.t('nationalDataPoint.forestCategoriesLabel')}</h3>
+          <h3 className="subhead">{(i18n as any).t('nationalDataPoint.forestCategoriesLabel')}</h3>
           <DefinitionLink
             document="tad"
             anchor="1a"
-            title={i18n.t('definition.definitionLabel')}
-            lang={i18n.language}
+            title={(i18n as any).t('definition.definitionLabel')}
+            lang={(i18n as any).language}
           />
         </div>
       )}
@@ -40,26 +39,30 @@ const ExtentOfForest = (props) => {
                     {odp.year}
                   </th>
                 )}
+                {/* @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number'. */}
                 <th className="fra-table__header-cell fra-table__divider" colSpan="2">
-                  {i18n.t('nationalDataPoint.nationalClasses')}
+                  {(i18n as any).t('nationalDataPoint.nationalClasses')}
                 </th>
+                {/* @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number'. */}
                 <th className="fra-table__header-cell" colSpan="3">
-                  {i18n.t('nationalDataPoint.fraClasses')}
+                  {(i18n as any).t('nationalDataPoint.fraClasses')}
                 </th>
               </tr>
               <tr>
-                <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.class')}</th>
-                <th className="fra-table__header-cell fra-table__divider">{i18n.t('nationalDataPoint.area')}</th>
-                <th className="fra-table__header-cell">{i18n.t('fraClass.forest')}</th>
-                <th className="fra-table__header-cell">{i18n.t('fraClass.otherWoodedLand')}</th>
-                <th className="fra-table__header-cell">{i18n.t('fraClass.otherLand')}</th>
+                <th className="fra-table__header-cell-left">{(i18n as any).t('nationalDataPoint.class')}</th>
+                <th className="fra-table__header-cell fra-table__divider">
+                  {(i18n as any).t('nationalDataPoint.area')}
+                </th>
+                <th className="fra-table__header-cell">{(i18n as any).t('fraClass.forest')}</th>
+                <th className="fra-table__header-cell">{(i18n as any).t('fraClass.otherWoodedLand')}</th>
+                <th className="fra-table__header-cell">{(i18n as any).t('fraClass.otherLand')}</th>
               </tr>
 
-              {nationalClasses.map((nationalClass, index) => (
+              {nationalClasses.map((nationalClass: any, index: any) => (
                 <ExtentOfForestRow key={nationalClass.className} canEditData={canEditData} index={index} odp={odp} />
               ))}
               <tr>
-                <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.total')}</th>
+                <th className="fra-table__header-cell-left">{(i18n as any).t('nationalDataPoint.total')}</th>
                 <td className="fra-table__calculated-cell fra-table__divider">
                   {NumberFormat.formatDecimal(ODP.totalArea(odp))}
                 </td>
@@ -80,10 +83,4 @@ const ExtentOfForest = (props) => {
     </div>
   )
 }
-
-ExtentOfForest.propTypes = {
-  canEditData: PropTypes.bool.isRequired,
-  odp: PropTypes.object.isRequired,
-}
-
 export default ExtentOfForest

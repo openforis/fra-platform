@@ -1,14 +1,13 @@
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as PanEuropean from '@common/assessment/panEuropean'
 
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
 const section = PanEuropean.sections['6'].children['64c']
 
-const variables = [
-  'forestry_isic_nace_02',
-]
+const variables = ['forestry_isic_nace_02']
 
-const years = [...PanEuropean.years90_15].reverse();
+const years = [...PanEuropean.years90_15].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_6_4c,
@@ -27,7 +26,8 @@ const tableSpec = SectionSpec.newTableSpec({
       ],
     }),
 
-    ...variables.flatMap((variable) =>
+    // @ts-expect-error ts-migrate(2550) FIXME: Property 'flatMap' does not exist on type 'string[... Remove this comment to see the full error message
+    ...variables.flatMap((variable: any) =>
       years.map((year) =>
         SectionSpec.newRowData({
           [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.totalCapitalTransfersInForestsAndForestry.${variable}`,

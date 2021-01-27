@@ -1,4 +1,6 @@
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { isReviewer } from '@common/countryRole'
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { isAllowedToChangeRole } from '@common/userManagementAccessControl'
 
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
@@ -11,7 +13,7 @@ import ManageCollaboratorsView from '@webapp/app/countryLanding/views/manageColl
 import ContentCheck from '@webapp/app/countryLanding/views/contentCheck'
 import StatisticalFactsheets from '@webapp/app/countryLanding/views/statisticalFactsheets'
 
-const getSections = (countryIso, userInfo) => {
+const getSections = (countryIso: any, userInfo: any) => {
   const sections = [
     { name: 'overview', component: StatisticalFactsheets },
     { name: 'messageBoard', component: MessageBoard },
@@ -23,6 +25,7 @@ const getSections = (countryIso, userInfo) => {
   const contentCheckSection = { name: 'contentCheck', component: ContentCheck }
 
   if (isAllowedToChangeRole(countryIso, userInfo)) {
+    // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '{ name: string; component: Conne... Remove this comment to see the full error message
     sections.splice(2, 0, userManagementSection)
   }
 

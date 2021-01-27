@@ -1,10 +1,16 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import PropTypes from 'prop-types'
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'char... Remove this comment to see the full error message
 import { Chart } from 'chart.js'
 
 import { useI18n, useOnUpdate } from '@webapp/components/hooks'
 
-const ChartComponent = (props) => {
+type Props = {
+  type: string
+  options: any
+  data: any
+}
+
+const ChartComponent = (props: Props) => {
   const { data, options, type } = props
   const canvasRef = useRef(null)
   const [chart, setChart] = useState(null)
@@ -35,12 +41,6 @@ const ChartComponent = (props) => {
       <canvas ref={canvasRef} />
     </div>
   )
-}
-
-ChartComponent.propTypes = {
-  type: PropTypes.string.isRequired,
-  options: PropTypes.object.isRequired,
-  data: PropTypes.object.isRequired,
 }
 
 export default ChartComponent

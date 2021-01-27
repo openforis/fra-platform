@@ -1,22 +1,27 @@
 /**
  * Modified version of https://github.com/abc123s/redux-batch-enhancer
  */
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as ObjectUtils from '@common/objectUtils'
 
 export const BATCH = 'batching/batch'
 export const PUSH = 'batching/push'
 export const POP = 'batching/pop'
 
-export const batchActions = (actions) => ({ type: BATCH, payload: actions })
+export const batchActions = (actions: any) => ({
+  type: BATCH,
+  payload: actions,
+})
 
-export const batchMiddleware = (store) => (next) => (action) => {
+// @ts-expect-error ts-migrate(7011) FIXME: Function expression, which lacks return-type annot... Remove this comment to see the full error message
+export const batchMiddleware = (store: any) => (next: any) => (action: any) => {
   const { dispatch } = store
 
   let result = null
   ;(async () => {
     if (action.type === BATCH) {
       dispatch({ type: PUSH })
-      result = await Promise.all(action.payload.map((batchedAction) => dispatch(batchedAction)))
+      result = await Promise.all(action.payload.map((batchedAction: any) => dispatch(batchedAction)))
       dispatch({ type: POP })
     } else {
       result = next(action)
@@ -25,8 +30,8 @@ export const batchMiddleware = (store) => (next) => (action) => {
   return result
 }
 
-export const batchStoreEnhancer = (next) => {
-  let currentListeners = []
+export const batchStoreEnhancer = (next: any) => {
+  let currentListeners: any = []
   let nextListeners = currentListeners
 
   const ensureCanMutateNextListeners = () => {
@@ -35,7 +40,7 @@ export const batchStoreEnhancer = (next) => {
     }
   }
 
-  const subscribe = (listener) => {
+  const subscribe = (listener: any) => {
     if (!ObjectUtils.isFunction(listener)) {
       throw new Error('Expected listener to be a function.')
     }
@@ -60,15 +65,16 @@ export const batchStoreEnhancer = (next) => {
 
   const notifyListeners = () => {
     currentListeners = nextListeners
+    // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'listener' implicitly has an 'any' type.
     currentListeners.forEach((listener) => listener())
   }
 
-  return (...args) => {
+  return (...args: any[]) => {
     const store = next(...args)
     const subscribeImmediate = store.subscribe
 
     let batchDepth = 0
-    const dispatch = (...dispatchArgs) => {
+    const dispatch = (...dispatchArgs: any[]) => {
       dispatchArgs.forEach((arg) => {
         const { type } = arg
         if (type) {

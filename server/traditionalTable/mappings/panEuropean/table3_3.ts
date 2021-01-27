@@ -17,14 +17,14 @@ module.exports = {
       'all_other_plant_products',
       'all_other_animal_products',
       'total',
-    ]
+    ],
   },
   columns: [
-    {name: 'name_of_groups_of_product', type: 'text'},
-    {name: 'key_species', type: 'text'},
-    {name: 'total_harvested_non_wood_goods_unit', type: 'text'},
-    {name: 'total_harvested_non_wood_goods_quantity', type: 'numeric'},
-    {name: 'market_value_1000_national_currency', type: 'numeric'},
-    {name: 'nwfp_category', type: 'text'},
-  ]
+    { name: 'name_of_groups_of_product', type: 'text' },
+    { name: 'key_species', type: 'text' },
+    { name: 'total_harvested_non_wood_goods_unit', type: 'text' },
+    { name: 'total_harvested_non_wood_goods_quantity', type: 'numeric' },
+    { name: 'market_value_1000_national_currency', type: 'numeric' },
+    { name: 'nwfp_category', type: 'text' },
+  ],
 }

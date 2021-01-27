@@ -1,38 +1,39 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
-import {acceptNextInteger, acceptNextDecimal} from './numberInput'
+import { acceptNextInteger, acceptNextDecimal } from './numberInput'
 
-const parseValue = (raw, type) => {
-  if(R.equals('integer', type)) {
+const parseValue = (raw: any, type: any) => {
+  if (R.equals('integer', type)) {
     return acceptNextInteger(raw, null)
   }
-  if(R.equals('decimal', type)) {
+  if (R.equals('decimal', type)) {
     return acceptNextDecimal(raw, null)
   }
   return raw
 }
 
-const readHtmlElem = (elem, type) => {
+const readHtmlElem = (elem: any, type: any) => {
   const rows = elem.getElementsByTagName('tr')
-  return R.map(row => {
-    return R.map(cell => {
+  return R.map((row: any) => {
+    return R.map((cell: any) => {
       return parseValue(cell.innerText, type)
     }, row.getElementsByTagName('td'))
   }, rows)
 }
 
-const readExcelClipboard = (evt, type = 'integer') => {
+const readExcelClipboard = (evt: any, type = 'integer') => {
   const el = document.createElement('html')
   el.innerHTML = evt.clipboardData.getData('text/html')
   return readHtmlElem(el, type)
 }
 
-const readPlainTextClipboard = (evt, type = 'integer') => {
+const readPlainTextClipboard = (evt: any, type = 'integer') => {
   const raw = evt.clipboardData.getData('text/plain')
   return [[parseValue(raw, type)]]
 }
 
-export const readPasteClipboard = (evt, type) => {
+export const readPasteClipboard = (evt: any, type: any) => {
   evt.stopPropagation()
   evt.preventDefault()
 

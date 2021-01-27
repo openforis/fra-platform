@@ -1,6 +1,9 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as FRAUtils from '@common/fraUtils'
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as FRA from '@common/assessment/fra'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
@@ -17,7 +20,7 @@ const forestCharacteristics = FRA.sections['1'].children.b
 const forestCharacteristicsSectionName = forestCharacteristics.name
 const forestCharacteristicsTableName = forestCharacteristics.tables.extentOfForest
 
-const getDatumOdp = (state, odp, datumFields, draft) => {
+const getDatumOdp = (state: any, odp: any, datumFields: any, draft: any) => {
   const odpOriginal = OriginalDataPointStateState.getActive(state)
   const { odpId, year } = odp
   const { year: yearPrev } = odpOriginal
@@ -31,13 +34,14 @@ const getDatumOdp = (state, odp, datumFields, draft) => {
     year: Number(year),
   }
   Object.entries(datumFields).forEach(([name, value]) => {
+    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     datumOdp[name] = value && value.toString()
   })
 
   return datumOdp
 }
 
-const getUpdateSectionTable = (state, sectionName, tableName, datumOdp) => {
+const getUpdateSectionTable = (state: any, sectionName: any, tableName: any, datumOdp: any) => {
   const assessmentType = FRA.type
   if (AssessmentState.isSectionDataLoaded(assessmentType, sectionName, tableName)(state)) {
     const fraNoNDPs = AssessmentState.getFraNoNDPs(assessmentType, sectionName, tableName)(state)
@@ -55,7 +59,7 @@ const getUpdateSectionTable = (state, sectionName, tableName, datumOdp) => {
   return null
 }
 
-const getUpdateExtentOfForest = (state, odp, draft) => {
+const getUpdateExtentOfForest = (state: any, odp: any, draft: any) => {
   const forestArea = ODP.classTotalArea(odp, 'forestPercent')
   const otherWoodedLand = ODP.classTotalArea(odp, 'otherWoodedLandPercent')
   const datumFields = { forestArea, otherWoodedLand }
@@ -64,7 +68,7 @@ const getUpdateExtentOfForest = (state, odp, draft) => {
   return getUpdateSectionTable(state, extentOfForestSectionName, extentOfForestTableName, datumOdp)
 }
 
-const getUpdateForestCharacteristics = (state, odp, draft) => {
+const getUpdateForestCharacteristics = (state: any, odp: any, draft: any) => {
   const naturalForestArea = ODP.subClassTotalArea(odp, 'forestPercent', 'naturalForestPercent')
   const plantationForestArea = ODP.subClassTotalArea(odp, 'forestPercent', 'plantationPercent')
   const plantationForestIntroducedArea = ODP.subSubClassTotalArea(
@@ -85,7 +89,7 @@ const getUpdateForestCharacteristics = (state, odp, draft) => {
   return getUpdateSectionTable(state, forestCharacteristicsSectionName, forestCharacteristicsTableName, datumOdp)
 }
 
-export const getUpdateTablesWithOdp = (state, odp, draft = true) => {
+export const getUpdateTablesWithOdp = (state: any, odp: any, draft = true) => {
   const actions = []
   actions.push(getUpdateExtentOfForest(state, odp, draft))
   actions.push(getUpdateForestCharacteristics(state, odp, draft))
@@ -94,7 +98,7 @@ export const getUpdateTablesWithOdp = (state, odp, draft = true) => {
 
 // ====== No Original Data Point
 
-const _getUpdateTablesWithNotOdp = (state, year, sectionName, tableName) => {
+const _getUpdateTablesWithNotOdp = (state: any, year: any, sectionName: any, tableName: any) => {
   const fraNoNDPs = AssessmentState.getFraNoNDPs(FRA.type, sectionName, tableName)(state)
   if (!fraNoNDPs) {
     return null
@@ -103,7 +107,7 @@ const _getUpdateTablesWithNotOdp = (state, year, sectionName, tableName) => {
   return getUpdateSectionTable(state, sectionName, tableName, datumOdp)
 }
 
-export const getUpdateTablesWithNotOdp = (state, year) => {
+export const getUpdateTablesWithNotOdp = (state: any, year: any) => {
   if (!FRA.years.includes(year)) {
     return null
   }

@@ -1,7 +1,6 @@
 import './description.less'
 
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
 
 import { useI18n, usePrintView, useUserInfo } from '@webapp/components/hooks'
 
@@ -10,7 +9,21 @@ import Title from './components/title'
 import Toggle from './components/toggle'
 import useDescription from './useDescription'
 
-const Description = (props) => {
+type OwnProps = {
+  disabled?: boolean
+  title: string
+  name: string
+  template?: string
+  section: string
+  showAlertEmptyContent?: boolean
+  showDashEmptyContent?: boolean
+}
+
+// @ts-expect-error ts-migrate(2456) FIXME: Type alias 'Props' circularly references itself.
+type Props = OwnProps & typeof Description.defaultProps
+
+// @ts-expect-error ts-migrate(7022) FIXME: 'Description' implicitly has type 'any' because it... Remove this comment to see the full error message
+const Description = (props: Props) => {
   const { title, name, section, template, disabled, showAlertEmptyContent, showDashEmptyContent } = props
   const i18n = useI18n()
   const userInfo = useUserInfo()
@@ -39,16 +52,6 @@ Description.defaultProps = {
   template: null,
   showAlertEmptyContent: false,
   showDashEmptyContent: false,
-}
-
-Description.propTypes = {
-  disabled: PropTypes.bool,
-  title: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  template: PropTypes.string,
-  section: PropTypes.string.isRequired,
-  showAlertEmptyContent: PropTypes.bool,
-  showDashEmptyContent: PropTypes.bool,
 }
 
 export default Description

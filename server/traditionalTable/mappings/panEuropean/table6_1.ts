@@ -15,7 +15,7 @@ module.exports = {
       'in_private_ownership_2005',
       'in_private_ownership_2000',
       'in_private_ownership_1990',
-      
+
       'other_types_of_ownership_unknown_2015',
       'other_types_of_ownership_unknown_2010',
       'other_types_of_ownership_unknown_2005',
@@ -24,13 +24,13 @@ module.exports = {
     ],
   },
   columns: [
-      { name: 'total_forest_area', type: 'numeric' },
-      { name: 'total_number_of_holdings', type: 'numeric' },
-      { name: 'less_10_ha_area', type: 'numeric' },
-      { name: 'less_10_ha_number', type: 'numeric' },
-      { name: '_11_500_ha_area', type: 'numeric' },
-      { name: '_11_500_ha_number', type: 'numeric' },
-      { name: 'more_500_ha_area', type: 'numeric' },
-      { name: 'more_500_ha_number', type: 'numeric' },
-    ],
+    { name: 'total_forest_area', type: 'numeric' },
+    { name: 'total_number_of_holdings', type: 'numeric' },
+    { name: 'less_10_ha_area', type: 'numeric' },
+    { name: 'less_10_ha_number', type: 'numeric' },
+    { name: '_11_500_ha_area', type: 'numeric' },
+    { name: '_11_500_ha_number', type: 'numeric' },
+    { name: 'more_500_ha_area', type: 'numeric' },
+    { name: 'more_500_ha_number', type: 'numeric' },
+  ],
 }

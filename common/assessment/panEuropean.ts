@@ -1,3 +1,4 @@
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'PanEuropea... Remove this comment to see the full error message
 const PanEuropean = {
   type: 'panEuropean',
   years90_20: [1990, 2000, 2005, 2010, 2015, 2020],

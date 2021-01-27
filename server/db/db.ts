@@ -23,12 +23,12 @@ const config = process.env.DATABASE_URL
 const pool = promise.promisifyAll(new pg.Pool(config))
 module.exports.pool = pool
 
-pool.on('error', function (err) {
+pool.on('error', function (err: any) {
   console.error('idle client error', err.message, err.stack)
 })
 
 // the query function for passing queries to the pool
-module.exports.query = (text, values) => pool.query(text, values)
+module.exports.query = (text: any, values: any) => pool.query(text, values)
 
 const connect = function () {
   return pool.connect()
@@ -48,7 +48,7 @@ module.exports.connect = connect
  *
  * Code taken from https://node-postgres.com/features/transactions
  */
-module.exports.transaction = async (fn, argv) => {
+module.exports.transaction = async (fn: any, argv: any) => {
   // note: we don't try/catch this because if connecting throws an exception
   // we don't need to dispose of the client (it will be undefined)
   const client = await pool.connect()

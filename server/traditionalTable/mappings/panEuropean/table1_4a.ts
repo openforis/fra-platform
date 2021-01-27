@@ -27,10 +27,10 @@ module.exports = {
     ],
   },
   columns: [
-      { name: 'above_ground', type: 'numeric' },
-      { name: 'below_ground', type: 'numeric' },
-      { name: 'deadwood', type: 'numeric' },
-      { name: 'litter', type: 'numeric' },
-      { name: 'soil_carbon', type: 'numeric' },
-      ],
+    { name: 'above_ground', type: 'numeric' },
+    { name: 'below_ground', type: 'numeric' },
+    { name: 'deadwood', type: 'numeric' },
+    { name: 'litter', type: 'numeric' },
+    { name: 'soil_carbon', type: 'numeric' },
+  ],
 }

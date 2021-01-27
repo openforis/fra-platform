@@ -1,13 +1,16 @@
-const {insertAudit} = require('./../audit/auditRepository')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'insertAudi... Remove this comment to see the full error message
+const { insertAudit } = require('../audit/auditRepository')
 
-const {wipeNationalClassIssues, wipeClassData, addClassData} = require('./odpClassRepository')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'wipeNation... Remove this comment to see the full error message
+const { wipeNationalClassIssues, wipeClassData, addClassData } = require('./odpClassRepository')
 
-const getDraftId = async (client, odpId) => {
+const getDraftId = async (client: any, odpId: any) => {
   const res = await client.query('SELECT draft_id FROM odp WHERE id = $1', [odpId])
   return res.rows[0].draft_id
 }
 
-const updateOrInsertDraft = async (client, user, odpId, countryIso, draft) => {
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'updateOrIn... Remove this comment to see the full error message
+const updateOrInsertDraft = async (client: any, user: any, odpId: any, countryIso: any, draft: any) => {
   const draftId = await getDraftId(client, odpId)
 
   if (draftId) {
@@ -17,19 +20,20 @@ const updateOrInsertDraft = async (client, user, odpId, countryIso, draft) => {
     await insertDraft(client, countryIso, user, odpId, draft)
   }
 
-  await insertAudit(client, user.id, 'updateOrInsertDraft', countryIso, 'odp', {odpId})
+  await insertAudit(client, user.id, 'updateOrInsertDraft', countryIso, 'odp', { odpId })
 
-  return {odpId}
+  return { odpId }
 }
 
-const updateDraft = async (client, draft) => {
+const updateDraft = async (client: any, draft: any) => {
   const res = await client.query('SELECT draft_id FROM odp WHERE id = $1', [draft.odpId])
   const draftId = res.rows[0].draft_id
 
   await wipeClassData(client, draftId)
   await addClassData(client, draftId, draft)
 
-  await client.query(`
+  await client.query(
+    `
     UPDATE
       odp_version
     SET year = $2,
@@ -44,13 +48,15 @@ const updateDraft = async (client, draft) => {
       draft.year,
       draft.description,
       draft.dataSourceReferences,
-      {methods: draft.dataSourceMethods},
-      draft.dataSourceAdditionalComments
-    ])
+      { methods: draft.dataSourceMethods },
+      draft.dataSourceAdditionalComments,
+    ]
+  )
 }
 
-const insertDraft = async (client, countryIso, user, odpId, draft) => {
-  await client.query(`
+const insertDraft = async (client: any, countryIso: any, user: any, odpId: any, draft: any) => {
+  await client.query(
+    `
   INSERT INTO odp_version
     (year, description, data_source_references, data_source_methods, data_source_additional_comments)
   VALUES ($1, $2, $3, $4, $5);`,
@@ -58,17 +64,19 @@ const insertDraft = async (client, countryIso, user, odpId, draft) => {
       draft.year,
       draft.description,
       draft.dataSourceReferences,
-      {methods: draft.dataSourceMethods},
-      draft.dataSourceAdditionalComments
+      { methods: draft.dataSourceMethods },
+      draft.dataSourceAdditionalComments,
     ]
   )
 
   const resOdpVersionId = await client.query('SELECT last_value AS odp_version_id FROM odp_version_id_seq')
   await addClassData(client, resOdpVersionId.rows[0].odp_version_id, draft)
 
-  return await client.query('UPDATE odp SET draft_id = (SELECT last_value FROM odp_version_id_seq) WHERE id = $1', [odpId])
+  return await client.query('UPDATE odp SET draft_id = (SELECT last_value FROM odp_version_id_seq) WHERE id = $1', [
+    odpId,
+  ])
 }
 
 module.exports = {
-  updateOrInsertDraft
+  updateOrInsertDraft,
 }

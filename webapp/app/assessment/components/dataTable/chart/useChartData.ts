@@ -1,8 +1,8 @@
 import * as Chart from './chart'
 
-export default (fra, trends, width) => {
+export default (fra: any, trends: any, width: any) => {
   const data = trends.reduce(
-    (dataAccumulator, { name }) => ({
+    (dataAccumulator: any, { name }: any) => ({
       ...dataAccumulator,
       [name]: Chart.getChartData(fra, name),
     }),

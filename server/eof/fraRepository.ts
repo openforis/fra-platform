@@ -1,8 +1,11 @@
-const db = require('../db/db')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
 const R = require('ramda')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'camelize'.
 const camelize = require('camelize')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
+const db = require('../db/db')
 
-const existingEofValues = async (countryIso, year) => {
+const existingEofValues = async (countryIso: any, year: any) => {
   const result = await db.query(
     `SELECT
        forest_area,
@@ -18,7 +21,7 @@ const existingEofValues = async (countryIso, year) => {
   return formattedResult[0]
 }
 
-module.exports.persistEofValues = async (countryIso, year, values) => {
+module.exports.persistEofValues = async (countryIso: any, year: any, values: any) => {
   const existingValues = await existingEofValues(countryIso, year)
   if (existingValues) {
     // This merge is signifcant when we are generating values,
@@ -30,8 +33,9 @@ module.exports.persistEofValues = async (countryIso, year, values) => {
   }
 }
 
-const insertEof = (countryIso, year, fraValues) =>
-  db.query(`INSERT INTO
+const insertEof = (countryIso: any, year: any, fraValues: any) =>
+  db.query(
+    `INSERT INTO
              eof_fra_values
              (country_iso,
              year,
@@ -41,15 +45,19 @@ const insertEof = (countryIso, year, fraValues) =>
              other_wooded_land_estimated)
              VALUES
              ($1, $2, $3, $4, $5, $6)`,
-    [countryIso,
+    [
+      countryIso,
       year,
       fraValues.forestArea,
       fraValues.otherWoodedLand,
       fraValues.forestAreaEstimated,
-      fraValues.otherWoodedLandEstimated])
+      fraValues.otherWoodedLandEstimated,
+    ]
+  )
 
-const updateEof = (countryIso, year, fraValues) =>
-  db.query(`UPDATE
+const updateEof = (countryIso: any, year: any, fraValues: any) =>
+  db.query(
+    `UPDATE
             eof_fra_values
             SET
              forest_area = $3,
@@ -57,14 +65,17 @@ const updateEof = (countryIso, year, fraValues) =>
              forest_area_estimated = $5,
              other_wooded_land_estimated = $6
             WHERE country_iso = $1 AND year = $2`,
-    [countryIso,
+    [
+      countryIso,
       year,
       fraValues.forestArea,
       fraValues.otherWoodedLand,
       fraValues.forestAreaEstimated,
-      fraValues.otherWoodedLandEstimated])
+      fraValues.otherWoodedLandEstimated,
+    ]
+  )
 
-const existingFocValues = async (countryIso, year) => {
+const existingFocValues = async (countryIso: any, year: any) => {
   const result = await db.query(
     `SELECT
        natural_forest_area,
@@ -84,7 +95,7 @@ const existingFocValues = async (countryIso, year) => {
   return formattedResult[0]
 }
 
-module.exports.persistFocValues = async (countryIso, year, fraValues) => {
+module.exports.persistFocValues = async (countryIso: any, year: any, fraValues: any) => {
   const existingValues = await existingFocValues(countryIso, year)
   if (existingValues) {
     await updateFoc(countryIso, year, R.merge(existingValues, fraValues))
@@ -93,8 +104,9 @@ module.exports.persistFocValues = async (countryIso, year, fraValues) => {
   }
 }
 
-const insertFoc = (countryIso, year, fraValues) =>
-  db.query(`INSERT INTO
+const insertFoc = (countryIso: any, year: any, fraValues: any) =>
+  db.query(
+    `INSERT INTO
              foc_fra_values
              (
              country_iso,
@@ -109,7 +121,8 @@ const insertFoc = (countryIso, year, fraValues) =>
              other_planted_forest_area_estimated)
              VALUES
              ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
-    [countryIso,
+    [
+      countryIso,
       year,
       fraValues.naturalForestArea,
       fraValues.plantationForestArea,
@@ -118,11 +131,13 @@ const insertFoc = (countryIso, year, fraValues) =>
       fraValues.naturalForestAreaEstimated,
       fraValues.plantationForestAreaEstimated,
       fraValues.plantationForestIntroducedAreaEstimated,
-      fraValues.otherPlantedForestAreaEstimated
-    ])
+      fraValues.otherPlantedForestAreaEstimated,
+    ]
+  )
 
-const updateFoc = (countryIso, year, fraValues) =>
-  db.query(`UPDATE
+const updateFoc = (countryIso: any, year: any, fraValues: any) =>
+  db.query(
+    `UPDATE
             foc_fra_values
             SET
              natural_forest_area = $3,
@@ -134,7 +149,8 @@ const updateFoc = (countryIso, year, fraValues) =>
              plantation_forest_introduced_area_estimated = $9,
              other_planted_forest_area_estimated = $10
             WHERE country_iso = $1 AND year = $2`,
-    [countryIso,
+    [
+      countryIso,
       year,
       fraValues.naturalForestArea,
       fraValues.plantationForestArea,
@@ -143,44 +159,45 @@ const updateFoc = (countryIso, year, fraValues) =>
       fraValues.naturalForestAreaEstimated,
       fraValues.plantationForestAreaEstimated,
       fraValues.plantationForestIntroducedAreaEstimated,
-      fraValues.otherPlantedForestAreaEstimated
-    ])
+      fraValues.otherPlantedForestAreaEstimated,
+    ]
+  )
 
-const forestAreaReducer = (results, row, type = 'fra') =>
-  [
-    ...results,
-    {
-      forestArea: row.forest_area,
-      otherWoodedLand: row.other_wooded_land,
-      name: row.year + '',
-      type: 'fra',
-      year: row.year !== null ? Number(row.year) : null,
-      forestAreaEstimated: row.forest_area_estimated || false,
-      otherWoodedLandEstimated: row.other_wooded_land_estimated || false
-    }
-  ]
+const forestAreaReducer = (results: any, row: any, type = 'fra') => [
+  ...results,
+  {
+    forestArea: row.forest_area,
+    otherWoodedLand: row.other_wooded_land,
+    name: `${row.year}`,
+    type: 'fra',
+    year: row.year !== null ? Number(row.year) : null,
+    forestAreaEstimated: row.forest_area_estimated || false,
+    otherWoodedLandEstimated: row.other_wooded_land_estimated || false,
+  },
+]
 
-const forestCharacteristicsReducer = (results, row, type = 'fra') =>
-  [
-    ...results,
-    {
-      naturalForestArea: row.natural_forest_area,
-      plantationForestArea: row.plantation_forest_area,
-      plantationForestIntroducedArea: row.plantation_forest_introduced_area,
-      otherPlantedForestArea: row.other_planted_forest_area,
-      name: row.year + '',
-      type: 'fra',
-      year: row.year !== null ? Number(row.year) : null,
-      naturalForestAreaEstimated: row.natural_forest_area_estimated || false,
-      plantationForestAreaEstimated: row.plantation_forest_area_estimated || false,
-      plantationForestIntroducedAreaEstimated: row.plantation_forest_introduced_area_estimated || false,
-      otherPlantedForestAreaEstimated: row.other_planted_forest_area_estimated || false
-    }
-  ]
+const forestCharacteristicsReducer = (results: any, row: any, type = 'fra') => [
+  ...results,
+  {
+    naturalForestArea: row.natural_forest_area,
+    plantationForestArea: row.plantation_forest_area,
+    plantationForestIntroducedArea: row.plantation_forest_introduced_area,
+    otherPlantedForestArea: row.other_planted_forest_area,
+    name: `${row.year}`,
+    type: 'fra',
+    year: row.year !== null ? Number(row.year) : null,
+    naturalForestAreaEstimated: row.natural_forest_area_estimated || false,
+    plantationForestAreaEstimated: row.plantation_forest_area_estimated || false,
+    plantationForestIntroducedAreaEstimated: row.plantation_forest_introduced_area_estimated || false,
+    otherPlantedForestAreaEstimated: row.other_planted_forest_area_estimated || false,
+  },
+]
 
-module.exports.readFraForestAreas = (countryIso, schemaName = 'public') => {
+module.exports.readFraForestAreas = (countryIso: any, schemaName = 'public') => {
   const tableName = `${schemaName}.eof_fra_values`
-  return db.query(`
+  return db
+    .query(
+      `
     SELECT
       year,
       forest_area,
@@ -189,14 +206,16 @@ module.exports.readFraForestAreas = (countryIso, schemaName = 'public') => {
       other_wooded_land_estimated
     FROM
       ${tableName} WHERE country_iso = $1`,
-    [countryIso]
-  ).then((result) => R.reduce(forestAreaReducer, [], result.rows))
+      [countryIso]
+    )
+    .then((result: any) => R.reduce(forestAreaReducer, [], result.rows))
 }
 
-module.exports.readFraForestCharacteristics = (countryIso, schemaName = 'public') => {
+module.exports.readFraForestCharacteristics = (countryIso: any, schemaName = 'public') => {
   const tableName = `${schemaName}.foc_fra_values`
-  return db.query(
-    `SELECT
+  return db
+    .query(
+      `SELECT
         year,
         natural_forest_area,
         plantation_forest_area,
@@ -208,6 +227,7 @@ module.exports.readFraForestCharacteristics = (countryIso, schemaName = 'public'
         other_planted_forest_area_estimated
       FROM ${tableName}
       WHERE country_iso = $1`,
-    [countryIso]
-  ).then((result) => R.reduce(forestCharacteristicsReducer, [], result.rows))
+      [countryIso]
+    )
+    .then((result: any) => R.reduce(forestCharacteristicsReducer, [], result.rows))
 }

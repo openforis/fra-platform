@@ -1,10 +1,12 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as NumberUtils from '@common/bignumberUtils'
 
 import * as ForestAreaChangeState from '@webapp/app/assessment/fra/sections/forestAreaChange/forestAreaChangeState'
 
-const calculateMirrorValue = (colIdx, rowIdx, rowIdxMirror, fn, state) => (data) => {
+const calculateMirrorValue = (colIdx: any, rowIdx: any, rowIdxMirror: any, fn: any, state: any) => (data: any) => {
   const value = data[rowIdx][colIdx]
   const netChange = ForestAreaChangeState.getExtentOfForestChange(colIdx)(state)
 
@@ -14,7 +16,7 @@ const calculateMirrorValue = (colIdx, rowIdx, rowIdxMirror, fn, state) => (data)
   return R.assocPath([rowIdxMirror, colIdx], valueMirror)(data)
 }
 
-export const updateForestAreaChangeCell = ({ state, rowIdx, colIdx, value }) =>
+export const updateForestAreaChangeCell = ({ state, rowIdx, colIdx, value }: any) =>
   R.pipe(
     R.assocPath([rowIdx, colIdx], value),
     // update Deforestation

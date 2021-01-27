@@ -1,53 +1,50 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as Fra from '@common/assessment/fra'
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { Area } from '@common/country'
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { noRole } from '@common/countryRole'
 import { checkMatch } from '@webapp/components/countrySelection/utils/checkMatch'
-
 import { useI18n } from '@webapp/components/hooks'
 import { useCountries } from '@webapp/store/app'
 import { useUserCountries } from '@webapp/store/user'
-
 import { useGroupedRegions } from '@webapp/store/app/hooks'
 import CountryListDownload from '../countryListDownload'
 import CountryListRow from '../countryListRow'
 import CountryListRoleSection from '../countryListRoleSection'
 
-const CountryListFra = (props) => {
+type Props = {
+  query: string
+}
+const CountryListFra = (props: Props) => {
   const { query } = props
   const i18n = useI18n()
-
   const allCountries = useCountries()
-
   const groupedRegions = useGroupedRegions()
   const userCountries = useUserCountries()
-
-  const filterRegions = (regions) =>
+  const filterRegions = (regions: any) =>
     regions
-      .filter((region) => checkMatch(Area.getListName(region.regionCode, i18n), query))
-      .filter((region) => region.regionCode !== Area.levels.forest_europe)
-
-  const userCountryIsos = []
-
+      .filter((region: any) => checkMatch(Area.getListName(region.regionCode, i18n), query))
+      .filter((region: any) => region.regionCode !== Area.levels.forest_europe)
+  const userCountryIsos: any = []
   Object.keys(userCountries).forEach((role) => {
+    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     if (Array.isArray(userCountries[role]))
-      userCountries[role].forEach((country) => userCountryIsos.push(country.countryIso))
+      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+      userCountries[role].forEach((country: any) => userCountryIsos.push(country.countryIso))
   })
-
   const countryMap = {
     ...userCountries,
-    [noRole.role]: allCountries.filter((country) => !userCountryIsos.includes(country.countryIso)),
+    [noRole.role]: (allCountries as any).filter((country: any) => !userCountryIsos.includes(country.countryIso)),
   }
-
   return (
     <div className="country-selection-list">
       <CountryListDownload />
 
       <div className="country-selection-list__content">
         <div className="country-selection-list__global">
-          {checkMatch(i18n.t(`area.${Area.levels.global}.listName`), query) && (
+          {checkMatch((i18n as any).t(`area.${Area.levels.global}.listName`), query) && (
             <>
               <CountryListRow
                 role={noRole.role}
@@ -57,9 +54,9 @@ const CountryListFra = (props) => {
               <hr />
             </>
           )}
-          {groupedRegions.map(({ regions, name }) => (
+          {groupedRegions.map(({ regions, name }: any) => (
             <div key={name}>
-              {filterRegions(regions).map(({ regionCode }) => (
+              {filterRegions(regions).map(({ regionCode }: any) => (
                 <CountryListRow
                   key={regionCode}
                   role={noRole.role}
@@ -73,15 +70,11 @@ const CountryListFra = (props) => {
         </div>
 
         {Object.keys(countryMap).map((role) => (
+          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           <CountryListRoleSection key={role} role={role} roleCountries={countryMap[role]} query={query} />
         ))}
       </div>
     </div>
   )
 }
-
-CountryListFra.propTypes = {
-  query: PropTypes.string.isRequired,
-}
-
 export default CountryListFra

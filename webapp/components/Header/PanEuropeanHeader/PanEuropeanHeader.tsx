@@ -13,11 +13,11 @@ const PanEuropeanHeader = () => {
         <LanguageSelection />
       </div>
       <div className="app-header__separator" />
-      <div className="app-header__global-fra">{i18n.t('panEuropean.panEuropeanAssessment')}</div>
+      <div className="app-header__global-fra">{(i18n as any).t('panEuropean.panEuropeanAssessment')}</div>
 
       <div className="app-header__menu">
         <div className="logo-pan-eu">
-          <img alt="" src={`/img/fao/FAO${i18n.language}.svg`} />
+          <img alt="" src={`/img/fao/FAO${(i18n as any).language}.svg`} />
           <img alt="" src="/img/partners/UNECE.gif" />
           <img alt="" src="/img/partners/ForestEurope.png" />
         </div>
@@ -25,5 +25,4 @@ const PanEuropeanHeader = () => {
     </div>
   )
 }
-
 export default PanEuropeanHeader

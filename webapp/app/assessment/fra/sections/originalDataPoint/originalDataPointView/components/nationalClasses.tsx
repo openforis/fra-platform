@@ -1,29 +1,28 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
-
 import { useCountryIso, useI18n, useIsAutoSaveSaving, usePrintView } from '@webapp/components/hooks'
-
 import * as ODP from '../../originalDataPoint'
 import { copyPreviousNationalClasses } from '../../actions'
 import NationalClass from './nationalClass'
 
-const NationalClasses = (props) => {
+type Props = {
+  canEditData: boolean
+  odp: any
+}
+const NationalClasses = (props: Props) => {
   const { canEditData, odp } = props
   const { nationalClasses, odpId, year } = odp
-
   const dispatch = useDispatch()
   const i18n = useI18n()
   const countryIso = useCountryIso()
   const [printView] = usePrintView()
   const saving = useIsAutoSaveSaving()
   const copyDisabled = !odpId || !year || !ODP.allowCopyingOfPreviousValues(odp) || saving
-
   return (
     <div className="odp__section">
       {!printView && (
         <div className="odp__section-header">
-          <h3 className="subhead">{i18n.t('nationalDataPoint.nationalClasses')}</h3>
+          <h3 className="subhead">{(i18n as any).t('nationalDataPoint.nationalClasses')}</h3>
           {canEditData && (
             <button
               type="button"
@@ -31,7 +30,7 @@ const NationalClasses = (props) => {
               disabled={copyDisabled}
               onClick={() => dispatch(copyPreviousNationalClasses(countryIso, odp))}
             >
-              {i18n.t('nationalDataPoint.copyPreviousValues')}
+              {(i18n as any).t('nationalDataPoint.copyPreviousValues')}
             </button>
           )}
         </div>
@@ -47,10 +46,10 @@ const NationalClasses = (props) => {
                     {odp.year}
                   </th>
                 )}
-                <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.nationalClass')}</th>
-                <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.definition')}</th>
+                <th className="fra-table__header-cell-left">{(i18n as any).t('nationalDataPoint.nationalClass')}</th>
+                <th className="fra-table__header-cell-left">{(i18n as any).t('nationalDataPoint.definition')}</th>
               </tr>
-              {nationalClasses.map((nationalClass, i) => (
+              {nationalClasses.map((nationalClass: any, i: any) => (
                 <NationalClass key={nationalClass.uuid} index={i} odp={odp} canEditData={canEditData} />
               ))}
             </tbody>
@@ -60,10 +59,4 @@ const NationalClasses = (props) => {
     </div>
   )
 }
-
-NationalClasses.propTypes = {
-  canEditData: PropTypes.bool.isRequired,
-  odp: PropTypes.object.isRequired,
-}
-
 export default NationalClasses

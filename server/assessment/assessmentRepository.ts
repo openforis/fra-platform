@@ -1,13 +1,20 @@
-const db = require('../db/db')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'camelize'.
 const camelize = require('camelize')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
 const R = require('ramda')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
+const db = require('../db/db')
 
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'insertAudi... Remove this comment to see the full error message
 const { insertAudit } = require('../audit/auditRepository')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'roleForCou... Remove this comment to see the full error message
 const { roleForCountry, isAdministrator } = require('../../common/countryRole')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getAllowed... Remove this comment to see the full error message
 const { getAllowedStatusTransitions } = require('../../common/assessment')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'AccessCont... Remove this comment to see the full error message
 const { AccessControlException } = require('../utils/accessControl')
 
-const checkStatusTransitionAllowance = (currentStatus, newStatus, countryIso, user) => {
+const checkStatusTransitionAllowance = (currentStatus: any, newStatus: any, countryIso: any, user: any) => {
   const allowed = getAllowedStatusTransitions(countryIso, user, currentStatus)
   if (!R.contains(newStatus, R.values(allowed))) {
     throw new AccessControlException('error.assessment.transitionNotAllowed', {
@@ -18,7 +25,7 @@ const checkStatusTransitionAllowance = (currentStatus, newStatus, countryIso, us
   }
 }
 
-const getAssessment = async (client, countryIso, assessmentType) => {
+const getAssessment = async (client: any, countryIso: any, assessmentType: any) => {
   const result = await client.query(
     `SELECT 
            status,
@@ -34,7 +41,7 @@ const getAssessment = async (client, countryIso, assessmentType) => {
   return camelize(result.rows[0])
 }
 
-const addAssessment = (client, countryIso, assessment) =>
+const addAssessment = (client: any, countryIso: any, assessment: any) =>
   client.query(
     `INSERT INTO
       assessment 
@@ -44,7 +51,7 @@ const addAssessment = (client, countryIso, assessment) =>
     [countryIso, assessment.type, assessment.status, assessment.deskStudy]
   )
 
-const updateAssessment = (client, countryIso, assessment) =>
+const updateAssessment = (client: any, countryIso: any, assessment: any) =>
   client.query(
     `UPDATE assessment
      SET status = $1, desk_study = $2
@@ -55,7 +62,7 @@ const updateAssessment = (client, countryIso, assessment) =>
 
 // Returns a boolean telling whether status was changed
 // (used to determine whether we should send a status-change email)
-module.exports.changeAssessment = async (client, countryIso, user, newAssessment) => {
+module.exports.changeAssessment = async (client: any, countryIso: any, user: any, newAssessment: any) => {
   const currentAssessmentFromDb = await getAssessment(client, countryIso, newAssessment.type)
   const existsInDb = !!currentAssessmentFromDb
   const currentAssessment = existsInDb ? currentAssessmentFromDb : defaultAssessment(newAssessment.assessment)
@@ -81,19 +88,20 @@ module.exports.changeAssessment = async (client, countryIso, user, newAssessment
   return isStatusChange
 }
 
-const defaultAssessment = (assessmentType) => ({
+const defaultAssessment = (assessmentType: any) => ({
   status: 'editing',
   deskStudy: false,
+
   // TODO remove usage of type as property throughout the code
   type: assessmentType,
 })
 
 const defaultStatuses = R.pipe(
-  R.map((assessmentType) => [assessmentType, defaultAssessment(assessmentType)]),
+  R.map((assessmentType: any) => [assessmentType, defaultAssessment(assessmentType)]),
   R.fromPairs
 )(['annuallyUpdated', 'fra2020'])
 
-module.exports.getAssessments = async (countryIso) => {
+module.exports.getAssessments = async (countryIso: any) => {
   const rawResults = await db.query(
     `SELECT
        type,
@@ -108,7 +116,7 @@ module.exports.getAssessments = async (countryIso) => {
 
   const assessmentsFromDb = R.map(camelize, rawResults.rows)
   const assessmentsAsObject = R.reduce(
-    (resultObj, assessment) => R.assoc(assessment.type, assessment, resultObj),
+    (resultObj: any, assessment: any) => R.assoc(assessment.type, assessment, resultObj),
     {},
     assessmentsFromDb
   )

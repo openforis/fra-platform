@@ -7,13 +7,13 @@ module.exports = {
       'of_which_by_private_businesses',
       'of_which_by_communities',
       'public_ownership',
-      'other_or_unknown'
-    ]
+      'other_or_unknown',
+    ],
   },
   columns: [
-    {name: '1990', type: 'numeric'},
-    {name: '2000', type: 'numeric'},
-    {name: '2010', type: 'numeric'},
-    {name: '2015', type: 'numeric'}
-  ]
+    { name: '1990', type: 'numeric' },
+    { name: '2000', type: 'numeric' },
+    { name: '2010', type: 'numeric' },
+    { name: '2015', type: 'numeric' },
+  ],
 }

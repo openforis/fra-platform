@@ -1,8 +1,10 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as PanEuropean from '@common/assessment/panEuropean'
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { Area, Country } from '@common/country'
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { noRole } from '@common/countryRole'
 import { checkMatch } from '@webapp/components/countrySelection/utils/checkMatch'
 
@@ -12,12 +14,16 @@ import { useI18n } from '@webapp/components/hooks'
 
 import CountryListRow from '../countryListRow'
 
-const CountryListPanEuropean = (props) => {
+type Props = {
+  query: string
+}
+
+const CountryListPanEuropean = (props: Props) => {
   const { query } = props
 
   const i18n = useI18n()
   const countries = useCountriesPanEuropean()
-  const countriesFiltered = countries.filter((country) =>
+  const countriesFiltered = countries.filter((country: any) =>
     checkMatch(Area.getListName(Country.getCountryIso(country), i18n), query)
   )
 
@@ -33,7 +39,7 @@ const CountryListPanEuropean = (props) => {
           <hr />
         </div>
 
-        {countriesFiltered.map((country) => (
+        {countriesFiltered.map((country: any) => (
           <CountryListRow
             key={Country.getCountryIso(country)}
             role={noRole.role}
@@ -44,10 +50,6 @@ const CountryListPanEuropean = (props) => {
       </div>
     </div>
   )
-}
-
-CountryListPanEuropean.propTypes = {
-  query: PropTypes.string.isRequired,
 }
 
 export default CountryListPanEuropean

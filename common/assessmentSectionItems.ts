@@ -1,10 +1,11 @@
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
 const R = require('ramda')
 
 /**
  * @deprecated
  */
 const assessments = {
-  'fra2020': [
+  fra2020: [
     {
       type: 'header',
       sectionNo: ' ',
@@ -14,9 +15,9 @@ const assessments = {
           tableNo: '',
           label: 'contactPersons.contactPersons',
           section: 'contactPersons',
-          pathTemplate: '/country/:countryIso/contactPersons/'
-        }
-      ]
+          pathTemplate: '/country/:countryIso/contactPersons/',
+        },
+      ],
     },
     {
       type: 'header',
@@ -27,39 +28,39 @@ const assessments = {
           tableNo: '1a',
           label: 'extentOfForest.extentOfForest',
           section: 'extentOfForest',
-          pathTemplate: '/country/:countryIso/extentOfForest/'
+          pathTemplate: '/country/:countryIso/extentOfForest/',
         },
         {
           tableNo: '1b',
           label: 'forestCharacteristics.forestCharacteristics',
           pathTemplate: '/country/:countryIso/forestCharacteristics/',
-          section: 'forestCharacteristics'
+          section: 'forestCharacteristics',
         },
         {
           tableNo: '1c',
           label: 'forestAreaChange.forestAreaChange',
           pathTemplate: '/country/:countryIso/forestAreaChange/',
-          section: 'forestAreaChange'
+          section: 'forestAreaChange',
         },
         {
           tableNo: '1d',
           label: 'annualReforestation.annualReforestation',
           pathTemplate: '/country/:countryIso/annualReforestation/',
-          section: 'annualReforestation'
+          section: 'annualReforestation',
         },
         {
           tableNo: '1e',
           label: 'specificForestCategories.specificForestCategories',
           pathTemplate: '/country/:countryIso/specificForestCategories/',
-          section: 'specificForestCategories'
+          section: 'specificForestCategories',
         },
         {
           tableNo: '1f',
           label: 'otherLandWithTreeCover.otherLandWithTreeCover',
           pathTemplate: '/country/:countryIso/otherLandWithTreeCover/',
-          section: 'otherLandWithTreeCover'
-        }
-      ]
+          section: 'otherLandWithTreeCover',
+        },
+      ],
     },
     {
       type: 'header',
@@ -70,27 +71,27 @@ const assessments = {
           tableNo: '2a',
           label: 'growingStock.growingStock',
           section: 'growingStock',
-          pathTemplate: '/country/:countryIso/growingStock/'
+          pathTemplate: '/country/:countryIso/growingStock/',
         },
         {
           tableNo: '2b',
           label: 'growingStockComposition.growingStockComposition',
           pathTemplate: '/country/:countryIso/growingStockComposition/',
-          section: 'growingStockComposition'
+          section: 'growingStockComposition',
         },
         {
           tableNo: '2c',
           label: 'biomassStock.biomassStock',
           section: 'biomassStock',
-          pathTemplate: '/country/:countryIso/biomassStock/'
+          pathTemplate: '/country/:countryIso/biomassStock/',
         },
         {
           tableNo: '2d',
           label: 'carbonStock.carbonStock',
           section: 'carbonStock',
-          pathTemplate: '/country/:countryIso/carbonStock/'
+          pathTemplate: '/country/:countryIso/carbonStock/',
         },
-      ]
+      ],
     },
     {
       type: 'header',
@@ -99,15 +100,15 @@ const assessments = {
       children: [
         {
           tableNo: '3a',
-          section: 'designatedManagementObjective'
+          section: 'designatedManagementObjective',
         },
         {
           tableNo: '3b',
           label: 'forestAreaWithinProtectedAreas.forestAreaWithinProtectedAreas',
           pathTemplate: '/country/:countryIso/forestAreaWithinProtectedAreas/',
-          section: 'forestAreaWithinProtectedAreas'
+          section: 'forestAreaWithinProtectedAreas',
         },
-      ]
+      ],
     },
     {
       type: 'header',
@@ -118,15 +119,15 @@ const assessments = {
           tableNo: '4a',
           label: 'forestOwnership.forestOwnership',
           pathTemplate: '/country/:countryIso/forestOwnership/',
-          section: 'forestOwnership'
+          section: 'forestOwnership',
         },
         {
           tableNo: '4b',
           label: 'holderOfManagementRights.holderOfManagementRights',
           pathTemplate: '/country/:countryIso/holderOfManagementRights/',
-          section: 'holderOfManagementRights'
+          section: 'holderOfManagementRights',
         },
-      ]
+      ],
     },
     {
       type: 'header',
@@ -137,21 +138,21 @@ const assessments = {
           tableNo: '5a',
           label: 'disturbances.disturbances',
           pathTemplate: '/country/:countryIso/disturbances/',
-          section: 'disturbances'
+          section: 'disturbances',
         },
         {
           tableNo: '5b',
           label: 'areaAffectedByFire.areaAffectedByFire',
           pathTemplate: '/country/:countryIso/areaAffectedByFire/',
-          section: 'areaAffectedByFire'
+          section: 'areaAffectedByFire',
         },
         {
           tableNo: '5c',
           label: 'degradedForest.degradedForest',
           pathTemplate: '/country/:countryIso/degradedForest/',
-          section: 'degradedForest'
+          section: 'degradedForest',
         },
-      ]
+      ],
     },
     {
       type: 'header',
@@ -162,15 +163,15 @@ const assessments = {
           tableNo: '6a',
           label: 'forestPolicy.forestPolicy',
           pathTemplate: '/country/:countryIso/forestPolicy/',
-          section: 'forestPolicy'
+          section: 'forestPolicy',
         },
         {
           tableNo: '6b',
           label: 'areaOfPermanentForestEstate.areaOfPermanentForestEstate',
           pathTemplate: '/country/:countryIso/areaOfPermanentForestEstateView/',
-          section: 'areaOfPermanentForestEstate'
+          section: 'areaOfPermanentForestEstate',
         },
-      ]
+      ],
     },
     {
       type: 'header',
@@ -181,21 +182,21 @@ const assessments = {
           tableNo: '7a',
           label: 'employment.employment',
           pathTemplate: '/country/:countryIso/employment/',
-          section: 'employment'
+          section: 'employment',
         },
         {
           tableNo: '7b',
           label: 'graduationOfStudents.graduationOfStudents',
           pathTemplate: '/country/:countryIso/graduationOfStudents/',
-          section: 'graduationOfStudents'
+          section: 'graduationOfStudents',
         },
         {
           tableNo: '7c',
           label: 'nonWoodForestProductsRemovals.nonWoodForestProductsRemovals',
           pathTemplate: '/country/:countryIso/nonWoodForestProductsRemovals/',
-          section: 'nonWoodForestProductsRemovals'
-        }
-      ]
+          section: 'nonWoodForestProductsRemovals',
+        },
+      ],
     },
     {
       type: 'header',
@@ -206,30 +207,26 @@ const assessments = {
           tableNo: '8a',
           label: 'sustainableDevelopment.sustainableDevelopment',
           pathTemplate: '/country/:countryIso/sustainableDevelopment/',
-          section: 'sustainableDevelopment'
-        }
-      ]
-    }
-  ]
+          section: 'sustainableDevelopment',
+        },
+      ],
+    },
+  ],
 }
 
 /**
  * @deprecated
  */
-const sectionsFromItems = items =>
-  R.flatten(
-    R.map(
-      item => R.map(R.prop('section'), item.children),
-      items
-    )
-  )
+const sectionsFromItems = (items: any) =>
+  R.flatten(R.map((item: any) => R.map(R.prop('section'), item.children), items))
 
 /**
  * @deprecated
  */
-const convertToAssessmentSections = assessments =>
+const convertToAssessmentSections = (assessments: any) =>
   R.pipe(
     R.toPairs,
+    // @ts-expect-error ts-migrate(7031) FIXME: Binding element 'assessment' implicitly has an 'an... Remove this comment to see the full error message
     R.map(([assessment, items]) => [assessment, sectionsFromItems(items)]),
     R.fromPairs
   )(assessments)
@@ -237,6 +234,7 @@ const convertToAssessmentSections = assessments =>
 /**
  * @deprecated
  */
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'assessment... Remove this comment to see the full error message
 const assessmentSections = convertToAssessmentSections(assessments)
 
 /**

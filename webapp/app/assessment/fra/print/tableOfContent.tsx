@@ -1,37 +1,37 @@
 import './tableOfContent.less'
 import React from 'react'
-import PropTypes from 'prop-types'
-
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as FRA from '@common/assessment/fra'
-
 import useI18n from '@webapp/components/hooks/useI18n'
 
-const TableOfContent = (props) => {
+type Props = {
+  deskStudy: boolean
+}
+const TableOfContent = (props: Props) => {
   const i18n = useI18n()
   const { deskStudy } = props
-
   return (
     <>
       <div className="page-break" />
 
       <div className="disclaimer">
-        <p>{i18n.t('fraReportPrint.disclaimer')}</p>
+        <p>{(i18n as any).t('fraReportPrint.disclaimer')}</p>
         <p>
           {deskStudy
-            ? i18n.t('fraReportPrint.disclaimerGeneratedDeskStudy')
-            : i18n.t('fraReportPrint.disclaimerGenerated')}
+            ? (i18n as any).t('fraReportPrint.disclaimerGeneratedDeskStudy')
+            : (i18n as any).t('fraReportPrint.disclaimerGenerated')}
         </p>
       </div>
 
       <div className="page-break" />
 
       <div>
-        <h2 className="table-of-content__header">{i18n.t('fraReportPrint.tableOfContent')}</h2>
+        <h2 className="table-of-content__header">{(i18n as any).t('fraReportPrint.tableOfContent')}</h2>
 
         <ol className="table-of-content__list">
           {Object.entries(FRA.sections).map(([key, section]) => (
             <li key={key} data-idx={key}>
-              <a href={`#section${key}`}>{i18n.t(section.label)}</a>
+              <a href={`#section${key}`}>{(i18n as any).t((section as any).label)}</a>
             </li>
           ))}
         </ol>
@@ -41,9 +41,4 @@ const TableOfContent = (props) => {
     </>
   )
 }
-
-TableOfContent.propTypes = {
-  deskStudy: PropTypes.bool.isRequired,
-}
-
 export default TableOfContent

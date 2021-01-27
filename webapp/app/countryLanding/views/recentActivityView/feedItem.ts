@@ -1,9 +1,11 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { i18nUserRole } from '@common/userUtils'
 
 // Action
 
-const getLabelActionKey = (feedItem) => {
+const getLabelActionKey = (feedItem: any) => {
   const messageToKey = {
     createIssue: 'commented',
     createComment: 'commented',
@@ -21,6 +23,7 @@ const getLabelActionKey = (feedItem) => {
     fileRepositoryUpload: 'addedFile',
     fileRepositoryDelete: 'deletedFile',
   }
+  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   const key = messageToKey[feedItem.message]
   if (key) {
     return `landing.recentActivity.actions.${key}`
@@ -28,7 +31,7 @@ const getLabelActionKey = (feedItem) => {
   return 'landing.recentActivity.actions.edited'
 }
 
-const getLabelActionParams = (i18n) => (feedItem) => {
+const getLabelActionParams = (i18n: any) => (feedItem: any) => {
   let params = {}
 
   const target = R.propOr({}, 'target')(feedItem)
@@ -52,7 +55,7 @@ const getLabelActionParams = (i18n) => (feedItem) => {
   return params
 }
 
-export const getLabelAction = (i18n) => (feedItem) => {
+export const getLabelAction = (i18n: any) => (feedItem: any) => {
   const labelActionKey = getLabelActionKey(feedItem)
   const messageParams = getLabelActionParams(i18n)(feedItem)
   return i18n.t(labelActionKey, messageParams)
@@ -60,7 +63,7 @@ export const getLabelAction = (i18n) => (feedItem) => {
 
 // Section
 
-const getLabelSectionKey = (feedItem) => {
+const getLabelSectionKey = (feedItem: any) => {
   const { sectionName } = feedItem
   if (R.includes(sectionName, 'odp')) {
     return 'nationalDataPoint.nationalDataPoint'
@@ -71,18 +74,18 @@ const getLabelSectionKey = (feedItem) => {
   return `${sectionName}.${sectionName}`
 }
 
-export const hasSectionLink = (feedItem) => {
+export const hasSectionLink = (feedItem: any) => {
   const { sectionName } = feedItem
   return !['users', 'assessment'].includes(sectionName)
 }
 
-export const isSectionLinkDisabled = (feedItem) => {
+export const isSectionLinkDisabled = (feedItem: any) => {
   const { sectionName } = feedItem
   const labelSectionKey = getLabelSectionKey(feedItem)
   return ['odp', 'fileRepository'].includes(sectionName) || labelSectionKey === 'dashboard.actions.deleted'
 }
 
-export const getLabelSection = (i18n) => (feedItem) => {
+export const getLabelSection = (i18n: any) => (feedItem: any) => {
   const labelSectionKey = getLabelSectionKey(feedItem)
   return i18n.t(labelSectionKey)
 }

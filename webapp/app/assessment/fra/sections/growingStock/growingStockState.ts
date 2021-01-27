@@ -1,6 +1,9 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as NumberUtils from '@common/bignumberUtils'
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as FRA from '@common/assessment/fra'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
@@ -25,7 +28,7 @@ const baseValueVariablesMapping = {
   [variables.otherWoodedLand]: 'otherWoodedLand',
 }
 
-const _getTableData = (tableName) => () =>
+const _getTableData = (tableName: any) => () =>
   R.pipe(
     AssessmentState.getSectionData(FRA.type, section.name, section.name),
     R.propOr(null, tableName),
@@ -38,27 +41,28 @@ export const getTableDataTotal = _getTableData(section.tables.totalTable)
 
 export const getTableDataBase = _getTableData(section.tables.baseTable)
 
-const _getTableValue = (getTableDataFn, year, variableName) =>
+const _getTableValue = (getTableDataFn: any, year: any, variableName: any) =>
   R.pipe(
     getTableDataFn(),
     R.defaultTo([]),
-    R.find((datum) => String(datum.year) === String(year)),
+    R.find((datum: any) => String(datum.year) === String(year)),
     R.prop(variableName)
   )
 
-const _getBaseTableValue = (year, variableName) =>
+const _getBaseTableValue = (year: any, variableName: any) =>
   _getTableValue(getTableDataBase, year, baseValueVariablesMapping[variableName])
 
-export const getAvgTableValue = (year, variableName) => _getTableValue(getTableDataAvg, year, variableName)
+export const getAvgTableValue = (year: any, variableName: any) => _getTableValue(getTableDataAvg, year, variableName)
 
-export const getTotalTableValue = (year, variableName) => _getTableValue(getTableDataTotal, year, variableName)
+export const getTotalTableValue = (year: any, variableName: any) =>
+  _getTableValue(getTableDataTotal, year, variableName)
 
-export const calculateTotalValue = (year, variableName, avgValue) => (state) => {
+export const calculateTotalValue = (year: any, variableName: any, avgValue: any) => (state: any) => {
   const baseValue = _getBaseTableValue(year, variableName)(state)
   return NumberUtils.toString(NumberUtils.div(NumberUtils.mul(avgValue, baseValue), 1000))
 }
 
-export const calculateAvgValue = (year, variableName, totalValue) => (state) => {
+export const calculateAvgValue = (year: any, variableName: any, totalValue: any) => (state: any) => {
   const baseValue = _getBaseTableValue(year, variableName)(state)
   return NumberUtils.toString(NumberUtils.div(NumberUtils.mul(totalValue, 1000), baseValue))
 }

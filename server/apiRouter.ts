@@ -1,3 +1,4 @@
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'express'.
 const express = require('express')
 
 const eofApi = require('./eof/api')
@@ -22,9 +23,10 @@ const versioningApi = require('./versioning/api')
 const statisticalFactsheetsApi = require('./statisticalFactsheets/api')
 const dataExportApi = require('./dataExport/api')
 
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'apiRouter'... Remove this comment to see the full error message
 const apiRouter = express.Router()
 // Nothing should be cached by default with the APIs
-apiRouter.use((req, res, next) => {
+apiRouter.use((req: any, res: any, next: any) => {
   res.set('Cache-Control', 'no-store')
   next()
 })

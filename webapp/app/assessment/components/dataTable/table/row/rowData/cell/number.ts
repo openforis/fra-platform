@@ -6,13 +6,14 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 import { ThousandSeparatedDecimalInput } from '@webapp/components/thousandSeparatedDecimalInput'
 import { ThousandSeparatedIntegerInput } from '@webapp/components/thousandSeparatedIntegerInput'
 
-const Number = (props) => {
+const Number = (props: any) => {
   const { onChange, onPaste, col, datum, disabled } = props
 
   const [Component, componentProps] = SectionSpec.isDecimal(col)
     ? [ThousandSeparatedDecimalInput, { numberValue: datum }]
     : [ThousandSeparatedIntegerInput, { integerValue: datum }]
 
+  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
   return React.createElement(Component, { ...componentProps, onChange, onPaste, disabled })
 }
 

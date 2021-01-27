@@ -1,7 +1,10 @@
 import axios from 'axios'
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { validateDataPoint } from '@common/validateOriginalDataPoint'
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as FRA from '@common/assessment/fra'
 import * as BasePaths from '@webapp/main/basePaths'
 import { batchActions } from '@webapp/main/reduxBatch'
@@ -20,7 +23,10 @@ import { getUpdateTablesWithOdp, getUpdateTablesWithNotOdp } from './updateSecti
 
 // ====== Validation
 export const odpValidationCompleted = 'originalDataPoint/validationStatus/completed'
-const validationCompleted = (validationStatus) => ({ type: odpValidationCompleted, data: validationStatus })
+const validationCompleted = (validationStatus: any) => ({
+  type: odpValidationCompleted,
+  data: validationStatus,
+})
 
 // ====== clear active
 export const odpClearActiveAction = 'originalDataPoint/clearActive'
@@ -30,7 +36,7 @@ export const clearActive = () => ({ type: odpClearActiveAction })
 export const odpFetchCompleted = 'originalDataPoint/fetch/completed'
 export const odpListFetchCompleted = 'originalDataPointList/fetch/completed'
 
-export const fetch = (odpId, countryIso) => async (dispatch) => {
+export const fetch = (odpId: any, countryIso: any) => async (dispatch: any) => {
   const { data } = await axios.get(`/api/odp/?${R.isNil(odpId) ? '' : `odpId=${odpId}&`}countryIso=${countryIso}`)
   if (R.isNil(odpId)) {
     dispatch(clearActive())
@@ -40,7 +46,7 @@ export const fetch = (odpId, countryIso) => async (dispatch) => {
   }
 }
 
-export const fetchOdps = (countryIso) => async (dispatch) => {
+export const fetchOdps = (countryIso: any) => async (dispatch: any) => {
   const { data } = await axios.get(`/api/odps/${countryIso}`)
   dispatch({ type: odpListFetchCompleted, data })
 }
@@ -49,8 +55,8 @@ export const fetchOdps = (countryIso) => async (dispatch) => {
 export const odpSaveDraftStart = 'originalDataPoint/saveDraft/start'
 export const odpSaveDraftCompleted = 'originalDataPoint/saveDraft/completed'
 
-const persistDraft = (countryIso, odp) => {
-  const dispatched = async (dispatch, getState) => {
+const persistDraft = (countryIso: any, odp: any) => {
+  const dispatched = async (dispatch: any, getState: any) => {
     const {
       data: { odpId },
     } = await axios.post(`/api/odp/draft/?countryIso=${countryIso}`, ODP.removeClassPlaceholder(odp))
@@ -60,6 +66,7 @@ const persistDraft = (countryIso, odp) => {
     // if original data point has just been created, the odpId must be added to odp state active object
     const isNew = !OriginalDataPointState.getActive(state).odpId
     if (isNew) {
+      // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '(dispatch: any) => void' is not ... Remove this comment to see the full error message
       actions.push(...getUpdateTablesWithOdp(state, { ...odp, odpId }))
     }
 
@@ -74,7 +81,7 @@ const persistDraft = (countryIso, odp) => {
   return dispatched
 }
 
-export const saveDraft = (countryIso, odp) => (dispatch, getState) => {
+export const saveDraft = (countryIso: any, odp: any) => (dispatch: any, getState: any) => {
   if (!odp.year) {
     return
   }
@@ -82,13 +89,17 @@ export const saveDraft = (countryIso, odp) => (dispatch, getState) => {
   if (odp.validationStatus) actions.push(validationCompleted(validateDataPoint(odp)))
 
   // Update tables 1a and 1b
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '(dispatch: any) => void' is not ... Remove this comment to see the full error message
   actions.push(...getUpdateTablesWithOdp(getState(), odp))
 
   dispatch(batchActions(actions))
   dispatch(persistDraft(countryIso, odp))
 }
 
-export const cancelDraft = (countryIso, odpId, destination, history) => async (dispatch, getState) => {
+export const cancelDraft = (countryIso: any, odpId: any, destination: any, history: any) => async (
+  dispatch: any,
+  getState: any
+) => {
   if (odpId) {
     const {
       data: { odp },
@@ -101,14 +112,19 @@ export const cancelDraft = (countryIso, odpId, destination, history) => async (d
   }
 }
 
-export const markAsActual = (countryIso, odp, history, destination) => async (dispatch, getState) => {
+export const markAsActual = (countryIso: any, odp: any, history: any, destination: any) => async (
+  dispatch: any,
+  getState: any
+) => {
   const validationStatus = validateDataPoint(odp)
   const { valid } = validationStatus
 
   const actions = [validationCompleted(validationStatus)]
   if (valid) {
+    // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '{ type: string; }' is not assign... Remove this comment to see the full error message
     actions.push(autosave.start)
     // Update tables 1a and 1b
+    // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '(dispatch: any) => void' is not ... Remove this comment to see the full error message
     actions.push(...getUpdateTablesWithOdp(getState(), odp, false))
   }
   dispatch(batchActions(actions))
@@ -120,7 +136,7 @@ export const markAsActual = (countryIso, odp, history, destination) => async (di
   }
 }
 
-export const copyPreviousNationalClasses = (countryIso, odp) => async (dispatch) => {
+export const copyPreviousNationalClasses = (countryIso: any, odp: any) => async (dispatch: any) => {
   const { data: prevOdp } = await axios.get(`/api/prevOdp/${countryIso}/${odp.year}?countryIso=${countryIso}`)
   if (prevOdp.nationalClasses) {
     dispatch(saveDraft(countryIso, ODP.copyNationalClassDefinitions(odp, prevOdp)))
@@ -129,7 +145,10 @@ export const copyPreviousNationalClasses = (countryIso, odp) => async (dispatch)
   }
 }
 
-export const updateNationalClassValue = (index, fieldName, valueCurrent, valueUpdate) => (dispatch, getState) => {
+export const updateNationalClassValue = (index: any, fieldName: any, valueCurrent: any, valueUpdate: any) => (
+  dispatch: any,
+  getState: any
+) => {
   const state = getState()
   const odp = OriginalDataPointState.getActive(state)
   const countryIso = AppState.getCountryIso(state)
@@ -138,7 +157,7 @@ export const updateNationalClassValue = (index, fieldName, valueCurrent, valueUp
 }
 
 // ====== Paste
-export const pasteNationalClassValues = (props) => (dispatch, getState) => {
+export const pasteNationalClassValues = (props: any) => (dispatch: any, getState: any) => {
   const state = getState()
   const odp = OriginalDataPointState.getActive(state)
   const countryIso = AppState.getCountryIso(state)
@@ -150,7 +169,10 @@ export const pasteNationalClassValues = (props) => (dispatch, getState) => {
 }
 
 // ====== Delete
-export const remove = (countryIso, odp, destination, history) => async (dispatch, getState) => {
+export const remove = (countryIso: any, odp: any, destination: any, history: any) => async (
+  dispatch: any,
+  getState: any
+) => {
   // If we delete ODP that has a FRA year,
   // get the corresponding FRA object and update state
   await axios.delete(`/api/odp/?odpId=${odp.odpId}&countryIso=${countryIso}`)
@@ -165,7 +187,7 @@ export const remove = (countryIso, odp, destination, history) => async (dispatch
   history.push(BasePaths.getAssessmentSectionLink(countryIso, FRA.type, destination))
 }
 
-export const removeFromList = (countryIso, odpId) => async (dispatch) => {
+export const removeFromList = (countryIso: any, odpId: any) => async (dispatch: any) => {
   await axios.delete(`/api/odp/?odpId=${odpId}&countryIso=${countryIso}`)
   dispatch(batchActions([fetchCountryOverviewStatus(countryIso), fetchOdps(countryIso)]))
 }

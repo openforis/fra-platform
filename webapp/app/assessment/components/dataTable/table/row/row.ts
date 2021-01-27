@@ -14,7 +14,7 @@ const componentsByType = {
   [RowSpec.TYPES.noticeMessage]: RowNoticeMessage,
 }
 
-const Row = (props) => {
+const Row = (props: any) => {
   const userInfo = useUserInfo()
 
   const { data, assessmentType, sectionName, tableSpec, row, disabled } = props

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 
-const Calculated = (props) => {
+const Calculated = (props: any) => {
   const { col, rowIdx } = props
   const { calculateFn, formatFn } = col
 

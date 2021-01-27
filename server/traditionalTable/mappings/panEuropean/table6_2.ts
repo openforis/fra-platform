@@ -24,7 +24,7 @@ module.exports = {
     ],
   },
   columns: [
-      { name: 'million_national_currency', type: 'numeric' },
-      { name: 'percent_of_total_gva', type: 'numeric' },
-    ],
+    { name: 'million_national_currency', type: 'numeric' },
+    { name: 'percent_of_total_gva', type: 'numeric' },
+  ],
 }

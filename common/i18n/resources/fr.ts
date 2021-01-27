@@ -1,4 +1,6 @@
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'area'.
 const area = require('./fr/area')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'statistica... Remove this comment to see the full error message
 const statisticalFactsheets = require('./fr/statisticalFactsheets')
 
 module.exports.translation = {
@@ -48,7 +50,6 @@ des domaines boréal, tempéré et sous-tropical`,
     userGuide: "Guide de l'utilisateur",
     sendFeedback: 'Envoyer réactions',
   },
-
 
   disclaimer: {
     part1: `Ce site a été élaboré avec l’aide de l'`,

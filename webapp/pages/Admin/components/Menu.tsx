@@ -16,20 +16,17 @@ const sections = [
     labelKey: 'landing.sections.versioning',
   },
 ]
-
 const Menu = () => {
   const i18n = useI18n()
   const { url } = useRouteMatch()
-
   return (
     <div className="landing__page-menu">
       {sections.map(({ name, labelKey }) => (
         <NavLink to={`${url}/${name}/`} className="landing__page-menu-button" activeClassName="disabled" key={name}>
-          {i18n.t(labelKey)}
+          {(i18n as any).t(labelKey)}
         </NavLink>
       ))}
     </div>
   )
 }
-
 export default Menu

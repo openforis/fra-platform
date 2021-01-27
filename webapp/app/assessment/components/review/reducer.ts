@@ -1,42 +1,39 @@
 import { applyReducerFunction } from '@webapp/utils/reduxUtils'
+import * as ReviewState from '@webapp/app/assessment/components/review/reviewState'
 import {
   issuePostCommentCompleted,
   issueRetrieveCommentsStarted,
   issueRetrieveCommentsCompleted,
   issueOpenCommentThread,
   issueCloseCommentThread,
-  issueGetSummaryCompleted
+  issueGetSummaryCompleted,
 } from './actions'
 
-import * as ReviewState from '@webapp/app/assessment/components/review/reviewState'
-
 const actionHandlers = {
-  [issuePostCommentCompleted]: (state, { status }) => ReviewState.assocStatus(status)(state),
-  [issueRetrieveCommentsStarted]: (state, { status }) => ReviewState.assocStatus(status)(state),
+  [issuePostCommentCompleted]: (state: any, { status }: any) => ReviewState.assocStatus(status)(state),
+  [issueRetrieveCommentsStarted]: (state: any, { status }: any) => ReviewState.assocStatus(status)(state),
 
-  [issueRetrieveCommentsCompleted]: (state, { target, issue }) =>
-    ReviewState.assocDynamicTarget(target)(
-      {
-        ...ReviewState.getDynamicTarget(target),
-        issue
-      }
-    )(state),
+  [issueRetrieveCommentsCompleted]: (state: any, { target, issue }: any) =>
+    ReviewState.assocDynamicTarget(target)({
+      ...ReviewState.getDynamicTarget(target),
+      issue,
+    })(state),
 
-  [issueGetSummaryCompleted]: (state, { target, issuesCount, lastCommentUserId, issueStatus, hasUnreadIssues }) =>
-    ReviewState.assocDynamicTarget(target)(
-      {
-        ...ReviewState.getDynamicTarget(target),
-        issuesCount,
-        lastCommentUserId,
-        issueStatus,
-        hasUnreadIssues
-      }
-    )(state),
+  [issueGetSummaryCompleted]: (
+    state: any,
+    { target, issuesCount, lastCommentUserId, issueStatus, hasUnreadIssues }: any
+  ) =>
+    ReviewState.assocDynamicTarget(target)({
+      ...ReviewState.getDynamicTarget(target),
+      issuesCount,
+      lastCommentUserId,
+      issueStatus,
+      hasUnreadIssues,
+    })(state),
 
-  [issueOpenCommentThread]: (state, { target, section, title }) =>
+  [issueOpenCommentThread]: (state: any, { target, section, title }: any) =>
     ReviewState.assocOpenThread({ target, section, name: title })(state),
-  [issueCloseCommentThread]: state => ReviewState.omitOpenThread(state),
-
+  [issueCloseCommentThread]: (state: any) => ReviewState.omitOpenThread(state),
 }
 
-export default (state = {}, action) => applyReducerFunction(actionHandlers, state, action)
+export default (state = {}, action: any) => applyReducerFunction(actionHandlers, state, action)

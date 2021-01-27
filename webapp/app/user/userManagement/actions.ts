@@ -1,4 +1,5 @@
 import axios from 'axios'
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
 import { applicationError } from '@webapp/components/error/actions'
@@ -12,19 +13,19 @@ export const userManagementCollaboratorTableAccessUpdate = 'userManagement/table
 
 // list action creators
 
-export const fetchUsers = (countryIso, printView = false) => (dispatch) =>
+export const fetchUsers = (countryIso: any, printView = false) => (dispatch: any) =>
   axios
     .get(`/api/users/${countryIso}?print=${printView}`)
     .then((resp) => dispatch({ type: userManagementCountryUsersFetch, ...resp.data, newUser: newUser() }))
     .catch((err) => dispatch(applicationError(err)))
 
-export const fetchAllUsers = () => (dispatch) =>
+export const fetchAllUsers = () => (dispatch: any) =>
   axios
     .get(`/api/users`)
     .then((resp) => dispatch({ type: userManagementAllUsersFetch, ...resp.data }))
     .catch((err) => dispatch(applicationError(err)))
 
-export const removeUser = (countryIso, user, fetchAll = false) => (dispatch) => {
+export const removeUser = (countryIso: any, user: any, fetchAll = false) => (dispatch: any) => {
   const queryParam = user.id ? `?id=${user.id}` : `?invitationUuid=${user.invitationUuid}`
   axios
     .delete(`/api/users/${countryIso}/${queryParam}`)
@@ -40,13 +41,13 @@ export const removeUser = (countryIso, user, fetchAll = false) => (dispatch) => 
     })
 }
 
-export const sendInvitationEmail = (countryIso, invitationUuid) => (dispatch) =>
+export const sendInvitationEmail = (countryIso: any, invitationUuid: any) => (dispatch: any) =>
   axios
     .get(`/api/users/${countryIso}/invitations/${invitationUuid}/send`)
     .catch((err) => dispatch(applicationError(err)))
 
-const postCollaboratorCountryAccess = (countryIso, userId, tables) => {
-  const dispatched = (dispatch) => {
+const postCollaboratorCountryAccess = (countryIso: any, userId: any, tables: any) => {
+  const dispatched = (dispatch: any) => {
     axios
       .post(`/api/collaboratorCountryAccess/${countryIso}`, { userId, tables })
       .then(() => {
@@ -65,7 +66,7 @@ const postCollaboratorCountryAccess = (countryIso, userId, tables) => {
 }
 // collaborator table access
 
-export const persistCollaboratorCountryAccess = (countryIso, userId, tables) => (dispatch) => {
+export const persistCollaboratorCountryAccess = (countryIso: any, userId: any, tables: any) => (dispatch: any) => {
   dispatch(autosave.start)
   dispatch({ type: userManagementCollaboratorTableAccessUpdate, userId, tables })
   dispatch(postCollaboratorCountryAccess(countryIso, userId, tables))
@@ -73,12 +74,15 @@ export const persistCollaboratorCountryAccess = (countryIso, userId, tables) => 
 
 // new user action creators
 
-export const updateNewUser = (countryIso, userId, field, value) => (dispatch, getState) => {
+export const updateNewUser = (countryIso: any, userId: any, field: any, value: any) => (
+  dispatch: any,
+  getState: any
+) => {
   const user = updateUserField(field, value)(getState().userManagement.newUser)
   dispatch({ type: userManagementNewUserUpdate, user })
 }
 
-export const addNewUser = (countryIso) => (dispatch, getState) => {
+export const addNewUser = (countryIso: any) => (dispatch: any, getState: any) => {
   const user = getState().userManagement.newUser
 
   if (!validUser(user)) throw Error('User not valid')
@@ -94,7 +98,7 @@ export const addNewUser = (countryIso) => (dispatch, getState) => {
 export const userManagementEditUserLoad = 'userManagement/editUser/loaded'
 export const userManagementEditUserComplete = 'userManagement/editUser/completed'
 
-export const loadUserToEdit = (userId) => async (dispatch) => {
+export const loadUserToEdit = (userId: any) => async (dispatch: any) => {
   if (Number(userId) > 0) {
     try {
       const {
@@ -107,7 +111,7 @@ export const loadUserToEdit = (userId) => async (dispatch) => {
   }
 }
 
-export const persistUser = (countryIso, user) => async (dispatch) => {
+export const persistUser = (countryIso: any, user: any) => async (dispatch: any) => {
   const formData = new FormData()
   formData.append('profilePicture', user.profilePicture)
   formData.append('user', JSON.stringify(R.dissoc('profilePicture', user)))

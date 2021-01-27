@@ -1,19 +1,24 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-
 import useI18n from '@webapp/components/hooks/useI18n'
-
 import CommentableDescription from './commentableDescription'
 
-const NationalDataDescriptions = (props) => {
+type OwnProps = {
+  section: string
+  disabled: boolean
+  showAlertEmptyContent?: boolean
+  showDashEmptyContent?: boolean
+}
+// @ts-expect-error ts-migrate(2456) FIXME: Type alias 'Props' circularly references itself.
+type Props = OwnProps & typeof NationalDataDescriptions.defaultProps
+// @ts-expect-error ts-migrate(7022) FIXME: 'NationalDataDescriptions' implicitly has type 'an... Remove this comment to see the full error message
+const NationalDataDescriptions = (props: Props) => {
   const { section, disabled, showAlertEmptyContent, showDashEmptyContent } = props
   const i18n = useI18n()
-
   return (
     <div className="fra-description__container">
-      <h2 className="headline fra-description__group-header">{i18n.t('description.nationalData')}</h2>
+      <h2 className="headline fra-description__group-header">{(i18n as any).t('description.nationalData')}</h2>
       <CommentableDescription
-        title={i18n.t('description.dataSourcesPlus')}
+        title={(i18n as any).t('description.dataSourcesPlus')}
         disabled={disabled}
         section={section}
         name="dataSources"
@@ -21,7 +26,7 @@ const NationalDataDescriptions = (props) => {
         showDashEmptyContent={showDashEmptyContent}
       />
       <CommentableDescription
-        title={i18n.t('description.nationalClassificationAndDefinitions')}
+        title={(i18n as any).t('description.nationalClassificationAndDefinitions')}
         disabled={disabled}
         section={section}
         name="nationalClassificationAndDefinitions"
@@ -29,7 +34,7 @@ const NationalDataDescriptions = (props) => {
         showDashEmptyContent={showDashEmptyContent}
       />
       <CommentableDescription
-        title={i18n.t('description.originalData')}
+        title={(i18n as any).t('description.originalData')}
         disabled={disabled}
         section={section}
         name="originalData"
@@ -39,17 +44,8 @@ const NationalDataDescriptions = (props) => {
     </div>
   )
 }
-
-NationalDataDescriptions.propTypes = {
-  section: PropTypes.string.isRequired,
-  disabled: PropTypes.bool.isRequired,
-  showAlertEmptyContent: PropTypes.bool,
-  showDashEmptyContent: PropTypes.bool,
-}
-
 NationalDataDescriptions.defaultProps = {
   showAlertEmptyContent: false,
   showDashEmptyContent: false,
 }
-
 export default NationalDataDescriptions

@@ -1,3 +1,4 @@
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as PanEuropean from '@common/assessment/panEuropean'
 
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
@@ -39,7 +40,8 @@ const tableSpec = SectionSpec.newTableSpec({
       ],
     }),
 
-    ...variables.flatMap((variable) =>
+    // @ts-expect-error ts-migrate(2550) FIXME: Property 'flatMap' does not exist on type 'string[... Remove this comment to see the full error message
+    ...variables.flatMap((variable: any) =>
       years.map((year) =>
         SectionSpec.newRowData({
           [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.introducedTreeSpecies.${variable}`,
@@ -53,7 +55,7 @@ const tableSpec = SectionSpec.newTableSpec({
 })
 
 // remove other_wooded_land_2020 & total_forest_and_other_wooded_land_2020 that are not available in the database
-for (var i = 0; i < tableSpec.rows.length; ++i) {
+for (let i = 0; i < tableSpec.rows.length; ++i) {
   if (
     tableSpec.rows[i].variableExport === 'other_wooded_land_2020' ||
     tableSpec.rows[i].variableExport === 'total_forest_and_other_wooded_land_2020'

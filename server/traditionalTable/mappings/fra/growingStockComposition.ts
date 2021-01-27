@@ -12,24 +12,24 @@ module.exports = {
       'native_rank8',
       'native_rank9',
       'native_rank10',
-      "remaining_native",
-      "total_native_placeholder", //Will contain no data in DB
-      "introduced_tree_species_heading_placeholder", //Will contain no data in DB
+      'remaining_native',
+      'total_native_placeholder', // Will contain no data in DB
+      'introduced_tree_species_heading_placeholder', // Will contain no data in DB
       'introduced_rank1',
       'introduced_rank2',
       'introduced_rank3',
       'introduced_rank4',
       'introduced_rank5',
-      "remaining_introduced_placeholder" //Will contain no data in DB
-    ]
+      'remaining_introduced_placeholder', // Will contain no data in DB
+    ],
   },
   columns: [
-    {name: 'scientific_name', type: 'text'},
-    {name: 'common_name', type: 'text'},
-    {name: '1990', type: 'numeric'},
-    {name: '2000', type: 'numeric'},
-    {name: '2010', type: 'numeric'},
-    {name: '2015', type: 'numeric'},
-    {name: '2020', type: 'numeric'}
-  ]
+    { name: 'scientific_name', type: 'text' },
+    { name: 'common_name', type: 'text' },
+    { name: '1990', type: 'numeric' },
+    { name: '2000', type: 'numeric' },
+    { name: '2010', type: 'numeric' },
+    { name: '2015', type: 'numeric' },
+    { name: '2020', type: 'numeric' },
+  ],
 }

@@ -1,7 +1,12 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
-const Toggle = props => {
+type Props = {
+  setOpen: (...args: any[]) => any
+  open: boolean
+  i18n: any
+}
+
+const Toggle = (props: Props) => {
   const { setOpen, open, i18n } = props
   return (
     <span
@@ -17,12 +22,6 @@ const Toggle = props => {
       {open ? i18n.t('description.done') : i18n.t('description.edit')}
     </span>
   )
-}
-
-Toggle.propTypes = {
-  setOpen: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  i18n: PropTypes.object.isRequired,
 }
 
 export default Toggle

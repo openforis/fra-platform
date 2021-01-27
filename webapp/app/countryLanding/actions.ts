@@ -4,14 +4,11 @@ import * as autosave from '../components/autosave/actions'
 
 export const countryOverviewLoaded = 'landing/country/OverviewLoaded'
 
-export const getCountryOverview = countryIso => dispatch => {
-  axios.get(`/api/landing/${countryIso}/overview`)
-    .then(resp =>
-      dispatch({ type: countryOverviewLoaded, overview: resp.data.overview })
-    )
-    .catch(err =>
-      dispatch(applicationError(err))
-    )
+export const getCountryOverview = (countryIso: any) => (dispatch: any) => {
+  axios
+    .get(`/api/landing/${countryIso}/overview`)
+    .then((resp) => dispatch({ type: countryOverviewLoaded, overview: resp.data.overview }))
+    .catch((err) => dispatch(applicationError(err)))
 }
 
 // ================
@@ -20,49 +17,49 @@ export const getCountryOverview = countryIso => dispatch => {
 
 export const fileRepositoryFilesListLoad = 'fileRepository/filesList/load'
 
-export const getFilesList = (countryIso) => dispatch => {
+export const getFilesList = (countryIso: any) => (dispatch: any) => {
   axios
     .get(`/api/fileRepository/${countryIso}/filesList`)
-    .then(resp => {
+    .then((resp) => {
       const filesList = resp.data
       dispatch({ type: fileRepositoryFilesListLoad, filesList })
     })
-    .catch(err => dispatch(applicationError(err)))
+    .catch((err) => dispatch(applicationError(err)))
 }
 
-export const uploadFile = (countryIso, file, global = false) => dispatch => {
+export const uploadFile = (countryIso: any, file: any, global = false) => (dispatch: any) => {
   const formData = new FormData()
   formData.append('file', file)
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'boolean' is not assignable to pa... Remove this comment to see the full error message
   formData.append('global', global)
 
   const config = {
     headers: {
-      'content-type': 'multipart/form-data'
-    }
+      'content-type': 'multipart/form-data',
+    },
   }
 
   dispatch(autosave.start)
 
   axios
     .post(`/api/fileRepository/${countryIso}/upload`, formData, config)
-    .then(resp => {
+    .then((resp) => {
       const filesList = resp.data
       dispatch({ type: fileRepositoryFilesListLoad, filesList })
       dispatch(autosave.complete)
-
     })
-    .catch(err => dispatch(applicationError(err)))
+    .catch((err) => dispatch(applicationError(err)))
 }
 
-export const deleteFile = (countryIso, fileId) => dispatch => {
+export const deleteFile = (countryIso: any, fileId: any) => (dispatch: any) => {
   dispatch(autosave.start)
 
   axios
     .delete(`/api/fileRepository/${countryIso}/file/${fileId}`)
-    .then(resp => {
+    .then((resp) => {
       const filesList = resp.data
       dispatch({ type: fileRepositoryFilesListLoad, filesList })
       dispatch(autosave.complete)
     })
-    .catch(err => dispatch(applicationError(err)))
+    .catch((err) => dispatch(applicationError(err)))
 }

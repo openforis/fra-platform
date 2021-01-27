@@ -1,28 +1,35 @@
-const db = require('../db/db')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
 const R = require('ramda')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'camelize'.
 const camelize = require('camelize')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
+const db = require('../db/db')
 
-const getChatSummary = async (userFrom, userTo) => {
-
-  const resultChatMessage = await db.query(`
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getChatSum... Remove this comment to see the full error message
+const getChatSummary = async (userFrom: any, userTo: any) => {
+  const resultChatMessage = await db.query(
+    `
     SELECT count(*) as unread_messages
     FROM user_chat_message
     WHERE from_user = $1
       AND to_user = $2
       AND read_time IS NULL
-  `, [userFrom, userTo])
+  `,
+    [userFrom, userTo]
+  )
 
   return {
-    unreadMessages: resultChatMessage.rows[0].unread_messages
+    unreadMessages: resultChatMessage.rows[0].unread_messages,
   }
-
 }
 
-const getChatMessages = async (client, sessionUserId, otherUserId) => {
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getChatMes... Remove this comment to see the full error message
+const getChatMessages = async (client: any, sessionUserId: any, otherUserId: any) => {
   await markChatMessagesRead(client, otherUserId, sessionUserId)
 
   // then loading messages
-  const resultChatMessages = await client.query(`
+  const resultChatMessages = await client.query(
+    `
     SELECT id,
            text,
            from_user,
@@ -33,17 +40,22 @@ const getChatMessages = async (client, sessionUserId, otherUserId) => {
     WHERE (from_user = $1 AND to_user = $2)
        OR (from_user = $2 AND to_user = $1)
     ORDER BY time
-  `, [sessionUserId, otherUserId])
+  `,
+    [sessionUserId, otherUserId]
+  )
 
-  return resultChatMessages.rows.map(msg => camelize(msg))
+  return resultChatMessages.rows.map((msg: any) => camelize(msg))
 }
 
-const addMessage = async (client, message, fromUserId, toUserId) => {
-
-  await client.query(`
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'addMessage... Remove this comment to see the full error message
+const addMessage = async (client: any, message: any, fromUserId: any, toUserId: any) => {
+  await client.query(
+    `
     INSERT INTO user_chat_message (text, from_user, to_user)
     VALUES ($1, $2, $3)
-  `, [message, fromUserId, toUserId])
+  `,
+    [message, fromUserId, toUserId]
+  )
 
   const resultChatMessage = await client.query(`
     SELECT text,
@@ -58,8 +70,10 @@ const addMessage = async (client, message, fromUserId, toUserId) => {
   return camelize(resultChatMessage.rows[0])
 }
 
-const getChatUnreadMessages = async (client, fromUserId, toUserId, markAsRead = false) => {
-  const resultUnreadMessages = await client.query(`
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getChatUnr... Remove this comment to see the full error message
+const getChatUnreadMessages = async (client: any, fromUserId: any, toUserId: any, markAsRead = false) => {
+  const resultUnreadMessages = await client.query(
+    `
     SELECT id,
            text,
            from_user,
@@ -70,27 +84,31 @@ const getChatUnreadMessages = async (client, fromUserId, toUserId, markAsRead = 
     WHERE from_user = $1
       AND to_user = $2
       AND read_time IS NULL
-  `, [fromUserId, toUserId])
+  `,
+    [fromUserId, toUserId]
+  )
 
-  if (markAsRead)
-    await markChatMessagesRead(client, fromUserId, toUserId)
+  if (markAsRead) await markChatMessagesRead(client, fromUserId, toUserId)
 
   return camelize(resultUnreadMessages.rows)
 }
 
-const markChatMessagesRead = async (client, fromUserId, toUserId) => {
-  await client.query(`
+const markChatMessagesRead = async (client: any, fromUserId: any, toUserId: any) => {
+  await client.query(
+    `
     UPDATE
       user_chat_message
     SET read_time = now()
     WHERE from_user = $1
       AND to_user = $2
-  `, [fromUserId, toUserId])
+  `,
+    [fromUserId, toUserId]
+  )
 }
 
 module.exports = {
   getChatSummary,
   getChatMessages,
   addMessage,
-  getChatUnreadMessages
+  getChatUnreadMessages,
 }

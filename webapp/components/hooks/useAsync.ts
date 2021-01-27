@@ -3,16 +3,31 @@ import { useReducer } from 'react'
 import useIsMounted from './useIsMounted'
 
 const useAsyncActionHandlers = [
-  (data) => ({ ...data, loading: true, loaded: false }),
-  (data) => ({ ...data, loading: false, loaded: true }),
-  (error) => ({ error, loading: false, loaded: false }),
-]
-
-export default (promiseFn, promiseArgs) => {
-  const [state, _dispatch] = useReducer((_state, { type, payload }) => useAsyncActionHandlers[type](payload), {
+  (data: any) => ({
+    ...data,
+    loading: true,
+    loaded: false,
+  }),
+  (data: any) => ({
+    ...data,
+    loading: false,
+    loaded: true,
+  }),
+  (error: any) => ({
+    error,
     loading: false,
     loaded: false,
-  })
+  }),
+]
+
+export default (promiseFn: any, promiseArgs: any) => {
+  const [state, _dispatch] = useReducer(
+    (_state: any, { type, payload }: any) => useAsyncActionHandlers[type](payload),
+    {
+      loading: false,
+      loaded: false,
+    }
+  )
   const isMounted = useIsMounted()
 
   const dispatch = () => {
@@ -30,7 +45,7 @@ export default (promiseFn, promiseArgs) => {
     })()
   }
 
-  const setState = (stateUpdate) => {
+  const setState = (stateUpdate: any) => {
     _dispatch({ type: 1, payload: stateUpdate })
   }
 

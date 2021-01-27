@@ -1,123 +1,114 @@
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
 const R = require('ramda')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Promise'.
 const Promise = require('bluebird')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'camelize'.
 const camelize = require('camelize')
-
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
 const db = require('../db/db')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'insertAudi... Remove this comment to see the full error message
+const { insertAudit } = require('../audit/auditRepository')
+const { deleteIssues } = require('../review/reviewRepository')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'validateDa... Remove this comment to see the full error message
+const { validateDataPoint } = require('../../common/validateOriginalDataPoint')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'checkCount... Remove this comment to see the full error message
+const { checkCountryAccess } = require('../utils/accessControl')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'updateOrIn... Remove this comment to see the full error message
+const { updateOrInsertDraft } = require('./odpDraftRepository')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'wipeClassD... Remove this comment to see the full error message
+const { wipeClassData, getOdpNationalClasses, wipeNationalClassIssues } = require('./odpClassRepository')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'eofReducer... Remove this comment to see the full error message
+const { eofReducer, focReducer } = require('./odpRepositoryUtils')
 
-const {insertAudit} = require('./../audit/auditRepository')
-const {deleteIssues} = require('../review/reviewRepository')
-
-const {validateDataPoint} = require('../../common/validateOriginalDataPoint')
-const {checkCountryAccess} = require('../utils/accessControl')
-
-const {updateOrInsertDraft} = require('./odpDraftRepository')
-const {wipeClassData, getOdpNationalClasses, wipeNationalClassIssues} = require('./odpClassRepository')
-const {eofReducer, focReducer} = require('./odpRepositoryUtils')
-
-const saveDraft = async (client, countryIso, user, draft) => {
-  const odpId = draft.odpId
-    ? draft.odpId
-    : await createOdp(client, countryIso, user)
-
+const saveDraft = async (client: any, countryIso: any, user: any, draft: any) => {
+  const odpId = draft.odpId ? draft.odpId : await createOdp(client, countryIso, user)
   return await updateOrInsertDraft(client, user, odpId, countryIso, draft)
 }
-
-const deleteDraft = async (client, odpId, user) => {
+const deleteDraft = async (client: any, odpId: any, user: any) => {
   const countryIso = await getAndCheckOdpCountryId(client, odpId, user)
   const actualRes = await client.query('SELECT actual_id FROM odp WHERE id = $1', [odpId])
   const actualId = actualRes.rows[0].actual_id
-
   if (actualId) {
     await client.query('UPDATE odp SET draft_id = null WHERE id = $1', [odpId])
     const odpVersionId = await getOdpVersionId(client, odpId)
     const odpClasses = await getOdpNationalClasses(client, odpVersionId)
     return await wipeNationalClassIssues(client, odpId, countryIso, odpClasses)
-  } else {
-    return await deleteOdp(client, odpId, user)
   }
-}
 
-const createOdp = async (client, countryIso, user) => {
+  return await deleteOdp(client, odpId, user)
+}
+const createOdp = async (client: any, countryIso: any, user: any) => {
   await client.query('INSERT INTO odp (country_iso ) VALUES ($1)', [countryIso])
   const resSelectId = await client.query('SELECT last_value FROM odp_id_seq')
   const odpId = resSelectId.rows[0].last_value
-
-  await insertAudit(client, user.id, 'createOdp', countryIso, 'odp', {odpId})
+  await insertAudit(client, user.id, 'createOdp', countryIso, 'odp', { odpId })
   return odpId
 }
-
-const markAsActual = async (client, odpId, user) => {
+const markAsActual = async (client: any, odpId: any, user: any) => {
   const currentOdpPromise = client.query('SELECT actual_id, draft_id FROM odp WHERE id = $1', [odpId])
   const checkCountryAccessPromise = getAndCheckOdpCountryId(client, odpId, user)
-  const updateOdpPromise = client.query('UPDATE odp SET actual_id = draft_id, draft_id = null WHERE id = $1 AND draft_id IS NOT NULL', [odpId])
-
-  const {oldActualId, countryIso} = await Promise.join(
-    currentOdpPromise, checkCountryAccessPromise, updateOdpPromise,
-    (oldActualResult, countryIso) => {
+  const updateOdpPromise = client.query(
+    'UPDATE odp SET actual_id = draft_id, draft_id = null WHERE id = $1 AND draft_id IS NOT NULL',
+    [odpId]
+  )
+  const { oldActualId, countryIso } = await (Promise as any).join(
+    currentOdpPromise,
+    checkCountryAccessPromise,
+    updateOdpPromise,
+    (oldActualResult: any, countryIso: any) => {
       if (oldActualResult.rowCount > 0 && oldActualResult.rows[0].draft_id) {
-        return ({oldActualId: oldActualResult.rows[0].actual_id, countryIso})
+        return { oldActualId: oldActualResult.rows[0].actual_id, countryIso }
       }
-      return ({countryIso})
-    })
-
-  await insertAudit(client, user.id, 'markAsActual', countryIso, 'odp', {odpId})
-
+      return { countryIso }
+    }
+  )
+  await insertAudit(client, user.id, 'markAsActual', countryIso, 'odp', { odpId })
   if (oldActualId) {
     return await Promise.all([
       wipeClassData(client, oldActualId),
-      client.query('DELETE FROM odp_version WHERE id = $1', [oldActualId])
+      client.query('DELETE FROM odp_version WHERE id = $1', [oldActualId]),
     ])
   }
   return null
 }
-
-const getAndCheckOdpCountryId = async (client, odpId, user) => {
+const getAndCheckOdpCountryId = async (client: any, odpId: any, user: any) => {
   const res = await client.query('SELECT country_iso FROM odp WHERE id = $1', [odpId])
   const countryIso = res.rows[0].country_iso
   checkCountryAccess(countryIso, user)
-
   return countryIso
 }
-
-const deleteOdp = async (client, odpId, user) => {
+const deleteOdp = async (client: any, odpId: any, user: any) => {
   const countryIso = await getAndCheckOdpCountryId(client, odpId, user)
-
   const odpVersionId = await getOdpVersionId(client, odpId)
-
   await client.query('DELETE FROM odp WHERE id = $1', [odpId])
-
   return await Promise.all([
-    wipeClassData(client, odpVersionId)
-      .then(() => client.query('DELETE FROM odp_version WHERE id = $1', [odpVersionId]))
-    , deleteIssues(client, countryIso, 'odp', 0, odpId)
-    , insertAudit(client, user.id, 'deleteOdp', countryIso, 'odp', {odpId})
+    wipeClassData(client, odpVersionId).then(() =>
+      client.query('DELETE FROM odp_version WHERE id = $1', [odpVersionId])
+    ),
+    deleteIssues(client, countryIso, 'odp', 0, odpId),
+    insertAudit(client, user.id, 'deleteOdp', countryIso, 'odp', { odpId }),
   ])
-
 }
-
-const getOdpVersionId = async (client, odpId, schemaName = 'public') => {
+const getOdpVersionId = async (client: any, odpId: any, schemaName = 'public') => {
   const tableName = `${schemaName}.odp`
-  
-  const res = await client.query(`
+  const res = await client.query(
+    `
     SELECT
       CASE WHEN draft_id IS NULL
         THEN actual_id
         ELSE draft_id
       END AS version_id
     FROM ${tableName}
-    WHERE id = $1`
-    , [odpId])
-
+    WHERE id = $1`,
+    [odpId]
+  )
   return res.rows[0].version_id
 }
-
-const getOdp = async (odpId, schemaName = 'public') => {
+const getOdp = async (odpId: any, schemaName = 'public') => {
   const versionId = await getOdpVersionId(db, odpId, schemaName)
   const tableNameOdp = `${schemaName}.odp`
   const tableNameOdpVersion = `${schemaName}.odp_version`
-
   const nationalClasses = await getOdpNationalClasses(db, versionId, schemaName)
-
   const resEditStatus = await db.query(
     `SELECT
           p.id AS odp_id,
@@ -137,19 +128,19 @@ const getOdp = async (odpId, schemaName = 'public') => {
         JOIN ${tableNameOdpVersion} v
         ON v.id = $2
         WHERE p.id = $1
-        `, [odpId, versionId])
+        `,
+    [odpId, versionId]
+  )
   const editStatus = camelize(resEditStatus.rows[0])
-
   const dataSourceMethods = R.path(['dataSourceMethods', 'methods'], editStatus)
-  return {...editStatus, nationalClasses, dataSourceMethods}
+  return { ...editStatus, nationalClasses, dataSourceMethods }
 }
-
-const readEofOdps = async (countryIso, schemaName = 'public') => {
+const readEofOdps = async (countryIso: any, schemaName = 'public') => {
   const tableNameOdp = `${schemaName}.odp`
   const tableNameOdpVersion = `${schemaName}.odp_version`
   const tableNameOdpClass = `${schemaName}.odp_class`
-
-  const res = await db.query(`
+  const res = await db.query(
+    `
     SELECT
       p.id as odp_id,
       v.year,
@@ -171,18 +162,17 @@ const readEofOdps = async (countryIso, schemaName = 'public') => {
     LEFT OUTER JOIN ${tableNameOdpClass} c
       ON c.odp_version_id = v.id
     WHERE p.country_iso = $1 AND year IS NOT NULL
-    GROUP BY odp_id, v.year, v.data_source_methods, draft`
-    , [countryIso])
-
+    GROUP BY odp_id, v.year, v.data_source_methods, draft`,
+    [countryIso]
+  )
   return R.reduce(eofReducer, [], res.rows)
 }
-
-const readFocOdps = async (countryIso, schemaName = 'public') => {
+const readFocOdps = async (countryIso: any, schemaName = 'public') => {
   const tableNameOdp = `${schemaName}.odp`
   const tableNameOdpVersion = `${schemaName}.odp_version`
   const tableNameOdpClass = `${schemaName}.odp_class`
-
-  const res = await db.query(`
+  const res = await db.query(
+    `
     SELECT
       p.id as odp_id,
       v.year,
@@ -206,42 +196,36 @@ const readFocOdps = async (countryIso, schemaName = 'public') => {
     LEFT OUTER JOIN ${tableNameOdpClass} c
       ON c.odp_version_id = v.id
     WHERE p.country_iso = $1 AND year IS NOT NULL
-    GROUP BY odp_id, v.year, v.data_source_methods, draft`
-    , [countryIso])
-
+    GROUP BY odp_id, v.year, v.data_source_methods, draft`,
+    [countryIso]
+  )
   return R.reduce(focReducer, [], res.rows)
 }
-
-const listOriginalDataPoints = async (countryIso, schemaName = 'public') => {
+const listOriginalDataPoints = async (countryIso: any, schemaName = 'public') => {
   const tableName = `${schemaName}.odp`
-  const res = await db.query(`
+  const res = await db.query(
+    `
     SELECT p.id as odp_id
     FROM ${tableName} p
     WHERE country_iso = $1
-  `, [countryIso])
-  const odps = await Promise.all(res.rows.map(r => getOdp(r.odp_id, schemaName)))
-
-  return R.pipe(
-    R.sortBy(R.prop('year')),
-    // R.reverse
-  )(R.values(odps))
+  `,
+    [countryIso]
+  )
+  const odps = await Promise.all(res.rows.map((r: any) => getOdp(r.odp_id, schemaName)))
+  return R.pipe(R.sortBy(R.prop('year')))(R.values(odps))
 }
-
-const listAndValidateOriginalDataPoints = async countryIso => {
+const listAndValidateOriginalDataPoints = async (countryIso: any) => {
   const odps = await listOriginalDataPoints(countryIso)
-  return R.map(odp => R.assoc('validationStatus', validateDataPoint(odp), odp), odps)
+  return R.map((odp: any) => R.assoc('validationStatus', validateDataPoint(odp), odp), odps)
 }
-
 module.exports = {
   saveDraft,
   deleteDraft,
-
   getOdp,
   markAsActual,
   deleteOdp,
-
   readEofOdps,
   readFocOdps,
   listOriginalDataPoints,
-  listAndValidateOriginalDataPoints
+  listAndValidateOriginalDataPoints,
 }

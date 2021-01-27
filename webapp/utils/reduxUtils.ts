@@ -1,11 +1,10 @@
-export const applyReducerFunction = (actionHandlers, state, action) => {
+export const applyReducerFunction = (actionHandlers: any, state: any, action: any) => {
   const actionHandler = actionHandlers[action.type]
 
-  if (actionHandler)
-    return actionHandler(state, action)
+  if (actionHandler) return actionHandler(state, action)
 
   return state
 }
 
-export const exportReducer = actionHandlers =>
-  (state = {}, action) => applyReducerFunction(actionHandlers, state, action)
+export const exportReducer = (actionHandlers: any) => (state = {}, action: any) =>
+  applyReducerFunction(actionHandlers, state, action)

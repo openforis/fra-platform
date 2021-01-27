@@ -1,10 +1,10 @@
 import './editUserForm.less'
-
 import React from 'react'
 import { connect } from 'react-redux'
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as Fra from '@common/assessment/fra'
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
-
 import {
   isAdministrator,
   isNationalCorrespondent,
@@ -13,60 +13,53 @@ import {
   nationalCorrespondent,
   alternateNationalCorrespondent,
   collaborator,
+  // @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 } from '@common/countryRole'
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { i18nUserRole, validate, profilePictureUri } from '@common/userUtils'
-
 import TextInput from '@webapp/components/textInput'
-
 import * as AppState from '@webapp/store/app/state'
 import { UserState } from '@webapp/store/user'
-
 import { loadUserToEdit, persistUser } from '../actions'
 import CountrySelectionModal from './countrySelectionModal'
 
-class EditUserForm extends React.Component {
-  constructor(props) {
+type EditUserFormState = any
+class EditUserForm extends React.Component<{}, EditUserFormState> {
+  constructor(props: {}) {
     super(props)
-
     this.state = { user: null }
   }
 
   componentDidMount() {
-    this.props.loadUserToEdit(this.props.userId)
+    ;(this.props as any).loadUserToEdit((this.props as any).userId)
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.props.userId !== prevProps.userId || this.props.countryIso !== prevProps.countryIso) {
-      this.props.loadUserToEdit(this.props.userId)
+  componentDidUpdate(prevProps: {}, prevState: EditUserFormState) {
+    if (
+      (this.props as any).userId !== (prevProps as any).userId ||
+      (this.props as any).countryIso !== (prevProps as any).countryIso
+    ) {
+      ;(this.props as any).loadUserToEdit((this.props as any).userId)
     }
-
     if (R.path(['user', 'id'], this.state) !== R.path(['user', 'id'], this.props)) {
-      this.setState({ user: this.props.user })
+      this.setState({ user: (this.props as any).user })
     }
   }
 
   render() {
     const defaultOnCancel = () => window.history.back()
-
-    const {
-      i18n,
-      userInfo,
-      countryIso,
-      countries,
-      persistUser,
-      onCancel = defaultOnCancel,
-    } = this.props
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'i18n' does not exist on type 'Readonly<{... Remove this comment to see the full error message
+    const { i18n, userInfo, countryIso, countries, persistUser, onCancel = defaultOnCancel } = this.props
     const { user, validation } = this.state
-
-    const hasValidProp = (prop) => R.pipe(R.path([prop, 'valid']), R.defaultTo(true))(validation)
-
-    const validateUser = (state) => R.assoc('validation', validate(R.prop('user', state)), state)
-
-    const toggleCountryRole = (countryIso, role) => {
+    const hasValidProp = (prop: any) => R.pipe(R.path([prop, 'valid']), R.defaultTo(true))(validation)
+    const validateUser = (state: any) => R.assoc('validation', validate(R.prop('user', state)), state)
+    const toggleCountryRole = (countryIso: any, role: any) => {
       const userRolesPath = ['user', 'roles']
       const userRoles = R.path(userRolesPath, this.state)
-      const idx = R.findIndex((userRole) => userRole.countryIso === countryIso && userRole.role === role, userRoles)
-
+      const idx = R.findIndex(
+        (userRole: any) => userRole.countryIso === countryIso && userRole.role === role,
+        userRoles
+      )
       const newUserRoles =
         idx >= 0
           ? R.remove(idx, 1, userRoles)
@@ -74,10 +67,8 @@ class EditUserForm extends React.Component {
           role === administrator.role
           ? [{ countryIso: null, role }]
           : R.insert(userRoles.length, { countryIso, role }, userRoles)
-
       this.setState(R.pipe(R.assocPath(userRolesPath, newUserRoles), validateUser)(this.state))
     }
-
     // only administrator can change user roles
     const canEditRoles = isAdministrator(userInfo)
     // properties used to render ui form fields
@@ -89,11 +80,10 @@ class EditUserForm extends React.Component {
       { key: 'institution' },
       { key: 'position' },
     ]
-
     return user ? (
       <div className="edit-user__form-container">
         <div className={`edit-user__form-item-picture${hasValidProp('profilePicture') ? '' : ' error'}`}>
-          <div className="edit-user__form-label"></div>
+          <div className="edit-user__form-label" />
           <div className="edit-user__form-field validation-error-sensitive-field">
             <input
               ref="profilePictureFile"
@@ -103,21 +93,20 @@ class EditUserForm extends React.Component {
               onChange={() => {
                 this.setState(
                   R.pipe(
-                    R.assocPath(['user', 'profilePicture'], this.refs.profilePictureFile.files[0]),
+                    R.assocPath(['user', 'profilePicture'], (this.refs.profilePictureFile as any).files[0]),
                     validateUser
                   )(this.state)
                 )
-
-                //preview image
+                // preview image
                 const reader = new FileReader()
-                reader.onload = (e) => (this.refs.profilePicture.src = e.target.result)
-                reader.readAsDataURL(this.refs.profilePictureFile.files[0])
+                reader.onload = (e) => ((this.refs.profilePicture as any).src = e.target.result)
+                reader.readAsDataURL((this.refs.profilePictureFile as any).files[0])
               }}
             />
             <img ref="profilePicture" src={profilePictureUri(user.id)} className="edit-user__picture-img" />
             <button
               className="btn btn-primary btn-xs"
-              onClick={() => this.refs.profilePictureFile.dispatchEvent(new MouseEvent('click'))}
+              onClick={() => (this.refs.profilePictureFile as any).dispatchEvent(new MouseEvent('click'))}
             >
               {i18n.t('editUser.chooseProfilePicture')}
             </button>
@@ -130,7 +119,6 @@ class EditUserForm extends React.Component {
         {textInputFields.map((inputField) => {
           const disabled = inputField.disabled === true || (inputField.onlyAdmin ? !isAdministrator(userInfo) : false)
           const allowed = !inputField.type || inputField.type === user.type
-
           return allowed ? (
             <div className="edit-user__form-item" key={inputField.key}>
               <div className="edit-user__form-label">{i18n.t(`editUser.${inputField.key}`)}</div>
@@ -140,8 +128,9 @@ class EditUserForm extends React.Component {
                 }`}
               >
                 <TextInput
+                  // @ts-expect-error ts-migrate(2322) FIXME: Type '{ value: any; onChange: (evt: any) => void; ... Remove this comment to see the full error message
                   value={R.prop(inputField.key, user)}
-                  onChange={(evt) => {
+                  onChange={(evt: any) => {
                     // this.setState({user: R.assoc(inputField.key, evt.target.value, user)})
                     this.setState(
                       R.pipe(R.assocPath(['user', inputField.key], evt.target.value), validateUser)(this.state)
@@ -185,7 +174,7 @@ class EditUserForm extends React.Component {
                   </div>
 
                   <div className="edit-user__form-field-role-countries">
-                    {R.filter((userRole) => userRole.role === role, user.roles).map((userRole) => (
+                    {R.filter((userRole: any) => userRole.role === role, user.roles).map((userRole: any) => (
                       <div key={userRole.countryIso} className="edit-user__form-field-country-box">
                         {i18n.t(`area.${userRole.countryIso}.listName`)}
                       </div>
@@ -197,11 +186,11 @@ class EditUserForm extends React.Component {
                       countries={countries}
                       headerLabel={i18nUserRole(i18n, role)}
                       selection={R.pipe(
-                        R.filter((userRole) => userRole.role === role),
+                        R.filter((userRole: any) => userRole.role === role),
                         R.map(R.prop('countryIso'))
                       )(user.roles)}
                       unselectableCountries={R.pipe(
-                        R.filter((userRole) => userRole.role !== role),
+                        R.filter((userRole: any) => userRole.role !== role),
                         R.map(R.prop('countryIso'))
                       )(user.roles)}
                       onClose={() => this.setState(R.dissocPath(['editingRole', role], this.state))}
@@ -232,7 +221,7 @@ class EditUserForm extends React.Component {
         ) : null}
 
         <div className="edit-user__form-item-buttons">
-          <div className="edit-user__form-label"></div>
+          <div className="edit-user__form-label" />
           <div className="edit-user__form-field-buttons">
             <button type="button" className="btn btn-secondary" onClick={onCancel}>
               {i18n.t('editUser.cancel')}
@@ -252,8 +241,7 @@ class EditUserForm extends React.Component {
     ) : null
   }
 }
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   i18n: AppState.getI18n(state),
   countryIso: AppState.getCountryIso(state),
   userInfo: UserState.getUserInfo(state),
@@ -263,5 +251,4 @@ const mapStateToProps = (state) => ({
     ? R.pipe(UserState.getUserAssesmentRoles(Fra.type), R.prop(administrator.role))(state)
     : null,
 })
-
 export default connect(mapStateToProps, { loadUserToEdit, persistUser })(EditUserForm)

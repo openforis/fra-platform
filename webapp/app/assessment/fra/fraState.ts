@@ -1,7 +1,10 @@
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { isCollaborator } from '@common/countryRole'
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { isCollaboratorAllowedToEditSectionData } from '@common/assessmentRoleAllowance'
 import { isPrintingMode } from '@webapp/pages/AssessmentPrint/printAssessment'
 
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as Assessment from '@common/assessment/assessment'
 
 import * as AppState from '@webapp/store/app/state'
@@ -13,29 +16,28 @@ const getAssessment = CountryState.getAssessmentFra2020
 
 // ====== Lock methods
 
-export const isLocked = state => AssessmentState.isLocked(getAssessment(state))(state)
+export const isLocked = (state: any) => AssessmentState.isLocked(getAssessment(state))(state)
 
 // ====== Edit allowance methods
 
-const canEditSection = (section = 'all') => state => {
+const canEditSection = (section = 'all') => (state: any) => {
   const locked = isLocked(state)
 
   if (locked) {
     return false
-  } else {
-    const userInfo = UserState.getUserInfo(state)
-    const countryIso = AppState.getCountryIso(state)
+  }
+  const userInfo = UserState.getUserInfo(state)
+  const countryIso = AppState.getCountryIso(state)
 
-    // if user is collaborator, he could have restricted access to specific tables
-    if (isCollaborator(countryIso, userInfo)) {
-      const assessment = getAssessment(state)
-      const allowedTables = Assessment.getTablesAccess(assessment)
-      return isCollaboratorAllowedToEditSectionData(section, allowedTables)
-    }
-
-    return true
+  // if user is collaborator, he could have restricted access to specific tables
+  if (isCollaborator(countryIso, userInfo)) {
+    const assessment = getAssessment(state)
+    const allowedTables = Assessment.getTablesAccess(assessment)
+    return isCollaboratorAllowedToEditSectionData(section, allowedTables)
   }
 
+  return true
 }
 
-export const isSectionEditDisabled = section => state => isPrintingMode() || !canEditSection(section)(state)
+export const isSectionEditDisabled = (section: any) => (state: any) =>
+  isPrintingMode() || !canEditSection(section)(state)

@@ -130,5 +130,5 @@ module.exports = {
   '7b_tech_male': '',
   '7b_total_tot': '',
   '7b_total_fem': '',
-  '7b_total_male': ''
+  '7b_total_male': '',
 }

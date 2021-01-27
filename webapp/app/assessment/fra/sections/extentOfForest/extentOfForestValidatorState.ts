@@ -1,11 +1,13 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as NumberUtils from '@common/bignumberUtils'
 
 import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestState'
 
 // ==== Datum validator functions
 
-const forestAreaComparedTo2015Validator = (datum) => (state) => {
+const forestAreaComparedTo2015Validator = (datum: any) => (state: any) => {
   const { name: year, forestArea } = datum
   const forestArea2015 = ExtentOfForestState.getForestArea2015Value(year)(state)
 
@@ -18,7 +20,7 @@ const forestAreaComparedTo2015Validator = (datum) => (state) => {
   return NumberUtils.lessThanOrEqualTo(absDifference, tolerance)
 }
 
-export const areasNotExceedingTotalLandAreaValidator = (datum) => (state) => {
+export const areasNotExceedingTotalLandAreaValidator = (datum: any) => (state: any) => {
   const otherLand = ExtentOfForestState.getOtherLand(datum)(state)
   const faoStatArea = ExtentOfForestState.getFaoStatArea(datum)(state)
 
@@ -28,7 +30,7 @@ export const areasNotExceedingTotalLandAreaValidator = (datum) => (state) => {
   return NumberUtils.greaterThanOrEqualTo(otherLand, 0)
 }
 
-export const forestAreaValidator = (datum) => (state) => {
+export const forestAreaValidator = (datum: any) => (state: any) => {
   const { type } = datum
   const forestArea = ExtentOfForestState.getForest(datum)()
 
@@ -39,7 +41,7 @@ export const forestAreaValidator = (datum) => (state) => {
   return comparedTo2015Area && areasNotExceedingTotalLandArea && hasValue
 }
 
-export const otherWoodedLandValidator = (datum) => (state) => {
+export const otherWoodedLandValidator = (datum: any) => (state: any) => {
   const { otherWoodedLand, type } = datum
 
   const areasNotExceedingTotalLandArea = areasNotExceedingTotalLandAreaValidator(datum)(state)
@@ -50,7 +52,7 @@ export const otherWoodedLandValidator = (datum) => (state) => {
 
 // ==== Common validator
 
-export const lessThanOrEqualToForestValidator = (year, value) => (state) => {
+export const lessThanOrEqualToForestValidator = (year: any, value: any) => (state: any) => {
   const forest = ExtentOfForestState.getForestByYear(year)(state)
 
   if (R.isNil(value) || R.isNil(forest)) {
@@ -61,8 +63,8 @@ export const lessThanOrEqualToForestValidator = (year, value) => (state) => {
 
 // ==== Validation messages
 
-export const getValidationMessages = (data) => (state) =>
-  data.map((datum) => {
+export const getValidationMessages = (data: any) => (state: any) =>
+  data.map((datum: any) => {
     const { type, forestArea, name: year } = datum
     const messages = []
 

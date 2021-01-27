@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
@@ -8,7 +8,7 @@ import { useI18n } from '@webapp/components/hooks'
 
 const isOptionHeader = R.propEq(SectionSpec.TYPE, SectionSpec.TYPES.header)
 
-const getOptionLabel = (option, i18n, optionsLabelKeyPrefix) => {
+const getOptionLabel = (option: any, i18n: any, optionsLabelKeyPrefix: any) => {
   const optionName = option[SectionSpec.KEYS_COL.optionName]
   const label = i18n.t(`${optionsLabelKeyPrefix}.${optionName}`)
   return isOptionHeader(option) ? `--- ${label} ---` : label
@@ -16,7 +16,19 @@ const getOptionLabel = (option, i18n, optionsLabelKeyPrefix) => {
 
 const optionNotSelected = { [SectionSpec.KEYS_COL.optionName]: 'notSelected', hidden: true }
 
-const Select = (props) => {
+type OwnProps = {
+  col: any
+  disabled: boolean
+  datum?: any
+  onChange: (...args: any[]) => any
+  onPaste: (...args: any[]) => any
+}
+
+// @ts-expect-error ts-migrate(2456) FIXME: Type alias 'Props' circularly references itself.
+type Props = OwnProps & typeof Select.defaultProps
+
+// @ts-expect-error ts-migrate(7022) FIXME: 'Select' implicitly has type 'any' because it does... Remove this comment to see the full error message
+const Select = (props: Props) => {
   const { onChange, onPaste, col, datum, disabled } = props
   const { options, optionsLabelKeyPrefix } = col
   const optionSelected = options.find(R.propEq(SectionSpec.KEYS_COL.optionName, datum))
@@ -57,14 +69,6 @@ const Select = (props) => {
       </div>
     </div>
   )
-}
-
-Select.propTypes = {
-  col: PropTypes.object.isRequired,
-  disabled: PropTypes.bool.isRequired,
-  datum: PropTypes.any,
-  onChange: PropTypes.func.isRequired,
-  onPaste: PropTypes.func.isRequired,
 }
 
 Select.defaultProps = {

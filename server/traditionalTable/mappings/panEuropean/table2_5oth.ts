@@ -3,9 +3,7 @@ module.exports = {
   schemaName: 'pan_european',
   section: 'panEuropean_2_5_oth',
   rows: {
-    names: [
-      'area_primarily_degraded_by',
-    ],
+    names: ['area_primarily_degraded_by'],
   },
   columns: [
     { name: 'other_1', type: 'text' },

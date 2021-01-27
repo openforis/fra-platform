@@ -1,12 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux'
 
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as FRA from '@common/assessment/fra'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import { TableSpec, ColSpec } from '@webapp/app/assessment/components/section/sectionSpec'
 import { persistTableData } from '../../../../actions'
 import * as Sanitizer from '../cell/sanitizer'
 
-export default (props) => {
+export default (props: any) => {
   const { assessmentType, sectionName, tableSpec, variableName, data: tableData, datum } = props
   const tableName = TableSpec.getName(tableSpec)
   const updateTableDataCell = TableSpec.getUpdateTableDataCell(tableSpec)
@@ -18,8 +19,9 @@ export default (props) => {
   const state = useSelector((_state) => _state)
   const sectionData = AssessmentState.getSectionData(assessmentType, sectionName, tableName)(state)
 
-  const _updateSectionData = (data, datumToUpdate, variable, value) => {
+  const _updateSectionData = (data: any, datumToUpdate: any, variable: any, value: any) => {
     const valuePrev = datumToUpdate[variable]
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
     const valueSanitized = Sanitizer.sanitize(type, value, valuePrev)
     const valueUpdate = valueSanitized && String(valueSanitized)
     const datumUpdate = { ...datumToUpdate, [variable]: valueUpdate, [`${variable}Estimated`]: false }
@@ -29,19 +31,19 @@ export default (props) => {
     }
   }
 
-  const _persistSanitizedValue = (value) => {
+  const _persistSanitizedValue = (value: any) => {
     if (Sanitizer.isAcceptable(type, value)) {
       const update = _updateSectionData(sectionData, datum, variableName, value)
       dispatch(persistTableData({ assessmentType, sectionName, tableName, data: update.data, datum: update.datum }))
     }
   }
 
-  const onChange = (event) => {
+  const onChange = (event: any) => {
     const { value } = event.target
     _persistSanitizedValue(value)
   }
 
-  const onPaste = (event) => {
+  const onPaste = (event: any) => {
     event.stopPropagation()
     event.preventDefault()
 
@@ -55,7 +57,7 @@ export default (props) => {
       let dataUpdate = { ...sectionData } // create a copy of section data (e,g, {fra:[], fraNoNDPs:[]}
       const datumToUpdateByKey = {} // keep a reference to updated datum
       const rowIdx = odpVariables.findIndex((v) => v === variableName) // rowIdx is index of variable passed to props
-      const colIdx = FRA.years.findIndex((y) => y === Number(datum.name) || y === Number(datum.year)) // colIdx is the index of variable fra year
+      const colIdx = FRA.years.findIndex((y: any) => y === Number(datum.name) || y === Number(datum.year)) // colIdx is the index of variable fra year
 
       for (let i = 0; i < rows.length; i += 1) {
         const rowIdxCurrent = i + rowIdx
@@ -72,9 +74,10 @@ export default (props) => {
           if (Sanitizer.isAcceptable(type, valueUpdate)) {
             // get current datum from cached values if there is otherwise from tableData prop
             const yearCurrentString = String(yearCurrent)
+            // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
             let datumToUpdate = datumToUpdateByKey[yearCurrentString]
             if (!datumToUpdate) {
-              datumToUpdate = tableData.find((d) => {
+              datumToUpdate = tableData.find((d: any) => {
                 return d[datumKey] === yearCurrentString
               })
             }
@@ -83,6 +86,7 @@ export default (props) => {
             if (datumToUpdate.type !== 'odp') {
               const update = _updateSectionData(dataUpdate, datumToUpdate, variableCurrent, valueUpdate)
               dataUpdate = update.data
+              // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
               datumToUpdateByKey[yearCurrentString] = update.datum
             }
           }

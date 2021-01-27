@@ -4,7 +4,7 @@ import { getUrlParameter } from '@webapp/utils/urlUtils'
 export const loginInitLoaded = 'login/init/loaded'
 export const loginUserPropChanged = 'login/userProp/changed'
 
-export const initLogin = () => (dispatch) => {
+export const initLogin = () => (dispatch: any) => {
   const defaultUser = { type: 'google', email: '', password: '' }
 
   const invitationUUID = getUrlParameter('i')
@@ -22,7 +22,7 @@ export const initLogin = () => (dispatch) => {
   }
 }
 
-export const loginUserPropChange = (prop, value) => (dispatch) => {
+export const loginUserPropChange = (prop: any, value: any) => (dispatch: any) => {
   dispatch({ type: loginUserPropChanged, prop, value })
 }
 
@@ -31,13 +31,13 @@ export const loginUserPropChange = (prop, value) => (dispatch) => {
 export const localLoginResponseLoaded = 'localLogin/response/loaded'
 export const localLoginResetPasswordResponseLoaded = 'localLogin/resetPassword/ResponseLoaded'
 
-export const localLoginReset = () => (dispatch) => dispatch({ type: localLoginResponseLoaded, message: null })
+export const localLoginReset = () => (dispatch: any) => dispatch({ type: localLoginResponseLoaded, message: null })
 
-export const localLoginSubmit = (user, invitationUUID) => (dispatch) => {
+export const localLoginSubmit = (user: any, invitationUUID: any) => (dispatch: any) => {
   axios
     .post('/auth/local/login', { invitationUUID, ...user })
     .then((resp) => {
-      const data = resp.data
+      const { data } = resp
       if (data.redirectUrl) {
         window.location = data.redirectUrl
       } else if (data.message) {
@@ -47,14 +47,14 @@ export const localLoginSubmit = (user, invitationUUID) => (dispatch) => {
     .catch((error) => dispatch({ type: localLoginResponseLoaded, message: error }))
 }
 
-export const resetPasswordFormReset = () => (dispatch) =>
+export const resetPasswordFormReset = () => (dispatch: any) =>
   dispatch({ type: localLoginResetPasswordResponseLoaded, message: null, error: null })
 
-export const resetPassword = (email) => (dispatch) => {
+export const resetPassword = (email: any) => (dispatch: any) => {
   axios
     .post('/auth/local/resetPassword', { email })
     .then((resp) => {
-      const data = resp.data
+      const { data } = resp
 
       dispatch({ type: localLoginResetPasswordResponseLoaded, ...data })
     })
@@ -66,7 +66,7 @@ export const resetPassword = (email) => (dispatch) => {
 export const resetPasswordLoaded = 'resetPassword/loaded'
 export const changePasswordResponseLoaded = 'changePassword/response/loaded'
 
-export const findResetPassword = (uuid) => (dispatch) => {
+export const findResetPassword = (uuid: any) => (dispatch: any) => {
   axios
     .get(`/auth/local/resetPassword/${uuid}`)
     .then((resp) => {
@@ -75,7 +75,7 @@ export const findResetPassword = (uuid) => (dispatch) => {
     .catch((error) => dispatch({ type: resetPasswordLoaded, status: 'error' }))
 }
 
-export const changePassword = (uuid, userId, password, password2) => (dispatch) => {
+export const changePassword = (uuid: any, userId: any, password: any, password2: any) => (dispatch: any) => {
   axios
     .post(`/auth/local/changePassword`, { uuid, userId, password, password2 })
     .then((resp) => {

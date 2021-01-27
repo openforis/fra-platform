@@ -1,3 +1,4 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
@@ -39,6 +40,7 @@ export const KEYS_TABLE_PRINT = {
   pageBreakAfter: 'pageBreakAfter',
 }
 
+// @ts-expect-error ts-migrate(7005) FIXME: Variable 'tableDefault' implicitly has an '{ [x: s... Remove this comment to see the full error message
 const tableDefault = {
   [KEYS_TABLE.name]: '',
   [KEYS_TABLE.rows]: [],
@@ -58,11 +60,11 @@ const tableDefault = {
   [KEYS_TABLE.columnsExportAlways]: [],
 }
 
-const assocRows = (tableSpec) => {
+const assocRows = (tableSpec: any) => {
   let idxHeader = -1
   let idxData = -1
 
-  const rows = tableSpec[KEYS_TABLE.rows].map((row) => {
+  const rows = tableSpec[KEYS_TABLE.rows].map((row: any) => {
     const header = row.type === 'header'
     idxHeader += header ? 1 : 0
     idxData += header ? 0 : 1
@@ -89,7 +91,7 @@ export const isOdp = R.propEq(KEYS_TABLE.odp, true)
 export const isSecondary = R.propEq(KEYS_TABLE.secondary, true)
 export const getRowsExport = R.pipe(
   getRowsData,
-  R.filter((row) => !!row[KEYS_ROW.variableExport])
+  R.filter((row: any) => !!row[KEYS_ROW.variableExport])
 )
 export const getColumnsExport = R.prop(KEYS_TABLE.columnsExport)
 export const getColumnsExportAlways = R.prop(KEYS_TABLE.columnsExportAlways)

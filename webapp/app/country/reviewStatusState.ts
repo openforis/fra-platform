@@ -2,6 +2,7 @@
  * This is a sub state of CountryState
  */
 
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
 import * as CountryState from '@webapp/app/country/countryState'
@@ -19,13 +20,14 @@ export const keysIssueStatus = {
 
 const defaultSectionStatus = { [keys.issuesCount]: 0 }
 
-export const getStatusSection = (name) => R.pipe(CountryState.getReviewStatus, R.propOr(defaultSectionStatus, name))
+export const getStatusSection = (name: any) =>
+  R.pipe(CountryState.getReviewStatus, R.propOr(defaultSectionStatus, name))
 
-export const getStatusSectionChildren = (section) => (state) =>
+export const getStatusSectionChildren = (section: any) => (state: any) =>
   R.pipe(
     R.propOr({}, 'children'),
     R.values,
-    R.reduce((statuses, child) => {
+    R.reduce((statuses: any, child: any) => {
       const status = getStatusSection(child.name)(state)
       const issuesCount = R.prop(keys.issuesCount)(status)
       const issueStatus = R.prop(keys.issueStatus)(status)

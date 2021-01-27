@@ -2,7 +2,7 @@ import { matchPath, useLocation } from 'react-router'
 
 import * as BasePaths from '@webapp/main/basePaths'
 
-const useIsPath = ({ path, exact = true }) => {
+const useIsPath = ({ path, exact = true }: any) => {
   const { pathname } = useLocation()
   return Boolean(matchPath(pathname, { path, exact }))
 }

@@ -1,5 +1,7 @@
-const db = require('../db/db')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'camelize'.
 const camelize = require('camelize')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
+const db = require('../db/db')
 
 /*
   Possible status for version
@@ -9,6 +11,7 @@ const camelize = require('camelize')
   'failed'
 */
 
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getAllVers... Remove this comment to see the full error message
 const getAllVersions = async () => {
   const result = await db.query(`
       SELECT v.id,
@@ -82,18 +85,22 @@ const getRunningVersions = async () => {
   return camelize(result.rows)
 }
 
-const updateVersionStatus = async (id, status) => {
-  await db.query(`
+const updateVersionStatus = async (id: any, status: any) => {
+  await db.query(
+    `
       UPDATE fra_version
       SET
         status = $2,
         updated_at = NOW()
       WHERE
         id = $1;
-  `, [id, status])
+  `,
+    [id, status]
+  )
 }
 
-const addVersion = async (userId, versionNumber, publishedAt) => {
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'addVersion... Remove this comment to see the full error message
+const addVersion = async (userId: any, versionNumber: any, publishedAt: any) => {
   const query = `
     INSERT INTO fra_version (created_by, version_number, status, published_at)
     VALUES ($1,
@@ -104,15 +111,18 @@ const addVersion = async (userId, versionNumber, publishedAt) => {
   await db.query(query, [userId, versionNumber, publishedAt])
 }
 
-const newSchemaVersion = async (to, from = 'public') => {
+const newSchemaVersion = async (to: any, from = 'public') => {
   if (!to) {
-    console.error(`
+    console.error(
+      `
       versioningRepository/newSchemaVersion: param @to not defined or null:
-    `, to)
+    `,
+      to
+    )
     return
   }
 
-  console.log(`Creating new schema version from ${from} to ${to.replace(/\./g, '_')}`);
+  console.log(`Creating new schema version from ${from} to ${to.replace(/\./g, '_')}`)
 
   const query = `
     SELECT clone_schema($1, $2);
@@ -121,7 +131,8 @@ const newSchemaVersion = async (to, from = 'public') => {
   await db.query(query, [from.replace(/\./g, '_'), to.replace(/\./g, '_')])
 }
 
-const deleteVersion = async (id) => {
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'deleteVers... Remove this comment to see the full error message
+const deleteVersion = async (id: any) => {
   try {
     const result = await getVersionById(id)
     const { versionNumber } = result[0]
@@ -140,14 +151,13 @@ const deleteVersion = async (id) => {
     // Delete the table entry from fra_version table
     const query2 = `DELETE FROM fra_version WHERE id = $1;`
     await db.query(query2, [id])
-
   } catch (error) {
     console.log(error)
   }
 }
 
 // Used to check if certain schema exists
-const getSchemaByName = async (name) => {
+const getSchemaByName = async (name: any) => {
   const query = `
     SELECT schema_name
     FROM information_schema.schemata
@@ -157,6 +167,7 @@ const getSchemaByName = async (name) => {
   return camelize(result.rows)
 }
 
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getLatestS... Remove this comment to see the full error message
 const getLatestSchemaVersion = async () => {
   const query = `
       SELECT s.schema_name
@@ -174,8 +185,9 @@ const getLatestSchemaVersion = async () => {
 }
 
 // Used to check if certain schema exists
-const getVersionById = async (id) => {
-  const result = await db.query(`
+const getVersionById = async (id: any) => {
+  const result = await db.query(
+    `
         SELECT 
           id,
           created_by,
@@ -186,7 +198,9 @@ const getVersionById = async (id) => {
           to_char(v.updated_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as updated_at
         FROM fra_version v
         WHERE id = $1
-    `, [id])
+    `,
+    [id]
+  )
   return camelize(result.rows)
 }
 

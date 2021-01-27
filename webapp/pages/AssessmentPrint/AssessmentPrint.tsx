@@ -2,6 +2,7 @@ import './style.less'
 
 import React, { memo } from 'react'
 
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as FRA from '@common/assessment/fra'
 
 import Loading from '@webapp/components/loading'
@@ -19,6 +20,7 @@ const AssessmentPrint = () => {
   const assessmentType = useAssessmentType()
   const countryStatusLoaded = useIsCountryStatusLoaded()
 
+  // @ts-expect-error ts-migrate(2538) FIXME: Type 'unknown' cannot be used as an index type.
   const Component = Components[assessmentType]
 
   if (!countryStatusLoaded) {

@@ -7,28 +7,25 @@ import './style.less'
 import * as AppState from '@webapp/store/app/state'
 import * as ApplicationErrorState from '@webapp/components/error/applicationErrorState'
 
-const ErrorBox = ({error, i18n, clearApplicationError}) =>
+const ErrorBox = ({ error, i18n, clearApplicationError }: any) => (
   <div className="alert-container">
     <div className="alert-error">
       <div className="alert-icon">
-        <Icon name="alert"/>
+        <Icon name="alert" />
       </div>
-      <div className="alert-message">{
-        error.key
-          ? i18n.t(error.key, error.values)
-          : error + ''
-      }</div>
+      <div className="alert-message">{error.key ? i18n.t(error.key, error.values) : `${error}`}</div>
       <div className="alert-dismiss" onClick={() => clearApplicationError()}>
-        <Icon name="remove"/>
+        <Icon name="remove" />
       </div>
     </div>
   </div>
+)
 
-const ErrorComponent = props => props.error ? <ErrorBox {...props}/> : null
+const ErrorComponent = (props: any) => (props.error ? <ErrorBox {...props} /> : null)
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: any) => ({
   error: ApplicationErrorState.getError(state),
   i18n: AppState.getI18n(state),
 })
 
-export default connect(mapStateToProps, {clearApplicationError})(ErrorComponent)
+export default connect(mapStateToProps, { clearApplicationError })(ErrorComponent)

@@ -1,10 +1,12 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { abs, add, eq, greaterThan, sub } from '@common/bignumberUtils'
 
 import * as GrowingStockState from '@webapp/app/assessment/fra/sections/growingStock/growingStockState'
 
-export const equalToTotalGrowingStockValidator = (year, value) => (state) => {
+export const equalToTotalGrowingStockValidator = (year: any, value: any) => (state: any) => {
   const totalForest = GrowingStockState.getTotalTableValue(year, GrowingStockState.variables.forest)(state)
 
   const tolerance = 1
@@ -14,10 +16,10 @@ export const equalToTotalGrowingStockValidator = (year, value) => (state) => {
   return R.isNil(value) || eq(totalForest, 0) || result
 }
 
-const subCategoryValidator = (parentVariable, childVariables) => (datum) => (state) => {
+const subCategoryValidator = (parentVariable: any, childVariables: any) => (datum: any) => (state: any) => {
   const { year } = datum
   const parentValue = GrowingStockState.getTotalTableValue(year, parentVariable)(state)
-  const childValues = childVariables.reduce((childValuesTotal, childVariable) => {
+  const childValues = childVariables.reduce((childValuesTotal: any, childVariable: any) => {
     const childValue = R.pipe(GrowingStockState.getTotalTableValue(year, childVariable), R.defaultTo(0))(state)
     return add(childValuesTotal, childValue)
   }, 0)
@@ -27,7 +29,7 @@ const subCategoryValidator = (parentVariable, childVariables) => (datum) => (sta
   return parentValue ? greaterThan(difference, tolerance) : true
 }
 
-const equalToTotalGrowingStockSubCategoryValidator = (datum) => (state) => {
+const equalToTotalGrowingStockSubCategoryValidator = (datum: any) => (state: any) => {
   const { year } = datum
 
   const plantedForest = GrowingStockState.getTotalTableValue(year, GrowingStockState.variables.plantedForest)(state)
@@ -47,7 +49,7 @@ const totalForestSubCategoryValidator = subCategoryValidator(GrowingStockState.v
   GrowingStockState.variables.naturallyRegeneratingForest,
 ])
 
-export const totalForestValidator = (datum) => (state) =>
+export const totalForestValidator = (datum: any) => (state: any) =>
   totalForestSubCategoryValidator(datum)(state) && equalToTotalGrowingStockSubCategoryValidator(datum)(state)
 
 export const totalPlantedForestValidator = subCategoryValidator(GrowingStockState.variables.plantedForest, [
@@ -57,8 +59,8 @@ export const totalPlantedForestValidator = subCategoryValidator(GrowingStockStat
 
 // ==== Validation messages
 
-export const getValidationMessages = (data) => (state) =>
-  data.map((datum) => {
+export const getValidationMessages = (data: any) => (state: any) =>
+  data.map((datum: any) => {
     const messages = []
 
     if (!equalToTotalGrowingStockSubCategoryValidator(datum)(state)) {

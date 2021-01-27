@@ -1,3 +1,4 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
 import { applyReducerFunction } from '@webapp/utils/reduxUtils'
@@ -10,23 +11,17 @@ import {
 } from './actions'
 
 const actionHandlers = {
+  [countryMessageBoardOpen]: (state: any, action: any) => R.pipe(R.assoc('show', true), R.assoc('messages', []))(state),
 
-  [countryMessageBoardOpen]: (state, action) => R.pipe(
-    R.assoc('show', true),
-    R.assoc('messages', []),
-  )(state),
+  [countryMessageBoardClose]: (state: any, action: any) => R.dissoc('show')(state),
 
-  [countryMessageBoardClose]: (state, action) => R.dissoc('show')(state),
-
-  [countryMessageBoardOpenMessageSent]: (state, action) =>
+  [countryMessageBoardOpenMessageSent]: (state: any, action: any) =>
     R.assoc('messages', R.append(action.message, state.messages))(state),
 
-  [countryMessageBoardAllMessagesLoad]: (state, action) =>
-    R.assoc('messages', action.messages)(state),
+  [countryMessageBoardAllMessagesLoad]: (state: any, action: any) => R.assoc('messages', action.messages)(state),
 
-  [countryMessageBoardNewMessagesLoad]: (state, action) =>
-    R.assoc('messages', R.concat(state.messages, action.messages))(state)
-
+  [countryMessageBoardNewMessagesLoad]: (state: any, action: any) =>
+    R.assoc('messages', R.concat(state.messages, action.messages))(state),
 }
 
-export default (state = {}, action) => applyReducerFunction(actionHandlers, state, action)
+export default (state = {}, action: any) => applyReducerFunction(actionHandlers, state, action)

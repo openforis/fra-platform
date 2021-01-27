@@ -1,9 +1,10 @@
 import './countryList.less'
 
 import React from 'react'
-import PropTypes from 'prop-types'
 
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as Fra from '@common/assessment/fra'
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as PanEuropean from '@common/assessment/panEuropean'
 
 import AssessmentComponent from '@webapp/components/AssessmentComponent'
@@ -16,13 +17,14 @@ const Components = {
   null: () => <div />,
 }
 
-const CountryList = (props) => {
-  const { query } = props
-  return <AssessmentComponent components={Components} query={query} />
+type Props = {
+  query: string
 }
 
-CountryList.propTypes = {
-  query: PropTypes.string.isRequired,
+const CountryList = (props: Props) => {
+  const { query } = props
+  // @ts-expect-error ts-migrate(2322) FIXME: Type '{ components: { [x: number]: (props: Props) ... Remove this comment to see the full error message
+  return <AssessmentComponent components={Components} query={query} />
 }
 
 export default CountryList

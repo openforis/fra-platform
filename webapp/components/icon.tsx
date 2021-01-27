@@ -1,19 +1,16 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import bustString from './cacheBust'
 
-const Icon = props => {
-  const svgClass = props.className
-    ? 'icon ' + props.className
-    : 'icon'
-  const name = props.name
-  return <svg xmlns="http://www.w3.org/2000/svg" className={svgClass}>
-    <use xlinkHref={`/img/icons.svg?bust=${bustString}#${name}`} />
-  </svg>
+type Props = {
+  name: string
 }
-
-Icon.propTypes = {
-  name: PropTypes.string.isRequired,
+const Icon = (props: Props) => {
+  const svgClass = (props as any).className ? `icon ${(props as any).className}` : 'icon'
+  const { name } = props
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" className={svgClass}>
+      <use xlinkHref={`/img/icons.svg?bust=${bustString}#${name}`} />
+    </svg>
+  )
 }
-
 export default Icon

@@ -7,31 +7,31 @@ export const countryMessageBoardOpenMessageSent = 'countryMessageBoard/message/s
 export const countryMessageBoardAllMessagesLoad = 'countryMessageBoard/messages/all/load'
 export const countryMessageBoardNewMessagesLoad = 'countryMessageBoard/messages/new/load'
 
-export const openCountryMessageBoard = () => dispatch =>
-  dispatch({type: countryMessageBoardOpen})
+export const openCountryMessageBoard = () => (dispatch: any) => dispatch({ type: countryMessageBoardOpen })
 
-export const closeCountryMessageBoard = () => dispatch => {
-  dispatch({type: countryMessageBoardClose})
+export const closeCountryMessageBoard = () => (dispatch: any) => {
+  dispatch({ type: countryMessageBoardClose })
   clearFetchingNewMessages()
 }
 
-export const sendCountryMessageBoard = (countryIso, message, fromUserId, fromUserName) => dispatch => {
-
+export const sendCountryMessageBoard = (countryIso: any, message: any, fromUserId: any, fromUserName: any) => (
+  dispatch: any
+) => {
   dispatch({
     type: countryMessageBoardOpenMessageSent,
-    message: {text: message, fromUserId, fromUserName, time: new Date().toISOString()}
+    message: { text: message, fromUserId, fromUserName, time: new Date().toISOString() },
   })
 
   axios
-    .post(`/api/countryMessageBoard/${countryIso}/message`, {message, fromUserId})
-    .catch(e => applicationError(e))
+    .post(`/api/countryMessageBoard/${countryIso}/message`, { message, fromUserId })
+    .catch((e) => applicationError(e))
 }
 
-export const fetchAllCountryMessageBoardMessages = countryIso => dispatch => {
+export const fetchAllCountryMessageBoardMessages = (countryIso: any) => (dispatch: any) => {
   axios
     .get(`/api/countryMessageBoard/${countryIso}/messages/all`)
-    .then(resp => dispatch({type: countryMessageBoardAllMessagesLoad, messages: resp.data}))
-    .catch(e => applicationError(e))
+    .then((resp) => dispatch({ type: countryMessageBoardAllMessagesLoad, messages: resp.data }))
+    .catch((e) => applicationError(e))
 
   clearFetchingNewMessages()
   dispatch(fetchNewCountryMessageBoardMessages(countryIso))
@@ -42,19 +42,18 @@ const clearFetchingNewMessages = () => {
   fetchNewMessagesTimeout = null
 }
 
-let fetchNewMessagesTimeout = null
-const fetchNewCountryMessageBoardMessages = countryIso => dispatch => {
-
-  const fetch = () => fetchNewMessagesTimeout = setTimeout(() => {
-
-    axios.get(`/api/countryMessageBoard/${countryIso}/messages/new`)
-      .then(resp => {
-        dispatch({type: countryMessageBoardNewMessagesLoad, messages: resp.data})
-        fetch()
-      })
-      .catch(e => applicationError(e))
-  }, 1000)
+let fetchNewMessagesTimeout: any = null
+const fetchNewCountryMessageBoardMessages = (countryIso: any) => (dispatch: any) => {
+  const fetch = () =>
+    (fetchNewMessagesTimeout = setTimeout(() => {
+      axios
+        .get(`/api/countryMessageBoard/${countryIso}/messages/new`)
+        .then((resp) => {
+          dispatch({ type: countryMessageBoardNewMessagesLoad, messages: resp.data })
+          fetch()
+        })
+        .catch((e) => applicationError(e))
+    }, 1000))
 
   fetch()
-
 }

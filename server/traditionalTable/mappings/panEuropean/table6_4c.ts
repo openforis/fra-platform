@@ -9,7 +9,7 @@ module.exports = {
       'forestry_isic_nace_02_2005',
       'forestry_isic_nace_02_2000',
       'forestry_isic_nace_02_1990',
-      ],
+    ],
   },
   columns: [{ name: 'capital_transfers', type: 'numeric' }],
 }

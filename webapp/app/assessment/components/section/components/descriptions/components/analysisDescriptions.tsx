@@ -1,19 +1,24 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-
 import useI18n from '@webapp/components/hooks/useI18n'
-
 import CommentableDescription from './commentableDescription'
 
-const AnalysisDescriptions = (props) => {
+type OwnProps = {
+  section: string
+  disabled: boolean
+  showAlertEmptyContent?: boolean
+  showDashEmptyContent?: boolean
+}
+// @ts-expect-error ts-migrate(2456) FIXME: Type alias 'Props' circularly references itself.
+type Props = OwnProps & typeof AnalysisDescriptions.defaultProps
+// @ts-expect-error ts-migrate(7022) FIXME: 'AnalysisDescriptions' implicitly has type 'any' b... Remove this comment to see the full error message
+const AnalysisDescriptions = (props: Props) => {
   const { section, disabled, showAlertEmptyContent, showDashEmptyContent } = props
   const i18n = useI18n()
-
   return (
     <div className="fra-description__container">
-      <h2 className="headline fra-description__group-header">{i18n.t('description.analysisAndProcessing')}</h2>
+      <h2 className="headline fra-description__group-header">{(i18n as any).t('description.analysisAndProcessing')}</h2>
       <CommentableDescription
-        title={i18n.t('description.estimationAndForecasting')}
+        title={(i18n as any).t('description.estimationAndForecasting')}
         disabled={disabled}
         section={section}
         name="estimationAndForecasting"
@@ -21,7 +26,7 @@ const AnalysisDescriptions = (props) => {
         showDashEmptyContent={showDashEmptyContent}
       />
       <CommentableDescription
-        title={i18n.t('description.reclassification')}
+        title={(i18n as any).t('description.reclassification')}
         disabled={disabled}
         section={section}
         name="reclassification"
@@ -31,17 +36,8 @@ const AnalysisDescriptions = (props) => {
     </div>
   )
 }
-
-AnalysisDescriptions.propTypes = {
-  section: PropTypes.string.isRequired,
-  disabled: PropTypes.bool.isRequired,
-  showAlertEmptyContent: PropTypes.bool,
-  showDashEmptyContent: PropTypes.bool,
-}
-
 AnalysisDescriptions.defaultProps = {
   showAlertEmptyContent: false,
   showDashEmptyContent: false,
 }
-
 export default AnalysisDescriptions

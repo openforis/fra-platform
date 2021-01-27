@@ -1,33 +1,29 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-
 import { useI18n } from '@webapp/components/hooks'
-
 import Chart from '../components/chart'
 import useStatisticalFactsheetsState from '../hooks/useStatisticalFactsheetsState'
 import * as APIUtils from '../utils/apiUtils'
 import * as ChartUtils from '../utils/chartUtils'
 import { getVariableValuesByYear } from '../utils/propUtils'
 
-const PrimaryForest = (props) => {
+type Props = {
+  levelIso: string
+}
+const PrimaryForest = (props: Props) => {
   const { levelIso } = props
   const i18n = useI18n()
   const section = 'primaryForest'
-
   const { data, loaded } = useStatisticalFactsheetsState(section, levelIso)
-
   if (!loaded) {
     return null
   }
-
   // Get the value for year 2020
   const year = '2020'
+  // @ts-expect-error ts-migrate(2339) FIXME: Property 'rowNames' does not exist on type 'any[] ... Remove this comment to see the full error message
   const { rowNames: variables } = APIUtils.getParams('primaryForest')
   const [primaryForestRatio] = getVariableValuesByYear({ data, variables, year })
-
   const primaryForestPercent = primaryForestRatio * 100
   const otherForestPercent = 100 - primaryForestPercent
-
   const chartData = {
     datasets: [
       {
@@ -38,27 +34,20 @@ const PrimaryForest = (props) => {
         unit: '%',
       },
     ],
-
     labels: [
-      i18n.t('statisticalFactsheets.rowName.primary_forest'),
-      i18n.t('statisticalFactsheets.rowName.other_forest'),
+      (i18n as any).t('statisticalFactsheets.rowName.primary_forest'),
+      (i18n as any).t('statisticalFactsheets.rowName.other_forest'),
     ],
   }
-
   return (
     <div className="row-s">
-      <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
+      <h3 className="header">{(i18n as any).t(`statisticalFactsheets.${section}.title`)}</h3>
       {primaryForestRatio ? (
         <Chart type="pie" data={chartData} options={ChartUtils.getOptions({ type: ChartUtils.types.pie })} />
       ) : (
-        <h6 className="header">{i18n.t('statisticalFactsheets.noData')}</h6>
+        <h6 className="header">{(i18n as any).t('statisticalFactsheets.noData')}</h6>
       )}
     </div>
   )
 }
-
-PrimaryForest.propTypes = {
-  levelIso: PropTypes.string.isRequired,
-}
-
 export default PrimaryForest

@@ -14,18 +14,21 @@ const actionHandlers = {
   [ActionTypes.appCountryIsoUpdate]: () => ({}),
 
   // ====== lock
-  [assessmentLockUpdate]: (state, { assessmentType, lock }) => AssessmentState.assocLock(assessmentType, lock)(state),
+  [assessmentLockUpdate]: (state: any, { assessmentType, lock }: any) =>
+    AssessmentState.assocLock(assessmentType, lock)(state),
 
   // ====== section
-  [assessmentSectionPropUpdate]: (state, { assessmentType, sectionName, propName, propValue }) =>
+  [assessmentSectionPropUpdate]: (state: any, { assessmentType, sectionName, propName, propValue }: any) =>
     AssessmentState.assocSectionProp(assessmentType, sectionName, propName, propValue)(state),
 
   // ====== data
-  [assessmentSectionDataUpdate]: (state, { assessmentType, sectionName, tableName, data }) =>
+  [assessmentSectionDataUpdate]: (state: any, { assessmentType, sectionName, tableName, data }: any) =>
     AssessmentState.assocSectionData(assessmentType, sectionName, tableName, data)(state),
 
-  [assessmentSectionDataGeneratingValuesUpdate]: (state, { assessmentType, sectionName, tableName, generating }) =>
-    AssessmentState.assocSectionDataGeneratingValues(assessmentType, sectionName, tableName, generating)(state),
+  [assessmentSectionDataGeneratingValuesUpdate]: (
+    state: any,
+    { assessmentType, sectionName, tableName, generating }: any
+  ) => AssessmentState.assocSectionDataGeneratingValues(assessmentType, sectionName, tableName, generating)(state),
 }
 
 export default exportReducer(actionHandlers)

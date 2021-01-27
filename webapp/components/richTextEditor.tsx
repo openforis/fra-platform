@@ -1,35 +1,36 @@
 import React, { useRef, useEffect } from 'react'
-import PropTypes from 'prop-types'
-
 import ckEditorConfig from '@webapp/components/ckEditor/ckEditorConfig'
 
-const RichTextEditor = props => {
+type OwnProps = {
+  name: string
+  value?: string
+  onChange?: (...args: any[]) => any
+}
+// @ts-expect-error ts-migrate(2456) FIXME: Type alias 'Props' circularly references itself.
+type Props = OwnProps & typeof RichTextEditor.defaultProps
+// @ts-expect-error ts-migrate(7022) FIXME: 'RichTextEditor' implicitly has type 'any' because... Remove this comment to see the full error message
+const RichTextEditor = (props: Props) => {
   const { name, value, onChange } = props
-
   const textareaRef = useRef(null)
   let editor = useRef(null)
-
   const initCkeditorChangeListener = () => {
-    editor.current.on('change', evt => {
+    editor.current.on('change', (evt: any) => {
       const editorData = evt.editor.getData()
       onChange(editorData)
     })
   }
-
-  const setEditorContent = _content => {
+  const setEditorContent = (_content: any) => {
     editor.current.setData(_content, {
       callback: () => {
         if (!editor.current.hasListeners('change')) initCkeditorChangeListener()
       },
     })
   }
-
   useEffect(() => {
-    editor.current = window.CKEDITOR.replace(textareaRef.current, ckEditorConfig)
+    editor.current = (window as any).CKEDITOR.replace(textareaRef.current, ckEditorConfig)
     editor.current.on('instanceReady', () => {
       setEditorContent(value)
     })
-
     return () => {
       editor.current.destroy(false)
       editor = null
@@ -41,16 +42,8 @@ const RichTextEditor = props => {
     </div>
   )
 }
-
-RichTextEditor.propTypes = {
-  name: PropTypes.string.isRequired,
-  value: PropTypes.string,
-  onChange: PropTypes.func,
-}
-
 RichTextEditor.defaultProps = {
   value: '',
   onChange: () => {},
 }
-
 export default RichTextEditor

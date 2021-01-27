@@ -8,4 +8,4 @@ const actionHandlers = {
   [navigationToggleVisible]: NavigationState.toggleVisible,
 }
 
-export default (state = {}, action) => applyReducerFunction(actionHandlers, state, action)
+export default (state = {}, action: any) => applyReducerFunction(actionHandlers, state, action)

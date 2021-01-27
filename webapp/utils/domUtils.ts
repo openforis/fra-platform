@@ -1,4 +1,4 @@
-export const elementOffset = el => {
+export const elementOffset = (el: any) => {
   if (el) {
     const rect = el.getBoundingClientRect()
 

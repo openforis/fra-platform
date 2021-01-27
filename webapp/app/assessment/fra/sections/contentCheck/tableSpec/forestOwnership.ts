@@ -1,4 +1,5 @@
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/serve... Remove this comment to see the full error message
 import forestOwnership from '@server/traditionalTable/mappings/fra/forestOwnership'
 import section from '../section'
 
@@ -16,7 +17,7 @@ const tableSpec = SectionSpec.newTableSpec({
     }),
 
     SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: forestOwnership.columns.map(({ name }) =>
+      [SectionSpec.KEYS_ROW.cols]: forestOwnership.columns.map(({ name }: any) =>
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.label]: name,
         })
@@ -24,8 +25,8 @@ const tableSpec = SectionSpec.newTableSpec({
     }),
 
     ...forestOwnership.rows.names
-      .filter((row) => !row.includes('of_which'))
-      .map((variable) =>
+      .filter((row: any) => !row.includes('of_which'))
+      .map((variable: any) =>
         SectionSpec.newRowData({
           [SectionSpec.KEYS_ROW.labelKey]: `contentCheck.forestOwnership.${variable}`,
           [SectionSpec.KEYS_ROW.variableExport]: `${variable}`,

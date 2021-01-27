@@ -1,9 +1,11 @@
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as FRA from '@common/assessment/fra'
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as NumberUtils from '@common/bignumberUtils'
 
 import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestState'
 
-export const getExtentOfForestChange = (colIdx) => (state) => {
+export const getExtentOfForestChange = (colIdx: any) => (state: any) => {
   const range = FRA.yearsRange[colIdx]
   const years = range.split('-')
   const yearStart = Number(years[0])

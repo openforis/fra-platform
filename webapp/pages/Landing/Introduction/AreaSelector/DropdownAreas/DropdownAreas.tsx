@@ -1,34 +1,37 @@
 import React, { useLayoutEffect, useRef } from 'react'
-import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as Fra from '@common/assessment/fra'
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as PanEuropean from '@common/assessment/panEuropean'
 import * as BasePaths from '@webapp/main/basePaths'
-
 import { useI18n } from '@webapp/components/hooks'
 import Icon from '@webapp/components/icon'
 import { areas } from '@webapp/pages/Landing/Introduction/AreaSelector/AreaSelector'
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { Area } from '@common/country'
 
-const DropdownAreas = (props) => {
+type Props = {
+  area: string
+  areaISOs: string[]
+  assessmentType: any // TODO: PropTypes.oneOf([Fra.type, PanEuropean.type])
+  dropdownOpened: string
+  setDropdownOpened: (...args: any[]) => any
+}
+const DropdownAreas = (props: Props) => {
   const { area, areaISOs, assessmentType, dropdownOpened, setDropdownOpened } = props
   const dialogOpened = dropdownOpened === area
-
   const i18n = useI18n()
   const buttonRef = useRef(null)
-
   const fra = assessmentType === Fra.type
-
   useLayoutEffect(() => {
-    const outsideClick = ({ target }) => dialogOpened && !buttonRef.current.contains(target) && setDropdownOpened('')
-
+    const outsideClick = ({ target }: any) =>
+      dialogOpened && !buttonRef.current.contains(target) && setDropdownOpened('')
     window.addEventListener('click', outsideClick)
     return () => {
       window.removeEventListener('click', outsideClick)
     }
   }, [dialogOpened])
-
   return (
     <button
       ref={buttonRef}
@@ -39,7 +42,7 @@ const DropdownAreas = (props) => {
         setDropdownOpened(dialogOpened ? '' : area)
       }}
     >
-      <div>- {i18n.t('common.select')} -</div>
+      <div>- {(i18n as any).t('common.select')} -</div>
       <Icon name="small-down" />
 
       {dialogOpened && (
@@ -47,10 +50,11 @@ const DropdownAreas = (props) => {
           <div className="country-selection-list__content">
             {areas.regions === area ? (
               <>
+                {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'regions' does not exist on type 'String'... Remove this comment to see the full error message */}
                 {areaISOs.map(({ regions, name }) => (
                   <div key={name} className="country-selection-list__section">
                     {regions.map(
-                      ({ regionCode }) =>
+                      ({ regionCode }: any) =>
                         regionCode !== Area.levels.forest_europe && (
                           <Link
                             key={regionCode}
@@ -59,7 +63,7 @@ const DropdownAreas = (props) => {
                             target={fra ? '_self' : '_blank'}
                           >
                             <span className="country-selection-list__primary-col">
-                              {i18n.t(`area.${regionCode}.listName`)}
+                              {(i18n as any).t(`area.${regionCode}.listName`)}
                             </span>
                           </Link>
                         )
@@ -76,7 +80,9 @@ const DropdownAreas = (props) => {
                     className="country-selection-list__row"
                     target={fra ? '_self' : '_blank'}
                   >
-                    <span className="country-selection-list__primary-col">{i18n.t(`area.${iso}.listName`)}</span>
+                    <span className="country-selection-list__primary-col">
+                      {(i18n as any).t(`area.${iso}.listName`)}
+                    </span>
                   </Link>
                 ))}
               </div>
@@ -87,13 +93,4 @@ const DropdownAreas = (props) => {
     </button>
   )
 }
-
-DropdownAreas.propTypes = {
-  area: PropTypes.string.isRequired,
-  areaISOs: PropTypes.arrayOf(String).isRequired,
-  assessmentType: PropTypes.oneOf([Fra.type, PanEuropean.type]).isRequired,
-  dropdownOpened: PropTypes.string.isRequired,
-  setDropdownOpened: PropTypes.func.isRequired,
-}
-
 export default DropdownAreas

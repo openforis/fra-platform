@@ -1,6 +1,9 @@
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
 const R = require('ramda')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'camelize'.
 const camelize = require('camelize')
 
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
 const db = require('../db/db')
 
 const CountryRole = require('../../common/countryRole')
@@ -12,7 +15,7 @@ const CountryRole = require('../../common/countryRole')
  * If all statuses are in accepted, we determine that country is in
  * accepted status.
  */
-const determineCountryAssessmentStatus = (type, statuses) =>
+const determineCountryAssessmentStatus = (type: any, statuses: any) =>
   R.pipe(
     R.filter(R.propEq('type', type)),
     R.head,
@@ -21,21 +24,22 @@ const determineCountryAssessmentStatus = (type, statuses) =>
     R.prop('status')
   )(statuses)
 
-const determineRole = (roles) => (countryIso) =>
+const determineRole = (roles: any) => (countryIso: any) =>
   R.pipe(R.filter(R.propEq('countryIso', countryIso)), R.head, R.prop('role'))(roles)
 
-const getStatuses = (groupedRows) => R.pipe(R.map(R.pick(['type', 'status'])), R.filter(R.identity))(groupedRows)
+const getStatuses = (groupedRows: any) => R.pipe(R.map(R.pick(['type', 'status'])), R.filter(R.identity))(groupedRows)
 
-const getCountryProperties = (country) => ({
+const getCountryProperties = (country: any) => ({
   countryIso: country.countryIso,
   regionCodes: country.regionCodes,
   lastEdit: country.lastEdited,
 })
 
-const handleCountryResult = (resolveRole) => (result) => {
-  const grouped = R.groupBy((row) => row.countryIso, camelize(result.rows))
+const handleCountryResult = (resolveRole: any) => (result: any) => {
+  const grouped = R.groupBy((row: any) => row.countryIso, camelize(result.rows))
   return R.pipe(
     R.toPairs,
+    // @ts-expect-error ts-migrate(7031) FIXME: Binding element 'countryIso' implicitly has an 'an... Remove this comment to see the full error message
     R.map(([countryIso, vals]) => {
       return {
         ...getCountryProperties(vals[0]),
@@ -53,7 +57,7 @@ const handleCountryResult = (resolveRole) => (result) => {
   )(grouped)
 }
 
-const getAllCountries = (role, schemaName = 'public') => {
+const getAllCountries = (role: any, schemaName = 'public') => {
   const excludedMsgs = ['createIssue', 'createComment', 'deleteComment']
   const tableNameFraAudit = `${schemaName}.fra_audit`
   const tableNameCountry = `${schemaName}.country`
@@ -110,6 +114,7 @@ ORDER BY c.country_iso
   return camelize(rs.rows)
 }
 
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getRegions... Remove this comment to see the full error message
 const getRegions = async () => {
   // Exclude Atlantis from regions
   const query = `SELECT region_code, name, region_group FROM region WHERE region_code != 'AT'`
@@ -127,22 +132,23 @@ const getRegionGroups = async () => {
 }
 
 // Get all countryIsos, or countryIsos for certain region
-const getCountryIsos = async (regionCode) => {
+const getCountryIsos = async (regionCode: any) => {
   const query = `select country_iso from country_region ${regionCode ? `where region_code = '${regionCode}' ` : ''}`
 
   const result = await db.query(query)
-  return camelize(result.rows).map((region) => region.countryIso)
+  return camelize(result.rows).map((region: any) => region.countryIso)
 }
 
 // Get all region codes
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getRegionC... Remove this comment to see the full error message
 const getRegionCodes = async () => {
   const query = `select distinct region_code from country_region`
 
   const result = await db.query(query)
-  return camelize(result.rows).map((region) => region.regionCode)
+  return camelize(result.rows).map((region: any) => region.regionCode)
 }
 
-const getAllowedCountries = (roles, schemaName = 'public') => {
+const getAllowedCountries = (roles: any, schemaName = 'public') => {
   const isAdmin = R.find(R.propEq('role', CountryRole.administrator.role), roles)
   if (R.isEmpty(roles)) {
     return getAllCountries(CountryRole.noRole.role, schemaName)
@@ -154,7 +160,7 @@ const getAllowedCountries = (roles, schemaName = 'public') => {
   const excludedMsgs = ['createIssue', 'createComment', 'deleteComment']
   const allowedCountryIsos = R.pipe(R.map(R.prop('countryIso')), R.reject(R.isNil))(roles)
   const allowedIsoQueryPlaceholders = R.range(2, allowedCountryIsos.length + 2)
-    .map((i) => `$${i}`)
+    .map((i: any) => `$${i}`)
     .join(',')
   return db
     .query(
@@ -187,7 +193,8 @@ const getAllowedCountries = (roles, schemaName = 'public') => {
     .then(handleCountryResult(determineRole(roles)))
 }
 
-const getDynamicCountryConfiguration = async (countryIso, schemaName = 'public') => {
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getDynamic... Remove this comment to see the full error message
+const getDynamicCountryConfiguration = async (countryIso: any, schemaName = 'public') => {
   const tableName = `${schemaName}.dynamic_country_configuration`
   const result = await db.query(
     `
@@ -201,7 +208,7 @@ const getDynamicCountryConfiguration = async (countryIso, schemaName = 'public')
   return result.rows[0].config
 }
 
-const saveDynamicConfigurationVariable = async (client, countryIso, key, value) => {
+const saveDynamicConfigurationVariable = async (client: any, countryIso: any, key: any, value: any) => {
   const configResult = await client.query('SELECT config FROM dynamic_country_configuration WHERE country_iso = $1', [
     countryIso,
   ])
@@ -222,22 +229,23 @@ const saveDynamicConfigurationVariable = async (client, countryIso, key, value) 
   }
 }
 
-const getCountry = (countryIso) =>
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getCountry... Remove this comment to see the full error message
+const getCountry = (countryIso: any) =>
   db
     .query(
       `
-      SELECT c.country_iso,
-       json_agg(cr.region_code) AS region_codes
+    SELECT c.country_iso,
+     json_agg(cr.region_code) AS region_codes
 FROM country c
 JOIN country_region cr
 USING (country_iso)
 WHERE C.country_iso = $1
 GROUP BY c.country_iso
 
-  `,
+`,
       [countryIso]
     )
-    .then((res) => getCountryProperties(camelize(res.rows[0])))
+    .then((res: any) => getCountryProperties(camelize(res.rows[0])))
 
 module.exports.getAllowedCountries = getAllowedCountries
 module.exports.getAllCountriesList = getAllCountriesList
@@ -245,8 +253,8 @@ module.exports.getRegions = getRegions
 module.exports.getRegionCodes = getRegionCodes
 module.exports.getDynamicCountryConfiguration = getDynamicCountryConfiguration
 module.exports.saveDynamicConfigurationVariable = saveDynamicConfigurationVariable
-module.exports.getFirstAllowedCountry = (roles) =>
-  getAllowedCountries(roles).then((result) => R.pipe(R.values, R.head, R.head)(result))
+module.exports.getFirstAllowedCountry = (roles: any) =>
+  getAllowedCountries(roles).then((result: any) => R.pipe(R.values, R.head, R.head)(result))
 module.exports.getCountry = getCountry
 module.exports.getCountryIsos = getCountryIsos
 module.exports.getRegionGroups = getRegionGroups

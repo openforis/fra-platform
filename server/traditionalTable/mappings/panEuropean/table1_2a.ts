@@ -34,8 +34,8 @@ module.exports = {
     ],
   },
   columns: [
-      { name: 'total', type: 'numeric' },
-      { name: 'coniferous', type: 'numeric' },
-      { name: 'broadleaved', type: 'numeric' },
-      ],
+    { name: 'total', type: 'numeric' },
+    { name: 'coniferous', type: 'numeric' },
+    { name: 'broadleaved', type: 'numeric' },
+  ],
 }

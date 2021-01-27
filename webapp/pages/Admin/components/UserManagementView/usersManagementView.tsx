@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { connect, useDispatch, useSelector } from 'react-redux'
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { administrator } from '@common/countryRole'
 
 import * as AppState from '@webapp/store/app/state'
@@ -14,7 +16,7 @@ import UsersTableFilterWrapper from '@webapp/pages/Admin/components/UserManageme
 import EditUserForm from '@webapp/app/user/userManagement/edit/editUserForm'
 import UsersCount from '../usersCount'
 
-const UsersManagementView = (props) => {
+const UsersManagementView = (props: any) => {
   const i18n = useI18n()
   const dispatch = useDispatch()
   const { editUserStatus, allUsers } = props
@@ -33,6 +35,7 @@ const UsersManagementView = (props) => {
   }, [editUserStatus])
 
   if (editingUserId) {
+    // @ts-expect-error ts-migrate(2322) FIXME: Type '{ userId: any; countryIso: unknown; onCancel... Remove this comment to see the full error message
     return <EditUserForm userId={editingUserId} countryIso={countryIso} onCancel={() => setEditingUserId(null)} />
   }
 
@@ -43,14 +46,14 @@ const UsersManagementView = (props) => {
         i18n={i18n}
         isAdminTable
         users={allUsers}
-        onEditClick={(userId) => setEditingUserId(userId)}
+        onEditClick={(userId: any) => setEditingUserId(userId)}
       />
       <UsersCount />
     </>
   )
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   userInfo: UserState.getUserInfo(state),
   allUsers: UserManagementState.getAllUsers(state),
   editUserStatus: UserManagementState.getEditUserStatus(state),

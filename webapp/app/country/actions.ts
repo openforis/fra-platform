@@ -11,17 +11,22 @@ export const fetchCountryOverviewStatusCompleted = 'country/status/completed'
 export const countryConfig = 'country/countryConfig'
 export const changeCountryConfigSetting = '/country/changeSetting'
 
-export const fetchCountryOverviewStatus = (countryIso) => async (dispatch) => {
+export const fetchCountryOverviewStatus = (countryIso: any) => async (dispatch: any) => {
   const { data: status } = await axios.get(`/api/country/overviewStatus/${countryIso}`)
   dispatch({ type: fetchCountryOverviewStatusCompleted, status })
 }
 
-export const getCountryConfig = (countryIso) => async (dispatch) => {
+export const getCountryConfig = (countryIso: any) => async (dispatch: any) => {
   const { data: config } = await axios.get(`/api/country/config/${countryIso}`)
   dispatch({ type: countryConfig, config })
 }
 
-export const fetchCountryInitialData = (countryIso, assessmentType, printView, printOnlyTablesView) => (dispatch) => {
+export const fetchCountryInitialData = (
+  countryIso: any,
+  assessmentType: any,
+  printView: any,
+  printOnlyTablesView: any
+) => (dispatch: any) => {
   dispatch(
     batchActions([
       { type: ActionTypes.appCountryIsoUpdate, countryIso, assessmentType, printView, printOnlyTablesView },
@@ -31,7 +36,7 @@ export const fetchCountryInitialData = (countryIso, assessmentType, printView, p
   )
 }
 
-export const saveCountryConfigSetting = (key, value) => async (dispatch, getState) => {
+export const saveCountryConfigSetting = (key: any, value: any) => async (dispatch: any, getState: any) => {
   const countryIso = AppState.getCountryIso(getState())
 
   dispatch(batchActions([autosave.start, { type: changeCountryConfigSetting, key, value }]))
@@ -43,7 +48,7 @@ export const saveCountryConfigSetting = (key, value) => async (dispatch, getStat
 
 export const countryAssessmentStatusChanging = 'country/assessment/status/changing'
 
-export const changeAssessment = (countryIso, assessment, notifyUsers) => async (dispatch) => {
+export const changeAssessment = (countryIso: any, assessment: any, notifyUsers: any) => async (dispatch: any) => {
   dispatch({ type: countryAssessmentStatusChanging, assessmentName: assessment.type })
   await axios.post(`/api/assessment/${countryIso}?notifyUsers=${notifyUsers}`, assessment)
 

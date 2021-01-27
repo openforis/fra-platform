@@ -1,3 +1,4 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
 export const stateKey = 'app'
@@ -39,7 +40,7 @@ export const isPrintOnlyTablesView = R.ifElse(
 
 // === UPDATE
 
-export const assocCountryIso = (countryIso, assessmentType, printView, printOnlyTablesView) =>
+export const assocCountryIso = (countryIso: any, assessmentType: any, printView: any, printOnlyTablesView: any) =>
   R.pipe(
     R.assoc(keys.countryIso, countryIso),
     R.assoc(keys.assessmentType, assessmentType),
@@ -51,4 +52,4 @@ export const assocCountries = R.assoc(keys.countries)
 export const assocRegions = R.assoc(keys.regions)
 export const assocRegionGroups = R.assoc(keys.regionGroups)
 
-export const setAppStatusLoaded = (i18n) => R.pipe(R.assoc(keys.status, stateLoadedKey), assocI18n(i18n))
+export const setAppStatusLoaded = (i18n: any) => R.pipe(R.assoc(keys.status, stateLoadedKey), assocI18n(i18n))

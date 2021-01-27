@@ -27,9 +27,9 @@ module.exports = {
     ],
   },
   columns: [
-      { name: 'mcpfe_class_1_1', type: 'numeric' },
-      { name: 'mcpfe_class_1_2', type: 'numeric' },
-      { name: 'mcpfe_class_1_3', type: 'numeric' },
-      { name: 'mcpfe_class_2', type: 'numeric' },
-      ],
+    { name: 'mcpfe_class_1_1', type: 'numeric' },
+    { name: 'mcpfe_class_1_2', type: 'numeric' },
+    { name: 'mcpfe_class_1_3', type: 'numeric' },
+    { name: 'mcpfe_class_2', type: 'numeric' },
+  ],
 }

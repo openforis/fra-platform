@@ -1,37 +1,34 @@
 import './buttonCheckBox.less'
-
 import React from 'react'
-import PropTypes from 'prop-types'
 import { useI18n } from '@webapp/components/hooks'
 
-const ButtonCheckBox = (props) => {
+type OwnProps = {
+  onClick: (...args: any[]) => any
+  label: any[] | string
+  labelParam?: any
+  className?: string
+  checked: boolean
+  suffix?: string
+}
+// @ts-expect-error ts-migrate(2456) FIXME: Type alias 'Props' circularly references itself.
+type Props = OwnProps & typeof ButtonCheckBox.defaultProps
+// @ts-expect-error ts-migrate(7022) FIXME: 'ButtonCheckBox' implicitly has type 'any' because... Remove this comment to see the full error message
+const ButtonCheckBox = (props: Props) => {
   const i18n = useI18n()
   const { onClick, checked, className, labelParam, suffix } = props
   let { label } = props
   label = Array.isArray(label) ? label : [label]
-
   return (
     <button type="button" className={`btn-s btn-checkbox ${className}`} onClick={onClick}>
       <div className={`fra-checkbox${checked ? ' checked' : ''}`} />
-      <div>{label.map((key) => `${labelParam ? i18n.t(key, labelParam) : i18n.t(key)} `)}</div>
+      <div>{label.map((key: any) => `${labelParam ? (i18n as any).t(key, labelParam) : (i18n as any).t(key)} `)}</div>
       {suffix && <span className="suffix">{suffix}</span>}
     </button>
   )
 }
-
 ButtonCheckBox.defaultProps = {
   className: '',
   labelParam: null,
   suffix: null,
 }
-
-ButtonCheckBox.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  label: PropTypes.oneOfType([PropTypes.array, PropTypes.string]).isRequired,
-  labelParam: PropTypes.object,
-  className: PropTypes.string,
-  checked: PropTypes.bool.isRequired,
-  suffix: PropTypes.string,
-}
-
 export default ButtonCheckBox

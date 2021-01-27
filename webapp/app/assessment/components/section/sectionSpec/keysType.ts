@@ -1,3 +1,4 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
 export const TYPE = 'type'
@@ -19,8 +20,8 @@ export const TYPES = {
 
 export const getType = R.prop(TYPE)
 
-const _isType = (type) => R.propEq(TYPE, type)
-const _isNotType = (type) => R.pipe(_isType(type), R.not)
+const _isType = (type: any) => R.propEq(TYPE, type)
+const _isNotType = (type: any) => R.pipe(_isType(type), R.not)
 
 export const isCalculated = _isType(TYPES.calculated)
 export const isData = _isType(TYPES.data)

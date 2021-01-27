@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
@@ -22,7 +22,17 @@ const ComponentsByType = {
   [SectionSpec.TYPES.placeholder]: Placeholder,
 }
 
-const Cell = (props) => {
+type Props = {
+  data: any[]
+  assessmentType: string
+  sectionName: string
+  tableSpec: any
+  disabled: boolean
+  rowIdx: number
+  col: any
+}
+
+const Cell = (props: Props) => {
   const { data, assessmentType, sectionName, tableSpec, disabled, rowIdx, col } = props
 
   const datum = R.pathOr(null, [rowIdx, col[SectionSpec.KEYS_COL.idx]])(data)
@@ -49,16 +59,6 @@ const Cell = (props) => {
         })}
     </td>
   )
-}
-
-Cell.propTypes = {
-  data: PropTypes.array.isRequired,
-  assessmentType: PropTypes.string.isRequired,
-  sectionName: PropTypes.string.isRequired,
-  tableSpec: PropTypes.object.isRequired,
-  disabled: PropTypes.bool.isRequired,
-  rowIdx: PropTypes.number.isRequired,
-  col: PropTypes.object.isRequired,
 }
 
 export default Cell

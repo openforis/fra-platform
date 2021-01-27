@@ -1,43 +1,44 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
-
 import VerticallyGrowingTextField from '@webapp/components/verticallyGrowingTextField'
 import MultiSelect from '@webapp/components/multiSelect'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
-
 import { useCountryIso, useI18n, usePrintView } from '@webapp/components/hooks'
-
 import { saveDraft } from '../../actions'
 
-const DataSources = (props) => {
+type Props = {
+  canEditData: boolean
+  odp: any
+}
+const DataSources = (props: Props) => {
   const { odp, canEditData } = props
-
   const dispatch = useDispatch()
   const i18n = useI18n()
   const countryIso = useCountryIso()
   const [printView] = usePrintView()
   const displayReviewIndicator = odp.odpId && !printView && canEditData
-
   return (
     <div className="odp__section">
-      {!printView && <h3 className="subhead">{i18n.t('nationalDataPoint.dataSources')}</h3>}
+      {!printView && <h3 className="subhead">{(i18n as any).t('nationalDataPoint.dataSources')}</h3>}
       <div className="fra-table__container">
         <div className="fra-table__scroll-wrapper odp__data-source-table-wrapper">
           <table className="fra-table">
             <tbody>
               <tr>
                 {printView && (
+                  // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number'.
                   <th className="fra-table__header-cell odp__year-column" rowSpan="3">
                     {odp.year}
                   </th>
                 )}
-                <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.references')}</th>
+                <th className="fra-table__header-cell-left">{(i18n as any).t('nationalDataPoint.references')}</th>
                 <td className="fra-table__cell-left odp__data-source-input-column">
                   <VerticallyGrowingTextField
+                    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                     value={odp.dataSourceReferences || ''}
-                    onChange={(event) => {
+                    onChange={(event: any) => {
                       dispatch(saveDraft(countryIso, R.assoc('dataSourceReferences', event.target.value, odp)))
                     }}
                     disabled={printView || !canEditData}
@@ -47,8 +48,9 @@ const DataSources = (props) => {
                   {displayReviewIndicator ? (
                     <div className="odp__review-indicator-row-anchor">
                       <ReviewIndicator
+                        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ section: string; title: any; target: any[]... Remove this comment to see the full error message
                         section="odp"
-                        title={i18n.t('nationalDataPoint.dataSources')}
+                        title={(i18n as any).t('nationalDataPoint.dataSources')}
                         target={[odp.odpId, 'dataSourceReferences']}
                         countryIso={countryIso}
                       />
@@ -58,9 +60,10 @@ const DataSources = (props) => {
               </tr>
 
               <tr>
-                <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.methodsUsed')}</th>
+                <th className="fra-table__header-cell-left">{(i18n as any).t('nationalDataPoint.methodsUsed')}</th>
                 <td className="fra-table__cell-left odp__data-source-input-column">
                   <MultiSelect
+                    // @ts-expect-error ts-migrate(2322) FIXME: Type '{ i18n: unknown; localizationPrefix: string;... Remove this comment to see the full error message
                     i18n={i18n}
                     localizationPrefix="nationalDataPoint.dataSourceMethodsOptions"
                     values={odp.dataSourceMethods}
@@ -71,7 +74,7 @@ const DataSources = (props) => {
                       'registersQuestionnaires',
                       'other',
                     ]}
-                    onChange={(values) => {
+                    onChange={(values: any) => {
                       dispatch(saveDraft(countryIso, R.assoc('dataSourceMethods', values, odp)))
                     }}
                     disabled={printView || !canEditData}
@@ -81,8 +84,9 @@ const DataSources = (props) => {
                   {displayReviewIndicator ? (
                     <div className="odp__review-indicator-row-anchor">
                       <ReviewIndicator
+                        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ section: string; title: any; target: any[]... Remove this comment to see the full error message
                         section="odp"
-                        title={i18n.t('nationalDataPoint.dataSources')}
+                        title={(i18n as any).t('nationalDataPoint.dataSources')}
                         target={[odp.odpId, 'dataSourceMethods']}
                         countryIso={countryIso}
                       />
@@ -92,11 +96,14 @@ const DataSources = (props) => {
               </tr>
 
               <tr>
-                <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.additionalComments')}</th>
+                <th className="fra-table__header-cell-left">
+                  {(i18n as any).t('nationalDataPoint.additionalComments')}
+                </th>
                 <td className="fra-table__cell-left odp__data-source-input-column">
                   <VerticallyGrowingTextField
+                    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                     value={odp.dataSourceAdditionalComments || ''}
-                    onChange={(event) => {
+                    onChange={(event: any) => {
                       dispatch(saveDraft(countryIso, R.assoc('dataSourceAdditionalComments', event.target.value, odp)))
                     }}
                     disabled={printView || !canEditData}
@@ -106,8 +113,9 @@ const DataSources = (props) => {
                   {displayReviewIndicator ? (
                     <div className="odp__review-indicator-row-anchor">
                       <ReviewIndicator
+                        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ section: string; title: any; target: any[]... Remove this comment to see the full error message
                         section="odp"
-                        title={i18n.t('nationalDataPoint.dataSources')}
+                        title={(i18n as any).t('nationalDataPoint.dataSources')}
                         target={[odp.odpId, 'dataSourceAdditionalComments']}
                         countryIso={countryIso}
                       />
@@ -122,10 +130,4 @@ const DataSources = (props) => {
     </div>
   )
 }
-
-DataSources.propTypes = {
-  canEditData: PropTypes.bool.isRequired,
-  odp: PropTypes.object.isRequired,
-}
-
 export default DataSources

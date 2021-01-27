@@ -1,5 +1,6 @@
 import { getRequestParam } from '@webapp/utils/urlUtils'
 import axios from 'axios'
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { createI18nPromise } from '@common/i18n/i18nFactory'
 import { applicationError } from '@webapp/components/error/actions'
 
@@ -10,11 +11,20 @@ import ActionTypes from './actionTypes'
 
 export { ActionTypes }
 
-export const updateCountries = (countries) => ({ type: ActionTypes.updateCountries, countries })
-export const updateRegions = (regions) => ({ type: ActionTypes.updateRegions, regions })
-export const updateRegionGroups = (regionGroups) => ({ type: ActionTypes.updateRegionGroups, regionGroups })
+export const updateCountries = (countries: any) => ({
+  type: ActionTypes.updateCountries,
+  countries,
+})
+export const updateRegions = (regions: any) => ({
+  type: ActionTypes.updateRegions,
+  regions,
+})
+export const updateRegionGroups = (regionGroups: any) => ({
+  type: ActionTypes.updateRegionGroups,
+  regionGroups,
+})
 
-export const initApp = () => async (dispatch) => {
+export const initApp = () => async (dispatch: any) => {
   const lang = getRequestParam('lang')
   try {
     const getCountries = axios.get('/api/countries')
@@ -49,7 +59,7 @@ export const initApp = () => async (dispatch) => {
   }
 }
 
-export const switchLanguage = (lang) => async (dispatch, getState) => {
+export const switchLanguage = (lang: any) => async (dispatch: any, getState: any) => {
   try {
     const userInfo = UserState.getUserInfo(getState())
     if (userInfo) {

@@ -10,16 +10,16 @@ import {
 } from './actions'
 
 const actionHandlers = {
-  [fetchCountryOverviewStatusCompleted]: (state, { status }) => CountryState.assocStatus(status)(state),
+  [fetchCountryOverviewStatusCompleted]: (state: any, { status }: any) => CountryState.assocStatus(status)(state),
 
-  [countryConfig]: (state, { config }) => CountryState.assocConfig(config)(state),
+  [countryConfig]: (state: any, { config }: any) => CountryState.assocConfig(config)(state),
 
-  [changeCountryConfigSetting]: (state, { key, value }) =>
+  [changeCountryConfigSetting]: (state: any, { key, value }: any) =>
     CountryState.assocConfig({ ...state.config, [key]: value })(state),
 
   // ====== assessment actions
-  [countryAssessmentStatusChanging]: (state, { assessmentName }) =>
+  [countryAssessmentStatusChanging]: (state: any, { assessmentName }: any) =>
     CountryState.assocStatusAssessmentChanging(assessmentName)(state),
 }
 
-export default (state = {}, action) => applyReducerFunction(actionHandlers, state, action)
+export default (state = {}, action: any) => applyReducerFunction(actionHandlers, state, action)

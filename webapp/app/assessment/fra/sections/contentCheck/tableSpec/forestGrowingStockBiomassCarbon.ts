@@ -1,4 +1,5 @@
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import forestGrowingStockBiomassCarbon from '@common/model/traditionalTable/contentCheck/forestGrowingStockBiomassCarbon'
 import section from '../section'
 
@@ -16,14 +17,14 @@ const tableSpec = SectionSpec.newTableSpec({
     }),
 
     SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: forestGrowingStockBiomassCarbon.columns.map(({ name }) =>
+      [SectionSpec.KEYS_ROW.cols]: forestGrowingStockBiomassCarbon.columns.map(({ name }: any) =>
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.label]: name,
         })
       ),
     }),
 
-    ...forestGrowingStockBiomassCarbon.rows.names.map((variable) =>
+    ...forestGrowingStockBiomassCarbon.rows.names.map((variable: any) =>
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.labelKey]: `contentCheck.forestGrowingStockBiomassCarbon.${variable}`,
         [SectionSpec.KEYS_ROW.variableExport]: `${variable}`,

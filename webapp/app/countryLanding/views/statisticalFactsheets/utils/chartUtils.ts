@@ -1,4 +1,6 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as NumberUtils from '@common/bignumberUtils'
 import { formatValue } from '@webapp/app/countryLanding/views/statisticalFactsheets/utils/numberUtils'
 
@@ -52,9 +54,10 @@ const preferences = [
   },
 ]
 
-const arrayHasKey = (array, key) => array.includes(key)
+const arrayHasKey = (array: any, key: any) => array.includes(key)
 
-const getDatasetAndLabel = (data, chartHeads, isIsoCountry) => {
+const getDatasetAndLabel = (data: any, chartHeads: any, isIsoCountry: any) => {
+  // @ts-expect-error ts-migrate(2550) FIXME: Property 'fromEntries' does not exist on type 'Obj... Remove this comment to see the full error message
   const filteredData = Object.fromEntries(
     Object.entries(data)
       // Filter away values not needed / check they exist in chartHeads, save rowName for label
@@ -69,12 +72,20 @@ const getDatasetAndLabel = (data, chartHeads, isIsoCountry) => {
   }
 }
 
-export const getData = (fetchedData, chartHeads, chartName, loaded, i18n, unit, isIsoCountry) => {
+export const getData = (
+  fetchedData: any,
+  chartHeads: any,
+  chartName: any,
+  loaded: any,
+  i18n: any,
+  unit: any,
+  isIsoCountry: any
+) => {
   if (!loaded) return {}
 
   const datasets = fetchedData
-    .map((entry) => getDatasetAndLabel(entry, chartHeads, isIsoCountry))
-    .map(({ data, label }, i) => ({
+    .map((entry: any) => getDatasetAndLabel(entry, chartHeads, isIsoCountry))
+    .map(({ data, label }: any, i: any) => ({
       ...preferences[i],
       label: i18n ? i18n.t(i18n.t(`statisticalFactsheets.rowName.${label}`)) : label,
       data,
@@ -107,13 +118,13 @@ const commonOptions = {
     bodyFontSize: 13,
     bodySpacing: 6,
     callbacks: {
-      label: (tooltipItem, data) => {
+      label: (tooltipItem: any, data: any) => {
         const { datasetIndex, index } = tooltipItem
         const { datasets, labels } = data
         const dataset = datasets[datasetIndex]
         return dataset.label || labels[index]
       },
-      afterLabel: (tooltipItem, data) => {
+      afterLabel: (tooltipItem: any, data: any) => {
         const { datasetIndex, index } = tooltipItem
         const { datasets } = data
         const dataset = datasets[datasetIndex]
@@ -157,7 +168,7 @@ const optionsByType = {
   },
 }
 
-const _getScaleLabel = (labelString) => ({
+const _getScaleLabel = (labelString: any) => ({
   display: true,
   fontFamily: `'Open Sans', sans-serif`,
   fontSize: 11,
@@ -165,7 +176,7 @@ const _getScaleLabel = (labelString) => ({
   labelString,
 })
 
-export const getOptions = ({ type, xAxisLabel = null, yAxisLabel = null }) => {
+export const getOptions = ({ type, xAxisLabel = null, yAxisLabel = null }: any) => {
   const options = optionsByType[type]
 
   if (!options) throw new Error(`Unknown chart type ${type}`)

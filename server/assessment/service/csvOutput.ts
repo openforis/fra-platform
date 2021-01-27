@@ -1,12 +1,14 @@
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'format'.
 const { format } = require('date-fns')
 
 const { AsyncParser } = require('json2csv')
 
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'ExportOutp... Remove this comment to see the full error message
 const ExportOutput = require('./exportOutput')
 
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'CsvOutput'... Remove this comment to see the full error message
 class CsvOutput extends ExportOutput {
-
-  constructor (fileName, fields) {
+  constructor(fileName: any, fields: any) {
     super()
 
     this.fileName = `${fileName}_${format(new Date(), 'yyyy_MM_dd')}.csv`
@@ -14,20 +16,19 @@ class CsvOutput extends ExportOutput {
     this._key = fileName.split('/').join('_')
 
     const opts = {
-      fields: [
-        ...this.fieldsCommon,
-        ...fields
-      ]
+      fields: [...this.fieldsCommon, ...fields],
     }
 
     this._asyncParser = new AsyncParser(opts, {})
     this._asyncParser.processor
-      .on('data', chunk => (this.content += chunk.toString()))
+      .on('data', (chunk: any) => (this.content += chunk.toString()))
       // .on('end', () => console.log(csv))
-      .on('error', err => { throw new Error(err) })
+      .on('error', (err: any) => {
+        throw new Error(err)
+      })
   }
 
-  get fieldsCommon () {
+  get fieldsCommon() {
     return [
       {
         value: 'regionCodes',
@@ -40,40 +41,40 @@ class CsvOutput extends ExportOutput {
       {
         value: 'listNameEn',
         label: 'name',
-      }
+      },
     ]
   }
 
-  get fileName () {
+  get fileName() {
     return this._fileName
   }
 
-  set fileName (fileName) {
+  set fileName(fileName) {
     this._fileName = fileName
   }
 
-  get content () {
+  get content() {
     return this._content
   }
 
-  set content (content) {
+  set content(content) {
     this._content = content
   }
 
-  get output () {
+  get output() {
     return {
       [this._key]: {
         fileName: this.fileName,
-        content: this.content
-      }
+        content: this.content,
+      },
     }
   }
 
-  pushContent (object) {
+  pushContent(object: any) {
     this._asyncParser.input.push(JSON.stringify(object))
   }
 
-  pushContentDone () {
+  pushContentDone() {
     this._asyncParser.input.push(null)
   }
 }

@@ -1,3 +1,4 @@
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as FRA from '@common/assessment/fra'
 
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
@@ -78,7 +79,8 @@ const rows = [
     [SectionSpec.KEYS_ROW.labelKey]: 'forestCharacteristics.totalForestArea',
     [SectionSpec.KEYS_ROW.linkToSection]: FRA.sections['1'].children.a.name,
     [SectionSpec.KEYS_ROW.variableName]: 'totalForestArea',
-    [SectionSpec.KEYS_ROW.calculateFn]: (datum) => (state) => ExtentOfForestState.getForestByYear(datum.name)(state),
+    [SectionSpec.KEYS_ROW.calculateFn]: (datum: any) => (state: any) =>
+      ExtentOfForestState.getForestByYear(datum.name)(state),
   }),
   SectionSpec.newRowNoticeMessage({
     [SectionSpec.KEYS_ROW.rowSpan]: 2,

@@ -1,9 +1,11 @@
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'camelize'.
 const camelize = require('camelize')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
 const db = require('../db/db')
 
-const _joinArray = (arr) => arr.map((entry) => `'${entry}'`).join(', ')
+const _joinArray = (arr: any) => arr.map((entry: any) => `'${entry}'`).join(', ')
 
-const getGlobalStatisticalFactsheetData = async (schemaName, rowNames) => {
+const getGlobalStatisticalFactsheetData = async (schemaName: any, rowNames: any) => {
   const query = `
 SELECT
        row_name,
@@ -23,7 +25,8 @@ ORDER BY row_name
   return camelize(result.rows)
 }
 
-const getStatisticalFactsheetData = async (schemaName, rowNames, countries) => {
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getStatist... Remove this comment to see the full error message
+const getStatisticalFactsheetData = async (schemaName: any, rowNames: any, countries: any) => {
   // TODO: give country_iso - is this even needed?
   const query = `
 SELECT
@@ -45,7 +48,7 @@ ORDER BY row_name
   return camelize(result.rows)
 }
 
-const getSingleCountryStatisticalFactsheetData = async (schemaName, rowNames, countryIso) => {
+const getSingleCountryStatisticalFactsheetData = async (schemaName: any, rowNames: any, countryIso: any) => {
   const query = `
 SELECT
     row_name,
@@ -64,7 +67,8 @@ ORDER BY row_name
   return camelize(result.rows)
 }
 
-const getPrimaryForestData = async (schemaName, countryIsos = []) => {
+// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'countryIsos' implicitly has an 'any[]' ... Remove this comment to see the full error message
+const getPrimaryForestData = async (schemaName: any, countryIsos = []) => {
   const hasCountries = countryIsos.length > 0
   let validCountries = ''
   if (hasCountries) {

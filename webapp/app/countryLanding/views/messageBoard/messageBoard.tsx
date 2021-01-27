@@ -16,11 +16,10 @@ const MessageBoard = () => {
     countryMessageBoardUnreadMessages: LandingState.getCountryMessageBoardUnreadMessages(state),
     countryMessageBoardOpened: MessageBoardState.getCountryMessageBoardOpened(state),
   }))
-
   return (
     <div className="landing__users-container landing__message-board">
       <div className="landing__page-container-header">
-        <h3 className="landing__users-container-header">{i18n.t('countryMessageBoard.messageBoard')}</h3>
+        <h3 className="landing__users-container-header">{(i18n as any).t('countryMessageBoard.messageBoard')}</h3>
       </div>
       <div className="landing__user-outer-container">
         <div className="landing__user-container">
@@ -34,7 +33,7 @@ const MessageBoard = () => {
               }}
             />
             <div className="landing__user-info">
-              <div className="landing__user-role">{i18n.t('countryMessageBoard.messageBoardDesc')}</div>
+              <div className="landing__user-role">{(i18n as any).t('countryMessageBoard.messageBoardDesc')}</div>
               <button
                 type="button"
                 className="landing__user-btn-message"
@@ -45,8 +44,9 @@ const MessageBoard = () => {
                   }
                 }}
               >
+                {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ name: string; className: string; }' is not... Remove this comment to see the full error message */}
                 <Icon name="chat-46" className="icon-middle" />
-                {i18n.t('landing.users.message')}
+                {(i18n as any).t('landing.users.message')}
                 {countryMessageBoardUnreadMessages > 0 ? (
                   <div className="landing__user-message-count">{countryMessageBoardUnreadMessages}</div>
                 ) : null}
@@ -58,5 +58,4 @@ const MessageBoard = () => {
     </div>
   )
 }
-
 export default MessageBoard

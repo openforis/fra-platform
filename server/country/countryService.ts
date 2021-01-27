@@ -1,12 +1,15 @@
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
 const R = require('ramda')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Promise'.
 const Promise = require('bluebird')
 
 const countryConfig = require('./countryConfig')
 
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'countryRep... Remove this comment to see the full error message
 const countryRepository = require('./countryRepository')
 const traditionalTableRepository = require('../traditionalTable/traditionalTableRepository')
 
-const getCountryConfig = async (countryIso, schemaName = 'public') => {
+const getCountryConfig = async (countryIso: any, schemaName = 'public') => {
   const dynamicConfig = await countryRepository.getDynamicCountryConfiguration(countryIso, schemaName)
 
   const staticConfig = countryConfig[countryIso]
@@ -16,7 +19,7 @@ const getCountryConfig = async (countryIso, schemaName = 'public') => {
   return fullConfig
 }
 
-const getCountryConfigFull = async (countryIso, schemaName = 'public') => {
+const getCountryConfigFull = async (countryIso: any, schemaName = 'public') => {
   const [config, result] = await Promise.all([
     getCountryConfig(countryIso, schemaName),
     traditionalTableRepository.read(countryIso, 'climaticDomain', schemaName),

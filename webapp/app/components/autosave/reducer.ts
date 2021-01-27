@@ -1,3 +1,4 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 import { exportReducer } from '@webapp/utils/reduxUtils'
 import {
@@ -9,16 +10,16 @@ import * as AutosaveState from './autosaveState'
 import { autoSaveStart, autoSaveComplete } from './actions'
 
 const actionHandlers = {
-  [autoSaveStart]: (state) => AutosaveState.assocStatus(AutosaveState.status.saving)(state),
-  [autoSaveComplete]: (state) => AutosaveState.assocStatus(AutosaveState.status.complete)(state),
+  [autoSaveStart]: (state: any) => AutosaveState.assocStatus(AutosaveState.status.saving)(state),
+  [autoSaveComplete]: (state: any) => AutosaveState.assocStatus(AutosaveState.status.complete)(state),
 
-  [lastSectionUpdateTimestampReceived]: (state, { timeStamp }) =>
+  [lastSectionUpdateTimestampReceived]: (state: any, { timeStamp }: any) =>
     R.pipe(
       AutosaveState.assocStatus(AutosaveState.status.lastSaveTimestampReceived),
       AutosaveState.assocLastSaveTimeStamp(timeStamp)
     )(state),
 
-  [lastSectionUpdateTimestampReset]: (state) =>
+  [lastSectionUpdateTimestampReset]: (state: any) =>
     R.pipe(AutosaveState.assocStatus(null), AutosaveState.assocLastSaveTimeStamp(null))(state),
 }
 

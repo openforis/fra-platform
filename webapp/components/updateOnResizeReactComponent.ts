@@ -1,16 +1,19 @@
 import React from 'react'
 
 class UpdateOnResizeReactComponent extends React.Component {
-  constructor () {
+  resizeListener: any
+
+  constructor() {
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 1-2 arguments, but got 0.
     super()
     this.resizeListener = () => this.forceUpdate()
   }
 
-  componentDidMount () {
+  componentDidMount() {
     window.addEventListener('resize', this.resizeListener, true)
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     window.removeEventListener('resize', this.resizeListener, true)
   }
 }

@@ -1,6 +1,7 @@
 import axios from 'axios'
 import * as AppState from '@webapp/store/app/state'
 
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as FRA from '@common/assessment/fra'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 
@@ -16,7 +17,7 @@ const growingStock = FRA.sections['2'].children.a
  * Now the endpoint is not consistent. That is why it's needed to get different url based on section.
  * TODO: Make api endpoints consistent and remove this function.
  */
-const getPostUrl = ({ countryIso, sectionName, tableName }) => {
+const getPostUrl = ({ countryIso, sectionName, tableName }: any) => {
   if ([extentOfForest.name, forestCharacteristics.name].includes(sectionName)) {
     return `/api/nde/${sectionName}/${countryIso}`
   }
@@ -31,15 +32,15 @@ const getPostUrl = ({ countryIso, sectionName, tableName }) => {
  * Now the endpoint is not consistent. That is why it's needed to get different data to post based on section.
  * TODO: Make api endpoints consistent and remove this function.
  */
-const getPostData = ({ sectionName, data }) => {
+const getPostData = ({ sectionName, data }: any) => {
   if ([extentOfForest.name, forestCharacteristics.name].includes(sectionName)) {
     return data[AssessmentState.keysDataTableWithOdp.fraNoNDPs]
   }
   return data
 }
 
-const postTableData = ({ sectionName, tableName, data }) => {
-  const debounced = async (dispatch, getState) => {
+const postTableData = ({ sectionName, tableName, data }: any) => {
+  const debounced = async (dispatch: any, getState: any) => {
     const countryIso = AppState.getCountryIso(getState())
     const url = getPostUrl({ countryIso, sectionName, tableName })
     await axios.post(url, getPostData({ sectionName, data }))
@@ -54,7 +55,7 @@ const postTableData = ({ sectionName, tableName, data }) => {
   return debounced
 }
 
-export const persistTableData = ({ assessmentType, sectionName, tableName, data }) => (dispatch) => {
+export const persistTableData = ({ assessmentType, sectionName, tableName, data }: any) => (dispatch: any) => {
   dispatch(updateTableData({ assessmentType, sectionName, tableName, data, autoSaveStart: true }))
   dispatch(postTableData({ sectionName, tableName, data }))
 }

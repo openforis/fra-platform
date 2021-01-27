@@ -1,10 +1,16 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as Assessment from '@common/assessment/assessment'
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as FRA from '@common/assessment/fra'
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as FRAUtils from '@common/fraUtils'
 
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { isReviewer, isAdministrator } from '@common/countryRole'
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { assessmentStatus } from '@common/assessment'
 
 import * as AppState from '@webapp/store/app/state'
@@ -29,17 +35,17 @@ export const keysDataTableWithOdp = {
 }
 
 // TODO: Now assessment is part of country status - refactor it
-export const getAssessment = (name) => R.pipe(CountryState.getAssessments, R.propOr({}, name))
+export const getAssessment = (name: any) => R.pipe(CountryState.getAssessments, R.propOr({}, name))
 
 const getState = R.propOr({}, stateKey)
 
-const getStateAssessment = (type) => R.pipe(getState, R.propOr({}, type))
+const getStateAssessment = (type: any) => R.pipe(getState, R.propOr({}, type))
 
-const _isLocked = (type) => R.pipe(getStateAssessment(type), R.propOr(true, keys.lock))
+const _isLocked = (type: any) => R.pipe(getStateAssessment(type), R.propOr(true, keys.lock))
 
 // ======  Lock functions
 
-export const isLocked = (assessment) => (state) => {
+export const isLocked = (assessment: any) => (state: any) => {
   const countryIso = AppState.getCountryIso(state)
   const userInfo = UserState.getUserInfo(state)
 
@@ -51,7 +57,7 @@ export const isLocked = (assessment) => (state) => {
   return !Assessment.getCanEditData(assessment)
 }
 
-export const canToggleLock = (assessment) => (state) => {
+export const canToggleLock = (assessment: any) => (state: any) => {
   const countryIso = AppState.getCountryIso(state)
   const userInfo = UserState.getUserInfo(state)
 
@@ -66,67 +72,72 @@ export const canToggleLock = (assessment) => (state) => {
   return false
 }
 
-export const assocLock = (assessmentType, lock) => R.assocPath([assessmentType, keys.lock], lock)
+export const assocLock = (assessmentType: any, lock: any) => R.assocPath([assessmentType, keys.lock], lock)
 
 // ====== Section
 
-const _getSectionPath = (assessmentType, sectionName) => [assessmentType, keys.sections, sectionName]
+const _getSectionPath = (assessmentType: any, sectionName: any) => [assessmentType, keys.sections, sectionName]
 
 // ====== Section - Prop
 
-const _getSectionPropPath = (assessmentType, sectionName, propName) => [
+const _getSectionPropPath = (assessmentType: any, sectionName: any, propName: any) => [
   ..._getSectionPath(assessmentType, sectionName),
   propName,
 ]
 
-export const assocSectionProp = (assessmentType, sectionName, propName, value) =>
+export const assocSectionProp = (assessmentType: any, sectionName: any, propName: any, value: any) =>
   R.assocPath(_getSectionPropPath(assessmentType, sectionName, propName), value)
 
-export const getSectionProp = (assessmentType, sectionName, propName, defaultValue = null) =>
+// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'defaultValue' implicitly has an 'any' t... Remove this comment to see the full error message
+export const getSectionProp = (assessmentType: any, sectionName: any, propName: any, defaultValue = null) =>
   R.pipe(getState, R.pathOr(defaultValue, _getSectionPropPath(assessmentType, sectionName, propName)))
 
 // ====== Section - Data Table
 
-const _getTableDataPath = (assessmentType, sectionName, tableName) => [
+const _getTableDataPath = (assessmentType: any, sectionName: any, tableName: any) => [
   ..._getSectionPropPath(assessmentType, sectionName, keysSection.data),
   tableName,
 ]
 
-const _getTableGeneratingPath = (assessmentType, sectionName, tableName) => [
+const _getTableGeneratingPath = (assessmentType: any, sectionName: any, tableName: any) => [
   ..._getSectionPropPath(assessmentType, sectionName, keysSection.generatingValues),
   tableName,
 ]
 
-export const assocSectionData = (assessmentType, sectionName, tableName, data) =>
+export const assocSectionData = (assessmentType: any, sectionName: any, tableName: any, data: any) =>
   R.assocPath(_getTableDataPath(assessmentType, sectionName, tableName), data)
 
-export const getSectionData = (assessmentType, sectionName, tableName) =>
+export const getSectionData = (assessmentType: any, sectionName: any, tableName: any) =>
   R.pipe(getState, R.pathOr(null, _getTableDataPath(assessmentType, sectionName, tableName)))
 
-export const isSectionDataLoaded = (assessmentType, sectionName, tableName) =>
+export const isSectionDataLoaded = (assessmentType: any, sectionName: any, tableName: any) =>
   R.pipe(getSectionData(assessmentType, sectionName, tableName), R.isNil, R.not)
 
-export const isSectionDataEmpty = (assessmentType, sectionName, tableName) =>
+export const isSectionDataEmpty = (assessmentType: any, sectionName: any, tableName: any) =>
   R.pipe(getSectionData(assessmentType, sectionName, tableName), FRAUtils.isTableEmpty)
 
-export const getFra = (assessmentType, sectionName, tableName) =>
+export const getFra = (assessmentType: any, sectionName: any, tableName: any) =>
   R.pipe(getSectionData(assessmentType, sectionName, tableName), R.propOr(null, keysDataTableWithOdp.fra))
 
-export const getFraNoNDPs = (assessmentType, sectionName, tableName) =>
+export const getFraNoNDPs = (assessmentType: any, sectionName: any, tableName: any) =>
   R.pipe(getSectionData(assessmentType, sectionName, tableName), R.propOr(null, keysDataTableWithOdp.fraNoNDPs))
 
 // ==== Table Data Cell getters
 
-export const getTableDataCell = ({ assessmentType, sectionName, tableName, colIdx, rowIdx }) =>
+export const getTableDataCell = ({ assessmentType, sectionName, tableName, colIdx, rowIdx }: any) =>
   R.pipe(getSectionData(assessmentType, sectionName, tableName), R.pathOr(null, [rowIdx, colIdx]))
 
-export const getTableDataCellByFRAYear = ({ assessmentType, sectionName, tableName, year, rowIdx }) =>
+export const getTableDataCellByFRAYear = ({ assessmentType, sectionName, tableName, year, rowIdx }: any) =>
   getTableDataCell({ assessmentType, sectionName, tableName, colIdx: FRA.years.indexOf(year), rowIdx })
 
 // ====== Section - Generating Values
 
-export const assocSectionDataGeneratingValues = (assessmentType, sectionName, tableName, generating) =>
-  R.assocPath(_getTableGeneratingPath(assessmentType, sectionName, tableName), generating)
+export const assocSectionDataGeneratingValues = (
+  assessmentType: any,
+  sectionName: any,
+  tableName: any,
+  generating: any
+) => R.assocPath(_getTableGeneratingPath(assessmentType, sectionName, tableName), generating)
 
-export const getSectionDataGeneratingValues = (assessmentType, sectionName, tableName) =>
+export const getSectionDataGeneratingValues = (assessmentType: any, sectionName: any, tableName: any) =>
   R.pipe(getState, R.pathOr(false, _getTableGeneratingPath(assessmentType, sectionName, tableName)))

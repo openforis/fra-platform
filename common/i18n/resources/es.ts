@@ -1,4 +1,6 @@
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'area'.
 const area = require('./es/area')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'statistica... Remove this comment to see the full error message
 const statisticalFactsheets = require('./es/statisticalFactsheets')
 
 module.exports.translation = {

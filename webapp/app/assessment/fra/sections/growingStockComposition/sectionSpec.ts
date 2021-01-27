@@ -1,3 +1,4 @@
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as FRA from '@common/assessment/fra'
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
@@ -43,7 +44,7 @@ const tableSpec = SectionSpec.newTableSpec({
     }),
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
-        ...years.map((year) =>
+        ...years.map((year: any) =>
           SectionSpec.newColHeader({
             [SectionSpec.KEYS_COL.label]: year,
           })
@@ -60,10 +61,11 @@ const tableSpec = SectionSpec.newTableSpec({
         }),
       ],
     }),
-    ...GrowingStockCompositionState.rowIndexes.native.map((idx) =>
+    ...GrowingStockCompositionState.rowIndexes.native.map((idx: any) =>
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.labelKey]: 'growingStockComposition.rank',
         [SectionSpec.KEYS_ROW.labelPrefixKey]: 'growingStockComposition.native',
+        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES[`native_rank${idx + 1}`],
         [SectionSpec.KEYS_ROW.labelParams]: { idx: idx + 1 },
         [SectionSpec.KEYS_ROW.cols]: [
@@ -78,7 +80,7 @@ const tableSpec = SectionSpec.newTableSpec({
       [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.remaining_native,
       [SectionSpec.KEYS_ROW.colSpan]: 3,
       [SectionSpec.KEYS_ROW.mainCategory]: true,
-      [SectionSpec.KEYS_ROW.cols]: years.map((year, idx) =>
+      [SectionSpec.KEYS_ROW.cols]: years.map((year: any, idx: any) =>
         SectionSpec.newColDecimal({
           [SectionSpec.KEYS_COL.idx]: idx + 2,
         })
@@ -89,7 +91,7 @@ const tableSpec = SectionSpec.newTableSpec({
       [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.total_native,
       [SectionSpec.KEYS_ROW.colSpan]: 3,
       [SectionSpec.KEYS_ROW.mainCategory]: true,
-      [SectionSpec.KEYS_ROW.cols]: years.map((year, idx) =>
+      [SectionSpec.KEYS_ROW.cols]: years.map((year: any, idx: any) =>
         SectionSpec.newColCalculated({
           [SectionSpec.KEYS_COL.calculateFn]: GrowingStockCompositionState.getTotalNativeTreeSpecies,
           [SectionSpec.KEYS_COL.idx]: idx + 2,
@@ -102,10 +104,11 @@ const tableSpec = SectionSpec.newTableSpec({
       [SectionSpec.KEYS_ROW.colSpan]: years.length + 3,
       [SectionSpec.KEYS_ROW.mainCategory]: true,
     }),
-    ...GrowingStockCompositionState.rowIndexes.introduced.map((rowIdx, idx) =>
+    ...GrowingStockCompositionState.rowIndexes.introduced.map((rowIdx: any, idx: any) =>
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.labelKey]: 'growingStockComposition.rank',
         [SectionSpec.KEYS_ROW.labelPrefixKey]: 'growingStockComposition.introduced',
+        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES[`introduced_rank${idx + 1}`],
         [SectionSpec.KEYS_ROW.labelParams]: { idx: idx + 1 },
         [SectionSpec.KEYS_ROW.cols]: [
@@ -120,7 +123,7 @@ const tableSpec = SectionSpec.newTableSpec({
       [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.remaining_introduced_placeholder,
       [SectionSpec.KEYS_ROW.colSpan]: 3,
       [SectionSpec.KEYS_ROW.mainCategory]: true,
-      [SectionSpec.KEYS_ROW.cols]: years.map((year, idx) =>
+      [SectionSpec.KEYS_ROW.cols]: years.map((year: any, idx: any) =>
         SectionSpec.newColDecimal({
           [SectionSpec.KEYS_COL.idx]: idx + 2,
         })
@@ -132,7 +135,7 @@ const tableSpec = SectionSpec.newTableSpec({
 
       [SectionSpec.KEYS_ROW.colSpan]: 3,
       [SectionSpec.KEYS_ROW.mainCategory]: true,
-      [SectionSpec.KEYS_ROW.cols]: years.map((year, idx) =>
+      [SectionSpec.KEYS_ROW.cols]: years.map((year: any, idx: any) =>
         SectionSpec.newColCalculated({
           [SectionSpec.KEYS_COL.calculateFn]: GrowingStockCompositionState.getTotalIntroducedTreeSpecies,
           [SectionSpec.KEYS_COL.idx]: idx + 2,
@@ -144,7 +147,7 @@ const tableSpec = SectionSpec.newTableSpec({
       [SectionSpec.KEYS_ROW.labelKey]: 'growingStockComposition.totalGrowingStock',
       [SectionSpec.KEYS_ROW.colSpan]: 3,
       [SectionSpec.KEYS_ROW.mainCategory]: true,
-      [SectionSpec.KEYS_ROW.cols]: years.map((year, idx) =>
+      [SectionSpec.KEYS_ROW.cols]: years.map((year: any, idx: any) =>
         SectionSpec.newColCalculated({
           [SectionSpec.KEYS_COL.calculateFn]: GrowingStockCompositionState.getTotalGrowingStock,
           [SectionSpec.KEYS_COL.idx]: idx + 2,

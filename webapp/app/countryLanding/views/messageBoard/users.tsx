@@ -1,13 +1,12 @@
 import React from 'react'
-
 import { useCountryIso } from '@webapp/components/hooks'
 import useI18n from '@webapp/components/hooks/useI18n'
 import { useDispatch, useSelector } from 'react-redux'
 import * as LandingState from '@webapp/app/countryLanding/landingState'
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { i18nUserRole, profilePictureUri } from '@common/userUtils'
 import Icon from '@webapp/components/icon'
 import { UserState } from '@webapp/store/user'
-
 import { openChat } from '@webapp/app/user/chat/actions'
 import { closeCountryMessageBoard } from '@webapp/app/countryLanding/views/messageBoard/actions'
 
@@ -19,17 +18,15 @@ const Users = () => {
     userInfo: UserState.getUserInfo(state),
     users: LandingState.getUsers(state),
   }))
-
   if (!users || !userInfo) {
     return null
   }
-
   return (
     <div className="landing__users-container">
       <div className="landing__page-container-header">
-        <h3 className="landing__users-container-header">{i18n.t('countryMessageBoard.oneToOneMessages')}</h3>
+        <h3 className="landing__users-container-header">{(i18n as any).t('countryMessageBoard.oneToOneMessages')}</h3>
       </div>
-      {users.map((user) => (
+      {users.map((user: any) => (
         <div key={user.id} className="landing__user-outer-container">
           <div className={`landing__user-container${user.active ? '' : ' user-list__inactive-user'}`}>
             <div className="landing__user-header">
@@ -48,8 +45,9 @@ const Users = () => {
                         dispatch(openChat(countryIso, userInfo, user))
                       }}
                     >
+                      {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ name: string; className: string; }' is not... Remove this comment to see the full error message */}
                       <Icon name="chat-46" className="icon-middle" />
-                      {i18n.t('landing.users.message')}
+                      {(i18n as any).t('landing.users.message')}
                       {user.chat.unreadMessages > 0 ? (
                         <div className="landing__user-message-count">{user.chat.unreadMessages}</div>
                       ) : null}
@@ -64,5 +62,4 @@ const Users = () => {
     </div>
   )
 }
-
 export default Users

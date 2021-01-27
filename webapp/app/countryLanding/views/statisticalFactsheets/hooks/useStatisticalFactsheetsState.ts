@@ -4,7 +4,7 @@ import useGetRequest from '@webapp/components/hooks/useGetRequest'
 
 import * as APIUtils from '../utils/apiUtils'
 
-export default (section, level) => {
+export default (section: any, level: any) => {
   const url = APIUtils.getUrl()
   const params = APIUtils.getParams(section, level)
 

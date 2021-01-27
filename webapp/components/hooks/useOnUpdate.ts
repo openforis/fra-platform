@@ -1,6 +1,7 @@
 import { useRef, useEffect } from 'react'
 
-export default (effect, inputs = []) => {
+// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'inputs' implicitly has an 'any[]' type.
+export default (effect: any, inputs = []) => {
   const isInitialMount = useRef(true)
 
   useEffect(() => {

@@ -7,10 +7,14 @@ import { updateTableData } from './update'
 
 export const assessmentSectionDataGeneratingValuesUpdate = 'assessment/section/data/generatingValues/update'
 
-export const generateTableData = (assessmentType, sectionName, tableName, method, fields, changeRates) => async (
-  dispatch,
-  getState
-) => {
+export const generateTableData = (
+  assessmentType: any,
+  sectionName: any,
+  tableName: any,
+  method: any,
+  fields: any,
+  changeRates: any
+) => async (dispatch: any, getState: any) => {
   const countryIso = AppState.getCountryIso(getState())
 
   dispatch(

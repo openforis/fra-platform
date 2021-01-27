@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { applicationError } from '@webapp/components/error/actions'
 
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import FRAVersion from '@common/versioning/fraVersion'
 import * as AdminState from '@webapp/store/admin/state'
 
@@ -10,7 +11,7 @@ export const versioningPostMissingData = 'versioning/post/missingdata'
 export const versioningPostSuccess = 'versioning/post/success'
 export const versioningUpdateForm = 'versioning/update/form'
 
-export const getVersions = () => (dispatch) => {
+export const getVersions = () => (dispatch: any) => {
   axios
     .get(`/api/versioning/`)
     .then(({ data }) => {
@@ -22,7 +23,7 @@ export const getVersions = () => (dispatch) => {
     .catch((err) => dispatch(applicationError(err)))
 }
 
-export const createVersion = (_) => (dispatch, getState) => {
+export const createVersion = (_: any) => (dispatch: any, getState: any) => {
   const state = getState()
   const newVersionForm = AdminState.getNewVersionForm(state)
 
@@ -62,7 +63,7 @@ export const createVersion = (_) => (dispatch, getState) => {
     .catch((err) => dispatch(applicationError(err)))
 }
 
-export const deleteVersion = (id) => (dispatch) => {
+export const deleteVersion = (id: any) => (dispatch: any) => {
   if (!window.confirm('Are you sure?')) {
     return
   }
@@ -78,7 +79,7 @@ export const deleteVersion = (id) => (dispatch) => {
     .catch((err) => dispatch(applicationError(err)))
 }
 
-export const onChangeNewVersionForm = (e) => (dispatch) => {
+export const onChangeNewVersionForm = (e: any) => (dispatch: any) => {
   dispatch({
     type: versioningUpdateForm,
     payload: { [e.target.name]: e.target.value },

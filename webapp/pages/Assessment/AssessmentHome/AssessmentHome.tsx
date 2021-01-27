@@ -2,7 +2,9 @@ import './FraHome/fraHome.less'
 
 import React from 'react'
 
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as FRA from '@common/assessment/fra'
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as PanEuropean from '@common/assessment/panEuropean'
 
 import { useAssessmentType } from '@webapp/store/app'
@@ -17,6 +19,7 @@ const Components = {
 
 const AssessmentHome = () => {
   const assessmentType = useAssessmentType()
+  // @ts-expect-error ts-migrate(2538) FIXME: Type 'unknown' cannot be used as an index type.
   const Component = Components[assessmentType]
 
   if (!Component) {

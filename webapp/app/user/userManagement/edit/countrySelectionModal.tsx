@@ -1,53 +1,51 @@
 import React from 'react'
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
-
 import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from '@webapp/components/modal'
 import { useI18n } from '@webapp/components/hooks'
 
-const CountrySelectionModalBody = (props) => {
+const CountrySelectionModalBody = (props: any) => {
   const { countries, toggleCountry, selection, unselectableCountries } = props
-
   const i18n = useI18n()
-
-  const isSelected = (countryIso) => R.contains(countryIso, selection)
-  const isUnselactable = (countryIso) => R.contains(countryIso, unselectableCountries)
-
+  const isSelected = (countryIso: any) => R.contains(countryIso, selection)
+  const isUnselactable = (countryIso: any) => R.contains(countryIso, unselectableCountries)
   // Sort given countries (from props) to hashmap: {regionCode}: [{countryIso},..]
   const regionCountries = {}
-
-  countries.forEach((country) => {
+  countries.forEach((country: any) => {
     const { countryIso, regionCodes } = country
-    regionCodes.forEach((regionCode) => {
+    regionCodes.forEach((regionCode: any) => {
+      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       if (!Array.isArray(regionCountries[regionCode])) {
+        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         regionCountries[regionCode] = []
       }
+      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       regionCountries[regionCode].push(countryIso)
     })
   })
-
   return (
     <ModalBody>
       <div className="edit-user__form-field-country-selection">
         {Object.entries(regionCountries).map(([regionCode, countryIsos]) => (
           <div key={regionCode} className="edit-user__form-field-region-container">
-            <div className="edit-user__form-field-region-label">{i18n.t(`area.${regionCode}.listName`)}</div>
+            <div className="edit-user__form-field-region-label">{(i18n as any).t(`area.${regionCode}.listName`)}</div>
 
-            {countryIsos.map((countryIso) => {
+            {(countryIsos as any).map((countryIso: any) => {
               const isCountryUnselectable = isUnselactable(countryIso)
               let classChecked = 'fra-checkbox'
               if (isSelected(countryIso)) classChecked += ' checked'
-
               let classCountry = 'edit-user__form-field-country-selector'
               if (isCountryUnselectable) classCountry += ' disabled'
-
               return (
                 <div
                   key={countryIso}
                   className={classCountry}
                   onClick={() => !isCountryUnselectable && toggleCountry(countryIso)}
                 >
-                  <div className={classChecked}></div>
-                  <div className="edit-user__form-field-country-label">{i18n.t(`area.${countryIso}.listName`)}</div>
+                  <div className={classChecked} />
+                  <div className="edit-user__form-field-country-label">
+                    {(i18n as any).t(`area.${countryIso}.listName`)}
+                  </div>
                 </div>
               )
             })}
@@ -57,12 +55,9 @@ const CountrySelectionModalBody = (props) => {
     </ModalBody>
   )
 }
-
-const CountrySelectionModal = (props) => {
+const CountrySelectionModal = (props: any) => {
   const { countries, toggleCountry, onClose, selection, unselectableCountries, headerLabel } = props
-
   const i18n = useI18n()
-
   return (
     <div className="country-selection">
       <Modal isOpen>
@@ -80,12 +75,11 @@ const CountrySelectionModal = (props) => {
 
         <ModalFooter>
           <button className="btn btn-primary" onClick={onClose}>
-            {i18n.t('editUser.done')}
+            {(i18n as any).t('editUser.done')}
           </button>
         </ModalFooter>
       </Modal>
     </div>
   )
 }
-
 export default CountrySelectionModal

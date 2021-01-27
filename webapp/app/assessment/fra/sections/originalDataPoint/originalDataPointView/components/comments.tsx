@@ -1,21 +1,19 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { useCountryIso, useI18n } from '@webapp/components/hooks'
-
 import CommentsEditor from './commentsEditor'
 import useClassNameComments from './useClassNameComments'
 
-const Comments = (props) => {
+type Props = {
+  canEditData: boolean
+  odp: any
+}
+const Comments = (props: Props) => {
   const { odp, canEditData } = props
-
   const i18n = useI18n()
   const countryIso = useCountryIso()
-
   const target = [`${odp.odpId}`, 'comments']
   const className = useClassNameComments(target)
-
   return (
     <div className="odp__section">
       <div className="fra-description">
@@ -26,8 +24,9 @@ const Comments = (props) => {
         <div className="fra-description__review-indicator-wrapper">
           {odp.odpId && canEditData && (
             <ReviewIndicator
+              // @ts-expect-error ts-migrate(2322) FIXME: Type '{ section: string; title: any; target: strin... Remove this comment to see the full error message
               section="odp"
-              title={i18n.t('nationalDataPoint.nationalDataPoint')}
+              title={(i18n as any).t('nationalDataPoint.nationalDataPoint')}
               target={target}
               countryIso={countryIso}
             />
@@ -37,10 +36,4 @@ const Comments = (props) => {
     </div>
   )
 }
-
-Comments.propTypes = {
-  canEditData: PropTypes.bool.isRequired,
-  odp: PropTypes.object.isRequired,
-}
-
 export default Comments
