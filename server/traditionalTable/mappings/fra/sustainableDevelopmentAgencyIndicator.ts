@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   tableName: 'sustainable_development_indicator',
   section: 'sustainableDevelopment',
   rows: {

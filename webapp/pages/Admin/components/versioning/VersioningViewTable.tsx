@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Icon from '@webapp/components/icon'
 import useI18n from '@webapp/components/hooks/useI18n'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as FRAVersion from '@common/versioning/fraVersion'
 import * as BasePaths from '@webapp/main/basePaths'
 import { classNames, sortVersions, formatDate } from './versioningViewUtils'
@@ -30,7 +29,6 @@ const VersioningViewTableRow = (props: VersioningViewTableRowProps) => {
       <td className={classNames.td}>{(i18n as any).t(`landing.versioning.status.${FRAVersion.getStatus(version)}`)}</td>
       <td className={classNames.td}>
         <button type="button" onClick={() => deleteVersion(FRAVersion.getId(version))} className={classNames.button}>
-          {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ className: string; name: string; }' is not... Remove this comment to see the full error message */}
           <Icon className={classNames.icon} name="remove" /> {(i18n as any).t('landing.versioning.table.delete')}
         </button>
       </td>
@@ -40,6 +38,7 @@ const VersioningViewTableRow = (props: VersioningViewTableRowProps) => {
 type VersioningViewTableProps = {
   deleteVersion: (...args: any[]) => any
   versions: any[]
+  getVersions: any
 }
 const VersioningViewTable = (props: VersioningViewTableProps) => {
   const { versions, deleteVersion } = props
@@ -57,8 +56,7 @@ const VersioningViewTable = (props: VersioningViewTableProps) => {
         <table style={{ maxWidth: 700 }} className={classNames.table}>
           <thead>
             <tr>
-              {/* @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number'. */}
-              <th className={classNames.th} colSpan="5">
+              <th className={classNames.th} colSpan={5}>
                 {(i18n as any).t('landing.versioning.table.databaseVersions')}
               </th>
             </tr>

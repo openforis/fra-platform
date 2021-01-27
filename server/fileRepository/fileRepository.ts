@@ -1,10 +1,7 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fs'.
-const fs = require('fs')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'path'.
-const path = require('path')
+import * as fs from 'fs'
+import * as path from 'path'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fileTypes'... Remove this comment to see the full error message
-const fileTypes = {
+export const fileTypes = {
   userGuide: {
     key: 'userGuide',
     folder: 'userGuide',
@@ -25,11 +22,10 @@ const fileTypes = {
   }),
 }
 
-const getFilepath = (type: any, lang: any) =>
+export const getFilepath = (type: any, lang: any) =>
   path.resolve(__dirname, type.folder, `${type.key}_${lang}.${type.fileType}`)
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'downloadFi... Remove this comment to see the full error message
-const downloadFile = (res: any, type: any, lang: any) => {
+export const downloadFile = (res: any, type: any, lang: any) => {
   const filePath = getFilepath(type, lang)
   const fallbackFilePath = getFilepath(type, 'en')
 
@@ -40,7 +36,7 @@ const downloadFile = (res: any, type: any, lang: any) => {
   }
 }
 
-module.exports = {
+export default {
   fileTypes,
   downloadFile,
 }

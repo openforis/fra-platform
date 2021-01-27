@@ -1,4 +1,4 @@
-module.exports = {
+const variablesUnit: { [key: string]: any } = {
   '1a_forestArea': 'Area (1000 ha)',
   '1a_otherWoodedLand': 'Area (1000 ha)',
   '1a_landArea': 'Area (1000 ha)',
@@ -132,3 +132,5 @@ module.exports = {
   '7b_total_fem': '',
   '7b_total_male': '',
 }
+
+export default variablesUnit

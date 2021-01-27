@@ -1,11 +1,8 @@
 import axios from 'axios'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { validateDataPoint } from '@common/validateOriginalDataPoint'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as FRA from '@common/assessment/fra'
+import FRA from '@common/assessment/fra'
 import * as BasePaths from '@webapp/main/basePaths'
 import { batchActions } from '@webapp/main/reduxBatch'
 import { readPasteClipboard } from '@webapp/utils/copyPasteUtil'
@@ -64,9 +61,8 @@ const persistDraft = (countryIso: any, odp: any) => {
     const actions = [autosave.complete, { type: odpSaveDraftCompleted, odpId }]
 
     // if original data point has just been created, the odpId must be added to odp state active object
-    const isNew = !OriginalDataPointState.getActive(state).odpId
+    const isNew = !(OriginalDataPointState.getActive(state) as any).odpId
     if (isNew) {
-      // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '(dispatch: any) => void' is not ... Remove this comment to see the full error message
       actions.push(...getUpdateTablesWithOdp(state, { ...odp, odpId }))
     }
 
@@ -89,7 +85,6 @@ export const saveDraft = (countryIso: any, odp: any) => (dispatch: any, getState
   if (odp.validationStatus) actions.push(validationCompleted(validateDataPoint(odp)))
 
   // Update tables 1a and 1b
-  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '(dispatch: any) => void' is not ... Remove this comment to see the full error message
   actions.push(...getUpdateTablesWithOdp(getState(), odp))
 
   dispatch(batchActions(actions))
@@ -119,12 +114,10 @@ export const markAsActual = (countryIso: any, odp: any, history: any, destinatio
   const validationStatus = validateDataPoint(odp)
   const { valid } = validationStatus
 
-  const actions = [validationCompleted(validationStatus)]
+  const actions: any[] = [validationCompleted(validationStatus)]
   if (valid) {
-    // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '{ type: string; }' is not assign... Remove this comment to see the full error message
     actions.push(autosave.start)
     // Update tables 1a and 1b
-    // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '(dispatch: any) => void' is not ... Remove this comment to see the full error message
     actions.push(...getUpdateTablesWithOdp(getState(), odp, false))
   }
   dispatch(batchActions(actions))

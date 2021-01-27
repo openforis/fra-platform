@@ -1,7 +1,6 @@
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as PanEuropean from '@common/assessment/panEuropean'
+import PanEuropean from '@common/assessment/panEuropean'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
 
 const section = PanEuropean.sections['4'].children['45']
 
@@ -45,7 +44,6 @@ const tableSpec = SectionSpec.newTableSpec({
         }),
       ],
     }),
-    // @ts-expect-error ts-migrate(2550) FIXME: Property 'flatMap' does not exist on type 'string[... Remove this comment to see the full error message
     ...variables1.flatMap((variable: any) =>
       years1.map((year) =>
         SectionSpec.newRowData({
@@ -66,7 +64,6 @@ const tableSpec = SectionSpec.newTableSpec({
       [SectionSpec.KEYS_ROW.colSpan]: 4,
       [SectionSpec.KEYS_ROW.mainCategory]: true,
     }),
-    // @ts-expect-error ts-migrate(2550) FIXME: Property 'flatMap' does not exist on type 'string[... Remove this comment to see the full error message
     ...variables2.flatMap((variable: any) =>
       years2.map((year) =>
         SectionSpec.newRowData({

@@ -1,13 +1,10 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'camelize'.
-const camelize = require('camelize')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
-const db = require('../db/db')
+import * as R from 'ramda'
+// @ts-ignore
+import * as camelize from 'camelize'
+import * as db from '../db/db'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getChatSum... Remove this comment to see the full error message
-const getChatSummary = async (userFrom: any, userTo: any) => {
-  const resultChatMessage = await db.query(
+export const getChatSummary = async (userFrom: any, userTo: any) => {
+  const resultChatMessage = await db.pool.query(
     `
     SELECT count(*) as unread_messages
     FROM user_chat_message
@@ -23,8 +20,7 @@ const getChatSummary = async (userFrom: any, userTo: any) => {
   }
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getChatMes... Remove this comment to see the full error message
-const getChatMessages = async (client: any, sessionUserId: any, otherUserId: any) => {
+export const getChatMessages = async (client: any, sessionUserId: any, otherUserId: any) => {
   await markChatMessagesRead(client, otherUserId, sessionUserId)
 
   // then loading messages
@@ -47,8 +43,7 @@ const getChatMessages = async (client: any, sessionUserId: any, otherUserId: any
   return resultChatMessages.rows.map((msg: any) => camelize(msg))
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'addMessage... Remove this comment to see the full error message
-const addMessage = async (client: any, message: any, fromUserId: any, toUserId: any) => {
+export const addMessage = async (client: any, message: any, fromUserId: any, toUserId: any) => {
   await client.query(
     `
     INSERT INTO user_chat_message (text, from_user, to_user)
@@ -70,8 +65,7 @@ const addMessage = async (client: any, message: any, fromUserId: any, toUserId: 
   return camelize(resultChatMessage.rows[0])
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getChatUnr... Remove this comment to see the full error message
-const getChatUnreadMessages = async (client: any, fromUserId: any, toUserId: any, markAsRead = false) => {
+export const getChatUnreadMessages = async (client: any, fromUserId: any, toUserId: any, markAsRead = false) => {
   const resultUnreadMessages = await client.query(
     `
     SELECT id,
@@ -93,7 +87,7 @@ const getChatUnreadMessages = async (client: any, fromUserId: any, toUserId: any
   return camelize(resultUnreadMessages.rows)
 }
 
-const markChatMessagesRead = async (client: any, fromUserId: any, toUserId: any) => {
+export const markChatMessagesRead = async (client: any, fromUserId: any, toUserId: any) => {
   await client.query(
     `
     UPDATE
@@ -106,7 +100,7 @@ const markChatMessagesRead = async (client: any, fromUserId: any, toUserId: any)
   )
 }
 
-module.exports = {
+export default {
   getChatSummary,
   getChatMessages,
   addMessage,

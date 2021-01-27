@@ -1,12 +1,9 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getAllVers... Remove this comment to see the full error message
-const { getAllVersions, addVersion, deleteVersion, getLatestSchemaVersion } = require('./versioningRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'sendErr'.
-const { sendErr, getUserId } = require('../utils/requestUtils')
+import { getAllVersions, addVersion, deleteVersion, getLatestSchemaVersion } from './versioningRepository'
+import { sendErr, getUserId } from '../utils/requestUtils'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Auth'.
-const Auth = require('../auth/authApiMiddleware')
+import * as Auth from '../auth/authApiMiddleware'
 
-module.exports.init = (app: any) => {
+export const init = (app: any) => {
   app.get('/versioning/', Auth.requireAdminPermission, async (req: any, res: any) => {
     const versions = await getAllVersions()
     res.json(versions)

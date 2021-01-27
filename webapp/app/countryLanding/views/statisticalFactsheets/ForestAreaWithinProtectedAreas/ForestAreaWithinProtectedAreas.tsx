@@ -19,7 +19,8 @@ const ForestAreaWithinProtectedAreas = (props: Props) => {
   }
   // Get the value for year 2020
   const year = '2020'
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'rowNames' does not exist on type 'any[] ... Remove this comment to see the full error message
+  // @ts-ignore
+  // TODO: fix
   const { rowNames: variables } = APIUtils.getParams('forestAreaWithinProtectedAreas')
   const [forestArea, forestAreaWithinProtectedAreas] = getVariableValuesByYear({ data, variables, year })
   const forestAreaWithinProtectedAreasAsPercentage = 100 * (forestAreaWithinProtectedAreas / forestArea)

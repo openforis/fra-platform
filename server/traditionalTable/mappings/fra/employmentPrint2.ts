@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   tableName: 'employment',
   rows: {
     names: [

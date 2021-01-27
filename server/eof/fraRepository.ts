@@ -1,12 +1,10 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'camelize'.
-const camelize = require('camelize')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
-const db = require('../db/db')
+import * as R from 'ramda'
+// @ts-ignore
+import * as camelize from 'camelize'
+import * as db from '../db/db'
 
 const existingEofValues = async (countryIso: any, year: any) => {
-  const result = await db.query(
+  const result = await db.pool.query(
     `SELECT
        forest_area,
        other_wooded_land,
@@ -21,12 +19,13 @@ const existingEofValues = async (countryIso: any, year: any) => {
   return formattedResult[0]
 }
 
-module.exports.persistEofValues = async (countryIso: any, year: any, values: any) => {
+export const persistEofValues = async (countryIso: any, year: any, values: any) => {
   const existingValues = await existingEofValues(countryIso, year)
   if (existingValues) {
     // This merge is signifcant when we are generating values,
     // then we are only choosing only some of the rows and should
     // leave the rest as they are
+    // @ts-ignore
     await updateEof(countryIso, year, R.merge(existingValues, values))
   } else {
     await insertEof(countryIso, year, values)
@@ -34,7 +33,7 @@ module.exports.persistEofValues = async (countryIso: any, year: any, values: any
 }
 
 const insertEof = (countryIso: any, year: any, fraValues: any) =>
-  db.query(
+  db.pool.query(
     `INSERT INTO
              eof_fra_values
              (country_iso,
@@ -56,7 +55,7 @@ const insertEof = (countryIso: any, year: any, fraValues: any) =>
   )
 
 const updateEof = (countryIso: any, year: any, fraValues: any) =>
-  db.query(
+  db.pool.query(
     `UPDATE
             eof_fra_values
             SET
@@ -76,7 +75,7 @@ const updateEof = (countryIso: any, year: any, fraValues: any) =>
   )
 
 const existingFocValues = async (countryIso: any, year: any) => {
-  const result = await db.query(
+  const result = await db.pool.query(
     `SELECT
        natural_forest_area,
        plantation_forest_area,
@@ -95,9 +94,10 @@ const existingFocValues = async (countryIso: any, year: any) => {
   return formattedResult[0]
 }
 
-module.exports.persistFocValues = async (countryIso: any, year: any, fraValues: any) => {
+export const persistFocValues = async (countryIso: any, year: any, fraValues: any) => {
   const existingValues = await existingFocValues(countryIso, year)
   if (existingValues) {
+    // @ts-ignore
     await updateFoc(countryIso, year, R.merge(existingValues, fraValues))
   } else {
     await insertFoc(countryIso, year, fraValues)
@@ -105,7 +105,7 @@ module.exports.persistFocValues = async (countryIso: any, year: any, fraValues: 
 }
 
 const insertFoc = (countryIso: any, year: any, fraValues: any) =>
-  db.query(
+  db.pool.query(
     `INSERT INTO
              foc_fra_values
              (
@@ -136,7 +136,7 @@ const insertFoc = (countryIso: any, year: any, fraValues: any) =>
   )
 
 const updateFoc = (countryIso: any, year: any, fraValues: any) =>
-  db.query(
+  db.pool.query(
     `UPDATE
             foc_fra_values
             SET
@@ -193,10 +193,9 @@ const forestCharacteristicsReducer = (results: any, row: any, type = 'fra') => [
   },
 ]
 
-module.exports.readFraForestAreas = (countryIso: any, schemaName = 'public') => {
+export const readFraForestAreas = (countryIso: any, schemaName = 'public') => {
   const tableName = `${schemaName}.eof_fra_values`
-  return db
-    .query(
+  return db.pool.query(
       `
     SELECT
       year,
@@ -211,10 +210,9 @@ module.exports.readFraForestAreas = (countryIso: any, schemaName = 'public') => 
     .then((result: any) => R.reduce(forestAreaReducer, [], result.rows))
 }
 
-module.exports.readFraForestCharacteristics = (countryIso: any, schemaName = 'public') => {
+export const readFraForestCharacteristics = (countryIso: any, schemaName = 'public') => {
   const tableName = `${schemaName}.foc_fra_values`
-  return db
-    .query(
+  return db.pool.query(
       `SELECT
         year,
         natural_forest_area,

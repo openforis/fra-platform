@@ -1,5 +1,4 @@
 import { useSelector } from 'react-redux'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
 import { usePrintView } from '@webapp/components/hooks'
@@ -13,9 +12,9 @@ export default (index: any) => {
   }
 
   return useSelector((state) => {
-    const odp = OriginalDataPointState.getActive(state)
+    const odp: any = OriginalDataPointState.getActive(state)
 
-    let validationResult = null
+    let validationResult: any = null
     if (odp.validationStatus) {
       const { uuid } = odp.nationalClasses[index]
 

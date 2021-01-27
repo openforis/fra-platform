@@ -1,8 +1,7 @@
 import React from 'react'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
 
 import Calculated from './calculated'
 import Number from './number'
@@ -42,7 +41,7 @@ const Cell = (props: Props) => {
   const propsOnChange = { assessmentType, sectionName, tableSpec, rowIdx, col, datum }
   const { onChange, onPaste } = useOnChange(propsOnChange)
 
-  const Component = ComponentsByType[col[SectionSpec.KEYS_COL.type]]
+  const Component: any = ComponentsByType[col[SectionSpec.KEYS_COL.type]]
   return (
     <td className={className}>
       {Component &&

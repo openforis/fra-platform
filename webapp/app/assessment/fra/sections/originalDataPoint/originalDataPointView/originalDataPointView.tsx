@@ -19,8 +19,7 @@ import { fetchExtentOfForest } from '../../extentOfForest/actions'
 
 const OriginalDataPointView = () => {
   const dispatch = useDispatch()
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'odpId' does not exist on type '{}'.
-  const { odpId } = useParams()
+  const { odpId }: any = useParams()
   const countryIso = useCountryIso()
   const i18n = useI18n()
   const odp = useSelector(OriginalDataPointState.getActive)

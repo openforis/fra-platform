@@ -1,4 +1,3 @@
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
@@ -40,8 +39,7 @@ export const KEYS_TABLE_PRINT = {
   pageBreakAfter: 'pageBreakAfter',
 }
 
-// @ts-expect-error ts-migrate(7005) FIXME: Variable 'tableDefault' implicitly has an '{ [x: s... Remove this comment to see the full error message
-const tableDefault = {
+const tableDefault: any = {
   [KEYS_TABLE.name]: '',
   [KEYS_TABLE.rows]: [],
   [KEYS_TABLE.secondary]: false,
@@ -82,10 +80,13 @@ const assocRows = (tableSpec: any) => {
 
 export const newTableSpec = R.pipe(R.mergeDeepRight(tableDefault), assocRows)
 
+// @ts-ignore
+// TODO : remove ramda
 export const getRowsHeader = R.pipe(R.prop(KEYS_TABLE.rows), R.filter(isHeader))
-export const getRowsData = R.pipe(R.prop(KEYS_TABLE.rows), R.reject(isHeader))
+// @ts-ignore
+export const getRowsData = (tableSpec) => R.pipe(R.prop(KEYS_TABLE.rows), R.reject(isHeader))(tableSpec)
 export const getName = R.prop(KEYS_TABLE.name)
-export const getUpdateTableDataCell = R.prop(KEYS_TABLE.updateTableDataCell)
+export const getUpdateTableDataCell = (tableSpec: any) => R.prop(KEYS_TABLE.updateTableDataCell)(tableSpec)
 export const getOdpVariables = R.prop(KEYS_TABLE.odpVariables)
 export const isOdp = R.propEq(KEYS_TABLE.odp, true)
 export const isSecondary = R.propEq(KEYS_TABLE.secondary, true)

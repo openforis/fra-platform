@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   tableName: 'specific_forest_categories',
   rows: {
     names: ['primary_forest', 'temporarily_unstocked', 'bamboo', 'mangroves', 'rubber_wood'],

@@ -4,10 +4,13 @@ import React from 'react'
 
 type Props = {
   text: string
+  children: any
+  error?: any
 }
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'children' does not exist on type 'Props'... Remove this comment to see the full error message
-const Tooltip = ({ text, children, error }: Props) => {
+const Tooltip = (props: Props) => {
+  const { text, children, error } = props
+
   return (
     <div className={error ? 'error' : ''} data-tooltip={text}>
       {children}

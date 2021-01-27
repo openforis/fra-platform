@@ -1,11 +1,9 @@
 import './panEuropeanLinks.less'
 import React from 'react'
 import { Link } from 'react-router-dom'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as PanEuropean from '@common/assessment/panEuropean'
+import PanEuropean from '@common/assessment/panEuropean'
 import { useI18n } from '@webapp/components/hooks'
 import * as BasePaths from '@webapp/main/basePaths'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as Area from '@common/country/area'
 
 const PanEuropeanLinks = () => {

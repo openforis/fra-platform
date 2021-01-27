@@ -1,12 +1,18 @@
 import React from 'react'
 import './textInput.less'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import { isEmpty } from 'ramda'
 import { elementOffset } from '@webapp/utils/domUtils'
 
 type State = any
-export default class TextInput extends React.Component<{}, State> {
-  constructor(props: {}) {
+type Props = {
+  placeholder?: string
+  value: any
+  onChange: any
+  disabled: any
+}
+
+export default class TextInput extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props)
     const placeholder = (this.props as any).placeholder || ''
     this.state = { hasFocus: false, placeholder }

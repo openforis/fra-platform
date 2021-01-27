@@ -1,7 +1,6 @@
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as FRA from '@common/assessment/fra'
+import FRA from '@common/assessment/fra'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
 
 import * as EmploymentValidatorState from '@webapp/app/assessment/fra/sections/employment/employmentValidatorState'
 
@@ -9,15 +8,14 @@ const section = FRA.sections['7'].children.a
 const years = FRA.yearsTable.slice(0, FRA.yearsTable.length - 1)
 const categories = ['total', 'female', 'male']
 
-const variableMappings = {
+const variableMappings: any = {
   ofWhichSilviculture: SectionSpec.VARIABLES.of_which_silviculture_and_other_forestry_activities,
   ofWhichLogging: SectionSpec.VARIABLES.of_which_logging,
   ofWhichGathering: SectionSpec.VARIABLES.of_which_gathering_of_non_wood_forest_products,
   ofWhichSupport: SectionSpec.VARIABLES.of_which_support_services_to_forestry,
 }
 
-// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'validator' implicitly has an 'any' type... Remove this comment to see the full error message
-const getDataCols = (validator = null) =>
+const getDataCols = (validator: any = null) =>
   years
     .map(() =>
       categories.map(() =>
@@ -75,7 +73,6 @@ const tableSpec = SectionSpec.newTableSpec({
     ...['ofWhichSilviculture', 'ofWhichLogging', 'ofWhichGathering', 'ofWhichSupport'].map((subcategory) =>
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.labelKey]: `employment.${subcategory}`,
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         [SectionSpec.KEYS_ROW.variableExport]: variableMappings[subcategory],
         [SectionSpec.KEYS_ROW.subcategory]: true,
         [SectionSpec.KEYS_ROW.cols]: getDataCols(EmploymentValidatorState.genderSubCategoryValidator),

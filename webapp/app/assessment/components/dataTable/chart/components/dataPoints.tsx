@@ -2,24 +2,27 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import ReactDOMServer from 'react-dom/server'
 import { connect } from 'react-redux'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'd3'.... Remove this comment to see the full error message
 import * as d3 from 'd3'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'd3-t... Remove this comment to see the full error message
-import d3Tip from 'd3-tip'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
+import d3Tip from "d3-tip";
 import { formatNumber } from '@common/bignumberUtils'
 import * as AppState from '@webapp/store/app/state'
 import { defaultTransitionDuration } from '../chart'
 
-class DataPoint extends Component {
+type Props = any
+
+class DataPoint extends Component<Props, {}> {
+  props: Props
+  refs: any
   toolTip: any
 
-  update(props: any) {
-    const { xScale, yScale, data, color } = props
+  update(props: Props) {
+    const { xScale, yScale, data, color }: any = props
     if (data) {
-      const circle = d3.select(ReactDOM.findDOMNode(this.refs.circles)).selectAll('circle').data(data)
+      const _circles = this.refs.circles
+      // @ts-ignore
+      // TODO : fix this
+      const circle = d3.select(ReactDOM.findDOMNode(_circles)).selectAll('circle').data(data)
       // update
       circle
         .transition()
@@ -96,15 +99,17 @@ class DataPoint extends Component {
   }
 
   componentDidMount() {
+    // @ts-ignore
     this.toolTip = d3Tip()
       .attr('class', 'chart__tooltip')
       .offset([-10, 0])
       .html((d: any) => ReactDOMServer.renderToString(this.htmlTooltip(d)))
+    // @ts-ignore
     d3.select(this.refs.circles).call(this.toolTip)
     this.update(this.props)
   }
 
-  componentDidUpdate(prevProps: any, prevState: any) {
+  componentDidUpdate(prevProps: Props, prevState: any) {
     this.update(this.props)
   }
 

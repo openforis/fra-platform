@@ -1,19 +1,12 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Promise'.
-const Promise = require('bluebird')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
-const db = require('../db/db')
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'checkCount... Remove this comment to see the full error message
-const { checkCountryAccessFromReqParams } = require('../utils/accessControl')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'sendErr'.
-const { sendErr } = require('../utils/requestUtils')
+import * as db from '../db/db'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fetchCount... Remove this comment to see the full error message
-const { fetchCountryUsers } = require('../user/userRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getChatSum... Remove this comment to see the full error message
-const { getChatSummary } = require('../userChat/userChatRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fetchCount... Remove this comment to see the full error message
-const { fetchCountryUnreadMessages } = require('../countryMessageBoard/countryMessageBoardRepository')
+import { checkCountryAccessFromReqParams } from '../utils/accessControl'
+import { sendErr } from '../utils/requestUtils'
+
+import { fetchCountryUsers } from '../user/userRepository'
+import { getChatSummary } from '../userChat/userChatRepository'
+import { fetchCountryUnreadMessages } from '../countryMessageBoard/countryMessageBoardRepository'
 
 const getUsersOverview = async (sessionUserId: any, dbUsers: any) => {
   const getUserOverview = async (user: any) => ({
@@ -28,7 +21,7 @@ const getUsersOverview = async (sessionUserId: any, dbUsers: any) => {
 
 const sdgContactsFileName = 'NSO_SDG_Contact_Persons_20191230.xlsx'
 
-module.exports.init = (app: any) => {
+export const init = (app: any) => {
   app.get('/landing/:countryIso/overview', async (req: any, res: any) => {
     try {
       checkCountryAccessFromReqParams(req)

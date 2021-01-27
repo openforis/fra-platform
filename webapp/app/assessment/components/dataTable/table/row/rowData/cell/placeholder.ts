@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'
+import * as PropTypes from 'prop-types'
 import useI18n from '@webapp/components/hooks/useI18n'
 
 const Placeholder = (props: any) => {

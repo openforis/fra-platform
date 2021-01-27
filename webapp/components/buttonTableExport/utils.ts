@@ -1,8 +1,7 @@
 // Inspiration/base from cheerio-tableparser
 //
 const normalizeString = (string = '') => string.trim().replace(/\s/g, ' ')
-// @ts-expect-error ts-migrate(7024) FIXME: Function implicitly has return type 'any' because ... Remove this comment to see the full error message
-const getElementText = ({ element }: any) => {
+const getElementText = ({ element }: any): any => {
   const { children, innerText } = element
   if (element.nodeName === 'SELECT') {
     return normalizeString(element.options[element.selectedIndex].text)
@@ -27,8 +26,7 @@ export const getData = (tableElement: any, dupCols = true, dupRows = true, textM
     currentY = 0
     // Handle both table haders and table cells
     Array.from((row as any).cells).forEach((column) => {
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'rowSpan' does not exist on type '{}'.
-      const { rowSpan, colSpan } = column
+      const { rowSpan, colSpan }: any = column
       let content = textMode ? getElementText({ element: column }) : (column as any).innerHTML
       if (formatToNumber)
         content = Number.isNaN(Number.parseFloat(content.replace(/\s/g, ''))) ? content : content.replace(/\s/g, '')
@@ -53,6 +51,5 @@ export const getData = (tableElement: any, dupCols = true, dupRows = true, textM
     currentX += 1
   })
   // transpose matrix
-  // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'row' implicitly has an 'any' type.
-  return columns[0].map((_: any, i: any) => columns.map((row) => row[i]))
+  return columns[0].map((_: any, i: any) => columns.map((row: any) => row[i]))
 }

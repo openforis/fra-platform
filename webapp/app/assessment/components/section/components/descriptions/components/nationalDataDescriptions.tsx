@@ -2,15 +2,13 @@ import React from 'react'
 import useI18n from '@webapp/components/hooks/useI18n'
 import CommentableDescription from './commentableDescription'
 
-type OwnProps = {
+type Props = {
   section: string
   disabled: boolean
   showAlertEmptyContent?: boolean
   showDashEmptyContent?: boolean
 }
-// @ts-expect-error ts-migrate(2456) FIXME: Type alias 'Props' circularly references itself.
-type Props = OwnProps & typeof NationalDataDescriptions.defaultProps
-// @ts-expect-error ts-migrate(7022) FIXME: 'NationalDataDescriptions' implicitly has type 'an... Remove this comment to see the full error message
+
 const NationalDataDescriptions = (props: Props) => {
   const { section, disabled, showAlertEmptyContent, showDashEmptyContent } = props
   const i18n = useI18n()

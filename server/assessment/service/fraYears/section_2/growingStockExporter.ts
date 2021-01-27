@@ -1,13 +1,9 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
+import * as R from 'ramda'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'GrowingSto... Remove this comment to see the full error message
-const GrowingStockService = require('../../../../growingStock/growingStockService')
+import * as GrowingStockService from '../../../../growingStock/growingStockService'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'FraTableEx... Remove this comment to see the full error message
-const FraTableExporter = require('../../exporter/fraTableExporter')
+import FraTableExporter from '../../exporter/fraTableExporter'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'GrowingSto... Remove this comment to see the full error message
 class GrowingStockExporter extends FraTableExporter {
   constructor() {
     super(
@@ -55,7 +51,6 @@ class GrowingStockExporter extends FraTableExporter {
   }
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'instance'.
 const instance = new GrowingStockExporter()
 
-module.exports = instance
+export default instance

@@ -24,8 +24,7 @@ const links = [
 const Footer = () => {
   const i18n = useI18n()
   const userInfo = useUserInfo()
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'language' does not exist on type '{}'.
-  const { language } = i18n
+  const { language }: any = i18n
   return (
     <footer>
       {links.map((link, i) => (

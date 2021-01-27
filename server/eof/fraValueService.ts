@@ -1,39 +1,30 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fraReposit... Remove this comment to see the full error message
-const fraRepository = require('./fraRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'odpReposit... Remove this comment to see the full error message
-const odpRepository = require('../odp/odpRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getDynamic... Remove this comment to see the full error message
-const { getDynamicCountryConfiguration } = require('../country/countryRepository')
+import * as fraRepository from './fraRepository'
+import * as odpRepository from '../odp/odpRepository'
+import { getDynamicCountryConfiguration } from '../country/countryRepository'
 
-const forestAreaTableResponse = require('./forestAreaTableResponse')
-const focTableResponse = require('./focTableResponse')
+import forestAreaTableResponse from './forestAreaTableResponse'
+import focTableResponse from './focTableResponse'
 
-const fraReaders = {
+export const fraReaders: { [key: string]: any } = {
   extentOfForest: fraRepository.readFraForestAreas,
   forestCharacteristics: fraRepository.readFraForestCharacteristics,
 }
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'odpReaders... Remove this comment to see the full error message
-const odpReaders = {
+export const odpReaders: { [key: string]: any } = {
   extentOfForest: odpRepository.readEofOdps,
   forestCharacteristics: odpRepository.readFocOdps,
 }
-const defaultResponses = {
+export const defaultResponses: { [key: string]: any } = {
   extentOfForest: forestAreaTableResponse,
   forestCharacteristics: focTableResponse,
 }
-const odpsInUse = {
+export const odpsInUse: { [key: string]: any } = {
   extentOfForest: (config: any) => true,
   forestCharacteristics: (config: any) => config.useOriginalDataPointsInFoc === true,
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getOdps'.
-const getOdps = async (section: any, countryIso: any, schemaName = 'public') => {
+export const getOdps = async (section: any, countryIso: any, schemaName = 'public') => {
   const dynamicConfig = await getDynamicCountryConfiguration(countryIso, schemaName)
-  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   const useOdps = odpsInUse[section](dynamicConfig)
-  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   const readOdp = odpReaders[section]
   if (useOdps) {
     const odps = await readOdp(countryIso, schemaName)
@@ -42,26 +33,22 @@ const getOdps = async (section: any, countryIso: any, schemaName = 'public') => 
   return []
 }
 
-const getFraValuesResult = async (fra: any, odp: any, defaultResponse: any) => {
-  const odpYears = R.pluck('year', odp)
-  const fraYears = R.pluck('year', fra)
-  const defaults = R.reject((value: any) => R.contains(value.year, [...odpYears, ...fraYears]), defaultResponse)
+export const getFraValuesResult = async (fra: any, odp: any, defaultResponse: any) => {
+  const odpYears = odp.map((_odp: any) => _odp.year)
+  const fraYears = fra.map((_fra: any) => _fra.year)
+  const allYears = [...odpYears, ...fraYears]
+  const _containsYear = (year: any, arr: any[]) => arr.includes(year)
+  const defaults = defaultResponse.filter(({ year }: any) => !_containsYear(year, allYears))
+  const fraNoOdpYears: any[] = fra.filter(({ year }: any) => !_containsYear(year, odpYears))
+  const _sortFn = (a: any, b: any) => (a.year === b.year ? (a.type < b.type ? -1 : 1) : a.year - b.year)
+  const res: any[] = [...fraNoOdpYears, ...defaults, ...odp].sort(_sortFn)
 
-  return R.pipe(
-    R.reject((value: any) => R.contains(value.year, odpYears)),
-    R.concat(defaults),
-    R.concat(odp),
-    R.values,
-    R.sort((a: any, b: any) => (a.year === b.year ? (a.type < b.type ? -1 : 1) : a.year - b.year))
-  )(fra)
+  return res
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getFraValu... Remove this comment to see the full error message
-const getFraValues = async (section: any, countryIso: any, schemaName = 'public') => {
-  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+export const getFraValues = async (section: any, countryIso: any, schemaName = 'public') => {
   const readFra = fraReaders[section]
 
-  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   const defaultResponse = defaultResponses[section]
 
   const fra = await readFra(countryIso, schemaName)
@@ -73,6 +60,6 @@ const getFraValues = async (section: any, countryIso: any, schemaName = 'public'
   return { fra: result, fraNoNDPs: resultNoNDPs }
 }
 
-module.exports = {
+export default {
   getFraValues,
 }

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   tableName: 'forest_ownership',
   rows: {
     names: [

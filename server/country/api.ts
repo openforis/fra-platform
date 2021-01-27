@@ -1,37 +1,22 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Promise'.
-const Promise = require('bluebird')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
-const db = require('../db/db')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Request'.
-const Request = require('../utils/requestUtils')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'countryRep... Remove this comment to see the full error message
-const countryRepository = require('./countryRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'reviewRepo... Remove this comment to see the full error message
-const reviewRepository = require('../review/reviewRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'odpReposit... Remove this comment to see the full error message
-const odpRepository = require('../odp/odpRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'assessment... Remove this comment to see the full error message
-const assessmentRepository = require('../assessment/assessmentRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fetchColla... Remove this comment to see the full error message
-const { fetchCollaboratorCountryAccessTables } = require('../collaborators/collaboratorsRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Auth'.
-const Auth = require('../auth/authApiMiddleware')
-const {
-  // @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'isUserRole... Remove this comment to see the full error message
-  isUserRoleAllowedToEditAssessmentData,
-  // @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'isUserRole... Remove this comment to see the full error message
-  isUserRoleAllowedToEditAssessmentComments,
-} = require('../../common/assessmentRoleAllowance')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'roleForCou... Remove this comment to see the full error message
-const { roleForCountry, isCollaborator } = require('../../common/countryRole')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'CountrySer... Remove this comment to see the full error message
-const CountryService = require('./countryService')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'VersionSer... Remove this comment to see the full error message
-const VersionService = require('../versioning/service')
 
-module.exports.init = (app: any) => {
+import * as R from 'ramda'
+import * as db from '../db/db'
+import * as Request from '../utils/requestUtils'
+import * as countryRepository from './countryRepository'
+import * as reviewRepository from '../review/reviewRepository'
+import * as odpRepository from '../odp/odpRepository'
+import * as assessmentRepository from '../assessment/assessmentRepository'
+import { fetchCollaboratorCountryAccessTables } from '../collaborators/collaboratorsRepository'
+import * as Auth from '../auth/authApiMiddleware'
+import {
+  isUserRoleAllowedToEditAssessmentData,
+  isUserRoleAllowedToEditAssessmentComments,
+} from '../../common/assessmentRoleAllowance'
+import { roleForCountry, isCollaborator } from '../../common/countryRole'
+import * as CountryService from './countryService'
+import * as VersionService from '../versioning/service'
+
+export const init = (app: any) => {
   app.get('/country/all', async (req: any, res: any) => {
     try {
       const schmeName = await VersionService.getDatabaseSchema(req)

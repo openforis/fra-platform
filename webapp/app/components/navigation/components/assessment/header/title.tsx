@@ -1,6 +1,5 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as Assessment from '@common/assessment/assessment'
 import { useI18n, useIsDataExportView } from '@webapp/components/hooks'
 import Icon from '@webapp/components/icon'
@@ -36,7 +35,6 @@ const Title = (props: Props) => {
           disabled={!canToggleLock}
           onClick={() => dispatch(toggleAssessmentLock(type, !locked))}
         >
-          {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ name: string; className: string; }' is not... Remove this comment to see the full error message */}
           <Icon name={locked ? 'lock-circle' : 'lock-circle-open'} className="icon-no-margin" />
         </button>
       )}

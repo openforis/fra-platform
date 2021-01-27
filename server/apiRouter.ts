@@ -1,29 +1,27 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'express'.
-const express = require('express')
+import * as express from 'express'
 
-const eofApi = require('./eof/api')
-const odpApi = require('./odp/api')
-const userApi = require('./user/userApi')
-const traditionalTableApi = require('./traditionalTable/api')
-const descriptionsApi = require('./descriptions/api')
-const reviewApi = require('./review/api')
-const countryApi = require('./country/api')
-const assessmentApi = require('./assessment/api')
-const growingStockApi = require('./growingStock/growingStockApi')
-const biomassStockApi = require('./biomassStock/biomassStockApi')
-const auditApi = require('./audit/api')
-const sustainableDevelopmentApi = require('./sustainableDevelopment/sustainableDevelopmentApi')
-const panEuropeanApi = require('./panEuropean/panEuropeanApi')
-const landingApi = require('./landing/landingApi')
-const userChatApi = require('./userChat/userChatApi')
-const fileRepositoryApi = require('./fileRepository/fileRepositoryApi')
-const collaboratorsApi = require('./collaborators/collaboratorsApi')
-const countryMessageBoardApi = require('./countryMessageBoard/countryMessageBoardApi')
-const versioningApi = require('./versioning/api')
-const statisticalFactsheetsApi = require('./statisticalFactsheets/api')
-const dataExportApi = require('./dataExport/api')
+import * as eofApi from './eof/api'
+import * as odpApi from './odp/api'
+import * as userApi from './user/userApi'
+import * as traditionalTableApi from './traditionalTable/api'
+import * as descriptionsApi from './descriptions/api'
+import * as reviewApi from './review/api'
+import * as countryApi from './country/api'
+import * as assessmentApi from './assessment/api'
+import * as growingStockApi from './growingStock/growingStockApi'
+import * as biomassStockApi from './biomassStock/biomassStockApi'
+import * as auditApi from './audit/api'
+import * as sustainableDevelopmentApi from './sustainableDevelopment/sustainableDevelopmentApi'
+import * as panEuropeanApi from './panEuropean/panEuropeanApi'
+import * as landingApi from './landing/landingApi'
+import * as userChatApi from './userChat/userChatApi'
+import * as fileRepositoryApi from './fileRepository/fileRepositoryApi'
+import * as collaboratorsApi from './collaborators/collaboratorsApi'
+import * as countryMessageBoardApi from './countryMessageBoard/countryMessageBoardApi'
+import * as versioningApi from './versioning/api'
+import * as statisticalFactsheetsApi from './statisticalFactsheets/api'
+import * as dataExportApi from './dataExport/api'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'apiRouter'... Remove this comment to see the full error message
 const apiRouter = express.Router()
 // Nothing should be cached by default with the APIs
 apiRouter.use((req: any, res: any, next: any) => {
@@ -53,4 +51,4 @@ versioningApi.init(apiRouter)
 statisticalFactsheetsApi.init(apiRouter)
 dataExportApi.init(apiRouter)
 
-module.exports.router = apiRouter
+export const router = apiRouter

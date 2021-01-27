@@ -1,23 +1,15 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'camelize'.
-const camelize = require('camelize')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Promise'.
-const Promise = require('bluebird')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'parseISO'.
-const { parseISO, isBefore } = require('date-fns')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
-const db = require('../db/db')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'auditRepos... Remove this comment to see the full error message
-const auditRepository = require('../audit/auditRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'checkCount... Remove this comment to see the full error message
-const { checkCountryAccess, checkReviewerCountryAccess, AccessControlException } = require('../utils/accessControl')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'isReviewer... Remove this comment to see the full error message
-const { isReviewer } = require('../../common/countryRole')
+// @ts-ignore
+import * as camelize from 'camelize'
+import * as R from 'ramda'
 
-const getIssueComments = (countryIso: any, section: any, user: any) =>
-  db
-    .query(
+import { parseISO, isBefore } from 'date-fns'
+import * as db from '../db/db'
+import * as auditRepository from '../audit/auditRepository'
+import { checkCountryAccess, checkReviewerCountryAccess, AccessControlException } from '../utils/accessControl'
+import { isReviewer } from '../../common/countryRole'
+
+export const getIssueComments = (countryIso: any, section: any, user: any) =>
+   db.pool.query(
       `
     SELECT 
       i.id as issue_id, i.target, i.status as issue_status, i.section,
@@ -52,11 +44,9 @@ const getIssueComments = (countryIso: any, section: any, user: any) =>
     )
     .then((res: any) => camelize(res.rows))
 
-module.exports.getIssueComments = getIssueComments
 
-const getIssueCountryAndSection = (issueId: any) => {
-  return db
-    .query(
+export const getIssueCountryAndSection = (issueId: any) => {
+  return  db.pool.query(
       `
     SELECT i.country_iso, i.section FROM issue i 
     WHERE i.id = $1
@@ -65,11 +55,9 @@ const getIssueCountryAndSection = (issueId: any) => {
     )
     .then((res: any) => camelize(res.rows[0]))
 }
-module.exports.getIssueCountryAndSection = getIssueCountryAndSection
 
-const getCommentCountryAndSection = (commentId: any) => {
-  return db
-    .query(
+export const getCommentCountryAndSection = (commentId: any) => {
+  return  db.pool.query(
       `
     SELECT i.country_iso, i.section FROM fra_comment c JOIN issue i ON (c.issue_id = i.id)
     WHERE c.id = $1
@@ -78,11 +66,11 @@ const getCommentCountryAndSection = (commentId: any) => {
     )
     .then((res: any) => camelize(res.rows[0]))
 }
-module.exports.getCommentCountryAndSection = getCommentCountryAndSection
 
-const hasUnreadIssues = (user: any, issueComments: any) =>
+export const hasUnreadIssues = (user: any, issueComments: any) =>
   R.pipe(
     R.groupBy((comment: any) => comment.issueId),
+    // @ts-ignore
     R.map((comments: any) => {
       const commentsByOthers = R.reject((c: any) => c.userId === user.id, comments)
       const last = R.last(commentsByOthers)
@@ -96,9 +84,10 @@ const hasUnreadIssues = (user: any, issueComments: any) =>
     R.filter((issue: any) => issue.hasUnreadComments),
     R.isEmpty,
     R.not
+  // @ts-ignore
   )(issueComments)
 
-const getIssuesSummary = (user: any, issueComments: any) =>
+const _getIssuesSummary = (user: any, issueComments: any) =>
   R.pipe(R.last, R.defaultTo({}), (last: any) => ({
     issuesCount: issueComments.length,
     lastCommentUserId: last.userId,
@@ -106,7 +95,7 @@ const getIssuesSummary = (user: any, issueComments: any) =>
     hasUnreadIssues: hasUnreadIssues(user, issueComments),
   }))(issueComments)
 
-module.exports.getIssuesSummary = (
+export const getIssuesSummary = (
   countryIso: any,
   section: any,
   targetParam: any,
@@ -122,27 +111,30 @@ module.exports.getIssuesSummary = (
       R.reject((i: any) => i.deleted),
       R.reject((i: any) => (rejectResolved ? i.issueStatus === 'resolved' : false)),
       R.filter((i: any) => (target ? paramsMatch(R.path(['target', 'params'], i)) : true)),
-      R.partial(getIssuesSummary, [user])
+      // @ts-ignore
+      R.partial(_getIssuesSummary, [user])
+      // @ts-ignore
     )(issueComments)
 
     return summary
   })
 
-module.exports.getCountryIssuesSummary = (countryIso: any, user: any) =>
+export const getCountryIssuesSummary = (countryIso: any, user: any) =>
   getIssueComments(countryIso, null, user).then((issueComments: any) => {
     const summaries = R.pipe(
       R.reject((i: any) => i.deleted),
       R.reject((i: any) => i.issueStatus === 'resolved'),
       R.groupBy((i: any) => i.section),
-      R.map(R.partial(getIssuesSummary, [user]))
+      // @ts-ignore
+      R.map(R.partial(_getIssuesSummary, [user]))
+      // @ts-ignore
     )(issueComments)
 
     return summaries
   })
 
-const getIssuesByParam = (countryIso: any, section: any, paramPosition: any, paramValue: any) =>
-  db
-    .query(
+export const getIssuesByParam = (countryIso: any, section: any, paramPosition: any, paramValue: any) =>
+   db.pool.query(
       `
     SELECT 
       i.id as issue_id, i.section, i.target, i.status
@@ -155,9 +147,8 @@ const getIssuesByParam = (countryIso: any, section: any, paramPosition: any, par
     )
     .then((res: any) => camelize(res.rows))
 
-module.exports.getIssuesByParam = getIssuesByParam
 
-module.exports.createIssueWithComment = (
+export const createIssueWithComment = (
   client: any,
   countryIso: any,
   section: any,
@@ -185,12 +176,13 @@ module.exports.createIssueWithComment = (
       )
   )
 
-const checkIssueOpenedOrReviewer = (countryIso: any, status: any, user: any) => {
+export const checkIssueOpenedOrReviewer = (countryIso: any, status: any, user: any) => {
   if (status === 'resolved' && !isReviewer(countryIso, user))
+    // @ts-ignore
     throw new AccessControlException('error.review.commentEnterResolvedIssue', { user: user.name })
 }
 
-const createComment = (
+export const createComment = (
   client: any,
   issueId: any,
   user: any,
@@ -219,14 +211,13 @@ const createComment = (
       .then(() => client.query('UPDATE issue SET status = $1 WHERE id = $2', ['opened', issueId]))
   )
 
-module.exports.createComment = createComment
 
-const createIssueQueryPlaceholders = (issueIds: any) =>
+export const createIssueQueryPlaceholders = (issueIds: any) =>
   R.range(1, issueIds.length + 1)
     .map((i: any) => `$${i}`)
     .join(',')
 
-const deleteUserIssues = (client: any, issueIds: any) => {
+export const deleteUserIssues = (client: any, issueIds: any) => {
   if (issueIds.length > 0) {
     return client.query(
       `DELETE from user_issue WHERE issue_id IN (${createIssueQueryPlaceholders(issueIds)})`,
@@ -236,8 +227,7 @@ const deleteUserIssues = (client: any, issueIds: any) => {
   return Promise.resolve()
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'deleteIssu... Remove this comment to see the full error message
-const deleteIssuesByIds = (client: any, issueIds: any) => {
+export const deleteIssuesByIds = (client: any, issueIds: any) => {
   if (issueIds.length > 0) {
     const issueIdQueryPlaceholders = createIssueQueryPlaceholders(issueIds)
 
@@ -248,26 +238,26 @@ const deleteIssuesByIds = (client: any, issueIds: any) => {
   return Promise.resolve()
 }
 
-module.exports.deleteIssuesByIds = deleteIssuesByIds
 
-module.exports.deleteIssues = (client: any, countryIso: any, section: any, paramPosition: any, paramValue: any) =>
+export const deleteIssues = (client: any, countryIso: any, section: any, paramPosition: any, paramValue: any) =>
   getIssuesByParam(countryIso, section, paramPosition, paramValue)
     .then((res: any) => res.map((r: any) => r.issueId))
     .then((issueIds: any) => Promise.all([deleteUserIssues(client, issueIds), deleteIssuesByIds(client, issueIds)]))
 
-module.exports.markCommentAsDeleted = (client: any, countryIso: any, section: any, commentId: any, user: any) =>
+export const markCommentAsDeleted = (client: any, countryIso: any, section: any, commentId: any, user: any) =>
   auditRepository.insertAudit(client, user.id, 'deleteComment', countryIso, section, { commentId }).then(() =>
     client
       .query('SELECT user_id FROM fra_comment WHERE id = $1', [commentId])
       .then((res: any) => res.rows[0].user_id)
       .then((userId: any) => {
         if (userId !== user.id)
+          // @ts-ignore
           throw new AccessControlException('error.review.commentDeleteNotOwner', { user: user.name })
       })
       .then(() => client.query('UPDATE fra_comment SET deleted = $1 WHERE id = $2', [true, commentId]))
   )
 
-module.exports.markIssueAsResolved = (client: any, countryIso: any, section: any, issueId: any, user: any) =>
+export const markIssueAsResolved = (client: any, countryIso: any, section: any, issueId: any, user: any) =>
   auditRepository.insertAudit(client, user.id, 'markAsResolved', countryIso, section, { issueId }).then(() =>
     client
       .query('SELECT country_iso FROM issue WHERE id = $1', [issueId])
@@ -276,13 +266,12 @@ module.exports.markIssueAsResolved = (client: any, countryIso: any, section: any
       .then(() => client.query('UPDATE issue SET status = $1 WHERE id = $2', ['resolved', issueId]))
   )
 
-module.exports.updateIssueReadTime = (issueId: any, user: any) =>
-  db
-    .query(`SELECT id FROM user_issue WHERE user_id = $1 AND issue_id = $2`, [user.id, issueId])
+export const updateIssueReadTime = (issueId: any, user: any) =>
+   db.pool.query(`SELECT id FROM user_issue WHERE user_id = $1 AND issue_id = $2`, [user.id, issueId])
     .then((res: any) =>
       res.rows.length > 0
-        ? db.query(`UPDATE user_issue SET read_time = $1 WHERE id = $2`, [new Date().toISOString(), res.rows[0].id])
-        : db.query(`INSERT INTO user_issue (user_id, issue_id, read_time) VALUES ($1,$2,$3)`, [
+        ? db.pool.query(`UPDATE user_issue SET read_time = $1 WHERE id = $2`, [new Date().toISOString(), res.rows[0].id])
+        : db.pool.query(`INSERT INTO user_issue (user_id, issue_id, read_time) VALUES ($1,$2,$3)`, [
             user.id,
             issueId,
             new Date().toISOString(),

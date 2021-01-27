@@ -1,4 +1,4 @@
-module.exports = {
+const countryConfig: { [key: string]: any } = {
   ABW: {
     certifiedAreas: {
       '2000': '0',
@@ -52927,3 +52927,4 @@ module.exports = {
     domain: 'tropical',
   },
 }
+export default countryConfig

@@ -1,6 +1,5 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import thunkMiddleware from 'redux-thunk'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'redu... Remove this comment to see the full error message
 import createDebounce from 'redux-debounced'
 import { batchStoreEnhancer, batchMiddleware } from './reduxBatch'
 import axiosErrorsMiddleware from './axiosErrorMiddleware'
@@ -14,7 +13,7 @@ const composeEnhancers =
         // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
       })
     : compose
-const middleware = [createDebounce(), thunkMiddleware, axiosErrorsMiddleware, batchMiddleware]
+const middleware:any[] = [createDebounce(), thunkMiddleware, axiosErrorsMiddleware, batchMiddleware]
 const enhancer = composeEnhancers(applyMiddleware(...middleware), batchStoreEnhancer)
 const createReducer = (asyncReducers: any) =>
   combineReducers({

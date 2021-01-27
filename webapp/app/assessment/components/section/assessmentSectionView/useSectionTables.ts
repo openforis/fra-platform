@@ -1,7 +1,6 @@
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
 import * as SectionSpecs from '@webapp/app/assessment/components/section/sectionSpecs'
 
 const getTables = (assessmentType: any, sectionName: any, tableName: any) => {

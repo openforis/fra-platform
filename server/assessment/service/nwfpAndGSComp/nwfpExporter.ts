@@ -1,21 +1,16 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'totalSum'.
-const { totalSum } = require('../../../../common/aggregate')
+import * as R from 'ramda'
+import { totalSum } from '@common/aggregate'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Traditiona... Remove this comment to see the full error message
-const TraditionalTableService = require('../../../traditionalTable/traditionalTableRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'CsvOutput'... Remove this comment to see the full error message
-const CsvOutput = require('../csvOutput')
+import * as TraditionalTableService from '../../../traditionalTable/traditionalTableRepository'
+import CsvOutput from '../csvOutput'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fields'.
-const fields = ['product', 'name', 'key_species', 'quantity', 'unit', 'value', 'nwfp_category']
+export const fields = ['product', 'name', 'key_species', 'quantity', 'unit', 'value', 'nwfp_category']
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getCountry... Remove this comment to see the full error message
-const getCountryData = async (country: any) => {
+export const getCountryData = async (country: any) => {
   const result = []
   const data = await TraditionalTableService.read(country.countryIso, 'nonWoodForestProductsRemovals')
 
+  // @ts-ignore
   const getColValue = (row: any, col: any) => R.pipe(R.defaultTo([]), R.prop(row), R.defaultTo([]), R.prop(col))(data)
 
   const normalizeColValue = R.pipe(
@@ -32,8 +27,7 @@ const getCountryData = async (country: any) => {
     const row = {
       ...country,
       product: `#${i + 1}`,
-      ...colFields.reduce((acc, col, colIdx) => {
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+      ...colFields.reduce((acc: {[key: string]: any}, col, colIdx) => {
         acc[col] = normalizeColValue(i, colIdx)
         return acc
       }, {}),
@@ -77,12 +71,11 @@ const getCountryData = async (country: any) => {
   return result
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getCsvOutp... Remove this comment to see the full error message
-const getCsvOutput = () => {
+export const getCsvOutput = () => {
   return new CsvOutput('NWFP_and_GSComp/7c_nonWoodForestProductsRemovals', fields)
 }
 
-module.exports = {
+export default {
   getCountryData,
   getCsvOutput,
 }

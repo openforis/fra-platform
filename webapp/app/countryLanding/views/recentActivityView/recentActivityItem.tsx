@@ -1,8 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as FRA from '@common/assessment/fra'
+import FRA from '@common/assessment/fra'
 import * as BasePaths from '@webapp/main/basePaths'
 import { getRelativeDate } from '@webapp/utils/relativeDate'
 

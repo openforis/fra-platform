@@ -1,9 +1,9 @@
 import React from 'react'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 import './verticallyGrowingTextField.less'
 
 class VerticallyGrowingTextField extends React.Component {
+  props: any
   componentDidMount() {
     this.resizeTextArea()
   }
@@ -23,7 +23,6 @@ class VerticallyGrowingTextField extends React.Component {
   }
 
   render() {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'minWidth' does not exist on type 'Readon... Remove this comment to see the full error message
     const { minWidth, disabled } = this.props
     const minWidthStyleAttr = minWidth ? `${minWidth}px` : null
     return (
@@ -31,7 +30,7 @@ class VerticallyGrowingTextField extends React.Component {
         <textarea
           ref="textArea"
           disabled={disabled}
-          rows="1"
+          rows={1}
           className="vgtf__textarea no-print"
           style={{ minWidth: minWidthStyleAttr }}
           {...R.dissoc('minWidth', this.props)}

@@ -1,13 +1,11 @@
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { abs, add, eq, greaterThan, sub } from '@common/bignumberUtils'
 
 import * as GrowingStockState from '@webapp/app/assessment/fra/sections/growingStock/growingStockState'
 
 export const equalToTotalGrowingStockValidator = (year: any, value: any) => (state: any) => {
-  const totalForest = GrowingStockState.getTotalTableValue(year, GrowingStockState.variables.forest)(state)
+  const totalForest: any = GrowingStockState.getTotalTableValue(year, GrowingStockState.variables.forest)(state)
 
   const tolerance = 1
   const difference = sub(totalForest, value)
@@ -18,10 +16,10 @@ export const equalToTotalGrowingStockValidator = (year: any, value: any) => (sta
 
 const subCategoryValidator = (parentVariable: any, childVariables: any) => (datum: any) => (state: any) => {
   const { year } = datum
-  const parentValue = GrowingStockState.getTotalTableValue(year, parentVariable)(state)
-  const childValues = childVariables.reduce((childValuesTotal: any, childVariable: any) => {
+  const parentValue: any = GrowingStockState.getTotalTableValue(year, parentVariable)(state)
+  const childValues: any = childVariables.reduce((childValuesTotal: any, childVariable: any) => {
     const childValue = R.pipe(GrowingStockState.getTotalTableValue(year, childVariable), R.defaultTo(0))(state)
-    return add(childValuesTotal, childValue)
+    return add(childValuesTotal, childValue as any)
   }, 0)
 
   const tolerance = -1
@@ -32,8 +30,8 @@ const subCategoryValidator = (parentVariable: any, childVariables: any) => (datu
 const equalToTotalGrowingStockSubCategoryValidator = (datum: any) => (state: any) => {
   const { year } = datum
 
-  const plantedForest = GrowingStockState.getTotalTableValue(year, GrowingStockState.variables.plantedForest)(state)
-  const naturallyRegeneratingForest = GrowingStockState.getTotalTableValue(
+  const plantedForest: any = GrowingStockState.getTotalTableValue(year, GrowingStockState.variables.plantedForest)(state)
+  const naturallyRegeneratingForest: any = GrowingStockState.getTotalTableValue(
     year,
     GrowingStockState.variables.naturallyRegeneratingForest
   )(state)

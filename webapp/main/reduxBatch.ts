@@ -1,7 +1,6 @@
 /**
  * Modified version of https://github.com/abc123s/redux-batch-enhancer
  */
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as ObjectUtils from '@common/objectUtils'
 
 export const BATCH = 'batching/batch'
@@ -13,11 +12,10 @@ export const batchActions = (actions: any) => ({
   payload: actions,
 })
 
-// @ts-expect-error ts-migrate(7011) FIXME: Function expression, which lacks return-type annot... Remove this comment to see the full error message
 export const batchMiddleware = (store: any) => (next: any) => (action: any) => {
   const { dispatch } = store
 
-  let result = null
+  let result: any = null
   ;(async () => {
     if (action.type === BATCH) {
       dispatch({ type: PUSH })
@@ -65,8 +63,7 @@ export const batchStoreEnhancer = (next: any) => {
 
   const notifyListeners = () => {
     currentListeners = nextListeners
-    // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'listener' implicitly has an 'any' type.
-    currentListeners.forEach((listener) => listener())
+    currentListeners.forEach((listener: any) => listener())
   }
 
   return (...args: any[]) => {

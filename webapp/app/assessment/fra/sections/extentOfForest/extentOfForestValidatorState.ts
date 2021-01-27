@@ -1,6 +1,4 @@
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as NumberUtils from '@common/bignumberUtils'
 
 import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestState'
@@ -9,7 +7,7 @@ import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extent
 
 const forestAreaComparedTo2015Validator = (datum: any) => (state: any) => {
   const { name: year, forestArea } = datum
-  const forestArea2015 = ExtentOfForestState.getForestArea2015Value(year)(state)
+  const forestArea2015: any = ExtentOfForestState.getForestArea2015Value(year)(state)
 
   if (R.isNil(forestArea2015) || R.isNil(forestArea)) {
     return true

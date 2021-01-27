@@ -1,4 +1,3 @@
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
 import { applyReducerFunction } from '@webapp/utils/reduxUtils'
@@ -40,6 +39,7 @@ const actionHandlers = {
 
   // edit user functions
   [userManagementEditUserLoad]: (state: any, { user }: any) =>
+    // @ts-ignore
     R.pipe(UserManagementState.assocEditUserUser(user), UserManagementState.assocEditUserStatus('loaded'))(state),
 
   [userManagementEditUserComplete]: (state: any, action: any) =>

@@ -1,12 +1,10 @@
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { i18nUserRole } from '@common/userUtils'
 
 // Action
 
 const getLabelActionKey = (feedItem: any) => {
-  const messageToKey = {
+  const messageToKey: any = {
     createIssue: 'commented',
     createComment: 'commented',
     markAsResolved: 'resolved',
@@ -23,7 +21,6 @@ const getLabelActionKey = (feedItem: any) => {
     fileRepositoryUpload: 'addedFile',
     fileRepositoryDelete: 'deletedFile',
   }
-  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   const key = messageToKey[feedItem.message]
   if (key) {
     return `landing.recentActivity.actions.${key}`
@@ -34,7 +31,7 @@ const getLabelActionKey = (feedItem: any) => {
 const getLabelActionParams = (i18n: any) => (feedItem: any) => {
   let params = {}
 
-  const target = R.propOr({}, 'target')(feedItem)
+  const target: any = R.propOr({}, 'target')(feedItem)
   const { user, role, assessment, status, file } = target
 
   if (user)

@@ -1,7 +1,6 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'camelize'.
-const camelize = require('camelize')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
-const db = require('../db/db')
+// @ts-ignore
+import * as camelize from 'camelize'
+import * as db from '../db/db'
 
 /*
   Possible status for version
@@ -11,9 +10,8 @@ const db = require('../db/db')
   'failed'
 */
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getAllVers... Remove this comment to see the full error message
-const getAllVersions = async () => {
-  const result = await db.query(`
+export const getAllVersions = async () => {
+  const result = await db.pool.query(`
       SELECT v.id,
              v.version_number,
              v.status,
@@ -30,8 +28,8 @@ const getAllVersions = async () => {
 
 // Returns all pending versions from fra_version
 // that have published_at in next 5 minutes
-const getPendingVersions = async () => {
-  const result = await db.query(`
+export const getPendingVersions = async () => {
+  const result = await db.pool.query(`
     SELECT
       id,
       created_by,
@@ -50,8 +48,8 @@ const getPendingVersions = async () => {
 }
 
 // Returns all pending versions from fra_version
-const getAllPendingVersions = async () => {
-  const result = await db.query(`
+export const getAllPendingVersions = async () => {
+  const result = await db.pool.query(`
     SELECT
       id,
       created_by,
@@ -68,8 +66,8 @@ const getAllPendingVersions = async () => {
 }
 
 // Returns all running versions from fra_version
-const getRunningVersions = async () => {
-  const result = await db.query(`
+export const getRunningVersions = async () => {
+  const result = await db.pool.query(`
     SELECT
       id,
       created_by,
@@ -85,8 +83,8 @@ const getRunningVersions = async () => {
   return camelize(result.rows)
 }
 
-const updateVersionStatus = async (id: any, status: any) => {
-  await db.query(
+export const updateVersionStatus = async (id: any, status: any) => {
+  await db.pool.query(
     `
       UPDATE fra_version
       SET
@@ -99,8 +97,7 @@ const updateVersionStatus = async (id: any, status: any) => {
   )
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'addVersion... Remove this comment to see the full error message
-const addVersion = async (userId: any, versionNumber: any, publishedAt: any) => {
+export const addVersion = async (userId: any, versionNumber: any, publishedAt: any) => {
   const query = `
     INSERT INTO fra_version (created_by, version_number, status, published_at)
     VALUES ($1,
@@ -108,10 +105,10 @@ const addVersion = async (userId: any, versionNumber: any, publishedAt: any) => 
             'pending',
             $3);
   `
-  await db.query(query, [userId, versionNumber, publishedAt])
+  await db.pool.query(query, [userId, versionNumber, publishedAt])
 }
 
-const newSchemaVersion = async (to: any, from = 'public') => {
+export const newSchemaVersion = async (to: any, from = 'public') => {
   if (!to) {
     console.error(
       `
@@ -128,11 +125,10 @@ const newSchemaVersion = async (to: any, from = 'public') => {
     SELECT clone_schema($1, $2);
   `
   // Replace all dots to underscores to avoid problems
-  await db.query(query, [from.replace(/\./g, '_'), to.replace(/\./g, '_')])
+  await db.pool.query(query, [from.replace(/\./g, '_'), to.replace(/\./g, '_')])
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'deleteVers... Remove this comment to see the full error message
-const deleteVersion = async (id: any) => {
+export const deleteVersion = async (id: any) => {
   try {
     const result = await getVersionById(id)
     const { versionNumber } = result[0]
@@ -145,30 +141,29 @@ const deleteVersion = async (id: any) => {
       // Using the parameter in the query works,
       // passing the parameter (with $1) throws error
       const query = `DROP SCHEMA ${schemaName} CASCADE;`
-      await db.query(query)
+      await db.pool.query(query)
     }
 
     // Delete the table entry from fra_version table
     const query2 = `DELETE FROM fra_version WHERE id = $1;`
-    await db.query(query2, [id])
+    await db.pool.query(query2, [id])
   } catch (error) {
     console.log(error)
   }
 }
 
 // Used to check if certain schema exists
-const getSchemaByName = async (name: any) => {
+export const getSchemaByName = async (name: any) => {
   const query = `
     SELECT schema_name
     FROM information_schema.schemata
     WHERE schema_name = $1;
   `
-  const result = await db.query(query, [name])
+  const result = await db.pool.query(query, [name])
   return camelize(result.rows)
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getLatestS... Remove this comment to see the full error message
-const getLatestSchemaVersion = async () => {
+export const getLatestSchemaVersion = async () => {
   const query = `
       SELECT s.schema_name
       FROM information_schema.schemata s
@@ -176,17 +171,18 @@ const getLatestSchemaVersion = async () => {
       ORDER BY s.schema_name DESC 
       LIMIT 1;
   `
-  const result = await db.query(query)
+  const result = await db.pool.query(query)
   if (result.rows.length > 0) {
     const { schemaName } = camelize(result.rows[0])
     return schemaName
+  } else {
+    return 'public'
   }
-  return 'public'
 }
 
 // Used to check if certain schema exists
-const getVersionById = async (id: any) => {
-  const result = await db.query(
+export const getVersionById = async (id: any) => {
+  const result = await db.pool.query(
     `
         SELECT 
           id,
@@ -204,7 +200,7 @@ const getVersionById = async (id: any) => {
   return camelize(result.rows)
 }
 
-module.exports = {
+export default {
   addVersion,
   deleteVersion,
   getAllPendingVersions,

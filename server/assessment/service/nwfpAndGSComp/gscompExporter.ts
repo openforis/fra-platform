@@ -1,23 +1,18 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'totalSum'.
-const { totalSum } = require('../../../../common/aggregate')
+import * as R from 'ramda'
+import { totalSum } from '@common/aggregate'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Traditiona... Remove this comment to see the full error message
-const TraditionalTableService = require('../../../traditionalTable/traditionalTableRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'CsvOutput'... Remove this comment to see the full error message
-const CsvOutput = require('../csvOutput')
+import * as TraditionalTableService from '../../../traditionalTable/traditionalTableRepository'
+import CsvOutput from '../csvOutput'
 
-const years = ['1990', '2000', '2010', '2015', '2020']
+export const years = ['1990', '2000', '2010', '2015', '2020']
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fields'.
-const fields = ['FRA_categories', 'scientific_name', 'common_name', ...years]
+export const fields = ['FRA_categories', 'scientific_name', 'common_name', ...years]
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getCountry... Remove this comment to see the full error message
-const getCountryData = async (country: any) => {
+export const getCountryData = async (country: any) => {
   const result = []
   const data = await TraditionalTableService.read(country.countryIso, 'growingStockComposition')
 
+  // @ts-ignore
   const getColValue = (row: any, col: any) => R.pipe(R.defaultTo([]), R.prop(row), R.defaultTo([]), R.prop(col))(data)
 
   const normalizeColValue = R.pipe(
@@ -36,8 +31,7 @@ const getCountryData = async (country: any) => {
     const row = {
       ...country,
       FRA_categories: `#${i + 1} Ranked in terms of volume - Native`,
-      ...colFields.reduce((acc, col, colIdx) => {
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+      ...colFields.reduce((acc: { [key: string]: any }, col, colIdx) => {
         acc[col] = normalizeColValue(i, colIdx)
         return acc
       }, {}),
@@ -50,8 +44,7 @@ const getCountryData = async (country: any) => {
     FRA_categories: 'Remaining native tree species',
     scientific_name: '',
     common_name: '',
-    ...years.reduce((acc, year, idx) => {
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+    ...years.reduce((acc: { [key: string]: any }, year, idx) => {
       acc[year] = normalizeColValue(10, idx + 2)
       return acc
     }, {}),
@@ -62,8 +55,7 @@ const getCountryData = async (country: any) => {
     FRA_categories: 'Total volume of native tree species',
     scientific_name: '',
     common_name: '',
-    ...years.reduce((acc, year, idx) => {
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+    ...years.reduce((acc: { [key: string]: any }, year, idx) => {
       acc[year] = data ? totalSum(data, idx + 2, R.range(0, 11)) : null
       return acc
     }, {}),
@@ -74,8 +66,7 @@ const getCountryData = async (country: any) => {
     const row = {
       ...country,
       FRA_categories: `#${i - 12} Ranked in terms of volume - Introduced`,
-      ...colFields.reduce((acc, col, colIdx) => {
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+      ...colFields.reduce((acc: { [key: string]: any }, col, colIdx) => {
         acc[col] = normalizeColValue(i, colIdx)
         return acc
       }, {}),
@@ -88,8 +79,7 @@ const getCountryData = async (country: any) => {
     FRA_categories: 'Remaining introduced tree species\t',
     scientific_name: '',
     common_name: '',
-    ...years.reduce((acc, year, idx) => {
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+    ...years.reduce((acc: { [key: string]: any }, year, idx) => {
       acc[year] = normalizeColValue(18, idx + 2)
       return acc
     }, {}),
@@ -100,8 +90,7 @@ const getCountryData = async (country: any) => {
     FRA_categories: 'Total volume of introduced tree species',
     scientific_name: '',
     common_name: '',
-    ...years.reduce((acc, year, idx) => {
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+    ...years.reduce((acc: { [key: string]: any }, year, idx) => {
       acc[year] = data ? totalSum(data, idx + 2, R.range(13, 19)) : null
       return acc
     }, {}),
@@ -113,8 +102,7 @@ const getCountryData = async (country: any) => {
     FRA_categories: 'Total growing stock',
     scientific_name: '',
     common_name: '',
-    ...years.reduce((acc, year, idx) => {
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+    ...years.reduce((acc: { [key: string]: any }, year, idx) => {
       acc[year] = data ? totalSum(data, idx + 2, [...R.range(0, 11), ...R.range(13, 19)]) : null
       return acc
     }, {}),
@@ -123,12 +111,11 @@ const getCountryData = async (country: any) => {
   return result
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getCsvOutp... Remove this comment to see the full error message
-const getCsvOutput = () => {
+export const getCsvOutput = () => {
   return new CsvOutput('NWFP_and_GSComp/2b_growingStockComposition', fields)
 }
 
-module.exports = {
+export default {
   getCountryData,
   getCsvOutput,
 }

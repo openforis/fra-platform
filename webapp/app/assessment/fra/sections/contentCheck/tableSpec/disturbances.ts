@@ -1,5 +1,4 @@
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/serve... Remove this comment to see the full error message
+import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
 import disturbances from '@server/traditionalTable/mappings/fra/disturbances'
 import section from '../section'
 

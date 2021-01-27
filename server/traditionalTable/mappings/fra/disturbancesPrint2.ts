@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   tableName: 'disturbances',
   rows: {
     names: ['insects', 'diseases', 'severe_weather_events', 'other'],

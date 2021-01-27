@@ -1,21 +1,14 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'path'.
-const path = require('path')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fs'.
-const fs = require('fs')
-const util = require('util')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'JSZip'.
-const JSZip = require('jszip')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'ExportServ... Remove this comment to see the full error message
-const ExportService = require('../assessment/service/exportService')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'VersionSer... Remove this comment to see the full error message
-const VersionService = require('../versioning/service')
-const DataExportRepository = require('./dataExportRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Request'.
-const Request = require('../utils/requestUtils')
+import * as path from 'path'
+import * as fs from 'fs'
+import * as util from 'util'
+import * as JSZip from 'jszip'
+import * as ExportService from '../assessment/service/exportService'
+import * as VersionService from '../versioning/service'
+import * as DataExportRepository from './dataExportRepository'
+import * as Request from '../utils/requestUtils'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'panEuropea... Remove this comment to see the full error message
 const panEuropean = (assessmentType: any) => (assessmentType === 'panEuropean' ? 'pan_european' : null)
-module.exports.init = (app: any) => {
+export const init = (app: any) => {
   app.get('/export/:assessmentType/:section', async (req: any, res: any) => {
     try {
       const { countries, columns, variables } = req.query
@@ -29,7 +22,7 @@ module.exports.init = (app: any) => {
   })
   app.get('/export/bulk-download', async (req: any, res: any) => {
     try {
-      const files = await ExportService.exportData(ExportService.EXPORT_TYPE.CSV, false)
+      const files = await ExportService.exportData(false)
       const zip = new JSZip()
       // Include README.txt in the zipfile
       const readFile = util.promisify(fs.readFile)

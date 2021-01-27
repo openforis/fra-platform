@@ -1,11 +1,9 @@
 import React from 'react'
 import { connect, useSelector } from 'react-redux'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 import Icon from '@webapp/components/icon'
 import useI18n from '@webapp/components/hooks/useI18n'
 import { getRelativeDate } from '@webapp/utils/relativeDate'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { profilePictureUri } from '@common/userUtils'
 import * as AppState from '@webapp/store/app/state'
 import { closeChat, sendMessage } from './actions'
@@ -19,7 +17,10 @@ const UserChatHeader = ({ i18n, chat, closeChat }: any) => (
     </div>
   </div>
 )
-class UserChatMessages extends React.Component {
+
+type UserChatMessagesProps = any
+class UserChatMessages extends React.Component<UserChatMessagesProps, {}> {
+  props: UserChatMessagesProps
   scrollToBottom() {
     if (this.refs.container) {
       ;(this.refs.container as any).scrollTop = (this.refs.container as any).scrollHeight
@@ -31,14 +32,15 @@ class UserChatMessages extends React.Component {
   }
 
   componentDidUpdate(prevProps: any) {
-    const messages = R.path(['chat', 'messages'])(this.props)
-    const prevMessages = R.path(['chat', 'messages'])(prevProps)
+    // @ts-ignore
+    const messages: any[] = R.path(['chat', 'messages'])(this.props)
+    // @ts-ignore
+    const prevMessages: any[] = R.path(['chat', 'messages'])(prevProps)
     if (messages.length > prevMessages.length) this.scrollToBottom()
   }
 
   render() {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'i18n' does not exist on type 'Readonly<{... Remove this comment to see the full error message
-    const { i18n, chat } = this.props
+    const { i18n, chat }: any = this.props
     const { messages, sessionUser, recipientUser } = chat
     const messageUser = (message: any) => (message.fromUser === sessionUser.id ? sessionUser : recipientUser)
     const isSessionUserMessageSender = (message: any) => message.fromUser === sessionUser.id
@@ -46,7 +48,6 @@ class UserChatMessages extends React.Component {
       <div ref="container" className="fra-review__comment-thread">
         {R.isEmpty(messages) ? (
           <div className="fra-review__comment-placeholder">
-            {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ className: string; name: string; }' is not... Remove this comment to see the full error message */}
             <Icon className="fra-review__comment-placeholder-icon icon-24" name="chat-46" />
             <span className="fra-review__comment-placeholder-text">{i18n.t('userChat.noMessages')}</span>
           </div>
@@ -82,28 +83,27 @@ class UserChatMessages extends React.Component {
     )
   }
 }
-class UsersChatAddMessage extends React.Component {
-  constructor() {
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 1-2 arguments, but got 0.
-    super()
+
+type Props = any
+
+class UsersChatAddMessage extends React.Component<Props, {}> {
+  constructor(props: Props) {
+    super(props)
     this.handleSendMessage = this.handleSendMessage.bind(this)
   }
 
   handleSendMessage(msg: any) {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'countryIso' does not exist on type 'Read... Remove this comment to see the full error message
     const { countryIso, chat, sendMessage } = this.props
     const { sessionUser, recipientUser } = chat
     sendMessage(countryIso, sessionUser.id, recipientUser.id, msg)
   }
 
   render() {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'i18n' does not exist on type 'Readonly<{... Remove this comment to see the full error message
     const { i18n, chat, closeChat } = this.props
     const { sessionUser, recipientUser } = chat
     const submitAllowed = sessionUser.active && recipientUser.active
     return (
       <FraReviewFooter
-        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ onSubmit: (msg: any) => void; onCancel: ()... Remove this comment to see the full error message
         onSubmit={this.handleSendMessage}
         onCancel={() => closeChat()}
         placeholder={i18n.t('userChat.writeMessage')}
@@ -126,10 +126,8 @@ const UserChatView = (props: any) => {
     <div className="fra-review__container">
       <div className="fra-review user-chat">
         <UserChatHeader i18n={i18n} chat={chat} closeChat={closeChat} />
-        {/* @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call. */}
         <UserChatMessages i18n={i18n} chat={chat} />
         <UsersChatAddMessage
-          // @ts-expect-error ts-migrate(2322) FIXME: Type '{ i18n: unknown; chat: any; closeChat: any; ... Remove this comment to see the full error message
           i18n={i18n}
           chat={chat}
           closeChat={closeChat}

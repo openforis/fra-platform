@@ -1,5 +1,4 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
+import * as R from 'ramda'
 
 const types = {
   fn: 'Function',
@@ -7,8 +6,8 @@ const types = {
 
 const _isType = (type: any) => R.pipe(R.type, R.equals(type))
 
-const isFunction = _isType(types.fn)
+export const isFunction = _isType(types.fn)
 
-module.exports = {
+export default {
   isFunction,
 }

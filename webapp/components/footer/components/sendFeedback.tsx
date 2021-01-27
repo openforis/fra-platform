@@ -19,7 +19,7 @@ ${newLine}${newLine}
 ${userInformationLine}
 ${newLine}
 ${(i18n as any).t('navigation.support.platformVersion')}: ${
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '__APPLICATION_VERSION__'.
+    // @ts-ignore
     __APPLICATION_VERSION__
   }
 ${newLine}

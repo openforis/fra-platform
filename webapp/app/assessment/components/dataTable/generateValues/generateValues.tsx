@@ -1,6 +1,5 @@
 import './generateValues.less'
 import React from 'react'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 import { methods } from '@webapp/app/assessment/components/dataTable/generateValues/methods'
 import FieldsOption from '@webapp/app/assessment/components/dataTable/generateValues/fieldsOption'
@@ -42,7 +41,6 @@ const GenerateValues = (props: Props) => {
         <button
           type="button"
           className={`btn-s ${isMethodClearTable ? 'btn-secondary' : 'btn-primary'}`}
-          // @ts-expect-error ts-migrate(2322) FIXME: Type 'unknown' is not assignable to type 'boolean'... Remove this comment to see the full error message
           disabled={generating || !valid}
           onClick={generateValues}
         >

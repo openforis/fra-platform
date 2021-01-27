@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { connect, useDispatch, useSelector } from 'react-redux'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { administrator } from '@common/countryRole'
 
 import * as AppState from '@webapp/store/app/state'
@@ -35,7 +33,8 @@ const UsersManagementView = (props: any) => {
   }, [editUserStatus])
 
   if (editingUserId) {
-    // @ts-expect-error ts-migrate(2322) FIXME: Type '{ userId: any; countryIso: unknown; onCancel... Remove this comment to see the full error message
+    // @ts-ignore
+    // TODO: Fix/refactor userManagementView
     return <EditUserForm userId={editingUserId} countryIso={countryIso} onCancel={() => setEditingUserId(null)} />
   }
 

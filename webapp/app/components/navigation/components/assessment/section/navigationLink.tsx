@@ -5,7 +5,6 @@ import { NavLink } from 'react-router-dom'
 import ReviewStatus from '@webapp/app/components/navigation/components/assessment/section/reviewStatus'
 import { useCountryIso, useI18n, useIsDataExportView } from '@webapp/components/hooks'
 import * as ReviewStatusState from '@webapp/app/country/reviewStatusState'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { isTypePanEuropean } from '@common/assessment/assessment'
 
 type Props = {

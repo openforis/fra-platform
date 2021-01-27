@@ -1,12 +1,8 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { getAllowedStatusTransitions } from '@common/assessment'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { isAdministrator } from '@common/countryRole'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as Assessment from '@common/assessment/assessment'
 import Icon from '@webapp/components/icon'
 import { PopoverControl } from '@webapp/components/popoverControl'
@@ -49,7 +45,6 @@ const Status = (props: Props) => {
           <span>{(i18n as any).t('assessment.deskStudy')}</span>
         </div>
       ),
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
       onClick: () => dispatch(changeAssessment(countryIso, Assessment.assocDeskStudy(!deskStudy)(assessment))),
     },
   ]
@@ -66,6 +61,7 @@ const Status = (props: Props) => {
         content: (i18n as any).t(`assessment.status.${statusTarget.transition}.${statusTarget.direction}`),
         onClick: () => setTargetStatus(statusTarget),
       })),
+// @ts-ignore
       R.when(R.always(isAdministrator(userInfo)), (_items: any) => [..._items, ...deskStudyItems])
     )
   )([])
@@ -77,11 +73,9 @@ const Status = (props: Props) => {
           <StatusConfirm assessment={assessment} targetStatus={targetStatus} onClose={() => setTargetStatus(null)} />
         )
       }
-      {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ children: Element; items: any; }' is not a... Remove this comment to see the full error message */}
       <PopoverControl items={items}>
         <div className={`nav-assessment-header__status status-${status} actionable-${!R.isEmpty(items)}`}>
           <span>{(i18n as any).t(`assessment.status.${status}.label`)}</span>
-          {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ className: string; name: string; }' is not... Remove this comment to see the full error message */}
           {!R.isEmpty(items) && <Icon className="icon-white icon-middle" name="small-down" />}
         </div>
       </PopoverControl>

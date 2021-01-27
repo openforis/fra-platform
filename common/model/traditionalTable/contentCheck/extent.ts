@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   tableName: 'content_check_extent_view',
   rows: {
     names: [

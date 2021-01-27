@@ -1,6 +1,5 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 import { useI18n } from '@webapp/components/hooks'
 
@@ -12,7 +11,7 @@ const RowValidation = (props: Props) => {
   const { row, data } = props
   const { getValidationMessages } = row
   const i18n = useI18n()
-  const validationMessages = useSelector(getValidationMessages(data))
+  const validationMessages: any = useSelector(getValidationMessages(data))
   if (R.all(R.isNil, validationMessages) || R.isEmpty(validationMessages)) {
     return null
   }

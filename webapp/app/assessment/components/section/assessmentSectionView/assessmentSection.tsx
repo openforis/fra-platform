@@ -2,7 +2,7 @@ import './assessmentSectionView.less'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import * as SectionSpecs from '@webapp/app/assessment/components/section/sectionSpecs'
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
 import CustomHeader from '@webapp/app/assessment/components/section/components/customHeader'
 import Title from '@webapp/app/assessment/components/section/components/title'
 import Descriptions from '@webapp/app/assessment/components/section/components/descriptions'
@@ -10,7 +10,6 @@ import DataTable from '@webapp/app/assessment/components/dataTable'
 import GeneralComments from '@webapp/app/assessment/components/section/components/descriptions/components/generalComments'
 import { useI18n, usePrintView } from '@webapp/components/hooks'
 import * as FraState from '@webapp/app/assessment/fra/fraState'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { isTypePanEuropean } from '@common/assessment/assessment'
 
 type Props = {
@@ -19,7 +18,7 @@ type Props = {
 }
 const AssessmentSection = (props: Props) => {
   const { assessmentType, sectionName } = props
-  const sectionSpec = SectionSpecs.getSectionSpec(assessmentType, sectionName)
+  const sectionSpec: any = SectionSpecs.getSectionSpec(assessmentType, sectionName)
   const { sectionAnchor, tableSections, showTitle, descriptions } = sectionSpec
   const i18n = useI18n()
   const [printView, printOnlyTablesView] = usePrintView()

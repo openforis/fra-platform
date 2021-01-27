@@ -1,9 +1,7 @@
 import React from 'react'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
 import Icon from '@webapp/components/icon'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { administrator, collaborator, getRoleLabelKey } from '@common/countryRole'
 import UsersTableCSVExportButton from './usersTableCVS'
 import MultiSelect from './collaboratorsTableMultiSelect'
@@ -52,41 +50,32 @@ const UsersTableHeadRow = ({ users, i18n, isAdminTable, filter = {}, ...props }:
 
 const NoUsersRow = ({ i18n }: any) => (
   <tr>
-    {/* @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number'. */}
-    <td className="user-list__cell" colSpan="5">
+    <td className="user-list__cell" colSpan={5}>
       <div className="user-list__cell--read-only">{i18n.t('userManagement.noUsers')}</div>
     </td>
   </tr>
 )
 
 type UserRowState = any
+type Props = any
 
 class UserRow extends React.Component<{}, UserRowState> {
-  constructor() {
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 1-2 arguments, but got 0.
-    super()
+  props: Props
+  constructor(props: Props) {
+    super(props)
     this.state = {}
   }
 
   render() {
     const {
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'countryIso' does not exist on type 'Read... Remove this comment to see the full error message
       countryIso,
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'i18n' does not exist on type 'Readonly<{... Remove this comment to see the full error message
       i18n,
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'user' does not exist on type 'Readonly<{... Remove this comment to see the full error message
       user,
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'removeUser' does not exist on type 'Read... Remove this comment to see the full error message
       removeUser,
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'onEditClick' does not exist on type 'Rea... Remove this comment to see the full error message
       onEditClick,
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'userInfo' does not exist on type 'Readon... Remove this comment to see the full error message
       userInfo,
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'isAdminTable' does not exist on type 'Re... Remove this comment to see the full error message
       isAdminTable,
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'filter' does not exist on type 'Readonly... Remove this comment to see the full error message
       filter,
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'persistCollaboratorCountryAccess' does n... Remove this comment to see the full error message
       persistCollaboratorCountryAccess,
     } = this.props
 
@@ -183,7 +172,6 @@ const UserInvitationInfo = ({ i18n, countryIso, user, sendInvitationEmail, onClo
       </div>
     </div>
     <a onClick={onClose}>
-      {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ name: string; className: string; }' is not... Remove this comment to see the full error message */}
       <Icon name="remove" className="icon-close" />
     </a>
   </div>
@@ -227,7 +215,6 @@ const UserTableAccessColumn = ({ i18n, countryIso, user, persistCollaboratorCoun
     <td className="user-list__cell">
       {user.role === collaborator.role ? (
         <MultiSelect
-          // @ts-expect-error ts-migrate(2322) FIXME: Type '{ i18n: any; values: any; onChange: (values:... Remove this comment to see the full error message
           i18n={i18n}
           values={user.tables || undefined}
           onChange={(values: any) => {

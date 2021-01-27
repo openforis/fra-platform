@@ -1,9 +1,11 @@
 import React from 'react'
-import bustString from './cacheBust'
+import * as bustString from './cacheBust'
 
 type Props = {
   name: string
+  className?: string
 }
+
 const Icon = (props: Props) => {
   const svgClass = (props as any).className ? `icon ${(props as any).className}` : 'icon'
   const { name } = props

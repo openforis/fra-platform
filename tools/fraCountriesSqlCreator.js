@@ -1,10 +1,10 @@
 String.prototype.replaceAll = function (search, replacement) {
   return this.split(search).join(replacement)
 }
-const R = require('ramda')
-const Promise = require('bluebird')
-const fs = Promise.promisifyAll(require('fs'))
-const csv = Promise.promisifyAll(require('csv'))
+import * as R from 'ramda'
+import * as Promise from 'bluebird'
+import * as fs = Promise.promisifyAll(require('fs'))
+import * as csv = Promise.promisifyAll(require('csv'))
 
 const exampleUsage =
   'node certifiedAreasCountryUdater.js ./exampleData/FAOCountriesNOCS_EXPORT.csv ./exampleData/FRACountries.csv ./exampleData/EUCountries.csv /tmp/countriesSQL.sql'

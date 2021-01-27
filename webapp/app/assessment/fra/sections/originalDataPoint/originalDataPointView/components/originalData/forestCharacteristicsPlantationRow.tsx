@@ -1,6 +1,5 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as NumberUtils from '@common/bignumberUtils'
 import { PercentInput } from '@webapp/components/percentInput'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
@@ -42,7 +41,6 @@ const ForestCharacteristicsPlantationRow = (props: ForestCharacteristicsPlantati
       </th>
       <td className={`fra-table__cell ${classNamePercentageValidation}`}>
         <PercentInput
-          // @ts-expect-error ts-migrate(2322) FIXME: Type '{ disabled: boolean; numberValue: any; onCha... Remove this comment to see the full error message
           disabled={!canEditData}
           numberValue={plantationIntroducedPercent}
           onChange={(event: any) => {
@@ -73,7 +71,6 @@ const ForestCharacteristicsPlantationRow = (props: ForestCharacteristicsPlantati
         {odpId && canEditData && (
           <div className="odp__review-indicator-row-anchor">
             <ReviewIndicator
-              // @ts-expect-error ts-migrate(2322) FIXME: Type '{ section: string; title: any; target: any[]... Remove this comment to see the full error message
               section="odp"
               title={(i18n as any).t('nationalDataPoint.plantationForest')}
               target={target}

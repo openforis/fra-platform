@@ -1,19 +1,12 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'JSZip'.
-const JSZip = require('jszip')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
-const db = require('../db/db')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'repository... Remove this comment to see the full error message
-const repository = require('./assessmentRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'sendErr'.
-const { sendErr, sendOk, serverUrl } = require('../utils/requestUtils')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'sendAssess... Remove this comment to see the full error message
-const { sendAssessmentNotification } = require('./sendAssessmentNotification')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Auth'.
-const Auth = require('../auth/authApiMiddleware')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'ExportServ... Remove this comment to see the full error message
-const ExportService = require('./service/exportService')
+import * as JSZip from 'jszip'
+import * as db from '../db/db'
+import * as repository from './assessmentRepository'
+import { sendErr, sendOk, serverUrl } from '../utils/requestUtils'
+import { sendAssessmentNotification } from './sendAssessmentNotification'
+import * as Auth from '../auth/authApiMiddleware'
+import * as ExportService from './service/exportService'
 
-module.exports.init = (app: any) => {
+export const init = (app: any) => {
   app.post('/assessment/:countryIso', Auth.requireCountryEditPermission, async (req: any, res: any) => {
     try {
       const assessment = req.body
@@ -33,7 +26,7 @@ module.exports.init = (app: any) => {
   })
   app.get('/assessment/admin/export', Auth.requireAdminPermission, async (req: any, res: any) => {
     try {
-      const files = await ExportService.exportData(ExportService.EXPORT_TYPE.CSV)
+      const files = await ExportService.exportData()
       const zip = new JSZip()
       Object.values(files).forEach((file) => zip.file((file as any).fileName, (file as any).content))
       // zip.file('FraYears.csv', data)

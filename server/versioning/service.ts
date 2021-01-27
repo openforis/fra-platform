@@ -1,7 +1,5 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getLatestS... Remove this comment to see the full error message
-const { getLatestSchemaVersion } = require('./versioningRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Request'.
-const Request = require('../utils/requestUtils')
+import { getLatestSchemaVersion } from './versioningRepository'
+import * as Request from '../utils/requestUtils'
 
 const defaultSchema = 'public'
 // Return correct schema name
@@ -9,7 +7,7 @@ const defaultSchema = 'public'
 // 1. Check if user exists
 // 2a. User exits: Return default schema name ('live version')
 // 2b. User doesn't exist: Return latest schema version ('frozen version')
-const getDatabaseSchema = async (req: any) => {
+export const getDatabaseSchema = async (req: any) => {
   const user = (Request as any).getUser(req)
   if (user) {
     return defaultSchema
@@ -17,6 +15,6 @@ const getDatabaseSchema = async (req: any) => {
   const schemaName = await getLatestSchemaVersion()
   return schemaName
 }
-module.exports = {
+export default {
   getDatabaseSchema,
 }

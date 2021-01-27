@@ -1,17 +1,12 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fs'.
-const fs = require('fs')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'sendErr'.
-const { sendErr } = require('../utils/requestUtils')
+import * as R from 'ramda'
+import * as fs from 'fs'
+import { sendErr } from '../utils/requestUtils'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fileName'.
 const fileName = 'calculator'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Auth'.
-const Auth = require('../auth/authApiMiddleware')
+import * as Auth from '../auth/authApiMiddleware'
 
-module.exports.init = (app: any) => {
+export const init = (app: any) => {
   app.get(
     '/biomassStock/:countryIso/:domain/:lang/download',
     Auth.requireCountryEditPermission,

@@ -5,7 +5,6 @@ import { Switch, Redirect, Route, useRouteMatch } from 'react-router-dom'
 import useI18n from '@webapp/components/hooks/useI18n'
 import { UserState } from '@webapp/store/user'
 import * as BasePaths from '@webapp/main/basePaths'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { isAdministrator } from '@common/countryRole'
 import NotFound from '@webapp/app/notfound'
 import UsersManagementView from './components/UserManagementView'

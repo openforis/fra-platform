@@ -1,4 +1,4 @@
-const { v4: uuidv4 } = require('uuid')
+import { v4 as uuidv4 } from 'uuid'
 
 let bustString = uuidv4()
 // For some reason, incremental build with watch loses
@@ -8,7 +8,8 @@ let bustString = uuidv4()
 // issue for developers and only causes the svgs to
 // reload when the page is reloaded
 try {
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '__BUST__'.
+  // @ts-ignore
+  // TODO : what's this
   bustString = __BUST__
 } catch (e) {}
 

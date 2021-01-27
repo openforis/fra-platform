@@ -2,12 +2,10 @@
  * Functions for dealing with and creating the OriginalDataPoint datastructure
  */
 
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { sum, mul, sub, add, div } from '@common/bignumberUtils'
 
-const { v4: uuidv4 } = require('uuid')
+import { v4 as uuidv4 } from 'uuid'
 
 export const updateNationalClass = (odp: any, index: any, field: any, value: any) => {
   const nationalClassToUpdate = odp.nationalClasses[index]
@@ -33,34 +31,24 @@ export const removeClassPlaceholder = (odp: any) => {
 export const defaultNationalClass = (className = '', definition = '') => ({
   className,
   definition,
-  // @ts-expect-error ts-migrate(7018) FIXME: Object literal's property 'area' implicitly has an... Remove this comment to see the full error message
   area: null,
-  // @ts-expect-error ts-migrate(7018) FIXME: Object literal's property 'forestPercent' implicit... Remove this comment to see the full error message
   forestPercent: null,
-  // @ts-expect-error ts-migrate(7018) FIXME: Object literal's property 'otherWoodedLandPercent'... Remove this comment to see the full error message
   otherWoodedLandPercent: null,
-  // @ts-expect-error ts-migrate(7018) FIXME: Object literal's property 'otherLandPercent' impli... Remove this comment to see the full error message
   otherLandPercent: null,
-  // @ts-expect-error ts-migrate(7018) FIXME: Object literal's property 'naturalForestPercent' i... Remove this comment to see the full error message
   naturalForestPercent: null,
-  // @ts-expect-error ts-migrate(7018) FIXME: Object literal's property 'plantationPercent' impl... Remove this comment to see the full error message
   plantationPercent: null,
-  // @ts-expect-error ts-migrate(7018) FIXME: Object literal's property 'plantationIntroducedPer... Remove this comment to see the full error message
   plantationIntroducedPercent: null,
-  // @ts-expect-error ts-migrate(7018) FIXME: Object literal's property 'otherPlantedPercent' im... Remove this comment to see the full error message
   otherPlantedPercent: null,
   uuid: uuidv4(),
-})
+}) as any
 
 export const nationalClassPlaceHolder = () => ({ ...defaultNationalClass(), placeHolder: true })
 
 export const emptyDataPoint = () => ({
-  // @ts-expect-error ts-migrate(7018) FIXME: Object literal's property 'year' implicitly has an... Remove this comment to see the full error message
   year: null,
-  // @ts-expect-error ts-migrate(7018) FIXME: Object literal's property 'forestArea' implicitly ... Remove this comment to see the full error message
   forestArea: null,
   nationalClasses: [nationalClassPlaceHolder()],
-})
+}) as any
 
 export const addNationalClassPlaceHolder = (odp: any) => ({
   ...odp,

@@ -82,7 +82,6 @@ const NationalClass = (props: Props) => {
       </td>
       <td className="fra-table__cell-left odp__nc-table__def">
         <VerticallyGrowingTextField
-          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
           value={definition || ''}
           onChange={(event: any) => {
             dispatch(
@@ -109,7 +108,6 @@ const NationalClass = (props: Props) => {
           {placeHolder || !odp.odpId ? null : (
             <div className="odp__review-indicator-row-anchor">
               <ReviewIndicator
-                // @ts-expect-error ts-migrate(2322) FIXME: Type '{ section: string; title: any; target: any[]... Remove this comment to see the full error message
                 section="odp"
                 title={(i18n as any).t('nationalDataPoint.nationalClasses')}
                 target={[odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'definition']}

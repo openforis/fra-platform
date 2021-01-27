@@ -1,6 +1,5 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { isAdministrator } from '@common/countryRole'
 import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestState'
 import NationalDataPointsPrintView from '@webapp/app/assessment/fra/sections/originalDataPoint/nationalDataPointsPrintView'
@@ -35,7 +34,6 @@ const ExtentOfForest = (props: Props) => {
       </h2>
 
       {hasOdps && printView && !printOnlyTablesView && (
-        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ i18n: unknown; section: string; }' is not ... Remove this comment to see the full error message
         <NationalDataPointsPrintView i18n={i18n} section={sectionName} />
       )}
     </>

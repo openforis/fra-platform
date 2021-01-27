@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   tableName: 'graduation_of_students',
   rows: {
     names: ['doctoral_degree', 'masters_degree', 'bachelors_degree', 'technician_certificate', 'total'],

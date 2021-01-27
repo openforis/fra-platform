@@ -1,9 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as FRA from '@common/assessment/fra'
+import FRA from '@common/assessment/fra'
 import useI18n from '@webapp/components/hooks/useI18n'
 import DataSources from './originalDataPointView/components/dataSources'
 import NationalClasses from './originalDataPointView/components/nationalClasses'
@@ -13,7 +11,9 @@ import * as OriginalDataPointState from './originalDataPointState'
 
 type Props = {
   section: string
+  i18n: any
 }
+
 const NationalDataPointsPrintView = (props: Props) => {
   const { section } = props
   const i18n = useI18n()

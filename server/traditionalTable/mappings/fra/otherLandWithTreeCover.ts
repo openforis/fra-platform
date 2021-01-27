@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   tableName: 'other_land_with_tree_cover',
   rows: {
     names: ['palms', 'tree_orchards', 'agroforestry', 'trees_in_urban_settings', 'other'],

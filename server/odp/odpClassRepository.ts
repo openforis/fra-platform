@@ -1,13 +1,9 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Promise'.
-const Promise = require('bluebird')
+import * as R from 'ramda'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'deleteIssu... Remove this comment to see the full error message
-const { deleteIssuesByIds } = require('../review/reviewRepository')
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getOdpNati... Remove this comment to see the full error message
-const getOdpNationalClasses = async (client: any, odpVersionId: any, schemaName = 'public') => {
+import { deleteIssuesByIds } from '../review/reviewRepository'
+
+export const getOdpNationalClasses = async (client: any, odpVersionId: any, schemaName = 'public') => {
   const tableName = `${schemaName}.odp_class`
   const res = await client.query(
     `
@@ -36,8 +32,7 @@ const getOdpNationalClasses = async (client: any, odpVersionId: any, schemaName 
   }))
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'wipeNation... Remove this comment to see the full error message
-const wipeNationalClassIssues = async (client: any, odpId: any, countryIso: any, nationalClasses: any) => {
+export const wipeNationalClassIssues = async (client: any, odpId: any, countryIso: any, nationalClasses: any) => {
   const hasClasses = nationalClasses.length > 0
   const classUuids = nationalClasses.map((c: any) => `"${c.uuid}"`)
   const classQueryPlaceholders = R.range(3, nationalClasses.length + 3)
@@ -67,8 +62,7 @@ const wipeNationalClassIssues = async (client: any, odpId: any, countryIso: any,
   return { odpId }
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'addClassDa... Remove this comment to see the full error message
-const addClassData = async (client: any, odpVersionId: any, odp: any) => {
+export const addClassData = async (client: any, odpVersionId: any, odp: any) => {
   const nationalInserts = R.map(
     (nationalClass: any) =>
       client.query(
@@ -105,11 +99,10 @@ const addClassData = async (client: any, odpVersionId: any, odp: any) => {
   return await Promise.all(nationalInserts)
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'wipeClassD... Remove this comment to see the full error message
-const wipeClassData = async (client: any, odpVersionId: any) =>
+export const wipeClassData = async (client: any, odpVersionId: any) =>
   await client.query('DELETE FROM odp_class WHERE odp_version_id = $1', [odpVersionId])
 
-module.exports = {
+export default {
   getOdpNationalClasses,
   addClassData,
   wipeClassData,

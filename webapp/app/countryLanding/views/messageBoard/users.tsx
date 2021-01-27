@@ -3,7 +3,6 @@ import { useCountryIso } from '@webapp/components/hooks'
 import useI18n from '@webapp/components/hooks/useI18n'
 import { useDispatch, useSelector } from 'react-redux'
 import * as LandingState from '@webapp/app/countryLanding/landingState'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { i18nUserRole, profilePictureUri } from '@common/userUtils'
 import Icon from '@webapp/components/icon'
 import { UserState } from '@webapp/store/user'
@@ -14,7 +13,7 @@ const Users = () => {
   const countryIso = useCountryIso()
   const i18n = useI18n()
   const dispatch = useDispatch()
-  const { userInfo, users } = useSelector((state) => ({
+  const { userInfo, users }: any = useSelector((state) => ({
     userInfo: UserState.getUserInfo(state),
     users: LandingState.getUsers(state),
   }))
@@ -45,7 +44,6 @@ const Users = () => {
                         dispatch(openChat(countryIso, userInfo, user))
                       }}
                     >
-                      {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ name: string; className: string; }' is not... Remove this comment to see the full error message */}
                       <Icon name="chat-46" className="icon-middle" />
                       {(i18n as any).t('landing.users.message')}
                       {user.chat.unreadMessages > 0 ? (

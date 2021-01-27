@@ -1,10 +1,8 @@
 import './areaSelector.less'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { Area, Country } from '@common/country'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as Fra from '@common/assessment/fra'
+import FRA from '@common/assessment/fra'
 import * as BasePaths from '@webapp/main/basePaths'
 import { useCountries } from '@webapp/store/app'
 import { useI18n } from '@webapp/components/hooks'
@@ -27,7 +25,7 @@ const AreaSelector = () => {
   return (
     <div className="home-area-selector">
       <img alt="" src="/img/iconGlobal.svg" />
-      <Link className="home-link m-r" to={BasePaths.getAssessmentHomeLink(Area.levels.global, Fra.type)}>
+      <Link className="home-link m-r" to={BasePaths.getAssessmentHomeLink(Area.levels.global, FRA.type)}>
         {(i18n as any).t(`area.${Area.levels.global}.listName`)}
       </Link>
 
@@ -37,7 +35,7 @@ const AreaSelector = () => {
         <DropdownAreas
           area={areas.regions}
           areaISOs={groupedRegions}
-          assessmentType={Fra.type}
+          assessmentType={FRA.type}
           dropdownOpened={dropdownOpened}
           setDropdownOpened={setDropdownOpened}
         />
@@ -48,7 +46,7 @@ const AreaSelector = () => {
       <DropdownAreas
         area={areas.countries}
         areaISOs={countryISOs}
-        assessmentType={Fra.type}
+        assessmentType={FRA.type}
         dropdownOpened={dropdownOpened}
         setDropdownOpened={setDropdownOpened}
       />

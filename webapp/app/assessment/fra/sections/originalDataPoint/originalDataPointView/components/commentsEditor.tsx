@@ -5,13 +5,11 @@ import useI18n from '@webapp/components/hooks/useI18n'
 import { saveDraft } from '@webapp/app/assessment/fra/sections/originalDataPoint/actions'
 import ckEditorConfig from '@webapp/components/ckEditor/ckEditorConfig'
 
-type OwnProps = {
+type Props = {
   canEditData?: boolean
   odp?: any
 }
-// @ts-expect-error ts-migrate(2456) FIXME: Type alias 'Props' circularly references itself.
-type Props = OwnProps & typeof CommentsEditor.defaultProps
-// @ts-expect-error ts-migrate(7022) FIXME: 'CommentsEditor' implicitly has type 'any' because... Remove this comment to see the full error message
+
 const CommentsEditor = (props: Props) => {
   const { canEditData, odp } = props
   const [open, setOpen] = useState(false)
@@ -38,7 +36,7 @@ const CommentsEditor = (props: Props) => {
     })
   }
   useEffect(() => {
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'CKEDITOR'.
+    // @ts-ignore
     descriptionEditor.current = CKEDITOR.replace(textareaRef.current, ckEditorConfig)
     // We need to fetch the data only after CKEDITOR instance is ready :(
     // Otherwise there is no guarantee that the setData()-method succeeds in

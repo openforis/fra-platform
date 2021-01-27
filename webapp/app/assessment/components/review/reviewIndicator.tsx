@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
 import Icon from '@webapp/components/icon'
@@ -24,8 +23,16 @@ const CommentStatus = ({ count, active, issueStatus, hasUnreadIssues, ...props }
     </div>
   )
 }
-
-const ReviewIndicator = (props: any) => {
+type Props = {
+  countryIso: any
+  section: any
+  target: any
+  openCommentThread?: any
+  title: any
+  getIssueSummary?: any
+  openThread?: any
+}
+const ReviewIndicator = (props: Props) => {
   const { countryIso, section, target, openCommentThread, title, getIssueSummary, openThread } = props
 
   if (!isPrintingMode()) {
@@ -34,7 +41,7 @@ const ReviewIndicator = (props: any) => {
     }, [])
   }
 
-  const targetProps = props[target] || {}
+  const targetProps = (props as any)[target] || {}
   const count = R.isNil(targetProps) ? 0 : targetProps.issuesCount
   const issueStatus = R.isNil(targetProps) ? null : targetProps.issueStatus
   const hasUnreadIssues = R.isNil(targetProps) ? false : targetProps.hasUnreadIssues

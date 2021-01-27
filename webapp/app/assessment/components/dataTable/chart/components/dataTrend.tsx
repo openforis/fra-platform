@@ -1,5 +1,4 @@
 import React, { memo } from 'react'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 import DataPath from './dataPath'
 import DataPoints from './dataPoints'
@@ -23,7 +22,7 @@ type DataTrendProps = {
 }
 
 const DataTrend = (props: DataTrendProps) => {
-  const { className, color, data, xScale, yScale } = props
+  const { className, color, data, xScale, yScale }: any = props
   const prev = (v: any) =>
     R.pipe(
       R.filter((d: any) => d.year <= v.year && d.type === 'fra'),
@@ -36,6 +35,7 @@ const DataTrend = (props: DataTrendProps) => {
       R.head,
       R.defaultTo({})
     )(data)
+  // @ts-ignore
   const fra = R.filter((v: any) => (v.type === 'odp' ? prev(v).estimated && next(v).estimated : true), data)
 
   return (
@@ -64,7 +64,6 @@ const DataTrend = (props: DataTrendProps) => {
         yScale={yScale}
       />
 
-      {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ color: string; data: any[]; xScale: (...ar... Remove this comment to see the full error message */}
       <DataPoints color={color} data={data} xScale={xScale} yScale={yScale} />
     </g>
   )

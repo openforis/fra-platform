@@ -1,8 +1,6 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
+import * as R from 'ramda'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'eofReducer... Remove this comment to see the full error message
-const eofReducer = (results: any, row: any, type = 'fra') => [
+export const eofReducer = (results: any, row: any, type = 'fra') => [
   ...results,
   {
     odpId: row.odp_id,
@@ -16,8 +14,7 @@ const eofReducer = (results: any, row: any, type = 'fra') => [
   },
 ]
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'focReducer... Remove this comment to see the full error message
-const focReducer = (results: any, row: any, type = 'fra') => [
+export const focReducer = (results: any, row: any, type = 'fra') => [
   ...results,
   {
     odpId: row.odp_id,
@@ -33,7 +30,7 @@ const focReducer = (results: any, row: any, type = 'fra') => [
   },
 ]
 
-module.exports = {
+export default {
   eofReducer,
   focReducer,
 }

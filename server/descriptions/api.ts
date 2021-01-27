@@ -1,18 +1,12 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
-const db = require('../db/db')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'sendErr'.
-const { sendErr, sendOk } = require('../utils/requestUtils')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'repository... Remove this comment to see the full error message
-const repository = require('./descriptionsRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'auditRepos... Remove this comment to see the full error message
-const auditRepository = require('../audit/auditRepository')
+import * as db from '../db/db'
+import { sendErr, sendOk } from '../utils/requestUtils'
+import * as repository from './descriptionsRepository'
+import * as auditRepository from '../audit/auditRepository'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Auth'.
-const Auth = require('../auth/authApiMiddleware')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'VersionSer... Remove this comment to see the full error message
-const VersionService = require('../versioning/service')
+import * as Auth from '../auth/authApiMiddleware'
+import * as VersionService from '../versioning/service'
 
-module.exports.init = (app: any) => {
+export const init = (app: any) => {
   app.get('/country/descriptions/:countryIso/:section/:name', async (req: any, res: any) => {
     try {
       const schemaName = await VersionService.getDatabaseSchema(req)

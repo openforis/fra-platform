@@ -1,13 +1,14 @@
 import React from 'react'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'd3'.... Remove this comment to see the full error message
 import * as d3 from 'd3'
 import ReactDOM from 'react-dom'
 import { defaultTransitionDuration } from '../chart'
 
+type Props = any
 class OdpTicks extends React.Component {
-  update(props: any) {
+  update(props: Props) {
     const { xScale, yScale, data } = props
     if (data) {
+      // @ts-ignore
       const line = d3.select(ReactDOM.findDOMNode(this.refs.lines)).selectAll('line').data(data)
       // update
       line
@@ -55,7 +56,7 @@ class OdpTicks extends React.Component {
   }
 
   render() {
-    return <g ref="lines" className={(this.props as any).className} />
+    return <g ref="lines" className={(this.props as Props).className} />
   }
 }
 export default OdpTicks

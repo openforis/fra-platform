@@ -1,5 +1,5 @@
 // TODO: replace with redux store navigation current prefix or similar
-export const tableMappings = {
+export const tableMappings: any = {
   forestArea: '1_1a',
   forestAreaByForestTypes: '1_1b',
   growingStock: '1_2a',

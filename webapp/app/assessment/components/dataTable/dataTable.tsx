@@ -1,9 +1,8 @@
 import './dataTable.less'
 import React from 'react'
 import { useSelector } from 'react-redux'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as ObjectUtils from '@common/objectUtils'
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
 import { useI18n, usePrintView } from '@webapp/components/hooks'
 import Table from './table'
 import Chart from './chart'
@@ -28,7 +27,7 @@ const DataTable = (props: Props) => {
   const canGenerateValues = tableSpec[SectionSpec.KEYS_TABLE.canGenerateValues]
   const breakPointsColsPrint = tableSpec[SectionSpec.KEYS_TABLE.print][SectionSpec.KEYS_TABLE_PRINT.colBreakPoints]
   const i18n = useI18n()
-  const data = useSelector(getSectionData(assessmentType, sectionName, tableName))
+  const data: any = useSelector(getSectionData(assessmentType, sectionName, tableName))
   const dataEmpty = useSelector(isSectionDataEmpty(assessmentType, sectionName, tableName))
   const generateValues = useSelector(
     (state) => odp && !disabled && ObjectUtils.isFunction(canGenerateValues) && canGenerateValues(state)
@@ -42,7 +41,6 @@ const DataTable = (props: Props) => {
       {showOdpChart && (!printView || !dataEmpty) && (
         <>
           <Chart
-            // @ts-expect-error ts-migrate(2740) FIXME: Type '{}' is missing the following properties from... Remove this comment to see the full error message
             fra={data}
             trends={rows
               .filter((row: any) => !!row.chartProps)
@@ -62,7 +60,6 @@ const DataTable = (props: Props) => {
           sectionName={sectionName}
           tableName={tableName}
           rows={rows}
-          // @ts-expect-error ts-migrate(2322) FIXME: Type 'unknown' is not assignable to type 'any[]'.
           data={data}
         />
       )}
@@ -78,7 +75,6 @@ const DataTable = (props: Props) => {
               sectionAnchor={sectionAnchor}
               tableSpec={tableSpec}
               rows={rowsSliced}
-              // @ts-expect-error ts-migrate(2322) FIXME: Type 'unknown' is not assignable to type 'any[]'.
               data={data}
               disabled={disabled}
             />
@@ -91,7 +87,6 @@ const DataTable = (props: Props) => {
           sectionAnchor={sectionAnchor}
           tableSpec={tableSpec}
           rows={rows}
-          // @ts-expect-error ts-migrate(2322) FIXME: Type 'unknown' is not assignable to type 'any[]'.
           data={data}
           disabled={disabled}
         />

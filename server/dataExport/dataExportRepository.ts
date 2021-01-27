@@ -1,5 +1,4 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
-const db = require('../db/db')
+import * as db from '../db/db'
 
 // Some data is fetched from views
 const views = [
@@ -18,7 +17,7 @@ const views = [
 // - the latest "frozen"/versioned schema
 // - if previous not found then public
 // - if assessmentType is panEuropean: pan_european
-const getExportData = async (schemaName: any, table: any, variables: any, countries: any, columns: any) => {
+export const getExportData = async (schemaName: any, table: any, variables: any, countries: any, columns: any) => {
   // Add "" around year columns
   const columnsJoined = columns.map((x: any) => `'${x}', t."${x}"`).join(',')
   const countriesJoined = countries.map((x: any) => `'${x}'`).join(',')
@@ -33,13 +32,11 @@ const getExportData = async (schemaName: any, table: any, variables: any, countr
     ORDER BY t.country_iso, t.row_name;
   `
 
-  const result = await db.query(query, [JSON.stringify(variables)])
+  const result = await db.pool.query(query, [JSON.stringify(variables)])
 
-  const res = {}
+  const res: {[key: string]: any} = {}
   result.rows.forEach((row: any) => {
-    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     if (!res[row.country_iso]) res[row.country_iso] = {}
-    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     res[row.country_iso][row.row_name] = Object.fromEntries(
       Object.entries(row).filter(([name]) => columns.includes(name))
     )
@@ -48,6 +45,6 @@ const getExportData = async (schemaName: any, table: any, variables: any, countr
   return res
 }
 
-module.exports = {
+export default {
   getExportData,
 }

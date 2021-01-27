@@ -17,8 +17,7 @@ export const ModalBody = ({ children }: any) => <div className="modal-body">{chi
 export const ModalFooter = ({ children }: any) => <div className="modal-footer">{children}</div>
 
 export const Modal = ({ children, isOpen }: any) => (
-  // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number'.
-  <div className="modal" tabIndex="-1" role="dialog" style={{ display: isOpen ? 'block' : 'none' }}>
+  <div className="modal" tabIndex={-1} role="dialog" style={{ display: isOpen ? 'block' : 'none' }}>
     <div className="modal-content">{children}</div>
   </div>
 )

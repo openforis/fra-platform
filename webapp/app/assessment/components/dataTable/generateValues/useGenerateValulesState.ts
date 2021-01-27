@@ -1,9 +1,7 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as FRAUtils from '@common/fraUtils'
+import FRAUtils from '@common/fraUtils'
 import { isMethodValid, methods } from '@webapp/app/assessment/components/dataTable/generateValues/methods'
 import useI18n from '@webapp/components/hooks/useI18n'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'

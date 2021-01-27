@@ -1,9 +1,6 @@
 import React from 'react'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as Fra from '@common/assessment/fra'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
+import FRA from '@common/assessment/fra'
 import { Area } from '@common/country'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { noRole } from '@common/countryRole'
 import { checkMatch } from '@webapp/components/countrySelection/utils/checkMatch'
 import { useI18n } from '@webapp/components/hooks'
@@ -22,16 +19,14 @@ const CountryListFra = (props: Props) => {
   const i18n = useI18n()
   const allCountries = useCountries()
   const groupedRegions = useGroupedRegions()
-  const userCountries = useUserCountries()
+  const userCountries: any = useUserCountries()
   const filterRegions = (regions: any) =>
     regions
       .filter((region: any) => checkMatch(Area.getListName(region.regionCode, i18n), query))
       .filter((region: any) => region.regionCode !== Area.levels.forest_europe)
   const userCountryIsos: any = []
   Object.keys(userCountries).forEach((role) => {
-    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     if (Array.isArray(userCountries[role]))
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       userCountries[role].forEach((country: any) => userCountryIsos.push(country.countryIso))
   })
   const countryMap = {
@@ -49,7 +44,7 @@ const CountryListFra = (props: Props) => {
               <CountryListRow
                 role={noRole.role}
                 country={{ countryIso: Area.levels.global }}
-                assessmentType={Fra.type}
+                assessmentType={FRA.type}
               />
               <hr />
             </>
@@ -61,7 +56,7 @@ const CountryListFra = (props: Props) => {
                   key={regionCode}
                   role={noRole.role}
                   country={{ countryIso: regionCode }}
-                  assessmentType={Fra.type}
+                  assessmentType={FRA.type}
                 />
               ))}
               {filterRegions(regions).length > 0 && <hr />}
@@ -70,7 +65,6 @@ const CountryListFra = (props: Props) => {
         </div>
 
         {Object.keys(countryMap).map((role) => (
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           <CountryListRoleSection key={role} role={role} roleCountries={countryMap[role]} query={query} />
         ))}
       </div>

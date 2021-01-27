@@ -1,7 +1,7 @@
 const baseUrl = '/api/statisticalFactsheets/'
 export const getUrl = () => `${baseUrl}`
 
-export const sections = {
+export const sections: any = {
   forestArea: ['forest_area'],
   carbonAndGrowingStock: ['growing_stock_total', 'carbon_stock_biomass_total', 'carbon_stock_total'],
   forestAreaPercent: ['forest_area', 'land_area'],
@@ -19,15 +19,12 @@ export const sections = {
   naturallyRegeneratingForest: ['natural_forest_area', 'planted_forest'],
 }
 const getRowNames = (section: any) => ({
-  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   rowNames: sections[section],
 })
 const getLevel = (level: any) => ({
   level,
 })
 
-// @ts-expect-error ts-migrate(7011) FIXME: Function expression, which lacks return-type annot... Remove this comment to see the full error message
-export const getParams = (section: any, level: any) => {
-  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+export const getParams = (section: string, level: string): any  => {
   return sections[section] ? { ...getRowNames(section), ...getLevel(level) } : []
 }

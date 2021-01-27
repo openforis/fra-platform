@@ -1,9 +1,8 @@
 /**
  * Abstract class for export output
  */
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'ExportOutp... Remove this comment to see the full error message
 class ExportOutput {
-  get output() {
+  get output(): any {
     throw new Error('output method not implemented')
   }
 
@@ -16,4 +15,4 @@ class ExportOutput {
   }
 }
 
-module.exports = ExportOutput
+export default ExportOutput

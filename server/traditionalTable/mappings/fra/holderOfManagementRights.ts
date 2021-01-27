@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   tableName: 'holder_of_management_rights',
   rows: {
     names: ['public_administration', 'individuals', 'private_businesses', 'communities', 'other'],

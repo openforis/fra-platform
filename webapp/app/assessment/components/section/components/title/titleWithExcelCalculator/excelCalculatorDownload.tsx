@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 import useI18n from '@webapp/components/hooks/useI18n'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
@@ -15,7 +14,7 @@ const ExcelCalculatorDownload = () => {
   const i18n = useI18n()
   const userInfo = useUserInfo()
   const countryDomain = useSelector(CountryState.getConfigDomain)
-  const [selectedDomain, setSelectedDomain] = useState(countryDomain)
+  const [selectedDomain, setSelectedDomain]: any = useState(countryDomain)
   const calculatorFilePath = downloadPath(countryIso, selectedDomain, (i18n as any).language)
   if (!userInfo) {
     return null
@@ -23,7 +22,6 @@ const ExcelCalculatorDownload = () => {
   return (
     <div className="no-print">
       {!R.isNil(countryDomain) && (
-        // @ts-expect-error ts-migrate(2322) FIXME: Type 'unknown' is not assignable to type 'string |... Remove this comment to see the full error message
         <select className="select-s" value={selectedDomain} onChange={(e) => setSelectedDomain(e.target.value)}>
           {domains.map((domain) => (
             <option value={domain} key={domain}>

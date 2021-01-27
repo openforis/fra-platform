@@ -1,8 +1,6 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'assert'.
-const { assert } = require('chai')
-const handlePaste = require('../../webapp/app/assessment/fra/sections/originalDataPoint/paste').default
+import * as R from 'ramda'
+import { assert } from 'chai'
+import handlePaste from '../../webapp/app/assessment/fra/sections/originalDataPoint/paste'
 
 /*
  * NOTE: This test uses otherLand-concepts which are no longer actually used in
@@ -33,9 +31,7 @@ const digOnlyCertainFieldsOutOfOdp = (rowCount: any, odp: any, fields: any) =>
 const digOnlyClassDataOutOfOdp = (rowCount: any, odp: any) =>
   digOnlyCertainFieldsOutOfOdp(rowCount, odp, ['className', 'definition'])
 
-// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
 describe('odp paste', () => {
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('Pastes national classes and definitions', () => {
     const expected = [
       { className: 'Closed forest', definition: 'Closed def' },
@@ -46,7 +42,6 @@ describe('odp paste', () => {
     assert.deepEqual(expected, nationalClassInfo)
   })
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('Pastes to second row and column (nc definitions)', () => {
     const result = handlePaste(
       ncColumns,
@@ -65,7 +60,6 @@ describe('odp paste', () => {
     assert.deepEqual(expected, digOnlyClassDataOutOfOdp(3, result.updatedOdp))
   })
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('Skips rows which are not valid for certain table (and are not visible either in the UI', () => {
     const otherLandCharacteristicsCols = [
       { name: 'otherLandPalmsPercent', type: 'integer' },

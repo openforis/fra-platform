@@ -1,5 +1,4 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
+import * as R from 'ramda'
 
 const allowedPaths = [
   /^\/login.*/,
@@ -28,7 +27,7 @@ const checkAuth = (req: any, res: any, next: any) => {
   }
 }
 
-module.exports.init = (app: any) => {
+export const init = (app: any) => {
   app.use((req: any, res: any, next: any) => {
     if (R.any((allowedRegex: any) => req.path.match(allowedRegex), allowedPaths)) {
       next()

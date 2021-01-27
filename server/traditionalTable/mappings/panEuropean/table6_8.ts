@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   tableName: 'table_6_8',
   schemaName: 'pan_european',
   section: 'panEuropean_6_8',
@@ -6,8 +6,8 @@ module.exports = {
     names: [
       'exports_of_forest_products_quantity',
       'exports_of_forest_products_value',
-      'imports_of_forest_products_quantity',
-      'imports_of_forest_products_value',
+      'import * as s_of_forest_products_quantity',
+      'import * as s_of_forest_products_value',
     ],
   },
   columns: [

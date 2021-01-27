@@ -1,8 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { isAdministrator } from '@common/countryRole'
 import { isStatusSaving } from '@webapp/app/components/autosave/autosave'
 import Icon from '@webapp/components/icon'
@@ -59,7 +57,6 @@ const LinksView = () => {
               fileGlobalRef.current.dispatchEvent(new MouseEvent('click'))
             }}
           >
-            {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ className: string; name: string; }' is not... Remove this comment to see the full error message */}
             <Icon className="icon-sub icon-white" name="hit-up" />
             {(i18n as any).t('landing.links.uploadFile')}
           </button>
@@ -87,7 +84,6 @@ const LinksView = () => {
                   : null
               }
             >
-              {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ className: string; name: string; }' is not... Remove this comment to see the full error message */}
               <Icon className="icon-no-margin" name="trash-simple" />
             </button>
           ) : null}
@@ -113,7 +109,6 @@ const LinksView = () => {
             fileRef.current.dispatchEvent(new MouseEvent('click'))
           }}
         >
-          {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ className: string; name: string; }' is not... Remove this comment to see the full error message */}
           <Icon className="icon-sub icon-white" name="hit-up" />
           {(i18n as any).t('landing.links.uploadFile')}
         </button>
@@ -132,7 +127,6 @@ const LinksView = () => {
                 : null
             }
           >
-            {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ className: string; name: string; }' is not... Remove this comment to see the full error message */}
             <Icon className="icon-no-margin" name="trash-simple" />
           </button>
         </div>

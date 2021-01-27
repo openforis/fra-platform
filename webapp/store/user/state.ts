@@ -1,4 +1,3 @@
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
 export const stateKey = 'user'
@@ -11,7 +10,8 @@ const keys = {
 const getState = R.prop(stateKey)
 
 // === READ
-export const getUserInfo = R.pipe(getState, R.propOr(null, keys.userInfo))
+// @ts-ignore
+export const getUserInfo = (x: any) => R.pipe(getState, R.propOr(null, keys.userInfo))(x)
 export const getUserAssesmentRoles = (assessment: any) => R.pipe(getUserInfo, R.pathOr({}, [keys.role, assessment]))
 
 // === UPDATE

@@ -1,6 +1,5 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as NumberUtils from '@common/bignumberUtils'
 import { ThousandSeparatedDecimalInput } from '@webapp/components/thousandSeparatedDecimalInput'
 import { PercentInput } from '@webapp/components/percentInput'
@@ -39,7 +38,6 @@ const ExtentOfForestRow = (props: Props) => {
       <th className="fra-table__category-cell">{className}</th>
       <td className={`fra-table__cell fra-table__divider ${classNameAreaValidation}`}>
         <ThousandSeparatedDecimalInput
-          // @ts-expect-error ts-migrate(2322) FIXME: Type '{ disabled: boolean; numberValue: any; onCha... Remove this comment to see the full error message
           disabled={!canEditData}
           numberValue={area}
           onChange={(event: any) => {
@@ -59,7 +57,6 @@ const ExtentOfForestRow = (props: Props) => {
       </td>
       <td className={`fra-table__cell ${classNamePercentageValidation}`}>
         <PercentInput
-          // @ts-expect-error ts-migrate(2322) FIXME: Type '{ disabled: boolean; numberValue: any; onCha... Remove this comment to see the full error message
           disabled={!canEditData}
           numberValue={forestPercent}
           onChange={(event: any) => {
@@ -79,7 +76,6 @@ const ExtentOfForestRow = (props: Props) => {
       </td>
       <td className={`fra-table__cell ${classNamePercentageValidation}`}>
         <PercentInput
-          // @ts-expect-error ts-migrate(2322) FIXME: Type '{ disabled: boolean; numberValue: any; onCha... Remove this comment to see the full error message
           disabled={!canEditData}
           numberValue={otherWoodedLandPercent}
           onChange={(event: any) => {
@@ -107,7 +103,6 @@ const ExtentOfForestRow = (props: Props) => {
         {odp.odpId && canEditData && (
           <div className="odp__review-indicator-row-anchor">
             <ReviewIndicator
-              // @ts-expect-error ts-migrate(2322) FIXME: Type '{ section: string; title: any; target: any[]... Remove this comment to see the full error message
               section="odp"
               title={(i18n as any).t('nationalDataPoint.forestCategoriesLabel')}
               target={[odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'value']}

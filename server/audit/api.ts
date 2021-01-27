@@ -1,12 +1,9 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'auditRepos... Remove this comment to see the full error message
-const auditRepository = require('./auditRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'sendErr'.
-const { sendErr } = require('../utils/requestUtils')
+import * as auditRepository from './auditRepository'
+import { sendErr } from '../utils/requestUtils'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Auth'.
-const Auth = require('../auth/authApiMiddleware')
+import * as Auth from '../auth/authApiMiddleware'
 
-module.exports.init = (app: any) => {
+export const init = (app: any) => {
   app.get(
     '/audit/getLatestAuditLogTimestamp/:countryIso',
     Auth.requireCountryEditPermission,

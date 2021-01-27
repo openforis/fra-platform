@@ -1,4 +1,4 @@
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
 
 const getColHeader = (colsLength: any, sliceEnd: any, sliceStart: any, rowIdx: any) => (
   col: any,

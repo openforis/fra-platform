@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
 import { loginUserPropChange, localLoginSubmit, localLoginReset } from '../../actions'
@@ -8,16 +7,12 @@ import { loginUserPropChange, localLoginSubmit, localLoginReset } from '../../ac
 import Error from '../../Error'
 import ForgotPassword from '../ForgotPassword'
 
-type OwnProps = {
+type Props = {
   invitation?: any
   user: any
   onCancel: (...args: any[]) => any
 }
 
-// @ts-expect-error ts-migrate(2456) FIXME: Type alias 'Props' circularly references itself.
-type Props = OwnProps & typeof LocalLogin.defaultProps
-
-// @ts-expect-error ts-migrate(7022) FIXME: 'LocalLogin' implicitly has type 'any' because it ... Remove this comment to see the full error message
 const LocalLogin = (props: Props) => {
   const { invitation, user, onCancel } = props
   const { invitationUuid } = invitation

@@ -11,8 +11,7 @@ type Props = {
 }
 const ColumnSelect = (props: Props) => {
   const { setSelectionColumns, columns, selectionColumns } = props
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'assessmentType' does not exist on type '... Remove this comment to see the full error message
-  const { assessmentType, section } = useParams()
+  const { assessmentType, section }: any = useParams()
   const i18n = useI18n()
   const getLabel = (column: any) => getI18nKey(column, section, assessmentType)
   const columnsAsArray = Array.isArray(columns) ? columns : [columns]
@@ -36,8 +35,7 @@ const ColumnSelect = (props: Props) => {
 
       <div className="export__form-section-variables">
         {columnsAsArray.map((column) => {
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'param' does not exist on type 'String'.
-          const selected = !!selectionColumns.find(({ param }) => param === column)
+          const selected = !!selectionColumns.find(({ param }: any) => param === column)
           const label = getLabel(column)
           return (
             <ButtonCheckBox

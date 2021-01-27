@@ -1,11 +1,8 @@
 import './countryListDownload.less'
 import React from 'react'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as Country from '@common/country/country'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { isAdministrator } from '@common/countryRole'
 import { getRelativeDate } from '@webapp/utils/relativeDate'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { CSVLink } from 'react-csv'
 import Icon from '@webapp/components/icon'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
@@ -34,7 +31,6 @@ const CountryListDownload = () => {
   return (
     <div className="country-selection-list__download">
       <CSVLink className="btn-s btn-primary" target="_blank" filename="FRA-Countries.csv" data={data} headers={headers}>
-        {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ className: string; name: string; }' is not... Remove this comment to see the full error message */}
         <Icon className="icon-sub icon-white" name="hit-down" />
         CSV
       </CSVLink>

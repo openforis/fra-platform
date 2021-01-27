@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import path from 'path'
+import * as path from 'path'
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import webpack from 'webpack'
 import { v4 as uuidv4 } from 'uuid'

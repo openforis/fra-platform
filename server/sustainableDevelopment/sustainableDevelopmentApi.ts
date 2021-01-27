@@ -1,17 +1,13 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
+import * as R from 'ramda'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'sendErr'.
-const { sendErr } = require('../utils/requestUtils')
+import { sendErr } from '../utils/requestUtils'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getFraValu... Remove this comment to see the full error message
-const { getFraValues } = require('../eof/fraValueService')
-const { readObject } = require('../traditionalTable/traditionalTableRepository')
+import { getFraValues } from '../eof/fraValueService'
+import { readObject } from '../traditionalTable/traditionalTableRepository'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'VersionSer... Remove this comment to see the full error message
-const VersionService = require('../versioning/service')
+import * as VersionService from '../versioning/service'
 
-module.exports.init = (app: any) => {
+export const init = (app: any) => {
   app.get('/sustainableDevelopment/:countryIso', async (req: any, res: any) => {
     try {
       const schemaName = await VersionService.getDatabaseSchema(req)

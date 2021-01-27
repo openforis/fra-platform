@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'to-s... Remove this comment to see the full error message
-import snake from 'to-snake-case'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import Assessment from '@common/assessment/assessment'
+// @ts-ignore
+import * as snake from 'to-snake-case'
+import * as Assessment from '@common/assessment/assessment'
 import { throttle } from '@webapp/utils/functionUtils'
 import { formatColumn, formatSection } from '@webapp/app/dataExport/utils/format'
 import { useAssessmentType, useCountries, useCountriesPanEuropean, useRegions } from '@webapp/store/app'
@@ -11,16 +10,13 @@ import { useCountryIso, useGetRequest } from '@webapp/components/hooks'
 import * as SectionSpecs from '@webapp/app/assessment/components/section/sectionSpecs'
 import { TableSpec } from '@webapp/app/assessment/components/section/sectionSpec'
 
-const initialSelection = {
-  // @ts-expect-error ts-migrate(7018) FIXME: Object literal's property 'countries' implicitly h... Remove this comment to see the full error message
+const initialSelection: any = {
   countries: [],
-  // @ts-expect-error ts-migrate(7018) FIXME: Object literal's property 'columns' implicitly has... Remove this comment to see the full error message
   columns: [],
   variable: {},
 }
 export default () => {
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'section' does not exist on type '{}'.
-  const { section } = useParams()
+  const { section }: any = useParams()
   const countryIso = useCountryIso()
   const regions = useRegions()
   const assessmentType = useAssessmentType()
@@ -41,8 +37,8 @@ export default () => {
     loading: resultsLoading,
   } = useGetRequest(`/api/export/${assessmentType}/${snake(formatSection(section, assessmentType))}`, {
     params: {
-      columns: [...columnsAlwaysExport, ...selection.columns.map(({ param }) => formatColumn(param, section))],
-      countries: selection.countries.map(({ param }) => param),
+      columns: [...columnsAlwaysExport, ...selection.columns.map(({ param }: any) => formatColumn(param, section))],
+      countries: selection.countries.map(({ param }: any) => param),
       variables: [(selection.variable as any).param],
     },
   })

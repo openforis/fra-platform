@@ -43,11 +43,13 @@ const Section = (props: Props) => {
     }
   }, [])
   const children = Object.values(section.children)
-  const filteredChildren = isDataExport
-    ? children.filter(
-        (subsection) => SectionSpec.getSectionSpec(assessmentType, (subsection as any).name).dataExport.included
-      )
-    : children
+  let filteredChildren = children
+  if (isDataExport)
+    filteredChildren = children.filter(
+      (subsection) =>
+        (SectionSpec.getSectionSpec(assessmentType, (subsection as any).name) as any)?.dataExport?.included
+    )
+
   if (!filteredChildren.length) {
     return null
   }

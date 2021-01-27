@@ -1,4 +1,3 @@
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 import { acceptNextInteger, acceptNextDecimal } from '@webapp/utils/numberInput'
 import * as originalDataPoint from './originalDataPoint'
@@ -63,6 +62,7 @@ export default (
     pastedData
   ).odp
 
+  // @ts-ignore
   const firstPastedCellData = sanitizerFor(columns[colIndex].type)(pastedData[0][0])
 
   return { updatedOdp, firstPastedCellData }

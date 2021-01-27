@@ -1,8 +1,8 @@
-const R = require('ramda')
-const Promise = require('bluebird')
-const fs = Promise.promisifyAll(require('fs'))
-const csv = Promise.promisifyAll(require('csv'))
-const countryConfig = require('../server/country/countryConfig')
+import * as R from 'ramda'
+import * as Promise from 'bluebird'
+import * as fs = Promise.promisifyAll(require('fs'))
+import * as csv = Promise.promisifyAll(require('csv'))
+import * as countryConfig from '../server/country/countryConfig'
 
 const exampleUsage =
   'node certifiedAreasCountryUdater.js exampleData/Certification.csv /tmp/countryConfigWithCertifiedAreas.json'

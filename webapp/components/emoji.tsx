@@ -1,6 +1,7 @@
 import React from 'react'
 
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'emoj... Remove this comment to see the full error message
+// @ts-ignore
+// TODO: no @types/emoji-mart-lite
 import { Picker, Emoji } from 'emoji-mart-lite'
 import 'emoji-mart-lite/css/emoji-mart.css'
 import './emoji.less'

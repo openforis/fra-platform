@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   tableName: 'area_of_permanent_forest_estate',
   rows: {
     names: ['area_of_permanent_forest_estate'],

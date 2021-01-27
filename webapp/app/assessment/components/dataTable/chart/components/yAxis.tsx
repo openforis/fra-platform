@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'd3'.... Remove this comment to see the full error message
 import * as d3 from 'd3'
 import { hasData, defaultTransitionDuration } from '../chart'
 
 const replaceCommasWithSpaces = (v: any) => d3.format(',')(v).replace(/,/g, ' ')
+type Props = any
 class YAxis extends Component {
+  props: Props
+  refs: any
   domAxis(props: any) {
     const axis = d3
       .axisLeft(props.yScale)

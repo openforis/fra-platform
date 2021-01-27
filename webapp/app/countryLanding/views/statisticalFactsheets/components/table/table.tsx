@@ -4,7 +4,7 @@ import ButtonTableExport from '@webapp/components/buttonTableExport'
 import { formatValue } from '@webapp/app/countryLanding/views/statisticalFactsheets/utils/numberUtils'
 import useStatisticalFactsheetsState from '../../hooks/useStatisticalFactsheetsState'
 
-type OwnProps = {
+type Props = {
   columns: any[]
   rows: any[]
   units: any[]
@@ -12,9 +12,7 @@ type OwnProps = {
   section: string
   isIsoCountry?: boolean
 }
-// @ts-expect-error ts-migrate(2456) FIXME: Type alias 'Props' circularly references itself.
-type Props = OwnProps & typeof Table.defaultProps
-// @ts-expect-error ts-migrate(7022) FIXME: 'Table' implicitly has type 'any' because it does ... Remove this comment to see the full error message
+
 const Table = (props: Props) => {
   const i18n = useI18n()
   const { columns, rows, section, levelIso, units, isIsoCountry } = props

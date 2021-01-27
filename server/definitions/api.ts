@@ -1,16 +1,13 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Promise'.
-const Promise = require('bluebird')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fs'.
-const fs = (Promise as any).promisifyAll(require('fs'))
-const marked = require('marked')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-const { readParameterWithAllowedValues, readAllowedParameter } = require('../utils/sanityChecks')
+import * as fs from 'fs'
+import * as marked from 'marked'
+import * as R from 'ramda'
+import { readParameterWithAllowedValues, readAllowedParameter } from '../utils/sanityChecks'
 
 const getDefinition = (name: any, lang: any) => {
-  return fs.readFileAsync(`${__dirname}/${lang}/${name}.md`, 'utf8')
+  return fs.promises.readFile(`${__dirname}/${lang}/${name}.md`, 'utf8')
 }
-module.exports.init = (app: any) => {
+
+export const init = (app: any) => {
   app.get('/definitions/:lang/:name', (req: any, res: any) => {
     try {
       const lang = readParameterWithAllowedValues(req, 'lang', ['en', 'es', 'fr', 'ru'])
@@ -38,8 +35,7 @@ module.exports.init = (app: any) => {
           })
           const content = markdown ? marked(markdown) : ''
           let tocHTML = '<ul class="toc">'
-          // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'entry' implicitly has an 'any' type.
-          toc.forEach((entry, index) => {
+          toc.forEach((entry: any, index: number) => {
             if (index > 0) {
               tocHTML += `<li><a href="#${entry.anchor}">${entry.text}</a></li>`
             }
@@ -56,7 +52,7 @@ module.exports.init = (app: any) => {
           </body>
           </html>`)
         })
-        .error((err: any) => {
+        .catch((err: any) => {
           console.error(err)
           if (err.code === 'ENOENT') {
             if (lang !== 'en') {

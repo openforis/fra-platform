@@ -1,7 +1,6 @@
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as PanEuropean from '@common/assessment/panEuropean'
+import PanEuropean from '@common/assessment/panEuropean'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
 
 const section = PanEuropean.sections['3'].children['34']
 
@@ -9,7 +8,7 @@ const variables1 = ['_01st', '_02nd', '_03rd', '_04th', '_05th', '_06th', '_07th
 
 const variables2 = ['remaining_total', 'total']
 
-const variablesMappings = {
+const variablesMappings: any = {
   _01st: SectionSpec.VARIABLES._01st,
   _02nd: SectionSpec.VARIABLES._02nd,
   _03rd: SectionSpec.VARIABLES._03rd,
@@ -72,10 +71,8 @@ const tableSpec = SectionSpec.newTableSpec({
       ],
     }),
 
-    // @ts-expect-error ts-migrate(2550) FIXME: Property 'flatMap' does not exist on type 'string[... Remove this comment to see the full error message
     ...variables1.flatMap((variable: any) =>
       SectionSpec.newRowData({
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         [SectionSpec.KEYS_ROW.variableExport]: variablesMappings[variable],
         [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.marketedServices2015.${variable}`,
         [SectionSpec.KEYS_ROW.cols]: [
@@ -87,10 +84,8 @@ const tableSpec = SectionSpec.newTableSpec({
         ],
       })
     ),
-    // @ts-expect-error ts-migrate(2550) FIXME: Property 'flatMap' does not exist on type 'string[... Remove this comment to see the full error message
     ...variables2.flatMap((variable: any) =>
       SectionSpec.newRowData({
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         [SectionSpec.KEYS_ROW.variableExport]: variablesMappings[variable],
         [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.marketedServices2015.${variable}`,
         [SectionSpec.KEYS_ROW.colSpan]: 4,

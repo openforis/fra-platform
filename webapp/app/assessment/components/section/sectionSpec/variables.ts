@@ -1,4 +1,4 @@
-const variables = {
+const variables: any = {
   // 1a
   forest_area: 'forest_area',
   total_land_area: 'total_land_area',

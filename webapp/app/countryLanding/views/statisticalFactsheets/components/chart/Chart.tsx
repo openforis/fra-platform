@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'char... Remove this comment to see the full error message
+// @ts-ignore
 import { Chart } from 'chart.js'
 
 import { useI18n, useOnUpdate } from '@webapp/components/hooks'

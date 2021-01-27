@@ -1,12 +1,15 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'format'.
-const { format } = require('date-fns')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'CsvOutput'... Remove this comment to see the full error message
-const CsvOutput = require('./csvOutput')
-const VariablesUnit = require('./variablesUnit')
+import * as R from 'ramda'
+import { format } from 'date-fns'
+import CsvOutput from './csvOutput'
+import VariablesUnit from './variablesUnit'
 
 class CsvOutputWithVariables extends CsvOutput {
+  _fieldsVariables: any = null
+  _fieldsCountryConfig: any = null
+  _years: any = null
+  _variablesOutputFiles: any = null
+  _includeVariableFolders: any = null
+
   constructor(
     fileName: any,
     fieldsVariables: any,
@@ -46,13 +49,13 @@ class CsvOutputWithVariables extends CsvOutput {
     return output
   }
 
-  // @ts-expect-error ts-migrate(2416) FIXME: Property 'pushContent' in type 'CsvOutputWithVaria... Remove this comment to see the full error message
   pushContent(object: any, idx: any) {
     super.pushContent(object)
     this._fieldsVariables.forEach((field: any) => {
       // create row for variable output file
       const countryResultRowFirst = object[0]
       const rowVariableOutputFile = {
+        // @ts-ignore
         ...R.pick([...this.fieldsCommon, ...this._fieldsCountryConfig].map(R.prop('value')), countryResultRowFirst),
       }
       object.forEach((rowResult: any, i: any) => {
@@ -76,4 +79,4 @@ class CsvOutputWithVariables extends CsvOutput {
     })
   }
 }
-module.exports = CsvOutputWithVariables
+export default CsvOutputWithVariables

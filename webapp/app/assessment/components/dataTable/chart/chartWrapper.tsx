@@ -7,7 +7,7 @@ import { useOnResize, usePrintView } from '@webapp/components/hooks'
 import ChartContainer from './chartContainer'
 
 type Props = {
-  fra: any[]
+  fra: any
   trends: any[]
 }
 

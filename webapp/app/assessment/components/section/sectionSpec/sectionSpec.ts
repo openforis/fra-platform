@@ -1,4 +1,3 @@
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
 export const KEYS_SECTION = {
@@ -20,8 +19,7 @@ export const KEYS_DATA_EXPORT = {
   included: 'included',
 }
 
-// @ts-expect-error ts-migrate(7005) FIXME: Variable 'sectionSpecDefault' implicitly has an '{... Remove this comment to see the full error message
-const sectionSpecDefault = {
+const sectionSpecDefault: any = {
   [KEYS_SECTION.sectionName]: '',
   [KEYS_SECTION.sectionAnchor]: '',
   [KEYS_SECTION.tableSections]: [],

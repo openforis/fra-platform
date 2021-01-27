@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import * as PropTypes from 'prop-types'
 
 import { RowSpec } from '@webapp/app/assessment/components/section/sectionSpec'
 
@@ -18,14 +18,14 @@ const Row = (props: any) => {
   const userInfo = useUserInfo()
 
   const { data, assessmentType, sectionName, tableSpec, row, disabled } = props
-  const type = RowSpec.getType(row)
+  const type: any = RowSpec.getType(row)
 
   // validation error rows are hidden in public view
   if (type === RowSpec.TYPES.validationMessages && !userInfo) {
     return null
   }
 
-  const component = componentsByType[type]
+  const component: any = componentsByType[type]
   return React.createElement(component, { data, assessmentType, sectionName, tableSpec, row, disabled })
 }
 

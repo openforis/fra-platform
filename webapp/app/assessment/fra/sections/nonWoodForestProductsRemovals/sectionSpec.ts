@@ -1,11 +1,8 @@
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as NumberFormat from '@common/numberFormat'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as FRA from '@common/assessment/fra'
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import FRA from '@common/assessment/fra'
+import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
 
 import * as NonWoodForestProductsRemovalsState from '@webapp/app/assessment/fra/sections/nonWoodForestProductsRemovals/nonWoodForestProductsRemovalsState'
 

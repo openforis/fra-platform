@@ -2,7 +2,6 @@
  * This is a sub state of CountryState
  */
 
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
 import * as CountryState from '@webapp/app/country/countryState'
@@ -26,9 +25,10 @@ export const getStatusSection = (name: any) =>
 export const getStatusSectionChildren = (section: any) => (state: any) =>
   R.pipe(
     R.propOr({}, 'children'),
+    // @ts-ignore
     R.values,
     R.reduce((statuses: any, child: any) => {
-      const status = getStatusSection(child.name)(state)
+      const status: any = getStatusSection(child.name)(state)
       const issuesCount = R.prop(keys.issuesCount)(status)
       const issueStatus = R.prop(keys.issueStatus)(status)
       // filtering all opened statuses
@@ -38,6 +38,8 @@ export const getStatusSectionChildren = (section: any) => (state: any) =>
       return statuses
     }, []),
     // checking if there's an open status with unread issues
+    // @ts-ignore
     R.or(R.find(R.propEq(keys.hasUnreadIssues), true), R.head),
     R.defaultTo({})
+    // @ts-ignore
   )(section)

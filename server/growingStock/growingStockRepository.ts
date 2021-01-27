@@ -1,17 +1,12 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'camelize'.
-const camelize = require('camelize')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Promise'.
-const Promise = require('bluebird')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'auditRepos... Remove this comment to see the full error message
-const auditRepository = require('../audit/auditRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
-const db = require('../db/db')
+import * as R from 'ramda'
+// @ts-ignore
+import * as camelize from 'camelize'
 
-module.exports.readGrowingStock = (countryIso: any, tableName: any) =>
-  db
-    .query(
+import * as auditRepository from '../audit/auditRepository'
+import * as db from '../db/db'
+
+export const readGrowingStock = (countryIso: any, tableName: any) =>
+   db.pool.query(
       `
     SELECT
         year,
@@ -40,7 +35,7 @@ module.exports.readGrowingStock = (countryIso: any, tableName: any) =>
       }))
     )
 
-module.exports.persistBothGrowingStock = async (client: any, user: any, countryIso: any, values: any) => {
+export const persistBothGrowingStock = async (client: any, user: any, countryIso: any, values: any) => {
   await persistGrowingStock(client, user, countryIso, values.avgTable, 'growing_stock_avg')
   await persistGrowingStock(client, user, countryIso, values.totalTable, 'growing_stock_total')
 }
@@ -51,8 +46,7 @@ const persistGrowingStock = (client: any, user: any, countryIso: any, values: an
     .then(() => client.query(`DELETE FROM ${tableName} WHERE country_iso = $1`, [countryIso]))
     .then(() =>
       Promise.all(
-        // @ts-expect-error ts-migrate(7031) FIXME: Binding element 'year' implicitly has an 'any' typ... Remove this comment to see the full error message
-        R.toPairs(values).map(([year, value]) =>
+        R.toPairs(values).map(([year, value]: any[]) =>
           client.query(
             `INSERT INTO ${tableName}
          (

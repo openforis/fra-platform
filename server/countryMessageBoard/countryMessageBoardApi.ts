@@ -1,16 +1,12 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'sendErr'.
-const { sendErr, sendOk } = require('../utils/requestUtils')
+import { sendErr, sendOk } from '../utils/requestUtils'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
-const db = require('../db/db')
+import * as db from '../db/db'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'persistMes... Remove this comment to see the full error message
-const { persistMessage, fetchCountryMessages, fetchCountryUnreadMessages } = require('./countryMessageBoardRepository')
+import { persistMessage, fetchCountryMessages, fetchCountryUnreadMessages } from './countryMessageBoardRepository'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Auth'.
-const Auth = require('../auth/authApiMiddleware')
+import * as Auth from '../auth/authApiMiddleware'
 
-module.exports.init = (app: any) => {
+export const init = (app: any) => {
   app.get(
     '/countryMessageBoard/:countryIso/messages/all',
     Auth.requireCountryEditPermission,

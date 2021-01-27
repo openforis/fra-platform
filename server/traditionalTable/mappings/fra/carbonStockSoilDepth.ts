@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   tableName: 'carbon_stock_soil_depth',
   section: 'carbonStock',
   rows: {

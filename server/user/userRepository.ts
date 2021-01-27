@@ -1,45 +1,26 @@
-const { v4: uuidv4 } = require('uuid')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'camelize'.
-const camelize = require('camelize')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Promise'.
-const Promise = require('bluebird')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'bcrypt'.
-const bcrypt = require('bcrypt')
+import { v4 as uuidv4 } from 'uuid'
+// @ts-ignore
+import * as camelize from 'camelize'
+// @ts-ignore
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'FRA'.
-const FRA = require('../../common/assessment/fra')
+import * as R from 'ramda'
+import * as bcrypt from 'bcrypt'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
-const db = require('../db/db')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'auditRepos... Remove this comment to see the full error message
-const auditRepository = require('../audit/auditRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'CountryRep... Remove this comment to see the full error message
-const CountryRepository = require('../country/countryRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fetchColla... Remove this comment to see the full error message
-const { fetchCollaboratorCountryAccessTables } = require('../collaborators/collaboratorsRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'AccessCont... Remove this comment to see the full error message
-const { AccessControlException } = require('../utils/accessControl')
+import FRA from '../../common/assessment/fra'
 
-const {
-  // @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'nationalCo... Remove this comment to see the full error message
-  nationalCorrespondent,
-  // @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'reviewer'.
-  reviewer,
-  // @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'collaborat... Remove this comment to see the full error message
-  collaborator,
-  // @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'alternateN... Remove this comment to see the full error message
-  alternateNationalCorrespondent,
-} = require('../../common/countryRole')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'userType'.
-const { userType } = require('../../common/userUtils')
+import * as db from '../db/db'
+import * as auditRepository from '../audit/auditRepository'
+import * as CountryRepository from '../country/countryRepository'
+import { fetchCollaboratorCountryAccessTables } from '../collaborators/collaboratorsRepository'
+import { AccessControlException } from '../utils/accessControl'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'loginUrl'.
-const { loginUrl } = require('./sendInvitation')
+import { nationalCorrespondent, reviewer, collaborator, alternateNationalCorrespondent } from '../../common/countryRole'
+import { userType } from '../../common/userUtils'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'findUserBy... Remove this comment to see the full error message
-const findUserById = async (userId: any, client = db) => {
+import { loginUrl } from './sendInvitation'
+import { QueryResult } from 'pg'
+
+export const findUserById = async (userId: any, client = db.pool) => {
   const res = await client.query(
     'SELECT id, name, email, login_email, institution, position, lang, type, active FROM fra_user WHERE id = $1',
     [userId]
@@ -60,7 +41,7 @@ const findUserById = async (userId: any, client = db) => {
   return { ...resultUser, role, roles }
 }
 
-const findUserByLoginEmail = (loginEmail: any, client = db) =>
+export const findUserByLoginEmail = (loginEmail: any, client = db.pool) =>
   client
     .query(
       `SELECT id 
@@ -71,9 +52,8 @@ const findUserByLoginEmail = (loginEmail: any, client = db) =>
     )
     .then((res: any) => (res.rows.length > 0 ? findUserById(res.rows[0].id, client) : null))
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'findLocalU... Remove this comment to see the full error message
-const findLocalUserByEmail = async (email: any, client = db) => {
-  const res = await client.query(
+export const findLocalUserByEmail = async (email: any, client = db.pool) => {
+  const res: QueryResult<{ id: number }> = await client.query(
     `
     SELECT id
     FROM fra_user 
@@ -82,11 +62,11 @@ const findLocalUserByEmail = async (email: any, client = db) => {
     [email, userType.local]
   )
 
+  const x = res.rows
   return R.isEmpty(res.rows) ? null : await findUserById(res.rows[0].id)
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'findUserBy... Remove this comment to see the full error message
-const findUserByEmail = async (email: any, client = db) => {
+export const findUserByEmail = async (email: any, client = db.pool) => {
   const res = await client.query(
     `
     SELECT id 
@@ -98,7 +78,7 @@ const findUserByEmail = async (email: any, client = db) => {
   return R.isEmpty(res.rows) ? null : await findUserById(res.rows[0].id, client)
 }
 
-const findUserByEmailAndPassword = async (email: any, password: any, client = db) => {
+export const findUserByEmailAndPassword = async (email: any, password: any, client = db.pool) => {
   const res = await client.query(
     `
     SELECT id, password 
@@ -116,12 +96,11 @@ const findUserByEmailAndPassword = async (email: any, password: any, client = db
   return null
 }
 
-const updateLanguage = (client: any, lang: any, userInfo: any) =>
+export const updateLanguage = (client: any, lang: any, userInfo: any) =>
   client.query('UPDATE fra_user SET lang = $1 WHERE id = $2', [lang, userInfo.id])
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fetchCount... Remove this comment to see the full error message
-const fetchCountryUsers = async (countryIso: any) => {
-  const usersRes = await db.query(
+export const fetchCountryUsers = async (countryIso: any) => {
+  const usersRes = await db.pool.query(
     `
     SELECT
       u.id,
@@ -158,10 +137,8 @@ const fetchCountryUsers = async (countryIso: any) => {
   return Promise.all(users.map(addCollaboratorTablesAccess))
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fetchAdmin... Remove this comment to see the full error message
-const fetchAdministrators = () =>
-  db
-    .query(
+export const fetchAdministrators = () =>
+   db.pool.query(
       `
     SELECT
       u.id,
@@ -183,9 +160,8 @@ const fetchAdministrators = () =>
     )
     .then((res: any) => camelize(res.rows))
 
-const fetchInvitations = (countryIso: any, url: any) =>
-  db
-    .query(
+export const fetchInvitations = (countryIso: any, url: any) =>
+   db.pool.query(
       `SELECT
        invitation_uuid,
        email,
@@ -203,14 +179,14 @@ const fetchInvitations = (countryIso: any, url: any) =>
       }))
     )
 
-const fetchUsersAndInvitations = async (countryIso: any, url: any) => {
+export const fetchUsersAndInvitations = async (countryIso: any, url: any) => {
   const users = await fetchCountryUsers(countryIso)
   const invitations = await fetchInvitations(countryIso, url)
   return [...users, ...invitations]
 }
 
-const fetchAllInvitations = async (url: any) => {
-  const invitationsRes = await db.query(`
+export const fetchAllInvitations = async (url: any) => {
+  const invitationsRes = await db.pool.query(`
     SELECT
       invitation_uuid,
       email,
@@ -227,9 +203,8 @@ const fetchAllInvitations = async (url: any) => {
   }))
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fetchInvit... Remove this comment to see the full error message
-const fetchInvitation = async (invitationUUID: any, url = '') => {
-  const invitationsRes = await db.query(
+export const fetchInvitation = async (invitationUUID: any, url = '') => {
+  const invitationsRes = await db.pool.query(
     `
     SELECT
       invitation_uuid,
@@ -252,8 +227,8 @@ const fetchInvitation = async (invitationUUID: any, url = '') => {
 }
 
 // fetch all users and invitations
-const fetchAllUsersAndInvitations = async (url: any) => {
-  const userIdsRes = await db.query(`SELECT DISTINCT u.id FROM fra_user u`)
+export const fetchAllUsersAndInvitations = async (url: any) => {
+  const userIdsRes = await db.pool.query(`SELECT DISTINCT u.id FROM fra_user u`)
   const userPromises = userIdsRes.rows.map((row: any) => findUserById(row.id))
   const users = await Promise.all(userPromises)
 
@@ -263,7 +238,7 @@ const fetchAllUsersAndInvitations = async (url: any) => {
 }
 
 // getUserCounts
-const getUserCountsByRole = async (client = db) => {
+export const getUserCountsByRole = async (client = db.pool) => {
   const ncRole = nationalCorrespondent.role
   const reviewerRole = reviewer.role
   const collaboratorRole = collaborator.role
@@ -299,7 +274,7 @@ const getUserCountsByRole = async (client = db) => {
   }
 }
 
-const getUserProfilePicture = async (userId: any, client = db) => {
+export const getUserProfilePicture = async (userId: any, client = db.pool) => {
   const res = await client.query(
     `
     SELECT 
@@ -317,8 +292,7 @@ const getUserProfilePicture = async (userId: any, client = db) => {
       }
 }
 
-// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'password' implicitly has an 'any' type.
-const insertUser = (client: any, email: any, name: any, loginEmail: any, password = null) => {
+export const insertUser = (client: any, email: any, name: any, loginEmail: any, password: string | null = null) => {
   const type = password ? userType.local : userType.google
 
   return client.query(
@@ -331,9 +305,9 @@ const insertUser = (client: any, email: any, name: any, loginEmail: any, passwor
   )
 }
 
-const getIdOfJustAddedUser = (client: any) => client.query(`SELECT last_value as user_id FROM fra_user_id_seq`)
+export const getIdOfJustAddedUser = (client: any) => client.query(`SELECT last_value as user_id FROM fra_user_id_seq`)
 
-const addInvitation = async (client: any, user: any, countryIso: any, userToInvite: any) => {
+export const addInvitation = async (client: any, user: any, countryIso: any, userToInvite: any) => {
   const invitationUuid = uuidv4()
 
   // check if user is active
@@ -346,6 +320,7 @@ const addInvitation = async (client: any, user: any, countryIso: any, userToInvi
     [R.toLower(userToInvite.email), false]
   )
   if (!R.isEmpty(inactiveUserRes.rows)) {
+    // @ts-ignore
     throw new AccessControlException(`User with email ${userToInvite.email} has been deactivated`)
   }
 
@@ -364,7 +339,7 @@ const addInvitation = async (client: any, user: any, countryIso: any, userToInvi
   return invitationUuid
 }
 
-const removeInvitation = async (client: any, user: any, countryIso: any, invitationUuid: any) => {
+export const removeInvitation = async (client: any, user: any, countryIso: any, invitationUuid: any) => {
   const invitationInfo = await getInvitationInfo(client, invitationUuid)
   // if (invitationInfo.countryIso !== countryIso) throw new AccessControlException('error.access.countryDoesNotMatch', {countryIso})
   await client.query('DELETE FROM fra_user_invitation WHERE invitation_uuid = $1', [invitationUuid])
@@ -374,7 +349,7 @@ const removeInvitation = async (client: any, user: any, countryIso: any, invitat
   })
 }
 
-const updateInvitation = async (client: any, user: any, countryIso: any, userToUpdate: any) => {
+export const updateInvitation = async (client: any, user: any, countryIso: any, userToUpdate: any) => {
   await client.query(
     `UPDATE fra_user_invitation
       SET email = $2, name = $3, role = $4, country_iso = $5
@@ -388,7 +363,7 @@ const updateInvitation = async (client: any, user: any, countryIso: any, userToU
   return userToUpdate.invitationUuid
 }
 
-const updateUserFields = (client: any, userToUpdate: any, profilePictureFile: any) =>
+export const updateUserFields = (client: any, userToUpdate: any, profilePictureFile: any) =>
   client.query(
     `
       UPDATE
@@ -416,7 +391,7 @@ const updateUserFields = (client: any, userToUpdate: any, profilePictureFile: an
     ]
   )
 
-const updateUser = async (
+export const updateUser = async (
   client: any,
   user: any,
   countryIso: any,
@@ -443,7 +418,7 @@ const updateUser = async (
   }
 }
 
-const removeUser = async (client: any, user: any, countryIso: any, userId: any) => {
+export const removeUser = async (client: any, user: any, countryIso: any, userId: any) => {
   const userToRemove = await findUserById(userId, client)
   await client.query(
     `
@@ -460,19 +435,19 @@ const removeUser = async (client: any, user: any, countryIso: any, userId: any) 
   await auditRepository.insertAudit(client, user.id, 'removeUser', countryIso, 'users', { user: userToRemove.name })
 }
 
-const getInvitationInfo = async (client: any, invitationUuid: any) => {
+export const getInvitationInfo = async (client: any, invitationUuid: any) => {
   const invitationInfo = await client.query(
     `SELECT country_iso, name, role, accepted, email
       FROM fra_user_invitation
       WHERE invitation_uuid = $1`,
     [invitationUuid]
   )
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-  if (invitationInfo.rows.length !== 1) throw new Error('Invalid invitation uuid', invitationUuid)
+
+  if (invitationInfo.rows.length !== 1) throw new Error(`Invalid invitation uuid ${invitationUuid}`)
   return camelize(invitationInfo.rows[0])
 }
 
-const setInvitationAccepted = (client: any, invitationUuid: any) =>
+export const setInvitationAccepted = (client: any, invitationUuid: any) =>
   client.query(
     `UPDATE fra_user_invitation
       SET accepted = now()
@@ -480,7 +455,7 @@ const setInvitationAccepted = (client: any, invitationUuid: any) =>
     [invitationUuid]
   )
 
-const addUserCountryRole = (client: any, userId: any, countryIso: any, role: any) =>
+export const addUserCountryRole = (client: any, userId: any, countryIso: any, role: any) =>
   client.query(
     `INSERT INTO user_country_role
       (user_id, country_iso, role)
@@ -489,9 +464,15 @@ const addUserCountryRole = (client: any, userId: any, countryIso: any, role: any
     [userId, countryIso, role]
   )
 
-const addNewUserBasedOnInvitation = async (client: any, invitationUuid: any, loginEmail: any, password: any) => {
+export const addNewUserBasedOnInvitation = async (
+  client: any,
+  invitationUuid: any,
+  loginEmail: any,
+  password?: any
+) => {
   const invitationInfo = await getInvitationInfo(client, invitationUuid)
   if (invitationInfo.accepted)
+    // @ts-ignore
     throw new AccessControlException('error.access.invitationAlreadyUsed', {
       loginEmail,
       invitationUuid,
@@ -505,13 +486,13 @@ const addNewUserBasedOnInvitation = async (client: any, invitationUuid: any, log
   return userId
 }
 
-const addAcceptToAudit = (client: any, userId: any, invitationInfo: any) =>
+export const addAcceptToAudit = (client: any, userId: any, invitationInfo: any) =>
   auditRepository.insertAudit(client, userId, 'acceptInvitation', invitationInfo.countryIso, 'users', {
     user: invitationInfo.name,
     role: invitationInfo.role,
   })
 
-const addCountryRoleAndUpdateUserBasedOnInvitation = async (client: any, user: any, invitationUuid: any) => {
+export const addCountryRoleAndUpdateUserBasedOnInvitation = async (client: any, user: any, invitationUuid: any) => {
   const invitationInfo = await getInvitationInfo(client, invitationUuid)
   if (invitationInfo.accepted) return // Invitation is already accepted, just allow the user to log in normally
   const profilePicture = await getUserProfilePicture(user.id, client)
@@ -521,26 +502,25 @@ const addCountryRoleAndUpdateUserBasedOnInvitation = async (client: any, user: a
   await addAcceptToAudit(client, user.id, invitationInfo)
 }
 
-const acceptInvitation = async (client: any, invitationUuid: any, loginEmail: any) => {
+export const acceptInvitation = async (client: any, invitationUuid: any, loginEmail: any) => {
   const user = await findUserByLoginEmail(loginEmail, client)
   if (user) {
     await addCountryRoleAndUpdateUserBasedOnInvitation(client, user, invitationUuid)
     return user
   } else {
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
     await addNewUserBasedOnInvitation(client, invitationUuid, loginEmail)
     const user = await findUserByLoginEmail(loginEmail, client)
     return user
   }
 }
 
-const findLocalUserByInvitation = async (client: any, invitationUUID: any) => {
+export const findLocalUserByInvitation = async (client: any, invitationUUID: any) => {
   const invitation = await fetchInvitation(invitationUUID)
   if (invitation) return await findLocalUserByEmail(invitation.email, client)
   return null
 }
 
-const acceptInvitationLocalUser = async (client: any, invitationUUID: any, password: any) => {
+export const acceptInvitationLocalUser = async (client: any, invitationUUID: any, password: any) => {
   const user = await findLocalUserByInvitation(client, invitationUUID)
   if (user) {
     await addCountryRoleAndUpdateUserBasedOnInvitation(client, user, invitationUUID)
@@ -552,7 +532,7 @@ const acceptInvitationLocalUser = async (client: any, invitationUUID: any, passw
   }
 }
 
-module.exports = {
+export default {
   findUserById,
   findUserByEmail,
   findUserByLoginEmail,

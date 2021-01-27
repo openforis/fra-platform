@@ -1,12 +1,10 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'formatNumb... Remove this comment to see the full error message
-const { formatNumber } = require('./bignumberUtils')
+import { formatNumber } from './bignumberUtils'
 
-const formatInteger = (num: any) => formatNumber(num, 0)
+export const formatInteger = (num: any) => formatNumber(num, 0)
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'formatDeci... Remove this comment to see the full error message
-const formatDecimal = (num: any) => formatNumber(num, 2)
+export const formatDecimal = (num: any) => formatNumber(num, 2)
 
-module.exports = {
+export default {
   formatDecimal,
   formatInteger,
 }

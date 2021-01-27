@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
 import Error from '../../Error'
@@ -16,8 +15,7 @@ const ForgotPassword = (props: Props) => {
 
   const dispatch = useDispatch()
   const emailRef = useRef(null)
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'error' does not exist on type '{}'.
-  const { error, message } = useSelector(R.pathOr({}, ['login', 'localLogin', 'resetPassword']))
+  const { error, message }: any = useSelector(R.pathOr({}, ['login', 'localLogin', 'resetPassword']))
   const messages = typeof message === 'string' ? message.split('\n') : []
 
   useEffect(() => {

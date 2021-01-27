@@ -1,19 +1,21 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import * as PropTypes from 'prop-types'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
 
 import TextInput from '@webapp/components/textInput'
 import VerticallyGrowingTextField from '@webapp/components/verticallyGrowingTextField'
 
-const Text = (props: any) => {
+type Props = any
+
+const Text = (props: Props) => {
   const { onChange, onPaste, col, datum, disabled } = props
 
   const [Component, componentProps] = SectionSpec.isText(col)
     ? [TextInput, {}]
     : [VerticallyGrowingTextField, { minWidth: 350 }]
 
-  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+  // @ts-ignore
   return React.createElement(Component, { ...componentProps, value: datum || '', onChange, onPaste, disabled })
 }
 

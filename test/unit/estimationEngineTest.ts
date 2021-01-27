@@ -1,11 +1,7 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'assert'.
-const { assert } = require('chai')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'estimation... Remove this comment to see the full error message
-const estimationEngine = require('../../server/eof/estimationEngine')
+import { assert } from 'chai'
+import * as R from 'ramda'
+import * as estimationEngine from '../../server/eof/estimationEngine'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fraYears'.
 const fraYears = [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020]
 
 const testOdpSet1 = [
@@ -104,9 +100,7 @@ const expectedEstimations1 = [
   },
 ]
 
-// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
 describe('estimationEngine', () => {
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('Interpolates and extrapolates linearly', () => {
     const estimated = estimationEngine.estimateFraValues(fraYears, testOdpSet1, {
       method: 'linear',
@@ -114,7 +108,6 @@ describe('estimationEngine', () => {
     })
     assert.deepEqual(expectedEstimations1, estimated)
   })
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('Extrapolates with repeat last value', () => {
     const estimated = estimationEngine.estimateFraValues(fraYears, testOdpSet2, {
       method: 'repeatLast',
@@ -136,7 +129,6 @@ describe('estimationEngine', () => {
     )
   })
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('Extrapolates with annual change rate', () => {
     const estimated = estimationEngine.estimateFraValues(fraYears, testOdpSet2, {
       method: 'annualChange',

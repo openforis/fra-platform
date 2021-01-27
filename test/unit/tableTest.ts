@@ -3,9 +3,9 @@
  * traditional table is not used, and sectionSpec is favored (dataTable)
  * Todo: Test dataTable
  */
-// const assert = require('chai').assert
-// const R = require('ramda')
-// const table = require('@webapp/app/assessment/components/traditionalTable/table')
+// import * as assert from 'chai'.assert
+// import * as R from 'ramda'
+// import * as table from '@webapp/app/assessment/components/traditionalTable/table'
 //
 // //Not a realistic dataset in that these rhs etc. will actually be null...
 // const dataToSlice = [['', 'h1', 'h2'], ['rh1', 1, 2], ['rh2', 3, 4], ['total', 'tbd', 'tbd']]

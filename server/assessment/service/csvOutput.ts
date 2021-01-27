@@ -1,13 +1,15 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'format'.
-const { format } = require('date-fns')
+import { format } from 'date-fns'
 
-const { AsyncParser } = require('json2csv')
+import { AsyncParser } from 'json2csv'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'ExportOutp... Remove this comment to see the full error message
-const ExportOutput = require('./exportOutput')
+import ExportOutput from './exportOutput'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'CsvOutput'... Remove this comment to see the full error message
 class CsvOutput extends ExportOutput {
+  _key: any = null
+  _asyncParser: any = null
+  _fileName: any = null
+  _content: any = null
+
   constructor(fileName: any, fields: any) {
     super()
 
@@ -70,7 +72,7 @@ class CsvOutput extends ExportOutput {
     }
   }
 
-  pushContent(object: any) {
+  pushContent(object: any, idx?: any) {
     this._asyncParser.input.push(JSON.stringify(object))
   }
 
@@ -79,4 +81,4 @@ class CsvOutput extends ExportOutput {
   }
 }
 
-module.exports = CsvOutput
+export default CsvOutput

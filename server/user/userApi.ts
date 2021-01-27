@@ -1,43 +1,28 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Promise'.
-const Promise = require('bluebird')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
-const db = require('../db/db')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'userReposi... Remove this comment to see the full error message
-const userRepository = require('./userRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Request'.
-const Request = require('../utils/requestUtils')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'AccessCont... Remove this comment to see the full error message
-const { AccessControlException } = require('../utils/accessControl')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'sendInvita... Remove this comment to see the full error message
-const { sendInvitation } = require('./sendInvitation')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'rolesAllow... Remove this comment to see the full error message
-const { rolesAllowedToChange } = require('../../common/userManagementAccessControl')
-const {
-  // @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'isAdminist... Remove this comment to see the full error message
+import * as R from 'ramda'
+
+import * as db from '../db/db'
+import * as userRepository from './userRepository'
+import * as Request from '../utils/requestUtils'
+import { AccessControlException } from '../utils/accessControl'
+import { sendInvitation } from './sendInvitation'
+import { rolesAllowedToChange } from '../../common/userManagementAccessControl'
+import {
   isAdministrator,
-  // @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'isNational... Remove this comment to see the full error message
   isNationalCorrespondent,
-  // @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'isCollabor... Remove this comment to see the full error message
   isCollaborator,
-  // @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'isAlternat... Remove this comment to see the full error message
   isAlternateNationalCorrespondent,
-  // @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getCountry... Remove this comment to see the full error message
   getCountryRole,
-  // @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'reviewer'.
   reviewer,
-} = require('../../common/countryRole')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'validEmail... Remove this comment to see the full error message
-const { validate: validateUser, validEmail } = require('../../common/userUtils')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Auth'.
-const Auth = require('../auth/authApiMiddleware')
+} from '../../common/countryRole'
+import { validate as validateUser, validEmail } from '../../common/userUtils'
+import * as Auth from '../auth/authApiMiddleware'
 
 const filterAllowedUsers = (countryIso: any, user: any, users: any) => {
   const allowedRoles = rolesAllowedToChange(countryIso, user)
+  // @ts-ignore
   return R.filter((userInList: any) => R.contains(userInList.role, allowedRoles), users)
 }
-module.exports.init = (app: any) => {
+export const init = (app: any) => {
   // get session user
   app.get('/loggedInUser/', (req: any, res: any) => res.json({ userInfo: req.user }))
   // update session user language
@@ -85,6 +70,7 @@ module.exports.init = (app: any) => {
       const { countryIso } = req.params
       const allowedRoles = rolesAllowedToChange(countryIso, req.user)
       if (!R.contains(newUser.role, allowedRoles)) {
+        // @ts-ignore
         throw new AccessControlException('error.access.roleChangeNotAllowed', {
           user: req.user.name,
           role: newUser.role,
@@ -97,6 +83,7 @@ module.exports.init = (app: any) => {
         const countryRole = getCountryRole(countryIso, user)
         if (countryRole) {
           // User already added to country
+          // @ts-ignore
           throw new AccessControlException('error.access.userAlreadyAddedToCountry', {
             user: `${user.name} (${user.email})`,
             countryIso,

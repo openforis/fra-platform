@@ -1,6 +1,5 @@
 import React from 'react'
 import { useI18n } from '@webapp/components/hooks'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { Area } from '@common/country'
 import Table from '../components/table'
 

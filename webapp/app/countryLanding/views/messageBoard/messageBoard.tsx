@@ -44,7 +44,6 @@ const MessageBoard = () => {
                   }
                 }}
               >
-                {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ name: string; className: string; }' is not... Remove this comment to see the full error message */}
                 <Icon name="chat-46" className="icon-middle" />
                 {(i18n as any).t('landing.users.message')}
                 {countryMessageBoardUnreadMessages > 0 ? (

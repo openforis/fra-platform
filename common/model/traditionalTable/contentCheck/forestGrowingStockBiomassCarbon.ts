@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   tableName: 'content_check_forest_growing_stock_biomass_carbon',
   rows: {
     names: [

@@ -1,10 +1,8 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'camelize'.
-const camelize = require('camelize')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
-const db = require('../db/db')
+// @ts-ignore
+import * as camelize from 'camelize'
+import * as db from '../db/db'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'persistMes... Remove this comment to see the full error message
-const persistMessage = async (client: any, countryIso: any, message: any, fromUserId: any) => {
+export const persistMessage = async (client: any, countryIso: any, message: any, fromUserId: any) => {
   await client.query(
     `
       INSERT INTO country_message_board_message (country_iso, text, from_user)
@@ -14,7 +12,7 @@ const persistMessage = async (client: any, countryIso: any, message: any, fromUs
   )
 }
 
-const markMessagesRead = async (client: any, userId: any, messages: any) =>
+export const markMessagesRead = async (client: any, userId: any, messages: any) =>
   messages.forEach(
     async (msg: any) =>
       await client.query(
@@ -26,8 +24,7 @@ const markMessagesRead = async (client: any, userId: any, messages: any) =>
       )
   )
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fetchCount... Remove this comment to see the full error message
-const fetchCountryMessages = async (client: any, countryIso: any, userId: any) => {
+export const fetchCountryMessages = async (client: any, countryIso: any, userId: any) => {
   // marking unread messages as read
   const unreadMessages = await fetchCountryUnreadMessages(client, countryIso, userId)
   await markMessagesRead(client, userId, unreadMessages)
@@ -52,8 +49,7 @@ const fetchCountryMessages = async (client: any, countryIso: any, userId: any) =
   return camelize(messagesResp.rows)
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fetchCount... Remove this comment to see the full error message
-const fetchCountryUnreadMessages = async (client: any, countryIso: any, userId: any, markAsRead = false) => {
+export const fetchCountryUnreadMessages = async (client: any, countryIso: any, userId: any, markAsRead = false) => {
   const messagesResp = await client.query(
     `
     SELECT m.id,
@@ -79,7 +75,7 @@ const fetchCountryUnreadMessages = async (client: any, countryIso: any, userId: 
   return messages
 }
 
-module.exports = {
+export default {
   persistMessage,
   fetchCountryMessages,
   fetchCountryUnreadMessages,

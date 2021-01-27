@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   tableName: 'table_4_8',
   schemaName: 'pan_european',
   section: 'panEuropean_4_8',

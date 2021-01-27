@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   tableName: 'climatic_domain',
   section: 'extentOfForest',
   rows: {

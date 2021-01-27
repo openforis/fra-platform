@@ -106,5 +106,5 @@ export const getAssessmentPrintLink = (countryIso: any, assessmentType: any, onl
 
 // ==== Assessment ODP
 export const odp = _generate(PARAMS.countryIso, PARAMS.assessmentType, FRAGMENTS.odp, PARAMS.tab)
-export const getOdpLink = (countryIso: any, assessmentType: any, sectionName: any, odpId: any) =>
+export const getOdpLink = (countryIso: any, assessmentType: any, sectionName: any, odpId?: any) =>
   _generate(countryIso, assessmentType, FRAGMENTS.odp, sectionName, odpId)

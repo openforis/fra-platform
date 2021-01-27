@@ -1,12 +1,9 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-const NdpRepository = require('../../../odp/odpRepository')
+import * as R from 'ramda'
+import * as NdpRepository from '../../../odp/odpRepository'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'CsvOutput'... Remove this comment to see the full error message
-const CsvOutput = require('../csvOutput')
+import CsvOutput from '../csvOutput'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fields'.
-const fields = [
+export const fields = [
   'Year',
   'Reference',
   'National Forest Inventory',
@@ -17,7 +14,7 @@ const fields = [
   'Additional comments',
 ]
 
-const normalizeValue = R.pipe(
+export const normalizeValue = R.pipe(
   R.defaultTo(''),
   // R.replace(/\n\r/g, ' '),
   R.replace(/"/g, "'"),
@@ -25,8 +22,7 @@ const normalizeValue = R.pipe(
   R.join(' ')
 )
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getCountry... Remove this comment to see the full error message
-const getCountryData = async (country: any) => {
+export const getCountryData = async (country: any) => {
   const dataPoints = await NdpRepository.listOriginalDataPoints(country.countryIso)
 
   const result: any = []
@@ -56,12 +52,11 @@ const getCountryData = async (country: any) => {
   return result
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getCsvOutp... Remove this comment to see the full error message
-const getCsvOutput = () => {
+export const getCsvOutput = () => {
   return new CsvOutput('NationalDataPoints', fields)
 }
 
-module.exports = {
+export default {
   getCountryData,
   getCsvOutput,
 }

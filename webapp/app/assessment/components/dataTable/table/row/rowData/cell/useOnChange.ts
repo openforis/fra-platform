@@ -9,7 +9,7 @@ import * as Sanitizer from './sanitizer'
 export default (props: any) => {
   const { assessmentType, sectionName, tableSpec, rowIdx, col, datum: valuePrev } = props
   const tableName = TableSpec.getName(tableSpec)
-  const updateTableDataCell = TableSpec.getUpdateTableDataCell(tableSpec)
+  const updateTableDataCell: any = TableSpec.getUpdateTableDataCell(tableSpec)
 
   const type = ColSpec.getType(col)
   const colIdx = ColSpec.getIdx(col)
@@ -41,7 +41,7 @@ export default (props: any) => {
     el.innerHTML = clipboardData.getData('text/html')
 
     const rows = el.getElementsByTagName('tr')
-    const rowSpecs = TableSpec.getRowsData(tableSpec)
+    const rowSpecs: any = TableSpec.getRowsData(tableSpec)
 
     if (rows.length > 0) {
       let dataUpdate = data.slice()
@@ -53,7 +53,7 @@ export default (props: any) => {
 
         const columns = rows[i].getElementsByTagName('td')
         for (let j = 0; j < columns.length; j += 1) {
-          const colIdxCurrent = j + colIdx
+          const colIdxCurrent = Number(colIdx) + j
           const colSpec = RowSpec.getColByIdx(colIdxCurrent)(rowSpec)
           if (!colSpec) break
 

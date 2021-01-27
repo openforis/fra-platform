@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   tableName: 'growing_stock_composition',
   rows: {
     names: [

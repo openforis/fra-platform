@@ -1,19 +1,13 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
+import * as R from 'ramda'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
-const db = require('../db/db')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'sendErr'.
-const { sendErr } = require('../utils/requestUtils')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'reviewRepo... Remove this comment to see the full error message
-const reviewRepository = require('./reviewRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'allowedToE... Remove this comment to see the full error message
-const { allowedToEditCommentsCheck } = require('../assessment/assessmentEditAccessControl')
+import * as db from '../db/db'
+import { sendErr } from '../utils/requestUtils'
+import * as reviewRepository from './reviewRepository'
+import { allowedToEditCommentsCheck } from '../assessment/assessmentEditAccessControl'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Auth'.
-const Auth = require('../auth/authApiMiddleware')
+import * as Auth from '../auth/authApiMiddleware'
 
-module.exports.init = (app: any) => {
+export const init = (app: any) => {
   app.post('/review/:issueId', Auth.requireCountryEditPermission, async (req: any, res: any) => {
     try {
       const commentInfo = await reviewRepository.getIssueCountryAndSection(req.params.issueId)
@@ -74,6 +68,7 @@ module.exports.init = (app: any) => {
       if (issues.length > 0) await reviewRepository.updateIssueReadTime(issues[0].issueId, req.user)
 
       // leave out email
+      // @ts-ignore
       res.json(R.map((comment: any) => R.omit('email', comment), issues))
     } catch (err) {
       sendErr(res, err)

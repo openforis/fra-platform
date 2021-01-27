@@ -1,6 +1,4 @@
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as FRA from '@common/assessment/fra'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
+import FRA from '@common/assessment/fra'
 import * as NumberUtils from '@common/bignumberUtils'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
@@ -13,6 +11,8 @@ const getTableDataCell = (colIdx: any, rowIdx: any) =>
   AssessmentState.getTableDataCell({
     assessmentType: FRA.type,
     sectionName: section.name,
+    // @ts-ignore
+    // TODO: fix this
     tableName: section.tables.specificForestCategories,
     rowIdx,
     colIdx,

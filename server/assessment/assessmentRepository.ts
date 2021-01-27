@@ -1,22 +1,17 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'camelize'.
-const camelize = require('camelize')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
-const db = require('../db/db')
+// @ts-ignore
+import * as camelize from 'camelize'
+import * as R from 'ramda'
+import * as db from '../db/db'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'insertAudi... Remove this comment to see the full error message
-const { insertAudit } = require('../audit/auditRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'roleForCou... Remove this comment to see the full error message
-const { roleForCountry, isAdministrator } = require('../../common/countryRole')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getAllowed... Remove this comment to see the full error message
-const { getAllowedStatusTransitions } = require('../../common/assessment')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'AccessCont... Remove this comment to see the full error message
-const { AccessControlException } = require('../utils/accessControl')
+import { insertAudit } from '../audit/auditRepository'
+import { roleForCountry, isAdministrator } from '../../common/countryRole'
+import { getAllowedStatusTransitions } from '../../common/assessment'
+import { AccessControlException } from '../utils/accessControl'
 
 const checkStatusTransitionAllowance = (currentStatus: any, newStatus: any, countryIso: any, user: any) => {
   const allowed = getAllowedStatusTransitions(countryIso, user, currentStatus)
   if (!R.contains(newStatus, R.values(allowed))) {
+    // @ts-ignore
     throw new AccessControlException('error.assessment.transitionNotAllowed', {
       currentStatus,
       status: newStatus,
@@ -62,7 +57,7 @@ const updateAssessment = (client: any, countryIso: any, assessment: any) =>
 
 // Returns a boolean telling whether status was changed
 // (used to determine whether we should send a status-change email)
-module.exports.changeAssessment = async (client: any, countryIso: any, user: any, newAssessment: any) => {
+export const changeAssessment = async (client: any, countryIso: any, user: any, newAssessment: any) => {
   const currentAssessmentFromDb = await getAssessment(client, countryIso, newAssessment.type)
   const existsInDb = !!currentAssessmentFromDb
   const currentAssessment = existsInDb ? currentAssessmentFromDb : defaultAssessment(newAssessment.assessment)
@@ -71,6 +66,7 @@ module.exports.changeAssessment = async (client: any, countryIso: any, user: any
     checkStatusTransitionAllowance(currentAssessment.status, newAssessment.status, countryIso, user)
   }
   if (currentAssessment.deskStudy !== newAssessment.deskStudy && !isAdministrator(user)) {
+    // @ts-ignore
     throw new AccessControlException('error.assessment.deskStudyNotAllowed')
   }
   if (existsInDb) {
@@ -101,8 +97,8 @@ const defaultStatuses = R.pipe(
   R.fromPairs
 )(['annuallyUpdated', 'fra2020'])
 
-module.exports.getAssessments = async (countryIso: any) => {
-  const rawResults = await db.query(
+export const getAssessments = async (countryIso: any) => {
+  const rawResults = await db.pool.query(
     `SELECT
        type,
        status,

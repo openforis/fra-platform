@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   tableName: 'forest_area_within_protected_areas',
   rows: {
     names: [

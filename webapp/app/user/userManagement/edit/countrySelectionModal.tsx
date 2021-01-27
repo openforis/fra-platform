@@ -1,5 +1,4 @@
 import React from 'react'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from '@webapp/components/modal'
 import { useI18n } from '@webapp/components/hooks'
@@ -10,16 +9,13 @@ const CountrySelectionModalBody = (props: any) => {
   const isSelected = (countryIso: any) => R.contains(countryIso, selection)
   const isUnselactable = (countryIso: any) => R.contains(countryIso, unselectableCountries)
   // Sort given countries (from props) to hashmap: {regionCode}: [{countryIso},..]
-  const regionCountries = {}
+  const regionCountries: any = {}
   countries.forEach((country: any) => {
     const { countryIso, regionCodes } = country
     regionCodes.forEach((regionCode: any) => {
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       if (!Array.isArray(regionCountries[regionCode])) {
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         regionCountries[regionCode] = []
       }
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       regionCountries[regionCode].push(countryIso)
     })
   })

@@ -1,22 +1,18 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'path'.
-const path = require('path')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'express'.
-const express = require('express')
-const bodyParser = require('body-parser')
-const compression = require('compression')
-const fileUpload = require('express-fileupload')
-const morgan = require('morgan')
+import * as path from 'path'
+import * as express from 'express'
+import * as bodyParser from 'body-parser'
+import * as compression from 'compression'
+import * as fileUpload from 'express-fileupload'
+import * as morgan from 'morgan'
 
-const sessionInit = require('./sessionInit')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'apiRouter'... Remove this comment to see the full error message
-const apiRouter = require('./apiRouter')
-const authApi = require('./auth/authApi')
-const resourceCacheControl = require('./resourceCacheControl')
-const definitionsApi = require('./definitions/api')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'sendErr'.
-const { sendErr } = require('./utils/requestUtils')
+import * as sessionInit from './sessionInit'
+import * as apiRouter from './apiRouter'
+import * as authApi from './auth/authApi'
+import * as resourceCacheControl from './resourceCacheControl'
+import * as definitionsApi from './definitions/api'
+import { sendErr } from './utils/requestUtils'
 
-module.exports = () => {
+export const serverInit = () => {
   const app = express()
 
   if (process.env.NODE_ENV === 'development') {

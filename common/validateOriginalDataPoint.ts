@@ -1,9 +1,7 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'sum'.
-const { sum, lessThanOrEqualTo } = require('./bignumberUtils')
+import * as R from 'ramda'
+import { sum, lessThanOrEqualTo } from './bignumberUtils'
 
-module.exports.validateDataPoint = (odp: any) => {
+export const validateDataPoint = (odp: any) => {
   const defaultTo0 = R.defaultTo(0)
 
   const validYear = R.pipe(defaultTo0, R.partialRight(R.gt, [0]))(odp.year)

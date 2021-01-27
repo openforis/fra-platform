@@ -1,7 +1,5 @@
 // Mostly copied from an example here: https://github.com/brianc/node-postgres
-
-const pg = require('pg')
-const promise = require('bluebird')
+import * as pg from 'pg'
 
 const config = process.env.DATABASE_URL
   ? {
@@ -15,27 +13,18 @@ const config = process.env.DATABASE_URL
       database: process.env.PGDATABASE,
       password: process.env.PGPASSWORD,
       host: process.env.PGHOST,
-      port: process.env.PGPORT,
+      port: +process.env.PGPORT,
       max: 10, // max number of clients in the pool
       idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
     }
 
-const pool = promise.promisifyAll(new pg.Pool(config))
-module.exports.pool = pool
+export const pool = new pg.Pool(config)
 
 pool.on('error', function (err: any) {
   console.error('idle client error', err.message, err.stack)
 })
 
-// the query function for passing queries to the pool
-module.exports.query = (text: any, values: any) => pool.query(text, values)
-
-const connect = function () {
-  return pool.connect()
-}
-
 // For multiple operations, such as a transactions
-module.exports.connect = connect
 
 /*
  * Pass in a function-reference and it's arguments after client like this:
@@ -48,7 +37,7 @@ module.exports.connect = connect
  *
  * Code taken from https://node-postgres.com/features/transactions
  */
-module.exports.transaction = async (fn: any, argv: any) => {
+export const transaction = async (fn: any, argv: any) => {
   // note: we don't try/catch this because if connecting throws an exception
   // we don't need to dispose of the client (it will be undefined)
   const client = await pool.connect()

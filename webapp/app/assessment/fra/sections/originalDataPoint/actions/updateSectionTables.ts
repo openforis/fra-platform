@@ -1,10 +1,7 @@
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as FRAUtils from '@common/fraUtils'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as FRA from '@common/assessment/fra'
+import FRAUtils from '@common/fraUtils'
+import FRA from '@common/assessment/fra'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import { updateTableData } from '@webapp/app/assessment/components/dataTable/actions'
@@ -18,14 +15,16 @@ const extentOfForestTableName = extentOfForest.tables.extentOfForest
 
 const forestCharacteristics = FRA.sections['1'].children.b
 const forestCharacteristicsSectionName = forestCharacteristics.name
+// TODO: Fix this
+// @ts-ignore
 const forestCharacteristicsTableName = forestCharacteristics.tables.extentOfForest
 
 const getDatumOdp = (state: any, odp: any, datumFields: any, draft: any) => {
   const odpOriginal = OriginalDataPointStateState.getActive(state)
   const { odpId, year } = odp
-  const { year: yearPrev } = odpOriginal
+  const { year: yearPrev }: any = odpOriginal
 
-  const datumOdp = {
+  const datumOdp: any = {
     odpId,
     type: 'odp',
     draft,
@@ -34,7 +33,6 @@ const getDatumOdp = (state: any, odp: any, datumFields: any, draft: any) => {
     year: Number(year),
   }
   Object.entries(datumFields).forEach(([name, value]) => {
-    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     datumOdp[name] = value && value.toString()
   })
 
@@ -89,7 +87,7 @@ const getUpdateForestCharacteristics = (state: any, odp: any, draft: any) => {
   return getUpdateSectionTable(state, forestCharacteristicsSectionName, forestCharacteristicsTableName, datumOdp)
 }
 
-export const getUpdateTablesWithOdp = (state: any, odp: any, draft = true) => {
+export function getUpdateTablesWithOdp(state: any, odp: any, draft = true): any{
   const actions = []
   actions.push(getUpdateExtentOfForest(state, odp, draft))
   actions.push(getUpdateForestCharacteristics(state, odp, draft))
@@ -103,6 +101,7 @@ const _getUpdateTablesWithNotOdp = (state: any, year: any, sectionName: any, tab
   if (!fraNoNDPs) {
     return null
   }
+  // @ts-ignore
   const datumOdp = R.find(R.propEq('year', year))(fraNoNDPs)
   return getUpdateSectionTable(state, sectionName, tableName, datumOdp)
 }

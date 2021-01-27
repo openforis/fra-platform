@@ -1,8 +1,7 @@
 import axios from 'axios'
 import * as AppState from '@webapp/store/app/state'
 
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as FRA from '@common/assessment/fra'
+import FRA from '@common/assessment/fra'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 
 import * as autosave from '@webapp/app/components/autosave/actions'

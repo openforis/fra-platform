@@ -1,29 +1,18 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Promise'.
-const Promise = require('bluebird')
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
-const db = require('../db/db')
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'checkCount... Remove this comment to see the full error message
-const { checkCountryAccessFromReqParams } = require('../utils/accessControl')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'sendErr'.
-const { sendErr, serverUrl } = require('../utils/requestUtils')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'createI18n... Remove this comment to see the full error message
-const { createI18nPromise } = require('../../common/i18n/i18nFactory')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'findUserBy... Remove this comment to see the full error message
-const { findUserById } = require('../user/userRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getCountry... Remove this comment to see the full error message
-const { getCountry } = require('../country/countryRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'sendMail'.
-const { sendMail } = require('../email/sendMail')
+import * as db from '../db/db'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getChatMes... Remove this comment to see the full error message
-const { getChatMessages, addMessage, getChatUnreadMessages } = require('./userChatRepository')
+import { checkCountryAccessFromReqParams } from '../utils/accessControl'
+import { sendErr, serverUrl } from '../utils/requestUtils'
+import { createI18nPromise } from '@common/i18n/i18nFactory'
+import { findUserById } from '../user/userRepository'
+import { getCountry } from '../country/countryRepository'
+import { sendMail } from '../email/sendMail'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Auth'.
-const Auth = require('../auth/authApiMiddleware')
+import { getChatMessages, addMessage, getChatUnreadMessages } from './userChatRepository'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'createMail... Remove this comment to see the full error message
+import * as Auth from '../auth/authApiMiddleware'
+
 const createMail = async (country: any, i18n: any, sender: any, recipient: any, url: any) => {
   const link = `${url}/country/${country.countryIso}/`
   const countryName = i18n.t(`area.${country.countryIso}.listName`)
@@ -65,12 +54,11 @@ const sendNotificationEmail = async (req: any, senderId: any, recipientId: any) 
   ])
   const url = serverUrl(req)
 
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 6 arguments, but got 5.
   const notificationEmail = await createMail(country, i18n, sender, recipient, url)
   await sendMail(notificationEmail)
 }
 
-module.exports.init = (app: any) => {
+export const init = (app: any) => {
   app.get('/userChat/:countryIso/messages/all', async (req: any, res: any) => {
     try {
       checkCountryAccessFromReqParams(req)

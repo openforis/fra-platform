@@ -1,6 +1,5 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as ObjectUtils from '@common/objectUtils'
 import { useI18n, usePrintView } from '@webapp/components/hooks'
 import NationalDataDescriptions from './components/nationalDataDescriptions'

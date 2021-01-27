@@ -1,7 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import * as PropTypes from 'prop-types'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
 
 import { ThousandSeparatedDecimalInput } from '@webapp/components/thousandSeparatedDecimalInput'
 import { ThousandSeparatedIntegerInput } from '@webapp/components/thousandSeparatedIntegerInput'
@@ -13,7 +13,6 @@ const Number = (props: any) => {
     ? [ThousandSeparatedDecimalInput, { numberValue: datum }]
     : [ThousandSeparatedIntegerInput, { integerValue: datum }]
 
-  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
   return React.createElement(Component, { ...componentProps, onChange, onPaste, disabled })
 }
 

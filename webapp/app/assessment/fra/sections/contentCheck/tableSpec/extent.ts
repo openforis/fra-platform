@@ -1,5 +1,4 @@
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
+import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
 import extent from '@common/model/traditionalTable/contentCheck/extent'
 import section from '../section'
 

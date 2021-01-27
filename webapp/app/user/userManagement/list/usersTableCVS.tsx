@@ -1,12 +1,9 @@
 import React from 'react'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { CSVLink } from 'react-csv'
 import Icon from '@webapp/components/icon'
 
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { administrator, getRoleLabelKey } from '@common/countryRole'
 import { getFilterRoles, filterUserCountryRoles } from './filter'
 
@@ -18,7 +15,6 @@ const UsersTableCSVExportButton = ({ users, i18n, isAdminTable = false, filter =
     data={csvTableData(users, i18n, isAdminTable, filter)}
     headers={csvHeaders(i18n, isAdminTable, filter)}
   >
-    {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ className: string; name: string; }' is not... Remove this comment to see the full error message */}
     <Icon className="icon-sub icon-white" name="hit-down" />
     CSV
   </CSVLink>

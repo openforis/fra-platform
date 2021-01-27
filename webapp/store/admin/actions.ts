@@ -1,8 +1,7 @@
 import axios from 'axios'
 import { applicationError } from '@webapp/components/error/actions'
 
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import FRAVersion from '@common/versioning/fraVersion'
+import * as FRAVersion from '@common/versioning/fraVersion'
 import * as AdminState from '@webapp/store/admin/state'
 
 export const versioningGetSuccess = 'versioning/get/success'
@@ -25,7 +24,7 @@ export const getVersions = () => (dispatch: any) => {
 
 export const createVersion = (_: any) => (dispatch: any, getState: any) => {
   const state = getState()
-  const newVersionForm = AdminState.getNewVersionForm(state)
+  const newVersionForm: any = AdminState.getNewVersionForm(state)
 
   // Required fields for new version: version number and publishedAt
   const validForm = FRAVersion.getVersionNumber(newVersionForm) && FRAVersion.getPublishedAt(newVersionForm)
@@ -41,6 +40,7 @@ export const createVersion = (_: any) => (dispatch: any, getState: any) => {
   // Versioning in correct format
   // Major.Minor.Patch
   // <num>.<num>.<num> ex. 1.0.0
+  // @ts-ignore
   const versionValid = /\d+\.\d+\.\d+/.test(FRAVersion.getVersionNumber(newVersionForm))
   if (!versionValid) {
     dispatch({
@@ -50,6 +50,7 @@ export const createVersion = (_: any) => (dispatch: any, getState: any) => {
   }
 
   // use iso-String, for correct date/time in db
+  // @ts-ignore
   newVersionForm.publishedAt = new Date(FRAVersion.getPublishedAt(newVersionForm)).toISOString()
 
   axios

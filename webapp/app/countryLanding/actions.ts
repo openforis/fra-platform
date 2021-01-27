@@ -30,8 +30,7 @@ export const getFilesList = (countryIso: any) => (dispatch: any) => {
 export const uploadFile = (countryIso: any, file: any, global = false) => (dispatch: any) => {
   const formData = new FormData()
   formData.append('file', file)
-  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'boolean' is not assignable to pa... Remove this comment to see the full error message
-  formData.append('global', global)
+  formData.append('global', '' + global)
 
   const config = {
     headers: {

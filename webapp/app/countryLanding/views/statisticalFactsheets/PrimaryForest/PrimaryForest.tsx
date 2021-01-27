@@ -19,7 +19,8 @@ const PrimaryForest = (props: Props) => {
   }
   // Get the value for year 2020
   const year = '2020'
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'rowNames' does not exist on type 'any[] ... Remove this comment to see the full error message
+  // TODO: Fix missing level
+  // @ts-ignore
   const { rowNames: variables } = APIUtils.getParams('primaryForest')
   const [primaryForestRatio] = getVariableValuesByYear({ data, variables, year })
   const primaryForestPercent = primaryForestRatio * 100

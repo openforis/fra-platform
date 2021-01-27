@@ -1,7 +1,7 @@
-const promise = require('bluebird')
-const fs = promise.promisifyAll(require('fs'))
-const csv = promise.promisifyAll(require('csv'))
-const R = require('ramda')
+import * as promise from 'bluebird'
+import * as fs = promise.promisifyAll(require('fs'))
+import * as csv = promise.promisifyAll(require('csv'))
+import * as R from 'ramda'
 
 const countryIsoCol = 6
 const yearCol = 3
@@ -33,4 +33,3 @@ const getFaostatValues = async (fileName) => {
   return groupedByCountry
 }
 
-module.exports.getFaostatValues = getFaostatValues

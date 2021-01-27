@@ -1,13 +1,14 @@
 import React from 'react'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 import { Link } from 'react-router-dom'
 import './popoverControl.less'
 
 const mapIndexed = R.addIndex(R.map)
 type State = any
-export class PopoverControl extends React.Component<{}, State> {
-  constructor(props: {}) {
+type Props = any
+export class PopoverControl extends React.Component<Props, State> {
+  props: Props
+  constructor(props: Props) {
     super(props)
     this.outsideClick = this.outsideClick.bind(this)
     window.addEventListener('click', this.outsideClick)
@@ -35,8 +36,7 @@ export class PopoverControl extends React.Component<{}, State> {
         ref="popoverControl"
         onClick={(evt) => this.setState({ opened: !this.state.opened })}
       >
-        {/* @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call. */}
-        {React.cloneElement(children, { className: childClasses })}
+        {React.cloneElement(children as any, { className: childClasses })}
         {this.state.opened ? this.renderItems((this.props as any).items) : null}
       </div>
     )

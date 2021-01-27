@@ -1,18 +1,15 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'camelize'.
-const camelize = require('camelize')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
-const db = require('../db/db')
+import * as R from 'ramda'
+// @ts-ignore
+import * as camelize from 'camelize'
+import * as db from '../db/db'
 
-module.exports.insertAudit = async (
+export const insertAudit = async (
   client: any,
   userId: any,
   message: any,
   countryIso: any,
   section: any,
-  // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'target' implicitly has an 'any' type.
-  target = null
+  target: { [key: string]: string } | null = null
 ) => {
   const userResult = await client.query('SELECT name, email, login_email FROM fra_user WHERE id = $1', [userId])
   if (userResult.rows.length !== 1) throw new Error(`User ID query resulted in ${userResult.rows.length} rows`)
@@ -27,10 +24,9 @@ module.exports.insertAudit = async (
   )
 }
 
-module.exports.getLastAuditTimeStampForSection = (countryIso: any, section: any) => {
+export const getLastAuditTimeStampForSection = (countryIso: any, section: any) => {
   const excludedMsgs = ['createIssue', 'createComment', 'deleteComment']
-  return db
-    .query(
+  return  db.pool.query(
       ` SELECT
         section as section_name,
         to_char(max(time), 'YYYY-MM-DD"T"HH24:MI:ssZ') as latest_edit
@@ -45,9 +41,8 @@ module.exports.getLastAuditTimeStampForSection = (countryIso: any, section: any)
     .then((res: any) => R.path(['rows', 0, 'latest_edit'], res))
 }
 
-module.exports.getAuditFeed = (countryIso: any) => {
-  return db
-    .query(
+export const getAuditFeed = (countryIso: any) => {
+  return  db.pool.query(
       ` SELECT
         u.id as user_id,
         user_name as full_name,

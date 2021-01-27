@@ -1,13 +1,11 @@
 import React, { useEffect, useRef } from 'react'
 import { connect, useSelector } from 'react-redux'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
 import Icon from '@webapp/components/icon'
 import useI18n from '@webapp/components/hooks/useI18n'
 
 import { getRelativeDate } from '@webapp/utils/relativeDate'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { profilePictureUri } from '@common/userUtils'
 
 import * as AppState from '@webapp/store/app/state'
@@ -28,7 +26,6 @@ const MessageBoardHeader = ({ i18n, closeCountryMessageBoard }: any) => (
 const NoMessages = ({ i18n }: any) => (
   <div className="fra-review__comment-thread">
     <div className="fra-review__comment-placeholder">
-      {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ className: string; name: string; }' is not... Remove this comment to see the full error message */}
       <Icon className="fra-review__comment-placeholder-icon icon-24" name="chat-46" />
       <span className="fra-review__comment-placeholder-text">{i18n.t('userChat.noMessages')}</span>
     </div>
@@ -86,7 +83,6 @@ const MessageBoardAddMessage = (props: any) => {
 
   return (
     <FraReviewFooter
-      // @ts-expect-error ts-migrate(2322) FIXME: Type '{ onSubmit: (msg: any) => any; onCancel: () ... Remove this comment to see the full error message
       onSubmit={(msg: any) => sendCountryMessageBoard(countryIso, msg, userInfo.id, userInfo.name)}
       onCancel={() => closeCountryMessageBoard()}
       placeholder={i18n.t('userChat.writeMessage')}

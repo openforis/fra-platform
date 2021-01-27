@@ -1,29 +1,26 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'assert'.
-const assert = require('assert')
+import * as R from 'ramda'
+import * as assert from 'assert'
 
-const fra = require('./mappings/fra')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'panEuropea... Remove this comment to see the full error message
-const panEuropean = require('./mappings/panEuropean')
+import fra from './mappings/fra'
+import panEuropean from './mappings/panEuropean'
 
-const mappings = {
+export const mappings: { [key: string]: any } = {
   ...fra,
   ...panEuropean,
 }
 
-const getRowIndex = (name: any, names: any) => {
+export const getRowIndex = (name: any, names: any) => {
   const idx = R.findIndex((x: any) => x === name, names)
   return idx === -1 ? -1 : idx
 }
 
-const getRowName = (idx: any, names: any) => names[idx]
+export const getRowName = (idx: any, names: any) => names[idx]
 
-const getColumnName = (idx: any, columns: any) => R.path([idx, 'name'], columns)
+export const getColumnName = (idx: any, columns: any) => R.path([idx, 'name'], columns)
 
-const getColumnIndex = (name: any, columns: any) => R.findIndex((x: any) => x.name === name, columns)
+export const getColumnIndex = (name: any, columns: any) => R.findIndex((x: any) => x.name === name, columns)
 
-const Mapping = (mapping: any) =>
+export const Mapping = (mapping: any) =>
   R.merge(mapping, {
     getRowName: (idx: any) => getRowName(idx, mapping.rows.names),
     getRowIndex: (name: any) => getRowIndex(name, mapping.rows.names),
@@ -34,7 +31,7 @@ const Mapping = (mapping: any) =>
     getFullColumnCount: () => mapping.columns.length,
   })
 
-const assertSanity = (mappingObj: any) => {
+export const assertSanity = (mappingObj: any) => {
   const errMsg = 'Malformed FRA table mapping'
   assert(mappingObj.getFullRowCount() > 0, errMsg)
   assert(mappingObj.getFullColumnCount() > 0, errMsg)
@@ -43,14 +40,10 @@ const assertSanity = (mappingObj: any) => {
   assert(mappingObj.columns.length > 0, errMsg)
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getMapping... Remove this comment to see the full error message
-const getMapping = (tableSpecName: any) => {
+export const getMapping = (tableSpecName: string) => {
   const mappingData = mappings[tableSpecName]
   if (!mappingData) throw new Error(`Could not find mapping for tableSpecName ${tableSpecName}`)
   const mappingObj = Mapping(mappingData)
   assertSanity(mappingObj)
   return mappingObj
 }
-
-module.exports.Mapping = Mapping
-module.exports.getMapping = getMapping

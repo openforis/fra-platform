@@ -1,20 +1,15 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'format'.
-const { format } = require('date-fns')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
-const db = require('../db/db')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'auditRepos... Remove this comment to see the full error message
-const auditRepository = require('../audit/auditRepository')
+import * as R from 'ramda'
+import { format } from 'date-fns'
+import * as db from '../db/db'
+import * as auditRepository from '../audit/auditRepository'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fileName'.
 const fileName = (fileName: any, countryIso: any) =>
   `${fileName.substring(0, fileName.lastIndexOf('.'))}_${countryIso}_${format(
     new Date(),
     'yyyyMMdd'
   )}.${fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length)}`
 
-module.exports.persistPanEuropeanQuantitativeQuestionnaire = (client: any, user: any, countryIso: any, file: any) =>
+export const persistPanEuropeanQuantitativeQuestionnaire = (client: any, user: any, countryIso: any, file: any) =>
   auditRepository
     .insertAudit(client, user.id, 'persistPanEuropeanQuantitativeQuestionnaire', countryIso, 'panEuropeanIndicators')
     .then(() =>
@@ -34,7 +29,6 @@ const insertPanEuropeanQuantitativeQuestionnaire = (client: any, countryIso: any
      VALUES
       ($1, $2, $3)
     `,
-    // @ts-expect-error ts-migrate(2349) FIXME: This expression is not callable.
     [countryIso, file.data, fileName(file.name, countryIso)]
   )
 
@@ -49,14 +43,12 @@ const updatePanEuropeanQuantitativeQuestionnaire = (client: any, countryIso: any
     WHERE
       country_iso = $3
     `,
-    // @ts-expect-error ts-migrate(2349) FIXME: This expression is not callable.
     [file.data, fileName(file.name, countryIso), countryIso]
   )
 
-module.exports.getPanEuropeanQuantitativeQuestionnaire = (countryIso: any, schemaName = 'public') => {
+export const getPanEuropeanQuantitativeQuestionnaire = (countryIso: any, schemaName = 'public') => {
   const tableName = `${schemaName}.pan_european`
-  return db
-    .query(
+  return  db.pool.query(
       `
     SELECT
       id, quantitative_questionnaire, quantitative_questionnaire_name
@@ -77,7 +69,7 @@ module.exports.getPanEuropeanQuantitativeQuestionnaire = (countryIso: any, schem
     )
 }
 
-module.exports.deletePanEuropeanQuantitativeQuestionnaire = (client: any, countryIso: any) =>
+export const deletePanEuropeanQuantitativeQuestionnaire = (client: any, countryIso: any) =>
   client.query(
     `
     DELETE FROM

@@ -20,7 +20,6 @@ const VersioningView = (props: any) => {
     <Switch>
       <Route exact path={path}>
         {versionsExist ? (
-          // @ts-expect-error ts-migrate(2322) FIXME: Type '{ deleteVersion: any; versions: any; getVers... Remove this comment to see the full error message
           <VersioningViewTable deleteVersion={deleteVersion} versions={versions} getVersions={getVersions} />
         ) : (
           <h1>{(i18n as any).t('landing.versioning.table.noVersions')}</h1>

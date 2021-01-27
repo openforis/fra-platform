@@ -1,4 +1,3 @@
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
 export const stateKey = 'originalDataPoint'
@@ -11,8 +10,9 @@ const keys = {
 const getState = R.prop(stateKey)
 
 // === READ
-export const getActive = R.pipe(getState, R.propOr(null, keys.active))
-export const getOdps = R.pipe(getState, R.propOr([], keys.odps))
+export const getActive = (x?: any) => R.pipe(getState, R.propOr(null, keys.active))(x)
+// @ts-ignore
+export const getOdps = (x?: any): any[] => R.pipe(getState, R.propOr([], keys.odps))(x)
 
 // === UPDATE
 export const assocActive = R.assoc(keys.active)

@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router'
 import { batchActions } from '@webapp/main/reduxBatch'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
 
 import { useCountryIso, useIsDataExportView } from '@webapp/components/hooks'
 import DataExport from '@webapp/app/dataExport'
@@ -17,8 +17,7 @@ import AssessmentSection from './assessmentSection'
 import useSectionTables from './useSectionTables'
 
 const AssessmentSectionView = () => {
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'assessmentType' does not exist on type '... Remove this comment to see the full error message
-  const { assessmentType, section: sectionName } = useParams()
+  const { assessmentType, section: sectionName }: any = useParams()
 
   const countryIso = useCountryIso()
   const isDataExport = useIsDataExportView()

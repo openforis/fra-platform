@@ -1,12 +1,11 @@
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as FRA from '@common/assessment/fra'
+import FRA from '@common/assessment/fra'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
 
 const section = FRA.sections['2'].children.c
 const { years } = FRA
 const variables = ['aboveGround', 'belowGround', 'deadWood']
-const variablesMappings = {
+const variablesMappings: any = {
   aboveGround: SectionSpec.VARIABLES.forest_above_ground,
   belowGround: SectionSpec.VARIABLES.forest_below_ground,
   deadWood: SectionSpec.VARIABLES.forest_deadwood,
@@ -40,7 +39,6 @@ const tableSpec = SectionSpec.newTableSpec({
     ...variables.map((variable) =>
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.labelKey]: `biomassStock.${variable}`,
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         [SectionSpec.KEYS_ROW.variableExport]: variablesMappings[variable],
         [SectionSpec.KEYS_ROW.cols]: years.map(() => SectionSpec.newColDecimal()),
       })

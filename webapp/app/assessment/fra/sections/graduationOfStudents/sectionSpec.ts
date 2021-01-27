@@ -1,12 +1,11 @@
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as FRA from '@common/assessment/fra'
+import FRA from '@common/assessment/fra'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
 
 const section = FRA.sections['7'].children.b
 const years = FRA.yearsTable.slice(0, FRA.yearsTable.length - 1)
 const categories = ['total', 'female', 'male']
-const variableMappings = {
+const variableMappings: any = {
   doctoralDegree: SectionSpec.VARIABLES.doctoral_degree,
   mastersDegree: SectionSpec.VARIABLES.masters_degree,
   bachelorsDegree: SectionSpec.VARIABLES.bachelors_degree,
@@ -58,7 +57,6 @@ const tableSpec = SectionSpec.newTableSpec({
     ...['doctoralDegree', 'mastersDegree', 'bachelorsDegree', 'technicianCertificate', 'total'].map((variable) =>
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.labelKey]: `graduationOfStudents.${variable}`,
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         [SectionSpec.KEYS_ROW.variableExport]: variableMappings[variable],
         [SectionSpec.KEYS_ROW.cols]: getDataCols(),
       })

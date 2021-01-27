@@ -1,6 +1,6 @@
-const path = require('path')
+import * as path from 'path'
 
-const nodeExternals = require('webpack-node-externals')
+import * as nodeExternals from 'webpack-node-externals'
 
 require('regenerator-runtime/runtime')
 
@@ -38,4 +38,4 @@ const webpackTestConfig = {
   },
 }
 
-module.exports = webpackTestConfig
+export default webpackTestConfig

@@ -1,7 +1,6 @@
 import './tableOfContent.less'
 import React from 'react'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as FRA from '@common/assessment/fra'
+import FRA from '@common/assessment/fra'
 import useI18n from '@webapp/components/hooks/useI18n'
 
 type Props = {

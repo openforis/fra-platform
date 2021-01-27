@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom'
 import Icon from '@webapp/components/icon'
 import Tooltip from '@webapp/components/tooltip'
 import { useCountryIso, useI18n, usePrintView, useUserInfo } from '@webapp/components/hooks'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as FRA from '@common/assessment/fra'
+import FRA from '@common/assessment/fra'
 
 type Props = {
   datum: any
@@ -24,10 +23,8 @@ const CellOdpHeader = (props: Props) => {
   return (
     <th className={className}>
       {odp && !printView ? (
-        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ children: Element; text: any; }' is not as... Remove this comment to see the full error message
         <Tooltip text={(i18n as any).t('nationalDataPoint.clickOnNDP')}>
           <Link className="link" to={BasePaths.getOdpLink(countryIso, FRA.type, sectionName, odpId)}>
-            {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ className: string; name: string; }' is not... Remove this comment to see the full error message */}
             {draft && userInfo && <Icon className="icon-sub icon-margin-right" name="pencil" />}
             {label}
           </Link>

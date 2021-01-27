@@ -1,10 +1,7 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'assert'.
-const { assert } = require('chai')
-const originalDataPoint = require('../../webapp/app/assessment/fra/sections/originalDataPoint/originalDataPoint')
+import { assert } from 'chai'
+import * as originalDataPoint from '../../webapp/app/assessment/fra/sections/originalDataPoint/originalDataPoint'
 
-// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
 describe('originalDataPoint', () => {
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('calculates correct total forest amount', () => {
     const odpWithNationalClasses = {
       nationalClasses: [
@@ -18,7 +15,6 @@ describe('originalDataPoint', () => {
   })
 
   // Temporarily disabled, ODP code should no longer round to integer
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'xit'.
   xit('rounds decimals to nearest integer', () => {
     const odpWithNationalClasses = {
       nationalClasses: [
@@ -43,11 +39,9 @@ describe('originalDataPoint', () => {
     assert.equal(-1, String(originalDataPoint.classTotalArea(odpWithNationalClasses2, 'forestPercent')).indexOf('.'))
   })
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('allows copying values only for empty odp', () => {
     assert.equal(true, originalDataPoint.allowCopyingOfPreviousValues({ naionalClasses: [{ className: '' }] }))
   })
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('disallows copying of values if odp has named national classes', () => {
     assert.equal(
       true,

@@ -1,6 +1,5 @@
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as PanEuropean from '@common/assessment/panEuropean'
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import PanEuropean from '@common/assessment/panEuropean'
+import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
 
 const section = PanEuropean.sections['6'].children['69']
 const tj = 'tj'
@@ -22,7 +21,7 @@ const variables = [
   'energy_from_post_consumer_recovered_wood',
   'energy_from_unknown_unspecified_sources',
 ]
-const variablesMappings = {
+const variablesMappings: { [key: string]: any } = {
   total_primary_energy_supply: (SectionSpec.VARIABLES as any).total_primary_energy_supply,
   total_renewable_energy_supply: (SectionSpec.VARIABLES as any).total_renewable_energy_supply,
   total_energy_supply_from_wood: (SectionSpec.VARIABLES as any).total_energy_supply_from_wood,
@@ -42,7 +41,6 @@ const mainCategories = variables.slice(0, 3)
 const subcategories = variables.filter((item) => item.includes('of_which'))
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_6_9,
-  // @ts-expect-error ts-migrate(2550) FIXME: Property 'flatMap' does not exist on type 'any[]'.... Remove this comment to see the full error message
   [SectionSpec.KEYS_TABLE.columnsExport]: years.flatMap((year: any) =>
     categories.map((category) => `_${year}_${category}`)
   ),
@@ -71,13 +69,10 @@ const tableSpec = SectionSpec.newTableSpec({
             })
           )
         )
-        // @ts-expect-error ts-migrate(2550) FIXME: Property 'flat' does not exist on type 'any[][]'. ... Remove this comment to see the full error message
         .flat(),
     }),
-    // @ts-expect-error ts-migrate(2550) FIXME: Property 'flatMap' does not exist on type 'string[... Remove this comment to see the full error message
     ...variables.flatMap((variable: any) =>
       SectionSpec.newRowData({
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         [SectionSpec.KEYS_ROW.variableExport]: variablesMappings[variable],
         [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.totalEnergySupplyFromWood.${variable}`,
         [SectionSpec.KEYS_ROW.mainCategory]: !!mainCategories.includes(variable),
@@ -98,7 +93,6 @@ const tableSpec = SectionSpec.newTableSpec({
               }
             })
           )
-          // @ts-expect-error ts-migrate(2550) FIXME: Property 'flat' does not exist on type 'any[][]'. ... Remove this comment to see the full error message
           .flat(),
       })
     ),

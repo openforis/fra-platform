@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   tableName: 'total_area_with_designated_management_objective',
   section: 'designatedManagementObjective',
   rows: {

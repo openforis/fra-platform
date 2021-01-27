@@ -1,6 +1,5 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 import VerticallyGrowingTextField from '@webapp/components/verticallyGrowingTextField'
 import MultiSelect from '@webapp/components/multiSelect'
@@ -28,15 +27,13 @@ const DataSources = (props: Props) => {
             <tbody>
               <tr>
                 {printView && (
-                  // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number'.
-                  <th className="fra-table__header-cell odp__year-column" rowSpan="3">
+                  <th className="fra-table__header-cell odp__year-column" rowSpan={3}>
                     {odp.year}
                   </th>
                 )}
                 <th className="fra-table__header-cell-left">{(i18n as any).t('nationalDataPoint.references')}</th>
                 <td className="fra-table__cell-left odp__data-source-input-column">
                   <VerticallyGrowingTextField
-                    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                     value={odp.dataSourceReferences || ''}
                     onChange={(event: any) => {
                       dispatch(saveDraft(countryIso, R.assoc('dataSourceReferences', event.target.value, odp)))
@@ -48,7 +45,6 @@ const DataSources = (props: Props) => {
                   {displayReviewIndicator ? (
                     <div className="odp__review-indicator-row-anchor">
                       <ReviewIndicator
-                        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ section: string; title: any; target: any[]... Remove this comment to see the full error message
                         section="odp"
                         title={(i18n as any).t('nationalDataPoint.dataSources')}
                         target={[odp.odpId, 'dataSourceReferences']}
@@ -63,7 +59,6 @@ const DataSources = (props: Props) => {
                 <th className="fra-table__header-cell-left">{(i18n as any).t('nationalDataPoint.methodsUsed')}</th>
                 <td className="fra-table__cell-left odp__data-source-input-column">
                   <MultiSelect
-                    // @ts-expect-error ts-migrate(2322) FIXME: Type '{ i18n: unknown; localizationPrefix: string;... Remove this comment to see the full error message
                     i18n={i18n}
                     localizationPrefix="nationalDataPoint.dataSourceMethodsOptions"
                     values={odp.dataSourceMethods}
@@ -84,7 +79,6 @@ const DataSources = (props: Props) => {
                   {displayReviewIndicator ? (
                     <div className="odp__review-indicator-row-anchor">
                       <ReviewIndicator
-                        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ section: string; title: any; target: any[]... Remove this comment to see the full error message
                         section="odp"
                         title={(i18n as any).t('nationalDataPoint.dataSources')}
                         target={[odp.odpId, 'dataSourceMethods']}
@@ -101,7 +95,6 @@ const DataSources = (props: Props) => {
                 </th>
                 <td className="fra-table__cell-left odp__data-source-input-column">
                   <VerticallyGrowingTextField
-                    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                     value={odp.dataSourceAdditionalComments || ''}
                     onChange={(event: any) => {
                       dispatch(saveDraft(countryIso, R.assoc('dataSourceAdditionalComments', event.target.value, odp)))
@@ -113,7 +106,6 @@ const DataSources = (props: Props) => {
                   {displayReviewIndicator ? (
                     <div className="odp__review-indicator-row-anchor">
                       <ReviewIndicator
-                        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ section: string; title: any; target: any[]... Remove this comment to see the full error message
                         section="odp"
                         title={(i18n as any).t('nationalDataPoint.dataSources')}
                         target={[odp.odpId, 'dataSourceAdditionalComments']}

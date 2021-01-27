@@ -1,4 +1,4 @@
-module.exports.readDescriptions = (client: any, countryIso: any, section: any, name: any, schemaName = 'public') => {
+export const readDescriptions = (client: any, countryIso: any, section: any, name: any, schemaName = 'public') => {
   const tableName = `${schemaName}.descriptions`
   return client
     .query(`SELECT content FROM ${tableName} WHERE country_iso = $1 AND section = $2 AND name = $3`, [
@@ -38,7 +38,7 @@ const updateDescriptions = (client: any, countryIso: any, section: any, name: an
     [countryIso, section, name, content]
   )
 
-module.exports.persistDescriptions = (client: any, countryIso: any, section: any, name: any, content: any) =>
+export const persistDescriptions = (client: any, countryIso: any, section: any, name: any, content: any) =>
   isEmptyDescriptions(client, countryIso, section, name).then((isEmpty: any) =>
     isEmpty
       ? insertDescriptions(client, countryIso, section, name, content)

@@ -1,25 +1,19 @@
 import React from 'react'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as Fra from '@common/assessment/fra'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
+import FRA from '@common/assessment/fra'
 import { Area, Country } from '@common/country'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { getRoleLabelKey, noRole } from '@common/countryRole'
 import CountryListRow from '@webapp/components/countrySelection/components/countryListRow'
 import useI18n from '@webapp/components/hooks/useI18n'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 import { checkMatch } from '@webapp/components/countrySelection/utils/checkMatch'
 
-type OwnProps = {
+type Props = {
   role: string
   query?: string
   roleCountries: any[]
 }
-// @ts-expect-error ts-migrate(2456) FIXME: Type alias 'Props' circularly references itself.
-type Props = OwnProps & typeof CountryListRoleSection.defaultProps
-// @ts-expect-error ts-migrate(7022) FIXME: 'CountryListRoleSection' implicitly has type 'any'... Remove this comment to see the full error message
+
 const CountryListRoleSection = (props: Props) => {
   const { role, roleCountries, query } = props
   const i18n = useI18n()
@@ -29,7 +23,7 @@ const CountryListRoleSection = (props: Props) => {
   const countryListNameMatch = (country: any) =>
     checkMatch(Area.getListName(Country.getCountryIso(country), i18n), query)
   const countryRegionCodeMatch = (country: any) =>
-    Country.getRegionCodes(country)
+    (Country.getRegionCodes(country) as any[])
       .map((regionCode: any) => checkMatch((i18n as any).t(`area.${regionCode}.listName`), query))
       .some(Boolean)
   const renderRow = (country: any) =>
@@ -49,7 +43,7 @@ const CountryListRoleSection = (props: Props) => {
           renderRow(country) && (
             <CountryListRow
               key={Country.getCountryIso(country)}
-              assessmentType={Fra.type}
+              assessmentType={FRA.type}
               role={role}
               country={country}
             />

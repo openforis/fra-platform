@@ -1,4 +1,5 @@
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'CKEDITOR'.
+// @ts-ignore
+// TODO: Fix CKEDITOR
 CKEDITOR.plugins.addExternal('autogrow', '/ckeditor/autogrow/', 'plugin.js')
 
 const ckEditorConfig = {

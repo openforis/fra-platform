@@ -1,8 +1,6 @@
 import './countrySelection.less'
 import React, { useEffect, useRef, useState } from 'react'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { getRoleForCountryLabelKey } from '@common/countryRole'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { Area } from '@common/country'
 import { useCountryIso, useI18n, useNavigationVisible, useUserInfo } from '@webapp/components/hooks'
 import Icon from '@webapp/components/icon'
@@ -11,8 +9,7 @@ import CountryList from './countryList'
 import ToggleNavigationControl from './toggleNavigationControl'
 import AutoSaveStatusText from './autoSaveStatusText'
 
-// @ts-expect-error ts-migrate(7024) FIXME: Function implicitly has return type 'any' because ... Remove this comment to see the full error message
-const findElementRoot = (el: any) => {
+const findElementRoot = (el: any): any => {
   if (el.parentElement === null) return el
   return findElementRoot(el.parentElement)
 }

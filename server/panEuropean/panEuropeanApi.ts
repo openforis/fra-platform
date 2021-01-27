@@ -1,30 +1,22 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
-const db = require('../db/db')
+import * as R from 'ramda'
+import * as db from '../db/db'
 
-const {
+import {
   persistPanEuropeanQuantitativeQuestionnaire,
   getPanEuropeanQuantitativeQuestionnaire,
   deletePanEuropeanQuantitativeQuestionnaire,
-} = require('./panEuropeanRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getCountry... Remove this comment to see the full error message
-const { getCountry } = require('../country/countryRepository')
+} from './panEuropeanRepository'
+import { getCountry } from '../country/countryRepository'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'sendErr'.
-const { sendErr } = require('../utils/requestUtils')
+import { sendErr } from '../utils/requestUtils'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fileTypes'... Remove this comment to see the full error message
-const { fileTypes, downloadFile } = require('../fileRepository/fileRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Country'.
-const Country = require('../../common/country/country')
+import { fileTypes, downloadFile } from '../fileRepository/fileRepository'
+import * as Country from '../../common/country/country'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Auth'.
-const Auth = require('../auth/authApiMiddleware')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'VersionSer... Remove this comment to see the full error message
-const VersionService = require('../versioning/service')
+import * as Auth from '../auth/authApiMiddleware'
+import * as VersionService from '../versioning/service'
 
-module.exports.init = (app: any) => {
+export const init = (app: any) => {
   const isPanEuropeanCountry = async (countryIso: any) => {
     const country = await getCountry(countryIso)
     return Country.isPanEuropean(country)

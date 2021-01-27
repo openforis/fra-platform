@@ -1,7 +1,6 @@
 import { isAfter } from 'date-fns'
 import { getRelativeDate } from '@webapp/utils/relativeDate'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as FRAVersion from '@common/versioning/fraVersion'
+import FRAVersion from '@common/versioning/fraVersion'
 
 export const formatDate = (_date: any, i18n: any) => {
   return getRelativeDate(_date, i18n)
@@ -35,7 +34,7 @@ const getNonPendingVersions = (versions: any) => {
 }
 
 // https://helloacm.com/the-javascript-function-to-compare-version-number-strings/
-export const compareVersion = (v1: any, v2: any) => {
+export const compareVersion = (v1: any, v2: any): any => {
   if (typeof v1 !== 'string') return false
   if (typeof v2 !== 'string') return false
   v1 = v1.split('.')
@@ -50,14 +49,13 @@ export const compareVersion = (v1: any, v2: any) => {
   return v1.length == v2.length ? 0 : v1.length < v2.length ? -1 : 1
 }
 
-const validatorFunctions = {
+const validatorFunctions: any = {
   // Version number should match major.minor.patch -style
   versionNumber: ({ versionNumber }: any) => /\d+\.\d+\.\d+/.test(versionNumber),
   // Check given date is after today
   date: ({ publishedAt }: any) => isAfter(new Date(publishedAt), new Date()),
 }
 
-// @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
 export const validField = (newVersionForm: any, field: any) => validatorFunctions[field](newVersionForm)
 
 export const versionIsGreater = (versions: any, versionNumber: any) => {
@@ -69,7 +67,6 @@ export const versionIsGreater = (versions: any, versionNumber: any) => {
 
   // Sort mutates, make clone
   const _versions = [...versions]
-  // @ts-expect-error ts-migrate(2322) FIXME: Type 'number | boolean' is not assignable to type ... Remove this comment to see the full error message
   _versions.sort((a, b) => compareVersion(FRAVersion.getVersionNumber(b), FRAVersion.getVersionNumber(a)))
   return compareVersion(versionNumber, FRAVersion.getVersionNumber(_versions[0])) > 0
 }

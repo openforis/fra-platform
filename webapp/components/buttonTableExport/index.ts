@@ -1,3 +1,1 @@
-import ButtonTableExport from './buttonTableExport'
-
-export default ButtonTableExport
+export { default } from './buttonTableExport'

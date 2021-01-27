@@ -1,6 +1,4 @@
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'd3'.... Remove this comment to see the full error message
 import * as d3 from 'd3'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
 export const styles = {
@@ -15,14 +13,18 @@ export const getChartYears = (data: any) => {
     R.map((o: any) => d3.min(o, (d: any) => d.year)),
     R.values,
     (o: any) => d3.min(o, (d: any) => d),
+    // @ts-ignore
     R.subtract(R.__, 1)
+    // @ts-ignore
   )(data)
 
   const max = R.pipe(
     R.map((o: any) => d3.max(o, (d: any) => d.year)),
     R.values,
     (o: any) => d3.max(o, (d: any) => d),
+    // @ts-ignore
     R.add(R.__, 1)
+    // @ts-ignore
   )(data)
 
   return { min, max }

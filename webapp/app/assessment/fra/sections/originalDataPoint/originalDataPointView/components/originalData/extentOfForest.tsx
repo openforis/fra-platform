@@ -1,5 +1,4 @@
 import React from 'react'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as NumberFormat from '@common/numberFormat'
 import DefinitionLink from '@webapp/components/definitionLink'
 import { useI18n, usePrintView } from '@webapp/components/hooks'
@@ -39,12 +38,10 @@ const ExtentOfForest = (props: Props) => {
                     {odp.year}
                   </th>
                 )}
-                {/* @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number'. */}
-                <th className="fra-table__header-cell fra-table__divider" colSpan="2">
+                <th className="fra-table__header-cell fra-table__divider" colSpan={2}>
                   {(i18n as any).t('nationalDataPoint.nationalClasses')}
                 </th>
-                {/* @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number'. */}
-                <th className="fra-table__header-cell" colSpan="3">
+                <th className="fra-table__header-cell" colSpan={3}>
                   {(i18n as any).t('nationalDataPoint.fraClasses')}
                 </th>
               </tr>

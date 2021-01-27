@@ -1,18 +1,13 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
-const db = require('../db/db')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'repository... Remove this comment to see the full error message
-const repository = require('./traditionalTableRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'sendErr'.
-const { sendErr, sendOk } = require('../utils/requestUtils')
+import * as db from '../db/db'
+import * as repository from './traditionalTableRepository'
+import { sendErr, sendOk } from '../utils/requestUtils'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Auth'.
-const Auth = require('../auth/authApiMiddleware')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'VersionSer... Remove this comment to see the full error message
-const VersionService = require('../versioning/service')
+import * as Auth from '../auth/authApiMiddleware'
+import * as VersionService from '../versioning/service'
 
-const Assessment = require('../../common/assessment/assessment')
+import * as Assessment from '../../common/assessment/assessment'
 
-module.exports.init = (app: any) => {
+export const init = (app: any) => {
   app.post(
     '/traditionalTable/:countryIso/:tableSpecName',
     Auth.requireCountryEditPermission,

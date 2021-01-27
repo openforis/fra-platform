@@ -1,20 +1,12 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'createI18n... Remove this comment to see the full error message
-const { createI18nPromise } = require('../../common/i18n/i18nFactory')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'sendMail'.
-const { sendMail } = require('../email/sendMail')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getCountry... Remove this comment to see the full error message
-const { getCountry } = require('../country/countryRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fetchCount... Remove this comment to see the full error message
-const { fetchCountryUsers, fetchAdministrators } = require('../user/userRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'nationalCo... Remove this comment to see the full error message
-const { nationalCorrespondent, reviewer } = require('../../common/countryRole')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'assessment... Remove this comment to see the full error message
-const { assessmentStatus } = require('../../common/assessment')
+import * as R from 'ramda'
+import { createI18nPromise } from '../../common/i18n/i18nFactory'
+import { sendMail } from '../email/sendMail'
+import { getCountry } from '../country/countryRepository'
+import { fetchCountryUsers, fetchAdministrators } from '../user/userRepository'
+import { nationalCorrespondent, reviewer } from '../../common/countryRole'
+import { assessmentStatus } from '../../common/assessment'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'createMail... Remove this comment to see the full error message
-const createMail = async (
+export const createMail = async (
   countryIso: any,
   assessment: any,
   user: any,
@@ -40,12 +32,13 @@ const createMail = async (
   }
 }
 
-const getCountryUsers = async (countryIso: any, roles: any) => {
+export const getCountryUsers = async (countryIso: any, roles: any) => {
   const countryUsers = await fetchCountryUsers(countryIso)
+  // @ts-ignore
   return R.filter((user: any) => R.contains(user.role, roles), countryUsers)
 }
 
-const getRecipients = async (countryIso: any, newStatus: any) => {
+export const getRecipients = async (countryIso: any, newStatus: any) => {
   switch (newStatus) {
     case assessmentStatus.editing:
       return await getCountryUsers(countryIso, [nationalCorrespondent.role])
@@ -60,8 +53,7 @@ const getRecipients = async (countryIso: any, newStatus: any) => {
   }
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'sendAssess... Remove this comment to see the full error message
-const sendAssessmentNotification = async (countryIso: any, assessment: any, loggedInUser: any, serverUrl: any) => {
+export const sendAssessmentNotification = async (countryIso: any, assessment: any, loggedInUser: any, serverUrl: any) => {
   const i18n = await createI18nPromise('en')
   const recipients = await getRecipients(countryIso, assessment.status)
 
@@ -71,4 +63,3 @@ const sendAssessmentNotification = async (countryIso: any, assessment: any, logg
   }
 }
 
-module.exports.sendAssessmentNotification = sendAssessmentNotification

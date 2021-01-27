@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import { roles } from '@common/countryRole'
+import { getRoleLabelKey, roles2 } from '@common/countryRole'
 
 import TextInput from '@webapp/components/textInput'
 import { validField } from '../userManagement'
@@ -21,7 +19,6 @@ const UserTextFieldCol = ({
   <td className={`user-list__cell ${validate ? '' : 'error'} ${editing ? 'editing' : ''}`}>
     {editing ? (
       <TextInput
-        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ placeholder: any; value: any; onChange: (e... Remove this comment to see the full error message
         placeholder={i18n.t(`userManagement.${field}`)}
         value={user[field]}
         onChange={(e: any) => updateUser(countryIso, user.id, field, e.target.value)}
@@ -37,13 +34,14 @@ const UserTextFieldCol = ({
 
 const roleOptions = (allowedRoles: any, i18n: any) =>
   R.pipe(
+    // @ts-ignore
     R.filter((role: any) => R.contains(role.role, allowedRoles)),
     R.map((role: any) => (
       <option key={role.role} value={role.role}>
         {i18n.t(role.labelKey)}
       </option>
     ))
-  )(roles)
+  )(roles2)
 
 const UserRoleSelectCol = ({
   countryIso,

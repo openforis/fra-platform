@@ -1,6 +1,5 @@
 import { getRequestParam } from '@webapp/utils/urlUtils'
 import axios from 'axios'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { createI18nPromise } from '@common/i18n/i18nFactory'
 import { applicationError } from '@webapp/components/error/actions'
 

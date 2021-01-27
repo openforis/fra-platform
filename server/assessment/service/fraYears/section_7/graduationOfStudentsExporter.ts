@@ -1,19 +1,15 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
+import * as R from 'ramda'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Traditiona... Remove this comment to see the full error message
-const TraditionalTableExporter = require('../../exporter/traditionalTableExporter')
+import TraditionalTableExporter from '../../exporter/traditionalTableExporter'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'yearsIdx'.
-const yearsIdx = {
+const yearsIdx: { [key: string]: any } = {
   '1990': 0,
   '2000': 3,
   '2010': 6,
   '2015': 9,
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fieldsIdx'... Remove this comment to see the full error message
-const fieldsIdx = {
+const fieldsIdx: { [key: string]: any } = {
   phd_tot: 0,
   phd_fem: 0,
   phd_male: 0,
@@ -31,7 +27,6 @@ const fieldsIdx = {
   total_male: 4,
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Graduation... Remove this comment to see the full error message
 class GraduationOfStudentsExporter extends TraditionalTableExporter {
   constructor() {
     super(
@@ -58,10 +53,9 @@ class GraduationOfStudentsExporter extends TraditionalTableExporter {
   }
 
   parseResultRow(result: any, yearIdx: any, year: any) {
-    const resultRow = {}
+    const resultRow: { [key: string]: any } = {}
 
-    this.fields.forEach((field: any, fieldIdx: any) => {
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+    this.fields.forEach((field: string, fieldIdx: any) => {
       const yearIdxData = yearsIdx[year]
       const yearIdxField = R.endsWith('fem', field)
         ? yearIdxData + 1
@@ -69,10 +63,8 @@ class GraduationOfStudentsExporter extends TraditionalTableExporter {
         ? yearIdxData + 2
         : yearIdxData
 
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       const fieldIdxData = fieldsIdx[field]
 
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       resultRow[field] = R.path([fieldIdxData, yearIdxField], result)
     })
 
@@ -80,7 +72,6 @@ class GraduationOfStudentsExporter extends TraditionalTableExporter {
   }
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'instance'.
 const instance = new GraduationOfStudentsExporter()
 
-module.exports = instance
+export default instance

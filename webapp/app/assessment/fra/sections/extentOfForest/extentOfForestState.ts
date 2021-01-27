@@ -1,11 +1,7 @@
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as FRA from '@common/assessment/fra'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as FraUtils from '@common/fraUtils'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
+import FRA from '@common/assessment/fra'
+import FraUtils from '@common/fraUtils'
 import * as NumberUtils from '@common/bignumberUtils'
 
 import * as AppState from '@webapp/store/app/state'
@@ -23,8 +19,7 @@ export const keys = {
 
 const section = FRA.sections['1'].children.a
 
-// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'defaultValue' implicitly has an 'any' t... Remove this comment to see the full error message
-const _getSectionProp = (propName: any, defaultValue = null) =>
+const _getSectionProp = (propName: any, defaultValue: any = null) =>
   AssessmentState.getSectionProp(FRA.type, section.name, propName, defaultValue)
 
 export const getFra = AssessmentState.getFra(FRA.type, section.name, section.tables.extentOfForest)
@@ -61,7 +56,7 @@ export const getOtherWoodedLand = (datum: any) => () => R.propOr(null, 'otherWoo
 export const getOtherLand = (datum: any) => (state: any) => {
   const forestArea = getForest(datum)()
   const otherWoodedLand = getOtherWoodedLand(datum)()
-  const faoStatArea = getFaoStatArea(datum)(state)
+  const faoStatArea: any = getFaoStatArea(datum)(state)
 
   return NumberUtils.sub(faoStatArea, NumberUtils.sum([forestArea, otherWoodedLand]))
 }

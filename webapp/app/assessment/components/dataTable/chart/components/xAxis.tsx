@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'd3'.... Remove this comment to see the full error message
 import * as d3 from 'd3'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 import { getChartYears } from '../chart'
+type Props = any
 
 class XAxis extends Component {
+  props: Props
+  refs: any
+
   componentDidMount() {
     this.renderAxis(this.props)
   }

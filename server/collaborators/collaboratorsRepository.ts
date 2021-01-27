@@ -1,16 +1,12 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'camelize'.
-const camelize = require('camelize')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
-const db = require('../db/db')
+import * as R from 'ramda'
+// @ts-ignore
+import * as camelize from 'camelize'
+import * as db from '../db/db'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'collaborat... Remove this comment to see the full error message
-const { collaborator } = require('../../common/countryRole')
+import { collaborator } from '../../common/countryRole'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fetchColla... Remove this comment to see the full error message
-const fetchCollaboratorCountryAccessTables = async (countryIso: any, collaboratorId: any) => {
-  const selectRes = await db.query(
+export const fetchCollaboratorCountryAccessTables = async (countryIso: any, collaboratorId: any) => {
+  const selectRes = await db.pool.query(
     `
     SELECT
       u.id as user_id,
@@ -49,11 +45,11 @@ const fetchCollaboratorCountryAccessTables = async (countryIso: any, collaborato
     R.head,
     R.prop('tables'),
     R.defaultTo([{ tableNo: 'all', section: 'all', label: 'contactPersons.all' }])
+    // @ts-ignore
   )(selectRes.rows)
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'persistCol... Remove this comment to see the full error message
-const persistCollaboratorCountryAccess = async (
+export const persistCollaboratorCountryAccess = async (
   client: any,
   user: any,
   countryIso: any,
@@ -91,7 +87,7 @@ const persistCollaboratorCountryAccess = async (
   }
 }
 
-module.exports = {
+export default {
   fetchCollaboratorCountryAccessTables,
   persistCollaboratorCountryAccess,
 }

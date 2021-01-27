@@ -17,7 +17,6 @@ const ForestCharacteristics = (props: Props) => {
       <h2 className="headline no-print">{(i18n as any).t(`${sectionName}.${sectionName}`)}</h2>
 
       {hasOdps && printView && !printOnlyTablesView && (
-        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ i18n: unknown; section: string; }' is not ... Remove this comment to see the full error message
         <NationalDataPointsPrintView i18n={i18n} section={sectionName} />
       )}
     </>

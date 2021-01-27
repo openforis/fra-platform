@@ -1,14 +1,12 @@
 import React, { useRef, useState } from 'react'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { isTypePanEuropean } from '@common/assessment/assessment'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { Country } from '@common/country'
 import { useI18n, useOnUpdate } from '@webapp/components/hooks'
 import ButtonCheckBox from '@webapp/components/buttonCheckBox'
 import { useAssessmentType } from '@webapp/store/app'
 
 type Props = {
-  countries: string[]
+  countries: any
   selectionCountries: string[]
   setSelectionCountries: (...args: any[]) => any
 }
@@ -33,7 +31,7 @@ const CountrySelect = (props: Props) => {
       setCountriesFiltered(countries)
     } else {
       setCountriesFiltered(
-        countries.filter((country) => {
+        countries.filter((country: any) => {
           return checkMatch(country, value)
         })
       )
@@ -61,7 +59,7 @@ const CountrySelect = (props: Props) => {
           if (selectionCountries.length > 0) setSelectionCountries([])
           else
             setSelectionCountries(
-              countries.map((country) => ({
+              countries.map((country: any) => ({
                 label: `area.${Country.getCountryIso(country)}.listName`,
                 param: Country.getCountryIso(country),
                 deskStudy: isDeskStudy(country),
@@ -73,9 +71,9 @@ const CountrySelect = (props: Props) => {
       <div className="divider" />
 
       <div className="export__form-section-variables">
-        {countriesFiltered.map((country) => {
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'param' does not exist on type 'String'.
-          const selected = selectionCountries.filter(({ param }) => param === Country.getCountryIso(country)).length > 0
+        {countriesFiltered.map((country: any) => {
+          const selected =
+            selectionCountries.filter(({ param }: any) => param === Country.getCountryIso(country)).length > 0
           return (
             <ButtonCheckBox
               key={Country.getCountryIso(country)}
@@ -84,8 +82,8 @@ const CountrySelect = (props: Props) => {
               suffix={getDeskStudyValue(country)}
               onClick={() => {
                 const selectionCountriesUpdate = selected
-                  ? // @ts-expect-error ts-migrate(2339) FIXME: Property 'param' does not exist on type 'String'.
-                    selectionCountries.filter(({ param }) => param !== Country.getCountryIso(country))
+                  // TODO : FIX THIS
+                  ? selectionCountries.filter(({ param }: any) => param !== Country.getCountryIso(country))
                   : [
                       ...selectionCountries,
                       {

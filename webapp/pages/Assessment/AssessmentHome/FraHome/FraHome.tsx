@@ -1,9 +1,7 @@
 import React from 'react'
 import { Link, matchPath, NavLink, Redirect, Route, Switch, useLocation } from 'react-router-dom'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { Area } from '@common/country'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as FRA from '@common/assessment/fra'
+import FRA from '@common/assessment/fra'
 import * as BasePaths from '@webapp/main/basePaths'
 import { useCountryIso, useI18n, useUserInfo } from '@webapp/components/hooks'
 import Icon from '@webapp/components/icon'
@@ -35,12 +33,8 @@ const FraHome = () => {
               className="btn-s btn-primary landing__btn-download"
               to={`/api/fileRepository/statisticalFactsheets/${countryIso}/${(i18n as any).language}`}
               target="_top"
-              // @ts-expect-error ts-migrate(2322) FIXME: Type '{ children: Element[]; className: string; to... Remove this comment to see the full error message
-              alt=""
             >
-              {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ name: string; className: string; }' is not... Remove this comment to see the full error message */}
               <Icon name="hit-down" className="icon-hit-down icon-white" />
-              {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ name: string; className: string; }' is not... Remove this comment to see the full error message */}
               <Icon name="icon-table2" className="icon-no-margin icon-white" />
             </Link>
           )}
@@ -67,7 +61,7 @@ const FraHome = () => {
           <Route exact path={BasePaths.getAssessmentHomeLink(countryIso, FRA.type)}>
             <Redirect to={overviewPath} />
           </Route>
-          {sections.map(({ name: section, component }) => (
+          {sections.map(({ name: section, component }: any) => (
             <Route
               key={section}
               path={BasePaths.getAssessmentHomeSectionLink(':countryIso', FRA.type, section)}

@@ -1,6 +1,5 @@
 import './style.less'
 
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 import React, { memo } from 'react'
 
@@ -31,17 +30,14 @@ const ChartContainer = (props: ChartContainerProps) => {
   return (
     <div>
       <svg width={wrapperWidth} height={height}>
-        {/* @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call. */}
         <Legend data={data} trends={trends} wrapperWidth={wrapperWidth} />
-        {/* @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call. */}
         <YAxis data={data} left={left} yScale={yScale} wrapperWidth={wrapperWidth} />
-        {/* @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call. */}
         <XAxis data={data} bottom={bottom} height={height} xScale={xScale} />
         {/* odp ticks must be positioned behind all data points */}
         {trends.map((t) => (
           <OdpTicks
             key={`odp-ticks-${t.name}`}
-            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+            // @ts-ignore
             className={`chart__odp-ticks-${t.name}`}
             xScale={xScale}
             yScale={yScale}
@@ -58,7 +54,6 @@ const ChartContainer = (props: ChartContainerProps) => {
             yScale={yScale}
           />
         ))}
-        {/* @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call. */}
         {!printView && <NoDataPlaceholder data={data} i18n={i18n} wrapperWidth={wrapperWidth} />}
       </svg>
     </div>

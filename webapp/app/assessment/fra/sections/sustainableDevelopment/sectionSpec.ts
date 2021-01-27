@@ -1,7 +1,6 @@
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as FRA from '@common/assessment/fra'
+import FRA from '@common/assessment/fra'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
 
 import * as SustainableDevelopmentState from '@webapp/app/assessment/fra/sections/sustainableDevelopment/sustainableDevelopmentState'
 
@@ -32,7 +31,8 @@ const newTableSDGIndicator = (
   labelHeader1Params = {}
 ) =>
   SectionSpec.newTableSpec({
-    // @ts-expect-error ts-migrate(7011) FIXME: Function expression, which lacks return-type annot... Remove this comment to see the full error message
+    // @ts-ignore
+    // TODO: fix
     [SectionSpec.KEYS_TABLE.getSectionData]: () => () => [],
     [SectionSpec.KEYS_TABLE.rows]: [
       SectionSpec.newRowHeader({

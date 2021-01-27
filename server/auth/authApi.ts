@@ -1,24 +1,15 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'passport'.
-const passport = require('passport')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
+import * as passport from 'passport'
+import * as R from 'ramda'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
-const db = require('../db/db')
-const authConfig = require('./authConfig')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'countryRep... Remove this comment to see the full error message
-const countryRepository = require('../country/countryRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'sendErr'.
-const { sendErr, serverUrl, appUri } = require('../utils/requestUtils')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'validEmail... Remove this comment to see the full error message
-const { validEmail, validPassword } = require('../../common/userUtils')
+import * as db from '../db/db'
+import * as authConfig from './authConfig'
+import * as countryRepository from '../country/countryRepository'
+import { sendErr, serverUrl, appUri } from '../utils/requestUtils'
+import { validEmail, validPassword } from '../../common/userUtils'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'findLocalU... Remove this comment to see the full error message
-const { findLocalUserByEmail, findUserById, fetchInvitation, findUserByEmail } = require('../user/userRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'createRese... Remove this comment to see the full error message
-const { createResetPassword, findResetPassword, changePassword } = require('../user/userResetPasswordRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'sendResetP... Remove this comment to see the full error message
-const { sendResetPasswordEmail } = require('./resetPassword')
+import { findLocalUserByEmail, findUserById, fetchInvitation, findUserByEmail } from '../user/userRepository'
+import { createResetPassword, findResetPassword, changePassword } from '../user/userResetPasswordRepository'
+import { sendResetPasswordEmail } from './resetPassword'
 
 const authenticationFailed = (req: any, res: any) => {
   req.logout()
@@ -46,7 +37,7 @@ const authenticationSuccessful = (req: any, user: any, next: any, res: any, done
   })
 }
 
-module.exports.init = (app: any) => {
+export const init = (app: any) => {
   authConfig.init(app)
 
   app.get('/auth/invitation/:uuid', async (req: any, res: any) => {
@@ -144,8 +135,7 @@ module.exports.init = (app: any) => {
 
   app.post('/auth/local/changePassword', async (req: any, res: any) => {
     try {
-      // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'error' implicitly has an 'any' type.
-      const sendResp = (error = null, message = null) => res.json({ error, message })
+      const sendResp = (error: any = null, message: any = null) => res.json({ error, message })
 
       const { uuid, userId, password, password2 } = req.body
       if (R.isEmpty(R.trim(password)) || R.isEmpty(R.trim(password2))) sendResp('Passwords cannot be empty')

@@ -1,9 +1,6 @@
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as Assessment from '@common/assessment/assessment'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { assessmentStatus } from '@common/assessment'
 
 export const stateKey = 'country'
@@ -50,4 +47,4 @@ export const assocStatusAssessmentChanging = (name: any) =>
 
 // status functions
 export const getAssessmentFra2020 = R.pipe(getAssessments, R.propOr({}, 'fra2020'))
-export const getCanEditData = R.pipe(getAssessmentFra2020, R.propOr(null, 'canEditData'))
+export const getCanEditData = (x: any) => R.pipe(getAssessmentFra2020, R.propOr(null, 'canEditData'))(x)

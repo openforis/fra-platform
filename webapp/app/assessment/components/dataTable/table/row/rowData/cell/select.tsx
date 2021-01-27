@@ -1,8 +1,7 @@
 import React from 'react'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
 
 import { useI18n } from '@webapp/components/hooks'
 
@@ -16,7 +15,7 @@ const getOptionLabel = (option: any, i18n: any, optionsLabelKeyPrefix: any) => {
 
 const optionNotSelected = { [SectionSpec.KEYS_COL.optionName]: 'notSelected', hidden: true }
 
-type OwnProps = {
+type Props = {
   col: any
   disabled: boolean
   datum?: any
@@ -24,10 +23,6 @@ type OwnProps = {
   onPaste: (...args: any[]) => any
 }
 
-// @ts-expect-error ts-migrate(2456) FIXME: Type alias 'Props' circularly references itself.
-type Props = OwnProps & typeof Select.defaultProps
-
-// @ts-expect-error ts-migrate(7022) FIXME: 'Select' implicitly has type 'any' because it does... Remove this comment to see the full error message
 const Select = (props: Props) => {
   const { onChange, onPaste, col, datum, disabled } = props
   const { options, optionsLabelKeyPrefix } = col

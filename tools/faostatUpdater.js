@@ -1,8 +1,8 @@
-const R = require('ramda')
-const csv = require('csv')
-const faoStat = require('./faoStat')
-const countryConfig = require('../server/country/countryConfig')
-const fs = require('fs')
+import * as R from 'ramda'
+import * as csv from 'csv'
+import * as faoStat from './faoStat'
+import * as countryConfig from '../server/country/countryConfig'
+import * as fs from 'fs'
 
 const exampleUsage =
   'node faostatUpdater.js exampleData/FAOSTAT_data_11-9-2017.csv /tmp/countryConfigWithUpdatedFaostat.json'

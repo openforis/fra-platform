@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   tableName: 'area_affected_by_fire',
   rows: {
     names: ['total_land_area_affected_by_fire', 'of_which_on_forest'],

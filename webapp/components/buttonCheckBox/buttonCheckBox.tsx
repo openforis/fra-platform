@@ -2,7 +2,7 @@ import './buttonCheckBox.less'
 import React from 'react'
 import { useI18n } from '@webapp/components/hooks'
 
-type OwnProps = {
+type Props = {
   onClick: (...args: any[]) => any
   label: any[] | string
   labelParam?: any
@@ -10,9 +10,7 @@ type OwnProps = {
   checked: boolean
   suffix?: string
 }
-// @ts-expect-error ts-migrate(2456) FIXME: Type alias 'Props' circularly references itself.
-type Props = OwnProps & typeof ButtonCheckBox.defaultProps
-// @ts-expect-error ts-migrate(7022) FIXME: 'ButtonCheckBox' implicitly has type 'any' because... Remove this comment to see the full error message
+
 const ButtonCheckBox = (props: Props) => {
   const i18n = useI18n()
   const { onClick, checked, className, labelParam, suffix } = props

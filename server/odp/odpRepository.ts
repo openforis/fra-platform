@@ -1,30 +1,23 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Promise'.
-const Promise = require('bluebird')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'camelize'.
-const camelize = require('camelize')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
-const db = require('../db/db')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'insertAudi... Remove this comment to see the full error message
-const { insertAudit } = require('../audit/auditRepository')
-const { deleteIssues } = require('../review/reviewRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'validateDa... Remove this comment to see the full error message
-const { validateDataPoint } = require('../../common/validateOriginalDataPoint')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'checkCount... Remove this comment to see the full error message
-const { checkCountryAccess } = require('../utils/accessControl')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'updateOrIn... Remove this comment to see the full error message
-const { updateOrInsertDraft } = require('./odpDraftRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'wipeClassD... Remove this comment to see the full error message
-const { wipeClassData, getOdpNationalClasses, wipeNationalClassIssues } = require('./odpClassRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'eofReducer... Remove this comment to see the full error message
-const { eofReducer, focReducer } = require('./odpRepositoryUtils')
+import * as R from 'ramda'
 
-const saveDraft = async (client: any, countryIso: any, user: any, draft: any) => {
+// @ts-ignore
+import * as camelize from 'camelize'
+import * as db from '../db/db'
+import { insertAudit } from '../audit/auditRepository'
+import { deleteIssues } from '../review/reviewRepository'
+import { validateDataPoint } from '../../common/validateOriginalDataPoint'
+import { checkCountryAccess } from '../utils/accessControl'
+import { updateOrInsertDraft } from './odpDraftRepository'
+import { wipeClassData, getOdpNationalClasses, wipeNationalClassIssues } from './odpClassRepository'
+import { eofReducer, focReducer } from './odpRepositoryUtils'
+
+import * as Promise from 'bluebird'
+
+export const saveDraft = async (client: any, countryIso: any, user: any, draft: any) => {
   const odpId = draft.odpId ? draft.odpId : await createOdp(client, countryIso, user)
   return await updateOrInsertDraft(client, user, odpId, countryIso, draft)
 }
-const deleteDraft = async (client: any, odpId: any, user: any) => {
+export const deleteDraft = async (client: any, odpId: any, user: any) => {
   const countryIso = await getAndCheckOdpCountryId(client, odpId, user)
   const actualRes = await client.query('SELECT actual_id FROM odp WHERE id = $1', [odpId])
   const actualId = actualRes.rows[0].actual_id
@@ -37,14 +30,14 @@ const deleteDraft = async (client: any, odpId: any, user: any) => {
 
   return await deleteOdp(client, odpId, user)
 }
-const createOdp = async (client: any, countryIso: any, user: any) => {
+export const createOdp = async (client: any, countryIso: any, user: any) => {
   await client.query('INSERT INTO odp (country_iso ) VALUES ($1)', [countryIso])
   const resSelectId = await client.query('SELECT last_value FROM odp_id_seq')
   const odpId = resSelectId.rows[0].last_value
   await insertAudit(client, user.id, 'createOdp', countryIso, 'odp', { odpId })
   return odpId
 }
-const markAsActual = async (client: any, odpId: any, user: any) => {
+export const markAsActual = async (client: any, odpId: any, user: any) => {
   const currentOdpPromise = client.query('SELECT actual_id, draft_id FROM odp WHERE id = $1', [odpId])
   const checkCountryAccessPromise = getAndCheckOdpCountryId(client, odpId, user)
   const updateOdpPromise = client.query(
@@ -71,13 +64,13 @@ const markAsActual = async (client: any, odpId: any, user: any) => {
   }
   return null
 }
-const getAndCheckOdpCountryId = async (client: any, odpId: any, user: any) => {
+export const getAndCheckOdpCountryId = async (client: any, odpId: any, user: any) => {
   const res = await client.query('SELECT country_iso FROM odp WHERE id = $1', [odpId])
   const countryIso = res.rows[0].country_iso
   checkCountryAccess(countryIso, user)
   return countryIso
 }
-const deleteOdp = async (client: any, odpId: any, user: any) => {
+export const deleteOdp = async (client: any, odpId: any, user: any) => {
   const countryIso = await getAndCheckOdpCountryId(client, odpId, user)
   const odpVersionId = await getOdpVersionId(client, odpId)
   await client.query('DELETE FROM odp WHERE id = $1', [odpId])
@@ -89,7 +82,7 @@ const deleteOdp = async (client: any, odpId: any, user: any) => {
     insertAudit(client, user.id, 'deleteOdp', countryIso, 'odp', { odpId }),
   ])
 }
-const getOdpVersionId = async (client: any, odpId: any, schemaName = 'public') => {
+export const getOdpVersionId = async (client: any, odpId: any, schemaName = 'public') => {
   const tableName = `${schemaName}.odp`
   const res = await client.query(
     `
@@ -104,12 +97,12 @@ const getOdpVersionId = async (client: any, odpId: any, schemaName = 'public') =
   )
   return res.rows[0].version_id
 }
-const getOdp = async (odpId: any, schemaName = 'public') => {
-  const versionId = await getOdpVersionId(db, odpId, schemaName)
+export const getOdp = async (odpId: any, schemaName = 'public') => {
+  const versionId = await getOdpVersionId(db.pool, odpId, schemaName)
   const tableNameOdp = `${schemaName}.odp`
   const tableNameOdpVersion = `${schemaName}.odp_version`
-  const nationalClasses = await getOdpNationalClasses(db, versionId, schemaName)
-  const resEditStatus = await db.query(
+  const nationalClasses = await getOdpNationalClasses(db.pool, versionId, schemaName)
+  const resEditStatus = await db.pool.query(
     `SELECT
           p.id AS odp_id,
           p.country_iso,
@@ -132,14 +125,14 @@ const getOdp = async (odpId: any, schemaName = 'public') => {
     [odpId, versionId]
   )
   const editStatus = camelize(resEditStatus.rows[0])
-  const dataSourceMethods = R.path(['dataSourceMethods', 'methods'], editStatus)
+  const dataSourceMethods = editStatus?.dataSourceMethods?.methods
   return { ...editStatus, nationalClasses, dataSourceMethods }
 }
-const readEofOdps = async (countryIso: any, schemaName = 'public') => {
+export const readEofOdps = async (countryIso: any, schemaName = 'public') => {
   const tableNameOdp = `${schemaName}.odp`
   const tableNameOdpVersion = `${schemaName}.odp_version`
   const tableNameOdpClass = `${schemaName}.odp_class`
-  const res = await db.query(
+  const res = await db.pool.query(
     `
     SELECT
       p.id as odp_id,
@@ -167,11 +160,11 @@ const readEofOdps = async (countryIso: any, schemaName = 'public') => {
   )
   return R.reduce(eofReducer, [], res.rows)
 }
-const readFocOdps = async (countryIso: any, schemaName = 'public') => {
+export const readFocOdps = async (countryIso: any, schemaName = 'public') => {
   const tableNameOdp = `${schemaName}.odp`
   const tableNameOdpVersion = `${schemaName}.odp_version`
   const tableNameOdpClass = `${schemaName}.odp_class`
-  const res = await db.query(
+  const res = await db.pool.query(
     `
     SELECT
       p.id as odp_id,
@@ -199,11 +192,13 @@ const readFocOdps = async (countryIso: any, schemaName = 'public') => {
     GROUP BY odp_id, v.year, v.data_source_methods, draft`,
     [countryIso]
   )
+  // TODO: Remove ramda
   return R.reduce(focReducer, [], res.rows)
 }
-const listOriginalDataPoints = async (countryIso: any, schemaName = 'public') => {
+
+export const listOriginalDataPoints = async (countryIso: any, schemaName = 'public') => {
   const tableName = `${schemaName}.odp`
-  const res = await db.query(
+  const res = await db.pool.query(
     `
     SELECT p.id as odp_id
     FROM ${tableName} p
@@ -212,13 +207,15 @@ const listOriginalDataPoints = async (countryIso: any, schemaName = 'public') =>
     [countryIso]
   )
   const odps = await Promise.all(res.rows.map((r: any) => getOdp(r.odp_id, schemaName)))
-  return R.pipe(R.sortBy(R.prop('year')))(R.values(odps))
+  return [...odps].sort((odp1, odp2) => odp1.year - odp2.year)
 }
-const listAndValidateOriginalDataPoints = async (countryIso: any) => {
+
+export const listAndValidateOriginalDataPoints = async (countryIso: any) => {
   const odps = await listOriginalDataPoints(countryIso)
-  return R.map((odp: any) => R.assoc('validationStatus', validateDataPoint(odp), odp), odps)
+  return odps.map((odp: any) => ({ ...odp, validationStatus: validateDataPoint(odp) }))
 }
-module.exports = {
+
+export default {
   saveDraft,
   deleteDraft,
   getOdp,

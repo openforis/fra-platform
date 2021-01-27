@@ -1,9 +1,9 @@
-const Promise = require('bluebird')
-const R = require('ramda')
-const countryConfig = require('../server/country/countryConfig')
+import * as Promise from 'bluebird'
+import * as R from 'ramda'
+import * as countryConfig from '../server/country/countryConfig'
 
-const fs = Promise.promisifyAll(require('fs'))
-const csv = Promise.promisifyAll(require('csv'))
+import * as fs = Promise.promisifyAll(require('fs'))
+import * as csv = Promise.promisifyAll(require('csv'))
 
 const exampleUsage =
   'node faostatUpdater.js exampleData/panEuropeanQualitativeQuestionnaire.csv /tmp/countryConfigWithPanEuropeanQualitativeQuestionnaire.json'

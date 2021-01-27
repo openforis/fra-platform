@@ -1,7 +1,5 @@
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as FRA from '@common/assessment/fra'
+import FRA from '@common/assessment/fra'
 
 import * as AssessmentStateValidator from '@webapp/app/assessment/assessmentStateValidator'
 
@@ -10,6 +8,8 @@ const section = FRA.sections['1'].children.c
 export const forestExpansionValidator = AssessmentStateValidator.subCategoryValidator(
   FRA.type,
   section.name,
+  // @ts-ignore
+  // TODO: fix me
   section.tables.forestAreaChange,
   0,
   R.range(1, 3)
@@ -18,6 +18,8 @@ export const forestExpansionValidator = AssessmentStateValidator.subCategoryVali
 export const positiveOrZeroValidator = AssessmentStateValidator.positiveOrZeroValidator(
   FRA.type,
   section.name,
+  // @ts-ignore
+  // TODO: fix me
   section.tables.forestAreaChange
 )
 

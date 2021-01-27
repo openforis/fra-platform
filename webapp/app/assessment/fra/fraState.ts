@@ -1,10 +1,7 @@
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { isCollaborator } from '@common/countryRole'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { isCollaboratorAllowedToEditSectionData } from '@common/assessmentRoleAllowance'
 import { isPrintingMode } from '@webapp/pages/AssessmentPrint/printAssessment'
 
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as Assessment from '@common/assessment/assessment'
 
 import * as AppState from '@webapp/store/app/state'

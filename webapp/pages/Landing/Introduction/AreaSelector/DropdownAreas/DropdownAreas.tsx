@@ -1,14 +1,11 @@
 import React, { useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as Fra from '@common/assessment/fra'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as PanEuropean from '@common/assessment/panEuropean'
+import FRA from '@common/assessment/fra'
+import PanEuropean from '@common/assessment/panEuropean'
 import * as BasePaths from '@webapp/main/basePaths'
 import { useI18n } from '@webapp/components/hooks'
 import Icon from '@webapp/components/icon'
 import { areas } from '@webapp/pages/Landing/Introduction/AreaSelector/AreaSelector'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { Area } from '@common/country'
 
 type Props = {
@@ -23,7 +20,7 @@ const DropdownAreas = (props: Props) => {
   const dialogOpened = dropdownOpened === area
   const i18n = useI18n()
   const buttonRef = useRef(null)
-  const fra = assessmentType === Fra.type
+  const fra = assessmentType === FRA.type
   useLayoutEffect(() => {
     const outsideClick = ({ target }: any) =>
       dialogOpened && !buttonRef.current.contains(target) && setDropdownOpened('')
@@ -50,8 +47,7 @@ const DropdownAreas = (props: Props) => {
           <div className="country-selection-list__content">
             {areas.regions === area ? (
               <>
-                {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'regions' does not exist on type 'String'... Remove this comment to see the full error message */}
-                {areaISOs.map(({ regions, name }) => (
+                {areaISOs.map(({ regions, name }:any) => (
                   <div key={name} className="country-selection-list__section">
                     {regions.map(
                       ({ regionCode }: any) =>

@@ -80,7 +80,6 @@ const RowData = (props: Props) => {
         <div className="fra-table__review-indicator-anchor">
           {!disabled && !secondary && (
             <ReviewIndicator
-              // @ts-expect-error ts-migrate(2322) FIXME: Type '{ section: string; title: any; target: any[]... Remove this comment to see the full error message
               section={sectionName}
               title={colHeaderLabel}
               target={reviewTarget}

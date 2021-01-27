@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 import { Link } from 'react-router-dom'
 import Icon from '@webapp/components/icon'
@@ -16,7 +15,6 @@ const TableRow = ({ odp, i18n, countryIso, removeFromList }: any) => {
     <tr className="odp-list__link-row">
       <td className="odp-list__year-cell" onClick={() => navigateTo(odpUrl)}>
         {odp.year ? odp.year : null}
-        {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ className: string; name: string; }' is not... Remove this comment to see the full error message */}
         {odp.editStatus !== 'noChanges' ? <Icon className="icon-margin-left icon-sub" name="pencil" /> : null}
       </td>
       <td className="odp-list__method-cell" onClick={() => navigateTo(odpUrl)}>
@@ -29,7 +27,6 @@ const TableRow = ({ odp, i18n, countryIso, removeFromList }: any) => {
       </td>
       <td className="odp-list__notification-cell" onClick={() => navigateTo(odpUrl)}>
         <div className="odp-list__notification-container">
-          {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ className: string; name: string; }' is not... Remove this comment to see the full error message */}
           {!odp.validationStatus.valid ? <Icon className="icon-red" name="alert" /> : null}
           {odp.issuesSummary.issueStatus === 'opened' ? (
             <div className={`open-issues ${odp.issuesSummary.hasUnreadIssues ? 'unread-issues' : ''}`} />
@@ -58,7 +55,6 @@ const ODPListing = ({ countryIso, odps = [], i18n, userInfo, removeFromList }: a
       <div className="app-view__page-header">
         <h1 className="title">{i18n.t('nationalDataPoint.nationalData')}</h1>
         <Link className="btn btn-primary" to={`/country/${countryIso}/odp/extentOfForest`}>
-          {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ className: string; name: string; }' is not... Remove this comment to see the full error message */}
           <Icon className="icon-sub icon-white" name="small-add" />
           {i18n.t('nationalDataPoint.addNationalDataPoint')}
         </Link>
@@ -88,8 +84,7 @@ const ODPListing = ({ countryIso, odps = [], i18n, userInfo, removeFromList }: a
             )
           ) : (
             <tr>
-              {/* @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number'. */}
-              <td className="odp-list__empty-cell" colSpan="4">
+              <td className="odp-list__empty-cell" colSpan={4}>
                 {i18n.t('nationalDataPoint.noNationalDataAdded')}
               </td>
             </tr>
@@ -97,9 +92,7 @@ const ODPListing = ({ countryIso, odps = [], i18n, userInfo, removeFromList }: a
         </tbody>
         <tfoot>
           <tr>
-            {/* @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number'. */}
-            <td className="odp-list__footnotes" colSpan="4">
-              {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ className: string; name: string; }' is not... Remove this comment to see the full error message */}
+            <td className="odp-list__footnotes" colSpan={4}>
               <Icon className="icon-margin-right icon-sub" name="pencil" />
               {i18n.t('nationalDataPoint.modifiedExplanation')}
             </td>
@@ -133,5 +126,5 @@ const mapStateToProps = (state: any) => ({
   i18n: AppState.getI18n(state),
   userInfo: UserState.getUserInfo(state),
 })
-// @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'ConnectedComponent<typeof DataFe... Remove this comment to see the full error message
+// @ts-ignore
 export default withRouter(connect(mapStateToProps, { fetchOdps, removeFromList })(DataFetchingComponent))

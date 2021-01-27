@@ -1,11 +1,12 @@
 import React from 'react'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 import { EmojiPicker, EmojiPickerController } from '@webapp/components/emoji'
 import VerticallyGrowingTextField from '@webapp/components/verticallyGrowingTextField'
 
 type State = any
-class FraReviewFooter extends React.Component<{}, State> {
+type Props = any
+class FraReviewFooter extends React.Component<Props, State> {
+  props: Props
   initialState: any
 
   constructor(props: {}) {
@@ -69,7 +70,6 @@ class FraReviewFooter extends React.Component<{}, State> {
   }
 
   render() {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'placeholder' does not exist on type 'Rea... Remove this comment to see the full error message
     const { placeholder, i18n, submitBtnLabel, cancelBtnLabel, onCancel, submitAllowed = true } = this.props
     const submitBtnDisabled = R.isEmpty(R.trim(this.state.message)) || !submitAllowed
     return submitAllowed ? (
@@ -94,7 +94,6 @@ class FraReviewFooter extends React.Component<{}, State> {
 
           <VerticallyGrowingTextField
             ref="textField"
-            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
             onChange={(evt: any) => this.onInputChange(evt)}
             onKeyDown={(evt: any) => this.onInputKeyDown(evt)}
             onFocus={(evt: any) => this.onInputFocus(evt)}

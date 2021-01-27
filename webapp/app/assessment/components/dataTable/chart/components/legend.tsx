@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'd3'.... Remove this comment to see the full error message
 import * as d3 from 'd3'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 import { styles, defaultTransitionDuration } from '../chart'
+type Props = any
 
 class Legend extends Component {
+  props: Props
+
   componentDidUpdate(prevProps: any, prevState: any) {
     this.update(this.props)
   }
@@ -16,7 +17,7 @@ class Legend extends Component {
 
   enter(props: any) {
     R.forEachObjIndexed((data: any, key: any) => {
-      const elem = this.refs[key]
+      const elem:any = this.refs[key]
       const hasData = data.length > 0
       d3.select(elem)
         .style('width', hasData ? 'auto' : '0')
@@ -31,7 +32,7 @@ class Legend extends Component {
 
   update(props: any) {
     R.forEachObjIndexed((data: any, key: any) => {
-      const elem = this.refs[key]
+      const elem: any = this.refs[key]
       const hasData = data.length > 0
       d3.select(elem)
         .transition()

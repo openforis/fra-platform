@@ -1,21 +1,15 @@
-const {
-  // @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'isAdminist... Remove this comment to see the full error message
+import {
   isAdministrator,
-  // @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'isNational... Remove this comment to see the full error message
   isNationalCorrespondent,
-  // @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'isAlternat... Remove this comment to see the full error message
   isAlternateNationalCorrespondent,
-  // @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'isReviewer... Remove this comment to see the full error message
   isReviewer,
-  // @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'isCollabor... Remove this comment to see the full error message
   isCollaborator,
-} = require('./countryRole')
+} from './countryRole'
 
 /**
  * @deprecated
  */
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'assessment... Remove this comment to see the full error message
-const assessmentStatus = {
+export const assessmentStatus = {
   editing: 'editing',
   review: 'review',
   approval: 'approval',
@@ -26,8 +20,7 @@ const assessmentStatus = {
 /**
  * @deprecated
  */
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getAllowed... Remove this comment to see the full error message
-const getAllowedStatusTransitions = (countryIso: any, userInfo: any, currentState: any) => {
+export const getAllowedStatusTransitions = (countryIso: any, userInfo: any, currentState: any) => {
   // collaborator cannot change the status of the assessment
   if (!userInfo || isCollaborator(countryIso, userInfo)) return {}
 
@@ -60,7 +53,7 @@ const getAllowedStatusTransitions = (countryIso: any, userInfo: any, currentStat
   }
 }
 
-module.exports = {
+export default {
   /**
    * @deprecated
    */

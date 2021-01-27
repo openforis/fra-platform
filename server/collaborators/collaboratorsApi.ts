@@ -1,14 +1,10 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
-const db = require('../db/db')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'checkCount... Remove this comment to see the full error message
-const { checkCountryAccessFromReqParams } = require('../utils/accessControl')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'persistCol... Remove this comment to see the full error message
-const { persistCollaboratorCountryAccess } = require('./collaboratorsRepository')
+import * as db from '../db/db'
+import { checkCountryAccessFromReqParams } from '../utils/accessControl'
+import { persistCollaboratorCountryAccess } from './collaboratorsRepository'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'sendErr'.
-const { sendErr } = require('../utils/requestUtils')
+import { sendErr } from '../utils/requestUtils'
 
-module.exports.init = (app: any) => {
+export const init = (app: any) => {
   // save collaborator country access access
   app.post('/collaboratorCountryAccess/:countryIso', async (req: any, res: any) => {
     try {

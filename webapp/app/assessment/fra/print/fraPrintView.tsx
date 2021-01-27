@@ -1,10 +1,8 @@
 import './fraPrintView.less'
 import React from 'react'
 import { useSelector } from 'react-redux'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as Assessment from '@common/assessment/assessment'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as FRA from '@common/assessment/fra'
+import FRA from '@common/assessment/fra'
 import * as CountryState from '@webapp/app/country/countryState'
 import Loading from '@webapp/components/loading'
 import AssessmentSection from '@webapp/app/assessment/components/section/assessmentSectionView/assessmentSection'

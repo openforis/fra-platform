@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   tableName: 'carbon_stock',
   section: 'carbonStock',
   rows: {

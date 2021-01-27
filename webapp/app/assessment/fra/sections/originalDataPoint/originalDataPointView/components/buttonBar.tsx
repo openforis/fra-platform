@@ -12,8 +12,7 @@ const ButtonBar = (props: Props) => {
   const { odp, canEditData } = props
   const dispatch = useDispatch()
   const history = useHistory()
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'tab' does not exist on type '{}'.
-  const { tab } = useParams()
+  const { tab }: any = useParams()
   const i18n = useI18n()
   const countryIso = useCountryIso()
   const disabled = useIsAutoSaveSaving() || !odp.odpId

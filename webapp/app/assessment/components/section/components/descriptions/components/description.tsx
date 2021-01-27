@@ -9,7 +9,7 @@ import Title from './components/title'
 import Toggle from './components/toggle'
 import useDescription from './useDescription'
 
-type OwnProps = {
+type Props = {
   disabled?: boolean
   title: string
   name: string
@@ -19,10 +19,6 @@ type OwnProps = {
   showDashEmptyContent?: boolean
 }
 
-// @ts-expect-error ts-migrate(2456) FIXME: Type alias 'Props' circularly references itself.
-type Props = OwnProps & typeof Description.defaultProps
-
-// @ts-expect-error ts-migrate(7022) FIXME: 'Description' implicitly has type 'any' because it... Remove this comment to see the full error message
 const Description = (props: Props) => {
   const { title, name, section, template, disabled, showAlertEmptyContent, showDashEmptyContent } = props
   const i18n = useI18n()

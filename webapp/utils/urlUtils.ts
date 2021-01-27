@@ -6,8 +6,7 @@ export const getUrlParameter = (name: any) => {
 }
 
 export const getRequestParam = (name: any) => {
-  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'Location' is not assignable to p... Remove this comment to see the full error message
-  const url = new URL(window.location)
+  const url = new URL(window.location.href)
   const params = new URLSearchParams(url.href.substring(url.href.indexOf('?') + 1))
   return params.get(name)
 }

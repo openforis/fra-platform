@@ -1,5 +1,7 @@
-const schedule = require('node-schedule')
-const versioningRepository = require('../../versioning/versioningRepository')
+import * as schedule from 'node-schedule'
+import * as versioningRepository from '../../versioning/versioningRepository'
+
+export * as versioningRepository from '../../versioning/versioningRepository'
 
 const handleNewVersion = async (version: any) => {
   const { id, versionNumber } = version
@@ -22,8 +24,7 @@ const handleNewVersion = async (version: any) => {
   }
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'init'.
-const init = async () => {
+export const init = async () => {
   // Check every 5 minutes for new entries/if we need to do something
   // For debugging, it is suggested to add a star in the end for 5 sec interval
   schedule.scheduleJob('*/5 * * * *', async () => {
@@ -43,6 +44,6 @@ const init = async () => {
   })
 }
 
-module.exports = {
+export default {
   init,
 }

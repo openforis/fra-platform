@@ -14,15 +14,14 @@ import {
   getUnitI18nMappings,
 } from '../../utils/format'
 
-type OwnResultsTableTitleProps = {
+type ResultsTableTitleProps = {
   baseUnit?: string
   selection: any
   resultsLoading: boolean
   setSelected: (...args: any[]) => any
+  selected: any
 }
-// @ts-expect-error ts-migrate(2456) FIXME: Type alias 'ResultsTableTitleProps' circularly ref... Remove this comment to see the full error message
-type ResultsTableTitleProps = OwnResultsTableTitleProps & typeof ResultsTableTitle.defaultProps
-// @ts-expect-error ts-migrate(7022) FIXME: 'ResultsTableTitle' implicitly has type 'any' beca... Remove this comment to see the full error message
+
 const ResultsTableTitle = (props: ResultsTableTitleProps) => {
   const {
     baseUnit,
@@ -66,24 +65,22 @@ const ResultsTableTitle = (props: ResultsTableTitleProps) => {
 ResultsTableTitle.defaultProps = {
   baseUnit: null,
 }
-type OwnResultsTableProps = {
+
+type Props = {
   resultsLoading: boolean
   results?: any
   columns: any[]
   columnsAlwaysExport: any[]
   selection: any
 }
-// @ts-expect-error ts-migrate(2456) FIXME: Type alias 'ResultsTableProps' circularly referenc... Remove this comment to see the full error message
-type ResultsTableProps = OwnResultsTableProps & typeof ResultsTable.defaultProps
-// @ts-expect-error ts-migrate(7022) FIXME: 'ResultsTable' implicitly has type 'any' because i... Remove this comment to see the full error message
-const ResultsTable = (props: ResultsTableProps) => {
-  const { results, selection, columns, columnsAlwaysExport, resultsLoading } = props
+
+const ResultsTable = (props: Props) => {
+  const { results, selection, columns, columnsAlwaysExport, resultsLoading }:any = props
   const filteredColumns = columns.filter((column: any) =>
     selection.columns.map(({ param }: any) => param).includes(column)
   )
   const columnsResults = [...columnsAlwaysExport, ...filteredColumns]
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'assessmentType' does not exist on type '... Remove this comment to see the full error message
-  const { assessmentType, section } = useParams()
+  const { assessmentType, section }:any = useParams()
   const i18n = useI18n()
   const tableRef = useRef(null)
   const [exportDisabled, setExportDisabled] = useState(true)
@@ -107,8 +104,7 @@ const ResultsTable = (props: ResultsTableProps) => {
       <table ref={tableRef} className="fra-table data-table">
         <thead>
           <tr>
-            {/* @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number'. */}
-            <th className="fra-table__header-cell-left" rowSpan="2">
+            <th className="fra-table__header-cell-left" rowSpan={2}>
               &nbsp;
             </th>
             <th className="fra-table__header-cell" colSpan={columnsResults.length}>
@@ -132,8 +128,7 @@ const ResultsTable = (props: ResultsTableProps) => {
         <tbody>
           {selection.countries.map(({ param: countryIso, label, deskStudy }: any) => (
             <tr key={label}>
-              {/* @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number'. */}
-              <th className="fra-table__category-cell" colSpan="1">
+              <th className="fra-table__category-cell" colSpan={1}>
                 {(i18n as any).t(label)} {deskStudy && `(${(i18n as any).t('assessment.deskStudy')})`}
               </th>
               {columnsResults.map((column) => {

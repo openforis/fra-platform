@@ -1,6 +1,4 @@
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as NumberUtils from '@common/bignumberUtils'
 import { formatValue } from '@webapp/app/countryLanding/views/statisticalFactsheets/utils/numberUtils'
 
@@ -57,7 +55,6 @@ const preferences = [
 const arrayHasKey = (array: any, key: any) => array.includes(key)
 
 const getDatasetAndLabel = (data: any, chartHeads: any, isIsoCountry: any) => {
-  // @ts-expect-error ts-migrate(2550) FIXME: Property 'fromEntries' does not exist on type 'Obj... Remove this comment to see the full error message
   const filteredData = Object.fromEntries(
     Object.entries(data)
       // Filter away values not needed / check they exist in chartHeads, save rowName for label

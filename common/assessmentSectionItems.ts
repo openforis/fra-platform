@@ -1,10 +1,9 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
+import * as R from 'ramda'
 
 /**
  * @deprecated
  */
-const assessments = {
+export const assessments = {
   fra2020: [
     {
       type: 'header',
@@ -217,16 +216,15 @@ const assessments = {
 /**
  * @deprecated
  */
-const sectionsFromItems = (items: any) =>
+export const sectionsFromItems = (items: any) =>
   R.flatten(R.map((item: any) => R.map(R.prop('section'), item.children), items))
 
 /**
  * @deprecated
  */
-const convertToAssessmentSections = (assessments: any) =>
+export const convertToAssessmentSections = (assessments: any) =>
   R.pipe(
     R.toPairs,
-    // @ts-expect-error ts-migrate(7031) FIXME: Binding element 'assessment' implicitly has an 'an... Remove this comment to see the full error message
     R.map(([assessment, items]) => [assessment, sectionsFromItems(items)]),
     R.fromPairs
   )(assessments)
@@ -234,15 +232,12 @@ const convertToAssessmentSections = (assessments: any) =>
 /**
  * @deprecated
  */
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'assessment... Remove this comment to see the full error message
-const assessmentSections = convertToAssessmentSections(assessments)
+export const assessmentSections = convertToAssessmentSections(assessments)
 
 /**
  * @deprecated
  */
-module.exports.assessments = assessments
 
 /**
  * @deprecated
  */
-module.exports.assessmentSections = assessmentSections

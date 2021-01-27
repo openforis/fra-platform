@@ -1,6 +1,5 @@
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as FRA from '@common/assessment/fra'
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import FRA from '@common/assessment/fra'
+import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
 
 import * as GrowingStockCompositionState from '@webapp/app/assessment/fra/sections/growingStockComposition/growingStockCompositionState'
 import * as GrowingStockCompositionValidatorState from '@webapp/app/assessment/fra/sections/growingStockComposition/growingStockCompositionValidatorState'
@@ -65,7 +64,6 @@ const tableSpec = SectionSpec.newTableSpec({
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.labelKey]: 'growingStockComposition.rank',
         [SectionSpec.KEYS_ROW.labelPrefixKey]: 'growingStockComposition.native',
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES[`native_rank${idx + 1}`],
         [SectionSpec.KEYS_ROW.labelParams]: { idx: idx + 1 },
         [SectionSpec.KEYS_ROW.cols]: [
@@ -108,7 +106,6 @@ const tableSpec = SectionSpec.newTableSpec({
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.labelKey]: 'growingStockComposition.rank',
         [SectionSpec.KEYS_ROW.labelPrefixKey]: 'growingStockComposition.introduced',
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES[`introduced_rank${idx + 1}`],
         [SectionSpec.KEYS_ROW.labelParams]: { idx: idx + 1 },
         [SectionSpec.KEYS_ROW.cols]: [

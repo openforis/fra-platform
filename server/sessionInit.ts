@@ -1,7 +1,9 @@
-const session = require('express-session')
-const pgSession = require('connect-pg-simple')(session)
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
-const db = require('./db/db')
+import * as session from 'express-session'
+import * as connectPgSimple from 'connect-pg-simple'
+import * as db from './db/db'
+
+
+const pgSession = connectPgSimple(session)
 
 const sessionOptions = {
   secret: process.env.FOO_COOKIE_SECRET,
@@ -14,4 +16,4 @@ const sessionOptions = {
   }),
 }
 
-module.exports.init = (app: any) => app.use(session(sessionOptions))
+export const init = (app: any) => app.use(session(sessionOptions))

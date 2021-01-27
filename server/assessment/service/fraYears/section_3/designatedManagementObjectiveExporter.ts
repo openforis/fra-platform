@@ -1,18 +1,12 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Promise'.
-const Promise = require('bluebird')
+import * as R from 'ramda'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Traditiona... Remove this comment to see the full error message
-const TraditionalTableService = require('../../../../traditionalTable/traditionalTableRepository')
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Traditiona... Remove this comment to see the full error message
-const TraditionalTableExporter = require('../../exporter/traditionalTableExporter')
+import * as TraditionalTableService from '../../../../traditionalTable/traditionalTableRepository'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'sub'.
-const { sub } = require('../../../../../common/bignumberUtils')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getForestA... Remove this comment to see the full error message
-const { getForestAreaForYear } = require('../../../../../common/extentOfForestHelper')
+import TraditionalTableExporter from '../../exporter/traditionalTableExporter'
+
+import { sub } from '../../../../../common/bignumberUtils'
+import { getForestAreaForYear } from '../../../../../common/extentOfForestHelper'
 
 const fieldsPrimary = [
   'prim_prod',
@@ -25,7 +19,6 @@ const fieldsPrimary = [
 ]
 const fieldsTotalArea = ['tot_prod', 'tot_prot', 'tot_biodiv', 'tot_socserv', 'tot_other']
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Designated... Remove this comment to see the full error message
 class DesignatedManagementObjectiveExporter extends TraditionalTableExporter {
   constructor() {
     super('primaryDesignatedManagementObjective', [...fieldsPrimary, ...fieldsTotalArea], '3a')
@@ -38,12 +31,10 @@ class DesignatedManagementObjectiveExporter extends TraditionalTableExporter {
     ])
   }
 
-  // @ts-expect-error ts-migrate(7031) FIXME: Binding element 'primary' implicitly has an 'any' ... Remove this comment to see the full error message
-  parseResultRow([primary, totalArea], yearIdx: any, year: any, extentOfForest: any) {
-    const resultRow = {}
+  parseResultRow([primary, totalArea]: any[], yearIdx: any, year: any, extentOfForest: any) {
+    const resultRow: { [key: string]: any } = {}
 
     fieldsPrimary.forEach((field, fieldIdx) => {
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       resultRow[field] = R.path([fieldIdx, yearIdx], primary)
     })
 
@@ -51,17 +42,16 @@ class DesignatedManagementObjectiveExporter extends TraditionalTableExporter {
       (value: any, row: any) => {
         const rowValue = R.pipe(R.path([row, yearIdx]), R.defaultTo(0))(primary)
 
+        // @ts-ignore
         return sub(value, rowValue)
       },
       getForestAreaForYear(extentOfForest, year),
       R.range(0, 6)
     )
 
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'prim_no_unknown' does not exist on type ... Remove this comment to see the full error message
     resultRow.prim_no_unknown = unknownValue
 
     fieldsTotalArea.forEach((field, fieldIdx) => {
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       resultRow[field] = R.path([fieldIdx, yearIdx], totalArea)
     })
 
@@ -69,7 +59,6 @@ class DesignatedManagementObjectiveExporter extends TraditionalTableExporter {
   }
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'instance'.
 const instance = new DesignatedManagementObjectiveExporter()
 
-module.exports = instance
+export default instance

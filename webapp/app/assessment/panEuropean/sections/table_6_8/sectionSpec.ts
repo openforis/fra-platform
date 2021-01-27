@@ -1,15 +1,14 @@
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as PanEuropean from '@common/assessment/panEuropean'
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import PanEuropean from '@common/assessment/panEuropean'
+import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
 
 const section = PanEuropean.sections['6'].children['68']
 const variables = [
   'exports_of_forest_products_quantity',
   'exports_of_forest_products_value',
-  'imports_of_forest_products_quantity',
-  'imports_of_forest_products_value',
+  'import * as s_of_forest_products_quantity',
+  'import * as s_of_forest_products_value',
 ]
-const variablesMappings = {
+const variablesMappings: any = {
   exportsOfForestProductsQuantity: (SectionSpec.VARIABLES as any).exports_of_forest_products_quantity,
   exportsOfForestProductsValue: (SectionSpec.VARIABLES as any).exports_of_forest_products_value,
   importsOfForestProductsQuantity: (SectionSpec.VARIABLES as any).imports_of_forest_products_quantity,
@@ -28,10 +27,8 @@ const tableSpec = SectionSpec.newTableSpec({
         })
       ),
     }),
-    // @ts-expect-error ts-migrate(2550) FIXME: Property 'flatMap' does not exist on type 'string[... Remove this comment to see the full error message
     ...variables.flatMap((variable: any) =>
       SectionSpec.newRowData({
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         [SectionSpec.KEYS_ROW.variableExport]: variablesMappings[variable],
         [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.tradeInWood.${variable}`,
         [SectionSpec.KEYS_ROW.cols]: years.map(() => SectionSpec.newColDecimal()),

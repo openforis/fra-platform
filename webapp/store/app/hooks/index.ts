@@ -1,12 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux'
 import * as AppState from '@webapp/store/app/state'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { Area, Country } from '@common/country'
 import { useI18n, useOnUpdate } from '@webapp/components/hooks'
 import { sortCountries, sortRegions } from '@webapp/store/app/utils'
 import * as AppActions from '../actions'
 
-export const useAssessmentType = () => useSelector(AppState.getAssessmentType)
+export function useAssessmentType(): string {
+  return useSelector(AppState.getAssessmentType) as string
+}
+
 export const useCountries = () => {
   const i18n = useI18n()
   const dispatch = useDispatch()
@@ -17,7 +19,7 @@ export const useCountries = () => {
   return countries
 }
 export const useCountriesPanEuropean = () =>
-  (useCountries() as any).filter((country: any) => Country.getRegionCodes(country).includes(Area.levels.forest_europe))
+  (useCountries() as any).filter((country: any) => (Country.getRegionCodes(country) as any[]).includes(Area.levels.forest_europe))
 export const useRegions = () => {
   const i18n = useI18n()
   const dispatch = useDispatch()

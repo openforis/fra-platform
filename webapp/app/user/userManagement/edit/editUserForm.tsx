@@ -1,9 +1,7 @@
 import './editUserForm.less'
 import React from 'react'
 import { connect } from 'react-redux'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as Fra from '@common/assessment/fra'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
+import FRA from '@common/assessment/fra'
 import * as R from 'ramda'
 import {
   isAdministrator,
@@ -13,9 +11,7 @@ import {
   nationalCorrespondent,
   alternateNationalCorrespondent,
   collaborator,
-  // @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 } from '@common/countryRole'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { i18nUserRole, validate, profilePictureUri } from '@common/userUtils'
 import TextInput from '@webapp/components/textInput'
 import * as AppState from '@webapp/store/app/state'
@@ -24,8 +20,19 @@ import { loadUserToEdit, persistUser } from '../actions'
 import CountrySelectionModal from './countrySelectionModal'
 
 type EditUserFormState = any
-class EditUserForm extends React.Component<{}, EditUserFormState> {
-  constructor(props: {}) {
+type Props = {
+  i18n?: any
+  userInfo?: any
+  countryIso: any
+  countries?: any
+  persistUser?: any
+  onCancel?: any
+  userId: any
+}
+
+class EditUserForm extends React.Component<Props, EditUserFormState> {
+  props: Props
+  constructor(props: Props) {
     super(props)
     this.state = { user: null }
   }
@@ -48,7 +55,6 @@ class EditUserForm extends React.Component<{}, EditUserFormState> {
 
   render() {
     const defaultOnCancel = () => window.history.back()
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'i18n' does not exist on type 'Readonly<{... Remove this comment to see the full error message
     const { i18n, userInfo, countryIso, countries, persistUser, onCancel = defaultOnCancel } = this.props
     const { user, validation } = this.state
     const hasValidProp = (prop: any) => R.pipe(R.path([prop, 'valid']), R.defaultTo(true))(validation)
@@ -58,15 +64,18 @@ class EditUserForm extends React.Component<{}, EditUserFormState> {
       const userRoles = R.path(userRolesPath, this.state)
       const idx = R.findIndex(
         (userRole: any) => userRole.countryIso === countryIso && userRole.role === role,
+        // @ts-ignore
         userRoles
       )
       const newUserRoles =
         idx >= 0
-          ? R.remove(idx, 1, userRoles)
+          ? // @ts-ignore
+            R.remove(idx, 1, userRoles)
           : // setting role as administrator, removes all other roles
           role === administrator.role
           ? [{ countryIso: null, role }]
-          : R.insert(userRoles.length, { countryIso, role }, userRoles)
+          : // @ts-ignore
+            R.insert(userRoles.length, { countryIso, role }, userRoles)
       this.setState(R.pipe(R.assocPath(userRolesPath, newUserRoles), validateUser)(this.state))
     }
     // only administrator can change user roles
@@ -128,7 +137,6 @@ class EditUserForm extends React.Component<{}, EditUserFormState> {
                 }`}
               >
                 <TextInput
-                  // @ts-expect-error ts-migrate(2322) FIXME: Type '{ value: any; onChange: (evt: any) => void; ... Remove this comment to see the full error message
                   value={R.prop(inputField.key, user)}
                   onChange={(evt: any) => {
                     // this.setState({user: R.assoc(inputField.key, evt.target.value, user)})
@@ -248,7 +256,7 @@ const mapStateToProps = (state: any) => ({
   ...state.userManagement.editUser,
   // get countries if is admin.
   countries: isAdministrator(UserState.getUserInfo(state))
-    ? R.pipe(UserState.getUserAssesmentRoles(Fra.type), R.prop(administrator.role))(state)
+    ? R.pipe(UserState.getUserAssesmentRoles(FRA.type), R.prop(administrator.role))(state)
     : null,
 })
 export default connect(mapStateToProps, { loadUserToEdit, persistUser })(EditUserForm)

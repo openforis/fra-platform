@@ -1,5 +1,4 @@
 import React from 'react'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 import { methods } from '@webapp/app/assessment/components/dataTable/generateValues/methods'
 import useI18n from '@webapp/components/hooks/useI18n'

@@ -1,16 +1,13 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'insertAudi... Remove this comment to see the full error message
-const { insertAudit } = require('../audit/auditRepository')
+import { insertAudit } from '../audit/auditRepository'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'wipeNation... Remove this comment to see the full error message
-const { wipeNationalClassIssues, wipeClassData, addClassData } = require('./odpClassRepository')
+import { wipeNationalClassIssues, wipeClassData, addClassData } from './odpClassRepository'
 
-const getDraftId = async (client: any, odpId: any) => {
+export const getDraftId = async (client: any, odpId: any) => {
   const res = await client.query('SELECT draft_id FROM odp WHERE id = $1', [odpId])
   return res.rows[0].draft_id
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'updateOrIn... Remove this comment to see the full error message
-const updateOrInsertDraft = async (client: any, user: any, odpId: any, countryIso: any, draft: any) => {
+export const updateOrInsertDraft = async (client: any, user: any, odpId: any, countryIso: any, draft: any) => {
   const draftId = await getDraftId(client, odpId)
 
   if (draftId) {
@@ -25,7 +22,7 @@ const updateOrInsertDraft = async (client: any, user: any, odpId: any, countryIs
   return { odpId }
 }
 
-const updateDraft = async (client: any, draft: any) => {
+export const updateDraft = async (client: any, draft: any) => {
   const res = await client.query('SELECT draft_id FROM odp WHERE id = $1', [draft.odpId])
   const draftId = res.rows[0].draft_id
 
@@ -54,7 +51,7 @@ const updateDraft = async (client: any, draft: any) => {
   )
 }
 
-const insertDraft = async (client: any, countryIso: any, user: any, odpId: any, draft: any) => {
+export const insertDraft = async (client: any, countryIso: any, user: any, odpId: any, draft: any) => {
   await client.query(
     `
   INSERT INTO odp_version
@@ -77,6 +74,6 @@ const insertDraft = async (client: any, countryIso: any, user: any, odpId: any, 
   ])
 }
 
-module.exports = {
+export default {
   updateOrInsertDraft,
 }

@@ -1,4 +1,4 @@
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
 
 import section from './section'
 import TableSpec from './tableSpec'

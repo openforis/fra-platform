@@ -1,26 +1,22 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'FRA'.
-const FRA = require('./assessment/fra')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'NumberUtil... Remove this comment to see the full error message
-const NumberUtils = require('./bignumberUtils')
+import * as R from 'ramda'
+import FRA from '@common/assessment/fra'
+import * as NumberUtils from './bignumberUtils'
 
 /**
  * @deprecated
  */
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fraYears'.
-const fraYears = [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020]
+export const fraYears = [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020]
 
 /**
  * @deprecated
  */
-const hasData = R.pipe(R.reject(R.all(R.or(R.isNil, R.isEmpty))), R.isEmpty, R.not)
+export const hasData = R.pipe(R.reject(R.all(R.or(R.isNil, R.isEmpty))), R.isEmpty, R.not)
 
 // ====== Table  methods
+// @ts-ignore
+export const isTableEmpty = R.pipe(R.defaultTo([]), R.flatten, R.reject(R.isNil), R.isEmpty)
 
-const isTableEmpty = R.pipe(R.defaultTo([]), R.flatten, R.reject(R.isNil), R.isEmpty)
-
-const sumTableColumn = (columnIndex: any, rowIndexes: any) => (data: any) =>
+export const sumTableColumn = (columnIndex: any, rowIndexes: any) => (data: any) =>
   R.pipe(
     R.map((rowIdx: any) => R.pathOr(null, [rowIdx, columnIndex])(data)),
     R.reject(R.isNil),
@@ -29,30 +25,31 @@ const sumTableColumn = (columnIndex: any, rowIndexes: any) => (data: any) =>
 
 // ====== Table with odp methods
 
-const filterFraYears = R.filter((d: any) => R.includes(Number(d.year), FRA.years))
+export const filterFraYears = R.filter((d: any) => R.includes(Number(d.year), FRA.years))
+// @ts-ignore
+export const getOdps = (x: any) => R.pipe(R.defaultTo([]), R.filter(R.propEq('type', 'odp')))(x)
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getOdps'.
-const getOdps = R.pipe(R.defaultTo([]), R.filter(R.propEq('type', 'odp')))
+export const hasOdps = R.pipe(getOdps, R.isEmpty, R.not)
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'hasOdps'.
-const hasOdps = R.pipe(getOdps, R.isEmpty, R.not)
+export const isTableWithOdpEmpty = (table: any) =>
+  R.pipe(
+    R.defaultTo([]),
+    // @ts-ignore
+    R.map(R.pickBy((val: any, key: any) => !['year', 'name', 'type'].includes(key) && !key.endsWith('Estimated'))),
+    R.map(R.values),
+    isTableEmpty
+    // @ts-ignore
+  )(table)
 
-const isTableWithOdpEmpty = R.pipe(
-  R.defaultTo([]),
-  R.map(R.pickBy((val: any, key: any) => !['year', 'name', 'type'].includes(key) && !key.endsWith('Estimated'))),
-  R.map(R.values),
-  isTableEmpty
-)
+export const getDatumByYear = (year: any) => R.pipe(R.defaultTo([]), R.find(R.propEq('name', String(year))), R.defaultTo({}))
 
-const getDatumByYear = (year: any) => R.pipe(R.defaultTo([]), R.find(R.propEq('name', String(year))), R.defaultTo({}))
-
-const updateTableWithOdpDatum = (datum: any) => (data: any) => {
+export const updateTableWithOdpDatum = (datum: any) => (data: any) => {
   const { name } = datum
   const idx = R.findIndex((v: any) => v.name === name && v.type === 'fra', data)
   return R.update(idx, datum, data)
 }
 
-const updateTableWithOdpDatumOdp = (datum: any, dataNoNDPs: any) => (data: any) => {
+export const updateTableWithOdpDatumOdp = (datum: any, dataNoNDPs: any) => (data: any) => {
   const { name, namePrev } = datum
   const dataUpdate = [...data]
   const idx = data.findIndex((d: any) => d.name === name)
@@ -76,7 +73,7 @@ const updateTableWithOdpDatumOdp = (datum: any, dataNoNDPs: any) => (data: any) 
   return dataUpdate.sort((a, b) => Number(a.name) - Number(b.name))
 }
 
-module.exports = {
+export default {
   fraYears,
   hasData,
 

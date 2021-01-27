@@ -1,14 +1,12 @@
 import React, { useRef, useEffect } from 'react'
 import ckEditorConfig from '@webapp/components/ckEditor/ckEditorConfig'
 
-type OwnProps = {
+type Props = {
   name: string
   value?: string
   onChange?: (...args: any[]) => any
 }
-// @ts-expect-error ts-migrate(2456) FIXME: Type alias 'Props' circularly references itself.
-type Props = OwnProps & typeof RichTextEditor.defaultProps
-// @ts-expect-error ts-migrate(7022) FIXME: 'RichTextEditor' implicitly has type 'any' because... Remove this comment to see the full error message
+
 const RichTextEditor = (props: Props) => {
   const { name, value, onChange } = props
   const textareaRef = useRef(null)

@@ -1,15 +1,13 @@
 import './usersTableFilter.less'
 
 import React from 'react'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'came... Remove this comment to see the full error message
-import camelize from 'camelize'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'to-s... Remove this comment to see the full error message
-import snake from 'to-snake-case'
+// @ts-ignore
+import * as camelize from 'camelize'
+// @ts-ignore
+import * as snake from 'to-snake-case'
 
 import MultiSelect from '@webapp/components/multiSelect'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { roleKeys } from '@common/countryRole'
 import CountrySelectionModal from '../../../../app/user/userManagement/edit/countrySelectionModal'
 
@@ -19,10 +17,10 @@ const valueToRole = (value: any) => snake(value).toUpperCase()
 const roles = R.map(roleToValue, roleKeys)
 
 type UsersTableFilterState = any
-
-class UsersTableFilter extends React.Component<{}, UsersTableFilterState> {
+type Props = any
+class UsersTableFilter extends React.Component<Props, UsersTableFilterState> {
+  props: Props
   render() {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'i18n' does not exist on type 'Readonly<{... Remove this comment to see the full error message
     const { i18n, userInfo, filter, onChange, countries } = this.props
 
     return (
@@ -39,7 +37,6 @@ class UsersTableFilter extends React.Component<{}, UsersTableFilterState> {
             </div>
             <div>
               <MultiSelect
-                // @ts-expect-error ts-migrate(2322) FIXME: Type '{ i18n: any; localizationPrefix: string; val... Remove this comment to see the full error message
                 i18n={i18n}
                 localizationPrefix="user.roles"
                 values={filter.roles.map(roleToValue)}

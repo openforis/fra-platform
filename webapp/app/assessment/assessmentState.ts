@@ -1,16 +1,10 @@
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as Assessment from '@common/assessment/assessment'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as FRA from '@common/assessment/fra'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as FRAUtils from '@common/fraUtils'
+import FRA from '@common/assessment/fra'
+import FRAUtils from '@common/fraUtils'
 
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { isReviewer, isAdministrator } from '@common/countryRole'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { assessmentStatus } from '@common/assessment'
 
 import * as AppState from '@webapp/store/app/state'
@@ -88,8 +82,7 @@ const _getSectionPropPath = (assessmentType: any, sectionName: any, propName: an
 export const assocSectionProp = (assessmentType: any, sectionName: any, propName: any, value: any) =>
   R.assocPath(_getSectionPropPath(assessmentType, sectionName, propName), value)
 
-// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'defaultValue' implicitly has an 'any' t... Remove this comment to see the full error message
-export const getSectionProp = (assessmentType: any, sectionName: any, propName: any, defaultValue = null) =>
+export const getSectionProp = (assessmentType: any, sectionName: any, propName: any, defaultValue: any = null) =>
   R.pipe(getState, R.pathOr(defaultValue, _getSectionPropPath(assessmentType, sectionName, propName)))
 
 // ====== Section - Data Table

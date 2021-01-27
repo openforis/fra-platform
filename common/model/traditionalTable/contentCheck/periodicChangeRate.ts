@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   tableName: 'content_check_periodic_change_rates_view',
   rows: {
     names: [

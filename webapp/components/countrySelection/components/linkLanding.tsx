@@ -14,7 +14,7 @@ const LinkLanding = () => {
   const sections = useCountryLandingSections()
   const assessmentType = useAssessmentType()
   const isActive = (match: any) =>
-    match && (match.isExact || sections.find((section) => location.pathname.indexOf(section.name) > 0))
+    match && (match.isExact || sections.find((section: any) => location.pathname.indexOf(section.name) > 0))
   return (
     <NavLink
       to={BasePaths.getAssessmentHomeLink(countryIso, assessmentType)}
@@ -22,7 +22,6 @@ const LinkLanding = () => {
       activeClassName="selected"
       isActive={isActive}
     >
-      {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ name: string; className: string; }' is not... Remove this comment to see the full error message */}
       <Icon name="icon-bar-chart" className="icon-sub icon-margin-right" />
       <div className="nav__link-label">{(i18n as any).t(`area.${countryIso}.listName`)}</div>
     </NavLink>

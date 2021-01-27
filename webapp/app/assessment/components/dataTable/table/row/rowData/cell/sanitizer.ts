@@ -1,4 +1,4 @@
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
 
 import {
   acceptNextDecimal,
@@ -34,7 +34,7 @@ export const isAcceptable = (type: any, value: any) => {
   return true
 }
 
-export const sanitize = (type: any, value: any, valuePrev: any, options: any) => {
+export const sanitize = (type: any, value: any, valuePrev: any, options?: any) => {
   const sanitizerFn = sanitizerFnByType[type]
   if (sanitizerFn) {
     return sanitizerFn(value, valuePrev, options)

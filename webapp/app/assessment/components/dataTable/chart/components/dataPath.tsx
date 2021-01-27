@@ -1,9 +1,6 @@
 import React, { useEffect, useRef } from 'react'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'd3'.... Remove this comment to see the full error message
 import * as d3 from 'd3'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'd3-i... Remove this comment to see the full error message
 import { interpolatePath } from 'd3-interpolate-path'
 
 import { usePrevious } from '@webapp/components/hooks'
@@ -31,7 +28,9 @@ const DataPath = (props: Props) => {
 
   const getPathDefault = (dataPath: any) =>
     getPath([
+      // @ts-ignore
       { year: R.head(dataPath).year, value: 0 },
+      // @ts-ignore
       { year: R.last(dataPath).year, value: 0 },
     ])
 

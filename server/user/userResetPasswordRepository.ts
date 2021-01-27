@@ -1,14 +1,10 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'camelize'.
-const camelize = require('camelize')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'parseISO'.
-const { differenceInSeconds, parseISO } = require('date-fns')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'toUTCSelec... Remove this comment to see the full error message
-const { toUTCSelectParam } = require('../db/queryHelper')
+// @ts-ignore
+import * as camelize from 'camelize'
+import * as R from 'ramda'
+import { differenceInSeconds, parseISO } from 'date-fns'
+import { toUTCSelectParam } from '@server/db/queryHelper'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'createRese... Remove this comment to see the full error message
-const createResetPassword = async (client: any, userId: any) => {
+export const createResetPassword = async (client: any, userId: any) => {
   // invalidate old reset password request first
   await client.query(
     `
@@ -32,7 +28,7 @@ const createResetPassword = async (client: any, userId: any) => {
   return camelize(res.rows[0])
 }
 
-const invalidateResetPassword = async (client: any, uuid: any) =>
+export const invalidateResetPassword = async (client: any, uuid: any) =>
   await client.query(
     `
     UPDATE fra_user_reset_password 
@@ -42,8 +38,7 @@ const invalidateResetPassword = async (client: any, uuid: any) =>
     [uuid]
   )
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'findResetP... Remove this comment to see the full error message
-const findResetPassword = async (client: any, uuid: any) => {
+export const findResetPassword = async (client: any, uuid: any) => {
   const res = await client.query(
     `
   SELECT
@@ -71,8 +66,7 @@ const findResetPassword = async (client: any, uuid: any) => {
   return resetPassword
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'changePass... Remove this comment to see the full error message
-const changePassword = async (client: any, uuid: any, userId: any, newPassword: any) => {
+export const changePassword = async (client: any, uuid: any, userId: any, newPassword: any) => {
   const resetPassword = await findResetPassword(client, uuid)
   if (resetPassword && resetPassword.userId === userId) {
     await client.query(
@@ -91,7 +85,7 @@ const changePassword = async (client: any, uuid: any, userId: any, newPassword: 
   return false
 }
 
-module.exports = {
+export default {
   createResetPassword,
   findResetPassword,
   changePassword,

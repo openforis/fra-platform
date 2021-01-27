@@ -1,30 +1,20 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Promise'.
-const Promise = require('bluebird')
+import * as R from 'ramda'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
-const db = require('../db/db')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'odpReposit... Remove this comment to see the full error message
-const odpRepository = require('./odpRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'reviewRepo... Remove this comment to see the full error message
-const reviewRepository = require('../review/reviewRepository')
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'sendErr'.
-const { sendErr, sendOk } = require('../utils/requestUtils')
+import * as db from '../db/db'
+import * as odpRepository from './odpRepository'
+import * as reviewRepository from '../review/reviewRepository'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'checkCount... Remove this comment to see the full error message
-const { checkCountryAccessFromReqParams } = require('../utils/accessControl')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'allowedToE... Remove this comment to see the full error message
-const { allowedToEditDataCheck } = require('../assessment/assessmentEditAccessControl')
+import { sendErr, sendOk } from '../utils/requestUtils'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'VersionSer... Remove this comment to see the full error message
-const VersionService = require('../versioning/service')
+import { checkCountryAccessFromReqParams } from '../utils/accessControl'
+import { allowedToEditDataCheck } from '../assessment/assessmentEditAccessControl'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Auth'.
-const Auth = require('../auth/authApiMiddleware')
+import * as VersionService from '../versioning/service'
 
-module.exports.init = (app: any) => {
+import * as Auth from '../auth/authApiMiddleware'
+
+export const init = (app: any) => {
   app.get('/odp', async (req: any, res: any) => {
     try {
       const schemaName = await VersionService.getDatabaseSchema(req)
@@ -116,14 +106,15 @@ module.exports.init = (app: any) => {
 
       const resp = await odpRepository.listOriginalDataPoints(req.params.countryIso)
 
-      const prevOdp = R.pipe(
+      // @ts-ignore
+      const prevOdp: { odpId: string} = R.pipe(
         R.filter((o: any) => o.year !== 0 && o.year < req.params.year),
         R.sort((a: any, b: any) => b.year - a.year),
         R.head
       )(R.values(resp))
 
       if (prevOdp) {
-        const odp = await odpRepository.getOdp(prevOdp.odpId)
+        const odp = await odpRepository.getOdp(prevOdp['odpId'])
         res.json(odp)
       } else {
         sendOk(res)

@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux'
 
 import * as AutoSaveState from '@webapp/app/components/autosave/autosaveState'
 
-const useIsAutoSave = (status: any) => useSelector((state) => AutoSaveState.getStatus(state) === status)
+const useIsAutoSave = (status: any) => useSelector((state: any) => AutoSaveState.getStatus(state) === status)
 
 export const useIsAutoSaveSaving = () => useIsAutoSave(AutoSaveState.status.saving)
 

@@ -1,8 +1,6 @@
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as FraUtils from '@common/fraUtils'
+import FraUtils from '@common/fraUtils'
 
 export const methods = {
   linear: 'linear',
@@ -31,6 +29,6 @@ export const isMethodValid = (data: any, method: any, fields: any) => {
   }
   // Linear or Repeat last require a minimum number of ODP
   const noOdpsRequired = method === methods.linear ? 2 : 1
-  const odps = FraUtils.getOdps(data)
+  const odps: any = FraUtils.getOdps(data)
   return odps.length >= noOdpsRequired
 }

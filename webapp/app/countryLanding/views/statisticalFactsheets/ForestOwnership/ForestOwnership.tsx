@@ -1,5 +1,4 @@
 import React from 'react'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { Area } from '@common/country'
 import Chart from '@webapp/app/countryLanding/views/statisticalFactsheets/components/chart/Chart'
 import * as ChartUtils from '@webapp/app/countryLanding/views/statisticalFactsheets/utils/chartUtils'
@@ -24,7 +23,8 @@ const ForestOwnership = (props: Props) => {
   }
   // Get the value for year
   const year = '2015'
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'rowNames' does not exist on type 'any[] ... Remove this comment to see the full error message
+  // @ts-ignore
+  // TODO: fix
   const { rowNames: variables } = APIUtils.getParams('forestOwnership')
   const [privateOwnership, publicOwnership, otherOrUnknown] = getVariableValuesByYear({ data, variables, year })
   const chartData = {

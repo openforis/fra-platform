@@ -1,7 +1,7 @@
-const promise = require('bluebird')
-const R = require('ramda')
-const csv = promise.promisifyAll(require('csv'))
-const fs = promise.promisifyAll(require('fs'))
+import * as promise from 'bluebird'
+import * as R from 'ramda'
+import * as csv = promise.promisifyAll(require('csv'))
+import * as fs = promise.promisifyAll(require('fs'))
 
 if (process.argv.length < 4) {
   console.log(`Usage: ${process.argv[0]} <path of the country db export csv file> <path to faostat file>`)

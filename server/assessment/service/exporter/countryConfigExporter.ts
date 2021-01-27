@@ -1,13 +1,9 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
+import * as R from 'ramda'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'FraTableEx... Remove this comment to see the full error message
-const FraTableExporter = require('./fraTableExporter')
+import FraTableExporter from './fraTableExporter'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'CountrySer... Remove this comment to see the full error message
-const CountryService = require('../../../country/countryService')
+import * as CountryService from '../../../country/countryService'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'CountryCon... Remove this comment to see the full error message
 class CountryConfigExporter extends FraTableExporter {
   constructor() {
     super('', ['boreal', 'temperate', 'tropical', 'subtropical'])
@@ -27,7 +23,6 @@ class CountryConfigExporter extends FraTableExporter {
   }
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'instance'.
 const instance = new CountryConfigExporter()
 
-module.exports = instance
+export default instance

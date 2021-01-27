@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   tableName: 'degraded_forest',
   rows: {
     names: ['does_country_monitor', 'national_definition', 'how_monitored'],

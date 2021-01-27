@@ -2,7 +2,7 @@ import component from '@webapp/pages/Assessment'
 
 import assessment from '@webapp/app/assessment/reducer'
 import originalDataPoint from '@webapp/app/assessment/fra/sections/originalDataPoint/reducers'
-import autoSave from '@webapp/app/components/autosave/reducer'
+import autosave from '@webapp/app/components/autosave/reducer'
 import navigation from '@webapp/app/components/navigation/reducer'
 import review from '@webapp/app/assessment/components/review/reducer'
 import userManagement from '@webapp/app/user/userManagement/reducer'
@@ -26,7 +26,7 @@ const reducers = [
   { name: AssessmentState.stateKey, fn: assessment },
 
   { name: OriginalDataPointState.stateKey, fn: originalDataPoint },
-  { name: AutosaveState.stateKey, fn: autoSave },
+  { name: AutosaveState.stateKey, fn: autosave },
 
   { name: NavigationState.stateKey, fn: navigation },
   { name: ReviewState.stateKey, fn: review },

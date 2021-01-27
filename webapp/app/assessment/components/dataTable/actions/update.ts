@@ -1,7 +1,5 @@
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
-import * as FRAUtils from '@common/fraUtils'
+import FRAUtils from '@common/fraUtils'
 
 import { batchActions } from '@webapp/main/reduxBatch'
 import * as autosave from '@webapp/app/components/autosave/actions'
@@ -28,9 +26,7 @@ export const updateTableData = ({
     },
   ]
 
-  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '{ type: string; }' is not assign... Remove this comment to see the full error message
   if (autoSaveStart) actions.push(autosave.start)
-  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '{ type: string; }' is not assign... Remove this comment to see the full error message
   if (autoSaveComplete) actions.push(autosave.complete)
 
   dispatch(batchActions(actions))

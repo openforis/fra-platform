@@ -1,6 +1,5 @@
 import './multiSelect.less'
 import React from 'react'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
 const optionClick = (currentValues: any, onChange: any, option: any) => (evt: any) => {
@@ -17,7 +16,9 @@ const outsideClick = (that: any) => (evt: any) => {
   }
 }
 type MultiSelectState = any
+type Props = any
 export default class MultiSelect extends React.Component<{}, MultiSelectState> {
+  props: Props
   outsideClick: any
 
   constructor(props: {}) {
@@ -40,18 +41,15 @@ export default class MultiSelect extends React.Component<{}, MultiSelectState> {
   }
 
   render() {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'values' does not exist on type 'Readonly... Remove this comment to see the full error message
     const { values = [], disabled = false } = this.props
     return (
       <div
         ref="multiSelect"
-        // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number'.
-        tabIndex="0"
+        tabIndex={0}
         onMouseDown={this.toggleOpen.bind(this)}
         onFocus={() => this.setState({ open: true })}
         onBlur={() => this.setState({ open: false })}
         className={`multi-select ${this.state.open ? 'has-focus' : ''}`}
-        disabled={disabled}
       >
         <div className="multi-select__closed-content">
           {R.isEmpty(values) ? (

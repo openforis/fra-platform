@@ -3,12 +3,10 @@
  * Everything from table, column mappings to formatting received data and keys
  * "hotfix"
  */
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import * as NumberUtils from '@common/bignumberUtils'
 import { UnitSpec } from '@webapp/app/assessment/components/section/sectionSpec'
 import { format } from 'date-fns'
 import { getPanEuropeanTableMapping } from '@webapp/app/dataExport/utils/panEuropean'
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/mirosorja/work/fao/fra-platform/commo... Remove this comment to see the full error message
 import { isTypePanEuropean } from '@common/assessment/assessment'
 
 export const regex = {
@@ -23,7 +21,7 @@ export const yearRangeToUnderscore = (range: any) => range.replace('-', '_')
 export const isYearWithWord = (column: any) => regex.yearWithWord.test(column)
 export const splitYearWithWord = (column: any) => column.split('_')
 
-const columnI18nMappings = {
+const columnI18nMappings: any = {
   common_name: 'commonName',
   scientific_name: 'scientificName',
   national: 'national',
@@ -31,7 +29,6 @@ const columnI18nMappings = {
 }
 
 export const getColumnLabel = (column: any, section: any) =>
-  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   columnI18nMappings[column] ? `${section}.${columnI18nMappings[column]}` : String(column)
 
 /**
@@ -55,7 +52,7 @@ export const getI18nKey = (column: any, section: any, assessmentType: any) => {
 
 // View specific
 // forestPolicy
-export const forestPolicy = {
+export const forestPolicy: any = {
   national: 'national_yes_no',
   subnational: 'sub_national_yes_no',
   national_yes_no: 'national',
@@ -73,7 +70,6 @@ const isForestPolicySection = (section: any) => section.includes('forestPolicy')
 export const formatColumn = (column: any, section: any) => {
   // /forestPolicy/ has specific mappings
   if (isForestPolicySection(section)) {
-    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     return forestPolicy[column]
   }
 
@@ -94,7 +90,6 @@ export const formatColumn = (column: any, section: any) => {
 export const getValue = (column: any, countryIso: any, results: any, section: any, variable: any) => {
   let columnKey = column
 
-  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   if (isForestPolicySection(section)) columnKey = forestPolicy[column]
   if (isYearRange(column)) columnKey = yearRangeToUnderscore(column)
 
@@ -110,7 +105,7 @@ export const getValue = (column: any, countryIso: any, results: any, section: an
 export const valueConverted = (value: any, base: any, unit: any) =>
   base && base !== unit && Object.keys(UnitSpec.factors).includes(base) ? UnitSpec.convert(value, base, unit) : value
 
-const sections = {
+const sections: any = {
   designatedManagementObjective: 'primary_designated_management_objective',
 }
 
@@ -124,7 +119,6 @@ export const formatSection = (section: any, assessmentType: any) => {
   if (isTypePanEuropean(assessmentType)) {
     return getPanEuropeanTableMapping(section)
   }
-  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   return sections[section] ? sections[section] : section
 }
 
@@ -135,7 +129,7 @@ export const formatSection = (section: any, assessmentType: any) => {
  */
 export const getTimeStamp = (formatStr = 'yyyy-MM-dd') => format(new Date(), formatStr)
 
-const variableI18nMappings = {
+const variableI18nMappings: any = {
   other: 'common.other',
   otherOrUnknown: 'common.unknown',
 }
@@ -149,7 +143,6 @@ export const getCustomVariableI18nMappings = (i18nKey: any) => {
   // get the last part of the i18n key,
   // ex: foo.bar.other => other
   const key = i18nKey.split('.').pop()
-  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   return variableI18nMappings[key] ? variableI18nMappings[key] : i18nKey
 }
 

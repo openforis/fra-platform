@@ -1,47 +1,34 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
+import * as R from 'ramda'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
-const db = require('../db/db')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'sendErr'.
-const { sendErr, sendOk } = require('../utils/requestUtils')
+import * as db from '../db/db'
+import { sendErr, sendOk } from '../utils/requestUtils'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fraReposit... Remove this comment to see the full error message
-const fraRepository = require('./fraRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'odpReposit... Remove this comment to see the full error message
-const odpRepository = require('../odp/odpRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'auditRepos... Remove this comment to see the full error message
-const auditRepository = require('../audit/auditRepository')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'estimation... Remove this comment to see the full error message
-const estimationEngine = require('./estimationEngine')
-const fraValueService = require('./fraValueService')
+import * as fraRepository from './fraRepository'
+import * as odpRepository from '../odp/odpRepository'
+import * as auditRepository from '../audit/auditRepository'
+import * as estimationEngine from './estimationEngine'
+import * as fraValueService from './fraValueService'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'defaultYea... Remove this comment to see the full error message
-const defaultYears = require('./defaultYears')
+import * as defaultYears from './defaultYears'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Auth'.
-const Auth = require('../auth/authApiMiddleware')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'VersionSer... Remove this comment to see the full error message
-const VersionService = require('../versioning/service')
+import * as Auth from '../auth/authApiMiddleware'
+import * as VersionService from '../versioning/service'
 
-const fraWriters = {
+const fraWriters: {[key: string]: any} = {
   extentOfForest: fraRepository.persistEofValues,
   forestCharacteristics: fraRepository.persistFocValues,
 }
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'odpReaders... Remove this comment to see the full error message
-const odpReaders = {
+const odpReaders: {[key: string]: any} = {
   extentOfForest: odpRepository.readEofOdps,
   forestCharacteristics: odpRepository.readFocOdps,
 }
 
-module.exports.init = (app: any) => {
+export const init = (app: any) => {
   app.post('/nde/:section/:countryIso', Auth.requireCountryEditPermission, async (req: any, res: any) => {
-    const { section } = req.params
-    const { countryIso } = req.params
+    const { section, countryIso } = req.params
     try {
       await db.transaction(auditRepository.insertAudit, [req.user.id, 'saveFraValues', countryIso, req.params.section])
 
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       const writer = fraWriters[section]
       const updates = R.map((c: any) => writer(countryIso, c.year, c), req.body)
       for (const update of updates) {
@@ -61,7 +48,6 @@ module.exports.init = (app: any) => {
     try {
       await db.transaction(auditRepository.insertAudit, [req.user.id, 'saveFraValues', countryIso, section])
 
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       const writer = fraWriters[section]
       await writer(countryIso, req.params.year, req.body)
 
@@ -91,9 +77,7 @@ module.exports.init = (app: any) => {
       try {
         await db.transaction(auditRepository.insertAudit, [req.user.id, 'generateFraValues', countryIso, section])
 
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         const readOdp = odpReaders[section]
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         const writer = fraWriters[section]
         const generateSpec = req.body
 

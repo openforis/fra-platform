@@ -1,12 +1,16 @@
 import React from 'react'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'd3'.... Remove this comment to see the full error message
 import * as d3 from 'd3'
 import { hasData, defaultTransitionDuration } from '../chart'
 
 const tucanY = 20
 const tucanWidth = 62
 const tucanHeight = 87
+type Props = any
+
 class NoDataPlaceholder extends React.Component {
+  props: Props
+  refs: any
+
   getTucanX() {
     return ((this.props as any).wrapperWidth - tucanWidth) / 2
   }

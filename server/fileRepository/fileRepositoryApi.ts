@@ -1,19 +1,14 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
-const db = require('../db/db')
+import * as db from '../db/db'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'sendErr'.
-const { sendErr } = require('../utils/requestUtils')
+import { sendErr } from '../utils/requestUtils'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Auth'.
-const Auth = require('../auth/authApiMiddleware')
+import * as Auth from '../auth/authApiMiddleware'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'persistFil... Remove this comment to see the full error message
-const { persistFile, getFilesList, getFile, deleteFile } = require('./fileRepositoryRepository')
+import { persistFile, getFilesList, getFile, deleteFile } from './fileRepositoryRepository'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fileTypes'... Remove this comment to see the full error message
-const { fileTypes, downloadFile } = require('./fileRepository')
+import { fileTypes, downloadFile } from './fileRepository'
 
-module.exports.init = (app: any) => {
+export const init = (app: any) => {
   // get user guide
   app.get('/fileRepository/userGuide/:lang', Auth.requireCountryEditPermission, async (req: any, res: any) => {
     try {

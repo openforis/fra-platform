@@ -1,4 +1,3 @@
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 import { TYPE, TYPES, getType } from '@webapp/app/assessment/components/section/sectionSpec/keysType'
 import { KEYS_COL } from '@webapp/app/assessment/components/section/sectionSpec/colSpec'
@@ -32,11 +31,9 @@ export const KEYS_ROW_CHART = {
   color: 'color',
 }
 
-// @ts-expect-error ts-migrate(7005) FIXME: Variable 'rowHeaderDefault' implicitly has an '{ [... Remove this comment to see the full error message
-const rowHeaderDefault = { [KEYS_ROW.type]: TYPES.header, [KEYS_ROW.cols]: [] }
+const rowHeaderDefault: any = { [KEYS_ROW.type]: TYPES.header, [KEYS_ROW.cols]: [] }
 
-// @ts-expect-error ts-migrate(7005) FIXME: Variable 'rowDataDefault' implicitly has an '{ [x:... Remove this comment to see the full error message
-const rowDataDefault = {
+const rowDataDefault: any = {
   [KEYS_ROW.type]: TYPES.data,
   [KEYS_ROW.cols]: [],
   [KEYS_ROW.validator]: null,
@@ -55,14 +52,12 @@ const rowDataDefault = {
   [KEYS_ROW.variableExport]: null,
 }
 
-// @ts-expect-error ts-migrate(7005) FIXME: Variable 'rowValidationMessagesDefault' implicitly... Remove this comment to see the full error message
-const rowValidationMessagesDefault = {
+const rowValidationMessagesDefault: any = {
   [KEYS_ROW.type]: TYPES.validationMessages,
   [KEYS_ROW.getValidationMessages]: null,
 }
 
-// @ts-expect-error ts-migrate(7005) FIXME: Variable 'rowNoticeMessageDefault' implicitly has ... Remove this comment to see the full error message
-const rowNoticeMessageDefault = {
+const rowNoticeMessageDefault: any = {
   [KEYS_ROW.type]: TYPES.noticeMessage,
   [KEYS_ROW.labelKey]: null,
   [KEYS_ROW.cols]: [],
@@ -88,7 +83,7 @@ const assocColHeader = (row: any) => {
   className = calculateFn || mainCategory ? 'fra-table__header-cell-left' : className
   className = subcategory ? 'fra-table__subcategory-cell' : className
 
-  const colHeader = {
+  const colHeader: any = {
     idx: `header_0`,
     type: TYPES.header,
     colSpan,

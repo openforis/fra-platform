@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   tableName: 'table_6_9',
   schemaName: 'pan_european',
   section: 'panEuropean_6_9',
@@ -13,7 +13,7 @@ module.exports = {
       'energy_from_co_products',
       'of_which_solid_residues',
       'energy_from_processed_wood_based_fuels',
-      'of_which_imported',
+      'of_which_import * as ed',
       'energy_from_post_consumer_recovered_wood',
       'energy_from_unknown_unspecified_sources',
     ],

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ramd... Remove this comment to see the full error message
 import * as R from 'ramda'
 
 import { getUrlParameter } from '@webapp/utils/urlUtils'
@@ -11,8 +10,7 @@ import Error from '../Error'
 import LocalLogin from './LocalLogin'
 
 const LoginForm = () => {
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'status' does not exist on type '{}'.
-  const { status, invitation, user } = useSelector(R.pathOr({}, ['login', 'login']))
+  const { status, invitation, user }: any = useSelector(R.pathOr({}, ['login', 'login']))
 
   const dispatch = useDispatch()
   const [loginLocal, setLoginLocal] = useState(false)

@@ -1,14 +1,10 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'camelize'.
-const camelize = require('camelize')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'db'.
-const db = require('../db/db')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'auditRepos... Remove this comment to see the full error message
-const auditRepository = require('../audit/auditRepository')
+// @ts-ignore
+import * as camelize from 'camelize'
+import * as R from 'ramda'
+import * as db from '../db/db'
+import * as auditRepository from '../audit/auditRepository'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'persistFil... Remove this comment to see the full error message
-const persistFile = async (client: any, user: any, countryIso: any, file: any, fileCountryIso: any) => {
+export const persistFile = async (client: any, user: any, countryIso: any, file: any, fileCountryIso: any) => {
   await auditRepository.insertAudit(client, user.id, 'fileRepositoryUpload', countryIso, 'fileRepository', {
     file: file.name,
   })
@@ -25,8 +21,7 @@ const persistFile = async (client: any, user: any, countryIso: any, file: any, f
   return await getFilesList(countryIso, client)
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getFilesLi... Remove this comment to see the full error message
-const getFilesList = async (countryIso: any, client = db) => {
+export const getFilesList = async (countryIso: any, client = db.pool) => {
   const filesListResp = await client.query(
     `
     SELECT id, country_iso, file_name
@@ -40,8 +35,7 @@ const getFilesList = async (countryIso: any, client = db) => {
   return camelize(filesListResp.rows)
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getFile'.
-const getFile = async (fileId: any, client = db) => {
+export const getFile = async (fileId: any, client = db.pool) => {
   const fileResp = await client.query(
     `
     SELECT id, country_iso, file_name, file
@@ -63,8 +57,7 @@ const getFile = async (fileId: any, client = db) => {
   }
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'deleteFile... Remove this comment to see the full error message
-const deleteFile = async (client: any, user: any, countryIso: any, fileId: any) => {
+export const deleteFile = async (client: any, user: any, countryIso: any, fileId: any) => {
   const file = await getFile(fileId, client)
   if (file) {
     await auditRepository.insertAudit(client, user.id, 'fileRepositoryDelete', countryIso, 'fileRepository', {
@@ -82,7 +75,7 @@ const deleteFile = async (client: any, user: any, countryIso: any, fileId: any) 
   return await getFilesList(countryIso, client)
 }
 
-module.exports = {
+export default {
   persistFile,
   getFilesList,
   getFile,

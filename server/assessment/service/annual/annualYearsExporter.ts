@@ -1,26 +1,18 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'R'.
-const R = require('ramda')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Promise'.
-const Promise = require('bluebird')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'CSVOutputW... Remove this comment to see the full error message
-const CSVOutputWithVariables = require('../csvOutputWithVariables')
+import * as R from 'ramda'
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'CountryCon... Remove this comment to see the full error message
-const CountryConfigExporter = require('../exporter/countryConfigExporter')
+import CsvOutputWithVariables from '../csvOutputWithVariables'
+
+import CountryConfigExporter from '../exporter/countryConfigExporter'
 // 1a
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'ExtentOfFo... Remove this comment to see the full error message
-const ExtentOfForestExporter = require('../fraYears/section_1/extentOfForestExporter')
+import ExtentOfForestExporter from '../fraYears/section_1/extentOfForestExporter'
 
 // 5
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Disturbanc... Remove this comment to see the full error message
-const DisturbancesExporter = require('./section_5/disturbancesExporter')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'AreaAffect... Remove this comment to see the full error message
-const AreaAffectedByFireExporter = require('./section_5/areaAffectedByFireExporter')
+import DisturbancesExporter from './section_5/disturbancesExporter'
+import AreaAffectedByFireExporter from './section_5/areaAffectedByFireExporter'
 
-const YEARS_ANNUAL = R.range(2000, 2018)
+export const YEARS_ANNUAL = R.range(2000, 2018)
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fetchCount... Remove this comment to see the full error message
-const fetchCountryData = async (countryIso: any) =>
+export const fetchCountryData = async (countryIso: any) =>
   await Promise.all([
     CountryConfigExporter.fetchData(countryIso),
     // 1a,
@@ -30,8 +22,7 @@ const fetchCountryData = async (countryIso: any) =>
     AreaAffectedByFireExporter.fetchData(countryIso),
   ])
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getCountry... Remove this comment to see the full error message
-const getCountryData = async (country: any) => {
+export const getCountryData = async (country: any) => {
   const [
     countryConfig,
     // 1a
@@ -57,8 +48,7 @@ const getCountryData = async (country: any) => {
   }))
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'getCsvOutp... Remove this comment to see the full error message
-const getCsvOutput = (includeVariableFolders = true) => {
+export const getCsvOutput = (includeVariableFolders = true) => {
   const fieldsVariables = [
     // 5a, 5b
     ...DisturbancesExporter.fieldsWithLabels,
@@ -67,7 +57,7 @@ const getCsvOutput = (includeVariableFolders = true) => {
 
   const fieldsCountryConfig = CountryConfigExporter.fieldsWithLabels
 
-  return new CSVOutputWithVariables(
+  return new CsvOutputWithVariables(
     'Annual',
     fieldsVariables,
     fieldsCountryConfig,
@@ -76,7 +66,7 @@ const getCsvOutput = (includeVariableFolders = true) => {
   )
 }
 
-module.exports = {
+export default {
   getCountryData,
   getCsvOutput,
 }

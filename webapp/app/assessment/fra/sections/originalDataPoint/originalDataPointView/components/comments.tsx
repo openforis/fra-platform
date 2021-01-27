@@ -24,7 +24,6 @@ const Comments = (props: Props) => {
         <div className="fra-description__review-indicator-wrapper">
           {odp.odpId && canEditData && (
             <ReviewIndicator
-              // @ts-expect-error ts-migrate(2322) FIXME: Type '{ section: string; title: any; target: strin... Remove this comment to see the full error message
               section="odp"
               title={(i18n as any).t('nationalDataPoint.nationalDataPoint')}
               target={target}
