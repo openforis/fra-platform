@@ -120,7 +120,7 @@ const getRegions = async () => {
 const getRegionGroups = async () => {
   // Exclude Atlantis from region groups
   const query = `
-        SELECT * FROM region_group
+        SELECT * FROM region_group ORDER BY "order"
         `
   const result = await db.query(query)
   return camelize(result.rows)

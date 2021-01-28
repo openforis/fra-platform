@@ -5,6 +5,7 @@ import { Area, Country } from '@common/country'
 import { useI18n, useOnUpdate } from '@webapp/components/hooks'
 
 import * as AppActions from '../actions'
+import FRA from '../../../../common/assessment/fra'
 
 export const useAssessmentType = () => useSelector(AppState.getAssessmentType)
 
@@ -74,6 +75,6 @@ export const useGroupedRegions = () => {
  */
 export const useFraRegions = () => {
   const groupedRegions = useGroupedRegions()
-  const _fraRegionGroup = groupedRegions.find((groupedRegion) => groupedRegion.name === 'fra')
+  const _fraRegionGroup = groupedRegions.find((groupedRegion) => groupedRegion.name === FRA.type)
   return _fraRegionGroup.regions.map((region) => region.regionCode)
 }
