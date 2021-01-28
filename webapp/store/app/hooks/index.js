@@ -67,3 +67,13 @@ export const useGroupedRegions = () => {
     regions: regions.filter((region) => region.regionGroup === rg.id),
   }))
 }
+
+/**
+ * Returns array of region_codes
+ * @returns {*}
+ */
+export const useFraRegions = () => {
+  const groupedRegions = useGroupedRegions()
+  const _fraRegionGroup = groupedRegions.find((groupedRegion) => groupedRegion.name === 'fra')
+  return _fraRegionGroup.regions.map((region) => region.regionCode)
+}
