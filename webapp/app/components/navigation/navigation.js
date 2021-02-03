@@ -1,8 +1,10 @@
 import './navigation.less'
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import * as FRA from '@common/assessment/fra'
 import * as PanEuropean from '@common/assessment/panEuropean'
+import * as BasePaths from '@webapp/main/basePaths'
 
 import { useCountryIso, useI18n } from '@webapp/components/hooks'
 
@@ -26,10 +28,14 @@ const Navigation = () => {
       <Assessment assessment={assessment} />
 
       {isISOGlobal(countryIso) && (
-        <a className="btn-s btn-primary nav__bulk-download" href="/api/export/bulk-download" alt="">
+        <Link
+          className="btn-s btn-primary nav__bulk-download"
+          to={BasePaths.getAssessmentDataDownloadLink(countryIso, assessmentType)}
+          alt=""
+        >
           <Icon className="icon-sub icon-white" name="hit-down" />
-          {i18n.t('navigation.bulkDownload')}
-        </a>
+          {i18n.t('dataDownload.dataDownload')}
+        </Link>
       )}
     </div>
   )

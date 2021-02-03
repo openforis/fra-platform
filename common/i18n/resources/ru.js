@@ -1,8 +1,10 @@
 const area = require('./ru/area')
+const dataDownload = require('./ru/dataDownload')
 const statisticalFactsheets = require('./ru/statisticalFactsheets')
 
 module.exports.translation = {
   area,
+  dataDownload,
 
   language: {
     en: 'English',
@@ -294,7 +296,6 @@ module.exports.translation = {
   },
 
   navigation: {
-    bulkDownload: 'Пакетная загрузка',
     hideAll: 'Скрыть все',
     showAll: 'Показать все',
     support: {
@@ -1011,7 +1012,8 @@ module.exports.translation = {
     panEuropeanAssessment: 'Общеевропейская оценка',
     govSwitzerland: 'Правительство Швейцарии',
     landing: {
-      link: 'Объединенный отчёт ЛЕСА ЕВРОПЫ / ЕЭК ООН / ФАО по общеевропейским индикаторам для устойчивого управления лесами: ЛЕСА ЕВРОПЫ',
+      link:
+        'Объединенный отчёт ЛЕСА ЕВРОПЫ / ЕЭК ООН / ФАО по общеевропейским индикаторам для устойчивого управления лесами: ЛЕСА ЕВРОПЫ',
     },
     home: {
       description1:
@@ -1122,7 +1124,8 @@ module.exports.translation = {
 
     // table 1.3a1
     ageClassDistributionAreaOfEvenAgedStands: {
-      ageClassDistributionAreaOfEvenAgedStands: 'Распределение по возрастным классам (площадь одновозрастных насаждений)',
+      ageClassDistributionAreaOfEvenAgedStands:
+        'Распределение по возрастным классам (площадь одновозрастных насаждений)',
       categoryYear: 'Категория - Год',
       developmentPhases1000ha: 'Фазы развития (1 000 га)',
       total_area: 'Общая площадь (1 000 га)',
@@ -1148,7 +1151,8 @@ module.exports.translation = {
       intermediate_phase: 'Промежуточная фаза',
       mature_phase: 'Фаза зрелости',
       unspecified: 'Неопределено',
-      forest_available_for_wood_supply_even_aged_stands_of_which: 'Лес доступный для поставки древесины (одновозрастные насаждения), в т. ч: - {{year}}',
+      forest_available_for_wood_supply_even_aged_stands_of_which:
+        'Лес доступный для поставки древесины (одновозрастные насаждения), в т. ч: - {{year}}',
       predominantly_coniferous_forest: 'Преимущественно хвойный лес - {{year}}',
       predominantly_broadleaved_forest: 'Преимущественно лиственный лес - {{year}}',
       mixed_forest: 'Смешанный лес - {{year}}',
@@ -1210,7 +1214,8 @@ module.exports.translation = {
       wildlife_and_grazing: 'Дикие животные и скот',
       forest_operations: 'Лесные операции',
       other: 'Другое',
-      primarily_damaged_by_abiotic_agents: 'Поврежденные преимущественно абиотическими факторами (ураганы, ветра, снег и т. д.)',
+      primarily_damaged_by_abiotic_agents:
+        'Поврежденные преимущественно абиотическими факторами (ураганы, ветра, снег и т. д.)',
       primarily_damaged_by_fire_total: 'Всего',
       of_which_human_induced: 'в т. ч. вызванные человеком',
       unspecified_mixed_damage: 'Неопределенные/ Смешанные повреждения',
@@ -1277,7 +1282,8 @@ module.exports.translation = {
       roundwood: 'Круглый лес - {{year}}',
       total_volume: 'Вывозка древесины - Всего - Объем (1000 м³ без коры)',
       industrial_roundwood_volume: 'Вывозка древесины - Деловой круглый лес - Объем (1000 м³ без коры)',
-      industrial_roundwood_market_value: 'Вывозка древесины - Деловой круглый лес - Рыночная стоимость (1000 ед. нац. валюты)',
+      industrial_roundwood_market_value:
+        'Вывозка древесины - Деловой круглый лес - Рыночная стоимость (1000 ед. нац. валюты)',
       woodfuel_volume: 'Вывозка древесины - Древесное топливо - Объем (1000 м³ без коры)',
       woodfuel_market_value: 'Вывозка древесины - Древесное топливо - Рыночная стоимость (1000 ед. нац. валюты)',
     },
@@ -1502,7 +1508,8 @@ module.exports.translation = {
       forest: 'Лес - {{year}}',
       other_wooded_land: 'Прочая лесопокрытая земля - {{year}}',
       total_forest_and_other_wooded_land: 'Всего лес и прочая лесопокрытая земля - {{year}}',
-      volumeOfDeadwoodInFOWLBySpeciesGroups: 'Запас мертвой древесины в лесе и прочей лесопокрытой земли по группам пород',
+      volumeOfDeadwoodInFOWLBySpeciesGroups:
+        'Запас мертвой древесины в лесе и прочей лесопокрытой земли по группам пород',
       coniferous: 'Хвойные - {{year}}',
       broadleaved: 'Лиственные - {{year}}',
     },
@@ -1584,7 +1591,8 @@ module.exports.translation = {
       million_national_currency: 'Миллион единиц национальной валюты',
       percent_of_total_gva: '% всей ВДС',
       forestry: 'Лесное хозяйство (ISIC/NACE 02) - {{year}}',
-      manufacture_of_wood_and_articles_in_wood: 'Производство древесины и изделий из древесины (ISIC/NACE 16) - {{year}}',
+      manufacture_of_wood_and_articles_in_wood:
+        'Производство древесины и изделий из древесины (ISIC/NACE 16) - {{year}}',
       manufacture_of_paper_and_paper_products: 'Производство бумаги и бумажной продукции (ISIC/NACE 17) - {{year}}',
     },
 
@@ -1600,7 +1608,8 @@ module.exports.translation = {
 
     // table 6.4a
     totalGrossFixedCapitalFormationInForestsAndForestry: {
-      totalGrossFixedCapitalFormationInForestsAndForestry: 'Валовое накопление основного капитала в лесах и лесном хозяйстве',
+      totalGrossFixedCapitalFormationInForestsAndForestry:
+        'Валовое накопление основного капитала в лесах и лесном хозяйстве',
       categoryYear: 'Категория - Год',
       grossFixedCapitalFormationMillionNationalCurrency: 'Валовое накопление основного капитала (млн ед. нац. валюты)',
       plantingOfTreesToProvideRegularIncome: 'Посадка деревьев для обеспечения регулярного дохода',
@@ -1615,7 +1624,8 @@ module.exports.translation = {
 
     // table 6.4b
     totalFixedCapitalConsumptionInForestsAndForestry: {
-      totalFixedCapitalConsumptionInForestsAndForestry: 'Общее потребление основного капитала в лесах и лесном хозяйстве',
+      totalFixedCapitalConsumptionInForestsAndForestry:
+        'Общее потребление основного капитала в лесах и лесном хозяйстве',
       categoryYear: 'Категория - Год',
       fixed_capital_consumption: 'Потребление основного капитал (млн ед. нац. валюты)',
       forestry_isic_nace_02: 'Лесное хозяйство (ISIC/NACE 02) - {{year}}',
@@ -1642,7 +1652,8 @@ module.exports.translation = {
       _50_: '50+',
       _1000Persons: '1000 человек',
       forestry: 'Лесное хозяйство (ISIC/NACE 02) - {{year}}',
-      manufacture_of_wood_and_articles_in_wood: 'Производство древесины и изделий из древесины (ISIC/NACE 16) - {{year}}',
+      manufacture_of_wood_and_articles_in_wood:
+        'Производство древесины и изделий из древесины (ISIC/NACE 16) - {{year}}',
       manufacture_of_paper_and_paper_products: 'Производство бумаги и бумажной продукции (ISIC/NACE 17) - {{year}}',
       gender_male: 'Пол - Мужской',
       gender_female: 'Пол - Женский',
@@ -1663,7 +1674,8 @@ module.exports.translation = {
       selfEmployed: 'Cамозанятые',
       _1000Persons: '1000 человек',
       forestry: 'Лесное хозяйство (ISIC/NACE 02) - {{year}}',
-      manufacture_of_wood_and_articles_in_wood: 'Производство древесины и изделий из древесины (ISIC/NACE 16) - {{year}}',
+      manufacture_of_wood_and_articles_in_wood:
+        'Производство древесины и изделий из древесины (ISIC/NACE 16) - {{year}}',
       manufacture_of_paper_and_paper_products: 'Производство бумаги и бумажной продукции (ISIC/NACE 17) - {{year}}',
       education_0_2: 'Образование (Категории МСКО 1997) - 0-2',
       education_3_4: 'Образование (Категории МСКО 1997) - 3-4',
@@ -1681,9 +1693,11 @@ module.exports.translation = {
       annualRatePer1000Workers: 'Среднее число на 1000 рабочих',
       forestry_isic_nace_02: 'Лесное хозяйство (ISIC/NACE 02) - {{year}}',
       fatal_occupational_accidents_number: 'Несчастные случаи с летальным исходом - Число',
-      fatal_occupational_accidents_per_1000_workers: 'Несчастные случаи с летальным исходом - Среднее число на 1000 рабочих',
+      fatal_occupational_accidents_per_1000_workers:
+        'Несчастные случаи с летальным исходом - Среднее число на 1000 рабочих',
       non_fatal_occupational_accidents_number: 'Несчастные случаи без летального исхода - Число',
-      non_fatal_occupational_accidents_per_1000_workers: 'Несчастные случаи без летального исхода - Среднее число на 1000 рабочих',
+      non_fatal_occupational_accidents_per_1000_workers:
+        'Несчастные случаи без летального исхода - Среднее число на 1000 рабочих',
     },
 
     // table 6.7
@@ -1767,9 +1781,12 @@ module.exports.translation = {
       energy_from_direct_wood_fibre_sources: '- Энергия из источников прямого древесного волокна:',
       of_which_from_forests: 'в т.ч. с лесов:',
       of_which_from_other_wooded_land: 'в т. ч. с  прочих лесопокрытых  земель и других земель (деревья вне лесов):',
-      energy_from_co_products: '- Энергия из побочных продуктов и древесных отходов деревообрабатывающей промышленности:',
-      of_which_solid_residues: 'в т. ч. твердые отходы (щепа, стружка, древесные отходы, кора, исключая топливо из переработанной древесины):',
-      energy_from_processed_wood_based_fuels: '- Энергия от топлива из переработанной древесины (древесные гранулы, брикеты, древесный уголь):',
+      energy_from_co_products:
+        '- Энергия из побочных продуктов и древесных отходов деревообрабатывающей промышленности:',
+      of_which_solid_residues:
+        'в т. ч. твердые отходы (щепа, стружка, древесные отходы, кора, исключая топливо из переработанной древесины):',
+      energy_from_processed_wood_based_fuels:
+        '- Энергия от топлива из переработанной древесины (древесные гранулы, брикеты, древесный уголь):',
       of_which_imported: 'в т. ч. импортируемая',
       energy_from_post_consumer_recovered_wood: '- Энергия от бывшей в употреблении рекуперированной древесины',
       energy_from_unknown_unspecified_sources: '- Энергия из неизвестных/неуказанных источников',
@@ -1792,12 +1809,17 @@ module.exports.translation = {
       areaAvailableForPublicRecreation: 'Площадь с общественным доступом в рекреационных целях',
       total1000Ha: 'Всего (1000 га)',
       _oftotal: '% от общей площади',
-      areaPrimarilyDesignatedOrManagedForPublicRecreation: 'Площадь, предназначенная или управляемая, в первую очередь, для общественной рекреации',
+      areaPrimarilyDesignatedOrManagedForPublicRecreation:
+        'Площадь, предназначенная или управляемая, в первую очередь, для общественной рекреации',
       total_forest_and_other_wooded_land: 'Всего лес и прочая лесопокрытая земля - {{year}}',
-      area_available_for_public_recreation_total: 'Площадь с общественным доступом в рекреационных целях - Всего (1000 га)',
-      area_available_for_public_recreation_percent: 'Площадь с общественным доступом в рекреационных целях - % от общей площади',
-      area_designated_or_managed_for_public_recreation_total: 'Площадь, предназначенная или управляемая, в первую очередь, для общественной рекреации - Всего (1000 га)',
-      area_designated_or_managed_for_public_recreation_percent: 'Площадь, предназначенная или управляемая, в первую очередь, для общественной рекреации - % от общей площади',
+      area_available_for_public_recreation_total:
+        'Площадь с общественным доступом в рекреационных целях - Всего (1000 га)',
+      area_available_for_public_recreation_percent:
+        'Площадь с общественным доступом в рекреационных целях - % от общей площади',
+      area_designated_or_managed_for_public_recreation_total:
+        'Площадь, предназначенная или управляемая, в первую очередь, для общественной рекреации - Всего (1000 га)',
+      area_designated_or_managed_for_public_recreation_percent:
+        'Площадь, предназначенная или управляемая, в первую очередь, для общественной рекреации - % от общей площади',
     },
 
     // table 6.10b
@@ -1806,10 +1828,12 @@ module.exports.translation = {
       categoryYear: 'Категория - Год',
       annualNumberOfVisitsMillion: 'Ежегодное число посещений (миллион)',
       areaAvailableForPublicRecreation: 'Площадь с общественным доступом в рекреационных целях',
-      areaPrimarilyDesignatedAndOrManagedForPublicRecreation: 'Площадь, предназначенная или управляемая, в первую очередь, для общественной рекреации',
+      areaPrimarilyDesignatedAndOrManagedForPublicRecreation:
+        'Площадь, предназначенная или управляемая, в первую очередь, для общественной рекреации',
       total_forest_and_other_wooded_land: 'Всего лес и прочая лесопокрытая земля - {{year}}',
-      area_available_for_public_recreation: 'Площадь с общественным доступом в рекреационных целях - Ежегодное число посещений (миллион)',
-      area_designated_and_or_managed_for_public_recreation: 
+      area_available_for_public_recreation:
+        'Площадь с общественным доступом в рекреационных целях - Ежегодное число посещений (миллион)',
+      area_designated_and_or_managed_for_public_recreation:
         'Площадь, предназначенная или управляемая, в первую очередь, для общественной рекреации - Ежегодное число посещений (миллион)',
     },
 
@@ -1817,20 +1841,24 @@ module.exports.translation = {
     recreationFacilities: {
       recreationFacilities: 'Рекреационные объекты',
       categoryYear: 'Категория - Год',
-      forestRoadsAndPathsAvailableForPublicRecreation: 'Лесные дороги и тропы, доступные для общественных рекреационных целей',
-      _ofWhichDesignatedForHikingBikingCrossCountrySkiingEtc: '… в т. ч. предназначенные для походов, езды на велосипеде, беговых лыжах, и т.д.',
+      forestRoadsAndPathsAvailableForPublicRecreation:
+        'Лесные дороги и тропы, доступные для общественных рекреационных целей',
+      _ofWhichDesignatedForHikingBikingCrossCountrySkiingEtc:
+        '… в т. ч. предназначенные для походов, езды на велосипеде, беговых лыжах, и т.д.',
       facilityLengthIn1000Km: 'Объект (протяжённость в 1000 км)',
       area_available_for_public_recreation: 'Площадь с общественным доступом в рекреационных целях - {{year}}',
-      forest_roads_and_paths_available_for_public_recreation: 'Лесные дороги и тропы, доступные для общественных рекреационных целей - Объект (протяжённость в 1000 км)',
+      forest_roads_and_paths_available_for_public_recreation:
+        'Лесные дороги и тропы, доступные для общественных рекреационных целей - Объект (протяжённость в 1000 км)',
       _of_which_designated_for_hiking_biking_cross_country_skiing_etc:
         '… в т. ч. предназначенные для походов, езды на велосипеде, беговых лыжах, и т.д. - Объект (протяжённость в 1000 км)',
     },
 
     // table 6.10d
     otherRecreationFacilitiesPilotReporting2015: {
-      otherRecreationFacilitiesPilotReporting2015: 'Другие объекты для рекреации - экспериментальная отчетность (2015 год)',
+      otherRecreationFacilitiesPilotReporting2015:
+        'Другие объекты для рекреации - экспериментальная отчетность (2015 год)',
       category: 'Категория',
-      facility: 'Объект',      
+      facility: 'Объект',
       measurement_unit: 'Единица измерения',
       extent_multiplicity: 'Протяженность / многочисленность',
       facility_category: 'Категория объекта',
@@ -1854,6 +1882,6 @@ module.exports.translation = {
       no18_area_available_for_public_recreation: 'Площадь с общественным доступом в рекреационных целях 18',
       no19_area_available_for_public_recreation: 'Площадь с общественным доступом в рекреационных целях 19',
       no20_area_available_for_public_recreation: 'Площадь с общественным доступом в рекреационных целях 20',
-    },    
+    },
   },
 }

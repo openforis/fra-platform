@@ -28,6 +28,16 @@ module.exports.init = (app) => {
     }
   })
 
+  // data download
+  app.get('/fileRepository/dataDownload/:key/:fileType', async (req, res) => {
+    try {
+      const { key, fileType } = req.params
+      downloadFile(res, fileTypes.dataDownload(key, fileType), 'en')
+    } catch (err) {
+      sendErr(res, err)
+    }
+  })
+
   // upload new file
   app.post('/fileRepository/:countryIso/upload', Auth.requireCountryEditPermission, async (req, res) => {
     try {
