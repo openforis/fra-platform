@@ -1,4 +1,4 @@
-export const elementOffset = el => {
+export const elementOffset = (el) => {
   if (el) {
     const rect = el.getBoundingClientRect()
 
@@ -16,4 +16,14 @@ export const elementOffset = el => {
   }
 
   return {}
+}
+
+export const documentScrollTo = (options = { top: 0, left: 0, behavior: 'smooth' }) => {
+  const { documentElement } = document
+  if (documentElement.scrollTo) {
+    documentElement.scrollTo(options)
+  } else {
+    // Non Chromium based Edge version
+    documentElement.scrollIntoView(true)
+  }
 }

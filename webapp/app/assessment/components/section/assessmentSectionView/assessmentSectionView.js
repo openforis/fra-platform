@@ -16,6 +16,8 @@ import { fetchLastSectionUpdateTimestamp, resetSectionUpdateTimestamp } from '@w
 import AssessmentSection from './assessmentSection'
 import useSectionTables from './useSectionTables'
 
+import { documentScrollTo } from '../../../../../utils/domUtils'
+
 const AssessmentSectionView = () => {
   const { assessmentType, section: sectionName } = useParams()
 
@@ -26,13 +28,7 @@ const AssessmentSectionView = () => {
 
   // eslint-disable-next-line consistent-return
   useEffect(() => {
-    const { documentElement } = document
-    if (documentElement.scrollTo) {
-      documentElement.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
-    } else {
-      // Non Chromium based Edge version
-      documentElement.scrollIntoView(true)
-    }
+    documentScrollTo()
 
     if (!isDataExport) {
       dispatch(
