@@ -1,10 +1,10 @@
 import './dataDownload.less'
 import React, { useEffect } from 'react'
 
-import { useI18n } from '../../../components/hooks'
-import { documentScrollTo } from '../../../utils/domUtils'
+import { useI18n } from '@webapp/components/hooks'
+import { documentScrollTo } from '@webapp/utils/domUtils'
 
-import Icon from '../../../components/icon'
+import Icon from '@webapp/components/icon'
 
 import resources from './resources'
 

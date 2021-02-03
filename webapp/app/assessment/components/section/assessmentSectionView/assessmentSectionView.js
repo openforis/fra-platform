@@ -3,7 +3,9 @@ import './assessmentSectionView.less'
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router'
+
 import { batchActions } from '@webapp/main/reduxBatch'
+import { documentScrollTo } from '@webapp/utils/domUtils'
 
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
@@ -15,8 +17,6 @@ import { fetchLastSectionUpdateTimestamp, resetSectionUpdateTimestamp } from '@w
 
 import AssessmentSection from './assessmentSection'
 import useSectionTables from './useSectionTables'
-
-import { documentScrollTo } from '../../../../../utils/domUtils'
 
 const AssessmentSectionView = () => {
   const { assessmentType, section: sectionName } = useParams()
