@@ -3,6 +3,7 @@ import React from 'react'
 
 import * as FRA from '@common/assessment/fra'
 import * as PanEuropean from '@common/assessment/panEuropean'
+import * as BasePaths from '@webapp/main/basePaths'
 
 import { useCountryIso, useI18n } from '@webapp/components/hooks'
 
@@ -26,9 +27,13 @@ const Navigation = () => {
       <Assessment assessment={assessment} />
 
       {isISOGlobal(countryIso) && (
-        <a className="btn-s btn-primary nav__bulk-download" href="/api/export/bulk-download" alt="">
+        <a
+          className="btn-s btn-primary nav__bulk-download"
+          href={BasePaths.getAssessmentDataDownloadLink(countryIso, assessmentType)}
+          alt=""
+        >
           <Icon className="icon-sub icon-white" name="hit-down" />
-          {i18n.t('navigation.bulkDownload')}
+          {i18n.t('dataDownload.dataDownload')}
         </a>
       )}
     </div>

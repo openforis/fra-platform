@@ -1,10 +1,12 @@
 const area = require('./en/area')
-const statisticalFactsheets = require('./en/statisticalFactsheets')
 const contentCheck = require('./en/contentCheck')
+const dataDownload = require('./en/dataDownload')
+const statisticalFactsheets = require('./en/statisticalFactsheets')
 
 module.exports.translation = {
   area,
   contentCheck,
+  dataDownload,
   statisticalFactsheets,
 
   language: {
@@ -351,7 +353,6 @@ The FRA team
   },
 
   navigation: {
-    bulkDownload: 'Bulk Download',
     hideAll: 'Hide all',
     showAll: 'Show all',
     support: {
@@ -1330,7 +1331,8 @@ The FRA team
       roundwood: 'Roundwood - {{year}}',
       total_volume: 'Wood removals - Total - Volume (1000 m³ u.b.)',
       industrial_roundwood_volume: 'Wood removals - Industrial roundwood - Volume (1000 m³ u.b.)',
-      industrial_roundwood_market_value: 'Wood removals - Industrial roundwood - Market Value (1000  national currency)',
+      industrial_roundwood_market_value:
+        'Wood removals - Industrial roundwood - Market Value (1000  national currency)',
       woodfuel_volume: 'Wood removals - Woodfuel - Volume (1000 m³ u.b.)',
       woodfuel_market_value: 'Wood removals - Woodfuel - Market Value (1000  national currency)',
     },
@@ -1737,7 +1739,8 @@ The FRA team
       fatal_occupational_accidents_number: 'Fatal occupational accidents - Number',
       fatal_occupational_accidents_per_1000_workers: 'Fatal occupational accidents - Annual rate per 1000 workers',
       non_fatal_occupational_accidents_number: 'Non-fatal occupational accidents - Number',
-      non_fatal_occupational_accidents_per_1000_workers: 'Non-fatal occupational accidents - Annual rate per 1000 workers',
+      non_fatal_occupational_accidents_per_1000_workers:
+        'Non-fatal occupational accidents - Annual rate per 1000 workers',
     },
 
     // table 6.7
@@ -1852,8 +1855,10 @@ The FRA team
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
       area_available_for_public_recreation_total: 'Area available for public recreation - Total (1000 ha)',
       area_available_for_public_recreation_percent: 'Area available for public recreation - % of total',
-      area_designated_or_managed_for_public_recreation_total: 'Area primarily designated or managed for public recreation - Total (1000 ha)',
-      area_designated_or_managed_for_public_recreation_percent: 'Area primarily designated or managed for public recreation - % of total',
+      area_designated_or_managed_for_public_recreation_total:
+        'Area primarily designated or managed for public recreation - Total (1000 ha)',
+      area_designated_or_managed_for_public_recreation_percent:
+        'Area primarily designated or managed for public recreation - % of total',
     },
 
     // table 6.10b
@@ -1866,7 +1871,7 @@ The FRA team
         'Area primarily designated and/or managed for public recreation',
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
       area_available_for_public_recreation: 'Area available for public recreation - Annual number of visits (million)',
-      area_designated_and_or_managed_for_public_recreation: 
+      area_designated_and_or_managed_for_public_recreation:
         'Area primarily designated and/or managed for public recreation - Annual number of visits (million)',
     },
 
@@ -1879,7 +1884,8 @@ The FRA team
         '... of which designated for hiking, biking, cross country skiing, etc.',
       facilityLengthIn1000Km: 'Facility (length in 1000 km)',
       area_available_for_public_recreation: 'Area available for public recreation - {{year}}',
-      forest_roads_and_paths_available_for_public_recreation: 'Forest roads and paths available for public recreation - Facility (length in 1000 km)',
+      forest_roads_and_paths_available_for_public_recreation:
+        'Forest roads and paths available for public recreation - Facility (length in 1000 km)',
       _of_which_designated_for_hiking_biking_cross_country_skiing_etc:
         '... of which designated for hiking, biking, cross country skiing, etc. - Facility (length in 1000 km)',
     },
@@ -1888,7 +1894,7 @@ The FRA team
     otherRecreationFacilitiesPilotReporting2015: {
       otherRecreationFacilitiesPilotReporting2015: 'Other recreation facilities - pilot reporting (2015)',
       category: 'Category',
-      facility: 'Facility',      
+      facility: 'Facility',
       measurement_unit: 'Measurement unit',
       extent_multiplicity: 'Extent / Multiplicity',
       facility_category: 'Facility category',
@@ -1912,6 +1918,6 @@ The FRA team
       no18_area_available_for_public_recreation: 'Area available for public recreation 18',
       no19_area_available_for_public_recreation: 'Area available for public recreation 19',
       no20_area_available_for_public_recreation: 'Area available for public recreation 20',
-    },    
+    },
   },
 }
