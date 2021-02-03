@@ -1,5 +1,6 @@
 import './navigation.less'
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import * as FRA from '@common/assessment/fra'
 import * as PanEuropean from '@common/assessment/panEuropean'
@@ -27,14 +28,14 @@ const Navigation = () => {
       <Assessment assessment={assessment} />
 
       {isISOGlobal(countryIso) && (
-        <a
+        <Link
           className="btn-s btn-primary nav__bulk-download"
-          href={BasePaths.getAssessmentDataDownloadLink(countryIso, assessmentType)}
+          to={BasePaths.getAssessmentDataDownloadLink(countryIso, assessmentType)}
           alt=""
         >
           <Icon className="icon-sub icon-white" name="hit-down" />
           {i18n.t('dataDownload.dataDownload')}
-        </a>
+        </Link>
       )}
     </div>
   )
