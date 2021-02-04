@@ -3,7 +3,9 @@ import './assessmentSectionView.less'
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router'
+
 import { batchActions } from '@webapp/main/reduxBatch'
+import { documentScrollTo } from '@webapp/utils/domUtils'
 
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
@@ -26,13 +28,7 @@ const AssessmentSectionView = () => {
 
   // eslint-disable-next-line consistent-return
   useEffect(() => {
-    const { documentElement } = document
-    if (documentElement.scrollTo) {
-      documentElement.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
-    } else {
-      // Non Chromium based Edge version
-      documentElement.scrollIntoView(true)
-    }
+    documentScrollTo()
 
     if (!isDataExport) {
       dispatch(
