@@ -1,8 +1,8 @@
-import * as R from 'ramda'
-import * as countryConfig from '../server/country/countryConfig'
-import * as promise from 'bluebird'
-import * as fs = promise.promisifyAll(require('fs'))
-import * as csv = promise.promisifyAll(require('csv'))
+const R = require('ramda')
+const countryConfig = require('../server/country/countryConfig')
+const promise = require('bluebird')
+const fs = promise.promisifyAll(require('fs'))
+const csv = promise.promisifyAll(require('csv'))
 
 const exampleUsage =
   'node previousFraValuesFrom2015Updater.js exampleData/fra-2015-forest-areas.csv /tmp/countryConfigUpdatedWithFra2015ForestAreas.json'

@@ -1,6 +1,5 @@
 // @ts-ignore
 import * as camelize from 'camelize'
-import * as db from '../db/db'
 
 export const persistMessage = async (client: any, countryIso: any, message: any, fromUserId: any) => {
   await client.query(

@@ -1,7 +1,7 @@
-import * as R from 'ramda'
-import * as faoStat from './faoStat'
-import * as domainMapping from '../server/biomassStock/countriesDomainMapping'
-import * as fs from 'fs'
+const R = require('ramda')
+const faoStat = require('./faoStat')
+const domainMapping = require('../server/biomassStock/countriesDomainMapping')
+const fs = require('fs')
 
 if (process.argv.length < 4) {
   console.log(`Usage: ${process.argv[0]} <path of the faostat csv file> <path of the output file>`)

@@ -1,4 +1,4 @@
-import * as countryConfig from '../server/country/countryConfig'
+const countryConfig = require('../server/country/countryConfig')
 
 const toSql = (key, value) => `UPDATE country SET config = '${value}' WHERE country_iso = '${key}';`
 

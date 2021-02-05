@@ -5,7 +5,7 @@
  *
  * For spec names, see tableMappings.js (const mappings = ...)
  */
-import * as sqlCreator from '../server/traditionalTable/traditionalTableSqlCreator'
+const sqlCreator = require('../server/traditionalTable/traditionalTableSqlCreator')
 
 if (process.argv.length < 3) {
   console.log(`Usage: ${process.argv[0]} <name of the table spec>`)
