@@ -1,6 +1,4 @@
 import * as R from 'ramda'
-// @ts-ignore
-import * as camelize from 'camelize'
 
 import * as auditRepository from '../audit/auditRepository'
 import * as db from '../db/db'

@@ -62,7 +62,6 @@ export const findLocalUserByEmail = async (email: any, client = db.pool) => {
     [email, userType.local]
   )
 
-  const x = res.rows
   return R.isEmpty(res.rows) ? null : await findUserById(res.rows[0].id)
 }
 

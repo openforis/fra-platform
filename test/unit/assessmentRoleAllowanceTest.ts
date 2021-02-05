@@ -1,6 +1,5 @@
 import * as R from 'ramda'
 import { assert } from 'chai'
-import { roles2 } from '../../common/countryRole'
 import { assessmentStatus } from '../../common/assessment'
 import {
   isUserRoleAllowedToEditAssessmentData,

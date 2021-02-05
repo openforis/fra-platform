@@ -2,7 +2,7 @@ import 'tsconfig-paths/register'
 import 'dotenv/config'
 
 import * as cluster from 'cluster'
-// import * as migrations from './db/migration/execMigrations'
+import * as migrations from './db/migration/execMigrations'
 import { serverInit } from './serverInit'
 
 import * as VersioningScheduler from './system/schedulers/versioningScheduler'
@@ -10,9 +10,9 @@ import * as os from 'os'
 
 if (cluster.isMaster) {
   // check db migrations in master process
-  // migrations()
+  migrations()
 
-  const numWorkers = 1 // process.env.WEB_CONCURRENCY || os.cpus().length
+  const numWorkers = process.env.WEB_CONCURRENCY || os.cpus().length
 
   console.log(`Master cluster setting up ${numWorkers} workers...`)
 

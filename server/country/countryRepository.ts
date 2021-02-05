@@ -5,7 +5,6 @@ import * as camelize from 'camelize'
 import * as db from '../db/db'
 
 import * as CountryRole from '../../common/countryRole'
-import { QueryArrayResult } from 'pg'
 
 /*
  * Determine the "overall status" from multiple statuses.

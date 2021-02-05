@@ -41,7 +41,7 @@ export default class MultiSelect extends React.Component<{}, MultiSelectState> {
   }
 
   render() {
-    const { values = [], disabled = false } = this.props
+    const { values = [] } = this.props
     return (
       <div
         ref="multiSelect"

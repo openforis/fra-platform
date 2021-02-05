@@ -72,7 +72,6 @@ const DataSources = (props: Props) => {
                     onChange={(values: any) => {
                       dispatch(saveDraft(countryIso, R.assoc('dataSourceMethods', values, odp)))
                     }}
-                    disabled={printView || !canEditData}
                   />
                 </td>
                 <td className="fra-table__row-anchor-cell">
