@@ -10,6 +10,7 @@ import Icon from '@webapp/components/icon'
 import StatisticalFactsheets from '@webapp/app/countryLanding/views/statisticalFactsheets'
 
 import useCountryLandingSections from '@webapp/app/countryLanding/useCountryLandingSections'
+import { useFraRegions } from '../../../../store/app/hooks'
 
 const FraHome = () => {
   const { pathname } = useLocation()
@@ -26,6 +27,8 @@ const FraHome = () => {
   })
   // tabs are available when user is logged-in and selected area is country
   const displayTabs = userInfo && isCountry
+  const fraRegions = useFraRegions()
+  const showButton = (fraRegions.includes(countryIso) || Area.isISOGlobal(countryIso)) && matchOverview
 
   return (
     <>
@@ -33,7 +36,7 @@ const FraHome = () => {
         <h1 className="landing__page-title">
           {i18n.t(`area.${countryIso}.listName`)}
 
-          {!isCountry && matchOverview && (
+          {showButton && (
             <Link
               className="btn-s btn-primary landing__btn-download"
               to={`/api/fileRepository/statisticalFactsheets/${countryIso}/${i18n.language}`}

@@ -1,10 +1,12 @@
 const area = require('./en/area')
-const statisticalFactsheets = require('./en/statisticalFactsheets')
 const contentCheck = require('./en/contentCheck')
+const dataDownload = require('./en/dataDownload')
+const statisticalFactsheets = require('./en/statisticalFactsheets')
 
 module.exports.translation = {
   area,
   contentCheck,
+  dataDownload,
   statisticalFactsheets,
 
   language: {
@@ -361,7 +363,6 @@ The FRA team
   },
 
   navigation: {
-    bulkDownload: 'Bulk Download',
     hideAll: 'Hide all',
     showAll: 'Show all',
     support: {
@@ -1223,8 +1224,7 @@ The FRA team
 
     // table 1.3b
     diameterDistributionAndTotalAreaUnevenAgedStands: {
-      diameterDistributionAndTotalAreaUnevenAgedStands:
-        'Diameter distribution and total area (uneven-aged stands)',
+      diameterDistributionAndTotalAreaUnevenAgedStands: 'Diameter distribution and total area (uneven-aged stands)',
       categoryYear: 'Category - Year',
       volumeByDiameterClasses1000mob: 'Volume by diameter classes',
       area: 'Area (1000 ha)',
@@ -1785,7 +1785,8 @@ The FRA team
       fatal_occupational_accidents_number: 'Fatal occupational accidents: Number',
       fatal_occupational_accidents_per_1000_workers: 'Fatal occupational accidents: Annual rate per 1000 workers',
       non_fatal_occupational_accidents_number: 'Non-fatal occupational accidents: Number',
-      non_fatal_occupational_accidents_per_1000_workers: 'Non-fatal occupational accidents: Annual rate per 1000 workers',
+      non_fatal_occupational_accidents_per_1000_workers:
+        'Non-fatal occupational accidents: Annual rate per 1000 workers',
       forestry_isic_nace_02: 'Forestry (ISIC/NACE 02) - {{year}}',
     },
 
@@ -1901,8 +1902,10 @@ The FRA team
       areaPrimarilyDesignatedOrManagedForPublicRecreation: 'Area primarily designated or managed for public recreation',
       area_available_for_public_recreation_total: 'Area available for public recreation: Total (1000 ha)',
       area_available_for_public_recreation_percent: 'Area available for public recreation: % of total',
-      area_designated_or_managed_for_public_recreation_total: 'Area primarily designated or managed for public recreation: Total (1000 ha)',
-      area_designated_or_managed_for_public_recreation_percent: 'Area primarily designated or managed for public recreation: % of total',
+      area_designated_or_managed_for_public_recreation_total:
+        'Area primarily designated or managed for public recreation: Total (1000 ha)',
+      area_designated_or_managed_for_public_recreation_percent:
+        'Area primarily designated or managed for public recreation: % of total',
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
     },
 
@@ -1916,7 +1919,8 @@ The FRA team
         'Area primarily designated and/or managed for public recreation',
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
       area_available_for_public_recreation: 'Area available for public recreation',
-      area_designated_and_or_managed_for_public_recreation: 'Area primarily designated and/or managed for public recreation',
+      area_designated_and_or_managed_for_public_recreation:
+        'Area primarily designated and/or managed for public recreation',
     },
 
     // table 6.10c
@@ -1929,14 +1933,15 @@ The FRA team
       facilityLengthIn1000Km: 'Facility (length in 1000 km)',
       area_available_for_public_recreation: 'Area available for public recreation - {{year}}',
       forest_roads_and_paths_available_for_public_recreation: 'Forest roads and paths available for public recreation',
-      _of_which_designated_for_hiking_biking_cross_country_skiing_etc: '... of which designated for hiking, biking, cross country skiing, etc.',
+      _of_which_designated_for_hiking_biking_cross_country_skiing_etc:
+        '... of which designated for hiking, biking, cross country skiing, etc.',
     },
 
     // table 6.10d
     otherRecreationFacilitiesPilotReporting2015: {
       otherRecreationFacilitiesPilotReporting2015: 'Other recreation facilities - pilot reporting (2015)',
       category: 'Category',
-      facility: 'Facility',      
+      facility: 'Facility',
       measurement_unit: 'Measurement unit',
       extent_multiplicity: 'Extent / Multiplicity',
       facility_category: 'Facility category',
@@ -1960,6 +1965,6 @@ The FRA team
       no18_area_available_for_public_recreation: 'Area available for public recreation 18',
       no19_area_available_for_public_recreation: 'Area available for public recreation 19',
       no20_area_available_for_public_recreation: 'Area available for public recreation 20',
-    },    
+    },
   },
 }
