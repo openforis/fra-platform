@@ -1,12 +1,12 @@
 import 'tsconfig-paths/register'
 import 'dotenv/config'
-
+import * as os from 'os'
 import * as cluster from 'cluster'
+
 import * as migrations from './db/migration/execMigrations'
 import { serverInit } from './serverInit'
 
 import * as VersioningScheduler from './system/schedulers/versioningScheduler'
-import * as os from 'os'
 
 if (cluster.isMaster) {
   // check db migrations in master process

@@ -2,31 +2,21 @@
   "allowSyntheticDefaults": true,
 
   "compilerOptions": {
-    "outDir": "./dist/",
-    "noImplicitAny": true,
-    "module": "CommonJS",
-    "target": "ES2019",
-    "jsx": "react",
     "allowJs": true,
-    "moduleResolution": "Node",
     "allowSyntheticDefaultImports": true,
-
     "baseUrl": "./",
+    "include": ["common", "server", "webapp", "test"],
+    "jsx": "react",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "noImplicitAny": true,
+    "outDir": "./dist/",
     "paths": {
-      "@common/*": [
-        "./common/*"
-      ],
-      "@server/*": [
-        "./server/*"
-      ],
-      "@webapp/*": [
-        "./webapp/*"
-      ],
-      "@test/*": [
-        "./test/*"
-      ]
+      "@common/*": ["./common/*"],
+      "@server/*": ["./server/*"],
+      "@webapp/*": ["./webapp/*"],
+      "@test/*": ["./test/*"]
     }
   },
-
-  "include": ["common", "server", "webapp", "test"]
+  "target": "ES2019"
 }
