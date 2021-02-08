@@ -14,10 +14,12 @@ import MessageBoardPanel from '@webapp/app/countryLanding/views/messageBoard/mes
 import { toggleNavigation } from '@webapp/app/components/navigation/actions'
 import { useInitCountry, useIsCountryStatusLoaded } from '@webapp/store/country'
 
-import AssessmentHome from '@webapp/pages/Assessment/AssessmentHome'
 import AssessmentSectionView from '@webapp/app/assessment/components/section/assessmentSectionView'
 import OriginalDataPointView from '@webapp/app/assessment/fra/sections/originalDataPoint/originalDataPointView'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
+
+import AssessmentHome from './AssessmentHome'
+import DataDownload from './DataDownload'
 
 const Assessment = () => {
   const dispatch = useDispatch()
@@ -51,6 +53,7 @@ const Assessment = () => {
 
         <Switch>
           <Route path={BasePaths.assessmentHome} component={AssessmentHome} />
+          <Route path={BasePaths.assessmentDataDownload} component={DataDownload} />
           <Route exact path={BasePaths.assessmentSection} component={AssessmentSectionView} />
           <Route exact path={[`${BasePaths.odp}:odpId/`, BasePaths.odp]} component={OriginalDataPointView} />
         </Switch>

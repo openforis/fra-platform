@@ -1,10 +1,12 @@
 const area = require('./en/area')
-const statisticalFactsheets = require('./en/statisticalFactsheets')
 const contentCheck = require('./en/contentCheck')
+const dataDownload = require('./en/dataDownload')
+const statisticalFactsheets = require('./en/statisticalFactsheets')
 
 module.exports.translation = {
   area,
   contentCheck,
+  dataDownload,
   statisticalFactsheets,
 
   language: {
@@ -355,7 +357,6 @@ The FRA team
   },
 
   navigation: {
-    bulkDownload: 'Bulk Download',
     hideAll: 'Hide all',
     showAll: 'Show all',
     support: {

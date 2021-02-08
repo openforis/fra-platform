@@ -1,8 +1,10 @@
 const area = require('./fr/area')
+const dataDownload = require('./fr/dataDownload')
 const statisticalFactsheets = require('./fr/statisticalFactsheets')
 
 module.exports.translation = {
   area,
+  dataDownload,
   statisticalFactsheets,
 
   language: {
@@ -50,7 +52,6 @@ des domaines boréal, tempéré et sous-tropical`,
     userGuide: "Guide de l'utilisateur",
     sendFeedback: 'Envoyer réactions',
   },
-
 
   disclaimer: {
     statisticalFactsheets:
@@ -297,7 +298,6 @@ L'équipe de FRA
   },
 
   navigation: {
-    bulkDownload: 'Téléchargement groupé',
     hideAll: 'Masquer tout',
     showAll: 'Montrer tout',
     support: {

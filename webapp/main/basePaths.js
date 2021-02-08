@@ -21,6 +21,7 @@
   /:countryIso/:assessmentType/print/onlyTables/
   /:countryIso/:assessmentType/home/
   /:countryIso/:assessmentType/home/:section/
+  /:countryIso/:assessmentType/dataDownload/
   /:countryIso/:assessmentType/:section/
   /:countryIso/:assessmentType/odp/
   /:countryIso/:assessmentType/odp/:tab/
@@ -29,6 +30,7 @@
 const FRAGMENTS = {
   admin: 'admin',
   api: 'api',
+  dataDownload: 'dataDownload',
   home: 'home',
   login: 'login',
   odp: 'odp',
@@ -88,6 +90,7 @@ export const resetPassword = _generate(FRAGMENTS.login, FRAGMENTS.resetPassword)
 // ==== Assessment
 export const assessment = _generate(PARAMS.countryIso, PARAMS.assessmentType)
 export const assessmentHome = _generate(..._split(assessment), FRAGMENTS.home)
+export const assessmentDataDownload = _generate(..._split(assessment), FRAGMENTS.dataDownload)
 export const assessmentSection = _generate(..._split(assessment), PARAMS.section)
 export const assessmentPrint = _generate(..._split(assessment), FRAGMENTS.print)
 export const assessmentPrintOnlyTables = _generate(..._split(assessmentPrint), FRAGMENTS.onlyTables)
@@ -97,6 +100,9 @@ export const getAssessmentHomeLink = (countryIso, assessmentType) =>
 
 export const getAssessmentHomeSectionLink = (countryIso, assessmentType, section) =>
   _generate(countryIso, assessmentType, FRAGMENTS.home, section)
+
+export const getAssessmentDataDownloadLink = (countryIso, assessmentType) =>
+  _generate(countryIso, assessmentType, FRAGMENTS.dataDownload)
 
 export const getAssessmentSectionLink = (countryIso, assessmentType, sectionName) =>
   _generate(countryIso, assessmentType, sectionName)
