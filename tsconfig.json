@@ -5,7 +5,6 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
-    "include": ["common", "server", "webapp", "test"],
     "jsx": "react",
     "module": "CommonJS",
     "moduleResolution": "Node",
@@ -16,7 +15,8 @@
       "@server/*": ["./server/*"],
       "@webapp/*": ["./webapp/*"],
       "@test/*": ["./test/*"]
-    }
+    },
+    "target": "ES2019"
   },
-  "target": "ES2019"
+  "include": ["common", "server", "webapp", "test"]
 }
