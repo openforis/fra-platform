@@ -14,8 +14,8 @@ module.exports = {
      'no8_ranked_in_terms_of_volume',
      'no9_ranked_in_terms_of_volume',
      'no10_ranked_in_terms_of_volume',
-     "remaining",
-     "total",
+     'remaining',
+     'total',
     ]
   },
   columns: [

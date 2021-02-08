@@ -10,6 +10,7 @@ const years = [...PanEuropean.years90_15].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_3_1,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.thousandCubicMeterOverBark,
   [SectionSpec.KEYS_TABLE.columnsExport]: [
     'gross_annual_increment',
     'natural_losses',
@@ -52,11 +53,11 @@ const tableSpec = SectionSpec.newTableSpec({
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.incrementAndFellings.fellings_total',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.incrementAndFellings.fellingsTotal',
         }),
 
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.incrementAndFellings._of_which_of_natural_losses',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.incrementAndFellings.ofWhichOfNaturalLosses',
         }),
       ],
     }),

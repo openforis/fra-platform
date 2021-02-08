@@ -4,15 +4,23 @@ import PropTypes from 'prop-types'
 import { useI18n } from '@webapp/components/hooks'
 import ButtonCheckBox from '@webapp/components/buttonCheckBox'
 import { getCustomVariableI18nMappings } from '@webapp/app/dataExport/utils/format'
+import { useAssessmentType } from '@webapp/store/app'
+import * as FRA from '@common/assessment/fra'
+import * as PanEuropean from '@common/assessment/panEuropean'
 
 const VariableSelect = (props) => {
   const { setSelectionVariable, variables, selectionVariable } = props
   const i18n = useI18n()
+  const assessmentType = useAssessmentType()
+  const heading = {
+    [FRA.type]: 'common.variable',
+    [PanEuropean.type]: 'panEuropean.variable',
+  }
 
   return (
     <div className="export__form-section">
       <div className="export__form-section-header">
-        <h4>{i18n.t('common.variable')}</h4>
+        <h4>{i18n.t(heading[assessmentType])}</h4>
       </div>
 
       <div className="divider" />
