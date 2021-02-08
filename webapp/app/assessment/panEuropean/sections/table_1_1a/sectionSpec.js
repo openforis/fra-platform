@@ -17,6 +17,7 @@ const years = [...PanEuropean.years90_20].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_1_1a,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.haThousand,
   [SectionSpec.KEYS_TABLE.columnsExport]: ['area'],
 
   [SectionSpec.KEYS_TABLE.rows]: [
@@ -27,7 +28,7 @@ const tableSpec = SectionSpec.newTableSpec({
           [SectionSpec.KEYS_COL.left]: true,
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestArea.area',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestArea.area1000Ha',
         }),
       ],
     }),
