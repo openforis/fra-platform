@@ -9,7 +9,6 @@ const variablesMappings: any = {
 
 const years = [...PanEuropean.years92_17]
 
-const categYears = ['Category', ...years]
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_6_7,
   [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.thousandCubicMeterRWE,
