@@ -4,6 +4,7 @@ import { Area, Country } from '@common/country'
 import { useI18n, useOnUpdate } from '@webapp/components/hooks'
 import { sortCountries, sortRegions } from '@webapp/store/app/utils'
 import * as AppActions from '../actions'
+import FRA from '../../../../common/assessment/fra'
 
 export function useAssessmentType(): string {
   return useSelector(AppState.getAssessmentType) as string
@@ -44,4 +45,14 @@ export const useGroupedRegions = () => {
     ...rg,
     regions: (regions as any).filter((region: any) => region.regionGroup === rg.id),
   }))
+}
+
+/**
+ * Returns array of region_codes
+ * @returns {*}
+ */
+export const useFraRegions = () => {
+  const groupedRegions = useGroupedRegions()
+  const _fraRegionGroup = groupedRegions.find((groupedRegion) => groupedRegion.name === FRA.type)
+  return _fraRegionGroup.regions.map((region) => region.regionCode)
 }

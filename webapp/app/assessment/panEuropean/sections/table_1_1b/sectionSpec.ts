@@ -16,6 +16,7 @@ const years = [...PanEuropean.years90_20]
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_1_1b,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.haThousand,
   [SectionSpec.KEYS_TABLE.columnsExport]: [
     'forest_area_1990',
     'forest_area_2000',

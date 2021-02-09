@@ -28,6 +28,16 @@ export const init = (app: any) => {
     }
   })
 
+  // data download
+  app.get('/fileRepository/dataDownload/:key/:fileType', async (req: any, res: any) => {
+    try {
+      const { key, fileType } = req.params
+      downloadFile(res, fileTypes.dataDownload(key, fileType), 'en')
+    } catch (err) {
+      sendErr(res, err)
+    }
+  })
+
   // upload new file
   app.post('/fileRepository/:countryIso/upload', Auth.requireCountryEditPermission, async (req: any, res: any) => {
     try {

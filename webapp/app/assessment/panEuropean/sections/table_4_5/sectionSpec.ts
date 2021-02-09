@@ -14,6 +14,7 @@ const years2 = [...PanEuropean.years15]
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_4_5,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.cubicMeterPerHa,
   [SectionSpec.KEYS_TABLE.columnsExport]: ['total', 'standing', 'lying'],
 
   [SectionSpec.KEYS_TABLE.rows]: [

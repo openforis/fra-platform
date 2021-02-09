@@ -5,8 +5,8 @@ const section = PanEuropean.sections['6'].children['68']
 const variables = [
   'exports_of_forest_products_quantity',
   'exports_of_forest_products_value',
-  'import * as s_of_forest_products_quantity',
-  'import * as s_of_forest_products_value',
+  'imports_of_forest_products_quantity',
+  'imports_of_forest_products_value',
 ]
 const variablesMappings: any = {
   exportsOfForestProductsQuantity: (SectionSpec.VARIABLES as any).exports_of_forest_products_quantity,
@@ -14,6 +14,7 @@ const variablesMappings: any = {
   importsOfForestProductsQuantity: (SectionSpec.VARIABLES as any).imports_of_forest_products_quantity,
   importsOfForestProductsValue: (SectionSpec.VARIABLES as any).imports_of_forest_products_value,
 }
+
 const years = [...PanEuropean.years92_17]
 const categYears = ['Category', ...years]
 const tableSpec = SectionSpec.newTableSpec({
@@ -24,6 +25,7 @@ const tableSpec = SectionSpec.newTableSpec({
       [SectionSpec.KEYS_ROW.cols]: [...categYears].map((year) =>
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: year,
+          [SectionSpec.KEYS_COL.left]: true,
         })
       ),
     }),
@@ -32,7 +34,7 @@ const tableSpec = SectionSpec.newTableSpec({
         [SectionSpec.KEYS_ROW.variableExport]: variablesMappings[variable],
         [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.tradeInWood.${variable}`,
         [SectionSpec.KEYS_ROW.cols]: years.map(() => SectionSpec.newColDecimal()),
-      })
+      }) as any
     ),
   ],
 })

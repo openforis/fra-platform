@@ -10,6 +10,7 @@ const years = [...PanEuropean.years90_15].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_6_5b,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.thousandPersons,
   [SectionSpec.KEYS_TABLE.columnsExport]: [
     'education_0_2',
     'education_3_4',
@@ -49,7 +50,7 @@ const tableSpec = SectionSpec.newTableSpec({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.employmentByEducationAndJobCharacteristics._5_6',
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.employmentByEducationAndJobCharacteristics.employees',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.employmentByEducationAndJobCharacteristics.employeesJobCharacteristics',
         }),
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.employmentByEducationAndJobCharacteristics.selfEmployed',

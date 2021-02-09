@@ -65,7 +65,7 @@ const tableSpec = SectionSpec.newTableSpec({
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.introducedTreeSpecies4_4b.no',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.introducedTreeSpecies4_4b.category',
           [SectionSpec.KEYS_COL.rowSpan]: 2,
           [SectionSpec.KEYS_COL.left]: true,
         }),

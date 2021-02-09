@@ -10,6 +10,7 @@ const years = [...PanEuropean.years90_15].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_2_4,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.haThousand,
   [SectionSpec.KEYS_TABLE.columnsExport]: [
     'total_area_with_damage',
     'insects_and_disease',
@@ -61,7 +62,7 @@ const tableSpec = SectionSpec.newTableSpec({
         }),
 
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.primarily_damaged_by_abiotic_agents',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.primarilyDamagedByAbioticAgents',
           [SectionSpec.KEYS_COL.rowSpan]: 2,
         }),
 
@@ -75,22 +76,22 @@ const tableSpec = SectionSpec.newTableSpec({
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.insects_and_disease',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.insectsAndDisease',
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.wildlife_and_grazing',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.wildlifeAndGrazing',
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.forest_operations',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.forestOperations',
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.other',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.otherHumanInduced',
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.primarily_damaged_by_fire_total',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.primarilyDamagedByFireTotal',
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.of_which_human_induced',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.ofWhichHumanInduced',
         }),
       ],
     }),

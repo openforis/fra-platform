@@ -10,6 +10,7 @@ const years = [...PanEuropean.years90_15].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_6_4b,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.millionNationalCurrency,
   [SectionSpec.KEYS_TABLE.columnsExport]: ['fixed_capital_consumption'],
 
   [SectionSpec.KEYS_TABLE.rows]: [
@@ -21,7 +22,7 @@ const tableSpec = SectionSpec.newTableSpec({
         }),
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]:
-            'panEuropean.totalFixedCapitalConsumptionInForestsAndForestry.fixed_capital_consumption',
+            'panEuropean.totalFixedCapitalConsumptionInForestsAndForestry.fixedCapitalConsumptionMillionNationalCurrency',
         }),
       ],
     }),

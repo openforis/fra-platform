@@ -17,3 +17,13 @@ export const elementOffset = (el: any) => {
 
   return {}
 }
+
+export const documentScrollTo = (options: any = { top: 0, left: 0, behavior: 'smooth' }) => {
+  const { documentElement } = document
+  if (documentElement.scrollTo) {
+    documentElement.scrollTo(options)
+  } else {
+    // Non Chromium based Edge version
+    documentElement.scrollIntoView(true)
+  }
+}

@@ -21,6 +21,7 @@ const subcategories = variables.slice(2)
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_1_3a1,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.haThousand,
   [SectionSpec.KEYS_TABLE.columnsExport]: [
     'total_area',
     'regeneration_phase',
@@ -34,7 +35,7 @@ const tableSpec = SectionSpec.newTableSpec({
       [SectionSpec.KEYS_ROW.cols]: [
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.categoryYear',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
+          [SectionSpec.KEYS_COL.rowSpan]: 3,
           [SectionSpec.KEYS_COL.left]: true,
         }),
         SectionSpec.newColHeader({
@@ -43,7 +44,7 @@ const tableSpec = SectionSpec.newTableSpec({
         }),
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]:
-            'panEuropean.ageClassDistributionAreaOfEvenAgedStands.developmentPhases1000ha',
+            'panEuropean.ageClassDistributionAreaOfEvenAgedStands.developmentPhases',
           [SectionSpec.KEYS_COL.colSpan]: 4,
         }),
       ],
@@ -62,6 +63,15 @@ const tableSpec = SectionSpec.newTableSpec({
         }),
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.unspecified',
+        }),
+      ],
+    }),
+
+    SectionSpec.newRowHeader({
+      [SectionSpec.KEYS_ROW.cols]: [
+        SectionSpec.newColHeader({
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands._1000Ha',
+          [SectionSpec.KEYS_COL.colSpan]: 5,
         }),
       ],
     }),

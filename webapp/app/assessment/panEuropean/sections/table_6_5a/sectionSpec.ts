@@ -10,6 +10,7 @@ const years = [...PanEuropean.years90_15].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_6_5a,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.thousandPersons,
   [SectionSpec.KEYS_TABLE.columnsExport]: [
     'total',
     'gender_male',

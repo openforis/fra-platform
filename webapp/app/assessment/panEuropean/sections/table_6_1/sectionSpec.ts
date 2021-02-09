@@ -64,22 +64,22 @@ const tableSpec = SectionSpec.newTableSpec({
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestHoldings.less_10_ha_area',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestHoldings.area1000Ha',
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestHoldings.less_10_ha_number',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestHoldings.numberOfHoldings',
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestHoldings._11_500_ha_area',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestHoldings.area1000Ha',
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestHoldings._11_500_ha_number',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestHoldings.numberOfHoldings',
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestHoldings.more_500_ha_area',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestHoldings.area1000Ha',
         }),
         SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestHoldings.more_500_ha_number',
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestHoldings.numberOfHoldings',
         }),
       ],
     }),

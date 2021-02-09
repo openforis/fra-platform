@@ -10,6 +10,7 @@ const years = [...PanEuropean.years05_15].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_6_10b,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.annualNumberOfVisitsMillion,
   [SectionSpec.KEYS_TABLE.columnsExport]: [
     'area_available_for_public_recreation',
     'area_designated_and_or_managed_for_public_recreation',

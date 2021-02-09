@@ -18,6 +18,7 @@ const years = [...PanEuropean.years90_15].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_4_8,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.absoluteNumber,
   [SectionSpec.KEYS_TABLE.columnsExport]: [
     'total_of_taxa',
     'vulnerable',
@@ -36,7 +37,7 @@ const tableSpec = SectionSpec.newTableSpec({
         }),
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.threatenedForestSpecies.total_of_taxa',
-          [SectionSpec.KEYS_COL.rowSpan]: 3,
+          [SectionSpec.KEYS_COL.rowSpan]: 2,
         }),
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.threatenedForestSpecies.threatenedForestSpeciesCol',

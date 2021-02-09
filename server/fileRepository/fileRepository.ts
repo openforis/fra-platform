@@ -20,6 +20,12 @@ export const fileTypes = {
     downloadName: `Statistical Factsheets (${levelIso})`,
     fileType: 'ods',
   }),
+  dataDownload: (key: string, fileType: any) => ({
+    key,
+    folder: 'dataDownload',
+    downloadName: key.replace(/_/g, ' '),
+    fileType,
+  }),
 }
 
 export const getFilepath = (type: any, lang: any) =>

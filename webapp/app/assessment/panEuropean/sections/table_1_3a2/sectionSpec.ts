@@ -16,6 +16,7 @@ const subcategories = variables.slice(1)
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_1_3a2,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.thousandCubicMeter,
   [SectionSpec.KEYS_TABLE.columnsExport]: [
     'total_volume',
     'regeneration_phase',
@@ -30,7 +31,7 @@ const tableSpec = SectionSpec.newTableSpec({
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]:
             'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.categoryYear',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
+          [SectionSpec.KEYS_COL.rowSpan]: 3,
           [SectionSpec.KEYS_COL.left]: true,
         }),
         SectionSpec.newColHeader({
@@ -40,7 +41,7 @@ const tableSpec = SectionSpec.newTableSpec({
         }),
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]:
-            'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.developmentPhases1000ha',
+            'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.developmentPhases',
           [SectionSpec.KEYS_COL.colSpan]: 4,
         }),
       ],
@@ -63,6 +64,15 @@ const tableSpec = SectionSpec.newTableSpec({
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]:
             'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.unspecified',
+        }),
+      ],
+    }),
+
+    SectionSpec.newRowHeader({
+      [SectionSpec.KEYS_ROW.cols]: [
+        SectionSpec.newColHeader({
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply._1000M3',
+          [SectionSpec.KEYS_COL.colSpan]: 5,
         }),
       ],
     }),
