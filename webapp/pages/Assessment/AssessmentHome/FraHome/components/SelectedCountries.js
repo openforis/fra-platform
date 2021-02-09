@@ -1,12 +1,12 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { HomeState } from '@webapp/store/ui'
 import Area from '@common/country/area'
 import useI18n from '@webapp/components/hooks/useI18n'
+import * as UiState from '@webapp/store/ui/state'
 
 const SelectedCountries = () => {
   const i18n = useI18n()
-  const selectedCountries = useSelector(HomeState.getSelectedCountries)
+  const selectedCountries = useSelector(UiState.getSelectedCountries)
 
   if (!selectedCountries || selectedCountries.length === 0) {
     return null

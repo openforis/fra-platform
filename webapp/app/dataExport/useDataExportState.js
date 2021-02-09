@@ -12,7 +12,7 @@ import { useCountryIso, useGetRequest } from '@webapp/components/hooks'
 import * as SectionSpecs from '@webapp/app/assessment/components/section/sectionSpecs'
 import { TableSpec } from '@webapp/app/assessment/components/section/sectionSpec'
 import { useSelector } from 'react-redux'
-import { HomeState } from '@webapp/store/ui'
+import * as UiState from '@webapp/store/ui/state'
 import { __MIN_COUNTRIES__ } from '@webapp/pages/Assessment/AssessmentHome/FraHome/components/CountrySelector'
 
 const initialSelection = {
@@ -28,7 +28,7 @@ export default () => {
   const assessmentType = useAssessmentType()
   const isPanEuropean = Assessment.isTypePanEuropean(assessmentType)
   let countries = isPanEuropean ? useCountriesPanEuropean() : useCountries()
-  const selectedCountries = useSelector(HomeState.getSelectedCountries)
+  const selectedCountries = useSelector(UiState.getSelectedCountries)
 
   if (!isPanEuropean && selectedCountries.length >= __MIN_COUNTRIES__) {
     countries = countries.filter(({ countryIso: _countryIso }) => selectedCountries.includes(_countryIso))
