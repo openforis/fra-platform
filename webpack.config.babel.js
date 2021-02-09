@@ -83,7 +83,7 @@ const appConfig = {
     proxy: [
       {
         // Proxy all server-served routes:
-        context: ['/auth', '/img', '/css', '/ckeditor', '/video', '/api'],
+        context: ['/auth', '/img', '/css', '/ckeditor', '/video', '/api', '/definitions'],
         target: 'http://localhost:9001',
       },
     ],

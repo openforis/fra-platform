@@ -1,5 +1,5 @@
 Arguments: 
-  /Users/mirosorja/.nvm/versions/node/v14.15.0/bin/node /usr/local/Cellar/yarn/1.22.4/libexec/bin/yarn.js add -D @types/emoji-mart-lite
+  /Users/mirosorja/.nvm/versions/node/v14.15.0/bin/node /usr/local/Cellar/yarn/1.22.4/libexec/bin/yarn.js add -D @types/camelize
 
 PATH: 
   /usr/local/opt/coreutils/libexec/gnubin:/usr/local/sbin:/Users/mirosorja/.bin:/usr/local/anaconda3/bin:/usr/local/sbin:/Users/mirosorja/.nvm/versions/node/v14.15.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/Library/Apple/usr/bin:/Applications/Postgres.app/Contents/Versions/latest/bin:/Users/mirosorja/go/bin
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2femoji-mart-lite: Not found
+  Error: https://registry.yarnpkg.com/@types%2fcamelize: Not found
       at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:66987:18)
       at Request.self.callback (/usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:140748:22)
       at Request.emit (events.js:315:20)
@@ -48,7 +48,7 @@ npm manifest:
       "watch:server": "NODE_ENV=development nodemon -e js --watch server server/server.js",
       "watch:server-debug": "NODE_ENV=development nodemon -e js  --inspect --watch server server/serverLocal.js",
       "create-migration": "./server/db/migration/create-migration.sh",
-      "test": "mochapack --webpack-config webpack.config.babel.test.js \"test/unit/*.js\"",
+      "test": "mochapack --webpack-config webpack.config.babel.test.js \"test/unit/*.ts\"",
       "preversion": "git diff --quiet || { echo \"Working directory is dirty\"; exit 1; }; yarn test",
       "postversion": "git push --tags && git push && echo \"Successfully released version $npm_package_version!\""
     },
@@ -73,6 +73,7 @@ npm manifest:
       "@types/connect-pg-simple": "^4.2.2",
       "@types/cookie-parser": "^1.4.2",
       "@types/d3": "^6.3.0",
+      "@types/d3-interpolate-path": "^2.0.0",
       "@types/d3-tip": "^3.5.5",
       "@types/express": "^4.17.11",
       "@types/express-fileupload": "^1.1.6",
@@ -90,6 +91,7 @@ npm manifest:
       "@types/ramda": "^0.27.36",
       "@types/react-csv": "^1.1.1",
       "@types/redux-debounced": "^0.2.19",
+      "@types/to-snake-case": "^1.0.0",
       "@types/uuid": "^8.3.0",
       "@typescript-eslint/eslint-plugin": "^4.14.0",
       "@typescript-eslint/parser": "^4.14.0",
@@ -131,7 +133,6 @@ npm manifest:
       "ts-migrate": "^0.1.13",
       "ts-node": "^9.1.1",
       "ts-node-dev": "^1.1.1",
-      "tsconfig-paths": "^3.9.0",
       "typescript": "^4.1.3",
       "webpack": "^4.44.2",
       "webpack-bundle-analyzer": "^3.8.0",
@@ -194,6 +195,7 @@ npm manifest:
       "redux-promise": "^0.6.0",
       "redux-thunk": "^2.2.0",
       "to-snake-case": "^1.0.0",
+      "tsconfig-paths": "^3.9.0",
       "uglifyjs-webpack-plugin": "^2.2.0",
       "uuid": "^8.3.2",
       "webpack-node-externals": "^2.5.2"
@@ -1461,6 +1463,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/@types/d3-hierarchy/-/d3-hierarchy-2.0.0.tgz#92079d9dbcec1dfe2736fb050a8bf916e5850a1c"
     integrity sha512-YxdskUvwzqggpnSnDQj4KVkicgjpkgXn/g/9M9iGsiToLS3nG6Ytjo1FoYhYVAAElV/fJBGVL3cQ9Hb7tcv+lw==
   
+  "@types/d3-interpolate-path@^2.0.0":
+    version "2.0.0"
+    resolved "https://registry.yarnpkg.com/@types/d3-interpolate-path/-/d3-interpolate-path-2.0.0.tgz#5c2fbe0ad1072576b7d9e16227422919c68be503"
+    integrity sha512-9YpwRqlDWrEanka86O4xEqFd1xVUgm+bD6yEayp8GxxcLIiax58TgWcCUdpLibSSLzYLv7Yuu4YL3Btwvzhsow==
+  
   "@types/d3-interpolate@*":
     version "2.0.0"
     resolved "https://registry.yarnpkg.com/@types/d3-interpolate/-/d3-interpolate-2.0.0.tgz#325029216dc722c1c68c33ccda759f1209d35823"
@@ -1904,6 +1911,11 @@ Lockfile:
     version "1.0.6"
     resolved "https://registry.yarnpkg.com/@types/tapable/-/tapable-1.0.6.tgz#a9ca4b70a18b270ccb2bc0aaafefd1d486b7ea74"
     integrity sha512-W+bw9ds02rAQaMvaLYxAbJ6cvguW/iJXNT6lTssS1ps6QdrMKttqEAMEG/b5CR8TZl3/L7/lH0ZV5nNR1LXikA==
+  
+  "@types/to-snake-case@^1.0.0":
+    version "1.0.0"
+    resolved "https://registry.yarnpkg.com/@types/to-snake-case/-/to-snake-case-1.0.0.tgz#1b32f1b5ad8ea907b6c847346cdd3782e486654e"
+    integrity sha512-9YtLP+wuIL2EwOqyUjwTzWK6CGVnsP13vJ3i0U8S7O+SLAxrsi1jwC2TkHkdqVqfGLQWnk5H+Z+sSPT7SJeGYg==
   
   "@types/uglify-js@*":
     version "3.11.1"

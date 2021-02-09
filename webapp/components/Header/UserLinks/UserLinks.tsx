@@ -9,11 +9,11 @@ import LinksFRA from './LinksFRA'
 
 const LinksPlaceholder = () => <div />
 
-const Components: { [key: string]: React.Component } = {
+const Components: { [key: any]: React.Component } = {
   [FRA.type]: LinksFRA,
   [PanEuropean.type]: LinksPlaceholder,
   // @ts-ignore
-  null: LinksPlaceholder,
+  'null': LinksPlaceholder,
 }
 
 const UserLinks = () => <AssessmentComponent components={Components} />
