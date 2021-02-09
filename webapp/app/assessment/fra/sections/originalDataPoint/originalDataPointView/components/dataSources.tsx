@@ -18,6 +18,7 @@ const DataSources = (props: Props) => {
   const countryIso = useCountryIso()
   const [printView] = usePrintView()
   const displayReviewIndicator = odp.odpId && !printView && canEditData
+
   return (
     <div className="odp__section">
       {!printView && <h3 className="subhead">{(i18n as any).t('nationalDataPoint.dataSources')}</h3>}
@@ -59,6 +60,7 @@ const DataSources = (props: Props) => {
                 <th className="fra-table__header-cell-left">{(i18n as any).t('nationalDataPoint.methodsUsed')}</th>
                 <td className="fra-table__cell-left odp__data-source-input-column">
                   <MultiSelect
+                    disabled={printView || !canEditData}
                     i18n={i18n}
                     localizationPrefix="nationalDataPoint.dataSourceMethodsOptions"
                     values={odp.dataSourceMethods}

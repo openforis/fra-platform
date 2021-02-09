@@ -50,6 +50,7 @@ export default class MultiSelect extends React.Component<{}, MultiSelectState> {
         onFocus={() => this.setState({ open: true })}
         onBlur={() => this.setState({ open: false })}
         className={`multi-select ${this.state.open ? 'has-focus' : ''}`}
+        disabled={this.props.disabled}
       >
         <div className="multi-select__closed-content">
           {R.isEmpty(values) ? (
