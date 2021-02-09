@@ -18,7 +18,6 @@ const AssessmentComponent = (props: Props) => {
   const key = isAssessment ? assessmentType : defaultKey
 
   assert.ok(key !== 'en', key)
-  console.log(components[key], components, key)
 
   return React.createElement(components[key] as any, otherProps)
 }
