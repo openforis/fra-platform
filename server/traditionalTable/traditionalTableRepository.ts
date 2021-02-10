@@ -27,7 +27,7 @@ export const save = async (client: any, user: any, countryIso: any, tableSpecNam
 
 const createTableData = (cols: any, rows: any) => R.map((rowIdx: any) => new Array(cols), R.range(0, rows))
 
-const update = (_: any, tableValues: any, rowIdx: any, colIdx: any, newValue: any) =>
+const update = (tableValues: any, rowIdx: any, colIdx: any, newValue: any) =>
   R.update(rowIdx, R.update(colIdx, newValue, tableValues[rowIdx]), tableValues)
 
 const handleRow = (mapping: any) => (tableData: any, row: any) => {
@@ -35,7 +35,7 @@ const handleRow = (mapping: any) => (tableData: any, row: any) => {
   const rowIdx = mapping.getRowIndex(row.row_name)
   return R.reduce(
     (tableDataAccu: any, [column, fieldValue]) =>
-      update(mapping, tableDataAccu, rowIdx, mapping.getColumnIndex(column), fieldValue),
+      update(tableDataAccu, rowIdx, mapping.getColumnIndex(column), fieldValue),
     tableData,
     R.toPairs(values)
   )
