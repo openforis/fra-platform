@@ -12,7 +12,7 @@
     "build:prod:report": "cross-env NODE_ENV=production BUILD_REPORT=true webpack --display-error-details -p --config webpack.config.babel.js",
     "build:prod": "cross-env NODE_ENV=production webpack --display-error-details -p --config webpack.config.babel.js",
     "clean": "rm -rf dist/",
-    "start": "node server/server.js",
+    "start": "ts-node server/server.ts",
     "watch": "yarn build:dev-server & yarn watch:ts",
     "watch:ts": "ts-node server/server.ts",
     "watch-debug": "yarn build:dev-server & yarn watch:server-debug",
