@@ -13,12 +13,12 @@ export class PopoverControl extends React.Component<Props, State> {
     this.outsideClick = this.outsideClick.bind(this)
     window.addEventListener('click', this.outsideClick)
     this.state = {
-      opened: false,
+      open: false,
     }
   }
 
   outsideClick(evt: any) {
-    if (!(this.refs.popoverControl as any).contains(evt.target)) this.setState({ opened: false })
+    if (!(this.refs.popoverControl as any).contains(evt.target)) this.setState({ open: false })
   }
 
   componentWillUnmount() {
@@ -27,17 +27,17 @@ export class PopoverControl extends React.Component<Props, State> {
 
   render() {
     const { children } = this.props
-    const childClasses = this.state.opened
+    const childClasses = this.state.open
       ? `${(children as any).props.className} active`
       : (children as any).props.className
     return (
       <div
         className="popover-control__wrapper"
         ref="popoverControl"
-        onClick={(evt) => this.setState({ opened: !this.state.opened })}
+        onClick={() => this.setState((prevState: any) => ({ open: !prevState.open }))}
       >
         {React.cloneElement(children as any, { className: childClasses })}
-        {this.state.opened ? this.renderItems((this.props as any).items) : null}
+        {this.state.open ? this.renderItems((this.props as any).items) : null}
       </div>
     )
   }

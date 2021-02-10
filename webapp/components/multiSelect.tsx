@@ -21,7 +21,7 @@ export default class MultiSelect extends React.Component<{}, MultiSelectState> {
   props: Props
   outsideClick: any
 
-  constructor(props: {}) {
+  constructor(props: Props) {
     super(props)
     this.state = { open: false }
     this.outsideClick = outsideClick(this)
@@ -33,7 +33,7 @@ export default class MultiSelect extends React.Component<{}, MultiSelectState> {
   }
 
   toggleOpen() {
-    this.setState({ open: !this.state.open })
+    this.setState((prevState: any) => ({ open: !prevState.open }))
   }
 
   localizeOption(option: any) {
