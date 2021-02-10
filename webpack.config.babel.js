@@ -64,7 +64,7 @@ const appConfig = {
   devtool: 'source-map',
   entry: ['./webapp/main.tsx'],
   resolve: {
-    extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js', '.js', '.jsx'],
+    extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js', '.js', '.jsx', '.ts', '.tsx'],
     alias: {
       '@common': path.resolve(__dirname, 'common/'),
       '@server': path.resolve(__dirname, 'server/'),
@@ -83,7 +83,7 @@ const appConfig = {
     proxy: [
       {
         // Proxy all server-served routes:
-        context: ['/auth', '/img', '/css', '/ckeditor', '/video', '/api'],
+        context: ['/auth', '/img', '/css', '/ckeditor', '/video', '/api', '/definitions'],
         target: 'http://localhost:9001',
       },
     ],

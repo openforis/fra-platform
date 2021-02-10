@@ -1,0 +1,11 @@
+import TraditionalTableExporter from '../../exporter/traditionalTableExporter'
+
+class OtherLandWithTreeCoverExporter extends TraditionalTableExporter {
+  constructor() {
+    super('otherLandWithTreeCover', ['palms', 'treeOrchards', 'agroforestry', 'treesUrbanSettings', 'other'], '1f')
+  }
+}
+
+const instance = new OtherLandWithTreeCoverExporter()
+
+export default instance
