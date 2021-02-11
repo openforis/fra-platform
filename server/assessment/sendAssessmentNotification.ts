@@ -4,7 +4,7 @@ import { sendMail } from '../email/sendMail'
 import { getCountry } from '../country/countryRepository'
 import { fetchCountryUsers, fetchAdministrators } from '../user/userRepository'
 import { nationalCorrespondent, reviewer } from '../../common/countryRole'
-import { assessmentStatus } from '../../common/assessment'
+import { assessmentStatus } from '@common/assessment'
 
 export const createMail = async (
   countryIso: any,
