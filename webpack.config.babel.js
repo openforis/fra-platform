@@ -17,7 +17,7 @@ const buildReport = process.env.BUILD_REPORT === 'true'
 
 const config = {
   mode: process.env.NODE_ENV || 'development',
-  path: path.resolve(__dirname, 'dist'),
+  path: path.resolve(__dirname, 'dist/client'),
 }
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
