@@ -1,3 +1,5 @@
+import { i18n } from 'i18next'
+
 export interface Fra2020 {
   status: string
   deskStudy: boolean
@@ -25,16 +27,12 @@ export interface RegionGroup {
   order: number
 }
 
-export interface I18n {
-  language: string
-}
-
 export interface App {
   countries: Country[]
   regions: Region[]
   regionGroups: RegionGroup[]
   status: string
-  i18n: I18n
+  i18n: i18n
   countryIso: string
   assessmentType: string
 }
