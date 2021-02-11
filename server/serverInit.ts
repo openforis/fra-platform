@@ -37,11 +37,11 @@ export const serverInit = () => {
   app.use('/api', apiRouter.router)
   definitionsApi.init(app)
 
-  app.use('/style', express.static(`${__dirname}/../dist/style`))
-  app.use('/js', express.static(`${__dirname}/../dist/js`))
-  app.use('/woff2.css', express.static(`${__dirname}/../dist/woff2.css`))
+  app.use('/style', express.static(`${__dirname}/../client/style`))
+  app.use('/js', express.static(`${__dirname}/../client/js`))
+  app.use('/woff2.css', express.static(`${__dirname}/../client/woff2.css`))
 
-  app.use('/*', express.static(path.resolve(__dirname, '..', 'dist')))
+  app.use('/*', express.static(path.resolve(__dirname, '..', 'client')))
 
   // Custom error-handling for handling custom exceptions and
   // sending the uncaught errors as json instead of HTML
