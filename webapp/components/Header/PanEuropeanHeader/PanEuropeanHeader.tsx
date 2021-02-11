@@ -17,7 +17,6 @@ const PanEuropeanHeader = () => {
         <div className="logo-pan-eu">
           <img alt="" src={`/img/fao/FAO${(i18n as any).language}.svg`} />
           <img alt="" src="/img/partners/UNECE.gif" />
-          <img alt="" src="/img/partners/ForestEurope.png" />
         </div>
         <LanguageSelection />
         {/* <LinkHome /> */}
