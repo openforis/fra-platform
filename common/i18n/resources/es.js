@@ -33,6 +33,7 @@ module.exports.translation = {
     unselectAll: 'Deseleccionar todo',
     variable: 'FRA Variable',
     year: 'Año',
+    filterCountries: 'Filtrar países'
   },
 
   home: {

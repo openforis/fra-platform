@@ -14,6 +14,9 @@ module.exports.translation = {
   },
 
   common: {
+    resetAll: 'Сбросить все',
+    done: 'Готово',
+    apply: 'Применить',
     column: 'Столбец',
     countries: 'Страны',
     dataExport: 'Экспорт данных',
@@ -30,6 +33,7 @@ module.exports.translation = {
     unselectAll: 'Снять выделение',
     variable: 'ОЛР Переменная',
     year: 'Год',
+    filterCountries: 'Отфильтровать страны',
   },
 
   home: {
@@ -48,6 +52,7 @@ module.exports.translation = {
   statisticalFactsheets,
 
   disclaimer: {
+    statisticalFactsheets: 'Оговорка: может содержать оценки ФАО, может содержать отсутствующие значения',
     part1: 'Этот веб-сайт был создан при содействии ',
     europeanUnion: 'Европейского союза',
     part2: ', ',
