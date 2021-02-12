@@ -6,15 +6,13 @@ import * as UiState from '@webapp/store/ui/state'
 
 const SelectedCountries = () => {
   const i18n = useI18n()
-  const selectedCountries = useSelector(UiState.getSelectedCountries)
-
+  const selectedCountries: any = useSelector(UiState.getSelectedCountries)
   if (!selectedCountries || selectedCountries.length === 0) {
     return null
   }
-
   return (
     <>
-      {selectedCountries.map((countryIso) => (
+      {selectedCountries.map((countryIso: string) => (
         <span key={countryIso} className="landng__page-country-label">
           {Area.getListName(countryIso, i18n)}
         </span>
@@ -22,5 +20,4 @@ const SelectedCountries = () => {
     </>
   )
 }
-
 export default SelectedCountries

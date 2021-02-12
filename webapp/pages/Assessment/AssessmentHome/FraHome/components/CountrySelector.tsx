@@ -5,17 +5,14 @@ import { useCountries } from '@webapp/store/app'
 import { useI18n } from '@webapp/components/hooks'
 import { HomeActions } from '@webapp/store/ui'
 import { useSecondaryGroupedRegions } from '@webapp/store/app/hooks'
-
 export const __MIN_COUNTRIES__ = 9
-
 const CountrySelector = () => {
   const dispatch = useDispatch()
-  const countries = useCountries()
+  const countries: any = useCountries()
   const secondaryRegions = useSecondaryGroupedRegions()
   const [modalOpen, setModalOpen] = useState(false)
   const i18n = useI18n()
-
-  const onClose = (selectedCountries) => {
+  const onClose = (selectedCountries: any) => {
     if (selectedCountries.length >= __MIN_COUNTRIES__) {
       dispatch(HomeActions.updateSelectedCountries(selectedCountries))
     } else {
@@ -23,8 +20,7 @@ const CountrySelector = () => {
     }
     setModalOpen(false)
   }
-
-  const canSave = (selectedCountries) => selectedCountries.length >= __MIN_COUNTRIES__
+  const canSave = (selectedCountries: any[]) => selectedCountries.length >= __MIN_COUNTRIES__
   return (
     <div className="country-selector">
       <CountrySelectionModal
@@ -42,5 +38,4 @@ const CountrySelector = () => {
     </div>
   )
 }
-
 export default CountrySelector
