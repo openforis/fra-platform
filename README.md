@@ -27,7 +27,7 @@ To constantly build it when something changes, run:
 
 ## Running the server
 
-```node server/server.js```
+```yarn start```
 
 ## Database
 

@@ -1,0 +1,21 @@
+{
+  "allowSyntheticDefaults": true,
+  "include": ["common", "server"],
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "noImplicitAny": true,
+    "outDir": "./dist/",
+    "baseUrl": ".",
+    "paths": {
+      "@common/*": ["common/*"],
+      "@server/*": ["server/*"]
+    },
+    "target": "es2020",
+    "lib": ["es2020", "esnext"]
+  }
+}

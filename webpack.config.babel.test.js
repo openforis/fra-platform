@@ -1,6 +1,5 @@
-const path = require('path')
-
-const nodeExternals = require('webpack-node-externals')
+var path = require('path')
+var nodeExternals = require('webpack-node-externals')
 
 require('regenerator-runtime/runtime')
 
@@ -9,7 +8,7 @@ const webpackTestConfig = {
   target: 'node', // in order to ignore built-in modules like path, fs, etc.
   externals: [nodeExternals()], // in order to ignore all modules in node_modules folder
   resolve: {
-    extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js', '.js', '.jsx'],
+    extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js', '.js', '.jsx', '.ts', '.tsx'],
     alias: {
       '@common': path.resolve(__dirname, 'common/'),
       '@server': path.resolve(__dirname, 'server/'),
@@ -19,6 +18,10 @@ const webpackTestConfig = {
   },
   module: {
     rules: [
+      {
+        test: /\.tsx?$/,
+        loader: 'babel-loader',
+      },
       {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules)/,

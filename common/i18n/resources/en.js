@@ -1076,7 +1076,6 @@ The FRA team
 
   panEuropean: {
     panEuropeanAssessment: 'Pan European Assessment',
-    govSwitzerland: 'Government of Switzerland',
     variable: 'Variable',
     landing: {
       link: 'Joint FOREST EUROPE / UNECE / FAO reporting on pan-European indicators for SFM : FOREST EUROPE',
@@ -1085,7 +1084,13 @@ The FRA team
       description1:
         'This dataset consists of information provided by the National Correspondents in response to the joint FOREST EUROPE, UNECE, FAO questionnaire on the quantitative pan-European indicators for sustainable forest management.',
       description2:
-        'Note: The pan-European reporting 2020 was carried out in parallel to FRA 2020, however as they consist separate processes, some variables appear in both of them. Within the process of State of Europe’s Forest (SoEF) 2020 elaboration some information was further consulted with national correspondents and may differ from these presented in the FRA Platform.',
+        'The pan-European reporting 2020 was carried out in parallel to FRA 2020. Although separate processes, some variables appear in both. Please note, however, that some information for the State of Europe’s Forest 2020 has been adjusted after the data collection in consultation with the national correspondents, and may therefore differ from that presented on the FRA Platform.',
+    },
+    disclaimer: {
+      and: 'and',
+      forestEurope: 'FOREST EUROPE',
+      govSwitzerland: 'Government of Switzerland',
+      part1: 'The website has been produced with the assistance [support] of the',
     },
 
     // navigation
