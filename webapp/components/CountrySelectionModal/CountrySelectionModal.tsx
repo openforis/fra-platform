@@ -4,6 +4,7 @@ import { Modal, ModalClose, ModalFooter, ModalHeader } from '@webapp/components/
 import { useI18n, useOnUpdate } from '@webapp/components/hooks'
 import { Country } from '@common/country'
 import CountrySelectionModalBody from './CountrySelectionModalBody'
+
 type Props = {
   headerLabel: string
   countries: any[]
@@ -11,11 +12,12 @@ type Props = {
   excludedRegions?: any[]
   isOpen: boolean
   showCount?: boolean
-  canSave?: (...args: any[]) => any
-  onChange?: (...args: any[]) => any
-  onClose: (...args: any[]) => any
+  canSave?: (selection: string[]) => any
+  onChange?: (countryIso: string, filteredSelection: string[]) => any
+  onClose: (selection: string[]) => any
 }
-const CountrySelectionModal: React.FunctionComponent<Props> = (props) => {
+
+const CountrySelectionModal: React.FC<Props> = (props) => {
   const {
     countries,
     showCount,

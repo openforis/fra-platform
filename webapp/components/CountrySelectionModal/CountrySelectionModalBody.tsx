@@ -6,9 +6,10 @@ type CountrySelectionModalBodyProps = {
   selection: any[]
   unselectableCountries: any[]
   excludedRegions: any[]
-  onChange: (...args: any[]) => any
+  onChange: (countryIso: string) => any
 }
-const CountrySelectionModalBody: React.SFC<CountrySelectionModalBodyProps> = (props) => {
+
+const CountrySelectionModalBody: React.FC<CountrySelectionModalBodyProps> = (props) => {
   const { countries, onChange, selection = [], unselectableCountries, excludedRegions } = props
   const i18n = useI18n()
   // Sort given countries (from props) to hashmap: {regionCode}: [{countryIso},..]
