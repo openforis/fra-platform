@@ -2,9 +2,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as AppState from '@webapp/store/app/state'
 import { Area, Country } from '@common/country'
 import { useI18n, useOnUpdate } from '@webapp/components/hooks'
+
+import FRA from '@common/assessment/fra'
 import { sortCountries, sortRegions } from '@webapp/store/app/utils'
 import * as AppActions from '../actions'
-import FRA from '../../../../common/assessment/fra'
 
 export function useAssessmentType(): string {
   return useSelector(AppState.getAssessmentType) as string
@@ -45,6 +46,11 @@ export const useGroupedRegions = () => {
     ...rg,
     regions: (regions as any).filter((region: any) => region.regionGroup === rg.id),
   }))
+}
+
+export const useSecondaryGroupedRegions = () => {
+  const groupedRegions = useGroupedRegions()
+  return groupedRegions.filter((rg) => rg.name === 'secondary')[0]
 }
 
 /**

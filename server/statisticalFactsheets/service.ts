@@ -35,7 +35,7 @@ export const getStatisticalFactsheetData = async (schemaName: any, level: any, r
   // - [countryIso, ..]  - [FIN, ITA]
   if (Array.isArray(level)) {
     const filteredCountryIsos = level.filter((countryIso) => countries.includes(countryIso))
-    return filteredCountryIsos.length > 0 ? Repository.getStatisticalFactsheetData(schemaName, rowNames, [level]) : []
+    return filteredCountryIsos.length > 0 ? Repository.getStatisticalFactsheetData(schemaName, rowNames, filteredCountryIsos) : []
   }
 }
 

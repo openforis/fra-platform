@@ -3,7 +3,6 @@
 @border-radius: 2px;
 
 .modal {
-  display: none;
   position: fixed;
   z-index: 999;
   left: 0;
@@ -17,7 +16,7 @@
 .modal-content {
   position: relative;
   display: flex;
-  width: auto;
+  width: 100%;
   flex-direction: column;
   pointer-events: auto;
   background-color: #fff;
@@ -64,9 +63,8 @@
 .modal-footer {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   padding: 7px 14px 14px 14px;
-  //border-top: @ui-thin-border;
 }
 
 .modal-footer__item {

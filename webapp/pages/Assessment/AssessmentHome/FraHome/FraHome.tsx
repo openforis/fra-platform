@@ -8,6 +8,8 @@ import Icon from '@webapp/components/icon'
 import StatisticalFactsheets from '@webapp/app/countryLanding/views/statisticalFactsheets'
 import useCountryLandingSections from '@webapp/app/countryLanding/useCountryLandingSections'
 import { useFraRegions } from '@webapp/store/app/hooks'
+import CountrySelector from './components/CountrySelector'
+import SelectedCountries from './components/SelectedCountries'
 
 const FraHome = () => {
   const { pathname } = useLocation()
@@ -28,7 +30,7 @@ const FraHome = () => {
 
   return (
     <>
-      <div className="landing__page-header">
+      <div className="landing__page-header space-between">
         <h1 className="landing__page-title">
           {(i18n as any).t(`area.${countryIso}.listName`)}
 
@@ -44,22 +46,25 @@ const FraHome = () => {
           )}
         </h1>
 
-        {displayTabs && (
-          <div className="landing__page-menu">
-            {sections.map(({ name: section }) => (
-              <NavLink
-                key={section}
-                to={BasePaths.getAssessmentHomeSectionLink(countryIso, FRA.type, section)}
-                className="landing__page-menu-button"
-                activeClassName="disabled"
-              >
-                {(i18n as any).t(`landing.sections.${section}`)}
-              </NavLink>
-            ))}
-          </div>
-        )}
+        {Area.isISOGlobal(countryIso) && <CountrySelector />}
       </div>
 
+      {Area.isISOGlobal(countryIso) && <SelectedCountries />}
+
+      {displayTabs && (
+        <div className="landing__page-menu">
+          {sections.map(({ name: section }) => (
+            <NavLink
+              key={section}
+              to={BasePaths.getAssessmentHomeSectionLink(countryIso, FRA.type, section)}
+              className="landing__page-menu-button"
+              activeClassName="disabled"
+            >
+              {i18n.t(`landing.sections.${section}`)}
+            </NavLink>
+          ))}
+        </div>
+      )}
       {displayTabs ? (
         <Switch>
           <Route exact path={BasePaths.getAssessmentHomeLink(countryIso, FRA.type)}>

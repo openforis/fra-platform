@@ -15,6 +15,8 @@ module.exports.translation = {
   },
 
   common: {
+    apply: 'Appliquer',
+    resetAll: 'Effacer tout',
     column: 'Colonne',
     countries: 'Pays',
     dataExport: 'Exportation de données',
@@ -52,6 +54,8 @@ des domaines boréal, tempéré et sous-tropical`,
   },
 
   disclaimer: {
+    statisticalFactsheets:
+      'Avertissement: peut contenir des estimations de la FAO, peut contenir des valeurs manquantes',
     part1: `Ce site a été élaboré avec l’aide de l'`,
     europeanUnion: 'Union européenne',
     part2: ',  du ',

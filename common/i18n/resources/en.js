@@ -17,6 +17,9 @@ module.exports.translation = {
   },
 
   common: {
+    resetAll: 'Reset all',
+    done: 'Done',
+    apply: 'Apply',
     column: 'Column',
     countries: 'Countries',
     dataExport: 'Data Export',
@@ -36,6 +39,7 @@ module.exports.translation = {
   },
 
   disclaimer: {
+    statisticalFactsheets: 'Disclaimer: may contain FAO estimates, may contain missing values',
     part1: 'This website has been produced with the assistance of the ',
     europeanUnion: 'European Union',
     part2: ', the ',

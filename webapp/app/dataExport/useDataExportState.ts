@@ -9,6 +9,9 @@ import { useAssessmentType, useCountries, useCountriesPanEuropean, useRegions } 
 import { useCountryIso, useGetRequest } from '@webapp/components/hooks'
 import * as SectionSpecs from '@webapp/app/assessment/components/section/sectionSpecs'
 import { TableSpec } from '@webapp/app/assessment/components/section/sectionSpec'
+import { useSelector } from 'react-redux'
+import * as UiState from '@webapp/store/ui/state'
+import { __MIN_COUNTRIES__ } from '@webapp/pages/Assessment/AssessmentHome/FraHome/components/CountrySelector'
 
 const initialSelection: any = {
   countries: [],
@@ -18,10 +21,18 @@ const initialSelection: any = {
 export default () => {
   const { section }: any = useParams()
   const countryIso = useCountryIso()
-  const regions = useRegions()
+  const regions: any = useRegions()
   const assessmentType = useAssessmentType()
-  const countries = Assessment.isTypePanEuropean(assessmentType) ? useCountriesPanEuropean() : useCountries()
-  const isRegion = (regions as any).map((region: any) => region.regionCode).includes(countryIso)
+  const isPanEuropean = Assessment.isTypePanEuropean(assessmentType)
+  let countries = isPanEuropean ? useCountriesPanEuropean() : useCountries()
+  const selectedCountries: any = useSelector(UiState.getSelectedCountries)
+
+  if (!isPanEuropean && selectedCountries.length >= __MIN_COUNTRIES__) {
+    countries = countries.filter(({ countryIso: _countryIso }: any) => selectedCountries.includes(_countryIso))
+  }
+
+  const isRegion = regions.map((region: any) => region.regionCode).includes(countryIso)
+
   const countriesFiltered = isRegion
     ? countries.filter((country: any) => country.regionCodes.includes(countryIso))
     : countries
