@@ -29,11 +29,11 @@ const CountrySelector = () => {
         headerLabel={i18n.t('common.select')}
         onClose={onClose}
         canSave={canSave}
-        excludedRegions={secondaryRegions.regions.map((r) => r.regionCode)}
+        excludedRegions={secondaryRegions.regions.map((r: any) => r.regionCode)}
         showCount
       />
       <button onClick={() => setModalOpen(true)} className="btn-s btn btn-primary filter-countries">
-        Filter countries
+        {i18n.t('common.filterCountries')}
       </button>
     </div>
   )
