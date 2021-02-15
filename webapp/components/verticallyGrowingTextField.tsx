@@ -4,8 +4,15 @@ import './verticallyGrowingTextField.less'
 
 type Props = {
   value: string
-  minWidth: number
+  minWidth?: number
   disabled: boolean
+  className?: string
+  placeholder?: string
+  onChange: (evt: any) => any
+  onKeyDown: (evt: any) => any
+  onFocus: (evt: any) => any
+  onKeyUp: (evt: any) => any
+  onClick: (evt: any) => any
 }
 
 const VerticallyGrowingTextField: React.FC<Props> = (props: Props) => {

@@ -93,7 +93,6 @@ class FraReviewFooter extends React.Component<Props, State> {
           </div>
 
           <VerticallyGrowingTextField
-            ref="textField"
             onChange={(evt: any) => this.onInputChange(evt)}
             onKeyDown={(evt: any) => this.onInputKeyDown(evt)}
             onFocus={(evt: any) => this.onInputFocus(evt)}
