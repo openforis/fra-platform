@@ -36,6 +36,7 @@ module.exports.translation = {
     unselectAll: 'Unselect all',
     variable: 'FRA Variable',
     year: 'Year',
+    filterCountries: 'Filter countries'
   },
 
   disclaimer: {
