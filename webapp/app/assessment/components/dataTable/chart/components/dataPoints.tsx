@@ -70,6 +70,7 @@ class DataPoint extends Component<Props, {}> {
 
   htmlTooltip(d: any) {
     const data = d?.target?.__data__
+    if (!data) return
     const precision = Number.isInteger(data.value) ? 0 : 2
     return (
       <div>
