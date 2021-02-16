@@ -13,15 +13,17 @@ type Props = {
   onFocus: (evt: any) => any
   onKeyUp: (evt: any) => any
   onClick: (evt: any) => any
+  ref: any
 }
 
-const VerticallyGrowingTextField: React.FC<Props> = (props: Props) => {
+const VerticallyGrowingTextField: React.FC<Props> = React.forwardRef((props: Props, ref: any) => {
   const { value, minWidth, disabled, ...rest } = props
   const minWidthStyleAttr = minWidth ? `${minWidth}px` : null
 
   const [printView] = usePrintView()
 
-  const textAreaRef = useRef(null)
+  const _textAreaRef = useRef(null)
+  const textAreaRef = ref || _textAreaRef
 
   useEffect(() => {
     const textArea = textAreaRef.current
@@ -49,6 +51,6 @@ const VerticallyGrowingTextField: React.FC<Props> = (props: Props) => {
       )}
     </div>
   )
-}
+})
 
 export default VerticallyGrowingTextField
