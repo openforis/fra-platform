@@ -69,19 +69,21 @@ class DataPoint extends Component<Props, {}> {
   }
 
   htmlTooltip(d: any) {
-    const precision = Number.isInteger(d.value) ? 0 : 2
+    const data = d?.target?.__data__
+    if (!data) return
+    const precision = Number.isInteger(data.value) ? 0 : 2
     return (
       <div>
-        <div className="chart__tooltip-heading">{d.year}</div>
+        <div className="chart__tooltip-heading">{data.year}</div>
         <div className="chart__tooltip-value-container">
           <div
             className="chart__tooltip-marker"
-            style={{ backgroundColor: d.type === 'fra' ? '#ffffff' : (this.props as any).color }}
+            style={{ backgroundColor: data.type === 'fra' ? '#ffffff' : (this.props as any).color }}
           />
-          <div className="chart__tooltip-value">{formatNumber(d.value, precision)}</div>
+          <div className="chart__tooltip-value">{formatNumber(data.value, precision)}</div>
           <div className="chart__tooltip-unit">(1000 ha)</div>
         </div>
-        {d.dataSourceMethods ? (
+        {data.dataSourceMethods && (
           <div className="chart__tooltip-methods">
             <div className="chart__tooltip-heading">{(this.props as any).i18n.t('nationalDataPoint.methodsUsed')}</div>
             {R.map(
@@ -90,10 +92,10 @@ class DataPoint extends Component<Props, {}> {
                   {(this.props as any).i18n.t(`nationalDataPoint.dataSourceMethodsOptions.${dataSourceMethod}`)}
                 </div>
               ),
-              d.dataSourceMethods
+              data.dataSourceMethods
             )}
           </div>
-        ) : null}
+        )}
       </div>
     )
   }
