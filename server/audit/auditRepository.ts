@@ -14,6 +14,7 @@ export const insertAudit = async (
   const userResult = await client.query('SELECT name, email, login_email FROM fra_user WHERE id = $1', [userId])
   if (userResult.rows.length !== 1) throw new Error(`User ID query resulted in ${userResult.rows.length} rows`)
   const user = camelize(userResult.rows[0])
+  if (countryIso){
   await client.query(
     `INSERT INTO 
       fra_audit 
@@ -22,6 +23,16 @@ export const insertAudit = async (
       ($1, $2, $3, $4, $5, $6, $7);`,
     [user.email, user.loginEmail, user.name, message, countryIso, section, target]
   )
+  } else {
+    await client.query(
+      `INSERT INTO 
+        fra_audit 
+        (user_email, user_login_email, user_name, message, section, target) 
+      VALUES 
+        ($1, $2, $3, $4, $5, $6);`,
+      [user.email, user.loginEmail, user.name, message, section, target]
+    )
+  }
 }
 
 export const getLastAuditTimeStampForSection = (countryIso: any, section: any) => {
