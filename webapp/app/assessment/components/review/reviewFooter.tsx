@@ -8,6 +8,7 @@ type Props = any
 class FraReviewFooter extends React.Component<Props, State> {
   props: Props
   initialState: any
+  textAreaRef: React.RefObject<any>
 
   constructor(props: {}) {
     super(props)
@@ -15,6 +16,7 @@ class FraReviewFooter extends React.Component<Props, State> {
     this.state = this.initialState
     this.outsideClick = this.outsideClick.bind(this)
     window.addEventListener('click', this.outsideClick)
+    this.textAreaRef = React.createRef();
   }
 
   componentWillUnmount() {
@@ -65,7 +67,7 @@ class FraReviewFooter extends React.Component<Props, State> {
     this.setState({
       ...this.state,
       showPicker: true,
-      pickerStyle: { bottom: (this.refs.textField as any).refs.textArea.offsetHeight + 60 },
+      pickerStyle: { bottom: this.textAreaRef.current?.offsetHeight + 60 },
     })
   }
 
@@ -93,7 +95,7 @@ class FraReviewFooter extends React.Component<Props, State> {
           </div>
 
           <VerticallyGrowingTextField
-            ref="textField"
+            ref={this.textAreaRef}
             onChange={(evt: any) => this.onInputChange(evt)}
             onKeyDown={(evt: any) => this.onInputKeyDown(evt)}
             onFocus={(evt: any) => this.onInputFocus(evt)}
