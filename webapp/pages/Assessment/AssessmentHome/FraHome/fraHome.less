@@ -3,13 +3,33 @@
 @import (reference) 'webapp/main/styles/buttons';
 
 .landing__page-header {
-  padding-bottom: 24px;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  .space-between {
+    justify-content: space-between;
+  }
 }
 
 .landing__page-title {
   .title;
   display: flex;
   align-items: center;
+  flex: 1;
+}
+
+// TODO: Make this common component
+.landng__page-country-label {
+  display: inline-block;
+  border: @ui-thin-border;
+  padding: 4px 8px;
+  border-radius: 3px;
+  background-color: lighten(@ui-bg, 1%);
+  color: darken(@text-disabled, 15%);
+  margin: 5px 2.5px 0;
+  font-size: @font-s;
 }
 
 .landing__btn-download {
@@ -126,7 +146,7 @@
 
   button {
     margin-left: 14px;
-    margin-top: 0px !important;
+    margin-top: 0 !important;
   }
 
   .support-text {
@@ -157,7 +177,7 @@
 .landing__users-container {
   .landing__page-container;
   width: 100%;
-  padding: 32px 8px 0px 8px;
+  padding: 32px 8px 0 8px;
 }
 
 .landing__user-outer-container {

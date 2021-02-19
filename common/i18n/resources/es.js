@@ -14,6 +14,9 @@ module.exports.translation = {
   },
 
   common: {
+    resetAll: 'Resetear',
+    done: 'Hecho',
+    apply: 'Aplicar',
     column: 'Columna',
     countries: 'Países',
     dataExport: 'Exportación de datos',
@@ -30,6 +33,7 @@ module.exports.translation = {
     unselectAll: 'Deseleccionar todo',
     variable: 'FRA Variable',
     year: 'Año',
+    filterCountries: 'Filtrar países'
   },
 
   home: {
@@ -54,6 +58,8 @@ el resto está localizado en las regiones boreales, templadas y subtropicales.`,
   statisticalFactsheets,
 
   disclaimer: {
+    statisticalFactsheets:
+      'Descargo de responsabilidad: puede contener estimaciones de la FAO, puede contener valores faltantes',
     part1: 'Este portal se ha realizado con la asistencia de la ',
     europeanUnion: 'Unión Europea',
     part2: ', el ',

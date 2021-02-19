@@ -12,12 +12,27 @@
   }
 
   .partners__disclaimer {
-    display: flex;
+    display: grid;
+    align-items: center;
+    grid-row-gap: 24px;
   }
 
-  .partner_che {
-    margin-left: 12px;
-    width: 200px;
-    height: unset;
+  .partners__disclaimerLogos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      height: 60px;
+
+      &:not(:last-child) {
+        margin-right: 16px;
+      }
+    }
+  }
+
+  .partners__disclaimerText {
+    display: flex;
+    align-items: center;
   }
 }
