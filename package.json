@@ -9,7 +9,7 @@
     "build": "yarn build:client && yarn build:server && yarn build:copy",
     "build:server": "yarn tsc --project tsconfig.server.json && yarn tscpaths -v -p tsconfig.server.paths.json -s ./server -o ./dist",
     "build:client": "NODE_ENV=production webpack -p --config webpack.config.babel.js",
-    "build:copy": "cp -a server/db/migration/* dist/server/db/migration/. && cp -a web-resources dist/",
+    "build:copy": "cp -a server/db/migration/* dist/server/db/migration/. && cp -a web-resources dist/ &&  cp -a server/definitions/en server/definitions/es server/definitions/fr server/definitions/ru dist/server/definitions/",
     "build:watch": "NODE_ENV=development webpack --config webpack.config.babel.js --watch",
     "build:dev-server": "NODE_ENV=development webpack-dev-server",
     "build:prod:report": "cross-env NODE_ENV=production BUILD_REPORT=true webpack --display-error-details -p --config webpack.config.babel.js",
@@ -177,7 +177,7 @@
   "browserslist": [
     "last 2 versions"
   ],
-  "version": "2.3.6",
+  "version": "2.3.8",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
