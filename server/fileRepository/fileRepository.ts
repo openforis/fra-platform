@@ -29,7 +29,7 @@ export const fileTypes = {
 }
 
 export const getFilepath = (type: any, lang: any) =>
-  path.resolve(__dirname, type.folder, `${type.key}_${lang}.${type.fileType}`)
+  path.resolve(__dirname, '..', 'static', 'fileRepository', type.folder, `${type.key}_${lang}.${type.fileType}`)
 
 export const downloadFile = (res: any, type: any, lang: any) => {
   const filePath = getFilepath(type, lang)

@@ -155,7 +155,7 @@ export const init = (app: any) => {
       if (profilePicture && profilePicture.data) {
         res.end(profilePicture.data, 'binary')
       } else {
-        res.sendFile(`${__dirname}/avatar.png`)
+        res.sendFile(`${__dirname}/../static/avatar.png`)
       }
     } catch (err) {
       ;(Request as any).sendErr(res, err)

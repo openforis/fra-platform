@@ -4,7 +4,7 @@ import * as R from 'ramda'
 import { readParameterWithAllowedValues, readAllowedParameter } from '../utils/sanityChecks'
 
 const getDefinition = (name: any, lang: any) => {
-  return fs.promises.readFile(`${__dirname}/${lang}/${name}.md`, 'utf8')
+  return fs.promises.readFile(`${__dirname}/../static/definitions/${lang}/${name}.md`, 'utf8')
 }
 
 export const init = (app: any) => {
