@@ -27,7 +27,7 @@ export const init = (app: any) => {
       // Include README.txt in the zipfile
       const readFile = util.promisify(fs.readFile)
       const readmeFileName = 'README.txt'
-      const readmeContent = await readFile(path.resolve(__dirname, `./${readmeFileName}`))
+      const readmeContent = await readFile(path.resolve(__dirname, '..', 'static', 'dataExport', `./${readmeFileName}`))
       zip.file(readmeFileName, readmeContent)
       Object.values(files).forEach(({ fileName, content }) => zip.file(fileName, content))
       zip
