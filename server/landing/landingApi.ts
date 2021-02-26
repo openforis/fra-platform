@@ -1,4 +1,3 @@
-
 import * as db from '../db/db'
 
 import { checkCountryAccessFromReqParams } from '../utils/accessControl'
@@ -43,7 +42,7 @@ export const init = (app: any) => {
     try {
       checkCountryAccessFromReqParams(req)
 
-      const filePath = `${__dirname}/${sdgContactsFileName}`
+      const filePath = `${__dirname}/../static/landing/${sdgContactsFileName}`
       res.download(filePath, 'NSO_SDG_Contact_Persons.xlsx')
     } catch (err) {
       sendErr(res, err)

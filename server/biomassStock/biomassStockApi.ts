@@ -19,8 +19,8 @@ export const init = (app: any) => {
           return
         }
         const lang = R.contains(req.params.lang, availableLanguages) ? req.params.lang : 'en'
-        const filePath = `${__dirname}/${fileName}_${countryDomain}_${lang}.xlsx`
-        const fallbackFilePath = `${__dirname}/${fileName}_${countryDomain}_en.xlsx`
+        const filePath = `${__dirname}/../static/biomassStock/${fileName}_${countryDomain}_${lang}.xlsx`
+        const fallbackFilePath = `${__dirname}/../static/biomassStock/${fileName}_${countryDomain}_en.xlsx`
 
         if (fs.existsSync(filePath)) {
           res.download(filePath, 'BiomassCalculator.xlsx')
