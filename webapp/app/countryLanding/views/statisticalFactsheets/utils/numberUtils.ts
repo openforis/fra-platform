@@ -9,9 +9,5 @@ export const formatValue = (value: any, isIsoCountry: any, rowName = '') => {
     return (value / 1000000).toFixed(2)
   }
 
-  if (sections.primaryDesignatedManagementObjective.includes(rowName)) {
-    return value
-  }
-
   return (value / 1000).toFixed(2)
 }

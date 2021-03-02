@@ -18,7 +18,8 @@ const PrimaryDesignatedManagementObjective = (props: Props) => {
     'social_services',
     'other',
   ]
-  const units = Area.isISOCountry(levelIso)
+  const isIsoCountry = Area.isISOCountry(levelIso)
+  const units = isIsoCountry
     ? ['haThousand', 'haThousand', 'haThousand', 'haThousand', 'haThousand', 'haThousand']
     : ['haMillion', 'haMillion', 'haMillion', 'haMillion', 'haMillion', 'haMillion']
   const section = 'primaryDesignatedManagementObjective'
@@ -26,7 +27,14 @@ const PrimaryDesignatedManagementObjective = (props: Props) => {
     <div className="row-l">
       <h3 className="header">{(i18n as any).t(`statisticalFactsheets.${section}.title`)}</h3>
 
-      <Table rows={rows} units={units} columns={columns} section={section} levelIso={levelIso} />
+      <Table
+        isIsoCountry={isIsoCountry}
+        rows={rows}
+        units={units}
+        columns={columns}
+        section={section}
+        levelIso={levelIso}
+      />
     </div>
   )
 }
