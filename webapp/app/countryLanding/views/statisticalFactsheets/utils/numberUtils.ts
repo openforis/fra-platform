@@ -1,5 +1,3 @@
-import { sections } from '@webapp/app/countryLanding/views/statisticalFactsheets/utils/apiUtils'
-
 export const formatValue = (value: any, isIsoCountry: any, rowName = '') => {
   if (isIsoCountry) {
     return value
