@@ -7,12 +7,14 @@ import * as enTranslation from './resources/en'
 import * as frTranslation from './resources/fr'
 import * as esTranslation from './resources/es'
 import * as ruTranslation from './resources/ru'
+import * as zhTranslation from './resources/zh'
 
-const translationsFiles: {[langCode: string]: any} = {
+const translationsFiles: { [langCode: string]: any } = {
   en: enTranslation.translation,
   es: esTranslation.translation,
   fr: frTranslation.translation,
   ru: ruTranslation.translation,
+  zh: zhTranslation.translation,
 }
 
 const createParams = (lang: string) => ({
@@ -44,4 +46,3 @@ export const createI18nPromise = (lang: any) =>
       resolve({ language: lang, t })
     })
   )
-

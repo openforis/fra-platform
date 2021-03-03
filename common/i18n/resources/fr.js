@@ -12,6 +12,7 @@ module.exports.translation = {
     es: 'Español',
     fr: 'Français',
     ru: 'Русский',
+    zh: '中文',
   },
 
   common: {
