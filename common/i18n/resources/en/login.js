@@ -19,7 +19,6 @@ module.exports = {
   notAuthorized: 'User not authorized',
   errorOccured: 'Error occurred',
   noInvitation: 'Invitation not found',
-  noMatchPasswords: 'Password cannot be empty',
   noMatchPasswords: "Passwords don't match",
   noEmptyPassword: 'Password cannot be empty',
   noMatchingUser: "We couldn't find any user matching these credentials.\nMake sure you have a valid FRA account.",
