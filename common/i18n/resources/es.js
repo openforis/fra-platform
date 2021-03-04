@@ -193,6 +193,7 @@ el resto está localizado en las regiones boreales, templadas y subtropicales.`,
         'La FAO ha estado monitoreando los bosques del mundo en intervalos de 5 a 10 años desde 1946. Las recientes Evaluaciones de los Recursos Forestales Mundiales (FRA) se llevan a cabo ahora cada 5 años, en un esfuerzo por proporcionar un enfoque conherente para describir los bosques del mundo y cómo estos están cambiando. La evaluación se basa en dos principales fuentes de datos: los informes nacionales desarrollados por Corresponsales Naciones y la teledetección, llevada a cabo por la FAO junto con los coordinadores nacionales y los asociados regionales. El alcance de FRA ha cambiado de forma regular desde que se publicó la primera evaluación en 1948. Dichas evaluaciones constituyen una interesante historia sobre los intereses forestales mundiales, tanto en lo que respecta a su contenido sustancial como a su alcance cambiante.',
       linkFraProcess: 'Más información sobre el proceso de FRA',
       or: 'O',
+      selectArea: 'Seleccione un área a continuación para acceder a los datos de FRA',
     },
     recentActivity: {
       noRecentActivityTitle: 'Parece que no hay ninguna actividad reciente',
