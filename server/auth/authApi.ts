@@ -10,6 +10,7 @@ import { validEmail, validPassword } from '../../common/userUtils'
 import { findLocalUserByEmail, findUserById, fetchInvitation, findUserByEmail } from '../user/userRepository'
 import { createResetPassword, findResetPassword, changePassword } from '../user/userResetPasswordRepository'
 import { sendResetPasswordEmail } from './resetPassword'
+import { createI18nPromise } from '@common/i18n/i18nFactory'
 
 const authenticationFailed = (req: any, res: any) => {
   req.logout()
@@ -96,13 +97,15 @@ export const init = (app: any) => {
   app.post('/auth/local/resetPassword', async (req: any, res: any) => {
     try {
       const { email } = req.body
+      const i18n = await createI18nPromise('en')
+
       // validation
-      if (R.isEmpty(R.trim(email))) res.send({ error: 'Email cannot be empty' })
-      else if (!validEmail({ email })) res.send({ error: 'Email not valid' })
+      if (R.isEmpty(R.trim(email))) res.send({ error: i18n.t('login.emptyEmail') })
+      else if (!validEmail({ email })) res.send({ error: i18n.t('login.invalidEmail') })
       else {
         const user = await findLocalUserByEmail(email)
         if (!user) {
-          res.send({ error: "We couldn't find any user matching this email.\nMake sure you have a valid FRA account." })
+          res.send({ error: i18n.t('login.noMatchingEmail') })
         } else {
           // reset password
           const resetPassword = await db.transaction(createResetPassword, [user.id])
@@ -110,7 +113,7 @@ export const init = (app: any) => {
 
           await sendResetPasswordEmail(user, url, resetPassword.uuid)
           res.send({
-            message: `The request to reset your password has been successfully submitted.\nYou'll be shortly receiving an email with instructions`,
+            message: i18n.t('login.passwordResetSent'),
           })
         }
       }
@@ -135,21 +138,18 @@ export const init = (app: any) => {
 
   app.post('/auth/local/changePassword', async (req: any, res: any) => {
     try {
+      const i18n = await createI18nPromise('en')
+
       const sendResp = (error: any = null, message: any = null) => res.json({ error, message })
 
       const { uuid, userId, password, password2 } = req.body
-      if (R.isEmpty(R.trim(password)) || R.isEmpty(R.trim(password2))) sendResp('Passwords cannot be empty')
-      else if (R.trim(password) !== R.trim(password2)) sendResp("Passwords don't match")
-      else if (!validPassword(password))
-        sendResp(
-          'Password must contain six characters or more and have at least one lower case and one upper case alphabetical character and one number'
-        )
+      if (R.isEmpty(R.trim(password)) || R.isEmpty(R.trim(password2))) sendResp(i18n.t('login.noEmptyPassowrd'))
+      else if (R.trim(password) !== R.trim(password2)) sendResp(i18n.t('login.noMatchPasswords'))
+      else if (!validPassword(password)) sendResp(i18n.t('login.passwordError'))
       else {
         const hash = await authConfig.passwordHash(password)
         const changed = await db.transaction(changePassword, [uuid, userId, hash])
-        changed
-          ? sendResp(null, 'Password has been changed')
-          : sendResp('Ooops. It looks like your request is not longer valid.')
+        changed ? sendResp(null, i18n.t('login.passwordChanged')) : sendResp(i18n.t('login.noLongerValid'))
       }
     } catch (err) {
       sendErr(res, err)

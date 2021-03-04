@@ -11,10 +11,12 @@ import useOnUpdate from '@webapp/components/hooks/useOnUpdate'
 import { findResetPassword, changePassword } from '../actions'
 
 import Error from '../Error'
+import { useI18n } from '@webapp/components/hooks'
 
 const ResetPasswordForm = () => {
   const dispatch = useDispatch()
-  const { status, resetPassword = {}, changePasswordResponse = {} }:any = useSelector((state) => ({
+  const i18n = useI18n()
+  const { status, resetPassword = {}, changePasswordResponse = {} }: any = useSelector((state) => ({
     status: R.path(['login', 'resetPassword', 'status'], state),
     resetPassword: R.path(['login', 'resetPassword', 'data'], state),
     changePasswordResponse: R.path(['login', 'changePassword'], state),
@@ -44,7 +46,7 @@ const ResetPasswordForm = () => {
         <div>{changePasswordResponse.message}</div>
         <div>
           <Link to={BasePaths.login} className="btn">
-            Login
+            {i18n.t('login.login')}
           </Link>
         </div>
       </div>
@@ -62,7 +64,7 @@ const ResetPasswordForm = () => {
           <input
             type="password"
             value={password}
-            placeholder="Password"
+            placeholder={i18n.t('login.password')}
             onChange={(event) => {
               setPassword(event.target.value)
               setError(null)
@@ -72,7 +74,7 @@ const ResetPasswordForm = () => {
           <input
             type="password"
             value={password2}
-            placeholder="Repeat password"
+            placeholder={i18n.t('login.repeatPassword')}
             onChange={(event) => {
               setPassword2(event.target.value)
               setError(null)
@@ -85,7 +87,7 @@ const ResetPasswordForm = () => {
               type="button"
               onClick={() => dispatch(changePassword(resetPassword.uuid, resetPassword.user.id, password, password2))}
             >
-              Change password
+              {i18n.t('login.changePassword')}
             </button>
           </div>
         </div>
@@ -93,7 +95,7 @@ const ResetPasswordForm = () => {
     )
   }
 
-  return <Error error="Ooops. It looks like the link you clicked is expired or not valid" />
+  return <Error error={i18n.t('login.expired')} />
 }
 
 export default ResetPasswordForm

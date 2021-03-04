@@ -45,4 +45,4 @@ export const createI18nPromise = (lang: any) =>
       if (err) reject(err)
       resolve({ language: lang, t })
     })
-  )
+  ) as any
