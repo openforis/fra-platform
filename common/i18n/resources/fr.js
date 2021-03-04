@@ -1,11 +1,13 @@
 const area = require('./fr/area')
 const dataDownload = require('./fr/dataDownload')
 const statisticalFactsheets = require('./fr/statisticalFactsheets')
+const login = require('./fr/login')
 
 module.exports.translation = {
   area,
   dataDownload,
   statisticalFactsheets,
+  login,
 
   language: {
     en: 'English',

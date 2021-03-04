@@ -1,10 +1,13 @@
 const area = require('./es/area')
 const dataDownload = require('./es/dataDownload')
 const statisticalFactsheets = require('./es/statisticalFactsheets')
+const login = require('./es/login')
 
 module.exports.translation = {
   area,
   dataDownload,
+  statisticalFactsheets,
+  login,
 
   language: {
     en: 'English',
@@ -55,8 +58,6 @@ el resto está localizado en las regiones boreales, templadas y subtropicales.`,
     userGuide: 'Guía del usuario',
     sendFeedback: 'Enviar comentarios',
   },
-
-  statisticalFactsheets,
 
   disclaimer: {
     statisticalFactsheets:
