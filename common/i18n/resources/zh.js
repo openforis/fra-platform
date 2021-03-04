@@ -2,12 +2,14 @@ const area = require('./zh/area')
 const contentCheck = require('./zh/contentCheck')
 const dataDownload = require('./zh/dataDownload')
 const statisticalFactsheets = require('./zh/statisticalFactsheets')
+const login = require('./zh/login')
 
 module.exports.translation = {
   area,
   contentCheck,
   dataDownload,
   statisticalFactsheets,
+  login,
 
   language: {
     en: 'English',
