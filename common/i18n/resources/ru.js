@@ -1,10 +1,13 @@
 const area = require('./ru/area')
 const dataDownload = require('./ru/dataDownload')
 const statisticalFactsheets = require('./ru/statisticalFactsheets')
+const login = require('./ru/login')
 
 module.exports.translation = {
   area,
   dataDownload,
+  statisticalFactsheets,
+  login,
 
   language: {
     en: 'English',
@@ -49,8 +52,6 @@ module.exports.translation = {
     userGuide: 'Руководство пользователя',
     sendFeedback: 'Направить отзыв',
   },
-
-  statisticalFactsheets,
 
   disclaimer: {
     statisticalFactsheets: 'Оговорка: может содержать оценки ФАО, может содержать отсутствующие значения',
