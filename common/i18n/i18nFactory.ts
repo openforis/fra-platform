@@ -42,7 +42,10 @@ export const createI18nInstance = (lang: any, callback: any) =>
 export const createI18nPromise = (lang: any) =>
   new Promise((resolve, reject) =>
     createInstance(createParams(lang), (err: any, t: any) => {
-      if (err) reject(err)
+      if (err) {
+        reject(err)
+        return
+      }
       resolve({ language: lang, t })
     })
   ) as any
