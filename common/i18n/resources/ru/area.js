@@ -16,7 +16,6 @@ module.exports = {
   UNECE: { listName: 'ЕЭК ООН' },
   ITTO: { listName: 'Международная организация по тропической древесине' },
 
-  SXM: { listName: ' Сен-Мартен (голландская часть)' },
   ABW: { listName: 'Аруба' },
   AFG: { listName: 'Афганистан' },
   AGO: { listName: 'Ангола' },
@@ -218,7 +217,7 @@ module.exports = {
   SVN: { listName: 'Словения' },
   SWE: { listName: 'Швеция' },
   SWZ: { listName: 'Эсватини' },
-  SXM: { listName: 'Sint Maarten (Dutch part)' },
+  SXM: { listName: ' Сен-Мартен (голландская часть)' },
   SYC: { listName: 'Сейшельские Острова' },
   SYR: { listName: 'Сирийская Арабская Республика' },
   TCA: { listName: 'острова Тёркс и Кайкос' },
