@@ -8,6 +8,7 @@ import * as frTranslation from './resources/fr'
 import * as esTranslation from './resources/es'
 import * as ruTranslation from './resources/ru'
 import * as arTranslation from './resources/ar'
+import * as zhTranslation from './resources/zh'
 
 const translationsFiles: { [langCode: string]: any } = {
   en: enTranslation.translation,
@@ -15,6 +16,7 @@ const translationsFiles: { [langCode: string]: any } = {
   fr: frTranslation.translation,
   ru: ruTranslation.translation,
   ar: arTranslation.translation,
+  zh: zhTranslation.translation,
 }
 
 const createParams = (lang: string) => ({
@@ -42,7 +44,10 @@ export const createI18nInstance = (lang: any, callback: any) =>
 export const createI18nPromise = (lang: any) =>
   new Promise((resolve, reject) =>
     createInstance(createParams(lang), (err: any, t: any) => {
-      if (err) reject(err)
+      if (err) {
+        reject(err)
+        return
+      }
       resolve({ language: lang, t })
     })
-  )
+  ) as any

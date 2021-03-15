@@ -8,9 +8,11 @@ import { initLogin } from '../actions'
 
 import Error from '../Error'
 import LocalLogin from './LocalLogin'
+import { useI18n } from '@webapp/components/hooks'
 
 const LoginForm = () => {
   const { status, invitation, user }: any = useSelector(R.pathOr({}, ['login', 'login']))
+  const i18n = useI18n()
 
   const dispatch = useDispatch()
   const [loginLocal, setLoginLocal] = useState(false)
@@ -31,11 +33,11 @@ const LoginForm = () => {
       ) : (
         <div>
           <a className="btn" href={`/auth/google${invitation ? `?i=${invitation.invitationUuid}` : ''}`}>
-            Sign in with Google
+            {i18n.t('login.signInGoogle')}
           </a>
 
           <button className="btn" type="button" onClick={() => setLoginLocal(true)}>
-            Sign in with FRA
+            {i18n.t('login.signInFRA')}
           </button>
         </div>
       )}
