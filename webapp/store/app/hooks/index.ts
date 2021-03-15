@@ -21,7 +21,9 @@ export const useCountries = () => {
   return countries
 }
 export const useCountriesPanEuropean = () =>
-  (useCountries() as any).filter((country: any) => (Country.getRegionCodes(country) as any[]).includes(Area.levels.forest_europe))
+  (useCountries() as any).filter((country: any) =>
+    (Country.getRegionCodes(country) as any[]).includes(Area.levels.forest_europe)
+  )
 export const useRegions = () => {
   const i18n = useI18n()
   const dispatch = useDispatch()
@@ -61,4 +63,9 @@ export const useFraRegions = () => {
   const groupedRegions = useGroupedRegions()
   const _fraRegionGroup = groupedRegions.find((groupedRegion) => groupedRegion.name === FRA.type)
   return _fraRegionGroup.regions.map((region) => region.regionCode)
+}
+
+export const useIsArabic = () => {
+  const i18n = useI18n()
+  return i18n.language === 'ar'
 }
