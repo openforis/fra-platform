@@ -9,7 +9,7 @@ import { AppActions } from '@webapp/store/app'
 const LanguageSelection = () => {
   const dispatch = useDispatch()
   const i18n = useI18n()
-  const supportedLangs = ['en', 'fr', 'es', 'ru']
+  const supportedLangs = ['en', 'fr', 'es', 'ru', 'ar']
   const languageSelectionItems = R.pipe(
     R.reject((l: any) => l === (i18n as any).language),
     R.map((lang: any) => ({

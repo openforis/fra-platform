@@ -14,6 +14,7 @@ module.exports.translation = {
     es: 'Español',
     fr: 'Français',
     ru: 'Русский',
+    ar: 'العربية',
   },
 
   common: {
@@ -36,7 +37,7 @@ module.exports.translation = {
     unselectAll: 'Unselect all',
     variable: 'FRA Variable',
     year: 'Year',
-    filterCountries: 'Filter countries'
+    filterCountries: 'Filter countries',
   },
 
   disclaimer: {

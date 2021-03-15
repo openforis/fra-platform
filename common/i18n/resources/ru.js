@@ -11,6 +11,7 @@ module.exports.translation = {
     es: 'Español',
     fr: 'Français',
     ru: 'Русский',
+    ar: 'العربية',
   },
 
   common: {
