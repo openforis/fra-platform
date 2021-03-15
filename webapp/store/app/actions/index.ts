@@ -65,6 +65,10 @@ export const switchLanguage = (lang: any) => async (dispatch: any, getState: any
       await axios.post(`/api/user/lang?lang=${lang}`)
     }
     const i18n = await createI18nPromise(lang)
+
+    if (lang === 'ar') document.body.classList.add('rtl')
+    if (lang !== 'ar') document.body.classList.remove('rtl')
+
     dispatch({ type: ActionTypes.appI18nUpdate, i18n })
   } catch (err) {
     dispatch(applicationError(err))
