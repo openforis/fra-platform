@@ -41,6 +41,8 @@ export const initApp = () => async (dispatch: any) => {
     ] = await axios.all([getCountries, getRegions, getRegionGroups, getUserInfo])
 
     const i18n = await createI18nPromise(lang || userInfo ? userInfo.lang : 'en')
+    if (i18n.language === 'ar') document.body.classList.add('rtl')
+
     dispatch({
       type: ActionTypes.appInitDone,
       userInfo,

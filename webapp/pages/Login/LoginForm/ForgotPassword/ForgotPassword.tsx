@@ -5,6 +5,7 @@ import * as R from 'ramda'
 import Error from '../../Error'
 
 import { resetPassword, resetPasswordFormReset } from '../../actions'
+import { useI18n } from '@webapp/components/hooks'
 
 type Props = {
   onClose: (...args: any[]) => any
@@ -13,6 +14,7 @@ type Props = {
 const ForgotPassword = (props: Props) => {
   const { onClose } = props
 
+  const i18n = useI18n()
   const dispatch = useDispatch()
   const emailRef = useRef(null)
   const { error, message }: any = useSelector(R.pathOr({}, ['login', 'localLogin', 'resetPassword']))
@@ -40,13 +42,13 @@ const ForgotPassword = (props: Props) => {
       <Error error={error} />
 
       <div className="login__form">
-        <h3>Enter your email and submit the form to receive instructions via email</h3>
+        <h3>{i18n.t('login.forgotPasswordTitle')}</h3>
 
-        <input type="text" ref={emailRef} placeholder="Email" />
+        <input type="text" ref={emailRef} placeholder={i18n.t('login.email')} />
 
         <div className="login__buttons">
           <button type="button" className="btn" onClick={onClose}>
-            Cancel
+            {i18n.t('login.cancel')}
           </button>
           <button
             type="button"
@@ -55,7 +57,7 @@ const ForgotPassword = (props: Props) => {
               dispatch(resetPassword(emailRef.current.value))
             }}
           >
-            Submit
+            {i18n.t('login.submit')}
           </button>
         </div>
       </div>

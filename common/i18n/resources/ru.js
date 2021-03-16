@@ -1,10 +1,13 @@
 const area = require('./ru/area')
 const dataDownload = require('./ru/dataDownload')
 const statisticalFactsheets = require('./ru/statisticalFactsheets')
+const login = require('./ru/login')
 
 module.exports.translation = {
   area,
   dataDownload,
+  statisticalFactsheets,
+  login,
 
   language: {
     en: 'English',
@@ -12,6 +15,7 @@ module.exports.translation = {
     fr: 'Français',
     ru: 'Русский',
     ar: 'العربية',
+    zh: '中文',
   },
 
   common: {
@@ -49,8 +53,6 @@ module.exports.translation = {
     userGuide: 'Руководство пользователя',
     sendFeedback: 'Направить отзыв',
   },
-
-  statisticalFactsheets,
 
   disclaimer: {
     statisticalFactsheets: 'Оговорка: может содержать оценки ФАО, может содержать отсутствующие значения',
@@ -204,6 +206,7 @@ module.exports.translation = {
         'С 1946 года ФАО осуществляет мониторинг мировых лесов с периодичностью 5-10 лет. Современные Глобальные оценки лесных ресурсов (ОЛР) подготавливаются каждые пять лет с целью обеспечения последовательного подхода к описанию мировых лесов и их изменений.Оценка основывается на двух главных источниках данных: страновые доклады, подготовленные национальными корреспондентами и дистанционное зондирование, проводимое ФАО совместно с национальными координаторами и региональными партнерами.   Масштаб ОЛР регулярно изменяется со времени проведения первой оценки, опубликованной в 1948 году. Данные оценки создают историю глобальных лесных интересов, как с точки зрения основного содержания, так и их меняющегося масштаба.',
       linkFraProcess: 'Более подробная информация о процессе ОЛР',
       or: 'Или',
+      selectArea: 'Выберите область ниже для доступа к данным ОЛР',
     },
     recentActivity: {
       noRecentActivityTitle: 'Нет недавней активности',
