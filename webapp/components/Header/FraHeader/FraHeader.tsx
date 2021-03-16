@@ -3,16 +3,21 @@ import LinkHome from '@webapp/components/Header/components/linkHome'
 import LanguageSelection from '@webapp/components/Header/components/languageSelection'
 import UserLinks from '@webapp/components/Header/UserLinks'
 import { useI18n } from '@webapp/components/hooks'
+import { useIsArabic } from '@webapp/store/app/hooks'
 
 const FraHeader = () => {
   const i18n = useI18n()
+  const isArabic = useIsArabic()
+  let className = 'app-header__menu'
+  if (isArabic) className += ' justify-self-left'
+
   return (
     <div className="app-header no-print">
       <img alt="FAO" src={`/img/fao/FAO${(i18n as any).language}.svg`} />
       <div className="app-header__separator" />
       <div className="app-header__global-fra">{(i18n as any).t('common.globalFRA')}</div>
 
-      <div className="app-header__menu">
+      <div className={className}>
         <LanguageSelection />
         <UserLinks />
         <LinkHome />
