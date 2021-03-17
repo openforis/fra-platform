@@ -66,8 +66,3 @@ export const useFraRegions = () => {
   const _fraRegionGroup = groupedRegions.find((groupedRegion) => groupedRegion.name === FRA.type)
   return _fraRegionGroup.regions.map((region) => region.regionCode)
 }
-
-export const useIsArabic = () => {
-  const i18n = useI18n()
-  return i18n.language === 'ar'
-}
