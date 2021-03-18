@@ -120,11 +120,38 @@ hr {
   .app-header__menu {
     justify-self: left !important;
   }
-  .statistical-factsheets .fra-table tbody th {
+
+  .statistical-factsheets .fra-table tbody th,
+  .text-input__input-field,
+  .text-input__readonly-view,
+  .fra-table__header-cell-left,
+  .fra-table__category-cell,
+  .fra-table__subcategory-cell,
+  .fra-table__header-cell-left,
+  .fra-table__cell-left {
     text-align: right;
   }
 
   .landing__btn-download {
     margin-right: 12px;
+  }
+
+  // faq/definition links
+  .app-view__section-toolbar {
+    justify-content: initial;
+  }
+
+  .fra-table__btn-export {
+    right: initial;
+    left: 1px;
+  }
+
+  .definition-link.align-left.no-print {
+    margin: initial;
+  }
+
+  .app-view__page-header > h1.title.align-left {
+    margin-right: initial;
+    margin-left: auto;
   }
 }
