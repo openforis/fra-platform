@@ -217,7 +217,7 @@ module.exports = {
   SVN: { listName: 'Словения' },
   SWE: { listName: 'Швеция' },
   SWZ: { listName: 'Эсватини' },
-  SXM: { listName: ' Сен-Мартен (голландская часть)' },
+  SXM: { listName: 'Сен-Мартен (голландская часть)' },
   SYC: { listName: 'Сейшельские Острова' },
   SYR: { listName: 'Сирийская Арабская Республика' },
   TCA: { listName: 'острова Тёркс и Кайкос' },
