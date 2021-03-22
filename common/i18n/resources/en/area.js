@@ -9,7 +9,7 @@ module.exports = {
   OC: { listName: 'Oceania' },
   SA: { listName: 'South America' },
 
-  FE: { listName: 'Forest Europe' },
+  FE: { listName: 'FOREST EUROPE' },
   EU27: { listName: 'EU-27' },
   ECOMIFAC: { listName: 'Espace COMIFAC' },
   MP: { listName: 'Montreal Process' },
