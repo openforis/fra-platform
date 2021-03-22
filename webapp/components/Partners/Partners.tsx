@@ -8,7 +8,7 @@ const Partners = () => {
     <div className="partners">
       <div className="partners__imgs">
         <img alt="" src="/img/partners/UNECE.gif" />
-        <img alt="" src={`/img/fao/FAO${(i18n as any).language}_blue.svg`} />
+        <img alt="" src={`/img/fao/FAO${i18n.language}_blue.svg`} />
         <img alt="" src="/img/partners/ForestEurope.png" />
         <img alt="" src="/img/partners/COMIFAC.png" />
         <img alt="" src="/img/partners/ITTO.gif" />
