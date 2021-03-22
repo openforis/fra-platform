@@ -22,7 +22,7 @@ const PanEuropeanHome = () => {
         <div className="partners__disclaimer">
           <div>
             {i18n.t('panEuropean.disclaimer.platformDeveloped')}{' '}
-            <a href="https://foresteurope.org/state-europes-forests-2020-report/" rel="noreferrer" target="_blank">
+            <a href={`http://www.fao.org/home/${i18n.language}/`} rel="noreferrer" target="_blank">
               {i18n.t('panEuropean.disclaimer.fao')}
             </a>{' '}
             {i18n.t('panEuropean.disclaimer.and')}{' '}
