@@ -1,13 +1,15 @@
+@import (reference) 'webapp/main/styles/config';
+
 .pan-eu-home {
   .partners {
-    padding: 72px 0 0;
+    padding: 0;
     display: grid;
     justify-items: center;
     grid-row-gap: 32px;
 
     hr {
       justify-self: normal;
-      margin-bottom: 16px;
+      margin-bottom: 0;
     }
   }
 
@@ -26,13 +28,25 @@
       height: 60px;
 
       &:not(:last-child) {
-        margin-right: 16px;
+        margin-right: 48px;
       }
+    }
+
+    img.forestEurope {
+      height: 70px;
     }
   }
 
   .partners__disclaimerText {
     display: flex;
     align-items: center;
+  }
+
+  a {
+    color: @text-body;
+    text-decoration: underline;
+    &:hover {
+      text-decoration: none;
+    }
   }
 }
