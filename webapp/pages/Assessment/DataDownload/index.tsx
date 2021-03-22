@@ -21,7 +21,7 @@ const DataDownload = () => {
 
       <div className="data-download">
         <div>{i18n.t('dataDownload.bulkDownload')}</div>
-        <a className="btn-s btn-primary nav__bulk-download" href="/api/export/bulk-download" alt="">
+        <a className="btn-s btn-primary nav__bulk-download" href="/api/export/bulk-download">
           <Icon className="icon-sub icon-white" name="hit-down" />
           ZIP
         </a>
@@ -36,7 +36,6 @@ const DataDownload = () => {
             <a
               className="btn-s btn-primary nav__bulk-download"
               href={`/api/fileRepository/dataDownload/${`${resource.idx}_${resource.name}`}/ods`}
-              alt=""
             >
               <Icon className="icon-sub icon-white" name="hit-down" />
               ODS
@@ -44,7 +43,6 @@ const DataDownload = () => {
             <a
               className="btn-s btn-primary nav__bulk-download"
               href={`/api/fileRepository/dataDownload/${`${resource.idx}_${resource.name}`}/xlsx`}
-              alt=""
             >
               <Icon className="icon-sub icon-white" name="hit-down" />
               XLS
