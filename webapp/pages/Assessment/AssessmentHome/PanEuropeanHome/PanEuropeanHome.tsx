@@ -42,7 +42,7 @@ const PanEuropeanHome = () => {
         </div>
 
         <div className="partners__disclaimerLogos">
-          <img alt="" src="/img/partners/ForestEurope.png" />
+          <img alt="" className="forestEurope" src="/img/partners/ForestEurope.png" />
         </div>
       </div>
 
