@@ -11,6 +11,7 @@
 @import 'webapp/main/styles/form';
 @import 'webapp/main/styles/fraTable';
 @import 'webapp/main/styles/fraValidation';
+@import 'webapp/main/styles/rtl';
 
 *,
 *:before,
@@ -110,21 +111,5 @@ hr {
   }
   100% {
     transform: rotate(0deg);
-  }
-}
-
-// RTL Configuration (for arabic)
-
-.rtl {
-  direction: rtl;
-  .app-header__menu {
-    justify-self: left !important;
-  }
-  .statistical-factsheets .fra-table tbody th {
-    text-align: right;
-  }
-
-  .landing__btn-download {
-    margin-right: 12px;
   }
 }
