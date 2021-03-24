@@ -12,7 +12,6 @@ export const init = (app: any) => {
     try {
       const lang = readParameterWithAllowedValues(req, 'lang', ['en', 'es', 'fr', 'ru', 'ar'])
       const name = readAllowedParameter(req, 'name', R.match(/^[a-z0-9]+$/i))
-      console.log(lang, name)
       const mdRes = getDefinition(name, lang)
       mdRes
         .then((markdown: any) => {
