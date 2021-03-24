@@ -9,7 +9,7 @@ module.exports = {
   OC: { listName: 'Океания' },
   SA: { listName: 'Южная Америка' },
 
-  FE: { listName: 'Леса Европы' },
+  FE: { listName: 'ЛЕСА ЕВРОПЫ' },
   EU27: { listName: 'ЕС-27' },
   ECOMIFAC: { listName: 'Espace КОМИФАК' },
   MP: { listName: 'Монреальский процесс' },
@@ -217,7 +217,7 @@ module.exports = {
   SVN: { listName: 'Словения' },
   SWE: { listName: 'Швеция' },
   SWZ: { listName: 'Эсватини' },
-  SXM: { listName: ' Сен-Мартен (голландская часть)' },
+  SXM: { listName: 'Сен-Мартен (голландская часть)' },
   SYC: { listName: 'Сейшельские Острова' },
   SYR: { listName: 'Сирийская Арабская Республика' },
   TCA: { listName: 'острова Тёркс и Кайкос' },

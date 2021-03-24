@@ -48,4 +48,4 @@ export const createI18nPromise = (lang: any) =>
       }
       resolve({ language: lang, t })
     })
-  ) as any
+  )
