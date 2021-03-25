@@ -21,14 +21,13 @@ module.exports = {
   noInvitation: 'لم يُعثر على دعوة',
   noMatchPasswords: 'كلمة المرور غير مطابقة',
   noEmptyPassword: 'لا يمكنك ترك حيّز كلمة المرور خالياً',
-  noMatchingUser: 'لم نعثر على أي مستخدم مطابق لهذه الاعتمادات.\nMake sure you have a valid FRA account.',
-  noMatchingEmail: 'لم نعثر على أي مستخدم مطابق لهذا البريد الإلكتروني.\nMake sure you have a valid FRA account.',
+  noMatchingUser: 'لم نعثر على أي مستخدم مطابق لهذه الاعتمادات.',
+  noMatchingEmail: 'لم نعثر على أي مستخدم مطابق لهذا البريد الإلكتروني.',
   passwordError: 'يجب أن تشتمل كلمة المرور على ستة رموز أو أكثر، منها حرف كبير واحد وآخر صغير ورقم على الأقل',
   invalidEmail: 'البريد الإلكتروني غير سارٍ',
   emptyEmail: 'لا يمكنك ترك حيّز البريد الإلكتروني خالياً',
   noLongerValid: 'للأسف يبدو أن طلبكم لم يعد سارياً.',
 
-  passwordResetSent:
-    "تم تقديم طلب إعادة ضبط كلمة المرور بنجاح.\nYou'll be shortly receiving an email with instructions",
+  passwordResetSent: 'تم تقديم طلب إعادة ضبط كلمة المرور بنجاح.',
   passwordChanged: 'تم تغيير كلمة المرور',
 }

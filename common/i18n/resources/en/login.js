@@ -32,4 +32,6 @@ module.exports = {
   passwordResetSent:
     "The request to reset your password has been successfully submitted.\nYou'll be shortly receiving an email with instructions",
   passwordChanged: 'Password has been changed',
+
+  missingCredentials: 'Missing credentials',
 }

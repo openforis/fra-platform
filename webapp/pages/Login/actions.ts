@@ -41,6 +41,7 @@ export const localLoginSubmit = (user: any, invitationUUID: any) => (dispatch: a
       if (data.redirectUrl) {
         window.location = data.redirectUrl
       } else if (data.message) {
+        console.log(data.message)
         dispatch({ type: localLoginResponseLoaded, message: data.message })
       }
     })
