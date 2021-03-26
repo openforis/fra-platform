@@ -15,12 +15,14 @@ const Error = (props: Props) => {
   const { error } = props
   const i18n = useI18n()
   if (!error) return null
+  let key = error
+  if (error === 'Missing credentials') key = 'login.missingCredentials'
 
   return (
     <div className="login-error">
       <Icon name="alert" />
       <div>
-        {error.split('\n').map((item: any, i: any) => (
+        {key.split('\n').map((item: any, i: any) => (
           <span key={String(i)}>
             {i18n.t(item)}
             <br />

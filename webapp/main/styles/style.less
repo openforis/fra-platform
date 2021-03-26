@@ -11,6 +11,7 @@
 @import 'webapp/main/styles/form';
 @import 'webapp/main/styles/fraTable';
 @import 'webapp/main/styles/fraValidation';
+@import 'webapp/main/styles/rtl';
 
 *,
 *:before,
@@ -33,6 +34,8 @@ body {
   height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
+  // Fallback for safari
+  direction: ltr;
 }
 
 h1,

@@ -7,6 +7,7 @@ import * as enTranslation from './resources/en'
 import * as frTranslation from './resources/fr'
 import * as esTranslation from './resources/es'
 import * as ruTranslation from './resources/ru'
+import * as arTranslation from './resources/ar'
 import * as zhTranslation from './resources/zh'
 
 const translationsFiles: { [langCode: string]: any } = {
@@ -14,6 +15,7 @@ const translationsFiles: { [langCode: string]: any } = {
   es: esTranslation.translation,
   fr: frTranslation.translation,
   ru: ruTranslation.translation,
+  ar: arTranslation.translation,
   zh: zhTranslation.translation,
 }
 
