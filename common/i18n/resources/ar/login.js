@@ -30,4 +30,5 @@ module.exports = {
 
   passwordResetSent: 'تم تقديم طلب إعادة ضبط كلمة المرور بنجاح.',
   passwordChanged: 'تم تغيير كلمة المرور',
+  missingCredentials: 'أوراق اعتماد ناقصة',
 }
