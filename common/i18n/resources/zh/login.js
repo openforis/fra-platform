@@ -30,4 +30,6 @@ module.exports = {
 
   passwordResetSent: '重置密码的请求已成功提交。\n您很快将收到一封关于密码重置的电子邮件',
   passwordChanged: '密码修改成功',
+
+  missingCredentials: '用户名或密码缺失',
 }
