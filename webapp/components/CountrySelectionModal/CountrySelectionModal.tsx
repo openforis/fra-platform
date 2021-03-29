@@ -1,5 +1,5 @@
 import './style.less'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Modal, ModalClose, ModalFooter, ModalHeader } from '@webapp/components/modal'
 import { useI18n, useOnUpdate } from '@webapp/components/hooks'
 import { Country } from '@common/country'
@@ -33,6 +33,12 @@ const CountrySelectionModal: React.FC<Props> = (props) => {
   const [countriesFiltered, setCountriesFiltered] = useState(countries)
   const inputRef = useRef(null)
   const i18n = useI18n()
+
+  useEffect(() => {
+    if (isOpen) document.body.classList.add('no-scroll')
+    else document.body.classList.remove('no-scroll')
+  }, [isOpen])
+
   const resetAll = () => {
     setSelection([])
   }
