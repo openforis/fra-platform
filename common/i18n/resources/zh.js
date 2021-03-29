@@ -16,6 +16,7 @@ module.exports.translation = {
     es: 'Español',
     fr: 'Français',
     ru: 'Русский',
+    ar: 'العربية',
     zh: '中文',
   },
 
