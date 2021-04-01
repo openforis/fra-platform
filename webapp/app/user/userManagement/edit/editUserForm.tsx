@@ -17,7 +17,7 @@ import TextInput from '@webapp/components/textInput'
 import * as AppState from '@webapp/store/app/state'
 import { UserState } from '@webapp/store/user'
 import { loadUserToEdit, persistUser } from '../actions'
-import CountrySelectionModal from './countrySelectionModal'
+import CountrySelectionModal from '@webapp/components/CountrySelectionModal'
 
 type EditUserFormState = any
 type Props = {
@@ -76,7 +76,18 @@ class EditUserForm extends React.Component<Props, EditUserFormState> {
           ? [{ countryIso: null, role }]
           : // @ts-ignore
             R.insert(userRoles.length, { countryIso, role }, userRoles)
-      this.setState(R.pipe(R.assocPath(userRolesPath, newUserRoles), validateUser)(this.state))
+      this.setState((prevState: EditUserFormState) => {
+        const newUser = {
+          ...prevState.user,
+          roles: newUserRoles,
+        }
+
+        return {
+          ...prevState,
+          user: newUser,
+          validation: validate(newUser),
+        }
+      })
     }
     // only administrator can change user roles
     const canEditRoles = isAdministrator(userInfo)
@@ -89,6 +100,7 @@ class EditUserForm extends React.Component<Props, EditUserFormState> {
       { key: 'institution' },
       { key: 'position' },
     ]
+
     return user ? (
       <div className="edit-user__form-container">
         <div className={`edit-user__form-item-picture${hasValidProp('profilePicture') ? '' : ' error'}`}>
@@ -182,29 +194,32 @@ class EditUserForm extends React.Component<Props, EditUserFormState> {
                   </div>
 
                   <div className="edit-user__form-field-role-countries">
-                    {R.filter((userRole: any) => userRole.role === role, user.roles).map((userRole: any) => (
-                      <div key={userRole.countryIso} className="edit-user__form-field-country-box">
-                        {i18n.t(`area.${userRole.countryIso}.listName`)}
-                      </div>
-                    ))}
+                    {(user.roles || [])
+                      .filter((userRole: any) => userRole.role === role)
+                      .map((userRole: any) => (
+                        <div key={userRole.countryIso} className="edit-user__form-field-country-box">
+                          {i18n.t(`area.${userRole.countryIso}.listName`)}
+                        </div>
+                      ))}
                   </div>
 
-                  {R.path(['editingRole', role], this.state) ? (
-                    <CountrySelectionModal
-                      countries={countries}
-                      headerLabel={i18nUserRole(i18n, role)}
-                      selection={R.pipe(
-                        R.filter((userRole: any) => userRole.role === role),
-                        R.map(R.prop('countryIso'))
-                      )(user.roles)}
-                      unselectableCountries={R.pipe(
-                        R.filter((userRole: any) => userRole.role !== role),
-                        R.map(R.prop('countryIso'))
-                      )(user.roles)}
-                      onClose={() => this.setState(R.dissocPath(['editingRole', role], this.state))}
-                      toggleCountry={R.partialRight(toggleCountryRole, [role])}
-                    />
-                  ) : null}
+                  <CountrySelectionModal
+                    isOpen={R.path(['editingRole', role], this.state)}
+                    countries={countries}
+                    headerLabel={i18nUserRole(i18n, role)}
+                    onClose={() => {
+                      this.setState(R.dissocPath(['editingRole', role], this.state))
+                    }}
+                    initialSelection={R.pipe(
+                      R.filter((userRole: any) => userRole.role === role),
+                      R.map(R.prop('countryIso'))
+                    )(user.roles)}
+                    onChange={(_countryIso) => toggleCountryRole(_countryIso, role)}
+                    unselectableCountries={R.pipe(
+                      R.filter((userRole: any) => userRole.role !== role),
+                      R.map(R.prop('countryIso'))
+                    )(user.roles)}
+                  />
                 </div>
               ) : null
             )}

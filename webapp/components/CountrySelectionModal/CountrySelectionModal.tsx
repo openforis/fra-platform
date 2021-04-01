@@ -8,6 +8,7 @@ import CountrySelectionModalBody from './CountrySelectionModalBody'
 type Props = {
   headerLabel: string
   countries: any[]
+  initialSelection?: any[]
   unselectableCountries?: any[]
   excludedRegions?: any[]
   isOpen: boolean
@@ -23,19 +24,21 @@ const CountrySelectionModal: React.FC<Props> = (props) => {
     showCount,
     canSave,
     isOpen,
+    initialSelection,
     onChange,
     onClose,
     unselectableCountries,
     headerLabel,
     excludedRegions,
   } = props
-  const [selection, setSelection] = useState([])
+  const [selection, setSelection] = useState(initialSelection)
   const [countriesFiltered, setCountriesFiltered] = useState(countries)
   const inputRef = useRef(null)
   const i18n = useI18n()
   const resetAll = () => {
     setSelection([])
   }
+
   const normalizeString = (str: string) => str.trim().toLowerCase().replace(/\s/g, '')
   const checkMatch = (country: any, value: string) => {
     const countryLabel = i18n.t(`area.${Country.getCountryIso(country)}.listName`)
@@ -103,6 +106,7 @@ const CountrySelectionModal: React.FC<Props> = (props) => {
     </Modal>
   )
 }
+
 CountrySelectionModal.defaultProps = {
   unselectableCountries: [],
   canSave: () => true,
