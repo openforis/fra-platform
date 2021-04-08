@@ -35,7 +35,7 @@ const UsersManagementView = (props: any) => {
   if (editingUserId) {
     // @ts-ignore
     // TODO: Fix/refactor userManagementView
-    return <EditUserForm userId={editingUserId} countryIso={countryIso} onCancel={() => setEditingUserId(null)} />
+    return <EditUserForm userId={editingUserId} onCancel={() => setEditingUserId(null)} />
   }
 
   return (

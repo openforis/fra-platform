@@ -17,7 +17,7 @@ const User = () => {
 
   return (
     <div className="app-view__content">
-      <EditUserForm userId={userId} countryIso={countryIso} />
+      <EditUserForm userId={userId} />
     </div>
   )
 }
