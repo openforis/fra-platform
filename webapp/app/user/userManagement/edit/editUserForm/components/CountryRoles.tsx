@@ -8,41 +8,6 @@ import { useSecondaryGroupedRegions } from '@webapp/store/app/hooks'
 import CountrySelectionModal from '@webapp/components/CountrySelectionModal'
 import { FRA } from '@common/assessment/fra'
 // properties used to render ui form fields
-
-//     const toggleCountryRole = (countryIso: any, role: any) => {
-//       const userRoles = this.state.user.roles
-
-//       const idx = userRoles.x(userRole =>
-// userRole.countryIso === countryIso && userRole.role === role
-// )
-//
-//       const newUserRoles =
-//         idx >= 0
-//           ? // @ts-ignore
-//             R.remove(idx, 1, userRoles)
-//           : // setting role as administrator, removes all other roles
-//           role === administrator.role
-//           ? [{ countryIso: null, role }]
-//           : // @ts-ignore
-//             R.insert(userRoles.length, { countryIso, role }, userRoles)
-//       this.setState((prevState: EditUserFormState) => {
-
-//         const newUser = {
-//           ...prevState.user,
-//           roles: newUserRoles,
-//         }
-
-//         return {
-//           ...prevState,
-//           user: newUser,
-//           validation: validate(newUser),
-//         }
-//       })
-//     }
-
-//   }
-// }
-
 const roles = [reviewer.role, nationalCorrespondent.role, alternateNationalCorrespondent.role, collaborator.role]
 
 type Props = {
