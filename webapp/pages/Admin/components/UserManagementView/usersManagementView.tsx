@@ -18,7 +18,6 @@ const UsersManagementView = (props: any) => {
   const i18n = useI18n()
   const dispatch = useDispatch()
   const { editUserStatus, allUsers } = props
-  const countryIso = useSelector(AppState.getCountryIso)
   const [editingUserId, setEditingUserId] = useState(null)
 
   useEffect(() => {

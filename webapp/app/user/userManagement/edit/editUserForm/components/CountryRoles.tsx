@@ -98,11 +98,11 @@ const CountryRole = (props: Props) => {
           if (!shouldShow) return null
 
           const unselectableCountries = userRoles
-            ?.filter(({ role: _role }: any) => _role !== role)
+            .filter(({ role: _role }: any) => _role !== role)
             .map(({ countryIso }: any) => countryIso)
 
           const initialSelection = userRoles
-            ?.filter(({ role: _role }: any) => _role === role)
+            .filter(({ role: _role }: any) => _role === role)
             .map(({ countryIso }: any) => countryIso)
 
           const _onClick = () => {

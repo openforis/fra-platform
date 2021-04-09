@@ -36,8 +36,8 @@ const ProfilePicture = (props: Props) => {
 
   const _onClick = () => {
     const currentProfilePictureFile = profilePictureFile?.current
-    currentProfilePictureFile.click()
-    currentProfilePictureFile.dispatchEvent(new MouseEvent('click'))
+    currentProfilePictureFile?.click()
+    currentProfilePictureFile?.dispatchEvent(new MouseEvent('click'))
   }
 
   return (

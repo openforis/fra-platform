@@ -29,7 +29,7 @@ const TextInputFields = (props: Props) => {
         const allowed = !inputField.type || inputField.type === user.type
         if (!allowed) return null
 
-        const value = user?.[inputField?.key]
+        const value = user?.[inputField.key]
         const valid = inputField.validator?.({ [inputField.key]: value }) ?? true
 
         const disabled = inputField.disabled || (inputField.onlyAdmin && !isAdministrator(userInfo))

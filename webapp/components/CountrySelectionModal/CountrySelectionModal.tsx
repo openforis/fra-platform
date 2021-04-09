@@ -1,5 +1,5 @@
 import './style.less'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Modal, ModalClose, ModalFooter, ModalHeader } from '@webapp/components/modal'
 import { useI18n } from '@webapp/components/hooks'
 import { Country } from '@common/country'
