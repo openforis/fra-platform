@@ -6,11 +6,11 @@ type CountrySelectionModalBodyProps = {
   selection: any[]
   unselectableCountries: any[]
   excludedRegions: any[]
-  onChange: (countryIso: string) => any
+  onChange?: (countryIso: string) => any
 }
 
 const CountrySelectionModalBody: React.FC<CountrySelectionModalBodyProps> = (props) => {
-  const { countries, onChange, selection = [], unselectableCountries, excludedRegions } = props
+  const { countries, onChange = () => {}, selection = [], unselectableCountries, excludedRegions } = props
   const i18n = useI18n()
   // Sort given countries (from props) to hashmap: {regionCode}: [{countryIso},..]
   const regionCountries: any = {}
@@ -34,6 +34,7 @@ const CountrySelectionModalBody: React.FC<CountrySelectionModalBodyProps> = (pro
       onChange(countryIso)
     }
   }
+
   return (
     <ModalBody>
       <div className="edit-user__form-field-country-selection">
