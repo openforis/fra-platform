@@ -1,0 +1,3 @@
+user-agent: bot-traffic,bottraffic,trafficbot
+
+disallow: /
