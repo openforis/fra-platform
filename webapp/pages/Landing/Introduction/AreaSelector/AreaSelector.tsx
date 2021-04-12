@@ -21,7 +21,7 @@ const AreaSelector = () => {
   const [countryISOs, setCountryISOs] = useState([])
   useEffect(() => {
     setCountryISOs((countries as any).map(Country.getCountryIso))
-  }, [])
+  }, [i18n.language, countries])
   return (
     <div className="home-area-selector">
       <img alt="" src="/img/iconGlobal.svg" />

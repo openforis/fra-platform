@@ -6,6 +6,7 @@ import { useI18n } from '@webapp/components/hooks'
 
 const FraHeader = () => {
   const i18n = useI18n()
+
   return (
     <div className="app-header no-print">
       <img alt="FAO" src={`/img/fao/FAO${(i18n as any).language}.svg`} />
