@@ -1,3 +1,5 @@
-user-agent: bot-traffic,bottraffic,trafficbot
-
+user-agent: bot-traffic
+user-agent: bottraffic
+user-agent: trafficbot
+user-agent: adsbot-google
 disallow: /
