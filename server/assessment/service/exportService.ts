@@ -1,5 +1,3 @@
-import * as R from 'ramda'
-
 import { createI18nPromise } from '../../../common/i18n/i18nFactory'
 import * as CountryService from '../../country/countryService'
 import * as FRAYearsExporter from './fraYears/fraYearsExporter'
