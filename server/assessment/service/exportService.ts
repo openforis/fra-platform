@@ -1,5 +1,3 @@
-import * as R from 'ramda'
-
 import { createI18nPromise } from '../../../common/i18n/i18nFactory'
 import * as CountryService from '../../country/countryService'
 import * as FRAYearsExporter from './fraYears/fraYearsExporter'
@@ -16,7 +14,7 @@ import * as Promise from 'bluebird'
 export const exportData = async (includeVariableFolders = true) => {
   const i18n = await createI18nPromise('en')
   const countriesAll = await CountryService.getAllCountriesList()
-  const countriesFiltered = R.reject(R.propEq('region', 'atlantis'), countriesAll)
+  const countriesFiltered = countriesAll.filter(({ countryIso }: any) => !countryIso.match(/X\d\d/))
   // list_name_en has been removed from database country table but it is still used in exports/csv
   const countries = countriesFiltered.map((country: any) => ({
     ...country,
