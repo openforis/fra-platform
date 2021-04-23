@@ -1,13 +1,15 @@
 import './style.less'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+
 import { Modal, ModalClose, ModalFooter, ModalHeader } from '@webapp/components/modal'
-import { useI18n, useOnUpdate } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/components/hooks'
 import { Country } from '@common/country'
 import CountrySelectionModalBody from './CountrySelectionModalBody'
 
 type Props = {
   headerLabel: string
   countries: any[]
+  initialSelection?: any[]
   unselectableCountries?: any[]
   excludedRegions?: any[]
   isOpen: boolean
@@ -23,6 +25,7 @@ const CountrySelectionModal: React.FC<Props> = (props) => {
     showCount,
     canSave,
     isOpen,
+    initialSelection = [],
     onChange,
     onClose,
     unselectableCountries,
@@ -31,11 +34,18 @@ const CountrySelectionModal: React.FC<Props> = (props) => {
   } = props
   const [selection, setSelection] = useState([])
   const [countriesFiltered, setCountriesFiltered] = useState(countries)
-  const inputRef = useRef(null)
+  const [query, setQuery] = useState('')
   const i18n = useI18n()
+
+  useEffect(() => {
+    if (isOpen) document.body.classList.add('no-scroll')
+    else document.body.classList.remove('no-scroll')
+  }, [isOpen])
+
   const resetAll = () => {
     setSelection([])
   }
+
   const normalizeString = (str: string) => str.trim().toLowerCase().replace(/\s/g, '')
   const checkMatch = (country: any, value: string) => {
     const countryLabel = i18n.t(`area.${Country.getCountryIso(country)}.listName`)
@@ -43,19 +53,17 @@ const CountrySelectionModal: React.FC<Props> = (props) => {
     return searchString.includes(value)
   }
   const updateCountries = () => {
-    if (!inputRef.current) return
-    const value = normalizeString(inputRef.current.value)
-    if (value === '') {
-      setCountriesFiltered(countries)
-    } else {
-      setCountriesFiltered(
-        countries.filter((country) => {
-          return checkMatch(country, value)
-        })
-      )
-    }
+    const value = normalizeString(query)
+    if (value === '') setCountriesFiltered(countries)
+    else setCountriesFiltered(countries.filter((country) => checkMatch(country, value)))
   }
-  useOnUpdate(updateCountries, [countries])
+
+  useEffect(updateCountries, [countries, query])
+
+  useEffect(() => {
+    initialSelection.map((countryIso) => _onChange(countryIso))
+  }, [initialSelection])
+
   const _onChange = (countryIso: string) => {
     if (selection.includes(countryIso)) {
       const filteredSelection = selection.filter((_countryIso) => _countryIso !== countryIso)
@@ -68,17 +76,19 @@ const CountrySelectionModal: React.FC<Props> = (props) => {
   }
   const _onClose = () => {
     onClose(selection)
+    setSelection([])
   }
+
   return (
     <Modal className="country-selection" isOpen={isOpen}>
       <ModalHeader>
         {headerLabel} {showCount && `(${selection.length})`}
         <input
           className="text-input filter"
-          ref={inputRef}
           type="text"
+          value={query}
           placeholder={i18n.t('emoji.picker.search')}
-          onChange={updateCountries}
+          onChange={({ target: { value } }) => setQuery(value)}
         />
         <ModalClose onClose={_onClose} />
       </ModalHeader>
@@ -103,6 +113,7 @@ const CountrySelectionModal: React.FC<Props> = (props) => {
     </Modal>
   )
 }
+
 CountrySelectionModal.defaultProps = {
   unselectableCountries: [],
   canSave: () => true,

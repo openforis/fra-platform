@@ -1,17 +1,21 @@
 const area = require('./ru/area')
 const dataDownload = require('./ru/dataDownload')
 const statisticalFactsheets = require('./ru/statisticalFactsheets')
+const login = require('./ru/login')
 
 module.exports.translation = {
   area,
   dataDownload,
   statisticalFactsheets,
+  login,
 
   language: {
     en: 'English',
     es: 'Español',
     fr: 'Français',
     ru: 'Русский',
+    ar: 'العربية',
+    zh: '中文',
   },
 
   common: {
