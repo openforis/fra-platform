@@ -21,9 +21,8 @@ const DropdownAreas = (props: Props) => {
   const i18n = useI18n()
   const buttonRef = useRef(null)
   const fra = assessmentType === FRA.type
+  const outsideClick = ({ target }: any) => dialogOpened && !buttonRef.current.contains(target) && setDropdownOpened('')
   useLayoutEffect(() => {
-    const outsideClick = ({ target }: any) =>
-      dialogOpened && !buttonRef.current.contains(target) && setDropdownOpened('')
     window.addEventListener('click', outsideClick)
     return () => {
       window.removeEventListener('click', outsideClick)
@@ -47,7 +46,7 @@ const DropdownAreas = (props: Props) => {
           <div className="country-selection-list__content">
             {areas.regions === area ? (
               <>
-                {areaISOs.map(({ regions, name }:any) => (
+                {areaISOs.map(({ regions, name }: any) => (
                   <div key={name} className="country-selection-list__section">
                     {regions.map(
                       ({ regionCode }: any) =>

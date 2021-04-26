@@ -16,9 +16,11 @@ export const ModalBody = ({ children }: any) => <div className="modal-body">{chi
 
 export const ModalFooter = ({ children }: any) => <div className="modal-footer">{children}</div>
 
-export const Modal = ({ children, isOpen, className = '' }: any) => (
-  isOpen && (
+export const Modal = ({ children, isOpen, className = '' }: any) => {
+  if (!isOpen) return null
+  return (
     <div className={`modal ${className}`} tabIndex={-1} role="dialog">
       <div className="modal-content">{children}</div>
     </div>
-  ))
+  )
+}

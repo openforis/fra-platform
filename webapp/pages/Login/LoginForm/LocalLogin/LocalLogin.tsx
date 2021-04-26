@@ -6,6 +6,7 @@ import { loginUserPropChange, localLoginSubmit, localLoginReset } from '../../ac
 
 import Error from '../../Error'
 import ForgotPassword from '../ForgotPassword'
+import { useI18n } from '@webapp/components/hooks'
 
 type Props = {
   invitation?: any
@@ -17,6 +18,7 @@ const LocalLogin = (props: Props) => {
   const { invitation, user, onCancel } = props
   const { invitationUuid } = invitation
 
+  const i18n = useI18n()
   const dispatch = useDispatch()
   const message = useSelector(R.path(['login', 'localLogin', 'message']))
   const [forgotPassword, setForgotPassword] = useState(false)
@@ -41,14 +43,14 @@ const LocalLogin = (props: Props) => {
           value={user.email || ''}
           disabled={!!invitationUuid || !!user.id}
           type="text"
-          placeholder="Email"
+          placeholder={i18n.t('login.email')}
           onChange={(event) => updateUserProp('email', event.target.value)}
         />
 
         <input
           value={user.password || ''}
           type="password"
-          placeholder="Password"
+          placeholder={i18n.t('login.password')}
           onChange={(event) => updateUserProp('password', event.target.value)}
         />
 
@@ -56,22 +58,22 @@ const LocalLogin = (props: Props) => {
           <input
             value={user.password2 || ''}
             type="password"
-            placeholder="Repeat password"
+            placeholder={i18n.t('login.repeatPassword')}
             onChange={(event) => updateUserProp('password2', event.target.value)}
           />
         )}
 
         <div>
           <button type="button" className="btn" onClick={onCancel}>
-            Cancel
+            {i18n.t('login.cancel')}
           </button>
           <button type="button" className="btn" onClick={() => dispatch(localLoginSubmit(user, invitationUuid))}>
-            Login
+            {i18n.t('login.login')}
           </button>
         </div>
 
         <button type="button" className="btn-forgot-pwd" onClick={() => setForgotPassword(true)}>
-          Forgot your password ?
+          {i18n.t('login.forgotPassword')}
         </button>
       </div>
     </>

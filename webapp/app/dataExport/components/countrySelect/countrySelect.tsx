@@ -1,7 +1,7 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { isTypePanEuropean } from '@common/assessment/assessment'
 import { Country } from '@common/country'
-import { useI18n, useOnUpdate } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/components/hooks'
 import ButtonCheckBox from '@webapp/components/buttonCheckBox'
 import { useAssessmentType } from '@webapp/store/app'
 
@@ -37,7 +37,7 @@ const CountrySelect = (props: Props) => {
       )
     }
   }
-  useOnUpdate(updateCountries, [countries])
+  useEffect(updateCountries, [countries])
   return (
     <div className="export__form-section export-select-all">
       <div className="export__form-section-header">
@@ -82,8 +82,8 @@ const CountrySelect = (props: Props) => {
               suffix={getDeskStudyValue(country)}
               onClick={() => {
                 const selectionCountriesUpdate = selected
-                  // TODO : FIX THIS
-                  ? selectionCountries.filter(({ param }: any) => param !== Country.getCountryIso(country))
+                  ? // TODO : FIX THIS
+                    selectionCountries.filter(({ param }: any) => param !== Country.getCountryIso(country))
                   : [
                       ...selectionCountries,
                       {
