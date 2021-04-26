@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { connect, useDispatch, useSelector } from 'react-redux'
+import { connect, useDispatch } from 'react-redux'
 import * as R from 'ramda'
 
 import { administrator } from '@common/countryRole'
 
-import * as AppState from '@webapp/store/app/state'
 import { UserState } from '@webapp/store/user'
 import * as UserManagementState from '@webapp/app/user/userManagement/userManagementState'
 import { fetchAllUsers, removeUser, sendInvitationEmail } from '@webapp/app/user/userManagement/actions'
@@ -18,7 +17,6 @@ const UsersManagementView = (props: any) => {
   const i18n = useI18n()
   const dispatch = useDispatch()
   const { editUserStatus, allUsers } = props
-  const countryIso = useSelector(AppState.getCountryIso)
   const [editingUserId, setEditingUserId] = useState(null)
 
   useEffect(() => {
@@ -35,7 +33,7 @@ const UsersManagementView = (props: any) => {
   if (editingUserId) {
     // @ts-ignore
     // TODO: Fix/refactor userManagementView
-    return <EditUserForm userId={editingUserId} countryIso={countryIso} onCancel={() => setEditingUserId(null)} />
+    return <EditUserForm userId={editingUserId} onCancel={() => setEditingUserId(null)} />
   }
 
   return (

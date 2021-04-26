@@ -1,17 +1,21 @@
 const area = require('./fr/area')
 const dataDownload = require('./fr/dataDownload')
 const statisticalFactsheets = require('./fr/statisticalFactsheets')
+const login = require('./fr/login')
 
 module.exports.translation = {
   area,
   dataDownload,
   statisticalFactsheets,
+  login,
 
   language: {
     en: 'English',
     es: 'Español',
     fr: 'Français',
     ru: 'Русский',
+    ar: 'العربية',
+    zh: '中文',
   },
 
   common: {
@@ -188,6 +192,7 @@ des domaines boréal, tempéré et sous-tropical`,
         "Depuis 1946, la FAO assure un suivi des ressources forestières mondiales tous les 5 à 10 ans. Les évaluations des ressources forestières mondiales (FRA) sont désormais produites tous les cinq ans afin de fournir une approche cohérente pour décrire les forêts du monde et leur mode d'évolution. L'évaluation repose sur deux sources de données principales: les rapports nationaux préparés par les Correspondants nationaux et des analyses par télédétection menées par la FAO en collaboration avec les points de contact nationaux et des partenaires régionaux. Le champ d'application de FRA évolue régulièrement depuis la première évaluation publiée en 1948. Ces évaluations tracent une histoire intéressante de l'intérêt accordé aux ressources forestières mondiales en ce qui concerne le contenu concret et l'évolution du champ d'application.",
       linkFraProcess: 'En savoir davantage sur le processus de FRA',
       or: 'Ou',
+      selectArea: 'Sélectionnez une zone ci-dessous pour accéder aux données FRA',
     },
     recentActivity: {
       noRecentActivityTitle: "Visiblement, il n'y a pas d'activité récente",

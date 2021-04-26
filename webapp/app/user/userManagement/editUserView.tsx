@@ -14,11 +14,11 @@ function canEdit(userInfo: any, userId: any) {
 }
 
 const EditUserView = ({ userInfo }: any) => {
-  const { countryIso, userId }: any = useParams()
+  const { userId }: any = useParams()
 
   return canEdit(userInfo, userId) ? (
     <div className="app-view__content">
-      <EditUserForm userId={userId} countryIso={countryIso} />
+      <EditUserForm userId={userId} />
     </div>
   ) : (
     <NotFound />

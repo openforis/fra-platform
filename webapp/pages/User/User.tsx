@@ -10,14 +10,14 @@ import EditUserForm from '@webapp/app/user/userManagement/edit/editUserForm'
 const canEdit = (userInfo: any, userId: any) => isAdministrator(userInfo) || userInfo.id === userId
 
 const User = () => {
-  const { countryIso, userId }: any = useParams()
+  const { userId }: any = useParams()
   const userInfo = useUserInfo()
 
   if (!canEdit(userInfo, userId)) return <NotFound />
 
   return (
     <div className="app-view__content">
-      <EditUserForm userId={userId} countryIso={countryIso} />
+      <EditUserForm userId={userId} />
     </div>
   )
 }
