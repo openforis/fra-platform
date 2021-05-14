@@ -1,6 +1,6 @@
 import PanEuropean from '@common/assessment/panEuropean'
 
-import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
+import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
 const section = PanEuropean.sections['4'].children['44a']
 
@@ -41,26 +41,19 @@ const tableSpec = SectionSpec.newTableSpec({
     }),
 
     ...variables.flatMap((variable: any) =>
-      years.map((year) =>
-        SectionSpec.newRowData({
-          [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.introducedTreeSpecies.${variable}`,
-          [SectionSpec.KEYS_ROW.labelParams]: { year },
-          [SectionSpec.KEYS_ROW.variableExport]: `${variable}_${year}`,
-          [SectionSpec.KEYS_ROW.cols]: [SectionSpec.newColDecimal(), SectionSpec.newColDecimal()],
-        })
+      years.map(
+        (year) =>
+          !['other_wooded_land_2020', 'total_forest_and_other_wooded_land_2020'].includes(`${variable}_${year}`) &&
+          SectionSpec.newRowData({
+            [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.introducedTreeSpecies.${variable}`,
+            [SectionSpec.KEYS_ROW.labelParams]: { year },
+            [SectionSpec.KEYS_ROW.variableExport]: `${variable}_${year}`,
+            [SectionSpec.KEYS_ROW.cols]: [SectionSpec.newColDecimal(), SectionSpec.newColDecimal()],
+          })
       )
     ),
   ],
 })
-
-// remove other_wooded_land_2020 & total_forest_and_other_wooded_land_2020 that are not available in the database
-for (let i = 0; i < tableSpec.rows.length; ++i) {
-  if (
-    tableSpec.rows[i].variableExport === 'other_wooded_land_2020' ||
-    tableSpec.rows[i].variableExport === 'total_forest_and_other_wooded_land_2020'
-  )
-    tableSpec.rows.splice(i, 1)
-}
 
 const tableSection = SectionSpec.newTableSection({
   [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
