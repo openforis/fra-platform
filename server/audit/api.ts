@@ -1,12 +1,11 @@
+import { ApiAuthMiddleware } from '@server/api/middleware'
 import * as auditRepository from './auditRepository'
 import { sendErr } from '../utils/requestUtils'
-
-import * as Auth from '../auth/authApiMiddleware'
 
 export const init = (app: any) => {
   app.get(
     '/audit/getLatestAuditLogTimestamp/:countryIso',
-    Auth.requireCountryEditPermission,
+    ApiAuthMiddleware.requireCountryEditPermission,
     async (req: any, res: any) => {
       try {
         const timeStamp = await auditRepository.getLastAuditTimeStampForSection(
@@ -21,13 +20,17 @@ export const init = (app: any) => {
     }
   )
 
-  app.get('/audit/getAuditFeed/:countryIso', Auth.requireCountryEditPermission, async (req: any, res: any) => {
-    try {
-      const feed = await auditRepository.getAuditFeed(req.params.countryIso)
+  app.get(
+    '/audit/getAuditFeed/:countryIso',
+    ApiAuthMiddleware.requireCountryEditPermission,
+    async (req: any, res: any) => {
+      try {
+        const feed = await auditRepository.getAuditFeed(req.params.countryIso)
 
-      res.json({ feed })
-    } catch (err) {
-      sendErr(res, err)
+        res.json({ feed })
+      } catch (err) {
+        sendErr(res, err)
+      }
     }
-  })
+  )
 }

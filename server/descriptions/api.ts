@@ -1,9 +1,9 @@
+import { ApiAuthMiddleware } from '@server/api/middleware'
 import * as db from '../db/db'
 import { sendErr, sendOk } from '../utils/requestUtils'
 import * as repository from './descriptionsRepository'
 import * as auditRepository from '../audit/auditRepository'
 
-import * as Auth from '../auth/authApiMiddleware'
 import * as VersionService from '../versioning/service'
 
 export const init = (app: any) => {
@@ -25,7 +25,7 @@ export const init = (app: any) => {
 
   app.post(
     '/country/descriptions/:countryIso/:section/:name',
-    Auth.requireCountryEditPermission,
+    ApiAuthMiddleware.requireCountryEditPermission,
     async (req: any, res: any) => {
       const { countryIso, section, name } = req.params
       const { content } = req.body

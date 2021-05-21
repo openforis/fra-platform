@@ -1,17 +1,14 @@
-
-
+import { createI18nPromise } from '@common/i18n/i18nFactory'
+import { ApiAuthMiddleware } from '@server/api/middleware'
 import * as db from '../db/db'
 
 import { checkCountryAccessFromReqParams } from '../utils/accessControl'
 import { sendErr, serverUrl } from '../utils/requestUtils'
-import { createI18nPromise } from '@common/i18n/i18nFactory'
 import { findUserById } from '../user/userRepository'
 import { getCountry } from '../country/countryRepository'
 import { sendMail } from '../email/sendMail'
 
 import { getChatMessages, addMessage, getChatUnreadMessages } from './userChatRepository'
-
-import * as Auth from '../auth/authApiMiddleware'
 
 const createMail = async (country: any, i18n: any, sender: any, recipient: any, url: any) => {
   const link = `${url}/country/${country.countryIso}/`
@@ -92,17 +89,21 @@ export const init = (app: any) => {
     if (unreadMessages.length > 0) await sendNotificationEmail(req, fromUserId, toUserId)
   }
 
-  app.post('/userChat/:countryIso/message', Auth.requireCountryEditPermission, async (req: any, res: any) => {
-    try {
-      const { message, fromUserId, toUserId } = req.body
+  app.post(
+    '/userChat/:countryIso/message',
+    ApiAuthMiddleware.requireCountryEditPermission,
+    async (req: any, res: any) => {
+      try {
+        const { message, fromUserId, toUserId } = req.body
 
-      const messageDb = await db.transaction(addMessage, [message, fromUserId, toUserId])
+        const messageDb = await db.transaction(addMessage, [message, fromUserId, toUserId])
 
-      setTimeout(() => checkUnreadMessages(req, fromUserId, toUserId), 5000)
+        setTimeout(() => checkUnreadMessages(req, fromUserId, toUserId), 5000)
 
-      res.json(messageDb)
-    } catch (e) {
-      sendErr(res, e)
+        res.json(messageDb)
+      } catch (e) {
+        sendErr(res, e)
+      }
     }
-  })
+  )
 }

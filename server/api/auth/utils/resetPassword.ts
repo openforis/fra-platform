@@ -1,7 +1,8 @@
-import { createI18nPromise } from '../../common/i18n/i18nFactory'
-import { sendMail } from '../email/sendMail'
+import { User } from '@core/auth/user'
+import { createI18nPromise } from '@common/i18n/i18nFactory'
+import { sendMail } from '@server/email/sendMail'
 
-export const createMail = (i18n: any, user: any, url: any, uuid: any) => {
+export const createMail = (i18n: any, user: User, url: string, uuid: string) => {
   const link = `${url}/login/resetPassword?k=${uuid}`
 
   return {
@@ -12,10 +13,10 @@ export const createMail = (i18n: any, user: any, url: any, uuid: any) => {
   }
 }
 
-export const sendResetPasswordEmail = async (user: any, url: any, uuid: any) => {
+export const sendResetPasswordEmail = async (user: User, url: any, uuid: any) => {
   const i18n = await createI18nPromise('en')
   const email = createMail(i18n, user, url, uuid)
-  return await sendMail(email)
+  return sendMail(email)
 }
 
 export default {

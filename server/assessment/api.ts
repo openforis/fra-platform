@@ -3,11 +3,11 @@ import * as db from '../db/db'
 import * as repository from './assessmentRepository'
 import { sendErr, sendOk, serverUrl } from '../utils/requestUtils'
 import { sendAssessmentNotification } from './sendAssessmentNotification'
-import * as Auth from '../auth/authApiMiddleware'
+import { ApiAuthMiddleware } from '../api/middleware'
 import * as ExportService from './service/exportService'
 
 export const init = (app: any) => {
-  app.post('/assessment/:countryIso', Auth.requireCountryEditPermission, async (req: any, res: any) => {
+  app.post('/assessment/:countryIso', ApiAuthMiddleware.requireCountryEditPermission, async (req: any, res: any) => {
     try {
       const assessment = req.body
       const notifyUsers = req.query.notifyUsers === 'true'
@@ -24,7 +24,7 @@ export const init = (app: any) => {
       sendErr(res, err)
     }
   })
-  app.get('/assessment/admin/export', Auth.requireAdminPermission, async (req: any, res: any) => {
+  app.get('/assessment/admin/export', ApiAuthMiddleware.requireAdminPermission, async (req: any, res: any) => {
     try {
       const files = await ExportService.exportData()
       const zip = new JSZip()

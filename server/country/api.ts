@@ -1,5 +1,5 @@
-
 import * as R from 'ramda'
+import { ApiAuthMiddleware } from '@server/api/middleware'
 import * as db from '../db/db'
 import * as Request from '../utils/requestUtils'
 import * as countryRepository from './countryRepository'
@@ -7,7 +7,6 @@ import * as reviewRepository from '../review/reviewRepository'
 import * as odpRepository from '../odp/odpRepository'
 import * as assessmentRepository from '../assessment/assessmentRepository'
 import { fetchCollaboratorCountryAccessTables } from '../collaborators/collaboratorsRepository'
-import * as Auth from '../auth/authApiMiddleware'
 import {
   isUserRoleAllowedToEditAssessmentData,
   isUserRoleAllowedToEditAssessmentComments,
@@ -117,18 +116,22 @@ export const init = (app: any) => {
     }
   })
   // Changes one key/value pair
-  app.post('/country/config/:countryIso', Auth.requireCountryEditPermission, async (req: any, res: any) => {
-    try {
-      await db.transaction(countryRepository.saveDynamicConfigurationVariable, [
-        req.params.countryIso,
-        req.body.key,
-        req.body.value,
-      ])
-      res.json({})
-    } catch (e) {
-      ;(Request as any).sendErr(res, e)
+  app.post(
+    '/country/config/:countryIso',
+    ApiAuthMiddleware.requireCountryEditPermission,
+    async (req: any, res: any) => {
+      try {
+        await db.transaction(countryRepository.saveDynamicConfigurationVariable, [
+          req.params.countryIso,
+          req.body.key,
+          req.body.value,
+        ])
+        res.json({})
+      } catch (e) {
+        ;(Request as any).sendErr(res, e)
+      }
     }
-  })
+  )
   app.get('/country/config/:countryIso', async (req: any, res: any) => {
     try {
       const schemaName = await VersionService.getDatabaseSchema(req)

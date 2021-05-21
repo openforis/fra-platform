@@ -66,6 +66,7 @@ const appConfig = {
   resolve: {
     extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js', '.js', '.jsx', '.ts', '.tsx'],
     alias: {
+      '@core': path.resolve(__dirname, 'core/'),
       '@common': path.resolve(__dirname, 'common/'),
       '@server': path.resolve(__dirname, 'server/'),
       '@webapp': path.resolve(__dirname, 'webapp/'),

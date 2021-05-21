@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-
+import { ApiAuthMiddleware } from '@server/api/middleware'
 import * as db from '../db/db'
 import * as odpRepository from './odpRepository'
 import * as reviewRepository from '../review/reviewRepository'
@@ -11,8 +11,6 @@ import { checkCountryAccessFromReqParams } from '../utils/accessControl'
 import { allowedToEditDataCheck } from '../assessment/assessmentEditAccessControl'
 
 import * as VersionService from '../versioning/service'
-
-import * as Auth from '../auth/authApiMiddleware'
 
 export const init = (app: any) => {
   app.get('/odp', async (req: any, res: any) => {
@@ -62,7 +60,7 @@ export const init = (app: any) => {
     }
   })
 
-  app.delete('/odp', Auth.requireCountryEditPermission, async (req: any, res: any) => {
+  app.delete('/odp', ApiAuthMiddleware.requireCountryEditPermission, async (req: any, res: any) => {
     try {
       const { countryIso } = req.query
       await allowedToEditDataCheck(countryIso, req.user, 'extentOfForest')
@@ -75,7 +73,7 @@ export const init = (app: any) => {
     }
   })
 
-  app.post('/odp/draft', Auth.requireCountryEditPermission, async (req: any, res: any) => {
+  app.post('/odp/draft', ApiAuthMiddleware.requireCountryEditPermission, async (req: any, res: any) => {
     try {
       const { countryIso } = req.query
       const result = await db.transaction(odpRepository.saveDraft, [countryIso, req.user, req.body])
@@ -85,7 +83,7 @@ export const init = (app: any) => {
     }
   })
 
-  app.delete('/odp/draft', Auth.requireCountryEditPermission, async (req: any, res: any) => {
+  app.delete('/odp/draft', ApiAuthMiddleware.requireCountryEditPermission, async (req: any, res: any) => {
     try {
       const { countryIso } = req.query
       await allowedToEditDataCheck(countryIso, req.user, 'extentOfForest')
@@ -99,22 +97,23 @@ export const init = (app: any) => {
     }
   })
 
-  app.get('/prevOdp/:countryIso/:year', Auth.requireCountryEditPermission, async (req: any, res: any) => {
+  app.get('/prevOdp/:countryIso/:year', ApiAuthMiddleware.requireCountryEditPermission, async (req: any, res: any) => {
     try {
       const { countryIso } = req.query
       await allowedToEditDataCheck(countryIso, req.user, 'extentOfForest')
 
       const resp = await odpRepository.listOriginalDataPoints(req.params.countryIso)
 
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      const prevOdp: { odpId: string} = R.pipe(
+      const prevOdp: { odpId: string } = R.pipe(
         R.filter((o: any) => o.year !== 0 && o.year < req.params.year),
         R.sort((a: any, b: any) => b.year - a.year),
         R.head
       )(R.values(resp))
 
       if (prevOdp) {
-        const odp = await odpRepository.getOdp(prevOdp['odpId'])
+        const odp = await odpRepository.getOdp(prevOdp.odpId)
         res.json(odp)
       } else {
         sendOk(res)
@@ -124,7 +123,7 @@ export const init = (app: any) => {
     }
   })
 
-  app.post('/odp/markAsActual', Auth.requireCountryEditPermission, async (req: any, res: any) => {
+  app.post('/odp/markAsActual', ApiAuthMiddleware.requireCountryEditPermission, async (req: any, res: any) => {
     try {
       await db.transaction(odpRepository.markAsActual, [req.query.odpId, req.user])
 

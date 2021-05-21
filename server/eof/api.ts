@@ -1,5 +1,6 @@
 import * as R from 'ramda'
 
+import { ApiAuthMiddleware } from '@server/api/middleware'
 import * as db from '../db/db'
 import { sendErr, sendOk } from '../utils/requestUtils'
 
@@ -11,20 +12,19 @@ import * as fraValueService from './fraValueService'
 
 import * as defaultYears from './defaultYears'
 
-import * as Auth from '../auth/authApiMiddleware'
 import * as VersionService from '../versioning/service'
 
-const fraWriters: {[key: string]: any} = {
+const fraWriters: { [key: string]: any } = {
   extentOfForest: fraRepository.persistEofValues,
   forestCharacteristics: fraRepository.persistFocValues,
 }
-const odpReaders: {[key: string]: any} = {
+const odpReaders: { [key: string]: any } = {
   extentOfForest: odpRepository.readEofOdps,
   forestCharacteristics: odpRepository.readFocOdps,
 }
 
 export const init = (app: any) => {
-  app.post('/nde/:section/:countryIso', Auth.requireCountryEditPermission, async (req: any, res: any) => {
+  app.post('/nde/:section/:countryIso', ApiAuthMiddleware.requireCountryEditPermission, async (req: any, res: any) => {
     const { section, countryIso } = req.params
     try {
       await db.transaction(auditRepository.insertAudit, [req.user.id, 'saveFraValues', countryIso, req.params.section])
@@ -42,20 +42,24 @@ export const init = (app: any) => {
   })
 
   // persists section fra values
-  app.post('/nde/:section/country/:countryIso/:year', Auth.requireCountryEditPermission, async (req: any, res: any) => {
-    const { section } = req.params
-    const { countryIso } = req.params
-    try {
-      await db.transaction(auditRepository.insertAudit, [req.user.id, 'saveFraValues', countryIso, section])
+  app.post(
+    '/nde/:section/country/:countryIso/:year',
+    ApiAuthMiddleware.requireCountryEditPermission,
+    async (req: any, res: any) => {
+      const { section } = req.params
+      const { countryIso } = req.params
+      try {
+        await db.transaction(auditRepository.insertAudit, [req.user.id, 'saveFraValues', countryIso, section])
 
-      const writer = fraWriters[section]
-      await writer(countryIso, req.params.year, req.body)
+        const writer = fraWriters[section]
+        await writer(countryIso, req.params.year, req.body)
 
-      sendOk(res)
-    } catch (err) {
-      sendErr(res, err)
+        sendOk(res)
+      } catch (err) {
+        sendErr(res, err)
+      }
     }
-  })
+  )
 
   app.get('/nde/:section/:countryIso', async (req: any, res: any) => {
     try {
@@ -69,7 +73,7 @@ export const init = (app: any) => {
 
   app.post(
     '/nde/:section/generateFraValues/:countryIso',
-    Auth.requireCountryEditPermission,
+    ApiAuthMiddleware.requireCountryEditPermission,
     async (req: any, res: any) => {
       const { section } = req.params
       const { countryIso } = req.params

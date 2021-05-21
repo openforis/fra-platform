@@ -1,15 +1,14 @@
+import { ApiAuthMiddleware } from '@server/api/middleware'
 import { sendErr, sendOk } from '../utils/requestUtils'
 
 import * as db from '../db/db'
 
 import { persistMessage, fetchCountryMessages, fetchCountryUnreadMessages } from './countryMessageBoardRepository'
 
-import * as Auth from '../auth/authApiMiddleware'
-
 export const init = (app: any) => {
   app.get(
     '/countryMessageBoard/:countryIso/messages/all',
-    Auth.requireCountryEditPermission,
+    ApiAuthMiddleware.requireCountryEditPermission,
     async (req: any, res: any) => {
       try {
         const { countryIso } = req.params
@@ -26,7 +25,7 @@ export const init = (app: any) => {
 
   app.get(
     '/countryMessageBoard/:countryIso/messages/new',
-    Auth.requireCountryEditPermission,
+    ApiAuthMiddleware.requireCountryEditPermission,
     async (req: any, res: any) => {
       try {
         const { countryIso } = req.params
@@ -43,7 +42,7 @@ export const init = (app: any) => {
 
   app.post(
     '/countryMessageBoard/:countryIso/message',
-    Auth.requireCountryEditPermission,
+    ApiAuthMiddleware.requireCountryEditPermission,
     async (req: any, res: any) => {
       try {
         const { message, fromUserId } = req.body

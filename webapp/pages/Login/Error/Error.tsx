@@ -3,10 +3,6 @@ import React from 'react'
 import Icon from '@webapp/components/icon'
 import { useI18n } from '@webapp/components/hooks'
 
-type OwnProps = {
-  error?: string
-}
-
 type Props = {
   error: any
 }
@@ -31,10 +27,6 @@ const Error = (props: Props) => {
       </div>
     </div>
   )
-}
-
-Error.defaultProps = {
-  error: null,
 }
 
 export default Error

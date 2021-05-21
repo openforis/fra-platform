@@ -5,9 +5,9 @@ import * as compression from 'compression'
 import * as fileUpload from 'express-fileupload'
 import * as morgan from 'morgan'
 
+import { Api } from '@server/api'
 import * as sessionInit from './sessionInit'
 import * as apiRouter from './apiRouter'
-import * as authApi from './auth/authApi'
 import * as resourceCacheControl from './resourceCacheControl'
 import * as definitionsApi from './definitions/api'
 import { sendErr } from './utils/requestUtils'
@@ -24,7 +24,12 @@ export const serverInit = () => {
   resourceCacheControl.init(app)
   // Not part of apiRouter because of special urls (starting from root)
   sessionInit.init(app)
-  authApi.init(app)
+
+  /*
+   * Initialize API
+   */
+
+  Api.init(app)
 
   app.use(compression({ threshold: 512 }))
 
@@ -47,7 +52,7 @@ export const serverInit = () => {
   // sending the uncaught errors as json instead of HTML
   // http://expressjs.com/en/guide/error-handling.html
   // NB: This must not be an arrow function to make express detect this as an error handler.
-  app.use(function (err: any, req: any, res: any, _next: any) {
+  app.use(function (err: any, req: any, res: any, _: any) {
     if (err) sendErr(res, err)
   })
 

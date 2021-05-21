@@ -1,15 +1,14 @@
 import * as R from 'ramda'
 import * as fs from 'fs'
+import { ApiAuthMiddleware } from '@server/api/middleware'
 import { sendErr } from '../utils/requestUtils'
 
 const fileName = 'calculator'
 
-import * as Auth from '../auth/authApiMiddleware'
-
 export const init = (app: any) => {
   app.get(
     '/biomassStock/:countryIso/:domain/:lang/download',
-    Auth.requireCountryEditPermission,
+    ApiAuthMiddleware.requireCountryEditPermission,
     (req: any, res: any) => {
       try {
         const availableLanguages = ['en', 'fr', 'es', 'ru']

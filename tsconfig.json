@@ -1,6 +1,6 @@
 {
   "allowSyntheticDefaults": true,
-  "include": ["common", "server", "webapp", "test"],
+  "include": ["core", "common", "server", "webapp", "test"],
 
   "compilerOptions": {
     "allowJs": true,
@@ -12,6 +12,7 @@
     "noImplicitAny": true,
     "outDir": "./dist/",
     "paths": {
+      "@core/*": ["./core/*"],
       "@common/*": ["./common/*"],
       "@server/*": ["./server/*"],
       "@webapp/*": ["./webapp/*"],

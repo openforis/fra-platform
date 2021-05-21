@@ -1,15 +1,14 @@
+import { ApiAuthMiddleware } from '@server/api/middleware'
 import { getAllVersions, addVersion, deleteVersion, getLatestSchemaVersion } from './versioningRepository'
 import { sendErr, getUserId } from '../utils/requestUtils'
 
-import * as Auth from '../auth/authApiMiddleware'
-
 export const init = (app: any) => {
-  app.get('/versioning/', Auth.requireAdminPermission, async (req: any, res: any) => {
+  app.get('/versioning/', ApiAuthMiddleware.requireAdminPermission, async (req: any, res: any) => {
     const versions = await getAllVersions()
     res.json(versions)
   })
 
-  app.post('/versioning/', Auth.requireAdminPermission, async (req: any, res: any) => {
+  app.post('/versioning/', ApiAuthMiddleware.requireAdminPermission, async (req: any, res: any) => {
     const userId = getUserId(req)
     const { versionNumber, publishedAt } = req.body
     try {
@@ -24,7 +23,7 @@ export const init = (app: any) => {
     }
   })
 
-  app.delete('/versioning/:id', Auth.requireAdminPermission, async (req: any, res: any) => {
+  app.delete('/versioning/:id', ApiAuthMiddleware.requireAdminPermission, async (req: any, res: any) => {
     const { id } = req.params
     if (!id) {
       return
@@ -40,7 +39,7 @@ export const init = (app: any) => {
     res.json(versions)
   })
 
-  app.get('/versioning/latest', Auth.requireAdminPermission, async (req: any, res: any) => {
+  app.get('/versioning/latest', ApiAuthMiddleware.requireAdminPermission, async (req: any, res: any) => {
     const version = await getLatestSchemaVersion()
     res.json(version)
   })

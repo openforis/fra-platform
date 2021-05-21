@@ -1,8 +1,7 @@
+import { ApiAuthMiddleware } from '@server/api/middleware'
 import * as db from '../db/db'
 
 import { sendErr } from '../utils/requestUtils'
-
-import * as Auth from '../auth/authApiMiddleware'
 
 import { persistFile, getFilesList, getFile, deleteFile } from './fileRepositoryRepository'
 
@@ -10,13 +9,17 @@ import { fileTypes, downloadFile } from './fileRepository'
 
 export const init = (app: any) => {
   // get user guide
-  app.get('/fileRepository/userGuide/:lang', Auth.requireCountryEditPermission, async (req: any, res: any) => {
-    try {
-      downloadFile(res, fileTypes.userGuide, req.params.lang)
-    } catch (err) {
-      sendErr(res, err)
+  app.get(
+    '/fileRepository/userGuide/:lang',
+    ApiAuthMiddleware.requireCountryEditPermission,
+    async (req: any, res: any) => {
+      try {
+        downloadFile(res, fileTypes.userGuide, req.params.lang)
+      } catch (err) {
+        sendErr(res, err)
+      }
     }
-  })
+  )
 
   // statistical factsheets
   app.get('/fileRepository/statisticalFactsheets/:countryIso/:lang', async (req: any, res: any) => {
@@ -39,31 +42,39 @@ export const init = (app: any) => {
   })
 
   // upload new file
-  app.post('/fileRepository/:countryIso/upload', Auth.requireCountryEditPermission, async (req: any, res: any) => {
-    try {
-      const globalFile = req.body.global === 'true'
+  app.post(
+    '/fileRepository/:countryIso/upload',
+    ApiAuthMiddleware.requireCountryEditPermission,
+    async (req: any, res: any) => {
+      try {
+        const globalFile = req.body.global === 'true'
 
-      const { countryIso } = req.params
-      const fileCountryIso = globalFile ? null : countryIso
+        const { countryIso } = req.params
+        const fileCountryIso = globalFile ? null : countryIso
 
-      const filesList = await db.transaction(persistFile, [req.user, countryIso, req.files.file, fileCountryIso])
+        const filesList = await db.transaction(persistFile, [req.user, countryIso, req.files.file, fileCountryIso])
 
-      res.json(filesList)
-    } catch (err) {
-      sendErr(res, err)
+        res.json(filesList)
+      } catch (err) {
+        sendErr(res, err)
+      }
     }
-  })
+  )
 
   // get files list
-  app.get('/fileRepository/:countryIso/filesList', Auth.requireCountryEditPermission, async (req: any, res: any) => {
-    try {
-      const filesList = await getFilesList(req.params.countryIso)
+  app.get(
+    '/fileRepository/:countryIso/filesList',
+    ApiAuthMiddleware.requireCountryEditPermission,
+    async (req: any, res: any) => {
+      try {
+        const filesList = await getFilesList(req.params.countryIso)
 
-      res.json(filesList)
-    } catch (err) {
-      sendErr(res, err)
+        res.json(filesList)
+      } catch (err) {
+        sendErr(res, err)
+      }
     }
-  })
+  )
 
   // get file
   app.get('/fileRepository/:countryIso/file/:fileId', async (req: any, res: any) => {
@@ -84,7 +95,7 @@ export const init = (app: any) => {
   // delete file
   app.delete(
     '/fileRepository/:countryIso/file/:fileId',
-    Auth.requireCountryEditPermission,
+    ApiAuthMiddleware.requireCountryEditPermission,
     async (req: any, res: any) => {
       try {
         const filesList = await db.transaction(deleteFile, [req.user, req.params.countryIso, req.params.fileId])

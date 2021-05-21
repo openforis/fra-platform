@@ -1,8 +1,8 @@
+import { ApiAuthMiddleware } from '@server/api/middleware'
 import * as db from '../db/db'
 import * as repository from './traditionalTableRepository'
 import { sendErr, sendOk } from '../utils/requestUtils'
 
-import * as Auth from '../auth/authApiMiddleware'
 import * as VersionService from '../versioning/service'
 
 import * as Assessment from '../../common/assessment/assessment'
@@ -10,7 +10,7 @@ import * as Assessment from '../../common/assessment/assessment'
 export const init = (app: any) => {
   app.post(
     '/traditionalTable/:countryIso/:tableSpecName',
-    Auth.requireCountryEditPermission,
+    ApiAuthMiddleware.requireCountryEditPermission,
     async (req: any, res: any) => {
       try {
         const {

@@ -1,7 +1,7 @@
+import { ApiAuthMiddleware } from '@server/api/middleware'
 import * as db from '../db/db'
 import { sendErr } from '../utils/requestUtils'
 import * as repository from './growingStockRepository'
-import * as Auth from '../auth/authApiMiddleware'
 
 import * as VersionService from '../versioning/service'
 
@@ -18,7 +18,7 @@ export const init = (app: any) => {
     }
   })
 
-  app.post('/growingStock/:countryIso', Auth.requireCountryEditPermission, async (req: any, res: any) => {
+  app.post('/growingStock/:countryIso', ApiAuthMiddleware.requireCountryEditPermission, async (req: any, res: any) => {
     try {
       await db.transaction(repository.persistBothGrowingStock, [req.user, req.params.countryIso, req.body])
       res.json({})
