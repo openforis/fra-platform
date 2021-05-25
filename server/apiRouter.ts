@@ -13,7 +13,6 @@ import * as sustainableDevelopmentApi from './sustainableDevelopment/sustainable
 import * as panEuropeanApi from './panEuropean/panEuropeanApi'
 import * as userChatApi from './userChat/userChatApi'
 import * as fileRepositoryApi from './fileRepository/fileRepositoryApi'
-import * as collaboratorsApi from './collaborators/collaboratorsApi'
 import * as countryMessageBoardApi from './countryMessageBoard/countryMessageBoardApi'
 import * as versioningApi from './versioning/api'
 
@@ -37,7 +36,6 @@ sustainableDevelopmentApi.init(apiRouter)
 panEuropeanApi.init(apiRouter)
 userChatApi.init(apiRouter)
 fileRepositoryApi.init(apiRouter)
-collaboratorsApi.init(apiRouter)
 countryMessageBoardApi.init(apiRouter)
 versioningApi.init(apiRouter)
 
