@@ -9,7 +9,6 @@ import { Api } from '@server/api'
 import * as sessionInit from './sessionInit'
 import * as apiRouter from './apiRouter'
 import * as resourceCacheControl from './resourceCacheControl'
-import * as definitionsApi from './definitions/api'
 import { sendErr } from './utils/requestUtils'
 
 export const serverInit = () => {
@@ -40,7 +39,6 @@ export const serverInit = () => {
 
   app.use(fileUpload())
   app.use('/api', apiRouter.router)
-  definitionsApi.init(app)
 
   app.use('/style', express.static(`${__dirname}/../client/style`))
   app.use('/js', express.static(`${__dirname}/../client/js`))

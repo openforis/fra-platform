@@ -9,7 +9,6 @@ import * as reviewApi from './review/api'
 import * as countryApi from './country/api'
 import * as assessmentApi from './assessment/api'
 import * as growingStockApi from './growingStock/growingStockApi'
-import * as biomassStockApi from './biomassStock/biomassStockApi'
 import * as auditApi from './audit/api'
 import * as sustainableDevelopmentApi from './sustainableDevelopment/sustainableDevelopmentApi'
 import * as panEuropeanApi from './panEuropean/panEuropeanApi'
@@ -38,7 +37,6 @@ descriptionsApi.init(apiRouter)
 reviewApi.init(apiRouter)
 assessmentApi.init(apiRouter)
 growingStockApi.init(apiRouter)
-biomassStockApi.init(apiRouter)
 auditApi.init(apiRouter)
 sustainableDevelopmentApi.init(apiRouter)
 panEuropeanApi.init(apiRouter)
