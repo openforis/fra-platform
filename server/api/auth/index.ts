@@ -1,10 +1,10 @@
 import { Express } from 'express'
 
-import { AuthConfig } from '@server/api/auth/authConfig'
+import { AuthConfig } from './authConfig'
 
-import { AuthGetInvitation } from '@server/api/auth/getInvitation'
-import { AuthResetPassword } from '@server/api/auth/resetPassword'
-import { AuthChangePassword } from '@server/api/auth/changePassword'
+import { AuthGetInvitation } from './getInvitation'
+import { AuthResetPassword } from './resetPassword'
+import { AuthChangePassword } from './changePassword'
 import { AuthLogin } from './login'
 import { AuthLogout } from './logout'
 

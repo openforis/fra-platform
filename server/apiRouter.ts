@@ -17,8 +17,6 @@ import * as fileRepositoryApi from './fileRepository/fileRepositoryApi'
 import * as collaboratorsApi from './collaborators/collaboratorsApi'
 import * as countryMessageBoardApi from './countryMessageBoard/countryMessageBoardApi'
 import * as versioningApi from './versioning/api'
-import * as statisticalFactsheetsApi from './statisticalFactsheets/api'
-import * as dataExportApi from './dataExport/api'
 
 const apiRouter = express.Router()
 // Nothing should be cached by default with the APIs
@@ -44,7 +42,5 @@ fileRepositoryApi.init(apiRouter)
 collaboratorsApi.init(apiRouter)
 countryMessageBoardApi.init(apiRouter)
 versioningApi.init(apiRouter)
-statisticalFactsheetsApi.init(apiRouter)
-dataExportApi.init(apiRouter)
 
 export const router = apiRouter
