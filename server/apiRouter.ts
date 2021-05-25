@@ -12,7 +12,6 @@ import * as growingStockApi from './growingStock/growingStockApi'
 import * as auditApi from './audit/api'
 import * as sustainableDevelopmentApi from './sustainableDevelopment/sustainableDevelopmentApi'
 import * as panEuropeanApi from './panEuropean/panEuropeanApi'
-import * as landingApi from './landing/landingApi'
 import * as userChatApi from './userChat/userChatApi'
 import * as fileRepositoryApi from './fileRepository/fileRepositoryApi'
 import * as collaboratorsApi from './collaborators/collaboratorsApi'
@@ -40,7 +39,6 @@ growingStockApi.init(apiRouter)
 auditApi.init(apiRouter)
 sustainableDevelopmentApi.init(apiRouter)
 panEuropeanApi.init(apiRouter)
-landingApi.init(apiRouter)
 userChatApi.init(apiRouter)
 fileRepositoryApi.init(apiRouter)
 collaboratorsApi.init(apiRouter)
