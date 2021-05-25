@@ -7,6 +7,8 @@ import { readObject } from '../traditionalTable/traditionalTableRepository'
 
 import * as VersionService from '../versioning/service'
 
+// TODO: Deprecated?
+
 export const init = (app: any) => {
   app.get('/sustainableDevelopment/:countryIso', async (req: any, res: any) => {
     try {

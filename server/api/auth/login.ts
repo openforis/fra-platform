@@ -8,7 +8,7 @@ const authenticationFailed = (req: any, res: any) => {
   res.redirect('/login?loginFailed=true')
 }
 
-const authenticationSuccessful = (req: Request, user: User, next: NextFunction, res: Response, done: any) => {
+const authenticationSuccessful = (req: Request, user: User, next: NextFunction, _: Response, done: any) => {
   req.logIn(user, (err: any) => {
     if (err) {
       next(err)
