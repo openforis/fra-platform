@@ -1,6 +1,7 @@
 import { Express } from 'express'
 
 import { DataExportApi } from '@server/api/dataExport'
+import { GrowingStockApi } from '@server/api/growingStock'
 import { BiomassStockApi } from './biomassStock'
 import { StatisticalFactsheetsApi } from './statisticalFactsheets'
 import { AuthApi } from './auth'
@@ -22,5 +23,6 @@ export const Api = {
     DataExportApi.init(express)
 
     BiomassStockApi.init(express)
+    GrowingStockApi.init(express)
   },
 }
