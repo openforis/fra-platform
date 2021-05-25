@@ -1,6 +1,6 @@
 export type Lang = 'en' | 'zh' | 'es' | 'fr' | 'ru' | 'ar'
 
-export type Type = 'local' | 'google'
+export type AuthType = 'local' | 'google'
 
 export type CountryIso =
   | 'ABW'
@@ -283,7 +283,7 @@ export interface User {
   institution: null
   position: null
   lang: Lang
-  type: Type
+  type: AuthType
   active: boolean
   // deprecated
   role: any
