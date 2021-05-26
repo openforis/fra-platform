@@ -9,7 +9,6 @@ import * as sustainableDevelopmentApi from './sustainableDevelopment/sustainable
 import * as panEuropeanApi from './panEuropean/panEuropeanApi'
 import * as userChatApi from './userChat/userChatApi'
 import * as fileRepositoryApi from './fileRepository/fileRepositoryApi'
-import * as versioningApi from './versioning/api'
 
 const apiRouter = express.Router()
 // Nothing should be cached by default with the APIs
@@ -27,6 +26,5 @@ sustainableDevelopmentApi.init(apiRouter)
 panEuropeanApi.init(apiRouter)
 userChatApi.init(apiRouter)
 fileRepositoryApi.init(apiRouter)
-versioningApi.init(apiRouter)
 
 export const router = apiRouter
