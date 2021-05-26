@@ -6,7 +6,6 @@ import * as userApi from './user/userApi'
 import * as traditionalTableApi from './traditionalTable/api'
 import * as descriptionsApi from './descriptions/api'
 import * as reviewApi from './review/api'
-import * as assessmentApi from './assessment/api'
 import * as auditApi from './audit/api'
 import * as sustainableDevelopmentApi from './sustainableDevelopment/sustainableDevelopmentApi'
 import * as panEuropeanApi from './panEuropean/panEuropeanApi'
@@ -28,7 +27,6 @@ eofApi.init(apiRouter)
 traditionalTableApi.init(apiRouter)
 descriptionsApi.init(apiRouter)
 reviewApi.init(apiRouter)
-assessmentApi.init(apiRouter)
 auditApi.init(apiRouter)
 sustainableDevelopmentApi.init(apiRouter)
 panEuropeanApi.init(apiRouter)
