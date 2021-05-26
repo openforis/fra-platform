@@ -6,6 +6,7 @@ import { CollaboratorsApi } from '@server/api/collaborators'
 import { CountryApi } from '@server/api/country'
 import { AssessmentApi } from '@server/api/assessment'
 import { AuditApi } from '@server/api/audit'
+import { DescriptionsApi } from '@server/api/descriptions'
 import { BiomassStockApi } from './biomassStock'
 import { StatisticalFactsheetsApi } from './statisticalFactsheets'
 import { AuthApi } from './auth'
@@ -19,9 +20,11 @@ import { LandingApi } from './landing'
 
 export const Api = {
   init: (express: Express): void => {
+    DefinitionApi.init(express)
+
     AuthApi.init(express)
     AuditApi.init(express)
-    DefinitionApi.init(express)
+    DescriptionsApi.init(express)
 
     LandingApi.init(express)
     StatisticalFactsheetsApi.init(express)
