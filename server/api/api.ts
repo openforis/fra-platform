@@ -5,6 +5,7 @@ import { GrowingStockApi } from '@server/api/growingStock'
 import { CollaboratorsApi } from '@server/api/collaborators'
 import { CountryApi } from '@server/api/country'
 import { AssessmentApi } from '@server/api/assessment'
+import { AuditApi } from '@server/api/audit'
 import { BiomassStockApi } from './biomassStock'
 import { StatisticalFactsheetsApi } from './statisticalFactsheets'
 import { AuthApi } from './auth'
@@ -19,6 +20,7 @@ import { LandingApi } from './landing'
 export const Api = {
   init: (express: Express): void => {
     AuthApi.init(express)
+    AuditApi.init(express)
     DefinitionApi.init(express)
 
     LandingApi.init(express)
