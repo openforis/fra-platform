@@ -17,13 +17,17 @@ apiRouter.use((req: any, res: any, next: any) => {
   next()
 })
 
+// TODO: Verify: deprecated?
+panEuropeanApi.init(apiRouter)
+sustainableDevelopmentApi.init(apiRouter)
+
 userApi.init(apiRouter)
 odpApi.init(apiRouter)
 eofApi.init(apiRouter)
+
 traditionalTableApi.init(apiRouter)
+
 reviewApi.init(apiRouter)
-sustainableDevelopmentApi.init(apiRouter)
-panEuropeanApi.init(apiRouter)
 userChatApi.init(apiRouter)
 fileRepositoryApi.init(apiRouter)
 
