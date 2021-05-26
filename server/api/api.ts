@@ -7,6 +7,7 @@ import { CountryApi } from '@server/api/country'
 import { AssessmentApi } from '@server/api/assessment'
 import { AuditApi } from '@server/api/audit'
 import { DescriptionsApi } from '@server/api/descriptions'
+import { CountryMessageBoardApi } from '@server/api/countryMessageBoard'
 import { BiomassStockApi } from './biomassStock'
 import { StatisticalFactsheetsApi } from './statisticalFactsheets'
 import { AuthApi } from './auth'
@@ -25,6 +26,7 @@ export const Api = {
     AuthApi.init(express)
     AuditApi.init(express)
     DescriptionsApi.init(express)
+    CountryMessageBoardApi.init(express)
 
     LandingApi.init(express)
     StatisticalFactsheetsApi.init(express)
