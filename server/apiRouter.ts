@@ -6,7 +6,6 @@ import * as userApi from './user/userApi'
 import * as traditionalTableApi from './traditionalTable/api'
 import * as descriptionsApi from './descriptions/api'
 import * as reviewApi from './review/api'
-import * as countryApi from './country/api'
 import * as assessmentApi from './assessment/api'
 import * as auditApi from './audit/api'
 import * as sustainableDevelopmentApi from './sustainableDevelopment/sustainableDevelopmentApi'
@@ -24,7 +23,6 @@ apiRouter.use((req: any, res: any, next: any) => {
 })
 
 userApi.init(apiRouter)
-countryApi.init(apiRouter)
 odpApi.init(apiRouter)
 eofApi.init(apiRouter)
 traditionalTableApi.init(apiRouter)

@@ -2,7 +2,7 @@ import * as fs from 'fs'
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import { Express, Response, Request } from 'express'
 import { Objects } from '@core/utils'
-import { sendErr } from '../../utils/requestUtils'
+import * as Requests from '@server/utils/requestUtils'
 
 const fileName = 'calculator'
 const availableLanguages = ['en', 'fr', 'es', 'ru']
@@ -31,7 +31,7 @@ export const BiomassStockDownload = {
             res.status(404).send('404 / File not found')
           }
         } catch (err) {
-          sendErr(res, err)
+          Requests.sendErr(res, err)
         }
       }
     )

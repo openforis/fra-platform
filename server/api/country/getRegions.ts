@@ -1,0 +1,17 @@
+import { Express, Response, Request } from 'express'
+import * as Requests from '@server/utils/requestUtils'
+import * as CountryService from '../../country/countryService'
+
+export const CountryGetRegions = {
+  init: (express: Express): void => {
+    // Returns all regions from country_region table
+    express.get('/api/country/regions', async (req: Request, res: Response) => {
+      try {
+        const regions = await CountryService.getRegions()
+        res.json(regions)
+      } catch (err) {
+        Requests.sendErr(res, err)
+      }
+    })
+  },
+}

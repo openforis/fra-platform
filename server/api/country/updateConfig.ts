@@ -1,0 +1,28 @@
+// Changes one key/value pair
+import { ApiAuthMiddleware } from '@server/api/middleware'
+import { Express, Request, Response } from 'express'
+import * as countryRepository from '@server/country/countryRepository'
+import * as Requests from '@server/utils/requestUtils'
+import * as db from '@server/db/db'
+
+export const CountryUpdateConfig = {
+  init: (express: Express): void => {
+    // Returns country config for :countryIso
+    express.post(
+      '/country/config/:countryIso',
+      ApiAuthMiddleware.requireCountryEditPermission,
+      async (req: Request, res: Response) => {
+        try {
+          await db.transaction(countryRepository.saveDynamicConfigurationVariable, [
+            req.params.countryIso,
+            req.body.key,
+            req.body.value,
+          ])
+          res.json({})
+        } catch (e) {
+          Requests.sendErr(res, e)
+        }
+      }
+    )
+  },
+}
