@@ -8,7 +8,7 @@ import {
   isUserRoleAllowedToEditAssessmentComments,
   isCollaboratorAllowedToEditSectionData,
 } from '../../common/assessmentRoleAllowance'
-import { fetchCollaboratorCountryAccessTables } from '../collaborators/collaboratorsRepository'
+import { fetchCollaboratorCountryAccessTables } from '../repository/collaborators/collaboratorsRepository'
 
 export const assessmentForSection = (section: any) =>
   R.pipe(

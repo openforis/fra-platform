@@ -1,4 +1,4 @@
-import * as db from '../db/db'
+import * as db from '../../db/db'
 
 // Some data is fetched from views
 const views = [
@@ -34,7 +34,7 @@ export const getExportData = async (schemaName: any, table: any, variables: any,
 
   const result = await db.pool.query(query, [JSON.stringify(variables)])
 
-  const res: {[key: string]: any} = {}
+  const res: { [key: string]: any } = {}
   result.rows.forEach((row: any) => {
     if (!res[row.country_iso]) res[row.country_iso] = {}
     res[row.country_iso][row.row_name] = Object.fromEntries(

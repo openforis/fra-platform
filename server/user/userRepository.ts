@@ -6,19 +6,19 @@ import * as camelize from 'camelize'
 import * as R from 'ramda'
 import * as bcrypt from 'bcrypt'
 
+import { QueryResult } from 'pg'
 import FRA from '../../common/assessment/fra'
 
 import * as db from '../db/db'
-import * as auditRepository from '../audit/auditRepository'
+import * as auditRepository from '../repository/audit/auditRepository'
 import * as CountryRepository from '../country/countryRepository'
-import { fetchCollaboratorCountryAccessTables } from '../collaborators/collaboratorsRepository'
+import { fetchCollaboratorCountryAccessTables } from '../repository/collaborators/collaboratorsRepository'
 import { AccessControlException } from '../utils/accessControl'
 
 import { nationalCorrespondent, reviewer, collaborator, alternateNationalCorrespondent } from '../../common/countryRole'
 import { userType } from '../../common/userUtils'
 
 import { loginUrl } from './sendInvitation'
-import { QueryResult } from 'pg'
 
 export const findUserById = async (userId: any, client = db.pool) => {
   const res = await client.query(
@@ -137,7 +137,8 @@ export const fetchCountryUsers = async (countryIso: any) => {
 }
 
 export const fetchAdministrators = () =>
-   db.pool.query(
+  db.pool
+    .query(
       `
     SELECT
       u.id,
@@ -160,7 +161,8 @@ export const fetchAdministrators = () =>
     .then((res: any) => camelize(res.rows))
 
 export const fetchInvitations = (countryIso: any, url: any) =>
-   db.pool.query(
+  db.pool
+    .query(
       `SELECT
        invitation_uuid,
        email,

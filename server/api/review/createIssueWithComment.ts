@@ -2,7 +2,7 @@ import { Express, Response, Request } from 'express'
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import { allowedToEditCommentsCheck } from '@server/assessment/assessmentEditAccessControl'
 import * as db from '@server/db/db'
-import * as reviewRepository from '@server/review/reviewRepository'
+import * as reviewRepository from '@server/repository/review/reviewRepository'
 import * as Requests from '@server/utils/requestUtils'
 
 export const ReviewCreateIssueWithComment = {

@@ -1,6 +1,6 @@
 import { Express, Response, Request } from 'express'
 import * as db from '@server/db/db'
-import { addMessage, getChatUnreadMessages } from '@server/userChat/userChatRepository'
+import { addMessage, getChatUnreadMessages } from '@server/repository/userChat/userChatRepository'
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import { sendErr, serverUrl } from '@server/utils/requestUtils'
 import { createI18nPromise } from '@common/i18n/i18nFactory'
@@ -62,7 +62,7 @@ export const UserChatCreate = {
     express.post(
       '/api/userChat/:countryIso/message',
       ApiAuthMiddleware.requireCountryEditPermission,
-      async (req: any, res: any) => {
+      async (req: Request, res: Response) => {
         try {
           const { message, fromUserId, toUserId } = req.body
 

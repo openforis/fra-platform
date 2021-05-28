@@ -1,7 +1,7 @@
 import { Express, Response, Request } from 'express'
 import { checkCountryAccessFromReqParams } from '@server/utils/accessControl'
 import * as db from '@server/db/db'
-import { getChatMessages } from '@server/userChat/userChatRepository'
+import { getChatMessages } from '@server/repository/userChat/userChatRepository'
 import { sendErr } from '@server/utils/requestUtils'
 
 export const UserChatGetAll = {

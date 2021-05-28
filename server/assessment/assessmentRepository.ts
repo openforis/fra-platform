@@ -1,11 +1,11 @@
 // @ts-ignore
 import * as camelize from 'camelize'
 import * as R from 'ramda'
-import * as db from '../db/db'
-
-import { insertAudit } from '../audit/auditRepository'
 import { roleForCountry, isAdministrator } from '@common/countryRole'
 import { getAllowedStatusTransitions } from '@common/assessment'
+import * as db from '../db/db'
+
+import { insertAudit } from '../repository/audit/auditRepository'
 import { AccessControlException } from '../utils/accessControl'
 
 const checkStatusTransitionAllowance = (currentStatus: any, newStatus: any, countryIso: any, user: any) => {

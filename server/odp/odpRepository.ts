@@ -2,16 +2,15 @@ import * as R from 'ramda'
 
 // @ts-ignore
 import * as camelize from 'camelize'
+import * as Promise from 'bluebird'
 import * as db from '../db/db'
-import { insertAudit } from '../audit/auditRepository'
-import { deleteIssues } from '../review/reviewRepository'
+import { insertAudit } from '../repository/audit/auditRepository'
+import { deleteIssues } from '../repository/review/reviewRepository'
 import { validateDataPoint } from '../../common/validateOriginalDataPoint'
 import { checkCountryAccess } from '../utils/accessControl'
 import { updateOrInsertDraft } from './odpDraftRepository'
 import { wipeClassData, getOdpNationalClasses, wipeNationalClassIssues } from './odpClassRepository'
 import { eofReducer, focReducer } from './odpRepositoryUtils'
-
-import * as Promise from 'bluebird'
 
 export const saveDraft = async (client: any, countryIso: any, user: any, draft: any) => {
   const odpId = draft.odpId ? draft.odpId : await createOdp(client, countryIso, user)

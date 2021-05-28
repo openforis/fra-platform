@@ -3,13 +3,14 @@ import * as camelize from 'camelize'
 import * as R from 'ramda'
 
 import { parseISO, isBefore } from 'date-fns'
-import * as db from '../db/db'
+import { isReviewer } from '@common/countryRole'
+import * as db from '../../db/db'
 import * as auditRepository from '../audit/auditRepository'
-import { checkCountryAccess, checkReviewerCountryAccess, AccessControlException } from '../utils/accessControl'
-import { isReviewer } from '../../common/countryRole'
+import { checkCountryAccess, checkReviewerCountryAccess, AccessControlException } from '../../utils/accessControl'
 
 export const getIssueComments = (countryIso: any, section: any, user: any) =>
-   db.pool.query(
+  db.pool
+    .query(
       `
     SELECT 
       i.id as issue_id, i.target, i.status as issue_status, i.section,
@@ -44,9 +45,9 @@ export const getIssueComments = (countryIso: any, section: any, user: any) =>
     )
     .then((res: any) => camelize(res.rows))
 
-
 export const getIssueCountryAndSection = (issueId: any) => {
-  return  db.pool.query(
+  return db.pool
+    .query(
       `
     SELECT i.country_iso, i.section FROM issue i 
     WHERE i.id = $1
@@ -57,7 +58,8 @@ export const getIssueCountryAndSection = (issueId: any) => {
 }
 
 export const getCommentCountryAndSection = (commentId: any) => {
-  return  db.pool.query(
+  return db.pool
+    .query(
       `
     SELECT i.country_iso, i.section FROM fra_comment c JOIN issue i ON (c.issue_id = i.id)
     WHERE c.id = $1
@@ -84,7 +86,7 @@ export const hasUnreadIssues = (user: any, issueComments: any) =>
     R.filter((issue: any) => issue.hasUnreadComments),
     R.isEmpty,
     R.not
-  // @ts-ignore
+    // @ts-ignore
   )(issueComments)
 
 const _getIssuesSummary = (user: any, issueComments: any) =>
@@ -95,13 +97,7 @@ const _getIssuesSummary = (user: any, issueComments: any) =>
     hasUnreadIssues: hasUnreadIssues(user, issueComments),
   }))(issueComments)
 
-export const getIssuesSummary = (
-  countryIso: any,
-  section: any,
-  targetParam: any,
-  user: any,
-  rejectResolved = false
-) =>
+export const getIssuesSummary = (countryIso: any, section: any, targetParam: any, user: any, rejectResolved = false) =>
   getIssueComments(countryIso, section, user).then((issueComments: any) => {
     const target = targetParam && targetParam.split(',')
 
@@ -134,7 +130,8 @@ export const getCountryIssuesSummary = (countryIso: any, user: any) =>
   })
 
 export const getIssuesByParam = (countryIso: any, section: any, paramPosition: any, paramValue: any) =>
-   db.pool.query(
+  db.pool
+    .query(
       `
     SELECT 
       i.id as issue_id, i.section, i.target, i.status
@@ -146,7 +143,6 @@ export const getIssuesByParam = (countryIso: any, section: any, paramPosition: a
       [countryIso, section]
     )
     .then((res: any) => camelize(res.rows))
-
 
 export const createIssueWithComment = (
   client: any,
@@ -211,7 +207,6 @@ export const createComment = (
       .then(() => client.query('UPDATE issue SET status = $1 WHERE id = $2', ['opened', issueId]))
   )
 
-
 export const createIssueQueryPlaceholders = (issueIds: any) =>
   R.range(1, issueIds.length + 1)
     .map((i: any) => `$${i}`)
@@ -237,7 +232,6 @@ export const deleteIssuesByIds = (client: any, issueIds: any) => {
   }
   return Promise.resolve()
 }
-
 
 export const deleteIssues = (client: any, countryIso: any, section: any, paramPosition: any, paramValue: any) =>
   getIssuesByParam(countryIso, section, paramPosition, paramValue)
@@ -267,10 +261,14 @@ export const markIssueAsResolved = (client: any, countryIso: any, section: any, 
   )
 
 export const updateIssueReadTime = (issueId: any, user: any) =>
-   db.pool.query(`SELECT id FROM user_issue WHERE user_id = $1 AND issue_id = $2`, [user.id, issueId])
+  db.pool
+    .query(`SELECT id FROM user_issue WHERE user_id = $1 AND issue_id = $2`, [user.id, issueId])
     .then((res: any) =>
       res.rows.length > 0
-        ? db.pool.query(`UPDATE user_issue SET read_time = $1 WHERE id = $2`, [new Date().toISOString(), res.rows[0].id])
+        ? db.pool.query(`UPDATE user_issue SET read_time = $1 WHERE id = $2`, [
+            new Date().toISOString(),
+            res.rows[0].id,
+          ])
         : db.pool.query(`INSERT INTO user_issue (user_id, issue_id, read_time) VALUES ($1,$2,$3)`, [
             user.id,
             issueId,

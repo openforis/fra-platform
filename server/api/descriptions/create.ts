@@ -1,9 +1,9 @@
 import { Express, Response, Request } from 'express'
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import * as db from '@server/db/db'
-import * as repository from '@server/descriptions/descriptionsRepository'
+import * as repository from '@server/repository/descriptions/descriptionsRepository'
 import * as Requests from '@server/utils/requestUtils'
-import * as auditRepository from '@server/audit/auditRepository'
+import * as auditRepository from '@server/repository/audit/auditRepository'
 
 export const DescriptionCreate = {
   init: (express: Express): void => {

@@ -1,6 +1,6 @@
 import { Express, Response, Request } from 'express'
 import * as VersionService from '@server/versioning/service'
-import * as DataExportRepository from '@server/dataExport/dataExportRepository'
+import * as DataExportRepository from '@server/repository/dataExport/dataExportRepository'
 import * as Requests from '../../utils/requestUtils'
 
 const panEuropean = (assessmentType: any) => (assessmentType === 'panEuropean' ? 'pan_european' : null)

@@ -6,7 +6,7 @@ import { sendErr, sendOk } from '../utils/requestUtils'
 
 import * as fraRepository from './fraRepository'
 import * as odpRepository from '../odp/odpRepository'
-import * as auditRepository from '../audit/auditRepository'
+import * as auditRepository from '../repository/audit/auditRepository'
 import * as estimationEngine from './estimationEngine'
 import * as fraValueService from './fraValueService'
 

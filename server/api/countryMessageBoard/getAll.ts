@@ -1,7 +1,7 @@
 import { Express, Response, Request } from 'express'
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import * as db from '@server/db/db'
-import { fetchCountryMessages } from '@server/countryMessageBoard/countryMessageBoardRepository'
+import { fetchCountryMessages } from '@server/repository/countryMessageBoard/countryMessageBoardRepository'
 import * as Requests from '@server/utils/requestUtils'
 
 export const CountryMessageBoardGetAll = {

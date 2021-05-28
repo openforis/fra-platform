@@ -5,8 +5,8 @@ import { checkCountryAccessFromReqParams } from '../../utils/accessControl'
 import { sendErr } from '../../utils/requestUtils'
 
 import { fetchCountryUsers } from '../../user/userRepository'
-import { getChatSummary } from '../../userChat/userChatRepository'
-import { fetchCountryUnreadMessages } from '../../countryMessageBoard/countryMessageBoardRepository'
+import { getChatSummary } from '../../repository/userChat/userChatRepository'
+import { fetchCountryUnreadMessages } from '../../repository/countryMessageBoard/countryMessageBoardRepository'
 
 const getUsersOverview = async (sessionUserId: any, dbUsers: any) => {
   const getUserOverview = async (user: any) => ({

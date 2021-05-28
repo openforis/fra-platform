@@ -3,7 +3,7 @@ import * as R from 'ramda'
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import * as db from '../db/db'
 import * as odpRepository from './odpRepository'
-import * as reviewRepository from '../review/reviewRepository'
+import * as reviewRepository from '../repository/review/reviewRepository'
 
 import { sendErr, sendOk } from '../utils/requestUtils'
 

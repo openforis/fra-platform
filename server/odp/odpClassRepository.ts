@@ -1,7 +1,6 @@
 import * as R from 'ramda'
 
-
-import { deleteIssuesByIds } from '../review/reviewRepository'
+import { deleteIssuesByIds } from '../repository/review/reviewRepository'
 
 export const getOdpNationalClasses = async (client: any, odpVersionId: any, schemaName = 'public') => {
   const tableName = `${schemaName}.odp_class`

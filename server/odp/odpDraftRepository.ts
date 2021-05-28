@@ -1,4 +1,4 @@
-import { insertAudit } from '../audit/auditRepository'
+import { insertAudit } from '../repository/audit/auditRepository'
 
 import { wipeNationalClassIssues, wipeClassData, addClassData } from './odpClassRepository'
 
