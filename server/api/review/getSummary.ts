@@ -1,0 +1,27 @@
+import { ApiAuthMiddleware } from '@server/api/middleware'
+import * as reviewRepository from '@server/review/reviewRepository'
+import * as Requests from '@server/utils/requestUtils'
+
+import { Express, Response, Request } from 'express'
+
+export const ReviewGetSummary = {
+  init: (express: Express): void => {
+    express.get(
+      '/api/review/:countryIso/:section/summary',
+      ApiAuthMiddleware.requireCountryEditPermission,
+      async (req: Request, res: Response) => {
+        try {
+          const result = await reviewRepository.getIssuesSummary(
+            req.params.countryIso,
+            req.params.section,
+            req.query.target,
+            req.user
+          )
+          res.json(result)
+        } catch (err) {
+          Requests.sendErr(res, err)
+        }
+      }
+    )
+  },
+}

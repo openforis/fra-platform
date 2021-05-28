@@ -9,6 +9,7 @@ import { AuditApi } from '@server/api/audit'
 import { DescriptionsApi } from '@server/api/descriptions'
 import { CountryMessageBoardApi } from '@server/api/countryMessageBoard'
 import { VersioningApi } from '@server/api/versioning'
+import { ReviewApi } from '@server/api/review'
 import { BiomassStockApi } from './biomassStock'
 import { StatisticalFactsheetsApi } from './statisticalFactsheets'
 import { AuthApi } from './auth'
@@ -27,6 +28,7 @@ export const Api = {
     AuthApi.init(express)
     AuditApi.init(express)
     DescriptionsApi.init(express)
+    ReviewApi.init(express)
     CountryMessageBoardApi.init(express)
     VersioningApi.init(express)
 
