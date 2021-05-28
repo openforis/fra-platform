@@ -5,7 +5,6 @@ import * as odpApi from './odp/api'
 import * as userApi from './user/userApi'
 import * as sustainableDevelopmentApi from './sustainableDevelopment/sustainableDevelopmentApi'
 import * as panEuropeanApi from './panEuropean/panEuropeanApi'
-import * as fileRepositoryApi from './fileRepository/fileRepositoryApi'
 
 const apiRouter = express.Router()
 // Nothing should be cached by default with the APIs
@@ -18,10 +17,9 @@ apiRouter.use((req: any, res: any, next: any) => {
 panEuropeanApi.init(apiRouter)
 sustainableDevelopmentApi.init(apiRouter)
 
+// TODO: Verify how much refactoring needeed before moving under server/api/
 userApi.init(apiRouter)
 odpApi.init(apiRouter)
 eofApi.init(apiRouter)
-
-fileRepositoryApi.init(apiRouter)
 
 export const router = apiRouter

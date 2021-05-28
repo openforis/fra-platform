@@ -12,6 +12,7 @@ import { VersioningApi } from '@server/api/versioning'
 import { ReviewApi } from '@server/api/review'
 import { TraditionalTableApi } from '@server/api/traditionalTable'
 import { UserChatApi } from '@server/api/userChat'
+import { FileRepositoryApi } from '@server/api/fileRepository'
 import { BiomassStockApi } from './biomassStock'
 import { StatisticalFactsheetsApi } from './statisticalFactsheets'
 import { AuthApi } from './auth'
@@ -41,6 +42,7 @@ export const Api = {
     LandingApi.init(express)
     StatisticalFactsheetsApi.init(express)
     DataExportApi.init(express)
+    FileRepositoryApi.init(express)
 
     CollaboratorsApi.init(express)
 
