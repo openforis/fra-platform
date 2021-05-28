@@ -5,7 +5,6 @@ import * as odpApi from './odp/api'
 import * as userApi from './user/userApi'
 import * as sustainableDevelopmentApi from './sustainableDevelopment/sustainableDevelopmentApi'
 import * as panEuropeanApi from './panEuropean/panEuropeanApi'
-import * as userChatApi from './userChat/userChatApi'
 import * as fileRepositoryApi from './fileRepository/fileRepositoryApi'
 
 const apiRouter = express.Router()
@@ -23,7 +22,6 @@ userApi.init(apiRouter)
 odpApi.init(apiRouter)
 eofApi.init(apiRouter)
 
-userChatApi.init(apiRouter)
 fileRepositoryApi.init(apiRouter)
 
 export const router = apiRouter

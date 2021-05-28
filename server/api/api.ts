@@ -11,6 +11,7 @@ import { CountryMessageBoardApi } from '@server/api/countryMessageBoard'
 import { VersioningApi } from '@server/api/versioning'
 import { ReviewApi } from '@server/api/review'
 import { TraditionalTableApi } from '@server/api/traditionalTable'
+import { UserChatApi } from '@server/api/userChat'
 import { BiomassStockApi } from './biomassStock'
 import { StatisticalFactsheetsApi } from './statisticalFactsheets'
 import { AuthApi } from './auth'
@@ -27,10 +28,14 @@ export const Api = {
     DefinitionApi.init(express)
 
     AuthApi.init(express)
+
     AuditApi.init(express)
     DescriptionsApi.init(express)
     ReviewApi.init(express)
+
     CountryMessageBoardApi.init(express)
+    UserChatApi.init(express)
+
     VersioningApi.init(express)
 
     LandingApi.init(express)
