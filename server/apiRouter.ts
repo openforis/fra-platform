@@ -3,7 +3,6 @@ import * as express from 'express'
 import * as eofApi from './eof/api'
 import * as odpApi from './odp/api'
 import * as userApi from './user/userApi'
-import * as traditionalTableApi from './traditionalTable/api'
 import * as sustainableDevelopmentApi from './sustainableDevelopment/sustainableDevelopmentApi'
 import * as panEuropeanApi from './panEuropean/panEuropeanApi'
 import * as userChatApi from './userChat/userChatApi'
@@ -23,8 +22,6 @@ sustainableDevelopmentApi.init(apiRouter)
 userApi.init(apiRouter)
 odpApi.init(apiRouter)
 eofApi.init(apiRouter)
-
-traditionalTableApi.init(apiRouter)
 
 userChatApi.init(apiRouter)
 fileRepositoryApi.init(apiRouter)

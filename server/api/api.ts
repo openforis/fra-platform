@@ -10,6 +10,7 @@ import { DescriptionsApi } from '@server/api/descriptions'
 import { CountryMessageBoardApi } from '@server/api/countryMessageBoard'
 import { VersioningApi } from '@server/api/versioning'
 import { ReviewApi } from '@server/api/review'
+import { TraditionalTableApi } from '@server/api/traditionalTable'
 import { BiomassStockApi } from './biomassStock'
 import { StatisticalFactsheetsApi } from './statisticalFactsheets'
 import { AuthApi } from './auth'
@@ -40,6 +41,8 @@ export const Api = {
 
     CountryApi.init(express)
     AssessmentApi.init(express)
+
+    TraditionalTableApi.init(express)
 
     BiomassStockApi.init(express)
     GrowingStockApi.init(express)
