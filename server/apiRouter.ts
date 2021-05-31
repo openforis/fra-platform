@@ -1,7 +1,6 @@
 import * as express from 'express'
 
 import * as eofApi from './eof/api'
-import * as odpApi from './odp/api'
 import * as userApi from './user/userApi'
 import * as sustainableDevelopmentApi from './sustainableDevelopment/sustainableDevelopmentApi'
 import * as panEuropeanApi from './panEuropean/panEuropeanApi'
@@ -19,7 +18,6 @@ sustainableDevelopmentApi.init(apiRouter)
 
 // TODO: Verify how much refactoring needeed before moving under server/api/
 userApi.init(apiRouter)
-odpApi.init(apiRouter)
 eofApi.init(apiRouter)
 
 export const router = apiRouter
