@@ -1,6 +1,6 @@
 import { Express, Response, Request } from 'express'
-import * as VersionService from '@server/versioning/service'
-import * as GrowingStockService from '@server/growingStock/growingStockService'
+import * as VersionService from '@server/service/versioning/service'
+import * as GrowingStockService from '@server/service/growingStock/growingStockService'
 import { sendErr } from '@server/utils/requestUtils'
 
 export const GrowingStockGet = {

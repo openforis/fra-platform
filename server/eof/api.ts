@@ -12,7 +12,7 @@ import * as fraValueService from './fraValueService'
 
 import * as defaultYears from './defaultYears'
 
-import * as VersionService from '../versioning/service'
+import * as VersionService from '../service/versioning/service'
 
 const fraWriters: { [key: string]: any } = {
   extentOfForest: fraRepository.persistEofValues,

@@ -1,6 +1,6 @@
 import { getCountry } from '../repository/country/countryRepository'
 import { createI18nPromise } from '../../common/i18n/i18nFactory'
-import { sendMail } from '../email/sendMail'
+import { sendMail } from '../service/email/sendMail'
 import { getRoleLabelKey } from '../../common/countryRole'
 
 export const loginUrl = (user: any, url: any) => `${url}/login${user.invitationUuid ? `?i=${user.invitationUuid}` : ''}`

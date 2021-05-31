@@ -1,9 +1,9 @@
 import * as R from 'ramda'
 import FRA from '@common/assessment/fra'
 
-import { getFraValues } from '../eof/fraValueService'
-import * as repository from '../repository/growingStock/growingStockRepository'
-import { add, defaultTo0 } from '../../common/bignumberUtils'
+import { add, defaultTo0 } from '@common/bignumberUtils'
+import { getFraValues } from '../../eof/fraValueService'
+import * as repository from '../../repository/growingStock/growingStockRepository'
 
 export const defaultDatum: any = {
   year: null,

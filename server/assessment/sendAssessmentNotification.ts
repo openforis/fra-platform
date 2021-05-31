@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 import { assessmentStatus } from '@common/assessment'
 import { createI18nPromise } from '../../common/i18n/i18nFactory'
-import { sendMail } from '../email/sendMail'
+import { sendMail } from '../service/email/sendMail'
 import { getCountry } from '../repository/country/countryRepository'
 import { fetchCountryUsers, fetchAdministrators } from '../repository/user/userRepository'
 import { nationalCorrespondent, reviewer } from '../../common/countryRole'

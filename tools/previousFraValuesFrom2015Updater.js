@@ -1,6 +1,6 @@
 const R = require('ramda')
-const countryConfig = require('../server/country/countryConfig')
 const promise = require('bluebird')
+const countryConfig = require('../server/service/country/countryConfig')
 const fs = promise.promisifyAll(require('fs'))
 const csv = promise.promisifyAll(require('csv'))
 
@@ -19,16 +19,11 @@ const outputFile = process.argv[3]
 
 const update = async (previousFraFile, outputFile) => {
   try {
-    const rawData = await fs.readFileAsync(previousFraFile, {encoding: 'utf-8'})
+    const rawData = await fs.readFileAsync(previousFraFile, { encoding: 'utf-8' })
     const parsedData = await csv.parseAsync(rawData)
     const years = parsedData[1].slice(1)
     const previousFraValuePairs = R.map(
-      row =>
-        [
-          row[0],
-          {fra2015ForestAreas: R.fromPairs(R.zip(years, row.slice(1)))}
-        ]
-      ,
+      (row) => [row[0], { fra2015ForestAreas: R.fromPairs(R.zip(years, row.slice(1))) }],
       parsedData.slice(2)
     )
     const previousFraValues = R.fromPairs(previousFraValuePairs)
@@ -36,9 +31,9 @@ const update = async (previousFraFile, outputFile) => {
     fs.writeFileSync(outputFile, JSON.stringify(merged, null, '  '), 'utf8')
     console.log('Wrote merged values into: ', outputFile)
     console.log('You should manually copy them over the countryConfig values')
-  } catch (e) { console.log(e) }
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 update(previousFraFile, outputFile)
-
-

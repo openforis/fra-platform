@@ -1,8 +1,8 @@
 import * as R from 'ramda'
 import countryConfig from './countryConfig'
 
-import * as countryRepository from '../repository/country/countryRepository'
-import * as traditionalTableRepository from '../repository/traditionalTable/traditionalTableRepository'
+import * as countryRepository from '../../repository/country/countryRepository'
+import * as traditionalTableRepository from '../../repository/traditionalTable/traditionalTableRepository'
 
 export const getCountryConfig = async (countryIso: string, schemaName = 'public') => {
   const dynamicConfig = await countryRepository.getDynamicCountryConfiguration(countryIso, schemaName)

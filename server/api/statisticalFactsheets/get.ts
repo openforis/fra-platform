@@ -1,6 +1,6 @@
 import { Express, Response, Request } from 'express'
-import * as VersionService from '@server/versioning/service'
-import { getStatisticalFactsheetData } from '@server/statisticalFactsheets/service'
+import * as VersionService from '@server/service/versioning/service'
+import { getStatisticalFactsheetData } from '@server/service/statisticalFactsheets/service'
 
 export const StatisticalFactsheetsGet = {
   init: (express: Express): void => {

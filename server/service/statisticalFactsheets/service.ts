@@ -1,6 +1,6 @@
-import * as CountryRepository from '../repository/country/countryRepository'
-import * as Repository from '../repository/statisticalFactsheets/statisticalFactsheetsRepository'
-import * as Area from '../../common/country/area'
+import * as Area from '@common/country/area'
+import * as CountryRepository from '../../repository/country/countryRepository'
+import * as Repository from '../../repository/statisticalFactsheets/statisticalFactsheetsRepository'
 
 export const getStatisticalFactsheetData = async (schemaName: any, level: any, rowNames: any) => {
   const isPrimaryForest = rowNames.includes('primary_forest_ratio')

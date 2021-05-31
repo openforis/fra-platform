@@ -10,7 +10,7 @@ import { sendErr, sendOk } from '../utils/requestUtils'
 import { checkCountryAccessFromReqParams } from '../utils/accessControl'
 import { allowedToEditDataCheck } from '../assessment/assessmentEditAccessControl'
 
-import * as VersionService from '../versioning/service'
+import * as VersionService from '../service/versioning/service'
 
 export const init = (app: any) => {
   app.get('/odp', async (req: any, res: any) => {

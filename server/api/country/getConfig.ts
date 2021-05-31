@@ -1,7 +1,7 @@
 import { Express, Response, Request } from 'express'
 import * as Requests from '@server/utils/requestUtils'
-import * as VersionService from '@server/versioning/service'
-import * as CountryService from '../../country/countryService'
+import * as VersionService from '@server/service/versioning/service'
+import * as CountryService from '../../service/country/countryService'
 
 export const CountryGetConfig = {
   init: (express: Express): void => {

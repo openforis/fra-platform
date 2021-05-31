@@ -1,6 +1,6 @@
 import { Express, Response, Request } from 'express'
 import * as Assessment from '@common/assessment/assessment'
-import * as VersionService from '@server/versioning/service'
+import * as VersionService from '@server/service/versioning/service'
 import * as repository from '@server/repository/traditionalTable/traditionalTableRepository'
 import * as Requests from '@server/utils/requestUtils'
 

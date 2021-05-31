@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 
-import { sub } from '../../../../../common/bignumberUtils'
-import { getForestAreaForYear } from '../../../../../common/extentOfForestHelper'
+import { sub } from '@common/bignumberUtils'
+import { getForestAreaForYear } from '@common/extentOfForestHelper'
 
 import TraditionalTableExporter from '../../exporter/traditionalTableExporter'
 

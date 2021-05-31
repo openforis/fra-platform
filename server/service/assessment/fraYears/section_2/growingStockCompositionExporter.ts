@@ -1,9 +1,9 @@
 import * as R from 'ramda'
-import { sum } from '../../../../../common/bignumberUtils'
+import { sum } from '@common/bignumberUtils'
 
 import TraditionalTableExporter from '../../exporter/traditionalTableExporter'
 
-const fieldsIdx: {[key: string]: number | null} = {
+const fieldsIdx: { [key: string]: number | null } = {
   'native_#1': 0,
   'native_#2': 1,
   'native_#3': 2,

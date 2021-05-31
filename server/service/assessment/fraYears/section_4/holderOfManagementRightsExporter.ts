@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import { sub } from '../../../../../common/bignumberUtils'
+import { sub } from '@common/bignumberUtils'
 
 import TraditionalTableExporter from '../../exporter/traditionalTableExporter'
 

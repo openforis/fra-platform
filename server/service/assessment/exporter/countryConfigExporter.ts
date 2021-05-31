@@ -2,7 +2,7 @@ import * as R from 'ramda'
 
 import FraTableExporter from './fraTableExporter'
 
-import * as CountryService from '../../../country/countryService'
+import * as CountryService from '../../country/countryService'
 
 class CountryConfigExporter extends FraTableExporter {
   constructor() {

@@ -1,11 +1,10 @@
 import * as R from 'ramda'
 
+import { sub } from '@common/bignumberUtils'
+import { getForestAreaForYear } from '@common/extentOfForestHelper'
 import * as TraditionalTableService from '../../../../repository/traditionalTable/traditionalTableRepository'
 
 import TraditionalTableExporter from '../../exporter/traditionalTableExporter'
-
-import { sub } from '../../../../../common/bignumberUtils'
-import { getForestAreaForYear } from '../../../../../common/extentOfForestHelper'
 
 const fieldsPrimary = [
   'prim_prod',

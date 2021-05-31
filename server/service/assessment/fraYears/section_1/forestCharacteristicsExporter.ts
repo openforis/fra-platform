@@ -1,9 +1,9 @@
 import * as R from 'ramda'
 
+import { sum, toFixed } from '@common/bignumberUtils'
 import FraTableExporter from '../../exporter/fraTableExporter'
 
 import * as FraValueService from '../../../../eof/fraValueService'
-import { sum, toFixed } from '../../../../../common/bignumberUtils'
 
 class ForestCharacteristicsExporter extends FraTableExporter {
   constructor() {

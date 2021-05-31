@@ -1,9 +1,9 @@
 import { Express, Response, Request } from 'express'
-import * as ExportService from '@server/assessment/service/exportService'
+import * as ExportService from '@server/service/assessment/exportService'
 import * as JSZip from 'jszip'
-import util from 'util'
-import fs from 'fs'
-import path from 'path'
+import * as util from 'util'
+import * as fs from 'fs'
+import * as path from 'path'
 import * as Requests from '../../utils/requestUtils'
 
 export const DataExportBulkDownload = {

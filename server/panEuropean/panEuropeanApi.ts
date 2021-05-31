@@ -11,10 +11,10 @@ import { getCountry } from '../repository/country/countryRepository'
 
 import { sendErr } from '../utils/requestUtils'
 
-import { fileTypes, downloadFile } from '../fileRepository/fileRepository'
+import { fileTypes, downloadFile } from '../service/fileRepository/fileRepository'
 import * as Country from '../../common/country/country'
 
-import * as VersionService from '../versioning/service'
+import * as VersionService from '../service/versioning/service'
 
 export const init = (app: any) => {
   const isPanEuropeanCountry = async (countryIso: any) => {

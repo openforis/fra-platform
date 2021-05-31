@@ -5,7 +5,7 @@ import { sendErr } from '../utils/requestUtils'
 import { getFraValues } from '../eof/fraValueService'
 import { readObject } from '../repository/traditionalTable/traditionalTableRepository'
 
-import * as VersionService from '../versioning/service'
+import * as VersionService from '../service/versioning/service'
 
 // TODO: Deprecated?
 

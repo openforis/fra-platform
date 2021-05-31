@@ -1,5 +1,5 @@
-import { getLatestSchemaVersion } from '../repository/versioning/versioningRepository'
-import * as Request from '../utils/requestUtils'
+import { getLatestSchemaVersion } from '../../repository/versioning/versioningRepository'
+import * as Request from '../../utils/requestUtils'
 
 const defaultSchema = 'public'
 // Return correct schema name

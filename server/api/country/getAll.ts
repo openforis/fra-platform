@@ -1,6 +1,6 @@
 import { Express, Response, Request } from 'express'
-import * as CountryService from '@server/country/countryService'
-import * as VersionService from '@server/versioning/service'
+import * as CountryService from '@server/service/country/countryService'
+import * as VersionService from '@server/service/versioning/service'
 import * as Requests from '@server/utils/requestUtils'
 import * as countryRepository from '@server/repository/country/countryRepository'
 

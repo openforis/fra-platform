@@ -1,5 +1,5 @@
 import { Express, Response, Request } from 'express'
-import { downloadFile, fileTypes } from '@server/fileRepository/fileRepository'
+import { downloadFile, fileTypes } from '@server/service/fileRepository/fileRepository'
 import { sendErr } from '@server/utils/requestUtils'
 
 export const FileRepositoryGetDataDownload = {

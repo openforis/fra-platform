@@ -6,7 +6,7 @@ import { sendErr, serverUrl } from '@server/utils/requestUtils'
 import { createI18nPromise } from '@common/i18n/i18nFactory'
 import { findUserById } from '@server/repository/user/userRepository'
 import { getCountry } from '@server/repository/country/countryRepository'
-import { sendMail } from '@server/email/sendMail'
+import { sendMail } from '@server/service/email/sendMail'
 
 const createMail = async (country: any, i18n: any, sender: any, recipient: any, url: any) => {
   const link = `${url}/country/${country.countryIso}/`
