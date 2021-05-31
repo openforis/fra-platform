@@ -1,7 +1,7 @@
 import { Express, Response, Request } from 'express'
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import * as db from '@server/db/db'
-import { persistFile } from '@server/fileRepository/fileRepositoryRepository'
+import { persistFile } from '@server/repository/fileRepository/fileRepositoryRepository'
 import * as Requests from '@server/utils/requestUtils'
 
 export const FileRepositoryCreate = {

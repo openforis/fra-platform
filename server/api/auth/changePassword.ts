@@ -1,7 +1,7 @@
 import { Express, Response, Request } from 'express'
 import { validPassword } from '@common/userUtils'
 import * as db from '@server/db/db'
-import { changePassword } from '@server/user/userResetPasswordRepository'
+import { changePassword } from '@server/repository/userResetPassword/userResetPasswordRepository'
 import { sendErr } from '@server/utils/requestUtils'
 import { Objects } from '@core/utils'
 import { passwordHash } from './utils/passwordHash'

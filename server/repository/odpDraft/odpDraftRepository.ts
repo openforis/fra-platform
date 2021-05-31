@@ -1,6 +1,6 @@
-import { insertAudit } from '../repository/audit/auditRepository'
+import { insertAudit } from '../audit/auditRepository'
 
-import { wipeNationalClassIssues, wipeClassData, addClassData } from './odpClassRepository'
+import { wipeNationalClassIssues, wipeClassData, addClassData } from '../odpClass/odpClassRepository'
 
 export const getDraftId = async (client: any, odpId: any) => {
   const res = await client.query('SELECT draft_id FROM odp WHERE id = $1', [odpId])

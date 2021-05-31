@@ -1,6 +1,6 @@
 import { Express, Response, Request } from 'express'
 import { ApiAuthMiddleware } from '@server/api/middleware'
-import { getFilesList } from '@server/fileRepository/fileRepositoryRepository'
+import { getFilesList } from '@server/repository/fileRepository/fileRepositoryRepository'
 import { sendErr } from '@server/utils/requestUtils'
 
 export const FileRepositoryGetFileList = {

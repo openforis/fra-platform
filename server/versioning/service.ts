@@ -1,4 +1,4 @@
-import { getLatestSchemaVersion } from './versioningRepository'
+import { getLatestSchemaVersion } from '../repository/versioning/versioningRepository'
 import * as Request from '../utils/requestUtils'
 
 const defaultSchema = 'public'

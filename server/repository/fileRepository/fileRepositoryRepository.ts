@@ -1,8 +1,8 @@
 // @ts-ignore
 import * as camelize from 'camelize'
 import * as R from 'ramda'
-import * as db from '../db/db'
-import * as auditRepository from '../repository/audit/auditRepository'
+import * as db from '../../db/db'
+import * as auditRepository from '../audit/auditRepository'
 
 export const persistFile = async (client: any, user: any, countryIso: any, file: any, fileCountryIso: any) => {
   await auditRepository.insertAudit(client, user.id, 'fileRepositoryUpload', countryIso, 'fileRepository', {

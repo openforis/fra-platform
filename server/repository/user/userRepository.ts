@@ -7,18 +7,17 @@ import * as R from 'ramda'
 import * as bcrypt from 'bcrypt'
 
 import { QueryResult } from 'pg'
-import FRA from '../../common/assessment/fra'
+import FRA from '@common/assessment/fra'
 
-import * as db from '../db/db'
-import * as auditRepository from '../repository/audit/auditRepository'
+import { nationalCorrespondent, reviewer, collaborator, alternateNationalCorrespondent } from '@common/countryRole'
+import { userType } from '@common/userUtils'
+import * as db from '../../db/db'
+import * as auditRepository from '../audit/auditRepository'
 import * as CountryRepository from '../country/countryRepository'
-import { fetchCollaboratorCountryAccessTables } from '../repository/collaborators/collaboratorsRepository'
-import { AccessControlException } from '../utils/accessControl'
+import { fetchCollaboratorCountryAccessTables } from '../collaborators/collaboratorsRepository'
+import { AccessControlException } from '../../utils/accessControl'
 
-import { nationalCorrespondent, reviewer, collaborator, alternateNationalCorrespondent } from '../../common/countryRole'
-import { userType } from '../../common/userUtils'
-
-import { loginUrl } from './sendInvitation'
+import { loginUrl } from '../../user/sendInvitation'
 
 export const findUserById = async (userId: any, client = db.pool) => {
   const res = await client.query(

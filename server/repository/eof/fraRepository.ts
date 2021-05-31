@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 // @ts-ignore
 import * as camelize from 'camelize'
-import * as db from '../db/db'
+import * as db from '../../db/db'
 
 const existingEofValues = async (countryIso: any, year: any) => {
   const result = await db.pool.query(
@@ -195,7 +195,8 @@ const forestCharacteristicsReducer = (results: any, row: any, type = 'fra') => [
 
 export const readFraForestAreas = (countryIso: any, schemaName = 'public') => {
   const tableName = `${schemaName}.eof_fra_values`
-  return db.pool.query(
+  return db.pool
+    .query(
       `
     SELECT
       year,
@@ -212,7 +213,8 @@ export const readFraForestAreas = (countryIso: any, schemaName = 'public') => {
 
 export const readFraForestCharacteristics = (countryIso: any, schemaName = 'public') => {
   const tableName = `${schemaName}.foc_fra_values`
-  return db.pool.query(
+  return db.pool
+    .query(
       `SELECT
         year,
         natural_forest_area,

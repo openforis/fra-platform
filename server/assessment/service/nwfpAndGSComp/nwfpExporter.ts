@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 import { totalSum } from '@common/aggregate'
 
-import * as TraditionalTableService from '../../../traditionalTable/traditionalTableRepository'
+import * as TraditionalTableService from '../../../repository/traditionalTable/traditionalTableRepository'
 import CsvOutput from '../csvOutput'
 
 export const fields = ['product', 'name', 'key_species', 'quantity', 'unit', 'value', 'nwfp_category']
@@ -27,7 +27,7 @@ export const getCountryData = async (country: any) => {
     const row = {
       ...country,
       product: `#${i + 1}`,
-      ...colFields.reduce((acc: {[key: string]: any}, col, colIdx) => {
+      ...colFields.reduce((acc: { [key: string]: any }, col, colIdx) => {
         acc[col] = normalizeColValue(i, colIdx)
         return acc
       }, {}),

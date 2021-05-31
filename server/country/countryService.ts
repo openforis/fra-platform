@@ -1,8 +1,8 @@
 import * as R from 'ramda'
 import countryConfig from './countryConfig'
 
-import * as countryRepository from './countryRepository'
-import * as traditionalTableRepository from '../traditionalTable/traditionalTableRepository'
+import * as countryRepository from '../repository/country/countryRepository'
+import * as traditionalTableRepository from '../repository/traditionalTable/traditionalTableRepository'
 
 export const getCountryConfig = async (countryIso: string, schemaName = 'public') => {
   const dynamicConfig = await countryRepository.getDynamicCountryConfiguration(countryIso, schemaName)
@@ -35,9 +35,9 @@ export const getCountryConfigFull = async (countryIso: any, schemaName = 'public
   return config
 }
 
-export const getAllCountriesList = countryRepository.getAllCountriesList
-export const getRegions = countryRepository.getRegions
-export const getRegionGroups = countryRepository.getRegionGroups
+export const { getAllCountriesList } = countryRepository
+export const { getRegions } = countryRepository
+export const { getRegionGroups } = countryRepository
 
 export default {
   getCountryConfigFull,

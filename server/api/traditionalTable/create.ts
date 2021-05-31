@@ -1,7 +1,7 @@
 import { Express, Response, Request } from 'express'
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import * as db from '@server/db/db'
-import * as repository from '@server/traditionalTable/traditionalTableRepository'
+import * as repository from '@server/repository/traditionalTable/traditionalTableRepository'
 import { sendErr, sendOk } from '@server/utils/requestUtils'
 
 export const TraditionalTableCreate = {

@@ -1,6 +1,6 @@
 import { Express, Response, Request } from 'express'
 import * as Requests from '@server/utils/requestUtils'
-import * as odpRepository from '@server/odp/odpRepository'
+import * as odpRepository from '@server/repository/odp/odpRepository'
 import * as reviewRepository from '@server/repository/review/reviewRepository'
 import { isCollaborator, roleForCountry } from '@common/countryRole'
 import * as R from 'ramda'
@@ -8,7 +8,7 @@ import {
   isUserRoleAllowedToEditAssessmentComments,
   isUserRoleAllowedToEditAssessmentData,
 } from '@common/assessmentRoleAllowance'
-import * as assessmentRepository from '@server/assessment/assessmentRepository'
+import * as assessmentRepository from '@server/repository/assessment/assessmentRepository'
 import { fetchCollaboratorCountryAccessTables } from '@server/repository/collaborators/collaboratorsRepository'
 
 // TODO - REFACTOR

@@ -1,7 +1,6 @@
 import * as R from 'ramda'
 
-
-import * as TraditionalTableService from '../../../../traditionalTable/traditionalTableRepository'
+import * as TraditionalTableService from '../../../../repository/traditionalTable/traditionalTableRepository'
 
 import TraditionalTableExporter from '../../exporter/traditionalTableExporter'
 

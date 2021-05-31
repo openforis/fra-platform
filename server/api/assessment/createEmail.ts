@@ -1,7 +1,7 @@
 import { Express, Response, Request } from 'express'
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import * as db from '@server/db/db'
-import * as repository from '@server/assessment/assessmentRepository'
+import * as repository from '@server/repository/assessment/assessmentRepository'
 import { sendAssessmentNotification } from '@server/assessment/sendAssessmentNotification'
 import * as Requests from '@server/utils/requestUtils'
 

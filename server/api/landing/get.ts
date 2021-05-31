@@ -4,7 +4,7 @@ import * as db from '../../db/db'
 import { checkCountryAccessFromReqParams } from '../../utils/accessControl'
 import { sendErr } from '../../utils/requestUtils'
 
-import { fetchCountryUsers } from '../../user/userRepository'
+import { fetchCountryUsers } from '../../repository/user/userRepository'
 import { getChatSummary } from '../../repository/userChat/userChatRepository'
 import { fetchCountryUnreadMessages } from '../../repository/countryMessageBoard/countryMessageBoardRepository'
 

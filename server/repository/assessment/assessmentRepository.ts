@@ -3,10 +3,10 @@ import * as camelize from 'camelize'
 import * as R from 'ramda'
 import { roleForCountry, isAdministrator } from '@common/countryRole'
 import { getAllowedStatusTransitions } from '@common/assessment'
-import * as db from '../db/db'
+import * as db from '../../db/db'
 
-import { insertAudit } from '../repository/audit/auditRepository'
-import { AccessControlException } from '../utils/accessControl'
+import { insertAudit } from '../audit/auditRepository'
+import { AccessControlException } from '../../utils/accessControl'
 
 const checkStatusTransitionAllowance = (currentStatus: any, newStatus: any, countryIso: any, user: any) => {
   const allowed = getAllowedStatusTransitions(countryIso, user, currentStatus)

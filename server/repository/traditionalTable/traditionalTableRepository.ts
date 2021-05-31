@@ -1,11 +1,11 @@
 import * as R from 'ramda'
 // @ts-ignore
 import * as camelize from 'camelize'
-import * as db from '../db/db'
-import { allowedToEditDataCheck } from '../assessment/assessmentEditAccessControl'
-import * as sqlCreator from './traditionalTableSqlCreator'
-import * as tableMappings from './tableMappings'
-import * as auditRepository from '../repository/audit/auditRepository'
+import * as db from '../../db/db'
+import { allowedToEditDataCheck } from '../../assessment/assessmentEditAccessControl'
+import * as sqlCreator from '../../traditionalTable/traditionalTableSqlCreator'
+import * as tableMappings from '../../traditionalTable/tableMappings'
+import * as auditRepository from '../audit/auditRepository'
 
 export const save = async (client: any, user: any, countryIso: any, tableSpecName: any, tableData: any) => {
   const mapping = tableMappings.getMapping(tableSpecName)

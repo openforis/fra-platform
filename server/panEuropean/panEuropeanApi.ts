@@ -7,7 +7,7 @@ import {
   getPanEuropeanQuantitativeQuestionnaire,
   deletePanEuropeanQuantitativeQuestionnaire,
 } from './panEuropeanRepository'
-import { getCountry } from '../country/countryRepository'
+import { getCountry } from '../repository/country/countryRepository'
 
 import { sendErr } from '../utils/requestUtils'
 

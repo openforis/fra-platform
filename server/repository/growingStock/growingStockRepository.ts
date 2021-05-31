@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 
-import * as auditRepository from '../repository/audit/auditRepository'
-import * as db from '../db/db'
+import * as auditRepository from '../audit/auditRepository'
+import * as db from '../../db/db'
 
 export const readGrowingStock = (countryIso: any, tableName: any) =>
   db.pool

@@ -1,6 +1,6 @@
 import { Express, Response, Request } from 'express'
 import { ApiAuthMiddleware } from '@server/api/middleware'
-import { deleteVersion, getAllVersions } from '@server/versioning/versioningRepository'
+import { deleteVersion, getAllVersions } from '@server/repository/versioning/versioningRepository'
 import * as Requests from '@server/utils/requestUtils'
 
 export const VersioningDelete = {

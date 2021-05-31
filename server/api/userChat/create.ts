@@ -4,8 +4,8 @@ import { addMessage, getChatUnreadMessages } from '@server/repository/userChat/u
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import { sendErr, serverUrl } from '@server/utils/requestUtils'
 import { createI18nPromise } from '@common/i18n/i18nFactory'
-import { findUserById } from '@server/user/userRepository'
-import { getCountry } from '@server/country/countryRepository'
+import { findUserById } from '@server/repository/user/userRepository'
+import { getCountry } from '@server/repository/country/countryRepository'
 import { sendMail } from '@server/email/sendMail'
 
 const createMail = async (country: any, i18n: any, sender: any, recipient: any, url: any) => {

@@ -1,5 +1,5 @@
-import * as CountryRepository from '../country/countryRepository'
-import * as Repository from './statisticalFactsheetsRepository'
+import * as CountryRepository from '../repository/country/countryRepository'
+import * as Repository from '../repository/statisticalFactsheets/statisticalFactsheetsRepository'
 import * as Area from '../../common/country/area'
 
 export const getStatisticalFactsheetData = async (schemaName: any, level: any, rowNames: any) => {
@@ -35,7 +35,9 @@ export const getStatisticalFactsheetData = async (schemaName: any, level: any, r
   // - [countryIso, ..]  - [FIN, ITA]
   if (Array.isArray(level)) {
     const filteredCountryIsos = level.filter((countryIso) => countries.includes(countryIso))
-    return filteredCountryIsos.length > 0 ? Repository.getStatisticalFactsheetData(schemaName, rowNames, filteredCountryIsos) : []
+    return filteredCountryIsos.length > 0
+      ? Repository.getStatisticalFactsheetData(schemaName, rowNames, filteredCountryIsos)
+      : []
   }
 }
 

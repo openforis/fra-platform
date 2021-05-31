@@ -7,7 +7,7 @@ import { validEmail, validPassword } from '@common/userUtils'
 import { Objects } from '@core/utils'
 import { User } from '@core/auth'
 import { passwordHash } from './utils/passwordHash'
-import * as userRepository from '../../user/userRepository'
+import * as userRepository from '../../repository/user/userRepository'
 import * as db from '../../db/db'
 
 const googleStrategyVerifyCallback = async (req: any, accessToken: any, refreshToken: any, profile: any, done: any) => {

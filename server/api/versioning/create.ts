@@ -1,7 +1,7 @@
 import { Express, Response, Request } from 'express'
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import * as Requests from '@server/utils/requestUtils'
-import { addVersion, getAllVersions } from '@server/versioning/versioningRepository'
+import { addVersion, getAllVersions } from '@server/repository/versioning/versioningRepository'
 
 export const VersioningCreate = {
   init: (express: Express): void => {

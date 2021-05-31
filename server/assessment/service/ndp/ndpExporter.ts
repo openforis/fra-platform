@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import * as NdpRepository from '../../../odp/odpRepository'
+import * as NdpRepository from '../../../repository/odp/odpRepository'
 
 import CsvOutput from '../csvOutput'
 

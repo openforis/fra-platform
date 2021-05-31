@@ -1,5 +1,5 @@
 import { Express, Response, Request } from 'express'
-import { fetchInvitation, findUserByEmail } from '@server/user/userRepository'
+import { fetchInvitation, findUserByEmail } from '@server/repository/user/userRepository'
 import { sendErr } from '@server/utils/requestUtils'
 
 export const AuthGetInvitation = {

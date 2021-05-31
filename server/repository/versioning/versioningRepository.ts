@@ -1,6 +1,6 @@
 // @ts-ignore
 import * as camelize from 'camelize'
-import * as db from '../db/db'
+import * as db from '../../db/db'
 
 /*
   Possible status for version
@@ -175,9 +175,8 @@ export const getLatestSchemaVersion = async () => {
   if (result.rows.length > 0) {
     const { schemaName } = camelize(result.rows[0])
     return schemaName
-  } else {
-    return 'public'
   }
+  return 'public'
 }
 
 // Used to check if certain schema exists

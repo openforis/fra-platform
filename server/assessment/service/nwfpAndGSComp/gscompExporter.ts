@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 import { totalSum } from '@common/aggregate'
 
-import * as TraditionalTableService from '../../../traditionalTable/traditionalTableRepository'
+import * as TraditionalTableService from '../../../repository/traditionalTable/traditionalTableRepository'
 import CsvOutput from '../csvOutput'
 
 export const years = ['1990', '2000', '2010', '2015', '2020']

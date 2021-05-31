@@ -1,7 +1,7 @@
 import { Express, Response, Request } from 'express'
 import * as Assessment from '@common/assessment/assessment'
 import * as VersionService from '@server/versioning/service'
-import * as repository from '@server/traditionalTable/traditionalTableRepository'
+import * as repository from '@server/repository/traditionalTable/traditionalTableRepository'
 import * as Requests from '@server/utils/requestUtils'
 
 export const TraditionalTableGet = {

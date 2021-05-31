@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 
 import FraTableExporter from './fraTableExporter'
-import * as TraditionalTableService from '../../../traditionalTable/traditionalTableRepository'
+import * as TraditionalTableService from '../../../repository/traditionalTable/traditionalTableRepository'
 
 class TraditionalTableExporter extends FraTableExporter {
   fetchData(countryIso: any) {

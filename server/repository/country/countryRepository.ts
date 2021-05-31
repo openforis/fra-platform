@@ -2,9 +2,8 @@ import * as R from 'ramda'
 // @ts-ignore
 import * as camelize from 'camelize'
 
-import * as db from '../db/db'
-
-import * as CountryRole from '../../common/countryRole'
+import * as CountryRole from '@common/countryRole'
+import * as db from '../../db/db'
 
 /*
  * Determine the "overall status" from multiple statuses.
@@ -29,7 +28,10 @@ export const determineRole = (roles: any) => (countryIso: any) =>
   R.pipe(R.filter(R.propEq('countryIso', countryIso)), R.head, R.prop('role'))(roles)
 
 // @ts-ignore
-export const getStatuses = (groupedRows: any) => R.pipe(R.map(R.pick(['type', 'status'])), R.filter(R.identity))(groupedRows)
+export const getStatuses = (groupedRows: any) =>
+  // @ts-ignore
+
+  R.pipe(R.map(R.pick(['type', 'status'])), R.filter(R.identity))(groupedRows)
 
 export const getCountryProperties = (country: any) => ({
   countryIso: country.countryIso,
@@ -163,7 +165,8 @@ export const getAllowedCountries = (roles: any, schemaName = 'public') => {
   const allowedIsoQueryPlaceholders = R.range(2, allowedCountryIsos.length + 2)
     .map((i: any) => `$${i}`)
     .join(',')
-  return  db.pool.query(
+  return db.pool
+    .query(
       `
       WITH fa AS (
         SELECT country_iso, to_char(max(time), 'YYYY-MM-DD"T"HH24:MI:ssZ') as last_edited
@@ -230,7 +233,8 @@ export const saveDynamicConfigurationVariable = async (client: any, countryIso: 
 }
 
 export const getCountry = (countryIso: any) =>
-   db.pool.query(
+  db.pool
+    .query(
       `
     SELECT c.country_iso,
      json_agg(cr.region_code) AS region_codes

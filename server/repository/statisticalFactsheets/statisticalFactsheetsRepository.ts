@@ -1,6 +1,6 @@
 // @ts-ignore
 import * as camelize from 'camelize'
-import * as db from '../db/db'
+import * as db from '../../db/db'
 
 export const _joinArray = (arr: any) => arr.map((entry: any) => `'${entry}'`).join(', ')
 

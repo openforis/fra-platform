@@ -1,8 +1,11 @@
 import { Express, Response, Request } from 'express'
 import { validEmail } from '@common/userUtils'
-import { findLocalUserByEmail, findUserById } from '@server/user/userRepository'
+import { findLocalUserByEmail, findUserById } from '@server/repository/user/userRepository'
 import * as db from '@server/db/db'
-import { createResetPassword, findResetPassword } from '@server/user/userResetPasswordRepository'
+import {
+  createResetPassword,
+  findResetPassword,
+} from '@server/repository/userResetPassword/userResetPasswordRepository'
 import { sendErr, serverUrl } from '@server/utils/requestUtils'
 import { sendResetPasswordEmail } from '@server/api/auth/utils/resetPassword'
 import { Objects } from '@core/utils'

@@ -1,7 +1,7 @@
 // Changes one key/value pair
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import { Express, Request, Response } from 'express'
-import * as countryRepository from '@server/country/countryRepository'
+import * as countryRepository from '@server/repository/country/countryRepository'
 import * as Requests from '@server/utils/requestUtils'
 import * as db from '@server/db/db'
 
