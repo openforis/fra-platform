@@ -17,7 +17,7 @@ export const init = (app: any) => {
     } else if (req.path.match(bundleMatch)) {
       res.set('Cache-Control', `public, max-age=${oneYearInSeconds}`)
       // Resource-reference cache-busted with uuidv4 in the end (see webpack.config.js)
-    } else if (req.query.bust && req.query.bust.match(bustMatch)) {
+    } else if (req.query.bust && typeof req.query.bust === 'string' && req.query.bust.match(bustMatch)) {
       res.set('Cache-Control', `public, max-age=${oneYearInSeconds}`)
     }
     next()
