@@ -1,10 +1,11 @@
 import { Express, Response, Request } from 'express'
 import { fetchInvitation, findUserByEmail } from '@server/repository/user/userRepository'
 import { sendErr } from '@server/utils/requestUtils'
+import { EndPoint } from '@server/api/endpoint'
 
 export const AuthGetInvitation = {
   init: (express: Express): void => {
-    express.get('/auth/invitation/:uuid', async (req: Request, res: Response) => {
+    express.get(EndPoint.Auth.getInvitation, async (req: Request, res: Response) => {
       try {
         const invitation = await fetchInvitation(req.params.uuid, '')
         if (invitation) {

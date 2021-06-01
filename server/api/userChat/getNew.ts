@@ -3,10 +3,11 @@ import { checkCountryAccessFromReqParams } from '@server/utils/accessControl'
 import * as db from '@server/db/db'
 import { getChatUnreadMessages } from '@server/repository/userChat/userChatRepository'
 import { sendErr } from '@server/utils/requestUtils'
+import { EndPoint } from '@server/api/endpoint'
 
 export const UserChatGetNew = {
   init: (express: Express): void => {
-    express.get('/api/userChat/:countryIso/messages/new', async (req: Request, res: Response) => {
+    express.get(EndPoint.UserChat.getNew, async (req: Request, res: Response) => {
       try {
         checkCountryAccessFromReqParams(req)
 

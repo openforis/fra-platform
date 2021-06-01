@@ -9,10 +9,12 @@ import {
 import { sendErr, serverUrl } from '@server/utils/requestUtils'
 import { sendResetPasswordEmail } from '@server/api/auth/utils/resetPassword'
 import { Objects } from '@core/utils'
+import { EndPoint } from '@server/api/endpoint'
 
 export const AuthResetPassword = {
   init: (express: Express): void => {
-    express.post('/auth/local/resetPassword', async (req: Request, res: Response) => {
+    // eslint-disable-next-line no-undef
+    express.post(EndPoint.Auth.ResetPassword.create, async (req: Request, res: Response) => {
       try {
         const { email } = req.body
 
@@ -41,7 +43,7 @@ export const AuthResetPassword = {
       }
     })
 
-    express.get('/auth/local/resetPassword/:uuid', async (req: Request, res: Response) => {
+    express.get(EndPoint.Auth.ResetPassword.get, async (req: Request, res: Response) => {
       try {
         const resetPassword = await db.transaction(findResetPassword, [req.params.uuid])
         if (resetPassword) {

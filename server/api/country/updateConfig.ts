@@ -4,12 +4,13 @@ import { Express, Request, Response } from 'express'
 import * as countryRepository from '@server/repository/country/countryRepository'
 import * as Requests from '@server/utils/requestUtils'
 import * as db from '@server/db/db'
+import { EndPoint } from '@server/api/endpoint'
 
 export const CountryUpdateConfig = {
   init: (express: Express): void => {
     // Returns country config for :countryIso
     express.post(
-      '/country/config/:countryIso',
+      EndPoint.Country.updateConfig,
       ApiAuthMiddleware.requireCountryEditPermission,
       async (req: Request, res: Response) => {
         try {

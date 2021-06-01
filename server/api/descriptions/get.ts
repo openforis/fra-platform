@@ -3,10 +3,11 @@ import * as VersionService from '@server/service/versioning/service'
 import * as db from '@server/db/db'
 import * as repository from '@server/repository/descriptions/descriptionsRepository'
 import * as Requests from '@server/utils/requestUtils'
+import { EndPoint } from '@server/api/endpoint'
 
 export const DescriptionGet = {
   init: (express: Express): void => {
-    express.get('/api/country/descriptions/:countryIso/:section/:name', async (req: Request, res: Response) => {
+    express.get(EndPoint.Descriptions.get, async (req: Request, res: Response) => {
       try {
         const schemaName = await VersionService.getDatabaseSchema(req)
         const result = await db.transaction(repository.readDescriptions, [

@@ -3,11 +3,12 @@ import { ApiAuthMiddleware } from '@server/api/middleware'
 import * as db from '@server/db/db'
 import * as repository from '@server/repository/traditionalTable/traditionalTableRepository'
 import { sendErr, sendOk } from '@server/utils/requestUtils'
+import { EndPoint } from '@server/api/endpoint'
 
 export const TraditionalTableCreate = {
   init: (express: Express): void => {
     express.post(
-      '/api/traditionalTable/:countryIso/:tableSpecName',
+      EndPoint.TraditionalTable.create,
       ApiAuthMiddleware.requireCountryEditPermission,
       async (req: Request, res: Response) => {
         try {

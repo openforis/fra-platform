@@ -3,11 +3,12 @@ import { ApiAuthMiddleware } from '@server/api/middleware'
 import * as db from '@server/db/db'
 import { fetchCountryMessages } from '@server/repository/countryMessageBoard/countryMessageBoardRepository'
 import * as Requests from '@server/utils/requestUtils'
+import { EndPoint } from '@server/api/endpoint'
 
 export const CountryMessageBoardGetAll = {
   init: (express: Express): void => {
     express.get(
-      '/api/countryMessageBoard/:countryIso/messages/all',
+      EndPoint.CountryMessageBoard.getAll,
       ApiAuthMiddleware.requireCountryEditPermission,
       async (req: Request, res: Response) => {
         try {

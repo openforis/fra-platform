@@ -4,11 +4,12 @@ import * as reviewRepository from '@server/repository/review/reviewRepository'
 import { allowedToEditCommentsCheck } from '@server/assessment/assessmentEditAccessControl'
 import * as db from '@server/db/db'
 import { sendErr } from '@server/utils/requestUtils'
+import { EndPoint } from '@server/api/endpoint'
 
 export const ReviewMarkResolved = {
   init: (express: Express): void => {
     express.post(
-      '/api/issue/markAsResolved',
+      EndPoint.Review.markResolved,
       ApiAuthMiddleware.requireCountryEditPermission,
       async (req: Request, res: Response) => {
         try {

@@ -4,11 +4,12 @@ import * as db from '@server/db/db'
 import * as repository from '@server/repository/assessment/assessmentRepository'
 import { sendAssessmentNotification } from '@server/assessment/sendAssessmentNotification'
 import * as Requests from '@server/utils/requestUtils'
+import { EndPoint } from '@server/api/endpoint'
 
 export const AssessmentCreateEmail = {
   init: (express: Express): void => {
     express.post(
-      '/api/assessment/:countryIso',
+      EndPoint.Assessment.createEmail,
       ApiAuthMiddleware.requireCountryEditPermission,
       async (req: Request, res: Response) => {
         try {

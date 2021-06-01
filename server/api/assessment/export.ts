@@ -3,11 +3,12 @@ import * as JSZip from 'jszip'
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import * as ExportService from '@server/service/assessment/exportService'
 import * as Requests from '@server/utils/requestUtils'
+import { EndPoint } from '@server/api/endpoint'
 
 export const AssessmentExport = {
   init: (express: Express): void => {
     express.get(
-      '/api/assessment/admin/export',
+      EndPoint.Assessment.export,
       ApiAuthMiddleware.requireAdminPermission,
       async (req: Request, res: Response) => {
         try {

@@ -3,10 +3,11 @@ import * as CountryService from '@server/service/country/countryService'
 import * as VersionService from '@server/service/versioning/service'
 import * as Requests from '@server/utils/requestUtils'
 import * as countryRepository from '@server/repository/country/countryRepository'
+import { EndPoint } from '@server/api/endpoint'
 
 export const CountryGetAll = {
   init: (express: Express): void => {
-    express.get('/api/country/all', async (req: any, res: Response) => {
+    express.get(EndPoint.Country.GetAll.userCountries, async (req: any, res: Response) => {
       try {
         const schmeName = await VersionService.getDatabaseSchema(req)
         const userRoles = (Request as any).getUserRoles(req)
@@ -17,7 +18,7 @@ export const CountryGetAll = {
       }
     })
 
-    express.get('/api/countries/', async (req: any, res: Response) => {
+    express.get(EndPoint.Country.GetAll.generalCountries, async (req: any, res: Response) => {
       try {
         // This endpoint does not return Atlantis countries (first countryIso character = X)
         const countries = (await CountryService.getAllCountriesList()).filter(

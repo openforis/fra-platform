@@ -4,20 +4,25 @@ import { allowedToEditDataCheck } from '@server/assessment/assessmentEditAccessC
 import * as db from '@server/db/db'
 import * as odpRepository from '@server/repository/odp/odpRepository'
 import * as Requests from '@server/utils/requestUtils'
+import { EndPoint } from '@server/api/endpoint'
 
 export const OdpDelete = {
   init: (express: Express): void => {
-    express.delete('/api/odp', ApiAuthMiddleware.requireCountryEditPermission, async (req: Request, res: Response) => {
-      try {
-        const { countryIso } = req.query
-        await allowedToEditDataCheck(countryIso, req.user, 'extentOfForest')
+    express.delete(
+      EndPoint.Odp.delete,
+      ApiAuthMiddleware.requireCountryEditPermission,
+      async (req: Request, res: Response) => {
+        try {
+          const { countryIso } = req.query
+          await allowedToEditDataCheck(countryIso, req.user, 'extentOfForest')
 
-        await db.transaction(odpRepository.deleteOdp, [req.query.odpId, req.user])
+          await db.transaction(odpRepository.deleteOdp, [req.query.odpId, req.user])
 
-        Requests.sendOk(res)
-      } catch (err) {
-        Requests.sendErr(res, err)
+          Requests.sendOk(res)
+        } catch (err) {
+          Requests.sendErr(res, err)
+        }
       }
-    })
+    )
   },
 }

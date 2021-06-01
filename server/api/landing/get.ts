@@ -1,4 +1,5 @@
 import { Express, Response, Request } from 'express'
+import { EndPoint } from '@server/api/endpoint'
 import * as db from '../../db/db'
 
 import { checkCountryAccessFromReqParams } from '../../utils/accessControl'
@@ -23,7 +24,7 @@ const sdgContactsFileName = 'NSO_SDG_Contact_Persons_20191230.xlsx'
 
 export const LandingGet = {
   init: (express: Express): void => {
-    express.get('/api/landing/:countryIso/overview', async (req: Request, res: Response) => {
+    express.get(EndPoint.Landing.Get.overview, async (req: Request, res: Response) => {
       try {
         checkCountryAccessFromReqParams(req)
 
@@ -42,7 +43,7 @@ export const LandingGet = {
       }
     })
 
-    express.get('/api/landing/sdgFocalPoints', async (req: Request, res: Response) => {
+    express.get(EndPoint.Landing.Get.sdgFocalPoints, async (req: Request, res: Response) => {
       try {
         checkCountryAccessFromReqParams(req)
 

@@ -4,11 +4,12 @@ import * as JSZip from 'jszip'
 import * as util from 'util'
 import * as fs from 'fs'
 import * as path from 'path'
+import { EndPoint } from '@server/api/endpoint'
 import * as Requests from '../../utils/requestUtils'
 
 export const DataExportBulkDownload = {
   init: (express: Express): void => {
-    express.get('/api/export/bulk-download', async (req: Request, res: Response) => {
+    express.get(EndPoint.DataExport.bulkDownload, async (req: Request, res: Response) => {
       try {
         const files = await ExportService.exportData(false)
         const zip = new JSZip()

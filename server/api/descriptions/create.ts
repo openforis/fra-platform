@@ -4,11 +4,12 @@ import * as db from '@server/db/db'
 import * as repository from '@server/repository/descriptions/descriptionsRepository'
 import * as Requests from '@server/utils/requestUtils'
 import * as auditRepository from '@server/repository/audit/auditRepository'
+import { EndPoint } from '@server/api/endpoint'
 
 export const DescriptionCreate = {
   init: (express: Express): void => {
     express.post(
-      '/api/country/descriptions/:countryIso/:section/:name',
+      EndPoint.Descriptions.create,
       ApiAuthMiddleware.requireCountryEditPermission,
       async (req: Request, res: Response) => {
         const { countryIso, section, name } = req.params
