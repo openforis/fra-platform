@@ -1,3 +1,4 @@
+import { Request, Response, NextFunction } from 'express'
 /*
  * Configures bundles which have cache-busting to have a long
  * cache-time.
@@ -10,8 +11,8 @@ export const init = (app: any) => {
   const bustMatch = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
   const oneYearInSeconds = 60 * 60 * 24 * 365
 
-  app.use((req: any, res: any, next: any) => {
-    if (req.path === '/') {
+  app.use((req: Request, res: Response, next: NextFunction) => {
+    if (req.path === '/' || req.path.startsWith('/api')) {
       res.set('Cache-Control', 'no-store')
     } else if (req.path.match(bundleMatch)) {
       res.set('Cache-Control', `public, max-age=${oneYearInSeconds}`)
