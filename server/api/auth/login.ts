@@ -9,7 +9,7 @@ const authenticationFailed = (req: any, res: any) => {
   res.redirect('/login?loginFailed=true')
 }
 
-const authenticationSuccessful = (req: Request, user: User, next: NextFunction, _: Response, done: any) => {
+const authenticationSuccessful = (req: Request, user: User, next: NextFunction, done: any) => {
   req.logIn(user, (err: any) => {
     if (err) {
       next(err)
@@ -36,7 +36,7 @@ export const AuthLogin = {
         if (!user) {
           return res.send(info)
         }
-        return authenticationSuccessful(req, user, next, res, (redirectUrl: any) => res.send({ redirectUrl }))
+        return authenticationSuccessful(req, user, next, (redirectUrl: any) => res.send({ redirectUrl }))
       })(req, res, next)
     })
 
@@ -56,7 +56,7 @@ export const AuthLogin = {
         } else if (!user) {
           authenticationFailed(req, res)
         } else {
-          authenticationSuccessful(req, user, next, res, (redirectUrl: any) => res.redirect(redirectUrl))
+          authenticationSuccessful(req, user, next, (redirectUrl: any) => res.redirect(redirectUrl))
         }
       })(req, res, next)
     })
