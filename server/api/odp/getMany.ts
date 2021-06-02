@@ -3,11 +3,11 @@ import * as VersionService from '@server/service/versioning/service'
 import * as R from 'ramda'
 import * as odpRepository from '@server/repository/odp/odpRepository'
 import * as Requests from '@server/utils/requestUtils'
-import { EndPoint } from '@server/api/endpoint'
+import { ApiEndPoint } from '@server/api/endpoint'
 
 export const OdpGetMany = {
   init: (express: Express): void => {
-    express.get(EndPoint.Odp.getMany, async (req: Request, res: Response) => {
+    express.get(ApiEndPoint.Odp.getMany, async (req: Request, res: Response) => {
       try {
         const schemaName = await VersionService.getDatabaseSchema(req)
 

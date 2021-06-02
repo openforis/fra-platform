@@ -4,11 +4,11 @@ import { checkCountryAccessFromReqParams } from '@server/utils/accessControl'
 import * as reviewRepository from '@server/repository/review/reviewRepository'
 import * as R from 'ramda'
 import * as Requests from '@server/utils/requestUtils'
-import { EndPoint } from '@server/api/endpoint'
+import { ApiEndPoint } from '@server/api/endpoint'
 
 export const OdpGet = {
   init: (express: Express): void => {
-    express.get(EndPoint.Odp.get, async (req: Request, res: Response) => {
+    express.get(ApiEndPoint.Odp.get, async (req: Request, res: Response) => {
       try {
         const odps = await odpRepository.listAndValidateOriginalDataPoints(req.params.countryIso)
 

@@ -4,12 +4,12 @@ import * as db from '@server/db/db'
 import { changePassword } from '@server/repository/userResetPassword/userResetPasswordRepository'
 import { sendErr } from '@server/utils/requestUtils'
 import { Objects } from '@core/utils'
-import { EndPoint } from '@server/api/endpoint'
+import { ApiEndPoint } from '@server/api/endpoint'
 import { passwordHash } from './utils/passwordHash'
 
 export const AuthChangePassword = {
   init: (express: Express): void => {
-    express.post(EndPoint.Auth.changePassword, async (req: Request, res: Response) => {
+    express.post(ApiEndPoint.Auth.changePassword, async (req: Request, res: Response) => {
       try {
         const sendResp = (error: any = null, message: any = null) => res.json({ error, message })
 

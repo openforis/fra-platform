@@ -10,14 +10,14 @@ import {
 } from '@common/assessmentRoleAllowance'
 import * as assessmentRepository from '@server/repository/assessment/assessmentRepository'
 import { fetchCollaboratorCountryAccessTables } from '@server/repository/collaborators/collaboratorsRepository'
-import { EndPoint } from '@server/api/endpoint'
+import { ApiEndPoint } from '@server/api/endpoint'
 
 // TODO - REFACTOR
 
 export const CountryGetOverviewStatus = {
   init: (express: Express): void => {
     // Returns all regions from country_region table
-    express.get(EndPoint.Country.getOverviewStatus, async (req: Request, res: Response) => {
+    express.get(ApiEndPoint.Country.getOverviewStatus, async (req: Request, res: Response) => {
       try {
         // TODO - REFACTOR
         const { countryIso } = req.params

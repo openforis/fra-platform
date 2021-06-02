@@ -3,7 +3,7 @@ import { ApiAuthMiddleware } from '@server/api/middleware'
 import { Express, Response, Request } from 'express'
 import { Objects } from '@core/utils'
 import * as Requests from '@server/utils/requestUtils'
-import { EndPoint } from '@server/api/endpoint'
+import { ApiEndPoint } from '@server/api/endpoint'
 
 const fileName = 'calculator'
 const availableLanguages = ['en', 'fr', 'es', 'ru']
@@ -11,7 +11,7 @@ const availableLanguages = ['en', 'fr', 'es', 'ru']
 export const BiomassStockDownload = {
   init: (express: Express): void => {
     express.get(
-      EndPoint.BiomassStock.download,
+      ApiEndPoint.BiomassStock.download,
       ApiAuthMiddleware.requireCountryEditPermission,
       (req: Request, res: Response) => {
         try {

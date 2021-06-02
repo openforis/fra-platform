@@ -3,12 +3,12 @@ import * as reviewRepository from '@server/repository/review/reviewRepository'
 import * as Requests from '@server/utils/requestUtils'
 
 import { Express, Response, Request } from 'express'
-import { EndPoint } from '@server/api/endpoint'
+import { ApiEndPoint } from '@server/api/endpoint'
 
 export const ReviewGetSummary = {
   init: (express: Express): void => {
     express.get(
-      EndPoint.Review.getSummary,
+      ApiEndPoint.Review.getSummary,
       ApiAuthMiddleware.requireCountryEditPermission,
       async (req: Request, res: Response) => {
         try {

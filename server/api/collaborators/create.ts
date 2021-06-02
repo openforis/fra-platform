@@ -3,11 +3,11 @@ import { persistCollaboratorCountryAccess } from '@server/repository/collaborato
 import * as Requests from '@server/utils/requestUtils'
 import { checkCountryAccessFromReqParams } from '@server/utils/accessControl'
 import * as db from '@server/db/db'
-import { EndPoint } from '@server/api/endpoint'
+import { ApiEndPoint } from '@server/api/endpoint'
 
 export const CollaboratorCreate = {
   init: (express: Express): void => {
-    express.post(EndPoint.Collaborators.create, async (req: Request, res: Response) => {
+    express.post(ApiEndPoint.Collaborators.create, async (req: Request, res: Response) => {
       try {
         checkCountryAccessFromReqParams(req)
 

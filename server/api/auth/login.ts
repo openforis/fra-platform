@@ -2,7 +2,7 @@ import { Express, Response, Request, NextFunction } from 'express'
 import * as passport from 'passport'
 import { User } from '@core/auth'
 import { appUri } from '@server/utils/requestUtils'
-import { EndPoint } from '@server/api/endpoint'
+import { ApiEndPoint } from '@server/api/endpoint'
 
 const authenticationFailed = (req: any, res: any) => {
   req.logout()
@@ -28,7 +28,7 @@ const authenticationSuccessful = (req: Request, user: User, next: NextFunction, 
 export const AuthLogin = {
   init: (express: Express): void => {
     // Local login
-    express.post(EndPoint.Auth.Login.local, (req: Request, res: Response, next: NextFunction) => {
+    express.post(ApiEndPoint.Auth.Login.local, (req: Request, res: Response, next: NextFunction) => {
       passport.authenticate('local', (err: any, user: User, info: any) => {
         if (err) {
           return next(err)
@@ -41,7 +41,7 @@ export const AuthLogin = {
     })
 
     // Google login
-    express.get(EndPoint.Auth.Login.google, (req: any, res: any) =>
+    express.get(ApiEndPoint.Auth.Login.google, (req: any, res: any) =>
       passport.authenticate('google', {
         scope: ['https://www.googleapis.com/auth/plus.login', 'profile', 'email'],
         state: req.query.i,
@@ -49,7 +49,7 @@ export const AuthLogin = {
     )
 
     // Google callback
-    express.get(EndPoint.Auth.Login.googleCallback, (req: any, res: any, next: any) => {
+    express.get(ApiEndPoint.Auth.Login.googleCallback, (req: any, res: any, next: any) => {
       passport.authenticate('google', (err: any, user: any) => {
         if (err) {
           next(err)

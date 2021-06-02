@@ -3,13 +3,13 @@ import { ApiAuthMiddleware } from '@server/api/middleware'
 import * as db from '@server/db/db'
 import { persistFile } from '@server/repository/fileRepository/fileRepositoryRepository'
 import * as Requests from '@server/utils/requestUtils'
-import { EndPoint } from '@server/api/endpoint'
+import { ApiEndPoint } from '@server/api/endpoint'
 
 export const FileRepositoryCreate = {
   init: (express: Express): void => {
     // upload new file
     express.post(
-      EndPoint.FileRepository.create,
+      ApiEndPoint.FileRepository.create,
       ApiAuthMiddleware.requireCountryEditPermission,
       async (req: Request, res: Response) => {
         try {
