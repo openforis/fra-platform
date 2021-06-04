@@ -6,6 +6,7 @@ import { getRegionGroups } from './getRegionGroups'
 import { getCountryConfigFull } from './getCountryConfigFull'
 import { getCountryConfig } from './getCountryConfig'
 import { getCountryIsos } from './getCountryIsos'
+import { getCountry } from './getCountry'
 
 export const CountryService = {
   getAllCountriesList,
@@ -16,4 +17,5 @@ export const CountryService = {
   getRegionCodes,
   getRegionGroups,
   getRegions,
+  getCountry,
 }

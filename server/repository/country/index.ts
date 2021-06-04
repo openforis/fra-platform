@@ -6,9 +6,11 @@ import { getRegionGroups } from '@server/repository/country/getRegionGroups'
 import { getRegions } from '@server/repository/country/getRegions'
 import { getRegionCodes } from '@server/repository/country/getRegionCodes'
 import { getCountryIsos } from '@server/repository/country/getCountryIsos'
+import { getCountry } from '@server/repository/country/getCountry'
 
 export const CountryRepository = {
   getCountryIsos,
+  getCountry,
 
   getAllCountries,
   getAllowedCountries,
