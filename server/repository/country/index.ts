@@ -4,8 +4,12 @@ import { getAllCountriesList } from '@server/repository/country/getAllCountriesL
 import { getDynamicCountryConfiguration } from '@server/repository/country/getDynamicCountryConfiguration'
 import { getRegionGroups } from '@server/repository/country/getRegionGroups'
 import { getRegions } from '@server/repository/country/getRegions'
+import { getRegionCodes } from '@server/repository/country/getRegionCodes'
+import { getCountryIsos } from '@server/repository/country/getCountryIsos'
 
 export const CountryRepository = {
+  getCountryIsos,
+
   getAllCountries,
   getAllowedCountries,
   getAllCountriesList,
@@ -13,4 +17,5 @@ export const CountryRepository = {
 
   getRegionGroups,
   getRegions,
+  getRegionCodes,
 }

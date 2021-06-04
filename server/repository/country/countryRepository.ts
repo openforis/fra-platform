@@ -4,22 +4,6 @@ import * as camelize from 'camelize'
 import { getCountryProperties } from './getCountryProperties'
 import * as db from '../../db/db'
 
-// Get all countryIsos, or countryIsos for certain region
-export const getCountryIsos = async (regionCode?: any) => {
-  const query = `select country_iso from country_region ${regionCode ? `where region_code = '${regionCode}' ` : ''}`
-
-  const result = await db.pool.query(query)
-  return camelize(result.rows).map((region: any) => region.countryIso)
-}
-
-// Get all region codes
-export const getRegionCodes = async () => {
-  const query = `select distinct region_code from country_region`
-
-  const result = await db.pool.query(query)
-  return camelize(result.rows).map((region: any) => region.regionCode)
-}
-
 export const saveDynamicConfigurationVariable = async (client: any, countryIso: any, key: any, value: any) => {
   const configResult = await client.query('SELECT config FROM dynamic_country_configuration WHERE country_iso = $1', [
     countryIso,
