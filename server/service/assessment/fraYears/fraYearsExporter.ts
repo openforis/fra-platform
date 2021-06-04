@@ -84,7 +84,7 @@ export const getCountryData = async (country: any) => {
     // forestArea2020
     forestArea2020: R.pipe(R.prop('fra'), R.find(R.propEq('year', 2020)), R.propOr('', 'forestArea'))(extentOfForest),
     // country config
-    ...CountryConfigExporter.parseResultRow(countryConfig, yearIdx, year),
+    ...CountryConfigExporter.parseResultRow(countryConfig),
     // 1a, 1b, 1e, 1f
     ...ExtentOfForestExporter.parseResultRow(extentOfForest, yearIdx, year, countryConfig),
     ...(ForestCharacteristicsExporter as any).parseResultRow(forestCharacteristics, yearIdx, year),

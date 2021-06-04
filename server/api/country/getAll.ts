@@ -2,7 +2,6 @@ import { Express, Response, Request } from 'express'
 import { CountryService } from '@server/service'
 import * as VersionService from '@server/service/versioning/service'
 import * as Requests from '@server/utils/requestUtils'
-import { CountryRepository } from '@server/repository'
 import { ApiEndPoint } from '@server/api/endpoint'
 
 export const CountryGetAll = {
@@ -13,7 +12,7 @@ export const CountryGetAll = {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         const userRoles = Requests.getUserRoles(req)
-        const result = await CountryRepository.getAllowedCountries(userRoles, schmeName)
+        const result = await CountryService.getAllowedCountries(userRoles, schmeName)
         res.json(result)
       } catch (err) {
         Requests.sendErr(res, err)
