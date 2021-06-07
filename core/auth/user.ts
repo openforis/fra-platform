@@ -1,6 +1,5 @@
+import { Lang } from '@core/common'
 import { CountryIso } from '../country'
-
-export type Lang = 'en' | 'zh' | 'es' | 'fr' | 'ru' | 'ar'
 
 export type AuthType = 'local' | 'google'
 

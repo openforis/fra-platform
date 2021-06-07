@@ -1,2 +1,1 @@
-export { Assessment } from './assessment'
-export type { AssessmentType } from './assessment'
+export type { Assessment, AssessmentType } from './assessment'
