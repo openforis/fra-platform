@@ -6,6 +6,7 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
+    "isolatedModules": true,
     "jsx": "react",
     "module": "CommonJS",
     "moduleResolution": "Node",
