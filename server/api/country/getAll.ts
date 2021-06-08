@@ -1,25 +1,24 @@
 import { Express, Response, Request } from 'express'
-import { CountryService } from '@server/service'
+import * as CountryService from '@server/service/country/countryService'
 import * as VersionService from '@server/service/versioning/service'
 import * as Requests from '@server/utils/requestUtils'
-import { ApiEndPoint } from '@server/api/endpoint'
+import * as countryRepository from '@server/repository/country/countryRepository'
+import { ApiEndPoint } from '@common/api/endpoint'
 
 export const CountryGetAll = {
   init: (express: Express): void => {
-    express.get(ApiEndPoint.Country.GetAll.userCountries, async (req: Request, res: Response) => {
+    express.get(ApiEndPoint.Country.GetAll.userCountries(), async (req: any, res: Response) => {
       try {
         const schmeName = await VersionService.getDatabaseSchema(req)
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        const userRoles = Requests.getUserRoles(req)
-        const result = await CountryService.getAllowedCountries(userRoles, schmeName)
+        const userRoles = (Request as any).getUserRoles(req)
+        const result = await countryRepository.getAllowedCountries(userRoles, schmeName)
         res.json(result)
       } catch (err) {
         Requests.sendErr(res, err)
       }
     })
 
-    express.get(ApiEndPoint.Country.GetAll.generalCountries, async (req: Request, res: Response) => {
+    express.get(ApiEndPoint.Country.GetAll.generalCountries(), async (req: any, res: Response) => {
       try {
         // This endpoint does not return Atlantis countries (first countryIso character = X)
         const countries = (await CountryService.getAllCountriesList()).filter(

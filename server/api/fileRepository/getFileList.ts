@@ -2,13 +2,13 @@ import { Express, Response, Request } from 'express'
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import { getFilesList } from '@server/repository/fileRepository/fileRepositoryRepository'
 import { sendErr } from '@server/utils/requestUtils'
-import { ApiEndPoint } from '@server/api/endpoint'
+import { ApiEndPoint } from '@common/api/endpoint'
 
 export const FileRepositoryGetFileList = {
   init: (express: Express): void => {
     // get files list
     express.get(
-      ApiEndPoint.FileRepository.getFileList,
+      ApiEndPoint.FileRepository.getFileList(),
       ApiAuthMiddleware.requireCountryEditPermission,
       async (req: Request, res: Response) => {
         try {

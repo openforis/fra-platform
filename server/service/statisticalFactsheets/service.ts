@@ -1,5 +1,5 @@
 import * as Area from '@common/country/area'
-import { CountryService } from '@server/service'
+import * as CountryRepository from '../../repository/country/countryRepository'
 import * as Repository from '../../repository/statisticalFactsheets/statisticalFactsheetsRepository'
 
 export const getStatisticalFactsheetData = async (schemaName: any, level: any, rowNames: any) => {

@@ -1,12 +1,12 @@
 import { Express, Response, Request } from 'express'
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import { getLatestSchemaVersion } from '@server/repository/versioning/versioningRepository'
-import { ApiEndPoint } from '@server/api/endpoint'
+import { ApiEndPoint } from '@common/api/endpoint'
 
 export const VersioningGetLatest = {
   init: (express: Express): void => {
     express.get(
-      ApiEndPoint.Versioning.getLatest,
+      ApiEndPoint.Versioning.getLatest(),
       ApiAuthMiddleware.requireAdminPermission,
       async (req: Request, res: Response) => {
         const version = await getLatestSchemaVersion()

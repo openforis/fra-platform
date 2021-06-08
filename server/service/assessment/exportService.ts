@@ -1,6 +1,6 @@
 import { createI18nPromise } from '@common/i18n/i18nFactory'
 import * as Promise from 'bluebird'
-import { CountryService } from '@server/service'
+import * as CountryService from '../country/countryService'
 import * as FRAYearsExporter from './fraYears/fraYearsExporter'
 import * as IntervalYearsExporter from './intervals/intervalYearsExporter'
 import * as AnnualYearsExporter from './annual/annualYearsExporter'

@@ -2,7 +2,7 @@ import * as fs from 'fs'
 import * as marked from 'marked'
 import * as R from 'ramda'
 import { Express, Response, Request } from 'express'
-import { ApiEndPoint } from '@server/api/endpoint'
+import { ApiEndPoint } from '@common/api/endpoint'
 import { readParameterWithAllowedValues, readAllowedParameter } from '../../utils/sanityChecks'
 
 const getDefinition = (name: string, lang: string) => {
@@ -11,7 +11,7 @@ const getDefinition = (name: string, lang: string) => {
 
 export const DefinitionGet = {
   init: (express: Express): void => {
-    express.get(ApiEndPoint.Definitions.get, (req: Request, res: Response) => {
+    express.get(ApiEndPoint.Definitions.get(), (req: Request, res: Response) => {
       try {
         const lang = readParameterWithAllowedValues(req, 'lang', ['en', 'es', 'fr', 'ru', 'ar', 'zh'])
         const name = readAllowedParameter(req, 'name', R.match(/^[a-z0-9]+$/i))

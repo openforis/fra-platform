@@ -4,12 +4,12 @@ import { allowedToEditDataCheck } from '@server/assessment/assessmentEditAccessC
 import * as db from '@server/db/db'
 import * as odpRepository from '@server/repository/odp/odpRepository'
 import * as Requests from '@server/utils/requestUtils'
-import { ApiEndPoint } from '@server/api/endpoint'
+import { ApiEndPoint } from '@common/api/endpoint'
 
 export const OdpDeleteDraft = {
   init: (express: Express): void => {
     express.delete(
-      ApiEndPoint.Odp.deleteDraft,
+      ApiEndPoint.Odp.deleteDraft(),
       ApiAuthMiddleware.requireCountryEditPermission,
       async (req: Request, res: Response) => {
         try {

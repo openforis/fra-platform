@@ -1,7 +1,7 @@
 import { Express, Response, Request } from 'express'
 import { fetchInvitation, findUserByEmail } from '@server/repository/user/userRepository'
 import { sendErr } from '@server/utils/requestUtils'
-import { ApiEndPoint } from '@server/api/endpoint'
+import { ApiEndPoint } from '@common/api/endpoint'
 
 export const AuthGetInvitation = {
   init: (express: Express): void => {

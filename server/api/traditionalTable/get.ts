@@ -3,11 +3,11 @@ import * as Assessment from '@common/assessment/assessment'
 import * as VersionService from '@server/service/versioning/service'
 import * as repository from '@server/repository/traditionalTable/traditionalTableRepository'
 import * as Requests from '@server/utils/requestUtils'
-import { ApiEndPoint } from '@server/api/endpoint'
+import { ApiEndPoint } from '@common/api/endpoint'
 
 export const TraditionalTableGet = {
   init: (express: Express): void => {
-    express.get(ApiEndPoint.TraditionalTable.get, async (req: Request, res: Response) => {
+    express.get(ApiEndPoint.TraditionalTable.get(), async (req: Request, res: Response) => {
       try {
         const {
           params: { assessmentType, countryIso, tableSpecName },

@@ -1,6 +1,5 @@
 import * as R from 'ramda'
 import { ApiAuthMiddleware } from '@server/api/middleware'
-import { getCountry } from '@server/repository/country/getCountry'
 import * as db from '../db/db'
 
 import {
@@ -8,6 +7,7 @@ import {
   getPanEuropeanQuantitativeQuestionnaire,
   deletePanEuropeanQuantitativeQuestionnaire,
 } from './panEuropeanRepository'
+import { getCountry } from '../repository/country/countryRepository'
 
 import { sendErr } from '../utils/requestUtils'
 

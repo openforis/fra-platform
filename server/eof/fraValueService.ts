@@ -1,6 +1,6 @@
-import { getDynamicCountryConfiguration } from '@server/repository/country/getDynamicCountryConfiguration'
 import * as fraRepository from '../repository/eof/fraRepository'
 import * as odpRepository from '../repository/odp/odpRepository'
+import { getDynamicCountryConfiguration } from '../repository/country/countryRepository'
 
 import forestAreaTableResponse from './forestAreaTableResponse'
 import focTableResponse from './focTableResponse'

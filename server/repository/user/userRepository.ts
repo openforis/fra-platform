@@ -10,7 +10,6 @@ import FRA from '@common/assessment/fra'
 
 import { nationalCorrespondent, reviewer, collaborator, alternateNationalCorrespondent } from '@common/countryRole'
 import { userType } from '@common/userUtils'
-import { CountryRepository } from '@server/repository'
 import * as db from '../../db/db'
 import * as auditRepository from '../audit/auditRepository'
 import { fetchCollaboratorCountryAccessTables } from '../collaborators/collaboratorsRepository'
