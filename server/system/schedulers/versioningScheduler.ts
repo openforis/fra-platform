@@ -1,7 +1,7 @@
 import * as schedule from 'node-schedule'
-import * as versioningRepository from '../../versioning/versioningRepository'
+import * as versioningRepository from '../../repository/versioning/versioningRepository'
 
-export * as versioningRepository from '../../versioning/versioningRepository'
+export * as versioningRepository from '../../repository/versioning/versioningRepository'
 
 const handleNewVersion = async (version: any) => {
   const { id, versionNumber } = version
