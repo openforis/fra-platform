@@ -3,8 +3,6 @@ import * as R from 'ramda'
 import { CountryService } from '@server/service'
 import FraTableExporter from './fraTableExporter'
 
-import * as CountryService from '../../country/countryService'
-
 class CountryConfigExporter extends FraTableExporter {
   constructor() {
     super('', ['boreal', 'temperate', 'tropical', 'subtropical'])
