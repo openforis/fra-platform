@@ -1,6 +1,6 @@
 {
   "allowSyntheticDefaults": true,
-  "include": ["common", "server"],
+  "include": ["core", "common", "server"],
   "exclude": ["node_modules"],
   "compilerOptions": {
     "allowJs": true,
@@ -12,6 +12,7 @@
     "outDir": "./dist/",
     "baseUrl": ".",
     "paths": {
+      "@core/*": ["core/*"],
       "@common/*": ["common/*"],
       "@server/*": ["server/*"]
     },

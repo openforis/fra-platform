@@ -17,7 +17,7 @@ module.exports = {
   forgotPassword: 'هل نسيت كلمة المرور؟',
 
   notAuthorized: 'المستخدم غير مخوّل للدخول',
-  errorOccured: 'حدث خطأ',
+  errorOccurred: 'حدث خطأ',
   noInvitation: 'لم يُعثر على دعوة',
   noMatchPasswords: 'كلمة المرور غير مطابقة',
   noEmptyPassword: 'لا يمكنك ترك حيّز كلمة المرور خالياً',

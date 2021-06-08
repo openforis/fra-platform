@@ -1,7 +1,8 @@
 import * as R from 'ramda'
 
+import { ApiAuthMiddleware } from '@server/api/middleware'
 import * as db from '../db/db'
-import * as userRepository from './userRepository'
+import * as userRepository from '../repository/user/userRepository'
 import * as Request from '../utils/requestUtils'
 import { AccessControlException } from '../utils/accessControl'
 import { sendInvitation } from './sendInvitation'
@@ -15,10 +16,10 @@ import {
   reviewer,
 } from '../../common/countryRole'
 import { validate as validateUser, validEmail } from '../../common/userUtils'
-import * as Auth from '../auth/authApiMiddleware'
 
 const filterAllowedUsers = (countryIso: any, user: any, users: any) => {
   const allowedRoles = rolesAllowedToChange(countryIso, user)
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   return R.filter((userInList: any) => R.contains(userInList.role, allowedRoles), users)
 }
@@ -53,7 +54,7 @@ export const init = (app: any) => {
     }
   })
   // get all users / only admin can access it
-  app.get('/users', Auth.requireAdminPermission, async (req: any, res: any) => {
+  app.get('/users', ApiAuthMiddleware.requireAdminPermission, async (req: any, res: any) => {
     try {
       const url = (Request as any).serverUrl(req)
       const allUsers = await userRepository.fetchAllUsersAndInvitations(url)
@@ -64,12 +65,13 @@ export const init = (app: any) => {
     }
   })
   // add new user
-  app.post('/users/:countryIso', Auth.requireCountryEditPermission, async (req: any, res: any) => {
+  app.post('/users/:countryIso', ApiAuthMiddleware.requireCountryEditPermission, async (req: any, res: any) => {
     try {
       const newUser = req.body
       const { countryIso } = req.params
       const allowedRoles = rolesAllowedToChange(countryIso, req.user)
       if (!R.contains(newUser.role, allowedRoles)) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         throw new AccessControlException('error.access.roleChangeNotAllowed', {
           user: req.user.name,
@@ -83,6 +85,7 @@ export const init = (app: any) => {
         const countryRole = getCountryRole(countryIso, user)
         if (countryRole) {
           // User already added to country
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           throw new AccessControlException('error.access.userAlreadyAddedToCountry', {
             user: `${user.name} (${user.email})`,
@@ -121,7 +124,7 @@ export const init = (app: any) => {
     }
   })
   // remove user
-  app.delete('/users/:countryIso/', Auth.requireCountryEditPermission, async (req: any, res: any) => {
+  app.delete('/users/:countryIso/', ApiAuthMiddleware.requireCountryEditPermission, async (req: any, res: any) => {
     try {
       if (req.query.id) {
         await db.transaction(userRepository.removeUser, [req.user, req.params.countryIso, req.query.id])
@@ -140,7 +143,7 @@ export const init = (app: any) => {
     }
   })
   // get user
-  app.get('/users/user/:userId', Auth.requireCountryEditPermission, async (req: any, res: any) => {
+  app.get('/users/user/:userId', ApiAuthMiddleware.requireCountryEditPermission, async (req: any, res: any) => {
     try {
       const user = await userRepository.findUserById(req.params.userId)
       res.json({ user })
@@ -149,20 +152,24 @@ export const init = (app: any) => {
     }
   })
   // get user profile picture
-  app.get('/users/user/:userId/profilePicture/', Auth.requireCountryEditPermission, async (req: any, res: any) => {
-    try {
-      const profilePicture = await userRepository.getUserProfilePicture(req.params.userId)
-      if (profilePicture && profilePicture.data) {
-        res.end(profilePicture.data, 'binary')
-      } else {
-        res.sendFile(`${__dirname}/../static/avatar.png`)
+  app.get(
+    '/users/user/:userId/profilePicture/',
+    ApiAuthMiddleware.requireCountryEditPermission,
+    async (req: any, res: any) => {
+      try {
+        const profilePicture = await userRepository.getUserProfilePicture(req.params.userId)
+        if (profilePicture && profilePicture.data) {
+          res.end(profilePicture.data, 'binary')
+        } else {
+          res.sendFile(`${__dirname}/../static/avatar.png`)
+        }
+      } catch (err) {
+        ;(Request as any).sendErr(res, err)
       }
-    } catch (err) {
-      ;(Request as any).sendErr(res, err)
     }
-  })
+  )
   // update user
-  app.put('/users/user/', Auth.requireCountryEditPermission, async (req: any, res: any) => {
+  app.put('/users/user/', ApiAuthMiddleware.requireCountryEditPermission, async (req: any, res: any) => {
     try {
       const { user } = req
       const countryIso = JSON.parse(req.body.countryIso)
@@ -203,7 +210,7 @@ export const init = (app: any) => {
   })
   app.get(
     '/users/:countryIso/invitations/:invitationUuid/send',
-    Auth.requireCountryEditPermission,
+    ApiAuthMiddleware.requireCountryEditPermission,
     async (req: any, res: any) => {
       try {
         const url = (Request as any).serverUrl(req)
@@ -215,7 +222,7 @@ export const init = (app: any) => {
       }
     }
   )
-  app.get('/users/invitations/send', Auth.requireAdminPermission, async (req: any, res: any) => {
+  app.get('/users/invitations/send', ApiAuthMiddleware.requireAdminPermission, async (req: any, res: any) => {
     try {
       const url = (Request as any).serverUrl(req)
       const invitations = await userRepository.fetchAllInvitations(url)
