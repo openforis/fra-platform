@@ -7,6 +7,7 @@ import { getRegions } from '@server/repository/country/getRegions'
 import { getRegionCodes } from '@server/repository/country/getRegionCodes'
 import { getCountryIsos } from '@server/repository/country/getCountryIsos'
 import { getCountry } from '@server/repository/country/getCountry'
+import { saveDynamicConfigurationVariable } from '@server/repository/country/saveDynamicConfigurationVariable'
 
 export const CountryRepository = {
   getCountryIsos,
@@ -20,4 +21,6 @@ export const CountryRepository = {
   getRegionGroups,
   getRegions,
   getRegionCodes,
+
+  saveDynamicConfigurationVariable,
 }
