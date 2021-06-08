@@ -17,7 +17,7 @@ module.exports = {
   forgotPassword: 'Forgot your password?',
 
   notAuthorized: 'User not authorized',
-  errorOccured: 'Error occurred',
+  errorOccurred: 'Error occurred',
   noInvitation: 'Invitation not found',
   noMatchPasswords: "Passwords don't match",
   noEmptyPassword: 'Password cannot be empty',

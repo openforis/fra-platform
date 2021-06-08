@@ -2,7 +2,7 @@ const R = require('ramda')
 const Promise = require('bluebird')
 const fs = Promise.promisifyAll(require('fs'))
 const csv = Promise.promisifyAll(require('csv'))
-const countryConfig = require('../server/country/countryConfig')
+const countryConfig = require('../server/service/country/countryConfig')
 
 const exampleUsage =
   'node certifiedAreasCountryUdater.js exampleData/Certification.csv /tmp/countryConfigWithCertifiedAreas.json'
@@ -24,28 +24,22 @@ const getCertifiedAreas = async (fileName) => {
   const parsedData = await csv.parseAsync(rawData)
   const data = R.slice(2, undefined, parsedData)
 
-  const years = R.pipe(
-    R.head,
-    R.tail,
-  )(parsedData)
+  const years = R.pipe(R.head, R.tail)(parsedData)
   //   R.pipe(
   //   R.slice(1, 2),
   //   R.head,
   //   R.slice(1, undefined),
   // )(parsedData)
 
-  const getYearValues = obj => R.pipe(
-    years => years.map((y, i) => ({ [`${y}`]: obj[i + 1] })),
-    R.mergeAll
-  )(years)
+  const getYearValues = (obj) => R.pipe((years) => years.map((y, i) => ({ [`${y}`]: obj[i + 1] })), R.mergeAll)(years)
 
-  const rowObjects = R.pipe(R.map(
-    row => ({
+  const rowObjects = R.pipe(
+    R.map((row) => ({
       [`${row[countryIsoCol]}`]: {
         certifiedAreas: {
-          ...getYearValues(row)
-        }
-      }
+          ...getYearValues(row),
+        },
+      },
     })),
     R.mergeAll
   )(data)
@@ -60,7 +54,9 @@ const update = async (inputCsvFile, outputFile) => {
     fs.writeFileSync(outputFile, JSON.stringify(merged, null, '  '), 'utf8')
     console.log('Wrote merged values into: ', outputFile)
     console.log('You should manually copy them over the countryConfig values')
-  } catch (e) { console.log(e) }
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 update(inputCsvFile, outputFile)
