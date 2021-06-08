@@ -10,6 +10,7 @@ import FRA from '@common/assessment/fra'
 
 import { nationalCorrespondent, reviewer, collaborator, alternateNationalCorrespondent } from '@common/countryRole'
 import { userType } from '@common/userUtils'
+import { CountryService } from '@server/service'
 import * as db from '../../db/db'
 import * as auditRepository from '../audit/auditRepository'
 import { fetchCollaboratorCountryAccessTables } from '../collaborators/collaboratorsRepository'
@@ -31,7 +32,7 @@ export const findUserById = async (userId: any, client = db.pool) => {
   // TODO: For each assessment type, handle roles.
   // We currently have only fra2020
   const role = {
-    [FRA.type]: await CountryRepository.getAllowedCountries(roles),
+    [FRA.type]: await CountryService.getAllowedCountries(roles),
   }
   // TODO: Refactor backend to use role
   // roles is left here because it is used widely
