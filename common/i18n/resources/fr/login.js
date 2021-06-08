@@ -17,7 +17,7 @@ module.exports = {
   forgotPassword: 'Mot de passe oublié?',
 
   notAuthorized: 'Utilisateur non autorisé',
-  errorOccured: 'Erreur est survenue',
+  errorOccurred: 'Erreur est survenue',
   noInvitation: 'Invitation introuvable',
   noMatchPasswords: 'Les mots de passe ne correspondent pas',
   noEmptyPassword: 'Le mot de passe ne peut pas être vide',
