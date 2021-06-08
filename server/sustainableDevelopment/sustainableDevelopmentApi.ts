@@ -3,9 +3,11 @@ import * as R from 'ramda'
 import { sendErr } from '../utils/requestUtils'
 
 import { getFraValues } from '../eof/fraValueService'
-import { readObject } from '../traditionalTable/traditionalTableRepository'
+import { readObject } from '../repository/traditionalTable/traditionalTableRepository'
 
-import * as VersionService from '../versioning/service'
+import * as VersionService from '../service/versioning/service'
+
+// TODO: Deprecated?
 
 export const init = (app: any) => {
   app.get('/sustainableDevelopment/:countryIso', async (req: any, res: any) => {

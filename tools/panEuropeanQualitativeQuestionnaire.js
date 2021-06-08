@@ -1,6 +1,6 @@
 const Promise = require('bluebird')
 const R = require('ramda')
-const countryConfig = require('../server/country/countryConfig')
+const countryConfig = require('../server/service/country/countryConfig')
 
 const fs = Promise.promisifyAll(require('fs'))
 const csv = Promise.promisifyAll(require('csv'))
@@ -20,15 +20,20 @@ const outputFile = process.argv[3]
 
 const update = async (panEuropeanQualitativeQuestionnaireCsvFile, outputFile) => {
   try {
-    const rawPanEuropeanQualitativeQuestionnaireData = await fs.readFileAsync(panEuropeanQualitativeQuestionnaireCsvFile, {encoding: 'utf-8'})
-    const parsedPanEuropeanQualitativeQuestionnaireData = await csv.parseAsync(rawPanEuropeanQualitativeQuestionnaireData)
+    const rawPanEuropeanQualitativeQuestionnaireData = await fs.readFileAsync(
+      panEuropeanQualitativeQuestionnaireCsvFile,
+      { encoding: 'utf-8' }
+    )
+    const parsedPanEuropeanQualitativeQuestionnaireData = await csv.parseAsync(
+      rawPanEuropeanQualitativeQuestionnaireData
+    )
     const panEuropeanQualitativeQuestionnaireData = R.slice(1, undefined, parsedPanEuropeanQualitativeQuestionnaireData)
     const countryPanEuropeanQualitativeQuestionnaireData = R.reduce(
       (result, row) => {
         const panEuropean = {
-          qualitativeQuestionnaireUrl: row[3]
+          qualitativeQuestionnaireUrl: row[3],
         }
-        return R.assoc(row[0], {panEuropean}, result)
+        return R.assoc(row[0], { panEuropean }, result)
       },
       {},
       panEuropeanQualitativeQuestionnaireData
@@ -39,9 +44,9 @@ const update = async (panEuropeanQualitativeQuestionnaireCsvFile, outputFile) =>
 
     console.log('Wrote merged values into: ', outputFile)
     console.log('You should manually copy them over the countryConfig values')
-
-  } catch (e) { console.log(e) }
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 update(climaticDomainCsvFile, outputFile)
-
