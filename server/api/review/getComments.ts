@@ -3,12 +3,12 @@ import { ApiAuthMiddleware } from '@server/api/middleware'
 import * as reviewRepository from '@server/repository/review/reviewRepository'
 import * as R from 'ramda'
 import * as Requests from '@server/utils/requestUtils'
-import { ApiEndPoint } from '@server/api/endpoint'
+import { ApiEndPoint } from '@common/api/endpoint'
 
 export const ReviewGetComments = {
   init: (express: Express): void => {
     express.get(
-      ApiEndPoint.Review.getComments,
+      ApiEndPoint.Review.getComments(),
       ApiAuthMiddleware.requireCountryEditPermission,
       async (req: Request, res: Response) => {
         try {

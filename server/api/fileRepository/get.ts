@@ -1,12 +1,12 @@
 import { Express, Response, Request } from 'express'
 import { getFile } from '@server/repository/fileRepository/fileRepositoryRepository'
 import { sendErr } from '@server/utils/requestUtils'
-import { ApiEndPoint } from '@server/api/endpoint'
+import { ApiEndPoint } from '@common/api/endpoint'
 
 export const FileRepositoryGet = {
   init: (express: Express): void => {
     // get file
-    express.get(ApiEndPoint.FileRepository.get, async (req: Request, res: Response) => {
+    express.get(ApiEndPoint.FileRepository.get(), async (req: Request, res: Response) => {
       try {
         const file = await getFile(req.params.fileId)
 

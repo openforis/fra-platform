@@ -4,7 +4,7 @@ import * as db from '@server/db/db'
 import { changePassword } from '@server/repository/userResetPassword/userResetPasswordRepository'
 import { sendErr } from '@server/utils/requestUtils'
 import { Objects } from '@core/utils'
-import { ApiEndPoint } from '@server/api/endpoint'
+import { ApiEndPoint } from '@common/api/endpoint'
 import { passwordHash } from './utils/passwordHash'
 
 export const AuthChangePassword = {

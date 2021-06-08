@@ -9,7 +9,7 @@ import {
 import { sendErr, serverUrl } from '@server/utils/requestUtils'
 import { sendResetPasswordEmail } from '@server/api/auth/utils/resetPassword'
 import { Objects } from '@core/utils'
-import { ApiEndPoint } from '@server/api/endpoint'
+import { ApiEndPoint } from '@common/api/endpoint'
 
 export const AuthResetPassword = {
   init: (express: Express): void => {

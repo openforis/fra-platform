@@ -4,12 +4,12 @@ import { allowedToEditDataCheck } from '@server/assessment/assessmentEditAccessC
 import * as odpRepository from '@server/repository/odp/odpRepository'
 import * as R from 'ramda'
 import * as Requests from '@server/utils/requestUtils'
-import { ApiEndPoint } from '@server/api/endpoint'
+import { ApiEndPoint } from '@common/api/endpoint'
 
 export const OdpGetPrevious = {
   init: (express: Express): void => {
     express.get(
-      ApiEndPoint.Odp.getPrevious,
+      ApiEndPoint.Odp.getPrevious(),
       ApiAuthMiddleware.requireCountryEditPermission,
       async (req: Request, res: Response) => {
         try {

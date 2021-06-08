@@ -2,12 +2,12 @@ import { Express, Response, Request } from 'express'
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import { deleteVersion, getAllVersions } from '@server/repository/versioning/versioningRepository'
 import * as Requests from '@server/utils/requestUtils'
-import { ApiEndPoint } from '@server/api/endpoint'
+import { ApiEndPoint } from '@common/api/endpoint'
 
 export const VersioningDelete = {
   init: (express: Express): void => {
     express.delete(
-      ApiEndPoint.Versioning.delete,
+      ApiEndPoint.Versioning.delete(),
       ApiAuthMiddleware.requireAdminPermission,
       async (req: Request, res: Response) => {
         const { id } = req.params

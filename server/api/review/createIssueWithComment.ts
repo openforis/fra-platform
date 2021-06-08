@@ -4,12 +4,12 @@ import { allowedToEditCommentsCheck } from '@server/assessment/assessmentEditAcc
 import * as db from '@server/db/db'
 import * as reviewRepository from '@server/repository/review/reviewRepository'
 import * as Requests from '@server/utils/requestUtils'
-import { ApiEndPoint } from '@server/api/endpoint'
+import { ApiEndPoint } from '@common/api/endpoint'
 
 export const ReviewCreateIssueWithComment = {
   init: (express: Express): void => {
     express.post(
-      ApiEndPoint.Review.createIssueWithComments,
+      ApiEndPoint.Review.createIssueWithComments(),
       ApiAuthMiddleware.requireCountryEditPermission,
       async (req: Request, res: Response) => {
         try {

@@ -1,5 +1,5 @@
 import { Express, Response, Request } from 'express'
-import { ApiEndPoint } from '@server/api/endpoint'
+import { ApiEndPoint } from '@common/api/endpoint'
 
 export const AuthLogout = {
   init: (express: Express): void => {
