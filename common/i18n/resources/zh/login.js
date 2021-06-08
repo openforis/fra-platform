@@ -17,7 +17,7 @@ module.exports = {
   forgotPassword: '忘记密码？',
 
   notAuthorized: '用户没有权限',
-  errorOccured: '发生错误',
+  errorOccurred: '发生错误',
   noInvitation: '未找到邀请信息',
   noMatchPasswords: '密码不匹配',
   noEmptyPassword: '密码不能留空',

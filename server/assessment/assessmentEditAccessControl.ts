@@ -2,13 +2,13 @@ import * as R from 'ramda'
 import { roleForCountry, isCollaborator } from '../../common/countryRole'
 import { assessmentSections } from '../../common/assessmentSectionItems'
 import { AccessControlException } from '../utils/accessControl'
-import * as assessmentRepository from './assessmentRepository'
+import * as assessmentRepository from '../repository/assessment/assessmentRepository'
 import {
   isUserRoleAllowedToEditAssessmentData,
   isUserRoleAllowedToEditAssessmentComments,
   isCollaboratorAllowedToEditSectionData,
 } from '../../common/assessmentRoleAllowance'
-import { fetchCollaboratorCountryAccessTables } from '../collaborators/collaboratorsRepository'
+import { fetchCollaboratorCountryAccessTables } from '../repository/collaborators/collaboratorsRepository'
 
 export const assessmentForSection = (section: any) =>
   R.pipe(

@@ -17,7 +17,7 @@ module.exports = {
   forgotPassword: 'Забыли пароль?',
 
   notAuthorized: 'Пользователь не авторизован',
-  errorOccured: 'Произошла ошибка',
+  errorOccurred: 'Произошла ошибка',
   noInvitation: 'Приглашение не найдено',
   noMatchPasswords: 'Пароли не совпадают',
   noEmptyPassword: 'Пароль не может быть пустым',
