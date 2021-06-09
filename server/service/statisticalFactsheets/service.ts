@@ -1,5 +1,5 @@
 import * as Area from '@common/country/area'
-import * as CountryRepository from '../../repository/country/countryRepository'
+import { CountryService } from '@server/service'
 import * as Repository from '../../repository/statisticalFactsheets/statisticalFactsheetsRepository'
 
 export const getStatisticalFactsheetData = async (schemaName: any, level: any, rowNames: any) => {
@@ -18,16 +18,16 @@ export const getStatisticalFactsheetData = async (schemaName: any, level: any, r
   }
 
   // - regionCode        - AF, AS, EU...
-  const regions = await CountryRepository.getRegionCodes()
+  const regions = await CountryService.getRegionCodes()
   if (regions.includes(level)) {
     // Get countries for region
-    const countries = await CountryRepository.getCountryIsos(level)
+    const countries = await CountryService.getCountryIsos(level)
     if (isPrimaryForest) return Repository.getPrimaryForestData(schemaName, countries)
     return Repository.getStatisticalFactsheetData(schemaName, rowNames, countries)
   }
 
   // - countryIso        - FIN, ITA...
-  const countries = await CountryRepository.getCountryIsos()
+  const countries = await CountryService.getCountryIsos()
   if (countries.includes(level)) {
     return Repository.getSingleCountryStatisticalFactsheetData(schemaName, rowNames, level)
   }
