@@ -1,8 +1,7 @@
 import * as R from 'ramda'
 
+import { CountryService } from '@server/service'
 import FraTableExporter from './fraTableExporter'
-
-import * as CountryService from '../../country/countryService'
 
 class CountryConfigExporter extends FraTableExporter {
   constructor() {
@@ -13,7 +12,7 @@ class CountryConfigExporter extends FraTableExporter {
     return CountryService.getCountryConfigFull(countryIso)
   }
 
-  parseResultRow(result: any, yearIdx: any, year: any) {
+  parseResultRow(result: any) {
     return {
       boreal: R.path(['climaticDomainPercents', 'boreal'], result),
       temperate: R.path(['climaticDomainPercents', 'temperate'], result),

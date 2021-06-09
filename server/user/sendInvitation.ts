@@ -1,4 +1,4 @@
-import { getCountry } from '../repository/country/countryRepository'
+import { getCountry } from '@server/repository/country/getCountry'
 import { createI18nPromise } from '../../common/i18n/i18nFactory'
 import { sendMail } from '../service/email/sendMail'
 import { getRoleLabelKey } from '../../common/countryRole'
