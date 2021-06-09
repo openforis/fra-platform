@@ -1,5 +1,5 @@
+import * as Requests from '@server/utils/requestUtils'
 import { getLatestSchemaVersion } from '../../repository/versioning/versioningRepository'
-import * as Request from '../../utils/requestUtils'
 
 const defaultSchema = 'public'
 // Return correct schema name
@@ -8,7 +8,7 @@ const defaultSchema = 'public'
 // 2a. User exits: Return default schema name ('live version')
 // 2b. User doesn't exist: Return latest schema version ('frozen version')
 export const getDatabaseSchema = async (req: any) => {
-  const user = (Request as any).getUser(req)
+  const user = Requests.getUser(req)
   if (user) {
     return defaultSchema
   }
