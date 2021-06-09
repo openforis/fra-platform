@@ -5,7 +5,7 @@ import { ApiAuthMiddleware } from '@server/api/middleware'
 import { sendErr, serverUrl } from '@server/utils/requestUtils'
 import { createI18nPromise } from '@common/i18n/i18nFactory'
 import { findUserById } from '@server/repository/user/userRepository'
-import { getCountry } from '@server/repository/country/countryRepository'
+import { getCountry } from '@server/repository/country/getCountry'
 import { sendMail } from '@server/service/email/sendMail'
 import { ApiEndPoint } from '@common/api/endpoint'
 
