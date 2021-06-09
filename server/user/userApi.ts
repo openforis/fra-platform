@@ -1,9 +1,9 @@
 import * as R from 'ramda'
 
 import { ApiAuthMiddleware } from '@server/api/middleware'
+import * as Requests from '@server/utils/requestUtils'
 import * as db from '../db/db'
 import * as userRepository from '../repository/user/userRepository'
-import * as Request from '../utils/requestUtils'
 import { AccessControlException } from '../utils/accessControl'
 import { sendInvitation } from './sendInvitation'
 import { rolesAllowedToChange } from '../../common/userManagementAccessControl'
@@ -30,14 +30,14 @@ export const init = (app: any) => {
   app.post('/user/lang', (req: any, res: any) => {
     db.transaction(userRepository.updateLanguage, [req.query.lang, req.user])
       .then(() => res.json({}))
-      .catch((err: any) => (Request as any).sendErr(res, err))
+      .catch((err: any) => Requests.sendErr(res, err))
   })
   // get users and invitations list
   app.get('/users/:countryIso', async (req: any, res: any) => {
     try {
       const { countryIso } = req.params
       const print = req.query.print === 'true'
-      const url = (Request as any).serverUrl(req)
+      const url = Requests.serverUrl(req)
       const allCountryUsers = await userRepository.fetchUsersAndInvitations(countryIso, url)
       const fraReportCollaboratorsExcluded = R.pathOr([], ['env', 'FRA_REPORT_COLLABORATORS_EXCLUDED'])(process)
       const countryUsers = print
@@ -50,18 +50,18 @@ export const init = (app: any) => {
         : filterAllowedUsers(countryIso, req.user, allCountryUsers)
       res.json({ countryUsers })
     } catch (err) {
-      ;(Request as any).sendErr(res, err)
+      Requests.sendErr(res, err)
     }
   })
   // get all users / only admin can access it
   app.get('/users', ApiAuthMiddleware.requireAdminPermission, async (req: any, res: any) => {
     try {
-      const url = (Request as any).serverUrl(req)
+      const url = Requests.serverUrl(req)
       const allUsers = await userRepository.fetchAllUsersAndInvitations(url)
       const userCounts = await userRepository.getUserCountsByRole()
       res.json({ allUsers, userCounts })
     } catch (err) {
-      ;(Request as any).sendErr(res, err)
+      Requests.sendErr(res, err)
     }
   })
   // add new user
@@ -108,7 +108,7 @@ export const init = (app: any) => {
         const persistFunction = newUser.invitationUuid ? userRepository.updateInvitation : userRepository.addInvitation
         invitationUuid = await db.transaction(persistFunction, [req.user, countryIso, newUser])
       }
-      const url = (Request as any).serverUrl(req)
+      const url = Requests.serverUrl(req)
       await sendInvitation(
         countryIso,
         {
@@ -118,9 +118,9 @@ export const init = (app: any) => {
         req.user,
         url
       )
-      ;(Request as any).sendOk(res)
+      Requests.sendOk(res)
     } catch (err) {
-      ;(Request as any).sendErr(res, err)
+      Requests.sendErr(res, err)
     }
   })
   // remove user
@@ -135,11 +135,11 @@ export const init = (app: any) => {
           req.query.invitationUuid,
         ])
       } else {
-        ;(Request as any).sendErr(res, 'No id or invitationUuid given')
+        Requests.sendErr(res, 'No id or invitationUuid given')
       }
-      ;(Request as any).sendOk(res)
+      Requests.sendOk(res)
     } catch (err) {
-      ;(Request as any).sendErr(res, err)
+      Requests.sendErr(res, err)
     }
   })
   // get user
@@ -148,7 +148,7 @@ export const init = (app: any) => {
       const user = await userRepository.findUserById(req.params.userId)
       res.json({ user })
     } catch (err) {
-      ;(Request as any).sendErr(res, err)
+      Requests.sendErr(res, err)
     }
   })
   // get user profile picture
@@ -164,7 +164,7 @@ export const init = (app: any) => {
           res.sendFile(`${__dirname}/../static/avatar.png`)
         }
       } catch (err) {
-        ;(Request as any).sendErr(res, err)
+        Requests.sendErr(res, err)
       }
     }
   )
@@ -197,15 +197,15 @@ export const init = (app: any) => {
             profilePictureFile,
             !editingSelf,
           ])
-          ;(Request as any).sendOk(res)
+          Requests.sendOk(res)
         } else {
-          ;(Request as any).sendErr(res, { msg: 'Invalid User', ...validation })
+          Requests.sendErr(res, { msg: 'Invalid User', ...validation })
         }
       } else {
-        ;(Request as any).sendErr(res, 'Operation not allowed')
+        Requests.sendErr(res, 'Operation not allowed')
       }
     } catch (err) {
-      ;(Request as any).sendErr(res, err)
+      Requests.sendErr(res, err)
     }
   })
   app.get(
@@ -213,18 +213,18 @@ export const init = (app: any) => {
     ApiAuthMiddleware.requireCountryEditPermission,
     async (req: any, res: any) => {
       try {
-        const url = (Request as any).serverUrl(req)
+        const url = Requests.serverUrl(req)
         const invitation = await userRepository.fetchInvitation(req.params.invitationUuid, url)
         if (invitation) await sendInvitation(invitation.countryIso, invitation, req.user, url)
-        ;(Request as any).sendOk(res)
+        Requests.sendOk(res)
       } catch (err) {
-        ;(Request as any).sendErr(res, err)
+        Requests.sendErr(res, err)
       }
     }
   )
   app.get('/users/invitations/send', ApiAuthMiddleware.requireAdminPermission, async (req: any, res: any) => {
     try {
-      const url = (Request as any).serverUrl(req)
+      const url = Requests.serverUrl(req)
       const invitations = await userRepository.fetchAllInvitations(url)
       const sendInvitationPromises = invitations.map(async (invitation: any) => {
         if (validEmail(invitation)) {
@@ -237,7 +237,7 @@ export const init = (app: any) => {
       const sendInvitations = await Promise.all(sendInvitationPromises)
       res.send(sendInvitations.join('<br/><br/>'))
     } catch (error) {
-      ;(Request as any).sendErr(res, error)
+      Requests.sendErr(res, error)
     }
   })
 }
