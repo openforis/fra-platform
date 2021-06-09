@@ -1,7 +1,7 @@
 import { Express, Response, Request } from 'express'
 import * as Requests from '@server/utils/requestUtils'
 import { ApiEndPoint } from '@common/api/endpoint'
-import * as CountryService from '../../service/country/countryService'
+import { CountryService } from '@server/service'
 
 export const CountryGetRegionGroups = {
   init: (express: Express): void => {

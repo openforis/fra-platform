@@ -1,4 +1,3 @@
-
 import CSVOutput from '../csvOutput'
 
 import CountryConfigExporter from '../exporter/countryConfigExporter'
@@ -29,12 +28,12 @@ export const getCountryData = async (country: any) => {
     ...country,
     year,
     // country config
-    ...CountryConfigExporter.parseResultRow(countryConfig, yearIdx, year),
+    ...CountryConfigExporter.parseResultRow(countryConfig),
     // 1c, 1d
     ...ForestExpansionDeforestationNetChangeExporter.parseResultRow(
       forestExpansionDeforestationNetChange,
       yearIdx,
-      year,
+      year
     ),
     ...AnnualReforestationExporter.parseResultRow(annualReforestation, yearIdx, year),
   }))
