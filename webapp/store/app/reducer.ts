@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 import { exportReducer } from '@webapp/utils/reduxUtils'
 
-import { ActionTypes } from '@webapp/store/app/actions'
+import ActionTypes from '@webapp/store/app/actions/actionTypes'
 
 import * as AppState from './state'
 

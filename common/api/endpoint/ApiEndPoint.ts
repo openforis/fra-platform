@@ -13,17 +13,18 @@ export const ApiEndPoint = {
   },
 
   Auth: {
-    changePassword: '/auth/local/changePassword',
-    getInvitation: '/auth/invitation/:uuid',
+    loggedInUser: () => apiPath('loggedInUser'),
+    changePassword: () => '/auth/local/changePassword',
+    getInvitation: (uuid = ':uuid') => `/auth/invitation/${uuid}`,
     Login: {
-      local: '/auth/local/login',
-      google: '/auth/google',
-      googleCallback: '/auth/google/callback',
+      local: () => '/auth/local/login',
+      google: () => '/auth/google',
+      googleCallback: () => '/auth/google/callback',
     },
-    logout: '/auth/logout',
+    logout: () => joinPaths('auth', 'logout'),
     ResetPassword: {
-      create: '/auth/local/resetPassword',
-      get: '/auth/local/resetPassword/:uuid',
+      create: () => '/auth/local/resetPassword',
+      get: (uuid = ':uuid') => `/auth/local/resetPassword/${uuid}`,
     },
   },
 

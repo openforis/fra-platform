@@ -12,11 +12,13 @@ export const userManagementCollaboratorTableAccessUpdate = 'userManagement/table
 
 // list action creators
 
-export const fetchUsers = (countryIso: any, printView = false) => (dispatch: any) =>
-  axios
-    .get(`/api/users/${countryIso}?print=${printView}`)
-    .then((resp) => dispatch({ type: userManagementCountryUsersFetch, ...resp.data, newUser: newUser() }))
-    .catch((err) => dispatch(applicationError(err)))
+export const fetchUsers =
+  (countryIso: any, printView = false) =>
+  (dispatch: any) =>
+    axios
+      .get(`/api/users/${countryIso}?print=${printView}`)
+      .then((resp) => dispatch({ type: userManagementCountryUsersFetch, ...resp.data, newUser: newUser() }))
+      .catch((err) => dispatch(applicationError(err)))
 
 export const fetchAllUsers = () => (dispatch: any) =>
   axios
@@ -24,21 +26,23 @@ export const fetchAllUsers = () => (dispatch: any) =>
     .then((resp) => dispatch({ type: userManagementAllUsersFetch, ...resp.data }))
     .catch((err) => dispatch(applicationError(err)))
 
-export const removeUser = (countryIso: any, user: any, fetchAll = false) => (dispatch: any) => {
-  const queryParam = user.id ? `?id=${user.id}` : `?invitationUuid=${user.invitationUuid}`
-  axios
-    .delete(`/api/users/${countryIso}/${queryParam}`)
-    .then(() => {
-      if (fetchAll) {
-        dispatch(fetchAllUsers())
-      } else {
-        dispatch(fetchUsers(countryIso))
-      }
-    })
-    .catch((err) => {
-      dispatch(applicationError(err))
-    })
-}
+export const removeUser =
+  (countryIso: any, user: any, fetchAll = false) =>
+  (dispatch: any) => {
+    const queryParam = user.id ? `?id=${user.id}` : `?invitationUuid=${user.invitationUuid}`
+    axios
+      .delete(`/api/users/${countryIso}/${queryParam}`)
+      .then(() => {
+        if (fetchAll) {
+          dispatch(fetchAllUsers())
+        } else {
+          dispatch(fetchUsers(countryIso))
+        }
+      })
+      .catch((err) => {
+        dispatch(applicationError(err))
+      })
+  }
 
 export const sendInvitationEmail = (countryIso: any, invitationUuid: any) => (dispatch: any) =>
   axios
@@ -73,13 +77,11 @@ export const persistCollaboratorCountryAccess = (countryIso: any, userId: any, t
 
 // new user action creators
 
-export const updateNewUser = (countryIso: any, userId: any, field: any, value: any) => (
-  dispatch: any,
-  getState: any
-) => {
-  const user = updateUserField(field, value)(getState().userManagement.newUser)
-  dispatch({ type: userManagementNewUserUpdate, user })
-}
+export const updateNewUser =
+  (countryIso: any, userId: any, field: any, value: any) => (dispatch: any, getState: any) => {
+    const user = updateUserField(field, value)(getState().userManagement.newUser)
+    dispatch({ type: userManagementNewUserUpdate, user })
+  }
 
 export const addNewUser = (countryIso: any) => (dispatch: any, getState: any) => {
   const user = getState().userManagement.newUser
