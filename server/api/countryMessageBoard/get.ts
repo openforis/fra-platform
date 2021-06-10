@@ -8,7 +8,7 @@ import { ApiEndPoint } from '@common/api/endpoint'
 export const CountryMessageBoardGet = {
   init: (express: Express): void => {
     express.get(
-      ApiEndPoint.CountryMessageBoard.get(),
+      ApiEndPoint.CountryMessageBoard.getNew(),
       ApiAuthMiddleware.requireCountryEditPermission,
       async (req: Request, res: Response) => {
         try {
