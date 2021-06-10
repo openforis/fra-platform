@@ -50,7 +50,7 @@ export const ApiEndPoint = {
 
   CountryMessageBoard: {
     create: (countryIso = ':countryIso') => apiPath('countryMessageBoard', countryIso, 'message'),
-    get: (countryIso = ':countryIso') => apiPath('countryMessageBoard', countryIso, 'messages', 'new'),
+    getNew: (countryIso = ':countryIso') => apiPath('countryMessageBoard', countryIso, 'messages', 'new'),
     getAll: (countryIso = ':countryIso') => apiPath('countryMessageBoard', countryIso, 'messages', 'all'),
   },
 
