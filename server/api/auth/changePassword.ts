@@ -9,7 +9,7 @@ import { passwordHash } from './utils/passwordHash'
 
 export const AuthChangePassword = {
   init: (express: Express): void => {
-    express.post(ApiEndPoint.Auth.changePassword, async (req: Request, res: Response) => {
+    express.post(ApiEndPoint.Auth.changePassword(), async (req: Request, res: Response) => {
       try {
         const sendResp = (error: any = null, message: any = null) => res.json({ error, message })
 
