@@ -5,7 +5,7 @@ import { ApiEndPoint } from '@common/api/endpoint'
 
 export const AuthGetInvitation = {
   init: (express: Express): void => {
-    express.get(ApiEndPoint.Auth.getInvitation, async (req: Request, res: Response) => {
+    express.get(ApiEndPoint.Auth.getInvitation(), async (req: Request, res: Response) => {
       try {
         const invitation = await fetchInvitation(req.params.uuid, '')
         if (invitation) {
