@@ -2,6 +2,7 @@ import axios from 'axios'
 import * as R from 'ramda'
 
 import { applicationError } from '@webapp/components/error/actions'
+import { ApiEndPoint } from '@common/api/endpoint'
 import { newUser, updateUserField, validUser } from './userManagement'
 import * as autosave from '../../components/autosave/actions'
 
@@ -52,7 +53,7 @@ export const sendInvitationEmail = (countryIso: any, invitationUuid: any) => (di
 const postCollaboratorCountryAccess = (countryIso: any, userId: any, tables: any) => {
   const dispatched = (dispatch: any) => {
     axios
-      .post(`/api/collaboratorCountryAccess/${countryIso}`, { userId, tables })
+      .post(ApiEndPoint.Collaborators.create(countryIso), { userId, tables })
       .then(() => {
         dispatch(autosave.complete)
       })
