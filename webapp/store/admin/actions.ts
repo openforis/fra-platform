@@ -3,6 +3,7 @@ import { applicationError } from '@webapp/components/error/actions'
 
 import * as FRAVersion from '@common/versioning/fraVersion'
 import * as AdminState from '@webapp/store/admin/state'
+import { ApiEndPoint } from '@common/api/endpoint'
 
 export const versioningGetSuccess = 'versioning/get/success'
 export const versioningDeleteSuccess = 'versioning/get/success'
@@ -12,7 +13,7 @@ export const versioningUpdateForm = 'versioning/update/form'
 
 export const getVersions = () => (dispatch: any) => {
   axios
-    .get(`/api/versioning/`)
+    .get(ApiEndPoint.Versioning.getAll())
     .then(({ data }) => {
       dispatch({
         type: versioningGetSuccess,
@@ -54,7 +55,7 @@ export const createVersion = (_: any) => (dispatch: any, getState: any) => {
   newVersionForm.publishedAt = new Date(FRAVersion.getPublishedAt(newVersionForm)).toISOString()
 
   axios
-    .post(`/api/versioning/`, newVersionForm)
+    .post(ApiEndPoint.Versioning.create(), newVersionForm)
     .then((res) => {
       return dispatch({
         type: versioningPostSuccess,
@@ -70,7 +71,7 @@ export const deleteVersion = (id: any) => (dispatch: any) => {
   }
   console.log(id)
   axios
-    .delete(`/api/versioning/${id}`)
+    .delete(ApiEndPoint.Versioning.delete(id))
     .then((res) => {
       return dispatch({
         type: versioningDeleteSuccess,

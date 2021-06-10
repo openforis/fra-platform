@@ -13,6 +13,8 @@ import { applicationError } from '@webapp/components/error/actions'
 import * as autosave from '@webapp/app/components/autosave/actions'
 import { fetchCountryOverviewStatus } from '@webapp/app/country/actions'
 
+import { ApiEndPoint } from '@common/api/endpoint'
+import { Objects } from '@core/utils'
 import * as OriginalDataPointState from '../originalDataPointState'
 import * as ODP from '../originalDataPoint'
 import handlePaste from '../paste'
@@ -34,7 +36,11 @@ export const odpFetchCompleted = 'originalDataPoint/fetch/completed'
 export const odpListFetchCompleted = 'originalDataPointList/fetch/completed'
 
 export const fetch = (odpId: any, countryIso: any) => async (dispatch: any) => {
-  const { data } = await axios.get(`/api/odp/?${R.isNil(odpId) ? '' : `odpId=${odpId}&`}countryIso=${countryIso}`)
+  let url = ApiEndPoint.Odp.getMany()
+  if (!Objects.isEmpty(odpId)) {
+    url += `?odpId=${odpId}&countryIso=${countryIso}`
+  }
+  const { data } = await axios.get(url)
   if (R.isNil(odpId)) {
     dispatch(clearActive())
   } else {
@@ -44,7 +50,7 @@ export const fetch = (odpId: any, countryIso: any) => async (dispatch: any) => {
 }
 
 export const fetchOdps = (countryIso: any) => async (dispatch: any) => {
-  const { data } = await axios.get(`/api/odps/${countryIso}`)
+  const { data } = await axios.get(ApiEndPoint.Odp.get(countryIso))
   dispatch({ type: odpListFetchCompleted, data })
 }
 
@@ -56,7 +62,7 @@ const persistDraft = (countryIso: any, odp: any) => {
   const dispatched = async (dispatch: any, getState: any) => {
     const {
       data: { odpId },
-    } = await axios.post(`/api/odp/draft/?countryIso=${countryIso}`, ODP.removeClassPlaceholder(odp))
+    } = await axios.post(`${ApiEndPoint.Odp.createDraft()}?countryIso=${countryIso}`, ODP.removeClassPlaceholder(odp))
     const state = getState()
     const actions = [autosave.complete, { type: odpSaveDraftCompleted, odpId }]
 
@@ -91,46 +97,44 @@ export const saveDraft = (countryIso: any, odp: any) => (dispatch: any, getState
   dispatch(persistDraft(countryIso, odp))
 }
 
-export const cancelDraft = (countryIso: any, odpId: any, destination: any, history: any) => async (
-  dispatch: any,
-  getState: any
-) => {
-  if (odpId) {
-    const {
-      data: { odp },
-    } = await axios.delete(`/api/odp/draft/?odpId=${odpId}&countryIso=${countryIso}`)
+export const cancelDraft =
+  (countryIso: any, odpId: any, destination: any, history: any) => async (dispatch: any, getState: any) => {
+    if (odpId) {
+      const {
+        data: { odp },
+      } = await axios.delete(`${ApiEndPoint.Odp.deleteDraft()}?odpId=${odpId}&countryIso=${countryIso}`)
 
-    dispatch(batchActions(getUpdateTablesWithOdp(getState(), odp)))
-    history.push(BasePaths.getAssessmentSectionLink(countryIso, FRA.type, destination))
-  } else {
-    history.push(BasePaths.getAssessmentHomeLink(countryIso, FRA.type))
+      dispatch(batchActions(getUpdateTablesWithOdp(getState(), odp)))
+      history.push(BasePaths.getAssessmentSectionLink(countryIso, FRA.type, destination))
+    } else {
+      history.push(BasePaths.getAssessmentHomeLink(countryIso, FRA.type))
+    }
   }
-}
 
-export const markAsActual = (countryIso: any, odp: any, history: any, destination: any) => async (
-  dispatch: any,
-  getState: any
-) => {
-  const validationStatus = validateDataPoint(odp)
-  const { valid } = validationStatus
+export const markAsActual =
+  (countryIso: any, odp: any, history: any, destination: any) => async (dispatch: any, getState: any) => {
+    const validationStatus = validateDataPoint(odp)
+    const { valid } = validationStatus
 
-  const actions: any[] = [validationCompleted(validationStatus)]
-  if (valid) {
-    actions.push(autosave.start)
-    // Update tables 1a and 1b
-    actions.push(...getUpdateTablesWithOdp(getState(), odp, false))
+    const actions: any[] = [validationCompleted(validationStatus)]
+    if (valid) {
+      actions.push(autosave.start)
+      // Update tables 1a and 1b
+      actions.push(...getUpdateTablesWithOdp(getState(), odp, false))
+    }
+    dispatch(batchActions(actions))
+
+    if (valid) {
+      await axios.post(`${ApiEndPoint.Odp.markAsActual()}?odpId=${odp.odpId}&countryIso=${countryIso}`)
+      dispatch(batchActions([autosave.complete, clearActive(), fetchCountryOverviewStatus(countryIso)]))
+      history.push(BasePaths.getAssessmentSectionLink(countryIso, FRA.type, destination))
+    }
   }
-  dispatch(batchActions(actions))
-
-  if (valid) {
-    await axios.post(`/api/odp/markAsActual/?odpId=${odp.odpId}&countryIso=${countryIso}`)
-    dispatch(batchActions([autosave.complete, clearActive(), fetchCountryOverviewStatus(countryIso)]))
-    history.push(BasePaths.getAssessmentSectionLink(countryIso, FRA.type, destination))
-  }
-}
 
 export const copyPreviousNationalClasses = (countryIso: any, odp: any) => async (dispatch: any) => {
-  const { data: prevOdp } = await axios.get(`/api/prevOdp/${countryIso}/${odp.year}?countryIso=${countryIso}`)
+  const { data: prevOdp } = await axios.get(
+    `${ApiEndPoint.Odp.getPrevious(countryIso, odp.year)}?countryIso=${countryIso}`
+  )
   if (prevOdp.nationalClasses) {
     dispatch(saveDraft(countryIso, ODP.copyNationalClassDefinitions(odp, prevOdp)))
   } else {
@@ -138,16 +142,14 @@ export const copyPreviousNationalClasses = (countryIso: any, odp: any) => async 
   }
 }
 
-export const updateNationalClassValue = (index: any, fieldName: any, valueCurrent: any, valueUpdate: any) => (
-  dispatch: any,
-  getState: any
-) => {
-  const state = getState()
-  const odp = OriginalDataPointState.getActive(state)
-  const countryIso = AppState.getCountryIso(state)
-  const odpUpdate = ODP.updateNationalClass(odp, index, fieldName, acceptNextDecimal(valueUpdate, valueCurrent))
-  dispatch(saveDraft(countryIso, odpUpdate))
-}
+export const updateNationalClassValue =
+  (index: any, fieldName: any, valueCurrent: any, valueUpdate: any) => (dispatch: any, getState: any) => {
+    const state = getState()
+    const odp = OriginalDataPointState.getActive(state)
+    const countryIso = AppState.getCountryIso(state)
+    const odpUpdate = ODP.updateNationalClass(odp, index, fieldName, acceptNextDecimal(valueUpdate, valueCurrent))
+    dispatch(saveDraft(countryIso, odpUpdate))
+  }
 
 // ====== Paste
 export const pasteNationalClassValues = (props: any) => (dispatch: any, getState: any) => {
@@ -162,25 +164,23 @@ export const pasteNationalClassValues = (props: any) => (dispatch: any, getState
 }
 
 // ====== Delete
-export const remove = (countryIso: any, odp: any, destination: any, history: any) => async (
-  dispatch: any,
-  getState: any
-) => {
-  // If we delete ODP that has a FRA year,
-  // get the corresponding FRA object and update state
-  await axios.delete(`/api/odp/?odpId=${odp.odpId}&countryIso=${countryIso}`)
+export const remove =
+  (countryIso: any, odp: any, destination: any, history: any) => async (dispatch: any, getState: any) => {
+    // If we delete ODP that has a FRA year,
+    // get the corresponding FRA object and update state
+    await axios.delete(`${ApiEndPoint.Odp.delete()}?odpId=${odp.odpId}&countryIso=${countryIso}`)
 
-  const actions = [
-    clearActive(),
-    fetchCountryOverviewStatus(countryIso),
-    ...getUpdateTablesWithNotOdp(getState(), Number(odp.year)),
-  ]
+    const actions = [
+      clearActive(),
+      fetchCountryOverviewStatus(countryIso),
+      ...getUpdateTablesWithNotOdp(getState(), Number(odp.year)),
+    ]
 
-  dispatch(batchActions(actions))
-  history.push(BasePaths.getAssessmentSectionLink(countryIso, FRA.type, destination))
-}
+    dispatch(batchActions(actions))
+    history.push(BasePaths.getAssessmentSectionLink(countryIso, FRA.type, destination))
+  }
 
 export const removeFromList = (countryIso: any, odpId: any) => async (dispatch: any) => {
-  await axios.delete(`/api/odp/?odpId=${odpId}&countryIso=${countryIso}`)
+  await axios.delete(`${ApiEndPoint.Odp.delete()}?odpId=${odpId}&countryIso=${countryIso}`)
   dispatch(batchActions([fetchCountryOverviewStatus(countryIso), fetchOdps(countryIso)]))
 }
