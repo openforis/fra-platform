@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { ApiEndPoint } from '@common/api/endpoint'
 import { applicationError } from '../../../../components/error/actions'
 import { fetchCountryOverviewStatus } from '../../../country/actions'
 
@@ -20,33 +21,8 @@ const sectionCommentsReceived = (section: any, target: any, dispatch: any) => (r
   })
 }
 
-export const postComment = (issueId: any, countryIso: any, section: any, target: any, userId: any, msg: any) => (
-  dispatch: any
-) => {
-  const api = issueId ? `/api/review/${issueId}` : `/api/review/${countryIso}/${section}?target=${target}`
-  axios
-    .post(api, { msg })
-    .then(() => {
-      dispatch({ target, type: issuePostCommentCompleted, status: 'completed' })
-      dispatch(getIssueSummary(countryIso, section, target))
-      dispatch(fetchCountryOverviewStatus(countryIso))
-      axios
-        .get(`/api/review/${countryIso}/${section}?target=${target}`)
-        .then(sectionCommentsReceived(section, target, dispatch))
-        .catch((err) => dispatch(applicationError(err)))
-    })
-    .catch((err) => dispatch(applicationError(err)))
-}
-
-export const retrieveComments = (countryIso: any, section: any, target: any) => (dispatch: any) => {
-  dispatch({ section, type: issueRetrieveCommentsStarted, status: 'started' })
-  axios
-    .get(`/api/review/${countryIso}/${section}?target=${target}`)
-    .then(sectionCommentsReceived(section, target, dispatch))
-}
-
 export const getIssueSummary = (countryIso: any, section: any, target: any) => (dispatch: any) => {
-  axios.get(`/api/review/${countryIso}/${section}/summary?target=${target}`).then((resp) => {
+  axios.get(`${ApiEndPoint.Review.getSummary(countryIso, section)}?target=${target}`).then((resp) => {
     dispatch({
       type: issueGetSummaryCompleted,
       section,
@@ -57,6 +33,32 @@ export const getIssueSummary = (countryIso: any, section: any, target: any) => (
       hasUnreadIssues: resp.data.hasUnreadIssues,
     })
   })
+}
+
+export const postComment =
+  (issueId: any, countryIso: any, section: any, target: any, userId: any, msg: any) => (dispatch: any) => {
+    const api = issueId
+      ? ApiEndPoint.Review.create(issueId)
+      : `${ApiEndPoint.Review.createIssueWithComments(countryIso, section)}?target=${target}`
+    axios
+      .post(api, { msg })
+      .then(() => {
+        dispatch({ target, type: issuePostCommentCompleted, status: 'completed' })
+        dispatch(getIssueSummary(countryIso, section, target))
+        dispatch(fetchCountryOverviewStatus(countryIso))
+        axios
+          .get(`${ApiEndPoint.Review.getComments(countryIso, section)}?target=${target}`)
+          .then(sectionCommentsReceived(section, target, dispatch))
+          .catch((err) => dispatch(applicationError(err)))
+      })
+      .catch((err) => dispatch(applicationError(err)))
+  }
+
+export const retrieveComments = (countryIso: any, section: any, target: any) => (dispatch: any) => {
+  dispatch({ section, type: issueRetrieveCommentsStarted, status: 'started' })
+  axios
+    .get(`${ApiEndPoint.Review.getComments(countryIso, section)}?target=${target}`)
+    .then(sectionCommentsReceived(section, target, dispatch))
 }
 
 export const openCommentThread = (countryIso: any, section: any, target: any, title: any) => (dispatch: any) => {
@@ -81,7 +83,7 @@ export const markCommentAsDeleted = (countryIso: any, section: any, target: any,
 
 export const markIssueAsResolved = (countryIso: any, section: any, target: any, issueId: any) => (dispatch: any) => {
   axios
-    .post(`/api/issue/markAsResolved?issueId=${issueId}`)
+    .post(`${ApiEndPoint.Review.markResolved()}?issueId=${issueId}`)
     .then(() => {
       dispatch(retrieveComments(countryIso, section, target))
       dispatch(getIssueSummary(countryIso, section, target))
