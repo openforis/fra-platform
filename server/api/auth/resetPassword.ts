@@ -14,7 +14,7 @@ import { ApiEndPoint } from '@common/api/endpoint'
 export const AuthResetPassword = {
   init: (express: Express): void => {
     // eslint-disable-next-line no-undef
-    express.post(ApiEndPoint.Auth.ResetPassword.create, async (req: Request, res: Response) => {
+    express.post(ApiEndPoint.Auth.ResetPassword.create(), async (req: Request, res: Response) => {
       try {
         const { email } = req.body
 
@@ -43,7 +43,7 @@ export const AuthResetPassword = {
       }
     })
 
-    express.get(ApiEndPoint.Auth.ResetPassword.get, async (req: Request, res: Response) => {
+    express.get(ApiEndPoint.Auth.ResetPassword.get(), async (req: Request, res: Response) => {
       try {
         const resetPassword = await db.transaction(findResetPassword, [req.params.uuid])
         if (resetPassword) {
