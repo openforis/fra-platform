@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { getUrlParameter } from '@webapp/utils/urlUtils'
+import { ApiEndPoint } from '@common/api/endpoint'
 
 export const loginInitLoaded = 'login/init/loaded'
 export const loginUserPropChanged = 'login/userProp/changed'
@@ -9,7 +10,7 @@ export const initLogin = () => (dispatch: any) => {
 
   const invitationUUID = getUrlParameter('i')
   if (invitationUUID) {
-    axios.get(`/auth/invitation/${invitationUUID}`).then((res) => {
+    axios.get(ApiEndPoint.Auth.getInvitation(invitationUUID)).then((res) => {
       const { invitation, user } = res.data
       dispatch({
         type: loginInitLoaded,
@@ -35,7 +36,7 @@ export const localLoginReset = () => (dispatch: any) => dispatch({ type: localLo
 
 export const localLoginSubmit = (user: any, invitationUUID: any) => (dispatch: any) => {
   axios
-    .post('/auth/local/login', { invitationUUID, ...user })
+    .post(ApiEndPoint.Auth.Login.local(), { invitationUUID, ...user })
     .then((resp) => {
       const { data } = resp
       if (data.redirectUrl) {
@@ -52,7 +53,7 @@ export const resetPasswordFormReset = () => (dispatch: any) =>
 
 export const resetPassword = (email: any) => (dispatch: any) => {
   axios
-    .post('/auth/local/resetPassword', { email })
+    .post(ApiEndPoint.Auth.ResetPassword.create(), { email })
     .then((resp) => {
       const { data } = resp
 
@@ -68,7 +69,7 @@ export const changePasswordResponseLoaded = 'changePassword/response/loaded'
 
 export const findResetPassword = (uuid: any) => (dispatch: any) => {
   axios
-    .get(`/auth/local/resetPassword/${uuid}`)
+    .get(ApiEndPoint.Auth.ResetPassword.get(uuid))
     .then((resp) => {
       dispatch({ type: resetPasswordLoaded, status: 'loaded', resetPassword: resp.data })
     })
@@ -77,7 +78,7 @@ export const findResetPassword = (uuid: any) => (dispatch: any) => {
 
 export const changePassword = (uuid: any, userId: any, password: any, password2: any) => (dispatch: any) => {
   axios
-    .post(`/auth/local/changePassword`, { uuid, userId, password, password2 })
+    .post(ApiEndPoint.Auth.changePassword(), { uuid, userId, password, password2 })
     .then((resp) => {
       const { message, error } = resp.data
       dispatch({ type: changePasswordResponseLoaded, message, error })
