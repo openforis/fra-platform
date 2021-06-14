@@ -1,13 +1,13 @@
 import { Express, Response, Request } from 'express'
 import * as Assessment from '@common/assessment/assessment'
 import * as VersionService from '@server/service/versioning/service'
-import * as repository from '@server/repository/traditionalTable/traditionalTableRepository'
-import * as Requests from '@server/utils/requestUtils'
+import { Requests } from '@server/utils'
 import { ApiEndPoint } from '@common/api/endpoint'
+import { DataTableService } from '@server/service'
 
-export const TraditionalTableGet = {
+export const DataTableRead = {
   init: (express: Express): void => {
-    express.get(ApiEndPoint.TraditionalTable.get(), async (req: Request, res: Response) => {
+    express.get(ApiEndPoint.DataTable.get(), async (req: Request, res: Response) => {
       try {
         const {
           params: { assessmentType, countryIso, tableSpecName },
@@ -15,7 +15,7 @@ export const TraditionalTableGet = {
         const schemaName = Assessment.isTypePanEuropean(assessmentType)
           ? 'pan_european'
           : await VersionService.getDatabaseSchema(req)
-        const result = await repository.read(countryIso, tableSpecName, schemaName)
+        const result = await DataTableService.read(countryIso, tableSpecName, schemaName)
         res.json(result)
       } catch (err) {
         Requests.sendErr(res, err)

@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 import { sum } from '@common/bignumberUtils'
 
-import TraditionalTableExporter from '../../exporter/traditionalTableExporter'
+import DataTableExporter from '../../exporter/dataTableExporter'
 
 const fieldsIdx: { [key: string]: number | null } = {
   'native_#1': 0,
@@ -26,7 +26,7 @@ const fieldsIdx: { [key: string]: number | null } = {
   total_gs: null,
 }
 
-class GrowingStockCompositionExporter extends TraditionalTableExporter {
+class GrowingStockCompositionExporter extends DataTableExporter {
   constructor() {
     super(
       'growingStockComposition',

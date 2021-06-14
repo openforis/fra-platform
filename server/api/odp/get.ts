@@ -3,7 +3,7 @@ import * as odpRepository from '@server/repository/odp/odpRepository'
 import { checkCountryAccessFromReqParams } from '@server/utils/accessControl'
 import * as reviewRepository from '@server/repository/review/reviewRepository'
 import * as R from 'ramda'
-import * as Requests from '@server/utils/requestUtils'
+import { Requests } from '@server/utils'
 import { ApiEndPoint } from '@common/api/endpoint'
 
 export const OdpGet = {

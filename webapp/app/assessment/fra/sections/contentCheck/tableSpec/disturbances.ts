@@ -1,5 +1,5 @@
-import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
-import disturbances from '@server/traditionalTable/mappings/fra/disturbances'
+import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import disturbances from '@server/dataTable/mappings/fra/disturbances'
 import section from '../section'
 
 const tableSpec = SectionSpec.newTableSpec({

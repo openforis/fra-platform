@@ -2,7 +2,7 @@ import * as R from 'ramda'
 
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import * as db from '../db/db'
-import { sendErr, sendOk } from '../utils/requestUtils'
+import { sendErr, sendOk } from '../utils/requests'
 
 import * as fraRepository from '../repository/eof/fraRepository'
 import * as odpRepository from '../repository/odp/odpRepository'

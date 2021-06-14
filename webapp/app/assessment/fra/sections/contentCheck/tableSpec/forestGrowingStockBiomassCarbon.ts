@@ -1,5 +1,5 @@
-import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
-import forestGrowingStockBiomassCarbon from '@common/model/traditionalTable/contentCheck/forestGrowingStockBiomassCarbon'
+import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import forestGrowingStockBiomassCarbon from '@common/model/dataTable/contentCheck/forestGrowingStockBiomassCarbon'
 import section from '../section'
 
 const tableSpec = SectionSpec.newTableSpec({

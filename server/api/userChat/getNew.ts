@@ -2,7 +2,7 @@ import { Express, Response, Request } from 'express'
 import { checkCountryAccessFromReqParams } from '@server/utils/accessControl'
 import * as db from '@server/db/db'
 import { getChatUnreadMessages } from '@server/repository/userChat/userChatRepository'
-import { sendErr } from '@server/utils/requestUtils'
+import { sendErr } from '@server/utils/requests'
 import { ApiEndPoint } from '@common/api/endpoint'
 
 export const UserChatGetNew = {
