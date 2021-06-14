@@ -24,7 +24,7 @@ const getPostUrl = ({ countryIso, sectionName, tableName }: any) => {
   if (growingStock.name === sectionName) {
     return ApiEndPoint.GrowingStock.create(countryIso)
   }
-  return ApiEndPoint.TraditionalTable.create(countryIso, tableName)
+  return ApiEndPoint.DataTable.create(countryIso, tableName)
 }
 
 /**

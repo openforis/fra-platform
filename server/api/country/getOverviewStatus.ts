@@ -1,5 +1,5 @@
 import { Express, Response, Request } from 'express'
-import * as Requests from '@server/utils/requestUtils'
+import { Requests } from '@server/utils'
 import * as odpRepository from '@server/repository/odp/odpRepository'
 import * as reviewRepository from '@server/repository/review/reviewRepository'
 import { isCollaborator, roleForCountry } from '@common/countryRole'

@@ -3,7 +3,7 @@ import { ApiEndPoint } from '@common/api/endpoint'
 import * as db from '../../db/db'
 
 import { checkCountryAccessFromReqParams } from '../../utils/accessControl'
-import { sendErr } from '../../utils/requestUtils'
+import { sendErr } from '../../utils/requests'
 
 import { fetchCountryUsers } from '../../repository/user/userRepository'
 import { getChatSummary } from '../../repository/userChat/userChatRepository'

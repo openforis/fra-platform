@@ -1,6 +1,6 @@
-import TraditionalTableExporter from '../../exporter/traditionalTableExporter'
+import DataTableExporter from '../../exporter/dataTableExporter'
 
-class AnnualReforestationExporter extends TraditionalTableExporter {
+class AnnualReforestationExporter extends DataTableExporter {
   constructor() {
     super('annualReforestation', ['reforestation'], '1e')
   }

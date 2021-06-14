@@ -110,11 +110,11 @@ export const ApiEndPoint = {
   StatisticalFactsheets: {
     get: () => apiPath('statisticalFactsheets'),
   },
-  TraditionalTable: {
+  DataTable: {
     create: (countryIso = ':countryIso', tableSpecName = ':tableSpecName') =>
-      apiPath('traditionalTable', countryIso, tableSpecName),
+      apiPath('dataTable', countryIso, tableSpecName),
     get: (assessmentType = ':assessmentType', countryIso = ':countryIso', tableSpecName = ':tableSpecName') =>
-      apiPath('traditionalTable', assessmentType, countryIso, tableSpecName),
+      apiPath('dataTable', assessmentType, countryIso, tableSpecName),
   },
   UserChat: {
     create: (countryIso = ':countryIso') => apiPath('userChat', countryIso, 'message'),
