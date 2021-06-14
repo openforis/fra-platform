@@ -1,8 +1,8 @@
 import * as R from 'ramda'
 
-import TraditionalTableExporter from '../../exporter/traditionalTableExporter'
+import DataTableExporter from '../../exporter/dataTableExporter'
 
-class SpecificForestCategoriesExporter extends TraditionalTableExporter {
+class SpecificForestCategoriesExporter extends DataTableExporter {
   constructor() {
     super('specificForestCategories', ['mangroves'], '1c')
   }

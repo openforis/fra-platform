@@ -1,10 +1,9 @@
-import * as traditionalTableRepository from '@server/repository/traditionalTable/traditionalTableRepository'
-import { CountryService } from '@server/service'
+import { DataTableService, CountryService } from '@server/service'
 
 export const getCountryConfigFull = async (countryIso: string, schemaName = 'public') => {
   const [config, result] = await Promise.all([
     CountryService.getCountryConfig(countryIso, schemaName),
-    traditionalTableRepository.read(countryIso, 'climaticDomain', schemaName),
+    DataTableService.read(countryIso, 'climaticDomain', schemaName),
   ])
 
   const climaticDomainPercents = {

@@ -1,14 +1,14 @@
 import * as R from 'ramda'
 import { totalSum } from '@common/aggregate'
 
-import * as TraditionalTableService from '../../../repository/traditionalTable/traditionalTableRepository'
+import { DataTableService } from '@server/service'
 import CsvOutput from '../csvOutput'
 
 export const fields = ['product', 'name', 'key_species', 'quantity', 'unit', 'value', 'nwfp_category']
 
 export const getCountryData = async (country: any) => {
   const result = []
-  const data = await TraditionalTableService.read(country.countryIso, 'nonWoodForestProductsRemovals')
+  const data = await DataTableService.read(country.countryIso, 'nonWoodForestProductsRemovals')
 
   // @ts-ignore
   const getColValue = (row: any, col: any) => R.pipe(R.defaultTo([]), R.prop(row), R.defaultTo([]), R.prop(col))(data)

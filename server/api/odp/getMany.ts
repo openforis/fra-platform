@@ -2,7 +2,7 @@ import { Express, Response, Request } from 'express'
 import * as VersionService from '@server/service/versioning/service'
 import * as R from 'ramda'
 import * as odpRepository from '@server/repository/odp/odpRepository'
-import * as Requests from '@server/utils/requestUtils'
+import { Requests } from '@server/utils'
 import { ApiEndPoint } from '@common/api/endpoint'
 
 export const OdpGetMany = {
