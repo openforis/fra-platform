@@ -1,4 +1,4 @@
-import * as Requests from '@server/utils/requestUtils'
+import { Requests } from '@server/utils'
 import { checkCountryAccessFromReqParams, checkAdminAccess } from '../../utils/accessControl'
 import { allowedToEditDataCheck } from '../../assessment/assessmentEditAccessControl'
 

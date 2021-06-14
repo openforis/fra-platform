@@ -1,8 +1,8 @@
 import * as R from 'ramda'
 
-import TraditionalTableExporter from '../../exporter/traditionalTableExporter'
+import DataTableExporter from '../../exporter/dataTableExporter'
 
-class PoliciesLegislationNationalPlatformExporter extends TraditionalTableExporter {
+class PoliciesLegislationNationalPlatformExporter extends DataTableExporter {
   constructor() {
     super(
       'forestPolicy',

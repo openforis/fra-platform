@@ -2,7 +2,7 @@ import { Express, Response, Request } from 'express'
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import * as db from '@server/db/db'
 import { deleteFile } from '@server/repository/fileRepository/fileRepositoryRepository'
-import { sendErr } from '@server/utils/requestUtils'
+import { sendErr } from '@server/utils/requests'
 import { ApiEndPoint } from '@common/api/endpoint'
 
 export const FileRepositoryDelete = {
