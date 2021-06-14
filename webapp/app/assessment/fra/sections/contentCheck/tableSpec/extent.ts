@@ -1,5 +1,5 @@
-import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
-import extent from '@common/model/traditionalTable/contentCheck/extent'
+import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import extent from '@common/model/dataTable/contentCheck/extent'
 import section from '../section'
 
 const tableSpec = SectionSpec.newTableSpec({

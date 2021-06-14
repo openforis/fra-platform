@@ -1,6 +1,6 @@
-import TraditionalTableExporter from '../../exporter/traditionalTableExporter'
+import DataTableExporter from '../../exporter/dataTableExporter'
 
-class AreaAffectedByFireExporter extends TraditionalTableExporter {
+class AreaAffectedByFireExporter extends DataTableExporter {
   constructor() {
     super('areaAffectedByFire', ['fire_land', 'fire_forest'], '5b')
   }

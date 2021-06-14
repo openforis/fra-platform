@@ -1,14 +1,14 @@
 import * as R from 'ramda'
 
-import TraditionalTableExporter from '../../exporter/traditionalTableExporter'
+import DataTableExporter from '../../exporter/dataTableExporter'
 
-class DegradedForestExporter extends TraditionalTableExporter {
+class DegradedForestExporter extends DataTableExporter {
   constructor() {
     super('degradedForest', ['y_n'], '5c')
   }
 
   parseResultRow(result: any, yearIdx: any) {
-    const resultRow: {[key: string]: any} = {}
+    const resultRow: { [key: string]: any } = {}
 
     this.fields.forEach((field: any, fieldIdx: any) => {
       resultRow[field] = R.path([fieldIdx, 0], result)

@@ -1,13 +1,29 @@
+// @ts-ignore
+import * as camelize from 'camelize'
+
 import * as R from 'ramda'
 
-import { sendErr } from '../utils/requestUtils'
+import { read } from '@server/repository/dataTable/read'
+import { Requests } from '@server/utils'
 
 import { getFraValues } from '../eof/fraValueService'
-import { readObject } from '../repository/traditionalTable/traditionalTableRepository'
 
 import * as VersionService from '../service/versioning/service'
 
 // TODO: Deprecated?
+// Read an object instead of the matrix that plain read returns.
+// This can be used when you need programmatical access to the data
+// outside of the automated traditionalTable FW (in other views or calculations)
+export const readObject = async (countryIso: any, tableSpecName: any, schemaName = 'public') => {
+  const rows = await read(countryIso, tableSpecName, schemaName)
+  if (rows === null) return null
+  return R.pipe(
+    R.values,
+    R.map((row: any) => [row.row_name, R.dissoc('row_name', row)]),
+    R.fromPairs,
+    camelize
+  )(rows)
+}
 
 export const init = (app: any) => {
   app.get('/sustainableDevelopment/:countryIso', async (req: any, res: any) => {
@@ -32,7 +48,7 @@ export const init = (app: any) => {
         forestAreaWithinProtectedAreas,
       })
     } catch (err) {
-      sendErr(res, err)
+      Requests.sendErr(res, err)
     }
   })
 }

@@ -6,7 +6,7 @@ import {
   createResetPassword,
   findResetPassword,
 } from '@server/repository/userResetPassword/userResetPasswordRepository'
-import { sendErr, serverUrl } from '@server/utils/requestUtils'
+import { sendErr, serverUrl } from '@server/utils/requests'
 import { sendResetPasswordEmail } from '@server/api/auth/utils/resetPassword'
 import { Objects } from '@core/utils'
 import { ApiEndPoint } from '@common/api/endpoint'
