@@ -1,6 +1,6 @@
 import { Express, Response, Request } from 'express'
 import { downloadFile, fileTypes } from '@server/service/fileRepository/fileRepository'
-import { sendErr } from '@server/utils/requestUtils'
+import { sendErr } from '@server/utils/requests'
 import { ApiEndPoint } from '@common/api/endpoint'
 
 export const FileRepositoryGetDataDownload = {

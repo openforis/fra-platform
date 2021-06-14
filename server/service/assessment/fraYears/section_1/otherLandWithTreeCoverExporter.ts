@@ -1,6 +1,6 @@
-import TraditionalTableExporter from '../../exporter/traditionalTableExporter'
+import DataTableExporter from '../../exporter/dataTableExporter'
 
-class OtherLandWithTreeCoverExporter extends TraditionalTableExporter {
+class OtherLandWithTreeCoverExporter extends DataTableExporter {
   constructor() {
     super('otherLandWithTreeCover', ['palms', 'treeOrchards', 'agroforestry', 'treesUrbanSettings', 'other'], '1f')
   }

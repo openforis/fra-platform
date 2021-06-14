@@ -3,9 +3,9 @@ import * as R from 'ramda'
 import { sub } from '@common/bignumberUtils'
 import { getForestAreaForYear } from '@common/extentOfForestHelper'
 
-import TraditionalTableExporter from '../../exporter/traditionalTableExporter'
+import DataTableExporter from '../../exporter/dataTableExporter'
 
-class ForestOwnershipExporter extends TraditionalTableExporter {
+class ForestOwnershipExporter extends DataTableExporter {
   constructor() {
     super('forestOwnership', ['priv_own', 'individ', 'bus_inst_fo', 'indigenous_fo', 'pub_own', 'fo_unknown'], '4a')
   }

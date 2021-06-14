@@ -2,9 +2,9 @@ import * as R from 'ramda'
 
 import { sub } from '@common/bignumberUtils'
 
-import TraditionalTableExporter from '../../exporter/traditionalTableExporter'
+import DataTableExporter from '../../exporter/dataTableExporter'
 
-class HolderOfManagementRightsExporter extends TraditionalTableExporter {
+class HolderOfManagementRightsExporter extends DataTableExporter {
   constructor() {
     super('holderOfManagementRights', ['pub_admin', 'individuals', 'bus_inst_mr', 'indigenous_mr', 'unknown'], '4b')
   }

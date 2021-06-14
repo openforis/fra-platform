@@ -12,7 +12,7 @@ export const getAllCountries = (role: any, schemaName = 'public') => {
 WITH fa AS (
     SELECT country_iso, to_char(max(time), 'YYYY-MM-DD"T"HH24:MI:ssZ') AS last_edited
     FROM ${tableNameFraAudit}
-    WHERE NOT (message IN ($1))
+    WHERE message NOT IN ($1)
     GROUP BY country_iso
 )
 SELECT c.country_iso,

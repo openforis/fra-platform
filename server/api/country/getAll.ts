@@ -1,7 +1,7 @@
 import { Express, Response, Request } from 'express'
 import { CountryService } from '@server/service'
 import * as VersionService from '@server/service/versioning/service'
-import * as Requests from '@server/utils/requestUtils'
+import { Requests } from '@server/utils'
 import { ApiEndPoint } from '@common/api/endpoint'
 
 export const CountryGetAll = {

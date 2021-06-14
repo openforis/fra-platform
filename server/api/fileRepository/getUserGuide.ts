@@ -1,7 +1,7 @@
 import { Express, Response, Request } from 'express'
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import { downloadFile, fileTypes } from '@server/service/fileRepository/fileRepository'
-import * as Requests from '@server/utils/requestUtils'
+import { Requests } from '@server/utils'
 import { ApiEndPoint } from '@common/api/endpoint'
 
 export const FileRepositoryGetUserGuide = {

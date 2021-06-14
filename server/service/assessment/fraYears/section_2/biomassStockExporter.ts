@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import TraditionalTableExporter from '../../exporter/traditionalTableExporter'
+import DataTableExporter from '../../exporter/dataTableExporter'
 
 const yearsIdx: { [key: string]: any } = {
   '1990': 0,
@@ -10,7 +10,7 @@ const yearsIdx: { [key: string]: any } = {
   '2020': 8,
 }
 
-class BiomassStockExporter extends TraditionalTableExporter {
+class BiomassStockExporter extends DataTableExporter {
   constructor() {
     super('biomassStock', ['agb', 'bgb', 'dwb'], '2c')
   }

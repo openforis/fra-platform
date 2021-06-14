@@ -1,6 +1,6 @@
-import TraditionalTableExporter from '../../exporter/traditionalTableExporter'
+import DataTableExporter from '../../exporter/dataTableExporter'
 
-class ForestExpansionDeforestationNetChangeExporter extends TraditionalTableExporter {
+class ForestExpansionDeforestationNetChangeExporter extends DataTableExporter {
   constructor() {
     super('forestAreaChange', ['expansion', 'afforestation', 'nat_exp', 'deforestation'], '1d')
   }
