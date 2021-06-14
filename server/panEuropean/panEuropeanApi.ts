@@ -9,7 +9,7 @@ import {
   deletePanEuropeanQuantitativeQuestionnaire,
 } from './panEuropeanRepository'
 
-import { sendErr } from '../utils/requestUtils'
+import { sendErr } from '../utils/requests'
 
 import { fileTypes, downloadFile } from '../service/fileRepository/fileRepository'
 import * as Country from '../../common/country/country'

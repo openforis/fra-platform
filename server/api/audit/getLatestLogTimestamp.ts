@@ -1,7 +1,7 @@
 import { Express, Response, Request } from 'express'
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import * as auditRepository from '@server/repository/audit/auditRepository'
-import { sendErr } from '@server/utils/requestUtils'
+import { sendErr } from '@server/utils/requests'
 import { ApiEndPoint } from '@common/api/endpoint'
 
 export const AuditGetLatestLogTimestamp = {

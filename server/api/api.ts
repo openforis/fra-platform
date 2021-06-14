@@ -10,7 +10,7 @@ import { DescriptionsApi } from '@server/api/descriptions'
 import { CountryMessageBoardApi } from '@server/api/countryMessageBoard'
 import { VersioningApi } from '@server/api/versioning'
 import { ReviewApi } from '@server/api/review'
-import { TraditionalTableApi } from '@server/api/traditionalTable'
+import { DataTableApi } from '@server/api/dataTable'
 import { UserChatApi } from '@server/api/userChat'
 import { FileRepositoryApi } from '@server/api/fileRepository'
 import { OdpApi } from '@server/api/odp'
@@ -50,7 +50,7 @@ export const Api = {
     CountryApi.init(express)
     AssessmentApi.init(express)
 
-    TraditionalTableApi.init(express)
+    DataTableApi.init(express)
 
     BiomassStockApi.init(express)
     GrowingStockApi.init(express)

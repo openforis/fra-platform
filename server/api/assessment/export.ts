@@ -2,7 +2,7 @@ import { Express, Response, Request } from 'express'
 import * as JSZip from 'jszip'
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import * as ExportService from '@server/service/assessment/exportService'
-import * as Requests from '@server/utils/requestUtils'
+import { Requests } from '@server/utils'
 import { ApiEndPoint } from '@common/api/endpoint'
 
 export const AssessmentExport = {

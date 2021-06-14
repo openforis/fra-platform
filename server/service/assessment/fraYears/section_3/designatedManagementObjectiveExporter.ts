@@ -2,9 +2,9 @@ import * as R from 'ramda'
 
 import { sub } from '@common/bignumberUtils'
 import { getForestAreaForYear } from '@common/extentOfForestHelper'
-import * as TraditionalTableService from '../../../../repository/traditionalTable/traditionalTableRepository'
+import { DataTableService } from '@server/service'
 
-import TraditionalTableExporter from '../../exporter/traditionalTableExporter'
+import DataTableExporter from '../../exporter/dataTableExporter'
 
 const fieldsPrimary = [
   'prim_prod',
@@ -17,15 +17,15 @@ const fieldsPrimary = [
 ]
 const fieldsTotalArea = ['tot_prod', 'tot_prot', 'tot_biodiv', 'tot_socserv', 'tot_other']
 
-class DesignatedManagementObjectiveExporter extends TraditionalTableExporter {
+class DesignatedManagementObjectiveExporter extends DataTableExporter {
   constructor() {
     super('primaryDesignatedManagementObjective', [...fieldsPrimary, ...fieldsTotalArea], '3a')
   }
 
   fetchData(countryIso: any) {
     return Promise.all([
-      TraditionalTableService.read(countryIso, this.tableName),
-      TraditionalTableService.read(countryIso, 'totalAreaWithDesignatedManagementObjective'),
+      DataTableService.read(countryIso, this.tableName),
+      DataTableService.read(countryIso, 'totalAreaWithDesignatedManagementObjective'),
     ])
   }
 

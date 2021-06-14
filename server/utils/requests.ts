@@ -46,12 +46,12 @@ export const serverUrl = (req: any) => (R.isEmpty(appUri) ? `${req.protocol}://$
 // User helper functions
 export const getUser = R.prop('user')
 // @ts-ignore
-export const getUserId = req => R.pipe(getUser, User.getId)(req)
+export const getUserId = (req) => R.pipe(getUser, User.getId)(req)
 // @ts-ignore
 export const getUserName = R.pipe(getUser, User.getName)
 export const getUserRoles = R.pipe(getUser, User.getRoles)
 
-export default {
+export const Requests = {
   appUri,
 
   isGet,
@@ -68,3 +68,5 @@ export default {
   getUserName,
   getUserRoles,
 }
+
+export default Requests

@@ -2,7 +2,7 @@ import * as fs from 'fs'
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import { Express, Response, Request } from 'express'
 import { Objects } from '@core/utils'
-import * as Requests from '@server/utils/requestUtils'
+import { Requests } from '@server/utils'
 import { ApiEndPoint } from '@common/api/endpoint'
 
 const fileName = 'calculator'

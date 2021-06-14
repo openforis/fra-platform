@@ -1,6 +1,6 @@
 import { Express, Response, Request } from 'express'
 import { ApiAuthMiddleware } from '@server/api/middleware'
-import * as Requests from '@server/utils/requestUtils'
+import { Requests } from '@server/utils'
 import { addVersion, getAllVersions } from '@server/repository/versioning/versioningRepository'
 import { ApiEndPoint } from '@common/api/endpoint'
 
