@@ -1,14 +1,14 @@
 import { Express, Response, Request } from 'express'
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import * as db from '@server/db/db'
-import * as repository from '@server/repository/traditionalTable/traditionalTableRepository'
-import { sendErr, sendOk } from '@server/utils/requestUtils'
+import { Requests } from '@server/utils'
 import { ApiEndPoint } from '@common/api/endpoint'
+import { DataTableService } from '@server/service'
 
-export const TraditionalTableCreate = {
+export const DataTableCreate = {
   init: (express: Express): void => {
     express.post(
-      ApiEndPoint.TraditionalTable.create(),
+      ApiEndPoint.DataTable.create(),
       ApiAuthMiddleware.requireCountryEditPermission,
       async (req: Request, res: Response) => {
         try {
@@ -18,11 +18,11 @@ export const TraditionalTableCreate = {
             params: { countryIso, tableSpecName },
           } = req
 
-          await db.transaction(repository.save, [user, countryIso, tableSpecName, body])
+          await db.transaction(DataTableService.create, [user, countryIso, tableSpecName, body])
 
-          sendOk(res)
+          Requests.sendOk(res)
         } catch (err) {
-          sendErr(res, err)
+          Requests.sendErr(res, err)
         }
       }
     )

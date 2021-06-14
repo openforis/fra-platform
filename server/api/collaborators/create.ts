@@ -1,6 +1,6 @@
 import { Express, Response, Request } from 'express'
 import { persistCollaboratorCountryAccess } from '@server/repository/collaborators/collaboratorsRepository'
-import * as Requests from '@server/utils/requestUtils'
+import { Requests } from '@server/utils'
 import { checkCountryAccessFromReqParams } from '@server/utils/accessControl'
 import * as db from '@server/db/db'
 import { ApiEndPoint } from '@common/api/endpoint'

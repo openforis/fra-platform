@@ -1,8 +1,8 @@
 import * as R from 'ramda'
 
-import * as TraditionalTableService from '../../../../repository/traditionalTable/traditionalTableRepository'
+import { DataTableService } from '@server/service'
 
-import TraditionalTableExporter from '../../exporter/traditionalTableExporter'
+import DataTableExporter from '../../exporter/dataTableExporter'
 
 const yearsIdx: { [key: string]: number } = {
   '1990': 0,
@@ -12,7 +12,7 @@ const yearsIdx: { [key: string]: number } = {
   '2020': 8,
 }
 
-class CarbonStockExporter extends TraditionalTableExporter {
+class CarbonStockExporter extends DataTableExporter {
   constructor() {
     super(
       'carbonStock',
@@ -23,8 +23,8 @@ class CarbonStockExporter extends TraditionalTableExporter {
 
   fetchData(countryIso: any) {
     return Promise.all([
-      TraditionalTableService.read(countryIso, this.tableName),
-      TraditionalTableService.read(countryIso, 'carbonStockSoilDepth'),
+      DataTableService.read(countryIso, this.tableName),
+      DataTableService.read(countryIso, 'carbonStockSoilDepth'),
     ])
   }
 

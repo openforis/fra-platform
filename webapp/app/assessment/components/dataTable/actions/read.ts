@@ -28,7 +28,7 @@ export const fetchTableData =
 
       if (!R.isEmpty(tableName)) {
         let url = urlFetchData[tableName]
-        url = url ? `${url}${countryIso}` : ApiEndPoint.TraditionalTable.get(assessmentType, countryIso, tableName)
+        url = url ? `${url}${countryIso}` : ApiEndPoint.DataTable.get(assessmentType, countryIso, tableName)
 
         const { data } = await axios.get(url)
 

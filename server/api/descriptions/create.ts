@@ -2,7 +2,7 @@ import { Express, Response, Request } from 'express'
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import * as db from '@server/db/db'
 import * as repository from '@server/repository/descriptions/descriptionsRepository'
-import * as Requests from '@server/utils/requestUtils'
+import { Requests } from '@server/utils'
 import * as auditRepository from '@server/repository/audit/auditRepository'
 import { ApiEndPoint } from '@common/api/endpoint'
 

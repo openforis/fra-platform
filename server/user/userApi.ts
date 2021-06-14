@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 
 import { ApiAuthMiddleware } from '@server/api/middleware'
-import * as Requests from '@server/utils/requestUtils'
+import { Requests } from '@server/utils'
 import * as db from '../db/db'
 import * as userRepository from '../repository/user/userRepository'
 import { AccessControlException } from '../utils/accessControl'

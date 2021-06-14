@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import TraditionalTableExporter from '../../exporter/traditionalTableExporter'
+import DataTableExporter from '../../exporter/dataTableExporter'
 
 const yearsIdx: { [key: string]: any } = {
   '1990': 0,
@@ -27,7 +27,7 @@ const fieldsIdx: { [key: string]: any } = {
   total_male: 4,
 }
 
-class GraduationOfStudentsExporter extends TraditionalTableExporter {
+class GraduationOfStudentsExporter extends DataTableExporter {
   constructor() {
     super(
       'graduationOfStudents',

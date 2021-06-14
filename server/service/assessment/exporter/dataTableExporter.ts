@@ -1,11 +1,11 @@
 import * as R from 'ramda'
 
+import { DataTableService } from '@server/service'
 import FraTableExporter from './fraTableExporter'
-import * as TraditionalTableService from '../../../repository/traditionalTable/traditionalTableRepository'
 
-class TraditionalTableExporter extends FraTableExporter {
+class DataTableExporter extends FraTableExporter {
   fetchData(countryIso: any) {
-    return TraditionalTableService.read(countryIso, this.tableName)
+    return DataTableService.read(countryIso, this.tableName)
   }
 
   parseResultRow(result: any, yearIdx: any, year?: any, x?: any) {
@@ -19,4 +19,4 @@ class TraditionalTableExporter extends FraTableExporter {
   }
 }
 
-export default TraditionalTableExporter
+export default DataTableExporter

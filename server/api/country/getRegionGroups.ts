@@ -1,5 +1,5 @@
 import { Express, Response, Request } from 'express'
-import * as Requests from '@server/utils/requestUtils'
+import { Requests } from '@server/utils'
 import { ApiEndPoint } from '@common/api/endpoint'
 import { CountryService } from '@server/service'
 

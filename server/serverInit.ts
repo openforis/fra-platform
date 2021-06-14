@@ -9,7 +9,7 @@ import { Api } from '@server/api'
 import * as sessionInit from './sessionInit'
 import * as apiRouter from './apiRouter'
 import * as resourceCacheControl from './resourceCacheControl'
-import { sendErr } from './utils/requestUtils'
+import { sendErr } from './utils/requests'
 
 export const serverInit = () => {
   const app = express()
@@ -51,7 +51,12 @@ export const serverInit = () => {
   // http://expressjs.com/en/guide/error-handling.html
   // NB: This must not be an arrow function to make express detect this as an error handler.
   app.use(function (err: any, req: any, res: any, _: any) {
+    console.log('test')
     if (err) sendErr(res, err)
+  })
+
+  app.use(() => {
+    console.log('ok')
   })
 
   // allowing to let passportjs to use https in heroku - see https://stackoverflow.com/questions/20739744/passportjs-callback-switch-between-http-and-https

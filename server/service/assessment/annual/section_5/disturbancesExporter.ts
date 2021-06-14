@@ -1,6 +1,6 @@
-import TraditionalTableExporter from '../../exporter/traditionalTableExporter'
+import DataTableExporter from '../../exporter/dataTableExporter'
 
-class DisturbancesExporter extends TraditionalTableExporter {
+class DisturbancesExporter extends DataTableExporter {
   constructor() {
     super('disturbances', ['insect', 'diseases', 'weather', 'other'], '5a')
   }
