@@ -1,5 +1,5 @@
-import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
-import periodicChangeRate from '@common/model/traditionalTable/contentCheck/periodicChangeRate'
+import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import periodicChangeRate from '@common/model/dataTable/contentCheck/periodicChangeRate'
 import section from '../section'
 
 const tableSpec = SectionSpec.newTableSpec({

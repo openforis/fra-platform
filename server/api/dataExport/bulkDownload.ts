@@ -5,7 +5,7 @@ import * as util from 'util'
 import * as fs from 'fs'
 import * as path from 'path'
 import { ApiEndPoint } from '@common/api/endpoint'
-import * as Requests from '../../utils/requestUtils'
+import { Requests } from '@server/utils'
 
 export const DataExportBulkDownload = {
   init: (express: Express): void => {

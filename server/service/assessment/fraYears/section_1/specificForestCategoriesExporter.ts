@@ -1,6 +1,6 @@
-import TraditionalTableExporter from '../../exporter/traditionalTableExporter'
+import DataTableExporter from '../../exporter/dataTableExporter'
 
-class SpecificForestCategoriesExporter extends TraditionalTableExporter {
+class SpecificForestCategoriesExporter extends DataTableExporter {
   constructor() {
     super('specificForestCategories', ['primary', 'tempUnstocked', 'bamboos', 'mangroves', 'rubber'], '1c')
   }
