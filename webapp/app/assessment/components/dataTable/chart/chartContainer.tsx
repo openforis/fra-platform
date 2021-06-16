@@ -60,7 +60,4 @@ const ChartContainer = (props: ChartContainerProps) => {
   )
 }
 
-const areEqual = (prevProps: any, nextProps: any) =>
-  R.equals(prevProps.fra, nextProps.fra) && prevProps.wrapperWidth === nextProps.wrapperWidth
-
-export default memo(ChartContainer, areEqual)
+export default ChartContainer
