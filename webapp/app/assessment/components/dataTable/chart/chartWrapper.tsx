@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { elementOffset } from '@webapp/utils/domUtils'
 
@@ -19,15 +19,18 @@ const ChartWrapper = (props: Props) => {
   const chartRef = useRef(null)
   const [width, setWidth] = useState(null)
 
-  // on mount and on resize, update width
-  useOnResize(() => {
+  const onChangeWidth = () => {
     if (printView) {
       setWidth(960)
     } else {
       const { width: widthUpdate } = elementOffset(chartRef.current)
       setWidth(widthUpdate)
     }
-  }, chartRef)
+  }
+  useEffect(onChangeWidth, [window.innerWidth])
+
+  // on mount and on resize, update width
+  useOnResize(onChangeWidth, chartRef)
 
   return (
     <div ref={chartRef} className="chart__container">

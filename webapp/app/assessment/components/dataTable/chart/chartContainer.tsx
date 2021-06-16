@@ -52,6 +52,7 @@ const ChartContainer = (props: ChartContainerProps) => {
             data={data[t.name]}
             xScale={xScale}
             yScale={yScale}
+            wrapperWidth={wrapperWidth}
           />
         ))}
         {!printView && <NoDataPlaceholder data={data} i18n={i18n} wrapperWidth={wrapperWidth} />}
@@ -59,8 +60,6 @@ const ChartContainer = (props: ChartContainerProps) => {
     </div>
   )
 }
-
 const areEqual = (prevProps: any, nextProps: any) =>
   R.equals(prevProps.fra, nextProps.fra) && prevProps.wrapperWidth === nextProps.wrapperWidth
-
 export default memo(ChartContainer, areEqual)
