@@ -1,7 +1,6 @@
 import './style.less'
 
-import * as R from 'ramda'
-import React, { memo } from 'react'
+import React from 'react'
 
 import { useI18n, usePrintView } from '@webapp/components/hooks'
 import NoDataPlaceholder from './components/noDataPlaceholder'

@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React from 'react'
 import * as R from 'ramda'
 import DataPath from './dataPath'
 import DataPoints from './dataPoints'
