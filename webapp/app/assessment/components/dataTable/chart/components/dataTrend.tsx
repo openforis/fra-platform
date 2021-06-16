@@ -69,5 +69,6 @@ const DataTrend = (props: DataTrendProps) => {
   )
 }
 
-const areEqual = (prevProps: any, nextProps: any) => R.equals(prevProps.data, nextProps.data)
+const areEqual = (prevProps: any, nextProps: any) =>
+  R.equals(prevProps.data, nextProps.data) && prevProps.wrapperWidth === nextProps.wrapperWidth
 export default memo(DataTrend, areEqual)
