@@ -62,7 +62,7 @@
     "@types/passport": "^1.0.6",
     "@types/passport-google-oauth": "^1.0.41",
     "@types/passport-local": "^1.0.33",
-    "@types/pg": "^7.14.11",
+    "@types/pg": "^8.6.0",
     "@types/ramda": "^0.27.40",
     "@types/react": "^17.0.11",
     "@types/react-csv": "^1.1.1",

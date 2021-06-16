@@ -1669,7 +1669,7 @@
   dependencies:
     "@types/express" "*"
 
-"@types/pg@*":
+"@types/pg@*", "@types/pg@^8.6.0":
   version "8.6.0"
   resolved "https://registry.yarnpkg.com/@types/pg/-/pg-8.6.0.tgz#34233b891a127d6caaad28e177b1baec1a2958d4"
   integrity sha512-3JXFrsl8COoqVB1+2Pqelx6soaiFVXzkT3fkuSNe7GB40ysfT0FHphZFPiqIXpMyTHSFRdLTyZzrFBrJRPAArA==
@@ -1678,7 +1678,7 @@
     pg-protocol "*"
     pg-types "^2.2.0"
 
-"@types/pg@^7.14.11", "@types/pg@^7.14.4":
+"@types/pg@^7.14.4":
   version "7.14.11"
   resolved "https://registry.yarnpkg.com/@types/pg/-/pg-7.14.11.tgz#daf5555504a1f7af4263df265d91f140fece52e3"
   integrity sha512-EnZkZ1OMw9DvNfQkn2MTJrwKmhJYDEs5ujWrPfvseWNoI95N8B4HzU/Ltrq5ZfYxDX/Zg8mTzwr6UAyTjjFvXA==
