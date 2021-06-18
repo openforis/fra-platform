@@ -1,7 +1,7 @@
 import { Express, Response, Request } from 'express'
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import { allowedToEditDataCheck } from '@server/assessment/assessmentEditAccessControl'
-import * as odpRepository from '@server/repository/odp/odpRepository'
+import { OdpService } from '@server/service'
 import * as R from 'ramda'
 import { Requests } from '@server/utils'
 import { ApiEndPoint } from '@common/api/endpoint'
@@ -16,7 +16,7 @@ export const OdpGetPrevious = {
           const { countryIso } = req.query
           await allowedToEditDataCheck(countryIso, req.user, 'extentOfForest')
 
-          const resp = await odpRepository.listOriginalDataPoints(req.params.countryIso)
+          const resp = await OdpService.listOriginalDataPoints(req.params.countryIso)
 
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
@@ -27,7 +27,7 @@ export const OdpGetPrevious = {
           )(R.values(resp))
 
           if (prevOdp) {
-            const odp = await odpRepository.getOdp(prevOdp.odpId)
+            const odp = await OdpService.getOdp(prevOdp.odpId)
             res.json(odp)
           } else {
             Requests.sendOk(res)
