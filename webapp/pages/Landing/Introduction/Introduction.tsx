@@ -1,4 +1,4 @@
-import './introduction.less'
+import './introduction.scss'
 import React from 'react'
 import { useI18n } from '@webapp/components/hooks'
 import AreaSelector from './AreaSelector'
