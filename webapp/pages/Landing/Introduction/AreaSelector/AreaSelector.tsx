@@ -1,4 +1,4 @@
-import './areaSelector.less'
+import './areaSelector.scss'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Area, Country } from '@common/country'
