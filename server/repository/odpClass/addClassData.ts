@@ -34,5 +34,5 @@ export const addClassData = async (client: any, odpVersionId: any, odp: any) => 
       ),
     odp.nationalClasses
   )
-  return await Promise.all(nationalInserts)
+  return Promise.all(nationalInserts)
 }
