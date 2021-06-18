@@ -1,8 +1,7 @@
 import * as R from 'ramda'
 
 import { ApiAuthMiddleware } from '@server/api/middleware'
-import { readEofOdps } from '@server/repository/odp/readEofOdps'
-import { readFocOdps } from '@server/repository/odp/readFocOdps'
+import { OdpService } from '@server/service'
 import * as db from '../db/db'
 import { sendErr, sendOk } from '../utils/requests'
 
@@ -20,8 +19,8 @@ const fraWriters: { [key: string]: any } = {
   forestCharacteristics: fraRepository.persistFocValues,
 }
 const odpReaders: { [key: string]: any } = {
-  extentOfForest: readEofOdps,
-  forestCharacteristics: readFocOdps,
+  extentOfForest: OdpService.readEofOdps,
+  forestCharacteristics: OdpService.readFocOdps,
 }
 
 export const init = (app: any) => {
