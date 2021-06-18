@@ -6,21 +6,6 @@ export const getDraftId = async (client: any, odpId: any) => {
   return res.rows[0].draft_id
 }
 
-export const updateOrInsertDraft = async (client: any, user: any, odpId: any, countryIso: any, draft: any) => {
-  const draftId = await getDraftId(client, odpId)
-
-  if (draftId) {
-    await updateDraft(client, draft)
-    await OdpClassRepository.wipeNationalClassIssues(client, odpId, countryIso, draft.nationalClasses)
-  } else {
-    await insertDraft(client, countryIso, user, odpId, draft)
-  }
-
-  await insertAudit(client, user.id, 'updateOrInsertDraft', countryIso, 'odp', { odpId })
-
-  return { odpId }
-}
-
 export const updateDraft = async (client: any, draft: any) => {
   const res = await client.query('SELECT draft_id FROM odp WHERE id = $1', [draft.odpId])
   const draftId = res.rows[0].draft_id
@@ -69,6 +54,21 @@ export const insertDraft = async (client: any, countryIso: any, user: any, odpId
   await OdpClassRepository.addClassData(client, resOdpVersionId.rows[0].odp_version_id, draft)
 
   return client.query('UPDATE odp SET draft_id = (SELECT last_value FROM odp_version_id_seq) WHERE id = $1', [odpId])
+}
+
+export const updateOrInsertDraft = async (client: any, user: any, odpId: any, countryIso: any, draft: any) => {
+  const draftId = await getDraftId(client, odpId)
+
+  if (draftId) {
+    await updateDraft(client, draft)
+    await OdpClassRepository.wipeNationalClassIssues(client, odpId, countryIso, draft.nationalClasses)
+  } else {
+    await insertDraft(client, countryIso, user, odpId, draft)
+  }
+
+  await insertAudit(client, user.id, 'updateOrInsertDraft', countryIso, 'odp', { odpId })
+
+  return { odpId }
 }
 
 export default {
