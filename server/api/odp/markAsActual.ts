@@ -1,9 +1,9 @@
-import { Express, Response, Request } from 'express'
+import { Express, Request, Response } from 'express'
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import * as db from '@server/db/db'
-import * as odpRepository from '@server/repository/odp/odpRepository'
 import { Requests } from '@server/utils'
 import { ApiEndPoint } from '@common/api/endpoint'
+import { OdpService } from '@server/service'
 
 export const OdpMarkAsActual = {
   init: (express: Express): void => {
@@ -12,7 +12,7 @@ export const OdpMarkAsActual = {
       ApiAuthMiddleware.requireCountryEditPermission,
       async (req: Request, res: Response) => {
         try {
-          await db.transaction(odpRepository.markAsActual, [req.query.odpId, req.user])
+          await db.transaction(OdpService.markAsActual, [req.query.odpId, req.user])
 
           Requests.sendOk(res)
         } catch (err) {

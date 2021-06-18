@@ -1,5 +1,5 @@
 import { Express, Response, Request } from 'express'
-import * as odpRepository from '@server/repository/odp/odpRepository'
+import { OdpService } from '@server/service'
 import { checkCountryAccessFromReqParams } from '@server/utils/accessControl'
 import * as reviewRepository from '@server/repository/review/reviewRepository'
 import * as R from 'ramda'
@@ -10,7 +10,7 @@ export const OdpGet = {
   init: (express: Express): void => {
     express.get(ApiEndPoint.Odp.get(), async (req: Request, res: Response) => {
       try {
-        const odps = await odpRepository.listAndValidateOriginalDataPoints(req.params.countryIso)
+        const odps = await OdpService.listAndValidateOriginalDataPoints(req.params.countryIso)
 
         if (req.user) {
           checkCountryAccessFromReqParams(req)
