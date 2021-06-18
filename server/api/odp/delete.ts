@@ -1,10 +1,10 @@
-import { Express, Response, Request } from 'express'
+import { Express, Request, Response } from 'express'
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import { allowedToEditDataCheck } from '@server/assessment/assessmentEditAccessControl'
 import * as db from '@server/db/db'
-import * as odpRepository from '@server/repository/odp/odpRepository'
 import { Requests } from '@server/utils'
 import { ApiEndPoint } from '@common/api/endpoint'
+import { OdpService } from '@server/service'
 
 export const OdpDelete = {
   init: (express: Express): void => {
@@ -16,7 +16,7 @@ export const OdpDelete = {
           const { countryIso } = req.query
           await allowedToEditDataCheck(countryIso, req.user, 'extentOfForest')
 
-          await db.transaction(odpRepository.deleteOdp, [req.query.odpId, req.user])
+          await db.transaction(OdpService.deleteOdp, [req.query.odpId, req.user])
 
           Requests.sendOk(res)
         } catch (err) {
