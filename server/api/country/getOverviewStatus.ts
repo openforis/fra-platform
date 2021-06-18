@@ -1,6 +1,6 @@
 import { Express, Response, Request } from 'express'
 import { Requests } from '@server/utils'
-import * as odpRepository from '@server/repository/odp/odpRepository'
+import { OdpService } from '@server/service'
 import * as reviewRepository from '@server/repository/review/reviewRepository'
 import { isCollaborator, roleForCountry } from '@common/countryRole'
 import * as R from 'ramda'
@@ -24,7 +24,7 @@ export const CountryGetOverviewStatus = {
         const userInfo = req.user
         const assessmentsPromise = assessmentRepository.getAssessments(countryIso)
         if (userInfo) {
-          const odpDataPromise = odpRepository.listAndValidateOriginalDataPoints(countryIso)
+          const odpDataPromise = OdpService.listAndValidateOriginalDataPoints(countryIso)
           const reviewStatusPromise = reviewRepository.getCountryIssuesSummary(countryIso, userInfo)
           const [odps, reviewStatus, assessmentsDB] = await Promise.all([
             odpDataPromise,

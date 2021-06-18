@@ -1,6 +1,6 @@
 import { getDynamicCountryConfiguration } from '@server/repository/country/getDynamicCountryConfiguration'
+import { OdpService } from '@server/service'
 import * as fraRepository from '../repository/eof/fraRepository'
-import * as odpRepository from '../repository/odp/odpRepository'
 
 import forestAreaTableResponse from './forestAreaTableResponse'
 import focTableResponse from './focTableResponse'
@@ -10,15 +10,15 @@ export const fraReaders: { [key: string]: any } = {
   forestCharacteristics: fraRepository.readFraForestCharacteristics,
 }
 export const odpReaders: { [key: string]: any } = {
-  extentOfForest: odpRepository.readEofOdps,
-  forestCharacteristics: odpRepository.readFocOdps,
+  extentOfForest: OdpService.readEofOdps,
+  forestCharacteristics: OdpService.readFocOdps,
 }
 export const defaultResponses: { [key: string]: any } = {
   extentOfForest: forestAreaTableResponse,
   forestCharacteristics: focTableResponse,
 }
 export const odpsInUse: { [key: string]: any } = {
-  extentOfForest: (config: any) => true,
+  extentOfForest: (_: any) => true,
   forestCharacteristics: (config: any) => config.useOriginalDataPointsInFoc === true,
 }
 
