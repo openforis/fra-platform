@@ -1,4 +1,4 @@
-@import (reference) 'webapp/main/styles/config';
+@import 'webapp/style/partials';
 
 .home-area-selector {
   display: flex;
@@ -17,7 +17,7 @@
   }
 
   a.country-selection-list__row {
-    color: @text-link;
+    color: $text-link;
     padding: 8px 16px;
   }
 }

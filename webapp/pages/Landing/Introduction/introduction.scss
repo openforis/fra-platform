@@ -1,4 +1,4 @@
-@import (reference) 'webapp/main/styles/config';
+@import 'webapp/style/partials';
 
 .home-introduction {
   position: relative;
@@ -13,17 +13,17 @@
   height: 100%;
   background: linear-gradient(
     110deg,
-    rgba(@text-heading, 1) 0%,
-    rgba(@text-heading, 0.9) 10%,
-    rgba(@text-heading, 0.8) 20%,
-    rgba(@text-heading, 0.7) 30%,
-    rgba(@text-heading, 0.6) 40%,
-    rgba(@text-heading, 0.5) 50%,
-    rgba(@text-heading, 0.4) 60%,
-    rgba(@text-heading, 0.3) 70%,
-    rgba(@text-heading, 0.2) 80%,
-    rgba(@text-heading, 0.1) 90%,
-    rgba(@text-heading, 0) 100%
+    rgba($text-heading, 1) 0%,
+    rgba($text-heading, 0.9) 10%,
+    rgba($text-heading, 0.8) 20%,
+    rgba($text-heading, 0.7) 30%,
+    rgba($text-heading, 0.6) 40%,
+    rgba($text-heading, 0.5) 50%,
+    rgba($text-heading, 0.4) 60%,
+    rgba($text-heading, 0.3) 70%,
+    rgba($text-heading, 0.2) 80%,
+    rgba($text-heading, 0.1) 90%,
+    rgba($text-heading, 0) 100%
   );
   display: grid;
   grid-row-gap: 24px;
@@ -32,7 +32,7 @@
   color: white;
 
   .header {
-    font-size: @font-xl + 1;
+    font-size: $font-xl + 1;
     font-weight: 600;
   }
 
@@ -42,7 +42,7 @@
 
   .link-fra-process {
     font-weight: 600;
-    font-size: @font-l;
+    font-size: $font-l;
   }
 }
 
