@@ -1,4 +1,4 @@
-@import (reference) 'webapp/main/styles/config';
+@import 'webapp/style/partials';
 
 .home-key-findings {
   display: grid;
@@ -8,7 +8,7 @@
   align-items: center;
   justify-items: center;
   padding: 50px 40px;
-  background-color: @ui-accent-light-extra;
+  background-color: $ui-accent-light-extra;
 }
 
 .home-key-findings__map {
@@ -36,7 +36,7 @@
 
   .legend-key {
     color: #272727;
-    font-size: @font-s;
+    font-size: $font-s;
     font-weight: 600;
     text-transform: uppercase;
   }
