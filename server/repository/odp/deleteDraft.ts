@@ -1,5 +1,5 @@
 import { getOdpNationalClasses, wipeNationalClassIssues } from '@server/repository/odpClass/odpClassRepository'
-import { OdpService } from '@server/service'
+import { OdpRepository } from '@server/repository'
 import { getAndCheckOdpCountryId } from './getAndCheckOdpCountryId'
 
 export const deleteDraft = async (client: any, odpId: any, user: any) => {
@@ -8,10 +8,10 @@ export const deleteDraft = async (client: any, odpId: any, user: any) => {
   const actualId = actualRes.rows[0].actual_id
   if (actualId) {
     await client.query('UPDATE odp SET draft_id = null WHERE id = $1', [odpId])
-    const odpVersionId = await OdpService.getOdpVersionId(client, odpId)
+    const odpVersionId = await OdpRepository.getOdpVersionId(client, odpId)
     const odpClasses = await getOdpNationalClasses(client, odpVersionId)
     return wipeNationalClassIssues(client, odpId, countryIso, odpClasses)
   }
 
-  return OdpService.deleteOdp(client, odpId, user)
+  return OdpRepository.deleteOdp(client, odpId, user)
 }
