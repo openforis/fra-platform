@@ -1,6 +1,6 @@
 import * as Promise from 'bluebird'
 import { insertAudit } from '@server/repository/audit/auditRepository'
-import { wipeClassData } from '@server/repository/odpClass/odpClassRepository'
+import { wipeClassData } from '@server/repository/odpClass/wipeClassData'
 import { getAndCheckOdpCountryId } from './getAndCheckOdpCountryId'
 
 export const markAsActual = async (client: any, odpId: any, user: any) => {

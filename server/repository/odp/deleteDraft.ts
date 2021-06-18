@@ -1,5 +1,6 @@
-import { getOdpNationalClasses, wipeNationalClassIssues } from '@server/repository/odpClass/odpClassRepository'
 import { OdpRepository } from '@server/repository'
+import { getOdpNationalClasses } from '@server/repository/odpClass/getOdpNationalClasses'
+import { wipeNationalClassIssues } from '@server/repository/odpClass/wipeNationalClassIssues'
 import { getAndCheckOdpCountryId } from './getAndCheckOdpCountryId'
 
 export const deleteDraft = async (client: any, odpId: any, user: any) => {

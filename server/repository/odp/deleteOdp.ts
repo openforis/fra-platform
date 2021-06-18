@@ -1,8 +1,8 @@
 import * as Promise from 'bluebird'
-import { wipeClassData } from '@server/repository/odpClass/odpClassRepository'
 import { deleteIssues } from '@server/repository/review/reviewRepository'
 import { insertAudit } from '@server/repository/audit/auditRepository'
 import { OdpRepository } from '@server/repository'
+import { wipeClassData } from '@server/repository/odpClass/wipeClassData'
 import { getAndCheckOdpCountryId } from './getAndCheckOdpCountryId'
 
 export const deleteOdp = async (client: any, odpId: any, user: any) => {

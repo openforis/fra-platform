@@ -3,8 +3,8 @@
 import * as camelize from 'camelize'
 
 import * as db from '@server/db/db'
-import { getOdpNationalClasses } from '@server/repository/odpClass/odpClassRepository'
 import { OdpRepository } from '@server/repository'
+import { getOdpNationalClasses } from '@server/repository/odpClass/getOdpNationalClasses'
 
 export const getOdp = async (odpId: any, schemaName = 'public') => {
   const versionId = await OdpRepository.getOdpVersionId(db.pool, odpId, schemaName)
