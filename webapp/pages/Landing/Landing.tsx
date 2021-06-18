@@ -1,4 +1,4 @@
-import './landing.less'
+import './landing.scss'
 import React from 'react'
 
 import Partners from '@webapp/components/Partners'

@@ -1,0 +1,40 @@
+$desktop: 'desktop';
+$mobile: 'mobile';
+$mobile-landscape: 'mobile-landscape';
+$laptop: 'laptop';
+$tablet-portrait: 'tablet-portrait';
+$tablet-landscape: 'tablet-landscape';
+
+$breakpoints: (
+  $mobile: (
+    min-width: 321px,
+  ),
+  $mobile-landscape: (
+    min-width: 480px,
+  ),
+  $tablet-portrait: (
+    min-width: 768px,
+  ),
+  $tablet-landscape: (
+    min-width: 1024px,
+  ),
+  $laptop: (
+    min-width: 1200px,
+  ),
+  $desktop: (
+    min-width: 1920px,
+  ),
+) !default;
+
+@mixin min-width($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media #{inspect(map-get($breakpoints, $breakpoint))} {
+      @content;
+    }
+  }
+  // If the key doesn't exist in the map
+  @else {
+    @warn "No value could be retrieved with breakpoint `#{$breakpoint}`. "
+          + "Available breakpoints are: #{map-keys($breakpoints)}.";
+  }
+}
