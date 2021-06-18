@@ -1,6 +1,6 @@
 import * as R from 'ramda'
-import * as NdpRepository from '../../../repository/odp/odpRepository'
 
+import { OdpService } from '@server/service'
 import CsvOutput from '../csvOutput'
 
 export const fields = [
@@ -23,7 +23,7 @@ export const normalizeValue = R.pipe(
 )
 
 export const getCountryData = async (country: any) => {
-  const dataPoints = await NdpRepository.listOriginalDataPoints(country.countryIso)
+  const dataPoints = await OdpService.listOriginalDataPoints(country.countryIso)
 
   const result: any = []
 
