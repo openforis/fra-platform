@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { isAdministrator } from '@common/countryRole'
 import * as BasePaths from '@webapp/main/basePaths'
 import { useI18n, useIsLogin, useUserInfo } from '@webapp/components/hooks'
-import { PopoverControl } from '@webapp/components/popoverControl'
+import PopoverControl from '@webapp/components/PopoverControl'
 import Icon from '@webapp/components/icon'
 import { logout } from '@webapp/store/user/actions'
 
