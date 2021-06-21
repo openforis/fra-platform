@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 
-import { LanguageCodes } from '@common/lang'
+import { LanguageCodes } from '@core/lang'
 import { AppActions } from '@webapp/store/app'
 
 import { useI18n } from '@webapp/components/hooks'
