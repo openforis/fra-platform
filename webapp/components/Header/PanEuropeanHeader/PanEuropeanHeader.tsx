@@ -2,7 +2,7 @@ import React from 'react'
 
 import { useI18n } from '@webapp/components/hooks'
 
-import LanguageSelector from '@webapp/components/Header/LanguageSelector'
+import LanguageSelector, { LanguageSelectorMobile } from '@webapp/components/Header/LanguageSelector'
 // import LinkHome from '../components/linkHome'
 
 const PanEuropeanHeader: React.FC = () => {
@@ -13,6 +13,7 @@ const PanEuropeanHeader: React.FC = () => {
       <img alt="FAO" src={`/img/fao/FAO${i18n.language}.svg`} />
       <div className="app-header__separator" />
       <div className="app-header__global-fra">{i18n.t('panEuropean.panEuropeanAssessment')}</div>
+      <LanguageSelectorMobile />
 
       <div className="app-header__menu">
         <LanguageSelector />

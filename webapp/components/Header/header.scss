@@ -45,10 +45,12 @@
 
 .app-header__global-fra {
   font-size: $font-xl;
+  text-align: center;
 
   @include min-width($laptop) {
     font-size: $font-xxl;
-    padding-left: 24px;
+    padding-left: $spacing-s;
+    text-align: unset;
   }
 }
 
