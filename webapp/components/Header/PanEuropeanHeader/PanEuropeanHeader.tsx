@@ -1,10 +1,11 @@
 import React from 'react'
 
 import { useI18n } from '@webapp/components/hooks'
-// import LinkHome from '../components/linkHome'
-import LanguageSelection from '../components/languageSelection'
 
-const PanEuropeanHeader = () => {
+import LanguageSelector from '@webapp/components/Header/LanguageSelector'
+// import LinkHome from '../components/linkHome'
+
+const PanEuropeanHeader: React.FC = () => {
   const i18n = useI18n()
 
   return (
@@ -14,7 +15,7 @@ const PanEuropeanHeader = () => {
       <div className="app-header__global-fra">{i18n.t('panEuropean.panEuropeanAssessment')}</div>
 
       <div className="app-header__menu">
-        <LanguageSelection />
+        <LanguageSelector />
         {/* <LinkHome /> */}
       </div>
     </div>
