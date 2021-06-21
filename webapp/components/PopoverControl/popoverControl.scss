@@ -1,4 +1,4 @@
-@import (reference) 'webapp/main/styles/config';
+@import 'webapp/style/partials';
 
 .popover-control__wrapper {
   position: relative;
@@ -11,31 +11,31 @@
   padding: 4px 0;
   background-color: white;
   border-radius: 2px;
-  box-shadow: @shadow-3;
-  z-index: @z-index-popover;
+  box-shadow: $shadow-3;
+  z-index: $z-index-popover;
 }
 
-.popover-control__item {
-  padding: 8px 16px;
+.popover-control__item,
+.popover-control__item-link {
+  padding: $spacing-xxs $spacing-xs;
   line-height: 16px;
-  color: @text-link;
+  color: $text-link;
 
   &:hover {
-    background-color: darken(@ui-bg, 4%);
+    background-color: darken($ui-bg, 4%);
     cursor: pointer;
-    color: @text-body;
+    color: $text-body;
   }
 }
 
 .popover-control__item-link {
-  .popover-control__item;
   text-decoration: none;
   display: block;
 }
 
 .popover-control__divider {
   height: 1px;
-  background-color: @ui-border;
+  background-color: $ui-border;
   margin: 4px 0;
 }
 

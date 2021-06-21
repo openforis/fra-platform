@@ -1,4 +1,5 @@
 import * as db from '@server/db/db'
+
 import { getOdp } from './getOdp'
 
 export const listOriginalDataPoints = async (countryIso: any, schemaName = 'public') => {

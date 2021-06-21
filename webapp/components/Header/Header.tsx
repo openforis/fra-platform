@@ -1,4 +1,4 @@
-import './header.less'
+import './header.scss'
 import React from 'react'
 
 import PanEuropean from '@common/assessment/panEuropean'
@@ -14,6 +14,6 @@ const Components: any = {
   null: () => <div />,
 }
 
-const Header = () => <AssessmentComponent components={Components} />
+const Header: React.FC = () => <AssessmentComponent components={Components} />
 
 export default Header
