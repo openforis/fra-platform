@@ -1,7 +1,7 @@
 // @ts-ignore
-import * as camelize from 'camelize'
+import camelize from 'camelize'
 import * as R from 'ramda'
-import * as db from '../../db/db'
+import * as db from '../../db/db_deprecated'
 import * as auditRepository from '../audit/auditRepository'
 
 export const persistFile = async (client: any, user: any, countryIso: any, file: any, fileCountryIso: any) => {

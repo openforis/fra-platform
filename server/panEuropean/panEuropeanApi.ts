@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import { getCountry } from '@server/repository/country/getCountry'
-import * as db from '../db/db'
+import * as db from '../db/db_deprecated'
 
 import {
   persistPanEuropeanQuantitativeQuestionnaire,

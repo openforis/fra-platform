@@ -2,8 +2,7 @@ import { listAndValidateOriginalDataPoints } from '@server/repository/odp/listAn
 import { listOriginalDataPoints } from '@server/repository/odp/listOriginalDataPoints'
 import { getOdp } from '@server/repository/odp/getOdp'
 import { deleteDraft } from '@server/repository/odp/deleteDraft'
-import { saveDraft } from '@server/repository/odp/saveDraft'
-import { createOdp } from '@server/repository/odp/createOdp'
+import { create } from '@server/repository/odp/create'
 import { markAsActual } from '@server/repository/odp/markAsActual'
 import { deleteOdp } from '@server/repository/odp/deleteOdp'
 import { getOdpVersionId } from '@server/repository/odp/getOdpVersionId'
@@ -15,8 +14,7 @@ export const OdpRepository = {
   listOriginalDataPoints,
   getOdp,
   deleteDraft,
-  saveDraft,
-  createOdp,
+  create,
   markAsActual,
   deleteOdp,
   getOdpVersionId,

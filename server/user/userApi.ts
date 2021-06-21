@@ -2,7 +2,7 @@ import * as R from 'ramda'
 
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import { Requests } from '@server/utils'
-import * as db from '../db/db'
+import * as db from '../db/db_deprecated'
 import * as userRepository from '../repository/user/userRepository'
 import { AccessControlException } from '../utils/accessControl'
 import { sendInvitation } from './sendInvitation'

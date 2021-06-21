@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import * as camelize from 'camelize'
-import * as db from '@server/db/db'
+import camelize from 'camelize'
+import * as db from '@server/db/db_deprecated'
 
 export const getRegionGroups = async () => {
   // Exclude Atlantis from region groups

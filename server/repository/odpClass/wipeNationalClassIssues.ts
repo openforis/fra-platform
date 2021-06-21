@@ -24,7 +24,7 @@ export const wipeNationalClassIssues = async (client: any, odpId: any, countryIs
     `,
     hasClasses ? [countryIso, 'odp', ...classUuids] : [countryIso, 'odp']
   )
-  const issueIds = res.rows.map((r: any) => r.issue_id)
+  const issueIds = res.map((r: any) => r.issue_id)
 
   await deleteIssuesByIds(client, issueIds)
 

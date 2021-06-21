@@ -1,6 +1,6 @@
 // @ts-ignore
-import * as camelize from 'camelize'
-import * as db from '../../db/db'
+import camelize from 'camelize'
+import * as db from '../../db/db_deprecated'
 
 /*
   Possible status for version

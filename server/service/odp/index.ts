@@ -3,7 +3,7 @@ import { listOriginalDataPoints } from './listOriginalDataPoints'
 import { getOdp } from './getOdp'
 import { deleteDraft } from './deleteDraft'
 import { saveDraft } from './saveDraft'
-import { createOdp } from './createOdp'
+import { create } from './create'
 import { markAsActual } from './markAsActual'
 import { deleteOdp } from './deleteOdp'
 import { getOdpVersionId } from './getOdpVersionId'
@@ -16,7 +16,7 @@ export const OdpService = {
   getOdp,
   deleteDraft,
   saveDraft,
-  createOdp,
+  create,
   markAsActual,
   deleteOdp,
   getOdpVersionId,

@@ -1,4 +1,4 @@
-import * as db from '../../db/db'
+import * as db from '../../db/db_deprecated'
 
 // Some data is fetched from views
 const views = [

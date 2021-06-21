@@ -1,9 +1,10 @@
-import { insertAudit } from '@server/repository/audit/auditRepository'
+import { CountryIso } from '@core/country'
+import { BaseProtocol, DB } from '@server/db/db'
 
-export const createOdp = async (client: any, countryIso: any, user: any) => {
+export const create = async (options: { countryIso: CountryIso }, client: BaseProtocol = DB) => {
+  const { countryIso } = options
   await client.query('INSERT INTO odp (country_iso ) VALUES ($1)', [countryIso])
   const resSelectId = await client.query('SELECT last_value FROM odp_id_seq')
-  const odpId = resSelectId.rows[0].last_value
-  await insertAudit(client, user.id, 'createOdp', countryIso, 'odp', { odpId })
+  const odpId = resSelectId?.[0]?.last_value
   return odpId
 }

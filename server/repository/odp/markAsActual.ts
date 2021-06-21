@@ -1,4 +1,5 @@
 import { insertAudit } from '@server/repository/audit/auditRepository'
+import Promise from 'bluebird'
 import { OdpClassRepository } from '@server/repository'
 import { getAndCheckOdpCountryId } from './getAndCheckOdpCountryId'
 
@@ -9,7 +10,7 @@ export const markAsActual = async (client: any, odpId: any, user: any) => {
     'UPDATE odp SET actual_id = draft_id, draft_id = null WHERE id = $1 AND draft_id IS NOT NULL',
     [odpId]
   )
-  const { oldActualId, countryIso } = await (Promise as any).join(
+  const { oldActualId, countryIso } = await Promise.join(
     currentOdpPromise,
     checkCountryAccessPromise,
     updateOdpPromise,

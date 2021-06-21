@@ -1,4 +1,4 @@
-import * as db from '@server/db/db'
+import * as db from '@server/db/db_deprecated'
 
 export const getDynamicCountryConfiguration = async (countryIso: any, schemaName = 'public') => {
   const tableName = `${schemaName}.dynamic_country_configuration`

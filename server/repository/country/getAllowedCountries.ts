@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 import * as CountryRole from '@common/countryRole'
-import * as db from '@server/db/db'
+import * as db from '@server/db/db_deprecated'
 import { Objects } from '@core/utils'
 import { getAllCountries } from './getAllCountries'
 import { handleCountryResult } from './handleCountryResult'
