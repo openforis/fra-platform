@@ -9,7 +9,7 @@ import Loading from '@webapp/components/loading'
 import Landing from '@webapp/pages/Landing'
 import Login from '@webapp/pages/Login'
 import Header from '@webapp/components/Header'
-import Footer from '@webapp/components/footer'
+import Footer from '@webapp/components/Footer'
 import ErrorComponent from '@webapp/components/error/errorComponent'
 import CountrySelection from '@webapp/components/countrySelection'
 
