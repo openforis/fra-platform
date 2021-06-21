@@ -31,6 +31,14 @@
     margin-top: 20px;
   }
 
+  img.mmmfi {
+    margin-top: -$spacing-s;
+
+    @include min-width($laptop) {
+      margin-top: unset;
+    }
+  }
+
   @include min-width($laptop) {
     height: 70px;
     display: flex;

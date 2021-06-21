@@ -22,8 +22,8 @@ const Partners: React.FC = () => {
         </div>
         <img alt="" src="/img/partners/EU.jpg" />
         <img alt="" src="/img/partners/NICFI.png" />
-        <img alt="" src="/img/partners/mfafi.gif" className="mfafi partners__col1Mobile" />
-        <img alt="" className="partners__col1Mobile" src="/img/partners/mmmfi.png" />
+        <img alt="" className="mfafi partners__col1Mobile" src="/img/partners/mfafi.gif" />
+        <img alt="" className="mmmfi partners__col1Mobile" src="/img/partners/mmmfi.png" />
         <img alt="" className="partners__col1Mobile" src="/img/partners/GEF.png" />
       </div>
 
