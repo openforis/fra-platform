@@ -1,6 +1,5 @@
-import * as Promise from 'bluebird'
 import { insertAudit } from '@server/repository/audit/auditRepository'
-import { wipeClassData } from '@server/repository/odpClass/odpClassRepository'
+import { OdpClassRepository } from '@server/repository'
 import { getAndCheckOdpCountryId } from './getAndCheckOdpCountryId'
 
 export const markAsActual = async (client: any, odpId: any, user: any) => {
@@ -24,7 +23,7 @@ export const markAsActual = async (client: any, odpId: any, user: any) => {
   await insertAudit(client, user.id, 'markAsActual', countryIso, 'odp', { odpId })
   if (oldActualId) {
     return Promise.all([
-      wipeClassData(client, oldActualId),
+      OdpClassRepository.wipeClassData(client, oldActualId),
       client.query('DELETE FROM odp_version WHERE id = $1', [oldActualId]),
     ])
   }
