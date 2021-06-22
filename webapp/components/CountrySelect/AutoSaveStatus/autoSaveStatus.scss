@@ -1,4 +1,4 @@
-@import (reference) 'webapp/main/styles/config';
+@import 'webapp/style/partials';
 
 .autosave-status {
   position: absolute;
@@ -36,7 +36,7 @@
   }
   10%,
   80% {
-    background-color: fade(@ui-status-accepted, 10%);
+    background-color: fade($ui-status-accepted, 10%);
     opacity: 1;
   }
   100% {

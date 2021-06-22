@@ -1,18 +1,18 @@
-@import (reference) 'webapp/main/styles/config';
+@import 'webapp/style/partials';
 
-.country-selection {
+.country-select {
   position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 0;
-  z-index: @z-index-area-selector;
+  z-index: $z-index-area-selector;
   grid-area: country-selection;
   display: flex;
   align-items: center;
   background-color: var(--ui-bg);
-  border-bottom: @ui-thin-border;
+  border-bottom: $ui-thin-border;
   height: 50px;
   // allowing full width of box shadow
-  box-shadow: 0 5px 4px -4px rgba(@text-body, 0.5);
+  box-shadow: 0 5px 4px -4px rgba($text-body, 0.5);
   width: calc(100vw + 10px);
   margin-left: -5px;
   padding: 0 5px;
@@ -30,12 +30,17 @@
   font-weight: 400;
 }
 
-.country-selection__select-label {
-  font-size: @font-l;
+.country-select__select-label {
+  display: none;
+  font-size: $font-l;
   margin-right: 32px;
+
+  @include min-width($laptop) {
+    display: initial;
+  }
 }
 
-.btn-country-selection {
+.btn-country-select {
   position: relative;
   display: flex;
   align-items: center;
@@ -43,16 +48,16 @@
   min-width: 250px;
   padding: 4px 12px;
   background-color: white;
-  border: @ui-thin-border;
+  border: $ui-thin-border;
   text-align: left;
-  font-size: @font-m;
+  font-size: $font-m;
   font-weight: normal;
-  color: @text-body;
-  transition: @ease-out;
+  color: $text-body;
+  transition: $ease-out;
   outline: unset;
 
   &:hover {
-    background-color: darken(@ui-bg, 4%);
+    background-color: darken($ui-bg, 4%);
   }
 
   .icon {
@@ -60,10 +65,10 @@
   }
 }
 
-.country-selection__country {
+.country-select__country {
   display: flex;
   align-items: center;
-  color: @text-body;
+  color: $text-body;
 
   .flag {
     background-repeat: no-repeat;
@@ -80,8 +85,22 @@
   }
 
   .user-role {
-    font-size: @font-s;
-    color: @text-disabled;
+    font-size: $font-s;
+    color: $text-disabled;
     margin: 0 8px;
+  }
+}
+
+.country-select__select-laptop {
+  display: none;
+
+  @include min-width($laptop) {
+    display: initial;
+  }
+}
+
+.country-select__select-mobile {
+  @include min-width($laptop) {
+    display: none;
   }
 }

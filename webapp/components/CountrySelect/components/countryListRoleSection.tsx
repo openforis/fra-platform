@@ -3,10 +3,10 @@ import * as R from 'ramda'
 import FRA from '@common/assessment/fra'
 import { Area, Country } from '@common/country'
 import { getRoleLabelKey, noRole } from '@common/countryRole'
-import CountryListRow from '@webapp/components/countrySelection/components/countryListRow'
+import CountryListRow from '@webapp/components/CountrySelect/components/countryListRow'
 import useI18n from '@webapp/components/hooks/useI18n'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
-import { checkMatch } from '@webapp/components/countrySelection/utils/checkMatch'
+import { checkMatch } from '@webapp/components/CountrySelect/utils/checkMatch'
 
 type Props = {
   role: string

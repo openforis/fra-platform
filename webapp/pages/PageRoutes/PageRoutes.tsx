@@ -11,7 +11,7 @@ import Login from '@webapp/pages/Login'
 import Header from '@webapp/components/Header'
 import Footer from '@webapp/components/Footer'
 import ErrorComponent from '@webapp/components/error/errorComponent'
-import CountrySelection from '@webapp/components/countrySelection'
+import CountrySelect from '@webapp/components/CountrySelect'
 
 import { useIsLogin } from '@webapp/components/hooks'
 import * as AppState from '@webapp/store/app/state'
@@ -44,7 +44,7 @@ const PageRoutes = () => {
 
       <Route>
         <Header />
-        {!isLogin && <CountrySelection />}
+        {!isLogin && <CountrySelect />}
 
         <Switch>
           <Route exact path={BasePaths.root} component={Landing} />
