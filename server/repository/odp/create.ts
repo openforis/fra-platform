@@ -1,5 +1,5 @@
 import { CountryIso } from '@core/country'
-import { BaseProtocol, DB } from '@server/db/db'
+import { BaseProtocol, DB } from '@server/db'
 
 export const create = async (options: { countryIso: CountryIso }, client: BaseProtocol = DB) => {
   const { countryIso } = options
