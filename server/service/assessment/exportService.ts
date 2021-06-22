@@ -1,5 +1,4 @@
 import { createI18nPromise } from '@common/i18n/i18nFactory'
-import * as Promise from 'bluebird'
 import { CountryService } from '@server/service'
 import * as FRAYearsExporter from './fraYears/fraYearsExporter'
 import * as IntervalYearsExporter from './intervals/intervalYearsExporter'
@@ -35,13 +34,12 @@ export const exportData = async (includeVariableFolders = true) => {
     sdgOutput = SDGExporter.getCsvOutput()
   }
   await (Promise as any).each(
-    countries.map(
-      async (country: any) =>
-        await Promise.all([
-          FRAYearsExporter.getCountryData(country),
-          IntervalYearsExporter.getCountryData(country),
-          AnnualYearsExporter.getCountryData(country),
-        ])
+    countries.map(async (country: any) =>
+      Promise.all([
+        FRAYearsExporter.getCountryData(country),
+        IntervalYearsExporter.getCountryData(country),
+        AnnualYearsExporter.getCountryData(country),
+      ])
     ),
     ([fraYearsRes, intervalsRes, annualRes]: any[], idx: any) => {
       fraYearsOutput.pushContent(fraYearsRes, idx)
@@ -54,14 +52,13 @@ export const exportData = async (includeVariableFolders = true) => {
   annualOutput.pushContentDone()
   if (includeVariableFolders) {
     await (Promise as any).each(
-      countries.map(
-        async (country: any) =>
-          await Promise.all([
-            NdpExporter.getCountryData(country),
-            NwfpExporter.getCountryData(country),
-            GSCompExporter.getCountryData(country),
-            SDGExporter.getCountryData(country),
-          ])
+      countries.map(async (country: any) =>
+        Promise.all([
+          NdpExporter.getCountryData(country),
+          NwfpExporter.getCountryData(country),
+          GSCompExporter.getCountryData(country),
+          SDGExporter.getCountryData(country),
+        ])
       ),
       ([ndps, nwfp, gsComp, sdg]: any[]) => {
         ndpOutput.pushContent(ndps)

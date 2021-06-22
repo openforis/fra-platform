@@ -1,6 +1,6 @@
 import { Express, Response, Request } from 'express'
 import { ApiEndPoint } from '@common/api/endpoint'
-import * as db from '../../db/db'
+import * as db from '../../db/db_deprecated'
 
 import { checkCountryAccessFromReqParams } from '../../utils/accessControl'
 import { sendErr } from '../../utils/requests'

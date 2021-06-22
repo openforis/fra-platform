@@ -1,5 +1,5 @@
 import * as fs from 'fs'
-import * as marked from 'marked'
+import marked from 'marked'
 import * as R from 'ramda'
 import { Express, Response, Request } from 'express'
 import { ApiEndPoint } from '@common/api/endpoint'

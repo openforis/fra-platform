@@ -1,9 +1,9 @@
 import * as path from 'path'
-import * as express from 'express'
+import express from 'express'
 import * as bodyParser from 'body-parser'
-import * as compression from 'compression'
-import * as fileUpload from 'express-fileupload'
-import * as morgan from 'morgan'
+import compression from 'compression'
+import fileUpload from 'express-fileupload'
+import morgan from 'morgan'
 
 import { Api } from '@server/api'
 import * as sessionInit from './sessionInit'
@@ -53,10 +53,6 @@ export const serverInit = () => {
   app.use(function (err: any, req: any, res: any, _: any) {
     console.log('test')
     if (err) sendErr(res, err)
-  })
-
-  app.use(() => {
-    console.log('ok')
   })
 
   // allowing to let passportjs to use https in heroku - see https://stackoverflow.com/questions/20739744/passportjs-callback-switch-between-http-and-https

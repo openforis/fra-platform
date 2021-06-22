@@ -1,7 +1,6 @@
-import * as session from 'express-session'
-import * as connectPgSimple from 'connect-pg-simple'
-import * as db from './db/db'
-
+import session from 'express-session'
+import connectPgSimple from 'connect-pg-simple'
+import * as db from './db/db_deprecated'
 
 const pgSession = connectPgSimple(session)
 

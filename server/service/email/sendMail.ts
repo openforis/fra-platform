@@ -2,7 +2,7 @@ import * as util from 'util'
 import * as nodemailer from 'nodemailer'
 
 import * as R from 'ramda'
-import * as assert from 'assert'
+import assert from 'assert'
 
 const mailTransport = nodemailer.createTransport({
   host: process.env.FRA_MAIL_HOST,

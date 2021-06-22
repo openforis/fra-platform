@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 // @ts-ignore
-import * as camelize from 'camelize'
-import * as db from '../../db/db'
+import camelize from 'camelize'
+import * as db from '../../db/db_deprecated'
 
 export const insertAudit = async (
   client: any,
@@ -9,11 +9,13 @@ export const insertAudit = async (
   message: any,
   countryIso: any,
   section: any,
-  target: { [key: string]: string } | null = null
+  target: { [key: string]: any } | null = null
 ) => {
   const userResult = await client.query('SELECT name, email, login_email FROM fra_user WHERE id = $1', [userId])
-  if (userResult.rows.length !== 1) throw new Error(`User ID query resulted in ${userResult.rows.length} rows`)
-  const user = camelize(userResult.rows[0])
+  // Temporary fix for 2 different dbs (pg, pg-promise)
+  const _userResult = Array.isArray(userResult) ? userResult : userResult.rows
+  if (_userResult.length !== 1) throw new Error(`User ID query resulted in ${userResult.rows.length} rows`)
+  const user = camelize(_userResult[0])
   if (countryIso) {
     await client.query(
       `INSERT INTO 

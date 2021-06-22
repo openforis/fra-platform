@@ -1,8 +1,8 @@
 import * as R from 'ramda'
 // @ts-ignore
-import * as camelize from 'camelize'
+import camelize from 'camelize'
 import { collaborator } from '@common/countryRole'
-import * as db from '../../db/db'
+import * as db from '../../db/db_deprecated'
 
 export const fetchCollaboratorCountryAccessTables = async (countryIso: any, collaboratorId: any) => {
   const selectRes = await db.pool.query(

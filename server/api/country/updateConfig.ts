@@ -3,7 +3,7 @@ import { ApiAuthMiddleware } from '@server/api/middleware'
 import { Express, Request, Response } from 'express'
 import { CountryRepository } from '@server/repository'
 import { Requests } from '@server/utils'
-import * as db from '@server/db/db'
+import * as db from '@server/db/db_deprecated'
 import { ApiEndPoint } from '@common/api/endpoint'
 
 export const CountryUpdateConfig = {

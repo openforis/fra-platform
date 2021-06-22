@@ -1,9 +1,9 @@
 // @ts-ignore
-import * as camelize from 'camelize'
+import camelize from 'camelize'
 import * as R from 'ramda'
 import { roleForCountry, isAdministrator } from '@common/countryRole'
 import { getAllowedStatusTransitions } from '@common/assessment'
-import * as db from '../../db/db'
+import * as db from '../../db/db_deprecated'
 
 import { insertAudit } from '../audit/auditRepository'
 import { AccessControlException } from '../../utils/accessControl'
