@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import * as camelize from 'camelize'
+import camelize from 'camelize'
 import * as R from 'ramda'
 import { getCountryProperties } from '@server/repository/country/getCountryProperties'
 

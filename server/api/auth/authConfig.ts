@@ -1,14 +1,14 @@
-import * as passport from 'passport'
-import * as GoogleStrategy from 'passport-google-oauth'
-import * as passportLocal from 'passport-local'
-import * as cookieParser from 'cookie-parser'
+import passport from 'passport'
+import GoogleStrategy from 'passport-google-oauth'
+import passportLocal from 'passport-local'
+import cookieParser from 'cookie-parser'
 
 import { validEmail, validPassword } from '@common/userUtils'
 import { Objects } from '@core/utils'
 import { User } from '@core/auth'
 import { passwordHash } from './utils/passwordHash'
 import * as userRepository from '../../repository/user/userRepository'
-import * as db from '../../db/db'
+import * as db from '../../db/db_deprecated'
 
 const googleStrategyVerifyCallback = async (req: any, accessToken: any, refreshToken: any, profile: any, done: any) => {
   const userFetchCallback = (user: any) =>

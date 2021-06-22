@@ -9,17 +9,20 @@ export const markAsActual = async (client: any, odpId: any, user: any) => {
     'UPDATE odp SET actual_id = draft_id, draft_id = null WHERE id = $1 AND draft_id IS NOT NULL',
     [odpId]
   )
-  const { oldActualId, countryIso } = await (Promise as any).join(
+  const handleResult = (oldActualResult: any, countryIso: any) => {
+    if (oldActualResult.rowCount > 0 && oldActualResult.rows[0].draft_id) {
+      return { oldActualId: oldActualResult.rows[0].actual_id, countryIso }
+    }
+    return { countryIso }
+  }
+
+  const [oldActualResult, _countryIso] = await Promise.all([
     currentOdpPromise,
     checkCountryAccessPromise,
     updateOdpPromise,
-    (oldActualResult: any, countryIso: any) => {
-      if (oldActualResult.rowCount > 0 && oldActualResult.rows[0].draft_id) {
-        return { oldActualId: oldActualResult.rows[0].actual_id, countryIso }
-      }
-      return { countryIso }
-    }
-  )
+  ])
+
+  const { oldActualId, countryIso } = handleResult(oldActualResult, _countryIso)
   await insertAudit(client, user.id, 'markAsActual', countryIso, 'odp', { odpId })
   if (oldActualId) {
     return Promise.all([
