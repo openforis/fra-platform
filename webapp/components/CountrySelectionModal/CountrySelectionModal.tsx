@@ -80,7 +80,7 @@ const CountrySelectionModal: React.FC<Props> = (props) => {
   }
 
   return (
-    <Modal className="country-selection" isOpen={isOpen}>
+    <Modal className="country-select" isOpen={isOpen}>
       <ModalHeader>
         {headerLabel} {showCount && `(${selection.length})`}
         <input

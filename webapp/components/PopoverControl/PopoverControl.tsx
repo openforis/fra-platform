@@ -14,7 +14,7 @@ const PopoverControl: React.FC<Props> = (props) => {
 
   useEffect(() => {
     const outsideClick = (event: any) => {
-      if (!popoverControlRef.current.contains(event.target)) setOpen(false)
+      if (popoverControlRef.current && !popoverControlRef.current.contains(event.target)) setOpen(false)
     }
     window.addEventListener('click', outsideClick)
 
