@@ -1,5 +1,3 @@
-import 'dotenv/config'
-
 import pgPromise from 'pg-promise'
 import { ProcessEnv } from '@server/utils'
 
