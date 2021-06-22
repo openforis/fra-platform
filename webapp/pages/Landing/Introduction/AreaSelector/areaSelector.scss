@@ -1,23 +1,40 @@
 @import 'webapp/style/partials';
 
 .home-area-selector {
-  display: flex;
+  display: grid;
   align-items: center;
+  justify-content: start;
+  grid-column-gap: $spacing-l;
+  grid-row-gap: $spacing-xs;
 
-  > * {
-    margin-right: 8px;
-  }
-
-  .m-r {
-    margin-right: 36px;
-  }
-
-  img {
-    height: 24px;
+  @include min-width($laptop) {
+    grid-template-columns: repeat(3, auto);
   }
 
   a.country-selection-list__row {
     color: $text-link;
-    padding: 8px 16px;
+    padding: $spacing-xxs $spacing-xs;
+  }
+}
+
+.home-area-selector__group {
+  display: grid;
+  align-items: center;
+  justify-content: start;
+  grid-template-columns: repeat(3, auto);
+  grid-column-gap: $spacing-xxs;
+
+  img {
+    height: $spacing-s;
+  }
+
+  .btn-country-selection {
+    min-width: 220px;
+    width: 220px;
+
+    @include min-width($laptop) {
+      min-width: 250px;
+      width: unset;
+    }
   }
 }
