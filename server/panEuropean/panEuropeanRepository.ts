@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 import { format } from 'date-fns'
-import * as db from '../db/db'
+import * as db from '../db/db_deprecated'
 import * as auditRepository from '../repository/audit/auditRepository'
 
 const fileName = (fileName: any, countryIso: any) =>

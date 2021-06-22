@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 // @ts-ignore
-import * as camelize from 'camelize'
+import camelize from 'camelize'
 
 import * as R from 'ramda'
 import * as bcrypt from 'bcrypt'
@@ -11,7 +11,7 @@ import FRA from '@common/assessment/fra'
 import { nationalCorrespondent, reviewer, collaborator, alternateNationalCorrespondent } from '@common/countryRole'
 import { userType } from '@common/userUtils'
 import { CountryService } from '@server/service'
-import * as db from '../../db/db'
+import * as db from '../../db/db_deprecated'
 import * as auditRepository from '../audit/auditRepository'
 import { fetchCollaboratorCountryAccessTables } from '../collaborators/collaboratorsRepository'
 import { AccessControlException } from '../../utils/accessControl'

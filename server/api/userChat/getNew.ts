@@ -1,6 +1,6 @@
 import { Express, Response, Request } from 'express'
 import { checkCountryAccessFromReqParams } from '@server/utils/accessControl'
-import * as db from '@server/db/db'
+import * as db from '@server/db/db_deprecated'
 import { getChatUnreadMessages } from '@server/repository/userChat/userChatRepository'
 import { sendErr } from '@server/utils/requests'
 import { ApiEndPoint } from '@common/api/endpoint'

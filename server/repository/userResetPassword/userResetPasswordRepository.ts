@@ -1,5 +1,5 @@
 // @ts-ignore
-import * as camelize from 'camelize'
+import camelize from 'camelize'
 import * as R from 'ramda'
 import { differenceInSeconds, parseISO } from 'date-fns'
 import { toUTCSelectParam } from '@server/db/queryHelper'
