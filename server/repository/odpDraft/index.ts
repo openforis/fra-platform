@@ -1,5 +1,7 @@
-import { updateOrInsertDraft } from '@server/repository/odpDraft/updateOrInsertDraft'
+import { updateDraft } from '@server/repository/odpDraft/updateDraft'
+import { insertDraft } from '@server/repository/odpDraft/insertDraft'
 
 export const OdpDraftRepository = {
-  updateOrInsertDraft,
+  updateDraft,
+  insertDraft,
 }

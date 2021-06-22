@@ -2,7 +2,7 @@ import { listAndValidateOriginalDataPoints } from './listAndValidateOriginalData
 import { listOriginalDataPoints } from './listOriginalDataPoints'
 import { getOdp } from './getOdp'
 import { deleteDraft } from './deleteDraft'
-import { saveDraft } from './saveDraft'
+import { persistDraft } from './persistDraft'
 import { create } from './create'
 import { markAsActual } from './markAsActual'
 import { deleteOdp } from './deleteOdp'
@@ -15,7 +15,7 @@ export const OdpService = {
   listOriginalDataPoints,
   getOdp,
   deleteDraft,
-  saveDraft,
+  persistDraft,
   create,
   markAsActual,
   deleteOdp,
