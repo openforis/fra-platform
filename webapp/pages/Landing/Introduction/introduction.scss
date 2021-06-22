@@ -2,7 +2,11 @@
 
 .home-introduction {
   position: relative;
-  height: 75vh;
+  height: 750px;
+
+  @include min-width($laptop) {
+    height: 75vh;
+  }
 }
 
 .home-introduction__about-fra {
@@ -26,18 +30,29 @@
     rgba($text-heading, 0) 100%
   );
   display: grid;
-  grid-row-gap: 24px;
+  grid-row-gap: $spacing-xs;
   align-content: center;
-  padding: 0 36px;
+  padding: 0 $spacing-xs;
   color: white;
 
+  @include min-width($laptop) {
+    grid-row-gap: $spacing-s;
+    padding: 0 $spacing-m;
+  }
+
   .header {
-    font-size: $font-xl + 1;
-    font-weight: 600;
+    font-size: $font-xl;
+
+    @include min-width($laptop) {
+      font-weight: 600;
+      font-size: $font-xl + 1;
+    }
   }
 
   .process {
-    max-width: 38%;
+    @include min-width($laptop) {
+      max-width: 38%;
+    }
   }
 
   .link-fra-process {
@@ -48,12 +63,20 @@
 
 .home-introduction__area-selector {
   display: grid;
-  grid-row-gap: 24px;
+  grid-row-gap: $spacing-xs;
+
+  @include min-width($laptop) {
+    grid-row-gap: $spacing-s;
+  }
 
   hr {
     border-top: 1px solid rgba(white, 0.5);
     margin: unset;
-    width: 38%;
+    width: 60%;
+
+    @include min-width($laptop) {
+      width: 38%;
+    }
   }
 }
 
