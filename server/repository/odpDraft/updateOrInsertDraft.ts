@@ -1,9 +1,9 @@
-import { OdpClassRepository } from '@server/repository'
+import { OdpClassRepository, OdpRepository } from '@server/repository'
 import { insertAudit } from '@server/repository/audit/auditRepository'
-import { getDraftId, insertDraft, updateDraft } from '@server/repository/odpDraft/odpDraftRepository'
+import { insertDraft, updateDraft } from '@server/repository/odpDraft/odpDraftRepository'
 
 export const updateOrInsertDraft = async (client: any, user: any, odpId: any, countryIso: any, draft: any) => {
-  const draftId = await getDraftId(client, odpId)
+  const draftId = await OdpRepository.getDraftId(client, odpId)
 
   if (draftId) {
     await updateDraft(client, draft)
