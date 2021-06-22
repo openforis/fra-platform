@@ -1,6 +1,6 @@
 import { Express, Response, Request } from 'express'
 import { validPassword } from '@common/userUtils'
-import * as db from '@server/db/db'
+import * as db from '@server/db/db_deprecated'
 import { changePassword } from '@server/repository/userResetPassword/userResetPasswordRepository'
 import { sendErr } from '@server/utils/requests'
 import { Objects } from '@core/utils'

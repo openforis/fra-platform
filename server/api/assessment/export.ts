@@ -1,5 +1,5 @@
 import { Express, Response, Request } from 'express'
-import * as JSZip from 'jszip'
+import JSZip from 'jszip'
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import * as ExportService from '@server/service/assessment/exportService'
 import { Requests } from '@server/utils'

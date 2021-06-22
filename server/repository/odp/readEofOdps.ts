@@ -1,4 +1,4 @@
-import * as db from '@server/db/db'
+import * as db from '@server/db/db_deprecated'
 import * as R from 'ramda'
 
 export const eofReducer = (results: any, row: any, type = 'fra') => [

@@ -1,8 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import * as camelize from 'camelize'
+import camelize from 'camelize'
 
-import * as db from '@server/db/db'
+import * as db from '@server/db/db_deprecated'
 import { getCountryProperties } from '@server/repository/country/getCountryProperties'
 
 export const getCountry = (countryIso: any) =>

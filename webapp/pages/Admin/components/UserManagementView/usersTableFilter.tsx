@@ -3,7 +3,7 @@ import './usersTableFilter.less'
 import React from 'react'
 import * as R from 'ramda'
 // @ts-ignore
-import * as camelize from 'camelize'
+import camelize from 'camelize'
 // @ts-ignore
 import * as snake from 'to-snake-case'
 
@@ -20,6 +20,7 @@ type UsersTableFilterState = any
 type Props = any
 class UsersTableFilter extends React.Component<Props, UsersTableFilterState> {
   props: Props
+
   render() {
     const { i18n, userInfo, filter, onChange, countries } = this.props
 

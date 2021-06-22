@@ -1,7 +1,7 @@
 import { Express, Response, Request } from 'express'
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import { allowedToEditDataCheck } from '@server/assessment/assessmentEditAccessControl'
-import * as db from '@server/db/db'
+import * as db from '@server/db/db_deprecated'
 import { OdpService } from '@server/service'
 import { Requests } from '@server/utils'
 import { ApiEndPoint } from '@common/api/endpoint'
