@@ -4,12 +4,12 @@ import React from 'react'
 import Partners from '@webapp/components/Partners'
 
 import Introduction from './Introduction'
-import KeyFinidings from './KeyFinidings'
+import KeyFindings from './KeyFindings'
 
-const Landing = () => (
+const Landing: React.FC = () => (
   <>
     <Introduction />
-    <KeyFinidings />
+    <KeyFindings />
     <Partners />
   </>
 )
