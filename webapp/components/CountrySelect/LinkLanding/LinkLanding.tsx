@@ -1,20 +1,24 @@
-import './linkLanding.less'
+import './linkLanding.scss'
 import React from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
-import * as BasePaths from '@webapp/main/basePaths'
-import { useCountryIso, useI18n } from '@webapp/components/hooks'
-import useCountryLandingSections from '@webapp/app/countryLanding/useCountryLandingSections'
-import Icon from '@webapp/components/icon'
-import { useAssessmentType } from '@webapp/store/app'
 
-const LinkLanding = () => {
+import * as BasePaths from '@webapp/main/basePaths'
+import useCountryLandingSections from '@webapp/app/countryLanding/useCountryLandingSections'
+import { useAssessmentType } from '@webapp/store/app'
+import { useCountryIso, useI18n } from '@webapp/components/hooks'
+
+import Icon from '@webapp/components/icon'
+
+const LinkLanding: React.FC = () => {
   const i18n = useI18n()
   const countryIso = useCountryIso()
   const location = useLocation()
   const sections = useCountryLandingSections()
   const assessmentType = useAssessmentType()
+
   const isActive = (match: any) =>
     match && (match.isExact || sections.find((section: any) => location.pathname.indexOf(section.name) > 0))
+
   return (
     <NavLink
       to={BasePaths.getAssessmentHomeLink(countryIso, assessmentType)}
@@ -23,7 +27,7 @@ const LinkLanding = () => {
       isActive={isActive}
     >
       <Icon name="icon-bar-chart" className="icon-sub icon-margin-right" />
-      <div className="nav__link-label">{(i18n as any).t(`area.${countryIso}.listName`)}</div>
+      <div className="nav__link-label">{i18n.t(`area.${countryIso}.listName`)}</div>
     </NavLink>
   )
 }

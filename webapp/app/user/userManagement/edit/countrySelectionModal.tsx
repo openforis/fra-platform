@@ -63,7 +63,7 @@ const CountrySelectionModal = (props: any) => {
   const { countries, toggleCountry, onClose, selection, unselectableCountries, headerLabel } = props
   const i18n = useI18n()
   return (
-    <div className="country-selection">
+    <div className="country-select">
       <Modal isOpen>
         <ModalHeader>
           {headerLabel}
