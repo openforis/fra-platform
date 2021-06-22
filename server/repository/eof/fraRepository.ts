@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 // @ts-ignore
-import * as camelize from 'camelize'
-import * as db from '../../db/db'
+import camelize from 'camelize'
+import * as db from '../../db/db_deprecated'
 
 const existingEofValues = async (countryIso: any, year: any) => {
   const result = await db.pool.query(

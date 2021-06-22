@@ -1,10 +1,10 @@
 // @ts-ignore
-import * as camelize from 'camelize'
+import camelize from 'camelize'
 import * as R from 'ramda'
 
 import { parseISO, isBefore } from 'date-fns'
 import { isReviewer } from '@common/countryRole'
-import * as db from '../../db/db'
+import * as db from '../../db/db_deprecated'
 import * as auditRepository from '../audit/auditRepository'
 import { checkCountryAccess, checkReviewerCountryAccess, AccessControlException } from '../../utils/accessControl'
 

@@ -1,12 +1,9 @@
-import * as R from 'ramda'
 import { deleteIssuesByIds } from '@server/repository/review/reviewRepository'
 
 export const wipeNationalClassIssues = async (client: any, odpId: any, countryIso: any, nationalClasses: any) => {
   const hasClasses = nationalClasses.length > 0
   const classUuids = nationalClasses.map((c: any) => `"${c.uuid}"`)
-  const classQueryPlaceholders = R.range(3, nationalClasses.length + 3)
-    .map((i: any) => `$${i}`)
-    .join(',')
+  const classQueryPlaceholders = [...Array(nationalClasses.length).keys()].map((x) => `$${x + 3}`).join(',')
 
   const res = await client.query(
     `
@@ -24,7 +21,7 @@ export const wipeNationalClassIssues = async (client: any, odpId: any, countryIs
     `,
     hasClasses ? [countryIso, 'odp', ...classUuids] : [countryIso, 'odp']
   )
-  const issueIds = res.rows.map((r: any) => r.issue_id)
+  const issueIds = res.map((r: any) => r.issue_id)
 
   await deleteIssuesByIds(client, issueIds)
 

@@ -2,7 +2,7 @@ import { Express, Response, Request } from 'express'
 import { persistCollaboratorCountryAccess } from '@server/repository/collaborators/collaboratorsRepository'
 import { Requests } from '@server/utils'
 import { checkCountryAccessFromReqParams } from '@server/utils/accessControl'
-import * as db from '@server/db/db'
+import * as db from '@server/db/db_deprecated'
 import { ApiEndPoint } from '@common/api/endpoint'
 
 export const CollaboratorCreate = {

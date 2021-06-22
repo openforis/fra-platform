@@ -1,6 +1,6 @@
 import { Express, Response, Request } from 'express'
 import { ApiAuthMiddleware } from '@server/api/middleware'
-import * as db from '@server/db/db'
+import * as db from '@server/db/db_deprecated'
 import { Requests } from '@server/utils'
 import { ApiEndPoint } from '@common/api/endpoint'
 import { DataTableService } from '@server/service'

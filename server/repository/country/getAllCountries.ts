@@ -1,4 +1,4 @@
-import * as db from '@server/db/db'
+import * as db from '@server/db/db_deprecated'
 import { handleCountryResult } from './handleCountryResult'
 
 export const getAllCountries = (role: any, schemaName = 'public') => {

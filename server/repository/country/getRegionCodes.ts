@@ -1,8 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import * as camelize from 'camelize'
+import camelize from 'camelize'
 // Get all region codes
-import * as db from '@server/db/db'
+import * as db from '@server/db/db_deprecated'
 
 export const getRegionCodes = async () => {
   const query = `select distinct region_code from country_region`

@@ -1,5 +1,5 @@
 import { Express, Response, Request } from 'express'
-import * as db from '@server/db/db'
+import * as db from '@server/db/db_deprecated'
 import { addMessage, getChatUnreadMessages } from '@server/repository/userChat/userChatRepository'
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import { sendErr, serverUrl } from '@server/utils/requests'
