@@ -30,7 +30,9 @@ const configCommon = {
   // Max number of clients in the pool
   max: 30,
   // Whether to use ssl connections
-  ssl: ProcessEnv.pgSsl,
+  ssl: {
+    rejectUnauthorized: ProcessEnv.pgSsl,
+  },
 }
 
 const config = ProcessEnv.dbUrl
