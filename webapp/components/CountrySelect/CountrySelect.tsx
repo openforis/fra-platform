@@ -7,8 +7,8 @@ import { Area } from '@common/country'
 import { useCountryIso, useI18n, useNavigationVisible, useUserInfo } from '@webapp/components/hooks'
 import Icon from '@webapp/components/icon'
 import LinkLanding from './LinkLanding'
-import CountryList from './components/countryList'
-import ToggleNavigationControl from './components/toggleNavigationControl'
+import CountryList from './CountryList'
+import ToggleNavigationControl from './ToggleNavigationControl'
 import AutoSaveStatus from './AutoSaveStatus'
 
 const findElementRoot = (el: any): any => {

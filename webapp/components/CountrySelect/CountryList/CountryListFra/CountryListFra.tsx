@@ -1,25 +1,30 @@
 import React from 'react'
+
 import FRA from '@common/assessment/fra'
 import { Area } from '@common/country'
 import { noRole } from '@common/countryRole'
-import { checkMatch } from '@webapp/components/CountrySelect/utils/checkMatch'
-import { useI18n } from '@webapp/components/hooks'
-import { useCountries } from '@webapp/store/app'
+
+import { useCountries, useGroupedRegions } from '@webapp/store/app'
 import { useUserCountries } from '@webapp/store/user'
-import { useGroupedRegions } from '@webapp/store/app/hooks'
-import CountryListDownload from '../countryListDownload'
-import CountryListRow from '../countryListRow'
-import CountryListRoleSection from '../countryListRoleSection'
+import { useI18n } from '@webapp/components/hooks'
+import { checkMatch } from '@webapp/components/CountrySelect/utils/checkMatch'
+
+import CountryListDownload from '../../components/countryListDownload'
+import CountryListRow from '../../components/countryListRow'
+import CountryListRoleSection from '../../components/countryListRoleSection'
 
 type Props = {
   query: string
 }
-const CountryListFra = (props: Props) => {
+
+const CountryListFra: React.FC<Props> = (props: Props) => {
   const { query } = props
+
   const i18n = useI18n()
   const allCountries = useCountries()
   const groupedRegions = useGroupedRegions()
   const userCountries: any = useUserCountries()
+
   const filterRegions = (regions: any) =>
     regions
       .filter((region: any) => checkMatch(Area.getListName(region.regionCode, i18n), query))
@@ -33,13 +38,14 @@ const CountryListFra = (props: Props) => {
     ...userCountries,
     [noRole.role]: (allCountries as any).filter((country: any) => !userCountryIsos.includes(country.countryIso)),
   }
+
   return (
     <div className="country-selection-list">
       <CountryListDownload />
 
       <div className="country-selection-list__content">
         <div className="country-selection-list__global">
-          {checkMatch((i18n as any).t(`area.${Area.levels.global}.listName`), query) && (
+          {checkMatch(i18n.t(`area.${Area.levels.global}.listName`), query) && (
             <>
               <CountryListRow
                 role={noRole.role}
