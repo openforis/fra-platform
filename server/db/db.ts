@@ -31,7 +31,7 @@ const configCommon = {
   max: 30,
   // Whether to use ssl connections
   ssl: {
-    rejectUnauthorized: ProcessEnv.pgSsl,
+    rejectUnauthorized: ProcessEnv.rejectUnauthorized,
   },
 }
 
