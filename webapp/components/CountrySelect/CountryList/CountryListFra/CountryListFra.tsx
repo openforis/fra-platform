@@ -9,9 +9,9 @@ import { useUserCountries } from '@webapp/store/user'
 import { useI18n } from '@webapp/components/hooks'
 import { checkMatch } from '@webapp/components/CountrySelect/utils/checkMatch'
 
-import CountryListDownload from '../../components/countryListDownload'
-import CountryListRow from '../../components/countryListRow'
-import CountryListRoleSection from '../../components/countryListRoleSection'
+import CountryListDownload from '../CountryListDownload'
+import CountryListRow from '../CountryListRow'
+import CountryListRoleSection from '../CountryListRoleSection'
 
 type Props = {
   query: string

@@ -8,7 +8,7 @@ import { useCountriesPanEuropean } from '@webapp/store/app'
 import { useI18n } from '@webapp/components/hooks'
 import { checkMatch } from '@webapp/components/CountrySelect/utils/checkMatch'
 
-import CountryListRow from '../../components/countryListRow'
+import CountryListRow from '../CountryListRow'
 
 type Props = {
   query: string
