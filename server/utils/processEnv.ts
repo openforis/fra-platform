@@ -27,5 +27,4 @@ export const ProcessEnv = {
   pgPort: Number(pgPort),
   pgDatabase,
   pgSsl: process.env.PGSSL === 'true',
-  rejectUnauthorized: process.env.rejectUnauthorized === 'true',
 }
