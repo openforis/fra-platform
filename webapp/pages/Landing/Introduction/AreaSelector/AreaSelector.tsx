@@ -21,8 +21,8 @@ const AreaSelector: React.FC = () => {
   const i18n = useI18n()
   const groupedRegions = useGroupedRegions()
   const countries = useCountries()
-  const [dropdownOpened, setDropdownOpened] = useState('')
-  const [countryISOs, setCountryISOs] = useState([])
+  const [dropdownOpened, setDropdownOpened] = useState<string>('')
+  const [countryISOs, setCountryISOs] = useState<Array<string>>([])
 
   useEffect(() => {
     setCountryISOs((countries as any).map(Country.getCountryIso))
@@ -33,13 +33,13 @@ const AreaSelector: React.FC = () => {
       <div className="home-area-selector__group">
         <img alt="" src="/img/iconGlobal.svg" />
         <Link className="home-link m-r" to={BasePaths.getAssessmentHomeLink(Area.levels.global, FRA.type)}>
-          {(i18n as any).t(`area.${Area.levels.global}.listName`)}
+          {i18n.t(`area.${Area.levels.global}.listName`)}
         </Link>
       </div>
 
       <div className="home-area-selector__group">
         <img alt="" src="/img/iconRegions.svg" />
-        <div>{(i18n as any).t('common.regions')}</div>
+        <div>{i18n.t('common.regions')}</div>
         <DropdownAreas
           area={areas.regions}
           areaISOs={groupedRegions}
@@ -51,7 +51,7 @@ const AreaSelector: React.FC = () => {
 
       <div className="home-area-selector__group">
         <img alt="" src="/img/iconCountries.svg" />
-        <div>{(i18n as any).t('common.countries')}</div>
+        <div>{i18n.t('common.countries')}</div>
         <DropdownAreas
           area={areas.countries}
           areaISOs={countryISOs}

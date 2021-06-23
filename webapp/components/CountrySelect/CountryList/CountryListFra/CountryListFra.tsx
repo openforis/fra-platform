@@ -7,7 +7,7 @@ import { noRole } from '@common/countryRole'
 import { useCountries, useGroupedRegions } from '@webapp/store/app'
 import { useUserCountries } from '@webapp/store/user'
 import { useI18n } from '@webapp/components/hooks'
-import { checkMatch } from '@webapp/components/CountrySelect/utils/checkMatch'
+import { checkMatch } from '../../utils/checkMatch'
 
 import CountryListDownload from '../CountryListDownload'
 import CountryListRow from '../CountryListRow'

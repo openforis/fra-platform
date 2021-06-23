@@ -6,7 +6,7 @@ import { noRole } from '@common/countryRole'
 
 import { useCountriesPanEuropean } from '@webapp/store/app'
 import { useI18n } from '@webapp/components/hooks'
-import { checkMatch } from '@webapp/components/CountrySelect/utils/checkMatch'
+import { checkMatch } from '../../utils/checkMatch'
 
 import CountryListRow from '../CountryListRow'
 
