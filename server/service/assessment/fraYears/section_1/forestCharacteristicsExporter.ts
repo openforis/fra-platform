@@ -24,7 +24,7 @@ class ForestCharacteristicsExporter extends FraTableExporter {
     return FraValueService.getFraValues(this.tableName, countryIso)
   }
 
-  parseResultRow(result: any, yearIdx: any, year: any) {
+  parseResultRow(result: any, _yearIdx: any, year: any) {
     const focYear = R.pipe(R.prop('fra'), R.find(R.propEq('year', year)), R.defaultTo({}))(result)
 
     // @ts-ignore

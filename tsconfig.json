@@ -21,7 +21,7 @@
       "@webapp/*": ["./webapp/*"],
       "@test/*": ["./test/*"]
     },
-    "strict": true,
+//    "strict": true,
     "target": "ESNext"
   }
 }

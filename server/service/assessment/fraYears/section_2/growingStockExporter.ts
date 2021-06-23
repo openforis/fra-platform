@@ -30,7 +30,8 @@ class GrowingStockExporter extends FraTableExporter {
     return GrowingStockService.getGrowingStock(countryIso)
   }
 
-  parseResultRow(result: any, yearIdx: any, year: any) {
+  // eslint-disable-next-line class-methods-use-this
+  parseResultRow(result: any, _yearIdx: any, year: any) {
     const { avgTable, totalTable } = result
 
     return {

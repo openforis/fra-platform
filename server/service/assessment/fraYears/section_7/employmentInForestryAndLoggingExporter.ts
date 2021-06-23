@@ -52,10 +52,10 @@ class EmploymentInForestryAndLoggingExporter extends DataTableExporter {
     )
   }
 
-  parseResultRow(result: any, yearIdx: any, year: any) {
+  parseResultRow(result: any, _yearIdx: any, year: any) {
     const resultRow: { [key: string]: any } = {}
 
-    this.fields.forEach((field: any, fieldIdx: any) => {
+    this.fields.forEach((field: any, _fieldIdx: any) => {
       const yearIdxData = yearsIdx[year]
       const yearIdxField = R.endsWith('fem', field)
         ? yearIdxData + 1
