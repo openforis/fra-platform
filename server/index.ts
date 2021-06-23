@@ -1,9 +1,9 @@
 import 'tsconfig-paths/register'
 import 'dotenv/config'
 import * as os from 'os'
-import cluster from 'cluster'
+import * as cluster from 'cluster'
 
-import migrations from './db/migration/execMigrations'
+import * as migrations from './db/migration/execMigrations'
 import { serverInit } from './serverInit'
 
 import * as VersioningScheduler from './system/schedulers/versioningScheduler'

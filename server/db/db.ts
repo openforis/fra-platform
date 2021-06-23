@@ -1,4 +1,4 @@
-import pgPromise from 'pg-promise'
+import * as pgPromise from 'pg-promise'
 import { ProcessEnv } from '@server/utils'
 
 const logger = {

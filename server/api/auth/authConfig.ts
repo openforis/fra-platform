@@ -1,7 +1,7 @@
-import passport from 'passport'
-import GoogleStrategy from 'passport-google-oauth'
-import passportLocal from 'passport-local'
-import cookieParser from 'cookie-parser'
+import * as passport from 'passport'
+import * as GoogleStrategy from 'passport-google-oauth'
+import * as passportLocal from 'passport-local'
+import * as cookieParser from 'cookie-parser'
 
 import { validEmail, validPassword } from '@common/userUtils'
 import { Objects } from '@core/utils'

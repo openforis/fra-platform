@@ -1,6 +1,6 @@
 import React from 'react'
 import * as PropTypes from 'prop-types'
-import assert from 'assert'
+import * as assert from 'assert'
 
 import FRA from '@common/assessment/fra'
 
