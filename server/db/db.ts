@@ -24,7 +24,7 @@ const pgp = pgPromise(initOptions)
 // 1114 is OID for timestamp in Postgres
 pgp.pg.types.setTypeParser(1114, (str: string) => new Date(`${str} GMT`))
 
-const configCommon: any = {
+const configCommon = {
   // How long a client is allowed to remain idle before being closed
   idleTimeoutMillis: 30000,
   // Max number of clients in the pool
