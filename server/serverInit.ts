@@ -1,9 +1,9 @@
 import * as path from 'path'
-import express from 'express'
+import * as express from 'express'
 import * as bodyParser from 'body-parser'
-import compression from 'compression'
-import fileUpload from 'express-fileupload'
-import morgan from 'morgan'
+import * as compression from 'compression'
+import * as fileUpload from 'express-fileupload'
+import * as morgan from 'morgan'
 
 import { Api } from '@server/api'
 import * as sessionInit from './sessionInit'

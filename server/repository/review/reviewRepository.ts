@@ -1,5 +1,5 @@
 // @ts-ignore
-import camelize from 'camelize'
+import * as camelize from 'camelize'
 import * as R from 'ramda'
 
 import { parseISO, isBefore } from 'date-fns'
