@@ -1,5 +1,5 @@
 // @ts-ignore
-import camelize from 'camelize'
+import * as camelize from 'camelize'
 import * as db from '../../db/db_deprecated'
 
 export const getChatSummary = async (userFrom: any, userTo: any) => {

@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import camelize from 'camelize'
+import * as camelize from 'camelize'
 // Get all region codes
 import * as db from '@server/db/db_deprecated'
 

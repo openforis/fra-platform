@@ -3,7 +3,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import * as R from 'ramda'
 // @ts-ignore
-import camelize from 'camelize'
+import * as camelize from 'camelize'
 import useI18n from '@webapp/components/hooks/useI18n'
 
 const ContactPersonsPrintView = () => {
