@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 // @ts-ignore
-import camelize from 'camelize'
+import * as camelize from 'camelize'
 import { collaborator } from '@common/countryRole'
 import * as db from '../../db/db_deprecated'
 

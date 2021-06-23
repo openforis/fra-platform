@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 // @ts-ignore
-import camelize from 'camelize'
+import * as camelize from 'camelize'
 
 import * as R from 'ramda'
 import * as bcrypt from 'bcrypt'

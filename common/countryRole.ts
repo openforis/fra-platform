@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import assert from 'assert'
+import * as assert from 'assert'
 // The returned value is of the form:
 // {role: <ROLE>, label: <LABEL>}
 
