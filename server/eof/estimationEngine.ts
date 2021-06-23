@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import assert from 'assert'
+import * as assert from 'assert'
 import * as NumberUtils from '../../common/bignumberUtils'
 
 export const linearInterpolation = (x: any, xa: any, ya: any, xb: any, yb: any) =>

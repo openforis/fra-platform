@@ -1,11 +1,11 @@
-import './autoSaveStatusText.less'
+import './autoSaveStatus.scss'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import * as R from 'ramda'
 import { getRelativeDate } from '@webapp/utils/relativeDate'
 import { useI18n, useUserInfo } from '@webapp/components/hooks'
 
-const AutoSaveStatusText = () => {
+const AutoSaveStatus: React.FC = () => {
   const i18n = useI18n()
   const userInfo = useUserInfo()
   // Because of strange behavior, we cannot use ex. useSelector(AutoSaveState.getState) or similar
@@ -23,4 +23,5 @@ const AutoSaveStatusText = () => {
   if (islastSaveTimestampReceived) statusText += getRelativeDate(lastSaveTimeStamp, i18n).toLowerCase()
   return <div className={`autosave-status status-${status}`}>{statusText}</div>
 }
-export default AutoSaveStatusText
+
+export default AutoSaveStatus

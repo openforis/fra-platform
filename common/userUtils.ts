@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 // @ts-ignore
-import camelize from 'camelize'
+import * as camelize from 'camelize'
 
 export const profilePictureUri = (userId: any) => `/api/users/user/${userId}/profilePicture`
 

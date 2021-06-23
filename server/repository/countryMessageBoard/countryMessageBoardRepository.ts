@@ -1,5 +1,5 @@
 // @ts-ignore
-import camelize from 'camelize'
+import * as camelize from 'camelize'
 
 export const persistMessage = async (client: any, countryIso: any, message: any, fromUserId: any) => {
   await client.query(
