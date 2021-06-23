@@ -3,7 +3,7 @@ import './usersTableFilter.less'
 import React from 'react'
 import * as R from 'ramda'
 // @ts-ignore
-import camelize from 'camelize'
+import * as camelize from 'camelize'
 // @ts-ignore
 import * as snake from 'to-snake-case'
 

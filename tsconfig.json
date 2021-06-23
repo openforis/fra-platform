@@ -7,7 +7,6 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
     "jsx": "react",
-    "esModuleInterop": true,
     "isolatedModules": true,
     "module": "CommonJS",
     "moduleResolution": "Node",
@@ -20,6 +19,6 @@
       "@webapp/*": ["./webapp/*"],
       "@test/*": ["./test/*"]
     },
-    "target": "ES2019"
+    "target": "ESNext"
   }
 }
