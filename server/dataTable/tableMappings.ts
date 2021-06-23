@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import assert from 'assert'
+import * as assert from 'assert'
 
 import fra from './mappings/fra'
 import panEuropean from './mappings/panEuropean'
