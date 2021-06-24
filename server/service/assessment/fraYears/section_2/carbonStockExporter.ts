@@ -28,7 +28,7 @@ class CarbonStockExporter extends DataTableExporter {
     ])
   }
 
-  parseResultRow([result, carbonStockSoilDepth]: any[], yearIdx: any, year: any) {
+  parseResultRow([result, carbonStockSoilDepth]: any[], _yearIdx: any, year: any) {
     const resultRow: { [key: string]: any } = {}
 
     this.fields.forEach((field: any, fieldIdx: any) => {

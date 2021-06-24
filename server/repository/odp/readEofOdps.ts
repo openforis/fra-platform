@@ -1,7 +1,7 @@
 import * as db from '@server/db/db_deprecated'
 import * as R from 'ramda'
 
-export const eofReducer = (results: any, row: any, type = 'fra') => [
+export const eofReducer = (results: any, row: any, _type = 'fra') => [
   ...results,
   {
     odpId: row.odp_id,

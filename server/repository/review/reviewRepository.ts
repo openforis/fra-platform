@@ -160,7 +160,7 @@ export const createIssueWithComment = (
   `,
         [countryIso, section, target, 'opened']
       )
-      .then((res: any) => client.query(`SELECT last_value FROM issue_id_seq`))
+      .then((_res: any) => client.query(`SELECT last_value FROM issue_id_seq`))
       .then((res: any) =>
         client.query(
           `

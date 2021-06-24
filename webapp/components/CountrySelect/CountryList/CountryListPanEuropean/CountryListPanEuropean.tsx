@@ -3,19 +3,18 @@ import React from 'react'
 import PanEuropean from '@common/assessment/panEuropean'
 import { Area, Country } from '@common/country'
 import { noRole } from '@common/countryRole'
-import { checkMatch } from '@webapp/components/CountrySelect/utils/checkMatch'
 
 import { useCountriesPanEuropean } from '@webapp/store/app'
-
 import { useI18n } from '@webapp/components/hooks'
+import { checkMatch } from '../../utils/checkMatch'
 
-import CountryListRow from '../countryListRow'
+import CountryListRow from '../CountryListRow'
 
 type Props = {
   query: string
 }
 
-const CountryListPanEuropean = (props: Props) => {
+const CountryListPanEuropean: React.FC<Props> = (props: Props) => {
   const { query } = props
 
   const i18n = useI18n()

@@ -13,7 +13,7 @@ class ExtentOfForestExporter extends FraTableExporter {
     return FraValueService.getFraValues(this.tableName, countryIso)
   }
 
-  parseResultRow(result: any, yearIdx: any, year: any, countryConfig: any) {
+  parseResultRow(result: any, _yearIdx: any, year: any, countryConfig: any) {
     const eofYear = R.pipe(R.prop('fra'), R.find(R.propEq('year', year)), R.defaultTo({}))(result)
 
     return {
