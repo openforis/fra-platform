@@ -23,9 +23,15 @@ const UserConsultationSurvey: React.FC = () => {
   return (
     <div className="uc-survey">
       <div className="uc-survey-content">
-        <div>{i18n.t('uc.message')}</div>
+        <div>
+          <div>{i18n.t('uc.message1')}</div>
+          <div>{i18n.t('uc.message2')}</div>
+          <div>{i18n.t('uc.message3')}</div>
+          <div>{i18n.t('uc.message4')}</div>
+          <div>{i18n.t('uc.message5')}</div>
+        </div>
         <div className="uc-survey__btns">
-          <button className="btn btn-secondary" type="button" onChange={() => setShowDialog(false)}>
+          <button className="btn btn-secondary" type="button" onClick={() => setShowDialog(false)}>
             {i18n.t('uc.noThanks')}
           </button>
           <button className="btn btn-primary" type="button">

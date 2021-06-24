@@ -3,6 +3,7 @@ const contentCheck = require('./en/contentCheck')
 const dataDownload = require('./en/dataDownload')
 const statisticalFactsheets = require('./en/statisticalFactsheets')
 const login = require('./en/login')
+const uc = require('./en/uc')
 
 module.exports.translation = {
   area,
@@ -10,6 +11,7 @@ module.exports.translation = {
   dataDownload,
   statisticalFactsheets,
   login,
+  uc,
 
   language: {
     en: 'English',
