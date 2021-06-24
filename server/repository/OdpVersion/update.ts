@@ -1,12 +1,8 @@
-import { OdpClassRepository } from '@server/repository'
+import { BaseProtocol, DB } from '@server/db'
 
-export const updateDraft = async (client: any, draft: any) => {
-  const [{ draft_id: draftId }] = await client.query('SELECT draft_id FROM odp WHERE id = $1', [draft.odpId])
-
-  await OdpClassRepository.wipeClassData(client, draftId)
-  await OdpClassRepository.addClassData(client, draftId, draft)
-
-  await client.query(
+export const update = async (options: { draft: any; draftId: any }, client: BaseProtocol = DB) => {
+  const { draft, draftId } = options
+  return client.query(
     `
     UPDATE
       odp_version

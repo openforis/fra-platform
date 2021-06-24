@@ -1,10 +1,10 @@
-import * as R from 'ramda'
+import { BaseProtocol, DB } from '@server/db'
 
-export const addClassData = async (client: any, odpVersionId: any, odp: any) => {
-  const nationalInserts = R.map(
-    (nationalClass: any) =>
-      client.query(
-        `INSERT INTO odp_class
+export const addClassData = async (options: { odpVersionId: any; odp: any }, client: BaseProtocol = DB) => {
+  const { odpVersionId, odp } = options
+  const nationalInserts = odp.nationalClasses.map((nationalClass: any) =>
+    client.query(
+      `INSERT INTO odp_class
         (odp_version_id,
         name,
         definition,
@@ -18,21 +18,20 @@ export const addClassData = async (client: any, odpVersionId: any, odp: any) => 
         uuid)
         VALUES
         ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`,
-        [
-          odpVersionId,
-          nationalClass.className,
-          nationalClass.definition,
-          nationalClass.area,
-          nationalClass.forestPercent,
-          nationalClass.otherWoodedLandPercent,
-          nationalClass.naturalForestPercent,
-          nationalClass.plantationPercent,
-          nationalClass.plantationIntroducedPercent,
-          nationalClass.otherPlantedPercent,
-          nationalClass.uuid,
-        ]
-      ),
-    odp.nationalClasses
+      [
+        odpVersionId,
+        nationalClass.className,
+        nationalClass.definition,
+        nationalClass.area,
+        nationalClass.forestPercent,
+        nationalClass.otherWoodedLandPercent,
+        nationalClass.naturalForestPercent,
+        nationalClass.plantationPercent,
+        nationalClass.plantationIntroducedPercent,
+        nationalClass.otherPlantedPercent,
+        nationalClass.uuid,
+      ]
+    )
   )
   return Promise.all(nationalInserts)
 }
