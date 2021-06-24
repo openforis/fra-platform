@@ -19,7 +19,7 @@ export const CountryGetAll = {
       }
     })
 
-    express.get(ApiEndPoint.Country.GetAll.generalCountries(), async (req: Request, res: Response) => {
+    express.get(ApiEndPoint.Country.GetAll.generalCountries(), async (_req: Request, res: Response) => {
       try {
         // This endpoint does not return Atlantis countries (first countryIso character = X)
         const countries = (await CountryService.getAllCountriesList()).filter(

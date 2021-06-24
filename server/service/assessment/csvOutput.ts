@@ -72,7 +72,7 @@ class CsvOutput extends ExportOutput {
     }
   }
 
-  pushContent(object: any, idx?: any) {
+  pushContent(object: any, _idx?: any) {
     this._asyncParser.input.push(JSON.stringify(object))
   }
 

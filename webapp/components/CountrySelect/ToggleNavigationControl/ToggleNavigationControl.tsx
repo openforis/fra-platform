@@ -6,7 +6,7 @@ import Icon from '@webapp/components/icon'
 
 import { toggleNavigation } from '@webapp/app/components/navigation/actions'
 
-const ToggleNavigationControl = () => {
+const ToggleNavigationControl: React.FC = () => {
   const dispatch = useDispatch()
   const isHome = useIsHome()
   const isAdmin = useIsAdmin()

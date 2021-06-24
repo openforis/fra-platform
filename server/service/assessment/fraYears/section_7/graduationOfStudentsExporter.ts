@@ -52,11 +52,12 @@ class GraduationOfStudentsExporter extends DataTableExporter {
     )
   }
 
-  parseResultRow(result: any, yearIdx: any, year: any) {
+  parseResultRow(result: any, _yearIdx: any, year: any) {
     const resultRow: { [key: string]: any } = {}
 
-    this.fields.forEach((field: string, fieldIdx: any) => {
+    this.fields.forEach((field: string, _fieldIdx: any) => {
       const yearIdxData = yearsIdx[year]
+      // eslint-disable-next-line no-nested-ternary
       const yearIdxField = R.endsWith('fem', field)
         ? yearIdxData + 1
         : R.endsWith('male', field)
