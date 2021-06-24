@@ -8,7 +8,7 @@ class DataTableExporter extends FraTableExporter {
     return DataTableService.read(countryIso, this.tableName)
   }
 
-  parseResultRow(result: any, yearIdx: any, year?: any, x?: any) {
+  parseResultRow(result: any, yearIdx: any, _year?: any, _x?: any) {
     const resultRow: { [key: string]: any } = {}
 
     this.fields.forEach((field: any, fieldIdx: any) => {

@@ -2,7 +2,7 @@ import { Requests } from '@server/utils'
 import { checkCountryAccessFromReqParams, checkAdminAccess } from '../../utils/accessControl'
 import { allowedToEditDataCheck } from '../../assessment/assessmentEditAccessControl'
 
-export const requireCountryEditPermission = async (req: any, res: any, next: any) => {
+export const requireCountryEditPermission = async (req: any, _res: any, next: any) => {
   const { countryIso, section } = Requests.getParams(req)
   const user = Requests.getUser(req)
   try {
@@ -18,7 +18,7 @@ export const requireCountryEditPermission = async (req: any, res: any, next: any
   }
 }
 
-export const requireAdminPermission = async (req: any, res: any, next: any) => {
+export const requireAdminPermission = async (req: any, _res: any, next: any) => {
   const user = Requests.getUser(req)
   try {
     checkAdminAccess(user)

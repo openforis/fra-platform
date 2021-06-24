@@ -39,7 +39,7 @@ const createParams = (lang: string) => ({
 })
 
 export const createI18nInstance = (lang: any, callback: any) =>
-  createInstance(createParams(lang), (err: any, t: any) => callback({ language: lang, t }))
+  createInstance(createParams(lang), (_err: any, t: any) => callback({ language: lang, t }))
 
 export const createI18nPromise = (lang: any) =>
   new Promise((resolve, reject) =>

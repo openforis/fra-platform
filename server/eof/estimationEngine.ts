@@ -62,7 +62,13 @@ function clearTableValues(): any {
   return null
 }
 
-export const annualChangeExtrapolation = (year: any, values: any, odpValues: any, field: any, { changeRates }: any) => {
+export const annualChangeExtrapolation = (
+  year: any,
+  _values: any,
+  odpValues: any,
+  field: any,
+  { changeRates }: any
+) => {
   assert(changeRates, 'changeRates must be given for annualChange extrapolation method')
 
   const previousValues = getPreviousValues(year)(odpValues)

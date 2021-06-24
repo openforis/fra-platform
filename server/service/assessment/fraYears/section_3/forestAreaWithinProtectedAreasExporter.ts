@@ -15,7 +15,7 @@ class ForestAreaWithinProtectedAreasExporter extends DataTableExporter {
     super('forestAreaWithinProtectedAreas', ['protected', 'forMngt', 'mngtProt'], '3b')
   }
 
-  parseResultRow(result: any, yearIdx: any, year: any) {
+  parseResultRow(result: any, _yearIdx: any, year: any) {
     const resultRow: { [key: string]: any } = {}
 
     this.fields.forEach((field: any, fieldIdx: any) => {

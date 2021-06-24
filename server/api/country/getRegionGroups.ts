@@ -6,7 +6,7 @@ import { CountryService } from '@server/service'
 export const CountryGetRegionGroups = {
   init: (express: Express): void => {
     // Returns all region groups from region_group table
-    express.get(ApiEndPoint.Country.getRegionGroups(), async (req: Request, res: Response) => {
+    express.get(ApiEndPoint.Country.getRegionGroups(), async (_req: Request, res: Response) => {
       try {
         const regionGroups = await CountryService.getRegionGroups()
         res.json(regionGroups)

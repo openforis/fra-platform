@@ -50,7 +50,7 @@ export const fetchCollaboratorCountryAccessTables = async (countryIso: any, coll
 
 export const persistCollaboratorCountryAccess = async (
   client: any,
-  user: any,
+  _user: any,
   countryIso: any,
   collaboratorTableAccess: any
 ) => {

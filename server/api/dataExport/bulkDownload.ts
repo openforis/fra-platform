@@ -9,7 +9,7 @@ import { Requests } from '@server/utils'
 
 export const DataExportBulkDownload = {
   init: (express: Express): void => {
-    express.get(ApiEndPoint.DataExport.bulkDownload(), async (req: Request, res: Response) => {
+    express.get(ApiEndPoint.DataExport.bulkDownload(), async (_req: Request, res: Response) => {
       try {
         const files = await ExportService.exportData(false)
         const zip = new JSZip()

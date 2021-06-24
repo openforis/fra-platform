@@ -45,11 +45,13 @@ class FraTableExporter {
     }))
   }
 
-  fetchData(countryIso: any) {
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  fetchData(_countryIso: any) {
     throw new Error('fetchData method not implemented')
   }
 
-  parseResultRow(result: any, yearIdx: any, year: any,  countryConfig?: any) {
+  // eslint-disable-next-line class-methods-use-this
+  parseResultRow(_result: any, _yearIdx: any, _year: any, _countryConfig?: any) {
     throw new Error('parseResultRow method not implemented')
   }
 }
