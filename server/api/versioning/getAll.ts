@@ -8,7 +8,7 @@ export const VersioningGetAll = {
     express.get(
       ApiEndPoint.Versioning.getAll(),
       ApiAuthMiddleware.requireAdminPermission,
-      async (req: Request, res: Response) => {
+      async (_req: Request, res: Response) => {
         const versions = await getAllVersions()
         res.json(versions)
       }

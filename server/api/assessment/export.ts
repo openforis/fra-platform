@@ -10,7 +10,7 @@ export const AssessmentExport = {
     express.get(
       ApiEndPoint.Assessment.export(),
       ApiAuthMiddleware.requireAdminPermission,
-      async (req: Request, res: Response) => {
+      async (_req: Request, res: Response) => {
         try {
           const files = await ExportService.exportData()
           const zip = new JSZip()
