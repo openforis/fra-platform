@@ -1,0 +1,41 @@
+@import 'webapp/style/partials';
+
+.uc-survey {
+  position: fixed;
+  z-index: $z-index-popover;
+  top: 0;
+  left: 0;
+  transform: translateY(-200%);
+  animation: showUcSurvey 0.5s ease-out forwards;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: $spacing-xxxl;
+  width: 100vw;
+  height: 100%;
+  background-color: rgba($text-heading, 0.8);
+}
+
+.uc-survey-content {
+  display: grid;
+  justify-content: center;
+  grid-row-gap: $spacing-m;
+  width: 70vw;
+  padding: $spacing-m;
+  background-color: rgba($ui-accent-light, 0.9);
+
+  .fra-checkbox:not(.checked) {
+    background-color: white;
+  }
+}
+
+@keyframes showUcSurvey {
+  from {
+    opacity: 0;
+    transform: translateY(-200%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
