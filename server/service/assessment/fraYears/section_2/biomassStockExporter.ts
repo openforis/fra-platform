@@ -15,7 +15,7 @@ class BiomassStockExporter extends DataTableExporter {
     super('biomassStock', ['agb', 'bgb', 'dwb'], '2c')
   }
 
-  parseResultRow(result: any, yearIdx: any, year: any) {
+  parseResultRow(result: any, _yearIdx: any, year: any) {
     const resultRow: { [key: string]: any } = {}
 
     this.fields.forEach((field: string, fieldIdx: any) => {

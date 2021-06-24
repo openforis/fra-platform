@@ -32,7 +32,7 @@ export const roles = {
 
 export const roleKeys = R.pipe(R.values, R.map(R.prop('role')))(roles)
 
-export const getRoleLabelKey = (roleName: any) => R.path([roleName, 'labelKey'], roles)
+export const getRoleLabelKey = (roleName: any): string => R.path([roleName, 'labelKey'], roles)
 // @ts-ignore
 export const hasRole = (role: any, rolesToCheck = []) => R.find(R.propEq('role', role))(rolesToCheck)
 

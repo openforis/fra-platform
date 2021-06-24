@@ -10,7 +10,13 @@ import { passwordHash } from './utils/passwordHash'
 import * as userRepository from '../../repository/user/userRepository'
 import * as db from '../../db/db_deprecated'
 
-const googleStrategyVerifyCallback = async (req: any, accessToken: any, refreshToken: any, profile: any, done: any) => {
+const googleStrategyVerifyCallback = async (
+  req: any,
+  _accessToken: any,
+  _refreshToken: any,
+  profile: any,
+  done: any
+) => {
   const userFetchCallback = (user: any) =>
     user ? done(null, user) : done(null, false, { message: 'login.notAuthorized' })
 

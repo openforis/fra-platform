@@ -6,7 +6,7 @@ import * as sqlCreator from '@server/dataTable/dataTableSqlCreator'
 const update = (tableValues: any, rowIdx: any, colIdx: any, newValue: any) =>
   R.update(rowIdx, R.update(colIdx, newValue, tableValues[rowIdx]), tableValues)
 
-const createTableData = (cols: any, rows: any) => R.map((rowIdx: any) => new Array(cols), R.range(0, rows))
+const createTableData = (cols: any, rows: any) => R.map((_rowIdx: any) => new Array(cols), R.range(0, rows))
 
 const handleRow = (mapping: any) => (tableData: any, row: any) => {
   const values = R.omit(R.pluck('name', sqlCreator.fixedFraTableColumns), row)
