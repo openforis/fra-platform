@@ -20,7 +20,7 @@ class PoliciesLegislationNationalPlatformExporter extends DataTableExporter {
     )
   }
 
-  parseResultRow(result: any, yearIdx: any) {
+  parseResultRow(result: any, _yearIdx: any) {
     const resultRow: { [key: string]: any } = {}
 
     resultRow.policies_national = R.path([0, 0], result)

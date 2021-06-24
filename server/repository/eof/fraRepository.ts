@@ -163,7 +163,7 @@ const updateFoc = (countryIso: any, year: any, fraValues: any) =>
     ]
   )
 
-const forestAreaReducer = (results: any, row: any, type = 'fra') => [
+const forestAreaReducer = (results: any, row: any, _type = 'fra') => [
   ...results,
   {
     forestArea: row.forest_area,
@@ -176,7 +176,7 @@ const forestAreaReducer = (results: any, row: any, type = 'fra') => [
   },
 ]
 
-const forestCharacteristicsReducer = (results: any, row: any, type = 'fra') => [
+const forestCharacteristicsReducer = (results: any, row: any, _type = 'fra') => [
   ...results,
   {
     naturalForestArea: row.natural_forest_area,

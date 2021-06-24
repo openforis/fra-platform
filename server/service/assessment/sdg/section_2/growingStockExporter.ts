@@ -13,7 +13,7 @@ class GrowingStockExporter extends FraTableExporter {
     return GrowingStockService.getGrowingStock(countryIso)
   }
 
-  parseResultRow(result: any, yearIdx: any, year: any) {
+  parseResultRow(result: any, _yearIdx: any, year: any) {
     const { avgTable } = result
 
     return {

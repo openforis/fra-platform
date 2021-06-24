@@ -11,6 +11,8 @@
     "module": "CommonJS",
     "moduleResolution": "Node",
     "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "outDir": "./dist/",
     "paths": {
       "@core/*": ["./core/*"],
@@ -19,6 +21,7 @@
       "@webapp/*": ["./webapp/*"],
       "@test/*": ["./test/*"]
     },
+//    "strict": true,
     "target": "ESNext"
   }
 }

@@ -1,6 +1,6 @@
 import { OdpClassRepository } from '@server/repository'
 
-export const insertDraft = async (client: any, countryIso: any, user: any, odpId: any, draft: any) => {
+export const insertDraft = async (client: any, _countryIso: any, _user: any, odpId: any, draft: any) => {
   await client.query(
     `
   INSERT INTO odp_version

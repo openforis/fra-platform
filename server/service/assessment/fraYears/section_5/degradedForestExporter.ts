@@ -7,7 +7,7 @@ class DegradedForestExporter extends DataTableExporter {
     super('degradedForest', ['y_n'], '5c')
   }
 
-  parseResultRow(result: any, yearIdx: any) {
+  parseResultRow(result: any, _yearIdx: any) {
     const resultRow: { [key: string]: any } = {}
 
     this.fields.forEach((field: any, fieldIdx: any) => {

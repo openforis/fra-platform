@@ -31,10 +31,23 @@
   .btn-country-select {
     min-width: 220px;
     width: 220px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 
     @include min-width($laptop) {
       min-width: 250px;
       width: unset;
+    }
+  }
+
+  .country-select__icon {
+    position: relative;
+
+    .select__icon {
+      position: absolute;
+      top: 7px;
+      right: 12px;
     }
   }
 }
