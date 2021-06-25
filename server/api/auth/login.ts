@@ -1,5 +1,5 @@
 import { Express, Response, Request, NextFunction } from 'express'
-import passport from 'passport'
+import * as passport from 'passport'
 import { User } from '@core/auth'
 import { appUri } from '@server/utils/requests'
 import { ApiEndPoint } from '@common/api/endpoint'
