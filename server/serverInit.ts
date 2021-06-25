@@ -51,7 +51,6 @@ export const serverInit = () => {
   // http://expressjs.com/en/guide/error-handling.html
   // NB: This must not be an arrow function to make express detect this as an error handler.
   app.use(function (err: any, _req: any, res: any, _: any) {
-    console.log('test')
     if (err) sendErr(res, err)
   })
 
