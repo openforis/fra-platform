@@ -18,7 +18,7 @@
 
 .uc-survey-content {
   display: grid;
-  justify-content: center;
+  justify-items: center;
   grid-row-gap: $spacing-m;
   width: 70vw;
   padding: $spacing-m;
@@ -26,6 +26,37 @@
 
   .fra-checkbox:not(.checked) {
     background-color: white;
+  }
+}
+
+.uc-survey__message {
+  display: grid;
+
+  img {
+    display: none;
+    align-self: center;
+  }
+
+  @include min-width($laptop) {
+    grid-template-columns: auto 1fr;
+    grid-column-gap: $spacing-xs;
+    img {
+      display: block;
+    }
+  }
+}
+
+.uc-survey__btns {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-column-gap: $spacing-s;
+
+  button {
+    min-width: 90px;
+
+    @include min-width($laptop) {
+      min-width: 120px;
+    }
   }
 }
 
