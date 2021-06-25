@@ -3,23 +3,12 @@ import React, { useState } from 'react'
 
 import { useI18n } from '@webapp/components/hooks'
 
-import ButtonCheckBox from '@webapp/components/buttonCheckBox'
-
 const localStorageKey = 'uc/doNotShow'
 
 const UserConsultationSurvey: React.FC = () => {
   const i18n = useI18n()
 
   const [showDialog, setShowDialog] = useState<boolean>(localStorage.getItem(localStorageKey) !== 'true')
-  const [doNotShow, setDoNotShow] = useState<boolean>(false)
-
-  const setDoNotShowHandler = () => {
-    setDoNotShow((prevState) => {
-      const doNotShowUpdate = !prevState
-      localStorage.setItem(localStorageKey, String(doNotShowUpdate))
-      return doNotShowUpdate
-    })
-  }
 
   if (!showDialog) return null
 
@@ -47,13 +36,11 @@ const UserConsultationSurvey: React.FC = () => {
             onClick={() => {
               window.open('https://www.w3schools.com', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes')
               setShowDialog(false)
+              localStorage.setItem(localStorageKey, 'true')
             }}
           >
             {i18n.t('uc.yesPlease')}
           </button>
-        </div>
-        <div>
-          <ButtonCheckBox label="uc.doNotShow" onClick={setDoNotShowHandler} checked={doNotShow} />
         </div>
       </div>
     </div>
