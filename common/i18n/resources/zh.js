@@ -3,6 +3,7 @@ const contentCheck = require('./zh/contentCheck')
 const dataDownload = require('./zh/dataDownload')
 const statisticalFactsheets = require('./zh/statisticalFactsheets')
 const login = require('./zh/login')
+const uc = require('./zh/uc')
 
 module.exports.translation = {
   area,
@@ -10,6 +11,7 @@ module.exports.translation = {
   dataDownload,
   statisticalFactsheets,
   login,
+  uc,
 
   language: {
     en: 'English',
@@ -1073,8 +1075,7 @@ FRA工作组
     panEuropeanAssessment: '泛欧洲评估',
     variable: '变量',
     landing: {
-      link:
-        '欧洲森林保护部长级会议/联合国欧洲经济委员会/粮农组织泛欧洲可持续森林管理指标联合报告：欧洲森林保护部长级会议',
+      link: '欧洲森林保护部长级会议/联合国欧洲经济委员会/粮农组织泛欧洲可持续森林管理指标联合报告：欧洲森林保护部长级会议',
     },
     home: {
       description1:
