@@ -1,4 +1,3 @@
-import * as util from 'util'
 import * as nodemailer from 'nodemailer'
 
 import * as R from 'ramda'
@@ -14,19 +13,17 @@ const mailTransport = nodemailer.createTransport({
   },
 })
 
-const sendMailAsync = util.promisify(mailTransport.sendMail)
-
 const emailDefaults = {
   from: '"FRA Platform" <fra@fao.org>',
 }
 export const sendMail = async (email: any) => {
-  const mailToSend = R.merge(emailDefaults, email)
+  const mailToSend = { ...emailDefaults, ...email }
   const requiredKeys = ['from', 'to', 'subject', 'text', 'html']
-  const mailToSendKeys = R.keys(mailToSend)
+  const mailToSendKeys = Object.keys(mailToSend)
   assert(
     // @ts-ignore
     R.all((key: any) => R.contains(key, requiredKeys), mailToSendKeys),
     `One or more of the fields in email is missing: ${R.difference(requiredKeys, mailToSendKeys)}`
   )
-  await sendMailAsync(mailToSend)
+  await mailTransport.sendMail(mailToSend)
 }
