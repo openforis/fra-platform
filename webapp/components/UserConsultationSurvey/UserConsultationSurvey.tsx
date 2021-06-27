@@ -34,7 +34,11 @@ const UserConsultationSurvey: React.FC = () => {
             className="btn btn-primary"
             type="button"
             onClick={() => {
-              window.open('https://www.w3schools.com', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes')
+              window.open(
+                'https://docs.google.com/forms/d/1jdeM-SGq5_BYtdUql-2mII2JdPMJg7Rhpq436tE3Ics/edit?usp=sharing',
+                '_blank',
+                'toolbar=yes,scrollbars=yes,resizable=yes'
+              )
               setShowDialog(false)
               localStorage.setItem(localStorageKey, 'true')
             }}
