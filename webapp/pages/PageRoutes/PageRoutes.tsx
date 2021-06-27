@@ -2,6 +2,9 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
 
+import { useIsLogin } from '@webapp/components/hooks'
+import * as AppState from '@webapp/store/app/state'
+import { AppActions } from '@webapp/store/app'
 import * as BasePaths from '@webapp/main/basePaths'
 
 import DynamicImport from '@webapp/components/dynamicImport'
@@ -12,14 +15,11 @@ import Header from '@webapp/components/Header'
 import Footer from '@webapp/components/Footer'
 import ErrorComponent from '@webapp/components/error/errorComponent'
 import CountrySelect from '@webapp/components/CountrySelect'
-
-import { useIsLogin } from '@webapp/components/hooks'
-import * as AppState from '@webapp/store/app/state'
-import { AppActions } from '@webapp/store/app'
+import UserConsultationSurvey from '@webapp/components/UserConsultationSurvey'
 
 import { useTheme } from './useTheme'
 
-const PageRoutes = () => {
+const PageRoutes: React.FC = () => {
   useTheme()
   const dispatch = useDispatch()
   const appStatus = useSelector(AppState.getApplicationStatus)
@@ -43,6 +43,7 @@ const PageRoutes = () => {
       />
 
       <Route>
+        <UserConsultationSurvey />
         <Header />
         {!isLogin && <CountrySelect />}
 

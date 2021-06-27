@@ -2,12 +2,14 @@ const area = require('./ru/area')
 const dataDownload = require('./ru/dataDownload')
 const statisticalFactsheets = require('./ru/statisticalFactsheets')
 const login = require('./ru/login')
+const uc = require('./ru/uc')
 
 module.exports.translation = {
   area,
   dataDownload,
   statisticalFactsheets,
   login,
+  uc,
 
   language: {
     en: 'English',
@@ -1031,8 +1033,7 @@ module.exports.translation = {
     panEuropeanAssessment: 'Общеевропейская оценка',
     variable: 'Переменная',
     landing: {
-      link:
-        'Объединенный отчёт ЛЕСА ЕВРОПЫ / ЕЭК ООН / ФАО по общеевропейским индикаторам для устойчивого управления лесами: ЛЕСА ЕВРОПЫ',
+      link: 'Объединенный отчёт ЛЕСА ЕВРОПЫ / ЕЭК ООН / ФАО по общеевропейским индикаторам для устойчивого управления лесами: ЛЕСА ЕВРОПЫ',
     },
     home: {
       description1:
