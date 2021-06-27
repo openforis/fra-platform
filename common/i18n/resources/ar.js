@@ -3,6 +3,7 @@ const contentCheck = require('./ar/contentCheck')
 const dataDownload = require('./ar/dataDownload')
 const statisticalFactsheets = require('./ar/statisticalFactsheets')
 const login = require('./ar/login')
+const uc = require('./ar/uc')
 
 module.exports.translation = {
   area,
@@ -10,6 +11,7 @@ module.exports.translation = {
   dataDownload,
   statisticalFactsheets,
   login,
+  uc,
 
   language: {
     en: 'English',
@@ -1083,8 +1085,7 @@ The FRA team
     panEuropeanAssessment: 'تقييم عموم أوروبا',
     variable: 'متغير',
     landing: {
-      link:
-        'إعداد تقارير مشتركة بين المبادرة الأوروبية للغابات/اللجنة الاقتصادية لأوروبا التابعة للأمم المتحدة/منظمة الأغذية والزراعة حول مؤشرات عموم أوروبا الخاصة بالإدارة المستدامة للغابات: المبادرة الأوروبية للغابات.',
+      link: 'إعداد تقارير مشتركة بين المبادرة الأوروبية للغابات/اللجنة الاقتصادية لأوروبا التابعة للأمم المتحدة/منظمة الأغذية والزراعة حول مؤشرات عموم أوروبا الخاصة بالإدارة المستدامة للغابات: المبادرة الأوروبية للغابات.',
     },
     home: {
       description1:
