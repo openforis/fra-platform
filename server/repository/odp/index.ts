@@ -1,4 +1,3 @@
-import { listAndValidateOriginalDataPoints } from '@server/repository/odp/listAndValidateOriginalDataPoints'
 import { listOriginalDataPoints } from '@server/repository/odp/listOriginalDataPoints'
 import { getOdp } from '@server/repository/odp/getOdp'
 import { create } from '@server/repository/odp/create'
@@ -12,7 +11,6 @@ import { updateDraftId } from '@server/repository/odp/updateDraftId'
 import { readActualId } from '@server/repository/odp/getActualId'
 
 export const OdpRepository = {
-  listAndValidateOriginalDataPoints,
   listOriginalDataPoints,
   getOdp,
   create,
