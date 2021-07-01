@@ -11,5 +11,6 @@ export const getOdpVersionId = async (client: any, odpId: any, schemaName = 'pub
     WHERE id = $1`,
     [odpId]
   )
-  return res.rows[0].version_id
+  // TODO: Remove after migration to pg-promise done
+  return (res.rows ? res.rows : res)[0].version_id
 }

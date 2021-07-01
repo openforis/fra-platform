@@ -12,8 +12,8 @@ export const getOdpNationalClasses = async (client: any, odpVersionId: any, sche
     ORDER BY id`,
     [odpVersionId]
   )
-
-  return res.rows.map((row: any) => ({
+  // TODO: Remove after migration to pg-promise done
+  return (res.rows ? res.rows : res).map((row: any) => ({
     className: row.name,
     definition: row.definition,
     area: row.area,

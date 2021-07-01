@@ -4,7 +4,7 @@ import { getAndCheckOdpCountryId } from './getAndCheckOdpCountryId'
 
 export const markAsActual = async (client: any, odpId: any, user: any) => {
   const currentOdpPromise = client.query('SELECT actual_id, draft_id FROM odp WHERE id = $1', [odpId])
-  const checkCountryAccessPromise = getAndCheckOdpCountryId(client, odpId, user)
+  const checkCountryAccessPromise = getAndCheckOdpCountryId({ odpId, user }, client)
   const updateOdpPromise = client.query(
     'UPDATE odp SET actual_id = draft_id, draft_id = null WHERE id = $1 AND draft_id IS NOT NULL',
     [odpId]

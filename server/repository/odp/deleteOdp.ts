@@ -5,7 +5,7 @@ import { getAndCheckOdpCountryId } from './getAndCheckOdpCountryId'
 import { getOdpVersionId } from './getOdpVersionId'
 
 export const deleteOdp = async (client: any, odpId: any, user: any) => {
-  const countryIso = await getAndCheckOdpCountryId(client, odpId, user)
+  const countryIso = await getAndCheckOdpCountryId({ odpId, user }, client)
   const odpVersionId = await getOdpVersionId(client, odpId)
   await client.query('DELETE FROM odp WHERE id = $1', [odpId])
   return Promise.all([
