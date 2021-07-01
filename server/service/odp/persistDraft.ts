@@ -10,7 +10,7 @@ const updateDraft = async (options: { draft: any }, client: BaseProtocol = DB) =
   const { draft } = options
   const draftId = await OdpRepository.getDraftId(client, draft.odpId)
 
-  await OdpClassRepository.wipeClassData(client, draftId)
+  await OdpClassRepository.wipeClassData({ odpVersionId: draftId }, client)
   await OdpClassRepository.addClassData({ odpVersionId: draftId, odp: draft }, client)
 
   OdpVersionRepository.update({ draft, draftId }, client)

@@ -8,7 +8,7 @@ import { OdpClassRepository } from '@server/repository'
 import { getOdpVersionId } from './getOdpVersionId'
 
 export const getOdp = async (odpId: any, schemaName = 'public') => {
-  const versionId = await getOdpVersionId(db.pool, odpId, schemaName)
+  const versionId = await getOdpVersionId({ odpId }, db.pool, schemaName)
   const tableNameOdp = `${schemaName}.odp`
   const tableNameOdpVersion = `${schemaName}.odp_version`
   const nationalClasses = await OdpClassRepository.getOdpNationalClasses(db.pool, versionId, schemaName)
