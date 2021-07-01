@@ -35,7 +35,7 @@ const UserConsultationSurvey: React.FC = () => {
             type="button"
             onClick={() => {
               window.open(
-                'https://docs.google.com/forms/d/1jdeM-SGq5_BYtdUql-2mII2JdPMJg7Rhpq436tE3Ics/edit?usp=sharing',
+                'https://docs.google.com/forms/d/e/1FAIpQLSe4y47opweayox22f2pxy-cmp1x4lGF6CyTBcbFi_8o5duPwA/viewform',
                 '_blank',
                 'toolbar=yes,scrollbars=yes,resizable=yes'
               )
