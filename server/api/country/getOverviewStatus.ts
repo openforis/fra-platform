@@ -11,6 +11,7 @@ import {
 import * as assessmentRepository from '@server/repository/assessment/assessmentRepository'
 import { fetchCollaboratorCountryAccessTables } from '@server/repository/collaborators/collaboratorsRepository'
 import { ApiEndPoint } from '@common/api/endpoint'
+import { CountryIso } from '@core/country'
 
 // TODO - REFACTOR
 
@@ -24,7 +25,7 @@ export const CountryGetOverviewStatus = {
         const userInfo = req.user
         const assessmentsPromise = assessmentRepository.getAssessments(countryIso)
         if (userInfo) {
-          const odpDataPromise = OdpService.listAndValidateOriginalDataPoints(countryIso)
+          const odpDataPromise = OdpService.listAndValidateOriginalDataPoints({ countryIso: countryIso as CountryIso })
           const reviewStatusPromise = reviewRepository.getCountryIssuesSummary(countryIso, userInfo)
           const [odps, reviewStatus, assessmentsDB] = await Promise.all([
             odpDataPromise,

@@ -5,12 +5,15 @@ import * as reviewRepository from '@server/repository/review/reviewRepository'
 import * as R from 'ramda'
 import { Requests } from '@server/utils'
 import { ApiEndPoint } from '@common/api/endpoint'
+import { CountryIso } from '@core/country'
 
 export const OdpGet = {
   init: (express: Express): void => {
     express.get(ApiEndPoint.Odp.get(), async (req: Request, res: Response) => {
       try {
-        const odps = await OdpService.listAndValidateOriginalDataPoints(req.params.countryIso)
+        const odps = await OdpService.listAndValidateOriginalDataPoints({
+          countryIso: req.params.countryIso as CountryIso,
+        })
 
         if (req.user) {
           checkCountryAccessFromReqParams(req)
