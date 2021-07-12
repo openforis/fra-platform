@@ -24,7 +24,8 @@
     "test": "mochapack --webpack-config webpack.config.babel.test.js \"test/unit/*.ts\"",
     "preversion": "git diff --quiet || { echo \"Working directory is dirty\"; exit 1; }; yarn test",
     "postversion": "git push --tags && git push && echo \"Successfully released version $npm_package_version!\"",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "pre-commit": "lint-staged && eslint --cache --fix"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.5",
