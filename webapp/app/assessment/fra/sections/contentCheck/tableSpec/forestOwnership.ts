@@ -1,5 +1,5 @@
-import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
-import forestOwnership from '@server/traditionalTable/mappings/fra/forestOwnership'
+import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import forestOwnership from '@server/dataTable/mappings/fra/forestOwnership'
 import section from '../section'
 
 const tableSpec = SectionSpec.newTableSpec({

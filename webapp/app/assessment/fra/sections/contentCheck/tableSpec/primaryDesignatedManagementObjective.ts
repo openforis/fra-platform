@@ -1,5 +1,5 @@
-import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
-import primaryDesignatedManagementObjective from '@server/traditionalTable/mappings/fra/primaryDesignatedManagementObjective'
+import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import primaryDesignatedManagementObjective from '@server/dataTable/mappings/fra/primaryDesignatedManagementObjective'
 import section from '../section'
 
 const tableSpec = SectionSpec.newTableSpec({

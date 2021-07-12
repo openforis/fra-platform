@@ -13,32 +13,42 @@ type Props = {
   areaISOs: string[]
   assessmentType: any // TODO: PropTypes.oneOf([Fra.type, PanEuropean.type])
   dropdownOpened: string
-  setDropdownOpened: (...args: any[]) => any
+  setDropdownOpened: (area: string) => void
 }
+
 const DropdownAreas = (props: Props) => {
   const { area, areaISOs, assessmentType, dropdownOpened, setDropdownOpened } = props
-  const dialogOpened = dropdownOpened === area
+
   const i18n = useI18n()
-  const buttonRef = useRef(null)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const dialogOpened = dropdownOpened === area
   const fra = assessmentType === FRA.type
-  const outsideClick = ({ target }: any) => dialogOpened && !buttonRef.current.contains(target) && setDropdownOpened('')
+
+  const outsideClick = ({ target }: any) => {
+    const button = buttonRef.current
+    if (dialogOpened && button && !button.contains(target)) {
+      setDropdownOpened('')
+    }
+  }
+
   useLayoutEffect(() => {
     window.addEventListener('click', outsideClick)
     return () => {
       window.removeEventListener('click', outsideClick)
     }
   }, [dialogOpened])
+
   return (
     <button
       ref={buttonRef}
       type="button"
-      className="btn btn-country-selection m-r"
+      className="btn btn-country-select m-r"
       disabled={areaISOs.length === 0}
       onClick={() => {
         setDropdownOpened(dialogOpened ? '' : area)
       }}
     >
-      <div>- {(i18n as any).t('common.select')} -</div>
+      <div>- {i18n.t('common.select')} -</div>
       <Icon name="small-down" />
 
       {dialogOpened && (
@@ -58,7 +68,7 @@ const DropdownAreas = (props: Props) => {
                             target={fra ? '_self' : '_blank'}
                           >
                             <span className="country-selection-list__primary-col">
-                              {(i18n as any).t(`area.${regionCode}.listName`)}
+                              {i18n.t(`area.${regionCode}.listName`)}
                             </span>
                           </Link>
                         )
@@ -75,9 +85,7 @@ const DropdownAreas = (props: Props) => {
                     className="country-selection-list__row"
                     target={fra ? '_self' : '_blank'}
                   >
-                    <span className="country-selection-list__primary-col">
-                      {(i18n as any).t(`area.${iso}.listName`)}
-                    </span>
+                    <span className="country-selection-list__primary-col">{i18n.t(`area.${iso}.listName`)}</span>
                   </Link>
                 ))}
               </div>
@@ -88,4 +96,5 @@ const DropdownAreas = (props: Props) => {
     </button>
   )
 }
+
 export default DropdownAreas

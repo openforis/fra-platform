@@ -1,20 +1,20 @@
 import * as R from 'ramda'
-import * as db from '../db/db'
+import { ApiAuthMiddleware } from '@server/api/middleware'
+import { getCountry } from '@server/repository/country/getCountry'
+import * as db from '../db/db_deprecated'
 
 import {
   persistPanEuropeanQuantitativeQuestionnaire,
   getPanEuropeanQuantitativeQuestionnaire,
   deletePanEuropeanQuantitativeQuestionnaire,
 } from './panEuropeanRepository'
-import { getCountry } from '../country/countryRepository'
 
-import { sendErr } from '../utils/requestUtils'
+import { sendErr } from '../utils/requests'
 
-import { fileTypes, downloadFile } from '../fileRepository/fileRepository'
+import { fileTypes, downloadFile } from '../service/fileRepository/fileRepository'
 import * as Country from '../../common/country/country'
 
-import * as Auth from '../auth/authApiMiddleware'
-import * as VersionService from '../versioning/service'
+import * as VersionService from '../service/versioning/service'
 
 export const init = (app: any) => {
   const isPanEuropeanCountry = async (countryIso: any) => {
@@ -33,7 +33,7 @@ export const init = (app: any) => {
     }
   })
 
-  app.delete('/panEuropean/:countryIso', Auth.requireCountryEditPermission, async (req: any, res: any) => {
+  app.delete('/panEuropean/:countryIso', ApiAuthMiddleware.requireCountryEditPermission, async (req: any, res: any) => {
     try {
       await db.transaction(deletePanEuropeanQuantitativeQuestionnaire, [req.params.countryIso])
       res.json({})
@@ -42,34 +42,40 @@ export const init = (app: any) => {
     }
   })
 
-  app.post('/panEuropean/:countryIso/upload', Auth.requireCountryEditPermission, async (req: any, res: any) => {
-    try {
-      const isPanEuropean = await isPanEuropeanCountry(req.params.countryIso)
-      if (isPanEuropean) {
-        await db.transaction(persistPanEuropeanQuantitativeQuestionnaire, [
-          req.user,
-          req.params.countryIso,
-          req.files.file,
-        ])
-        res.json({})
-      } else {
-        res.status(404).send('404 / Page not found')
+  app.post(
+    '/panEuropean/:countryIso/upload',
+    ApiAuthMiddleware.requireCountryEditPermission,
+    async (req: any, res: any) => {
+      try {
+        const isPanEuropean = await isPanEuropeanCountry(req.params.countryIso)
+        if (isPanEuropean) {
+          await db.transaction(persistPanEuropeanQuantitativeQuestionnaire, [
+            req.user,
+            req.params.countryIso,
+            req.files.file,
+          ])
+          res.json({})
+        } else {
+          res.status(404).send('404 / Page not found')
+        }
+      } catch (err) {
+        sendErr(res, err)
       }
-    } catch (err) {
-      sendErr(res, err)
     }
-  })
+  )
 
   app.get(
     '/panEuropean/:countryIso/downloadEmpty/:lang',
-    Auth.requireCountryEditPermission,
+    ApiAuthMiddleware.requireCountryEditPermission,
     async (req: any, res: any) => {
       try {
         const isPanEuropean = await isPanEuropeanCountry(req.params.countryIso)
 
-        isPanEuropean
-          ? downloadFile(res, fileTypes.panEuropeanQuestionnaire, req.params.lang)
-          : res.status(404).send('404 / Page not found')
+        if (isPanEuropean) {
+          downloadFile(res, fileTypes.panEuropeanQuestionnaire, req.params.lang)
+        } else {
+          res.status(404).send('404 / Page not found')
+        }
       } catch (err) {
         sendErr(res, err)
       }

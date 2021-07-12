@@ -25,8 +25,9 @@
   "rules": {
     "no-underscore-dangle": 0,
     "prettier/prettier": "error",
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
     "react/forbid-prop-types": 0,
+    "react/prop-types": "off",
     "import/prefer-default-export": 0,
     "import/extensions": [
       "error",
@@ -38,9 +39,11 @@
         "tsx": "never"
       }
     ],
-    "no-unused-vars": ["error", { "argsIgnorePattern": "^_$" }],
+    "no-unused-vars": "off",
     "no-use-before-define": "off",
-    "@typescript-eslint/no-use-before-define": ["error"]
+    "no-shadow": "off",
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "@typescript-eslint/ban-ts-comment": "off"
   },
   "settings": {
     "react": {

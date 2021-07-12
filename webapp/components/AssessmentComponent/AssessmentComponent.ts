@@ -1,5 +1,4 @@
 import React from 'react'
-import * as PropTypes from 'prop-types'
 import * as assert from 'assert'
 
 import FRA from '@common/assessment/fra'
@@ -7,10 +6,13 @@ import FRA from '@common/assessment/fra'
 import { useIsAssessment } from '@webapp/components/hooks'
 import { useAssessmentType } from '@webapp/store/app'
 
+type Props = {
+  components: { [key: string]: React.FC<{ query?: string }> }
+  defaultKey?: string
+  query?: string
+}
 
-type Props = { components: { [key: string]: React.Component }, defaultKey: string, query? : any}
-
-const AssessmentComponent = (props: Props) => {
+const AssessmentComponent: React.FC<Props> = (props: Props) => {
   const isAssessment = useIsAssessment()
   const assessmentType = useAssessmentType()
 
@@ -19,16 +21,12 @@ const AssessmentComponent = (props: Props) => {
 
   assert.ok(key !== 'en', key)
 
-  return React.createElement(components[key] as any, otherProps)
-}
-
-AssessmentComponent.propTypes = {
-  components: PropTypes.objectOf(PropTypes.elementType).isRequired,
-  defaultKey: PropTypes.string,
+  return React.createElement(components[key], otherProps)
 }
 
 AssessmentComponent.defaultProps = {
   defaultKey: FRA.type,
+  query: null,
 }
 
 export default AssessmentComponent

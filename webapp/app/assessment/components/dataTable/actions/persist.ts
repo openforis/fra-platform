@@ -5,6 +5,7 @@ import FRA from '@common/assessment/fra'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 
 import * as autosave from '@webapp/app/components/autosave/actions'
+import { ApiEndPoint } from '@common/api/endpoint'
 import { updateTableData } from './update'
 
 const extentOfForest = FRA.sections['1'].children.a
@@ -21,9 +22,9 @@ const getPostUrl = ({ countryIso, sectionName, tableName }: any) => {
     return `/api/nde/${sectionName}/${countryIso}`
   }
   if (growingStock.name === sectionName) {
-    return `/api/growingStock/${countryIso}`
+    return ApiEndPoint.GrowingStock.create(countryIso)
   }
-  return `/api/traditionalTable/${countryIso}/${tableName}`
+  return ApiEndPoint.DataTable.create(countryIso, tableName)
 }
 
 /**
@@ -54,7 +55,9 @@ const postTableData = ({ sectionName, tableName, data }: any) => {
   return debounced
 }
 
-export const persistTableData = ({ assessmentType, sectionName, tableName, data }: any) => (dispatch: any) => {
-  dispatch(updateTableData({ assessmentType, sectionName, tableName, data, autoSaveStart: true }))
-  dispatch(postTableData({ sectionName, tableName, data }))
-}
+export const persistTableData =
+  ({ assessmentType, sectionName, tableName, data }: any) =>
+  (dispatch: any) => {
+    dispatch(updateTableData({ assessmentType, sectionName, tableName, data, autoSaveStart: true }))
+    dispatch(postTableData({ sectionName, tableName, data }))
+  }

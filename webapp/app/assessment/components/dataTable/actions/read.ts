@@ -5,6 +5,7 @@ import FRA from '@common/assessment/fra'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import * as AppState from '@webapp/store/app/state'
 
+import { ApiEndPoint } from '@common/api/endpoint'
 import { updateTableData } from './update'
 
 const urlFetchData = {
@@ -18,22 +19,20 @@ const urlFetchData = {
   [FRA.sections['2'].children.a.name]: `/api/growingStock/`,
 }
 
-export const fetchTableData = (assessmentType: any, sectionName: any, tableName: any) => async (
-  dispatch: any,
-  getState: any
-) => {
-  const state = getState()
-  const dataLoaded = AssessmentState.isSectionDataLoaded(assessmentType, sectionName, tableName)(state)
-  if (!dataLoaded) {
-    const countryIso = AppState.getCountryIso(state)
+export const fetchTableData =
+  (assessmentType: any, sectionName: any, tableName: any) => async (dispatch: any, getState: any) => {
+    const state = getState()
+    const dataLoaded = AssessmentState.isSectionDataLoaded(assessmentType, sectionName, tableName)(state)
+    if (!dataLoaded) {
+      const countryIso = AppState.getCountryIso(state) as string
 
-    if (!R.isEmpty(tableName)) {
-      let url = urlFetchData[tableName]
-      url = url ? `${url}${countryIso}` : `/api/traditionalTable/${assessmentType}/${countryIso}/${tableName}`
+      if (!R.isEmpty(tableName)) {
+        let url = urlFetchData[tableName]
+        url = url ? `${url}${countryIso}` : ApiEndPoint.DataTable.get(assessmentType, countryIso, tableName)
 
-      const { data } = await axios.get(url)
+        const { data } = await axios.get(url)
 
-      dispatch(updateTableData({ assessmentType, sectionName, tableName, data }))
+        dispatch(updateTableData({ assessmentType, sectionName, tableName, data }))
+      }
     }
   }
-}

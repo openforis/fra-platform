@@ -20,6 +20,7 @@ type UsersTableFilterState = any
 type Props = any
 class UsersTableFilter extends React.Component<Props, UsersTableFilterState> {
   props: Props
+
   render() {
     const { i18n, userInfo, filter, onChange, countries } = this.props
 

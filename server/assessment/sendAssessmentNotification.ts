@@ -1,10 +1,10 @@
 import * as R from 'ramda'
-import { createI18nPromise } from '../../common/i18n/i18nFactory'
-import { sendMail } from '../email/sendMail'
-import { getCountry } from '../country/countryRepository'
-import { fetchCountryUsers, fetchAdministrators } from '../user/userRepository'
-import { nationalCorrespondent, reviewer } from '../../common/countryRole'
 import { assessmentStatus } from '@common/assessment'
+import { getCountry } from '@server/repository/country/getCountry'
+import { createI18nPromise } from '../../common/i18n/i18nFactory'
+import { sendMail } from '../service/email/sendMail'
+import { fetchCountryUsers, fetchAdministrators } from '../repository/user/userRepository'
+import { nationalCorrespondent, reviewer } from '../../common/countryRole'
 
 export const createMail = async (
   countryIso: any,
@@ -53,7 +53,12 @@ export const getRecipients = async (countryIso: any, newStatus: any) => {
   }
 }
 
-export const sendAssessmentNotification = async (countryIso: any, assessment: any, loggedInUser: any, serverUrl: any) => {
+export const sendAssessmentNotification = async (
+  countryIso: any,
+  assessment: any,
+  loggedInUser: any,
+  serverUrl: any
+) => {
   const i18n = await createI18nPromise('en')
   const recipients = await getRecipients(countryIso, assessment.status)
 
@@ -62,4 +67,3 @@ export const sendAssessmentNotification = async (countryIso: any, assessment: an
     await sendMail(await createMail(countryIso, assessment, user, loggedInUser, i18n, serverUrl))
   }
 }
-

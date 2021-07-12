@@ -3,6 +3,7 @@ const contentCheck = require('./ar/contentCheck')
 const dataDownload = require('./ar/dataDownload')
 const statisticalFactsheets = require('./ar/statisticalFactsheets')
 const login = require('./ar/login')
+const uc = require('./ar/uc')
 
 module.exports.translation = {
   area,
@@ -10,6 +11,7 @@ module.exports.translation = {
   dataDownload,
   statisticalFactsheets,
   login,
+  uc,
 
   language: {
     en: 'English',
@@ -175,7 +177,7 @@ Thanks,
 
   fraForestCharacteristicsClass: {
     naturallyRegeneratingForest: 'غابة متجددة طبيعياً',
-    plantationForest: 'غابة مزروعة',
+    plantationForest: 'الغابات الاصطناعية (مشجرة)',
     ofWhichIntroduced: '... الأنواع المدخلة منها',
     otherPlantedForest: 'غابة مزروعة أخرى',
     totalForest: 'إجمالي مساحة الغابة',
@@ -489,7 +491,7 @@ The FRA team
     enterOrCopyPasteNationalClasses: 'إدخال أو نسخ ولصق الشرائح الوطنية',
     forestCharacteristics: 'مواصفات الغابة',
     otherLandCharacteristics: 'أرض أخرى ذات غطاء شجري',
-    plantationForest: 'غابة مزروعة',
+    plantationForest: 'الغابات الاصطناعية (مشجرة)',
     remindDirtyOdp: 'تم تحديث نقطة البيانات الوطنية، تذكر تحديث القيم',
     disabled: 'معطّل، يمكنك التفعيل في الجدول 1ب',
     dataSourceMethodsOptions: {
@@ -622,7 +624,7 @@ The FRA team
     plantationForestArea: 'غابات مزروعة',
     plantationForestIntroducedArea: '...منها أنواع مدخلة',
     otherPlantedForestArea: 'غابة مزروعة أخرى',
-    plantedForest: 'غابة مزروعة',
+    plantedForest: 'الغابات المزروعة',
     totalForestArea: 'إجمالي مساحة الغابة',
     total: 'الإجمالي',
     useOriginalDataPoints: 'استخدم نقاط البيانات الوطنية',
@@ -694,7 +696,7 @@ The FRA team
     avgTableHeader: 'مخزون الأشجار الحية م3/هـ (مع اللحاء)',
     totalTableHeader: 'إجمالي مخزون الأشجار الحية (مليون م3 مع اللحاء)',
     naturallyRegeneratingForest: 'غابة متجددة طبيعياً',
-    plantedForest: 'غابة مزروعة',
+    plantedForest: 'الغابات المزروعة',
     plantationForest: '...منها غابة مزروعة',
     otherPlantedForest: '...منها غابة مزروعة أخرى',
     forest: 'غابة',
@@ -1083,8 +1085,7 @@ The FRA team
     panEuropeanAssessment: 'تقييم عموم أوروبا',
     variable: 'متغير',
     landing: {
-      link:
-        'إعداد تقارير مشتركة بين المبادرة الأوروبية للغابات/اللجنة الاقتصادية لأوروبا التابعة للأمم المتحدة/منظمة الأغذية والزراعة حول مؤشرات عموم أوروبا الخاصة بالإدارة المستدامة للغابات: المبادرة الأوروبية للغابات.',
+      link: 'إعداد تقارير مشتركة بين المبادرة الأوروبية للغابات/اللجنة الاقتصادية لأوروبا التابعة للأمم المتحدة/منظمة الأغذية والزراعة حول مؤشرات عموم أوروبا الخاصة بالإدارة المستدامة للغابات: المبادرة الأوروبية للغابات.',
     },
     home: {
       description1:

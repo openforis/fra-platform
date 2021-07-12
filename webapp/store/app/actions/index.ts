@@ -5,10 +5,9 @@ import { applicationError } from '@webapp/components/error/actions'
 
 import * as UserState from '@webapp/store/user/state'
 
+import { ApiEndPoint } from '@common/api/endpoint'
 import { sortCountries, sortRegionGroups, sortRegions } from '../utils'
 import ActionTypes from './actionTypes'
-
-export { ActionTypes }
 
 export const updateCountries = (countries: any) => ({
   type: ActionTypes.updateCountries,
@@ -26,10 +25,10 @@ export const updateRegionGroups = (regionGroups: any) => ({
 export const initApp = () => async (dispatch: any) => {
   const lang = getRequestParam('lang')
   try {
-    const getCountries = axios.get('/api/countries')
-    const getRegions = axios.get('/api/country/regions/')
-    const getRegionGroups = axios.get('/api/country/regionGroups/')
-    const getUserInfo = axios.get(`/api/loggedInUser/`)
+    const getCountries = axios.get(ApiEndPoint.Country.GetAll.generalCountries())
+    const getRegions = axios.get(ApiEndPoint.Country.getRegions())
+    const getRegionGroups = axios.get(ApiEndPoint.Country.getRegionGroups())
+    const getUserInfo = axios.get(ApiEndPoint.Auth.loggedInUser())
 
     const [
       { data: countries },
@@ -40,7 +39,7 @@ export const initApp = () => async (dispatch: any) => {
       },
     ] = await axios.all([getCountries, getRegions, getRegionGroups, getUserInfo])
 
-    const i18n = await createI18nPromise(lang || userInfo ? userInfo.lang : 'en')
+    const i18n: any = await createI18nPromise(lang || (userInfo ? userInfo.lang : 'en'))
     if (i18n.language === 'ar') document.body.classList.add('rtl')
 
     dispatch({

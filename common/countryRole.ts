@@ -32,11 +32,12 @@ export const roles = {
 
 export const roleKeys = R.pipe(R.values, R.map(R.prop('role')))(roles)
 
-export const getRoleLabelKey = (roleName: any) => R.path([roleName, 'labelKey'], roles)
+export const getRoleLabelKey = (roleName: any): string => R.path([roleName, 'labelKey'], roles)
 // @ts-ignore
 export const hasRole = (role: any, rolesToCheck = []) => R.find(R.propEq('role', role))(rolesToCheck)
 
-export const getCountryRoles = (countryIso: any, userInfo: any) => R.filter(R.propEq('countryIso', countryIso))(userInfo.roles)
+export const getCountryRoles = (countryIso: any, userInfo: any) =>
+  R.filter(R.propEq('countryIso', countryIso))(userInfo.roles)
 // @ts-ignore
 export const getCountryRole = (countryIso: any, userInfo: any) => getCountryRoles(countryIso, userInfo)[0]
 
@@ -67,8 +68,5 @@ export const isCollaborator = (countryIso: any, userInfo: any) => hasUserRole(co
 export const hasNoRole = (countryIso: any, userInfo: any) => hasUserRole(countryIso, userInfo, noRole)
 
 export const isAdministrator = (userInfo: any) => userInfo && hasRole('ADMINISTRATOR', userInfo.roles)
-
-
-
 
 export const roles2 = R.values(roles)

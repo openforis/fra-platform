@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 import { format } from 'date-fns'
-import * as db from '../db/db'
-import * as auditRepository from '../audit/auditRepository'
+import * as db from '../db/db_deprecated'
+import * as auditRepository from '../repository/audit/auditRepository'
 
 const fileName = (fileName: any, countryIso: any) =>
   `${fileName.substring(0, fileName.lastIndexOf('.'))}_${countryIso}_${format(
@@ -48,7 +48,8 @@ const updatePanEuropeanQuantitativeQuestionnaire = (client: any, countryIso: any
 
 export const getPanEuropeanQuantitativeQuestionnaire = (countryIso: any, schemaName = 'public') => {
   const tableName = `${schemaName}.pan_european`
-  return  db.pool.query(
+  return db.pool
+    .query(
       `
     SELECT
       id, quantitative_questionnaire, quantitative_questionnaire_name

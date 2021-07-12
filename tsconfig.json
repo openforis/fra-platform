@@ -1,22 +1,27 @@
 {
   "allowSyntheticDefaults": true,
-  "include": ["common", "server", "webapp", "test"],
+  "include": ["core", "common", "server", "webapp", "test"],
 
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
     "jsx": "react",
+    "isolatedModules": true,
     "module": "CommonJS",
     "moduleResolution": "Node",
     "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "outDir": "./dist/",
     "paths": {
+      "@core/*": ["./core/*"],
       "@common/*": ["./common/*"],
       "@server/*": ["./server/*"],
       "@webapp/*": ["./webapp/*"],
       "@test/*": ["./test/*"]
     },
-    "target": "ES2019"
+//    "strict": true,
+    "target": "ESNext"
   }
 }

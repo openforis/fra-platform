@@ -1,12 +1,11 @@
 const Promise = require('bluebird')
 const R = require('ramda')
-const countryConfig = require('../server/country/countryConfig')
+const countryConfig = require('../server/service/country/countryConfig')
 
 const fs = Promise.promisifyAll(require('fs'))
 const csv = Promise.promisifyAll(require('csv'))
 
-const exampleUsage =
-  'node faostatUpdater.js exampleData/climaticDomain.csv /tmp/countryConfigWithClimaticDomain.json'
+const exampleUsage = 'node faostatUpdater.js exampleData/climaticDomain.csv /tmp/countryConfigWithClimaticDomain.json'
 
 if (process.argv.length < 4) {
   console.log(`Usage: ${process.argv[0]} <path of the climaticDomain csv file> <path of the output file>`)
@@ -20,7 +19,7 @@ const outputFile = process.argv[3]
 
 const update = async (climaticDomainCsvFile, outputFile) => {
   try {
-    const rawClimaticDomainData = await fs.readFileAsync(climaticDomainCsvFile, {encoding: 'utf-8'})
+    const rawClimaticDomainData = await fs.readFileAsync(climaticDomainCsvFile, { encoding: 'utf-8' })
     const parsedClimaticDomainData = await csv.parseAsync(rawClimaticDomainData)
     const climaticDomainData = R.slice(1, undefined, parsedClimaticDomainData)
     const countryClimaticDomainData = R.reduce(
@@ -29,9 +28,9 @@ const update = async (climaticDomainCsvFile, outputFile) => {
           tropical: Number(row[2]),
           subtropical: Number(row[3]),
           temperate: Number(row[4]),
-          boreal: Number(row[5]) + Number(row[6])
+          boreal: Number(row[5]) + Number(row[6]),
         }
-        return R.assoc(row[1], {climaticDomainPercents2015}, result)
+        return R.assoc(row[1], { climaticDomainPercents2015 }, result)
       },
       {},
       climaticDomainData
@@ -42,9 +41,9 @@ const update = async (climaticDomainCsvFile, outputFile) => {
 
     console.log('Wrote merged values into: ', outputFile)
     console.log('You should manually copy them over the countryConfig values')
-
-  } catch (e) { console.log(e) }
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 update(climaticDomainCsvFile, outputFile)
-
