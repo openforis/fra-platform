@@ -87,6 +87,9 @@ export const getUserProfilePictureLink = (userId: any) =>
 export const login = _generate(FRAGMENTS.login)
 export const resetPassword = _generate(FRAGMENTS.login, FRAGMENTS.resetPassword)
 
+// ==== CountryIso
+export const countryIso = _generate(PARAMS.countryIso)
+
 // ==== Assessment
 export const assessment = _generate(PARAMS.countryIso, PARAMS.assessmentType)
 export const assessmentHome = _generate(..._split(assessment), FRAGMENTS.home)
