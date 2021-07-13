@@ -4,9 +4,9 @@ import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import webpack from 'webpack'
 import { v4 as uuidv4 } from 'uuid'
 
-import UglifyJsPlugin from 'uglifyjs-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
+import TerserPlugin from 'terser-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import { GitRevisionPlugin } from 'git-revision-webpack-plugin'
@@ -150,17 +150,8 @@ const appConfig = {
   plugins,
   stats: { children: false },
   optimization: {
-    minimizer: [
-      new UglifyJsPlugin({
-        parallel: true,
-        uglifyOptions: {
-          compress: true,
-          output: { comments: false },
-        },
-        sourceMap: true,
-      }),
-      new OptimizeCSSAssetsPlugin({}),
-    ],
+    minimize: true,
+    minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
   },
 }
 
