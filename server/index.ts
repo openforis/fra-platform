@@ -8,6 +8,7 @@ import { serverInit } from './serverInit'
 
 import * as VersioningScheduler from './system/schedulers/versioningScheduler'
 
+// @ts-ignore
 if (cluster.isMaster) {
   // check db migrations in master process
   migrations()
@@ -16,17 +17,21 @@ if (cluster.isMaster) {
 
   console.log(`Master cluster setting up ${numWorkers} workers...`)
 
-  for (let i = 0; i < numWorkers; i++) {
+  for (let i = 0; i < numWorkers; i += 1) {
+    // @ts-ignore
     cluster.fork()
   }
 
+  // @ts-ignore
   cluster.on('online', function (worker: any) {
     console.log(`Worker ${worker.process.pid} is online`)
   })
 
+  // @ts-ignore
   cluster.on('exit', function (worker: any, code: any, signal: any) {
     console.log(`Worker ${worker.process.pid} died with code: ${code}, and signal: ${signal}`)
     console.log('Starting a new worker')
+    // @ts-ignore
     cluster.fork()
   })
 
