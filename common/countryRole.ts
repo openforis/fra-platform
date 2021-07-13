@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import * as assert from 'assert'
+// import * as assert from 'assert'
 // The returned value is of the form:
 // {role: <ROLE>, label: <LABEL>}
 
@@ -45,7 +45,7 @@ export const roleForCountry = (countryIso: any, userInfo: any) => {
   if (!userInfo) return noRole
   if (hasRole('ADMINISTRATOR', userInfo.roles)) return administrator
   const rolesForCountry: any = getCountryRoles(countryIso, userInfo)
-  assert(rolesForCountry.length < 2, `Ambiguous roles found for user ${userInfo} and country ${countryIso}`)
+  // assert(rolesForCountry.length < 2, `Ambiguous roles found for user ${userInfo} and country ${countryIso}`)
   if (rolesForCountry.length === 0) return noRole
 
   const roleObj = roles[rolesForCountry[0].role]
