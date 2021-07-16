@@ -36,17 +36,17 @@ const PrimaryForest = (props: Props) => {
       },
     ],
     labels: [
-      (i18n as any).t('statisticalFactsheets.rowName.primary_forest'),
-      (i18n as any).t('statisticalFactsheets.rowName.other_forest'),
+      i18n.t('statisticalFactsheets.rowName.primary_forest'),
+      i18n.t('statisticalFactsheets.rowName.other_forest'),
     ],
   }
   return (
     <div className="row-s">
-      <h3 className="header">{(i18n as any).t(`statisticalFactsheets.${section}.title`)}</h3>
+      <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
       {primaryForestRatio ? (
         <Chart type="pie" data={chartData} options={ChartUtils.getOptions({ type: ChartUtils.types.pie })} />
       ) : (
-        <h6 className="header">{(i18n as any).t('statisticalFactsheets.noData')}</h6>
+        <h6 className="header">{i18n.t('statisticalFactsheets.noData')}</h6>
       )}
     </div>
   )
