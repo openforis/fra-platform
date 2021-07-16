@@ -29,13 +29,13 @@ const ForestAreaPercent = (props: Props) => {
       },
     ],
     labels: [
-      (i18n as any).t('statisticalFactsheets.rowName.forest_area'),
-      (i18n as any).t('statisticalFactsheets.rowName.other_area'),
+      i18n.t('statisticalFactsheets.rowName.forest_area'),
+      i18n.t('statisticalFactsheets.rowName.other_area'),
     ],
   }
   return (
     <div className="row-s">
-      <h3 className="header">{(i18n as any).t(`statisticalFactsheets.${section}.title`)}</h3>
+      <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
       <Chart type="pie" data={chartData} options={ChartUtils.getOptions({ type: ChartUtils.types.pie })} />
     </div>
   )

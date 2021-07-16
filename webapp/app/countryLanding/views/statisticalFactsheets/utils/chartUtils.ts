@@ -136,7 +136,7 @@ const optionsByType = {
   [types.pie]: {
     ...commonOptions,
     legend: {
-      position: 'left',
+      position: 'bottom',
     },
   },
 
