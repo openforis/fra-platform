@@ -1,1 +1,1 @@
-export { default } from './statisticalFactsheets'
+export { default } from './StatisticalFactsheets'

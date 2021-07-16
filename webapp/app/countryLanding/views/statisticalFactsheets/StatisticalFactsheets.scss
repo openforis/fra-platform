@@ -1,4 +1,5 @@
-@import (reference) 'webapp/main/styles/config';
+@import 'webapp/style/partials';
+
 .statistical-factsheets__disclaimer {
   text-align: center;
 }
@@ -11,12 +12,12 @@
     float: left;
     padding: 20px 40px;
     &:not(:nth-child(1)):not(:nth-child(2)) {
-      border-top: 3px double @ui-border;
+      border-top: 3px double $ui-border;
     }
   }
 
   .header {
-    font-size: @font-l;
+    font-size: $font-l;
     height: 50px;
     display: flex;
     align-items: flex-start;
