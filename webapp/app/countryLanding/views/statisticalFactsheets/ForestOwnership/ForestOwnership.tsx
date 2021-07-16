@@ -16,7 +16,7 @@ const ForestOwnership = (props: Props) => {
   const i18n = useI18n()
   const section = 'forestOwnership'
   const isIsoCountry = Area.isISOCountry(levelIso)
-  const unit = isIsoCountry ? (i18n as any).t('unit.haThousand') : (i18n as any).t('unit.haMillion')
+  const unit = isIsoCountry ? i18n.t('unit.haThousand') : i18n.t('unit.haMillion')
   const { data, loaded } = useStatisticalFactsheetsState(section, levelIso)
   if (!loaded) {
     return null
@@ -46,18 +46,18 @@ const ForestOwnership = (props: Props) => {
       },
     ],
     labels: [
-      (i18n as any).t('statisticalFactsheets.forestOwnership.public'),
-      (i18n as any).t('statisticalFactsheets.forestOwnership.private'),
-      (i18n as any).t('statisticalFactsheets.rowName.other_or_unknown'),
+      i18n.t('statisticalFactsheets.forestOwnership.public'),
+      i18n.t('statisticalFactsheets.forestOwnership.private'),
+      i18n.t('statisticalFactsheets.rowName.other_or_unknown'),
     ],
   }
   return (
     <div className="row-s">
-      <h3 className="header">{(i18n as any).t(`statisticalFactsheets.${section}.title`)}</h3>
+      <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
       {privateOwnership && publicOwnership && otherOrUnknown ? (
         <Chart type="pie" data={chartData} options={ChartUtils.getOptions({ type: ChartUtils.types.pie })} />
       ) : (
-        <h6 className="header">{(i18n as any).t('statisticalFactsheets.noData')}</h6>
+        <h6 className="header">{i18n.t('statisticalFactsheets.noData')}</h6>
       )}
     </div>
   )
