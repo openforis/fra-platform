@@ -25,7 +25,7 @@ const PrimaryDesignatedManagementObjective = (props: Props) => {
   const section = 'primaryDesignatedManagementObjective'
   return (
     <div className="row-l">
-      <h3 className="header">{(i18n as any).t(`statisticalFactsheets.${section}.title`)}</h3>
+      <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
 
       <Table
         isIsoCountry={isIsoCountry}

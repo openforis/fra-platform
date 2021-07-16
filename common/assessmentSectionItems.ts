@@ -226,18 +226,12 @@ export const convertToAssessmentSections = (assessments: any) =>
   R.pipe(
     R.toPairs,
     R.map(([assessment, items]) => [assessment, sectionsFromItems(items)]),
+    // @ts-ignore
     R.fromPairs
+    // @ts-ignore
   )(assessments)
 
 /**
  * @deprecated
  */
 export const assessmentSections = convertToAssessmentSections(assessments)
-
-/**
- * @deprecated
- */
-
-/**
- * @deprecated
- */
