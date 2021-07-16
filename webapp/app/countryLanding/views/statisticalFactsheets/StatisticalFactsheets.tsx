@@ -1,4 +1,4 @@
-import './statisticalFactsheets.less'
+import './StatisticalFactsheets.scss'
 import React from 'react'
 import { useParams } from 'react-router'
 

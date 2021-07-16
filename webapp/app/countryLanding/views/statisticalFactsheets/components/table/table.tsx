@@ -22,7 +22,7 @@ const Table = (props: Props) => {
     return null
   }
   const t = (value: any) =>
-    Number.isNaN(+value) ? (i18n as any).t(`statisticalFactsheets.${section}.${value}`) : value
+    Number.isNaN(+value) ? i18n.t(`statisticalFactsheets.${section}.${value}`) : value
   return (
     <div className="fra-table__container">
       <div className="fra-table__scroll-wrapper">
@@ -45,7 +45,7 @@ const Table = (props: Props) => {
                   {columns.map((column: any, i: any) =>
                     i === 0 ? (
                       <th key={`${tableRow}-${column}`} className="fra-table__category-cell">
-                        {`${t(tableRow)} (${(i18n as any).t(`unit.${units[rowIdx]}`)})`}
+                        {`${t(tableRow)} (${i18n.t(`unit.${units[rowIdx]}`)})`}
                       </th>
                     ) : (
                       <td key={`${tableRow}-${column}`} className="fra-table__cell">
