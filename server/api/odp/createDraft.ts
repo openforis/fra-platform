@@ -12,7 +12,7 @@ export const OdpCreateDraft = {
       async (req: Request, res: Response) => {
         try {
           const { countryIso }: any = req.query
-          const result = await OdpService.saveDraft({ countryIso, user: req.user as any, draft: req.body })
+          const result = await OdpService.persistDraft({ countryIso, user: req.user as any, draft: req.body })
           res.json(result)
         } catch (err) {
           Requests.sendErr(res, err)

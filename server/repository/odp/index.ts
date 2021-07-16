@@ -9,6 +9,7 @@ import { getOdpVersionId } from '@server/repository/odp/getOdpVersionId'
 import { readEofOdps } from '@server/repository/odp/readEofOdps'
 import { readFocOdps } from '@server/repository/odp/readFocOdps'
 import { getDraftId } from '@server/repository/odp/getDraftId'
+import { updateDraftId } from '@server/repository/odp/updateDraftId'
 
 export const OdpRepository = {
   listAndValidateOriginalDataPoints,
@@ -22,4 +23,5 @@ export const OdpRepository = {
   readEofOdps,
   readFocOdps,
   getDraftId,
+  updateDraftId,
 }

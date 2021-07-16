@@ -55,8 +55,8 @@ export const fetchOdps = (countryIso: any) => async (dispatch: any) => {
 }
 
 // ====== UPDATE
-export const odpSaveDraftStart = 'originalDataPoint/saveDraft/start'
-export const odpSaveDraftCompleted = 'originalDataPoint/saveDraft/completed'
+export const odpSaveDraftStart = 'originalDataPoint/persistDraft/start'
+export const odpSaveDraftCompleted = 'originalDataPoint/persistDraft/completed'
 
 const persistDraft = (countryIso: any, odp: any) => {
   const dispatched = async (dispatch: any, getState: any) => {
