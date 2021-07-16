@@ -5,7 +5,7 @@ module.exports = {
     forest_area: 'Superficie forestière',
     natural_forest_area: 'Forêt naturellement régénérée',
     planted_forest: '$t(forestCharacteristics.plantedForest)',
-    forest_area_within_protected_areas: '$t(forestAreaWithinProtectedAreas.header)',
+    forest_area_within_protected_areas: 'Superficie forestière à l’intérieur des aires protégées',
     land_area: 'Superficie des terres',
     primary_forest: '$t(specificForestCategories.primaryForest)',
     private_ownership: '$t(forestOwnership.privateOwnership)',
