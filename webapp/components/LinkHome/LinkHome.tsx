@@ -1,8 +1,8 @@
-import './linkHome.less'
+import './linkHome.scss'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-const LinkHome = () => (
+const LinkHome: React.FC = () => (
   <NavLink to="/" className="app-header-link-home" exact>
     <svg id="Home" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42.789 35.773">
       <path

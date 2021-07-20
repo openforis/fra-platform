@@ -1,6 +1,4 @@
-@import (reference) 'webapp/main/styles/config';
-@import (reference) 'webapp/main/styles/style';
-@import (reference) 'webapp/main/styles/buttons';
+@import 'webapp/style/partials';
 
 .landing__page-header {
   width: 100%;
@@ -14,7 +12,6 @@
 }
 
 .landing__page-title {
-  .title;
   display: flex;
   align-items: center;
   flex: 1;
@@ -23,13 +20,13 @@
 // TODO: Make this common component
 .landng__page-country-label {
   display: inline-block;
-  border: @ui-thin-border;
+  border: $ui-thin-border;
   padding: 4px 8px;
   border-radius: 3px;
-  background-color: lighten(@ui-bg, 1%);
-  color: darken(@text-disabled, 15%);
+  background-color: lighten($ui-bg, 1%);
+  color: darken($text-disabled, 15%);
   margin: 5px 2.5px 0;
-  font-size: @font-s;
+  font-size: $font-s;
 }
 
 .landing__btn-download {
@@ -52,25 +49,24 @@
 }
 
 .landing__page-menu-button {
-  .btn;
   border-radius: unset;
-  font-size: @font-l;
+  font-size: $font-l;
   font-weight: normal;
   margin: 0;
-  color: @text-body;
+  color: $text-body;
   border-top: unset;
   border-right: unset;
   border-left: unset;
-  border-bottom: 2px solid @ui-border;
+  border-bottom: 2px solid $ui-border;
 
   &:hover {
-    color: @ui-accent;
+    color: $ui-accent;
   }
 
   &.disabled,
   &:disabled {
-    border-bottom-color: @ui-accent;
-    color: @ui-accent;
+    border-bottom-color: $ui-accent;
+    color: $ui-accent;
     opacity: 1;
     pointer-events: none;
   }
@@ -95,7 +91,7 @@
 
 //Milestones
 .landing__milestones-container {
-  .landing__page-container;
+  @extend .landing__page-container;
   width: 100%;
 }
 
@@ -112,23 +108,23 @@
 }
 
 .landing__milestone-group-year {
-  font-size: @font-m;
+  font-size: $font-m;
   font-weight: bold;
   text-align: center;
 }
 
 .landing__milestone-item {
   padding: 14px 10px;
-  border: 1px solid @ui-border-light;
-  background-color: lighten(@ui-bg, 1%);
+  border: 1px solid $ui-border-light;
+  background-color: lighten($ui-bg, 1%);
   margin-top: 12px;
 }
 
 .landing__milestone-item-date {
   margin-bottom: 5px;
   text-transform: uppercase;
-  font-size: @font-xxs;
-  color: lighten(@text-mute, 10%);
+  font-size: $font-xxs;
+  color: lighten($text-mute, 10%);
   text-align: center;
   font-weight: bold;
 }
@@ -150,9 +146,9 @@
   }
 
   .support-text {
-    color: @text-mute;
+    color: $text-mute;
     margin-left: 14px;
-    font-size: @font-s;
+    font-size: $font-s;
     font-weight: normal;
   }
 }
@@ -160,9 +156,9 @@
 .landing__message-board-container {
   width: 100%;
   display: grid;
-  //border: 2px solid @ui-border;
-  background: lighten(@ui-bg, 1%);
-  border: 1px solid @ui-border-light;
+  //border: 2px solid $ui-border;
+  background: lighten($ui-bg, 1%);
+  border: 1px solid $ui-border-light;
 }
 
 .landing__message-board {
@@ -175,7 +171,7 @@
 }
 
 .landing__users-container {
-  .landing__page-container;
+  @extend .landing__page-container;
   width: 100%;
   padding: 32px 8px 0 8px;
 }
@@ -187,7 +183,7 @@
 
 .landing__user-container {
   padding: 14px 10px;
-  border: 1px solid @ui-border-light;
+  border: 1px solid $ui-border-light;
   background-color: white;
   //margin: 0 1% 10px 1%;
   line-height: 18px;
@@ -216,17 +212,16 @@
   font-weight: 600;
 
   &.session-user {
-    color: @ui-accent;
+    color: $ui-accent;
   }
 }
 
 .landing__user-role {
-  color: @text-mute;
+  color: $text-mute;
 }
 
 .landing__user-btn-message {
-  .mixin-button-base(@font-m, 7px 14px);
-  .btn-secondary;
+  @include mixin-button-base($font-m, 7px 14px);
   margin-top: 12px;
 }
 
@@ -286,13 +281,13 @@
   width: 100%;
 
   .link.disabled {
-    color: @text-body;
+    color: $text-body;
     pointer-events: none;
   }
 }
 
 .landing__activity-item:not(:first-of-type) {
-  border-top: 1px solid @ui-border-light;
+  border-top: 1px solid $ui-border-light;
 }
 
 .landing__activity-avatar {
@@ -312,20 +307,20 @@
 }
 
 .landing__activity-time {
-  color: @text-mute;
-  font-size: @font-s;
+  color: $text-mute;
+  font-size: $font-s;
   margin-left: auto;
   white-space: nowrap;
 }
 
 .landing__activity-empty {
-  color: @text-disabled;
+  color: $text-disabled;
   padding: 48px;
   text-align: center;
 }
 
 .landing__activity-empty-title {
-  color: @text-body;
+  color: $text-body;
   font-weight: 700;
   margin-top: 20px;
 }
@@ -334,7 +329,7 @@
 
 .landing__link-container {
   padding: 20px 40px;
-  border: 1px solid @ui-border-light;
+  border: 1px solid $ui-border-light;
   background-color: #f8f8f8;
   margin: 12px 1%;
   flex: 0 1 31%;
@@ -350,10 +345,10 @@
     text-decoration: none;
     transition: all 0.1s ease-out;
     font-weight: bold;
-    color: @text-mute;
+    color: $text-mute;
 
     &:hover {
-      color: @ui-accent;
+      color: $ui-accent;
     }
   }
 }
@@ -364,7 +359,7 @@
   right: 0;
   background-color: transparent;
   padding: 4px;
-  border-color: @ui-border-light;
+  border-color: $ui-border-light;
   border-top: none !important;
   border-right: none !important;
   border-radius: 0 !important;
@@ -376,7 +371,7 @@
 }
 
 .landing__repository-header {
-  .landing__page-container-header;
+  @extend .landing__page-container-header;
   margin-top: 24px;
   display: flex;
   justify-content: center;
@@ -406,13 +401,13 @@
   }
 
   th {
-    font-size: @font-l;
-    color: @text-heading;
+    font-size: $font-l;
+    color: $text-heading;
   }
 
   td {
-    font-size: @font-m;
-    border-top: 1px solid @ui-border-light;
+    font-size: $font-m;
+    border-top: 1px solid $ui-border-light;
   }
 }
 
@@ -452,8 +447,8 @@
 // Misc
 
 .landing__version {
-  color: @text-disabled;
-  font-size: @font-xs;
+  color: $text-disabled;
+  font-size: $font-xs;
   margin-top: 32px;
   width: 100%;
   text-align: center;
