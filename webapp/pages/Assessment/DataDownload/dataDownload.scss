@@ -1,4 +1,4 @@
-@import (reference) 'webapp/main/styles/config';
+@import  'webapp/style/partials';
 
 .data-download {
   width: 100%;
@@ -12,5 +12,5 @@
 
 .data-download__sep {
   grid-column: 1/4;
-  border-top: @ui-thin-border;
+  border-top: $ui-thin-border;
 }
