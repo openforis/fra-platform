@@ -3,15 +3,14 @@ import { Link, matchPath, NavLink, Redirect, Route, Switch, useLocation } from '
 import { Area } from '@common/country'
 import FRA from '@common/assessment/fra'
 import * as BasePaths from '@webapp/main/basePaths'
-import { useCountryIso, useI18n, useUserInfo } from '@webapp/components/hooks'
+import { useCountryIso, useI18n, useUserInfo, useCountryLandingSections } from '@webapp/components/hooks'
 import Icon from '@webapp/components/icon'
-import StatisticalFactsheets from '@webapp/app/countryLanding/views/statisticalFactsheets'
-import useCountryLandingSections from '@webapp/app/countryLanding/useCountryLandingSections'
+import StatisticalFactsheets from '@webapp/pages/StatisticalFactsheets'
 import { useFraRegions } from '@webapp/store/app/hooks'
 import CountrySelector from './components/CountrySelector'
 import SelectedCountries from './components/SelectedCountries'
 
-const FraHome = () => {
+const FraHome: React.FC = () => {
   const { pathname } = useLocation()
   const countryIso = useCountryIso()
   const userInfo = useUserInfo()
@@ -32,12 +31,12 @@ const FraHome = () => {
     <>
       <div className="landing__page-header space-between">
         <h1 className="landing__page-title title">
-          {(i18n as any).t(`area.${countryIso}.listName`)}
+          {i18n.t(`area.${countryIso}.listName`)}
 
           {showButton && (
             <Link
               className="btn-s btn-primary landing__btn-download"
-              to={`/api/fileRepository/statisticalFactsheets/${countryIso}/${(i18n as any).language}`}
+              to={`/api/fileRepository/statisticalFactsheets/${countryIso}/${i18n.language}`}
               target="_top"
             >
               <Icon name="hit-down" className="icon-hit-down icon-white" />

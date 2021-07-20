@@ -17,7 +17,7 @@ const CarbonGrowingStock = (props: Props) => {
     : ['billionCubicMeter', 'gt', 'gt']
   const section = 'carbonAndGrowingStock'
   return (
-    <div className="row-m">
+    <div className="row-m row-table">
       <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
 
       <Table
