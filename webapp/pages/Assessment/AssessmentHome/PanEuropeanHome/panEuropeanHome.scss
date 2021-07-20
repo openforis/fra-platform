@@ -1,4 +1,4 @@
-@import (reference) 'webapp/main/styles/config';
+@import 'webapp/style/partials';
 
 .pan-eu-home {
   .partners {
@@ -43,7 +43,7 @@
   }
 
   a {
-    color: @text-body;
+    color: $text-body;
     text-decoration: underline;
     &:hover {
       text-decoration: none;

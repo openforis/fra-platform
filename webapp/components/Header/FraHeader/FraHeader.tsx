@@ -2,7 +2,7 @@ import React from 'react'
 
 import { useI18n } from '@webapp/components/hooks'
 
-import LinkHome from '@webapp/components/Header/components/linkHome'
+import LinkHome from '@webapp/components/LinkHome'
 import LanguageSelector, { LanguageSelectorMobile } from '@webapp/components/Header/LanguageSelector'
 import UserLinks from '@webapp/components/Header/UserLinks'
 

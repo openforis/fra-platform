@@ -31,7 +31,7 @@ const FraHome = () => {
   return (
     <>
       <div className="landing__page-header space-between">
-        <h1 className="landing__page-title">
+        <h1 className="landing__page-title title">
           {(i18n as any).t(`area.${countryIso}.listName`)}
 
           {showButton && (
@@ -57,7 +57,7 @@ const FraHome = () => {
             <NavLink
               key={section}
               to={BasePaths.getAssessmentHomeSectionLink(countryIso, FRA.type, section)}
-              className="landing__page-menu-button"
+              className="btn landing__page-menu-button"
               activeClassName="disabled"
             >
               {i18n.t(`landing.sections.${section}`)}

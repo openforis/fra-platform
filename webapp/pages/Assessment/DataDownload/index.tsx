@@ -1,4 +1,4 @@
-import './dataDownload.less'
+import './dataDownload.scss'
 import React, { useEffect } from 'react'
 
 import { useI18n } from '@webapp/components/hooks'
@@ -16,7 +16,7 @@ const DataDownload = () => {
   return (
     <div className="app-view__content">
       <div className="landing__page-header">
-        <h1 className="landing__page-title"> {i18n.t('dataDownload.dataDownload')}</h1>
+        <h1 className="landing__page-title title"> {i18n.t('dataDownload.dataDownload')}</h1>
       </div>
 
       <div className="data-download">
