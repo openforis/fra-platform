@@ -7,7 +7,7 @@ import { Area } from '@common/country'
 import useI18n from '@webapp/components/hooks/useI18n'
 import { useSelector } from 'react-redux'
 import * as UiState from '@webapp/store/ui/state'
-import { __MIN_COUNTRIES__ } from '@webapp/pages/Assessment/AssessmentHome/FraHome/components/CountrySelector'
+import { __MIN_COUNTRIES__ } from '@webapp/pages/AssessmentHome/FraHome/components/CountrySelector'
 import ForestArea from './ForestArea'
 import CarbonGrowingStock from './CarbonGrowingStock'
 import ForestAreaPercent from './ForestAreaPercent'
@@ -17,7 +17,7 @@ import ForestAreaWithinProtectedAreas from './ForestAreaWithinProtectedAreas'
 import NaturallyRegeneratingForest from './NaturallyRegeneratingForest'
 import PrimaryDesignatedManagementObjective from './PrimaryDesignatedManagementObjective'
 
-const StatisticalFactsheets = () => {
+const StatisticalFactsheets:React.FC = () => {
   const i18n = useI18n()
   const { countryIso: levelIso }: any = useParams()
   const isCountry = Area.isISOCountry(levelIso)

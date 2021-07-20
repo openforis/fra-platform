@@ -11,7 +11,7 @@ import * as SectionSpecs from '@webapp/app/assessment/components/section/section
 import { TableSpec } from '@webapp/app/assessment/components/section/sectionSpec'
 import { useSelector } from 'react-redux'
 import * as UiState from '@webapp/store/ui/state'
-import { __MIN_COUNTRIES__ } from '@webapp/pages/Assessment/AssessmentHome/FraHome/components/CountrySelector'
+import { __MIN_COUNTRIES__ } from '@webapp/pages/AssessmentHome/FraHome/components/CountrySelector'
 
 const initialSelection: any = {
   countries: [],

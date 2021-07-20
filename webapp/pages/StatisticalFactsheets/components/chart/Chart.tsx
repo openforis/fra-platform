@@ -1,5 +1,4 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
-// @ts-ignore
 import { Chart } from 'chart.js'
 
 import { useI18n, useOnUpdate } from '@webapp/components/hooks'

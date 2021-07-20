@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 import * as NumberUtils from '@common/bignumberUtils'
-import { formatValue } from '@webapp/app/countryLanding/views/statisticalFactsheets/utils/numberUtils'
+import { formatValue } from '@webapp/pages/StatisticalFactsheets/utils/numberUtils'
 
 export const types = {
   bar: 'bar',

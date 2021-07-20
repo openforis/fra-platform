@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { isReviewer } from '@common/countryRole'
 import { isAllowedToChangeRole } from '@common/userManagementAccessControl'
 
@@ -9,10 +11,15 @@ import RecentActivityView from '@webapp/app/countryLanding/views/recentActivityV
 import LinksView from '@webapp/app/countryLanding/views/linksView'
 import ManageCollaboratorsView from '@webapp/app/countryLanding/views/manageCollaboratorsView'
 import ContentCheck from '@webapp/app/countryLanding/views/contentCheck'
-import StatisticalFactsheets from '@webapp/app/countryLanding/views/statisticalFactsheets'
+import StatisticalFactsheets from '@webapp/pages/StatisticalFactsheets'
 
-const getSections = (countryIso: any, userInfo: any) => {
-  const sections = [
+type Section = {
+  name: string
+  component: React.FC
+}
+
+const getSections = (countryIso: any, userInfo: any): Array<Section> => {
+  const sections: Array<Section> = [
     { name: 'overview', component: StatisticalFactsheets },
     { name: 'messageBoard', component: MessageBoard },
     { name: 'recentActivity', component: RecentActivityView },
@@ -32,7 +39,7 @@ const getSections = (countryIso: any, userInfo: any) => {
   return sections
 }
 
-export default () => {
+export default (): Array<Section> => {
   const userInfo = useUserInfo()
   const countryIso = useCountryIso()
 
