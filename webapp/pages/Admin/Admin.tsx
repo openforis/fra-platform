@@ -23,7 +23,7 @@ const Admin = (props: any) => {
   return (
     <div className="app-view__content">
       <div className="landing__page-header">
-        <h1 className="landing__page-title">{(i18n as any).t('admin.admin')}</h1>
+        <h1 className="landing__page-title title">{(i18n as any).t('admin.admin')}</h1>
         <Menu />
       </div>
 

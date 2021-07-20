@@ -1,4 +1,4 @@
-import './panEuropeanHome.less'
+import './panEuropeanHome.scss'
 import React from 'react'
 import { useI18n } from '@webapp/components/hooks'
 
