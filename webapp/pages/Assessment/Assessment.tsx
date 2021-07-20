@@ -20,8 +20,8 @@ import AssessmentSectionView from '@webapp/app/assessment/components/section/ass
 import OriginalDataPointView from '@webapp/app/assessment/fra/sections/originalDataPoint/originalDataPointView'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 
-import AssessmentHome from './AssessmentHome'
-import DataDownload from './DataDownload'
+import AssessmentHome from '../AssessmentHome'
+import AssessmentDataDownload from '../AssessmentDataDownload'
 
 const Assessment = () => {
   const dispatch = useDispatch()
@@ -57,7 +57,7 @@ const Assessment = () => {
 
         <Switch>
           <Route path={BasePaths.assessmentHome} component={AssessmentHome} />
-          <Route path={BasePaths.assessmentDataDownload} component={DataDownload} />
+          <Route path={BasePaths.assessmentDataDownload} component={AssessmentDataDownload} />
           <Route exact path={BasePaths.assessmentSection} component={AssessmentSectionView} />
           <Route exact path={[`${BasePaths.odp}:odpId/`, BasePaths.odp]} component={OriginalDataPointView} />
         </Switch>

@@ -15,7 +15,7 @@ const Components = {
   [PanEuropean.type]: PanEuropeanHome,
 }
 
-const AssessmentHome = () => {
+const AssessmentHome: React.FC = () => {
   const assessmentType = useAssessmentType()
   const Component = Components[assessmentType]
 
