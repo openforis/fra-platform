@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import useGetRequest from '@webapp/components/hooks/useGetRequest'
 
 import { useSelector } from 'react-redux'
-import { __MIN_COUNTRIES__ } from '@webapp/pages/Assessment/AssessmentHome/FraHome/components/CountrySelector'
+import { __MIN_COUNTRIES__ } from '@webapp/pages/AssessmentHome/FraHome/components/CountrySelector'
 import Area from '@common/country/area'
 import * as UiState from '@webapp/store/ui/state'
 import * as APIUtils from '../utils/apiUtils'

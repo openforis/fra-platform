@@ -11,7 +11,7 @@ import { useFraRegions } from '@webapp/store/app/hooks'
 import CountrySelector from './components/CountrySelector'
 import SelectedCountries from './components/SelectedCountries'
 
-const FraHome = () => {
+const FraHome:React.FC = () => {
   const { pathname } = useLocation()
   const countryIso = useCountryIso()
   const userInfo = useUserInfo()
@@ -32,12 +32,12 @@ const FraHome = () => {
     <>
       <div className="landing__page-header space-between">
         <h1 className="landing__page-title title">
-          {(i18n as any).t(`area.${countryIso}.listName`)}
+          {i18n.t(`area.${countryIso}.listName`)}
 
           {showButton && (
             <Link
               className="btn-s btn-primary landing__btn-download"
-              to={`/api/fileRepository/statisticalFactsheets/${countryIso}/${(i18n as any).language}`}
+              to={`/api/fileRepository/statisticalFactsheets/${countryIso}/${i18n.language}`}
               target="_top"
             >
               <Icon name="hit-down" className="icon-hit-down icon-white" />
