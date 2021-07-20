@@ -8,11 +8,21 @@
   width: 100%;
 
   > div {
-    width: 50%;
+    width: 100%;
     float: left;
-    padding: 20px 40px;
-    &:not(:nth-child(1)):not(:nth-child(2)) {
+    padding: $spacing-xxs;
+
+    &:not(:nth-child(1)) {
       border-top: 3px double $ui-border;
+    }
+
+    @include min-width($laptop) {
+      padding: $spacing-xs $spacing-l;
+      width: 50%;
+
+      &:nth-child(2) {
+        border-top: unset;
+      }
     }
   }
 
@@ -46,21 +56,27 @@
   }
 
   .row-m {
-    height: 280px;
+    height: 300px;
   }
 
   .row-l {
     height: 390px;
   }
+
+  .row-table {
+    height: unset;
+  }
 }
 
 .app-view.navigation-on {
-  .statistical-factsheets.country {
-    .row-m {
-      height: 380px;
-    }
-    .row-l {
-      height: 520px;
+  .statistical-factsheets {
+    @include min-width($laptop) {
+      .row-m {
+        height: 380px;
+      }
+      .row-l {
+        height: 520px;
+      }
     }
   }
 }

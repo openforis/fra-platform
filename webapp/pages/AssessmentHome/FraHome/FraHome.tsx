@@ -3,15 +3,14 @@ import { Link, matchPath, NavLink, Redirect, Route, Switch, useLocation } from '
 import { Area } from '@common/country'
 import FRA from '@common/assessment/fra'
 import * as BasePaths from '@webapp/main/basePaths'
-import { useCountryIso, useI18n, useUserInfo } from '@webapp/components/hooks'
+import { useCountryIso, useI18n, useUserInfo, useCountryLandingSections } from '@webapp/components/hooks'
 import Icon from '@webapp/components/icon'
-import StatisticalFactsheets from '@webapp/app/countryLanding/views/statisticalFactsheets'
-import useCountryLandingSections from '@webapp/app/countryLanding/useCountryLandingSections'
+import StatisticalFactsheets from '@webapp/pages/StatisticalFactsheets'
 import { useFraRegions } from '@webapp/store/app/hooks'
 import CountrySelector from './components/CountrySelector'
 import SelectedCountries from './components/SelectedCountries'
 
-const FraHome:React.FC = () => {
+const FraHome: React.FC = () => {
   const { pathname } = useLocation()
   const countryIso = useCountryIso()
   const userInfo = useUserInfo()

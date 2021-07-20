@@ -17,7 +17,7 @@ import ForestAreaWithinProtectedAreas from './ForestAreaWithinProtectedAreas'
 import NaturallyRegeneratingForest from './NaturallyRegeneratingForest'
 import PrimaryDesignatedManagementObjective from './PrimaryDesignatedManagementObjective'
 
-const StatisticalFactsheets = () => {
+const StatisticalFactsheets:React.FC = () => {
   const i18n = useI18n()
   const { countryIso: levelIso }: any = useParams()
   const isCountry = Area.isISOCountry(levelIso)
