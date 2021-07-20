@@ -1,4 +1,4 @@
-import './FraHome/fraHome.less'
+import './FraHome/fraHome.scss'
 
 import React from 'react'
 

@@ -38,7 +38,7 @@ const Users = () => {
                   userInfo.id !== user.id ? (
                     <button
                       type="button"
-                      className="landing__user-btn-message"
+                      className="btn-secondary landing__user-btn-message"
                       onClick={() => {
                         dispatch(closeCountryMessageBoard())
                         dispatch(openChat(countryIso, userInfo, user))

@@ -1,11 +1,14 @@
 import './countrySelect.scss'
 import React, { useEffect, useRef, useState } from 'react'
+import MediaQuery from 'react-responsive'
 
 import { getRoleForCountryLabelKey } from '@common/countryRole'
 import { Area } from '@common/country'
+import { Breakpoints } from '@webapp/utils/breakpoints'
 
 import { useCountryIso, useI18n, useNavigationVisible, useUserInfo } from '@webapp/components/hooks'
 import Icon from '@webapp/components/icon'
+import LinkHome from '@webapp/components/LinkHome'
 import LinkLanding from './LinkLanding'
 import CountryList from './CountryList'
 import ToggleNavigationControl from './ToggleNavigationControl'
@@ -52,7 +55,11 @@ const CountrySelect: React.FC = () => {
 
   return (
     <div className="country-select">
-      {navigationVisible && <LinkLanding />}
+      {navigationVisible && (
+        <MediaQuery minWidth={Breakpoints.laptop}>
+          <LinkLanding />
+        </MediaQuery>
+      )}
 
       <ToggleNavigationControl />
 
@@ -106,6 +113,10 @@ const CountrySelect: React.FC = () => {
       </button>
 
       <AutoSaveStatus />
+
+      <MediaQuery maxWidth={Breakpoints.laptop - 1}>
+        <LinkHome />
+      </MediaQuery>
     </div>
   )
 }

@@ -1,0 +1,86 @@
+@import 'webapp/style/partials';
+
+@mixin mixin-header-items() {
+  .support-text {
+    color: $text-mute;
+  }
+
+  .full-width {
+    margin-top: $spacing-xxs;
+    width: 100%;
+  }
+}
+
+.app-view {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas: 'content';
+
+  //&.navigation-on {
+  //  grid-template-columns: $ui-app-navigation-width 1fr;
+  //}
+
+  @include min-width($laptop){
+    grid-template-columns: 0 1fr;
+    grid-template-areas: 'navigation content';
+
+    &.navigation-on {
+      grid-template-columns: $ui-app-navigation-width 1fr;
+    }
+  }
+
+  .margin-right {
+    margin-right: $spacing-xxs;
+  }
+
+  .margin-right-big {
+    margin-right: $spacing-xs;
+  }
+
+  .margin-left {
+    margin-left: $spacing-xxs;
+  }
+
+  .margin-left-big {
+    margin-left: $spacing-xs;
+  }
+
+  .align-left {
+    margin-right: auto;
+  }
+
+  .align-right {
+    margin-left: auto;
+  }
+}
+
+.fra-review__container + .country-select + .app-view {
+  width: calc(100vw - #{$ui-app-review-width});
+}
+
+.app-view__content {
+  grid-area: content;
+  height: 100%;
+  padding: 28px $spacing-m $spacing-xl $spacing-m;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.app-view__page-header {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-s;
+  @include mixin-header-items;
+}
+
+.app-view__section-toolbar {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: $spacing-xxs;
+  margin-bottom: $spacing-xs;
+  @include mixin-header-items;
+}

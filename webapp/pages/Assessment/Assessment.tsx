@@ -1,9 +1,11 @@
-import './assessment.less'
+import './assessment.scss'
 import React, { memo, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
+import MediaQuery from 'react-responsive'
 
 import * as BasePaths from '@webapp/main/basePaths'
+import { Breakpoints } from '@webapp/utils/breakpoints'
 
 import { useNavigationVisible, useUserInfo } from '@webapp/components/hooks'
 import Navigation from '@webapp/app/components/navigation/navigation'
@@ -49,7 +51,9 @@ const Assessment = () => {
       )}
 
       <div className={`app-view ${navigationVisible ? ' navigation-on' : ''}`}>
-        <Navigation />
+        <MediaQuery minWidth={Breakpoints.laptop}>
+          <Navigation />
+        </MediaQuery>
 
         <Switch>
           <Route path={BasePaths.assessmentHome} component={AssessmentHome} />

@@ -22,7 +22,7 @@ const Menu = () => {
   return (
     <div className="landing__page-menu">
       {sections.map(({ name, labelKey }) => (
-        <NavLink to={`${url}/${name}/`} className="landing__page-menu-button" activeClassName="disabled" key={name}>
+        <NavLink to={`${url}/${name}/`} className="btn landing__page-menu-button" activeClassName="disabled" key={name}>
           {(i18n as any).t(labelKey)}
         </NavLink>
       ))}
