@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import CountrySelectionModal from '@webapp/components/CountrySelectionModal'
+import CountrySelectModal from '@webapp/components/CountrySelectModal'
 import { useCountries } from '@webapp/store/app'
 import { useI18n } from '@webapp/components/hooks'
 import { HomeActions } from '@webapp/store/ui'
 import { useSecondaryGroupedRegions } from '@webapp/store/app/hooks'
+
 export const __MIN_COUNTRIES__ = 9
+
 const CountrySelector = () => {
   const dispatch = useDispatch()
   const countries: any = useCountries()
@@ -23,7 +25,7 @@ const CountrySelector = () => {
   const canSave = (selectedCountries: any[]) => selectedCountries.length >= __MIN_COUNTRIES__
   return (
     <div className="country-selector">
-      <CountrySelectionModal
+      <CountrySelectModal
         isOpen={modalOpen}
         countries={countries}
         headerLabel={i18n.t('common.select')}
