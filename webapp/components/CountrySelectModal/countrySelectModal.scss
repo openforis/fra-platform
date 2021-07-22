@@ -1,10 +1,25 @@
-.country-select {
+@import 'webapp/style/partials';
+
+.modal-country-select {
+  width: 100vw;
+  height: 100%;
+
   .filter {
     width: 400px;
-    border: 1px;
     padding: 7px 9px;
     border: 1px solid #888;
   }
+
+  .modal-content {
+    margin: $spacing-m $spacing-s;
+    width: calc(100% - #{$spacing-s * 2});
+  }
+
+  .modal-body {
+    overflow-y: auto;
+    height: calc(100vh - 87px - 85px);
+  }
+
   .modal-footer {
     .btn {
       width: 200px;
