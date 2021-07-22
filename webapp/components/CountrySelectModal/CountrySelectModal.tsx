@@ -1,4 +1,4 @@
-import './style.less'
+import './countrySelectModal.scss'
 import React, { useEffect, useState } from 'react'
 
 import { Modal, ModalClose, ModalFooter, ModalHeader } from '@webapp/components/modal'
@@ -19,7 +19,7 @@ type Props = {
   onClose: (selection: string[]) => any
 }
 
-const CountrySelectionModal: React.FC<Props> = (props) => {
+const CountrySelectModal: React.FC<Props> = (props) => {
   const {
     countries,
     showCount,
@@ -58,12 +58,6 @@ const CountrySelectionModal: React.FC<Props> = (props) => {
     else setCountriesFiltered(countries.filter((country) => checkMatch(country, value)))
   }
 
-  useEffect(updateCountries, [countries, query])
-
-  useEffect(() => {
-    initialSelection.map((countryIso) => _onChange(countryIso))
-  }, [initialSelection])
-
   const _onChange = (countryIso: string) => {
     if (selection.includes(countryIso)) {
       const filteredSelection = selection.filter((_countryIso) => _countryIso !== countryIso)
@@ -79,8 +73,14 @@ const CountrySelectionModal: React.FC<Props> = (props) => {
     setSelection([])
   }
 
+  useEffect(updateCountries, [countries, query])
+
+  useEffect(() => {
+    initialSelection.map((countryIso) => _onChange(countryIso))
+  }, [initialSelection])
+
   return (
-    <Modal className="country-select" isOpen={isOpen}>
+    <Modal className="modal-country-select" isOpen={isOpen}>
       <ModalHeader>
         {headerLabel} {showCount && `(${selection.length})`}
         <input
@@ -102,11 +102,11 @@ const CountrySelectionModal: React.FC<Props> = (props) => {
       />
 
       <ModalFooter>
-        <button className="btn btn-secondary" onClick={resetAll}>
+        <button className="btn btn-secondary" onClick={resetAll} type="button">
           {i18n.t('common.resetAll')}
         </button>
 
-        <button className="btn btn-primary" disabled={!canSave(selection)} onClick={_onClose}>
+        <button className="btn btn-primary" disabled={!canSave(selection)} onClick={_onClose} type="button">
           {i18n.t('common.apply')}
         </button>
       </ModalFooter>
@@ -114,11 +114,11 @@ const CountrySelectionModal: React.FC<Props> = (props) => {
   )
 }
 
-CountrySelectionModal.defaultProps = {
+CountrySelectModal.defaultProps = {
   unselectableCountries: [],
   canSave: () => true,
   onChange: () => true,
   showCount: true,
   excludedRegions: [],
 }
-export default CountrySelectionModal
+export default CountrySelectModal
