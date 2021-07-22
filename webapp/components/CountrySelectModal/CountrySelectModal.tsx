@@ -58,12 +58,6 @@ const CountrySelectModal: React.FC<Props> = (props) => {
     else setCountriesFiltered(countries.filter((country) => checkMatch(country, value)))
   }
 
-  useEffect(updateCountries, [countries, query])
-
-  useEffect(() => {
-    initialSelection.map((countryIso) => _onChange(countryIso))
-  }, [initialSelection])
-
   const _onChange = (countryIso: string) => {
     if (selection.includes(countryIso)) {
       const filteredSelection = selection.filter((_countryIso) => _countryIso !== countryIso)
@@ -78,6 +72,12 @@ const CountrySelectModal: React.FC<Props> = (props) => {
     onClose(selection)
     setSelection([])
   }
+
+  useEffect(updateCountries, [countries, query])
+
+  useEffect(() => {
+    initialSelection.map((countryIso) => _onChange(countryIso))
+  }, [initialSelection])
 
   return (
     <Modal className="modal-country-select" isOpen={isOpen}>

@@ -34,7 +34,7 @@ const CountrySelector = () => {
         excludedRegions={secondaryRegions.regions.map((r: any) => r.regionCode)}
         showCount
       />
-      <button onClick={() => setModalOpen(true)} className="btn-s btn btn-primary filter-countries">
+      <button onClick={() => setModalOpen(true)} className="btn-s btn btn-primary filter-countries" type="button">
         {i18n.t('common.filterCountries')}
       </button>
     </div>
