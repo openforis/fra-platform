@@ -1,26 +1,36 @@
-import './modal.less'
-
+import './modal.scss'
 import React from 'react'
 
 import Icon from '@webapp/components/icon'
 
-export const ModalClose = ({ children, onClose }: any) => (
-  <div className="modal-close" onClick={() => onClose()}>
+export const ModalClose: React.FC<{ onClose(): void }> = ({ onClose }) => (
+  <div className="modal-close" onClick={onClose} onKeyDown={onClose} role="button" tabIndex={0}>
     <Icon name="remove" />
   </div>
 )
 
-export const ModalHeader = ({ children }: any) => <div className="modal-header">{children}</div>
+export const ModalHeader: React.FC = ({ children }) => (
+  <div className="modal-header">{React.Children.toArray(children)}</div>
+)
 
-export const ModalBody = ({ children }: any) => <div className="modal-body">{children}</div>
+export const ModalBody: React.FC = ({ children }) => (
+  <div className="modal-body">{React.Children.toArray(children)}</div>
+)
 
-export const ModalFooter = ({ children }: any) => <div className="modal-footer">{children}</div>
+export const ModalFooter: React.FC = ({ children }) => (
+  <div className="modal-footer">{React.Children.toArray(children)}</div>
+)
 
-export const Modal = ({ children, isOpen, className = '' }: any) => {
+type Props = {
+  className?: string
+  isOpen?: boolean
+}
+
+export const Modal: React.FC<Props> = ({ children, isOpen, className = '' }: any) => {
   if (!isOpen) return null
   return (
     <div className={`modal ${className}`} tabIndex={-1} role="dialog">
-      <div className="modal-content">{children}</div>
+      <div className="modal-content">{React.Children.toArray(children)}</div>
     </div>
   )
 }
