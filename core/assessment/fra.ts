@@ -1,4 +1,4 @@
-import * as R from 'ramda'
+import { Arrays } from '@core/utils'
 import { Assessment, AssessmentType } from './assessment'
 
 export interface AssessmentFRA extends Assessment {
@@ -13,7 +13,7 @@ export const FRA: AssessmentFRA = {
   years: [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020],
   yearsTable: [1990, 2000, 2010, 2015, 2020],
   yearsRange: ['1990-2000', '2000-2010', '2010-2015', '2015-2020'],
-  yearsAnnual: R.range(2000, 2018),
+  yearsAnnual: Arrays.range(2000, 2018),
 
   sections: {
     0: {
