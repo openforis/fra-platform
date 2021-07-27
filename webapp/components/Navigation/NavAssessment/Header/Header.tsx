@@ -1,36 +1,35 @@
-import './header.scss'
-
+import './Header.scss'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 
-import * as Assessment from '@common/assessment/assessment'
+import { Assessment, AssessmentType } from '@core/assessment'
 import { Area } from '@common/country'
 import * as BasePaths from '@webapp/main/basePaths'
 
-import Icon from '@webapp/components/icon'
 import { useCountryIso, useUserInfo } from '@webapp/components/hooks'
 import { Breakpoints } from '@webapp/utils/breakpoints'
 
+import Icon from '@webapp/components/icon'
 import Title from './title'
-import Status from './status'
-import ToggleAllButton from './buttonToggleAll'
+import Status from './Status'
+import ButtonToggleAll from './ButtonToggleAll'
 
 type Props = {
-  assessment: any
+  assessment: Assessment
   showSections: boolean
-  setShowSections: (...args: any[]) => any
+  setShowSections: (showSections: boolean) => void
 }
 
-const Header = (props: Props) => {
+const Header: React.FC<Props> = (props) => {
   const { assessment, showSections, setShowSections } = props
 
-  const assessmentType: any = Assessment.getType(assessment)
   const countryIso = useCountryIso()
   const userInfo = useUserInfo()
 
   const isCountry = Area.isISOCountry(countryIso)
-  const isFRA = Assessment.isTypeFRA(assessmentType)
+  const assessmentType = assessment.type
+  const isFRA = assessmentType === AssessmentType.fra2020
 
   return (
     <div className="nav-assessment-header">
@@ -62,8 +61,8 @@ const Header = (props: Props) => {
       </div>
 
       <div className="nav-assessment-header__status-container">
-        {isFRA && isCountry ? <Status assessment={assessment} /> : <div />}
-        <ToggleAllButton showSections={showSections} setShowSections={setShowSections} />
+        {userInfo && isFRA && isCountry ? <Status assessment={assessment} /> : <div />}
+        <ButtonToggleAll showSections={showSections} setShowSections={setShowSections} />
       </div>
     </div>
   )

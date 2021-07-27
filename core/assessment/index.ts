@@ -6,3 +6,6 @@ export { FRA } from './fra'
 
 export type { AssessmentPanEuropean } from './panEuropean'
 export { PanEuropean } from './panEuropean'
+
+export type { AssessmentStatusTransition } from './statusTransition'
+export { AssessmentStatusTransitions } from './statusTransition'

@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import MediaQuery from 'react-responsive'
 
-import * as Assessment from '@common/assessment/assessment'
+import { Assessment } from '@core/assessment'
 import { useI18n, useIsDataExportView } from '@webapp/components/hooks'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import { toggleAssessmentLock } from '@webapp/app/assessment/actions'
@@ -12,24 +12,27 @@ import { Breakpoints } from '@webapp/utils/breakpoints'
 import Icon from '@webapp/components/icon'
 
 type Props = {
-  assessment: any
+  assessment: Assessment
   lockEnabled: boolean
 }
-const Title = (props: Props) => {
+
+const Title: React.FC<Props> = (props) => {
   const { assessment, lockEnabled } = props
-  const type = Assessment.getType(assessment)
-  const deskStudy = Assessment.getDeskStudy(assessment)
+
   const dispatch = useDispatch()
   const i18n = useI18n()
   const isDataExportView = useIsDataExportView()
   const locked = useSelector(AssessmentState.isLocked(assessment))
   const canToggleLock = useCanToggleLock()
+
+  const { deskStudy, type } = assessment
+
   return (
     <div className="nav-assessment-header__lock">
       <div>
-        {(i18n as any).t(`assessment.${type}`)}
-        {isDataExportView ? ` - ${(i18n as any).t('common.dataExport')}` : ''}
-        {deskStudy && <div className="desk-study">({(i18n as any).t('assessment.deskStudy')})</div>}
+        {i18n.t(`assessment.${type}`)}
+        {isDataExportView ? ` - ${i18n.t('common.dataExport')}` : ''}
+        {deskStudy && <div className="desk-study">({i18n.t('assessment.deskStudy')})</div>}
       </div>
 
       {lockEnabled && (
@@ -47,4 +50,5 @@ const Title = (props: Props) => {
     </div>
   )
 }
+
 export default Title
