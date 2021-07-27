@@ -7,7 +7,7 @@ type Props = {
   assessment: any
 }
 
-const Assessment: React.FC<Props> = (props: Props) => {
+const NavAssessment: React.FC<Props> = (props: Props) => {
   const {
     assessment,
     assessment: { sections },
@@ -32,4 +32,4 @@ const Assessment: React.FC<Props> = (props: Props) => {
   )
 }
 
-export default Assessment
+export default NavAssessment

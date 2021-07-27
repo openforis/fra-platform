@@ -1,23 +1,35 @@
 import './NavigationMobile.scss'
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import classNames from 'classnames'
 
-import { FRA } from '@core/assessment'
-import PanEuropean from '@core/assessment/panEuropean'
-
+import { Assessment } from '@core/assessment'
 import { useNavigationVisible } from '@webapp/components/hooks'
-import { useAssessmentType } from '@webapp/store/app'
-import Assessment from '../Assessment'
+import { toggleNavigation } from '@webapp/components/Navigation/actions'
 
-const NavigationMobile: React.FC = () => {
+import Icon from '@webapp/components/icon'
+import NavAssessment from '../NavAssessment'
+
+type Props = {
+  assessment: Assessment
+}
+
+const NavigationMobile: React.FC<Props> = (props) => {
+  const { assessment } = props
+
+  const dispatch = useDispatch()
   const navigationVisible = useNavigationVisible()
-
-  const assessmentType = useAssessmentType()
-  const assessment = [FRA, PanEuropean].find(({ type }) => type === assessmentType)
 
   return (
     <div className={classNames('navM', 'no-print', { open: navigationVisible })}>
-      <Assessment assessment={assessment} />
+      <button
+        className="btn btn-s btn-secondary navM__btnClose"
+        onClick={() => dispatch(toggleNavigation())}
+        type="button"
+      >
+        <Icon name="remove" className="icon-close icon-24" />
+      </button>
+      <NavAssessment assessment={assessment} />
     </div>
   )
 }

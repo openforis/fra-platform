@@ -1,4 +1,4 @@
-@import "webapp/style/partials";
+@import 'webapp/style/partials';
 
 .navM {
   position: fixed;
@@ -14,6 +14,7 @@
   transform: translateX(-120vw);
   transition: all 0.25s ease-in;
   box-shadow: 0 0 2px rgba($text-heading, 0.8);
+  z-index: $z-index-popover;
   //display: grid;
   //align-content: start;
   //grid-row-gap: $spacing-s;
@@ -24,12 +25,26 @@
   }
 
   &.open {
-    z-index: $z-index-popover;
     transform: translateX(0);
-    opacity: 1;
+    //opacity: 1;
 
     * {
       opacity: 1;
     }
+  }
+}
+
+.navM__btnClose {
+  position: absolute;
+  right: $spacing-xxs;
+  top: $spacing-xxs;
+  border: unset;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: unset;
+
+  .icon {
+    margin: unset;
   }
 }

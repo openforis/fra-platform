@@ -416,5 +416,3 @@ export const PanEuropean: AssessmentPanEuropean = {
     },
   },
 }
-
-export default PanEuropean

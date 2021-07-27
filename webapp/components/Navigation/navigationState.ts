@@ -8,7 +8,7 @@ const keys = {
 
 const getState = R.prop(stateKey)
 
-const _getVisible = R.propOr(true, keys.visible)
+const _getVisible = R.prop(keys.visible)
 
 export const isVisible = R.pipe(getState, _getVisible)
 

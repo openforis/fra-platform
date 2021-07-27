@@ -238,5 +238,3 @@ export const FRA: AssessmentFRA = {
     },
   },
 }
-
-export default FRA
