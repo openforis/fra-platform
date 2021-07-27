@@ -2,22 +2,20 @@ import './assessment.scss'
 import React, { memo, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
-
-import * as BasePaths from '@webapp/main/basePaths'
-
-import { useNavigationVisible, useUserInfo } from '@webapp/components/hooks'
-import Navigation from '@webapp/components/Navigation'
-import Review from '@webapp/app/assessment/components/review/review'
-import UserChat from '@webapp/app/user/chat/userChatView'
-import MessageBoardPanel from '@webapp/app/countryLanding/views/messageBoard/messageBoardPanel'
+import { useMediaQuery } from 'react-responsive'
 
 import { toggleNavigation } from '@webapp/components/Navigation/actions'
 import { useInitCountry, useIsCountryStatusLoaded } from '@webapp/store/country'
+import * as BasePaths from '@webapp/main/basePaths'
+import { Breakpoints } from '@webapp/utils/breakpoints'
+import { useCountryIso, useNavigationVisible, useUserInfo } from '@webapp/components/hooks'
 
+import MessageBoardPanel from '@webapp/app/countryLanding/views/messageBoard/messageBoardPanel'
+import Navigation from '@webapp/components/Navigation'
+import Review from '@webapp/app/assessment/components/review/review'
+import UserChat from '@webapp/app/user/chat/userChatView'
 import AssessmentSectionView from '@webapp/app/assessment/components/section/assessmentSectionView'
 import OriginalDataPointView from '@webapp/app/assessment/fra/sections/originalDataPoint/originalDataPointView'
-import useCountryIso from '@webapp/components/hooks/useCountryIso'
-
 import AssessmentHome from '../AssessmentHome'
 import AssessmentDataDownload from '../AssessmentDataDownload'
 
@@ -27,10 +25,11 @@ const Assessment = () => {
   const navigationVisible = useNavigationVisible()
   const countryStatusLoaded = useIsCountryStatusLoaded()
   const countryIso = useCountryIso()
+  const laptop = useMediaQuery({ minWidth: Breakpoints.laptop })
   useInitCountry()
 
   useEffect(() => {
-    if (!navigationVisible && countryStatusLoaded) dispatch(toggleNavigation())
+    if (!navigationVisible && countryStatusLoaded && laptop) dispatch(toggleNavigation())
   }, [])
 
   // This is required - otherwise app will crash on slow connections or builds
