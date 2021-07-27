@@ -1,6 +1,6 @@
-@import (reference) "~@webapp/main/styles/config";
+@import 'webapp/style/partials';
 
-@border-radius: 2px;
+$border-radius: 2px;
 
 .modal {
   position: fixed;
@@ -16,18 +16,18 @@
 .modal-content {
   position: relative;
   display: flex;
-  width: 100%;
+  width: auto;
   flex-direction: column;
   pointer-events: auto;
   background-color: #fff;
   background-clip: padding-box;
   border: none;
-  border-radius: @border-radius;
+  border-radius: $border-radius;
   outline: 0;
   animation-name: animatetop;
   animation-duration: 0.5s;
   margin: 5% 30% auto;
-  box-shadow: @shadow-3;
+  box-shadow: $shadow-3;
 }
 
 .modal-header {
@@ -35,10 +35,10 @@
   align-items: center;
   justify-content: space-between;
   padding: 14px 14px 7px 14px;
-  //border-bottom: @ui-thin-border;
-  border-top-left-radius: @border-radius;
-  border-top-right-radius: @border-radius;
-  font-size: @font-l;
+  //border-bottom: $ui-thin-border;
+  border-top-left-radius: $border-radius;
+  border-top-right-radius: $border-radius;
+  font-size: $font-l;
   font-weight: bold;
 }
 
@@ -75,10 +75,10 @@
 @keyframes animatetop {
   from {
     top: -300px;
-    opacity: 0
+    opacity: 0;
   }
   to {
     top: 0;
-    opacity: 1
+    opacity: 1;
   }
 }
