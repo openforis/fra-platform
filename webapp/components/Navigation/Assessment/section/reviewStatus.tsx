@@ -1,4 +1,4 @@
-import './reviewStatus.less'
+import './reviewStatus.scss'
 
 import React from 'react'
 

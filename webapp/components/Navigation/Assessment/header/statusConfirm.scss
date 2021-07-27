@@ -1,4 +1,4 @@
-@import (reference) "~@webapp/main/styles/config";
+@import 'webapp/style/partials';
 
 .nav-assessment-status-confirm__message {
   resize: none;
@@ -9,7 +9,7 @@
   width: 100%;
   min-height: 100%;
   background: transparent;
-  border: @ui-thin-border;
+  border: $ui-thin-border;
   color: inherit;
   font-size: inherit;
   line-height: inherit;
@@ -18,11 +18,11 @@
 
   &:focus {
     outline: none;
-    //box-shadow: 0 0 0 1px @text-body;
+    //box-shadow: 0 0 0 1px $text-body;
   }
 
   &::placeholder {
-    color: @text-disabled;
+    color: $text-disabled;
   }
 }
 
@@ -41,3 +41,4 @@
 
   }
 }
+

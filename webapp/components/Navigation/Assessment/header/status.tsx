@@ -1,17 +1,19 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import MediaQuery from 'react-responsive'
 import * as R from 'ramda'
 import { getAllowedStatusTransitions } from '@common/assessment'
 import { isAdministrator } from '@common/countryRole'
 import * as Assessment from '@common/assessment/assessment'
 import Icon from '@webapp/components/icon'
 import PopoverControl from '@webapp/components/PopoverControl'
-import StatusConfirm from '@webapp/app/components/navigation/components/assessment/header/statusConfirm'
+import StatusConfirm from '@webapp/components/Navigation/Assessment/header/statusConfirm'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useI18n from '@webapp/components/hooks/useI18n'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 import { changeAssessment } from '@webapp/app/country/actions'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
+import { Breakpoints } from '@webapp/utils/breakpoints'
 
 type Props = {
   assessment: any
@@ -42,7 +44,7 @@ const Status = (props: Props) => {
             style={{ marginRight: '8px' }}
             className={`fra-checkbox ${(assessment as any).deskStudy ? 'checked' : ''}`}
           />
-          <span>{(i18n as any).t('assessment.deskStudy')}</span>
+          <span>{i18n.t('assessment.deskStudy')}</span>
         </div>
       ),
       onClick: () => dispatch(changeAssessment(countryIso, Assessment.assocDeskStudy(!deskStudy)(assessment))),
@@ -58,10 +60,10 @@ const Status = (props: Props) => {
       ],
       R.filter(R.prop('transition')),
       R.map((statusTarget: any) => ({
-        content: (i18n as any).t(`assessment.status.${statusTarget.transition}.${statusTarget.direction}`),
+        content: i18n.t(`assessment.status.${statusTarget.transition}.${statusTarget.direction}`),
         onClick: () => setTargetStatus(statusTarget),
       })),
-// @ts-ignore
+      // @ts-ignore
       R.when(R.always(isAdministrator(userInfo)), (_items: any) => [..._items, ...deskStudyItems])
     )
   )([])
@@ -73,12 +75,19 @@ const Status = (props: Props) => {
           <StatusConfirm assessment={assessment} targetStatus={targetStatus} onClose={() => setTargetStatus(null)} />
         )
       }
-      <PopoverControl items={items}>
-        <div className={`nav-assessment-header__status status-${status} actionable-${!R.isEmpty(items)}`}>
-          <span>{(i18n as any).t(`assessment.status.${status}.label`)}</span>
-          {!R.isEmpty(items) && <Icon className="icon-white icon-middle" name="small-down" />}
+      <MediaQuery maxWidth={Breakpoints.laptop - 1}>
+        <div className={`nav-assessment-header__status status-${status}`}>
+          <span>{i18n.t(`assessment.status.${status}.label`)}</span>
         </div>
-      </PopoverControl>
+      </MediaQuery>
+      <MediaQuery minWidth={Breakpoints.laptop}>
+        <PopoverControl items={items}>
+          <div className={`nav-assessment-header__status status-${status} actionable-${!R.isEmpty(items)}`}>
+            <span>{i18n.t(`assessment.status.${status}.label`)}</span>
+            {!R.isEmpty(items) && <Icon className="icon-white icon-middle" name="small-down" />}
+          </div>
+        </PopoverControl>
+      </MediaQuery>
     </>
   )
 }

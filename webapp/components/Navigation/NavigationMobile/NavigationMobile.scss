@@ -1,0 +1,35 @@
+@import "webapp/style/partials";
+
+.navM {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
+  background-color: var(--ui-bg);
+  border-bottom-right-radius: $spacing-xxs;
+  border-bottom-left-radius: $spacing-xxs;
+  padding: $spacing-s $spacing-xs;
+  transform: translateX(-120vw);
+  transition: all 0.25s ease-in;
+  box-shadow: 0 0 2px rgba($text-heading, 0.8);
+  //display: grid;
+  //align-content: start;
+  //grid-row-gap: $spacing-s;
+
+  * {
+    opacity: 0;
+    transition-delay: 0.25s;
+  }
+
+  &.open {
+    z-index: $z-index-popover;
+    transform: translateX(0);
+    opacity: 1;
+
+    * {
+      opacity: 1;
+    }
+  }
+}

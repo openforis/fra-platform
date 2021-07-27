@@ -1,68 +1,34 @@
-const PanEuropean = {
-  type: 'panEuropean',
+import { Assessment, AssessmentType } from './assessment'
+
+export interface AssessmentPanEuropean extends Assessment {
+  // eslint-disable-next-line camelcase
+  years90_20: Array<number>
+  // eslint-disable-next-line camelcase
+  years90_15: Array<number>
+  // eslint-disable-next-line camelcase
+  years05_15: Array<number>
+  years15: Array<number>
+  // eslint-disable-next-line camelcase
+  years88_17: Array<number>
+  // eslint-disable-next-line camelcase
+  years92_17: Array<number>
+  // eslint-disable-next-line camelcase
+  years07_15: Array<number>
+}
+
+export const PanEuropean: AssessmentPanEuropean = {
+  type: AssessmentType.panEuropean,
   years90_20: [1990, 2000, 2005, 2010, 2015, 2020],
   years90_15: [1990, 2000, 2005, 2010, 2015],
   years05_15: [2005, 2010, 2015],
   years15: [2015],
   years88_17: [
-    1988,
-    1989,
-    1990,
-    1991,
-    1992,
-    1993,
-    1994,
-    1995,
-    1996,
-    1997,
-    1998,
-    1999,
-    2000,
-    2001,
-    2002,
-    2003,
-    2004,
-    2005,
-    2006,
-    2007,
-    2008,
-    2009,
-    2010,
-    2011,
-    2012,
-    2013,
-    2014,
-    2015,
-    2016,
-    2017,
+    1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006,
+    2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017,
   ],
   years92_17: [
-    1992,
-    1993,
-    1994,
-    1995,
-    1996,
-    1997,
-    1998,
-    1999,
-    2000,
-    2001,
-    2002,
-    2003,
-    2004,
-    2005,
-    2006,
-    2007,
-    2008,
-    2009,
-    2010,
-    2011,
-    2012,
-    2013,
-    2014,
-    2015,
-    2016,
-    2017,
+    1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010,
+    2011, 2012, 2013, 2014, 2015, 2016, 2017,
   ],
   years07_15: [2007, 2009, 2011, 2013, 2015],
 

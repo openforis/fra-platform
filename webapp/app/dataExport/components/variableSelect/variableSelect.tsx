@@ -3,8 +3,7 @@ import { useI18n } from '@webapp/components/hooks'
 import ButtonCheckBox from '@webapp/components/buttonCheckBox'
 import { getCustomVariableI18nMappings } from '@webapp/app/dataExport/utils/format'
 import { useAssessmentType } from '@webapp/store/app'
-import FRA from '@common/assessment/fra'
-import PanEuropean from '@common/assessment/panEuropean'
+import { FRA, PanEuropean } from '@core/assessment'
 
 type Props = {
   variables: any[]

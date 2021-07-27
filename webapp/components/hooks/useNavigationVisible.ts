@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 
-import * as NavigationState from '@webapp/app/components/navigation/navigationState'
+import * as NavigationState from '@webapp/components/Navigation/navigationState'
 
 import useCountryIso from './useCountryIso'
 
@@ -8,5 +8,5 @@ export const useNavigationVisible = () => {
   const countryIso = useCountryIso()
   const navigationVisible = useSelector(NavigationState.isVisible)
 
-  return navigationVisible && countryIso
+  return navigationVisible && Boolean(countryIso)
 }

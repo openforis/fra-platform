@@ -53,6 +53,9 @@ export const getAllowedStatusTransitions = (countryIso: any, userInfo: any, curr
   }
 }
 
+/**
+ * @deprecated
+ */
 export default {
   /**
    * @deprecated

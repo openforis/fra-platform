@@ -1,7 +1,6 @@
-import './navigation.scss'
 import React from 'react'
-import FRA from '@common/assessment/fra'
-import PanEuropean from '@common/assessment/panEuropean'
+import { FRA } from '@core/assessment'
+import PanEuropean from '@core/assessment/panEuropean'
 import { Link } from 'react-router-dom'
 
 import * as BasePaths from '@webapp/main/basePaths'
@@ -10,16 +9,13 @@ import { useCountryIso, useI18n } from '@webapp/components/hooks'
 import Icon from '@webapp/components/icon'
 import { isISOGlobal } from '@common/country/area'
 import { useAssessmentType } from '@webapp/store/app'
-import Assessment from './components/assessment'
+import Assessment from '../Assessment'
 
-const Navigation: React.FC = () => {
+const NavigationDesktop: React.FC = () => {
   const i18n = useI18n()
   const countryIso = useCountryIso()
   const assessmentType = useAssessmentType()
   const assessment = [FRA, PanEuropean].find(({ type }) => type === assessmentType)
-
-  // admin view - navigation is not rendered
-  if (!countryIso) return null
 
   return (
     <div className="nav no-print">
@@ -37,4 +33,5 @@ const Navigation: React.FC = () => {
     </div>
   )
 }
-export default Navigation
+
+export default NavigationDesktop

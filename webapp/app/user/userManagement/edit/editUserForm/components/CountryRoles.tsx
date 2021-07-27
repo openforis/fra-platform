@@ -6,7 +6,7 @@ import { reviewer, nationalCorrespondent, alternateNationalCorrespondent, collab
 import { useCountries } from '@webapp/store/app'
 import { useSecondaryGroupedRegions } from '@webapp/store/app/hooks'
 import CountrySelectionModal from '@webapp/components/CountrySelectionModal'
-import { FRA } from '@common/assessment/fra'
+import { FRA } from '@core/assessment/fra'
 // properties used to render ui form fields
 const roles = [reviewer.role, nationalCorrespondent.role, alternateNationalCorrespondent.role, collaborator.role]
 

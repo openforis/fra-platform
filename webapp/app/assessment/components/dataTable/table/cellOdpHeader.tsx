@@ -1,10 +1,12 @@
 import React from 'react'
-import * as BasePaths from '@webapp/main/basePaths'
 import { Link } from 'react-router-dom'
+
+import { FRA } from '@core/assessment'
+
+import * as BasePaths from '@webapp/main/basePaths'
 import Icon from '@webapp/components/icon'
 import Tooltip from '@webapp/components/tooltip'
 import { useCountryIso, useI18n, usePrintView, useUserInfo } from '@webapp/components/hooks'
-import FRA from '@common/assessment/fra'
 
 type Props = {
   datum: any

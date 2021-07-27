@@ -1,4 +1,4 @@
-import './statusConfirm.less'
+import './statusConfirm.scss'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import * as R from 'ramda'

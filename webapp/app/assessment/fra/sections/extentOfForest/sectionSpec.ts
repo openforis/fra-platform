@@ -1,4 +1,4 @@
-import FRA from '@common/assessment/fra'
+import { FRA } from '@core/assessment'
 
 import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
 import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestState'

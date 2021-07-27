@@ -2,18 +2,16 @@ import './assessment.scss'
 import React, { memo, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
-import MediaQuery from 'react-responsive'
 
 import * as BasePaths from '@webapp/main/basePaths'
-import { Breakpoints } from '@webapp/utils/breakpoints'
 
 import { useNavigationVisible, useUserInfo } from '@webapp/components/hooks'
-import Navigation from '@webapp/app/components/navigation/navigation'
+import Navigation from '@webapp/components/Navigation'
 import Review from '@webapp/app/assessment/components/review/review'
 import UserChat from '@webapp/app/user/chat/userChatView'
 import MessageBoardPanel from '@webapp/app/countryLanding/views/messageBoard/messageBoardPanel'
 
-import { toggleNavigation } from '@webapp/app/components/navigation/actions'
+import { toggleNavigation } from '@webapp/components/Navigation/actions'
 import { useInitCountry, useIsCountryStatusLoaded } from '@webapp/store/country'
 
 import AssessmentSectionView from '@webapp/app/assessment/components/section/assessmentSectionView'
@@ -51,9 +49,7 @@ const Assessment = () => {
       )}
 
       <div className={`app-view ${navigationVisible ? ' navigation-on' : ''}`}>
-        <MediaQuery minWidth={Breakpoints.laptop}>
-          <Navigation />
-        </MediaQuery>
+        <Navigation />
 
         <Switch>
           <Route path={BasePaths.assessmentHome} component={AssessmentHome} />

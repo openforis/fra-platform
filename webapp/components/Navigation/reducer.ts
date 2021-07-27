@@ -1,6 +1,6 @@
 import { applyReducerFunction } from '@webapp/utils/reduxUtils'
 
-import * as NavigationState from '@webapp/app/components/navigation/navigationState'
+import * as NavigationState from '@webapp/components/Navigation/navigationState'
 
 import { navigationToggleVisible } from './actions'
 

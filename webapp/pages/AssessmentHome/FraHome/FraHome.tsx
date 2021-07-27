@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, matchPath, NavLink, Redirect, Route, Switch, useLocation } from 'react-router-dom'
 import { Area } from '@common/country'
-import FRA from '@common/assessment/fra'
+import { FRA } from '@core/assessment'
 import * as BasePaths from '@webapp/main/basePaths'
 import { useCountryIso, useI18n, useUserInfo, useCountryLandingSections } from '@webapp/components/hooks'
 import Icon from '@webapp/components/icon'

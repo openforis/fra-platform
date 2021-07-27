@@ -1,9 +1,27 @@
-export type AssessmentType = 'fra2020' | 'panEuropean'
+export enum AssessmentType {
+  fra2020 = 'fra2020',
+  panEuropean = 'panEuropean',
+}
 
-type AssessmentStatus = 'editing' | 'accepted'
+export enum AssessmentStatus {
+  editing = 'editing',
+  accepted = 'accepted',
+}
+
+export interface AssessmentSection {
+  children: Record<string, AssessmentSectionItem>
+  label: string
+}
+
+export interface AssessmentSectionItem {
+  anchor: string
+  name: string
+  tables?: Record<string, string>
+}
 
 export interface Assessment {
-  status: AssessmentStatus
+  status?: AssessmentStatus
   type: AssessmentType
   deskStudy?: boolean
+  sections?: Record<string, AssessmentSection>
 }

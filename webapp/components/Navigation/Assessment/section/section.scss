@@ -1,9 +1,7 @@
-@import (reference) 'webapp/main/styles/config';
-@import (reference) 'webapp/main/styles/statusMixins';
-@import (reference) 'webapp/app/components/navigation/navigationMixins.less';
+@import 'webapp/style/partials';
 
 .nav-section__header {
-  .mixin-nav-secondary-base(8px, true);
+  @include mixin-nav-secondary-base(8px, true);
   font-weight: 700;
   cursor: pointer;
 
@@ -16,20 +14,20 @@
   flex: 0 0 auto;
   width: 30px;
   margin-right: 4px;
-  font-size: @font-s;
+  font-size: $font-s;
 }
 
 .nav-section__label {
   margin-right: 4px;
-  font-size: @font-s;
+  font-size: $font-s;
 }
 
 .nav-section__status-content {
-  .mixin-status-content-base;
+  @include mixin-status-content-base;
 }
 
 .nav-section__item {
-  .mixin-nav-secondary-base(8px, true);
+  @include mixin-nav-secondary-base(8px, true);
 }
 
 .nav-section__items-hidden {

@@ -2,7 +2,7 @@ import axios from 'axios'
 import * as R from 'ramda'
 
 import { validateDataPoint } from '@common/validateOriginalDataPoint'
-import FRA from '@common/assessment/fra'
+import { FRA } from '@core/assessment'
 import * as BasePaths from '@webapp/main/basePaths'
 import { batchActions } from '@webapp/main/reduxBatch'
 import { readPasteClipboard } from '@webapp/utils/copyPasteUtil'

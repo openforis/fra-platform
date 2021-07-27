@@ -7,13 +7,13 @@ type Props = {
   assessment: any
 }
 
-const Assessment = (props: Props) => {
+const Assessment: React.FC<Props> = (props: Props) => {
   const {
     assessment,
     assessment: { sections },
   } = props
 
-    const [showSections, setShowSections] = useState(false)
+  const [showSections, setShowSections] = useState(false)
 
   return (
     <div className="nav-assessment">

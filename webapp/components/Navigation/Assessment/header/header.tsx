@@ -1,7 +1,8 @@
-import './header.less'
+import './header.scss'
 
 import React from 'react'
 import { Link } from 'react-router-dom'
+import MediaQuery from 'react-responsive'
 
 import * as Assessment from '@common/assessment/assessment'
 import { Area } from '@common/country'
@@ -9,6 +10,7 @@ import * as BasePaths from '@webapp/main/basePaths'
 
 import Icon from '@webapp/components/icon'
 import { useCountryIso, useUserInfo } from '@webapp/components/hooks'
+import { Breakpoints } from '@webapp/utils/breakpoints'
 
 import Title from './title'
 import Status from './status'
@@ -36,24 +38,26 @@ const Header = (props: Props) => {
         <Title assessment={assessment} lockEnabled={Boolean(userInfo && isFRA && isCountry)} />
 
         {isFRA && isCountry && (
-          <div className="links-download">
-            <Link
-              className="btn-s btn-secondary"
-              to={BasePaths.getAssessmentPrintLink(countryIso, assessmentType, true)}
-              target="_blank"
-            >
-              <Icon name="small-print" className="icon-margin-left" />
-              <Icon name="icon-table2" className="icon-no-margin" />
-            </Link>
+          <MediaQuery minWidth={Breakpoints.laptop}>
+            <div className="links-download">
+              <Link
+                className="btn-s btn-secondary"
+                to={BasePaths.getAssessmentPrintLink(countryIso, assessmentType, true)}
+                target="_blank"
+              >
+                <Icon name="small-print" className="icon-margin-left" />
+                <Icon name="icon-table2" className="icon-no-margin" />
+              </Link>
 
-            <Link
-              className="btn-s btn-secondary"
-              to={BasePaths.getAssessmentPrintLink(countryIso, assessmentType)}
-              target="_blank"
-            >
-              <Icon name="small-print" className="icon-no-margin" />
-            </Link>
-          </div>
+              <Link
+                className="btn-s btn-secondary"
+                to={BasePaths.getAssessmentPrintLink(countryIso, assessmentType)}
+                target="_blank"
+              >
+                <Icon name="small-print" className="icon-no-margin" />
+              </Link>
+            </div>
+          </MediaQuery>
         )}
       </div>
 
