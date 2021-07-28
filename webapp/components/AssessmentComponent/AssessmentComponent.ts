@@ -1,7 +1,7 @@
 import React from 'react'
 // import * as assert from 'assert'
 
-import FRA from '@common/assessment/fra'
+import { FRA } from '@core/assessment'
 
 import { useIsAssessment } from '@webapp/components/hooks'
 import { useAssessmentType } from '@webapp/store/app'

@@ -2,7 +2,7 @@ import './style.less'
 
 import React, { memo } from 'react'
 
-import FRA from '@common/assessment/fra'
+import { FRA } from '@core/assessment'
 
 import Loading from '@webapp/components/loading'
 import FraPrintView from '@webapp/app/assessment/fra/print/fraPrintView'

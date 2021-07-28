@@ -5,7 +5,7 @@ import Icon from '@webapp/components/icon'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 import useI18n from '@webapp/components/hooks/useI18n'
-import FRA from '@common/assessment/fra'
+import { FRA } from '@core/assessment'
 
 type Props = {
   sectionName: string
