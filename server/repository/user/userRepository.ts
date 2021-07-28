@@ -6,7 +6,7 @@ import * as R from 'ramda'
 import * as bcrypt from 'bcrypt'
 
 import { QueryResult } from 'pg'
-import FRA from '@common/assessment/fra'
+import { FRA } from '@core/assessment'
 
 import { nationalCorrespondent, reviewer, collaborator, alternateNationalCorrespondent } from '@common/countryRole'
 import { userType } from '@common/userUtils'

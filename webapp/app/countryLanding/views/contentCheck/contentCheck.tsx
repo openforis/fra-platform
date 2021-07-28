@@ -9,7 +9,7 @@ import useSectionTables from '@webapp/app/assessment/components/section/assessme
 import AssessmentSection from '@webapp/app/assessment/components/section/assessmentSectionView/assessmentSection'
 import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
 
-import FRA from '@common/assessment/fra'
+import { FRA } from '@core/assessment'
 
 const ContentCheck = () => {
   const assessmentType = FRA.type

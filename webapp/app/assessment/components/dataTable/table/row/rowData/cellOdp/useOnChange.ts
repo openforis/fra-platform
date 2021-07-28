@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 
-import FRA from '@common/assessment/fra'
+import { FRA } from '@core/assessment'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import { TableSpec, ColSpec } from '@webapp/app/assessment/components/section/sectionSpec'
 import { persistTableData } from '../../../../actions'

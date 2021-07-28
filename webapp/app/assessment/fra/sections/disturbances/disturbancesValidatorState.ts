@@ -1,4 +1,4 @@
-import FRA from '@common/assessment/fra'
+import { FRA } from '@core/assessment'
 
 import * as DisturbancesState from '@webapp/app/assessment/fra/sections/disturbances/disturbancesState'
 import * as ExtentOfForestValidatorState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestValidatorState'

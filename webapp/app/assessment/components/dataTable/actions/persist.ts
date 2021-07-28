@@ -1,7 +1,7 @@
 import axios from 'axios'
 import * as AppState from '@webapp/store/app/state'
 
-import FRA from '@common/assessment/fra'
+import { FRA } from '@core/assessment'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 
 import * as autosave from '@webapp/app/components/autosave/actions'
