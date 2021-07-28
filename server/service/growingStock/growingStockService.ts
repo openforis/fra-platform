@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import FRA from '@common/assessment/fra'
+import { FRA } from '@core/assessment'
 
 import { add, defaultTo0 } from '@common/bignumberUtils'
 import { getFraValues } from '../../eof/fraValueService'

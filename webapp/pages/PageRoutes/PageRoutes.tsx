@@ -17,7 +17,7 @@ import ErrorComponent from '@webapp/components/error/errorComponent'
 import CountrySelect from '@webapp/components/CountrySelect'
 import UserConsultationSurvey from '@webapp/components/UserConsultationSurvey'
 
-import FRA from '@common/assessment/fra'
+import { FRA } from '@core/assessment'
 import { useTheme } from './useTheme'
 
 const PageRoutes: React.FC = () => {

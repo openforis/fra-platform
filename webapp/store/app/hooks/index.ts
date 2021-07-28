@@ -1,12 +1,13 @@
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+
 import * as AppState from '@webapp/store/app/state'
 import { Area, Country } from '@common/country'
 import { useI18n } from '@webapp/components/hooks'
 
-import FRA from '@common/assessment/fra'
+import { FRA } from '@core/assessment'
 import { sortCountries, sortRegions } from '@webapp/store/app/utils'
 import * as AppActions from '../actions'
-import { useEffect } from 'react'
 
 export function useAssessmentType(): string {
   return useSelector(AppState.getAssessmentType) as string

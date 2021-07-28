@@ -1,41 +1,38 @@
 import { Lang } from '@core/common'
-import { CountryIso } from '../country'
+import { AssessmentType } from '@core/assessment'
+import { Role } from './role'
 
-export type AuthType = 'local' | 'google'
+export enum UserType {
+  local = 'local',
+  google = 'google',
+}
 
-export type Role =
-  | 'NATIONAL_CORRESPONDENT'
-  | 'REVIEWER'
-  | 'COLLABORATOR'
-  | 'ADMINISTRATOR'
-  | 'ALTERNATE_NATIONAL_CORRESPONDENT'
-
-export interface RoleUser {
-  countryIso?: null | CountryIso
+export interface UserRole {
+  countryIso?: string
   role: Role
-  assessment: 'fra2020'
+  assessment: AssessmentType
 }
 
 export interface User {
   id: number
   name: string
   email: string
-  loginEmail: null
-  institution: null
-  position: null
-  lang: Lang
-  type: AuthType
+  loginEmail?: string
+  institution?: string
+  position?: string
+  lang?: Lang
+  type: UserType
   active: boolean
   // deprecated
   role: any
-  roles: RoleUser[]
+  roles: Array<UserRole>
 }
 
 /*
  * Deprecated
  */
 export interface oldRole {
-  countryIso: CountryIso
+  countryIso: string
   lastEdit: string
   annualAssessment: 'accepted' | 'editing'
   fra2020Assessment: 'accepted' | 'editing'

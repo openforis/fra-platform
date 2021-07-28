@@ -1,6 +1,6 @@
 import './tableOfContent.less'
 import React from 'react'
-import FRA from '@common/assessment/fra'
+import { FRA } from '@core/assessment'
 import useI18n from '@webapp/components/hooks/useI18n'
 
 type Props = {

@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 
-import FRA from '@common/assessment/fra'
-import PanEuropean from '@common/assessment/panEuropean'
+import { FRA, PanEuropean } from '@core/assessment'
 import { useIsAssessment } from '@webapp/components/hooks'
 import { useAssessmentType } from '@webapp/store/app'
 

@@ -1,4 +1,4 @@
-import FRA from '@common/assessment/fra'
+import { FRA } from '@core/assessment'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 
