@@ -3,22 +3,23 @@ import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { useMediaQuery } from 'react-responsive'
 
-import { isTypePanEuropean } from '@common/assessment/assessment'
+import { AssessmentType } from '@core/assessment'
+import { ReviewStatus } from '@core/reviewStatus'
 import * as BasePaths from '@webapp/main/basePaths'
 import * as ReviewStatusState from '@webapp/app/country/reviewStatusState'
-import { useCountryIso, useI18n, useIsDataExportView } from '@webapp/components/hooks'
 import { toggleNavigation } from '@webapp/components/Navigation/actions'
+import { useCountryIso, useI18n, useIsDataExportView } from '@webapp/components/hooks'
 import { Breakpoints } from '@webapp/utils/breakpoints'
 
-import ReviewStatus from '@webapp/components/Navigation/NavAssessment/section/reviewStatus'
+import ReviewStatusMarker from '../ReviewStatusMarker'
 
 type Props = {
-  assessmentType: string
+  assessmentType: AssessmentType
   sectionName: string
   prefix: string
 }
 
-const Subsection = (props: Props) => {
+const SectionItemLink: React.FC<Props> = (props) => {
   const { assessmentType, sectionName, prefix } = props
 
   const dispatch = useDispatch()
@@ -28,7 +29,7 @@ const Subsection = (props: Props) => {
   const reviewStatus = useSelector(ReviewStatusState.getStatusSection(sectionName))
   const laptop = useMediaQuery({ minWidth: Breakpoints.laptop })
 
-  const labelPrefix = isTypePanEuropean(assessmentType) ? 'panEuropean.' : ''
+  const labelPrefix = assessmentType === AssessmentType.panEuropean ? 'panEuropean.' : ''
   const label = i18n.t(`${labelPrefix}${sectionName}.${sectionName}`)
 
   return (
@@ -46,10 +47,11 @@ const Subsection = (props: Props) => {
       <div className="nav-section__label">{label}</div>
       {!isDataExport && (
         <div className="nav-section__status-content">
-          <ReviewStatus status={reviewStatus} />
+          <ReviewStatusMarker status={reviewStatus as ReviewStatus} />
         </div>
       )}
     </NavLink>
   )
 }
-export default Subsection
+
+export default SectionItemLink

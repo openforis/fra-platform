@@ -11,7 +11,7 @@ import { useCountryIso, useUserInfo } from '@webapp/components/hooks'
 import { Breakpoints } from '@webapp/utils/breakpoints'
 
 import Icon from '@webapp/components/icon'
-import Title from './title'
+import Title from './Title'
 import Status from './Status'
 import ButtonToggleAll from './ButtonToggleAll'
 

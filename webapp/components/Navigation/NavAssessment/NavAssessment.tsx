@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Assessment } from '@core/assessment'
 
 import Header from './Header'
-import Section from './section'
+import Section from './Section'
 
 type Props = {
   assessment: Assessment

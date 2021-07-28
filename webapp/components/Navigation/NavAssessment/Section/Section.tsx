@@ -1,61 +1,64 @@
-import './section.scss'
+import './Section.scss'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { matchPath, useLocation } from 'react-router-dom'
+
+import { Assessment, AssessmentSection } from '@core/assessment'
+import { ReviewStatus } from '@core/reviewStatus'
 import * as BasePaths from '@webapp/main/basePaths'
-import ReviewStatus from '@webapp/components/Navigation/NavAssessment/section/reviewStatus'
-import Subsection from '@webapp/components/Navigation/NavAssessment/section/navigationLink'
-import useI18n from '@webapp/components/hooks/useI18n'
 import * as ReviewStatusState from '@webapp/app/country/reviewStatusState'
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpecs'
-import { useIsDataExportView } from '@webapp/components/hooks'
+import { useI18n, useIsDataExportView } from '@webapp/components/hooks'
+
+import ReviewStatusMarker from './ReviewStatusMarker'
+import SectionItemLink from './SectionItemLink'
 
 type Props = {
-  assessment: any
-  section: any
+  assessment: Assessment
+  section: AssessmentSection
   showSections: boolean
   prefix: string
 }
-const Section = (props: Props) => {
-  const {
-    assessment: { type: assessmentType },
-    section,
-    showSections,
-    prefix,
-  } = props
+
+const Section: React.FC<Props> = (props) => {
+  const { assessment, section, showSections, prefix } = props
+
   const i18n = useI18n()
   const isDataExport = useIsDataExportView()
   const { pathname } = useLocation()
   const childStatus = useSelector(ReviewStatusState.getStatusSectionChildren(section))
   const [expanded, setExpanded] = useState(false)
-  const sectionLabel = (i18n as any).t(section.label)
+
+  const sectionLabel = i18n.t(section.label)
+  const assessmentType = assessment.type
+  let children = Object.values(section.children)
+  if (isDataExport) {
+    children = children
+      .filter(
+        (subsection) => (SectionSpec.getSectionSpec(assessmentType, subsection.name) as any)?.dataExport?.included
+      )
+      .sort((child1, child2) => child1.anchor.localeCompare(child2.anchor, undefined, { numeric: true }))
+  }
+
   useEffect(() => {
     setExpanded(showSections)
   }, [showSections])
+
   // On mount check whether the location matches a child path
   useEffect(() => {
     const match = Object.values(section.children).find((subsection) => {
-      const path = BasePaths.assessmentSection.replace(':section', (subsection as any).name)
+      const path = BasePaths.assessmentSection.replace(':section', subsection.name)
       return matchPath(pathname, { path })
     })
     if (match) {
       setExpanded(true)
     }
   }, [])
-  const children = Object.values(section.children)
-  let filteredChildren = children
-  if (isDataExport)
-    filteredChildren = children.filter(
-      (subsection) =>
-        (SectionSpec.getSectionSpec(assessmentType, (subsection as any).name) as any)?.dataExport?.included
-    )
 
-  if (!filteredChildren.length) {
+  if (!children.length) {
     return null
   }
-  filteredChildren.sort((child1, child2) =>
-    (child1 as any).anchor.localeCompare((child2 as any).anchor, undefined, { numeric: true })
-  )
+
   return (
     <div className="nav-section">
       <div
@@ -64,28 +67,29 @@ const Section = (props: Props) => {
         aria-label={sectionLabel}
         tabIndex={0}
         onClick={() => setExpanded(!expanded)}
-        onKeyDown={() => {}}
+        onKeyDown={() => setExpanded(!expanded)}
       >
         <div className="nav-section__order">{prefix}</div>
         <div className="nav-section__label">{sectionLabel}</div>
         {!expanded && !isDataExport && (
           <div className="nav-section__status-content">
-            <ReviewStatus status={childStatus} />
+            <ReviewStatusMarker status={childStatus as ReviewStatus} />
           </div>
         )}
       </div>
       <div className={`nav-section__items-${expanded ? 'visible' : 'hidden'}`}>
         {expanded &&
-          filteredChildren.map((subsection) => (
-            <Subsection
-              prefix={(subsection as any).anchor}
+          children.map((sectionItem) => (
+            <SectionItemLink
+              prefix={sectionItem.anchor}
               assessmentType={assessmentType}
-              key={(subsection as any).anchor}
-              sectionName={(subsection as any).name}
+              key={sectionItem.anchor}
+              sectionName={sectionItem.name}
             />
           ))}
       </div>
     </div>
   )
 }
+
 export default Section
