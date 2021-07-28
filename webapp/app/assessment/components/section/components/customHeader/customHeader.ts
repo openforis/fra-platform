@@ -2,7 +2,7 @@ import React from 'react'
 import * as PropTypes from 'prop-types'
 import * as R from 'ramda'
 
-import FRA from '@common/assessment/fra'
+import { FRA } from '@core/assessment'
 
 import ExtentOfForest from '@webapp/app/assessment/components/section/components/customHeader/extentOfForest'
 import ForestCharacteristics from '@webapp/app/assessment/components/section/components/customHeader/forestCharacteristics'

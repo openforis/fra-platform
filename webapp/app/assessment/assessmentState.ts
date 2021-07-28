@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 
 import * as Assessment from '@common/assessment/assessment'
-import FRA from '@common/assessment/fra'
+import { FRA } from '@core/assessment'
 import FRAUtils from '@common/fraUtils'
 
 import { isReviewer, isAdministrator } from '@common/countryRole'

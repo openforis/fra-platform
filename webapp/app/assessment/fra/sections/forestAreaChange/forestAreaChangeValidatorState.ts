@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import FRA from '@common/assessment/fra'
+import { FRA } from '@core/assessment'
 
 import * as AssessmentStateValidator from '@webapp/app/assessment/assessmentStateValidator'
 

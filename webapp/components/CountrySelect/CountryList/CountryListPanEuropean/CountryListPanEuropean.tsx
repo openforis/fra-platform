@@ -1,6 +1,6 @@
 import React from 'react'
 
-import PanEuropean from '@common/assessment/panEuropean'
+import { PanEuropean } from '@core/assessment'
 import { Area, Country } from '@common/country'
 import { noRole } from '@common/countryRole'
 

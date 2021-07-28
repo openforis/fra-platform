@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import FRA from '@common/assessment/fra'
+import { FRA } from '@core/assessment'
 // import PanEuropean from '@common/assessment/panEuropean'
 import * as BasePaths from '@webapp/main/basePaths'
 import { useI18n } from '@webapp/components/hooks'

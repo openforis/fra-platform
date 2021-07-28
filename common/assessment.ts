@@ -7,7 +7,8 @@ import {
 } from './countryRole'
 
 /**
- * @deprecated
+ * @deprecated.
+ * Use AssessmentStatus
  */
 export const assessmentStatus = {
   editing: 'editing',
@@ -18,7 +19,8 @@ export const assessmentStatus = {
 }
 
 /**
- * @deprecated
+ * @deprecated.
+ * Use AssessmentStatusTransitions.getAllowedTransitions
  */
 export const getAllowedStatusTransitions = (countryIso: any, userInfo: any, currentState: any) => {
   // collaborator cannot change the status of the assessment
@@ -53,6 +55,9 @@ export const getAllowedStatusTransitions = (countryIso: any, userInfo: any, curr
   }
 }
 
+/**
+ * @deprecated
+ */
 export default {
   /**
    * @deprecated
