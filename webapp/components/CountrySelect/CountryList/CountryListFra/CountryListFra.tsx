@@ -1,6 +1,6 @@
 import React from 'react'
 
-import FRA from '@common/assessment/fra'
+import { FRA } from '@core/assessment'
 import { Area } from '@common/country'
 import { noRole } from '@common/countryRole'
 

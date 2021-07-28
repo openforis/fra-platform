@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 
 import { Area, Country } from '@common/country'
-import FRA from '@common/assessment/fra'
+import { FRA } from '@core/assessment'
 import * as BasePaths from '@webapp/main/basePaths'
 import { Breakpoints } from '@webapp/utils/breakpoints'
 

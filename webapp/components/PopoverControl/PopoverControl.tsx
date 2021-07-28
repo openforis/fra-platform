@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import classNames from 'classnames'
 import './popoverControl.scss'
 
-type PopoverItem = { divider?: boolean; link?: string; content?: any; onClick?: () => void }
+export type PopoverItem = { divider?: boolean; link?: string; content?: any; onClick?: () => void }
 type Props = { items: Array<PopoverItem> }
 
 const PopoverControl: React.FC<Props> = (props) => {

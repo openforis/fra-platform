@@ -1,8 +1,7 @@
 import './header.scss'
 import React from 'react'
 
-import PanEuropean from '@common/assessment/panEuropean'
-import FRA from '@common/assessment/fra'
+import { FRA, PanEuropean } from '@core/assessment'
 import AssessmentComponent from '@webapp/components/AssessmentComponent'
 
 import PanEuropeanHeader from './PanEuropeanHeader'

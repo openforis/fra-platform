@@ -1,4 +1,4 @@
-import PanEuropean from '@common/assessment/panEuropean'
+import { PanEuropean } from '@core/assessment'
 import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
 
 const section = PanEuropean.sections['6'].children['67']

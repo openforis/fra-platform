@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import * as UserState from '@webapp/store/user/state'
-import FRA from '@common/assessment/fra'
+import { FRA } from '@core/assessment'
 import { useI18n } from '@webapp/components/hooks'
 import { Area } from '@common/country'
 

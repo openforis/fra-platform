@@ -1,4 +1,4 @@
-import FRA from '@common/assessment/fra'
+import { FRA } from '@core/assessment'
 
 import * as GrowingStockCompositionState from '@webapp/app/assessment/fra/sections/growingStockComposition/growingStockCompositionState'
 import * as GrowingStockValidatorState from '@webapp/app/assessment/fra/sections/growingStock/growingStockValidatorState'

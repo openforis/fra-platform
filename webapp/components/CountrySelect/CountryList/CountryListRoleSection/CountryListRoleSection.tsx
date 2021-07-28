@@ -1,7 +1,7 @@
 import React from 'react'
 import * as R from 'ramda'
 
-import FRA from '@common/assessment/fra'
+import { FRA } from '@core/assessment'
 import { Area, Country } from '@common/country'
 import { getRoleLabelKey, noRole } from '@common/countryRole'
 import { useI18n, useUserInfo } from '@webapp/components/hooks'

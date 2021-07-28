@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import * as R from 'ramda'
-import FRA from '@common/assessment/fra'
+import { FRA } from '@core/assessment'
 import useI18n from '@webapp/components/hooks/useI18n'
 import DataSources from './originalDataPointView/components/dataSources'
 import NationalClasses from './originalDataPointView/components/nationalClasses'

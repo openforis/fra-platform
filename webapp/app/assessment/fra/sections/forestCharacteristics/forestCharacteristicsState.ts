@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import FRA from '@common/assessment/fra'
+import { FRA } from '@core/assessment'
 import FraUtils from '@common/fraUtils'
 import * as NumberUtils from '@common/bignumberUtils'
 

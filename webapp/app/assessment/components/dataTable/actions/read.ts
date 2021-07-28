@@ -1,6 +1,6 @@
 import axios from 'axios'
 import * as R from 'ramda'
-import FRA from '@common/assessment/fra'
+import { FRA } from '@core/assessment'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import * as AppState from '@webapp/store/app/state'

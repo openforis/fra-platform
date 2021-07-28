@@ -2,8 +2,7 @@
  * This file contains all section specs for all assessments
  */
 import * as R from 'ramda'
-import FRA from '@common/assessment/fra'
-import PanEuropean from '@common/assessment/panEuropean'
+import { FRA, PanEuropean } from '@core/assessment'
 
 import * as SectionSpec from './sectionSpec'
 import fra from './fra'

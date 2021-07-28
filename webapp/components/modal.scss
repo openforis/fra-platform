@@ -16,7 +16,7 @@ $border-radius: 2px;
 .modal-content {
   position: relative;
   display: flex;
-  width: 100%;
+  width: auto;
   flex-direction: column;
   pointer-events: auto;
   background-color: #fff;
