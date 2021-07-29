@@ -1,21 +1,20 @@
 import React from 'react'
-import * as BasePaths from '@webapp/main/basePaths'
 import { Link } from 'react-router-dom'
-import Icon from '@webapp/components/icon'
-import useCountryIso from '@webapp/components/hooks/useCountryIso'
-import useUserInfo from '@webapp/components/hooks/useUserInfo'
-import useI18n from '@webapp/components/hooks/useI18n'
-import { FRA } from '@core/assessment'
 
-type Props = {
-  sectionName: string
-  disabled: boolean
-}
-const ExtentOfForest = (props: Props) => {
+import { FRA } from '@core/assessment'
+import * as BasePaths from '@webapp/main/basePaths'
+import { useCountryIso, useI18n, useUserInfo } from '@webapp/components/hooks'
+
+import Icon from '@webapp/components/icon'
+import { Props } from '../props'
+
+const ExtentOfForest: React.FC<Props> = (props) => {
   const { sectionName, disabled } = props
+
   const countryIso = useCountryIso()
   const userInfo = useUserInfo()
   const i18n = useI18n()
+
   if (!userInfo) {
     return null
   }
@@ -27,11 +26,12 @@ const ExtentOfForest = (props: Props) => {
         to={BasePaths.getOdpLink(countryIso, FRA.type, sectionName)}
         style={{ marginRight: 16 }}
       >
-        <Icon className="icon-sub icon-white" name="small-add" />
-        {(i18n as any).t('nationalDataPoint.addNationalDataPoint')}
+        <Icon className='icon-sub icon-white' name='small-add' />
+        {i18n.t('nationalDataPoint.addNationalDataPoint')}
       </Link>
-      <hr className="no-print" />
+      <hr className='no-print' />
     </>
   )
 }
+
 export default ExtentOfForest

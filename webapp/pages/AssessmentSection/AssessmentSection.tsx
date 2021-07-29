@@ -1,25 +1,22 @@
-import './assessmentSectionView.less'
-
+import './AssessmentSection.scss'
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router'
 
+import { AssessmentType } from '@core/assessment'
 import { batchActions } from '@webapp/main/reduxBatch'
 import { documentScrollTo } from '@webapp/utils/domUtils'
-
-import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
-
-import { useCountryIso, useIsDataExportView } from '@webapp/components/hooks'
-import DataExport from '@webapp/app/dataExport'
-
+import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 import { fetchTableData } from '@webapp/app/assessment/components/dataTable/actions'
 import { fetchLastSectionUpdateTimestamp, resetSectionUpdateTimestamp } from '@webapp/app/components/audit/actions'
+import { useCountryIso, useIsDataExportView } from '@webapp/components/hooks'
 
-import AssessmentSection from './assessmentSection'
+import DataExport from '@webapp/app/dataExport'
+import AssessmentSectionView from './AssessmentSectionView/AssessmentSectionView'
 import useSectionTables from './useSectionTables'
 
-const AssessmentSectionView = () => {
-  const { assessmentType, section: sectionName }: any = useParams()
+const AssessmentSection: React.FC = () => {
+  const { assessmentType, section: sectionName } = useParams<{ assessmentType: AssessmentType; section: string }>()
 
   const countryIso = useCountryIso()
   const isDataExport = useIsDataExportView()
@@ -54,7 +51,7 @@ const AssessmentSectionView = () => {
     return <DataExport />
   }
 
-  return <AssessmentSection assessmentType={assessmentType} sectionName={sectionName} />
+  return <AssessmentSectionView assessmentType={assessmentType} sectionName={sectionName} />
 }
 
-export default AssessmentSectionView
+export default AssessmentSection
