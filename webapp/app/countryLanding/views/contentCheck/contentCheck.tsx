@@ -6,7 +6,7 @@ import { fetchTableData } from '@webapp/app/assessment/components/dataTable/acti
 import { useCountryIso } from '@webapp/components/hooks'
 
 import useSectionTables from '@webapp/pages/AssessmentSection/useSectionTables'
-import AssessmentSectionView from '@webapp/pages/AssessmentSection/AssessmentSectionView'
+import { SectionView } from '@webapp/components/Assessment'
 import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
 
 import { FRA } from '@core/assessment'
@@ -33,7 +33,7 @@ const ContentCheck = () => {
     )
   }, [countryIso])
 
-  return <AssessmentSectionView assessmentType={assessmentType} sectionName={sectionName} />
+  return <SectionView assessmentType={assessmentType} sectionName={sectionName} />
 }
 
 export default ContentCheck

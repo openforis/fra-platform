@@ -6,7 +6,7 @@ import { FRA } from '@core/assessment'
 import * as CountryState from '@webapp/app/country/countryState'
 import Loading from '@webapp/components/loading'
 
-import AssessmentSectionView from '@webapp/pages/AssessmentSection/AssessmentSectionView'
+import { SectionView } from '@webapp/components/Assessment'
 import ContactPersonsPrintView from '@webapp/app/assessment/fra/sections/contactPersons/contactPersonsPrintView'
 import { useCountryIso, useI18n, usePrintView } from '@webapp/components/hooks'
 import TableOfContent from './tableOfContent'
@@ -50,7 +50,7 @@ const FraPrintView = () => {
           {Number(key) === 0 && !deskStudy && <ContactPersonsPrintView />}
 
           {Object.values((section as any).children).map((sectionItem) => (
-            <AssessmentSectionView
+            <SectionView
               key={(sectionItem as any).name}
               assessmentType={FRA.type}
               sectionName={(sectionItem as any).name}

@@ -1,4 +1,3 @@
-import './AssessmentSection.scss'
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router'
@@ -12,7 +11,7 @@ import { fetchLastSectionUpdateTimestamp, resetSectionUpdateTimestamp } from '@w
 import { useCountryIso, useIsDataExportView } from '@webapp/components/hooks'
 
 import DataExport from '@webapp/app/dataExport'
-import AssessmentSectionView from './AssessmentSectionView/AssessmentSectionView'
+import { SectionView } from '@webapp/components/Assessment'
 import useSectionTables from './useSectionTables'
 
 const AssessmentSection: React.FC = () => {
@@ -51,7 +50,7 @@ const AssessmentSection: React.FC = () => {
     return <DataExport />
   }
 
-  return <AssessmentSectionView assessmentType={assessmentType} sectionName={sectionName} />
+  return <SectionView assessmentType={assessmentType} sectionName={sectionName} />
 }
 
 export default AssessmentSection

@@ -36,4 +36,5 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
     </>
   )
 }
+
 export default ForestCharacteristics

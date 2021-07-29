@@ -1,4 +1,4 @@
-import '../AssessmentSection.scss'
+import './SectionView.scss'
 import React from 'react'
 import { useSelector } from 'react-redux'
 
@@ -8,18 +8,18 @@ import * as FraState from '@webapp/app/assessment/fra/fraState'
 import * as SectionSpecs from '@webapp/app/assessment/components/section/sectionSpecs'
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
-import { SectionHeader } from '@webapp/components/Assessment'
-import Title from '@webapp/app/assessment/components/section/components/title'
 import Descriptions from '@webapp/app/assessment/components/section/components/descriptions'
 import DataTable from '@webapp/app/assessment/components/dataTable'
 import GeneralComments from '@webapp/app/assessment/components/section/components/descriptions/components/generalComments'
+import SectionHeader from './SectionHeader'
+import Title from './Title'
 
 type Props = {
   assessmentType: AssessmentType
   sectionName: string
 }
 
-const AssessmentSectionView: React.FC<Props> = (props) => {
+export const SectionView: React.FC<Props> = (props) => {
   const { assessmentType, sectionName } = props
 
   const i18n = useI18n()
@@ -78,5 +78,3 @@ const AssessmentSectionView: React.FC<Props> = (props) => {
     </div>
   )
 }
-
-export default AssessmentSectionView
