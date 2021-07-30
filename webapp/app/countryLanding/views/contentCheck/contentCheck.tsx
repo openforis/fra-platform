@@ -5,8 +5,8 @@ import { batchActions } from '@webapp/main/reduxBatch'
 import { fetchTableData } from '@webapp/app/assessment/components/dataTable/actions'
 import { useCountryIso } from '@webapp/components/hooks'
 
-import useSectionTables from '@webapp/app/assessment/components/section/assessmentSectionView/useSectionTables'
-import AssessmentSection from '@webapp/app/assessment/components/section/assessmentSectionView/assessmentSection'
+import useSectionTables from '@webapp/pages/AssessmentSection/useSectionTables'
+import { SectionView } from '@webapp/components/Assessment'
 import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
 
 import { FRA } from '@core/assessment'
@@ -33,7 +33,7 @@ const ContentCheck = () => {
     )
   }, [countryIso])
 
-  return <AssessmentSection assessmentType={assessmentType} sectionName={sectionName} />
+  return <SectionView assessmentType={assessmentType} sectionName={sectionName} />
 }
 
 export default ContentCheck

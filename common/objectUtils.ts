@@ -6,6 +6,10 @@ const types = {
 
 const _isType = (type: any) => R.pipe(R.type, R.equals(type))
 
+/**
+ * @deprecated.
+ * use Objects.isFunction
+ */
 export const isFunction = _isType(types.fn)
 
 export default {
