@@ -57,7 +57,7 @@ const CommentsEditor = (props: Props) => {
       <div className="fra-description__header-row">
         <h3 className="subhead fra-description__header">{(i18n as any).t('review.comments')}</h3>
         {canEditData && (
-          <div className="fra-description__link" onClick={() => setOpen(!open)}>
+          <div className="link fra-description__link" onClick={() => setOpen(!open)}>
             {open ? (i18n as any).t('description.done') : (i18n as any).t('description.edit')}
           </div>
         )}
