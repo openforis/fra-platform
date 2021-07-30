@@ -1,5 +1,8 @@
 export { ButtonBar } from './ButtonBar'
 export { Comments } from './Comments'
 export { DataSources } from './DataSources'
+export { ExtentOfForest } from './ExtentOfForest'
+export { ForestCharacteristics } from './ForestCharacteristics'
 export { NationalClasses } from './NationalClasses'
+export { OriginalData } from './OriginalData'
 export { YearSelection } from './YearSelection'

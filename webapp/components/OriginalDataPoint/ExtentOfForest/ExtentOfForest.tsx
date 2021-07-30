@@ -2,14 +2,14 @@ import React from 'react'
 import * as NumberFormat from '@common/numberFormat'
 import DefinitionLink from '@webapp/components/definitionLink'
 import { useI18n, usePrintView } from '@webapp/components/hooks'
-import * as ODP from '../../../originalDataPoint'
+import * as ODP from '../../../app/assessment/fra/sections/originalDataPoint/originalDataPoint'
 import ExtentOfForestRow from './extentOfForestRow'
 
 type Props = {
   canEditData: boolean
   odp: any
 }
-const ExtentOfForest = (props: Props) => {
+export const ExtentOfForest = (props: Props) => {
   const { canEditData, odp } = props
   const nationalClasses = odp.nationalClasses.filter((nationalClass: any) => !nationalClass.placeHolder)
   const i18n = useI18n()
@@ -80,4 +80,3 @@ const ExtentOfForest = (props: Props) => {
     </div>
   )
 }
-export default ExtentOfForest

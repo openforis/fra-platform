@@ -2,7 +2,7 @@ import React from 'react'
 import * as NumberUtils from '@common/bignumberUtils'
 import DefinitionLink from '@webapp/components/definitionLink'
 import { useI18n, usePrintView } from '@webapp/components/hooks'
-import * as ODP from '../../../originalDataPoint'
+import * as ODP from '../../../app/assessment/fra/sections/originalDataPoint/originalDataPoint'
 import ForestCharacteristicsRow from './forestCharacteristicsRow'
 import ForestCharacteristicsPlantation from './forestCharacteristicsPlantation'
 
@@ -10,7 +10,7 @@ type Props = {
   canEditData: boolean
   odp: any
 }
-const ForestCharacteristics = (props: Props) => {
+export const ForestCharacteristics = (props: Props) => {
   const { canEditData, odp } = props
   const nationalClasses = odp.nationalClasses.filter((nationalClass: any) => !nationalClass.placeHolder)
   const plantationTotal = ODP.subClassTotalArea(odp, 'forestPercent', 'plantationPercent')
@@ -96,4 +96,3 @@ const ForestCharacteristics = (props: Props) => {
     </div>
   )
 }
-export default ForestCharacteristics

@@ -2,25 +2,32 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { Route, Switch } from 'react-router'
 import { NavLink } from 'react-router-dom'
+
 import { FRA } from '@core/assessment'
+import { ODP } from '@core/odp'
 import * as BasePaths from '@webapp/main/basePaths'
 import { useCountryIso, useI18n } from '@webapp/components/hooks'
 import * as CountryState from '@webapp/app/country/countryState'
-import ExtentOfForest from './extentOfForest'
-import ForestCharacteristics from './forestCharacteristics'
+
+import { ExtentOfForest } from '../ExtentOfForest'
+import { ForestCharacteristics } from '../ForestCharacteristics'
 
 const extentOfForest = FRA.sections['1'].children.a
 const forestCharacteristics = FRA.sections['1'].children.b
+
 type Props = {
   canEditData: boolean
-  odp: any
+  odp: ODP
 }
-const OriginalData = (props: Props) => {
+
+export const OriginalData: React.FC<Props> = (props) => {
   const { canEditData, odp } = props
-  const { odpId } = odp
+
   const i18n = useI18n()
   const countryIso = useCountryIso()
   const useOriginalDataPointsInFoc = useSelector(CountryState.getConfigUseOriginalDataPointsInFoc)
+  const { odpId } = odp
+
   return (
     <div>
       <h2 className="headline">{i18n.t('nationalDataPoint.reclassificationLabel')}</h2>
@@ -69,4 +76,3 @@ const OriginalData = (props: Props) => {
     </div>
   )
 }
-export default OriginalData

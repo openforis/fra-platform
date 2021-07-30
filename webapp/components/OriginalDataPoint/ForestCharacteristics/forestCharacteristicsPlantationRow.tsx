@@ -4,11 +4,11 @@ import * as NumberUtils from '@common/bignumberUtils'
 import { PercentInput } from '@webapp/components/percentInput'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { useCountryIso, useI18n } from '@webapp/components/hooks'
-import { pasteNationalClassValues, updateNationalClassValue } from '../../../actions'
+import { pasteNationalClassValues, updateNationalClassValue } from '../../../app/assessment/fra/sections/originalDataPoint/actions'
 import {
   useNationalClassNameComments,
   useNationalClassValidation,
-} from '../../../../../../../../components/OriginalDataPoint/hooks'
+} from '../hooks'
 
 const columns = [{ name: 'plantationIntroducedPercent', type: 'decimal' }]
 const allowedClass = (nc: any) => nc.plantationPercent > 0 && nc.forestPercent > 0

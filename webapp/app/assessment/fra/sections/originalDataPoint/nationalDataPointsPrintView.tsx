@@ -5,9 +5,12 @@ import * as R from 'ramda'
 import { FRA } from '@core/assessment'
 import { useI18n } from '@webapp/components/hooks'
 
-import { DataSources, NationalClasses } from '@webapp/components/OriginalDataPoint'
-import ExtentOfForest from './OriginalDataPoint/components/originalData/extentOfForest'
-import ForestCharacteristics from './OriginalDataPoint/components/originalData/forestCharacteristics'
+import {
+  DataSources,
+  ExtentOfForest,
+  ForestCharacteristics,
+  NationalClasses,
+} from '@webapp/components/OriginalDataPoint'
 import * as OriginalDataPointState from './originalDataPointState'
 
 type Props = {
