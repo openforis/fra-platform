@@ -1,8 +1,9 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import * as R from 'ramda'
 
 import { FRA } from '@core/assessment'
+import { ODP } from '@core/odp'
+import { Objects } from '@core/utils'
 import { useI18n } from '@webapp/components/hooks'
 
 import {
@@ -11,20 +12,20 @@ import {
   ForestCharacteristics,
   NationalClasses,
 } from '@webapp/components/OriginalDataPoint'
-import * as OriginalDataPointState from './originalDataPointState'
+import * as OriginalDataPointState from '@webapp/app/assessment/fra/sections/originalDataPoint/originalDataPointState'
 
 type Props = {
   section: string
 }
 
-const NationalDataPointsPrintView = (props: Props) => {
+export const OriginalDataPointsPrint: React.FC<Props> = (props) => {
   const { section } = props
+
   const i18n = useI18n()
-  const data = useSelector((state) =>
-    OriginalDataPointState.getOdps(state)
-      .filter((ndp: any) => !(R.isNil(ndp.year) || R.isEmpty(ndp.year)))
-      .sort((a: any, b: any) => Number(a.year) - Number(b.year))
-  )
+  const data: Array<ODP> = useSelector((state) => {
+    const odps: Array<ODP> = OriginalDataPointState.getOdps(state)
+    return odps.filter((odp) => !Objects.isEmpty(odp.year)).sort((a, b) => Number(a.year) - Number(b.year))
+  })
 
   if (data.length === 0) return null
 
@@ -34,23 +35,23 @@ const NationalDataPointsPrintView = (props: Props) => {
 
       <div className="odp__section-print-mode">
         <h3 className="subhead">{i18n.t('nationalDataPoint.dataSources')}</h3>
-        {data.map((odp: any) => (
+        {data.map((odp) => (
           <DataSources key={odp.odpId} canEditData={false} odp={odp} />
         ))}
       </div>
 
       <div className="odp__section-print-mode">
         <h3 className="subhead">{i18n.t('nationalDataPoint.nationalClasses')}</h3>
-        {data.map((odp: any) => (
+        {data.map((odp) => (
           <NationalClasses key={odp.odpId} canEditData={false} odp={odp} />
         ))}
       </div>
 
       <div className="odp__section-print-mode">
         <h3 className="subhead">{i18n.t('nationalDataPoint.reclassificationLabel')}</h3>
-        {data.map((odp: any) => {
-          const component = section === FRA.sections['1'].children.a.name ? ExtentOfForest : ForestCharacteristics
-          return React.createElement(component, { key: odp.odpId, ...props, odp, canEditData: false })
+        {data.map((odp) => {
+          const Component = section === FRA.sections['1'].children.a.name ? ExtentOfForest : ForestCharacteristics
+          return React.createElement(Component, { key: odp.odpId, odp, canEditData: false })
         })}
       </div>
 
@@ -58,4 +59,3 @@ const NationalDataPointsPrintView = (props: Props) => {
     </div>
   )
 }
-export default NationalDataPointsPrintView
