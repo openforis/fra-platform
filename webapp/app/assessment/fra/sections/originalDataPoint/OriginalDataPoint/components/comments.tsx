@@ -25,7 +25,7 @@ const Comments = (props: Props) => {
           {odp.odpId && canEditData && (
             <ReviewIndicator
               section="odp"
-              title={(i18n as any).t('nationalDataPoint.nationalDataPoint')}
+              title={i18n.t('nationalDataPoint.nationalDataPoint')}
               target={target}
               countryIso={countryIso}
             />

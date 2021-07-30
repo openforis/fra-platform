@@ -42,7 +42,7 @@ const NationalClass = (props: Props) => {
               className="odp__nc-table__input validation-error-sensitive-field"
               type="text"
               placeholder={
-                placeHolder && index === 0 ? (i18n as any).t('nationalDataPoint.enterOrCopyPasteNationalClasses') : ''
+                placeHolder && index === 0 ? i18n.t('nationalDataPoint.enterOrCopyPasteNationalClasses') : ''
               }
               value={className || ''}
               onChange={(event) => {
@@ -109,7 +109,7 @@ const NationalClass = (props: Props) => {
             <div className="odp__review-indicator-row-anchor">
               <ReviewIndicator
                 section="odp"
-                title={(i18n as any).t('nationalDataPoint.nationalClasses')}
+                title={i18n.t('nationalDataPoint.nationalClasses')}
                 target={[odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'definition']}
                 countryIso={countryIso}
               />

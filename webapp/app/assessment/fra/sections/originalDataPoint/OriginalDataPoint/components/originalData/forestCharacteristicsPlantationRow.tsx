@@ -72,7 +72,7 @@ const ForestCharacteristicsPlantationRow = (props: ForestCharacteristicsPlantati
           <div className="odp__review-indicator-row-anchor">
             <ReviewIndicator
               section="odp"
-              title={(i18n as any).t('nationalDataPoint.plantationForest')}
+              title={i18n.t('nationalDataPoint.plantationForest')}
               target={target}
               countryIso={countryIso}
             />

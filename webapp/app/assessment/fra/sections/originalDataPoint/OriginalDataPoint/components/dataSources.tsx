@@ -1,6 +1,8 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import * as R from 'ramda'
+
+import { ODPDataSourceMethod } from '@core/odp'
 import VerticallyGrowingTextField from '@webapp/components/verticallyGrowingTextField'
 import MultiSelect from '@webapp/components/multiSelect'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
@@ -19,9 +21,11 @@ const DataSources = (props: Props) => {
   const [printView] = usePrintView()
   const displayReviewIndicator = odp.odpId && !printView && canEditData
 
+  console.log(Object.values(ODPDataSourceMethod))
+
   return (
     <div className="odp__section">
-      {!printView && <h3 className="subhead">{(i18n as any).t('nationalDataPoint.dataSources')}</h3>}
+      {!printView && <h3 className="subhead">{i18n.t('nationalDataPoint.dataSources')}</h3>}
       <div className="fra-table__container">
         <div className="fra-table__scroll-wrapper odp__data-source-table-wrapper">
           <table className="fra-table">
@@ -32,7 +36,7 @@ const DataSources = (props: Props) => {
                     {odp.year}
                   </th>
                 )}
-                <th className="fra-table__header-cell-left">{(i18n as any).t('nationalDataPoint.references')}</th>
+                <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.references')}</th>
                 <td className="fra-table__cell-left odp__data-source-input-column">
                   <VerticallyGrowingTextField
                     value={odp.dataSourceReferences || ''}
@@ -47,7 +51,7 @@ const DataSources = (props: Props) => {
                     <div className="odp__review-indicator-row-anchor">
                       <ReviewIndicator
                         section="odp"
-                        title={(i18n as any).t('nationalDataPoint.dataSources')}
+                        title={i18n.t('nationalDataPoint.dataSources')}
                         target={[odp.odpId, 'dataSourceReferences']}
                         countryIso={countryIso}
                       />
@@ -57,20 +61,14 @@ const DataSources = (props: Props) => {
               </tr>
 
               <tr>
-                <th className="fra-table__header-cell-left">{(i18n as any).t('nationalDataPoint.methodsUsed')}</th>
+                <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.methodsUsed')}</th>
                 <td className="fra-table__cell-left odp__data-source-input-column">
                   <MultiSelect
                     disabled={printView || !canEditData}
                     i18n={i18n}
                     localizationPrefix="nationalDataPoint.dataSourceMethodsOptions"
                     values={odp.dataSourceMethods}
-                    options={[
-                      'nationalForestInventory',
-                      'sampleBasedRemoteSensingAssessment',
-                      'fullCoverMaps',
-                      'registersQuestionnaires',
-                      'other',
-                    ]}
+                    options={Object.values(ODPDataSourceMethod)}
                     onChange={(values: any) => {
                       dispatch(saveDraft(countryIso, R.assoc('dataSourceMethods', values, odp)))
                     }}
@@ -81,7 +79,7 @@ const DataSources = (props: Props) => {
                     <div className="odp__review-indicator-row-anchor">
                       <ReviewIndicator
                         section="odp"
-                        title={(i18n as any).t('nationalDataPoint.dataSources')}
+                        title={i18n.t('nationalDataPoint.dataSources')}
                         target={[odp.odpId, 'dataSourceMethods']}
                         countryIso={countryIso}
                       />
@@ -91,9 +89,7 @@ const DataSources = (props: Props) => {
               </tr>
 
               <tr>
-                <th className="fra-table__header-cell-left">
-                  {(i18n as any).t('nationalDataPoint.additionalComments')}
-                </th>
+                <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.additionalComments')}</th>
                 <td className="fra-table__cell-left odp__data-source-input-column">
                   <VerticallyGrowingTextField
                     value={odp.dataSourceAdditionalComments || ''}
@@ -108,7 +104,7 @@ const DataSources = (props: Props) => {
                     <div className="odp__review-indicator-row-anchor">
                       <ReviewIndicator
                         section="odp"
-                        title={(i18n as any).t('nationalDataPoint.dataSources')}
+                        title={i18n.t('nationalDataPoint.dataSources')}
                         target={[odp.odpId, 'dataSourceAdditionalComments']}
                         countryIso={countryIso}
                       />

@@ -22,7 +22,7 @@ const NationalClasses = (props: Props) => {
     <div className="odp__section">
       {!printView && (
         <div className="odp__section-header">
-          <h3 className="subhead">{(i18n as any).t('nationalDataPoint.nationalClasses')}</h3>
+          <h3 className="subhead">{i18n.t('nationalDataPoint.nationalClasses')}</h3>
           {canEditData && (
             <button
               type="button"
@@ -30,7 +30,7 @@ const NationalClasses = (props: Props) => {
               disabled={copyDisabled}
               onClick={() => dispatch(copyPreviousNationalClasses(countryIso, odp))}
             >
-              {(i18n as any).t('nationalDataPoint.copyPreviousValues')}
+              {i18n.t('nationalDataPoint.copyPreviousValues')}
             </button>
           )}
         </div>
@@ -46,8 +46,8 @@ const NationalClasses = (props: Props) => {
                     {odp.year}
                   </th>
                 )}
-                <th className="fra-table__header-cell-left">{(i18n as any).t('nationalDataPoint.nationalClass')}</th>
-                <th className="fra-table__header-cell-left">{(i18n as any).t('nationalDataPoint.definition')}</th>
+                <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.nationalClass')}</th>
+                <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.definition')}</th>
               </tr>
               {nationalClasses.map((nationalClass: any, i: any) => (
                 <NationalClass key={nationalClass.uuid} index={i} odp={odp} canEditData={canEditData} />

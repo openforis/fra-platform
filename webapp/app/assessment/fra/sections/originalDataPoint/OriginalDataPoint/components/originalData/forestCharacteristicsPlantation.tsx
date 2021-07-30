@@ -19,11 +19,11 @@ const ForestCharacteristicsPlantation = (props: Props) => {
           <thead>
             <tr>
               <th className="fra-table__header-cell-left">
-                {(i18n as any).t('fraForestCharacteristicsClass.plantationForest')}
+                {i18n.t('fraForestCharacteristicsClass.plantationForest')}
               </th>
-              <th className="fra-table__header-cell fra-table__divider">{(i18n as any).t('nationalDataPoint.area')}</th>
+              <th className="fra-table__header-cell fra-table__divider">{i18n.t('nationalDataPoint.area')}</th>
               <th className="fra-table__header-cell">
-                {(i18n as any).t('fraForestCharacteristicsClass.ofWhichIntroduced')}
+                {i18n.t('fraForestCharacteristicsClass.ofWhichIntroduced')}
               </th>
             </tr>
           </thead>
@@ -41,7 +41,7 @@ const ForestCharacteristicsPlantation = (props: Props) => {
 
           <tfoot>
             <tr>
-              <th className="fra-table__header-cell-left">{(i18n as any).t('nationalDataPoint.total')}</th>
+              <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.total')}</th>
               <th className="fra-table__calculated-cell fra-table__divider">
                 {NumberUtils.formatNumber(ODP.subClassTotalArea(odp, 'forestPercent', 'plantationPercent'))}
               </th>

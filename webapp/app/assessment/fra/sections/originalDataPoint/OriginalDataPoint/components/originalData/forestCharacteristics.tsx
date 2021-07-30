@@ -21,12 +21,12 @@ const ForestCharacteristics = (props: Props) => {
     <div className="odp__section">
       {!printView && (
         <div className="odp__section-header">
-          <h3 className="subhead">{(i18n as any).t('nationalDataPoint.forestCharacteristics')}</h3>
+          <h3 className="subhead">{i18n.t('nationalDataPoint.forestCharacteristics')}</h3>
           <DefinitionLink
             document="tad"
             anchor="1b"
-            title={(i18n as any).t('definition.definitionLabel')}
-            lang={(i18n as any).language}
+            title={i18n.t('definition.definitionLabel')}
+            lang={i18n.language}
           />
         </div>
       )}
@@ -42,25 +42,25 @@ const ForestCharacteristics = (props: Props) => {
                   </th>
                 )}
                 <th className="fra-table__header-cell fra-table__divider" colSpan={2}>
-                  {(i18n as any).t('nationalDataPoint.nationalClasses')}
+                  {i18n.t('nationalDataPoint.nationalClasses')}
                 </th>
                 <th className="fra-table__header-cell" colSpan={3}>
-                  {(i18n as any).t('nationalDataPoint.fraClasses')}
+                  {i18n.t('nationalDataPoint.fraClasses')}
                 </th>
               </tr>
               <tr>
-                <th className="fra-table__header-cell-left">{(i18n as any).t('nationalDataPoint.class')}</th>
+                <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.class')}</th>
                 <th className="fra-table__header-cell fra-table__divider">
-                  {(i18n as any).t('nationalDataPoint.area')}
+                  {i18n.t('nationalDataPoint.area')}
                 </th>
                 <th className="fra-table__header-cell">
-                  {(i18n as any).t('fraForestCharacteristicsClass.naturallyRegeneratingForest')}
+                  {i18n.t('fraForestCharacteristicsClass.naturallyRegeneratingForest')}
                 </th>
                 <th className="fra-table__header-cell">
-                  {(i18n as any).t('fraForestCharacteristicsClass.plantationForest')}
+                  {i18n.t('fraForestCharacteristicsClass.plantationForest')}
                 </th>
                 <th className="fra-table__header-cell">
-                  {(i18n as any).t('fraForestCharacteristicsClass.otherPlantedForest')}
+                  {i18n.t('fraForestCharacteristicsClass.otherPlantedForest')}
                 </th>
               </tr>
 
@@ -73,7 +73,7 @@ const ForestCharacteristics = (props: Props) => {
                 />
               ))}
               <tr>
-                <th className="fra-table__header-cell-left">{(i18n as any).t('nationalDataPoint.total')}</th>
+                <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.total')}</th>
                 <th className="fra-table__calculated-cell fra-table__divider">
                   {NumberUtils.formatNumber(ODP.classTotalArea(odp, 'forestPercent'))}
                 </th>

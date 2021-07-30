@@ -23,7 +23,7 @@ const YearSelection = (props: Props) => {
   const reservedYears = useSelector(R.pipe(ExtentOfForestState.getFra, FRAUtils.getOdps, R.map(R.prop('name'))))
   return (
     <div className="odp__section">
-      <h3 className="subhead">{(i18n as any).t('nationalDataPoint.referenceYearData')}</h3>
+      <h3 className="subhead">{i18n.t('nationalDataPoint.referenceYearData')}</h3>
       <div className={`odp__year-selection ${classNameYearSelection}`}>
         <select
           disabled={!canEditData}
@@ -40,7 +40,7 @@ const YearSelection = (props: Props) => {
         >
           {years.map((year) => (
             <option key={year} value={year} disabled={R.includes(year.toString(), reservedYears)} hidden={!year}>
-              {year || (i18n as any).t('nationalDataPoint.selectYear')}
+              {year || i18n.t('nationalDataPoint.selectYear')}
             </option>
           ))}
         </select>

@@ -23,7 +23,7 @@ const OriginalData = (props: Props) => {
   const useOriginalDataPointsInFoc = useSelector(CountryState.getConfigUseOriginalDataPointsInFoc)
   return (
     <div>
-      <h2 className="headline">{(i18n as any).t('nationalDataPoint.reclassificationLabel')}</h2>
+      <h2 className="headline">{i18n.t('nationalDataPoint.reclassificationLabel')}</h2>
 
       <div className="odp__tab-controller">
         <NavLink
@@ -31,14 +31,14 @@ const OriginalData = (props: Props) => {
           activeClassName="active"
           to={BasePaths.getOdpLink(countryIso, FRA.type, extentOfForest.name, odpId)}
         >
-          {`${extentOfForest.anchor} ${(i18n as any).t('nationalDataPoint.forestCategoriesLabel')}`}
+          {`${extentOfForest.anchor} ${i18n.t('nationalDataPoint.forestCategoriesLabel')}`}
         </NavLink>
         <NavLink
           className={`odp__tab-item${useOriginalDataPointsInFoc ? '' : ' disabled'}`}
           activeClassName="active"
           to={BasePaths.getOdpLink(countryIso, FRA.type, forestCharacteristics.name, odpId)}
         >
-          {`${forestCharacteristics.anchor} ${(i18n as any).t('nationalDataPoint.forestCharacteristics')}`}
+          {`${forestCharacteristics.anchor} ${i18n.t('nationalDataPoint.forestCharacteristics')}`}
         </NavLink>
       </div>
 

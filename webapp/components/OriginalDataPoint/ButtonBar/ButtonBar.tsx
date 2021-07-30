@@ -1,24 +1,30 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory, useParams } from 'react-router'
+
+import { ODP } from '@core/odp'
 import { useCountryIso, useI18n, useIsAutoSaveSaving } from '@webapp/components/hooks'
-import { cancelDraft, markAsActual, remove } from '../../actions'
+import { cancelDraft, markAsActual, remove } from '@webapp/app/assessment/fra/sections/originalDataPoint/actions'
 
 type Props = {
   canEditData: boolean
-  odp: any
+  odp: ODP
 }
-const ButtonBar = (props: Props) => {
+
+export const ButtonBar: React.FC<Props> = (props) => {
   const { odp, canEditData } = props
+
   const dispatch = useDispatch()
   const history = useHistory()
-  const { tab }: any = useParams()
+  const { tab } = useParams<{ tab: string }>()
   const i18n = useI18n()
   const countryIso = useCountryIso()
   const disabled = useIsAutoSaveSaving() || !odp.odpId
+
   if (!canEditData) {
     return null
   }
+
   return (
     <>
       {odp.editStatus && odp.editStatus !== 'newDraft' && (
@@ -28,7 +34,7 @@ const ButtonBar = (props: Props) => {
           disabled={disabled}
           onClick={() => dispatch(cancelDraft(countryIso, odp.odpId, tab, history))}
         >
-          {(i18n as any).t('nationalDataPoint.discardChanges')}
+          {i18n.t('nationalDataPoint.discardChanges')}
         </button>
       )}
 
@@ -40,7 +46,7 @@ const ButtonBar = (props: Props) => {
           dispatch(markAsActual(countryIso, odp, history, tab))
         }}
       >
-        {(i18n as any).t('nationalDataPoint.doneEditing')}
+        {i18n.t('nationalDataPoint.doneEditing')}
       </button>
 
       <div className="odp-v-divider" />
@@ -50,14 +56,13 @@ const ButtonBar = (props: Props) => {
         className="btn btn-destructive"
         disabled={disabled}
         onClick={() => {
-          if (window.confirm((i18n as any).t('nationalDataPoint.confirmDelete'))) {
+          if (window.confirm(i18n.t('nationalDataPoint.confirmDelete'))) {
             dispatch(remove(countryIso, odp, tab, history))
           }
         }}
       >
-        {(i18n as any).t('nationalDataPoint.delete')}
+        {i18n.t('nationalDataPoint.delete')}
       </button>
     </>
   )
 }
-export default ButtonBar
