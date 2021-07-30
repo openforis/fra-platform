@@ -13,8 +13,7 @@ import * as OriginalDataPointState from '@webapp/app/assessment/fra/sections/ori
 import { fetch, clearActive } from '@webapp/app/assessment/fra/sections/originalDataPoint/actions'
 import { fetchExtentOfForest } from '@webapp/app/assessment/fra/sections/extentOfForest/actions'
 
-import { ButtonBar, YearSelection } from '@webapp/components/OriginalDataPoint'
-import DataSources from '../../app/assessment/fra/sections/originalDataPoint/OriginalDataPoint/components/dataSources'
+import { ButtonBar, DataSources, YearSelection } from '@webapp/components/OriginalDataPoint'
 import NationalClasses from '../../app/assessment/fra/sections/originalDataPoint/OriginalDataPoint/components/nationalClasses'
 import OriginalData from '../../app/assessment/fra/sections/originalDataPoint/OriginalDataPoint/components/originalData'
 import Comments from '../../app/assessment/fra/sections/originalDataPoint/OriginalDataPoint/components/comments'

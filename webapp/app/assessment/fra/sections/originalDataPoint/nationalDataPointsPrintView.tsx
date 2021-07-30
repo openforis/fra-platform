@@ -1,9 +1,11 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import * as R from 'ramda'
+
 import { FRA } from '@core/assessment'
-import useI18n from '@webapp/components/hooks/useI18n'
-import DataSources from './OriginalDataPoint/components/dataSources'
+import { useI18n } from '@webapp/components/hooks'
+
+import { DataSources } from '@webapp/components/OriginalDataPoint'
 import NationalClasses from './OriginalDataPoint/components/nationalClasses'
 import ExtentOfForest from './OriginalDataPoint/components/originalData/extentOfForest'
 import ForestCharacteristics from './OriginalDataPoint/components/originalData/forestCharacteristics'

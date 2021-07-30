@@ -1,20 +1,21 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import * as R from 'ramda'
 
-import { ODPDataSourceMethod } from '@core/odp'
+import { ODP, ODPDataSourceMethod } from '@core/odp'
 import VerticallyGrowingTextField from '@webapp/components/verticallyGrowingTextField'
 import MultiSelect from '@webapp/components/multiSelect'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { useCountryIso, useI18n, usePrintView } from '@webapp/components/hooks'
-import { saveDraft } from '../../actions'
+import { saveDraft } from '@webapp/app/assessment/fra/sections/originalDataPoint/actions'
 
 type Props = {
   canEditData: boolean
-  odp: any
+  odp: ODP
 }
-const DataSources = (props: Props) => {
+
+export const DataSources: React.FC<Props> = (props) => {
   const { odp, canEditData } = props
+
   const dispatch = useDispatch()
   const i18n = useI18n()
   const countryIso = useCountryIso()
@@ -24,6 +25,7 @@ const DataSources = (props: Props) => {
   return (
     <div className="odp__section">
       {!printView && <h3 className="subhead">{i18n.t('nationalDataPoint.dataSources')}</h3>}
+
       <div className="fra-table__container">
         <div className="fra-table__scroll-wrapper odp__data-source-table-wrapper">
           <table className="fra-table">
@@ -38,8 +40,8 @@ const DataSources = (props: Props) => {
                 <td className="fra-table__cell-left odp__data-source-input-column">
                   <VerticallyGrowingTextField
                     value={odp.dataSourceReferences || ''}
-                    onChange={(event: any) => {
-                      dispatch(saveDraft(countryIso, R.assoc('dataSourceReferences', event.target.value, odp)))
+                    onChange={(event) => {
+                      dispatch(saveDraft(countryIso, { ...odp, dataSourceReferences: event.target.value }))
                     }}
                     disabled={printView || !canEditData}
                   />
@@ -67,8 +69,8 @@ const DataSources = (props: Props) => {
                     localizationPrefix="nationalDataPoint.dataSourceMethodsOptions"
                     values={odp.dataSourceMethods}
                     options={Object.values(ODPDataSourceMethod)}
-                    onChange={(values: any) => {
-                      dispatch(saveDraft(countryIso, R.assoc('dataSourceMethods', values, odp)))
+                    onChange={(values: Array<ODPDataSourceMethod>) => {
+                      dispatch(saveDraft(countryIso, { ...odp, dataSourceMethods: values }))
                     }}
                   />
                 </td>
@@ -91,8 +93,8 @@ const DataSources = (props: Props) => {
                 <td className="fra-table__cell-left odp__data-source-input-column">
                   <VerticallyGrowingTextField
                     value={odp.dataSourceAdditionalComments || ''}
-                    onChange={(event: any) => {
-                      dispatch(saveDraft(countryIso, R.assoc('dataSourceAdditionalComments', event.target.value, odp)))
+                    onChange={(event) => {
+                      dispatch(saveDraft(countryIso, { ...odp, dataSourceAdditionalComments: event.target.value }))
                     }}
                     disabled={printView || !canEditData}
                   />
@@ -117,4 +119,3 @@ const DataSources = (props: Props) => {
     </div>
   )
 }
-export default DataSources

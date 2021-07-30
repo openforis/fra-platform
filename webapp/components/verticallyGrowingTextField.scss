@@ -1,4 +1,4 @@
-@import (reference) "~@webapp/main/styles/config";
+@import 'webapp/style/partials';
 
 .fra-table {
   .vgtf__container {
@@ -14,7 +14,7 @@
   resize: none;
   outline: none;
   display: block;
-  overflow: hidden;  // Removes scrollbar
+  overflow: hidden; // Removes scrollbar
 
   width: 100%;
   min-height: 100%;
@@ -28,10 +28,10 @@
 
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 1px @text-body;
+    box-shadow: 0 0 0 1px $text-body;
   }
 
   &::placeholder {
-    color: @text-disabled;
+    color: $text-disabled;
   }
 }
