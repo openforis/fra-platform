@@ -1,29 +1,19 @@
-import React, { useEffect, useRef } from 'react'
+import './verticallyGrowingTextField.scss'
+import React, { forwardRef, useEffect, useRef, MutableRefObject } from 'react'
 import { usePrintView } from './hooks'
-import './verticallyGrowingTextField.less'
 
-type Props = {
-  value: string
+interface Props extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   minWidth?: number
-  disabled: boolean
-  className?: string
-  placeholder?: string
-  onChange: (evt: any) => any
-  onKeyDown: (evt: any) => any
-  onFocus: (evt: any) => any
-  onKeyUp: (evt: any) => any
-  onClick: (evt: any) => any
-  ref: any
 }
 
-const VerticallyGrowingTextField: React.FC<Props> = React.forwardRef((props: Props, ref: any) => {
-  const { value, minWidth, disabled, ...rest } = props
-  const minWidthStyleAttr = minWidth ? `${minWidth}px` : null
+const VerticallyGrowingTextField = forwardRef<HTMLTextAreaElement, Props>((props, ref) => {
+  const { value, minWidth: minWidthProps, disabled, ...rest } = props
+  const minWidth = minWidthProps ? `${minWidthProps}px` : null
 
   const [printView] = usePrintView()
 
-  const _textAreaRef = useRef(null)
-  const textAreaRef = ref || _textAreaRef
+  const _textAreaRef = useRef<HTMLTextAreaElement>(null)
+  const textAreaRef = (ref as MutableRefObject<HTMLTextAreaElement>) || _textAreaRef
 
   useEffect(() => {
     const textArea = textAreaRef.current
@@ -40,17 +30,24 @@ const VerticallyGrowingTextField: React.FC<Props> = React.forwardRef((props: Pro
         disabled={disabled}
         rows={1}
         className="vgtf__textarea no-print"
-        style={{ minWidth: minWidthStyleAttr }}
+        style={{ minWidth }}
         value={value}
+        // eslint-disable-next-line react/jsx-props-no-spreading
         {...rest}
       />
+
       {printView && (
-        <div className="text-input__readonly-view only-print" style={{ minWidth: minWidthStyleAttr }}>
+        <div className="text-input__readonly-view only-print" style={{ minWidth }}>
           {value}
         </div>
       )}
     </div>
   )
 })
+
+VerticallyGrowingTextField.defaultProps = {
+  disabled: false,
+  minWidth: null,
+}
 
 export default VerticallyGrowingTextField
