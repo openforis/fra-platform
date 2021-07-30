@@ -14,12 +14,12 @@ import MessageBoardPanel from '@webapp/app/countryLanding/views/messageBoard/mes
 import Navigation from '@webapp/components/Navigation'
 import Review from '@webapp/app/assessment/components/review/review'
 import UserChat from '@webapp/app/user/chat/userChatView'
-import OriginalDataPointView from '@webapp/app/assessment/fra/sections/originalDataPoint/originalDataPointView'
 import AssessmentHome from '../AssessmentHome'
 import AssessmentDataDownload from '../AssessmentDataDownload'
 import AssessmentSection from '../AssessmentSection'
+import OriginalDataPoint from '../OriginalDataPoint'
 
-const Assessment = () => {
+const Assessment: React.FC = () => {
   const dispatch = useDispatch()
   const userInfo = useUserInfo()
   const navigationVisible = useNavigationVisible()
@@ -54,7 +54,7 @@ const Assessment = () => {
           <Route path={BasePaths.assessmentHome} component={AssessmentHome} />
           <Route path={BasePaths.assessmentDataDownload} component={AssessmentDataDownload} />
           <Route exact path={BasePaths.assessmentSection} component={AssessmentSection} />
-          <Route exact path={[`${BasePaths.odp}:odpId/`, BasePaths.odp]} component={OriginalDataPointView} />
+          <Route exact path={[`${BasePaths.odp}:odpId/`, BasePaths.odp]} component={OriginalDataPoint} />
         </Switch>
       </div>
     </>

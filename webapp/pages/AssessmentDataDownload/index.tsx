@@ -8,7 +8,7 @@ import Icon from '@webapp/components/icon'
 
 import resources from './resources'
 
-const AssessmentDataDownload:React.FC = () => {
+const AssessmentDataDownload: React.FC = () => {
   const i18n = useI18n()
 
   useEffect(documentScrollTo, [])
