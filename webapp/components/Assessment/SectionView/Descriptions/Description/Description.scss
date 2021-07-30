@@ -1,8 +1,7 @@
-@import (reference) "~@webapp/main/styles/config";
-@import (reference) "~@webapp/main/styles/buttons";
+@import 'webapp/style/partials';
 
 .fra-description__container {
-  border-bottom: @ui-thin-border;
+  border-bottom: $ui-thin-border;
   margin-bottom: 24px;
   padding-bottom: 24px;
 
@@ -49,12 +48,11 @@
 }
 
 .fra-description__link {
-  .link;
-  color: darken(@ui-accent, 2%);
+  color: darken($ui-accent, 2%);
   white-space: nowrap;
 
   &:hover {
-    color: darken(@ui-accent, 4%);
+    color: darken($ui-accent, 4%);
   }
 }
 
@@ -70,40 +68,49 @@
     margin-bottom: 0;
   }
 
-  h1, h2, h3, h4, h5 {
-    font-size: @font-m;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-size: $font-m;
     font-weight: 700;
   }
 
-  ol, ul, dl {
+  ol,
+  ul,
+  dl {
     padding: 0 24px;
   }
 
   hr {
-    border: 0px;
-    border-top: @ui-thin-border;
+    border: 0;
+    border-top: $ui-thin-border;
   }
 
-  img {
+  img  {
     max-width: 100%;
     height: auto;
   }
 
   table {
     border-collapse: collapse;
-    font-size: @font-s;
+    font-size: $font-s;
   }
 
-  table, th, td {
-    border: @ui-thin-border;
+  table,
+  th,
+  td {
+    border: $ui-thin-border;
   }
 
-  td, th {
+  td,
+  th {
     padding: 6px;
     text-align: left;
 
     > p {
-      margin: 0
+      margin: 0;
     }
   }
 }

@@ -3,13 +3,16 @@ import { useDispatch } from 'react-redux'
 
 import { debounce } from '@webapp/utils/functionUtils'
 
-import useGetRequest from '@webapp/components/hooks/useGetRequest'
-import usePostRequest from '@webapp/components/hooks/usePostRequest'
-import useCountryIso from '@webapp/components/hooks/useCountryIso'
-import useOnUpdate from '@webapp/components/hooks/useOnUpdate'
+import { useCountryIso, useGetRequest, useOnUpdate, usePostRequest } from '@webapp/components/hooks'
 import * as autosave from '@webapp/app/components/autosave/actions'
 
-export default (name: any, section: any, template: any) => {
+type DescriptionState = {
+  loading: boolean
+  onChange: (value: string) => void
+  value: string
+}
+
+export default (name: string, section: string, template: string): DescriptionState => {
   const dispatch = useDispatch()
   const countryIso = useCountryIso()
   const canPostData = useRef(false)
@@ -21,7 +24,7 @@ export default (name: any, section: any, template: any) => {
   // ====== data update
   const { dispatch: postData, loaded: postDataLoaded } = usePostRequest(url, { content: data })
 
-  const onChange = (content: any) => {
+  const onChange = (content: string) => {
     dispatch(autosave.start)
     canPostData.current = true
     setState({ data: content })

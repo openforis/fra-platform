@@ -8,10 +8,9 @@ import * as FraState from '@webapp/app/assessment/fra/fraState'
 import * as SectionSpecs from '@webapp/app/assessment/components/section/sectionSpecs'
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
-import Descriptions from '@webapp/app/assessment/components/section/components/descriptions'
 import DataTable from '@webapp/app/assessment/components/dataTable'
-import GeneralComments from '@webapp/app/assessment/components/section/components/descriptions/components/generalComments'
 import SectionHeader from './SectionHeader'
+import Descriptions, { GeneralComments } from './Descriptions'
 import Title from './Title'
 
 type Props = {

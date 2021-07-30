@@ -1,13 +1,13 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import * as R from 'ramda'
 
+import { Objects } from '@core/utils'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
-import useCountryIso from '@webapp/components/hooks/useCountryIso'
+import { useCountryIso } from '@webapp/components/hooks'
 
 import * as ReviewState from '@webapp/app/assessment/components/review/reviewState'
 
-import Description from './description'
+import Description from '../Description'
 
 type Props = {
   disabled?: boolean
@@ -19,8 +19,9 @@ type Props = {
   showDashEmptyContent?: boolean
 }
 
-const CommentableDescription = (props: Props) => {
+const CommentableDescription: React.FC<Props> = (props) => {
   const { disabled, title, section, name, template, showAlertEmptyContent, showDashEmptyContent } = props
+
   const openCommentThreadTarget = useSelector(ReviewState.getOpenThreadTarget)
   const countryIso = useCountryIso()
 
@@ -28,7 +29,7 @@ const CommentableDescription = (props: Props) => {
     <div className="fra-description">
       <div
         className={
-          R.equals(openCommentThreadTarget, [name])
+          Objects.isEqual(openCommentThreadTarget, [name])
             ? 'fra-description__wrapper fra-row-comments__open'
             : 'fra-description__wrapper'
         }

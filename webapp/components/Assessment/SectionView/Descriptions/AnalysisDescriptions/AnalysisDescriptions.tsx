@@ -1,6 +1,8 @@
 import React from 'react'
-import useI18n from '@webapp/components/hooks/useI18n'
-import CommentableDescription from './commentableDescription'
+
+import { useI18n } from '@webapp/components/hooks'
+
+import CommentableDescription from '../CommentableDescription'
 
 type Props = {
   section: string
@@ -9,14 +11,16 @@ type Props = {
   showDashEmptyContent?: boolean
 }
 
-const AnalysisDescriptions = (props: Props) => {
+const AnalysisDescriptions: React.FC<Props> = (props) => {
   const { section, disabled, showAlertEmptyContent, showDashEmptyContent } = props
+
   const i18n = useI18n()
+
   return (
     <div className="fra-description__container">
-      <h2 className="headline fra-description__group-header">{(i18n as any).t('description.analysisAndProcessing')}</h2>
+      <h2 className="headline fra-description__group-header">{i18n.t('description.analysisAndProcessing')}</h2>
       <CommentableDescription
-        title={(i18n as any).t('description.estimationAndForecasting')}
+        title={i18n.t('description.estimationAndForecasting')}
         disabled={disabled}
         section={section}
         name="estimationAndForecasting"
@@ -24,7 +28,7 @@ const AnalysisDescriptions = (props: Props) => {
         showDashEmptyContent={showDashEmptyContent}
       />
       <CommentableDescription
-        title={(i18n as any).t('description.reclassification')}
+        title={i18n.t('description.reclassification')}
         disabled={disabled}
         section={section}
         name="reclassification"
@@ -34,8 +38,10 @@ const AnalysisDescriptions = (props: Props) => {
     </div>
   )
 }
+
 AnalysisDescriptions.defaultProps = {
   showAlertEmptyContent: false,
   showDashEmptyContent: false,
 }
+
 export default AnalysisDescriptions

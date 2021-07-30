@@ -1,6 +1,8 @@
 import React from 'react'
-import useI18n from '@webapp/components/hooks/useI18n'
-import CommentableDescription from './commentableDescription'
+
+import { useI18n } from '@webapp/components/hooks'
+
+import CommentableDescription from '../CommentableDescription'
 
 type Props = {
   section: string
@@ -9,14 +11,16 @@ type Props = {
   showDashEmptyContent?: boolean
 }
 
-const NationalDataDescriptions = (props: Props) => {
+const NationalDataDescriptions: React.FC<Props> = (props) => {
   const { section, disabled, showAlertEmptyContent, showDashEmptyContent } = props
+
   const i18n = useI18n()
+
   return (
     <div className="fra-description__container">
-      <h2 className="headline fra-description__group-header">{(i18n as any).t('description.nationalData')}</h2>
+      <h2 className="headline fra-description__group-header">{i18n.t('description.nationalData')}</h2>
       <CommentableDescription
-        title={(i18n as any).t('description.dataSourcesPlus')}
+        title={i18n.t('description.dataSourcesPlus')}
         disabled={disabled}
         section={section}
         name="dataSources"
@@ -24,7 +28,7 @@ const NationalDataDescriptions = (props: Props) => {
         showDashEmptyContent={showDashEmptyContent}
       />
       <CommentableDescription
-        title={(i18n as any).t('description.nationalClassificationAndDefinitions')}
+        title={i18n.t('description.nationalClassificationAndDefinitions')}
         disabled={disabled}
         section={section}
         name="nationalClassificationAndDefinitions"
@@ -32,7 +36,7 @@ const NationalDataDescriptions = (props: Props) => {
         showDashEmptyContent={showDashEmptyContent}
       />
       <CommentableDescription
-        title={(i18n as any).t('description.originalData')}
+        title={i18n.t('description.originalData')}
         disabled={disabled}
         section={section}
         name="originalData"
@@ -42,8 +46,10 @@ const NationalDataDescriptions = (props: Props) => {
     </div>
   )
 }
+
 NationalDataDescriptions.defaultProps = {
   showAlertEmptyContent: false,
   showDashEmptyContent: false,
 }
+
 export default NationalDataDescriptions

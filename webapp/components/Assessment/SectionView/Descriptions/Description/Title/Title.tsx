@@ -1,4 +1,7 @@
 import React from 'react'
+import classNames from 'classnames'
+
+import { useI18n } from '@webapp/components/hooks'
 
 import Icon from '@webapp/components/icon'
 import Tooltip from '@webapp/components/tooltip'
@@ -6,17 +9,15 @@ import Tooltip from '@webapp/components/tooltip'
 type Props = {
   error?: boolean
   title: string
-  i18n: any
 }
 
-const Title = (props: Props) => {
-  const { error, title, i18n } = props
+const Title: React.FC<Props> = (props) => {
+  const { error, title } = props
 
-  let titleClassName = 'subhead fra-description__header'
-  if (error) titleClassName += ' icon-red'
+  const i18n = useI18n()
 
   return (
-    <h3 className={titleClassName}>
+    <h3 className={classNames('subhead', 'fra-description__header', { 'icon-red': error })}>
       {error ? (
         <Tooltip error text={i18n.t('generalValidation.emptyField')}>
           {title} <Icon key="icon-error" className="icon-margin-left icon-red" name="alert" />

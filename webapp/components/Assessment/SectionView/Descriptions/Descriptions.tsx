@@ -1,19 +1,24 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import * as ObjectUtils from '@common/objectUtils'
+
+import { Objects } from '@core/utils'
+import { DescriptionsSpec } from '@core/sectionSpec'
 import { useI18n, usePrintView } from '@webapp/components/hooks'
-import NationalDataDescriptions from './components/nationalDataDescriptions'
-import AnalysisDescriptions from './components/analysisDescriptions'
-import CommentableDescription from './components/commentableDescription'
+
+import NationalDataDescriptions from './NationalDataDescriptions'
+import AnalysisDescriptions from './AnalysisDescriptions'
+import CommentableDescription from './CommentableDescription'
 
 type Props = {
   sectionName: string
-  descriptions: any
+  descriptions: DescriptionsSpec
   disabled: boolean
 }
-const Descriptions = (props: Props) => {
+
+const Descriptions: React.FC<Props> = (props: Props) => {
   const { sectionName, descriptions, disabled } = props
   const { introductoryText, nationalData, analysisAndProcessing } = descriptions
+
   const i18n = useI18n()
   const [printView, printOnlyTablesView] = usePrintView()
   const [useNationalData, useAnalysisAndProcessing] = useSelector((state) => {
@@ -21,10 +26,11 @@ const Descriptions = (props: Props) => {
       return [false, false]
     }
     return [
-      ObjectUtils.isFunction(nationalData) ? nationalData(state) : nationalData,
-      ObjectUtils.isFunction(analysisAndProcessing) ? analysisAndProcessing(state) : analysisAndProcessing,
+      Objects.isFunction(nationalData) ? nationalData(state) : nationalData,
+      Objects.isFunction(analysisAndProcessing) ? analysisAndProcessing(state) : analysisAndProcessing,
     ]
   })
+
   return (
     <>
       {useNationalData && (
@@ -35,6 +41,7 @@ const Descriptions = (props: Props) => {
           showDashEmptyContent={printView}
         />
       )}
+
       {useAnalysisAndProcessing && (
         <AnalysisDescriptions
           section={sectionName}
@@ -43,19 +50,22 @@ const Descriptions = (props: Props) => {
           showDashEmptyContent={printView}
         />
       )}
+
       {introductoryText && (
         <CommentableDescription
           section={sectionName}
-          title={(i18n as any).t('contactPersons.introductoryText')}
+          title={i18n.t('contactPersons.introductoryText')}
           name="introductoryText"
-          template={(i18n as any).t('contactPersons.introductoryTextSupport')}
+          template={i18n.t('contactPersons.introductoryTextSupport')}
           disabled={disabled}
         />
       )}
+
       {printView && !printOnlyTablesView && (useNationalData || useAnalysisAndProcessing) && (
         <div className="page-break" />
       )}
     </>
   )
 }
+
 export default Descriptions
