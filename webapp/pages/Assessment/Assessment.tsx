@@ -14,10 +14,10 @@ import MessageBoardPanel from '@webapp/app/countryLanding/views/messageBoard/mes
 import Navigation from '@webapp/components/Navigation'
 import Review from '@webapp/app/assessment/components/review/review'
 import UserChat from '@webapp/app/user/chat/userChatView'
-import AssessmentSectionView from '@webapp/app/assessment/components/section/assessmentSectionView'
 import OriginalDataPointView from '@webapp/app/assessment/fra/sections/originalDataPoint/originalDataPointView'
 import AssessmentHome from '../AssessmentHome'
 import AssessmentDataDownload from '../AssessmentDataDownload'
+import AssessmentSection from '../AssessmentSection'
 
 const Assessment = () => {
   const dispatch = useDispatch()
@@ -53,7 +53,7 @@ const Assessment = () => {
         <Switch>
           <Route path={BasePaths.assessmentHome} component={AssessmentHome} />
           <Route path={BasePaths.assessmentDataDownload} component={AssessmentDataDownload} />
-          <Route exact path={BasePaths.assessmentSection} component={AssessmentSectionView} />
+          <Route exact path={BasePaths.assessmentSection} component={AssessmentSection} />
           <Route exact path={[`${BasePaths.odp}:odpId/`, BasePaths.odp]} component={OriginalDataPointView} />
         </Switch>
       </div>
