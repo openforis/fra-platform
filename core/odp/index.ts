@@ -1,4 +1,5 @@
 export type { ODP } from './odp'
+export { ODPYears } from './odp'
 
 export { ODPDataSourceMethod } from './odpDataSource'
 

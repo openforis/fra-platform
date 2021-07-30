@@ -21,8 +21,6 @@ const DataSources = (props: Props) => {
   const [printView] = usePrintView()
   const displayReviewIndicator = odp.odpId && !printView && canEditData
 
-  console.log(Object.values(ODPDataSourceMethod))
-
   return (
     <div className="odp__section">
       {!printView && <h3 className="subhead">{i18n.t('nationalDataPoint.dataSources')}</h3>}
