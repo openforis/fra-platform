@@ -1,19 +1,25 @@
 import React from 'react'
-import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
+
+import { ODP } from '@core/odp'
 import { useCountryIso, useI18n } from '@webapp/components/hooks'
-import CommentsEditor from './commentsEditor'
-import { useNationalClassNameComments } from '../../../../../../../components/OriginalDataPoint/hooks'
+
+import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
+import CommentsEditor from './CommentsEditor'
+import { useNationalClassNameComments } from '../hooks'
 
 type Props = {
   canEditData: boolean
-  odp: any
+  odp: ODP
 }
-const Comments = (props: Props) => {
+
+export const Comments: React.FC<Props> = (props) => {
   const { odp, canEditData } = props
+
   const i18n = useI18n()
   const countryIso = useCountryIso()
   const target = [`${odp.odpId}`, 'comments']
   const className = useNationalClassNameComments(target)
+
   return (
     <div className="odp__section">
       <div className="fra-description">
@@ -35,4 +41,3 @@ const Comments = (props: Props) => {
     </div>
   )
 }
-export default Comments

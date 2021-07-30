@@ -1,23 +1,32 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
-import useCountryIso from '@webapp/components/hooks/useCountryIso'
-import useI18n from '@webapp/components/hooks/useI18n'
-import { saveDraft } from '@webapp/app/assessment/fra/sections/originalDataPoint/actions'
+
+import { ODP } from '@core/odp'
+import { useCountryIso, useI18n } from '@webapp/components/hooks'
 import ckEditorConfig from '@webapp/components/ckEditor/ckEditorConfig'
+import { saveDraft } from '@webapp/app/assessment/fra/sections/originalDataPoint/actions'
 
 type Props = {
-  canEditData?: boolean
-  odp?: any
+  canEditData: boolean
+  odp: ODP
 }
 
-const CommentsEditor = (props: Props) => {
+const CommentsEditor: React.FC<Props> = (props) => {
   const { canEditData, odp } = props
-  const [open, setOpen] = useState(false)
-  const textareaRef = useRef(null)
   const dispatch = useDispatch()
   const countryIso = useCountryIso()
   const i18n = useI18n()
+  const [open, setOpen] = useState(false)
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
   let descriptionEditor = useRef(null)
+
+  const initCkeditorChangeListener = () => {
+    descriptionEditor.current.on('change', (event: any) => {
+      const odpUpdate = { ...odp, description: event.editor.getData() }
+      dispatch(saveDraft(countryIso, odpUpdate))
+    })
+  }
+
   const initCKeditor = () => {
     if (odp.odpId) {
       descriptionEditor.current.setData(odp.description, { callback: () => initCkeditorChangeListener() })
@@ -25,16 +34,7 @@ const CommentsEditor = (props: Props) => {
       initCkeditorChangeListener()
     }
   }
-  const initCkeditorChangeListener = () => {
-    descriptionEditor.current.on('change', (evt: any) => {
-      dispatch(
-        saveDraft(countryIso, {
-          ...odp,
-          description: evt.editor.getData(),
-        })
-      )
-    })
-  }
+
   useEffect(() => {
     // @ts-ignore
     descriptionEditor.current = CKEDITOR.replace(textareaRef.current, ckEditorConfig)
@@ -47,17 +47,25 @@ const CommentsEditor = (props: Props) => {
       descriptionEditor = null
     }
   }, [])
+
   useEffect(() => {
     if (open) {
       descriptionEditor.current.focus()
     }
   }, [open])
+
   return (
     <div>
       <div className="fra-description__header-row">
         <h3 className="subhead fra-description__header">{i18n.t('review.comments')}</h3>
         {canEditData && (
-          <div className="link fra-description__link" onClick={() => setOpen(!open)}>
+          <div
+            className="link fra-description__link"
+            onClick={() => setOpen(!open)}
+            onKeyDown={() => setOpen(!open)}
+            role="button"
+            tabIndex={0}
+          >
             {open ? i18n.t('description.done') : i18n.t('description.edit')}
           </div>
         )}
@@ -77,7 +85,5 @@ const CommentsEditor = (props: Props) => {
     </div>
   )
 }
-CommentsEditor.defaultProps = {
-  canEditData: true,
-}
+
 export default CommentsEditor

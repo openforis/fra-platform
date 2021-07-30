@@ -13,9 +13,8 @@ import * as OriginalDataPointState from '@webapp/app/assessment/fra/sections/ori
 import { fetch, clearActive } from '@webapp/app/assessment/fra/sections/originalDataPoint/actions'
 import { fetchExtentOfForest } from '@webapp/app/assessment/fra/sections/extentOfForest/actions'
 
-import { ButtonBar, DataSources, NationalClasses, YearSelection } from '@webapp/components/OriginalDataPoint'
+import { ButtonBar, Comments, DataSources, NationalClasses, YearSelection } from '@webapp/components/OriginalDataPoint'
 import OriginalData from '../../app/assessment/fra/sections/originalDataPoint/OriginalDataPoint/components/originalData'
-import Comments from '../../app/assessment/fra/sections/originalDataPoint/OriginalDataPoint/components/comments'
 
 const OriginalDataPoint: React.FC = () => {
   const dispatch = useDispatch()

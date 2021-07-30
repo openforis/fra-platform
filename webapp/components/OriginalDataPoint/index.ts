@@ -1,4 +1,5 @@
 export { ButtonBar } from './ButtonBar'
+export { Comments } from './Comments'
 export { DataSources } from './DataSources'
 export { NationalClasses } from './NationalClasses'
 export { YearSelection } from './YearSelection'
