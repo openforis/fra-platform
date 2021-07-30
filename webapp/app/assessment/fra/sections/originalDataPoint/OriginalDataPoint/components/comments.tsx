@@ -2,7 +2,7 @@ import React from 'react'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { useCountryIso, useI18n } from '@webapp/components/hooks'
 import CommentsEditor from './commentsEditor'
-import useClassNameComments from '../../../../../../../components/OriginalDataPoint/NationalClasses/NationalClass/useClassNameComments'
+import { useNationalClassNameComments } from '../../../../../../../components/OriginalDataPoint/hooks'
 
 type Props = {
   canEditData: boolean
@@ -13,7 +13,7 @@ const Comments = (props: Props) => {
   const i18n = useI18n()
   const countryIso = useCountryIso()
   const target = [`${odp.odpId}`, 'comments']
-  const className = useClassNameComments(target)
+  const className = useNationalClassNameComments(target)
   return (
     <div className="odp__section">
       <div className="fra-description">

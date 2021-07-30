@@ -9,8 +9,7 @@ import { useCountryIso, useI18n, usePrintView } from '@webapp/components/hooks'
 import Icon from '@webapp/components/icon'
 import VerticallyGrowingTextField from '@webapp/components/verticallyGrowingTextField'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
-import useClassNameComments from './useClassNameComments'
-import useValidationNationalClass from './useValidationNationalClass'
+import { useNationalClassNameComments, useNationalClassValidation } from '../../hooks'
 
 const nationalClassCols = [
   { name: 'className', type: 'text' },
@@ -34,8 +33,8 @@ const NationalClass: React.FC<Props> = (props) => {
   const nationalClass = odp.nationalClasses[index]
   const { className, definition, uuid, placeHolder } = nationalClass
   const target = [odp.odpId, 'class', `${uuid}`, 'definition']
-  const classNameRowComments = useClassNameComments(target)
-  const validation = useValidationNationalClass(index)
+  const classNameRowComments = useNationalClassNameComments(target)
+  const validation = useNationalClassValidation(index)
 
   return (
     <tr className={classNameRowComments}>

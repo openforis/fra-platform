@@ -5,7 +5,7 @@ import { usePrintView } from '@webapp/components/hooks'
 
 import * as OriginalDataPointState from '@webapp/app/assessment/fra/sections/originalDataPoint/originalDataPointState'
 
-export default (index: number): ODPValidationNationalClass | Record<string, never> => {
+export const useNationalClassValidation = (index: number): ODPValidationNationalClass | Record<string, never> => {
   const [printView] = usePrintView()
 
   if (printView) {

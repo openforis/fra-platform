@@ -5,8 +5,10 @@ import { PercentInput } from '@webapp/components/percentInput'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { useCountryIso, useI18n } from '@webapp/components/hooks'
 import { pasteNationalClassValues, updateNationalClassValue } from '../../../actions'
-import useClassNameComments from '../../../../../../../../components/OriginalDataPoint/NationalClasses/NationalClass/useClassNameComments'
-import useValidationNationalClass from '../../../../../../../../components/OriginalDataPoint/NationalClasses/NationalClass/useValidationNationalClass'
+import {
+  useNationalClassNameComments,
+  useNationalClassValidation,
+} from '../../../../../../../../components/OriginalDataPoint/hooks'
 
 const columns = [{ name: 'plantationIntroducedPercent', type: 'decimal' }]
 const allowedClass = (nc: any) => nc.plantationPercent > 0 && nc.forestPercent > 0
@@ -24,8 +26,8 @@ const ForestCharacteristicsPlantationRow = (props: ForestCharacteristicsPlantati
   const dispatch = useDispatch()
   const i18n = useI18n()
   const countryIso = useCountryIso()
-  const classNameRowComments = useClassNameComments(target)
-  const validationStatus = useValidationNationalClass(index)
+  const classNameRowComments = useNationalClassNameComments(target)
+  const validationStatus = useNationalClassValidation(index)
   const classNamePercentageValidation = validationStatus.validPlantationIntroducedPercentage === false ? 'error' : ''
   const plantationIntroduced = area
     ? NumberUtils.mul(area, NumberUtils.div(NumberUtils.mul(plantationPercent, forestPercent), 10000))
