@@ -1,34 +1,42 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
+
+import { ODP, ODPs } from '@core/odp'
+import { Objects } from '@core/utils'
+import { saveDraft, pasteNationalClassValues } from '@webapp/app/assessment/fra/sections/originalDataPoint/actions'
+import { useCountryIso, useI18n, usePrintView } from '@webapp/components/hooks'
+
 import Icon from '@webapp/components/icon'
 import VerticallyGrowingTextField from '@webapp/components/verticallyGrowingTextField'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
-import { useCountryIso, useI18n, usePrintView } from '@webapp/components/hooks'
-import * as originalDataPoint from '../../originalDataPoint'
 import useClassNameComments from './useClassNameComments'
 import useValidationNationalClass from './useValidationNationalClass'
-import { saveDraft, pasteNationalClassValues } from '../../actions'
 
 const nationalClassCols = [
   { name: 'className', type: 'text' },
   { name: 'definition', type: 'text' },
 ]
+
 type Props = {
   canEditData: boolean
   index: number
-  odp: any
+  odp: ODP
 }
-const NationalClass = (props: Props) => {
+
+const NationalClass: React.FC<Props> = (props) => {
   const { odp, index, canEditData } = props
-  const nationalClass = odp.nationalClasses[index]
-  const { className, definition, uuid, placeHolder } = nationalClass
-  const target = [odp.odpId, 'class', `${uuid}`, 'definition']
+
   const dispatch = useDispatch()
   const i18n = useI18n()
   const countryIso = useCountryIso()
   const [printView] = usePrintView()
+
+  const nationalClass = odp.nationalClasses[index]
+  const { className, definition, uuid, placeHolder } = nationalClass
+  const target = [odp.odpId, 'class', `${uuid}`, 'definition']
   const classNameRowComments = useClassNameComments(target)
   const validation = useValidationNationalClass(index)
+
   return (
     <tr className={classNameRowComments}>
       <td className={`fra-table__cell-left odp__nc-table__name ${validation.validClassName === false ? 'error' : ''}`}>
@@ -46,12 +54,9 @@ const NationalClass = (props: Props) => {
               }
               value={className || ''}
               onChange={(event) => {
-                dispatch(
-                  saveDraft(
-                    countryIso,
-                    originalDataPoint.updateNationalClass(odp, index, 'className', event.target.value)
-                  )
-                )
+                const { value } = event.target
+                const odpUpdate = ODPs.updateNationalClass({ odp, index, field: 'className', value })
+                dispatch(saveDraft(countryIso, odpUpdate))
               }}
               onPaste={(event) => {
                 dispatch(
@@ -67,12 +72,15 @@ const NationalClass = (props: Props) => {
               disabled={!canEditData}
             />
           )}
-          {placeHolder || !canEditData || printView ? null : ( // placeHolder-rows can't be removed
+
+          {/* placeHolder-rows can't be removed */}
+          {!placeHolder && canEditData && !printView && (
             <button
               type="button"
               className="odp__nc-table__remove"
               onClick={() => {
-                dispatch(saveDraft(countryIso, originalDataPoint.removeNationalClass(odp, index)))
+                const odpUpdate = ODPs.deleteNationalClass({ odp, index })
+                dispatch(saveDraft(countryIso, odpUpdate))
               }}
             >
               <Icon name="remove" />
@@ -80,15 +88,16 @@ const NationalClass = (props: Props) => {
           )}
         </div>
       </td>
+
       <td className="fra-table__cell-left odp__nc-table__def">
         <VerticallyGrowingTextField
           value={definition || ''}
-          onChange={(event: any) => {
-            dispatch(
-              saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'definition', event.target.value))
-            )
+          onChange={(event) => {
+            const { value } = event.target
+            const odpUpdate = ODPs.updateNationalClass({ odp, index, field: 'definition', value })
+            dispatch(saveDraft(countryIso, odpUpdate))
           }}
-          onPaste={(event: any) => {
+          onPaste={(event) => {
             dispatch(
               pasteNationalClassValues({
                 event,
@@ -105,7 +114,7 @@ const NationalClass = (props: Props) => {
 
       {!printView && canEditData && (
         <td className="fra-table__row-anchor-cell">
-          {placeHolder || !odp.odpId ? null : (
+          {!placeHolder && !Objects.isNil(odp.odpId) && (
             <div className="odp__review-indicator-row-anchor">
               <ReviewIndicator
                 section="odp"
@@ -120,4 +129,5 @@ const NationalClass = (props: Props) => {
     </tr>
   )
 }
+
 export default NationalClass

@@ -13,6 +13,7 @@ export interface ODPValidationYear {
 }
 
 export interface ODPValidation {
+  nationalClasses: Array<ODPValidationNationalClass>
   valid: boolean
   year: ODPValidationYear
 }

@@ -1,23 +1,28 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
+
+import { ODP, ODPs } from '@core/odp'
 import { useCountryIso, useI18n, useIsAutoSaveSaving, usePrintView } from '@webapp/components/hooks'
-import * as ODP from '../../originalDataPoint'
-import { copyPreviousNationalClasses } from '../../actions'
-import NationalClass from './nationalClass'
+import { copyPreviousNationalClasses } from '@webapp/app/assessment/fra/sections/originalDataPoint/actions'
+
+import NationalClass from './NationalClass'
 
 type Props = {
   canEditData: boolean
-  odp: any
+  odp: ODP
 }
-const NationalClasses = (props: Props) => {
+
+export const NationalClasses: React.FC<Props> = (props) => {
   const { canEditData, odp } = props
   const { nationalClasses, odpId, year } = odp
+
   const dispatch = useDispatch()
   const i18n = useI18n()
   const countryIso = useCountryIso()
   const [printView] = usePrintView()
   const saving = useIsAutoSaveSaving()
-  const copyDisabled = !odpId || !year || !ODP.allowCopyingOfPreviousValues(odp) || saving
+  const copyDisabled = !odpId || !year || !ODPs.canCopyPreviousValues(odp) || saving
+
   return (
     <div className="odp__section">
       {!printView && (
@@ -49,8 +54,8 @@ const NationalClasses = (props: Props) => {
                 <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.nationalClass')}</th>
                 <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.definition')}</th>
               </tr>
-              {nationalClasses.map((nationalClass: any, i: any) => (
-                <NationalClass key={nationalClass.uuid} index={i} odp={odp} canEditData={canEditData} />
+              {nationalClasses.map((nationalClass, idx) => (
+                <NationalClass key={nationalClass.uuid} index={idx} odp={odp} canEditData={canEditData} />
               ))}
             </tbody>
           </table>
@@ -59,4 +64,3 @@ const NationalClasses = (props: Props) => {
     </div>
   )
 }
-export default NationalClasses

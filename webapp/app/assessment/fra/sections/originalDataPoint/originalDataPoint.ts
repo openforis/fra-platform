@@ -7,6 +7,10 @@ import { sum, mul, sub, add, div } from '@common/bignumberUtils'
 
 import { v4 as uuidv4 } from 'uuid'
 
+/**
+ * @deprecated.
+ * Use ODPs.updateNationalClass
+ */
 export const updateNationalClass = (odp: any, index: any, field: any, value: any) => {
   const nationalClassToUpdate = odp.nationalClasses[index]
   const wasPlaceHolder = !R.isNil(R.path(['placeHolder'], nationalClassToUpdate))
@@ -18,43 +22,69 @@ export const updateNationalClass = (odp: any, index: any, field: any, value: any
     : { ...odp, nationalClasses: classesWithValueUpdated }
 }
 
+/**
+ * @deprecated.
+ * Use ODPs.deleteNationalClass
+ */
 export const removeNationalClass = (odp: any, index: any) => ({
   ...odp,
   nationalClasses: R.remove(index, 1, odp.nationalClasses),
 })
 
+/**
+ * @deprecated
+ */
 export const removeClassPlaceholder = (odp: any) => {
   const updatedClasses = R.filter((nClass: any) => !nClass.placeHolder, odp.nationalClasses)
   return { ...odp, nationalClasses: updatedClasses }
 }
 
-export const defaultNationalClass = (className = '', definition = '') => ({
-  className,
-  definition,
-  area: null,
-  forestPercent: null,
-  otherWoodedLandPercent: null,
-  otherLandPercent: null,
-  naturalForestPercent: null,
-  plantationPercent: null,
-  plantationIntroducedPercent: null,
-  otherPlantedPercent: null,
-  uuid: uuidv4(),
-}) as any
+/**
+ * @deprecated.
+ * use ODPNationalClassFactory.newNationalClass
+ */
+export const defaultNationalClass = (className = '', definition = '') =>
+  ({
+    className,
+    definition,
+    area: null,
+    forestPercent: null,
+    otherWoodedLandPercent: null,
+    otherLandPercent: null,
+    naturalForestPercent: null,
+    plantationPercent: null,
+    plantationIntroducedPercent: null,
+    otherPlantedPercent: null,
+    uuid: uuidv4(),
+  } as any)
 
+/**
+ * @deprecated.
+ * use ODPNationalClassFactory.newNationalClassPlaceholder
+ */
 export const nationalClassPlaceHolder = () => ({ ...defaultNationalClass(), placeHolder: true })
 
-export const emptyDataPoint = () => ({
-  year: null,
-  forestArea: null,
-  nationalClasses: [nationalClassPlaceHolder()],
-}) as any
+/**
+ * @deprecated
+ */
+export const emptyDataPoint = () =>
+  ({
+    year: null,
+    forestArea: null,
+    nationalClasses: [nationalClassPlaceHolder()],
+  } as any)
 
+/**
+ * @deprecated
+ */
 export const addNationalClassPlaceHolder = (odp: any) => ({
   ...odp,
   nationalClasses: [...odp.nationalClasses, nationalClassPlaceHolder()],
 })
 
+/**
+ * @deprecated
+ */
 export const totalArea = (odp: any) =>
   R.pipe(
     R.map((nationalClass: any) => nationalClass.area),
@@ -62,6 +92,9 @@ export const totalArea = (odp: any) =>
     sum
   )(odp.nationalClasses)
 
+/**
+ * @deprecated
+ */
 export const classTotalArea = (odp: any, percentFieldName: any) =>
   R.pipe(
     R.filter((nationalClass: any) => nationalClass.area && nationalClass[percentFieldName]),
@@ -69,6 +102,9 @@ export const classTotalArea = (odp: any, percentFieldName: any) =>
     sum
   )(odp.nationalClasses)
 
+/**
+ * @deprecated
+ */
 export const otherLandTotalArea = (odp: any) => {
   const total = totalArea(odp)
   const forestArea = classTotalArea(odp, 'forestPercent')
@@ -76,6 +112,9 @@ export const otherLandTotalArea = (odp: any) => {
   return sub(total, add(forestArea, otherWoodedArea))
 }
 
+/**
+ * @deprecated
+ */
 export const subClassTotalArea = (odp: any, percentFieldName: any, subClassPercentFieldName: any) =>
   R.pipe(
     R.filter(
@@ -90,6 +129,9 @@ export const subClassTotalArea = (odp: any, percentFieldName: any, subClassPerce
     sum
   )(odp.nationalClasses)
 
+/**
+ * @deprecated
+ */
 export const subSubClassTotalArea = (
   odp: any,
   percentFieldName: any,
@@ -113,12 +155,19 @@ export const subSubClassTotalArea = (
     sum
   )(odp.nationalClasses)
 
+/**
+ * @deprecated.
+ * Use ODPs.canCopyPreviousValues
+ */
 export const allowCopyingOfPreviousValues = R.pipe(
   R.path(['nationalClasses', 0, 'className']),
   R.defaultTo(''),
   R.isEmpty
 )
 
+/**
+ * @deprecated
+ */
 export const copyNationalClassDefinitions = (odpTarget: any, odpSource: any) => ({
   ...odpTarget,
   nationalClasses: [

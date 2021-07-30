@@ -6,8 +6,8 @@ import { PercentInput } from '@webapp/components/percentInput'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { useCountryIso, useI18n } from '@webapp/components/hooks'
 import { pasteNationalClassValues, updateNationalClassValue } from '../../../actions'
-import useClassNameComments from '../useClassNameComments'
-import useValidationNationalClass from '../useValidationNationalClass'
+import useClassNameComments from '../../../../../../../../components/OriginalDataPoint/NationalClasses/NationalClass/useClassNameComments'
+import useValidationNationalClass from '../../../../../../../../components/OriginalDataPoint/NationalClasses/NationalClass/useValidationNationalClass'
 
 const columns = [
   { name: 'area', type: 'decimal' },

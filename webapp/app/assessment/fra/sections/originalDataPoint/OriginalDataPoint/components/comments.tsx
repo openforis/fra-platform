@@ -2,7 +2,7 @@ import React from 'react'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { useCountryIso, useI18n } from '@webapp/components/hooks'
 import CommentsEditor from './commentsEditor'
-import useClassNameComments from './useClassNameComments'
+import useClassNameComments from '../../../../../../../components/OriginalDataPoint/NationalClasses/NationalClass/useClassNameComments'
 
 type Props = {
   canEditData: boolean

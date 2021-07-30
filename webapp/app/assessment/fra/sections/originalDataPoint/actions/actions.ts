@@ -3,6 +3,7 @@ import * as R from 'ramda'
 
 import { FRA } from '@core/assessment'
 import { ODP } from '@core/odp'
+import { Objects } from '@core/utils'
 import { validateDataPoint } from '@common/validateOriginalDataPoint'
 import * as BasePaths from '@webapp/main/basePaths'
 import { batchActions } from '@webapp/main/reduxBatch'
@@ -15,7 +16,6 @@ import * as autosave from '@webapp/app/components/autosave/actions'
 import { fetchCountryOverviewStatus } from '@webapp/app/country/actions'
 
 import { ApiEndPoint } from '@common/api/endpoint'
-import { Objects } from '@core/utils'
 import * as OriginalDataPointState from '../originalDataPointState'
 import * as ODPs from '../originalDataPoint'
 import handlePaste from '../paste'
@@ -132,7 +132,7 @@ export const markAsActual =
     }
   }
 
-export const copyPreviousNationalClasses = (countryIso: any, odp: any) => async (dispatch: any) => {
+export const copyPreviousNationalClasses = (countryIso: string, odp: ODP) => async (dispatch: any) => {
   const { data: prevOdp } = await axios.get(
     `${ApiEndPoint.Odp.getPrevious(countryIso, odp.year)}?countryIso=${countryIso}`
   )
