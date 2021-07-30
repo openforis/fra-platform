@@ -1,22 +1,28 @@
 import React from 'react'
+
+import { ODP, ODPs } from '@core/odp'
 import * as NumberUtils from '@common/bignumberUtils'
-import DefinitionLink from '@webapp/components/definitionLink'
 import { useI18n, usePrintView } from '@webapp/components/hooks'
-import * as ODP from '../../../app/assessment/fra/sections/originalDataPoint/originalDataPoint'
-import ForestCharacteristicsRow from './forestCharacteristicsRow'
-import ForestCharacteristicsPlantation from './forestCharacteristicsPlantation'
+
+import DefinitionLink from '@webapp/components/definitionLink'
+import ForestCharacteristicsRow from './ForestCharacteristicsRow'
+import ForestCharacteristicsPlantation from './ForestCharacteristicsPlantation'
 
 type Props = {
   canEditData: boolean
-  odp: any
+  odp: ODP
 }
-export const ForestCharacteristics = (props: Props) => {
+
+export const ForestCharacteristics: React.FC<Props> = (props) => {
   const { canEditData, odp } = props
-  const nationalClasses = odp.nationalClasses.filter((nationalClass: any) => !nationalClass.placeHolder)
-  const plantationTotal = ODP.subClassTotalArea(odp, 'forestPercent', 'plantationPercent')
-  const hasPlantation = plantationTotal && NumberUtils.greaterThan(plantationTotal, 0)
+
   const i18n = useI18n()
   const [printView] = usePrintView()
+
+  const nationalClasses = odp.nationalClasses.filter((nationalClass) => !nationalClass.placeHolder)
+  const plantationTotal = ODPs.calcTotalSubFieldArea({ odp, field: 'forestPercent', subField: 'plantationPercent' })
+  const hasPlantation = plantationTotal && NumberUtils.greaterThan(plantationTotal, 0)
+
   return (
     <div className="odp__section">
       {!printView && (
@@ -48,23 +54,18 @@ export const ForestCharacteristics = (props: Props) => {
                   {i18n.t('nationalDataPoint.fraClasses')}
                 </th>
               </tr>
+
               <tr>
                 <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.class')}</th>
-                <th className="fra-table__header-cell fra-table__divider">
-                  {i18n.t('nationalDataPoint.area')}
-                </th>
+                <th className="fra-table__header-cell fra-table__divider">{i18n.t('nationalDataPoint.area')}</th>
                 <th className="fra-table__header-cell">
                   {i18n.t('fraForestCharacteristicsClass.naturallyRegeneratingForest')}
                 </th>
-                <th className="fra-table__header-cell">
-                  {i18n.t('fraForestCharacteristicsClass.plantationForest')}
-                </th>
-                <th className="fra-table__header-cell">
-                  {i18n.t('fraForestCharacteristicsClass.otherPlantedForest')}
-                </th>
+                <th className="fra-table__header-cell">{i18n.t('fraForestCharacteristicsClass.plantationForest')}</th>
+                <th className="fra-table__header-cell">{i18n.t('fraForestCharacteristicsClass.otherPlantedForest')}</th>
               </tr>
 
-              {nationalClasses.map((nationalClass: any, index: any) => (
+              {nationalClasses.map((nationalClass, index) => (
                 <ForestCharacteristicsRow
                   key={nationalClass.className}
                   canEditData={canEditData}
@@ -72,19 +73,26 @@ export const ForestCharacteristics = (props: Props) => {
                   odp={odp}
                 />
               ))}
+
               <tr>
                 <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.total')}</th>
                 <th className="fra-table__calculated-cell fra-table__divider">
-                  {NumberUtils.formatNumber(ODP.classTotalArea(odp, 'forestPercent'))}
+                  {NumberUtils.formatNumber(ODPs.calcTotalFieldArea({ odp, field: 'forestPercent' }))}
                 </th>
                 <td className="fra-table__calculated-cell">
-                  {NumberUtils.formatNumber(ODP.subClassTotalArea(odp, 'forestPercent', 'naturalForestPercent'))}
+                  {NumberUtils.formatNumber(
+                    ODPs.calcTotalSubFieldArea({ odp, field: 'forestPercent', subField: 'naturalForestPercent' })
+                  )}
                 </td>
                 <td className="fra-table__calculated-cell">
-                  {NumberUtils.formatNumber(ODP.subClassTotalArea(odp, 'forestPercent', 'plantationPercent'))}
+                  {NumberUtils.formatNumber(
+                    ODPs.calcTotalSubFieldArea({ odp, field: 'forestPercent', subField: 'plantationPercent' })
+                  )}
                 </td>
                 <td className="fra-table__calculated-cell">
-                  {NumberUtils.formatNumber(ODP.subClassTotalArea(odp, 'forestPercent', 'otherPlantedPercent'))}
+                  {NumberUtils.formatNumber(
+                    ODPs.calcTotalSubFieldArea({ odp, field: 'forestPercent', subField: 'otherPlantedPercent' })
+                  )}
                 </td>
               </tr>
             </tbody>

@@ -116,7 +116,8 @@ export const otherLandTotalArea = (odp: any) => {
 }
 
 /**
- * @deprecated
+ * @deprecated.
+ * use ODPs.calcTotalSubFieldArea
  */
 export const subClassTotalArea = (odp: any, percentFieldName: any, subClassPercentFieldName: any) =>
   R.pipe(
@@ -133,7 +134,8 @@ export const subClassTotalArea = (odp: any, percentFieldName: any, subClassPerce
   )(odp.nationalClasses)
 
 /**
- * @deprecated
+ * @deprecated.
+ * use ODPs.calcTotalSubSubFieldArea
  */
 export const subSubClassTotalArea = (
   odp: any,

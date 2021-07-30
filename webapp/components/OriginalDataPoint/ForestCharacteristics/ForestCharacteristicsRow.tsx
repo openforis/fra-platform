@@ -1,14 +1,16 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
+
+import { ODP, ODPNationalClass } from '@core/odp'
 import * as NumberUtils from '@common/bignumberUtils'
 import { PercentInput } from '@webapp/components/percentInput'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { useCountryIso, useI18n } from '@webapp/components/hooks'
-import { pasteNationalClassValues, updateNationalClassValue } from '../../../app/assessment/fra/sections/originalDataPoint/actions'
 import {
-  useNationalClassNameComments,
-  useNationalClassValidation,
-} from '../hooks'
+  pasteNationalClassValues,
+  updateNationalClassValue,
+} from '../../../app/assessment/fra/sections/originalDataPoint/actions'
+import { useNationalClassNameComments, useNationalClassValidation } from '../hooks'
 
 const columns = [
   { name: 'area', type: 'decimal' },
@@ -16,32 +18,39 @@ const columns = [
   { name: 'plantationPercent', type: 'decimal' },
   { name: 'otherPlantedPercent', type: 'decimal' },
 ]
-const allowedClass = (nc: any) => nc.forestPercent > 0
-type ForestCharacteristicsRowProps = {
+
+const allowedClass = (nc: ODPNationalClass) => Number(nc.forestPercent) > 0
+
+type Props = {
   canEditData: boolean
   index: number
-  odp: any
+  odp: ODP
 }
-const ForestCharacteristicsRow = (props: ForestCharacteristicsRowProps) => {
+
+const ForestCharacteristicsRow: React.FC<Props> = (props) => {
   const { canEditData, index, odp } = props
+
+  const dispatch = useDispatch()
+  const i18n = useI18n()
+  const countryIso = useCountryIso()
+
   const { nationalClasses, odpId } = odp
   const nationalClass = nationalClasses[index]
   const { className, area, naturalForestPercent, plantationPercent, otherPlantedPercent, uuid } = nationalClass
   const target = [odpId, 'class', `${uuid}`, 'forest_charasteristics']
-  const dispatch = useDispatch()
-  const i18n = useI18n()
-  const countryIso = useCountryIso()
   const classNameRowComments = useNationalClassNameComments(target)
   const validationStatus = useNationalClassValidation(index)
   const classNamePercentageValidation = validationStatus.validFocPercentage === false ? 'error' : ''
+
   if (!allowedClass(nationalClass)) {
     return null
   }
+
   return (
     <tr className={classNameRowComments}>
       <th className="fra-table__category-cell">{className}</th>
       <th className="fra-table__calculated-sub-cell fra-table__divider">
-        {area && NumberUtils.formatNumber((area * nationalClass.forestPercent) / 100)}
+        {area && NumberUtils.formatNumber((Number(area) * Number(nationalClass.forestPercent)) / 100)}
       </th>
       <td className={`fra-table__cell ${classNamePercentageValidation}`}>
         <PercentInput
@@ -63,6 +72,7 @@ const ForestCharacteristicsRow = (props: ForestCharacteristicsRowProps) => {
           }}
         />
       </td>
+
       <td className={`fra-table__cell ${classNamePercentageValidation}`}>
         <PercentInput
           disabled={!canEditData}
@@ -83,6 +93,7 @@ const ForestCharacteristicsRow = (props: ForestCharacteristicsRowProps) => {
           }}
         />
       </td>
+
       <td className={`fra-table__cell ${classNamePercentageValidation}`}>
         <PercentInput
           disabled={!canEditData}
@@ -103,6 +114,7 @@ const ForestCharacteristicsRow = (props: ForestCharacteristicsRowProps) => {
           }}
         />
       </td>
+
       <td className="fra-table__row-anchor-cell">
         {odp.odpId && canEditData && (
           <div className="odp__review-indicator-row-anchor">
@@ -118,4 +130,5 @@ const ForestCharacteristicsRow = (props: ForestCharacteristicsRowProps) => {
     </tr>
   )
 }
+
 export default ForestCharacteristicsRow
