@@ -15,7 +15,6 @@ import * as OriginalDataPointState from './originalDataPointState'
 
 type Props = {
   section: string
-  i18n: any
 }
 
 const NationalDataPointsPrintView = (props: Props) => {
@@ -26,7 +25,9 @@ const NationalDataPointsPrintView = (props: Props) => {
       .filter((ndp: any) => !(R.isNil(ndp.year) || R.isEmpty(ndp.year)))
       .sort((a: any, b: any) => Number(a.year) - Number(b.year))
   )
+
   if (data.length === 0) return null
+
   return (
     <div>
       <h2 className="headline">{i18n.t('nationalDataPoint.nationalData')}</h2>

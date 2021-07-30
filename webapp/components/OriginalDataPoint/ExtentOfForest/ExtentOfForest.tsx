@@ -1,19 +1,23 @@
 import React from 'react'
+
+import { ODP, ODPs } from '@core/odp'
 import * as NumberFormat from '@common/numberFormat'
 import DefinitionLink from '@webapp/components/definitionLink'
 import { useI18n, usePrintView } from '@webapp/components/hooks'
-import * as ODP from '../../../app/assessment/fra/sections/originalDataPoint/originalDataPoint'
-import ExtentOfForestRow from './extentOfForestRow'
+import ExtentOfForestRow from './ExtentOfForestRow'
 
 type Props = {
   canEditData: boolean
-  odp: any
+  odp: ODP
 }
-export const ExtentOfForest = (props: Props) => {
+
+export const ExtentOfForest: React.FC<Props> = (props) => {
   const { canEditData, odp } = props
-  const nationalClasses = odp.nationalClasses.filter((nationalClass: any) => !nationalClass.placeHolder)
+
   const i18n = useI18n()
   const [printView] = usePrintView()
+  const nationalClasses = odp.nationalClasses.filter((nationalClass) => !nationalClass.placeHolder)
+
   return (
     <div className="odp__section">
       {!printView && (
@@ -47,30 +51,29 @@ export const ExtentOfForest = (props: Props) => {
               </tr>
               <tr>
                 <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.class')}</th>
-                <th className="fra-table__header-cell fra-table__divider">
-                  {i18n.t('nationalDataPoint.area')}
-                </th>
+                <th className="fra-table__header-cell fra-table__divider">{i18n.t('nationalDataPoint.area')}</th>
                 <th className="fra-table__header-cell">{i18n.t('fraClass.forest')}</th>
                 <th className="fra-table__header-cell">{i18n.t('fraClass.otherWoodedLand')}</th>
                 <th className="fra-table__header-cell">{i18n.t('fraClass.otherLand')}</th>
               </tr>
 
-              {nationalClasses.map((nationalClass: any, index: any) => (
+              {nationalClasses.map((nationalClass, index) => (
                 <ExtentOfForestRow key={nationalClass.className} canEditData={canEditData} index={index} odp={odp} />
               ))}
+
               <tr>
                 <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.total')}</th>
                 <td className="fra-table__calculated-cell fra-table__divider">
-                  {NumberFormat.formatDecimal(ODP.totalArea(odp))}
+                  {NumberFormat.formatDecimal(ODPs.calcTotalArea({ odp }))}
                 </td>
                 <td className="fra-table__calculated-cell">
-                  {NumberFormat.formatDecimal(ODP.classTotalArea(odp, 'forestPercent'))}
+                  {NumberFormat.formatDecimal(ODPs.calcTotalFieldArea({ odp, field: 'forestPercent' }))}
                 </td>
                 <td className="fra-table__calculated-cell">
-                  {NumberFormat.formatDecimal(ODP.classTotalArea(odp, 'otherWoodedLandPercent'))}
+                  {NumberFormat.formatDecimal(ODPs.calcTotalFieldArea({ odp, field: 'otherWoodedLandPercent' }))}
                 </td>
                 <td className="fra-table__calculated-cell">
-                  {NumberFormat.formatDecimal(ODP.otherLandTotalArea(odp))}
+                  {NumberFormat.formatDecimal(ODPs.calcTotalLandArea({ odp }))}
                 </td>
               </tr>
             </tbody>

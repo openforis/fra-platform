@@ -7,7 +7,7 @@ import { useI18n, usePrintView } from '@webapp/components/hooks'
 import NationalDataPointsPrintView from '@webapp/app/assessment/fra/sections/originalDataPoint/nationalDataPointsPrintView'
 import { Props } from '../props'
 
-const ForestCharacteristics = (props: Props) => {
+const ForestCharacteristics: React.FC<Props> = (props) => {
   const { sectionName } = props
 
   const i18n = useI18n()
@@ -18,9 +18,7 @@ const ForestCharacteristics = (props: Props) => {
     <>
       <h2 className="headline no-print">{i18n.t(`${sectionName}.${sectionName}`)}</h2>
 
-      {hasOdps && printView && !printOnlyTablesView && (
-        <NationalDataPointsPrintView i18n={i18n} section={sectionName} />
-      )}
+      {hasOdps && printView && !printOnlyTablesView && <NationalDataPointsPrintView section={sectionName} />}
     </>
   )
 }

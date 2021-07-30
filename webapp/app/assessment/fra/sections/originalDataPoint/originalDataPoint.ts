@@ -83,7 +83,8 @@ export const addNationalClassPlaceHolder = (odp: any) => ({
 })
 
 /**
- * @deprecated
+ * @deprecated.
+ * Use ODPs.calcTotalArea
  */
 export const totalArea = (odp: any) =>
   R.pipe(
@@ -94,6 +95,7 @@ export const totalArea = (odp: any) =>
 
 /**
  * @deprecated
+ * Use ODPs.calcTotalFieldArea
  */
 export const classTotalArea = (odp: any, percentFieldName: any) =>
   R.pipe(
@@ -103,7 +105,8 @@ export const classTotalArea = (odp: any, percentFieldName: any) =>
   )(odp.nationalClasses)
 
 /**
- * @deprecated
+ * @deprecated.
+ * Use ODPs.calcTotalLandArea
  */
 export const otherLandTotalArea = (odp: any) => {
   const total = totalArea(odp)

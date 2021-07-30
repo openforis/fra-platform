@@ -35,9 +35,7 @@ const ExtentOfForest: React.FC<Props> = (props) => {
         )}
       </h2>
 
-      {hasOdps && printView && !printOnlyTablesView && (
-        <NationalDataPointsPrintView i18n={i18n} section={sectionName} />
-      )}
+      {hasOdps && printView && !printOnlyTablesView && <NationalDataPointsPrintView section={sectionName} />}
     </>
   )
 }

@@ -3,7 +3,12 @@ import { Objects } from '@core/utils'
 import { ODP } from '../odp'
 import { ODPNationalClass, ODPNationalClassFactory } from '../odpNationalClass'
 
-export const updateNationalClass = (props: { odp: ODP; index: number; field: string; value: string }): ODP => {
+export const updateNationalClass = (props: {
+  odp: ODP
+  index: number
+  field: keyof ODPNationalClass
+  value: string
+}): ODP => {
   const { odp: odpProps, index, field, value } = props
 
   const odp: ODP = Objects.cloneDeep(odpProps)
