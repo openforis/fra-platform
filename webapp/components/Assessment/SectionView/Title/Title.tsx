@@ -33,7 +33,7 @@ const Title: React.FC<Props> = (props) => {
   const i18n = useI18n()
   const panEuropean = assessmentType === AssessmentType.panEuropean
 
-  const Component = Components?.[assessmentType]?.[sectionName] || TitleDefault
+  const Component = Components[assessmentType]?.[sectionName] || TitleDefault
 
   return (
     <>

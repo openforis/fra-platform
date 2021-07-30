@@ -16,7 +16,7 @@ const Components: Record<string, Record<string, React.FC<Props>>> = {
 const SectionHeader: React.FC<Props> = (props) => {
   const { assessmentType, sectionName, disabled } = props
 
-  const Component = Components?.[assessmentType]?.[sectionName]
+  const Component = Components[assessmentType]?.[sectionName]
 
   if (!Component) {
     return null
