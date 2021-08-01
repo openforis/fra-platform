@@ -11,7 +11,7 @@ import { fetchLastSectionUpdateTimestamp, resetSectionUpdateTimestamp } from '@w
 import { useCountryIso, useIsDataExportView } from '@webapp/components/hooks'
 
 import DataExport from '@webapp/app/dataExport'
-import { SectionView } from '@webapp/components/Assessment'
+import SectionView from '@webapp/components/Assessment/SectionView'
 import useSectionTables from './useSectionTables'
 
 const AssessmentSection: React.FC = () => {

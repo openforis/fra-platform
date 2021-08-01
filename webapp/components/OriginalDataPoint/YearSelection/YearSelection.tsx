@@ -15,7 +15,7 @@ type Props = {
   odp: ODP
 }
 
-export const YearSelection: React.FC<Props> = (props) => {
+const YearSelection: React.FC<Props> = (props) => {
   const { odp, canEditData } = props
 
   const dispatch = useDispatch()
@@ -52,3 +52,5 @@ export const YearSelection: React.FC<Props> = (props) => {
     </div>
   )
 }
+
+export default YearSelection

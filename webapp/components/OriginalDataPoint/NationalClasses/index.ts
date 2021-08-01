@@ -1,1 +1,1 @@
-export { NationalClasses } from './NationalClasses'
+export { default } from './NationalClasses'

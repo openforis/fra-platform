@@ -1,1 +1,1 @@
-export { OriginalDataPointsPrint } from './OriginalDataPointsPrint'
+export { default } from './OriginalDataPointsPrint'

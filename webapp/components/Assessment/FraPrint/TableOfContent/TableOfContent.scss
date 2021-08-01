@@ -1,7 +1,7 @@
-@import (reference) 'webapp/main/styles/config';
+@import 'webapp/style/partials';
 
 .disclaimer {
-  font-size: @font-l;
+  font-size: $font-l;
   font-weight: 200;
 }
 
@@ -33,7 +33,7 @@
   }
 
   a {
-    color: @text-body;
+    color: $text-body;
     text-decoration: unset;
   }
 }
