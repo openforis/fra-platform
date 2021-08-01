@@ -1,1 +1,1 @@
-export { ForestCharacteristics } from './ForestCharacteristics'
+export { default } from './ForestCharacteristics'

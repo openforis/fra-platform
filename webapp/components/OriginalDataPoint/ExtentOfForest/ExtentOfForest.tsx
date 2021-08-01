@@ -11,7 +11,7 @@ type Props = {
   odp: ODP
 }
 
-export const ExtentOfForest: React.FC<Props> = (props) => {
+const ExtentOfForest: React.FC<Props> = (props) => {
   const { canEditData, odp } = props
 
   const i18n = useI18n()
@@ -83,3 +83,5 @@ export const ExtentOfForest: React.FC<Props> = (props) => {
     </div>
   )
 }
+
+export default ExtentOfForest

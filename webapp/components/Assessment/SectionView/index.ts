@@ -1,1 +1,1 @@
-export { SectionView } from './SectionView'
+export { default } from './SectionView'

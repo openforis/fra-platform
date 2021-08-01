@@ -1,1 +1,1 @@
-export { OriginalData } from './OriginalData'
+export { default } from './OriginalData'
