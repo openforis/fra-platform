@@ -11,7 +11,7 @@ type Props = {
   odp: ODP
 }
 
-export const ButtonBar: React.FC<Props> = (props) => {
+const ButtonBar: React.FC<Props> = (props) => {
   const { odp, canEditData } = props
 
   const dispatch = useDispatch()
@@ -66,3 +66,5 @@ export const ButtonBar: React.FC<Props> = (props) => {
     </>
   )
 }
+
+export default ButtonBar

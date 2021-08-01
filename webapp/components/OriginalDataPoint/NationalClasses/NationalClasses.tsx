@@ -12,7 +12,7 @@ type Props = {
   odp: ODP
 }
 
-export const NationalClasses: React.FC<Props> = (props) => {
+const NationalClasses: React.FC<Props> = (props) => {
   const { canEditData, odp } = props
   const { nationalClasses, odpId, year } = odp
 
@@ -64,3 +64,5 @@ export const NationalClasses: React.FC<Props> = (props) => {
     </div>
   )
 }
+
+export default NationalClasses

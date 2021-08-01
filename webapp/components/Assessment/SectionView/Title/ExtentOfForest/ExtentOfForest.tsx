@@ -6,7 +6,7 @@ import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extent
 import { toggleOdps } from '@webapp/app/assessment/fra/sections/extentOfForest/actions'
 import { useI18n, usePrintView, useUserInfo } from '@webapp/components/hooks'
 
-import { OriginalDataPointsPrint } from '@webapp/components/OriginalDataPoint'
+import OriginalDataPointsPrint from '@webapp/components/OriginalDataPoint/OriginalDataPointsPrint'
 import { Props } from '../props'
 
 const ExtentOfForest: React.FC<Props> = (props) => {

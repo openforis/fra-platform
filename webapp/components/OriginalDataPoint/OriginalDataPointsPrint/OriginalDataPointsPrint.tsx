@@ -5,20 +5,18 @@ import { FRA } from '@core/assessment'
 import { ODP } from '@core/odp'
 import { Objects } from '@core/utils'
 import { useI18n } from '@webapp/components/hooks'
-
-import {
-  DataSources,
-  ExtentOfForest,
-  ForestCharacteristics,
-  NationalClasses,
-} from '@webapp/components/OriginalDataPoint'
 import * as OriginalDataPointState from '@webapp/app/assessment/fra/sections/originalDataPoint/originalDataPointState'
+
+import DataSources from '@webapp/components/OriginalDataPoint/DataSources'
+import NationalClasses from '@webapp/components/OriginalDataPoint/NationalClasses'
+import ExtentOfForest from '@webapp/components/OriginalDataPoint/ExtentOfForest'
+import ForestCharacteristics from '@webapp/components/OriginalDataPoint/ForestCharacteristics'
 
 type Props = {
   section: string
 }
 
-export const OriginalDataPointsPrint: React.FC<Props> = (props) => {
+const OriginalDataPointsPrint: React.FC<Props> = (props) => {
   const { section } = props
 
   const i18n = useI18n()
@@ -59,3 +57,5 @@ export const OriginalDataPointsPrint: React.FC<Props> = (props) => {
     </div>
   )
 }
+
+export default OriginalDataPointsPrint
