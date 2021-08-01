@@ -18,7 +18,7 @@ type Props = {
   sectionName: string
 }
 
-export const SectionView: React.FC<Props> = (props) => {
+const SectionView: React.FC<Props> = (props) => {
   const { assessmentType, sectionName } = props
 
   const i18n = useI18n()
@@ -77,3 +77,5 @@ export const SectionView: React.FC<Props> = (props) => {
     </div>
   )
 }
+
+export default SectionView
