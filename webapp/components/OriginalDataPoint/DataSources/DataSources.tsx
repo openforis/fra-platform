@@ -13,7 +13,7 @@ type Props = {
   odp: ODP
 }
 
-export const DataSources: React.FC<Props> = (props) => {
+const DataSources: React.FC<Props> = (props) => {
   const { odp, canEditData } = props
 
   const dispatch = useDispatch()
@@ -119,3 +119,5 @@ export const DataSources: React.FC<Props> = (props) => {
     </div>
   )
 }
+
+export default DataSources

@@ -12,7 +12,7 @@ type Props = {
   odp: ODP
 }
 
-export const Comments: React.FC<Props> = (props) => {
+const Comments: React.FC<Props> = (props) => {
   const { odp, canEditData } = props
 
   const i18n = useI18n()
@@ -41,3 +41,5 @@ export const Comments: React.FC<Props> = (props) => {
     </div>
   )
 }
+
+export default Comments

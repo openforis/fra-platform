@@ -9,8 +9,8 @@ import * as BasePaths from '@webapp/main/basePaths'
 import { useCountryIso, useI18n } from '@webapp/components/hooks'
 import * as CountryState from '@webapp/app/country/countryState'
 
-import { ExtentOfForest } from '../ExtentOfForest'
-import { ForestCharacteristics } from '../ForestCharacteristics'
+import ExtentOfForest from '../ExtentOfForest'
+import ForestCharacteristics from '../ForestCharacteristics'
 
 const extentOfForest = FRA.sections['1'].children.a
 const forestCharacteristics = FRA.sections['1'].children.b
@@ -20,7 +20,7 @@ type Props = {
   odp: ODP
 }
 
-export const OriginalData: React.FC<Props> = (props) => {
+const OriginalData: React.FC<Props> = (props) => {
   const { canEditData, odp } = props
 
   const i18n = useI18n()
@@ -76,3 +76,5 @@ export const OriginalData: React.FC<Props> = (props) => {
     </div>
   )
 }
+
+export default OriginalData
