@@ -16,14 +16,14 @@ const sanitizerSelectValue = (value: any, valuePrev: any, options: any) => {
 }
 
 const acceptableFnByType = {
-  [SectionSpec.TYPES.decimal]: acceptableAsDecimal,
-  [SectionSpec.TYPES.integer]: acceptableAsInteger,
+  [SectionSpec.TypeSpec.decimal]: acceptableAsDecimal,
+  [SectionSpec.TypeSpec.integer]: acceptableAsInteger,
 }
 
 const sanitizerFnByType = {
-  [SectionSpec.TYPES.decimal]: acceptNextDecimal,
-  [SectionSpec.TYPES.integer]: acceptNextInteger,
-  [SectionSpec.TYPES.select]: sanitizerSelectValue,
+  [SectionSpec.TypeSpec.decimal]: acceptNextDecimal,
+  [SectionSpec.TypeSpec.integer]: acceptNextInteger,
+  [SectionSpec.TypeSpec.select]: sanitizerSelectValue,
 }
 
 export const isAcceptable = (type: any, value: any) => {

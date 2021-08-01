@@ -10,7 +10,7 @@ const years = [...PanEuropean.years90_20].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_5_1,
-  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.haThousand,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.Unit.haThousand,
   [SectionSpec.KEYS_TABLE.columnsExport]: [
     'soil_water_and_other_forest_ecosystem_functions',
     'infrastructure_and_managed_natural_resources',

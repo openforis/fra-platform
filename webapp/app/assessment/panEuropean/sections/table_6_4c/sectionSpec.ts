@@ -10,7 +10,7 @@ const years = [...PanEuropean.years90_15].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_6_4c,
-  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.millionNationalCurrency,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.Unit.millionNationalCurrency,
   [SectionSpec.KEYS_TABLE.columnsExport]: ['capital_transfers'],
 
   [SectionSpec.KEYS_TABLE.rows]: [

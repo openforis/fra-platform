@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { TYPE, TYPES, getType } from '@webapp/app/assessment/components/section/sectionSpec/keysType'
+import { TYPE, TypeSpec, getType } from '@core/sectionSpec/typeSpec'
 import { KEYS_COL } from '@webapp/app/assessment/components/section/sectionSpec/colSpec'
 
 export const KEYS_ROW = {
@@ -31,10 +31,10 @@ export const KEYS_ROW_CHART = {
   color: 'color',
 }
 
-const rowHeaderDefault: any = { [KEYS_ROW.type]: TYPES.header, [KEYS_ROW.cols]: [] }
+const rowHeaderDefault: any = { [KEYS_ROW.type]: TypeSpec.header, [KEYS_ROW.cols]: [] }
 
 const rowDataDefault: any = {
-  [KEYS_ROW.type]: TYPES.data,
+  [KEYS_ROW.type]: TypeSpec.data,
   [KEYS_ROW.cols]: [],
   [KEYS_ROW.validator]: null,
   [KEYS_ROW.variableName]: null,
@@ -53,12 +53,12 @@ const rowDataDefault: any = {
 }
 
 const rowValidationMessagesDefault: any = {
-  [KEYS_ROW.type]: TYPES.validationMessages,
+  [KEYS_ROW.type]: TypeSpec.validationMessages,
   [KEYS_ROW.getValidationMessages]: null,
 }
 
 const rowNoticeMessageDefault: any = {
-  [KEYS_ROW.type]: TYPES.noticeMessage,
+  [KEYS_ROW.type]: TypeSpec.noticeMessage,
   [KEYS_ROW.labelKey]: null,
   [KEYS_ROW.cols]: [],
   [KEYS_ROW.rowSpan]: 1,
@@ -85,7 +85,7 @@ const assocColHeader = (row: any) => {
 
   const colHeader: any = {
     idx: `header_0`,
-    type: TYPES.header,
+    type: TypeSpec.header,
     colSpan,
     rowSpan,
     labelKey,
@@ -139,6 +139,6 @@ export const newRowNoticeMessage = R.pipe(R.mergeDeepRight(rowNoticeMessageDefau
 
 export const newRowValidationMessages = R.mergeDeepRight(rowValidationMessagesDefault)
 
-export { getType, TYPES }
+export { getType, TypeSpec }
 export const getCols = R.propOr([], KEYS_ROW.cols)
 export const getColByIdx = (idx: any) => R.pipe(getCols, R.find(R.propEq(KEYS_COL.idx, idx)))

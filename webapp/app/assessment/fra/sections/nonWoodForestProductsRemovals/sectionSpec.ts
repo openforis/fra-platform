@@ -48,7 +48,7 @@ const tableSpec1 = SectionSpec.newTableSpec({
           SectionSpec.newColSelect({
             [SectionSpec.KEYS_COL.optionsLabelKeyPrefix]: 'nonWoodForestProductsRemovals',
             [SectionSpec.KEYS_COL.options]: [
-              { [SectionSpec.KEYS_COL.optionName]: 'plantProductsSelectHeading', type: SectionSpec.TYPES.header },
+              { [SectionSpec.KEYS_COL.optionName]: 'plantProductsSelectHeading', type: SectionSpec.TypeSpec.header },
               { [SectionSpec.KEYS_COL.optionName]: 'food' },
               { [SectionSpec.KEYS_COL.optionName]: 'fodder' },
               { [SectionSpec.KEYS_COL.optionName]: 'rawMaterialForMedicine' },
@@ -57,7 +57,7 @@ const tableSpec1 = SectionSpec.newTableSpec({
               { [SectionSpec.KEYS_COL.optionName]: 'ornamentalPlants' },
               { [SectionSpec.KEYS_COL.optionName]: 'exudates' },
               { [SectionSpec.KEYS_COL.optionName]: 'otherPlantProducts' },
-              { [SectionSpec.KEYS_COL.optionName]: 'animalProductsSelectHeading', type: SectionSpec.TYPES.header },
+              { [SectionSpec.KEYS_COL.optionName]: 'animalProductsSelectHeading', type: SectionSpec.TypeSpec.header },
               { [SectionSpec.KEYS_COL.optionName]: 'livingAnimals' },
               { [SectionSpec.KEYS_COL.optionName]: 'hidesSkins' },
               { [SectionSpec.KEYS_COL.optionName]: 'wildHoney' },

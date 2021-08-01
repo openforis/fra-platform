@@ -20,7 +20,7 @@ const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.columnsExport]: years.flatMap((year: any) =>
     categories.map((category) => `${year}_${category}`)
   ),
-  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.numberOfStudents,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.Unit.numberOfStudents,
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [

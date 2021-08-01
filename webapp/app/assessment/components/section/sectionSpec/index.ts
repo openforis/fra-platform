@@ -1,14 +1,14 @@
+import * as UnitSpec from '@core/sectionSpec/unitSpec'
 import * as TableSpec from './tableSpec'
 import * as RowSpec from './rowSpec'
 import * as ColSpec from './colSpec'
-import * as UnitSpec from './unitSpec'
 
 export { TableSpec }
 export { RowSpec }
 export { ColSpec }
 export { UnitSpec }
 
-export { TYPES, TYPE, isData, isNotData, isHeader, isNotHeader, isDecimal, isText } from './keysType'
+export { TypeSpec, TYPE, isData, isNotData, isHeader, isNotHeader, isDecimal, isText } from '@core/sectionSpec/typeSpec'
 
 export { KEYS_SECTION, KEYS_SECTION_DESCRIPTIONS, KEYS_DATA_EXPORT, newSectionSpec } from './sectionSpec'
 

@@ -5,7 +5,7 @@ import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import { updateTableDataCell } from '@webapp/app/assessment/components/dataTable/actions'
 
 import { KEYS_ROW } from '@webapp/app/assessment/components/section/sectionSpec/rowSpec'
-import { isHeader } from './keysType'
+import { isHeader } from '@core/sectionSpec/typeSpec'
 
 export const KEYS_TABLE = {
   name: 'name',

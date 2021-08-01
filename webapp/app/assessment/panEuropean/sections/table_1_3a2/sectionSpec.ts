@@ -16,7 +16,7 @@ const subcategories = variables.slice(1)
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_1_3a2,
-  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.thousandCubicMeter,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.Unit.thousandCubicMeter,
   [SectionSpec.KEYS_TABLE.columnsExport]: [
     'total_volume',
     'regeneration_phase',

@@ -5,7 +5,7 @@ import * as SectionSpec from  '@webapp/app/assessment/components/section/section
 
 import { useI18n } from '@webapp/components/hooks'
 
-const isOptionHeader = R.propEq(SectionSpec.TYPE, SectionSpec.TYPES.header)
+const isOptionHeader = R.propEq(SectionSpec.TYPE, SectionSpec.TypeSpec.header)
 
 const getOptionLabel = (option: any, i18n: any, optionsLabelKeyPrefix: any) => {
   const optionName = option[SectionSpec.KEYS_COL.optionName]

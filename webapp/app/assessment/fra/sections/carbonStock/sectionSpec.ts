@@ -22,7 +22,7 @@ const variablesMappings: any = {
 
 const tableSpec1 = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.carbonStock,
-  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.tonnesPerHa,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.Unit.tonnesPerHa,
   [SectionSpec.KEYS_TABLE.columnsExport]: years,
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({

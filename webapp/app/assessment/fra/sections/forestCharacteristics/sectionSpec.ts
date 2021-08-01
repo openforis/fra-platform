@@ -92,7 +92,7 @@ const rows = [
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.forestCharacteristics,
   [SectionSpec.KEYS_TABLE.columnsExport]: FRA.years,
-  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.haThousand,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.Unit.haThousand,
   [SectionSpec.KEYS_TABLE.rows]: rows,
   [SectionSpec.KEYS_TABLE.getSectionData]: ForestCharacteristicsState.getForestCharacteristicsData,
   [SectionSpec.KEYS_TABLE.isSectionDataEmpty]: ForestCharacteristicsState.isForestCharacteristicsDataEmpty,

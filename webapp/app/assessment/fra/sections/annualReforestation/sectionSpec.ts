@@ -10,7 +10,7 @@ const { yearsRange } = FRA
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.annualReforestation,
   [SectionSpec.KEYS_TABLE.columnsExport]: yearsRange,
-  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.haThousandPerYear,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.Unit.haThousandPerYear,
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [

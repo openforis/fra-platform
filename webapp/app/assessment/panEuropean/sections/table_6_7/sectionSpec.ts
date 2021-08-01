@@ -11,7 +11,7 @@ const years = [...PanEuropean.years92_17]
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_6_7,
-  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.thousandCubicMeterRWE,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.Unit.thousandCubicMeterRWE,
 
   [SectionSpec.KEYS_TABLE.columnsExport]: years.map((year) => '_' + year),
 

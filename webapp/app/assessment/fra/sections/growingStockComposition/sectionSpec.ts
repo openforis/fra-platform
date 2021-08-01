@@ -1,5 +1,5 @@
 import { FRA } from '@core/assessment'
-import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
+import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
 import * as GrowingStockCompositionState from '@webapp/app/assessment/fra/sections/growingStockComposition/growingStockCompositionState'
 import * as GrowingStockCompositionValidatorState from '@webapp/app/assessment/fra/sections/growingStockComposition/growingStockCompositionValidatorState'
@@ -11,7 +11,7 @@ const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.growingStockComposition,
   [SectionSpec.KEYS_TABLE.columnsExport]: years,
   [SectionSpec.KEYS_TABLE.columnsExportAlways]: ['common_name', 'scientific_name'],
-  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.millionsCubicMeterOverBark,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.Unit.millionsCubicMeterOverBark,
   [SectionSpec.KEYS_TABLE.tableDataRequired]: [
     {
       [SectionSpec.KEYS_TABLE_DATA_REQUIRED.assessmentType]: FRA.type,
@@ -60,7 +60,7 @@ const tableSpec = SectionSpec.newTableSpec({
         }),
       ],
     }),
-    ...GrowingStockCompositionState.rowIndexes.native.map((idx: any) =>
+    ...GrowingStockCompositionState.rowIndexes.native.map((idx) =>
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.labelKey]: 'growingStockComposition.rank',
         [SectionSpec.KEYS_ROW.labelPrefixKey]: 'growingStockComposition.native',
@@ -78,7 +78,7 @@ const tableSpec = SectionSpec.newTableSpec({
       [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.remaining_native,
       [SectionSpec.KEYS_ROW.colSpan]: 3,
       [SectionSpec.KEYS_ROW.mainCategory]: true,
-      [SectionSpec.KEYS_ROW.cols]: years.map((year: any, idx: any) =>
+      [SectionSpec.KEYS_ROW.cols]: years.map((_, idx) =>
         SectionSpec.newColDecimal({
           [SectionSpec.KEYS_COL.idx]: idx + 2,
         })

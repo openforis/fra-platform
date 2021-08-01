@@ -10,7 +10,7 @@ const years = [...PanEuropean.years15].reverse()
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_6_10c,
-  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.facilityLengthIn1000Km,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.Unit.facilityLengthIn1000Km,
   [SectionSpec.KEYS_TABLE.columnsExport]: [
     'forest_roads_and_paths_available_for_public_recreation',
     '_of_which_designated_for_hiking_biking_cross_country_skiing_etc',

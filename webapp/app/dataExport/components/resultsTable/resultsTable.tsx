@@ -40,12 +40,12 @@ const ResultsTableTitle = (props: ResultsTableTitleProps) => {
         {labelPrefixKey && `${(i18n as any).t(labelPrefixKey)} `}
         {(i18n as any).t(getCustomVariableI18nMappings(label), labelParam)}
       </span>
-      {Object.keys(UnitSpec.factors).includes(baseUnit) ? (
+      {Object.keys(UnitSpec.UnitFactors).includes(baseUnit) ? (
         <>
           <span> (</span>
           <select className="select-s" defaultValue={baseUnit} onChange={(event) => setSelected(event.target.value)}>
             <option value={baseUnit}>{(i18n as any).t(getUnitI18nMappings(baseUnit))}</option>
-            {Object.keys(UnitSpec.factors[baseUnit]).map(
+            {Object.keys(UnitSpec.UnitFactors[baseUnit]).map(
               (unit) =>
                 unit !== baseUnit && (
                   <option key={unit} value={unit}>

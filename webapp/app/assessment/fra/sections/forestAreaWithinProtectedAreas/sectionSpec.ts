@@ -30,7 +30,7 @@ const rowsHeader = [
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.forestAreaWithinProtectedAreas,
   [SectionSpec.KEYS_TABLE.columnsExport]: FRA.years,
-  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.haThousand,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.Unit.haThousand,
   [SectionSpec.KEYS_TABLE.tableDataRequired]: [
     {
       [SectionSpec.KEYS_TABLE_DATA_REQUIRED.assessmentType]: FRA.type,

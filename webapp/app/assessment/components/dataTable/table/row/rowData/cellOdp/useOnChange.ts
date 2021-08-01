@@ -11,7 +11,7 @@ export default (props: any) => {
   const tableName = TableSpec.getName(tableSpec)
   const updateTableDataCell: any = TableSpec.getUpdateTableDataCell(tableSpec)
   const odpVariables = Object.values(TableSpec.getOdpVariables(tableSpec))
-  const type = ColSpec.TYPES.decimal
+  const type = ColSpec.TypeSpec.decimal
   const datumKey = Object.prototype.hasOwnProperty.call(datum, 'name') ? 'name' : 'year' // table 1a,1b use name and table 2a uses year
 
   const dispatch = useDispatch()
