@@ -1,1 +1,1 @@
-export { ButtonBar } from './ButtonBar'
+export { default } from './ButtonBar'

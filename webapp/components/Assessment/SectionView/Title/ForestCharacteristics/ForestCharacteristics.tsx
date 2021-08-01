@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import * as ForestCharacteristicsState from '@webapp/app/assessment/fra/sections/forestCharacteristics/forestCharacteristicsState'
 import { useI18n, usePrintView } from '@webapp/components/hooks'
 
-import { OriginalDataPointsPrint } from '@webapp/components/OriginalDataPoint'
+import OriginalDataPointsPrint from '@webapp/components/OriginalDataPoint/OriginalDataPointsPrint'
 import { Props } from '../props'
 
 const ForestCharacteristics: React.FC<Props> = (props) => {
