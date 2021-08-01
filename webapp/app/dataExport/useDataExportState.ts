@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 // @ts-ignore
 import * as snake from 'to-snake-case'
-import * as Assessment from '@common/assessment/assessment'
+
+import { AssessmentType } from '@core/assessment'
+import { SectionSpecs } from '@core/sectionSpec'
 import { throttle } from '@webapp/utils/functionUtils'
 import { formatColumn, formatSection } from '@webapp/app/dataExport/utils/format'
 import { useAssessmentType, useCountries, useCountriesPanEuropean, useRegions } from '@webapp/store/app'
 import { useCountryIso, useGetRequest } from '@webapp/components/hooks'
-import * as SectionSpecs from '@webapp/app/assessment/components/section/sectionSpecs'
-import { TableSpec } from '@webapp/app/assessment/components/section/sectionSpec'
 import { useSelector } from 'react-redux'
 import * as UiState from '@webapp/store/ui/state'
 import { __MIN_COUNTRIES__ } from '@webapp/pages/AssessmentHome/FraHome/components/CountrySelector'
@@ -18,12 +18,13 @@ const initialSelection: any = {
   columns: [],
   variable: {},
 }
+
 export default () => {
-  const { section }: any = useParams()
+  const { section } = useParams<{ section: string }>()
   const countryIso = useCountryIso()
   const regions: any = useRegions()
   const assessmentType = useAssessmentType()
-  const isPanEuropean = Assessment.isTypePanEuropean(assessmentType)
+  const isPanEuropean = assessmentType === AssessmentType.panEuropean
   let countries = isPanEuropean ? useCountriesPanEuropean() : useCountries()
   const selectedCountries: any = useSelector(UiState.getSelectedCountries)
 
@@ -53,6 +54,7 @@ export default () => {
       variables: [(selection.variable as any).param],
     },
   })
+
   useEffect(() => {
     setSelection({
       ...selection,
@@ -62,19 +64,22 @@ export default () => {
     setResultState([])
     if (assessmentType && section) {
       const tableSpec = SectionSpecs.getTableSpecExport(assessmentType, section)
-      setVariables(TableSpec.getRowsExport(tableSpec))
-      setColumns(TableSpec.getColumnsExport(tableSpec))
-      setColumnsAlwaysExport(TableSpec.getColumnsExportAlways(tableSpec))
+      setVariables(tableSpec.rows.filter((row) => !!row.variableExport))
+      setColumns(tableSpec.columnsExport ?? [])
+      setColumnsAlwaysExport(tableSpec.columnsExportAlways ?? [])
     }
   }, [section])
+
   useEffect(() => {
     if (section && hasSelection) {
       throttle(fetchResults, `fetchDataExportResults`, 800)()
     }
   }, [selection.countries, selection.columns, selection.variable])
+
   const setSelectionCountries = (value: any) => setSelection({ ...selection, countries: value })
   const setSelectionColumns = (value: any) => setSelection({ ...selection, columns: value })
   const setSelectionVariable = (value: any) => setSelection({ ...selection, variable: value })
+
   return {
     results,
     resultsLoading,

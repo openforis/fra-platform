@@ -1,28 +1,23 @@
-import * as R from 'ramda'
+import { AssessmentType } from '@core/assessment'
+import { Arrays, Objects } from '@core/utils'
+import { SectionSpecs, TableSummarySpec } from '@core/sectionSpec'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
-import * as SectionSpecs from '@webapp/app/assessment/components/section/sectionSpecs'
-
-const getTables = (assessmentType: any, sectionName: any, tableName: any) => {
+const getTables = (assessmentType: AssessmentType, sectionName: string, tableName: string): Array<TableSummarySpec> => {
   const tableSpec = SectionSpecs.getTableSpec(assessmentType, sectionName, tableName)
-  const tableDataRequiredSpecs = tableSpec[SectionSpec.KEYS_TABLE.tableDataRequired]
+  const tableDataRequiredSpecs = tableSpec.tableDataRequired
 
-  const table = {
-    [SectionSpec.KEYS_TABLE_DATA_REQUIRED.assessmentType]: assessmentType,
-    [SectionSpec.KEYS_TABLE_DATA_REQUIRED.sectionName]: sectionName,
-    [SectionSpec.KEYS_TABLE_DATA_REQUIRED.tableName]: tableName,
-  }
+  const table: TableSummarySpec = { assessmentType, sectionName, tableName }
 
-  if (R.isEmpty(tableDataRequiredSpecs)) {
+  if (Objects.isEmpty(tableDataRequiredSpecs)) {
     return [table]
   }
 
   const tablesRequired = tableDataRequiredSpecs
-    .map((tableDataRequiredSpec: any) =>
+    .map((tableDataRequiredSpec) =>
       getTables(
-        tableDataRequiredSpec[SectionSpec.KEYS_TABLE_DATA_REQUIRED.assessmentType],
-        tableDataRequiredSpec[SectionSpec.KEYS_TABLE_DATA_REQUIRED.sectionName],
-        tableDataRequiredSpec[SectionSpec.KEYS_TABLE_DATA_REQUIRED.tableName]
+        tableDataRequiredSpec.assessmentType,
+        tableDataRequiredSpec.sectionName,
+        tableDataRequiredSpec.tableName
       )
     )
     .flat()
@@ -30,11 +25,11 @@ const getTables = (assessmentType: any, sectionName: any, tableName: any) => {
   return [...tablesRequired, table]
 }
 
-const useSectionTables = (assessmentType: any, sectionName: any) => {
+const useSectionTables = (assessmentType: AssessmentType, sectionName: string): Array<TableSummarySpec> => {
   const tables = SectionSpecs.getTableSpecs(assessmentType, sectionName)
-    .map((tableSpec: any) => getTables(assessmentType, sectionName, tableSpec[SectionSpec.KEYS_TABLE.name]))
+    .map((tableSpec) => getTables(assessmentType, sectionName, tableSpec.name))
     .flat()
-  return R.uniq(tables)
+  return Arrays.unique(tables)
 }
 
 export default useSectionTables

@@ -3,10 +3,9 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 import { AssessmentType } from '@core/assessment'
+import { SectionSpecs } from '@core/sectionSpec'
 import { useI18n, usePrintView } from '@webapp/components/hooks'
 import * as FraState from '@webapp/app/assessment/fra/fraState'
-import * as SectionSpecs from '@webapp/app/assessment/components/section/sectionSpecs'
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
 import DataTable from '@webapp/app/assessment/components/dataTable'
 import SectionHeader from './SectionHeader'
@@ -26,7 +25,7 @@ const SectionView: React.FC<Props> = (props) => {
   const isSectionDisabled = useSelector(FraState.isSectionEditDisabled(sectionName))
   const panEuropean = assessmentType === AssessmentType.panEuropean
   const disabled = panEuropean || isSectionDisabled
-  const sectionSpec: any = SectionSpecs.getSectionSpec(assessmentType, sectionName)
+  const sectionSpec = SectionSpecs.getSectionSpec(assessmentType, sectionName)
   const { sectionAnchor, tableSections, showTitle, descriptions } = sectionSpec
 
   return (
@@ -43,8 +42,8 @@ const SectionView: React.FC<Props> = (props) => {
 
       {showTitle && <Title assessmentType={assessmentType} sectionName={sectionName} sectionAnchor={sectionAnchor} />}
 
-      {tableSections.map((tableSection: any) => (
-        <div key={tableSection.idx}>
+      {tableSections.map((tableSection, idx) => (
+        <div key={String(idx)}>
           {tableSection.titleKey && (
             <h3 className="subhead assessment-section__table-title">{i18n.t(tableSection.titleKey)}</h3>
           )}
@@ -54,7 +53,7 @@ const SectionView: React.FC<Props> = (props) => {
             </div>
           )}
 
-          {tableSection.tableSpecs.map((tableSpec: any) => (
+          {tableSection.tableSpecs.map((tableSpec) => (
             <React.Fragment key={tableSpec.name}>
               <DataTable
                 assessmentType={assessmentType}
@@ -63,9 +62,7 @@ const SectionView: React.FC<Props> = (props) => {
                 tableSpec={tableSpec}
                 disabled={disabled}
               />
-              {tableSpec[SectionSpec.KEYS_TABLE.print][SectionSpec.KEYS_TABLE_PRINT.pageBreakAfter] && (
-                <div className="page-break" />
-              )}
+              {tableSpec.print.pageBreakAfter && <div className="page-break" />}
             </React.Fragment>
           ))}
         </div>

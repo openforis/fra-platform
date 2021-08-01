@@ -18,6 +18,8 @@ export type UpdateTableData = (
     | { state: any; datum: any; variableName: string }
 ) => (data: any) => any
 
+export type TableSummarySpec = { assessmentType: AssessmentType; sectionName: string; tableName: string }
+
 export interface TableSpec {
   // base props
   name: string
@@ -26,7 +28,7 @@ export interface TableSpec {
   odpVariables?: Record<string, string>
   secondary?: boolean
   showOdpChart?: boolean
-  tableDataRequired?: Array<{ assessmentType: AssessmentType; sectionName: string; tableName: string }>
+  tableDataRequired?: Array<TableSummarySpec>
   unit?: Unit
   // print props
   print?: { pageBreakAfter: boolean; colBreakPoints?: Array<string> }

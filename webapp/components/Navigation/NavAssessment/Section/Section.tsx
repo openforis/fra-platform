@@ -4,10 +4,10 @@ import { useSelector } from 'react-redux'
 import { matchPath, useLocation } from 'react-router-dom'
 
 import { Assessment, AssessmentSection } from '@core/assessment'
+import { SectionSpecs } from '@core/sectionSpec'
 import { ReviewStatus } from '@core/reviewStatus'
 import * as BasePaths from '@webapp/main/basePaths'
 import * as ReviewStatusState from '@webapp/app/country/reviewStatusState'
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpecs'
 import { useI18n, useIsDataExportView } from '@webapp/components/hooks'
 
 import ReviewStatusMarker from './ReviewStatusMarker'
@@ -34,9 +34,7 @@ const Section: React.FC<Props> = (props) => {
   let children = Object.values(section.children)
   if (isDataExport) {
     children = children
-      .filter(
-        (subsection) => (SectionSpec.getSectionSpec(assessmentType, subsection.name) as any)?.dataExport?.included
-      )
+      .filter((subsection) => SectionSpecs.getSectionSpec(assessmentType, subsection.name)?.dataExport?.included)
       .sort((child1, child2) => child1.anchor.localeCompare(child2.anchor, undefined, { numeric: true }))
   }
 

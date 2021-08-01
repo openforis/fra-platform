@@ -1,12 +1,18 @@
 export type { ColSpec, CalculateValue, FormatValue } from './colSpec'
+export { ColSpecFactory } from './colSpecFactory'
 
 export type { DescriptionSpec, DescriptionsSpec } from './descriptionsSpec'
 
 export type { RowSpec, RowChartSpec } from './rowSpec'
+export { RowSpecFactory } from './rowSpecFactory'
 
-export type { SectionSpec } from './sectionSpec'
+export type { SectionSpec, SectionTableSpec, SectionExportSpec } from './sectionSpec'
+export { SectionSpecFactory } from './sectionSpecFactory'
 
-export type { GetSectionData, TableSpec, UpdateTableData } from './tableSpec'
+export { SectionSpecs } from './sectionSpecs'
+
+export type { GetSectionData, TableSpec, TableSummarySpec, UpdateTableData } from './tableSpec'
+export { TableSpecFactory } from './tableSpecFactory'
 
 export { TypeSpec } from './typeSpec'
 
