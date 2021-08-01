@@ -13,14 +13,12 @@ import * as OriginalDataPointState from '@webapp/app/assessment/fra/sections/ori
 import { fetch, clearActive } from '@webapp/app/assessment/fra/sections/originalDataPoint/actions'
 import { fetchExtentOfForest } from '@webapp/app/assessment/fra/sections/extentOfForest/actions'
 
-import {
-  ButtonBar,
-  Comments,
-  DataSources,
-  NationalClasses,
-  OriginalData,
-  YearSelection,
-} from '@webapp/components/OriginalDataPoint'
+import ButtonBar from '@webapp/components/OriginalDataPoint/ButtonBar'
+import YearSelection from '@webapp/components/OriginalDataPoint/YearSelection'
+import DataSources from '@webapp/components/OriginalDataPoint/DataSources'
+import NationalClasses from '@webapp/components/OriginalDataPoint/NationalClasses'
+import OriginalData from '@webapp/components/OriginalDataPoint/OriginalData'
+import Comments from '@webapp/components/OriginalDataPoint/Comments'
 
 const OriginalDataPoint: React.FC = () => {
   const dispatch = useDispatch()

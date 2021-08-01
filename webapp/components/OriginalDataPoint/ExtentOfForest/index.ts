@@ -1,1 +1,1 @@
-export { ExtentOfForest } from './ExtentOfForest'
+export { default } from './ExtentOfForest'
