@@ -1,6 +1,9 @@
 import { PanEuropean } from '@core/assessment'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
 
 const section = PanEuropean.sections['6'].children['61']
 
@@ -8,9 +11,9 @@ const variables = ['in_public_ownership', 'in_private_ownership', 'other_types_o
 
 const years = [...PanEuropean.years90_15].reverse()
 
-const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.table_6_1,
-  [SectionSpec.KEYS_TABLE.columnsExport]: [
+const tableSpec = TableSpecFactory.newInstance({
+  name: section.tables.table_6_1,
+  columnsExport: [
     'total_forest_area',
     'total_number_of_holdings',
     'less_10_ha_area',
@@ -21,84 +24,84 @@ const tableSpec = SectionSpec.newTableSpec({
     'more_500_ha_number',
   ],
 
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestHoldings.categoryYear',
-          [SectionSpec.KEYS_COL.rowSpan]: 3,
-          [SectionSpec.KEYS_COL.left]: true,
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.forestHoldings.categoryYear',
+          rowSpan: 3,
+          left: true,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestHoldings.total_forest_area',
-          [SectionSpec.KEYS_COL.rowSpan]: 3,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.forestHoldings.total_forest_area',
+          rowSpan: 3,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestHoldings.total_number_of_holdings',
-          [SectionSpec.KEYS_COL.rowSpan]: 3,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.forestHoldings.total_number_of_holdings',
+          rowSpan: 3,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestHoldings.areaAndNumberOfForestHoldingsInSizeClasses',
-          [SectionSpec.KEYS_COL.colSpan]: 6,
-        }),
-      ],
-    }),
-
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestHoldings.less10ha',
-          [SectionSpec.KEYS_COL.colSpan]: 2,
-        }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestHoldings._11_500ha',
-          [SectionSpec.KEYS_COL.colSpan]: 2,
-        }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestHoldings.more500ha',
-          [SectionSpec.KEYS_COL.colSpan]: 2,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.forestHoldings.areaAndNumberOfForestHoldingsInSizeClasses',
+          colSpan: 6,
         }),
       ],
     }),
 
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestHoldings.area1000Ha',
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.forestHoldings.less10ha',
+          colSpan: 2,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestHoldings.numberOfHoldings',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.forestHoldings._11_500ha',
+          colSpan: 2,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestHoldings.area1000Ha',
-        }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestHoldings.numberOfHoldings',
-        }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestHoldings.area1000Ha',
-        }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestHoldings.numberOfHoldings',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.forestHoldings.more500ha',
+          colSpan: 2,
         }),
       ],
     }),
 
-    ...variables.flatMap((variable: any) =>
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.forestHoldings.area1000Ha',
+        }),
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.forestHoldings.numberOfHoldings',
+        }),
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.forestHoldings.area1000Ha',
+        }),
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.forestHoldings.numberOfHoldings',
+        }),
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.forestHoldings.area1000Ha',
+        }),
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.forestHoldings.numberOfHoldings',
+        }),
+      ],
+    }),
+
+    ...variables.flatMap((variable) =>
       years.map((year) =>
-        SectionSpec.newRowData({
-          [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.forestHoldings.${variable}`,
-          [SectionSpec.KEYS_ROW.labelParams]: { year },
-          [SectionSpec.KEYS_ROW.variableExport]: `${variable}_${year}`,
-          [SectionSpec.KEYS_ROW.cols]: [
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
+        RowSpecFactory.newDataInstance({
+          labelKey: `panEuropean.forestHoldings.${variable}`,
+          labelParams: { year },
+          variableExport: `${variable}_${year}`,
+          cols: [
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
           ],
         })
       )
@@ -106,14 +109,10 @@ const tableSpec = SectionSpec.newTableSpec({
   ],
 })
 
-const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
-})
-
-const forestHoldings = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
+const forestHoldings = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  tableSections: [{ tableSpecs: [tableSpec] }],
 })
 
 export default forestHoldings

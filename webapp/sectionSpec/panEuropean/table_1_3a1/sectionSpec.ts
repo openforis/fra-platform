@@ -1,6 +1,10 @@
 import { PanEuropean } from '@core/assessment'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
+import { Unit } from '@webapp/sectionSpec/unitSpec'
 
 const section = PanEuropean.sections['1'].children['13a1']
 
@@ -19,77 +23,71 @@ const variables = [
 const years = [...PanEuropean.years90_15].reverse()
 const subcategories = variables.slice(2)
 
-const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.table_1_3a1,
-  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.Unit.haThousand,
-  [SectionSpec.KEYS_TABLE.columnsExport]: [
-    'total_area',
-    'regeneration_phase',
-    'intermediate_phase',
-    'mature_phase',
-    'unspecified',
-  ],
+const tableSpec = TableSpecFactory.newInstance({
+  name: section.tables.table_1_3a1,
+  unit: Unit.haThousand,
+  columnsExport: ['total_area', 'regeneration_phase', 'intermediate_phase', 'mature_phase', 'unspecified'],
 
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.categoryYear',
-          [SectionSpec.KEYS_COL.rowSpan]: 3,
-          [SectionSpec.KEYS_COL.left]: true,
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.categoryYear',
+          rowSpan: 3,
+          left: true,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.total_area',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.total_area',
+          rowSpan: 2,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]:
-            'panEuropean.ageClassDistributionAreaOfEvenAgedStands.developmentPhases',
-          [SectionSpec.KEYS_COL.colSpan]: 4,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.developmentPhases',
+          colSpan: 4,
         }),
       ],
     }),
 
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.regeneration_phase',
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.regeneration_phase',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.intermediate_phase',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.intermediate_phase',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.mature_phase',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.mature_phase',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.unspecified',
-        }),
-      ],
-    }),
-
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands._1000Ha',
-          [SectionSpec.KEYS_COL.colSpan]: 5,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.unspecified',
         }),
       ],
     }),
 
-    ...variables.flatMap((variable: any) =>
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands._1000Ha',
+          colSpan: 5,
+        }),
+      ],
+    }),
+
+    ...variables.flatMap((variable) =>
       years.map((year) =>
-        SectionSpec.newRowData({
-          [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.ageClassDistributionAreaOfEvenAgedStands.${variable}`,
-          [SectionSpec.KEYS_ROW.labelParams]: { year },
-          [SectionSpec.KEYS_ROW.variableExport]: `${variable}_${year}`,
-          [SectionSpec.KEYS_ROW.mainCategory]: variable === forest_even_aged_stands_of_which,
-          [SectionSpec.KEYS_ROW.subcategory]: !!subcategories.includes(variable),
-          [SectionSpec.KEYS_ROW.cols]: [
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
+        RowSpecFactory.newDataInstance({
+          labelKey: `panEuropean.ageClassDistributionAreaOfEvenAgedStands.${variable}`,
+          labelParams: { year },
+          variableExport: `${variable}_${year}`,
+          // eslint-disable-next-line camelcase
+          mainCategory: variable === forest_even_aged_stands_of_which,
+          subcategory: !!subcategories.includes(variable),
+          cols: [
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
           ],
         })
       )
@@ -97,14 +95,10 @@ const tableSpec = SectionSpec.newTableSpec({
   ],
 })
 
-const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
-})
-
-const ageClassDistributionAreaOfEvenAgedStands = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
+const ageClassDistributionAreaOfEvenAgedStands = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  tableSections: [{ tableSpecs: [tableSpec] }],
 })
 
 export default ageClassDistributionAreaOfEvenAgedStands

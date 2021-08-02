@@ -1,6 +1,10 @@
 import { PanEuropean } from '@core/assessment'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
+import { Unit } from '@webapp/sectionSpec/unitSpec'
 
 const section = PanEuropean.sections['6'].children['64c']
 
@@ -8,45 +12,41 @@ const variables = ['forestry_isic_nace_02']
 
 const years = [...PanEuropean.years90_15].reverse()
 
-const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.table_6_4c,
-  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.Unit.millionNationalCurrency,
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['capital_transfers'],
+const tableSpec = TableSpecFactory.newInstance({
+  name: section.tables.table_6_4c,
+  unit: Unit.millionNationalCurrency,
+  columnsExport: ['capital_transfers'],
 
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.totalCapitalTransfersInForestsAndForestry.categoryYear',
-          [SectionSpec.KEYS_COL.left]: true,
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.totalCapitalTransfersInForestsAndForestry.categoryYear',
+          left: true,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.totalCapitalTransfersInForestsAndForestry.capitalTransfersMillionNationalCurrency',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.totalCapitalTransfersInForestsAndForestry.capitalTransfersMillionNationalCurrency',
         }),
       ],
     }),
 
-    ...variables.flatMap((variable: any) =>
+    ...variables.flatMap((variable) =>
       years.map((year) =>
-        SectionSpec.newRowData({
-          [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.totalCapitalTransfersInForestsAndForestry.${variable}`,
-          [SectionSpec.KEYS_ROW.labelParams]: { year },
-          [SectionSpec.KEYS_ROW.variableExport]: `${variable}_${year}`,
-          [SectionSpec.KEYS_ROW.cols]: [SectionSpec.newColDecimal()],
+        RowSpecFactory.newDataInstance({
+          labelKey: `panEuropean.totalCapitalTransfersInForestsAndForestry.${variable}`,
+          labelParams: { year },
+          variableExport: `${variable}_${year}`,
+          cols: [ColSpecFactory.newDecimalInstance({})],
         })
       )
     ),
   ],
 })
 
-const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
-})
-
-const totalCapitalTransfersInForestsAndForestry = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
+const totalCapitalTransfersInForestsAndForestry = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  tableSections: [{ tableSpecs: [tableSpec] }],
 })
 
 export default totalCapitalTransfersInForestsAndForestry
