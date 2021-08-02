@@ -1,66 +1,69 @@
 import { FRA } from '@core/assessment'
-
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { CalculateValue } from '@webapp/sectionSpec/colSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionTableSpec } from '@webapp/sectionSpec/sectionSpec'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
 
 import * as SustainableDevelopmentState from '@webapp/sectionSpec/fra/sustainableDevelopment/sustainableDevelopmentState'
 
 const section = FRA.sections['8'].children.a
 
-const newTableSpecResponsibleAgency = (tableName: any, printPageBreakAfter = false) =>
-  SectionSpec.newTableSpec({
-    [SectionSpec.KEYS_TABLE.name]: tableName,
-    [SectionSpec.KEYS_TABLE.secondary]: true,
-    [SectionSpec.KEYS_TABLE.print]: {
-      [SectionSpec.KEYS_TABLE_PRINT.pageBreakAfter]: printPageBreakAfter,
+const newTableSpecResponsibleAgency = (tableName: string, printPageBreakAfter: boolean) =>
+  TableSpecFactory.newInstance({
+    name: tableName,
+    secondary: true,
+    print: {
+      pageBreakAfter: !!printPageBreakAfter,
     },
-    [SectionSpec.KEYS_TABLE.rows]: [
-      SectionSpec.newRowData({
-        [SectionSpec.KEYS_ROW.labelKey]: 'sustainableDevelopment.nameOfAgencyResponsible',
-        [SectionSpec.KEYS_ROW.mainCategory]: true,
-        [SectionSpec.KEYS_ROW.cols]: [SectionSpec.newColText()],
+    rows: [
+      RowSpecFactory.newDataInstance({
+        labelKey: 'sustainableDevelopment.nameOfAgencyResponsible',
+        mainCategory: true,
+        cols: [ColSpecFactory.newTextInstance({})],
       }),
     ],
   })
 
 const newTableSDGIndicator = (
-  yearsTable: any,
-  labelKeyHeader1: any,
-  labelKeyHeader2: any,
-  labelKeyRowData: any,
-  calculateFnRowData: any,
+  yearsTable: Array<string | number>,
+  labelKeyHeader1: string,
+  labelKeyHeader2: string,
+  labelKeyRowData: string,
+  calculateFnRowData: CalculateValue,
   labelHeader1Params = {}
 ) =>
-  SectionSpec.newTableSpec({
+  TableSpecFactory.newInstance({
     // @ts-ignore
-    // TODO: fix
-    [SectionSpec.KEYS_TABLE.getSectionData]: () => () => [],
-    [SectionSpec.KEYS_TABLE.rows]: [
-      SectionSpec.newRowHeader({
-        [SectionSpec.KEYS_ROW.cols]: [
-          SectionSpec.newColHeader({
-            [SectionSpec.KEYS_COL.labelKey]: labelKeyHeader1,
-            [SectionSpec.KEYS_COL.labelParams]: labelHeader1Params,
-            [SectionSpec.KEYS_COL.rowSpan]: 2,
-            [SectionSpec.KEYS_COL.left]: true,
+    getSectionData: () => () => [],
+    rows: [
+      RowSpecFactory.newHeaderInstance({
+        cols: [
+          ColSpecFactory.newHeaderInstance({
+            labelKey: labelKeyHeader1,
+            labelParams: labelHeader1Params,
+            rowSpan: 2,
+            left: true,
           }),
-          SectionSpec.newColHeader({
-            [SectionSpec.KEYS_COL.labelKey]: labelKeyHeader2,
-            [SectionSpec.KEYS_COL.colSpan]: yearsTable.length,
+          ColSpecFactory.newHeaderInstance({
+            labelKey: labelKeyHeader2,
+            colSpan: yearsTable.length,
           }),
         ],
       }),
-      SectionSpec.newRowHeader({
-        [SectionSpec.KEYS_ROW.cols]: yearsTable.map((year: any) =>
-          SectionSpec.newColHeader({
-            [SectionSpec.KEYS_COL.label]: year,
+      RowSpecFactory.newHeaderInstance({
+        cols: yearsTable.map((year) =>
+          ColSpecFactory.newHeaderInstance({
+            label: `${year}`,
           })
         ),
       }),
-      SectionSpec.newRowData({
-        [SectionSpec.KEYS_ROW.labelKey]: labelKeyRowData,
-        [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() =>
-          SectionSpec.newColCalculated({
-            [SectionSpec.KEYS_COL.calculateFn]: calculateFnRowData,
+      RowSpecFactory.newDataInstance({
+        labelKey: labelKeyRowData,
+        cols: yearsTable.map(() =>
+          ColSpecFactory.newCalculatedInstance({
+            calculateFn: calculateFnRowData,
           })
         ),
       }),
@@ -68,8 +71,8 @@ const newTableSDGIndicator = (
   })
 
 // SDG 15.1.1
-const tableSection1 = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [
+const tableSection1: SectionTableSpec = {
+  tableSpecs: [
     {
       ...newTableSDGIndicator(
         SustainableDevelopmentState.years,
@@ -78,33 +81,32 @@ const tableSection1 = SectionSpec.newTableSection({
         'sustainableDevelopment.forestAreaProportionLandArea2015',
         SustainableDevelopmentState.getForestAreaProportionLandArea2015
       ),
-      [SectionSpec.KEYS_TABLE.tableDataRequired]: [
+      tableDataRequired: [
         {
-          [SectionSpec.KEYS_TABLE_DATA_REQUIRED.assessmentType]: FRA.type,
-          [SectionSpec.KEYS_TABLE_DATA_REQUIRED.sectionName]: FRA.sections['1'].children.a.name,
-          [SectionSpec.KEYS_TABLE_DATA_REQUIRED.tableName]: FRA.sections['1'].children.a.tables.extentOfForest,
+          assessmentType: FRA.type,
+          sectionName: FRA.sections['1'].children.a.name,
+          tableName: FRA.sections['1'].children.a.tables.extentOfForest,
         },
         {
-          [SectionSpec.KEYS_TABLE_DATA_REQUIRED.assessmentType]: FRA.type,
-          [SectionSpec.KEYS_TABLE_DATA_REQUIRED.sectionName]: FRA.sections['2'].children.c.name,
-          [SectionSpec.KEYS_TABLE_DATA_REQUIRED.tableName]: FRA.sections['2'].children.c.tables.biomassStock,
+          assessmentType: FRA.type,
+          sectionName: FRA.sections['2'].children.c.name,
+          tableName: FRA.sections['2'].children.c.tables.biomassStock,
         },
         {
-          [SectionSpec.KEYS_TABLE_DATA_REQUIRED.assessmentType]: FRA.type,
-          [SectionSpec.KEYS_TABLE_DATA_REQUIRED.sectionName]: FRA.sections['3'].children.b.name,
-          [SectionSpec.KEYS_TABLE_DATA_REQUIRED.tableName]:
-            FRA.sections['3'].children.b.tables.forestAreaWithinProtectedAreas,
+          assessmentType: FRA.type,
+          sectionName: FRA.sections['3'].children.b.name,
+          tableName: FRA.sections['3'].children.b.tables.forestAreaWithinProtectedAreas,
         },
       ],
     },
     newTableSpecResponsibleAgency(section.tables.sustainableDevelopmentAgencyIndicator),
   ],
-  [SectionSpec.KEYS_TABLE_SECTION.titleKey]: 'sustainableDevelopment.sdgIndicator1',
-})
+  titleKey: 'sustainableDevelopment.sdgIndicator1',
+}
 
 // SDG 15.2.1 - sub-indicator 1
-const tableSection2 = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [
+const tableSection2: SectionTableSpec = {
+  tableSpecs: [
     newTableSDGIndicator(
       SustainableDevelopmentState.yearsRange,
       'sustainableDevelopment.subIndicator',
@@ -115,12 +117,12 @@ const tableSection2 = SectionSpec.newTableSection({
     ),
     newTableSpecResponsibleAgency(section.tables.sustainableDevelopmentAgencySubIndicator1),
   ],
-  [SectionSpec.KEYS_TABLE_SECTION.titleKey]: 'sustainableDevelopment.sdgIndicator2',
-})
+  titleKey: 'sustainableDevelopment.sdgIndicator2',
+}
 
 // SDG 15.2.1 - sub-indicator 2
-const tableSection3 = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [
+const tableSection3: SectionTableSpec = {
+  tableSpecs: [
     newTableSDGIndicator(
       SustainableDevelopmentState.years,
       'sustainableDevelopment.subIndicator',
@@ -131,11 +133,11 @@ const tableSection3 = SectionSpec.newTableSection({
     ),
     newTableSpecResponsibleAgency(section.tables.sustainableDevelopmentAgencySubIndicator2, true),
   ],
-})
+}
 
 // SDG 15.2.1 - sub-indicator 3
-const tableSection4 = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [
+const tableSection4: SectionTableSpec = {
+  tableSpecs: [
     newTableSDGIndicator(
       SustainableDevelopmentState.years,
       'sustainableDevelopment.subIndicator',
@@ -146,11 +148,11 @@ const tableSection4 = SectionSpec.newTableSection({
     ),
     newTableSpecResponsibleAgency(section.tables.sustainableDevelopmentAgencySubIndicator3),
   ],
-})
+}
 
 // SDG 15.2.1 - sub-indicator 4
-const tableSection5 = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [
+const tableSection5: SectionTableSpec = {
+  tableSpecs: [
     newTableSDGIndicator(
       SustainableDevelopmentState.years,
       'sustainableDevelopment.subIndicator',
@@ -161,11 +163,11 @@ const tableSection5 = SectionSpec.newTableSection({
     ),
     newTableSpecResponsibleAgency(section.tables.sustainableDevelopmentAgencySubIndicator4),
   ],
-})
+}
 
 // SDG 15.2.1 - sub-indicator 5
-const tableSection6 = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [
+const tableSection6: SectionTableSpec = {
+  tableSpecs: [
     newTableSDGIndicator(
       SustainableDevelopmentState.years,
       'sustainableDevelopment.subIndicator',
@@ -175,24 +177,17 @@ const tableSection6 = SectionSpec.newTableSection({
       { no: 5 }
     ),
   ],
-})
+}
 
-const sustainableDevelopment = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.dataExport]: { [SectionSpec.KEYS_DATA_EXPORT.included]: false },
-  [SectionSpec.KEYS_SECTION.tableSections]: [
-    tableSection1,
-    tableSection2,
-    tableSection3,
-    tableSection4,
-    tableSection5,
-    tableSection6,
-  ],
-  [SectionSpec.KEYS_SECTION.descriptions]: {
-    [SectionSpec.KEYS_SECTION_DESCRIPTIONS.nationalData]: false,
-    [SectionSpec.KEYS_SECTION_DESCRIPTIONS.analysisAndProcessing]: false,
-    [SectionSpec.KEYS_SECTION_DESCRIPTIONS.comments]: false,
+const sustainableDevelopment = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  dataExport: { included: false },
+  tableSections: [tableSection1, tableSection2, tableSection3, tableSection4, tableSection5, tableSection6],
+  descriptions: {
+    nationalData: false,
+    analysisAndProcessing: false,
+    comments: false,
   },
 })
 

@@ -3,7 +3,7 @@
  */
 
 import * as R from 'ramda'
-import { sum, mul, sub, add, div } from '@common/bignumberUtils'
+import { add, div, mul, sub, sum } from '@common/bignumberUtils'
 
 import { v4 as uuidv4 } from 'uuid'
 

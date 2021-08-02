@@ -1,63 +1,62 @@
 import { FRA } from '@core/assessment'
-
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
+import { VARIABLES } from '@webapp/sectionSpec/variables'
 
 const section = FRA.sections['6'].children.a
 const variableMappings: any = {
-  policiesSFM: SectionSpec.VARIABLES.policies_supporting_SFM,
-  legislationsSFM: SectionSpec.VARIABLES.legislations_supporting_SFM,
-  stakeholderParticipation: SectionSpec.VARIABLES.platform_for_stakeholder_participation,
-  existenceOfTraceabilitySystem: SectionSpec.VARIABLES.existence_of_traceability_system,
+  policiesSFM: VARIABLES.policies_supporting_SFM,
+  legislationsSFM: VARIABLES.legislations_supporting_SFM,
+  stakeholderParticipation: VARIABLES.platform_for_stakeholder_participation,
+  existenceOfTraceabilitySystem: VARIABLES.existence_of_traceability_system,
 }
 
-const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.forestPolicy,
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['national', 'subnational'],
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'forestPolicy.categoryHeader',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
-          [SectionSpec.KEYS_COL.left]: true,
+const tableSpec = TableSpecFactory.newInstance({
+  name: section.tables.forestPolicy,
+  columnsExport: ['national', 'subnational'],
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'forestPolicy.categoryHeader',
+          rowSpan: 2,
+          left: true,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'forestPolicy.areaUnitLabel',
-          [SectionSpec.KEYS_COL.colSpan]: 2,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'forestPolicy.areaUnitLabel',
+          colSpan: 2,
         }),
       ],
     }),
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'forestPolicy.national',
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'forestPolicy.national',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'forestPolicy.subnational',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'forestPolicy.subnational',
         }),
       ],
     }),
 
     ...['policiesSFM', 'legislationsSFM', 'stakeholderParticipation', 'existenceOfTraceabilitySystem'].map((variable) =>
-      SectionSpec.newRowData({
-        [SectionSpec.KEYS_ROW.labelKey]: `forestPolicy.${variable}`,
-        [SectionSpec.KEYS_ROW.variableExport]: variableMappings[variable],
-        [SectionSpec.KEYS_ROW.cols]: [SectionSpec.newColSelectYesNo(), SectionSpec.newColSelectYesNo()],
+      RowSpecFactory.newDataInstance({
+        labelKey: `forestPolicy.${variable}`,
+        variableExport: variableMappings[variable],
+        cols: [ColSpecFactory.newSelectYesNoInstance({}), ColSpecFactory.newSelectYesNoInstance({})],
       })
     ),
   ],
 })
 
-const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
-})
-
-const forestPolicy = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
-  [SectionSpec.KEYS_SECTION.descriptions]: {
-    [SectionSpec.KEYS_SECTION_DESCRIPTIONS.analysisAndProcessing]: false,
+const forestPolicy = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  tableSections: [{ tableSpecs: [tableSpec] }],
+  descriptions: {
+    analysisAndProcessing: false,
   },
 })
 
