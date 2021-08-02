@@ -1,21 +1,19 @@
-import './buttonTableExport.less'
-
-import React from 'react'
-
+import './ButtonTableExport.scss'
+import React, { MutableRefObject } from 'react'
 import { CSVLink } from 'react-csv'
 
 import { useIsAssessmentLocked, usePrintView } from '@webapp/components/hooks'
 
-import Icon from '../icon'
+import Icon from '@webapp/components/icon'
 import * as Utils from './utils'
 
 type Props = {
   disabled?: boolean
   filename?: string
-  tableRef: any
+  tableRef: MutableRefObject<HTMLTableElement>
 }
 
-const ButtonTableExport = (props: Props) => {
+const ButtonTableExport: React.FC<Props> = (props) => {
   const { disabled, filename, tableRef } = props
 
   const [printView] = usePrintView()

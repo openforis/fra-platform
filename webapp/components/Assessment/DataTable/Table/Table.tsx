@@ -1,10 +1,10 @@
 import React, { useRef } from 'react'
 
-import { AssessmentType } from '@core/assessment'
+import { AssessmentType, TableData, TableDatumODP } from '@core/assessment'
 import { RowSpec, TableSpec } from '@webapp/sectionSpec'
 import { useI18n, usePrintView } from '@webapp/components/hooks'
 
-import ButtonTableExport from '@webapp/components/buttonTableExport'
+import ButtonTableExport from '@webapp/components/ButtonTableExport'
 import Row from './row'
 import CellOdpHeader from './cellOdpHeader'
 
@@ -14,7 +14,7 @@ type Props = {
   sectionAnchor: string
   tableSpec: TableSpec
   rows: Array<RowSpec>
-  data: any[]
+  data: TableData
   disabled: boolean
 }
 
@@ -31,8 +31,6 @@ const Table: React.FC<Props> = (props) => {
   const tableRef = useRef<HTMLTableElement>(null)
   const displayTableExportButton = !secondary && !printView && tableRef.current != null
 
-  console.log(data)
-
   return (
     <div className={`fra-table__container${secondary ? ' fra-secondary-table__wrapper' : ''}`}>
       <div className="fra-table__scroll-wrapper">
@@ -42,7 +40,7 @@ const Table: React.FC<Props> = (props) => {
           <thead>
             {rowsHeader.map((row, rowIdx) => (
               <tr key={String(rowIdx)}>
-                {row.cols.map((col: any) => {
+                {row.cols.map((col) => {
                   const { idx, className, colSpan, rowSpan, labelKey, labelParams, label } = col
                   return (
                     <th
@@ -57,11 +55,15 @@ const Table: React.FC<Props> = (props) => {
                 })}
               </tr>
             ))}
+
             {odp && (
               <tr>
-                {data.map((datum) => (
-                  <CellOdpHeader key={datum.name || datum.year} sectionName={sectionName} datum={datum} />
-                ))}
+                {data.map((datum) => {
+                  const datumODP = datum as TableDatumODP
+                  return (
+                    <CellOdpHeader key={datumODP.name || datumODP.year} sectionName={sectionName} datum={datumODP} />
+                  )
+                })}
               </tr>
             )}
           </thead>
