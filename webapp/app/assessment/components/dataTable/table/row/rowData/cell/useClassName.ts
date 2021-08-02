@@ -16,10 +16,10 @@ export default (col: any, rowIdx: any) => {
   })
 
   let className = 'fra-table__cell'
-  if (type === SectionSpec.TYPES.calculated) className = 'fra-table__calculated-cell'
-  if ([SectionSpec.TYPES.text, SectionSpec.TYPES.textarea, SectionSpec.TYPES.select].includes(type))
+  if (type === SectionSpec.TypeSpec.calculated) className = 'fra-table__calculated-cell'
+  if ([SectionSpec.TypeSpec.text, SectionSpec.TypeSpec.textarea, SectionSpec.TypeSpec.select].includes(type))
     className = 'fra-table__cell-left'
-  if (type === SectionSpec.TYPES.placeholder) className = 'fra-table__category-cell fra-table__filler-last'
+  if (type === SectionSpec.TypeSpec.placeholder) className = 'fra-table__category-cell fra-table__filler-last'
 
   className += valid ? '' : ' validation-error'
 
