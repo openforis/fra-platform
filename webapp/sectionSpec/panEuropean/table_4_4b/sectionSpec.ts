@@ -1,6 +1,10 @@
 import { PanEuropean } from '@core/assessment'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
+import { VARIABLES } from '@webapp/sectionSpec/variables'
 
 const section = PanEuropean.sections['4'].children['44b']
 
@@ -27,87 +31,82 @@ const variables = [
   '_20',
 ]
 
-const variablesMappings: any = {
-  _01: SectionSpec.VARIABLES._01,
-  _02: SectionSpec.VARIABLES._02,
-  _03: SectionSpec.VARIABLES._03,
-  _04: SectionSpec.VARIABLES._04,
-  _05: SectionSpec.VARIABLES._05,
-  _06: SectionSpec.VARIABLES._06,
-  _07: SectionSpec.VARIABLES._07,
-  _08: SectionSpec.VARIABLES._08,
-  _09: SectionSpec.VARIABLES._09,
-  _10: SectionSpec.VARIABLES._10,
-  _11: SectionSpec.VARIABLES._11,
-  _12: SectionSpec.VARIABLES._12,
-  _13: SectionSpec.VARIABLES._13,
-  _14: SectionSpec.VARIABLES._14,
-  _15: SectionSpec.VARIABLES._15,
-  _16: SectionSpec.VARIABLES._16,
-  _17: SectionSpec.VARIABLES._17,
-  _18: SectionSpec.VARIABLES._18,
-  _19: SectionSpec.VARIABLES._19,
-  _20: SectionSpec.VARIABLES._20,
+const variablesMappings: Record<string, string> = {
+  _01: VARIABLES._01,
+  _02: VARIABLES._02,
+  _03: VARIABLES._03,
+  _04: VARIABLES._04,
+  _05: VARIABLES._05,
+  _06: VARIABLES._06,
+  _07: VARIABLES._07,
+  _08: VARIABLES._08,
+  _09: VARIABLES._09,
+  _10: VARIABLES._10,
+  _11: VARIABLES._11,
+  _12: VARIABLES._12,
+  _13: VARIABLES._13,
+  _14: VARIABLES._14,
+  _15: VARIABLES._15,
+  _16: VARIABLES._16,
+  _17: VARIABLES._17,
+  _18: VARIABLES._18,
+  _19: VARIABLES._19,
+  _20: VARIABLES._20,
 }
 
 const years = [...PanEuropean.years05_15]
 
-const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.table_4_4b,
-  [SectionSpec.KEYS_TABLE.columnsExport]: [
+const tableSpec = TableSpecFactory.newInstance({
+  name: section.tables.table_4_4b,
+  columnsExport: [
     'scientific_name_of_introduced_tree_species',
     'forest_area_occupied_2005',
     'forest_area_occupied_2010',
     'forest_area_occupied_2015',
   ],
 
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.introducedTreeSpecies4_4b.category',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
-          [SectionSpec.KEYS_COL.left]: true,
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.introducedTreeSpecies4_4b.category',
+          rowSpan: 2,
+          left: true,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]:
-            'panEuropean.introducedTreeSpecies4_4b.scientificNameOfIntroducedTreeSpecies',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
-          [SectionSpec.KEYS_COL.left]: true,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.introducedTreeSpecies4_4b.scientificNameOfIntroducedTreeSpecies',
+          rowSpan: 2,
+          left: true,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.introducedTreeSpecies4_4b.forestAreaOccupied1000Ha',
-          [SectionSpec.KEYS_COL.colSpan]: years.length,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.introducedTreeSpecies4_4b.forestAreaOccupied1000Ha',
+          colSpan: years.length,
         }),
       ],
     }),
 
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: years.map((year) =>
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: year,
+    RowSpecFactory.newHeaderInstance({
+      cols: years.map((year) =>
+        ColSpecFactory.newHeaderInstance({
+          labelKey: `${year}`,
         })
       ),
     }),
 
-    ...variables.flatMap((variable: any) =>
-      SectionSpec.newRowData({
-        [SectionSpec.KEYS_ROW.variableExport]: variablesMappings[variable],
-        [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.introducedTreeSpecies4_4b.${variable}`,
-        [SectionSpec.KEYS_ROW.cols]: [SectionSpec.newColText(), ...years.map(() => SectionSpec.newColDecimal())],
+    ...variables.flatMap((variable) =>
+      RowSpecFactory.newDataInstance({
+        variableExport: variablesMappings[variable],
+        labelKey: `panEuropean.introducedTreeSpecies4_4b.${variable}`,
+        cols: [ColSpecFactory.newTextInstance({}), ...years.map(() => ColSpecFactory.newDecimalInstance({}))],
       })
     ),
   ],
 })
 
-const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
+const introducedTreeSpecies44b = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  tableSections: [{ tableSpecs: [tableSpec] }],
 })
 
-const introducedTreeSpecies4_4b = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
-})
-
-export default introducedTreeSpecies4_4b
+export default introducedTreeSpecies44b

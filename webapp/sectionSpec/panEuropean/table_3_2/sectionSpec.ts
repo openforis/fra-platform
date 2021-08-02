@@ -1,6 +1,9 @@
 import { PanEuropean } from '@core/assessment'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
 
 const section = PanEuropean.sections['3'].children['32']
 
@@ -8,9 +11,9 @@ const variables = ['roundwood']
 
 const years = [...PanEuropean.years88_17].reverse()
 
-const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.table_3_2,
-  [SectionSpec.KEYS_TABLE.columnsExport]: [
+const tableSpec = TableSpecFactory.newInstance({
+  name: section.tables.table_3_2,
+  columnsExport: [
     'total_volume',
     'industrial_roundwood_volume',
     'industrial_roundwood_market_value',
@@ -18,69 +21,69 @@ const tableSpec = SectionSpec.newTableSpec({
     'woodfuel_market_value',
   ],
 
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.removals.categoryYear',
-          [SectionSpec.KEYS_COL.rowSpan]: 3,
-          [SectionSpec.KEYS_COL.left]: true,
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.removals.categoryYear',
+          rowSpan: 3,
+          left: true,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.removals.woodRemovals',
-          [SectionSpec.KEYS_COL.colSpan]: 5,
-        }),
-      ],
-    }),
-
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.removals.total',
-        }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.removals.industrialRoundwood',
-          [SectionSpec.KEYS_COL.colSpan]: 2,
-        }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.removals.woodfuel',
-          [SectionSpec.KEYS_COL.colSpan]: 2,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.removals.woodRemovals',
+          colSpan: 5,
         }),
       ],
     }),
 
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.removals.volume1000M3UB',
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.removals.total',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.removals.volume1000M3UB',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.removals.industrialRoundwood',
+          colSpan: 2,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.removals.marketValue1000NationalCurrency',
-        }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.removals.volume1000M3UB',
-        }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.removals.marketValue1000NationalCurrency',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.removals.woodfuel',
+          colSpan: 2,
         }),
       ],
     }),
 
-    ...variables.flatMap((variable: any) =>
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.removals.volume1000M3UB',
+        }),
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.removals.volume1000M3UB',
+        }),
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.removals.marketValue1000NationalCurrency',
+        }),
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.removals.volume1000M3UB',
+        }),
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.removals.marketValue1000NationalCurrency',
+        }),
+      ],
+    }),
+
+    ...variables.flatMap((variable) =>
       years.map((year) =>
-        SectionSpec.newRowData({
-          [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.removals.${variable}`,
-          [SectionSpec.KEYS_ROW.labelParams]: { year },
-          [SectionSpec.KEYS_ROW.variableExport]: `${variable}_${year}`,
-          [SectionSpec.KEYS_ROW.cols]: [
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
+        RowSpecFactory.newDataInstance({
+          labelKey: `panEuropean.removals.${variable}`,
+          labelParams: { year },
+          variableExport: `${variable}_${year}`,
+          cols: [
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
           ],
         })
       )
@@ -88,14 +91,10 @@ const tableSpec = SectionSpec.newTableSpec({
   ],
 })
 
-const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
-})
-
-const removals = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
+const removals = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  tableSections: [{ tableSpecs: [tableSpec] }],
 })
 
 export default removals

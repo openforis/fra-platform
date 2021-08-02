@@ -1,6 +1,10 @@
 import { PanEuropean } from '@core/assessment'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
+import { Unit } from '@webapp/sectionSpec/unitSpec'
 
 const section = PanEuropean.sections['4'].children['44a']
 
@@ -8,61 +12,56 @@ const variables = ['forest', 'other_wooded_land', 'total_forest_and_other_wooded
 
 const years = [...PanEuropean.years90_20].reverse()
 
-const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.table_4_4a,
-  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.Unit.haThousand,
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['total', '_of_which_invasive'],
+const tableSpec = TableSpecFactory.newInstance({
+  name: section.tables.table_4_4a,
+  unit: Unit.haThousand,
+  columnsExport: ['total', '_of_which_invasive'],
 
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.introducedTreeSpecies.categoryYear',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
-          [SectionSpec.KEYS_COL.left]: true,
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.introducedTreeSpecies.categoryYear',
+          rowSpan: 2,
+          left: true,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]:
-            'panEuropean.introducedTreeSpecies.areaOfStandsDominatedByIntroducedTreeSpecies1000ha',
-          [SectionSpec.KEYS_COL.colSpan]: 2,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.introducedTreeSpecies.areaOfStandsDominatedByIntroducedTreeSpecies1000ha',
+          colSpan: 2,
         }),
       ],
     }),
 
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.introducedTreeSpecies.total',
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.introducedTreeSpecies.total',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.introducedTreeSpecies._of_which_invasive',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.introducedTreeSpecies._of_which_invasive',
         }),
       ],
     }),
 
-    ...variables.flatMap((variable: any) =>
+    ...variables.flatMap((variable) =>
       years.map(
         (year) =>
           !['other_wooded_land_2020', 'total_forest_and_other_wooded_land_2020'].includes(`${variable}_${year}`) &&
-          SectionSpec.newRowData({
-            [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.introducedTreeSpecies.${variable}`,
-            [SectionSpec.KEYS_ROW.labelParams]: { year },
-            [SectionSpec.KEYS_ROW.variableExport]: `${variable}_${year}`,
-            [SectionSpec.KEYS_ROW.cols]: [SectionSpec.newColDecimal(), SectionSpec.newColDecimal()],
+          RowSpecFactory.newDataInstance({
+            labelKey: `panEuropean.introducedTreeSpecies.${variable}`,
+            labelParams: { year },
+            variableExport: `${variable}_${year}`,
+            cols: [ColSpecFactory.newDecimalInstance({}), ColSpecFactory.newDecimalInstance({})],
           })
       )
     ),
   ],
 })
 
-const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
-})
-
-const introducedTreeSpecies = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
+const introducedTreeSpecies = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  tableSections: [{ tableSpecs: [tableSpec] }],
 })
 
 export default introducedTreeSpecies
