@@ -1,33 +1,36 @@
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
+
 import disturbances from '@server/dataTable/mappings/fra/disturbances'
 import section from '../section'
 
-const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.disturbances,
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'contentCheck.disturbances.title',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
-          [SectionSpec.KEYS_COL.left]: true,
+const tableSpec = TableSpecFactory.newInstance({
+  name: section.tables.disturbances,
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'contentCheck.disturbances.title',
+          rowSpan: 2,
+          left: true,
         }),
       ],
     }),
 
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: disturbances.columns.map(({ name }: any) =>
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.label]: name,
+    RowSpecFactory.newHeaderInstance({
+      cols: disturbances.columns.map(({ name }) =>
+        ColSpecFactory.newHeaderInstance({
+          label: name,
         })
       ),
     }),
 
-    ...disturbances.rows.names.map((variable: any) =>
-      SectionSpec.newRowData({
-        [SectionSpec.KEYS_ROW.labelKey]: `contentCheck.disturbances.${variable}`,
-        [SectionSpec.KEYS_ROW.variableExport]: `${variable}`,
-        [SectionSpec.KEYS_ROW.cols]: disturbances.columns.map(() => SectionSpec.newColDecimal()),
+    ...disturbances.rows.names.map((variable) =>
+      RowSpecFactory.newDataInstance({
+        labelKey: `contentCheck.disturbances.${variable}`,
+        variableExport: `${variable}`,
+        cols: disturbances.columns.map(() => ColSpecFactory.newDecimalInstance({})),
       })
     ),
   ],

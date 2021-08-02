@@ -1,111 +1,112 @@
 import { FRA } from '@core/assessment'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
+import { Unit } from '@webapp/sectionSpec/unitSpec'
+import { VARIABLES } from '@webapp/sectionSpec/variables'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 import * as OtherLandWithTreeCoverState from '@webapp/sectionSpec/fra/otherLandWithTreeCover/otherLandWithTreeCoverState'
 import * as OtherLandWithTreeCoverValidatorState from '@webapp/sectionSpec/fra/otherLandWithTreeCover/otherLandWithTreeCoverValidatorState'
 
 const section = FRA.sections['1'].children.f
 const { yearsTable } = FRA
 
-const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.otherLandWithTreeCover,
-  [SectionSpec.KEYS_TABLE.columnsExport]: yearsTable,
-  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.Unit.haThousand,
-  [SectionSpec.KEYS_TABLE.tableDataRequired]: [
+const tableSpec = TableSpecFactory.newInstance({
+  name: section.tables.otherLandWithTreeCover,
+  columnsExport: yearsTable,
+  unit: Unit.haThousand,
+  tableDataRequired: [
     {
-      [SectionSpec.KEYS_TABLE_DATA_REQUIRED.assessmentType]: FRA.type,
-      [SectionSpec.KEYS_TABLE_DATA_REQUIRED.sectionName]: FRA.sections['1'].children.a.name,
-      [SectionSpec.KEYS_TABLE_DATA_REQUIRED.tableName]: FRA.sections['1'].children.a.tables.extentOfForest,
+      assessmentType: FRA.type,
+      sectionName: FRA.sections['1'].children.a.name,
+      tableName: FRA.sections['1'].children.a.tables.extentOfForest,
     },
   ],
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'otherLandWithTreeCover.categoryHeader',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
-          [SectionSpec.KEYS_COL.left]: true,
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'otherLandWithTreeCover.categoryHeader',
+          rowSpan: 2,
+          left: true,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'otherLandWithTreeCover.areaUnitLabel',
-          [SectionSpec.KEYS_COL.colSpan]: yearsTable.length,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'otherLandWithTreeCover.areaUnitLabel',
+          colSpan: yearsTable.length,
         }),
       ],
     }),
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: yearsTable.map((yearRange: any) =>
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.label]: yearRange,
+    RowSpecFactory.newHeaderInstance({
+      cols: yearsTable.map((yearRange: any) =>
+        ColSpecFactory.newHeaderInstance({
+          label: yearRange,
         })
       ),
     }),
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: 'otherLandWithTreeCover.palms',
-      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.palms,
-      [SectionSpec.KEYS_ROW.variableNo]: 'a',
-      [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() => SectionSpec.newColDecimal({})),
+    RowSpecFactory.newDataInstance({
+      labelKey: 'otherLandWithTreeCover.palms',
+      variableExport: VARIABLES.palms,
+      variableNo: 'a',
+      cols: yearsTable.map(() => ColSpecFactory.newDecimalInstance({})),
     }),
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: 'otherLandWithTreeCover.treeorchards',
-      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.tree_orchards,
-      [SectionSpec.KEYS_ROW.variableNo]: 'b',
-      [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() => SectionSpec.newColDecimal({})),
+    RowSpecFactory.newDataInstance({
+      labelKey: 'otherLandWithTreeCover.treeorchards',
+      variableExport: VARIABLES.tree_orchards,
+      variableNo: 'b',
+      cols: yearsTable.map(() => ColSpecFactory.newDecimalInstance({})),
     }),
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: 'otherLandWithTreeCover.agroforestry',
-      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.agroforestry,
-      [SectionSpec.KEYS_ROW.variableNo]: 'c',
-      [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() => SectionSpec.newColDecimal({})),
+    RowSpecFactory.newDataInstance({
+      labelKey: 'otherLandWithTreeCover.agroforestry',
+      variableExport: VARIABLES.agroforestry,
+      variableNo: 'c',
+      cols: yearsTable.map(() => ColSpecFactory.newDecimalInstance({})),
     }),
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: 'otherLandWithTreeCover.treesinurbansettings',
-      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.trees_in_urban_settings,
-      [SectionSpec.KEYS_ROW.variableNo]: 'd',
-      [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() => SectionSpec.newColDecimal({})),
+    RowSpecFactory.newDataInstance({
+      labelKey: 'otherLandWithTreeCover.treesinurbansettings',
+      variableExport: VARIABLES.trees_in_urban_settings,
+      variableNo: 'd',
+      cols: yearsTable.map(() => ColSpecFactory.newDecimalInstance({})),
     }),
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: 'otherLandWithTreeCover.other',
-      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.other,
-      [SectionSpec.KEYS_ROW.variableNo]: 'e',
-      [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() => SectionSpec.newColDecimal({})),
+    RowSpecFactory.newDataInstance({
+      labelKey: 'otherLandWithTreeCover.other',
+      variableExport: VARIABLES.other,
+      variableNo: 'e',
+      cols: yearsTable.map(() => ColSpecFactory.newDecimalInstance({})),
     }),
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: 'otherLandWithTreeCover.total',
-      [SectionSpec.KEYS_ROW.variableNo]: 'a+b+c+d+e',
-      [SectionSpec.KEYS_ROW.mainCategory]: true,
-      [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() =>
-        SectionSpec.newColCalculated({
-          [SectionSpec.KEYS_COL.calculateFn]: OtherLandWithTreeCoverState.getOtherLandWithTreeCoverTotal,
-          [SectionSpec.KEYS_COL.validator]: OtherLandWithTreeCoverValidatorState.otherLandWithTreeCoverTotalValidator,
+    RowSpecFactory.newDataInstance({
+      labelKey: 'otherLandWithTreeCover.total',
+      variableNo: 'a+b+c+d+e',
+      mainCategory: true,
+      cols: yearsTable.map(() =>
+        ColSpecFactory.newCalculatedInstance({
+          calculateFn: OtherLandWithTreeCoverState.getOtherLandWithTreeCoverTotal,
+          validator: OtherLandWithTreeCoverValidatorState.otherLandWithTreeCoverTotalValidator,
         })
       ),
     }),
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: 'otherLandWithTreeCover.otherLandArea',
-      [SectionSpec.KEYS_ROW.linkToSection]: FRA.sections['1'].children.a.name,
-      [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() =>
-        SectionSpec.newColCalculated({
-          [SectionSpec.KEYS_COL.calculateFn]: OtherLandWithTreeCoverState.getOtherLand,
+    RowSpecFactory.newDataInstance({
+      labelKey: 'otherLandWithTreeCover.otherLandArea',
+      linkToSection: FRA.sections['1'].children.a.name,
+      cols: yearsTable.map(() =>
+        ColSpecFactory.newCalculatedInstance({
+          calculateFn: OtherLandWithTreeCoverState.getOtherLand,
         })
       ),
     }),
-    SectionSpec.newRowNoticeMessage({
-      [SectionSpec.KEYS_ROW.rowSpan]: 2,
+    RowSpecFactory.newNoticeMessageInstance({
+      rowSpan: 2,
     }),
-    SectionSpec.newRowValidationMessages({
-      [SectionSpec.KEYS_ROW.getValidationMessages]: OtherLandWithTreeCoverValidatorState.getValidationMessages,
+    RowSpecFactory.newValidationMessagesInstance({
+      getValidationMessages: OtherLandWithTreeCoverValidatorState.getValidationMessages,
     }),
   ],
 })
 
-const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
-})
-
-const otherLandWithTreeCover = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
+const otherLandWithTreeCover = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  tableSections: [{ tableSpecs: [tableSpec] }],
 })
 
 export default otherLandWithTreeCover

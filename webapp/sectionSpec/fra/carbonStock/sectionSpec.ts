@@ -1,6 +1,10 @@
 import { FRA } from '@core/assessment'
-
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
+import { Unit } from '@webapp/sectionSpec/unitSpec'
+import { VARIABLES } from '@webapp/sectionSpec/variables'
 
 const section = FRA.sections['2'].children.d
 const { years } = FRA
@@ -12,69 +16,65 @@ const variables = [
   'carbonSoil',
 ]
 
-const variablesMappings: any = {
-  carbonAboveGroundBiomass: SectionSpec.VARIABLES.carbon_forest_above_ground,
-  carbonBelowGroundBiomass: SectionSpec.VARIABLES.carbon_forest_below_ground,
-  carbonDeadwood: SectionSpec.VARIABLES.carbon_forest_deadwood,
-  carbonLitter: SectionSpec.VARIABLES.carbon_forest_litter,
-  carbonSoil: SectionSpec.VARIABLES.carbon_forest_soil,
+const variablesMappings: Record<string, string> = {
+  carbonAboveGroundBiomass: VARIABLES.carbon_forest_above_ground,
+  carbonBelowGroundBiomass: VARIABLES.carbon_forest_below_ground,
+  carbonDeadwood: VARIABLES.carbon_forest_deadwood,
+  carbonLitter: VARIABLES.carbon_forest_litter,
+  carbonSoil: VARIABLES.carbon_forest_soil,
 }
 
-const tableSpec1 = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.carbonStock,
-  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.Unit.tonnesPerHa,
-  [SectionSpec.KEYS_TABLE.columnsExport]: years,
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'carbonStock.categoryHeader',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
-          [SectionSpec.KEYS_COL.left]: true,
+const tableSpec1 = TableSpecFactory.newInstance({
+  name: section.tables.carbonStock,
+  unit: Unit.tonnesPerHa,
+  columnsExport: years,
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'carbonStock.categoryHeader',
+          rowSpan: 2,
+          left: true,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'carbonStock.tableHeader',
-          [SectionSpec.KEYS_COL.colSpan]: years.length,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'carbonStock.tableHeader',
+          colSpan: years.length,
         }),
       ],
     }),
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: years.map((year: any) =>
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.label]: year,
+    RowSpecFactory.newHeaderInstance({
+      cols: years.map((year) =>
+        ColSpecFactory.newHeaderInstance({
+          label: `${year}`,
         })
       ),
     }),
     ...variables.map((variable) =>
-      SectionSpec.newRowData({
-        [SectionSpec.KEYS_ROW.variableExport]: variablesMappings[variable],
-        [SectionSpec.KEYS_ROW.labelKey]: `carbonStock.${variable}`,
-        [SectionSpec.KEYS_ROW.cols]: years.map(() => SectionSpec.newColDecimal()),
+      RowSpecFactory.newDataInstance({
+        variableExport: variablesMappings[variable],
+        labelKey: `carbonStock.${variable}`,
+        cols: years.map(() => ColSpecFactory.newDecimalInstance({})),
       })
     ),
   ],
 })
 
-const tableSpec2 = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.carbonStockSoilDepth,
-  [SectionSpec.KEYS_TABLE.secondary]: true,
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: 'carbonStock.soilDepthHeading',
-      [SectionSpec.KEYS_ROW.mainCategory]: true,
-      [SectionSpec.KEYS_ROW.cols]: [SectionSpec.newColDecimal()],
+const tableSpec2 = TableSpecFactory.newInstance({
+  name: section.tables.carbonStockSoilDepth,
+  secondary: true,
+  rows: [
+    RowSpecFactory.newDataInstance({
+      labelKey: 'carbonStock.soilDepthHeading',
+      mainCategory: true,
+      cols: [ColSpecFactory.newDecimalInstance({})],
     }),
   ],
 })
 
-const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec1, tableSpec2],
-})
-
-const carbonStock = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
+const carbonStock = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  tableSections: [{ tableSpecs: [tableSpec1, tableSpec2] }],
 })
 
 export default carbonStock
