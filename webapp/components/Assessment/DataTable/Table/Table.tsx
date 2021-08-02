@@ -1,38 +1,47 @@
 import React, { useRef } from 'react'
-import { TableSpec } from '@webapp/app/assessment/components/section/sectionSpec'
+
+import { AssessmentType } from '@core/assessment'
+import { RowSpec, TableSpec } from '@webapp/sectionSpec'
 import { useI18n, usePrintView } from '@webapp/components/hooks'
+
 import ButtonTableExport from '@webapp/components/buttonTableExport'
 import Row from './row'
 import CellOdpHeader from './cellOdpHeader'
 
 type Props = {
-  assessmentType: string
+  assessmentType: AssessmentType
   sectionName: string
   sectionAnchor: string
-  tableSpec: any
-  rows: any[]
+  tableSpec: TableSpec
+  rows: Array<RowSpec>
   data: any[]
   disabled: boolean
 }
-const Table = (props: Props) => {
+
+const Table: React.FC<Props> = (props) => {
   const { assessmentType, sectionName, sectionAnchor, tableSpec, rows, data, disabled } = props
-  const odp = TableSpec.isOdp(tableSpec)
-  const secondary = TableSpec.isSecondary(tableSpec)
-  const rowsHeader = rows.filter((row) => row.type === 'header')
-  const rowsData = rows.filter((row) => row.type !== 'header')
+
   const i18n = useI18n()
   const [printView] = usePrintView()
-  const tableRef = useRef(null)
+
+  const odp = tableSpec.odp === true
+  const secondary = tableSpec.secondary === true
+  const rowsHeader = rows.filter((row) => row.type === 'header')
+  const rowsData = rows.filter((row) => row.type !== 'header')
+  const tableRef = useRef<HTMLTableElement>(null)
   const displayTableExportButton = !secondary && !printView && tableRef.current != null
+
+  console.log(data)
+
   return (
     <div className={`fra-table__container${secondary ? ' fra-secondary-table__wrapper' : ''}`}>
       <div className="fra-table__scroll-wrapper">
         {displayTableExportButton && <ButtonTableExport tableRef={tableRef} filename={sectionAnchor} />}
 
-        <table id={TableSpec.getName(tableSpec)} ref={tableRef} className="fra-table data-table">
+        <table id={tableSpec.name} ref={tableRef} className="fra-table data-table">
           <thead>
-            {rowsHeader.map((row) => (
-              <tr key={row.idx}>
+            {rowsHeader.map((row, rowIdx) => (
+              <tr key={String(rowIdx)}>
                 {row.cols.map((col: any) => {
                   const { idx, className, colSpan, rowSpan, labelKey, labelParams, label } = col
                   return (
@@ -42,7 +51,7 @@ const Table = (props: Props) => {
                       colSpan={odp && !colSpan ? data.length : colSpan}
                       rowSpan={rowSpan}
                     >
-                      {labelKey ? (i18n as any).t(labelKey, labelParams) : label}
+                      {labelKey ? i18n.t(labelKey, labelParams) : label}
                     </th>
                   )
                 })}
@@ -56,10 +65,11 @@ const Table = (props: Props) => {
               </tr>
             )}
           </thead>
+
           <tbody>
-            {rowsData.map((row) => (
+            {rowsData.map((row, rowIdx) => (
               <Row
-                key={row.idx}
+                key={String(rowIdx)}
                 assessmentType={assessmentType}
                 sectionName={sectionName}
                 tableSpec={tableSpec}
@@ -74,4 +84,5 @@ const Table = (props: Props) => {
     </div>
   )
 }
+
 export default Table

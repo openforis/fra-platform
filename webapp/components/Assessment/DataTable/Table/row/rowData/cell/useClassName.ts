@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 
-import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
+import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
 import { useUserInfo } from '@webapp/components/hooks'
 

@@ -22,7 +22,7 @@ const RowValidation = (props: Props) => {
           <div className="fra-table__validation-container">
             {errorMsgs.map(({ key, params = {} }: any) => (
               <div className="fra-table__validation-error" key={key}>
-                {(i18n as any).t(key, { ...params })}
+                {i18n.t(key, { ...params })}
               </div>
             ))}
           </div>

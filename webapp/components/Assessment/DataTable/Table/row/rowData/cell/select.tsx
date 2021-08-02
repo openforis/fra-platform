@@ -1,7 +1,7 @@
 import React from 'react'
 import * as R from 'ramda'
 
-import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
+import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
 import { useI18n } from '@webapp/components/hooks'
 

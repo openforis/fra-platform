@@ -7,7 +7,7 @@ import { SectionSpecs } from '@webapp/sectionSpec'
 import { useI18n, usePrintView } from '@webapp/components/hooks'
 import * as FraState from '@webapp/app/assessment/fra/fraState'
 
-import DataTable from '@webapp/app/assessment/components/dataTable'
+import DataTable from '@webapp/components/Assessment/DataTable'
 import SectionHeader from './SectionHeader'
 import Descriptions, { GeneralComments } from './Descriptions'
 import Title from './Title'

@@ -1,4 +1,4 @@
-@import (reference) '~@webapp/main/styles/config';
+@import 'webapp/style/partials';
 
 .data-table-generate-values {
   display: grid;
@@ -14,7 +14,7 @@
 
   .field {
     grid-column: 1;
-    font-size: @font-s;
+    font-size: $font-s;
     display: grid;
     grid-template-columns: 20px auto;
     align-items: center;
@@ -33,7 +33,7 @@
     grid-column-gap: 2px;
     align-items: center;
     grid-auto-rows: 32px;
-    font-size: @font-s;
+    font-size: $font-s;
   }
 
   .annual-change-rates__label {
@@ -42,7 +42,7 @@
   }
 
   .annual-change-rates__unit {
-    font-size: @font-xxs;
-    color: @text-mute;
+    font-size: $font-xxs;
+    color: $text-mute;
   }
 }

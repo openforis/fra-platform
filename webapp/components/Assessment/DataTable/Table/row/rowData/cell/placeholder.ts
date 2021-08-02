@@ -7,7 +7,7 @@ const Placeholder = (props: any) => {
   const i18n = useI18n()
   let labelCell = ''
   if (label) labelCell = label
-  if (labelKey) labelCell = (i18n as any).t(labelKey, labelParams)
+  if (labelKey) labelCell = i18n.t(labelKey, labelParams)
   return labelCell
 }
 Placeholder.propTypes = {

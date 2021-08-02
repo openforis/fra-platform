@@ -25,7 +25,7 @@ const RowData = (props: Props) => {
   const secondary = TableSpec.isSecondary(tableSpec)
   const { idx: rowIdx, cols, validator, calculateFn, variableName } = row
   const colHeader = cols[0]
-  const colHeaderLabel = colHeader.label ? colHeader.label : (i18n as any).t(colHeader.labelKey, colHeader.labelParams)
+  const colHeaderLabel = colHeader.label ? colHeader.label : i18n.t(colHeader.labelKey, colHeader.labelParams)
   const colsData = cols.slice(1, cols.length)
   const reviewTarget = [tableName, 'row', `${rowIdx}`]
   const className = useClassName(reviewTarget)

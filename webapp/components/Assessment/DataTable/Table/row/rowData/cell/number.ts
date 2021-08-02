@@ -1,7 +1,7 @@
 import React from 'react'
 import * as PropTypes from 'prop-types'
 
-import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
+import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
 import { ThousandSeparatedDecimalInput } from '@webapp/components/thousandSeparatedDecimalInput'
 import { ThousandSeparatedIntegerInput } from '@webapp/components/thousandSeparatedIntegerInput'

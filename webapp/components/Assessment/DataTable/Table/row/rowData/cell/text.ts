@@ -1,7 +1,7 @@
 import React from 'react'
 import * as PropTypes from 'prop-types'
 
-import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
+import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
 import TextInput from '@webapp/components/textInput'
 import VerticallyGrowingTextField from '@webapp/components/verticallyGrowingTextField'

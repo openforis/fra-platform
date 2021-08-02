@@ -2,7 +2,7 @@ import * as R from 'ramda'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 
-import { updateTableDataCell } from '@webapp/app/assessment/components/dataTable/actions'
+import { updateTableDataCell } from '@webapp/components/Assessment/DataTable/actions'
 
 import { KEYS_ROW } from '@webapp/app/assessment/components/section/sectionSpec/rowSpec'
 import { isHeader } from '@webapp/sectionSpec/typeSpec'

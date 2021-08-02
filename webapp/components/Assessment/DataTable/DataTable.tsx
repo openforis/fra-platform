@@ -1,41 +1,51 @@
-import './dataTable.less'
+import './DataTable.scss'
 import React from 'react'
 import { useSelector } from 'react-redux'
-import * as ObjectUtils from '@common/objectUtils'
-import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
+
+import { AssessmentType, TableData } from '@core/assessment'
+import { Objects } from '@core/utils'
+import { TableSpec } from '@webapp/sectionSpec'
 import { useI18n, usePrintView } from '@webapp/components/hooks'
-import Table from './table'
-import Chart from './chart'
-import GenerateValues from './generateValues'
+
+import Table from './Table'
+import Chart from './Chart'
+import GenerateValues from './GenerateValues'
 import { getRowsSliced } from './printUtils'
 
 type Props = {
-  assessmentType: string
+  assessmentType: AssessmentType
   sectionName: string
   sectionAnchor: string
-  tableSpec: any
+  tableSpec: TableSpec
   disabled: boolean
 }
-const DataTable = (props: Props) => {
+
+const DataTable: React.FC<Props> = (props) => {
   const { assessmentType, sectionName, sectionAnchor, tableSpec, disabled } = props
-  const tableName = tableSpec[SectionSpec.KEYS_TABLE.name]
-  const rows = tableSpec[SectionSpec.KEYS_TABLE.rows]
-  const getSectionData = tableSpec[SectionSpec.KEYS_TABLE.getSectionData]
-  const isSectionDataEmpty = tableSpec[SectionSpec.KEYS_TABLE.isSectionDataEmpty]
-  const odp = tableSpec[SectionSpec.KEYS_TABLE.odp]
-  const showOdpChart = tableSpec[SectionSpec.KEYS_TABLE.showOdpChart]
-  const canGenerateValues = tableSpec[SectionSpec.KEYS_TABLE.canGenerateValues]
-  const breakPointsColsPrint = tableSpec[SectionSpec.KEYS_TABLE.print][SectionSpec.KEYS_TABLE_PRINT.colBreakPoints]
+  const {
+    name: tableName,
+    rows,
+    getSectionData,
+    isSectionDataEmpty,
+    odp,
+    showOdpChart,
+    canGenerateValues,
+    print,
+  } = tableSpec
+  const breakPointsColsPrint = print.colBreakPoints
+
   const i18n = useI18n()
-  const data: any = useSelector(getSectionData(assessmentType, sectionName, tableName))
-  const dataEmpty = useSelector(isSectionDataEmpty(assessmentType, sectionName, tableName))
-  const generateValues = useSelector(
-    (state) => odp && !disabled && ObjectUtils.isFunction(canGenerateValues) && canGenerateValues(state)
+  const data: TableData = useSelector(getSectionData(assessmentType, sectionName, tableName))
+  const dataEmpty: boolean = useSelector(isSectionDataEmpty(assessmentType, sectionName, tableName))
+  const generateValues: boolean = useSelector(
+    (state) => odp && !disabled && Objects.isFunction(canGenerateValues) && canGenerateValues(state)
   )
   const [printView] = usePrintView()
+
   if (!data) {
     return null
   }
+
   return (
     <>
       {showOdpChart && (!printView || !dataEmpty) && (
@@ -43,10 +53,10 @@ const DataTable = (props: Props) => {
           <Chart
             fra={data}
             trends={rows
-              .filter((row: any) => !!row.chartProps)
-              .map((row: any) => ({
+              .filter((row) => !!row.chartProps)
+              .map((row) => ({
                 name: row.variableName,
-                label: (i18n as any).t(row.chartProps.labelKey),
+                label: i18n.t(row.chartProps.labelKey),
                 color: row.chartProps.color,
               }))}
           />
@@ -65,8 +75,8 @@ const DataTable = (props: Props) => {
       )}
 
       {printView && breakPointsColsPrint.length > 0 ? (
-        breakPointsColsPrint.map((breakPoint: any, breakPointIdx: any) => {
-          const rowsSliced = getRowsSliced(breakPointsColsPrint, breakPointIdx, rows)
+        breakPointsColsPrint.map((breakPoint, idx) => {
+          const rowsSliced = getRowsSliced(breakPointsColsPrint, idx, rows)
           return (
             <Table
               key={breakPoint}
@@ -94,4 +104,5 @@ const DataTable = (props: Props) => {
     </>
   )
 }
+
 export default DataTable
