@@ -1,6 +1,10 @@
 import { FRA } from '@core/assessment'
-
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
+import { Unit } from '@webapp/sectionSpec/unitSpec'
+import { VARIABLES } from '@webapp/sectionSpec/variables'
 
 import * as ForestAreaChangeState from '@webapp/sectionSpec/fra/forestAreaChange/forestAreaChangeState'
 import * as ForestAreaChangeValidatorState from '@webapp/sectionSpec/fra/forestAreaChange/forestAreaChangeValidatorState'
@@ -10,106 +14,102 @@ import * as ForestAreaChangeActions from './actions'
 const section = FRA.sections['1'].children.d
 const { yearsRange } = FRA
 
-const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.forestAreaChange,
-  [SectionSpec.KEYS_TABLE.columnsExport]: yearsRange,
-  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.Unit.haThousandPerYear,
-  [SectionSpec.KEYS_TABLE.updateTableDataCell]: ForestAreaChangeActions.updateForestAreaChangeCell,
-  [SectionSpec.KEYS_TABLE.tableDataRequired]: [
+const tableSpec = TableSpecFactory.newInstance({
+  name: section.tables.forestAreaChange,
+  columnsExport: yearsRange,
+  unit: Unit.haThousandPerYear,
+  updateTableDataCell: ForestAreaChangeActions.updateForestAreaChangeCell,
+  tableDataRequired: [
     {
-      [SectionSpec.KEYS_TABLE_DATA_REQUIRED.assessmentType]: FRA.type,
-      [SectionSpec.KEYS_TABLE_DATA_REQUIRED.sectionName]: FRA.sections['1'].children.a.name,
-      [SectionSpec.KEYS_TABLE_DATA_REQUIRED.tableName]: FRA.sections['1'].children.a.tables.extentOfForest,
+      assessmentType: FRA.type,
+      sectionName: FRA.sections['1'].children.a.name,
+      tableName: FRA.sections['1'].children.a.tables.extentOfForest,
     },
   ],
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'forestAreaChange.categoryHeader',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
-          [SectionSpec.KEYS_COL.left]: true,
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'forestAreaChange.categoryHeader',
+          rowSpan: 2,
+          left: true,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'forestAreaChange.areaUnitLabel',
-          [SectionSpec.KEYS_COL.colSpan]: yearsRange.length,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'forestAreaChange.areaUnitLabel',
+          colSpan: yearsRange.length,
         }),
       ],
     }),
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: yearsRange.map((yearRange: any) =>
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.label]: yearRange,
+    RowSpecFactory.newHeaderInstance({
+      cols: yearsRange.map((yearRange: any) =>
+        ColSpecFactory.newHeaderInstance({
+          label: yearRange,
         })
       ),
     }),
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: `forestAreaChange.forestExpansion`,
-      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.forest_expansion,
-      [SectionSpec.KEYS_ROW.variableNo]: 'a',
-      [SectionSpec.KEYS_ROW.cols]: yearsRange.map(() =>
-        SectionSpec.newColDecimal({
-          [SectionSpec.KEYS_COL.validator]: ForestAreaChangeValidatorState.positiveOrZeroValidator,
+    RowSpecFactory.newDataInstance({
+      labelKey: `forestAreaChange.forestExpansion`,
+      variableExport: VARIABLES.forest_expansion,
+      variableNo: 'a',
+      cols: yearsRange.map(() =>
+        ColSpecFactory.newDecimalInstance({
+          validator: ForestAreaChangeValidatorState.positiveOrZeroValidator,
         })
       ),
     }),
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: `forestAreaChange.ofWhichAfforestation`,
-      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.afforestation,
-      [SectionSpec.KEYS_ROW.subcategory]: true,
-      [SectionSpec.KEYS_ROW.cols]: yearsRange.map(() =>
-        SectionSpec.newColDecimal({
-          [SectionSpec.KEYS_COL.validator]: ForestAreaChangeValidatorState.forestExpansionValidator,
+    RowSpecFactory.newDataInstance({
+      labelKey: `forestAreaChange.ofWhichAfforestation`,
+      variableExport: VARIABLES.afforestation,
+      subcategory: true,
+      cols: yearsRange.map(() =>
+        ColSpecFactory.newDecimalInstance({
+          validator: ForestAreaChangeValidatorState.forestExpansionValidator,
         })
       ),
     }),
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: `forestAreaChange.ofWhichNaturalExpansion`,
-      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.natural_expansion,
-      [SectionSpec.KEYS_ROW.subcategory]: true,
-      [SectionSpec.KEYS_ROW.cols]: yearsRange.map(() =>
-        SectionSpec.newColDecimal({
-          [SectionSpec.KEYS_COL.validator]: ForestAreaChangeValidatorState.forestExpansionValidator,
+    RowSpecFactory.newDataInstance({
+      labelKey: `forestAreaChange.ofWhichNaturalExpansion`,
+      variableExport: VARIABLES.natural_expansion,
+      subcategory: true,
+      cols: yearsRange.map(() =>
+        ColSpecFactory.newDecimalInstance({
+          validator: ForestAreaChangeValidatorState.forestExpansionValidator,
         })
       ),
     }),
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: `forestAreaChange.deforestation`,
-      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.deforestation,
-      [SectionSpec.KEYS_ROW.variableNo]: 'b',
-      [SectionSpec.KEYS_ROW.cols]: yearsRange.map(() =>
-        SectionSpec.newColDecimal({
-          [SectionSpec.KEYS_COL.validator]: ForestAreaChangeValidatorState.positiveOrZeroValidator,
+    RowSpecFactory.newDataInstance({
+      labelKey: `forestAreaChange.deforestation`,
+      variableExport: VARIABLES.deforestation,
+      variableNo: 'b',
+      cols: yearsRange.map(() =>
+        ColSpecFactory.newDecimalInstance({
+          validator: ForestAreaChangeValidatorState.positiveOrZeroValidator,
         })
       ),
     }),
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: 'forestAreaChange.forestAreaNetChange',
-      [SectionSpec.KEYS_ROW.variableNo]: 'a-b',
-      [SectionSpec.KEYS_ROW.linkToSection]: FRA.sections['1'].children.a.name,
-      [SectionSpec.KEYS_ROW.cols]: yearsRange.map(() =>
-        SectionSpec.newColCalculated({
-          [SectionSpec.KEYS_COL.calculateFn]: ForestAreaChangeState.getExtentOfForestChange,
+    RowSpecFactory.newDataInstance({
+      labelKey: 'forestAreaChange.forestAreaNetChange',
+      variableNo: 'a-b',
+      linkToSection: FRA.sections['1'].children.a.name,
+      cols: yearsRange.map(() =>
+        ColSpecFactory.newCalculatedInstance({
+          calculateFn: ForestAreaChangeState.getExtentOfForestChange,
         })
       ),
     }),
-    SectionSpec.newRowNoticeMessage({
-      [SectionSpec.KEYS_ROW.rowSpan]: 2,
+    RowSpecFactory.newNoticeMessageInstance({
+      rowSpan: 2,
     }),
-    SectionSpec.newRowValidationMessages({
-      [SectionSpec.KEYS_ROW.getValidationMessages]: ForestAreaChangeValidatorState.getValidationMessages,
+    RowSpecFactory.newValidationMessagesInstance({
+      getValidationMessages: ForestAreaChangeValidatorState.getValidationMessages,
     }),
   ],
 })
 
-const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
-})
-
-const forestAreaChange = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
+const forestAreaChange = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  tableSections: [{ tableSpecs: [tableSpec] }],
 })
 
 export default forestAreaChange

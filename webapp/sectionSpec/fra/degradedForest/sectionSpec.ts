@@ -1,57 +1,57 @@
 import { FRA } from '@core/assessment'
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
+import { VARIABLES } from '@webapp/sectionSpec/variables'
 
 const section = FRA.sections['5'].children.c
 
-const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.degradedForest,
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: 'degradedForest.doesYourCountryMonitor',
-      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.does_country_monitor,
-      [SectionSpec.KEYS_ROW.colSpan]: 2,
-      [SectionSpec.KEYS_ROW.mainCategory]: true,
-      [SectionSpec.KEYS_ROW.cols]: [SectionSpec.newColSelectYesNo()],
+const tableSpec = TableSpecFactory.newInstance({
+  name: section.tables.degradedForest,
+  rows: [
+    RowSpecFactory.newDataInstance({
+      labelKey: 'degradedForest.doesYourCountryMonitor',
+      variableExport: VARIABLES.does_country_monitor,
+      colSpan: 2,
+      mainCategory: true,
+      cols: [ColSpecFactory.newSelectYesNoInstance({})],
     }),
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: 'degradedForest.ifYes',
-      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.national_definition,
-      [SectionSpec.KEYS_ROW.rowSpan]: 2,
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColPlaceholder({
-          [SectionSpec.KEYS_COL.labelKey]: 'degradedForest.whatIsDefinition',
-          [SectionSpec.KEYS_COL.idx]: -1,
+    RowSpecFactory.newDataInstance({
+      labelKey: 'degradedForest.ifYes',
+      variableExport: VARIABLES.national_definition,
+      rowSpan: 2,
+      cols: [
+        ColSpecFactory.newPlaceholderInstance({
+          labelKey: 'degradedForest.whatIsDefinition',
+          idx: -1,
         }),
-        SectionSpec.newColTextArea({
-          [SectionSpec.KEYS_COL.idx]: 1,
+        ColSpecFactory.newTextAreaInstance({
+          idx: 1,
         }),
       ],
     }),
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: 'degradedForest.howMonitored',
-      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.how_monitored,
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColTextArea({
-          [SectionSpec.KEYS_COL.idx]: 0,
+    RowSpecFactory.newDataInstance({
+      labelKey: 'degradedForest.howMonitored',
+      variableExport: VARIABLES.how_monitored,
+      cols: [
+        ColSpecFactory.newTextAreaInstance({
+          idx: 0,
         }),
       ],
     }),
   ],
 })
 
-const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
-})
-
-const degradedForest = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.dataExport]: { [SectionSpec.KEYS_DATA_EXPORT.included]: false },
-  [SectionSpec.KEYS_SECTION.descriptions]: {
-    [SectionSpec.KEYS_SECTION_DESCRIPTIONS.nationalData]: false,
-    [SectionSpec.KEYS_SECTION_DESCRIPTIONS.analysisAndProcessing]: false,
+const degradedForest = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  dataExport: { included: false },
+  descriptions: {
+    nationalData: false,
+    analysisAndProcessing: false,
   },
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
+  tableSections: [{ tableSpecs: [tableSpec] }],
 })
 
 export default degradedForest

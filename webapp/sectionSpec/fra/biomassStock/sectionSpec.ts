@@ -1,59 +1,59 @@
 import { FRA } from '@core/assessment'
-
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
+import { Unit } from '@webapp/sectionSpec/unitSpec'
+import { VARIABLES } from '@webapp/sectionSpec/variables'
 
 const section = FRA.sections['2'].children.c
 const { years } = FRA
 const variables = ['aboveGround', 'belowGround', 'deadWood']
-const variablesMappings: any = {
-  aboveGround: SectionSpec.VARIABLES.forest_above_ground,
-  belowGround: SectionSpec.VARIABLES.forest_below_ground,
-  deadWood: SectionSpec.VARIABLES.forest_deadwood,
+const variablesMappings: Record<string, string> = {
+  aboveGround: VARIABLES.forest_above_ground,
+  belowGround: VARIABLES.forest_below_ground,
+  deadWood: VARIABLES.forest_deadwood,
 }
 
-const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.biomassStock,
-  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.Unit.tonnesPerHa,
-  [SectionSpec.KEYS_TABLE.columnsExport]: years,
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'biomassStock.categoryHeader',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
-          [SectionSpec.KEYS_COL.left]: true,
+const tableSpec = TableSpecFactory.newInstance({
+  name: section.tables.biomassStock,
+  unit: Unit.tonnesPerHa,
+  columnsExport: years,
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'biomassStock.categoryHeader',
+          rowSpan: 2,
+          left: true,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'biomassStock.tableHeader',
-          [SectionSpec.KEYS_COL.colSpan]: years.length,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'biomassStock.tableHeader',
+          colSpan: years.length,
         }),
       ],
     }),
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: years.map((year: any) =>
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.label]: year,
+    RowSpecFactory.newHeaderInstance({
+      cols: years.map((year) =>
+        ColSpecFactory.newHeaderInstance({
+          label: `${year}`,
         })
       ),
     }),
     ...variables.map((variable) =>
-      SectionSpec.newRowData({
-        [SectionSpec.KEYS_ROW.labelKey]: `biomassStock.${variable}`,
-        [SectionSpec.KEYS_ROW.variableExport]: variablesMappings[variable],
-        [SectionSpec.KEYS_ROW.cols]: years.map(() => SectionSpec.newColDecimal()),
+      RowSpecFactory.newDataInstance({
+        labelKey: `biomassStock.${variable}`,
+        variableExport: variablesMappings[variable],
+        cols: years.map(() => ColSpecFactory.newDecimalInstance({})),
       })
     ),
   ],
 })
 
-const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
-})
-
-const biomassStock = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
+const biomassStock = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  tableSections: [{ tableSpecs: [tableSpec] }],
 })
 
 export default biomassStock

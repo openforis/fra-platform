@@ -87,7 +87,7 @@ const getUpdateForestCharacteristics = (state: any, odp: any, draft: any) => {
   return getUpdateSectionTable(state, forestCharacteristicsSectionName, forestCharacteristicsTableName, datumOdp)
 }
 
-export function getUpdateTablesWithOdp(state: any, odp: any, draft = true): any{
+export function getUpdateTablesWithOdp(state: any, odp: any, draft = true): any {
   const actions = []
   actions.push(getUpdateExtentOfForest(state, odp, draft))
   actions.push(getUpdateForestCharacteristics(state, odp, draft))

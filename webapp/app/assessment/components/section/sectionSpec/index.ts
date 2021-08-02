@@ -8,7 +8,16 @@ export { RowSpec }
 export { ColSpec }
 export { UnitSpec }
 
-export { TypeSpec, TYPE, isData, isNotData, isHeader, isNotHeader, isDecimal, isText } from '@webapp/sectionSpec/typeSpec'
+export {
+  TypeSpec,
+  TYPE,
+  isData,
+  isNotData,
+  isHeader,
+  isNotHeader,
+  isDecimal,
+  isText,
+} from '@webapp/sectionSpec/typeSpec'
 
 export { KEYS_SECTION, KEYS_SECTION_DESCRIPTIONS, KEYS_DATA_EXPORT, newSectionSpec } from './sectionSpec'
 
@@ -38,4 +47,7 @@ export {
   newColPlaceholder,
 } from './colSpec'
 
-export { default as VARIABLES } from './variables'
+/**
+ * @deprecated
+ */
+export { default as VARIABLES } from '../../../../../sectionSpec/variables'

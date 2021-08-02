@@ -4,6 +4,9 @@ import * as NumberUtils from '@common/bignumberUtils'
 
 import { TYPE, TypeSpec, getType } from '@webapp/sectionSpec/typeSpec'
 
+/**
+ * @deprecated
+ */
 export const KEYS_COL: any = {
   type: TYPE,
   idx: 'idx',
@@ -23,6 +26,9 @@ export const KEYS_COL: any = {
   optionName: 'optionName',
 }
 
+/**
+ * @deprecated
+ */
 const colHeaderDefault: any = {
   [KEYS_COL.idx]: null,
   [KEYS_COL.type]: TypeSpec.header,
@@ -35,37 +41,58 @@ const colHeaderDefault: any = {
   [KEYS_COL.left]: false,
 }
 
+/**
+ * @deprecated
+ */
 const colDecimalDefault: any = {
   [KEYS_COL.idx]: null,
   [KEYS_COL.type]: TypeSpec.decimal,
 }
 
+/**
+ * @deprecated
+ */
 const colIntegerDefault: any = {
   [KEYS_COL.idx]: null,
   [KEYS_COL.type]: TypeSpec.integer,
 }
 
+/**
+ * @deprecated
+ */
 const colTextDefault: any = {
   [KEYS_COL.idx]: null,
   [KEYS_COL.type]: TypeSpec.text,
 }
 
+/**
+ * @deprecated
+ */
 const colTextAreaDefault: any = {
   [KEYS_COL.idx]: null,
   [KEYS_COL.type]: TypeSpec.textarea,
 }
 
+/**
+ * @deprecated
+ */
 const colCalculatedDefault: any = {
   [KEYS_COL.idx]: null,
   [KEYS_COL.type]: TypeSpec.calculated,
   [KEYS_COL.formatFn]: NumberUtils.formatNumber,
 }
 
+/**
+ * @deprecated
+ */
 const colPlaceholderDefault: any = {
   [KEYS_COL.idx]: null,
   [KEYS_COL.type]: TypeSpec.placeholder,
 }
 
+/**
+ * @deprecated
+ */
 const colSelectDefault: any = {
   [KEYS_COL.idx]: null,
   [KEYS_COL.type]: TypeSpec.select,
@@ -73,6 +100,9 @@ const colSelectDefault: any = {
   [KEYS_COL.optionsLabelKeyPrefix]: '',
 }
 
+/**
+ * @deprecated
+ */
 const colSelectYesNoDefault: any = {
   [KEYS_COL.idx]: null,
   [KEYS_COL.type]: TypeSpec.select,
@@ -80,6 +110,9 @@ const colSelectYesNoDefault: any = {
   [KEYS_COL.options]: [{ [KEYS_COL.optionName]: 'yes' }, { [KEYS_COL.optionName]: 'no' }],
 }
 
+/**
+ * @deprecated
+ */
 const assocHeaderClassName = (col: any) => {
   const left = col[KEYS_COL.left]
   let className = 'fra-table__header-cell'
@@ -92,15 +125,42 @@ const assocHeaderClassName = (col: any) => {
   }
 }
 
+/**
+ * @deprecated
+ */
 export const newColHeader = (x?: any) => R.pipe(R.mergeDeepRight(colHeaderDefault), assocHeaderClassName)(x)
+/**
+ * @deprecated
+ */
 // @ts-ignore
 export const newColDecimal = (x?: any) => R.pipe(R.defaultTo({}), R.mergeDeepRight(colDecimalDefault))(x)
+/**
+ * @deprecated
+ */
 export const newColInteger = (x?: any) => R.pipe(R.defaultTo({}), R.mergeDeepRight(colIntegerDefault))(x)
+/**
+ * @deprecated
+ */
 export const newColCalculated = (x?: any) => R.mergeDeepRight(colCalculatedDefault)(x)
+/**
+ * @deprecated
+ */
 export const newColText = (x?: any) => R.pipe(R.defaultTo({}), R.mergeDeepRight(colTextDefault))(x)
+/**
+ * @deprecated
+ */
 export const newColTextArea = (x?: any) => R.pipe(R.defaultTo({}), R.mergeDeepRight(colTextAreaDefault))(x)
+/**
+ * @deprecated
+ */
 export const newColSelect = (x?: any) => R.pipe(R.defaultTo({}), R.mergeDeepRight(colSelectDefault))(x)
+/**
+ * @deprecated
+ */
 export const newColSelectYesNo = (x?: any) => R.pipe(R.defaultTo({}), R.mergeDeepRight(colSelectYesNoDefault))(x)
+/**
+ * @deprecated
+ */
 export const newColPlaceholder = (x?: any) => R.pipe(R.defaultTo({}), R.mergeDeepRight(colPlaceholderDefault))(x)
 
 export { getType, TypeSpec }
