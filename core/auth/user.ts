@@ -1,4 +1,4 @@
-import { Lang } from '@core/common'
+import { Lang } from '@core/lang'
 import { AssessmentType } from '@core/assessment'
 import { Role } from './role'
 
@@ -23,9 +23,9 @@ export interface User {
   lang?: Lang
   type: UserType
   active: boolean
+  roles: Array<UserRole>
   // deprecated
   role: any
-  roles: Array<UserRole>
 }
 
 /*

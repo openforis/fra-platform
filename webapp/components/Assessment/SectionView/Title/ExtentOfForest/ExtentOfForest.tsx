@@ -2,8 +2,8 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Users } from '@core/auth'
-import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestState'
-import { toggleOdps } from '@webapp/app/assessment/fra/sections/extentOfForest/actions'
+import * as ExtentOfForestState from '@webapp/sectionSpec/fra/extentOfForest/extentOfForestState'
+import { toggleOdps } from '@webapp/sectionSpec/fra/extentOfForest/actions'
 import { useI18n, usePrintView, useUserInfo } from '@webapp/components/hooks'
 
 import OriginalDataPointsPrint from '@webapp/components/OriginalDataPoint/OriginalDataPointsPrint'

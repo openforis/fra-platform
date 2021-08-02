@@ -103,7 +103,7 @@ export const getValue = (column: any, countryIso: any, results: any, section: an
 }
 
 export const valueConverted = (value: any, base: any, unit: any) =>
-  base && base !== unit && Object.keys(UnitSpec.factors).includes(base) ? UnitSpec.convert(value, base, unit) : value
+  base && base !== unit && Object.keys(UnitSpec.UnitFactors).includes(base) ? UnitSpec.convertValue(value, base, unit) : value
 
 const sections: any = {
   designatedManagementObjective: 'primary_designated_management_objective',
@@ -153,7 +153,7 @@ const unitI18nMappings = {
   acre1000: 'acre1000',
   acre: 'acre',
   haMillion: 'haMillion',
-  [UnitSpec.units.haThousand]: UnitSpec.units.haThousand,
+  [UnitSpec.Unit.haThousand]: UnitSpec.Unit.haThousand,
 }
 
 export const getUnitI18nMappings = (unit: any) => (unitI18nMappings[unit] ? `unit.${unitI18nMappings[unit]}` : unit)

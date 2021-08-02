@@ -12,13 +12,13 @@ import useClassName from './useClassName'
 import useOnChange from './useOnChange'
 
 const ComponentsByType = {
-  [SectionSpec.TYPES.calculated]: Calculated,
-  [SectionSpec.TYPES.text]: Text,
-  [SectionSpec.TYPES.textarea]: Text,
-  [SectionSpec.TYPES.decimal]: Number,
-  [SectionSpec.TYPES.integer]: Number,
-  [SectionSpec.TYPES.select]: Select,
-  [SectionSpec.TYPES.placeholder]: Placeholder,
+  [SectionSpec.TypeSpec.calculated]: Calculated,
+  [SectionSpec.TypeSpec.text]: Text,
+  [SectionSpec.TypeSpec.textarea]: Text,
+  [SectionSpec.TypeSpec.decimal]: Number,
+  [SectionSpec.TypeSpec.integer]: Number,
+  [SectionSpec.TypeSpec.select]: Select,
+  [SectionSpec.TypeSpec.placeholder]: Placeholder,
 }
 
 type Props = {
