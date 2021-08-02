@@ -1,6 +1,9 @@
 import { PanEuropean } from '@core/assessment'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
 
 const section = PanEuropean.sections['1'].children['13b']
 
@@ -8,9 +11,9 @@ const variables = ['forest_uneven_aged_stands', '_of_which_forest_available_for_
 
 const years = [...PanEuropean.years90_15].reverse()
 
-const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.table_1_3b,
-  [SectionSpec.KEYS_TABLE.columnsExport]: [
+const tableSpec = TableSpecFactory.newInstance({
+  name: section.tables.table_1_3b,
+  columnsExport: [
     'area',
     'total_volume',
     'less_or_equal_20_cm',
@@ -20,67 +23,65 @@ const tableSpec = SectionSpec.newTableSpec({
     'unspecified',
   ],
 
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.categoryYear',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
-          [SectionSpec.KEYS_COL.left]: true,
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.categoryYear',
+          rowSpan: 2,
+          left: true,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.area',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
-        }),
-
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.total_volume',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.area',
+          rowSpan: 2,
         }),
 
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]:
-            'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.volumeByDiameterClasses1000mob', // ???
-          [SectionSpec.KEYS_COL.colSpan]: 5,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.total_volume',
+          rowSpan: 2,
+        }),
+
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.volumeByDiameterClasses1000mob', // ???
+          colSpan: 5,
         }),
       ],
     }),
 
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]:
-            'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.less_or_equal_20_cm',
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.less_or_equal_20_cm',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands._21_40_cm',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands._21_40_cm',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands._41_60_cm',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands._41_60_cm',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.greater_60_cm',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.greater_60_cm',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.unspecified',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.unspecified',
         }),
       ],
     }),
 
-    ...variables.flatMap((variable: any) =>
+    ...variables.flatMap((variable) =>
       years.map((year) =>
-        SectionSpec.newRowData({
-          [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.${variable}`,
-          [SectionSpec.KEYS_ROW.labelParams]: { year },
-          [SectionSpec.KEYS_ROW.variableExport]: `${variable}_${year}`,
-          [SectionSpec.KEYS_ROW.cols]: [
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
+        RowSpecFactory.newDataInstance({
+          labelKey: `panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.${variable}`,
+          labelParams: { year },
+          variableExport: `${variable}_${year}`,
+          cols: [
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
           ],
         })
       )
@@ -88,14 +89,10 @@ const tableSpec = SectionSpec.newTableSpec({
   ],
 })
 
-const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
-})
-
-const diameterDistributionAndTotalAreaUnevenAgedStands = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
+const diameterDistributionAndTotalAreaUnevenAgedStands = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  tableSections: [{ tableSpecs: [tableSpec] }],
 })
 
 export default diameterDistributionAndTotalAreaUnevenAgedStands

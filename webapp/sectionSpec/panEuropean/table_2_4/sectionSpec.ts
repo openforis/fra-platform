@@ -1,6 +1,10 @@
 import { PanEuropean } from '@core/assessment'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
+import { Unit } from '@webapp/sectionSpec/unitSpec'
 
 const section = PanEuropean.sections['2'].children['24']
 
@@ -8,10 +12,10 @@ const variables = ['forest', 'other_wooded_land', 'total_forest_and_other_wooded
 
 const years = [...PanEuropean.years90_15].reverse()
 
-const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.table_2_4,
-  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.Unit.haThousand,
-  [SectionSpec.KEYS_TABLE.columnsExport]: [
+const tableSpec = TableSpecFactory.newInstance({
+  name: section.tables.table_2_4,
+  unit: Unit.haThousand,
+  columnsExport: [
     'total_area_with_damage',
     'insects_and_disease',
     'wildlife_and_grazing',
@@ -23,104 +27,104 @@ const tableSpec = SectionSpec.newTableSpec({
     'unspecified_mixed_damage',
   ],
 
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.categoryYear',
-          [SectionSpec.KEYS_COL.rowSpan]: 4,
-          [SectionSpec.KEYS_COL.left]: true,
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.forestAreaWithDamage.categoryYear',
+          rowSpan: 4,
+          left: true,
         }),
 
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.total_area_with_damage',
-          [SectionSpec.KEYS_COL.rowSpan]: 3,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.forestAreaWithDamage.total_area_with_damage',
+          rowSpan: 3,
         }),
 
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.areaWithDamageByDifferentAgents',
-          [SectionSpec.KEYS_COL.colSpan]: 7,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.forestAreaWithDamage.areaWithDamageByDifferentAgents',
+          colSpan: 7,
         }),
 
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.unspecified_mixed_damage',
-          [SectionSpec.KEYS_COL.rowSpan]: 3,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.forestAreaWithDamage.unspecified_mixed_damage',
+          rowSpan: 3,
         }),
       ],
     }),
 
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.primarilyDamagedByBioticAgents',
-          [SectionSpec.KEYS_COL.colSpan]: 2,
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.forestAreaWithDamage.primarilyDamagedByBioticAgents',
+          colSpan: 2,
         }),
 
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.damagePrimarilyHumanInduced',
-          [SectionSpec.KEYS_COL.colSpan]: 2,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.forestAreaWithDamage.damagePrimarilyHumanInduced',
+          colSpan: 2,
         }),
 
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.primarilyDamagedByAbioticAgents',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.forestAreaWithDamage.primarilyDamagedByAbioticAgents',
+          rowSpan: 2,
         }),
 
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.primarilyDamagedByFire',
-          [SectionSpec.KEYS_COL.colSpan]: 2,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.forestAreaWithDamage.primarilyDamagedByFire',
+          colSpan: 2,
         }),
       ],
     }),
 
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.insectsAndDisease',
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.forestAreaWithDamage.insectsAndDisease',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.wildlifeAndGrazing',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.forestAreaWithDamage.wildlifeAndGrazing',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.forestOperations',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.forestAreaWithDamage.forestOperations',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.otherHumanInduced',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.forestAreaWithDamage.otherHumanInduced',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.primarilyDamagedByFireTotal',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.forestAreaWithDamage.primarilyDamagedByFireTotal',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.ofWhichHumanInduced',
-        }),
-      ],
-    }),
-
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaWithDamage.thousandHa',
-          [SectionSpec.KEYS_COL.colSpan]: 9,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.forestAreaWithDamage.ofWhichHumanInduced',
         }),
       ],
     }),
 
-    ...variables.flatMap((variable: any) =>
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.forestAreaWithDamage.thousandHa',
+          colSpan: 9,
+        }),
+      ],
+    }),
+
+    ...variables.flatMap((variable) =>
       years.map((year) =>
-        SectionSpec.newRowData({
-          [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.forestAreaWithDamage.${variable}`,
-          [SectionSpec.KEYS_ROW.labelParams]: { year },
-          [SectionSpec.KEYS_ROW.variableExport]: `${variable}_${year}`,
-          [SectionSpec.KEYS_ROW.cols]: [
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
+        RowSpecFactory.newDataInstance({
+          labelKey: `panEuropean.forestAreaWithDamage.${variable}`,
+          labelParams: { year },
+          variableExport: `${variable}_${year}`,
+          cols: [
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
           ],
         })
       )
@@ -128,14 +132,10 @@ const tableSpec = SectionSpec.newTableSpec({
   ],
 })
 
-const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
-})
-
-const forestAreaWithDamage = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
+const forestAreaWithDamage = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  tableSections: [{ tableSpecs: [tableSpec] }],
 })
 
 export default forestAreaWithDamage

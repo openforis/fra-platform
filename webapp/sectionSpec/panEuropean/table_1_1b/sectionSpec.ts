@@ -1,23 +1,28 @@
 import { PanEuropean } from '@core/assessment'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
+import { Unit } from '@webapp/sectionSpec/unitSpec'
+import { VARIABLES } from '@webapp/sectionSpec/variables'
 
 const section = PanEuropean.sections['1'].children['11b']
 
 const variables = ['predominantly_coniferous_forest', 'predominantly_broadleaved_forest', 'mixed_forest']
 
-const variablesMappings: any = {
-  predominantly_coniferous_forest: SectionSpec.VARIABLES.predominantly_coniferous_forest,
-  predominantly_broadleaved_forest: SectionSpec.VARIABLES.predominantly_broadleaved_forest,
-  mixed_forest: SectionSpec.VARIABLES.mixed_forest,
+const variablesMappings: Record<string, string> = {
+  predominantly_coniferous_forest: VARIABLES.predominantly_coniferous_forest,
+  predominantly_broadleaved_forest: VARIABLES.predominantly_broadleaved_forest,
+  mixed_forest: VARIABLES.mixed_forest,
 }
 
 const years = [...PanEuropean.years90_20]
 
-const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.table_1_1b,
-  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.Unit.haThousand,
-  [SectionSpec.KEYS_TABLE.columnsExport]: [
+const tableSpec = TableSpecFactory.newInstance({
+  name: section.tables.table_1_1b,
+  unit: Unit.haThousand,
+  columnsExport: [
     'forest_area_1990',
     'forest_area_2000',
     'forest_area_2005',
@@ -26,47 +31,43 @@ const tableSpec = SectionSpec.newTableSpec({
     'forest_area_2020',
   ],
 
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaByForestTypes.category',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
-          [SectionSpec.KEYS_COL.left]: true,
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.forestAreaByForestTypes.category',
+          rowSpan: 2,
+          left: true,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.forestAreaByForestTypes.forestArea1000Ha',
-          [SectionSpec.KEYS_COL.colSpan]: years.length,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.forestAreaByForestTypes.forestArea1000Ha',
+          colSpan: years.length,
         }),
       ],
     }),
 
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: years.map((year) =>
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: year,
+    RowSpecFactory.newHeaderInstance({
+      cols: years.map((year) =>
+        ColSpecFactory.newHeaderInstance({
+          labelKey: `${year}`,
         })
       ),
     }),
 
-    ...variables.flatMap((variable: any) =>
-      SectionSpec.newRowData({
-        [SectionSpec.KEYS_ROW.variableExport]: variablesMappings[variable],
-        [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.forestAreaByForestTypes.${variable}`,
-        [SectionSpec.KEYS_ROW.cols]: years.map(() => SectionSpec.newColDecimal()),
+    ...variables.flatMap((variable) =>
+      RowSpecFactory.newDataInstance({
+        variableExport: variablesMappings[variable],
+        labelKey: `panEuropean.forestAreaByForestTypes.${variable}`,
+        cols: years.map(() => ColSpecFactory.newDecimalInstance({})),
       })
     ),
   ],
 })
 
-const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
-})
-
-const forestAreaByForestTypes = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
+const forestAreaByForestTypes = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  tableSections: [{ tableSpecs: [tableSpec] }],
 })
 
 export default forestAreaByForestTypes

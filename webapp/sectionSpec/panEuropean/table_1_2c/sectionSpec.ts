@@ -1,5 +1,9 @@
 import { PanEuropean } from '@core/assessment'
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
+import { VARIABLES } from '@webapp/sectionSpec/variables'
 
 const section = PanEuropean.sections['1'].children['12c']
 const variables = [
@@ -14,22 +18,22 @@ const variables = [
   'no9_ranked_in_terms_of_volume',
   'no10_ranked_in_terms_of_volume',
 ]
-const variablesMappings: any = {
-  no1_ranked_in_terms_of_volume: SectionSpec.VARIABLES.no1_ranked_in_terms_of_volume,
-  no2_ranked_in_terms_of_volume: SectionSpec.VARIABLES.no2_ranked_in_terms_of_volume,
-  no3_ranked_in_terms_of_volume: SectionSpec.VARIABLES.no3_ranked_in_terms_of_volume,
-  no4_ranked_in_terms_of_volume: SectionSpec.VARIABLES.no4_ranked_in_terms_of_volume,
-  no5_ranked_in_terms_of_volume: SectionSpec.VARIABLES.no5_ranked_in_terms_of_volume,
-  no6_ranked_in_terms_of_volume: SectionSpec.VARIABLES.no6_ranked_in_terms_of_volume,
-  no7_ranked_in_terms_of_volume: SectionSpec.VARIABLES.no7_ranked_in_terms_of_volume,
-  no8_ranked_in_terms_of_volume: SectionSpec.VARIABLES.no8_ranked_in_terms_of_volume,
-  no9_ranked_in_terms_of_volume: SectionSpec.VARIABLES.no9_ranked_in_terms_of_volume,
-  no10_ranked_in_terms_of_volume: SectionSpec.VARIABLES.no10_ranked_in_terms_of_volume,
+const variablesMappings: Record<string, string> = {
+  no1_ranked_in_terms_of_volume: VARIABLES.no1_ranked_in_terms_of_volume,
+  no2_ranked_in_terms_of_volume: VARIABLES.no2_ranked_in_terms_of_volume,
+  no3_ranked_in_terms_of_volume: VARIABLES.no3_ranked_in_terms_of_volume,
+  no4_ranked_in_terms_of_volume: VARIABLES.no4_ranked_in_terms_of_volume,
+  no5_ranked_in_terms_of_volume: VARIABLES.no5_ranked_in_terms_of_volume,
+  no6_ranked_in_terms_of_volume: VARIABLES.no6_ranked_in_terms_of_volume,
+  no7_ranked_in_terms_of_volume: VARIABLES.no7_ranked_in_terms_of_volume,
+  no8_ranked_in_terms_of_volume: VARIABLES.no8_ranked_in_terms_of_volume,
+  no9_ranked_in_terms_of_volume: VARIABLES.no9_ranked_in_terms_of_volume,
+  no10_ranked_in_terms_of_volume: VARIABLES.no10_ranked_in_terms_of_volume,
 }
 const years = [...PanEuropean.years90_20]
-const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.table_1_2c,
-  [SectionSpec.KEYS_TABLE.columnsExport]: [
+const tableSpec = TableSpecFactory.newInstance({
+  name: section.tables.table_1_2c,
+  columnsExport: [
     'scientific_name',
     'common_name',
     'growing_stock_in_forest_1990',
@@ -39,76 +43,74 @@ const tableSpec = SectionSpec.newTableSpec({
     'growing_stock_in_forest_2015',
     'growing_stock_in_forest_2020',
   ],
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.growingStockComposition.speciesName',
-          [SectionSpec.KEYS_COL.colSpan]: 3,
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.growingStockComposition.speciesName',
+          colSpan: 3,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.growingStockComposition.growingStockInForestMillionM3OB',
-          [SectionSpec.KEYS_COL.colSpan]: years.length,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.growingStockComposition.growingStockInForestMillionM3OB',
+          colSpan: years.length,
         }),
       ],
     }),
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.growingStockComposition.rank',
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.growingStockComposition.rank',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.growingStockComposition.scientificName',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.growingStockComposition.scientificName',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.growingStockComposition.commonName',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.growingStockComposition.commonName',
         }),
         ...years.map((year) =>
-          SectionSpec.newColHeader({
-            [SectionSpec.KEYS_COL.labelKey]: year,
+          ColSpecFactory.newHeaderInstance({
+            labelKey: `${year}`,
           })
         ),
       ],
     }),
-    ...variables.flatMap((variable: any) =>
-      SectionSpec.newRowData({
-        [SectionSpec.KEYS_ROW.variableExport]: variablesMappings[variable],
-        [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.growingStockComposition.${variable}`,
-        [SectionSpec.KEYS_ROW.cols]: [
-          SectionSpec.newColText(),
-          SectionSpec.newColText(),
-          ...years.map(() => SectionSpec.newColDecimal()),
+    ...variables.flatMap((variable) =>
+      RowSpecFactory.newDataInstance({
+        variableExport: variablesMappings[variable],
+        labelKey: `panEuropean.growingStockComposition.${variable}`,
+        cols: [
+          ColSpecFactory.newTextInstance({}),
+          ColSpecFactory.newTextInstance({}),
+          ...years.map(() => ColSpecFactory.newDecimalInstance({})),
         ],
       })
     ),
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: 'panEuropean.growingStockComposition.remaining',
-      [SectionSpec.KEYS_ROW.variableExport]: (SectionSpec.VARIABLES as any).remaining,
-      [SectionSpec.KEYS_ROW.colSpan]: 3,
-      [SectionSpec.KEYS_ROW.cols]: years.map((year, idx) =>
-        SectionSpec.newColDecimal({
-          [SectionSpec.KEYS_COL.idx]: idx + 2,
+    RowSpecFactory.newDataInstance({
+      labelKey: 'panEuropean.growingStockComposition.remaining',
+      variableExport: VARIABLES.remaining,
+      colSpan: 3,
+      cols: years.map((_, idx) =>
+        ColSpecFactory.newDecimalInstance({
+          idx: idx + 2,
         })
       ),
     }),
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: 'panEuropean.growingStockComposition.total',
-      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.total,
-      [SectionSpec.KEYS_ROW.colSpan]: 3,
-      [SectionSpec.KEYS_ROW.cols]: years.map((year, idx) =>
-        SectionSpec.newColDecimal({
-          [SectionSpec.KEYS_COL.idx]: idx + 2,
+    RowSpecFactory.newDataInstance({
+      labelKey: 'panEuropean.growingStockComposition.total',
+      variableExport: VARIABLES.total,
+      colSpan: 3,
+      cols: years.map((_, idx) =>
+        ColSpecFactory.newDecimalInstance({
+          idx: idx + 2,
         })
       ),
     }),
   ],
 })
-const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
-})
-const growingStockComposition = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
+
+const growingStockComposition = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  tableSections: [{ tableSpecs: [tableSpec] }],
 })
 export default growingStockComposition

@@ -1,6 +1,10 @@
 import { PanEuropean } from '@core/assessment'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
+import { VARIABLES } from '@webapp/sectionSpec/variables'
 
 const section = PanEuropean.sections['3'].children['34']
 
@@ -8,25 +12,25 @@ const variables1 = ['_01st', '_02nd', '_03rd', '_04th', '_05th', '_06th', '_07th
 
 const variables2 = ['remaining_total', 'total']
 
-const variablesMappings: any = {
-  _01st: SectionSpec.VARIABLES._01st,
-  _02nd: SectionSpec.VARIABLES._02nd,
-  _03rd: SectionSpec.VARIABLES._03rd,
-  _04th: SectionSpec.VARIABLES._04th,
-  _05th: SectionSpec.VARIABLES._05th,
-  _06th: SectionSpec.VARIABLES._06th,
-  _07th: SectionSpec.VARIABLES._07th,
-  _08th: SectionSpec.VARIABLES._08th,
-  _09th: SectionSpec.VARIABLES._09th,
-  _10th: SectionSpec.VARIABLES._10th,
+const variablesMappings: Record<string, string> = {
+  _01st: VARIABLES._01st,
+  _02nd: VARIABLES._02nd,
+  _03rd: VARIABLES._03rd,
+  _04th: VARIABLES._04th,
+  _05th: VARIABLES._05th,
+  _06th: VARIABLES._06th,
+  _07th: VARIABLES._07th,
+  _08th: VARIABLES._08th,
+  _09th: VARIABLES._09th,
+  _10th: VARIABLES._10th,
 
   remaining_total: 'remaining_total',
   total: 'total',
 }
 
-const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.table_3_4,
-  [SectionSpec.KEYS_TABLE.columnsExport]: [
+const tableSpec = TableSpecFactory.newInstance({
+  name: section.tables.table_3_4,
+  columnsExport: [
     'name_of_service_product',
     'unit',
     'service_provision_amount_of_service_product',
@@ -34,80 +38,76 @@ const tableSpec = SectionSpec.newTableSpec({
     'forest_service_category',
   ],
 
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.marketedServices2015.rankValue',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.marketedServices2015.rankValue',
+          rowSpan: 2,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.marketedServices2015.nameOfServiceProduct',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.marketedServices2015.nameOfServiceProduct',
+          rowSpan: 2,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.marketedServices2015.unit',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.marketedServices2015.unit',
+          rowSpan: 2,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.marketedServices2015.serviceProvision',
-          [SectionSpec.KEYS_COL.colSpan]: 2,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.marketedServices2015.serviceProvision',
+          colSpan: 2,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.marketedServices2015.forestServiceCategory',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
-        }),
-      ],
-    }),
-
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.marketedServices2015.amountOfServiceProduct',
-        }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.marketedServices2015.value1000NationalCurrency',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.marketedServices2015.forestServiceCategory',
+          rowSpan: 2,
         }),
       ],
     }),
 
-    ...variables1.flatMap((variable: any) =>
-      SectionSpec.newRowData({
-        [SectionSpec.KEYS_ROW.variableExport]: variablesMappings[variable],
-        [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.marketedServices2015.${variable}`,
-        [SectionSpec.KEYS_ROW.cols]: [
-          SectionSpec.newColText(),
-          SectionSpec.newColText(),
-          SectionSpec.newColDecimal(),
-          SectionSpec.newColDecimal(),
-          SectionSpec.newColText(),
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.marketedServices2015.amountOfServiceProduct',
+        }),
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.marketedServices2015.value1000NationalCurrency',
+        }),
+      ],
+    }),
+
+    ...variables1.flatMap((variable) =>
+      RowSpecFactory.newDataInstance({
+        variableExport: variablesMappings[variable],
+        labelKey: `panEuropean.marketedServices2015.${variable}`,
+        cols: [
+          ColSpecFactory.newTextInstance({}),
+          ColSpecFactory.newTextInstance({}),
+          ColSpecFactory.newDecimalInstance({}),
+          ColSpecFactory.newDecimalInstance({}),
+          ColSpecFactory.newTextInstance({}),
         ],
       })
     ),
-    ...variables2.flatMap((variable: any) =>
-      SectionSpec.newRowData({
-        [SectionSpec.KEYS_ROW.variableExport]: variablesMappings[variable],
-        [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.marketedServices2015.${variable}`,
-        [SectionSpec.KEYS_ROW.colSpan]: 4,
-        [SectionSpec.KEYS_ROW.cols]: [
-          SectionSpec.newColDecimal({
-            [SectionSpec.KEYS_COL.idx]: 3,
+    ...variables2.flatMap((variable) =>
+      RowSpecFactory.newDataInstance({
+        variableExport: variablesMappings[variable],
+        labelKey: `panEuropean.marketedServices2015.${variable}`,
+        colSpan: 4,
+        cols: [
+          ColSpecFactory.newDecimalInstance({
+            idx: 3,
           }),
-          SectionSpec.newColPlaceholder(),
+          ColSpecFactory.newPlaceholderInstance({}),
         ],
       })
     ),
   ],
 })
 
-const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
-})
-
-const marketedServices2015 = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
+const marketedServices2015 = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  tableSections: [{ tableSpecs: [tableSpec] }],
 })
 
 export default marketedServices2015
