@@ -1,6 +1,5 @@
 import { FRA } from '@core/assessment'
-
-import { SectionSpecFactory } from '@webapp/sectionSpec'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
 
 const section = FRA.sections['0'].children.a
 

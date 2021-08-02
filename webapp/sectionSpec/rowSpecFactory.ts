@@ -13,7 +13,7 @@ interface RowDataProps {
   chartProps?: RowChartSpec
   labelKey?: string
   labelPrefixKey?: string
-  labelParams?: Record<string, string>
+  labelParams?: Record<string | number, string | number>
   label?: string
   // validation messages
   getValidationMessages?: GetValidationMessages

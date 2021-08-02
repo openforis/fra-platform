@@ -1,99 +1,99 @@
 import { FRA } from '@core/assessment'
-
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
+import { Unit } from '@webapp/sectionSpec/unitSpec'
+import { VARIABLES } from '@webapp/sectionSpec/variables'
 
 import * as HolderOfManagementRightsState from '@webapp/sectionSpec/fra/holderOfManagementRights/holderOfManagementRightsState'
 
 const section = FRA.sections['4'].children.b
 const { years } = HolderOfManagementRightsState
 
-const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.holderOfManagementRights,
-  [SectionSpec.KEYS_TABLE.columnsExport]: years,
-  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.Unit.haThousand,
-  [SectionSpec.KEYS_TABLE.tableDataRequired]: [
+const tableSpec = TableSpecFactory.newInstance({
+  name: section.tables.holderOfManagementRights,
+  columnsExport: years,
+  unit: Unit.haThousand,
+  tableDataRequired: [
     {
-      [SectionSpec.KEYS_TABLE_DATA_REQUIRED.assessmentType]: FRA.type,
-      [SectionSpec.KEYS_TABLE_DATA_REQUIRED.sectionName]: FRA.sections['4'].children.a.name,
-      [SectionSpec.KEYS_TABLE_DATA_REQUIRED.tableName]: FRA.sections['4'].children.a.tables.forestOwnership,
+      assessmentType: FRA.type,
+      sectionName: FRA.sections['4'].children.a.name,
+      tableName: FRA.sections['4'].children.a.tables.forestOwnership,
     },
   ],
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'holderOfManagementRights.categoryHeader',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
-          [SectionSpec.KEYS_COL.left]: true,
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'holderOfManagementRights.categoryHeader',
+          rowSpan: 2,
+          left: true,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'holderOfManagementRights.areaUnitLabel',
-          [SectionSpec.KEYS_COL.colSpan]: years.length,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'holderOfManagementRights.areaUnitLabel',
+          colSpan: years.length,
         }),
       ],
     }),
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: years.map((year: any) =>
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.label]: year,
+    RowSpecFactory.newHeaderInstance({
+      cols: years.map((year: any) =>
+        ColSpecFactory.newHeaderInstance({
+          label: year,
         })
       ),
     }),
 
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: 'holderOfManagementRights.publicAdministration',
-      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.public_administration,
-      [SectionSpec.KEYS_ROW.variableNo]: 'a',
-      [SectionSpec.KEYS_ROW.cols]: years.map(() => SectionSpec.newColDecimal()),
+    RowSpecFactory.newDataInstance({
+      labelKey: 'holderOfManagementRights.publicAdministration',
+      variableExport: VARIABLES.public_administration,
+      variableNo: 'a',
+      cols: years.map(() => ColSpecFactory.newDecimalInstance({})),
     }),
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: 'holderOfManagementRights.individuals',
-      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.individuals,
-      [SectionSpec.KEYS_ROW.variableNo]: 'b',
-      [SectionSpec.KEYS_ROW.cols]: years.map(() => SectionSpec.newColDecimal()),
+    RowSpecFactory.newDataInstance({
+      labelKey: 'holderOfManagementRights.individuals',
+      variableExport: VARIABLES.individuals,
+      variableNo: 'b',
+      cols: years.map(() => ColSpecFactory.newDecimalInstance({})),
     }),
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: 'holderOfManagementRights.privateBusinesses',
-      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.private_businesses,
-      [SectionSpec.KEYS_ROW.variableNo]: 'c',
-      [SectionSpec.KEYS_ROW.cols]: years.map(() => SectionSpec.newColDecimal()),
+    RowSpecFactory.newDataInstance({
+      labelKey: 'holderOfManagementRights.privateBusinesses',
+      variableExport: VARIABLES.private_businesses,
+      variableNo: 'c',
+      cols: years.map(() => ColSpecFactory.newDecimalInstance({})),
     }),
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: 'holderOfManagementRights.communities',
-      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.communities,
-      [SectionSpec.KEYS_ROW.variableNo]: 'd',
-      [SectionSpec.KEYS_ROW.cols]: years.map(() => SectionSpec.newColDecimal()),
+    RowSpecFactory.newDataInstance({
+      labelKey: 'holderOfManagementRights.communities',
+      variableExport: VARIABLES.communities,
+      variableNo: 'd',
+      cols: years.map(() => ColSpecFactory.newDecimalInstance({})),
     }),
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: 'holderOfManagementRights.other',
-      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.other_or_unknown,
-      [SectionSpec.KEYS_ROW.variableNo]: 'e',
-      [SectionSpec.KEYS_ROW.cols]: years.map(() =>
-        SectionSpec.newColCalculated({
-          [SectionSpec.KEYS_COL.calculateFn]: HolderOfManagementRightsState.getOther,
+    RowSpecFactory.newDataInstance({
+      labelKey: 'holderOfManagementRights.other',
+      variableExport: VARIABLES.other_or_unknown,
+      variableNo: 'e',
+      cols: years.map(() =>
+        ColSpecFactory.newCalculatedInstance({
+          calculateFn: HolderOfManagementRightsState.getOther,
         })
       ),
     }),
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: 'holderOfManagementRights.totalPublicOwnership',
-      [SectionSpec.KEYS_ROW.linkToSection]: FRA.sections['4'].children.a.name,
-      [SectionSpec.KEYS_ROW.cols]: years.map(() =>
-        SectionSpec.newColCalculated({
-          [SectionSpec.KEYS_COL.calculateFn]: HolderOfManagementRightsState.getTotalPublicOwnership,
+    RowSpecFactory.newDataInstance({
+      labelKey: 'holderOfManagementRights.totalPublicOwnership',
+      linkToSection: FRA.sections['4'].children.a.name,
+      cols: years.map(() =>
+        ColSpecFactory.newCalculatedInstance({
+          calculateFn: HolderOfManagementRightsState.getTotalPublicOwnership,
         })
       ),
     }),
   ],
 })
 
-const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
-})
-
-const holderOfManagementRights = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
+const holderOfManagementRights = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  tableSections: [{ tableSpecs: [tableSpec] }],
 })
 
 export default holderOfManagementRights

@@ -64,9 +64,8 @@ export const getForestAreaProportionProtectedAreas = (colIdx: any) => (state: an
 
 // SDG 15.2.1 - sub-indicator 4
 export const getForestAreaProportionLongTermForestManagement = (colIdx: any) => (state: any) => {
-  const forestAreaLongTermForestManagementPlan = ForestAreaWithinProtectedAreasState.getForestAreaLongTermForestManagementPlanByYear(
-    years[colIdx]
-  )(state)
+  const forestAreaLongTermForestManagementPlan =
+    ForestAreaWithinProtectedAreasState.getForestAreaLongTermForestManagementPlanByYear(years[colIdx])(state)
   const forestArea2015 = ExtentOfForestState.getForestByYear(2015)(state)
 
   // MIN(forestAreaLongTermForestManagementPlan / forestArea2015 * 100, 100)

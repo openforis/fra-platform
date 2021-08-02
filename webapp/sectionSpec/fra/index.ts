@@ -38,7 +38,7 @@ import contentCheck from '@webapp/sectionSpec/fra/contentCheck/sectionSpec'
 
 import { SectionSpec } from '../sectionSpec'
 
-const FRASpecs:Record<string, SectionSpec> = {
+const FRASpecs: Record<string, SectionSpec> = {
   // 0
   [contactPersons.sectionName]: contactPersons,
   // 1

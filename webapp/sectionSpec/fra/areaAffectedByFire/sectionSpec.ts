@@ -1,67 +1,68 @@
 import { FRA } from '@core/assessment'
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
+import { Unit } from '@webapp/sectionSpec/unitSpec'
+import { VARIABLES } from '@webapp/sectionSpec/variables'
 
 import * as AreaAffectedByFireValidatorState from '@webapp/sectionSpec/fra/areaAffectedByFire/areaAffectedByFireValidatorState'
 
 const section = FRA.sections['5'].children.b
 
-const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.areaAffectedByFire,
-  [SectionSpec.KEYS_TABLE.columnsExport]: FRA.yearsAnnual,
-  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.Unit.haThousand,
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'areaAffectedByFire.categoryHeader',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
-          [SectionSpec.KEYS_COL.left]: true,
+const tableSpec = TableSpecFactory.newInstance({
+  name: section.tables.areaAffectedByFire,
+  columnsExport: FRA.yearsAnnual,
+  unit: Unit.haThousand,
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'areaAffectedByFire.categoryHeader',
+          rowSpan: 2,
+          left: true,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'areaAffectedByFire.areaUnitLabel',
-          [SectionSpec.KEYS_COL.colSpan]: FRA.yearsAnnual.length,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'areaAffectedByFire.areaUnitLabel',
+          colSpan: FRA.yearsAnnual.length,
         }),
       ],
     }),
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: FRA.yearsAnnual.map((year: any) =>
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.label]: year,
+    RowSpecFactory.newHeaderInstance({
+      cols: FRA.yearsAnnual.map((year: any) =>
+        ColSpecFactory.newHeaderInstance({
+          label: year,
         })
       ),
     }),
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: 'areaAffectedByFire.totalLandAreaAffectedByFire',
-      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.total_land_area_affected_by_fire,
-      [SectionSpec.KEYS_ROW.cols]: FRA.yearsAnnual.map(() => SectionSpec.newColDecimal()),
+    RowSpecFactory.newDataInstance({
+      labelKey: 'areaAffectedByFire.totalLandAreaAffectedByFire',
+      variableExport: VARIABLES.total_land_area_affected_by_fire,
+      cols: FRA.yearsAnnual.map(() => ColSpecFactory.newDecimalInstance({})),
     }),
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: 'areaAffectedByFire.ofWhichForest',
-      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.of_which_on_forest,
-      [SectionSpec.KEYS_ROW.subcategory]: true,
-      [SectionSpec.KEYS_ROW.cols]: FRA.yearsAnnual.map(() =>
-        SectionSpec.newColDecimal({
-          [SectionSpec.KEYS_COL.validator]: AreaAffectedByFireValidatorState.totalForestLandAreaAreaValidator,
+    RowSpecFactory.newDataInstance({
+      labelKey: 'areaAffectedByFire.ofWhichForest',
+      variableExport: VARIABLES.of_which_on_forest,
+      subcategory: true,
+      cols: FRA.yearsAnnual.map(() =>
+        ColSpecFactory.newDecimalInstance({
+          validator: AreaAffectedByFireValidatorState.totalForestLandAreaAreaValidator,
         })
       ),
     }),
-    SectionSpec.newRowNoticeMessage({
-      [SectionSpec.KEYS_ROW.rowSpan]: 2,
+    RowSpecFactory.newNoticeMessageInstance({
+      rowSpan: 2,
     }),
-    SectionSpec.newRowValidationMessages({
-      [SectionSpec.KEYS_ROW.getValidationMessages]: AreaAffectedByFireValidatorState.getValidationMessages,
+    RowSpecFactory.newValidationMessagesInstance({
+      getValidationMessages: AreaAffectedByFireValidatorState.getValidationMessages,
     }),
   ],
 })
 
-const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
-})
-
-const areaAffectedByFire = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
+const areaAffectedByFire = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  tableSections: [{ tableSpecs: [tableSpec] }],
 })
 
 export default areaAffectedByFire

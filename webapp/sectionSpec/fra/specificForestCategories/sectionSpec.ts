@@ -1,102 +1,102 @@
 import { FRA } from '@core/assessment'
-
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
+import { Unit } from '@webapp/sectionSpec/unitSpec'
+import { VARIABLES } from '@webapp/sectionSpec/variables'
 
 import * as SpecificForestCategoriesValidatorState from './specificForestCategoriesValidatorState'
 
 const section = FRA.sections['1'].children.c
 const { yearsTable } = FRA
 
-const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.specificForestCategories,
-  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.Unit.haThousand,
-  [SectionSpec.KEYS_TABLE.columnsExport]: yearsTable,
-  [SectionSpec.KEYS_TABLE.tableDataRequired]: [
+const tableSpec = TableSpecFactory.newInstance({
+  name: section.tables.specificForestCategories,
+  unit: Unit.haThousand,
+  columnsExport: yearsTable,
+  tableDataRequired: [
     {
-      [SectionSpec.KEYS_TABLE_DATA_REQUIRED.assessmentType]: FRA.type,
-      [SectionSpec.KEYS_TABLE_DATA_REQUIRED.sectionName]: FRA.sections['1'].children.b.name,
-      [SectionSpec.KEYS_TABLE_DATA_REQUIRED.tableName]: FRA.sections['1'].children.b.tables.forestCharacteristics,
+      assessmentType: FRA.type,
+      sectionName: FRA.sections['1'].children.b.name,
+      tableName: FRA.sections['1'].children.b.tables.forestCharacteristics,
     },
   ],
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'specificForestCategories.categoryHeader',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
-          [SectionSpec.KEYS_COL.left]: true,
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'specificForestCategories.categoryHeader',
+          rowSpan: 2,
+          left: true,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'specificForestCategories.areaUnitLabel',
-          [SectionSpec.KEYS_COL.colSpan]: yearsTable.length,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'specificForestCategories.areaUnitLabel',
+          colSpan: yearsTable.length,
         }),
       ],
     }),
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: yearsTable.map((yearRange: any) =>
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.label]: yearRange,
+    RowSpecFactory.newHeaderInstance({
+      cols: yearsTable.map((yearRange: any) =>
+        ColSpecFactory.newHeaderInstance({
+          label: yearRange,
         })
       ),
     }),
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: `specificForestCategories.primaryForest`,
-      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.primary_forest,
-      [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() =>
-        SectionSpec.newColDecimal({
-          [SectionSpec.KEYS_COL.validator]: SpecificForestCategoriesValidatorState.primaryForestValidator,
+    RowSpecFactory.newDataInstance({
+      labelKey: `specificForestCategories.primaryForest`,
+      variableExport: VARIABLES.primary_forest,
+      cols: yearsTable.map(() =>
+        ColSpecFactory.newDecimalInstance({
+          validator: SpecificForestCategoriesValidatorState.primaryForestValidator,
         })
       ),
     }),
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: `specificForestCategories.temporarilyUnstocked`,
-      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.temporarily_unstocked,
-      [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() => SectionSpec.newColDecimal({})),
+    RowSpecFactory.newDataInstance({
+      labelKey: `specificForestCategories.temporarilyUnstocked`,
+      variableExport: VARIABLES.temporarily_unstocked,
+      cols: yearsTable.map(() => ColSpecFactory.newDecimalInstance({})),
     }),
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: `specificForestCategories.bamboo`,
-      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.bamboo,
-      [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() =>
-        SectionSpec.newColDecimal({
-          [SectionSpec.KEYS_COL.validator]: SpecificForestCategoriesValidatorState.forestAreaValidator,
+    RowSpecFactory.newDataInstance({
+      labelKey: `specificForestCategories.bamboo`,
+      variableExport: VARIABLES.bamboo,
+      cols: yearsTable.map(() =>
+        ColSpecFactory.newDecimalInstance({
+          validator: SpecificForestCategoriesValidatorState.forestAreaValidator,
         })
       ),
     }),
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: `specificForestCategories.mangroves`,
-      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.mangroves,
-      [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() =>
-        SectionSpec.newColDecimal({
-          [SectionSpec.KEYS_COL.validator]: SpecificForestCategoriesValidatorState.forestAreaValidator,
+    RowSpecFactory.newDataInstance({
+      labelKey: `specificForestCategories.mangroves`,
+      variableExport: VARIABLES.mangroves,
+      cols: yearsTable.map(() =>
+        ColSpecFactory.newDecimalInstance({
+          validator: SpecificForestCategoriesValidatorState.forestAreaValidator,
         })
       ),
     }),
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: `specificForestCategories.rubberWood`,
-      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.rubber_wood,
-      [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() =>
-        SectionSpec.newColDecimal({
-          [SectionSpec.KEYS_COL.validator]: SpecificForestCategoriesValidatorState.forestAreaValidator,
+    RowSpecFactory.newDataInstance({
+      labelKey: `specificForestCategories.rubberWood`,
+      variableExport: VARIABLES.rubber_wood,
+      cols: yearsTable.map(() =>
+        ColSpecFactory.newDecimalInstance({
+          validator: SpecificForestCategoriesValidatorState.forestAreaValidator,
         })
       ),
     }),
-    SectionSpec.newRowNoticeMessage({
-      [SectionSpec.KEYS_ROW.rowSpan]: 2,
+    RowSpecFactory.newNoticeMessageInstance({
+      rowSpan: 2,
     }),
-    SectionSpec.newRowValidationMessages({
-      [SectionSpec.KEYS_ROW.getValidationMessages]: SpecificForestCategoriesValidatorState.getValidationMessages,
+    RowSpecFactory.newValidationMessagesInstance({
+      getValidationMessages: SpecificForestCategoriesValidatorState.getValidationMessages,
     }),
   ],
 })
 
-const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
-})
-
-const specificForestCategories = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
+const specificForestCategories = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  tableSections: [{ tableSpecs: [tableSpec] }],
 })
 
 export default specificForestCategories

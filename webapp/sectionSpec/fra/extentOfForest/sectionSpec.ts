@@ -1,5 +1,4 @@
 import { FRA } from '@core/assessment'
-
 import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
 import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
 import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'

@@ -19,7 +19,7 @@ import { ApiEndPoint } from '@common/api/endpoint'
 import * as OriginalDataPointState from '../originalDataPointState'
 import * as ODPs from '../originalDataPoint'
 import handlePaste from '../paste'
-import { getUpdateTablesWithOdp, getUpdateTablesWithNotOdp } from './updateSectionTables'
+import { getUpdateTablesWithNotOdp, getUpdateTablesWithOdp } from './updateSectionTables'
 
 // ====== Validation
 export const odpValidationCompleted = 'originalDataPoint/validationStatus/completed'

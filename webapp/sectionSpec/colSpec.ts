@@ -9,6 +9,7 @@ export type FormatValue = (value: number | string) => string
 
 export interface ColOptionSpec {
   optionName: string
+  type?: TypeSpec
 }
 
 export interface ColSpec {
@@ -16,7 +17,7 @@ export interface ColSpec {
   idx?: number | string
   label?: string
   labelKey?: string
-  labelParams?: Record<string, string>
+  labelParams?: Record<string | number, string | number>
   labelPrefixKey?: string
   className?: string
   rowSpan?: number
