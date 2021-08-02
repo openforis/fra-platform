@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { ODP } from '@core/odp'
 import { useCountryIso, useI18n } from '@webapp/components/hooks'
 import ckEditorConfig from '@webapp/components/ckEditor/ckEditorConfig'
-import { saveDraft } from '@webapp/app/assessment/fra/sections/originalDataPoint/actions'
+import { saveDraft } from '@webapp/sectionSpec/fra/originalDataPoint/actions'
 
 type Props = {
   canEditData: boolean

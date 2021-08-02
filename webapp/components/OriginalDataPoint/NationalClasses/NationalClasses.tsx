@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 
 import { ODP, ODPs } from '@core/odp'
 import { useCountryIso, useI18n, useIsAutoSaveSaving, usePrintView } from '@webapp/components/hooks'
-import { copyPreviousNationalClasses } from '@webapp/app/assessment/fra/sections/originalDataPoint/actions'
+import { copyPreviousNationalClasses } from '@webapp/sectionSpec/fra/originalDataPoint/actions'
 
 import NationalClass from './NationalClass'
 

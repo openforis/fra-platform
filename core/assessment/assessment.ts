@@ -11,20 +11,20 @@ export enum AssessmentStatus {
   changing = 'changing',
 }
 
-export interface AssessmentSection {
-  children: Record<string, AssessmentSectionItem>
-  label: string
-}
-
 export interface AssessmentSectionItem {
   anchor: string
   name: string
   tables?: Record<string, string>
 }
 
+export interface AssessmentSection {
+  children: Record<string, AssessmentSectionItem>
+  label: string
+}
+
 export interface Assessment {
-  status?: AssessmentStatus
-  type: AssessmentType
   deskStudy?: boolean
   sections?: Record<string, AssessmentSection>
+  status?: AssessmentStatus
+  type: AssessmentType
 }

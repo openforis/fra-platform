@@ -8,7 +8,7 @@ import { SectionSpecs, TableSummarySpec } from '@webapp/sectionSpec'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import { fetchTableData } from '@webapp/app/assessment/components/dataTable/actions'
 import { fetchUsers } from '@webapp/app/user/userManagement/actions'
-import { fetchOdps } from '@webapp/app/assessment/fra/sections/originalDataPoint/actions'
+import { fetchOdps } from '@webapp/sectionSpec/fra/originalDataPoint/actions'
 
 const useFraPrintDataFetch = (countryIso: string): { dataLoaded: boolean } => {
   const dispatch = useDispatch()

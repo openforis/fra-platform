@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 import { assert } from 'chai'
-import handlePaste from '../../webapp/app/assessment/fra/sections/originalDataPoint/paste'
+import handlePaste from '../../webapp/sectionSpec/fra/originalDataPoint/paste'
 
 /*
  * NOTE: This test uses otherLand-concepts which are no longer actually used in

@@ -5,7 +5,7 @@ import { FRA } from '@core/assessment'
 import { ODP } from '@core/odp'
 import { Objects } from '@core/utils'
 import { useI18n } from '@webapp/components/hooks'
-import * as OriginalDataPointState from '@webapp/app/assessment/fra/sections/originalDataPoint/originalDataPointState'
+import * as OriginalDataPointState from '@webapp/sectionSpec/fra/originalDataPoint/originalDataPointState'
 
 import DataSources from '@webapp/components/OriginalDataPoint/DataSources'
 import NationalClasses from '@webapp/components/OriginalDataPoint/NationalClasses'

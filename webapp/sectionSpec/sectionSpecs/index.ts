@@ -1,1 +1,0 @@
-export { SectionSpecs } from './sectionSpecs'

@@ -7,7 +7,7 @@ import { useCountryIso, useI18n } from '@webapp/components/hooks'
 import {
   pasteNationalClassValues,
   updateNationalClassValue,
-} from '@webapp/app/assessment/fra/sections/originalDataPoint/actions'
+} from '@webapp/sectionSpec/fra/originalDataPoint/actions'
 
 import { PercentInput } from '@webapp/components/percentInput'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
