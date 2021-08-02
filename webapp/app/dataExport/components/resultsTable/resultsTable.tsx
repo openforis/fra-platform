@@ -1,10 +1,12 @@
 import './resultsTable.less'
 import React, { useLayoutEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router'
+
+import { SectionSpecs, UnitFactors } from '@webapp/sectionSpec'
 import { useI18n } from '@webapp/components/hooks'
+
 import ButtonTableExport from '@webapp/components/buttonTableExport'
-import * as SectionSpecs from '@webapp/app/assessment/components/section/sectionSpecs'
-import { UnitSpec } from '@webapp/app/assessment/components/section/sectionSpec'
+
 import {
   getValue,
   getI18nKey,
@@ -22,7 +24,9 @@ type ResultsTableTitleProps = {
   selected: any
 }
 
-const ResultsTableTitle = (props: ResultsTableTitleProps) => {
+const ResultsTableTitle: React.FC<ResultsTableTitleProps> = (props) => {
+  const i18n = useI18n()
+
   const {
     baseUnit,
     selection: {
@@ -31,25 +35,24 @@ const ResultsTableTitle = (props: ResultsTableTitleProps) => {
     resultsLoading,
     setSelected,
   } = props
-  const i18n = useI18n()
   return resultsLoading ? (
-    (i18n as any).t('description.loading')
+    i18n.t('description.loading')
   ) : (
     <>
       <span>
-        {labelPrefixKey && `${(i18n as any).t(labelPrefixKey)} `}
-        {(i18n as any).t(getCustomVariableI18nMappings(label), labelParam)}
+        {labelPrefixKey && `${i18n.t(labelPrefixKey)} `}
+        {i18n.t(getCustomVariableI18nMappings(label), labelParam)}
       </span>
-      {Object.keys(UnitSpec.factors).includes(baseUnit) ? (
+      {Object.keys(UnitFactors).includes(baseUnit) ? (
         <>
           <span> (</span>
           <select className="select-s" defaultValue={baseUnit} onChange={(event) => setSelected(event.target.value)}>
-            <option value={baseUnit}>{(i18n as any).t(getUnitI18nMappings(baseUnit))}</option>
-            {Object.keys(UnitSpec.factors[baseUnit]).map(
+            <option value={baseUnit}>{i18n.t(getUnitI18nMappings(baseUnit))}</option>
+            {Object.keys(UnitFactors[baseUnit]).map(
               (unit) =>
                 unit !== baseUnit && (
                   <option key={unit} value={unit}>
-                    {(i18n as any).t(getUnitI18nMappings(unit))}
+                    {i18n.t(getUnitI18nMappings(unit))}
                   </option>
                 )
             )}
@@ -57,7 +60,7 @@ const ResultsTableTitle = (props: ResultsTableTitleProps) => {
           <span>)</span>
         </>
       ) : (
-        <span>{baseUnit ? ` (${(i18n as any).t(`unit.${baseUnit}`)})` : ''}</span>
+        <span>{baseUnit ? ` (${i18n.t(`unit.${baseUnit}`)})` : ''}</span>
       )}
     </>
   )
@@ -75,12 +78,12 @@ type Props = {
 }
 
 const ResultsTable = (props: Props) => {
-  const { results, selection, columns, columnsAlwaysExport, resultsLoading }:any = props
+  const { results, selection, columns, columnsAlwaysExport, resultsLoading }: any = props
   const filteredColumns = columns.filter((column: any) =>
     selection.columns.map(({ param }: any) => param).includes(column)
   )
   const columnsResults = [...columnsAlwaysExport, ...filteredColumns]
-  const { assessmentType, section }:any = useParams()
+  const { assessmentType, section }: any = useParams()
   const i18n = useI18n()
   const tableRef = useRef(null)
   const [exportDisabled, setExportDisabled] = useState(true)
@@ -120,7 +123,7 @@ const ResultsTable = (props: Props) => {
           <tr>
             {columnsResults.map((column) => (
               <th key={column} className="fra-table__header-cell">
-                {getI18nKey(column, section, assessmentType).map((key) => `${(i18n as any).t(key)} `)}
+                {getI18nKey(column, section, assessmentType).map((key) => `${i18n.t(key)} `)}
               </th>
             ))}
           </tr>
@@ -129,7 +132,7 @@ const ResultsTable = (props: Props) => {
           {selection.countries.map(({ param: countryIso, label, deskStudy }: any) => (
             <tr key={label}>
               <th className="fra-table__category-cell" colSpan={1}>
-                {(i18n as any).t(label)} {deskStudy && `(${(i18n as any).t('assessment.deskStudy')})`}
+                {i18n.t(label)} {deskStudy && `(${i18n.t('assessment.deskStudy')})`}
               </th>
               {columnsResults.map((column) => {
                 const { columnKey, value } = getValue(column, countryIso, results, section, selection.variable.param)
@@ -158,7 +161,9 @@ const ResultsTable = (props: Props) => {
     </div>
   )
 }
+
 ResultsTable.defaultProps = {
   results: null,
 }
+
 export default ResultsTable

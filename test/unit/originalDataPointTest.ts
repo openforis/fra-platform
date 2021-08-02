@@ -1,5 +1,5 @@
 import { assert } from 'chai'
-import * as originalDataPoint from '../../webapp/app/assessment/fra/sections/originalDataPoint/originalDataPoint'
+import * as originalDataPoint from '../../webapp/sectionSpec/fra/originalDataPoint/originalDataPoint'
 
 describe('originalDataPoint', () => {
   it('calculates correct total forest amount', () => {

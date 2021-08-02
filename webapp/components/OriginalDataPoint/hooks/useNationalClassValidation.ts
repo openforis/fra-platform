@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { ODP, ODPValidationNationalClass } from '@core/odp'
 import { usePrintView } from '@webapp/components/hooks'
 
-import * as OriginalDataPointState from '@webapp/app/assessment/fra/sections/originalDataPoint/originalDataPointState'
+import * as OriginalDataPointState from '@webapp/sectionSpec/fra/originalDataPoint/originalDataPointState'
 
 export const useNationalClassValidation = (index: number): ODPValidationNationalClass | Record<string, never> => {
   const [printView] = usePrintView()

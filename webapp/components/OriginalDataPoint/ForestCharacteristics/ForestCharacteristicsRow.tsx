@@ -9,7 +9,7 @@ import { useCountryIso, useI18n } from '@webapp/components/hooks'
 import {
   pasteNationalClassValues,
   updateNationalClassValue,
-} from '../../../app/assessment/fra/sections/originalDataPoint/actions'
+} from '../../../sectionSpec/fra/originalDataPoint/actions'
 import { useNationalClassNameComments, useNationalClassValidation } from '../hooks'
 
 const columns = [
