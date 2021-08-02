@@ -1,12 +1,12 @@
 import React, { useRef } from 'react'
 
 import { AssessmentType, TableData, TableDatumODP } from '@core/assessment'
-import { RowSpec, TableSpec } from '@webapp/sectionSpec'
+import { RowSpec, TableSpec, TypeSpec } from '@webapp/sectionSpec'
 import { useI18n, usePrintView } from '@webapp/components/hooks'
 
 import ButtonTableExport from '@webapp/components/ButtonTableExport'
-import Row from './row'
-import CellOdpHeader from './cellOdpHeader'
+import CellOdpHeader from './CellOdpHeader'
+import Row from './Row'
 
 type Props = {
   assessmentType: AssessmentType
@@ -26,8 +26,8 @@ const Table: React.FC<Props> = (props) => {
 
   const odp = tableSpec.odp === true
   const secondary = tableSpec.secondary === true
-  const rowsHeader = rows.filter((row) => row.type === 'header')
-  const rowsData = rows.filter((row) => row.type !== 'header')
+  const rowsHeader = rows.filter((row) => row.type === TypeSpec.header)
+  const rowsData = rows.filter((row) => row.type !== TypeSpec.header)
   const tableRef = useRef<HTMLTableElement>(null)
   const displayTableExportButton = !secondary && !printView && tableRef.current != null
 
