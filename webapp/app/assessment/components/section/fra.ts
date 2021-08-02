@@ -1,3 +1,5 @@
+import { SectionSpec } from '@webapp/sectionSpec'
+
 // ======= FRA section specs
 // 0
 import contactPersons from '@webapp/app/assessment/fra/sections/contactPersons/sectionSpec'
@@ -73,4 +75,4 @@ export default {
 
   // Other
   [contentCheck.sectionName]: contentCheck,
-}
+} as Record<string, SectionSpec>

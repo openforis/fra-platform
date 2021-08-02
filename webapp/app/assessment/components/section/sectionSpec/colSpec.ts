@@ -2,7 +2,7 @@ import * as R from 'ramda'
 
 import * as NumberUtils from '@common/bignumberUtils'
 
-import { TYPE, TypeSpec, getType } from '@core/sectionSpec/typeSpec'
+import { TYPE, TypeSpec, getType } from '@webapp/sectionSpec/typeSpec'
 
 export const KEYS_COL: any = {
   type: TYPE,

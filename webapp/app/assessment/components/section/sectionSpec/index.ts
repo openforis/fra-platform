@@ -1,4 +1,4 @@
-import * as UnitSpec from '@core/sectionSpec/unitSpec'
+import * as UnitSpec from '@webapp/sectionSpec/unitSpec'
 import * as TableSpec from './tableSpec'
 import * as RowSpec from './rowSpec'
 import * as ColSpec from './colSpec'
@@ -8,7 +8,7 @@ export { RowSpec }
 export { ColSpec }
 export { UnitSpec }
 
-export { TypeSpec, TYPE, isData, isNotData, isHeader, isNotHeader, isDecimal, isText } from '@core/sectionSpec/typeSpec'
+export { TypeSpec, TYPE, isData, isNotData, isHeader, isNotHeader, isDecimal, isText } from '@webapp/sectionSpec/typeSpec'
 
 export { KEYS_SECTION, KEYS_SECTION_DESCRIPTIONS, KEYS_DATA_EXPORT, newSectionSpec } from './sectionSpec'
 

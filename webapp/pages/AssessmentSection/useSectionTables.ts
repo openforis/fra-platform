@@ -1,6 +1,6 @@
 import { AssessmentType } from '@core/assessment'
 import { Arrays, Objects } from '@core/utils'
-import { SectionSpecs, TableSummarySpec } from '@core/sectionSpec'
+import { SectionSpecs, TableSummarySpec } from '@webapp/sectionSpec'
 
 const getTables = (assessmentType: AssessmentType, sectionName: string, tableName: string): Array<TableSummarySpec> => {
   const tableSpec = SectionSpecs.getTableSpec(assessmentType, sectionName, tableName)

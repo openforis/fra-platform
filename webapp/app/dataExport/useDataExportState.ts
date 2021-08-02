@@ -4,7 +4,7 @@ import { useParams } from 'react-router'
 import * as snake from 'to-snake-case'
 
 import { AssessmentType } from '@core/assessment'
-import { SectionSpecs } from '@core/sectionSpec'
+import { SectionSpecs } from '@webapp/sectionSpec'
 import { throttle } from '@webapp/utils/functionUtils'
 import { formatColumn, formatSection } from '@webapp/app/dataExport/utils/format'
 import { useAssessmentType, useCountries, useCountriesPanEuropean, useRegions } from '@webapp/store/app'

@@ -1,5 +1,8 @@
 import * as R from 'ramda'
 
+/**
+ * @deprecated
+ */
 export const TYPE = 'type'
 
 export enum TypeSpec {

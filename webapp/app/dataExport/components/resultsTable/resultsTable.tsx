@@ -2,7 +2,7 @@ import './resultsTable.less'
 import React, { useLayoutEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router'
 
-import { SectionSpecs, UnitFactors } from '@core/sectionSpec'
+import { SectionSpecs, UnitFactors } from '@webapp/sectionSpec'
 import { useI18n } from '@webapp/components/hooks'
 
 import ButtonTableExport from '@webapp/components/buttonTableExport'

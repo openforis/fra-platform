@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { matchPath, useLocation } from 'react-router-dom'
 
 import { Assessment, AssessmentSection } from '@core/assessment'
-import { SectionSpecs } from '@core/sectionSpec'
+import { SectionSpecs } from '@webapp/sectionSpec'
 import { ReviewStatus } from '@core/reviewStatus'
 import * as BasePaths from '@webapp/main/basePaths'
 import * as ReviewStatusState from '@webapp/app/country/reviewStatusState'

@@ -1,3 +1,4 @@
+import { SectionSpec } from '@webapp/sectionSpec'
 import forestArea from '@webapp/app/assessment/panEuropean/sections/table_1_1a/sectionSpec'
 import forestAreaByForestTypes from '@webapp/app/assessment/panEuropean/sections/table_1_1b/sectionSpec'
 import growingStock from '@webapp/app/assessment/panEuropean/sections/table_1_2a/sectionSpec'
@@ -88,4 +89,4 @@ export default {
   [intensityOfUse.sectionName]: intensityOfUse,
   [recreationFacilities.sectionName]: recreationFacilities,
   [otherRecreationFacilitiesPilotReporting2015.sectionName]: otherRecreationFacilitiesPilotReporting2015,
-}
+} as Record<string, SectionSpec>

@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { TYPE, TypeSpec, getType } from '@core/sectionSpec/typeSpec'
+import { TYPE, TypeSpec, getType } from '@webapp/sectionSpec/typeSpec'
 import { KEYS_COL } from '@webapp/app/assessment/components/section/sectionSpec/colSpec'
 
 export const KEYS_ROW = {
