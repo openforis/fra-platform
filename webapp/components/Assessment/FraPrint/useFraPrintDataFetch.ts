@@ -1,35 +1,32 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import * as R from 'ramda'
 
 import { FRA } from '@core/assessment'
+import { Objects } from '@core/utils'
 import { batchActions } from '@webapp/main/reduxBatch'
-import * as SectionSpecs from '@webapp/app/assessment/components/section/sectionSpecs'
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { SectionSpecs, TableSummarySpec } from '@webapp/sectionSpec'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import { fetchTableData } from '@webapp/app/assessment/components/dataTable/actions'
 import { fetchUsers } from '@webapp/app/user/userManagement/actions'
-import { fetchOdps } from '@webapp/app/assessment/fra/sections/originalDataPoint/actions'
+import { fetchOdps } from '@webapp/sectionSpec/fra/originalDataPoint/actions'
 
 const useFraPrintDataFetch = (countryIso: string): { dataLoaded: boolean } => {
   const dispatch = useDispatch()
 
-  const tables = Object.values(FRA.sections)
-    .map((section) =>
-      Object.values(section.children).map((sectionItem) => {
-        const { name: sectionName } = sectionItem
-        const tableSpecs = SectionSpecs.getTableSpecs(FRA.type, sectionName)
-        return tableSpecs.map((tableSpec: any) => ({
-          sectionName,
-          tableName: tableSpec[SectionSpec.KEYS_TABLE.name],
-        }))
+  const tables: Array<TableSummarySpec> = Object.values(FRA.sections).reduce<Array<TableSummarySpec>>(
+    (tableFetchAgg, section) => {
+      Object.values(section.children).forEach((sectionItem) => {
+        const sectionName = sectionItem.name
+        const tableSpecs = SectionSpecs.getTableSpecs(FRA.type, sectionName).filter((t) => !Objects.isEmpty(t.name))
+        tableFetchAgg.push(...tableSpecs.map((t) => ({ assessmentType: FRA.type, sectionName, tableName: t.name })))
       })
-    )
-    .flat(Infinity)
-    .filter((table: any) => !R.isEmpty(table.tableName))
+      return tableFetchAgg
+    },
+    []
+  )
 
   useEffect(() => {
-    const actions = tables.map((table: any) => fetchTableData(FRA.type, table.sectionName, table.tableName))
+    const actions = tables.map((table) => fetchTableData(FRA.type, table.sectionName, table.tableName))
     actions.push(fetchUsers(countryIso, true))
     actions.push(fetchOdps(countryIso))
     dispatch(batchActions(actions))
@@ -37,8 +34,8 @@ const useFraPrintDataFetch = (countryIso: string): { dataLoaded: boolean } => {
 
   const dataLoaded = useSelector(
     (state) =>
-      tables.every((table: any) =>
-        AssessmentState.isSectionDataLoaded(FRA.type, table.sectionName, table.tableName)(state)
+      tables.every((table) =>
+        AssessmentState.isSectionDataLoaded(table.assessmentType, table.sectionName, table.tableName)(state)
       ) &&
       // TODO add state objects
       (state as any).userManagement.countryUsers &&

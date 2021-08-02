@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 import { Objects } from '@core/utils'
-import { DescriptionsSpec } from '@core/sectionSpec'
+import { DescriptionsSpec } from '@webapp/sectionSpec'
 import { useI18n, usePrintView } from '@webapp/components/hooks'
 
 import NationalDataDescriptions from './NationalDataDescriptions'

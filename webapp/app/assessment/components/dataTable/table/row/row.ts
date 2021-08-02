@@ -9,9 +9,9 @@ import RowValidation from './rowValidation'
 import RowNoticeMessage from './rowNoticeMessage'
 
 const componentsByType = {
-  [RowSpec.TYPES.data]: RowData,
-  [RowSpec.TYPES.validationMessages]: RowValidation,
-  [RowSpec.TYPES.noticeMessage]: RowNoticeMessage,
+  [RowSpec.TypeSpec.data]: RowData,
+  [RowSpec.TypeSpec.validationMessages]: RowValidation,
+  [RowSpec.TypeSpec.noticeMessage]: RowNoticeMessage,
 }
 
 const Row = (props: any) => {
@@ -21,7 +21,7 @@ const Row = (props: any) => {
   const type: any = RowSpec.getType(row)
 
   // validation error rows are hidden in public view
-  if (type === RowSpec.TYPES.validationMessages && !userInfo) {
+  if (type === RowSpec.TypeSpec.validationMessages && !userInfo) {
     return null
   }
 

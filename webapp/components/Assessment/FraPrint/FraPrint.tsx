@@ -8,7 +8,7 @@ import { useCountryIso, useI18n, usePrintView } from '@webapp/components/hooks'
 
 import SectionView from '@webapp/components/Assessment/SectionView'
 import Loading from '@webapp/components/loading'
-import ContactPersonsPrintView from '@webapp/app/assessment/fra/sections/contactPersons/contactPersonsPrintView'
+import ContactPersonsPrintView from '@webapp/sectionSpec/fra/contactPersons/contactPersonsPrintView'
 import TableOfContent from './TableOfContent'
 import useFraPrintDataFetch from './useFraPrintDataFetch'
 

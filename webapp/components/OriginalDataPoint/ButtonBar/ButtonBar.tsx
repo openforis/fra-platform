@@ -4,7 +4,7 @@ import { useHistory, useParams } from 'react-router'
 
 import { ODP } from '@core/odp'
 import { useCountryIso, useI18n, useIsAutoSaveSaving } from '@webapp/components/hooks'
-import { cancelDraft, markAsActual, remove } from '@webapp/app/assessment/fra/sections/originalDataPoint/actions'
+import { cancelDraft, markAsActual, remove } from '@webapp/sectionSpec/fra/originalDataPoint/actions'
 
 type Props = {
   canEditData: boolean
