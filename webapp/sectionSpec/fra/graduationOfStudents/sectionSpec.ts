@@ -1,79 +1,77 @@
 import { FRA } from '@core/assessment'
-
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
+import { Unit } from '@webapp/sectionSpec/unitSpec'
+import { VARIABLES } from '@webapp/sectionSpec/variables'
 
 const section = FRA.sections['7'].children.b
 const years = FRA.yearsTable.slice(0, FRA.yearsTable.length - 1)
 const categories = ['total', 'female', 'male']
-const variableMappings: any = {
-  doctoralDegree: SectionSpec.VARIABLES.doctoral_degree,
-  mastersDegree: SectionSpec.VARIABLES.masters_degree,
-  bachelorsDegree: SectionSpec.VARIABLES.bachelors_degree,
-  technicianCertificate: SectionSpec.VARIABLES.technician_certificate,
-  total: SectionSpec.VARIABLES.total,
+const variableMappings: Record<string, string> = {
+  doctoralDegree: VARIABLES.doctoral_degree,
+  mastersDegree: VARIABLES.masters_degree,
+  bachelorsDegree: VARIABLES.bachelors_degree,
+  technicianCertificate: VARIABLES.technician_certificate,
+  total: VARIABLES.total,
 }
 
-const getDataCols = () => years.map(() => categories.map(() => SectionSpec.newColDecimal())).flat()
+const getDataCols = () => years.map(() => categories.map(() => ColSpecFactory.newDecimalInstance({}))).flat()
 
-const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.graduationOfStudents,
-  [SectionSpec.KEYS_TABLE.columnsExport]: years.flatMap((year: any) =>
-    categories.map((category) => `${year}_${category}`)
-  ),
-  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.Unit.numberOfStudents,
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'graduationOfStudents.fra2020Categories',
-          [SectionSpec.KEYS_COL.rowSpan]: 3,
-          [SectionSpec.KEYS_COL.left]: true,
+const tableSpec = TableSpecFactory.newInstance({
+  name: section.tables.graduationOfStudents,
+  columnsExport: years.flatMap((year) => categories.map((category) => `${year}_${category}`)),
+  unit: Unit.numberOfStudents,
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'graduationOfStudents.fra2020Categories',
+          rowSpan: 3,
+          left: true,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'graduationOfStudents.numberOfStudents',
-          [SectionSpec.KEYS_COL.colSpan]: years.length * categories.length,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'graduationOfStudents.numberOfStudents',
+          colSpan: years.length * categories.length,
         }),
       ],
     }),
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: years.map((year: any) =>
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.label]: year,
-          [SectionSpec.KEYS_COL.colSpan]: categories.length,
+    RowSpecFactory.newHeaderInstance({
+      cols: years.map((year) =>
+        ColSpecFactory.newHeaderInstance({
+          label: `${year}`,
+          colSpan: categories.length,
         })
       ),
     }),
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: years
+    RowSpecFactory.newHeaderInstance({
+      cols: years
         .map(() =>
           categories.map((category) =>
-            SectionSpec.newColHeader({
-              [SectionSpec.KEYS_COL.labelKey]: `graduationOfStudents.${category}`,
+            ColSpecFactory.newHeaderInstance({
+              labelKey: `graduationOfStudents.${category}`,
             })
           )
         )
         .flat(),
     }),
     ...['doctoralDegree', 'mastersDegree', 'bachelorsDegree', 'technicianCertificate', 'total'].map((variable) =>
-      SectionSpec.newRowData({
-        [SectionSpec.KEYS_ROW.labelKey]: `graduationOfStudents.${variable}`,
-        [SectionSpec.KEYS_ROW.variableExport]: variableMappings[variable],
-        [SectionSpec.KEYS_ROW.cols]: getDataCols(),
+      RowSpecFactory.newDataInstance({
+        labelKey: `graduationOfStudents.${variable}`,
+        variableExport: variableMappings[variable],
+        cols: getDataCols(),
       })
     ),
   ],
 })
 
-const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
-})
-
-const graduationOfStudents = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
-  [SectionSpec.KEYS_SECTION.descriptions]: {
-    [SectionSpec.KEYS_SECTION_DESCRIPTIONS.analysisAndProcessing]: false,
+const graduationOfStudents = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  tableSections: [{ tableSpecs: [tableSpec] }],
+  descriptions: {
+    analysisAndProcessing: false,
   },
 })
 

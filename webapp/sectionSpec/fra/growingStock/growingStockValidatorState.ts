@@ -30,7 +30,10 @@ const subCategoryValidator = (parentVariable: any, childVariables: any) => (datu
 const equalToTotalGrowingStockSubCategoryValidator = (datum: any) => (state: any) => {
   const { year } = datum
 
-  const plantedForest: any = GrowingStockState.getTotalTableValue(year, GrowingStockState.variables.plantedForest)(state)
+  const plantedForest: any = GrowingStockState.getTotalTableValue(
+    year,
+    GrowingStockState.variables.plantedForest
+  )(state)
   const naturallyRegeneratingForest: any = GrowingStockState.getTotalTableValue(
     year,
     GrowingStockState.variables.naturallyRegeneratingForest

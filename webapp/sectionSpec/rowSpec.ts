@@ -14,19 +14,19 @@ export interface RowSpec {
   variableName?: string
   calculateFn?: CalculateValue
   chartProps?: RowChartSpec
-  labelKey?: string
-  labelPrefixKey?: string
-  labelParams: Record<string, string>
-  label?: string
+  // labelKey?: string
+  // labelPrefixKey?: string
+  // labelParams?: Record<string, string>
+  // label?: string
   // validation messages
   getValidationMessages?: GetValidationMessages
   // row header
-  mainCategory?: boolean
-  subcategory?: boolean
-  variableNo?: string
-  linkToSection?: string
+  // mainCategory?: boolean
+  // subcategory?: boolean
+  // variableNo?: string
+  // linkToSection?: string
   // row notice message
-  rowSpan?: number
-  colSpan?: number
+  // rowSpan?: number
+  // colSpan?: number
   variableExport?: string
 }
