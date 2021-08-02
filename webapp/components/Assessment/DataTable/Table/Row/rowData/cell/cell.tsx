@@ -54,7 +54,7 @@ const Cell = (props: Props) => {
           col,
           rowIdx,
           onChange,
-          onPaste: disabled ? () => {} : onPaste,
+          onPaste: disabled ? () => ({}) : onPaste,
         })}
     </td>
   )

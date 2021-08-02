@@ -1,26 +1,29 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import * as R from 'ramda'
-import { useI18n } from '@webapp/components/hooks'
 
-type Props = {
-  data: any[]
-  row: any
-}
-const RowValidation = (props: Props) => {
+import { Objects } from '@core/utils'
+import { useI18n } from '@webapp/components/hooks'
+import { ValidationMessage } from '@webapp/sectionSpec'
+
+import { Props } from '../props'
+
+const RowValidation: React.FC<Props> = (props) => {
   const { row, data } = props
-  const { getValidationMessages } = row
+
   const i18n = useI18n()
-  const validationMessages: any = useSelector(getValidationMessages(data))
-  if (R.all(R.isNil, validationMessages) || R.isEmpty(validationMessages)) {
+  const { getValidationMessages } = row
+  const validationMessages: Array<Array<ValidationMessage>> = useSelector(getValidationMessages(data))
+
+  if (Objects.isEmpty(validationMessages) || validationMessages.every(Objects.isNil)) {
     return null
   }
+
   return (
     <tr key="validationError" className="no-print">
-      {(validationMessages as any).map((errorMsgs: any) => (
+      {validationMessages.map((messages) => (
         <td className="fra-table__validation-cell" key={Math.random()}>
           <div className="fra-table__validation-container">
-            {errorMsgs.map(({ key, params = {} }: any) => (
+            {messages.map(({ key, params = {} }) => (
               <div className="fra-table__validation-error" key={key}>
                 {i18n.t(key, { ...params })}
               </div>
@@ -31,4 +34,5 @@ const RowValidation = (props: Props) => {
     </tr>
   )
 }
+
 export default RowValidation

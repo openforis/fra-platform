@@ -16,7 +16,7 @@ interface TableSpecProps {
   tableDataRequired?: Array<TableSummarySpec>
   unit?: Unit
   // print props
-  print?: { pageBreakAfter: boolean; colBreakPoints?: Array<string> }
+  print?: { pageBreakAfter: boolean; colBreakPoints?: Array<number> }
   // data export
   dataExport?: boolean
   columnsExport?: Array<string | number>

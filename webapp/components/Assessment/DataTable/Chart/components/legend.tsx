@@ -17,7 +17,7 @@ class Legend extends Component {
 
   enter(props: any) {
     R.forEachObjIndexed((data: any, key: any) => {
-      const elem:any = this.refs[key]
+      const elem: any = this.refs[key]
       const hasData = data.length > 0
       d3.select(elem)
         .style('width', hasData ? 'auto' : '0')

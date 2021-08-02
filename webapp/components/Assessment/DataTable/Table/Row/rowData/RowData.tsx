@@ -1,28 +1,23 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+
+import { TableDatumODP } from '@core/assessment'
 import * as BasePaths from '@webapp/main/basePaths'
 import { useCountryIso, useI18n } from '@webapp/components/hooks'
-import { Link } from 'react-router-dom'
+
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
-import { TableSpec } from '@webapp/app/assessment/components/section/sectionSpec'
+import { Props } from '../props'
 import useClassName from './useClassName'
 import Cell from './cell'
 import CellOdp from './cellOdp'
 
-type Props = {
-  data: any[]
-  assessmentType: string
-  sectionName: string
-  tableSpec: any
-  row: any
-  disabled: boolean
-}
-const RowData = (props: Props) => {
+const RowData: React.FC<Props> = (props) => {
+  const { data, assessmentType, sectionName, tableSpec, row, disabled } = props
+
   const countryIso = useCountryIso()
   const i18n = useI18n()
-  const { data, assessmentType, sectionName, tableSpec, row, disabled } = props
-  const tableName = TableSpec.getName(tableSpec)
-  const odp = TableSpec.isOdp(tableSpec)
-  const secondary = TableSpec.isSecondary(tableSpec)
+
+  const { name: tableName, odp, secondary } = tableSpec
   const { idx: rowIdx, cols, validator, calculateFn, variableName } = row
   const colHeader = cols[0]
   const colHeaderLabel = colHeader.label ? colHeader.label : i18n.t(colHeader.labelKey, colHeader.labelParams)
@@ -30,6 +25,7 @@ const RowData = (props: Props) => {
   const reviewTarget = [tableName, 'row', `${rowIdx}`]
   const className = useClassName(reviewTarget)
   const colHeaderValue = `${colHeaderLabel}${colHeader.variableNo ? ` (${colHeader.variableNo})` : ''}`
+
   return (
     <tr className={className}>
       <th className={colHeader.className} colSpan={colHeader.colSpan} rowSpan={colHeader.rowSpan}>
@@ -49,7 +45,7 @@ const RowData = (props: Props) => {
       </th>
 
       {odp
-        ? data.map((datum) => (
+        ? data.map((datum: TableDatumODP) => (
             <CellOdp
               key={datum.name || datum.year}
               assessmentType={assessmentType}
@@ -63,7 +59,7 @@ const RowData = (props: Props) => {
               calculateFn={calculateFn}
             />
           ))
-        : colsData.map((col: any) => (
+        : colsData.map((col) => (
             <Cell
               key={col.idx}
               data={data}
@@ -71,7 +67,7 @@ const RowData = (props: Props) => {
               sectionName={sectionName}
               tableSpec={tableSpec}
               disabled={disabled}
-              rowIdx={rowIdx}
+              rowIdx={rowIdx as number}
               col={col}
             />
           ))}
@@ -91,4 +87,5 @@ const RowData = (props: Props) => {
     </tr>
   )
 }
+
 export default RowData

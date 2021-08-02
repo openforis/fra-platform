@@ -4,7 +4,7 @@ import ReactDOMServer from 'react-dom/server'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 import * as d3 from 'd3'
-import d3Tip from "d3-tip";
+import d3Tip from 'd3-tip'
 import { formatNumber } from '@common/bignumberUtils'
 import * as AppState from '@webapp/store/app/state'
 import { defaultTransitionDuration } from '../chart'

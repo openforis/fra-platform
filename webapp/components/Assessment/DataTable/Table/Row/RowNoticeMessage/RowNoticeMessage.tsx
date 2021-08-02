@@ -1,16 +1,18 @@
 import React from 'react'
-import useI18n from '@webapp/components/hooks/useI18n'
 
-type Props = {
-  row: any
-}
-const RowNoticeMessage = (props: Props) => {
+import { useI18n } from '@webapp/components/hooks'
+
+import { Props } from '../props'
+
+const RowNoticeMessage: React.FC<Props> = (props) => {
   const { row } = props
-  const { cols } = row
+
   const i18n = useI18n()
+  const { cols } = row
+
   return (
     <tr>
-      {cols.map((col: any) => {
+      {cols.map((col) => {
         const { labelKey, rowSpan, colSpan } = col
         const label = labelKey ? i18n.t(labelKey) : null
         return (
@@ -22,4 +24,5 @@ const RowNoticeMessage = (props: Props) => {
     </tr>
   )
 }
+
 export default RowNoticeMessage

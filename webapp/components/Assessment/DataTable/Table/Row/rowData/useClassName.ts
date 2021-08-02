@@ -1,12 +1,12 @@
 import { useSelector } from 'react-redux'
-import * as R from 'ramda'
 
+import { Arrays, Objects } from '@core/utils'
 import * as ReviewState from '@webapp/app/assessment/components/review/reviewState'
 
-export default (target: any) => {
+export default (target: Array<string>): string => {
   const commentsOpen = useSelector((state) => {
-    const openThreadTarget: any = ReviewState.getOpenThreadTarget(state)
-    return !R.isEmpty(openThreadTarget) && R.isEmpty(R.difference(openThreadTarget, target))
+    const openThreadTarget: Array<string> = ReviewState.getOpenThreadTarget(state) as Array<string>
+    return !Objects.isEmpty(openThreadTarget) && Objects.isEmpty(Arrays.difference(openThreadTarget, target))
   })
 
   return commentsOpen ? 'fra-row-comments__open' : ''

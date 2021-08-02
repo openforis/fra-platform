@@ -14,6 +14,7 @@ export interface RowSpec {
   variableName?: string
   calculateFn?: CalculateValue
   chartProps?: RowChartSpec
+  idx?: string | number
   // labelKey?: string
   // labelPrefixKey?: string
   // labelParams?: Record<string, string>
