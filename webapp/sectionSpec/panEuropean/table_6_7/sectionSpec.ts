@@ -1,60 +1,59 @@
 import { PanEuropean } from '@core/assessment'
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
+import { Unit } from '@webapp/sectionSpec/unitSpec'
+import { VARIABLES } from '@webapp/sectionSpec/variables'
 
 const section = PanEuropean.sections['6'].children['67']
 const variables = ['wood_consumption']
-const variablesMappings: any = {
-  woodConsumption: (SectionSpec.VARIABLES as any).wood_consumption,
+const variablesMappings: Record<string, string> = {
+  woodConsumption: VARIABLES.wood_consumption,
 }
 
 const years = [...PanEuropean.years92_17]
 
-const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.table_6_7,
-  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.Unit.thousandCubicMeterRWE,
-
-  [SectionSpec.KEYS_TABLE.columnsExport]: years.map((year) => '_' + year),
-
-  [SectionSpec.KEYS_TABLE.columnsExport]: years.map((year) => `_${year}`),
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.woodConsumption.category',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
-          [SectionSpec.KEYS_COL.left]: true,
+const tableSpec = TableSpecFactory.newInstance({
+  name: section.tables.table_6_7,
+  unit: Unit.thousandCubicMeterRWE,
+  columnsExport: years.map((year) => `_${year}`),
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.woodConsumption.category',
+          rowSpan: 2,
+          left: true,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.woodConsumption.woodConsumption1000M3RWE',
-          [SectionSpec.KEYS_COL.colSpan]: years.length,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.woodConsumption.woodConsumption1000M3RWE',
+          colSpan: years.length,
         }),
       ],
     }),
 
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [...years].map((year) =>
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: year,
+    RowSpecFactory.newHeaderInstance({
+      cols: [...years].map((year) =>
+        ColSpecFactory.newHeaderInstance({
+          labelKey: `${year}`,
         })
       ),
     }),
 
-    ...variables.flatMap((variable: any) =>
-      SectionSpec.newRowData({
-        [SectionSpec.KEYS_ROW.variableExport]: variablesMappings[variable],
-        [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.woodConsumption.${variable}`,
-        [SectionSpec.KEYS_ROW.cols]: years.map(() => SectionSpec.newColDecimal()),
-      }) as any
+    ...variables.flatMap((variable) =>
+      RowSpecFactory.newDataInstance({
+        variableExport: variablesMappings[variable],
+        labelKey: `panEuropean.woodConsumption.${variable}`,
+        cols: years.map(() => ColSpecFactory.newDecimalInstance({})),
+      })
     ),
   ],
 })
 
-const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
-})
-const woodConsumption = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
+const woodConsumption = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  tableSections: [{ tableSpecs: [tableSpec] }],
 })
 export default woodConsumption

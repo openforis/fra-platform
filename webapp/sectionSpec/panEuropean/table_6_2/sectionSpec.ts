@@ -1,6 +1,9 @@
 import { PanEuropean } from '@core/assessment'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
 
 const section = PanEuropean.sections['6'].children['62']
 
@@ -8,57 +11,53 @@ const variables = ['forestry', 'manufacture_of_wood_and_articles_in_wood', 'manu
 
 const years = [...PanEuropean.years90_15].reverse()
 
-const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.table_6_2,
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['million_national_currency', 'percent_of_total_gva'],
+const tableSpec = TableSpecFactory.newInstance({
+  name: section.tables.table_6_2,
+  columnsExport: ['million_national_currency', 'percent_of_total_gva'],
 
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.grossValueAdded.categoryYear',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
-          [SectionSpec.KEYS_COL.left]: true,
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.grossValueAdded.categoryYear',
+          rowSpan: 2,
+          left: true,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.grossValueAdded.grossValueAddedCol',
-          [SectionSpec.KEYS_COL.colSpan]: 2,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.grossValueAdded.grossValueAddedCol',
+          colSpan: 2,
         }),
       ],
     }),
 
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.grossValueAdded.million_national_currency',
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.grossValueAdded.million_national_currency',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.grossValueAdded.percent_of_total_gva',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.grossValueAdded.percent_of_total_gva',
         }),
       ],
     }),
 
-    ...variables.flatMap((variable: any) =>
+    ...variables.flatMap((variable) =>
       years.map((year) =>
-        SectionSpec.newRowData({
-          [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.grossValueAdded.${variable}`,
-          [SectionSpec.KEYS_ROW.labelParams]: { year },
-          [SectionSpec.KEYS_ROW.variableExport]: `${variable}_${year}`,
-          [SectionSpec.KEYS_ROW.cols]: [SectionSpec.newColDecimal(), SectionSpec.newColDecimal()],
+        RowSpecFactory.newDataInstance({
+          labelKey: `panEuropean.grossValueAdded.${variable}`,
+          labelParams: { year },
+          variableExport: `${variable}_${year}`,
+          cols: [ColSpecFactory.newDecimalInstance({}), ColSpecFactory.newDecimalInstance({})],
         })
       )
     ),
   ],
 })
 
-const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
-})
-
-const grossValueAdded = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
+const grossValueAdded = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  tableSections: [{ tableSpecs: [tableSpec] }],
 })
 
 export default grossValueAdded

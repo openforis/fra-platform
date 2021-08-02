@@ -1,6 +1,10 @@
 import { PanEuropean } from '@core/assessment'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
+import { Unit } from '@webapp/sectionSpec/unitSpec'
 
 const section = PanEuropean.sections['4'].children['42a']
 
@@ -8,57 +12,57 @@ const variables = ['forest']
 
 const years = [...PanEuropean.years90_15].reverse()
 
-const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.table_4_2a,
-  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.Unit.haThousand,
-  [SectionSpec.KEYS_TABLE.columnsExport]: [
+const tableSpec = TableSpecFactory.newInstance({
+  name: section.tables.table_4_2a,
+  unit: Unit.haThousand,
+  columnsExport: [
     'natural_expansion_and_natural_regeneration',
     'afforestation_and_regeneration_by_planting_and_or_seeding',
     'coppice',
   ],
 
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.categoryYear',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
-          [SectionSpec.KEYS_COL.left]: true,
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.categoryYear',
+          rowSpan: 2,
+          left: true,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]:
+        ColSpecFactory.newHeaderInstance({
+          labelKey:
             'panEuropean.totalForestAreaByExpansionAndRegenerationType.totalAreaOfForestByExpansionRegenerationType1000ha',
-          [SectionSpec.KEYS_COL.colSpan]: 3,
+          colSpan: 3,
         }),
       ],
     }),
 
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]:
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey:
             'panEuropean.totalForestAreaByExpansionAndRegenerationType.natural_expansion_and_natural_regeneration',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]:
+        ColSpecFactory.newHeaderInstance({
+          labelKey:
             'panEuropean.totalForestAreaByExpansionAndRegenerationType.afforestation_and_regeneration_by_planting_and_or_seeding',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.coppice',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.coppice',
         }),
       ],
     }),
 
-    ...variables.flatMap((variable: any) =>
+    ...variables.flatMap((variable) =>
       years.map((year) =>
-        SectionSpec.newRowData({
-          [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.totalForestAreaByExpansionAndRegenerationType.${variable}`,
-          [SectionSpec.KEYS_ROW.labelParams]: { year },
-          [SectionSpec.KEYS_ROW.variableExport]: `${variable}_${year}`,
-          [SectionSpec.KEYS_ROW.cols]: [
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
+        RowSpecFactory.newDataInstance({
+          labelKey: `panEuropean.totalForestAreaByExpansionAndRegenerationType.${variable}`,
+          labelParams: { year },
+          variableExport: `${variable}_${year}`,
+          cols: [
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
           ],
         })
       )
@@ -66,14 +70,10 @@ const tableSpec = SectionSpec.newTableSpec({
   ],
 })
 
-const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
-})
-
-const totalForestAreaByExpansionAndRegenerationType = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
+const totalForestAreaByExpansionAndRegenerationType = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  tableSections: [{ tableSpecs: [tableSpec] }],
 })
 
 export default totalForestAreaByExpansionAndRegenerationType

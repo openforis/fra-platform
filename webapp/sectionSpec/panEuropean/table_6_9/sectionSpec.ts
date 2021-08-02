@@ -1,14 +1,24 @@
+/* eslint-disable camelcase */
 import { PanEuropean } from '@core/assessment'
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
+import { VARIABLES } from '@webapp/sectionSpec/variables'
 
 const section = PanEuropean.sections['6'].children['69']
 const tj = 'tj'
 const _1000MetricTonnesDryMatter = '_1000MetricTonnesDryMatter'
+// eslint-disable-next-line camelcase
 const total_primary_energy_supply = 'total_primary_energy_supply'
+// eslint-disable-next-line camelcase
 const total_renewable_energy_supply = 'total_renewable_energy_supply'
+// eslint-disable-next-line camelcase
 const of_which_imported = 'of_which_imported'
 const variables = [
+  // eslint-disable-next-line camelcase
   total_primary_energy_supply,
+  // eslint-disable-next-line camelcase
   total_renewable_energy_supply,
   'total_energy_supply_from_wood',
   'energy_from_direct_wood_fibre_sources',
@@ -17,79 +27,82 @@ const variables = [
   'energy_from_co_products',
   'of_which_solid_residues',
   'energy_from_processed_wood_based_fuels',
+  // eslint-disable-next-line camelcase
   of_which_imported,
   'energy_from_post_consumer_recovered_wood',
   'energy_from_unknown_unspecified_sources',
 ]
-const variablesMappings: { [key: string]: any } = {
-  total_primary_energy_supply: (SectionSpec.VARIABLES as any).total_primary_energy_supply,
-  total_renewable_energy_supply: (SectionSpec.VARIABLES as any).total_renewable_energy_supply,
-  total_energy_supply_from_wood: (SectionSpec.VARIABLES as any).total_energy_supply_from_wood,
-  energy_from_direct_wood_fibre_sources: (SectionSpec.VARIABLES as any).energy_from_direct_wood_fibre_sources,
-  of_which_from_forests: (SectionSpec.VARIABLES as any).of_which_from_forests,
-  of_which_from_other_wooded_land: (SectionSpec.VARIABLES as any).of_which_from_other_wooded_land,
-  energy_from_co_products: (SectionSpec.VARIABLES as any).energy_from_co_products,
-  of_which_solid_residues: (SectionSpec.VARIABLES as any).of_which_solid_residues,
-  energy_from_processed_wood_based_fuels: (SectionSpec.VARIABLES as any).energy_from_processed_wood_based_fuels,
-  of_which_imported: (SectionSpec.VARIABLES as any).of_which_imported,
-  energy_from_post_consumer_recovered_wood: (SectionSpec.VARIABLES as any).energy_from_post_consumer_recovered_wood,
-  energy_from_unknown_unspecified_sources: (SectionSpec.VARIABLES as any).energy_from_unknown_unspecified_sources,
+
+const variablesMappings: Record<string, string> = {
+  total_primary_energy_supply: VARIABLES.total_primary_energy_supply,
+  total_renewable_energy_supply: VARIABLES.total_renewable_energy_supply,
+  total_energy_supply_from_wood: VARIABLES.total_energy_supply_from_wood,
+  energy_from_direct_wood_fibre_sources: VARIABLES.energy_from_direct_wood_fibre_sources,
+  of_which_from_forests: VARIABLES.of_which_from_forests,
+  of_which_from_other_wooded_land: VARIABLES.of_which_from_other_wooded_land,
+  energy_from_co_products: VARIABLES.energy_from_co_products,
+  of_which_solid_residues: VARIABLES.of_which_solid_residues,
+  energy_from_processed_wood_based_fuels: VARIABLES.energy_from_processed_wood_based_fuels,
+  of_which_imported: VARIABLES.of_which_imported,
+  energy_from_post_consumer_recovered_wood: VARIABLES.energy_from_post_consumer_recovered_wood,
+  energy_from_unknown_unspecified_sources: VARIABLES.energy_from_unknown_unspecified_sources,
 }
 const years = [...PanEuropean.years07_15]
 const categories = [tj, _1000MetricTonnesDryMatter]
 const mainCategories = variables.slice(0, 3)
 const subcategories = variables.filter((item) => item.includes('of_which'))
-const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.table_6_9,
-  [SectionSpec.KEYS_TABLE.columnsExport]: years.flatMap((year: any) =>
-    categories.map((category) => `_${year}_${category}`)
-  ),
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.totalEnergySupplyFromWood.category',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
-          [SectionSpec.KEYS_COL.left]: true,
+const tableSpec = TableSpecFactory.newInstance({
+  name: section.tables.table_6_9,
+  columnsExport: years.flatMap((year) => categories.map((category) => `_${year}_${category}`)),
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.totalEnergySupplyFromWood.category',
+          rowSpan: 2,
+          left: true,
         }),
         ...years.map((year) =>
-          SectionSpec.newColHeader({
-            [SectionSpec.KEYS_COL.label]: year,
-            [SectionSpec.KEYS_COL.colSpan]: categories.length,
+          ColSpecFactory.newHeaderInstance({
+            label: `${year}`,
+            colSpan: categories.length,
           })
         ),
       ],
     }),
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: years
+    RowSpecFactory.newHeaderInstance({
+      cols: years
         .map(() =>
           categories.map((category) =>
-            SectionSpec.newColHeader({
-              [SectionSpec.KEYS_COL.labelKey]: `panEuropean.totalEnergySupplyFromWood.${category}`,
+            ColSpecFactory.newHeaderInstance({
+              labelKey: `panEuropean.totalEnergySupplyFromWood.${category}`,
             })
           )
         )
         .flat(),
     }),
-    ...variables.flatMap((variable: any) =>
-      SectionSpec.newRowData({
-        [SectionSpec.KEYS_ROW.variableExport]: variablesMappings[variable],
-        [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.totalEnergySupplyFromWood.${variable}`,
-        [SectionSpec.KEYS_ROW.mainCategory]: !!mainCategories.includes(variable),
-        [SectionSpec.KEYS_ROW.subcategory]: !!subcategories.includes(variable),
-        [SectionSpec.KEYS_ROW.cols]: years
+    ...variables.flatMap((variable) =>
+      RowSpecFactory.newDataInstance({
+        variableExport: variablesMappings[variable],
+        labelKey: `panEuropean.totalEnergySupplyFromWood.${variable}`,
+        mainCategory: !!mainCategories.includes(variable),
+        subcategory: !!subcategories.includes(variable),
+        cols: years
           .map(() =>
             categories.map((category) => {
               switch (variable) {
                 case total_primary_energy_supply:
                 case total_renewable_energy_supply:
-                  return category === tj ? SectionSpec.newColDecimal() : SectionSpec.newColPlaceholder()
+                  return category === tj
+                    ? ColSpecFactory.newDecimalInstance({})
+                    : ColSpecFactory.newPlaceholderInstance({})
+                // eslint-disable-next-line camelcase
                 case of_which_imported:
                   return category === _1000MetricTonnesDryMatter
-                    ? SectionSpec.newColDecimal()
-                    : SectionSpec.newColPlaceholder()
+                    ? ColSpecFactory.newDecimalInstance({})
+                    : ColSpecFactory.newPlaceholderInstance({})
                 default:
-                  return SectionSpec.newColDecimal()
+                  return ColSpecFactory.newDecimalInstance({})
               }
             })
           )
@@ -98,12 +111,10 @@ const tableSpec = SectionSpec.newTableSpec({
     ),
   ],
 })
-const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
-})
-const totalEnergySupplyFromWood = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
+
+const totalEnergySupplyFromWood = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  tableSections: [{ tableSpecs: [tableSpec] }],
 })
 export default totalEnergySupplyFromWood

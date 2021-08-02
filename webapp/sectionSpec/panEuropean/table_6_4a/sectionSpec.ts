@@ -1,6 +1,10 @@
 import { PanEuropean } from '@core/assessment'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
+import { Unit } from '@webapp/sectionSpec/unitSpec'
 
 const section = PanEuropean.sections['6'].children['64a']
 
@@ -8,65 +12,61 @@ const variables = ['forestry_isic_nace_02']
 
 const years = [...PanEuropean.years90_15].reverse()
 
-const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.table_6_4a,
-  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.Unit.millionNationalCurrency,
-  [SectionSpec.KEYS_TABLE.columnsExport]: [
+const tableSpec = TableSpecFactory.newInstance({
+  name: section.tables.table_6_4a,
+  unit: Unit.millionNationalCurrency,
+  columnsExport: [
     'planting_of_trees_to_provide_regular_income',
     'equipment_and_buildings',
     'other_gross_fixed_capital_formation',
     'total',
   ],
 
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]:
-            'panEuropean.totalGrossFixedCapitalFormationInForestsAndForestry.categoryYear',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
-          [SectionSpec.KEYS_COL.left]: true,
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.totalGrossFixedCapitalFormationInForestsAndForestry.categoryYear',
+          rowSpan: 2,
+          left: true,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]:
+        ColSpecFactory.newHeaderInstance({
+          labelKey:
             'panEuropean.totalGrossFixedCapitalFormationInForestsAndForestry.grossFixedCapitalFormationMillionNationalCurrency',
-          [SectionSpec.KEYS_COL.colSpan]: 4,
+          colSpan: 4,
         }),
       ],
     }),
 
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]:
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey:
             'panEuropean.totalGrossFixedCapitalFormationInForestsAndForestry.plantingOfTreesToProvideRegularIncome',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]:
-            'panEuropean.totalGrossFixedCapitalFormationInForestsAndForestry.equipmentAndBuildings',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.totalGrossFixedCapitalFormationInForestsAndForestry.equipmentAndBuildings',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]:
-            'panEuropean.totalGrossFixedCapitalFormationInForestsAndForestry.otherGrossFixedCapitalFormation',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.totalGrossFixedCapitalFormationInForestsAndForestry.otherGrossFixedCapitalFormation',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.totalGrossFixedCapitalFormationInForestsAndForestry.total',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.totalGrossFixedCapitalFormationInForestsAndForestry.total',
         }),
       ],
     }),
 
-    ...variables.flatMap((variable: any) =>
+    ...variables.flatMap((variable) =>
       years.map((year) =>
-        SectionSpec.newRowData({
-          [SectionSpec.KEYS_ROW
-            .labelKey]: `panEuropean.totalGrossFixedCapitalFormationInForestsAndForestry.${variable}`,
-          [SectionSpec.KEYS_ROW.labelParams]: { year },
-          [SectionSpec.KEYS_ROW.variableExport]: `${variable}_${year}`,
-          [SectionSpec.KEYS_ROW.cols]: [
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
+        RowSpecFactory.newDataInstance({
+          labelKey: `panEuropean.totalGrossFixedCapitalFormationInForestsAndForestry.${variable}`,
+          labelParams: { year },
+          variableExport: `${variable}_${year}`,
+          cols: [
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
           ],
         })
       )
@@ -74,14 +74,10 @@ const tableSpec = SectionSpec.newTableSpec({
   ],
 })
 
-const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
-})
-
-const totalGrossFixedCapitalFormationInForestsAndForestry = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
+const totalGrossFixedCapitalFormationInForestsAndForestry = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  tableSections: [{ tableSpecs: [tableSpec] }],
 })
 
 export default totalGrossFixedCapitalFormationInForestsAndForestry

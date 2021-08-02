@@ -1,6 +1,10 @@
 import { PanEuropean } from '@core/assessment'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
+import { Unit } from '@webapp/sectionSpec/unitSpec'
 
 const section = PanEuropean.sections['2'].children['25']
 
@@ -8,10 +12,10 @@ const variables = ['forest', 'other_wooded_land', 'total_forest_and_other_wooded
 
 const years = [...PanEuropean.years90_15].reverse()
 
-const tableSpec1 = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.table_2_5,
-  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.Unit.haThousand,
-  [SectionSpec.KEYS_TABLE.columnsExport]: [
+const tableSpec1 = TableSpecFactory.newInstance({
+  name: section.tables.table_2_5,
+  unit: Unit.haThousand,
+  columnsExport: [
     'total_area_of_degraded_land',
     'grazing',
     'repeated_fires',
@@ -24,84 +28,84 @@ const tableSpec1 = SectionSpec.newTableSpec({
     'former_degraded_land_restored',
   ],
 
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.areaWithForestLandDegradation.categoryYear',
-          [SectionSpec.KEYS_COL.rowSpan]: 3,
-          [SectionSpec.KEYS_COL.left]: true,
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.areaWithForestLandDegradation.categoryYear',
+          rowSpan: 3,
+          left: true,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.areaWithForestLandDegradation.totalAreaOfDegradedLand',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.areaWithForestLandDegradation.totalAreaOfDegradedLand',
+          rowSpan: 2,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.areaWithForestLandDegradation.areaPrimarilyDegradedBy',
-          [SectionSpec.KEYS_COL.colSpan]: 8,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.areaWithForestLandDegradation.areaPrimarilyDegradedBy',
+          colSpan: 8,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.areaWithForestLandDegradation.formerDegradedLandRestored',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
-        }),
-      ],
-    }),
-
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.areaWithForestLandDegradation.grazing',
-        }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.areaWithForestLandDegradation.repeatedFires',
-        }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.areaWithForestLandDegradation.airPollution',
-        }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.areaWithForestLandDegradation.desertification',
-        }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.areaWithForestLandDegradation.other1',
-        }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.areaWithForestLandDegradation.other2',
-        }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.areaWithForestLandDegradation.other3',
-        }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.areaWithForestLandDegradation.unknown',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.areaWithForestLandDegradation.formerDegradedLandRestored',
+          rowSpan: 2,
         }),
       ],
     }),
 
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.areaWithForestLandDegradation.thousandHa',
-          [SectionSpec.KEYS_COL.colSpan]: 10,
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.areaWithForestLandDegradation.grazing',
+        }),
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.areaWithForestLandDegradation.repeatedFires',
+        }),
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.areaWithForestLandDegradation.airPollution',
+        }),
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.areaWithForestLandDegradation.desertification',
+        }),
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.areaWithForestLandDegradation.other1',
+        }),
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.areaWithForestLandDegradation.other2',
+        }),
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.areaWithForestLandDegradation.other3',
+        }),
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.areaWithForestLandDegradation.unknown',
         }),
       ],
     }),
 
-    ...variables.flatMap((variable: any) =>
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.areaWithForestLandDegradation.thousandHa',
+          colSpan: 10,
+        }),
+      ],
+    }),
+
+    ...variables.flatMap((variable) =>
       years.map((year) =>
-        SectionSpec.newRowData({
-          [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.areaWithForestLandDegradation.${variable}`,
-          [SectionSpec.KEYS_ROW.labelParams]: { year },
-          [SectionSpec.KEYS_ROW.variableExport]: `${variable}_${year}`,
-          [SectionSpec.KEYS_ROW.cols]: [
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
+        RowSpecFactory.newDataInstance({
+          labelKey: `panEuropean.areaWithForestLandDegradation.${variable}`,
+          labelParams: { year },
+          variableExport: `${variable}_${year}`,
+          cols: [
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
           ],
         })
       )
@@ -109,43 +113,43 @@ const tableSpec1 = SectionSpec.newTableSpec({
   ],
 })
 
-const tableSpec2 = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.table_2_5oth,
-  [SectionSpec.KEYS_TABLE.secondary]: true,
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.areaWithForestLandDegradation.nA',
+const tableSpec2 = TableSpecFactory.newInstance({
+  name: section.tables.table_2_5oth,
+  secondary: true,
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.areaWithForestLandDegradation.nA',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.areaWithForestLandDegradation.other1',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.areaWithForestLandDegradation.other1',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.areaWithForestLandDegradation.other2',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.areaWithForestLandDegradation.other2',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.areaWithForestLandDegradation.other3',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.areaWithForestLandDegradation.other3',
         }),
       ],
     }),
 
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: 'panEuropean.areaWithForestLandDegradation.otherNames',
-      [SectionSpec.KEYS_ROW.mainCategory]: true,
-      [SectionSpec.KEYS_ROW.cols]: [SectionSpec.newColText(), SectionSpec.newColText(), SectionSpec.newColText()],
+    RowSpecFactory.newDataInstance({
+      labelKey: 'panEuropean.areaWithForestLandDegradation.otherNames',
+      mainCategory: true,
+      cols: [
+        ColSpecFactory.newTextInstance({}),
+        ColSpecFactory.newTextInstance({}),
+        ColSpecFactory.newTextInstance({}),
+      ],
     }),
   ],
 })
 
-const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec1, tableSpec2],
-})
-
-const areaWithForestLandDegradation = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
+const areaWithForestLandDegradation = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  tableSections: [{ tableSpecs: [tableSpec1, tableSpec2] }],
 })
 
 export default areaWithForestLandDegradation

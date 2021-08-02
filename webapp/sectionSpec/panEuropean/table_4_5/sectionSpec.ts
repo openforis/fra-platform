@@ -1,6 +1,10 @@
 import { PanEuropean } from '@core/assessment'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
+import { Unit } from '@webapp/sectionSpec/unitSpec'
 
 const section = PanEuropean.sections['4'].children['45']
 
@@ -12,69 +16,69 @@ const years1 = [...PanEuropean.years90_15].reverse()
 
 const years2 = [...PanEuropean.years15]
 
-const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.table_4_5,
-  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.Unit.cubicMeterPerHa,
-  [SectionSpec.KEYS_TABLE.columnsExport]: ['total', 'standing', 'lying'],
+const tableSpec = TableSpecFactory.newInstance({
+  name: section.tables.table_4_5,
+  unit: Unit.cubicMeterPerHa,
+  columnsExport: ['total', 'standing', 'lying'],
 
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.deadwood.categoryYear',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
-          [SectionSpec.KEYS_COL.left]: true,
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.deadwood.categoryYear',
+          rowSpan: 2,
+          left: true,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.deadwood.volumeOfDeadwoodM3Ha',
-          [SectionSpec.KEYS_COL.colSpan]: 3,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.deadwood.volumeOfDeadwoodM3Ha',
+          colSpan: 3,
         }),
       ],
     }),
 
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.deadwood.total',
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.deadwood.total',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.deadwood.standing',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.deadwood.standing',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.deadwood.lying',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.deadwood.lying',
         }),
       ],
     }),
-    ...variables1.flatMap((variable: any) =>
+    ...variables1.flatMap((variable) =>
       years1.map((year) =>
-        SectionSpec.newRowData({
-          [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.deadwood.${variable}`,
-          [SectionSpec.KEYS_ROW.labelParams]: { year },
-          [SectionSpec.KEYS_ROW.variableExport]: `${variable}_${year}`,
-          [SectionSpec.KEYS_ROW.cols]: [
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
+        RowSpecFactory.newDataInstance({
+          labelKey: `panEuropean.deadwood.${variable}`,
+          labelParams: { year },
+          variableExport: `${variable}_${year}`,
+          cols: [
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
           ],
         })
       )
     ),
     // Volume of deadwood in FOWL by species groups
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: 'panEuropean.deadwood.volumeOfDeadwoodInFOWLBySpeciesGroups',
-      [SectionSpec.KEYS_ROW.colSpan]: 4,
-      [SectionSpec.KEYS_ROW.mainCategory]: true,
+    RowSpecFactory.newDataInstance({
+      labelKey: 'panEuropean.deadwood.volumeOfDeadwoodInFOWLBySpeciesGroups',
+      colSpan: 4,
+      mainCategory: true,
     }),
-    ...variables2.flatMap((variable: any) =>
+    ...variables2.flatMap((variable) =>
       years2.map((year) =>
-        SectionSpec.newRowData({
-          [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.deadwood.${variable}`,
-          [SectionSpec.KEYS_ROW.labelParams]: { year },
-          [SectionSpec.KEYS_ROW.variableExport]: `${variable}_${year}`,
-          [SectionSpec.KEYS_ROW.cols]: [
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
+        RowSpecFactory.newDataInstance({
+          labelKey: `panEuropean.deadwood.${variable}`,
+          labelParams: { year },
+          variableExport: `${variable}_${year}`,
+          cols: [
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
           ],
         })
       )
@@ -82,14 +86,10 @@ const tableSpec = SectionSpec.newTableSpec({
   ],
 })
 
-const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
-})
-
-const deadwood = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
+const deadwood = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  tableSections: [{ tableSpecs: [tableSpec] }],
 })
 
 export default deadwood
