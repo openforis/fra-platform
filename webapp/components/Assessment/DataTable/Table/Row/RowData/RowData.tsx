@@ -9,7 +9,7 @@ import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndi
 import { Props } from '../props'
 import useClassName from './useClassName'
 import Cell from './cell'
-import CellOdp from './cellOdp'
+import CellOdp from './CellOdp'
 
 const RowData: React.FC<Props> = (props) => {
   const { data, assessmentType, sectionName, tableSpec, row, disabled } = props
@@ -18,7 +18,7 @@ const RowData: React.FC<Props> = (props) => {
   const i18n = useI18n()
 
   const { name: tableName, odp, secondary } = tableSpec
-  const { idx: rowIdx, cols, validator, calculateFn, variableName } = row
+  const { idx: rowIdx, cols, variableName } = row
   const colHeader = cols[0]
   const colHeaderLabel = colHeader.label ? colHeader.label : i18n.t(colHeader.labelKey, colHeader.labelParams)
   const colsData = cols.slice(1, cols.length)
@@ -51,12 +51,11 @@ const RowData: React.FC<Props> = (props) => {
               assessmentType={assessmentType}
               sectionName={sectionName}
               tableSpec={tableSpec}
-              variableName={variableName}
+              rowSpec={row}
+              variableName={variableName as keyof TableDatumODP}
               disabled={disabled}
               data={data}
               datum={datum}
-              validator={validator}
-              calculateFn={calculateFn}
             />
           ))
         : colsData.map((col) => (

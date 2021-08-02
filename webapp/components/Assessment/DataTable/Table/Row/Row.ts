@@ -3,7 +3,7 @@ import React from 'react'
 import { useUserInfo } from '@webapp/components/hooks'
 import { TypeSpec } from '@webapp/sectionSpec'
 
-import RowData from './rowData'
+import RowData from './RowData'
 import RowValidation from './RowValidation'
 import RowNoticeMessage from './RowNoticeMessage'
 import { Props } from './props'

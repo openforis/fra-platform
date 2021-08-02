@@ -1,27 +1,17 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
+import { TableDatumODPType } from '@core/assessment'
 import { formatNumber } from '@common/bignumberUtils'
-
-import ThousandSeparatedDecimalInput from '@webapp/components/thousandSeparatedDecimalInput'
 import { usePrintView, useUserInfo } from '@webapp/components/hooks'
 
+import ThousandSeparatedDecimalInput from '@webapp/components/thousandSeparatedDecimalInput'
+import { Props } from './props'
 import useOnChange from './useOnChange'
 
-type Props = {
-  assessmentType: string
-  sectionName: string
-  tableSpec: any
-  variableName: string
-  disabled: boolean
-  data: any[]
-  datum: any
-  validator?: (...args: any[]) => any
-  calculateFn?: (...args: any[]) => any
-}
-
-const CellOdp = (props: Props) => {
-  const { assessmentType, sectionName, tableSpec, variableName, disabled, data, datum, validator, calculateFn } = props
+const CellOdp: React.FC<Props> = (props) => {
+  const { variableName, disabled, datum, rowSpec } = props
+  const { validator, calculateFn } = rowSpec
 
   const userInfo = useUserInfo()
   const [printView] = usePrintView()
@@ -31,11 +21,11 @@ const CellOdp = (props: Props) => {
     }
     return validator(datum)(state)
   })
-  const { onChange, onPaste } = useOnChange({ assessmentType, sectionName, tableSpec, variableName, data, datum })
+
+  const { onChange, onPaste } = useOnChange(props)
   const datumValue = datum[variableName]
   const calculated = !!calculateFn
-  const { type } = datum
-  const odp = type === 'odp'
+  const odp = datum.type === TableDatumODPType.odp
 
   const odpCssCheck = odp && !printView
   let className = calculated ? 'fra-table__calculated-cell' : 'fra-table__cell'
@@ -62,11 +52,6 @@ const CellOdp = (props: Props) => {
       )}
     </td>
   )
-}
-
-CellOdp.defaultProps = {
-  validator: null,
-  calculateFn: null,
 }
 
 export default CellOdp
