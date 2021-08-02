@@ -20,7 +20,7 @@ import annualForestExpansionAndRegeneration from '@webapp/sectionSpec/panEuropea
 import naturalness from '@webapp/sectionSpec/panEuropean/table_4_3a/sectionSpec'
 import naturalnessBySubclasses from '@webapp/sectionSpec/panEuropean/table_4_3b/sectionSpec'
 import introducedTreeSpecies from '@webapp/sectionSpec/panEuropean/table_4_4a/sectionSpec'
-import introducedTreeSpecies4_4b from '@webapp/sectionSpec/panEuropean/table_4_4b/sectionSpec'
+import introducedTreeSpecies44b from '@webapp/sectionSpec/panEuropean/table_4_4b/sectionSpec'
 import invasiveTreeSpecies from '@webapp/sectionSpec/panEuropean/table_4_4c/sectionSpec'
 import deadwood from '@webapp/sectionSpec/panEuropean/table_4_5/sectionSpec'
 import threatenedForestSpecies from '@webapp/sectionSpec/panEuropean/table_4_8/sectionSpec'
@@ -69,7 +69,7 @@ const PanEuropeanSpecs: Record<string, SectionSpec> = {
   [naturalness.sectionName]: naturalness,
   [naturalnessBySubclasses.sectionName]: naturalnessBySubclasses,
   [introducedTreeSpecies.sectionName]: introducedTreeSpecies,
-  [introducedTreeSpecies4_4b.sectionName]: introducedTreeSpecies4_4b,
+  [introducedTreeSpecies44b.sectionName]: introducedTreeSpecies44b,
   [invasiveTreeSpecies.sectionName]: invasiveTreeSpecies,
   [deadwood.sectionName]: deadwood,
   [threatenedForestSpecies.sectionName]: threatenedForestSpecies,

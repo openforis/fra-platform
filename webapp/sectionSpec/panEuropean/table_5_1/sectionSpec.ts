@@ -1,6 +1,10 @@
 import { PanEuropean } from '@core/assessment'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
+import { Unit } from '@webapp/sectionSpec/unitSpec'
 
 const section = PanEuropean.sections['5'].children['51']
 
@@ -8,59 +12,57 @@ const variables = ['forest', 'other_wooded_land', 'total_forest_and_other_wooded
 
 const years = [...PanEuropean.years90_20].reverse()
 
-const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.table_5_1,
-  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.Unit.haThousand,
-  [SectionSpec.KEYS_TABLE.columnsExport]: [
+const tableSpec = TableSpecFactory.newInstance({
+  name: section.tables.table_5_1,
+  unit: Unit.haThousand,
+  columnsExport: [
     'soil_water_and_other_forest_ecosystem_functions',
     'infrastructure_and_managed_natural_resources',
     'total',
   ],
 
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]:
-            'panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.categoryYear',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
-          [SectionSpec.KEYS_COL.left]: true,
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.categoryYear',
+          rowSpan: 2,
+          left: true,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]:
+        ColSpecFactory.newHeaderInstance({
+          labelKey:
             'panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.protectiveForestsMCPFEClass31000ha',
-          [SectionSpec.KEYS_COL.colSpan]: 3,
+          colSpan: 3,
         }),
       ],
     }),
 
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]:
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey:
             'panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.soil_water_and_other_forest_ecosystem_functions',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]:
+        ColSpecFactory.newHeaderInstance({
+          labelKey:
             'panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.infrastructure_and_managed_natural_resources',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.total',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.total',
         }),
       ],
     }),
 
-    ...variables.flatMap((variable: any) =>
+    ...variables.flatMap((variable) =>
       years.map((year) =>
-        SectionSpec.newRowData({
-          [SectionSpec.KEYS_ROW
-            .labelKey]: `panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.${variable}`,
-          [SectionSpec.KEYS_ROW.labelParams]: { year },
-          [SectionSpec.KEYS_ROW.variableExport]: `${variable}_${year}`,
-          [SectionSpec.KEYS_ROW.cols]: [
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
+        RowSpecFactory.newDataInstance({
+          labelKey: `panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.${variable}`,
+          labelParams: { year },
+          variableExport: `${variable}_${year}`,
+          cols: [
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
           ],
         })
       )
@@ -68,14 +70,10 @@ const tableSpec = SectionSpec.newTableSpec({
   ],
 })
 
-const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
-})
-
-const protectiveForestsSoilWaterAndOtherEcosystemFunctions = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
+const protectiveForestsSoilWaterAndOtherEcosystemFunctions = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  tableSections: [{ tableSpecs: [tableSpec] }],
 })
 
 export default protectiveForestsSoilWaterAndOtherEcosystemFunctions
