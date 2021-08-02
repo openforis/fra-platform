@@ -5,7 +5,6 @@ import { useParams } from 'react-router'
 import { AssessmentType } from '@core/assessment'
 import { batchActions } from '@webapp/main/reduxBatch'
 import { documentScrollTo } from '@webapp/utils/domUtils'
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 import { fetchTableData } from '@webapp/app/assessment/components/dataTable/actions'
 import { fetchLastSectionUpdateTimestamp, resetSectionUpdateTimestamp } from '@webapp/app/components/audit/actions'
 import { useCountryIso, useIsDataExportView } from '@webapp/components/hooks'
@@ -29,13 +28,7 @@ const AssessmentSection: React.FC = () => {
     if (!isDataExport) {
       dispatch(
         batchActions([
-          ...tables.map((table: any) =>
-            fetchTableData(
-              table[SectionSpec.KEYS_TABLE_DATA_REQUIRED.assessmentType],
-              table[SectionSpec.KEYS_TABLE_DATA_REQUIRED.sectionName],
-              table[SectionSpec.KEYS_TABLE_DATA_REQUIRED.tableName]
-            )
-          ),
+          ...tables.map((table) => fetchTableData(table.assessmentType, table.sectionName, table.tableName)),
           fetchLastSectionUpdateTimestamp(countryIso, sectionName),
         ])
       )

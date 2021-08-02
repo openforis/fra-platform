@@ -1,5 +1,9 @@
 import { PanEuropean } from '@core/assessment'
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
+import { VARIABLES } from '@webapp/sectionSpec/variables'
 
 const section = PanEuropean.sections['6'].children['68']
 const variables = [
@@ -8,42 +12,40 @@ const variables = [
   'imports_of_forest_products_quantity',
   'imports_of_forest_products_value',
 ]
-const variablesMappings: any = {
-  exportsOfForestProductsQuantity: (SectionSpec.VARIABLES as any).exports_of_forest_products_quantity,
-  exportsOfForestProductsValue: (SectionSpec.VARIABLES as any).exports_of_forest_products_value,
-  importsOfForestProductsQuantity: (SectionSpec.VARIABLES as any).imports_of_forest_products_quantity,
-  importsOfForestProductsValue: (SectionSpec.VARIABLES as any).imports_of_forest_products_value,
+const variablesMappings: Record<string, string> = {
+  exportsOfForestProductsQuantity: VARIABLES.exports_of_forest_products_quantity,
+  exportsOfForestProductsValue: VARIABLES.exports_of_forest_products_value,
+  importsOfForestProductsQuantity: VARIABLES.imports_of_forest_products_quantity,
+  importsOfForestProductsValue: VARIABLES.imports_of_forest_products_value,
 }
 
 const years = [...PanEuropean.years92_17]
 const categYears = ['Category', ...years]
-const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.table_6_8,
-  [SectionSpec.KEYS_TABLE.columnsExport]: years.map((year) => `_${year}`),
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [...categYears].map((year) =>
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: year,
-          [SectionSpec.KEYS_COL.left]: true,
+const tableSpec = TableSpecFactory.newInstance({
+  name: section.tables.table_6_8,
+  columnsExport: years.map((year) => `_${year}`),
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [...categYears].map((year) =>
+        ColSpecFactory.newHeaderInstance({
+          labelKey: `${year}`,
+          left: true,
         })
       ),
     }),
-    ...variables.flatMap((variable: any) =>
-      SectionSpec.newRowData({
-        [SectionSpec.KEYS_ROW.variableExport]: variablesMappings[variable],
-        [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.tradeInWood.${variable}`,
-        [SectionSpec.KEYS_ROW.cols]: years.map(() => SectionSpec.newColDecimal()),
-      }) as any
+    ...variables.flatMap((variable) =>
+      RowSpecFactory.newDataInstance({
+        variableExport: variablesMappings[variable],
+        labelKey: `panEuropean.tradeInWood.${variable}`,
+        cols: years.map(() => ColSpecFactory.newDecimalInstance({})),
+      })
     ),
   ],
 })
-const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
-})
-const tradeInWood = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
+
+const tradeInWood = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  tableSections: [{ tableSpecs: [tableSpec] }],
 })
 export default tradeInWood

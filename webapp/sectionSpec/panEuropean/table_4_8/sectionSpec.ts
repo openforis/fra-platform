@@ -1,6 +1,10 @@
 import { PanEuropean } from '@core/assessment'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { SectionSpecFactory } from '@webapp/sectionSpec/sectionSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
+import { Unit } from '@webapp/sectionSpec/unitSpec'
 
 const section = PanEuropean.sections['4'].children['48']
 
@@ -16,74 +20,68 @@ const variables = [
 
 const years = [...PanEuropean.years90_15].reverse()
 
-const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.table_4_8,
-  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.Unit.absoluteNumber,
-  [SectionSpec.KEYS_TABLE.columnsExport]: [
-    'total_of_taxa',
-    'vulnerable',
-    'endangered',
-    'critically_endangered',
-    'extinct_in_the_wild',
-  ],
+const tableSpec = TableSpecFactory.newInstance({
+  name: section.tables.table_4_8,
+  unit: Unit.absoluteNumber,
+  columnsExport: ['total_of_taxa', 'vulnerable', 'endangered', 'critically_endangered', 'extinct_in_the_wild'],
 
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.threatenedForestSpecies.categoryYear',
-          [SectionSpec.KEYS_COL.rowSpan]: 3,
-          [SectionSpec.KEYS_COL.left]: true,
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.threatenedForestSpecies.categoryYear',
+          rowSpan: 3,
+          left: true,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.threatenedForestSpecies.total_of_taxa',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.threatenedForestSpecies.total_of_taxa',
+          rowSpan: 2,
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.threatenedForestSpecies.threatenedForestSpeciesCol',
-          [SectionSpec.KEYS_COL.colSpan]: 4,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.threatenedForestSpecies.threatenedForestSpeciesCol',
+          colSpan: 4,
         }),
       ],
     }),
 
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.threatenedForestSpecies.vulnerable',
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.threatenedForestSpecies.vulnerable',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.threatenedForestSpecies.endangered',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.threatenedForestSpecies.endangered',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.threatenedForestSpecies.critically_endangered',
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.threatenedForestSpecies.critically_endangered',
         }),
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.threatenedForestSpecies.extinct_in_the_wild',
-        }),
-      ],
-    }),
-
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.threatenedForestSpecies.absoluteNumber',
-          [SectionSpec.KEYS_COL.colSpan]: 5,
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.threatenedForestSpecies.extinct_in_the_wild',
         }),
       ],
     }),
 
-    ...variables.flatMap((variable: any) =>
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'panEuropean.threatenedForestSpecies.absoluteNumber',
+          colSpan: 5,
+        }),
+      ],
+    }),
+
+    ...variables.flatMap((variable) =>
       years.map((year) =>
-        SectionSpec.newRowData({
-          [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.threatenedForestSpecies.${variable}`,
-          [SectionSpec.KEYS_ROW.labelParams]: { year },
-          [SectionSpec.KEYS_ROW.variableExport]: `${variable}_${year}`,
-          [SectionSpec.KEYS_ROW.cols]: [
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
-            SectionSpec.newColDecimal(),
+        RowSpecFactory.newDataInstance({
+          labelKey: `panEuropean.threatenedForestSpecies.${variable}`,
+          labelParams: { year },
+          variableExport: `${variable}_${year}`,
+          cols: [
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
+            ColSpecFactory.newDecimalInstance({}),
           ],
         })
       )
@@ -91,14 +89,10 @@ const tableSpec = SectionSpec.newTableSpec({
   ],
 })
 
-const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
-})
-
-const threatenedForestSpecies = SectionSpec.newSectionSpec({
-  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
-  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
+const threatenedForestSpecies = SectionSpecFactory.newInstance({
+  sectionName: section.name,
+  sectionAnchor: section.anchor,
+  tableSections: [{ tableSpecs: [tableSpec] }],
 })
 
 export default threatenedForestSpecies
