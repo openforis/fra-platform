@@ -2,6 +2,9 @@ import * as R from 'ramda'
 import { TYPE, TypeSpec, getType } from '@webapp/sectionSpec/typeSpec'
 import { KEYS_COL } from '@webapp/app/assessment/components/section/sectionSpec/colSpec'
 
+/**
+ * @deprecated
+ */
 export const KEYS_ROW = {
   type: TYPE,
   cols: 'cols',
@@ -26,13 +29,22 @@ export const KEYS_ROW = {
   variableExport: 'variableExport',
 }
 
+/**
+ * @deprecated
+ */
 export const KEYS_ROW_CHART = {
   labelKey: 'labelKey',
   color: 'color',
 }
 
+/**
+ * @deprecated
+ */
 const rowHeaderDefault: any = { [KEYS_ROW.type]: TypeSpec.header, [KEYS_ROW.cols]: [] }
 
+/**
+ * @deprecated
+ */
 const rowDataDefault: any = {
   [KEYS_ROW.type]: TypeSpec.data,
   [KEYS_ROW.cols]: [],
@@ -52,11 +64,17 @@ const rowDataDefault: any = {
   [KEYS_ROW.variableExport]: null,
 }
 
+/**
+ * @deprecated
+ */
 const rowValidationMessagesDefault: any = {
   [KEYS_ROW.type]: TypeSpec.validationMessages,
   [KEYS_ROW.getValidationMessages]: null,
 }
 
+/**
+ * @deprecated
+ */
 const rowNoticeMessageDefault: any = {
   [KEYS_ROW.type]: TypeSpec.noticeMessage,
   [KEYS_ROW.labelKey]: null,
@@ -65,6 +83,9 @@ const rowNoticeMessageDefault: any = {
   [KEYS_ROW.colSpan]: 1,
 }
 
+/**
+ * @deprecated
+ */
 const assocColHeader = (row: any) => {
   const labelKey = row[KEYS_ROW.labelKey]
   const labelParams = row[KEYS_ROW.labelParams]
@@ -112,6 +133,9 @@ const assocColHeader = (row: any) => {
   }
 }
 
+/**
+ * @deprecated
+ */
 const assocCols = (row: any) => {
   const cols = row[KEYS_ROW.cols].map((col: any, i: any) => ({
     ...col,
@@ -120,6 +144,9 @@ const assocCols = (row: any) => {
   return { ...row, [KEYS_ROW.cols]: cols }
 }
 
+/**
+ * @deprecated
+ */
 const assocColNoticeMessage = (row: any) => {
   const labelKey = row[KEYS_ROW.labelKey]
   const rowSpan = row[KEYS_ROW.rowSpan]
@@ -131,14 +158,31 @@ const assocColNoticeMessage = (row: any) => {
   }
 }
 
+/**
+ * @deprecated
+ */
 export const newRowHeader = R.pipe(R.mergeDeepRight(rowHeaderDefault), assocCols)
-
+/**
+ * @deprecated
+ */
 export const newRowData = R.pipe(R.mergeDeepRight(rowDataDefault), assocCols, assocColHeader)
-
+/**
+ * @deprecated
+ */
 export const newRowNoticeMessage = R.pipe(R.mergeDeepRight(rowNoticeMessageDefault), assocColNoticeMessage)
-
+/**
+ * @deprecated
+ */
 export const newRowValidationMessages = R.mergeDeepRight(rowValidationMessagesDefault)
-
+/**
+ * @deprecated
+ */
 export { getType, TypeSpec }
+/**
+ * @deprecated
+ */
 export const getCols = R.propOr([], KEYS_ROW.cols)
+/**
+ * @deprecated
+ */
 export const getColByIdx = (idx: any) => R.pipe(getCols, R.find(R.propEq(KEYS_COL.idx, idx)))

@@ -6,7 +6,9 @@ import { updateTableDataCell } from '@webapp/app/assessment/components/dataTable
 
 import { KEYS_ROW } from '@webapp/app/assessment/components/section/sectionSpec/rowSpec'
 import { isHeader } from '@webapp/sectionSpec/typeSpec'
-
+/**
+ * @deprecated
+ */
 export const KEYS_TABLE = {
   name: 'name',
   rows: 'rows',
@@ -27,18 +29,24 @@ export const KEYS_TABLE = {
   columnsExport: 'columnsExport',
   columnsExportAlways: 'columnsAlwaysExport',
 }
-
+/**
+ * @deprecated
+ */
 export const KEYS_TABLE_DATA_REQUIRED = {
   assessmentType: 'assessmentType',
   sectionName: 'sectionName',
   tableName: 'tableName',
 }
-
+/**
+ * @deprecated
+ */
 export const KEYS_TABLE_PRINT = {
   colBreakPoints: 'colBreakPoints',
   pageBreakAfter: 'pageBreakAfter',
 }
-
+/**
+ * @deprecated
+ */
 const tableDefault: any = {
   [KEYS_TABLE.name]: '',
   [KEYS_TABLE.rows]: [],
@@ -57,7 +65,9 @@ const tableDefault: any = {
   [KEYS_TABLE.columnsExport]: null,
   [KEYS_TABLE.columnsExportAlways]: [],
 }
-
+/**
+ * @deprecated
+ */
 const assocRows = (tableSpec: any) => {
   let idxHeader = -1
   let idxData = -1
@@ -77,23 +87,54 @@ const assocRows = (tableSpec: any) => {
     [KEYS_TABLE.rows]: rows,
   }
 }
-
+/**
+ * @deprecated
+ */
 export const newTableSpec = R.pipe(R.mergeDeepRight(tableDefault), assocRows)
-
-// @ts-ignore
-// TODO : remove ramda
+/**
+ * @deprecated
+ */
 export const getRowsHeader = R.pipe(R.prop(KEYS_TABLE.rows), R.filter(isHeader))
-// @ts-ignore
+/**
+ * @deprecated
+ */
 export const getRowsData = (tableSpec) => R.pipe(R.prop(KEYS_TABLE.rows), R.reject(isHeader))(tableSpec)
+/**
+ * @deprecated
+ */
 export const getName = R.prop(KEYS_TABLE.name)
+/**
+ * @deprecated
+ */
 export const getUpdateTableDataCell = (tableSpec: any) => R.prop(KEYS_TABLE.updateTableDataCell)(tableSpec)
+/**
+ * @deprecated
+ */
 export const getOdpVariables = R.prop(KEYS_TABLE.odpVariables)
+/**
+ * @deprecated
+ */
 export const isOdp = R.propEq(KEYS_TABLE.odp, true)
+/**
+ * @deprecated
+ */
 export const isSecondary = R.propEq(KEYS_TABLE.secondary, true)
+/**
+ * @deprecated
+ */
 export const getRowsExport = R.pipe(
   getRowsData,
   R.filter((row: any) => !!row[KEYS_ROW.variableExport])
 )
+/**
+ * @deprecated
+ */
 export const getColumnsExport = R.prop(KEYS_TABLE.columnsExport)
+/**
+ * @deprecated
+ */
 export const getColumnsExportAlways = R.prop(KEYS_TABLE.columnsExportAlways)
+/**
+ * @deprecated
+ */
 export const getUnit = R.prop(KEYS_TABLE.unit)

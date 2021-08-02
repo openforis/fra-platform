@@ -1,5 +1,5 @@
-import { DescriptionsSpec } from './descriptionsSpec'
-import { SectionExportSpec, SectionSpec, SectionTableSpec } from './sectionSpec'
+import { DescriptionSpec } from '@webapp/sectionSpec/descriptionsSpec'
+import { SectionExportSpec, SectionSpec, SectionTableSpec } from '@webapp/sectionSpec/sectionSpec'
 
 const sectionSpecDefault: SectionSpec = {
   sectionName: '',
@@ -17,7 +17,12 @@ const sectionSpecDefault: SectionSpec = {
 
 interface SectionSpecProps {
   dataExport?: SectionExportSpec
-  descriptions?: DescriptionsSpec
+  descriptions?: {
+    analysisAndProcessing?: DescriptionSpec
+    comments?: DescriptionSpec
+    introductoryText?: DescriptionSpec
+    nationalData?: DescriptionSpec
+  }
   sectionAnchor?: string
   sectionName?: string
   showTitle?: boolean
@@ -29,6 +34,10 @@ export const SectionSpecFactory = {
     return {
       ...sectionSpecDefault,
       ...props,
+      descriptions: {
+        ...sectionSpecDefault.descriptions,
+        ...props.descriptions,
+      },
     }
   },
 }

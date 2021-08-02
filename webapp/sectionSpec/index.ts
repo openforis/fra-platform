@@ -1,4 +1,4 @@
-export type { ColSpec, CalculateValue, FormatValue } from './colSpec'
+export type { ColSpec, CalculateValue, ColOptionSpec, FormatValue } from './colSpec'
 export { ColSpecFactory } from './colSpecFactory'
 
 export type { DescriptionSpec, DescriptionsSpec } from './descriptionsSpec'
@@ -20,3 +20,5 @@ export type { UnitFactor } from './unitSpec'
 export { UnitFactors, Unit, convertValue } from './unitSpec'
 
 export type { Validator, GetValidationMessages, ValidationMessage } from './validation'
+
+export { VARIABLES } from './variables'

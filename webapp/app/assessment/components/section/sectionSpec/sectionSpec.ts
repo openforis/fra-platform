@@ -1,5 +1,7 @@
 import * as R from 'ramda'
-
+/**
+ * @deprecated
+ */
 export const KEYS_SECTION = {
   sectionName: 'sectionName',
   sectionAnchor: 'sectionAnchor',
@@ -8,17 +10,24 @@ export const KEYS_SECTION = {
   descriptions: 'descriptions',
   dataExport: 'dataExport',
 }
-
+/**
+ * @deprecated
+ */
 export const KEYS_SECTION_DESCRIPTIONS = {
   introductoryText: 'introductoryText',
   nationalData: 'nationalData',
   analysisAndProcessing: 'analysisAndProcessing',
   comments: 'comments',
 }
+/**
+ * @deprecated
+ */
 export const KEYS_DATA_EXPORT = {
   included: 'included',
 }
-
+/**
+ * @deprecated
+ */
 const sectionSpecDefault: any = {
   [KEYS_SECTION.sectionName]: '',
   [KEYS_SECTION.sectionAnchor]: '',
@@ -32,7 +41,9 @@ const sectionSpecDefault: any = {
   },
   [KEYS_SECTION.dataExport]: { [KEYS_DATA_EXPORT.included]: true },
 }
-
+/**
+ * @deprecated
+ */
 const assocTableSections = (sectionSpec: any) => {
   const tableSections = sectionSpec[KEYS_SECTION.tableSections].map((tableSection: any, idx: any) => ({
     idx,
@@ -44,5 +55,7 @@ const assocTableSections = (sectionSpec: any) => {
     [KEYS_SECTION.tableSections]: tableSections,
   }
 }
-
+/**
+ * @deprecated
+ */
 export const newSectionSpec = R.pipe(R.mergeDeepRight(sectionSpecDefault), assocTableSections)

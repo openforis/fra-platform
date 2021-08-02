@@ -1,4 +1,4 @@
-const variables: any = {
+export const VARIABLES: Record<string, string> = {
   // 1a
   forest_area: 'forest_area',
   total_land_area: 'total_land_area',
@@ -194,7 +194,7 @@ const variables: any = {
   of_which_imported: 'of_which_imported',
   energy_from_post_consumer_recovered_wood: 'energy_from_post_consumer_recovered_wood',
   energy_from_unknown_unspecified_sources: 'energy_from_unknown_unspecified_sources',
-  
+
   no1_area_available_for_public_recreation: 'no1_area_available_for_public_recreation',
   no2_area_available_for_public_recreation: 'no2_area_available_for_public_recreation',
   no3_area_available_for_public_recreation: 'no3_area_available_for_public_recreation',
@@ -217,4 +217,4 @@ const variables: any = {
   no20_area_available_for_public_recreation: 'no20_area_available_for_public_recreation',
 }
 
-export default variables
+export default VARIABLES

@@ -1,33 +1,36 @@
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpecFactory } from '@webapp/sectionSpec/colSpecFactory'
+import { RowSpecFactory } from '@webapp/sectionSpec/rowSpecFactory'
+import { TableSpecFactory } from '@webapp/sectionSpec/tableSpecFactory'
+
 import extent from '@common/model/dataTable/contentCheck/extent'
 import section from '../section'
 
-const tableSpec = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: section.tables.extent,
-  [SectionSpec.KEYS_TABLE.rows]: [
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.labelKey]: 'contentCheck.extent.title',
-          [SectionSpec.KEYS_COL.rowSpan]: 2,
-          [SectionSpec.KEYS_COL.left]: true,
+const tableSpec = TableSpecFactory.newInstance({
+  name: section.tables.extent,
+  rows: [
+    RowSpecFactory.newHeaderInstance({
+      cols: [
+        ColSpecFactory.newHeaderInstance({
+          labelKey: 'contentCheck.extent.title',
+          rowSpan: 2,
+          left: true,
         }),
       ],
     }),
 
-    SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: extent.columns.map(({ name }: any) =>
-        SectionSpec.newColHeader({
-          [SectionSpec.KEYS_COL.label]: name,
+    RowSpecFactory.newHeaderInstance({
+      cols: extent.columns.map(({ name }: any) =>
+        ColSpecFactory.newHeaderInstance({
+          label: name,
         })
       ),
     }),
 
     ...extent.rows.names.map((variable: any) =>
-      SectionSpec.newRowData({
-        [SectionSpec.KEYS_ROW.labelKey]: `contentCheck.extent.${variable}`,
-        [SectionSpec.KEYS_ROW.variableExport]: `${variable}`,
-        [SectionSpec.KEYS_ROW.cols]: extent.columns.map(() => SectionSpec.newColDecimal()),
+      RowSpecFactory.newDataInstance({
+        labelKey: `contentCheck.extent.${variable}`,
+        variableExport: `${variable}`,
+        cols: extent.columns.map(() => ColSpecFactory.newDecimalInstance({})),
       })
     ),
   ],
