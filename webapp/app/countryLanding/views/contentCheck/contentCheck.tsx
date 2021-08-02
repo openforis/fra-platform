@@ -7,11 +7,10 @@ import { useCountryIso } from '@webapp/components/hooks'
 
 import useSectionTables from '@webapp/pages/AssessmentSection/useSectionTables'
 import SectionView from '@webapp/components/Assessment/SectionView'
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
 import { FRA } from '@core/assessment'
 
-const ContentCheck = () => {
+const ContentCheck: React.FC = () => {
   const assessmentType = FRA.type
   const sectionName = 'contentCheck'
   const countryIso = useCountryIso()
@@ -21,15 +20,7 @@ const ContentCheck = () => {
 
   useEffect(() => {
     dispatch(
-      batchActions([
-        ...tables.map((table: any) =>
-          fetchTableData(
-            table[SectionSpec.KEYS_TABLE_DATA_REQUIRED.assessmentType],
-            table[SectionSpec.KEYS_TABLE_DATA_REQUIRED.sectionName],
-            table[SectionSpec.KEYS_TABLE_DATA_REQUIRED.tableName]
-          )
-        ),
-      ])
+      batchActions([...tables.map((table) => fetchTableData(table.assessmentType, table.sectionName, table.tableName))])
     )
   }, [countryIso])
 

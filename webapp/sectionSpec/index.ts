@@ -17,7 +17,7 @@ export { TableSpecFactory } from './tableSpecFactory'
 export { TypeSpec } from './typeSpec'
 
 export type { UnitFactor } from './unitSpec'
-export { UnitFactors, Unit, convertValue } from './unitSpec'
+export { UnitFactors, Unit, UnitConverter } from './unitSpec'
 
 export type { Validator, GetValidationMessages, ValidationMessage } from './validation'
 
