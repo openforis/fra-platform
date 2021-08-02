@@ -6,7 +6,7 @@ import VerticallyGrowingTextField from '@webapp/components/verticallyGrowingText
 import MultiSelect from '@webapp/components/multiSelect'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { useCountryIso, useI18n, usePrintView } from '@webapp/components/hooks'
-import { saveDraft } from '@webapp/app/assessment/fra/sections/originalDataPoint/actions'
+import { saveDraft } from '@webapp/sectionSpec/fra/originalDataPoint/actions'
 
 type Props = {
   canEditData: boolean

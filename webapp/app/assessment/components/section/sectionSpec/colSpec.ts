@@ -2,7 +2,7 @@ import * as R from 'ramda'
 
 import * as NumberUtils from '@common/bignumberUtils'
 
-import { TYPE, TYPES, getType } from './keysType'
+import { TYPE, TypeSpec, getType } from '@webapp/sectionSpec/typeSpec'
 
 export const KEYS_COL: any = {
   type: TYPE,
@@ -25,7 +25,7 @@ export const KEYS_COL: any = {
 
 const colHeaderDefault: any = {
   [KEYS_COL.idx]: null,
-  [KEYS_COL.type]: TYPES.header,
+  [KEYS_COL.type]: TypeSpec.header,
   [KEYS_COL.labelKey]: null,
   [KEYS_COL.labelParams]: {},
   [KEYS_COL.label]: null,
@@ -37,45 +37,45 @@ const colHeaderDefault: any = {
 
 const colDecimalDefault: any = {
   [KEYS_COL.idx]: null,
-  [KEYS_COL.type]: TYPES.decimal,
+  [KEYS_COL.type]: TypeSpec.decimal,
 }
 
 const colIntegerDefault: any = {
   [KEYS_COL.idx]: null,
-  [KEYS_COL.type]: TYPES.integer,
+  [KEYS_COL.type]: TypeSpec.integer,
 }
 
 const colTextDefault: any = {
   [KEYS_COL.idx]: null,
-  [KEYS_COL.type]: TYPES.text,
+  [KEYS_COL.type]: TypeSpec.text,
 }
 
 const colTextAreaDefault: any = {
   [KEYS_COL.idx]: null,
-  [KEYS_COL.type]: TYPES.textarea,
+  [KEYS_COL.type]: TypeSpec.textarea,
 }
 
 const colCalculatedDefault: any = {
   [KEYS_COL.idx]: null,
-  [KEYS_COL.type]: TYPES.calculated,
+  [KEYS_COL.type]: TypeSpec.calculated,
   [KEYS_COL.formatFn]: NumberUtils.formatNumber,
 }
 
 const colPlaceholderDefault: any = {
   [KEYS_COL.idx]: null,
-  [KEYS_COL.type]: TYPES.placeholder,
+  [KEYS_COL.type]: TypeSpec.placeholder,
 }
 
 const colSelectDefault: any = {
   [KEYS_COL.idx]: null,
-  [KEYS_COL.type]: TYPES.select,
+  [KEYS_COL.type]: TypeSpec.select,
   [KEYS_COL.options]: [],
   [KEYS_COL.optionsLabelKeyPrefix]: '',
 }
 
 const colSelectYesNoDefault: any = {
   [KEYS_COL.idx]: null,
-  [KEYS_COL.type]: TYPES.select,
+  [KEYS_COL.type]: TypeSpec.select,
   [KEYS_COL.optionsLabelKeyPrefix]: 'yesNoTextSelect',
   [KEYS_COL.options]: [{ [KEYS_COL.optionName]: 'yes' }, { [KEYS_COL.optionName]: 'no' }],
 }
@@ -103,9 +103,9 @@ export const newColSelect = (x?: any) => R.pipe(R.defaultTo({}), R.mergeDeepRigh
 export const newColSelectYesNo = (x?: any) => R.pipe(R.defaultTo({}), R.mergeDeepRight(colSelectYesNoDefault))(x)
 export const newColPlaceholder = (x?: any) => R.pipe(R.defaultTo({}), R.mergeDeepRight(colPlaceholderDefault))(x)
 
-export { getType, TYPES }
+export { getType, TypeSpec }
 export const getIdx = R.prop(KEYS_COL.idx)
 export const getOptions = R.prop(KEYS_COL.options)
 export const isReadOnly = R.pipe(R.prop(TYPE), (type: any) =>
-  R.includes(type, [TYPES.calculated, TYPES.header, TYPES.placeholder])
+  R.includes(type, [TypeSpec.calculated, TypeSpec.header, TypeSpec.placeholder])
 )

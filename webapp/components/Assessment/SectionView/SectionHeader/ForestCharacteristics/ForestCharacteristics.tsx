@@ -1,9 +1,9 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestState'
-import * as ForestCharacteristicsState from '@webapp/app/assessment/fra/sections/forestCharacteristics/forestCharacteristicsState'
-import { toggleUseOriginalDataPoints } from '@webapp/app/assessment/fra/sections/forestCharacteristics/actions'
+import * as ExtentOfForestState from '@webapp/sectionSpec/fra/extentOfForest/extentOfForestState'
+import * as ForestCharacteristicsState from '@webapp/sectionSpec/fra/forestCharacteristics/forestCharacteristicsState'
+import { toggleUseOriginalDataPoints } from '@webapp/sectionSpec/fra/forestCharacteristics/actions'
 import { useI18n, useUserInfo } from '@webapp/components/hooks'
 
 import { Props } from '../props'
