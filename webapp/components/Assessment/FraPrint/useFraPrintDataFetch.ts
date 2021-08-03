@@ -6,7 +6,7 @@ import { Objects } from '@core/utils'
 import { batchActions } from '@webapp/main/reduxBatch'
 import { SectionSpecs, TableSummarySpec } from '@webapp/sectionSpec'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
-import { fetchTableData } from '@webapp/app/assessment/components/dataTable/actions'
+import { fetchTableData } from '@webapp/components/Assessment/DataTable/actions'
 import { fetchUsers } from '@webapp/app/user/userManagement/actions'
 import { fetchOdps } from '@webapp/sectionSpec/fra/originalDataPoint/actions'
 
