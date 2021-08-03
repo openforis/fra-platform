@@ -41,5 +41,7 @@ export const UnitFactors: Record<string, UnitFactor> = {
   },
 }
 
-export const convertValue = (value: number | string, unit: string, factor: string): string =>
-  NumberUtils.formatNumber(NumberUtils.mul(value, UnitFactors[unit][factor]))
+export const UnitConverter = {
+  convertValue: (value: number | string, unit: string, factor: string): string =>
+    NumberUtils.formatNumber(NumberUtils.mul(value, UnitFactors[unit][factor])),
+}

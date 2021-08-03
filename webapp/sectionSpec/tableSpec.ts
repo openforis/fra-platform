@@ -14,7 +14,7 @@ export type GetSectionData = (
 
 export type UpdateTableData = (
   props:
-    | { state?: any; rowIdx: number; colIdx: number; value: number }
+    | { state?: any; rowIdx: number; colIdx: number; value: number | string }
     | { state: any; datum: any; variableName: string }
 ) => (data: any) => any
 
@@ -31,7 +31,7 @@ export interface TableSpec {
   tableDataRequired?: Array<TableSummarySpec>
   unit?: Unit
   // print props
-  print?: { pageBreakAfter: boolean; colBreakPoints?: Array<string> }
+  print?: { pageBreakAfter: boolean; colBreakPoints?: Array<number> }
   // data export
   dataExport: boolean
   columnsExport?: Array<string | number>
