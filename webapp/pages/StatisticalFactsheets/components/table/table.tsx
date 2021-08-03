@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { useI18n } from '@webapp/components/hooks'
-import ButtonTableExport from '@webapp/components/buttonTableExport'
+import ButtonTableExport from '@webapp/components/ButtonTableExport'
 import { formatValue } from '@webapp/pages/StatisticalFactsheets/utils/numberUtils'
 import useStatisticalFactsheetsState from '../../hooks/useStatisticalFactsheetsState'
 

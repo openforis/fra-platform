@@ -5,7 +5,7 @@ import { useParams } from 'react-router'
 import { SectionSpecs, UnitFactors } from '@webapp/sectionSpec'
 import { useI18n } from '@webapp/components/hooks'
 
-import ButtonTableExport from '@webapp/components/buttonTableExport'
+import ButtonTableExport from '@webapp/components/ButtonTableExport'
 
 import {
   getValue,

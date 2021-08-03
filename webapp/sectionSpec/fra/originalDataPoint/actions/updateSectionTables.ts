@@ -4,7 +4,7 @@ import FRAUtils from '@common/fraUtils'
 import { FRA } from '@core/assessment'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
-import { updateTableData } from '@webapp/app/assessment/components/dataTable/actions'
+import { updateTableData } from '@webapp/components/Assessment/DataTable/actions'
 
 import * as ODP from '../originalDataPoint'
 import * as OriginalDataPointStateState from '../originalDataPointState'

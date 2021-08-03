@@ -10,7 +10,7 @@ import * as ForestCharacteristicsState from '@webapp/sectionSpec/fra/forestChara
 import * as ForestCharacteristicsValidatorState from '@webapp/sectionSpec/fra/forestCharacteristics/forestCharacteristicsValidatorState'
 import * as ExtentOfForestState from '@webapp/sectionSpec/fra/extentOfForest/extentOfForestState'
 
-import { updateTableWithOdpCell } from '@webapp/app/assessment/components/dataTable/actions'
+import { updateTableWithOdpCell } from '@webapp/components/Assessment/DataTable/actions'
 
 const section = FRA.sections['1'].children.b
 
