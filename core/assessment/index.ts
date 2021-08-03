@@ -9,3 +9,6 @@ export { PanEuropean } from './panEuropean'
 
 export type { AssessmentStatusTransition } from './statusTransition'
 export { AssessmentStatusTransitions } from './statusTransition'
+
+export type { TableDatumODP, TableDataRow, TableData } from './tableData'
+export { TableDatumODPType } from './tableData'

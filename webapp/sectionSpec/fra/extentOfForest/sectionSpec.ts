@@ -8,7 +8,7 @@ import { VARIABLES } from '@webapp/sectionSpec/variables'
 
 import * as ExtentOfForestState from '@webapp/sectionSpec/fra/extentOfForest/extentOfForestState'
 import * as ExtentOfForestValidator from '@webapp/sectionSpec/fra/extentOfForest/extentOfForestValidatorState'
-import { updateTableWithOdpCell } from '@webapp/app/assessment/components/dataTable/actions'
+import { updateTableWithOdpCell } from '@webapp/components/Assessment/DataTable/actions'
 
 const section = FRA.sections['1'].children.a
 
