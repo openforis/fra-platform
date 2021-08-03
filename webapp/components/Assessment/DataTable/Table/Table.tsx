@@ -38,8 +38,8 @@ const Table: React.FC<Props> = (props) => {
 
         <table id={tableSpec.name} ref={tableRef} className="fra-table data-table">
           <thead>
-            {rowsHeader.map((row, rowIdx) => (
-              <tr key={String(rowIdx)}>
+            {rowsHeader.map((row) => (
+              <tr key={row.idx}>
                 {row.cols.map((col) => {
                   const { idx, className, colSpan, rowSpan, labelKey, labelParams, label } = col
                   return (
@@ -69,9 +69,9 @@ const Table: React.FC<Props> = (props) => {
           </thead>
 
           <tbody>
-            {rowsData.map((row, rowIdx) => (
+            {rowsData.map((row) => (
               <Row
-                key={String(rowIdx)}
+                key={row.idx}
                 assessmentType={assessmentType}
                 sectionName={sectionName}
                 tableSpec={tableSpec}

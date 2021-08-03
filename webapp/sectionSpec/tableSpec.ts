@@ -14,7 +14,7 @@ export type GetSectionData = (
 
 export type UpdateTableData = (
   props:
-    | { state?: any; rowIdx: number; colIdx: number; value: number }
+    | { state?: any; rowIdx: number; colIdx: number; value: number | string }
     | { state: any; datum: any; variableName: string }
 ) => (data: any) => any
 

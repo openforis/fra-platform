@@ -9,9 +9,10 @@ export interface CalculateValue {
   (datum: TableDatumODP): (state: any) => number | BigNumber
 }
 
-export type FormatValue = (value: number | string) => string
+export type FormatValue = (value: number | string | BigNumber) => string
 
 export interface ColOptionSpec {
+  hidden?: boolean
   optionName: string
   type?: TypeSpec
 }

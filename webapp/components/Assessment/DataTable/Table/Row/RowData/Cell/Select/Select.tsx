@@ -1,32 +1,22 @@
 import React from 'react'
-import * as R from 'ramda'
+import { i18n as I18n } from 'i18next'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
-
+import { ColOptionSpec, TypeSpec } from '@webapp/sectionSpec'
 import { useI18n } from '@webapp/components/hooks'
+import { PropsCell } from '../props'
 
-const isOptionHeader = R.propEq(SectionSpec.TYPE, SectionSpec.TypeSpec.header)
-
-const getOptionLabel = (option: any, i18n: any, optionsLabelKeyPrefix: any) => {
-  const optionName = option[SectionSpec.KEYS_COL.optionName]
+const getOptionLabel = (option: ColOptionSpec, i18n: I18n, optionsLabelKeyPrefix: string): string => {
+  const { optionName } = option
   const label = i18n.t(`${optionsLabelKeyPrefix}.${optionName}`)
-  return isOptionHeader(option) ? `--- ${label} ---` : label
+  return option.type === TypeSpec.header ? `--- ${label} ---` : label
 }
 
-const optionNotSelected = { [SectionSpec.KEYS_COL.optionName]: 'notSelected', hidden: true }
+const optionNotSelected: ColOptionSpec = { optionName: 'notSelected', hidden: true }
 
-type Props = {
-  col: any
-  disabled: boolean
-  datum?: any
-  onChange: (...args: any[]) => any
-  onPaste: (...args: any[]) => any
-}
-
-const Select = (props: Props) => {
+const Select: React.FC<PropsCell> = (props) => {
   const { onChange, onPaste, col, datum, disabled } = props
   const { options, optionsLabelKeyPrefix } = col
-  const optionSelected = options.find(R.propEq(SectionSpec.KEYS_COL.optionName, datum))
+  const optionSelected = options.find((option) => option.optionName === datum)
 
   const i18n = useI18n()
 
@@ -44,16 +34,15 @@ const Select = (props: Props) => {
     <div className="fra-table__select-container">
       <select
         className="fra-table__select no-print"
-        value={datum || optionNotSelected[SectionSpec.KEYS_COL.optionName]}
+        value={datum || optionNotSelected.optionName}
         disabled={disabled}
         onChange={onChange}
         onPaste={onPaste}
       >
         {[optionNotSelected, ...options].map((option) => {
-          const { hidden } = option
-          const optionName = option[SectionSpec.KEYS_COL.optionName]
+          const { hidden, optionName } = option
           return (
-            <option key={optionName} value={optionName} disabled={isOptionHeader(option)} hidden={!!hidden}>
+            <option key={optionName} value={optionName} disabled={option.type === TypeSpec.header} hidden={!!hidden}>
               {getOptionLabel(option, i18n, optionsLabelKeyPrefix)}
             </option>
           )
@@ -64,10 +53,6 @@ const Select = (props: Props) => {
       </div>
     </div>
   )
-}
-
-Select.defaultProps = {
-  datum: null,
 }
 
 export default Select

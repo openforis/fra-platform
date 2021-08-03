@@ -1,17 +1,18 @@
-import { ChangeEvent } from 'react'
+import { ChangeEventHandler, ClipboardEventHandler } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { FRA, TableData, TableDatumODP } from '@core/assessment'
 import { TypeSpec } from '@webapp/sectionSpec'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import { persistTableData } from '@webapp/components/Assessment/DataTable/actions'
-import * as Sanitizer from '../cell/sanitizer'
+import * as Sanitizer from '../Cell/sanitizer'
 import { Props } from './props'
 
 type UseOnChange = {
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void
-  onPaste: (event: ClipboardEvent) => void
+  onChange: ChangeEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  onPaste: ClipboardEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
 }
+
 export default (props: Props): UseOnChange => {
   const { assessmentType, sectionName, tableSpec, variableName, data: tableData, datum } = props
   const { name: tableName, updateTableDataCell, odpVariables } = tableSpec
@@ -47,12 +48,12 @@ export default (props: Props): UseOnChange => {
     }
   }
 
-  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const onChange: ChangeEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement> = (event) => {
     const { value } = event.target
     _persistSanitizedValue(value)
   }
 
-  const onPaste = (event: ClipboardEvent) => {
+  const onPaste: ClipboardEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement> = (event) => {
     event.stopPropagation()
     event.preventDefault()
 

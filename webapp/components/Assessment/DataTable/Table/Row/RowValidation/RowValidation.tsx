@@ -20,8 +20,8 @@ const RowValidation: React.FC<Props> = (props) => {
 
   return (
     <tr key="validationError" className="no-print">
-      {validationMessages.map((messages) => (
-        <td className="fra-table__validation-cell" key={Math.random()}>
+      {validationMessages.map((messages, idx) => (
+        <td className="fra-table__validation-cell" key={String(idx)}>
           <div className="fra-table__validation-container">
             {messages.map(({ key, params = {} }) => (
               <div className="fra-table__validation-error" key={key}>

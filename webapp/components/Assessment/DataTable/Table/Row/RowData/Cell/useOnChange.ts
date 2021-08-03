@@ -1,25 +1,38 @@
+import { ChangeEventHandler, ClipboardEventHandler } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { TableSpec, RowSpec, ColSpec } from '@webapp/app/assessment/components/section/sectionSpec'
+import { ColSpec, TableSpec, TypeSpec } from '@webapp/sectionSpec'
+import { AssessmentType, TableData } from '@core/assessment'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 
 import { persistTableData } from '../../../../actions'
 import * as Sanitizer from './sanitizer'
 
-export default (props: any) => {
-  const { assessmentType, sectionName, tableSpec, rowIdx, col, datum: valuePrev } = props
-  const tableName = TableSpec.getName(tableSpec)
-  const updateTableDataCell: any = TableSpec.getUpdateTableDataCell(tableSpec)
+type Props = {
+  assessmentType: AssessmentType
+  sectionName: string
+  tableSpec: TableSpec
+  rowIdx: number
+  col: ColSpec
+  datum: string
+}
 
-  const type = ColSpec.getType(col)
-  const colIdx = ColSpec.getIdx(col)
-  const options = ColSpec.getOptions(col)
+type UseOnChange = {
+  onChange: ChangeEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  onPaste: ClipboardEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+}
+
+export default (props: Props): UseOnChange => {
+  const { assessmentType, sectionName, tableSpec, rowIdx, col, datum: valuePrev } = props
+  const { name: tableName, updateTableDataCell } = tableSpec
+  const { idx, options, type } = col
+  const colIdx = idx as number
 
   const dispatch = useDispatch()
   const state = useSelector((_state) => _state)
-  const data = AssessmentState.getSectionData(assessmentType, sectionName, tableName)(state)
+  const data: TableData = AssessmentState.getSectionData(assessmentType, sectionName, tableName)(state)
 
-  const _persistSanitizedValue = (value: any) => {
+  const _persistSanitizedValue = (value: string) => {
     if (Sanitizer.isAcceptable(type, value)) {
       const valueUpdate = Sanitizer.sanitize(type, value, valuePrev, options)
       const dataUpdate = updateTableDataCell({ state, rowIdx, colIdx, value: valueUpdate })(data)
@@ -27,12 +40,12 @@ export default (props: any) => {
     }
   }
 
-  const onChange = (event: any) => {
+  const onChange: ChangeEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement> = (event) => {
     const { value } = event.target
     _persistSanitizedValue(value)
   }
 
-  const onPaste = (event: any) => {
+  const onPaste: ClipboardEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement> = (event) => {
     event.stopPropagation()
     event.preventDefault()
 
@@ -41,7 +54,7 @@ export default (props: any) => {
     el.innerHTML = clipboardData.getData('text/html')
 
     const rows = el.getElementsByTagName('tr')
-    const rowSpecs: any = TableSpec.getRowsData(tableSpec)
+    const rowSpecs = tableSpec.rows
 
     if (rows.length > 0) {
       let dataUpdate = data.slice()
@@ -54,15 +67,16 @@ export default (props: any) => {
         const columns = rows[i].getElementsByTagName('td')
         for (let j = 0; j < columns.length; j += 1) {
           const colIdxCurrent = Number(colIdx) + j
-          const colSpec = RowSpec.getColByIdx(colIdxCurrent)(rowSpec)
+          const colSpec = rowSpec.cols.find((col) => col.idx === colIdxCurrent)
           if (!colSpec) break
 
-          const colSpecType = ColSpec.getType(colSpec)
+          const colSpecType = colSpec.type
           let valueUpdate = columns[j].innerText
+          const readOnly = [TypeSpec.calculated, TypeSpec.header, TypeSpec.placeholder].includes(colSpecType)
 
-          if (!ColSpec.isReadOnly(colSpec) && Sanitizer.isAcceptable(colSpecType, valueUpdate)) {
+          if (!readOnly && Sanitizer.isAcceptable(colSpecType, valueUpdate)) {
             valueUpdate = Sanitizer.sanitize(colSpecType, valueUpdate, valuePrev, options)
-            const params = { state, rowIdx: rowIdxCurrent, colIdx: colIdxCurrent, value: valueUpdate }
+            const params = { state, rowIdx: rowIdxCurrent, colIdx: colIdxCurrent, value: String(valueUpdate) }
             dataUpdate = updateTableDataCell(params)(dataUpdate)
           }
         }

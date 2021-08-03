@@ -8,7 +8,7 @@ import { useCountryIso, useI18n } from '@webapp/components/hooks'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { Props } from '../props'
 import useClassName from './useClassName'
-import Cell from './cell'
+import Cell from './Cell'
 import CellOdp from './CellOdp'
 
 const RowData: React.FC<Props> = (props) => {
