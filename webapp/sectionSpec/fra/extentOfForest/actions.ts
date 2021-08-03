@@ -3,7 +3,7 @@ import { FRA } from '@core/assessment'
 import * as ExtentOfForestState from '@webapp/sectionSpec/fra/extentOfForest/extentOfForestState'
 
 import { updateSectionProp } from '@webapp/app/assessment/actions'
-import { fetchTableData } from '@webapp/app/assessment/components/dataTable/actions'
+import { fetchTableData } from '@webapp/components/Assessment/DataTable/actions'
 
 const assessmentType = FRA.type
 const section = FRA.sections['1'].children.a

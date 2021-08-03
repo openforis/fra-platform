@@ -1,0 +1,15 @@
+@import 'config';
+@import 'spacing';
+
+@mixin mixin-table-cell($fontWeight, $align, $padding, $cell: false) {
+  border: $ui-thin-border;
+  font-weight: $fontWeight;
+  padding: $padding;
+  text-align: $align;
+
+  @if $cell {
+    white-space: nowrap;
+    min-width: $spacing-xxxl + $spacing-xxs;
+    position: relative;
+  }
+}

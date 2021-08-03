@@ -178,7 +178,6 @@
     "passport-local": "^1.0.0",
     "pg": "^8.6.0",
     "pg-promise": "^10.10.2",
-    "prop-types": "^15.7.2",
     "ramda": "^0.27.1",
     "react": "^17.0.2",
     "react-csv": "^2.0.3",

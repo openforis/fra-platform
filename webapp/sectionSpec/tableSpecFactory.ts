@@ -3,7 +3,7 @@ import { RowSpec } from '@webapp/sectionSpec/rowSpec'
 import { Unit } from '@webapp/sectionSpec/unitSpec'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
-import { updateTableDataCell } from '@webapp/app/assessment/components/dataTable/actions'
+import { updateTableDataCell } from '@webapp/components/Assessment/DataTable/actions'
 import { TypeSpec } from '@webapp/sectionSpec/typeSpec'
 
 interface TableSpecProps {
@@ -16,7 +16,7 @@ interface TableSpecProps {
   tableDataRequired?: Array<TableSummarySpec>
   unit?: Unit
   // print props
-  print?: { pageBreakAfter: boolean; colBreakPoints?: Array<string> }
+  print?: { pageBreakAfter: boolean; colBreakPoints?: Array<number> }
   // data export
   dataExport?: boolean
   columnsExport?: Array<string | number>

@@ -1,13 +1,18 @@
 import BigNumber from 'bignumber.js'
 
+import { TableDatumODP } from '@core/assessment'
 import { TypeSpec } from './typeSpec'
 import { Validator } from './validation'
 
-export type CalculateValue = (colIdx: number, rowIdx: number) => (state: any) => number | BigNumber
+export interface CalculateValue {
+  (colIdx: number, rowIdx: number): (state: any) => number | BigNumber
+  (datum: TableDatumODP): (state: any) => number | BigNumber
+}
 
-export type FormatValue = (value: number | string) => string
+export type FormatValue = (value: number | string | BigNumber) => string
 
 export interface ColOptionSpec {
+  hidden?: boolean
   optionName: string
   type?: TypeSpec
 }

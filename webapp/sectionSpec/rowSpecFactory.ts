@@ -29,8 +29,8 @@ interface RowDataProps {
 }
 
 const newHeaderInstance = (props: { cols?: Array<ColSpec> }): RowSpec => ({
-  cols: [],
   ...props,
+  cols: (props.cols || []).map((col, idx) => ({ idx: col.idx ?? idx, ...col })),
   type: TypeSpec.header,
 })
 
@@ -64,6 +64,7 @@ const newNoticeMessageInstance = (props: { labelKey?: string; colSpan?: number; 
   type: TypeSpec.noticeMessage,
   cols: [
     {
+      idx: 0,
       colSpan: props.colSpan ?? 1,
       rowSpan: props.rowSpan ?? 1,
       labelKey: props.labelKey ?? null,
