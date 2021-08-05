@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 
 import * as Assessment from '@common/assessment/assessment'
-import FRA from '@common/assessment/fra'
+import { AssessmentType, FRA } from '@core/assessment'
 import FRAUtils from '@common/fraUtils'
 
 import { isReviewer, isAdministrator } from '@common/countryRole'
@@ -100,7 +100,7 @@ const _getTableGeneratingPath = (assessmentType: any, sectionName: any, tableNam
 export const assocSectionData = (assessmentType: any, sectionName: any, tableName: any, data: any) =>
   R.assocPath(_getTableDataPath(assessmentType, sectionName, tableName), data)
 
-export const getSectionData = (assessmentType: any, sectionName: any, tableName: any) =>
+export const getSectionData = (assessmentType: AssessmentType, sectionName: string, tableName: string) =>
   R.pipe(getState, R.pathOr(null, _getTableDataPath(assessmentType, sectionName, tableName)))
 
 export const isSectionDataLoaded = (assessmentType: any, sectionName: any, tableName: any) =>

@@ -1,25 +1,23 @@
 import './style.less'
-
 import React, { memo } from 'react'
 
-import FRA from '@common/assessment/fra'
-
-import Loading from '@webapp/components/loading'
-import FraPrintView from '@webapp/app/assessment/fra/print/fraPrintView'
-
+import { FRA } from '@core/assessment'
 import { useAssessmentType } from '@webapp/store/app'
 import { useInitCountry, useIsCountryStatusLoaded } from '@webapp/store/country'
 
-const Components: any = {
-  [FRA.type]: FraPrintView,
+import Loading from '@webapp/components/loading'
+import FraPrint from '@webapp/components/Assessment/FraPrint'
+
+const Components: Record<string, React.FC> = {
+  [FRA.type]: FraPrint,
 }
 
-const AssessmentPrint = () => {
+const AssessmentPrint: React.FC = () => {
   useInitCountry()
   const assessmentType = useAssessmentType()
   const countryStatusLoaded = useIsCountryStatusLoaded()
 
-  const Component: any = Components[assessmentType]
+  const Component = Components[assessmentType]
 
   if (!countryStatusLoaded) {
     return <Loading />

@@ -3,11 +3,11 @@
  * Everything from table, column mappings to formatting received data and keys
  * "hotfix"
  */
+import { AssessmentType } from '@core/assessment'
 import * as NumberUtils from '@common/bignumberUtils'
-import { UnitSpec } from '@webapp/app/assessment/components/section/sectionSpec'
+import { Unit, UnitConverter, UnitFactors } from '@webapp/sectionSpec'
 import { format } from 'date-fns'
 import { getPanEuropeanTableMapping } from '@webapp/app/dataExport/utils/panEuropean'
-import { isTypePanEuropean } from '@common/assessment/assessment'
 
 export const regex = {
   yearRange: /\d{4}-\d{4}/,
@@ -21,14 +21,14 @@ export const yearRangeToUnderscore = (range: any) => range.replace('-', '_')
 export const isYearWithWord = (column: any) => regex.yearWithWord.test(column)
 export const splitYearWithWord = (column: any) => column.split('_')
 
-const columnI18nMappings: any = {
+const columnI18nMappings: Record<string, string> = {
   common_name: 'commonName',
   scientific_name: 'scientificName',
   national: 'national',
   subnational: 'subnational',
 }
 
-export const getColumnLabel = (column: any, section: any) =>
+export const getColumnLabel = (column: string, section: string): string =>
   columnI18nMappings[column] ? `${section}.${columnI18nMappings[column]}` : String(column)
 
 /**
@@ -38,8 +38,8 @@ export const getColumnLabel = (column: any, section: any) =>
  * @param assessmentType - type, ex. fra2020 / panEuropean
  * @returns {array} - i18n keys
  */
-export const getI18nKey = (column: any, section: any, assessmentType: any) => {
-  if (isTypePanEuropean(assessmentType)) {
+export const getI18nKey = (column: any, section: any, assessmentType: AssessmentType) => {
+  if (assessmentType === AssessmentType.panEuropean) {
     return [`${assessmentType}.${section}.${column}`]
   }
 
@@ -52,7 +52,7 @@ export const getI18nKey = (column: any, section: any, assessmentType: any) => {
 
 // View specific
 // forestPolicy
-export const forestPolicy: any = {
+export const forestPolicy: Record<string, string> = {
   national: 'national_yes_no',
   subnational: 'sub_national_yes_no',
   national_yes_no: 'national',
@@ -103,7 +103,9 @@ export const getValue = (column: any, countryIso: any, results: any, section: an
 }
 
 export const valueConverted = (value: any, base: any, unit: any) =>
-  base && base !== unit && Object.keys(UnitSpec.factors).includes(base) ? UnitSpec.convert(value, base, unit) : value
+  base && base !== unit && Object.keys(UnitFactors).includes(base)
+    ? UnitConverter.convertValue(value, base, unit)
+    : value
 
 const sections: any = {
   designatedManagementObjective: 'primary_designated_management_objective',
@@ -115,8 +117,8 @@ const sections: any = {
  * @param assessmentType
  * @returns {*}
  */
-export const formatSection = (section: any, assessmentType: any) => {
-  if (isTypePanEuropean(assessmentType)) {
+export const formatSection = (section: string, assessmentType: AssessmentType) => {
+  if (assessmentType === AssessmentType.panEuropean) {
     return getPanEuropeanTableMapping(section)
   }
   return sections[section] ? sections[section] : section
@@ -146,14 +148,15 @@ export const getCustomVariableI18nMappings = (i18nKey: any) => {
   return variableI18nMappings[key] ? variableI18nMappings[key] : i18nKey
 }
 
-const unitI18nMappings = {
+const unitI18nMappings: Record<string, string> = {
   ha: 'ha',
   kmSq: 'kmSq',
   mileSq: 'mileSq',
   acre1000: 'acre1000',
   acre: 'acre',
   haMillion: 'haMillion',
-  [UnitSpec.units.haThousand]: UnitSpec.units.haThousand,
+  [Unit.haThousand]: Unit.haThousand,
 }
 
-export const getUnitI18nMappings = (unit: any) => (unitI18nMappings[unit] ? `unit.${unitI18nMappings[unit]}` : unit)
+export const getUnitI18nMappings = (unit: string): string =>
+  unitI18nMappings[unit] ? `unit.${unitI18nMappings[unit]}` : unit

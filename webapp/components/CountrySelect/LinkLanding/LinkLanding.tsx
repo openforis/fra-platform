@@ -3,9 +3,8 @@ import React from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 
 import * as BasePaths from '@webapp/main/basePaths'
-import useCountryLandingSections from '@webapp/app/countryLanding/useCountryLandingSections'
 import { useAssessmentType } from '@webapp/store/app'
-import { useCountryIso, useI18n } from '@webapp/components/hooks'
+import { useCountryIso, useI18n, useCountryLandingSections } from '@webapp/components/hooks'
 
 import Icon from '@webapp/components/icon'
 

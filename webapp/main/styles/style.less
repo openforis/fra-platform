@@ -1,7 +1,7 @@
 //===WARNING====
 // DO NOT IMPORT SPECIFIC COMPONENT STYLES HERE,
 // ONLY MORE GENERAL STUFF USED IN MANY PLACES
-@import url('/woff2.css');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap');
 @import 'webapp/main/styles/config';
 //Import all common application styles
 @import 'webapp/main/styles/cssVars';
@@ -32,15 +32,15 @@ body {
   line-height: 20px;
   margin: 0;
   height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
+  //overflow-x: hidden;
+  //overflow-y: auto;
   // Fallback for safari
   direction: ltr;
 }
 
-#main {
-  overflow-x: hidden;
-}
+//#main {
+//  overflow-x: hidden;
+//}
 
 h1,
 h2,
@@ -107,6 +107,10 @@ hr {
 
 .no-scroll {
   overflow: hidden;
+}
+
+.only-print {
+  display: none;
 }
 
 @keyframes wobble {
