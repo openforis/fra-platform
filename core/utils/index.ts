@@ -1,4 +1,5 @@
 export { Arrays } from './arrays'
 export { Numbers } from './numbers'
 export { Objects } from './objects'
+export { Strings } from './strings'
 export { UUIDs } from './uuids'

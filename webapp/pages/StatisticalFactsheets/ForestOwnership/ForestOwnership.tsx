@@ -1,5 +1,5 @@
 import React from 'react'
-import { Area } from '@common/country'
+import { Areas } from '@core/country'
 import Chart from '@webapp/pages/StatisticalFactsheets/components/chart/Chart'
 import * as ChartUtils from '@webapp/pages/StatisticalFactsheets/utils/chartUtils'
 import { useI18n } from '@webapp/components/hooks'
@@ -15,7 +15,7 @@ const ForestOwnership = (props: Props) => {
   const { levelIso } = props
   const i18n = useI18n()
   const section = 'forestOwnership'
-  const isIsoCountry = Area.isISOCountry(levelIso)
+  const isIsoCountry = Areas.isISOCountry(levelIso)
   const unit = isIsoCountry ? i18n.t('unit.haThousand') : i18n.t('unit.haMillion')
   const { data, loaded } = useStatisticalFactsheetsState(section, levelIso)
   if (!loaded) {

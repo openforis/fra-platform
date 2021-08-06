@@ -1,7 +1,7 @@
 import React from 'react'
 import { useI18n } from '@webapp/components/hooks'
 import ButtonCheckBox from '@webapp/components/buttonCheckBox'
-import { getCustomVariableI18nMappings } from '@webapp/app/dataExport/utils/format'
+import { getCustomVariableI18nMappings } from '@webapp/components/Assessment/DataExport/utils/format'
 import { useAssessmentType } from '@webapp/store/app'
 import { FRA, PanEuropean } from '@core/assessment'
 

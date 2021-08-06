@@ -9,7 +9,7 @@ import { fetchTableData } from '@webapp/components/Assessment/DataTable/actions'
 import { fetchLastSectionUpdateTimestamp, resetSectionUpdateTimestamp } from '@webapp/app/components/audit/actions'
 import { useCountryIso, useIsDataExportView } from '@webapp/components/hooks'
 
-import DataExport from '@webapp/app/dataExport'
+import DataExport from '@webapp/components/Assessment/DataExport'
 import SectionView from '@webapp/components/Assessment/SectionView'
 import useSectionTables from './useSectionTables'
 
