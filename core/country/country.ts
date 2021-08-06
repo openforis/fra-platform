@@ -8,6 +8,6 @@ export type CountryAssessment = {
 
 export interface Country {
   countryIso: CountryIso
-  regionCodes: RegionCode[]
+  regionCodes: Array<RegionCode>
   assessment: CountryAssessment
 }

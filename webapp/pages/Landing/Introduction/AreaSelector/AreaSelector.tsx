@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 
-import { Area, Country } from '@common/country'
+import { Country } from '@common/country'
+import { Global } from '@core/country'
 import { FRA } from '@core/assessment'
 import * as BasePaths from '@webapp/main/basePaths'
 import { Breakpoints } from '@webapp/utils/breakpoints'
@@ -35,8 +36,8 @@ const AreaSelector: React.FC = () => {
     <div className="home-area-selector">
       <div className="home-area-selector__group">
         <img alt="" src="/img/iconGlobal.svg" />
-        <Link className="home-link m-r" to={BasePaths.getAssessmentHomeLink(Area.levels.global, FRA.type)}>
-          {i18n.t(`area.${Area.levels.global}.listName`)}
+        <Link className="home-link m-r" to={BasePaths.getAssessmentHomeLink(Global.WO, FRA.type)}>
+          {i18n.t(`area.${Global.WO}.listName`)}
         </Link>
       </div>
 

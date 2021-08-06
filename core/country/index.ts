@@ -1,3 +1,7 @@
+export { Areas } from './areas'
 export type { Country } from './country'
 export type { CountryIso } from './countryIso'
-export type { RegionCode } from './regionCode'
+export { Global } from './global'
+export type { Region } from './region'
+export { RegionCode } from './regionCode'
+export type { RegionGroup } from './regionGroup'

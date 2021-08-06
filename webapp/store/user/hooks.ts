@@ -1,11 +1,13 @@
+import { i18n } from 'i18next'
 import { useSelector } from 'react-redux'
-import * as UserState from '@webapp/store/user/state'
+
+import { Areas } from '@core/country'
 import { FRA } from '@core/assessment'
 import { useI18n } from '@webapp/components/hooks'
-import { Area } from '@common/country'
+import * as UserState from '@webapp/store/user/state'
 
-export const sortCountries = (countries: any, i18n: any) => {
-  const compareListName = Area.getCompareListName(i18n)
+export const sortCountries = (countries: any, i18n: i18n) => {
+  const compareListName = Areas.getCompareListName(i18n)
   const compareCountries = (country1: any, country2: any) => compareListName(country1.countryIso, country2.countryIso)
   const res: any = {}
   Object.keys(countries).forEach((role) => {
