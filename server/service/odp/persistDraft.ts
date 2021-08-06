@@ -33,7 +33,7 @@ const updateOrInsertDraft = async (
   const draftId = await OdpRepository.getDraftId(client, odpId)
 
   if (draftId) {
-    updateDraft({ draft })
+    await updateDraft({ draft }, client)
   } else {
     await insertDraft({ odpId, draft }, client)
   }
