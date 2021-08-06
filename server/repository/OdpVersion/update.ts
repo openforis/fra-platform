@@ -1,6 +1,7 @@
 import { BaseProtocol, DB } from '@server/db'
+import { ODP } from '@core/odp'
 
-export const update = async (options: { draft: any; draftId: any }, client: BaseProtocol = DB) => {
+export const update = async (options: { draft: ODP; draftId: number }, client: BaseProtocol = DB) => {
   const { draft, draftId } = options
   return client.query(
     `

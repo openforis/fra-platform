@@ -2,8 +2,7 @@ import './countryList.scss'
 
 import React from 'react'
 
-import FRA from '@common/assessment/fra'
-import PanEuropean from '@common/assessment/panEuropean'
+import { FRA, PanEuropean } from '@core/assessment'
 
 import AssessmentComponent from '@webapp/components/AssessmentComponent'
 import CountryListFra from './CountryListFra'

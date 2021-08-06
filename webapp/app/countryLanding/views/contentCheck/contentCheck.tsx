@@ -2,16 +2,15 @@ import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { batchActions } from '@webapp/main/reduxBatch'
-import { fetchTableData } from '@webapp/app/assessment/components/dataTable/actions'
+import { fetchTableData } from '@webapp/components/Assessment/DataTable/actions'
 import { useCountryIso } from '@webapp/components/hooks'
 
-import useSectionTables from '@webapp/app/assessment/components/section/assessmentSectionView/useSectionTables'
-import AssessmentSection from '@webapp/app/assessment/components/section/assessmentSectionView/assessmentSection'
-import * as SectionSpec from  '@webapp/app/assessment/components/section/sectionSpec'
+import useSectionTables from '@webapp/pages/AssessmentSection/useSectionTables'
+import SectionView from '@webapp/components/Assessment/SectionView'
 
-import FRA from '@common/assessment/fra'
+import { FRA } from '@core/assessment'
 
-const ContentCheck = () => {
+const ContentCheck: React.FC = () => {
   const assessmentType = FRA.type
   const sectionName = 'contentCheck'
   const countryIso = useCountryIso()
@@ -21,19 +20,11 @@ const ContentCheck = () => {
 
   useEffect(() => {
     dispatch(
-      batchActions([
-        ...tables.map((table: any) =>
-          fetchTableData(
-            table[SectionSpec.KEYS_TABLE_DATA_REQUIRED.assessmentType],
-            table[SectionSpec.KEYS_TABLE_DATA_REQUIRED.sectionName],
-            table[SectionSpec.KEYS_TABLE_DATA_REQUIRED.tableName]
-          )
-        ),
-      ])
+      batchActions([...tables.map((table) => fetchTableData(table.assessmentType, table.sectionName, table.tableName))])
     )
   }, [countryIso])
 
-  return <AssessmentSection assessmentType={assessmentType} sectionName={sectionName} />
+  return <SectionView assessmentType={assessmentType} sectionName={sectionName} />
 }
 
 export default ContentCheck

@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import * as assert from 'assert'
+// import * as assert from 'assert'
 // The returned value is of the form:
 // {role: <ROLE>, label: <LABEL>}
 
@@ -41,11 +41,15 @@ export const getCountryRoles = (countryIso: any, userInfo: any) =>
 // @ts-ignore
 export const getCountryRole = (countryIso: any, userInfo: any) => getCountryRoles(countryIso, userInfo)[0]
 
+/**
+ * @deprecated.
+ * uses Users.getCountryRole
+ */
 export const roleForCountry = (countryIso: any, userInfo: any) => {
   if (!userInfo) return noRole
   if (hasRole('ADMINISTRATOR', userInfo.roles)) return administrator
   const rolesForCountry: any = getCountryRoles(countryIso, userInfo)
-  assert(rolesForCountry.length < 2, `Ambiguous roles found for user ${userInfo} and country ${countryIso}`)
+  // assert(rolesForCountry.length < 2, `Ambiguous roles found for user ${userInfo} and country ${countryIso}`)
   if (rolesForCountry.length === 0) return noRole
 
   const roleObj = roles[rolesForCountry[0].role]
@@ -55,18 +59,45 @@ export const roleForCountry = (countryIso: any, userInfo: any) => {
 
 export const getRoleForCountryLabelKey = R.pipe(roleForCountry, R.prop('labelKey'))
 
+/**
+ * @deprecated.
+ * uses Users.hasCountryRole
+ */
 export const hasUserRole = (countryIso: any, userInfo: any, roleObj: any) =>
   roleForCountry(countryIso, userInfo).role === roleObj.role
 
+/**
+ * @deprecated.
+ * uses Users.isReviewer
+ */
 export const isReviewer = (countryIso: any, userInfo: any) =>
   hasUserRole(countryIso, userInfo, reviewer) || hasUserRole(countryIso, userInfo, administrator)
+/**
+ * @deprecated.
+ * uses Users.isNationalCorrespondent
+ */
 export const isNationalCorrespondent = (countryIso: any, userInfo: any) =>
   hasUserRole(countryIso, userInfo, nationalCorrespondent)
+/**
+ * @deprecated.
+ * uses Users.isAlternateNationalCorrespondent
+ */
 export const isAlternateNationalCorrespondent = (countryIso: any, userInfo: any) =>
   hasUserRole(countryIso, userInfo, alternateNationalCorrespondent)
+/**
+ * @deprecated.
+ * uses Users.isCollaborator
+ */
 export const isCollaborator = (countryIso: any, userInfo: any) => hasUserRole(countryIso, userInfo, collaborator)
+/**
+ * @deprecated.
+ * uses Users.hasNoRole
+ */
 export const hasNoRole = (countryIso: any, userInfo: any) => hasUserRole(countryIso, userInfo, noRole)
-
+/**
+ * @deprecated.
+ * uses Users.isAdministrator
+ */
 export const isAdministrator = (userInfo: any) => userInfo && hasRole('ADMINISTRATOR', userInfo.roles)
 
 export const roles2 = R.values(roles)

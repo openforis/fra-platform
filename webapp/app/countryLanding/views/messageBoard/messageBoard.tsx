@@ -36,7 +36,7 @@ const MessageBoard = () => {
               <div className="landing__user-role">{(i18n as any).t('countryMessageBoard.messageBoardDesc')}</div>
               <button
                 type="button"
-                className="landing__user-btn-message"
+                className="btn-secondary landing__user-btn-message"
                 onClick={() => {
                   if (!countryMessageBoardOpened) {
                     dispatch(openCountryMessageBoard())

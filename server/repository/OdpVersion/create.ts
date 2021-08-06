@@ -1,6 +1,8 @@
 import { BaseProtocol, DB } from '@server/db'
 
-export const create = async (options: { draft: any }, client: BaseProtocol = DB) => {
+import { ODP } from '@core/odp'
+
+export const create = async (options: { draft: ODP }, client: BaseProtocol = DB) => {
   const { draft } = options
   const res = await client.query(
     `

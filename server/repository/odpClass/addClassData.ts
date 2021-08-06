@@ -1,8 +1,10 @@
 import { BaseProtocol, DB } from '@server/db'
 
-export const addClassData = async (options: { odpVersionId: any; odp: any }, client: BaseProtocol = DB) => {
+import { ODP, ODPNationalClass } from '@core/odp'
+
+export const addClassData = async (options: { odpVersionId: number; odp: ODP }, client: BaseProtocol = DB) => {
   const { odpVersionId, odp } = options
-  const nationalInserts = odp.nationalClasses.map((nationalClass: any) =>
+  const nationalInserts = odp.nationalClasses.map((nationalClass: ODPNationalClass) =>
     client.query(
       `INSERT INTO odp_class
         (odp_version_id,

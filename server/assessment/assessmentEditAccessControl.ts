@@ -16,6 +16,7 @@ export const assessmentForSection = (section: any) =>
     // @ts-ignore
     R.map(([assessment, sections]) => (R.contains(section, sections) ? assessment : null)),
     R.head
+    // @ts-ignore
   )(assessmentSections)
 
 export const getAssessmentStatus = async (countryIso: any, section: any) => {

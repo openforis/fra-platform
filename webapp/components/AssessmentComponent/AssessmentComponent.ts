@@ -1,7 +1,7 @@
 import React from 'react'
-import * as assert from 'assert'
+// import * as assert from 'assert'
 
-import FRA from '@common/assessment/fra'
+import { FRA } from '@core/assessment'
 
 import { useIsAssessment } from '@webapp/components/hooks'
 import { useAssessmentType } from '@webapp/store/app'
@@ -19,7 +19,7 @@ const AssessmentComponent: React.FC<Props> = (props: Props) => {
   const { components, defaultKey, ...otherProps } = props
   const key = isAssessment ? assessmentType : defaultKey
 
-  assert.ok(key !== 'en', key)
+  // assert.ok(key !== 'en', key)
 
   return React.createElement(components[key], otherProps)
 }
