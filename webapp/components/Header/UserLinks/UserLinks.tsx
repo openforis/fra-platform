@@ -2,7 +2,7 @@ import React from 'react'
 
 import { FRA, PanEuropean } from '@core/assessment'
 
-import AssessmentComponent from '@webapp/components/AssessmentComponent'
+import AssessmentSwitch from '@webapp/components/Assessment/AssessmentSwitch'
 
 import LinksFRA from './LinksFRA'
 
@@ -15,6 +15,6 @@ const Components: { [key: any]: React.Component } = {
   'null': LinksPlaceholder,
 }
 
-const UserLinks = () => <AssessmentComponent components={Components} />
+const UserLinks = () => <AssessmentSwitch components={Components} />
 
 export default UserLinks

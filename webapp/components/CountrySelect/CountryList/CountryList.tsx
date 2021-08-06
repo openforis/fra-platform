@@ -4,7 +4,7 @@ import React from 'react'
 
 import { FRA, PanEuropean } from '@core/assessment'
 
-import AssessmentComponent from '@webapp/components/AssessmentComponent'
+import AssessmentSwitch from '@webapp/components/Assessment/AssessmentSwitch'
 import CountryListFra from './CountryListFra'
 import CountryListPanEuropean from './CountryListPanEuropean'
 
@@ -20,7 +20,7 @@ type Props = {
 
 const CountryList: React.FC<Props> = (props: Props) => {
   const { query } = props
-  return <AssessmentComponent components={Components} query={query} />
+  return <AssessmentSwitch components={Components} query={query} />
 }
 
 export default CountryList
