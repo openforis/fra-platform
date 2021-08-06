@@ -69,5 +69,5 @@ export const calcTotalLandArea = (props: { odp: ODP }): number => {
   const totalArea = calcTotalArea({ odp })
   const forestArea = calcTotalFieldArea({ odp, field: 'forestPercent' })
   const otherWoodedArea = calcTotalFieldArea({ odp, field: 'otherWoodedLandPercent' })
-  return sub(totalArea, add(forestArea, otherWoodedArea)).toNumber()
+  return sub(totalArea, add(forestArea, otherWoodedArea))?.toNumber()
 }
