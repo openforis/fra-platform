@@ -1,6 +1,11 @@
 import { deleteIssuesByIds } from '@server/repository/review/reviewRepository'
+import { BaseProtocol, DB } from '@server/db'
 
-export const wipeNationalClassIssues = async (client: any, odpId: any, countryIso: any, nationalClasses: any) => {
+export const wipeNationalClassIssues = async (
+  options: { odpId: any; countryIso: any; nationalClasses: any },
+  client: BaseProtocol = DB
+) => {
+  const { odpId, countryIso, nationalClasses } = options
   const hasClasses = nationalClasses.length > 0
   const classUuids = nationalClasses.map((c: any) => `"${c.uuid}"`)
   const classQueryPlaceholders = [...Array(nationalClasses.length).keys()].map((x) => `$${x + 3}`).join(',')
@@ -21,6 +26,7 @@ export const wipeNationalClassIssues = async (client: any, odpId: any, countryIs
     `,
     hasClasses ? [countryIso, 'odp', ...classUuids] : [countryIso, 'odp']
   )
+
   const issueIds = res.map((r: any) => r.issue_id)
 
   await deleteIssuesByIds(client, issueIds)
