@@ -3,7 +3,6 @@ import React from 'react'
 import { useI18n } from '@webapp/components/hooks'
 
 import LanguageSelector, { LanguageSelectorMobile } from '@webapp/components/Header/LanguageSelector'
-// import LinkHome from '../components/linkHome'
 
 const PanEuropeanHeader: React.FC = () => {
   const i18n = useI18n()
@@ -17,7 +16,6 @@ const PanEuropeanHeader: React.FC = () => {
 
       <div className="app-header__menu">
         <LanguageSelector />
-        {/* <LinkHome /> */}
       </div>
     </div>
   )

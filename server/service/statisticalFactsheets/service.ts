@@ -1,4 +1,4 @@
-import * as Area from '@common/country/area'
+import { Areas } from '@core/country'
 import { CountryService } from '@server/service'
 import * as Repository from '../../repository/statisticalFactsheets/statisticalFactsheetsRepository'
 
@@ -12,7 +12,7 @@ export const getStatisticalFactsheetData = async (schemaName: any, level: any, r
     - [countryIso, ..]  - [FIN, ITA]
   */
   // - WO - all countries
-  if (Area.isISOGlobal(level)) {
+  if (Areas.isISOGlobal(level)) {
     if (isPrimaryForest) return Repository.getPrimaryForestData(schemaName)
     return Repository.getGlobalStatisticalFactsheetData(schemaName, rowNames)
   }

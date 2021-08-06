@@ -1,7 +1,7 @@
 import React from 'react'
 
-import PanEuropean from '@common/assessment/panEuropean'
-import { Area, Country } from '@common/country'
+import { PanEuropean } from '@core/assessment'
+import { Areas, RegionCode } from '@core/country'
 import { noRole } from '@common/countryRole'
 
 import { useCountriesPanEuropean } from '@webapp/store/app'
@@ -19,8 +19,8 @@ const CountryListPanEuropean: React.FC<Props> = (props: Props) => {
 
   const i18n = useI18n()
   const countries = useCountriesPanEuropean()
-  const countriesFiltered = countries.filter((country: any) =>
-    checkMatch(Area.getListName(Country.getCountryIso(country), i18n), query)
+  const countriesFiltered = countries.filter((country) =>
+    checkMatch(Areas.getListName(country.countryIso, i18n), query)
   )
 
   return (
@@ -29,15 +29,15 @@ const CountryListPanEuropean: React.FC<Props> = (props: Props) => {
         <div className="country-selection-list__global">
           <CountryListRow
             role={noRole.role}
-            country={{ countryIso: Area.levels.forest_europe }}
+            country={{ countryIso: RegionCode.FE }}
             assessmentType={PanEuropean.type}
           />
           <hr />
         </div>
 
-        {countriesFiltered.map((country: any) => (
+        {countriesFiltered.map((country) => (
           <CountryListRow
-            key={Country.getCountryIso(country)}
+            key={country.countryIso}
             role={noRole.role}
             country={country}
             assessmentType={PanEuropean.type}

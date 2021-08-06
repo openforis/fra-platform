@@ -11,11 +11,8 @@
   background-color: var(--ui-bg);
   border-bottom: $ui-thin-border;
   height: 50px;
-  // allowing full width of box shadow
-  box-shadow: 0 5px 4px -4px rgba($text-body, 0.5);
-  width: calc(100vw + 10px);
-  margin-left: -5px;
-  padding: 0 5px;
+  box-shadow: 0 2px 4px 0px rgba($text-body, 0.5);
+  width: 100vw;
 
   .text-input {
     width: 100%;

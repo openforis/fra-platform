@@ -5,8 +5,8 @@ import { i18nUserRole, validRole } from '@common/userUtils'
 import { reviewer, nationalCorrespondent, alternateNationalCorrespondent, collaborator } from '@common/countryRole'
 import { useCountries } from '@webapp/store/app'
 import { useSecondaryGroupedRegions } from '@webapp/store/app/hooks'
-import CountrySelectionModal from '@webapp/components/CountrySelectionModal'
-import { FRA } from '@common/assessment/fra'
+import CountrySelectModal from '@webapp/components/CountrySelectModal'
+import { FRA } from '@core/assessment'
 // properties used to render ui form fields
 const roles = [reviewer.role, nationalCorrespondent.role, alternateNationalCorrespondent.role, collaborator.role]
 
@@ -103,7 +103,7 @@ const CountryRole = (props: Props) => {
           )
         })}
       </div>
-      <CountrySelectionModal
+      <CountrySelectModal
         isOpen={modalOptions.open}
         countries={countries}
         excludedRegions={secondaryRegions.regions.map((r: any) => r.regionCode)}

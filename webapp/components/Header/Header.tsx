@@ -1,9 +1,8 @@
 import './header.scss'
 import React from 'react'
 
-import PanEuropean from '@common/assessment/panEuropean'
-import FRA from '@common/assessment/fra'
-import AssessmentComponent from '@webapp/components/AssessmentComponent'
+import { FRA, PanEuropean } from '@core/assessment'
+import AssessmentSwitch from '@webapp/components/Assessment/AssessmentSwitch'
 
 import PanEuropeanHeader from './PanEuropeanHeader'
 import FraHeader from './FraHeader'
@@ -14,6 +13,6 @@ const Components: any = {
   null: () => <div />,
 }
 
-const Header: React.FC = () => <AssessmentComponent components={Components} />
+const Header: React.FC = () => <AssessmentSwitch components={Components} />
 
 export default Header
