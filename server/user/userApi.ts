@@ -2,6 +2,7 @@ import * as R from 'ramda'
 
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import { Requests } from '@server/utils'
+import * as path from 'path'
 import * as db from '../db/db_deprecated'
 import * as userRepository from '../repository/user/userRepository'
 import { AccessControlException } from '../utils/accessControl'
@@ -161,7 +162,7 @@ export const init = (app: any) => {
         if (profilePicture && profilePicture.data) {
           res.end(profilePicture.data, 'binary')
         } else {
-          res.sendFile(`${__dirname}/../static/avatar.png`)
+          res.sendFile(path.resolve(__dirname, '..', 'static', 'avatar.png'))
         }
       } catch (err) {
         Requests.sendErr(res, err)
