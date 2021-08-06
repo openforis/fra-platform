@@ -18,7 +18,7 @@ const ColumnSelect = (props: Props) => {
   return (
     <div className="export__form-section export-select-all">
       <div className="export__form-section-header">
-        <h4>{(i18n as any).t('common.column')}</h4>
+        <h4>{i18n.t('common.column')}</h4>
       </div>
 
       <ButtonCheckBox

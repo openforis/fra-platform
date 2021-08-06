@@ -4,6 +4,7 @@ import ui from '@webapp/store/ui/reducer'
 import app from '@webapp/store/app/reducer'
 import login from '@webapp/pages/Login/reducer'
 import country from '@webapp/app/country/reducer'
+import { pageReducer } from '@webapp/store/page'
 
 import * as AppState from '@webapp/store/app/state'
 import * as ApplicationErrorState from '@webapp/components/error/applicationErrorState'
@@ -17,4 +18,5 @@ export default {
   [UserState.stateKey]: UserReducer,
   [CountryState.stateKey]: country,
   [UiState.stateKey]: ui,
+  page: pageReducer,
 }
