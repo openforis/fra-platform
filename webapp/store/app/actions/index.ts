@@ -1,23 +1,26 @@
-import { getRequestParam } from '@webapp/utils/urlUtils'
 import axios from 'axios'
+import { getRequestParam } from '@webapp/utils/urlUtils'
+
+import { Areas, Country, Region, RegionGroup } from '@core/country'
 import { createI18nPromise } from '@common/i18n/i18nFactory'
 import { applicationError } from '@webapp/components/error/actions'
 
 import * as UserState from '@webapp/store/user/state'
 
 import { ApiEndPoint } from '@common/api/endpoint'
-import { sortCountries, sortRegionGroups, sortRegions } from '../utils'
 import ActionTypes from './actionTypes'
 
-export const updateCountries = (countries: any) => ({
+export const updateCountries = (countries: Array<Country>) => ({
   type: ActionTypes.updateCountries,
   countries,
 })
-export const updateRegions = (regions: any) => ({
+
+export const updateRegions = (regions: Array<Region>) => ({
   type: ActionTypes.updateRegions,
   regions,
 })
-export const updateRegionGroups = (regionGroups: any) => ({
+
+export const updateRegionGroups = (regionGroups: Array<RegionGroup>) => ({
   type: ActionTypes.updateRegionGroups,
   regionGroups,
 })
@@ -46,9 +49,9 @@ export const initApp = () => async (dispatch: any) => {
       type: ActionTypes.appInitDone,
       userInfo,
       i18n,
-      countries: sortCountries(countries, i18n),
-      regions: sortRegions(regions, i18n),
-      regionGroups: sortRegionGroups(regionGroups),
+      countries: Areas.sortCountries(countries, i18n),
+      regions: Areas.sortRegions(regions, i18n),
+      regionGroups: Areas.sortRegionGroups(regionGroups),
     })
   } catch (err) {
     // 401 (Unauthorized) | Display error if any other status

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useI18n } from '@webapp/components/hooks'
-import { Area } from '@common/country'
+import { Areas } from '@core/country'
 import Table from '../components/table'
 
 type Props = {
@@ -18,7 +18,7 @@ const PrimaryDesignatedManagementObjective = (props: Props) => {
     'social_services',
     'other',
   ]
-  const isIsoCountry = Area.isISOCountry(levelIso)
+  const isIsoCountry = Areas.isISOCountry(levelIso)
   const units = isIsoCountry
     ? ['haThousand', 'haThousand', 'haThousand', 'haThousand', 'haThousand', 'haThousand']
     : ['haMillion', 'haMillion', 'haMillion', 'haMillion', 'haMillion', 'haMillion']

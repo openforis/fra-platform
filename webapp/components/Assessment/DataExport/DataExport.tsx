@@ -1,13 +1,13 @@
-import './dataExport.less'
+import './DataExport.scss'
 import React from 'react'
 
-import ResultsTable from '@webapp/app/dataExport/components/resultsTable'
+import ResultsTable from '@webapp/components/Assessment/DataExport/components/resultsTable'
 import useDataExportState from './useDataExportState'
-import CountrySelect from './components/countrySelect'
+import CountrySelect from './CountrySelect'
 import VariableSelect from './components/variableSelect'
 import ColumnSelect from './components/columnSelect'
 
-const DataExport = () => {
+const DataExport:React.FC = () => {
   const {
     countries,
     selection,
