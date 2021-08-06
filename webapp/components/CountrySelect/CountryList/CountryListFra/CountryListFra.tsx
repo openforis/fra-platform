@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { FRA } from '@core/assessment'
-import { Area } from '@common/country'
+import { Areas, Global, RegionCode } from '@core/country'
 import { noRole } from '@common/countryRole'
 
 import { useCountries, useGroupedRegions } from '@webapp/store/app'
@@ -27,8 +27,8 @@ const CountryListFra: React.FC<Props> = (props: Props) => {
 
   const filterRegions = (regions: any) =>
     regions
-      .filter((region: any) => checkMatch(Area.getListName(region.regionCode, i18n), query))
-      .filter((region: any) => region.regionCode !== Area.levels.forest_europe)
+      .filter((region: any) => checkMatch(Areas.getListName(region.regionCode, i18n), query))
+      .filter((region: any) => region.regionCode !== RegionCode.FE)
   const userCountryIsos: any = []
   Object.keys(userCountries).forEach((role) => {
     if (Array.isArray(userCountries[role]))
@@ -45,11 +45,11 @@ const CountryListFra: React.FC<Props> = (props: Props) => {
 
       <div className="country-selection-list__content">
         <div className="country-selection-list__global">
-          {checkMatch(i18n.t(`area.${Area.levels.global}.listName`), query) && (
+          {checkMatch(i18n.t(`area.${Global.WO}.listName`), query) && (
             <>
               <CountryListRow
                 role={noRole.role}
-                country={{ countryIso: Area.levels.global }}
+                country={{ countryIso: Global.WO }}
                 assessmentType={FRA.type}
               />
               <hr />

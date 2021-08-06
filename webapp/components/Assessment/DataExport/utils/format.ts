@@ -7,7 +7,7 @@ import { AssessmentType } from '@core/assessment'
 import * as NumberUtils from '@common/bignumberUtils'
 import { Unit, UnitConverter, UnitFactors } from '@webapp/sectionSpec'
 import { format } from 'date-fns'
-import { getPanEuropeanTableMapping } from '@webapp/app/dataExport/utils/panEuropean'
+import { getPanEuropeanTableMapping } from '@webapp/components/Assessment/DataExport/utils/panEuropean'
 
 export const regex = {
   yearRange: /\d{4}-\d{4}/,

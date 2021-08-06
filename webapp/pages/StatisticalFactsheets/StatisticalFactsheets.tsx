@@ -2,7 +2,7 @@ import './StatisticalFactsheets.scss'
 import React from 'react'
 import { useParams } from 'react-router'
 
-import { Area } from '@common/country'
+import { Areas } from '@core/country'
 
 import useI18n from '@webapp/components/hooks/useI18n'
 import { useSelector } from 'react-redux'
@@ -20,7 +20,7 @@ import PrimaryDesignatedManagementObjective from './PrimaryDesignatedManagementO
 const StatisticalFactsheets:React.FC = () => {
   const i18n = useI18n()
   const { countryIso: levelIso }: any = useParams()
-  const isCountry = Area.isISOCountry(levelIso)
+  const isCountry = Areas.isISOCountry(levelIso)
   const selectedCountries: any = useSelector(UiState.getSelectedCountries)
 
   return (

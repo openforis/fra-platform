@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import MediaQuery from 'react-responsive'
 
 import { getRoleForCountryLabelKey } from '@common/countryRole'
-import { Area } from '@common/country'
+import { Areas } from '@core/country'
 import { Breakpoints } from '@webapp/utils/breakpoints'
 
 import { useCountryIso, useI18n, useNavigationVisible, useUserInfo } from '@webapp/components/hooks'
@@ -86,7 +86,7 @@ const CountrySelect: React.FC = () => {
 
           {countryIso && !open && (
             <div className="country-select__country">
-              {Area.isISOCountry(countryIso) && (
+              {Areas.isISOCountry(countryIso) && (
                 <div
                   className="flag"
                   style={{

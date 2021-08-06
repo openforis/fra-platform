@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 
 import { Assessment, AssessmentType } from '@core/assessment'
-import { Area } from '@common/country'
+import { Areas } from '@core/country'
 import * as BasePaths from '@webapp/main/basePaths'
 
 import { useCountryIso, useUserInfo } from '@webapp/components/hooks'
@@ -27,7 +27,7 @@ const Header: React.FC<Props> = (props) => {
   const countryIso = useCountryIso()
   const userInfo = useUserInfo()
 
-  const isCountry = Area.isISOCountry(countryIso)
+  const isCountry = Areas.isISOCountry(countryIso)
   const assessmentType = assessment.type
   const isFRA = assessmentType === AssessmentType.fra2020
 

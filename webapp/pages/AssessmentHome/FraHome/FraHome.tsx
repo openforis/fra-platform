@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, matchPath, NavLink, Redirect, Route, Switch, useLocation } from 'react-router-dom'
-import { Area } from '@common/country'
+import { Areas, RegionCode } from '@core/country'
 import { FRA } from '@core/assessment'
 import * as BasePaths from '@webapp/main/basePaths'
 import { useCountryIso, useI18n, useUserInfo, useCountryLandingSections } from '@webapp/components/hooks'
@@ -16,7 +16,7 @@ const FraHome: React.FC = () => {
   const userInfo = useUserInfo()
   const i18n = useI18n()
   const sections = useCountryLandingSections()
-  const isCountry = Area.isISOCountry(countryIso)
+  const isCountry = Areas.isISOCountry(countryIso)
   const overviewPath = BasePaths.getAssessmentHomeSectionLink(countryIso, FRA.type, 'overview')
   const matchOverview = matchPath(pathname, {
     path: [BasePaths.getAssessmentHomeLink(countryIso, FRA.type), overviewPath],
@@ -25,7 +25,7 @@ const FraHome: React.FC = () => {
   // tabs are available when user is logged-in and selected area is country
   const displayTabs = userInfo && isCountry
   const fraRegions = useFraRegions()
-  const showButton = (fraRegions.includes(countryIso) || Area.isISOGlobal(countryIso)) && matchOverview
+  const showButton = (fraRegions.includes(countryIso as RegionCode) || Areas.isISOGlobal(countryIso)) && matchOverview
 
   return (
     <>
@@ -45,10 +45,10 @@ const FraHome: React.FC = () => {
           )}
         </h1>
 
-        {Area.isISOGlobal(countryIso) && <CountrySelector />}
+        {Areas.isISOGlobal(countryIso) && <CountrySelector />}
       </div>
 
-      {Area.isISOGlobal(countryIso) && <SelectedCountries />}
+      {Areas.isISOGlobal(countryIso) && <SelectedCountries />}
 
       {displayTabs && (
         <div className="landing__page-menu">

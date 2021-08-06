@@ -1,5 +1,4 @@
 import React from 'react'
-// import * as assert from 'assert'
 
 import { FRA } from '@core/assessment'
 
@@ -7,26 +6,24 @@ import { useIsAssessment } from '@webapp/components/hooks'
 import { useAssessmentType } from '@webapp/store/app'
 
 type Props = {
-  components: { [key: string]: React.FC<{ query?: string }> }
+  components: Record<string, React.FC<{ query?: string }>>
   defaultKey?: string
   query?: string
 }
 
-const AssessmentComponent: React.FC<Props> = (props: Props) => {
+const AssessmentSwitch: React.FC<Props> = (props) => {
   const isAssessment = useIsAssessment()
   const assessmentType = useAssessmentType()
 
   const { components, defaultKey, ...otherProps } = props
   const key = isAssessment ? assessmentType : defaultKey
 
-  // assert.ok(key !== 'en', key)
-
   return React.createElement(components[key], otherProps)
 }
 
-AssessmentComponent.defaultProps = {
+AssessmentSwitch.defaultProps = {
   defaultKey: FRA.type,
   query: null,
 }
 
-export default AssessmentComponent
+export default AssessmentSwitch
