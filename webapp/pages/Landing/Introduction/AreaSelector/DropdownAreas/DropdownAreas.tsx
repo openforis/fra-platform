@@ -2,12 +2,11 @@ import React, { useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { FRA } from '@core/assessment'
 // import PanEuropean from '@common/assessment/panEuropean'
+import { RegionCode } from '@core/country'
 import * as BasePaths from '@webapp/main/basePaths'
 import { useI18n } from '@webapp/components/hooks'
 import Icon from '@webapp/components/icon'
 import { areas } from '@webapp/pages/Landing/Introduction/AreaSelector/AreaSelector'
-import { Area } from '@common/country'
-import { RegionCode } from '@core/country'
 
 type Props = {
   area: string
