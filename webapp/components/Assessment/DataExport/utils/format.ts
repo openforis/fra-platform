@@ -107,7 +107,7 @@ export const valueConverted = (value: any, base: any, unit: any) =>
     ? UnitConverter.convertValue(value, base, unit)
     : value
 
-const sections: any = {
+const sections: Record<string, string> = {
   designatedManagementObjective: 'primary_designated_management_objective',
 }
 
@@ -117,7 +117,7 @@ const sections: any = {
  * @param assessmentType
  * @returns {*}
  */
-export const formatSection = (section: string, assessmentType: AssessmentType) => {
+export const formatSection = (section: string, assessmentType: AssessmentType): string => {
   if (assessmentType === AssessmentType.panEuropean) {
     return getPanEuropeanTableMapping(section)
   }
@@ -129,9 +129,9 @@ export const formatSection = (section: string, assessmentType: AssessmentType) =
  * @param formatStr {string} - format string for
  * @returns {*} - return new timestamp
  */
-export const getTimeStamp = (formatStr = 'yyyy-MM-dd') => format(new Date(), formatStr)
+export const getTimeStamp = (formatStr = 'yyyy-MM-dd'): string => format(new Date(), formatStr)
 
-const variableI18nMappings: any = {
+const variableI18nMappings: Record<string, string> = {
   other: 'common.other',
   otherOrUnknown: 'common.unknown',
 }
@@ -141,7 +141,7 @@ const variableI18nMappings: any = {
  * @param i18nKey - i18n key of format 'foo.bar' to check for custom mapping(s)
  * @returns {*} - return either the original i18nKey or new key from variableI18nMappings
  */
-export const getCustomVariableI18nMappings = (i18nKey: any) => {
+export const getCustomVariableI18nMappings = (i18nKey: string): string => {
   // get the last part of the i18n key,
   // ex: foo.bar.other => other
   const key = i18nKey.split('.').pop()
