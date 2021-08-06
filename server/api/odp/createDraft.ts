@@ -3,6 +3,8 @@ import { ApiAuthMiddleware } from '@server/api/middleware'
 import { Requests } from '@server/utils'
 import { ApiEndPoint } from '@common/api/endpoint'
 import { OdpService } from '@server/service'
+import { CountryIso } from '@core/country'
+import { User } from '@core/auth'
 
 export const OdpCreateDraft = {
   init: (express: Express): void => {
@@ -11,8 +13,13 @@ export const OdpCreateDraft = {
       ApiAuthMiddleware.requireCountryEditPermission,
       async (req: Request, res: Response) => {
         try {
-          const { countryIso }: any = req.query
-          const result = await OdpService.persistDraft({ countryIso, user: req.user as any, draft: req.body })
+          const { countryIso } = req.query
+          const { user } = req
+          const result = await OdpService.persistDraft({
+            countryIso: countryIso as CountryIso,
+            user: user as User,
+            draft: req.body,
+          })
           res.json(result)
         } catch (err) {
           Requests.sendErr(res, err)
