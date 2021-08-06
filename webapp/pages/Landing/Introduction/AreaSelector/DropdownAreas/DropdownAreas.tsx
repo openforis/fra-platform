@@ -7,6 +7,7 @@ import { useI18n } from '@webapp/components/hooks'
 import Icon from '@webapp/components/icon'
 import { areas } from '@webapp/pages/Landing/Introduction/AreaSelector/AreaSelector'
 import { Area } from '@common/country'
+import { RegionCode } from '@core/country'
 
 type Props = {
   area: string
@@ -60,7 +61,7 @@ const DropdownAreas = (props: Props) => {
                   <div key={name} className="country-selection-list__section">
                     {regions.map(
                       ({ regionCode }: any) =>
-                        regionCode !== Area.levels.forest_europe && (
+                        regionCode !== RegionCode.FE && (
                           <Link
                             key={regionCode}
                             to={BasePaths.getAssessmentHomeLink(regionCode, assessmentType)}

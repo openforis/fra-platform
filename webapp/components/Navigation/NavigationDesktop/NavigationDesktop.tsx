@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import { Assessment } from '@core/assessment'
-import { isISOGlobal } from '@common/country/area'
+import { Areas } from '@core/country'
 import * as BasePaths from '@webapp/main/basePaths'
 import { useAssessmentType } from '@webapp/store/app'
 
@@ -25,7 +25,7 @@ const NavigationDesktop: React.FC<Props> = (props) => {
     <div className="nav no-print">
       <NavAssessment assessment={assessment} />
 
-      {isISOGlobal(countryIso) && (
+      {Areas.isISOGlobal(countryIso) && (
         <Link
           className="btn-s btn-primary nav__bulk-download"
           to={BasePaths.getAssessmentDataDownloadLink(countryIso, assessmentType)}
