@@ -1,4 +1,4 @@
-@import (reference) 'webapp/main/styles/config';
+@import 'webapp/style/partials';
 
 .export {
   display: grid;
@@ -26,11 +26,11 @@
   }
 
   &:not(:last-child) {
-    border-right: 1px solid @ui-border-light;
+    border-right: 1px solid $ui-border-light;
   }
 
   .divider {
-    border-bottom: 1px solid @ui-border-light;
+    border-bottom: 1px solid $ui-border-light;
   }
 }
 

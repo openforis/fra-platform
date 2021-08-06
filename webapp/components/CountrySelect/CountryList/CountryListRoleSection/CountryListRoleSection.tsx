@@ -2,7 +2,8 @@ import React from 'react'
 import * as R from 'ramda'
 
 import { FRA } from '@core/assessment'
-import { Area, Country } from '@common/country'
+import { Country } from '@common/country'
+import { Areas } from '@core/country'
 import { getRoleLabelKey, noRole } from '@common/countryRole'
 import { useI18n, useUserInfo } from '@webapp/components/hooks'
 
@@ -22,7 +23,7 @@ const CountryListRoleSection: React.FC<Props> = (props: Props) => {
   const isCountryAtlantis = R.pipe(Country.getCountryIso, R.startsWith('X'))
   // Atlantis countries are hidden in public view
   const countryListNameMatch = (country: any) =>
-    checkMatch(Area.getListName(Country.getCountryIso(country), i18n), query)
+    checkMatch(Areas.getListName(Country.getCountryIso(country), i18n), query)
 
   const countryRegionCodeMatch = (country: any) =>
     (Country.getRegionCodes(country) as any[])
