@@ -4,10 +4,7 @@ import { SectionSpecs, Unit, UnitFactors } from '@webapp/sectionSpec'
 import { useAssessmentType } from '@webapp/store/app'
 import { useDataExportSelection } from '@webapp/store/page/dataExport'
 import { useI18n, useParamSection } from '@webapp/components/hooks'
-import {
-  getCustomVariableI18nMappings,
-  getUnitI18nMappings,
-} from '@webapp/components/Assessment/DataExport/utils/format'
+import { getUnitLabelKey, getVariableLabelKey } from '@webapp/components/Assessment/DataExport/utils'
 
 type Props = {
   baseUnit?: Unit
@@ -35,7 +32,7 @@ const Title: React.FC<Props> = (props) => {
     <>
       <span>
         {labelPrefixKey && `${i18n.t(labelPrefixKey)} `}
-        {i18n.t(getCustomVariableI18nMappings(labelKey), labelParams)}
+        {i18n.t(getVariableLabelKey(labelKey), labelParams)}
       </span>
 
       {Object.keys(UnitFactors).includes(baseUnit) ? (
@@ -48,13 +45,13 @@ const Title: React.FC<Props> = (props) => {
               onUnitChange(event.target.value as Unit)
             }}
           >
-            <option value={baseUnit}>{i18n.t(getUnitI18nMappings(baseUnit))}</option>
+            <option value={baseUnit}>{i18n.t(getUnitLabelKey(baseUnit))}</option>
 
             {Object.keys(UnitFactors[baseUnit]).map(
               (unit) =>
                 unit !== baseUnit && (
                   <option key={unit} value={unit}>
-                    {i18n.t(getUnitI18nMappings(unit))}
+                    {i18n.t(getUnitLabelKey(unit))}
                   </option>
                 )
             )}

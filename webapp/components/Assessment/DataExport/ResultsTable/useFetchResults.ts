@@ -1,11 +1,10 @@
 import { useEffect } from 'react'
-import * as snake from 'to-snake-case'
 
 import { AssessmentType } from '@core/assessment'
+import { Strings } from '@core/utils'
 import { useDataExportSelection } from '@webapp/store/page/dataExport'
 import { useGetRequest } from '@webapp/components/hooks'
-import { formatColumn, formatSection } from '@webapp/components/Assessment/DataExport/utils/format'
-import { DataExportResults } from '@webapp/components/Assessment/DataExport/utils'
+import { DataExportResults, formatColumn, formatSection } from '@webapp/components/Assessment/DataExport/utils'
 
 type Props = {
   columnsAlwaysExport: Array<string>
@@ -21,13 +20,13 @@ type UseFetchResults = {
 export const useFetchResults = (props: Props): UseFetchResults => {
   const { columnsAlwaysExport, assessmentSection, assessmentType } = props
   const selection = useDataExportSelection(assessmentSection)
+  const sectionFormatted = Strings.snakeCase(formatSection(assessmentSection, assessmentType))
 
   const {
     data: results = {},
     dispatch: fetchResults,
-    // setState: setResultState,
     loading: resultsLoading,
-  } = useGetRequest(`/api/export/${assessmentType}/${snake(formatSection(assessmentSection, assessmentType))}`, {
+  } = useGetRequest(`/api/export/${assessmentType}/${sectionFormatted}`, {
     params: {
       columns: [...columnsAlwaysExport, ...selection.columns.map((column) => formatColumn(column, assessmentSection))],
       countries: selection.countryISOs,

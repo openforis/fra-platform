@@ -6,7 +6,7 @@ import { SectionSpecs } from '@webapp/sectionSpec'
 import { useAssessmentType } from '@webapp/store/app'
 import { DataExportAction, DataExportSelection, useDataExportSelection } from '@webapp/store/page/dataExport'
 import { useI18n, useParamSection } from '@webapp/components/hooks'
-import { getCustomVariableI18nMappings } from '@webapp/components/Assessment/DataExport/utils/format'
+import { getVariableLabelKey } from '@webapp/components/Assessment/DataExport/utils'
 
 import ButtonCheckBox from '@webapp/components/buttonCheckBox'
 
@@ -37,7 +37,7 @@ const VariableSelect: React.FC = () => {
         {variables.map((variable) => {
           const { cols, variableExport } = variable
           const { labelKey, labelParams, labelPrefixKey } = cols[0]
-          const label = getCustomVariableI18nMappings(labelKey)
+          const label = getVariableLabelKey(labelKey)
           const selected = variableExport === selection.variable
 
           return (

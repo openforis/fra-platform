@@ -6,10 +6,11 @@ import { SectionSpecs, Unit } from '@webapp/sectionSpec'
 import { useAssessmentType } from '@webapp/store/app'
 import { useDataExportCountries, useDataExportSelection } from '@webapp/store/page/dataExport'
 import { useI18n, useParamSection } from '@webapp/components/hooks'
+import { convertValue, formatValue, getColumnLabelKeys } from '@webapp/components/Assessment/DataExport/utils'
 
 import ButtonTableExport from '@webapp/components/ButtonTableExport'
-import { getI18nKey, getTimeStamp, getValue, valueConverted } from '../utils/format'
 import Title from './Title'
+import RowFooter from './RowFooter'
 import { useFetchResults } from './useFetchResults'
 
 const ResultsTable: React.FC = () => {
@@ -65,7 +66,7 @@ const ResultsTable: React.FC = () => {
           <tr>
             {columnsResults.map((column) => (
               <th key={column} className="fra-table__header-cell">
-                {getI18nKey(String(column), assessmentSection, assessmentType).map((key) => `${i18n.t(key)} `)}
+                {getColumnLabelKeys(String(column), assessmentSection, assessmentType).map((key) => `${i18n.t(key)} `)}
               </th>
             ))}
           </tr>
@@ -83,8 +84,8 @@ const ResultsTable: React.FC = () => {
                   {i18n.t(label)} {deskStudy && `(${i18n.t('assessment.deskStudy')})`}
                 </th>
                 {columnsResults.map((column) => {
-                  const { columnKey, value } = getValue(
-                    column,
+                  const { columnKey, value } = formatValue(
+                    String(column),
                     countryIso,
                     results,
                     assessmentSection,
@@ -92,7 +93,7 @@ const ResultsTable: React.FC = () => {
                   )
                   return (
                     <td key={`${countryIso}${columnKey || column}`} className="fra-table__cell">
-                      <div className="number-input__readonly-view">{valueConverted(value, baseUnit, unit)}</div>
+                      <div className="number-input__readonly-view">{convertValue(value, baseUnit, unit)}</div>
                     </td>
                   )
                 })}
@@ -100,19 +101,7 @@ const ResultsTable: React.FC = () => {
             )
           })}
 
-          <tr>
-            <td className="fra-table__validation-cell">
-              <div className="fra-table__validation-container copyright">
-                &copy; FRA {`${new Date().getFullYear()}`}
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <span className="timestamp">{`${getTimeStamp()}`}</span>
-            </td>
-          </tr>
+          <RowFooter />
         </tbody>
       </table>
     </div>

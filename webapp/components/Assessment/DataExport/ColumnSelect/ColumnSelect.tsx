@@ -5,9 +5,9 @@ import { SectionSpecs } from '@webapp/sectionSpec'
 import { useAssessmentType } from '@webapp/store/app'
 import { DataExportAction, DataExportSelection, useDataExportSelection } from '@webapp/store/page/dataExport'
 import { useI18n, useParamSection } from '@webapp/components/hooks'
+import { getColumnLabelKeys } from '@webapp/components/Assessment/DataExport/utils'
 
 import ButtonCheckBox from '@webapp/components/buttonCheckBox'
-import { getI18nKey } from '../utils/format'
 
 const ColumnSelect: React.FC = () => {
   const dispatch = useDispatch()
@@ -43,7 +43,7 @@ const ColumnSelect: React.FC = () => {
       <div className="export__form-section-variables">
         {columns.map((column) => {
           const selected = selection.columns.includes(String(column))
-          const label = getI18nKey(column, assessmentSection, assessmentType)
+          const label = getColumnLabelKeys(String(column), assessmentSection, assessmentType)
 
           return (
             <ButtonCheckBox
