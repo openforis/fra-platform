@@ -1,86 +1,89 @@
 import './countrySelectModal.scss'
 import React, { useEffect, useState } from 'react'
 
-import { Modal, ModalClose, ModalFooter, ModalHeader } from '@webapp/components/modal'
+import { Areas, Country } from '@core/country'
+import { Objects, Strings } from '@core/utils'
 import { useI18n } from '@webapp/components/hooks'
-import { Country } from '@common/country'
-import CountrySelectionModalBody from './CountrySelectionModalBody'
+
+import { Modal, ModalClose, ModalFooter, ModalHeader } from '@webapp/components/modal'
+import CountrySelectModalBody from './CountrySelectModalBody'
 
 type Props = {
+  canSave?: (selection: Array<string>) => boolean
+  countries: Array<Country>
+  excludedRegions?: Array<string>
   headerLabel: string
-  countries: any[]
-  initialSelection?: any[]
-  unselectableCountries?: any[]
-  excludedRegions?: any[]
-  isOpen: boolean
+  initialSelection?: Array<string>
+  onChange?: (countryIso: string, filteredSelection: Array<string>) => void
+  onClose: (selection: Array<string>) => void
+  open: boolean
   showCount?: boolean
-  canSave?: (selection: string[]) => any
-  onChange?: (countryIso: string, filteredSelection: string[]) => any
-  onClose: (selection: string[]) => any
+  unselectableCountries?: Array<string>
 }
 
 const CountrySelectModal: React.FC<Props> = (props) => {
   const {
-    countries,
-    showCount,
     canSave,
-    isOpen,
-    initialSelection = [],
+    countries,
+    excludedRegions,
+    headerLabel,
+    initialSelection,
     onChange,
     onClose,
+    open,
+    showCount,
     unselectableCountries,
-    headerLabel,
-    excludedRegions,
   } = props
-  const [selection, setSelection] = useState([])
-  const [countriesFiltered, setCountriesFiltered] = useState(countries)
-  const [query, setQuery] = useState('')
-  const i18n = useI18n()
 
-  useEffect(() => {
-    if (isOpen) document.body.classList.add('no-scroll')
-    else document.body.classList.remove('no-scroll')
-  }, [isOpen])
+  const i18n = useI18n()
+  const [selection, setSelection] = useState<Array<string>>([])
+  const [countriesFiltered, setCountriesFiltered] = useState<Array<Country>>(countries)
+  const [query, setQuery] = useState<string>('')
 
   const resetAll = () => {
     setSelection([])
+    onClose([])
   }
 
-  const normalizeString = (str: string) => str.trim().toLowerCase().replace(/\s/g, '')
-  const checkMatch = (country: any, value: string) => {
-    const countryLabel = i18n.t(`area.${Country.getCountryIso(country)}.listName`)
-    const searchString = normalizeString(`${countryLabel}`)
+  const checkMatch = (country: Country, value: string) => {
+    const countryLabel = Areas.getListName(country.countryIso, i18n)
+    const searchString = Strings.normalize(countryLabel)
     return searchString.includes(value)
   }
+
   const updateCountries = () => {
-    const value = normalizeString(query)
-    if (value === '') setCountriesFiltered(countries)
+    const value = Strings.normalize(query)
+    if (Objects.isEmpty(value)) setCountriesFiltered(countries)
     else setCountriesFiltered(countries.filter((country) => checkMatch(country, value)))
   }
 
   const _onChange = (countryIso: string) => {
-    if (selection.includes(countryIso)) {
-      const filteredSelection = selection.filter((_countryIso) => _countryIso !== countryIso)
-      setSelection(filteredSelection)
-      onChange(countryIso, filteredSelection)
-    } else {
-      setSelection([...selection, countryIso])
-      onChange(countryIso, [...selection, countryIso])
-    }
+    const selectionUpdate = [...selection]
+    if (selectionUpdate.includes(countryIso)) selectionUpdate.splice(selectionUpdate.indexOf(countryIso), 1)
+    else selectionUpdate.push(countryIso)
+
+    setSelection(selectionUpdate)
+    onChange(countryIso, selectionUpdate)
   }
+
   const _onClose = () => {
     onClose(selection)
     setSelection([])
   }
 
+  useEffect(() => {
+    if (open) document.body.classList.add('no-scroll')
+    else document.body.classList.remove('no-scroll')
+  }, [open])
+
   useEffect(updateCountries, [countries, query])
 
   useEffect(() => {
-    initialSelection.map((countryIso) => _onChange(countryIso))
+    setSelection(initialSelection)
   }, [initialSelection])
 
   return (
-    <Modal className="modal-country-select" isOpen={isOpen}>
+    <Modal className="modal-country-select" isOpen={open}>
       <ModalHeader>
         {headerLabel} {showCount && `(${selection.length})`}
         <input
@@ -88,12 +91,12 @@ const CountrySelectModal: React.FC<Props> = (props) => {
           type="text"
           value={query}
           placeholder={i18n.t('emoji.picker.search')}
-          onChange={({ target: { value } }) => setQuery(value)}
+          onChange={(event) => setQuery(event.target.value)}
         />
         <ModalClose onClose={_onClose} />
       </ModalHeader>
 
-      <CountrySelectionModalBody
+      <CountrySelectModalBody
         countries={countriesFiltered}
         onChange={_onChange}
         selection={selection}
@@ -115,10 +118,12 @@ const CountrySelectModal: React.FC<Props> = (props) => {
 }
 
 CountrySelectModal.defaultProps = {
-  unselectableCountries: [],
   canSave: () => true,
-  onChange: () => true,
-  showCount: true,
   excludedRegions: [],
+  initialSelection: [],
+  onChange: () => ({}),
+  showCount: true,
+  unselectableCountries: [],
 }
+
 export default CountrySelectModal

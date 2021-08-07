@@ -3,3 +3,5 @@ import HomeReducer from './reducer'
 import * as HomeState from './state'
 
 export { HomeActions, HomeReducer, HomeState }
+
+export { useHomeCountriesFilter } from './hooks'

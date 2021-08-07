@@ -1,20 +1,23 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import CountrySelectModal from '@webapp/components/CountrySelectModal'
-import { useCountries } from '@webapp/store/app'
+
+import { useCountries, useSecondaryGroupedRegions } from '@webapp/store/app'
+import { useHomeCountriesFilter, HomeActions } from '@webapp/store/ui/home'
 import { useI18n } from '@webapp/components/hooks'
-import { HomeActions } from '@webapp/store/ui'
-import { useSecondaryGroupedRegions } from '@webapp/store/app/hooks'
+
+import CountrySelectModal from '@webapp/components/CountrySelectModal'
 
 export const __MIN_COUNTRIES__ = 9
 
-const CountrySelector = () => {
+const CountrySelector: React.FC = () => {
   const dispatch = useDispatch()
-  const countries: any = useCountries()
-  const secondaryRegions = useSecondaryGroupedRegions()
-  const [modalOpen, setModalOpen] = useState(false)
   const i18n = useI18n()
-  const onClose = (selectedCountries: any) => {
+  const countries = useCountries()
+  const secondaryRegions = useSecondaryGroupedRegions()
+  const countriesFilter = useHomeCountriesFilter()
+  const [modalOpen, setModalOpen] = useState(false)
+
+  const onClose = (selectedCountries: Array<string>) => {
     if (selectedCountries.length >= __MIN_COUNTRIES__) {
       dispatch(HomeActions.updateSelectedCountries(selectedCountries))
     } else {
@@ -22,12 +25,15 @@ const CountrySelector = () => {
     }
     setModalOpen(false)
   }
-  const canSave = (selectedCountries: any[]) => selectedCountries.length >= __MIN_COUNTRIES__
+
+  const canSave = (selectedCountries: Array<string>) => selectedCountries.length >= __MIN_COUNTRIES__
+
   return (
     <div className="country-selector">
       <CountrySelectModal
-        isOpen={modalOpen}
         countries={countries}
+        initialSelection={countriesFilter}
+        open={modalOpen}
         headerLabel={i18n.t('common.select')}
         onClose={onClose}
         canSave={canSave}
