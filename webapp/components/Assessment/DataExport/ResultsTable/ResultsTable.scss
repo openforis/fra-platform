@@ -1,4 +1,4 @@
-@import (reference) 'webapp/main/styles/config';
+@import 'webapp/style/partials';
 
 .results-table {
   position: relative;
@@ -9,9 +9,9 @@
 
   .select-s {
     border: unset;
-    color: @text-body;
+    color: $text-body;
     font-weight: 600;
-    font-size: @font-s;
+    font-size: $font-s;
   }
 
   .timestamp {

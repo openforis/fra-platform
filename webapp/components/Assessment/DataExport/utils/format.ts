@@ -8,6 +8,7 @@ import * as NumberUtils from '@common/bignumberUtils'
 import { Unit, UnitConverter, UnitFactors } from '@webapp/sectionSpec'
 import { format } from 'date-fns'
 import { getPanEuropeanTableMapping } from '@webapp/components/Assessment/DataExport/utils/panEuropean'
+import { DataExportResults } from '@webapp/components/Assessment/DataExport/utils/types'
 
 export const regex = {
   yearRange: /\d{4}-\d{4}/,
@@ -15,11 +16,11 @@ export const regex = {
   yearWithWord: /\d{4}_\w{4}/,
 }
 
-export const isYearRange = (range: any) => regex.yearRange.test(range)
-export const yearRangeToUnderscore = (range: any) => range.replace('-', '_')
+export const isYearRange = (range: string): boolean => regex.yearRange.test(range)
+export const yearRangeToUnderscore = (range: string): string => range.replace('-', '_')
 
-export const isYearWithWord = (column: any) => regex.yearWithWord.test(column)
-export const splitYearWithWord = (column: any) => column.split('_')
+export const isYearWithWord = (column: string): boolean => regex.yearWithWord.test(column)
+export const splitYearWithWord = (column: string): Array<string> => column.split('_')
 
 const columnI18nMappings: Record<string, string> = {
   common_name: 'commonName',
@@ -38,7 +39,7 @@ export const getColumnLabel = (column: string, section: string): string =>
  * @param assessmentType - type, ex. fra2020 / panEuropean
  * @returns {array} - i18n keys
  */
-export const getI18nKey = (column: any, section: any, assessmentType: AssessmentType) => {
+export const getI18nKey = (column: string, section: string, assessmentType: AssessmentType): Array<string> => {
   if (assessmentType === AssessmentType.panEuropean) {
     return [`${assessmentType}.${section}.${column}`]
   }
@@ -59,7 +60,7 @@ export const forestPolicy: Record<string, string> = {
   sub_national_yes_no: 'subnational',
 }
 
-const isForestPolicySection = (section: any) => section.includes('forestPolicy')
+const isForestPolicySection = (section: string): boolean => section.includes('forestPolicy')
 
 /**
  * Helper function to map to correct database columns
@@ -67,7 +68,7 @@ const isForestPolicySection = (section: any) => section.includes('forestPolicy')
  * @param section - url params: current section
  * @returns {*}
  */
-export const formatColumn = (column: any, section: any) => {
+export const formatColumn = (column: string, section: string): string => {
   // /forestPolicy/ has specific mappings
   if (isForestPolicySection(section)) {
     return forestPolicy[column]
@@ -85,16 +86,22 @@ export const formatColumn = (column: any, section: any) => {
  * @param {string} countryIso - selection country iso
  * @param {Object} results - result set to display in the table
  * @param {string} section - url params: current section
- * @returns {{columnKey: *, value: *}} - formatted column and value, from results
+ * @param {string} variable - url params: current variable
+ * @returns {{columnKey: string, value: string}} - formatted column and value, from results
  */
-export const getValue = (column: any, countryIso: any, results: any, section: any, variable: any) => {
+export const getValue = (
+  column: string,
+  countryIso: string,
+  results: DataExportResults,
+  section: string,
+  variable: string
+): { columnKey: string; value: string } => {
   let columnKey = column
 
   if (isForestPolicySection(section)) columnKey = forestPolicy[column]
   if (isYearRange(column)) columnKey = yearRangeToUnderscore(column)
 
-  let value =
-    results && results[countryIso] && results[countryIso][variable] && results[countryIso][variable][columnKey]
+  let value = results?.[countryIso]?.[variable]?.[columnKey]
   // Convert value to string and check if it's a number
   if (!Number.isNaN(+value)) value = NumberUtils.formatNumber(value)
   if (value === 'NaN') value = ''
@@ -102,7 +109,7 @@ export const getValue = (column: any, countryIso: any, results: any, section: an
   return { columnKey, value }
 }
 
-export const valueConverted = (value: any, base: any, unit: any) =>
+export const valueConverted = (value: string, base: Unit, unit: Unit): string =>
   base && base !== unit && Object.keys(UnitFactors).includes(base)
     ? UnitConverter.convertValue(value, base, unit)
     : value
@@ -113,15 +120,15 @@ const sections: Record<string, string> = {
 
 /**
  * Helper function to handle datamase mapping for table names
- * @param section
+ * @param assessmentSection
  * @param assessmentType
  * @returns {*}
  */
-export const formatSection = (section: string, assessmentType: AssessmentType): string => {
+export const formatSection = (assessmentSection: string, assessmentType: AssessmentType): string => {
   if (assessmentType === AssessmentType.panEuropean) {
-    return getPanEuropeanTableMapping(section)
+    return getPanEuropeanTableMapping(assessmentSection)
   }
-  return sections[section] ? sections[section] : section
+  return sections[assessmentSection] ?? assessmentSection
 }
 
 /**
