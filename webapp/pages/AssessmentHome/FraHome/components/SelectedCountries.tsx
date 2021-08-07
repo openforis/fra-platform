@@ -1,18 +1,21 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { Areas } from '@core/country'
-import useI18n from '@webapp/components/hooks/useI18n'
-import * as UiState from '@webapp/store/ui/state'
 
-const SelectedCountries = () => {
+import { Areas } from '@core/country'
+import { Objects } from '@core/utils'
+import { useHomeCountriesFilter } from '@webapp/store/page/home'
+import { useI18n } from '@webapp/components/hooks'
+
+const SelectedCountries: React.FC = () => {
   const i18n = useI18n()
-  const selectedCountries: any = useSelector(UiState.getSelectedCountries)
-  if (!selectedCountries || selectedCountries.length === 0) {
+  const countriesFilter = useHomeCountriesFilter()
+
+  if (Objects.isEmpty(countriesFilter)) {
     return null
   }
+
   return (
     <>
-      {selectedCountries.map((countryIso: string) => (
+      {countriesFilter.map((countryIso: string) => (
         <span key={countryIso} className="landng__page-country-label">
           {Areas.getListName(countryIso, i18n)}
         </span>

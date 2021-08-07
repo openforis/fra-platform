@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { useCountries, useSecondaryGroupedRegions } from '@webapp/store/app'
-import { useHomeCountriesFilter, HomeActions } from '@webapp/store/ui/home'
+import { useHomeCountriesFilter, HomeAction } from '@webapp/store/page/home'
 import { useI18n } from '@webapp/components/hooks'
 
 import CountrySelectModal from '@webapp/components/CountrySelectModal'
@@ -19,9 +19,9 @@ const CountrySelector: React.FC = () => {
 
   const onClose = (selectedCountries: Array<string>) => {
     if (selectedCountries.length >= __MIN_COUNTRIES__) {
-      dispatch(HomeActions.updateSelectedCountries(selectedCountries))
+      dispatch(HomeAction.updateCountriesFilter(selectedCountries))
     } else {
-      dispatch(HomeActions.updateSelectedCountries([]))
+      dispatch(HomeAction.updateCountriesFilter([]))
     }
     setModalOpen(false)
   }

@@ -7,7 +7,8 @@ import {
   DataExportCountriesAction,
   DataExportSelectionAction,
 } from '@webapp/store/page/dataExport/actionTypes'
-import { DataExportState } from '@webapp/store/page/dataExport/state'
+import { DataExportSelection, DataExportState } from '@webapp/store/page/dataExport/state'
+import { HomeActionType } from '@webapp/store/page/home'
 
 const initialState: DataExportState = {
   countries: [],
@@ -34,6 +35,24 @@ const actionHandlers = {
       ...state.selection,
       [action.assessmentSection]: action.selection,
     },
+  }),
+
+  // reset countries when filtered countries in home changes
+  [HomeActionType.countriesFilterUpdate]: (state: DataExportState): DataExportState => ({
+    ...state,
+    countries: [],
+    selection: Object.entries(state.selection).reduce<Record<string, DataExportSelection>>(
+      (accumulator, [section, sectionSelection]) => {
+        return {
+          ...accumulator,
+          [section]: {
+            ...sectionSelection,
+            countryISOs: [],
+          },
+        }
+      },
+      {}
+    ),
   }),
 }
 
