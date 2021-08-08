@@ -7,7 +7,7 @@ import { useI18n } from '@webapp/components/hooks'
 
 import CountrySelectModal from '@webapp/components/CountrySelectModal'
 
-export const __MIN_COUNTRIES__ = 9
+const __MIN_COUNTRIES__ = 9
 
 const CountrySelector: React.FC = () => {
   const dispatch = useDispatch()
