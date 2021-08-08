@@ -1,6 +1,6 @@
 export { HomeAction } from './actions'
 
-export type { HomeActionType } from './actionTypes'
+export { HomeActionType } from './actionTypes'
 
 export { useHomeCountriesFilter } from './hooks'
 
