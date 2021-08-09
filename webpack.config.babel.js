@@ -4,13 +4,12 @@ import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import webpack from 'webpack'
 import { v4 as uuidv4 } from 'uuid'
 
-import UglifyJsPlugin from 'uglifyjs-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
+import TerserPlugin from 'terser-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
-import GitRevisionPlugin from 'git-revision-webpack-plugin'
-import GoogleFontsPlugin from 'google-fonts-plugin'
+import { GitRevisionPlugin } from 'git-revision-webpack-plugin'
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 
 const buildReport = process.env.BUILD_REPORT === 'true'
@@ -26,18 +25,8 @@ const gitRevisionPlugin = config.mode === 'production' ? null : new GitRevisionP
 const fontCssFileName = 'woff2.css'
 
 const plugins = [
-  new GoogleFontsPlugin({
-    fonts: [
-      {
-        family: 'Open Sans',
-        variants: ['300', '400', '600', '700'],
-      },
-    ],
-    formats: ['woff2'],
-    filename: fontCssFileName,
-  }),
   ...(gitRevisionPlugin ? [gitRevisionPlugin] : []),
-  new MiniCssExtractPlugin({ filename: 'style/styles-[hash].css' }),
+  new MiniCssExtractPlugin({ filename: 'style/styles-[fullhash].css' }),
   new HtmlWebpackPlugin({ template: './web-resources/index.html' }),
   new webpack.DefinePlugin({
     __BUST__: `"${uuidv4()}"`,
@@ -74,7 +63,7 @@ const appConfig = {
     },
   },
   output: {
-    filename: 'js/bundle-[hash].js',
+    filename: 'js/bundle-[fullhash].js',
     path: config.path,
     publicPath: '/',
   },
@@ -147,10 +136,12 @@ const appConfig = {
           'css-loader',
           {
             loader: 'sass-loader',
-            // options: {
-            //   // Prefer `dart-sass`
-            //   implementation: require.resolve('sass'),
-            // },
+            options: {
+              implementation: require.resolve('sass'),
+              sassOptions: {
+                outputStyle: 'compressed',
+              },
+            },
           },
         ],
       },
@@ -158,20 +149,10 @@ const appConfig = {
   },
   plugins,
   stats: { children: false },
-}
-
-webpack.optimization = {
-  minimizer: [
-    new UglifyJsPlugin({
-      parallel: true,
-      uglifyOptions: {
-        compress: true,
-        output: { comments: false },
-      },
-      sourceMap: true,
-    }),
-    new OptimizeCSSAssetsPlugin({}),
-  ],
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
+  },
 }
 
 export default appConfig

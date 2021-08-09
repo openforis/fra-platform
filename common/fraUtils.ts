@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import FRA from '@common/assessment/fra'
+import { FRA } from '@core/assessment'
 import * as NumberUtils from './bignumberUtils'
 
 /**
@@ -41,7 +41,8 @@ export const isTableWithOdpEmpty = (table: any) =>
     // @ts-ignore
   )(table)
 
-export const getDatumByYear = (year: any) => R.pipe(R.defaultTo([]), R.find(R.propEq('name', String(year))), R.defaultTo({}))
+export const getDatumByYear = (year: any) =>
+  R.pipe(R.defaultTo([]), R.find(R.propEq('name', String(year))), R.defaultTo({}))
 
 export const updateTableWithOdpDatum = (datum: any) => (data: any) => {
   const { name } = datum

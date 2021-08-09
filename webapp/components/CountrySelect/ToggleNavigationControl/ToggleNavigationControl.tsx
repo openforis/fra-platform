@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { useIsAdmin, useIsHome } from '@webapp/components/hooks'
 import Icon from '@webapp/components/icon'
 
-import { toggleNavigation } from '@webapp/app/components/navigation/actions'
+import { toggleNavigation } from '@webapp/components/Navigation/actions'
 
 const ToggleNavigationControl: React.FC = () => {
   const dispatch = useDispatch()

@@ -37,7 +37,7 @@ const LinksView = () => {
   const globalFiles = (filesList as any).filter((f: any) => R.isNil(f.countryIso))
   return (
     <div className="landing__page-container">
-      <div className="landing__repository-header" style={{ marginTop: 0 }}>
+      <div className="landing__repository-header">
         <h3>{(i18n as any).t('landing.links.links')}</h3>
         <input
           ref={fileGlobalRef}

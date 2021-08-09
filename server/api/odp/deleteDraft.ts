@@ -4,6 +4,7 @@ import { allowedToEditDataCheck } from '@server/assessment/assessmentEditAccessC
 import { OdpService } from '@server/service'
 import { Requests } from '@server/utils'
 import { ApiEndPoint } from '@common/api/endpoint'
+import { User } from '@core/auth'
 
 export const OdpDeleteDraft = {
   init: (express: Express): void => {
@@ -15,8 +16,7 @@ export const OdpDeleteDraft = {
           const { countryIso } = req.query
           await allowedToEditDataCheck(countryIso, req.user, 'extentOfForest')
 
-          // @ts-ignore
-          const { odpId } = await OdpService.deleteDraft({ odpId: req.query.odpId, user: req.user })
+          const { odpId } = await OdpService.deleteDraft({ odpId: +req.query.odpId, user: req.user as User })
           const odp = await OdpService.getOdp(odpId)
 
           res.json({ odp })

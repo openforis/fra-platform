@@ -1,6 +1,6 @@
 import React from 'react'
 
-import PanEuropean from '@common/assessment/panEuropean'
+import { PanEuropean } from '@core/assessment'
 
 const Loading = () => {
   // Toucan is hidden in PanEuropean pages.

@@ -3,8 +3,8 @@ import * as AppState from '@webapp/store/app/state'
 
 import { useIsHome, useIsAdmin } from './useIsPath'
 
-export default () => {
-  const countryIso = useSelector(AppState.getCountryIso)
+export default (): string | null => {
+  const countryIso = useSelector(AppState.getCountryIso) as string
   const isHome = useIsHome()
   const isAdmin = useIsAdmin()
 

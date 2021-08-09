@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import * as Area from './area'
+import { RegionCode } from '@core/country'
 
 export const keys = {
   countryIso: 'countryIso',
@@ -18,7 +18,7 @@ export const getLastEdit = R.prop((keys as any).lastEdit)
 export const getFra2020Assessment = R.prop((keys as any).fra2020Assessment)
 export const getRegions = R.propOr([], (keys as any).regions)
 export const isFra2020DeskStudy = R.propEq((keys as any).fra2020DeskStudy, true)
-export const isPanEuropean = R.pipe(getRegions, R.includes(Area.levels.forest_europe))
+export const isPanEuropean = R.pipe(getRegions, R.includes(RegionCode.FE))
 export const isDeskStudy = R.pathOr(null, [(keys as any).assessment, (keys as any).fra2020, keys.deskStudy])
 export default {
   keys,
