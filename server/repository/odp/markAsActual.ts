@@ -2,7 +2,7 @@ import { insertAudit } from '@server/repository/audit/auditRepository'
 import { OdpClassRepository } from '@server/repository'
 import { getAndCheckOdpCountryId } from './getAndCheckOdpCountryId'
 
-export const markAsActual = async (client: any, odpId: any, user: any) => {
+export const markAsActual = async (client: any, odpId: any, user: any): Promise<null | [void, void]> => {
   const currentOdpPromise = client.query('SELECT actual_id, draft_id FROM odp WHERE id = $1', [odpId])
   const checkCountryAccessPromise = getAndCheckOdpCountryId({ odpId, user }, client)
   const updateOdpPromise = client.query(
@@ -27,7 +27,7 @@ export const markAsActual = async (client: any, odpId: any, user: any) => {
   if (oldActualId) {
     return Promise.all([
       OdpClassRepository.wipeClassData({ odpVersionId: oldActualId }, client),
-      client.query('DELETE FROM odp_version WHERE id = $1', [oldActualId]),
+      client.query('DELETE FROM odp_version WHERE id = $1', [oldActualId]) as void,
     ])
   }
   return null

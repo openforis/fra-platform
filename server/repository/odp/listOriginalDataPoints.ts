@@ -6,7 +6,7 @@ import { getOdp } from './getOdp'
 export const listOriginalDataPoints = async (
   options: { countryIso: CountryIso; schemaName?: string },
   client: BaseProtocol = DB
-) => {
+): Promise<ODP[]> => {
   const { countryIso, schemaName = 'public' } = options
 
   const tableName = `${schemaName}.odp`

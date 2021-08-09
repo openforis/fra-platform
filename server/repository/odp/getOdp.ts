@@ -5,9 +5,10 @@ import * as camelize from 'camelize'
 import * as db from '@server/db/db_deprecated'
 
 import { OdpClassRepository } from '@server/repository'
+import { ODP } from '@core/odp'
 import { getOdpVersionId } from './getOdpVersionId'
 
-export const getOdp = async (odpId: any, schemaName = 'public') => {
+export const getOdp = async (odpId: any, schemaName = 'public'): Promise<ODP> => {
   const versionId = await getOdpVersionId({ odpId }, db.pool, schemaName)
   const tableNameOdp = `${schemaName}.odp`
   const tableNameOdpVersion = `${schemaName}.odp_version`
