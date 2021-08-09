@@ -104,7 +104,7 @@ const CountryRole = (props: Props) => {
         })}
       </div>
       <CountrySelectModal
-        isOpen={modalOptions.open}
+        open={modalOptions.open}
         countries={countries}
         excludedRegions={secondaryRegions.regions.map((r: any) => r.regionCode)}
         headerLabel={i18nUserRole(i18n, modalOptions.role)}
