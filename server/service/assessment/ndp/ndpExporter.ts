@@ -1,6 +1,7 @@
 import * as R from 'ramda'
 
 import { OdpService } from '@server/service'
+import { Country } from '@core/country'
 import CsvOutput from '../csvOutput'
 
 export const fields = [
@@ -22,8 +23,8 @@ export const normalizeValue = R.pipe(
   R.join(' ')
 )
 
-export const getCountryData = async (country: any) => {
-  const dataPoints = await OdpService.listOriginalDataPoints(country.countryIso)
+export const getCountryData = async (country: Country) => {
+  const dataPoints = await OdpService.listOriginalDataPoints({ countryIso: country.countryIso })
 
   const result: any = []
 

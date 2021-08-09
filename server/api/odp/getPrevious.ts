@@ -5,6 +5,7 @@ import { OdpService } from '@server/service'
 import * as R from 'ramda'
 import { Requests } from '@server/utils'
 import { ApiEndPoint } from '@common/api/endpoint'
+import { CountryIso } from '@core/country'
 
 export const OdpGetPrevious = {
   init: (express: Express): void => {
@@ -16,7 +17,7 @@ export const OdpGetPrevious = {
           const { countryIso } = req.query
           await allowedToEditDataCheck(countryIso, req.user, 'extentOfForest')
 
-          const resp = await OdpService.listOriginalDataPoints(req.params.countryIso)
+          const resp = await OdpService.listOriginalDataPoints({ countryIso: req.params.countryIso as CountryIso })
 
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore

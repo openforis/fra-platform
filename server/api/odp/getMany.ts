@@ -4,6 +4,7 @@ import * as R from 'ramda'
 import { Requests } from '@server/utils'
 import { ApiEndPoint } from '@common/api/endpoint'
 import { OdpService } from '@server/service'
+import { CountryIso } from '@core/country'
 
 export const OdpGetMany = {
   init: (express: Express): void => {
@@ -13,7 +14,7 @@ export const OdpGetMany = {
 
         const odp = R.isNil(req.query.odpId) ? Promise.resolve({}) : OdpService.getOdp(req.query.odpId, schemaName)
 
-        const odps = OdpService.listOriginalDataPoints(req.query.countryIso, schemaName)
+        const odps = OdpService.listOriginalDataPoints({ countryIso: req.query.countryIso as CountryIso, schemaName })
 
         const [odpResult, odpsResult] = await Promise.all([odp, odps])
 
