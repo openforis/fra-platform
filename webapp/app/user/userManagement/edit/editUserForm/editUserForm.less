@@ -1,5 +1,5 @@
-@import (reference) "~@webapp/main/styles/buttons";;
-@import (reference) "~@webapp/main/styles/buttons";;
+@import (reference) '~@webapp/main/styles/buttons';
+@import (reference) '~@webapp/main/styles/buttons';
 
 .edit-user__form-item {
   display: flex;
@@ -16,7 +16,7 @@
   font-weight: bold;
   text-transform: uppercase;
   font-size: @font-xxs;
-  color: lighten(@text-mute, 10%);;
+  color: lighten(@text-mute, 10%);
 }
 
 .edit-user__form-field {
@@ -140,6 +140,8 @@
   &.disabled {
     cursor: not-allowed !important;
     color: @text-disabled;
+    pointer-events: none;
+
     .fra-checkbox {
       border: 1px solid @ui-border-light;
     }

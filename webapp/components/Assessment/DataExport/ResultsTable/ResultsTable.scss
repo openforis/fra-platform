@@ -1,0 +1,20 @@
+@import 'webapp/style/partials';
+
+.results-table {
+  position: relative;
+
+  .copyright {
+    text-align: left;
+  }
+
+  .select-s {
+    border: unset;
+    color: $text-body;
+    font-weight: 600;
+    font-size: $font-s;
+  }
+
+  .timestamp {
+    opacity: 0;
+  }
+}
