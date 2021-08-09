@@ -1,7 +1,9 @@
 import { User } from '@core/auth'
 import { BaseProtocol, DB } from '@server/db'
 import { getAndCheckOdpCountryId } from '@server/repository/odp/getAndCheckOdpCountryId'
-import { OdpClassRepository, OdpRepository } from '@server/repository'
+import { OdpVersionRepository, OdpClassRepository, OdpRepository } from '@server/repository'
+import { deleteIssues } from '@server/repository/review/reviewRepository'
+import { insertAudit } from '@server/repository/audit/auditRepository'
 
 export const deleteDraft = async (options: { odpId: number; user: User }, client: BaseProtocol = DB) => {
   const { odpId, user } = options
@@ -9,12 +11,21 @@ export const deleteDraft = async (options: { odpId: number; user: User }, client
     const countryIso = await getAndCheckOdpCountryId({ odpId, user }, t)
     const actualId = OdpRepository.readActualId({ odpId })
     if (actualId) {
-      OdpRepository.updateDraftId({ odpId, draftId: null })
-      const odpVersionId = await OdpRepository.getOdpVersionId(t, odpId)
+      await OdpRepository.updateDraftId({ odpId, draftId: null })
+      const odpVersionId = await OdpRepository.getOdpVersionId({ odpId }, t)
+
       const nationalClasses = await OdpClassRepository.getOdpNationalClasses(t, odpVersionId)
       return OdpClassRepository.wipeNationalClassIssues({ odpId, countryIso, nationalClasses }, t)
     }
 
-    return OdpRepository.deleteOdp(t, odpId, user)
+    const odpVersionId = await OdpRepository.getOdpVersionId({ odpId }, t)
+
+    await OdpClassRepository.wipeClassData({ odpVersionId }, t)
+    await OdpVersionRepository.deleteById({ id: odpVersionId })
+
+    await deleteIssues(t, countryIso, 'odp', 0, odpId)
+    await insertAudit(t, user.id, 'deleteOdp', countryIso, 'odp', { odpId })
+
+    return OdpRepository.deleteOdp({ odpId }, t)
   })
 }

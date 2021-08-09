@@ -26,7 +26,7 @@ export const markAsActual = async (client: any, odpId: any, user: any) => {
   await insertAudit(client, user.id, 'markAsActual', countryIso, 'odp', { odpId })
   if (oldActualId) {
     return Promise.all([
-      OdpClassRepository.wipeClassData(client, oldActualId),
+      OdpClassRepository.wipeClassData({ odpVersionId: oldActualId }, client),
       client.query('DELETE FROM odp_version WHERE id = $1', [oldActualId]),
     ])
   }
