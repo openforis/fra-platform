@@ -65,7 +65,7 @@ export const useSecondaryGroupedRegions = () => {
  * Returns array of region_codes
  * @returns {*}
  */
-export const useFraRegions = () => {
+export const useFraRegions = (): Array<RegionCode> => {
   const groupedRegions = useGroupedRegions()
   const _fraRegionGroup = groupedRegions.find((groupedRegion) => groupedRegion.name === FRA.type)
   return _fraRegionGroup.regions.map((region) => region.regionCode)
