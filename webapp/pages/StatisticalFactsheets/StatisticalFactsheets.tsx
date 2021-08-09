@@ -3,11 +3,10 @@ import React from 'react'
 import { useParams } from 'react-router'
 
 import { Areas } from '@core/country'
+import { Objects } from '@core/utils'
+import { useHomeCountriesFilter } from '@webapp/store/page/home'
+import { useI18n } from '@webapp/components/hooks'
 
-import useI18n from '@webapp/components/hooks/useI18n'
-import { useSelector } from 'react-redux'
-import * as UiState from '@webapp/store/ui/state'
-import { __MIN_COUNTRIES__ } from '@webapp/pages/AssessmentHome/FraHome/components/CountrySelector'
 import ForestArea from './ForestArea'
 import CarbonGrowingStock from './CarbonGrowingStock'
 import ForestAreaPercent from './ForestAreaPercent'
@@ -17,15 +16,15 @@ import ForestAreaWithinProtectedAreas from './ForestAreaWithinProtectedAreas'
 import NaturallyRegeneratingForest from './NaturallyRegeneratingForest'
 import PrimaryDesignatedManagementObjective from './PrimaryDesignatedManagementObjective'
 
-const StatisticalFactsheets:React.FC = () => {
+const StatisticalFactsheets: React.FC = () => {
   const i18n = useI18n()
   const { countryIso: levelIso }: any = useParams()
   const isCountry = Areas.isISOCountry(levelIso)
-  const selectedCountries: any = useSelector(UiState.getSelectedCountries)
+  const countriesFilter = useHomeCountriesFilter()
 
   return (
     <div>
-      {selectedCountries.length > __MIN_COUNTRIES__ && (
+      {!Objects.isEmpty(countriesFilter) && (
         <p className="statistical-factsheets__disclaimer">{i18n.t('disclaimer.statisticalFactsheets')}</p>
       )}
 
