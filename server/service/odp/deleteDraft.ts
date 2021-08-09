@@ -4,8 +4,9 @@ import { getAndCheckOdpCountryId } from '@server/repository/odp/getAndCheckOdpCo
 import { OdpVersionRepository, OdpClassRepository, OdpRepository } from '@server/repository'
 import { deleteIssues } from '@server/repository/review/reviewRepository'
 import { insertAudit } from '@server/repository/audit/auditRepository'
+import { ODP } from '@core/odp'
 
-export const deleteDraft = async (options: { odpId: number; user: User }, client: BaseProtocol = DB) => {
+export const deleteDraft = async (options: { odpId: number; user: User }, client: BaseProtocol = DB): Promise<ODP> => {
   const { odpId, user } = options
   return client.tx(async (t) => {
     const countryIso = await getAndCheckOdpCountryId({ odpId, user }, t)
