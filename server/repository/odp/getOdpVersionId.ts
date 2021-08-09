@@ -1,4 +1,6 @@
-export const getOdpVersionId = async (client: any, odpId: any, schemaName = 'public') => {
+// TODO: Change client to BaseProtocol = DB
+export const getOdpVersionId = async (options: { odpId: any }, client: any, schemaName = 'public') => {
+  const { odpId } = options
   const tableName = `${schemaName}.odp`
   const res = await client.query(
     `
