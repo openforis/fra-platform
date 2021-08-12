@@ -1,7 +1,10 @@
 import * as R from 'ramda'
 
 import { OdpService } from '@server/service'
-import { Country } from '@core/country'
+import { Country, CountryIso, RegionCode } from '@core/country'
+import { ODP } from '@core/odp'
+import { Objects } from '@core/utils'
+import { CountryAssessment } from '@core/country/country'
 import CsvOutput from '../csvOutput'
 
 export const fields = [
@@ -23,27 +26,29 @@ export const normalizeValue = R.pipe(
   R.join(' ')
 )
 
-export const getCountryData = async (country: Country) => {
+type getCountryDataType = Record<string, string | CountryIso | Array<RegionCode> | CountryAssessment | undefined>[]
+
+export const getCountryData = async (country: Country): Promise<getCountryDataType> => {
   const dataPoints = await OdpService.listOriginalDataPoints({ countryIso: country.countryIso })
 
-  const result: any = []
+  const result: getCountryDataType = []
 
-  const getMethodUsed = (ndp: any, value: any) => (R.contains(value, ndp.dataSourceMethods || []) ? 'YES' : 'NO')
+  const getMethodUsed = (odp: ODP, value: any) => (R.contains(value, odp.dataSourceMethods || []) ? 'YES' : 'NO')
   // ["nationalForestInventory","sampleBasedRemoteSensingAssessment","fullCoverMaps","registersQuestionnaires","other"]
 
-  dataPoints.forEach((ndp: any) => {
-    const { year } = ndp
-    if (!(R.isNil(year) || R.isEmpty(year))) {
+  dataPoints.forEach((odp: ODP) => {
+    const { year } = odp
+    if (!Objects.isEmpty(year)) {
       const row = {
         ...country,
         Year: year,
-        Reference: normalizeValue(ndp.dataSourceReferences),
-        'National Forest Inventory': getMethodUsed(ndp, 'nationalForestInventory'),
-        'Sample-based remote sensing assessment': getMethodUsed(ndp, 'sampleBasedRemoteSensingAssessment'),
-        'Full-cover forest/vegetation maps': getMethodUsed(ndp, 'fullCoverMaps'),
-        'Registers/questionnaires': getMethodUsed(ndp, 'registersQuestionnaires'),
-        Other: getMethodUsed(ndp, 'other'),
-        'Additional comments': normalizeValue(ndp.dataSourceAdditionalComments),
+        Reference: normalizeValue(odp.dataSourceReferences),
+        'National Forest Inventory': getMethodUsed(odp, 'nationalForestInventory'),
+        'Sample-based remote sensing assessment': getMethodUsed(odp, 'sampleBasedRemoteSensingAssessment'),
+        'Full-cover forest/vegetation maps': getMethodUsed(odp, 'fullCoverMaps'),
+        'Registers/questionnaires': getMethodUsed(odp, 'registersQuestionnaires'),
+        Other: getMethodUsed(odp, 'other'),
+        'Additional comments': normalizeValue(odp.dataSourceAdditionalComments),
       }
 
       result.push(row)
