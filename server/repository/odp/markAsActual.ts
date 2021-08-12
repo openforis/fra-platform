@@ -1,34 +1,25 @@
 import { insertAudit } from '@server/repository/audit/auditRepository'
 import { OdpClassRepository } from '@server/repository'
+import { BaseProtocol, DB } from '@server/db'
+import { User } from '@core/auth'
 import { getAndCheckOdpCountryId } from './getAndCheckOdpCountryId'
 
-export const markAsActual = async (client: any, odpId: string | number, user: any): Promise<any> => {
-  const currentOdpPromise = client.query('SELECT actual_id, draft_id FROM odp WHERE id = $1', [odpId])
-  const checkCountryAccessPromise = getAndCheckOdpCountryId({ odpId, user }, client)
-  const updateOdpPromise = client.query(
-    'UPDATE odp SET actual_id = draft_id, draft_id = null WHERE id = $1 AND draft_id IS NOT NULL',
-    [odpId]
-  )
-  const handleResult = (oldActualResult: any, countryIso: any) => {
-    if (oldActualResult.rowCount > 0 && oldActualResult.rows[0].draft_id) {
-      return { oldActualId: oldActualResult.rows[0].actual_id, countryIso }
-    }
-    return { countryIso }
-  }
-
-  const [oldActualResult, _countryIso] = await Promise.all([
-    currentOdpPromise,
-    checkCountryAccessPromise,
-    updateOdpPromise,
+export const markAsActual = async (
+  options: { odpId: string | number; user: User },
+  client: BaseProtocol = DB
+): Promise<void> => {
+  const { user, odpId } = options
+  const [oldActualResult] = await client.query('SELECT actual_id, draft_id FROM odp WHERE id = $1', [odpId])
+  const countryIso = await getAndCheckOdpCountryId({ odpId, user }, client)
+  await client.query('UPDATE odp SET actual_id = draft_id, draft_id = null WHERE id = $1 AND draft_id IS NOT NULL', [
+    odpId,
   ])
 
-  const { oldActualId, countryIso } = handleResult(oldActualResult, _countryIso)
   await insertAudit(client, user.id, 'markAsActual', countryIso, 'odp', { odpId })
-  if (oldActualId) {
-    return Promise.all([
-      OdpClassRepository.wipeClassData({ odpVersionId: oldActualId }, client),
-      client.query('DELETE FROM odp_version WHERE id = $1', [oldActualId]) as void,
-    ])
+
+  if (oldActualResult && oldActualResult.draft_id) {
+    const oldActualId = oldActualResult.actual_id
+    await OdpClassRepository.wipeClassData({ odpVersionId: oldActualId }, client)
+    await client.query('DELETE FROM odp_version WHERE id = $1', [oldActualId])
   }
-  return Promise.resolve()
 }
