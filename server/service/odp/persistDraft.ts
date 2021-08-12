@@ -9,12 +9,12 @@ import { create } from './create'
 
 const updateDraft = async (options: { draft: ODP }, client: BaseProtocol = DB): Promise<void> => {
   const { draft } = options
-  const draftId = await OdpRepository.getDraftId(client, draft.odpId)
+  const draftId = await OdpRepository.getDraftId({ odpId: draft.odpId }, client)
 
   await OdpClassRepository.wipeClassData({ odpVersionId: draftId }, client)
   await OdpClassRepository.addClassData({ odpVersionId: draftId, odp: draft }, client)
 
-  OdpVersionRepository.update({ draft, draftId }, client)
+  await OdpVersionRepository.update({ draft, draftId }, client)
 }
 
 const insertDraft = async (
@@ -33,7 +33,7 @@ const updateOrInsertDraft = async (
   client: BaseProtocol = DB
 ): Promise<Record<string, number | string>> => {
   const { user, odpId, countryIso, draft } = options
-  const draftId = await OdpRepository.getDraftId(client, odpId)
+  const draftId = await OdpRepository.getDraftId({ odpId }, client)
 
   if (draftId) {
     await updateDraft({ draft }, client)
