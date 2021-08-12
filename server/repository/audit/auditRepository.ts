@@ -1,4 +1,3 @@
-import * as R from 'ramda'
 // @ts-ignore
 import * as camelize from 'camelize'
 import * as db from '../../db/db_deprecated'
@@ -52,7 +51,7 @@ export const getLastAuditTimeStampForSection = (countryIso: any, section: any) =
     `,
       [countryIso, section, excludedMsgs]
     )
-    .then((res: any) => R.path(['rows', 0, 'latest_edit'], res))
+    .then((res: any) => res?.rows?.[0]?.latest_edit)
 }
 
 export const getAuditFeed = (countryIso: any) => {
@@ -88,5 +87,5 @@ export const getAuditFeed = (countryIso: any) => {
     `,
       [countryIso]
     )
-    .then((res: any) => R.map(camelize, res.rows))
+    .then((res: any) => res.rows.map(camelize))
 }
