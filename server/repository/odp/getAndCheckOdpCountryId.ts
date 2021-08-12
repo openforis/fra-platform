@@ -4,7 +4,7 @@ import { User } from '@core/auth'
 import { CountryIso } from '@core/country'
 
 export const getAndCheckOdpCountryId = async (
-  options: { odpId: number; user: User },
+  options: { odpId: number | string; user: User },
   client: BaseProtocol = DB
 ): Promise<CountryIso> => {
   const { odpId, user } = options
