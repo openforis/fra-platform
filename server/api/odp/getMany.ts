@@ -12,11 +12,14 @@ export const OdpGetMany = {
       try {
         const schemaName = await VersionService.getDatabaseSchema(req)
 
-        const odp = R.isNil(req.query.odpId) ? Promise.resolve({}) : OdpService.getOdp(req.query.odpId, schemaName)
+        const odpResult = R.isNil(req.query.odpId)
+          ? { year: null }
+          : await OdpService.getOdp(req.query.odpId, schemaName)
 
-        const odps = OdpService.listOriginalDataPoints({ countryIso: req.query.countryIso as CountryIso, schemaName })
-
-        const [odpResult, odpsResult] = await Promise.all([odp, odps])
+        const odpsResult = await OdpService.listOriginalDataPoints({
+          countryIso: req.query.countryIso as CountryIso,
+          schemaName,
+        })
 
         const result = R.merge(odpResult, {
           reservedYears: R.pipe(
