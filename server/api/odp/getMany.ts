@@ -14,7 +14,7 @@ export const OdpGetMany = {
 
         const odpResult = R.isNil(req.query.odpId)
           ? { year: null }
-          : await OdpService.getOdp(req.query.odpId, schemaName)
+          : await OdpService.getOdp({ odpId: req.query.odpId as string, schemaName })
 
         const odpsResult = await OdpService.listOriginalDataPoints({
           countryIso: req.query.countryIso as CountryIso,

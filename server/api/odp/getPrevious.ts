@@ -28,7 +28,7 @@ export const OdpGetPrevious = {
           )(R.values(resp))
 
           if (prevOdp) {
-            const odp = await OdpService.getOdp(prevOdp.odpId)
+            const odp = await OdpService.getOdp({ odpId: prevOdp.odpId })
             res.json(odp)
           } else {
             Requests.sendOk(res)
