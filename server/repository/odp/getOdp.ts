@@ -2,18 +2,21 @@
 // @ts-ignore
 import * as camelize from 'camelize'
 
-import * as db from '@server/db/db_deprecated'
-
 import { OdpClassRepository } from '@server/repository'
 import { ODP } from '@core/odp'
+import { BaseProtocol, DB } from '@server/db'
 import { getOdpVersionId } from './getOdpVersionId'
 
-export const getOdp = async (odpId: any, schemaName = 'public'): Promise<ODP> => {
-  const versionId = await getOdpVersionId({ odpId }, db.pool, schemaName)
+export const getOdp = async (
+  options: { odpId: string | number; schemaName?: string },
+  client: BaseProtocol = DB
+): Promise<ODP> => {
+  const { odpId, schemaName = 'public' } = options
+  const versionId = await getOdpVersionId({ odpId }, client, schemaName)
   const tableNameOdp = `${schemaName}.odp`
   const tableNameOdpVersion = `${schemaName}.odp_version`
-  const nationalClasses = await OdpClassRepository.getOdpNationalClasses(db.pool, versionId, schemaName)
-  const resEditStatus = await db.pool.query(
+  const nationalClasses = await OdpClassRepository.getOdpNationalClasses(client, versionId, schemaName)
+  const resEditStatus = await client.query(
     `SELECT
           p.id AS odp_id,
           p.country_iso,
@@ -35,7 +38,7 @@ export const getOdp = async (odpId: any, schemaName = 'public'): Promise<ODP> =>
         `,
     [odpId, versionId]
   )
-  const editStatus = camelize(resEditStatus.rows[0])
+  const editStatus = camelize(resEditStatus[0])
   const dataSourceMethods = editStatus?.dataSourceMethods?.methods
   return { ...editStatus, nationalClasses, dataSourceMethods }
 }
