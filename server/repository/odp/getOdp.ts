@@ -12,7 +12,7 @@ export const getOdp = async (
   client: BaseProtocol = DB
 ): Promise<ODP> => {
   const { odpId, schemaName = 'public' } = options
-  const versionId = await getOdpVersionId({ odpId }, client, schemaName)
+  const versionId = await getOdpVersionId({ odpId, schemaName }, client)
   const tableNameOdp = `${schemaName}.odp`
   const tableNameOdpVersion = `${schemaName}.odp_version`
   const nationalClasses = await OdpClassRepository.getOdpNationalClasses(client, versionId, schemaName)
