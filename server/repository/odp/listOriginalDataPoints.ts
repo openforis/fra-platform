@@ -19,6 +19,8 @@ export const listOriginalDataPoints = async (
     [countryIso]
   )
 
-  const odps = await Promise.all(res.map((r: Record<string, string>) => getOdp(r.odp_id, schemaName)))
+  const odps = await Promise.all(
+    res.map((r: Record<string, string>) => getOdp({ odpId: r.odp_id, schemaName }, client))
+  )
   return [...odps].sort((odp1: ODP, odp2: ODP) => +odp1.year - +odp2.year)
 }

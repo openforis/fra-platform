@@ -1,6 +1,6 @@
 // TODO: Change client to BaseProtocol = DB
 export const getOdpVersionId = async (
-  options: { odpId: number },
+  options: { odpId: number | string },
   client: any,
   schemaName = 'public'
 ): Promise<number> => {
