@@ -6,8 +6,9 @@ import { deleteIssues } from '@server/repository/review/reviewRepository'
 import { User } from '@core/auth'
 import { BaseProtocol, DB } from '@server/db'
 import * as AuditRepository from '@server/repository/audit/auditRepository'
+import { ODP } from '@core/odp'
 
-export const deleteOdp = async (options: { odpId: number; user: User }, client: BaseProtocol = DB) => {
+export const deleteOdp = async (options: { odpId: number; user: User }, client: BaseProtocol = DB): Promise<ODP> => {
   const { odpId, user } = options
   return client.tx(async (t) => {
     const countryIso = await getAndCheckOdpCountryId({ odpId, user }, t)

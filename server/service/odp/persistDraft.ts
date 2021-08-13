@@ -7,17 +7,20 @@ import * as AuditRepository from '@server/repository/audit/auditRepository'
 import { ODP } from '@core/odp'
 import { create } from './create'
 
-const updateDraft = async (options: { draft: ODP }, client: BaseProtocol = DB) => {
+const updateDraft = async (options: { draft: ODP }, client: BaseProtocol = DB): Promise<void> => {
   const { draft } = options
-  const draftId = await OdpRepository.getDraftId(client, draft.odpId)
+  const draftId = await OdpRepository.getDraftId({ odpId: draft.odpId }, client)
 
   await OdpClassRepository.wipeClassData({ odpVersionId: draftId }, client)
   await OdpClassRepository.addClassData({ odpVersionId: draftId, odp: draft }, client)
 
-  OdpVersionRepository.update({ draft, draftId }, client)
+  await OdpVersionRepository.update({ draft, draftId }, client)
 }
 
-const insertDraft = async (options: { odpId: number; draft: ODP }, client: BaseProtocol = DB) => {
+const insertDraft = async (
+  options: { odpId: number | string; draft: ODP },
+  client: BaseProtocol = DB
+): Promise<void> => {
   const { odpId, draft } = options
   const odpVersionId = await OdpVersionRepository.create({ draft }, client)
 
@@ -26,11 +29,11 @@ const insertDraft = async (options: { odpId: number; draft: ODP }, client: BaseP
 }
 
 const updateOrInsertDraft = async (
-  options: { user: User; odpId: number; countryIso: CountryIso; draft: ODP },
+  options: { user: User; odpId: number | string; countryIso: CountryIso; draft: ODP },
   client: BaseProtocol = DB
-) => {
+): Promise<Record<string, number | string>> => {
   const { user, odpId, countryIso, draft } = options
-  const draftId = await OdpRepository.getDraftId(client, odpId)
+  const draftId = await OdpRepository.getDraftId({ odpId }, client)
 
   if (draftId) {
     await updateDraft({ draft }, client)

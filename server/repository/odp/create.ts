@@ -1,7 +1,7 @@
 import { CountryIso } from '@core/country'
 import { BaseProtocol, DB } from '@server/db'
 
-export const create = async (options: { countryIso: CountryIso }, client: BaseProtocol = DB) => {
+export const create = async (options: { countryIso: CountryIso }, client: BaseProtocol = DB): Promise<number> => {
   const { countryIso } = options
   await client.query('INSERT INTO odp (country_iso ) VALUES ($1)', [countryIso])
   const resSelectId = await client.query('SELECT last_value FROM odp_id_seq')

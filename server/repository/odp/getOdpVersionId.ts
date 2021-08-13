@@ -1,8 +1,12 @@
-// TODO: Change client to BaseProtocol = DB
-export const getOdpVersionId = async (options: { odpId: any }, client: any, schemaName = 'public') => {
-  const { odpId } = options
+import { BaseProtocol, DB } from '@server/db'
+
+export const getOdpVersionId = async (
+  options: { odpId: number | string; schemaName?: string },
+  client: BaseProtocol = DB
+): Promise<number> => {
+  const { odpId, schemaName = 'public' } = options
   const tableName = `${schemaName}.odp`
-  const res = await client.query(
+  const [{ version_id: versionId }] = await client.query(
     `
     SELECT
       CASE WHEN draft_id IS NULL
@@ -13,6 +17,5 @@ export const getOdpVersionId = async (options: { odpId: any }, client: any, sche
     WHERE id = $1`,
     [odpId]
   )
-  // TODO: Remove after migration to pg-promise done
-  return (res.rows ? res.rows : res)[0].version_id
+  return versionId
 }

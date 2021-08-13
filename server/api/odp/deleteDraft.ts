@@ -16,8 +16,8 @@ export const OdpDeleteDraft = {
           const { countryIso } = req.query
           await allowedToEditDataCheck(countryIso, req.user, 'extentOfForest')
 
-          const { odpId } = await OdpService.deleteDraft({ odpId: +req.query.odpId, user: req.user as User })
-          const odp = await OdpService.getOdp(odpId)
+          const { odpId } = await OdpService.deleteDraft({ odpId: req.query.odpId as string, user: req.user as User })
+          const odp = await OdpService.getOdp({ odpId })
 
           res.json({ odp })
         } catch (err) {

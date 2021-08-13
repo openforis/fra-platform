@@ -1,7 +1,8 @@
 import * as R from 'ramda'
+import { ODP, ODPValidation } from '@core/odp'
 import { sum, lessThanOrEqualTo } from './bignumberUtils'
 
-export const validateDataPoint = (odp: any) => {
+export const validateDataPoint = (odp: ODP): ODPValidation => {
   const defaultTo0 = R.defaultTo(0)
 
   const validYear = R.pipe(defaultTo0, R.partialRight(R.gt, [0]))(odp.year)
@@ -69,7 +70,7 @@ export const validateDataPoint = (odp: any) => {
   )
 
   return {
-    year: { valid: validYear },
+    year: { valid: !!validYear },
     nationalClasses,
     valid: !(!validYear || R.filter((c: any) => !c.valid, nationalClasses).length !== 0),
   }
