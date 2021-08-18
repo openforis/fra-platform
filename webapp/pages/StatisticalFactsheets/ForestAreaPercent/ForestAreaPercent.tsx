@@ -1,8 +1,8 @@
 import React from 'react'
 import { useI18n } from '@webapp/components/hooks'
-import * as ChartUtils from '../utils/chartUtils'
+import * as ChartUtils from '@webapp/components/Chart/chartUtils'
 import useStatisticalFactsheetsState from '../hooks/useStatisticalFactsheetsState'
-import Chart from '../components/chart'
+import Chart from '../../../components/Chart'
 
 type Props = {
   levelIso: string
@@ -28,10 +28,7 @@ const ForestAreaPercent = (props: Props) => {
         unit: '%',
       },
     ],
-    labels: [
-      i18n.t('statisticalFactsheets.rowName.forest_area'),
-      i18n.t('statisticalFactsheets.rowName.other_area'),
-    ],
+    labels: [i18n.t('statisticalFactsheets.rowName.forest_area'), i18n.t('statisticalFactsheets.rowName.other_area')],
   }
   return (
     <div className="row-s">

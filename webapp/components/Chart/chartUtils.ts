@@ -1,4 +1,6 @@
 import * as R from 'ramda'
+import { i18n } from 'i18next'
+
 import * as NumberUtils from '@common/bignumberUtils'
 import { formatValue } from '@webapp/pages/StatisticalFactsheets/utils/numberUtils'
 
@@ -52,7 +54,7 @@ const preferences = [
   },
 ]
 
-const arrayHasKey = (array: any, key: any) => array.includes(key)
+const arrayHasKey = (array: string[], key: string) => array.includes(key)
 
 const getDatasetAndLabel = (data: any, chartHeads: any, isIsoCountry: any) => {
   const filteredData = Object.fromEntries(
@@ -70,13 +72,12 @@ const getDatasetAndLabel = (data: any, chartHeads: any, isIsoCountry: any) => {
 }
 
 export const getData = (
-  fetchedData: any,
-  chartHeads: any,
-  chartName: any,
-  loaded: any,
-  i18n: any,
-  unit: any,
-  isIsoCountry: any
+  fetchedData: Record<string, any>,
+  chartHeads: string[],
+  loaded: boolean,
+  i18n: i18n,
+  unit: string,
+  isIsoCountry: boolean
 ) => {
   if (!loaded) return {}
 
