@@ -1,11 +1,10 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { Chart } from 'chart.js'
-
+import Chart, { ChartTypeRegistry } from 'chart.js/auto'
 import { useI18n, useOnUpdate } from '@webapp/components/hooks'
 
 type Props = {
-  type: string
-  options: any
+  type: keyof ChartTypeRegistry
+  options: Record<string, any>
   data: any
 }
 
