@@ -1,7 +1,7 @@
 import React from 'react'
 import { useI18n } from '@webapp/components/hooks'
 import * as ChartUtils from '@webapp/components/Chart/chartUtils'
-import Chart from '../../../components/Chart'
+import Chart from '@webapp/components/Chart'
 import useStatisticalFactsheetsState from '../hooks/useStatisticalFactsheetsState'
 import * as APIUtils from '../utils/apiUtils'
 import { getVariableValuesByYear } from '../utils/propUtils'
