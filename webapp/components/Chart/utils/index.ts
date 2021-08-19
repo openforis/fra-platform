@@ -1,3 +1,4 @@
-export { ChartType } from './types'
-export { getOptions } from './getOptions'
-export { getData } from './getData'
+export { ChartType } from './ChartType'
+export { getChartOptions } from './getChartOptions'
+export { getChartData } from './getChartData'
+export { ChartColors } from './ChartColors'

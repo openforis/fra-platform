@@ -1,5 +1,5 @@
 import * as NumberUtils from '@common/bignumberUtils'
-import { ChartType } from './types'
+import { ChartType } from './ChartType'
 
 const commonOptions = {
   maintainAspectRatio: false,
@@ -81,7 +81,7 @@ const _getScaleLabel = (labelString: string) => ({
   labelString,
 })
 
-export const getOptions = (params: { type: ChartType; xAxisLabel?: string; yAxisLabel?: string }) => {
+export const getChartOptions = (params: { type: ChartType; xAxisLabel?: string; yAxisLabel?: string }) => {
   const { type, xAxisLabel = null, yAxisLabel = null } = params
   const options = optionsByType[type]
 

@@ -1,4 +1,4 @@
-export enum colors {
+export enum ChartColors {
   // Greens
   green = 'rgb(0,141,156)',
   darkGreen = 'rgb(0,107,118)',

@@ -1,8 +1,7 @@
 import React from 'react'
 import { useI18n } from '@webapp/components/hooks'
 import Chart from '@webapp/components/Chart'
-import { colors } from '@webapp/components/Chart/utils/colors'
-import { ChartType, getOptions } from '@webapp/components/Chart/utils'
+import { ChartType, getChartOptions, ChartColors } from '@webapp/components/Chart/utils'
 import useStatisticalFactsheetsState from '../hooks/useStatisticalFactsheetsState'
 import * as APIUtils from '../utils/apiUtils'
 import { getVariableValuesByYear } from '../utils/propUtils'
@@ -31,8 +30,8 @@ const PrimaryForest = (props: Props) => {
       {
         data: [primaryForestPercent, otherForestPercent],
         borderWidth: 0,
-        backgroundColor: [colors.green, colors.lightGreen],
-        hoverBackgroundColor: [colors.greenHover, colors.lightGreenHover],
+        backgroundColor: [ChartColors.green, ChartColors.lightGreen],
+        hoverBackgroundColor: [ChartColors.greenHover, ChartColors.lightGreenHover],
         unit: '%',
       },
     ],
@@ -45,7 +44,7 @@ const PrimaryForest = (props: Props) => {
     <div className="row-s">
       <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
       {primaryForestRatio ? (
-        <Chart type="pie" data={chartData} options={getOptions({ type: ChartType.pie })} />
+        <Chart type="pie" data={chartData} options={getChartOptions({ type: ChartType.pie })} />
       ) : (
         <h6 className="header">{i18n.t('statisticalFactsheets.noData')}</h6>
       )}

@@ -1,11 +1,9 @@
 import React from 'react'
 import { Areas } from '@core/country'
-import Chart from '@webapp/components/Chart/Chart'
+import Chart, { ChartType, getChartOptions, ChartColors } from '@webapp/components/Chart'
 import { useI18n } from '@webapp/components/hooks'
-import useStatisticalFactsheetsState from '@webapp/pages/StatisticalFactsheets/hooks/useStatisticalFactsheetsState'
-import { formatValue } from '@webapp/pages/StatisticalFactsheets/utils/numberUtils'
-import { colors } from '@webapp/components/Chart/utils/colors'
-import { ChartType, getOptions } from '@webapp/components/Chart/utils'
+import useStatisticalFactsheetsState from '../hooks/useStatisticalFactsheetsState'
+import { formatValue } from '../utils/numberUtils'
 import { getVariableValuesByYear } from '../utils/propUtils'
 import * as APIUtils from '../utils/apiUtils'
 
@@ -36,9 +34,9 @@ const ForestOwnership = (props: Props) => {
           formatValue(privateOwnership, isIsoCountry),
           formatValue(otherOrUnknown, isIsoCountry),
         ],
-        backgroundColor: [colors.purple, colors.orange, colors.gray],
+        backgroundColor: [ChartColors.purple, ChartColors.orange, ChartColors.gray],
         borderWidth: 0,
-        hoverBackgroundColor: [colors.purpleHover, colors.orangeHover, colors.grayHover],
+        hoverBackgroundColor: [ChartColors.purpleHover, ChartColors.orangeHover, ChartColors.grayHover],
         unit,
       },
     ],
@@ -52,7 +50,7 @@ const ForestOwnership = (props: Props) => {
     <div className="row-s">
       <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
       {privateOwnership && publicOwnership && otherOrUnknown ? (
-        <Chart type="pie" data={chartData} options={getOptions({ type: ChartType.pie })} />
+        <Chart type="pie" data={chartData} options={getChartOptions({ type: ChartType.pie })} />
       ) : (
         <h6 className="header">{i18n.t('statisticalFactsheets.noData')}</h6>
       )}

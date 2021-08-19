@@ -1,6 +1,6 @@
 import { i18n } from 'i18next'
 import { formatValue } from '@webapp/pages/StatisticalFactsheets/utils/numberUtils'
-import { colors } from './colors'
+import { ChartColors } from './ChartColors'
 
 const commonPreferences = {
   borderWidth: 0,
@@ -8,16 +8,16 @@ const commonPreferences = {
 const preferences: Record<string, number | string>[] = [
   {
     ...commonPreferences,
-    backgroundColor: colors.green,
-    borderColor: colors.darkGreen,
-    hoverBackgroundColor: colors.greenHover,
-    hoverBorderColor: colors.darkGreenHover,
+    backgroundColor: ChartColors.green,
+    borderColor: ChartColors.darkGreen,
+    hoverBackgroundColor: ChartColors.greenHover,
+    hoverBorderColor: ChartColors.darkGreenHover,
   },
   {
-    backgroundColor: colors.orange,
-    borderColor: colors.darkOrange,
-    hoverBackgroundColor: colors.orangeHover,
-    hoverBorderColor: colors.darkOrange,
+    backgroundColor: ChartColors.orange,
+    borderColor: ChartColors.darkOrange,
+    hoverBackgroundColor: ChartColors.orangeHover,
+    hoverBorderColor: ChartColors.darkOrange,
   },
 ]
 const arrayHasKey = (array: string[], key: string) => array.includes(key)
@@ -35,7 +35,7 @@ const getDatasetAndLabel = (data: Record<string, string | number>, chartHeads: s
     label: filteredData.rowName,
   }
 }
-export const getData = (
+export const getChartData = (
   fetchedData: Record<string, number>[] | undefined,
   chartHeads: string[],
   loaded: boolean,

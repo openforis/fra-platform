@@ -1,8 +1,6 @@
 import React from 'react'
 import { useI18n } from '@webapp/components/hooks'
-import Chart from '@webapp/components/Chart'
-import { colors } from '@webapp/components/Chart/utils/colors'
-import { ChartType, getOptions } from '@webapp/components/Chart/utils'
+import Chart, { ChartType, getChartOptions, ChartColors } from '@webapp/components/Chart'
 import useStatisticalFactsheetsState from '../hooks/useStatisticalFactsheetsState'
 
 type Props = {
@@ -24,8 +22,8 @@ const ForestAreaPercent = (props: Props) => {
       {
         data: [forestAreaAsPercentage, 100 - forestAreaAsPercentage],
         borderWidth: 0,
-        backgroundColor: [colors.green, colors.gray],
-        hoverBackgroundColor: [colors.greenHover, colors.grayHover],
+        backgroundColor: [ChartColors.green, ChartColors.gray],
+        hoverBackgroundColor: [ChartColors.greenHover, ChartColors.grayHover],
         unit: '%',
       },
     ],
@@ -34,7 +32,7 @@ const ForestAreaPercent = (props: Props) => {
   return (
     <div className="row-s">
       <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
-      <Chart type="pie" data={chartData} options={getOptions({ type: ChartType.pie })} />
+      <Chart type="pie" data={chartData} options={getChartOptions({ type: ChartType.pie })} />
     </div>
   )
 }
