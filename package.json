@@ -210,6 +210,6 @@
     }
   },
   "lint-staged": {
-    "webapp/**/*.js": "eslint --cache --fix"
+    "**/*.{ts,tsx}": ["eslint --cache --fix --rule 'no-console:2' ", "prettier --write"]
   }
 }
