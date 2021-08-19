@@ -1,4 +1,4 @@
-export const formatValue = (value: any, isIsoCountry: boolean, rowName = '') => {
+export const formatValue = (value: number, isIsoCountry: boolean, rowName = '') => {
   if (isIsoCountry) {
     return value
   }
