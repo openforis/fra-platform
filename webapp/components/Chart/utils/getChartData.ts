@@ -1,5 +1,7 @@
 import { i18n } from 'i18next'
 import { formatValue } from '@webapp/pages/StatisticalFactsheets/utils/numberUtils'
+import { ChartData, DefaultDataPoint } from 'chart.js'
+import { ChartTypeRegistry } from 'chart.js/auto'
 import { ChartColors } from './ChartColors'
 
 const commonPreferences = {
@@ -20,14 +22,20 @@ const preferences: Record<string, number | string>[] = [
     hoverBorderColor: ChartColors.darkOrange,
   },
 ]
-const arrayHasKey = (array: string[], key: string) => array.includes(key)
-const getDatasetAndLabel = (data: Record<string, string | number>, chartHeads: string[], isIsoCountry: boolean) => {
+const arrayHasKey = (array: string[], key: string): boolean => array.includes(key)
+const getDatasetAndLabel = (
+  data: Record<string, string | number>,
+  chartHeads: string[],
+  isIsoCountry: boolean
+): {
+  data: (string | number)[]
+  label: string | number
+} => {
   const filteredData = Object.fromEntries(
     Object.entries(data)
       // Filter away values not needed / check they exist in chartHeads, save rowName for label
       .filter(([key, _]) => arrayHasKey([...chartHeads, 'rowName'], key))
   )
-
   return {
     data: Object.entries(filteredData)
       .filter(([key, _]) => arrayHasKey(chartHeads, key))
@@ -35,6 +43,7 @@ const getDatasetAndLabel = (data: Record<string, string | number>, chartHeads: s
     label: filteredData.rowName,
   }
 }
+
 export const getChartData = (
   fetchedData: Record<string, number>[] | undefined,
   chartHeads: string[],
@@ -42,7 +51,7 @@ export const getChartData = (
   i18n: i18n,
   unit: string,
   isIsoCountry: boolean
-) => {
+): ChartData<keyof ChartTypeRegistry, DefaultDataPoint<keyof ChartTypeRegistry>, unknown> | Record<string, unknown> => {
   if (!loaded) return {}
 
   const datasets = fetchedData

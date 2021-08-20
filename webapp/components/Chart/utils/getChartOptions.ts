@@ -1,5 +1,6 @@
 import * as NumberUtils from '@common/bignumberUtils'
-import { ChartData /* ChartTooltipItem */ } from 'chart.js'
+import { ChartData, ChartOptions /* ChartTooltipItem */ } from 'chart.js'
+import { ChartTypeRegistry } from 'chart.js/auto'
 import { ChartType } from './ChartType'
 
 // chart.js has no export for ChartTooltipItem
@@ -89,7 +90,7 @@ const optionsByType = {
   },
 }
 
-const _getScaleLabel = (labelString: string) => ({
+const _getScaleLabel = (labelString: string): Record<string, string | number | boolean> => ({
   display: true,
   fontFamily: `'Open Sans', sans-serif`,
   fontSize: 11,
@@ -97,7 +98,11 @@ const _getScaleLabel = (labelString: string) => ({
   labelString,
 })
 
-export const getChartOptions = (params: { type: ChartType; xAxisLabel?: string; yAxisLabel?: string }) => {
+export const getChartOptions = (params: {
+  type: ChartType
+  xAxisLabel?: string
+  yAxisLabel?: string
+}): ChartOptions<keyof ChartTypeRegistry> | Record<string, unknown> => {
   const { type, xAxisLabel = null, yAxisLabel = null } = params
   const options = optionsByType[type]
 
