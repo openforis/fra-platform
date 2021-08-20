@@ -1,5 +1,18 @@
 import * as NumberUtils from '@common/bignumberUtils'
+import { ChartData /* ChartTooltipItem */ } from 'chart.js'
 import { ChartType } from './ChartType'
+
+// chart.js has no export for ChartTooltipItem
+interface ChartTooltipItem {
+  label?: string | undefined
+  value?: string | undefined
+  xLabel?: string | number | undefined
+  yLabel?: string | number | undefined
+  datasetIndex?: number | undefined
+  index?: number | undefined
+  x?: number | undefined
+  y?: number | undefined
+}
 
 const commonOptions = {
   maintainAspectRatio: false,
@@ -21,13 +34,16 @@ const commonOptions = {
     bodyFontSize: 13,
     bodySpacing: 6,
     callbacks: {
-      label: (tooltipItem: Record<string, string | number>, data: any) => {
+      label: (tooltipItem: ChartTooltipItem, data: ChartData) => {
         const { datasetIndex, index } = tooltipItem
         const { datasets, labels } = data
         const dataset = datasets[datasetIndex]
         return dataset.label || labels[index]
       },
-      afterLabel: (tooltipItem: Record<string, string | number>, data: any) => {
+      afterLabel: (
+        tooltipItem: ChartTooltipItem,
+        data: { datasets: { data: number[] | string[]; unit: string }[] }
+      ) => {
         const { datasetIndex, index } = tooltipItem
         const { datasets } = data
         const dataset = datasets[datasetIndex]
