@@ -5,7 +5,7 @@ import FraTableExporter from './fraTableExporter'
 
 class DataTableExporter extends FraTableExporter {
   fetchData(countryIso: any) {
-    return DataTableService.read(countryIso, this.tableName)
+    return DataTableService.read({ countryIso, tableSpecName: this.tableName })
   }
 
   parseResultRow(result: any, yearIdx: any, _year?: any, _x?: any) {

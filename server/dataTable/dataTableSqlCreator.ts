@@ -28,7 +28,7 @@ export function getMapping(tableSpecName: any): { [key: string]: any } {
   return tableMappings.getMapping(tableSpecName)
 }
 
-export const createSelect = (countryIso: any, tableSpecName: any, schemaName = 'public') => {
+export const createSelect = (countryIso: any, tableSpecName: any, schemaName = 'public'): [string, string[]] => {
   const mapping = getMapping(tableSpecName)
   return [
     `SELECT ${createColumnNames(mapping)} FROM ${schemaName}.${mapping.tableName} WHERE country_iso = $1`,
@@ -36,7 +36,7 @@ export const createSelect = (countryIso: any, tableSpecName: any, schemaName = '
   ]
 }
 
-export const createDelete = (countryIso: any, tableSpecName: any) => {
+export const createDelete = (countryIso: any, tableSpecName: any): [string, string[]] => {
   const mapping = getMapping(tableSpecName)
   return [`DELETE FROM ${mapping.tableName} WHERE country_iso = $1;`, [countryIso]]
 }

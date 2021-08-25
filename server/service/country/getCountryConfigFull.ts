@@ -1,9 +1,10 @@
 import { DataTableService, CountryService } from '@server/service'
+import { CountryIso } from '@core/country'
 
-export const getCountryConfigFull = async (countryIso: string, schemaName = 'public') => {
+export const getCountryConfigFull = async (countryIso: CountryIso, schemaName = 'public') => {
   const [config, result] = await Promise.all([
     CountryService.getCountryConfig(countryIso, schemaName),
-    DataTableService.read(countryIso, 'climaticDomain', schemaName),
+    DataTableService.read({ countryIso, tableSpecName: 'climaticDomain', schemaName }),
   ])
 
   const climaticDomainPercents = {

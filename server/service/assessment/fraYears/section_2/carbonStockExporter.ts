@@ -23,8 +23,8 @@ class CarbonStockExporter extends DataTableExporter {
 
   fetchData(countryIso: any) {
     return Promise.all([
-      DataTableService.read(countryIso, this.tableName),
-      DataTableService.read(countryIso, 'carbonStockSoilDepth'),
+      DataTableService.read({ countryIso, tableSpecName: this.tableName }),
+      DataTableService.read({ countryIso, tableSpecName: 'carbonStockSoilDepth' }),
     ])
   }
 
