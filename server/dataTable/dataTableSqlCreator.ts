@@ -36,7 +36,7 @@ export const createSelect = (countryIso: any, tableSpecName: any, schemaName = '
   ]
 }
 
-export const createDelete = (countryIso: any, tableSpecName: any) => {
+export const createDelete = (countryIso: any, tableSpecName: any): [string, string[]] => {
   const mapping = getMapping(tableSpecName)
   return [`DELETE FROM ${mapping.tableName} WHERE country_iso = $1;`, [countryIso]]
 }

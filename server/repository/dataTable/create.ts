@@ -2,8 +2,20 @@ import * as tableMappings from '@server/dataTable/tableMappings'
 import { allowedToEditDataCheck } from '@server/assessment/assessmentEditAccessControl'
 import * as sqlCreator from '@server/dataTable/dataTableSqlCreator'
 import * as auditRepository from '@server/repository/audit/auditRepository'
+import { CountryIso } from '@core/country'
+import { User } from '@core/auth'
+import { BaseProtocol, DB } from '@server/db'
 
-export const create = async (client: any, user: any, countryIso: any, tableSpecName: any, tableData: any) => {
+export const create = async (
+  params: {
+    countryIso: CountryIso
+    user: User
+    tableSpecName: string
+    tableData: Array<Array<string | null>>
+  },
+  client: BaseProtocol = DB
+): Promise<void> => {
+  const { countryIso, user, tableSpecName, tableData } = params
   const mapping = tableMappings.getMapping(tableSpecName)
   // TODO : check section existence
   // @ts-ignore
@@ -15,8 +27,10 @@ export const create = async (client: any, user: any, countryIso: any, tableSpecN
   await auditRepository.insertAudit(client, user.id, 'saveTraditionalTable', countryIso, section)
   const insertQueries: any[] = sqlCreator.createInserts(countryIso, tableSpecName, tableData)
 
-  await client.query(deleteQuery, deleteQyeryParams)
-  insertQueries.forEach(([queryString, params]) => {
-    client.query(queryString, params)
+  await client.tx(async (t) => {
+    await t.query(deleteQuery, deleteQyeryParams)
+    insertQueries.forEach(([queryString, params]) => {
+      t.query(queryString, params)
+    })
   })
 }
