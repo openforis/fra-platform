@@ -6,6 +6,7 @@ import { ApiEndPoint } from '@common/api/endpoint'
 import * as VersionService from '@server/service/versioning/service'
 import { Requests } from '@server/utils'
 import { DataTableService } from '@server/service'
+import { CountryIso } from '@core/country'
 
 export const DataTableRead = {
   init: (express: Express): void => {
@@ -16,7 +17,9 @@ export const DataTableRead = {
         } = req
         const schemaName =
           assessmentType === AssessmentType.panEuropean ? 'pan_european' : await VersionService.getDatabaseSchema(req)
-        const result = await DataTableService.read(countryIso, tableSpecName, schemaName)
+
+        const result = await DataTableService.read({ countryIso: countryIso as CountryIso, tableSpecName, schemaName })
+
         res.json(result)
       } catch (err) {
         Requests.sendErr(res, err)

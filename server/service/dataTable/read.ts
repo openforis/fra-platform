@@ -2,6 +2,8 @@ import { DataTableRepository } from '@server/repository'
 import * as tableMappings from '@server/dataTable/tableMappings'
 import * as R from 'ramda'
 import * as sqlCreator from '@server/dataTable/dataTableSqlCreator'
+import { CountryIso } from '@core/country'
+import { BaseProtocol, DB } from '@server/db'
 
 const update = (tableValues: any, rowIdx: any, colIdx: any, newValue: any) =>
   R.update(rowIdx, R.update(colIdx, newValue, tableValues[rowIdx]), tableValues)
@@ -19,10 +21,14 @@ const handleRow = (mapping: any) => (tableData: any, row: any) => {
   )
 }
 
-export const read = async (countryIso: any, tableSpecName: any, schemaName = 'public') => {
-  const rows = await DataTableRepository.read(countryIso, tableSpecName, schemaName)
-  // if (rows === null) return null
+export const read = async (
+  params: { countryIso: CountryIso; tableSpecName: string; schemaName?: string },
+  client: BaseProtocol = DB
+) => {
+  const { countryIso, tableSpecName, schemaName = 'public' } = params
+  const rows = await DataTableRepository.read({ countryIso, tableSpecName, schemaName }, client)
   const mapping = tableMappings.getMapping(tableSpecName)
   const emptyTableData = createTableData(mapping.getFullColumnCount(), mapping.getFullRowCount())
-  return R.reduce(handleRow(mapping), emptyTableData, rows)
+
+  return rows.reduce(handleRow(mapping), emptyTableData)
 }

@@ -24,8 +24,8 @@ class DesignatedManagementObjectiveExporter extends DataTableExporter {
 
   fetchData(countryIso: any) {
     return Promise.all([
-      DataTableService.read(countryIso, this.tableName),
-      DataTableService.read(countryIso, 'totalAreaWithDesignatedManagementObjective'),
+      DataTableService.read({ countryIso, tableSpecName: this.tableName }),
+      DataTableService.read({ countryIso, tableSpecName: 'totalAreaWithDesignatedManagementObjective' }),
     ])
   }
 

@@ -1,9 +1,15 @@
 import * as sqlCreator from '@server/dataTable/dataTableSqlCreator'
-import * as db from '@server/db/db_deprecated'
+import { CountryIso } from '@core/country'
+import { BaseProtocol, DB } from '@server/db'
 
-export const read = async (countryIso: any, tableSpecName: any, schemaName = 'public') => {
-  const [selectQuery, selectParams] = sqlCreator.createSelect(countryIso, tableSpecName, schemaName) as any[]
-  const result = await db.pool.query(selectQuery, selectParams)
-  if (result.rowCount === 0) return []
-  return result.rows
+export const read = async (
+  params: { countryIso: CountryIso; tableSpecName: string; schemaName: string },
+  client: BaseProtocol = DB
+) => {
+  const { countryIso, tableSpecName, schemaName = 'public' } = params
+
+  const [selectQuery, selectParams] = sqlCreator.createSelect(countryIso, tableSpecName, schemaName)
+  const result = await client.query(selectQuery, selectParams)
+  if (result.len === 0) return []
+  return result
 }
