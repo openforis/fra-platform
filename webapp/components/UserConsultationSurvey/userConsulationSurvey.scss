@@ -21,8 +21,12 @@
   justify-items: center;
   grid-row-gap: $spacing-m;
   width: 70vw;
-  padding: $spacing-m;
+  padding: $spacing-xxs;
   background-color: rgba($ui-accent-light, 0.9);
+
+  @include min-width($laptop) {
+    padding: $spacing-m;
+  }
 
   .fra-checkbox:not(.checked) {
     background-color: white;
@@ -48,8 +52,12 @@
 
 .uc-survey__btns {
   display: grid;
-  grid-template-columns: repeat(2, auto);
   grid-column-gap: $spacing-s;
+  grid-row-gap: $spacing-s;
+
+  @include min-width($laptop) {
+    grid-template-columns: repeat(3, auto);
+  }
 
   button {
     min-width: 90px;
