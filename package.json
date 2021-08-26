@@ -203,13 +203,16 @@
   "browserslist": [
     "last 2 versions"
   ],
-  "version": "2.5.1",
+  "version": "2.5.2",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
-    "**/*.{ts,tsx}": ["eslint --cache --fix --rule 'no-console:2' ", "prettier --write"]
+    "**/*.{ts,tsx}": [
+      "eslint --cache --fix --rule 'no-console:2' ",
+      "prettier --write"
+    ]
   }
 }
