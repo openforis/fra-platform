@@ -1,9 +1,8 @@
 import React from 'react'
 import { Areas } from '@core/country'
 import { useI18n } from '@webapp/components/hooks'
-import * as ChartUtils from '../utils/chartUtils'
+import Chart, { ChartType, getChartData, getChartOptions } from '@webapp/components/Chart'
 import useStatisticalFactsheetsState from '../hooks/useStatisticalFactsheetsState'
-import Chart from '../components/chart'
 
 type Props = {
   levelIso: string
@@ -22,9 +21,9 @@ const ForestArea = (props: Props) => {
       {loaded && (
         <Chart
           type="bar"
-          data={ChartUtils.getData(data, chartHeads, section, loaded, i18n, unit, isIsoCountry)}
-          options={ChartUtils.getOptions({
-            type: ChartUtils.types.bar,
+          data={getChartData(data, chartHeads, loaded, i18n, unit, isIsoCountry)}
+          options={getChartOptions({
+            type: ChartType.bar,
             xAxisLabel: i18n.t('common.year'),
             yAxisLabel: unit,
           })}

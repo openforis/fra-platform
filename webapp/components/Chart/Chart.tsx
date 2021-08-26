@@ -1,12 +1,12 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { Chart } from 'chart.js'
-
+import Chart, { ChartTypeRegistry } from 'chart.js/auto'
 import { useI18n, useOnUpdate } from '@webapp/components/hooks'
+import { ChartData, ChartOptions, DefaultDataPoint } from 'chart.js'
 
 type Props = {
-  type: string
-  options: any
-  data: any
+  type: keyof ChartTypeRegistry
+  options: ChartOptions<keyof ChartTypeRegistry>
+  data: ChartData<keyof ChartTypeRegistry, DefaultDataPoint<keyof ChartTypeRegistry>, unknown>
 }
 
 const ChartComponent = (props: Props) => {

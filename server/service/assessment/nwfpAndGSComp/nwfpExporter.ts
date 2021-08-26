@@ -8,7 +8,10 @@ export const fields = ['product', 'name', 'key_species', 'quantity', 'unit', 'va
 
 export const getCountryData = async (country: any) => {
   const result = []
-  const data = await DataTableService.read(country.countryIso, 'nonWoodForestProductsRemovals')
+  const data = await DataTableService.read({
+    countryIso: country.countryIso,
+    tableSpecName: 'nonWoodForestProductsRemovals',
+  })
 
   // @ts-ignore
   const getColValue = (row: any, col: any) => R.pipe(R.defaultTo([]), R.prop(row), R.defaultTo([]), R.prop(col))(data)

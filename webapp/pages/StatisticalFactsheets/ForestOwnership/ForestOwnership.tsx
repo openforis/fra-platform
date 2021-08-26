@@ -1,10 +1,9 @@
 import React from 'react'
 import { Areas } from '@core/country'
-import Chart from '@webapp/pages/StatisticalFactsheets/components/chart/Chart'
-import * as ChartUtils from '@webapp/pages/StatisticalFactsheets/utils/chartUtils'
+import Chart, { ChartType, getChartOptions, ChartColors } from '@webapp/components/Chart'
 import { useI18n } from '@webapp/components/hooks'
-import useStatisticalFactsheetsState from '@webapp/pages/StatisticalFactsheets/hooks/useStatisticalFactsheetsState'
-import { formatValue } from '@webapp/pages/StatisticalFactsheets/utils/numberUtils'
+import useStatisticalFactsheetsState from '../hooks/useStatisticalFactsheetsState'
+import { formatValue } from '../utils/numberUtils'
 import { getVariableValuesByYear } from '../utils/propUtils'
 import * as APIUtils from '../utils/apiUtils'
 
@@ -35,13 +34,9 @@ const ForestOwnership = (props: Props) => {
           formatValue(privateOwnership, isIsoCountry),
           formatValue(otherOrUnknown, isIsoCountry),
         ],
-        backgroundColor: [ChartUtils.colors.purple, ChartUtils.colors.orange, ChartUtils.colors.gray],
+        backgroundColor: [ChartColors.purple, ChartColors.orange, ChartColors.gray],
         borderWidth: 0,
-        hoverBackgroundColor: [
-          ChartUtils.colors.purpleHover,
-          ChartUtils.colors.orangeHover,
-          ChartUtils.colors.grayHover,
-        ],
+        hoverBackgroundColor: [ChartColors.purpleHover, ChartColors.orangeHover, ChartColors.grayHover],
         unit,
       },
     ],
@@ -55,7 +50,7 @@ const ForestOwnership = (props: Props) => {
     <div className="row-s">
       <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
       {privateOwnership && publicOwnership && otherOrUnknown ? (
-        <Chart type="pie" data={chartData} options={ChartUtils.getOptions({ type: ChartUtils.types.pie })} />
+        <Chart type="pie" data={chartData} options={getChartOptions({ type: ChartType.pie })} />
       ) : (
         <h6 className="header">{i18n.t('statisticalFactsheets.noData')}</h6>
       )}

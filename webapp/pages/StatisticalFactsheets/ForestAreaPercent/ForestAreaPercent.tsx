@@ -1,8 +1,7 @@
 import React from 'react'
 import { useI18n } from '@webapp/components/hooks'
-import * as ChartUtils from '../utils/chartUtils'
+import Chart, { ChartType, getChartOptions, ChartColors } from '@webapp/components/Chart'
 import useStatisticalFactsheetsState from '../hooks/useStatisticalFactsheetsState'
-import Chart from '../components/chart'
 
 type Props = {
   levelIso: string
@@ -23,20 +22,17 @@ const ForestAreaPercent = (props: Props) => {
       {
         data: [forestAreaAsPercentage, 100 - forestAreaAsPercentage],
         borderWidth: 0,
-        backgroundColor: [ChartUtils.colors.green, ChartUtils.colors.gray],
-        hoverBackgroundColor: [ChartUtils.colors.greenHover, ChartUtils.colors.grayHover],
+        backgroundColor: [ChartColors.green, ChartColors.gray],
+        hoverBackgroundColor: [ChartColors.greenHover, ChartColors.grayHover],
         unit: '%',
       },
     ],
-    labels: [
-      i18n.t('statisticalFactsheets.rowName.forest_area'),
-      i18n.t('statisticalFactsheets.rowName.other_area'),
-    ],
+    labels: [i18n.t('statisticalFactsheets.rowName.forest_area'), i18n.t('statisticalFactsheets.rowName.other_area')],
   }
   return (
     <div className="row-s">
       <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
-      <Chart type="pie" data={chartData} options={ChartUtils.getOptions({ type: ChartUtils.types.pie })} />
+      <Chart type="pie" data={chartData} options={getChartOptions({ type: ChartType.pie })} />
     </div>
   )
 }

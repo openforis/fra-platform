@@ -1,9 +1,8 @@
 import React from 'react'
 import { useI18n } from '@webapp/components/hooks'
-import Chart from '../components/chart'
+import Chart, { ChartType, getChartOptions, ChartColors } from '@webapp/components/Chart'
 import useStatisticalFactsheetsState from '../hooks/useStatisticalFactsheetsState'
 import * as APIUtils from '../utils/apiUtils'
-import * as ChartUtils from '../utils/chartUtils'
 import { getVariableValuesByYear } from '../utils/propUtils'
 
 type Props = {
@@ -29,8 +28,8 @@ const ForestAreaWithinProtectedAreas = (props: Props) => {
       {
         data: [100 - forestAreaWithinProtectedAreasAsPercentage, forestAreaWithinProtectedAreasAsPercentage],
         borderWidth: 0,
-        backgroundColor: [ChartUtils.colors.green, ChartUtils.colors.lightGreen],
-        hoverBackgroundColor: [ChartUtils.colors.greenHover, ChartUtils.colors.lightGreenHover],
+        backgroundColor: [ChartColors.green, ChartColors.lightGreen],
+        hoverBackgroundColor: [ChartColors.greenHover, ChartColors.lightGreenHover],
         unit: '%',
       },
     ],
@@ -44,7 +43,7 @@ const ForestAreaWithinProtectedAreas = (props: Props) => {
     <div className="row-s">
       <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
       {forestAreaWithinProtectedAreas && forestArea ? (
-        <Chart type="pie" data={chartData} options={ChartUtils.getOptions({ type: ChartUtils.types.pie })} />
+        <Chart type="pie" data={chartData} options={getChartOptions({ type: ChartType.pie })} />
       ) : (
         <h6 className="header">{i18n.t('statisticalFactsheets.noData')}</h6>
       )}

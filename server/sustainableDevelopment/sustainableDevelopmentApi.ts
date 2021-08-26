@@ -15,7 +15,7 @@ import * as VersionService from '../service/versioning/service'
 // This can be used when you need programmatical access to the data
 // outside of the automated traditionalTable FW (in other views or calculations)
 export const readObject = async (countryIso: any, tableSpecName: any, schemaName = 'public') => {
-  const rows = await read(countryIso, tableSpecName, schemaName)
+  const rows = await read({ countryIso, tableSpecName, schemaName })
   if (rows === null) return null
   return R.pipe(
     R.values,
