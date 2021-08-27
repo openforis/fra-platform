@@ -3,10 +3,10 @@ import { User, UserRole } from '@core/auth/user'
 import { Role } from './role'
 
 const isAdministrator = (userInfo: User): boolean =>
-  Boolean(userInfo.roles.find((userRole) => userRole.role === Role.administrator))
+  Boolean(userInfo?.roles.find((userRole) => userRole.role === Role.administrator))
 
 const getCountryRoles = (userInfo: User, countryIso: string): Array<UserRole> =>
-  userInfo.roles.filter((role) => role.countryIso === countryIso)
+  userInfo?.roles.filter((role) => role.countryIso === countryIso)
 
 const getCountryRole = (userInfo: User, countryIso: string): Role => {
   if (!userInfo) return Role.noRole
