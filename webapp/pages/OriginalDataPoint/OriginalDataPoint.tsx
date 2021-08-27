@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 
 import { ODP } from '@core/odp'
-import { batchActions } from '@webapp/main/reduxBatch'
+import { batchActions } from '@webapp/store/reduxBatch'
 import { useCountryIso, useI18n } from '@webapp/components/hooks'
 import * as CountryState from '@webapp/app/country/countryState'
 import * as FraState from '@webapp/app/assessment/fra/fraState'

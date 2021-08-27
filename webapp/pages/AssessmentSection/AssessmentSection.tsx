@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router'
 
 import { AssessmentType } from '@core/assessment'
-import { batchActions } from '@webapp/main/reduxBatch'
+import { batchActions } from '@webapp/store/reduxBatch'
 import { documentScrollTo } from '@webapp/utils/domUtils'
 import { fetchTableData } from '@webapp/components/Assessment/DataTable/actions'
 import { fetchLastSectionUpdateTimestamp, resetSectionUpdateTimestamp } from '@webapp/app/components/audit/actions'

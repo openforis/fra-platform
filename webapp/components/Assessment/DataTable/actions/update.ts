@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 import FRAUtils from '@common/fraUtils'
 
-import { batchActions } from '@webapp/main/reduxBatch'
+import { batchActions } from '@webapp/store/reduxBatch'
 import * as autosave from '@webapp/app/components/autosave/actions'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'

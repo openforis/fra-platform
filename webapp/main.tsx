@@ -5,11 +5,11 @@ import '@webapp/utils/polyfill/polyfill'
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 
+import { Provider } from 'react-redux'
 import PageRoutes from './pages/PageRoutes'
-import store from './main/store'
+import store from './store/store'
 
 const Main = () => {
   ReactDOM.render(
