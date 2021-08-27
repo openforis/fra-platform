@@ -1,11 +1,22 @@
 pull_request_rules:
-  - name: Automatic merge on approval
+  - name: Automatic merge all but production
     conditions:
-      - "#approved-reviews-by>=1"
+      - and:
+        - "#approved-reviews-by>=1"
+        - base!=production"
     actions:
       merge:
         method: squash
         strict: smart+fasttrack
+  - name: Automatic merge production
+    conditions:
+      - and:
+        - "#approved-reviews-by>=1"
+        - base=production"
+    actions:
+      merge:
+        method: merge
+        strict: smart+fasttrack        
   - name: automatic branch update
     conditions:
       - -conflict # skip PRs with conflicts
