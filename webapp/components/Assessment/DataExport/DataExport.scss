@@ -8,39 +8,79 @@
 
 .export__form {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  overflow-y: hidden;
+  grid-row-gap: $spacing-xs;
+
+  @include min-width($laptop) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-row-gap: unset;
+    overflow-y: hidden;
+  }
 }
 
 .export__form-section {
-  overflow: hidden;
   display: grid;
-  grid-template-rows: 50px 30px 1fr;
+  grid-row-gap: $spacing-xxxs;
+  position: relative;
+
+  @include min-width($laptop) {
+    overflow: hidden;
+    grid-template-rows: 50px 30px 1fr;
+    grid-row-gap: unset;
+  }
 
   &.export-select-all {
-    grid-template-rows: 50px 29px 1px 1fr;
+    @include min-width($laptop) {
+      grid-template-rows: 50px 29px 1px 1fr;
+    }
 
     .btn-all {
       justify-self: start;
+      position: absolute;
+      right: 0;
+      top: 0;
+
+      @include min-width($laptop) {
+        position: unset;
+      }
     }
   }
 
   &:not(:last-child) {
-    border-right: 1px solid $ui-border-light;
+    @include min-width($laptop) {
+      border-right: 1px solid $ui-border-light;
+    }
   }
 
   .divider {
     border-bottom: 1px solid $ui-border-light;
+  }
+
+  select {
+    border: 1px solid $ui-border;
+    width: 100%;
+    background-color: white;
+  }
+
+  option {
+    color: $text-body;
   }
 }
 
 .export__form-section-header {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+
+  @include min-width($laptop) {
+    justify-content: space-evenly;
+  }
 
   .text-input {
-    padding: 3px 9px;
+    padding: $spacing-xxxs $spacing-xxs;
+    margin-left: $spacing-xxs;
+
+    @include min-width($laptop) {
+      margin-left: unset;
+    }
   }
 }
 
@@ -52,4 +92,14 @@
   height: auto;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+// rtl
+body.rtl {
+  .export__form-section {
+    .btn-all {
+      left: 0;
+      right: unset;
+    }
+  }
 }

@@ -1,16 +1,13 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
+import MediaQuery from 'react-responsive'
 
 import { Areas, Country } from '@core/country'
 import { Functions, Strings } from '@core/utils'
 import { useI18n, useParamSection } from '@webapp/components/hooks'
 import { useAssessmentType } from '@webapp/store/app'
-import {
-  DataExportAction,
-  DataExportSelection,
-  useDataExportCountries,
-  useDataExportSelection,
-} from '@webapp/store/page/dataExport'
+import { DataExportAction, useDataExportCountries, useDataExportSelection } from '@webapp/store/page/dataExport'
+import { Breakpoints } from '@webapp/utils/breakpoints'
 
 import ButtonCheckBox from '@webapp/components/buttonCheckBox'
 
@@ -48,6 +45,10 @@ const CountrySelect: React.FC = () => {
 
   const filterCountriesThrottle = useCallback(Functions.throttle(filterCountries, 250, { trailing: true }), [countries])
 
+  const updateSelection = (countryISOs: Array<string>): void => {
+    dispatch(DataExportAction.updateSelection({ assessmentSection, selection: { ...selection, countryISOs } }))
+  }
+
   useEffect(filterCountries, [countries])
 
   return (
@@ -70,36 +71,60 @@ const CountrySelect: React.FC = () => {
         onClick={() => {
           const countryISOs: Array<string> =
             selection.countryISOs.length > 0 ? [] : countries.map((country) => country.countryIso)
-          dispatch(DataExportAction.updateSelection({ assessmentSection, selection: { ...selection, countryISOs } }))
+          updateSelection(countryISOs)
         }}
       />
 
-      <div className="divider" />
+      <MediaQuery maxWidth={Breakpoints.laptop - 1}>
+        <select
+          multiple
+          size={5}
+          value={selection.countryISOs}
+          onChange={(event) => {
+            const countryISOsUpdate = Array.from(event.target.selectedOptions, (option) => option.value)
+            updateSelection(countryISOsUpdate)
+          }}
+        >
+          {countriesFiltered.map((country: Country) => {
+            const { countryIso } = country
+            const selected = selection.countryISOs.includes(countryIso)
+            return (
+              <option key={countryIso} selected={selected} value={countryIso}>
+                {Areas.getListName(countryIso, i18n)}
+              </option>
+            )
+          })}
+        </select>
+      </MediaQuery>
 
-      <div className="export__form-section-variables">
-        {countriesFiltered.map((country: Country) => {
-          const { countryIso } = country
-          const selected = selection.countryISOs.includes(countryIso)
+      <MediaQuery minWidth={Breakpoints.laptop}>
+        <>
+          <div className="divider" />
+          <div className="export__form-section-variables">
+            {countriesFiltered.map((country: Country) => {
+              const { countryIso } = country
+              const selected = selection.countryISOs.includes(countryIso)
 
-          return (
-            <ButtonCheckBox
-              key={country.countryIso}
-              checked={selected}
-              label={Areas.getListName(countryIso, i18n)}
-              suffix={getDeskStudyLabel(country)}
-              onClick={() => {
-                const { countryISOs } = selection
+              return (
+                <ButtonCheckBox
+                  key={countryIso}
+                  checked={selected}
+                  label={Areas.getListName(countryIso, i18n)}
+                  suffix={getDeskStudyLabel(country)}
+                  onClick={() => {
+                    const { countryISOs } = selection
 
-                if (selected) countryISOs.splice(selection.countryISOs.indexOf(countryIso), 1)
-                else countryISOs.push(countryIso)
+                    if (selected) countryISOs.splice(selection.countryISOs.indexOf(countryIso), 1)
+                    else countryISOs.push(countryIso)
 
-                const selectionUpdate: DataExportSelection = { ...selection, countryISOs }
-                dispatch(DataExportAction.updateSelection({ assessmentSection, selection: selectionUpdate }))
-              }}
-            />
-          )
-        })}
-      </div>
+                    updateSelection(countryISOs)
+                  }}
+                />
+              )
+            })}
+          </div>
+        </>
+      </MediaQuery>
     </div>
   )
 }
