@@ -86,9 +86,8 @@ const CountrySelect: React.FC = () => {
         >
           {countriesFiltered.map((country: Country) => {
             const { countryIso } = country
-            const selected = selection.countryISOs.includes(countryIso)
             return (
-              <option key={countryIso} selected={selected} value={countryIso}>
+              <option key={countryIso} value={countryIso}>
                 {Areas.getListName(countryIso, i18n)}
               </option>
             )
