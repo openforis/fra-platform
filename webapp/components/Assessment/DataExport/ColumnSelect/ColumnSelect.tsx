@@ -27,17 +27,16 @@ const ColumnSelect: React.FC = () => {
   }
 
   return (
-    <div className="export__form-section export-select-all">
-      <div className="export__form-section-header">
+    <div className="export__form-section">
+      <div className="export__form-section-header select-all">
         <h4>{i18n.t('common.column')}</h4>
+        <ButtonCheckBox
+          className="btn-all"
+          checked={selection.columns.length > 0 && selection.columns.length === columns.length}
+          label={selection.columns.length > 0 ? 'common.unselectAll' : 'common.selectAll'}
+          onClick={() => updateSelection(selection.columns.length > 0 ? [] : columns.map(String))}
+        />
       </div>
-
-      <ButtonCheckBox
-        className="btn-all"
-        checked={selection.columns.length > 0 && selection.columns.length === columns.length}
-        label={selection.columns.length > 0 ? 'common.unselectAll' : 'common.selectAll'}
-        onClick={() => updateSelection(selection.columns.length > 0 ? [] : columns.map(String))}
-      />
 
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
         <select

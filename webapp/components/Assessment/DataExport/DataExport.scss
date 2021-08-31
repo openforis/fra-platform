@@ -2,8 +2,13 @@
 
 .export {
   display: grid;
-  grid-template-rows: 300px 1fr;
-  grid-row-gap: 25px;
+  grid-template-rows: repeat(2, auto);
+  grid-row-gap: $spacing-s;
+
+  @include min-width($laptop) {
+    grid-template-rows: 300px 1fr;
+    grid-row-gap: $spacing-s;
+  }
 }
 
 .export__form {
@@ -24,25 +29,8 @@
 
   @include min-width($laptop) {
     overflow: hidden;
-    grid-template-rows: 50px 30px 1fr;
+    grid-template-rows: 60px 1px 1fr;
     grid-row-gap: unset;
-  }
-
-  &.export-select-all {
-    @include min-width($laptop) {
-      grid-template-rows: 50px 29px 1px 1fr;
-    }
-
-    .btn-all {
-      justify-self: start;
-      position: absolute;
-      right: 0;
-      top: 0;
-
-      @include min-width($laptop) {
-        position: unset;
-      }
-    }
   }
 
   &:not(:last-child) {
@@ -67,19 +55,55 @@
 }
 
 .export__form-section-header {
-  display: flex;
+  display: grid;
   align-items: center;
+  grid-column-gap: $spacing-xxs;
 
   @include min-width($laptop) {
-    justify-content: space-evenly;
+    justify-content: center;
+    align-content: space-between;
+    grid-row-gap: $spacing-xxs;
   }
 
   .text-input {
     padding: $spacing-xxxs $spacing-xxs;
-    margin-left: $spacing-xxs;
+  }
+
+  .btn-all {
+    padding: 0;
+  }
+
+  &.select-all {
+    grid-template-columns: repeat(2, auto);
+    justify-content: space-between;
 
     @include min-width($laptop) {
-      margin-left: unset;
+      justify-items: start;
+      grid-template-columns: 1fr;
+      padding-left: $spacing-xxs;
+
+      h4 {
+        justify-self: center;
+      }
+    }
+  }
+
+  &.select-all.search {
+    grid-template-columns: repeat(3, auto);
+    justify-content: stretch;
+
+    @include min-width($laptop) {
+      grid-column-gap: $spacing-s;
+      grid-template-columns: repeat(2, auto);
+      justify-content: start;
+
+      h4 {
+        justify-self: right;
+      }
+
+      .text-input {
+        justify-self: left;
+      }
     }
   }
 }
@@ -92,14 +116,4 @@
   height: auto;
   overflow-y: auto;
   overflow-x: hidden;
-}
-
-// rtl
-body.rtl {
-  .export__form-section {
-    .btn-all {
-      left: 0;
-      right: unset;
-    }
-  }
 }

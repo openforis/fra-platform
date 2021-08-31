@@ -52,8 +52,8 @@ const CountrySelect: React.FC = () => {
   useEffect(filterCountries, [countries])
 
   return (
-    <div className="export__form-section export-select-all">
-      <div className="export__form-section-header">
+    <div className="export__form-section">
+      <div className="export__form-section-header select-all search">
         <h4>{i18n.t('admin.country')}</h4>
         <input
           ref={inputRef}
@@ -62,18 +62,17 @@ const CountrySelect: React.FC = () => {
           placeholder={i18n.t('emoji.picker.search')}
           onChange={filterCountriesThrottle}
         />
+        <ButtonCheckBox
+          className="btn-all"
+          checked={selection.countryISOs.length > 0 && selection.countryISOs.length === countries.length}
+          label={selection.countryISOs.length > 0 ? 'common.unselectAll' : 'common.selectAll'}
+          onClick={() => {
+            const countryISOs: Array<string> =
+              selection.countryISOs.length > 0 ? [] : countries.map((country) => country.countryIso)
+            updateSelection(countryISOs)
+          }}
+        />
       </div>
-
-      <ButtonCheckBox
-        className="btn-all"
-        checked={selection.countryISOs.length > 0 && selection.countryISOs.length === countries.length}
-        label={selection.countryISOs.length > 0 ? 'common.unselectAll' : 'common.selectAll'}
-        onClick={() => {
-          const countryISOs: Array<string> =
-            selection.countryISOs.length > 0 ? [] : countries.map((country) => country.countryIso)
-          updateSelection(countryISOs)
-        }}
-      />
 
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
         <select
