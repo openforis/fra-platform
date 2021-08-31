@@ -3,7 +3,7 @@
 .export {
   display: grid;
   grid-template-rows: repeat(2, auto);
-  grid-row-gap: $spacing-s;
+  grid-row-gap: $spacing-xl;
 
   @include min-width($laptop) {
     grid-template-rows: 300px 1fr;

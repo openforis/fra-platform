@@ -46,64 +46,68 @@ const ResultsTable: React.FC = () => {
   }, [resultsLoading])
 
   return (
-    <div className="results-table">
-      <ButtonTableExport
-        tableRef={tableRef}
-        filename={`${assessmentType}-${assessmentSection}`}
-        disabled={exportDisabled}
-      />
+    <div className="fra-table__container results-table">
+      <div className="fra-table__scroll-wrapper">
+        <ButtonTableExport
+          tableRef={tableRef}
+          filename={`${assessmentType}-${assessmentSection}`}
+          disabled={exportDisabled}
+        />
 
-      <table ref={tableRef} className="fra-table data-table">
-        <thead>
-          <tr>
-            <th className="fra-table__header-cell-left" rowSpan={2}>
-              &nbsp;
-            </th>
-            <th className="fra-table__header-cell" colSpan={columnsResults.length}>
-              <Title baseUnit={baseUnit} onUnitChange={onUnitChange} resultsLoading={resultsLoading} />
-            </th>
-          </tr>
-          <tr>
-            {columnsResults.map((column) => (
-              <th key={column} className="fra-table__header-cell">
-                {getColumnLabelKeys(String(column), assessmentSection, assessmentType).map((key) => `${i18n.t(key)} `)}
+        <table ref={tableRef} className="fra-table data-table">
+          <thead>
+            <tr>
+              <th className="fra-table__header-cell-left" rowSpan={2}>
+                &nbsp;
               </th>
-            ))}
-          </tr>
-        </thead>
-
-        <tbody>
-          {selection.countryISOs.map((countryIso) => {
-            const country = countries.find((country) => country.countryIso === countryIso)
-            const label = Areas.getListName(countryIso, i18n)
-            const { deskStudy } = country.assessment[assessmentType]
-
-            return (
-              <tr key={label}>
-                <th className="fra-table__category-cell" colSpan={1}>
-                  {i18n.t(label)} {deskStudy && `(${i18n.t('assessment.deskStudy')})`}
+              <th className="fra-table__header-cell" colSpan={columnsResults.length}>
+                <Title baseUnit={baseUnit} onUnitChange={onUnitChange} resultsLoading={resultsLoading} />
+              </th>
+            </tr>
+            <tr>
+              {columnsResults.map((column) => (
+                <th key={column} className="fra-table__header-cell">
+                  {getColumnLabelKeys(String(column), assessmentSection, assessmentType).map(
+                    (key) => `${i18n.t(key)} `
+                  )}
                 </th>
-                {columnsResults.map((column) => {
-                  const { columnKey, value } = formatValue(
-                    String(column),
-                    countryIso,
-                    results,
-                    assessmentSection,
-                    selection.variable
-                  )
-                  return (
-                    <td key={`${countryIso}${columnKey || column}`} className="fra-table__cell">
-                      <div className="number-input__readonly-view">{convertValue(value, baseUnit, unit)}</div>
-                    </td>
-                  )
-                })}
-              </tr>
-            )
-          })}
+              ))}
+            </tr>
+          </thead>
 
-          <RowFooter />
-        </tbody>
-      </table>
+          <tbody>
+            {selection.countryISOs.map((countryIso) => {
+              const country = countries.find((country) => country.countryIso === countryIso)
+              const label = Areas.getListName(countryIso, i18n)
+              const { deskStudy } = country.assessment[assessmentType]
+
+              return (
+                <tr key={label}>
+                  <th className="fra-table__category-cell" colSpan={1}>
+                    {i18n.t(label)} {deskStudy && `(${i18n.t('assessment.deskStudy')})`}
+                  </th>
+                  {columnsResults.map((column) => {
+                    const { columnKey, value } = formatValue(
+                      String(column),
+                      countryIso,
+                      results,
+                      assessmentSection,
+                      selection.variable
+                    )
+                    return (
+                      <td key={`${countryIso}${columnKey || column}`} className="fra-table__cell">
+                        <div className="number-input__readonly-view">{convertValue(value, baseUnit, unit)}</div>
+                      </td>
+                    )
+                  })}
+                </tr>
+              )
+            })}
+
+            <RowFooter />
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 }
