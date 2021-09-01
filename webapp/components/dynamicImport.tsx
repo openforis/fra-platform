@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { injectReducers } from '@webapp/store/store'
+import { injectReducers } from '@webapp/store'
 
 import Loading from '@webapp/components/loading'
 
