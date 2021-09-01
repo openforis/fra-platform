@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import createDebounce from 'redux-debounced'
+import { RootState } from './RootState'
 import rootReducer from './rootReducer'
 import axiosErrorsMiddleware from './axiosErrorMiddleware'
 
@@ -23,8 +24,6 @@ export const injectReducers = (name: string, asyncReducer: any) => {
 export type AppDispatch = typeof store.dispatch
 export type ActionHandlers<S> = Record<string, (state: S, action: any) => S>
 export const useAppDispatch = () => useDispatch<AppDispatch>()
-// TODO: RootState.ts => ... RootState = { }
-export type RootState = ReturnType<typeof store.getState>
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 
 export default store
