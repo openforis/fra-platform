@@ -1,10 +1,10 @@
 import axios, { AxiosStatic } from 'axios'
 
 import { applicationError } from '@webapp/components/error/actions'
-import { Action, Dispatch, MiddlewareAPI } from 'redux'
+import { Action, Dispatch, Middleware, MiddlewareAPI } from 'redux'
 
 const createAxiosMiddleware =
-  (axios: AxiosStatic) =>
+  (axios: AxiosStatic): Middleware =>
   ({ dispatch }: MiddlewareAPI) => {
     axios.interceptors.response.use(null, (error: any) => {
       dispatch(applicationError(error))
