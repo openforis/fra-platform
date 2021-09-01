@@ -2,45 +2,109 @@
 
 .export {
   display: grid;
-  grid-template-rows: 300px 1fr;
-  grid-row-gap: 25px;
+  grid-template-rows: repeat(2, auto);
+  grid-row-gap: $spacing-xl;
+
+  @include min-width($laptop) {
+    grid-template-rows: 300px 1fr;
+    grid-row-gap: $spacing-s;
+  }
 }
 
 .export__form {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  overflow-y: hidden;
+  grid-row-gap: $spacing-xs;
+
+  @include min-width($laptop) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-row-gap: unset;
+    overflow-y: hidden;
+  }
 }
 
 .export__form-section {
-  overflow: hidden;
   display: grid;
-  grid-template-rows: 50px 30px 1fr;
+  grid-row-gap: $spacing-xxxs;
+  position: relative;
 
-  &.export-select-all {
-    grid-template-rows: 50px 29px 1px 1fr;
-
-    .btn-all {
-      justify-self: start;
-    }
+  @include min-width($laptop) {
+    overflow: hidden;
+    grid-template-rows: 60px 1px 1fr;
+    grid-row-gap: unset;
   }
 
   &:not(:last-child) {
-    border-right: 1px solid $ui-border-light;
+    @include min-width($laptop) {
+      border-right: 1px solid $ui-border-light;
+    }
   }
 
   .divider {
     border-bottom: 1px solid $ui-border-light;
   }
+
+  select {
+    border: 1px solid $ui-border;
+    width: 100%;
+    background-color: white;
+  }
+
+  option {
+    color: $text-body;
+  }
 }
 
 .export__form-section-header {
-  display: flex;
+  display: grid;
   align-items: center;
-  justify-content: space-evenly;
+  grid-column-gap: $spacing-xxs;
+
+  @include min-width($laptop) {
+    justify-content: center;
+    align-content: space-between;
+    grid-row-gap: $spacing-xxs;
+  }
 
   .text-input {
-    padding: 3px 9px;
+    padding: $spacing-xxxs $spacing-xxs;
+  }
+
+  .btn-all {
+    padding: 0;
+  }
+
+  &.select-all {
+    grid-template-columns: repeat(2, auto);
+    justify-content: space-between;
+
+    @include min-width($laptop) {
+      justify-items: start;
+      grid-template-columns: 1fr;
+      padding-left: $spacing-xxs;
+
+      h4 {
+        justify-self: center;
+      }
+    }
+  }
+
+  &.select-all.search {
+    grid-template-columns: repeat(3, auto);
+    justify-content: stretch;
+
+    @include min-width($laptop) {
+      grid-column-gap: $spacing-s;
+      grid-template-columns: repeat(2, auto);
+      justify-content: start;
+
+      h4 {
+        justify-self: right;
+      }
+
+      .text-input {
+        justify-self: left;
+      }
+    }
   }
 }
 

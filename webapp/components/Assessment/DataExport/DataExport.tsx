@@ -30,7 +30,7 @@ const DataExport: React.FC = () => {
         <ColumnSelect />
       </div>
 
-      <div className="export__table">{hasSelection && <ResultsTable />}</div>
+      {hasSelection && <ResultsTable />}
     </div>
   )
 }

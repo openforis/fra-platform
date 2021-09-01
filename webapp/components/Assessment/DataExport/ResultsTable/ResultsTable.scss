@@ -1,7 +1,11 @@
 @import 'webapp/style/partials';
 
 .results-table {
-  position: relative;
+  width: calc(100vw - #{$spacing-m});
+
+  @include min-width($laptop) {
+    width: 100%;
+  }
 
   .copyright {
     text-align: left;
