@@ -6,7 +6,7 @@ import { ODP } from '@core/odp'
 import { Objects } from '@core/utils'
 import { validateDataPoint } from '@common/validateOriginalDataPoint'
 import * as BasePaths from '@webapp/main/basePaths'
-import { batchActions } from '@webapp/store/reduxBatch'
+import { batchActions } from '@webapp/store'
 import { readPasteClipboard } from '@webapp/utils/copyPasteUtil'
 import { acceptNextDecimal } from '@webapp/utils/numberInput'
 

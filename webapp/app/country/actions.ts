@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { batchActions } from '@webapp/store/reduxBatch'
+import { batchActions } from '@webapp/store'
 
 import * as AppState from '@webapp/store/app/state'
 

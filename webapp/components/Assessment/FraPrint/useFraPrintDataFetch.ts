@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { FRA } from '@core/assessment'
 import { Objects } from '@core/utils'
-import { batchActions } from '@webapp/store/reduxBatch'
+import { batchActions } from '@webapp/store'
 import { SectionSpecs, TableSummarySpec } from '@webapp/sectionSpec'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import { fetchTableData } from '@webapp/components/Assessment/DataTable/actions'
