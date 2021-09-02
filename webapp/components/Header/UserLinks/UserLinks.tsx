@@ -8,13 +8,12 @@ import LinksFRA from './LinksFRA'
 
 const LinksPlaceholder = () => <div />
 
-const Components: { [key: any]: React.Component } = {
+const Components: Record<string, React.FC> = {
   [FRA.type]: LinksFRA,
   [PanEuropean.type]: LinksPlaceholder,
-  // @ts-ignore
-  'null': LinksPlaceholder,
+  null: LinksPlaceholder,
 }
 
-const UserLinks = () => <AssessmentSwitch components={Components} />
+const UserLinks: React.FC = () => <AssessmentSwitch components={Components} />
 
 export default UserLinks

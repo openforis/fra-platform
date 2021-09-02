@@ -35,4 +35,8 @@ module.exports = {
   passwordChanged: 'Le mot de passe a été changé',
 
   missingCredentials: "Veuillez entrer l'email et le mot de passe",
+
+  accessLimited: `L’accès à l’espace réservé est limité aux experts impliqués dans le processus d’élaboration des rapports de FRA.`,
+  returnHome: `Pour revenir à la page d’accueil cliquer`,
+  returnHomeClick: 'ici.',
 }

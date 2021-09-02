@@ -36,4 +36,9 @@ module.exports = {
     'La solicitud para restablecer su contraseña se ha enviado con éxito.\nEn breve recibirás un correo electrónico con instrucciones.',
   passwordChanged: 'La contraseña ha sido cambiada',
   missingCredentials: 'Por favor, ingrese  el correo electrónico y la contraseña',
+
+  accessLimited:
+    'El acceso al área reservada está limitado a los expertos involucrados en el proceso de reporte de datos del FRA.',
+  returnHome: 'Para volver a la página principal haga clic',
+  returnHomeClick: 'aquí.',
 }
