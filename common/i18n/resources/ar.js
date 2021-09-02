@@ -1,4 +1,5 @@
 const area = require('./ar/area')
+const common = require('./ar/common')
 const contentCheck = require('./ar/contentCheck')
 const dataDownload = require('./ar/dataDownload')
 const statisticalFactsheets = require('./ar/statisticalFactsheets')
@@ -7,6 +8,7 @@ const uc = require('./ar/uc')
 
 module.exports.translation = {
   area,
+  common,
   contentCheck,
   dataDownload,
   statisticalFactsheets,
@@ -20,29 +22,6 @@ module.exports.translation = {
     ru: 'Русский',
     zh: '中文',
     ar: 'العربية',
-  },
-
-  common: {
-    resetAll: 'إعادة ضبط الكل',
-    done: 'تم',
-    apply: 'نفذ',
-    column: 'عمود',
-    countries: 'البلدان',
-    dataExport: 'تصدير البيانات',
-    fraPlatform: 'منصة تقييم الموارد الحرجية',
-    globalFRA: 'تقييم الموارد الحرجية العالمية',
-    login: 'تسجيل دخول',
-    other: 'غير ذلك',
-    regions: 'المناطق',
-    select: 'اختيار',
-    selectAll: 'اختيار الكل',
-    selectArea: 'اختيار منطقة جغرافية',
-    statisticalFactsheets: 'صحائف وقائع إحصائية',
-    unknown: 'ولا واحدة/مجهولة',
-    unselectAll: 'إلغاء اختيار الكل',
-    variable: 'تقييم الموارد الحرجية متاح',
-    year: 'العام',
-    filterCountries: 'غربلة البلدان',
   },
 
   disclaimer: {

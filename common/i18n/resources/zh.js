@@ -1,4 +1,5 @@
 const area = require('./zh/area')
+const common = require('./zh/common')
 const contentCheck = require('./zh/contentCheck')
 const dataDownload = require('./zh/dataDownload')
 const statisticalFactsheets = require('./zh/statisticalFactsheets')
@@ -7,6 +8,7 @@ const uc = require('./zh/uc')
 
 module.exports.translation = {
   area,
+  common,
   contentCheck,
   dataDownload,
   statisticalFactsheets,
@@ -20,29 +22,6 @@ module.exports.translation = {
     ru: 'Русский',
     ar: 'العربية',
     zh: '中文',
-  },
-
-  common: {
-    resetAll: '重置所有',
-    done: '完成',
-    apply: '应用',
-    column: '栏目',
-    countries: '国家',
-    dataExport: '数据输出',
-    fraPlatform: 'FRA平台',
-    globalFRA: '全球森林资源评估',
-    login: '登陆',
-    other: '其他',
-    regions: '区域',
-    select: '选择',
-    selectAll: '选择所有',
-    selectArea: '选择地理区域',
-    statisticalFactsheets: '统计资料表',
-    unknown: '无/未知',
-    unselectAll: '取消所有选项',
-    variable: 'FRA变量',
-    year: '年份',
-    filterCountries: '筛选国家',
   },
 
   disclaimer: {

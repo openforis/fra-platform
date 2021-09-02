@@ -1,23 +1,27 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { isAdministrator } from '@common/countryRole'
+import { Dispatch } from 'redux'
+import { i18n } from 'i18next'
+
+import { User, Users } from '@core/auth'
 import * as BasePaths from '@webapp/main/basePaths'
 import { useI18n, useIsLogin, useUserInfo } from '@webapp/components/hooks'
-import PopoverControl from '@webapp/components/PopoverControl'
-import Icon from '@webapp/components/icon'
 import { logout } from '@webapp/store/user/actions'
 
-const getLinks = (i18n: any, userInfo: any, dispatch: any) => {
-  const items: any[] = [
+import Icon from '@webapp/components/icon'
+import PopoverControl, { PopoverItem } from '@webapp/components/PopoverControl'
+
+const getLinks = (i18nInstance: i18n, userInfo: User, dispatch: Dispatch<any>) => {
+  const items: Array<PopoverItem> = [
     {
-      content: i18n.t('header.editProfile'),
+      content: i18nInstance.t('header.editProfile'),
       link: BasePaths.getUserProfileLink(userInfo.id),
     },
   ]
-  if (isAdministrator(userInfo)) {
+  if (Users.isAdministrator(userInfo)) {
     items.push({
-      content: i18n.t('admin.admin'),
+      content: i18nInstance.t('admin.admin'),
       link: BasePaths.admin,
     })
   }
@@ -26,23 +30,25 @@ const getLinks = (i18n: any, userInfo: any, dispatch: any) => {
       divider: true,
     },
     {
-      content: i18n.t('header.logout'),
+      content: i18nInstance.t('header.logout'),
       onClick: () => dispatch(logout()),
     }
   )
   return items
 }
-const LinksFRA = () => {
+
+const LinksFRA: React.FC = () => {
   const dispatch = useDispatch()
   const userInfo = useUserInfo()
   const i18n = useI18n()
   const isLogin = useIsLogin()
+
   return (
     <>
       {userInfo && (
         <PopoverControl items={getLinks(i18n, userInfo, dispatch)}>
           <div className="app-header__menu-item">
-            {(userInfo as any).name}
+            {userInfo.name}
             <Icon className="icon-middle" name="small-down" />
           </div>
         </PopoverControl>
@@ -50,7 +56,7 @@ const LinksFRA = () => {
 
       {!userInfo && !isLogin && (
         <Link key="admin-link" to={BasePaths.login} className="app-header__menu-item">
-          {(i18n as any).t('common.login')}
+          {i18n.t('common.login')}
         </Link>
       )}
     </>

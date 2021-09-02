@@ -1,4 +1,5 @@
 const area = require('./ru/area')
+const common = require('./ru/common')
 const dataDownload = require('./ru/dataDownload')
 const statisticalFactsheets = require('./ru/statisticalFactsheets')
 const login = require('./ru/login')
@@ -6,6 +7,7 @@ const uc = require('./ru/uc')
 
 module.exports.translation = {
   area,
+  common,
   dataDownload,
   statisticalFactsheets,
   login,
@@ -18,29 +20,6 @@ module.exports.translation = {
     ru: 'Русский',
     ar: 'العربية',
     zh: '中文',
-  },
-
-  common: {
-    resetAll: 'Сбросить все',
-    done: 'Готово',
-    apply: 'Применить',
-    column: 'Столбец',
-    countries: 'Страны',
-    dataExport: 'Экспорт данных',
-    fraPlatform: 'Платформой ОЛР',
-    globalFRA: 'Глобальная оценка лесных ресурсов',
-    login: 'Логин',
-    other: 'Другое',
-    regions: 'Регионы',
-    select: 'Выбрать',
-    selectAll: 'Выделить все',
-    selectArea: 'Выбрать географический район',
-    statisticalFactsheets: 'Статистические бюллетени',
-    unknown: 'Отсутствует/неизвестна',
-    unselectAll: 'Снять выделение',
-    variable: 'ОЛР Переменная',
-    year: 'Год',
-    filterCountries: 'Отфильтровать страны',
   },
 
   home: {
