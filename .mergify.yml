@@ -28,7 +28,7 @@ pull_request_rules:
     conditions:
       - and:
         - merged
-        - base!=production
-        - base!=master
+        - head!=production
+        - head!=master
     actions:
       delete_head_branch: {}
