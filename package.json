@@ -135,6 +135,7 @@
     "webpack-dev-server": "^3.11.1"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.6.1",
     "assert": "^2.0.0",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.1",
@@ -191,10 +192,9 @@
     "react-responsive": "^8.2.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
-    "redux": "^4.1.0",
+    "redux": "^4.1.1",
     "redux-debounced": "^0.5.0",
     "redux-promise": "^0.6.0",
-    "redux-thunk": "^2.2.0",
     "to-snake-case": "^1.0.0",
     "tsconfig-paths": "^3.10.1",
     "uuid": "^8.3.2",
