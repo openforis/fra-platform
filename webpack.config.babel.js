@@ -133,7 +133,19 @@ const appConfig = {
         test: /\.s[ac]ss$/i,
         use: [
           'style-loader',
-          'css-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              url: (url) => {
+                // Don't handle /img/ urls
+                if (url.includes('/img/')) {
+                  return false
+                }
+
+                return true
+              },
+            },
+          },
           {
             loader: 'sass-loader',
             options: {

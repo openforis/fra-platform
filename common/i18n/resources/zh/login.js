@@ -32,4 +32,8 @@ module.exports = {
   passwordChanged: '密码修改成功',
 
   missingCredentials: '用户名或密码缺失',
+
+  accessLimited: '保留区域的访问权仅限于参与 FRA 报告过程的专家.',
+  returnHome: '要返回主页，请单击',
+  returnHomeClick: '此处.',
 }

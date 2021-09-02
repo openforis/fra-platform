@@ -34,4 +34,8 @@ module.exports = {
   passwordChanged: 'Password has been changed',
 
   missingCredentials: 'Missing credentials',
+
+  accessLimited: 'Access to the reserved area is limited to experts involved in the FRA reporting process.',
+  returnHome: 'To return to the home page click',
+  returnHomeClick: 'here.',
 }
