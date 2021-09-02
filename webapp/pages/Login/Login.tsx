@@ -1,5 +1,4 @@
-import './login.less'
-
+import './login.scss'
 import React from 'react'
 import { Route } from 'react-router-dom'
 
@@ -10,7 +9,7 @@ import Partners from '@webapp/components/Partners'
 import LoginForm from './LoginForm'
 import ResetPasswordForm from './ResetPasswordForm'
 
-const Login = () => (
+const Login: React.FC = () => (
   <>
     <div className="login">
       <Route exact path={BasePaths.resetPassword}>

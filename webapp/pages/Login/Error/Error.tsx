@@ -1,16 +1,18 @@
-import './error.less'
+import './error.scss'
 import React from 'react'
 import Icon from '@webapp/components/icon'
 import { useI18n } from '@webapp/components/hooks'
 
 type Props = {
-  error: any
+  error: string
 }
 
-const Error = (props: Props) => {
+const Error: React.FC<Props> = (props) => {
   const { error } = props
   const i18n = useI18n()
+
   if (!error) return null
+
   let key = error
   if (error === 'Missing credentials') key = 'login.missingCredentials'
 
@@ -18,7 +20,7 @@ const Error = (props: Props) => {
     <div className="login-error">
       <Icon name="alert" />
       <div>
-        {key.split('\n').map((item: any, i: any) => (
+        {key.split('\n').map((item, i) => (
           <span key={String(i)}>
             {i18n.t(item)}
             <br />

@@ -1,15 +1,15 @@
-@import 'webapp/main/styles/config';
+@import 'webapp/style/partials';
 
-@login-height: 50vh;
+$login-height: 50vh;
 
 .login {
   position: relative;
-  height: @login-height;
+  height: $login-height;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: @ui-bg;
-  border-bottom: @ui-thin-border;
+  background-color: $ui-bg;
+  border-bottom: $ui-thin-border;
   background-image: url('/img/FRAPublPattern.svg');
 
   a,
@@ -20,7 +20,7 @@
   }
 
   .btn {
-    background-color: @ui-accent;
+    background-color: $ui-accent;
     color: white;
     padding: 6px 26px;
     border-radius: 20px;
@@ -29,7 +29,7 @@
 
     &:hover {
       color: white;
-      background-color: lighten(@ui-accent, 5%);
+      background-color: lighten($ui-accent, 5%);
     }
   }
 }
@@ -37,7 +37,13 @@
 .login__tucan {
   position: absolute;
   right: 20vw;
-  top: calc(@login-height - 62px);
+  top: calc(#{$login-height} - 62px);
+}
+
+.login__formWrapper {
+  display: grid;
+  justify-items: center;
+  grid-row-gap: $spacing-m;
 }
 
 .login__form {
@@ -49,12 +55,12 @@
   input[type='text'],
   input[type='password'] {
     justify-self: stretch;
-    border: @ui-thin-border;
-    font-size: @font-m;
+    border: $ui-thin-border;
+    font-size: $font-m;
     padding: 14px 20px;
     outline: none;
     text-align: center;
-    color: @text-body;
+    color: $text-body;
   }
 
   input[type='text']:disabled {
@@ -72,12 +78,12 @@
     border-bottom: 1px solid transparent;
     border-radius: unset;
     background-color: unset;
-    color: @text-link;
-    font-size: @font-s;
+    color: $text-link;
+    font-size: $font-s;
     font-weight: normal;
 
     &:hover {
-      border-bottom: 1px solid rgba(@text-link, 0.7);
+      border-bottom: 1px solid rgba($text-link, 0.7);
     }
   }
 }

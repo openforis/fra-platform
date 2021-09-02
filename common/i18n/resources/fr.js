@@ -1,4 +1,5 @@
 const area = require('./fr/area')
+const common = require('./fr/common')
 const dataDownload = require('./fr/dataDownload')
 const statisticalFactsheets = require('./fr/statisticalFactsheets')
 const login = require('./fr/login')
@@ -6,6 +7,7 @@ const uc = require('./fr/uc')
 
 module.exports.translation = {
   area,
+  common,
   dataDownload,
   statisticalFactsheets,
   login,
@@ -18,28 +20,6 @@ module.exports.translation = {
     ru: 'Русский',
     ar: 'العربية',
     zh: '中文',
-  },
-
-  common: {
-    apply: 'Appliquer',
-    resetAll: 'Effacer tout',
-    column: 'Colonne',
-    countries: 'Pays',
-    dataExport: 'Exportation de données',
-    fraPlatform: 'Plateforme de FRA',
-    globalFRA: 'Évaluation des ressources forestières mondiales',
-    login: 'Connexion',
-    other: 'Autre',
-    regions: 'Régions',
-    select: 'Choisissez',
-    selectAll: 'Tout sélectionner',
-    selectArea: 'Choisissez une zone géographique',
-    statisticalFactsheets: 'Fiches statistiques',
-    unknown: 'Aucune fonction/Fonction inconnue',
-    unselectAll: 'Tout déselectionner',
-    variable: 'FRA Variable',
-    year: 'Année',
-    filterCountries: 'Filtrer les pays',
   },
 
   home: {

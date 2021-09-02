@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import * as R from 'ramda'
 
 import { getUrlParameter } from '@webapp/utils/urlUtils'
+import { useI18n } from '@webapp/components/hooks'
 
 import { initLogin } from '../actions'
 
 import Error from '../Error'
 import LocalLogin from './LocalLogin'
-import { useI18n } from '@webapp/components/hooks'
 
-const LoginForm = () => {
-  const { status, invitation, user }: any = useSelector(R.pathOr({}, ['login', 'login']))
+const LoginForm: React.FC = () => {
+  // TODO: refactor with login state
+  const { status, invitation, user }: any = useSelector((state: any) => state?.login?.login ?? {})
   const i18n = useI18n()
 
   const dispatch = useDispatch()
@@ -31,14 +31,22 @@ const LoginForm = () => {
       {loginLocal ? (
         <LocalLogin onCancel={() => setLoginLocal(false)} user={user} invitation={invitation} />
       ) : (
-        <div>
-          <a className="btn" href={`/auth/google${invitation ? `?i=${invitation.invitationUuid}` : ''}`}>
-            {i18n.t('login.signInGoogle')}
-          </a>
+        <div className="login__formWrapper">
+          <div>
+            <a className="btn" href={`/auth/google${invitation ? `?i=${invitation.invitationUuid}` : ''}`}>
+              {i18n.t('login.signInGoogle')}
+            </a>
 
-          <button className="btn" type="button" onClick={() => setLoginLocal(true)}>
-            {i18n.t('login.signInFRA')}
-          </button>
+            <button className="btn" type="button" onClick={() => setLoginLocal(true)}>
+              {i18n.t('login.signInFRA')}
+            </button>
+          </div>
+          <div>
+            <div>{i18n.t('login.accessLimited')}</div>
+            <div>
+              {i18n.t('login.returnHome')} <a href="/">{i18n.t('login.returnHomeClick')}</a>
+            </div>
+          </div>
         </div>
       )}
     </div>
