@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 
-import { Country } from '@common/country'
 import { Global } from '@core/country'
 import { FRA } from '@core/assessment'
 import * as BasePaths from '@webapp/main/basePaths'
@@ -29,7 +28,7 @@ const AreaSelector: React.FC = () => {
   const [countryISOs, setCountryISOs] = useState<Array<string>>([])
 
   useEffect(() => {
-    setCountryISOs((countries as any).map(Country.getCountryIso))
+    setCountryISOs(countries.map((country) => country.countryIso))
   }, [i18n.language, countries])
 
   return (

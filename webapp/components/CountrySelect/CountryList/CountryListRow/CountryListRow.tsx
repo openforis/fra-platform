@@ -21,7 +21,7 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
   const countryIso = useCountryIso()
   const isHome = useIsHome()
   const countryNameRef = useRef(null)
-  const countryIsoCurrent = Country.getCountryIso(country)
+  const countryIsoCurrent = country.countryIso
   const fra2020Assessment = Country.getFra2020Assessment(country)
   const selected = countryIsoCurrent === countryIso && !isHome
   const hasRole = role !== noRole.role

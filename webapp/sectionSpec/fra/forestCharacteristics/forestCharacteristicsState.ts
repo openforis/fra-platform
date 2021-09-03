@@ -4,10 +4,10 @@ import { FRA } from '@core/assessment'
 import FraUtils from '@common/fraUtils'
 import * as NumberUtils from '@common/bignumberUtils'
 
-import * as AppState from '@webapp/store/app/state'
 import * as CountryState from '@webapp/app/country/countryState'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import * as ExtentOfForestState from '@webapp/sectionSpec/fra/extentOfForest/extentOfForestState'
+import { AppSelectors } from '@webapp/store/app/app.slice'
 
 const section = FRA.sections['1'].children.b
 
@@ -40,7 +40,7 @@ export const useDescriptions = R.ifElse(
 export const getForestCharacteristicsData = () => (state: any) =>
   R.pipe(
     R.ifElse(hasOriginalDataPoints, _getFra, _getFraNoOdps),
-    R.when(R.always(AppState.isPrintView(state)), FraUtils.filterFraYears)
+    R.when(R.always(AppSelectors.selectPrintView(state)), FraUtils.filterFraYears)
   )(state)
 
 // ==== Datum getter functions

@@ -1,7 +1,7 @@
 import '@webapp/app/user/userManagement/style.less'
 
 import React, { useEffect, useState } from 'react'
-import { connect, useSelector } from 'react-redux'
+import { connect } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import * as R from 'ramda'
 
@@ -20,13 +20,14 @@ import {
   updateNewUser,
 } from '@webapp/app/user/userManagement/actions'
 
-import * as AppState from '@webapp/store/app/state'
 import { UserState } from '@webapp/store/user'
 import * as UserManagementState from '@webapp/app/user/userManagement/userManagementState'
+import { useCountryIso } from '@webapp/components/hooks'
+import { AppSelectors } from '@webapp/store/app/app.slice'
 
 const ManageCollaboratorsView = (props: any) => {
   const { countryUsers, newUser, allowedRoles, editUserStatus, fetchUsers } = props
-  const countryIso = useSelector(AppState.getCountryIso)
+  const countryIso = useCountryIso()
   const { location }: any = useLocation()
   const [editingUserId, setEditingUserId] = useState(null)
 
@@ -62,13 +63,13 @@ const ManageCollaboratorsView = (props: any) => {
 }
 
 const mapStateToProps = (state: any) => ({
-  i18n: AppState.getI18n(state),
+  i18n: AppSelectors.selectI18n(state),
   userInfo: UserState.getUserInfo(state),
-  allowedRoles: rolesAllowedToChange(AppState.getCountryIso(state), UserState.getUserInfo(state)),
+  allowedRoles: rolesAllowedToChange(AppSelectors.selectCountryIso(state), UserState.getUserInfo(state)),
   countryUsers: UserManagementState.getCountryUsers(state),
   newUser: UserManagementState.getNewUser(state),
   editUserStatus: UserManagementState.getEditUserStatus(state),
-  countryIso: AppState.getCountryIso(state),
+  countryIso: AppSelectors.selectCountryIso(state),
 })
 
 export default connect(mapStateToProps, {

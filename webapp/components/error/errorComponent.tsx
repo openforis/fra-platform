@@ -1,11 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { clearApplicationError } from './actions'
 import Icon from '@webapp/components/icon'
-import './style.less'
 
-import * as AppState from '@webapp/store/app/state'
 import * as ApplicationErrorState from '@webapp/components/error/applicationErrorState'
+import { AppSelectors } from '@webapp/store/app/app.slice'
+import { clearApplicationError } from './actions'
+import './style.less'
 
 const ErrorBox = ({ error, i18n, clearApplicationError }: any) => (
   <div className="alert-container">
@@ -25,7 +25,7 @@ const ErrorComponent = (props: any) => (props.error ? <ErrorBox {...props} /> : 
 
 const mapStateToProps = (state: any) => ({
   error: ApplicationErrorState.getError(state),
-  i18n: AppState.getI18n(state),
+  i18n: AppSelectors.selectI18n(state),
 })
 
 export default connect(mapStateToProps, { clearApplicationError })(ErrorComponent)

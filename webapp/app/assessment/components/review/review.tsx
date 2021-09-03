@@ -1,7 +1,7 @@
 import './style.less'
 import * as R from 'ramda'
 import React, { useEffect, useRef } from 'react'
-import { connect, useSelector } from 'react-redux'
+import { connect } from 'react-redux'
 import { useLocation } from 'react-router'
 
 import { getRelativeDate } from '@webapp/utils/relativeDate'
@@ -10,16 +10,16 @@ import { profilePictureUri } from '@common/userUtils'
 
 import FraReviewFooter from '@webapp/app/assessment/components/review/reviewFooter'
 import Icon from '@webapp/components/icon'
-import useI18n from '@webapp/components/hooks/useI18n'
+import useI18n from '@webapp/store/app/hooks/useI18n'
 
-import * as AppState from '@webapp/store/app/state'
+import { useCountryIso } from '@webapp/components/hooks'
 import { closeCommentThread, markCommentAsDeleted, markIssueAsResolved, postComment, retrieveComments } from './actions'
 
 const mapIndexed = R.addIndex(R.map)
 
 const AddComment = (props: any) => {
   const { i18n, userInfo, issueStatus, postComment, issueId, section, target, onCancel } = props
-  const countryIso = useSelector(AppState.getCountryIso)
+  const countryIso = useCountryIso()
 
   const canAddComment = issueStatus !== 'resolved' || isReviewer(countryIso, userInfo)
 
@@ -39,7 +39,7 @@ const AddComment = (props: any) => {
 const CommentThread = (props: any) => {
   const { comments, userInfo = {}, section, target, issueStatus, markCommentAsDeleted, i18n } = props
 
-  const countryIso = useSelector(AppState.getCountryIso)
+  const countryIso = useCountryIso()
   const commentScrollerRef = useRef(null)
 
   useEffect(() => {
@@ -110,7 +110,7 @@ const ReviewHeader = ({
   markIssueAsResolved,
   i18n,
 }: any) => {
-  const countryIso = useSelector(AppState.getCountryIso)
+  const countryIso = useCountryIso()
 
   return (
     <div className="fra-review__header">
@@ -135,7 +135,7 @@ const ReviewHeader = ({
 
 const ReviewPanel = (props: any) => {
   const { userInfo, closeCommentThread } = props
-  const countryIso = useSelector(AppState.getCountryIso)
+  const countryIso = useCountryIso()
   const i18n = useI18n()
   const location = useLocation()
 

@@ -1,14 +1,14 @@
 import * as i18next from 'i18next'
 
-// @ts-ignore
-const createInstance = i18next.createInstance || i18next.default.createInstance
-
 import * as enTranslation from './resources/en'
 import * as frTranslation from './resources/fr'
 import * as esTranslation from './resources/es'
 import * as ruTranslation from './resources/ru'
 import * as arTranslation from './resources/ar'
 import * as zhTranslation from './resources/zh'
+
+// @ts-ignore
+const createInstance = i18next.createInstance || i18next.default.createInstance
 
 const translationsFiles: { [langCode: string]: any } = {
   en: enTranslation.translation,

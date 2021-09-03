@@ -1,4 +1,4 @@
-import * as AppActions from './actions'
+import { AppActions } from './app.slice'
 
 export {
   useAssessmentType,

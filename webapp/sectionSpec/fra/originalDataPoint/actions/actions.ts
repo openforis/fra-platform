@@ -10,12 +10,12 @@ import { batchActions } from '@webapp/store'
 import { readPasteClipboard } from '@webapp/utils/copyPasteUtil'
 import { acceptNextDecimal } from '@webapp/utils/numberInput'
 
-import * as AppState from '@webapp/store/app/state'
 import { applicationError } from '@webapp/components/error/actions'
 import * as autosave from '@webapp/app/components/autosave/actions'
 import { fetchCountryOverviewStatus } from '@webapp/app/country/actions'
 
 import { ApiEndPoint } from '@common/api/endpoint'
+import { AppSelectors } from '@webapp/store/app/app.slice'
 import * as OriginalDataPointState from '../originalDataPointState'
 import * as ODPs from '../originalDataPoint'
 import handlePaste from '../paste'
@@ -147,7 +147,7 @@ export const updateNationalClassValue =
   (index: any, fieldName: any, valueCurrent: any, valueUpdate: any) => (dispatch: any, getState: any) => {
     const state = getState()
     const odp = OriginalDataPointState.getActive(state)
-    const countryIso = AppState.getCountryIso(state)
+    const countryIso = AppSelectors.selectCountryIso(state)
     const odpUpdate = ODPs.updateNationalClass(odp, index, fieldName, acceptNextDecimal(valueUpdate, valueCurrent))
     dispatch(saveDraft(countryIso, odpUpdate))
   }
@@ -156,7 +156,7 @@ export const updateNationalClassValue =
 export const pasteNationalClassValues = (props: any) => (dispatch: any, getState: any) => {
   const state = getState()
   const odp = OriginalDataPointState.getActive(state)
-  const countryIso = AppState.getCountryIso(state)
+  const countryIso = AppSelectors.selectCountryIso(state)
   const { event, rowIndex, colIndex, columns, allowGrow = false, allowedClass = () => true } = props
 
   const rawPastedData = readPasteClipboard(event, 'string')

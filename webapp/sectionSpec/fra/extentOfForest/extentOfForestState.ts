@@ -4,9 +4,9 @@ import { FRA } from '@core/assessment'
 import FraUtils from '@common/fraUtils'
 import * as NumberUtils from '@common/bignumberUtils'
 
-import * as AppState from '@webapp/store/app/state'
 import * as CountryState from '@webapp/app/country/countryState'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
+import { AppSelectors } from '@webapp/store/app/app.slice'
 
 export const variables = {
   forestArea: 'forestArea',
@@ -36,7 +36,7 @@ export const isExtentOfForestEmpty = () => R.pipe(getFra, FraUtils.isTableWithOd
 export const getExtentOfForestData = () => (state: any) =>
   R.pipe(
     R.ifElse(showOriginalDataPoints, getFra, _getFraNoOdps),
-    R.when(R.always(AppState.isPrintView(state)), FraUtils.filterFraYears)
+    R.when(R.always(AppSelectors.selectPrintView(state)), FraUtils.filterFraYears)
   )(state)
 
 // ==== Assessment Fra config areas getter functions

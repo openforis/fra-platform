@@ -7,9 +7,9 @@ import FRAUtils from '@common/fraUtils'
 import { isReviewer, isAdministrator } from '@common/countryRole'
 import { assessmentStatus } from '@common/assessment'
 
-import * as AppState from '@webapp/store/app/state'
 import * as CountryState from '@webapp/app/country/countryState'
 import { UserState } from '@webapp/store/user'
+import { AppSelectors } from '@webapp/store/app/app.slice'
 
 export const stateKey = 'assessment'
 
@@ -40,7 +40,7 @@ const _isLocked = (type: any) => R.pipe(getStateAssessment(type), R.propOr(true,
 // ======  Lock functions
 
 export const isLocked = (assessment: any) => (state: any) => {
-  const countryIso = AppState.getCountryIso(state)
+  const countryIso = AppSelectors.selectCountryIso(state)
   const userInfo = UserState.getUserInfo(state)
 
   if (isReviewer(countryIso, userInfo) || isAdministrator(userInfo)) {
@@ -52,7 +52,7 @@ export const isLocked = (assessment: any) => (state: any) => {
 }
 
 export const canToggleLock = (assessment: any) => (state: any) => {
-  const countryIso = AppState.getCountryIso(state)
+  const countryIso = AppSelectors.selectCountryIso(state)
   const userInfo = UserState.getUserInfo(state)
 
   if (isAdministrator(userInfo)) {

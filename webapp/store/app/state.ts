@@ -18,25 +18,6 @@ const keysPrintView = {
   onlyTables: 'onlyTables',
 }
 
-const getState = R.prop(stateKey)
-
-// === READ
-export const getCountryIso = R.pipe(getState, R.propOr(null, keys.countryIso))
-export const getAssessmentType = R.pipe(getState, R.propOr(null, keys.assessmentType))
-export const getApplicationStatus = R.pipe(getState, R.propOr(null, keys.status))
-export const getI18n = R.pipe(getState, R.propOr(null, keys.i18n))
-export const getCountries = R.pipe(getState, R.propOr([], keys.countries))
-export const getRegions = R.pipe(getState, R.propOr([], keys.regions))
-export const getRegionGroups = R.pipe(getState, R.propOr([], keys.regionGroups))
-
-const getPrintView = R.pipe(getState, R.propOr(null, keys.printView))
-export const isPrintView = R.pipe(getPrintView, R.isNil, R.not)
-export const isPrintOnlyTablesView = R.ifElse(
-  isPrintView,
-  R.pipe(getPrintView, R.propEq(keysPrintView.onlyTables, true)),
-  R.always(false)
-)
-
 // === UPDATE
 
 export const assocCountryIso = (countryIso: any, assessmentType: any, printView: any, printOnlyTablesView: any) =>

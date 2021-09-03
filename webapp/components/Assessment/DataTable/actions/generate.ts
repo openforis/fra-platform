@@ -2,7 +2,7 @@ import axios from 'axios'
 import { batchActions } from '@webapp/store'
 import * as autosave from '@webapp/app/components/autosave/actions'
 
-import * as AppState from '@webapp/store/app/state'
+import { AppSelectors } from '@webapp/store/app/app.slice'
 import { updateTableData } from './update'
 
 export const assessmentSectionDataGeneratingValuesUpdate = 'assessment/section/data/generatingValues/update'
@@ -10,7 +10,7 @@ export const assessmentSectionDataGeneratingValuesUpdate = 'assessment/section/d
 export const generateTableData =
   (assessmentType: any, sectionName: any, tableName: any, method: any, fields: any, changeRates: any) =>
   async (dispatch: any, getState: any) => {
-    const countryIso = AppState.getCountryIso(getState())
+    const countryIso = AppSelectors.selectCountryIso(getState())
 
     dispatch(
       batchActions([

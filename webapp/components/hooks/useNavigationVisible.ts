@@ -5,7 +5,7 @@ import { Objects } from '@core/utils'
 import * as NavigationState from '@webapp/components/Navigation/navigationState'
 import { Breakpoints } from '@webapp/utils/breakpoints'
 
-import useCountryIso from './useCountryIso'
+import useCountryIso from '../../store/app/hooks/useCountryIso'
 
 export const useNavigationVisible = (): boolean => {
   const countryIso = useCountryIso()

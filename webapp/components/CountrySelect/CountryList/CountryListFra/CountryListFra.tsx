@@ -47,11 +47,7 @@ const CountryListFra: React.FC<Props> = (props: Props) => {
         <div className="country-selection-list__global">
           {checkMatch(i18n.t(`area.${Global.WO}.listName`), query) && (
             <>
-              <CountryListRow
-                role={noRole.role}
-                country={{ countryIso: Global.WO }}
-                assessmentType={FRA.type}
-              />
+              <CountryListRow role={noRole.role} country={{ countryIso: Global.WO }} assessmentType={FRA.type} />
               <hr />
             </>
           )}

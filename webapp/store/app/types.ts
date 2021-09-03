@@ -37,6 +37,6 @@ export interface App {
   assessmentType: string
 }
 
-export interface RootObject {
+export interface ApplicationState {
   app: App
 }

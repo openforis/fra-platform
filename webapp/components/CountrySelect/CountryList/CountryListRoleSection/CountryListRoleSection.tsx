@@ -1,9 +1,7 @@
 import React from 'react'
-import * as R from 'ramda'
 
 import { FRA } from '@core/assessment'
-import { Country } from '@common/country'
-import { Areas } from '@core/country'
+import { Areas, Country, RegionCode } from '@core/country'
 import { getRoleLabelKey, noRole } from '@common/countryRole'
 import { useI18n, useUserInfo } from '@webapp/components/hooks'
 
@@ -20,17 +18,16 @@ const CountryListRoleSection: React.FC<Props> = (props: Props) => {
   const { role, roleCountries, query } = props
   const i18n = useI18n()
   const userInfo = useUserInfo()
-  const isCountryAtlantis = R.pipe(Country.getCountryIso, R.startsWith('X'))
+  const isCountryAtlantis = (country: Country) => country.countryIso[0].toLowerCase() === 'x'
   // Atlantis countries are hidden in public view
-  const countryListNameMatch = (country: any) =>
-    checkMatch(Areas.getListName(Country.getCountryIso(country), i18n), query)
+  const countryListNameMatch = (country: Country) => checkMatch(Areas.getListName(country.countryIso, i18n), query)
 
-  const countryRegionCodeMatch = (country: any) =>
-    (Country.getRegionCodes(country) as any[])
-      .map((regionCode: any) => checkMatch(i18n.t(`area.${regionCode}.listName`), query))
+  const countryRegionCodeMatch = (country: Country) =>
+    country.regionCodes
+      .map((regionCode: RegionCode) => checkMatch(i18n.t(`area.${regionCode}.listName`), query))
       .some(Boolean)
 
-  const renderRow = (country: any) =>
+  const renderRow = (country: Country) =>
     (userInfo || !isCountryAtlantis(country)) && (countryListNameMatch(country) || countryRegionCodeMatch(country))
 
   return (
@@ -44,14 +41,9 @@ const CountryListRoleSection: React.FC<Props> = (props: Props) => {
       )}
 
       {roleCountries.map(
-        (country: any) =>
+        (country: Country) =>
           renderRow(country) && (
-            <CountryListRow
-              key={Country.getCountryIso(country)}
-              assessmentType={FRA.type}
-              role={role}
-              country={country}
-            />
+            <CountryListRow key={country.countryIso} assessmentType={FRA.type} role={role} country={country} />
           )
       )}
     </div>

@@ -14,7 +14,7 @@ export const useCanToggleLock = () => {
   }
 
   if (isReviewer(countryIso, userInfo)) {
-    const country = userCountries[reviewer.role].find((_country: any) => countryIso === Country.getCountryIso(_country))
+    const country = userCountries[reviewer.role].find((_country: any) => countryIso === _country.countryIso)
     const status = Country.getFra2020Assessment(country)
     return roleAllowances[reviewer.role].data.includes(status)
   }

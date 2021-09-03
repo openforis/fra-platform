@@ -3,9 +3,9 @@ import * as R from 'ramda'
 import { FRA } from '@core/assessment'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
-import * as AppState from '@webapp/store/app/state'
 
 import { ApiEndPoint } from '@common/api/endpoint'
+import { AppSelectors } from '@webapp/store/app/app.slice'
 import { updateTableData } from './update'
 
 const urlFetchData = {
@@ -24,7 +24,7 @@ export const fetchTableData =
     const state = getState()
     const dataLoaded = AssessmentState.isSectionDataLoaded(assessmentType, sectionName, tableName)(state)
     if (!dataLoaded) {
-      const countryIso = AppState.getCountryIso(state) as string
+      const countryIso = AppSelectors.selectCountryIso(state)
 
       if (!R.isEmpty(tableName)) {
         let url = urlFetchData[tableName]

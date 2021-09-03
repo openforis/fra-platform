@@ -1,11 +1,11 @@
 import axios from 'axios'
-import * as AppState from '@webapp/store/app/state'
 
 import { FRA } from '@core/assessment'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 
 import * as autosave from '@webapp/app/components/autosave/actions'
 import { ApiEndPoint } from '@common/api/endpoint'
+import { AppSelectors } from '@webapp/store/app/app.slice'
 import { updateTableData } from './update'
 
 const extentOfForest = FRA.sections['1'].children.a
@@ -41,7 +41,7 @@ const getPostData = ({ sectionName, data }: any) => {
 
 const postTableData = ({ sectionName, tableName, data }: any) => {
   const debounced = async (dispatch: any, getState: any) => {
-    const countryIso = AppState.getCountryIso(getState())
+    const countryIso = AppSelectors.selectCountryIso(getState())
     const url = getPostUrl({ countryIso, sectionName, tableName })
     await axios.post(url, getPostData({ sectionName, data }))
     dispatch(autosave.complete)

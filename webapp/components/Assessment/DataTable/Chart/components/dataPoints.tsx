@@ -6,14 +6,16 @@ import * as R from 'ramda'
 import * as d3 from 'd3'
 import d3Tip from 'd3-tip'
 import { formatNumber } from '@common/bignumberUtils'
-import * as AppState from '@webapp/store/app/state'
+import { AppSelectors } from '@webapp/store/app/app.slice'
 import { defaultTransitionDuration } from '../chart'
 
 type Props = any
 
 class DataPoint extends Component<Props, {}> {
   props: Props
+
   refs: any
+
   toolTip: any
 
   update(props: Props) {
@@ -120,6 +122,6 @@ class DataPoint extends Component<Props, {}> {
   }
 }
 const mapStateToProps = (state: any) => ({
-  i18n: AppState.getI18n(state),
+  i18n: AppSelectors.selectI18n(state),
 })
 export default connect(mapStateToProps)(DataPoint)

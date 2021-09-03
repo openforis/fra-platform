@@ -1,11 +1,11 @@
 import React from 'react'
-import { connect, useSelector } from 'react-redux'
+import { connect } from 'react-redux'
 import * as R from 'ramda'
 import Icon from '@webapp/components/icon'
-import useI18n from '@webapp/components/hooks/useI18n'
+import useI18n from '@webapp/store/app/hooks/useI18n'
 import { getRelativeDate } from '@webapp/utils/relativeDate'
 import { profilePictureUri } from '@common/userUtils'
-import * as AppState from '@webapp/store/app/state'
+import { useCountryIso } from '@webapp/components/hooks'
 import { closeChat, sendMessage } from './actions'
 import FraReviewFooter from '../../assessment/components/review/reviewFooter'
 
@@ -21,6 +21,7 @@ const UserChatHeader = ({ i18n, chat, closeChat }: any) => (
 type UserChatMessagesProps = any
 class UserChatMessages extends React.Component<UserChatMessagesProps, {}> {
   props: UserChatMessagesProps
+
   scrollToBottom() {
     if (this.refs.container) {
       ;(this.refs.container as any).scrollTop = (this.refs.container as any).scrollHeight
@@ -117,7 +118,7 @@ class UsersChatAddMessage extends React.Component<Props, {}> {
 }
 const UserChatView = (props: any) => {
   const { chat, closeChat, sendMessage } = props
-  const countryIso = useSelector(AppState.getCountryIso)
+  const countryIso = useCountryIso()
   const i18n = useI18n()
   if (R.isNil(chat)) {
     return null

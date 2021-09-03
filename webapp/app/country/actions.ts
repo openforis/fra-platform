@@ -2,11 +2,10 @@ import axios from 'axios'
 
 import { batchActions } from '@webapp/store'
 
-import * as AppState from '@webapp/store/app/state'
-
 import * as autosave from '@webapp/app/components/autosave/actions'
 import ActionTypes from '@webapp/store/app/actions/actionTypes'
 import { ApiEndPoint } from '@common/api/endpoint'
+import { AppSelectors } from '@webapp/store/app/app.slice'
 
 export const fetchCountryOverviewStatusCompleted = 'country/status/completed'
 export const countryConfig = 'country/countryConfig'
@@ -34,7 +33,7 @@ export const fetchCountryInitialData =
   }
 
 export const saveCountryConfigSetting = (key: any, value: any) => async (dispatch: any, getState: any) => {
-  const countryIso: any = AppState.getCountryIso(getState())
+  const countryIso = AppSelectors.selectCountryIso(getState())
 
   dispatch(batchActions([autosave.start, { type: changeCountryConfigSetting, key, value }]))
 
