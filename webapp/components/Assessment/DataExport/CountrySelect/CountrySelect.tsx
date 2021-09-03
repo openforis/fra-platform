@@ -23,8 +23,7 @@ const CountrySelect: React.FC = () => {
   const inputRef = useRef(null)
 
   const getDeskStudyLabel = useCallback((country: Country): string => {
-    const { assessment } = country
-    const { deskStudy } = assessment[assessmentType]
+    const deskStudy = country.assessment[assessmentType]?.deskStudy
     return deskStudy ? i18n.t('assessment.deskStudy') : null
   }, [])
 
