@@ -79,7 +79,7 @@ const ResultsTable: React.FC = () => {
             {selection.countryISOs.map((countryIso) => {
               const country = countries.find((country) => country.countryIso === countryIso)
               const label = Areas.getListName(countryIso, i18n)
-              const { deskStudy } = country.assessment[assessmentType]
+              const deskStudy = country.assessment[assessmentType]?.deskStudy
 
               return (
                 <tr key={label}>
