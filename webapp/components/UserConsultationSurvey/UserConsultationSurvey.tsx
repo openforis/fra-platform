@@ -33,7 +33,7 @@ const UserConsultationSurvey: React.FC = () => {
             type="button"
             onClick={() => {
               window.open(
-                'https://docs.google.com/forms/d/e/1FAIpQLSe4y47opweayox22f2pxy-cmp1x4lGF6CyTBcbFi_8o5duPwA/viewform',
+                'https://www.surveymonkey.com/r/FRAUserSurvey',
                 '_blank',
                 'toolbar=yes,scrollbars=yes,resizable=yes'
               )
