@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import MediaQuery from 'react-responsive'
 
@@ -47,8 +47,6 @@ const CountrySelect: React.FC = () => {
   const updateSelection = (countryISOs: Array<string>): void => {
     dispatch(DataExportAction.updateSelection({ assessmentSection, selection: { ...selection, countryISOs } }))
   }
-
-  useEffect(filterCountries, [countries])
 
   return (
     <div className="export__form-section">

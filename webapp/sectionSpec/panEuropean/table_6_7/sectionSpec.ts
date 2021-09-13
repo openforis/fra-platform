@@ -9,7 +9,7 @@ import { VARIABLES } from '@webapp/sectionSpec/variables'
 const section = PanEuropean.sections['6'].children['67']
 const variables = ['wood_consumption']
 const variablesMappings: Record<string, string> = {
-  woodConsumption: VARIABLES.wood_consumption,
+  wood_consumption: VARIABLES.wood_consumption,
 }
 
 const years = [...PanEuropean.years92_17]
