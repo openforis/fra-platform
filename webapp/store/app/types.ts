@@ -1,32 +1,6 @@
 import { i18n } from 'i18next'
-import { CountryIso, RegionCode } from '@core/country'
-
-export interface Fra2020 {
-  status: string
-  deskStudy: boolean
-}
-
-export interface Assessment {
-  fra2020: Fra2020
-}
-
-export interface Country {
-  countryIso: CountryIso
-  assessment: Assessment
-  regionCodes: string[]
-}
-
-export interface Region {
-  regionCode: RegionCode
-  name: string
-  regionGroup: number
-}
-
-export interface RegionGroup {
-  id: number
-  name: string
-  order: number
-}
+import { Country, CountryIso, Region, RegionGroup } from '@core/country'
+import { AssessmentType } from '@core/assessment'
 
 export interface AppState {
   countries?: Country[]
@@ -35,7 +9,7 @@ export interface AppState {
   loaded: boolean
   i18n?: i18n
   countryIso?: CountryIso
-  assessmentType?: string
+  assessmentType?: AssessmentType
   printView?: {
     onlyTables?: boolean
   }
