@@ -1,17 +1,16 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { closeChat } from '@webapp/app/user/chat/actions'
 import { closeCountryMessageBoard } from '@webapp/app/countryLanding/views/messageBoard/actions'
 
-import * as AppState from '@webapp/store/app/state'
-
 import { getCountryOverview } from '@webapp/app/countryLanding/actions'
 
+import { useCountryIso } from '@webapp/hooks'
 import MessageBoard from './messageBoard'
 import Users from './users'
 
 const MessageBoardView = () => {
-  const countryIso = useSelector(AppState.getCountryIso)
+  const countryIso = useCountryIso()
   const dispatch = useDispatch()
 
   useEffect(() => {

@@ -4,7 +4,7 @@ import MediaQuery from 'react-responsive'
 
 import { Assessment, FRA, PanEuropean } from '@core/assessment'
 
-import { useCountryIso } from '@webapp/components/hooks'
+import { useCountryIso } from '@webapp/hooks'
 import { Breakpoints } from '@webapp/utils/breakpoints'
 import { useAssessmentType } from '@webapp/store/app'
 

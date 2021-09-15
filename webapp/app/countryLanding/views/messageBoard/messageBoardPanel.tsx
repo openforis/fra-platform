@@ -1,15 +1,15 @@
 import React, { useEffect, useRef } from 'react'
-import { connect, useSelector } from 'react-redux'
+import { connect } from 'react-redux'
 import * as R from 'ramda'
 
 import Icon from '@webapp/components/icon'
-import useI18n from '@webapp/components/hooks/useI18n'
+import useI18n from '@webapp/hooks/useI18n'
 
 import { getRelativeDate } from '@webapp/utils/relativeDate'
 import { profilePictureUri } from '@common/userUtils'
 
-import * as AppState from '@webapp/store/app/state'
 import { UserState } from '@webapp/store/user'
+import { useCountryIso } from '@webapp/hooks'
 import FraReviewFooter from '../../../assessment/components/review/reviewFooter'
 
 import { closeCountryMessageBoard, fetchAllCountryMessageBoardMessages, sendCountryMessageBoard } from './actions'
@@ -79,8 +79,7 @@ const MessageBoardMessages = (props: any) => {
 
 const MessageBoardAddMessage = (props: any) => {
   const { closeCountryMessageBoard, i18n, sendCountryMessageBoard, userInfo } = props
-  const countryIso = useSelector(AppState.getCountryIso)
-
+  const countryIso = useCountryIso()
   return (
     <FraReviewFooter
       onSubmit={(msg: any) => sendCountryMessageBoard(countryIso, msg, userInfo.id, userInfo.name)}
@@ -95,7 +94,7 @@ const MessageBoardAddMessage = (props: any) => {
 
 const MessageBoardView = (props: any) => {
   const { fetchAllCountryMessageBoardMessages, showMessageBoard } = props
-  const countryIso = useSelector(AppState.getCountryIso)
+  const countryIso = useCountryIso()
   const i18n = useI18n()
 
   useEffect(() => {
