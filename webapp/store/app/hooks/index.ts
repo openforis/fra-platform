@@ -1,21 +1,19 @@
 import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 
 import { AssessmentType, FRA } from '@core/assessment'
-import { Areas, Country, Region, RegionCode, RegionGroup } from '@core/country'
+import { Areas, Country, Region, RegionCode } from '@core/country'
 import { useI18n } from '@webapp/components/hooks'
-import * as AppState from '@webapp/store/app/state'
 
-import * as AppActions from '../actions'
+import { useAppDispatch, useAppSelector } from '@webapp/store'
+import { AppActions } from '../appSlice'
 
-export const useAssessmentType = (): AssessmentType => {
-  return useSelector(AppState.getAssessmentType) as AssessmentType
-}
+export const useAssessmentType = (): AssessmentType | null =>
+  useAppSelector((state) => state.app.assessmentType) ?? null
 
 export const useCountries = (): Array<Country> => {
   const i18n = useI18n()
-  const dispatch = useDispatch()
-  const countries = useSelector(AppState.getCountries) as Array<Country>
+  const dispatch = useAppDispatch()
+  const { countries = [] } = useAppSelector((state) => state.app)
 
   useEffect(() => {
     dispatch(AppActions.updateCountries(Areas.sortCountries(countries, i18n)))
@@ -29,8 +27,8 @@ export const useCountriesPanEuropean = (): Array<Country> =>
 
 export const useRegions = (): Array<Region> => {
   const i18n = useI18n()
-  const dispatch = useDispatch()
-  const regions = useSelector(AppState.getRegions) as Array<Region>
+  const dispatch = useAppDispatch()
+  const { regions = [] } = useAppSelector((state) => state.app)
 
   useEffect(() => {
     dispatch(AppActions.updateRegions(Areas.sortRegions(regions, i18n)))
@@ -39,7 +37,6 @@ export const useRegions = (): Array<Region> => {
   return regions
 }
 /**
- * regionGroup =
  {
     "id": 1,
     "name": "fra",
@@ -47,7 +44,7 @@ export const useRegions = (): Array<Region> => {
   },
  */
 export const useGroupedRegions = () => {
-  const regionGroups = useSelector(AppState.getRegionGroups) as Array<RegionGroup>
+  const { regionGroups = [] } = useAppSelector((state) => state.app)
   const regions = useRegions()
 
   return regionGroups.map((regionGroup) => ({
