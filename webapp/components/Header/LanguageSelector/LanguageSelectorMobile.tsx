@@ -1,15 +1,14 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
 import './languageSelectorMobile.scss'
 
 import { LanguageCodes } from '@core/lang'
-import { AppActions } from '@webapp/store/app'
+import { AppActions, useAppDispatch } from '@webapp/store'
 
 import { useI18n } from '@webapp/components/hooks'
 import classNames from 'classnames'
 
 const LanguageSelectorMobile: React.FC = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const i18n = useI18n()
 
   return (

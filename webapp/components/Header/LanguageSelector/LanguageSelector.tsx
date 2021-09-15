@@ -1,15 +1,14 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
 
 import { LanguageCodes } from '@core/lang'
-import { AppActions } from '@webapp/store/app'
+import { AppActions, useAppDispatch } from '@webapp/store'
 
 import { useI18n } from '@webapp/components/hooks'
 import PopoverControl from '@webapp/components/PopoverControl'
 import Icon from '@webapp/components/icon'
 
 const LanguageSelector: React.FC = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const i18n = useI18n()
 
   const languageSelectionItems = LanguageCodes.map((lang) => ({
