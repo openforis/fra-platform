@@ -1,11 +1,10 @@
 import axios from 'axios'
 
-import { batchActions } from '@webapp/store'
+import { AppActions, batchActions } from '@webapp/store'
 
 import * as AppState from '@webapp/store/app/state'
 
 import * as autosave from '@webapp/app/components/autosave/actions'
-import ActionTypes from '@webapp/store/app/actions/actionTypes'
 import { ApiEndPoint } from '@common/api/endpoint'
 
 export const fetchCountryOverviewStatusCompleted = 'country/status/completed'
@@ -26,7 +25,7 @@ export const fetchCountryInitialData =
   (countryIso: any, assessmentType: any, printView: any, printOnlyTablesView: any) => (dispatch: any) => {
     dispatch(
       batchActions([
-        { type: ActionTypes.appCountryIsoUpdate, countryIso, assessmentType, printView, printOnlyTablesView },
+        AppActions.updateCountryIso({ countryIso, assessmentType, printView, printOnlyTablesView }),
         fetchCountryOverviewStatus(countryIso),
         getCountryConfig(countryIso),
       ])
