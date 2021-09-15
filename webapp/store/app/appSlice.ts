@@ -1,32 +1,11 @@
 /* eslint-disable no-param-reassign */
 import { Country, CountryIso, Region, RegionGroup } from '@core/country'
-import ActionTypes from '@webapp/store/app/actions/actionTypes'
-import axios from 'axios'
-import { createI18nPromise } from '@common/i18n/i18nFactory'
-import { applicationError } from '@webapp/components/error/actions'
-import * as UserState from '@webapp/store/user/state'
 
 import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 import { AssessmentType } from '@core/assessment'
-import { initApp } from '@webapp/store/app/actions/initApp'
 import { AppState } from '@webapp/store/app/types'
+import { initApp, switchLanguage } from './actions'
 
-export const switchLanguage = (lang: any) => async (dispatch: any, getState: any) => {
-  try {
-    const userInfo = UserState.getUserInfo(getState())
-    if (userInfo) {
-      await axios.post(`/api/user/lang?lang=${lang}`)
-    }
-    const i18n = await createI18nPromise(lang)
-
-    if (lang === 'ar') document.body.classList.add('rtl')
-    if (lang !== 'ar') document.body.classList.remove('rtl')
-
-    dispatch({ type: ActionTypes.appI18nUpdate, i18n })
-  } catch (err) {
-    dispatch(applicationError(err))
-  }
-}
 const initialState: AppState = {
   loaded: false,
 }
@@ -79,16 +58,19 @@ export const appSlice = createSlice({
         state.i18n = payload.i18n
       })
       .addCase(initApp.rejected, (state, { payload }) => {
-        state.regionGroups = payload.regionGroups
+        state.i18n = payload.i18n
         state.loaded = true
       })
+    builder.addCase(switchLanguage.fulfilled, (state, { payload }) => {
+      state.i18n = payload.i18n
+    })
   },
 })
 
-export const { updateCountries, updateRegions, updateRegionGroups } = appSlice.actions
 export const AppActions = {
   ...appSlice.actions,
   initApp,
+  switchLanguage,
 }
 
 export default appSlice.reducer as Reducer<AppState>
