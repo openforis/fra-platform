@@ -9,8 +9,7 @@ const UserConsultationSurvey: React.FC = () => {
   const i18n = useI18n()
 
   // const [showDialog, setShowDialog] = useState<boolean>(localStorage.getItem(localStorageKey) !== 'true')
-  const [showDialog, setShowDialog] = useState<boolean>(true)
-
+  const [showDialog, setShowDialog] = useState<boolean>(!__DEV__)
   if (!showDialog) return null
 
   return (
