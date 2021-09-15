@@ -1,5 +1,3 @@
-import * as AppActions from './actions'
-
 export {
   useAssessmentType,
   useCountries,
@@ -9,4 +7,4 @@ export {
   useSecondaryGroupedRegions,
 } from './hooks'
 
-export { AppActions }
+export { default as AppReducer, AppActions } from './appSlice'

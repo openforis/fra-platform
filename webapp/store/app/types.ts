@@ -1,4 +1,5 @@
 import { i18n } from 'i18next'
+import { CountryIso, RegionCode } from '@core/country'
 
 export interface Fra2020 {
   status: string
@@ -10,13 +11,13 @@ export interface Assessment {
 }
 
 export interface Country {
-  countryIso: string
+  countryIso: CountryIso
   assessment: Assessment
   regionCodes: string[]
 }
 
 export interface Region {
-  regionCode: string
+  regionCode: RegionCode
   name: string
   regionGroup: number
 }
@@ -27,16 +28,15 @@ export interface RegionGroup {
   order: number
 }
 
-export interface App {
-  countries: Country[]
-  regions: Region[]
-  regionGroups: RegionGroup[]
-  status: string
-  i18n: i18n
-  countryIso: string
-  assessmentType: string
-}
-
-export interface RootObject {
-  app: App
+export interface AppState {
+  countries?: Country[]
+  regions?: Region[]
+  regionGroups?: RegionGroup[]
+  loaded: boolean
+  i18n?: i18n
+  countryIso?: CountryIso
+  assessmentType?: string
+  printView?: {
+    onlyTables?: boolean
+  }
 }
