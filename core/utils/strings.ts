@@ -1,5 +1,5 @@
 // @ts-ignore
-import * as snakeCase from 'lodash.snakecase'
+import * as snake from 'to-snake-case'
 
 export const normalize = (string: string): string =>
   string
@@ -10,5 +10,5 @@ export const normalize = (string: string): string =>
 
 export const Strings = {
   normalize,
-  snakeCase,
+  snakeCase: snake,
 }

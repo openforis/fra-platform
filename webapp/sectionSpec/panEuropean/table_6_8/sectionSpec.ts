@@ -13,10 +13,10 @@ const variables = [
   'imports_of_forest_products_value',
 ]
 const variablesMappings: Record<string, string> = {
-  exportsOfForestProductsQuantity: VARIABLES.exports_of_forest_products_quantity,
-  exportsOfForestProductsValue: VARIABLES.exports_of_forest_products_value,
-  importsOfForestProductsQuantity: VARIABLES.imports_of_forest_products_quantity,
-  importsOfForestProductsValue: VARIABLES.imports_of_forest_products_value,
+  exports_of_forest_products_quantity: VARIABLES.exports_of_forest_products_quantity,
+  exports_of_forest_products_value: VARIABLES.exports_of_forest_products_value,
+  imports_of_forest_products_quantity: VARIABLES.imports_of_forest_products_quantity,
+  imports_of_forest_products_value: VARIABLES.imports_of_forest_products_value,
 }
 
 const years = [...PanEuropean.years92_17]

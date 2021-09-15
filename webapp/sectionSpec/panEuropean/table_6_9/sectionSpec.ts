@@ -8,7 +8,7 @@ import { VARIABLES } from '@webapp/sectionSpec/variables'
 
 const section = PanEuropean.sections['6'].children['69']
 const tj = 'tj'
-const _1000MetricTonnesDryMatter = '_1000MetricTonnesDryMatter'
+const _1000MetricTonnesDryMatter = '_1000_metric_tonnes_dry_matter'
 // eslint-disable-next-line camelcase
 const total_primary_energy_supply = 'total_primary_energy_supply'
 // eslint-disable-next-line camelcase
@@ -53,7 +53,7 @@ const mainCategories = variables.slice(0, 3)
 const subcategories = variables.filter((item) => item.includes('of_which'))
 const tableSpec = TableSpecFactory.newInstance({
   name: section.tables.table_6_9,
-  columnsExport: years.flatMap((year) => categories.map((category) => `_${year}_${category}`)),
+  columnsExport: years.flatMap((year) => categories.map((category) => `${category}_${year}`)),
   rows: [
     RowSpecFactory.newHeaderInstance({
       cols: [

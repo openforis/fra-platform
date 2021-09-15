@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import MediaQuery from 'react-responsive'
 
@@ -23,8 +23,7 @@ const CountrySelect: React.FC = () => {
   const inputRef = useRef(null)
 
   const getDeskStudyLabel = useCallback((country: Country): string => {
-    const { assessment } = country
-    const { deskStudy } = assessment[assessmentType]
+    const deskStudy = country.assessment[assessmentType]?.deskStudy
     return deskStudy ? i18n.t('assessment.deskStudy') : null
   }, [])
 
@@ -48,8 +47,6 @@ const CountrySelect: React.FC = () => {
   const updateSelection = (countryISOs: Array<string>): void => {
     dispatch(DataExportAction.updateSelection({ assessmentSection, selection: { ...selection, countryISOs } }))
   }
-
-  useEffect(filterCountries, [countries])
 
   return (
     <div className="export__form-section">
