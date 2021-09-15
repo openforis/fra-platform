@@ -1,6 +1,5 @@
-import { useSelector } from 'react-redux'
 import { i18n } from 'i18next'
 
-import * as AppState from '@webapp/store/app/state'
+import { useAppSelector } from '@webapp/store'
 
-export default (): i18n => useSelector(AppState.getI18n) as i18n
+export default (): i18n => useAppSelector((state) => state.app.i18n)
