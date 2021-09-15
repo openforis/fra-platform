@@ -2,9 +2,9 @@ import * as UserState from '@webapp/store/user/state'
 import axios from 'axios'
 import { createI18nPromise } from '@common/i18n/i18nFactory'
 import { applicationError } from '@webapp/components/error/actions'
-import { AppActions } from '@webapp/store'
+import { createAsyncThunk } from '@reduxjs/toolkit'
 
-export const switchLanguage = (lang: any) => async (dispatch: any, getState: any) => {
+export const switchLanguage = createAsyncThunk('app/switchLanguage', async (lang: string, { dispatch, getState }) => {
   try {
     const userInfo = UserState.getUserInfo(getState())
     if (userInfo) {
@@ -15,8 +15,9 @@ export const switchLanguage = (lang: any) => async (dispatch: any, getState: any
     if (lang === 'ar') document.body.classList.add('rtl')
     if (lang !== 'ar') document.body.classList.remove('rtl')
 
-    dispatch(AppActions.updateI18n(i18n))
+    return { i18n }
   } catch (err) {
     dispatch(applicationError(err))
+    return createI18nPromise('en')
   }
-}
+})
