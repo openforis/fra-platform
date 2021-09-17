@@ -1,12 +1,11 @@
-import { i18n } from 'i18next'
-
 import { Country } from '@core/country/country'
 import { Global } from '@core/country/global'
 import { Region } from '@core/country/region'
 import { RegionGroup } from '@core/country/regionGroup'
 import { Strings } from '@core/utils'
+import { I18nInstanceType } from '@common/i18n/i18nInstance'
 
-const getListName = (isoCode: string, i18n: i18n): string => i18n.t(`area.${isoCode}.listName`)
+const getListName = (isoCode: string, i18n: I18nInstanceType): string => i18n.t(`area.${isoCode}.listName`)
 
 const getLocale = (isoCode: string): string => {
   if (isoCode.includes('zh')) return 'zh-CN'
@@ -18,7 +17,7 @@ const isISOCountry = (isoCode: string): boolean => /^[a-zA-Z0-9]{3}$/.test(isoCo
 
 type CompareFn = (isoCode1: string, isoCode2: string) => number
 const getCompareListName =
-  (i18n: i18n): CompareFn =>
+  (i18n: I18nInstanceType): CompareFn =>
   (isoCode1: string, isoCode2: string): number => {
     const country1 = Strings.normalize(getListName(isoCode1, i18n))
     const country2 = Strings.normalize(getListName(isoCode2, i18n))
@@ -26,14 +25,14 @@ const getCompareListName =
     return country1.localeCompare(country2, locale)
   }
 
-const sortCountries = (countries: Array<Country>, i18n: i18n): Array<Country> => {
+const sortCountries = (countries: Array<Country>, i18n: I18nInstanceType): Array<Country> => {
   const compareListName = getCompareListName(i18n)
   const compareCountries = (country1: Country, country2: Country) =>
     compareListName(country1.countryIso, country2.countryIso)
   return [...countries].sort(compareCountries)
 }
 
-const sortRegions = (regions: Array<Region>, i18n: i18n): Array<Region> => {
+const sortRegions = (regions: Array<Region>, i18n: I18nInstanceType): Array<Region> => {
   const compareListName = getCompareListName(i18n)
   return [...regions].sort((r1, r2) => compareListName(r1.regionCode, r2.regionCode))
 }

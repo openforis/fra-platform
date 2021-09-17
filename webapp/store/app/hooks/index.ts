@@ -13,11 +13,11 @@ export const useAssessmentType = (): AssessmentType | null =>
 export const useCountries = (): Array<Country> => {
   const i18n = useI18n()
   const dispatch = useAppDispatch()
-  const { countries = [] } = useAppSelector((state) => state.app)
+  const { countries = [], language } = useAppSelector((state) => state.app)
 
   useEffect(() => {
     dispatch(AppActions.updateCountries(Areas.sortCountries(countries, i18n)))
-  }, [i18n])
+  }, [language])
 
   return countries
 }
@@ -26,13 +26,14 @@ export const useCountriesPanEuropean = (): Array<Country> =>
   useCountries().filter((country) => country.regionCodes.includes(RegionCode.FE))
 
 export const useRegions = (): Array<Region> => {
-  const i18n = useI18n()
   const dispatch = useAppDispatch()
-  const { regions = [] } = useAppSelector((state) => state.app)
+  const i18n = useI18n()
+
+  const { regions = [], language } = useAppSelector((state) => state.app)
 
   useEffect(() => {
     dispatch(AppActions.updateRegions(Areas.sortRegions(regions, i18n)))
-  }, [i18n])
+  }, [language])
 
   return regions
 }
@@ -65,5 +66,5 @@ export const useSecondaryGroupedRegions = () => {
 export const useFraRegions = (): Array<RegionCode> => {
   const groupedRegions = useGroupedRegions()
   const _fraRegionGroup = groupedRegions.find((groupedRegion) => groupedRegion.name === FRA.type)
-  return _fraRegionGroup.regions.map((region) => region.regionCode)
+  return (_fraRegionGroup?.regions ?? []).map((region) => region.regionCode)
 }

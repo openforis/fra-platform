@@ -1,14 +1,15 @@
 import * as i18next from 'i18next'
 
-// @ts-ignore
-const createInstance = i18next.createInstance || i18next.default.createInstance
-
+import { i18n } from 'i18next'
 import * as enTranslation from './resources/en'
 import * as frTranslation from './resources/fr'
 import * as esTranslation from './resources/es'
 import * as ruTranslation from './resources/ru'
 import * as arTranslation from './resources/ar'
 import * as zhTranslation from './resources/zh'
+
+// @ts-ignore
+const createInstance = i18next.createInstance || i18next.default.createInstance
 
 const translationsFiles: { [langCode: string]: any } = {
   en: enTranslation.translation,
@@ -41,7 +42,7 @@ const createParams = (lang: string) => ({
 export const createI18nInstance = (lang: any, callback: any) =>
   createInstance(createParams(lang), (_err: any, t: any) => callback({ language: lang, t }))
 
-export const createI18nPromise = (lang: any) =>
+export const createI18nPromise = (lang: any): Promise<Partial<i18n>> =>
   new Promise((resolve, reject) =>
     createInstance(createParams(lang), (err: any, t: any) => {
       if (err) {
