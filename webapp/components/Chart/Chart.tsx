@@ -33,7 +33,7 @@ const ChartComponent = (props: Props) => {
     chart.data = data
     chart.options = options
     chart.update({ duration: 0, lazy: true })
-  }, [i18n, data, options])
+  }, [i18n.language, data, options])
 
   return (
     <div className="chart">
