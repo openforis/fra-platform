@@ -66,6 +66,12 @@ const CountrySelectModal: React.FC<Props> = (props) => {
     onChange(countryIso, selectionUpdate)
   }
 
+  const _onChangeAll = (countryISOs: Array<string>): void => {
+    const selectionUpdate = [...countryISOs]
+    setSelection(selectionUpdate)
+    onChange('', selectionUpdate)
+  }
+
   const _onClose = () => {
     onClose(selection)
     setSelection([])
@@ -99,6 +105,7 @@ const CountrySelectModal: React.FC<Props> = (props) => {
       <CountrySelectModalBody
         countries={countriesFiltered}
         onChange={_onChange}
+        onChangeAll={_onChangeAll}
         selection={selection}
         unselectableCountries={unselectableCountries}
         excludedRegions={excludedRegions}
