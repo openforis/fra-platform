@@ -3,12 +3,11 @@ import { exportReducer } from '@webapp/utils/reduxUtils'
 import * as UserState from '@webapp/store/user/state'
 import * as UserActions from '@webapp/store/user/actions'
 
-import ActionTypes from '@webapp/store/app/actions/actionTypes'
-
 const actionHandlers = {
-  [ActionTypes.appInitDone]: (state: any, { userInfo }: any) => UserState.assocUserInfo(userInfo)(state),
+  // TODO: waiting refactor
+  'app/init/fulfilled': (state: any, { userInfo }: any) => UserState.assocUserInfo(userInfo)(state),
 
-  [ActionTypes.appI18nUpdate]: (state: any, { i18n }: any) => UserState.assocUserInfoLang(i18n.language)(state),
+  'app/switchLanguage/fulfilled': (state: any, { i18n }: any) => UserState.assocUserInfoLang(i18n.language)(state),
 
   [UserActions.appUserLogout]: () => ({}),
 }
