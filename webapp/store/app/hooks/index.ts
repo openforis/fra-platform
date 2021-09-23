@@ -8,12 +8,12 @@ import { useAppDispatch, useAppSelector } from '@webapp/store'
 import { AppActions } from '../appSlice'
 
 export const useAssessmentType = (): AssessmentType | null =>
-  useAppSelector((state) => state.app.assessmentType) ?? null
+  useAppSelector((state) => state.app.assessmentType ?? null)
 
 export const useCountries = (): Array<Country> => {
   const i18n = useI18n()
   const dispatch = useAppDispatch()
-  const { countries = [] } = useAppSelector((state) => state.app)
+  const countries = useAppSelector((state) => state.app?.countries ?? [])
 
   useEffect(() => {
     dispatch(AppActions.updateCountries(Areas.sortCountries(countries, i18n)))
@@ -28,7 +28,7 @@ export const useCountriesPanEuropean = (): Array<Country> =>
 export const useRegions = (): Array<Region> => {
   const i18n = useI18n()
   const dispatch = useAppDispatch()
-  const { regions = [] } = useAppSelector((state) => state.app)
+  const regions = useAppSelector((state) => state.app?.regions ?? [])
 
   useEffect(() => {
     dispatch(AppActions.updateRegions(Areas.sortRegions(regions, i18n)))
@@ -44,7 +44,7 @@ export const useRegions = (): Array<Region> => {
   },
  */
 export const useGroupedRegions = () => {
-  const { regionGroups = [] } = useAppSelector((state) => state.app)
+  const regionGroups = useAppSelector((state) => state.app?.regionGroups ?? [])
   const regions = useRegions()
 
   return regionGroups.map((regionGroup) => ({
