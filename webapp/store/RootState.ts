@@ -1,3 +1,7 @@
+import { AppDispatch } from '@webapp/store/store'
+import { AppState } from '@webapp/store/app/types'
+
 export type RootState = {
-  app: any
+  dispatch: AppDispatch
+  app: AppState
 }

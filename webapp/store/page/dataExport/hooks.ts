@@ -4,7 +4,7 @@ import { Country, RegionCode } from '@core/country'
 import { AssessmentType } from '@core/assessment'
 import { Objects } from '@core/utils'
 
-import { useCountryIso } from '@webapp/components/hooks'
+import { useCountryIso } from '@webapp/hooks'
 import { useAssessmentType, useCountries, useCountriesPanEuropean } from '@webapp/store/app'
 import { useHomeCountriesFilter } from '@webapp/store/page/home'
 import { DataExportSelection, DataExportState } from '@webapp/store/page/dataExport/state'

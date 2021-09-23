@@ -2,7 +2,8 @@ import './ButtonTableExport.scss'
 import React, { MutableRefObject } from 'react'
 import { CSVLink } from 'react-csv'
 
-import { useIsAssessmentLocked, usePrintView } from '@webapp/components/hooks'
+import { useIsAssessmentLocked } from '@webapp/components/hooks'
+import { usePrintView } from '@webapp/store/app'
 
 import Icon from '@webapp/components/icon'
 import * as Utils from './utils'
