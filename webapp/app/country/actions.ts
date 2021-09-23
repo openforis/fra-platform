@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-import { AppActions, batchActions } from '@webapp/store'
+import { batchActions } from '@webapp/store'
+import { AppActions } from '@webapp/store/app'
 
 import * as AppState from '@webapp/store/app/state'
 
