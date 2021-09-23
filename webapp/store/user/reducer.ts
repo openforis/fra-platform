@@ -7,7 +7,9 @@ const actionHandlers = {
   // TODO: waiting refactor
   'app/init/fulfilled': (state: any, { userInfo }: any) => UserState.assocUserInfo(userInfo)(state),
 
-  'app/switchLanguage/fulfilled': (state: any, { i18n }: any) => UserState.assocUserInfoLang(i18n.language)(state),
+  'app/switchLanguage/fulfilled': (state: any, { payload }: any) => {
+    return UserState.assocUserInfoLang(payload.language)(state)
+  },
 
   [UserActions.appUserLogout]: () => ({}),
 }
