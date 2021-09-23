@@ -1,6 +1,6 @@
 import React from 'react'
-import { useCountryIso } from '@webapp/components/hooks'
-import useI18n from '@webapp/components/hooks/useI18n'
+import { useCountryIso } from '@webapp/hooks'
+import useI18n from '@webapp/hooks/useI18n'
 import { useDispatch, useSelector } from 'react-redux'
 import * as LandingState from '@webapp/app/countryLanding/landingState'
 import * as MessageBoardState from '@webapp/app/countryLanding/views/messageBoard/messageBoardState'

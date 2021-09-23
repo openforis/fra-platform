@@ -4,11 +4,11 @@ import * as R from 'ramda'
 import { isAdministrator } from '@common/countryRole'
 import { isStatusSaving } from '@webapp/app/components/autosave/autosave'
 import Icon from '@webapp/components/icon'
-import useI18n from '@webapp/components/hooks/useI18n'
+import useI18n from '@webapp/hooks/useI18n'
 import { UserState } from '@webapp/store/user'
 import * as AutosaveState from '@webapp/app/components/autosave/autosaveState'
-import * as AppState from '@webapp/store/app/state'
 import { getFilesList, uploadFile, deleteFile } from '@webapp/app/countryLanding/actions'
+import { useCountryIso } from '@webapp/hooks'
 
 const links = [
   {
@@ -21,7 +21,7 @@ const links = [
 ]
 const LinksView = () => {
   const dispatch = useDispatch()
-  const countryIso = useSelector(AppState.getCountryIso)
+  const countryIso = useCountryIso()
   const userInfo = useSelector(UserState.getUserInfo)
   const status = useSelector(AutosaveState.getStatus)
   // TODO use repository state
@@ -64,14 +64,14 @@ const LinksView = () => {
       </div>
       {links.map((link) => (
         <div key={link.key} className="landing__link-container">
-          <a href={link.href} target="_blank">
+          <a href={link.href} target="_blank" rel="noreferrer">
             {(i18n as any).t(`landing.links.${link.key}`)}
           </a>
         </div>
       ))}
       {globalFiles.map((file: any, i: any) => (
         <div key={i} className="landing__link-container">
-          <a href={`/api/fileRepository/${countryIso}/file/${file.id}`} target="_blank">
+          <a href={`/api/fileRepository/${countryIso}/file/${file.id}`} target="_blank" rel="noreferrer">
             {file.fileName}
           </a>
           {isAdmin ? (
@@ -115,7 +115,7 @@ const LinksView = () => {
       </div>
       {countryFiles.map((file: any, i: any) => (
         <div key={i} className="landing__link-container">
-          <a href={`/api/fileRepository/${countryIso}/file/${file.id}`} target="_blank">
+          <a href={`/api/fileRepository/${countryIso}/file/${file.id}`} target="_blank" rel="noreferrer">
             {file.fileName}
           </a>
           <button

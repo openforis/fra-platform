@@ -1,7 +1,5 @@
 import { exportReducer } from '@webapp/utils/reduxUtils'
 
-import AppActionTypes from '@webapp/store/app/actions/actionTypes'
-
 import {
   DataExportActionType,
   DataExportCountriesAction,
@@ -16,7 +14,8 @@ const initialState: DataExportState = {
 }
 
 const actionHandlers = {
-  [AppActionTypes.appCountryIsoUpdate]: () => ({ ...initialState }),
+  // TODO: waiting refactor
+  'app/updateCountryIso': () => ({ ...initialState }),
 
   [DataExportActionType.countriesUpdate]: (
     state: DataExportState,

@@ -2,13 +2,13 @@ import './editUserForm.less'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { validate } from '@common/userUtils'
+import { useCountryIso } from '@webapp/hooks'
 import { loadUserToEdit, persistUser } from '../../actions'
 
 import Buttons from './components/Buttons'
 import ProfilePicture from './components/ProfilePicture'
 import CountryRoles from './components/CountryRoles'
 import TextInputFields from './components/TextInputFields'
-import { useCountryIso } from '@webapp/components/hooks'
 
 type Props = {
   onCancel?: any

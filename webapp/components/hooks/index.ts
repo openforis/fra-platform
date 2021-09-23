@@ -1,7 +1,4 @@
-export { default as useI18n } from './useI18n'
-export { default as useCountryIso } from './useCountryIso'
 export { default as useUserInfo } from './useUserInfo'
-export { default as usePrintView } from './usePrintView'
 export { default as useIsDataExportView } from './useIsDataExportView'
 export { default as useOnResize } from './useOnResize'
 export { useIsAutoSaveComplete, useIsAutoSaveSaving } from './useAutoSave'
@@ -15,3 +12,6 @@ export { default as useIsMounted } from './useIsMounted'
 export { default as useOnUpdate } from './useOnUpdate'
 export { default as useCountryLandingSections } from './useCountryLandingSections'
 export { useParamSection } from './useParams'
+
+// TODO: remove when migration complete
+export { useI18n, useCountryIso } from '@webapp/hooks'

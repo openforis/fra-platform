@@ -1,6 +1,6 @@
 import './verticallyGrowingTextField.scss'
 import React, { forwardRef, useEffect, useRef, MutableRefObject } from 'react'
-import { usePrintView } from './hooks'
+import { usePrintView } from '@webapp/store/app'
 
 interface Props extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   minWidth?: number

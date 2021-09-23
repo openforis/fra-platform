@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { Redirect, Route, Switch } from 'react-router-dom'
 
 import { useIsLogin } from '@webapp/components/hooks'
-import * as AppState from '@webapp/store/app/state'
-import { AppActions } from '@webapp/store/app'
+import { useAppDispatch, useAppSelector } from '@webapp/store'
 import * as BasePaths from '@webapp/main/basePaths'
 
 import DynamicImport from '@webapp/components/dynamicImport'
@@ -18,19 +16,29 @@ import CountrySelect from '@webapp/components/CountrySelect'
 import UserConsultationSurvey from '@webapp/components/UserConsultationSurvey'
 
 import { FRA } from '@core/assessment'
+
+import { useTranslation } from 'react-i18next'
+import { useAppLoaded, AppActions } from '@webapp/store/app'
+
 import { useTheme } from './useTheme'
 
 const PageRoutes: React.FC = () => {
   useTheme()
-  const dispatch = useDispatch()
-  const appStatus = useSelector(AppState.getApplicationStatus)
+  const dispatch = useAppDispatch()
+  const appLoaded = useAppLoaded()
   const isLogin = useIsLogin()
+  const { language } = useAppSelector((state) => state.app)
+  const { i18n } = useTranslation()
 
   useEffect(() => {
-    dispatch(AppActions.initApp())
+    i18n.changeLanguage(language)
+  }, [language])
+
+  useEffect(() => {
+    dispatch(AppActions.initApp(i18n))
   }, [])
 
-  if (appStatus !== AppState.stateLoadedKey) {
+  if (!appLoaded) {
     return <Loading />
   }
 

@@ -1,14 +1,14 @@
 import * as i18next from 'i18next'
 
-// @ts-ignore
-const createInstance = i18next.createInstance || i18next.default.createInstance
-
 import * as enTranslation from './resources/en'
 import * as frTranslation from './resources/fr'
 import * as esTranslation from './resources/es'
 import * as ruTranslation from './resources/ru'
 import * as arTranslation from './resources/ar'
 import * as zhTranslation from './resources/zh'
+
+// @ts-ignore
+const createInstance = i18next.createInstance || i18next.default.createInstance
 
 const translationsFiles: { [langCode: string]: any } = {
   en: enTranslation.translation,
@@ -19,7 +19,7 @@ const translationsFiles: { [langCode: string]: any } = {
   zh: zhTranslation.translation,
 }
 
-const createParams = (lang: string) => ({
+export const createParams = (lang: string) => ({
   fallbackLng: 'en',
   debug: false,
 
@@ -32,8 +32,23 @@ const createParams = (lang: string) => ({
   lng: lang,
 
   resources: {
-    [lang]: {
-      translation: translationsFiles[lang],
+    en: {
+      translation: translationsFiles.en,
+    },
+    es: {
+      translation: translationsFiles.es,
+    },
+    fr: {
+      translation: translationsFiles.fr,
+    },
+    ru: {
+      translation: translationsFiles.ru,
+    },
+    ar: {
+      translation: translationsFiles.ar,
+    },
+    zh: {
+      translation: translationsFiles.zh,
     },
   },
 })

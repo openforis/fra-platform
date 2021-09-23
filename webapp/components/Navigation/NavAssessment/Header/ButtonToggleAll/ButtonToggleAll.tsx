@@ -1,6 +1,6 @@
 import React from 'react'
 
-import useI18n from '@webapp/components/hooks/useI18n'
+import useI18n from '@webapp/hooks/useI18n'
 
 type Props = {
   showSections: boolean

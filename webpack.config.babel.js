@@ -29,6 +29,7 @@ const plugins = [
   new MiniCssExtractPlugin({ filename: 'style/styles-[fullhash].css' }),
   new HtmlWebpackPlugin({ template: './web-resources/index.html' }),
   new webpack.DefinePlugin({
+    __DEV__: isDevelopment,
     __BUST__: `"${uuidv4()}"`,
     __GOOGLE_API__: JSON.stringify(process.env.FRA_GOOGLE_API),
     __APPLICATION_VERSION__: gitRevisionPlugin
@@ -162,7 +163,7 @@ const appConfig = {
   plugins,
   stats: { children: false },
   optimization: {
-    minimize: true,
+    minimize: !isDevelopment,
     minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
   },
 }
