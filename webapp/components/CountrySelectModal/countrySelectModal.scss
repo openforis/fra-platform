@@ -5,9 +5,13 @@
   height: 100%;
 
   .filter {
-    width: 400px;
+    width: 200px;
     padding: 7px 9px;
     border: 1px solid #888;
+
+    @include min-width($laptop) {
+      width: 400px;
+    }
   }
 
   .modal-content {
@@ -22,13 +26,20 @@
 
   .modal-footer {
     .btn {
-      width: 200px;
+      width: 100px;
       justify-self: center;
       margin-left: 12px;
+
+      @include min-width($tablet-portrait) {
+        width: 200px;
+      }
+
       &.btn-primary {
-        margin: auto;
-        position: relative;
-        left: -100px;
+        @include min-width($laptop) {
+          margin: auto;
+          position: relative;
+          left: -100px;
+        }
       }
     }
   }
