@@ -16,8 +16,8 @@ import CountrySelect from '@webapp/components/CountrySelect'
 import UserConsultationSurvey from '@webapp/components/UserConsultationSurvey'
 
 import { FRA } from '@core/assessment'
-import { useAppLoaded } from '@webapp/hooks'
-import { AppActions } from '@webapp/store/app'
+import { useAppLoaded, AppActions } from '@webapp/store/app'
+
 import { useTheme } from './useTheme'
 
 const PageRoutes: React.FC = () => {

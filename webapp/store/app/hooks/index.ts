@@ -7,6 +7,8 @@ import { useI18n } from '@webapp/components/hooks'
 import { useAppDispatch, useAppSelector } from '@webapp/store'
 import { AppActions } from '../appSlice'
 
+export const useAppLoaded = (): boolean => useAppSelector((state) => state.app.loaded)
+
 export const useAssessmentType = (): AssessmentType | null =>
   useAppSelector((state) => state.app.assessmentType ?? null)
 
