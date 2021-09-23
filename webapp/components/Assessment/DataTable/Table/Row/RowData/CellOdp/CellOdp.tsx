@@ -3,7 +3,8 @@ import { useSelector } from 'react-redux'
 
 import { TableDatumODPType } from '@core/assessment'
 import { formatNumber } from '@common/bignumberUtils'
-import { usePrintView, useUserInfo } from '@webapp/components/hooks'
+import { useUserInfo } from '@webapp/components/hooks'
+import { usePrintView } from '@webapp/store/app'
 
 import ThousandSeparatedDecimalInput from '@webapp/components/thousandSeparatedDecimalInput'
 import { Props } from './props'

@@ -14,4 +14,4 @@ export { default as useCountryLandingSections } from './useCountryLandingSection
 export { useParamSection } from './useParams'
 
 // TODO: remove when migration complete
-export { useI18n, useCountryIso, usePrintView } from '@webapp/hooks'
+export { useI18n, useCountryIso } from '@webapp/hooks'

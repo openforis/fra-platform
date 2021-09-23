@@ -5,7 +5,13 @@ import { Areas, Country, Region, RegionCode } from '@core/country'
 import { useI18n } from '@webapp/components/hooks'
 
 import { useAppDispatch, useAppSelector } from '@webapp/store'
+import { useSelector } from 'react-redux'
+import * as AppState from '@webapp/store/app/state'
 import { AppActions } from '../appSlice'
+
+// TODO: Remove AppState usage and use state.app.?
+export const usePrintView = () =>
+  useSelector((state) => [AppState.isPrintView(state), AppState.isPrintOnlyTablesView(state)])
 
 export const useAppLoaded = (): boolean => useAppSelector((state) => state.app.loaded)
 

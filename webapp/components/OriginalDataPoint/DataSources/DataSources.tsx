@@ -5,7 +5,9 @@ import { ODP, ODPDataSourceMethod } from '@core/odp'
 import VerticallyGrowingTextField from '@webapp/components/verticallyGrowingTextField'
 import MultiSelect from '@webapp/components/multiSelect'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
-import { useCountryIso, useI18n, usePrintView } from '@webapp/components/hooks'
+import { useCountryIso, useI18n } from '@webapp/components/hooks'
+import { usePrintView } from '@webapp/store/app'
+
 import { saveDraft } from '@webapp/sectionSpec/fra/originalDataPoint/actions'
 
 type Props = {
