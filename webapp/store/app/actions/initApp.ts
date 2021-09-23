@@ -5,6 +5,7 @@ import { getRequestParam } from '@webapp/utils/urlUtils'
 import axios from 'axios'
 import { ApiEndPoint } from '@common/api/endpoint'
 import { applicationError } from '@webapp/components/error/actions'
+
 import { AppDispatch } from '@webapp/store'
 
 export const initApp = createAsyncThunk<
@@ -41,6 +42,7 @@ export const initApp = createAsyncThunk<
     return {
       userInfo,
       language,
+
       countries: Areas.sortCountries(countries, i18n),
       regions: Areas.sortRegions(regions, i18n),
       regionGroups: Areas.sortRegionGroups(regionGroups),
