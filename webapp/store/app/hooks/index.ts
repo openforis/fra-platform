@@ -20,12 +20,13 @@ export const useAssessmentType = (): AssessmentType | null =>
 
 export const useCountries = (): Array<Country> => {
   const i18n = useI18n()
+
   const dispatch = useAppDispatch()
   const countries = useAppSelector((state) => state.app?.countries ?? [])
 
   useEffect(() => {
     dispatch(AppActions.updateCountries(Areas.sortCountries(countries, i18n)))
-  }, [i18n])
+  }, [i18n.language])
 
   return countries
 }
@@ -40,7 +41,7 @@ export const useRegions = (): Array<Region> => {
 
   useEffect(() => {
     dispatch(AppActions.updateRegions(Areas.sortRegions(regions, i18n)))
-  }, [i18n])
+  }, [i18n.language])
 
   return regions
 }

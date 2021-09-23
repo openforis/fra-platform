@@ -1,4 +1,3 @@
-import { i18n } from 'i18next'
 import { Country, CountryIso, Region, RegionGroup } from '@core/country'
 import { AssessmentType } from '@core/assessment'
 
@@ -7,7 +6,7 @@ export interface AppState {
   regions?: Region[]
   regionGroups?: RegionGroup[]
   loaded: boolean
-  i18n?: i18n
+  language: string
   countryIso?: CountryIso
   assessmentType?: AssessmentType
   printView?: {

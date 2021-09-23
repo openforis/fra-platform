@@ -8,6 +8,7 @@ import { initApp, switchLanguage } from './actions'
 
 const initialState: AppState = {
   loaded: false,
+  language: 'en',
 }
 
 export const appSlice = createSlice({
@@ -49,20 +50,18 @@ export const appSlice = createSlice({
     // Add reducers for additional action types here, and handle loading state as needed
     builder
       .addCase(initApp.fulfilled, (state, { payload }) => {
-        state.userInfo = payload.userInfo
         state.countries = payload.countries
         state.regions = payload.regions
         state.regionGroups = payload.regionGroups
         state.loaded = true
-        // TODO Remove
-        state.i18n = payload.i18n
+        state.language = payload.language
       })
       .addCase(initApp.rejected, (state, { payload }) => {
-        state.i18n = payload.i18n
         state.loaded = true
+        state.language = payload.language
       })
     builder.addCase(switchLanguage.fulfilled, (state, { payload }) => {
-      state.i18n = payload.i18n
+      state.language = payload.language
     })
   },
 })

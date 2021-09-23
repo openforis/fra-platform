@@ -11,6 +11,8 @@ import { Provider } from 'react-redux'
 import PageRoutes from './pages/PageRoutes'
 import store from './store/store'
 
+import './i18n'
+
 const Main = () => {
   ReactDOM.render(
     <Provider store={store}>
