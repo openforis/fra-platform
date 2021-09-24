@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { AssessmentType, TableData } from '@core/assessment'
 import { Objects } from '@core/utils'
 import { TableSpec } from '@webapp/sectionSpec'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 import { usePrintView } from '@webapp/store/app'
 
 import Table from './Table'

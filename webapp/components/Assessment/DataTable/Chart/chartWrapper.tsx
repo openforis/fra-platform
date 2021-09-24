@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import { elementOffset } from '@webapp/utils/domUtils'
 
-import { useOnResize } from '@webapp/components/hooks'
+import { useOnResize } from '@webapp/hooks'
 import { usePrintView } from '@webapp/store/app'
 
 import ChartContainer from './chartContainer'

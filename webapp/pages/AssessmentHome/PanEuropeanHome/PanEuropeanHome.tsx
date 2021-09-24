@@ -1,6 +1,6 @@
 import './panEuropeanHome.scss'
 import React from 'react'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 
 const PanEuropeanHome = () => {
   const i18n = useI18n()

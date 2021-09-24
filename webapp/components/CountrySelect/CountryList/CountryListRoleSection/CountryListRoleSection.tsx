@@ -5,7 +5,7 @@ import { FRA } from '@core/assessment'
 import { Country } from '@common/country'
 import { Areas } from '@core/country'
 import { getRoleLabelKey, noRole } from '@common/countryRole'
-import { useI18n, useUserInfo } from '@webapp/components/hooks'
+import { useI18n, useUserInfo } from '@webapp/hooks'
 
 import { checkMatch } from '../../utils/checkMatch'
 import CountryListRow from '../CountryListRow'

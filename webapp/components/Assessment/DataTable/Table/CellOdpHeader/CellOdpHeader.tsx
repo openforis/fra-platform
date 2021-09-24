@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import { FRA, TableDatumODP } from '@core/assessment'
 import * as BasePaths from '@webapp/main/basePaths'
-import { useCountryIso, useI18n, useUserInfo } from '@webapp/components/hooks'
+import { useCountryIso, useI18n, useUserInfo } from '@webapp/hooks'
 import { usePrintView } from '@webapp/store/app'
 
 import Icon from '@webapp/components/icon'

@@ -9,7 +9,7 @@ import { Objects } from '@core/utils'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import { changeAssessment } from '@webapp/app/country/actions'
 import { Breakpoints } from '@webapp/utils/breakpoints'
-import { useCountryIso, useI18n, useUserInfo } from '@webapp/components/hooks'
+import { useCountryIso, useI18n, useUserInfo } from '@webapp/hooks'
 
 import Icon from '@webapp/components/icon'
 import PopoverControl, { PopoverItem } from '@webapp/components/PopoverControl'

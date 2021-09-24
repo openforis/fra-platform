@@ -1,5 +1,5 @@
 import React from 'react'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 import { Areas } from '@core/country'
 import Table from '../components/table'
 

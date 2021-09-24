@@ -2,10 +2,10 @@ import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
+import { useI18n } from '@webapp/hooks'
 import Error from '../../Error'
 
 import { resetPassword, resetPasswordFormReset } from '../../actions'
-import { useI18n } from '@webapp/components/hooks'
 
 type Props = {
   onClose: (...args: any[]) => any

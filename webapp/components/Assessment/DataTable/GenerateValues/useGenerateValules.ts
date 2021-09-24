@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import FRAUtils from '@common/fraUtils'
 import { AssessmentType, TableData } from '@core/assessment'
 import { RowSpec, TypeSpec } from '@webapp/sectionSpec'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import { generateTableData } from '@webapp/components/Assessment/DataTable/actions'
 

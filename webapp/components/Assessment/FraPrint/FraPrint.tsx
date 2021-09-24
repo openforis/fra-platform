@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 
 import { Assessment, FRA } from '@core/assessment'
 import * as CountryState from '@webapp/app/country/countryState'
-import { useCountryIso, useI18n } from '@webapp/components/hooks'
+import { useCountryIso, useI18n } from '@webapp/hooks'
 
 import SectionView from '@webapp/components/Assessment/SectionView'
 import Loading from '@webapp/components/loading'

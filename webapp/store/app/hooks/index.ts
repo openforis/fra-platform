@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { AssessmentType, FRA } from '@core/assessment'
 import { Areas, Country, Region, RegionCode } from '@core/country'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 
 import { useAppDispatch, useAppSelector } from '@webapp/store'
 import { useSelector } from 'react-redux'

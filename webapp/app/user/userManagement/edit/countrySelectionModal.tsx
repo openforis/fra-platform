@@ -1,9 +1,8 @@
 import React from 'react'
 import * as R from 'ramda'
 import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from '@webapp/components/modal'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 import { useSecondaryGroupedRegions } from '@webapp/store/app/hooks'
-
 
 type Props = any
 
@@ -26,7 +25,7 @@ const CountrySelectionModalBody = (props: Props) => {
       regionCountries[regionCode].push(countryIso)
     })
   })
-  
+
   return (
     <ModalBody>
       <div className="edit-user__form-field-country-selection">

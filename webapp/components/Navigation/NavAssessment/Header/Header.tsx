@@ -7,7 +7,7 @@ import { Assessment, AssessmentType } from '@core/assessment'
 import { Areas } from '@core/country'
 import * as BasePaths from '@webapp/main/basePaths'
 
-import { useCountryIso, useUserInfo } from '@webapp/components/hooks'
+import { useCountryIso, useUserInfo } from '@webapp/hooks'
 import { Breakpoints } from '@webapp/utils/breakpoints'
 
 import Icon from '@webapp/components/icon'

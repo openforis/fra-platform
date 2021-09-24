@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 
-import { useIsLogin } from '@webapp/components/hooks'
+import { useIsLogin } from '@webapp/hooks'
 import { useAppDispatch, useAppSelector } from '@webapp/store'
 import * as BasePaths from '@webapp/main/basePaths'
 

@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 import { Objects } from '@core/utils'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 import { ValidationMessage } from '@webapp/sectionSpec'
 
 import { Props } from '../props'

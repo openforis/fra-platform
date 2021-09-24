@@ -3,11 +3,8 @@ import { useDispatch } from 'react-redux'
 
 import { ODP } from '@core/odp'
 import * as NumberUtils from '@common/bignumberUtils'
-import { useCountryIso, useI18n } from '@webapp/components/hooks'
-import {
-  pasteNationalClassValues,
-  updateNationalClassValue,
-} from '@webapp/sectionSpec/fra/originalDataPoint/actions'
+import { useCountryIso, useI18n } from '@webapp/hooks'
+import { pasteNationalClassValues, updateNationalClassValue } from '@webapp/sectionSpec/fra/originalDataPoint/actions'
 
 import { PercentInput } from '@webapp/components/percentInput'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'

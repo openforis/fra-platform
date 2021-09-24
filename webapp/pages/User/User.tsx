@@ -2,7 +2,7 @@ import React, { memo } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { isAdministrator } from '@common/countryRole'
-import { useUserInfo } from '@webapp/components/hooks'
+import { useUserInfo } from '@webapp/hooks'
 
 import NotFound from '@webapp/app/notfound'
 import EditUserForm from '@webapp/app/user/userManagement/edit/editUserForm'

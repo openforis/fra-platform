@@ -5,7 +5,7 @@ import { alternateNationalCorrespondent, collaborator, nationalCorrespondent, re
 import { i18nUserRole } from '@common/userUtils'
 import * as UserManagementState from '@webapp/app/user/userManagement/userManagementState'
 import { useSelector } from 'react-redux'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 
 const roles = [nationalCorrespondent.role, alternateNationalCorrespondent.role, collaborator.role, reviewer.role]
 

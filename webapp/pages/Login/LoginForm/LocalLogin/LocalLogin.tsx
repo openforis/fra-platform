@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
+import { useI18n } from '@webapp/hooks'
 import { loginUserPropChange, localLoginSubmit, localLoginReset } from '../../actions'
 
 import Error from '../../Error'
 import ForgotPassword from '../ForgotPassword'
-import { useI18n } from '@webapp/components/hooks'
 
 type Props = {
   invitation?: any

@@ -1,8 +1,15 @@
 import React, { useState } from 'react'
-import { administrator, isAdministrator } from '@common/countryRole'
-import { useI18n, useUserInfo } from '@webapp/components/hooks'
+import {
+  administrator,
+  isAdministrator,
+  reviewer,
+  nationalCorrespondent,
+  alternateNationalCorrespondent,
+  collaborator,
+} from '@common/countryRole'
+import { useI18n, useUserInfo } from '@webapp/hooks'
 import { i18nUserRole, validRole } from '@common/userUtils'
-import { reviewer, nationalCorrespondent, alternateNationalCorrespondent, collaborator } from '@common/countryRole'
+
 import { useCountries } from '@webapp/store/app'
 import { useSecondaryGroupedRegions } from '@webapp/store/app/hooks'
 import CountrySelectModal from '@webapp/components/CountrySelectModal'

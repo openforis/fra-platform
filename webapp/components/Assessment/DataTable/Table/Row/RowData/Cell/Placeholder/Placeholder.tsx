@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 import { PropsCell } from '../props'
 
 const Placeholder: React.FC<PropsCell> = (props) => {

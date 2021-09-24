@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 
 import { Areas } from '@core/country'
 import { FRA } from '@core/assessment'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 import * as UserState from '@webapp/store/user/state'
 
 export const sortCountries = (countries: any, i18n: i18n) => {

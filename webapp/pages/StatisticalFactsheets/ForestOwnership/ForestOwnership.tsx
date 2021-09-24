@@ -1,7 +1,7 @@
 import React from 'react'
 import { Areas } from '@core/country'
 import Chart, { ChartType, getChartOptions, ChartColors } from '@webapp/components/Chart'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 import useStatisticalFactsheetsState from '../hooks/useStatisticalFactsheetsState'
 import { formatValue } from '../utils/numberUtils'
 import { getVariableValuesByYear } from '../utils/propUtils'

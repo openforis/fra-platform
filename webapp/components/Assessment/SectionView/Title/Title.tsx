@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { AssessmentType, FRA } from '@core/assessment'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 
 import DefinitionLink from '@webapp/components/definitionLink'
 import ExtentOfForest from './ExtentOfForest/ExtentOfForest'

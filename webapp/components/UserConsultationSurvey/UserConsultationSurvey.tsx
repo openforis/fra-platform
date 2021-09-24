@@ -1,7 +1,7 @@
 import './userConsulationSurvey.scss'
 import React, { useState } from 'react'
 
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 
 // const localStorageKey = 'uc/doNotShow'
 

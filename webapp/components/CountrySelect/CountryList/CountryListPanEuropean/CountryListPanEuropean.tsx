@@ -5,7 +5,7 @@ import { Areas, RegionCode } from '@core/country'
 import { noRole } from '@common/countryRole'
 
 import { useCountriesPanEuropean } from '@webapp/store/app'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 import { checkMatch } from '../../utils/checkMatch'
 
 import CountryListRow from '../CountryListRow'

@@ -6,7 +6,7 @@ import { noRole } from '@common/countryRole'
 
 import { useCountries, useGroupedRegions } from '@webapp/store/app'
 import { useUserCountries } from '@webapp/store/user'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 import { checkMatch } from '../../utils/checkMatch'
 
 import CountryListDownload from '../CountryListDownload'
@@ -47,11 +47,7 @@ const CountryListFra: React.FC<Props> = (props: Props) => {
         <div className="country-selection-list__global">
           {checkMatch(i18n.t(`area.${Global.WO}.listName`), query) && (
             <>
-              <CountryListRow
-                role={noRole.role}
-                country={{ countryIso: Global.WO }}
-                assessmentType={FRA.type}
-              />
+              <CountryListRow role={noRole.role} country={{ countryIso: Global.WO }} assessmentType={FRA.type} />
               <hr />
             </>
           )}

@@ -1,9 +1,8 @@
 import React from 'react'
 import TextInput from '@webapp/components/textInput'
 import { isAdministrator } from '@common/countryRole'
-import { useI18n, useUserInfo } from '@webapp/components/hooks'
-import { validName } from '@common/userUtils'
-import { validEmail } from '../../../../../../../common/userUtils'
+import { useI18n, useUserInfo } from '@webapp/hooks'
+import { validName, validEmail } from '@common/userUtils'
 
 const textInputFields = [
   { key: 'name', onlyAdmin: true, validator: validName },

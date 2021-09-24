@@ -2,7 +2,7 @@ import React from 'react'
 
 import { FRA } from '@core/assessment'
 
-import { useIsAssessment } from '@webapp/components/hooks'
+import { useIsAssessment } from '@webapp/hooks'
 import { useAssessmentType } from '@webapp/store/app'
 
 type Props = {

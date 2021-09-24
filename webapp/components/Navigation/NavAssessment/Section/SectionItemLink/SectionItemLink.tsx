@@ -8,7 +8,7 @@ import { ReviewStatus } from '@core/reviewStatus'
 import * as BasePaths from '@webapp/main/basePaths'
 import * as ReviewStatusState from '@webapp/app/country/reviewStatusState'
 import { toggleNavigation } from '@webapp/components/Navigation/actions'
-import { useCountryIso, useI18n, useIsDataExportView } from '@webapp/components/hooks'
+import { useCountryIso, useI18n, useIsDataExportView } from '@webapp/hooks'
 import { Breakpoints } from '@webapp/utils/breakpoints'
 
 import ReviewStatusMarker from '../ReviewStatusMarker'

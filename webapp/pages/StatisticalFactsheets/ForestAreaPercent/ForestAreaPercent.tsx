@@ -1,5 +1,5 @@
 import React from 'react'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 import Chart, { ChartType, getChartOptions, ChartColors } from '@webapp/components/Chart'
 import useStatisticalFactsheetsState from '../hooks/useStatisticalFactsheetsState'
 

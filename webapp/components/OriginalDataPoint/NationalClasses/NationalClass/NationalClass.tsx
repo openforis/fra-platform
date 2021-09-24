@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { ODP, ODPs } from '@core/odp'
 import { Objects } from '@core/utils'
 import { saveDraft, pasteNationalClassValues } from '@webapp/sectionSpec/fra/originalDataPoint/actions'
-import { useCountryIso, useI18n } from '@webapp/components/hooks'
+import { useCountryIso, useI18n } from '@webapp/hooks'
 import { usePrintView } from '@webapp/store/app'
 
 import Icon from '@webapp/components/icon'

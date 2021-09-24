@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import { Objects } from '@core/utils'
-import { useCountryIso, useI18n, useUserInfo } from '@webapp/components/hooks'
+import { useCountryIso, useI18n, useUserInfo } from '@webapp/hooks'
 
 import * as CountryState from '@webapp/app/country/countryState'
 

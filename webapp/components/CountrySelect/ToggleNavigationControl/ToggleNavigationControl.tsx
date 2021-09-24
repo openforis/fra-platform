@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 
-import { useIsAdmin, useIsHome } from '@webapp/components/hooks'
+import { useIsAdmin, useIsHome } from '@webapp/hooks'
 import Icon from '@webapp/components/icon'
 
 import { toggleNavigation } from '@webapp/components/Navigation/actions'

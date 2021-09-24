@@ -1,6 +1,6 @@
 import './buttonCheckBox.less'
 import React from 'react'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 
 type Props = {
   onClick: (...args: any[]) => any

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 
 import { debounce } from '@webapp/utils/functionUtils'
 
-import { useCountryIso, useGetRequest, useOnUpdate, usePostRequest } from '@webapp/components/hooks'
+import { useCountryIso, useGetRequest, useOnUpdate, usePostRequest } from '@webapp/hooks'
 import * as autosave from '@webapp/app/components/autosave/actions'
 
 type DescriptionState = {
