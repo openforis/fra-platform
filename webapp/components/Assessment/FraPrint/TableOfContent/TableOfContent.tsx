@@ -2,7 +2,7 @@ import './TableOfContent.scss'
 import React from 'react'
 
 import { FRA } from '@core/assessment'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 
 type Props = {
   deskStudy: boolean

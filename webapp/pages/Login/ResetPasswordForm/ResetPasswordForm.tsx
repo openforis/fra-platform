@@ -6,17 +6,21 @@ import * as R from 'ramda'
 import * as BasePaths from '@webapp/main/basePaths'
 import { getUrlParameter } from '@webapp/utils/urlUtils'
 
-import useOnUpdate from '@webapp/components/hooks/useOnUpdate'
+import useOnUpdate from '@webapp/hooks/useOnUpdate'
 
+import { useI18n } from '@webapp/hooks'
 import { findResetPassword, changePassword } from '../actions'
 
 import Error from '../Error'
-import { useI18n } from '@webapp/components/hooks'
 
 const ResetPasswordForm = () => {
   const dispatch = useDispatch()
   const i18n = useI18n()
-  const { status, resetPassword = {}, changePasswordResponse = {} }: any = useSelector((state) => ({
+  const {
+    status,
+    resetPassword = {},
+    changePasswordResponse = {},
+  }: any = useSelector((state) => ({
     status: R.path(['login', 'resetPassword', 'status'], state),
     resetPassword: R.path(['login', 'resetPassword', 'data'], state),
     changePasswordResponse: R.path(['login', 'changePassword'], state),

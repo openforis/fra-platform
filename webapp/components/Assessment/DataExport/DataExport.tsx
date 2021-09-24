@@ -3,7 +3,7 @@ import React from 'react'
 
 import { Objects } from '@core/utils'
 import { useDataExportCountries, useDataExportSelection } from '@webapp/store/page/dataExport'
-import { useParamSection } from '@webapp/components/hooks'
+import { useParamSection } from '@webapp/hooks'
 
 import CountrySelect from './CountrySelect'
 import VariableSelect from './VariableSelect'

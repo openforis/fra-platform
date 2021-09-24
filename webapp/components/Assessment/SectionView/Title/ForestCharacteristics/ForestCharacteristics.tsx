@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 import * as ForestCharacteristicsState from '@webapp/sectionSpec/fra/forestCharacteristics/forestCharacteristicsState'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 import { usePrintView } from '@webapp/store/app'
 
 import OriginalDataPointsPrint from '@webapp/components/OriginalDataPoint/OriginalDataPointsPrint'

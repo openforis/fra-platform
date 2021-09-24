@@ -5,7 +5,7 @@ import { useParams } from 'react-router'
 
 import { ODP } from '@core/odp'
 import { batchActions } from '@webapp/store'
-import { useCountryIso, useI18n } from '@webapp/components/hooks'
+import { useCountryIso, useI18n } from '@webapp/hooks'
 import * as CountryState from '@webapp/app/country/countryState'
 import * as FraState from '@webapp/app/assessment/fra/fraState'
 import { fetchCountryOverviewStatus } from '@webapp/app/country/actions'

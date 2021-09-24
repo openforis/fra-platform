@@ -4,7 +4,7 @@ import { LanguageCodes } from '@core/lang'
 import { useAppDispatch } from '@webapp/store'
 import { AppActions } from '@webapp/store/app'
 
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 import PopoverControl from '@webapp/components/PopoverControl'
 import Icon from '@webapp/components/icon'
 

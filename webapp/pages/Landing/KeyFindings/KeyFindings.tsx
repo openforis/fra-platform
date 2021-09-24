@@ -1,7 +1,7 @@
 import './keyFindings.scss'
 import React from 'react'
 
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 
 const climaticDomains = {
   tropical: 45,

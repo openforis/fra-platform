@@ -5,7 +5,7 @@ import { Areas } from '@core/country'
 import { SectionSpecs, Unit } from '@webapp/sectionSpec'
 import { useAssessmentType } from '@webapp/store/app'
 import { useDataExportCountries, useDataExportSelection } from '@webapp/store/page/dataExport'
-import { useI18n, useParamSection } from '@webapp/components/hooks'
+import { useI18n, useParamSection } from '@webapp/hooks'
 import { convertValue, formatValue, getColumnLabelKeys } from '@webapp/components/Assessment/DataExport/utils'
 
 import ButtonTableExport from '@webapp/components/ButtonTableExport'

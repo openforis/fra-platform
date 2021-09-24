@@ -1,7 +1,7 @@
 import './dataDownload.scss'
 import React, { useEffect } from 'react'
 
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 import { documentScrollTo } from '@webapp/utils/domUtils'
 
 import Icon from '@webapp/components/icon'

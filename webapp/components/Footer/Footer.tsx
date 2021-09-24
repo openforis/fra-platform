@@ -1,7 +1,7 @@
 import './footer.scss'
 import React from 'react'
 
-import { useI18n, useUserInfo } from '@webapp/components/hooks'
+import { useI18n, useUserInfo } from '@webapp/hooks'
 import SendFeedback from './components/sendFeedback'
 
 const links = [

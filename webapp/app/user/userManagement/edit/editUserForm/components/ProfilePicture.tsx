@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 import { profilePictureUri, validProfilePicture } from '@common/userUtils'
 
 type Props = {

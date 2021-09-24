@@ -1,5 +1,5 @@
 import React from 'react'
-import { useI18n, useUserInfo } from '@webapp/components/hooks'
+import { useI18n, useUserInfo } from '@webapp/hooks'
 /* global  __APPLICATION_VERSION__ */
 
 const SendFeedback: React.FC = () => {

@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { FRA } from '@core/assessment'
 import { ODP } from '@core/odp'
 import { Objects } from '@core/utils'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 import * as OriginalDataPointState from '@webapp/sectionSpec/fra/originalDataPoint/originalDataPointState'
 
 import DataSources from '@webapp/components/OriginalDataPoint/DataSources'

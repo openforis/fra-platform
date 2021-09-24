@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 
 import { Areas, Country } from '@core/country'
 import { Objects, Strings } from '@core/utils'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 
 import { Modal, ModalClose, ModalFooter, ModalHeader } from '@webapp/components/modal'
 import CountrySelectModalBody from './CountrySelectModalBody'

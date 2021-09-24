@@ -2,7 +2,7 @@ import React from 'react'
 
 import { ODP, ODPs } from '@core/odp'
 import * as NumberUtils from '@common/bignumberUtils'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 import { usePrintView } from '@webapp/store/app'
 
 import DefinitionLink from '@webapp/components/definitionLink'

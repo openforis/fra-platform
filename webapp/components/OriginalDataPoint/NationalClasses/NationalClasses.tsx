@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 
 import { ODP, ODPs } from '@core/odp'
-import { useCountryIso, useI18n, useIsAutoSaveSaving } from '@webapp/components/hooks'
+import { useCountryIso, useI18n, useIsAutoSaveSaving } from '@webapp/hooks'
 import { usePrintView } from '@webapp/store/app'
 
 import { copyPreviousNationalClasses } from '@webapp/sectionSpec/fra/originalDataPoint/actions'

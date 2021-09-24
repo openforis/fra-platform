@@ -4,7 +4,7 @@ import { FRA } from '@core/assessment'
 // import PanEuropean from '@common/assessment/panEuropean'
 import { RegionCode } from '@core/country'
 import * as BasePaths from '@webapp/main/basePaths'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 import Icon from '@webapp/components/icon'
 import { areas } from '@webapp/pages/Landing/Introduction/AreaSelector/AreaSelector'
 

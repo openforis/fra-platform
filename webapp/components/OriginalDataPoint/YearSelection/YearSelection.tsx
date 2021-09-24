@@ -6,7 +6,7 @@ import { ODP, ODPYears } from '@core/odp'
 import * as FRAUtils from '@common/fraUtils'
 import * as ExtentOfForestState from '@webapp/sectionSpec/fra/extentOfForest/extentOfForestState'
 import { saveDraft } from '@webapp/sectionSpec/fra/originalDataPoint/actions'
-import { useCountryIso, useI18n } from '@webapp/components/hooks'
+import { useCountryIso, useI18n } from '@webapp/hooks'
 
 const years = ['', ...ODPYears]
 

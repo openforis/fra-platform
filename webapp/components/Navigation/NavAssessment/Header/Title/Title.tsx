@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import MediaQuery from 'react-responsive'
 
 import { Assessment } from '@core/assessment'
-import { useI18n, useIsDataExportView } from '@webapp/components/hooks'
+import { useI18n, useIsDataExportView } from '@webapp/hooks'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import { toggleAssessmentLock } from '@webapp/app/assessment/actions'
 import { useCanToggleLock } from '@webapp/store/assessment/hooks'

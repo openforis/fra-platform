@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 
 import { useCountries, useSecondaryGroupedRegions } from '@webapp/store/app'
 import { useHomeCountriesFilter, HomeAction } from '@webapp/store/page/home'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 
 import CountrySelectModal from '@webapp/components/CountrySelectModal'
 

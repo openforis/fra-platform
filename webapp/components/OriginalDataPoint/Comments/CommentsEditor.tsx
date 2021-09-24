@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { ODP } from '@core/odp'
-import { useCountryIso, useI18n } from '@webapp/components/hooks'
+import { useCountryIso, useI18n } from '@webapp/hooks'
 import ckEditorConfig from '@webapp/components/ckEditor/ckEditorConfig'
 import { saveDraft } from '@webapp/sectionSpec/fra/originalDataPoint/actions'
 

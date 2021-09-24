@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink, useRouteMatch } from 'react-router-dom'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 
 const sections = [
   {

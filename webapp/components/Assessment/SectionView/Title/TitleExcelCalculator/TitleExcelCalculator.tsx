@@ -1,12 +1,12 @@
 import './TitleExcelCalculator.scss'
 import React from 'react'
 
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 
 import ExcelCalculatorDownload from '@webapp/components/Assessment/SectionView/Title/TitleExcelCalculator/ExcelCalculatorDownload'
 import { Props } from '../props'
 
-const TitleExcelCalculator:React.FC<Props> = (props: Props) => {
+const TitleExcelCalculator: React.FC<Props> = (props: Props) => {
   const { sectionName } = props
   const i18n = useI18n()
 

@@ -6,7 +6,7 @@ import { Areas } from '@core/country'
 import * as BasePaths from '@webapp/main/basePaths'
 import { useAssessmentType } from '@webapp/store/app'
 
-import { useCountryIso, useI18n } from '@webapp/components/hooks'
+import { useCountryIso, useI18n } from '@webapp/hooks'
 import Icon from '@webapp/components/icon'
 import NavAssessment from '../NavAssessment'
 

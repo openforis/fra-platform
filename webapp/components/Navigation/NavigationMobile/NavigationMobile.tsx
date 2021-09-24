@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import classNames from 'classnames'
 
 import { Assessment } from '@core/assessment'
-import { useNavigationVisible } from '@webapp/components/hooks'
+import { useNavigationVisible } from '@webapp/hooks'
 import { toggleNavigation } from '@webapp/components/Navigation/actions'
 
 import Icon from '@webapp/components/icon'

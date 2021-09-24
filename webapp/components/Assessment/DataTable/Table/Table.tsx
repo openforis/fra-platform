@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 
 import { AssessmentType, TableData, TableDatumODP } from '@core/assessment'
 import { RowSpec, TableSpec, TypeSpec } from '@webapp/sectionSpec'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 import { usePrintView } from '@webapp/store/app'
 
 import ButtonTableExport from '@webapp/components/ButtonTableExport'

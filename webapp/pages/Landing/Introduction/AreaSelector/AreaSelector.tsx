@@ -11,7 +11,7 @@ import { Breakpoints } from '@webapp/utils/breakpoints'
 import { useCountries } from '@webapp/store/app'
 import { useGroupedRegions } from '@webapp/store/app/hooks'
 
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 import DropdownAreas from './DropdownAreas'
 import SelectMobile from './SelectMobile'
 

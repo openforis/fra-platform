@@ -5,7 +5,7 @@ import { useParams } from 'react-router'
 import { Areas } from '@core/country'
 import { Objects } from '@core/utils'
 import { useHomeCountriesFilter } from '@webapp/store/page/home'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 
 import ForestArea from './ForestArea'
 import CarbonGrowingStock from './CarbonGrowingStock'

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 
 import LinkHome from '@webapp/components/LinkHome'
 import LanguageSelector, { LanguageSelectorMobile } from '@webapp/components/Header/LanguageSelector'

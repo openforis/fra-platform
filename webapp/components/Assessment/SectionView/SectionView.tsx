@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 
 import { AssessmentType } from '@core/assessment'
 import { SectionSpecs } from '@webapp/sectionSpec'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 import { usePrintView } from '@webapp/store/app'
 
 import * as FraState from '@webapp/app/assessment/fra/fraState'

@@ -5,7 +5,7 @@ import { FRA } from '@core/assessment'
 import * as BasePaths from '@webapp/main/basePaths'
 import { getRelativeDate } from '@webapp/utils/relativeDate'
 
-import { useCountryIso, useI18n } from '@webapp/components/hooks'
+import { useCountryIso, useI18n } from '@webapp/hooks'
 
 import * as FeedItem from './feedItem'
 

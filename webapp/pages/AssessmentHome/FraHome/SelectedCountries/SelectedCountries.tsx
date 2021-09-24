@@ -3,7 +3,7 @@ import React from 'react'
 import { Areas } from '@core/country'
 import { Objects } from '@core/utils'
 import { useHomeCountriesFilter } from '@webapp/store/page/home'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 
 const SelectedCountries: React.FC = () => {
   const i18n = useI18n()

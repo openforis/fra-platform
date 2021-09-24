@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { AssessmentType } from '@core/assessment'
 import { Strings } from '@core/utils'
 import { useDataExportSelection } from '@webapp/store/page/dataExport'
-import { useGetRequest } from '@webapp/components/hooks'
+import { useGetRequest } from '@webapp/hooks'
 import { DataExportResults, formatColumn, formatSection } from '@webapp/components/Assessment/DataExport/utils'
 
 type Props = {

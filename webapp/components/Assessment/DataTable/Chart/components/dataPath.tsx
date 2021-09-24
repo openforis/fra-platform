@@ -3,7 +3,7 @@ import * as R from 'ramda'
 import * as d3 from 'd3'
 import { interpolatePath } from 'd3-interpolate-path'
 
-import { usePrevious } from '@webapp/components/hooks'
+import { usePrevious } from '@webapp/hooks'
 
 import * as Chart from '../chart'
 

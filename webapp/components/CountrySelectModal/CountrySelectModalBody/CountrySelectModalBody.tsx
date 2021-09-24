@@ -2,7 +2,7 @@ import './countrySelectModalBody.scss'
 import React, { useState } from 'react'
 
 import { Country } from '@core/country'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 
 import { ModalBody } from '@webapp/components/modal'
 import classNames from 'classnames'

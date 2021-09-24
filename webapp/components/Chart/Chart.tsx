@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import Chart, { ChartTypeRegistry } from 'chart.js/auto'
-import { useI18n, useOnUpdate } from '@webapp/components/hooks'
+import { useI18n, useOnUpdate } from '@webapp/hooks'
 import { ChartData, ChartOptions, DefaultDataPoint } from 'chart.js'
 
 type Props = {

@@ -6,7 +6,7 @@ import { i18n } from 'i18next'
 
 import { User, Users } from '@core/auth'
 import * as BasePaths from '@webapp/main/basePaths'
-import { useI18n, useIsLogin, useUserInfo } from '@webapp/components/hooks'
+import { useI18n, useIsLogin, useUserInfo } from '@webapp/hooks'
 import { logout } from '@webapp/store/user/actions'
 
 import Icon from '@webapp/components/icon'
