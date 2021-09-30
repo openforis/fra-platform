@@ -19,7 +19,7 @@ const authenticationSuccessful = (req: Request, user: User, next: NextFunction, 
       // More here:
       // https://github.com/voxpelli/node-connect-pg-simple/issues/31#issuecomment-230596077
       req.session.save(() => {
-        done(`${appUri}`)
+        done(`${process.env.NODE_ENV === 'development' ? '/' : appUri}`)
       })
     }
   })
@@ -28,7 +28,7 @@ const authenticationSuccessful = (req: Request, user: User, next: NextFunction, 
 export const AuthLogin = {
   init: (express: Express): void => {
     // Local login
-    express.post(ApiEndPoint.Auth.Login.local(), (req: Request, res: Response, next: NextFunction) => {
+    express.post(ApiEndPoint.Auth.Login.local(), async (req: Request, res: Response, next: NextFunction) => {
       passport.authenticate('local', (err: any, user: User, info: any) => {
         if (err) {
           return next(err)

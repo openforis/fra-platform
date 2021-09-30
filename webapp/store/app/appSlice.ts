@@ -3,7 +3,7 @@ import { Country, CountryIso, Region, RegionGroup } from '@core/country'
 
 import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 import { AssessmentType } from '@core/assessment'
-import { AppState } from '@webapp/store/app/types'
+import { AppState } from '@webapp/store/app/AppStateType'
 import { initApp, switchLanguage } from './actions'
 
 const initialState: AppState = {
