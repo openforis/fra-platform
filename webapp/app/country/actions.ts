@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { AppActions, batchActions } from '@webapp/store'
+import { batchActions } from '@webapp/store'
 
 import * as AppState from '@webapp/store/app/state'
 
@@ -16,22 +16,6 @@ export const fetchCountryOverviewStatus = (countryIso: any) => async (dispatch: 
   dispatch({ type: fetchCountryOverviewStatusCompleted, status })
 }
 
-export const getCountryConfig = (countryIso: any) => async (dispatch: any) => {
-  const { data: config } = await axios.get(ApiEndPoint.Country.getConfig(countryIso))
-  dispatch({ type: countryConfig, config })
-}
-
-export const fetchCountryInitialData =
-  (countryIso: any, assessmentType: any, printView: any, printOnlyTablesView: any) => (dispatch: any) => {
-    dispatch(
-      batchActions([
-        AppActions.updateCountryIso({ countryIso, assessmentType, printView, printOnlyTablesView }),
-        fetchCountryOverviewStatus(countryIso),
-        getCountryConfig(countryIso),
-      ])
-    )
-  }
-
 export const saveCountryConfigSetting = (key: any, value: any) => async (dispatch: any, getState: any) => {
   const countryIso: any = AppState.getCountryIso(getState())
 
@@ -43,10 +27,3 @@ export const saveCountryConfigSetting = (key: any, value: any) => async (dispatc
 }
 
 export const countryAssessmentStatusChanging = 'country/assessment/status/changing'
-
-export const changeAssessment = (countryIso: any, assessment: any, notifyUsers?: any) => async (dispatch: any) => {
-  dispatch({ type: countryAssessmentStatusChanging, assessmentName: assessment.type })
-  await axios.post(`${ApiEndPoint.Assessment.createEmail(countryIso)}?notifyUsers=${notifyUsers}`, assessment)
-
-  dispatch(fetchCountryOverviewStatus(countryIso))
-}

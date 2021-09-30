@@ -27,7 +27,6 @@ const Assessment: React.FC = () => {
   const countryStatusLoaded = useIsCountryStatusLoaded()
   const countryIso = useCountryIso()
   const laptop = useMediaQuery({ minWidth: Breakpoints.laptop })
-  console.log('yes')
   useInitCountry()
 
   useEffect(() => {

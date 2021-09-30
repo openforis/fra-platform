@@ -4,10 +4,10 @@ import { useDispatch } from 'react-redux'
 
 import { Assessment } from '@core/assessment'
 import { Users } from '@core/auth'
-import { changeAssessment } from '@webapp/app/country/actions'
 import { useCountryIso, useI18n, useUserInfo } from '@webapp/components/hooks'
 
 import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from '@webapp/components/modal'
+import { CountryActions } from '@webapp/store/country'
 import { StatusTransition } from './types'
 
 type Props = {
@@ -64,7 +64,7 @@ const StatusConfirm: React.FC<Props> = (props) => {
           className="btn btn-primary modal-footer__item"
           onClick={() => {
             const assessmentUpdate = { ...assessment, status: status.status, message: textareaValue }
-            dispatch(changeAssessment(countryIso, assessmentUpdate, notifyUsers))
+            dispatch(CountryActions.changeAssessmentStatus({ countryIso, assessment: assessmentUpdate, notifyUsers }))
             onClose()
           }}
           type="button"

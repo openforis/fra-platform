@@ -13,9 +13,9 @@ import { acceptNextDecimal } from '@webapp/utils/numberInput'
 import * as AppState from '@webapp/store/app/state'
 import { applicationError } from '@webapp/components/error/actions'
 import * as autosave from '@webapp/app/components/autosave/actions'
-import { fetchCountryOverviewStatus } from '@webapp/app/country/actions'
 
 import { ApiEndPoint } from '@common/api/endpoint'
+import { CountryActions } from '@webapp/store/country'
 import * as OriginalDataPointState from '../originalDataPointState'
 import * as ODPs from '../originalDataPoint'
 import handlePaste from '../paste'
@@ -127,7 +127,7 @@ export const markAsActual =
 
     if (valid) {
       await axios.post(`${ApiEndPoint.Odp.markAsActual()}?odpId=${odp.odpId}&countryIso=${countryIso}`)
-      dispatch(batchActions([autosave.complete, clearActive(), fetchCountryOverviewStatus(countryIso)]))
+      dispatch(batchActions([autosave.complete, clearActive(), CountryActions.getCountryStatus(countryIso)]))
       history.push(BasePaths.getAssessmentSectionLink(countryIso, FRA.type, destination))
     }
   }
@@ -173,7 +173,7 @@ export const remove =
 
     const actions = [
       clearActive(),
-      fetchCountryOverviewStatus(countryIso),
+      CountryActions.getCountryStatus(countryIso),
       ...getUpdateTablesWithNotOdp(getState(), Number(odp.year)),
     ]
 
@@ -183,5 +183,5 @@ export const remove =
 
 export const removeFromList = (countryIso: any, odpId: any) => async (dispatch: any) => {
   await axios.delete(`${ApiEndPoint.Odp.delete()}?odpId=${odpId}&countryIso=${countryIso}`)
-  dispatch(batchActions([fetchCountryOverviewStatus(countryIso), fetchOdps(countryIso)]))
+  dispatch(batchActions([CountryActions.getCountryStatus(countryIso), fetchOdps(countryIso)]))
 }
