@@ -1,34 +1,38 @@
 import axios from 'axios'
 import { ApiEndPoint } from '@common/api/endpoint'
-import { countryAssessmentStatusChanging } from '@webapp/app/country/actions'
 
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { CountryState } from '@webapp/store/country/CountryStateType'
 import { CountryIso } from '@core/country'
 import { AppDispatch } from '@webapp/store'
 import { applicationError } from '@webapp/components/error/actions'
-import { Assessment } from '@core/assessment'
+import { Assessment, AssessmentStatus, AssessmentType } from '@core/assessment'
 import { getCountryStatus } from './getCountryStatus'
 
 export type ChangeAssessmentPayloadType = {
   countryIso: CountryIso
   assessment: Assessment
   notifyUsers?: boolean
+  status?: AssessmentStatus
 }
 
 export const changeAssessmentStatus = createAsyncThunk<
-  CountryState,
+  {
+    assessmentType: AssessmentType
+    status: AssessmentStatus
+  },
   ChangeAssessmentPayloadType,
   { dispatch: AppDispatch }
->('country/assessment/change', async ({ countryIso, assessment, notifyUsers }, { dispatch }) => {
-  try {
-    dispatch({ type: countryAssessmentStatusChanging, assessmentName: assessment.type })
-    await axios.post(`${ApiEndPoint.Assessment.createEmail(countryIso)}?notifyUsers=${notifyUsers}`, assessment)
+>(
+  'country/assessment/change',
+  async ({ countryIso, assessment, notifyUsers, status = AssessmentStatus.changing }, { dispatch }) => {
+    try {
+      await axios.post(`${ApiEndPoint.Assessment.createEmail(countryIso)}?notifyUsers=${notifyUsers}`, assessment)
 
-    dispatch(getCountryStatus(countryIso))
-    return assessment.type
-  } catch (err) {
-    dispatch(applicationError(err))
-    return {}
+      dispatch(getCountryStatus(countryIso))
+      return { assessmentType: assessment.type, status }
+    } catch (err) {
+      dispatch(applicationError(err))
+      return {}
+    }
   }
-})
+)

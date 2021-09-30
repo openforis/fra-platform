@@ -1,2 +1,2 @@
-export { useInitCountry } from '@webapp/hooks'
-export { useIsCountryStatusLoaded } from './useIsCountryStatusLoaded'
+export { default as useInitCountry } from './useInitCountry'
+export { default as useIsCountryStatusLoaded } from './useIsCountryStatusLoaded'
