@@ -13,7 +13,6 @@ import Header from '@webapp/components/Header'
 import Footer from '@webapp/components/Footer'
 import ErrorComponent from '@webapp/components/error/errorComponent'
 import CountrySelect from '@webapp/components/CountrySelect'
-import UserConsultationSurvey from '@webapp/components/UserConsultationSurvey'
 
 import { FRA } from '@core/assessment'
 
@@ -52,7 +51,6 @@ const PageRoutes: React.FC = () => {
       />
 
       <Route>
-        <UserConsultationSurvey />
         <Header />
         {!isLogin && <CountrySelect />}
 
