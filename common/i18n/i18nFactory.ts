@@ -54,10 +54,7 @@ export const createParams = (lang: string) => ({
   },
 })
 
-export const createI18nInstance = (lang: any, callback: any) =>
-  createInstance(createParams(lang), (_err: any, t: any) => callback({ language: lang, t }))
-
-export const createI18nPromise = (lang: any): Promise<Partial<i18n>> =>
+export const createI18nPromise = (lang: any): Promise<i18n> =>
   new Promise((resolve, reject) =>
     createInstance(createParams(lang), (err: any, t: any) => {
       if (err) {
