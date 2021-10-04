@@ -1,9 +1,5 @@
-export { HomeAction } from './actions'
-
-export { HomeActionType } from './actionTypes'
+export { default as HomeReducer, HomeActions } from './homeSlice'
 
 export { useHomeCountriesFilter } from './hooks'
 
-export { homeReducer } from './reducer'
-
-export type { HomeState } from './state'
+export type { HomeState } from './HomeStateType'

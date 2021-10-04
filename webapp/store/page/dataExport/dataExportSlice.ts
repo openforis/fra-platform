@@ -3,7 +3,7 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
 import { AppActions } from '@webapp/store/app'
-import { HomeActionType } from '@webapp/store/page/home'
+import { HomeActions } from '@webapp/store/page/home'
 import { DataExportSelection, DataExportState } from './DataExportStateType'
 import { DataExportCountriesAction, DataExportSelectionAction } from './actionTypes'
 
@@ -23,9 +23,10 @@ export const dataExportSlice = createSlice({
     updateSelection: (state: DataExportState, { payload }: { payload: DataExportSelectionAction }) => {
       state.selection[payload.assessmentSection] = payload.selection
     },
-
-    // reset countries when filtered countries in home changes
-    [HomeActionType.countriesFilterUpdate]: (state: DataExportState) => {
+  },
+  extraReducers: (builder) => {
+    builder.addCase(AppActions.updateCountryIso, () => initialState)
+    builder.addCase(HomeActions.updateCountriesFilter, (state) => {
       state.countries = []
       state.selection = Object.entries(state.selection).reduce<Record<string, DataExportSelection>>(
         (accumulator, [section, sectionSelection]) => {
@@ -39,12 +40,7 @@ export const dataExportSlice = createSlice({
         },
         {}
       )
-    },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(AppActions.updateCountryIso, () => initialState)
-    // TODO: When page.Home is created
-    // builder.addCase(HomeActions.countriesFilterUpdate)....
+    })
   },
 })
 
