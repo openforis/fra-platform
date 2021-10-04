@@ -6,7 +6,7 @@ import { applicationError } from '@webapp/components/error/actions'
 import { CountryIso } from '@core/country'
 import { CountryState } from '@webapp/store/country/CountryStateType'
 
-export const getCountryStatus = createAsyncThunk<CountryState, CountryIso | string, { dispatch: AppDispatch }>(
+export const fetchCountryStatus = createAsyncThunk<CountryState, CountryIso | string, { dispatch: AppDispatch }>(
   'country/status',
   async (countryIso, { dispatch }) => {
     try {
