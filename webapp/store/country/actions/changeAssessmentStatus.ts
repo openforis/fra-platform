@@ -6,7 +6,7 @@ import { CountryIso } from '@core/country'
 import { AppDispatch } from '@webapp/store'
 import { applicationError } from '@webapp/components/error/actions'
 import { Assessment, AssessmentStatus, AssessmentType } from '@core/assessment'
-import { getCountryStatus } from './getCountryStatus'
+import { CountryActions } from '@webapp/store/country'
 
 export type ChangeAssessmentPayloadType = {
   countryIso: CountryIso
@@ -28,7 +28,7 @@ export const changeAssessmentStatus = createAsyncThunk<
     try {
       await axios.post(`${ApiEndPoint.Assessment.createEmail(countryIso)}?notifyUsers=${notifyUsers}`, assessment)
 
-      dispatch(getCountryStatus(countryIso))
+      dispatch(CountryActions.fetchCountryStatus(countryIso))
       return { assessmentType: assessment.type, status }
     } catch (err) {
       dispatch(applicationError(err))

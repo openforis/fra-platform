@@ -3,7 +3,7 @@
 import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 
 import { CountryConfig, CountryState } from './CountryStateType'
-import { initCountry, getCountryStatus, changeAssessmentStatus } from './actions'
+import { initCountry, fetchCountryStatus, changeAssessmentStatus } from './actions'
 
 const initialState: CountryState = {
   config: {},
@@ -33,10 +33,10 @@ export const countrySlice = createSlice({
       })
 
     builder
-      .addCase(getCountryStatus.fulfilled, (state, { payload }) => {
+      .addCase(fetchCountryStatus.fulfilled, (state, { payload }) => {
         state.status = payload.status
       })
-      .addCase(getCountryStatus.rejected, (state) => {
+      .addCase(fetchCountryStatus.rejected, (state) => {
         state.status = {}
       })
 
@@ -50,7 +50,7 @@ export const countrySlice = createSlice({
 export const CountryActions = {
   ...countrySlice.actions,
   initCountry,
-  getCountryStatus,
+  fetchCountryStatus,
   changeAssessmentStatus,
 }
 
