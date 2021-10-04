@@ -27,29 +27,32 @@ export const exportData = async (includeVariableFolders = true) => {
   let nwfpOutput: any
   let gscompOutput: any
   let sdgOutput: any
+
   if (includeVariableFolders) {
     ndpOutput = NdpExporter.getCsvOutput()
     nwfpOutput = NwfpExporter.getCsvOutput()
     gscompOutput = GSCompExporter.getCsvOutput()
     sdgOutput = SDGExporter.getCsvOutput()
   }
-  await (Promise as any).each(
-    countries.map(async (country: any) =>
-      Promise.all([
+
+  await Promise.all(
+    countries.map(async (country: any, idx: number) => {
+      const [fraYearsRes, intervalsRes, annualRes] = await Promise.all([
         FRAYearsExporter.getCountryData(country),
         IntervalYearsExporter.getCountryData(country),
         AnnualYearsExporter.getCountryData(country),
       ])
-    ),
-    ([fraYearsRes, intervalsRes, annualRes]: any[], idx: any) => {
+
       fraYearsOutput.pushContent(fraYearsRes, idx)
       intervalsOutput.pushContent(intervalsRes)
       annualOutput.pushContent(annualRes, idx)
-    }
+    })
   )
+
   fraYearsOutput.pushContentDone()
   intervalsOutput.pushContentDone()
   annualOutput.pushContentDone()
+
   if (includeVariableFolders) {
     await (Promise as any).each(
       countries.map(async (country: any) =>
@@ -81,6 +84,7 @@ export const exportData = async (includeVariableFolders = true) => {
       ...sdgOutput.output,
     }
   }
+
   return {
     ...fraYearsOutput.output,
     ...intervalsOutput.output,
