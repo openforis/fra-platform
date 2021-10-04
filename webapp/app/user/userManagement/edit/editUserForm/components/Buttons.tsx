@@ -1,5 +1,5 @@
 import React from 'react'
-import { useI18n, useCountryIso, useUserInfo } from '@webapp/components/hooks'
+import { useI18n, useCountryIso, useUserInfo } from '@webapp/hooks'
 import { isAdministrator, isNationalCorrespondent } from '@common/countryRole'
 
 type Props = {

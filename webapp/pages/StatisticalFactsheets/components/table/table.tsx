@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 import ButtonTableExport from '@webapp/components/ButtonTableExport'
 import { formatValue } from '@webapp/pages/StatisticalFactsheets/utils/numberUtils'
 import useStatisticalFactsheetsState from '../../hooks/useStatisticalFactsheetsState'
@@ -21,8 +21,7 @@ const Table = (props: Props) => {
   if (!loaded) {
     return null
   }
-  const t = (value: any) =>
-    Number.isNaN(+value) ? i18n.t(`statisticalFactsheets.${section}.${value}`) : value
+  const t = (value: any) => (Number.isNaN(+value) ? i18n.t(`statisticalFactsheets.${section}.${value}`) : value)
   return (
     <div className="fra-table__container">
       <div className="fra-table__scroll-wrapper">

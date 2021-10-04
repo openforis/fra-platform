@@ -2,10 +2,11 @@ import React from 'react'
 import './languageSelectorMobile.scss'
 
 import { LanguageCodes } from '@core/lang'
-import { AppActions, useAppDispatch } from '@webapp/store'
+import { useAppDispatch } from '@webapp/store'
 
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 import classNames from 'classnames'
+import { AppActions } from '@webapp/store/app'
 
 const LanguageSelectorMobile: React.FC = () => {
   const dispatch = useAppDispatch()

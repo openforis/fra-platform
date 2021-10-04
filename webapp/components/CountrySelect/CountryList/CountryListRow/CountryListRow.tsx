@@ -6,7 +6,7 @@ import { noRole } from '@common/countryRole'
 import * as BasePaths from '@webapp/main/basePaths'
 import { getRelativeDate } from '@webapp/utils/relativeDate'
 
-import { useIsHome, useCountryIso, useI18n } from '@webapp/components/hooks'
+import { useIsHome, useCountryIso, useI18n } from '@webapp/hooks'
 
 type Props = {
   assessmentType: string

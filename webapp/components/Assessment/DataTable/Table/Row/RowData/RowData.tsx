@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import { TableDatumODP } from '@core/assessment'
 import * as BasePaths from '@webapp/main/basePaths'
-import { useCountryIso, useI18n } from '@webapp/components/hooks'
+import { useCountryIso, useI18n } from '@webapp/hooks'
 
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { Props } from '../props'

@@ -5,15 +5,21 @@ import { getRequestParam } from '@webapp/utils/urlUtils'
 import axios from 'axios'
 import { ApiEndPoint } from '@common/api/endpoint'
 import { applicationError } from '@webapp/components/error/actions'
-import { AppActions } from '@webapp/store'
-import i18nInstance from '@common/i18n/i18nInstance'
 
-export const initApp = createAsyncThunk<{
-  userInfo?: User
-  countries?: Country[]
-  regions?: Region[]
-  regionGroups?: RegionGroup[]
-}>('app/init', async (_, { dispatch }) => {
+import { AppDispatch } from '@webapp/store'
+
+export const initApp = createAsyncThunk<
+  {
+    userInfo?: User
+    countries?: Country[]
+    regions?: Region[]
+    regionGroups?: RegionGroup[]
+  },
+  void,
+  {
+    dispatch: AppDispatch
+  }
+>('app/init', async (i18n, { dispatch }) => {
   let language = getRequestParam('lang')
   try {
     const getCountries = axios.get(ApiEndPoint.Country.GetAll.generalCountries())
@@ -29,13 +35,16 @@ export const initApp = createAsyncThunk<{
         data: { userInfo = null },
       },
     ] = await axios.all([getCountries, getRegions, getRegionGroups, getUserInfo])
-    language = language ?? userInfo?.lang ?? 'en'
 
-    dispatch(AppActions.switchLanguage(language))
+    language = language ?? userInfo?.lang ?? 'en'
+    if (language === 'ar') document.body.classList.add('rtl')
+
     return {
       userInfo,
-      countries: Areas.sortCountries(countries, i18nInstance.getInstance()),
-      regions: Areas.sortRegions(regions, i18nInstance.getInstance()),
+      language,
+
+      countries: Areas.sortCountries(countries, i18n),
+      regions: Areas.sortRegions(regions, i18n),
       regionGroups: Areas.sortRegionGroups(regionGroups),
     }
   } catch (err) {
@@ -43,6 +52,6 @@ export const initApp = createAsyncThunk<{
     if (err.response && err.response.status !== 401) {
       dispatch(applicationError(err))
     }
-    return { language }
+    return { language: language ?? 'en' }
   }
 })

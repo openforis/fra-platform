@@ -7,8 +7,8 @@ import { AppState } from '@webapp/store/app/AppStateType'
 import { initApp, switchLanguage } from './actions'
 
 const initialState: AppState = {
-  language: 'en',
   loaded: false,
+  language: 'en',
 }
 
 export const appSlice = createSlice({
@@ -54,9 +54,12 @@ export const appSlice = createSlice({
         state.regions = payload.regions
         state.regionGroups = payload.regionGroups
         state.loaded = true
+
+        state.language = payload.language
       })
-      .addCase(initApp.rejected, (state) => {
+      .addCase(initApp.rejected, (state, { payload }) => {
         state.loaded = true
+        state.language = payload.language
       })
     builder.addCase(switchLanguage.fulfilled, (state, { payload }) => {
       state.language = payload.language

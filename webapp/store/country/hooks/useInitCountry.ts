@@ -5,8 +5,9 @@ import * as BasePaths from '@webapp/main/basePaths'
 import { useAppDispatch } from '@webapp/store'
 import { CountryActions } from '@webapp/store/country'
 
-export default (): void => {
+export const useInitCountry = (): void => {
   const dispatch = useAppDispatch()
+
   const { pathname } = useLocation()
   const { assessmentType, countryIso }: Record<string, string | undefined> = useParams()
   const printView = !!matchPath(pathname, { path: BasePaths.assessmentPrint })

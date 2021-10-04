@@ -6,7 +6,7 @@ import { FRA, PanEuropean } from '@core/assessment'
 import { SectionSpecs } from '@webapp/sectionSpec'
 import { useAssessmentType } from '@webapp/store/app'
 import { DataExportAction, DataExportSelection, useDataExportSelection } from '@webapp/store/page/dataExport'
-import { useI18n, useParamSection } from '@webapp/components/hooks'
+import { useI18n, useParamSection } from '@webapp/hooks'
 import { getVariableLabelKey } from '@webapp/components/Assessment/DataExport/utils'
 import { Breakpoints } from '@webapp/utils/breakpoints'
 

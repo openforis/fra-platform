@@ -14,6 +14,7 @@ const initialState: DataExportState = {
 }
 
 const actionHandlers = {
+  // TODO: waiting refactor
   'app/updateCountryIso': () => ({ ...initialState }),
 
   [DataExportActionType.countriesUpdate]: (

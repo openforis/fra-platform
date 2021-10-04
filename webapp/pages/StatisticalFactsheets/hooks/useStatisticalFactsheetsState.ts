@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { Areas } from '@core/country'
 import { Objects } from '@core/utils'
 import { useHomeCountriesFilter } from '@webapp/store/page/home'
-import { useGetRequest } from '@webapp/components/hooks'
+import { useGetRequest } from '@webapp/hooks'
 import * as APIUtils from '../utils/apiUtils'
 
 export default (section: any, level: any) => {

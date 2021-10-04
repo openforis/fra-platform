@@ -1,7 +1,7 @@
 import './error.scss'
 import React from 'react'
 import Icon from '@webapp/components/icon'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 
 type Props = {
   error: string

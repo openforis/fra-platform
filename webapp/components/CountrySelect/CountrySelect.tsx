@@ -6,7 +6,7 @@ import { getRoleForCountryLabelKey } from '@common/countryRole'
 import { Areas } from '@core/country'
 import { Breakpoints } from '@webapp/utils/breakpoints'
 
-import { useCountryIso, useI18n, useNavigationVisible, useUserInfo } from '@webapp/components/hooks'
+import { useCountryIso, useI18n, useNavigationVisible, useUserInfo } from '@webapp/hooks'
 import Icon from '@webapp/components/icon'
 import LinkHome from '@webapp/components/LinkHome'
 import LinkLanding from './LinkLanding'

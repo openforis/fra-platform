@@ -2,7 +2,7 @@ import React from 'react'
 import { i18n as I18n } from 'i18next'
 
 import { ColOptionSpec, TypeSpec } from '@webapp/sectionSpec'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 import { PropsCell } from '../props'
 
 const getOptionLabel = (option: ColOptionSpec, i18n: I18n, optionsLabelKeyPrefix: string): string => {

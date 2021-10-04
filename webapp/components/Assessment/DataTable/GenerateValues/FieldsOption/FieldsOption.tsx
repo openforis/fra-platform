@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Objects } from '@core/utils'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 
 import { Method } from '../method'
 import { GenerateValuesField } from '../field'

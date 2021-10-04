@@ -3,8 +3,7 @@ import React from 'react'
 import { isReviewer } from '@common/countryRole'
 import { isAllowedToChangeRole } from '@common/userManagementAccessControl'
 
-import useUserInfo from '@webapp/components/hooks/useUserInfo'
-import { useCountryIso } from '@webapp/hooks'
+import { useCountryIso, useUserInfo } from '@webapp/hooks'
 
 import MessageBoard from '@webapp/app/countryLanding/views/messageBoard'
 import RecentActivityView from '@webapp/app/countryLanding/views/recentActivityView'

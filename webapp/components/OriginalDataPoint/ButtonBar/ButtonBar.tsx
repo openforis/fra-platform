@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { useHistory, useParams } from 'react-router'
 
 import { ODP } from '@core/odp'
-import { useCountryIso, useI18n, useIsAutoSaveSaving } from '@webapp/components/hooks'
+import { useCountryIso, useI18n, useIsAutoSaveSaving } from '@webapp/hooks'
 import { cancelDraft, markAsActual, remove } from '@webapp/sectionSpec/fra/originalDataPoint/actions'
 
 type Props = {

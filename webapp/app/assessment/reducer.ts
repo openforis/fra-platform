@@ -7,7 +7,7 @@ import {
   assessmentSectionDataGeneratingValuesUpdate,
   assessmentSectionDataUpdate,
 } from '@webapp/components/Assessment/DataTable/actions'
-import { AppActions } from '@webapp/store'
+import { AppActions } from '@webapp/store/app'
 
 const actionHandlers = {
   // ====== reset state on country update

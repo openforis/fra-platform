@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 
-import { useIsLogin } from '@webapp/components/hooks'
-import { AppActions, useAppDispatch } from '@webapp/store'
+import { useIsLogin } from '@webapp/hooks'
+import { useAppDispatch, useAppSelector } from '@webapp/store'
 import * as BasePaths from '@webapp/main/basePaths'
 
 import DynamicImport from '@webapp/components/dynamicImport'
@@ -16,7 +16,9 @@ import CountrySelect from '@webapp/components/CountrySelect'
 import UserConsultationSurvey from '@webapp/components/UserConsultationSurvey'
 
 import { FRA } from '@core/assessment'
-import { useAppLoaded } from '@webapp/hooks'
+import { useTranslation } from 'react-i18next'
+import { useAppLoaded, AppActions } from '@webapp/store/app'
+
 import { useTheme } from './useTheme'
 
 const PageRoutes: React.FC = () => {
@@ -24,9 +26,15 @@ const PageRoutes: React.FC = () => {
   const dispatch = useAppDispatch()
   const appLoaded = useAppLoaded()
   const isLogin = useIsLogin()
+  const { language } = useAppSelector((state) => state.app)
+  const { i18n } = useTranslation()
 
   useEffect(() => {
-    dispatch(AppActions.initApp())
+    i18n.changeLanguage(language)
+  }, [language])
+
+  useEffect(() => {
+    dispatch(AppActions.initApp(i18n))
   }, [])
 
   if (!appLoaded) {

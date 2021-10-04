@@ -1,7 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 
 import Icon from '@webapp/components/icon'
 import Tooltip from '@webapp/components/tooltip'

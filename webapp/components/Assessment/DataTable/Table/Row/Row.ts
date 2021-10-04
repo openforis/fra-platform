@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useUserInfo } from '@webapp/components/hooks'
+import { useUserInfo } from '@webapp/hooks'
 import { TypeSpec } from '@webapp/sectionSpec'
 
 import RowData from './RowData'

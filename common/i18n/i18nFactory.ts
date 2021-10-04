@@ -20,7 +20,7 @@ const translationsFiles: { [langCode: string]: any } = {
   zh: zhTranslation.translation,
 }
 
-const createParams = (lang: string) => ({
+export const createParams = (lang: string) => ({
   fallbackLng: 'en',
   debug: false,
 
@@ -33,8 +33,23 @@ const createParams = (lang: string) => ({
   lng: lang,
 
   resources: {
-    [lang]: {
-      translation: translationsFiles[lang],
+    en: {
+      translation: translationsFiles.en,
+    },
+    es: {
+      translation: translationsFiles.es,
+    },
+    fr: {
+      translation: translationsFiles.fr,
+    },
+    ru: {
+      translation: translationsFiles.ru,
+    },
+    ar: {
+      translation: translationsFiles.ar,
+    },
+    zh: {
+      translation: translationsFiles.zh,
     },
   },
 })

@@ -1,9 +1,11 @@
 import React from 'react'
 
 import { LanguageCodes } from '@core/lang'
-import { AppActions, useAppDispatch } from '@webapp/store'
 
-import { useI18n } from '@webapp/components/hooks'
+import { useAppDispatch } from '@webapp/store'
+import { AppActions } from '@webapp/store/app'
+
+import { useI18n } from '@webapp/hooks'
 import PopoverControl from '@webapp/components/PopoverControl'
 import Icon from '@webapp/components/icon'
 

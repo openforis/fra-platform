@@ -3,7 +3,9 @@ import './style.less'
 import * as R from 'ramda'
 import React, { memo } from 'react'
 
-import { useI18n, usePrintView } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
+import { usePrintView } from '@webapp/store/app'
+
 import NoDataPlaceholder from './components/noDataPlaceholder'
 import DataTrend from './components/dataTrend'
 import XAxis from './components/xAxis'

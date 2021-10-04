@@ -1,6 +1,6 @@
 import React from 'react'
 import { Areas } from '@core/country'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 import Table from '../components/table'
 
 type Props = {

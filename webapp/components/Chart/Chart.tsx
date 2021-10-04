@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import Chart, { ChartTypeRegistry } from 'chart.js/auto'
-import { useI18n, useOnUpdate } from '@webapp/components/hooks'
+import { useI18n, useOnUpdate } from '@webapp/hooks'
 import { ChartData, ChartOptions, DefaultDataPoint } from 'chart.js'
 
 type Props = {
@@ -33,7 +33,7 @@ const ChartComponent = (props: Props) => {
     chart.data = data
     chart.options = options
     chart.update({ duration: 0, lazy: true })
-  }, [i18n, data, options])
+  }, [i18n.language, data, options])
 
   return (
     <div className="chart">

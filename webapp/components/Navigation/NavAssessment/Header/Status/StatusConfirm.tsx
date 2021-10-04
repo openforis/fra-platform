@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 
 import { Assessment } from '@core/assessment'
 import { Users } from '@core/auth'
-import { useCountryIso, useI18n, useUserInfo } from '@webapp/components/hooks'
+import { useCountryIso, useI18n, useUserInfo } from '@webapp/hooks'
 
 import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from '@webapp/components/modal'
 import { CountryActions } from '@webapp/store/country'

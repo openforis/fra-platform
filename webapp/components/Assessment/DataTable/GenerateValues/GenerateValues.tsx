@@ -4,7 +4,7 @@ import React from 'react'
 import { Objects } from '@core/utils'
 import { AssessmentType, TableData } from '@core/assessment'
 import { RowSpec } from '@webapp/sectionSpec'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 
 import { Method } from './method'
 import useGenerateValues from './useGenerateValules'

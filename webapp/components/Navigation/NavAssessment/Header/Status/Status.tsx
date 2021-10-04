@@ -8,7 +8,7 @@ import { Users } from '@core/auth'
 import { Objects } from '@core/utils'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import { Breakpoints } from '@webapp/utils/breakpoints'
-import { useCountryIso, useI18n, useUserInfo } from '@webapp/components/hooks'
+import { useCountryIso, useI18n, useUserInfo } from '@webapp/hooks'
 
 import Icon from '@webapp/components/icon'
 import PopoverControl, { PopoverItem } from '@webapp/components/PopoverControl'

@@ -4,7 +4,7 @@ import MediaQuery from 'react-responsive'
 
 import { Areas, Country } from '@core/country'
 import { Functions, Strings } from '@core/utils'
-import { useI18n, useParamSection } from '@webapp/components/hooks'
+import { useI18n, useParamSection } from '@webapp/hooks'
 import { useAssessmentType } from '@webapp/store/app'
 import { DataExportAction, useDataExportCountries, useDataExportSelection } from '@webapp/store/page/dataExport'
 import { Breakpoints } from '@webapp/utils/breakpoints'

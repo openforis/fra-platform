@@ -4,9 +4,14 @@ import * as UserState from '@webapp/store/user/state'
 import * as UserActions from '@webapp/store/user/actions'
 
 const actionHandlers = {
-  'app/init/fulfilled': (state: any, { payload: { userInfo } }: any) => UserState.assocUserInfo(userInfo)(state),
-  'app/switchLanguage/fulfilled': (state: any, { payload: { language } }: any) =>
-    UserState.assocUserInfoLang(language)(state),
+  // TODO: waiting refactor
+  'app/init/fulfilled': (state: any, { payload }: any) => {
+    return UserState.assocUserInfo(payload.userInfo)(state)
+  },
+
+  'app/switchLanguage/fulfilled': (state: any, { payload }: any) => {
+    return UserState.assocUserInfoLang(payload.language)(state)
+  },
 
   [UserActions.appUserLogout]: () => ({}),
 }

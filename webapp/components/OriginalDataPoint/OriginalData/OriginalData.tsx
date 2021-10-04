@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom'
 import { FRA } from '@core/assessment'
 import { ODP } from '@core/odp'
 import * as BasePaths from '@webapp/main/basePaths'
-import { useCountryIso, useI18n } from '@webapp/components/hooks'
+import { useCountryIso, useI18n } from '@webapp/hooks'
 import * as CountryState from '@webapp/app/country/countryState'
 
 import ExtentOfForest from '../ExtentOfForest'

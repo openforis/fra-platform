@@ -4,7 +4,7 @@ import { CSVLink } from 'react-csv'
 
 import * as Country from '@common/country/country'
 import { isAdministrator } from '@common/countryRole'
-import { useI18n, useUserInfo } from '@webapp/components/hooks'
+import { useI18n, useUserInfo } from '@webapp/hooks'
 import { useUserCountriesAsList } from '@webapp/store/user/hooks'
 import { getRelativeDate } from '@webapp/utils/relativeDate'
 

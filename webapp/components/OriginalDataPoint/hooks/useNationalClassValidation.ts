@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 
 import { ODP, ODPValidationNationalClass } from '@core/odp'
-import { usePrintView } from '@webapp/components/hooks'
+import { usePrintView } from '@webapp/store/app'
 
 import * as OriginalDataPointState from '@webapp/sectionSpec/fra/originalDataPoint/originalDataPointState'
 

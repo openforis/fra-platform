@@ -1,10 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { CountryState } from '@webapp/store/country/CountryStateType'
-import { AppActions, AppDispatch } from '@webapp/store'
+import { AppDispatch } from '@webapp/store'
+import { AppActions } from '@webapp/store/app'
 import axios from 'axios'
 import { ApiEndPoint } from '@common/api/endpoint'
 import { applicationError } from '@webapp/components/error/actions'
-import { initCountryPayloadType } from '@webapp/store/country/countrySlice'
 import { CountryIso } from '@core/country'
 import { AssessmentType } from '@core/assessment'
 

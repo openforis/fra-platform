@@ -1,6 +1,6 @@
 import React from 'react'
 import { Areas } from '@core/country'
-import { useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/hooks'
 import Chart, { ChartType, getChartData, getChartOptions } from '@webapp/components/Chart'
 import useStatisticalFactsheetsState from '../hooks/useStatisticalFactsheetsState'
 
