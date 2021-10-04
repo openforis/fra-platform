@@ -4,7 +4,7 @@ import MediaQuery from 'react-responsive'
 
 import { SectionSpecs } from '@webapp/sectionSpec'
 import { useAssessmentType } from '@webapp/store/app'
-import { DataExportAction, DataExportSelection, useDataExportSelection } from '@webapp/store/page/dataExport'
+import { DataExportActions, DataExportSelection, useDataExportSelection } from '@webapp/store/page/dataExport'
 import { useI18n, useParamSection } from '@webapp/hooks'
 import { getColumnLabelKeys } from '@webapp/components/Assessment/DataExport/utils'
 import { Breakpoints } from '@webapp/utils/breakpoints'
@@ -23,7 +23,7 @@ const ColumnSelect: React.FC = () => {
 
   const updateSelection = (columnsUpdate: Array<string>): void => {
     const selectionUpdate: DataExportSelection = { ...selection, columns: columnsUpdate }
-    dispatch(DataExportAction.updateSelection({ assessmentSection, selection: selectionUpdate }))
+    dispatch(DataExportActions.updateSelection({ assessmentSection, selection: selectionUpdate }))
   }
 
   return (

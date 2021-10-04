@@ -1,18 +1,18 @@
 import React, { useCallback, useRef, useState } from 'react'
-import { useDispatch } from 'react-redux'
 import MediaQuery from 'react-responsive'
 
 import { Areas, Country } from '@core/country'
 import { Functions, Strings } from '@core/utils'
 import { useI18n, useParamSection } from '@webapp/hooks'
 import { useAssessmentType } from '@webapp/store/app'
-import { DataExportAction, useDataExportCountries, useDataExportSelection } from '@webapp/store/page/dataExport'
+import { DataExportActions, useDataExportCountries, useDataExportSelection } from '@webapp/store/page/dataExport'
 import { Breakpoints } from '@webapp/utils/breakpoints'
 
 import ButtonCheckBox from '@webapp/components/buttonCheckBox'
+import { useAppDispatch } from '@webapp/store'
 
 const CountrySelect: React.FC = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const i18n = useI18n()
   const assessmentType = useAssessmentType()
   const assessmentSection = useParamSection()
@@ -45,7 +45,7 @@ const CountrySelect: React.FC = () => {
   const filterCountriesThrottle = useCallback(Functions.throttle(filterCountries, 250, { trailing: true }), [countries])
 
   const updateSelection = (countryISOs: Array<string>): void => {
-    dispatch(DataExportAction.updateSelection({ assessmentSection, selection: { ...selection, countryISOs } }))
+    dispatch(DataExportActions.updateSelection({ assessmentSection, selection: { ...selection, countryISOs } }))
   }
 
   return (
@@ -107,8 +107,7 @@ const CountrySelect: React.FC = () => {
                   label={Areas.getListName(countryIso, i18n)}
                   suffix={getDeskStudyLabel(country)}
                   onClick={() => {
-                    const { countryISOs } = selection
-
+                    const countryISOs = [...selection.countryISOs]
                     if (selected) countryISOs.splice(selection.countryISOs.indexOf(countryIso), 1)
                     else countryISOs.push(countryIso)
 
