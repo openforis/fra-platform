@@ -127,7 +127,7 @@ export const markAsActual =
 
     if (valid) {
       await axios.post(`${ApiEndPoint.Odp.markAsActual()}?odpId=${odp.odpId}&countryIso=${countryIso}`)
-      dispatch(batchActions([autosave.complete, clearActive(), CountryActions.getCountryStatus(countryIso)]))
+      dispatch(batchActions([autosave.complete, clearActive(), CountryActions.fetchCountryStatus(countryIso)]))
       history.push(BasePaths.getAssessmentSectionLink(countryIso, FRA.type, destination))
     }
   }
@@ -173,7 +173,7 @@ export const remove =
 
     const actions = [
       clearActive(),
-      CountryActions.getCountryStatus(countryIso),
+      CountryActions.fetchCountryStatus(countryIso),
       ...getUpdateTablesWithNotOdp(getState(), Number(odp.year)),
     ]
 
@@ -183,5 +183,5 @@ export const remove =
 
 export const removeFromList = (countryIso: any, odpId: any) => async (dispatch: any) => {
   await axios.delete(`${ApiEndPoint.Odp.delete()}?odpId=${odpId}&countryIso=${countryIso}`)
-  dispatch(batchActions([CountryActions.getCountryStatus(countryIso), fetchOdps(countryIso)]))
+  dispatch(batchActions([CountryActions.fetchCountryStatus(countryIso), fetchOdps(countryIso)]))
 }

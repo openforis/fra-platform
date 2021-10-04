@@ -1,3 +1,3 @@
 export { initCountry } from './initCountry'
-export { getCountryStatus } from './getCountryStatus'
+export { fetchCountryStatus } from './fetchCountryStatus'
 export { changeAssessmentStatus } from './changeAssessmentStatus'
