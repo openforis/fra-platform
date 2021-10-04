@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 
 import { ColSpec, TypeSpec } from '@webapp/sectionSpec'
-import { useUserInfo } from '@webapp/hooks'
+import { useUserInfo } from '@webapp/store/user'
 
 export default (col: ColSpec, rowIdx: number): string => {
   const { type, validator } = col

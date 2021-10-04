@@ -2,10 +2,10 @@ import React, { memo } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { isAdministrator } from '@common/countryRole'
-import { useUserInfo } from '@webapp/hooks'
 
 import NotFound from '@webapp/app/notfound'
 import EditUserForm from '@webapp/app/user/userManagement/edit/editUserForm'
+import { useUserInfo } from '@webapp/store/user'
 
 const canEdit = (userInfo: any, userId: any) => isAdministrator(userInfo) || userInfo.id === userId
 

@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as LandingState from '@webapp/app/countryLanding/landingState'
 import { i18nUserRole, profilePictureUri } from '@common/userUtils'
 import Icon from '@webapp/components/icon'
-import { UserState } from '@webapp/store/user'
 import { openChat } from '@webapp/app/user/chat/actions'
 import { closeCountryMessageBoard } from '@webapp/app/countryLanding/views/messageBoard/actions'
 
@@ -13,8 +12,8 @@ const Users = () => {
   const countryIso = useCountryIso()
   const i18n = useI18n()
   const dispatch = useDispatch()
-  const { userInfo, users }: any = useSelector((state) => ({
-    userInfo: UserState.getUserInfo(state),
+  const { userInfo, users }: any = useSelector((state: any) => ({
+    userInfo: state.user,
     users: LandingState.getUsers(state),
   }))
   if (!users || !userInfo) {

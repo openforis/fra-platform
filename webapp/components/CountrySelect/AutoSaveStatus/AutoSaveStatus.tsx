@@ -3,7 +3,8 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import * as R from 'ramda'
 import { getRelativeDate } from '@webapp/utils/relativeDate'
-import { useI18n, useUserInfo } from '@webapp/hooks'
+import { useI18n } from '@webapp/hooks'
+import { useUserInfo } from '@webapp/store/user'
 
 const AutoSaveStatus: React.FC = () => {
   const i18n = useI18n()

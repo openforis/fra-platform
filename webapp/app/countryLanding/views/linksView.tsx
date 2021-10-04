@@ -5,10 +5,10 @@ import { isAdministrator } from '@common/countryRole'
 import { isStatusSaving } from '@webapp/app/components/autosave/autosave'
 import Icon from '@webapp/components/icon'
 import useI18n from '@webapp/hooks/useI18n'
-import { UserState } from '@webapp/store/user'
 import * as AutosaveState from '@webapp/app/components/autosave/autosaveState'
 import { getFilesList, uploadFile, deleteFile } from '@webapp/app/countryLanding/actions'
 import { useCountryIso } from '@webapp/hooks'
+import { useUserInfo } from '@webapp/store/user'
 
 const links = [
   {
@@ -22,7 +22,7 @@ const links = [
 const LinksView = () => {
   const dispatch = useDispatch()
   const countryIso = useCountryIso()
-  const userInfo = useSelector(UserState.getUserInfo)
+  const userInfo = useUserInfo()
   const status = useSelector(AutosaveState.getStatus)
   // TODO use repository state
   const filesList = useSelector(R.pathOr([], ['landing', 'repository', 'filesList']))

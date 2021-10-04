@@ -1,16 +1,16 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Dispatch } from 'redux'
 import { i18n } from 'i18next'
 
 import { User, Users } from '@core/auth'
 import * as BasePaths from '@webapp/main/basePaths'
-import { useI18n, useIsLogin, useUserInfo } from '@webapp/hooks'
-import { logout } from '@webapp/store/user/actions'
+import { useI18n, useIsLogin } from '@webapp/hooks'
+import { UserActions, useUserInfo } from '@webapp/store/user'
 
 import Icon from '@webapp/components/icon'
 import PopoverControl, { PopoverItem } from '@webapp/components/PopoverControl'
+import { useAppDispatch } from '@webapp/store'
 
 const getLinks = (i18nInstance: i18n, userInfo: User, dispatch: Dispatch<any>) => {
   const items: Array<PopoverItem> = [
@@ -31,14 +31,14 @@ const getLinks = (i18nInstance: i18n, userInfo: User, dispatch: Dispatch<any>) =
     },
     {
       content: i18nInstance.t('header.logout'),
-      onClick: () => dispatch(logout()),
+      onClick: () => dispatch(UserActions.logout()),
     }
   )
   return items
 }
 
 const LinksFRA: React.FC = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const userInfo = useUserInfo()
   const i18n = useI18n()
   const isLogin = useIsLogin()

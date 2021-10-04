@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { useUserInfo } from '@webapp/hooks'
 import { TypeSpec } from '@webapp/sectionSpec'
 
+import { useUserInfo } from '@webapp/store/user'
 import RowData from './RowData'
 import RowValidation from './RowValidation'
 import RowNoticeMessage from './RowNoticeMessage'

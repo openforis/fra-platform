@@ -1,10 +1,10 @@
 import './Description.scss'
 import React, { useState } from 'react'
 
-import { useUserInfo } from '@webapp/hooks'
 import { usePrintView } from '@webapp/store/app'
 
 import RichTextEditor from '@webapp/components/richTextEditor'
+import { useUserInfo } from '@webapp/store/user'
 import Title from './Title'
 import Toggle from './Toggle'
 import useDescription from './useDescription'

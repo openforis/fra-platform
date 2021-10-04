@@ -3,7 +3,6 @@ export { default as useAppLoaded } from './useAppLoaded'
 export { default as useI18n } from './useI18n'
 export { default as useCountryIso } from './useCountryIso'
 
-export { default as useUserInfo } from './useUserInfo'
 export { default as useIsDataExportView } from './useIsDataExportView'
 export { default as useOnResize } from './useOnResize'
 export { useIsAutoSaveComplete, useIsAutoSaveSaving } from './useAutoSave'

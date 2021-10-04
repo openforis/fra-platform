@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom'
 
 import { FRA } from '@core/assessment'
 import * as BasePaths from '@webapp/main/basePaths'
-import { useCountryIso, useI18n, useUserInfo } from '@webapp/hooks'
+import { useCountryIso, useI18n } from '@webapp/hooks'
 
 import Icon from '@webapp/components/icon'
+import { useUserInfo } from '@webapp/store/user'
 import { Props } from '../props'
 
 const ExtentOfForest: React.FC<Props> = (props) => {

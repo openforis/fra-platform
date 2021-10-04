@@ -7,13 +7,14 @@ import {
   alternateNationalCorrespondent,
   collaborator,
 } from '@common/countryRole'
-import { useI18n, useUserInfo } from '@webapp/hooks'
+import { useI18n } from '@webapp/hooks'
 import { i18nUserRole, validRole } from '@common/userUtils'
 
 import { useCountries } from '@webapp/store/app'
 import { useSecondaryGroupedRegions } from '@webapp/store/app/hooks'
 import CountrySelectModal from '@webapp/components/CountrySelectModal'
 import { FRA } from '@core/assessment'
+import { useUserInfo } from '@webapp/store/user'
 // properties used to render ui form fields
 const roles = [reviewer.role, nationalCorrespondent.role, alternateNationalCorrespondent.role, collaborator.role]
 

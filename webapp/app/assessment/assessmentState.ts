@@ -9,7 +9,6 @@ import { assessmentStatus } from '@common/assessment'
 
 import * as AppState from '@webapp/store/app/state'
 import * as CountryState from '@webapp/app/country/countryState'
-import { UserState } from '@webapp/store/user'
 
 export const stateKey = 'assessment'
 
@@ -41,7 +40,7 @@ const _isLocked = (type: any) => R.pipe(getStateAssessment(type), R.propOr(true,
 
 export const isLocked = (assessment: any) => (state: any) => {
   const countryIso = AppState.getCountryIso(state)
-  const userInfo = UserState.getUserInfo(state)
+  const userInfo = state.user
 
   if (isReviewer(countryIso, userInfo) || isAdministrator(userInfo)) {
     const type = Assessment.getType(assessment)
@@ -53,7 +52,7 @@ export const isLocked = (assessment: any) => (state: any) => {
 
 export const canToggleLock = (assessment: any) => (state: any) => {
   const countryIso = AppState.getCountryIso(state)
-  const userInfo = UserState.getUserInfo(state)
+  const userInfo = state.user
 
   if (isAdministrator(userInfo)) {
     return true

@@ -1,3 +1,4 @@
+import { UserState } from '@webapp/store/user/UserStateType'
 import { DataExportState } from './page/dataExport'
 import { HomeState } from './page/home'
 import { AppDispatch } from './store'
@@ -13,4 +14,5 @@ export type RootState = {
 
   app: AppState
   country: CountryState
+  user: UserState
 }

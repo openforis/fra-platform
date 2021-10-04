@@ -21,7 +21,6 @@ import {
 } from '@webapp/app/user/userManagement/actions'
 
 import * as AppState from '@webapp/store/app/state'
-import { UserState } from '@webapp/store/user'
 import * as UserManagementState from '@webapp/app/user/userManagement/userManagementState'
 import { useCountryIso } from '@webapp/hooks'
 
@@ -64,8 +63,8 @@ const ManageCollaboratorsView = (props: any) => {
 
 const mapStateToProps = (state: any) => ({
   i18n: AppState.getI18n(state),
-  userInfo: UserState.getUserInfo(state),
-  allowedRoles: rolesAllowedToChange(AppState.getCountryIso(state), UserState.getUserInfo(state)),
+  userInfo: state.user,
+  allowedRoles: rolesAllowedToChange(AppState.getCountryIso(state), state.user),
   countryUsers: UserManagementState.getCountryUsers(state),
   newUser: UserManagementState.getNewUser(state),
   editUserStatus: UserManagementState.getEditUserStatus(state),

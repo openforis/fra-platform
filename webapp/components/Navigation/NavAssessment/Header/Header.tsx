@@ -7,10 +7,11 @@ import { Assessment, AssessmentType } from '@core/assessment'
 import { Areas } from '@core/country'
 import * as BasePaths from '@webapp/main/basePaths'
 
-import { useCountryIso, useUserInfo } from '@webapp/hooks'
+import { useCountryIso } from '@webapp/hooks'
 import { Breakpoints } from '@webapp/utils/breakpoints'
 
 import Icon from '@webapp/components/icon'
+import { useUserInfo } from '@webapp/store/user'
 import Title from './Title'
 import Status from './Status'
 import ButtonToggleAll from './ButtonToggleAll'

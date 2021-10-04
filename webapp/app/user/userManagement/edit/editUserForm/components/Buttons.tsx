@@ -1,6 +1,7 @@
 import React from 'react'
-import { useI18n, useCountryIso, useUserInfo } from '@webapp/hooks'
+import { useI18n, useCountryIso } from '@webapp/hooks'
 import { isAdministrator, isNationalCorrespondent } from '@common/countryRole'
+import { useUserInfo } from '@webapp/store/user'
 
 type Props = {
   onCancel: () => void

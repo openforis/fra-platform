@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { LanguageCodes } from '@core/lang'
+import { Lang, LanguageCodes } from '@core/lang'
 
 import { useAppDispatch } from '@webapp/store'
 import { AppActions } from '@webapp/store/app'
@@ -13,7 +13,7 @@ const LanguageSelector: React.FC = () => {
   const dispatch = useAppDispatch()
   const i18n = useI18n()
 
-  const languageSelectionItems = LanguageCodes.map((lang) => ({
+  const languageSelectionItems = LanguageCodes.map((lang: Lang) => ({
     content: i18n.t(`language.${lang}`),
     onClick: () => dispatch(AppActions.switchLanguage(lang)),
   }))

@@ -1,7 +1,7 @@
 import React from 'react'
 import './languageSelectorMobile.scss'
 
-import { LanguageCodes } from '@core/lang'
+import { Lang, LanguageCodes } from '@core/lang'
 import { useAppDispatch } from '@webapp/store'
 
 import { useI18n } from '@webapp/hooks'
@@ -14,7 +14,7 @@ const LanguageSelectorMobile: React.FC = () => {
 
   return (
     <div className="lang-selector" style={{ gridTemplateColumns: `repeat(${LanguageCodes.length},auto)` }}>
-      {LanguageCodes.map((lang) => (
+      {LanguageCodes.map((lang: Lang) => (
         <button
           key={lang}
           className={classNames('btn', 'btn-xs')}

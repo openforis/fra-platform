@@ -1,19 +1,18 @@
 import './style.less'
 import React, { memo } from 'react'
-import { useSelector } from 'react-redux'
 import { Switch, Redirect, Route, useRouteMatch } from 'react-router-dom'
 import useI18n from '@webapp/hooks/useI18n'
-import { UserState } from '@webapp/store/user'
 import * as BasePaths from '@webapp/main/basePaths'
 import { isAdministrator } from '@common/countryRole'
 import NotFound from '@webapp/app/notfound'
+import { useUserInfo } from '@webapp/store/user'
 import UsersManagementView from './components/UserManagementView'
 import DataExportView from './components/DataExportView'
 import VersioningView from './components/versioning/versioningView'
 import Menu from './components/Menu'
 
 const Admin = (props: any) => {
-  const userInfo = useSelector(UserState.getUserInfo)
+  const userInfo = useUserInfo()
   const i18n = useI18n()
   const { path, url } = useRouteMatch()
   // Todo : redirect to /404 or /notfound
@@ -23,7 +22,7 @@ const Admin = (props: any) => {
   return (
     <div className="app-view__content">
       <div className="landing__page-header">
-        <h1 className="landing__page-title title">{(i18n as any).t('admin.admin')}</h1>
+        <h1 className="landing__page-title title">{i18n.t('admin.admin')}</h1>
         <Menu />
       </div>
 

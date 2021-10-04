@@ -4,7 +4,6 @@ import * as R from 'ramda'
 
 import { administrator } from '@common/countryRole'
 
-import { UserState } from '@webapp/store/user'
 import * as UserManagementState from '@webapp/app/user/userManagement/userManagementState'
 import { fetchAllUsers, removeUser, sendInvitationEmail } from '@webapp/app/user/userManagement/actions'
 import { useI18n } from '@webapp/hooks'
@@ -51,7 +50,7 @@ const UsersManagementView = (props: any) => {
 }
 
 const mapStateToProps = (state: any) => ({
-  userInfo: UserState.getUserInfo(state),
+  userInfo: state.user,
   allUsers: UserManagementState.getAllUsers(state),
   editUserStatus: UserManagementState.getEditUserStatus(state),
   countries: R.path(['country', 'countries', administrator.role], state),
