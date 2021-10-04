@@ -1,5 +1,3 @@
-import { useDispatch, useSelector } from 'react-redux'
-
 import { Country, RegionCode } from '@core/country'
 import { AssessmentType } from '@core/assessment'
 import { Objects } from '@core/utils'
@@ -7,15 +5,16 @@ import { Objects } from '@core/utils'
 import { useCountryIso } from '@webapp/hooks'
 import { useAssessmentType, useCountries, useCountriesPanEuropean } from '@webapp/store/app'
 import { useHomeCountriesFilter } from '@webapp/store/page/home'
-import { DataExportSelection, DataExportState } from '@webapp/store/page/dataExport/state'
-import { DataExportAction } from '@webapp/store/page/dataExport/actions'
+import { DataExportSelection, DataExportState } from '@webapp/store/page/dataExport/DataExportStateType'
+import { DataExportActions } from '@webapp/store/page/dataExport'
+import { useAppDispatch, useAppSelector } from '@webapp/store'
 
 // utility hook to get DataExportState
 // TODO: remove it when adding types to redux store
-const useState = (): DataExportState => useSelector((state: any) => state.page.dataExport)
+const useState = (): DataExportState => useAppSelector((state) => state.page.dataExport)
 
 export const useDataExportCountries = (): Array<Country> => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const assessmentType = useAssessmentType()
 
   if (assessmentType === AssessmentType.panEuropean) {
@@ -38,7 +37,7 @@ export const useDataExportCountries = (): Array<Country> => {
       countriesDataExport = countriesAll.filter((country) => countriesFilter.includes(country.countryIso))
     }
 
-    dispatch(DataExportAction.updateCountries(countriesDataExport))
+    dispatch(DataExportActions.updateCountries(countriesDataExport))
   }
 
   return state.countries
