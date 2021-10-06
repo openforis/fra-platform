@@ -53,6 +53,6 @@ export interface CountryConfig {
 }
 
 export interface CountryState {
-  status?: Partial<CountryStatus>
-  config?: Partial<CountryConfig>
+  status?: CountryStatus
+  config?: CountryConfig
 }
