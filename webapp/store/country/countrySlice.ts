@@ -3,11 +3,11 @@
 import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 
 import { CountryConfig, CountryState } from './CountryStateType'
-import { initCountry, getCountryStatus, changeAssessmentStatus } from './actions'
+import { initCountry, fetchCountryStatus, changeAssessmentStatus } from './actions'
 
 const initialState: CountryState = {
-  config: {},
-  status: {},
+  config: null,
+  status: null,
 }
 
 export const countrySlice = createSlice({
@@ -27,22 +27,21 @@ export const countrySlice = createSlice({
         state.status = payload.status
         state.config = payload.config
       })
-      .addCase(initCountry.rejected, (state) => {
-        state.status = {}
-        state.config = {}
-      })
+      .addCase(initCountry.rejected, () => initialState)
 
     builder
-      .addCase(getCountryStatus.fulfilled, (state, { payload }) => {
+      .addCase(fetchCountryStatus.fulfilled, (state, { payload }) => {
         state.status = payload.status
       })
-      .addCase(getCountryStatus.rejected, (state) => {
-        state.status = {}
+      .addCase(fetchCountryStatus.rejected, (state) => {
+        state.status = null
       })
 
     builder.addCase(changeAssessmentStatus.fulfilled, (state, action) => {
       const { assessmentType, status } = action.payload
-      state.status.assessments[assessmentType].status = status
+      if (state.status.assessments[assessmentType]) {
+        state.status.assessments[assessmentType].status = status
+      }
     })
   },
 })
@@ -50,7 +49,7 @@ export const countrySlice = createSlice({
 export const CountryActions = {
   ...countrySlice.actions,
   initCountry,
-  getCountryStatus,
+  fetchCountryStatus,
   changeAssessmentStatus,
 }
 

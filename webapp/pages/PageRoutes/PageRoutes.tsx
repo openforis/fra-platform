@@ -1,9 +1,13 @@
 import React, { useEffect } from 'react'
-import { Redirect, Route, Switch } from 'react-router-dom'
+import { Redirect, Route, RouteComponentProps, Switch } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
+import { RegionCode } from '@core/country'
+import { FRA, PanEuropean } from '@core/assessment'
 import { useIsLogin } from '@webapp/hooks'
 import { useAppDispatch, useAppSelector } from '@webapp/store'
 import * as BasePaths from '@webapp/main/basePaths'
+import { AppActions, useAppLoaded } from '@webapp/store/app'
 
 import DynamicImport from '@webapp/components/dynamicImport'
 import Loading from '@webapp/components/loading'
@@ -13,10 +17,6 @@ import Header from '@webapp/components/Header'
 import Footer from '@webapp/components/Footer'
 import ErrorComponent from '@webapp/components/error/errorComponent'
 import CountrySelect from '@webapp/components/CountrySelect'
-
-import { FRA } from '@core/assessment'
-import { useTranslation } from 'react-i18next'
-import { useAppLoaded, AppActions } from '@webapp/store/app'
 
 import { useTheme } from './useTheme'
 
@@ -61,9 +61,15 @@ const PageRoutes: React.FC = () => {
             render={() => <DynamicImport key={1} load={() => import('../Admin/export')} />}
           />
           <Route path={BasePaths.user} render={() => <DynamicImport key={2} load={() => import('../User/export')} />} />
-          <Route exact path={BasePaths.countryIso}>
-            <Redirect to={`${window.location.pathname}/${FRA.type}/home`} />
-          </Route>
+          <Route
+            exact
+            path={BasePaths.countryIso}
+            render={(routeProps: RouteComponentProps<{ countryIso: string }>) => {
+              const { countryIso } = routeProps.match.params
+              const assessmentRedirect = countryIso === RegionCode.FE ? PanEuropean.type : FRA.type
+              return <Redirect to={`${window.location.pathname}${assessmentRedirect}/home`} />
+            }}
+          />
           <Route
             path={BasePaths.assessment}
             render={() => <DynamicImport key={3} load={() => import('../../app/appViewExport')} />}

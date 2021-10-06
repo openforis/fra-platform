@@ -45,7 +45,7 @@ export const postComment =
       .then(() => {
         dispatch({ target, type: issuePostCommentCompleted, status: 'completed' })
         dispatch(getIssueSummary(countryIso, section, target))
-        dispatch(CountryActions.getCountryStatus(countryIso))
+        dispatch(CountryActions.fetchCountryStatus(countryIso))
         axios
           .get(`${ApiEndPoint.Review.getComments(countryIso, section)}?target=${target}`)
           .then(sectionCommentsReceived(section, target, dispatch))
@@ -67,7 +67,7 @@ export const openCommentThread = (countryIso: any, section: any, target: any, ti
 }
 export const closeCommentThread = (countryIso: any, section: any, target: any) => (dispatch: any) => {
   dispatch(getIssueSummary(countryIso, section, target))
-  dispatch(CountryActions.getCountryStatus(countryIso))
+  dispatch(CountryActions.fetchCountryStatus(countryIso))
   dispatch({ type: issueCloseCommentThread })
 }
 
@@ -77,7 +77,7 @@ export const markCommentAsDeleted = (countryIso: any, section: any, target: any,
     .then(() => {
       dispatch(retrieveComments(countryIso, section, target))
       dispatch(getIssueSummary(countryIso, section, target))
-      dispatch(CountryActions.getCountryStatus(countryIso))
+      dispatch(CountryActions.fetchCountryStatus(countryIso))
     })
     .catch((err) => dispatch(applicationError(err)))
 
@@ -87,7 +87,7 @@ export const markIssueAsResolved = (countryIso: any, section: any, target: any, 
     .then(() => {
       dispatch(retrieveComments(countryIso, section, target))
       dispatch(getIssueSummary(countryIso, section, target))
-      dispatch(CountryActions.getCountryStatus(countryIso))
+      dispatch(CountryActions.fetchCountryStatus(countryIso))
     })
     .catch((err) => dispatch(applicationError(err)))
 }
