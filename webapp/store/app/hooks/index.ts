@@ -10,7 +10,7 @@ import { Objects } from '@core/utils'
 import { AppActions } from '../appSlice'
 
 // TODO: Remove AppState usage and use state.app.?
-export const usePrintView = () =>
+export const usePrintView = (): boolean[] =>
   useAppSelector((state) => [!Objects.isEmpty(state.app?.printView), state.app?.printView?.onlyTables])
 
 export const useAppLoaded = (): boolean => useAppSelector((state) => state.app.loaded)
