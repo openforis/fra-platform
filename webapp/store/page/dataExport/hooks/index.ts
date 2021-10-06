@@ -5,7 +5,7 @@ import { Objects } from '@core/utils'
 import { useCountryIso } from '@webapp/hooks'
 import { useAssessmentType, useCountries, useCountriesPanEuropean } from '@webapp/store/app'
 import { useHomeCountriesFilter } from '@webapp/store/page/home'
-import { DataExportSelection, DataExportState } from '@webapp/store/page/dataExport/DataExportStateType'
+import { DataExportSelection, DataExportState } from '@webapp/store/page/dataExport/dataExportStateType'
 import { DataExportActions } from '@webapp/store/page/dataExport'
 import { useAppDispatch, useAppSelector } from '@webapp/store'
 

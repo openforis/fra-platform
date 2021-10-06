@@ -1,7 +1,7 @@
 import { Action } from 'redux'
 
 import { Country } from '@core/country'
-import { DataExportSelection } from '@webapp/store/page/dataExport/DataExportStateType'
+import { DataExportSelection } from '@webapp/store/page/dataExport/dataExportStateType'
 
 export enum DataExportActionType {
   countriesUpdate = 'dataExport/countries/update',

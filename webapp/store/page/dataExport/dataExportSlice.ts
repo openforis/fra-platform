@@ -4,7 +4,7 @@ import { createSlice, Reducer } from '@reduxjs/toolkit'
 
 import { AppActions } from '@webapp/store/app'
 import { HomeActionType } from '@webapp/store/page/home'
-import { DataExportSelection, DataExportState } from './DataExportStateType'
+import { DataExportSelection, DataExportState } from './dataExportStateType'
 import { DataExportCountriesAction, DataExportSelectionAction } from './actionTypes'
 
 const initialState: DataExportState = {
