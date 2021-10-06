@@ -6,8 +6,8 @@ import { CountryConfig, CountryState } from './CountryStateType'
 import { initCountry, fetchCountryStatus, changeAssessmentStatus } from './actions'
 
 const initialState: CountryState = {
-  config: {},
-  status: {},
+  config: null,
+  status: null,
 }
 
 export const countrySlice = createSlice({
@@ -27,22 +27,21 @@ export const countrySlice = createSlice({
         state.status = payload.status
         state.config = payload.config
       })
-      .addCase(initCountry.rejected, (state) => {
-        state.status = {}
-        state.config = {}
-      })
+      .addCase(initCountry.rejected, () => initialState)
 
     builder
       .addCase(fetchCountryStatus.fulfilled, (state, { payload }) => {
         state.status = payload.status
       })
       .addCase(fetchCountryStatus.rejected, (state) => {
-        state.status = {}
+        state.status = null
       })
 
     builder.addCase(changeAssessmentStatus.fulfilled, (state, action) => {
       const { assessmentType, status } = action.payload
-      state.status.assessments[assessmentType].status = status
+      if (state.status.assessments[assessmentType]) {
+        state.status.assessments[assessmentType].status = status
+      }
     })
   },
 })
