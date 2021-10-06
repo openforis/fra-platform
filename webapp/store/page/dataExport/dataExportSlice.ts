@@ -1,5 +1,3 @@
-/* eslint-disable no-param-reassign */
-
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
 import { AppActions } from '@webapp/store/app'
@@ -17,16 +15,20 @@ export const dataExportSlice = createSlice({
   initialState,
   reducers: {
     updateCountries: (state: DataExportState, action: DataExportCountriesAction) => {
+      // eslint-disable-next-line no-param-reassign
       state.countries = action.payload
     },
 
     updateSelection: (state: DataExportState, { payload }: { payload: DataExportSelectionAction }) => {
+      // eslint-disable-next-line no-param-reassign
       state.selection[payload.assessmentSection] = payload.selection
     },
 
     // reset countries when filtered countries in home changes
     [HomeActionType.countriesFilterUpdate]: (state: DataExportState) => {
+      // eslint-disable-next-line no-param-reassign
       state.countries = []
+      // eslint-disable-next-line no-param-reassign
       state.selection = Object.entries(state.selection).reduce<Record<string, DataExportSelection>>(
         (accumulator, [section, sectionSelection]) => {
           return {
