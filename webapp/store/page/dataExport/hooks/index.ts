@@ -1,5 +1,3 @@
-import { useDispatch, useSelector } from 'react-redux'
-
 import { Country, RegionCode } from '@core/country'
 import { AssessmentType } from '@core/assessment'
 import { Objects } from '@core/utils'
@@ -7,16 +5,13 @@ import { Objects } from '@core/utils'
 import { useCountryIso } from '@webapp/hooks'
 import { useAssessmentType, useCountries, useCountriesPanEuropean } from '@webapp/store/app'
 import { useHomeCountriesFilter } from '@webapp/store/page/home'
-import { DataExportSelection, DataExportState } from '@webapp/store/page/dataExport/state'
-import { DataExportAction } from '@webapp/store/page/dataExport/actions'
-
-// utility hook to get DataExportState
-// TODO: remove it when adding types to redux store
-const useState = (): DataExportState => useSelector((state: any) => state.page.dataExport)
+import { DataExportActions, DataExportSelection } from '@webapp/store/page/dataExport'
+import { useAppDispatch, useAppSelector } from '@webapp/store'
 
 export const useDataExportCountries = (): Array<Country> => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const assessmentType = useAssessmentType()
+  const countries = useAppSelector((state) => state.page?.dataExport?.countries)
 
   if (assessmentType === AssessmentType.panEuropean) {
     return useCountriesPanEuropean()
@@ -25,11 +20,10 @@ export const useDataExportCountries = (): Array<Country> => {
   const countryIso = useCountryIso()
   const countriesAll = useCountries()
   const countriesFilter = useHomeCountriesFilter()
-  const state = useState()
   const isRegion = Object.values(RegionCode).includes(countryIso as RegionCode)
 
   // initialize data export countries
-  if (Objects.isEmpty(state.countries)) {
+  if (Objects.isEmpty(countries)) {
     let countriesDataExport = countriesAll
     if (isRegion) {
       countriesDataExport = countriesAll.filter((country) => country.regionCodes.includes(countryIso as RegionCode))
@@ -38,13 +32,13 @@ export const useDataExportCountries = (): Array<Country> => {
       countriesDataExport = countriesAll.filter((country) => countriesFilter.includes(country.countryIso))
     }
 
-    dispatch(DataExportAction.updateCountries(countriesDataExport))
+    dispatch(DataExportActions.updateCountries(countriesDataExport))
   }
 
-  return state.countries
+  return countries
 }
 
 export const useDataExportSelection = (assessmentSection: string): DataExportSelection => {
-  const state = useState()
-  return state.selection[assessmentSection] ?? { columns: [], countryISOs: [], variable: '' }
+  const selection = useAppSelector((state) => state.page?.dataExport?.selection)
+  return selection[assessmentSection] ?? { columns: [], countryISOs: [], variable: '' }
 }
