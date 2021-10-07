@@ -1,8 +1,8 @@
-import { createSlice, Reducer } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 import { HomeCountriesFilterActions } from '@webapp/store/page/home/actionTypes'
 import { AppActions } from '@webapp/store/app'
-import { HomeState } from './HomeStateType'
+import { HomeState } from './homeStateType'
 
 const initialState: HomeState = {}
 
@@ -25,4 +25,4 @@ export const HomeActions = {
   ...homeSlice.actions,
 }
 
-export default homeSlice.reducer as Reducer<HomeState>
+export default homeSlice.reducer
