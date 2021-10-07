@@ -1,5 +1,3 @@
-/* eslint-disable no-param-reassign */
-
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
 import { HomeCountriesFilterActions } from '@webapp/store/page/home/actionTypes'

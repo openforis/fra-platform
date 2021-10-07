@@ -1,10 +1,8 @@
-/* eslint-disable no-param-reassign */
-
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
 import { AppActions } from '@webapp/store/app'
 import { HomeActions } from '@webapp/store/page/home'
-import { DataExportSelection, DataExportState } from './DataExportStateType'
+import { DataExportSelection, DataExportState } from './dataExportStateType'
 import { DataExportCountriesAction, DataExportSelectionAction } from './actionTypes'
 
 const initialState: DataExportState = {
@@ -28,6 +26,7 @@ export const dataExportSlice = createSlice({
     builder.addCase(AppActions.updateCountryIso, () => initialState)
     builder.addCase(HomeActions.updateCountriesFilter, (state) => {
       state.countries = []
+
       state.selection = Object.entries(state.selection).reduce<Record<string, DataExportSelection>>(
         (accumulator, [section, sectionSelection]) => {
           return {
