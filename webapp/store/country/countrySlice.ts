@@ -1,8 +1,6 @@
-/* eslint-disable no-param-reassign */
-
 import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 
-import { CountryConfig, CountryState } from './CountryStateType'
+import { CountryConfig, CountryState } from './countryStateType'
 import { initCountry, fetchCountryStatus, changeAssessmentStatus } from './actions'
 
 const initialState: CountryState = {
