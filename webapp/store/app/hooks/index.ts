@@ -9,7 +9,6 @@ import { useAppDispatch, useAppSelector } from '@webapp/store'
 import { Objects } from '@core/utils'
 import { AppActions } from '../appSlice'
 
-// TODO: Remove AppState usage and use state.app.?
 export const usePrintView = (): boolean[] =>
   useAppSelector((state) => [!Objects.isEmpty(state.app?.printView), state.app?.printView?.onlyTables])
 
