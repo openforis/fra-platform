@@ -1,5 +1,7 @@
 import * as i18next from 'i18next'
 
+import { TFunction } from 'i18next'
+import { Lang } from '@core/lang'
 import * as enTranslation from './resources/en'
 import * as frTranslation from './resources/fr'
 import * as esTranslation from './resources/es'
@@ -53,10 +55,7 @@ export const createParams = (lang: string) => ({
   },
 })
 
-export const createI18nInstance = (lang: any, callback: any) =>
-  createInstance(createParams(lang), (_err: any, t: any) => callback({ language: lang, t }))
-
-export const createI18nPromise = (lang: any) =>
+export const createI18nPromise = (lang: any): Promise<{ language: Lang; t: TFunction }> =>
   new Promise((resolve, reject) =>
     createInstance(createParams(lang), (err: any, t: any) => {
       if (err) {

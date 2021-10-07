@@ -4,8 +4,8 @@ import { Link, matchPath, NavLink, Redirect, Route, Switch, useLocation } from '
 import { FRA } from '@core/assessment'
 import { Areas, RegionCode } from '@core/country'
 import * as BasePaths from '@webapp/main/basePaths'
-import { useUserInfo, useCountryLandingSections, useCountryIso, useI18n } from '@webapp/hooks'
 
+import { useUserInfo, useCountryLandingSections, useCountryIso, useI18n } from '@webapp/hooks'
 import { useFraRegions } from '@webapp/store/app/hooks'
 
 import Icon from '@webapp/components/icon'

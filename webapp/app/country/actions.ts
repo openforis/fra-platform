@@ -44,10 +44,3 @@ export const saveCountryConfigSetting = (key: any, value: any) => async (dispatc
 }
 
 export const countryAssessmentStatusChanging = 'country/assessment/status/changing'
-
-export const changeAssessment = (countryIso: any, assessment: any, notifyUsers?: any) => async (dispatch: any) => {
-  dispatch({ type: countryAssessmentStatusChanging, assessmentName: assessment.type })
-  await axios.post(`${ApiEndPoint.Assessment.createEmail(countryIso)}?notifyUsers=${notifyUsers}`, assessment)
-
-  dispatch(fetchCountryOverviewStatus(countryIso))
-}

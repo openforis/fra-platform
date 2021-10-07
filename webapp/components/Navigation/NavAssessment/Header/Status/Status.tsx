@@ -7,12 +7,12 @@ import { Assessment, AssessmentStatus, AssessmentStatusTransitions } from '@core
 import { Users } from '@core/auth'
 import { Objects } from '@core/utils'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
-import { changeAssessment } from '@webapp/app/country/actions'
 import { Breakpoints } from '@webapp/utils/breakpoints'
 import { useCountryIso, useI18n, useUserInfo } from '@webapp/hooks'
 
 import Icon from '@webapp/components/icon'
 import PopoverControl, { PopoverItem } from '@webapp/components/PopoverControl'
+import { CountryActions } from '@webapp/store/country'
 import StatusConfirm from './StatusConfirm'
 import { StatusTransition } from './types'
 
@@ -41,7 +41,10 @@ const Status: React.FC<Props> = (props: Props) => {
           <span>{i18n.t('assessment.deskStudy')}</span>
         </div>
       ),
-      onClick: () => dispatch(changeAssessment(countryIso, { ...assessment, deskStudy: !deskStudy })),
+      onClick: () =>
+        dispatch(
+          CountryActions.changeAssessmentStatus({ countryIso, assessment: { ...assessment, deskStudy: !deskStudy } })
+        ),
     },
   ]
 

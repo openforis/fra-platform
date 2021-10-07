@@ -1,5 +1,4 @@
 import { i18n } from 'i18next'
-
 import { Country } from '@core/country/country'
 import { Global } from '@core/country/global'
 import { Region } from '@core/country/region'

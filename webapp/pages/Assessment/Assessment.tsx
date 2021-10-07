@@ -5,8 +5,9 @@ import { Route, Switch } from 'react-router-dom'
 import { useMediaQuery } from 'react-responsive'
 
 import { toggleNavigation } from '@webapp/components/Navigation/actions'
-import { useInitCountry, useCountryIso, useNavigationVisible, useUserInfo } from '@webapp/hooks'
-import { useIsCountryStatusLoaded } from '@webapp/store/country'
+import { useCountryIso, useNavigationVisible, useUserInfo } from '@webapp/hooks'
+import { useInitCountry, useIsCountryStatusLoaded } from '@webapp/store/country'
+
 import * as BasePaths from '@webapp/main/basePaths'
 import { Breakpoints } from '@webapp/utils/breakpoints'
 

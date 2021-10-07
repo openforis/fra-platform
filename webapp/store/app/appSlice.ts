@@ -1,9 +1,8 @@
-/* eslint-disable no-param-reassign */
 import { Country, CountryIso, Region, RegionGroup } from '@core/country'
 
 import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 import { AssessmentType } from '@core/assessment'
-import { AppState } from '@webapp/store/app/types'
+import { AppState } from '@webapp/store/app/appStateType'
 import { initApp, switchLanguage } from './actions'
 
 const initialState: AppState = {
@@ -54,6 +53,7 @@ export const appSlice = createSlice({
         state.regions = payload.regions
         state.regionGroups = payload.regionGroups
         state.loaded = true
+
         state.language = payload.language
       })
       .addCase(initApp.rejected, (state, { payload }) => {

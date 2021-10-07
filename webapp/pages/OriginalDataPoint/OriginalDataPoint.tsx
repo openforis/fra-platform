@@ -8,7 +8,6 @@ import { batchActions } from '@webapp/store'
 import { useCountryIso, useI18n } from '@webapp/hooks'
 import * as CountryState from '@webapp/app/country/countryState'
 import * as FraState from '@webapp/app/assessment/fra/fraState'
-import { fetchCountryOverviewStatus } from '@webapp/app/country/actions'
 import * as OriginalDataPointState from '@webapp/sectionSpec/fra/originalDataPoint/originalDataPointState'
 import { fetch, clearActive } from '@webapp/sectionSpec/fra/originalDataPoint/actions'
 import { fetchExtentOfForest } from '@webapp/sectionSpec/fra/extentOfForest/actions'
@@ -19,6 +18,7 @@ import DataSources from '@webapp/components/OriginalDataPoint/DataSources'
 import NationalClasses from '@webapp/components/OriginalDataPoint/NationalClasses'
 import OriginalData from '@webapp/components/OriginalDataPoint/OriginalData'
 import Comments from '@webapp/components/OriginalDataPoint/Comments'
+import { CountryActions } from '@webapp/store/country'
 
 const OriginalDataPoint: React.FC = () => {
   const dispatch = useDispatch()
@@ -32,7 +32,7 @@ const OriginalDataPoint: React.FC = () => {
     dispatch(batchActions([fetch(odpId, countryIso), fetchExtentOfForest()]))
 
     return () => {
-      dispatch(batchActions([fetchCountryOverviewStatus(countryIso), clearActive()]))
+      dispatch(batchActions([CountryActions.fetchCountryStatus(countryIso), clearActive()]))
     }
   }, [])
 

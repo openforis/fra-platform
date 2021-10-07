@@ -1,6 +1,6 @@
 import { Areas } from '@core/country'
 
-import { useCountryIso } from '@webapp/hooks/index'
+import { useCountryIso } from '@webapp/hooks'
 
 export default () => {
   const countryIso = useCountryIso()
