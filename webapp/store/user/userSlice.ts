@@ -1,5 +1,3 @@
-/* eslint-disable no-param-reassign */
-
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 import { UserState } from '@webapp/store/user/userStateType'
 import { AppActions } from '@webapp/store/app'
