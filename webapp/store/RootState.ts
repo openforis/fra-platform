@@ -1,4 +1,4 @@
-import { UserState } from '@webapp/store/user/UserStateType'
+import { UserState } from '@webapp/store/user/userStateType'
 import { DataExportState } from '@webapp/store/page/dataExport'
 
 import { HomeState } from './page/home'

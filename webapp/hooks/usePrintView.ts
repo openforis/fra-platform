@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux'
-import * as AppState from '@webapp/store/app/state'
+import { Objects } from '@core/utils'
+import { useAppSelector } from '@webapp/store'
 
-export default () => useSelector((state) => [AppState.isPrintView(state), AppState.isPrintOnlyTablesView(state)])
+export default () => useAppSelector((state) => [Objects.isEmpty(state.app.printView), state.app.printView?.onlyTables])
