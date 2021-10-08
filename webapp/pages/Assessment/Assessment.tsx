@@ -6,8 +6,8 @@ import { useMediaQuery } from 'react-responsive'
 
 import { toggleNavigation } from '@webapp/components/Navigation/actions'
 import { useCountryIso, useNavigationVisible } from '@webapp/hooks'
-import { useInitCountry } from '@webapp/store/country/hooks'
-import { useIsCountryStatusLoaded } from '@webapp/store/country'
+import { useIsCountryStatusLoaded, useInitCountry } from '@webapp/store/country'
+
 import * as BasePaths from '@webapp/main/basePaths'
 import { Breakpoints } from '@webapp/utils/breakpoints'
 

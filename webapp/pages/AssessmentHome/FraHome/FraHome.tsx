@@ -6,6 +6,7 @@ import { Areas, RegionCode } from '@core/country'
 import * as BasePaths from '@webapp/main/basePaths'
 
 import { useCountryLandingSections, useCountryIso, useI18n } from '@webapp/hooks'
+
 import { useFraRegions } from '@webapp/store/app/hooks'
 
 import Icon from '@webapp/components/icon'

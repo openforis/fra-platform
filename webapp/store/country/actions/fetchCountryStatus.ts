@@ -4,7 +4,7 @@ import axios from 'axios'
 import { ApiEndPoint } from '@common/api/endpoint'
 import { applicationError } from '@webapp/components/error/actions'
 import { CountryIso } from '@core/country'
-import { CountryState } from '@webapp/store/country/CountryStateType'
+import { CountryState } from '@webapp/store/country/countryStateType'
 
 export const fetchCountryStatus = createAsyncThunk<CountryState, CountryIso | string, { dispatch: AppDispatch }>(
   'country/status',

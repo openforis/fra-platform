@@ -1,14 +1,12 @@
 import { Country } from '@core/country'
 
 export interface DataExportSelection {
-  columns: string[]
-  countryISOs: string[]
+  countryISOs: Array<string>
   variable: string
+  columns: Array<string>
 }
 
 export interface DataExportState {
-  countries: Country[]
-  selection: {
-    [key: string]: DataExportSelection
-  }
+  countries: Array<Country>
+  selection: Record<string, DataExportSelection>
 }

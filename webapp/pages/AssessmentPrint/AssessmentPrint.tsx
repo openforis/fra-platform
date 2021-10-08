@@ -3,8 +3,8 @@ import React, { memo } from 'react'
 
 import { FRA } from '@core/assessment'
 import { useAssessmentType } from '@webapp/store/app'
-import { useInitCountry } from '@webapp/store/country/hooks'
-import { useIsCountryStatusLoaded } from '@webapp/store/country'
+
+import { useInitCountry, useIsCountryStatusLoaded } from '@webapp/store/country'
 
 import Loading from '@webapp/components/loading'
 import FraPrint from '@webapp/components/Assessment/FraPrint'
