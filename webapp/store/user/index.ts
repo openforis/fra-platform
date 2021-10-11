@@ -1,7 +1,4 @@
-import * as UserActions from './actions'
-import UserReducer from './reducer'
-import * as UserState from './state'
+export type { UserState } from './userStateType'
 
-export { UserActions, UserReducer, UserState }
-
-export { useUserCountries } from './hooks'
+export { default as UserReducer, UserActions } from './userSlice'
+export { useUserCountries, useUserCountriesAsList, useUserInfo } from './hooks'

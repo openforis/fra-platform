@@ -4,10 +4,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Users } from '@core/auth'
 import * as ExtentOfForestState from '@webapp/sectionSpec/fra/extentOfForest/extentOfForestState'
 import { toggleOdps } from '@webapp/sectionSpec/fra/extentOfForest/actions'
-import { useI18n, useUserInfo } from '@webapp/hooks'
+import { useI18n } from '@webapp/hooks'
 import { usePrintView } from '@webapp/store/app'
 
 import OriginalDataPointsPrint from '@webapp/components/OriginalDataPoint/OriginalDataPointsPrint'
+import { useUserInfo } from '@webapp/store/user'
 import { Props } from '../props'
 
 const ExtentOfForest: React.FC<Props> = (props) => {

@@ -4,11 +4,11 @@ import { CSVLink } from 'react-csv'
 
 import * as Country from '@common/country/country'
 import { isAdministrator } from '@common/countryRole'
-import { useI18n, useUserInfo } from '@webapp/hooks'
-import { useUserCountriesAsList } from '@webapp/store/user/hooks'
+import { useI18n } from '@webapp/hooks'
 import { getRelativeDate } from '@webapp/utils/relativeDate'
 
 import Icon from '@webapp/components/icon'
+import { useUserCountriesAsList, useUserInfo } from '@webapp/store/user'
 
 const CountryListDownload: React.FC = () => {
   const userInfo = useUserInfo()

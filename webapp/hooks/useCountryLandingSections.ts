@@ -3,7 +3,7 @@ import React from 'react'
 import { isReviewer } from '@common/countryRole'
 import { isAllowedToChangeRole } from '@common/userManagementAccessControl'
 
-import { useCountryIso, useUserInfo } from '@webapp/hooks'
+import { useCountryIso } from '@webapp/hooks'
 
 import MessageBoard from '@webapp/app/countryLanding/views/messageBoard'
 import RecentActivityView from '@webapp/app/countryLanding/views/recentActivityView'
@@ -11,6 +11,7 @@ import LinksView from '@webapp/app/countryLanding/views/linksView'
 import ManageCollaboratorsView from '@webapp/app/countryLanding/views/manageCollaboratorsView'
 import ContentCheck from '@webapp/app/countryLanding/views/contentCheck'
 import StatisticalFactsheets from '@webapp/pages/StatisticalFactsheets'
+import { useUserInfo } from '@webapp/store/user'
 
 type Section = {
   name: string

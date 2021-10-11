@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as ExtentOfForestState from '@webapp/sectionSpec/fra/extentOfForest/extentOfForestState'
 import * as ForestCharacteristicsState from '@webapp/sectionSpec/fra/forestCharacteristics/forestCharacteristicsState'
 import { toggleUseOriginalDataPoints } from '@webapp/sectionSpec/fra/forestCharacteristics/actions'
-import { useI18n, useUserInfo } from '@webapp/hooks'
+import { useI18n } from '@webapp/hooks'
 
+import { useUserInfo } from '@webapp/store/user'
 import { Props } from '../props'
 
 const ForestCharacteristics: React.FC<Props> = (props) => {

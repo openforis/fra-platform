@@ -25,6 +25,7 @@ export const countrySlice = createSlice({
         state.status = payload.status
         state.config = payload.config
       })
+
       .addCase(initCountry.rejected, () => initialState)
 
     builder
@@ -37,6 +38,7 @@ export const countrySlice = createSlice({
 
     builder.addCase(changeAssessmentStatus.fulfilled, (state, action) => {
       const { assessmentType, status } = action.payload
+
       if (state.status.assessments[assessmentType]) {
         state.status.assessments[assessmentType].status = status
       }

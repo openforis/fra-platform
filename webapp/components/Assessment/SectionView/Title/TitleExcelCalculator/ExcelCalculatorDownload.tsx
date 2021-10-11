@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import { Objects } from '@core/utils'
-import { useCountryIso, useI18n, useUserInfo } from '@webapp/hooks'
+import { useCountryIso, useI18n } from '@webapp/hooks'
 
 import * as CountryState from '@webapp/app/country/countryState'
+import { useUserInfo } from '@webapp/store/user'
 
 const domains: Array<string> = ['boreal', 'temperate', 'subtropical', 'tropical']
 const getDownloadPath = (countryIso: string, selectedDomain: string, language: string): string =>

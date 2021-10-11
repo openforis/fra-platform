@@ -7,9 +7,11 @@ import { ApiEndPoint } from '@common/api/endpoint'
 import { applicationError } from '@webapp/components/error/actions'
 
 import { AppDispatch } from '@webapp/store'
+import { Lang } from '@core/lang'
 
 export const initApp = createAsyncThunk<
   {
+    language: Lang | string
     userInfo?: User
     countries?: Country[]
     regions?: Region[]

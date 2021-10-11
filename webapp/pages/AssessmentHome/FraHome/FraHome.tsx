@@ -5,11 +5,13 @@ import { FRA } from '@core/assessment'
 import { Areas, RegionCode } from '@core/country'
 import * as BasePaths from '@webapp/main/basePaths'
 
-import { useUserInfo, useCountryLandingSections, useCountryIso, useI18n } from '@webapp/hooks'
+import { useCountryLandingSections, useCountryIso, useI18n } from '@webapp/hooks'
+
 import { useFraRegions } from '@webapp/store/app/hooks'
 
 import Icon from '@webapp/components/icon'
 import StatisticalFactsheets from '@webapp/pages/StatisticalFactsheets'
+import { useUserInfo } from '@webapp/store/user'
 import CountrySelector from './CountrySelector'
 import SelectedCountries from './SelectedCountries'
 

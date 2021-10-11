@@ -5,8 +5,8 @@ import { Route, Switch } from 'react-router-dom'
 import { useMediaQuery } from 'react-responsive'
 
 import { toggleNavigation } from '@webapp/components/Navigation/actions'
-import { useCountryIso, useNavigationVisible, useUserInfo } from '@webapp/hooks'
-import { useInitCountry, useIsCountryStatusLoaded } from '@webapp/store/country'
+import { useCountryIso, useNavigationVisible } from '@webapp/hooks'
+import { useIsCountryStatusLoaded, useInitCountry } from '@webapp/store/country'
 
 import * as BasePaths from '@webapp/main/basePaths'
 import { Breakpoints } from '@webapp/utils/breakpoints'
@@ -15,6 +15,7 @@ import MessageBoardPanel from '@webapp/app/countryLanding/views/messageBoard/mes
 import Navigation from '@webapp/components/Navigation'
 import Review from '@webapp/app/assessment/components/review/review'
 import UserChat from '@webapp/app/user/chat/userChatView'
+import { useUserInfo } from '@webapp/store/user'
 import AssessmentHome from '../AssessmentHome'
 import AssessmentDataDownload from '../AssessmentDataDownload'
 import AssessmentSection from '../AssessmentSection'

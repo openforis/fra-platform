@@ -1,5 +1,5 @@
 import applicationError from '@webapp/components/error/reducer' // Reducers available before login
-import { UserReducer, UserState } from '@webapp/store/user'
+import { UserReducer } from '@webapp/store/user'
 import login from '@webapp/pages/Login/reducer'
 import { pageReducer } from '@webapp/store/page'
 
@@ -13,6 +13,6 @@ export default {
 
   login,
   [ApplicationErrorState.stateKey]: applicationError,
-  [UserState.stateKey]: UserReducer,
   page: pageReducer,
+  user: UserReducer,
 }

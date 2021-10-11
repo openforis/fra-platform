@@ -1,6 +1,5 @@
 import axios from 'axios'
 
-import { UserState } from '@webapp/store/user'
 import { ApiEndPoint } from '@common/api/endpoint'
 
 export const lastSectionUpdateTimestampReceived = 'audit/lastSectionUpdate/timestamp/received'
@@ -9,7 +8,8 @@ export const lastAuditFeedReceived = 'audit/lastAuditFeedReceived'
 
 export const fetchLastSectionUpdateTimestamp =
   (countryIso: any, section: any) => async (dispatch: any, getState: any) => {
-    const userInfo = UserState.getUserInfo(getState())
+    const state = getState()
+    const userInfo = state.user
     if (userInfo) {
       const {
         data: { timeStamp = null },

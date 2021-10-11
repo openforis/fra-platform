@@ -8,8 +8,8 @@ import useI18n from '@webapp/hooks/useI18n'
 import { getRelativeDate } from '@webapp/utils/relativeDate'
 import { profilePictureUri } from '@common/userUtils'
 
-import { UserState } from '@webapp/store/user'
 import { useCountryIso } from '@webapp/hooks'
+import { RootState } from '@webapp/store/RootState'
 import FraReviewFooter from '../../../assessment/components/review/reviewFooter'
 
 import { closeCountryMessageBoard, fetchAllCountryMessageBoardMessages, sendCountryMessageBoard } from './actions'
@@ -116,10 +116,11 @@ const MessageBoardView = (props: any) => {
   )
 }
 
-const mapStateToProps = (state: any) => ({
+// TODO: Refactor: Remove mapStateToProps
+const mapStateToProps = (state: RootState | any) => ({
   showMessageBoard: R.pathEq(['countryMessageBoard', 'show'], true)(state),
   messages: R.path(['countryMessageBoard', 'messages'])(state),
-  userInfo: UserState.getUserInfo(state),
+  userInfo: state.user,
 })
 
 export default connect(mapStateToProps, {

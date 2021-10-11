@@ -5,7 +5,7 @@ import * as R from 'ramda'
 import { Link } from 'react-router-dom'
 import Icon from '@webapp/components/icon'
 import * as AppState from '@webapp/store/app/state'
-import { UserState } from '@webapp/store/user'
+import { RootState } from '@webapp/store/RootState'
 import { fetchOdps, removeFromList } from './actions'
 
 const TableRow = ({ odp, i18n, countryIso, removeFromList }: any) => {
@@ -123,10 +123,11 @@ class DataFetchingComponent extends React.Component {
   }
 }
 
-const mapStateToProps = (state: any) => ({
+// TODO: Refactor: Remove mapStateToProps
+const mapStateToProps = (state: RootState) => ({
   ...state.originalDataPoint,
   i18n: AppState.getI18n(state),
-  userInfo: UserState.getUserInfo(state),
+  userInfo: state.user,
 })
 // @ts-ignore
 export default withRouter(connect(mapStateToProps, { fetchOdps, removeFromList })(DataFetchingComponent))
