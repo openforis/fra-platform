@@ -10,6 +10,7 @@ import { useI18n } from '@webapp/hooks'
 
 import UsersTableFilterWrapper from '@webapp/pages/Admin/components/UserManagementView/usersTableFilterWrapper'
 import EditUserForm from '@webapp/app/user/userManagement/edit/editUserForm'
+import { RootState } from '@webapp/store/RootState'
 import UsersCount from '../usersCount'
 
 const UsersManagementView = (props: any) => {
@@ -49,7 +50,8 @@ const UsersManagementView = (props: any) => {
   )
 }
 
-const mapStateToProps = (state: any) => ({
+// TODO: Refactor: Remove mapStateToProps
+const mapStateToProps = (state: RootState | any) => ({
   userInfo: state.user,
   allUsers: UserManagementState.getAllUsers(state),
   editUserStatus: UserManagementState.getEditUserStatus(state),
