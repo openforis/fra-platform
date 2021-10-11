@@ -14,7 +14,7 @@ function canEdit(userInfo: any, userId: any) {
 
 const EditUserView = () => {
   const userInfo = useUserInfo()
-  const { userId }: any = useParams<{ userId: string }>()
+  const { userId } = useParams<{ userId: string }>()
 
   return canEdit(userInfo, userId) ? (
     <div className="app-view__content">
