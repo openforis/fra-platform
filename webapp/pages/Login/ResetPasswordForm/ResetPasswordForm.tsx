@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import * as R from 'ramda'
 
 import * as BasePaths from '@webapp/main/basePaths'
 import { getUrlParameter } from '@webapp/utils/urlUtils'
@@ -9,31 +7,37 @@ import { getUrlParameter } from '@webapp/utils/urlUtils'
 import useOnUpdate from '@webapp/hooks/useOnUpdate'
 
 import { useI18n } from '@webapp/hooks'
-import { findResetPassword, changePassword } from '../actions'
+import { useAppDispatch, useAppSelector } from '@webapp/store'
+import { LoginActions } from '@webapp/store/login'
 
 import Error from '../Error'
 
 const ResetPasswordForm = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const i18n = useI18n()
   const {
     status,
-    resetPassword = {},
-    changePasswordResponse = {},
-  }: any = useSelector((state) => ({
-    status: R.path(['login', 'resetPassword', 'status'], state),
-    resetPassword: R.path(['login', 'resetPassword', 'data'], state),
-    changePasswordResponse: R.path(['login', 'changePassword'], state),
-  }))
+    resetPassword = {
+      uuid: null,
+      user: null,
+    },
+    changePasswordResponse = { error: '', message: null },
+  } = useAppSelector((state) => {
+    return {
+      status: state.login.resetPassword.status,
+      resetPassword: state.login.resetPassword.data,
+      changePasswordResponse: state.login.changePassword,
+    }
+  })
 
   const loaded = status === 'loaded'
   const [password, setPassword] = useState('')
   const [password2, setPassword2] = useState('')
-  const [error, setError]: any = useState(changePasswordResponse.error)
+  const [error, setError] = useState(changePasswordResponse.error)
 
   useEffect(() => {
     const uuid = getUrlParameter('k')
-    if (uuid) dispatch(findResetPassword(uuid))
+    if (uuid) dispatch(LoginActions.findResetPassword(uuid))
   }, [])
 
   useOnUpdate(() => {
@@ -89,7 +93,9 @@ const ResetPasswordForm = () => {
             <button
               className="btn"
               type="button"
-              onClick={() => dispatch(changePassword(resetPassword.uuid, resetPassword.user.id, password, password2))}
+              onClick={() =>
+                dispatch(LoginActions.changePassword(resetPassword.uuid, resetPassword.user.id, password, password2))
+              }
             >
               {i18n.t('login.changePassword')}
             </button>

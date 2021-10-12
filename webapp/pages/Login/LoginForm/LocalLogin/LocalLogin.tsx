@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import * as R from 'ramda'
+import React, { MouseEventHandler, useEffect, useState } from 'react'
 
 import { useI18n } from '@webapp/hooks'
-import { loginUserPropChange, localLoginSubmit, localLoginReset } from '../../actions'
+import { LoginActions } from '@webapp/store/login'
 
+import { useAppDispatch, useAppSelector } from '@webapp/store'
 import Error from '../../Error'
 import ForgotPassword from '../ForgotPassword'
 
 type Props = {
-  invitation?: any
-  user: any
-  onCancel: (...args: any[]) => any
+  invitation?: { invitationUuid: string }
+  user: { email?: string; password?: string; password2?: string }
+  onCancel: MouseEventHandler<HTMLButtonElement>
 }
 
 const LocalLogin = (props: Props) => {
@@ -19,17 +18,17 @@ const LocalLogin = (props: Props) => {
   const { invitationUuid } = invitation
 
   const i18n = useI18n()
-  const dispatch = useDispatch()
-  const message = useSelector(R.path(['login', 'localLogin', 'message']))
+  const dispatch = useAppDispatch()
+  const message = useAppSelector((state) => state.login.localLogin.message)
   const [forgotPassword, setForgotPassword] = useState(false)
 
   useEffect(() => {
-    dispatch(localLoginReset())
+    dispatch(LoginActions.updateLocalLoginMessage())
   }, [])
 
-  const updateUserProp = (prop: any, value: any) => {
-    dispatch(loginUserPropChange(prop, value))
-    dispatch(localLoginReset())
+  const updateUserProp = (field: string, value: string) => {
+    dispatch(LoginActions.updateLoginUser({ field, value }))
+    dispatch(LoginActions.updateLocalLoginMessage())
   }
 
   if (forgotPassword) return <ForgotPassword onClose={() => setForgotPassword(false)} />
@@ -67,7 +66,18 @@ const LocalLogin = (props: Props) => {
           <button type="button" className="btn" onClick={onCancel}>
             {i18n.t('login.cancel')}
           </button>
-          <button type="button" className="btn" onClick={() => dispatch(localLoginSubmit(user, invitationUuid))}>
+          <button
+            type="button"
+            className="btn"
+            onClick={() =>
+              dispatch(
+                LoginActions.localLoginSubmit({
+                  user,
+                  invitationUuid,
+                })
+              )
+            }
+          >
             {i18n.t('login.login')}
           </button>
         </div>
