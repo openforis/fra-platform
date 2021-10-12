@@ -15,7 +15,7 @@ const ForgotPassword = (props: Props) => {
   const i18n = useI18n()
   const dispatch = useAppDispatch()
   const emailRef = useRef(null)
-  const { error, message }: any = useAppSelector((state) => state.login.localLogin?.resetPassword || {})
+  const { error, message } = useAppSelector((state) => state.login.localLogin?.resetPassword || {})
   const messages = typeof message === 'string' ? message.split('\n') : []
 
   useEffect(() => {
