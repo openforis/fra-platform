@@ -9,7 +9,7 @@ type Props = {
   onClose: MouseEventHandler<HTMLButtonElement>
 }
 
-const ForgotPassword = (props: Props) => {
+const ForgotPassword: React.FC<Props> = (props) => {
   const { onClose } = props
 
   const i18n = useI18n()

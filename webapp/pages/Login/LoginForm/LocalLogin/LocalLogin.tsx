@@ -13,7 +13,7 @@ type Props = {
   onCancel: MouseEventHandler<HTMLButtonElement>
 }
 
-const LocalLogin = (props: Props) => {
+const LocalLogin: React.FC<Props> = (props) => {
   const { invitation, user, onCancel } = props
   const { invitationUuid } = invitation
 

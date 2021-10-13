@@ -12,7 +12,7 @@ import { LoginActions } from '@webapp/store/login'
 
 import Error from '../Error'
 
-const ResetPasswordForm = () => {
+const ResetPasswordForm: React.FC = () => {
   const dispatch = useAppDispatch()
   const i18n = useI18n()
   const {
@@ -31,9 +31,9 @@ const ResetPasswordForm = () => {
   })
 
   const loaded = status === 'loaded'
-  const [password, setPassword] = useState('')
-  const [password2, setPassword2] = useState('')
-  const [error, setError] = useState(changePasswordResponse.error)
+  const [password, setPassword] = useState<string>('')
+  const [password2, setPassword2] = useState<string>('')
+  const [error, setError] = useState<string>(changePasswordResponse.error)
 
   useEffect(() => {
     const uuid = getUrlParameter('k')
