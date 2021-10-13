@@ -5,7 +5,7 @@ create table original_data_point
     id                              bigserial
         constraint original_data_point_pk
             primary key,
-    country_iso                     varchar not null
+    country_iso                     varchar(3) not null
         constraint original_data_point_country_country_iso_fk
             references country
             on update cascade on delete cascade,
@@ -14,7 +14,8 @@ create table original_data_point
     data_source_methods             jsonb,
     data_source_references          text,
     description                     text,
-    national_classes                jsonb
+    national_classes                jsonb,
+    id_legacy                       bigint
 );
 
 ALTER TABLE original_data_point
@@ -22,7 +23,7 @@ ALTER TABLE original_data_point
 
 insert into original_data_point
 (country_iso, year, data_source_additional_comments, data_source_methods,
- data_source_references, description, national_classes)
+ data_source_references, description, national_classes, id_legacy)
 with o as (
     SELECT o.id,
            o.country_iso,
@@ -78,7 +79,8 @@ select v.country_iso,
        v.data_source_methods,
        v.data_source_references,
        v.description,
-       c.national_classes
+       c.national_classes,
+       v.id
 from v
          left join c on c.version_id = v.version_id
-order by v.country_iso, v.year
+order by v.country_iso, v.year;
