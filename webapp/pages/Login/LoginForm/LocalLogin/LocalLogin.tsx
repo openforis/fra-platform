@@ -1,9 +1,10 @@
 import React, { MouseEventHandler, useEffect, useState } from 'react'
 
 import { useI18n } from '@webapp/hooks'
-import { LoginActions } from '@webapp/store/login'
+import { LoginActions, useLocalLoginMessage } from '@webapp/store/login'
 
-import { useAppDispatch, useAppSelector } from '@webapp/store'
+import { useAppDispatch } from '@webapp/store'
+
 import Error from '../../Error'
 import ForgotPassword from '../ForgotPassword'
 
@@ -19,7 +20,7 @@ const LocalLogin: React.FC<Props> = (props) => {
 
   const i18n = useI18n()
   const dispatch = useAppDispatch()
-  const message = useAppSelector((state) => state.login.localLogin.message)
+  const message = useLocalLoginMessage()
   const [forgotPassword, setForgotPassword] = useState(false)
 
   useEffect(() => {

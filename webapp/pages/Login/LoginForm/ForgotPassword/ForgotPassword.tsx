@@ -1,8 +1,9 @@
 import React, { MouseEventHandler, useEffect, useRef } from 'react'
 
 import { useI18n } from '@webapp/hooks'
-import { useAppDispatch, useAppSelector } from '@webapp/store'
-import { LoginActions } from '@webapp/store/login'
+import { useAppDispatch } from '@webapp/store'
+import { LoginActions, useResetPassword } from '@webapp/store/login'
+
 import Error from '../../Error'
 
 type Props = {
@@ -15,7 +16,7 @@ const ForgotPassword: React.FC<Props> = (props) => {
   const i18n = useI18n()
   const dispatch = useAppDispatch()
   const emailRef = useRef(null)
-  const { error, message } = useAppSelector((state) => state.login.localLogin?.resetPassword || {})
+  const { error, message } = useResetPassword()
   const messages = typeof message === 'string' ? message.split('\n') : []
 
   useEffect(() => {

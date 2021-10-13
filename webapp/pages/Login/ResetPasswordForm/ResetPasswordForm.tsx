@@ -7,8 +7,8 @@ import { getUrlParameter } from '@webapp/utils/urlUtils'
 import useOnUpdate from '@webapp/hooks/useOnUpdate'
 
 import { useI18n } from '@webapp/hooks'
-import { useAppDispatch, useAppSelector } from '@webapp/store'
-import { LoginActions } from '@webapp/store/login'
+import { useAppDispatch } from '@webapp/store'
+import { LoginActions, useResetPasswordFormState } from '@webapp/store/login'
 
 import Error from '../Error'
 
@@ -22,13 +22,7 @@ const ResetPasswordForm: React.FC = () => {
       user: null,
     },
     changePasswordResponse = { error: '', message: null },
-  } = useAppSelector((state) => {
-    return {
-      status: state.login.resetPassword.status,
-      resetPassword: state.login.resetPassword.data,
-      changePasswordResponse: state.login.changePassword,
-    }
-  })
+  } = useResetPasswordFormState()
 
   const loaded = status === 'loaded'
   const [password, setPassword] = useState<string>('')
