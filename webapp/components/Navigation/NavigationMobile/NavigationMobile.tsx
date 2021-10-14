@@ -4,8 +4,7 @@ import { useDispatch } from 'react-redux'
 import classNames from 'classnames'
 
 import { Assessment } from '@core/assessment'
-import { useNavigationVisible } from '@webapp/hooks'
-import { toggleNavigation } from '@webapp/components/Navigation/actions'
+import { NavigationActions, useNavigationVisible } from '@webapp/store/navigation'
 
 import Icon from '@webapp/components/icon'
 import NavAssessment from '../NavAssessment'
@@ -24,7 +23,7 @@ const NavigationMobile: React.FC<Props> = (props) => {
     <div className={classNames('navM', 'no-print', { open: navigationVisible })}>
       <button
         className="btn btn-s btn-secondary navM__btnClose"
-        onClick={() => dispatch(toggleNavigation())}
+        onClick={() => dispatch(NavigationActions.toggleNavigationVisibility())}
         type="button"
       >
         <Icon name="remove" className="icon-close icon-24" />

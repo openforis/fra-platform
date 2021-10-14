@@ -7,10 +7,10 @@ import { AssessmentType } from '@core/assessment'
 import { ReviewStatus } from '@core/reviewStatus'
 import * as BasePaths from '@webapp/main/basePaths'
 import * as ReviewStatusState from '@webapp/app/country/reviewStatusState'
-import { toggleNavigation } from '@webapp/components/Navigation/actions'
 import { useCountryIso, useI18n, useIsDataExportView } from '@webapp/hooks'
 import { Breakpoints } from '@webapp/utils/breakpoints'
 
+import { NavigationActions } from '@webapp/store/navigation'
 import ReviewStatusMarker from '../ReviewStatusMarker'
 
 type Props = {
@@ -39,7 +39,7 @@ const SectionItemLink: React.FC<Props> = (props) => {
       activeClassName="selected"
       onClick={() => {
         if (!laptop) {
-          dispatch(toggleNavigation())
+          dispatch(NavigationActions.toggleNavigationVisibility())
         }
       }}
     >
