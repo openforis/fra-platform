@@ -5,8 +5,8 @@ import { AppActions } from '@webapp/store/app'
 
 import * as AppState from '@webapp/store/app/state'
 
-import * as autosave from '@webapp/app/components/autosave/actions'
 import { ApiEndPoint } from '@common/api/endpoint'
+import { AutosaveActions } from '@webapp/store/autosave'
 
 export const fetchCountryOverviewStatusCompleted = 'country/status/completed'
 export const countryConfig = 'country/countryConfig'
@@ -36,11 +36,11 @@ export const fetchCountryInitialData =
 export const saveCountryConfigSetting = (key: any, value: any) => async (dispatch: any, getState: any) => {
   const countryIso: any = AppState.getCountryIso(getState())
 
-  dispatch(batchActions([autosave.start, { type: changeCountryConfigSetting, key, value }]))
+  dispatch(batchActions([AutosaveActions.autoSaveStart(), { type: changeCountryConfigSetting, key, value }]))
 
   await axios.post(ApiEndPoint.Country.updateConfig(countryIso), { key, value })
 
-  dispatch(autosave.complete)
+  dispatch(AutosaveActions.autoSaveComplete())
 }
 
 export const countryAssessmentStatusChanging = 'country/assessment/status/changing'

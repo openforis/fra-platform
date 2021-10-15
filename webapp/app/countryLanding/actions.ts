@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { applicationError } from '@webapp/components/error/actions'
 import { ApiEndPoint } from '@common/api/endpoint'
-import * as autosave from '../components/autosave/actions'
+import { AutosaveActions } from '@webapp/store/autosave'
 
 export const countryOverviewLoaded = 'landing/country/OverviewLoaded'
 
@@ -41,27 +41,27 @@ export const uploadFile =
       },
     }
 
-    dispatch(autosave.start)
+    dispatch(AutosaveActions.autoSaveStart())
 
     axios
       .post(ApiEndPoint.FileRepository.create(countryIso), formData, config)
       .then((resp) => {
         const filesList = resp.data
         dispatch({ type: fileRepositoryFilesListLoad, filesList })
-        dispatch(autosave.complete)
+        dispatch(AutosaveActions.autoSaveComplete())
       })
       .catch((err) => dispatch(applicationError(err)))
   }
 
 export const deleteFile = (countryIso: any, fileId: any) => (dispatch: any) => {
-  dispatch(autosave.start)
+  dispatch(AutosaveActions.autoSaveStart())
 
   axios
     .delete(ApiEndPoint.FileRepository.delete(countryIso, fileId))
     .then((resp) => {
       const filesList = resp.data
       dispatch({ type: fileRepositoryFilesListLoad, filesList })
-      dispatch(autosave.complete)
+      dispatch(AutosaveActions.autoSaveComplete())
     })
     .catch((err) => dispatch(applicationError(err)))
 }

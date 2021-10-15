@@ -2,9 +2,9 @@ import * as R from 'ramda'
 import FRAUtils from '@common/fraUtils'
 
 import { batchActions } from '@webapp/store'
-import * as autosave from '@webapp/app/components/autosave/actions'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
+import { AutosaveActions } from '@webapp/store/autosave'
 
 export const assessmentSectionDataUpdate = 'assessment/section/data/update'
 
@@ -21,8 +21,8 @@ export const updateTableData =
       },
     ]
 
-    if (autoSaveStart) actions.push(autosave.start)
-    if (autoSaveComplete) actions.push(autosave.complete)
+    if (autoSaveStart) dispatch(AutosaveActions.autoSaveStart())
+    if (autoSaveComplete) dispatch(AutosaveActions.autoSaveComplete)
 
     dispatch(batchActions(actions))
   }

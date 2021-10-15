@@ -3,8 +3,8 @@ import * as R from 'ramda'
 
 import { applicationError } from '@webapp/components/error/actions'
 import { ApiEndPoint } from '@common/api/endpoint'
+import { AutosaveActions } from '@webapp/store/autosave'
 import { newUser, updateUserField, validUser } from './userManagement'
-import * as autosave from '../../components/autosave/actions'
 
 export const userManagementCountryUsersFetch = 'userManagement/countryUsers/fetch'
 export const userManagementAllUsersFetch = 'userManagement/all/fetch'
@@ -55,7 +55,7 @@ const postCollaboratorCountryAccess = (countryIso: any, userId: any, tables: any
     axios
       .post(ApiEndPoint.Collaborators.create(countryIso), { userId, tables })
       .then(() => {
-        dispatch(autosave.complete)
+        dispatch(AutosaveActions.autoSaveComplete())
       })
       .catch((err) => dispatch(applicationError(err)))
   }
@@ -71,7 +71,7 @@ const postCollaboratorCountryAccess = (countryIso: any, userId: any, tables: any
 // collaborator table access
 
 export const persistCollaboratorCountryAccess = (countryIso: any, userId: any, tables: any) => (dispatch: any) => {
-  dispatch(autosave.start)
+  dispatch(AutosaveActions.autoSaveStart())
   dispatch({ type: userManagementCollaboratorTableAccessUpdate, userId, tables })
   dispatch(postCollaboratorCountryAccess(countryIso, userId, tables))
 }
@@ -125,10 +125,10 @@ export const persistUser = (countryIso: any, user: any) => async (dispatch: any)
     },
   }
 
-  dispatch(autosave.start)
+  dispatch(AutosaveActions.autoSaveStart())
   try {
     await axios.put(`/api/users/user/`, formData, config)
-    dispatch(autosave.complete)
+    dispatch(AutosaveActions.autoSaveComplete())
     dispatch({ type: userManagementEditUserComplete })
   } catch (err) {
     dispatch(applicationError(err))
