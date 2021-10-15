@@ -4,8 +4,7 @@ import { useDispatch } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
 import { useMediaQuery } from 'react-responsive'
 
-import { useCountryIso } from '@webapp/hooks'
-
+import { useCountryIso } from '@webapp/store/app'
 import { useIsCountryStatusLoaded, useInitCountry } from '@webapp/store/country'
 
 import * as BasePaths from '@webapp/main/basePaths'

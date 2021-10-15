@@ -76,3 +76,5 @@ export const useFraRegions = (): Array<RegionCode> => {
   const _fraRegionGroup = groupedRegions.find((groupedRegion) => groupedRegion.name === FRA.type)
   return (_fraRegionGroup?.regions ?? []).map((region) => region.regionCode)
 }
+
+export { default as useCountryIso } from './useCountryIso'

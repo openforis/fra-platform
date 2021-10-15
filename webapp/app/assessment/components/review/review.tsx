@@ -12,7 +12,7 @@ import FraReviewFooter from '@webapp/app/assessment/components/review/reviewFoot
 import Icon from '@webapp/components/icon'
 import useI18n from '@webapp/hooks/useI18n'
 
-import { useCountryIso } from '@webapp/hooks'
+import { useCountryIso } from '@webapp/store/app'
 import { closeCommentThread, markCommentAsDeleted, markIssueAsResolved, postComment, retrieveComments } from './actions'
 
 const mapIndexed = R.addIndex(R.map)

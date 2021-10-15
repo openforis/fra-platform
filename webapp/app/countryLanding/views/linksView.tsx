@@ -6,7 +6,7 @@ import { isStatusSaving } from '@webapp/app/components/autosave/autosave'
 import Icon from '@webapp/components/icon'
 import useI18n from '@webapp/hooks/useI18n'
 import { getFilesList, uploadFile, deleteFile } from '@webapp/app/countryLanding/actions'
-import { useCountryIso } from '@webapp/hooks'
+import { useCountryIso } from '@webapp/store/app'
 import { useUserInfo } from '@webapp/store/user'
 import { useAppSelector } from '@webapp/store'
 

@@ -5,7 +5,7 @@ import { closeCountryMessageBoard } from '@webapp/app/countryLanding/views/messa
 
 import { getCountryOverview } from '@webapp/app/countryLanding/actions'
 
-import { useCountryIso } from '@webapp/hooks'
+import { useCountryIso } from '@webapp/store/app'
 import MessageBoard from './messageBoard'
 import Users from './users'
 

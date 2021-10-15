@@ -22,7 +22,7 @@ import {
 
 import * as AppState from '@webapp/store/app/state'
 import * as UserManagementState from '@webapp/app/user/userManagement/userManagementState'
-import { useCountryIso } from '@webapp/hooks'
+import { useCountryIso } from '@webapp/store/app'
 import { RootState } from '@webapp/store/RootState'
 
 const ManageCollaboratorsView = (props: any) => {
