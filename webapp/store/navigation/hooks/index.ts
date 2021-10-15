@@ -3,7 +3,7 @@ import { useMediaQuery } from 'react-responsive'
 import { Objects } from '@core/utils'
 import { Breakpoints } from '@webapp/utils/breakpoints'
 
-import { useCountryIso } from '@webapp/hooks'
+import { useCountryIso } from '@webapp/store/app'
 import { useAppSelector } from '@webapp/store'
 
 export const useNavigationVisible = (): boolean => {

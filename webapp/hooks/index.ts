@@ -1,5 +1,5 @@
 export { default as useI18n } from './useI18n'
-export { default as useCountryIso } from './useCountryIso'
+export { default as useCountryIso } from '@webapp/store/app/hooks/useCountryIso'
 
 export { default as useIsDataExportView } from './useIsDataExportView'
 export { default as useOnResize } from './useOnResize'

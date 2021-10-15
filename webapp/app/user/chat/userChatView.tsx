@@ -5,7 +5,7 @@ import Icon from '@webapp/components/icon'
 import useI18n from '@webapp/hooks/useI18n'
 import { getRelativeDate } from '@webapp/utils/relativeDate'
 import { profilePictureUri } from '@common/userUtils'
-import { useCountryIso } from '@webapp/hooks'
+import { useCountryIso } from '@webapp/store/app'
 import { closeChat, sendMessage } from './actions'
 import FraReviewFooter from '../../assessment/components/review/reviewFooter'
 
