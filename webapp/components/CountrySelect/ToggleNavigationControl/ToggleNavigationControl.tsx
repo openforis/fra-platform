@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { useIsAdmin, useIsHome } from '@webapp/hooks'
 import Icon from '@webapp/components/icon'
 
-import { toggleNavigation } from '@webapp/components/Navigation/actions'
+import { NavigationActions } from '@webapp/store/navigation'
 
 const ToggleNavigationControl: React.FC = () => {
   const dispatch = useDispatch()
@@ -17,7 +17,7 @@ const ToggleNavigationControl: React.FC = () => {
       className="btn app-header__toggle-navigation-visible"
       disabled={isHome || isAdmin}
       onClick={() => {
-        dispatch(toggleNavigation())
+        dispatch(NavigationActions.toggleNavigationVisibility())
       }}
     >
       <Icon className="icon-sub" name="menu-left" />

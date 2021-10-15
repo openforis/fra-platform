@@ -2,6 +2,7 @@ import { UserState } from '@webapp/store/user/userStateType'
 import { DataExportState } from '@webapp/store/page/dataExport'
 
 import { LoginState } from '@webapp/store/login/loginStateType'
+import { NavigationState } from '@webapp/store/navigation'
 import { HomeState } from './page/home'
 import { AppDispatch } from './store'
 
@@ -20,4 +21,5 @@ export type RootState = {
   country: CountryState
   login?: LoginState
   user: UserState
+  navigation: NavigationState
 }
