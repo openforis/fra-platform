@@ -3,8 +3,10 @@ import { useDispatch } from 'react-redux'
 import { useHistory, useParams } from 'react-router'
 
 import { ODP } from '@core/odp'
-import { useCountryIso, useI18n, useIsAutoSaveSaving } from '@webapp/hooks'
+import { useCountryIso, useI18n } from '@webapp/hooks'
+
 import { cancelDraft, markAsActual, remove } from '@webapp/sectionSpec/fra/originalDataPoint/actions'
+import { useIsAutoSaveSaving } from '@webapp/store/autosave'
 
 type Props = {
   canEditData: boolean

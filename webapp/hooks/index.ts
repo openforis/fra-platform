@@ -3,7 +3,6 @@ export { default as useCountryIso } from './useCountryIso'
 
 export { default as useIsDataExportView } from './useIsDataExportView'
 export { default as useOnResize } from './useOnResize'
-export { useIsAutoSaveComplete, useIsAutoSaveSaving } from './useAutoSave'
 export { default as usePrevious } from './usePrevious'
 export { default as useIsAssessmentLocked } from './useIsAssessmentLocked'
 export { default as useGetRequest } from './useGetRequest'

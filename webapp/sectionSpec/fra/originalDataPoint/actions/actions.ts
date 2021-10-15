@@ -12,10 +12,10 @@ import { acceptNextDecimal } from '@webapp/utils/numberInput'
 
 import * as AppState from '@webapp/store/app/state'
 import { applicationError } from '@webapp/components/error/actions'
-import * as autosave from '@webapp/app/components/autosave/actions'
 
 import { ApiEndPoint } from '@common/api/endpoint'
 import { CountryActions } from '@webapp/store/country'
+import { AutosaveActions } from '@webapp/store/autosave'
 import * as OriginalDataPointState from '../originalDataPointState'
 import * as ODPs from '../originalDataPoint'
 import handlePaste from '../paste'
@@ -65,7 +65,7 @@ const persistDraft = (countryIso: any, odp: ODP) => {
       data: { odpId },
     } = await axios.post(`${ApiEndPoint.Odp.createDraft()}?countryIso=${countryIso}`, ODPs.removeClassPlaceholder(odp))
     const state = getState()
-    const actions = [autosave.complete, { type: odpSaveDraftCompleted, odpId }]
+    const actions = [AutosaveActions.autoSaveComplete(), { type: odpSaveDraftCompleted, odpId }]
 
     // if original data point has just been created, the odpId must be added to odp state active object
     const isNew = !(OriginalDataPointState.getActive(state) as any).odpId
@@ -88,7 +88,7 @@ export const saveDraft = (countryIso: any, odp: ODP) => (dispatch: any, getState
   if (!odp.year) {
     return
   }
-  const actions = [{ type: odpSaveDraftStart, active: odp }, autosave.start]
+  const actions = [{ type: odpSaveDraftStart, active: odp }, AutosaveActions.autoSaveStart()]
   if (odp.validationStatus) actions.push(validationCompleted(validateDataPoint(odp)))
 
   // Update tables 1a and 1b
@@ -119,7 +119,7 @@ export const markAsActual =
 
     const actions: any[] = [validationCompleted(validationStatus)]
     if (valid) {
-      actions.push(autosave.start)
+      dispatch(AutosaveActions.autoSaveStart())
       // Update tables 1a and 1b
       actions.push(...getUpdateTablesWithOdp(getState(), odp, false))
     }
@@ -127,7 +127,8 @@ export const markAsActual =
 
     if (valid) {
       await axios.post(`${ApiEndPoint.Odp.markAsActual()}?odpId=${odp.odpId}&countryIso=${countryIso}`)
-      dispatch(batchActions([autosave.complete, clearActive(), CountryActions.fetchCountryStatus(countryIso)]))
+      dispatch(AutosaveActions.autoSaveComplete())
+      dispatch(batchActions([clearActive(), CountryActions.fetchCountryStatus(countryIso)]))
       history.push(BasePaths.getAssessmentSectionLink(countryIso, FRA.type, destination))
     }
   }

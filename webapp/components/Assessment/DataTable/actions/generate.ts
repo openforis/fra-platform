@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { batchActions } from '@webapp/store'
-import * as autosave from '@webapp/app/components/autosave/actions'
 
 import * as AppState from '@webapp/store/app/state'
+import { AutosaveActions } from '@webapp/store/autosave'
 import { updateTableData } from './update'
 
 export const assessmentSectionDataGeneratingValuesUpdate = 'assessment/section/data/generatingValues/update'
@@ -21,7 +21,7 @@ export const generateTableData =
           tableName,
           generating: true,
         },
-        autosave.start,
+        AutosaveActions.autoSaveStart(),
       ])
     )
 
