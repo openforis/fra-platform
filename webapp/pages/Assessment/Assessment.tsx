@@ -4,8 +4,7 @@ import { useDispatch } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
 import { useMediaQuery } from 'react-responsive'
 
-import { toggleNavigation } from '@webapp/components/Navigation/actions'
-import { useCountryIso, useNavigationVisible } from '@webapp/hooks'
+import { useCountryIso } from '@webapp/store/app'
 import { useIsCountryStatusLoaded, useInitCountry } from '@webapp/store/country'
 
 import * as BasePaths from '@webapp/main/basePaths'
@@ -16,6 +15,7 @@ import Navigation from '@webapp/components/Navigation'
 import Review from '@webapp/app/assessment/components/review/review'
 import UserChat from '@webapp/app/user/chat/userChatView'
 import { useUserInfo } from '@webapp/store/user'
+import { NavigationActions, useNavigationVisible } from '@webapp/store/navigation'
 import AssessmentHome from '../AssessmentHome'
 import AssessmentDataDownload from '../AssessmentDataDownload'
 import AssessmentSection from '../AssessmentSection'
@@ -31,7 +31,7 @@ const Assessment: React.FC = () => {
   useInitCountry()
 
   useEffect(() => {
-    if (!navigationVisible && countryStatusLoaded && laptop) dispatch(toggleNavigation())
+    if (!navigationVisible && countryStatusLoaded && laptop) dispatch(NavigationActions.toggleNavigationVisibility())
   }, [])
 
   // This is required - otherwise app will crash on slow connections or builds

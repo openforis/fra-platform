@@ -4,9 +4,8 @@ import MediaQuery from 'react-responsive'
 
 import { Assessment, FRA, PanEuropean } from '@core/assessment'
 
-import { useCountryIso } from '@webapp/hooks'
+import { useCountryIso, useAssessmentType } from '@webapp/store/app'
 import { Breakpoints } from '@webapp/utils/breakpoints'
-import { useAssessmentType } from '@webapp/store/app'
 
 import NavigationDesktop from './NavigationDesktop'
 import NavigationMobile from './NavigationMobile'

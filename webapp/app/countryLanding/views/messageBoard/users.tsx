@@ -1,5 +1,5 @@
 import React from 'react'
-import { useCountryIso } from '@webapp/hooks'
+import { useCountryIso } from '@webapp/store/app'
 import useI18n from '@webapp/hooks/useI18n'
 import { useDispatch } from 'react-redux'
 import * as LandingState from '@webapp/app/countryLanding/landingState'

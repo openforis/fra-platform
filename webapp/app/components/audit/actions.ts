@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 import { ApiEndPoint } from '@common/api/endpoint'
+import { AutosaveActions } from '@webapp/store/autosave'
 
 export const lastSectionUpdateTimestampReceived = 'audit/lastSectionUpdate/timestamp/received'
 export const lastSectionUpdateTimestampReset = 'audit/lastSectionUpdate/timestamp/reset'
@@ -14,7 +15,7 @@ export const fetchLastSectionUpdateTimestamp =
       const {
         data: { timeStamp = null },
       } = await axios.get(`${ApiEndPoint.Audit.getLatestLogTimestamp(countryIso)}?section=${section}`)
-      dispatch({ type: lastSectionUpdateTimestampReceived, timeStamp })
+      dispatch(AutosaveActions.lastSectionUpdateTimestampReceived(timeStamp))
     }
   }
 

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getUrlParameter } from '@webapp/utils/urlUtils'
 import { useI18n } from '@webapp/hooks'
 
-import { initLogin } from '../actions'
+import { LoginActions } from '@webapp/store/login'
 
 import Error from '../Error'
 import LocalLogin from './LocalLogin'
@@ -19,7 +19,7 @@ const LoginForm: React.FC = () => {
   const loginFailed = getUrlParameter('loginFailed')
 
   useEffect(() => {
-    dispatch(initLogin())
+    dispatch(LoginActions.initLogin())
   }, [])
 
   if (status !== 'loaded') return null

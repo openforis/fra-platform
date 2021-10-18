@@ -3,8 +3,7 @@ import { useSelector } from 'react-redux'
 
 import { Objects } from '@core/utils'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
-import { useCountryIso } from '@webapp/hooks'
-
+import { useCountryIso } from '@webapp/store/app'
 import * as ReviewState from '@webapp/app/assessment/components/review/reviewState'
 
 import Description from '../Description'

@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { debounce } from '@webapp/utils/functionUtils'
 
 import { useCountryIso, useGetRequest, useOnUpdate, usePostRequest } from '@webapp/hooks'
-import * as autosave from '@webapp/app/components/autosave/actions'
+import { AutosaveActions } from '@webapp/store/autosave'
 
 type DescriptionState = {
   loading: boolean
@@ -25,7 +25,7 @@ export default (name: string, section: string, template: string): DescriptionSta
   const { dispatch: postData, loaded: postDataLoaded } = usePostRequest(url, { content: data })
 
   const onChange = (content: string) => {
-    dispatch(autosave.start)
+    dispatch(AutosaveActions.autoSaveStart())
     canPostData.current = true
     setState({ data: content })
   }
@@ -42,7 +42,7 @@ export default (name: string, section: string, template: string): DescriptionSta
 
   // on post data loaded, dispatch autosave complete
   useOnUpdate(() => {
-    dispatch(autosave.complete)
+    dispatch(AutosaveActions.autoSaveComplete())
   }, [postDataLoaded])
 
   return {

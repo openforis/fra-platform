@@ -1,27 +1,26 @@
-import React, { useEffect, useRef } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import * as R from 'ramda'
+import React, { MouseEventHandler, useEffect, useRef } from 'react'
 
 import { useI18n } from '@webapp/hooks'
+import { useAppDispatch } from '@webapp/store'
+import { LoginActions, useResetPassword } from '@webapp/store/login'
+
 import Error from '../../Error'
 
-import { resetPassword, resetPasswordFormReset } from '../../actions'
-
 type Props = {
-  onClose: (...args: any[]) => any
+  onClose: MouseEventHandler<HTMLButtonElement>
 }
 
-const ForgotPassword = (props: Props) => {
+const ForgotPassword: React.FC<Props> = (props) => {
   const { onClose } = props
 
   const i18n = useI18n()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const emailRef = useRef(null)
-  const { error, message }: any = useSelector(R.pathOr({}, ['login', 'localLogin', 'resetPassword']))
+  const { error, message } = useResetPassword()
   const messages = typeof message === 'string' ? message.split('\n') : []
 
   useEffect(() => {
-    dispatch(resetPasswordFormReset())
+    dispatch(LoginActions.updateResetPasswordMessage())
   }, [])
 
   if (messages.length > 0) {
@@ -54,7 +53,7 @@ const ForgotPassword = (props: Props) => {
             type="button"
             className="btn"
             onClick={() => {
-              dispatch(resetPassword(emailRef.current.value))
+              dispatch(LoginActions.resetPassword(emailRef.current.value))
             }}
           >
             {i18n.t('login.submit')}

@@ -4,8 +4,8 @@ import * as AppState from '@webapp/store/app/state'
 import { FRA } from '@core/assessment'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 
-import * as autosave from '@webapp/app/components/autosave/actions'
 import { ApiEndPoint } from '@common/api/endpoint'
+import { AutosaveActions } from '@webapp/store/autosave'
 import { updateTableData } from './update'
 
 const extentOfForest = FRA.sections['1'].children.a
@@ -44,7 +44,7 @@ const postTableData = ({ sectionName, tableName, data }: any) => {
     const countryIso = AppState.getCountryIso(getState())
     const url = getPostUrl({ countryIso, sectionName, tableName })
     await axios.post(url, getPostData({ sectionName, data }))
-    dispatch(autosave.complete)
+    dispatch(AutosaveActions.autoSaveComplete())
   }
   debounced.meta = {
     debounce: {

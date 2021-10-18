@@ -1,7 +1,7 @@
 import { useUserCountries, useUserInfo } from '@webapp/store/user'
 import { isAdministrator, isReviewer, reviewer } from '@common/countryRole'
 import { roleAllowances } from '@common/assessmentRoleAllowance'
-import { useCountryIso } from '@webapp/hooks'
+import { useCountryIso } from '@webapp/store/app'
 import * as Country from '@common/country/country'
 
 export const useCanToggleLock = () => {

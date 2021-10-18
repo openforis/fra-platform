@@ -2,7 +2,7 @@ import './editUserForm.less'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { validate } from '@common/userUtils'
-import { useCountryIso } from '@webapp/hooks'
+import { useCountryIso } from '@webapp/store/app'
 import { loadUserToEdit, persistUser } from '../../actions'
 
 import Buttons from './components/Buttons'
