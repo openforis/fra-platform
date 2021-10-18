@@ -89,7 +89,7 @@ export const ApiEndPoint = {
     },
   },
   OriginalDataPoint: {
-    create: (countryIso = ':countryIso') => apiPath('originalDatapoint', countryIso),
+    create: (countryIso = ':countryIso') => apiPath('originalDataPoint', countryIso),
   },
   // Old routes, deprecated
   Odp: {
