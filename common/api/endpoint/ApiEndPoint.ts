@@ -1,5 +1,5 @@
-const joinPaths = (...parts: Array<string>):string => `/${parts.join('/')}`
-const apiPath = (...parts: Array<string>):string => joinPaths('api', ...parts)
+const joinPaths = (...parts: Array<string>): string => `/${parts.join('/')}`
+const apiPath = (...parts: Array<string>): string => joinPaths('api', ...parts)
 
 export const ApiEndPoint = {
   Assessment: {
@@ -88,6 +88,10 @@ export const ApiEndPoint = {
       sdgFocalPoints: () => apiPath('landing', 'sdgFocalPoints'),
     },
   },
+  OriginalDataPoint: {
+    create: (countryIso = ':countryIso') => apiPath('originalDatapoint', countryIso),
+  },
+  // Old routes, deprecated
   Odp: {
     createDraft: () => apiPath('odp', 'draft'),
     delete: () => apiPath('odp'),
