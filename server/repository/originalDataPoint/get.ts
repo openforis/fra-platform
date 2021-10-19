@@ -1,5 +1,6 @@
 import { BaseProtocol, DB } from '@server/db'
 import { ODP } from '@core/odp'
+import { Objects } from '@core/utils'
 
 export const get = async (props: { id: string }, client: BaseProtocol = DB): Promise<ODP> => {
   const { id } = props
@@ -11,5 +12,5 @@ export const get = async (props: { id: string }, client: BaseProtocol = DB): Pro
     [id]
   )
 
-  return odp
+  return Objects.camelize(odp)
 }
