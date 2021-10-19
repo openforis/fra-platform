@@ -1,6 +1,8 @@
 import { BaseProtocol, DB } from '@server/db'
+import { Objects } from '@core/utils'
+import { ODP } from '@core/odp'
 
-export const remove = async (props: { id: string }, client: BaseProtocol = DB): Promise<string> => {
+export const remove = async (props: { id: string }, client: BaseProtocol = DB): Promise<ODP> => {
   const { id } = props
 
   const odp = await client.one(
@@ -10,5 +12,5 @@ export const remove = async (props: { id: string }, client: BaseProtocol = DB): 
     [id]
   )
 
-  return odp
+  return Objects.camelize(odp)
 }
