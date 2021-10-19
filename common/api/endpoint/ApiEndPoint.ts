@@ -90,6 +90,7 @@ export const ApiEndPoint = {
   },
   OriginalDataPoint: {
     create: (countryIso = ':countryIso') => apiPath('originalDataPoint', countryIso),
+    get: (id = ':id') => apiPath('originalDataPoint', id),
     remove: (id = ':id') => apiPath('originalDataPoint', id),
   },
   // Old routes, deprecated
