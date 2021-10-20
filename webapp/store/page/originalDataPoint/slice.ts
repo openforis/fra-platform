@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction, SliceCaseReducers } from '@reduxjs/toolkit'
+import { createSlice, CaseReducer, PayloadAction, SliceCaseReducers } from '@reduxjs/toolkit'
 
 import { ODP } from '@core/odp'
 
@@ -6,11 +6,15 @@ import { OriginalDataPointState } from '@webapp/store/page/originalDataPoint/sta
 
 import { fetchODP } from './actions'
 
-export const originalDataPointSlice = createSlice<OriginalDataPointState, SliceCaseReducers<OriginalDataPointState>>({
+interface Reducer extends SliceCaseReducers<OriginalDataPointState> {
+  setODP: CaseReducer<OriginalDataPointState, PayloadAction<{ odp: ODP }>>
+}
+
+export const originalDataPointSlice = createSlice<OriginalDataPointState, Reducer>({
   name: 'originalDataPoint',
   initialState: {},
   reducers: {
-    setODP: (state, action: PayloadAction<{ odp: ODP }>) => {
+    setODP: (state, action) => {
       state.odp = action.payload.odp
     },
   },

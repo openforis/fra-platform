@@ -31,8 +31,6 @@ const OriginalDataPoint: React.FC = () => {
 
     return () => {
       dispatch(
-        // TODO: why OriginalDataPointActions.setODP isn't recognized?
-        // @ts-ignore
         batchActions([CountryActions.fetchCountryStatus(countryIso), OriginalDataPointActions.setODP({ odp: null })])
       )
     }
