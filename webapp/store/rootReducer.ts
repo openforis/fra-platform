@@ -9,10 +9,9 @@ import { LoginReducer } from './login'
 
 export default {
   app: AppReducer,
-  country: CountryReducer,
-
-  login: LoginReducer,
   [ApplicationErrorState.stateKey]: applicationError,
+  country: CountryReducer,
+  login: LoginReducer,
   page: pageReducer,
   user: UserReducer,
 }
