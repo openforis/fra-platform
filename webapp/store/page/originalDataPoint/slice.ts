@@ -6,7 +6,7 @@ import { OriginalDataPointState } from '@webapp/store/page/originalDataPoint/sta
 
 import { fetchODP } from './actions'
 
-const originalDataPointSlice = createSlice<OriginalDataPointState, SliceCaseReducers<OriginalDataPointState>>({
+export const originalDataPointSlice = createSlice<OriginalDataPointState, SliceCaseReducers<OriginalDataPointState>>({
   name: 'originalDataPoint',
   initialState: {},
   reducers: {
