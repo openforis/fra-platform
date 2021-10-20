@@ -7,7 +7,7 @@ import { User } from '@core/auth'
 export const create = async (props: { countryIso: string; user: User }, client: BaseProtocol = DB): Promise<ODP> => {
   const { countryIso, user } = props
   return client.tx(async (t) => {
-    const odp = OriginalDataPointRepository.create({ countryIso })
+    const odp = await OriginalDataPointRepository.create({ countryIso }, t)
     await AuditRepository.insertAudit(t, user.id, 'createOdp', countryIso, 'odp', { odp })
     return odp
   })
