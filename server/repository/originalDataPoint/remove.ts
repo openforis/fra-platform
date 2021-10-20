@@ -5,12 +5,11 @@ import { ODP } from '@core/odp'
 export const remove = async (props: { id: string }, client: BaseProtocol = DB): Promise<ODP> => {
   const { id } = props
 
-  const odp = await client.one(
+  return client.one<ODP>(
     `
         delete from original_data_point where id = ($1) returning *;
     `,
-    [id]
+    [id],
+    Objects.camelize
   )
-
-  return Objects.camelize(odp)
 }
