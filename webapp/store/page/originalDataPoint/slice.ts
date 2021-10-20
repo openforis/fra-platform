@@ -4,7 +4,9 @@ import { ODP } from '@core/odp'
 
 import { OriginalDataPointState } from '@webapp/store/page/originalDataPoint/state'
 
-export const originalDataPointSlice = createSlice<OriginalDataPointState, SliceCaseReducers<OriginalDataPointState>>({
+import { fetchODP } from './actions'
+
+const originalDataPointSlice = createSlice<OriginalDataPointState, SliceCaseReducers<OriginalDataPointState>>({
   name: 'originalDataPoint',
   initialState: {},
   reducers: {
@@ -12,10 +14,16 @@ export const originalDataPointSlice = createSlice<OriginalDataPointState, SliceC
       state.odp = action.payload.odp
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(fetchODP.fulfilled, (state, { payload }) => {
+      state.odp = payload
+    })
+  },
 })
 
 export const OriginalDataPointActions = {
   ...originalDataPointSlice.actions,
+  fetchODP,
 }
 
 export const OriginalDataPointReducer = originalDataPointSlice.reducer

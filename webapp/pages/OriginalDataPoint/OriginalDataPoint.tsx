@@ -9,8 +9,9 @@ import { useCountryIso, useI18n } from '@webapp/hooks'
 import * as CountryState from '@webapp/app/country/countryState'
 import * as FraState from '@webapp/app/assessment/fra/fraState'
 import * as OriginalDataPointState from '@webapp/sectionSpec/fra/originalDataPoint/originalDataPointState'
-import { fetch, clearActive } from '@webapp/sectionSpec/fra/originalDataPoint/actions'
+import { clearActive } from '@webapp/sectionSpec/fra/originalDataPoint/actions'
 import { fetchExtentOfForest } from '@webapp/sectionSpec/fra/extentOfForest/actions'
+import { OriginalDataPointActions } from '@webapp/store/page/originalDataPoint'
 
 import ButtonBar from '@webapp/components/OriginalDataPoint/ButtonBar'
 import YearSelection from '@webapp/components/OriginalDataPoint/YearSelection'
@@ -29,7 +30,7 @@ const OriginalDataPoint: React.FC = () => {
   const canEditData = useSelector((state) => CountryState.getCanEditData(state) && !FraState.isLocked(state))
 
   useEffect(() => {
-    dispatch(batchActions([fetch(odpId, countryIso), fetchExtentOfForest()]))
+    dispatch(batchActions([OriginalDataPointActions.fetchODP({ id: odpId }), fetchExtentOfForest()]))
 
     return () => {
       dispatch(batchActions([CountryActions.fetchCountryStatus(countryIso), clearActive()]))
