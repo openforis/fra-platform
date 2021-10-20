@@ -1,7 +1,14 @@
 import { OriginalDataPointRepository } from '@server/repository/originalDataPoint'
 import { ODP } from '@core/odp'
+import { BaseProtocol, DB } from '@server/db'
+import * as AuditRepository from '@server/repository/audit/auditRepository'
+import { User } from '@core/auth'
 
-export const create = async (props: { countryIso: string }): Promise<ODP> => {
-  const { countryIso } = props
-  return OriginalDataPointRepository.create({ countryIso })
+export const create = async (props: { countryIso: string; user: User }, client: BaseProtocol = DB): Promise<ODP> => {
+  const { countryIso, user } = props
+  return client.tx(async (t) => {
+    const odp = OriginalDataPointRepository.create({ countryIso })
+    await AuditRepository.insertAudit(t, user.id, 'createOdp', countryIso, 'odp', { odp })
+    return odp
+  })
 }
