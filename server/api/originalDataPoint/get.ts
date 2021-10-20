@@ -5,7 +5,7 @@ import { OriginalDataPointService } from '@server/service/originalDataPoint'
 
 export const OdpGet = {
   init: (express: Express): void => {
-    express.get(ApiEndPoint.OriginalDataPoint.get(), async (req: Request, res: Response) => {
+    express.get(ApiEndPoint.OriginalDataPoint.one(), async (req: Request, res: Response) => {
       try {
         const { id } = req.params
         const odp = await OriginalDataPointService.get({ id })

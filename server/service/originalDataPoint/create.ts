@@ -1,7 +1,7 @@
 import { OriginalDataPointRepository } from '@server/repository/originalDataPoint'
+import { ODP } from '@core/odp'
 
-export const create = async (props: { countryIso: string }): Promise<string> => {
+export const create = async (props: { countryIso: string }): Promise<ODP> => {
   const { countryIso } = props
-  const odpId = await OriginalDataPointRepository.create({ countryIso })
-  return odpId
+  return OriginalDataPointRepository.create({ countryIso })
 }
