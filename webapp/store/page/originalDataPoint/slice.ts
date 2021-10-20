@@ -10,7 +10,7 @@ export const originalDataPointSlice = createSlice<OriginalDataPointState, SliceC
   name: 'originalDataPoint',
   initialState: {},
   reducers: {
-    updateODP: (state, action: PayloadAction<{ odp: ODP }>) => {
+    setODP: (state, action: PayloadAction<{ odp: ODP }>) => {
       state.odp = action.payload.odp
     },
   },

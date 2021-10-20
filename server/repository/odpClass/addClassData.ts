@@ -22,7 +22,7 @@ export const addClassData = async (options: { odpVersionId: number | string; odp
         ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`,
       [
         odpVersionId,
-        nationalClass.className,
+        nationalClass.name,
         nationalClass.definition,
         nationalClass.area,
         nationalClass.forestPercent,

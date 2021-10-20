@@ -30,10 +30,10 @@ const OriginalDataPoint: React.FC = () => {
     dispatch(batchActions([OriginalDataPointActions.fetchODP({ id: odpId }), fetchExtentOfForest()]))
 
     return () => {
-      // TODO: why OriginalDataPointActions.updateODP isn't recognized?
-      // @ts-ignore
       dispatch(
-        batchActions([CountryActions.fetchCountryStatus(countryIso), OriginalDataPointActions.updateODP({ odp: null })])
+        // TODO: why OriginalDataPointActions.setODP isn't recognized?
+        // @ts-ignore
+        batchActions([CountryActions.fetchCountryStatus(countryIso), OriginalDataPointActions.setODP({ odp: null })])
       )
     }
   }, [])

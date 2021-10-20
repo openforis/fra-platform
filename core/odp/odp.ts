@@ -14,6 +14,7 @@ export interface ODP {
   dataSourceReferences?: string
   description?: string
   editStatus?: ODPEditStatus
+  id?: string
   nationalClasses?: Array<ODPNationalClass>
   odpId?: string
   reservedYears?: Array<number>

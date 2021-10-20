@@ -33,7 +33,7 @@ const ForestCharacteristicsPlantation: React.FC<Props> = (props) => {
           <tbody>
             {nationalClasses.map((nationalClass, index) => (
               <ForestCharacteristicsPlantationRow
-                key={nationalClass.className}
+                key={nationalClass.name}
                 canEditData={canEditData}
                 index={index}
                 odp={odp}

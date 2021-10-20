@@ -26,7 +26,7 @@ const OriginalData: React.FC<Props> = (props) => {
   const i18n = useI18n()
   const countryIso = useCountryIso()
   const useOriginalDataPointsInFoc = useSelector(CountryState.getConfigUseOriginalDataPointsInFoc)
-  const { odpId } = odp
+  const { id: odpId } = odp
 
   return (
     <div>
