@@ -4,7 +4,7 @@ import { ODP } from '@core/odp'
 
 import { OriginalDataPointState } from '@webapp/store/page/originalDataPoint/state'
 
-import { fetchODP } from './actions'
+import { fetchODP, deleteODP } from './actions'
 
 interface Reducer extends SliceCaseReducers<OriginalDataPointState> {
   setODP: CaseReducer<OriginalDataPointState, PayloadAction<{ odp: ODP }>>
@@ -28,6 +28,7 @@ export const originalDataPointSlice = createSlice<OriginalDataPointState, Reduce
 export const OriginalDataPointActions = {
   ...originalDataPointSlice.actions,
   fetchODP,
+  deleteODP,
 }
 
 export const OriginalDataPointReducer = originalDataPointSlice.reducer
