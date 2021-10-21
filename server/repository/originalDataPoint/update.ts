@@ -17,7 +17,7 @@ export const update = async (props: { id: string; odp: ODP }, client: BaseProtoc
             national_classes = $6::jsonb
         WHERE
             id = $7
-RETURNING *
+        RETURNING *
     `,
     [
       odp.year,
