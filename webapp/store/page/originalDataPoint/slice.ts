@@ -2,8 +2,7 @@ import { createSlice, SliceCaseReducers } from '@reduxjs/toolkit'
 
 import { OriginalDataPointState } from '@webapp/store/page/originalDataPoint/state'
 
-import { setODP } from '@webapp/store/page/originalDataPoint/actions/setODP'
-import { fetchODP, deleteODP, updateODP } from './actions'
+import { fetchODP, deleteODP, updateODP, setODP } from './actions'
 
 export const originalDataPointSlice = createSlice<OriginalDataPointState, SliceCaseReducers<OriginalDataPointState>>({
   name: 'originalDataPoint',

@@ -33,7 +33,6 @@ const ButtonBar: React.FC<Props> = (props) => {
   const handleDelete = () => {
     if (window.confirm(i18n.t('nationalDataPoint.confirmDelete'))) {
       dispatch(OriginalDataPointActions.deleteODP({ id: odp.id }))
-      dispatch(OriginalDataPointActions.setODP({ odp: null }))
       history.push(BasePaths.getAssessmentSectionLink(countryIso, FRA.type, tab))
     }
   }
