@@ -9,7 +9,7 @@ export const remove = async (props: { id: string; user: User }, client: BaseProt
   const { id, user } = props
   return client.tx(async (t) => {
     const removedOdp = await OriginalDataPointRepository.remove({ id }, t)
-    await AuditRepository.insertAudit(t, user.id, 'deleteOdp', countryIso, 'odp', { removedOdp })
+    await AuditRepository.insertAudit(t, user.id, 'deleteOdp', countryIso, 'odp', { odp: removedOdp })
     return removedOdp
   })
 }

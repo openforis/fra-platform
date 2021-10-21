@@ -9,7 +9,7 @@ export const update = async (props: { id: string; odp: ODP; user: User }, client
   const { id, odp, user } = props
   return client.tx(async (t) => {
     const updatedOdp = await OriginalDataPointRepository.update({ id, odp })
-    await AuditRepository.insertAudit(t, user.id, 'updateOdp', countryIso, 'odp', { odp })
+    await AuditRepository.insertAudit(t, user.id, 'updateOdp', countryIso, 'odp', { odp: updatedOdp })
     return updatedOdp
   })
 }
