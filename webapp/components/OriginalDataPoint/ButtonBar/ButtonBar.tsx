@@ -5,8 +5,11 @@ import { useHistory, useParams } from 'react-router'
 import { ODP } from '@core/odp'
 import { useCountryIso, useI18n } from '@webapp/hooks'
 
-import { cancelDraft, markAsActual, remove } from '@webapp/sectionSpec/fra/originalDataPoint/actions'
+import { cancelDraft, markAsActual } from '@webapp/sectionSpec/fra/originalDataPoint/actions'
 import { useIsAutoSaveSaving } from '@webapp/store/autosave'
+import { OriginalDataPointActions } from '@webapp/store/page/originalDataPoint'
+import * as BasePaths from '@webapp/main/basePaths'
+import { FRA } from '@core/assessment'
 
 type Props = {
   canEditData: boolean
@@ -21,10 +24,17 @@ const ButtonBar: React.FC<Props> = (props) => {
   const { tab } = useParams<{ tab: string }>()
   const i18n = useI18n()
   const countryIso = useCountryIso()
-  const disabled = useIsAutoSaveSaving() || !odp.odpId
+  const disabled = useIsAutoSaveSaving() || !odp.id
 
   if (!canEditData) {
     return null
+  }
+
+  const handleDelete = () => {
+    if (window.confirm(i18n.t('nationalDataPoint.confirmDelete'))) {
+      dispatch(OriginalDataPointActions.deleteODP({ id: odp.id }))
+      history.push(BasePaths.getAssessmentSectionLink(countryIso, FRA.type, tab))
+    }
   }
 
   return (
@@ -53,16 +63,7 @@ const ButtonBar: React.FC<Props> = (props) => {
 
       <div className="odp-v-divider" />
 
-      <button
-        type="button"
-        className="btn btn-destructive"
-        disabled={disabled}
-        onClick={() => {
-          if (window.confirm(i18n.t('nationalDataPoint.confirmDelete'))) {
-            dispatch(remove(countryIso, odp, tab, history))
-          }
-        }}
-      >
+      <button type="button" className="btn btn-destructive" disabled={disabled} onClick={handleDelete}>
         {i18n.t('nationalDataPoint.delete')}
       </button>
     </>
