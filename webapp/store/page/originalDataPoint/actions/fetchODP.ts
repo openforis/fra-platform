@@ -4,10 +4,15 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { ODP, ODPs } from '@core/odp'
 import { ApiEndPoint } from '@common/api/endpoint'
 
-export const fetchODP = createAsyncThunk<ODP, { id: string }>('originalDataPoint/fetch', async ({ id }) => {
-  const {
-    data: { odp },
-  } = await axios.get<undefined, AxiosResponse<{ odp: ODP }>>(ApiEndPoint.OriginalDataPoint.one(id))
+import { setODP } from '@webapp/store/page/originalDataPoint/actions/setODP'
 
-  return ODPs.addNationalClassPlaceHolder(odp)
-})
+export const fetchODP = createAsyncThunk<void, { id: string }>(
+  'originalDataPoint/fetch',
+  async ({ id }, { dispatch }) => {
+    const {
+      data: { odp },
+    } = await axios.get<undefined, AxiosResponse<{ odp: ODP }>>(ApiEndPoint.OriginalDataPoint.one(id))
+
+    dispatch(setODP(ODPs.addNationalClassPlaceHolder(odp)))
+  }
+)

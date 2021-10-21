@@ -8,6 +8,7 @@ import {
 } from '@core/odp/odps/calc'
 import { canCopyPreviousValues } from '@core/odp/odps/canCopyPreviousValues'
 import { deleteNationalClass } from '@core/odp/odps/deleteNationalClass'
+import { removeNationalClassPlaceHolder } from '@core/odp/odps/removeNationalClassPlaceHolder'
 import { updateNationalClass } from '@core/odp/odps/updateNationalClass'
 
 export const ODPs = {
@@ -19,5 +20,6 @@ export const ODPs = {
   calcTotalSubSubFieldArea,
   canCopyPreviousValues,
   deleteNationalClass,
+  removeNationalClassPlaceHolder,
   updateNationalClass,
 }

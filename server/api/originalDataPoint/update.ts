@@ -13,7 +13,7 @@ export const OdpUpdate = {
       async (req: Request, res: Response) => {
         try {
           const { id } = req.params
-          const { odp } = req.body
+          const odp = req.body
           const updatedOdp = await OriginalDataPointService.update({ id, odp, user: req.user as User })
           res.json({ odp: updatedOdp })
         } catch (err) {
