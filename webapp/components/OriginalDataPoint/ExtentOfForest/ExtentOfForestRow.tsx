@@ -32,7 +32,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
   const countryIso = useCountryIso()
 
   const nationalClass = odp.nationalClasses[index]
-  const { className, area, forestPercent, otherWoodedLandPercent, uuid } = nationalClass
+  const { name, area, forestPercent, otherWoodedLandPercent, uuid } = nationalClass
   const target = [odp.odpId, 'class', `${uuid}`, 'value']
   const classNameRowComments = useNationalClassNameComments(target)
   const validationStatus = useNationalClassValidation(index)
@@ -41,7 +41,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
 
   return (
     <tr className={classNameRowComments}>
-      <th className="fra-table__category-cell">{className}</th>
+      <th className="fra-table__category-cell">{name}</th>
       <td className={`fra-table__cell fra-table__divider ${classNameAreaValidation}`}>
         <ThousandSeparatedDecimalInput
           disabled={!canEditData}

@@ -1,7 +1,7 @@
 import { UUIDs } from '@core/utils'
 
-const newNationalClass = (props?: { className?: string; definition?: string }): ODPNationalClass => ({
-  className: props?.className ?? '',
+const newNationalClass = (props?: { name?: string; definition?: string }): ODPNationalClass => ({
+  name: props?.name ?? '',
   definition: props?.definition ?? '',
   uuid: UUIDs.v4(),
 })
@@ -13,9 +13,9 @@ export const ODPNationalClassFactory = {
 
 export interface ODPNationalClass {
   area?: string
-  className?: string
   definition?: string
   forestPercent?: string
+  name?: string
   naturalForestPercent?: string
   otherPlantedPercent?: string
   otherWoodedLandPercent?: string

@@ -33,7 +33,7 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
 
   const { nationalClasses, odpId } = odp
   const nationalClass = nationalClasses[index]
-  const { className, area, naturalForestPercent, plantationPercent, otherPlantedPercent, uuid } = nationalClass
+  const { name, area, naturalForestPercent, plantationPercent, otherPlantedPercent, uuid } = nationalClass
   const target = [odpId, 'class', `${uuid}`, 'forest_charasteristics']
   const classNameRowComments = useNationalClassNameComments(target)
   const validationStatus = useNationalClassValidation(index)
@@ -45,7 +45,7 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
 
   return (
     <tr className={classNameRowComments}>
-      <th className="fra-table__category-cell">{className}</th>
+      <th className="fra-table__category-cell">{name}</th>
       <th className="fra-table__calculated-sub-cell fra-table__divider">
         {area && NumberUtils.formatNumber((Number(area) * Number(nationalClass.forestPercent)) / 100)}
       </th>

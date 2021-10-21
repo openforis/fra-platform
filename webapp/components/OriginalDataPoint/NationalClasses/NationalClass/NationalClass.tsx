@@ -32,7 +32,7 @@ const NationalClass: React.FC<Props> = (props) => {
   const [printView] = usePrintView()
 
   const nationalClass = odp.nationalClasses[index]
-  const { className, definition, uuid, placeHolder } = nationalClass
+  const { name, definition, uuid, placeHolder } = nationalClass
   const target = [odp.odpId, 'class', `${uuid}`, 'definition']
   const classNameRowComments = useNationalClassNameComments(target)
   const validation = useNationalClassValidation(index)
@@ -43,7 +43,7 @@ const NationalClass: React.FC<Props> = (props) => {
         <div className="odp__nc-table__input-container">
           {printView ? (
             <div className="text-input__readonly-view only-print" style={{ paddingTop: 0, paddingBottom: 0 }}>
-              {className || ''}
+              {name || ''}
             </div>
           ) : (
             <input
@@ -52,10 +52,10 @@ const NationalClass: React.FC<Props> = (props) => {
               placeholder={
                 placeHolder && index === 0 ? i18n.t('nationalDataPoint.enterOrCopyPasteNationalClasses') : ''
               }
-              value={className || ''}
+              value={name || ''}
               onChange={(event) => {
                 const { value } = event.target
-                const odpUpdate = ODPs.updateNationalClass({ odp, index, field: 'className', value })
+                const odpUpdate = ODPs.updateNationalClass({ odp, index, field: 'name', value })
                 dispatch(saveDraft(countryIso, odpUpdate))
               }}
               onPaste={(event) => {

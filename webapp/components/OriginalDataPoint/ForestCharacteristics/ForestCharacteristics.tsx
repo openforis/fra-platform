@@ -67,12 +67,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
               </tr>
 
               {nationalClasses.map((nationalClass, index) => (
-                <ForestCharacteristicsRow
-                  key={nationalClass.className}
-                  canEditData={canEditData}
-                  index={index}
-                  odp={odp}
-                />
+                <ForestCharacteristicsRow key={nationalClass.name} canEditData={canEditData} index={index} odp={odp} />
               ))}
 
               <tr>

@@ -60,7 +60,7 @@ const ExtentOfForest: React.FC<Props> = (props) => {
               </tr>
 
               {nationalClasses.map((nationalClass, index) => (
-                <ExtentOfForestRow key={nationalClass.className} canEditData={canEditData} index={index} odp={odp} />
+                <ExtentOfForestRow key={nationalClass.name} canEditData={canEditData} index={index} odp={odp} />
               ))}
 
               <tr>
