@@ -30,9 +30,7 @@ const OriginalDataPoint: React.FC = () => {
     dispatch(batchActions([OriginalDataPointActions.fetchODP({ id: odpId }), fetchExtentOfForest()]))
 
     return () => {
-      dispatch(
-        batchActions([CountryActions.fetchCountryStatus(countryIso), OriginalDataPointActions.setODP({ odp: null })])
-      )
+      dispatch(batchActions([CountryActions.fetchCountryStatus(countryIso), OriginalDataPointActions.setODP(null)]))
     }
   }, [])
 

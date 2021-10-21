@@ -1,25 +1,17 @@
-import { createSlice, CaseReducer, PayloadAction, SliceCaseReducers } from '@reduxjs/toolkit'
-
-import { ODP } from '@core/odp'
+import { createSlice, SliceCaseReducers } from '@reduxjs/toolkit'
 
 import { OriginalDataPointState } from '@webapp/store/page/originalDataPoint/state'
 
-import { fetchODP } from './actions'
+import { fetchODP } from '@webapp/store/page/originalDataPoint/actions/fetchODP'
+import { updateODP } from '@webapp/store/page/originalDataPoint/actions/updateODP'
+import { setODP } from '@webapp/store/page/originalDataPoint/actions/setODP'
 
-interface Reducer extends SliceCaseReducers<OriginalDataPointState> {
-  setODP: CaseReducer<OriginalDataPointState, PayloadAction<{ odp: ODP }>>
-}
-
-export const originalDataPointSlice = createSlice<OriginalDataPointState, Reducer>({
+export const originalDataPointSlice = createSlice<OriginalDataPointState, SliceCaseReducers<OriginalDataPointState>>({
   name: 'originalDataPoint',
   initialState: {},
-  reducers: {
-    setODP: (state, action) => {
-      state.odp = action.payload.odp
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchODP.fulfilled, (state, { payload }) => {
+    builder.addCase(setODP, (state, { payload }) => {
       state.odp = payload
     })
   },
@@ -28,6 +20,8 @@ export const originalDataPointSlice = createSlice<OriginalDataPointState, Reduce
 export const OriginalDataPointActions = {
   ...originalDataPointSlice.actions,
   fetchODP,
+  setODP,
+  updateODP,
 }
 
 export const OriginalDataPointReducer = originalDataPointSlice.reducer

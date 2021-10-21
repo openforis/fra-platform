@@ -7,8 +7,7 @@ import MultiSelect from '@webapp/components/multiSelect'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { useCountryIso, useI18n } from '@webapp/hooks'
 import { usePrintView } from '@webapp/store/app'
-
-import { saveDraft } from '@webapp/sectionSpec/fra/originalDataPoint/actions'
+import { OriginalDataPointActions } from '@webapp/store/page/originalDataPoint'
 
 type Props = {
   canEditData: boolean
@@ -43,7 +42,8 @@ const DataSources: React.FC<Props> = (props) => {
                   <VerticallyGrowingTextField
                     value={odp.dataSourceReferences || ''}
                     onChange={(event) => {
-                      dispatch(saveDraft(countryIso, { ...odp, dataSourceReferences: event.target.value }))
+                      const odpUpdate = { ...odp, dataSourceReferences: event.target.value }
+                      dispatch(OriginalDataPointActions.updateODP({ odp: odpUpdate }))
                     }}
                     disabled={printView || !canEditData}
                   />
@@ -72,7 +72,8 @@ const DataSources: React.FC<Props> = (props) => {
                     values={odp.dataSourceMethods}
                     options={Object.values(ODPDataSourceMethod)}
                     onChange={(values: Array<ODPDataSourceMethod>) => {
-                      dispatch(saveDraft(countryIso, { ...odp, dataSourceMethods: values }))
+                      const odpUpdate = { ...odp, dataSourceMethods: values }
+                      dispatch(OriginalDataPointActions.updateODP({ odp: odpUpdate }))
                     }}
                   />
                 </td>
@@ -96,7 +97,8 @@ const DataSources: React.FC<Props> = (props) => {
                   <VerticallyGrowingTextField
                     value={odp.dataSourceAdditionalComments || ''}
                     onChange={(event) => {
-                      dispatch(saveDraft(countryIso, { ...odp, dataSourceAdditionalComments: event.target.value }))
+                      const odpUpdate = { ...odp, dataSourceAdditionalComments: event.target.value }
+                      dispatch(OriginalDataPointActions.updateODP({ odp: odpUpdate }))
                     }}
                     disabled={printView || !canEditData}
                   />
