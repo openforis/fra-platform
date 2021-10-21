@@ -11,21 +11,21 @@ export const update = async (props: { id: string; odp: ODP }, client: BaseProtoc
         SET
             year = $1,
             data_source_additional_comments = $2,
-            data_source_methods = $3,
+            data_source_methods = $3::jsonb,
             data_source_references = $4,
             description = $5,
-            national_classes = $6
+            national_classes = $6::jsonb
         WHERE
             id = $7
-RETURNING *
+        RETURNING *
     `,
     [
       odp.year,
       odp.dataSourceAdditionalComments,
-      odp.dataSourceMethods,
+      JSON.stringify(odp.dataSourceMethods),
       odp.dataSourceReferences,
       odp.description,
-      odp.nationalClasses,
+      JSON.stringify(odp.nationalClasses),
       id,
     ],
     Objects.camelize
