@@ -1,3 +1,3 @@
 export { DataTableService } from './dataTable'
 export { CountryService } from './country'
-export { OdpService } from './odp'
+export { OriginalDataPointService } from './originalDataPoint'
