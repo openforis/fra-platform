@@ -19,9 +19,8 @@ const forestCharacteristicsSectionName = forestCharacteristics.name
 const forestCharacteristicsTableName = forestCharacteristics.tables.extentOfForest
 
 const getDatumOdp = (state: any, odp: any, datumFields: any, draft: any) => {
-  const odpOriginal = state.page.originalDataPoint?.odp
   const { odpId, year } = odp
-  const { year: yearPrev }: any = odpOriginal
+  const yearPrev = state.page.originalDataPoint?.odp?.year
 
   const datumOdp: any = {
     odpId,
