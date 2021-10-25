@@ -6,12 +6,13 @@ import * as R from 'ramda'
 import { add, div, mul, sub, sum } from '@common/bignumberUtils'
 
 import { v4 as uuidv4 } from 'uuid'
+import { ODP } from '@core/odp'
 
 /**
  * @deprecated.
  * Use ODPs.updateNationalClass
  */
-export const updateNationalClass = (odp: any, index: any, field: any, value: any) => {
+export const updateNationalClass = (odp: ODP, index: any, field: any, value: any) => {
   const nationalClassToUpdate = odp.nationalClasses[index]
   const wasPlaceHolder = !R.isNil(R.path(['placeHolder'], nationalClassToUpdate))
   const updatedNationalClass = R.dissoc('placeHolder', { ...nationalClassToUpdate, [field]: value })
