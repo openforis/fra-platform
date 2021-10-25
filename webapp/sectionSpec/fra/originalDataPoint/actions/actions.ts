@@ -91,7 +91,7 @@ export const copyPreviousNationalClasses = (countryIso: string, odp: ODP) => asy
 export const updateNationalClassValue =
   (index: any, fieldName: any, valueCurrent: any, valueUpdate: any) => (dispatch: any, getState: any) => {
     const state = getState()
-    const odp = state.page.originalDataPoint?.odp
+    const { odp } = state.page.originalDataPoint
     const odpUpdate = ODPs.updateNationalClass(odp, index, fieldName, acceptNextDecimal(valueUpdate, valueCurrent))
     dispatch(OriginalDataPointActions.updateODP({ odp: odpUpdate }))
   }
@@ -99,7 +99,7 @@ export const updateNationalClassValue =
 // ====== Paste
 export const pasteNationalClassValues = (props: any) => (dispatch: any, getState: any) => {
   const state = getState()
-  const odp = state.page.originalDataPoint?.odp
+  const { odp } = state.page.originalDataPoint
   const { event, rowIndex, colIndex, columns, allowGrow = false, allowedClass = () => true } = props
 
   const rawPastedData = readPasteClipboard(event, 'string')
