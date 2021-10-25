@@ -1,5 +1,6 @@
 import * as R from 'ramda'
 import { acceptNextDecimal, acceptNextInteger } from '@webapp/utils/numberInput'
+import { ODP } from '@core/odp'
 import * as originalDataPoint from './originalDataPoint'
 
 const mapIndexed = R.addIndex(R.map)
@@ -7,7 +8,7 @@ const mapIndexed = R.addIndex(R.map)
 export default (
   columns: any,
   allowedClass: any,
-  odp: any,
+  odp: ODP,
   allowGrow: any,
   rawPastedData: any,
   rowIndex: any,
