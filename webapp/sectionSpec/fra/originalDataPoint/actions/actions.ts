@@ -1,16 +1,13 @@
 import axios from 'axios'
-import * as R from 'ramda'
 
 import { FRA } from '@core/assessment'
 import { ODP } from '@core/odp'
-import { Objects } from '@core/utils'
 import { validateDataPoint } from '@common/validateOriginalDataPoint'
 import * as BasePaths from '@webapp/main/basePaths'
 import { batchActions } from '@webapp/store'
 import { readPasteClipboard } from '@webapp/utils/copyPasteUtil'
 import { acceptNextDecimal } from '@webapp/utils/numberInput'
 
-import * as AppState from '@webapp/store/app/state'
 import { applicationError } from '@webapp/components/error/actions'
 
 import { ApiEndPoint } from '@common/api/endpoint'
@@ -36,20 +33,6 @@ export const clearActive = () => ({ type: odpClearActiveAction })
 export const odpFetchCompleted = 'originalDataPoint/fetch/completed'
 export const odpListFetchCompleted = 'originalDataPointList/fetch/completed'
 
-export const fetch = (odpId: any, countryIso: any) => async (dispatch: any) => {
-  let url = ApiEndPoint.Odp.getMany()
-  if (!Objects.isEmpty(odpId)) {
-    url += `?odpId=${odpId}&countryIso=${countryIso}`
-  }
-  const { data } = await axios.get(url)
-  if (R.isNil(odpId)) {
-    dispatch(clearActive())
-  } else {
-    const odp = ODPs.addNationalClassPlaceHolder(data)
-    dispatch(batchActions([{ type: odpFetchCompleted, active: odp }, validationCompleted(validateDataPoint(odp))]))
-  }
-}
-
 export const fetchOdps = (countryIso: any) => async (dispatch: any) => {
   const { data } = await axios.get(ApiEndPoint.Odp.get(countryIso))
   dispatch({ type: odpListFetchCompleted, data })
@@ -58,45 +41,6 @@ export const fetchOdps = (countryIso: any) => async (dispatch: any) => {
 // ====== UPDATE
 export const odpSaveDraftStart = 'originalDataPoint/persistDraft/start'
 export const odpSaveDraftCompleted = 'originalDataPoint/persistDraft/completed'
-
-const persistDraft = (countryIso: any, odp: ODP) => {
-  const dispatched = async (dispatch: any, getState: any) => {
-    const {
-      data: { odpId },
-    } = await axios.post(`${ApiEndPoint.Odp.createDraft()}?countryIso=${countryIso}`, ODPs.removeClassPlaceholder(odp))
-    const state = getState()
-    const actions = [AutosaveActions.autoSaveComplete(), { type: odpSaveDraftCompleted, odpId }]
-
-    // if original data point has just been created, the odpId must be added to odp state active object
-    const isNew = !(state.page.originalDataPoint?.odp).odpId
-    if (isNew) {
-      actions.push(...getUpdateTablesWithOdp(state, { ...odp, odpId }))
-    }
-
-    dispatch(batchActions(actions))
-  }
-  dispatched.meta = {
-    debounce: {
-      time: 500,
-      key: odpSaveDraftStart,
-    },
-  }
-  return dispatched
-}
-
-export const saveDraft = (countryIso: any, odp: ODP) => (dispatch: any, getState: any) => {
-  if (!odp.year) {
-    return
-  }
-  const actions = [{ type: odpSaveDraftStart, active: odp }, AutosaveActions.autoSaveStart()]
-  if (odp.validationStatus) actions.push(validationCompleted(validateDataPoint(odp)))
-
-  // Update tables 1a and 1b
-  actions.push(...getUpdateTablesWithOdp(getState(), odp))
-
-  dispatch(batchActions(actions))
-  dispatch(persistDraft(countryIso, odp))
-}
 
 export const cancelDraft =
   (countryIso: any, odpId: any, destination: any, history: any) => async (dispatch: any, getState: any) => {
@@ -138,7 +82,7 @@ export const copyPreviousNationalClasses = (countryIso: string, odp: ODP) => asy
     `${ApiEndPoint.Odp.getPrevious(countryIso, odp.year)}?countryIso=${countryIso}`
   )
   if (prevOdp.nationalClasses) {
-    dispatch(saveDraft(countryIso, ODPs.copyNationalClassDefinitions(odp, prevOdp)))
+    dispatch(OriginalDataPointActions.updateODP({ odp: ODPs.copyNationalClassDefinitions(odp, prevOdp) }))
   } else {
     dispatch(applicationError({ key: 'error.ndp.previousNdpNotFound', values: { year: odp.year } }))
   }
@@ -156,12 +100,11 @@ export const updateNationalClassValue =
 export const pasteNationalClassValues = (props: any) => (dispatch: any, getState: any) => {
   const state = getState()
   const odp = state.page.originalDataPoint?.odp
-  const countryIso = AppState.getCountryIso(state)
   const { event, rowIndex, colIndex, columns, allowGrow = false, allowedClass = () => true } = props
 
   const rawPastedData = readPasteClipboard(event, 'string')
   const { updatedOdp } = handlePaste(columns, allowedClass, odp, allowGrow, rawPastedData, rowIndex, colIndex)
-  dispatch(saveDraft(countryIso, updatedOdp))
+  dispatch(OriginalDataPointActions.updateODP({ odp: updatedOdp }))
 }
 
 // ====== Delete
