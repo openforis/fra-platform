@@ -16,7 +16,7 @@ import { applicationError } from '@webapp/components/error/actions'
 import { ApiEndPoint } from '@common/api/endpoint'
 import { CountryActions } from '@webapp/store/country'
 import { AutosaveActions } from '@webapp/store/autosave'
-import * as OriginalDataPointState from '../originalDataPointState'
+import { OriginalDataPointActions } from '@webapp/store/page/originalDataPoint'
 import * as ODPs from '../originalDataPoint'
 import handlePaste from '../paste'
 import { getUpdateTablesWithNotOdp, getUpdateTablesWithOdp } from './updateSectionTables'
@@ -68,7 +68,7 @@ const persistDraft = (countryIso: any, odp: ODP) => {
     const actions = [AutosaveActions.autoSaveComplete(), { type: odpSaveDraftCompleted, odpId }]
 
     // if original data point has just been created, the odpId must be added to odp state active object
-    const isNew = !(OriginalDataPointState.getActive(state) as any).odpId
+    const isNew = !(state.page.originalDataPoint?.odp).odpId
     if (isNew) {
       actions.push(...getUpdateTablesWithOdp(state, { ...odp, odpId }))
     }
@@ -147,16 +147,15 @@ export const copyPreviousNationalClasses = (countryIso: string, odp: ODP) => asy
 export const updateNationalClassValue =
   (index: any, fieldName: any, valueCurrent: any, valueUpdate: any) => (dispatch: any, getState: any) => {
     const state = getState()
-    const odp = OriginalDataPointState.getActive(state)
-    const countryIso = AppState.getCountryIso(state)
+    const odp = state.page.originalDataPoint?.odp
     const odpUpdate = ODPs.updateNationalClass(odp, index, fieldName, acceptNextDecimal(valueUpdate, valueCurrent))
-    dispatch(saveDraft(countryIso, odpUpdate))
+    dispatch(OriginalDataPointActions.updateODP({ odp: odpUpdate }))
   }
 
 // ====== Paste
 export const pasteNationalClassValues = (props: any) => (dispatch: any, getState: any) => {
   const state = getState()
-  const odp = OriginalDataPointState.getActive(state)
+  const odp = state.page.originalDataPoint?.odp
   const countryIso = AppState.getCountryIso(state)
   const { event, rowIndex, colIndex, columns, allowGrow = false, allowedClass = () => true } = props
 
