@@ -3,13 +3,14 @@ import { useDispatch } from 'react-redux'
 
 import { ODP, ODPs } from '@core/odp'
 import { Objects } from '@core/utils'
-import { saveDraft, pasteNationalClassValues } from '@webapp/sectionSpec/fra/originalDataPoint/actions'
+import { pasteNationalClassValues } from '@webapp/sectionSpec/fra/originalDataPoint/actions'
 import { useCountryIso, useI18n } from '@webapp/hooks'
 import { usePrintView } from '@webapp/store/app'
 
 import Icon from '@webapp/components/icon'
 import VerticallyGrowingTextField from '@webapp/components/verticallyGrowingTextField'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
+import { OriginalDataPointActions } from '@webapp/store/page/originalDataPoint'
 import { useNationalClassNameComments, useNationalClassValidation } from '../../hooks'
 
 const nationalClassCols = [
@@ -56,7 +57,7 @@ const NationalClass: React.FC<Props> = (props) => {
               onChange={(event) => {
                 const { value } = event.target
                 const odpUpdate = ODPs.updateNationalClass({ odp, index, field: 'name', value })
-                dispatch(saveDraft(countryIso, odpUpdate))
+                dispatch(OriginalDataPointActions.updateODP({ odp: odpUpdate }))
               }}
               onPaste={(event) => {
                 dispatch(
@@ -80,7 +81,7 @@ const NationalClass: React.FC<Props> = (props) => {
               className="odp__nc-table__remove"
               onClick={() => {
                 const odpUpdate = ODPs.deleteNationalClass({ odp, index })
-                dispatch(saveDraft(countryIso, odpUpdate))
+                dispatch(OriginalDataPointActions.updateODP({ odp: odpUpdate }))
               }}
             >
               <Icon name="remove" />
@@ -95,7 +96,7 @@ const NationalClass: React.FC<Props> = (props) => {
           onChange={(event) => {
             const { value } = event.target
             const odpUpdate = ODPs.updateNationalClass({ odp, index, field: 'definition', value })
-            dispatch(saveDraft(countryIso, odpUpdate))
+            dispatch(OriginalDataPointActions.updateODP({ odp: odpUpdate }))
           }}
           onPaste={(event) => {
             dispatch(

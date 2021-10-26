@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { ODP } from '@core/odp'
-import { useCountryIso, useI18n } from '@webapp/hooks'
+import { useI18n } from '@webapp/hooks'
 import ckEditorConfig from '@webapp/components/ckEditor/ckEditorConfig'
-import { saveDraft } from '@webapp/sectionSpec/fra/originalDataPoint/actions'
+import { OriginalDataPointActions } from '@webapp/store/page/originalDataPoint'
 
 type Props = {
   canEditData: boolean
@@ -14,7 +14,6 @@ type Props = {
 const CommentsEditor: React.FC<Props> = (props) => {
   const { canEditData, odp } = props
   const dispatch = useDispatch()
-  const countryIso = useCountryIso()
   const i18n = useI18n()
   const [open, setOpen] = useState(false)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -23,7 +22,7 @@ const CommentsEditor: React.FC<Props> = (props) => {
   const initCkeditorChangeListener = () => {
     descriptionEditor.current.on('change', (event: any) => {
       const odpUpdate = { ...odp, description: event.editor.getData() }
-      dispatch(saveDraft(countryIso, odpUpdate))
+      dispatch(OriginalDataPointActions.updateODP({ odp: odpUpdate }))
     })
   }
 

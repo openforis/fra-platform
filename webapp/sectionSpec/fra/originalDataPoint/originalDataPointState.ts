@@ -10,7 +10,6 @@ const keys = {
 const getState = R.prop(stateKey)
 
 // === READ
-export const getActive = (x?: any) => R.pipe(getState, R.propOr(null, keys.active))(x)
 // @ts-ignore
 export const getOdps = (x?: any): any[] => R.pipe(getState, R.propOr([], keys.odps))(x)
 
