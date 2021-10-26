@@ -38,6 +38,7 @@ des domaines boréal, tempéré et sous-tropical`,
     reportMisconduct: 'Signaler un cas de mauvaise conduite',
     userGuide: "Guide de l'utilisateur",
     sendFeedback: 'Envoyer réactions',
+    licenses: 'Autorisations',
   },
 
   disclaimer: {

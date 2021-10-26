@@ -53,6 +53,7 @@ followed by the boreal, temperate and subtropical domains.`,
     reportMisconduct: 'Report Misconduct',
     userGuide: 'User guide',
     sendFeedback: 'Send feedback',
+    licenses: 'Licenses',
   },
 
   unit: {

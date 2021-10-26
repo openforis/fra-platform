@@ -33,6 +33,7 @@ module.exports.translation = {
     reportMisconduct: 'Сообщить о нарушении',
     userGuide: 'Руководство пользователя',
     sendFeedback: 'Направить отзыв',
+    licenses: 'Лицензирование',
   },
 
   disclaimer: {
