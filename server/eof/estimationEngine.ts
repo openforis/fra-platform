@@ -160,6 +160,11 @@ export const estimateFraValues = (years: Array<number>, odpValues: Array<ODP>, g
       return [...values, newValue]
     }, odpValues)
     .filter((v: any) => v.store)
+    .map((v: any) => {
+      // eslint-disable-next-line no-param-reassign
+      delete v.store
+      return v
+    })
 
   return estimatedValues
 }
