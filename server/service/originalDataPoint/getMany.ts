@@ -10,3 +10,5 @@ export const getMany = async (props: { countryIso: string; validate?: boolean })
   }
   return odps
 }
+
+export const { getManyNormalized } = OriginalDataPointRepository
