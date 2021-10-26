@@ -49,6 +49,7 @@ module.exports.translation = {
     reportMisconduct: '报告不当行为',
     userGuide: '使用指南',
     sendFeedback: '发送反馈',
+    licenses: '许可',
   },
 
   unit: {

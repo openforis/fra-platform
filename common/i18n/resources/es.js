@@ -39,6 +39,7 @@ el resto está localizado en las regiones boreales, templadas y subtropicales.`,
     reportMisconduct: 'Reportar mala conducta',
     userGuide: 'Guía del usuario',
     sendFeedback: 'Enviar comentarios',
+    licenses: 'Licencias',
   },
 
   disclaimer: {

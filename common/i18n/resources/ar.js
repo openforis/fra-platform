@@ -54,6 +54,7 @@ module.exports.translation = {
     reportMisconduct: 'تبليغ عن سوء تصرف',
     userGuide: 'دليل المستخدم',
     sendFeedback: 'أرسل رأيك',
+    licenses: 'التراخيص',
   },
 
   unit: {
