@@ -1,5 +1,4 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
 import MediaQuery from 'react-responsive'
 
 import { FRA, PanEuropean } from '@core/assessment'
@@ -11,6 +10,7 @@ import { getVariableLabelKey } from '@webapp/components/Assessment/DataExport/ut
 import { Breakpoints } from '@webapp/utils/breakpoints'
 
 import ButtonCheckBox from '@webapp/components/buttonCheckBox'
+import { useAppDispatch } from '@webapp/store'
 
 const Heading: Record<string, string> = {
   [FRA.type]: 'common.variable',
@@ -18,11 +18,11 @@ const Heading: Record<string, string> = {
 }
 
 const VariableSelect: React.FC = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const i18n = useI18n()
   const assessmentType = useAssessmentType()
   const assessmentSection = useParamSection()
-  const selection = useDataExportSelection(assessmentSection)
+  const selection = useDataExportSelection()
 
   const tableSpec = SectionSpecs.getTableSpecExport(assessmentType, assessmentSection)
   const variables = tableSpec.rows.filter((row) => !!row.variableExport)
@@ -33,7 +33,7 @@ const VariableSelect: React.FC = () => {
       ...selection,
       variable: selected ? '' : variableExport,
     }
-    dispatch(DataExportActions.updateSelection({ assessmentSection, selection: selectionUpdate }))
+    dispatch(DataExportActions.updateSelection({ selection: selectionUpdate }))
   }
 
   return (

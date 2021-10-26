@@ -8,6 +8,8 @@ import { useHomeCountriesFilter } from '@webapp/store/page/home'
 
 import { DataExportActions, DataExportSelection } from '@webapp/store/page/dataExport'
 import { useAppDispatch, useAppSelector } from '@webapp/store'
+import { useEffect } from 'react'
+import { useParamSection } from '@webapp/hooks'
 
 export const useDataExportCountries = (): Array<Country> => {
   const dispatch = useAppDispatch()
@@ -39,7 +41,19 @@ export const useDataExportCountries = (): Array<Country> => {
   return countries
 }
 
-export const useDataExportSelection = (assessmentSection: string): DataExportSelection => {
+export const useDataExportSelection = (): DataExportSelection => {
   const selection = useAppSelector((state) => state.page?.dataExport?.selection)
-  return selection[assessmentSection] ?? { columns: [], countryISOs: [], variable: '' }
+  const dispatch = useAppDispatch()
+  const assessmentSection = useParamSection()
+  useEffect(() => {
+    dispatch(
+      DataExportActions.updateSelection({
+        selection: {
+          ...selection,
+          variable: '',
+        },
+      })
+    )
+  }, [assessmentSection])
+  return selection
 }

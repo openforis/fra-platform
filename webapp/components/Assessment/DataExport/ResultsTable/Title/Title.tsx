@@ -17,7 +17,7 @@ const Title: React.FC<Props> = (props) => {
   const i18n = useI18n()
   const assessmentType = useAssessmentType()
   const assessmentSection = useParamSection()
-  const selection = useDataExportSelection(assessmentSection)
+  const selection = useDataExportSelection()
 
   const tableSpec = SectionSpecs.getTableSpecExport(assessmentType, assessmentSection)
   const variables = tableSpec.rows.filter((row) => !!row.variableExport)

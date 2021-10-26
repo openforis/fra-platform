@@ -17,7 +17,7 @@ const ResultsTable: React.FC = () => {
   const i18n = useI18n()
   const assessmentType = useAssessmentType()
   const assessmentSection = useParamSection()
-  const selection = useDataExportSelection(assessmentSection)
+  const selection = useDataExportSelection()
   const countries = useDataExportCountries()
 
   const tableSpec = SectionSpecs.getTableSpecExport(assessmentType, assessmentSection)

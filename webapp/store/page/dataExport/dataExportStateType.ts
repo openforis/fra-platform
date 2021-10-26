@@ -8,5 +8,5 @@ export interface DataExportSelection {
 
 export interface DataExportState {
   countries: Array<Country>
-  selection: Record<string, DataExportSelection>
+  selection: DataExportSelection
 }

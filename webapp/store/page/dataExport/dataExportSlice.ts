@@ -1,17 +1,21 @@
-import { createSlice, Reducer } from '@reduxjs/toolkit'
+import { createSlice, Reducer, SliceCaseReducers } from '@reduxjs/toolkit'
 
 import { AppActions } from '@webapp/store/app'
 import { HomeActions } from '@webapp/store/page/home'
 
-import { DataExportSelection, DataExportState } from './dataExportStateType'
+import { DataExportState } from './dataExportStateType'
 import { DataExportCountriesAction, DataExportSelectionAction } from './actionTypes'
 
 const initialState: DataExportState = {
   countries: [],
-  selection: {},
+  selection: {
+    countryISOs: [],
+    variable: '',
+    columns: [],
+  },
 }
 
-export const dataExportSlice = createSlice({
+export const dataExportSlice = createSlice<DataExportState, SliceCaseReducers<DataExportState>>({
   name: 'dataExport',
   initialState,
   reducers: {
@@ -20,25 +24,14 @@ export const dataExportSlice = createSlice({
     },
 
     updateSelection: (state: DataExportState, { payload }: { payload: DataExportSelectionAction }) => {
-      state.selection[payload.assessmentSection] = payload.selection
+      state.selection = payload.selection
     },
   },
   extraReducers: (builder) => {
     builder.addCase(AppActions.updateCountryIso, () => initialState)
     builder.addCase(HomeActions.updateCountriesFilter, (state) => {
       state.countries = []
-      state.selection = Object.entries(state.selection).reduce<Record<string, DataExportSelection>>(
-        (accumulator, [section, sectionSelection]) => {
-          return {
-            ...accumulator,
-            [section]: {
-              ...sectionSelection,
-              countryISOs: [],
-            },
-          }
-        },
-        {}
-      )
+      state.selection.countryISOs = []
     })
   },
 })

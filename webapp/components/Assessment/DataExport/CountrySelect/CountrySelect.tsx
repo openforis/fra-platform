@@ -3,7 +3,7 @@ import MediaQuery from 'react-responsive'
 
 import { Areas, Country } from '@core/country'
 import { Functions, Strings } from '@core/utils'
-import { useI18n, useParamSection } from '@webapp/hooks'
+import { useI18n } from '@webapp/hooks'
 import { useAssessmentType } from '@webapp/store/app'
 import { DataExportActions, useDataExportCountries, useDataExportSelection } from '@webapp/store/page/dataExport'
 import { Breakpoints } from '@webapp/utils/breakpoints'
@@ -15,9 +15,8 @@ const CountrySelect: React.FC = () => {
   const dispatch = useAppDispatch()
   const i18n = useI18n()
   const assessmentType = useAssessmentType()
-  const assessmentSection = useParamSection()
   const countries = useDataExportCountries()
-  const selection = useDataExportSelection(assessmentSection)
+  const selection = useDataExportSelection()
 
   const [countriesFiltered, setCountriesFiltered] = useState<Array<Country>>(countries)
   const inputRef = useRef(null)
@@ -45,7 +44,7 @@ const CountrySelect: React.FC = () => {
   const filterCountriesThrottle = useCallback(Functions.throttle(filterCountries, 250, { trailing: true }), [countries])
 
   const updateSelection = (countryISOs: Array<string>): void => {
-    dispatch(DataExportActions.updateSelection({ assessmentSection, selection: { ...selection, countryISOs } }))
+    dispatch(DataExportActions.updateSelection({ selection: { ...selection, countryISOs } }))
   }
 
   return (

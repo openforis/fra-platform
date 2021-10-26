@@ -19,7 +19,7 @@ type UseFetchResults = {
 
 export const useFetchResults = (props: Props): UseFetchResults => {
   const { columnsAlwaysExport, assessmentSection, assessmentType } = props
-  const selection = useDataExportSelection(assessmentSection)
+  const selection = useDataExportSelection()
   const sectionFormatted = Strings.snakeCase(formatSection(assessmentSection, assessmentType))
 
   const {

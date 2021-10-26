@@ -16,14 +16,14 @@ const ColumnSelect: React.FC = () => {
   const i18n = useI18n()
   const assessmentType = useAssessmentType()
   const assessmentSection = useParamSection()
-  const selection = useDataExportSelection(assessmentSection)
+  const selection = useDataExportSelection()
 
   const tableSpec = SectionSpecs.getTableSpecExport(assessmentType, assessmentSection)
   const columns = tableSpec.columnsExport ?? []
 
   const updateSelection = (columnsUpdate: Array<string>): void => {
     const selectionUpdate: DataExportSelection = { ...selection, columns: columnsUpdate }
-    dispatch(DataExportActions.updateSelection({ assessmentSection, selection: selectionUpdate }))
+    dispatch(DataExportActions.updateSelection({ selection: selectionUpdate }))
   }
 
   return (
