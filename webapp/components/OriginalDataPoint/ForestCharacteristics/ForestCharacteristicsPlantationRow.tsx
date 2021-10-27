@@ -7,8 +7,6 @@ import { PercentInput } from '@webapp/components/percentInput'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { useCountryIso, useI18n } from '@webapp/hooks'
 import { OriginalDataPointActions } from '@webapp/store/page/originalDataPoint'
-import { readPasteClipboard } from '@webapp/utils/copyPasteUtil'
-import handlePaste from '@webapp/sectionSpec/fra/originalDataPoint/paste'
 import { useNationalClassNameComments, useNationalClassValidation } from '../hooks'
 
 const columns = [{ name: 'plantationIntroducedPercent', type: 'decimal' }]
@@ -43,13 +41,6 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
     return null
   }
 
-  const onPaste = (props: { event: React.ClipboardEvent<HTMLInputElement> }) => {
-    const { event } = props
-    const rawPastedData = readPasteClipboard(event, 'string')
-    const { updatedOdp } = handlePaste(columns, allowedClass, odp, false, rawPastedData, index, 0)
-    dispatch(OriginalDataPointActions.updateODP({ odp: updatedOdp }))
-  }
-
   return (
     <tr className={classNameRowComments}>
       <th className="fra-table__category-cell">{name}</th>
@@ -73,7 +64,17 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
             )
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
-            onPaste({ event })
+            OriginalDataPointActions.pasteNationalClass(
+              {
+                odp,
+                event,
+                colIndex: 0,
+                rowIndex: index,
+                columns,
+                allowedClass,
+              },
+              dispatch
+            )
           }}
         />
       </td>

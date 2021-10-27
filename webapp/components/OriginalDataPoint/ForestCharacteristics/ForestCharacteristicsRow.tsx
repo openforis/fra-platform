@@ -7,8 +7,6 @@ import { PercentInput } from '@webapp/components/percentInput'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { useCountryIso, useI18n } from '@webapp/hooks'
 import { OriginalDataPointActions } from '@webapp/store/page/originalDataPoint'
-import { readPasteClipboard } from '@webapp/utils/copyPasteUtil'
-import handlePaste from '@webapp/sectionSpec/fra/originalDataPoint/paste'
 import { useNationalClassNameComments, useNationalClassValidation } from '../hooks'
 
 const columns = [
@@ -45,13 +43,6 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
     return null
   }
 
-  const onPaste = (props: { event: React.ClipboardEvent<HTMLInputElement>; colIndex: number }) => {
-    const { event, colIndex } = props
-    const rawPastedData = readPasteClipboard(event, 'string')
-    const { updatedOdp } = handlePaste(columns, allowedClass, odp, false, rawPastedData, index, colIndex)
-    dispatch(OriginalDataPointActions.updateODP({ odp: updatedOdp }))
-  }
-
   return (
     <tr className={classNameRowComments}>
       <th className="fra-table__category-cell">{name}</th>
@@ -75,7 +66,17 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
             )
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
-            onPaste({ event, colIndex: 1 })
+            OriginalDataPointActions.pasteNationalClass(
+              {
+                odp,
+                event,
+                colIndex: 1,
+                rowIndex: index,
+                columns,
+                allowedClass,
+              },
+              dispatch
+            )
           }}
         />
       </td>
@@ -97,7 +98,17 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
             )
           }}
           onPaste={(event: any) => {
-            onPaste({ event, colIndex: 2 })
+            OriginalDataPointActions.pasteNationalClass(
+              {
+                odp,
+                event,
+                colIndex: 2,
+                rowIndex: index,
+                columns,
+                allowedClass,
+              },
+              dispatch
+            )
           }}
         />
       </td>
@@ -119,7 +130,17 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
             )
           }}
           onPaste={(event: any) => {
-            onPaste({ event, colIndex: 3 })
+            OriginalDataPointActions.pasteNationalClass(
+              {
+                odp,
+                event,
+                colIndex: 3,
+                rowIndex: index,
+                columns,
+                allowedClass,
+              },
+              dispatch
+            )
           }}
         />
       </td>
