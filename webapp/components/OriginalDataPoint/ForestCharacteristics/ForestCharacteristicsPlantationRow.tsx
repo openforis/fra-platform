@@ -1,13 +1,12 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 
-import { ODP, ODPNationalClass, ODPs } from '@core/odp'
+import { ODP, ODPNationalClass } from '@core/odp'
 import * as NumberUtils from '@common/bignumberUtils'
 import { PercentInput } from '@webapp/components/percentInput'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { useCountryIso, useI18n } from '@webapp/hooks'
 import { OriginalDataPointActions } from '@webapp/store/page/originalDataPoint'
-import { acceptNextDecimal } from '@webapp/utils/numberInput'
 import { readPasteClipboard } from '@webapp/utils/copyPasteUtil'
 import handlePaste from '@webapp/sectionSpec/fra/originalDataPoint/paste'
 import { useNationalClassNameComments, useNationalClassValidation } from '../hooks'
@@ -44,16 +43,6 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
     return null
   }
 
-  const updateValue = (index: number, field: keyof ODPNationalClass, prevValue: string, value: string) => {
-    const updatedOdp = ODPs.updateNationalClass({
-      odp,
-      index,
-      field,
-      value: acceptNextDecimal(value, prevValue),
-    })
-    dispatch(OriginalDataPointActions.updateODP({ odp: updatedOdp }))
-  }
-
   const onPaste = (props: { event: React.ClipboardEvent<HTMLInputElement> }) => {
     const { event } = props
     const rawPastedData = readPasteClipboard(event, 'string')
@@ -72,7 +61,16 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={plantationIntroducedPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            updateValue(index, 'plantationIntroducedPercent', plantationIntroducedPercent, event.target.value)
+            OriginalDataPointActions.updateNationalClass(
+              {
+                odp,
+                index,
+                field: 'plantationIntroducedPercent',
+                prevValue: plantationIntroducedPercent,
+                value: event.target.value,
+              },
+              dispatch
+            )
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
             onPaste({ event })

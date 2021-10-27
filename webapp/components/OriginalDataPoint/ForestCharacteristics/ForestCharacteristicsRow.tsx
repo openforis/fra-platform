@@ -1,13 +1,12 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 
-import { ODP, ODPNationalClass, ODPs } from '@core/odp'
+import { ODP, ODPNationalClass } from '@core/odp'
 import * as NumberUtils from '@common/bignumberUtils'
 import { PercentInput } from '@webapp/components/percentInput'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { useCountryIso, useI18n } from '@webapp/hooks'
 import { OriginalDataPointActions } from '@webapp/store/page/originalDataPoint'
-import { acceptNextDecimal } from '@webapp/utils/numberInput'
 import { readPasteClipboard } from '@webapp/utils/copyPasteUtil'
 import handlePaste from '@webapp/sectionSpec/fra/originalDataPoint/paste'
 import { useNationalClassNameComments, useNationalClassValidation } from '../hooks'
@@ -46,16 +45,6 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
     return null
   }
 
-  const updateValue = (index: number, field: keyof ODPNationalClass, prevValue: string, value: string) => {
-    const updatedOdp = ODPs.updateNationalClass({
-      odp,
-      index,
-      field,
-      value: acceptNextDecimal(value, prevValue),
-    })
-    dispatch(OriginalDataPointActions.updateODP({ odp: updatedOdp }))
-  }
-
   const onPaste = (props: { event: React.ClipboardEvent<HTMLInputElement>; colIndex: number }) => {
     const { event, colIndex } = props
     const rawPastedData = readPasteClipboard(event, 'string')
@@ -74,7 +63,16 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={naturalForestPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            updateValue(index, 'naturalForestPercent', naturalForestPercent, event.target.value)
+            OriginalDataPointActions.updateNationalClass(
+              {
+                odp,
+                index,
+                field: 'naturalForestPercent',
+                prevValue: naturalForestPercent,
+                value: event.target.value,
+              },
+              dispatch
+            )
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
             onPaste({ event, colIndex: 1 })
@@ -87,7 +85,16 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={plantationPercent}
           onChange={(event: any) => {
-            updateValue(index, 'plantationPercent', plantationPercent, event.target.value)
+            OriginalDataPointActions.updateNationalClass(
+              {
+                odp,
+                index,
+                field: 'plantationPercent',
+                prevValue: plantationPercent,
+                value: event.target.value,
+              },
+              dispatch
+            )
           }}
           onPaste={(event: any) => {
             onPaste({ event, colIndex: 2 })
@@ -100,7 +107,16 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={otherPlantedPercent}
           onChange={(event: any) => {
-            updateValue(index, 'otherPlantedPercent', otherPlantedPercent, event.target.value)
+            OriginalDataPointActions.updateNationalClass(
+              {
+                odp,
+                index,
+                field: 'otherPlantedPercent',
+                prevValue: otherPlantedPercent,
+                value: event.target.value,
+              },
+              dispatch
+            )
           }}
           onPaste={(event: any) => {
             onPaste({ event, colIndex: 3 })

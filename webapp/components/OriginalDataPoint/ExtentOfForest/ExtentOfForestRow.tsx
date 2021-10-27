@@ -1,7 +1,6 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
 
-import { ODP, ODPNationalClass, ODPs } from '@core/odp'
+import { ODP } from '@core/odp'
 import * as NumberUtils from '@common/bignumberUtils'
 import { useCountryIso, useI18n } from '@webapp/hooks'
 
@@ -9,9 +8,9 @@ import { PercentInput } from '@webapp/components/percentInput'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { ThousandSeparatedDecimalInput } from '@webapp/components/thousandSeparatedDecimalInput'
 import { OriginalDataPointActions } from '@webapp/store/page/originalDataPoint'
-import { acceptNextDecimal } from '@webapp/utils/numberInput'
 import { readPasteClipboard } from '@webapp/utils/copyPasteUtil'
 import handlePaste from '@webapp/sectionSpec/fra/originalDataPoint/paste'
+import { useAppDispatch } from '@webapp/store'
 import { useNationalClassNameComments, useNationalClassValidation } from '../hooks'
 
 const columns = [
@@ -30,7 +29,7 @@ type Props = {
 const ExtentOfForestRow: React.FC<Props> = (props) => {
   const { canEditData, index, odp } = props
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const i18n = useI18n()
   const countryIso = useCountryIso()
 
@@ -41,16 +40,6 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
   const validationStatus = useNationalClassValidation(index)
   const classNamePercentageValidation = validationStatus.validEofPercentage === false ? 'error' : ''
   const classNameAreaValidation = validationStatus.validArea === false ? 'error' : ''
-
-  const updateValue = (index: number, field: keyof ODPNationalClass, prevValue: string, value: string) => {
-    const updatedOdp = ODPs.updateNationalClass({
-      odp,
-      index,
-      field,
-      value: acceptNextDecimal(value, prevValue),
-    })
-    dispatch(OriginalDataPointActions.updateODP({ odp: updatedOdp }))
-  }
 
   const onPaste = (props: { event: React.ClipboardEvent<HTMLInputElement>; colIndex: number }) => {
     const { event, colIndex } = props
@@ -68,7 +57,16 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={area}
           onChange={(event: any) => {
-            updateValue(index, 'area', area, event.target.value)
+            OriginalDataPointActions.updateNationalClass(
+              {
+                odp,
+                index,
+                field: 'area',
+                prevValue: area,
+                value: event.target.value,
+              },
+              dispatch
+            )
           }}
           onPaste={(event: any) => {
             onPaste({ event, colIndex: 0 })
@@ -81,7 +79,16 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={forestPercent}
           onChange={(event: any) => {
-            updateValue(index, 'forestPercent', forestPercent, event.target.value)
+            OriginalDataPointActions.updateNationalClass(
+              {
+                odp,
+                index,
+                field: 'forestPercent',
+                prevValue: forestPercent,
+                value: event.target.value,
+              },
+              dispatch
+            )
           }}
           onPaste={(event: any) => {
             onPaste({ event, colIndex: 1 })
@@ -94,7 +101,16 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={otherWoodedLandPercent}
           onChange={(event: any) => {
-            updateValue(index, 'otherWoodedLandPercent', otherWoodedLandPercent, event.target.value)
+            OriginalDataPointActions.updateNationalClass(
+              {
+                odp,
+                index,
+                field: 'otherWoodedLandPercent',
+                prevValue: otherWoodedLandPercent,
+                value: event.target.value,
+              },
+              dispatch
+            )
           }}
           onPaste={(event: any) => {
             onPaste({ event, colIndex: 2 })
