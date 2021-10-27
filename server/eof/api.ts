@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 
 import { ApiAuthMiddleware } from '@server/api/middleware'
-import { OdpService } from '@server/service'
+import { OriginalDataPointService } from '@server/service/originalDataPoint'
 import * as db from '../db/db_deprecated'
 import { sendErr, sendOk } from '../utils/requests'
 
@@ -10,17 +10,13 @@ import * as auditRepository from '../repository/audit/auditRepository'
 import * as estimationEngine from './estimationEngine'
 import * as fraValueService from './fraValueService'
 
-import * as defaultYears from './defaultYears'
+import defaultYears from './defaultYears'
 
 import * as VersionService from '../service/versioning/service'
 
 const fraWriters: { [key: string]: any } = {
   extentOfForest: fraRepository.persistEofValues,
   forestCharacteristics: fraRepository.persistFocValues,
-}
-const odpReaders: { [key: string]: any } = {
-  extentOfForest: OdpService.readEofOdps,
-  forestCharacteristics: OdpService.readFocOdps,
 }
 
 export const init = (app: any) => {
@@ -81,11 +77,11 @@ export const init = (app: any) => {
       try {
         await db.transaction(auditRepository.insertAudit, [req.user.id, 'generateFraValues', countryIso, section])
 
-        const readOdp = odpReaders[section]
+        const odps = await OriginalDataPointService.getManyNormalized({ countryIso })
         const writer = fraWriters[section]
         const generateSpec = req.body
 
-        await estimationEngine.estimateAndWrite(readOdp, writer, countryIso, defaultYears, generateSpec)
+        await estimationEngine.estimateAndWrite(odps, writer, countryIso, defaultYears, generateSpec)
 
         const schemaName = await VersionService.getDatabaseSchema(req)
         const fra = await fraValueService.getFraValues(req.params.section, req.params.countryIso, schemaName)
