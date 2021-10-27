@@ -16,9 +16,9 @@ export const eofReducer = (results: any, row: any, _type = 'fra') => [
 ]
 
 export const readEofOdps = async (countryIso: any, schemaName = 'public') => {
-  const tableNameOdp = `${schemaName}.odp`
-  const tableNameOdpVersion = `${schemaName}.odp_version`
-  const tableNameOdpClass = `${schemaName}.odp_class`
+  const tableNameOdp = `${schemaName}._legacy_odp`
+  const tableNameOdpVersion = `${schemaName}._legacy_odp_version`
+  const tableNameOdpClass = `${schemaName}._legacy_odp_class`
   const res = await db.pool.query(
     `
     SELECT
