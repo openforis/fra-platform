@@ -8,7 +8,8 @@ import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndi
 import { useCountryIso, useI18n } from '@webapp/hooks'
 import { OriginalDataPointActions } from '@webapp/store/page/originalDataPoint'
 import { acceptNextDecimal } from '@webapp/utils/numberInput'
-import { pasteNationalClassValues } from '../../../sectionSpec/fra/originalDataPoint/actions'
+import { readPasteClipboard } from '@webapp/utils/copyPasteUtil'
+import handlePaste from '@webapp/sectionSpec/fra/originalDataPoint/paste'
 import { useNationalClassNameComments, useNationalClassValidation } from '../hooks'
 
 const columns = [{ name: 'plantationIntroducedPercent', type: 'decimal' }]
@@ -53,6 +54,13 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
     dispatch(OriginalDataPointActions.updateODP({ odp: updatedOdp }))
   }
 
+  const onPaste = (props: { event: React.ClipboardEvent<HTMLInputElement> }) => {
+    const { event } = props
+    const rawPastedData = readPasteClipboard(event, 'string')
+    const { updatedOdp } = handlePaste(columns, allowedClass, odp, false, rawPastedData, index, 0)
+    dispatch(OriginalDataPointActions.updateODP({ odp: updatedOdp }))
+  }
+
   return (
     <tr className={classNameRowComments}>
       <th className="fra-table__category-cell">{name}</th>
@@ -63,19 +71,11 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
         <PercentInput
           disabled={!canEditData}
           numberValue={plantationIntroducedPercent}
-          onChange={(event: any) => {
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             updateValue(index, 'plantationIntroducedPercent', plantationIntroducedPercent, event.target.value)
           }}
-          onPaste={(event: any) => {
-            dispatch(
-              pasteNationalClassValues({
-                event,
-                rowIndex: index,
-                colIndex: 0,
-                columns,
-                allowedClass,
-              })
-            )
+          onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
+            onPaste({ event })
           }}
         />
       </td>

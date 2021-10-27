@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux'
 
 import { ODP, ODPs } from '@core/odp'
 import { Objects } from '@core/utils'
-import { pasteNationalClassValues } from '@webapp/sectionSpec/fra/originalDataPoint/actions'
 import { useCountryIso, useI18n } from '@webapp/hooks'
 import { usePrintView } from '@webapp/store/app'
 
@@ -11,9 +10,11 @@ import Icon from '@webapp/components/icon'
 import VerticallyGrowingTextField from '@webapp/components/verticallyGrowingTextField'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { OriginalDataPointActions } from '@webapp/store/page/originalDataPoint'
+import { readPasteClipboard } from '@webapp/utils/copyPasteUtil'
+import handlePaste from '@webapp/sectionSpec/fra/originalDataPoint/paste'
 import { useNationalClassNameComments, useNationalClassValidation } from '../../hooks'
 
-const nationalClassCols = [
+const columns = [
   { name: 'className', type: 'text' },
   { name: 'definition', type: 'text' },
 ]
@@ -38,6 +39,17 @@ const NationalClass: React.FC<Props> = (props) => {
   const classNameRowComments = useNationalClassNameComments(target)
   const validation = useNationalClassValidation(index)
 
+  const onPaste = (props: {
+    event: React.ClipboardEvent<HTMLInputElement | HTMLTextAreaElement>
+    colIndex: number
+  }) => {
+    const { event, colIndex } = props
+    const allowedClass = () => true
+    const rawPastedData = readPasteClipboard(event, 'string')
+    const { updatedOdp } = handlePaste(columns, allowedClass, odp, true, rawPastedData, index, colIndex)
+    dispatch(OriginalDataPointActions.updateODP({ odp: updatedOdp }))
+  }
+
   return (
     <tr className={classNameRowComments}>
       <td className={`fra-table__cell-left odp__nc-table__name ${validation.validClassName === false ? 'error' : ''}`}>
@@ -60,15 +72,7 @@ const NationalClass: React.FC<Props> = (props) => {
                 dispatch(OriginalDataPointActions.updateODP({ odp: odpUpdate }))
               }}
               onPaste={(event) => {
-                dispatch(
-                  pasteNationalClassValues({
-                    event,
-                    rowIndex: index,
-                    colIndex: 0,
-                    columns: nationalClassCols,
-                    allowGrow: true,
-                  })
-                )
+                onPaste({ event, colIndex: 0 })
               }}
               disabled={!canEditData}
             />
@@ -99,15 +103,7 @@ const NationalClass: React.FC<Props> = (props) => {
             dispatch(OriginalDataPointActions.updateODP({ odp: odpUpdate }))
           }}
           onPaste={(event) => {
-            dispatch(
-              pasteNationalClassValues({
-                event,
-                rowIndex: index,
-                colIndex: 1,
-                columns: nationalClassCols,
-                allowGrow: true,
-              })
-            )
+            onPaste({ event, colIndex: 1 })
           }}
           disabled={printView || !canEditData}
         />

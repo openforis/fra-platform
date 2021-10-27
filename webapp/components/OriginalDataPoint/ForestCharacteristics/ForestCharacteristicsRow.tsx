@@ -8,7 +8,8 @@ import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndi
 import { useCountryIso, useI18n } from '@webapp/hooks'
 import { OriginalDataPointActions } from '@webapp/store/page/originalDataPoint'
 import { acceptNextDecimal } from '@webapp/utils/numberInput'
-import { pasteNationalClassValues } from '../../../sectionSpec/fra/originalDataPoint/actions'
+import { readPasteClipboard } from '@webapp/utils/copyPasteUtil'
+import handlePaste from '@webapp/sectionSpec/fra/originalDataPoint/paste'
 import { useNationalClassNameComments, useNationalClassValidation } from '../hooks'
 
 const columns = [
@@ -55,6 +56,13 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
     dispatch(OriginalDataPointActions.updateODP({ odp: updatedOdp }))
   }
 
+  const onPaste = (props: { event: React.ClipboardEvent<HTMLInputElement>; colIndex: number }) => {
+    const { event, colIndex } = props
+    const rawPastedData = readPasteClipboard(event, 'string')
+    const { updatedOdp } = handlePaste(columns, allowedClass, odp, false, rawPastedData, index, colIndex)
+    dispatch(OriginalDataPointActions.updateODP({ odp: updatedOdp }))
+  }
+
   return (
     <tr className={classNameRowComments}>
       <th className="fra-table__category-cell">{name}</th>
@@ -65,19 +73,11 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
         <PercentInput
           disabled={!canEditData}
           numberValue={naturalForestPercent}
-          onChange={(event: any) => {
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             updateValue(index, 'naturalForestPercent', naturalForestPercent, event.target.value)
           }}
-          onPaste={(event: any) => {
-            dispatch(
-              pasteNationalClassValues({
-                event,
-                rowIndex: index,
-                colIndex: 1,
-                columns,
-                allowedClass,
-              })
-            )
+          onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
+            onPaste({ event, colIndex: 1 })
           }}
         />
       </td>
@@ -90,15 +90,7 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
             updateValue(index, 'plantationPercent', plantationPercent, event.target.value)
           }}
           onPaste={(event: any) => {
-            dispatch(
-              pasteNationalClassValues({
-                event,
-                rowIndex: index,
-                colIndex: 2,
-                columns,
-                allowedClass,
-              })
-            )
+            onPaste({ event, colIndex: 2 })
           }}
         />
       </td>
@@ -111,15 +103,7 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
             updateValue(index, 'otherPlantedPercent', otherPlantedPercent, event.target.value)
           }}
           onPaste={(event: any) => {
-            dispatch(
-              pasteNationalClassValues({
-                event,
-                rowIndex: index,
-                colIndex: 3,
-                columns,
-                allowedClass,
-              })
-            )
+            onPaste({ event, colIndex: 3 })
           }}
         />
       </td>
