@@ -6,7 +6,6 @@ import { validateDataPoint } from '@common/validateOriginalDataPoint'
 import * as BasePaths from '@webapp/main/basePaths'
 import { batchActions } from '@webapp/store'
 import { readPasteClipboard } from '@webapp/utils/copyPasteUtil'
-import { acceptNextDecimal } from '@webapp/utils/numberInput'
 
 import { applicationError } from '@webapp/components/error/actions'
 
@@ -87,14 +86,6 @@ export const copyPreviousNationalClasses = (countryIso: string, odp: ODP) => asy
     dispatch(applicationError({ key: 'error.ndp.previousNdpNotFound', values: { year: odp.year } }))
   }
 }
-
-export const updateNationalClassValue =
-  (index: any, fieldName: any, valueCurrent: any, valueUpdate: any) => (dispatch: any, getState: any) => {
-    const state = getState()
-    const { odp } = state.page.originalDataPoint
-    const odpUpdate = ODPs.updateNationalClass(odp, index, fieldName, acceptNextDecimal(valueUpdate, valueCurrent))
-    dispatch(OriginalDataPointActions.updateODP({ odp: odpUpdate }))
-  }
 
 // ====== Paste
 export const pasteNationalClassValues = (props: any) => (dispatch: any, getState: any) => {

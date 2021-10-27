@@ -1,12 +1,14 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 
-import { ODP, ODPNationalClass } from '@core/odp'
+import { ODP, ODPNationalClass, ODPs } from '@core/odp'
 import * as NumberUtils from '@common/bignumberUtils'
 import { PercentInput } from '@webapp/components/percentInput'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { useCountryIso, useI18n } from '@webapp/hooks'
-import { pasteNationalClassValues, updateNationalClassValue } from '../../../sectionSpec/fra/originalDataPoint/actions'
+import { OriginalDataPointActions } from '@webapp/store/page/originalDataPoint'
+import { acceptNextDecimal } from '@webapp/utils/numberInput'
+import { pasteNationalClassValues } from '../../../sectionSpec/fra/originalDataPoint/actions'
 import { useNationalClassNameComments, useNationalClassValidation } from '../hooks'
 
 const columns = [{ name: 'plantationIntroducedPercent', type: 'decimal' }]
@@ -41,6 +43,16 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
     return null
   }
 
+  const updateValue = (index: number, field: keyof ODPNationalClass, prevValue: string, value: string) => {
+    const updatedOdp = ODPs.updateNationalClass({
+      odp,
+      index,
+      field,
+      value: acceptNextDecimal(value, prevValue),
+    })
+    dispatch(OriginalDataPointActions.updateODP({ odp: updatedOdp }))
+  }
+
   return (
     <tr className={classNameRowComments}>
       <th className="fra-table__category-cell">{name}</th>
@@ -52,14 +64,7 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={plantationIntroducedPercent}
           onChange={(event: any) => {
-            dispatch(
-              updateNationalClassValue(
-                index,
-                'plantationIntroducedPercent',
-                plantationIntroducedPercent,
-                event.target.value
-              )
-            )
+            updateValue(index, 'plantationIntroducedPercent', plantationIntroducedPercent, event.target.value)
           }}
           onPaste={(event: any) => {
             dispatch(
