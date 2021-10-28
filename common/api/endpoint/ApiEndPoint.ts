@@ -91,7 +91,7 @@ export const ApiEndPoint = {
   OriginalDataPoint: {
     many: () => apiPath('originalDataPoints'),
     one: (id = ':id') => apiPath('originalDataPoints', id),
-    reservedYears: (countryIso = ':countryIso') => apiPath('originalDataPoints', 'years', countryIso),
+    reservedYears: (countryIso = ':countryIso') => apiPath('originalDataPoints', countryIso, 'years'),
   },
   // Old routes, deprecated
   Odp: {
