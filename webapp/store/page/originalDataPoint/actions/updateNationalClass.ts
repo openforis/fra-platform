@@ -1,14 +1,12 @@
 import { ODP, ODPNationalClass, ODPs } from '@core/odp'
 import { acceptNextDecimal } from '@webapp/utils/numberInput'
 import { OriginalDataPointActions } from '@webapp/store/page/originalDataPoint'
-import { AppDispatch } from '@webapp/store'
+import { createAsyncThunk } from '@reduxjs/toolkit'
 
-export const updateNationalClass = (
-  props: { odp: ODP; index: number; field: keyof ODPNationalClass; prevValue: string; value: string },
-  dispatch: AppDispatch
-) => {
-  const { odp, index, field, value, prevValue } = props
-
+export const updateNationalClass = createAsyncThunk<
+  void,
+  { odp: ODP; index: number; field: keyof ODPNationalClass; prevValue: string; value: string }
+>('originalDataPoint/updateNationalClass', async ({ odp, index, field, value, prevValue }, { dispatch }) => {
   const updatedOdp = ODPs.updateNationalClass({
     odp,
     index,
@@ -16,4 +14,4 @@ export const updateNationalClass = (
     value: acceptNextDecimal(value, prevValue),
   })
   dispatch(OriginalDataPointActions.updateODP({ odp: updatedOdp }))
-}
+})

@@ -59,16 +59,15 @@ const NationalClass: React.FC<Props> = (props) => {
                 dispatch(OriginalDataPointActions.updateODP({ odp: odpUpdate }))
               }}
               onPaste={(event) => {
-                OriginalDataPointActions.pasteNationalClass(
-                  {
+                dispatch(
+                  OriginalDataPointActions.pasteNationalClass({
                     odp,
                     event,
                     colIndex: 0,
                     rowIndex: index,
                     columns,
                     allowGrow: true,
-                  },
-                  dispatch
+                  })
                 )
               }}
               disabled={!canEditData}
@@ -100,16 +99,15 @@ const NationalClass: React.FC<Props> = (props) => {
             dispatch(OriginalDataPointActions.updateODP({ odp: odpUpdate }))
           }}
           onPaste={(event) => {
-            OriginalDataPointActions.pasteNationalClass(
-              {
+            dispatch(
+              OriginalDataPointActions.pasteNationalClass({
                 odp,
                 event,
                 colIndex: 1,
                 rowIndex: index,
                 columns,
                 allowGrow: true,
-              },
-              dispatch
+              })
             )
           }}
           disabled={printView || !canEditData}

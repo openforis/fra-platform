@@ -52,28 +52,26 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={plantationIntroducedPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            OriginalDataPointActions.updateNationalClass(
-              {
+            dispatch(
+              OriginalDataPointActions.updateNationalClass({
                 odp,
                 index,
                 field: 'plantationIntroducedPercent',
                 prevValue: plantationIntroducedPercent,
                 value: event.target.value,
-              },
-              dispatch
+              })
             )
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
-            OriginalDataPointActions.pasteNationalClass(
-              {
+            dispatch(
+              OriginalDataPointActions.pasteNationalClass({
                 odp,
                 event,
                 colIndex: 0,
                 rowIndex: index,
                 columns,
                 allowedClass,
-              },
-              dispatch
+              })
             )
           }}
         />
