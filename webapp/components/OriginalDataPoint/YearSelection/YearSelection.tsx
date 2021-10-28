@@ -1,13 +1,11 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import * as R from 'ramda'
+import React, { useEffect } from 'react'
 
 import { ODP, ODPYears } from '@core/odp'
-import * as FRAUtils from '@common/fraUtils'
-import * as ExtentOfForestState from '@webapp/sectionSpec/fra/extentOfForest/extentOfForestState'
-import { useI18n } from '@webapp/hooks'
+import { useCountryIso, useGetRequest, useI18n } from '@webapp/hooks'
 import { OriginalDataPointActions } from '@webapp/store/page/originalDataPoint'
 import { Objects } from '@core/utils'
+import { ApiEndPoint } from '@common/api/endpoint'
+import { useAppDispatch } from '@webapp/store'
 
 const years = ['', ...ODPYears]
 
@@ -19,13 +17,19 @@ type Props = {
 const YearSelection: React.FC<Props> = (props) => {
   const { odp, canEditData } = props
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const i18n = useI18n()
+  const countryIso = useCountryIso()
 
   const classNameYearSelection = odp.validationStatus && !odp.validationStatus.year.valid ? 'error' : ''
 
   // TODO: fetch reserved years here, use useGetRequest
-  const reservedYears = useSelector(R.pipe(ExtentOfForestState.getFra, FRAUtils.getOdps, R.map(R.prop('name'))))
+  const { data, dispatch: fetchReservedYears } = useGetRequest(ApiEndPoint.OriginalDataPoint.reservedYears(countryIso))
+  useEffect(() => {
+    fetchReservedYears()
+  }, [])
+
+  const reservedYears = data?.years ?? []
 
   return (
     <div className="odp__section">
@@ -42,7 +46,7 @@ const YearSelection: React.FC<Props> = (props) => {
           }}
         >
           {years.map((year) => (
-            <option key={year} value={year} disabled={R.includes(year.toString(), reservedYears)} hidden={!year}>
+            <option key={year} value={year} disabled={reservedYears.includes(year)} hidden={!year}>
               {year || i18n.t('nationalDataPoint.selectYear')}
             </option>
           ))}
