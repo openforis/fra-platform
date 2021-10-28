@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux'
 
 import { ODP, ODPs } from '@core/odp'
 import { Objects } from '@core/utils'
-import { pasteNationalClassValues } from '@webapp/sectionSpec/fra/originalDataPoint/actions'
 import { useCountryIso, useI18n } from '@webapp/hooks'
 import { usePrintView } from '@webapp/store/app'
 
@@ -13,7 +12,7 @@ import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndi
 import { OriginalDataPointActions } from '@webapp/store/page/originalDataPoint'
 import { useNationalClassNameComments, useNationalClassValidation } from '../../hooks'
 
-const nationalClassCols = [
+const columns = [
   { name: 'className', type: 'text' },
   { name: 'definition', type: 'text' },
 ]
@@ -61,11 +60,12 @@ const NationalClass: React.FC<Props> = (props) => {
               }}
               onPaste={(event) => {
                 dispatch(
-                  pasteNationalClassValues({
+                  OriginalDataPointActions.pasteNationalClass({
+                    odp,
                     event,
-                    rowIndex: index,
                     colIndex: 0,
-                    columns: nationalClassCols,
+                    rowIndex: index,
+                    columns,
                     allowGrow: true,
                   })
                 )
@@ -100,11 +100,12 @@ const NationalClass: React.FC<Props> = (props) => {
           }}
           onPaste={(event) => {
             dispatch(
-              pasteNationalClassValues({
+              OriginalDataPointActions.pasteNationalClass({
+                odp,
                 event,
-                rowIndex: index,
                 colIndex: 1,
-                columns: nationalClassCols,
+                rowIndex: index,
+                columns,
                 allowGrow: true,
               })
             )

@@ -1,14 +1,14 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
 
 import { ODP } from '@core/odp'
 import * as NumberUtils from '@common/bignumberUtils'
 import { useCountryIso, useI18n } from '@webapp/hooks'
-import { pasteNationalClassValues, updateNationalClassValue } from '@webapp/sectionSpec/fra/originalDataPoint/actions'
 
 import { PercentInput } from '@webapp/components/percentInput'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { ThousandSeparatedDecimalInput } from '@webapp/components/thousandSeparatedDecimalInput'
+import { OriginalDataPointActions } from '@webapp/store/page/originalDataPoint'
+import { useAppDispatch } from '@webapp/store'
 import { useNationalClassNameComments, useNationalClassValidation } from '../hooks'
 
 const columns = [
@@ -27,7 +27,7 @@ type Props = {
 const ExtentOfForestRow: React.FC<Props> = (props) => {
   const { canEditData, index, odp } = props
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const i18n = useI18n()
   const countryIso = useCountryIso()
 
@@ -47,14 +47,23 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={area}
           onChange={(event: any) => {
-            dispatch(updateNationalClassValue(index, 'area', area, event.target.value))
+            dispatch(
+              OriginalDataPointActions.updateNationalClass({
+                odp,
+                index,
+                field: 'area',
+                prevValue: area,
+                value: event.target.value,
+              })
+            )
           }}
           onPaste={(event: any) => {
             dispatch(
-              pasteNationalClassValues({
+              OriginalDataPointActions.pasteNationalClass({
+                odp,
                 event,
-                rowIndex: index,
                 colIndex: 0,
+                rowIndex: index,
                 columns,
               })
             )
@@ -67,14 +76,23 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={forestPercent}
           onChange={(event: any) => {
-            dispatch(updateNationalClassValue(index, 'forestPercent', forestPercent, event.target.value))
+            dispatch(
+              OriginalDataPointActions.updateNationalClass({
+                odp,
+                index,
+                field: 'forestPercent',
+                prevValue: forestPercent,
+                value: event.target.value,
+              })
+            )
           }}
           onPaste={(event: any) => {
             dispatch(
-              pasteNationalClassValues({
+              OriginalDataPointActions.pasteNationalClass({
+                odp,
                 event,
-                rowIndex: index,
                 colIndex: 1,
+                rowIndex: index,
                 columns,
               })
             )
@@ -88,15 +106,22 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
           numberValue={otherWoodedLandPercent}
           onChange={(event: any) => {
             dispatch(
-              updateNationalClassValue(index, 'otherWoodedLandPercent', otherWoodedLandPercent, event.target.value)
+              OriginalDataPointActions.updateNationalClass({
+                odp,
+                index,
+                field: 'otherWoodedLandPercent',
+                prevValue: otherWoodedLandPercent,
+                value: event.target.value,
+              })
             )
           }}
           onPaste={(event: any) => {
             dispatch(
-              pasteNationalClassValues({
+              OriginalDataPointActions.pasteNationalClass({
+                odp,
                 event,
-                rowIndex: index,
                 colIndex: 2,
+                rowIndex: index,
                 columns,
               })
             )

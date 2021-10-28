@@ -6,7 +6,7 @@ import * as NumberUtils from '@common/bignumberUtils'
 import { PercentInput } from '@webapp/components/percentInput'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { useCountryIso, useI18n } from '@webapp/hooks'
-import { pasteNationalClassValues, updateNationalClassValue } from '../../../sectionSpec/fra/originalDataPoint/actions'
+import { OriginalDataPointActions } from '@webapp/store/page/originalDataPoint'
 import { useNationalClassNameComments, useNationalClassValidation } from '../hooks'
 
 const columns = [{ name: 'plantationIntroducedPercent', type: 'decimal' }]
@@ -51,22 +51,24 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
         <PercentInput
           disabled={!canEditData}
           numberValue={plantationIntroducedPercent}
-          onChange={(event: any) => {
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             dispatch(
-              updateNationalClassValue(
+              OriginalDataPointActions.updateNationalClass({
+                odp,
                 index,
-                'plantationIntroducedPercent',
-                plantationIntroducedPercent,
-                event.target.value
-              )
+                field: 'plantationIntroducedPercent',
+                prevValue: plantationIntroducedPercent,
+                value: event.target.value,
+              })
             )
           }}
-          onPaste={(event: any) => {
+          onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
             dispatch(
-              pasteNationalClassValues({
+              OriginalDataPointActions.pasteNationalClass({
+                odp,
                 event,
-                rowIndex: index,
                 colIndex: 0,
+                rowIndex: index,
                 columns,
                 allowedClass,
               })

@@ -19,11 +19,7 @@ export {
   // read
   fetchOdps,
   // update
-  cancelDraft,
-  markAsActual,
   copyPreviousNationalClasses,
-  updateNationalClassValue,
-  pasteNationalClassValues,
   // delete
   remove,
   removeFromList,
