@@ -23,7 +23,6 @@ const YearSelection: React.FC<Props> = (props) => {
 
   const classNameYearSelection = odp.validationStatus && !odp.validationStatus.year.valid ? 'error' : ''
 
-  // TODO: fetch reserved years here, use useGetRequest
   const { data, dispatch: fetchReservedYears } = useGetRequest(ApiEndPoint.OriginalDataPoint.reservedYears(countryIso))
   useEffect(() => {
     fetchReservedYears()
