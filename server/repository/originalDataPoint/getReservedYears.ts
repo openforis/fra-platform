@@ -4,7 +4,7 @@ import { CountryIso } from '@core/country'
 export const getReservedYears = async (
   props: { countryIso: CountryIso },
   client: BaseProtocol = DB
-): Promise<Array<string>> => {
+): Promise<Array<number>> => {
   const { countryIso } = props
 
   const years = await client.many(
