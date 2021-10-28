@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 import { assert } from 'chai'
-import handlePaste from '../../webapp/sectionSpec/fra/originalDataPoint/paste'
+import handlePaste from '../../webapp/store/page/originalDataPoint/actions/handlePaste'
 
 /*
  * NOTE: This test uses otherLand-concepts which are no longer actually used in
@@ -99,6 +99,15 @@ describe('odp paste', () => {
       1, // Note: this is the index of the visible row in UI (first which matches otherLandPercent > 0)
       0
     )
+    console.log('---result ', result.updatedOdp)
+    console.log('---digout ',digOnlyCertainFieldsOutOfOdp(4, result.updatedOdp, [
+      'className',
+      'otherLandPercent',
+      'otherLandPalmsPercent',
+      'otherLandTreeOrchardsPercent',
+    ]))
+    console.log(result.updatedOdp)
+    console.log('----expected ',expected)
     assert.deepEqual(
       digOnlyCertainFieldsOutOfOdp(4, result.updatedOdp, [
         'className',
