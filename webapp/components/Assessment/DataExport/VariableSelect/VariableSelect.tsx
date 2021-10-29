@@ -23,15 +23,21 @@ const VariableSelect: React.FC = () => {
   const assessmentType = useAssessmentType()
   const assessmentSection = useParamSection()
   const selection = useDataExportSelection(assessmentSection)
+  const selectionVariable = selection.sections[assessmentSection].variable
 
   const tableSpec = SectionSpecs.getTableSpecExport(assessmentType, assessmentSection)
   const variables = tableSpec.rows.filter((row) => !!row.variableExport)
 
   const toggleVariable = (variableExport: string): void => {
-    const selected = variableExport === selection.variable
+    const selected = variableExport === selection.sections[assessmentSection].variable
     const selectionUpdate: DataExportSelection = {
       ...selection,
-      variable: selected ? '' : variableExport,
+      sections: {
+        [assessmentSection]: {
+          ...selection.sections[assessmentSection],
+          variable: selected ? '' : variableExport,
+        },
+      },
     }
     dispatch(DataExportActions.updateSelection({ assessmentSection, selection: selectionUpdate }))
   }
@@ -43,7 +49,7 @@ const VariableSelect: React.FC = () => {
       </div>
 
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
-        <select onChange={(event) => toggleVariable(event.target.value)} value={selection.variable}>
+        <select onChange={(event) => toggleVariable(event.target.value)} value={selectionVariable}>
           <option value="">-</option>
           {variables.map((variable) => {
             const { cols, variableExport } = variable
@@ -67,7 +73,7 @@ const VariableSelect: React.FC = () => {
               const { cols, variableExport } = variable
               const { labelKey, labelParams, labelPrefixKey } = cols[0]
               const label = getVariableLabelKey(labelKey)
-              const selected = variableExport === selection.variable
+              const selected = variableExport === selectionVariable
 
               return (
                 <ButtonCheckBox

@@ -8,7 +8,10 @@ import { DataExportCountriesAction, DataExportSelectionAction } from './actionTy
 
 const initialState: DataExportState = {
   countries: [],
-  selection: {},
+  selection: {
+    countryISOs: [],
+    sections: {},
+  },
 }
 
 export const dataExportSlice = createSlice({
@@ -20,7 +23,7 @@ export const dataExportSlice = createSlice({
     },
 
     updateSelection: (state: DataExportState, { payload }: { payload: DataExportSelectionAction }) => {
-      state.selection[payload.assessmentSection] = payload.selection
+      state.selection = payload.selection
     },
   },
   extraReducers: (builder) => {

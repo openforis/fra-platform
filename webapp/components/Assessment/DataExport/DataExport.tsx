@@ -17,8 +17,8 @@ const DataExport: React.FC = () => {
 
   const hasSelection =
     !Objects.isEmpty(selection.countryISOs) &&
-    !Objects.isEmpty(selection.columns) &&
-    !Objects.isEmpty(selection.variable)
+    !Objects.isEmpty(selection.sections[assessmentSection].columns) &&
+    !Objects.isEmpty(selection.sections[assessmentSection].variable)
 
   if (Objects.isEmpty(countries)) return null
 
