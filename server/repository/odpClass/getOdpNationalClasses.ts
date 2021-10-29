@@ -1,5 +1,5 @@
 export const getOdpNationalClasses = async (client: any, odpVersionId: any, schemaName = 'public') => {
-  const tableName = `${schemaName}.odp_class`
+  const tableName = `${schemaName}._legacy_odp_class`
   const res = await client.query(
     `
     SELECT

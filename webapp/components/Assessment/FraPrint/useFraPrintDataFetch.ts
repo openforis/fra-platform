@@ -1,14 +1,14 @@
 import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import { FRA } from '@core/assessment'
 import { Objects } from '@core/utils'
-import { batchActions } from '@webapp/store'
+import { batchActions, useAppSelector } from '@webapp/store'
 import { SectionSpecs, TableSummarySpec } from '@webapp/sectionSpec'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import { fetchTableData } from '@webapp/components/Assessment/DataTable/actions'
 import { fetchUsers } from '@webapp/app/user/userManagement/actions'
-import { fetchOdps } from '@webapp/sectionSpec/fra/originalDataPoint/actions'
+import { OriginalDataPointActions } from '@webapp/store/page/originalDataPoint'
 
 const useFraPrintDataFetch = (countryIso: string): { dataLoaded: boolean } => {
   const dispatch = useDispatch()
@@ -28,18 +28,18 @@ const useFraPrintDataFetch = (countryIso: string): { dataLoaded: boolean } => {
   useEffect(() => {
     const actions = tables.map((table) => fetchTableData(FRA.type, table.sectionName, table.tableName))
     actions.push(fetchUsers(countryIso, true))
-    actions.push(fetchOdps(countryIso))
     dispatch(batchActions(actions))
+    dispatch(OriginalDataPointActions.fetchODPs({ countryIso }))
   }, [])
 
-  const dataLoaded = useSelector(
+  const dataLoaded = useAppSelector(
     (state) =>
       tables.every((table) =>
         AssessmentState.isSectionDataLoaded(table.assessmentType, table.sectionName, table.tableName)(state)
       ) &&
       // TODO add state objects
       (state as any).userManagement.countryUsers &&
-      (state as any).originalDataPoint.odps
+      Boolean(state.page.originalDataPoint?.odps)
   )
   return {
     dataLoaded,

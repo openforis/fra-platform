@@ -1,11 +1,9 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 
 import { FRA } from '@core/assessment'
-import { ODP } from '@core/odp'
 import { Objects } from '@core/utils'
 import { useI18n } from '@webapp/hooks'
-import * as OriginalDataPointState from '@webapp/sectionSpec/fra/originalDataPoint/originalDataPointState'
+import { useODPs } from '@webapp/store/page/originalDataPoint'
 
 import DataSources from '@webapp/components/OriginalDataPoint/DataSources'
 import NationalClasses from '@webapp/components/OriginalDataPoint/NationalClasses'
@@ -20,10 +18,7 @@ const OriginalDataPointsPrint: React.FC<Props> = (props) => {
   const { section } = props
 
   const i18n = useI18n()
-  const data: Array<ODP> = useSelector((state) => {
-    const odps: Array<ODP> = OriginalDataPointState.getOdps(state)
-    return odps.filter((odp) => !Objects.isEmpty(odp.year)).sort((a, b) => Number(a.year) - Number(b.year))
-  })
+  const data = useODPs().filter((odp) => !Objects.isEmpty(odp.year))
 
   if (data.length === 0) return null
 
