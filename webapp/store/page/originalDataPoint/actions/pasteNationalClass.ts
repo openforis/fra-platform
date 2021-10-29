@@ -1,10 +1,10 @@
 import { ODP, ODPNationalClass } from '@core/odp'
 import { OriginalDataPointActions } from '@webapp/store/page/originalDataPoint'
 import React from 'react'
-import { readPasteClipboard } from '@webapp/utils/copyPasteUtil'
-import handlePaste from '@webapp/sectionSpec/fra/originalDataPoint/paste'
-
 import { createAsyncThunk } from '@reduxjs/toolkit'
+
+import { readPasteClipboard } from '@webapp/utils/copyPasteUtil'
+import handlePaste from '@webapp/store/page/originalDataPoint/actions/handlePaste'
 
 export const pasteNationalClass = createAsyncThunk<
   void,
