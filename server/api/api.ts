@@ -13,6 +13,7 @@ import { DataTableApi } from '@server/api/dataTable'
 import { UserChatApi } from '@server/api/userChat'
 import { FileRepositoryApi } from '@server/api/fileRepository'
 import { OriginalDataPointApi } from '@server/api/originalDataPoint'
+import { GeeApi } from '@server/api/gee'
 import { BiomassStockApi } from './biomassStock'
 import { StatisticalFactsheetsApi } from './statisticalFactsheets'
 import { AuthApi } from './auth'
@@ -53,5 +54,7 @@ export const Api = {
     GrowingStockApi.init(express)
 
     OriginalDataPointApi.init(express)
+
+    GeeApi.init(express)
   },
 }
