@@ -9,7 +9,7 @@ export const listOriginalDataPoints = async (
 ): Promise<ODP[]> => {
   const { countryIso, schemaName = 'public' } = options
 
-  const tableName = `${schemaName}.odp`
+  const tableName = `${schemaName}._legacy_odp`
   const res = await client.query(
     `
     SELECT p.id as odp_id

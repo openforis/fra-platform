@@ -2,7 +2,16 @@ import { createSlice, SliceCaseReducers } from '@reduxjs/toolkit'
 
 import { OriginalDataPointState } from '@webapp/store/page/originalDataPoint/state'
 
-import { fetchODP, deleteODP, updateODP, setODP, updateNationalClass, pasteNationalClass } from './actions'
+import {
+  fetchODP,
+  fetchODPs,
+  deleteODP,
+  updateODP,
+  setODP,
+  setODPs,
+  updateNationalClass,
+  pasteNationalClass,
+} from './actions'
 
 export const originalDataPointSlice = createSlice<OriginalDataPointState, SliceCaseReducers<OriginalDataPointState>>({
   name: 'originalDataPoint',
@@ -12,14 +21,19 @@ export const originalDataPointSlice = createSlice<OriginalDataPointState, SliceC
     builder.addCase(setODP, (state, { payload }) => {
       state.odp = payload
     })
+    builder.addCase(setODPs, (state, { payload }) => {
+      state.odps = payload
+    })
   },
 })
 
 export const OriginalDataPointActions = {
   ...originalDataPointSlice.actions,
   fetchODP,
+  fetchODPs,
   deleteODP,
   setODP,
+  setODPs,
   updateODP,
   updateNationalClass,
   pasteNationalClass,

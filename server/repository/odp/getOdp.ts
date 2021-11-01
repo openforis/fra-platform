@@ -13,8 +13,8 @@ export const getOdp = async (
 ): Promise<ODP> => {
   const { odpId, schemaName = 'public' } = options
   const versionId = await getOdpVersionId({ odpId, schemaName }, client)
-  const tableNameOdp = `${schemaName}.odp`
-  const tableNameOdpVersion = `${schemaName}.odp_version`
+  const tableNameOdp = `${schemaName}._legacy_odp`
+  const tableNameOdpVersion = `${schemaName}._legacy_odp_version`
   const nationalClasses = await OdpClassRepository.getOdpNationalClasses(client, versionId, schemaName)
   const resEditStatus = await client.query(
     `SELECT
