@@ -1,6 +1,8 @@
 export { fetchODP } from './fetchODP'
+export { fetchODPs } from './fetchODPs'
 export { deleteODP } from './deleteODP'
 export { setODP } from './setODP'
+export { setODPs } from './setODPs'
 export { updateODP } from './updateODP'
 export { updateNationalClass } from './updateNationalClass'
 export { pasteNationalClass } from './pasteNationalClass'

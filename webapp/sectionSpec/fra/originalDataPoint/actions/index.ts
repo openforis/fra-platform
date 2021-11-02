@@ -14,13 +14,6 @@ export {
 
 // action creators
 export {
-  // active
-  clearActive,
-  // read
-  fetchOdps,
   // update
   copyPreviousNationalClasses,
-  // delete
-  remove,
-  removeFromList,
 } from './actions'

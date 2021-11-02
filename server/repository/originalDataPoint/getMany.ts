@@ -24,6 +24,7 @@ export const getManyNormalized = async (
                'odp' as type
         from original_data_point_view o
         where o.country_iso = $1
+        order by o.year
     `,
     [countryIso]
   )
@@ -40,9 +41,13 @@ export const getMany = async (props: { countryIso: string }, client: BaseProtoco
                o.year,
                o.country_iso,
                o.data_source_methods,
+               o.data_source_additional_comments,
+               o.data_source_references,
+               o.description,
                o.national_classes
         from original_data_point o
         where o.country_iso = $1
+        order by o.year    
     `,
     [countryIso]
   )
