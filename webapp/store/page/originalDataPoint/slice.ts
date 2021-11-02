@@ -11,6 +11,7 @@ import {
   setODPs,
   updateNationalClass,
   pasteNationalClass,
+  copyPreviousNationalClasses,
 } from './actions'
 
 export const originalDataPointSlice = createSlice<OriginalDataPointState, SliceCaseReducers<OriginalDataPointState>>({
@@ -37,6 +38,7 @@ export const OriginalDataPointActions = {
   updateODP,
   updateNationalClass,
   pasteNationalClass,
+  copyPreviousNationalClasses,
 }
 
 export const OriginalDataPointReducer = originalDataPointSlice.reducer
