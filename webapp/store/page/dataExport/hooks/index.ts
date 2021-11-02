@@ -41,7 +41,7 @@ export const useDataExportCountries = (): Array<Country> => {
 
 export const useDataExportSelection = (assessmentSection: string): DataExportSelection => {
   const selection = useAppSelector((state) => state.page?.dataExport?.selection)
-  if (!selection.sections[[assessmentSection]])
-    return { ...selection, sections: { [assessmentSection]: { columns: [], variable: '' } } }
+  if (!selection.sections[assessmentSection])
+    return { ...selection, sections: { ...selection.sections, [assessmentSection]: { columns: [], variable: '' } } }
   return selection
 }
