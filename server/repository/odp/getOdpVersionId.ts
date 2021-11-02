@@ -5,7 +5,7 @@ export const getOdpVersionId = async (
   client: BaseProtocol = DB
 ): Promise<number> => {
   const { odpId, schemaName = 'public' } = options
-  const tableName = `${schemaName}.odp`
+  const tableName = `${schemaName}._legacy_odp`
   const [{ version_id: versionId }] = await client.query(
     `
     SELECT
