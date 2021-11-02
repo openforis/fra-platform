@@ -1,51 +1,50 @@
 import { assert } from 'chai'
-import * as originalDataPoint from '../../webapp/sectionSpec/fra/originalDataPoint/originalDataPoint'
+
+import { ODP, ODPs } from '@core/odp'
 
 describe('originalDataPoint', () => {
   it('calculates correct total forest amount', () => {
-    const odpWithNationalClasses = {
+    const odp: ODP = {
       nationalClasses: [
-        { area: 200, forestPercent: 50 },
-        { area: 1000, forestPercent: 10 },
-        { area: null, forestPercent: 5 },
-        { area: 400, forestPercent: null },
+        { area: '200', forestPercent: '50' },
+        { area: '1000', forestPercent: '10' },
+        { area: null, forestPercent: '5' },
+        { area: '400', forestPercent: null },
       ],
     }
-    assert.equal(200.0, originalDataPoint.classTotalArea(odpWithNationalClasses, 'forestPercent'))
+    assert.equal(200.0, ODPs.calcTotalFieldArea({ odp, field: 'forestPercent' }))
   })
 
   // Temporarily disabled, ODP code should no longer round to integer
   xit('rounds decimals to nearest integer', () => {
-    const odpWithNationalClasses = {
+    const odp: ODP = {
       nationalClasses: [
-        { area: 200, forestPercent: 50 },
-        { area: 1002, forestPercent: 10 },
-        { area: null, forestPercent: 5 },
-        { area: 400, forestPercent: null },
+        { area: '200', forestPercent: '50' },
+        { area: '1002', forestPercent: '10' },
+        { area: null, forestPercent: '5' },
+        { area: '400', forestPercent: null },
       ],
     }
-    assert.equal(200, originalDataPoint.classTotalArea(odpWithNationalClasses, 'forestPercent'))
+    assert.equal(200, ODPs.calcTotalFieldArea({ odp, field: 'forestPercent' }))
 
-    const odpWithNationalClasses2 = {
+    const odp2: ODP = {
       nationalClasses: [
-        { area: 200, forestPercent: 50 },
-        { area: 1008, forestPercent: 10 },
-        { area: null, forestPercent: 5 },
-        { area: 400, forestPercent: null },
+        { area: '200', forestPercent: '50' },
+        { area: '1008', forestPercent: '10' },
+        { area: null, forestPercent: '5' },
+        { area: '400', forestPercent: null },
       ],
     }
-    assert.equal(201, originalDataPoint.classTotalArea(odpWithNationalClasses2, 'forestPercent'))
-
-    assert.equal(-1, String(originalDataPoint.classTotalArea(odpWithNationalClasses2, 'forestPercent')).indexOf('.'))
+    assert.equal(201, ODPs.calcTotalFieldArea({ odp: odp2, field: 'forestPercent' }))
   })
 
   it('allows copying values only for empty odp', () => {
-    assert.equal(true, originalDataPoint.allowCopyingOfPreviousValues({ naionalClasses: [{ className: '' }] }))
+    const odp: ODP = { nationalClasses: [{ name: '' }] }
+    assert.equal(true, ODPs.canCopyPreviousValues(odp))
   })
+
   it('disallows copying of values if odp has named national classes', () => {
-    assert.equal(
-      true,
-      originalDataPoint.allowCopyingOfPreviousValues({ naionalClasses: [{ className: 'national class 1' }] })
-    )
+    const odp: ODP = { nationalClasses: [{ name: 'national class 1' }] }
+    assert.equal(false, ODPs.canCopyPreviousValues(odp))
   })
 })
