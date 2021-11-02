@@ -8,7 +8,6 @@ import NotFound from '@webapp/app/notfound'
 import { useUserInfo } from '@webapp/store/user'
 import UsersManagementView from './components/UserManagementView'
 import DataExportView from './components/DataExportView'
-import VersioningView from './components/versioning/versioningView'
 import Menu from './components/Menu'
 
 const Admin = (props: any) => {
@@ -35,9 +34,6 @@ const Admin = (props: any) => {
         </Route>
         <Route path={`${path}dataExport/`}>
           <DataExportView />
-        </Route>
-        <Route path={`${path}versioning/`}>
-          <VersioningView />
         </Route>
       </Switch>
     </div>
