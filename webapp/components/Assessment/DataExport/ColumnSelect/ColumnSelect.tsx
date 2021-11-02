@@ -26,6 +26,7 @@ const ColumnSelect: React.FC = () => {
     const selectionUpdate: DataExportSelection = {
       ...selection,
       sections: {
+        ...selection.sections,
         [assessmentSection]: {
           ...selection.sections[assessmentSection],
           columns: columnsUpdate,

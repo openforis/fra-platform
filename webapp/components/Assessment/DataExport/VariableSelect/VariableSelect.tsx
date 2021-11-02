@@ -33,6 +33,7 @@ const VariableSelect: React.FC = () => {
     const selectionUpdate: DataExportSelection = {
       ...selection,
       sections: {
+        ...selection.sections,
         [assessmentSection]: {
           ...selection.sections[assessmentSection],
           variable: selected ? '' : variableExport,
