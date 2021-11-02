@@ -94,16 +94,6 @@ export const ApiEndPoint = {
     reservedYears: (countryIso = ':countryIso') => apiPath('originalDataPoints', countryIso, 'years'),
     previous: (id = ':id') => apiPath('originalDataPoints', id, 'previous'),
   },
-  // Old routes, deprecated
-  Odp: {
-    createDraft: () => apiPath('odp', 'draft'),
-    delete: () => apiPath('odp'),
-    deleteDraft: () => apiPath('odp', 'draft'),
-    get: (countryIso = ':countryIso') => apiPath('odps', countryIso),
-    getMany: () => apiPath('odp'),
-    getPrevious: (countryIso = ':countryIso', year = ':year') => apiPath('prevOdp', countryIso, year),
-    markAsActual: () => apiPath('odp', 'markAsActual'),
-  },
   Review: {
     create: (issueId = ':issueId') => apiPath('review', issueId),
     createIssueWithComments: (countryIso = ':countryIso', section = ':section') =>
