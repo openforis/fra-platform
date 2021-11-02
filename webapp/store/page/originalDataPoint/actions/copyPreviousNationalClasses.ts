@@ -16,7 +16,7 @@ export const copyPreviousNationalClasses = createAsyncThunk<void, { id: string }
 
     const { odp } = getState().page.originalDataPoint
 
-    if (odp.nationalClasses) {
+    if (prevOdp.nationalClasses) {
       dispatch(
         OriginalDataPointActions.updateODP({
           odp: {
