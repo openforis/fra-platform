@@ -2,12 +2,11 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 
 import { ODP, ODPs } from '@core/odp'
-import { useCountryIso, useI18n } from '@webapp/hooks'
+import { useI18n } from '@webapp/hooks'
 import { useIsAutoSaveSaving } from '@webapp/store/autosave'
 import { usePrintView } from '@webapp/store/app'
 
-import { copyPreviousNationalClasses } from '@webapp/sectionSpec/fra/originalDataPoint/actions'
-
+import { OriginalDataPointActions } from '@webapp/store/page/originalDataPoint'
 import NationalClass from './NationalClass'
 
 type Props = {
@@ -17,14 +16,13 @@ type Props = {
 
 const NationalClasses: React.FC<Props> = (props) => {
   const { canEditData, odp } = props
-  const { nationalClasses, odpId, year } = odp
+  const { nationalClasses, id, year } = odp
 
   const dispatch = useDispatch()
   const i18n = useI18n()
-  const countryIso = useCountryIso()
   const [printView] = usePrintView()
   const saving = useIsAutoSaveSaving()
-  const copyDisabled = !odpId || !year || !ODPs.canCopyPreviousValues(odp) || saving
+  const copyDisabled = !id || !year || !ODPs.canCopyPreviousValues(odp) || saving
 
   return (
     <div className="odp__section">
@@ -36,7 +34,7 @@ const NationalClasses: React.FC<Props> = (props) => {
               type="button"
               className="btn-s btn-primary btn-copy-prev-values"
               disabled={copyDisabled}
-              onClick={() => dispatch(copyPreviousNationalClasses(countryIso, odp))}
+              onClick={() => dispatch(OriginalDataPointActions.copyPreviousNationalClasses({ id: odp.id }))}
             >
               {i18n.t('nationalDataPoint.copyPreviousValues')}
             </button>
