@@ -40,7 +40,6 @@ const FRAGMENTS = {
   resetPassword: 'resetPassword',
   user: 'user',
   users: 'users',
-  versioning: 'versioning',
 }
 export const PARAMS = {
   countryIso: ':countryIso',
@@ -70,8 +69,6 @@ export const root = '/'
 
 // ==== Admin
 export const admin = _generate(FRAGMENTS.admin)
-
-export const getAdminVersioningLink = () => _generate(FRAGMENTS.admin, FRAGMENTS.versioning)
 
 // ==== User
 export const user = _generate(FRAGMENTS.users, PARAMS.userId)

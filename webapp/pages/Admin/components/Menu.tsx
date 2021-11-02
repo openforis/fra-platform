@@ -11,10 +11,6 @@ const sections = [
     name: 'dataExport',
     labelKey: 'common.dataExport',
   },
-  {
-    name: 'versioning',
-    labelKey: 'landing.sections.versioning',
-  },
 ]
 const Menu = () => {
   const i18n = useI18n()
