@@ -5,8 +5,10 @@ import { useHistory, useParams } from 'react-router'
 import { ODP } from '@core/odp'
 import { useCountryIso, useI18n } from '@webapp/hooks'
 
-import { cancelDraft, markAsActual, remove } from '@webapp/sectionSpec/fra/originalDataPoint/actions'
 import { useIsAutoSaveSaving } from '@webapp/store/autosave'
+import { OriginalDataPointActions } from '@webapp/store/page/originalDataPoint'
+import * as BasePaths from '@webapp/main/basePaths'
+import { FRA } from '@core/assessment'
 
 type Props = {
   canEditData: boolean
@@ -21,31 +23,28 @@ const ButtonBar: React.FC<Props> = (props) => {
   const { tab } = useParams<{ tab: string }>()
   const i18n = useI18n()
   const countryIso = useCountryIso()
-  const disabled = useIsAutoSaveSaving() || !odp.odpId
+  const disabled = useIsAutoSaveSaving() || !odp.id
+  const assessmentSectionLink = BasePaths.getAssessmentSectionLink(countryIso, FRA.type, tab)
 
   if (!canEditData) {
     return null
   }
 
+  const handleDelete = () => {
+    if (window.confirm(i18n.t('nationalDataPoint.confirmDelete'))) {
+      dispatch(OriginalDataPointActions.deleteODP({ id: odp.id }))
+      history.push(assessmentSectionLink)
+    }
+  }
+
   return (
     <>
-      {odp.editStatus && odp.editStatus !== 'newDraft' && (
-        <button
-          type="button"
-          className="btn btn-secondary margin-right"
-          disabled={disabled}
-          onClick={() => dispatch(cancelDraft(countryIso, odp.odpId, tab, history))}
-        >
-          {i18n.t('nationalDataPoint.discardChanges')}
-        </button>
-      )}
-
       <button
         type="button"
         className="btn btn-primary"
         disabled={disabled}
         onClick={() => {
-          dispatch(markAsActual(countryIso, odp, history, tab))
+          history.push(assessmentSectionLink)
         }}
       >
         {i18n.t('nationalDataPoint.doneEditing')}
@@ -53,16 +52,7 @@ const ButtonBar: React.FC<Props> = (props) => {
 
       <div className="odp-v-divider" />
 
-      <button
-        type="button"
-        className="btn btn-destructive"
-        disabled={disabled}
-        onClick={() => {
-          if (window.confirm(i18n.t('nationalDataPoint.confirmDelete'))) {
-            dispatch(remove(countryIso, odp, tab, history))
-          }
-        }}
-      >
+      <button type="button" className="btn btn-destructive" disabled={disabled} onClick={handleDelete}>
         {i18n.t('nationalDataPoint.delete')}
       </button>
     </>

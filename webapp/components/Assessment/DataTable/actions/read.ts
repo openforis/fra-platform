@@ -2,7 +2,6 @@ import axios from 'axios'
 import * as R from 'ramda'
 import { FRA } from '@core/assessment'
 
-import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import * as AppState from '@webapp/store/app/state'
 
 import { ApiEndPoint } from '@common/api/endpoint'
@@ -22,17 +21,14 @@ const urlFetchData = {
 export const fetchTableData =
   (assessmentType: any, sectionName: any, tableName: any) => async (dispatch: any, getState: any) => {
     const state = getState()
-    const dataLoaded = AssessmentState.isSectionDataLoaded(assessmentType, sectionName, tableName)(state)
-    if (!dataLoaded) {
-      const countryIso = AppState.getCountryIso(state) as string
+    const countryIso = AppState.getCountryIso(state) as string
 
-      if (!R.isEmpty(tableName)) {
-        let url = urlFetchData[tableName]
-        url = url ? `${url}${countryIso}` : ApiEndPoint.DataTable.get(assessmentType, countryIso, tableName)
+    if (!R.isEmpty(tableName)) {
+      let url = urlFetchData[tableName]
+      url = url ? `${url}${countryIso}` : ApiEndPoint.DataTable.get(assessmentType, countryIso, tableName)
 
-        const { data } = await axios.get(url)
+      const { data } = await axios.get(url)
 
-        dispatch(updateTableData({ assessmentType, sectionName, tableName, data }))
-      }
+      dispatch(updateTableData({ assessmentType, sectionName, tableName, data }))
     }
   }

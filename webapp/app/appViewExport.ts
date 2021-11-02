@@ -1,7 +1,6 @@
 import component from '@webapp/pages/Assessment'
 
 import assessment from '@webapp/app/assessment/reducer'
-import originalDataPoint from '@webapp/sectionSpec/fra/originalDataPoint/reducers'
 import review from '@webapp/app/assessment/components/review/reducer'
 import userManagement from '@webapp/app/user/userManagement/reducer'
 import landing from '@webapp/app/countryLanding/reducer'
@@ -9,7 +8,6 @@ import userChat from '@webapp/app/user/chat/reducer'
 import countryMessageBoard from '@webapp/app/countryLanding/views/messageBoard/reducer'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
-import * as OriginalDataPointState from '@webapp/sectionSpec/fra/originalDataPoint/originalDataPointState'
 import * as ReviewState from '@webapp/app/assessment/components/review/reviewState'
 import * as UserManagementState from '@webapp/app/user/userManagement/userManagementState'
 
@@ -23,7 +21,6 @@ import { AutosaveReducer } from '@webapp/store/autosave'
 const reducers = [
   { name: AssessmentState.stateKey, fn: assessment },
 
-  { name: OriginalDataPointState.stateKey, fn: originalDataPoint },
   { name: 'autosave', fn: AutosaveReducer },
 
   { name: 'navigation', fn: NavigationReducer },

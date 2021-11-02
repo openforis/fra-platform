@@ -17,12 +17,22 @@ const ColumnSelect: React.FC = () => {
   const assessmentType = useAssessmentType()
   const assessmentSection = useParamSection()
   const selection = useDataExportSelection(assessmentSection)
+  const selectionColumns = selection.sections[assessmentSection].columns
 
   const tableSpec = SectionSpecs.getTableSpecExport(assessmentType, assessmentSection)
   const columns = tableSpec.columnsExport ?? []
 
   const updateSelection = (columnsUpdate: Array<string>): void => {
-    const selectionUpdate: DataExportSelection = { ...selection, columns: columnsUpdate }
+    const selectionUpdate: DataExportSelection = {
+      ...selection,
+      sections: {
+        ...selection.sections,
+        [assessmentSection]: {
+          ...selection.sections[assessmentSection],
+          columns: columnsUpdate,
+        },
+      },
+    }
     dispatch(DataExportActions.updateSelection({ assessmentSection, selection: selectionUpdate }))
   }
 
@@ -32,16 +42,18 @@ const ColumnSelect: React.FC = () => {
         <h4>{i18n.t('common.column')}</h4>
         <ButtonCheckBox
           className="btn-all"
-          checked={selection.columns.length > 0 && selection.columns.length === columns.length}
-          label={selection.columns.length > 0 ? 'common.unselectAll' : 'common.selectAll'}
-          onClick={() => updateSelection(selection.columns.length > 0 ? [] : columns.map(String))}
+          checked={selectionColumns.length > 0 && selectionColumns.length === columns.length}
+          label={selectionColumns.length > 0 ? 'common.unselectAll' : 'common.selectAll'}
+          onClick={() =>
+            updateSelection(selection.sections[assessmentSection].columns.length > 0 ? [] : columns.map(String))
+          }
         />
       </div>
 
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
         <select
           multiple
-          value={selection.columns}
+          value={selectionColumns}
           onChange={(event) => {
             const columnsUpdate = Array.from(event.target.selectedOptions, (option) => String(option.value))
             updateSelection(columnsUpdate)
@@ -62,7 +74,7 @@ const ColumnSelect: React.FC = () => {
           <div className="divider" />
           <div className="export__form-section-variables">
             {columns.map((column) => {
-              const selected = selection.columns.includes(String(column))
+              const selected = selectionColumns.includes(String(column))
               const label = getColumnLabelKeys(String(column), assessmentSection, assessmentType)
 
               return (
@@ -71,7 +83,7 @@ const ColumnSelect: React.FC = () => {
                   checked={selected}
                   label={label}
                   onClick={() => {
-                    const columnsUpdate = [...selection.columns]
+                    const columnsUpdate = [...selectionColumns]
                     if (selected) columnsUpdate.splice(columnsUpdate.indexOf(String(column)), 1)
                     else columnsUpdate.push(String(column))
 

@@ -1,7 +1,9 @@
-import { getDynamicCountryConfiguration } from '@server/repository/country/getDynamicCountryConfiguration'
-import { OdpService } from '@server/service'
-import * as fraRepository from '../repository/eof/fraRepository'
+import { ODP } from '@core/odp'
 
+import { getDynamicCountryConfiguration } from '@server/repository/country/getDynamicCountryConfiguration'
+import { OriginalDataPointRepository } from '@server/repository/originalDataPoint'
+
+import * as fraRepository from '../repository/eof/fraRepository'
 import forestAreaTableResponse from './forestAreaTableResponse'
 import focTableResponse from './focTableResponse'
 
@@ -9,10 +11,7 @@ export const fraReaders: { [key: string]: any } = {
   extentOfForest: fraRepository.readFraForestAreas,
   forestCharacteristics: fraRepository.readFraForestCharacteristics,
 }
-export const odpReaders: { [key: string]: any } = {
-  extentOfForest: OdpService.readEofOdps,
-  forestCharacteristics: OdpService.readFocOdps,
-}
+
 export const defaultResponses: { [key: string]: any } = {
   extentOfForest: forestAreaTableResponse,
   forestCharacteristics: focTableResponse,
@@ -22,13 +21,11 @@ export const odpsInUse: { [key: string]: any } = {
   forestCharacteristics: (config: any) => config.useOriginalDataPointsInFoc === true,
 }
 
-export const getOdps = async (section: any, countryIso: any, schemaName = 'public') => {
+export const getOdps = async (section: string, countryIso: string, schemaName = 'public'): Promise<Array<ODP>> => {
   const dynamicConfig = await getDynamicCountryConfiguration(countryIso, schemaName)
   const useOdps = odpsInUse[section](dynamicConfig)
-  const readOdp = odpReaders[section]
   if (useOdps) {
-    const odps = await readOdp(countryIso, schemaName)
-    return odps
+    return OriginalDataPointRepository.getManyNormalized({ countryIso })
   }
   return []
 }
@@ -46,7 +43,7 @@ export const getFraValuesResult = async (fra: any, odp: any, defaultResponse: an
   return res
 }
 
-export const getFraValues = async (section: any, countryIso: any, schemaName = 'public') => {
+export const getFraValues = async (section: string, countryIso: string, schemaName = 'public') => {
   const readFra = fraReaders[section]
 
   const defaultResponse = defaultResponses[section]

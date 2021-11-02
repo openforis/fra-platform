@@ -28,9 +28,12 @@ export const useFetchResults = (props: Props): UseFetchResults => {
     loading: resultsLoading,
   } = useGetRequest(`/api/export/${assessmentType}/${sectionFormatted}`, {
     params: {
-      columns: [...columnsAlwaysExport, ...selection.columns.map((column) => formatColumn(column, assessmentSection))],
+      columns: [
+        ...columnsAlwaysExport,
+        ...selection.sections[assessmentSection].columns.map((column) => formatColumn(column, assessmentSection)),
+      ],
       countries: selection.countryISOs,
-      variables: [selection.variable],
+      variables: [selection.sections[assessmentSection].variable],
     },
   })
 

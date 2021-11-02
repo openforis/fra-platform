@@ -1,6 +1,8 @@
 import * as R from 'ramda'
 import * as assert from 'assert'
-import * as NumberUtils from '../../common/bignumberUtils'
+
+import { ODP } from '@core/odp'
+import * as NumberUtils from '@common/bignumberUtils'
 
 export const linearInterpolation = (x: any, xa: any, ya: any, xb: any, yb: any) =>
   NumberUtils.add(
@@ -151,30 +153,30 @@ export const estimateFraValue = (year: any, values: any, odpValues: any, generat
 }
 
 // Pure function, no side-effects
-export const estimateFraValues = (years: any, odpValues: any, generateSpec: any) => {
-  const estimateFraValuesReducer = (values: any, year: any) => {
-    const newValue = estimateFraValue(year, values, odpValues, generateSpec)
-    return [...values, newValue]
-  }
-
-  const estimatedValues = R.pipe(
-    R.partial(R.reduce, [estimateFraValuesReducer, odpValues]),
-    R.filter((v: any) => v.store),
-    R.map((v: any) => R.dissoc('store', v))
-  )(years)
+export const estimateFraValues = (years: Array<number>, odpValues: Array<ODP>, generateSpec: any) => {
+  const estimatedValues = years
+    .reduce<Array<any>>((values, year) => {
+      const newValue = estimateFraValue(year, values, odpValues, generateSpec)
+      return [...values, newValue]
+    }, odpValues)
+    .filter((v: any) => v.store)
+    .map((v: any) => {
+      // eslint-disable-next-line no-param-reassign
+      delete v.store
+      return v
+    })
 
   return estimatedValues
 }
 
 export const estimateAndWrite = async (
-  odpReader: any,
+  odps: Array<ODP>,
   fraWriter: any,
   countryIso: any,
-  years: any,
+  years: Array<number>,
   generateSpec: any
 ) => {
-  const values = await odpReader(countryIso)
-  const estimated = estimateFraValues(years, R.values(values), generateSpec)
+  const estimated = estimateFraValues(years, odps, generateSpec)
   return Promise.all(
     R.map((estimatedValues: any) => fraWriter(countryIso, estimatedValues.year, estimatedValues, true), estimated)
   )

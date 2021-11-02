@@ -1,5 +1,5 @@
-const joinPaths = (...parts: Array<string>):string => `/${parts.join('/')}`
-const apiPath = (...parts: Array<string>):string => joinPaths('api', ...parts)
+const joinPaths = (...parts: Array<string>): string => `/${parts.join('/')}`
+const apiPath = (...parts: Array<string>): string => joinPaths('api', ...parts)
 
 export const ApiEndPoint = {
   Assessment: {
@@ -88,14 +88,11 @@ export const ApiEndPoint = {
       sdgFocalPoints: () => apiPath('landing', 'sdgFocalPoints'),
     },
   },
-  Odp: {
-    createDraft: () => apiPath('odp', 'draft'),
-    delete: () => apiPath('odp'),
-    deleteDraft: () => apiPath('odp', 'draft'),
-    get: (countryIso = ':countryIso') => apiPath('odps', countryIso),
-    getMany: () => apiPath('odp'),
-    getPrevious: (countryIso = ':countryIso', year = ':year') => apiPath('prevOdp', countryIso, year),
-    markAsActual: () => apiPath('odp', 'markAsActual'),
+  OriginalDataPoint: {
+    many: () => apiPath('originalDataPoints'),
+    one: (id = ':id') => apiPath('originalDataPoints', id),
+    reservedYears: (countryIso = ':countryIso') => apiPath('originalDataPoints', countryIso, 'years'),
+    previous: (id = ':id') => apiPath('originalDataPoints', id, 'previous'),
   },
   Review: {
     create: (issueId = ':issueId') => apiPath('review', issueId),

@@ -3,14 +3,12 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 
-import { ODP } from '@core/odp'
 import { batchActions } from '@webapp/store'
 import { useCountryIso, useI18n } from '@webapp/hooks'
 import * as CountryState from '@webapp/app/country/countryState'
 import * as FraState from '@webapp/app/assessment/fra/fraState'
-import * as OriginalDataPointState from '@webapp/sectionSpec/fra/originalDataPoint/originalDataPointState'
-import { fetch, clearActive } from '@webapp/sectionSpec/fra/originalDataPoint/actions'
 import { fetchExtentOfForest } from '@webapp/sectionSpec/fra/extentOfForest/actions'
+import { OriginalDataPointActions, useODP } from '@webapp/store/page/originalDataPoint'
 
 import ButtonBar from '@webapp/components/OriginalDataPoint/ButtonBar'
 import YearSelection from '@webapp/components/OriginalDataPoint/YearSelection'
@@ -25,14 +23,14 @@ const OriginalDataPoint: React.FC = () => {
   const { odpId } = useParams<{ odpId: string }>()
   const countryIso = useCountryIso()
   const i18n = useI18n()
-  const odp = useSelector(OriginalDataPointState.getActive) as ODP
+  const odp = useODP()
   const canEditData = useSelector((state) => CountryState.getCanEditData(state) && !FraState.isLocked(state))
 
   useEffect(() => {
-    dispatch(batchActions([fetch(odpId, countryIso), fetchExtentOfForest()]))
+    dispatch(batchActions([OriginalDataPointActions.fetchODP({ id: odpId }), fetchExtentOfForest()]))
 
     return () => {
-      dispatch(batchActions([CountryActions.fetchCountryStatus(countryIso), clearActive()]))
+      dispatch(batchActions([CountryActions.fetchCountryStatus(countryIso), OriginalDataPointActions.setODP(null)]))
     }
   }, [])
 

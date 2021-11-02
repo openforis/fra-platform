@@ -6,7 +6,7 @@ import * as NumberUtils from '@common/bignumberUtils'
 import { PercentInput } from '@webapp/components/percentInput'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { useCountryIso, useI18n } from '@webapp/hooks'
-import { pasteNationalClassValues, updateNationalClassValue } from '../../../sectionSpec/fra/originalDataPoint/actions'
+import { OriginalDataPointActions } from '@webapp/store/page/originalDataPoint'
 import { useNationalClassNameComments, useNationalClassValidation } from '../hooks'
 
 const columns = [{ name: 'plantationIntroducedPercent', type: 'decimal' }]
@@ -28,7 +28,7 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
 
   const { nationalClasses, odpId } = odp
   const nationalClass = nationalClasses[index]
-  const { className, area, forestPercent, plantationPercent, plantationIntroducedPercent, uuid } = nationalClass
+  const { name, area, forestPercent, plantationPercent, plantationIntroducedPercent, uuid } = nationalClass
   const target = [odpId, 'class', `${uuid}`, 'plantation_forest_introduced']
   const classNameRowComments = useNationalClassNameComments(target)
   const validationStatus = useNationalClassValidation(index)
@@ -43,7 +43,7 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
 
   return (
     <tr className={classNameRowComments}>
-      <th className="fra-table__category-cell">{className}</th>
+      <th className="fra-table__category-cell">{name}</th>
       <th className="fra-table__calculated-sub-cell fra-table__divider">
         {NumberUtils.formatNumber(plantationIntroduced)}
       </th>
@@ -51,22 +51,24 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
         <PercentInput
           disabled={!canEditData}
           numberValue={plantationIntroducedPercent}
-          onChange={(event: any) => {
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             dispatch(
-              updateNationalClassValue(
+              OriginalDataPointActions.updateNationalClass({
+                odp,
                 index,
-                'plantationIntroducedPercent',
-                plantationIntroducedPercent,
-                event.target.value
-              )
+                field: 'plantationIntroducedPercent',
+                prevValue: plantationIntroducedPercent,
+                value: event.target.value,
+              })
             )
           }}
-          onPaste={(event: any) => {
+          onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
             dispatch(
-              pasteNationalClassValues({
+              OriginalDataPointActions.pasteNationalClass({
+                odp,
                 event,
-                rowIndex: index,
                 colIndex: 0,
+                rowIndex: index,
                 columns,
                 allowedClass,
               })

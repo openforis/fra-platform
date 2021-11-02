@@ -1,10 +1,10 @@
 import * as R from 'ramda'
 
-import { OdpService } from '@server/service'
 import { Country, CountryIso, RegionCode } from '@core/country'
 import { ODP } from '@core/odp'
 import { Objects } from '@core/utils'
 import { CountryAssessment } from '@core/country/country'
+import { OriginalDataPointService } from '@server/service/originalDataPoint'
 import CsvOutput from '../csvOutput'
 
 export const fields = [
@@ -29,7 +29,7 @@ export const normalizeValue = R.pipe(
 type getCountryDataType = Record<string, string | CountryIso | Array<RegionCode> | CountryAssessment | undefined>[]
 
 export const getCountryData = async (country: Country): Promise<getCountryDataType> => {
-  const dataPoints = await OdpService.listOriginalDataPoints({ countryIso: country.countryIso })
+  const dataPoints = await OriginalDataPointService.getMany({ countryIso: country.countryIso })
 
   const result: getCountryDataType = []
 

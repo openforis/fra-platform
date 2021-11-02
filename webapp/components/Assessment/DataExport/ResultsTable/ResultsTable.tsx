@@ -23,7 +23,9 @@ const ResultsTable: React.FC = () => {
   const tableSpec = SectionSpecs.getTableSpecExport(assessmentType, assessmentSection)
   const baseUnit = tableSpec.unit
   const columns = tableSpec.columnsExport ?? []
-  const filteredColumns = columns.filter((column) => selection.columns.includes(String(column)))
+  const filteredColumns = columns.filter((column) =>
+    selection.sections[assessmentSection].columns.includes(String(column))
+  )
   const columnsAlwaysExport = tableSpec.columnsExportAlways ?? []
   const columnsResults = [...columnsAlwaysExport, ...filteredColumns]
 
@@ -92,7 +94,7 @@ const ResultsTable: React.FC = () => {
                       countryIso,
                       results,
                       assessmentSection,
-                      selection.variable
+                      selection.sections[assessmentSection].variable
                     )
                     return (
                       <td key={`${countryIso}${columnKey || column}`} className="fra-table__cell">

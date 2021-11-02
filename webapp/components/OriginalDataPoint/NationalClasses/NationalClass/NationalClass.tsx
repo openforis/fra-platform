@@ -3,16 +3,16 @@ import { useDispatch } from 'react-redux'
 
 import { ODP, ODPs } from '@core/odp'
 import { Objects } from '@core/utils'
-import { saveDraft, pasteNationalClassValues } from '@webapp/sectionSpec/fra/originalDataPoint/actions'
 import { useCountryIso, useI18n } from '@webapp/hooks'
 import { usePrintView } from '@webapp/store/app'
 
 import Icon from '@webapp/components/icon'
 import VerticallyGrowingTextField from '@webapp/components/verticallyGrowingTextField'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
+import { OriginalDataPointActions } from '@webapp/store/page/originalDataPoint'
 import { useNationalClassNameComments, useNationalClassValidation } from '../../hooks'
 
-const nationalClassCols = [
+const columns = [
   { name: 'className', type: 'text' },
   { name: 'definition', type: 'text' },
 ]
@@ -32,7 +32,7 @@ const NationalClass: React.FC<Props> = (props) => {
   const [printView] = usePrintView()
 
   const nationalClass = odp.nationalClasses[index]
-  const { className, definition, uuid, placeHolder } = nationalClass
+  const { name, definition, uuid, placeHolder } = nationalClass
   const target = [odp.odpId, 'class', `${uuid}`, 'definition']
   const classNameRowComments = useNationalClassNameComments(target)
   const validation = useNationalClassValidation(index)
@@ -43,7 +43,7 @@ const NationalClass: React.FC<Props> = (props) => {
         <div className="odp__nc-table__input-container">
           {printView ? (
             <div className="text-input__readonly-view only-print" style={{ paddingTop: 0, paddingBottom: 0 }}>
-              {className || ''}
+              {name || ''}
             </div>
           ) : (
             <input
@@ -52,19 +52,20 @@ const NationalClass: React.FC<Props> = (props) => {
               placeholder={
                 placeHolder && index === 0 ? i18n.t('nationalDataPoint.enterOrCopyPasteNationalClasses') : ''
               }
-              value={className || ''}
+              value={name || ''}
               onChange={(event) => {
                 const { value } = event.target
-                const odpUpdate = ODPs.updateNationalClass({ odp, index, field: 'className', value })
-                dispatch(saveDraft(countryIso, odpUpdate))
+                const odpUpdate = ODPs.updateNationalClass({ odp, index, field: 'name', value })
+                dispatch(OriginalDataPointActions.updateODP({ odp: odpUpdate }))
               }}
               onPaste={(event) => {
                 dispatch(
-                  pasteNationalClassValues({
+                  OriginalDataPointActions.pasteNationalClass({
+                    odp,
                     event,
-                    rowIndex: index,
                     colIndex: 0,
-                    columns: nationalClassCols,
+                    rowIndex: index,
+                    columns,
                     allowGrow: true,
                   })
                 )
@@ -80,7 +81,7 @@ const NationalClass: React.FC<Props> = (props) => {
               className="odp__nc-table__remove"
               onClick={() => {
                 const odpUpdate = ODPs.deleteNationalClass({ odp, index })
-                dispatch(saveDraft(countryIso, odpUpdate))
+                dispatch(OriginalDataPointActions.updateODP({ odp: odpUpdate }))
               }}
             >
               <Icon name="remove" />
@@ -95,15 +96,16 @@ const NationalClass: React.FC<Props> = (props) => {
           onChange={(event) => {
             const { value } = event.target
             const odpUpdate = ODPs.updateNationalClass({ odp, index, field: 'definition', value })
-            dispatch(saveDraft(countryIso, odpUpdate))
+            dispatch(OriginalDataPointActions.updateODP({ odp: odpUpdate }))
           }}
           onPaste={(event) => {
             dispatch(
-              pasteNationalClassValues({
+              OriginalDataPointActions.pasteNationalClass({
+                odp,
                 event,
-                rowIndex: index,
                 colIndex: 1,
-                columns: nationalClassCols,
+                rowIndex: index,
+                columns,
                 allowGrow: true,
               })
             )

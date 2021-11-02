@@ -6,7 +6,7 @@ import * as NumberUtils from '@common/bignumberUtils'
 import { PercentInput } from '@webapp/components/percentInput'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { useCountryIso, useI18n } from '@webapp/hooks'
-import { pasteNationalClassValues, updateNationalClassValue } from '../../../sectionSpec/fra/originalDataPoint/actions'
+import { OriginalDataPointActions } from '@webapp/store/page/originalDataPoint'
 import { useNationalClassNameComments, useNationalClassValidation } from '../hooks'
 
 const columns = [
@@ -33,7 +33,7 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
 
   const { nationalClasses, odpId } = odp
   const nationalClass = nationalClasses[index]
-  const { className, area, naturalForestPercent, plantationPercent, otherPlantedPercent, uuid } = nationalClass
+  const { name, area, naturalForestPercent, plantationPercent, otherPlantedPercent, uuid } = nationalClass
   const target = [odpId, 'class', `${uuid}`, 'forest_charasteristics']
   const classNameRowComments = useNationalClassNameComments(target)
   const validationStatus = useNationalClassValidation(index)
@@ -45,7 +45,7 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
 
   return (
     <tr className={classNameRowComments}>
-      <th className="fra-table__category-cell">{className}</th>
+      <th className="fra-table__category-cell">{name}</th>
       <th className="fra-table__calculated-sub-cell fra-table__divider">
         {area && NumberUtils.formatNumber((Number(area) * Number(nationalClass.forestPercent)) / 100)}
       </th>
@@ -53,15 +53,24 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
         <PercentInput
           disabled={!canEditData}
           numberValue={naturalForestPercent}
-          onChange={(event: any) => {
-            dispatch(updateNationalClassValue(index, 'naturalForestPercent', naturalForestPercent, event.target.value))
-          }}
-          onPaste={(event: any) => {
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             dispatch(
-              pasteNationalClassValues({
+              OriginalDataPointActions.updateNationalClass({
+                odp,
+                index,
+                field: 'naturalForestPercent',
+                prevValue: naturalForestPercent,
+                value: event.target.value,
+              })
+            )
+          }}
+          onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
+            dispatch(
+              OriginalDataPointActions.pasteNationalClass({
+                odp,
                 event,
-                rowIndex: index,
                 colIndex: 1,
+                rowIndex: index,
                 columns,
                 allowedClass,
               })
@@ -75,14 +84,23 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={plantationPercent}
           onChange={(event: any) => {
-            dispatch(updateNationalClassValue(index, 'plantationPercent', plantationPercent, event.target.value))
+            dispatch(
+              OriginalDataPointActions.updateNationalClass({
+                odp,
+                index,
+                field: 'plantationPercent',
+                prevValue: plantationPercent,
+                value: event.target.value,
+              })
+            )
           }}
           onPaste={(event: any) => {
             dispatch(
-              pasteNationalClassValues({
+              OriginalDataPointActions.pasteNationalClass({
+                odp,
                 event,
-                rowIndex: index,
                 colIndex: 2,
+                rowIndex: index,
                 columns,
                 allowedClass,
               })
@@ -96,14 +114,23 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={otherPlantedPercent}
           onChange={(event: any) => {
-            dispatch(updateNationalClassValue(index, 'otherPlantedPercent', otherPlantedPercent, event.target.value))
+            dispatch(
+              OriginalDataPointActions.updateNationalClass({
+                odp,
+                index,
+                field: 'otherPlantedPercent',
+                prevValue: otherPlantedPercent,
+                value: event.target.value,
+              })
+            )
           }}
           onPaste={(event: any) => {
             dispatch(
-              pasteNationalClassValues({
+              OriginalDataPointActions.pasteNationalClass({
+                odp,
                 event,
-                rowIndex: index,
                 colIndex: 3,
+                rowIndex: index,
                 columns,
                 allowedClass,
               })
