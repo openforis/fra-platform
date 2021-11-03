@@ -6,8 +6,6 @@ import * as cluster from 'cluster'
 import * as migrations from './db/migration/execMigrations'
 import { serverInit } from './serverInit'
 
-import * as VersioningScheduler from './system/schedulers/versioningScheduler'
-
 // @ts-ignore
 if (cluster.isMaster) {
   // check db migrations in master process
@@ -34,12 +32,6 @@ if (cluster.isMaster) {
     // @ts-ignore
     cluster.fork()
   })
-
-  // ====== schedulers
-  const createSchedulers = async () => {
-    await VersioningScheduler.init()
-  }
-  createSchedulers()
 } else {
   serverInit()
 }

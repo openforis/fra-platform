@@ -6,7 +6,7 @@ import { ApiEndPoint } from '@common/api/endpoint'
 export const StatisticalFactsheetsGet = {
   init: (express: Express): void => {
     express.get(ApiEndPoint.StatisticalFactsheets.get(), async (req: Request, res: Response) => {
-      const schemaName = await VersionService.getDatabaseSchema(req)
+      const schemaName = await VersionService.getDatabaseSchema()
       const {
         query: { rowNames, level },
       } = req

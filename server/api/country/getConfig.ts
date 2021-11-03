@@ -10,7 +10,7 @@ export const CountryGetConfig = {
     // Returns country config for :countryIso
     express.get(ApiEndPoint.Country.getConfig(), async (req: Request, res: Response) => {
       try {
-        const schemaName = await VersionService.getDatabaseSchema(req)
+        const schemaName = await VersionService.getDatabaseSchema()
         const fullConfig = await CountryService.getCountryConfigFull(req.params.countryIso as CountryIso, schemaName)
         res.json(fullConfig)
       } catch (e) {

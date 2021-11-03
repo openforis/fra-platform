@@ -16,7 +16,7 @@ export const DataTableRead = {
           params: { assessmentType, countryIso, tableSpecName },
         } = req
         const schemaName =
-          assessmentType === AssessmentType.panEuropean ? 'pan_european' : await VersionService.getDatabaseSchema(req)
+          assessmentType === AssessmentType.panEuropean ? 'pan_european' : await VersionService.getDatabaseSchema()
 
         const result = await DataTableService.read({ countryIso: countryIso as CountryIso, tableSpecName, schemaName })
 
