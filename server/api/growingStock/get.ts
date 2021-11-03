@@ -8,7 +8,7 @@ export const GrowingStockGet = {
   init: (express: Express): void => {
     express.get(ApiEndPoint.GrowingStock.get(), async (req: Request, res: Response) => {
       try {
-        const schemaName = await VersionService.getDatabaseSchema(req)
+        const schemaName = await VersionService.getDatabaseSchema()
         const growingStock = await GrowingStockService.getGrowingStock(req.params.countryIso, schemaName)
         res.json(growingStock)
       } catch (err) {

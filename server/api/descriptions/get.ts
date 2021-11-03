@@ -9,7 +9,7 @@ export const DescriptionGet = {
   init: (express: Express): void => {
     express.get(ApiEndPoint.Descriptions.get(), async (req: Request, res: Response) => {
       try {
-        const schemaName = await VersionService.getDatabaseSchema(req)
+        const schemaName = await VersionService.getDatabaseSchema()
         const result = await db.transaction(repository.readDescriptions, [
           req.params.countryIso,
           req.params.section,

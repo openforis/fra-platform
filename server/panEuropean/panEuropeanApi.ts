@@ -24,7 +24,7 @@ export const init = (app: any) => {
 
   app.get('/panEuropean/:countryIso/uploadedQuestionareInfo', async (req: any, res: any) => {
     try {
-      const schemaName = await VersionService.getDatabaseSchema(req)
+      const schemaName = await VersionService.getDatabaseSchema()
       const questionnaire = await getPanEuropeanQuantitativeQuestionnaire(req.params.countryIso, schemaName)
       const questionnaireFileName = R.path(['quantitativeQuestionnaireName'], questionnaire)
       res.json({ questionnaireFileName })
@@ -86,7 +86,7 @@ export const init = (app: any) => {
     try {
       const isPanEuropean = await isPanEuropeanCountry(req.params.countryIso)
       if (isPanEuropean) {
-        const schemaName = await VersionService.getDatabaseSchema(req)
+        const schemaName = await VersionService.getDatabaseSchema()
         const questionnaire = await getPanEuropeanQuantitativeQuestionnaire(req.params.countryIso, schemaName)
         res.setHeader('Content-Disposition', `attachment; filename=${questionnaire.quantitativeQuestionnaireName}`)
         res.end(questionnaire.quantitativeQuestionnaire, 'binary')

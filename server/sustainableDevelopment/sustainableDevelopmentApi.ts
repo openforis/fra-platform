@@ -28,7 +28,7 @@ export const readObject = async (countryIso: any, tableSpecName: any, schemaName
 export const init = (app: any) => {
   app.get('/sustainableDevelopment/:countryIso', async (req: any, res: any) => {
     try {
-      const schemaName = await VersionService.getDatabaseSchema(req)
+      const schemaName = await VersionService.getDatabaseSchema()
       const { countryIso } = req.params
       const extentOfForest = await getFraValues('extentOfForest', countryIso, schemaName)
       const bioMass = await readObject(countryIso, 'biomassStock', schemaName)

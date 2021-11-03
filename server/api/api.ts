@@ -8,7 +8,6 @@ import { AssessmentApi } from '@server/api/assessment'
 import { AuditApi } from '@server/api/audit'
 import { DescriptionsApi } from '@server/api/descriptions'
 import { CountryMessageBoardApi } from '@server/api/countryMessageBoard'
-import { VersioningApi } from '@server/api/versioning'
 import { ReviewApi } from '@server/api/review'
 import { DataTableApi } from '@server/api/dataTable'
 import { UserChatApi } from '@server/api/userChat'
@@ -37,8 +36,6 @@ export const Api = {
 
     CountryMessageBoardApi.init(express)
     UserChatApi.init(express)
-
-    VersioningApi.init(express)
 
     LandingApi.init(express)
     StatisticalFactsheetsApi.init(express)

@@ -12,7 +12,7 @@ export const DataExportGet = {
       try {
         const { countries, columns, variables } = req.query
         const { assessmentType, section } = req.params
-        const schemaName = panEuropean(assessmentType) || (await VersionService.getDatabaseSchema(req))
+        const schemaName = panEuropean(assessmentType) || (await VersionService.getDatabaseSchema())
         const result = await DataExportRepository.getExportData(schemaName, section, variables, countries, columns)
         res.json(result)
       } catch (err) {

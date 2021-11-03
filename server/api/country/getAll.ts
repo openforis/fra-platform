@@ -8,7 +8,7 @@ export const CountryGetAll = {
   init: (express: Express): void => {
     express.get(ApiEndPoint.Country.GetAll.userCountries(), async (req: Request, res: Response) => {
       try {
-        const schmeName = await VersionService.getDatabaseSchema(req)
+        const schmeName = await VersionService.getDatabaseSchema()
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         const userRoles = Requests.getUserRoles(req)

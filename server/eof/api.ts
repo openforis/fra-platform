@@ -59,7 +59,7 @@ export const init = (app: any) => {
 
   app.get('/nde/:section/:countryIso', async (req: any, res: any) => {
     try {
-      const schemaName = await VersionService.getDatabaseSchema(req)
+      const schemaName = await VersionService.getDatabaseSchema()
       const fra = await fraValueService.getFraValues(req.params.section, req.params.countryIso, schemaName)
       res.json(fra)
     } catch (err) {
@@ -83,7 +83,7 @@ export const init = (app: any) => {
 
         await estimationEngine.estimateAndWrite(odps, writer, countryIso, defaultYears, generateSpec)
 
-        const schemaName = await VersionService.getDatabaseSchema(req)
+        const schemaName = await VersionService.getDatabaseSchema()
         const fra = await fraValueService.getFraValues(req.params.section, req.params.countryIso, schemaName)
         res.json(fra)
       } catch (err) {
