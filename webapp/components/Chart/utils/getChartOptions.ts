@@ -54,7 +54,7 @@ const commonOptions = {
           const { dataIndex } = tooltipItem
           const value = data[dataIndex]
 
-          return `$Numbers.formatNumber(value)} (${dataset.unit})`
+          return `${Numbers.formatNumber(value)} (${dataset.unit})`
         },
       },
     },
