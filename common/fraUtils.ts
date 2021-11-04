@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 import { FRA } from '@core/assessment'
-import * as NumberUtils from '@core/utils/numbers'
+import { Numbers } from '@core/utils/numbers'
 
 /**
  * @deprecated
@@ -20,7 +20,7 @@ export const sumTableColumn = (columnIndex: any, rowIndexes: any) => (data: any)
   R.pipe(
     R.map((rowIdx: any) => R.pathOr(null, [rowIdx, columnIndex])(data)),
     R.reject(R.isNil),
-    NumberUtils.sum
+    Numbers.sum
   )(rowIndexes)
 
 // ====== Table with odp methods

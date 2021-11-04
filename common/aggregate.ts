@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { sum } from '@core/utils/numbers'
+import { Numbers } from '@core/utils/numbers'
 import { formatDecimal } from './numberFormat'
 
 /**
@@ -9,7 +9,7 @@ export const totalSum = (tableData: any, columnIndex: any, rowIndexes: any) =>
   R.pipe(
     R.map((r: any) => tableData[r][columnIndex]),
     R.reject((v: any) => !v),
-    sum
+    Numbers.sum
   )(rowIndexes)
 
 /**

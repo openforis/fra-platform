@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 
-import * as NumberUtils from '@core/utils/numbers'
+import { Numbers } from '@core/utils/numbers'
 import { CalculateValue, ColOptionSpec, ColSpec, FormatValue } from '@webapp/sectionSpec/colSpec'
 import { TypeSpec } from '@webapp/sectionSpec/typeSpec'
 import { Validator } from '@webapp/sectionSpec/validation'
@@ -52,7 +52,7 @@ const newHeaderInstance = (props: ColHeaderProps): ColSpec => {
 const newCol = (type: TypeSpec, props: ColDataProps): ColSpec => ({ type, ...props })
 
 const newCalculatedInstance = (props: ColDataProps): ColSpec =>
-  newCol(TypeSpec.calculated, { formatFn: NumberUtils.formatNumber, ...props })
+  newCol(TypeSpec.calculated, { formatFn: Numbers.formatNumber, ...props })
 
 const newDecimalInstance = (props: ColDataProps): ColSpec => newCol(TypeSpec.decimal, props)
 

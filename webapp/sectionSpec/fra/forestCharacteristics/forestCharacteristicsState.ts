@@ -2,8 +2,7 @@ import * as R from 'ramda'
 
 import { FRA } from '@core/assessment'
 import FraUtils from '@common/fraUtils'
-import * as NumberUtils from '@core/utils/numbers'
-
+import { Numbers } from '@core/utils/numbers'
 import * as AppState from '@webapp/store/app/state'
 import * as CountryState from '@webapp/app/country/countryState'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
@@ -57,13 +56,13 @@ export const getOtherPlantedForest = (datum: any) => () => R.propOr(null, 'other
 export const getPlantedForest = (datum: any) => () => {
   const plantationForest = getPlantationForest(datum)()
   const otherPlantedForest = getOtherPlantedForest(datum)()
-  return NumberUtils.sum([plantationForest, otherPlantedForest])
+  return Numbers.sum([plantationForest, otherPlantedForest])
 }
 
 export const getTotalForest = (datum: any) => () => {
   const naturalForest = getNaturalForest(datum)()
   const plantedForest = getPlantedForest(datum)()
-  return NumberUtils.sum([naturalForest, plantedForest])
+  return Numbers.sum([naturalForest, plantedForest])
 }
 
 // ==== By Year getter functions

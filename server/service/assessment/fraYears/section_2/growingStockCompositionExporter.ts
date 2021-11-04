@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { sum } from '@core/utils/numbers'
+import { Numbers } from '@core/utils/numbers'
 
 import DataTableExporter from '../../exporter/dataTableExporter'
 
@@ -69,13 +69,13 @@ class GrowingStockCompositionExporter extends DataTableExporter {
 
     const nativeFields = R.filter((f: any) => R.startsWith('native', f) && !R.endsWith('total', f), this.fields)
     const nativeValues = nativeFields.map((f: any) => resultRow[f])
-    resultRow.native_total = sum(nativeValues)
+    resultRow.native_total = Numbers.sum(nativeValues)
 
     const introducedFields = R.filter((f: any) => R.startsWith('introduced', f) && !R.endsWith('total', f), this.fields)
     const introducedValues = introducedFields.map((f: any) => resultRow[f])
-    resultRow.introduced_total = sum(introducedValues)
+    resultRow.introduced_total = Numbers.sum(introducedValues)
 
-    resultRow.total_gs = sum([resultRow.native_total, resultRow.introduced_total])
+    resultRow.total_gs = Numbers.sum([resultRow.native_total, resultRow.introduced_total])
 
     return resultRow
   }

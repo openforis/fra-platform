@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 import { TableDatumODPType } from '@core/assessment'
-import { formatNumber } from '@core/utils/numbers'
+import { Numbers } from '@core/utils/numbers'
 import { usePrintView } from '@webapp/store/app'
 
 import ThousandSeparatedDecimalInput from '@webapp/components/thousandSeparatedDecimalInput'
@@ -35,11 +35,11 @@ const CellOdp: React.FC<Props> = (props) => {
 
   return (
     <td className={className}>
-      {calculated && formatNumber(useSelector(calculateFn(datum)))}
+      {calculated && Numbers.formatNumber(useSelector(calculateFn(datum)))}
 
       {!calculated && odp && (
         <div className="number-input__container validation-error-sensitive-field">
-          <div className="number-input__readonly-view">{formatNumber(datumValue)}</div>
+          <div className="number-input__readonly-view">{Numbers.formatNumber(datumValue)}</div>
         </div>
       )}
 

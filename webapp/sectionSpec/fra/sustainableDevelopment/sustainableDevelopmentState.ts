@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import * as NumberUtils from '@core/utils/numbers'
+import { Numbers } from '@core/utils/numbers'
 import { FRA } from '@core/assessment'
 
 import * as CountryState from '@webapp/app/country/countryState'
@@ -21,7 +21,7 @@ export const getForestAreaProportionLandArea2015 = (colIdx: any) => (state: any)
   const year = years[colIdx]
   const faoStatArea: any = ExtentOfForestState.getFaoStatAreaByYear(2015)(state)
   const forestArea: any = ExtentOfForestState.getForestByYear(year)(state)
-  return NumberUtils.mul(NumberUtils.div(forestArea, faoStatArea), 100)
+  return Numbers.mul(Numbers.div(forestArea, faoStatArea), 100)
 }
 
 // SDG 15.2.1 - sub-indicator 2
@@ -29,23 +29,23 @@ export const getForestAreaAnnualNetChangeRate = (colIdx: any) => (state: any) =>
   const range = yearsRange[colIdx].split('-')
   const yearFrom = Number(range[0])
   const yearTo = Number(range[1])
-  const yearsDiff = NumberUtils.sub(yearTo, yearFrom).toNumber()
+  const yearsDiff = Numbers.sub(yearTo, yearFrom).toNumber()
 
   const forestAreaFrom = ExtentOfForestState.getForestByYear(yearFrom)(state)
   const forestAreaTo = ExtentOfForestState.getForestByYear(yearTo)(state)
 
   // (forestAreaTo - forestAreaFrom) / forestAreaTo * 100
   if (yearsDiff === 1) {
-    return NumberUtils.mul(NumberUtils.div(NumberUtils.sub(forestAreaTo, forestAreaFrom), forestAreaTo), 100)
+    return Numbers.mul(Numbers.div(Numbers.sub(forestAreaTo, forestAreaFrom), forestAreaTo), 100)
   }
 
   // (((forestAreaTo / forestAreaFrom) ^ coeff) - 1) * 100
   const coeff = yearsDiff === 10 ? 0.1 : 0.2
-  const forestProportion: any = NumberUtils.div(forestAreaTo, forestAreaFrom)
+  const forestProportion: any = Numbers.div(forestAreaTo, forestAreaFrom)
   if (R.isNil(forestProportion)) {
     return null
   }
-  return NumberUtils.mul(NumberUtils.sub(forestProportion ** coeff, 1), 100)
+  return Numbers.mul(Numbers.sub(forestProportion ** coeff, 1), 100)
 }
 
 // SDG 15.2.1 - sub-indicator 2
@@ -59,7 +59,7 @@ export const getForestAreaProportionProtectedAreas = (colIdx: any) => (state: an
   const forestArea2015 = ExtentOfForestState.getForestByYear(2015)(state)
 
   // forestAreaWithinProtectedAreas / forestArea2015 * 100
-  return NumberUtils.mul(NumberUtils.div(forestAreaWithinProtectedAreas, forestArea2015), 100)
+  return Numbers.mul(Numbers.div(forestAreaWithinProtectedAreas, forestArea2015), 100)
 }
 
 // SDG 15.2.1 - sub-indicator 4
@@ -69,8 +69,8 @@ export const getForestAreaProportionLongTermForestManagement = (colIdx: any) => 
   const forestArea2015 = ExtentOfForestState.getForestByYear(2015)(state)
 
   // MIN(forestAreaLongTermForestManagementPlan / forestArea2015 * 100, 100)
-  const proportion = NumberUtils.mul(NumberUtils.div(forestAreaLongTermForestManagementPlan, forestArea2015), 100)
-  return proportion ? NumberUtils.min(proportion, 100) : null
+  const proportion = Numbers.mul(Numbers.div(forestAreaLongTermForestManagementPlan, forestArea2015), 100)
+  return proportion ? Numbers.min(proportion, 100) : null
 }
 
 // SDG 15.2.1 - sub-indicator 5

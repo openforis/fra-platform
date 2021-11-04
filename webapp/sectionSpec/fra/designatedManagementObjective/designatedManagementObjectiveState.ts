@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 import { FRA } from '@core/assessment'
 
-import { sub } from '@core/utils/numbers'
+import { Numbers } from '@core/utils/numbers'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import * as ExtentOfForestState from '@webapp/sectionSpec/fra/extentOfForest/extentOfForestState'
@@ -21,7 +21,7 @@ export const getUnknown = (colIdx: any) => (state: any) => {
 
   return R.range(0, 6).reduce(
     (valueCurrent: any, row: any) =>
-      sub(valueCurrent, R.pathOr(0, [row, colIdx], primaryDesignatedManagementObjective)),
+      Numbers.sub(valueCurrent, R.pathOr(0, [row, colIdx], primaryDesignatedManagementObjective)),
     forestArea
   )
 }

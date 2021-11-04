@@ -1,6 +1,5 @@
 import * as R from 'ramda'
-import * as NumberUtils from '@core/utils/numbers'
-
+import { Numbers } from '@core/utils/numbers'
 import * as ExtentOfForestState from '@webapp/sectionSpec/fra/extentOfForest/extentOfForestState'
 
 // ==== Datum validator functions
@@ -14,8 +13,8 @@ const forestAreaComparedTo2015Validator = (datum: any) => (state: any) => {
   }
 
   const tolerance = 1
-  const absDifference = NumberUtils.abs(NumberUtils.sub(forestArea2015, forestArea))
-  return NumberUtils.lessThanOrEqualTo(absDifference, tolerance)
+  const absDifference = Numbers.abs(Numbers.sub(forestArea2015, forestArea))
+  return Numbers.lessThanOrEqualTo(absDifference, tolerance)
 }
 
 export const areasNotExceedingTotalLandAreaValidator = (datum: any) => (state: any) => {
@@ -25,7 +24,7 @@ export const areasNotExceedingTotalLandAreaValidator = (datum: any) => (state: a
   if (R.isNil(faoStatArea) || R.isNil(otherLand)) {
     return true
   }
-  return NumberUtils.greaterThanOrEqualTo(otherLand, 0)
+  return Numbers.greaterThanOrEqualTo(otherLand, 0)
 }
 
 export const forestAreaValidator = (datum: any) => (state: any) => {
@@ -56,7 +55,7 @@ export const lessThanOrEqualToForestValidator = (year: any, value: any) => (stat
   if (R.isNil(value) || R.isNil(forest)) {
     return true
   }
-  return NumberUtils.greaterThanWithTolerance(forest, value)
+  return Numbers.greaterThanWithTolerance(forest, value)
 }
 
 // ==== Validation messages

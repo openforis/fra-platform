@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import * as NumberUtils from '@core/utils/numbers'
+import { Numbers } from '@core/utils/numbers'
 import { FRA } from '@core/assessment'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
@@ -56,10 +56,10 @@ export const getTotalTableValue = (year: any, variableName: any) =>
 
 export const calculateTotalValue = (year: any, variableName: any, avgValue: any) => (state: any) => {
   const baseValue: any = _getBaseTableValue(year, variableName)(state)
-  return NumberUtils.toString(NumberUtils.div(NumberUtils.mul(avgValue, baseValue), 1000))
+  return Numbers.toString(Numbers.div(Numbers.mul(avgValue, baseValue), 1000))
 }
 
 export const calculateAvgValue = (year: any, variableName: any, totalValue: any) => (state: any) => {
   const baseValue: any = _getBaseTableValue(year, variableName)(state)
-  return NumberUtils.toString(NumberUtils.div(NumberUtils.mul(totalValue, 1000), baseValue))
+  return Numbers.toString(Numbers.div(Numbers.mul(totalValue, 1000), baseValue))
 }

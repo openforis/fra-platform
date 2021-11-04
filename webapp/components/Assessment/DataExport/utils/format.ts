@@ -1,5 +1,5 @@
 import { AssessmentType } from '@core/assessment'
-import * as NumberUtils from '@core/utils/numbers'
+import { Numbers } from '@core/utils/numbers'
 import { Unit, UnitConverter, UnitFactors } from '@webapp/sectionSpec'
 
 import { getPanEuropeanTableMapping } from '@webapp/components/Assessment/DataExport/utils/panEuropean'
@@ -49,7 +49,7 @@ export const formatValue = (
 
   let value = results?.[countryIso]?.[variable]?.[columnKey]
   // Convert value to string and check if it's a number
-  if (!Number.isNaN(+value)) value = NumberUtils.formatNumber(value)
+  if (!Number.isNaN(+value)) value = Numbers.formatNumber(value)
   if (value === 'NaN') value = ''
 
   return { columnKey, value }

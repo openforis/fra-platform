@@ -1,4 +1,4 @@
-import * as NumberUtils from '@core/utils/numbers'
+import { Numbers } from '@core/utils/numbers'
 import { FRA } from '@core/assessment'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
@@ -22,6 +22,6 @@ export const getPublicOwnership = (colIdx: any) => _getTableDataCell(colIdx, 4)
 export const getOtherOrUnknown = (colIdx: any) => (state: any) => {
   const forestArea = ExtentOfForestState.getForestByYearFraIdx(colIdx)(state)
   return [0, 4].reduce((value, rowIdx) => {
-    return NumberUtils.sub(value, _getTableDataCell(colIdx, rowIdx)(state))
+    return Numbers.sub(value, _getTableDataCell(colIdx, rowIdx)(state))
   }, forestArea)
 }

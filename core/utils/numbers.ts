@@ -96,6 +96,9 @@ export const Numbers = {
   toFixed,
   toString,
   formatNumber,
+  lessThanOrEqualTo,
+  greaterThanOrEqualTo,
+  greaterThanWithTolerance,
 
   max,
   min,

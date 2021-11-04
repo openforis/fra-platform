@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { sum, sub } from '@core/utils/numbers'
+import { Numbers } from '@core/utils/numbers'
 
 /**
  * @deprecated (@use ExtentOfForestState)
@@ -25,7 +25,7 @@ export const getOtherLandAreaForYear = (extentOfForest: any, faoStat: any, year:
   const otherWoodedLand = getValueForYear(extentOfForest, year, 'otherWoodedLand')
   const faoStatLandArea = R.path([year, 'area'], faoStat)
   // @ts-ignore
-  return sub(faoStatLandArea, sum([forestArea, otherWoodedLand]))
+  return Numbers.sub(faoStatLandArea, Numbers.sum([forestArea, otherWoodedLand]))
 }
 
 /**

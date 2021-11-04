@@ -1,6 +1,5 @@
 import { FRA } from '@core/assessment'
-import * as NumberUtils from '@core/utils/numbers'
-
+import { Numbers } from '@core/utils/numbers'
 import * as ExtentOfForestState from '@webapp/sectionSpec/fra/extentOfForest/extentOfForestState'
 
 export const getExtentOfForestChange = (colIdx: any) => (state: any) => {
@@ -13,5 +12,5 @@ export const getExtentOfForestChange = (colIdx: any) => (state: any) => {
   const forestStart = ExtentOfForestState.getForestByYear(yearStart)(state)
   const forestEnd = ExtentOfForestState.getForestByYear(yearEnd)(state)
 
-  return NumberUtils.div(NumberUtils.sub(forestEnd, forestStart), timeSpan)
+  return Numbers.div(Numbers.sub(forestEnd, forestStart), timeSpan)
 }

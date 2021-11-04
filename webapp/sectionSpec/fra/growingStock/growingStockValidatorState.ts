@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import { abs, add, eq, greaterThan, sub } from '@core/utils/numbers'
+import { Numbers } from '@core/utils/numbers'
 
 import * as GrowingStockState from '@webapp/sectionSpec/fra/growingStock/growingStockState'
 
@@ -8,10 +8,10 @@ export const equalToTotalGrowingStockValidator = (year: any, value: any) => (sta
   const totalForest: any = GrowingStockState.getTotalTableValue(year, GrowingStockState.variables.forest)(state)
 
   const tolerance = 1
-  const difference = sub(totalForest, value)
-  const result = !greaterThan(abs(difference), tolerance)
+  const difference = Numbers.sub(totalForest, value)
+  const result = !Numbers.greaterThan(Numbers.abs(difference), tolerance)
 
-  return R.isNil(value) || eq(totalForest, 0) || result
+  return R.isNil(value) || Numbers.eq(totalForest, 0) || result
 }
 
 const subCategoryValidator = (parentVariable: any, childVariables: any) => (datum: any) => (state: any) => {
@@ -19,12 +19,12 @@ const subCategoryValidator = (parentVariable: any, childVariables: any) => (datu
   const parentValue: any = GrowingStockState.getTotalTableValue(year, parentVariable)(state)
   const childValues: any = childVariables.reduce((childValuesTotal: any, childVariable: any) => {
     const childValue = R.pipe(GrowingStockState.getTotalTableValue(year, childVariable), R.defaultTo(0))(state)
-    return add(childValuesTotal, childValue as any)
+    return Numbers.add(childValuesTotal, childValue as any)
   }, 0)
 
   const tolerance = -1
-  const difference = sub(parentValue, childValues)
-  return parentValue ? greaterThan(difference, tolerance) : true
+  const difference = Numbers.sub(parentValue, childValues)
+  return parentValue ? Numbers.greaterThan(difference, tolerance) : true
 }
 
 const equalToTotalGrowingStockSubCategoryValidator = (datum: any) => (state: any) => {
@@ -42,7 +42,7 @@ const equalToTotalGrowingStockSubCategoryValidator = (datum: any) => (state: any
   if (R.isNil(plantedForest) || R.isNil(naturallyRegeneratingForest)) {
     return true
   }
-  return equalToTotalGrowingStockValidator(year, add(plantedForest, naturallyRegeneratingForest))(state)
+  return equalToTotalGrowingStockValidator(year, Numbers.add(plantedForest, naturallyRegeneratingForest))(state)
 }
 
 const totalForestSubCategoryValidator = subCategoryValidator(GrowingStockState.variables.forest, [

@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import { abs, greaterThan, greaterThanOrEqualTo, sub } from '@core/utils/numbers'
+import { Numbers } from '@core/utils/numbers'
 
 import * as ExtentOfForestState from '@webapp/sectionSpec/fra/extentOfForest/extentOfForestState'
 import * as ForestCharacteristicsState from '@webapp/sectionSpec/fra/forestCharacteristics/forestCharacteristicsState'
@@ -16,8 +16,8 @@ export const plantationForestValidator = (datum: any) => () => {
   }
 
   const tolerance = -1
-  const difference = sub(plantationForest, plantationForestIntroduced)
-  return greaterThan(difference, tolerance)
+  const difference = Numbers.sub(plantationForest, plantationForestIntroduced)
+  return Numbers.greaterThan(difference, tolerance)
 }
 
 export const totalForestAreaNotEqualToExtentOfForestValidator = (datum: any) => (state: any) => {
@@ -30,8 +30,8 @@ export const totalForestAreaNotEqualToExtentOfForestValidator = (datum: any) => 
   }
 
   const tolerance = 1
-  const absDifference = abs(sub(forest, totalForest))
-  return !greaterThanOrEqualTo(absDifference, tolerance)
+  const absDifference = Numbers.abs(Numbers.sub(forest, totalForest))
+  return !Numbers.greaterThanOrEqualTo(absDifference, tolerance)
 }
 
 //= === Validation messages

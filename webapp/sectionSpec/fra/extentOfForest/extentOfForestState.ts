@@ -2,8 +2,7 @@ import * as R from 'ramda'
 
 import { FRA } from '@core/assessment'
 import FraUtils from '@common/fraUtils'
-import * as NumberUtils from '@core/utils/numbers'
-
+import { Numbers } from '@core/utils/numbers'
 import * as AppState from '@webapp/store/app/state'
 import * as CountryState from '@webapp/app/country/countryState'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
@@ -58,7 +57,7 @@ export const getOtherLand = (datum: any) => (state: any) => {
   const otherWoodedLand = getOtherWoodedLand(datum)()
   const faoStatArea: any = getFaoStatArea(datum)(state)
 
-  return NumberUtils.sub(faoStatArea, NumberUtils.sum([forestArea, otherWoodedLand]))
+  return Numbers.sub(faoStatArea, Numbers.sum([forestArea, otherWoodedLand]))
 }
 
 // ==== By Year getter functions

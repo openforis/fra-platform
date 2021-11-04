@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 
 import { ODP, ODPNationalClass } from '@core/odp'
-import * as NumberUtils from '@core/utils/numbers'
+import { Numbers } from '@core/utils/numbers'
 import { PercentInput } from '@webapp/components/percentInput'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { useCountryIso, useI18n } from '@webapp/hooks'
@@ -34,7 +34,7 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
   const validationStatus = useNationalClassValidation(index)
   const classNamePercentageValidation = validationStatus.validPlantationIntroducedPercentage === false ? 'error' : ''
   const plantationIntroduced = area
-    ? NumberUtils.mul(area, NumberUtils.div(NumberUtils.mul(plantationPercent, forestPercent), 10000))
+    ? Numbers.mul(area, Numbers.div(Numbers.mul(plantationPercent, forestPercent), 10000))
     : null
 
   if (!allowedClass(nationalClass)) {
@@ -45,7 +45,7 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
     <tr className={classNameRowComments}>
       <th className="fra-table__category-cell">{name}</th>
       <th className="fra-table__calculated-sub-cell fra-table__divider">
-        {NumberUtils.formatNumber(plantationIntroduced)}
+        {Numbers.formatNumber(plantationIntroduced)}
       </th>
       <td className={`fra-table__cell ${classNamePercentageValidation}`}>
         <PercentInput

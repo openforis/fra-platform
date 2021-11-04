@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import * as NumberUtils from '@core/utils/numbers'
+import { Numbers } from '@core/utils/numbers'
 import { FRA } from '@core/assessment'
 
 import * as AssessmentStateValidator from '@webapp/app/assessment/assessmentStateValidator'
@@ -20,7 +20,7 @@ export const privateOwnershipValidator = AssessmentStateValidator.subCategoryVal
 
 export const otherOrUnknownValidator = (colIdx: any) => (state: any) => {
   const value = ForestOwnershipState.getOtherOrUnknown(colIdx)(state)
-  return R.isNil(value) || NumberUtils.greaterThanOrEqualTo(value, 0)
+  return R.isNil(value) || Numbers.greaterThanOrEqualTo(value, 0)
 }
 
 export const getValidationMessages = (data: any) => (state: any) => {

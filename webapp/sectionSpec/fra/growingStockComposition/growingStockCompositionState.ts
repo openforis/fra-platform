@@ -1,7 +1,6 @@
 import * as R from 'ramda'
 
-import * as NumberUtils from '@core/utils/numbers'
-
+import { Numbers } from '@core/utils/numbers'
 import { FRA } from '@core/assessment'
 import FRAUtils from '@common/fraUtils'
 
@@ -29,5 +28,5 @@ export const getTotalIntroducedTreeSpecies = (colIdx: any) =>
 export const getTotalGrowingStock = (colIdx: any) => (state: any) => {
   const totalNative = getTotalNativeTreeSpecies(colIdx)(state)
   const totalIntroduced = getTotalIntroducedTreeSpecies(colIdx)(state)
-  return NumberUtils.sum([totalNative, totalIntroduced])
+  return Numbers.sum([totalNative, totalIntroduced])
 }

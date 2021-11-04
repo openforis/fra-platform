@@ -1,4 +1,4 @@
-import { add, div, mul, sub, sum } from '@core/utils/numbers'
+import { Numbers } from '@core/utils/numbers'
 import { Objects } from '@core/utils'
 
 import { ODP } from '../odp'
@@ -7,7 +7,7 @@ import { ODPNationalClass } from '../odpNationalClass'
 export const calcTotalArea = (props: { odp: ODP }): number => {
   const { odp } = props
   const areas = odp.nationalClasses.map((nationalClass) => nationalClass.area).filter((area) => !Objects.isNil(area))
-  return sum(areas)
+  return Numbers.sum(areas)
 }
 
 export const calcTotalFieldArea = (props: { odp: ODP; field: keyof ODPNationalClass }): number => {
@@ -16,9 +16,9 @@ export const calcTotalFieldArea = (props: { odp: ODP; field: keyof ODPNationalCl
     (nationalClass) => !Objects.isNil(nationalClass.area) && !Objects.isNil(nationalClass[field])
   )
   const values = nationalClasses.map((nationalClass) =>
-    mul(nationalClass.area, nationalClass[field] as string).div(100.0)
+    Numbers.mul(nationalClass.area, nationalClass[field] as string).div(100.0)
   )
-  return sum(values)
+  return Numbers.sum(values)
 }
 
 export const calcTotalSubFieldArea = (props: {
@@ -34,11 +34,11 @@ export const calcTotalSubFieldArea = (props: {
       !Objects.isNil(nationalClass[subField])
   )
   const values = nationalClasses.map((nationalClass) => {
-    const x = mul(nationalClass.area, nationalClass[field] as string)
-    const y = mul(x, nationalClass[subField] as string)
-    return div(y, 10000.0)
+    const x = Numbers.mul(nationalClass.area, nationalClass[field] as string)
+    const y = Numbers.mul(x, nationalClass[subField] as string)
+    return Numbers.div(y, 10000.0)
   })
-  return sum(values)
+  return Numbers.sum(values)
 }
 
 export const calcTotalSubSubFieldArea = (props: {
@@ -56,12 +56,12 @@ export const calcTotalSubSubFieldArea = (props: {
       !Objects.isNil(nationalClass[subSubField])
   )
   const values = nationalClasses.map((nationalClass) => {
-    const x = mul(nationalClass.area, nationalClass[field] as string)
-    const y = mul(x, nationalClass[subField] as string)
-    const z = mul(y, nationalClass[subSubField] as string)
-    return div(z, 1000000.0)
+    const x = Numbers.mul(nationalClass.area, nationalClass[field] as string)
+    const y = Numbers.mul(x, nationalClass[subField] as string)
+    const z = Numbers.mul(y, nationalClass[subSubField] as string)
+    return Numbers.div(z, 1000000.0)
   })
-  return sum(values)
+  return Numbers.sum(values)
 }
 
 export const calcTotalLandArea = (props: { odp: ODP }): number => {
@@ -69,5 +69,5 @@ export const calcTotalLandArea = (props: { odp: ODP }): number => {
   const totalArea = calcTotalArea({ odp })
   const forestArea = calcTotalFieldArea({ odp, field: 'forestPercent' })
   const otherWoodedArea = calcTotalFieldArea({ odp, field: 'otherWoodedLandPercent' })
-  return sub(totalArea, add(forestArea, otherWoodedArea))?.toNumber()
+  return Numbers.sub(totalArea, Numbers.add(forestArea, otherWoodedArea))?.toNumber()
 }

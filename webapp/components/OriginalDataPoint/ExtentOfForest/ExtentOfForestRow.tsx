@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { ODP } from '@core/odp'
-import * as NumberUtils from '@core/utils/numbers'
+import { Numbers } from '@core/utils/numbers'
 import { useCountryIso, useI18n } from '@webapp/hooks'
 
 import { PercentInput } from '@webapp/components/percentInput'
@@ -130,7 +130,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
       </td>
 
       <td className="fra-table__calculated-cell">
-        {NumberUtils.formatNumber(NumberUtils.sub(100, NumberUtils.add(forestPercent, otherWoodedLandPercent)))}
+        {Numbers.formatNumber(Numbers.sub(100, Numbers.add(forestPercent, otherWoodedLandPercent)))}
         <span style={{ marginLeft: '8px' }}>%</span>
       </td>
 

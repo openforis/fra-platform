@@ -1,4 +1,4 @@
-import * as NumberUtils from '@core/utils/numbers'
+import { Numbers } from '@core/utils/numbers'
 
 export enum Unit {
   haThousand = 'haThousand',
@@ -43,5 +43,5 @@ export const UnitFactors: Record<string, UnitFactor> = {
 
 export const UnitConverter = {
   convertValue: (value: number | string, unit: string, factor: string): string =>
-    NumberUtils.formatNumber(NumberUtils.mul(value, UnitFactors[unit][factor])),
+    Numbers.formatNumber(Numbers.mul(value, UnitFactors[unit][factor])),
 }
