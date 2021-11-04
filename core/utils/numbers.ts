@@ -67,12 +67,13 @@ export const abs = (x: number | BigNumber): BigNumber | null => {
   return xNum.isFinite() ? xNum.abs() : null
 }
 
-export const toFixed = (value: any, precision = 2): string | null =>
+export const toFixed = (value: number | BigNumber, precision = 2): string | null =>
   Objects.isEmpty(value) ? null : toBigNumber(value).toFixed(precision)
 
-export const toString = (value: any): null | string => (Objects.isEmpty(value) ? null : toBigNumber(value).toString())
+export const toString = (value: number | BigNumber): null | string =>
+  Objects.isEmpty(value) ? null : toBigNumber(value).toString()
 
-export const formatNumber = (value: any, precision = 2): BigNumber | string =>
+export const formatNumber = (value: number | BigNumber, precision = 2): BigNumber | string =>
   Objects.isEmpty(value) ? null : toBigNumber(value).toFormat(precision)
 
 export const { max, min } = BigNumber
