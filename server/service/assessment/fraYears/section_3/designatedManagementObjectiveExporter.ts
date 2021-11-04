@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import { sub } from '@common/bignumberUtils'
+import { sub } from '@core/utils/numbers'
 import { getForestAreaForYear } from '@common/extentOfForestHelper'
 import { DataTableService } from '@server/service'
 

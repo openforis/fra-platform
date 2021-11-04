@@ -1,5 +1,5 @@
 import { AssessmentType } from '@core/assessment'
-import * as NumberUtils from '@common/bignumberUtils'
+import * as NumberUtils from '@core/utils/numbers'
 import { Unit, UnitConverter, UnitFactors } from '@webapp/sectionSpec'
 
 import { getPanEuropeanTableMapping } from '@webapp/components/Assessment/DataExport/utils/panEuropean'

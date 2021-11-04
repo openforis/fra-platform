@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 import { ODP, ODPValidation } from '@core/odp'
-import { sum, lessThanOrEqualTo } from './bignumberUtils'
+import { sum, lessThanOrEqualTo } from '@core/utils/numbers'
 
 export const validateDataPoint = (odp: ODP): ODPValidation => {
   const defaultTo0 = R.defaultTo(0)

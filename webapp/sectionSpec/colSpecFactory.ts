@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 
-import * as NumberUtils from '@common/bignumberUtils'
+import * as NumberUtils from '@core/utils/numbers'
 import { CalculateValue, ColOptionSpec, ColSpec, FormatValue } from '@webapp/sectionSpec/colSpec'
 import { TypeSpec } from '@webapp/sectionSpec/typeSpec'
 import { Validator } from '@webapp/sectionSpec/validation'

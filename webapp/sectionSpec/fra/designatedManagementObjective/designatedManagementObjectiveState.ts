@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 import { FRA } from '@core/assessment'
 
-import { sub } from '@common/bignumberUtils'
+import { sub } from '@core/utils/numbers'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import * as ExtentOfForestState from '@webapp/sectionSpec/fra/extentOfForest/extentOfForestState'

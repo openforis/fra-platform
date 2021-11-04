@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { toFixed } from '@common/bignumberUtils'
+import { toFixed } from '@core/utils/numbers'
 
 const trim = (value: any) => value.replace(/\s|\,/g, '')
 

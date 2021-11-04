@@ -2,7 +2,7 @@ import * as R from 'ramda'
 
 import { FRA } from '@core/assessment'
 import FraUtils from '@common/fraUtils'
-import * as NumberUtils from '@common/bignumberUtils'
+import * as NumberUtils from '@core/utils/numbers'
 
 import * as AppState from '@webapp/store/app/state'
 import * as CountryState from '@webapp/app/country/countryState'

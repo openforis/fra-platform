@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 
 import { ODP, ODPNationalClass } from '@core/odp'
-import * as NumberUtils from '@common/bignumberUtils'
+import * as NumberUtils from '@core/utils/numbers'
 import { PercentInput } from '@webapp/components/percentInput'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { useCountryIso, useI18n } from '@webapp/hooks'

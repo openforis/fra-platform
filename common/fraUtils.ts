@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 import { FRA } from '@core/assessment'
-import * as NumberUtils from './bignumberUtils'
+import * as NumberUtils from '@core/utils/numbers'
 
 /**
  * @deprecated

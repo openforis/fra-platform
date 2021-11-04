@@ -1,5 +1,5 @@
 import { FRA } from '@core/assessment'
-import * as NumberUtils from '@common/bignumberUtils'
+import * as NumberUtils from '@core/utils/numbers'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import * as ForestCharacteristicsState from '@webapp/sectionSpec/fra/forestCharacteristics/forestCharacteristicsState'

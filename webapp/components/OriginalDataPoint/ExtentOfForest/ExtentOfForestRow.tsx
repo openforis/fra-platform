@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { ODP } from '@core/odp'
-import * as NumberUtils from '@common/bignumberUtils'
+import * as NumberUtils from '@core/utils/numbers'
 import { useCountryIso, useI18n } from '@webapp/hooks'
 
 import { PercentInput } from '@webapp/components/percentInput'

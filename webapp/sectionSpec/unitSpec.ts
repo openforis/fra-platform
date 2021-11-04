@@ -1,4 +1,4 @@
-import * as NumberUtils from '@common/bignumberUtils'
+import * as NumberUtils from '@core/utils/numbers'
 
 export enum Unit {
   haThousand = 'haThousand',

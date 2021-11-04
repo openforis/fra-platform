@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import { abs, greaterThan, greaterThanOrEqualTo, sub } from '@common/bignumberUtils'
+import { abs, greaterThan, greaterThanOrEqualTo, sub } from '@core/utils/numbers'
 
 import * as ExtentOfForestState from '@webapp/sectionSpec/fra/extentOfForest/extentOfForestState'
 import * as ForestCharacteristicsState from '@webapp/sectionSpec/fra/forestCharacteristics/forestCharacteristicsState'

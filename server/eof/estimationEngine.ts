@@ -2,7 +2,7 @@ import * as R from 'ramda'
 import * as assert from 'assert'
 
 import { ODP } from '@core/odp'
-import * as NumberUtils from '@common/bignumberUtils'
+import * as NumberUtils from '@core/utils/numbers'
 
 export const linearInterpolation = (x: any, xa: any, ya: any, xb: any, yb: any) =>
   NumberUtils.add(

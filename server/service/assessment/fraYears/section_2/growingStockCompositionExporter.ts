@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { sum } from '@common/bignumberUtils'
+import { sum } from '@core/utils/numbers'
 
 import DataTableExporter from '../../exporter/dataTableExporter'
 

@@ -1,4 +1,4 @@
-import { formatNumber } from './bignumberUtils'
+import { formatNumber } from '@core/utils/numbers'
 
 export const formatInteger = (num: any) => formatNumber(num, 0)
 

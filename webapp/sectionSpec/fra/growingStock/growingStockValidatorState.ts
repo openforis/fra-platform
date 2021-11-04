@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import { abs, add, eq, greaterThan, sub } from '@common/bignumberUtils'
+import { abs, add, eq, greaterThan, sub } from '@core/utils/numbers'
 
 import * as GrowingStockState from '@webapp/sectionSpec/fra/growingStock/growingStockState'
 

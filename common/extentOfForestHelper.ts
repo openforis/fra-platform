@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { sum, sub } from './bignumberUtils'
+import { sum, sub } from '@core/utils/numbers'
 
 /**
  * @deprecated (@use ExtentOfForestState)
@@ -14,7 +14,8 @@ export const getValueForYear = (extentOfForest: any, year: any, field: any) => {
 /**
  * @deprecated (@use ExtentOfForestState)
  */
-export const getForestAreaForYear = (extentOfForest: any, year: any) => getValueForYear(extentOfForest, year, 'forestArea')
+export const getForestAreaForYear = (extentOfForest: any, year: any) =>
+  getValueForYear(extentOfForest, year, 'forestArea')
 
 /**
  * @deprecated (@use ExtentOfForestState)

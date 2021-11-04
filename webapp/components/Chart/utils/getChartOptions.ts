@@ -1,4 +1,4 @@
-import * as NumberUtils from '@common/bignumberUtils'
+import * as NumberUtils from '@core/utils/numbers'
 import { ChartOptions /* ChartTooltipItem */ } from 'chart.js'
 import { ChartTypeRegistry } from 'chart.js/auto'
 import { ChartType } from './ChartType'

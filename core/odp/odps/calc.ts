@@ -1,4 +1,4 @@
-import { add, div, mul, sub, sum } from '@common/bignumberUtils'
+import { add, div, mul, sub, sum } from '@core/utils/numbers'
 import { Objects } from '@core/utils'
 
 import { ODP } from '../odp'

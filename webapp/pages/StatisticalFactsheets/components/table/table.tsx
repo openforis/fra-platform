@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { useI18n } from '@webapp/hooks'
 import ButtonTableExport from '@webapp/components/ButtonTableExport'
 import { formatValue } from '@webapp/pages/StatisticalFactsheets/utils/numberUtils'
-import * as NumberUtils from '@common/bignumberUtils'
+import * as NumberUtils from '@core/utils/numbers'
 import useStatisticalFactsheetsState from '../../hooks/useStatisticalFactsheetsState'
 
 type Props = {

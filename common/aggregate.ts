@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { sum } from './bignumberUtils'
+import { sum } from '@core/utils/numbers'
 import { formatDecimal } from './numberFormat'
 
 /**

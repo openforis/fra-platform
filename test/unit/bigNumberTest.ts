@@ -1,5 +1,5 @@
 import { assert } from 'chai'
-import * as BigNumberUtils from '../../common/bignumberUtils'
+import * as BigNumberUtils from '@core/utils/numbers'
 
 const array: BigNumberUtils.BigNumberInput[] = [2, 4, 7, 8]
 
@@ -91,7 +91,7 @@ describe('BigNumber', () => {
   it('toFixed', () => {
     const res = BigNumberUtils.toFixed(9873.43734)
     // @ts-ignore
-    assert.equal(res, "9873.44")
+    assert.equal(res, '9873.44')
   })
 
   it('toString', () => {

@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 import { FRA } from '@core/assessment'
 
-import { add, defaultTo0 } from '@common/bignumberUtils'
+import { add, defaultTo0 } from '@core/utils/numbers'
 import { getFraValues } from '../../eof/fraValueService'
 import * as repository from '../../repository/growingStock/growingStockRepository'
 

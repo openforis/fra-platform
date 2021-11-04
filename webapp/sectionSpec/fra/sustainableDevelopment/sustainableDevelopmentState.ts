@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import * as NumberUtils from '@common/bignumberUtils'
+import * as NumberUtils from '@core/utils/numbers'
 import { FRA } from '@core/assessment'
 
 import * as CountryState from '@webapp/app/country/countryState'

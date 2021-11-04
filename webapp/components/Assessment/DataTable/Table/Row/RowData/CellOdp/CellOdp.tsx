@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 import { TableDatumODPType } from '@core/assessment'
-import { formatNumber } from '@common/bignumberUtils'
+import { formatNumber } from '@core/utils/numbers'
 import { usePrintView } from '@webapp/store/app'
 
 import ThousandSeparatedDecimalInput from '@webapp/components/thousandSeparatedDecimalInput'

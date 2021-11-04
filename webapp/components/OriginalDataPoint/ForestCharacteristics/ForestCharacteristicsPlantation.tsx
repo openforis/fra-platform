@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { ODP, ODPs } from '@core/odp'
-import * as NumberUtils from '@common/bignumberUtils'
+import * as NumberUtils from '@core/utils/numbers'
 import { useI18n } from '@webapp/hooks'
 import ForestCharacteristicsPlantationRow from './ForestCharacteristicsPlantationRow'
 

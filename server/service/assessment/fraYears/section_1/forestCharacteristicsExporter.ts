@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import { sum, toFixed } from '@common/bignumberUtils'
+import { sum, toFixed } from '@core/utils/numbers'
 import FraTableExporter from '../../exporter/fraTableExporter'
 
 import * as FraValueService from '../../../../eof/fraValueService'

@@ -1,4 +1,4 @@
-import * as NumberUtils from '@common/bignumberUtils'
+import * as NumberUtils from '@core/utils/numbers'
 import { FRA } from '@core/assessment'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
