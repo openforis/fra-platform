@@ -1,7 +1,7 @@
 import { Response, Request } from 'express'
 import { Requests } from '@server/utils'
-// @ts-ignore
-import ee from '@google/earthengine'
+// eslint-disable-next-line
+const ee = require('@google/earthengine')
 
 const privateKey = JSON.parse(process.env.FRA_GOOGLE_SERVICE_ACCOUNT_KEY)
 
