@@ -124,9 +124,9 @@ export const ApiEndPoint = {
     getAll: () => apiPath('versioning'),
     getLatest: () => apiPath('versioning', 'latest'),
   },
-  Gee: {
+  Geo: {
     Country: {
-      limits: () => apiPath('gee', 'country', 'limits'),
+      limits: () => apiPath('geo', 'country', 'limits'),
     },
   },
 }

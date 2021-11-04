@@ -6,7 +6,7 @@ import ee from '@google/earthengine'
 const privateKey = JSON.parse(process.env.FRA_GOOGLE_SERVICE_ACCOUNT_KEY)
 
 // The authenticating structure to run all GEE computations through
-export const run = async (req: Request, res: Response, cloudFn: (req: Request) => any) => {
+export const executeScript = async (req: Request, res: Response, cloudFn: (req: Request) => any) => {
   try {
     ee.data.authenticateViaPrivateKey(
       privateKey,
