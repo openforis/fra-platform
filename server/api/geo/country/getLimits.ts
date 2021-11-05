@@ -2,8 +2,8 @@ import { Express, Response, Request } from 'express'
 import { ApiEndPoint } from '@common/api/endpoint'
 import { countryLimits } from '@server/api/geo/utils/variables'
 import { executeScript } from '@server/api/geo/utils/auth'
-// eslint-disable-next-line
-const ee = require('@google/earthengine')
+// @ts-ignore
+import * as ee from '@google/earthengine'
 
 // Primarily for testing
 export const GeoApiCountryGetLimits = {
