@@ -1,7 +1,6 @@
 import * as R from 'ramda'
 
-import * as NumberUtils from '@common/bignumberUtils'
-
+import { Numbers } from '@core/utils/numbers'
 import * as OtherLandWithTreeCoverState from '@webapp/sectionSpec/fra/otherLandWithTreeCover/otherLandWithTreeCoverState'
 
 export const otherLandWithTreeCoverTotalValidator = (colIdx: any) => (state: any) => {
@@ -12,7 +11,7 @@ export const otherLandWithTreeCoverTotalValidator = (colIdx: any) => (state: any
     return true
   }
 
-  return NumberUtils.greaterThanWithTolerance(otherLand, otherLandWithTreeCoverTotal)
+  return Numbers.greaterThanWithTolerance(otherLand, otherLandWithTreeCoverTotal)
 }
 
 export const getValidationMessages = (data: any) => (state: any) => {

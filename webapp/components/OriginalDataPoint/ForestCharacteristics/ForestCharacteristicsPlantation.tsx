@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { ODP, ODPs } from '@core/odp'
-import * as NumberUtils from '@common/bignumberUtils'
+import { Numbers } from '@core/utils/numbers'
 import { useI18n } from '@webapp/hooks'
 import ForestCharacteristicsPlantationRow from './ForestCharacteristicsPlantationRow'
 
@@ -45,12 +45,12 @@ const ForestCharacteristicsPlantation: React.FC<Props> = (props) => {
             <tr>
               <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.total')}</th>
               <th className="fra-table__calculated-cell fra-table__divider">
-                {NumberUtils.formatNumber(
+                {Numbers.format(
                   ODPs.calcTotalSubFieldArea({ odp, field: 'forestPercent', subField: 'plantationPercent' })
                 )}
               </th>
               <td className="fra-table__calculated-cell">
-                {NumberUtils.formatNumber(
+                {Numbers.format(
                   ODPs.calcTotalSubSubFieldArea({
                     odp,
                     field: 'forestPercent',

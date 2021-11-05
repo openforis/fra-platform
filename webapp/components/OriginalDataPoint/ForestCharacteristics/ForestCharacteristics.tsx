@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { ODP, ODPs } from '@core/odp'
-import * as NumberUtils from '@common/bignumberUtils'
+import { Numbers } from '@core/utils/numbers'
 import { useI18n } from '@webapp/hooks'
 import { usePrintView } from '@webapp/store/app'
 
@@ -22,7 +22,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
 
   const nationalClasses = odp.nationalClasses.filter((nationalClass) => !nationalClass.placeHolder)
   const plantationTotal = ODPs.calcTotalSubFieldArea({ odp, field: 'forestPercent', subField: 'plantationPercent' })
-  const hasPlantation = plantationTotal && NumberUtils.greaterThan(plantationTotal, 0)
+  const hasPlantation = plantationTotal && Numbers.greaterThan(plantationTotal, 0)
 
   return (
     <div className="odp__section">
@@ -73,20 +73,20 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
               <tr>
                 <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.total')}</th>
                 <th className="fra-table__calculated-cell fra-table__divider">
-                  {NumberUtils.formatNumber(ODPs.calcTotalFieldArea({ odp, field: 'forestPercent' }))}
+                  {Numbers.format(ODPs.calcTotalFieldArea({ odp, field: 'forestPercent' }))}
                 </th>
                 <td className="fra-table__calculated-cell">
-                  {NumberUtils.formatNumber(
+                  {Numbers.format(
                     ODPs.calcTotalSubFieldArea({ odp, field: 'forestPercent', subField: 'naturalForestPercent' })
                   )}
                 </td>
                 <td className="fra-table__calculated-cell">
-                  {NumberUtils.formatNumber(
+                  {Numbers.format(
                     ODPs.calcTotalSubFieldArea({ odp, field: 'forestPercent', subField: 'plantationPercent' })
                   )}
                 </td>
                 <td className="fra-table__calculated-cell">
-                  {NumberUtils.formatNumber(
+                  {Numbers.format(
                     ODPs.calcTotalSubFieldArea({ odp, field: 'forestPercent', subField: 'otherPlantedPercent' })
                   )}
                 </td>

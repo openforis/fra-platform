@@ -1,6 +1,5 @@
 import { FRA } from '@core/assessment'
-import * as NumberUtils from '@common/bignumberUtils'
-
+import { Numbers } from '@core/utils/numbers'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import * as ForestCharacteristicsState from '@webapp/sectionSpec/fra/forestCharacteristics/forestCharacteristicsState'
 import * as ExtentOfForestValidatorState from '@webapp/sectionSpec/fra/extentOfForest/extentOfForestValidatorState'
@@ -32,7 +31,7 @@ export const primaryForestValidator = (colIdx: any) => (state: any) => {
     return true
   }
 
-  return NumberUtils.greaterThanWithTolerance(naturalForest, primaryForest)
+  return Numbers.greaterThanWithTolerance(naturalForest, primaryForest)
 }
 
 export const getValidationMessages = (data: any) => (state: any) => {
