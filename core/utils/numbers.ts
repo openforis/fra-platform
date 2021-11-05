@@ -39,7 +39,7 @@ const applyComparison = (x: BigNumberInput, y: BigNumberInput, comp: BigNumCompa
 // API has changed, updated applyOperator params
 const add = (x: BigNumberInput, y: BigNumberInput): BigNumber => applyOperator(x, y, 'plus')
 
-const sum = (array: Array<any>): BigNumber =>
+const sum = (array: Array<any>) =>
   Objects.isEmpty(array) || array.every((v: BigNumber) => !v)
     ? null
     : array.reduce((total: BigNumber, f) => add(total, defaultTo0(f)), toBigNumber(0))
