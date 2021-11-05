@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { debounce } from '@webapp/utils/functionUtils'
+import { Functions } from '@core/utils'
 
 import { useCountryIso, useGetRequest, useOnUpdate, usePostRequest } from '@webapp/hooks'
 import { AutosaveActions } from '@webapp/store/autosave'
@@ -36,7 +36,7 @@ export default (name: string, section: string, template: string): DescriptionSta
   // on value update if canPostData is true, executes post request
   useEffect(() => {
     if (canPostData.current) {
-      debounce(postData, `postDescriptionData-${section}-${name}`, 800)()
+      Functions.debounce(postData, 800)
     }
   }, [data])
 
