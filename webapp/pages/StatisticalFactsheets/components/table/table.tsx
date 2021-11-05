@@ -24,7 +24,7 @@ const Table = (props: Props) => {
   }
   const t = (value: string | number) => {
     if (!value) return ''
-    return Number.isNaN(+value) ? i18n.t(`statisticalFactsheets.${section}.${value}`) : Numbers.formatNumber(value)
+    return Number.isNaN(+value) ? i18n.t(`statisticalFactsheets.${section}.${value}`) : Numbers.format(value)
   }
   return (
     <div className="fra-table__container">

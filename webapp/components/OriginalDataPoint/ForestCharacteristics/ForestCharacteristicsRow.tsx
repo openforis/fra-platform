@@ -47,7 +47,7 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
     <tr className={classNameRowComments}>
       <th className="fra-table__category-cell">{name}</th>
       <th className="fra-table__calculated-sub-cell fra-table__divider">
-        {area && Numbers.formatNumber((Number(area) * Number(nationalClass.forestPercent)) / 100)}
+        {area && Numbers.format((Number(area) * Number(nationalClass.forestPercent)) / 100)}
       </th>
       <td className={`fra-table__cell ${classNamePercentageValidation}`}>
         <PercentInput

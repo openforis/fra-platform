@@ -82,7 +82,7 @@ class DataPoint extends Component<Props, {}> {
             className="chart__tooltip-marker"
             style={{ backgroundColor: data.type === 'fra' ? '#ffffff' : (this.props as any).color }}
           />
-          <div className="chart__tooltip-value">{Numbers.formatNumber(data.value, precision)}</div>
+          <div className="chart__tooltip-value">{Numbers.format(data.value, precision)}</div>
           <div className="chart__tooltip-unit">(1000 ha)</div>
         </div>
         {data.dataSourceMethods && (

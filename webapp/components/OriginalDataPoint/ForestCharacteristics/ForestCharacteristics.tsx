@@ -73,20 +73,20 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
               <tr>
                 <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.total')}</th>
                 <th className="fra-table__calculated-cell fra-table__divider">
-                  {Numbers.formatNumber(ODPs.calcTotalFieldArea({ odp, field: 'forestPercent' }))}
+                  {Numbers.format(ODPs.calcTotalFieldArea({ odp, field: 'forestPercent' }))}
                 </th>
                 <td className="fra-table__calculated-cell">
-                  {Numbers.formatNumber(
+                  {Numbers.format(
                     ODPs.calcTotalSubFieldArea({ odp, field: 'forestPercent', subField: 'naturalForestPercent' })
                   )}
                 </td>
                 <td className="fra-table__calculated-cell">
-                  {Numbers.formatNumber(
+                  {Numbers.format(
                     ODPs.calcTotalSubFieldArea({ odp, field: 'forestPercent', subField: 'plantationPercent' })
                   )}
                 </td>
                 <td className="fra-table__calculated-cell">
-                  {Numbers.formatNumber(
+                  {Numbers.format(
                     ODPs.calcTotalSubFieldArea({ odp, field: 'forestPercent', subField: 'otherPlantedPercent' })
                   )}
                 </td>

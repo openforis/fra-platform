@@ -52,7 +52,7 @@ const newHeaderInstance = (props: ColHeaderProps): ColSpec => {
 const newCol = (type: TypeSpec, props: ColDataProps): ColSpec => ({ type, ...props })
 
 const newCalculatedInstance = (props: ColDataProps): ColSpec =>
-  newCol(TypeSpec.calculated, { formatFn: Numbers.formatNumber, ...props })
+  newCol(TypeSpec.calculated, { formatFn: Numbers.format, ...props })
 
 const newDecimalInstance = (props: ColDataProps): ColSpec => newCol(TypeSpec.decimal, props)
 

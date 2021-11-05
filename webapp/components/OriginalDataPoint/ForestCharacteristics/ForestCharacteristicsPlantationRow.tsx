@@ -44,9 +44,7 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
   return (
     <tr className={classNameRowComments}>
       <th className="fra-table__category-cell">{name}</th>
-      <th className="fra-table__calculated-sub-cell fra-table__divider">
-        {Numbers.formatNumber(plantationIntroduced)}
-      </th>
+      <th className="fra-table__calculated-sub-cell fra-table__divider">{Numbers.format(plantationIntroduced)}</th>
       <td className={`fra-table__cell ${classNamePercentageValidation}`}>
         <PercentInput
           disabled={!canEditData}

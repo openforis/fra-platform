@@ -35,11 +35,11 @@ const CellOdp: React.FC<Props> = (props) => {
 
   return (
     <td className={className}>
-      {calculated && Numbers.formatNumber(useSelector(calculateFn(datum)))}
+      {calculated && Numbers.format(useSelector(calculateFn(datum)))}
 
       {!calculated && odp && (
         <div className="number-input__container validation-error-sensitive-field">
-          <div className="number-input__readonly-view">{Numbers.formatNumber(datumValue)}</div>
+          <div className="number-input__readonly-view">{Numbers.format(datumValue)}</div>
         </div>
       )}
 

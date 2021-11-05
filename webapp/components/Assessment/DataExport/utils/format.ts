@@ -49,7 +49,7 @@ export const formatValue = (
 
   let value = results?.[countryIso]?.[variable]?.[columnKey]
   // Convert value to string and check if it's a number
-  if (!Number.isNaN(+value)) value = Numbers.formatNumber(value)
+  if (!Number.isNaN(+value)) value = Numbers.format(value)
   if (value === 'NaN') value = ''
 
   return { columnKey, value }
