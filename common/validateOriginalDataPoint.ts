@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 import { ODP, ODPValidation } from '@core/odp'
-import { sum, lessThanOrEqualTo } from './bignumberUtils'
+import { Numbers } from '@core/utils/numbers'
 
 export const validateDataPoint = (odp: ODP): ODPValidation => {
   const defaultTo0 = R.defaultTo(0)
@@ -8,8 +8,8 @@ export const validateDataPoint = (odp: ODP): ODPValidation => {
   const validYear = R.pipe(defaultTo0, R.partialRight(R.gt, [0]))(odp.year)
 
   const validateEofPercentage = (cls: any) => {
-    const percentSum = sum([defaultTo0(cls.forestPercent), defaultTo0(cls.otherWoodedLandPercent)])
-    return lessThanOrEqualTo(percentSum, 100)
+    const percentSum = Numbers.sum([defaultTo0(cls.forestPercent), defaultTo0(cls.otherWoodedLandPercent)])
+    return Numbers.lessThanOrEqualTo(percentSum, 100)
   }
 
   const validateFocPercentage = (cls: any) =>

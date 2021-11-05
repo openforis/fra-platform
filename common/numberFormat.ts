@@ -1,8 +1,8 @@
-import { formatNumber } from './bignumberUtils'
+import { Numbers } from '@core/utils/numbers'
 
-export const formatInteger = (num: any) => formatNumber(num, 0)
+export const formatInteger = (num: any) => Numbers.format(num, 0)
 
-export const formatDecimal = (num: any) => formatNumber(num, 2)
+export const formatDecimal = (num: any) => Numbers.format(num, 2)
 
 export default {
   formatDecimal,

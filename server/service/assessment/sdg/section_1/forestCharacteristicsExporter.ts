@@ -1,9 +1,9 @@
 import * as R from 'ramda'
 
+import { Numbers } from '@core/utils/numbers'
 import FraTableExporter from '../../exporter/fraTableExporter'
 
 import * as FraValueService from '../../../../eof/fraValueService'
-import { sum, toFixed } from '@common/bignumberUtils'
 
 class ForestCharacteristicsExporter extends FraTableExporter {
   constructor() {
@@ -24,7 +24,7 @@ class ForestCharacteristicsExporter extends FraTableExporter {
     const plantationForest = R.prop('plantationForestArea', focYear)
     // @ts-ignore
     const otherPlantedForest = R.prop('otherPlantedForestArea', focYear)
-    const plantedForest = toFixed(sum([plantationForest, otherPlantedForest]))
+    const plantedForest = Numbers.toFixed(Numbers.sum([plantationForest, otherPlantedForest]))
 
     return {
       naturallyRegeneratingForest,

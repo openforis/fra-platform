@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 
 import { ODP, ODPNationalClass } from '@core/odp'
-import * as NumberUtils from '@common/bignumberUtils'
+import { Numbers } from '@core/utils/numbers'
 import { PercentInput } from '@webapp/components/percentInput'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { useCountryIso, useI18n } from '@webapp/hooks'
@@ -47,7 +47,7 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
     <tr className={classNameRowComments}>
       <th className="fra-table__category-cell">{name}</th>
       <th className="fra-table__calculated-sub-cell fra-table__divider">
-        {area && NumberUtils.formatNumber((Number(area) * Number(nationalClass.forestPercent)) / 100)}
+        {area && Numbers.format((Number(area) * Number(nationalClass.forestPercent)) / 100)}
       </th>
       <td className={`fra-table__cell ${classNamePercentageValidation}`}>
         <PercentInput

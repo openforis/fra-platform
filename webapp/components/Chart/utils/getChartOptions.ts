@@ -1,4 +1,4 @@
-import * as NumberUtils from '@common/bignumberUtils'
+import { Numbers } from '@core/utils/numbers'
 import { ChartOptions /* ChartTooltipItem */ } from 'chart.js'
 import { ChartTypeRegistry } from 'chart.js/auto'
 import { ChartType } from './ChartType'
@@ -54,7 +54,7 @@ const commonOptions = {
           const { dataIndex } = tooltipItem
           const value = data[dataIndex]
 
-          return `${NumberUtils.formatNumber(value)} (${dataset.unit})`
+          return `${Numbers.format(value)} (${dataset.unit})`
         },
       },
     },

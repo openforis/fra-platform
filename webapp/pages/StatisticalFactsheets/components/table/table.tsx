@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { useI18n } from '@webapp/hooks'
 import ButtonTableExport from '@webapp/components/ButtonTableExport'
 import { formatValue } from '@webapp/pages/StatisticalFactsheets/utils/numberUtils'
-import * as NumberUtils from '@common/bignumberUtils'
+import { Numbers } from '@core/utils/numbers'
 import useStatisticalFactsheetsState from '../../hooks/useStatisticalFactsheetsState'
 
 type Props = {
@@ -24,7 +24,7 @@ const Table = (props: Props) => {
   }
   const t = (value: string | number) => {
     if (!value) return ''
-    return Number.isNaN(+value) ? i18n.t(`statisticalFactsheets.${section}.${value}`) : NumberUtils.formatNumber(value)
+    return Number.isNaN(+value) ? i18n.t(`statisticalFactsheets.${section}.${value}`) : Numbers.format(value)
   }
   return (
     <div className="fra-table__container">

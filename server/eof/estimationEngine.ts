@@ -2,25 +2,16 @@ import * as R from 'ramda'
 import * as assert from 'assert'
 
 import { ODP } from '@core/odp'
-import * as NumberUtils from '@common/bignumberUtils'
+import { Numbers } from '@core/utils/numbers'
 
 export const linearInterpolation = (x: any, xa: any, ya: any, xb: any, yb: any) =>
-  NumberUtils.add(
-    ya,
-    NumberUtils.div(NumberUtils.mul(NumberUtils.sub(yb, ya), NumberUtils.sub(x, xa)), NumberUtils.sub(xb, xa))
-  )
+  Numbers.add(ya, Numbers.div(Numbers.mul(Numbers.sub(yb, ya), Numbers.sub(x, xa)), Numbers.sub(xb, xa)))
 
 export const linearExtrapolationForwards = (x: any, xa: any, ya: any, xb: any, yb: any) =>
-  NumberUtils.add(
-    ya,
-    NumberUtils.mul(NumberUtils.div(NumberUtils.sub(x, xa), NumberUtils.sub(xb, xa)), NumberUtils.sub(yb, ya))
-  )
+  Numbers.add(ya, Numbers.mul(Numbers.div(Numbers.sub(x, xa), Numbers.sub(xb, xa)), Numbers.sub(yb, ya)))
 
 export const linearExtrapolationBackwards = (x: any, xa: any, ya: any, xb: any, yb: any) =>
-  NumberUtils.add(
-    yb,
-    NumberUtils.mul(NumberUtils.div(NumberUtils.sub(xb, x), NumberUtils.sub(xb, xa)), NumberUtils.sub(ya, yb))
-  )
+  Numbers.add(yb, Numbers.mul(Numbers.div(Numbers.sub(xb, x), Numbers.sub(xb, xa)), Numbers.sub(ya, yb)))
 
 export const getNextValues = (year: any) =>
   R.pipe(
@@ -84,14 +75,14 @@ export const annualChangeExtrapolation = (
     const previousOdpYear = previousOdp.year
     const years = year - previousOdpYear
     const rateFuture = R.path([field, 'rateFuture'], changeRates) as number
-    return rateFuture ? NumberUtils.add(previousOdp[field], NumberUtils.mul(rateFuture, years)) : null
+    return rateFuture ? Numbers.add(previousOdp[field], Numbers.mul(rateFuture, years)) : null
   }
   if (nextValues.length >= 1) {
     const nextOdp = R.head(nextValues)
     const nextOdpYear = nextOdp.year
     const years = nextOdpYear - year
     const ratePast = R.path([field, 'ratePast'], changeRates) as number
-    return ratePast ? NumberUtils.add(nextOdp[field], NumberUtils.mul(ratePast * -1, years)) : null
+    return ratePast ? Numbers.add(nextOdp[field], Numbers.mul(ratePast * -1, years)) : null
   }
   return null
 }
@@ -142,7 +133,7 @@ export const estimateFraValue = (year: any, values: any, odpValues: any, generat
     const estValue = estimateField(fieldValues, odpValues, field, year, generateSpec)
 
     // @ts-ignore
-    return R.pipe(R.assoc([field], NumberUtils.toFixed(estValue)), R.assoc(`${field}Estimated`, true))(newFraObj)
+    return R.pipe(R.assoc([field], Numbers.toFixed(estValue)), R.assoc(`${field}Estimated`, true))(newFraObj)
   }
 
   return R.pipe(
