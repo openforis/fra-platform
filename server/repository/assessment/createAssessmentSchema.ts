@@ -1,4 +1,4 @@
-import { BaseProtocol, DB } from '@server/db'
+import { BaseProtocol, DB, Schemas } from '@server/db'
 import { Assessment } from '@core/meta/assessment'
 
 export const createAssessmentSchema = async (
@@ -11,13 +11,16 @@ export const createAssessmentSchema = async (
     assessment,
     assessment: { uuid },
   } = params
+
+  const schemaName = Schemas.getName(assessment)
+
   const query = `
   insert into assessment (props)
 values ('${assessment.props}'::jsonb);
 
-create schema assessment_${uuid};
+create schema ${schemaName}};
 
-create table assessment_${uuid}.cycle
+create table ${schemaName}.cycle
 (
     id   bigserial NOT NULL,
     uuid uuid    default uuid_generate_v4(),
@@ -25,7 +28,7 @@ create table assessment_${uuid}.cycle
     PRIMARY KEY (id)
 );
 
-create table assessment_${uuid}.section
+create table ${schemaName}.section
 (
     id            bigserial NOT NULL,
     uuid          uuid  default uuid_generate_v4(),
@@ -34,41 +37,41 @@ create table assessment_${uuid}.section
     PRIMARY KEY (id)
 );
 
-create table assessment_${uuid}.table_section
+create table ${schemaName}.table_section
 (
     id         bigserial NOT NULL,
     uuid       uuid  default uuid_generate_v4(),
     props      jsonb default '{}'::jsonb,
-    section_id serial    not null references assessment_${uuid}.section (id),
+    section_id serial    not null references ${schemaName}.section (id),
     PRIMARY KEY (id)
 );
 
 
-create table assessment_${uuid}.table
+create table ${schemaName}.table
 (
     id               bigserial NOT NULL,
     uuid             uuid  default uuid_generate_v4(),
     props            jsonb default '{}'::jsonb,
-    table_section_id serial    not null references assessment_${uuid}.table_section (id),
+    table_section_id serial    not null references ${schemaName}.table_section (id),
     PRIMARY KEY (id)
 );
 
 
-create table assessment_${uuid}.row
+create table ${schemaName}.row
 (
     id       bigserial NOT NULL,
     uuid     uuid  default uuid_generate_v4(),
     props    jsonb default '{}'::jsonb,
-    table_id serial    not null references assessment_${uuid}.table (id),
+    table_id serial    not null references ${schemaName}.table (id),
     PRIMARY KEY (id)
 );
 
-create table assessment_${uuid}.col
+create table ${schemaName}.col
 (
     id     bigserial NOT NULL,
     uuid   uuid  default uuid_generate_v4(),
     props  jsonb default '{}'::jsonb,
-    row_id serial    not null references assessment_${uuid}.row (id),
+    row_id serial    not null references ${schemaName}.row (id),
     PRIMARY KEY (id)
 );
 `
