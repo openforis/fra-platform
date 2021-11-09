@@ -5,5 +5,5 @@ type AssessmentProps = {
 }
 
 export interface Assessment extends CycledPropsObject<AssessmentProps> {
-  id: string
+  id: number
 }
