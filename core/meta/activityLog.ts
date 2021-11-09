@@ -1,6 +1,6 @@
 import { User } from '@core/auth'
 
-enum ActivityLogMessage {
+export enum ActivityLogMessage {
   assessmentCreate = 'assessmentCreate',
 }
 

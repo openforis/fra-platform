@@ -7,10 +7,7 @@ export const createAssessmentSchema = async (
   },
   client: BaseProtocol = DB
 ): Promise<string> => {
-  const {
-    assessment,
-    assessment: { uuid },
-  } = params
+  const { assessment } = params
 
   const schemaName = Schemas.getName(assessment)
 
@@ -98,5 +95,5 @@ create table ${schemaName}.col
 
   await client.query(query)
 
-  return uuid
+  return schemaName
 }
