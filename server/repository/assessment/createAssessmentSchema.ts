@@ -85,15 +85,13 @@ create table ${schemaName}.col
   (
       time             timestamp default timezone('UTC'::text, now()) not null,
       message          text,
-      country_iso      varchar(3)
-          constraint fra_audit_country_iso_fkey
-              references country,
+      country_iso      varchar(3),
       section          varchar(250)                                   not null,
       target           json,
       id               bigserial                                      not null
           constraint fra_audit_pkey
               primary key,
-      user_id bigint not null references ${schemaName}.row (id)
+      user_id bigint not null references public.user (id)
   );
 
 `
