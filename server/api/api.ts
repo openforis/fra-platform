@@ -13,7 +13,6 @@ import { DataTableApi } from '@server/api/dataTable'
 import { UserChatApi } from '@server/api/userChat'
 import { FileRepositoryApi } from '@server/api/fileRepository'
 import { OriginalDataPointApi } from '@server/api/originalDataPoint'
-import { AssessmentService } from '@server/service/assessment'
 import { BiomassStockApi } from './biomassStock'
 import { StatisticalFactsheetsApi } from './statisticalFactsheets'
 import { AuthApi } from './auth'
@@ -54,16 +53,5 @@ export const Api = {
     GrowingStockApi.init(express)
 
     OriginalDataPointApi.init(express)
-
-    AssessmentService.createAssessment({
-      assessment: {
-        id: 1,
-        uuid: '6',
-        props: {
-          cycles: ['1'],
-          name: 'fra',
-        },
-      },
-    })
   },
 }
