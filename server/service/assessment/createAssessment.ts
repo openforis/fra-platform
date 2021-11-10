@@ -13,14 +13,15 @@ export const createAssessment = async (
   activityLogEntry: ActivityLog<any>
 }> => {
   const { assessment, user } = props
+  const schemaName = await AssessmentRepository.createAssessmentSchema({ assessment }, client)
+
   return client.tx(async (t) => {
-    const schemaName = await AssessmentRepository.createAssessmentSchema({ assessment }, t)
+    const createdAssessment = await AssessmentRepository.createAssessment({ assessment }, t)
     const activityLogEntry = await ActivityLogRepository.insertActivityLog(
       {
         activityLog: {
-          countryIso: null,
-          target: null,
-          section: null,
+          target: assessment,
+          section: 'assessment',
           message: ActivityLogMessage.assessmentCreate,
           user,
         },
@@ -28,6 +29,6 @@ export const createAssessment = async (
       },
       t
     )
-    return { schemaName, activityLogEntry }
+    return { schemaName, activityLogEntry, assessment: createdAssessment }
   })
 }

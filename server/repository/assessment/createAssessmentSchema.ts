@@ -12,10 +12,7 @@ export const createAssessmentSchema = async (
   const schemaName = Schemas.getName(assessment)
 
   const query = `
-  insert into assessment (props)
-values ('${JSON.stringify(assessment.props)}'::jsonb);
-
-create schema ${schemaName};
+  create schema ${schemaName};
 
 create table ${schemaName}.cycle
 (
@@ -85,10 +82,8 @@ create table ${schemaName}.col
       country_iso      varchar(3),
       section          varchar(250)                                   not null,
       target           json,
-      id               bigserial                                      not null
-          constraint fra_audit_pkey
-              primary key,
-      user_id bigint not null references public.user (id)
+      id               bigserial                                      not null,
+      user_id bigint not null references public.fra_user (id)
   );
 
 `
