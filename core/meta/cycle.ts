@@ -2,7 +2,8 @@ export interface CycledPropsObject<Props = void> {
   props: {
     cycles: Array<string>
   } & Props
-  uuid: string
+  uuid?: string
+  id?: number
 }
 
 export interface Cycle {
