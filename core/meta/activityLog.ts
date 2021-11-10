@@ -7,7 +7,7 @@ export enum ActivityLogMessage {
 export interface ActivityLog<Target> {
   target: Target
   message: ActivityLogMessage
-  countryIso: string
+  countryIso?: string
   section: string
   user: User
   time?: string
