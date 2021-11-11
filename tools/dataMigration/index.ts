@@ -1,13 +1,14 @@
 import * as path from 'path'
 import { config } from 'dotenv'
 
-import { SectionSpec } from '../../webapp/sectionSpec'
+import { Assessment } from '../../core/meta/assessment'
 import { Section } from '../../core/meta/section'
 import { TableSection } from '../../core/meta/tableSection'
 import { Table } from '../../core/meta/table'
 import { Row } from '../../core/meta/row'
 import { Col } from '../../core/meta/col'
 import { Cycle } from '../../core/meta/cycle'
+import { SectionSpec } from '../../webapp/sectionSpec'
 
 import { FraSpecs } from './fraSpecs'
 import { getSection } from './getSection'
@@ -15,6 +16,9 @@ import { getTableSection } from './getTableSection'
 import { getTable } from './getTable'
 import { getRow } from './getRow'
 import { getCol } from './getCol'
+import { DB } from '../../server/db'
+import { getCreateSchemaDDL } from '../../server/repository/assessment/getCreateSchemaDDL'
+import { Objects } from '../../core/utils/objects'
 
 config({ path: path.resolve(__dirname, '..', '..', '.env') })
 
@@ -29,8 +33,25 @@ export const migrate = async (spec: Record<string, SectionSpec>): Promise<void> 
   // )
   // console.log(assessment)
   // console.log(FraSpecs)
-  const assessmentId = 1
-  const cycle: Cycle = { name: '2020', uuid: 'uuid-cycle' }
+
+  // delete old fra
+  await DB.query(`drop schema if exists assessment_fra cascade`)
+  await DB.query(`delete from assessment where props->>'name' = $1`, ['fra'])
+
+  // insert assessment
+  const assessment = await DB.one<Assessment>(
+    `insert into assessment (props)
+            values ($1::jsonb)
+            returning *;`,
+    [JSON.stringify({ name: 'fra' })]
+  )
+
+  // create schema
+  const schema = `assessment_${assessment.props.name}`
+  await DB.query(getCreateSchemaDDL(schema))
+
+  // insert cycle
+  const cycle: Cycle = await DB.one<Cycle>(`insert into ${schema}.cycle (name) values($1) returning *`, ['2020'])
   const cycles: Array<string> = [cycle.uuid]
 
   const sections: Array<Section> = []
@@ -39,35 +60,69 @@ export const migrate = async (spec: Record<string, SectionSpec>): Promise<void> 
   const rows: Array<Row> = []
   const cols: Array<Col> = []
 
-  Object.entries(spec).forEach(([_, spec], index) => {
-    // console.log(spec)
-    const section = getSection({ assessmentId, spec, cycles, index })
-    sections.push(section)
+  await DB.tx(async (t) => {
+    await Promise.all(
+      Object.values(spec).map(async (spec, index) => {
+        let section = getSection({ assessmentId: assessment.id, spec, cycles, index })
+        section = await t.one<Section>(
+          `insert into assessment_fra.section (assessment_id,props)
+                    values ($1, $2::jsonb)
+                    returning *`,
+          [section.assessmentId, JSON.stringify(section.props)],
+          Objects.camelize
+        )
+        sections.push(section)
 
-    spec.tableSections.forEach((tableSectionSpec) => {
-      const tableSection = getTableSection({ cycles, tableSectionSpec, section })
-      tableSections.push(tableSection)
+        await Promise.all(
+          spec.tableSections.map(async (tableSectionSpec) => {
+            let tableSection = getTableSection({ cycles, tableSectionSpec, section })
+            tableSection = await t.one<TableSection>(
+              `insert into assessment_fra.table_section (section_id,props) values ($1, $2::jsonb) returning *;`,
+              [tableSection.sectionId, JSON.stringify(tableSection.props)],
+              Objects.camelize
+            )
+            tableSections.push(tableSection)
 
-      tableSectionSpec.tableSpecs.forEach((tableSpec) => {
-        const table = getTable({ cycles, tableSpec, tableSection })
-        tables.push(table)
+            await Promise.all(
+              tableSectionSpec.tableSpecs.map(async (tableSpec) => {
+                let table = getTable({ cycles, tableSpec, tableSection })
+                table = await t.one<Table>(
+                  `insert into assessment_fra."table" (table_section_id, props) values ($1, $2::jsonb) returning *;`,
+                  [table.tableSectionId, JSON.stringify(table.props)],
+                  Objects.camelize
+                )
+                tables.push(table)
 
-        tableSpec.rows.forEach((rowSpec) => {
-          const row = getRow({ cycles, rowSpec, table })
-          rows.push(row)
+                await Promise.all(
+                  tableSpec.rows.map(async (rowSpec) => {
+                    let row = getRow({ cycles, rowSpec, table })
+                    row = await t.one<Row>(
+                      `insert into assessment_fra.row (table_id, props) values ($1, $2::jsonb) returning *;`,
+                      [row.tableId, JSON.stringify(row.props)],
+                      Objects.camelize
+                    )
+                    rows.push(row)
 
-          rowSpec.cols.forEach((colSpec) => {
-            const col = getCol({ cycles, colSpec, row })
-            cols.push(col)
+                    await Promise.all(
+                      rowSpec.cols.map(async (colSpec) => {
+                        let col = getCol({ cycles, colSpec, row })
+                        col = await t.one<Col>(
+                          `insert into assessment_fra.col (row_id, props) values ($1, $2::jsonb) returning *;`,
+                          [col.rowId, JSON.stringify(col.props)],
+                          Objects.camelize
+                        )
+                        cols.push(col)
+                      })
+                    )
+                  })
+                )
+              })
+            )
           })
-        })
+        )
       })
-    })
+    )
   })
-
-  // console.log('====== sections ', sections)
-  // console.log('====== tableSections ', tableSections)
-  // console.log('====== tables ', tables)
 }
 
 migrate(FraSpecs)
