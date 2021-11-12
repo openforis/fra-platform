@@ -12,7 +12,8 @@ create table users
     status                   users_status default 'invitationPending' not null,
     profile_picture_file     bytea,
     position                 varchar(1024),
-    email                    varchar(255) not null
+    email                    varchar(255) not null,
+    unique(email)
 );
 
 create type auth_provider as enum ('local', 'google');
