@@ -1,15 +1,30 @@
 import { BaseProtocol, DB } from '@server/db'
-import { User } from '@core/meta/user'
+import { User, UserProvider } from '@core/meta/user'
 import { UserRepository } from '@server/repository/user'
+import { UserProviderRepository } from '@server/repository/userProvider'
 
 export const create = async (
-  props: { user: Pick<User, 'name' | 'email'> },
+  props: {
+    user: Pick<User, 'name' | 'email'>
+    provider: Pick<UserProvider<{ password: string }>, 'provider' | 'props'>
+  },
   client: BaseProtocol = DB
 ): Promise<User> => {
-  const { user } = props
+  const { user, provider } = props
 
   return client.tx(async (t) => {
-    // insert entry in ActivityLog: Does not exist in public - should?
-    return UserRepository.create({ user }, t)
+    // TODO: we should only record when the user has been invited to a specific assessment. maybe insert an entry only when the user has been invited?
+    const newUser = await UserRepository.create({ user }, t)
+    await UserProviderRepository.create(
+      {
+        provider: {
+          ...provider,
+          userId: newUser.id,
+        },
+      },
+      t
+    )
+
+    return newUser
   })
 }
