@@ -15,7 +15,7 @@ create table users
     email                    varchar(255) not null
 );
 
-create type provider as enum ('local', 'google');
+create type auth_provider as enum ('local', 'google');
 
 create table users_provider
 (
@@ -23,14 +23,14 @@ create table users_provider
         constraint users_provider_pkey
             primary key,
     user_id                 bigint references users (id) not null,
-    provider                provider not null,
+    provider                auth_provider not null,
     props                   jsonb
 );
 
 create table users_invitation
 (
     uuid                    uuid primary key,
-    invited_at              timestamptz,
+    invited_at              timestamptz default now(),
     accepted_at             timestamptz,
     user_id                 bigint references users (id) not null
 );
@@ -38,7 +38,7 @@ create table users_invitation
 create table users_reset_password
 (
     uuid                    uuid primary key,
-    changed_at              timestamptz,
-    created_at              timestamptz,
+    changed_at              timestamptz default now(),
+    created_at              timestamptz default now(),
     user_id                 bigint references users (id) not null
 );
