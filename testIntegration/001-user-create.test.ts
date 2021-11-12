@@ -1,7 +1,7 @@
-import { UserStatus } from '../core/meta/user'
+import { AuthProvider, UserStatus } from '../core/meta/user'
 import { UserService } from '../server/service/user'
 
-test('ExpectedUser === User', async () => {
+test('Expect user to be created', async () => {
   const userParams = {
     email: 'test@fra-platform.com',
     name: 'Test User',
@@ -9,6 +9,13 @@ test('ExpectedUser === User', async () => {
 
   const user = await UserService.create({
     user: userParams,
+    provider: {
+      provider: AuthProvider.local,
+      props: {
+        // password: 'test'
+        password: '$2b$10$F8FvZYivtznQD.heHv7dcu8WPOY3S/astp4uHwwHFw8woz5INEj/K',
+      },
+    },
   })
 
   expect(user).toHaveProperty('id')
