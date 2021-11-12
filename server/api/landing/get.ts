@@ -5,7 +5,7 @@ import * as db from '../../db/db_deprecated'
 import { checkCountryAccessFromReqParams } from '../../utils/accessControl'
 import { sendErr } from '../../utils/requests'
 
-import { fetchCountryUsers } from '../../repository/user/userRepository'
+import { fetchCountryUsers } from '../../repository/user/_legacy_userRepository'
 import { getChatSummary } from '../../repository/userChat/userChatRepository'
 import { fetchCountryUnreadMessages } from '../../repository/countryMessageBoard/countryMessageBoardRepository'
 

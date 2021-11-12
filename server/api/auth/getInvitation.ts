@@ -1,5 +1,5 @@
 import { Express, Response, Request } from 'express'
-import { fetchInvitation, findUserByEmail } from '@server/repository/user/userRepository'
+import { fetchInvitation, findUserByEmail } from '@server/repository/user/_legacy_userRepository'
 import { sendErr } from '@server/utils/requests'
 import { ApiEndPoint } from '@common/api/endpoint'
 

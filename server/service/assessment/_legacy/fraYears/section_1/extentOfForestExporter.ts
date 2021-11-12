@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import * as FraValueService from '../../../../eof/fraValueService'
+import * as FraValueService from '../../../../../eof/fraValueService'
 
 import FraTableExporter from '../../exporter/fraTableExporter'
 
