@@ -16,7 +16,7 @@ export interface User {
   email: string
 }
 
-export enum Provider {
+export enum AuthProvider {
   google = 'google',
   local = 'local',
 }
@@ -24,7 +24,7 @@ export enum Provider {
 export interface UserProvider<P = void> {
   id: number
   userId: number
-  provider: Provider
+  provider: AuthProvider
   props: P
 }
 
