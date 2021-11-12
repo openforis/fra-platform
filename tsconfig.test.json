@@ -1,0 +1,23 @@
+{
+  "allowSyntheticDefaults": true,
+  "include": ["core", "common", "server", "testIntegration"],
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "noImplicitAny": true,
+    "outDir": "./dist/",
+    "baseUrl": ".",
+    "paths": {
+      "@core/*": ["core/*"],
+      "@common/*": ["common/*"],
+      "@server/*": ["server/*"],
+      "@testIntegration/*": ["testIntegration/*"]
+    },
+    "target": "es2020",
+    "lib": ["es2020", "esnext"]
+  }
+}
