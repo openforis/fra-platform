@@ -23,7 +23,7 @@ create table users_provider
     id                      bigserial
         constraint users_provider_pkey
             primary key,
-    user_id                 bigint references users (id) not null,
+    user_id                 bigint references users (id) on delete cascade not null ,
     provider                auth_provider not null,
     props                   jsonb
 );
@@ -33,7 +33,7 @@ create table users_invitation
     uuid                    uuid primary key,
     invited_at              timestamptz default now(),
     accepted_at             timestamptz,
-    user_id                 bigint references users (id) not null
+    user_id                 bigint references users (id) on delete cascade not null
 );
 
 create table users_reset_password
@@ -41,5 +41,5 @@ create table users_reset_password
     uuid                    uuid primary key,
     changed_at              timestamptz default now(),
     created_at              timestamptz default now(),
-    user_id                 bigint references users (id) not null
+    user_id                 bigint references users (id) on delete cascade not null
 );
