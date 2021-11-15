@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import * as GrowingStockService from '../../../growingStock/growingStockService'
+import * as GrowingStockService from '../../../../growingStock/growingStockService'
 
 import FraTableExporter from '../../exporter/fraTableExporter'
 

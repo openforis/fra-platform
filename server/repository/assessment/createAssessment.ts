@@ -14,6 +14,6 @@ export const createAssessment = async (
   insert into assessment (props) values ('${JSON.stringify(assessment.props)}'::jsonb) returning  *;
 
 `
-  const ret = await client.query<Assessment>(query)
+  const ret = await client.one<Assessment>(query)
   return Objects.camelize(ret)
 }

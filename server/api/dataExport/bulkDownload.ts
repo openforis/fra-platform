@@ -1,5 +1,5 @@
 import { Express, Response, Request } from 'express'
-import * as ExportService from '@server/service/assessment/exportService'
+import * as ExportService from '@server/service/assessment/_legacy/exportService'
 import * as JSZip from 'jszip'
 import * as util from 'util'
 import * as fs from 'fs'
