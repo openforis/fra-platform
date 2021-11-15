@@ -1,5 +1,5 @@
-import { UserService } from '../server/service/user'
-import { UserStatus } from '../core/meta/user'
+import { UserService } from '@server/service/user'
+import { UserStatus } from '@core/meta/user'
 
 export default () =>
   test('Expect user to be status === inactive', async () => {

@@ -1,6 +1,8 @@
 {
   "allowSyntheticDefaults": true,
-  "include": ["core", "common", "server", "testIntegration"],
+  "include": ["core", "common", "server",
+    "test/integration"
+  ],
   "exclude": ["node_modules"],
   "compilerOptions": {
     "allowJs": true,
@@ -15,7 +17,7 @@
       "@core/*": ["core/*"],
       "@common/*": ["common/*"],
       "@server/*": ["server/*"],
-      "@testIntegration/*": ["testIntegration/*"]
+      "@test/*": ["test/*"]
     },
     "target": "es2020",
     "lib": ["es2020", "esnext"]

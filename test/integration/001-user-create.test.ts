@@ -1,5 +1,5 @@
-import { AuthProvider, UserStatus } from '../core/meta/user'
-import { UserService } from '../server/service/user'
+import { AuthProvider, UserStatus } from '@core/meta/user'
+import { UserService } from '@server/service/user'
 
 export default () =>
   test('Expect user to be created', async () => {

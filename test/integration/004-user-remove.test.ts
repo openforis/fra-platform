@@ -1,4 +1,4 @@
-import { UserService } from '../server/service/user'
+import { UserService } from '@server/service/user'
 
 export default () =>
   test('Expect user to be status === active', async () => {
