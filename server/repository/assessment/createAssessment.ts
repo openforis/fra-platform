@@ -10,10 +10,9 @@ export const createAssessment = async (
 ): Promise<Assessment> => {
   const { assessment } = params
 
-  const query = `
+  const ret = await client.one<Assessment>(`
   insert into assessment (props) values ('${JSON.stringify(assessment.props)}'::jsonb) returning  *;
 
-`
-  const ret = await client.one<Assessment>(query)
+`)
   return Objects.camelize(ret)
 }

@@ -79,7 +79,7 @@ create table ${schemaName}.col
   (
       time             timestamp default timezone('UTC'::text, now()) not null,
       message          text,
-      country_iso      varchar(3),
+      country_iso      varchar(3) references public.country,
       section          varchar(250)                                   not null,
       target           json,
       id               bigserial                                      not null,

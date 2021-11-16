@@ -17,7 +17,7 @@ export const createAssessment = async (
     await ActivityLogRepository.insertActivityLog(
       {
         activityLog: {
-          target: assessment,
+          target: createdAssessment,
           section: 'assessment',
           message: ActivityLogMessage.assessmentCreate,
           user,
