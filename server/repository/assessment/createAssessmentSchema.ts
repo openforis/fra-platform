@@ -3,7 +3,7 @@ import { Assessment } from '@core/meta/assessment'
 
 export const createAssessmentSchema = async (
   params: {
-    assessment: Assessment
+    assessment: Pick<Assessment, 'props'>
   },
   client: BaseProtocol = DB
 ): Promise<string> => {
@@ -83,7 +83,7 @@ create table ${schemaName}.col
       section          varchar(250)                                   not null,
       target           json,
       id               bigserial                                      not null,
-      user_id bigint not null references public.fra_user (id)
+      user_id bigint not null references public.users (id) on delete cascade
   );
 
 `

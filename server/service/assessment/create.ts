@@ -3,10 +3,10 @@ import { AssessmentRepository } from '@server/repository/assessment'
 import { Assessment } from '@core/meta/assessment'
 import { ActivityLogRepository } from '@server/repository/activityLog'
 import { ActivityLogMessage } from '@core/meta/activityLog'
-import { User } from '@core/auth'
+import { User } from '@core/meta/user'
 
-export const createAssessment = async (
-  props: { user: User; assessment: Assessment },
+export const create = async (
+  props: { user: User; assessment: Pick<Assessment, 'props'> },
   client: BaseProtocol = DB
 ): Promise<Assessment> => {
   const { assessment, user } = props

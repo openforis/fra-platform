@@ -10,7 +10,7 @@ export const insertActivityLog = async (
 ): Promise<ActivityLog<any>> => {
   const {
     schemaName,
-    activityLog: { user, countryIso = '', message, section, target },
+    activityLog: { user, countryIso, message, section, target },
   } = params
   const query = `
     insert into ${schemaName}.activity_log(user_id, country_iso, section, message, target) values ($1, $2, $3, $4, $5::JSONB) returning *;

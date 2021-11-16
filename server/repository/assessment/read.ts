@@ -2,7 +2,7 @@ import { Assessment } from '@core/meta/assessment'
 import { BaseProtocol, DB } from '@server/db'
 import { Objects } from '@core/utils'
 
-export const createAssessment = async (
+export const read = async (
   params: {
     assessment: Pick<Assessment, 'props'>
   },
@@ -10,9 +10,9 @@ export const createAssessment = async (
 ): Promise<Assessment> => {
   const { assessment } = params
 
-  const ret = await client.one<Assessment>(`
-  insert into assessment (props) values ('${JSON.stringify(assessment.props)}'::jsonb) returning  *;
-
-`)
-  return Objects.camelize(ret)
+  return client.one<Assessment>(
+    `select * from public.assessment where props ->> 'name' = $1;`,
+    [assessment.props.name],
+    Objects.camelize
+  )
 }
