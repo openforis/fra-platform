@@ -1,7 +1,7 @@
 import { UserService } from '@server/service/user'
 
 export default () =>
-  test('Expect user to be status === active', async () => {
+  test('Expect user to be removed', async () => {
     const userParams = {
       email: 'test@fra-platform.com',
     }
