@@ -1,6 +1,6 @@
 import { Express, Response, Request } from 'express'
 import { validEmail } from '@common/userUtils'
-import { findLocalUserByEmail, findUserById } from '@server/repository/user/userRepository'
+import { findLocalUserByEmail, findUserById } from '@server/repository/user/_legacy_userRepository'
 import * as db from '@server/db/db_deprecated'
 import {
   createResetPassword,
