@@ -1,9 +1,9 @@
-import userCreate from './user/user-create.test'
-import userInactive from './user/user-set-inactive.test'
-import userActive from './user/user-set-active.test'
-import assessmentCreate from './assessment/create-assessment'
-import assessmentRemove from './assessment/remove-assessment'
-import userRemove from './user/user-remove.test'
+import userCreate from './user/userCreate.test'
+import userInactive from './user/userSetInactive.test'
+import userActive from './user/userSetActive.test'
+import assessmentCreate from './assessment/createAssessment'
+import assessmentRemove from './assessment/removeAssessment'
+import userRemove from './user/userRemove.test'
 
 userCreate()
 userInactive()
