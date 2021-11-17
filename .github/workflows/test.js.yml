@@ -29,7 +29,6 @@ jobs:
         with:
           node-version: '14.18.1'
       - run: yarn
-      - run: printenv
       - run: yarn run-migrations
         env:
           PGHOST: localhost
@@ -38,7 +37,7 @@ jobs:
           PGUSER: frap
           PGPASSWORD: frap
       - run: yarn test
-      - run: yarn test:integration
+      - run: printenv && yarn test:integration
         env:
           PGHOST: localhost
           PGPORT: 5444
