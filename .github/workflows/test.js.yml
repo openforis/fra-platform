@@ -31,6 +31,12 @@ jobs:
       - run: yarn
       - run: printenv
       - run: yarn run-migrations
+        env:
+          PGHOST: localhost
+          PGPORT: 5444
+          PGDATABASE: frap-dev
+          PGUSER: frap
+          PGPASSWORD: frap
       - run: yarn test
       - run: yarn test:integration
         env:
