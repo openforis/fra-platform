@@ -18,7 +18,7 @@ jobs:
           POSTGRES_PASSWORD: frap
           POSTGRES_DB: frap-dev
         ports:
-          - 5444:5432
+          - 5442:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
@@ -32,7 +32,7 @@ jobs:
       - run: yarn run-migrations
         env:
           PGHOST: localhost
-          PGPORT: 5444
+          PGPORT: 5442
           PGDATABASE: frap-dev
           PGUSER: frap
           PGPASSWORD: frap
@@ -40,7 +40,7 @@ jobs:
       - run: printenv && yarn test:integration
         env:
           PGHOST: localhost
-          PGPORT: 5444
+          PGPORT: 5442
           PGDATABASE: frap-dev
           PGUSER: frap
           PGPASSWORD: frap
