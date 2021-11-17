@@ -29,7 +29,7 @@ jobs:
         with:
           node-version: '14.18.1'
       - run: yarn
-      - run: yarn watch # run migrations
+      - run: yarn run-migrations
       - run: yarn test
       - run: yarn test:integration
         env:

@@ -21,6 +21,7 @@
     "watch:server": "ts-node-dev server",
     "watch:server-debug": "NODE_ENV=development nodemon -e js  --inspect --watch server server/serverLocal.js",
     "create-migration": "./server/db/migration/create-migration.sh",
+    "run-migrations": "./server/db/migration/run-migrations.sh",
     "test": "mochapack --webpack-config webpack.config.babel.test.js \"test/unit/*.ts\"",
     "//TODO:": "echo handle next command betters, and env variables",
     "test:build": "yarn tsc --project tsconfig.test.json && yarn tscpaths -v -p tsconfig.test.paths.json -s ./server -o ./dist",
