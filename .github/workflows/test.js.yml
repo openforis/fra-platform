@@ -19,3 +19,4 @@ jobs:
         node-version: '14.18.1'
     - run: yarn
     - run: yarn test
+    - run: yarn test:integration
