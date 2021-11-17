@@ -13,12 +13,15 @@ export default () =>
       assessment: assessmentParams,
     })
 
-    const removedAssessment = await AssessmentService.remove({
+    await AssessmentService.remove({
       assessment,
     })
 
-    expect(removedAssessment).toHaveProperty('id')
-    expect(removedAssessment.id).toBeTruthy()
-    expect(removedAssessment.id).toBe(assessment.id)
-    expect(removedAssessment.props.name).toBe(assessment.props.name)
+    try {
+      await AssessmentService.read({
+        assessment: assessmentParams,
+      })
+    } catch (e) {
+      expect(e.message).toBe('No data returned from the query.')
+    }
   })

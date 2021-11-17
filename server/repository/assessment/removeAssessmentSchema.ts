@@ -10,5 +10,5 @@ export const removeAssessmentSchema = async (
   const { assessment } = params
   const schemaName = Schemas.getName(assessment)
 
-  return client.none(`drop schema ${schemaName} cascade;`)
+  await client.query<void>(`drop schema ${schemaName} cascade;`)
 }
