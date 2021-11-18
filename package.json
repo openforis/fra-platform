@@ -25,7 +25,7 @@
     "test": "mochapack --webpack-config webpack.config.babel.test.js \"test/unit/*.ts\"",
     "//TODO:": "echo handle next command betters, and env variables",
     "test:build": "yarn tsc --project tsconfig.test.json && yarn tscpaths -v -p tsconfig.test.paths.json -s ./server -o ./dist",
-    "test:integration": "yarn test:build && cp .env dist/ && jest --setupFiles dotenv/config",
+    "test:integration": "yarn test:build && cp .env.test dist/ && jest --setupFiles dotenv/config",
     "preversion": "git diff --quiet || { echo \"Working directory is dirty\"; exit 1; }; yarn test",
     "postversion": "git push --tags && git push && echo \"Successfully released version $npm_package_version!\"",
     "prepare": "husky install",
