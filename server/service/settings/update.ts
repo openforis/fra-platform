@@ -11,7 +11,6 @@ export const update = async (
   const { settings } = props
 
   return client.tx(async (t) => {
-    // TODO: Add activity log entry (public schema?)
     return SettingsRepository.update({ settings }, t)
   })
 }
