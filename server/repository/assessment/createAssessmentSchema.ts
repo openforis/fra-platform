@@ -99,7 +99,8 @@ create table ${schemaName}.col
   (
       region_code varchar
           constraint assessment_region_region_region_code_fk
-              references region,
+              references region
+              on update cascade on delete cascade,
       unique (region_code)
   );
   
@@ -107,7 +108,8 @@ create table ${schemaName}.col
   (
       region_group_id bigint
           constraint assessment_region_group_fk
-              references region_group,
+              references region_group
+              on update cascade on delete cascade,
       unique (region_group_id)
   );
 `
