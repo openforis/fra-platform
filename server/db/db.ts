@@ -1,7 +1,8 @@
 import * as pgPromise from 'pg-promise'
-import { ProcessEnv } from '@server/utils'
+import { ProcessEnv } from '../utils/processEnv'
 
 const logger = {
+  // eslint-disable-next-line no-console
   debug: console.debug,
 }
 
