@@ -3,22 +3,16 @@ import { Assessment } from '@core/meta/assessment'
 
 export const createAssessmentSchema = async (
   params: {
-    assessment: Assessment
+    assessment: Pick<Assessment, 'props'>
   },
   client: BaseProtocol = DB
 ): Promise<string> => {
-  const {
-    assessment,
-    assessment: { uuid },
-  } = params
+  const { assessment } = params
 
   const schemaName = Schemas.getName(assessment)
 
   const query = `
-  insert into assessment (props)
-values ('${JSON.stringify(assessment.props)}'::jsonb);
-
-create schema ${schemaName};
+  create schema ${schemaName};
 
 create table ${schemaName}.cycle
 (
@@ -80,9 +74,21 @@ create table ${schemaName}.col
     PRIMARY KEY (id),
     unique(uuid)
 );
+
+  create table ${schemaName}.activity_log
+  (
+      time             timestamp default timezone('UTC'::text, now()) not null,
+      message          text,
+      country_iso      varchar(3) references public.country,
+      section          varchar(250)                                   not null,
+      target           json,
+      id               bigserial                                      not null,
+      user_id bigint not null references public.users (id) on delete cascade
+  );
+
 `
 
   await client.query(query)
 
-  return uuid
+  return schemaName
 }

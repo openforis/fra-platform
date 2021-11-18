@@ -1,7 +1,7 @@
 import { Express, Response, Request } from 'express'
 import JSZip from 'jszip'
 import { ApiAuthMiddleware } from '@server/api/middleware'
-import * as ExportService from '@server/service/assessment/exportService'
+import * as ExportService from '@server/service/assessment/_legacy/exportService'
 import { Requests } from '@server/utils'
 import { ApiEndPoint } from '@common/api/endpoint'
 

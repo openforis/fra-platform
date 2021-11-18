@@ -2,10 +2,11 @@ import { BaseProtocol, DB } from '@server/db'
 import { AssessmentRepository } from '@server/repository/assessment'
 import { Assessment } from '@core/meta/assessment'
 
-export const createAssessment = async (
-  props: { assessment: Assessment },
+export const read = async (
+  props: { assessment: Pick<Assessment, 'props'> },
   client: BaseProtocol = DB
-): Promise<string> => {
+): Promise<Assessment> => {
   const { assessment } = props
-  return AssessmentRepository.createAssessmentSchema({ assessment }, client)
+
+  return AssessmentRepository.read({ assessment }, client)
 }
