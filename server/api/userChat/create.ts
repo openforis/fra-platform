@@ -4,7 +4,7 @@ import { addMessage, getChatUnreadMessages } from '@server/repository/userChat/u
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import { sendErr, serverUrl } from '@server/utils/requests'
 import { createI18nPromise } from '@common/i18n/i18nFactory'
-import { findUserById } from '@server/repository/user/userRepository'
+import { findUserById } from '@server/repository/user/_legacy_userRepository'
 import { getCountry } from '@server/repository/country/getCountry'
 import { sendMail } from '@server/service/email/sendMail'
 import { ApiEndPoint } from '@common/api/endpoint'

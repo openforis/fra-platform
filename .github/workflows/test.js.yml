@@ -10,12 +10,37 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v2
+    services:
+      postgres:
+        image: postgis/postgis:12-3.0
+        env:
+          POSTGRES_USER: frap
+          POSTGRES_PASSWORD: frap
+          POSTGRES_DB: frap-dev
+        ports:
+          - 5442:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
-    - name: Use Node.js 14.18.1
-      uses: actions/setup-node@v1
-      with:
-        node-version: '14.18.1'
-    - run: yarn
-    - run: yarn test
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js 14.18.1
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.18.1'
+      - run: yarn
+      - run: yarn run-migrations
+        env:
+          PGHOST: localhost
+          PGPORT: 5442
+          PGDATABASE: frap-dev
+          PGUSER: frap
+          PGPASSWORD: frap
+      - run: yarn test
+      - run: yarn test:integration
+        env:
+          PGHOST: localhost
+          PGPORT: 5442
+          PGDATABASE: frap-dev
+          PGUSER: frap
+          PGPASSWORD: frap
