@@ -1,5 +1,5 @@
 import { BaseProtocol, DB } from '@server/db'
-import { AssessmentRepository } from '@server/repository/assessment'
+import { AssessmentRepository } from '@server/repository'
 import { Assessment } from '@core/meta/assessment'
 
 export const read = async (
