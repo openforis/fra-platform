@@ -86,6 +86,30 @@ create table ${schemaName}.col
       user_id bigint not null references public.users (id) on delete cascade
   );
 
+  create table ${schemaName}.assessment_country
+  (
+      country_iso varchar(3) not null
+          constraint assessment_country_fk
+              references country
+              on update cascade on delete cascade,
+      unique (country_iso)
+  );
+  
+  create table ${schemaName}.assessment_region
+  (
+      region_code varchar
+          constraint assessment_region_region_region_code_fk
+              references region,
+      unique (region_code)
+  );
+  
+  create table ${schemaName}.assessment_region_group
+  (
+      region_group_id bigint
+          constraint assessment_region_group_fk
+              references region_group,
+      unique (region_group_id)
+  );
 `
 
   await client.query(query)
