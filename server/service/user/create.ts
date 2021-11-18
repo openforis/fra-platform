@@ -1,7 +1,6 @@
 import { BaseProtocol, DB } from '@server/db'
 import { User, UserProvider } from '@core/meta/user'
-import { UserRepository } from '@server/repository/user'
-import { UserProviderRepository } from '@server/repository/userProvider'
+import { UserRepository, UserProviderRepository } from '@server/repository'
 
 export const create = async (
   props: {
