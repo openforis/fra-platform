@@ -1,4 +1,4 @@
-import { roleForCountry, isReviewer, isAdministrator } from '../../common/countryRole'
+import { roleForCountry, isReviewer, isAdministrator } from '@common/countryRole'
 
 export function AccessControlException(key: any, values: any) {
   this.error = { key, values }
@@ -47,4 +47,3 @@ export const checkCountryAccessFromReqParams = (req: any) => {
     throw new AccessControlException('error.access.userNotSpecified')
   }
 }
-

@@ -7,7 +7,6 @@ import * as morgan from 'morgan'
 
 import { Api } from '@server/api'
 import * as sessionInit from './sessionInit'
-import * as apiRouter from './apiRouter'
 import * as resourceCacheControl from './resourceCacheControl'
 import { sendErr } from './utils/requests'
 
@@ -38,7 +37,6 @@ export const serverInit = () => {
   app.use('/video', express.static(`${__dirname}/../web-resources/video`))
 
   app.use(fileUpload())
-  app.use('/api', apiRouter.router)
 
   app.use('/style', express.static(`${__dirname}/../client/style`))
   app.use('/js', express.static(`${__dirname}/../client/js`))

@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import * as User from '../../common/user/user'
+import * as User from '@common/user/user'
 
 import { AccessControlException } from './accessControl'
 

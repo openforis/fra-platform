@@ -1,6 +1,6 @@
 import { assert } from 'chai'
 import * as R from 'ramda'
-import * as estimationEngine from '../../server/eof/estimationEngine'
+import * as estimationEngine from '../../_legacy_server/eof/estimationEngine'
 
 const fraYears = [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020]
 
