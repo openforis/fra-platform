@@ -1,17 +1,11 @@
 import { UserService } from '@server/service/user'
 import { AssessmentService } from '@server/service/assessment'
+import { assessmentParams } from '@test/integration/assessment/assessmentParams'
 
 export default () =>
   test('Expect assessment to be created', async () => {
     const userParams = {
       email: 'test@fra-platform.com',
-    }
-
-    const assessmentParams = {
-      props: {
-        name: 'fra',
-        cycles: ['1'],
-      },
     }
 
     const user = await UserService.read({

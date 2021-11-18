@@ -14,6 +14,7 @@ export const create = async (
 
   return client.tx(async (t) => {
     const createdAssessment = await AssessmentRepository.createAssessment({ assessment }, t)
+
     await ActivityLogRepository.insertActivityLog(
       {
         activityLog: {
