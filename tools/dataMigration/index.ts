@@ -87,7 +87,7 @@ export const migrate = async (spec: Record<string, SectionSpec>): Promise<void> 
               tableSectionSpec.tableSpecs.map(async (tableSpec) => {
                 let table = getTable({ cycles, tableSpec, tableSection })
                 table = await t.one<Table>(
-                  `insert into assessment_fra."table" (table_section_id, props) values ($1, $2::jsonb) returning *;`,
+                  `insert into ${schema}."table" (table_section_id, props) values ($1, $2::jsonb) returning *;`,
                   [table.tableSectionId, JSON.stringify(table.props)],
                   Objects.camelize
                 )
@@ -97,7 +97,7 @@ export const migrate = async (spec: Record<string, SectionSpec>): Promise<void> 
                   tableSpec.rows.map(async (rowSpec) => {
                     let row = getRow({ cycles, rowSpec, table })
                     row = await t.one<Row>(
-                      `insert into assessment_fra.row (table_id, props) values ($1, $2::jsonb) returning *;`,
+                      `insert into ${schema}.row (table_id, props) values ($1, $2::jsonb) returning *;`,
                       [row.tableId, JSON.stringify(row.props)],
                       Objects.camelize
                     )
@@ -107,7 +107,7 @@ export const migrate = async (spec: Record<string, SectionSpec>): Promise<void> 
                       rowSpec.cols.map(async (colSpec) => {
                         let col = getCol({ cycles, colSpec, row })
                         col = await t.one<Col>(
-                          `insert into assessment_fra.col (row_id, props) values ($1, $2::jsonb) returning *;`,
+                          `insert into ${schema}.col (row_id, props) values ($1, $2::jsonb) returning *;`,
                           [col.rowId, JSON.stringify(col.props)],
                           Objects.camelize
                         )
@@ -122,6 +122,20 @@ export const migrate = async (spec: Record<string, SectionSpec>): Promise<void> 
         )
       })
     )
+
+    await t.query(`
+        insert into ${schema}.assessment_country (country_iso)
+        select country_iso
+        from country
+        order by country_iso;
+    `)
+    await t.query(`
+        insert into ${schema}.assessment_region (region_code)
+        select region_code
+        from region
+        where region_code != 'FE'
+        order by region_code;
+    `)
   })
 }
 
