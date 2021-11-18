@@ -37,7 +37,7 @@ jobs:
           PGUSER: frap
           PGPASSWORD: frap
       - run: yarn test
-      - run: printenv && yarn test:integration
+      - run: printenv && PGHOST=localhost PGPORT=5442 PGDATABASE=frap-dev PGUSER=frap PGPASSWORD=frap yarn test:integration
         env:
           PGHOST: localhost
           PGPORT: 5442
