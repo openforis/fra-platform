@@ -6,6 +6,7 @@
     "yarn": ">=1.16.0"
   },
   "scripts": {
+    "migrate-fra": "ts-node tools/dataMigration/index.ts",
     "build": "yarn build:client && yarn build:server && yarn build:copy",
     "build:server": "yarn tsc --project tsconfig.server.json && yarn tscpaths -v -p tsconfig.server.paths.json -s ./server -o ./dist",
     "build:client": "NODE_ENV=production webpack --config webpack.config.babel.js",
