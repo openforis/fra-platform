@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import { sum, toFixed } from '../../../../../common/bignumberUtils'
+import { Numbers } from '@core/utils/numbers'
 import FraTableExporter from '../../exporter/fraTableExporter'
 
 import * as FraValueService from '../../../../eof/fraValueService'
@@ -36,7 +36,7 @@ class ForestCharacteristicsExporter extends FraTableExporter {
     // @ts-ignore
     const otherPlantedForest = R.prop('otherPlantedForestArea', focYear)
     // @ts-ignore
-    const plantedForest = toFixed(sum([plantationForest, otherPlantedForest]))
+    const plantedForest = Numbers.toFixed(Numbers.sum([plantationForest, otherPlantedForest]))
 
     return {
       naturallyRegeneratingForest,

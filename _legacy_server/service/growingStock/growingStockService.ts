@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 import { FRA } from '@core/assessment'
 
-import { add, defaultTo0 } from '@common/bignumberUtils'
+import { Numbers } from '@core/utils/numbers'
 import { getFraValues } from '../../eof/fraValueService'
 import * as repository from '../../repository/growingStock/growingStockRepository'
 
@@ -43,7 +43,10 @@ export const getGrowingStock = async (countryIso: any, schemaName = 'public') =>
       naturalForestArea: foc.naturalForestArea,
       plantationForestArea: foc.plantationForestArea,
       otherPlantedForestArea: foc.otherPlantedForestArea,
-      plantedForestArea: add(defaultTo0(foc.plantationForestArea), defaultTo0(foc.otherPlantedForestArea)).toString(),
+      plantedForestArea: Numbers.add(
+        Numbers.defaultTo0(foc.plantationForestArea),
+        Numbers.defaultTo0(foc.otherPlantedForestArea)
+      ).toString(),
     }),
     forestCharacteristics.fra
   )

@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import * as R from 'ramda'
 import * as d3 from 'd3'
 import d3Tip from 'd3-tip'
-import { formatNumber } from '@common/bignumberUtils'
+import { Numbers } from '@core/utils/numbers'
 import * as AppState from '@webapp/store/app/state'
 import { defaultTransitionDuration } from '../chart'
 
@@ -13,7 +13,9 @@ type Props = any
 
 class DataPoint extends Component<Props, {}> {
   props: Props
+
   refs: any
+
   toolTip: any
 
   update(props: Props) {
@@ -80,7 +82,7 @@ class DataPoint extends Component<Props, {}> {
             className="chart__tooltip-marker"
             style={{ backgroundColor: data.type === 'fra' ? '#ffffff' : (this.props as any).color }}
           />
-          <div className="chart__tooltip-value">{formatNumber(data.value, precision)}</div>
+          <div className="chart__tooltip-value">{Numbers.format(data.value, precision)}</div>
           <div className="chart__tooltip-unit">(1000 ha)</div>
         </div>
         {data.dataSourceMethods && (

@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import { sub } from '../../../../../common/bignumberUtils'
+import { Numbers } from '@core/utils/numbers'
 import { getForestAreaForYear } from '../../../../../common/extentOfForestHelper'
 
 import DataTableExporter from '../../exporter/dataTableExporter'
@@ -23,7 +23,7 @@ class ForestOwnershipExporter extends DataTableExporter {
         const rowValue = R.pipe(R.path([row, yearIdx]), R.defaultTo(0))(result)
 
         // @ts-ignore
-        return sub(value, rowValue)
+        return Numbers.sub(value, rowValue)
       },
       getForestAreaForYear(extentOfForest, year),
       [0, 4]

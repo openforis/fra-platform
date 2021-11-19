@@ -7,6 +7,7 @@ type State = any
 type Props = any
 export class ThousandSeparatedIntegerInput extends React.Component<Props, State> {
   props: Props
+
   constructor(props: Props) {
     super(props)
     this.state = { hasFocus: false }
