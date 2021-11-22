@@ -14,6 +14,6 @@ interface UserRole<P = void> {
 export interface UserAuth {
   id: number
   userId: number
-  assessmentId: number
+  assessmentId?: number
   roles: Array<UserRole>
 }
