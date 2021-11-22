@@ -1,3 +1,5 @@
+import { UserAuth } from '@core/meta/userAuth'
+
 export enum UserStatus {
   invitationPending = 'invitationPending',
   active = 'active',
@@ -14,6 +16,7 @@ export interface User {
   profilePictureFile?: string
   position?: string
   email: string
+  auths: Array<UserAuth>
 }
 
 export enum AuthProvider {
