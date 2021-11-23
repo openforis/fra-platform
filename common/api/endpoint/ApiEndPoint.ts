@@ -2,6 +2,11 @@ const joinPaths = (...parts: Array<string>): string => `/${parts.join('/')}`
 const apiPath = (...parts: Array<string>): string => joinPaths('api', ...parts)
 
 export const ApiEndPoint = {
+  Init: {
+    one: () => apiPath('init'),
+  },
+
+  // Old
   Assessment: {
     createEmail: (countryIso = ':countryIso') => apiPath('assessment', countryIso),
     export: () => apiPath('assessment', 'admin', 'export'),

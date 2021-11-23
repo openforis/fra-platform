@@ -1,6 +1,6 @@
 export interface CycledPropsObject<Props = void> {
   props: {
-    cycles: Array<string>
+    cycles?: Array<string>
   } & Props
   uuid?: string
   id?: number
