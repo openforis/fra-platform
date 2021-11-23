@@ -1,7 +1,12 @@
 import { Express, Request, Response } from 'express'
 import { ApiEndPoint } from '@common/api/endpoint'
 import { sendErr } from '@server/utils/requests'
-import { AssessmentService } from '@server/service'
+import {
+  AssessmentService,
+  AssessmentCountryService,
+  AssessmentRegionService,
+  RegionGroupService,
+} from '@server/service'
 
 export const InitGet = {
   init: (express: Express): void => {
@@ -18,9 +23,9 @@ export const InitGet = {
 
         // Note: Use Schemas.getName(assessment)
 
-        const countries = {} // assessment_name here: assessment_fra CountryService.readAll({ assessment }) => assessement.props.name
-        const regions = {} // assessment_name here: assessment_fra
-        const regionGroups = {} // public.schema
+        const countries = await AssessmentCountryService.readAll({ assessment })
+        const regions = await AssessmentRegionService.readAll({ assessment })
+        const regionGroups = await RegionGroupService.readAll()
 
         res.send({
           assessment,
