@@ -1,4 +1,4 @@
-import { RowSpec } from '../../webapp/sectionSpec'
+import { RowSpec } from '../../_legacy_webapp/sectionSpec'
 import { Table } from '../../core/meta/table'
 import { Row, RowType } from '../../core/meta/row'
 

@@ -1,0 +1,83 @@
+import '../../../app/user/userManagement/style.less'
+
+import React, { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
+import { useLocation } from 'react-router-dom'
+import * as R from 'ramda'
+
+import AddUserForm from '../../../app/user/userManagement/edit/addUserForm'
+import EditUserForm from '../../../app/user/userManagement/edit/editUserForm'
+import UsersTable from '../../../app/user/userManagement/list/usersTable'
+
+import { rolesAllowedToChange } from '@common/userManagementAccessControl'
+
+import {
+  addNewUser,
+  fetchUsers,
+  persistCollaboratorCountryAccess,
+  removeUser,
+  sendInvitationEmail,
+  updateNewUser,
+} from '../../../app/user/userManagement/actions'
+
+import * as AppState from '../../../store/app/state'
+import * as UserManagementState from '../../../app/user/userManagement/userManagementState'
+import { useCountryIso } from '../../../store/app'
+import { RootState } from '../../../store/RootState'
+
+const ManageCollaboratorsView = (props: any) => {
+  const { countryUsers, newUser, allowedRoles, editUserStatus, fetchUsers } = props
+  const countryIso = useCountryIso()
+  const { location }: any = useLocation()
+  const [editingUserId, setEditingUserId] = useState(null)
+
+  useEffect(() => {
+    fetchUsers(countryIso)
+  }, [location])
+
+  useEffect(() => {
+    fetchUsers(countryIso)
+  }, [countryIso])
+
+  useEffect(() => {
+    if (editUserStatus === 'completed') {
+      fetchUsers(countryIso)
+      setEditingUserId(null)
+    }
+  }, [editUserStatus])
+
+  if (!countryUsers && !R.isEmpty(allowedRoles)) {
+    return null
+  }
+
+  if (editingUserId) {
+    return <EditUserForm userId={editingUserId} countryIso={countryIso} onCancel={() => setEditingUserId(null)} />
+  }
+
+  return (
+    <>
+      <AddUserForm {...props} user={newUser} countryIso={countryIso} />
+      <UsersTable {...props} users={countryUsers} onEditClick={(userId: any) => setEditingUserId(userId)} />
+    </>
+  )
+}
+
+// TODO: Refactor: Remove mapStateToProps
+const mapStateToProps = (state: RootState) => ({
+  i18n: AppState.getI18n(state),
+  userInfo: state.user,
+  allowedRoles: rolesAllowedToChange(AppState.getCountryIso(state), state.user),
+  countryUsers: UserManagementState.getCountryUsers(state),
+  newUser: UserManagementState.getNewUser(state),
+  editUserStatus: UserManagementState.getEditUserStatus(state),
+  countryIso: AppState.getCountryIso(state),
+})
+
+export default connect(mapStateToProps, {
+  fetchUsers,
+  removeUser,
+  updateNewUser,
+  addNewUser,
+  sendInvitationEmail,
+  persistCollaboratorCountryAccess,
+})(ManageCollaboratorsView)

@@ -1,0 +1,37 @@
+@import '_legacy_webapp/style/partials';
+
+.fra-table {
+  .vgtf__container {
+    height: 100%; // Height 100% only inside table to account for wrapping header rows
+  }
+}
+
+.vgtf__container {
+  position: relative;
+}
+
+.vgtf__textarea {
+  resize: none;
+  outline: none;
+  display: block;
+  overflow: hidden; // Removes scrollbar
+
+  width: 100%;
+  min-height: 100%;
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  text-align: inherit;
+  padding: 10px;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 1px $text-body;
+  }
+
+  &::placeholder {
+    color: $text-disabled;
+  }
+}

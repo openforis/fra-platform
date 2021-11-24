@@ -1,6 +1,6 @@
 import { assert } from 'chai'
 
-import { acceptNextInteger, acceptNextDecimal } from '../../webapp/utils/numberInput'
+import { acceptNextInteger, acceptNextDecimal } from '../../_legacy_webapp/utils/numberInput'
 
 describe('Number input', () => {
   it('accepts an integer', () => {

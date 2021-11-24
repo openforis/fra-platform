@@ -8,7 +8,7 @@ import { Table } from '../../core/meta/table'
 import { Row } from '../../core/meta/row'
 import { Col } from '../../core/meta/col'
 import { Cycle } from '../../core/meta/cycle'
-import { SectionSpec } from '../../webapp/sectionSpec'
+import { SectionSpec } from '../../_legacy_webapp/sectionSpec'
 
 import { FraSpecs } from './fraSpecs'
 import { getSection } from './getSection'

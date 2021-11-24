@@ -1,0 +1,24 @@
+@import '_legacy_webapp/style/partials';
+
+.results-table {
+  width: calc(100vw - #{$spacing-m});
+
+  @include min-width($laptop) {
+    width: 100%;
+  }
+
+  .copyright {
+    text-align: left;
+  }
+
+  .select-s {
+    border: unset;
+    color: $text-body;
+    font-weight: 600;
+    font-size: $font-s;
+  }
+
+  .timestamp {
+    opacity: 0;
+  }
+}

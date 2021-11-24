@@ -1,0 +1,10 @@
+@import '_legacy_webapp/style/partials';
+
+.nav-review-status__open {
+  @include mixin-status-base($ui-accent);
+}
+
+.nav-review-status__unread {
+  @include mixin-status-base($ui-alert);
+}
+

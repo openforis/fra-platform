@@ -1,6 +1,7 @@
 {
   "allowSyntheticDefaults": true,
-  "include": ["core", "common", "server", "webapp", "test"],
+  "include": ["core", "common", "server",
+    "_legacy_webapp", "test"],
 
   "compilerOptions": {
     "allowJs": true,

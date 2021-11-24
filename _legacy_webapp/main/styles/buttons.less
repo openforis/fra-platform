@@ -1,0 +1,129 @@
+@import (reference) '_legacy_webapp/main/styles/config';
+
+button {
+  color: @text-body;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.btn {
+  .mixin-button-base(@font-m, 6px 13px);
+}
+
+.btn-s {
+  .mixin-button-base(@font-s, 3px 9px);
+}
+
+.btn-xs {
+  .mixin-button-base(@font-xs, 1px 4px);
+}
+
+.btn-primary {
+  background-color: @ui-accent;
+  color: white;
+
+  &:hover {
+    background-color: darken(@ui-accent, 4%);
+    color: white;
+  }
+
+  &:active {
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.btn-secondary {
+  background-color: @ui-bg;
+  border-color: @ui-border;
+  color: @text-mute;
+
+  &:hover {
+    background-color: darken(@ui-bg, 4%);
+    border-color: darken(@ui-border, 4%);
+    color: @text-mute;
+  }
+
+  &:active {
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.btn-destructive {
+  background-color: @ui-destructive;
+  color: white;
+
+  &:hover {
+    background-color: darken(@ui-destructive, 4%);
+    color: white;
+  }
+
+  &:active {
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.btn-link-destructive {
+  background: transparent;
+  color: @ui-destructive;
+  font-weight: 400;
+
+  &:hover {
+    color: darken(@ui-destructive, 6%);
+    text-decoration: underline;
+  }
+}
+
+.btn-link {
+  background: transparent;
+  color: darken(@ui-accent, 2%);
+  font-weight: 400;
+
+  &:hover {
+    color: darken(@ui-accent, 4%);
+    text-decoration: underline;
+  }
+}
+
+.link {
+  cursor: pointer;
+  display: inline-block;
+  transition: @ease-out;
+  text-decoration: none;
+  outline: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.mixin-button-base(@fontSize, @padding) {
+  background-color: transparent;
+  border-radius: 2px;
+  border: solid 1px transparent;
+  cursor: pointer;
+  display: inline-block;
+  font-family: inherit;
+  font-size: @fontSize;
+  font-weight: 600;
+  line-height: 20px;
+  padding: @padding;
+  text-align: center;
+  text-decoration: none;
+  transition: @ease-out;
+  vertical-align: middle;
+  white-space: nowrap;
+  outline: none;
+
+  &.disabled,
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .icon {
+    margin-right: 6px;
+  }
+}

@@ -1,4 +1,4 @@
-import { SectionSpec } from '../../webapp/sectionSpec'
+import { SectionSpec } from '../../_legacy_webapp/sectionSpec'
 import { Section } from '../../core/meta/section'
 
 export const getSection = (props: {

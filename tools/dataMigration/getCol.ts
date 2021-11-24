@@ -1,6 +1,6 @@
 import { Row } from '../../core/meta/row'
 import { Col, ColType } from '../../core/meta/col'
-import { ColSpec } from '../../webapp/sectionSpec'
+import { ColSpec } from '../../_legacy_webapp/sectionSpec'
 
 export const getCol = (props: { cycles: Array<string>; colSpec: ColSpec; row: Row }): Col => {
   const { colSpec, cycles, row } = props

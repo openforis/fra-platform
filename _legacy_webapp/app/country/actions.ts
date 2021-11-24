@@ -1,0 +1,46 @@
+import axios from 'axios'
+
+import { batchActions } from '../../store'
+import { AppActions } from '../../store/app'
+
+import * as AppState from '../../store/app/state'
+
+import { ApiEndPoint } from '@common/api/endpoint'
+import { AutosaveActions } from '../../store/autosave'
+
+export const fetchCountryOverviewStatusCompleted = 'country/status/completed'
+export const countryConfig = 'country/countryConfig'
+export const changeCountryConfigSetting = '/country/changeSetting'
+
+export const fetchCountryOverviewStatus = (countryIso: any) => async (dispatch: any) => {
+  const { data: status } = await axios.get(ApiEndPoint.Country.getOverviewStatus(countryIso))
+  dispatch({ type: fetchCountryOverviewStatusCompleted, status })
+}
+
+export const getCountryConfig = (countryIso: any) => async (dispatch: any) => {
+  const { data: config } = await axios.get(ApiEndPoint.Country.getConfig(countryIso))
+  dispatch({ type: countryConfig, config })
+}
+
+export const fetchCountryInitialData =
+  (countryIso: any, assessmentType: any, printView: any, printOnlyTablesView: any) => (dispatch: any) => {
+    dispatch(
+      batchActions([
+        AppActions.updateCountryIso({ countryIso, assessmentType, printView, printOnlyTablesView }),
+        fetchCountryOverviewStatus(countryIso),
+        getCountryConfig(countryIso),
+      ])
+    )
+  }
+
+export const saveCountryConfigSetting = (key: any, value: any) => async (dispatch: any, getState: any) => {
+  const countryIso: any = AppState.getCountryIso(getState())
+
+  dispatch(batchActions([AutosaveActions.autoSaveStart(), { type: changeCountryConfigSetting, key, value }]))
+
+  await axios.post(ApiEndPoint.Country.updateConfig(countryIso), { key, value })
+
+  dispatch(AutosaveActions.autoSaveComplete())
+}
+
+export const countryAssessmentStatusChanging = 'country/assessment/status/changing'

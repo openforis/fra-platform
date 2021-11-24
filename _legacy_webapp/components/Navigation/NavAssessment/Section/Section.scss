@@ -1,0 +1,40 @@
+@import '_legacy_webapp/style/partials';
+
+.nav-section__header {
+  @include mixin-nav-secondary-base(8px, true);
+  font-weight: 700;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.nav-section__order {
+  flex: 0 0 auto;
+  width: 30px;
+  margin-right: 4px;
+  font-size: $font-s;
+}
+
+.nav-section__label {
+  margin-right: 4px;
+  font-size: $font-s;
+}
+
+.nav-section__status-content {
+  @include mixin-status-content-base;
+}
+
+.nav-section__item {
+  @include mixin-nav-secondary-base(8px, true);
+}
+
+.nav-section__items-hidden {
+  max-height: 0;
+  transition: max-height 0.15s ease-out;
+}
+
+.nav-section__items-visible {
+  transition: max-height 0.25s ease-out;
+}

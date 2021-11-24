@@ -1,0 +1,45 @@
+@import '_legacy_webapp/style/partials';
+
+.popover-control__wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.popover-control__menu {
+  width: 192px;
+  position: absolute;
+  padding: 4px 0;
+  background-color: white;
+  border-radius: 2px;
+  box-shadow: $shadow-3;
+  z-index: $z-index-popover;
+}
+
+.popover-control__item,
+.popover-control__item-link {
+  padding: $spacing-xxs $spacing-xs;
+  line-height: 16px;
+  color: $text-link;
+
+  &:hover {
+    background-color: darken($ui-bg, 4%);
+    cursor: pointer;
+    color: $text-body;
+  }
+}
+
+.popover-control__item-link {
+  text-decoration: none;
+  display: block;
+}
+
+.popover-control__divider {
+  height: 1px;
+  background-color: $ui-border;
+  margin: 4px 0;
+}
+
+.popover-control__checkbox-container {
+  display: flex;
+  align-items: center;
+}

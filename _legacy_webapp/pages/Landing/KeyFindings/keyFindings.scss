@@ -1,0 +1,67 @@
+@import '_legacy_webapp/style/partials';
+
+.home-key-findings {
+  display: grid;
+  grid-row-gap: $spacing-s;
+  align-items: center;
+  justify-items: center;
+  background-color: $ui-accent-light-extra;
+  padding: $spacing-m $spacing-xs;
+  text-align: center;
+
+  @include min-width($laptop) {
+    padding: $spacing-xl $spacing-l;
+    grid-column-gap: $spacing-xl;
+    grid-row-gap: unset;
+    grid-template-columns: 1fr 509px;
+    grid-template-rows: repeat(2, 1fr);
+    text-align: unset;
+  }
+}
+
+.home-key-findings__map {
+  display: none;
+  grid-row: 1 / span 2;
+
+  .map {
+    width: 100%;
+  }
+
+  @include min-width($laptop) {
+    display: flex;
+  }
+}
+
+.home-key-findings__map-legend {
+  display: grid;
+  grid-row-gap: $spacing-xs;
+  grid-template-columns: repeat(2, auto);
+
+  .legend {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    grid-row-gap: 8px;
+  }
+
+  .legend-icon {
+    height: 45px;
+  }
+
+  .legend-key {
+    color: #272727;
+    font-size: $font-s;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .legend-value {
+    font-size: 23px;
+    font-weight: bold;
+    color: #707070;
+  }
+
+  @include min-width($laptop) {
+    grid-template-columns: repeat(4, auto);
+  }
+}

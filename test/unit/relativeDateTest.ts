@@ -1,5 +1,5 @@
 import { assert } from 'chai'
-import * as RelativeDate from '../../webapp/utils/relativeDate'
+import * as RelativeDate from '../../_legacy_webapp/utils/relativeDate'
 
 describe('Relative date', () => {
   const i18nMock = {

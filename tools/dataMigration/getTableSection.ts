@@ -1,4 +1,4 @@
-import { SectionTableSpec } from '../../webapp/sectionSpec'
+import { SectionTableSpec } from '../../_legacy_webapp/sectionSpec'
 import { Section } from '../../core/meta/section'
 import { TableSection } from '../../core/meta/tableSection'
 
