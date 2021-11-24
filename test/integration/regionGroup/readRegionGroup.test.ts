@@ -1,4 +1,4 @@
-import { RegionGroupService } from '@server/service/region_group'
+import { RegionGroupService } from '@server/service/regionGroup'
 
 export default () =>
   test('Expect region group exists', async () => {

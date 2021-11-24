@@ -21,8 +21,6 @@ export const InitGet = {
           },
         })
 
-        // Note: Use Schemas.getName(assessment)
-
         const countries = await AssessmentCountryService.readAll({ assessment })
         const regions = await AssessmentRegionService.readAll({ assessment })
         const regionGroups = await RegionGroupService.readAll()

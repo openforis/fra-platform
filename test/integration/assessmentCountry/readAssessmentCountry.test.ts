@@ -1,5 +1,5 @@
 import { AssessmentService } from '@server/service/assessment'
-import { AssessmentCountryService } from '@server/service/assessment_country'
+import { AssessmentCountryService } from '@server/service/assessmentCountry'
 
 export default () =>
   test('Expect assessment country exists', async () => {

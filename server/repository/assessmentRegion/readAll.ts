@@ -12,11 +12,11 @@ export const readAll = async (
 
   const assessmentName = Schemas.getName(assessment)
 
-  const xxx = await client.many<AssessmentRegion>(
+  const items = await client.many<AssessmentRegion>(
     `
         select * from ${assessmentName}.assessment_region;
     `
   )
 
-  return Objects.camelize(xxx)
+  return Objects.camelize(items)
 }
