@@ -1,6 +1,6 @@
 export const assessmentParams = {
   props: {
-    name: 'fra',
+    name: 'test',
     cycles: ['1'],
   },
 }

@@ -1,11 +1,15 @@
 import { AssessmentService } from '@server/service/assessment'
 import { AssessmentCountryService } from '@server/service/assessment_country'
-import { assessmentParams } from '@test/integration/assessment/assessmentParams'
 
 export default () =>
   test('Expect assessment country exists', async () => {
+    // We currently have data only in fra_assessment
     const assessment = await AssessmentService.read({
-      assessment: assessmentParams,
+      assessment: {
+        props: {
+          name: 'fra',
+        },
+      },
     })
 
     const assessmentCountries = await AssessmentCountryService.readAll({ assessment })
