@@ -1,6 +1,3 @@
 export { AssessmentService } from './assessment'
-export { AssessmentCountryService } from './assessmentCountry'
-export { AssessmentRegionService } from './assessmentRegion'
-export { RegionGroupService } from './regionGroup'
 export { UserService } from './user'
 export { SettingsService } from './settings'

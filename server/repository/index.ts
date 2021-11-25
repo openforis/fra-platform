@@ -1,8 +1,5 @@
 export { ActivityLogRepository } from './activityLog'
 export { AssessmentRepository } from './assessment'
-export { AssessmentCountryRepository } from './assessmentCountry'
-export { AssessmentRegionRepository } from './assessmentRegion'
-export { RegionGroupRepository } from './regionGroup'
 export { UserRepository } from './user'
 export { UserProviderRepository } from './userProvider'
 export { SettingsRepository } from './settings'

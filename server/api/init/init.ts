@@ -1,25 +1,29 @@
 import { Express, Request, Response } from 'express'
 import { ApiEndPoint } from '@common/api/endpoint'
 import { sendErr } from '@server/utils/requests'
-import {
-  AssessmentService,
-  AssessmentCountryService,
-  AssessmentRegionService,
-  RegionGroupService,
-} from '@server/service'
+import { AssessmentService, SettingsService } from '@server/service'
 
 export const InitGet = {
   init: (express: Express): void => {
     express.get(ApiEndPoint.Init.one(), async (req: Request, res: Response) => {
-      const assessmentName = req.params.name ?? 'fra'
+      const assessmentName = req.params.name
       try {
-        const assessment = await AssessmentService.read({
-          name: assessmentName,
-        })
+        let assessment
+        if (!assessmentName) {
+          const settings = await SettingsService.read()
 
-        const countries = await AssessmentCountryService.readAll({ assessment })
-        const regions = await AssessmentRegionService.readAll({ assessment })
-        const regionGroups = await RegionGroupService.readAll()
+          assessment = await AssessmentService.read({
+            id: settings.defaultAssessmentId,
+          })
+        } else {
+          assessment = await AssessmentService.read({
+            name: assessmentName,
+          })
+        }
+
+        const countries = await AssessmentService.getCountries({ assessment })
+        const regions = await AssessmentService.getRegions({ assessment })
+        const regionGroups = await AssessmentService.getRegionGroups()
 
         res.send({
           assessment,

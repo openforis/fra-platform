@@ -1,5 +1,4 @@
 import { AssessmentService } from '@server/service/assessment'
-import { AssessmentRegionService } from '@server/service/assessmentRegion'
 
 export default () =>
   test('Expect assessment region exists', async () => {
@@ -8,7 +7,7 @@ export default () =>
       name: 'fra',
     })
 
-    const assessmentRegions = await AssessmentRegionService.readAll({ assessment })
+    const assessmentRegions = await AssessmentService.getRegions({ assessment })
 
     expect(Array.isArray(assessmentRegions)).toBe(true)
     expect(assessmentRegions[0]).toHaveProperty('regionCode')

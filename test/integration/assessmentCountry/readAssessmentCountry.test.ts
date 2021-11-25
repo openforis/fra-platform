@@ -1,5 +1,4 @@
 import { AssessmentService } from '@server/service/assessment'
-import { AssessmentCountryService } from '@server/service/assessmentCountry'
 
 export default () =>
   test('Expect assessment country exists', async () => {
@@ -8,7 +7,7 @@ export default () =>
       name: 'fra',
     })
 
-    const assessmentCountries = await AssessmentCountryService.readAll({ assessment })
+    const assessmentCountries = await AssessmentService.getCountries({ assessment })
 
     expect(Array.isArray(assessmentCountries)).toBe(true)
     expect(assessmentCountries[0]).toHaveProperty('countryIso')

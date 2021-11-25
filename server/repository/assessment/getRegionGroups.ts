@@ -2,7 +2,7 @@ import { BaseProtocol, DB } from '@server/db'
 import { RegionGroup } from '@core/meta/regionGroup'
 import { Objects } from '@core/utils'
 
-export const readAll = async (client: BaseProtocol = DB): Promise<Array<RegionGroup>> => {
+export const getRegionGroups = async (client: BaseProtocol = DB): Promise<Array<RegionGroup>> => {
   return client
     .many<RegionGroup>(
       `
