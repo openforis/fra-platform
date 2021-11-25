@@ -1,18 +1,18 @@
-import { AssessmentService } from '@server/service/assessment'
+import { AssessmentController } from '@server/controller/assessment'
 import { assessmentParams } from '@test/integration/assessment/assessmentParams'
 
 export default () =>
   test('Expect assessment to be removed', async () => {
-    const assessment = await AssessmentService.read({
+    const assessment = await AssessmentController.read({
       name: assessmentParams.props.name,
     })
 
-    await AssessmentService.remove({
+    await AssessmentController.remove({
       assessment,
     })
 
     try {
-      await AssessmentService.read({
+      await AssessmentController.read({
         name: assessmentParams.props.name,
       })
     } catch (e) {

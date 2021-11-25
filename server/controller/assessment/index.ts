@@ -5,7 +5,7 @@ import { getCountries } from './getCountries'
 import { getRegions } from './getRegions'
 import { getRegionGroups } from './getRegionGroups'
 
-export const AssessmentService = {
+export const AssessmentController = {
   create,
   read,
   remove,

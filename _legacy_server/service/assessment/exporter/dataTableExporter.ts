@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import { DataTableService } from '@server/service'
+import { DataTableService } from '@server/controller'
 import FraTableExporter from './fraTableExporter'
 
 class DataTableExporter extends FraTableExporter {

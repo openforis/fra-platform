@@ -1,7 +1,7 @@
 import { Express, Response, Request } from 'express'
 import { Requests } from '@server/utils'
 import { ApiEndPoint } from '@common/api/endpoint'
-import { OriginalDataPointService } from '@server/service/originalDataPoint'
+import { OriginalDataPointService } from '@server/controller/originalDataPoint'
 
 export const OdpGetPrevious = {
   init: (express: Express): void => {

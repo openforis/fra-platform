@@ -1,7 +1,7 @@
 import { Express, Request, Response } from 'express'
 import { ApiEndPoint } from '@common/api/endpoint'
 import { sendErr } from '@server/utils/requests'
-import { AssessmentService, SettingsService } from '@server/service'
+import { AssessmentController, SettingsController } from '@server/controller'
 
 export const InitGet = {
   init: (express: Express): void => {
@@ -10,20 +10,20 @@ export const InitGet = {
       try {
         let assessment
         if (!assessmentName) {
-          const settings = await SettingsService.read()
+          const settings = await SettingsController.read()
 
-          assessment = await AssessmentService.read({
+          assessment = await AssessmentController.read({
             id: settings.defaultAssessmentId,
           })
         } else {
-          assessment = await AssessmentService.read({
+          assessment = await AssessmentController.read({
             name: assessmentName,
           })
         }
 
-        const countries = await AssessmentService.getCountries({ assessment })
-        const regions = await AssessmentService.getRegions({ assessment })
-        const regionGroups = await AssessmentService.getRegionGroups()
+        const countries = await AssessmentController.getCountries({ assessment })
+        const regions = await AssessmentController.getRegions({ assessment })
+        const regionGroups = await AssessmentController.getRegionGroups({ assessment })
 
         res.send({
           assessment,

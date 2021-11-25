@@ -3,9 +3,9 @@ import { Express, Response, Request } from 'express'
 import { AssessmentType } from '@core/assessment'
 import { ApiEndPoint } from '@common/api/endpoint'
 
-import * as VersionService from '@server/service/versioning/service'
+import * as VersionService from '@server/controller/versioning/service'
 import { Requests } from '@server/utils'
-import { DataTableService } from '@server/service'
+import { DataTableService } from '@server/controller'
 import { CountryIso } from '@core/country'
 
 export const DataTableRead = {

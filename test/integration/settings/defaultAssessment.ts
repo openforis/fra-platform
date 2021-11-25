@@ -1,14 +1,14 @@
-import { AssessmentService } from '@server/service/assessment'
-import { SettingsService } from '@server/service'
+import { AssessmentController } from '@server/controller/assessment'
+import { SettingsController } from '@server/controller'
 import { assessmentParams } from '@test/integration/assessment/assessmentParams'
 
 export default () =>
   test('Expect default assessment to be updated', async () => {
-    const assessment = await AssessmentService.read({
+    const assessment = await AssessmentController.read({
       name: assessmentParams.props.name,
     })
 
-    const settings = await SettingsService.update({
+    const settings = await SettingsController.update({
       settings: {
         defaultAssessmentId: assessment.id,
       },

@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import { DataTableService } from '@server/service'
+import { DataTableService } from '@server/controller'
 
 import DataTableExporter from '../../exporter/dataTableExporter'
 

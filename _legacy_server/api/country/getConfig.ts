@@ -1,8 +1,8 @@
 import { Express, Response, Request } from 'express'
 import { Requests } from '@server/utils'
-import * as VersionService from '@server/service/versioning/service'
+import * as VersionService from '@server/controller/versioning/service'
 import { ApiEndPoint } from '@common/api/endpoint'
-import { CountryService } from '@server/service'
+import { CountryService } from '@server/controller'
 import { CountryIso } from '@core/country'
 
 export const CountryGetConfig = {

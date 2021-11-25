@@ -3,7 +3,7 @@ import { update } from './update'
 import { read } from './read'
 import { remove } from './remove'
 
-export const UserService = {
+export const UserController = {
   create,
   update,
   read,

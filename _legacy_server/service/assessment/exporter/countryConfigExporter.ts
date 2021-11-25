@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import { CountryService } from '@server/service'
+import { CountryService } from '@server/controller'
 import FraTableExporter from './fraTableExporter'
 
 class CountryConfigExporter extends FraTableExporter {

@@ -82,24 +82,23 @@ create table ${schemaName}.col
               on update cascade on delete cascade,
       unique (country_iso)
   );
-  
+ 
+  create table ${schemaName}.region_group
+  (
+      id integer not null constraint region_group_pkey primary key,
+      name varchar not null,
+      "order" integer not null
+  );
+ 
   create table ${schemaName}.region
   (
-    region_group_id references region_group,
+    region_group_id integer references ${schemaName}.region_group (id),
     region_code varchar
           constraint assessment_region_region_region_code_fk
               references region
               on update cascade on delete cascade,
       unique (region_code, region_group_id)
   );
-  
-  create table ${schemaName}.region_group
-  (
-      id integer not null constraint region_group_pkey primary key,
-      name varchar not null,
-      "order" integer not null
-  )
- 
 `
   return query
 }

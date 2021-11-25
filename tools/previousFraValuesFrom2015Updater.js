@@ -1,6 +1,6 @@
 const R = require('ramda')
 const promise = require('bluebird')
-const countryConfig = require('../server/service/country/countryConfig')
+const countryConfig = require('../server/controller/country/countryConfig')
 const fs = promise.promisifyAll(require('fs'))
 const csv = promise.promisifyAll(require('csv'))
 

@@ -1,5 +1,5 @@
 import { CountryRepository } from '@server/repository'
-import countryConfig from '@server/service/country/countryConfig'
+import countryConfig from '@server/controller/country/countryConfig'
 import * as R from 'ramda'
 
 export const getCountryConfig = async (countryIso: string, schemaName = 'public') => {

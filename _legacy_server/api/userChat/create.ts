@@ -6,7 +6,7 @@ import { sendErr, serverUrl } from '@server/utils/requests'
 import { createI18nPromise } from '@common/i18n/i18nFactory'
 import { findUserById } from '@server/repository/user/_legacy_userRepository'
 import { getCountry } from '@server/repository/country/getCountry'
-import { sendMail } from '@server/service/email/sendMail'
+import { sendMail } from '@server/controller/email/sendMail'
 import { ApiEndPoint } from '@common/api/endpoint'
 
 const createMail = async (country: any, i18n: any, sender: any, recipient: any, url: any) => {
