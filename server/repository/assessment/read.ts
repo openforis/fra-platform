@@ -4,15 +4,15 @@ import { Objects } from '@core/utils'
 
 export const read = async (
   params: {
-    assessment: Pick<Assessment, 'props'>
+    name: string
   },
   client: BaseProtocol = DB
 ): Promise<Assessment> => {
-  const { assessment } = params
+  const { name } = params
 
   return client.one<Assessment>(
     `select * from public.assessment where props ->> 'name' = $1;`,
-    [assessment.props.name],
+    [name],
     Objects.camelize
   )
 }

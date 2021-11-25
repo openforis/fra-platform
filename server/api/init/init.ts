@@ -14,11 +14,7 @@ export const InitGet = {
       const assessmentName = req.params.name ?? 'fra'
       try {
         const assessment = await AssessmentService.read({
-          assessment: {
-            props: {
-              name: assessmentName,
-            },
-          },
+          name: assessmentName,
         })
 
         const countries = await AssessmentCountryService.readAll({ assessment })

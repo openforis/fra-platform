@@ -5,7 +5,7 @@ import { assessmentParams } from '@test/integration/assessment/assessmentParams'
 export default () =>
   test('Expect default assessment to be updated', async () => {
     const assessment = await AssessmentService.read({
-      assessment: assessmentParams,
+      name: assessmentParams.props.name,
     })
 
     const settings = await SettingsService.update({

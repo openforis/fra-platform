@@ -5,11 +5,7 @@ export default () =>
   test('Expect assessment region exists', async () => {
     // We currently have data only in fra_assessment
     const assessment = await AssessmentService.read({
-      assessment: {
-        props: {
-          name: 'fra',
-        },
-      },
+      name: 'fra',
     })
 
     const assessmentRegions = await AssessmentRegionService.readAll({ assessment })

@@ -4,7 +4,7 @@ import { assessmentParams } from '@test/integration/assessment/assessmentParams'
 export default () =>
   test('Expect assessment to be removed', async () => {
     const assessment = await AssessmentService.read({
-      assessment: assessmentParams,
+      name: assessmentParams.props.name,
     })
 
     await AssessmentService.remove({
@@ -13,7 +13,7 @@ export default () =>
 
     try {
       await AssessmentService.read({
-        assessment: assessmentParams,
+        name: assessmentParams.props.name,
       })
     } catch (e) {
       expect(e.message).toBe('No data returned from the query.')
