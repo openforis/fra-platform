@@ -6,7 +6,7 @@ import { AssessmentCountry } from '@core/meta/assessmentCountry'
 export const readAll = async (
   props: { assessment: Pick<Assessment, 'props'> },
   client: BaseProtocol = DB
-): Promise<AssessmentCountry[]> => {
+): Promise<Array<AssessmentCountry>> => {
   const { assessment } = props
 
   return AssessmentCountryRepository.readAll({ assessment }, client)
