@@ -6,7 +6,7 @@ import { AssessmentController, SettingsController } from '@server/controller'
 export const InitGet = {
   init: (express: Express): void => {
     express.get(ApiEndPoint.Init.one(), async (req: Request, res: Response) => {
-      const assessmentName = req.params.name
+      const assessmentName = req.query.name as string
       try {
         let assessment
         if (!assessmentName) {
@@ -21,9 +21,11 @@ export const InitGet = {
           })
         }
 
-        const countries = await AssessmentController.getCountries({ assessment })
-        const regions = await AssessmentController.getRegions({ assessment })
-        const regionGroups = await AssessmentController.getRegionGroups({ assessment })
+        const [countries, regions, regionGroups] = await Promise.all([
+          AssessmentController.getCountries({ assessment }),
+          AssessmentController.getRegions({ assessment }),
+          AssessmentController.getRegionGroups({ assessment }),
+        ])
 
         res.send({
           assessment,
