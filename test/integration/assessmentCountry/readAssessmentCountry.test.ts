@@ -7,7 +7,7 @@ export default () =>
       name: 'fra',
     })
 
-    const assessmentCountries = await AssessmentController.getCountries({ assessment })
+    const assessmentCountries = await AssessmentController.getCountries({ name: assessment.props.name })
 
     expect(Array.isArray(assessmentCountries)).toBe(true)
     expect(assessmentCountries[0]).toHaveProperty('countryIso')

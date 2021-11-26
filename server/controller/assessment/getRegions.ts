@@ -1,16 +1,15 @@
 import { BaseProtocol, DB } from '@server/db'
 import { AssessmentRepository } from '@server/repository'
-import { Assessment } from '@core/meta/assessment'
 
 export const getRegions = async (
-  props: { assessment: Pick<Assessment, 'props'> },
+  props: { name: string },
   client: BaseProtocol = DB
 ): Promise<
   Array<{
     regionCode: string
   }>
 > => {
-  const { assessment } = props
+  const { name } = props
 
-  return AssessmentRepository.getRegions({ assessment }, client)
+  return AssessmentRepository.getRegions({ name }, client)
 }

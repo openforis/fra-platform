@@ -1,19 +1,17 @@
 import { BaseProtocol, DB } from '@server/db'
-import { Assessment } from '@core/meta/assessment'
 import { Objects } from '@core/utils'
-import { Schemas } from '@server/db/schemas'
 
 export const getRegions = async (
-  props: { assessment: Pick<Assessment, 'props'> },
+  props: { name: string },
   client: BaseProtocol = DB
 ): Promise<
   Array<{
     regionCode: string
   }>
 > => {
-  const { assessment } = props
+  const { name } = props
 
-  const assessmentName = Schemas.getName(assessment)
+  const assessmentName = `assessment_${name}`
 
   return client
     .many<{

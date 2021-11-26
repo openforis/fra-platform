@@ -22,9 +22,9 @@ export const InitGet = {
         }
 
         const [countries, regions, regionGroups] = await Promise.all([
-          AssessmentController.getCountries({ assessment }),
-          AssessmentController.getRegions({ assessment }),
-          AssessmentController.getRegionGroups({ assessment }),
+          AssessmentController.getCountries({ name: assessment.props.name }),
+          AssessmentController.getRegions({ name: assessment.props.name }),
+          AssessmentController.getRegionGroups({ name: assessment.props.name }),
         ])
 
         res.send({

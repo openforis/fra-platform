@@ -7,7 +7,7 @@ export default () =>
       name: 'fra',
     })
 
-    const assessmentRegions = await AssessmentController.getRegions({ assessment })
+    const assessmentRegions = await AssessmentController.getRegions({ name: assessment.props.name })
 
     expect(Array.isArray(assessmentRegions)).toBe(true)
     expect(assessmentRegions[0]).toHaveProperty('regionCode')
