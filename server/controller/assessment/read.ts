@@ -6,8 +6,5 @@ export const read = async (
   props: { name: string } | { id: number },
   client: BaseProtocol = DB
 ): Promise<Assessment> => {
-  if ('id' in props) {
-    return AssessmentRepository.readById({ id: props.id }, client)
-  }
-  return AssessmentRepository.read({ name: props.name }, client)
+  return AssessmentRepository.read(props, client)
 }
