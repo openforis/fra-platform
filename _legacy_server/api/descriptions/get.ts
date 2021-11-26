@@ -1,5 +1,5 @@
 import { Express, Response, Request } from 'express'
-import * as VersionService from '@server/service/versioning/service'
+import * as VersionService from '@server/controller/versioning/service'
 import * as db from '@server/db/db_deprecated'
 import * as repository from '@server/repository/descriptions/descriptionsRepository'
 import { Requests } from '@server/utils'

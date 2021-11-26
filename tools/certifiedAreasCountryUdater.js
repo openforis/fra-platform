@@ -2,7 +2,7 @@ const R = require('ramda')
 const Promise = require('bluebird')
 const fs = Promise.promisifyAll(require('fs'))
 const csv = Promise.promisifyAll(require('csv'))
-const countryConfig = require('../server/service/country/countryConfig')
+const countryConfig = require('../server/controller/country/countryConfig')
 
 const exampleUsage =
   'node certifiedAreasCountryUdater.js exampleData/Certification.csv /tmp/countryConfigWithCertifiedAreas.json'

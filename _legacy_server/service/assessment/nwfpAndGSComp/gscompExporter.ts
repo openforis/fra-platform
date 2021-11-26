@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { DataTableService } from '@server/service'
+import { DataTableService } from '@server/controller'
 import { totalSum } from '../../../../common/aggregate'
 
 import CsvOutput from '../csvOutput'

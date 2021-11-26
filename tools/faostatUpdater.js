@@ -2,7 +2,7 @@ const R = require('ramda')
 const csv = require('csv')
 const fs = require('fs')
 const faoStat = require('./faoStat')
-const countryConfig = require('../server/service/country/countryConfig')
+const countryConfig = require('../server/controller/country/countryConfig')
 
 const exampleUsage =
   'node faostatUpdater.js exampleData/FAOSTAT_data_11-9-2017.csv /tmp/countryConfigWithUpdatedFaostat.json'

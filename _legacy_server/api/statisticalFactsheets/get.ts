@@ -1,6 +1,6 @@
 import { Express, Response, Request } from 'express'
-import * as VersionService from '@server/service/versioning/service'
-import { getStatisticalFactsheetData } from '@server/service/statisticalFactsheets/service'
+import * as VersionService from '@server/controller/versioning/service'
+import { getStatisticalFactsheetData } from '@server/controller/statisticalFactsheets/service'
 import { ApiEndPoint } from '@common/api/endpoint'
 
 export const StatisticalFactsheetsGet = {

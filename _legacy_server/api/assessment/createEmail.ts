@@ -1,7 +1,7 @@
 import { Express, Response, Request } from 'express'
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import * as db from '@server/db/db_deprecated'
-import * as repository from '@server/service/assessment/assessmentRepository'
+import * as repository from '@server/controller/assessment/assessmentRepository'
 import { sendAssessmentNotification } from '@server/assessment/sendAssessmentNotification'
 import { Requests } from '@server/utils'
 import { ApiEndPoint } from '@common/api/endpoint'

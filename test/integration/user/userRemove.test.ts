@@ -1,4 +1,4 @@
-import { UserService } from '@server/service/user'
+import { UserController } from '@server/controller/user'
 
 export default () =>
   test('Expect user to be removed', async () => {
@@ -6,11 +6,11 @@ export default () =>
       email: 'test@fra-platform.com',
     }
 
-    const user = await UserService.read({
+    const user = await UserController.read({
       user: userParams,
     })
 
-    const removedUser = await UserService.remove({
+    const removedUser = await UserController.remove({
       user,
     })
 

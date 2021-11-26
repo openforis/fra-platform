@@ -1,4 +1,4 @@
-const countryConfig = require('../server/service/country/countryConfig')
+const countryConfig = require('../server/controller/country/countryConfig')
 
 const toSql = (key, value) => `UPDATE country SET config = '${value}' WHERE country_iso = '${key}';`
 

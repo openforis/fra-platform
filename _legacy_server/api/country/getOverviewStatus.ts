@@ -7,10 +7,10 @@ import {
   isUserRoleAllowedToEditAssessmentComments,
   isUserRoleAllowedToEditAssessmentData,
 } from '@common/assessmentRoleAllowance'
-import * as assessmentRepository from '@server/service/assessment/assessmentRepository'
+import * as assessmentRepository from '@server/controller/assessment/assessmentRepository'
 import { fetchCollaboratorCountryAccessTables } from '@server/repository/collaborators/collaboratorsRepository'
 import { ApiEndPoint } from '@common/api/endpoint'
-import { OriginalDataPointService } from '@server/service/originalDataPoint'
+import { OriginalDataPointService } from '@server/controller/originalDataPoint'
 
 // TODO - REFACTOR
 

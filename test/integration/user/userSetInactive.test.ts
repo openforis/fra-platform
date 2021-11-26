@@ -1,4 +1,4 @@
-import { UserService } from '@server/service/user'
+import { UserController } from '@server/controller/user'
 import { UserStatus } from '@core/meta/user'
 
 export default () =>
@@ -7,11 +7,11 @@ export default () =>
       email: 'test@fra-platform.com',
     }
 
-    const user = await UserService.read({
+    const user = await UserController.read({
       user: userParams,
     })
 
-    const inactiveUser = await UserService.update({
+    const inactiveUser = await UserController.update({
       user: {
         ...user,
         status: UserStatus.inactive,

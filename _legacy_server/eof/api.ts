@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 
 import { ApiAuthMiddleware } from '@server/api/middleware'
-import { OriginalDataPointService } from '@server/service/originalDataPoint'
+import { OriginalDataPointService } from '@server/controller/originalDataPoint'
 import * as db from '../../server/db/db_deprecated'
 import { sendErr, sendOk } from '../../server/utils/requests'
 

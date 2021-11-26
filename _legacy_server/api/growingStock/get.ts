@@ -1,6 +1,6 @@
 import { Express, Response, Request } from 'express'
-import * as VersionService from '@server/service/versioning/service'
-import * as GrowingStockService from '@server/service/growingStock/growingStockService'
+import * as VersionService from '@server/controller/versioning/service'
+import * as GrowingStockService from '@server/controller/growingStock/growingStockService'
 import { sendErr } from '@server/utils/requests'
 import { ApiEndPoint } from '@common/api/endpoint'
 
