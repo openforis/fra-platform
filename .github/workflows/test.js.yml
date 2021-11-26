@@ -36,13 +36,6 @@ jobs:
           PGDATABASE: frap-dev
           PGUSER: frap
           PGPASSWORD: frap
-      - run: yarn migrate-fra
-          env:
-            PGHOST: localhost
-            PGPORT: 5442
-            PGDATABASE: frap-dev
-            PGUSER: frap
-            PGPASSWORD: frap
       - run: yarn test
       - run: yarn test:integration
         env:
