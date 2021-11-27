@@ -17,20 +17,15 @@ import { getCol } from './getCol'
 
 type Props = {
   assessment: Assessment
+  cycle: Cycle
   schema: string
   spec: Record<string, SectionSpec>
   client: BaseProtocol
 }
 
 export const migrateMetadata = async (props: Props): Promise<void> => {
-  const { assessment, schema, spec, client } = props
+  const { assessment, cycle, schema, spec, client } = props
 
-  const cycle: Cycle = await client.one<Cycle>(
-    `insert into ${schema}.cycle (name)
-                                           values ($1)
-                                           returning *`,
-    ['2020']
-  )
   const cycles: Array<string> = [cycle.uuid]
 
   const sections: Array<Section> = []
