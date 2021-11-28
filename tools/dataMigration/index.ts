@@ -13,6 +13,7 @@ import { migrateMetadata } from './migrateMetadata'
 import { migrateAreas } from './migrateAreas'
 import { migrateUsersAuthProvider } from './migrateUsersAuthProvider'
 import { migrateUsersRole } from './migrateUsersRole'
+import { migrateUsersInvitation } from './migrateUsersInvitation'
 
 config({ path: path.resolve(__dirname, '..', '..', '.env') })
 
@@ -50,6 +51,7 @@ export const migrate = async (spec: Record<string, SectionSpec>): Promise<void> 
     await migrateUsers({ client })
     await migrateUsersAuthProvider({ client })
     await migrateUsersRole({ assessment, cycle, client })
+    await migrateUsersInvitation({ client })
   })
 }
 
