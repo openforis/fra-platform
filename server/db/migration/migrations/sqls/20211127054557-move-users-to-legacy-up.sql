@@ -24,3 +24,5 @@ alter table users_role
         foreign key (country_iso) references country
             on update cascade on delete cascade;
 
+alter table users_invitation alter column uuid set default uuid_generate_v4();
+alter table users_reset_password alter column uuid set default uuid_generate_v4();
