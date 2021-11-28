@@ -14,6 +14,7 @@ import { migrateAreas } from './migrateAreas'
 import { migrateUsersAuthProvider } from './migrateUsersAuthProvider'
 import { migrateUsersRole } from './migrateUsersRole'
 import { migrateUsersInvitation } from './migrateUsersInvitation'
+import { migrateUsersResetPassword } from './migrateUsersResetPassword'
 
 config({ path: path.resolve(__dirname, '..', '..', '.env') })
 
@@ -52,6 +53,7 @@ export const migrate = async (spec: Record<string, SectionSpec>): Promise<void> 
     await migrateUsersAuthProvider({ client })
     await migrateUsersRole({ assessment, cycle, client })
     await migrateUsersInvitation({ client })
+    await migrateUsersResetPassword({ client })
   })
 }
 
