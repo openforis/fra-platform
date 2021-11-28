@@ -13,7 +13,7 @@ export const create = async (
 
   return client.one<User>(
     `
-        insert into public.users_provider (user_id, provider, props) values ($1, $2, $3::jsonb) returning *;
+        insert into public.users_auth_provider (user_id, provider, props) values ($1, $2, $3::jsonb) returning *;
     `,
     [userId, authProvider, JSON.stringify(providerProps)],
     Objects.camelize
