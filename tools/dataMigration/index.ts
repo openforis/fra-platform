@@ -54,6 +54,10 @@ export const migrate = async (spec: Record<string, SectionSpec>): Promise<void> 
     await migrateUsersRole({ assessment, cycle, client })
     await migrateUsersInvitation({ client })
     await migrateUsersResetPassword({ client })
+
+    await client.query(`delete from settings; insert into settings (default_assessment_id) values ($1)`, [
+      assessment.id,
+    ])
   })
 }
 
