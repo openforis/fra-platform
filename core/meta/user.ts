@@ -1,4 +1,4 @@
-import { UserAuth } from '@core/meta/userAuth'
+import { UserRoles } from '@core/meta/userRoles'
 
 export enum UserStatus {
   invitationPending = 'invitationPending',
@@ -7,28 +7,16 @@ export enum UserStatus {
 }
 
 export interface User {
+  id: number
   institution?: string
-  lang: string
-  id: number
-  profilePictureFilename?: string
-  name: string
-  status: UserStatus
-  profilePictureFile?: string
-  position?: string
   email: string
-  auths: Array<UserAuth>
-}
-
-export enum AuthProvider {
-  google = 'google',
-  local = 'local',
-}
-
-export interface UserProvider<P = void> {
-  id: number
-  userId: number
-  provider: AuthProvider
-  props: P
+  lang: string
+  name: string
+  position?: string
+  profilePictureFile?: string
+  profilePictureFilename?: string
+  roles: Array<UserRoles>
+  status: UserStatus
 }
 
 export interface UserInvitation {
