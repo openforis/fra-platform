@@ -71,23 +71,19 @@ export const migrateUsersRole = async (props: Props): Promise<void> => {
         from q
         ;
 
-        insert into users_role (user_id, assessment_id, country_iso, roles)
+        insert into users_role (user_id, assessment_id, country_iso, cycle_uuid, role, props)
         select us.id,
---        u.email,
-               ${assessment.id} as assessment_id,
-               r.country_iso,
---        us.id,
+               case when r.role = 'ADMINISTRATOR' then null else ${assessment.id} end      as assessment_id,
+               case when r.role = 'ADMINISTRATOR' then null else r.country_iso end         as country_iso,
+--                r.country_iso,
+               case when r.role = 'ADMINISTRATOR' then null else '${cycle.uuid}'::uuid end as cycle_uuid,
+--                '${cycle.uuid}'::uuid                                                  as cycle_uuid,
+               r.role::user_role,
                case
-                   when r.role = 'ADMINISTRATOR' then '"ADMINISTRATOR"'
-                   when t.sections is not null then
-                       jsonb_build_object('${cycle.uuid}',
-                                          jsonb_build_object('name', r.role, 'props',
-                                                             jsonb_build_object('sections', t.sections)))
-                   else
-                       jsonb_build_object('${cycle.uuid}',
-                                          jsonb_build_object('name', r.role))
+                   when t.sections is not null then jsonb_build_object('sections', t.sections)
+                   else '{}'::jsonb
                    end
-                  as roles
+                                                                                           as roles
         from _legacy.fra_user u
                  left join _legacy.user_country_role r on u.id = r.user_id
                  left join users us on us.email = u.email

@@ -42,10 +42,10 @@ export const migrate = async (spec: Record<string, SectionSpec>): Promise<void> 
 
   await DB.tx(async (client) => {
     const cycle: Cycle = await client.one<Cycle>(
-      `insert into ${schema}.cycle (name)
-       values ($1)
+      `insert into assessment_cycle (assessment_id, name)
+       values ($1, $2)
        returning *`,
-      ['2020']
+      [assessment.id, '2020']
     )
     await migrateMetadata({ assessment, cycle, schema, spec, client })
     await migrateAreas({ client, schema })
@@ -55,9 +55,13 @@ export const migrate = async (spec: Record<string, SectionSpec>): Promise<void> 
     await migrateUsersInvitation({ client })
     await migrateUsersResetPassword({ client })
 
-    await client.query(`delete from settings; insert into settings (default_assessment_id) values ($1)`, [
-      assessment.id,
-    ])
+    await client.query(
+      `delete
+       from settings;
+      insert into settings (default_assessment_id)
+      values ($1)`,
+      [assessment.id]
+    )
   })
 }
 
