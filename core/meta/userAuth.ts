@@ -1,19 +1,11 @@
-enum Role {
-  'ADMIN' = 'ADMIN',
-  'COLLABORATOR' = 'COLLABORATOR',
-  'NATIONAL_CORRESPONDENT' = 'NATIONAL_CORRESPONDENT',
-  'REVIEWER' = 'REVIEWER',
-  'VIEWER' = 'VIEWER',
+export enum AuthProvider {
+  google = 'google',
+  local = 'local',
 }
 
-interface UserRole<P = void> {
-  role: Role
-  props: P
-}
-
-export interface UserAuth {
+export interface UserAuthProvider<P = void> {
   id: number
   userId: number
-  assessmentId?: number
-  roles: Array<UserRole>
+  provider: AuthProvider
+  props: P
 }

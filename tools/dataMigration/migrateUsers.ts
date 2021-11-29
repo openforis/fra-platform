@@ -6,7 +6,7 @@ export const migrateUsers = async (props: { client: BaseProtocol }): Promise<voi
   await client.query(
     `
         delete
-        from user_country_role
+        from _legacy.user_country_role
         where user_id = (
             select id
             from _legacy.fra_user
@@ -29,7 +29,7 @@ export const migrateUsers = async (props: { client: BaseProtocol }): Promise<voi
         where login_email = 'agrimediambient@gmail.com';
 
         delete
-        from user_country_role
+        from _legacy.user_country_role
         where user_id = (
             select id
             from _legacy.fra_user

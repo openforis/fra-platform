@@ -3,13 +3,18 @@ import { config } from 'dotenv'
 
 import { Assessment } from '../../core/meta/assessment'
 import { SectionSpec } from '../../webapp/sectionSpec'
-
-import { FraSpecs } from './fraSpecs'
+import { Cycle } from '../../core/meta/cycle'
 import { DB } from '../../server/db'
 import { getCreateSchemaDDL } from '../../server/repository/assessment/getCreateSchemaDDL'
+
+import { FraSpecs } from './fraSpecs'
 import { migrateUsers } from './migrateUsers'
 import { migrateMetadata } from './migrateMetadata'
 import { migrateAreas } from './migrateAreas'
+import { migrateUsersAuthProvider } from './migrateUsersAuthProvider'
+import { migrateUsersRole } from './migrateUsersRole'
+import { migrateUsersInvitation } from './migrateUsersInvitation'
+import { migrateUsersResetPassword } from './migrateUsersResetPassword'
 
 config({ path: path.resolve(__dirname, '..', '..', '.env') })
 
@@ -18,8 +23,8 @@ export const migrate = async (spec: Record<string, SectionSpec>): Promise<void> 
   await DB.query(`drop schema if exists assessment_fra cascade`)
   await DB.query(
     `delete
-                  from assessment
-                  where props ->> 'name' = $1`,
+     from assessment
+     where props ->> 'name' = $1`,
     ['fra']
   )
 
@@ -36,9 +41,23 @@ export const migrate = async (spec: Record<string, SectionSpec>): Promise<void> 
   await DB.query(getCreateSchemaDDL(schema))
 
   await DB.tx(async (client) => {
-    await migrateMetadata({ assessment, schema, spec, client })
+    const cycle: Cycle = await client.one<Cycle>(
+      `insert into ${schema}.cycle (name)
+       values ($1)
+       returning *`,
+      ['2020']
+    )
+    await migrateMetadata({ assessment, cycle, schema, spec, client })
     await migrateAreas({ client, schema })
     await migrateUsers({ client })
+    await migrateUsersAuthProvider({ client })
+    await migrateUsersRole({ assessment, cycle, client })
+    await migrateUsersInvitation({ client })
+    await migrateUsersResetPassword({ client })
+
+    await client.query(`delete from settings; insert into settings (default_assessment_id) values ($1)`, [
+      assessment.id,
+    ])
   })
 }
 
