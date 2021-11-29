@@ -10,7 +10,7 @@ import { FRA } from '@core/assessment'
 
 import { nationalCorrespondent, reviewer, collaborator, alternateNationalCorrespondent } from '@common/countryRole'
 import { userType } from '@common/userUtils'
-import { CountryService } from '@server/service'
+import { CountryService } from '@server/controller'
 import * as db from '../../../server/db/db_deprecated'
 import * as auditRepository from '../audit/auditRepository'
 import { fetchCollaboratorCountryAccessTables } from '../collaborators/collaboratorsRepository'

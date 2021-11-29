@@ -1,5 +1,5 @@
-import { UserService } from '@server/service/user'
-import { AssessmentService } from '@server/service/assessment'
+import { UserController } from '@server/controller/user'
+import { AssessmentController } from '@server/controller/assessment'
 import { assessmentParams } from '@test/integration/assessment/assessmentParams'
 
 export default () =>
@@ -8,11 +8,11 @@ export default () =>
       email: 'test@fra-platform.com',
     }
 
-    const user = await UserService.read({
+    const user = await UserController.read({
       user: userParams,
     })
 
-    const assessment = await AssessmentService.create({
+    const assessment = await AssessmentController.create({
       assessment: assessmentParams,
       user,
     })

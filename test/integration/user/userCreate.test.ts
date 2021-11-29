@@ -1,5 +1,6 @@
-import { AuthProvider, UserStatus } from '@core/meta/user'
-import { UserService } from '@server/service/user'
+import { UserStatus } from '@core/meta/user'
+import { AuthProvider } from '@core/meta/userAuth'
+import { UserController } from '@server/controller/user'
 
 export default () =>
   test('Expect user to be created', async () => {
@@ -8,7 +9,7 @@ export default () =>
       name: 'Test User',
     }
 
-    const user = await UserService.create({
+    const user = await UserController.create({
       user: userParams,
       provider: {
         provider: AuthProvider.local,

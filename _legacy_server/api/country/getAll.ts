@@ -1,6 +1,6 @@
 import { Express, Response, Request } from 'express'
-import { CountryService } from '@server/service'
-import * as VersionService from '@server/service/versioning/service'
+import { CountryService } from '@server/controller'
+import * as VersionService from '@server/controller/versioning/service'
 import { Requests } from '@server/utils'
 import { ApiEndPoint } from '@common/api/endpoint'
 

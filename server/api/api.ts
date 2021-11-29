@@ -1,4 +1,5 @@
 import { Express } from 'express'
+import { InitApi } from '@server/api/init'
 
 /**
  * API Controller
@@ -6,5 +7,7 @@ import { Express } from 'express'
  */
 
 export const Api = {
-  init: (express: Express): void => {},
+  init: (express: Express): void => {
+    InitApi.init(express)
+  },
 }

@@ -1,5 +1,5 @@
 import { Express, Response, Request } from 'express'
-import { downloadFile, fileTypes } from '@server/service/fileRepository/fileRepository'
+import { downloadFile, fileTypes } from '@server/controller/fileRepository/fileRepository'
 import { sendErr } from '@server/utils/requests'
 import { ApiEndPoint } from '@common/api/endpoint'
 

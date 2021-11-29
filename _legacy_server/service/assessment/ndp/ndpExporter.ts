@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import { OriginalDataPointService } from '@server/service/originalDataPoint'
+import { OriginalDataPointService } from '@server/controller/originalDataPoint'
 import { Country, CountryIso, RegionCode } from '../../../../core/country'
 import { ODP } from '../../../../core/odp'
 import { Objects } from '../../../../core/utils'

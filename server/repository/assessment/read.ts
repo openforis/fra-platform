@@ -3,16 +3,16 @@ import { BaseProtocol, DB } from '@server/db'
 import { Objects } from '@core/utils'
 
 export const read = async (
-  params: {
-    assessment: Pick<Assessment, 'props'>
-  },
+  props: { name: string } | { id: number },
   client: BaseProtocol = DB
 ): Promise<Assessment> => {
-  const { assessment } = params
+  if ('id' in props) {
+    return client.one<Assessment>(`select * from public.assessment where id = $1;`, [props.id], Objects.camelize)
+  }
 
   return client.one<Assessment>(
     `select * from public.assessment where props ->> 'name' = $1;`,
-    [assessment.props.name],
+    [props.name],
     Objects.camelize
   )
 }

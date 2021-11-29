@@ -1,4 +1,4 @@
-import { DataTableService, CountryService } from '@server/service'
+import { DataTableService, CountryService } from '@server/controller'
 import { CountryIso } from '@core/country'
 
 export const getCountryConfigFull = async (countryIso: CountryIso, schemaName = 'public') => {
