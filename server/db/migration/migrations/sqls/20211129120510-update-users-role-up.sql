@@ -9,12 +9,16 @@ create table assessment_cycle
     primary key (id),
     unique (uuid)
 );
-alter table assessment_cycle drop constraint assessment_cycle_assessment_id_fkey;
+alter table assessment_cycle
+    drop constraint assessment_cycle_assessment_id_fkey;
 
 alter table assessment_cycle
     add constraint assessment_cycle_assessment_id_fkey
         foreign key (assessment_id) references assessment
             on update cascade on delete cascade;
+
+alter table users_role
+    alter column assessment_id drop not null;
 
 alter table users_role
     drop column roles;
