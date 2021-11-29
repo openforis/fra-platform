@@ -10,7 +10,7 @@ export const appSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
-    builder.addCase(initApp.fulfilled, (_, { payload }) => payload).addCase(initApp.rejected, () => initialState)
+    builder.addCase(initApp.fulfilled, (_, { payload }) => payload)
   },
 })
 
