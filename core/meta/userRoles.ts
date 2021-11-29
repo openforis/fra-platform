@@ -10,6 +10,7 @@ export enum RoleNames {
 export interface UserRole<N extends RoleNames, P = void> {
   // id: number
   assessmentId?: number
+  cycleUuid?: string
   countryIso?: string
   name: N
   props: P
