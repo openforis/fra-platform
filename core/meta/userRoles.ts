@@ -2,13 +2,19 @@ export enum RoleNames {
   ADMINISTRATOR = 'ADMINISTRATOR',
   COLLABORATOR = 'COLLABORATOR',
   NATIONAL_CORRESPONDENT = 'NATIONAL_CORRESPONDENT',
+  ALTERNATE_NATIONAL_CORRESPONDENT = 'ALTERNATE_NATIONAL_CORRESPONDENT',
   REVIEWER = 'REVIEWER',
   VIEWER = 'VIEWER',
 }
 
 export interface UserRole<N extends RoleNames, P = void> {
+  // id: number
+  assessmentId?: number
+  countryIso?: string
   name: N
   props: P
+  role: RoleNames
+  userId: number
 }
 
 export type Administrator = UserRole<RoleNames.ADMINISTRATOR>
@@ -24,14 +30,3 @@ export type CollaboratorProps = {
   sections: 'all' | 'none' | Record<string, boolean>
 }
 export type Collaborator = UserRole<RoleNames.COLLABORATOR, CollaboratorProps>
-
-export interface UserRoles {
-  // id: number
-  countryIso?: string
-  userId: number
-  assessmentId?: number
-  /**
-   * roles can be either ADMIN or a Record indexed by cycleUuid
-   */
-  roles: RoleNames.ADMINISTRATOR | Record<string, UserRole<RoleNames>>
-}
