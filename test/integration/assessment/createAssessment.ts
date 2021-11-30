@@ -26,7 +26,4 @@ export default () =>
 
     expect(assessment).toHaveProperty('props.name')
     expect(assessment.props.name).toBe(assessmentParams.props.name)
-
-    expect(assessment).toHaveProperty('props.cycles')
-    expect(assessment.props.cycles[0]).toBe('1')
   })
