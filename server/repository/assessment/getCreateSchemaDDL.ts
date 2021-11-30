@@ -2,15 +2,6 @@ export const getCreateSchemaDDL = (schemaName: string): string => {
   const query = `
   create schema ${schemaName};
 
-create table ${schemaName}.cycle
-(
-    id   bigserial NOT NULL,
-    uuid uuid    default uuid_generate_v4(),
-    name varchar default '',
-    PRIMARY KEY (id),
-    unique(uuid)
-);
-
 create table ${schemaName}.section
 (
     id            bigserial NOT NULL,
