@@ -1,4 +1,4 @@
-import { RegionCode } from '@core/country/regionCode'
+import { RegionCode } from '@core/meta/regionCode'
 
 export interface Region {
   name: string
