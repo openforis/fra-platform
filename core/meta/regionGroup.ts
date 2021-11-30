@@ -1,4 +1,4 @@
-import { Region } from '@core/country'
+import { Region } from './region'
 
 export interface RegionGroup {
   id: number
