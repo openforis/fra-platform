@@ -1,26 +1,3 @@
 {
-  "allowSyntheticDefaults": true,
-  "include": ["core", "common", "server",
-    "test/integration"
-  ],
-  "exclude": ["node_modules"],
-  "compilerOptions": {
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "module": "CommonJS",
-    "moduleResolution": "Node",
-    "noImplicitAny": true,
-    "outDir": "./dist/",
-    "baseUrl": ".",
-    "paths": {
-      "@core/*": ["core/*"],
-      "@common/*": ["common/*"],
-      "@server/*": ["server/*"],
-      "@test/*": ["test/*"]
-    },
-    "target": "es2020",
-    "lib": ["es2020", "esnext"]
-  }
+  "extends": "./tsconfig.json"
 }
