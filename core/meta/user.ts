@@ -1,4 +1,4 @@
-import { UserRoles } from '@core/meta/userRoles'
+import { RoleNames, UserRole } from '@core/meta/userRoles'
 
 export enum UserStatus {
   invitationPending = 'invitationPending',
@@ -15,7 +15,7 @@ export interface User {
   position?: string
   profilePictureFile?: string
   profilePictureFilename?: string
-  roles: Array<UserRoles>
+  roles: Array<UserRole<RoleNames>>
   status: UserStatus
 }
 

@@ -1,6 +1,7 @@
 import { Assessment } from '@core/meta/assessment'
 import { BaseProtocol, DB } from '@server/db'
 import { Objects } from '@core/utils'
+import { read } from '@server/repository/assessment/read'
 
 export const createAssessment = async (
   params: {
@@ -10,10 +11,11 @@ export const createAssessment = async (
 ): Promise<Assessment> => {
   const { assessment } = params
 
-  return client.one<Assessment>(
+  const assessmentCreated = await client.one<Assessment>(
     `
     insert into assessment (props) values ('${JSON.stringify(assessment.props)}'::jsonb) returning  *;`,
     [],
     Objects.camelize
   )
+  return read({ id: assessmentCreated.id }, client)
 }

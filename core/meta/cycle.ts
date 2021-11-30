@@ -7,6 +7,7 @@ export interface CycledPropsObject<Props = void> {
 }
 
 export interface Cycle {
+  id: string
   name: string // 2020 or 2025
   uuid: string
 }
