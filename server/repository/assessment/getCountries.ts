@@ -10,7 +10,7 @@ export const getCountries = async (props: { name: string }, client: BaseProtocol
   return client
     .many<Array<Country>>(
       `
-          select c2.country_iso, config from ${assessmentName}.country c left join country c2 on c.country_iso = c2.country_iso;
+          select c2.country_iso from ${assessmentName}.country c left join country c2 on c.country_iso = c2.country_iso;
     `
     )
     .then((data) => Objects.camelize(data).map((country: Country) => country.countryIso))
