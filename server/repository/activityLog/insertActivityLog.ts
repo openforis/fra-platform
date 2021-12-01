@@ -1,5 +1,5 @@
 import { BaseProtocol, DB } from '@server/db'
-import { ActivityLog } from '@core/meta/assessment/activityLog'
+import { ActivityLog } from '@core/meta/assessment'
 import { Objects } from '@core/utils'
 
 export const insertActivityLog = async (
