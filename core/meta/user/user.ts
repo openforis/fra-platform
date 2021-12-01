@@ -1,4 +1,4 @@
-import { RoleNames, UserRole } from '@core/meta/user/userRoles'
+import { RoleNames, UserRole } from '@core/meta/user'
 
 export enum UserStatus {
   invitationPending = 'invitationPending',
