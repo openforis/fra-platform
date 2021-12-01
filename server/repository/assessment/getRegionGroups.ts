@@ -1,5 +1,5 @@
 import { BaseProtocol, DB } from '@server/db'
-import { RegionGroup } from '@core/meta/regionGroup'
+import { RegionGroup } from '@core/meta/area/regionGroup'
 import { Objects } from '@core/utils'
 
 export const getRegionGroups = async (

@@ -1,5 +1,5 @@
-import { CycledPropsObject } from '@core/meta/cycle'
-import { Table } from '@core/meta/table'
+import { CycledPropsObject } from '@core/meta/assessment/cycle'
+import { Table } from '@core/meta/assessment/table'
 
 export interface TableSectionProps {
   descriptionKey?: string

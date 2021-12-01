@@ -1,6 +1,6 @@
 import { BaseProtocol, DB } from '@server/db'
-import { User } from '@core/meta/user'
-import { UserAuthProvider } from '@core/meta/userAuth'
+import { User } from '@core/meta/user/user'
+import { UserAuthProvider } from '@core/meta/user/userAuth'
 import { UserRepository, UserProviderRepository } from '@server/repository'
 
 export const create = async (

@@ -1,5 +1,5 @@
 import { BaseProtocol, DB } from '@server/db'
-import { User } from '@core/meta/user'
+import { User } from '@core/meta/user/user'
 import { Objects } from '@core/utils'
 
 export const update = async (props: { user: User }, client: BaseProtocol = DB): Promise<User> => {

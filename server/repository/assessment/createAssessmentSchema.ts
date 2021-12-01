@@ -1,4 +1,4 @@
-import { Assessment } from '@core/meta/assessment'
+import { Assessment } from '@core/meta/assessment/assessment'
 import { BaseProtocol, DB, Schemas } from '@server/db'
 import { getCreateSchemaDDL } from '@server/repository/assessment/getCreateSchemaDDL'
 

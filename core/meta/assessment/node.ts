@@ -1,4 +1,4 @@
-import { CycledPropsObject } from '@core/meta/cycle'
+import { CycledPropsObject } from '@core/meta/assessment/cycle'
 
 export interface NodeProps {
   value: string
