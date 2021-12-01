@@ -1,5 +1,5 @@
-import { UserStatus } from '@core/meta/user'
-import { AuthProvider } from '@core/meta/user/userAuth'
+import { UserStatus, AuthProvider } from '@core/meta/user'
+
 import { UserController } from '@server/controller/user'
 
 export default () =>
