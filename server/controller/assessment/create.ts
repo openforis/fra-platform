@@ -1,6 +1,6 @@
 import { BaseProtocol, DB } from '@server/db'
 import { AssessmentRepository, ActivityLogRepository } from '@server/repository'
-import { Assessment } from '@core/meta/assessment/assessment'
+import { Assessment } from '@core/meta/assessment'
 
 import { ActivityLogMessage } from '@core/meta/assessment/activityLog'
 import { User } from '@core/meta/user/user'

@@ -1,4 +1,4 @@
-import { Assessment } from '@core/meta/assessment/assessment'
+import { Assessment } from '@core/meta/assessment'
 
 const getName = (assessment: Pick<Assessment, 'props'>): string => {
   return `assessment_${assessment.props.name}`
