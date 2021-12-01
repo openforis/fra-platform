@@ -1,4 +1,4 @@
-import { Cycle } from '@core/meta/cycle'
+import { Cycle } from '@core/meta/assessment/cycle'
 
 type AssessmentProps = {
   name: string // fra or pan_european

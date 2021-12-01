@@ -1,5 +1,5 @@
 import { SectionSpec } from '../../webapp/sectionSpec'
-import { Section } from '../../core/meta/section'
+import { Section } from '../../core/meta/assessment/section'
 
 export const getSection = (props: {
   assessmentId: number

@@ -1,5 +1,4 @@
-import { CycledPropsObject } from '@core/meta/cycle'
-import { Col } from '@core/meta/col'
+import { CycledPropsObject, Col } from '@core/meta/assessment'
 
 export enum RowType {
   header = 'header',

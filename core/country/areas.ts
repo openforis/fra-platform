@@ -1,6 +1,6 @@
 import { i18n } from 'i18next'
 import { Country } from '@core/country/country'
-import { Global } from '@core/country/global'
+import { Global } from '@core/meta/area/global'
 import { Region } from '@core/country/region'
 import { RegionGroup } from '@core/country/regionGroup'
 import { Strings } from '@core/utils'

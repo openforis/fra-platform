@@ -1,6 +1,6 @@
 import { BaseProtocol, DB } from '@server/db'
 import { AssessmentRepository } from '@server/repository'
-import { RegionGroup } from '@core/meta/regionGroup'
+import { RegionGroup } from '@core/meta/area'
 
 export const getRegionGroups = async (
   props: { name: string },
