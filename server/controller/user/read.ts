@@ -1,5 +1,5 @@
 import { BaseProtocol, DB } from '@server/db'
-import { User } from '@core/meta/user/user'
+import { User } from '@core/meta/user'
 import { UserRepository } from '@server/repository'
 
 export const read = async (
