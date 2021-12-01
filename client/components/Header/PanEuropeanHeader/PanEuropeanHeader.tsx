@@ -2,7 +2,7 @@ import React from 'react'
 
 import { useI18n } from '@webapp/hooks'
 
-import LanguageSelector, { LanguageSelectorMobile } from '@webapp/components/Header/LanguageSelector'
+import LanguageSelector, { LanguageSelectorMobile } from '@client/components/Header/LanguageSelector'
 
 const PanEuropeanHeader: React.FC = () => {
   const i18n = useI18n()

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { applicationError } from '@webapp/components/error/actions'
+import { applicationError } from 'client/components/Error/actions'
 import { ApiEndPoint } from '@common/api/endpoint'
 import { AutosaveActions } from '@webapp/store/autosave'
 

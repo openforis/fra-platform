@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { AppDispatch } from '@webapp/store'
 import axios from 'axios'
 import { ApiEndPoint } from '@common/api/endpoint'
-import { applicationError } from '@webapp/components/error/actions'
+import { applicationError } from '@webapp/../../../../client/components/error/actions'
 import { CountryIso } from '@core/country'
 import { CountryState } from '@webapp/store/country/countryStateType'
 

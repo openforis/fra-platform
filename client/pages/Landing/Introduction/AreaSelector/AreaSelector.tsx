@@ -3,15 +3,15 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 
-import { Global } from '@core/country'
-import { FRA } from '@core/assessment'
-import * as BasePaths from '@webapp/main/basePaths'
-import { Breakpoints } from '@webapp/utils/breakpoints'
+import { Global } from '../../../../../core/country'
+import { FRA } from '../../../../../core/assessment'
+import * as BasePaths from '../../../../../webapp/main/basePaths'
+import { Breakpoints } from '../../../../../webapp/utils/breakpoints'
 
-import { useCountries } from '@webapp/store/app'
-import { useGroupedRegions } from '@webapp/store/app/hooks'
+import { useCountries } from '../../../../../webapp/store/app'
+import { useGroupedRegions } from '../../../../../webapp/store/app/hooks'
 
-import { useI18n } from '@webapp/hooks'
+import { useI18n } from '../../../../../webapp/hooks'
 import DropdownAreas from './DropdownAreas'
 import SelectMobile from './SelectMobile'
 

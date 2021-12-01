@@ -1,7 +1,7 @@
 import axios from 'axios'
 import * as R from 'ramda'
 
-import { applicationError } from '@webapp/components/error/actions'
+import { applicationError } from '@webapp/../../../../client/components/error/actions'
 import { ApiEndPoint } from '@common/api/endpoint'
 import { AutosaveActions } from '@webapp/store/autosave'
 import { newUser, updateUserField, validUser } from './userManagement'

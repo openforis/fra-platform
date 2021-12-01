@@ -3,8 +3,8 @@ import React from 'react'
 import { useI18n } from '@webapp/hooks'
 
 import LinkHome from '@webapp/components/LinkHome'
-import LanguageSelector, { LanguageSelectorMobile } from '@webapp/components/Header/LanguageSelector'
-import UserLinks from '@webapp/components/Header/UserLinks'
+import LanguageSelector, { LanguageSelectorMobile } from '@client/components/Header/LanguageSelector'
+import UserLinks from '@client/components/Header/UserLinks'
 
 const FraHeader: React.FC = () => {
   const i18n = useI18n()

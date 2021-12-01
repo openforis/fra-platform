@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { ApiEndPoint } from '@common/api/endpoint'
-import { applicationError } from '../../../../components/error/actions'
+import { applicationError } from '../../../../../client/components/Error/actions'
 
 export const countryMessageBoardOpen = 'countryMessageBoard/open'
 export const countryMessageBoardClose = 'countryMessageBoard/close'

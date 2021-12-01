@@ -7,10 +7,11 @@ module.exports = {
   testMatch: ['**/integration/index.ts'],
   moduleDirectories: ['node_modules'],
   moduleNameMapper: {
-    "@common/(.*)": "<rootDir>/common/$1",
-    "@core/(.*)": "<rootDir>/core/$1",
-    "@server/(.*)": "<rootDir>/server/$1",
-    "@test/(.*)": "<rootDir>/test/$1"
+    '@common/(.*)': '<rootDir>/common/$1',
+    '@core/(.*)': '<rootDir>/core/$1',
+    '@client/(.*)': '<rootDir>/client/$1',
+    '@server/(.*)': '<rootDir>/server/$1',
+    '@test/(.*)': '<rootDir>/test/$1',
   },
   globals: {
     'ts-jest': {

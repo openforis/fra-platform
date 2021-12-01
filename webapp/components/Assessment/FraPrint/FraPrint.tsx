@@ -7,7 +7,7 @@ import * as CountryState from '@webapp/app/country/countryState'
 import { useCountryIso, useI18n } from '@webapp/hooks'
 
 import SectionView from '@webapp/components/Assessment/SectionView'
-import Loading from '@webapp/components/loading'
+import Loading from '@client/components/Loading/Loading'
 import ContactPersonsPrintView from '@webapp/sectionSpec/fra/contactPersons/contactPersonsPrintView'
 import { usePrintView } from '@webapp/store/app'
 import TableOfContent from './TableOfContent'

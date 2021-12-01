@@ -5,7 +5,7 @@ import Icon from '@webapp/components/icon'
 import './style.less'
 
 import * as AppState from '@webapp/store/app/state'
-import * as ApplicationErrorState from '@webapp/components/error/applicationErrorState'
+import * as ApplicationErrorState from './applicationErrorState'
 
 const ErrorBox = ({ error, i18n, clearApplicationError }: any) => (
   <div className="alert-container">
@@ -21,11 +21,11 @@ const ErrorBox = ({ error, i18n, clearApplicationError }: any) => (
   </div>
 )
 
-const ErrorComponent = (props: any) => (props.error ? <ErrorBox {...props} /> : null)
+const Error = (props: any) => (props.error ? <ErrorBox {...props} /> : null)
 
 const mapStateToProps = (state: any) => ({
   error: ApplicationErrorState.getError(state),
   i18n: AppState.getI18n(state),
 })
 
-export default connect(mapStateToProps, { clearApplicationError })(ErrorComponent)
+export default connect(mapStateToProps, { clearApplicationError })(Error)

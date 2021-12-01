@@ -1,7 +1,7 @@
 import './introduction.scss'
 import React from 'react'
 
-import { useI18n } from '@webapp/hooks'
+import { useI18n } from '../../../../webapp/hooks'
 
 import AreaSelector from './AreaSelector'
 

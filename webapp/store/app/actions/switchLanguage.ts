@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { applicationError } from '@webapp/components/error/actions'
+import { applicationError } from '@webapp/../../../../client/components/error/actions'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { RootState } from '@webapp/store/RootState'
 import { Lang } from '@core/lang'

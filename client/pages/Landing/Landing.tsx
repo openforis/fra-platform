@@ -1,7 +1,7 @@
 import './landing.scss'
 import React from 'react'
 
-import Partners from '@webapp/components/Partners'
+import Partners from 'client/components/Partners'
 
 import Introduction from './Introduction'
 import KeyFindings from './KeyFindings'

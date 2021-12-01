@@ -2,28 +2,23 @@ import React, { useEffect } from 'react'
 import { Redirect, Route, RouteComponentProps, Switch } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
-import { RegionCode } from '@core/country'
+import { RegionCode } from '@core/meta/area'
 import { FRA, PanEuropean } from '@core/assessment'
 import { useIsLogin } from '@webapp/hooks'
 import { useAppDispatch, useAppSelector } from '@webapp/store'
 import * as BasePaths from '@webapp/main/basePaths'
-import { AppActions, useAppLoaded } from '@webapp/store/app'
+import { AssessmentActions, useAssessmentLoaded } from '@client/store/assessment'
 
-import DynamicImport from '@webapp/components/dynamicImport'
-import Loading from '@webapp/components/loading'
-import Landing from '@webapp/pages/Landing'
+import Landing from '@client/pages/Landing'
 import Login from '@webapp/pages/Login'
-import Header from '@webapp/components/Header'
-import Footer from '@webapp/components/Footer'
-import ErrorComponent from '@webapp/components/error/errorComponent'
-import CountrySelect from '@webapp/components/CountrySelect'
+import { Header, Footer, Error, CountrySelect, Loading, DynamicImport } from '@client/components'
 
 import { useTheme } from './useTheme'
 
 const PageRoutes: React.FC = () => {
   useTheme()
   const dispatch = useAppDispatch()
-  const appLoaded = useAppLoaded()
+  const appLoaded = useAssessmentLoaded()
   const isLogin = useIsLogin()
   const { language } = useAppSelector((state) => state.app)
   const { i18n } = useTranslation()
@@ -33,7 +28,7 @@ const PageRoutes: React.FC = () => {
   }, [language])
 
   useEffect(() => {
-    dispatch(AppActions.initApp(i18n))
+    dispatch(AssessmentActions.initApp(i18n))
   }, [])
 
   if (!appLoaded) {
@@ -46,7 +41,7 @@ const PageRoutes: React.FC = () => {
     <Switch>
       <Route
         path={BasePaths.assessmentPrint}
-        render={() => <DynamicImport load={() => import('../AssessmentPrint/export')} />}
+        render={() => <DynamicImport load={() => import('@webapp/pages/AssessmentPrint/export')} />}
       />
 
       <Route>
@@ -58,9 +53,12 @@ const PageRoutes: React.FC = () => {
           <Route exact path={pathsLogin} component={Login} />
           <Route
             path={BasePaths.admin}
-            render={() => <DynamicImport key={1} load={() => import('../Admin/export')} />}
+            render={() => <DynamicImport key={1} load={() => import('@webapp/pages/Admin/export')} />}
           />
-          <Route path={BasePaths.user} render={() => <DynamicImport key={2} load={() => import('../User/export')} />} />
+          <Route
+            path={BasePaths.user}
+            render={() => <DynamicImport key={2} load={() => import('@webapp/pages/User/export')} />}
+          />
           <Route
             exact
             path={BasePaths.countryIso}
@@ -72,12 +70,12 @@ const PageRoutes: React.FC = () => {
           />
           <Route
             path={BasePaths.assessment}
-            render={() => <DynamicImport key={3} load={() => import('../../app/appViewExport')} />}
+            render={() => <DynamicImport key={3} load={() => import('@webapp/app/appViewExport')} />}
           />
         </Switch>
 
         <Footer />
-        <ErrorComponent />
+        <Error />
       </Route>
     </Switch>
   )

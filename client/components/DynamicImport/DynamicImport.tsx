@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { injectReducers } from '@webapp/store'
+import { injectReducers } from '@client/store'
 
-import Loading from '@webapp/components/loading'
+import { Loading } from '@client/components'
 
 type Props = {
   load: (...args: any[]) => any

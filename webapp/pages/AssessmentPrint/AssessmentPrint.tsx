@@ -6,7 +6,7 @@ import { useAssessmentType } from '@webapp/store/app'
 
 import { useInitCountry, useIsCountryStatusLoaded } from '@webapp/store/country'
 
-import Loading from '@webapp/components/loading'
+import Loading from '@client/components/Loading/Loading'
 import FraPrint from '@webapp/components/Assessment/FraPrint'
 
 const Components: Record<string, React.FC> = {

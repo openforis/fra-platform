@@ -4,7 +4,7 @@ import { Areas, Country, Region, RegionGroup } from '@core/country'
 import { getRequestParam } from '@webapp/utils/urlUtils'
 import axios from 'axios'
 import { ApiEndPoint } from '@common/api/endpoint'
-import { applicationError } from '@webapp/components/error/actions'
+import { applicationError } from '@webapp/../../../../client/components/error/actions'
 
 import { AppDispatch } from '@webapp/store'
 import { Lang } from '@core/lang'

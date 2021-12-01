@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { ApiEndPoint } from '@common/api/endpoint'
-import { applicationError } from '../../../components/error/actions'
+import { applicationError } from '../../../../client/components/Error/actions'
 
 import { getCountryOverview } from '../../countryLanding/actions'
 

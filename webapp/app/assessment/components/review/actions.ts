@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { ApiEndPoint } from '@common/api/endpoint'
 import { CountryActions } from '@webapp/store/country'
-import { applicationError } from '../../../../components/error/actions'
+import { applicationError } from '../../../../../client/components/Error/actions'
 
 export const issuePostCommentCompleted = 'issue/comment/post/completed'
 export const issueRetrieveCommentsStarted = 'issue/comment/retrieve/started'

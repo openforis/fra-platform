@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom'
 
 import * as BasePaths from '@webapp/main/basePaths'
 
-import Partners from '@webapp/components/Partners'
+import Partners from '@webapp/../../../client/components/Partners'
 
 import LoginForm from './LoginForm'
 import ResetPasswordForm from './ResetPasswordForm'

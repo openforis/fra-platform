@@ -4,7 +4,7 @@ import { ApiEndPoint } from '@common/api/endpoint'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { CountryIso } from '@core/country'
 import { AppDispatch } from '@webapp/store'
-import { applicationError } from '@webapp/components/error/actions'
+import { applicationError } from '@webapp/../../../../client/components/error/actions'
 import { Assessment, AssessmentStatus, AssessmentType } from '@core/assessment'
 import { CountryActions } from '@webapp/store/country'
 

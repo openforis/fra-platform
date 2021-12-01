@@ -1,6 +1,6 @@
 import { applyReducerFunction } from '@webapp/utils/reduxUtils'
 
-import * as ApplicationErrorState from '@webapp/components/error/applicationErrorState'
+import * as ApplicationErrorState from '@client/components/Error/applicationErrorState'
 import { applicationErrorType, clearApplicationErrorType } from './actions'
 
 const actionHandlers = {

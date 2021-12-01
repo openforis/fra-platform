@@ -1,6 +1,6 @@
 import axios, { AxiosStatic } from 'axios'
 
-import { applicationError } from '@webapp/components/error/actions'
+import { applicationError } from '@webapp/../../client/components/error/actions'
 import { Action, Dispatch, Middleware, MiddlewareAPI } from 'redux'
 
 const createAxiosMiddleware =

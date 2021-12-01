@@ -1,10 +1,10 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { useI18n } from '@webapp/hooks'
-import * as BasePaths from '@webapp/main/basePaths'
+import { useI18n } from '../../../../../../webapp/hooks'
+import * as BasePaths from '../../../../../../webapp/main/basePaths'
 
-import Icon from '@webapp/components/icon'
+import Icon from '../../../../../../webapp/components/icon'
 
 import { areas } from '../AreaSelector'
 

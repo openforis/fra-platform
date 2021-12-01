@@ -5,7 +5,7 @@ import { ODP } from '@core/odp'
 import { ApiEndPoint } from '@common/api/endpoint'
 
 import { OriginalDataPointActions } from '@webapp/store/page/originalDataPoint'
-import { applicationError } from '@webapp/components/error/actions'
+import { applicationError } from '@webapp/../../../../../client/components/error/actions'
 
 export const copyPreviousNationalClasses = createAsyncThunk<void, { id: string }>(
   'originalDataPoint/copyPreviousNationalClasses',

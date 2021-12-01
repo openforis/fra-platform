@@ -5,7 +5,7 @@ import { FRA } from '@core/assessment'
 
 import * as GrowingStockState from '@webapp/sectionSpec/fra/growingStock/growingStockState'
 
-import { applicationError } from '@webapp/components/error/actions'
+import { applicationError } from '@webapp/../../../../client/components/error/actions'
 import { ApiEndPoint } from '@common/api/endpoint'
 
 const section = FRA.sections['2'].children.a
