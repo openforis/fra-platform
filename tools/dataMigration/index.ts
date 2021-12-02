@@ -1,11 +1,10 @@
 import * as path from 'path'
 import { config } from 'dotenv'
 
-import { Assessment } from '../../core/meta/assessment/assessment'
+import { Assessment, Cycle } from '../../core/meta/assessment'
 import { SectionSpec } from '../../webapp/sectionSpec'
-import { Cycle } from '../../core/meta/assessment/cycle'
-import { DB } from '../../server/db'
-import { getCreateSchemaDDL } from '../../server/repository/assessment/getCreateSchemaDDL'
+import { BaseProtocol, DB } from '../../server/db'
+import { getCreateSchemaCycleDDL, getCreateSchemaDDL } from '../../server/repository/assessment/getCreateSchemaDDL'
 
 import { FraSpecs } from './fraSpecs'
 import { migrateUsers } from './migrateUsers'
@@ -18,9 +17,23 @@ import { migrateUsersResetPassword } from './migrateUsersResetPassword'
 
 config({ path: path.resolve(__dirname, '..', '..', '.env') })
 
+const createCycle = async (assessment: Assessment, cycleName: string, client: BaseProtocol): Promise<Cycle> => {
+  await DB.query(
+    getCreateSchemaCycleDDL(`assessment_${assessment.props.name}`, `assessment_${assessment.props.name}_${cycleName}`)
+  )
+  return client.one<Cycle>(
+    `insert into assessment_cycle (assessment_id, name)
+       values ($1, $2)
+       returning *`,
+    [assessment.id, cycleName]
+  )
+}
+
 export const migrate = async (spec: Record<string, SectionSpec>): Promise<void> => {
   // delete old fra
-  await DB.query(`drop schema if exists assessment_fra cascade`)
+  await DB.query(`drop schema if exists assessment_fra cascade;`)
+  await DB.query(`drop schema if exists assessment_fra_2020 cascade;`)
+  await DB.query(`drop schema if exists assessment_fra_2025 cascade;`)
   await DB.query(
     `delete
      from assessment
@@ -41,12 +54,9 @@ export const migrate = async (spec: Record<string, SectionSpec>): Promise<void> 
   await DB.query(getCreateSchemaDDL(schema))
 
   await DB.tx(async (client) => {
-    const cycle: Cycle = await client.one<Cycle>(
-      `insert into assessment_cycle (assessment_id, name)
-       values ($1, $2)
-       returning *`,
-      [assessment.id, '2020']
-    )
+    const cycle: Cycle = await createCycle(assessment, '2020', client)
+    await createCycle(assessment, '2025', client)
+
     await migrateMetadata({ assessment, cycle, schema, spec, client })
     await migrateAreas({ client, schema })
     await migrateUsers({ client })

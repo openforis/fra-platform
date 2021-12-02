@@ -93,3 +93,29 @@ create table ${schemaName}.col
 `
   return query
 }
+
+export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessmentCycleSchemaName: string): string => {
+  return `
+      create schema ${assessmentCycleSchemaName};
+      
+      create table ${assessmentCycleSchemaName}.node
+      (
+          id     bigserial                        not null
+              constraint node_pk
+                  primary key,
+          uuid   uuid  default uuid_generate_v4() not null,
+          row_id bigint                           not null
+              constraint node_row_id_fk
+                  references ${assessmentSchemaName}.row (id)
+                  on update cascade on delete cascade,
+          col_id bigint                           not null
+              constraint node_col_id_fk
+                  references ${assessmentSchemaName}.col (id)
+                  on update cascade on delete cascade,
+          value  jsonb default '{}'::jsonb        not null
+      );
+
+      create unique index node_uuid_uindex
+          on ${assessmentCycleSchemaName}.node (uuid);
+  `
+}
