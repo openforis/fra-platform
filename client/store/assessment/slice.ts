@@ -4,7 +4,7 @@ import { initApp } from './actions/initApp'
 
 const initialState: AssessmentState = {}
 
-export const appSlice = createSlice({
+export const assessmentSlice = createSlice({
   name: 'assessment',
   initialState,
   reducers: {},
@@ -14,8 +14,8 @@ export const appSlice = createSlice({
   },
 })
 
-export const AppActions = {
+export const AssessmentActions = {
   initApp,
 }
 
-export default appSlice.reducer as Reducer<AssessmentState>
+export default assessmentSlice.reducer as Reducer<AssessmentState>
