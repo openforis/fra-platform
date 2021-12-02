@@ -52,10 +52,11 @@ if (buildReport) {
 const appConfig = {
   mode: config.mode,
   devtool: 'source-map',
-  entry: ['./webapp/main.tsx'],
+  entry: ['./client/Main.tsx'],
   resolve: {
     extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js', '.js', '.jsx', '.ts', '.tsx'],
     alias: {
+      '@client': path.resolve(__dirname, 'client/'),
       '@core': path.resolve(__dirname, 'core/'),
       '@common': path.resolve(__dirname, 'common/'),
       '@server': path.resolve(__dirname, 'server/'),
