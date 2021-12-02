@@ -7,7 +7,7 @@ import assessmentCreate from '@test/integration/assessment/createAssessment'
 import settingsDefaultAssessment from '@test/integration/settings/defaultAssessment'
 import assessmentRemove from '@test/integration/assessment/removeAssessment'
 import userRemove from '@test/integration/user/userRemove.test'
-import userInvite from '@test/integration/user/userInvite'
+import userInvite from '@test/integration/user/userInvite.test'
 
 afterAll(async () => {
   await DB.$pool.end()

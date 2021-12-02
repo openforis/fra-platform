@@ -1,7 +1,7 @@
 import { DB } from '@server/db'
 import { RoleNames, User, UserInvitation } from '@core/meta/user'
-import { ActivityLogRepository, UserRepository } from '@server/repository'
-import { Assessment } from '@core/assessment'
+import { UserRepository, UserInvitationRepository } from '@server/repository'
+import { Assessment } from '@core/meta/assessment'
 
 export const inviteUser = async (props: {
   assessment: Assessment
@@ -15,19 +15,19 @@ export const inviteUser = async (props: {
 
   return DB.tx(async (client) => {
     // 1. fetch user
-    let userToIntive = await UserRepository.read({ user: { email } }, client)
+    let userToInvite = await UserRepository.read({ user: { email } }, client)
     if (!user) {
-      userToIntive = await UserRepository.create({ user: { email, name: '' } })
+      userToInvite = await UserRepository.create({ user: { email, name: '' } })
     }
-    await UserRolesRepository.create({}, client)
-    const userInvitation = UserInvitationRepository.create({}, client)
-    await ActivityLogRepository.insertActivityLog({}, client)
+    // await UserRolesRepository.create({}, client)
+    const userInvitation = await UserInvitationRepository.create({ user: userToInvite }, client)
+    // await ActivityLogRepository.insertActivityLog({}, client)
     // await UserRepository.inviteUser({ user }, client)
     // insert activity log
 
     return {
-      user: userToIntive,
       userInvitation,
+      user: userToInvite,
     }
   })
 }

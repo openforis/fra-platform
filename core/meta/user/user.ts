@@ -22,7 +22,7 @@ export interface User {
 export interface UserInvitation {
   uuid: string
   invitedAt: string
-  acceptedAt: string
+  acceptedAt?: string
   userId: number
 }
 
