@@ -104,13 +104,13 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
               constraint node_pk
                   primary key,
           uuid   uuid  default uuid_generate_v4() not null,
-          row_id bigint                           not null
-              constraint node_row_id_fk
-                  references ${assessmentSchemaName}.row (id)
+          row_uuid uuid                           not null
+              constraint node_row_uuid_fk
+                  references ${assessmentSchemaName}.row (uuid)
                   on update cascade on delete cascade,
-          col_id bigint                           not null
-              constraint node_col_id_fk
-                  references ${assessmentSchemaName}.col (id)
+          col_uuid uuid                           not null
+              constraint node_col_uuid_fk
+                  references ${assessmentSchemaName}.col (uuid)
                   on update cascade on delete cascade,
           value  jsonb default '{}'::jsonb        not null
       );
