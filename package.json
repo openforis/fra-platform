@@ -10,7 +10,7 @@
     "build": "yarn build:client && yarn build:server && yarn build:copy",
     "build:server": "yarn tsc --project tsconfig.server.json && yarn tscpaths -v -p tsconfig.server.paths.json -s ./server -o ./dist",
     "build:client": "cross-env NODE_ENV=production webpack --config webpack.config.babel.js",
-    "build:copy": "shx cp -a server/db/migration/* dist/server/db/migration/. && shx cp -a web-resources dist/ && shx cp -a server/static dist/server/",
+    "build:copy": "shx cp -Rf server/db/migration/* dist/server/db/migration/. && shx cp -Rf web-resources dist/ && shx cp -Rf server/static dist/server/",
     "build:watch": "cross-env NODE_ENV=development webpack --config webpack.config.babel.js --watch",
     "build:dev-server": "cross-env NODE_ENV=development webpack serve --config webpack.config.babel.js",
     "build:prod:report": "cross-env NODE_ENV=production BUILD_REPORT=true webpack --display-error-details -p --config webpack.config.babel.js",
