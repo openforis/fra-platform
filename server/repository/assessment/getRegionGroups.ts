@@ -9,8 +9,8 @@ export const getRegionGroups = async (
   const { name } = props
   const assessmentName = `assessment_${name}`
 
-  return client
-    .many<RegionGroup>(
+  const { regionGroups } = await client
+    .one<RegionGroup>(
       `
           with r as (
               select rg."order",
@@ -33,4 +33,6 @@ export const getRegionGroups = async (
     `
     )
     .then((data) => Objects.camelize(data))
+
+  return regionGroups
 }

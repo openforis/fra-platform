@@ -1,8 +1,7 @@
 import { create } from './create'
 import { read } from './read'
 import { remove } from './remove'
-import { getCountries } from './getCountries'
-import { getRegions } from './getRegions'
+import { getCountryISOs } from './getCountryISOs'
 import { getRegionGroups } from './getRegionGroups'
 
 export const AssessmentController = {
@@ -10,6 +9,5 @@ export const AssessmentController = {
   read,
   remove,
   getRegionGroups,
-  getRegions,
-  getCountries,
+  getCountryISOs,
 }
