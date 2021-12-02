@@ -1,7 +1,4 @@
-import { CycledPropsObject } from '@core/meta/cycle'
-import { Descriptions } from '@core/meta/description'
-// import { AssessmentSectionItem } from '@core/assessment/assessment'
-import { TableSection } from '@core/meta/tableSection'
+import { CycledPropsObject, Descriptions, TableSection } from '@core/meta/assessment'
 
 export interface SectionProps {
   anchor: string

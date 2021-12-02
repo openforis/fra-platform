@@ -21,9 +21,8 @@ export const InitGet = {
           })
         }
 
-        const [countries, regions, regionGroups] = await Promise.all([
+        const [countries, regionGroups] = await Promise.all([
           AssessmentController.getCountries({ name: assessment.props.name }),
-          AssessmentController.getRegions({ name: assessment.props.name }),
           AssessmentController.getRegionGroups({ name: assessment.props.name }),
         ])
 
@@ -31,7 +30,6 @@ export const InitGet = {
           assessment,
           countries,
           regionGroups,
-          regions,
         })
       } catch (e) {
         sendErr(res, e)

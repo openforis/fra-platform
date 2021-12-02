@@ -1,9 +1,9 @@
 import * as path from 'path'
 import { config } from 'dotenv'
 
-import { Assessment } from '../../core/meta/assessment'
+import { Assessment } from '../../core/meta/assessment/assessment'
 import { SectionSpec } from '../../webapp/sectionSpec'
-import { Cycle } from '../../core/meta/cycle'
+import { Cycle } from '../../core/meta/assessment/cycle'
 import { DB } from '../../server/db'
 import { getCreateSchemaDDL } from '../../server/repository/assessment/getCreateSchemaDDL'
 
