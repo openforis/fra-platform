@@ -1,10 +1,6 @@
-import { CycledPropsObject } from '@core/meta/assessment'
-
-export interface NodeProps {
-  value: string
-}
-
-export interface Node extends CycledPropsObject<NodeProps> {
+export interface Node {
   colId: number
   rowId: number
+  uuid: string
+  value: string
 }
