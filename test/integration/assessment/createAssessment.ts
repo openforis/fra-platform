@@ -1,6 +1,6 @@
 import { UserController } from '@server/controller/user'
 import { AssessmentController } from '@server/controller/assessment'
-import { assessmentParams } from '@test/integration/assessment/assessmentParams'
+import { assessmentParams } from '@test/integration/mock/assessment'
 
 export default () =>
   test('Expect assessment to be created', async () => {
