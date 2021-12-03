@@ -1,0 +1,1 @@
+export { useIsAssessment } from './useIsPath'
