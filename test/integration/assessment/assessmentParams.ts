@@ -1,6 +1,8 @@
+import { AssessmentName } from '@core/meta/assessment'
+
 export const assessmentParams = {
   props: {
-    name: 'test',
+    name: AssessmentName.fra,
     cycles: ['1'],
   },
 }
