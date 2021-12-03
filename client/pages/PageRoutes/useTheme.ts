@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { AssessmentName } from '@core/meta/assessment'
 import { useIsAssessment } from '@client/hooks'
-import { useAssessmentPropsName } from '@client/store/assessment/hooks'
+import { useAssessment } from '@client/store/assessment/hooks'
 
 const defaultTheme = {
   '--ui-accent-light': '#c4e7eb',
@@ -22,12 +22,12 @@ const themes = {
 
 export const useTheme = () => {
   const isAssessment = useIsAssessment()
-  const assessmentName = useAssessmentPropsName()
+  const assessment = useAssessment()
 
   useEffect(() => {
-    const theme = isAssessment ? themes[assessmentName] : defaultTheme
+    const theme = isAssessment ? themes[assessment?.props.name] : defaultTheme
     Object.entries(theme).forEach(([key, value]) => {
       document.documentElement.style.setProperty(key, value)
     })
-  }, [assessmentName, isAssessment])
+  }, [assessment?.props.name, isAssessment])
 }

@@ -1,5 +1,4 @@
 import { useAppSelector } from '@client/store'
-import { AssessmentName } from '@core/meta/assessment'
+import { Assessment } from '@core/meta/assessment'
 
-export const useAssessmentPropsName = (): AssessmentName =>
-  useAppSelector((state) => state.assessment?.assessment?.props.name)
+export const useAssessment = (): Assessment => useAppSelector((state) => state.assessment?.assessment)
