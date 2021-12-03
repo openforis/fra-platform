@@ -1,6 +1,6 @@
 import { matchPath, useLocation } from 'react-router'
 
-import { BasePaths } from '@webapp/main/basePaths'
+import { BasePaths } from '@client/pages/PageRoutes/basePaths'
 
 const useIsPath = ({ path, exact = true }: any) => {
   const { pathname } = useLocation()
