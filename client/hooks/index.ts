@@ -1,1 +1,1 @@
-export { useIsHome, useIsAdmin, useIsLogin, useIsUsers, useIsAssessment } from './useIsPath'
+export { useIsAssessment } from './useIsPath'
