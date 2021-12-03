@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { FRA, PanEuropean } from '@core/assessment'
+import { AssessmentName } from '@core/meta/assessment'
 import { useIsAssessment } from '@client/hooks'
 import { useAssessmentPropsName } from '@client/store/assessment/hooks'
 
@@ -11,8 +11,8 @@ const defaultTheme = {
 }
 
 const themes = {
-  [FRA.type]: defaultTheme,
-  [PanEuropean.type]: {
+  [AssessmentName.fra]: defaultTheme,
+  [AssessmentName.panEuropean]: {
     '--ui-accent-light': '#F9E6D6',
     '--ui-bg': '#FFF7F3',
     '--ui-bg-hover': '#FFE9DF',
