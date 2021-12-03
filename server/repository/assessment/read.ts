@@ -9,9 +9,8 @@ const selectFields = fields.map((f) => `a.${f}`).join(',')
 export const read = async (props: { name: string } | { id: number }, client: BaseProtocol = DB): Promise<Assessment> =>
   client.one<Assessment>(
     `
-        select ${selectFields}, jsonb_agg(to_jsonb(ac.*) - 'id') as cycles
+        select ${selectFields}
         from assessment a
-                 left join assessment_cycle ac on a.id = ac.assessment_id
         where ${'id' in props ? `a.id = $1` : `a.props->>'name' = $1`}
         group by ${selectFields};
     `,

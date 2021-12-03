@@ -1,6 +1,7 @@
 export const assessmentParams = {
   props: {
     name: 'test',
-    cycles: ['1'],
   },
 }
+
+export const assessmentCycleName = '2020'
