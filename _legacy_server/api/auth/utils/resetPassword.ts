@@ -1,5 +1,5 @@
 import { User } from '@core/auth/user'
-import { createI18nPromise } from '@common/i18n/i18nFactory'
+import { createI18nPromise } from '@common/../../../../i18n/i18nFactory'
 import { sendMail } from '@server/controller/email/sendMail'
 
 export const createMail = (i18n: any, user: User, url: string, uuid: string) => {
