@@ -4,6 +4,9 @@
     "target": "es2019",
     "baseUrl": "./",
     "paths": {
+      "@client/*": [
+        "./client/*"
+      ],
       "@common/*": [
         "./common/*"
       ],
@@ -16,6 +19,7 @@
     }
   },
   "include": [
+    "client",
     "common",
     "server",
     "webapp",

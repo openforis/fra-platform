@@ -1,7 +1,8 @@
 import { Cycle } from '@core/meta/assessment/cycle'
+import { AssessmentName } from '@core/meta/assessment/assessmentName'
 
 type AssessmentProps = {
-  name: string // fra or pan_european
+  name: AssessmentName // fra or pan_european
 }
 
 export interface Assessment {

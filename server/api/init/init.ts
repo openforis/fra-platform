@@ -21,14 +21,14 @@ export const InitGet = {
           })
         }
 
-        const [countries, regionGroups] = await Promise.all([
-          AssessmentController.getCountries({ name: assessment.props.name }),
+        const [countryISOs, regionGroups] = await Promise.all([
+          AssessmentController.getCountryISOs({ name: assessment.props.name }),
           AssessmentController.getRegionGroups({ name: assessment.props.name }),
         ])
 
         res.send({
           assessment,
-          countries,
+          countryISOs,
           regionGroups,
         })
       } catch (e) {

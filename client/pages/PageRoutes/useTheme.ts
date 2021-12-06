@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 
-import { FRA, PanEuropean } from '@core/assessment'
-import { useIsAssessment } from '@webapp/hooks'
-import { useAssessmentType } from '@webapp/store/app'
+import { AssessmentName } from '@core/meta/assessment'
+import { useIsAssessment } from '@client/hooks'
+import { useAssessment } from '@client/store/assessment'
 
 const defaultTheme = {
   '--ui-accent-light': '#c4e7eb',
@@ -11,8 +11,8 @@ const defaultTheme = {
 }
 
 const themes = {
-  [FRA.type]: defaultTheme,
-  [PanEuropean.type]: {
+  [AssessmentName.fra]: defaultTheme,
+  [AssessmentName.panEuropean]: {
     '--ui-accent-light': '#F9E6D6',
     '--ui-bg': '#FFF7F3',
     '--ui-bg-hover': '#FFE9DF',
@@ -21,13 +21,13 @@ const themes = {
 }
 
 export const useTheme = () => {
-  const assessmentType = useAssessmentType()
   const isAssessment = useIsAssessment()
+  const assessment = useAssessment()
 
   useEffect(() => {
-    const theme = isAssessment ? themes[assessmentType] : defaultTheme
+    const theme = isAssessment ? themes[assessment?.props.name] : defaultTheme
     Object.entries(theme).forEach(([key, value]) => {
       document.documentElement.style.setProperty(key, value)
     })
-  }, [assessmentType, isAssessment])
+  }, [assessment?.props.name, isAssessment])
 }
