@@ -7,16 +7,18 @@ export default (): void =>
   describe('User Invite', () => {
     it('Invite new user', async () => {
       const assessment = await AssessmentController.read({ name: assessmentParams.props.name })
-      const user1 = await UserController.read({ user: { email: userMockAdmin.email } })
-      const { userInvitation, user } = await UserController.inviteUser({
+      const userToInvite = await UserController.read({ user: { email: userMockAdmin.email } })
+      const { userInvitation } = await UserController.inviteUser({
         assessment,
         countryIso: 'ALB',
         cycleUuid: assessment.cycles[0].uuid,
         email: userMockAdmin.email,
         roleName: RoleNames.COLLABORATOR,
-        user: user1,
+        user: userToInvite,
       })
-      expect(userInvitation.userId).toBe(user1.id)
-      expect(user.id).toBe(user1.id)
+
+      expect(userInvitation).toHaveProperty('uuid')
+      // expect(invitedUser.status).toBe(UserStatus.invitationPending)
+      expect(userInvitation.acceptedAt).toBeNull()
     })
   })
