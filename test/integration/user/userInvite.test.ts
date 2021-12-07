@@ -1,4 +1,4 @@
-import { RoleNames } from '@core/meta/user'
+import { RoleName } from '@core/meta/user'
 import { AssessmentController, UserController } from '@server/controller'
 import { assessmentParams } from '@test/integration/mock/assessment'
 import { userMockAdmin } from '@test/integration/mock/user'
@@ -13,7 +13,7 @@ export default (): void =>
         countryIso: 'ALB',
         cycleUuid: assessment.cycles[0].uuid,
         email: userMockAdmin.email,
-        roleName: RoleNames.COLLABORATOR,
+        roleName: RoleName.COLLABORATOR,
         user: userToInvite,
       })
 

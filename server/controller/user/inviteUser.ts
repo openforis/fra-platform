@@ -1,15 +1,16 @@
 import { BaseProtocol, DB, Schemas } from '@server/db'
-import { RoleNames, User, UserInvitation, UserStatus } from '@core/meta/user'
+import { RoleName, User, UserInvitation, UserStatus } from '@core/meta/user'
 import { ActivityLogRepository, UserRepository, UserInvitationRepository } from '@server/repository'
 import { Assessment, ActivityLogMessage } from '@core/meta/assessment'
+import { CountryIso } from '@core/country'
 
 export const inviteUser = async (
   props: {
     assessment: Assessment
-    countryIso: string
+    countryIso: CountryIso
     cycleUuid: string
     email: string
-    roleName: RoleNames
+    roleName: RoleName
     user: User
   },
   client: BaseProtocol = DB

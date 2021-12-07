@@ -3,11 +3,11 @@ import { BaseProtocol, DB } from '@server/db'
 
 export const removeAssessmentCycle = async (
   params: {
-    assessmentCycleId: number
+    id: number
   },
   client: BaseProtocol = DB
 ): Promise<{ id: number }> => {
-  const { assessmentCycleId } = params
+  const { id } = params
 
-  return client.one<Cycle>(`delete from public.assessment_cycle where id = $1 returning id;`, [assessmentCycleId])
+  return client.one<Cycle>(`delete from public.assessment_cycle where id = $1 returning id;`, [id])
 }

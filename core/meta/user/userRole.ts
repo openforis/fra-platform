@@ -1,4 +1,4 @@
-export enum RoleNames {
+export enum RoleName {
   ADMINISTRATOR = 'ADMINISTRATOR',
   COLLABORATOR = 'COLLABORATOR',
   NATIONAL_CORRESPONDENT = 'NATIONAL_CORRESPONDENT',
@@ -7,21 +7,21 @@ export enum RoleNames {
   VIEWER = 'VIEWER',
 }
 
-export interface UserRole<N extends RoleNames, P = void> {
+export interface UserRole<N extends RoleName, P = void> {
   // id: number
   assessmentId?: number
   cycleUuid?: string
   countryIso?: string
   name: N
   props: P
-  role: RoleNames
+  role: RoleName
   userId: number
 }
 
-export type Administrator = UserRole<RoleNames.ADMINISTRATOR>
-export type NationalCorrespondent = UserRole<RoleNames.NATIONAL_CORRESPONDENT>
-export type Reviewer = UserRole<RoleNames.REVIEWER>
-export type Viewer = UserRole<RoleNames.VIEWER>
+export type Administrator = UserRole<RoleName.ADMINISTRATOR>
+export type NationalCorrespondent = UserRole<RoleName.NATIONAL_CORRESPONDENT>
+export type Reviewer = UserRole<RoleName.REVIEWER>
+export type Viewer = UserRole<RoleName.VIEWER>
 export type CollaboratorProps = {
   /**
    * all = all sections enabled for editing
@@ -30,4 +30,4 @@ export type CollaboratorProps = {
    */
   sections: 'all' | 'none' | Record<string, boolean>
 }
-export type Collaborator = UserRole<RoleNames.COLLABORATOR, CollaboratorProps>
+export type Collaborator = UserRole<RoleName.COLLABORATOR, CollaboratorProps>
