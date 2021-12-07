@@ -1,5 +1,36 @@
 @import 'client/styles/config';
 
+
+@mixin mixin-button-base($fontSize, $padding){
+  background-color: transparent;
+  border-radius: 2px;
+  border: solid 1px transparent;
+  cursor: pointer;
+  display: inline-block;
+  font-family: inherit;
+  font-size: $fontSize;
+  font-weight: 600;
+  line-height: 20px;
+  padding: $padding;
+  text-align: center;
+  text-decoration: none;
+  transition: $ease-out;
+  vertical-align: middle;
+  white-space: nowrap;
+  outline: none;
+
+  &.disabled,
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .icon {
+    margin-right: 6px;
+  }
+}
+
 button {
   color: $text-body;
 }
@@ -95,35 +126,5 @@ button:hover {
 
   &:hover {
     text-decoration: underline;
-  }
-}
-
-@mixin mixin-button-base($fontSize, $padding){
-  background-color: transparent;
-  border-radius: 2px;
-  border: solid 1px transparent;
-  cursor: pointer;
-  display: inline-block;
-  font-family: inherit;
-  font-size: $fontSize;
-  font-weight: 600;
-  line-height: 20px;
-  padding: $padding;
-  text-align: center;
-  text-decoration: none;
-  transition: $ease-out;
-  vertical-align: middle;
-  white-space: nowrap;
-  outline: none;
-
-  &.disabled,
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.4;
-    pointer-events: none;
-  }
-
-  .icon {
-    margin-right: 6px;
   }
 }

@@ -1,5 +1,16 @@
 @import "client/styles/config";
 
+@mixin mixin-icon-base(){
+  display: inline-block;
+  color: rgba(0, 0, 0, .5);
+  fill: currentColor;
+  stroke: none;
+
+  use {
+    fill: inherit;
+  }
+}
+
 .icon {
 @include mixin-icon-base;
   height: 16px;
@@ -50,15 +61,4 @@
 
 .icon-orange {
   color: $ui-alert;
-}
-
-@mixin mixin-icon-base(){
-  display: inline-block;
-  color: rgba(0, 0, 0, .5);
-  fill: currentColor;
-  stroke: none;
-
-  use {
-    fill: inherit;
-  }
 }

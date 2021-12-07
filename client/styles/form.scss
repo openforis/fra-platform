@@ -1,5 +1,40 @@
 @import "client/styles/config";
 
+@mixin mixin-input-base(){
+  background-color: transparent;
+  border: $ui-thin-border;
+  border-radius: 2px;
+  color: $text-body;
+  line-height: 20px;
+
+  &:focus {
+    outline: none;
+    border-color: $text-body;
+  }
+}
+
+@mixin mixin-select-base($padding, $border, $radius){
+  background-color: transparent;
+  background-position: right $padding top 50%;
+  background-repeat: no-repeat;
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNyIgaGVpZ2h0PSIxMiIgdmlld0JveD0iMCAwIDcgMTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgICA8dGl0bGU+CiAgICAgICAgY29sbGFwc2UKICAgIDwvdGl0bGU+CiAgICA8cGF0aCBkPSJNMy41IDBMNyA1SDBsMy41LTV6bTAgMTJMMCA3aDdsLTMuNSA1eiIgZmlsbC1ydWxlPSJub256ZXJvIiBmaWxsPSIjMzMzIi8+Cjwvc3ZnPgo=);
+  border: $border;
+  border-radius: $radius;
+  cursor: pointer;
+  color: $text-body;
+  display: inline-block;
+  line-height: 20px;
+  padding: 0 ($padding * 2 + 4) 0 $padding;
+  vertical-align: middle;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  &:disabled {
+    background-image: none;
+  }
+}
+
 input::-webkit-contacts-auto-fill-button {
   visibility: hidden;
   display: none !important;
@@ -46,39 +81,4 @@ input, select, textarea {
 @include mixin-input-base;
   font-size: $font-s;
   padding: 3px 7px;
-}
-
-@mixin mixin-input-base(){
-  background-color: transparent;
-  border: $ui-thin-border;
-  border-radius: 2px;
-  color: $text-body;
-  line-height: 20px;
-
-  &:focus {
-    outline: none;
-    border-color: $text-body;
-  }
-}
-
-@mixin mixin-select-base($padding, $border, $radius){
-  background-color: transparent;
-  background-position: right $padding top 50%;
-  background-repeat: no-repeat;
-  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNyIgaGVpZ2h0PSIxMiIgdmlld0JveD0iMCAwIDcgMTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgICA8dGl0bGU+CiAgICAgICAgY29sbGFwc2UKICAgIDwvdGl0bGU+CiAgICA8cGF0aCBkPSJNMy41IDBMNyA1SDBsMy41LTV6bTAgMTJMMCA3aDdsLTMuNSA1eiIgZmlsbC1ydWxlPSJub256ZXJvIiBmaWxsPSIjMzMzIi8+Cjwvc3ZnPgo=);
-  border: $border;
-  border-radius: $radius;
-  cursor: pointer;
-  color: $text-body;
-  display: inline-block;
-  line-height: 20px;
-  padding: 0 ($padding * 2 + 4) 0 $padding;
-  vertical-align: middle;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-
-  &:disabled {
-    background-image: none;
-  }
 }

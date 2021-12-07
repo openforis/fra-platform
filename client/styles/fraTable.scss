@@ -3,6 +3,21 @@
 @import 'client/styles/inputMixins';
 @import 'client/styles/fraValidation';
 
+// Mixins
+
+@mixin mixin-table-cell($fontWeight, $align, $padding, $cell: false){
+  border: $ui-thin-border;
+  font-weight: $fontWeight;
+  padding: $padding;
+  text-align: $align;
+
+  @if $cell == true {
+    white-space: nowrap;
+    min-width: 72px;
+    position: relative;
+  }
+}
+
 .fra-table__container {
   position: relative;
   margin-bottom: 28px;
@@ -87,7 +102,7 @@
   }
 
   &.error {
-  @include validation-error;
+  @include mixin-validation-error;
   }
 }
 
@@ -202,20 +217,6 @@
   word-wrap: break-word;
 }
 
-// Mixins
-
-@mixin mixin-table-cell($fontWeight, $align, $padding, $cell: false){
-  border: $ui-thin-border;
-  font-weight: $fontWeight;
-  padding: $padding;
-  text-align: $align;
-
-  & when ($cell=true) {
-    white-space: nowrap;
-    min-width: 72px;
-    position: relative;
-  }
-}
 
 // fra secondary table
 .fra-secondary-table__wrapper {
