@@ -1,6 +1,6 @@
 import { User } from '@core/auth/user'
-import { createI18nPromise } from '@common/i18n/i18nFactory'
-import { sendMail } from '@server/controller/email/sendMail'
+import { sendMail } from '@_legacy_server/controller/email/sendMail'
+import { createI18nPromise } from '../../../../i18n/i18nFactory'
 
 export const createMail = (i18n: any, user: User, url: string, uuid: string) => {
   const link = `${url}/login/resetPassword?k=${uuid}`

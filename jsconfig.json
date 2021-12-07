@@ -10,6 +10,9 @@
       "@common/*": [
         "./common/*"
       ],
+      "@i18n/*": [
+        "./i18n/*"
+      ],
       "@server/*": [
         "./server/*"
       ],
@@ -21,6 +24,7 @@
   "include": [
     "client",
     "common",
+    "i18n",
     "server",
     "webapp",
     "test"

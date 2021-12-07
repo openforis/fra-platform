@@ -3,11 +3,11 @@ import * as db from '@server/db/db_deprecated'
 import { addMessage, getChatUnreadMessages } from '@server/repository/userChat/userChatRepository'
 import { ApiAuthMiddleware } from '@server/api/middleware'
 import { sendErr, serverUrl } from '@server/utils/requests'
-import { createI18nPromise } from '@common/i18n/i18nFactory'
 import { findUserById } from '@server/repository/user/_legacy_userRepository'
 import { getCountry } from '@server/repository/country/getCountry'
 import { sendMail } from '@server/controller/email/sendMail'
 import { ApiEndPoint } from '@common/api/endpoint'
+import { createI18nPromise } from '../../../i18n/i18nFactory'
 
 const createMail = async (country: any, i18n: any, sender: any, recipient: any, url: any) => {
   const link = `${url}/country/${country.countryIso}/`
