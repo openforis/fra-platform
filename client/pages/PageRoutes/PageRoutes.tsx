@@ -11,7 +11,7 @@ import { /* Redirect, */ Route, /* RouteComponentProps, */ Switch } from 'react-
 
 // import DynamicImport from '../../../webapp/components/dynamicImport'
 // import Loading from '../../../webapp/components/loading'
-// import Landing from '../../../webapp/pages/Landing'
+import Landing from '@client/pages/Landing'
 // import Login from '../../../webapp/pages/Login'
 // import Header from '../../../webapp/components/Header'
 // import Footer from '../../../webapp/components/Footer'
@@ -20,6 +20,7 @@ import { /* Redirect, */ Route, /* RouteComponentProps, */ Switch } from 'react-
 
 import { useAppDispatch } from '@client/store'
 import { AssessmentActions } from '@client/store/assessment'
+import { BasePaths } from '@client/pages/PageRoutes/basePaths'
 import { useTheme } from './useTheme'
 
 const PageRoutes: React.FC = () => {
@@ -56,7 +57,7 @@ const PageRoutes: React.FC = () => {
         {/* {!isLogin && <CountrySelect />} */}
 
         <Switch>
-          {/* <Route exact path={BasePaths.root} component={Landing} /> */}
+          <Route exact path={BasePaths.Root()} component={Landing} />
 
           {/* <Route exact path={pathsLogin} component={Login} /> */}
           {/* <Route */}

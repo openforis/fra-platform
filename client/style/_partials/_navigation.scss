@@ -1,0 +1,24 @@
+@import 'config';
+@import 'spacing';
+
+@mixin mixin-nav-secondary-base($padding, $hover: false) {
+  display: flex;
+  align-items: stretch;
+  flex-flow: row nowrap;
+  padding: $padding 12px $padding $spacing-xs;
+  text-decoration: none;
+  color: $text-body;
+
+  @if $hover {
+    &:hover {
+      color: inherit;
+      background-color: var(--ui-bg-hover);
+      transition: $ease-out;
+    }
+
+    &.selected {
+      background-color: var(--ui-accent-light);
+      pointer-events: none;
+    }
+  }
+}
