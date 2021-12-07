@@ -1,5 +1,5 @@
 export const BasePaths = {
-  Root: '/',
+  Root: () => '/',
   Assessment: {
     root: () => '/:countryIso/:assessmentType',
     section: () => '/:countryIso/:assessmentType/:section',
