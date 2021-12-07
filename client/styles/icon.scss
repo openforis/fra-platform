@@ -1,13 +1,13 @@
-@import (reference) "~@webapp/main/styles/config";
+@import "client/styles/config";
 
 .icon {
-  .mixin-icon-base;
+@include mixin-icon-base;
   height: 16px;
   width: 16px;
 }
 
 .icon-24 {
-  .mixin-icon-base;
+@include mixin-icon-base;
   height: 24px;
   width: 24px;
 }
@@ -45,14 +45,14 @@
 }
 
 .icon-red {
-  color: @ui-destructive;
+  color: $ui-destructive;
 }
 
 .icon-orange {
-  color: @ui-alert;
+  color: $ui-alert;
 }
 
-.mixin-icon-base() {
+@mixin mixin-icon-base(){
   display: inline-block;
   color: rgba(0, 0, 0, .5);
   fill: currentColor;

@@ -1,4 +1,4 @@
-import '@client/styles/style.less'
+import '@client/styles/style.scss'
 
 import React from 'react'
 import ReactDOM from 'react-dom'

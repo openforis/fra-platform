@@ -1,7 +1,7 @@
 //===WARNING====
 // DO NOT IMPORT SPECIFIC COMPONENT STYLES HERE,
 // ONLY MORE GENERAL STUFF USED IN MANY PLACES
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght$0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap');
 @import 'client/styles/config';
 //Import all common application styles
 @import 'client/styles/cssVars';
@@ -11,7 +11,7 @@
 @import 'client/styles/form';
 @import 'client/styles/fraTable';
 @import 'client/styles/fraValidation';
-@import 'client/styles/rtl';
+@import 'client/styles/scss';
 
 *,
 *:before,
@@ -22,12 +22,12 @@
 html {
   box-sizing: border-box;
   height: 100%;
-  font-size: @font-m;
+  font-size: $font-m;
 }
 
 body {
-  color: @text-body;
-  font-family: @font-family-1;
+  color: $text-body;
+  font-family: $font-family-1;
   font-weight: 400;
   line-height: 20px;
   margin: 0;
@@ -47,7 +47,7 @@ h2,
 h3,
 h4,
 h5 {
-  color: @text-body;
+  color: $text-body;
   font-weight: 600;
   line-height: 1.25;
   margin-bottom: 0;
@@ -55,32 +55,32 @@ h5 {
 }
 
 .title {
-  font-size: @font-xxl;
+  font-size: $font-xxl;
 }
 
 h1.title {
-  font-size: @font-xxxl;
+  font-size: $font-xxxl;
 }
 
 .headline {
-  font-size: @font-xl;
+  font-size: $font-xl;
 }
 
 .subhead {
-  font-size: @font-l;
+  font-size: $font-l;
 }
 
 a {
-  color: darken(@ui-accent, 2%);
+  color: darken($ui-accent, 2%);
 }
 
 a:hover {
-  color: darken(@ui-accent, 4%);
+  color: darken($ui-accent, 4%);
 }
 
 hr {
   border: 0;
-  border-top: 1px solid @ui-border;
+  border-top: 1px solid $ui-border;
   margin: 24px 0;
 }
 
@@ -98,7 +98,7 @@ hr {
   text-align: center;
   margin: 0 auto;
   background-color: rgb(white, 0.8);
-  z-index: @z-index-loader;
+  z-index: $z-index-loader;
 
   img {
     animation: wobble 0.3s ease-in-out 0.1s;

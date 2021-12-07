@@ -1,7 +1,7 @@
 // Mixins used in textInput, thousandSeparatedInput and percentInput
-@import (reference) "~@webapp/main/styles/config";
+@import "client/styles/config";
 
-.mixin-input-container() {
+@mixin mixin-input-container(){
   display: flex;
   align-items: center;
   height: 100%;
@@ -11,7 +11,7 @@
   left: 0;
 }
 
-.mixin-input-field(@right: 10px) {
+@mixin mixin-input-field($right: 10px){
   position: absolute;
   top: 0;
   left: 0;
@@ -23,27 +23,27 @@
   font-size: inherit;
   line-height: inherit;
   text-align: inherit;
-  padding: 10px @right 10px 10px;
+  padding: 10px $right 10px 10px;
 
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 1px @text-body;
+    box-shadow: 0 0 0 1px $text-body;
   }
 
   &::placeholder {
-    color: @text-disabled;
+    color: $text-disabled;
   }
 }
 
-.mixin-readonly-view(@right: 10px) {
+@mixin mixin-readonly-view($right: 10px){
   color: inherit;
   font-size: inherit;
   line-height: inherit;
-  padding: 10px @right 10px 10px;
+  padding: 10px $right 10px 10px;
   white-space: nowrap;
   width: 100%;
 
   &.placeholder {
-    color: @text-disabled;
+    color: $text-disabled;
   }
 }

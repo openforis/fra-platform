@@ -1,7 +1,7 @@
-@import (reference) 'webapp/main/styles/config';
+@import 'client/styles/config';
 
 button {
-  color: @text-body;
+  color: $text-body;
 }
 
 button:hover {
@@ -9,23 +9,23 @@ button:hover {
 }
 
 .btn {
-  .mixin-button-base(@font-m, 6px 13px);
+@include mixin-button-base($font-m, 6px 13px);
 }
 
 .btn-s {
-  .mixin-button-base(@font-s, 3px 9px);
+@include mixin-button-base($font-s, 3px 9px);
 }
 
 .btn-xs {
-  .mixin-button-base(@font-xs, 1px 4px);
+@include mixin-button-base($font-xs, 1px 4px);
 }
 
 .btn-primary {
-  background-color: @ui-accent;
+  background-color: $ui-accent;
   color: white;
 
   &:hover {
-    background-color: darken(@ui-accent, 4%);
+    background-color: darken($ui-accent, 4%);
     color: white;
   }
 
@@ -35,14 +35,14 @@ button:hover {
 }
 
 .btn-secondary {
-  background-color: @ui-bg;
-  border-color: @ui-border;
-  color: @text-mute;
+  background-color: $ui-bg;
+  border-color: $ui-border;
+  color: $text-mute;
 
   &:hover {
-    background-color: darken(@ui-bg, 4%);
-    border-color: darken(@ui-border, 4%);
-    color: @text-mute;
+    background-color: darken($ui-bg, 4%);
+    border-color: darken($ui-border, 4%);
+    color: $text-mute;
   }
 
   &:active {
@@ -51,11 +51,11 @@ button:hover {
 }
 
 .btn-destructive {
-  background-color: @ui-destructive;
+  background-color: $ui-destructive;
   color: white;
 
   &:hover {
-    background-color: darken(@ui-destructive, 4%);
+    background-color: darken($ui-destructive, 4%);
     color: white;
   }
 
@@ -66,22 +66,22 @@ button:hover {
 
 .btn-link-destructive {
   background: transparent;
-  color: @ui-destructive;
+  color: $ui-destructive;
   font-weight: 400;
 
   &:hover {
-    color: darken(@ui-destructive, 6%);
+    color: darken($ui-destructive, 6%);
     text-decoration: underline;
   }
 }
 
 .btn-link {
   background: transparent;
-  color: darken(@ui-accent, 2%);
+  color: darken($ui-accent, 2%);
   font-weight: 400;
 
   &:hover {
-    color: darken(@ui-accent, 4%);
+    color: darken($ui-accent, 4%);
     text-decoration: underline;
   }
 }
@@ -89,7 +89,7 @@ button:hover {
 .link {
   cursor: pointer;
   display: inline-block;
-  transition: @ease-out;
+  transition: $ease-out;
   text-decoration: none;
   outline: none;
 
@@ -98,20 +98,20 @@ button:hover {
   }
 }
 
-.mixin-button-base(@fontSize, @padding) {
+@mixin mixin-button-base($fontSize, $padding){
   background-color: transparent;
   border-radius: 2px;
   border: solid 1px transparent;
   cursor: pointer;
   display: inline-block;
   font-family: inherit;
-  font-size: @fontSize;
+  font-size: $fontSize;
   font-weight: 600;
   line-height: 20px;
-  padding: @padding;
+  padding: $padding;
   text-align: center;
   text-decoration: none;
-  transition: @ease-out;
+  transition: $ease-out;
   vertical-align: middle;
   white-space: nowrap;
   outline: none;
