@@ -1,5 +1,5 @@
 import { CountryService } from '@server/controller'
-import { createI18nPromise } from '../../../common/i18n/i18nFactory'
+import { createI18nPromise } from '../../../i18n/i18nFactory'
 import * as FRAYearsExporter from './fraYears/fraYearsExporter'
 import * as IntervalYearsExporter from './intervals/intervalYearsExporter'
 import * as AnnualYearsExporter from './annual/annualYearsExporter'

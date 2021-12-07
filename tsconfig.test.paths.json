@@ -2,7 +2,7 @@
   "//": "This file is needed for fixing issue with imports: baseUrl is dist instead of .",
   "///": "For more info check: https://github.com/microsoft/TypeScript/issues/10866",
   "allowSyntheticDefaults": true,
-  "include": ["core","common", "server",
+  "include": ["core","common", "i18n", "server",
     "test/integration"
   ],
   "exclude": ["node_modules"],
@@ -16,6 +16,7 @@
     "outDir": "./dist/",
     "baseUrl": "./dist",
     "paths": {
+      "@i18n/*": ["i18n/*"],
       "@core/*": ["core/*"],
       "@common/*": ["common/*"],
       "@server/*": ["server/*"],

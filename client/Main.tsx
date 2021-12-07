@@ -7,7 +7,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from './store/store'
 import PageRoutes from './pages/PageRoutes'
-// import './i18n'
+import './i18n'
 
 const Main = () => {
   ReactDOM.render(
