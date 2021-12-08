@@ -13,7 +13,7 @@ import { /* Redirect, */ Route, /* RouteComponentProps, */ Switch } from 'react-
 import Loading from '@client/components/Loading'
 import Landing from '@client/pages/Landing'
 // import Login from '../../../webapp/pages/Login'
-// import Header from '../../../webapp/components/Header'
+import Header from '@client/components/Header'
 import Footer from '@client/components/Footer'
 // import ErrorComponent from '../../../webapp/components/error/errorComponent'
 // import CountrySelect from '../../../webapp/components/CountrySelect'
@@ -53,7 +53,7 @@ const PageRoutes: React.FC = () => {
       {/* /> */}
 
       <Route>
-        {/* <Header /> */}
+        <Header />
         {/* {!isLogin && <CountrySelect />} */}
 
         <Switch>

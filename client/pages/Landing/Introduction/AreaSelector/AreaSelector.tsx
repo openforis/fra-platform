@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 
-import { Global } from '@core/country'
+import { Global } from '@core/meta/area'
 import { FRA } from '@core/assessment'
 import * as BasePaths from '@webapp/main/basePaths'
 import { Breakpoints } from '@webapp/utils/breakpoints'

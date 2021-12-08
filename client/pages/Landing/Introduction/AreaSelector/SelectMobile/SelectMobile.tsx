@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { useI18n } from '@webapp/hooks'
 import * as BasePaths from '@webapp/main/basePaths'
 
-import Icon from '@webapp/components/icon'
+import Icon from '@client/components/Icon'
 
 import { areas } from '../AreaSelector'
 
