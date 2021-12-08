@@ -8,9 +8,10 @@ export const getRow = (props: { cycles: Array<string>; rowSpec: RowSpec; table: 
   const row: Row = {
     props: {
       cycles,
-      index: Number(rowSpec.idx),
+      index: rowSpec.idx,
       linkToSection: '', // rowSpec. // TODO
       type: rowSpec.type as unknown as RowType,
+      variableName: rowSpec.variableName, // ?? rowSpec.variableExport,
     },
     cols: [],
     tableId: table.id,

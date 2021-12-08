@@ -10,6 +10,7 @@ export const getCol = (props: { cycles: Array<string>; colSpec: ColSpec; row: Ro
       colSpan: colSpec.colSpan,
       rowSpan: colSpec.rowSpan,
       colType: colSpec.type as unknown as ColType,
+      index: colSpec.idx,
     },
     rowId: row.id,
   }

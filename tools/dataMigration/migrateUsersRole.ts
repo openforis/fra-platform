@@ -1,15 +1,13 @@
 import { BaseProtocol } from '../../server/db'
-import { Assessment } from '../../core/meta/assessment/assessment'
-import { Cycle } from '../../core/meta/assessment/cycle'
+import { Assessment } from '../../core/meta/assessment'
 
 type Props = {
   assessment: Assessment
-  cycle: Cycle
   client: BaseProtocol
 }
 
 export const migrateUsersRole = async (props: Props): Promise<void> => {
-  const { assessment, cycle, client } = props
+  const { assessment, client } = props
 
   await client.query(
     `
@@ -75,9 +73,7 @@ export const migrateUsersRole = async (props: Props): Promise<void> => {
         select us.id,
                case when r.role = 'ADMINISTRATOR' then null else ${assessment.id} end      as assessment_id,
                case when r.role = 'ADMINISTRATOR' then null else r.country_iso end         as country_iso,
---                r.country_iso,
-               case when r.role = 'ADMINISTRATOR' then null else '${cycle.uuid}'::uuid end as cycle_uuid,
---                '${cycle.uuid}'::uuid                                                  as cycle_uuid,
+               case when r.role = 'ADMINISTRATOR' then null else '${assessment.cycles[0].uuid}'::uuid end as cycle_uuid,
                r.role::user_role,
                case
                    when t.sections is not null then jsonb_build_object('sections', t.sections)
