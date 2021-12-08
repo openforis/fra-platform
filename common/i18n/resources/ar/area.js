@@ -9,6 +9,7 @@ module.exports = {
   OC: { listName: 'أوقيانوسيا' },
   SA: { listName: 'أمريكا الجنوبية' },
 
+  ASEAN: { listName: 'ASEAN' },
   FE: { listName: 'المؤتمر الوزاري لحماية الغابات في أوروبا' },
   EU27: { listName: 'الاتحاد الأوروبي - 27' },
   ECOMIFAC: { listName: 'اللجنة المعنية بغابات أفريقيا الوسطى' },
