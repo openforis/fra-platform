@@ -3,7 +3,7 @@ import { User } from '@core/meta/user'
 export enum ActivityLogMessage {
   assessmentCreate = 'assessmentCreate',
   assessmentCycleCreate = 'assessmentCycleCreate',
-  userInvitationCreate = 'userInvitationCreate',
+  userInvited = 'userInvited',
 }
 
 export interface ActivityLog<Target> {

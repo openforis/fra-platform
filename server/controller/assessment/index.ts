@@ -3,7 +3,7 @@ import { read } from './read'
 import { remove } from './remove'
 import { getCountryISOs } from './getCountryISOs'
 import { getRegionGroups } from './getRegionGroups'
-import { createAssessmentCycle } from './createAssessmentCycle'
+import { createCycle } from './createCycle'
 
 export const AssessmentController = {
   create,
@@ -11,5 +11,5 @@ export const AssessmentController = {
   remove,
   getRegionGroups,
   getCountryISOs,
-  createAssessmentCycle,
+  createCycle,
 }

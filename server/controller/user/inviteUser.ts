@@ -1,5 +1,5 @@
 import { BaseProtocol, DB, Schemas } from '@server/db'
-import { RoleName, User, UserInvitation, UserStatus } from '@core/meta/user'
+import { RoleName, User, UserInvitation } from '@core/meta/user'
 import { ActivityLogRepository, UserRepository, UserInvitationRepository } from '@server/repository'
 import { Assessment, ActivityLogMessage } from '@core/meta/assessment'
 import { CountryIso } from '@core/country'
@@ -22,8 +22,6 @@ export const inviteUser = async (
     let userToInvite = await UserRepository.read({ user: { email } }, client)
     if (!userToInvite) {
       userToInvite = await UserRepository.create({ user: { email, name: '' } })
-      userToInvite.status = UserStatus.invitationPending
-      userToInvite = await UserRepository.update({ user: userToInvite }, client)
     }
 
     // await UserRolesRepository.create({}, client)
@@ -35,7 +33,7 @@ export const inviteUser = async (
         activityLog: {
           target: userInvitation,
           section: 'assessment',
-          message: ActivityLogMessage.userInvitationCreate,
+          message: ActivityLogMessage.userInvited,
           user,
         },
         schemaName,

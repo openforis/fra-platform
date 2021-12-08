@@ -5,7 +5,8 @@ import { removeAssessmentSchema } from './removeAssessmentSchema'
 import { removeAssessment } from './removeAssessment'
 import { getCountryISOs } from './getCountryISOs'
 import { getRegionGroups } from './getRegionGroups'
-import { createAssessmentCycle } from './createAssessmentCycle'
+import { createCycle } from './createCycle'
+import { removeCycle } from './removeCycle'
 
 export const AssessmentRepository = {
   createAssessment,
@@ -15,5 +16,6 @@ export const AssessmentRepository = {
   removeAssessment,
   getCountryISOs,
   getRegionGroups,
-  createAssessmentCycle,
+  createCycle,
+  removeCycle,
 }

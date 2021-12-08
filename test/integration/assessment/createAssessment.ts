@@ -17,7 +17,7 @@ export default () =>
       user,
     })
 
-    const assessmentCycle = await AssessmentController.createAssessmentCycle({
+    const assessmentCycle = await AssessmentController.createCycle({
       assessment,
       name: assessmentCycleName,
       user,
