@@ -10,23 +10,23 @@ import { /* Redirect, */ Route, /* RouteComponentProps, */ Switch } from 'react-
 // import { AppActions, useAppLoaded } from '../../../webapp/store/app'
 
 // import DynamicImport from '../../../webapp/components/dynamicImport'
-// import Loading from '../../../webapp/components/loading'
+import Loading from '@client/components/Loading'
 import Landing from '@client/pages/Landing'
 // import Login from '../../../webapp/pages/Login'
 // import Header from '../../../webapp/components/Header'
-// import Footer from '../../../webapp/components/Footer'
+import Footer from '@client/components/Footer'
 // import ErrorComponent from '../../../webapp/components/error/errorComponent'
 // import CountrySelect from '../../../webapp/components/CountrySelect'
 
 import { useAppDispatch } from '@client/store'
-import { AssessmentActions } from '@client/store/assessment'
+import { AssessmentActions, useAssessment } from '@client/store/assessment'
 import { BasePaths } from '@client/pages/PageRoutes/basePaths'
 import { useTheme } from './useTheme'
 
 const PageRoutes: React.FC = () => {
   useTheme()
   const dispatch = useAppDispatch()
-  // const appLoaded = useAppLoaded()
+  const assessmentLoaded = useAssessment()
   // const isLogin = useIsLogin()
   // const { language } = useAppSelector((state) => state.app)
   // const { i18n } = useTranslation()
@@ -38,10 +38,10 @@ const PageRoutes: React.FC = () => {
   useEffect(() => {
     dispatch(AssessmentActions.initApp())
   }, [])
-  //
-  // if (!appLoaded) {
-  //   return <Loading />
-  // }
+
+  if (!assessmentLoaded) {
+    return <Loading />
+  }
 
   // const pathsLogin = [BasePaths.login, BasePaths.resetPassword]
 
@@ -83,7 +83,7 @@ const PageRoutes: React.FC = () => {
           {/* /> */}
         </Switch>
 
-        {/* <Footer /> */}
+        <Footer />
         {/* <ErrorComponent /> */}
       </Route>
     </Switch>
