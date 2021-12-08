@@ -36,6 +36,7 @@ module.exports.translation = {
     gef: 'Global Environment Facility',
     part5:
       '. Its contents are the sole responsibility of FAO and can in no way be taken to reflect the views of the European Union, the Government of Finland, the Government of Norway and the Global Environment Facility.',
+    termsOfUse: 'Statistical Database Terms of Use',
   },
 
   home: {

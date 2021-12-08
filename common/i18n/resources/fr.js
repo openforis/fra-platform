@@ -53,6 +53,7 @@ des domaines boréal, tempéré et sous-tropical`,
     part4: ' et du ',
     gef: `Fonds pour l'environnement mondial`,
     part5: `. Son contenu relève de la seule responsabilité de la FAO  et ne peut en aucun cas être considéré comme reflétant la position de l'Union européenne du Gouvernement de Finlande, du Gouvernement de Norvège ou du Fonds pour l'environnement mondial.`,
+    termsOfUse: `Conditions d'utilisation de la base de données statistiques`,
   },
 
   unit: {
