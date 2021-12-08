@@ -8,7 +8,7 @@ export default (): void =>
     it('Invite new user', async () => {
       const assessment = await AssessmentController.read({ name: assessmentParams.props.name })
       const userToInvite = await UserController.read({ user: { email: userMockAdmin.email } })
-      const { userInvitation } = await UserController.inviteUser({
+      const { userInvitation } = await UserController.invite({
         assessment,
         countryIso: 'ALB',
         cycleUuid: assessment.cycles[0].uuid,

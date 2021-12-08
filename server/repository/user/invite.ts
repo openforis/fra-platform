@@ -2,7 +2,7 @@ import { BaseProtocol, DB } from '@server/db'
 import { User } from '@core/meta/user'
 import { Objects } from '@core/utils'
 
-export const inviteUser = async (props: { user: Pick<User, 'id'> }, client: BaseProtocol = DB): Promise<User> => {
+export const invite = async (props: { user: Pick<User, 'id'> }, client: BaseProtocol = DB): Promise<User> => {
   const {
     user: { id },
   } = props

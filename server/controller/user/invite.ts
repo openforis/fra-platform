@@ -4,7 +4,7 @@ import { ActivityLogRepository, UserRepository, UserInvitationRepository } from 
 import { Assessment, ActivityLogMessage } from '@core/meta/assessment'
 import { CountryIso } from '@core/country'
 
-export const inviteUser = async (
+export const invite = async (
   props: {
     assessment: Assessment
     countryIso: CountryIso
