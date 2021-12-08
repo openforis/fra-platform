@@ -3,7 +3,7 @@ import React from 'react'
 
 import { useTranslation } from 'react-i18next'
 import { useUser } from '@client/store/user'
-import SendFeedback from './components/sendFeedback'
+import SendFeedback from './components/SendFeedback'
 
 const links = [
   {

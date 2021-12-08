@@ -1,0 +1,23 @@
+@import 'client/style/partials';
+
+.lang-selector {
+  display: grid;
+  grid-column-gap: $spacing-xxs;
+  justify-content: center;
+
+  button {
+    font-weight: 400;
+    font-size: $font-xxs;
+    color: $text-mute;
+
+    &:disabled {
+      font-weight: 600;
+      color: $text-body;
+      opacity: 1;
+    }
+  }
+
+  @include min-width($laptop) {
+    display: none;
+  }
+}
