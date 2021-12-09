@@ -6,7 +6,6 @@ import { removeAssessment } from './removeAssessment'
 import { getCountryISOs } from './getCountryISOs'
 import { getRegionGroups } from './getRegionGroups'
 import { createCycle } from './createCycle'
-import { removeCycle } from './removeCycle'
 
 export const AssessmentRepository = {
   createAssessment,
@@ -17,5 +16,4 @@ export const AssessmentRepository = {
   getCountryISOs,
   getRegionGroups,
   createCycle,
-  removeCycle,
 }
