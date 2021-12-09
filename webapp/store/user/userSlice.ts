@@ -13,7 +13,7 @@ export const userSlice = createSlice({
     builder.addCase(logout.fulfilled, () => initialState)
     builder.addCase(AppActions.initApp.fulfilled, (_, { payload }) => payload.userInfo)
     builder.addCase(AppActions.switchLanguage.fulfilled, (state, { payload }) => {
-      if (state.lang) {
+      if (state && state.lang) {
         state.lang = payload.language
       }
     })
