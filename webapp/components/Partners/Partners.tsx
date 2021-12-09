@@ -50,6 +50,23 @@ const Partners: React.FC = () => {
         </a>
         {i18n.t('disclaimer.part5')}
       </div>
+      <div className="partners__disclaimer">
+        <div>
+          <a
+            href={`https://www.fao.org/contact-us/terms/db-terms-of-use/${i18n.language}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {i18n.t('disclaimer.termsOfUse')}
+          </a>
+        </div>
+        <img
+          alt={i18n.t('disclaimer.termsOfUse')}
+          src="https://www.fao.org/typo3temp/pics/de77f38b9d.png"
+          width="200"
+          height="71"
+        />
+      </div>
     </div>
   )
 }

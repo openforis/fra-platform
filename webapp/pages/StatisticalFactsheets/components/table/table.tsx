@@ -26,6 +26,7 @@ const Table = (props: Props) => {
     if (!value) return ''
     return Number.isNaN(+value) ? i18n.t(`statisticalFactsheets.${section}.${value}`) : Numbers.format(value)
   }
+
   return (
     <div className="fra-table__container">
       <div className="fra-table__scroll-wrapper">
@@ -33,9 +34,9 @@ const Table = (props: Props) => {
         <table ref={tableRef} className="fra-table">
           <thead>
             <tr>
-              {columns.map((key: any) => (
+              {columns.map((key: any, id) => (
                 <th key={key} className="fra-table__header-cell">
-                  {t(key)}
+                  {id === 0 ? t(key) : key}
                 </th>
               ))}
             </tr>
@@ -45,17 +46,17 @@ const Table = (props: Props) => {
               const row = data.find((entry: any) => entry.rowName === tableRow) || {}
               return (
                 <tr key={tableRow}>
-                  {columns.map((column: any, i: any) =>
-                    i === 0 ? (
+                  {columns.map((column: any, i: any) => {
+                    return i === 0 ? (
                       <th key={`${tableRow}-${column}`} className="fra-table__category-cell">
                         {`${t(tableRow)} (${i18n.t(`unit.${units[rowIdx]}`)})`}
                       </th>
                     ) : (
                       <td key={`${tableRow}-${column}`} className="fra-table__cell">
-                        {formatValue(t(row[column] || ''), isIsoCountry, row.rowName) || '-'}
+                        {formatValue(row[column] || '', isIsoCountry, row.rowName) || '-'}
                       </td>
                     )
-                  )}
+                  })}
                 </tr>
               )
             })}
