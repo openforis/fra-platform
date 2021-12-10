@@ -1,5 +1,5 @@
 import { Assessment, AssessmentType } from '@core/assessment'
-import { CountryIso } from './countryIso'
+import { CountryIso } from '../meta/area/countryIso'
 import { RegionCode } from '../meta/area/regionCode'
 
 export type CountryAssessment = {

@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { i18n } from 'i18next'
 
-import { User } from '@core/meta/user'
+import { User, Users } from '@core/meta/user'
 
 import { BasePaths } from '@client/pages/PageRoutes/basePaths'
 import { useIsLogin } from '@client/hooks'
@@ -20,19 +20,19 @@ const getLinks = (i18nInstance: i18n, user: User /* dispatch: Dispatch<any> */) 
       link: BasePaths.User.root(user.id),
     },
   ]
-  // TODO Handle user admin
-  // if (Users.isAdministrator(user)) {
-  //   items.push({
-  //     content: i18nInstance.t('admin.admin'),
-  //     link: BasePaths.admin,
-  //   })
-  // }
+  if (Users.isAdministrator(user)) {
+    items.push({
+      content: i18nInstance.t('admin.admin'),
+      link: BasePaths.Admin.root(),
+    })
+  }
   items.push(
     {
       divider: true,
     },
     {
       content: i18nInstance.t('header.logout'),
+      // TODO: Handle user logout
       // onClick: () => dispatch(UserActions.logout()),
     }
   )
@@ -57,7 +57,7 @@ const LinksFRA: React.FC = () => {
       )}
 
       {!user && !isLogin && (
-        <Link key="admin-link" to={BasePaths.login} className="app-header__menu-item">
+        <Link key="admin-link" to={BasePaths.Login.root()} className="app-header__menu-item">
           {i18n.t('common.login')}
         </Link>
       )}
