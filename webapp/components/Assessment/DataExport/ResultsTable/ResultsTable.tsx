@@ -94,7 +94,7 @@ const ResultsTable: React.FC = () => {
                       countryIso,
                       results,
                       assessmentSection,
-                      selection.sections[assessmentSection].variable
+                      selection.sections[assessmentSection].variables
                     )
                     return (
                       <td key={`${countryIso}${columnKey || column}`} className="fra-table__cell">

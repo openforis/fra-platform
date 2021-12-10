@@ -21,8 +21,8 @@ const Title: React.FC<Props> = (props) => {
 
   const tableSpec = SectionSpecs.getTableSpecExport(assessmentType, assessmentSection)
   const variables = tableSpec.rows.filter((row) => !!row.variableExport)
-  const variable = variables.find(
-    (variable) => variable.variableExport === selection.sections[assessmentSection].variable
+  const variable = variables.find((variable) =>
+    selection.sections[assessmentSection].variables.find((v2) => v2 === variable.variableExport)
   )
   const { labelKey, labelParams, labelPrefixKey } = variable.cols[0]
 
