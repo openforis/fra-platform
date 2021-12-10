@@ -13,3 +13,5 @@ export type {
   CollaboratorProps,
   Collaborator,
 } from './userRoles'
+
+export { Users } from './users'
