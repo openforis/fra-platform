@@ -12,4 +12,5 @@ export enum RegionCode {
   UNECE = 'UNECE',
   MP = 'MP',
   ITTO = 'ITTO',
+  ASEAN = 'ASEAN',
 }
