@@ -1,3 +1,7 @@
+// TODO Remove when CountrySelect implemented
+import '@client/components/CountrySelect/countrySelect.scss'
+import '@client/components/CountrySelect/CountryList/countryList.scss'
+
 import React, { useEffect } from 'react'
 import { /* Redirect, */ Route, /* RouteComponentProps, */ Switch } from 'react-router-dom'
 // import { useTranslation } from 'react-i18next'
@@ -16,11 +20,12 @@ import Landing from '@client/pages/Landing'
 import Header from '@client/components/Header'
 import Footer from '@client/components/Footer'
 // import ErrorComponent from '../../../webapp/components/error/errorComponent'
-// import CountrySelect from '../../../webapp/components/CountrySelect'
 
 import { useAppDispatch } from '@client/store'
 import { AssessmentActions, useAssessment } from '@client/store/assessment'
-import { BasePaths } from '@client/pages/PageRoutes/basePaths'
+import { BasePaths } from '@client/basePaths'
+// import { useIsLogin } from '@client/hooks'
+// import CountrySelect from '@client/components/CountrySelect'
 import { useTheme } from './useTheme'
 
 const PageRoutes: React.FC = () => {
@@ -43,8 +48,6 @@ const PageRoutes: React.FC = () => {
     return <Loading />
   }
 
-  // const pathsLogin = [BasePaths.login, BasePaths.resetPassword]
-
   return (
     <Switch>
       {/* <Route */}
@@ -59,7 +62,7 @@ const PageRoutes: React.FC = () => {
         <Switch>
           <Route exact path={BasePaths.Root()} component={Landing} />
 
-          {/* <Route exact path={pathsLogin} component={Login} /> */}
+          {/* <Route exact path={[BasePaths.login, BasePaths.resetPassword]} component={Login} /> */}
           {/* <Route */}
           {/*  path={BasePaths.admin} */}
           {/*  render={() => <DynamicImport key={1} load={() => import('../../../webapp/pages/Admin/export')} />} */}

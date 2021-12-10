@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { RegionCode } from '@core/country'
+import { RegionCode } from '@core/meta/area'
 
 export const keys = {
   countryIso: 'countryIso',

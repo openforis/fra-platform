@@ -4,7 +4,7 @@ import { i18n } from 'i18next'
 
 import { User, Users } from '@core/meta/user'
 
-import { BasePaths } from '@client/pages/PageRoutes/basePaths'
+import { BasePaths } from '@client/basePaths'
 import { useIsLogin } from '@client/hooks'
 
 import Icon from '@client/components/Icon'
