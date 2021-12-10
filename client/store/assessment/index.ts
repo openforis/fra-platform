@@ -1,2 +1,2 @@
 export { AssessmentActions } from './slice'
-export { useAssessment } from './hooks'
+export { useAssessment, useCountries, useRegionGroups } from './hooks'

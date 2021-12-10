@@ -2,7 +2,7 @@ import './introduction.scss'
 import React from 'react'
 
 import { useTranslation } from 'react-i18next'
-// import AreaSelector from './AreaSelector'
+import AreaSelector from './AreaSelector'
 
 const Introduction: React.FC = () => {
   const { i18n } = useTranslation()
@@ -26,7 +26,7 @@ const Introduction: React.FC = () => {
         <div className="home-introduction__area-selector">
           <hr />
           <div>{i18n.t('landing.about.selectArea')}</div>
-          {/* <AreaSelector /> */}
+          <AreaSelector />
         </div>
       </div>
     </div>

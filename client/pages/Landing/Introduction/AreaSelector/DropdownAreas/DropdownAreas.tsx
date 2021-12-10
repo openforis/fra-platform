@@ -1,17 +1,17 @@
 import React, { useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { FRA } from '@core/assessment'
-// import PanEuropean from '@common/assessment/panEuropean'
-import { RegionCode } from '@core/country'
-import * as BasePaths from '@webapp/main/basePaths'
-import { useI18n } from '@webapp/hooks'
-import Icon from '@webapp/components/icon'
-import { areas } from '@webapp/pages/Landing/Introduction/AreaSelector/AreaSelector'
+import { RegionCode, RegionGroup } from '@core/meta/area'
+import Icon from '@client/components/Icon'
+import { useTranslation } from 'react-i18next'
+import { AssessmentName } from '@core/meta/assessment'
+import { BasePaths } from '@client/basePaths'
+
+import { areas } from '../AreaSelector'
 
 type Props = {
   area: string
-  areaISOs: string[]
-  assessmentType: any // TODO: PropTypes.oneOf([Fra.type, PanEuropean.type])
+  areaISOs: string[] | Record<string, RegionGroup>
+  assessmentType: any
   dropdownOpened: string
   setDropdownOpened: (area: string) => void
 }
@@ -19,10 +19,10 @@ type Props = {
 const DropdownAreas = (props: Props) => {
   const { area, areaISOs, assessmentType, dropdownOpened, setDropdownOpened } = props
 
-  const i18n = useI18n()
+  const { i18n } = useTranslation()
   const buttonRef = useRef<HTMLButtonElement>(null)
   const dialogOpened = dropdownOpened === area
-  const fra = assessmentType === FRA.type
+  const fra = assessmentType === AssessmentName.fra
 
   const outsideClick = ({ target }: any) => {
     const button = buttonRef.current
@@ -56,38 +56,41 @@ const DropdownAreas = (props: Props) => {
           <div className="country-selection-list__content">
             {areas.regions === area ? (
               <>
-                {areaISOs.map(({ regions, name }: any) => (
-                  <div key={name} className="country-selection-list__section">
-                    {regions.map(
-                      ({ regionCode }: any) =>
-                        regionCode !== RegionCode.FE && (
-                          <Link
-                            key={regionCode}
-                            to={BasePaths.getAssessmentHomeLink(regionCode, assessmentType)}
-                            className="country-selection-list__row"
-                            target={fra ? '_self' : '_blank'}
-                          >
-                            <span className="country-selection-list__primary-col">
-                              {i18n.t(`area.${regionCode}.listName`)}
-                            </span>
-                          </Link>
-                        )
-                    )}
-                  </div>
-                ))}
+                {Object.entries(areaISOs).map(([order, regionGroup]: any) => {
+                  return (
+                    <div key={order} className="country-selection-list__section">
+                      {regionGroup.regions.map(
+                        ({ regionCode }: any) =>
+                          regionCode !== RegionCode.FE && (
+                            <Link
+                              key={regionCode}
+                              to={BasePaths.Assessment.root(regionCode, assessmentType)}
+                              className="country-selection-list__row"
+                              target={fra ? '_self' : '_blank'}
+                            >
+                              <span className="country-selection-list__primary-col">
+                                {i18n.t(`area.${regionCode}.listName`)}
+                              </span>
+                            </Link>
+                          )
+                      )}
+                    </div>
+                  )
+                })}
               </>
             ) : (
               <div className="country-selection-list__section">
-                {areaISOs.map((iso) => (
-                  <Link
-                    key={iso}
-                    to={BasePaths.getAssessmentHomeLink(iso, assessmentType)}
-                    className="country-selection-list__row"
-                    target={fra ? '_self' : '_blank'}
-                  >
-                    <span className="country-selection-list__primary-col">{i18n.t(`area.${iso}.listName`)}</span>
-                  </Link>
-                ))}
+                {Array.isArray(areaISOs) &&
+                  areaISOs.map((iso) => (
+                    <Link
+                      key={iso}
+                      to={BasePaths.Assessment.root(iso, assessmentType)}
+                      className="country-selection-list__row"
+                      target={fra ? '_self' : '_blank'}
+                    >
+                      <span className="country-selection-list__primary-col">{i18n.t(`area.${iso}.listName`)}</span>
+                    </Link>
+                  ))}
               </div>
             )}
           </div>

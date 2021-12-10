@@ -17,7 +17,7 @@ export const BasePaths = {
   },
   Assessment: {
     root: (
-      countryIso: CountryIso | defaults.countryIso = defaults.countryIso,
+      countryIso: CountryIso | defaults.countryIso | string = defaults.countryIso,
       assessmentType: AssessmentName | defaults.assessmentType = defaults.assessmentType
     ) => _generate(countryIso, assessmentType),
     section: (

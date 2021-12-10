@@ -1,0 +1,103 @@
+@import 'client/style/partials';
+
+.country-select {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+  z-index: $z-index-area-selector;
+  grid-area: country-selection;
+  display: flex;
+  align-items: center;
+  background-color: var(--ui-bg);
+  border-bottom: $ui-thin-border;
+  height: 50px;
+  box-shadow: 0 2px 4px 0px rgba($text-body, 0.5);
+  width: 100vw;
+
+  .text-input {
+    width: 100%;
+    border: none;
+    font-size: 13px;
+    padding: initial;
+  }
+}
+
+.btn-toggle-navigation {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.country-select__select-label {
+  display: none;
+  font-size: $font-l;
+  margin-right: 32px;
+
+  @include min-width($laptop) {
+    display: initial;
+  }
+}
+
+.btn-country-select {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 250px;
+  padding: 4px 12px;
+  background-color: white;
+  border: $ui-thin-border;
+  text-align: left;
+  font-size: $font-m;
+  font-weight: normal;
+  color: $text-body;
+  transition: $ease-out;
+  outline: unset;
+
+  &:hover {
+    background-color: darken($ui-bg, 4%);
+  }
+
+  .icon {
+    margin-right: unset;
+  }
+}
+
+.country-select__country {
+  display: flex;
+  align-items: center;
+  color: $text-body;
+
+  .flag {
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 18px;
+    height: 18px;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
+    border-radius: 2px;
+    margin-right: 8px;
+  }
+
+  .name {
+    font-weight: 600;
+  }
+
+  .user-role {
+    font-size: $font-s;
+    color: $text-disabled;
+    margin: 0 8px;
+  }
+}
+
+.country-select__select-laptop {
+  display: none;
+
+  @include min-width($laptop) {
+    display: initial;
+  }
+}
+
+.country-select__select-mobile {
+  @include min-width($laptop) {
+    display: none;
+  }
+}

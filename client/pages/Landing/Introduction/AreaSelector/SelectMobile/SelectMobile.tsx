@@ -1,36 +1,36 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { useI18n } from '@webapp/hooks'
-import * as BasePaths from '@webapp/main/basePaths'
-
 import Icon from '@client/components/Icon'
 
+import { useTranslation } from 'react-i18next'
+import { BasePaths } from '@client/basePaths'
+import { AssessmentName } from '@core/meta/assessment'
 import { areas } from '../AreaSelector'
 
 type Props = {
   area: string
   areaISOs: Array<any>
-  assessmentType: string
+  assessmentType: AssessmentName
 }
 
 const SelectMobile: React.FC<Props> = (props) => {
   const { area, areaISOs, assessmentType } = props
 
   const history = useHistory()
-  const i18n = useI18n()
+  const { i18n } = useTranslation()
 
   return (
     <div className="country-select__icon">
       <select
         className="btn-country-select"
         onChange={(event) => {
-          history.push(BasePaths.getAssessmentHomeLink(event.target.value, assessmentType))
+          history.push(BasePaths.Assessment.root(event.target.value, assessmentType))
         }}
       >
         <option>- {i18n.t('common.select')}</option>
         {areas.regions === area
-          ? areaISOs.map(({ regions }) =>
+          ? Object.entries(areaISOs).map(([_, { regions }]) =>
               // @ts-ignore
               regions.map(({ regionCode }) => (
                 <option key={regionCode} value={regionCode}>
