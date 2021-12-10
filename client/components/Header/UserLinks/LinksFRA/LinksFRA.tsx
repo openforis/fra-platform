@@ -8,8 +8,8 @@ import { BasePaths } from '@client/pages/PageRoutes/basePaths'
 import { useIsLogin } from '@client/hooks'
 
 import Icon from '@client/components/Icon'
-import PopoverControl, { PopoverItem } from '@webapp/components/PopoverControl'
-// import { useAppDispatch } from '@webapp/store'
+import PopoverControl, { PopoverItem } from '@client/components/PopoverControl'
+// import { useAppDispatch } from '@client/store'
 import { useUser } from '@client/store/user'
 import { useTranslation } from 'react-i18next'
 
