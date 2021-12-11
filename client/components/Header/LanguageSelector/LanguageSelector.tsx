@@ -1,8 +1,6 @@
 import React from 'react'
 
-import { Lang, LanguageCodes } from '@core/lang'
-
-// import { useAppDispatch } from '@client/store'
+import { Lang, LanguageCodes } from '@meta/lang'
 
 import PopoverControl from '@client/components/PopoverControl'
 import Icon from '@client/components/Icon'

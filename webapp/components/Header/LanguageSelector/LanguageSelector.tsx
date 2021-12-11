@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Lang, LanguageCodes } from '@core/lang'
+import { Lang, LanguageCodes } from '@meta/lang'
 
 import { useAppDispatch } from '@webapp/store'
 import { AppActions } from '@webapp/store/app'
