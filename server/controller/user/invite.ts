@@ -21,12 +21,12 @@ export const invite = async (
   return client.tx(async (t) => {
     let userToInvite = await UserRepository.read({ user: { email } }, client)
     if (!userToInvite) {
-      userToInvite = await UserRepository.create({ user: { email, name: '' } })
+      userToInvite = await UserRepository.create({ user: { email, name: 'Unknown' } })
     }
 
     const userRole = await UserRoleRepository.create(
       {
-        user,
+        user: userToInvite,
         assessment,
         country: countryIso,
         role: roleName,

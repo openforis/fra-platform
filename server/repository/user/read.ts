@@ -21,7 +21,7 @@ export const read = async (props: { user: Pick<User, 'email'> }, client: BasePro
     user: { email },
   } = props
 
-  return client.one<User>(
+  return client.oneOrNone<User>(
     `
         select ${selectFields}, jsonb_agg(to_jsonb(ur.*) - 'id') as roles
         from public.users u
