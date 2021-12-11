@@ -1,3 +1,3 @@
-import { User } from '@core/meta/user'
+import { User } from '@meta/user'
 
 export type UserState = User | undefined

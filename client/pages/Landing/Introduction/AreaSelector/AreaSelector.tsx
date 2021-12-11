@@ -3,8 +3,8 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 
-import { Global } from '@core/meta/area'
-import { AssessmentName } from '@core/meta/assessment'
+import { Global } from '@meta/area'
+import { AssessmentName } from '@meta/assessment'
 import { BasePaths } from '@client/basePaths'
 import { Breakpoints } from '@client/utils'
 

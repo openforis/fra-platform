@@ -1,4 +1,4 @@
-import { CycledPropsObject, Descriptions, TableSection } from '@core/meta/assessment'
+import { CycledPropsObject, Descriptions, TableSection } from './index'
 
 export interface SectionProps {
   anchor: string

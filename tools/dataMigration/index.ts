@@ -1,7 +1,7 @@
 import * as path from 'path'
 import { config } from 'dotenv'
 
-import { Assessment, Cycle } from '../../core/meta/assessment'
+import { Assessment, Cycle } from '../../meta/assessment'
 import { SectionSpec } from '../../webapp/sectionSpec'
 import { BaseProtocol, DB } from '../../server/db'
 import { getCreateSchemaCycleDDL, getCreateSchemaDDL } from '../../server/repository/assessment/getCreateSchemaDDL'

@@ -1,4 +1,4 @@
-import { Assessment } from '@core/meta/assessment'
+import { Assessment } from '@meta/assessment'
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
 export const removeAssessmentSchema = async (

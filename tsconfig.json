@@ -1,6 +1,6 @@
 {
   "allowSyntheticDefaults": true,
-  "include": ["client", "core", "common",  "i18n", "server", "webapp", "test"],
+  "include": ["client", "core", "common",  "i18n", "meta","server", "webapp", "test"],
 
   "compilerOptions": {
     "allowJs": true,
@@ -19,6 +19,7 @@
       "@core/*": ["./core/*"],
       "@common/*": ["./common/*"],
       "@i18n/*": ["./i18n/*"],
+      "@meta/*": ["./meta/*"],
       "@server/*": ["./server/*"],
       "@webapp/*": ["./webapp/*"],
       "@test/*": ["./test/*"]

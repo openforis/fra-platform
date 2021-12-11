@@ -1,5 +1,5 @@
 import React from 'react'
-import { AssessmentName } from '@core/meta/assessment'
+import { AssessmentName } from '@meta/assessment'
 
 const Loading = () => {
   // Toucan is hidden in PanEuropean pages.

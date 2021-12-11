@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useIsAssessment } from '@client/hooks'
-import { AssessmentName } from '@core/meta/assessment'
+import { AssessmentName } from '@meta/assessment'
 import { useAssessment } from '@client/store/assessment'
 
 type Props = {
