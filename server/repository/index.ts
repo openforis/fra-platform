@@ -1,5 +1,6 @@
 export { ActivityLogRepository } from './activityLog'
 export { AssessmentRepository } from './assessment'
 export { UserRepository } from './user'
+export { UserInvitationRepository } from './userInvitation'
 export { UserProviderRepository } from './userProvider'
 export { SettingsRepository } from './settings'
