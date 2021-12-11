@@ -1,7 +1,7 @@
 import { create } from './create'
-import { acceptInvitation } from './acceptInvitation'
+import { update } from './update'
 
 export const UserRoleRepository = {
   create,
-  acceptInvitation,
+  update,
 }
