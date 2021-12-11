@@ -1,4 +1,4 @@
-import { CycledPropsObject } from '@core/meta/assessment'
+import { CycledPropsObject } from './index'
 
 export enum ColType {
   calculated = 'calculated',

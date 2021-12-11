@@ -14,6 +14,7 @@ const webpackTestConfig = {
       '@client': path.resolve(__dirname, 'client/'),
       '@common': path.resolve(__dirname, 'common/'),
       '@i18n': path.resolve(__dirname, 'i18n/'),
+      '@meta': path.resolve(__dirname, 'meta/'),
       '@server': path.resolve(__dirname, 'server/'),
       '@webapp': path.resolve(__dirname, 'webapp/'),
       '@test': path.resolve(__dirname, 'test/'),

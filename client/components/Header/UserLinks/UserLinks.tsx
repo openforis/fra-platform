@@ -1,7 +1,7 @@
 import React from 'react'
 
 import AssessmentSwitch from '@client/components/AssessmentSwitch'
-import { AssessmentName } from '@core/meta/assessment'
+import { AssessmentName } from '@meta/assessment'
 
 import LinksFRA from './LinksFRA'
 

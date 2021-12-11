@@ -1,5 +1,5 @@
 import { BaseProtocol, DB } from '@server/db'
-import { User, UserAuthProvider } from '@core/meta/user'
+import { User, UserAuthProvider } from '@meta/user'
 
 import { UserRepository, UserProviderRepository } from '@server/repository'
 

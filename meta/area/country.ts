@@ -1,4 +1,4 @@
-import { CountryIso } from '@core/meta/area/countryIso'
+import { CountryIso } from './countryIso'
 
 export interface CountryConfig {
   certifiedAreas: Record<string, number | string> // type: year: value

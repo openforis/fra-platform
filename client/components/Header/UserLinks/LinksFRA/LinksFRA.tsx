@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { i18n } from 'i18next'
 
-import { User, Users } from '@core/meta/user'
+import { User, Users } from '@meta/user'
 
 import { BasePaths } from '@client/basePaths'
 import { useIsLogin } from '@client/hooks'

@@ -10,6 +10,7 @@ module.exports = {
     '@common/(.*)': '<rootDir>/common/$1',
     '@core/(.*)': '<rootDir>/core/$1',
     '@i18n/(.*)': '<rootDir>/i18n/$1',
+    '@meta/(.*)': '<rootDir>/meta/$1',
     '@server/(.*)': '<rootDir>/server/$1',
     '@test/(.*)': '<rootDir>/test/$1',
   },

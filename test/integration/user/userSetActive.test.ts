@@ -1,5 +1,5 @@
 import { UserController } from '@server/controller/user'
-import { UserStatus } from '@core/meta/user'
+import { UserStatus } from '@meta/user'
 
 export default () =>
   test('Expect user to be status === active', async () => {
