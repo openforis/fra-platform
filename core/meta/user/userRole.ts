@@ -16,6 +16,9 @@ export interface UserRole<N extends RoleName, P = void> {
   props: P
   role: RoleName
   userId: number
+  invitationUuid: string
+  invitedAt: string
+  acceptedAt?: string
 }
 
 export type Administrator = UserRole<RoleName.ADMINISTRATOR>

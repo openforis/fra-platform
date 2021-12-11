@@ -8,7 +8,7 @@ export default (): void =>
     it('Invite new user', async () => {
       const assessment = await AssessmentController.read({ name: assessmentParams.props.name })
       const userToInvite = await UserController.read({ user: { email: userMockAdmin.email } })
-      const { userInvitation } = await UserController.invite({
+      const { userRole } = await UserController.invite({
         assessment,
         countryIso: 'ALB',
         cycleUuid: assessment.cycles[0].uuid,
@@ -17,8 +17,8 @@ export default (): void =>
         user: userToInvite,
       })
 
-      expect(userInvitation).toHaveProperty('uuid')
+      expect(userRole).toHaveProperty('invitationUuid')
       // expect(invitedUser.status).toBe(UserStatus.invitationPending)
-      expect(userInvitation.acceptedAt).toBeNull()
+      expect(userRole.acceptedAt).toBeNull()
     })
   })

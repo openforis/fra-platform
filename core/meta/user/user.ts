@@ -19,13 +19,6 @@ export interface User {
   status: UserStatus
 }
 
-export interface UserInvitation {
-  uuid: string
-  invitedAt: string
-  acceptedAt?: string
-  userId: number
-}
-
 export interface UserResetPassword {
   uuid: string
   changedAt: string

@@ -1,5 +1,5 @@
 import { create } from './create'
 
-export const UserInvitationRepository = {
+export const UserRoleRepository = {
   create,
 }
