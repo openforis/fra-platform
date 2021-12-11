@@ -23,7 +23,12 @@ export default (): void =>
       expect(invitedUser.status).toBe(UserStatus.invitationPending)
       // User accepts invitation with his own email and password
       expect(userRole.acceptedAt).toBeNull()
+
       // verify user status is active and he is collaborator of ALB
-      // TODO
+      await UserController.acceptInvitation({ user: invitedUser, userRole })
+
+      expect(invitedUser.status).toBe(UserStatus.active)
+
+      await UserController.remove({ user: invitedUser })
     })
   })

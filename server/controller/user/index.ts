@@ -3,6 +3,7 @@ import { update } from './update'
 import { read } from './read'
 import { remove } from './remove'
 import { invite } from './invite'
+import { acceptInvitation } from './acceptInvitation'
 
 export const UserController = {
   create,
@@ -10,4 +11,5 @@ export const UserController = {
   read,
   remove,
   invite,
+  acceptInvitation,
 }

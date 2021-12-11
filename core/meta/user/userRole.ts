@@ -8,7 +8,7 @@ export enum RoleName {
 }
 
 export interface UserRole<N extends RoleName, P = void> {
-  // id: number
+  id: number
   assessmentId?: number
   cycleUuid?: string
   countryIso?: string
