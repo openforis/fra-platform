@@ -1,4 +1,4 @@
-import { AssessmentName } from '@core/meta/assessment'
+import { AssessmentName } from '@meta/assessment'
 
 export const assessmentParams = {
   props: {

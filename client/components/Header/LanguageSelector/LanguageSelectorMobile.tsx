@@ -1,7 +1,7 @@
 import React from 'react'
 import './languageSelectorMobile.scss'
 
-import { Lang, LanguageCodes } from '@core/lang'
+import { Lang, LanguageCodes } from '@meta/lang'
 
 import classNames from 'classnames'
 import { useTranslation } from 'react-i18next'

@@ -1,6 +1,6 @@
 import { CountryIso } from '@core/country'
-import { Assessment } from '@core/meta/assessment'
-import { RegionGroup } from '@core/meta/area'
+import { Assessment } from '@meta/assessment'
+import { RegionGroup } from '@meta/area'
 
 export interface AssessmentState {
   assessment?: Assessment

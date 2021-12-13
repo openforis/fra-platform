@@ -5,7 +5,7 @@ import Icon from '@client/components/Icon'
 
 import { useTranslation } from 'react-i18next'
 import { BasePaths } from '@client/basePaths'
-import { AssessmentName } from '@core/meta/assessment'
+import { AssessmentName } from '@meta/assessment'
 import { areas } from '../AreaSelector'
 
 type Props = {

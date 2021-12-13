@@ -1,4 +1,4 @@
-import { UserStatus, AuthProvider } from '@core/meta/user'
+import { UserStatus, AuthProvider } from '@meta/user'
 
 import { UserController } from '@server/controller/user'
 

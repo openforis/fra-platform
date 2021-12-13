@@ -1,6 +1,6 @@
 import { useAppSelector } from '@client/store'
-import { Assessment } from '@core/meta/assessment'
-import { CountryIso, RegionGroup } from '@core/meta/area'
+import { Assessment } from '@meta/assessment'
+import { CountryIso, RegionGroup } from '@meta/area'
 import { useTranslation } from 'react-i18next'
 import { Strings } from '@core/utils'
 

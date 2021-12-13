@@ -4,14 +4,11 @@ import '@client/components/CountrySelect/CountryList/countryList.scss'
 
 import React, { useEffect } from 'react'
 import { /* Redirect, */ Route, /* RouteComponentProps, */ Switch } from 'react-router-dom'
-// import { useTranslation } from 'react-i18next'
 
 // import { RegionCode } from '../../../core/country'
 // import { FRA, PanEuropean } from '../../../core/assessment'
 // import { useIsLogin } from '../../../webapp/hooks'
 // import { useAppDispatch, useAppSelector } from '../../../webapp/store'
-// import * as BasePaths from '../../../webapp/main/basePaths'
-// import { AppActions, useAppLoaded } from '../../../webapp/store/app'
 
 // import DynamicImport from '../../../webapp/components/dynamicImport'
 import Loading from '@client/components/Loading'
@@ -33,12 +30,7 @@ const PageRoutes: React.FC = () => {
   const dispatch = useAppDispatch()
   const assessmentLoaded = useAssessment()
   // const isLogin = useIsLogin()
-  // const { language } = useAppSelector((state) => state.app)
-  // const { i18n } = useTranslation()
-  //
-  // useEffect(() => {
-  //   i18n.changeLanguage(language)
-  // }, [language])
+
   //
   useEffect(() => {
     dispatch(AssessmentActions.initApp())

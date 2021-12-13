@@ -1,9 +1,9 @@
 import React, { useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { RegionCode, RegionGroup } from '@core/meta/area'
+import { RegionCode, RegionGroup } from '@meta/area'
 import Icon from '@client/components/Icon'
 import { useTranslation } from 'react-i18next'
-import { AssessmentName } from '@core/meta/assessment'
+import { AssessmentName } from '@meta/assessment'
 import { BasePaths } from '@client/basePaths'
 
 import { areas } from '../AreaSelector'
