@@ -29,6 +29,39 @@ export default (): void =>
 
       expect(invitedUser.status).toBe(UserStatus.active)
 
-      await UserController.remove({ user: invitedUser })
+      const { user: invitedUser1 } = await UserController.invite({
+        assessment,
+        countryIso: 'AFG',
+        cycleUuid: assessment.cycles[0].uuid,
+        email: userMockUnknown.email,
+        roleName: RoleName.NATIONAL_CORRESPONDENT,
+        user,
+      })
+
+      // invite same userA as National Correspondant to AFG
+      // verify user status is active and he is only collaborator of ALB
+      expect(invitedUser1.status).toBe(UserStatus.active)
+
+      const filteredRoles = invitedUser1.roles.filter(
+        (role) => role.countryIso === 'ALB' && role.role === RoleName.COLLABORATOR
+      )
+      expect(filteredRoles.length).toBe(1)
+
+      // invite same userA as Reviewer to AFG
+      // verify Controller throws exception since user has a pending invitation for AFG already
+
+      // await UserController.invite({
+      //   assessment,
+      //   countryIso: 'AFG',
+      //   cycleUuid: assessment.cycles[0].uuid,
+      //   email: userMockUnknown.email,
+      //   roleName: RoleName.REVIEWER,
+      //   user,
+      // })
+
+      // UserA accept invitation National Correspondant to AFG
+      // verify user status is active and he is collaborator of ALB and National Correspondant of AFG
+
+      // TODO
     })
   })
