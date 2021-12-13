@@ -1,8 +1,7 @@
 import { User } from './user'
-import { RoleNames, UserRole } from './userRoles'
+import { RoleName, UserRole } from './userRole'
 
-const isAdministrator = (user: User) =>
-  user.roles.filter((role: UserRole<any>) => role.role === RoleNames.ADMINISTRATOR)
+const isAdministrator = (user: User) => user.roles.filter((role: UserRole<any>) => role.role === RoleName.ADMINISTRATOR)
 
 export const Users = {
   isAdministrator,
