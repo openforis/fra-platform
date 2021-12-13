@@ -3,7 +3,7 @@ import axios from 'axios'
 import { applicationError } from '@webapp/components/error/actions'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { RootState } from '@webapp/store/RootState'
-import { Lang } from '@core/lang'
+import { Lang } from '@meta/lang'
 
 export const switchLanguage = createAsyncThunk('app/switchLanguage', async (language: Lang, { dispatch, getState }) => {
   try {
