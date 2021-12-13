@@ -1,4 +1,4 @@
-import { Assessment, Cycle } from '@core/meta/assessment'
+import { Assessment, Cycle } from '@meta/assessment'
 import { BaseProtocol, DB } from '@server/db'
 import { read } from './read'
 

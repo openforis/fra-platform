@@ -1,5 +1,5 @@
 import { BaseProtocol, DB } from '@server/db'
-import { UserRole, RoleName } from '@core/meta/user'
+import { UserRole, RoleName } from '@meta/user'
 import { Objects } from '@core/utils'
 
 export const update = async (

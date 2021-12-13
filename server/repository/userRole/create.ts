@@ -1,6 +1,6 @@
 import { BaseProtocol, DB } from '@server/db'
-import { Assessment } from '@core/meta/assessment'
-import { User, UserRole, RoleName } from '@core/meta/user'
+import { Assessment } from '@meta/assessment'
+import { User, UserRole, RoleName } from '@meta/user'
 import { CountryIso } from '@core/country'
 import { Objects } from '@core/utils'
 

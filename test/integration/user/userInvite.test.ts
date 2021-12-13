@@ -1,4 +1,4 @@
-import { RoleName, UserStatus } from '@core/meta/user'
+import { RoleName, UserStatus } from '@meta/user'
 import { AssessmentController, UserController } from '@server/controller'
 import { assessmentParams } from '@test/integration/mock/assessment'
 import { userMockAdmin, userMockUnknown } from '@test/integration/mock/user'

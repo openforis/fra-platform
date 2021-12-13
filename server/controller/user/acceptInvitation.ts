@@ -1,5 +1,5 @@
 import { BaseProtocol, DB } from '@server/db'
-import { RoleName, User, UserRole, UserStatus } from '@core/meta/user'
+import { RoleName, User, UserRole, UserStatus } from '@meta/user'
 import { UserRepository, UserRoleRepository } from '@server/repository'
 
 export const acceptInvitation = async (

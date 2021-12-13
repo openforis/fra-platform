@@ -1,8 +1,8 @@
 import { BaseProtocol, DB, Schemas } from '@server/db'
 import { AssessmentRepository, ActivityLogRepository } from '@server/repository'
-import { Assessment, ActivityLogMessage } from '@core/meta/assessment'
+import { Assessment, ActivityLogMessage } from '@meta/assessment'
 
-import { User } from '@core/meta/user'
+import { User } from '@meta/user'
 
 export const createCycle = async (
   props: { user: User; assessment: Assessment; name: string },
