@@ -15,6 +15,7 @@ export default (): void =>
         email: userMockUnknown.email,
         roleName: RoleName.COLLABORATOR,
         user,
+        url: '',
       })
 
       // verify invitation exists
@@ -36,6 +37,7 @@ export default (): void =>
         email: userMockUnknown.email,
         roleName: RoleName.NATIONAL_CORRESPONDENT,
         user,
+        url: '',
       })
 
       // invite same userA as National Correspondant to AFG

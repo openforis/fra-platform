@@ -3,6 +3,7 @@ import { RoleName, User, UserRole } from '@meta/user'
 import { ActivityLogRepository, UserRepository, UserRoleRepository } from '@server/repository'
 import { Assessment, ActivityLogMessage } from '@meta/assessment'
 import { CountryIso } from '@core/country'
+import { MailService } from '@server/service'
 
 export const invite = async (
   props: {
@@ -12,10 +13,11 @@ export const invite = async (
     email: string
     roleName: RoleName
     user: User
+    url: string // application url
   },
   client: BaseProtocol = DB
 ): Promise<{ userRole: UserRole<RoleName, any>; user: User }> => {
-  const { email, user, assessment, countryIso, roleName, cycleUuid } = props
+  const { email, user, assessment, countryIso, roleName, cycleUuid, url } = props
   const schemaName = Schemas.getName(assessment)
 
   return client.tx(async (t) => {
@@ -47,6 +49,14 @@ export const invite = async (
       },
       t
     )
+
+    await MailService.userInvite({
+      countryIso,
+      role: userRole,
+      userToInvite,
+      user,
+      url,
+    })
 
     return {
       userRole,
