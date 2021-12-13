@@ -15,6 +15,7 @@ export default (): void =>
         email: userMockUnknown.email,
         roleName: RoleName.COLLABORATOR,
         user,
+        url: '',
       })
 
       // verify invitation exists
