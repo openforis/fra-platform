@@ -17,7 +17,7 @@ export const invite = async (
   },
   client: BaseProtocol = DB
 ): Promise<{ userRole: UserRole<RoleName, any>; user: User }> => {
-  const { email, user, assessment, countryIso, roleName, cycleUuid } = props
+  const { email, user, assessment, countryIso, roleName, cycleUuid, url } = props
   const schemaName = Schemas.getName(assessment)
 
   return client.tx(async (t) => {
