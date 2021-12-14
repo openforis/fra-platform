@@ -10,7 +10,7 @@ export const update = async (
   client: BaseProtocol = DB
 ): Promise<UserRole<RoleName, any>> => {
   const {
-    userRole: { id, invitationUuid, acceptedAt },
+    userRole: { id, acceptedAt },
     accept = false,
   } = props
 
@@ -19,12 +19,11 @@ export const update = async (
   return client.one<UserRole<RoleName, any>>(
     `
         update users_role set
-            invitation_uuid = $2,
-            accepted_at = $3
+            accepted_at = $2
         where id = $1
         returning *
     `,
-    [id, invitationUuid, _acceptedAt],
+    [id, _acceptedAt],
     Objects.camelize
   )
 }

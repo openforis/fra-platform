@@ -23,7 +23,7 @@ export const invite = async (
   return client.tx(async (t) => {
     let userToInvite = await UserRepository.read({ user: { email } }, client)
     if (!userToInvite) {
-      userToInvite = await UserRepository.create({ user: { email, name: 'Unknown' } })
+      userToInvite = await UserRepository.create({ user: { email, name: '' } })
     }
 
     const userRole = await UserRoleRepository.create(
@@ -50,13 +50,15 @@ export const invite = async (
       t
     )
 
-    await MailService.userInvite({
-      countryIso,
-      role: userRole,
-      userToInvite,
-      user,
-      url,
-    })
+    if (process.env.NODE_ENV !== 'test') {
+      await MailService.userInvite({
+        countryIso,
+        role: userRole,
+        userToInvite,
+        user,
+        url,
+      })
+    }
 
     return {
       userRole,
