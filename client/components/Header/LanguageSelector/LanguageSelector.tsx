@@ -9,9 +9,14 @@ import { useTranslation } from 'react-i18next'
 const LanguageSelector: React.FC = () => {
   const { i18n } = useTranslation()
 
+  const updateLanguage = async (lang: Lang) => {
+    await i18n.changeLanguage(lang)
+    await localStorage.setItem('i18n/lang', lang)
+  }
+
   const languageSelectionItems = LanguageCodes.map((lang: Lang) => ({
     content: i18n.t(`language.${lang}`),
-    onClick: () => i18n.changeLanguage(lang),
+    onClick: () => updateLanguage(lang),
   }))
 
   return (
