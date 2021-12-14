@@ -22,14 +22,21 @@ import { useAppDispatch } from '@client/store'
 import { AssessmentActions, useAssessment } from '@client/store/assessment'
 import { BasePaths } from '@client/basePaths'
 // import { useIsLogin } from '@client/hooks'
-// import CountrySelect from '@client/components/CountrySelect'
+import CountrySelect from '@client/components/CountrySelect'
+import { useIsLogin } from '@client/hooks'
 import { useTheme } from './useTheme'
 
 const PageRoutes: React.FC = () => {
   useTheme()
   const dispatch = useAppDispatch()
   const assessmentLoaded = useAssessment()
-  // const isLogin = useIsLogin()
+  const isLogin = useIsLogin()
+  // const { language } = useAppSelector((state) => state.app)
+  // const { i18n } = useTranslation()
+  //
+  // useEffect(() => {
+  //   i18n.changeLanguage(language)
+  // }, [language])
 
   //
   useEffect(() => {
@@ -49,7 +56,7 @@ const PageRoutes: React.FC = () => {
 
       <Route>
         <Header />
-        {/* {!isLogin && <CountrySelect />} */}
+        {!isLogin && <CountrySelect />}
 
         <Switch>
           <Route exact path={BasePaths.Root()} component={Landing} />
