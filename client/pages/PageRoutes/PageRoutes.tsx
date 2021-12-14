@@ -22,9 +22,10 @@ import { useAppDispatch } from '@client/store'
 import { AssessmentActions, useAssessment } from '@client/store/assessment'
 import { BasePaths } from '@client/basePaths'
 // import { useIsLogin } from '@client/hooks'
-// import CountrySelect from '@client/components/CountrySelect'
 import { Urls } from '@client/utils'
 import { useTranslation } from 'react-i18next'
+import CountrySelect from '@client/components/CountrySelect'
+import { useIsLogin } from '@client/hooks'
 import { useTheme } from './useTheme'
 
 const PageRoutes: React.FC = () => {
@@ -32,7 +33,7 @@ const PageRoutes: React.FC = () => {
   const dispatch = useAppDispatch()
   const assessmentLoaded = useAssessment()
   const { i18n } = useTranslation()
-  // const isLogin = useIsLogin()
+  const isLogin = useIsLogin()
 
   useEffect(() => {
     // TODO: Add user.language support
@@ -57,7 +58,7 @@ const PageRoutes: React.FC = () => {
 
       <Route>
         <Header />
-        {/* {!isLogin && <CountrySelect />} */}
+        {!isLogin && <CountrySelect />}
 
         <Switch>
           <Route exact path={BasePaths.Root()} component={Landing} />
