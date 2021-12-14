@@ -13,9 +13,9 @@ import { useUser } from '@client/store/user'
 import { useTranslation } from 'react-i18next'
 import Icon from '@client/components/Icon'
 import LinkLanding from './LinkLanding'
-// import CountryList from './CountryList'
+import CountryList from './CountryList'
 import ToggleNavigationControl from './ToggleNavigationControl'
-// import AutoSaveStatus from './AutoSaveStatus'
+import AutoSaveStatus from './AutoSaveStatus'
 
 const findElementRoot = (el: any): any => {
   if (el.parentElement === null) return el
@@ -112,10 +112,10 @@ const CountrySelect: React.FC = () => {
         </div>
         <Icon name="small-down" />
 
-        {/* {open && <CountryList query={query} />} */}
+        {open && <CountryList query={query} />}
       </button>
 
-      {/* <AutoSaveStatus /> */}
+      <AutoSaveStatus />
 
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
         <LinkHome />
