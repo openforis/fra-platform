@@ -33,7 +33,7 @@ export const useFetchResults = (props: Props): UseFetchResults => {
         ...selection.sections[assessmentSection].columns.map((column) => formatColumn(column, assessmentSection)),
       ],
       countries: selection.countryISOs,
-      variables: [selection.sections[assessmentSection].variable],
+      variables: selection.sections[assessmentSection].variables,
     },
   })
 
