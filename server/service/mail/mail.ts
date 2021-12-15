@@ -25,7 +25,9 @@ export interface MailServiceEmail {
 }
 
 export const sendMail = async (email: MailServiceEmail) => {
-  await mailTransport.sendMail({ ...emailDefaults, ...email })
+  if (process.env.NODE_ENV !== 'tes') {
+    await mailTransport.sendMail({ ...emailDefaults, ...email })
+  }
 }
 
 export const MailService = {

@@ -50,15 +50,13 @@ export const invite = async (
       t
     )
 
-    if (process.env.NODE_ENV !== 'test') {
-      await MailService.userInvite({
-        countryIso,
-        role: userRole,
-        userToInvite,
-        user,
-        url,
-      })
-    }
+    await MailService.userInvite({
+      countryIso,
+      role: userRole,
+      userToInvite,
+      user,
+      url,
+    })
 
     return {
       userRole,

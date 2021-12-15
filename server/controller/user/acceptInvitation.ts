@@ -12,7 +12,7 @@ export const acceptInvitation = async (
   const { user, userRole } = props
 
   return client.tx(async (t) => {
-    await UserRoleRepository.update({ userRole, accept: true }, t)
+    await UserRoleRepository.acceptInvitation({ userRole }, t)
     user.status = UserStatus.active
     return UserRepository.update({ user }, t)
   })
