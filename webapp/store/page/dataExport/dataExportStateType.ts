@@ -6,7 +6,7 @@ export interface DataExportSelection {
     string,
     {
       columns: Array<string>
-      variable: string
+      variables: Array<string>
     }
   >
 }
