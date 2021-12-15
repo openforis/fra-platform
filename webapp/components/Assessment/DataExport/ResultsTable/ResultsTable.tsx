@@ -52,6 +52,12 @@ const ResultsTable: React.FC = () => {
     setExportDisabled(resultsLoading)
   }, [resultsLoading])
 
+  useEffect(() => {
+    variables.forEach((variable) => {
+      if (!units[variable]) onUnitChange(baseUnit, variable)
+    })
+  }, [variables])
+
   return (
     <div className="fra-table__container results-table">
       <div className="fra-table__scroll-wrapper">
