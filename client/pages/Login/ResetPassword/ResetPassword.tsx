@@ -19,6 +19,7 @@ const ResetPassword: React.FC = () => {
 
   return (
     <div className="login__form">
+      <h3>{i18n.t('login.resetPassword')}</h3>
       <input
         type="text"
         name="email"
