@@ -4,7 +4,7 @@ $login-height: 50vh;
 
 .login {
   position: relative;
-  min-height: 500px;
+  min-height: $login-height;
   height: $login-height;
   display: flex;
   align-items: center;

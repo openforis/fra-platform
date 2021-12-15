@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+
 import { Urls } from '@client/utils'
 import { useTranslation } from 'react-i18next'
 import { Objects } from '@core/utils'
+import { BasePaths } from '@client/basePaths'
 
 const LoginForm: React.FC = () => {
   const { i18n } = useTranslation()
@@ -56,9 +59,9 @@ const LoginForm: React.FC = () => {
         </button>
       </div>
 
-      <button type="button" className="btn-forgot-pwd" onClick={console.log}>
+      <Link to={BasePaths.Login.resetPassword()} type="button" className="btn-forgot-pwd" onClick={console.log}>
         {i18n.t('login.forgotPassword')}
-      </button>
+      </Link>
 
       <hr className="divider" />
 
