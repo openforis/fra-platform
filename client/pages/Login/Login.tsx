@@ -6,7 +6,7 @@ import Partners from '@client/components/Partners'
 
 import { BasePaths } from '@client/basePaths'
 import LoginForm from './LoginForm'
-// import ResetPassword from './ResetPassword'
+import ResetPassword from './ResetPassword'
 
 const Login: React.FC = () => (
   <>
@@ -16,7 +16,7 @@ const Login: React.FC = () => (
       </Route>
 
       <Route exact path={BasePaths.Login.resetPassword()}>
-        <div>ResetPassword</div>
+        <ResetPassword />
       </Route>
 
       <img alt="" src="/img/tucan.svg" className="login__tucan" />
