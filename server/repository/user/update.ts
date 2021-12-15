@@ -1,13 +1,13 @@
 import { BaseProtocol, DB } from '@server/db'
 import { User } from '@meta/user'
-import { Objects } from '@core/utils'
+import { read } from './read'
 
 export const update = async (props: { user: User }, client: BaseProtocol = DB): Promise<User> => {
   const {
     user: { institution, lang, name, status, position, email, id },
   } = props
 
-  return client.one<User>(
+  await client.one<User>(
     `
         update users set
                       institution = $1,
@@ -19,7 +19,8 @@ export const update = async (props: { user: User }, client: BaseProtocol = DB): 
         where id = $7
         returning *
     `,
-    [institution, lang, name, status, position, email, id],
-    Objects.camelize
+    [institution, lang, name, status, position, email, id]
   )
+
+  return read({ user: { email } }, client)
 }

@@ -23,7 +23,7 @@ export const read = async (props: { user: Pick<User, 'email'> }, client: BasePro
 
   return client.oneOrNone<User>(
     `
-        select ${selectFields}, jsonb_agg(to_jsonb(ur.*) - 'id') as roles
+        select ${selectFields}, jsonb_agg(to_jsonb(ur.*)) as roles
         from public.users u
                  left join users_role ur on u.id = ur.user_id
         where lower(trim(u.email)) = trim(lower($1))

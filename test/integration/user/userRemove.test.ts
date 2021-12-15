@@ -1,5 +1,4 @@
 import { UserController } from '@server/controller/user'
-import { userMockUnknown } from '@test/integration/mock/user'
 
 export default () =>
   test('Expect user to be removed', async () => {
@@ -14,8 +13,6 @@ export default () =>
     const removedUser = await UserController.remove({
       user,
     })
-
-    await UserController.remove({ user: await UserController.read({ user: userMockUnknown }) })
 
     // Ids match
     expect(user).toHaveProperty('id')
