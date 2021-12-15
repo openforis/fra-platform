@@ -1,4 +1,4 @@
-import { CycledPropsObject, Row, Unit } from '@core/meta/assessment'
+import { CycledPropsObject, Row, Unit } from './index'
 
 export interface TableProps {
   name: string

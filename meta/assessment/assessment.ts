@@ -1,5 +1,5 @@
-import { Cycle } from '@core/meta/assessment/cycle'
-import { AssessmentName } from '@core/meta/assessment/assessmentName'
+import { Cycle } from './cycle'
+import { AssessmentName } from './assessmentName'
 
 type AssessmentProps = {
   name: AssessmentName // fra or pan_european

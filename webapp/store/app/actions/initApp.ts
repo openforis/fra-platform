@@ -7,7 +7,7 @@ import { ApiEndPoint } from '@common/api/endpoint'
 import { applicationError } from '@webapp/components/error/actions'
 
 import { AppDispatch } from '@webapp/store'
-import { Lang } from '@core/lang'
+import { Lang } from '@meta/lang'
 
 export const initApp = createAsyncThunk<
   {

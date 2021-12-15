@@ -1,7 +1,8 @@
 import * as path from 'path'
 import { config } from 'dotenv'
 
-import { Assessment, Cycle, Table } from '../../core/meta/assessment'
+import { Objects } from '../../core/utils/objects'
+import { Assessment, Cycle, Table } from '../../meta/assessment'
 import { SectionSpec } from '../../webapp/sectionSpec'
 import { BaseProtocol, DB } from '../../server/db'
 import { getCreateSchemaCycleDDL, getCreateSchemaDDL } from '../../server/repository/assessment/getCreateSchemaDDL'
@@ -14,7 +15,6 @@ import { migrateUsersAuthProvider } from './migrateUsersAuthProvider'
 import { migrateUsersRole } from './migrateUsersRole'
 import { migrateUsersInvitation } from './migrateUsersInvitation'
 import { migrateUsersResetPassword } from './migrateUsersResetPassword'
-import { Objects } from '../../core/utils/objects'
 import { migrateData } from './migrateData'
 
 config({ path: path.resolve(__dirname, '..', '..', '.env') })

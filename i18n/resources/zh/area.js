@@ -9,6 +9,7 @@ module.exports = {
   OC: { listName: '大洋洲' },
   SA: { listName: '南美洲' },
 
+  ASEAN: { listName: 'ASEAN' },
   FE: { listName: '欧洲森林保护部长级会议' },
   EU27: { listName: '欧盟27国' },
   ECOMIFAC: { listName: '中部非洲森林委员会地区' },

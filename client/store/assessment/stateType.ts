@@ -1,9 +1,9 @@
-import { Country } from '@core/country'
-import { Assessment } from '@core/meta/assessment'
-import { RegionGroup } from '@core/meta/area'
+import { CountryIso } from '@core/country'
+import { Assessment } from '@meta/assessment'
+import { RegionGroup } from '@meta/area'
 
 export interface AssessmentState {
   assessment?: Assessment
-  countries?: Array<Country>
+  countryISOs?: Array<CountryIso>
   regionGroups?: Record<string, RegionGroup>
 }

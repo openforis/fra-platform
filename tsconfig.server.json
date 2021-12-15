@@ -1,6 +1,6 @@
 {
   "allowSyntheticDefaults": true,
-  "include": ["core", "common",  "i18n", "server"],
+  "include": ["core", "common", "i18n", "meta", "server"],
   "exclude": ["node_modules"],
   "compilerOptions": {
     "allowJs": true,
@@ -13,8 +13,9 @@
     "baseUrl": ".",
     "paths": {
       "@core/*": ["core/*"],
-      "@i18n/*": ["i18n/*"],
       "@common/*": ["common/*"],
+      "@i18n/*": ["i18n/*"],
+      "@meta/*": ["meta/*"],
       "@server/*": ["server/*"]
     },
     "target": "es2020",

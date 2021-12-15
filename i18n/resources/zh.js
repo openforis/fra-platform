@@ -35,6 +35,7 @@ module.exports.translation = {
     part4: '和',
     gef: '全球环境基金',
     part5: '。 网站内容由粮农组织全权负责，不代表欧洲联盟、芬兰政府、挪威政府和全球环境基金的观点。',
+    termsOfUse: '统计数据库使用条款',
   },
 
   home: {

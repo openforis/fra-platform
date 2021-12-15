@@ -55,6 +55,7 @@ el resto está localizado en las regiones boreales, templadas y subtropicales.`,
     gef: 'Fondo para el Medio Ambiente Mundial',
     part5:
       '. Su contenido es responsabilidad exclusiva de la FAO y no puede considerarse que refleje en modo alguno las opiniones de la Unión Europea, el Gobierno de Finlandia, el Gobierno de Noruega y el Fondo para el Medio Ambiente Mundial.',
+    termsOfUse: 'Condiciones de uso de la base de datos estadísticos',
   },
 
   unit: {

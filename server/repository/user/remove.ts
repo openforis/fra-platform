@@ -1,5 +1,5 @@
 import { BaseProtocol, DB } from '@server/db'
-import { User } from '@core/meta/user'
+import { User } from '@meta/user'
 import { Objects } from '@core/utils'
 
 // TODO: handle selection by id

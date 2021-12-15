@@ -1,5 +1,5 @@
 import { BaseProtocol, DB } from '@server/db'
-import { Settings } from '@core/meta/assessment/settings'
+import { Settings } from '@meta/assessment/settings'
 import { SettingsRepository } from '@server/repository'
 
 export const update = async (

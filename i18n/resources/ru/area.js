@@ -9,6 +9,7 @@ module.exports = {
   OC: { listName: 'Океания' },
   SA: { listName: 'Южная Америка' },
 
+  ASEAN: { listName: 'ASEAN' },
   FE: { listName: 'ЛЕСА ЕВРОПЫ' },
   EU27: { listName: 'ЕС-27' },
   ECOMIFAC: { listName: 'Espace КОМИФАК' },

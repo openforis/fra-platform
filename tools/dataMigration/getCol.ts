@@ -1,5 +1,5 @@
-import { Row } from '../../core/meta/assessment/row'
-import { Col, ColType } from '../../core/meta/assessment/col'
+import { Row } from '../../meta/assessment/row'
+import { Col, ColType } from '../../meta/assessment/col'
 import { ColSpec } from '../../webapp/sectionSpec'
 
 export const getCol = (props: { cycles: Array<string>; colSpec: ColSpec; row: Row }): Col => {

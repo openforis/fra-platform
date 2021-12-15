@@ -1,4 +1,4 @@
-import { User } from '@core/meta/user'
+import { User } from '../user'
 
 export enum ActivityLogMessage {
   assessmentCreate = 'assessmentCreate',

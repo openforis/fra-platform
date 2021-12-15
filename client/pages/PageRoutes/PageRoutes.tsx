@@ -1,13 +1,14 @@
+// TODO Remove when CountrySelect implemented
+import '@client/components/CountrySelect/countrySelect.scss'
+import '@client/components/CountrySelect/CountryList/countryList.scss'
+
 import React, { useEffect } from 'react'
 import { /* Redirect, */ Route, /* RouteComponentProps, */ Switch } from 'react-router-dom'
-// import { useTranslation } from 'react-i18next'
 
 // import { RegionCode } from '../../../core/country'
 // import { FRA, PanEuropean } from '../../../core/assessment'
 // import { useIsLogin } from '../../../webapp/hooks'
 // import { useAppDispatch, useAppSelector } from '../../../webapp/store'
-// import * as BasePaths from '../../../webapp/main/basePaths'
-// import { AppActions, useAppLoaded } from '../../../webapp/store/app'
 
 // import DynamicImport from '../../../webapp/components/dynamicImport'
 import Loading from '@client/components/Loading'
@@ -16,25 +17,30 @@ import Landing from '@client/pages/Landing'
 import Header from '@client/components/Header'
 import Footer from '@client/components/Footer'
 // import ErrorComponent from '../../../webapp/components/error/errorComponent'
-// import CountrySelect from '../../../webapp/components/CountrySelect'
 
 import { useAppDispatch } from '@client/store'
 import { AssessmentActions, useAssessment } from '@client/store/assessment'
-import { BasePaths } from '@client/pages/PageRoutes/basePaths'
+import { BasePaths } from '@client/basePaths'
+// import { useIsLogin } from '@client/hooks'
+import { Urls } from '@client/utils'
+import { useTranslation } from 'react-i18next'
+import CountrySelect from '@client/components/CountrySelect'
+import { useIsLogin } from '@client/hooks'
 import { useTheme } from './useTheme'
 
 const PageRoutes: React.FC = () => {
   useTheme()
   const dispatch = useAppDispatch()
   const assessmentLoaded = useAssessment()
-  // const isLogin = useIsLogin()
-  // const { language } = useAppSelector((state) => state.app)
-  // const { i18n } = useTranslation()
-  //
-  // useEffect(() => {
-  //   i18n.changeLanguage(language)
-  // }, [language])
-  //
+  const { i18n } = useTranslation()
+  const isLogin = useIsLogin()
+
+  useEffect(() => {
+    // TODO: Add user.language support
+    const language = Urls.getRequestParam('lang') || localStorage.getItem('i18n/lang') || 'en'
+    i18n.changeLanguage(language)
+  }, [])
+
   useEffect(() => {
     dispatch(AssessmentActions.initApp())
   }, [])
@@ -42,8 +48,6 @@ const PageRoutes: React.FC = () => {
   if (!assessmentLoaded) {
     return <Loading />
   }
-
-  // const pathsLogin = [BasePaths.login, BasePaths.resetPassword]
 
   return (
     <Switch>
@@ -54,12 +58,12 @@ const PageRoutes: React.FC = () => {
 
       <Route>
         <Header />
-        {/* {!isLogin && <CountrySelect />} */}
+        {!isLogin && <CountrySelect />}
 
         <Switch>
           <Route exact path={BasePaths.Root()} component={Landing} />
 
-          {/* <Route exact path={pathsLogin} component={Login} /> */}
+          {/* <Route exact path={[BasePaths.login, BasePaths.resetPassword]} component={Login} /> */}
           {/* <Route */}
           {/*  path={BasePaths.admin} */}
           {/*  render={() => <DynamicImport key={1} load={() => import('../../../webapp/pages/Admin/export')} />} */}

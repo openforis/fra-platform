@@ -1,4 +1,4 @@
-import { Assessment, Col, Row, Section, Table, TableSection } from '../../core/meta/assessment'
+import { Assessment, Col, Row, Section, Table, TableSection } from '../../meta/assessment'
 import { Objects } from '../../core/utils/objects'
 import { SectionSpec } from '../../webapp/sectionSpec'
 import { BaseProtocol } from '../../server/db'
