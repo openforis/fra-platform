@@ -10,7 +10,7 @@ module.exports = {
   signInGoogle: 'Sign in with Google',
   signInFRA: 'Sign in with FRA',
 
-  changePassword: 'Change password',
+  resetPassword: 'Reset password',
   expired: 'Ooops. It looks like the link you clicked is expired or not valid',
 
   forgotPasswordTitle: 'Enter your email and submit the form to receive instructions via email',
