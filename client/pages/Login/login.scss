@@ -1,0 +1,99 @@
+@import 'client/style/partials';
+
+$login-height: 50vh;
+
+.login {
+  position: relative;
+  min-height: $login-height;
+  height: $login-height;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $ui-bg;
+  border-bottom: $ui-thin-border;
+  background-image: url('/img/FRAPublPattern.svg');
+
+  a,
+  button {
+    transition: all 0.2s;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .btn {
+    background-color: $ui-accent;
+    color: white;
+    padding: 6px 26px;
+    border-radius: 20px;
+    margin: 0 12px;
+    min-width: 190px;
+
+    &:hover {
+      color: white;
+      background-color: lighten($ui-accent, 5%);
+    }
+  }
+}
+
+.login__tucan {
+  position: absolute;
+  right: 20vw;
+  top: calc(#{$login-height} - 62px);
+}
+
+.login__formWrapper {
+  display: grid;
+  justify-items: center;
+  grid-row-gap: $spacing-m;
+}
+
+.login__form {
+  display: grid;
+  grid-row-gap: 40px;
+  min-width: 400px;
+
+  h3 {
+    color: #7f7f7f;
+    margin-bottom: -12px;
+  }
+
+  input[type='text'],
+  input[type='password'] {
+    justify-self: stretch;
+    border: $ui-thin-border;
+    font-size: $font-m;
+    padding: 14px 20px;
+    outline: none;
+    text-align: center;
+    color: $text-body;
+  }
+
+  input[type='text']:disabled {
+    background-color: rgba(153, 153, 153, 0.1);
+  }
+
+  .btn-forgot-pwd {
+    justify-self: right;
+    align-self: start;
+    margin-top: -30px;
+    padding: 4px 0;
+    border-top: unset;
+    border-right: unset;
+    border-left: unset;
+    border-bottom: 1px solid transparent;
+    border-radius: unset;
+    background-color: unset;
+    color: $text-link;
+    font-size: $font-s;
+    font-weight: normal;
+
+    &:hover {
+      border-bottom: 1px solid rgba($text-link, 0.7);
+    }
+  }
+
+  .divider {
+    border-top: 0.1px solid #7f7f7f;
+    margin: 12px;
+  }
+}

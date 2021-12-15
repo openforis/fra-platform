@@ -13,7 +13,7 @@ import { /* Redirect, */ Route, /* RouteComponentProps, */ Switch } from 'react-
 // import DynamicImport from '../../../webapp/components/dynamicImport'
 import Loading from '@client/components/Loading'
 import Landing from '@client/pages/Landing'
-// import Login from '../../../webapp/pages/Login'
+import Login from '@client/pages/Login'
 import Header from '@client/components/Header'
 import Footer from '@client/components/Footer'
 // import ErrorComponent from '../../../webapp/components/error/errorComponent'
@@ -63,7 +63,7 @@ const PageRoutes: React.FC = () => {
         <Switch>
           <Route exact path={BasePaths.Root()} component={Landing} />
 
-          {/* <Route exact path={[BasePaths.login, BasePaths.resetPassword]} component={Login} /> */}
+          <Route exact path={[BasePaths.Login.root(), BasePaths.Login.resetPassword()]} component={Login} />
           {/* <Route */}
           {/*  path={BasePaths.admin} */}
           {/*  render={() => <DynamicImport key={1} load={() => import('../../../webapp/pages/Admin/export')} />} */}
