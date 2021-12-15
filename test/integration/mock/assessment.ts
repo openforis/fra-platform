@@ -2,7 +2,7 @@ import { AssessmentName } from '@meta/assessment'
 
 export const assessmentParams = {
   props: {
-    name: `${AssessmentName.fra}_test`,
+    name: AssessmentName.fraTest,
   },
 }
 
