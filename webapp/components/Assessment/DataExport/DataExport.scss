@@ -16,6 +16,7 @@
   grid-row-gap: $spacing-xs;
 
   @include min-width($laptop) {
+    max-width: 98vw;
     grid-template-columns: repeat(3, 1fr);
     grid-row-gap: unset;
     overflow-y: hidden;

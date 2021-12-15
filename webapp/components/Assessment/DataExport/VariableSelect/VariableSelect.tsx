@@ -23,20 +23,19 @@ const VariableSelect: React.FC = () => {
   const assessmentType = useAssessmentType()
   const assessmentSection = useParamSection()
   const selection = useDataExportSelection(assessmentSection)
-  const selectionVariable = selection.sections[assessmentSection].variable
+  const selectionVariables = selection.sections[assessmentSection].variables
 
   const tableSpec = SectionSpecs.getTableSpecExport(assessmentType, assessmentSection)
   const variables = tableSpec.rows.filter((row) => !!row.variableExport)
 
-  const toggleVariable = (variableExport: string): void => {
-    const selected = variableExport === selection.sections[assessmentSection].variable
+  const updateSelection = (variablesUpdate: Array<string>): void => {
     const selectionUpdate: DataExportSelection = {
       ...selection,
       sections: {
         ...selection.sections,
         [assessmentSection]: {
           ...selection.sections[assessmentSection],
-          variable: selected ? '' : variableExport,
+          variables: variablesUpdate,
         },
       },
     }
@@ -47,11 +46,31 @@ const VariableSelect: React.FC = () => {
     <div className="export__form-section">
       <div className="export__form-section-header">
         <h4>{i18n.t(Heading[assessmentType])}</h4>
+        <ButtonCheckBox
+          className="btn-all"
+          checked={selectionVariables.length > 0 && selectionVariables.length === variables.length}
+          label={selectionVariables.length > 0 ? 'common.unselectAll' : 'common.selectAll'}
+          onClick={() => {
+            updateSelection(
+              selection.sections[assessmentSection].variables.length > 0
+                ? []
+                : variables.map((v) => String(v.variableExport))
+            )
+          }}
+        />
       </div>
 
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
-        <select onChange={(event) => toggleVariable(event.target.value)} value={selectionVariable}>
-          <option value="">-</option>
+        <select
+          multiple
+          value={selectionVariables}
+          onChange={(event) => {
+            const variablesUpdate = Array.from(event.target.selectedOptions, (option) => {
+              return String(option.value)
+            })
+            updateSelection(variablesUpdate)
+          }}
+        >
           {variables.map((variable) => {
             const { cols, variableExport } = variable
             const { labelKey, labelParams, labelPrefixKey } = cols[0]
@@ -65,7 +84,6 @@ const VariableSelect: React.FC = () => {
           })}
         </select>
       </MediaQuery>
-
       <MediaQuery minWidth={Breakpoints.laptop}>
         <>
           <div className="divider" />
@@ -74,7 +92,7 @@ const VariableSelect: React.FC = () => {
               const { cols, variableExport } = variable
               const { labelKey, labelParams, labelPrefixKey } = cols[0]
               const label = getVariableLabelKey(labelKey)
-              const selected = variableExport === selectionVariable
+              const selected = selectionVariables.includes(String(variableExport))
 
               return (
                 <ButtonCheckBox
@@ -82,7 +100,13 @@ const VariableSelect: React.FC = () => {
                   checked={selected}
                   label={[labelPrefixKey, label]}
                   labelParam={labelParams}
-                  onClick={() => toggleVariable(variableExport)}
+                  onClick={() => {
+                    const variablesUpdate = [...selectionVariables]
+                    if (selected) variablesUpdate.splice(variablesUpdate.indexOf(String(variableExport)), 1)
+                    else variablesUpdate.push(String(variableExport))
+
+                    updateSelection(variablesUpdate)
+                  }}
                 />
               )
             })}
