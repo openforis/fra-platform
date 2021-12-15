@@ -4,6 +4,7 @@ $login-height: 50vh;
 
 .login {
   position: relative;
+  min-height: 500px;
   height: $login-height;
   display: flex;
   align-items: center;
@@ -48,9 +49,13 @@ $login-height: 50vh;
 
 .login__form {
   display: grid;
-  justify-items: center;
   grid-row-gap: 40px;
   min-width: 400px;
+
+  h3 {
+    color: #7f7f7f;
+    margin-bottom: -12px;
+  }
 
   input[type='text'],
   input[type='password'] {
@@ -85,5 +90,10 @@ $login-height: 50vh;
     &:hover {
       border-bottom: 1px solid rgba($text-link, 0.7);
     }
+  }
+
+  .divider {
+    border-top: 0.1px solid #7f7f7f;
+    margin: 12px;
   }
 }
