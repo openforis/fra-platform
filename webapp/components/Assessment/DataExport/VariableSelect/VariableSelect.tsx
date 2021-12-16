@@ -11,6 +11,7 @@ import { getVariableLabelKey } from '@webapp/components/Assessment/DataExport/ut
 import { Breakpoints } from '@webapp/utils/breakpoints'
 
 import ButtonCheckBox from '@webapp/components/buttonCheckBox'
+import DefinitionLink from '@webapp/components/definitionLink'
 
 const Heading: Record<string, string> = {
   [FRA.type]: 'common.variable',
@@ -25,6 +26,7 @@ const VariableSelect: React.FC = () => {
   const selection = useDataExportSelection(assessmentSection)
   const selectionVariables = selection.sections[assessmentSection].variables
 
+  const sectionSpec = SectionSpecs.getSectionSpec(assessmentType, assessmentSection)
   const tableSpec = SectionSpecs.getTableSpecExport(assessmentType, assessmentSection)
   const variables = tableSpec.rows.filter((row) => !!row.variableExport)
 
@@ -45,7 +47,16 @@ const VariableSelect: React.FC = () => {
   return (
     <div className="export__form-section">
       <div className="export__form-section-header">
-        <h4>{i18n.t(Heading[assessmentType])}</h4>
+        <div className="export__form-section-header-withLink">
+          <h4>{i18n.t(Heading[assessmentType])}</h4>
+          <DefinitionLink
+            className="margin-right-big"
+            document="tad"
+            anchor={sectionSpec.sectionAnchor}
+            title={`(${i18n.t('definition.definitionLabel')})`}
+            lang={i18n.language}
+          />
+        </div>
         <ButtonCheckBox
           className="btn-all"
           checked={selectionVariables.length > 0 && selectionVariables.length === variables.length}
