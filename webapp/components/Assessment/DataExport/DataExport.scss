@@ -109,6 +109,16 @@
   }
 }
 
+.export__form-section-header-withLink {
+  display: grid;
+  grid-row-gap: $spacing-xxxs;
+
+  @include min-width($laptop) {
+    grid-template-columns: repeat(2, auto);
+    grid-column-gap: $spacing-xxs;
+  }
+}
+
 .export__form-section-variables {
   display: grid;
   align-items: start;
