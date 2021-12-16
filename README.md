@@ -88,3 +88,4 @@ FRA Platform contains a simple framework for creating tables with
 fixed amount of rows and columns. These tables can store and retrieve
 their own data so it reduces the need to custom-code the logic for
 these simple cases. [The user guide is here](doc/traditional-table-guide.md).
+
