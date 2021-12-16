@@ -5,6 +5,7 @@ import { Urls } from '@client/utils'
 import { useTranslation } from 'react-i18next'
 import { Objects } from '@core/utils'
 import { BasePaths } from '@client/basePaths'
+import { ApiEndPoint } from '@common/api/endpoint'
 
 const LoginForm: React.FC = () => {
   const { i18n } = useTranslation()
@@ -65,7 +66,7 @@ const LoginForm: React.FC = () => {
 
       <hr className="divider" />
 
-      <a className="btn" href={`/auth/google${invitation ? `?i=${invitation}` : ''}`}>
+      <a className="btn" href={`${ApiEndPoint.Auth.Login.google()}${invitation ? `?i=${invitation}` : ''}`}>
         {i18n.t('login.signInGoogle')}
       </a>
     </div>
