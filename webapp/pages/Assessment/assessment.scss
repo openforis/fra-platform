@@ -62,8 +62,8 @@
   grid-area: content;
   height: 100%;
   padding: $spacing-xs;
-  overflow-x: auto;
-  overflow-y: hidden;
+  // overflow-x: auto;
+  // overflow-y: hidden;
 
   @include min-width($laptop){
     padding: $spacing-s $spacing-m $spacing-xl $spacing-m;
