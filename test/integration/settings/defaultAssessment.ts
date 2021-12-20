@@ -1,12 +1,14 @@
 import { AssessmentController } from '@server/controller/assessment'
 import { SettingsController } from '@server/controller'
-import { assessmentParams } from '@test/integration/assessment/assessmentParams'
+import { assessmentParams } from '@test/integration/mock/assessment'
 
-export default () =>
-  test('Expect default assessment to be updated', async () => {
+export default (): void =>
+  test('Default assessment', async () => {
     const assessment = await AssessmentController.read({
       name: assessmentParams.props.name,
     })
+
+    const settingsOrig = await SettingsController.read()
 
     const settings = await SettingsController.update({
       settings: {
@@ -17,4 +19,6 @@ export default () =>
     expect(assessment).toHaveProperty('id')
     expect(settings).toHaveProperty('defaultAssessmentId')
     expect(settings.defaultAssessmentId).toBe(assessment.id)
+
+    await SettingsController.update({ settings: settingsOrig })
   })

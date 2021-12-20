@@ -1,6 +1,6 @@
 import { UserController } from '@server/controller/user'
 import { AssessmentController } from '@server/controller/assessment'
-import { assessmentParams } from '@test/integration/assessment/assessmentParams'
+import { assessmentParams, assessmentCycleName } from '@test/integration/mock/assessment'
 
 export default () =>
   test('Expect assessment to be created', async () => {
@@ -17,6 +17,12 @@ export default () =>
       user,
     })
 
+    const assessmentCycle = await AssessmentController.createCycle({
+      assessment,
+      name: assessmentCycleName,
+      user,
+    })
+
     expect(assessment).toHaveProperty('id')
     expect(assessment.id).toBeTruthy()
     expect(assessment).toHaveProperty('uuid')
@@ -26,4 +32,6 @@ export default () =>
 
     expect(assessment).toHaveProperty('props.name')
     expect(assessment.props.name).toBe(assessmentParams.props.name)
+
+    expect(assessmentCycle).toHaveProperty('id')
   })

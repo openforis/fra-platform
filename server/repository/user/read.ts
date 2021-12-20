@@ -23,9 +23,9 @@ export const read = async (
 
   const value = 'email' in user ? user.email : +user.id
   const where = 'email' in user ? `where lower(trim('u.email')) = trim(lower($1))` : `where u.id = $1`
-  return client.one<User>(
+  return client.oneOrNone<User>(
     `
-        select ${selectFields}, jsonb_agg(to_jsonb(ur.*) - 'id') as roles
+        select ${selectFields}, jsonb_agg(to_jsonb(ur.*)) as roles
         from public.users u
                  left join users_role ur on u.id = ur.user_id
         ${where}
