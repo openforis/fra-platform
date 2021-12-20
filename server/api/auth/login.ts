@@ -22,7 +22,7 @@ export const AuthLogin = {
 
     // Google callback
     express.get(ApiEndPoint.Auth.Login.googleCallback(), (req: any, res: Response, next: NextFunction) => {
-      passport.authenticate('google', (err: any, user: any) => {
+      passport.authenticate('google', { session: false }, (err: any, user: any) => {
         if (err) {
           next(err)
         } else if (!user) {
@@ -30,7 +30,8 @@ export const AuthLogin = {
         } else {
           req.login(user, (err: any) => {
             if (err) next(err)
-            console.log(jwt.sign({ user }, process.env.TOKEN_SECRET))
+            const token = jwt.sign({ user }, process.env.TOKEN_SECRET)
+            res.cookie('token', token)
             res.redirect(`${process.env.NODE_ENV === 'development' ? '/' : appUri}`)
           })
         }

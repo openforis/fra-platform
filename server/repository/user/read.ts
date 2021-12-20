@@ -22,7 +22,8 @@ export const read = async (
   const { user } = props
 
   const value = 'email' in user ? user.email : +user.id
-  const where = 'email' in user ? `where lower(trim('u.email')) = trim(lower($1))` : `where u.id = $1`
+  const where = 'email' in user ? `where lower(trim(u.email)) = trim(lower($1))` : `where u.id = $1`
+
   return client.oneOrNone<User>(
     `
         select ${selectFields}, jsonb_agg(to_jsonb(ur.*)) as roles

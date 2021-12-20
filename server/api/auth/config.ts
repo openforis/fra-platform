@@ -1,4 +1,3 @@
-import * as cookieParser from 'cookie-parser'
 import * as passport from 'passport'
 import * as GoogleStrategy from 'passport-google-oauth'
 import { UserRepository } from '@server/repository'
@@ -33,9 +32,7 @@ const googleStrategyVerifyCallback = async (
 
 export const AuthConfig = {
   init: (app: Express) => {
-    app.use(cookieParser())
     app.use(passport.initialize())
-    app.use(passport.session())
 
     const GoogleOAuth2Strategy = GoogleStrategy.OAuth2Strategy
 
