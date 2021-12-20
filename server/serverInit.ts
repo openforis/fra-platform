@@ -6,12 +6,13 @@ import * as fileUpload from 'express-fileupload'
 import * as morgan from 'morgan'
 
 import { Api } from '@server/api'
-import * as sessionInit from './sessionInit'
+import * as cookieParser from 'cookie-parser'
 import * as resourceCacheControl from './resourceCacheControl'
 import { sendErr } from './utils/requests'
 
 export const serverInit = () => {
   const app = express()
+  app.use(cookieParser())
 
   if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'))
@@ -20,8 +21,6 @@ export const serverInit = () => {
   app.use(bodyParser.json({ limit: '5000kb' }))
 
   resourceCacheControl.init(app)
-  // Not part of apiRouter because of special urls (starting from root)
-  sessionInit.init(app)
 
   /*
    * Initialize API
