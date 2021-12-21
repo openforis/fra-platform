@@ -5,6 +5,22 @@ export const ApiEndPoint = {
   Init: {
     one: () => apiPath('init'),
   },
+  // TODO: Remove deprecated routes (still in use in _legacy)
+  Auth: {
+    loggedInUser: () => apiPath('loggedInUser'),
+    changePassword: () => '/auth/local/changePassword',
+    getInvitation: (uuid = ':uuid') => `/auth/invitation/${uuid}`,
+    Login: {
+      local: () => '/auth/login',
+      google: () => '/auth/google',
+      googleCallback: () => '/auth/google/callback',
+    },
+    logout: () => joinPaths('auth', 'logout'),
+    ResetPassword: {
+      create: () => '/auth/local/resetPassword',
+      get: (uuid = ':uuid') => `/auth/local/resetPassword/${uuid}`,
+    },
+  },
 
   // Old
   Assessment: {
@@ -15,22 +31,6 @@ export const ApiEndPoint = {
   Audit: {
     getFeed: (countryIso = ':countryIso') => apiPath('audit', 'getAuditFeed', countryIso),
     getLatestLogTimestamp: (countryIso = ':countryIso') => apiPath('audit', 'getLatestAuditLogTimestamp', countryIso),
-  },
-
-  Auth: {
-    loggedInUser: () => apiPath('loggedInUser'),
-    changePassword: () => '/auth/local/changePassword',
-    getInvitation: (uuid = ':uuid') => `/auth/invitation/${uuid}`,
-    Login: {
-      local: () => '/auth/local/login',
-      google: () => '/auth/google',
-      googleCallback: () => '/auth/google/callback',
-    },
-    logout: () => joinPaths('auth', 'logout'),
-    ResetPassword: {
-      create: () => '/auth/local/resetPassword',
-      get: (uuid = ':uuid') => `/auth/local/resetPassword/${uuid}`,
-    },
   },
 
   BiomassStock: {

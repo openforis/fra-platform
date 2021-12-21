@@ -2,33 +2,10 @@ import * as passport from 'passport'
 import * as GoogleStrategy from 'passport-google-oauth'
 import { UserRepository } from '@server/repository'
 import { User } from '@meta/user'
-import { Express, Request } from 'express'
-import { Profile, VerifyFunction } from 'passport-google-oauth'
-
-const googleStrategyVerifyCallback = async (
-  _req: Request,
-  _accessToken: string,
-  _refreshToken: string,
-  profile: Profile,
-  done: VerifyFunction
-): Promise<void> => {
-  try {
-    const email = profile.emails[0].value.toLowerCase()
-
-    // Handle invitation accept
-
-    const user = await UserRepository.read({ user: { email } })
-
-    if (user) {
-      done(null, user)
-    } else {
-      done(null, false, { message: 'login.notAuthorized' })
-    }
-  } catch (e) {
-    console.log('Error occurred while authenticating', e)
-    done(null, false, { message: `${'login.errorOccurred'}: ${e}` })
-  }
-}
+import { Express } from 'express'
+import * as passportLocal from 'passport-local'
+import { localStrategyVerifyCallback } from '@server/api/auth/localStrategyVerifyCallback'
+import { googleStrategyVerifyCallback } from '@server/api/auth/googleStrategyVerifyCallback'
 
 export const AuthConfig = {
   init: (app: Express) => {
@@ -48,11 +25,18 @@ export const AuthConfig = {
       )
     )
 
-    // const LocalStrategy = passportLocal.Strategy
-    // passport.use(
-    //   new LocalStrategy(
-    //   )
-    // )
+    const LocalStrategy = passportLocal.Strategy
+
+    passport.use(
+      new LocalStrategy(
+        {
+          usernameField: 'email',
+          passwordField: 'password',
+          passReqToCallback: true,
+        },
+        localStrategyVerifyCallback
+      )
+    )
 
     passport.serializeUser((user: User, done) => done(null, user.id))
 
