@@ -4,6 +4,7 @@ import { read } from './read'
 import { remove } from './remove'
 import { invite } from './invite'
 import { acceptInvitation } from './acceptInvitation'
+import { readByInvitation } from './readByInvitation'
 
 export const UserController = {
   create,
@@ -12,4 +13,5 @@ export const UserController = {
   remove,
   invite,
   acceptInvitation,
+  readByInvitation,
 }
