@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
-import { UserRepository } from '@server/repository'
 import { Urls } from '@client/utils'
 import { useUser } from '@client/store/user'
 import { useTranslation } from 'react-i18next'
@@ -13,15 +12,7 @@ const Invitation: React.FC = () => {
 
   const [invitedUser, setInvitedUser] = useState<User>()
 
-  useEffect(() => {
-    async function fetchUser(email: string) {
-      const response = await UserRepository.read({ user: { email } })
-      setInvitedUser(response)
-    }
-    if (invitation && loggedUser) {
-      fetchUser(loggedUser.email)
-    }
-  }, [])
+  setInvitedUser(loggedUser) // mock
 
   const onAccept = () => 'not implemented'
 
