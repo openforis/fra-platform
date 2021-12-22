@@ -3,14 +3,15 @@ import { ApiEndPoint } from '@common/api/endpoint'
 import { sendErr } from '@server/utils/requests'
 import { UserController } from '@server/controller'
 
-export const UserGetByInvitation = {
+export const UserAcceptInvitation = {
   init: (express: Express): void => {
-    express.get(ApiEndPoint.User.getByInvitation(), async (req: Request, res: Response) => {
+    express.get(ApiEndPoint.User.acceptInvitation(), async (req: Request, res: Response) => {
       const { uuid } = req.params
       try {
-        const { user } = await UserController.readByInvitation({ invitationUuid: uuid })
+        const { user, userRole } = await UserController.readByInvitation({ invitationUuid: uuid })
+        const acceptedUser = await UserController.acceptInvitation({ user, userRole })
         res.send({
-          user,
+          user: acceptedUser,
         })
       } catch (e) {
         sendErr(res, e)

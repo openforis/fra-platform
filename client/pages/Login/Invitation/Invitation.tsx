@@ -1,36 +1,54 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 
+import { useAppDispatch, useAppSelector } from '@client/store'
+import { LoginActions } from '@client/store/login'
 import { Urls } from '@client/utils'
 import { useUser } from '@client/store/user'
 import { useTranslation } from 'react-i18next'
-import { User } from '@meta/user'
+
+import { Objects } from '@core/utils'
+import { BasePaths } from '@client/basePaths'
 
 const Invitation: React.FC = () => {
+  const dispatch = useAppDispatch()
+  const history = useHistory()
+  const invitedUser = useAppSelector((state) => state.login.invitedUser)
   const invitation = Urls.getRequestParam('invitation')
   const loggedUser = useUser()
+
   const { i18n } = useTranslation()
 
-  const [invitedUser, setInvitedUser] = useState<User>()
+  useEffect(() => {
+    if (invitation) {
+      dispatch(LoginActions.fetchUserByInvitation(invitation))
+    }
+  }, [])
 
-  setInvitedUser(loggedUser) // mock
+  const onAccept = () => {
+    dispatch(LoginActions.acceptInvitation(invitation))
+    history.push(BasePaths.Root())
+  }
 
-  const onAccept = () => 'not implemented'
+  if (Objects.isEmpty(invitation)) {
+    return (
+      <div className="login__form">
+        <div>{i18n.t('login.missingInvitationUuid')}</div>
+      </div>
+    )
+  }
 
   return (
     <div className="login__form">
-      {!invitation ? (
-        <div>{i18n.t('login.missingInvitationUuid')}</div>
+      {loggedUser && invitedUser && loggedUser.email === invitedUser.email ? (
+        <button type="button" className="btn" onClick={onAccept}>
+          {i18n.t('login.acceptInvitation')}
+        </button>
       ) : (
         <>
-          {loggedUser && invitedUser && loggedUser.email === invitedUser.email ? (
-            <button type="button" className="btn" onClick={onAccept}>
-              {i18n.t('login.acceptInvitation')}
-            </button>
-          ) : (
-            <button type="button" className="btn" onClick={onAccept}>
-              {i18n.t('login.acceptInvitationWithGoogle')}
-            </button>
-          )}
+          <button type="button" className="btn" onClick={onAccept}>
+            {i18n.t('login.acceptInvitationWithGoogle')}
+          </button>
         </>
       )}
     </div>

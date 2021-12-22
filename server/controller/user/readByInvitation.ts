@@ -1,5 +1,5 @@
 import { BaseProtocol, DB } from '@server/db'
-import { User } from '@meta/user'
+import { User, UserRole, RoleName } from '@meta/user'
 import { UserRepository, UserRoleRepository } from '@server/repository'
 
 export const readByInvitation = async (
@@ -7,11 +7,15 @@ export const readByInvitation = async (
     invitationUuid: string
   },
   client: BaseProtocol = DB
-): Promise<User> => {
+): Promise<{ user: User; userRole: UserRole<RoleName> }> => {
   const { invitationUuid } = props
 
   return client.tx(async (t) => {
     const userRole = await UserRoleRepository.read({ invitationUuid }, t)
-    return UserRepository.read({ user: { id: userRole.userId } }, t)
+    const user = await UserRepository.read({ user: { id: userRole.userId } }, t)
+    return {
+      user,
+      userRole,
+    }
   })
 }

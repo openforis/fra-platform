@@ -24,6 +24,7 @@ export const ApiEndPoint = {
 
   User: {
     getByInvitation: (uuid = ':uuid') => apiPath('user', 'invitation', uuid),
+    acceptInvitation: (uuid = ':uuid') => apiPath('user', 'invitation', 'accept', uuid),
   },
 
   // Old
