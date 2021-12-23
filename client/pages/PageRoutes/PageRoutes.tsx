@@ -63,7 +63,12 @@ const PageRoutes: React.FC = () => {
         <Switch>
           <Route exact path={BasePaths.Root()} component={Landing} />
 
-          <Route exact path={[BasePaths.Login.root(), BasePaths.Login.resetPassword()]} component={Login} />
+          <Route
+            exact
+            path={[BasePaths.Login.root(), BasePaths.Login.resetPassword(), BasePaths.Login.invitation()]}
+            component={Login}
+          />
+
           {/* <Route */}
           {/*  path={BasePaths.admin} */}
           {/*  render={() => <DynamicImport key={1} load={() => import('../../../webapp/pages/Admin/export')} />} */}

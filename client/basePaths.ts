@@ -19,16 +19,17 @@ export const BasePaths = {
     root: (
       countryIso: CountryIso | defaults.countryIso | string = defaults.countryIso,
       assessmentType: AssessmentName | defaults.assessmentType = defaults.assessmentType
-    ) => _generate(countryIso, assessmentType),
+    ) => _generate('assessment', countryIso, assessmentType),
     section: (
       countryIso: CountryIso | defaults.countryIso = defaults.countryIso,
       assessmentType: AssessmentName | defaults.assessmentType = defaults.assessmentType,
       section: string | defaults.section = defaults.section
-    ) => _generate(countryIso, assessmentType, section),
+    ) => _generate('assessment', countryIso, assessmentType, section),
   },
   Login: {
     root: () => '/login',
     resetPassword: () => `/login/resetPassword`,
+    invitation: () => '/login/invitation',
   },
   User: {
     root: (id: number | defaults.id = defaults.id) => `/user/${id}`,

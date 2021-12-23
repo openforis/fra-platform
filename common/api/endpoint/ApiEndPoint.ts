@@ -22,6 +22,11 @@ export const ApiEndPoint = {
     },
   },
 
+  User: {
+    getByInvitation: (uuid = ':uuid') => apiPath('user', 'invitation', uuid),
+    acceptInvitation: (uuid = ':uuid') => apiPath('user', 'invitation', 'accept', uuid),
+  },
+
   // Old
   Assessment: {
     createEmail: (countryIso = ':countryIso') => apiPath('assessment', countryIso),
