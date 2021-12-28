@@ -29,9 +29,10 @@ export const AuthLogin = {
     })
 
     // Google login
-    express.get(ApiEndPoint.Auth.Login.google(), (req: Request, res: Response) => {
+    express.get(ApiEndPoint.Auth.Login.google(), (req: any, res: Response) => {
       passport.authenticate('google', {
         scope: ['https://www.googleapis.com/auth/plus.login', 'profile', 'email'],
+        state: req.query.i,
       })(req, res)
     })
 
