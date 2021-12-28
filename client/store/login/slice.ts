@@ -3,7 +3,9 @@ import { LoginState } from './stateType'
 import { fetchUserByInvitation } from './actions/fetchUserByInvitation'
 import { acceptInvitation } from './actions/acceptInvitation'
 
-const initialState: LoginState = {}
+const initialState: LoginState = {
+  invitation: {},
+}
 
 export const loginSlice = createSlice({
   name: 'login',
@@ -12,10 +14,12 @@ export const loginSlice = createSlice({
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(fetchUserByInvitation.fulfilled, (state, { payload }) => {
-      state.invitedUser = payload
+      state.invitation.userRole = payload.userRole
+      state.invitation.assessment = payload.assessment
+      state.invitation.user = payload.user
     })
     builder.addCase(acceptInvitation.fulfilled, (state, { payload }) => {
-      state.invitedUser = payload
+      state.invitation.user = payload
     })
   },
 })

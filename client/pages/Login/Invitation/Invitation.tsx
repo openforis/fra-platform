@@ -9,47 +9,54 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from '@core/utils'
 import { BasePaths } from '@client/basePaths'
+import { ApiEndPoint } from '@common/api/endpoint'
 
 const Invitation: React.FC = () => {
   const dispatch = useAppDispatch()
   const history = useHistory()
-  const invitedUser = useAppSelector((state) => state.login.invitedUser)
-  const invitation = Urls.getRequestParam('invitation')
   const loggedUser = useUser()
-
+  const invitationUuid = Urls.getRequestParam('invitation')
+  const { userRole, assessment, user: invitedUser } = useAppSelector((state) => state.login.invitation)
   const { i18n } = useTranslation()
 
   useEffect(() => {
-    if (invitation) {
-      dispatch(LoginActions.fetchUserByInvitation(invitation))
+    if (invitationUuid) {
+      dispatch(LoginActions.fetchUserByInvitation(invitationUuid))
     }
   }, [])
 
   const onAccept = () => {
-    dispatch(LoginActions.acceptInvitation(invitation))
+    dispatch(LoginActions.acceptInvitation(invitationUuid))
     history.push(BasePaths.Root())
   }
 
-  if (Objects.isEmpty(invitation)) {
+  if (Objects.isEmpty(invitationUuid) || !invitedUser) {
     return (
       <div className="login__form">
-        <div>{i18n.t('login.missingInvitationUuid')}</div>
+        <h3 style={{ textAlign: 'center' }}>{i18n.t('invitation.missingInvitationUuid')}</h3>
       </div>
     )
   }
 
+  const cycle = assessment.cycles.find((cycle) => cycle.uuid === userRole.cycleUuid)
+
   return (
     <div className="login__form">
-      {loggedUser && invitedUser && loggedUser.email === invitedUser.email ? (
+      <h3 style={{ textAlign: 'center' }}>
+        {i18n.t('invitation.invitationMessage', {
+          assessment: assessment.props.name,
+          cycle: cycle.name,
+          userRole: userRole.role,
+        })}
+      </h3>
+      {loggedUser && loggedUser.email === invitedUser.email ? (
         <button type="button" className="btn" onClick={onAccept}>
-          {i18n.t('login.acceptInvitation')}
+          {i18n.t('invitation.acceptInvitation')}
         </button>
       ) : (
-        <>
-          <button type="button" className="btn" onClick={onAccept}>
-            {i18n.t('login.acceptInvitationWithGoogle')}
-          </button>
-        </>
+        <a className="btn" href={`${ApiEndPoint.Auth.Login.google()}${invitationUuid ? `?i=${invitationUuid}` : ''}`}>
+          {i18n.t('invitation.acceptInvitationWithGoogle')}
+        </a>
       )}
     </div>
   )

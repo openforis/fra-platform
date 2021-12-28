@@ -1,5 +1,10 @@
-import { User } from '@meta/user'
+import { Assessment } from '@meta/assessment'
+import { RoleName, User, UserRole } from '@meta/user'
 
 export interface LoginState {
-  invitedUser?: User
+  invitation: {
+    userRole?: UserRole<RoleName>
+    assessment?: Assessment
+    user?: User
+  }
 }

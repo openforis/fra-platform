@@ -8,8 +8,10 @@ export const UserGetByInvitation = {
     express.get(ApiEndPoint.User.getByInvitation(), async (req: Request, res: Response) => {
       const { uuid } = req.params
       try {
-        const { user } = await UserController.readByInvitation({ invitationUuid: uuid })
+        const { userRole, assessment, user } = await UserController.readByInvitation({ invitationUuid: uuid })
         res.send({
+          userRole,
+          assessment,
           user,
         })
       } catch (e) {
