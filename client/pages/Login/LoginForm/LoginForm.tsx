@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { useHistory, Link } from 'react-router-dom'
 
+import { useAppDispatch, useAppSelector } from '@client/store'
+import { LoginActions } from '@client/store/login'
 import { Urls } from '@client/utils'
 import { useTranslation } from 'react-i18next'
 import { Objects } from '@core/utils'
@@ -8,26 +10,37 @@ import { BasePaths } from '@client/basePaths'
 import { ApiEndPoint } from '@common/api/endpoint'
 
 const LoginForm: React.FC = () => {
+  const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
-  const invitation = Urls.getRequestParam('invitation')
-  const isInvitation = !Objects.isEmpty(invitation)
+  const history = useHistory()
+
+  const invitationUuid = Urls.getRequestParam('i')
+  const isInvitation = !Objects.isEmpty(invitationUuid)
+  const { user: invitedUser } = useAppSelector((state) => state.login.invitation)
 
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
-
-  // TODO:
-  // Handle login
-  // Handle invitation (=> get invited user details (email))
   const [password2, setPassword2] = useState<string>('')
 
+  useEffect(() => {
+    if (invitationUuid) {
+      dispatch(LoginActions.fetchUserByInvitation(invitationUuid))
+    }
+  }, [])
+
   const onCancel = window.history.back
-  const onLogin = () => console.log('not implemented')
+
+  const onLogin = () => history.push(BasePaths.Root())
+
+  const onAccept = () => {
+    dispatch(LoginActions.acceptInvitation(invitationUuid))
+    history.push(BasePaths.Root())
+  }
 
   return (
     <div className="login__form">
-      <h3>{i18n.t('login.signInFRA')}</h3>
       <input
-        value={email || ''}
+        value={invitedUser ? invitedUser.email : email || ''}
         disabled={isInvitation}
         type="text"
         placeholder={i18n.t('login.email')}
@@ -41,34 +54,44 @@ const LoginForm: React.FC = () => {
         onChange={(event) => setPassword(event.target.value)}
       />
 
-      {invitation && (
-        <input
-          value={password2}
-          type="password"
-          placeholder={i18n.t('login.repeatPassword')}
-          onChange={(event) => setPassword2(event.target.value)}
-        />
+      {invitationUuid && (
+        <>
+          {invitedUser && invitedUser.status !== 'active' && (
+            <input
+              value={password2}
+              type="password"
+              placeholder={i18n.t('login.repeatPassword')}
+              onChange={(event) => setPassword2(event.target.value)}
+            />
+          )}
+
+          <button type="button" className="btn" onClick={onAccept}>
+            {i18n.t('invitation.acceptInvitation')}
+          </button>
+        </>
       )}
 
-      <div>
-        <button type="button" className="btn" onClick={onCancel}>
-          {i18n.t('login.cancel')}
-        </button>
+      {!invitationUuid && (
+        <>
+          <button type="button" className="btn" onClick={onCancel}>
+            {i18n.t('login.cancel')}
+          </button>
 
-        <button type="button" className="btn" onClick={onLogin}>
-          {i18n.t('login.login')}
-        </button>
-      </div>
+          <button type="button" className="btn" onClick={onLogin}>
+            {i18n.t('login.login')}
+          </button>
 
-      <Link to={BasePaths.Login.resetPassword()} type="button" className="btn-forgot-pwd" onClick={console.log}>
-        {i18n.t('login.forgotPassword')}
-      </Link>
+          <Link to={BasePaths.Login.resetPassword()} type="button" className="btn-forgot-pwd">
+            {i18n.t('login.forgotPassword')}
+          </Link>
 
-      <hr className="divider" />
+          <hr className="divider" />
 
-      <a className="btn" href={`${ApiEndPoint.Auth.Login.google()}${invitation ? `?i=${invitation}` : ''}`}>
-        {i18n.t('login.signInGoogle')}
-      </a>
+          <a className="btn" href={`${ApiEndPoint.Auth.Login.google()}${invitationUuid ? `?i=${invitationUuid}` : ''}`}>
+            {i18n.t('login.signInGoogle')}
+          </a>
+        </>
+      )}
     </div>
   )
 }

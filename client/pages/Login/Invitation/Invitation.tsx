@@ -13,11 +13,12 @@ import { ApiEndPoint } from '@common/api/endpoint'
 
 const Invitation: React.FC = () => {
   const dispatch = useAppDispatch()
+  const { i18n } = useTranslation()
   const history = useHistory()
   const loggedUser = useUser()
+
   const invitationUuid = Urls.getRequestParam('invitation')
   const { userRole, assessment, user: invitedUser } = useAppSelector((state) => state.login.invitation)
-  const { i18n } = useTranslation()
 
   useEffect(() => {
     if (invitationUuid) {
@@ -54,9 +55,17 @@ const Invitation: React.FC = () => {
           {i18n.t('invitation.acceptInvitation')}
         </button>
       ) : (
-        <a className="btn" href={`${ApiEndPoint.Auth.Login.google()}${invitationUuid ? `?i=${invitationUuid}` : ''}`}>
-          {i18n.t('invitation.acceptInvitationWithGoogle')}
-        </a>
+        <>
+          <a className="btn" href={`${BasePaths.Login.root()}${invitationUuid ? `?i=${invitationUuid}` : ''}`}>
+            {i18n.t('invitation.acceptInvitation')}
+          </a>
+
+          <hr className="divider" />
+
+          <a className="btn" href={`${ApiEndPoint.Auth.Login.google()}${invitationUuid ? `?i=${invitationUuid}` : ''}`}>
+            {i18n.t('invitation.acceptInvitationWithGoogle')}
+          </a>
+        </>
       )}
     </div>
   )
