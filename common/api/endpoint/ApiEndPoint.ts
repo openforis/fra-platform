@@ -7,6 +7,7 @@ export const ApiEndPoint = {
   },
   // TODO: Remove deprecated routes (still in use in _legacy)
   Auth: {
+    authorize: () => apiPath('authorize'),
     loggedInUser: () => apiPath('loggedInUser'),
     changePassword: () => '/auth/local/changePassword',
     getInvitation: (uuid = ':uuid') => `/auth/invitation/${uuid}`,
