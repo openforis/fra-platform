@@ -6,9 +6,12 @@ import { useTranslation } from 'react-i18next'
 import { Objects } from '@core/utils'
 import { BasePaths } from '@client/basePaths'
 import { ApiEndPoint } from '@common/api/endpoint'
+import { useAppDispatch } from '@client/store'
+import { LoginActions } from '@client/store/login'
 
 const LoginForm: React.FC = () => {
   const { i18n } = useTranslation()
+  const dispatch = useAppDispatch()
   const invitation = Urls.getRequestParam('invitation')
   const isInvitation = !Objects.isEmpty(invitation)
 
@@ -21,7 +24,16 @@ const LoginForm: React.FC = () => {
   const [password2, setPassword2] = useState<string>('')
 
   const onCancel = window.history.back
-  const onLogin = () => console.log('not implemented')
+  const onLogin = () => {
+    dispatch(
+      LoginActions.localLogin({
+        email,
+        password,
+      })
+    )
+    // TODO: error handling
+    window.location.href = '/'
+  }
 
   return (
     <div className="login__form">
