@@ -1,8 +1,8 @@
 import * as path from 'path'
 import { config } from 'dotenv'
 
-import { Objects } from '../../core/utils/objects'
-import { Assessment, Cycle, Table } from '../../meta/assessment'
+// import { Objects } from '../../core/utils/objects'
+import { Assessment, Cycle } from '../../meta/assessment'
 import { SectionSpec } from '../../webapp/sectionSpec'
 import { BaseProtocol, DB } from '../../server/db'
 import { getCreateSchemaCycleDDL, getCreateSchemaDDL } from '../../server/repository/assessment/getCreateSchemaDDL'
@@ -15,7 +15,7 @@ import { migrateUsersAuthProvider } from './migrateUsersAuthProvider'
 import { migrateUsersRole } from './migrateUsersRole'
 import { migrateUsersInvitation } from './migrateUsersInvitation'
 import { migrateUsersResetPassword } from './migrateUsersResetPassword'
-import { migrateData } from './migrateData'
+// import { migrateData } from './migrateData'
 
 config({ path: path.resolve(__dirname, '..', '..', '.env') })
 
@@ -59,7 +59,7 @@ export const migrate = async (spec: Record<string, SectionSpec>): Promise<void> 
     const cycle2020 = await createCycle(assessment, '2020', client)
     const cycle2025 = await createCycle(assessment, '2025', client)
     assessment.cycles = [cycle2020, cycle2025]
-    const schemaCycle2020 = `${schema}_${cycle2020.name}`
+    // const schemaCycle2020 = `${schema}_${cycle2020.name}`
 
     await migrateMetadata({ assessment, schema, spec, client })
     await migrateAreas({ client, schema })
@@ -77,28 +77,29 @@ export const migrate = async (spec: Record<string, SectionSpec>): Promise<void> 
       [assessment.id]
     )
 
-    const tables = await client.map<Table>(
-      `select *
-       from ${schema}.table
-       order by id`,
-      [],
-      // @ts-ignore
-      Objects.camelize
-    )
-
-    await Promise.all(
-      tables.map(async (table) => {
-        if (!['extentOfForest', 'forestCharacteristics', 'growingStock'].includes(table.props.name)) {
-          // TODO: sustainable development tables have no name, only calculated rows
-          if (table.props.name !== '') {
-            if (table.props.name === 'specificForestCategories') {
-              await migrateData({ client, schema, table, schemaCycle: schemaCycle2020 })
-            }
-          }
-        }
-        return Promise.resolve()
-      })
-    )
+    // TODO: data migration
+    // const tables = await client.map<Table>(
+    //   `select *
+    //    from ${schema}.table
+    //    order by id`,
+    //   [],
+    //   // @ts-ignore
+    //   Objects.camelize
+    // )
+    //
+    // await Promise.all(
+    //   tables.map(async (table) => {
+    //     if (!['extentOfForest', 'forestCharacteristics', 'growingStock'].includes(table.props.name)) {
+    //       // TODO: sustainable development tables have no name, only calculated rows
+    //       if (table.props.name !== '') {
+    //         if (table.props.name === 'specificForestCategories') {
+    //           await migrateData({ client, schema, table, schemaCycle: schemaCycle2020 })
+    //         }
+    //       }
+    //     }
+    //     return Promise.resolve()
+    //   })
+    // )
   })
 }
 
