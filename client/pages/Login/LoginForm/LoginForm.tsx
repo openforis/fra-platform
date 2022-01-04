@@ -31,8 +31,6 @@ const LoginForm: React.FC = () => {
         password,
       })
     )
-    // TODO: error handling
-    window.location.href = '/'
   }
 
   return (
