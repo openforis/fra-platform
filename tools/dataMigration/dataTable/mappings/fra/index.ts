@@ -35,9 +35,9 @@ import sustainableDevelopmentAgencySubIndicator2 from './sustainableDevelopmentA
 import sustainableDevelopmentAgencySubIndicator3 from './sustainableDevelopmentAgencySubIndicator3'
 import sustainableDevelopmentAgencySubIndicator4 from './sustainableDevelopmentAgencySubIndicator4'
 
-import extent from '../../../../common/model/dataTable/contentCheck/extent'
-import periodicChangeRate from '../../../../common/model/dataTable/contentCheck/periodicChangeRate'
-import forestGrowingStockBiomassCarbon from '../../../../common/model/dataTable/contentCheck/forestGrowingStockBiomassCarbon'
+import extent from '../../../../../common/model/dataTable/contentCheck/extent'
+import periodicChangeRate from '../../../../../common/model/dataTable/contentCheck/periodicChangeRate'
+import forestGrowingStockBiomassCarbon from '../../../../../common/model/dataTable/contentCheck/forestGrowingStockBiomassCarbon'
 
 export default {
   specificForestCategories,

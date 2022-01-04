@@ -1,6 +1,7 @@
 import * as path from 'path'
 import { config } from 'dotenv'
 
+// import { Objects } from '../../core/utils/objects'
 import { Assessment, Cycle } from '../../meta/assessment'
 import { SectionSpec } from '../../webapp/sectionSpec'
 import { BaseProtocol, DB } from '../../server/db'
@@ -14,6 +15,7 @@ import { migrateUsersAuthProvider } from './migrateUsersAuthProvider'
 import { migrateUsersRole } from './migrateUsersRole'
 import { migrateUsersInvitation } from './migrateUsersInvitation'
 import { migrateUsersResetPassword } from './migrateUsersResetPassword'
+// import { migrateData } from './migrateData'
 
 config({ path: path.resolve(__dirname, '..', '..', '.env') })
 
@@ -23,8 +25,8 @@ const createCycle = async (assessment: Assessment, cycleName: string, client: Ba
   )
   return client.one<Cycle>(
     `insert into assessment_cycle (assessment_id, name)
-       values ($1, $2)
-       returning *`,
+     values ($1, $2)
+     returning *`,
     [assessment.id, cycleName]
   )
 }
@@ -54,14 +56,16 @@ export const migrate = async (spec: Record<string, SectionSpec>): Promise<void> 
   await DB.query(getCreateSchemaDDL(schema))
 
   await DB.tx(async (client) => {
-    const cycle: Cycle = await createCycle(assessment, '2020', client)
-    await createCycle(assessment, '2025', client)
+    const cycle2020 = await createCycle(assessment, '2020', client)
+    const cycle2025 = await createCycle(assessment, '2025', client)
+    assessment.cycles = [cycle2020, cycle2025]
+    // const schemaCycle2020 = `${schema}_${cycle2020.name}`
 
-    await migrateMetadata({ assessment, cycle, schema, spec, client })
+    await migrateMetadata({ assessment, schema, spec, client })
     await migrateAreas({ client, schema })
     await migrateUsers({ client })
     await migrateUsersAuthProvider({ client })
-    await migrateUsersRole({ assessment, cycle, client })
+    await migrateUsersRole({ assessment, client })
     await migrateUsersInvitation({ client })
     await migrateUsersResetPassword({ client })
 
@@ -72,6 +76,30 @@ export const migrate = async (spec: Record<string, SectionSpec>): Promise<void> 
       values ($1)`,
       [assessment.id]
     )
+
+    // TODO: data migration
+    // const tables = await client.map<Table>(
+    //   `select *
+    //    from ${schema}.table
+    //    order by id`,
+    //   [],
+    //   // @ts-ignore
+    //   Objects.camelize
+    // )
+    //
+    // await Promise.all(
+    //   tables.map(async (table) => {
+    //     if (!['extentOfForest', 'forestCharacteristics', 'growingStock'].includes(table.props.name)) {
+    //       // TODO: sustainable development tables have no name, only calculated rows
+    //       if (table.props.name !== '') {
+    //         if (table.props.name === 'specificForestCategories') {
+    //           await migrateData({ client, schema, table, schemaCycle: schemaCycle2020 })
+    //         }
+    //       }
+    //     }
+    //     return Promise.resolve()
+    //   })
+    // )
   })
 }
 
