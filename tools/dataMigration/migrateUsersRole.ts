@@ -1,15 +1,13 @@
 import { BaseProtocol } from '../../server/db'
-import { Assessment } from '../../meta/assessment/assessment'
-import { Cycle } from '../../meta/assessment/cycle'
+import { Assessment } from '../../meta/assessment'
 
 type Props = {
   assessment: Assessment
-  cycle: Cycle
   client: BaseProtocol
 }
 
 export const migrateUsersRole = async (props: Props): Promise<void> => {
-  const { assessment, cycle, client } = props
+  const { assessment, client } = props
 
   await client.query(
     `
@@ -71,22 +69,24 @@ export const migrateUsersRole = async (props: Props): Promise<void> => {
         from q
         ;
 
-        insert into users_role (user_id, assessment_id, country_iso, cycle_uuid, role, props)
+        insert into users_role (user_id, assessment_id, country_iso, cycle_uuid, role, props, invitation_uuid,
+                                invited_at, accepted_at)
         select us.id,
-               case when r.role = 'ADMINISTRATOR' then null else ${assessment.id} end      as assessment_id,
-               case when r.role = 'ADMINISTRATOR' then null else r.country_iso end         as country_iso,
---                r.country_iso,
-               case when r.role = 'ADMINISTRATOR' then null else '${cycle.uuid}'::uuid end as cycle_uuid,
---                '${cycle.uuid}'::uuid                                                  as cycle_uuid,
+               case when r.role = 'ADMINISTRATOR' then null else ${assessment.id} end                     as assessment_id,
+               case when r.role = 'ADMINISTRATOR' then null else r.country_iso end                        as country_iso,
+               case when r.role = 'ADMINISTRATOR' then null else '${assessment.cycles[0].uuid}'::uuid end as cycle_uuid,
                r.role::user_role,
                case
                    when t.sections is not null then jsonb_build_object('sections', t.sections)
                    else '{}'::jsonb
                    end
-                                                                                           as roles
+                                                                                                          as roles,
+               null                                                                                       as invitation_uuid,
+               null                                                                                       as invited_at,
+               null                                                                                       as accepted_at
         from _legacy.fra_user u
                  left join _legacy.user_country_role r on u.id = r.user_id
-                 left join users us on us.email = u.email
+                 left join users us on lower(trim(us.email)) = lower(trim(u.email))
                  left join _temp t on u.id = t.user_id_legacy and r.country_iso = t.country_iso
         ;
 

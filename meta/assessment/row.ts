@@ -16,16 +16,16 @@ export enum RowType {
 }
 
 export interface RowProps {
-  index: number
+  index: number | string
   linkToSection?: string
   type: RowType
+  variableName?: string
 }
 
 export interface Row extends CycledPropsObject<RowProps> {
   cols?: Array<Col>
   tableId: number
   // validator?: Validator
-  // variableName?: string
   // calculateFn?: CalculateValue
   // chartProps?: RowChartSpec
   // idx?: string | number

@@ -104,6 +104,10 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
               constraint node_pk
                   primary key,
           uuid   uuid  default uuid_generate_v4() not null,
+          country_iso varchar(3)                           not null
+              constraint node_country_iso_fk
+                  references country (country_iso)
+                  on update cascade on delete cascade,
           row_uuid uuid                           not null
               constraint node_row_uuid_fk
                   references ${assessmentSchemaName}.row (uuid)
