@@ -6,7 +6,6 @@ import Partners from '@client/components/Partners'
 
 import { BasePaths } from '@client/basePaths'
 import { useUser } from '@client/store/user'
-import { Objects } from '@core/utils'
 import Invitation from './Invitation'
 import LoginForm from './LoginForm'
 import ResetPassword from './ResetPassword'
@@ -15,10 +14,10 @@ const Login: React.FC = () => {
   const user = useUser()
 
   useEffect(() => {
-    if (!Objects.isEmpty(user)) {
+    if (!user) {
       window.location.href = '/'
     }
-  })
+  }, [user])
 
   return (
     <>
