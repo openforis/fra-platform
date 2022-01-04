@@ -14,7 +14,7 @@ const Login: React.FC = () => {
   const user = useUser()
 
   useEffect(() => {
-    if (!user) {
+    if (user) {
       window.location.href = '/'
     }
   }, [user])
