@@ -2,6 +2,8 @@ import { User } from '../user'
 
 export enum ActivityLogMessage {
   assessmentCreate = 'assessmentCreate',
+  assessmentCycleCreate = 'assessmentCycleCreate',
+  userInvited = 'userInvited',
 }
 
 export interface ActivityLog<Target> {

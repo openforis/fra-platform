@@ -15,21 +15,24 @@ const fields: Array<string> = [
 
 const selectFields = fields.map((f) => `u.${f}`).join(',')
 
-// TODO: handle selection by id
-export const read = async (props: { user: Pick<User, 'email'> }, client: BaseProtocol = DB): Promise<User> => {
-  const {
-    user: { email },
-  } = props
+export const read = async (
+  props: { user: Pick<User, 'email'> } | { user: Pick<User, 'id'> },
+  client: BaseProtocol = DB
+): Promise<User> => {
+  const { user } = props
 
-  return client.one<User>(
+  const value = 'email' in user ? user.email : +user.id
+  const where = 'email' in user ? `where lower(trim(u.email)) = trim(lower($1))` : `where u.id = $1`
+
+  return client.oneOrNone<User>(
     `
-        select ${selectFields}, jsonb_agg(to_jsonb(ur.*) - 'id') as roles
+        select ${selectFields}, jsonb_agg(to_jsonb(ur.*)) as roles
         from public.users u
                  left join users_role ur on u.id = ur.user_id
-        where lower(trim(u.email)) = trim(lower($1))
+        ${where}
         group by ${selectFields}
     `,
-    [email],
+    [value],
     Objects.camelize
   )
 }
