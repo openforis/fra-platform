@@ -30,12 +30,12 @@ export const InitGet = {
         ])
 
         const { token } = req.cookies
-        let user = undefined
+        let user
         if (token) {
-          const decodedJwt = jwt.decode(req.cookies?.token) as Record<string, User>
+          const decodedJwt = jwt.decode(token) as Record<string, User>
           user = decodedJwt.user
         }
-      
+
         res.send({
           assessment,
           countryISOs,
