@@ -74,6 +74,11 @@ $login-height: 50vh;
     background-color: rgba(153, 153, 153, 0.1);
   }
 
+  span.login__field-error {
+    color: red;
+    margin-top: -2rem;
+  }
+
   .btn-forgot-pwd {
     justify-self: right;
     align-self: start;

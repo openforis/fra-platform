@@ -1,10 +1,4 @@
-import { Section } from '../../meta/assessment/section'
-import { TableSection } from '../../meta/assessment/tableSection'
-import { Table } from '../../meta/assessment/table'
-import { Row } from '../../meta/assessment/row'
-import { Assessment } from '../../meta/assessment/assessment'
-import { Col } from '../../meta/assessment/col'
-import { Cycle } from '../../meta/assessment/cycle'
+import { Assessment, Col, Row, Section, Table, TableSection } from '../../meta/assessment'
 import { Objects } from '../../core/utils/objects'
 import { SectionSpec } from '../../webapp/sectionSpec'
 import { BaseProtocol } from '../../server/db'
@@ -17,16 +11,15 @@ import { getCol } from './getCol'
 
 type Props = {
   assessment: Assessment
-  cycle: Cycle
   schema: string
   spec: Record<string, SectionSpec>
   client: BaseProtocol
 }
 
 export const migrateMetadata = async (props: Props): Promise<void> => {
-  const { assessment, cycle, schema, spec, client } = props
+  const { assessment, schema, spec, client } = props
 
-  const cycles: Array<string> = [cycle.uuid]
+  const cycles = assessment.cycles.map((c) => c.uuid)
 
   const sections: Array<Section> = []
   const tableSections: Array<TableSection> = []

@@ -1,5 +1,5 @@
 import { assert } from 'chai'
-import * as tableMappings from '../../_legacy_server/dataTable/tableMappings'
+import * as tableMappings from '../../tools/dataMigration/dataTable/tableMappings'
 
 const exampleData = {
   rows: {

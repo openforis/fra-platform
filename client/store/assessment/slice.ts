@@ -10,7 +10,11 @@ export const assessmentSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
-    builder.addCase(initApp.fulfilled, (_, { payload }) => payload)
+    builder.addCase(initApp.fulfilled, (state, { payload }) => {
+      state.assessment = payload.assessment
+      state.countryISOs = payload.countryISOs
+      state.regionGroups = payload.regionGroups
+    })
   },
 })
 

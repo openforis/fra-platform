@@ -1,13 +1,16 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 import { UserState } from './stateType'
+import { initApp } from '../assessment/actions/initApp'
 
-const initialState: UserState = undefined
+const initialState: UserState = null
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {},
-  // extraReducers: (builder) => { // TODO: Handle user login / load},
+  extraReducers: (builder) => {
+    builder.addCase(initApp.fulfilled, (_, { payload }) => payload.user)
+  },
 })
 
 export const UserActions = {}

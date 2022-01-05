@@ -3,6 +3,9 @@ import { ApiEndPoint } from '@common/api/endpoint'
 import { sendErr } from '@server/utils/requests'
 import { AssessmentController, SettingsController } from '@server/controller'
 
+import * as jwt from 'jsonwebtoken'
+import { User } from '@meta/user'
+
 export const InitGet = {
   init: (express: Express): void => {
     express.get(ApiEndPoint.Init.one(), async (req: Request, res: Response) => {
@@ -26,10 +29,18 @@ export const InitGet = {
           AssessmentController.getRegionGroups({ name: assessment.props.name }),
         ])
 
+        const { token } = req.cookies
+        let user = undefined
+        if (token) {
+          const decodedJwt = jwt.decode(req.cookies?.token) as Record<string, User>
+          user = decodedJwt.user
+        }
+      
         res.send({
           assessment,
           countryISOs,
           regionGroups,
+          user,
         })
       } catch (e) {
         sendErr(res, e)
