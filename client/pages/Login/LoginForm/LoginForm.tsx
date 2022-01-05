@@ -13,7 +13,7 @@ const LoginForm: React.FC = () => {
   const { i18n } = useTranslation()
   const history = useHistory()
 
-  const invitationUuid = Urls.getRequestParam('i')
+  const invitationUuid = Urls.getRequestParam('invitationUuid')
   const isInvitation = !Objects.isEmpty(invitationUuid)
   const { user: invitedUser } = useAppSelector((state) => state.login.invitation)
 
@@ -22,6 +22,7 @@ const LoginForm: React.FC = () => {
   const [password2, setPassword2] = useState<string>('')
 
   useEffect(() => {
+    dispatch(LoginActions.initLogin())
     if (invitationUuid) {
       dispatch(LoginActions.fetchUserByInvitation(invitationUuid))
     }

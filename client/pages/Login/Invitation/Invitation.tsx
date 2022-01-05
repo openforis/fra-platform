@@ -17,7 +17,7 @@ const Invitation: React.FC = () => {
   const history = useHistory()
   const loggedUser = useUser()
 
-  const invitationUuid = Urls.getRequestParam('invitation')
+  const invitationUuid = Urls.getRequestParam('invitationUuid')
   const { userRole, assessment, user: invitedUser } = useAppSelector((state) => state.login.invitation)
 
   useEffect(() => {
@@ -56,13 +56,19 @@ const Invitation: React.FC = () => {
         </button>
       ) : (
         <>
-          <a className="btn" href={`${BasePaths.Login.root()}${invitationUuid ? `?i=${invitationUuid}` : ''}`}>
+          <a
+            className="btn"
+            href={`${BasePaths.Login.root()}${invitationUuid ? `?invitationUuid=${invitationUuid}` : ''}`}
+          >
             {i18n.t('invitation.acceptInvitation')}
           </a>
 
           <hr className="divider" />
 
-          <a className="btn" href={`${ApiEndPoint.Auth.Login.google()}${invitationUuid ? `?i=${invitationUuid}` : ''}`}>
+          <a
+            className="btn"
+            href={`${ApiEndPoint.Auth.Login.google()}${invitationUuid ? `?invitationUuid=${invitationUuid}` : ''}`}
+          >
             {i18n.t('invitation.acceptInvitationWithGoogle')}
           </a>
         </>

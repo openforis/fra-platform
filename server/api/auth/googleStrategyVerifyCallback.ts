@@ -3,7 +3,7 @@ import { Profile, VerifyFunction } from 'passport-google-oauth'
 import { UserController } from '@server/controller'
 
 export const googleStrategyVerifyCallback = async (
-  _req: Request,
+  req: Request,
   _accessToken: string,
   _refreshToken: string,
   profile: Profile,
@@ -14,7 +14,7 @@ export const googleStrategyVerifyCallback = async (
 
     let user = null
 
-    const invitationUuid = String(_req.query.state)
+    const invitationUuid = String(req.query.state)
     if (invitationUuid) {
       const { user: invitedUser, userRole } = await UserController.readByInvitation({ invitationUuid })
       user = await UserController.acceptInvitation({ user: invitedUser, userRole })
