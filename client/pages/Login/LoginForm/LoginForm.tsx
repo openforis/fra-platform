@@ -7,7 +7,6 @@ import { Urls } from '@client/utils'
 import { useTranslation } from 'react-i18next'
 import { Objects } from '@core/utils'
 import { BasePaths } from '@client/basePaths'
-import { ApiEndPoint } from '@common/api/endpoint'
 
 const LoginForm: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -84,12 +83,6 @@ const LoginForm: React.FC = () => {
           <Link to={BasePaths.Login.resetPassword()} type="button" className="btn-forgot-pwd">
             {i18n.t('login.forgotPassword')}
           </Link>
-
-          <hr className="divider" />
-
-          <a className="btn" href={`${ApiEndPoint.Auth.Login.google()}${invitationUuid ? `?i=${invitationUuid}` : ''}`}>
-            {i18n.t('login.signInGoogle')}
-          </a>
         </>
       )}
     </div>
