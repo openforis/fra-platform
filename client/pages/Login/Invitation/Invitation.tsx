@@ -7,7 +7,6 @@ import { Urls } from '@client/utils'
 import { useUser } from '@client/store/user'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from '@core/utils'
 import { BasePaths } from '@client/basePaths'
 import { ApiEndPoint } from '@common/api/endpoint'
 
@@ -23,20 +22,14 @@ const Invitation: React.FC = () => {
   useEffect(() => {
     if (invitationUuid) {
       dispatch(LoginActions.fetchUserByInvitation(invitationUuid))
+    } else {
+      history.push(BasePaths.Root())
     }
   }, [])
 
   const onAccept = () => {
     dispatch(LoginActions.acceptInvitation(invitationUuid))
     history.push(BasePaths.Root())
-  }
-
-  if (Objects.isEmpty(invitationUuid) || !invitedUser) {
-    return (
-      <div className="login__form">
-        <h3>{i18n.t('login.missingInvitationUuid')}</h3>
-      </div>
-    )
   }
 
   const cycle = assessment.cycles.find((cycle) => cycle.uuid === userRole.cycleUuid)

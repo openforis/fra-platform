@@ -5,7 +5,6 @@ const dataDownload = require('./en/dataDownload')
 const statisticalFactsheets = require('./en/statisticalFactsheets')
 const login = require('./en/login')
 const uc = require('./en/uc')
-const invitation = require('./en/invitation')
 
 module.exports.translation = {
   area,
@@ -15,7 +14,6 @@ module.exports.translation = {
   statisticalFactsheets,
   login,
   uc,
-  invitation,
 
   language: {
     en: 'English',
