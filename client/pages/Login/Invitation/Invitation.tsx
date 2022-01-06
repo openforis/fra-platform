@@ -22,6 +22,9 @@ const Invitation: React.FC = () => {
   useEffect(() => {
     if (invitationUuid) {
       dispatch(LoginActions.fetchUserByInvitation(invitationUuid))
+      if (!invitedUser) {
+        history.push(BasePaths.Root())
+      }
     } else {
       history.push(BasePaths.Root())
     }
@@ -32,41 +35,45 @@ const Invitation: React.FC = () => {
     history.push(BasePaths.Root())
   }
 
-  const cycle = assessment.cycles.find((cycle) => cycle.uuid === userRole.cycleUuid)
+  const cycle = assessment?.cycles.find((cycle) => cycle.uuid === userRole.cycleUuid)
 
   return (
-    <div className="login__form">
-      <h3>
-        {i18n.t('login.invitationMessage', {
-          assessment: assessment.props.name,
-          cycle: cycle.name,
-          userRole: userRole.role,
-        })}
-      </h3>
-      {loggedUser && loggedUser.email === invitedUser.email ? (
-        <button type="button" className="btn" onClick={onAccept}>
-          {i18n.t('login.acceptInvitation')}
-        </button>
-      ) : (
-        <>
-          <a
-            className="btn"
-            href={`${BasePaths.Login.root()}${invitationUuid ? `?invitationUuid=${invitationUuid}` : ''}`}
-          >
-            {i18n.t('login.acceptInvitation')}
-          </a>
+    <>
+      {invitedUser && (
+        <div className="login__form">
+          <h3>
+            {i18n.t('login.invitationMessage', {
+              assessment: assessment.props.name,
+              cycle: cycle.name,
+              userRole: userRole.role,
+            })}
+          </h3>
+          {loggedUser && loggedUser.email === invitedUser.email ? (
+            <button type="button" className="btn" onClick={onAccept}>
+              {i18n.t('login.acceptInvitation')}
+            </button>
+          ) : (
+            <>
+              <a
+                className="btn"
+                href={`${BasePaths.Login.root()}${invitationUuid ? `?invitationUuid=${invitationUuid}` : ''}`}
+              >
+                {i18n.t('login.acceptInvitation')}
+              </a>
 
-          <hr className="divider" />
+              <hr className="divider" />
 
-          <a
-            className="btn"
-            href={`${ApiEndPoint.Auth.Login.google()}${invitationUuid ? `?invitationUuid=${invitationUuid}` : ''}`}
-          >
-            {i18n.t('login.acceptInvitationWithGoogle')}
-          </a>
-        </>
+              <a
+                className="btn"
+                href={`${ApiEndPoint.Auth.Login.google()}${invitationUuid ? `?invitationUuid=${invitationUuid}` : ''}`}
+              >
+                {i18n.t('login.acceptInvitationWithGoogle')}
+              </a>
+            </>
+          )}
+        </div>
       )}
-    </div>
+    </>
   )
 }
 
