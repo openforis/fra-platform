@@ -34,7 +34,7 @@ const Invitation: React.FC = () => {
   if (Objects.isEmpty(invitationUuid) || !invitedUser) {
     return (
       <div className="login__form">
-        <h3 style={{ textAlign: 'center' }}>{i18n.t('invitation.missingInvitationUuid')}</h3>
+        <h3>{i18n.t('login.missingInvitationUuid')}</h3>
       </div>
     )
   }
@@ -43,8 +43,8 @@ const Invitation: React.FC = () => {
 
   return (
     <div className="login__form">
-      <h3 style={{ textAlign: 'center' }}>
-        {i18n.t('invitation.invitationMessage', {
+      <h3>
+        {i18n.t('login.invitationMessage', {
           assessment: assessment.props.name,
           cycle: cycle.name,
           userRole: userRole.role,
@@ -52,7 +52,7 @@ const Invitation: React.FC = () => {
       </h3>
       {loggedUser && loggedUser.email === invitedUser.email ? (
         <button type="button" className="btn" onClick={onAccept}>
-          {i18n.t('invitation.acceptInvitation')}
+          {i18n.t('login.acceptInvitation')}
         </button>
       ) : (
         <>
@@ -60,7 +60,7 @@ const Invitation: React.FC = () => {
             className="btn"
             href={`${BasePaths.Login.root()}${invitationUuid ? `?invitationUuid=${invitationUuid}` : ''}`}
           >
-            {i18n.t('invitation.acceptInvitation')}
+            {i18n.t('login.acceptInvitation')}
           </a>
 
           <hr className="divider" />
@@ -69,7 +69,7 @@ const Invitation: React.FC = () => {
             className="btn"
             href={`${ApiEndPoint.Auth.Login.google()}${invitationUuid ? `?invitationUuid=${invitationUuid}` : ''}`}
           >
-            {i18n.t('invitation.acceptInvitationWithGoogle')}
+            {i18n.t('login.acceptInvitationWithGoogle')}
           </a>
         </>
       )}

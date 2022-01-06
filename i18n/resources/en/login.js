@@ -39,4 +39,10 @@ module.exports = {
   accessLimited: 'Access to the reserved area is limited to experts involved in the FRA reporting process.',
   returnHome: 'To return to the home page click',
   returnHomeClick: 'here.',
+
+  missingInvitationUuid: 'No valid invitation id has been provided',
+  invitationMessage: 'You have been invited to {{assessment}} {{cycle}} as {{userRole}}',
+  acceptInvitation: 'Accept Invitation',
+  acceptInvitationWithGoogle: 'Accept Invitation with Google',
+
 }

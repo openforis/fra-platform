@@ -88,7 +88,7 @@ const LoginForm: React.FC = () => {
 
       {invitedUser && (
         <button type="button" className="btn" onClick={onAccept}>
-          {i18n.t('invitation.acceptInvitation')}
+          {i18n.t('login.acceptInvitation')}
         </button>
       )}
 
