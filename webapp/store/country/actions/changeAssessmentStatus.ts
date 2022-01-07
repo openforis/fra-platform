@@ -26,7 +26,7 @@ export const changeAssessmentStatus = createAsyncThunk<
   'country/assessment/change',
   async ({ countryIso, assessment, notifyUsers, status = AssessmentStatus.changing }, { dispatch }) => {
     try {
-      await axios.post(`${ApiEndPoint.Assessment.createEmail(countryIso)}?notifyUsers=${notifyUsers}`, assessment)
+      await axios.post(`${ApiEndPoint._Assessment.createEmail(countryIso)}?notifyUsers=${notifyUsers}`, assessment)
 
       dispatch(CountryActions.fetchCountryStatus(countryIso))
       return { assessmentType: assessment.type, status }
