@@ -21,7 +21,7 @@ const CountryListRoleSection: React.FC<Props> = (props: Props) => {
   const countryListNameMatch = (countryIso: CountryIso) =>
     checkMatch(i18n.t(Areas.getTranslationKey(countryIso)), query)
 
-  const countryRegionCodeMatch = (_countryIso: CountryIso) => false // TODO
+  const countryRegionCodeMatch = (countryIso: CountryIso) => countryIso && false // TODO
 
   const renderRow = (countryIso: CountryIso) =>
     (user || !countryIso.startsWith('X')) && (countryListNameMatch(countryIso) || countryRegionCodeMatch(countryIso))
