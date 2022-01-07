@@ -1,3 +1,5 @@
+import { CountryIso } from '@meta/area'
+
 export enum RoleName {
   ADMINISTRATOR = 'ADMINISTRATOR',
   COLLABORATOR = 'COLLABORATOR',
@@ -11,7 +13,7 @@ export interface UserRole<N extends RoleName, P = void> {
   id: number
   assessmentId?: number
   cycleUuid?: string
-  countryIso?: string
+  countryIso?: CountryIso
   name: N
   props: P
   role: RoleName
