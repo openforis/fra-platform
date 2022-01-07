@@ -94,13 +94,15 @@ const LoginForm: React.FC = () => {
 
       {!invitedUser && (
         <>
-          <button type="button" className="btn" onClick={onCancel}>
-            {i18n.t('login.cancel')}
-          </button>
+          <div>
+            <button type="button" className="btn" onClick={onCancel}>
+              {i18n.t('login.cancel')}
+            </button>
 
-          <button type="button" className="btn" onClick={onLogin}>
-            {i18n.t('login.login')}
-          </button>
+            <button type="button" className="btn" onClick={onLogin}>
+              {i18n.t('login.login')}
+            </button>
+          </div>
 
           <Link to={BasePaths.Login.resetPassword()} type="button" className="btn-forgot-pwd">
             {i18n.t('login.forgotPassword')}
