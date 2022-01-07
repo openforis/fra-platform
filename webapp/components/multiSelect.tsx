@@ -19,6 +19,7 @@ type MultiSelectState = any
 type Props = any
 export default class MultiSelect extends React.Component<{}, MultiSelectState> {
   props: Props
+
   outsideClick: any
 
   constructor(props: Props) {
@@ -42,6 +43,9 @@ export default class MultiSelect extends React.Component<{}, MultiSelectState> {
 
   render() {
     const { values = [] } = this.props
+
+    if (!values) return null
+
     return (
       <div
         ref="multiSelect"
