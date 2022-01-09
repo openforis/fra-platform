@@ -14,7 +14,9 @@ export const AuthLogin = {
   init: (express: Express): void => {
     // Local login
     express.post(ApiEndPoint.Auth.Login.local(), async (req: Request, res: Response, next: NextFunction) => {
-      passport.authenticate('local', (err: any, user: User, info: any) => {
+      passport.authenticate('local', {
+        state: String(req.query.invitationUuid),      
+      }, (err: any, user: User, info: any) => {
         if (err) return next(err)
 
         if (!user) return res.send(info)

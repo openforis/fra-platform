@@ -1,37 +1,41 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory, Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
+import { BasePaths } from '@client/basePaths'
 import { useAppDispatch, useAppSelector } from '@client/store'
 import { LoginActions } from '@client/store/login'
-import { Urls } from '@client/utils'
-import { useTranslation } from 'react-i18next'
-import { Objects } from '@core/utils'
-import { BasePaths } from '@client/basePaths'
 import { LoginValidator } from '@client/pages/Login/utils/LoginValidator'
 
-const LoginForm: React.FC = () => {
+type Props = {
+  invitationUuid?: string
+}
+
+const LoginForm: React.FC<Props> = props => {
+  const { invitationUuid } = props
+
   const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
   const history = useHistory()
 
-  const invitationUuid = Urls.getRequestParam('invitationUuid')
-  const isInvitation = !Objects.isEmpty(invitationUuid)
   const { user: invitedUser } = useAppSelector((state) => state.login.invitation)
 
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [password2, setPassword2] = useState<string>('')
-
   const [errors, setErrors] = useState<Record<string, string>>({})
+
   useEffect(() => {
-    dispatch(LoginActions.resetLogin())
     dispatch(LoginActions.initLogin())
     if (invitationUuid) {
       dispatch(LoginActions.fetchUserByInvitation(invitationUuid))
+      setEmail(invitedUser.email)
     }
   }, [])
 
-  const onCancel = window.history.back
+  const onCancel = () => {
+    history.push(BasePaths.Root())
+  }
 
   const onLogin = () => {
     const fieldErrors = LoginValidator.localValidate(email, password)
@@ -42,22 +46,18 @@ const LoginForm: React.FC = () => {
         LoginActions.localLogin({
           email,
           password,
+          invitationUuid,
         })
       )
     }
-  }
-
-  const onAccept = () => {
-    dispatch(LoginActions.acceptInvitation(invitationUuid))
-    history.push(BasePaths.Root())
   }
 
   return (
     <div className="login__form">
       <input
         onFocus={() => setErrors({ ...errors, email: null })}
-        value={invitedUser ? invitedUser.email : email || ''}
-        disabled={isInvitation}
+        value={email}
+        disabled={!!invitedUser}
         type="text"
         placeholder={i18n.t('login.email')}
         onChange={(event) => setEmail(event.target.value)}
@@ -73,7 +73,7 @@ const LoginForm: React.FC = () => {
       />
       {errors.password && <span className="login__field-error">{i18n.t(errors.password)}</span>}
 
-      {invitedUser && invitedUser.status !== 'active' && (
+      {invitedUser?.status !== 'active' && (
         <>
           <input
             onFocus={() => setErrors({ ...errors, password2: null })}
@@ -87,7 +87,7 @@ const LoginForm: React.FC = () => {
       )}
 
       {invitedUser && (
-        <button type="button" className="btn" onClick={onAccept}>
+        <button type="button" className="btn" onClick={onLogin}>
           {i18n.t('login.acceptInvitation')}
         </button>
       )}

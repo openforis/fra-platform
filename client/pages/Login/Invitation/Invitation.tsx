@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 import { useAppDispatch, useAppSelector } from '@client/store'
 import { LoginActions } from '@client/store/login'
 import { Urls } from '@client/utils'
 import { useUser } from '@client/store/user'
-import { useTranslation } from 'react-i18next'
 
 import { BasePaths } from '@client/basePaths'
 import { ApiEndPoint } from '@common/api/endpoint'
+import LoginForm from '@client/pages/Login/LoginForm'
 
 const Invitation: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -22,9 +23,6 @@ const Invitation: React.FC = () => {
   useEffect(() => {
     if (invitationUuid) {
       dispatch(LoginActions.fetchUserByInvitation(invitationUuid))
-      if (!invitedUser) {
-        history.push(BasePaths.Root())
-      }
     } else {
       history.push(BasePaths.Root())
     }
@@ -36,6 +34,12 @@ const Invitation: React.FC = () => {
   }
 
   const cycle = assessment?.cycles.find((cycle) => cycle.uuid === userRole.cycleUuid)
+
+  if (userRole?.acceptedAt) {
+    return <div className="login__form">
+      <h3>{i18n.t('login.alreadyAcceptedInvitation')}</h3>
+    </div>
+  }
 
   return (
     <>
@@ -54,12 +58,7 @@ const Invitation: React.FC = () => {
             </button>
           ) : (
             <>
-              <a
-                className="btn"
-                href={`${BasePaths.Login.root()}${invitationUuid ? `?invitationUuid=${invitationUuid}` : ''}`}
-              >
-                {i18n.t('login.acceptInvitation')}
-              </a>
+              <LoginForm invitationUuid={invitationUuid} />
 
               <hr className="divider" />
 

@@ -1,5 +1,5 @@
 import './login.scss'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Route } from 'react-router-dom'
 
 import Partners from '@client/components/Partners'
@@ -13,12 +13,6 @@ import ResetPassword from './ResetPassword'
 const Login: React.FC = () => {
   const user = useUser()
 
-  useEffect(() => {
-    if (user) {
-      window.location.href = '/'
-    }
-  }, [user])
-
   return (
     <>
       <div className="login">
@@ -26,13 +20,17 @@ const Login: React.FC = () => {
           <Invitation />
         </Route>
 
-        <Route exact path={BasePaths.Login.root()}>
-          <LoginForm />
-        </Route>
+        {!user &&
+          <>
+            <Route exact path={BasePaths.Login.root()}>
+              <LoginForm />
+            </Route>
 
-        <Route exact path={BasePaths.Login.resetPassword()}>
-          <ResetPassword />
-        </Route>
+            <Route exact path={BasePaths.Login.resetPassword()}>
+              <ResetPassword />
+            </Route>
+          </>
+        }
 
         <img alt="" src="/img/tucan.svg" className="login__tucan" />
       </div>

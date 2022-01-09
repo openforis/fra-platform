@@ -1,15 +1,14 @@
 import { Objects } from '@core/utils'
 import { validEmail } from '@common/userUtils'
 import { Request } from 'express'
+import { UserController } from '@server/controller'
 import { UserProviderRepository, UserRepository } from '@server/repository'
 import * as bcrypt from 'bcrypt'
 
-export const localStrategyVerifyCallback = async (_req: Request, email: string, password: string, done: any) => {
+export const localStrategyVerifyCallback = async (req: Request, email: string, password: string, done: any) => {
   const sendErr = (message: string) => done(null, false, { message })
 
   try {
-    // const { invitationUUID } = req.body
-
     // accepting invitation
     // if (invitationUUID) {
     //   const invitation = await userRepository.fetchInvitation(invitationUUID);
@@ -59,12 +58,21 @@ export const localStrategyVerifyCallback = async (_req: Request, email: string, 
     } else {
       // const user = await userRepository.findUserByEmailAndPassword(email, password)
 
-      const user = await UserRepository.read({ user: { email } })
+      let user = await UserRepository.read({ user: { email } })
       const userProvider = await UserProviderRepository.read({ user, provider: 'local' })
 
       const passwordMatch = await bcrypt.compare(password, userProvider.props.password)
 
       if (passwordMatch) {
+        const invitationUuid = String(req.query.state)
+
+        if (invitationUuid) {
+          const { user: invitedUser, userRole } = await UserController.readByInvitation({ invitationUuid })
+          user = await UserController.acceptInvitation({ user: invitedUser, userRole })
+        } else {
+          user = await UserController.read({ user: { email } })
+        }
+
         done(null, user)
       } else {
         sendErr('login.noMatchingUser')
