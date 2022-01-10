@@ -8,9 +8,8 @@ export const AssessmentGetSections = {
     express.get(ApiEndPoint.Assessment.sections(), async (req: Request, res: Response) => {
       const { assessmentName, assessmentCycleName } = req.params
       try {
-        const x = await AssessmentController.getSections({ assessmentName, assessmentCycleName })
-        console.log(x)
-        res.send({ assessmentName, assessmentCycleName })
+        const sections = await AssessmentController.getSections({ assessmentName, assessmentCycleName })
+        res.send(sections)
       } catch (e) {
         sendErr(res, e)
       }

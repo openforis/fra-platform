@@ -7,9 +7,9 @@ export const getSections = async (
 ): Promise<any> => {
   const { assessmentName, assessmentCycleName } = props
 
-  const assessment = await AssessmentRepository.read({ name: assessmentName }, client)
+  const assessmentCycle = await AssessmentRepository.readCycle({ assessmentCycleName }, client)
   const assessmentSections = await AssessmentRepository.readSections(
-    { assessmentName, assessmentUuid: assessment.uuid },
+    { assessmentName, assessmentCycleUuid: assessmentCycle.uuid },
     client
   )
 
