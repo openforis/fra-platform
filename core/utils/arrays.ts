@@ -1,5 +1,3 @@
-import { Objects } from '@core/utils/objects'
-
 // @ts-ignore
 import * as differenceWith from 'lodash.differencewith'
 // @ts-ignore
@@ -8,6 +6,8 @@ import * as range from 'lodash.range'
 import * as reverse from 'lodash.reverse'
 // @ts-ignore
 import * as uniqWith from 'lodash.uniqwith'
+
+import { Objects } from './objects'
 
 const difference = <T1, T2>(array1: Array<T1>, array2: Array<T2>): Array<T1> =>
   differenceWith<T1, T2>(array1, array2, Objects.isEqual)

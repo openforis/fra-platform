@@ -1,4 +1,4 @@
-import { User, Users } from '@core/auth'
+import { User, Users } from '../auth'
 import { Assessment, AssessmentStatus } from './assessment'
 
 export interface AssessmentStatusTransition {
