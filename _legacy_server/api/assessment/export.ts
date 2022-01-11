@@ -8,7 +8,7 @@ import { ApiEndPoint } from '@common/api/endpoint'
 export const AssessmentExport = {
   init: (express: Express): void => {
     express.get(
-      ApiEndPoint.Assessment.export(),
+      ApiEndPoint._Assessment.export(),
       ApiAuthMiddleware.requireAdminPermission,
       async (_req: Request, res: Response) => {
         try {

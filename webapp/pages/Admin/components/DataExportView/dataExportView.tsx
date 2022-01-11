@@ -6,7 +6,7 @@ import { ApiEndPoint } from '@common/api/endpoint'
 const DataExportView = () => {
   const i18n = useI18n()
   return (
-    <a className="btn btn-primary" href={`${ApiEndPoint.Assessment.export()}`}>
+    <a className="btn btn-primary" href={`${ApiEndPoint._Assessment.export()}`}>
       <Icon className="icon-sub icon-white" name="hit-down" />
       {(i18n as any).t('landing.dataExport.downloadData')}
     </a>

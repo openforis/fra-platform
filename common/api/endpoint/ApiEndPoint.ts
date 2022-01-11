@@ -5,6 +5,9 @@ export const ApiEndPoint = {
   Init: {
     one: () => apiPath('init'),
   },
+  Assessment: {
+    sections: (name = ':name', cycleName = ':cycleName') => apiPath('assessment', name, 'sections', cycleName),
+  },
   // TODO: Remove deprecated routes (still in use in _legacy)
   Auth: {
     loggedInUser: () => apiPath('loggedInUser'),
@@ -27,7 +30,7 @@ export const ApiEndPoint = {
   },
 
   // Old
-  Assessment: {
+  _Assessment: {
     createEmail: (countryIso = ':countryIso') => apiPath('assessment', countryIso),
     export: () => apiPath('assessment', 'admin', 'export'),
   },
@@ -126,11 +129,5 @@ export const ApiEndPoint = {
     create: (countryIso = ':countryIso') => apiPath('userChat', countryIso, 'message'),
     getAll: (countryIso = ':countryIso') => apiPath('userChat', countryIso, 'message', 'all'),
     getNew: (countryIso = ':countryIso') => apiPath('userChat', countryIso, 'message', 'new'),
-  },
-  Versioning: {
-    create: () => apiPath('versioning'),
-    delete: (id = ':id') => apiPath('versioning', id),
-    getAll: () => apiPath('versioning'),
-    getLatest: () => apiPath('versioning', 'latest'),
   },
 }
