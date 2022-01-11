@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
-import { useAppDispatch, useAppSelector } from '@client/store'
-import { LoginActions } from '@client/store/login'
+import { useAppDispatch } from '@client/store'
+import { LoginActions, useInvitation } from '@client/store/login'
 import { Urls } from '@client/utils'
 import { useUser } from '@client/store/user'
 
@@ -18,7 +18,7 @@ const Invitation: React.FC = () => {
   const loggedUser = useUser()
 
   const invitationUuid = Urls.getRequestParam('invitationUuid')
-  const { userRole, assessment, user: invitedUser } = useAppSelector((state) => state.login.invitation)
+  const { userRole, assessment, invitedUser } = useInvitation()
 
   useEffect(() => {
     if (invitationUuid) {

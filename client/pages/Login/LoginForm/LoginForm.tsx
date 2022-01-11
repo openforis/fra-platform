@@ -3,8 +3,8 @@ import { useHistory, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import { BasePaths } from '@client/basePaths'
-import { useAppDispatch, useAppSelector } from '@client/store'
-import { LoginActions } from '@client/store/login'
+import { useAppDispatch } from '@client/store'
+import { LoginActions, useInvitation } from '@client/store/login'
 import { LoginValidator } from '@client/pages/Login/utils/LoginValidator'
 
 type Props = {
@@ -18,7 +18,7 @@ const LoginForm: React.FC<Props> = props => {
   const { i18n } = useTranslation()
   const history = useHistory()
 
-  const { user: invitedUser } = useAppSelector((state) => state.login.invitation)
+  const { invitedUser } = useInvitation()
 
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
