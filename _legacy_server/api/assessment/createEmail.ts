@@ -9,7 +9,7 @@ import { ApiEndPoint } from '@common/api/endpoint'
 export const AssessmentCreateEmail = {
   init: (express: Express): void => {
     express.post(
-      ApiEndPoint.Assessment.createEmail(),
+      ApiEndPoint._Assessment.createEmail(),
       ApiAuthMiddleware.requireCountryEditPermission,
       async (req: Request, res: Response) => {
         try {
