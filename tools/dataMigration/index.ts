@@ -1,7 +1,10 @@
 import * as path from 'path'
 import { config } from 'dotenv'
 
+import { Assessment as AssessmentLegacy } from '../../core/assessment/assessment'
+
 // import { Objects } from '../../core/utils/objects'
+// import { Assessment, Cycle, Table } from '../../meta/assessment'
 import { Assessment, Cycle } from '../../meta/assessment'
 import { SectionSpec } from '../../webapp/sectionSpec'
 import { BaseProtocol, DB } from '../../server/db'
@@ -15,6 +18,7 @@ import { migrateUsersAuthProvider } from './migrateUsersAuthProvider'
 import { migrateUsersRole } from './migrateUsersRole'
 import { migrateUsersInvitation } from './migrateUsersInvitation'
 import { migrateUsersResetPassword } from './migrateUsersResetPassword'
+import { FRA } from '../../core/assessment'
 // import { migrateData } from './migrateData'
 
 config({ path: path.resolve(__dirname, '..', '..', '.env') })
@@ -31,7 +35,7 @@ const createCycle = async (assessment: Assessment, cycleName: string, client: Ba
   )
 }
 
-export const migrate = async (spec: Record<string, SectionSpec>): Promise<void> => {
+export const migrate = async (spec: Record<string, SectionSpec>, assessmentLegacy: AssessmentLegacy): Promise<void> => {
   // delete old fra
   await DB.query(`drop schema if exists assessment_fra cascade;`)
   await DB.query(`drop schema if exists assessment_fra_2020 cascade;`)
@@ -61,7 +65,7 @@ export const migrate = async (spec: Record<string, SectionSpec>): Promise<void> 
     assessment.cycles = [cycle2020, cycle2025]
     // const schemaCycle2020 = `${schema}_${cycle2020.name}`
 
-    await migrateMetadata({ assessment, schema, spec, client })
+    await migrateMetadata({ assessment, assessmentLegacy, schema, spec, client })
     await migrateAreas({ client, schema })
     await migrateUsers({ client })
     await migrateUsersAuthProvider({ client })
@@ -103,7 +107,7 @@ export const migrate = async (spec: Record<string, SectionSpec>): Promise<void> 
   })
 }
 
-migrate(FraSpecs)
+migrate(FraSpecs, FRA)
   .then(() => {
     process.exit(0)
   })
