@@ -18,28 +18,26 @@ export const localStrategyVerifyCallback = async (req: Request, email: string, p
       if (invitationUuid) {
         const { user: invitedUser } = await UserController.readByInvitation({ invitationUuid })
         if (invitedUser?.status !== 'active') {
-          // TODO set password
+          // TODO add password into userprovider
         }
       }
 
       let user = await UserRepository.read({ user: { email } })
       const userProvider = await UserProviderRepository.read({ user, provider: 'local' })
-      if (!userProvider) {
-        sendErr('login.noMatchingUser');
-      }
 
       const passwordMatch = await bcrypt.compare(password, userProvider.props.password)
-
       if (passwordMatch) {
         if (invitationUuid) {
           const { user: invitedUser, userRole } = await UserController.readByInvitation({ invitationUuid })
           if (!userRole) {
-            sendErr('login.noInvitation');
+            sendErr('login.noInvitation')
+          } else {
+            user = await UserController.acceptInvitation({ user: invitedUser, userRole })
+            done(null, user)
           }
-          user = await UserController.acceptInvitation({ user: invitedUser, userRole })
+        } else {
+          done(null, user)
         }
-
-        done(null, user)
       } else {
         sendErr('login.noMatchingUser')
       }
