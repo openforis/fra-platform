@@ -1,30 +1,42 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-
-import { Urls } from '@client/utils'
+import React, { useEffect, useState } from 'react'
+import { useHistory, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Objects } from '@core/utils'
+
 import { BasePaths } from '@client/basePaths'
-import { ApiEndPoint } from '@common/api/endpoint'
 import { useAppDispatch } from '@client/store'
-import { LoginActions } from '@client/store/login'
+import { LoginActions, useInvitation } from '@client/store/login'
 import { LoginValidator } from '@client/pages/Login/utils/LoginValidator'
 
-const LoginForm: React.FC = () => {
-  const { i18n } = useTranslation()
+type Props = {
+  invitationUuid?: string
+}
+
+const LoginForm: React.FC<Props> = props => {
+  const { invitationUuid } = props
+
   const dispatch = useAppDispatch()
-  const invitation = Urls.getRequestParam('invitation')
-  const isInvitation = !Objects.isEmpty(invitation)
+  const { i18n } = useTranslation()
+  const history = useHistory()
+
+  const { invitedUser } = useInvitation()
 
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+  const [password2, setPassword2] = useState<string>('')
   const [errors, setErrors] = useState<Record<string, string>>({})
 
-  // TODO:
-  // Handle invitation (=> get invited user details (email))
-  const [password2, setPassword2] = useState<string>('')
+  useEffect(() => {
+    dispatch(LoginActions.initLogin())
+    if (invitationUuid) {
+      dispatch(LoginActions.fetchUserByInvitation(invitationUuid))
+      setEmail(invitedUser.email)
+    }
+  }, [])
 
-  const onCancel = window.history.back
+  const onCancel = () => {
+    history.push(BasePaths.Root())
+  }
+
   const onLogin = () => {
     const fieldErrors = LoginValidator.localValidate(email, password)
     setErrors(fieldErrors)
@@ -34,6 +46,7 @@ const LoginForm: React.FC = () => {
         LoginActions.localLogin({
           email,
           password,
+          invitationUuid,
         })
       )
     }
@@ -41,11 +54,10 @@ const LoginForm: React.FC = () => {
 
   return (
     <div className="login__form">
-      <h3>{i18n.t('login.signInFRA')}</h3>
       <input
         onFocus={() => setErrors({ ...errors, email: null })}
-        value={email || ''}
-        disabled={isInvitation}
+        value={email}
+        disabled={!!invitedUser}
         type="text"
         placeholder={i18n.t('login.email')}
         onChange={(event) => setEmail(event.target.value)}
@@ -61,7 +73,7 @@ const LoginForm: React.FC = () => {
       />
       {errors.password && <span className="login__field-error">{i18n.t(errors.password)}</span>}
 
-      {invitation && (
+      {invitedUser?.status !== 'active' && (
         <>
           <input
             onFocus={() => setErrors({ ...errors, password2: null })}
@@ -74,25 +86,29 @@ const LoginForm: React.FC = () => {
         </>
       )}
 
-      <div>
-        <button type="button" className="btn" onClick={onCancel}>
-          {i18n.t('login.cancel')}
-        </button>
-
+      {invitedUser && (
         <button type="button" className="btn" onClick={onLogin}>
-          {i18n.t('login.login')}
+          {i18n.t('login.acceptInvitation')}
         </button>
-      </div>
+      )}
 
-      <Link to={BasePaths.Login.resetPassword()} type="button" className="btn-forgot-pwd" onClick={console.log}>
-        {i18n.t('login.forgotPassword')}
-      </Link>
+      {!invitedUser && (
+        <>
+          <div>
+            <button type="button" className="btn" onClick={onCancel}>
+              {i18n.t('login.cancel')}
+            </button>
 
-      <hr className="divider" />
+            <button type="button" className="btn" onClick={onLogin}>
+              {i18n.t('login.login')}
+            </button>
+          </div>
 
-      <a className="btn" href={`${ApiEndPoint.Auth.Login.google()}${invitation ? `?i=${invitation}` : ''}`}>
-        {i18n.t('login.signInGoogle')}
-      </a>
+          <Link to={BasePaths.Login.resetPassword()} type="button" className="btn-forgot-pwd">
+            {i18n.t('login.forgotPassword')}
+          </Link>
+        </>
+      )}
     </div>
   )
 }

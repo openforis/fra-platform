@@ -1,57 +1,78 @@
 import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-
-import { useAppDispatch, useAppSelector } from '@client/store'
-import { LoginActions } from '@client/store/login'
-import { Urls } from '@client/utils'
-import { useUser } from '@client/store/user'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from '@core/utils'
+import { useAppDispatch } from '@client/store'
+import { LoginActions, useInvitation } from '@client/store/login'
+import { Urls } from '@client/utils'
+import { useUser } from '@client/store/user'
+
 import { BasePaths } from '@client/basePaths'
+import { ApiEndPoint } from '@common/api/endpoint'
+import LoginForm from '@client/pages/Login/LoginForm'
 
 const Invitation: React.FC = () => {
   const dispatch = useAppDispatch()
+  const { i18n } = useTranslation()
   const history = useHistory()
-  const invitedUser = useAppSelector((state) => state.login.invitedUser)
-  const invitation = Urls.getRequestParam('invitation')
   const loggedUser = useUser()
 
-  const { i18n } = useTranslation()
+  const invitationUuid = Urls.getRequestParam('invitationUuid')
+  const { userRole, assessment, invitedUser } = useInvitation()
 
   useEffect(() => {
-    if (invitation) {
-      dispatch(LoginActions.fetchUserByInvitation(invitation))
+    if (invitationUuid) {
+      dispatch(LoginActions.fetchUserByInvitation(invitationUuid))
+    } else {
+      history.push(BasePaths.Root())
     }
   }, [])
 
   const onAccept = () => {
-    dispatch(LoginActions.acceptInvitation(invitation))
+    dispatch(LoginActions.acceptInvitation(invitationUuid))
     history.push(BasePaths.Root())
   }
 
-  if (Objects.isEmpty(invitation)) {
-    return (
-      <div className="login__form">
-        <div>{i18n.t('login.missingInvitationUuid')}</div>
-      </div>
-    )
+  const cycle = assessment?.cycles.find((cycle) => cycle.uuid === userRole.cycleUuid)
+
+  if (userRole?.acceptedAt) {
+    return <div className="login__form">
+      <h3>{i18n.t('login.alreadyAcceptedInvitation')}</h3>
+    </div>
   }
 
   return (
-    <div className="login__form">
-      {loggedUser && invitedUser && loggedUser.email === invitedUser.email ? (
-        <button type="button" className="btn" onClick={onAccept}>
-          {i18n.t('login.acceptInvitation')}
-        </button>
-      ) : (
-        <>
-          <button type="button" className="btn" onClick={onAccept}>
-            {i18n.t('login.acceptInvitationWithGoogle')}
-          </button>
-        </>
+    <>
+      {invitedUser && (
+        <div className="login__form">
+          <h3>
+            {i18n.t('login.invitationMessage', {
+              assessment: assessment.props.name,
+              cycle: cycle.name,
+              userRole: userRole.role,
+            })}
+          </h3>
+          {loggedUser && loggedUser.email === invitedUser.email ? (
+            <button type="button" className="btn" onClick={onAccept}>
+              {i18n.t('login.acceptInvitation')}
+            </button>
+          ) : (
+            <>
+              <LoginForm invitationUuid={invitationUuid} />
+
+              <hr className="divider" />
+
+              <a
+                className="btn"
+                href={`${ApiEndPoint.Auth.Login.google()}${invitationUuid ? `?invitationUuid=${invitationUuid}` : ''}`}
+              >
+                {i18n.t('login.acceptInvitationWithGoogle')}
+              </a>
+            </>
+          )}
+        </div>
       )}
-    </div>
+    </>
   )
 }
 

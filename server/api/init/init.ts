@@ -29,7 +29,12 @@ export const InitGet = {
           AssessmentController.getRegionGroups({ name: assessment.props.name }),
         ])
 
-        const { user } = jwt.decode(req.cookies?.token) as Record<string, User>
+        const { token } = req.cookies
+        let user
+        if (token) {
+          const decodedJwt = jwt.decode(token) as Record<string, User>
+          user = decodedJwt.user
+        }
 
         res.send({
           assessment,

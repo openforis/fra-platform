@@ -2,7 +2,7 @@ import { createSlice, Reducer } from '@reduxjs/toolkit'
 import { UserState } from './stateType'
 import { initApp } from '../assessment/actions/initApp'
 
-const initialState: UserState = {}
+const initialState: UserState = null
 
 export const userSlice = createSlice({
   name: 'user',

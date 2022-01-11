@@ -12,7 +12,6 @@ export const ApiEndPoint = {
   Auth: {
     loggedInUser: () => apiPath('loggedInUser'),
     changePassword: () => '/auth/local/changePassword',
-    getInvitation: (uuid = ':uuid') => `/auth/invitation/${uuid}`,
     Login: {
       local: () => '/auth/login',
       google: () => '/auth/google',

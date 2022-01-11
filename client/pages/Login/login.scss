@@ -5,19 +5,22 @@ $login-height: 50vh;
 .login {
   position: relative;
   min-height: $login-height;
-  height: $login-height;
+  // height: $login-height;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: $ui-bg;
   border-bottom: $ui-thin-border;
   background-image: url('/img/FRAPublPattern.svg');
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 
   a,
   button {
     transition: all 0.2s;
     cursor: pointer;
     outline: none;
+    text-decoration: none;
   }
 
   .btn {
@@ -38,7 +41,7 @@ $login-height: 50vh;
 .login__tucan {
   position: absolute;
   right: 20vw;
-  top: calc(#{$login-height} - 62px);
+  top: calc(100% - 62px);
 }
 
 .login__formWrapper {
@@ -55,6 +58,7 @@ $login-height: 50vh;
   h3 {
     color: #7f7f7f;
     margin-bottom: -12px;
+    text-align: center;
   }
 
   input[type='text'],

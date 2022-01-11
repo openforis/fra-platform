@@ -1,9 +1,9 @@
 import { Request } from 'express'
 import { Profile, VerifyFunction } from 'passport-google-oauth'
-import { UserRepository } from '@server/repository'
+import { UserController } from '@server/controller'
 
 export const googleStrategyVerifyCallback = async (
-  _req: Request,
+  req: Request,
   _accessToken: string,
   _refreshToken: string,
   profile: Profile,
@@ -12,9 +12,15 @@ export const googleStrategyVerifyCallback = async (
   try {
     const email = profile.emails[0].value.toLowerCase()
 
-    // Handle invitation accept
+    let user = null
 
-    const user = await UserRepository.read({ user: { email } })
+    const invitationUuid = String(req.query.state)
+    if (invitationUuid) {
+      const { user: invitedUser, userRole } = await UserController.readByInvitation({ invitationUuid })
+      user = await UserController.acceptInvitation({ user: invitedUser, userRole })
+    } else {
+      user = await UserController.read({ user: { email } })
+    }
 
     if (user) {
       done(null, user)
@@ -22,7 +28,7 @@ export const googleStrategyVerifyCallback = async (
       done(null, false, { message: 'login.notAuthorized' })
     }
   } catch (e) {
-    console.log('Error occurred while authenticating', e)
+    // console.log('Error occurred while authenticating', e)
     done(null, false, { message: `${'login.errorOccurred'}: ${e}` })
   }
 }

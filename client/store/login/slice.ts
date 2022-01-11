@@ -1,30 +1,43 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 import { LoginState } from './stateType'
-import { fetchUserByInvitation } from './actions/fetchUserByInvitation'
-import { acceptInvitation } from './actions/acceptInvitation'
-import { localLogin } from './actions/localLogin'
+import { acceptInvitation, fetchUserByInvitation, initLogin, localLogin } from './actions'
 
-const initialState: LoginState = {}
+const initialState: LoginState = {
+  login: {},
+  invitation: {},
+}
 
 export const loginSlice = createSlice({
   name: 'login',
   initialState,
-  reducers: {},
+  reducers: {
+    resetLogin: () => initialState,
+  },
   extraReducers: (builder) => {
-    // Add reducers for additional action types here, and handle loading state as needed
-    builder.addCase(fetchUserByInvitation.fulfilled, (state, { payload }) => {
-      state.invitedUser = payload
-    })
     builder.addCase(acceptInvitation.fulfilled, (state, { payload }) => {
-      state.invitedUser = payload
+      state.invitation = { ...payload }
     })
+
+    builder.addCase(fetchUserByInvitation.fulfilled, (state, { payload }) => {
+      state.invitation.userRole = payload.userRole
+      state.invitation.assessment = payload.assessment
+      state.invitation.invitedUser = payload.user
+    })
+
+    builder.addCase(initLogin.fulfilled, (state, { payload }) => {
+      state.login = { ...state.login, ...payload }
+      state.login.status = 'loaded'
+    })
+
     builder.addCase(localLogin.fulfilled, () => initialState)
   },
 })
 
 export const LoginActions = {
-  fetchUserByInvitation,
+  ...loginSlice.actions,
   acceptInvitation,
+  fetchUserByInvitation,
+  initLogin,
   localLogin,
 }
 
