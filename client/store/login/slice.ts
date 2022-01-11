@@ -3,13 +3,7 @@ import { LoginState } from './stateType'
 import { acceptInvitation, fetchUserByInvitation, initLogin, localLogin } from './actions'
 
 const initialState: LoginState = {
-  login: {
-    user: {
-      type: 'google',
-      email: '',
-      password: '',
-    },
-  },
+  login: {},
   invitation: {},
 }
 
@@ -21,17 +15,17 @@ export const loginSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(acceptInvitation.fulfilled, (state, { payload }) => {
-      state.invitation.user = payload
+      state.invitation = { ...payload }
     })
 
     builder.addCase(fetchUserByInvitation.fulfilled, (state, { payload }) => {
       state.invitation.userRole = payload.userRole
       state.invitation.assessment = payload.assessment
-      state.invitation.user = payload.user
+      state.invitation.invitedUser = payload.user
     })
 
     builder.addCase(initLogin.fulfilled, (state, { payload }) => {
-      state.login.user = payload.user
+      state.login = { ...state.login, ...payload }
       state.login.status = 'loaded'
     })
 
