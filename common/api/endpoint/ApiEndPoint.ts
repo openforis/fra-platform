@@ -7,7 +7,7 @@ export const ApiEndPoint = {
   },
   Assessment: {
     sections: (assessmentName = ':assessmentName', assessmentCycleName = ':assessmentCycleName') =>
-      apiPath('assessment', 'section', assessmentName, assessmentCycleName),
+      apiPath('assessment', 'sections', assessmentName, assessmentCycleName),
   },
   // TODO: Remove deprecated routes (still in use in _legacy)
   Auth: {
