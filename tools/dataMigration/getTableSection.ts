@@ -1,11 +1,11 @@
 import { SectionTableSpec } from '../../webapp/sectionSpec'
-import { Section } from '../../meta/assessment/section'
+import { SubSection } from '../../meta/assessment/section'
 import { TableSection } from '../../meta/assessment/tableSection'
 
 export const getTableSection = (props: {
   cycles: Array<string>
   tableSectionSpec: SectionTableSpec
-  section: Section
+  section: SubSection
 }): TableSection => {
   const { cycles, tableSectionSpec, section } = props
 
