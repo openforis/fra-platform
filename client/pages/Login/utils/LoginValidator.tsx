@@ -16,7 +16,7 @@ const validatePassword = (password: string): string => {
 
 const validatePasswords = (password: string, password2: string): string => {
   console.log(password, password2)
-  if (password !== password2) return 'login.noEqualPasswords'
+  if (password !== password2) return 'login.noMatchPasswords'
   return null
 }
 
