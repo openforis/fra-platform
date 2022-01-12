@@ -38,10 +38,13 @@ const LoginForm: React.FC<Props> = props => {
   }
 
   const onLogin = () => {
-    const fieldErrors = LoginValidator.localValidate(email, password)
+    let fieldErrors = LoginValidator.localValidate(email, password)
+    if (invitedUser && invitedUser.status !== 'active') {
+      fieldErrors = LoginValidator.invitationValidate(email, password, password2)
+    }
     setErrors(fieldErrors)
 
-    if (!fieldErrors.password && !fieldErrors.email) {
+    if (!Object.values(fieldErrors).find(value => !!value)) {
       dispatch(
         LoginActions.localLogin({
           email,
@@ -73,16 +76,17 @@ const LoginForm: React.FC<Props> = props => {
       />
       {errors.password && <span className="login__field-error">{i18n.t(errors.password)}</span>}
 
-      {invitedUser?.status !== 'active' && (
+      {invitedUser && invitedUser.status !== 'active' && (
         <>
           <input
-            onFocus={() => setErrors({ ...errors, password2: null })}
+            onFocus={() => setErrors({ ...errors, password2: null, passwords: null })}
             value={password2}
             type="password"
             placeholder={i18n.t('login.repeatPassword')}
             onChange={(event) => setPassword2(event.target.value)}
           />
-          {errors.password2 && <span className="login__field-error">{errors.password2}</span>}
+          {errors.password2 && <span className="login__field-error">{i18n.t(errors.password2)}</span>}
+          {errors.passwords && <span className="login__field-error">{i18n.t(errors.passwords)}</span>}
         </>
       )}
 
