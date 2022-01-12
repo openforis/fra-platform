@@ -26,6 +26,7 @@ import { Urls } from '@client/utils'
 import { useTranslation } from 'react-i18next'
 import CountrySelect from '@client/components/CountrySelect'
 import { useIsLogin } from '@client/hooks'
+import Assessment from '@client/pages/Assessment'
 import { useTheme } from './useTheme'
 
 const PageRoutes: React.FC = () => {
@@ -68,6 +69,8 @@ const PageRoutes: React.FC = () => {
             path={[BasePaths.Login.root(), BasePaths.Login.resetPassword(), BasePaths.Login.invitation()]}
             component={Login}
           />
+
+          <Route path={BasePaths.Assessment.root()} component={Assessment} />
 
           {/* <Route */}
           {/*  path={BasePaths.admin} */}
