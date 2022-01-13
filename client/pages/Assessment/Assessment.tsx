@@ -1,22 +1,22 @@
-import React, { useEffect } from 'react'
-// import { useAppDispatch } from '@client/store'
+import React from 'react'
 import Navigation from '@client/components/Navigation'
-// import { AssessmentActions } from '@client/store/assessment'
+import { Switch } from 'react-router-dom'
 
 const Assessment: React.FC = () => {
-  // const dispatch = useAppDispatch()
+  // todo
+  const navigationVisible = true
 
-  // TODO: get these from settings
-  // const name = 'fra'
-  // const cycleName = '2025'
-
-  useEffect(() => {
-    // dispatch(AssessmentActions.getSections({ name, cycleName ))
-  }, [])
   return (
-    <>
+    <div className={`app-view ${navigationVisible ? ' navigation-on' : ''}`}>
       <Navigation />
-    </>
+
+      <Switch>
+        {/* <Route path={BasePaths.assessmentHome} component={AssessmentHome} /> */}
+        {/* <Route path={BasePaths.assessmentDataDownload} component={AssessmentDataDownload} /> */}
+        {/* <Route exact path={BasePaths.assessmentSection} component={AssessmentSection} /> */}
+        {/* <Route exact path={[`${BasePaths.odp}:odpId/`, BasePaths.odp]} component={OriginalDataPoint} /> */}
+      </Switch>
+    </div>
   )
 }
 
