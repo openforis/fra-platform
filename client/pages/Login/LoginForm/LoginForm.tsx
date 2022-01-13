@@ -41,7 +41,7 @@ const LoginForm: React.FC<Props> = (props) => {
     const fieldErrors = LoginValidator.localValidate(email, password, password2)
     setErrors(fieldErrors)
 
-    if (!Object.values(fieldErrors).find((value) => !!value)) {
+    if (fieldErrors.isError) {
       dispatch(
         LoginActions.localLogin({
           email,

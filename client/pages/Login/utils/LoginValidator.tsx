@@ -21,10 +21,13 @@ const validatePasswords = (password: string, password2: string): string => {
 
 export const LoginValidator = {
   localValidate: (email: string, password: string, password2: string) => {
-    return {
+    const errors = {
       email: validateEmail(email),
       password: validatePassword(password),
       password2: password2 !== undefined ? validatePasswords(password, password2) : null,
+      isError: false,
     }
+    errors.isError = !Object.values(errors).find((value) => !!value)
+    return errors
   },
 }
