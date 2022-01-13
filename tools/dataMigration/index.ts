@@ -2,14 +2,14 @@ import * as path from 'path'
 import { config } from 'dotenv'
 
 import { Assessment as AssessmentLegacy } from '../../core/assessment/assessment'
+import { FRA } from '../../core/assessment'
 
-// import { Objects } from '../../core/utils/objects'
-// import { Assessment, Cycle, Table } from '../../meta/assessment'
 import { Assessment, Cycle } from '../../meta/assessment'
 import { SectionSpec } from '../../webapp/sectionSpec'
 import { BaseProtocol, DB } from '../../server/db'
 import { getCreateSchemaCycleDDL, getCreateSchemaDDL } from '../../server/repository/assessment/getCreateSchemaDDL'
 
+import { DBNames } from './_DBNames'
 import { FraSpecs } from './fraSpecs'
 import { migrateUsers } from './migrateUsers'
 import { migrateMetadata } from './migrateMetadata'
@@ -18,8 +18,7 @@ import { migrateUsersAuthProvider } from './migrateUsersAuthProvider'
 import { migrateUsersRole } from './migrateUsersRole'
 import { migrateUsersInvitation } from './migrateUsersInvitation'
 import { migrateUsersResetPassword } from './migrateUsersResetPassword'
-import { FRA } from '../../core/assessment'
-// import { migrateData } from './migrateData'
+import { migrateBasicTablesData } from './migrateData/migrateBasicTablesData'
 
 config({ path: path.resolve(__dirname, '..', '..', '.env') })
 
@@ -56,7 +55,7 @@ export const migrate = async (spec: Record<string, SectionSpec>, assessmentLegac
   )
 
   // create schema
-  const schema = `assessment_${assessment.props.name}`
+  const schema = DBNames.getAssessmentSchema(assessment.props.name)
   await DB.query(getCreateSchemaDDL(schema))
 
   await DB.tx(async (client) => {
@@ -72,6 +71,8 @@ export const migrate = async (spec: Record<string, SectionSpec>, assessmentLegac
     await migrateUsersRole({ assessment, client })
     await migrateUsersInvitation({ client })
     await migrateUsersResetPassword({ client })
+    // TODO: data migration
+    await migrateBasicTablesData({ assessment }, client)
 
     await client.query(
       `delete
@@ -80,30 +81,6 @@ export const migrate = async (spec: Record<string, SectionSpec>, assessmentLegac
       values ($1)`,
       [assessment.id]
     )
-
-    // TODO: data migration
-    // const tables = await client.map<Table>(
-    //   `select *
-    //    from ${schema}.table
-    //    order by id`,
-    //   [],
-    //   // @ts-ignore
-    //   Objects.camelize
-    // )
-    //
-    // await Promise.all(
-    //   tables.map(async (table) => {
-    //     if (!['extentOfForest', 'forestCharacteristics', 'growingStock'].includes(table.props.name)) {
-    //       // TODO: sustainable development tables have no name, only calculated rows
-    //       if (table.props.name !== '') {
-    //         if (table.props.name === 'specificForestCategories') {
-    //           await migrateData({ client, schema, table, schemaCycle: schemaCycle2020 })
-    //         }
-    //       }
-    //     }
-    //     return Promise.resolve()
-    //   })
-    // )
   })
 }
 
