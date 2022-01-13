@@ -18,7 +18,7 @@ export const localStrategyVerifyCallback = async (req: Request, email: string, p
       const invitationUuid = String(req.query.invitationUuid)
       if (invitationUuid) {
         const { user: invitedUser } = await UserController.readByInvitation({ invitationUuid })
-        if (invitedUser?.status !== 'active') {
+        if (invitedUser && invitedUser.status !== 'active') {
           const provider =  {
             userId: invitedUser.id,
             provider: AuthProvider.local,
