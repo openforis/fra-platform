@@ -11,7 +11,7 @@ type Props = {
   invitationUuid?: string
 }
 
-const LoginForm: React.FC<Props> = props => {
+const LoginForm: React.FC<Props> = (props) => {
   const { invitationUuid } = props
 
   const dispatch = useAppDispatch()
@@ -22,7 +22,7 @@ const LoginForm: React.FC<Props> = props => {
 
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
-  const [password2, setPassword2] = useState<string>('')
+  const [password2, setPassword2] = useState<string>(undefined)
   const [errors, setErrors] = useState<Record<string, string>>({})
 
   useEffect(() => {
@@ -38,13 +38,10 @@ const LoginForm: React.FC<Props> = props => {
   }
 
   const onLogin = () => {
-    let fieldErrors = LoginValidator.localValidate(email, password)
-    if (invitedUser && invitedUser.status !== 'active') {
-      fieldErrors = LoginValidator.invitationValidate(email, password, password2)
-    }
+    const fieldErrors = LoginValidator.localValidate(email, password, password2)
     setErrors(fieldErrors)
 
-    if (!Object.values(fieldErrors).find(value => !!value)) {
+    if (!Object.values(fieldErrors).find((value) => !!value)) {
       dispatch(
         LoginActions.localLogin({
           email,
@@ -86,7 +83,6 @@ const LoginForm: React.FC<Props> = props => {
             onChange={(event) => setPassword2(event.target.value)}
           />
           {errors.password2 && <span className="login__field-error">{i18n.t(errors.password2)}</span>}
-          {errors.passwords && <span className="login__field-error">{i18n.t(errors.passwords)}</span>}
         </>
       )}
 

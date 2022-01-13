@@ -15,16 +15,16 @@ const validatePassword = (password: string): string => {
 }
 
 const validatePasswords = (password: string, password2: string): string => {
-  console.log(password, password2)
   if (password !== password2) return 'login.noMatchPasswords'
   return null
 }
 
 export const LoginValidator = {
-  localValidate: (email: string, password: string) => {
-    return { email: validateEmail(email), password: validatePassword(password) }
-  },
-  invitationValidate: (email: string, password: string, password2: string) => {
-    return { ...LoginValidator.localValidate(email, password), password2: validatePassword(password2), passwords: validatePasswords(password, password2) }
+  localValidate: (email: string, password: string, password2: string) => {
+    return {
+      email: validateEmail(email),
+      password: validatePassword(password),
+      password2: password2 !== undefined ? validatePasswords(password, password2) : null,
+    }
   },
 }
