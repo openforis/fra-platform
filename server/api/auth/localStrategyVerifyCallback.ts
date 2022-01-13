@@ -4,7 +4,7 @@ import { Request } from 'express'
 import { AuthProvider } from '@meta/user/userAuth'
 import { UserController } from '@server/controller'
 import { UserProviderRepository } from '@server/repository'
-import * as bcrypt from 'bcrypt'
+import { passwordCompare, passwordHash }  from './utils/passwordUtils'
 
 export const localStrategyVerifyCallback = async (req: Request, email: string, password: string, done: any) => {
   const sendErr = (message: string) => done(null, false, { message })
@@ -23,7 +23,7 @@ export const localStrategyVerifyCallback = async (req: Request, email: string, p
             userId: invitedUser.id,
             provider: AuthProvider.local,
             props: {
-              password: await bcrypt.hash(password, 10)
+              password: await passwordHash(password)
             }
           }
           await UserProviderRepository.create({ provider })
@@ -33,7 +33,7 @@ export const localStrategyVerifyCallback = async (req: Request, email: string, p
       let user = await UserController.read({ user: { email } })
       const userProvider = await UserProviderRepository.read({ user, provider: 'local' })
 
-      const passwordMatch = await bcrypt.compare(password, userProvider.props.password)
+      const passwordMatch = await passwordCompare(password, userProvider.props.password)
       if (passwordMatch) {
         if (invitationUuid) {
           const { user: invitedUser, userRole } = await UserController.readByInvitation({ invitationUuid })
