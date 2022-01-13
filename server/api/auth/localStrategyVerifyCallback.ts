@@ -2,8 +2,7 @@ import { Objects } from '@core/utils'
 import { validEmail } from '@common/userUtils'
 import { Request } from 'express'
 import { AuthProvider } from '@meta/user/userAuth'
-import { UserController } from '@server/controller'
-import { UserProviderRepository } from '@server/repository'
+import { UserController, UserProviderController } from '@server/controller'
 import { passwordCompare, passwordHash }  from './utils/passwordUtils'
 
 export const localStrategyVerifyCallback = async (req: Request, email: string, password: string, done: any) => {
@@ -20,18 +19,17 @@ export const localStrategyVerifyCallback = async (req: Request, email: string, p
         const { user: invitedUser } = await UserController.readByInvitation({ invitationUuid })
         if (invitedUser && invitedUser.status !== 'active') {
           const provider =  {
-            userId: invitedUser.id,
             provider: AuthProvider.local,
             props: {
               password: await passwordHash(password)
             }
           }
-          await UserProviderRepository.create({ provider })
+          await UserProviderController.create({ user: invitedUser, provider })
         }
       }
 
       let user = await UserController.read({ user: { email } })
-      const userProvider = await UserProviderRepository.read({ user, provider: 'local' })
+      const userProvider = await UserProviderController.read({ user, provider: AuthProvider.local })
 
       const passwordMatch = await passwordCompare(password, userProvider.props.password)
       if (passwordMatch) {
