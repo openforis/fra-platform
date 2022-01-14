@@ -76,7 +76,7 @@ const LoginForm: React.FC<Props> = (props) => {
       {invitedUser && invitedUser.status !== 'active' && (
         <>
           <input
-            onFocus={() => setErrors({ ...errors, password2: null, passwords: null })}
+            onFocus={() => setErrors({ ...errors, password2: null })}
             value={password2}
             type="password"
             placeholder={i18n.t('login.repeatPassword')}
