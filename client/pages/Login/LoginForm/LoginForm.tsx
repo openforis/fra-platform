@@ -11,7 +11,7 @@ type Props = {
   invitationUuid?: string
 }
 
-const LoginForm: React.FC<Props> = (props) => {
+const LoginForm: React.FC<Props> = (props: Props) => {
   const { invitationUuid } = props
 
   const dispatch = useAppDispatch()
