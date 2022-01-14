@@ -1,10 +1,10 @@
 import React from 'react'
 import Navigation from '@client/components/Navigation'
 import { Switch } from 'react-router-dom'
+import { useNavigationVisible } from '@client/store/ui'
 
 const Assessment: React.FC = () => {
-  // todo
-  const navigationVisible = true
+  const navigationVisible = useNavigationVisible()
 
   return (
     <div className={`app-view ${navigationVisible ? ' navigation-on' : ''}`}>
