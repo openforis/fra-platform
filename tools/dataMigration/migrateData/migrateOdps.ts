@@ -6,8 +6,6 @@ import { DBNames } from '../_DBNames'
 
 export const migrateOdps = async (props: { assessment: Assessment }, client: ITask<any>): Promise<void> => {
   const { assessment } = props
-  // const schema = DBNames.getAssessmentSchema(assessment.props.name)
-  // create data views
   const pgp = pgPromise()
 
   const queries = assessment.cycles.map((cycle) => {
