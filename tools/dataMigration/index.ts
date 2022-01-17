@@ -19,6 +19,7 @@ import { migrateUsersRole } from './migrateUsersRole'
 import { migrateUsersInvitation } from './migrateUsersInvitation'
 import { migrateUsersResetPassword } from './migrateUsersResetPassword'
 import { migrateBasicTablesData } from './migrateData/migrateBasicTablesData'
+import { migrateOdps } from './migrateData/migrateOdps'
 
 config({ path: path.resolve(__dirname, '..', '..', '.env') })
 
@@ -73,6 +74,7 @@ export const migrate = async (spec: Record<string, SectionSpec>, assessmentLegac
     await migrateUsersResetPassword({ client })
     // TODO: data migration
     await migrateBasicTablesData({ assessment }, client)
+    await migrateOdps({ assessment }, client)
 
     await client.query(
       `delete
