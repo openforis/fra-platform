@@ -7,13 +7,12 @@ export const readOdp = async (
   client: BaseProtocol = DB
 ): Promise<Array<Section>> => {
   const schemaName = Schemas.getNameCycle(props.assessment, props.assessmentCycle)
-  return client
-    .one<any>(
-      `
+  return client.one<any>(
+    `
           select * from ${schemaName}.original_data_point where id = $1
           ;
       `,
-      [props.odpId]
-    )
-    .then(Objects.camelize)
+    [props.odpId],
+    Objects.camelize
+  )
 }
