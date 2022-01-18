@@ -27,6 +27,7 @@ import { useTranslation } from 'react-i18next'
 import CountrySelect from '@client/components/CountrySelect'
 import { useIsLogin } from '@client/hooks'
 import Assessment from '@client/pages/Assessment'
+import OriginalDataPoint from '@client/pages/OriginalDataPoint'
 import { useTheme } from './useTheme'
 
 const PageRoutes: React.FC = () => {
@@ -71,6 +72,7 @@ const PageRoutes: React.FC = () => {
           />
 
           <Route path={BasePaths.Assessment.root()} component={Assessment} />
+          <Route path={BasePaths.OriginalDataPoint.root()} component={OriginalDataPoint} />
 
           {/* <Route */}
           {/*  path={BasePaths.admin} */}
