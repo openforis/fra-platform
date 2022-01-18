@@ -6,7 +6,7 @@ const initialState: NavigationState = {
 }
 
 export const navigationSlice = createSlice({
-  name: 'ui',
+  name: 'navigation',
   initialState,
   reducers: {
     updateNavigationVisible: (state, action) => {
