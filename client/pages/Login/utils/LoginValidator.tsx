@@ -1,8 +1,9 @@
 import { Objects } from '@core/utils'
 
+const emailRegex = /.+@.+\..+/
+
 const validateEmail = (email: string): string => {
   if (Objects.isEmpty(email)) return 'login.emptyEmail'
-  const emailRegex = /.+@.+\..+/
   if (!emailRegex.test(email)) return 'login.invalidEmail'
   return null
 }
@@ -13,8 +14,20 @@ const validatePassword = (password: string): string => {
   return null
 }
 
+const validatePasswords = (password: string, password2: string): string => {
+  if (password !== password2) return 'login.noMatchPasswords'
+  return null
+}
+
 export const LoginValidator = {
-  localValidate: (email: string, password: string) => {
-    return { email: validateEmail(email), password: validatePassword(password) }
+  localValidate: (email: string, password: string, password2: string) => {
+    const errors = {
+      email: validateEmail(email),
+      password: validatePassword(password),
+      password2: password2 !== undefined ? validatePasswords(password, password2) : null,
+      isError: false,
+    }
+    errors.isError = !Object.values(errors).find((value) => !!value)
+    return errors
   },
 }

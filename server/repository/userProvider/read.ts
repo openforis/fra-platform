@@ -1,9 +1,9 @@
 import { BaseProtocol, DB } from '@server/db'
 import { Objects } from '@core/utils'
-import { User, UserAuthProvider } from '@meta/user'
+import { AuthProvider, User, UserAuthProvider } from '@meta/user'
 
 export const read = async (
-  props: { user: User; provider: string },
+  props: { user: User; provider: AuthProvider },
   client: BaseProtocol = DB
 ): Promise<UserAuthProvider<{ password: string }>> => {
   const { user, provider } = props
