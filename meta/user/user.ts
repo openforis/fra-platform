@@ -21,7 +21,7 @@ export interface User {
 
 export interface UserResetPassword {
   uuid: string
-  changedAt: string
+  changedAt?: string
   createdAt: string
   userId: number
 }
