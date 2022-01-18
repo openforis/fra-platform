@@ -11,7 +11,7 @@ export const migrateOdps = async (props: { assessment: Assessment }, client: ITa
   const queries = assessment.cycles.map((cycle) => {
     const cycleName = DBNames.getCycleSchema(assessment.props.name, cycle.name)
     return `
-insert into ${cycleName}.original_data_point (
+insert into ${cycleName}.original_data_point (id,
     country_iso,
     year,
     data_source_additional_comments,
@@ -21,7 +21,7 @@ insert into ${cycleName}.original_data_point (
     national_classes,
     id_legacy
 )
-select 
+select id,
        country_iso,
        year,
        data_source_additional_comments,
