@@ -1,9 +1,9 @@
 import { Objects } from '@core/utils'
 import { validEmail } from '@common/userUtils'
 import { Request } from 'express'
-import { UserController } from '@server/controller'
-import { UserProviderRepository, UserRepository } from '@server/repository'
-import * as bcrypt from 'bcrypt'
+import { AuthProvider } from '@meta/user/userAuth'
+import { UserController, UserProviderController } from '@server/controller'
+import { passwordCompare, passwordHash }  from './utils/passwordUtils'
 
 export const localStrategyVerifyCallback = async (req: Request, email: string, password: string, done: any) => {
   const sendErr = (message: string) => done(null, false, { message })
@@ -17,15 +17,21 @@ export const localStrategyVerifyCallback = async (req: Request, email: string, p
       const invitationUuid = String(req.query.invitationUuid)
       if (invitationUuid) {
         const { user: invitedUser } = await UserController.readByInvitation({ invitationUuid })
-        if (invitedUser?.status !== 'active') {
-          // TODO add password into userprovider
+        if (invitedUser && invitedUser.status !== 'active') {
+          const provider =  {
+            provider: AuthProvider.local,
+            props: {
+              password: await passwordHash(password)
+            }
+          }
+          await UserProviderController.create({ user: invitedUser, provider })
         }
       }
 
-      let user = await UserRepository.read({ user: { email } })
-      const userProvider = await UserProviderRepository.read({ user, provider: 'local' })
+      let user = await UserController.read({ user: { email } })
+      const userProvider = await UserProviderController.read({ user, provider: AuthProvider.local })
 
-      const passwordMatch = await bcrypt.compare(password, userProvider.props.password)
+      const passwordMatch = await passwordCompare(password, userProvider.props.password)
       if (passwordMatch) {
         if (invitationUuid) {
           const { user: invitedUser, userRole } = await UserController.readByInvitation({ invitationUuid })

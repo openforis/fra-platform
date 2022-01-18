@@ -21,7 +21,7 @@ module.exports = {
   noInvitation: 'Invitation not found',
   noMatchPasswords: "Passwords don't match",
   noEmptyPassword: 'Password cannot be empty',
-  noShortPassword: 'Password too short.',
+  noShortPassword: 'Password too short',
   noMatchingUser: "We couldn't find any user matching these credentials.\nMake sure you have a valid FRA account.",
   noMatchingEmail: "We couldn't find any user matching this email.\nMake sure you have a valid FRA account.",
   passwordError:
