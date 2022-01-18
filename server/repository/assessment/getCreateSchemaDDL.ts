@@ -118,5 +118,26 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
 
       create unique index node_uuid_uindex
           on ${assessmentCycleSchemaName}.node (uuid);
+          
+      create table ${assessmentCycleSchemaName}.original_data_point
+      (
+          id                              bigserial
+              constraint original_data_point_pk
+                  primary key,
+          country_iso                     varchar(3) not null
+              constraint original_data_point_country_country_iso_fk
+                  references country (country_iso)
+                  on update cascade on delete cascade,
+          year                            integer,
+          data_source_additional_comments varchar,
+          data_source_methods             jsonb,
+          data_source_references          text,
+          description                     text,
+          national_classes                jsonb,
+          id_legacy                       bigint
+      );
+
+      ALTER TABLE ${assessmentCycleSchemaName}.original_data_point
+          ADD CONSTRAINT unique_country_year UNIQUE (country_iso, year);
   `
 }
