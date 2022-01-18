@@ -7,11 +7,12 @@ import { Areas } from '@core/country'
 import { Breakpoints } from '@client/utils'
 
 import LinkHome from '@client/components/LinkHome'
-import { useNavigationVisible, useCountryIso } from '@client/hooks'
+import { useCountryIso } from '@client/hooks'
 import { useUser } from '@client/store/user'
 
 import { useTranslation } from 'react-i18next'
 import Icon from '@client/components/Icon'
+import { useNavigationVisible } from '@client/store/ui/navigation'
 import LinkLanding from './LinkLanding'
 import CountryList from './CountryList'
 import ToggleNavigationControl from './ToggleNavigationControl'

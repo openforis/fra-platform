@@ -1,5 +1,5 @@
 import { useAppSelector } from '@client/store'
-import { Assessment } from '@meta/assessment'
+import { Assessment, Section } from '@meta/assessment'
 import { CountryIso, RegionGroup } from '@meta/area'
 import { useTranslation } from 'react-i18next'
 import { Strings } from '@core/utils'
@@ -36,3 +36,5 @@ export const useCountries = (): Array<CountryIso> =>
 
 export const useRegionGroups = (): Record<string, RegionGroup> =>
   useAppSelector((state) => state.assessment?.regionGroups ?? {})
+
+export const useAssessmentSections = (): Array<Section> => useAppSelector((state) => state.assessment.sections)

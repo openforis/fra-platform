@@ -20,11 +20,21 @@ export const BasePaths = {
       countryIso: CountryIso | defaults.countryIso | string = defaults.countryIso,
       assessmentType: AssessmentName | defaults.assessmentType = defaults.assessmentType
     ) => _generate('assessment', countryIso, assessmentType),
+
     section: (
       countryIso: CountryIso | defaults.countryIso = defaults.countryIso,
       assessmentType: AssessmentName | defaults.assessmentType = defaults.assessmentType,
       section: string | defaults.section = defaults.section
     ) => _generate('assessment', countryIso, assessmentType, section),
+    dataDownload: (
+      countryIso: CountryIso | defaults.countryIso = defaults.countryIso,
+      assessmentType: AssessmentName | defaults.assessmentType = defaults.assessmentType
+    ) => _generate('assessment', countryIso, assessmentType, 'dataDownload'),
+    print: (
+      countryIso: CountryIso | defaults.countryIso = defaults.countryIso,
+      assessmentType: AssessmentName | defaults.assessmentType = defaults.assessmentType,
+      tables = false
+    ) => _generate(countryIso, assessmentType, 'print', tables && 'tables'),
   },
   Login: {
     root: () => '/login',
