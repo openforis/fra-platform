@@ -4,7 +4,7 @@ import { fetchOriginalDataPoint } from './actions/fetchOriginalDataPoint'
 
 const initialState: OriginalDataPointState = null
 
-export const userSlice = createSlice({
+export const originalDataPointSlice = createSlice({
   name: 'originalDataPoint',
   initialState,
   reducers: {},
@@ -17,4 +17,4 @@ export const OriginalDataPointActions = {
   fetchOriginalDataPoint,
 }
 
-export default userSlice.reducer as Reducer<OriginalDataPointState>
+export default originalDataPointSlice.reducer as Reducer<OriginalDataPointState>
