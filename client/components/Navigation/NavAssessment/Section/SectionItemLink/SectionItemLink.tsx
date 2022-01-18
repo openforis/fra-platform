@@ -9,7 +9,7 @@ import { BasePaths } from '@client/basePaths'
 import { useCountryIso, useIsDataExportView } from '@client/hooks'
 import { useTranslation } from 'react-i18next'
 import { useAppDispatch } from '@client/store'
-import { UiActions } from '@client/store/ui'
+import { NavigationActions } from '@client/store/ui/navigation'
 // import ReviewStatusMarker from '../ReviewStatusMarker'
 
 type Props = {
@@ -38,7 +38,7 @@ const SectionItemLink: React.FC<Props> = (props) => {
       activeClassName="selected"
       onClick={() => {
         if (!laptop) {
-          dispatch(UiActions.toggleNavigationVisible())
+          dispatch(NavigationActions.toggleNavigationVisible())
         }
       }}
     >
