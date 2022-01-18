@@ -134,8 +134,7 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
           data_source_references          text,
           description                     text,
           national_classes                jsonb,
-          id_legacy                       bigint,
-          props                           jsonb
+          id_legacy                       bigint
       );
 
       ALTER TABLE ${assessmentCycleSchemaName}.original_data_point

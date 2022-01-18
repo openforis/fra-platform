@@ -11,9 +11,7 @@ export const migrateOdps = async (props: { assessment: Assessment }, client: ITa
   const queries = assessment.cycles.map((cycle) => {
     const cycleName = DBNames.getCycleSchema(assessment.props.name, cycle.name)
     return `
-    with c as (select jsonb_build_object('cycles', jsonb_agg(uuid)) as props from public.assessment_cycle)
-
-insert into ${cycleName}.original_data_point (id,
+insert into ${cycleName}.original_data_point (
     country_iso,
     year,
     data_source_additional_comments,
@@ -21,10 +19,9 @@ insert into ${cycleName}.original_data_point (id,
     data_source_references,
     description,
     national_classes,
-    id_legacy,
-    props
+    id_legacy
 )
-select id,
+select 
        country_iso,
        year,
        data_source_additional_comments,
@@ -32,8 +29,8 @@ select id,
        data_source_references,
        description,
        national_classes,
-       id_legacy,
-       (select * from c) from _legacy.original_data_point;
+       id_legacy
+from _legacy.original_data_point;
 `
   })
   await client.query(pgp.helpers.concat(queries))
