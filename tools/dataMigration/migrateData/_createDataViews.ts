@@ -19,23 +19,35 @@ export const getCreateViewDDL = async (
   const colIndexes = getColIndexes(rowsData, cols)
   const schemaCycle = DBNames.getCycleSchema(assessment.props.name, assessment.cycles[0].name)
 
+  const categorySeparator = '@@@@@@@@@@'
+  const getColName = (colIdx: number): string => {
+    const col = cols.find((c) => c.props.index === colIdx)
+    if (!col) {
+      throw new Error(`Column not found. Table ${table.props.name}. Col idx ${colIdx}`)
+    }
+    // return `_${col?.props?.colName ?? ''}_${colIdx}`
+    return `_${col?.props?.colName ?? ''}`
+  }
+
   return `
       create view ${schemaCycle}.${table.props.name} as
-      select (regexp_split_to_array(t.cat, '_'))[1]::varchar(3) as country_iso,
-             (regexp_split_to_array(t.cat, '_'))[2]::uuid       as row_uuid,
-             ${colIndexes.map((colIdx) => `t.col_${colIdx}`).join(', ')}
+      select (regexp_split_to_array(t.cat, '${categorySeparator}'))[1]::varchar(3) as country_iso,
+             (regexp_split_to_array(t.cat, '${categorySeparator}'))[2]::varchar    as variable_name,
+             ${colIndexes.map((colIdx) => `t.${getColName(colIdx)}`).join(', ')}
       from crosstab(
               $$
           select
-              (n.country_iso || '_' || n.row_uuid)::varchar as cat,
+              (n.country_iso || '${categorySeparator}' || (r.props->>'variableName'))::varchar as cat,
               n.col_uuid,
               n.value as value
           from
               ${schemaCycle}.node n
+          left join ${schema}.row r
+              on r.uuid = n.row_uuid               
           where
               n.row_uuid in (${rowsData.map((r) => `'${r.uuid}'`).join(',')})
           order by 1,2
           $$
-         ) as t (cat varchar, ${colIndexes.map((colIdx) => `col_${colIdx} jsonb`).join(', ')})
+         ) as t (cat varchar, ${colIndexes.map((colIdx) => `${getColName(colIdx)} jsonb`).join(', ')})
   `
 }
