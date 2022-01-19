@@ -1,11 +1,12 @@
-import { ITask } from 'pg-promise'
 import * as pgPromise from 'pg-promise'
+import { ITask } from 'pg-promise'
 
 import { Objects } from '../../../core/utils/objects'
 import { Assessment, Table } from '../../../meta/assessment'
 import { DBNames } from '../_DBNames'
 import { _getNodeInserts, NodeRow } from './_getNodeInserts'
 import { getCreateViewDDL } from './_createDataViews'
+import { isBasicTable } from './_repos'
 
 export const migrateBasicTablesData = async (props: { assessment: Assessment }, client: ITask<any>): Promise<void> => {
   const { assessment } = props
@@ -22,9 +23,6 @@ export const migrateBasicTablesData = async (props: { assessment: Assessment }, 
   const countryISOs = await client.map<string>(`select * from ${schema}.country`, [], (o) => o.country_iso)
 
   // TODO: sustainable development tables have no name, only calculated rows
-  const isBasicTable = (table: Table): boolean =>
-    !['extentOfForest', 'forestCharacteristics', 'growingStock'].includes(table.props.name) && table.props.name !== ''
-
   // get node insert values
   const values = await Promise.all<Array<NodeRow>>(
     tables.filter(isBasicTable).map(async (table) => _getNodeInserts({ assessment, countryISOs, table }, client))

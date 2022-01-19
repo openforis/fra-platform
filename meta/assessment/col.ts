@@ -14,6 +14,7 @@ export enum ColType {
 }
 
 export interface ColProps {
+  colName?: string
   colSpan?: number
   colType: ColType
   index?: number | string
