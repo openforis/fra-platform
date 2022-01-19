@@ -2,21 +2,13 @@ import { ITask } from 'pg-promise'
 
 import { Assessment, Col, RowType, Table } from '../../../meta/assessment'
 
+import { getMapping } from '../dataTable/tableMappings'
 import * as sqlCreator from '../dataTable/dataTableSqlCreator'
 import { DBNames } from '../_DBNames'
 import { getColIndexes, getCols, getRows } from './_repos'
+import { DatumLegacy, NodeRow } from './_getNodeInserts'
 
-// eslint-disable-next-line camelcase
-export type NodeRow = { country_iso: string; row_uuid: string; col_uuid: string; value: { raw: string | null } }
-
-export interface DatumLegacy extends Record<string, string> {
-  // eslint-disable-next-line camelcase
-  country_iso: string
-  // eslint-disable-next-line camelcase
-  row_name: string
-}
-
-export const _getNodeInserts = async (
+export const _getNodeInsertsDegradedForest = async (
   props: {
     assessment: Assessment
     countryISOs: Array<string>
@@ -26,6 +18,9 @@ export const _getNodeInserts = async (
 ): Promise<Array<NodeRow>> => {
   const { assessment, countryISOs, table } = props
   const schema = DBNames.getAssessmentSchema(assessment.props.name)
+  // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const mapping = getMapping(table.props.name)
   const rows = await getRows(client, schema, table)
   const cols = await getCols(client, schema, table)
   const rowsData = rows.filter((row) => row.props.type === RowType.data)
@@ -44,7 +39,8 @@ export const _getNodeInserts = async (
           const col: Col = cols.find((c) => c.rowId === row.id && c.props.index === colIndex)
           const dataRow = data.find((d) => d.row_name === rowName)
           if (dataRow && col) {
-            const datum = dataRow[col.props.colName]
+            const columnMapping = mapping.columns[rowName === 'national_definition' ? 1 : colIndex]
+            const datum = dataRow[columnMapping.name]
             values.push({
               country_iso: countryIso,
               col_uuid: col.uuid,
@@ -56,6 +52,5 @@ export const _getNodeInserts = async (
       })
     })
   )
-
   return values
 }
