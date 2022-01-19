@@ -26,7 +26,7 @@ export const getCreateViewDDL = async (
       throw new Error(`Column not found. Table ${table.props.name}. Col idx ${colIdx}`)
     }
     // return `_${col?.props?.colName ?? ''}_${colIdx}`
-    return `_${col?.props?.colName ?? ''}`
+    return `_${col.props.colName ?? ''}`
   }
 
   return `
