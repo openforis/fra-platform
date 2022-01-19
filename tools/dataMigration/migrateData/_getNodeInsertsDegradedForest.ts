@@ -18,8 +18,6 @@ export const _getNodeInsertsDegradedForest = async (
 ): Promise<Array<NodeRow>> => {
   const { assessment, countryISOs, table } = props
   const schema = DBNames.getAssessmentSchema(assessment.props.name)
-  // @ts-ignore
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const mapping = getMapping(table.props.name)
   const rows = await getRows(client, schema, table)
   const cols = await getCols(client, schema, table)
