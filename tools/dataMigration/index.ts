@@ -18,7 +18,7 @@ import { migrateUsersAuthProvider } from './migrateUsersAuthProvider'
 import { migrateUsersRole } from './migrateUsersRole'
 import { migrateUsersInvitation } from './migrateUsersInvitation'
 import { migrateUsersResetPassword } from './migrateUsersResetPassword'
-import { migrateBasicTablesData } from './migrateData/migrateBasicTablesData'
+import { migrateTablesData } from './migrateData/migrateTablesData'
 import { migrateOdps } from './migrateData/migrateOdps'
 
 config({ path: path.resolve(__dirname, '..', '..', '.env') })
@@ -82,7 +82,7 @@ export const migrate = async (props: {
     await migrateUsersRole({ assessment, client })
     await migrateUsersInvitation({ client })
     await migrateUsersResetPassword({ client })
-    await migrateBasicTablesData({ assessment }, client)
+    await migrateTablesData({ assessment }, client)
     await migrateOdps({ assessment }, client)
 
     await client.query(
