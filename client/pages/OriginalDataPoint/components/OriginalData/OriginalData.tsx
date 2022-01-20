@@ -28,7 +28,7 @@ const OriginalData: React.FC<Props> = (props) => {
 
   const i18n = useTranslation()
   const countryIso = useCountryIso()
-  const useOriginalDataPointsInFoc = {} // TODO:  useSelector(CountryState.getConfigUseOriginalDataPointsInFoc)
+  // const useOriginalDataPointsInFoc = {} // TODO:  useSelector(CountryState.getConfigUseOriginalDataPointsInFoc)
 
   return (
     <div>
