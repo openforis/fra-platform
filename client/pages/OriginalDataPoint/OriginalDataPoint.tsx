@@ -6,7 +6,7 @@ import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/da
 import { useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import NationalClasses from './components/NationalClasses'
-// import OriginalData from '@webapp/components/OriginalDataPoint/OriginalData'
+import OriginalData from './components/OriginalData'
 import Comments from './components/Comments'
 import DataSources from './components/DataSources'
 import ButtonBar from './components/ButtonBar'
@@ -44,7 +44,7 @@ const OriginalDataPoint = () => {
       <YearSelection canEditData={canEditData} />
       <DataSources canEditData={canEditData} />
       <NationalClasses canEditData={canEditData} />
-      {/* <OriginalData canEditData={canEditData} /> */}
+      <OriginalData canEditData={canEditData} />
       <Comments canEditData={canEditData} />
 
       <div className="odp__bottom-buttons">{/* <ButtonBar canEditData={canEditData} odp={odp} /> */}</div>

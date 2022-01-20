@@ -7,6 +7,7 @@ enum defaults {
   cycleName = ':cycleName',
   id = ':id',
   section = ':section',
+  odpId = ':odpId',
 }
 
 const _generate = (...parts: any[]) => `/${parts.filter(Boolean).join('/')}`
@@ -46,9 +47,25 @@ export const BasePaths = {
     root: (
       countryIso: CountryIso | defaults.countryIso = defaults.countryIso,
       assessmentName: AssessmentName | defaults.assessmentName = defaults.assessmentName,
-      cycleName = defaults.cycleName,
+      cycleName: string = defaults.cycleName,
       odpId = ':odpId'
     ) => _generate(countryIso, assessmentName, cycleName, 'originalDataPoint', odpId),
+    section: (
+      countryIso: CountryIso | defaults.countryIso = defaults.countryIso,
+      assessmentName: AssessmentName | defaults.assessmentName = defaults.assessmentName,
+      cycleName: string = defaults.cycleName,
+      odpId = ':odpId',
+      section: string
+    ) => _generate(countryIso, assessmentName, cycleName, 'originalDataPoint', odpId, section),
+    tab: (section: string | defaults.section = defaults.section) =>
+      _generate(
+        defaults.countryIso,
+        defaults.assessmentName,
+        defaults.cycleName,
+        'originalDataPoint',
+        defaults.odpId,
+        section
+      ),
   },
   User: {
     root: (id: number | defaults.id = defaults.id) => `/user/${id}`,
