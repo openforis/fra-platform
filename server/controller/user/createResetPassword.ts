@@ -7,10 +7,12 @@ export const createResetPassword = async (
     user: User
   },
   client: BaseProtocol = DB
-): Promise<UserResetPassword> => {
+): Promise<UserResetPassword | null> => {
   const { user } = props
 
   return client.tx(async (t) => {
+    const userResetPassword = await UserResetPasswordRepository.getLastByUser({ user })
+    if (userResetPassword?.createdAt && Date.now() - Date.parse(userResetPassword.createdAt) < 300000) return null
     return UserResetPasswordRepository.create({ user }, t)
   })
 }
