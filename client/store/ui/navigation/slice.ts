@@ -2,7 +2,7 @@ import { createSlice, Reducer } from '@reduxjs/toolkit'
 import { NavigationState } from './stateType'
 
 const initialState: NavigationState = {
-  visible: false,
+  visible: true,
 }
 
 export const navigationSlice = createSlice({

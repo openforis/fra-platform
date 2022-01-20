@@ -60,27 +60,22 @@ const ExtentOfForest: React.FC<Props> = (props) => {
               </tr>
 
               {nationalClasses.map((nationalClass, index) => (
-                <ExtentOfForestRow
-                  key={nationalClass.name}
-                  canEditData={canEditData}
-                  index={index}
-                  odp={originalDataPoint}
-                />
+                <ExtentOfForestRow key={nationalClass.name} canEditData={canEditData} index={index} />
               ))}
 
               <tr>
                 <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.total')}</th>
                 <td className="fra-table__calculated-cell fra-table__divider">
-                  {Numbers.format(ODPs.calcTotalArea({ odp: originalDataPoint }))}
+                  {Numbers.format(ODPs.calcTotalArea({ originalDataPoint }))}
                 </td>
                 <td className="fra-table__calculated-cell">
-                  {Numbers.format(ODPs.calcTotalFieldArea({ odp: originalDataPoint, field: 'forestPercent' }))}
+                  {Numbers.format(ODPs.calcTotalFieldArea({ originalDataPoint, field: 'forestPercent' }))}
                 </td>
                 <td className="fra-table__calculated-cell">
-                  {Numbers.format(ODPs.calcTotalFieldArea({ odp: originalDataPoint, field: 'otherWoodedLandPercent' }))}
+                  {Numbers.format(ODPs.calcTotalFieldArea({ originalDataPoint, field: 'otherWoodedLandPercent' }))}
                 </td>
                 <td className="fra-table__calculated-cell">
-                  {Numbers.format(ODPs.calcTotalLandArea({ odp: originalDataPoint }))}
+                  {Numbers.format(ODPs.calcTotalLandArea({ originalDataPoint }))}
                 </td>
               </tr>
             </tbody>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Switch } from 'react-router'
 import { NavLink, useParams } from 'react-router-dom'
-import { useAssessmentSections } from '@client/store/assessment'
+// import { useAssessmentSections } from '@client/store/assessment'
 import { useTranslation } from 'react-i18next'
 import { useCountryIso } from '@client/hooks'
 import { BasePaths } from '@client/basePaths'
@@ -16,7 +16,7 @@ type Props = {
 
 const OriginalData: React.FC<Props> = (props) => {
   const { canEditData } = props
-  const sections = useAssessmentSections()
+  // const sections = useAssessmentSections()
   const { assessmentName, cycleName, odpId } =
     useParams<{ assessmentName: AssessmentName; cycleName: string; odpId: string }>()
 

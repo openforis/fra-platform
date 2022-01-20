@@ -52,7 +52,7 @@ const ForestCharacteristicsPlantation: React.FC<Props> = (props) => {
               <td className="fra-table__calculated-cell">
                 {Numbers.format(
                   ODPs.calcTotalSubSubFieldArea({
-                    odp,
+                    originalDataPoint,
                     field: 'forestPercent',
                     subField: 'plantationPercent',
                     subSubField: 'plantationIntroducedPercent',

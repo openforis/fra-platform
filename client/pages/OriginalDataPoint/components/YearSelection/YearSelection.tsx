@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { Objects } from '@core/utils'
 import { useOriginalDataPoint } from '@client/store/data/originalDataPoint'
 // import { useAppDispatch } from '@client/store'
 // import { ODPYears } from '@meta/assessment/originalDataPoint'
@@ -29,7 +28,7 @@ const YearSelection: React.FC<Props> = (props) => {
   //   fetchReservedYears()
   // }, [])
 
-  const reservedYears = [] // data?.years ?? []
+  const reservedYears: Array<string> = [] // data?.years ?? []
 
   return (
     <div className="odp__section">
@@ -39,14 +38,8 @@ const YearSelection: React.FC<Props> = (props) => {
           disabled={!canEditData}
           className="select validation-error-sensitive-field"
           value={originalDataPoint.year || ''}
-          onChange={(event) => {
-            // const { value } = event.target
-            // const odpUpdate = { ...originalDataPoint, year: Objects.isEmpty(value) ? null : value }
-            // TODO
-            // dispatch(OriginalDataPointActions.updateODP({ odp: odpUpdate }))
-          }}
         >
-          {years.map((year) => (
+          {[originalDataPoint.year, ...years].map((year) => (
             <option key={year} value={year} disabled={reservedYears.includes(year)} hidden={!year}>
               {year || i18n.t('nationalDataPoint.selectYear')}
             </option>

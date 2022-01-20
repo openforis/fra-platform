@@ -1,21 +1,21 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+// import { useDispatch } from 'react-redux'
 
 import PercentInput from '@client/components/PercentInput'
 // import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { useOriginalDataPoint } from '@client/store/data/originalDataPoint'
 import { ODPNationalClass } from '@meta/assessment/originalDataPoint'
-import { useTranslation } from 'react-i18next'
-import { useCountryIso } from '@client/hooks'
+// import { useTranslation } from 'react-i18next'
+// import { useCountryIso } from '@client/hooks'
 import { Numbers } from '@core/utils'
 import { useNationalClassNameComments, useNationalClassValidation } from '../../hooks'
 
-const columns = [
-  { name: 'area', type: 'decimal' },
-  { name: 'naturalForestPercent', type: 'decimal' },
-  { name: 'plantationPercent', type: 'decimal' },
-  { name: 'otherPlantedPercent', type: 'decimal' },
-]
+// const columns = [
+//   { name: 'area', type: 'decimal' },
+//   { name: 'naturalForestPercent', type: 'decimal' },
+//   { name: 'plantationPercent', type: 'decimal' },
+//   { name: 'otherPlantedPercent', type: 'decimal' },
+// ]
 
 const allowedClass = (nc: ODPNationalClass) => Number(nc.forestPercent) > 0
 
@@ -28,9 +28,9 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
   const { canEditData, index } = props
   const originalDataPoint = useOriginalDataPoint()
 
-  const dispatch = useDispatch()
-  const { i18n } = useTranslation()
-  const countryIso = useCountryIso()
+  // const dispatch = useDispatch()
+  // const { i18n } = useTranslation()
+  // const countryIso = useCountryIso()
 
   const { nationalClasses, odpId } = originalDataPoint
   const nationalClass = nationalClasses[index]
@@ -54,31 +54,37 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
         <PercentInput
           disabled={!canEditData}
           numberValue={naturalForestPercent}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            // // TODO
-            // dispatch(
-            //   OriginalDataPointActions.updateNationalClass({
-            //     odp: originalDataPoint,
-            //     index,
-            //     field: 'naturalForestPercent',
-            //     prevValue: naturalForestPercent,
-            //     value: event.target.value,
-            //   })
-            // )
+          onChange={() => {
+            console.log('todo')
           }}
-          onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
-            // //TODO
-            // dispatch(
-            //   OriginalDataPointActions.pasteNationalClass({
-            //     odp: originalDataPoint,
-            //     event,
-            //     colIndex: 1,
-            //     rowIndex: index,
-            //     columns,
-            //     allowedClass,
-            //   })
-            // )
+          onPaste={() => {
+            console.log('todo')
           }}
+          // onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          // // TODO
+          // dispatch(
+          //   OriginalDataPointActions.updateNationalClass({
+          //     odp: originalDataPoint,
+          //     index,
+          //     field: 'naturalForestPercent',
+          //     prevValue: naturalForestPercent,
+          //     value: event.target.value,
+          //   })
+          // )
+          // }}
+          // onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
+          // //TODO
+          // dispatch(
+          //   OriginalDataPointActions.pasteNationalClass({
+          //     odp: originalDataPoint,
+          //     event,
+          //     colIndex: 1,
+          //     rowIndex: index,
+          //     columns,
+          //     allowedClass,
+          //   })
+          // )
+          // }}
         />
       </td>
 
@@ -86,31 +92,37 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
         <PercentInput
           disabled={!canEditData}
           numberValue={plantationPercent}
-          onChange={(event: any) => {
-            // // TODO
-            // dispatch(
-            //   OriginalDataPointActions.updateNationalClass({
-            //     odp: originalDataPoint,
-            //     index,
-            //     field: 'plantationPercent',
-            //     prevValue: plantationPercent,
-            //     value: event.target.value,
-            //   })
-            // )
+          onChange={() => {
+            console.log('todo')
           }}
-          onPaste={(event: any) => {
-            // // TODO
-            // dispatch(
-            //   OriginalDataPointActions.pasteNationalClass({
-            //     odp: originalDataPoint,
-            //     event,
-            //     colIndex: 2,
-            //     rowIndex: index,
-            //     columns,
-            //     allowedClass,
-            //   })
-            // )
+          onPaste={() => {
+            console.log('todo')
           }}
+          // onChange={(event: any) => {
+          // // TODO
+          // dispatch(
+          //   OriginalDataPointActions.updateNationalClass({
+          //     odp: originalDataPoint,
+          //     index,
+          //     field: 'plantationPercent',
+          //     prevValue: plantationPercent,
+          //     value: event.target.value,
+          //   })
+          // )
+          // }}
+          // onPaste={(event: any) => {
+          // // TODO
+          // dispatch(
+          //   OriginalDataPointActions.pasteNationalClass({
+          //     odp: originalDataPoint,
+          //     event,
+          //     colIndex: 2,
+          //     rowIndex: index,
+          //     columns,
+          //     allowedClass,
+          //   })
+          // )
+          // }}
         />
       </td>
 
@@ -118,31 +130,37 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
         <PercentInput
           disabled={!canEditData}
           numberValue={otherPlantedPercent}
-          onChange={(event: any) => {
-            // // TODO
-            // dispatch(
-            //   OriginalDataPointActions.updateNationalClass({
-            //     odp: originalDataPoint,
-            //     index,
-            //     field: 'otherPlantedPercent',
-            //     prevValue: otherPlantedPercent,
-            //     value: event.target.value,
-            //   })
-            // )
+          onChange={() => {
+            console.log('todo')
           }}
-          onPaste={(event: any) => {
-            // // TODO
-            // dispatch(
-            //   OriginalDataPointActions.pasteNationalClass({
-            //     odp: originalDataPoint,
-            //     event,
-            //     colIndex: 3,
-            //     rowIndex: index,
-            //     columns,
-            //     allowedClass,
-            //   })
-            // )
+          onPaste={() => {
+            console.log('todo')
           }}
+          //    onChange={(event: any) => {
+          // // TODO
+          // dispatch(
+          //   OriginalDataPointActions.updateNationalClass({
+          //     odp: originalDataPoint,
+          //     index,
+          //     field: 'otherPlantedPercent',
+          //     prevValue: otherPlantedPercent,
+          //     value: event.target.value,
+          //   })
+          // )
+          //  }}
+          // onPaste={(event: any) => {
+          // // TODO
+          // dispatch(
+          //   OriginalDataPointActions.pasteNationalClass({
+          //     odp: originalDataPoint,
+          //     event,
+          //     colIndex: 3,
+          //     rowIndex: index,
+          //     columns,
+          //     allowedClass,
+          //   })
+          // )
+          //  }}
         />
       </td>
 

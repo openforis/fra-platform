@@ -53,4 +53,5 @@ const OriginalDataPoint = () => {
     </div>
   )
 }
+
 export default OriginalDataPoint

@@ -4,15 +4,20 @@ import { Objects } from '@core/utils'
 import { OriginalDataPoint } from '../originalDataPoint'
 import { ODPNationalClass } from '../odpNationalClass'
 
-export const calcTotalArea = (props: { odp: OriginalDataPoint }): number => {
-  const { odp } = props
-  const areas = odp.nationalClasses.map((nationalClass) => nationalClass.area).filter((area) => !Objects.isNil(area))
+export const calcTotalArea = (props: { originalDataPoint: OriginalDataPoint }): number => {
+  const { originalDataPoint } = props
+  const areas = originalDataPoint.nationalClasses
+    .map((nationalClass) => nationalClass.area)
+    .filter((area) => !Objects.isNil(area))
   return Numbers.sum(areas)
 }
 
-export const calcTotalFieldArea = (props: { odp: OriginalDataPoint; field: keyof ODPNationalClass }): number => {
-  const { odp, field } = props
-  const nationalClasses = odp.nationalClasses.filter(
+export const calcTotalFieldArea = (props: {
+  originalDataPoint: OriginalDataPoint
+  field: keyof ODPNationalClass
+}): number => {
+  const { originalDataPoint, field } = props
+  const nationalClasses = originalDataPoint.nationalClasses.filter(
     (nationalClass) => !Objects.isNil(nationalClass.area) && !Objects.isNil(nationalClass[field])
   )
   const values = nationalClasses.map((nationalClass) =>
@@ -22,12 +27,12 @@ export const calcTotalFieldArea = (props: { odp: OriginalDataPoint; field: keyof
 }
 
 export const calcTotalSubFieldArea = (props: {
-  odp: OriginalDataPoint
+  originalDataPoint: OriginalDataPoint
   field: keyof ODPNationalClass
   subField: keyof ODPNationalClass
 }): number => {
-  const { odp, field, subField } = props
-  const nationalClasses = odp.nationalClasses.filter(
+  const { originalDataPoint, field, subField } = props
+  const nationalClasses = originalDataPoint.nationalClasses.filter(
     (nationalClass) =>
       !Objects.isNil(nationalClass.area) &&
       !Objects.isNil(nationalClass[field]) &&
@@ -42,13 +47,13 @@ export const calcTotalSubFieldArea = (props: {
 }
 
 export const calcTotalSubSubFieldArea = (props: {
-  odp: OriginalDataPoint
+  originalDataPoint: OriginalDataPoint
   field: keyof ODPNationalClass
   subField: keyof ODPNationalClass
   subSubField: keyof ODPNationalClass
 }): number => {
-  const { odp, field, subField, subSubField } = props
-  const nationalClasses = odp.nationalClasses.filter(
+  const { originalDataPoint, field, subField, subSubField } = props
+  const nationalClasses = originalDataPoint.nationalClasses.filter(
     (nationalClass) =>
       !Objects.isNil(nationalClass.area) &&
       !Objects.isNil(nationalClass[field]) &&
@@ -64,10 +69,10 @@ export const calcTotalSubSubFieldArea = (props: {
   return Numbers.sum(values)
 }
 
-export const calcTotalLandArea = (props: { odp: OriginalDataPoint }): number => {
-  const { odp } = props
-  const totalArea = calcTotalArea({ odp })
-  const forestArea = calcTotalFieldArea({ odp, field: 'forestPercent' })
-  const otherWoodedArea = calcTotalFieldArea({ odp, field: 'otherWoodedLandPercent' })
+export const calcTotalLandArea = (props: { originalDataPoint: OriginalDataPoint }): number => {
+  const { originalDataPoint } = props
+  const totalArea = calcTotalArea({ originalDataPoint })
+  const forestArea = calcTotalFieldArea({ originalDataPoint, field: 'forestPercent' })
+  const otherWoodedArea = calcTotalFieldArea({ originalDataPoint, field: 'otherWoodedLandPercent' })
   return Numbers.sub(totalArea, Numbers.add(forestArea, otherWoodedArea))?.toNumber()
 }

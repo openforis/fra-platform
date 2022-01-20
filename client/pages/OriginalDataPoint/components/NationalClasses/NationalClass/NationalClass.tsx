@@ -5,15 +5,15 @@ import Icon from '@client/components/Icon'
 import VerticallyGrowingTextField from '@client/components/VerticallyGrowingTextField'
 // import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { useTranslation } from 'react-i18next'
-import { useCountryIso } from '@client/hooks'
-import { useAppDispatch } from '@client/store'
+// import { useCountryIso } from '@client/hooks'
+// import { useAppDispatch } from '@client/store'
 import { useOriginalDataPoint } from '@client/store/data/originalDataPoint'
 import { useNationalClassNameComments, useNationalClassValidation } from '../../../hooks'
 
-const columns = [
-  { name: 'className', type: 'text' },
-  { name: 'definition', type: 'text' },
-]
+// const columns = [
+//   { name: 'className', type: 'text' },
+//   { name: 'definition', type: 'text' },
+// ]
 
 type Props = {
   canEditData: boolean
@@ -24,9 +24,9 @@ const NationalClass: React.FC<Props> = (props) => {
   const { index, canEditData } = props
   const originalDataPoint = useOriginalDataPoint()
 
-  const dispatch = useAppDispatch()
+  // const dispatch = useAppDispatch()
   const i18n = useTranslation()
-  const countryIso = useCountryIso()
+  // const countryIso = useCountryIso()
   const [printView] = [false] // usePrintView()
 
   const nationalClass = originalDataPoint.nationalClasses[index]
@@ -51,25 +51,31 @@ const NationalClass: React.FC<Props> = (props) => {
                 placeHolder && index === 0 ? i18n.t('nationalDataPoint.enterOrCopyPasteNationalClasses') : ''
               }
               value={name || ''}
-              onChange={(event) => {
-                const { value } = event.target
-                // TODO:
-                // const odpUpdate = ODPs.updateNationalClass({ odp: originalDataPoint, index, field: 'name', value })
-                // dispatch(OriginalDataPointActions.updateODP({ odp: odpUpdate }))
+              onChange={() => {
+                console.log('todo')
               }}
-              onPaste={(event) => {
-                // TODO:
-                // dispatch(
-                // OriginalDataPointActions.pasteNationalClass({
-                //   odp: originalDataPoint,
-                //   event,
-                //   colIndex: 0,
-                //   rowIndex: index,
-                //   columns,
-                //   allowGrow: true,
-                // })
-                // )
+              onPaste={() => {
+                console.log('todo')
               }}
+              // onChange={(event) => {
+              //               const { value } = event.target
+              // TODO:
+              // const odpUpdate = ODPs.updateNationalClass({ odp: originalDataPoint, index, field: 'name', value })
+              // dispatch(OriginalDataPointActions.updateODP({ odp: odpUpdate }))
+              // }}
+              // onPaste={(event) => {
+              // TODO:
+              // dispatch(
+              // OriginalDataPointActions.pasteNationalClass({
+              //   odp: originalDataPoint,
+              //   event,
+              //   colIndex: 0,
+              //   rowIndex: index,
+              //   columns,
+              //   allowGrow: true,
+              // })
+              // )
+              //              }}
               disabled={!canEditData}
             />
           )}
@@ -94,25 +100,31 @@ const NationalClass: React.FC<Props> = (props) => {
       <td className="fra-table__cell-left odp__nc-table__def">
         <VerticallyGrowingTextField
           value={definition || ''}
-          onChange={(event) => {
-            const { value } = event.target
-            // TODO:
-            // const odpUpdate = ODPs.updateNationalClass({ odp: originalDataPoint, index, field: 'definition', value })
-            // dispatch(OriginalDataPointActions.updateODP({ odp: odpUpdate }))
+          onChange={() => {
+            console.log('todo')
           }}
-          onPaste={(event) => {
-            // TODO:
-            // dispatch(
-            //   OriginalDataPointActions.pasteNationalClass({
-            //     odp: originalDataPoint,
-            //     event,
-            //     colIndex: 1,
-            //     rowIndex: index,
-            //     columns,
-            //     allowGrow: true,
-            //   })
-            // )
+          onPaste={() => {
+            console.log('todo')
           }}
+          // onChange={(event) => {
+          //  const { value } = event.target
+          // TODO:
+          // const odpUpdate = ODPs.updateNationalClass({ odp: originalDataPoint, index, field: 'definition', value })
+          // dispatch(OriginalDataPointActions.updateODP({ odp: odpUpdate }))
+          // }}
+          // onPaste={(event) => {
+          // TODO:
+          // dispatch(
+          //   OriginalDataPointActions.pasteNationalClass({
+          //     odp: originalDataPoint,
+          //     event,
+          //     colIndex: 1,
+          //     rowIndex: index,
+          //     columns,
+          //     allowGrow: true,
+          //   })
+          // )
+          // }}
           disabled={printView || !canEditData}
         />
       </td>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useOriginalDataPoint } from '@client/store/data/originalDataPoint'
-import { useAppDispatch } from '@client/store'
+// import { useAppDispatch } from '@client/store'
 import { useTranslation } from 'react-i18next'
 import NationalClass from './NationalClass'
 
@@ -11,12 +11,13 @@ type Props = {
 const NationalClasses: React.FC<Props> = (props) => {
   const { canEditData } = props
   const originalDataPoint = useOriginalDataPoint()
-  const { nationalClasses, id, year } = originalDataPoint
+  const { nationalClasses } = originalDataPoint
+  // const { nationalClasses, id, year } = originalDataPoint
 
-  const dispatch = useAppDispatch()
+  // const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
   const [printView] = [false] // TODO: usePrintView()
-  const saving = false // TODO: useIsAutoSaveSaving()
+  // const saving = false // TODO: useIsAutoSaveSaving()
   const copyDisabled = true // TODO: !id || !year || !ODPs.canCopyPreviousValues(originalDataPoint) || saving
 
   return (
@@ -54,7 +55,7 @@ const NationalClasses: React.FC<Props> = (props) => {
                 <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.definition')}</th>
               </tr>
               {nationalClasses.map((nationalClass, idx) => (
-                <NationalClass key={nationalClass.uuid} index={idx} odp={originalDataPoint} canEditData={canEditData} />
+                <NationalClass key={nationalClass.uuid} index={idx} canEditData={canEditData} />
               ))}
             </tbody>
           </table>

@@ -2,8 +2,8 @@ import React from 'react'
 
 // import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { useOriginalDataPoint } from '@client/store/data/originalDataPoint'
-import { useCountryIso } from '@client/hooks'
-import { useTranslation } from 'react-i18next'
+// import { useCountryIso } from '@client/hooks'
+// import { useTranslation } from 'react-i18next'
 import { useNationalClassNameComments } from '../../hooks'
 import CommentsEditor from './CommentsEditor'
 
@@ -15,8 +15,8 @@ const Comments: React.FC<Props> = (props) => {
   const { canEditData } = props
   const originalDataPoint = useOriginalDataPoint()
 
-  const { i18n } = useTranslation()
-  const countryIso = useCountryIso()
+  // const { i18n } = useTranslation()
+  // const countryIso = useCountryIso()
   const target = [`${originalDataPoint.odpId}`, 'comments']
   const className = useNationalClassNameComments(target)
 
@@ -24,7 +24,7 @@ const Comments: React.FC<Props> = (props) => {
     <div className="odp__section">
       <div className="fra-description">
         <div className={`fra-description__wrapper ${className}`}>
-          <CommentsEditor canEditData={canEditData} odp={originalDataPoint} />
+          <CommentsEditor canEditData={canEditData} />
         </div>
 
         <div className="fra-description__review-indicator-wrapper">

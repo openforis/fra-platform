@@ -5,7 +5,7 @@ import { AssessmentName } from '@meta/assessment'
 import { useCountryIso } from '@client/hooks'
 import { useTranslation } from 'react-i18next'
 import { BasePaths } from '@client/basePaths'
-import { useOriginalDataPoint } from '@client/store/data/originalDataPoint'
+// import { useOriginalDataPoint } from '@client/store/data/originalDataPoint'
 
 type Props = {
   canEditData: boolean
@@ -13,7 +13,7 @@ type Props = {
 
 const ButtonBar: React.FC<Props> = (props) => {
   const { canEditData } = props
-  const originalDataPoint = useOriginalDataPoint()
+  // const originalDataPoint = useOriginalDataPoint()
 
   // const dispatch = useAppDispatch()
   const history = useHistory()
