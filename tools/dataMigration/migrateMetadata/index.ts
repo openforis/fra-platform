@@ -1,14 +1,16 @@
-import { Assessment as AssessmentLegacy } from '../../core/assessment'
-import { Assessment, Col, Row, SubSection, Table, TableSection } from '../../meta/assessment'
-import { Objects } from '../../core/utils/objects'
-import { SectionSpec } from '../../webapp/sectionSpec'
-import { BaseProtocol } from '../../server/db'
-
-import { getTable } from './getTable'
-import { getTableSection } from './getTableSection'
-import { getSection, getSubSection } from './getSection'
-import { getRow } from './getRow'
-import { getCol } from './getCol'
+import { Assessment, Col, ColType, Row, SubSection, Table, TableSection } from '../../../meta/assessment'
+import { Assessment as AssessmentLegacy } from '../../../core/assessment'
+import { SectionSpec } from '../../../webapp/sectionSpec'
+import { BaseProtocol } from '../../../server/db'
+import { getSection, getSubSection } from '../getSection'
+import { Objects } from '../../../core/utils'
+import { getTableSection } from '../getTableSection'
+import { getTable } from '../getTable'
+import { isBasicTable } from '../migrateData/_repos'
+import { getMapping } from '../dataTable/tableMappings'
+import { getRow } from '../getRow'
+import { getCol } from '../getCol'
+import { migrateDegradedForest } from './migrateDegradedForest'
 
 type Props = {
   assessment: Assessment
@@ -47,8 +49,8 @@ export const migrateMetadata = async (props: Props): Promise<void> => {
 
           subSection = await client.one<SubSection>(
             `insert into assessment_fra.section (parent_id, props)
-                    values ($1, $2::jsonb)
-                    returning *`,
+             values ($1, $2::jsonb)
+             returning *`,
             [section.id, JSON.stringify(subSection.props)],
             Objects.camelize
           )
@@ -58,8 +60,8 @@ export const migrateMetadata = async (props: Props): Promise<void> => {
               let tableSection = getTableSection({ cycles, tableSectionSpec, section: subSection })
               tableSection = await client.one<TableSection>(
                 `insert into assessment_fra.table_section (section_id, props)
-             values ($1, $2::jsonb)
-             returning *;`,
+                 values ($1, $2::jsonb)
+                 returning *;`,
                 [tableSection.sectionId, JSON.stringify(tableSection.props)],
                 Objects.camelize
               )
@@ -70,32 +72,57 @@ export const migrateMetadata = async (props: Props): Promise<void> => {
                   let table = getTable({ cycles, tableSpec, tableSection })
                   table = await client.one<Table>(
                     `insert into ${schema}."table" (table_section_id, props)
-                 values ($1, $2::jsonb)
-                 returning *;`,
+                     values ($1, $2::jsonb)
+                     returning *;`,
                     [table.tableSectionId, JSON.stringify(table.props)],
                     Objects.camelize
                   )
                   tables.push(table)
 
+                  const mapping = isBasicTable(table) ? getMapping(table.props.name) : null
+
+                  let rowIdx = 0
                   await Promise.all(
                     tableSpec.rows.map(async (rowSpec) => {
                       let row = getRow({ cycles, rowSpec, table })
+                      if (mapping && rowSpec.type === 'data') {
+                        row.props.variableName = mapping.rows.names[rowIdx]
+                        rowIdx += 1
+                      }
+
                       row = await client.one<Row>(
                         `insert into ${schema}.row (table_id, props)
-                     values ($1, $2::jsonb)
-                     returning *;`,
+                         values ($1, $2::jsonb)
+                         returning *;`,
                         [row.tableId, JSON.stringify(row.props)],
                         Objects.camelize
                       )
                       rows.push(row)
 
+                      let colIdx = 0
                       await Promise.all(
                         rowSpec.cols.map(async (colSpec) => {
                           let col = getCol({ cycles, colSpec, row })
+                          if (
+                            mapping &&
+                            rowSpec.type === 'data' &&
+                            [
+                              ColType.decimal,
+                              ColType.integer,
+                              ColType.selectYesNo,
+                              ColType.select,
+                              ColType.text,
+                              ColType.textarea,
+                            ].includes(col.props.colType)
+                          ) {
+                            const columnMapping = mapping.columns[colIdx]
+                            col.props.colName = columnMapping.name
+                            colIdx += 1
+                          }
                           col = await client.one<Col>(
                             `insert into ${schema}.col (row_id, props)
-                         values ($1, $2::jsonb)
-                         returning *;`,
+                             values ($1, $2::jsonb)
+                             returning *;`,
                             [col.rowId, JSON.stringify(col.props)],
                             Objects.camelize
                           )
@@ -112,4 +139,6 @@ export const migrateMetadata = async (props: Props): Promise<void> => {
       )
     })
   )
+
+  await migrateDegradedForest({ assessment }, client)
 }

@@ -18,14 +18,17 @@ import { migrateUsersAuthProvider } from './migrateUsersAuthProvider'
 import { migrateUsersRole } from './migrateUsersRole'
 import { migrateUsersInvitation } from './migrateUsersInvitation'
 import { migrateUsersResetPassword } from './migrateUsersResetPassword'
-import { migrateBasicTablesData } from './migrateData/migrateBasicTablesData'
+import { migrateTablesData } from './migrateData/migrateTablesData'
 import { migrateOdps } from './migrateData/migrateOdps'
 
 config({ path: path.resolve(__dirname, '..', '..', '.env') })
 
 const createCycle = async (assessment: Assessment, cycleName: string, client: BaseProtocol): Promise<Cycle> => {
   await DB.query(
-    getCreateSchemaCycleDDL(`assessment_${assessment.props.name}`, `assessment_${assessment.props.name}_${cycleName}`)
+    getCreateSchemaCycleDDL(
+      DBNames.getAssessmentSchema(assessment.props.name),
+      DBNames.getCycleSchema(assessment.props.name, cycleName)
+    )
   )
   return client.one<Cycle>(
     `insert into assessment_cycle (assessment_id, name)
@@ -35,16 +38,27 @@ const createCycle = async (assessment: Assessment, cycleName: string, client: Ba
   )
 }
 
-export const migrate = async (spec: Record<string, SectionSpec>, assessmentLegacy: AssessmentLegacy): Promise<void> => {
-  // delete old fra
-  await DB.query(`drop schema if exists assessment_fra cascade;`)
-  await DB.query(`drop schema if exists assessment_fra_2020 cascade;`)
-  await DB.query(`drop schema if exists assessment_fra_2025 cascade;`)
+export const migrate = async (props: {
+  assessmentName: string
+  assessmentLegacy: AssessmentLegacy
+  cycleNames: Array<string>
+  spec: Record<string, SectionSpec>
+}): Promise<void> => {
+  const { assessmentName, assessmentLegacy, cycleNames, spec } = props
+
+  // delete old assessment
+  await DB.query(`drop schema if exists ${DBNames.getAssessmentSchema(assessmentName)} cascade;`)
+  await Promise.all(
+    cycleNames.map((cycleName) =>
+      DB.query(`drop schema if exists ${DBNames.getCycleSchema(assessmentName, cycleName)} cascade;`)
+    )
+  )
+
   await DB.query(
     `delete
      from assessment
      where props ->> 'name' = $1`,
-    ['fra']
+    [assessmentName]
   )
 
   // insert assessment
@@ -52,18 +66,14 @@ export const migrate = async (spec: Record<string, SectionSpec>, assessmentLegac
     `insert into assessment (props)
      values ($1::jsonb)
      returning *;`,
-    [JSON.stringify({ name: 'fra' })]
+    [JSON.stringify({ name: assessmentName })]
   )
 
-  // create schema
-  const schema = DBNames.getAssessmentSchema(assessment.props.name)
-  await DB.query(getCreateSchemaDDL(schema))
-
   await DB.tx(async (client) => {
-    const cycle2020 = await createCycle(assessment, '2020', client)
-    const cycle2025 = await createCycle(assessment, '2025', client)
-    assessment.cycles = [cycle2020, cycle2025]
-    // const schemaCycle2020 = `${schema}_${cycle2020.name}`
+    // create schema
+    const schema = DBNames.getAssessmentSchema(assessment.props.name)
+    await DB.query(getCreateSchemaDDL(schema))
+    assessment.cycles = await Promise.all(cycleNames.map((cycleName) => createCycle(assessment, cycleName, client)))
 
     await migrateMetadata({ assessment, assessmentLegacy, schema, spec, client })
     await migrateAreas({ client, schema })
@@ -72,8 +82,7 @@ export const migrate = async (spec: Record<string, SectionSpec>, assessmentLegac
     await migrateUsersRole({ assessment, client })
     await migrateUsersInvitation({ client })
     await migrateUsersResetPassword({ client })
-    // TODO: data migration
-    await migrateBasicTablesData({ assessment }, client)
+    await migrateTablesData({ assessment }, client)
     await migrateOdps({ assessment }, client)
 
     await client.query(
@@ -86,7 +95,10 @@ export const migrate = async (spec: Record<string, SectionSpec>, assessmentLegac
   })
 }
 
-migrate(FraSpecs, FRA)
+const assessmentName = 'fra'
+const cycleNames = ['2020', '2025']
+
+migrate({ assessmentName, cycleNames, spec: FraSpecs, assessmentLegacy: FRA })
   .then(() => {
     process.exit(0)
   })
