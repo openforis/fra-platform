@@ -1,10 +1,11 @@
-import { User } from '@meta/user'
-import { userMockTest } from '@test/integration/mock/user'
+import { AuthProvider, User } from '@meta/user'
+import { userMockTest, userMockTestPassword } from '@test/integration/mock/user'
 
-import { UserController } from '@server/controller'
+import { UserController, UserProviderController } from '@server/controller'
 
 export default (): void =>
   describe('User Reset Password', () => {
+    const userMockTestNewPassword = '$2a$10$wQYGIsPB5ad9PS87/kghmehFubRlj3oC94PfReoliNYvQ.9/1J.Le'
     let user: User
     let resetPasswordUuid: string
 
@@ -21,14 +22,21 @@ export default (): void =>
       expect(changePasswordRequest.userId).toBe(user.id)
     })
 
-    it('Change Password', async () => {
+    it('Change password', async () => {
       const userResetPassword = await UserController.changePassword({
         user,
-        password: '$2a$10$wQYGIsPB5ad9PS87/kghmehFubRlj3oC94PfReoliNYvQ.9/1J.Le',
+        password: userMockTestNewPassword,
         resetPasswordUuid,
       })
 
       expect(userResetPassword).not.toBeNull()
       expect(userResetPassword.changedAt).not.toBeNull()
+    })
+
+    it('Verify changed password', async () => {
+      const userProvider = await UserProviderController.read({ user, provider: AuthProvider.local })
+
+      expect(userProvider.props.password).not.toEqual(userMockTestPassword)
+      expect(userProvider.props.password).toEqual(userMockTestNewPassword)
     })
   })
