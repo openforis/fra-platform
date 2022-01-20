@@ -47,7 +47,9 @@ const OriginalDataPoint = () => {
       <OriginalData canEditData={canEditData} />
       <Comments canEditData={canEditData} />
 
-      <div className="odp__bottom-buttons">{/* <ButtonBar canEditData={canEditData} odp={odp} /> */}</div>
+      <div className="odp__bottom-buttons">
+        <ButtonBar canEditData={canEditData} />{' '}
+      </div>
     </div>
   )
 }

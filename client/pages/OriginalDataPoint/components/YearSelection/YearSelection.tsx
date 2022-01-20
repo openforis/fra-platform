@@ -40,8 +40,8 @@ const YearSelection: React.FC<Props> = (props) => {
           className="select validation-error-sensitive-field"
           value={originalDataPoint.year || ''}
           onChange={(event) => {
-            const { value } = event.target
-            const odpUpdate = { ...originalDataPoint, year: Objects.isEmpty(value) ? null : value }
+            // const { value } = event.target
+            // const odpUpdate = { ...originalDataPoint, year: Objects.isEmpty(value) ? null : value }
             // TODO
             // dispatch(OriginalDataPointActions.updateODP({ odp: odpUpdate }))
           }}

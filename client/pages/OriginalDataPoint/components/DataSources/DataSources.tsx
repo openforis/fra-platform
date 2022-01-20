@@ -18,7 +18,7 @@ const DataSources: React.FC<Props> = (props) => {
 
   const i18n = useTranslation()
   const countryIso = useCountryIso()
-  const [printView] = [true] // TODO: usePrintView()
+  const [printView] = [false] // TODO: usePrintView()
   const displayReviewIndicator = originalDataPoint.odpId && !printView && canEditData
 
   return (
