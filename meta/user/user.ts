@@ -24,4 +24,5 @@ export interface UserResetPassword {
   changedAt?: string
   createdAt: string
   userId: number
+  active: boolean
 }
