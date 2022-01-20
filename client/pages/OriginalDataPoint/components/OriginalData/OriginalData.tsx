@@ -43,7 +43,8 @@ const OriginalData: React.FC<Props> = (props) => {
           {`${extentOfForest.anchor} ${i18n.t('nationalDataPoint.forestCategoriesLabel')}`}
         </NavLink>
         <NavLink
-          className={`odp__tab-item${useOriginalDataPointsInFoc ? '' : ' disabled'}`}
+          // className={`odp__tab-item${useOriginalDataPointsInFoc ? '' : ' disabled'}`}
+          className="odp__tab-item"
           activeClassName="active"
           to={BasePaths.OriginalDataPoint.section(
             countryIso,

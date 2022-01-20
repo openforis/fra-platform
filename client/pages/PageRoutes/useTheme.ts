@@ -25,7 +25,7 @@ export const useTheme = () => {
   const assessment = useAssessment()
 
   useEffect(() => {
-    const theme = isAssessment && assessment ? themes[assessment?.props?.name] : defaultTheme
+    const theme = isAssessment && assessment ? themes[assessment.props?.name] : defaultTheme
     Object.entries(theme).forEach(([key, value]) => {
       document.documentElement.style.setProperty(key, value)
     })
