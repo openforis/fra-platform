@@ -2,7 +2,7 @@ import { BaseProtocol, DB } from '@server/db'
 import { User, UserResetPassword } from '@meta/user'
 import { UserResetPasswordRepository } from '@server/repository'
 
-export const sendResetPasswordRequest = async (
+export const createResetPassword = async (
   props: {
     user: User
   },

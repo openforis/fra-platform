@@ -11,5 +11,11 @@ export const create = async (
     user: { id: userId },
   } = props
 
-  return client.one(`insert into users_reset_password (user_id) values ($1) returning *;`, [userId], Objects.camelize)
+  await client.none(`update public.users_reset_password set active = false where user_id = $1;`, [userId])
+
+  return client.one(
+    `insert into public.users_reset_password (user_id) values ($1) returning *;`,
+    [userId],
+    Objects.camelize
+  )
 }

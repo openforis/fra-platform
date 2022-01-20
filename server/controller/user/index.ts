@@ -5,7 +5,7 @@ import { remove } from './remove'
 import { invite } from './invite'
 import { acceptInvitation } from './acceptInvitation'
 import { readByInvitation } from './readByInvitation'
-import { sendResetPasswordRequest } from './sendResetPasswordRequest'
+import { createResetPassword } from './createResetPassword'
 import { changePassword } from './changePassword'
 
 export const UserController = {
@@ -16,6 +16,6 @@ export const UserController = {
   invite,
   acceptInvitation,
   readByInvitation,
-  sendResetPasswordRequest,
+  createResetPassword,
   changePassword,
 }

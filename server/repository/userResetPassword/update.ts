@@ -13,7 +13,7 @@ export const update = async (
   return client.oneOrNone<UserResetPassword>(
     `
       update public.users_reset_password
-      set changed_at = now()
+      set changed_at = now(), active = false
       where uuid = $1
       returning *;
     `,
