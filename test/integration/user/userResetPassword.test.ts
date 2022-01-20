@@ -14,12 +14,12 @@ export default (): void =>
     })
 
     it('Send change password request', async () => {
-      const changePasswordRequest = await UserController.createResetPassword({ user })
-      resetPasswordUuid = changePasswordRequest.uuid
+      const resetPasswordRequest = await UserController.createResetPassword({ user })
+      resetPasswordUuid = resetPasswordRequest.uuid
 
-      expect(changePasswordRequest).toHaveProperty('uuid')
-      expect(changePasswordRequest.changedAt).toBeNull()
-      expect(changePasswordRequest.userId).toBe(user.id)
+      expect(resetPasswordRequest).toHaveProperty('uuid')
+      expect(resetPasswordRequest.changedAt).toBeNull()
+      expect(resetPasswordRequest.userId).toBe(user.id)
     })
 
     it('Change password', async () => {
