@@ -14,9 +14,9 @@ export const changePassword = async (
 
   return client.tx(async (t) => {
     const userResetPassword = await UserResetPasswordRepository.read({ uuid: resetPasswordUuid })
-    if (!userResetPassword || userResetPassword.uuid !== resetPasswordUuid) return null
+    if (!userResetPassword?.active) return null
     const userAuthProvider = await UserProviderRepository.update({ user, password })
-    if (!userAuthProvider || userAuthProvider.props.password !== password) return null
+    if (!userAuthProvider) return null
     return UserResetPasswordRepository.update({ uuid: userResetPassword.uuid }, t)
   })
 }

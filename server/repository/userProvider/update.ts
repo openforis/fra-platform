@@ -8,17 +8,20 @@ export const update = async (
     password: string
   },
   client: BaseProtocol = DB
-): Promise<UserAuthProvider<{ password: string }>> => {
-  const { user, password } = props
+): Promise<UserAuthProvider<{ password: string }> | null> => {
+  const {
+    user: { id: userId },
+    password,
+  } = props
 
-  return client.one<UserAuthProvider<{ password: string }>>(
+  return client.oneOrNone<UserAuthProvider<{ password: string }>>(
     `
       update public.users_auth_provider
       set props = props || '{"password": $1~}'
       where user_id = $2
       returning *
     `,
-    [password, user.id],
+    [password, userId],
     Objects.camelize
   )
 }

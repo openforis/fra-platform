@@ -5,7 +5,8 @@ import { UserController, UserProviderController } from '@server/controller'
 
 export default (): void =>
   describe('User Reset Password', () => {
-    const userMockTestNewPassword = '$2a$10$wQYGIsPB5ad9PS87/kghmehFubRlj3oC94PfReoliNYvQ.9/1J.Le'
+    // test1
+    const userMockTestNewPassword = '$2b$10$PsmikkFaWlVuMJ/CS189/e6r/H3.W0fTZG2mRhCNZEFosG8A/Ibmm'
     let user: User
     let resetPasswordUuid: string
 
@@ -21,7 +22,7 @@ export default (): void =>
       expect(resetPasswordRequest).toHaveProperty('uuid')
       expect(resetPasswordRequest.changedAt).toBeNull()
       expect(resetPasswordRequest.userId).toBe(user.id)
-      expect(otherResetPasswordRequest).toBeNull()
+      expect(resetPasswordRequest.uuid).toBe(otherResetPasswordRequest.uuid)
     })
 
     it('Change password', async () => {
@@ -33,12 +34,13 @@ export default (): void =>
 
       expect(userResetPassword).not.toBeNull()
       expect(userResetPassword.changedAt).not.toBeNull()
+      expect(userResetPassword.active).toBeFalsy()
     })
 
     it('Verify changed password', async () => {
-      const userProvider = await UserProviderController.read({ user, provider: AuthProvider.local })
+      const userAuthProvider = await UserProviderController.read({ user, provider: AuthProvider.local })
 
-      expect(userProvider.props.password).not.toEqual(userMockTestPassword)
-      expect(userProvider.props.password).toEqual(userMockTestNewPassword)
+      expect(userAuthProvider.props.password).not.toEqual(userMockTestPassword)
+      expect(userAuthProvider.props.password).toEqual(userMockTestNewPassword)
     })
   })

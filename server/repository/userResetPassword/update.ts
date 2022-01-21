@@ -5,19 +5,20 @@ import { UserResetPassword } from '@meta/user'
 export const update = async (
   props: {
     uuid: string
+    active?: boolean
   },
   client: BaseProtocol = DB
 ): Promise<UserResetPassword | null> => {
-  const { uuid } = props
+  const { uuid, active = false } = props
 
   return client.oneOrNone<UserResetPassword>(
     `
       update public.users_reset_password
-      set changed_at = now(), active = false
+      set changed_at = now(), active = $2
       where uuid = $1
       returning *;
     `,
-    [uuid],
+    [uuid, active],
     Objects.camelize
   )
 }

@@ -12,7 +12,8 @@ export const createResetPassword = async (
 
   return client.tx(async (t) => {
     const userResetPassword = await UserResetPasswordRepository.getLastByUser({ user })
-    if (userResetPassword?.createdAt && Date.now() - Date.parse(userResetPassword.createdAt) < 300000) return null
+    if (userResetPassword && userResetPassword.active && Date.now() - Date.parse(userResetPassword.createdAt) < 300000)
+      return userResetPassword
     return UserResetPasswordRepository.create({ user }, t)
   })
 }

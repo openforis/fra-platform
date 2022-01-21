@@ -4,7 +4,9 @@ import { User, UserResetPassword } from '@meta/user'
 import { Objects } from '@core/utils'
 
 export const create = async (
-  props: { user: Pick<User, 'id'> },
+  props: {
+    user: Pick<User, 'id'>
+  },
   client: BaseProtocol = DB
 ): Promise<UserResetPassword> => {
   const {

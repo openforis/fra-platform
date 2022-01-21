@@ -2,7 +2,12 @@ import { BaseProtocol, DB } from '@server/db'
 import { Objects } from '@core/utils'
 import { UserResetPassword } from '@meta/user'
 
-export const read = async (props: { uuid: string }, client: BaseProtocol = DB): Promise<UserResetPassword | null> => {
+export const read = async (
+  props: {
+    uuid: string
+  },
+  client: BaseProtocol = DB
+): Promise<UserResetPassword | null> => {
   const { uuid } = props
 
   return client.oneOrNone<UserResetPassword>(

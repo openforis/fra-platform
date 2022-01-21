@@ -3,10 +3,14 @@ import { Objects } from '@core/utils'
 import { User, UserResetPassword } from '@meta/user'
 
 export const getLastByUser = async (
-  props: { user: User },
+  props: {
+    user: Pick<User, 'id'>
+  },
   client: BaseProtocol = DB
 ): Promise<UserResetPassword | null> => {
-  const { user } = props
+  const {
+    user: { id: userId },
+  } = props
 
   return client.oneOrNone<UserResetPassword>(
     `
@@ -17,7 +21,7 @@ export const getLastByUser = async (
           where user_id = $1
         );
     `,
-    [user.id],
+    [userId],
     Objects.camelize
   )
 }
