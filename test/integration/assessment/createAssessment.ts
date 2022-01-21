@@ -1,15 +1,12 @@
 import { UserController } from '@server/controller/user'
 import { AssessmentController } from '@server/controller/assessment'
 import { assessmentParams, assessmentCycleName } from '@test/integration/mock/assessment'
+import { userMockTest } from '@test/integration/mock/user'
 
 export default () =>
   test('Expect assessment to be created', async () => {
-    const userParams = {
-      email: 'test@fra-platform.com',
-    }
-
     const user = await UserController.read({
-      user: userParams,
+      user: userMockTest,
     })
 
     const assessment = await AssessmentController.create({
