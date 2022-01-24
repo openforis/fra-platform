@@ -38,7 +38,13 @@ const OriginalData: React.FC<Props> = (props) => {
         <NavLink
           className="odp__tab-item"
           activeClassName="active"
-          to={BasePaths.OriginalDataPoint.section(countryIso, assessmentName, cycleName, odpId, extentOfForest.name)}
+          to={BasePaths.Assessment.OriginalDataPoint.section(
+            countryIso,
+            assessmentName,
+            cycleName,
+            odpId,
+            extentOfForest.name
+          )}
         >
           {`${extentOfForest.anchor} ${i18n.t('nationalDataPoint.forestCategoriesLabel')}`}
         </NavLink>
@@ -46,7 +52,7 @@ const OriginalData: React.FC<Props> = (props) => {
           // className={`odp__tab-item${useOriginalDataPointsInFoc ? '' : ' disabled'}`}
           className="odp__tab-item"
           activeClassName="active"
-          to={BasePaths.OriginalDataPoint.section(
+          to={BasePaths.Assessment.OriginalDataPoint.section(
             countryIso,
             assessmentName,
             cycleName,
@@ -59,10 +65,10 @@ const OriginalData: React.FC<Props> = (props) => {
       </div>
 
       <Switch>
-        <Route path={BasePaths.OriginalDataPoint.tab(extentOfForest.name)} exact>
+        <Route path={BasePaths.Assessment.OriginalDataPoint.tab(extentOfForest.name)} exact>
           <ExtentOfForest canEditData={canEditData} />
         </Route>
-        <Route path={BasePaths.OriginalDataPoint.tab(forestCharacteristics.name)} exact>
+        <Route path={BasePaths.Assessment.OriginalDataPoint.tab(forestCharacteristics.name)} exact>
           <ForestCharacteristics canEditData={canEditData} />
         </Route>
       </Switch>

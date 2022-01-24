@@ -21,7 +21,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
 
   const nationalClasses = originalDataPoint.nationalClasses.filter((nationalClass) => !nationalClass.placeHolder)
   const plantationTotal = ODPs.calcTotalSubFieldArea({
-    odp: originalDataPoint,
+    originalDataPoint,
     field: 'forestPercent',
     subField: 'plantationPercent',
   })
@@ -76,12 +76,12 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
               <tr>
                 <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.total')}</th>
                 <th className="fra-table__calculated-cell fra-table__divider">
-                  {Numbers.format(ODPs.calcTotalFieldArea({ odp: originalDataPoint, field: 'forestPercent' }))}
+                  {Numbers.format(ODPs.calcTotalFieldArea({ originalDataPoint, field: 'forestPercent' }))}
                 </th>
                 <td className="fra-table__calculated-cell">
                   {Numbers.format(
                     ODPs.calcTotalSubFieldArea({
-                      odp: originalDataPoint,
+                      originalDataPoint,
                       field: 'forestPercent',
                       subField: 'naturalForestPercent',
                     })
@@ -90,7 +90,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
                 <td className="fra-table__calculated-cell">
                   {Numbers.format(
                     ODPs.calcTotalSubFieldArea({
-                      odp: originalDataPoint,
+                      originalDataPoint,
                       field: 'forestPercent',
                       subField: 'plantationPercent',
                     })
@@ -99,7 +99,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
                 <td className="fra-table__calculated-cell">
                   {Numbers.format(
                     ODPs.calcTotalSubFieldArea({
-                      odp: originalDataPoint,
+                      originalDataPoint,
                       field: 'forestPercent',
                       subField: 'otherPlantedPercent',
                     })

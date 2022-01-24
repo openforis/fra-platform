@@ -18,7 +18,7 @@ const Assessment: React.FC = () => {
         {/* <Route path={BasePaths.assessmentDataDownload} component={AssessmentDataDownload} /> */}
         {/* <Route exact path={BasePaths.assessmentSection} component={AssessmentSection} /> */}
         {/* <Route exact path={[`${BasePaths.odp}:odpId/`, BasePaths.odp]} component={OriginalDataPoint} /> */}
-        <Route path={BasePaths.OriginalDataPoint.root()} component={OriginalDataPoint} />
+        <Route path={BasePaths.Assessment.OriginalDataPoint.one()} component={OriginalDataPoint} />
       </Switch>
     </div>
   )
