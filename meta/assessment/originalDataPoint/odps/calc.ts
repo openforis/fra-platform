@@ -53,7 +53,7 @@ export const calcTotalSubSubFieldArea = (props: {
   subSubField: keyof ODPNationalClass
 }): number => {
   const { originalDataPoint, field, subField, subSubField } = props
-  const nationalClasses = originalDataPoint?.nationalClasses.filter(
+  const nationalClasses = originalDataPoint.nationalClasses.filter(
     (nationalClass) =>
       !Objects.isNil(nationalClass.area) &&
       !Objects.isNil(nationalClass[field]) &&
