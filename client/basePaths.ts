@@ -2,10 +2,12 @@ import { AssessmentName } from '@meta/assessment'
 import { CountryIso } from '@meta/area'
 
 enum defaults {
-  assessmentType = ':assessmentType',
+  assessmentName = ':assessmentName',
   countryIso = ':countryIso',
+  cycleName = ':cycleName',
   id = ':id',
   section = ':section',
+  odpId = ':odpId',
 }
 
 const _generate = (...parts: any[]) => `/${parts.filter(Boolean).join('/')}`
@@ -18,29 +20,55 @@ export const BasePaths = {
   Assessment: {
     root: (
       countryIso: CountryIso | defaults.countryIso | string = defaults.countryIso,
-      assessmentType: AssessmentName | defaults.assessmentType = defaults.assessmentType
-    ) => _generate('assessment', countryIso, assessmentType),
+      assessmentName: AssessmentName | defaults.assessmentName = defaults.assessmentName
+    ) => _generate(countryIso, 'assessments', assessmentName),
 
     section: (
       countryIso: CountryIso | defaults.countryIso = defaults.countryIso,
-      assessmentType: AssessmentName | defaults.assessmentType = defaults.assessmentType,
+      assessmentName: AssessmentName | defaults.assessmentName = defaults.assessmentName,
       section: string | defaults.section = defaults.section
-    ) => _generate('assessment', countryIso, assessmentType, section),
+    ) => _generate(countryIso, 'assessments', assessmentName, section),
     dataDownload: (
       countryIso: CountryIso | defaults.countryIso = defaults.countryIso,
-      assessmentType: AssessmentName | defaults.assessmentType = defaults.assessmentType
-    ) => _generate('assessment', countryIso, assessmentType, 'dataDownload'),
+      assessmentName: AssessmentName | defaults.assessmentName = defaults.assessmentName
+    ) => _generate(countryIso, 'assessments', assessmentName, 'dataDownload'),
     print: (
       countryIso: CountryIso | defaults.countryIso = defaults.countryIso,
-      assessmentType: AssessmentName | defaults.assessmentType = defaults.assessmentType,
+      assessmentName: AssessmentName | defaults.assessmentName = defaults.assessmentName,
       tables = false
-    ) => _generate(countryIso, assessmentType, 'print', tables && 'tables'),
+    ) => _generate(countryIso, assessmentName, 'print', tables && 'tables'),
+    OriginalDataPoint: {
+      one: (
+        countryIso: CountryIso | defaults.countryIso = defaults.countryIso,
+        assessmentName: AssessmentName | defaults.assessmentName = defaults.assessmentName,
+        cycleName: string = defaults.cycleName,
+        odpId = ':odpId'
+      ) => _generate(countryIso, 'assessments', assessmentName, cycleName, 'originalDataPoint', odpId),
+      section: (
+        countryIso: CountryIso | defaults.countryIso = defaults.countryIso,
+        assessmentName: AssessmentName | defaults.assessmentName = defaults.assessmentName,
+        cycleName: string = defaults.cycleName,
+        odpId = ':odpId',
+        section: string
+      ) => _generate(countryIso, 'assessments', assessmentName, cycleName, 'originalDataPoint', odpId, section),
+      tab: (section: string | defaults.section = defaults.section) =>
+        _generate(
+          defaults.countryIso,
+          'assessments',
+          defaults.assessmentName,
+          defaults.cycleName,
+          'originalDataPoint',
+          defaults.odpId,
+          section
+        ),
+    },
   },
   Login: {
     root: () => '/login',
     resetPassword: () => `/login/resetPassword`,
     invitation: () => '/login/invitation',
   },
+
   User: {
     root: (id: number | defaults.id = defaults.id) => `/user/${id}`,
   },

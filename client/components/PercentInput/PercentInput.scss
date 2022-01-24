@@ -1,0 +1,22 @@
+@import "client/styles/inputMixins";
+
+.percent-input__container {
+  @include mixin-input-container;
+}
+
+.percent-input__input-field {
+  @include mixin-input-field(30px);
+}
+
+.percent-input__readonly-view {
+  @include mixin-readonly-view(30px);
+}
+
+.percent-input__sign {
+  position: absolute;
+  top: 50%;
+  right: 9px;
+  width: 15px;
+  height: 20px;
+  margin-top: -10px;
+}

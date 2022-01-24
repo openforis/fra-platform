@@ -1,3 +1,4 @@
+import { OriginalDataPointState } from './data/originalDataPoint'
 import { NavigationState } from './ui/navigation/stateType'
 import { AssessmentState } from './assessment/stateType'
 import { LoginState } from './login/stateType'
@@ -7,6 +8,11 @@ export type RootState = {
   assessment: AssessmentState
   login: LoginState
   user: UserState
+
+  data: {
+    originalDataPoint: OriginalDataPointState
+  }
+
   ui: {
     navigation: NavigationState
   }
