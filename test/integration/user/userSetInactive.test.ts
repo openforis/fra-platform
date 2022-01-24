@@ -1,14 +1,11 @@
 import { UserController } from '@server/controller/user'
 import { UserStatus } from '@meta/user'
+import { userMockTest } from '@test/integration/mock/user'
 
 export default () =>
   test('Expect user to be status === inactive', async () => {
-    const userParams = {
-      email: 'test@fra-platform.com',
-    }
-
     const user = await UserController.read({
-      user: userParams,
+      user: userMockTest,
     })
 
     const inactiveUser = await UserController.update({
@@ -25,7 +22,7 @@ export default () =>
 
     // Emails match
     expect(user).toHaveProperty('email')
-    expect(user.email).toBe(userParams.email)
+    expect(user.email).toBe(userMockTest.email)
     expect(inactiveUser).toHaveProperty('email')
     expect(user.email).toBe(inactiveUser.email)
 

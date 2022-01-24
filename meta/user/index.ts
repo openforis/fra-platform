@@ -2,8 +2,9 @@ export { UserStatus } from './user'
 export { AuthProvider } from './userAuth'
 export { RoleName } from './userRole'
 
-export type { User, UserResetPassword } from './user'
+export type { User } from './user'
 export type { UserAuthProvider } from './userAuth'
+export type { UserResetPassword } from './userResetPassword'
 export type {
   UserRole,
   Administrator,

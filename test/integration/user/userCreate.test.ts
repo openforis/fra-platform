@@ -1,21 +1,15 @@
-import { UserStatus, AuthProvider } from '@meta/user'
-
 import { UserController } from '@server/controller/user'
+import { UserStatus, AuthProvider } from '@meta/user'
+import { userMockTest, userMockTestPassword } from '@test/integration/mock/user'
 
 export default () =>
   test('Expect user to be created', async () => {
-    const userParams = {
-      email: 'test@fra-platform.com',
-      name: 'Test User',
-    }
-
     const user = await UserController.create({
-      user: userParams,
+      user: userMockTest,
       provider: {
         provider: AuthProvider.local,
         props: {
-          // password: 'test'
-          password: '$2b$10$F8FvZYivtznQD.heHv7dcu8WPOY3S/astp4uHwwHFw8woz5INEj/K',
+          password: userMockTestPassword,
         },
       },
     })
@@ -24,10 +18,10 @@ export default () =>
     expect(user.id).toBeTruthy()
 
     expect(user).toHaveProperty('name')
-    expect(user.name).toBe(userParams.name)
+    expect(user.name).toBe(userMockTest.name)
 
     expect(user).toHaveProperty('email')
-    expect(user.email).toBe(userParams.email)
+    expect(user.email).toBe(userMockTest.email)
 
     expect(user.status).toBe(UserStatus.invitationPending)
   })
