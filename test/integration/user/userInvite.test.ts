@@ -1,8 +1,8 @@
+import { AssessmentController, UserController } from '@server/controller'
 import { RoleName, User, UserStatus } from '@meta/user'
 import { Assessment } from '@meta/assessment'
-import { AssessmentController, UserController } from '@server/controller'
 import { assessmentParams } from '@test/integration/mock/assessment'
-import { userMockAdmin, userMockUnknown } from '@test/integration/mock/user'
+import { userMockTest, userMockUnknown } from '@test/integration/mock/user'
 
 export default (): void =>
   describe('User Invite', () => {
@@ -11,7 +11,7 @@ export default (): void =>
 
     beforeAll(async () => {
       assessment = await AssessmentController.read({ name: assessmentParams.props.name })
-      user = await UserController.read({ user: { email: userMockAdmin.email } })
+      user = await UserController.read({ user: { email: userMockTest.email } })
     })
 
     it('Invite new user as Collaborator', async () => {
