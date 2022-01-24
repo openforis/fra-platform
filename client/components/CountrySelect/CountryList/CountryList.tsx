@@ -38,11 +38,11 @@ const CountryList: React.FC<Props> = (props: Props) => {
   if (Users.isAdministrator(user)) {
     countryMap[RoleName.ADMINISTRATOR] = [...userCountries]
   } else {
-    user.roles.forEach((role) => {
+    user?.roles.forEach((role) => {
       if (!Array.isArray(countryMap[role.role])) countryMap[role.role] = []
       countryMap[role.role].push(role.countryIso)
     })
-    countryMap[noRole.role] = allCountries.filter((countryIso: CountryIso) => !userCountries.includes(countryIso))
+    countryMap[noRole.role] = allCountries.filter((countryIso: CountryIso) => !userCountries?.includes(countryIso))
   }
 
   return (
