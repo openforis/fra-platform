@@ -1,6 +1,6 @@
 import React from 'react'
 import * as R from 'ramda'
-import './PercentInput.less'
+import './PercentInput.scss'
 import { acceptableAsDecimal } from '@client/utils/numberInput'
 import { Numbers } from '@core/utils'
 

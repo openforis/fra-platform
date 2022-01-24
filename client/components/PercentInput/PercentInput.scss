@@ -1,15 +1,15 @@
-@import (reference) "~@webapp/main/styles/inputMixins";
+@import "client/styles/inputMixins";
 
 .percent-input__container {
-  .mixin-input-container;
+  @include mixin-input-container;
 }
 
 .percent-input__input-field {
-  .mixin-input-field(30px);
+  @include mixin-input-field(30px);
 }
 
 .percent-input__readonly-view {
-  .mixin-readonly-view(30px);
+  @include mixin-readonly-view(30px);
 }
 
 .percent-input__sign {
