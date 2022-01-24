@@ -1,5 +1,6 @@
 import * as nodemailer from 'nodemailer'
 
+import { resetPassword } from './resetPassword'
 import { userInvite } from './userInvite'
 
 const mailTransport = nodemailer.createTransport({
@@ -32,5 +33,6 @@ export const sendMail = async (email: MailServiceEmail) => {
 
 export const MailService = {
   sendMail,
+  resetPassword,
   userInvite,
 }
