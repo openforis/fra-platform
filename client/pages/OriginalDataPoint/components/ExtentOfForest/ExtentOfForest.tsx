@@ -1,11 +1,10 @@
 import React from 'react'
 
-// import DefinitionLink from '@webapp/components/definitionLink'
-
 import { useOriginalDataPoint } from '@client/store/data/originalDataPoint'
 import { useTranslation } from 'react-i18next'
 import { Numbers } from '@core/utils'
 import { ODPs } from '@meta/assessment/originalDataPoint'
+import DefinitionLink from '@client/components/DefinitionLink'
 import ExtentOfForestRow from './ExtentOfForestRow'
 
 type Props = {
@@ -16,7 +15,7 @@ const ExtentOfForest: React.FC<Props> = (props) => {
   const { canEditData } = props
   const originalDataPoint = useOriginalDataPoint()
 
-  const i18n = useTranslation()
+  const { i18n } = useTranslation()
   const [printView] = [false] // TODO: usePrintView()
   const nationalClasses = originalDataPoint.nationalClasses.filter((nationalClass) => !nationalClass.placeHolder)
 
@@ -25,12 +24,12 @@ const ExtentOfForest: React.FC<Props> = (props) => {
       {!printView && (
         <div className="odp__section-header">
           <h3 className="subhead">{i18n.t('nationalDataPoint.forestCategoriesLabel')}</h3>
-          {/* <DefinitionLink */}
-          {/*  document="tad" */}
-          {/*  anchor="1a" */}
-          {/*  title={i18n.t('definition.definitionLabel')} */}
-          {/*  lang={i18n.language} */}
-          {/* /> */}
+          <DefinitionLink
+            document="tad"
+            anchor="1a"
+            title={i18n.t('definition.definitionLabel')}
+            lang={i18n.language}
+          />
         </div>
       )}
 

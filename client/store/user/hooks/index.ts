@@ -10,5 +10,5 @@ export const useUserCountries = (): Array<CountryIso> => {
   const countries = useCountries()
   const isAdministrator = Users.isAdministrator(user)
   if (isAdministrator) return countries
-  return user.roles.map((role) => role.countryIso)
+  return user?.roles.map((role) => role.countryIso)
 }
