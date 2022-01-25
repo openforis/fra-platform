@@ -1,10 +1,10 @@
 import React from 'react'
 
-// import DefinitionLink from '@webapp/components/definitionLink'
 import { useTranslation } from 'react-i18next'
 import { useOriginalDataPoint } from '@client/store/data/originalDataPoint'
 import { ODPs } from '@meta/assessment/originalDataPoint'
 import { Numbers } from '@core/utils'
+import DefinitionLink from '@client/components/DefinitionLink'
 import ForestCharacteristicsPlantation from './ForestCharacteristicsPlantation'
 import ForestCharacteristicsRow from './ForestCharacteristicsRow'
 
@@ -32,12 +32,12 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
       {!printView && (
         <div className="odp__section-header">
           <h3 className="subhead">{i18n.t('nationalDataPoint.forestCharacteristics')}</h3>
-          {/* <DefinitionLink */}
-          {/*  document="tad" */}
-          {/*  anchor="1b" */}
-          {/*  title={i18n.t('definition.definitionLabel')} */}
-          {/*  lang={i18n.language} */}
-          {/* /> */}
+          <DefinitionLink
+            document="tad"
+            anchor="1b"
+            title={i18n.t('definition.definitionLabel')}
+            lang={i18n.language}
+          />
         </div>
       )}
 

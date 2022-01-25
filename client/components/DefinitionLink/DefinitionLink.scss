@@ -1,0 +1,12 @@
+@import "client/styles/config";
+@import "client/styles/buttons";
+
+.definition-link {
+  @extend .link;
+  color: darken($ui-accent, 2%);
+  white-space: nowrap;
+
+  &:hover {
+    color: darken($ui-accent, 4%);
+  }
+}
