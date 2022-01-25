@@ -27,6 +27,9 @@ export const ApiEndPoint = {
       get: (uuid = ':uuid') => `/auth/local/resetPassword/${uuid}`,
     },
   },
+  Definitions: {
+    one: (lang = ':lang', name = ':name') => joinPaths('definitions', lang, name),
+  },
 
   User: {
     getByInvitation: (uuid = ':uuid') => apiPath('user', 'invitation', uuid),
@@ -74,7 +77,7 @@ export const ApiEndPoint = {
     bulkDownload: () => apiPath('export', 'bulk-download'),
     get: (assessmentType = ':assessmentType', section = ':section') => apiPath('export', assessmentType, section),
   },
-  Definitions: {
+  _Definitions: {
     // NOTE: This should not have 'api' prefix
     get: (lang = ':lang', name = ':name') => joinPaths('definitions', lang, name),
   },

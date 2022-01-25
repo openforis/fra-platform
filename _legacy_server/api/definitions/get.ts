@@ -11,7 +11,7 @@ const getDefinition = (name: string, lang: string) => {
 
 export const DefinitionGet = {
   init: (express: Express): void => {
-    express.get(ApiEndPoint.Definitions.get(), (req: Request, res: Response) => {
+    express.get(ApiEndPoint._Definitions.get(), (req: Request, res: Response) => {
       try {
         const lang = readParameterWithAllowedValues(req, 'lang', ['en', 'es', 'fr', 'ru', 'ar', 'zh'])
         const name = readAllowedParameter(req, 'name', R.match(/^[a-z0-9]+$/i))
