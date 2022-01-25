@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useHistory, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import { BasePaths } from '@client/basePaths'
@@ -16,10 +16,10 @@ const LoginForm: React.FC<Props> = (props: Props) => {
 
   const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
-  const history = useHistory()
 
   const { invitedUser } = useInvitation()
 
+  const [loginLocal, setLoginLocal] = useState(false)
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [password2, setPassword2] = useState<string>(undefined)
@@ -32,10 +32,6 @@ const LoginForm: React.FC<Props> = (props: Props) => {
       setEmail(invitedUser.email)
     }
   }, [])
-
-  const onCancel = () => {
-    history.push(BasePaths.Root())
-  }
 
   const onLogin = () => {
     const fieldErrors = LoginValidator.localValidate(email, password, password2)
@@ -52,7 +48,25 @@ const LoginForm: React.FC<Props> = (props: Props) => {
     }
   }
 
-  return (
+  return !loginLocal ? (
+    <div className="login__formWrapper">
+      <div>
+        <a className="btn" href={`/auth/google${invitationUuid ? `?invitationUuid=${invitationUuid}` : ''}`}>
+          {i18n.t('login.signInGoogle')}
+        </a>
+
+        <button className="btn" type="button" onClick={() => setLoginLocal(true)}>
+          {i18n.t('login.signInFRA')}
+        </button>
+      </div>
+      <div>
+        <div>{i18n.t('login.accessLimited')}</div>
+        <div>
+          {i18n.t('login.returnHome')} <a href="/">{i18n.t('login.returnHomeClick')}</a>
+        </div>
+      </div>
+    </div>
+  ) : (
     <div className="login__form">
       <input
         onFocus={() => setErrors({ ...errors, email: null })}
@@ -95,7 +109,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
       {!invitedUser && (
         <>
           <div>
-            <button type="button" className="btn" onClick={onCancel}>
+            <button type="button" className="btn" onClick={() => setLoginLocal(false)}>
               {i18n.t('login.cancel')}
             </button>
 
@@ -111,6 +125,10 @@ const LoginForm: React.FC<Props> = (props: Props) => {
       )}
     </div>
   )
+}
+
+LoginForm.defaultProps = {
+  invitationUuid: null,
 }
 
 export default LoginForm
