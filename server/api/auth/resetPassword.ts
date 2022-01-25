@@ -11,7 +11,7 @@ export const AuthResetPassword = {
       try {
         const { email } = req.body
 
-        if (Objects.isEmpty(email.trim())) {
+        if (Objects.isEmpty(email)) {
           res.send({ error: 'login.emptyEmail' })
         } else if (!validEmail({ email })) {
           res.send({ error: 'login.invalidEmail' })
