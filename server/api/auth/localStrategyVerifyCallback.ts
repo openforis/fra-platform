@@ -14,8 +14,8 @@ export const localStrategyVerifyCallback = async (req: Request, email: string, p
     } else if (Objects.isEmpty(password.trim())) {
       sendErr('login.noEmptyPassword')
     } else {
-      const invitationUuid = String(req.query.invitationUuid)
-      if (invitationUuid) {
+      const invitationUuid = req.query?.invitationUuid as string
+      if (invitationUuid !== undefined) {
         const { user: invitedUser } = await UserController.readByInvitation({ invitationUuid })
         if (invitedUser && invitedUser.status !== 'active') {
           const provider =  {
@@ -29,6 +29,9 @@ export const localStrategyVerifyCallback = async (req: Request, email: string, p
       }
 
       let user = await UserController.read({ user: { email } })
+      
+      if (!user) sendErr('login.noMatchingUser')
+
       const userProvider = await UserProviderController.read({ user, provider: AuthProvider.local })
 
       const passwordMatch = await passwordCompare(password, userProvider.props.password)
