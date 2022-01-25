@@ -14,7 +14,7 @@ export const userInvite = async (props: {
 
   const i18n = await createI18nPromise('en')
 
-  const link = `${url}/login${role.invitationUuid ? `?i=${role.invitationUuid}` : ''}`
+  const link = `${url}/login${role.invitationUuid ? `?invitationUuid=${role.invitationUuid}` : ''}`
 
   const countryName = i18n.t(`area.${countryIso}.listName`)
 
