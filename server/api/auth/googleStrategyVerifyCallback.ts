@@ -14,7 +14,7 @@ export const googleStrategyVerifyCallback = async (
 
     let user = null
 
-    const invitationUuid = String(req.query.state)
+    const invitationUuid = req.query.state as string
     if (invitationUuid) {
       const { user: invitedUser, userRole } = await UserController.readByInvitation({ invitationUuid })
       user = await UserController.acceptInvitation({ user: invitedUser, userRole })
@@ -28,7 +28,6 @@ export const googleStrategyVerifyCallback = async (
       done(null, false, { message: 'login.notAuthorized' })
     }
   } catch (e) {
-    // console.log('Error occurred while authenticating', e)
     done(null, false, { message: `${'login.errorOccurred'}: ${e}` })
   }
 }

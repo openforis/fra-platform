@@ -27,7 +27,7 @@ export const LoginValidator = {
       password2: password2 !== undefined ? validatePasswords(password, password2) : null,
       isError: false,
     }
-    errors.isError = !Object.values(errors).find((value) => !!value)
+    errors.isError = !!Object.values(errors).find((value) => !!value)
     return errors
   },
 }
