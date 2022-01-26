@@ -10,15 +10,16 @@ export const appUri = process.env.APP_URI ? process.env.APP_URI : ''
 
 // Response helper functions
 // Sends an empty JSON message with status 200
-export const sendOk = (res: any) => res.json({})
+export const sendOk = (res: any, value = {}) => res.json(value)
 export const send404 = (res: any) => res.status(404).send('404 / Page not found')
-export const sendErr = (res: any, err?: any) => {
+export const send400 = (res: any, err?: any) => sendErr(res, err, 400)
+export const sendErr = (res: any, err?: any, statusCode = 500) => {
   console.error(err)
   if (err instanceof AccessControlException) {
     // @ts-ignore
     res.status(403).json({ error: err.error })
   } else {
-    res.status(500).json({ error: 'Could not serve', err })
+    res.status(statusCode).json({ error: 'Could not serve', err })
   }
 }
 
@@ -58,6 +59,7 @@ export const Requests = {
   getMethod,
   getParams,
   send404,
+  send400,
   sendErr,
   sendOk,
   serverUrl,

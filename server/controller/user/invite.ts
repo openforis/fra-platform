@@ -13,11 +13,11 @@ export const invite = async (
     email: string
     roleName: RoleName
     user: User
-    url: string // application url
+    url?: string // application url
   },
   client: BaseProtocol = DB
 ): Promise<{ userRole: UserRole<RoleName, any>; user: User }> => {
-  const { email, user, assessment, countryIso, roleName, cycleUuid, url } = props
+  const { email, user, assessment, countryIso, roleName, cycleUuid, url = '' } = props
   const schemaName = Schemas.getName(assessment)
 
   return client.tx(async (t) => {
