@@ -10,7 +10,7 @@ export const createResetPassword = async (
   },
   client: BaseProtocol = DB
 ): Promise<UserResetPassword | null> => {
-  const { user, url } = props
+  const { user, url = '' } = props
 
   return client.tx(async (t) => {
     const lastUserResetPassword = await UserResetPasswordRepository.getLastByUser({ user })
