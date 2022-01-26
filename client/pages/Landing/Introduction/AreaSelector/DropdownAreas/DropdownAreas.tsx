@@ -42,7 +42,7 @@ const DropdownAreas = (props: Props) => {
     <button
       ref={buttonRef}
       type="button"
-      className="btn btn-country-select m-r"
+      className="btn-country-select m-r"
       disabled={areaISOs.length === 0}
       onClick={() => {
         setDropdownOpened(dialogOpened ? '' : area)
