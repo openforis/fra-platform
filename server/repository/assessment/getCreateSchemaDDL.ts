@@ -139,5 +139,15 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
 
       ALTER TABLE ${assessmentCycleSchemaName}.original_data_point
           ADD CONSTRAINT unique_country_year UNIQUE (country_iso, year);
+
+      create table ${assessmentCycleSchemaName}.country_status
+      (
+        country_iso varchar(3) not null references ${assessmentSchemaName}.country (country_iso),
+        status assessment_status not null,
+        desk_study boolean default false not null,
+        constraint unique_country_status_country
+        unique (country_iso)
+      );
+
   `
 }
