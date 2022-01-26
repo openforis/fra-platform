@@ -1,9 +1,9 @@
 import { Express, Response, Request } from 'express'
 import { ApiEndPoint } from '@common/api/endpoint'
 import { validEmail } from '@common/userUtils'
+import { Requests } from '@server/utils'
 import { Objects } from '@core/utils'
 import { UserController } from '@server/controller'
-import { sendErr, serverUrl } from '@server/utils/requests'
 
 export const AuthResetPassword = {
   init: (express: Express): void => {
@@ -11,26 +11,19 @@ export const AuthResetPassword = {
       try {
         const { email } = req.body
 
-        if (Objects.isEmpty(email)) {
-          res.send({ error: 'login.emptyEmail' })
-        } else if (!validEmail({ email })) {
-          res.send({ error: 'login.invalidEmail' })
-        } else {
-          const user = await UserController.read({ user: { email } })
-          if (!user) {
-            res.send({ error: 'login.noMatchingEmail' })
-          } else {
-            const url = serverUrl(req)
-            const userResetPassword = await UserController.createResetPassword({ user, url })
-            if (userResetPassword) {
-              res.send({ message: 'login.passwordResetSent' })
-            } else {
-              res.send({ error: 'login.noMatchingEmail' })
-            }
-          }
-        }
+        if (Objects.isEmpty(email?.trim())) Requests.send400(res, 'login.emptyEmail')
+        if (!validEmail({ email })) Requests.send400(res, 'login.invalidEmail')
+
+        const user = await UserController.read({ user: { email } })
+        if (!user) Requests.send400(res, 'login.noMatchingEmail')
+
+        const url = Requests.serverUrl(req)
+        const userResetPassword = await UserController.createResetPassword({ user, url })
+        if (userResetPassword) Requests.sendOk(res, { message: 'login.passwordResetSent' })
+        else Requests.send400(res, 'login.noMatchingEmail')
+
       } catch (err) {
-        sendErr(res, err)
+        Requests.sendErr(res, err)
       }
     })
   },
