@@ -28,7 +28,6 @@ export const googleStrategyVerifyCallback = async (
       done(null, false, { message: 'login.notAuthorized' })
     }
   } catch (e) {
-    // console.log('Error occurred while authenticating', e)
     done(null, false, { message: `${'login.errorOccurred'}: ${e}` })
   }
 }

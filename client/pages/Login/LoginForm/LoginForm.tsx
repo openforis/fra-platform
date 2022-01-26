@@ -48,7 +48,67 @@ const LoginForm: React.FC<Props> = (props: Props) => {
     }
   }
 
-  return !loginLocal ? (
+  if (loginLocal)
+    return (
+      <div className="login__form">
+        <input
+          onFocus={() => setErrors({ ...errors, email: null })}
+          value={email}
+          disabled={!!invitedUser}
+          type="text"
+          placeholder={i18n.t('login.email')}
+          onChange={(event) => setEmail(event.target.value)}
+        />
+        {errors.email && <span className="login__field-error">{i18n.t(errors.email)}</span>}
+
+        <input
+          onFocus={() => setErrors({ ...errors, password: null })}
+          value={password}
+          type="password"
+          placeholder={i18n.t('login.password')}
+          onChange={(event) => setPassword(event.target.value)}
+        />
+        {errors.password && <span className="login__field-error">{i18n.t(errors.password)}</span>}
+
+        {invitedUser && invitedUser.status !== 'active' && (
+          <>
+            <input
+              onFocus={() => setErrors({ ...errors, password2: null })}
+              value={password2}
+              type="password"
+              placeholder={i18n.t('login.repeatPassword')}
+              onChange={(event) => setPassword2(event.target.value)}
+            />
+            {errors.password2 && <span className="login__field-error">{i18n.t(errors.password2)}</span>}
+          </>
+        )}
+
+        {invitedUser && (
+          <button type="button" className="btn" onClick={onLogin}>
+            {i18n.t('login.acceptInvitation')}
+          </button>
+        )}
+
+        {!invitedUser && (
+          <>
+            <div>
+              <button type="button" className="btn" onClick={() => setLoginLocal(false)}>
+                {i18n.t('login.cancel')}
+              </button>
+
+              <button type="button" className="btn" onClick={onLogin}>
+                {i18n.t('login.login')}
+              </button>
+            </div>
+
+            <Link to={BasePaths.Login.resetPassword()} type="button" className="btn-forgot-pwd">
+              {i18n.t('login.forgotPassword')}
+            </Link>
+          </>
+        )}
+      </div>
+    )
+  return (
     <div className="login__formWrapper">
       <div>
         <a className="btn" href={`/auth/google${invitationUuid ? `?invitationUuid=${invitationUuid}` : ''}`}>
@@ -65,64 +125,6 @@ const LoginForm: React.FC<Props> = (props: Props) => {
           {i18n.t('login.returnHome')} <a href="/">{i18n.t('login.returnHomeClick')}</a>
         </div>
       </div>
-    </div>
-  ) : (
-    <div className="login__form">
-      <input
-        onFocus={() => setErrors({ ...errors, email: null })}
-        value={email}
-        disabled={!!invitedUser}
-        type="text"
-        placeholder={i18n.t('login.email')}
-        onChange={(event) => setEmail(event.target.value)}
-      />
-      {errors.email && <span className="login__field-error">{i18n.t(errors.email)}</span>}
-
-      <input
-        onFocus={() => setErrors({ ...errors, password: null })}
-        value={password}
-        type="password"
-        placeholder={i18n.t('login.password')}
-        onChange={(event) => setPassword(event.target.value)}
-      />
-      {errors.password && <span className="login__field-error">{i18n.t(errors.password)}</span>}
-
-      {invitedUser && invitedUser.status !== 'active' && (
-        <>
-          <input
-            onFocus={() => setErrors({ ...errors, password2: null })}
-            value={password2}
-            type="password"
-            placeholder={i18n.t('login.repeatPassword')}
-            onChange={(event) => setPassword2(event.target.value)}
-          />
-          {errors.password2 && <span className="login__field-error">{i18n.t(errors.password2)}</span>}
-        </>
-      )}
-
-      {invitedUser && (
-        <button type="button" className="btn" onClick={onLogin}>
-          {i18n.t('login.acceptInvitation')}
-        </button>
-      )}
-
-      {!invitedUser && (
-        <>
-          <div>
-            <button type="button" className="btn" onClick={() => setLoginLocal(false)}>
-              {i18n.t('login.cancel')}
-            </button>
-
-            <button type="button" className="btn" onClick={onLogin}>
-              {i18n.t('login.login')}
-            </button>
-          </div>
-
-          <Link to={BasePaths.Login.resetPassword()} type="button" className="btn-forgot-pwd">
-            {i18n.t('login.forgotPassword')}
-          </Link>
-        </>
-      )}
     </div>
   )
 }
