@@ -6,7 +6,7 @@ import { MailService } from '@server/service'
 export const createResetPassword = async (
   props: {
     user: User
-    url: string // application url
+    url?: string // application url
   },
   client: BaseProtocol = DB
 ): Promise<UserResetPassword | null> => {

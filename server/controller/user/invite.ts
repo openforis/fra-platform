@@ -13,7 +13,7 @@ export const invite = async (
     email: string
     roleName: RoleName
     user: User
-    url: string // application url
+    url?: string // application url
   },
   client: BaseProtocol = DB
 ): Promise<{ userRole: UserRole<RoleName, any>; user: User }> => {
