@@ -71,7 +71,7 @@ const CountrySelect: React.FC = () => {
 
       <button
         type="button"
-        className="btn btn-country-select no-print"
+        className="btn-country-select no-print"
         ref={countrySelectionRef}
         onClick={() => setOpen((prevState) => !prevState)}
       >
