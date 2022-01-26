@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import { BasePaths } from '@client/basePaths'
@@ -16,6 +16,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
 
   const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
+  const history = useHistory()
 
   const { invitedUser } = useInvitation()
 
@@ -45,6 +46,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
           invitationUuid,
         })
       )
+      history.push(BasePaths.Root())
     }
   }
 
