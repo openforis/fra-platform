@@ -4,6 +4,7 @@ import AssessmentSlice from './assessment/slice'
 import LoginSlice from './login/slice'
 import UserSlice from './user/slice'
 import NavigationSlice from './ui/navigation/slice'
+import DataLockSlice from './ui/dataLock/slice'
 
 export default {
   assessment: AssessmentSlice,
@@ -14,5 +15,6 @@ export default {
   }),
   ui: combineReducers({
     navigation: NavigationSlice,
+    dataLock: DataLockSlice,
   }),
 }
