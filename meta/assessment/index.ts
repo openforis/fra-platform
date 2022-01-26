@@ -6,6 +6,7 @@ export { Unit } from './unit'
 
 export type { ActivityLog } from './activityLog'
 export type { Assessment } from './assessment'
+export type { CountryStatus } from './countryStatus'
 export type { Col, ColProps } from './col'
 export type { CycledPropsObject, Cycle } from './cycle'
 export type { Descriptions, Description } from './description'
