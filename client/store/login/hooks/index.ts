@@ -2,8 +2,17 @@ import { useAppSelector } from '@client/store'
 import { Assessment } from '@meta/assessment'
 import { RoleName, User, UserRole } from '@meta/user'
 
-export const useInvitation = (): {
-    userRole?: UserRole<RoleName>
-    assessment?: Assessment
-    invitedUser?: User
-} | undefined => useAppSelector((state) => state.login?.invitation)
+export const useInvitation = ():
+  | {
+      userRole?: UserRole<RoleName>
+      assessment?: Assessment
+      invitedUser?: User
+    }
+  | undefined => useAppSelector((state) => state.login?.invitation)
+
+export const useResetPassword = ():
+  | {
+      error?: string
+      message?: string
+    }
+  | undefined => useAppSelector((state) => state.login?.resetPassword)
