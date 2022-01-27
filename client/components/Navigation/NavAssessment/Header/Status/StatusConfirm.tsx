@@ -2,7 +2,6 @@ import './StatusConfirm.scss'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { Assessment } from '@core/assessment'
 import { Users } from '@core/auth'
 import { useCountryIso, useI18n } from '@webapp/hooks'
 
@@ -13,7 +12,6 @@ import { useUserInfo } from '@webapp/store/user'
 import { StatusTransition } from './types'
 
 type Props = {
-  assessment: Assessment
   onClose: () => void
   status: StatusTransition
 }

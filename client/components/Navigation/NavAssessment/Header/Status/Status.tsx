@@ -1,37 +1,38 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+// import { useAppDispatch } from '@client/store'
+import { useCountryIso } from '@client/hooks'
+import { useTranslation } from 'react-i18next'
+import { useUser } from '@client/store/user'
 import MediaQuery from 'react-responsive'
 import classNames from 'classnames'
-
-import { Assessment, AssessmentStatus, AssessmentStatusTransitions } from '@core/assessment'
-import { Users } from '@core/auth'
+//
+// import { Assessment, AssessmentStatus, AssessmentStatusTransitions } from '@core/assessment'
+// import { Users } from '@core/auth'
 import { Objects } from '@core/utils'
-import * as AssessmentState from '@webapp/app/assessment/assessmentState'
+// import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import { Breakpoints } from '@webapp/utils/breakpoints'
-import { useCountryIso, useI18n } from '@webapp/hooks'
+//
+import Icon from '@client/components/Icon'
+import PopoverControl, { PopoverItem } from '@client/components/PopoverControl'
+// import { CountryActions } from '@webapp/store/country'
+// import { useUserInfo } from '@webapp/store/user'
 
-import Icon from '@webapp/components/icon'
-import PopoverControl, { PopoverItem } from '@webapp/components/PopoverControl'
-import { CountryActions } from '@webapp/store/country'
-import { useUserInfo } from '@webapp/store/user'
-
-import StatusConfirm from './StatusConfirm'
+// import StatusConfirm from './StatusConfirm'
+import { useAssessmentCountryStatus } from '@client/store/assessment/hooks'
+import { AssessmentStatus } from '@meta/assessment'
+import { CountryStatusTransitions } from '@meta/assessment/assessments'
+import { Users } from '@meta/user'
 import { StatusTransition } from './types'
 
-type Props = {
-  assessment: Assessment
-}
-
-const Status: React.FC<Props> = (props: Props) => {
-  const { assessment: assessmentProps } = props
-
-  const dispatch = useDispatch()
+const Status: React.FC = () => {
+  // const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
-  const i18n = useI18n()
-  const userInfo = useUserInfo()
-  const assessment = useSelector(AssessmentState.getAssessment(assessmentProps.type)) as Assessment
+  const { i18n } = useTranslation()
+  const user = useUser()
+  const assessmentCountryStatus = useAssessmentCountryStatus()
 
-  const { deskStudy, status } = assessment
+  const { deskStudy, status } = assessmentCountryStatus
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [targetStatus, setTargetStatus] = useState<StatusTransition>(null)
 
   const deskStudyItems: Array<PopoverItem> = [
@@ -43,16 +44,22 @@ const Status: React.FC<Props> = (props: Props) => {
           <span>{i18n.t('assessment.deskStudy')}</span>
         </div>
       ),
-      onClick: () =>
-        dispatch(
-          CountryActions.changeAssessmentStatus({ countryIso, assessment: { ...assessment, deskStudy: !deskStudy } })
-        ),
+      onClick: () => {
+        // todo
+      },
+      // dispatch(
+      //   CountryActions.changeAssessmentStatus({ countryIso, assessment: { ...assessmentCountryStatus, deskStudy: !deskStudy } })
+      // ),
     },
   ]
 
   const items: Array<PopoverItem> = []
   if (status !== AssessmentStatus.changing) {
-    const { next, previous } = AssessmentStatusTransitions.getAllowedTransition({ assessment, countryIso, userInfo })
+    const { next, previous } = CountryStatusTransitions.getAllowedTransition({
+      countryStatus: assessmentCountryStatus,
+      countryIso,
+      user,
+    })
     if (next) {
       items.push({
         content: i18n.t(`assessment.status.${next}.next`),
@@ -65,17 +72,21 @@ const Status: React.FC<Props> = (props: Props) => {
         onClick: () => setTargetStatus({ status: previous, direction: 'previous' }),
       })
     }
-    if (Users.isAdministrator(userInfo)) items.push(...deskStudyItems)
+    if (Users.isAdministrator(user)) items.push(...deskStudyItems)
   }
 
   return (
     <>
-      {
-        // showing confirmation modal dialog before submitting the status change
-        targetStatus && (
-          <StatusConfirm assessment={assessment} status={targetStatus} onClose={() => setTargetStatus(null)} />
-        )
-      }
+      {/* { */}
+      {/*  // showing confirmation modal dialog before submitting the status change */}
+      {/*  targetStatus && ( */}
+      {/*    <StatusConfirm */}
+      {/*      assessment={assessmentCountryStatus} */}
+      {/*      status={targetStatus} */}
+      {/*      onClose={() => setTargetStatus(null)} */}
+      {/*    /> */}
+      {/*  ) */}
+      {/* } */}
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
         <div className={`nav-assessment-header__status status-${status}`}>
           <span>{i18n.t(`assessment.status.${status}.label`)}</span>
