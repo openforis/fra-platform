@@ -1,37 +1,53 @@
-import '../login.scss'
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+
+import { useAppDispatch } from '@client/store'
+import { LoginActions } from '@client/store/login'
 import { Urls } from '@client/utils'
 import { Objects } from '@core/utils'
 
+import { BasePaths } from '@client/basePaths'
+
 const ResetPassword: React.FC = () => {
+  const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
+  const history = useHistory()
+
   const paramEmail = Urls.getRequestParam('email')
-  const isParamEmail = !Objects.isEmpty(paramEmail)
+
   const [email, setEmail] = useState<string>(paramEmail || '')
+  const [errors, setErrors] = useState<Record<string, string>>({})
 
-  const onChangePassword = () => {
-    console.log('not implemented')
+  const onResetPassword = () => {
+    dispatch(LoginActions.resetPassword(email))
+    history.push(BasePaths.Root())
   }
-
-  // TODO: Make API endpoint for resetting password
-  // Generate new password, change password in user profile
 
   return (
     <div className="login__form">
-      <h3>{i18n.t('login.resetPassword')}</h3>
-      <input
-        type="text"
-        name="email"
-        placeholder={i18n.t('login.email')}
-        value={email}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) => setEmail(event.target.value)}
-        disabled={isParamEmail}
-      />
+      <h3>{i18n.t('login.forgotPasswordTitle')}</h3>
 
-      <button className="btn" type="button" onClick={onChangePassword}>
-        {i18n.t('login.resetPassword')}
-      </button>
+      <input
+        onFocus={() => setErrors({ ...errors, email: null })}
+        name="email"
+        value={email}
+        disabled={!Objects.isEmpty(paramEmail)}
+        type="text"
+        placeholder={i18n.t('login.email')}
+        onChange={(event) => setEmail(event.target.value)}
+      />
+      {errors.email && <span className="login__field-error">{i18n.t(errors.email)}</span>}
+
+      <div style={{ textAlign: 'center' }}>
+        <button className="btn" type="button" onClick={() => history.goBack()}>
+          {i18n.t('login.cancel')}
+        </button>
+
+        <button className="btn" type="button" onClick={onResetPassword}>
+          {i18n.t('login.resetPassword')}
+        </button>
+      </div>
     </div>
   )
 }
