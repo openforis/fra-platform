@@ -7,6 +7,9 @@ export const ApiEndPoint = {
   },
   Assessment: {
     sections: (name = ':name', cycleName = ':cycleName') => apiPath('assessment', name, 'sections', cycleName),
+    countryStatus: (countryIso = ':countryIso', name = ':name', cycleName = ':cycleName') =>
+      apiPath('country', countryIso, 'assessments', name, 'cycles', cycleName, 'status'),
+
     OriginalDataPoint: {
       one: (name = ':name', cycleName = ':cycleName', odpId = ':odpId') =>
         apiPath('assessment', name, 'originalDataPoint', cycleName, odpId),

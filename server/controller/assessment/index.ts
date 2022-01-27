@@ -6,6 +6,7 @@ import { getSections } from './getSections'
 import { getOdp } from './getOdp'
 import { getRegionGroups } from './getRegionGroups'
 import { createCycle } from './createCycle'
+import { getCountryStatus } from './getCountryStatus'
 
 export const AssessmentController = {
   create,
@@ -16,4 +17,5 @@ export const AssessmentController = {
   getSections,
   getOdp,
   createCycle,
+  getCountryStatus,
 }
