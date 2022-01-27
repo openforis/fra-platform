@@ -5,7 +5,7 @@ import { Requests } from '@server/utils'
 import { Objects } from '@core/utils'
 import { UserController } from '@server/controller'
 
-export const AuthResetPassword = {
+export const AuthCreateResetPassword = {
   init: (express: Express): void => {
     express.post(ApiEndPoint.Auth.ResetPassword.create(), async (req: Request, res: Response) => {
       try {
@@ -21,7 +21,6 @@ export const AuthResetPassword = {
         const userResetPassword = await UserController.createResetPassword({ user, url })
         if (userResetPassword) Requests.sendOk(res, { message: 'login.passwordResetSent' })
         else Requests.send400(res, 'login.noMatchingEmail')
-
       } catch (err) {
         Requests.sendErr(res, err)
       }
