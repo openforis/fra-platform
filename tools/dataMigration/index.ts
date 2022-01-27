@@ -20,6 +20,7 @@ import { migrateUsersInvitation } from './migrateUsersInvitation'
 import { migrateUsersResetPassword } from './migrateUsersResetPassword'
 import { migrateTablesData } from './migrateData/migrateTablesData'
 import { migrateOdps } from './migrateData/migrateOdps'
+import { migrateCountryStatus } from './migrateData/migrateCountryStatus'
 
 config({ path: path.resolve(__dirname, '..', '..', '.env') })
 
@@ -84,6 +85,7 @@ export const migrate = async (props: {
     await migrateUsersResetPassword({ client })
     await migrateTablesData({ assessment }, client)
     await migrateOdps({ assessment }, client)
+    await migrateCountryStatus({ assessment }, client)
 
     await client.query(
       `delete
