@@ -16,17 +16,35 @@ const ResetPassword: React.FC = () => {
   const { i18n } = useTranslation()
   const history = useHistory()
 
+  const resetPasswordUuid = Urls.getRequestParam('resetPasswordUuid')
   const paramEmail = Urls.getRequestParam('email')
 
   const [email, setEmail] = useState<string>(paramEmail || '')
+  const [password, setPassword] = useState<string>('')
+  const [password2, setPassword2] = useState<string>(undefined)
   const [errors, setErrors] = useState<Record<string, string>>({})
 
   const onResetPassword = async () => {
     const fieldErrors = LoginValidator.resetPasswordValidate(email)
     setErrors(fieldErrors)
+
     if (!fieldErrors.isError) {
       try {
         await dispatch(LoginActions.createResetPassword(email)).unwrap()
+        history.push(BasePaths.Root())
+      } catch (rejectedValueOrSerializedError) {
+        console.log(rejectedValueOrSerializedError)
+      }
+    }
+  }
+
+  const onChangePassword = async () => {
+    const fieldErrors = LoginValidator.localValidate(email, password, password2)
+    setErrors(fieldErrors)
+
+    if (!fieldErrors.isError) {
+      try {
+        await dispatch(LoginActions.changePassword({ email, password, password2, resetPasswordUuid })).unwrap()
         history.push(BasePaths.Root())
       } catch (rejectedValueOrSerializedError) {
         console.log(rejectedValueOrSerializedError)
@@ -49,15 +67,49 @@ const ResetPassword: React.FC = () => {
       />
       {errors.email && <span className="login__field-error">{i18n.t(errors.email)}</span>}
 
-      <div style={{ textAlign: 'center' }}>
-        <button className="btn" type="button" onClick={() => history.goBack()}>
-          {i18n.t('login.cancel')}
-        </button>
+      {resetPasswordUuid && (
+        <>
+          <input
+            onFocus={() => setErrors({ ...errors, password: null })}
+            value={password}
+            type="password"
+            placeholder={i18n.t('login.password')}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+          {errors.password && <span className="login__field-error">{i18n.t(errors.password)}</span>}
 
-        <button className="btn" type="button" onClick={onResetPassword}>
-          {i18n.t('login.resetPassword')}
-        </button>
-      </div>
+          <input
+            onFocus={() => setErrors({ ...errors, password2: null })}
+            value={password2}
+            type="password"
+            placeholder={i18n.t('login.repeatPassword')}
+            onChange={(event) => setPassword2(event.target.value)}
+          />
+          {errors.password2 && <span className="login__field-error">{i18n.t(errors.password2)}</span>}
+
+          <div style={{ textAlign: 'center' }}>
+            <button className="btn" type="button" onClick={() => history.goBack()}>
+              {i18n.t('login.cancel')}
+            </button>
+
+            <button className="btn" type="button" onClick={onChangePassword}>
+              {i18n.t('login.changePassword')}
+            </button>
+          </div>
+        </>
+      )}
+
+      {!resetPasswordUuid && (
+        <div style={{ textAlign: 'center' }}>
+          <button className="btn" type="button" onClick={() => history.goBack()}>
+            {i18n.t('login.cancel')}
+          </button>
+
+          <button className="btn" type="button" onClick={onResetPassword}>
+            {i18n.t('login.resetPassword')}
+          </button>
+        </div>
+      )}
     </div>
   )
 }

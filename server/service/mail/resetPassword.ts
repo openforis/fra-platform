@@ -7,7 +7,7 @@ export const resetPassword = async (props: { url: string; user: User; userResetP
 
   const i18n = await createI18nPromise('en')
 
-  const link = `${url}/reset-password${userResetPassword.uuid ? `?uuid=${userResetPassword.uuid}` : ''}`
+  const link = `${url}/reset-password${userResetPassword.uuid ? `?resetPasswordUuid=${userResetPassword.uuid}` : ''}`
 
   const resetPasswordEmail = {
     to: user.email,
