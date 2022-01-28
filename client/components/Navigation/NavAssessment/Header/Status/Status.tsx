@@ -6,24 +6,19 @@ import { useUser } from '@client/store/user'
 import MediaQuery from 'react-responsive'
 import classNames from 'classnames'
 //
-// import { Assessment, AssessmentStatus, AssessmentStatusTransitions } from '@core/assessment'
-// import { Users } from '@core/auth'
 import { Objects } from '@core/utils'
-// import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import { Breakpoints } from '@webapp/utils/breakpoints'
 //
 import Icon from '@client/components/Icon'
 import PopoverControl, { PopoverItem } from '@client/components/PopoverControl'
-// import { CountryActions } from '@webapp/store/country'
-// import { useUserInfo } from '@webapp/store/user'
 
-// import StatusConfirm from './StatusConfirm'
 import { useAssessmentCountryStatus } from '@client/store/assessment/hooks'
 import { AssessmentName, AssessmentStatus } from '@meta/assessment'
 import { CountryStatusTransitions } from '@meta/assessment/assessments'
 import { Users } from '@meta/user'
 import { useParams } from 'react-router-dom'
 import { AssessmentActions } from '@client/store/assessment'
+import StatusConfirm from './StatusConfirm'
 import { StatusTransition } from './types'
 
 const Status: React.FC = () => {
@@ -89,16 +84,10 @@ const Status: React.FC = () => {
 
   return (
     <>
-      {/* { */}
-      {/*  // showing confirmation modal dialog before submitting the status change */}
-      {/*  targetStatus && ( */}
-      {/*    <StatusConfirm */}
-      {/*      assessment={assessmentCountryStatus} */}
-      {/*      status={targetStatus} */}
-      {/*      onClose={() => setTargetStatus(null)} */}
-      {/*    /> */}
-      {/*  ) */}
-      {/* } */}
+      {
+        // showing confirmation modal dialog before submitting the status change
+        targetStatus && <StatusConfirm status={targetStatus} onClose={() => setTargetStatus(null)} />
+      }
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
         <div className={`nav-assessment-header__status status-${status}`}>
           <span>{i18n.t(`assessment.status.${status}.label`)}</span>

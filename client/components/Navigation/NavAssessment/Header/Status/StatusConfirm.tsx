@@ -1,14 +1,14 @@
 import './StatusConfirm.scss'
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
 
-import { Users } from '@core/auth'
-import { useCountryIso, useI18n } from '@webapp/hooks'
+import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from '@client/components/Modal'
 
-import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from '@webapp/components/modal'
-import { CountryActions } from '@webapp/store/country'
-import { useUserInfo } from '@webapp/store/user'
-
+// import { useAppDispatch } from '@client/store'
+// import { useCountryIso } from '@client/hooks'
+import { useTranslation } from 'react-i18next'
+import { useUser } from '@client/store/user'
+import { Users } from '@meta/user'
+// import { useAssessmentCountryStatus } from '@client/store/assessment/hooks'
 import { StatusTransition } from './types'
 
 type Props = {
@@ -17,13 +17,17 @@ type Props = {
 }
 
 const StatusConfirm: React.FC<Props> = (props) => {
-  const { assessment, status, onClose } = props
+  const { status, onClose } = props
 
-  const dispatch = useDispatch()
-  const countryIso = useCountryIso()
-  const i18n = useI18n()
-  const userInfo = useUserInfo()
+  // const dispatch = useAppDispatch()
+  // const countryIso = useCountryIso()
+  // const countryStatus = useAssessmentCountryStatus()
+
+  const i18n = useTranslation()
+  const user = useUser()
   const [notifyUsers, setNotifyUsers] = useState<boolean>(true)
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [textareaValue, setTextareaValue] = useState<string>('')
 
   return (
@@ -42,7 +46,7 @@ const StatusConfirm: React.FC<Props> = (props) => {
           />
         </div>
 
-        {Users.isAdministrator(userInfo) && (
+        {Users.isAdministrator(user) && (
           <div
             className="nav-assessment-status-confirm__notify-users"
             onClick={() => setNotifyUsers(!notifyUsers)}
@@ -63,8 +67,10 @@ const StatusConfirm: React.FC<Props> = (props) => {
         <button
           className="btn btn-primary modal-footer__item"
           onClick={() => {
-            const assessmentUpdate = { ...assessment, status: status.status, message: textareaValue }
-            dispatch(CountryActions.changeAssessmentStatus({ countryIso, assessment: assessmentUpdate, notifyUsers }))
+            // TODO
+            // const assessmentUpdate = { ...assessment, status: status.status, message: textareaValue }
+
+            // dispatch(CountryActions.changeAssessmentStatus({ countryIso, assessment: assessmentUpdate, notifyUsers }))
             onClose()
           }}
           type="button"
