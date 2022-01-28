@@ -19,7 +19,7 @@ const ResetPassword: React.FC = () => {
   const paramEmail = Urls.getRequestParam('email')
 
   const [email, setEmail] = useState<string>(paramEmail || '')
-  const [errors, setErrors] = useState<Record<string, string | boolean>>({})
+  const [errors, setErrors] = useState<Record<string, string>>({})
 
   const onResetPassword = async () => {
     const fieldErrors = LoginValidator.resetPasswordValidate(email)

@@ -18,7 +18,7 @@ export const sendErr = (res: any, err?: any, statusCode = 500) => {
   if (err instanceof AccessControlException) {
     // @ts-ignore
     res.status(403).json({ error: err.error })
-  } else if (err instanceof String) {
+  } else if (typeof err === 'string') {
     res.status(statusCode).json({ error: err })
   } else {
     res.status(statusCode).json({ error: 'Could not serve', err })

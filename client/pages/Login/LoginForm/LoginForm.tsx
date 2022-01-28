@@ -24,7 +24,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [password2, setPassword2] = useState<string>(undefined)
-  const [errors, setErrors] = useState<Record<string, string | boolean>>({})
+  const [errors, setErrors] = useState<Record<string, string>>({})
 
   useEffect(() => {
     dispatch(LoginActions.initLogin())
