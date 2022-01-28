@@ -30,4 +30,12 @@ export const LoginValidator = {
     errors.isError = !!Object.values(errors).find((value) => !!value)
     return errors
   },
+  resetPasswordValidate: (email: string) => {
+    const errors = {
+      email: validateEmail(email),
+      isError: false,
+    }
+    errors.isError = !!Object.values(errors).find((value) => !!value)
+    return errors
+  },
 }

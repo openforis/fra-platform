@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next'
 
 import { useAppDispatch } from '@client/store'
 import { LoginActions } from '@client/store/login'
+import { LoginValidator } from '@client/pages/Login/utils/LoginValidator'
+
 import { Urls } from '@client/utils'
 import { Objects } from '@core/utils'
 
@@ -17,14 +19,18 @@ const ResetPassword: React.FC = () => {
   const paramEmail = Urls.getRequestParam('email')
 
   const [email, setEmail] = useState<string>(paramEmail || '')
-  const [errors, setErrors] = useState<Record<string, string>>({})
+  const [errors, setErrors] = useState<Record<string, string | boolean>>({})
 
   const onResetPassword = async () => {
-    try {
-      await dispatch(LoginActions.createResetPassword(email)).unwrap()
-      history.push(BasePaths.Root())
-    } catch (rejectedValueOrSerializedError) {
-      console.log(rejectedValueOrSerializedError)
+    const fieldErrors = LoginValidator.resetPasswordValidate(email)
+    setErrors(fieldErrors)
+    if (!fieldErrors.isError) {
+      try {
+        await dispatch(LoginActions.createResetPassword(email)).unwrap()
+        history.push(BasePaths.Root())
+      } catch (rejectedValueOrSerializedError) {
+        console.log(rejectedValueOrSerializedError)
+      }
     }
   }
 
