@@ -11,18 +11,18 @@ export const AuthCreateResetPassword = {
       try {
         const { email } = req.body
 
-        if (Objects.isEmpty(email?.trim())) Requests.send400(res, 'login.emptyEmail')
-        if (!validEmail({ email })) Requests.send400(res, 'login.invalidEmail')
+        if (Objects.isEmpty(email?.trim())) return Requests.send400(res, 'login.emptyEmail')
+        if (!validEmail({ email })) return Requests.send400(res, 'login.invalidEmail')
 
         const user = await UserController.read({ user: { email } })
-        if (!user) Requests.send400(res, 'login.noMatchingEmail')
+        if (!user) return Requests.send400(res, 'login.noMatchingEmail')
 
         const url = Requests.serverUrl(req)
         const userResetPassword = await UserController.createResetPassword({ user, url })
-        if (userResetPassword) Requests.sendOk(res, { message: 'login.passwordResetSent' })
-        else Requests.send400(res, 'login.noMatchingEmail')
+        if (userResetPassword) return Requests.sendOk(res, { message: 'login.passwordResetSent' })
+        else return Requests.send400(res, 'login.noMatchingEmail')
       } catch (err) {
-        Requests.sendErr(res, err)
+        return Requests.sendErr(res, err)
       }
     })
   },

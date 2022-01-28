@@ -19,9 +19,13 @@ const ResetPassword: React.FC = () => {
   const [email, setEmail] = useState<string>(paramEmail || '')
   const [errors, setErrors] = useState<Record<string, string>>({})
 
-  const onResetPassword = () => {
-    dispatch(LoginActions.resetPassword(email))
-    history.push(BasePaths.Root())
+  const onResetPassword = async () => {
+    try {
+      await dispatch(LoginActions.createResetPassword(email)).unwrap()
+      history.push(BasePaths.Root())
+    } catch (rejectedValueOrSerializedError) {
+      console.log(rejectedValueOrSerializedError)
+    }
   }
 
   return (

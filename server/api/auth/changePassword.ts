@@ -13,9 +13,9 @@ export const AuthChangePassword = {
         const { email, password, password2, uuid } = req.body
 
         if (Objects.isEmpty(password?.trim()) || Objects.isEmpty(password2?.trim()))
-          Requests.send400(res, 'login.noEmptyPassword')
-        if (password?.trim() !== password2?.trim()) Requests.send400(res, 'login.noMatchPasswords')
-        if (!validPassword(password)) Requests.send400(res, 'login.passwordError')
+          return Requests.send400(res, 'login.noEmptyPassword')
+        if (password?.trim() !== password2?.trim()) return Requests.send400(res, 'login.noMatchPasswords')
+        if (!validPassword(password)) return Requests.send400(res, 'login.passwordError')
 
         const user = await UserController.read({ user: { email } })
         const hash = await passwordHash(password)
@@ -24,10 +24,10 @@ export const AuthChangePassword = {
           password: hash,
           resetPasswordUuid: uuid,
         })
-        if (changed) Requests.sendOk(res, { message: 'login.passwordChanged' })
-        else Requests.send400(res, 'login.noLongerValid')
+        if (changed) return Requests.sendOk(res, { message: 'login.passwordChanged' })
+        else return Requests.send400(res, 'login.noLongerValid')
       } catch (err) {
-        Requests.sendErr(res, err)
+        return Requests.sendErr(res, err)
       }
     })
   },

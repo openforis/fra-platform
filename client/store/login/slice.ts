@@ -40,14 +40,10 @@ export const loginSlice = createSlice({
       state.login.status = 'loaded'
     })
 
-    builder.addCase(createResetPassword.fulfilled, (state, { payload }) => {
-      state.resetPassword.message = payload.message
-      state.resetPassword.error = payload.error
-    })
 
     builder.addCase(changePassword.fulfilled, (state, { payload }) => {
-      state.resetPassword.message = payload.message
-      state.resetPassword.error = payload.error
+      state.changePassword.message = payload.message
+      state.changePassword.error = payload.error
     })
   },
 })
