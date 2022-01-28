@@ -12,7 +12,7 @@ export const resetPassword = async (props: { url: string; user: User; userResetP
   const resetPasswordEmail = {
     to: user.email,
     subject: i18n.t('user.resetPasswordEmail.subject'),
-    text: i18n.t('user.resetPasswordEmail.htmlMessage', {
+    text: i18n.t('user.resetPasswordEmail.textMessage', {
       link,
       url,
     }),
