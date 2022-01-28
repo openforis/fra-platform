@@ -3,6 +3,7 @@ import { AssessmentState } from './stateType'
 import { initApp } from './actions/initApp'
 import { getSections } from './actions/getSections'
 import { getCountryStatus } from './actions/getCountryStatus'
+import { postCountryStatus } from './actions/postCountryStatus'
 
 const initialState: AssessmentState = {}
 
@@ -23,12 +24,16 @@ export const assessmentSlice = createSlice({
     builder.addCase(getCountryStatus.fulfilled, (state, { payload }) => {
       state.countryStatus = payload
     })
+    builder.addCase(postCountryStatus.fulfilled, (state, { payload }) => {
+      state.countryStatus = payload
+    })
   },
 })
 
 export const AssessmentActions = {
   getSections,
   getCountryStatus,
+  postCountryStatus,
   initApp,
 }
 

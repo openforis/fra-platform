@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-// import { useAppDispatch } from '@client/store'
+import { useAppDispatch } from '@client/store'
 import { useCountryIso } from '@client/hooks'
 import { useTranslation } from 'react-i18next'
 import { useUser } from '@client/store/user'
@@ -19,21 +19,27 @@ import PopoverControl, { PopoverItem } from '@client/components/PopoverControl'
 
 // import StatusConfirm from './StatusConfirm'
 import { useAssessmentCountryStatus } from '@client/store/assessment/hooks'
-import { AssessmentStatus } from '@meta/assessment'
+import { AssessmentName, AssessmentStatus } from '@meta/assessment'
 import { CountryStatusTransitions } from '@meta/assessment/assessments'
 import { Users } from '@meta/user'
+import { useParams } from 'react-router-dom'
+import { AssessmentActions } from '@client/store/assessment'
 import { StatusTransition } from './types'
 
 const Status: React.FC = () => {
-  // const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const { i18n } = useTranslation()
   const user = useUser()
-  const assessmentCountryStatus = useAssessmentCountryStatus()
+  const countryStatus = useAssessmentCountryStatus()
 
-  const { deskStudy, status } = assessmentCountryStatus
+  const { assessmentName, cycleName } = useParams<{ assessmentName: AssessmentName; cycleName: string }>()
+
+  const { deskStudy, status } = countryStatus ?? {}
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [targetStatus, setTargetStatus] = useState<StatusTransition>(null)
+
+  if (!countryStatus) return null
 
   const deskStudyItems: Array<PopoverItem> = [
     { divider: true },
@@ -44,19 +50,25 @@ const Status: React.FC = () => {
           <span>{i18n.t('assessment.deskStudy')}</span>
         </div>
       ),
-      onClick: () => {
-        // todo
-      },
-      // dispatch(
-      //   CountryActions.changeAssessmentStatus({ countryIso, assessment: { ...assessmentCountryStatus, deskStudy: !deskStudy } })
-      // ),
+      onClick: () =>
+        dispatch(
+          AssessmentActions.postCountryStatus({
+            countryStatus: {
+              ...countryStatus,
+              deskStudy: !countryStatus.deskStudy,
+            },
+            countryIso,
+            cycleName,
+            name: assessmentName,
+          })
+        ),
     },
   ]
 
   const items: Array<PopoverItem> = []
   if (status !== AssessmentStatus.changing) {
     const { next, previous } = CountryStatusTransitions.getAllowedTransition({
-      countryStatus: assessmentCountryStatus,
+      countryStatus,
       countryIso,
       user,
     })
