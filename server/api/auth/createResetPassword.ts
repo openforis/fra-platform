@@ -7,7 +7,7 @@ import { UserController } from '@server/controller'
 
 export const AuthCreateResetPassword = {
   init: (express: Express): void => {
-    express.post(ApiEndPoint.Auth.ResetPassword.create(), async (req: Request, res: Response) => {
+    express.post(ApiEndPoint.Auth.ResetPassword.one(), async (req: Request, res: Response) => {
       try {
         const { email } = req.body
 
