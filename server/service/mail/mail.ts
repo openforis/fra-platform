@@ -2,6 +2,7 @@ import * as nodemailer from 'nodemailer'
 
 import { resetPassword } from './resetPassword'
 import { userInvite } from './userInvite'
+import { assessmentNotifyUsers } from './assessmentNotifyUsers'
 
 const mailTransport = nodemailer.createTransport({
   host: process.env.FRA_MAIL_HOST,
@@ -35,4 +36,5 @@ export const MailService = {
   sendMail,
   resetPassword,
   userInvite,
+  assessmentNotifyUsers,
 }
