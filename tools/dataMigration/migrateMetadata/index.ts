@@ -11,6 +11,7 @@ import { getMapping } from '../dataTable/tableMappings'
 import { getRow } from '../getRow'
 import { getCol } from '../getCol'
 import { migrateDegradedForest } from './migrateDegradedForest'
+import { migrateTableWithODP } from './migrateTableWithODP'
 
 type Props = {
   assessment: Assessment
@@ -141,4 +142,21 @@ export const migrateMetadata = async (props: Props): Promise<void> => {
   )
 
   await migrateDegradedForest({ assessment }, client)
+  await migrateTableWithODP(
+    { assessment, tableName: 'extentOfForest', variables: ['forestArea', 'otherWoodedLand'] },
+    client
+  )
+  await migrateTableWithODP(
+    {
+      assessment,
+      tableName: 'forestCharacteristics',
+      variables: [
+        'naturalForestArea',
+        'plantationForestArea',
+        'plantationForestIntroducedArea',
+        'otherPlantedForestArea',
+      ],
+    },
+    client
+  )
 }
