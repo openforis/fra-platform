@@ -18,7 +18,7 @@ export const createMail = async (props: {
   message: string
   assessmentName: AssessmentName
 }) => {
-  const { user, url, countryStatus, countryIso, recipient, message } = props
+  const { assessmentName, user, url, countryStatus, countryIso, recipient, message } = props
   const i18n = await createI18nPromise(recipient.lang ?? 'en')
 
   const emailLocalizationParameters = {
@@ -27,7 +27,7 @@ export const createMail = async (props: {
     recipientName: recipient.name,
     status: i18n.t(`assessment.status.${countryStatus.status}.label`),
     changer: user.name,
-    assessment: i18n.t(`assessment.${AssessmentName}`),
+    assessment: i18n.t(`assessment.${assessmentName}`),
     message,
   }
 
@@ -90,7 +90,7 @@ export const assessmentNotifyUsers = async (props: {
 
   const xx = await Promise.all(emails)
   console.log({ xx })
-  //
+
   //   const emailLocalizationParameters = {
   //     country: i18n.t(`area.${countryIso}.listName`),
   //     serverUrl,
