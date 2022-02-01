@@ -1,13 +1,9 @@
-// import { User, UserResetPassword } from '@meta/user'
-// import { createI18nPromise } from '@i18n/i18nFactory'
-// import { sendMail } from '@server/service/mail/mail'
-// import { CountryIso } from '@meta/area'
-//
 import { CountryIso } from '@meta/area'
 import { RoleName, User } from '@meta/user'
 import { createI18nPromise } from '@i18n/i18nFactory'
 import { AssessmentName, AssessmentStatus, CountryStatus } from '@meta/assessment'
 import { UserRepository } from '@server/repository'
+import { sendMail } from './mail'
 
 export const createMail = async (props: {
   countryIso: CountryIso
@@ -75,8 +71,7 @@ export const assessmentNotifyUsers = async (props: {
 }) => {
   const { countryIso, user, countryStatus, url, message, assessmentName } = props
   const recipients = await getRecipients({ countryISOs: [countryIso], countryStatus })
-  console.log(recipients, url)
-  const emails = recipients.map(async (recipient: User) => {
+  const emailPromises = await recipients.map(async (recipient: User) => {
     return createMail({
       user,
       url,
@@ -88,36 +83,9 @@ export const assessmentNotifyUsers = async (props: {
     })
   })
 
-  const xx = await Promise.all(emails)
-  console.log({ xx })
+  const emails = await Promise.all(emailPromises)
 
-  //   const emailLocalizationParameters = {
-  //     country: i18n.t(`area.${countryIso}.listName`),
-  //     serverUrl,
-  //     recipientName: user.name,
-  //     status: i18n.t(`assessment.status.${assessment.status}.label`),
-  //     changer: loggedInUser.name,
-  //     assessment: i18n.t(`assessment.${assessment.type}`),
-  //     message: assessment.message,
-  //   }
-  //   return {
-  //     to: user.email,
-  //     subject: i18n.t('assessment.statusChangeNotification.subject', emailLocalizationParameters),
-  //     text: i18n.t('assessment.statusChangeNotification.textMessage', emailLocalizationParameters),
-  //     html: i18n.t('assessment.statusChangeNotification.htmlMessage', emailLocalizationParameters),
-  //   }
-  //
-  //   const resetPasswordEmail = {
-  //     to: user.email,
-  //     subject: i18n.t('user.resetPasswordEmail.subject'),
-  //     text: i18n.t('user.resetPasswordEmail.htmlMessage', {
-  //       link,
-  //       url,
-  //     }),
-  //     html: i18n.t('user.resetPasswordEmail.htmlMessage', {
-  //       link,
-  //       url,
-  //     }),
-  //   }
-  //   await sendMail(resetPasswordEmail)
+  const sendMailPromises = emails.map((email) => sendMail(email))
+
+  await Promise.all(sendMailPromises)
 }
