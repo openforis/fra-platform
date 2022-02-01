@@ -20,7 +20,7 @@ export const AuthCreateResetPassword = {
         const url = Requests.serverUrl(req)
         const userResetPassword = await UserController.createResetPassword({ user, url })
         if (userResetPassword) return Requests.sendOk(res, { message: 'login.passwordResetSent' })
-        else return Requests.send400(res, 'login.noMatchingEmail')
+        return Requests.send400(res, 'login.noMatchingEmail')
       } catch (err) {
         return Requests.sendErr(res, err)
       }

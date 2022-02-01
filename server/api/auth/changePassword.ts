@@ -23,7 +23,7 @@ export const AuthChangePassword = {
           resetPasswordUuid: uuid,
         })
         if (changed) return Requests.sendOk(res, { message: 'login.passwordChanged' })
-        else return Requests.send400(res, 'login.noLongerValid')
+        return Requests.send400(res, 'login.noLongerValid')
       } catch (err) {
         return Requests.sendErr(res, err)
       }

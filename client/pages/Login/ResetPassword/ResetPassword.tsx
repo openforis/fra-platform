@@ -33,7 +33,7 @@ const ResetPassword: React.FC = () => {
         await dispatch(LoginActions.createResetPassword(email)).unwrap()
         history.push(BasePaths.Root())
       } catch (rejectedValueOrSerializedError) {
-        console.log(rejectedValueOrSerializedError)
+        // console.log(rejectedValueOrSerializedError)
       }
     }
   }
@@ -47,7 +47,7 @@ const ResetPassword: React.FC = () => {
         await dispatch(LoginActions.changePassword({ email, password, resetPasswordUuid })).unwrap()
         history.push(BasePaths.Root())
       } catch (rejectedValueOrSerializedError) {
-        console.log(rejectedValueOrSerializedError)
+        // console.log(rejectedValueOrSerializedError)
       }
     }
   }
