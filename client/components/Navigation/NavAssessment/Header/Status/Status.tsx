@@ -31,7 +31,6 @@ const Status: React.FC = () => {
   const { assessmentName, cycleName } = useParams<{ assessmentName: AssessmentName; cycleName: string }>()
 
   const { deskStudy, status } = countryStatus ?? {}
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [targetStatus, setTargetStatus] = useState<StatusTransition>(null)
 
   if (!countryStatus) return null
