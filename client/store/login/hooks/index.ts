@@ -9,10 +9,3 @@ export const useInvitation = ():
       invitedUser?: User
     }
   | undefined => useAppSelector((state) => state.login?.invitation)
-
-export const useResetPassword = ():
-  | {
-      error?: string
-      message?: string
-    }
-  | undefined => useAppSelector((state) => state.login?.resetPassword)

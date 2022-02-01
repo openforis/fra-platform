@@ -10,11 +10,9 @@ export const AuthChangePassword = {
   init: (express: Express): void => {
     express.post(ApiEndPoint.Auth.changePassword(), async (req: Request, res: Response) => {
       try {
-        const { email, password, password2, uuid } = req.body
+        const { email, password, uuid } = req.body
 
-        if (Objects.isEmpty(password?.trim()) || Objects.isEmpty(password2?.trim()))
-          return Requests.send400(res, 'login.noEmptyPassword')
-        if (password?.trim() !== password2?.trim()) return Requests.send400(res, 'login.noMatchPasswords')
+        if (Objects.isEmpty(password?.trim())) return Requests.send400(res, 'login.noEmptyPassword')
         if (!validPassword(password)) return Requests.send400(res, 'login.passwordError')
 
         const user = await UserController.read({ user: { email } })

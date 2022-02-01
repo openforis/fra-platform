@@ -21,7 +21,7 @@ const ResetPassword: React.FC = () => {
 
   const [email, setEmail] = useState<string>(paramEmail || '')
   const [password, setPassword] = useState<string>('')
-  const [password2, setPassword2] = useState<string>(undefined)
+  const [password2, setPassword2] = useState<string>('')
   const [errors, setErrors] = useState<Record<string, string>>({})
 
   const onResetPassword = async () => {
@@ -44,7 +44,7 @@ const ResetPassword: React.FC = () => {
 
     if (!fieldErrors.isError) {
       try {
-        await dispatch(LoginActions.changePassword({ email, password, password2, resetPasswordUuid })).unwrap()
+        await dispatch(LoginActions.changePassword({ email, password, resetPasswordUuid })).unwrap()
         history.push(BasePaths.Root())
       } catch (rejectedValueOrSerializedError) {
         console.log(rejectedValueOrSerializedError)
