@@ -8,16 +8,7 @@ import { CountryIso } from '@meta/area'
   We get a list of recipients for Array<<countryIsos>> and Array<<RoleName>>
 */
 
-const fields: Array<string> = [
-  'lang',
-  'id',
-  'profile_picture_filename',
-  'name',
-  'status',
-  'profile_picture_file',
-  'position',
-  'email',
-]
+const fields: Array<string> = ['lang', 'id', 'name', 'status', 'position', 'email']
 
 const selectFields = fields.map((f) => `u.${f}`).join(',')
 

@@ -28,7 +28,7 @@ export const createMail = async (props: {
   }
 
   return {
-    to: user.email,
+    to: recipient.email,
     subject: i18n.t('assessment.statusChangeNotification.subject', emailLocalizationParameters),
     text: i18n.t('assessment.statusChangeNotification.textMessage', emailLocalizationParameters),
     html: i18n.t('assessment.statusChangeNotification.htmlMessage', emailLocalizationParameters),
