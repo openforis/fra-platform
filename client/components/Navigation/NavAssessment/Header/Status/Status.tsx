@@ -5,10 +5,8 @@ import { useTranslation } from 'react-i18next'
 import { useUser } from '@client/store/user'
 import MediaQuery from 'react-responsive'
 import classNames from 'classnames'
-//
 import { Objects } from '@core/utils'
 import { Breakpoints } from '@webapp/utils/breakpoints'
-//
 import Icon from '@client/components/Icon'
 import PopoverControl, { PopoverItem } from '@client/components/PopoverControl'
 
