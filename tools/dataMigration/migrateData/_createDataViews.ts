@@ -38,15 +38,17 @@ export const getCreateViewDDL = async (
               $$
           select
               (n.country_iso || '${categorySeparator}' || (r.props->>'variableName'))::varchar as cat,
-              n.col_uuid,
+              c.props->>'index' as col_index,
               n.value as value
           from
               ${schemaCycle}.node n
           left join ${schema}.row r
-              on r.uuid = n.row_uuid               
+              on r.uuid = n.row_uuid 
+          left join assessment_fra.col c
+              on c.uuid = n.col_uuid        
           where
               n.row_uuid in (${rowsData.map((r) => `'${r.uuid}'`).join(',')})
-          order by 1,2
+          order by 1, 2
           $$
          ) as t (cat varchar, ${colIndexes.map((colIdx) => `${getColName(colIdx)} jsonb`).join(', ')})
   `

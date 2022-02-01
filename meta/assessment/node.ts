@@ -1,5 +1,5 @@
 export interface NodeValue {
-  raw: string
+  raw: string | null
   estimated?: boolean
 }
 

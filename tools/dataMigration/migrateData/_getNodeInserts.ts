@@ -1,13 +1,13 @@
 import { ITask } from 'pg-promise'
 
-import { Assessment, Col, RowType, Table } from '../../../meta/assessment'
+import { Assessment, Col, NodeValue, RowType, Table } from '../../../meta/assessment'
 
 import * as sqlCreator from '../dataTable/dataTableSqlCreator'
 import { DBNames } from '../_DBNames'
 import { getColIndexes, getCols, getRows } from './_repos'
 
 // eslint-disable-next-line camelcase
-export type NodeRow = { country_iso: string; row_uuid: string; col_uuid: string; value: { raw: string | null } }
+export type NodeRow = { country_iso: string; row_uuid: string; col_uuid: string; value: NodeValue }
 
 export interface DatumLegacy extends Record<string, string> {
   // eslint-disable-next-line camelcase
