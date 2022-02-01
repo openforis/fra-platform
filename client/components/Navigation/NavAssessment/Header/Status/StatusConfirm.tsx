@@ -9,6 +9,12 @@ import { useTranslation } from 'react-i18next'
 import { useUser } from '@client/store/user'
 import { Users } from '@meta/user'
 // import { useAssessmentCountryStatus } from '@client/store/assessment/hooks'
+import { AssessmentActions } from '@client/store/assessment'
+import { useParams } from 'react-router-dom'
+import { AssessmentName } from '@meta/assessment'
+import { useCountryIso } from '@client/hooks'
+import { useAppDispatch } from '@client/store'
+import { useAssessmentCountryStatus } from '@client/store/assessment/hooks'
 import { StatusTransition } from './types'
 
 type Props = {
@@ -19,19 +25,19 @@ type Props = {
 const StatusConfirm: React.FC<Props> = (props) => {
   const { status, onClose } = props
 
-  // const dispatch = useAppDispatch()
-  // const countryIso = useCountryIso()
-  // const countryStatus = useAssessmentCountryStatus()
-
+  const dispatch = useAppDispatch()
   const i18n = useTranslation()
+  const countryIso = useCountryIso()
   const user = useUser()
+  const countryStatus = useAssessmentCountryStatus()
+
   const [notifyUsers, setNotifyUsers] = useState<boolean>(true)
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [textareaValue, setTextareaValue] = useState<string>('')
+  const { assessmentName, cycleName } = useParams<{ assessmentName: AssessmentName; cycleName: string }>()
 
   return (
-    <Modal isOpen="true">
+    <Modal isOpen>
       <ModalHeader>
         <div className="modal-header-center">{i18n.t(`assessment.status.${status.status}.${status.direction}`)}</div>
         <ModalClose onClose={onClose} />
@@ -42,6 +48,7 @@ const StatusConfirm: React.FC<Props> = (props) => {
           <textarea
             className="nav-assessment-status-confirm__message"
             placeholder={i18n.t('navigation.changeStatusTextPlaceholder')}
+            value={textareaValue}
             onChange={({ target: { value } }) => setTextareaValue(value)}
           />
         </div>
@@ -67,10 +74,19 @@ const StatusConfirm: React.FC<Props> = (props) => {
         <button
           className="btn btn-primary modal-footer__item"
           onClick={() => {
-            // TODO
-            // const assessmentUpdate = { ...assessment, status: status.status, message: textareaValue }
-
-            // dispatch(CountryActions.changeAssessmentStatus({ countryIso, assessment: assessmentUpdate, notifyUsers }))
+            dispatch(
+              AssessmentActions.postCountryStatus({
+                notifyUsers,
+                countryStatus: {
+                  ...countryStatus,
+                  status: status.status,
+                },
+                countryIso,
+                cycleName,
+                name: assessmentName,
+                message: textareaValue,
+              })
+            )
             onClose()
           }}
           type="button"

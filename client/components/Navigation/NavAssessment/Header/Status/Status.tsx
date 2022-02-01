@@ -67,6 +67,7 @@ const Status: React.FC = () => {
       countryIso,
       user,
     })
+
     if (next) {
       items.push({
         content: i18n.t(`assessment.status.${next}.next`),
@@ -84,10 +85,7 @@ const Status: React.FC = () => {
 
   return (
     <>
-      {
-        // showing confirmation modal dialog before submitting the status change
-        targetStatus && <StatusConfirm status={targetStatus} onClose={() => setTargetStatus(null)} />
-      }
+      {targetStatus && <StatusConfirm status={targetStatus} onClose={() => setTargetStatus(null)} />}
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
         <div className={`nav-assessment-header__status status-${status}`}>
           <span>{i18n.t(`assessment.status.${status}.label`)}</span>
