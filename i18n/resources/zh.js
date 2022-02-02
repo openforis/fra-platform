@@ -914,7 +914,7 @@ FRA工作组 fra@fao.org
   },
 
   assessment: {
-    fra2020: 'FRA 2020',
+    fra: 'FRA',
     panEuropean: '泛欧洲',
     deskStudy: '书面审查',
     statusChangeNotification: {
