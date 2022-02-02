@@ -3,12 +3,9 @@ import React, { useState } from 'react'
 
 import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from '@client/components/Modal'
 
-// import { useAppDispatch } from '@client/store'
-// import { useCountryIso } from '@client/hooks'
 import { useTranslation } from 'react-i18next'
 import { useUser } from '@client/store/user'
 import { Users } from '@meta/user'
-// import { useAssessmentCountryStatus } from '@client/store/assessment/hooks'
 import { AssessmentActions } from '@client/store/assessment'
 import { useParams } from 'react-router-dom'
 import { AssessmentName } from '@meta/assessment'
