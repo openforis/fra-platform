@@ -73,7 +73,7 @@ const appConfig = {
   },
   devServer: {
     hot: true,
-    disableHostCheck: true,
+    // disableHostCheck: true,
     proxy: [
       {
         // Proxy all server-served routes:
@@ -112,14 +112,15 @@ const appConfig = {
           {
             loader: 'css-loader',
             options: {
-              url: (url) => {
-                // Don't handle /img/ urls
-                if (url.includes('/img/')) {
-                  return false
-                }
-
-                return true
-              },
+              url: false,
+              // url: (url) => {
+              //   // Don't handle /img/ urls
+              //   if (url.includes('/img/')) {
+              //     return false
+              //   }
+              //
+              //   return true
+              // },
               import: (url) => {
                 // Don't handle font css file import
                 if (url.includes(fontCssFileName)) {
@@ -140,14 +141,15 @@ const appConfig = {
           {
             loader: 'css-loader',
             options: {
-              url: (url) => {
-                // Don't handle /img/ urls
-                if (url.includes('/img/')) {
-                  return false
-                }
-
-                return true
-              },
+              url: false,
+              // url: (url) => {
+              //   // Don't handle /img/ urls
+              //   if (url.includes('/img/')) {
+              //     return false
+              //   }
+              //
+              //   return true
+              // },
             },
           },
           {
