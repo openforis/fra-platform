@@ -27,7 +27,7 @@ const ResetPassword: React.FC = () => {
     setErrors(fieldErrors)
 
     if (!fieldErrors.isError) {
-      dispatch(LoginActions.createResetPassword(email, history))
+      dispatch(LoginActions.createResetPassword({ email, history }))
     }
   }
 
