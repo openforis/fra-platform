@@ -39,12 +39,6 @@ export const loginSlice = createSlice({
       state.login = { ...state.login, ...payload }
       state.login.status = 'loaded'
     })
-
-
-    builder.addCase(changePassword.fulfilled, (state, { payload }) => {
-      state.changePassword.message = payload.message
-      state.changePassword.error = payload.error
-    })
   },
 })
 

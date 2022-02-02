@@ -9,8 +9,6 @@ import { LoginValidator } from '@client/pages/Login/utils/LoginValidator'
 import { Urls } from '@client/utils'
 import { Objects } from '@core/utils'
 
-import { BasePaths } from '@client/basePaths'
-
 const ResetPassword: React.FC = () => {
   const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
@@ -29,12 +27,7 @@ const ResetPassword: React.FC = () => {
     setErrors(fieldErrors)
 
     if (!fieldErrors.isError) {
-      try {
-        await dispatch(LoginActions.createResetPassword(email)).unwrap()
-        history.push(BasePaths.Root())
-      } catch (rejectedValueOrSerializedError) {
-        // console.log(rejectedValueOrSerializedError)
-      }
+      dispatch(LoginActions.createResetPassword(email, history))
     }
   }
 
@@ -43,12 +36,7 @@ const ResetPassword: React.FC = () => {
     setErrors(fieldErrors)
 
     if (!fieldErrors.isError) {
-      try {
-        await dispatch(LoginActions.changePassword({ email, password, resetPasswordUuid })).unwrap()
-        history.push(BasePaths.Root())
-      } catch (rejectedValueOrSerializedError) {
-        // console.log(rejectedValueOrSerializedError)
-      }
+      await dispatch(LoginActions.changePassword({ email, password, resetPasswordUuid, history }))
     }
   }
 
