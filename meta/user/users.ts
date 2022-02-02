@@ -1,5 +1,5 @@
 import { CountryIso } from '@meta/area'
-import { User } from './user'
+import type { User } from './user'
 import { RoleName, UserRole } from './userRole'
 
 const isRole = (user: User, role: RoleName) =>
