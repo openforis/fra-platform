@@ -20,23 +20,27 @@ export const BasePaths = {
   Assessment: {
     root: (
       countryIso: CountryIso | defaults.countryIso | string = defaults.countryIso,
-      assessmentName: AssessmentName | defaults.assessmentName = defaults.assessmentName
-    ) => _generate(countryIso, 'assessments', assessmentName),
+      assessmentName: AssessmentName | defaults.assessmentName = defaults.assessmentName,
+      cycleName: string = defaults.cycleName
+    ) => _generate(countryIso, 'assessments', assessmentName, cycleName),
 
     section: (
       countryIso: CountryIso | defaults.countryIso = defaults.countryIso,
       assessmentName: AssessmentName | defaults.assessmentName = defaults.assessmentName,
-      section: string | defaults.section = defaults.section
-    ) => _generate(countryIso, 'assessments', assessmentName, section),
+      section: string | defaults.section = defaults.section,
+      cycleName: string = defaults.cycleName
+    ) => _generate(countryIso, 'assessments', assessmentName, section, cycleName),
     dataDownload: (
       countryIso: CountryIso | defaults.countryIso = defaults.countryIso,
-      assessmentName: AssessmentName | defaults.assessmentName = defaults.assessmentName
-    ) => _generate(countryIso, 'assessments', assessmentName, 'dataDownload'),
+      assessmentName: AssessmentName | defaults.assessmentName = defaults.assessmentName,
+      cycleName: string = defaults.cycleName
+    ) => _generate(countryIso, 'assessments', assessmentName, cycleName, 'dataDownload'),
     print: (
       countryIso: CountryIso | defaults.countryIso = defaults.countryIso,
       assessmentName: AssessmentName | defaults.assessmentName = defaults.assessmentName,
+      cycleName: string = defaults.cycleName,
       tables = false
-    ) => _generate(countryIso, assessmentName, 'print', tables && 'tables'),
+    ) => _generate(countryIso, assessmentName, cycleName, 'print', tables && 'tables'),
     OriginalDataPoint: {
       one: (
         countryIso: CountryIso | defaults.countryIso = defaults.countryIso,

@@ -924,7 +924,7 @@ The FRA team
   },
 
   assessment: {
-    fra2020: 'تقييم الموارد الحرجية عام 2020',
+    fra: 'تقييم الموارد الحرجية عام',
     panEuropean: 'عموم أوروبا',
     deskStudy: 'دراسة مكتبية',
     statusChangeNotification: {

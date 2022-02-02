@@ -4,6 +4,7 @@ import * as bodyParser from 'body-parser'
 import * as compression from 'compression'
 import * as fileUpload from 'express-fileupload'
 import * as morgan from 'morgan'
+import * as wwwhisper from 'connect-wwwhisper'
 
 import { Api } from '@server/api'
 import * as cookieParser from 'cookie-parser'
@@ -12,6 +13,7 @@ import { sendErr } from './utils/requests'
 
 export const serverInit = () => {
   const app = express()
+  app.use(wwwhisper(false))
   app.use(cookieParser())
 
   if (process.env.NODE_ENV === 'development') {
@@ -55,6 +57,7 @@ export const serverInit = () => {
   app.enable('trust proxy')
 
   app.listen(process.env.PORT, () => {
+    // eslint-disable-next-line no-console
     console.log('FRA Platform server listening on port ', process.env.PORT, ' with pid: ', process.pid)
   })
 }

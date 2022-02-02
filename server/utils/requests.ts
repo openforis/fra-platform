@@ -1,7 +1,8 @@
-import * as R from 'ramda'
+import { Request } from 'express'
 
-import * as User from '@common/user/user'
-
+import * as jwt from 'jsonwebtoken'
+import { Objects } from '@core/utils'
+import { User } from '@meta/user'
 import { AccessControlException } from './accessControl'
 
 export const appUri = process.env.APP_URI ? process.env.APP_URI : ''
@@ -28,29 +29,28 @@ export const methods = {
   GET: 'GET',
 }
 
-export const getMethod = (req: any) => R.prop('method', req)
-export const isGet = (req: any) => getMethod(req) === methods.GET
+export const getMethod = (req: Request) => req.method
+export const isGet = (req: Request) => getMethod(req) === methods.GET
 
-export const getParams = (req: any) =>
-  R.pipe(
-    R.mergeLeft(R.prop('query', req)),
-    R.mergeLeft(R.prop('params', req)),
-    R.mergeLeft(R.prop('body', req)),
-    // Convert String boolean values to Boolean type
-    R.mapObjIndexed((val: any) =>
-      R.ifElse((v: any) => v === 'true' || v === 'false', R.always(val === 'true'), R.identity)(val)
-    )
-  )({})
+const parseStringBoolean = (str: any) => (str ?? ['true', 'false'].includes(str) ? JSON.parse(str) : str)
+export const getParams = (req: Request) =>
+  Object.entries({
+    ...(req.query ?? {}),
+    ...(req.params ?? {}),
+    ...(req.body ?? {}),
+  }).map(([key, value]) => ({ [key]: parseStringBoolean(value) }))
 
-export const serverUrl = (req: any) => (R.isEmpty(appUri) ? `${req.protocol}://${req.get('host')}` : appUri)
+export const serverUrl = (req: Request) => (Objects.isEmpty(appUri) ? `${req.protocol}://${req.get('host')}` : appUri)
 
-// User helper functions
-export const getUser = R.prop('user')
-// @ts-ignore
-export const getUserId = (req) => R.pipe(getUser, User.getId)(req)
-// @ts-ignore
-export const getUserName = R.pipe(getUser, User.getName)
-export const getUserRoles = R.pipe(getUser, User.getRoles)
+const getRequestUser = (req: Request) => {
+  const { token } = req.cookies
+  let user
+  if (token) {
+    const decodedJwt = jwt.decode(token) as Record<string, User>
+    user = decodedJwt.user
+  }
+  return user
+}
 
 export const Requests = {
   appUri,
@@ -65,10 +65,7 @@ export const Requests = {
   serverUrl,
 
   // User
-  getUser,
-  getUserId,
-  getUserName,
-  getUserRoles,
+  getRequestUser,
 }
 
 export default Requests

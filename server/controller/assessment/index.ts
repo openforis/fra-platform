@@ -7,6 +7,7 @@ import { getOdp } from './getOdp'
 import { getRegionGroups } from './getRegionGroups'
 import { createCycle } from './createCycle'
 import { getCountryStatus } from './getCountryStatus'
+import { updateCountryStatus } from './updateCountryStatus'
 
 export const AssessmentController = {
   create,
@@ -18,4 +19,5 @@ export const AssessmentController = {
   getOdp,
   createCycle,
   getCountryStatus,
+  updateCountryStatus,
 }

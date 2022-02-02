@@ -14,7 +14,7 @@ const Navigation: React.FC = () => {
   const countryIso = useCountryIso()
   const dispatch = useAppDispatch()
 
-  // TODO: get these from settings
+  // TODO: get these from settings/url
   const name = 'fra'
   const cycleName = '2025'
   useEffect(() => {

@@ -874,7 +874,7 @@ module.exports.translation = {
   },
 
   assessment: {
-    fra2020: 'ОЛР-2020',
+    fra: 'ОЛР',
     panEuropean: 'Общеевропейский',
     deskStudy: 'Кабинетное исследование',
     statusChangeNotification: {
