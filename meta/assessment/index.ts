@@ -3,6 +3,7 @@ export { AssessmentName } from './assessmentName'
 export { ColType } from './col'
 export { RowType } from './row'
 export { Unit } from './unit'
+export { AssessmentStatus } from './countryStatus'
 
 export type { ActivityLog } from './activityLog'
 export type { Assessment } from './assessment'

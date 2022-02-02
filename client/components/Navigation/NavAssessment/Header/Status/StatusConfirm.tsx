@@ -1,35 +1,40 @@
 import './StatusConfirm.scss'
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
 
-import { Assessment } from '@core/assessment'
-import { Users } from '@core/auth'
-import { useCountryIso, useI18n } from '@webapp/hooks'
+import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from '@client/components/Modal'
 
-import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from '@webapp/components/modal'
-import { CountryActions } from '@webapp/store/country'
-import { useUserInfo } from '@webapp/store/user'
-
+import { useTranslation } from 'react-i18next'
+import { useUser } from '@client/store/user'
+import { Users } from '@meta/user'
+import { AssessmentActions } from '@client/store/assessment'
+import { useParams } from 'react-router-dom'
+import { AssessmentName } from '@meta/assessment'
+import { useCountryIso } from '@client/hooks'
+import { useAppDispatch } from '@client/store'
+import { useAssessmentCountryStatus } from '@client/store/assessment/hooks'
 import { StatusTransition } from './types'
 
 type Props = {
-  assessment: Assessment
   onClose: () => void
   status: StatusTransition
 }
 
 const StatusConfirm: React.FC<Props> = (props) => {
-  const { assessment, status, onClose } = props
+  const { status, onClose } = props
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
+  const i18n = useTranslation()
   const countryIso = useCountryIso()
-  const i18n = useI18n()
-  const userInfo = useUserInfo()
+  const user = useUser()
+  const countryStatus = useAssessmentCountryStatus()
+
   const [notifyUsers, setNotifyUsers] = useState<boolean>(true)
+
   const [textareaValue, setTextareaValue] = useState<string>('')
+  const { assessmentName, cycleName } = useParams<{ assessmentName: AssessmentName; cycleName: string }>()
 
   return (
-    <Modal isOpen="true">
+    <Modal isOpen>
       <ModalHeader>
         <div className="modal-header-center">{i18n.t(`assessment.status.${status.status}.${status.direction}`)}</div>
         <ModalClose onClose={onClose} />
@@ -40,11 +45,12 @@ const StatusConfirm: React.FC<Props> = (props) => {
           <textarea
             className="nav-assessment-status-confirm__message"
             placeholder={i18n.t('navigation.changeStatusTextPlaceholder')}
+            value={textareaValue}
             onChange={({ target: { value } }) => setTextareaValue(value)}
           />
         </div>
 
-        {Users.isAdministrator(userInfo) && (
+        {Users.isAdministrator(user) && (
           <div
             className="nav-assessment-status-confirm__notify-users"
             onClick={() => setNotifyUsers(!notifyUsers)}
@@ -65,8 +71,19 @@ const StatusConfirm: React.FC<Props> = (props) => {
         <button
           className="btn btn-primary modal-footer__item"
           onClick={() => {
-            const assessmentUpdate = { ...assessment, status: status.status, message: textareaValue }
-            dispatch(CountryActions.changeAssessmentStatus({ countryIso, assessment: assessmentUpdate, notifyUsers }))
+            dispatch(
+              AssessmentActions.postCountryStatus({
+                notifyUsers,
+                countryStatus: {
+                  ...countryStatus,
+                  status: status.status,
+                },
+                countryIso,
+                cycleName,
+                name: assessmentName,
+                message: textareaValue,
+              })
+            )
             onClose()
           }}
           type="button"

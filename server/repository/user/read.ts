@@ -2,16 +2,7 @@ import { BaseProtocol, DB } from '@server/db'
 import { User } from '@meta/user'
 import { Objects } from '@core/utils'
 
-const fields: Array<string> = [
-  'lang',
-  'id',
-  'profile_picture_filename',
-  'name',
-  'status',
-  'profile_picture_file',
-  'position',
-  'email',
-]
+const fields: Array<string> = ['lang', 'id', 'name', 'status', 'position', 'email']
 
 const selectFields = fields.map((f) => `u.${f}`).join(',')
 
