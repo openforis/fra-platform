@@ -859,7 +859,7 @@ El equipo de FRA
   },
 
   assessment: {
-    fra2020: 'FRA 2020',
+    fra: 'FRA',
     deskStudy: 'Estudio técnico',
     statusChangeNotification: {
       subject: 'El estado de {{country}} cambió a {{status}} en la plataforma de FRA',

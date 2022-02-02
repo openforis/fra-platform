@@ -924,7 +924,7 @@ The FRA team fra@fao.org
   },
 
   assessment: {
-    fra2020: 'FRA 2020',
+    fra: 'FRA',
     panEuropean: 'pan-European',
     deskStudy: 'Desk study',
     statusChangeNotification: {

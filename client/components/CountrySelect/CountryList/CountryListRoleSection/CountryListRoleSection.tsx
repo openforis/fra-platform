@@ -39,7 +39,13 @@ const CountryListRoleSection: React.FC<Props> = (props: Props) => {
       {countryISOs.map(
         (countryIso) =>
           renderRow(countryIso) && (
-            <CountryListRow key={countryIso} assessmentType={AssessmentName.fra} role={role} country={{ countryIso }} />
+            <CountryListRow
+              key={countryIso}
+              assessmentType={AssessmentName.fra}
+              cycleName={/* TODO */ '2025'}
+              role={role}
+              country={{ countryIso }}
+            />
           )
       )}
     </div>

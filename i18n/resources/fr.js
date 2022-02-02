@@ -862,7 +862,7 @@ L'équipe de FRA fra@fao.org
   },
 
   assessment: {
-    fra2020: 'FRA 2020',
+    fra: 'FRA',
     deskStudy: 'Étude de bureau',
     statusChangeNotification: {
       subject: 'Le statut de {{country}} a été changé à {{status}} dans la plateforme de FRA',
