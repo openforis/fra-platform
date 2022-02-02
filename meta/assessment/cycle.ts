@@ -10,4 +10,5 @@ export interface Cycle {
   id: number
   name: string // 2020 or 2025
   uuid: string
+  published: boolean
 }
