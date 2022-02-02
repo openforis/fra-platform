@@ -13,7 +13,7 @@ import { useCountryIso } from '@client/hooks'
 import { Areas } from '@meta/area'
 import { BasePaths } from '@client/basePaths'
 import Title from './Title'
-// import Status from './Status'
+import Status from './Status'
 import ButtonToggleAll from './ButtonToggleAll'
 
 type Props = {
@@ -31,6 +31,7 @@ const Header: React.FC<Props> = (props) => {
   const isCountry = Areas.isISOCountry(countryIso)
   const assessmentType = assessment.props.name
   const isFRA = assessmentType === AssessmentName.fra
+  const cycleName = '2025' // todo
 
   return (
     <div className="nav-assessment-header">
@@ -42,7 +43,7 @@ const Header: React.FC<Props> = (props) => {
             <div className="links-download">
               <Link
                 className="btn-s btn-secondary"
-                to={BasePaths.Assessment.print(countryIso, assessmentType, true)}
+                to={BasePaths.Assessment.print(countryIso, assessmentType, cycleName, true)}
                 target="_blank"
               >
                 <Icon name="small-print" className="icon-margin-left" />
@@ -51,7 +52,7 @@ const Header: React.FC<Props> = (props) => {
 
               <Link
                 className="btn-s btn-secondary"
-                to={BasePaths.Assessment.print(countryIso, assessmentType)}
+                to={BasePaths.Assessment.print(countryIso, assessmentType, cycleName)}
                 target="_blank"
               >
                 <Icon name="small-print" className="icon-no-margin" />
@@ -62,7 +63,7 @@ const Header: React.FC<Props> = (props) => {
       </div>
 
       <div className="nav-assessment-header__status-container">
-        {/* {user && isFRA && isCountry ? <Status /> : <div />} */}
+        {user && isFRA && isCountry ? <Status /> : <div />}
         <ButtonToggleAll showSections={showSections} setShowSections={setShowSections} />
       </div>
     </div>

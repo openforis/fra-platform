@@ -12,10 +12,11 @@ type Props = {
   assessmentType: string
   country: { countryIso: CountryIso | Global | RegionCode }
   role: string
+  cycleName: string
 }
 
 const CountryListRow: React.FC<Props> = (props: Props) => {
-  const { assessmentType, role, country } = props
+  const { assessmentType, role, country, cycleName } = props
 
   const { i18n } = useTranslation()
   const countryIso = useCountryIso()
@@ -33,7 +34,7 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
 
   return (
     <Link
-      to={BasePaths.Assessment.root(country.countryIso, assessmentType)}
+      to={BasePaths.Assessment.root(country.countryIso, assessmentType, cycleName)}
       className={`country-selection-list__row${selected ? ' selected' : ''}`}
     >
       <span className="country-selection-list__primary-col" ref={countryNameRef}>

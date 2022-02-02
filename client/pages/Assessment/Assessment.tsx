@@ -1,13 +1,26 @@
 import './assessment.scss'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navigation from '@client/components/Navigation'
 import { Route, Switch } from 'react-router-dom'
 import { useNavigationVisible } from '@client/store/ui/navigation'
 import { BasePaths } from '@client/basePaths'
 import OriginalDataPoint from '@client/pages/OriginalDataPoint'
+import { useCountryIso } from '@client/hooks'
+import { useAppDispatch } from '@client/store'
+import { AssessmentActions } from '@client/store/assessment'
+import { useParams } from 'react-router'
+import { AssessmentName } from '@meta/assessment'
 
 const Assessment: React.FC = () => {
   const navigationVisible = useNavigationVisible()
+  const dispatch = useAppDispatch()
+  const countryIso = useCountryIso()
+
+  const { assessmentName, cycleName } = useParams<{ assessmentName: AssessmentName; cycleName: string }>()
+
+  useEffect(() => {
+    dispatch(AssessmentActions.getCountryStatus({ countryIso, name: assessmentName, cycleName }))
+  }, [countryIso])
 
   return (
     <div className={`app-view ${navigationVisible ? ' navigation-on' : ''}`}>
