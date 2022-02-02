@@ -1,4 +1,4 @@
-import { Assessment, CountryStatus, Cycle, Table } from '@meta/assessment'
+import { Assessment, AssessmentStatus, CountryStatus, Cycle, Table } from '@meta/assessment'
 import { User } from '@meta/user/user'
 import { CountryIso } from '@meta/area'
 import { Users } from '@meta/user/users'
@@ -59,9 +59,35 @@ const canEdit = (props: {
   countryIso: CountryIso
   cycle: Cycle
   table: Table
-  status: CountryStatus
+  countryStatus: CountryStatus
   user: User
-}): boolean => {}
+}): boolean => {
+  const { cycle, table, user, assessment, countryIso, countryStatus } = props
+  if (!user) return false
+  if (Users.isViewer(user, countryIso)) return false
+  if (Users.isAdministrator(user)) return true
+
+  const { status } = countryStatus
+
+  // CountryStatus == Editing
+  // And role is NationalCorrespondent or AlternateNationalCorrespondent
+  if (
+    (Users.isNationalCorrespondent(user, countryIso) || Users.isAlternateNationalCorrespondent(user, countryIso)) &&
+    status === AssessmentStatus.editing
+  )
+    return true
+
+  if (Users.isCollaborator(user, countryIso)) {
+    // TODO
+  }
+
+  if (Users.isReviewer(user, countryIso)) {
+    return [AssessmentStatus.editing, AssessmentStatus.review].includes(status)
+  }
+
+  return false
+}
+
 export const Authorizer = {
   canView,
   canEdit,

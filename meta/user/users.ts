@@ -16,6 +16,7 @@ const isNationalCorrespondent = (user: User, countryIso: CountryIso) =>
   isCountryRole(user, RoleName.NATIONAL_CORRESPONDENT, countryIso)
 const isAlternateNationalCorrespondent = (user: User, countryIso: CountryIso) =>
   isCountryRole(user, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, countryIso)
+const isViewer = (user: User, countryIso: CountryIso) => isCountryRole(user, RoleName.VIEWER, countryIso)
 
 export const Users = {
   isAdministrator,
@@ -23,4 +24,5 @@ export const Users = {
   isReviewer,
   isNationalCorrespondent,
   isAlternateNationalCorrespondent,
+  isViewer,
 }
