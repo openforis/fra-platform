@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import * as H from 'history'
+import { RouteComponentProps } from 'react-router-dom'
 
 import axios from 'axios'
 import { ApiEndPoint } from '@common/api/endpoint'
@@ -16,7 +16,7 @@ export const changePassword = createAsyncThunk(
     email: string
     password: string
     resetPasswordUuid: string
-    history: H.History<H.LocationState>
+    history: RouteComponentProps['history']
   }) => {
     const { data } = await axios.post(ApiEndPoint.Auth.changePassword(), {
       email,
