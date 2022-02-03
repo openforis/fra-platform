@@ -18,7 +18,7 @@ const isAlternateNationalCorrespondent = (user: User, countryIso: CountryIso) =>
   isCountryRole(user, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, countryIso)
 const isViewer = (user: User, countryIso: CountryIso) => isCountryRole(user, RoleName.VIEWER, countryIso)
 
-const getCountryRole = (user: User, countryIso: CountryIso) => {
+const getCountryRole = (user: User, countryIso: CountryIso): UserRole<RoleName, any> => {
   if (isAdministrator(user)) return user.roles[0]
 
   return user?.roles?.find((role) => role.countryIso === countryIso)

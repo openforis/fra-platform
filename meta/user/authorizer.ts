@@ -1,7 +1,8 @@
-import { Assessment, AssessmentStatus, CountryStatus, Cycle, Table } from '@meta/assessment'
+import { Assessment, AssessmentStatus, CountryStatus, Cycle, Section, Table } from '@meta/assessment'
 import { User } from '@meta/user/user'
 import { CountryIso } from '@meta/area'
 import { Users } from '@meta/user/users'
+import { Collaborator } from '@meta/user/userRole'
 
 /**
  *  CanView
@@ -56,11 +57,11 @@ const canView = (props: {
  */
 const canEdit = (props: {
   countryIso: CountryIso
-  table: Table
+  section: Section
   countryStatus: CountryStatus
   user: User
 }): boolean => {
-  const { table, user, countryIso, countryStatus } = props
+  const { section, user, countryIso, countryStatus } = props
   if (!user) return false
   if (Users.isViewer(user, countryIso)) return false
   if (Users.isAdministrator(user)) return true
@@ -76,13 +77,13 @@ const canEdit = (props: {
     return true
 
   if (Users.isCollaborator(user, countryIso)) {
-    const userRole: any = Users.getCountryRole(user, countryIso)
+    const userRole = Users.getCountryRole(user, countryIso) as Collaborator
 
     const userSections = userRole.props?.sections ?? {}
     if (!userSections) return true
     if (userSections === 'none') return false
     if (userSections === 'all') return true
-    if (userSections.sectionUuid === table.tableSectionId) return true
+    return userSections[section.uuid] === true
   }
 
   if (Users.isReviewer(user, countryIso)) {
