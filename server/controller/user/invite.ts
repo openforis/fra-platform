@@ -2,7 +2,7 @@ import { BaseProtocol, DB, Schemas } from '@server/db'
 import { RoleName, User, UserRole } from '@meta/user'
 import { ActivityLogRepository, UserRepository, UserRoleRepository } from '@server/repository'
 import { Assessment, ActivityLogMessage } from '@meta/assessment'
-import { CountryIso } from '@core/country'
+import { CountryIso } from '@meta/area'
 import { MailService } from '@server/service'
 
 export const invite = async (

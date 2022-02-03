@@ -16,3 +16,4 @@ export type {
 } from './userRole'
 
 export { Users } from './users'
+export { Authorizer } from './authorizer'
