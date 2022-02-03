@@ -23,7 +23,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
   const [loginLocal, setLoginLocal] = useState(false)
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
-  const [password2, setPassword2] = useState<string>(undefined)
+  const [password2, setPassword2] = useState<string>('')
   const [errors, setErrors] = useState<Record<string, string>>({})
 
   useEffect(() => {

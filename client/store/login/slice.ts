@@ -1,10 +1,19 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 import { LoginState } from './stateType'
-import { acceptInvitation, fetchUserByInvitation, initLogin, localLogin } from './actions'
+import {
+  acceptInvitation,
+  fetchUserByInvitation,
+  initLogin,
+  localLogin,
+  createResetPassword,
+  changePassword,
+} from './actions'
 
 const initialState: LoginState = {
   login: {},
   invitation: {},
+  resetPassword: {},
+  changePassword: {},
 }
 
 export const loginSlice = createSlice({
@@ -14,6 +23,8 @@ export const loginSlice = createSlice({
     resetLogin: () => initialState,
   },
   extraReducers: (builder) => {
+    builder.addCase(localLogin.fulfilled, () => initialState)
+
     builder.addCase(acceptInvitation.fulfilled, (state, { payload }) => {
       state.invitation = { ...payload }
     })
@@ -28,8 +39,6 @@ export const loginSlice = createSlice({
       state.login = { ...state.login, ...payload }
       state.login.status = 'loaded'
     })
-
-    builder.addCase(localLogin.fulfilled, () => initialState)
   },
 })
 
@@ -39,6 +48,8 @@ export const LoginActions = {
   fetchUserByInvitation,
   initLogin,
   localLogin,
+  createResetPassword,
+  changePassword,
 }
 
 export default loginSlice.reducer as Reducer<LoginState>

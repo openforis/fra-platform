@@ -13,4 +13,12 @@ export interface LoginState {
     invitedUser?: User
     userRole?: UserRole<RoleName>
   }
+  resetPassword?: {
+    error?: string
+    message?: string
+  }
+  changePassword?: {
+    error?: string
+    message?: string
+  }
 }

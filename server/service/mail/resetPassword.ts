@@ -7,12 +7,14 @@ export const resetPassword = async (props: { url: string; user: User; userResetP
 
   const i18n = await createI18nPromise('en')
 
-  const link = `${url}/reset-password${userResetPassword.uuid ? `?uuid=${userResetPassword.uuid}` : ''}`
+  const link = `${url}/login/resetPassword${
+    userResetPassword.uuid ? `?resetPasswordUuid=${userResetPassword.uuid}` : ''
+  }`
 
   const resetPasswordEmail = {
     to: user.email,
     subject: i18n.t('user.resetPasswordEmail.subject'),
-    text: i18n.t('user.resetPasswordEmail.htmlMessage', {
+    text: i18n.t('user.resetPasswordEmail.textMessage', {
       link,
       url,
     }),

@@ -24,7 +24,15 @@ export const LoginValidator = {
     const errors = {
       email: validateEmail(email),
       password: validatePassword(password),
-      password2: password2 !== undefined ? validatePasswords(password, password2) : null,
+      password2: validatePasswords(password, password2),
+      isError: false,
+    }
+    errors.isError = !!Object.values(errors).find((value) => !!value)
+    return errors
+  },
+  resetPasswordValidate: (email: string) => {
+    const errors = {
+      email: validateEmail(email),
       isError: false,
     }
     errors.isError = !!Object.values(errors).find((value) => !!value)

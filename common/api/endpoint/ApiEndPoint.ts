@@ -26,8 +26,7 @@ export const ApiEndPoint = {
     },
     logout: () => joinPaths('auth', 'logout'),
     ResetPassword: {
-      create: () => '/auth/local/resetPassword',
-      get: (uuid = ':uuid') => `/auth/local/resetPassword/${uuid}`,
+      one: () => '/auth/local/resetPassword',
     },
   },
   Definitions: {

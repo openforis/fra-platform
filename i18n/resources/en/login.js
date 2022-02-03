@@ -11,6 +11,7 @@ module.exports = {
   signInFRA: 'Sign in with FRA',
 
   resetPassword: 'Reset password',
+  changePassword: 'Change password',
   expired: 'Ooops. It looks like the link you clicked is expired or not valid',
 
   forgotPasswordTitle: 'Enter your email and submit the form to receive instructions via email',
