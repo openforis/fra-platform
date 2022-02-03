@@ -26,7 +26,7 @@ export default (): void =>
 
     it('Change password', async () => {
       const userResetPassword = await UserController.changePassword({
-        user,
+        email: user.email,
         password: userMockTestNewPassword,
         resetPasswordUuid,
       })
