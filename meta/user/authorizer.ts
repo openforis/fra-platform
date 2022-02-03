@@ -55,15 +55,12 @@ const canView = (props: {
  * @returns boolean
  */
 const canEdit = (props: {
-  assessment: Assessment
   countryIso: CountryIso
-  cycle: Cycle
   table: Table
   countryStatus: CountryStatus
   user: User
 }): boolean => {
-  // Unused: cycle, table, assessment
-  const { cycle, table, user, assessment, countryIso, countryStatus } = props
+  const { table, user, countryIso, countryStatus } = props
   if (!user) return false
   if (Users.isViewer(user, countryIso)) return false
   if (Users.isAdministrator(user)) return true
@@ -79,12 +76,13 @@ const canEdit = (props: {
     return true
 
   if (Users.isCollaborator(user, countryIso)) {
-    const userRole = Users.getCountryRole(user, countryIso)
+    const userRole: any = Users.getCountryRole(user, countryIso)
+
     const userSections = userRole.props?.sections ?? {}
     if (!userSections) return true
     if (userSections === 'none') return false
     if (userSections === 'all') return true
-    if (userSections.sectionUuid) return true
+    if (userSections.sectionUuid === table.tableSectionId) return true
   }
 
   if (Users.isReviewer(user, countryIso)) {

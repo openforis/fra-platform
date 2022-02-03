@@ -1,6 +1,6 @@
 import { BaseProtocol, DB } from '@server/db'
 import { AssessmentRepository } from '@server/repository'
-import { CountryIso } from '@core/country'
+import { CountryIso } from '@meta/area'
 import { AssessmentName, CountryStatus } from '@meta/assessment'
 
 export const getCountryStatus = async (

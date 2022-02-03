@@ -1,6 +1,6 @@
 import { BaseProtocol, DB, Schemas } from '@server/db'
 import { Objects } from '@core/utils'
-import { CountryIso } from '@core/country'
+import { CountryIso } from '@meta/area'
 import { AssessmentName, CountryStatus, Cycle } from '@meta/assessment'
 
 export const updateCountryStatus = async (

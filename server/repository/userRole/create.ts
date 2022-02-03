@@ -1,7 +1,7 @@
 import { BaseProtocol, DB } from '@server/db'
 import { Assessment } from '@meta/assessment'
 import { User, UserRole, RoleName } from '@meta/user'
-import { CountryIso } from '@core/country'
+import { CountryIso } from '@meta/area'
 import { Objects } from '@core/utils'
 
 export const create = async (
