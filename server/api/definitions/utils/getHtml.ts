@@ -21,10 +21,12 @@ export const getHtml = async (lang: string, name: string): Promise<string> => {
 
     return `<h${level}>${text}</h${level}>`
   }
+  // @ts-ignore
   marked.setOptions({
     renderer,
     smartypants: true,
   })
+  // @ts-ignore
   const content = markdown ? marked(markdown) : ''
   let tocHTML = '<ul class="toc">'
   toc.forEach(({ anchor, text }: Record<string, string>, index: number) => {

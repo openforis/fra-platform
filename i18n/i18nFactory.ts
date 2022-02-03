@@ -57,6 +57,8 @@ export const createParams = (lang: string) => ({
 
 export const createI18nPromise = (lang: any): Promise<{ language: Lang; t: TFunction }> =>
   new Promise((resolve, reject) =>
+    // @ts-ignore
+    // eslint-disable-next-line no-promise-executor-return
     createInstance(createParams(lang), (err: any, t: any) => {
       if (err) {
         reject(err)
