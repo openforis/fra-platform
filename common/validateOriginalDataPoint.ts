@@ -71,6 +71,7 @@ export const validateDataPoint = (odp: ODP): ODPValidation => {
 
   return {
     year: { valid: !!validYear },
+    // @ts-ignore
     nationalClasses,
     valid: !(!validYear || R.filter((c: any) => !c.valid, nationalClasses).length !== 0),
   }

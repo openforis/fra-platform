@@ -14,6 +14,7 @@
     "outDir": "./dist/",
     "baseUrl": "./dist",
     "paths": {
+      "@core/*": ["core/*"],
       "@i18n/*": ["i18n/*"],
       "@common/*": ["common/*"],
       "@meta/*": ["meta/*"],
