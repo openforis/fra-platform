@@ -1,6 +1,6 @@
 import { Express, Request, Response } from 'express'
 import { ApiEndPoint } from '@common/api/endpoint'
-import { sendErr } from '@server/utils/requests'
+import Requests from '@server/utils/requests'
 import { AssessmentController } from '@server/controller'
 
 export const AssessmentGetSections = {
@@ -11,7 +11,7 @@ export const AssessmentGetSections = {
         const sections = await AssessmentController.getSections({ name, cycleName })
         res.send(sections)
       } catch (e) {
-        sendErr(res, e)
+        Requests.sendErr(res, e)
       }
     })
   },

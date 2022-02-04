@@ -3,6 +3,7 @@ import { AssessmentName } from './assessmentName'
 
 type AssessmentProps = {
   name: AssessmentName // fra or pan_european
+  defaultCycle?: string
 }
 
 export interface Assessment {
