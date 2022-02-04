@@ -1,6 +1,6 @@
 import { Express, Request, Response } from 'express'
 import { ApiEndPoint } from '@common/api/endpoint'
-import Requests, { sendErr } from '@server/utils/requests'
+import Requests from '@server/utils/requests'
 import { AssessmentController, SettingsController } from '@server/controller'
 
 export const InitGet = {
@@ -33,7 +33,7 @@ export const InitGet = {
           user: Requests.getRequestUser(req),
         })
       } catch (e) {
-        sendErr(res, e)
+        Requests.sendErr(res, e)
       }
     })
   },

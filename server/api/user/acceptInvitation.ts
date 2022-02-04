@@ -1,6 +1,6 @@
 import { Express, Request, Response } from 'express'
 import { ApiEndPoint } from '@common/api/endpoint'
-import { sendErr } from '@server/utils/requests'
+import Requests from '@server/utils/requests'
 import { UserController } from '@server/controller'
 
 export const UserAcceptInvitation = {
@@ -14,7 +14,7 @@ export const UserAcceptInvitation = {
           user: acceptedUser,
         })
       } catch (e) {
-        sendErr(res, e)
+        Requests.sendErr(res, e)
       }
     })
   },
