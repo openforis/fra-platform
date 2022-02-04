@@ -1,0 +1,32 @@
+@import 'client/style/partials';
+
+.toaster-container {
+  max-width: 560px;
+  margin: 0 auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  position: fixed;
+  z-index: 30;
+  // pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 8px;
+  padding: 8px;
+  border-radius: 8px;
+  height: 66px;
+  &.error {
+    color: rgb(167, 54, 54);
+    background-color: rgb(253, 244, 244);
+    border-bottom: 1px solid rgb(209, 67, 67);
+  }
+  &.success {
+    color: rgb(49, 113, 89);
+    background-color: rgb(245, 251, 248);
+    border: 1px solid rgb(82, 189, 149);
+  }
+}
