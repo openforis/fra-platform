@@ -3,7 +3,6 @@ import { getRoleLabelKey, noRole } from '@common/countryRole'
 import { useTranslation } from 'react-i18next'
 import { useUser } from '@client/store/user'
 import { Areas, CountryIso } from '@meta/area'
-import { AssessmentName } from '@meta/assessment'
 import { checkMatch } from '../../utils/checkMatch'
 import CountryListRow from '../CountryListRow'
 
@@ -38,15 +37,7 @@ const CountryListRoleSection: React.FC<Props> = (props: Props) => {
 
       {countryISOs.map(
         (countryIso) =>
-          renderRow(countryIso) && (
-            <CountryListRow
-              key={countryIso}
-              assessmentType={AssessmentName.fra}
-              cycleName={/* TODO */ '2025'}
-              role={role}
-              country={{ countryIso }}
-            />
-          )
+          renderRow(countryIso) && <CountryListRow key={countryIso} role={role} country={{ countryIso }} />
       )}
     </div>
   )

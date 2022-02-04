@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { AssessmentName } from '@meta/assessment'
 import { BasePaths } from '@client/basePaths'
 
+import { useCycle } from '@client/hooks/useCycleName'
 import { areas } from '../AreaSelector'
 
 type Props = {
@@ -18,6 +19,8 @@ type Props = {
 
 const DropdownAreas = (props: Props) => {
   const { area, areaISOs, assessmentType, dropdownOpened, setDropdownOpened } = props
+
+  const cycle = useCycle()
 
   const { i18n } = useTranslation()
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -64,7 +67,7 @@ const DropdownAreas = (props: Props) => {
                           regionCode !== RegionCode.FE && (
                             <Link
                               key={regionCode}
-                              to={BasePaths.Assessment.root(regionCode, assessmentType)}
+                              to={BasePaths.Assessment.root(regionCode, assessmentType, cycle?.name)}
                               className="country-selection-list__row"
                               target={fra ? '_self' : '_blank'}
                             >
@@ -84,7 +87,7 @@ const DropdownAreas = (props: Props) => {
                   areaISOs.map((iso) => (
                     <Link
                       key={iso}
-                      to={BasePaths.Assessment.root(iso, assessmentType)}
+                      to={BasePaths.Assessment.root(iso, assessmentType, cycle?.name)}
                       className="country-selection-list__row"
                       target={fra ? '_self' : '_blank'}
                     >
