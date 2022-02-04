@@ -12,7 +12,7 @@ export const useCycle = (): Cycle | undefined => {
   const { cycleName } = useParams<{ cycleName: string }>()
   const defaultCycleUuid = useAppSelector((state) => state.assessment?.assessment?.props.defaultCycle)
   const cycle = useAppSelector((state) => {
-    const { cycles } = state.assessment?.assessment
+    const { cycles } = state.assessment?.assessment ?? {}
 
     if (cycleName) {
       return cycles.find(({ name }) => cycleName === name)
