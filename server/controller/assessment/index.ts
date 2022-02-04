@@ -3,6 +3,7 @@ import { read } from './read'
 import { remove } from './remove'
 import { getCountryISOs } from './getCountryISOs'
 import { getSections } from './getSections'
+import { getTable } from './getTable'
 import { getOdp } from './getOdp'
 import { getRegionGroups } from './getRegionGroups'
 import { createCycle } from './createCycle'
@@ -16,6 +17,7 @@ export const AssessmentController = {
   getRegionGroups,
   getCountryISOs,
   getSections,
+  getTable,
   getOdp,
   createCycle,
   getCountryStatus,
