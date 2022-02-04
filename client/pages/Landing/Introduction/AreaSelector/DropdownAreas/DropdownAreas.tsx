@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { AssessmentName } from '@meta/assessment'
 import { BasePaths } from '@client/basePaths'
 
-import { useCycle } from '@client/hooks/useCycleName'
+import { useCycle } from '@client/store/assessment'
 import { areas } from '../AreaSelector'
 
 type Props = {

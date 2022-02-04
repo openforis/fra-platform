@@ -7,8 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { BasePaths } from '@client/basePaths'
 import { Dates } from '@client/utils'
 import { CountryIso, Global, RegionCode } from '@meta/area'
-import { useAssessment } from '@client/store/assessment'
-import { useCycle } from '@client/hooks/useCycleName'
+import { useAssessment, useCycle } from '@client/store/assessment'
 
 type Props = {
   country: { countryIso: CountryIso | Global | RegionCode }
