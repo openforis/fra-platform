@@ -35,7 +35,7 @@ const Toaster: React.FC = () => {
   return (
     <div className="toaster-container">
       {notificationState.notifications.map((notification) => {
-        return <Toast notification={notification} />
+        return <Toast key={notification.id} notification={notification} />
       })}
     </div>
   )
