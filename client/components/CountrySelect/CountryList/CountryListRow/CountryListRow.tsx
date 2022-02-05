@@ -7,16 +7,18 @@ import { useTranslation } from 'react-i18next'
 import { BasePaths } from '@client/basePaths'
 import { Dates } from '@client/utils'
 import { CountryIso, Global, RegionCode } from '@meta/area'
+import { useAssessment, useCycle } from '@client/store/assessment'
 
 type Props = {
-  assessmentType: string
   country: { countryIso: CountryIso | Global | RegionCode }
   role: string
-  cycleName: string
 }
 
 const CountryListRow: React.FC<Props> = (props: Props) => {
-  const { assessmentType, role, country, cycleName } = props
+  const { role, country } = props
+
+  const assessment = useAssessment()
+  const cycle = useCycle()
 
   const { i18n } = useTranslation()
   const countryIso = useCountryIso()
@@ -34,7 +36,7 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
 
   return (
     <Link
-      to={BasePaths.Assessment.root(country.countryIso, assessmentType, cycleName)}
+      to={BasePaths.Assessment.root(country.countryIso, assessment.props.name, cycle?.name)}
       className={`country-selection-list__row${selected ? ' selected' : ''}`}
     >
       <span className="country-selection-list__primary-col" ref={countryNameRef}>

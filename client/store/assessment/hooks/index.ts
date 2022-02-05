@@ -5,6 +5,7 @@ import { CountryIso, RegionGroup } from '@meta/area'
 import { useTranslation } from 'react-i18next'
 import { Strings } from '@core/utils'
 
+export { useCycle } from './useCycle'
 // TODO: Move elsewhere <>
 const getLocale = (isoCode: string): string => {
   if (isoCode.includes('zh')) return 'zh-CN'

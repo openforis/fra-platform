@@ -77,6 +77,13 @@ export const migrate = async (props: {
     assessment.cycles = await Promise.all(cycleNames.map((cycleName) => createCycle(assessment, cycleName, client)))
     // Set fra/2020 to published
     await client.query('update public.assessment_cycle set published = true where id = $1', [assessment.cycles[0].id])
+    await client.query('update public.assessment set props = $2:json::jsonb where id = $1', [
+      assessment.id,
+      {
+        ...assessment.props,
+        defaultCycle: assessment.cycles[0].uuid,
+      },
+    ])
 
     await migrateMetadata({ assessment, assessmentLegacy, schema, spec, client })
     await migrateAreas({ client, schema })

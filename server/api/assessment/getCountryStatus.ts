@@ -1,6 +1,6 @@
 import { Express, Request, Response } from 'express'
 import { ApiEndPoint } from '@common/api/endpoint'
-import { sendErr } from '@server/utils/requests'
+import Requests from '@server/utils/requests'
 import { AssessmentController } from '@server/controller'
 import { AssessmentName } from '@meta/assessment'
 
@@ -16,7 +16,7 @@ export const AssessmentGetCountryStatus = {
         })
         res.send(countryStatus)
       } catch (e) {
-        sendErr(res, e)
+        Requests.sendErr(res, e)
       }
     })
   },
