@@ -17,16 +17,32 @@
   justify-content: space-between;
   margin: 8px;
   padding: 8px;
+  border: 1px solid;
   border-radius: 8px;
   height: 66px;
   &.error {
     color: rgb(167, 54, 54);
     background-color: rgb(253, 244, 244);
-    border-bottom: 1px solid rgb(209, 67, 67);
+    border-color: rgb(209, 67, 67);
+  }
+  &.info {
+    color: rgb(41, 82, 204);
+    background-color: rgb(243, 246, 255);
+    border-color: rgb(51, 102, 255);
   }
   &.success {
     color: rgb(49, 113, 89);
     background-color: rgb(245, 251, 248);
-    border: 1px solid rgb(82, 189, 149);
+    border-color: rgb(82, 189, 149);
+  }
+  &.warning {
+    color: rgb(153, 106, 19);
+    background-color: rgb(255, 250, 242);
+    border-color: rgb(255, 176, 32);
+  }
+  .toast-close {
+    &:hover {
+      cursor: pointer;
+    }
   }
 }

@@ -1,9 +1,8 @@
 import './Toaster.scss'
 import React from 'react'
 
-import { NotificationActions, useNotification } from '@client/store/ui/notification'
-
-import { NotificationMessage } from '@client/store/ui/notification/stateType'
+import Icon from '@client/components/Icon'
+import { NotificationMessage, NotificationActions, useNotification } from '@client/store/ui/notification'
 import { useAppDispatch } from '@client/store'
 
 type ToastProps = {
@@ -15,6 +14,8 @@ const Toast: React.FC<ToastProps> = ({ notification }) => {
 
   const { duration, id, type } = notification
 
+  const onClose = () => dispatch(NotificationActions.removeMessage(id))
+
   if (duration) {
     setTimeout(() => dispatch(NotificationActions.removeMessage(id)), duration)
   }
@@ -22,9 +23,9 @@ const Toast: React.FC<ToastProps> = ({ notification }) => {
   return (
     <div className={`toast ${type}`}>
       <div>{notification.message}</div>
-      <button onClick={() => dispatch(NotificationActions.removeMessage(id))} type="button">
-        x
-      </button>
+      <div className="toast-close" onClick={onClose} onKeyDown={onClose} role="button" tabIndex={0}>
+        <Icon name="remove" />
+      </div>
     </div>
   )
 }
