@@ -1,23 +1,19 @@
 import { BaseProtocol, DB } from '@server/db'
 import { AssessmentRepository } from '@server/repository'
-import { CountryIso } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
 
-export const getTable = async (
-  props: { countryIso: CountryIso; assessmentName: AssessmentName; cycleName: string; tableName: string },
+export const getTablesMetadata = async (
+  props: { assessmentName: AssessmentName; section: string },
   client: BaseProtocol = DB
 ): Promise<any> => {
-  const { countryIso, assessmentName, cycleName, tableName } = props
+  const { assessmentName, section } = props
 
   return client.tx(async (t) => {
     const assessment = await AssessmentRepository.read({ name: assessmentName }, t)
-    const table = await AssessmentRepository.readTable(
+    const table = await AssessmentRepository.readTablesMetadata(
       {
         assessment,
-        countryIso,
-        assessmentName,
-        cycleName,
-        tableName,
+        section,
       },
       t
     )

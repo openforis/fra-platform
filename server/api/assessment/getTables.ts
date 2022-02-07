@@ -5,18 +5,21 @@ import { AssessmentController } from '@server/controller'
 import { CountryIso } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
 
-export const AssessmentGetTable = {
+export const AssessmentGetTables = {
   init: (express: Express): void => {
     express.get(ApiEndPoint.Assessment.Table.one(), async (req: Request, res: Response) => {
       try {
-        const { countryIso, assessmentName, cycleName, tableName } = req.params
-        const table = await AssessmentController.getTable({
+        const { countryIso, assessmentName, cycleName, section } = req.params
+        const { tableNames } = req.query as { tableNames: Array<string> }
+
+        const table = await AssessmentController.getTables({
           countryIso: countryIso as CountryIso,
           assessmentName: assessmentName as AssessmentName,
           cycleName,
-          tableName,
+          section,
+          tableNames,
         })
-        res.send(table)
+        Requests.send(res, table)
       } catch (e) {
         Requests.sendErr(res, e)
       }

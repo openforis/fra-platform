@@ -9,7 +9,7 @@ export const AssessmentGetOdp = {
       try {
         const { name, cycleName, odpId } = req.params
         const odp = await AssessmentController.getOdp({ name, cycleName, odpId })
-        res.send(odp)
+        Requests.send(res, odp)
       } catch (e) {
         Requests.sendErr(res, e)
       }

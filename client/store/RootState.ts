@@ -1,5 +1,7 @@
 import { DataLockState } from '@client/store/ui/dataLock'
+import { SectionDataState } from '@client/store/data/section/stateType'
 import { OriginalDataPointState } from './data/originalDataPoint'
+
 import { NavigationState } from './ui/navigation/stateType'
 import { AssessmentState } from './assessment/stateType'
 import { LoginState } from './login/stateType'
@@ -12,6 +14,7 @@ export type RootState = {
 
   data: {
     originalDataPoint: OriginalDataPointState
+    section: SectionDataState
   }
 
   ui: {
