@@ -9,7 +9,6 @@ export const notificationSlice = createSlice({
   name: 'notification',
   initialState,
   reducers: {
-    resetNotification: () => initialState,
     addMessage: (state, { payload }) => {
       state.notifications.push(payload)
     },
