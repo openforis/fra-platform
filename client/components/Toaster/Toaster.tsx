@@ -20,9 +20,15 @@ const Toast: React.FC<ToastProps> = ({ notification }) => {
     setTimeout(() => dispatch(NotificationActions.removeMessage(id)), duration)
   }
 
+  let iconName = 'round-e-info'
+  if (type === 'error') iconName = 'remove'
+  else if (type === 'warning') iconName = 'alert'
+  else if (type === 'success') iconName = 'check-circle-08'
+
   return (
     <div className={`toast ${type}`}>
-      <div>{notification.message}</div>
+      <Icon className="toast-icon" name={iconName} />
+      <div className="toast-message">{notification.message}</div>
       <div className="toast-close" onClick={onClose} onKeyDown={onClose} role="button" tabIndex={0}>
         <Icon name="remove" />
       </div>
