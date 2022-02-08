@@ -6,6 +6,7 @@ import { SectionActions, useSectionTableData } from '@client/store/data/section'
 import { useParams } from 'react-router'
 import { AssessmentName } from '@meta/assessment'
 import { AssessmentActions, useSectionMetaData } from '@client/store/assessment'
+import DataTable from '@client/components/DataTable'
 
 const Section: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -42,6 +43,14 @@ const Section: React.FC = () => {
 
   return (
     <div>
+      {sectionMetaData.map((metaData, i) => (
+        <DataTable
+          key={metaData.uuid}
+          metaData={metaData}
+          index={i}
+          data={sectionTableData?.[metaData.props.name]?.[countryIso]}
+        />
+      ))}
       <h2>section.tables</h2>
       <pre>{JSON.stringify(sectionMetaData, null, 2)}</pre>
       <h2>section.tableData</h2>
