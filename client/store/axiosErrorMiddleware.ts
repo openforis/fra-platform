@@ -1,14 +1,21 @@
 import axios, { AxiosStatic } from 'axios'
+import { Action, Dispatch, Middleware, MiddlewareAPI } from 'redux'
+import { v4 as uuidv4 } from 'uuid'
 
-import { Action, Dispatch, Middleware /* MiddlewareAPI */ } from 'redux'
+import { NotificationActions } from '@client/store/ui/notification/slice'
 
 const createAxiosMiddleware =
   (axios: AxiosStatic): Middleware =>
-  (/* { /!*dispatch*!/ }: MiddlewareAPI */) => {
+  ({ dispatch }: MiddlewareAPI) => {
     axios.interceptors.response.use(null, (error: any) => {
-      // TODO: Handle dispatch, application error
-      // dispatch(applicationError(error))
-
+      dispatch(
+        NotificationActions.addMessage({
+          id: uuidv4(),
+          type: 'error',
+          message: error.response.data.error,
+          duration: 5000,
+        })
+      )
       return Promise.reject(error)
     })
 

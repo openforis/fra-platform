@@ -15,14 +15,13 @@ export const sendOk = (res: any, value = {}) => res.json(value)
 export const send404 = (res: any) => res.status(404).send('404 / Page not found')
 export const send400 = (res: any, err?: any) => sendErr(res, err, 400)
 export const sendErr = (res: any, err?: any, statusCode = 500) => {
-  console.error(err)
   if (err instanceof AccessControlException) {
     // @ts-ignore
     res.status(403).json({ error: err.error })
   } else if (typeof err === 'string') {
     res.status(statusCode).json({ error: err })
   } else {
-    res.status(statusCode).json({ error: 'Could not serve', err })
+    res.status(statusCode).json({ error: 'Could not serve' })
   }
 }
 
