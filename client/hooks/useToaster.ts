@@ -1,6 +1,6 @@
 import { useAppDispatch } from '@client/store'
 import { NotificationActions } from '@client/store/ui/notification'
-import { v4 as uuidv4 } from 'uuid'
+import { Identifiers } from '@client/utils'
 
 type Toaster = {
   toaster: {
@@ -15,7 +15,7 @@ export const useToaster = (): Toaster => {
   const dispatch = useAppDispatch()
 
   const notify = (type: string, message: string) =>
-    dispatch(NotificationActions.addMessage({ id: uuidv4(), type, message, duration: 5000 }))
+    dispatch(NotificationActions.addMessage({ id: Identifiers.generateUuid(), type, message, duration: 5000 }))
 
   const toaster = {
     error: (message: string) => notify('error', message),
