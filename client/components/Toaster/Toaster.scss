@@ -1,14 +1,17 @@
 @import 'client/style/partials';
 
 .toaster-container {
-  max-width: 560px;
+  max-width: 240px;
   margin: 0 auto;
   top: 0;
   left: 0;
   right: 0;
   position: fixed;
-  z-index: 30;
-  // pointer-events: none;
+  z-index: $z-index-popover;
+
+  @include min-width($tablet-portrait) {
+    min-width: 560px;
+  }
 }
 
 .toast {
@@ -19,7 +22,6 @@
   padding: 8px;
   border: 1px solid;
   border-radius: 8px;
-  height: 66px;
   &.error {
     color: rgb(167, 54, 54);
     background-color: rgb(253, 244, 244);
@@ -52,7 +54,11 @@
       color: rgb(153, 106, 19);
     }
   }
+  .toast-icon {
+    margin-right: 8px;
+  }
   .toast-close {
+    margin-left: 8px;
     &:hover {
       cursor: pointer;
     }
