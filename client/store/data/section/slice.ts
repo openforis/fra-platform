@@ -1,10 +1,8 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 import { fetchSectionData } from './actions/fetchSectionData'
-import { fetchSectionTablesMetadata } from './actions/fetchSectionTablesMetadata'
 import { SectionDataState } from './stateType'
 
 const initialState: SectionDataState = {
-  tables: [],
   tableData: {},
 }
 
@@ -13,12 +11,12 @@ export const sectionSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchSectionTablesMetadata.fulfilled, (state, { payload }) => {
-      state.tables = payload
-    })
     builder.addCase(fetchSectionData.fulfilled, (state, { payload }) => {
       payload.forEach(({ tableName, data }) => {
-        if (!state.tableData[tableName]) state.tableData[tableName] = {}
+        if (!state.tableData[tableName]) {
+          // @ts-ignore
+          state.tableData[tableName] = {}
+        }
         state.tableData[tableName] = data
       })
     })
@@ -26,7 +24,6 @@ export const sectionSlice = createSlice({
 })
 
 export const SectionActions = {
-  fetchSectionTablesMetadata,
   fetchSectionData,
 }
 

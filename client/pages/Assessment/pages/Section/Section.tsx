@@ -2,21 +2,23 @@ import './section.scss'
 import React, { useEffect } from 'react'
 import { useCountryIso } from '@client/hooks'
 import { useAppDispatch } from '@client/store'
-import { SectionActions, useSectionData } from '@client/store/data/section'
+import { SectionActions, useSectionTableData } from '@client/store/data/section'
 import { useParams } from 'react-router'
 import { AssessmentName } from '@meta/assessment'
+import { AssessmentActions, useSectionMetaData } from '@client/store/assessment'
 
 const Section: React.FC = () => {
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
-  const sectionData = useSectionData()
+  const sectionMetaData = useSectionMetaData()
+  const sectionTableData = useSectionTableData()
   const { assessmentName, cycleName, section } =
     useParams<{ assessmentName: AssessmentName; cycleName: string; section: string }>()
 
   // Update section tables' metadata on countryIso(url) change
   useEffect(() => {
     dispatch(
-      SectionActions.fetchSectionTablesMetadata({
+      AssessmentActions.getSectionTablesMetadata({
         assessmentName,
         cycleName,
         section,
@@ -33,17 +35,17 @@ const Section: React.FC = () => {
         cycleName,
         section,
         countryIso,
-        tableNames: sectionData.tables.map((table) => table.props.name),
+        tableNames: sectionMetaData.map((table) => table.props.name),
       })
     )
-  }, [sectionData.tables])
+  }, [JSON.stringify(sectionMetaData)])
 
   return (
     <div>
       <h2>section.tables</h2>
-      <pre>{JSON.stringify(sectionData?.tables, null, 2)}</pre>
+      <pre>{JSON.stringify(sectionMetaData, null, 2)}</pre>
       <h2>section.tableData</h2>
-      <pre>{JSON.stringify(sectionData?.tableData, null, 2)}</pre>
+      <pre>{JSON.stringify(sectionTableData, null, 2)}</pre>
     </div>
   )
 }

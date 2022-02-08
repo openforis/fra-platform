@@ -4,6 +4,7 @@ import { initApp } from './actions/initApp'
 import { getSections } from './actions/getSections'
 import { getCountryStatus } from './actions/getCountryStatus'
 import { postCountryStatus } from './actions/postCountryStatus'
+import { getSectionTablesMetadata } from './actions/getSectionTablesMetadata'
 
 const initialState: AssessmentState = {}
 
@@ -27,11 +28,15 @@ export const assessmentSlice = createSlice({
     builder.addCase(postCountryStatus.fulfilled, (state, { payload }) => {
       state.countryStatus = payload
     })
+    builder.addCase(getSectionTablesMetadata.fulfilled, (state, { payload }) => {
+      state.sectionMetaData = payload
+    })
   },
 })
 
 export const AssessmentActions = {
   getSections,
+  getSectionTablesMetadata,
   getCountryStatus,
   postCountryStatus,
   initApp,

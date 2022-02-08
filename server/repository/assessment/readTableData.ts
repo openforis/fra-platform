@@ -1,11 +1,11 @@
 import { BaseProtocol, DB, Schemas } from '@server/db'
 import { Objects } from '@core/utils'
-import { Assessment, Cycle } from '@meta/assessment'
+import { Assessment, Cycle, NodeValue } from '@meta/assessment'
 import { CountryIso } from '@meta/area'
 
 // TODO: Update return type from <any>
 
-export const readTable = async (
+export const readTableData = async (
   props: {
     assessment: Assessment
     countryIso: CountryIso
@@ -13,11 +13,15 @@ export const readTable = async (
     tableName: string
   },
   client: BaseProtocol = DB
-): Promise<any> => {
+): Promise<{
+  data: Record<CountryIso, Record<string, NodeValue>>
+}> => {
   const { tableName, countryIso, assessment, cycleName } = props
   const schemaCycleName = Schemas.getNameCycle(assessment, { name: cycleName } as Cycle)
   return client
-    .oneOrNone<any>(
+    .one<{
+      data: Record<CountryIso, Record<string, NodeValue>>
+    }>(
       `
           with data as (
               select *

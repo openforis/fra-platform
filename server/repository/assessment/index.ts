@@ -2,7 +2,7 @@ import { createAssessmentSchema } from './createAssessmentSchema'
 import { createAssessment } from './createAssessment'
 import { read } from './read'
 import { readSections } from './readSections'
-import { readTable } from './readTable'
+import { readTableData } from './readTableData'
 import { readTablesMetadata } from './readTablesMetadata'
 import { readOdp } from './readOdp'
 import { removeAssessmentSchema } from './removeAssessmentSchema'
@@ -19,7 +19,7 @@ export const AssessmentRepository = {
   read,
   readSections,
   readTablesMetadata,
-  readTables: readTable,
+  readTableData,
   readOdp,
   removeAssessmentSchema,
   removeAssessment,

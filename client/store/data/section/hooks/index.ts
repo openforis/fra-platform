@@ -1,3 +1,3 @@
 import { useAppSelector } from '@client/store'
 
-export const useSectionData = () => useAppSelector((state) => state.data.section)
+export const useSectionTableData = () => useAppSelector((state) => state.data.section?.tableData)

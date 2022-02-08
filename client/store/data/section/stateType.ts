@@ -1,4 +1,6 @@
+import { CountryIso } from '@meta/area'
+import { NodeValue } from '@meta/assessment'
+
 export type SectionDataState = {
-  tables: any[]
-  tableData: Record<string, any>
+  tableData: Record<string, Record<CountryIso, Record<string, NodeValue>>>
 }

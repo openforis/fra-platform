@@ -6,7 +6,7 @@ export const ApiEndPoint = {
     one: () => apiPath('init'),
   },
   Assessment: {
-    Table: {
+    TableData: {
       one: (
         countryIso = ':countryIso',
         assessmentName = ':assessmentName',
