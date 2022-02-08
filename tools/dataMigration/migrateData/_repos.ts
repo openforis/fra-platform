@@ -38,5 +38,6 @@ export const getColIndexes = (rowsData: Row[], cols: Array<Col>): Array<number> 
 }
 
 export const isBasicTable = (table: Table): boolean =>
-  !['extentOfForest', 'forestCharacteristics', 'growingStock', 'degradedForest'].includes(table.props.name) &&
-  table.props.name !== ''
+  !['extentOfForest', 'forestCharacteristics', 'growingStockAvg', 'growingStockTotal', 'degradedForest'].includes(
+    table.props.name
+  ) && table.props.name !== ''
