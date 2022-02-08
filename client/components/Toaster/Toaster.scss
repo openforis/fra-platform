@@ -1,7 +1,7 @@
 @import 'client/style/partials';
 
 .toaster-container {
-  max-width: 240px;
+  max-width: 80vw;
   margin: 0 auto;
   top: 0;
   left: 0;
@@ -10,7 +10,7 @@
   z-index: $z-index-popover;
 
   @include min-width($tablet-portrait) {
-    min-width: 560px;
+    max-width: 50vw;
   }
 }
 
