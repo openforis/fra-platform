@@ -1,5 +1,6 @@
 import './Toaster.scss'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 import Icon from '@client/components/Icon'
 import { NotificationMessage, NotificationActions, useNotification } from '@client/store/ui/notification'
@@ -11,6 +12,7 @@ type ToastProps = {
 
 const Toast: React.FC<ToastProps> = ({ notification }) => {
   const dispatch = useAppDispatch()
+  const { i18n } = useTranslation()
 
   const { duration, id, type } = notification
 
@@ -28,7 +30,7 @@ const Toast: React.FC<ToastProps> = ({ notification }) => {
   return (
     <div className={`toast ${type}`}>
       <Icon className="toast-icon" name={iconName} />
-      <div className="toast-message">{notification.message}</div>
+      <div className="toast-message">{i18n.t(notification.message)}</div>
       <div className="toast-close" onClick={onClose} onKeyDown={onClose} role="button" tabIndex={0}>
         <Icon name="remove" />
       </div>
