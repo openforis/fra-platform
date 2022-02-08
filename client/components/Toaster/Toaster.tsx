@@ -21,7 +21,7 @@ const Toast: React.FC<ToastProps> = ({ notification }) => {
   }
 
   let iconName = 'round-e-info'
-  if (type === 'error') iconName = 'remove'
+  if (type === 'error') iconName = 'alert'
   else if (type === 'warning') iconName = 'alert'
   else if (type === 'success') iconName = 'check-circle-08'
 
