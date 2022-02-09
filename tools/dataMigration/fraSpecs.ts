@@ -9362,7 +9362,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
       {
         tableSpecs: [
           {
-            name: '',
+            name: 'sustainableDevelopment15_1_1',
             rows: [
               {
                 idx: 'header_0',
@@ -9565,7 +9565,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
       {
         tableSpecs: [
           {
-            name: '',
+            name: 'sustainableDevelopment15_2_1_1',
             rows: [
               {
                 idx: 'header_0',
@@ -9742,7 +9742,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
       {
         tableSpecs: [
           {
-            name: '',
+            name: 'sustainableDevelopment15_2_1_2',
             rows: [
               {
                 idx: 'header_0',
@@ -9930,7 +9930,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
       {
         tableSpecs: [
           {
-            name: '',
+            name: 'sustainableDevelopment15_2_1_3',
             rows: [
               {
                 idx: 'header_0',
@@ -10118,7 +10118,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
       {
         tableSpecs: [
           {
-            name: '',
+            name: 'sustainableDevelopment15_2_1_4',
             rows: [
               {
                 idx: 'header_0',
@@ -10306,7 +10306,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
       {
         tableSpecs: [
           {
-            name: '',
+            name: 'sustainableDevelopment15_2_1_5',
             rows: [
               {
                 idx: 'header_0',

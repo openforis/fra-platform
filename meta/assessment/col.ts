@@ -19,6 +19,7 @@ export interface ColProps {
   colType: ColType
   index?: number | string
   rowSpan?: number
+  labelKey?: string
 }
 
 export interface Col extends CycledPropsObject<ColProps> {
