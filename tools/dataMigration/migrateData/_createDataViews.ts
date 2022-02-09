@@ -29,7 +29,7 @@ export const getCreateViewDDL = async (
     return `"${col.props.colName ?? ''}"`
   }
 
-  return `
+  const query = `
       create view ${schemaCycle}.${table.props.name} as
       select (regexp_split_to_array(t.cat, '${categorySeparator}'))[1]::varchar(3) as country_iso,
              (regexp_split_to_array(t.cat, '${categorySeparator}'))[2]::varchar    as variable_name,
@@ -52,4 +52,5 @@ export const getCreateViewDDL = async (
           $$
          ) as t (cat varchar, ${colIndexes.map((colIdx) => `${getColName(colIdx)} jsonb`).join(', ')})
   `
+  return query
 }

@@ -23,7 +23,7 @@ export const getCols = (client: ITask<any>, schema: string, table: Table): Promi
          from ${schema}.row r
          where table_id = $1
      )
-       and c.props ->> 'colType' not in ('${ColType.header}', '${ColType.calculated}', '${ColType.noticeMessage}')`,
+       and c.props ->> 'colType' not in ('${ColType.header}', '${ColType.noticeMessage}')`,
     [table.id],
     // @ts-ignore
     Objects.camelize
