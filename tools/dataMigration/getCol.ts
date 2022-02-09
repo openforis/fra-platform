@@ -11,6 +11,8 @@ export const getCol = (props: { cycles: Array<string>; colSpec: ColSpec; row: Ro
       rowSpan: colSpec.rowSpan,
       colType: colSpec.type as unknown as ColType,
       index: colSpec.idx,
+      labelKey: colSpec.labelKey,
+      colName: colSpec.colName,
     },
     rowId: row.id,
   }

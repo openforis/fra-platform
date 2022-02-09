@@ -37,4 +37,7 @@ export interface ColSpec {
   optionName?: string
   variableNo?: string
   linkToSection?: string
+
+  // migration
+  colName?: string
 }
