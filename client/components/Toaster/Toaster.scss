@@ -7,7 +7,7 @@
   left: 0;
   right: 0;
   position: fixed;
-  z-index: $z-index-popover;
+  z-index: $z-index-toaster;
 
   @include min-width($tablet-portrait) {
     max-width: 50vw;
@@ -18,49 +18,46 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 8px;
-  padding: 8px;
+  background-color: $ui-bg;
+  margin: $spacing-xxs;
+  padding: $spacing-xxs;
   border: 1px solid;
-  border-radius: 8px;
+  border-radius: $spacing-xxs;
   &.error {
-    color: rgb(167, 54, 54);
-    background-color: rgb(253, 244, 244);
-    border-color: rgb(209, 67, 67);
+    border-color: $ui-destructive;
     .toast-icon {
-      color: rgb(167, 54, 54);
+      color: $ui-destructive;
     }
   }
   &.info {
-    color: rgb(41, 82, 204);
-    background-color: rgb(243, 246, 255);
-    border-color: rgb(51, 102, 255);
+    border-color: $ui-accent;
     .toast-icon {
-      color: rgb(41, 82, 204);
+      color: $ui-accent
     }
   }
   &.success {
-    color: rgb(49, 113, 89);
-    background-color: rgb(245, 251, 248);
-    border-color: rgb(82, 189, 149);
+    border-color: $ui-status-accepted;
     .toast-icon {
-      color: rgb(49, 113, 89);
+      color: $ui-status-accepted;
     }
   }
   &.warning {
-    color: rgb(153, 106, 19);
-    background-color: rgb(255, 250, 242);
-    border-color: rgb(255, 176, 32);
+    border-color: $ui-status-review;
     .toast-icon {
-      color: rgb(153, 106, 19);
+      color: $ui-status-review;
     }
   }
   .toast-icon {
-    margin-right: 8px;
+    margin-right: $spacing-xxs;
   }
   .toast-close {
-    margin-left: 8px;
+    margin-left: $spacing-xxs;
+    line-height: 0;
     &:hover {
       cursor: pointer;
     }
+  }
+  svg {
+    min-width: 16px;
   }
 }
