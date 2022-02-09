@@ -2,7 +2,7 @@ import './section.scss'
 import React, { useEffect } from 'react'
 import { useCountryIso } from '@client/hooks'
 import { useAppDispatch } from '@client/store'
-import { SectionActions, useSectionTableData } from '@client/store/data/section'
+import { useAssessmentSection, AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import { useParams } from 'react-router'
 import { AssessmentName } from '@meta/assessment'
 import { AssessmentActions, useSectionMetaData } from '@client/store/assessment'
@@ -11,7 +11,7 @@ const Section: React.FC = () => {
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const sectionMetaData = useSectionMetaData()
-  const sectionTableData = useSectionTableData()
+  const sectionTableData = useAssessmentSection()
   const { assessmentName, cycleName, section } =
     useParams<{ assessmentName: AssessmentName; cycleName: string; section: string }>()
 
@@ -30,7 +30,7 @@ const Section: React.FC = () => {
   // Update section tables' data on (countryIso ->) metadata change
   useEffect(() => {
     dispatch(
-      SectionActions.fetchSectionData({
+      AssessmentSectionActions.getSectionData({
         assessmentName,
         cycleName,
         section,

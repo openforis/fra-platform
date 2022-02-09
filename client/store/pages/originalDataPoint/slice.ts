@@ -1,20 +1,22 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 import { OriginalDataPointState } from './stateType'
-import { fetchOriginalDataPoint } from './actions/fetchOriginalDataPoint'
+import { getOriginalDataPoint } from './actions/getOriginalDataPoint'
 
-const initialState: OriginalDataPointState = null
+const initialState: OriginalDataPointState = { data: null }
 
 export const originalDataPointSlice = createSlice({
   name: 'originalDataPoint',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchOriginalDataPoint.fulfilled, (_, { payload }) => payload)
+    builder.addCase(getOriginalDataPoint.fulfilled, (state, { payload }) => {
+      state.data = payload
+    })
   },
 })
 
 export const OriginalDataPointActions = {
-  fetchOriginalDataPoint,
+  getOriginalDataPoint,
 }
 
 export default originalDataPointSlice.reducer as Reducer<OriginalDataPointState>
