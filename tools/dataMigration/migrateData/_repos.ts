@@ -23,7 +23,7 @@ export const getCols = (client: ITask<any>, schema: string, table: Table): Promi
          from ${schema}.row r
          where table_id = $1
      )
-       and c.props ->> 'colType' not in ('${ColType.header}', '${ColType.calculated}', '${ColType.noticeMessage}')`,
+       and c.props ->> 'colType' not in ('${ColType.header}', '${ColType.noticeMessage}')`,
     [table.id],
     // @ts-ignore
     Objects.camelize
@@ -38,5 +38,16 @@ export const getColIndexes = (rowsData: Row[], cols: Array<Col>): Array<number> 
 }
 
 export const isBasicTable = (table: Table): boolean =>
-  !['extentOfForest', 'forestCharacteristics', 'growingStock', 'degradedForest'].includes(table.props.name) &&
-  table.props.name !== ''
+  ![
+    'extentOfForest',
+    'forestCharacteristics',
+    'growingStockAvg',
+    'growingStockTotal',
+    'degradedForest',
+    'sustainableDevelopment15_1_1',
+    'sustainableDevelopment15_2_1_1',
+    'sustainableDevelopment15_2_1_2',
+    'sustainableDevelopment15_2_1_3',
+    'sustainableDevelopment15_2_1_4',
+    'sustainableDevelopment15_2_1_5',
+  ].includes(table.props.name) && table.props.name !== ''
