@@ -1,4 +1,5 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
+import { getSectionTablesMetadata } from '@client/store/pages/assessmentSection/actions/getSectionTablesMetadata'
 import { getSectionData } from './actions/getSectionData'
 import { AssessmentSectionState } from './stateType'
 
@@ -14,6 +15,10 @@ export const assessmentSectionSlice = createSlice({
     reset: () => initialState,
   },
   extraReducers: (builder) => {
+    builder.addCase(getSectionTablesMetadata.fulfilled, (state, { payload }) => {
+      state.metaData = payload
+    })
+
     builder.addCase(getSectionData.fulfilled, (state, { payload }) => {
       if (!state.data) state.data = {}
       payload.forEach(({ tableName, data }) => {
@@ -28,6 +33,7 @@ export const assessmentSectionSlice = createSlice({
 })
 
 export const AssessmentSectionActions = {
+  getSectionTablesMetadata,
   getSectionData,
 }
 

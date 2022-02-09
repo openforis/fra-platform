@@ -1,7 +1,7 @@
 import { CountryIso } from '@meta/area'
-import { NodeValue } from '@meta/assessment'
+import { NodeValue, Table } from '@meta/assessment'
 
 export type AssessmentSectionState = {
-  data?: any
-  metaData?: Record<string, Record<CountryIso, Record<string, NodeValue>>>
+  data?: Record<string, Record<CountryIso, Record<string, NodeValue>>>
+  metaData?: Array<Table>
 }
