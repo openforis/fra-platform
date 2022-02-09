@@ -8,10 +8,7 @@ export const read = async (
 ): Promise<OriginalDataPoint> => {
   const schemaName = Schemas.getNameCycle(props.assessment, props.assessmentCycle)
   return client.one<OriginalDataPoint>(
-    `
-          select * from ${schemaName}.original_data_point where id = $1
-          ;
-      `,
+    `select * from ${schemaName}.original_data_point where id = $1;`,
     [props.odpId],
     Objects.camelize
   )

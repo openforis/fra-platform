@@ -7,3 +7,8 @@ export const assessmentParams = {
 }
 
 export const assessmentCycleName = '2020'
+
+export const originalDataPoint = {
+  countryIso: 'AFG',
+  year: '2019',
+}
