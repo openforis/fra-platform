@@ -1,5 +1,6 @@
 export { ActivityLogRepository } from './activityLog'
 export { AssessmentRepository } from './assessment'
+export { OriginalDataPointRepository } from './originalDataPoint'
 export { UserRepository } from './user'
 export { UserProviderRepository } from './userProvider'
 export { UserResetPasswordRepository } from './userResetPassword'
