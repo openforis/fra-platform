@@ -1640,7 +1640,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
         descriptionKey: 'growingStock.supportText',
         tableSpecs: [
           {
-            name: 'growingStock',
+            name: 'growingStockAvg',
             rows: [
               {
                 idx: 'header_0',
@@ -1783,7 +1783,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
       {
         tableSpecs: [
           {
-            name: 'growingStock',
+            name: 'growingStockTotal',
             rows: [
               {
                 idx: 'header_0',
