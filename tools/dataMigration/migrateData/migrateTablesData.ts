@@ -26,6 +26,8 @@ export const migrateTablesData = async (props: { assessment: Assessment }, clien
   const tableDegradedForest = tables.find((t) => t.props.name === 'degradedForest')
   const tableExtentOfForest = tables.find((t) => t.props.name === 'extentOfForest')
   const tableForestCharacteristics = tables.find((t) => t.props.name === 'forestCharacteristics')
+  const tableGrowingStockAvg = tables.find((t) => t.props.name === 'growingStockAvg')
+  const tableGrowingStockTotal = tables.find((t) => t.props.name === 'growingStockTotal')
 
   // get node insert values
   const values = (
@@ -43,6 +45,7 @@ export const migrateTablesData = async (props: { assessment: Assessment }, clien
         table: tableExtentOfForest,
         tableNameLegacy: 'eof_fra_values',
         variables: ['forestArea', 'otherWoodedLand'],
+        estimated: true,
       },
       client
     ))
@@ -59,11 +62,48 @@ export const migrateTablesData = async (props: { assessment: Assessment }, clien
           'plantationForestIntroducedArea',
           'otherPlantedForestArea',
         ],
+        estimated: true,
       },
       client
     ))
   )
 
+  values.push(
+    ...(await getNodeInsertsTableWithODP(
+      {
+        assessment,
+        table: tableGrowingStockAvg,
+        tableNameLegacy: 'growing_stock_avg',
+        variables: [
+          'naturallyRegeneratingForest',
+          'plantationForest',
+          'otherPlantedForest',
+          'otherWoodedLand',
+          'plantedForest',
+          'forest',
+        ],
+      },
+      client
+    ))
+  )
+  values.push(
+    ...(await getNodeInsertsTableWithODP(
+      {
+        assessment,
+        table: tableGrowingStockTotal,
+        tableNameLegacy: 'growing_stock_total',
+        variables: [
+          'naturallyRegeneratingForest',
+          'plantationForest',
+          'otherPlantedForest',
+          'otherWoodedLand',
+          'plantedForest',
+          'forest',
+        ],
+      },
+      client
+    ))
+  )
   // insert nodes
   const schemaCycle = DBNames.getCycleSchema(assessment.props.name, assessment.cycles[0].name)
   const pgp = pgPromise()
@@ -74,13 +114,7 @@ export const migrateTablesData = async (props: { assessment: Assessment }, clien
   await client.none(query)
 
   // create data views
-  const queries = await Promise.all(
-    tables.filter(isBasicTable).map((table) => getCreateViewDDL({ assessment, table }, client))
-  )
-  // non basic tables views
-  queries.push(await getCreateViewDDL({ assessment, table: tableDegradedForest }, client))
-  queries.push(await getCreateViewDDL({ assessment, table: tableExtentOfForest }, client))
-  queries.push(await getCreateViewDDL({ assessment, table: tableForestCharacteristics }, client))
+  const queries = await Promise.all(tables.map((table) => getCreateViewDDL({ assessment, table }, client)))
 
   await client.query(pgp.helpers.concat(queries))
 }
