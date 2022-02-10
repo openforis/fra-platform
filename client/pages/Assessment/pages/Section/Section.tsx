@@ -1,4 +1,3 @@
-import './section.scss'
 import React, { useEffect } from 'react'
 import { useCountryIso } from '@client/hooks'
 import { useAppDispatch } from '@client/store'
