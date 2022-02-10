@@ -2,7 +2,7 @@ name: Run yarn test
 
 on:
   push:
-    branches-ignore: 
+    branches-ignore:
       - 'master'
       - 'production'
 
@@ -28,6 +28,14 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '14.18.1'
+          always-auth: true
+          auth-token: ${{secrets.ACCESS_TOKEN}}
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@openforis'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          NPM_REGISTRY_URL: https://npm.pkg.github.com
+
       - run: yarn
       - run: yarn run-migrations
         env:

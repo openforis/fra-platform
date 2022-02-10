@@ -12,12 +12,19 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: "0" # fetch all tags, default 1
+          fetch-depth: '0' # fetch all tags, default 1
 
       - name: Use Node.js 14.18.1
         uses: actions/setup-node@v1
         with:
           node-version: '14.18.1'
+          always-auth: true
+          auth-token: ${{secrets.ACCESS_TOKEN}}
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@openforis'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          NPM_REGISTRY_URL: https://npm.pkg.github.com
 
       - run: yarn
       - run: yarn test
