@@ -12,7 +12,7 @@ export const ApiEndPoint = {
         assessmentName = ':assessmentName',
         cycleName = ':cycleName',
         section = ':section'
-      ) => apiPath('countries', countryIso, 'assessments', assessmentName, 'cycle', cycleName, 'sections', section),
+      ) => apiPath('countries', countryIso, 'assessments', assessmentName, 'cycles', cycleName, 'sections', section),
     },
     TablesMetadata: {
       many: (
@@ -26,7 +26,7 @@ export const ApiEndPoint = {
           countryIso,
           'assessments',
           assessmentName,
-          'cycle',
+          'cycles',
           cycleName,
           'sections',
           section,

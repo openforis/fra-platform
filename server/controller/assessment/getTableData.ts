@@ -1,9 +1,9 @@
 import { BaseProtocol, DB } from '@server/db'
 import { AssessmentRepository } from '@server/repository'
 import { CountryIso } from '@meta/area'
-import { AssessmentName, NodeValue } from '@meta/assessment'
+import { AssessmentName } from '@meta/assessment'
+import { TableData } from '@meta/data'
 
-// TODO: update return type from <any>
 export const getTableData = async (
   props: {
     countryIso: CountryIso
@@ -13,11 +13,7 @@ export const getTableData = async (
     tableNames: Array<string>
   },
   client: BaseProtocol = DB
-): Promise<
-  Array<{
-    data: Record<CountryIso, Record<string, NodeValue>>
-  }>
-> => {
+): Promise<Array<{ tableName: string; data: TableData }>> => {
   const { countryIso, assessmentName, cycleName, section, tableNames } = props
   if (!section) throw new Error('missing section')
 
