@@ -114,15 +114,7 @@ export const migrateTablesData = async (props: { assessment: Assessment }, clien
   await client.none(query)
 
   // create data views
-  const queries = await Promise.all(
-    tables.filter(isBasicTable).map((table) => getCreateViewDDL({ assessment, table }, client))
-  )
-  // non basic tables views
-  queries.push(await getCreateViewDDL({ assessment, table: tableDegradedForest }, client))
-  queries.push(await getCreateViewDDL({ assessment, table: tableExtentOfForest }, client))
-  queries.push(await getCreateViewDDL({ assessment, table: tableForestCharacteristics }, client))
-  queries.push(await getCreateViewDDL({ assessment, table: tableGrowingStockAvg }, client))
-  queries.push(await getCreateViewDDL({ assessment, table: tableGrowingStockTotal }, client))
+  const queries = await Promise.all(tables.map((table) => getCreateViewDDL({ assessment, table }, client)))
 
   await client.query(pgp.helpers.concat(queries))
 }
