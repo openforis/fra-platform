@@ -1,5 +1,5 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
-import { getSectionTablesMetadata } from '@client/store/pages/assessmentSection/actions/getSectionTablesMetadata'
+import { getSectionMetadata } from '@client/store/pages/assessmentSection/actions/getSectionMetadata'
 import { getSectionData } from './actions/getSectionData'
 import { AssessmentSectionState } from './stateType'
 
@@ -15,17 +15,13 @@ export const assessmentSectionSlice = createSlice({
     reset: () => initialState,
   },
   extraReducers: (builder) => {
-    builder.addCase(getSectionTablesMetadata.fulfilled, (state, { payload }) => {
+    builder.addCase(getSectionMetadata.fulfilled, (state, { payload }) => {
       state.metaData = payload
     })
 
     builder.addCase(getSectionData.fulfilled, (state, { payload }) => {
       if (!state.data) state.data = {}
       payload.forEach(({ tableName, data }) => {
-        if (!state.data[tableName]) {
-          // @ts-ignore
-          state.data[tableName] = {}
-        }
         state.data[tableName] = data
       })
     })
@@ -33,7 +29,8 @@ export const assessmentSectionSlice = createSlice({
 })
 
 export const AssessmentSectionActions = {
-  getSectionTablesMetadata,
+  ...assessmentSectionSlice.actions,
+  getSectionMetadata,
   getSectionData,
 }
 

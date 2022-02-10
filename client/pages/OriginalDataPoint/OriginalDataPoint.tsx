@@ -28,6 +28,7 @@ const OriginalDataPoint = () => {
         cycleName,
       })
     )
+    return () => dispatch(OriginalDataPointActions.reset())
   }, [])
 
   if (!originalDataPoint) {

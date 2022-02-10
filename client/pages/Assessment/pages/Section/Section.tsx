@@ -14,17 +14,18 @@ const Section: React.FC = () => {
   const { assessmentName, cycleName, section } =
     useParams<{ assessmentName: AssessmentName; cycleName: string; section: string }>()
 
-  // Update section tables' metadata on countryIso(url) change
+  // Update section tables' metadata on countryIso or section (url) change
   useEffect(() => {
+    dispatch(AssessmentSectionActions.reset())
     dispatch(
-      AssessmentSectionActions.getSectionTablesMetadata({
+      AssessmentSectionActions.getSectionMetadata({
         assessmentName,
         cycleName,
         section,
         countryIso,
       })
     )
-  }, [countryIso])
+  }, [countryIso, section])
 
   // Update section tables' data on (countryIso ->) metadata change
   useEffect(() => {

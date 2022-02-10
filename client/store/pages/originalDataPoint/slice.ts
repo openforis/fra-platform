@@ -7,7 +7,9 @@ const initialState: OriginalDataPointState = { data: null }
 export const originalDataPointSlice = createSlice({
   name: 'originalDataPoint',
   initialState,
-  reducers: {},
+  reducers: {
+    reset: () => initialState,
+  },
   extraReducers: (builder) => {
     builder.addCase(getOriginalDataPoint.fulfilled, (state, { payload }) => {
       state.data = payload
@@ -16,6 +18,7 @@ export const originalDataPointSlice = createSlice({
 })
 
 export const OriginalDataPointActions = {
+  ...originalDataPointSlice.actions,
   getOriginalDataPoint,
 }
 
