@@ -37,6 +37,9 @@ jobs:
           NPM_REGISTRY_URL: https://npm.pkg.github.com
 
       - run: yarn
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          NPM_REGISTRY_URL: https://npm.pkg.github.com
       - run: yarn run-migrations
         env:
           PGHOST: localhost
