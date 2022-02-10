@@ -8,7 +8,7 @@ export const getRows = (client: ITask<any>, schema: string, table: Table): Promi
     `select *
      from ${schema}.row
      where table_id = $1
-       and props ->> 'type' = '${RowType.data}';`,
+       and props ->> 'type' in ('${RowType.data}','${RowType.calculated}');`,
     [table.id],
     // @ts-ignore
     Objects.camelize

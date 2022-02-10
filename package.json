@@ -173,6 +173,7 @@
     "express-fileupload": "^1.2.1",
     "express-session": "^1.17.2",
     "i18next": "^21.6.10",
+    "jsep": "^1.2.0",
     "json2csv": "^5.0.6",
     "jsonwebtoken": "^8.5.1",
     "jszip": "^3.6.0",

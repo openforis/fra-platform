@@ -30,4 +30,6 @@ export interface RowSpec {
   // rowSpan?: number
   // colSpan?: number
   variableExport?: string
+
+  calcFormula?: string
 }

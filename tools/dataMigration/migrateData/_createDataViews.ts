@@ -15,7 +15,7 @@ export const getCreateViewDDL = async (
   const schema = DBNames.getAssessmentSchema(assessment.props.name)
   const rows = await getRows(client, schema, table)
   const cols = await getCols(client, schema, table)
-  const rowsData = rows.filter((row) => row.props.type === RowType.data)
+  const rowsData = rows.filter((row) => [RowType.data, RowType.calculated].includes(row.props.type))
   const colIndexes = getColIndexes(rowsData, cols)
   const schemaCycle = DBNames.getCycleSchema(assessment.props.name, assessment.cycles[0].name)
 

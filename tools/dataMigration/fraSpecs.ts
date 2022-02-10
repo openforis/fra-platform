@@ -94,7 +94,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
               },
               {
                 idx: 2,
-                type: 'data',
+                type: 'calculated',
                 cols: [
                   {
                     idx: 'header_0',
@@ -112,7 +112,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
               },
               {
                 idx: 3,
-                type: 'data',
+                type: 'calculated',
                 cols: [
                   {
                     idx: 'header_0',
@@ -125,7 +125,8 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'extentOfForest.totalLandArea',
                 variableNo: 'c',
-                variableName: 'faoStat',
+                variableName: 'totalLandArea',
+                // variableName: 'faoStat',
                 variableExport: 'total_land_area',
               },
               {
