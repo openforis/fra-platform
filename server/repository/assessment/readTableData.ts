@@ -4,8 +4,6 @@ import { Assessment, Cycle } from '@meta/assessment'
 import { CountryIso } from '@meta/area'
 import { TableData } from '@meta/data'
 
-// TODO: Update return type from <any>
-
 export const readTableData = async (
   props: {
     assessment: Assessment

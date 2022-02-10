@@ -33,6 +33,27 @@ export const ApiEndPoint = {
           'metadata'
         ),
     },
+    TableRowsMetadata: {
+      many: (
+        countryIso = ':countryIso',
+        assessmentName = ':assessmentName',
+        cycleName = ':cycleName',
+        section = ':section',
+        tableId = ':tableId'
+      ) =>
+        apiPath(
+          'countries',
+          countryIso,
+          'assessments',
+          assessmentName,
+          'cycles',
+          cycleName,
+          'sections',
+          section,
+          'rows',
+          tableId
+        ),
+    },
     sections: (name = ':name', cycleName = ':cycleName') => apiPath('assessment', name, 'sections', cycleName),
     countryStatus: (countryIso = ':countryIso', name = ':name', cycleName = ':cycleName') =>
       apiPath('country', countryIso, 'assessments', name, 'cycles', cycleName, 'status'),
