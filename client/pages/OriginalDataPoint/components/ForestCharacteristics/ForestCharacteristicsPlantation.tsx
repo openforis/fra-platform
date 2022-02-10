@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useOriginalDataPoint } from '@client/store/data/originalDataPoint'
+import { useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 import { useTranslation } from 'react-i18next'
 import { ODPs } from '@meta/assessment/originalDataPoint'
 import { Numbers } from '@core/utils'

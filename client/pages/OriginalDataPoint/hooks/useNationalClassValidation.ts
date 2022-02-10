@@ -1,5 +1,5 @@
 import { ODPValidationNationalClass } from '@meta/assessment/originalDataPoint'
-import { useOriginalDataPoint } from '@client/store/data/originalDataPoint'
+import { useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 
 export const useNationalClassValidation = (index: number): ODPValidationNationalClass | Record<string, never> => {
   const [printView] = [false] // TODO: usePrintView()

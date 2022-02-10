@@ -1,7 +1,7 @@
 import React from 'react'
 
 // import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
-import { useOriginalDataPoint } from '@client/store/data/originalDataPoint'
+import { useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 // import { useCountryIso } from '@client/hooks'
 // import { useTranslation } from 'react-i18next'
 import { useNationalClassNameComments } from '../../hooks'

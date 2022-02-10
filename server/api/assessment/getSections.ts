@@ -9,7 +9,7 @@ export const AssessmentGetSections = {
       const { name, cycleName } = req.params
       try {
         const sections = await AssessmentController.getSections({ name, cycleName })
-        res.send(sections)
+        Requests.send(res, sections)
       } catch (e) {
         Requests.sendErr(res, e)
       }

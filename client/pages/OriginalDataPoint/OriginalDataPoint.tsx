@@ -2,7 +2,7 @@ import './OriginalDataPoint.scss'
 
 import React, { useEffect } from 'react'
 import { useAppDispatch } from '@client/store'
-import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/data/originalDataPoint'
+import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 import { useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import NationalClasses from './components/NationalClasses'
@@ -22,12 +22,13 @@ const OriginalDataPoint = () => {
 
   useEffect(() => {
     dispatch(
-      OriginalDataPointActions.fetchOriginalDataPoint({
+      OriginalDataPointActions.getOriginalDataPoint({
         odpId,
         assessmentName,
         cycleName,
       })
     )
+    return () => dispatch(OriginalDataPointActions.reset())
   }, [])
 
   if (!originalDataPoint) {
