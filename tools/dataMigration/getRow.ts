@@ -1,6 +1,5 @@
 import { RowSpec } from '../../webapp/sectionSpec'
-import { Table } from '../../meta/assessment/table'
-import { Row, RowType } from '../../meta/assessment/row'
+import { Row, RowType, Table } from '../../meta/assessment'
 
 export const getRow = (props: { cycles: Array<string>; rowSpec: RowSpec; table: Table }): Row => {
   const { cycles, rowSpec, table } = props
@@ -12,6 +11,7 @@ export const getRow = (props: { cycles: Array<string>; rowSpec: RowSpec; table: 
       linkToSection: '', // rowSpec. // TODO
       type: rowSpec.type as unknown as RowType,
       variableName: rowSpec.variableName, // ?? rowSpec.variableExport,
+      calculateFn: rowSpec.migration?.calcFormula,
     },
     cols: [],
     tableId: table.id,

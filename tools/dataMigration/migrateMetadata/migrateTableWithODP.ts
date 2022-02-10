@@ -5,6 +5,10 @@ import { Objects } from '../../../core/utils'
 
 const years = [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020]
 
+const calculateFNs: Record<string, string> = {
+  otherLand: 'extentOfForest.forestArea - extentOfForest.otherWoodedLand',
+}
+
 export const migrateTableWithODP = async (
   props: { assessment: Assessment; tableName: string; variables: Array<string> },
   client: BaseProtocol
@@ -69,8 +73,20 @@ export const migrateTableWithODP = async (
     Objects.camelize
   )
   await Promise.all(
-    variables.map((variable) => {
+    variables.map(async (variable) => {
       const row = rows.find((row) => row.props.variableName === variable)
+
+      // add calculate function to row
+      if (calculateFNs[variable]) {
+        await client.query(
+          `
+            update ${schema}.row r 
+            set props = props || $1::jsonb
+            where r.props->>'variableName'= $2`,
+          [JSON.stringify({ calculateFn: calculateFNs[variable] }), variable]
+        )
+      }
+
       return Promise.all(
         years.map((year, index) => {
           const col: Col = {

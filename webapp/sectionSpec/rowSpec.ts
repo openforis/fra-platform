@@ -31,5 +31,7 @@ export interface RowSpec {
   // colSpan?: number
   variableExport?: string
 
-  calcFormula?: string
+  migration?: {
+    calcFormula?: string
+  }
 }

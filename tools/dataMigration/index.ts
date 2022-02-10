@@ -21,6 +21,7 @@ import { migrateUsersResetPassword } from './migrateUsersResetPassword'
 import { migrateTablesData } from './migrateData/migrateTablesData'
 import { migrateOdps } from './migrateData/migrateOdps'
 import { migrateCountryStatus } from './migrateData/migrateCountryStatus'
+import { generateMetaCache } from './generateMetaCache'
 
 config({ path: path.resolve(__dirname, '..', '..', '.env') })
 
@@ -62,15 +63,15 @@ export const migrate = async (props: {
     [assessmentName]
   )
 
-  // insert assessment
-  const assessment = await DB.one<Assessment>(
-    `insert into assessment (props)
+  await DB.tx(async (client) => {
+    // insert assessment
+    const assessment = await client.one<Assessment>(
+      `insert into assessment (props)
      values ($1::jsonb)
      returning *;`,
-    [JSON.stringify({ name: assessmentName })]
-  )
+      [JSON.stringify({ name: assessmentName })]
+    )
 
-  await DB.tx(async (client) => {
     // create schema
     const schema = DBNames.getAssessmentSchema(assessment.props.name)
     await DB.query(getCreateSchemaDDL(schema))
@@ -95,6 +96,7 @@ export const migrate = async (props: {
     await migrateTablesData({ assessment }, client)
     await migrateOdps({ assessment }, client)
     await migrateCountryStatus({ assessment }, client)
+    await generateMetaCache({ assessment }, client)
 
     await client.query(
       `delete

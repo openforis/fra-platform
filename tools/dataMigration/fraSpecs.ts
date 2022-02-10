@@ -94,7 +94,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
               },
               {
                 idx: 2,
-                type: 'calculated',
+                type: 'data',
                 cols: [
                   {
                     idx: 'header_0',
@@ -112,7 +112,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
               },
               {
                 idx: 3,
-                type: 'calculated',
+                type: 'data',
                 cols: [
                   {
                     idx: 'header_0',
