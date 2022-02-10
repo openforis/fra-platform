@@ -6,6 +6,7 @@ import { NavigationState } from './ui/navigation/stateType'
 import { AssessmentState } from './assessment/stateType'
 import { LoginState } from './login/stateType'
 import { UserState } from './user/stateType'
+import { NotificationState } from './ui/notification/stateType'
 
 export type RootState = {
   assessment: AssessmentState
@@ -19,6 +20,7 @@ export type RootState = {
 
   ui: {
     navigation: NavigationState
+    notification: NotificationState
     dataLock: DataLockState
   }
 }
