@@ -31,7 +31,7 @@ export const AssessmentPostCountryStatus = {
           })
         }
 
-        res.send(returnedCountryStatus)
+        Requests.send(res, returnedCountryStatus)
       } catch (e) {
         Requests.sendErr(res, e)
       }
