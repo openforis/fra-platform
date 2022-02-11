@@ -35,27 +35,7 @@ export const ApiEndPoint = {
           ),
       },
     },
-    TableRowsMetadata: {
-      many: (
-        countryIso = ':countryIso',
-        assessmentName = ':assessmentName',
-        cycleName = ':cycleName',
-        section = ':section',
-        tableId = ':tableId'
-      ) =>
-        apiPath(
-          'countries',
-          countryIso,
-          'assessments',
-          assessmentName,
-          'cycles',
-          cycleName,
-          'sections',
-          section,
-          'rows',
-          tableId
-        ),
-    },
+
     sections: (assessmentName = ':assessmentName', cycleName = ':cycleName') =>
       apiPath('assessment', assessmentName, 'sections', cycleName),
     countryStatus: (countryIso = ':countryIso', name = ':name', cycleName = ':cycleName') =>
