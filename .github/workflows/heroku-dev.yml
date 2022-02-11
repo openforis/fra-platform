@@ -18,18 +18,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '14.18.1'
-          always-auth: true
-          auth-token: ${{secrets.ACCESS_TOKEN}}
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@openforis'
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          NPM_REGISTRY_URL: https://npm.pkg.github.com
 
       - run: yarn
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          NPM_REGISTRY_URL: https://npm.pkg.github.com
       - run: yarn test
 
       - name: Get the version
