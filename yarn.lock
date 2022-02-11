@@ -9,9 +9,9 @@
   dependencies:
     "@jridgewell/trace-mapping" "^0.3.0"
 
-"@arena/core@git+ssh://git@github.com:openforis/arena-core.git#master":
+"@arena/core@git+https://git@github.com/openforis/arena-core.git#master":
   version "0.0.75"
-  resolved "git+ssh://git@github.com:openforis/arena-core.git#d317739135550cc258d5c5b07f10fef765845619"
+  resolved "git+https://git@github.com/openforis/arena-core.git#d317739135550cc258d5c5b07f10fef765845619"
   dependencies:
     "@esri/proj-codes" "^2.7.0"
     lodash.differencewith "^4.5.0"

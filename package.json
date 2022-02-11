@@ -144,7 +144,7 @@
     "webpack-dev-server": "^4.7.4"
   },
   "dependencies": {
-    "@arena/core": "git+ssh://git@github.com:openforis/arena-core.git#master",
+    "@arena/core": "git+https://git@github.com/openforis/arena-core.git#master",
     "@reduxjs/toolkit": "^1.7.2",
     "assert": "^2.0.0",
     "axios": "^0.25.0",
