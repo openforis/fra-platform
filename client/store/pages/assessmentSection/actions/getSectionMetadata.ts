@@ -10,7 +10,7 @@ export const getSectionMetadata = createAsyncThunk<
   { countryIso: CountryIso; assessmentName: string; cycleName: string; section: string }
 >('section/get/metadata', async ({ countryIso, assessmentName, cycleName, section }) => {
   const { data } = await axios.get(
-    ApiEndPoint.Assessment.TablesMetadata.many(countryIso, assessmentName, cycleName, section)
+    ApiEndPoint.Assessment.Sections.Metadata.many(countryIso, assessmentName, cycleName, section)
   )
   return data
 })

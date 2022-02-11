@@ -5,7 +5,6 @@ import { getCountryISOs } from './getCountryISOs'
 import { getSections } from './getSections'
 import { getTableData } from './getTableData'
 import { getTablesMetadata } from './getTablesMetadata'
-import { getManyRows } from './getManyRows'
 import { getOdp } from './getOdp'
 import { getRegionGroups } from './getRegionGroups'
 import { createCycle } from './createCycle'
@@ -20,7 +19,6 @@ export const AssessmentController = {
   getCountryISOs,
   getSections,
   getTablesMetadata,
-  getManyRows,
   getTableData,
   getOdp,
   createCycle,

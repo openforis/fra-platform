@@ -4,16 +4,16 @@ import Requests from '@server/utils/requests'
 import { AssessmentController } from '@server/controller'
 import { AssessmentName } from '@meta/assessment'
 
-export const AssessmentGetTableRowsMetaData = {
+export const AssessmentGetSectionMetadata = {
   init: (express: Express): void => {
-    express.get(ApiEndPoint.Assessment.TableRowsMetadata.many(), async (req: Request, res: Response) => {
+    express.get(ApiEndPoint.Assessment.Sections.Metadata.many(), async (req: Request, res: Response) => {
       try {
-        const { tableId, assessmentName } = req.params
-        const rows = await AssessmentController.getManyRows({
+        const { assessmentName, section } = req.params
+        const tablesMetadata = await AssessmentController.getTablesMetadata({
           assessmentName: assessmentName as AssessmentName,
-          tableId: Number(tableId),
+          section,
         })
-        Requests.send(res, rows)
+        Requests.send(res, tablesMetadata)
       } catch (e) {
         Requests.sendErr(res, e)
       }
