@@ -9,7 +9,7 @@ import assessmentRemove from '@test/integration/assessment/removeAssessment'
 import userRemove from '@test/integration/user/userRemove'
 import userInvite from '@test/integration/user/userInvite'
 import userResetPassword from '@test/integration/user/userResetPassword'
-import originalDataPointCreate from '@test/integration/assessment/originalDataPointCreate'
+import originalDataPoint from '@test/integration/assessment/originalDataPoint'
 
 afterAll(async () => {
   await DB.$pool.end()
@@ -31,7 +31,7 @@ describe('Metadata integration test', () => {
   userInvite()
   userResetPassword()
 
-  originalDataPointCreate()
+  originalDataPoint()
 
   // remove from db
   assessmentRemove()
