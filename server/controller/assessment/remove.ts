@@ -11,7 +11,7 @@ export const remove = async (
   const schemaName = await AssessmentRepository.removeAssessmentSchema({ assessment }, client)
 
   const cycleSchemaNames = await Promise.all(
-    assessment.cycles.map((cycle) => AssessmentCycleRepository.removeCycleSchema({ assessment, cycle }))
+    assessment.cycles.map((cycle) => AssessmentCycleRepository.removeSchema({ assessment, cycle }))
   )
 
   AssessmentRepository.removeAssessment({ assessment }, client)

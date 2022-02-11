@@ -2,7 +2,7 @@ import { BaseProtocol, DB, Schemas } from '@server/db'
 import { Objects } from '@core/utils'
 import { Assessment, Cycle, OriginalDataPoint } from '@meta/assessment'
 
-export const read = async (
+export const getOne = async (
   props: { assessment: Assessment; assessmentCycle: Cycle; odpId: string },
   client: BaseProtocol = DB
 ): Promise<OriginalDataPoint> => {

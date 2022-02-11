@@ -1,9 +1,9 @@
 import { create } from './create'
-import { createCycleSchema } from './createCycleSchema'
-import { removeCycleSchema } from './removeCycleSchema'
+import { createSchema } from './createSchema'
+import { removeSchema } from './removeSchema'
 
 export const AssessmentCycleRepository = {
   create,
-  createCycleSchema,
-  removeCycleSchema,
+  createSchema,
+  removeSchema,
 }

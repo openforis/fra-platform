@@ -1,7 +1,7 @@
 import { create } from './create'
-import { read } from './read'
+import { getOne } from './getOne'
 
 export const OriginalDataPointRepository = {
   create,
-  read,
+  getOne,
 }

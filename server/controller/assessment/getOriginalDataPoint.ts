@@ -10,7 +10,7 @@ export const getOriginalDataPoint = async (
 
   const assessment = await AssessmentRepository.read({ name })
   const assessmentCycle = assessment.cycles.find((cycle) => cycle.name === cycleName)
-  const originalDataPoint = await OriginalDataPointRepository.read({ assessment, assessmentCycle, odpId }, client)
+  const originalDataPoint = await OriginalDataPointRepository.getOne({ assessment, assessmentCycle, odpId }, client)
 
   return originalDataPoint
 }
