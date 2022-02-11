@@ -1,15 +1,15 @@
 import { DB } from '@server/db'
 
-import userCreate from '@test/integration/user/userCreate.test'
-import userInactive from '@test/integration/user/userSetInactive.test'
-import userActive from '@test/integration/user/userSetActive.test'
+import userCreate from '@test/integration/user/userCreate'
+import userInactive from '@test/integration/user/userSetInactive'
+import userActive from '@test/integration/user/userSetActive'
 import assessmentCreate from '@test/integration/assessment/createAssessment'
 import settingsDefaultAssessment from '@test/integration/settings/defaultAssessment'
 import assessmentRemove from '@test/integration/assessment/removeAssessment'
-import userRemove from '@test/integration/user/userRemove.test'
-import userInvite from '@test/integration/user/userInvite.test'
-import userResetPassword from '@test/integration/user/userResetPassword.test'
-import originalDataPointCreate from '@test/integration/assessment/originalDataPointCreate.test'
+import userRemove from '@test/integration/user/userRemove'
+import userInvite from '@test/integration/user/userInvite'
+import userResetPassword from '@test/integration/user/userResetPassword'
+import originalDataPointCreate from '@test/integration/assessment/originalDataPointCreate'
 
 afterAll(async () => {
   await DB.$pool.end()
