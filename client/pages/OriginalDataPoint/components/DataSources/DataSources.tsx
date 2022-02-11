@@ -5,7 +5,7 @@ import MultiSelect from '@client/components/MultiSelect'
 // import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { useTranslation } from 'react-i18next'
 // import { useCountryIso } from '@client/hooks'
-import { useOriginalDataPoint } from '@client/store/data/originalDataPoint'
+import { useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 import { ODPDataSourceMethod } from '@meta/assessment/originalDataPoint'
 
 type Props = {

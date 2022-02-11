@@ -3,7 +3,7 @@ import React from 'react'
 
 import PercentInput from '@client/components/PercentInput'
 // import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
-import { useOriginalDataPoint } from '@client/store/data/originalDataPoint'
+import { useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 import { ODPNationalClass } from '@meta/assessment/originalDataPoint'
 // import { useTranslation } from 'react-i18next'
 // import { useCountryIso } from '@client/hooks'

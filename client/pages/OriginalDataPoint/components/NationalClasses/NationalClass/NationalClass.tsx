@@ -7,7 +7,7 @@ import VerticallyGrowingTextField from '@client/components/VerticallyGrowingText
 import { useTranslation } from 'react-i18next'
 // import { useCountryIso } from '@client/hooks'
 // import { useAppDispatch } from '@client/store'
-import { useOriginalDataPoint } from '@client/store/data/originalDataPoint'
+import { useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 import { useNationalClassNameComments, useNationalClassValidation } from '../../../hooks'
 
 // const columns = [

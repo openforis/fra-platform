@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useOriginalDataPoint } from '@client/store/data/originalDataPoint'
+import { useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 // import { useAppDispatch } from '@client/store'
 // import { ODPYears } from '@meta/assessment/originalDataPoint'
 import { useTranslation } from 'react-i18next'

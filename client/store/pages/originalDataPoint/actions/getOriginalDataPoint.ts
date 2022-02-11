@@ -4,7 +4,7 @@ import axios from 'axios'
 import { ApiEndPoint } from '@common/api/endpoint'
 import { OriginalDataPoint } from '@meta/assessment'
 
-export const fetchOriginalDataPoint = createAsyncThunk<
+export const getOriginalDataPoint = createAsyncThunk<
   OriginalDataPoint,
   { assessmentName: string; cycleName: string; odpId: string }
 >('originalDataPoint/get/byId', async ({ assessmentName, cycleName, odpId }) => {

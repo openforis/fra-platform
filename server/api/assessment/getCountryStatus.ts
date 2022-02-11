@@ -14,7 +14,7 @@ export const AssessmentGetCountryStatus = {
           name: name as AssessmentName,
           cycleName,
         })
-        res.send(countryStatus)
+        Requests.send(res, countryStatus)
       } catch (e) {
         Requests.sendErr(res, e)
       }

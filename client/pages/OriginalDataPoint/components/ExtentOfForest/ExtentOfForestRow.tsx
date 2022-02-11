@@ -4,7 +4,7 @@ import { Numbers } from '@core/utils/numbers'
 
 import PercentInput from '@client/components/PercentInput'
 import ThousandSeparatedDecimalInput from '@client/components/ThousandSeparatedDecimalInput'
-import { useOriginalDataPoint } from '@client/store/data/originalDataPoint'
+import { useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 // import { useTranslation } from 'react-i18next'
 // import { useCountryIso } from '@client/hooks'
 // import { useAppDispatch } from '@client/store'

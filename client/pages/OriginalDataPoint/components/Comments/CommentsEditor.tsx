@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 
 // import ckEditorConfig from '@webapp/components/ckEditor/ckEditorConfig'
-import { useOriginalDataPoint } from '@client/store/data/originalDataPoint'
+import { useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 // import { useAppDispatch } from '@client/store'
 import { useTranslation } from 'react-i18next'
 
