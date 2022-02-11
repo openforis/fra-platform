@@ -4,7 +4,7 @@ import { getCreateSchemaCycleDDL } from '@server/repository/assessment/getCreate
 
 export const createSchema = async (
   params: {
-    assessment: Pick<Assessment, 'props'>
+    assessment: Assessment
     cycle: Cycle
   },
   client: BaseProtocol = DB

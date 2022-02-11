@@ -13,8 +13,8 @@ export const create = async (
 
   await DB.query(
     AssessmentRepository.getCreateSchemaCycleDDL(
-      Schemas.getAssessmentSchema(assessment.props.name),
-      Schemas.getCycleSchema(assessment.props.name, name)
+      Schemas.getName(assessment),
+      Schemas.getNameCycle(assessment, { name } as Cycle)
     )
   )
 

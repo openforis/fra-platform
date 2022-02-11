@@ -6,7 +6,7 @@ export const create = async (
   params: {
     assessment: Assessment
     assessmentCycle: Cycle
-    originalDataPoint: Pick<OriginalDataPoint, 'countryIso' | 'year'>
+    originalDataPoint: OriginalDataPoint
   },
   client: BaseProtocol = DB
 ): Promise<OriginalDataPoint> => {
