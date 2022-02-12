@@ -1,12 +1,13 @@
 import { Assessment, Col, ColType, Row, RowType, Table } from '../../../meta/assessment'
 import { BaseProtocol } from '../../../server/db'
-import { DBNames } from '../_DBNames'
 import { Objects } from '../../../core/utils'
+import { DBNames } from '../_DBNames'
 
 const years = [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020]
 
 const calculateFNs: Record<string, string> = {
-  otherLand: 'forestArea - otherWoodedLand',
+  otherLand: 'extentOfForest.forestArea - extentOfForest.otherWoodedLand',
+  naturalForestArea: 'extentOfForest.otherLand * 2',
 }
 
 export const migrateTableWithODP = async (
