@@ -9,12 +9,12 @@ import { LiteralEvaluator } from './literal'
 import { MemberEvaluator } from './member'
 import { ThisEvaluator } from './this'
 import { UnaryEvaluator } from './unary'
-import { Context, VariablesByTable } from './context'
+import { Context, VariablesCache } from './context'
 
 export const evalDependencies = (
   row: Row,
   assessmentMetaCache: AssessmentMetaCache,
-  variablesByTable: VariablesByTable
+  variablesCache: VariablesCache
 ): string => {
   const evaluators = {
     // @ts-ignore
@@ -39,5 +39,5 @@ export const evalDependencies = (
     [ExpressionNodeType.Unary]: UnaryEvaluator,
   }
   const evaluator = new JavascriptExpressionEvaluator<Context>([], evaluators)
-  return evaluator.evaluate(row.props.calculateFn, { assessmentMetaCache, row, variablesByTable })
+  return evaluator.evaluate(row.props.calculateFn, { assessmentMetaCache, row, variablesCache })
 }

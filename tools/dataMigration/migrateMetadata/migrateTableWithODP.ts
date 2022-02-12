@@ -6,7 +6,7 @@ import { Objects } from '../../../core/utils'
 const years = [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020]
 
 const calculateFNs: Record<string, string> = {
-  otherLand: 'extentOfForest.forestArea - extentOfForest.otherWoodedLand',
+  otherLand: 'forestArea - otherWoodedLand',
 }
 
 export const migrateTableWithODP = async (

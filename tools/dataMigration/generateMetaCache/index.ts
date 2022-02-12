@@ -3,7 +3,7 @@ import { BaseProtocol } from '../../../server/db'
 import { DBNames } from '../_DBNames'
 import { Objects } from '../../../core/utils'
 import { ExpressionEvaluator } from './expressionEvaluator'
-import { VariablesByTable } from './expressionEvaluator/evalDependencies/context'
+import { VariablesCache } from './expressionEvaluator/evalDependencies/context'
 
 type Props = {
   assessment: Assessment
@@ -13,18 +13,18 @@ export const generateMetaCache = async (props: Props, client: BaseProtocol): Pro
   const { assessment } = props
   const schema = DBNames.getAssessmentSchema(assessment.props.name)
 
-  const { cache: variablesByTable } = await client.one<{ cache: VariablesByTable }>(`
+  const { cache: variablesCache } = await client.one<{ cache: VariablesCache }>(`
       with data as (
-          select t.props ->> 'name'                                                       as table_name,
-                 jsonb_object_agg(r.props ->> 'variableName',
-                                  jsonb_build_object('name', r.props ->> 'variableName')) as variables
+          select r.props ->> 'variableName'                                                              as variable_name,
+
+                 jsonb_build_object('name', r.props ->> 'variableName', 'tableName', t.props ->> 'name') as variables
 
           from ${schema}.row r
                    left join ${schema}."table" t on r.table_id = t.id
           where r.props ->> 'variableName' is not null
-          group by t.props ->> 'name'
+--     group by t.props ->> 'name'
       )
-      select jsonb_object_agg(data.table_name, data.variables) as cache
+      select jsonb_object_agg(data.variable_name, data.variables) as cache
       from data
   `)
 
@@ -46,7 +46,7 @@ export const generateMetaCache = async (props: Props, client: BaseProtocol): Pro
   )
 
   rows.forEach((row) => {
-    ExpressionEvaluator.evalDependencies(row, assessmentMetaCache, variablesByTable)
+    ExpressionEvaluator.evalDependencies(row, assessmentMetaCache, variablesCache)
   })
 
   return client.query(`update assessment set meta_cache = $1::jsonb`, JSON.stringify(assessmentMetaCache))
