@@ -10,8 +10,8 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
 
     const dependantTable = assessmentMetaCache.calculations.dependants?.[object.name] ?? {}
     const dependants = dependantTable[property.name] ?? []
-    const dependant: VariableCache = { name: row.props.variableName, tableName }
-    if (!dependants.find((d) => d.name === dependant.name)) {
+    const dependant: VariableCache = { variableName: row.props.variableName, tableName }
+    if (!dependants.find((d) => d.variableName === dependant.variableName)) {
       assessmentMetaCache.calculations.dependants = {
         ...assessmentMetaCache.calculations.dependants,
         [object.name]: {
@@ -23,8 +23,8 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
 
     const dependencyTable = assessmentMetaCache.calculations.dependencies?.[tableName] ?? {}
     const dependencies = dependencyTable[row.props.variableName] ?? []
-    const dependency: VariableCache = { name: property.name, tableName: object.name }
-    if (!dependencies.find((d) => d.name === dependency.name)) {
+    const dependency: VariableCache = { variableName: property.name, tableName: object.name }
+    if (!dependencies.find((d) => d.variableName === dependency.variableName)) {
       assessmentMetaCache.calculations.dependencies = {
         ...assessmentMetaCache.calculations.dependencies,
         [tableName]: {

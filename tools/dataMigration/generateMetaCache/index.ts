@@ -20,7 +20,7 @@ export const generateMetaCache = async (props: Props, client: BaseProtocol): Pro
                    jsonb_object_agg(
                                r.props ->> 'variableName',
                                jsonb_build_object(
-                                       'name', r.props ->> 'variableName', 'tableName', t.props ->> 'name'
+                                       'variableName', r.props ->> 'variableName', 'tableName', t.props ->> 'name'
                                    )) as variables
             from ${schema}.row r
                      left join ${schema}."table" t on r.table_id = t.id
