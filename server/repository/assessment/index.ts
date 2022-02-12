@@ -5,7 +5,7 @@ import { readSections } from './readSections'
 import { readTableData } from './readTableData'
 import { getManyRows } from './getManyRows'
 import { getManyCols } from './getManyCols'
-import { readTablesMetadata } from './readTablesMetadata'
+import { getSectionMetaData } from './getSectionMetaData'
 import { readOdp } from './readOdp'
 import { removeAssessmentSchema } from './removeAssessmentSchema'
 import { removeAssessment } from './removeAssessment'
@@ -20,7 +20,7 @@ export const AssessmentRepository = {
   createAssessmentSchema,
   read,
   readSections,
-  readTablesMetadata,
+  getSectionMetaData,
   getManyRows,
   getManyCols,
   readTableData,
