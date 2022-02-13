@@ -18,3 +18,5 @@ export type { Section, SectionProps, SubSectionProps, SubSection } from './secti
 export type { Settings } from './settings'
 export type { TableProps, Table } from './table'
 export type { TableSectionProps, TableSection } from './tableSection'
+
+export type { AssessmentMetaCache, VariableCache, DependencyCache } from './assessmentMetaCache'

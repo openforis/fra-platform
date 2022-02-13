@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: "0" # fetch all tags, default 1
+          fetch-depth: '0' # fetch all tags, default 1
 
       - name: Use Node.js 14.18.1
         uses: actions/setup-node@v1

@@ -125,7 +125,8 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'extentOfForest.totalLandArea',
                 variableNo: 'c',
-                variableName: 'faoStat',
+                variableName: 'totalLandArea',
+                // variableName: 'faoStat',
                 variableExport: 'total_land_area',
               },
               {
