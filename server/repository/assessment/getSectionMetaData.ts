@@ -21,25 +21,27 @@ export const getSectionMetaData = async (
                      left join ${schemaName}.section s on ts.section_id = s.id
             where s.props ->> 'name' = $1
               and s.props -> 'cycles' ? $2
+              and ts.props -> 'cycles' ? $2
+
         ),
              t as (
                  select t.*
                  from ${schemaName}."table" t,
                       ts
-                 where t.table_section_id = ts.id and ts.props -> 'cycles' ? $2
+                 where t.table_section_id = ts.id and ts.props -> 'cycles' ? $2 and t.props -> 'cycles' ? $2
              ),
              rows as (
                  select r.*, jsonb_agg(c.* order by c.id) as cols
                  from ${schemaName}.col c
                           left join ${schemaName}.row r on r.id = c.row_id
-                 where r.table_id in (select t.id from t) and r.props -> 'cycles' ? $2
+                 where r.table_id in (select t.id from t) and r.props -> 'cycles' ? $2 and c.props -> 'cycles' ? $2
+
                  group by r.id
              ),
              tables as (
                  select t.*, jsonb_agg(r.* order by r.id) as rows
                  from "rows" r
                           left join t on t.id = r.table_id
-                 where t.props -> 'cycles' ? $2
                  group by t.id, t.uuid, t.props, t.table_section_id
              )
         select ts.*,
