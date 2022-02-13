@@ -8,8 +8,10 @@ export const AssessmentGetSectionMetadata = {
   init: (express: Express): void => {
     express.get(ApiEndPoint.Assessment.Sections.Metadata.many(), async (req: Request, res: Response) => {
       try {
-        const { assessmentName, section } = req.params
+        const { assessmentName, section, cycleName } = req.params
+
         const tablesMetadata = await AssessmentController.getSectionMetadata({
+          cycleName,
           assessmentName: assessmentName as AssessmentName,
           section,
         })

@@ -3,15 +3,17 @@ import { AssessmentRepository } from '@server/repository'
 import { AssessmentName, TableSection } from '@meta/assessment'
 
 export const getSectionMetadata = async (
-  props: { assessmentName: AssessmentName; section: string },
+  props: { assessmentName: AssessmentName; section: string; cycleName: string },
   client: BaseProtocol = DB
-): Promise<TableSection> => {
-  const { assessmentName, section } = props
+): Promise<Array<TableSection>> => {
+  const { assessmentName, section, cycleName } = props
 
   return client.tx(async (t) => {
     const assessment = await AssessmentRepository.read({ name: assessmentName }, t)
+    const cycle = assessment.cycles.find((cycle) => cycle.name === cycleName)
     const sectionMetadata = await AssessmentRepository.getSectionMetaData(
       {
+        cycle,
         assessment,
         section,
       },
