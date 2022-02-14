@@ -37,6 +37,7 @@ jobs:
           PGDATABASE: frap-dev
           PGUSER: frap
           PGPASSWORD: frap
+      - run: yarn build
       - run: yarn test
       - run: yarn test:integration
         env:
