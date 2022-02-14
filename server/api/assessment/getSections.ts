@@ -6,9 +6,9 @@ import { AssessmentController } from '@server/controller'
 export const AssessmentGetSections = {
   init: (express: Express): void => {
     express.get(ApiEndPoint.Assessment.sections(), async (req: Request, res: Response) => {
-      const { name, cycleName } = req.params
+      const { assessmentName, cycleName } = req.params
       try {
-        const sections = await AssessmentController.getSections({ name, cycleName })
+        const sections = await AssessmentController.getSections({ name: assessmentName, cycleName })
         Requests.send(res, sections)
       } catch (e) {
         Requests.sendErr(res, e)
