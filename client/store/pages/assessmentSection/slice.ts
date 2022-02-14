@@ -5,7 +5,7 @@ import { AssessmentSectionState } from './stateType'
 
 const initialState: AssessmentSectionState = {
   data: null,
-  metaData: null,
+  metadata: null,
 }
 
 export const assessmentSectionSlice = createSlice({
@@ -16,7 +16,7 @@ export const assessmentSectionSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getSectionMetadata.fulfilled, (state, { payload }) => {
-      state.metaData = payload
+      state.metadata = payload
     })
 
     builder.addCase(getSectionData.fulfilled, (state, { payload }) => {
