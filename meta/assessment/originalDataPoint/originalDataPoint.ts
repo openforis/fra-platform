@@ -19,6 +19,6 @@ export interface OriginalDataPoint {
   odpId?: string
   reservedYears?: Array<number>
   validationStatus?: ODPValidation
-  year?: string
+  year?: number
   props: { cycles: Array<string> }
 }

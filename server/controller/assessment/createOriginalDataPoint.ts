@@ -1,7 +1,6 @@
 import { BaseProtocol, DB, Schemas } from '@server/db'
 import { OriginalDataPointRepository, ActivityLogRepository } from '@server/repository'
-import { Assessment, ActivityLogMessage, Cycle } from '@meta/assessment'
-import { OriginalDataPoint } from '@meta/assessment/originalDataPoint'
+import { Assessment, ActivityLogMessage, Cycle, OriginalDataPoint } from '@meta/assessment'
 import { User } from '@meta/user'
 
 export const createOriginalDataPoint = async (
