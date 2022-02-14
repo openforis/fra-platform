@@ -143,7 +143,11 @@ export const migrateMetadata = async (props: Props): Promise<void> => {
 
   await migrateDegradedForest({ assessment }, client)
   await migrateTableWithODP(
-    { assessment, tableName: 'extentOfForest', variables: ['forestArea', 'otherWoodedLand'] },
+    {
+      assessment,
+      tableName: 'extentOfForest',
+      variables: ['forestArea', 'otherWoodedLand', 'otherLand', 'totalLandArea'],
+    },
     client
   )
   await migrateTableWithODP(
