@@ -6,9 +6,11 @@ export const removeAssessmentSchema = async (
     assessment: Assessment
   },
   client: BaseProtocol = DB
-): Promise<void> => {
+): Promise<string> => {
   const { assessment } = params
   const schemaName = Schemas.getName(assessment)
 
   await client.query<void>(`drop schema ${schemaName} cascade;`)
+
+  return schemaName
 }
