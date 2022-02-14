@@ -9,7 +9,16 @@ export const update = async (
   const {
     assessment,
     assessmentCycle,
-    originalDataPoint: { countryIso, id, year },
+    originalDataPoint: {
+      id,
+      countryIso,
+      year,
+      dataSourceAdditionalComments,
+      dataSourceMethods,
+      dataSourceReferences,
+      description,
+      nationalClasses,
+    },
   } = params
 
   const schemaName = Schemas.getNameCycle(assessment, assessmentCycle)
@@ -17,12 +26,26 @@ export const update = async (
   await client.oneOrNone<OriginalDataPoint | null>(
     `
         update ${schemaName}.original_data_point set
-                      country_iso = $1,
-                      year = $2
-        where id = $3
+          country_iso = $1,
+          year = $2,
+          data_source_additional_comments = $3::jsonb,
+          data_source_methods = $4,
+          data_source_references = $5,
+          description = $6,
+          national_classes = $7::jsonb
+        where id = $8
         returning *
     `,
-    [countryIso, year, id]
+    [
+      countryIso,
+      year,
+      dataSourceAdditionalComments,
+      dataSourceMethods,
+      dataSourceReferences,
+      description,
+      nationalClasses,
+      id,
+    ]
   )
 
   return getOne({ assessment, assessmentCycle, odpId: id }, client)

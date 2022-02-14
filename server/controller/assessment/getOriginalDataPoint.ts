@@ -3,7 +3,7 @@ import { AssessmentRepository, OriginalDataPointRepository } from '@server/repos
 import { OriginalDataPoint } from '@meta/assessment'
 
 export const getOriginalDataPoint = async (
-  props: { name: string; cycleName: string; odpId: string },
+  props: { name: string; cycleName: string; odpId: number },
   client: BaseProtocol = DB
 ): Promise<OriginalDataPoint | null> => {
   const { name, cycleName, odpId } = props

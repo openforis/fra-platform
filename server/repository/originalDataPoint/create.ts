@@ -10,12 +10,41 @@ export const create = async (
   },
   client: BaseProtocol = DB
 ): Promise<OriginalDataPoint> => {
-  const { assessment, assessmentCycle, originalDataPoint } = params
+  const {
+    assessment,
+    assessmentCycle,
+    originalDataPoint: {
+      countryIso,
+      year,
+      dataSourceAdditionalComments,
+      dataSourceMethods,
+      dataSourceReferences,
+      description,
+      nationalClasses,
+    },
+  } = params
 
   const schemaName = Schemas.getNameCycle(assessment, assessmentCycle)
   return client.one<OriginalDataPoint>(
-    `insert into ${schemaName}.original_data_point (country_iso, year) values ($1, $2) returning *;`,
-    [originalDataPoint.countryIso, originalDataPoint.year],
+    `
+        insert into ${schemaName}.original_data_point (
+          country_iso,
+          year,
+          data_source_additional_comments,
+          data_source_methods,
+          data_source_references,
+          description,
+          national_classes
+        ) values ($1, $2, $3::jsonb, $4, $5, $6, $7::jsonb) returning *;`,
+    [
+      countryIso,
+      year,
+      dataSourceAdditionalComments,
+      dataSourceMethods,
+      dataSourceReferences,
+      description,
+      nationalClasses,
+    ],
     Objects.camelize
   )
 }
