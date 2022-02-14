@@ -31,11 +31,10 @@ export const getSectionMetaData = async (
                  where t.table_section_id = ts.id and ts.props -> 'cycles' ? $2 and t.props -> 'cycles' ? $2
              ),
              rows as (
-                 select r.*, jsonb_agg(c.* order by c.id) as cols
+                 select r.*, jsonb_agg(c.* order by c.id)  filter ( where c.props -> 'cycles' ? $2 ) as cols
                  from ${schemaName}.col c
                           left join ${schemaName}.row r on r.id = c.row_id
-                 where r.table_id in (select t.id from t) and r.props -> 'cycles' ? $2 and c.props -> 'cycles' ? $2
-
+                 where r.table_id in (select t.id from t) and r.props -> 'cycles' ? $2
                  group by r.id
              ),
              tables as (
