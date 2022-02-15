@@ -1,7 +1,7 @@
 export type VariablesByTableCache = Record<string, Record<string, VariableCache>>
 
 export interface VariableCache {
-  name: string
+  variableName: string
   tableName: string
 }
 

@@ -22,9 +22,9 @@ const toBigNumber = (value: BigNumberInput = ''): BigNumber => {
   return new BigNumber(typeof value === 'string' ? value.split(groupSeparator).join('') : value)
 }
 
-type BigNumOp = 'plus' | 'minus' | 'times' | 'div'
+type BigNumOp = 'plus' | 'minus' | 'times' | 'div' | 'modulo' | 'exponentiatedBy'
 
-const applyOperator = (x: BigNumberInput, y: BigNumberInput, op: BigNumOp): BigNumber => {
+const applyOperator = (x: BigNumberInput, y: BigNumberInput, op: BigNumOp): BigNumber | null => {
   const result = toBigNumber(x)[op](toBigNumber(y))
   return result.isFinite() ? result : null
 }
@@ -49,6 +49,10 @@ const sub = (x: BigNumberInput, y: BigNumberInput) => applyOperator(x, y, 'minus
 const mul = (x: BigNumberInput, y: BigNumberInput) => applyOperator(x, y, 'times')
 
 const div = (x: BigNumberInput, y: BigNumberInput) => applyOperator(x, y, 'div')
+
+const modulo = (x: BigNumberInput, y: BigNumberInput) => applyOperator(x, y, 'modulo')
+
+const pow = (x: BigNumberInput, y: BigNumberInput) => applyOperator(x, y, 'exponentiatedBy')
 
 const greaterThanOrEqualTo = (x: BigNumberInput, y: BigNumberInput) => applyComparison(x, y, 'gte')
 
@@ -81,28 +85,35 @@ const { max, min } = BigNumber
 export const Numbers = {
   defaultTo0,
   groupSeparator,
-  BigNumber,
-  toBigNumber,
   applyOperator,
   applyComparison,
+
+  BigNumber,
+  toBigNumber,
+  // arithmetic
   add,
   sum,
   sub,
   mul,
   div,
+  modulo,
+  pow,
+
+  abs,
+  max,
+  min,
+
+  // logical
   greaterThan,
   lessThan,
   eq,
-  abs,
-  toFixed,
-  toString,
-  format,
+  between,
   lessThanOrEqualTo,
   greaterThanOrEqualTo,
   greaterThanWithTolerance,
 
-  max,
-  min,
-
-  between,
+  // utils
+  format,
+  toFixed,
+  toString,
 }
