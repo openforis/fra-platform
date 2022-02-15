@@ -3,7 +3,7 @@ import { ActivityLogRepository, OriginalDataPointRepository } from '@server/repo
 import { Assessment, ActivityLogMessage, Cycle, OriginalDataPoint } from '@meta/assessment'
 import { User } from '@meta/user'
 
-export const createOriginalDataPoint = async (
+export const removeOriginalDataPoint = async (
   props: {
     assessment: Assessment
     assessmentCycle: Cycle
@@ -16,7 +16,7 @@ export const createOriginalDataPoint = async (
   const schemaName = Schemas.getName(assessment)
 
   return client.tx(async (t) => {
-    const createdOriginalDataPoint = await OriginalDataPointRepository.create(
+    const removedOriginalDataPoint = await OriginalDataPointRepository.remove(
       { assessment, assessmentCycle, originalDataPoint },
       t
     )
@@ -24,15 +24,15 @@ export const createOriginalDataPoint = async (
     await ActivityLogRepository.insertActivityLog(
       {
         activityLog: {
-          target: createdOriginalDataPoint,
+          target: removedOriginalDataPoint,
           section: 'assessment',
-          message: ActivityLogMessage.originalDataPointCreate,
+          message: ActivityLogMessage.originalDataPointRemove,
           user,
         },
         schemaName,
       },
       t
     )
-    return createdOriginalDataPoint
+    return removedOriginalDataPoint
   })
 }

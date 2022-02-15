@@ -3,14 +3,12 @@ import { AssessmentRepository, OriginalDataPointRepository } from '@server/repos
 import { OriginalDataPoint } from '@meta/assessment'
 
 export const getOriginalDataPoint = async (
-  props: { name: string; cycleName: string; odpId: string },
+  props: { name: string; cycleName: string; odpId: number },
   client: BaseProtocol = DB
 ): Promise<OriginalDataPoint> => {
   const { name, cycleName, odpId } = props
 
   const assessment = await AssessmentRepository.read({ name })
   const assessmentCycle = assessment.cycles.find((cycle) => cycle.name === cycleName)
-  const originalDataPoint = await OriginalDataPointRepository.getOne({ assessment, assessmentCycle, odpId }, client)
-
-  return originalDataPoint
+  return OriginalDataPointRepository.getOne({ assessment, assessmentCycle, odpId }, client)
 }
