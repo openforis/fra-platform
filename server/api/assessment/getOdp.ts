@@ -8,8 +8,7 @@ export const AssessmentGetOdp = {
     express.get(ApiEndPoint.Assessment.OriginalDataPoint.one(), async (req: Request, res: Response) => {
       try {
         const { name, cycleName, odpId } = req.params
-        const id = +odpId
-        const odp = await AssessmentController.getOriginalDataPoint({ name, cycleName, odpId: id })
+        const odp = await AssessmentController.getOriginalDataPoint({ name, cycleName, odpId: Number(odpId) })
         Requests.send(res, odp)
       } catch (e) {
         Requests.sendErr(res, e)

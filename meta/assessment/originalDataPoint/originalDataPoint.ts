@@ -17,8 +17,6 @@ export interface OriginalDataPoint {
   description?: string
   nationalClasses?: Array<ODPNationalClass>
   // editStatus?: ODPEditStatus
-  // odpId?: string
   // reservedYears?: Array<number>
   // validationStatus?: ODPValidation
-  // props: { cycles: Array<string> }
 }
