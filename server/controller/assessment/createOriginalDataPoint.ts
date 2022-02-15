@@ -1,14 +1,14 @@
 import { BaseProtocol, DB, Schemas } from '@server/db'
-import { OriginalDataPointRepository, ActivityLogRepository } from '@server/repository'
+import { ActivityLogRepository, OriginalDataPointRepository } from '@server/repository'
 import { Assessment, ActivityLogMessage, Cycle, OriginalDataPoint } from '@meta/assessment'
 import { User } from '@meta/user'
 
 export const createOriginalDataPoint = async (
   props: {
-    user: User
     assessment: Assessment
     assessmentCycle: Cycle
     originalDataPoint: OriginalDataPoint
+    user: User
   },
   client: BaseProtocol = DB
 ): Promise<OriginalDataPoint> => {

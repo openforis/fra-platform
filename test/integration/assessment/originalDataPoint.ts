@@ -19,10 +19,10 @@ export default (): void =>
 
     it('Create new Original data point', async () => {
       const createdOriginalDataPoint = await AssessmentController.createOriginalDataPoint({
-        user,
         assessment,
         assessmentCycle,
         originalDataPoint,
+        user,
       })
 
       gotOriginalDataPoint = await AssessmentController.getOriginalDataPoint({
@@ -42,6 +42,7 @@ export default (): void =>
         assessment,
         assessmentCycle,
         originalDataPoint: { ...gotOriginalDataPoint, year: 2018 },
+        user,
       })
 
       await expect(
@@ -49,6 +50,7 @@ export default (): void =>
           assessment,
           assessmentCycle,
           originalDataPoint: { ...gotOriginalDataPoint, id: 5, year: 2017 },
+          user,
         })
       ).rejects.toThrowError('No data returned from the query.')
 
@@ -62,6 +64,7 @@ export default (): void =>
         assessment,
         assessmentCycle,
         originalDataPoint: gotOriginalDataPoint,
+        user,
       })
 
       await expect(
@@ -69,6 +72,7 @@ export default (): void =>
           assessment,
           assessmentCycle,
           originalDataPoint: { ...gotOriginalDataPoint, id: 5 },
+          user,
         })
       ).rejects.toThrowError('No data returned from the query.')
 
