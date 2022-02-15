@@ -9,7 +9,7 @@ export const removeOriginalDataPoint = async (
     originalDataPoint: OriginalDataPoint
   },
   client: BaseProtocol = DB
-): Promise<OriginalDataPoint | null> => {
+): Promise<OriginalDataPoint> => {
   const { assessment, assessmentCycle, originalDataPoint } = props
 
   return client.tx(async (t) => {

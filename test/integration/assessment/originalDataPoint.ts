@@ -37,32 +37,51 @@ export default (): void =>
       expect(createdOriginalDataPoint.countryIso).toBe(gotOriginalDataPoint.countryIso)
     })
 
-    it('Edit existing Original data point', async () => {
+    it('Edit existing/not existing Original data point', async () => {
       const editedOriginalDataPoint = await AssessmentController.updateOriginalDataPoint({
         assessment,
         assessmentCycle,
         originalDataPoint: { ...gotOriginalDataPoint, year: 2018 },
       })
 
+      await expect(
+        AssessmentController.updateOriginalDataPoint({
+          assessment,
+          assessmentCycle,
+          originalDataPoint: { ...gotOriginalDataPoint, id: 5, year: 2017 },
+        })
+      ).rejects.toThrowError('No data returned from the query.')
+
       expect(gotOriginalDataPoint).toHaveProperty('id')
       expect(gotOriginalDataPoint.year).toBe(2019)
       expect(editedOriginalDataPoint.year).toBe(2018)
     })
 
-    it('Remove existing Original data point', async () => {
+    it('Remove existing/not existing Original data point', async () => {
       const removedOriginalDataPoint = await AssessmentController.removeOriginalDataPoint({
         assessment,
         assessmentCycle,
         originalDataPoint: gotOriginalDataPoint,
       })
 
-      gotOriginalDataPoint = await AssessmentController.getOriginalDataPoint({
-        name: assessment.props.name,
-        cycleName: assessmentCycleName,
-        odpId: gotOriginalDataPoint.id,
-      })
+      await expect(
+        AssessmentController.removeOriginalDataPoint({
+          assessment,
+          assessmentCycle,
+          originalDataPoint: { ...gotOriginalDataPoint, id: 5 },
+        })
+      ).rejects.toThrowError('No data returned from the query.')
 
       expect(removedOriginalDataPoint).toHaveProperty('id')
-      expect(gotOriginalDataPoint).toBeNull()
+    })
+
+    it('Get not existing Original data point', async () => {
+      await expect(
+        AssessmentController.getOriginalDataPoint({
+          name: assessment.props.name,
+          cycleName: assessmentCycleName,
+          odpId: 5,
+        })
+      ).rejects.toThrowError('No data returned from the query.')
     })
   })

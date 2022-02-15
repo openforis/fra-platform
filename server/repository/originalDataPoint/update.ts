@@ -3,9 +3,9 @@ import { Assessment, Cycle, OriginalDataPoint } from '@meta/assessment'
 import { getOne } from './getOne'
 
 export const update = async (
-  params: { assessment: Assessment; assessmentCycle: Cycle; originalDataPoint: OriginalDataPoint },
+  props: { assessment: Assessment; assessmentCycle: Cycle; originalDataPoint: OriginalDataPoint },
   client: BaseProtocol = DB
-): Promise<OriginalDataPoint | null> => {
+): Promise<OriginalDataPoint> => {
   const {
     assessment,
     assessmentCycle,
@@ -19,11 +19,11 @@ export const update = async (
       description,
       nationalClasses,
     },
-  } = params
+  } = props
 
   const schemaName = Schemas.getNameCycle(assessment, assessmentCycle)
 
-  await client.oneOrNone<OriginalDataPoint | null>(
+  await client.one<OriginalDataPoint>(
     `
         update ${schemaName}.original_data_point set
           country_iso = $1,
