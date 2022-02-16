@@ -20,14 +20,14 @@ const Description: React.FC<Props> = (props) => {
   const { title, name, section, template, disabled, showAlertEmptyContent, showDashEmptyContent } = props
 
   const user = useUser()
-  const [printView] = [false] // TODO: usePrintView()
+  // const [printView] = [false] // TODO: usePrintView()
   const { value, loading /* onChange */ } = useDescription(name, section, template)
   const [open, setOpen] = useState(false)
 
   const error = user && showAlertEmptyContent && /* !value && */ !loading
   // let __html = value || template
-  let __html = value
-  if (printView) __html = __html?.split('<p>&nbsp;</p>').join('') // Hack to replace empty lines in print view
+  const __html = value
+  // if (printView) __html = __html?.split('<p>&nbsp;</p>').join('') // Hack to replace empty lines in print view
 
   return (
     <div className="fra-description__header-row">
@@ -37,11 +37,10 @@ const Description: React.FC<Props> = (props) => {
         {
           /* `<RichTextEditor value={__html} name={name} onChange={onChange} />` */
         }}
-      {!open && __html && <div className="fra-description__preview" dangerouslySetInnerHTML={{ __html }} />}
+      {!open /* && __html */ && <div className="fra-description__preview" dangerouslySetInnerHTML={{ __html }} />}
       {!open &&
-        {
-          /*! __html */
-        } &&
+        /*! __html && */
+
         showDashEmptyContent && <div>-</div>}
     </div>
   )
