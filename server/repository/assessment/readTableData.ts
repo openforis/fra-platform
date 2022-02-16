@@ -4,6 +4,9 @@ import { Assessment, Cycle } from '@meta/assessment'
 import { CountryIso } from '@meta/area'
 import { TableData } from '@meta/data'
 
+/**
+ * @deprecated: use CycleDataRepository.getData
+ */
 export const readTableData = async (
   props: {
     assessment: Assessment

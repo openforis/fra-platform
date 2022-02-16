@@ -1,10 +1,11 @@
 import { Express } from 'express'
-import { UserGetByInvitation } from './getByInvitation'
+import { ApiEndPoint } from '@common/api/endpoint'
+import { getInvitation } from './getInvitation'
 import { UserAcceptInvitation } from './acceptInvitation'
 
 export const UserApi = {
   init: (express: Express): void => {
-    UserGetByInvitation.init(express)
+    express.get(ApiEndPoint.User.getByInvitation(), getInvitation)
     UserAcceptInvitation.init(express)
   },
 }
