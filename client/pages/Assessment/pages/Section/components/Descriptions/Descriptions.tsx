@@ -14,7 +14,7 @@ type Props = {
 
 const Descriptions: React.FC<Props> = (props: Props) => {
   const { sectionName, descriptions, disabled } = props
-  const { introductoryText, nationalData, analysisAndProcessing } = descriptions
+  const { introductoryText /* nationalData, */ /* analysisAndProcessing */ } = descriptions
 
   const i18n = useTranslation()
   const [printView, printOnlyTablesView] = [false, false] // TODO: usePrintView()

@@ -21,11 +21,12 @@ const Description: React.FC<Props> = (props) => {
 
   const user = useUser()
   const [printView] = [false] // TODO: usePrintView()
-  const { value, loading, onChange } = useDescription(name, section, template)
+  const { value, loading /* onChange */ } = useDescription(name, section, template)
   const [open, setOpen] = useState(false)
 
-  const error = user && showAlertEmptyContent && !value && !loading
-  let __html = value || template
+  const error = user && showAlertEmptyContent && /* !value && */ !loading
+  // let __html = value || template
+  let __html = value
   if (printView) __html = __html.split('<p>&nbsp;</p>').join('') // Hack to replace empty lines in print view
 
   return (

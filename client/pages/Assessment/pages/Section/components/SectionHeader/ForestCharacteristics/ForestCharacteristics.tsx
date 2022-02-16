@@ -8,8 +8,8 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
 
   const user = useUser()
   const i18n = useTranslation()
-  const extentOfForestStateHasOdps = false // TODO? useSelector(ExtentOfForestState.hasOriginalDataPoints)
-  const forestCharacteristicsHasOdps = false // TODO?useSelector(ForestCharacteristicsState.hasOriginalDataPoints)
+  const extentOfForestStateHasOdps = true // TODO? useSelector(ExtentOfForestState.hasOriginalDataPoints)
+  const forestCharacteristicsHasOdps = true // TODO?useSelector(ForestCharacteristicsState.hasOriginalDataPoints)
 
   if (!user || !extentOfForestStateHasOdps) {
     return null
