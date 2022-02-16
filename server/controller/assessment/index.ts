@@ -4,6 +4,8 @@ import { remove } from './remove'
 import { getCountryISOs } from './getCountryISOs'
 import { getSections } from './getSections'
 import { createOriginalDataPoint } from './createOriginalDataPoint'
+import { removeOriginalDataPoint } from './removeOriginalDataPoint'
+import { updateOriginalDataPoint } from './updateOriginalDataPoint'
 import { getOriginalDataPoint } from './getOriginalDataPoint'
 import { getTableData } from './getTableData'
 import { getSectionMetadata } from './getSectionMetadata'
@@ -21,6 +23,8 @@ export const AssessmentController = {
   getSections,
   getSectionMetadata,
   createOriginalDataPoint,
+  removeOriginalDataPoint,
+  updateOriginalDataPoint,
   getOriginalDataPoint,
   getTableData,
   createCycle,

@@ -1,19 +1,16 @@
 import { BaseProtocol, DB, Schemas } from '@server/db'
-import { Objects } from '@core/utils'
 import { Assessment, Cycle, OriginalDataPoint } from '@meta/assessment'
+import { getOne } from './getOne'
 
-export const create = async (
-  params: {
-    assessment: Assessment
-    assessmentCycle: Cycle
-    originalDataPoint: OriginalDataPoint
-  },
+export const update = async (
+  props: { assessment: Assessment; assessmentCycle: Cycle; originalDataPoint: OriginalDataPoint },
   client: BaseProtocol = DB
 ): Promise<OriginalDataPoint> => {
   const {
     assessment,
     assessmentCycle,
     originalDataPoint: {
+      id,
       countryIso,
       year,
       dataSourceAdditionalComments,
@@ -22,20 +19,23 @@ export const create = async (
       description,
       nationalClasses,
     },
-  } = params
+  } = props
 
   const schemaName = Schemas.getNameCycle(assessment, assessmentCycle)
-  return client.one<OriginalDataPoint>(
+
+  await client.one<OriginalDataPoint>(
     `
-        insert into ${schemaName}.original_data_point (
-          country_iso,
-          year,
-          data_source_additional_comments,
-          data_source_methods,
-          data_source_references,
-          description,
-          national_classes
-        ) values ($1, $2, $3::jsonb, $4, $5, $6, $7::jsonb) returning *;`,
+        update ${schemaName}.original_data_point set
+          country_iso = $1,
+          year = $2,
+          data_source_additional_comments = $3::jsonb,
+          data_source_methods = $4,
+          data_source_references = $5,
+          description = $6,
+          national_classes = $7::jsonb
+        where id = $8
+        returning *
+    `,
     [
       countryIso,
       year,
@@ -44,7 +44,9 @@ export const create = async (
       dataSourceReferences,
       description,
       nationalClasses,
-    ],
-    Objects.camelize
+      id,
+    ]
   )
+
+  return getOne({ assessment, assessmentCycle, odpId: id }, client)
 }

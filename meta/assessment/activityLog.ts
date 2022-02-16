@@ -4,6 +4,8 @@ export enum ActivityLogMessage {
   assessmentCreate = 'assessmentCreate',
   assessmentCycleCreate = 'assessmentCycleCreate',
   originalDataPointCreate = 'originalDataPointCreate',
+  originalDataPointUpdate = 'originalDataPointUpdate',
+  originalDataPointRemove = 'originalDataPointRemove',
   userInvited = 'userInvited',
 }
 
