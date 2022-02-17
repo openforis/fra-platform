@@ -8,13 +8,13 @@ export const remove = async (
 ): Promise<{ schemaName: string; cycleSchemaNames: Array<string> }> => {
   const { assessment } = props
 
-  const schemaName = await AssessmentRepository.removeAssessmentSchema({ assessment }, client)
+  const schemaName = await AssessmentRepository.removeAssessmentSchema({ assessment })
 
   const cycleSchemaNames = await Promise.all(
     assessment.cycles.map((cycle) => AssessmentCycleRepository.removeSchema({ assessment, cycle }))
   )
 
-  AssessmentRepository.removeAssessment({ assessment }, client)
+  await AssessmentRepository.removeAssessment({ assessment }, client)
 
   return {
     schemaName,
