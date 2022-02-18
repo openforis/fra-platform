@@ -28,8 +28,8 @@ export const update = async (
         update ${schemaName}.original_data_point set
           country_iso = $1,
           year = $2,
-          data_source_additional_comments = $3::jsonb,
-          data_source_methods = $4,
+          data_source_additional_comments = $3,
+          data_source_methods = $4::jsonb,
           data_source_references = $5,
           description = $6,
           national_classes = $7::jsonb
@@ -40,10 +40,10 @@ export const update = async (
       countryIso,
       year,
       dataSourceAdditionalComments,
-      dataSourceMethods,
+      JSON.stringify(dataSourceMethods),
       dataSourceReferences,
       description,
-      nationalClasses,
+      JSON.stringify(nationalClasses),
       id,
     ]
   )
