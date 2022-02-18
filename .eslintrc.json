@@ -47,7 +47,8 @@
     "no-shadow": "off",
     "no-param-reassign": ["error", { "props": true, "ignorePropertyModificationsFor": ["state"] }],
     "@typescript-eslint/no-use-before-define": ["error"],
-    "@typescript-eslint/ban-ts-comment": "off"
+    "@typescript-eslint/ban-ts-comment": "off",
+    "react/function-component-definition": 0
   },
   "settings": {
     "react": {

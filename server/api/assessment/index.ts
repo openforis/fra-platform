@@ -7,6 +7,7 @@ import { AssessmentGetCountryStatus } from './getCountryStatus'
 import { AssessmentGetTableData } from './getTableData'
 import { AssessmentGetSectionMetadata } from './getSectionMetadata'
 import { getReservedYears } from './getReservedYears'
+import { updateOriginalDataPoint } from './updateOriginalDataPoint'
 
 export const AssessmentApi = {
   init: (express: Express): void => {
@@ -18,5 +19,6 @@ export const AssessmentApi = {
 
     AssessmentPostCountryStatus.init(express)
     express.get(ApiEndPoint.Assessment.OriginalDataPoint.ReservedYears.many(), getReservedYears)
+    express.put(ApiEndPoint.Assessment.OriginalDataPoint.one(), updateOriginalDataPoint)
   },
 }
