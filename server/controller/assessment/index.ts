@@ -13,6 +13,7 @@ import { getRegionGroups } from './getRegionGroups'
 import { createCycle } from './createCycle'
 import { getCountryStatus } from './getCountryStatus'
 import { updateCountryStatus } from './updateCountryStatus'
+import { getReservedYears } from './getReservedYears'
 
 export const AssessmentController = {
   create,
@@ -30,4 +31,5 @@ export const AssessmentController = {
   createCycle,
   getCountryStatus,
   updateCountryStatus,
+  getReservedYears,
 }
