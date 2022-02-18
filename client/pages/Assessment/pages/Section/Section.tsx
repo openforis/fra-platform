@@ -3,7 +3,7 @@ import './Section.scss'
 import React, { useEffect } from 'react'
 import { useCountryIso } from '@client/hooks'
 import { useAppDispatch } from '@client/store'
-import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
+import { AssessmentSectionActions, useAssessmentSection } from '@client/store/pages/assessmentSection'
 import { useParams } from 'react-router'
 
 import { useCurrentAssessmentSubSection } from '@client/store/assessment/hooks'
@@ -14,9 +14,11 @@ import { useTranslation } from 'react-i18next'
 import Descriptions, { GeneralComments } from './components/Descriptions'
 import Title from './components/Title'
 import SectionHeader from './components/SectionHeader'
+import DataTable from './components/DataTable'
 
 const Section: React.FC = () => {
   const currentAssessmentSubSection = useCurrentAssessmentSubSection()
+  const { tableSections } = useAssessmentSection()
 
   const { assessmentName, cycleName, section } =
     useParams<{ assessmentName: AssessmentName; cycleName: string; section: string }>()
@@ -30,7 +32,7 @@ const Section: React.FC = () => {
   useEffect(() => {
     dispatch(AssessmentSectionActions.reset())
     dispatch(
-      AssessmentSectionActions.getSectionMetadata({
+      AssessmentSectionActions.getTableSections({
         assessmentName,
         cycleName,
         section,
@@ -75,31 +77,32 @@ const Section: React.FC = () => {
 
       {showTitle && <Title assessmentName={assessmentName} sectionName={sectionName} sectionAnchor={anchor} />}
 
-      {/* {tableSections.map((tableSection, idx) => ( */}
-      {/*  <div key={String(idx)}> */}
-      {/*    {tableSection.titleKey && ( */}
-      {/*      <h3 className="subhead assessment-section__table-title">{i18n.t(tableSection.titleKey)}</h3> */}
-      {/*    )} */}
-      {/*    {tableSection.descriptionKey && ( */}
-      {/*      <div className="app-view__section-toolbar no-print"> */}
-      {/*        <div className="support-text">{i18n.t(tableSection.descriptionKey)}</div> */}
-      {/*      </div> */}
-      {/*    )} */}
+      {tableSections.map((tableSection, idx) => (
+        <div key={String(idx)}>
+          {/* // TODO Missing metadata */}
+          {/* {tableSection.titleKey && ( */}
+          {/*  <h3 className="subhead assessment-section__table-title">{i18n.t(tableSection.titleKey)}</h3> */}
+          {/* )} */}
+          {/* {tableSection.descriptionKey && ( */}
+          {/*  <div className="app-view__section-toolbar no-print"> */}
+          {/*    <div className="support-text">{i18n.t(tableSection.descriptionKey)}</div> */}
+          {/*  </div> */}
+          {/* )} */}
 
-      {/*    {tableSection.tableSpecs.map((tableSpec) => ( */}
-      {/*      <React.Fragment key={tableSpec.name}> */}
-      {/*        <DataTable */}
-      {/*          assessmentType={assessmentType} */}
-      {/*          sectionName={sectionName} */}
-      {/*          sectionAnchor={anchor} */}
-      {/*          tableSpec={tableSpec} */}
-      {/*          disabled={disabled} */}
-      {/*        /> */}
-      {/*        {tableSpec.print.pageBreakAfter && <div className="page-break" />} */}
-      {/*      </React.Fragment> */}
-      {/*    ))} */}
-      {/*  </div> */}
-      {/* ))} */}
+          {tableSection.tables.map((table) => (
+            <React.Fragment key={table.props.name}>
+              <DataTable
+                assessmentName={assessmentName}
+                sectionName={sectionName}
+                sectionAnchor={anchor}
+                table={table}
+                disabled={disabled}
+              />
+              {/* {table.props.print.pageBreakAfter && <div className="page-break" />} */}
+            </React.Fragment>
+          ))}
+        </div>
+      ))}
 
       {descriptions.comments && <GeneralComments section={sectionName} disabled={disabled} />}
 

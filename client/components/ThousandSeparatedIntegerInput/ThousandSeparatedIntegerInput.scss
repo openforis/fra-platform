@@ -1,0 +1,13 @@
+@import "client/styles/inputMixins";
+
+.number-input__container {
+  @include mixin-input-container;
+}
+
+.number-input__input-field {
+  @include mixin-input-field;
+}
+
+.number-input__readonly-view {
+  @include mixin-readonly-view;
+}
