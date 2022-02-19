@@ -29,7 +29,9 @@ const OriginalDataPoint: React.FC = () => {
         cycleName,
       })
     )
-    dispatch(OriginalDataPointActions.reset())
+    return () => {
+      dispatch(OriginalDataPointActions.reset())
+    }
   }, [])
 
   if (!originalDataPoint) {
