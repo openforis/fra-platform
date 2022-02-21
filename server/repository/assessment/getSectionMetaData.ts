@@ -13,7 +13,7 @@ export const getSectionMetaData = async (
   const { cycle, section, assessment } = props
   const schemaName = Schemas.getName(assessment)
 
-  return client.oneOrNone<Array<TableSection>>(
+  return client.map<TableSection>(
     `
         with ts as (
             select ts.*
@@ -51,6 +51,7 @@ export const getSectionMetaData = async (
 
       `,
     [section, cycle.uuid],
+    // @ts-ignore
     Objects.camelize
   )
 }
