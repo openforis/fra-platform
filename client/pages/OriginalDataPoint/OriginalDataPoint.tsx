@@ -5,8 +5,6 @@ import { BasePaths } from '@client/basePaths'
 import { useTranslation } from 'react-i18next'
 import { useAppDispatch } from '@client/store'
 import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
-import { useCountryIso } from '@client/hooks'
-import { AssessmentName } from '@meta/assessment'
 import NationalClasses from './components/NationalClasses'
 import OriginalData from './components/OriginalData'
 import Comments from './components/Comments'
@@ -18,7 +16,6 @@ const OriginalDataPoint: React.FC = () => {
   const { i18n } = useTranslation()
   const dispatch = useAppDispatch()
   const history = useHistory()
-  const countryIso = useCountryIso()
   const originalDataPoint = useOriginalDataPoint()
   const { assessmentName, cycleName, odpId } = useParams<{ assessmentName: string; cycleName: string; odpId: string }>()
   // TODO: Handle canEditData
@@ -40,9 +37,6 @@ const OriginalDataPoint: React.FC = () => {
   if (!originalDataPoint) {
     history.push(BasePaths.Root())
   }
-
-  if (originalDataPoint.countryIso !== countryIso)
-    history.push(BasePaths.Assessment.root(countryIso, assessmentName as AssessmentName, cycleName))
 
   return (
     <div className="app-view__content">
