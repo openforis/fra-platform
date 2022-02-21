@@ -5,7 +5,7 @@ import { ApiEndPoint } from '@common/api/endpoint'
 import { CountryIso } from '@meta/area'
 import { TableData } from '@meta/data'
 
-export const getSectionData = createAsyncThunk<
+export const getTableData = createAsyncThunk<
   Array<{ tableName: string; data: TableData }>,
   { countryIso: CountryIso; assessmentName: string; cycleName: string; section: string; tableNames: Array<string> }
 >('section/get/data', async ({ countryIso, assessmentName, cycleName, section, tableNames }) => {

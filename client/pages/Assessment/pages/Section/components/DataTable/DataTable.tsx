@@ -1,7 +1,11 @@
 import './DataTable.scss'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { AssessmentName, Table as TableType } from '@meta/assessment'
+import { AssessmentSectionActions, useAssessmentSection } from '@client/store/pages/assessmentSection'
+import { useAppDispatch } from '@client/store'
+import { useCountryIso } from '@client/hooks'
+import { useCycle } from '@client/store/assessment'
 import Table from './Table'
 
 type Props = {
@@ -14,6 +18,12 @@ type Props = {
 
 const DataTable: React.FC<Props> = (props) => {
   const { assessmentName, sectionName, sectionAnchor, table, disabled } = props
+  const dispatch = useAppDispatch()
+  const countryIso = useCountryIso()
+  const cycle = useCycle()
+  const assessmentSection = useAssessmentSection()
+  // Data of current section, passed for table
+  const { data = {} } = assessmentSection
   const {
     // props: { name: tableName },
     rows,
@@ -26,7 +36,7 @@ const DataTable: React.FC<Props> = (props) => {
   // const breakPointsColsPrint = print.colBreakPoints
 
   // const i18n = useI18n()
-  // const data = [] // useSelector(getSectionData(assessmentName, sectionName, tableName))
+  // const data = [] // useSelector(getTableData(assessmentName, sectionName, tableName))
   // const dataEmpty: boolean = useSelector(isSectionDataEmpty(assessmentName, sectionName, tableName))
   // const generateValues: boolean = useSelector(
   //   (state) => odp && !disabled && Objects.isFunction(canGenerateValues) && canGenerateValues(state)
@@ -36,6 +46,18 @@ const DataTable: React.FC<Props> = (props) => {
   // if (!data) {
   //   return null
   // }
+
+  useEffect(() => {
+    dispatch(
+      AssessmentSectionActions.getTableData({
+        assessmentName,
+        countryIso,
+        tableNames: [table.props.name],
+        cycleName: cycle.name,
+        section: sectionName,
+      })
+    )
+  }, [sectionName])
 
   return (
     <>
@@ -88,7 +110,7 @@ const DataTable: React.FC<Props> = (props) => {
         sectionAnchor={sectionAnchor}
         table={table}
         rows={rows}
-        data={[]}
+        data={data?.[table.props.name]}
         disabled={disabled}
       />
       {/* )} */}

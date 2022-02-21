@@ -30,7 +30,7 @@
 //
 //   const dispatch = useDispatch()
 //   const state = useSelector((_state) => _state)
-//   const data: TableData = AssessmentState.getSectionData(assessmentType, sectionName, tableName)(state)
+//   const data: TableData = AssessmentState.getTableData(assessmentType, sectionName, tableName)(state)
 //
 //   const _persistSanitizedValue = (value: string) => {
 //     if (Sanitizer.isAcceptable(type, value)) {

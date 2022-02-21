@@ -41,19 +41,6 @@ const Section: React.FC = () => {
     )
   }, [countryIso, section])
 
-  // // Update section tables' data on (countryIso ->) metadata change
-  // useEffect(() => {
-  //   dispatch(
-  //     AssessmentSectionActions.getSectionData({
-  //       assessmentName,
-  //       cycleName,
-  //       section,
-  //       countryIso,
-  //       tableNames: metaData?.map((table) => table.props.name),
-  //     })
-  //   )
-  // }, [JSON.stringify(metaData)])
-
   if (!currentAssessmentSubSection) return null
 
   const { anchor, showTitle, descriptions, name: sectionName } = currentAssessmentSubSection.props

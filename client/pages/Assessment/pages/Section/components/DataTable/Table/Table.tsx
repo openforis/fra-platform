@@ -5,6 +5,8 @@ import { AssessmentName, Col, Row as TypeRow, RowType, Table as TableType } from
 import ButtonTableExport from '@client/components/ButtonTableExport'
 // import CellOdpHeader from './CellOdpHeader'
 import { useTranslation } from 'react-i18next'
+
+import { useCountryIso } from '@client/hooks'
 import Row from './Row'
 
 type Props = {
@@ -23,12 +25,21 @@ const Table: React.FC<Props> = (props) => {
   const { i18n } = useTranslation()
   const [printView] = [false] // usePrintView()
 
+  const countryIso = useCountryIso()
   const odp = table.props.odp === true
   const secondary = false // todo: missing table.props.secondary === true
   const rowsHeader = rows.filter((row) => row.props.type === RowType.header)
   const rowsData = rows.filter((row) => row.props.type !== RowType.header)
   const tableRef = useRef<HTMLTableElement>(null)
   const displayTableExportButton = !secondary && !printView && tableRef.current != null
+
+  if (!data) return null
+
+  // Get headers from data
+
+  const headers = Object.keys(Object.values(data[countryIso])[0]).filter(
+    (header) => !['countryIso', 'variableName'].includes(header)
+  )
 
   return (
     <div className={`fra-table__container${secondary ? ' fra-secondary-table__wrapper' : ''}`}>
@@ -37,15 +48,16 @@ const Table: React.FC<Props> = (props) => {
 
         <table id={table.props.name} ref={tableRef} className="fra-table data-table">
           <thead>
-            {rowsHeader.map((row: TypeRow) => (
+            {rowsHeader.map((row: TypeRow, rowIndex: number) => (
               <tr key={row.uuid}>
-                {row.cols.map((col: Col) => {
+                {row.cols.map((col: Col, colIndex: number) => {
                   const { index, /* idx, className, */ colSpan, rowSpan, labelKey /* labelParams,  label */ } =
                     col.props
+
                   return (
                     <th
                       key={col.uuid}
-                      className={`fra-table__header-cell${index === 0 ? '-left' : ''}`}
+                      className={`fra-table__header-cell${index === 0 && rowIndex === 0 ? '-left' : ''}`}
                       colSpan={odp && !colSpan ? data.length : colSpan}
                       rowSpan={rowSpan}
                     >
@@ -53,7 +65,7 @@ const Table: React.FC<Props> = (props) => {
                         ? i18n.t(labelKey, {
                             /* labelParams */
                           })
-                        : `Todo: missing: label`}
+                        : headers[colIndex]}
                     </th>
                   )
                 })}
@@ -74,17 +86,19 @@ const Table: React.FC<Props> = (props) => {
           </thead>
 
           <tbody>
-            {rowsData.map((row: TypeRow) => (
-              <Row
-                key={row.uuid}
-                assessmentName={assessmentName}
-                sectionName={sectionName}
-                table={table}
-                data={data}
-                row={row}
-                disabled={disabled}
-              />
-            ))}
+            {rowsData.map((row: TypeRow) => {
+              return (
+                <Row
+                  key={row.uuid}
+                  assessmentName={assessmentName}
+                  sectionName={sectionName}
+                  table={table}
+                  data={data[countryIso]}
+                  row={row}
+                  disabled={disabled}
+                />
+              )
+            })}
           </tbody>
         </table>
       </div>
