@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { AssessmentName, Col, ColType, Row, Table } from '@meta/assessment'
-import { _camelCase } from '@core/utils/objects/camelize'
+import { Objects } from '@core/utils'
 import Calculated from './Calculated'
 import Number from './Number'
 import Text from './Text'
@@ -35,7 +35,7 @@ type Props = {
 const Cell: React.FC<Props> = (props) => {
   const { data, assessmentName, sectionName, table, disabled, rowIndex, col, row } = props
 
-  const datum = data[_camelCase(row.props.variableName ?? '')]?.[col.props.colName]?.raw
+  const datum = data[Objects.camelize(row.props.variableName ?? '')]?.[col.props.colName]?.raw
 
   const className = useClassName(col /* rowIndex */)
 

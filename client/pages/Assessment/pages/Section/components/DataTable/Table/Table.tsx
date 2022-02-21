@@ -33,10 +33,7 @@ const Table: React.FC<Props> = (props) => {
   const tableRef = useRef<HTMLTableElement>(null)
   const displayTableExportButton = !secondary && !printView && tableRef.current != null
 
-  if (!data) return null
-
   // Get headers from data
-
   const headers = Object.keys(Object.values(data[countryIso])[0]).filter(
     (header) => !['countryIso', 'variableName'].includes(header)
   )

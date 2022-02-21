@@ -59,6 +59,8 @@ const DataTable: React.FC<Props> = (props) => {
     )
   }, [sectionName])
 
+  if (!data?.[table.props.name]) return null
+
   return (
     <>
       {/* {showOdpChart && (!printView || !dataEmpty) && ( */}
