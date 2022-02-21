@@ -21,7 +21,7 @@ export interface Table extends CycledPropsObject<TableProps> {
   // columnsExport?: Array<string | number>
   // columnsExportAlways: Array<string>
   // Functions
-  // getTableData: GetSectionData
+  // getSectionData: GetSectionData
   // isSectionDataEmpty: GetSectionData
   // canGenerateValues?: (state: any) => boolean
   // updateTableDataCell: UpdateTableData
