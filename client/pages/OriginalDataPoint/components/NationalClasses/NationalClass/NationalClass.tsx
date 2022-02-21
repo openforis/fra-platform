@@ -6,8 +6,12 @@ import VerticallyGrowingTextField from '@client/components/VerticallyGrowingText
 // import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { useTranslation } from 'react-i18next'
 // import { useCountryIso } from '@client/hooks'
-// import { useAppDispatch } from '@client/store'
-import { useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
+import { useAppDispatch } from '@client/store'
+import { useAssessment, useCycle } from '@client/store/assessment'
+import { OriginalDataPoint } from '@meta/assessment/originalDataPoint'
+import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
+import { deleteNationalClass } from '@meta/assessment/originalDataPoint/odps/deleteNationalClass'
+import { updateNationalClass } from '@meta/assessment/originalDataPoint/odps/updateNationalClass'
 import { useNationalClassNameComments, useNationalClassValidation } from '../../../hooks'
 
 // const columns = [
@@ -24,16 +28,30 @@ const NationalClass: React.FC<Props> = (props) => {
   const { index, canEditData } = props
   const originalDataPoint = useOriginalDataPoint()
 
-  // const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch()
   const i18n = useTranslation()
   // const countryIso = useCountryIso()
+  const assessment = useAssessment()
+  const cycle = useCycle()
+
   const [printView] = [false] // usePrintView()
 
   const nationalClass = originalDataPoint.nationalClasses[index]
   const { name, definition, uuid, placeHolder } = nationalClass
-  const target = [originalDataPoint.odpId, 'class', `${uuid}`, 'definition']
+  const target = [originalDataPoint.id, 'class', `${uuid}`, 'definition'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
   const validation = useNationalClassValidation(index)
+
+  const updateOriginalDataPoint = (originalDataPointUpdate: OriginalDataPoint) => {
+    dispatch(
+      OriginalDataPointActions.updateOriginalDataPoint({
+        cycleName: cycle.name,
+        assessmentName: assessment.props.name,
+        originalDataPoint: originalDataPointUpdate,
+        odpId: String(originalDataPointUpdate.id),
+      })
+    )
+  }
 
   return (
     <tr className={classNameRowComments}>
@@ -51,18 +69,16 @@ const NationalClass: React.FC<Props> = (props) => {
                 placeHolder && index === 0 ? i18n.t('nationalDataPoint.enterOrCopyPasteNationalClasses') : ''
               }
               value={name || ''}
-              onChange={() => {
-                console.log('todo')
+              onChange={(event) => {
+                const { value } = event.target
+                const originalDataPointUpdate = updateNationalClass({
+                  odp: originalDataPoint,
+                  index,
+                  field: 'name',
+                  value,
+                })
+                updateOriginalDataPoint(originalDataPointUpdate)
               }}
-              onPaste={() => {
-                console.log('todo')
-              }}
-              // onChange={(event) => {
-              //               const { value } = event.target
-              // TODO:
-              // const odpUpdate = ODPs.updateNationalClass({ odp: originalDataPoint, index, field: 'name', value })
-              // dispatch(OriginalDataPointActions.updateODP({ odp: odpUpdate }))
-              // }}
               // onPaste={(event) => {
               // TODO:
               // dispatch(
@@ -86,9 +102,8 @@ const NationalClass: React.FC<Props> = (props) => {
               type="button"
               className="odp__nc-table__remove"
               onClick={() => {
-                // TODO:
-                // const odpUpdate = ODPs.deleteNationalClass({ odp: originalDataPoint, index })
-                // dispatch(OriginalDataPointActions.updateODP({ odp: odpUpdate }))
+                const originalDataPointUpdate = deleteNationalClass({ odp: originalDataPoint, index })
+                updateOriginalDataPoint(originalDataPointUpdate)
               }}
             >
               <Icon name="remove" />
@@ -100,18 +115,16 @@ const NationalClass: React.FC<Props> = (props) => {
       <td className="fra-table__cell-left odp__nc-table__def">
         <VerticallyGrowingTextField
           value={definition || ''}
-          onChange={() => {
-            console.log('todo')
+          onChange={(event) => {
+            const { value } = event.target
+            const originalDataPointUpdate = updateNationalClass({
+              odp: originalDataPoint,
+              index,
+              field: 'definition',
+              value,
+            })
+            updateOriginalDataPoint(originalDataPointUpdate)
           }}
-          onPaste={() => {
-            console.log('todo')
-          }}
-          // onChange={(event) => {
-          //  const { value } = event.target
-          // TODO:
-          // const odpUpdate = ODPs.updateNationalClass({ odp: originalDataPoint, index, field: 'definition', value })
-          // dispatch(OriginalDataPointActions.updateODP({ odp: odpUpdate }))
-          // }}
           // onPaste={(event) => {
           // TODO:
           // dispatch(
@@ -131,7 +144,7 @@ const NationalClass: React.FC<Props> = (props) => {
 
       {!printView && canEditData && (
         <td className="fra-table__row-anchor-cell">
-          {!placeHolder && !Objects.isNil(originalDataPoint.odpId) && (
+          {!placeHolder && !Objects.isNil(originalDataPoint.id) && (
             <div className="odp__review-indicator-row-anchor">
               {/* <ReviewIndicator */}
               {/*  section="odp" */}
