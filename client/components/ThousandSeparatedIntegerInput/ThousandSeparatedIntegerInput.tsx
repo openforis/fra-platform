@@ -19,7 +19,6 @@ class ThousandSeparatedIntegerInput extends React.Component<Props, State> {
   render() {
     const { integerValue, onChange, onPaste } = this.props
     return (
-      // eslint-disable-next-line react/no-string-refs
       <div className="number-input__container validation-error-sensitive-field" ref="wrapper">
         <div className="number-input__readonly-view" style={{ visibility: this.state.hasFocus ? 'hidden' : 'visible' }}>
           {Numbers.format(integerValue)}
