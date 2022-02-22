@@ -1,6 +1,8 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 import { OriginalDataPointState } from './stateType'
 import { getOriginalDataPoint } from './actions/getOriginalDataPoint'
+import { pasteNationalClass } from './actions/pasteNationalClass'
+import { updateNationalClass } from './actions/updateNationalClass'
 import { updateOriginalDataPoint } from './actions/updateOriginalDataPoint'
 
 const initialState: OriginalDataPointState = { data: null }
@@ -24,6 +26,8 @@ export const originalDataPointSlice = createSlice({
 export const OriginalDataPointActions = {
   ...originalDataPointSlice.actions,
   getOriginalDataPoint,
+  pasteNationalClass,
+  updateNationalClass,
   updateOriginalDataPoint,
 }
 
