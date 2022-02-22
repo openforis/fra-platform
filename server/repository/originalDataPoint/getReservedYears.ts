@@ -5,20 +5,17 @@ import { CountryIso } from '@meta/area'
 export const getReservedYears = async (
   params: {
     assessment: Assessment
-    assessmentCycle: Cycle
+    cycle: Cycle
     countryIso: CountryIso
   },
   client: BaseProtocol = DB
 ): Promise<Array<number>> => {
-  const { assessment, assessmentCycle, countryIso } = params
+  const { assessment, cycle, countryIso } = params
 
-  const schemaName = Schemas.getNameCycle(assessment, assessmentCycle)
-  const years = await client.many(
-    `
-        select year from ${schemaName}.original_data_point where country_iso = $1
-    `,
-    [countryIso]
+  const schemaName = Schemas.getNameCycle(assessment, cycle)
+  return client.map<number>(
+    `select year from ${schemaName}.original_data_point where country_iso = $1`,
+    [countryIso],
+    ({ year }) => year
   )
-
-  return years.map(({ year }) => year)
 }
