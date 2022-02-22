@@ -7,7 +7,7 @@ export const updateOriginalDataPoint = async (req: Request, res: Response) => {
     const { name, cycleName } = req.params
     const { originalDataPoint } = req.body
 
-    const assessment = await AssessmentController.read({ name })
+    const assessment = await AssessmentController.getOne({ name })
 
     const assessmentCycle = assessment.cycles.find((cycle) => cycle.name === cycleName)
 

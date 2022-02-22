@@ -12,7 +12,7 @@ export default (): void =>
     let gotOriginalDataPoint: OriginalDataPoint
 
     beforeAll(async () => {
-      assessment = await AssessmentController.read({ name: assessmentParams.props.name })
+      assessment = await AssessmentController.getOne({ name: assessmentParams.props.name })
       assessmentCycle = assessment.cycles.find((cycle) => cycle.name === assessmentCycleName)
       user = await UserController.read({ user: { email: userMockTest.email } })
     })

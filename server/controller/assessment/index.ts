@@ -1,5 +1,5 @@
 import { create } from './create'
-import { read } from './read'
+import { getOne, getOneWithCycle } from './getOne'
 import { remove } from './remove'
 import { getCountryISOs } from './getCountryISOs'
 import { getSections } from './getSections'
@@ -17,7 +17,8 @@ import { getReservedYears } from './getReservedYears'
 
 export const AssessmentController = {
   create,
-  read,
+  getOne,
+  getOneWithCycle,
   remove,
   getRegionGroups,
   getCountryISOs,
