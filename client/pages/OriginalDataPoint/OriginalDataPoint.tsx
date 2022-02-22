@@ -7,7 +7,7 @@ import { useAppDispatch } from '@client/store'
 import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 import NationalClasses from './components/NationalClasses'
 import OriginalData from './components/OriginalData'
-import Comments from './components/Comments'
+// import Comments from './components/Comments'
 import DataSources from './components/DataSources'
 import ButtonBar from './components/ButtonBar'
 import YearSelection from './components/YearSelection'
@@ -49,7 +49,7 @@ const OriginalDataPoint: React.FC = () => {
       <DataSources canEditData={canEditData} />
       <NationalClasses canEditData={canEditData} />
       <OriginalData canEditData={canEditData} />
-      <Comments canEditData={canEditData} />
+      {/* <Comments canEditData={canEditData} /> */}
 
       <div className="odp__bottom-buttons">
         <ButtonBar canEditData={canEditData} />
