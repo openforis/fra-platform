@@ -13,8 +13,8 @@ type Props = {
   cycle: Cycle
   /**
    * Pass undefined variables or columns to fetch all
-   * e.g. {extentOfForest:{}}
-   * e.g. {extentOfForest:{variables:['forestArea'],columns:['1990']"}}
+   * e.g. {extentOfForest:{}} --> fetches all rows, all cols for extentOfForest table
+   * e.g. {extentOfForest:{variables:['forestArea'],columns:['1990']"}} --> fetches row forestArea and col 1990 for extentOfForest table
    */
   tables: TablesCondition
 }
@@ -42,8 +42,9 @@ export const getTableData = (props: Props, client: BaseProtocol = DB): Promise<T
                 from ${schemaCycle}.${tableName} as d
                 where country_iso in (${countryISOs.map((c) => `'${c}'`).join(', ')})
                 ${
-                  tableProps.variables &&
-                  ` and variable_name in (${tableProps.variables.map((v) => `'${v}'`).join(',')})`
+                  tableProps.variables
+                    ? ` and variable_name in (${tableProps.variables.map((v) => `'${v}'`).join(',')})`
+                    : ''
                 }
                 order by d.country_iso
               )`

@@ -1,17 +1,23 @@
-import { BaseProtocol, DB } from '@server/db'
-import { Objects } from '@core/utils'
-import { Country } from '@meta/area'
+import { BaseProtocol, DB, Schemas } from '@server/db'
+import { CountryIso } from '@meta/area'
+import { AssessmentName } from '@meta/assessment'
 
-export const getCountryISOs = async (props: { name: string }, client: BaseProtocol = DB): Promise<Array<Country>> => {
+export const getCountryISOs = async (
+  props: { name: string },
+  client: BaseProtocol = DB
+): Promise<Array<CountryIso>> => {
   const { name } = props
 
-  const assessmentName = `assessment_${name}`
+  const assessmentName = Schemas.getName({ props: { name: name as AssessmentName } })
 
-  return client
-    .many<Array<Country>>(
-      `
-          select c2.country_iso from ${assessmentName}.country c left join country c2 on c.country_iso = c2.country_iso;
+  return client.map<CountryIso>(
     `
-    )
-    .then((data) => Objects.camelize(data).map((country: Country) => country.countryIso))
+        select c2.country_iso
+        from ${assessmentName}.country c
+                 left join country c2 on c.country_iso = c2.country_iso;
+    `,
+    [],
+    // eslint-disable-next-line camelcase
+    ({ country_iso }) => country_iso
+  )
 }
