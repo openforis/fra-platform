@@ -32,6 +32,8 @@ const OriginalDataPoint: React.FC = () => {
     }
   }, [])
 
+  if (!originalDataPoint) return null
+
   return (
     <div className="app-view__content">
       <div className="app-view__page-header">
@@ -39,15 +41,11 @@ const OriginalDataPoint: React.FC = () => {
         <ButtonBar canEditData={canEditData} />
       </div>
 
-      {originalDataPoint && (
-        <>
-          <YearSelection canEditData={canEditData} />
-          <DataSources canEditData={canEditData} />
-          <NationalClasses canEditData={canEditData} />
-          <OriginalData canEditData={canEditData} />
-          <Comments canEditData={canEditData} />
-        </>
-      )}
+      <YearSelection canEditData={canEditData} />
+      <DataSources canEditData={canEditData} />
+      <NationalClasses canEditData={canEditData} />
+      <OriginalData canEditData={canEditData} />
+      <Comments canEditData={canEditData} />
 
       <div className="odp__bottom-buttons">
         <ButtonBar canEditData={canEditData} />
