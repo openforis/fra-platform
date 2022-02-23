@@ -3,7 +3,7 @@ import { assessmentParams } from '@test/integration/mock/assessment'
 
 export default () =>
   test('Expect assessment to be removed', async () => {
-    const assessment = await AssessmentController.read({
+    const assessment = await AssessmentController.getOne({
       name: assessmentParams.props.name,
     })
 
@@ -12,7 +12,7 @@ export default () =>
     })
 
     try {
-      await AssessmentController.read({
+      await AssessmentController.getOne({
         name: assessmentParams.props.name,
       })
     } catch (e) {

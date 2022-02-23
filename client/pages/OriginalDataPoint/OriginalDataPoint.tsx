@@ -1,10 +1,10 @@
 import './OriginalDataPoint.scss'
-
 import React, { useEffect } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { BasePaths } from '@client/basePaths'
 import { useAppDispatch } from '@client/store'
 import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
-import { useParams } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
 import NationalClasses from './components/NationalClasses'
 import OriginalData from './components/OriginalData'
 import Comments from './components/Comments'
@@ -12,11 +12,15 @@ import DataSources from './components/DataSources'
 import ButtonBar from './components/ButtonBar'
 import YearSelection from './components/YearSelection'
 
-const OriginalDataPoint = () => {
+const OriginalDataPoint: React.FC = () => {
   const { i18n } = useTranslation()
   const dispatch = useAppDispatch()
+  const history = useHistory()
+
   const originalDataPoint = useOriginalDataPoint()
-  const { assessmentName, cycleName, odpId } = useParams<{ assessmentName: string; cycleName: string; odpId: string }>()
+  const { assessmentName, cycleName, odpId, countryIso } =
+    useParams<{ assessmentName: string; countryIso: string; cycleName: string; odpId: string }>()
+
   // TODO: Handle canEditData
   const canEditData = false
 
@@ -28,12 +32,14 @@ const OriginalDataPoint = () => {
         cycleName,
       })
     )
-    return () => dispatch(OriginalDataPointActions.reset())
+    return () => {
+      dispatch(OriginalDataPointActions.reset())
+    }
   }, [])
 
-  if (!originalDataPoint) {
-    return null
-  }
+  if (!originalDataPoint) return null
+
+  if (originalDataPoint.countryIso !== countryIso) history.push(BasePaths.Root())
 
   return (
     <div className="app-view__content">
@@ -49,7 +55,7 @@ const OriginalDataPoint = () => {
       <Comments canEditData={canEditData} />
 
       <div className="odp__bottom-buttons">
-        <ButtonBar canEditData={canEditData} />{' '}
+        <ButtonBar canEditData={canEditData} />
       </div>
     </div>
   )
