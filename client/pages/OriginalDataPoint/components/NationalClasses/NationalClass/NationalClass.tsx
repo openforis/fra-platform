@@ -14,10 +14,10 @@ import { deleteNationalClass } from '@meta/assessment/originalDataPoint/odps/del
 import { updateNationalClass } from '@meta/assessment/originalDataPoint/odps/updateNationalClass'
 import { useNationalClassNameComments, useNationalClassValidation } from '../../../hooks'
 
-// const columns = [
-//   { name: 'className', type: 'text' },
-//   { name: 'definition', type: 'text' },
-// ]
+const columns = [
+  { name: 'className', type: 'text' },
+  { name: 'definition', type: 'text' },
+]
 
 type Props = {
   canEditData: boolean
@@ -69,7 +69,7 @@ const NationalClass: React.FC<Props> = (props) => {
                 placeHolder && index === 0 ? i18n.t('nationalDataPoint.enterOrCopyPasteNationalClasses') : ''
               }
               value={name || ''}
-              onChange={(event) => {
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 const { value } = event.target
                 const originalDataPointUpdate = updateNationalClass({
                   odp: originalDataPoint,
@@ -79,19 +79,20 @@ const NationalClass: React.FC<Props> = (props) => {
                 })
                 updateOriginalDataPoint(originalDataPointUpdate)
               }}
-              // onPaste={(event) => {
-              // TODO:
-              // dispatch(
-              // OriginalDataPointActions.pasteNationalClass({
-              //   odp: originalDataPoint,
-              //   event,
-              //   colIndex: 0,
-              //   rowIndex: index,
-              //   columns,
-              //   allowGrow: true,
-              // })
-              // )
-              //              }}
+              onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
+                dispatch(
+                  OriginalDataPointActions.pasteNationalClass({
+                    odp: originalDataPoint,
+                    event,
+                    colIndex: 0,
+                    rowIndex: index,
+                    columns,
+                    allowGrow: true,
+                    assessmentName: assessment.props.name,
+                    cycleName: cycle.name,
+                  })
+                )
+              }}
               disabled={!canEditData}
             />
           )}
@@ -115,7 +116,7 @@ const NationalClass: React.FC<Props> = (props) => {
       <td className="fra-table__cell-left odp__nc-table__def">
         <VerticallyGrowingTextField
           value={definition || ''}
-          onChange={(event) => {
+          onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
             const { value } = event.target
             const originalDataPointUpdate = updateNationalClass({
               odp: originalDataPoint,
@@ -125,19 +126,20 @@ const NationalClass: React.FC<Props> = (props) => {
             })
             updateOriginalDataPoint(originalDataPointUpdate)
           }}
-          // onPaste={(event) => {
-          // TODO:
-          // dispatch(
-          //   OriginalDataPointActions.pasteNationalClass({
-          //     odp: originalDataPoint,
-          //     event,
-          //     colIndex: 1,
-          //     rowIndex: index,
-          //     columns,
-          //     allowGrow: true,
-          //   })
-          // )
-          // }}
+          onPaste={(event: React.ClipboardEvent<HTMLTextAreaElement>) => {
+            dispatch(
+              OriginalDataPointActions.pasteNationalClass({
+                odp: originalDataPoint,
+                event,
+                colIndex: 1,
+                rowIndex: index,
+                columns,
+                allowGrow: true,
+                assessmentName: assessment.props.name,
+                cycleName: cycle.name,
+              })
+            )
+          }}
           disabled={printView || !canEditData}
         />
       </td>
@@ -146,17 +148,17 @@ const NationalClass: React.FC<Props> = (props) => {
         <td className="fra-table__row-anchor-cell">
           {!placeHolder && !Objects.isNil(originalDataPoint.id) && (
             <div className="odp__review-indicator-row-anchor">
-              {/* <ReviewIndicator */}
-              {/*  section="odp" */}
-              {/*  title={i18n.t('nationalDataPoint.nationalClasses')} */}
-              {/*  target={[ */}
-              {/*    originalDataPoint.odpId, */}
-              {/*    'class', */}
-              {/*    `${originalDataPoint.nationalClasses[index].uuid}`, */}
-              {/*    'definition', */}
-              {/*  ]} */}
-              {/*  countryIso={countryIso} */}
-              {/* /> */}
+              {/* <ReviewIndicator
+                section="odp"
+                title={i18n.t('nationalDataPoint.nationalClasses')}
+                target={[
+                  originalDataPoint.id,
+                  'class',
+                  `${originalDataPoint.nationalClasses[index].uuid}`,
+                  'definition',
+                ]}
+                countryIso={countryIso}
+              /> */}
             </div>
           )}
         </td>

@@ -162,7 +162,7 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
               section="odp"
               title={i18n.t('nationalDataPoint.forestCharacteristics')}
               target={[
-                originalDataPoint.odpId,
+                originalDataPoint.id,
                 'class',
                 `${originalDataPoint.nationalClasses[index].uuid}`,
                 'forest_charasteristics',
