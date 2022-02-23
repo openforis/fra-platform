@@ -13,8 +13,8 @@ type Props = {
   cycle: Cycle
   /**
    * Pass undefined variables or columns to fetch all
-   * e.g. {extentOfForest:{}}
-   * e.g. {extentOfForest:{variables:['forestArea'],columns:['1990']"}}
+   * e.g. {extentOfForest:{}} --> fetches all rows, all cols for extentOfForest table
+   * e.g. {extentOfForest:{variables:['forestArea'],columns:['1990']"}} --> fetches row forestArea and col 1990 for extentOfForest table
    */
   tables: TablesCondition
 }
