@@ -17,7 +17,9 @@ const OriginalDataPoint: React.FC = () => {
   const dispatch = useAppDispatch()
   const history = useHistory()
   const originalDataPoint = useOriginalDataPoint()
-  const { assessmentName, cycleName, odpId } = useParams<{ assessmentName: string; cycleName: string; odpId: string }>()
+  const { assessmentName, cycleName, odpId, countryIso } =
+    useParams<{ assessmentName: string; countryIso: string; cycleName: string; odpId: string }>()
+
   // TODO: Handle canEditData
   const canEditData = false
 
@@ -34,9 +36,9 @@ const OriginalDataPoint: React.FC = () => {
     }
   }, [])
 
-  if (!originalDataPoint) {
-    history.push(BasePaths.Root())
-  }
+  if (!originalDataPoint) return null
+
+  if (originalDataPoint.countryIso !== countryIso) history.push(BasePaths.Root())
 
   return (
     <div className="app-view__content">
