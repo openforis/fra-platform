@@ -1,7 +1,9 @@
 import React from 'react'
 
 import { AssessmentName, Col, ColType, Row, Table } from '@meta/assessment'
-import { Objects } from '@core/utils'
+import { TableData } from '@meta/data'
+import { getDatum } from '@client/pages/Assessment/pages/Section/components/DataTable/utils'
+import { useCountryIso } from '@client/hooks'
 import Calculated from './Calculated'
 import Number from './Number'
 import Text from './Text'
@@ -22,7 +24,7 @@ const ComponentsByName: Record<string, React.FC<PropsCell>> = {
 }
 
 type Props = {
-  data: any[] // TODO
+  data: TableData
   assessmentName: AssessmentName
   sectionName: string
   table: Table
@@ -34,8 +36,8 @@ type Props = {
 
 const Cell: React.FC<Props> = (props) => {
   const { data, assessmentName, sectionName, table, disabled, rowIndex, col, row } = props
-
-  const datum = data[Objects.camelize(row.props.variableName ?? '')]?.[col.props.colName]?.raw
+  const countryIso = useCountryIso()
+  const datum = getDatum(data, countryIso, table, row, col)
 
   const className = useClassName(col /* rowIndex */)
 

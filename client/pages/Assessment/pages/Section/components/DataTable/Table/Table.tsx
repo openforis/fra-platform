@@ -7,6 +7,8 @@ import ButtonTableExport from '@client/components/ButtonTableExport'
 import { useTranslation } from 'react-i18next'
 
 import { useCountryIso } from '@client/hooks'
+import { TableData } from '@meta/data'
+import { getHeaders } from '@client/pages/Assessment/pages/Section/components/DataTable/utils'
 import Row from './Row'
 
 type Props = {
@@ -15,7 +17,7 @@ type Props = {
   sectionAnchor: string
   table: TableType
   rows: Array<TypeRow>
-  data: any[] // TODO
+  data: TableData
   disabled: boolean
 }
 
@@ -34,9 +36,7 @@ const Table: React.FC<Props> = (props) => {
   const displayTableExportButton = !secondary && !printView && tableRef.current != null
 
   // Get headers from data
-  const headers = Object.keys(Object.values(data[countryIso])[0]).filter(
-    (header) => !['countryIso', 'variableName'].includes(header)
-  )
+  const headers = getHeaders(data, countryIso, table)
 
   return (
     <div className={`fra-table__container${secondary ? ' fra-secondary-table__wrapper' : ''}`}>
@@ -90,7 +90,7 @@ const Table: React.FC<Props> = (props) => {
                   assessmentName={assessmentName}
                   sectionName={sectionName}
                   table={table}
-                  data={data[countryIso]}
+                  data={data}
                   row={row}
                   disabled={disabled}
                 />

@@ -20,10 +20,7 @@ export const assessmentSectionSlice = createSlice({
     })
 
     builder.addCase(getTableData.fulfilled, (state, { payload }) => {
-      if (!state.data) state.data = {}
-      payload.forEach(({ tableName, data }) => {
-        state.data[tableName] = data
-      })
+      state.data = payload
     })
   },
 })

@@ -3,6 +3,7 @@ import { AssessmentRepository } from '@server/repository'
 import { CountryIso } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
 import { TableData } from '@meta/data'
+import { TableDataRepository } from '@server/repository/cycleData'
 
 export const getTableData = async (
   props: {
@@ -13,32 +14,28 @@ export const getTableData = async (
     tableNames: Array<string>
   },
   client: BaseProtocol = DB
-): Promise<Array<{ tableName: string; data: TableData }>> => {
+): Promise<TableData> => {
   const { countryIso, assessmentName, cycleName, section, tableNames } = props
   if (!section) throw new Error('missing section')
 
+  const tables: Record<string, any> = {}
+  tableNames.forEach((tableName) => {
+    tables[tableName] = {}
+  })
+
   return client.tx(async (t) => {
     const assessment = await AssessmentRepository.read({ name: assessmentName }, t)
+    const cycle = assessment.cycles.find((cycle) => cycle.name === cycleName)
 
-    const tables = await Promise.all(
-      tableNames.map(async (tableName) => {
-        const { data } = await AssessmentRepository.readTableData(
-          {
-            assessment,
-            countryIso,
-            cycleName,
-            tableName,
-          },
-          t
-        )
+    return TableDataRepository.getTableData(
+      {
+        assessment,
+        cycle,
 
-        return {
-          tableName,
-          data,
-        }
-      })
+        tables,
+        countryISOs: [countryIso],
+      },
+      t
     )
-
-    return tables
   })
 }

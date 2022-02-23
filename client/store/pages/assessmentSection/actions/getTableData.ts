@@ -6,7 +6,7 @@ import { CountryIso } from '@meta/area'
 import { TableData } from '@meta/data'
 
 export const getTableData = createAsyncThunk<
-  Array<{ tableName: string; data: TableData }>,
+  TableData,
   { countryIso: CountryIso; assessmentName: string; cycleName: string; section: string; tableNames: Array<string> }
 >('section/get/data', async ({ countryIso, assessmentName, cycleName, section, tableNames }) => {
   const { data } = await axios.get(

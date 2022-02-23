@@ -40,10 +40,11 @@ export const getTableData = (props: Props, client: BaseProtocol = DB): Promise<T
                     : `d.*, '${tableName}'::text as table_name`
                 }
                 from ${schemaCycle}.${tableName} as d
-                where country_iso in (${countryISOs.map((c) => `'${c}'`).join(', ')})
+                where country_iso in ($1:csv)
                 ${
-                  tableProps.variables &&
-                  ` and variable_name in (${tableProps.variables.map((v) => `'${v}'`).join(',')})`
+                  tableProps.variables
+                    ? ` and variable_name in (${tableProps.variables.map((v) => `'${v}'`).join(',')})`
+                    : ''
                 }
                 order by d.country_iso
               )`
@@ -71,7 +72,7 @@ export const getTableData = (props: Props, client: BaseProtocol = DB): Promise<T
         select jsonb_object_agg(d.country_iso, d.data) as data
         from agg2 d
     `,
-    [],
+    [countryISOs],
     ({ data }) => Objects.camelize(data)
   )
 }

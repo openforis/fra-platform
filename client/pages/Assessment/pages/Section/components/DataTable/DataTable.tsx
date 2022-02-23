@@ -6,6 +6,7 @@ import { AssessmentSectionActions, useAssessmentSection } from '@client/store/pa
 import { useAppDispatch } from '@client/store'
 import { useCountryIso } from '@client/hooks'
 import { useCycle } from '@client/store/assessment'
+import { TableData } from '@meta/data'
 import Table from './Table'
 
 type Props = {
@@ -23,7 +24,7 @@ const DataTable: React.FC<Props> = (props) => {
   const cycle = useCycle()
   const assessmentSection = useAssessmentSection()
   // Data of current section, passed for table
-  const { data = {} } = assessmentSection
+  const { data = {} as TableData } = assessmentSection
   const {
     // props: { name: tableName },
     rows,
@@ -59,7 +60,7 @@ const DataTable: React.FC<Props> = (props) => {
     )
   }, [sectionName])
 
-  if (!data?.[table.props.name]) return null
+  if (!data?.[countryIso]) return null
 
   return (
     <>
@@ -112,7 +113,7 @@ const DataTable: React.FC<Props> = (props) => {
         sectionAnchor={sectionAnchor}
         table={table}
         rows={rows}
-        data={data?.[table.props.name]}
+        data={data}
         disabled={disabled}
       />
       {/* )} */}
