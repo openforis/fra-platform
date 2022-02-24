@@ -1,8 +1,7 @@
 import React from 'react'
-import { ODPNationalClass } from '@core/odp'
+import { OriginalDataPoint, ODPNationalClass } from '@meta/assessment'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { readPasteClipboard } from '@client/utils/copyPasteUtil'
-import { OriginalDataPoint } from '@meta/assessment'
 import handlePaste from './handlePaste'
 import { updateOriginalDataPoint } from './updateOriginalDataPoint'
 

@@ -1,7 +1,6 @@
-import { ODPNationalClass, ODPs } from '@core/odp'
 import { acceptNextDecimal } from '@client/utils/numberInput'
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { OriginalDataPoint } from '@meta/assessment'
+import { OriginalDataPoint, ODPNationalClass, ODPs } from '@meta/assessment'
 import { updateOriginalDataPoint } from './updateOriginalDataPoint'
 
 export const updateNationalClass = createAsyncThunk<

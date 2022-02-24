@@ -10,8 +10,7 @@ import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { OriginalDataPoint } from '@meta/assessment/originalDataPoint'
 import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
-import { deleteNationalClass } from '@meta/assessment/originalDataPoint/odps/deleteNationalClass'
-import { updateNationalClass } from '@meta/assessment/originalDataPoint/odps/updateNationalClass'
+import { ODPs } from '@meta/assessment'
 import { useNationalClassNameComments, useNationalClassValidation } from '../../../hooks'
 
 const columns = [
@@ -71,7 +70,7 @@ const NationalClass: React.FC<Props> = (props) => {
               value={name || ''}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 const { value } = event.target
-                const originalDataPointUpdate = updateNationalClass({
+                const originalDataPointUpdate = ODPs.updateNationalClass({
                   odp: originalDataPoint,
                   index,
                   field: 'name',
@@ -103,7 +102,7 @@ const NationalClass: React.FC<Props> = (props) => {
               type="button"
               className="odp__nc-table__remove"
               onClick={() => {
-                const originalDataPointUpdate = deleteNationalClass({ odp: originalDataPoint, index })
+                const originalDataPointUpdate = ODPs.deleteNationalClass({ odp: originalDataPoint, index })
                 updateOriginalDataPoint(originalDataPointUpdate)
               }}
             >
@@ -118,7 +117,7 @@ const NationalClass: React.FC<Props> = (props) => {
           value={definition || ''}
           onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
             const { value } = event.target
-            const originalDataPointUpdate = updateNationalClass({
+            const originalDataPointUpdate = ODPs.updateNationalClass({
               odp: originalDataPoint,
               index,
               field: 'definition',
