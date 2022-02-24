@@ -1,7 +1,6 @@
 import { CountryIso } from '@meta/area'
 import { Assessment, Cycle } from '@meta/assessment'
 import { TableData } from '@meta/data'
-import { Objects } from '@core/utils'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
@@ -72,7 +71,6 @@ export const getTableData = (props: Props, client: BaseProtocol = DB): Promise<T
         select jsonb_object_agg(d.country_iso, d.data) as data
         from agg2 d
     `,
-    [countryISOs],
-    ({ data }) => Objects.camelize(data)
+    [countryISOs]
   )
 }

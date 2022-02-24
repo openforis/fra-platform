@@ -3,7 +3,7 @@ import { AssessmentRepository } from '@server/repository'
 import { CountryIso } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
 import { TableData } from '@meta/data'
-import { TableDataRepository } from '@server/repository/cycleData'
+import { CycleDataRepository } from '@server/repository/cycleData'
 
 export const getTableData = async (
   props: {
@@ -27,7 +27,7 @@ export const getTableData = async (
     const assessment = await AssessmentRepository.read({ name: assessmentName }, t)
     const cycle = assessment.cycles.find((cycle) => cycle.name === cycleName)
 
-    return TableDataRepository.getTableData(
+    return CycleDataRepository.getTableData(
       {
         assessment,
         cycle,
