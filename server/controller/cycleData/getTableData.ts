@@ -1,9 +1,9 @@
 import { BaseProtocol, DB } from '@server/db'
-import { AssessmentRepository } from '@server/repository'
 import { CountryIso } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
 import { TableData } from '@meta/data'
 import { CycleDataRepository } from '@server/repository/cycleData'
+import { AssessmentController } from '@server/controller'
 
 export const getTableData = async (
   props: {
@@ -24,8 +24,7 @@ export const getTableData = async (
   })
 
   return client.tx(async (t) => {
-    const assessment = await AssessmentRepository.read({ name: assessmentName }, t)
-    const cycle = assessment.cycles.find((cycle) => cycle.name === cycleName)
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName }, t)
 
     return CycleDataRepository.getTableData(
       {

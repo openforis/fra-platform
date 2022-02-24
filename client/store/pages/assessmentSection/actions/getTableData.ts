@@ -17,5 +17,5 @@ export const getTableData = createAsyncThunk<
       },
     }
   )
-  return data
+  return data?.data
 })

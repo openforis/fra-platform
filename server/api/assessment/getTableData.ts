@@ -1,9 +1,9 @@
 import { Express, Request, Response } from 'express'
 import { ApiEndPoint } from '@common/api/endpoint'
 import Requests from '@server/utils/requests'
-import { AssessmentController } from '@server/controller'
 import { CountryIso } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
+import { CycleDataController } from '@server/controller/cycleData'
 
 export const AssessmentGetTableData = {
   init: (express: Express): void => {
@@ -12,7 +12,7 @@ export const AssessmentGetTableData = {
         const { countryIso, assessmentName, cycleName, section } = req.params
         const { tableNames } = req.query as { tableNames: Array<string> }
 
-        const table = await AssessmentController.getTableData({
+        const table = await CycleDataController.getTableData({
           countryIso: countryIso as CountryIso,
           assessmentName: assessmentName as AssessmentName,
           cycleName,

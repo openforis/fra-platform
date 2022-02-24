@@ -58,6 +58,7 @@ const DataTable: React.FC<Props> = (props) => {
         section: sectionName,
       })
     )
+    return dispatch(AssessmentSectionActions.resetData())
   }, [sectionName])
 
   if (!data?.[countryIso]) return null

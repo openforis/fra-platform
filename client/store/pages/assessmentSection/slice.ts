@@ -13,6 +13,9 @@ export const assessmentSectionSlice = createSlice({
   initialState,
   reducers: {
     reset: () => initialState,
+    resetData: (state) => {
+      state.data = initialState.data
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getTableSections.fulfilled, (state, { payload }) => {
