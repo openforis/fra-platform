@@ -1,4 +1,4 @@
-import { TableData as TypeTableData } from '@meta/data'
+import { TableData as TypeTableData } from '@meta/data/index'
 import { CountryIso } from '@meta/area'
 import { Table } from '@meta/assessment/table'
 import { Row } from '@meta/assessment/row'
@@ -16,7 +16,7 @@ const getDatum = (data: TypeTableData, countryIso: CountryIso, table: Table, row
   return data[countryIso][table.props.name]?.[variableName]?.[colName]?.raw
 }
 
-export const TableData = {
+export const TableDatas = {
   getTableData,
   getDatum,
 }
