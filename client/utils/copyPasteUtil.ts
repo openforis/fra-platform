@@ -11,10 +11,13 @@ const parseValue = (raw: any, type: any) => {
   return raw
 }
 
-const readHtmlElem = (elem: any, type: any) =>
-  elem
-    .getElementsByTagName('tr')
-    .map((row: any) => row.getElementsByTagName('td').map((cell: any) => parseValue(cell.innerText, type)))
+const readHtmlElem = (elem: any, type: any) => {
+  const rows = elem.getElementsByTagName('tr')
+  return [...rows].map((row: any) => {
+    const cells = row.getElementsByTagName('td')
+    return [...cells].map((cell: any) => parseValue(cell.innerText, type))
+  })
+}
 
 const readExcelClipboard = (evt: any, type = 'integer') => {
   const el = document.createElement('html')
