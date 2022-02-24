@@ -3,7 +3,7 @@ import { TableData } from '@meta/data'
 
 export type Props = {
   assessmentName: AssessmentName
-  data: TableData // TODO
+  data: TableData
   sectionName: string
   table: Table
   row: Row
