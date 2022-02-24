@@ -1,26 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import * as R from 'ramda'
-
 import { acceptNextInteger, acceptNextDecimal } from './numberInput'
 
 const parseValue = (raw: any, type: any) => {
-  if (R.equals('integer', type)) {
+  if (type === 'integer') {
     return acceptNextInteger(raw, null)
   }
-  if (R.equals('decimal', type)) {
+  if (type === 'decimal') {
     return acceptNextDecimal(raw, null)
   }
   return raw
 }
 
-const readHtmlElem = (elem: any, type: any) => {
-  const rows = elem.getElementsByTagName('tr')
-  return R.map((row: any) => {
-    return R.map((cell: any) => {
-      return parseValue(cell.innerText, type)
-    }, row.getElementsByTagName('td'))
-  }, rows)
-}
+const readHtmlElem = (elem: any, type: any) =>
+  elem
+    .getElementsByTagName('tr')
+    .map((row: any) => row.getElementsByTagName('td').map((cell: any) => parseValue(cell.innerText, type)))
 
 const readExcelClipboard = (evt: any, type = 'integer') => {
   const el = document.createElement('html')
@@ -38,5 +32,5 @@ export const readPasteClipboard = (evt: any, type: any) => {
   evt.preventDefault()
 
   const xlsHtml = readExcelClipboard(evt, type)
-  return R.isEmpty(xlsHtml) ? readPlainTextClipboard(evt, type) : xlsHtml
+  return xlsHtml.length === 0 ? readPlainTextClipboard(evt, type) : xlsHtml
 }
