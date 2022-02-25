@@ -4,10 +4,14 @@ import { Table } from '@meta/assessment/table'
 import { Row } from '@meta/assessment/row'
 import { Col } from '@meta/assessment/col'
 
-const getTableData = (data: TypeTableData, countryIso: CountryIso, table: Table) => data[countryIso][table.props.name]
+const getTableData = (props: { data: TypeTableData; countryIso: CountryIso; table: Table }) => {
+  const { countryIso, table, data } = props
+  return data[countryIso][table.props.name]
+}
 
-const getDatum = (data: TypeTableData, countryIso: CountryIso, table: Table, row: Row, col: Col) => {
-  const dataTable = getTableData(data, countryIso, table)
+const getDatum = (props: { data: TypeTableData; countryIso: CountryIso; table: Table; row: Row; col: Col }) => {
+  const { data, countryIso, table, row, col } = props
+  const dataTable = getTableData({ data, countryIso, table })
   if (!dataTable) return null
   const { colName } = col.props
   if (!colName) return null
