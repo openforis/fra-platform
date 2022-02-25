@@ -1,5 +1,5 @@
 import { BaseProtocol } from '@server/db'
-import { TableDataRepository, TablesCondition } from '@server/repository/cycleData'
+import { CycleDataRepository, TablesCondition } from '@server/repository/cycleData'
 import { TableData } from '@meta/data'
 import { Row } from '@meta/assessment'
 import { RowRepository } from '@server/repository/row'
@@ -24,7 +24,7 @@ export const evalExpression = async (props: Props, client: BaseProtocol): Promis
 
   const data: TableData =
     Object.keys(tables).length > 0
-      ? await TableDataRepository.getTableData({ assessment, cycle, countryISOs: [countryIso], tables }, client)
+      ? await CycleDataRepository.getTableData({ assessment, cycle, countryISOs: [countryIso], tables }, client)
       : ({} as TableData)
   const row: Row = await RowRepository.getOne({ assessment, tableName, variableName }, client)
 

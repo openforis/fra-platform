@@ -7,7 +7,6 @@ import { createOriginalDataPoint } from './createOriginalDataPoint'
 import { removeOriginalDataPoint } from './removeOriginalDataPoint'
 import { updateOriginalDataPoint } from './updateOriginalDataPoint'
 import { getOriginalDataPoint } from './getOriginalDataPoint'
-import { getTableData } from './getTableData'
 import { getSectionMetadata } from './getSectionMetadata'
 import { getRegionGroups } from './getRegionGroups'
 import { createCycle } from './createCycle'
@@ -28,7 +27,6 @@ export const AssessmentController = {
   removeOriginalDataPoint,
   updateOriginalDataPoint,
   getOriginalDataPoint,
-  getTableData,
   createCycle,
   getCountryStatus,
   updateCountryStatus,

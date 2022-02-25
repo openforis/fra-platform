@@ -1,6 +1,8 @@
 import React from 'react'
 
-import { AssessmentName, Col, ColType, Table } from '@meta/assessment'
+import { AssessmentName, Col, ColType, Row, Table } from '@meta/assessment'
+import { TableData as TypeTableData, TableDatas } from '@meta/data'
+import { useCountryIso } from '@client/hooks'
 import Calculated from './Calculated'
 import Number from './Number'
 import Text from './Text'
@@ -21,19 +23,20 @@ const ComponentsByName: Record<string, React.FC<PropsCell>> = {
 }
 
 type Props = {
-  data: any[] // TODO
+  data: TypeTableData
   assessmentName: AssessmentName
   sectionName: string
   table: Table
   disabled: boolean
   rowIndex: number
   col: Col
+  row: Row
 }
 
 const Cell: React.FC<Props> = (props) => {
-  const { data, assessmentName, sectionName, table, disabled, rowIndex, col } = props
-
-  const datum = (data?.[rowIndex] as any)?.[col.props.index as number]
+  const { data, assessmentName, sectionName, table, disabled, rowIndex, col, row } = props
+  const countryIso = useCountryIso()
+  const datum = TableDatas.getDatum({ data, countryIso, table, row, col })
 
   const className = useClassName(col /* rowIndex */)
 

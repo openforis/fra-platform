@@ -2,7 +2,7 @@
 // import { useDispatch, useSelector } from 'react-redux'
 //
 // import { ColSpec, TableSpec, TypeSpec } from '@webapp/sectionSpec'
-// import { AssessmentType, TableData } from '@core/assessment'
+// import { AssessmentType, TableDatas } from '@core/assessment'
 // import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 //
 // import { persistTableData } from '../../../../actions'
@@ -30,7 +30,7 @@
 //
 //   const dispatch = useDispatch()
 //   const state = useSelector((_state) => _state)
-//   const data: TableData = AssessmentState.getSectionData(assessmentType, sectionName, tableName)(state)
+//   const data: TableDatas = AssessmentState.getTableData(assessmentType, sectionName, tableName)(state)
 //
 //   const _persistSanitizedValue = (value: string) => {
 //     if (Sanitizer.isAcceptable(type, value)) {
