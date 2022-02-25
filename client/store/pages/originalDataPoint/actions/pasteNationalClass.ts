@@ -40,7 +40,6 @@ export const pasteNationalClass = createAsyncThunk<
       updateOriginalDataPoint({
         assessmentName,
         cycleName,
-        odpId: String(updatedOdp.id),
         originalDataPoint: updatedOdp,
       })
     )
