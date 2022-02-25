@@ -1,6 +1,6 @@
-import { OriginalDataPoint } from '@meta/assessment'
+import { ODP } from '@core/odp'
 
-export const removeNationalClassPlaceHolder = (odp: OriginalDataPoint): OriginalDataPoint => ({
+export const removeNationalClassPlaceHolder = (odp: ODP): ODP => ({
   ...odp,
   nationalClasses: [...odp.nationalClasses.filter((nationalClass) => !nationalClass.placeHolder)],
 })
