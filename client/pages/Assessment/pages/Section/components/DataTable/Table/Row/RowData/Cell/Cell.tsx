@@ -1,9 +1,8 @@
 import React from 'react'
 
 import { AssessmentName, Col, ColType, Row, Table } from '@meta/assessment'
-import { TableData as TypeTableData } from '@meta/data'
+import { TableData as TypeTableData, TableDatas } from '@meta/data'
 import { useCountryIso } from '@client/hooks'
-import { TableDatas } from '@meta/data/tableDatas'
 import Calculated from './Calculated'
 import Number from './Number'
 import Text from './Text'
