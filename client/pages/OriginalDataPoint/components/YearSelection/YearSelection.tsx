@@ -63,7 +63,6 @@ const YearSelection: React.FC<Props> = (props) => {
                 cycleName: cycle.name,
                 assessmentName: assessment.props.name,
                 originalDataPoint: originalDataPointUpdate,
-                odpId: String(originalDataPointUpdate.id),
               })
             )
           }}

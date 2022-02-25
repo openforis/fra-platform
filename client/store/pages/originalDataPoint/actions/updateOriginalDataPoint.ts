@@ -6,10 +6,13 @@ import { ODPs, OriginalDataPoint } from '@meta/assessment'
 
 export const updateOriginalDataPoint = createAsyncThunk<
   OriginalDataPoint,
-  { assessmentName: string; cycleName: string; odpId: string; originalDataPoint: OriginalDataPoint }
->('originalDataPoint/put/byId', async ({ assessmentName, cycleName, odpId, originalDataPoint }) => {
-  const { data } = await axios.put(ApiEndPoint.Assessment.OriginalDataPoint.one(assessmentName, cycleName, odpId), {
-    originalDataPoint: ODPs.removeNationalClassPlaceHolder(originalDataPoint),
-  })
+  { assessmentName: string; cycleName: string; originalDataPoint: OriginalDataPoint }
+>('originalDataPoint/put/byId', async ({ assessmentName, cycleName, originalDataPoint }) => {
+  const { data } = await axios.put(
+    ApiEndPoint.Assessment.OriginalDataPoint.one(assessmentName, cycleName, String(originalDataPoint.id)),
+    {
+      originalDataPoint: ODPs.removeNationalClassPlaceHolder(originalDataPoint),
+    }
+  )
   return ODPs.addNationalClassPlaceHolder(data)
 })
