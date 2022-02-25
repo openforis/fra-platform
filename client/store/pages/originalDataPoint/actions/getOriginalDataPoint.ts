@@ -2,8 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import axios from 'axios'
 import { ApiEndPoint } from '@common/api/endpoint'
-import { OriginalDataPoint } from '@meta/assessment'
-import { ODPs } from '@meta/assessment/originalDataPoint'
+import { ODPs, OriginalDataPoint } from '@meta/assessment'
 
 export const getOriginalDataPoint = createAsyncThunk<
   OriginalDataPoint,

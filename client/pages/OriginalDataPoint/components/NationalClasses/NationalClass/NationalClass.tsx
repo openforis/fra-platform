@@ -8,9 +8,8 @@ import { useTranslation } from 'react-i18next'
 // import { useCountryIso } from '@client/hooks'
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
-import { OriginalDataPoint } from '@meta/assessment/originalDataPoint'
 import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
-import { ODPs } from '@meta/assessment'
+import { ODPs, OriginalDataPoint } from '@meta/assessment'
 import { useNationalClassNameComments, useNationalClassValidation } from '../../../hooks'
 
 const columns = [

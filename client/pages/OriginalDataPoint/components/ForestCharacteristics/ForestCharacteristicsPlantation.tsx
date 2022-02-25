@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 import { useTranslation } from 'react-i18next'
-import { ODPs } from '@meta/assessment/originalDataPoint'
+import { useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
+import { ODPs } from '@meta/assessment'
 import { Numbers } from '@core/utils'
 import ForestCharacteristicsPlantationRow from './ForestCharacteristicsPlantationRow'
 

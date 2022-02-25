@@ -1,7 +1,6 @@
-import { ODPNationalClass, ODPs } from '@core/odp'
-import { acceptNextDecimal, acceptNextInteger } from '@webapp/utils/numberInput'
+import { ODPNationalClass, ODPs, OriginalDataPoint } from '@meta/assessment'
+import { acceptNextDecimal, acceptNextInteger } from '@client/utils/numberInput'
 import { Arrays, Objects } from '@core/utils'
-import { OriginalDataPoint } from '@meta/assessment'
 
 const handlePaste = (
   columns: Array<{ name: string; type: string }>,
