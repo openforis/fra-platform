@@ -9,7 +9,6 @@ import Cell from './Cell'
 const RowData: React.FC<Props> = (props) => {
   const { data, assessmentName, sectionName, table, row, disabled } = props
 
-  // const countryIso = useCountryIso()
   const i18n = useTranslation()
 
   const { name: tableName /* odp, secondary */ } = table.props
@@ -72,6 +71,7 @@ const RowData: React.FC<Props> = (props) => {
           disabled={disabled}
           rowIndex={Number(row.props.index)}
           col={col}
+          row={row}
         />
       ))}
       <td className="fra-table__row-anchor-cell">

@@ -1,8 +1,9 @@
 import { AssessmentName, Row, Table } from '@meta/assessment'
+import { TableData } from '@meta/data'
 
 export type Props = {
   assessmentName: AssessmentName
-  data: any[] // TODO
+  data: TableData
   sectionName: string
   table: Table
   row: Row

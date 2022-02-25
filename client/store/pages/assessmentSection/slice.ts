@@ -1,6 +1,6 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 import { getTableSections } from '@client/store/pages/assessmentSection/actions/getTableSections'
-import { getSectionData } from './actions/getSectionData'
+import { getTableData } from './actions/getTableData'
 import { AssessmentSectionState } from './stateType'
 
 const initialState: AssessmentSectionState = {
@@ -13,17 +13,17 @@ export const assessmentSectionSlice = createSlice({
   initialState,
   reducers: {
     reset: () => initialState,
+    resetData: (state) => {
+      state.data = initialState.data
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getTableSections.fulfilled, (state, { payload }) => {
       state.tableSections = payload
     })
 
-    builder.addCase(getSectionData.fulfilled, (state, { payload }) => {
-      if (!state.data) state.data = {}
-      payload.forEach(({ tableName, data }) => {
-        state.data[tableName] = data
-      })
+    builder.addCase(getTableData.fulfilled, (state, { payload }) => {
+      state.data = payload
     })
   },
 })
@@ -31,7 +31,7 @@ export const assessmentSectionSlice = createSlice({
 export const AssessmentSectionActions = {
   ...assessmentSectionSlice.actions,
   getTableSections,
-  getSectionData,
+  getTableData,
 }
 
 export default assessmentSectionSlice.reducer as Reducer<AssessmentSectionState>
