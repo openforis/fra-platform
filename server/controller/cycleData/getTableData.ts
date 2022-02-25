@@ -1,22 +1,19 @@
 import { BaseProtocol, DB } from '@server/db'
 import { CountryIso } from '@meta/area'
-import { AssessmentName } from '@meta/assessment'
+import { Assessment, Cycle } from '@meta/assessment'
 import { TableData } from '@meta/data'
 import { CycleDataRepository } from '@server/repository/cycleData'
-import { AssessmentController } from '@server/controller'
 
 export const getTableData = async (
   props: {
     countryIso: CountryIso
-    assessmentName: AssessmentName
-    cycleName: string
-    section: string
+    assessment: Assessment
+    cycle: Cycle
     tableNames: Array<string>
   },
   client: BaseProtocol = DB
 ): Promise<TableData> => {
-  const { countryIso, assessmentName, cycleName, section, tableNames } = props
-  if (!section) throw new Error('missing section')
+  const { countryIso, tableNames, assessment, cycle } = props
 
   const tables: Record<string, any> = {}
   tableNames.forEach((tableName) => {
@@ -24,8 +21,6 @@ export const getTableData = async (
   })
 
   return client.tx(async (t) => {
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName }, t)
-
     return CycleDataRepository.getTableData(
       {
         assessment,
