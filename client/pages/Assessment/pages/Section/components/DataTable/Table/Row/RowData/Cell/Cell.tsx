@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { AssessmentName, Col, ColType, Row, Table } from '@meta/assessment'
-import { TableData as TypeTableData, TableDatas } from '@meta/data'
+import { TableData, TableDatas } from '@meta/data'
 import { useCountryIso } from '@client/hooks'
 import Calculated from './Calculated'
 import Number from './Number'
@@ -23,7 +23,7 @@ const ComponentsByName: Record<string, React.FC<PropsCell>> = {
 }
 
 type Props = {
-  data: TypeTableData
+  data: TableData
   assessmentName: AssessmentName
   sectionName: string
   table: Table
