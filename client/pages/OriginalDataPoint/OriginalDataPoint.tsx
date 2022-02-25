@@ -1,13 +1,13 @@
 import './OriginalDataPoint.scss'
 import React, { useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
 import { BasePaths } from '@client/basePaths'
+import { useTranslation } from 'react-i18next'
 import { useAppDispatch } from '@client/store'
 import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 import NationalClasses from './components/NationalClasses'
 import OriginalData from './components/OriginalData'
-import Comments from './components/Comments'
+// import Comments from './components/Comments'
 import DataSources from './components/DataSources'
 import ButtonBar from './components/ButtonBar'
 import YearSelection from './components/YearSelection'
@@ -16,7 +16,6 @@ const OriginalDataPoint: React.FC = () => {
   const { i18n } = useTranslation()
   const dispatch = useAppDispatch()
   const history = useHistory()
-
   const originalDataPoint = useOriginalDataPoint()
   const { assessmentName, cycleName, odpId, countryIso } =
     useParams<{ assessmentName: string; countryIso: string; cycleName: string; odpId: string }>()
@@ -52,7 +51,7 @@ const OriginalDataPoint: React.FC = () => {
       <DataSources canEditData={canEditData} />
       <NationalClasses canEditData={canEditData} />
       <OriginalData canEditData={canEditData} />
-      <Comments canEditData={canEditData} />
+      {/* <Comments canEditData={canEditData} /> */}
 
       <div className="odp__bottom-buttons">
         <ButtonBar canEditData={canEditData} />

@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
-import { ODPYears, OriginalDataPoint } from '@meta/assessment/originalDataPoint'
+import { ODPYears, OriginalDataPoint } from '@meta/assessment'
 import { useTranslation } from 'react-i18next'
 import { useCountryIso, useGetRequest } from '@client/hooks'
 import { ApiEndPoint } from '@common/api/endpoint'
@@ -63,7 +63,6 @@ const YearSelection: React.FC<Props> = (props) => {
                 cycleName: cycle.name,
                 assessmentName: assessment.props.name,
                 originalDataPoint: originalDataPointUpdate,
-                odpId: String(originalDataPointUpdate.id),
               })
             )
           }}
