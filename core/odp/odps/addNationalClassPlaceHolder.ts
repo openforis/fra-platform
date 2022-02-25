@@ -1,7 +1,6 @@
-import { ODPNationalClassFactory } from '@core/odp/odpNationalClass'
-import { OriginalDataPoint } from '@meta/assessment'
+import { ODP, ODPNationalClassFactory } from '@core/odp'
 
-export const addNationalClassPlaceHolder = (odp: OriginalDataPoint): OriginalDataPoint => ({
+export const addNationalClassPlaceHolder = (odp: ODP): ODP => ({
   ...odp,
   nationalClasses: [...odp.nationalClasses, ODPNationalClassFactory.newNationalClassPlaceholder()],
 })
