@@ -7,6 +7,7 @@ import { Areas } from '@core/country'
 import { Breakpoints } from '@client/utils'
 
 import LinkHome from '@client/components/LinkHome'
+import LinkGeo from '@client/components/LinkGeo'
 import { useCountryIso } from '@client/hooks'
 import { useUser } from '@client/store/user'
 
@@ -120,6 +121,7 @@ const CountrySelect: React.FC = () => {
 
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
         <LinkHome />
+        <LinkGeo />
       </MediaQuery>
     </div>
   )
