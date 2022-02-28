@@ -1,8 +1,7 @@
 import React from 'react'
-// import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
-// import { BasePaths } from '@client/basePaths'
 import Icon from '@client/components/Icon'
 import { useUser } from '@client/store/user'
 import { useAppDispatch } from '@client/store'
@@ -17,7 +16,7 @@ const ExtentOfForest: React.FC<Props> = () => {
   const disabled = false
 
   const dispatch = useAppDispatch()
-  // const history = useHistory()
+  const history = useHistory()
   const { i18n } = useTranslation()
   const assessment = useAssessment()
   const cycle = useCycle()
@@ -32,9 +31,9 @@ const ExtentOfForest: React.FC<Props> = () => {
         assessmentName: assessment.props.name,
         cycleName: cycle.name,
         countryIso,
+        history,
       })
     )
-    // history.push(BasePaths.Assessment.OriginalDataPoint.one(countryIso, assessment.props.name, cycle.name))
   }
 
   return (
