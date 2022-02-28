@@ -7,7 +7,7 @@ import Calculated from './Calculated'
 import Number from './Number'
 import Text from './Text'
 import Select from './Select'
-// import Placeholder from './Placeholder'
+import Placeholder from './Placeholder'
 import useClassName from './useClassName'
 // import useOnChange from './useOnChange'
 import { PropsCell } from './props'
@@ -19,7 +19,7 @@ const ComponentsByName: Record<string, React.FC<PropsCell>> = {
   [ColType.decimal]: Number,
   [ColType.integer]: Number,
   [ColType.select]: Select,
-  // [ColType.placeholder]: Placeholder,
+  [ColType.placeholder]: Placeholder,
 }
 
 type Props = {
