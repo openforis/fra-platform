@@ -8,6 +8,7 @@ import { getTableData } from './getTableData'
 import { AssessmentGetSectionMetadata } from './getSectionMetadata'
 import { getReservedYears } from './getReservedYears'
 import { createOriginalDataPoint } from './createOriginalDataPoint'
+import { deleteOriginalDataPoint } from './deleteOriginalDataPoint'
 import { updateOriginalDataPoint } from './updateOriginalDataPoint'
 
 export const AssessmentApi = {
@@ -21,6 +22,7 @@ export const AssessmentApi = {
     // OriginalDataPoint
     express.get(ApiEndPoint.Assessment.OriginalDataPoint.ReservedYears.many(), getReservedYears)
     express.post(ApiEndPoint.Assessment.OriginalDataPoint.one(), createOriginalDataPoint)
+    express.delete(ApiEndPoint.Assessment.OriginalDataPoint.one(), deleteOriginalDataPoint)
     express.put(ApiEndPoint.Assessment.OriginalDataPoint.one(), updateOriginalDataPoint)
 
     // TableData

@@ -4,6 +4,7 @@ import { getOriginalDataPoint } from './actions/getOriginalDataPoint'
 import { pasteNationalClass } from './actions/pasteNationalClass'
 import { updateNationalClass } from './actions/updateNationalClass'
 import { createOriginalDataPoint } from './actions/createOriginalDataPoint'
+import { deleteOriginalDataPoint } from './actions/deleteOriginalDataPoint'
 import { updateOriginalDataPoint } from './actions/updateOriginalDataPoint'
 
 const initialState: OriginalDataPointState = { data: null }
@@ -30,6 +31,7 @@ export const OriginalDataPointActions = {
   pasteNationalClass,
   updateNationalClass,
   createOriginalDataPoint,
+  deleteOriginalDataPoint,
   updateOriginalDataPoint,
 }
 
