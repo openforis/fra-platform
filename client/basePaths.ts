@@ -76,4 +76,8 @@ export const BasePaths = {
   User: {
     root: (id: number | defaults.id = defaults.id) => `/user/${id}`,
   },
+
+  Geo: {
+    root: () => '/geo',
+  },
 }

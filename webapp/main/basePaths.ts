@@ -25,6 +25,9 @@
   /:countryIso/:assessmentType/:section/
   /:countryIso/:assessmentType/odp/
   /:countryIso/:assessmentType/odp/:tab/
+
+  #### Geo
+  /geo
 */
 
 const FRAGMENTS = {
@@ -114,3 +117,6 @@ export const getAssessmentPrintLink = (countryIso: any, assessmentType: any, onl
 export const odp = _generate(PARAMS.countryIso, PARAMS.assessmentType, FRAGMENTS.odp, PARAMS.tab)
 export const getOdpLink = (countryIso: any, assessmentType: any, sectionName: any, odpId?: any) =>
   _generate(countryIso, assessmentType, FRAGMENTS.odp, sectionName, odpId)
+
+// ==== Geo
+export const geo = '/geo'
