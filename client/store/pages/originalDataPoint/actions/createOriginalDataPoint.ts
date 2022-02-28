@@ -12,7 +12,7 @@ export const createOriginalDataPoint = createAsyncThunk<
   { assessmentName: AssessmentName; cycleName: string; countryIso: CountryIso; history: RouteComponentProps['history'] }
 >('originalDataPoint/post', async ({ assessmentName, cycleName, countryIso, history }) => {
   const originalDataPoint = { countryIso } as OriginalDataPoint
-  const { data } = await axios.post(ApiEndPoint.Assessment.OriginalDataPoint.one(assessmentName, cycleName, '-1'), {
+  const { data } = await axios.post(ApiEndPoint.Assessment.OriginalDataPoint.one(assessmentName, cycleName), {
     originalDataPoint,
   })
   if (data?.id) {

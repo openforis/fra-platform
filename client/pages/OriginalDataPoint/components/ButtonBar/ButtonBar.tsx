@@ -6,7 +6,11 @@ import { useAppDispatch } from '@client/store'
 import { useCountryIso } from '@client/hooks'
 import { useTranslation } from 'react-i18next'
 import { BasePaths } from '@client/basePaths'
-import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
+import {
+  OriginalDataPointActions,
+  useOriginalDataPoint,
+  useIsOriginalDataPointLoading,
+} from '@client/store/pages/originalDataPoint'
 import { useAssessment, useCycle } from '@client/store/assessment'
 
 type Props = {
@@ -22,7 +26,7 @@ const ButtonBar: React.FC<Props> = (props) => {
   const { assessmentName, section } = useParams<{ assessmentName: AssessmentName; section: string }>()
   const { i18n } = useTranslation()
   const countryIso = useCountryIso()
-  const disabled = true // TODO: useIsAutoSaveSaving() || !originalDataPoint.id
+  const disabled = !originalDataPoint.id || useIsOriginalDataPointLoading()
   const assessment = useAssessment()
   const cycle = useCycle()
   const assessmentSectionLink = BasePaths.Assessment.section(countryIso, assessmentName, section)
@@ -40,7 +44,7 @@ const ButtonBar: React.FC<Props> = (props) => {
           originalDataPoint,
         })
       )
-      // history.push(assessmentSectionLink)
+      history.push(BasePaths.Assessment.root())
     }
   }
 
