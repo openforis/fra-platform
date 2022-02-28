@@ -6,7 +6,7 @@ import { useCountryIso } from '@client/hooks'
 import Calculated from './Calculated'
 import Number from './Number'
 import Text from './Text'
-// import Select from './Select'
+import Select from './Select'
 // import Placeholder from './Placeholder'
 import useClassName from './useClassName'
 // import useOnChange from './useOnChange'
@@ -18,7 +18,7 @@ const ComponentsByName: Record<string, React.FC<PropsCell>> = {
   [ColType.textarea]: Text,
   [ColType.decimal]: Number,
   [ColType.integer]: Number,
-  // [ColType.select]: Select, // TODO
+  [ColType.select]: Select,
   // [ColType.placeholder]: Placeholder,
 }
 
