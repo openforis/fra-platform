@@ -78,11 +78,11 @@ const appConfig = {
       {
         // Proxy all server-served routes:
         context: ['/auth', '/img', '/css', '/ckeditor', '/video', '/api', '/definitions'],
-        target: 'http://localhost:9001',
+        target: process.env.APP_URI,
       },
     ],
     compress: false,
-    port: 9000,
+    port: process.env.WEB_APP_PORT,
     historyApiFallback: true,
   },
   module: {
