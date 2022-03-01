@@ -9,7 +9,7 @@ import { BasePaths } from '@client/basePaths'
 import {
   OriginalDataPointActions,
   useOriginalDataPoint,
-  useIsOriginalDataPointLoading,
+  useIsOriginalDataPointUpdating,
 } from '@client/store/pages/originalDataPoint'
 import { useAssessment, useCycle } from '@client/store/assessment'
 
@@ -26,7 +26,7 @@ const ButtonBar: React.FC<Props> = (props) => {
   const { assessmentName, section } = useParams<{ assessmentName: AssessmentName; section: string }>()
   const { i18n } = useTranslation()
   const countryIso = useCountryIso()
-  const disabled = !originalDataPoint.id || useIsOriginalDataPointLoading()
+  const disabled = !originalDataPoint.id || useIsOriginalDataPointUpdating()
   const assessment = useAssessment()
   const cycle = useCycle()
   const assessmentSectionLink = BasePaths.Assessment.section(countryIso, assessmentName, section)

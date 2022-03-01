@@ -21,10 +21,10 @@ export const originalDataPointSlice = createSlice({
     })
     builder.addCase(updateOriginalDataPoint.fulfilled, (state, { payload }) => {
       state.data = payload
-      state.loading = false
+      state.updating = false
     })
     builder.addCase(updateOriginalDataPoint.pending, (state) => {
-      state.loading = true
+      state.updating = true
     })
   },
 })
