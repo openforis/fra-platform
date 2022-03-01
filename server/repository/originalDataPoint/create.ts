@@ -39,11 +39,11 @@ export const create = async (
     [
       countryIso,
       year,
-      dataSourceAdditionalComments,
-      JSON.stringify(dataSourceMethods),
-      dataSourceReferences,
-      description,
-      JSON.stringify(nationalClasses),
+      dataSourceAdditionalComments || '',
+      dataSourceMethods ? JSON.stringify(dataSourceMethods) : '[]',
+      dataSourceReferences || '',
+      description || '',
+      nationalClasses ? JSON.stringify(nationalClasses) : '[]',
     ],
     Objects.camelize
   )
