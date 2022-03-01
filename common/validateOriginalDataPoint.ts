@@ -36,6 +36,7 @@ export const validateDataPoint = (odp: ODP): ODPValidation => {
       R.pipe(
         R.assoc('uuid', c.uuid),
         R.assoc('validClassName', validateClassName(c)),
+        // eslint-disable-next-line no-restricted-globals
         (v: any) => R.assoc('validArea', c.placeHolder || !v.validClassName ? true : !isNaN(parseFloat(c.area)), v),
         (v: any) =>
           R.assoc(
@@ -69,7 +70,7 @@ export const validateDataPoint = (odp: ODP): ODPValidation => {
     odp.nationalClasses.length === 1 ? odp.nationalClasses : R.filter((c: any) => !c.placeHolder, odp.nationalClasses)
   )
 
-  return {
+  return <ODPValidation>{
     year: { valid: !!validYear },
     nationalClasses,
     valid: !(!validYear || R.filter((c: any) => !c.valid, nationalClasses).length !== 0),

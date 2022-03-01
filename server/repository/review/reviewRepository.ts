@@ -76,9 +76,12 @@ export const hasUnreadIssues = (user: any, issueComments: any) =>
     R.map((comments: any) => {
       const commentsByOthers = R.reject((c: any) => c.userId === user.id, comments)
       const last = R.last(commentsByOthers)
+      // eslint-disable-next-line no-nested-ternary
       const hasUnreadComments = last
-        ? last.issueReadTime
-          ? isBefore(parseISO(last.issueReadTime), parseISO(last.addedTime))
+        ? // @ts-ignore
+          last.issueReadTime
+          ? // @ts-ignore
+            isBefore(parseISO(last.issueReadTime), parseISO(last.addedTime))
           : true
         : false
       return { hasUnreadComments }
@@ -119,6 +122,7 @@ export const getCountryIssuesSummary = (countryIso: any, user: any) =>
   getIssueComments(countryIso, null, user).then((issueComments: any) => {
     const summaries = R.pipe(
       R.reject((i: any) => i.deleted),
+      // @ts-ignore
       R.reject((i: any) => i.issueStatus === 'resolved'),
       R.groupBy((i: any) => i.section),
       // @ts-ignore

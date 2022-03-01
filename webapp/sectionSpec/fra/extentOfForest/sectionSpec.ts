@@ -61,6 +61,7 @@ const rowsEOF = [
     variableNo: 'c',
     variableName: 'faoStat',
     variableExport: VARIABLES.total_land_area,
+    // @ts-ignore
     calculateFn: ExtentOfForestState.getFaoStatArea,
   }),
   RowSpecFactory.newNoticeMessageInstance({
@@ -91,6 +92,7 @@ const rowsClimaticDomain = [
       labelKey: `climaticDomain.${row}`,
       cols: [
         ColSpecFactory.newCalculatedInstance({
+          // @ts-ignore
           calculateFn: ExtentOfForestState.getClimaticDomainConfigValue,
           idx: -1,
         }),
