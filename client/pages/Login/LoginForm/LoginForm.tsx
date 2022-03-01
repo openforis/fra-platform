@@ -61,6 +61,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
       <div className="login__form">
         <input
           onFocus={() => setErrors({ ...errors, email: null })}
+          name="email"
           value={email}
           disabled={!!invitedUser}
           type="text"
