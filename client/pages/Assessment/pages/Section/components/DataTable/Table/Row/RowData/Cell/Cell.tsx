@@ -1,13 +1,13 @@
 import React from 'react'
 
 import { AssessmentName, Col, ColType, Row, Table } from '@meta/assessment'
-import { TableData as TypeTableData, TableDatas } from '@meta/data'
+import { TableData, TableDatas } from '@meta/data'
 import { useCountryIso } from '@client/hooks'
 import Calculated from './Calculated'
 import Number from './Number'
 import Text from './Text'
-// import Select from './Select'
-// import Placeholder from './Placeholder'
+import Select from './Select'
+import Placeholder from './Placeholder'
 import useClassName from './useClassName'
 // import useOnChange from './useOnChange'
 import { PropsCell } from './props'
@@ -18,12 +18,12 @@ const ComponentsByName: Record<string, React.FC<PropsCell>> = {
   [ColType.textarea]: Text,
   [ColType.decimal]: Number,
   [ColType.integer]: Number,
-  // [ColType.select]: Select, // TODO
-  // [ColType.placeholder]: Placeholder,
+  [ColType.select]: Select,
+  [ColType.placeholder]: Placeholder,
 }
 
 type Props = {
-  data: TypeTableData
+  data: TableData
   assessmentName: AssessmentName
   sectionName: string
   table: Table
