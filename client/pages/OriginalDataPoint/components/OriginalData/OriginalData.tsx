@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Switch } from 'react-router'
+import { Redirect, Route, Switch } from 'react-router'
 import { NavLink, useParams } from 'react-router-dom'
 // import { useAssessmentSections } from '@client/store/assessment'
 import { useTranslation } from 'react-i18next'
@@ -65,6 +65,11 @@ const OriginalData: React.FC<Props> = (props) => {
       </div>
 
       <Switch>
+        <Redirect
+          from={BasePaths.Assessment.OriginalDataPoint.one()}
+          to={BasePaths.Assessment.OriginalDataPoint.tab(extentOfForest.name)}
+          exact
+        />
         <Route path={BasePaths.Assessment.OriginalDataPoint.tab(extentOfForest.name)} exact>
           <ExtentOfForest canEditData={canEditData} />
         </Route>

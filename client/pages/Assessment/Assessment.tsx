@@ -32,7 +32,7 @@ const Assessment: React.FC = () => {
         {/* <Route path={BasePaths.assessmentDataDownload} component={AssessmentDataDownload} /> */}
         <Route exact path={BasePaths.Assessment.section()} component={Section} />
         {/* <Route exact path={[`${BasePaths.odp}:odpId/`, BasePaths.odp]} component={OriginalDataPoint} /> */}
-        <Route path={BasePaths.Assessment.OriginalDataPoint.one()} component={OriginalDataPoint} />
+        <Route path={BasePaths.Assessment.OriginalDataPoint.section()} component={OriginalDataPoint} />
       </Switch>
     </div>
   )
