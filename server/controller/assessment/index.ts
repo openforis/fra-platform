@@ -13,6 +13,8 @@ import { createCycle } from './createCycle'
 import { getCountryStatus } from './getCountryStatus'
 import { updateCountryStatus } from './updateCountryStatus'
 import { getReservedYears } from './getReservedYears'
+import { getSection } from './getSection'
+import { getTable } from './getTable'
 
 export const AssessmentController = {
   create,
@@ -31,4 +33,6 @@ export const AssessmentController = {
   getCountryStatus,
   updateCountryStatus,
   getReservedYears,
+  getSection,
+  getTable,
 }
