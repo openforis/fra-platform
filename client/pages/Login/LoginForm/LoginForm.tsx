@@ -46,9 +46,9 @@ const LoginForm: React.FC<Props> = (props: Props) => {
           email,
           password,
           invitationUuid,
+          history,
         })
       )
-      history.push(BasePaths.Root())
     }
   }
 
