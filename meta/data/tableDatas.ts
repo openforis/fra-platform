@@ -1,15 +1,13 @@
-import { TableData as TypeTableData } from '@meta/data/index'
+import { TableData } from './tableData'
 import { CountryIso } from '@meta/area'
-import { Table } from '@meta/assessment/table'
-import { Row } from '@meta/assessment/row'
-import { Col } from '@meta/assessment/col'
+import { Table, Row, Col } from '@meta/assessment'
 
-const getTableData = (props: { data: TypeTableData; countryIso: CountryIso; table: Table }) => {
+const getTableData = (props: { data: TableData; countryIso: CountryIso; table: Table }) => {
   const { countryIso, table, data } = props
   return data[countryIso][table.props.name]
 }
 
-const getDatum = (props: { data: TypeTableData; countryIso: CountryIso; table: Table; row: Row; col: Col }) => {
+const getDatum = (props: { data: TableData; countryIso: CountryIso; table: Table; row: Row; col: Col }) => {
   const { data, countryIso, table, row, col } = props
   const dataTable = getTableData({ data, countryIso, table })
   if (!dataTable) return null
