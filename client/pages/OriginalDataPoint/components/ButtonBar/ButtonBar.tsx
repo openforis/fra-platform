@@ -23,13 +23,14 @@ const ButtonBar: React.FC<Props> = (props) => {
 
   const dispatch = useAppDispatch()
   const history = useHistory()
-  const { assessmentName, section } = useParams<{ assessmentName: AssessmentName; section: string }>()
+  const { assessmentName, cycleName, section } =
+    useParams<{ assessmentName: AssessmentName; cycleName: string; section: string }>()
   const { i18n } = useTranslation()
   const countryIso = useCountryIso()
   const disabled = !originalDataPoint.id || useIsOriginalDataPointUpdating()
   const assessment = useAssessment()
   const cycle = useCycle()
-  const assessmentSectionLink = BasePaths.Assessment.section(countryIso, assessmentName, section)
+  const assessmentSectionLink = BasePaths.Assessment.section(countryIso, assessmentName, cycleName, section)
 
   if (!canEditData) {
     return null
@@ -44,7 +45,7 @@ const ButtonBar: React.FC<Props> = (props) => {
           originalDataPoint,
         })
       )
-      history.push(BasePaths.Assessment.root())
+      history.push(assessmentSectionLink)
     }
   }
 

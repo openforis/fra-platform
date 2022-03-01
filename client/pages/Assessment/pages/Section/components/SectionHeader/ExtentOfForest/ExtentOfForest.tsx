@@ -11,9 +11,8 @@ import { useCountryIso } from '@client/hooks'
 
 import { Props } from '../props'
 
-const ExtentOfForest: React.FC<Props> = () => {
-  // const { /* sectionName, */ disabled } = props
-  const disabled = false
+const ExtentOfForest: React.FC<Props> = (props) => {
+  const { disabled } = props
 
   const dispatch = useAppDispatch()
   const history = useHistory()
