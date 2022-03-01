@@ -36,43 +36,43 @@ const Invitation: React.FC = () => {
   const cycle = assessment?.cycles.find((cycle) => cycle.uuid === userRole.cycleUuid)
 
   if (userRole?.acceptedAt) {
-    return <div className="login__form">
-      <h3>{i18n.t('login.alreadyAcceptedInvitation')}</h3>
-    </div>
+    return (
+      <div className="login__form">
+        <h3>{i18n.t('login.alreadyAcceptedInvitation')}</h3>
+      </div>
+    )
   }
 
   return (
-    <>
-      {invitedUser && (
-        <div className="login__form">
-          <h3>
-            {i18n.t('login.invitationMessage', {
-              assessment: assessment.props.name,
-              cycle: cycle.name,
-              userRole: userRole.role,
-            })}
-          </h3>
-          {loggedUser && loggedUser.email === invitedUser.email ? (
-            <button type="button" className="btn" onClick={onAccept}>
-              {i18n.t('login.acceptInvitation')}
-            </button>
-          ) : (
-            <>
-              <LoginForm invitationUuid={invitationUuid} />
+    invitedUser && (
+      <div className="login__form">
+        <h3>
+          {i18n.t('login.invitationMessage', {
+            assessment: assessment.props.name,
+            cycle: cycle.name,
+            userRole: userRole.role,
+          })}
+        </h3>
+        {loggedUser && loggedUser.email === invitedUser.email ? (
+          <button type="button" className="btn" onClick={onAccept}>
+            {i18n.t('login.acceptInvitation')}
+          </button>
+        ) : (
+          <>
+            <LoginForm invitationUuid={invitationUuid} />
 
-              <hr className="divider" />
+            <hr className="divider" />
 
-              <a
-                className="btn"
-                href={`${ApiEndPoint.Auth.Login.google()}${invitationUuid ? `?invitationUuid=${invitationUuid}` : ''}`}
-              >
-                {i18n.t('login.acceptInvitationWithGoogle')}
-              </a>
-            </>
-          )}
-        </div>
-      )}
-    </>
+            <a
+              className="btn"
+              href={`${ApiEndPoint.Auth.Login.google()}${invitationUuid ? `?invitationUuid=${invitationUuid}` : ''}`}
+            >
+              {i18n.t('login.acceptInvitationWithGoogle')}
+            </a>
+          </>
+        )}
+      </div>
+    )
   )
 }
 
