@@ -44,7 +44,7 @@ export const getForestArea2015Value = (year: any) => R.pipe(CountryState.getConf
 
 export const getFaoStatAreaByYear = (year: any) => R.pipe(CountryState.getConfigFaoStat, R.path([year, 'area']))
 
-export const getFaoStatArea = (datum: any) => getFaoStatAreaByYear(datum.name)
+export const getFaoStatArea = (datum: any) => getFaoStatAreaByYear(datum.name || datum.year)
 
 // ==== Datum getter functions
 
@@ -79,5 +79,6 @@ export const getForestByYearAnnualIdx = (idx: any) => getForestByYear(FRA.yearsA
 
 export const rowsClimaticDomain = ['boreal', 'temperate', 'subtropical', 'tropical']
 
-export const getClimaticDomainConfigValue = (colIdx: any, rowIdx: any) =>
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const getClimaticDomainConfigValue = (_colIdx: any, rowIdx: any) =>
   R.pipe(CountryState.getConfigClimaticDomainPercents2015, R.prop(rowsClimaticDomain[rowIdx]))

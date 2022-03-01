@@ -23,6 +23,7 @@ export const getAllowedCountries = (roles: any, schemaName = 'public') => {
   const allowedIsoQueryPlaceholders = R.range(2, allowedCountryIsos.length + 2)
     .map((i: any) => `$${i}`)
     .join(',')
+
   return db.pool
     .query(
       `
@@ -49,6 +50,7 @@ export const getAllowedCountries = (roles: any, schemaName = 'public') => {
         fa ON fa.country_iso = c.country_iso
       WHERE c.country_iso in (${allowedIsoQueryPlaceholders})
       GROUP BY c.country_iso, a.type, a.type, a.status, a.desk_study, fa.last_edited`,
+      // @ts-ignore
       [excludedMsgs, ...allowedCountryIsos]
     )
     .then(handleCountryResult(determineRole(roles)))

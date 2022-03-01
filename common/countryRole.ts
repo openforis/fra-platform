@@ -30,6 +30,7 @@ export const roles = {
   [collaborator.role]: collaborator,
 }
 
+// @ts-ignore
 export const roleKeys = R.pipe(R.values, R.map(R.prop('role')))(roles)
 
 export const getRoleLabelKey = (roleName: any): string => R.path([roleName, 'labelKey'], roles)

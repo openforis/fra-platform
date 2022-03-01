@@ -42,7 +42,12 @@ export const isTableWithOdpEmpty = (table: any) =>
   )(table)
 
 export const getDatumByYear = (year: any) =>
-  R.pipe(R.defaultTo([]), R.find(R.propEq('name', String(year))), R.defaultTo({}))
+  R.pipe(
+    R.defaultTo([]),
+    // @ts-ignore
+    R.find((datum) => String(datum?.year || datum?.name) === String(year)),
+    R.defaultTo({})
+  )
 
 export const updateTableWithOdpDatum = (datum: any) => (data: any) => {
   const { name } = datum

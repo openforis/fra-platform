@@ -81,7 +81,7 @@ const rows = [
     labelKey: 'forestCharacteristics.totalForestArea',
     linkToSection: FRA.sections['1'].children.a.name,
     variableName: 'totalForestArea',
-    calculateFn: (datum: any) => (state: any) => ExtentOfForestState.getForestByYear(datum.name)(state),
+    calculateFn: (datum: any) => (state: any) => ExtentOfForestState.getForestByYear(datum.name || datum.year)(state),
   }),
   RowSpecFactory.newNoticeMessageInstance({
     rowSpan: 2,
