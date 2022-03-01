@@ -20,16 +20,13 @@ export const getTableData = async (
     tables[tableName] = {}
   })
 
-  return client.tx(async (t) => {
-    return CycleDataRepository.getTableData(
-      {
-        assessment,
-        cycle,
+  return CycleDataRepository.getTableData(
+    {
+      assessment,
+      cycle,
 
-        tables,
-        countryISOs: [countryIso],
-      },
-      t
-    )
-  })
+      tables,
+      countryISOs: [countryIso],
+    }, client)
 }
+
