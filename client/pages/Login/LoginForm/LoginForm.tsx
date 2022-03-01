@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { BasePaths } from '@client/basePaths'
 import { useAppDispatch } from '@client/store'
 import { LoginActions, useInvitation } from '@client/store/login'
-import { LoginValidator } from '@client/pages/Login/utils/LoginValidator'
+import { isError, LoginValidator } from '@client/pages/Login/utils/LoginValidator'
 import { Urls } from '@client/utils/urls'
 import { useToaster } from '@client/hooks/useToaster'
 
@@ -37,10 +37,10 @@ const LoginForm: React.FC<Props> = (props: Props) => {
   }, [])
 
   const onLogin = () => {
-    const fieldErrors = LoginValidator.localValidate(email, password, password2)
+    const fieldErrors = LoginValidator.localValidate(email, password)
     setErrors(fieldErrors)
 
-    if (!fieldErrors.isError) {
+    if (!isError(fieldErrors)) {
       dispatch(
         LoginActions.localLogin({
           email,
