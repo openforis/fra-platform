@@ -31,6 +31,7 @@ select id,
        national_classes,
        id_legacy
 from _legacy.original_data_point;
+select setval('${cycleName}.original_data_point_id_seq', (select max(id) from _legacy.original_data_point), true);
 `
   })
   await client.query(pgp.helpers.concat(queries))

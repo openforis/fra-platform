@@ -19,23 +19,25 @@ const validatePasswords = (password: string, password2: string): string => {
   return null
 }
 
+export const isError = (errors: Record<string, string>): boolean => !!Object.values(errors).find((value) => !!value)
+
 export const LoginValidator = {
-  localValidate: (email: string, password: string, password2: string) => {
-    const errors = {
+  localValidate: (email: string, password: string): Record<string, string> => {
+    return {
+      email: validateEmail(email),
+      password: validatePassword(password),
+    }
+  },
+  invitationValidate: (email: string, password: string, password2: string): Record<string, string> => {
+    return {
       email: validateEmail(email),
       password: validatePassword(password),
       password2: validatePasswords(password, password2),
-      isError: false,
     }
-    errors.isError = !!Object.values(errors).find((value) => !!value)
-    return errors
   },
-  resetPasswordValidate: (email: string) => {
-    const errors = {
+  resetPasswordValidate: (email: string): Record<string, string> => {
+    return {
       email: validateEmail(email),
-      isError: false,
     }
-    errors.isError = !!Object.values(errors).find((value) => !!value)
-    return errors
   },
 }
