@@ -6,6 +6,8 @@ import { BasePaths } from '@client/basePaths'
 import { useAppDispatch } from '@client/store'
 import { LoginActions, useInvitation } from '@client/store/login'
 import { LoginValidator } from '@client/pages/Login/utils/LoginValidator'
+import { Urls } from '@client/utils/urls'
+import { useToaster } from '@client/hooks/useToaster'
 
 type Props = {
   invitationUuid?: string
@@ -49,6 +51,10 @@ const LoginForm: React.FC<Props> = (props: Props) => {
       history.push(BasePaths.Root())
     }
   }
+
+  const loginFailed = Urls.getRequestParam('loginFailed')
+  const { toaster } = useToaster()
+  if (loginFailed) toaster.error(i18n.t('login.notAuthorized'))
 
   if (loginLocal)
     return (
