@@ -30,7 +30,7 @@ const configCommon = {
   idleTimeoutMillis: 30000,
   // Max number of clients in the pool
   max: 30,
-  ssl: ProcessEnv.pgSsl ? { rejectUnauthorized: false } : false,
+  ssl: { rejectUnauthorized: false },
 }
 
 const config = ProcessEnv.dbUrl

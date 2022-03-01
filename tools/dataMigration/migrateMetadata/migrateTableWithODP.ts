@@ -5,9 +5,15 @@ import { DBNames } from '../_DBNames'
 
 const years = [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020]
 
-const calculateFNs: Record<string, string> = {
-  otherLand: 'extentOfForest.forestArea - extentOfForest.otherWoodedLand',
-  naturalForestArea: 'extentOfForest.otherLand * 2',
+const calculateFNs: Record<string, Record<string, string>> = {
+  extentOfForest: {
+    otherLand: 'extentOfForest.forestArea - extentOfForest.otherWoodedLand',
+  },
+  forestCharacteristics: {
+    totalForestArea:
+      'forestCharacteristics.naturalForestArea + forestCharacteristics.plantationForestArea + forestCharacteristics.otherPlantedForestArea',
+    forestArea: 'extentOfForest.forestArea',
+  },
 }
 
 export const migrateTableWithODP = async (
@@ -78,13 +84,14 @@ export const migrateTableWithODP = async (
       const row = rows.find((row) => row.props.variableName === variable)
 
       // add calculate function to row
-      if (calculateFNs[variable]) {
+      const calculateFn = calculateFNs[tableName]?.[variable]
+      if (calculateFn) {
         await client.query(
           `
             update ${schema}.row r 
             set props = props || $1::jsonb
-            where r.props->>'variableName'= $2`,
-          [JSON.stringify({ calculateFn: calculateFNs[variable] }), variable]
+            where r.id = $2`,
+          [JSON.stringify({ calculateFn }), row.id]
         )
       }
 

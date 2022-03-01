@@ -156,9 +156,12 @@ export const migrateMetadata = async (props: Props): Promise<void> => {
       tableName: 'forestCharacteristics',
       variables: [
         'naturalForestArea',
+        'plantedForest',
         'plantationForestArea',
         'plantationForestIntroducedArea',
         'otherPlantedForestArea',
+        'totalForestArea',
+        'forestArea',
       ],
     },
     client

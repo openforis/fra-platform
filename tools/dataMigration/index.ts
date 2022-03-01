@@ -4,7 +4,8 @@ import { config } from 'dotenv'
 import { Assessment as AssessmentLegacy } from '../../core/assessment/assessment'
 import { FRA } from '../../core/assessment'
 
-import { Assessment, Cycle } from '../../meta/assessment'
+import { Assessment } from '../../meta/assessment/assessment'
+import { Cycle } from '../../meta/assessment/cycle'
 import { SectionSpec } from '../../webapp/sectionSpec'
 import { BaseProtocol, DB } from '../../server/db'
 import { getCreateSchemaCycleDDL, getCreateSchemaDDL } from '../../server/repository/assessment/getCreateSchemaDDL'
@@ -19,7 +20,7 @@ import { migrateUsersRole } from './migrateUsersRole'
 import { migrateUsersInvitation } from './migrateUsersInvitation'
 import { migrateUsersResetPassword } from './migrateUsersResetPassword'
 import { migrateTablesData } from './migrateData/migrateTablesData'
-import { migrateOdps } from './migrateData/migrateOdps'
+// import { migrateOdps } from './migrateData/migrateOdps'
 import { migrateCountryStatus } from './migrateData/migrateCountryStatus'
 import { generateMetaCache } from './generateMetaCache'
 
@@ -94,7 +95,7 @@ export const migrate = async (props: {
     await migrateUsersInvitation({ client })
     await migrateUsersResetPassword({ client })
     await migrateTablesData({ assessment }, client)
-    await migrateOdps({ assessment }, client)
+    // await migrateOdps({ assessment }, client)
     await migrateCountryStatus({ assessment }, client)
     await generateMetaCache({ assessment }, client)
 

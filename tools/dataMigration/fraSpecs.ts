@@ -449,7 +449,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'forestCharacteristics.total',
                 variableNo: 'a+b',
-                variableName: 'total',
+                variableName: 'totalForestArea', // before it was total
               },
               {
                 idx: 6,
@@ -466,7 +466,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'forestCharacteristics.totalForestArea',
                 linkToSection: 'extentOfForest',
-                variableName: 'totalForestArea',
+                variableName: 'forestArea', // before it was totalForestArea
               },
               {
                 idx: 7,
