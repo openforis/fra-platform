@@ -6,6 +6,7 @@ import { useAppDispatch } from '@client/store'
 import { AssessmentSectionActions, useAssessmentSection } from '@client/store/pages/assessmentSection'
 import { useParams } from 'react-router'
 
+import { useCycle } from '@client/store/assessment'
 import { useCurrentAssessmentSubSection } from '@client/store/assessment/hooks'
 import { AssessmentName } from '@meta/assessment'
 import { useTranslation } from 'react-i18next'
@@ -27,6 +28,11 @@ const Section: React.FC = () => {
 
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
+  const cycle = useCycle()
+
+  if (!currentAssessmentSubSection) return null
+
+  const { anchor, showTitle, descriptions, name: sectionName } = currentAssessmentSubSection.props
 
   // Update section tables' metadata on countryIso or section (url) change
   useEffect(() => {
@@ -39,11 +45,15 @@ const Section: React.FC = () => {
         countryIso,
       })
     )
+    dispatch(
+      AssessmentSectionActions.getTableData({
+        assessmentName,
+        countryIso,
+        cycleName: cycle.name,
+        sectionName,
+      })
+    )
   }, [countryIso, section])
-
-  if (!currentAssessmentSubSection) return null
-
-  const { anchor, showTitle, descriptions, name: sectionName } = currentAssessmentSubSection.props
 
   const isSectionDisabled = true // TODO: useSelector(FraState.isSectionEditDisabled(sectionName))
   const panEuropean = assessmentName === AssessmentName.panEuropean

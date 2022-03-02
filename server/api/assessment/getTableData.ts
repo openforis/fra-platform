@@ -6,8 +6,7 @@ import { AssessmentController } from '@server/controller'
 
 export const getTableData = async (req: Request, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName } = req.params
-    const { tableNames } = req.query as { tableNames: Array<string> }
+    const { countryIso, assessmentName, cycleName, section } = req.params
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName })
 
@@ -15,7 +14,7 @@ export const getTableData = async (req: Request, res: Response) => {
       countryIso: countryIso as CountryIso,
       cycle,
       assessment,
-      tableNames,
+      sectionName: section,
     })
     Requests.send(res, table)
   } catch (e) {

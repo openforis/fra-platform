@@ -5,7 +5,7 @@ import { AssessmentName, Table as TableType } from '@meta/assessment'
 import { AssessmentSectionActions, useAssessmentSection } from '@client/store/pages/assessmentSection'
 import { useAppDispatch } from '@client/store'
 import { useCountryIso } from '@client/hooks'
-import { useCycle } from '@client/store/assessment'
+// import { useCycle } from '@client/store/assessment'
 import { TableData } from '@meta/data'
 import Table from './Table'
 
@@ -21,7 +21,7 @@ const DataTable: React.FC<Props> = (props) => {
   const { assessmentName, sectionName, sectionAnchor, table, disabled } = props
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
-  const cycle = useCycle()
+  // const cycle = useCycle()
   const assessmentSection = useAssessmentSection()
   // Data of current section, passed for table
   const { data = {} as TableData } = assessmentSection
@@ -49,15 +49,15 @@ const DataTable: React.FC<Props> = (props) => {
   // }
 
   useEffect(() => {
-    dispatch(
-      AssessmentSectionActions.getTableData({
-        assessmentName,
-        countryIso,
-        tableNames: [table.props.name],
-        cycleName: cycle.name,
-        section: sectionName,
-      })
-    )
+    // dispatch(
+    //   AssessmentSectionActions.getTableData({
+    //     assessmentName,
+    //     countryIso,
+    //     tableNames: [table.props.name],
+    //     cycleName: cycle.name,
+    //     section: sectionName,
+    //   })
+    // )
     return () => {
       dispatch(AssessmentSectionActions.resetData())
     }
