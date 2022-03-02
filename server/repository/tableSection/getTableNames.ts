@@ -14,7 +14,9 @@ export const getTableNames = (
         from ${schema}.table_section ts
         left join ${schema}.table t
         on ts.id = t.table_section_id
-        where ts.props ->> 'name' = $1
+        left join ${schema}.section s
+        on s.id = ts.section_id
+        where s.props ->> 'name' = $1
     `,
     [sectionName],
     ({ name }) => name
