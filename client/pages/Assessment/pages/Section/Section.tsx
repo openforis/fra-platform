@@ -30,10 +30,6 @@ const Section: React.FC = () => {
   const countryIso = useCountryIso()
   const cycle = useCycle()
 
-  if (!currentAssessmentSubSection) return null
-
-  const { anchor, showTitle, descriptions, name: sectionName } = currentAssessmentSubSection.props
-
   // Update section tables' metadata on countryIso or section (url) change
   useEffect(() => {
     dispatch(AssessmentSectionActions.reset())
@@ -50,10 +46,14 @@ const Section: React.FC = () => {
         assessmentName,
         countryIso,
         cycleName: cycle.name,
-        sectionName,
+        sectionName: section,
       })
     )
   }, [countryIso, section])
+
+  if (!currentAssessmentSubSection) return null
+
+  const { anchor, showTitle, descriptions, name: sectionName } = currentAssessmentSubSection.props
 
   const isSectionDisabled = true // TODO: useSelector(FraState.isSectionEditDisabled(sectionName))
   const panEuropean = assessmentName === AssessmentName.panEuropean
