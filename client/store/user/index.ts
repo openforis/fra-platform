@@ -1,3 +1,3 @@
 export type { UserState } from './stateType'
 export { UserActions } from './slice'
-export { useUser, useUserCountries } from './hooks'
+export { useUser, useUserCountries, useCanEditSection } from './hooks'

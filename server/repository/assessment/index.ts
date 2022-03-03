@@ -10,6 +10,7 @@ import { getRegionGroups } from './getRegionGroups'
 import { getCountryStatus } from './getCountryStatus'
 import { updateCountryStatus } from './updateCountryStatus'
 import { getCreateSchemaDDL, getCreateSchemaCycleDDL } from './getCreateSchemaDDL'
+import { getSection } from './getSection'
 
 export const AssessmentRepository = {
   createAssessment,
@@ -25,4 +26,5 @@ export const AssessmentRepository = {
   updateCountryStatus,
   getCreateSchemaDDL,
   getCreateSchemaCycleDDL,
+  getSection,
 }
