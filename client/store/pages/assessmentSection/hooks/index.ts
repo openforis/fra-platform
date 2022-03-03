@@ -1,5 +1,5 @@
 import { useAppSelector } from '@client/store'
-import { AssessmentSectionState } from '@client/store/pages/assessmentSection'
+import { TableSection } from '@meta/assessment'
 
-export const useAssessmentSection = (): AssessmentSectionState =>
-  useAppSelector((state) => state.pages.assessmentSection)
+export const useTableSections = (): Array<TableSection> =>
+  useAppSelector((state) => state.pages.assessmentSection.tableSections)

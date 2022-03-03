@@ -1,14 +1,15 @@
 import './Section.scss'
 
 import React, { useEffect } from 'react'
+import { useParams } from 'react-router'
+import { useTranslation } from 'react-i18next'
+
+import { AssessmentName } from '@meta/assessment'
 import { useCountryIso } from '@client/hooks'
 import { useAppDispatch } from '@client/store'
-import { AssessmentSectionActions, useAssessmentSection } from '@client/store/pages/assessmentSection'
-import { useParams } from 'react-router'
+import { AssessmentSectionActions, useTableSections } from '@client/store/pages/assessmentSection'
+import { useAssessmentSection } from '@client/store/assessment/hooks'
 
-import { useCurrentAssessmentSubSection } from '@client/store/assessment/hooks'
-import { AssessmentName } from '@meta/assessment'
-import { useTranslation } from 'react-i18next'
 // import SectionHeader from './SectionHeader'
 // import Descriptions from './Descriptions'
 import Descriptions, { GeneralComments } from './components/Descriptions'
@@ -17,8 +18,8 @@ import SectionHeader from './components/SectionHeader'
 import DataTable from './components/DataTable'
 
 const Section: React.FC = () => {
-  const currentAssessmentSubSection = useCurrentAssessmentSubSection()
-  const { tableSections } = useAssessmentSection()
+  const assessmentSection = useAssessmentSection()
+  const tableSections = useTableSections()
 
   const { assessmentName, cycleName, section } =
     useParams<{ assessmentName: AssessmentName; cycleName: string; section: string }>()
@@ -41,9 +42,9 @@ const Section: React.FC = () => {
     )
   }, [countryIso, section])
 
-  if (!currentAssessmentSubSection) return null
+  if (!assessmentSection) return null
 
-  const { anchor, showTitle, descriptions, name: sectionName } = currentAssessmentSubSection.props
+  const { anchor, showTitle, descriptions, name: sectionName } = assessmentSection.props
 
   const isSectionDisabled = true // TODO: useSelector(FraState.isSectionEditDisabled(sectionName))
   const panEuropean = assessmentName === AssessmentName.panEuropean
