@@ -1,5 +1,5 @@
 import { getTableNames } from './getTableNames'
 
-export const TableSectionRepository = {
+export const SectionRepository = {
   getTableNames,
 }

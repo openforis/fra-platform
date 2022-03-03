@@ -3,7 +3,7 @@ import { CountryIso } from '@meta/area'
 import { Assessment, Cycle } from '@meta/assessment'
 import { TableData } from '@meta/data'
 import { CycleDataRepository } from '@server/repository/cycleData'
-import { TableSectionRepository } from '@server/repository/tableSection'
+import { SectionRepository } from '@server/repository/section'
 
 export const getTableData = async (
   props: {
@@ -16,7 +16,7 @@ export const getTableData = async (
 ): Promise<TableData> => {
   const { countryIso, assessment, cycle, sectionName } = props
 
-  const tableNames = await TableSectionRepository.getTableNames({ sectionName, assessment })
+  const tableNames = await SectionRepository.getTableNames({ sectionName, assessment })
 
   const tables: Record<string, any> = {}
   tableNames.forEach((tableName) => {
