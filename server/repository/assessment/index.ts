@@ -11,7 +11,6 @@ import { getCountryStatus } from './getCountryStatus'
 import { updateCountryStatus } from './updateCountryStatus'
 import { getCreateSchemaDDL, getCreateSchemaCycleDDL } from './getCreateSchemaDDL'
 import { getSection } from './getSection'
-import { getTable } from './getTable'
 
 export const AssessmentRepository = {
   createAssessment,
@@ -28,5 +27,4 @@ export const AssessmentRepository = {
   getCreateSchemaDDL,
   getCreateSchemaCycleDDL,
   getSection,
-  getTable,
 }
