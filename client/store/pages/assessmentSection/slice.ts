@@ -1,5 +1,6 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 import { getTableSections } from '@client/store/pages/assessmentSection/actions/getTableSections'
+import { CountryIso } from '@meta/area'
 import { getTableData } from './actions/getTableData'
 import { AssessmentSectionState } from './stateType'
 
@@ -23,7 +24,9 @@ export const assessmentSectionSlice = createSlice({
     })
 
     builder.addCase(getTableData.fulfilled, (state, { payload }) => {
-      state.data = payload
+      const countryIso = Object.keys(payload)[0] as CountryIso
+      const countryData = state?.data?.[countryIso] ?? {}
+      state.data = { ...state.data, [countryIso]: { ...payload[countryIso], ...countryData } }
     })
   },
 })
