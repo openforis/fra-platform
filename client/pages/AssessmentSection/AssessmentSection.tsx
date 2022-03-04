@@ -4,7 +4,6 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router'
 import { useTranslation } from 'react-i18next'
 
-import { useCycle } from '@client/store/assessment'
 import { AssessmentName } from '@meta/assessment'
 import { useCountryIso } from '@client/hooks'
 import { useAppDispatch } from '@client/store'
@@ -29,7 +28,6 @@ const AssessmentSection: React.FC = () => {
 
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
-  const cycle = useCycle()
 
   // Update section tables' metadata on countryIso or section (url) change
   useEffect(() => {
@@ -40,14 +38,6 @@ const AssessmentSection: React.FC = () => {
         cycleName,
         section,
         countryIso,
-      })
-    )
-    dispatch(
-      AssessmentSectionActions.getTableData({
-        assessmentName,
-        countryIso,
-        cycleName: cycle.name,
-        sectionName: section,
       })
     )
   }, [countryIso, section])

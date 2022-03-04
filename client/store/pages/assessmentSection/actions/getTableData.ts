@@ -7,10 +7,15 @@ import { TableData } from '@meta/data'
 
 export const getTableData = createAsyncThunk<
   TableData,
-  { countryIso: CountryIso; assessmentName: string; cycleName: string; sectionName: string }
->('section/get/data', async ({ countryIso, assessmentName, cycleName, sectionName }) => {
+  { countryIso: CountryIso; assessmentName: string; cycleName: string; section: string; tableNames: Array<string> }
+>('section/get/data', async ({ countryIso, assessmentName, cycleName, section, tableNames }) => {
   const { data } = await axios.get(
-    ApiEndPoint.Assessment.TableData.one(countryIso, assessmentName, cycleName, sectionName)
+    ApiEndPoint.Assessment.TableData.one(countryIso, assessmentName, cycleName, section),
+    {
+      params: {
+        tableNames,
+      },
+    }
   )
   return data?.data
 })
