@@ -3,9 +3,11 @@ type DescriptionState = {
   onChange: (value: string) => void
   value: string
 }
-export default (name: string, section: string, template: string): DescriptionState => ({
+export default (_name: string, _section: string, _template: string): DescriptionState => ({
   loading: false,
-  onChange: (value: string) => console.log('todo', value),
+  onChange: (_value: string) => {
+    // TODO
+  },
   value: undefined,
 })
 // TODO

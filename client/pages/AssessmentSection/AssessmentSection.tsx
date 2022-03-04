@@ -1,9 +1,10 @@
-import './Section.scss'
+import './AssessmentSection.scss'
 
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router'
 import { useTranslation } from 'react-i18next'
 
+import { useCycle } from '@client/store/assessment'
 import { AssessmentName } from '@meta/assessment'
 import { useCountryIso } from '@client/hooks'
 import { useAppDispatch } from '@client/store'
@@ -12,12 +13,12 @@ import { useAssessmentSection } from '@client/store/assessment/hooks'
 
 // import SectionHeader from './SectionHeader'
 // import Descriptions from './Descriptions'
-import Descriptions, { GeneralComments } from './components/Descriptions'
-import Title from './components/Title'
-import SectionHeader from './components/SectionHeader'
-import DataTable from './components/DataTable'
+import Descriptions, { GeneralComments } from './Descriptions'
+import Title from './Title'
+import SectionHeader from './SectionHeader'
+import DataTable from './DataTable'
 
-const Section: React.FC = () => {
+const AssessmentSection: React.FC = () => {
   const assessmentSection = useAssessmentSection()
   const tableSections = useTableSections()
 
@@ -28,6 +29,7 @@ const Section: React.FC = () => {
 
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
+  const cycle = useCycle()
 
   // Update section tables' metadata on countryIso or section (url) change
   useEffect(() => {
@@ -38,6 +40,14 @@ const Section: React.FC = () => {
         cycleName,
         section,
         countryIso,
+      })
+    )
+    dispatch(
+      AssessmentSectionActions.getTableData({
+        assessmentName,
+        countryIso,
+        cycleName: cycle.name,
+        sectionName: section,
       })
     )
   }, [countryIso, section])
@@ -99,4 +109,4 @@ const Section: React.FC = () => {
   )
 }
 
-export default Section
+export default AssessmentSection
