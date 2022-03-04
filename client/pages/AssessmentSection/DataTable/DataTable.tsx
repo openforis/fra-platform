@@ -1,9 +1,8 @@
 import './DataTable.scss'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import { AssessmentName, Table as TableType } from '@meta/assessment'
-import { AssessmentSectionActions, useTableData } from '@client/store/pages/assessmentSection'
-import { useAppDispatch } from '@client/store'
+import { useTableData } from '@client/store/pages/assessmentSection'
 import { useCountryIso } from '@client/hooks'
 import Table from './Table'
 
@@ -17,7 +16,6 @@ type Props = {
 
 const DataTable: React.FC<Props> = (props) => {
   const { assessmentName, sectionName, sectionAnchor, table, disabled } = props
-  const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const data = useTableData()
   // Data of current section, passed for table
@@ -44,21 +42,6 @@ const DataTable: React.FC<Props> = (props) => {
   // if (!data) {
   //   return null
   // }
-
-  useEffect(() => {
-    // dispatch(
-    //   AssessmentSectionActions.getTableData({
-    //     assessmentName,
-    //     countryIso,
-    //     tableNames: [table.props.name],
-    //     cycleName: cycle.name,
-    //     section: sectionName,
-    //   })
-    // )
-    return () => {
-      dispatch(AssessmentSectionActions.resetData())
-    }
-  }, [sectionName])
 
   if (!data?.[countryIso]) return null
 
