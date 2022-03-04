@@ -1,7 +1,6 @@
 import React from 'react'
 
 import LinkHome from '@client/components/LinkHome'
-import LinkGeo from '@client/components/LinkGeo'
 import { useTranslation } from 'react-i18next'
 import UserLinks from '../UserLinks'
 import LanguageSelector, { LanguageSelectorMobile } from '../LanguageSelector'
@@ -19,7 +18,6 @@ const FraHeader: React.FC = () => {
       <div className="app-header__menu">
         <LanguageSelector />
         <UserLinks />
-        <LinkGeo />
         <LinkHome />
       </div>
     </div>
