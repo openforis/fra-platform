@@ -43,17 +43,17 @@ export const BasePaths = {
     ) => _generate(countryIso, assessmentName, cycleName, 'print', tables && 'tables'),
     OriginalDataPoint: {
       one: (
-        odpId = ':odpId',
         countryIso: CountryIso | defaults.countryIso = defaults.countryIso,
         assessmentName: AssessmentName | defaults.assessmentName = defaults.assessmentName,
-        cycleName: string = defaults.cycleName
+        cycleName: string = defaults.cycleName,
+        odpId = ':odpId'
       ) => _generate(countryIso, 'assessments', assessmentName, cycleName, 'originalDataPoint', odpId),
       section: (
-        section: string,
-        odpId = ':odpId',
         countryIso: CountryIso | defaults.countryIso = defaults.countryIso,
         assessmentName: AssessmentName | defaults.assessmentName = defaults.assessmentName,
-        cycleName: string = defaults.cycleName
+        cycleName: string = defaults.cycleName,
+        odpId = ':odpId',
+        section: string
       ) => _generate(countryIso, 'assessments', assessmentName, cycleName, 'originalDataPoint', odpId, section),
       tab: (section: string | defaults.section = defaults.section) =>
         _generate(
