@@ -25,7 +25,7 @@ export const assessmentSectionSlice = createSlice({
 
     builder.addCase(getTableData.fulfilled, (state, { payload }) => {
       const countryIso = Object.keys(payload)[0] as CountryIso
-      const countryData = state?.data?.[countryIso] ?? {}
+      const countryData = (state.data && state.data[countryIso]) || {}
       state.data = { ...state.data, [countryIso]: { ...payload[countryIso], ...countryData } }
     })
   },
