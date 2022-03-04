@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import './countrySelect.scss'
 import React, { useEffect, useRef, useState } from 'react'
 import MediaQuery from 'react-responsive'
@@ -33,6 +34,7 @@ const CountrySelect: React.FC = () => {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
 
+  // tslint:disable-next-line: no-empty
   const outsideClick = (evt: any) => {
     const elRoot = findElementRoot(evt.target)
     // We need to check these two, since React can unmount the other element before we get here.
@@ -119,9 +121,9 @@ const CountrySelect: React.FC = () => {
 
       <AutoSaveStatus />
 
+      <LinkGeo countryIso={countryIso} />
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
         <LinkHome />
-        <LinkGeo />
       </MediaQuery>
     </div>
   )
