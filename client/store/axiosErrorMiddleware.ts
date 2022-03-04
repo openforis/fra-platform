@@ -13,7 +13,6 @@ const createAxiosMiddleware =
           id: UUIDs.v4(),
           type: 'error',
           message: error.response.data.error,
-          duration: 5000,
         })
       )
       return Promise.reject(error)
