@@ -1,1 +1,10 @@
 @import 'client/style/partials';
+
+.app-header-link-geo {
+  margin-left: auto;
+  margin-right: $spacing-xxl;
+
+  @include min-width($laptop) {
+    margin-right: $spacing-l;
+  }
+}
