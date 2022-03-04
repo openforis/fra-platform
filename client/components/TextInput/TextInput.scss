@@ -1,0 +1,17 @@
+@import 'client/styles/inputMixins';
+
+.text-input__input-field {
+  @include mixin-input-field;
+}
+.text-input__container {
+  @include mixin-input-container;
+}
+
+
+.text-input__readonly-view {
+  @include mixin-readonly-view;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-wrap: break-word;
+  white-space: pre-line;
+}

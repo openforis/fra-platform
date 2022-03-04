@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { useAppDispatch } from '@client/store'
 import { LoginActions } from '@client/store/login'
-import { LoginValidator } from '@client/pages/Login/utils/LoginValidator'
+import { isError, LoginValidator } from '@client/pages/Login/utils/LoginValidator'
 
 import { Urls } from '@client/utils'
 import { Objects } from '@core/utils'
@@ -26,16 +26,16 @@ const ResetPassword: React.FC = () => {
     const fieldErrors = LoginValidator.resetPasswordValidate(email)
     setErrors(fieldErrors)
 
-    if (!fieldErrors.isError) {
+    if (!isError(fieldErrors)) {
       dispatch(LoginActions.createResetPassword({ email, history }))
     }
   }
 
   const onChangePassword = async () => {
-    const fieldErrors = LoginValidator.localValidate(email, password, password2)
+    const fieldErrors = LoginValidator.invitationValidate(email, password, password2)
     setErrors(fieldErrors)
 
-    if (!fieldErrors.isError) {
+    if (!isError(fieldErrors)) {
       await dispatch(LoginActions.changePassword({ email, password, resetPasswordUuid, history }))
     }
   }

@@ -27,9 +27,9 @@ export const BasePaths = {
     section: (
       countryIso: CountryIso | defaults.countryIso = defaults.countryIso,
       assessmentName: AssessmentName | defaults.assessmentName = defaults.assessmentName,
-      section: string | defaults.section = defaults.section,
-      cycleName: string = defaults.cycleName
-    ) => _generate(countryIso, 'assessments', assessmentName, section, cycleName),
+      cycleName: string = defaults.cycleName,
+      section: string | defaults.section = defaults.section
+    ) => _generate(countryIso, 'assessments', assessmentName, cycleName, section),
     dataDownload: (
       countryIso: CountryIso | defaults.countryIso = defaults.countryIso,
       assessmentName: AssessmentName | defaults.assessmentName = defaults.assessmentName,
@@ -53,7 +53,7 @@ export const BasePaths = {
         assessmentName: AssessmentName | defaults.assessmentName = defaults.assessmentName,
         cycleName: string = defaults.cycleName,
         odpId = ':odpId',
-        section: string
+        section: string | defaults.section = defaults.section
       ) => _generate(countryIso, 'assessments', assessmentName, cycleName, 'originalDataPoint', odpId, section),
       tab: (section: string | defaults.section = defaults.section) =>
         _generate(

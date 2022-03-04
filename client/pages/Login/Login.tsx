@@ -1,7 +1,6 @@
 import './login.scss'
 import React, { useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
-import { Route } from 'react-router-dom'
+import { Route, useHistory } from 'react-router-dom'
 
 import Partners from '@client/components/Partners'
 

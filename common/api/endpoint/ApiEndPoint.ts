@@ -6,13 +6,45 @@ export const ApiEndPoint = {
     one: () => apiPath('init'),
   },
   Assessment: {
-    sections: (name = ':name', cycleName = ':cycleName') => apiPath('assessment', name, 'sections', cycleName),
+    TableData: {
+      one: (
+        countryIso = ':countryIso',
+        assessmentName = ':assessmentName',
+        cycleName = ':cycleName',
+        section = ':section'
+      ) => apiPath('countries', countryIso, 'assessments', assessmentName, 'cycles', cycleName, 'sections', section),
+    },
+    Sections: {
+      Metadata: {
+        many: (
+          countryIso = ':countryIso',
+          assessmentName = ':assessmentName',
+          cycleName = ':cycleName',
+          section = ':section'
+        ) =>
+          apiPath(
+            'countries',
+            countryIso,
+            'assessments',
+            assessmentName,
+            'cycles',
+            cycleName,
+            'sections',
+            section,
+            'metadata'
+          ),
+      },
+    },
+
+    sections: (assessmentName = ':assessmentName', cycleName = ':cycleName') =>
+      apiPath('assessment', assessmentName, 'sections', cycleName),
     countryStatus: (countryIso = ':countryIso', name = ':name', cycleName = ':cycleName') =>
       apiPath('country', countryIso, 'assessments', name, 'cycles', cycleName, 'status'),
 
     OriginalDataPoint: {
       one: (name = ':name', cycleName = ':cycleName', odpId = ':odpId') =>
         apiPath('assessment', name, 'originalDataPoint', cycleName, odpId),
+      ReservedYears: { many: () => apiPath('originalDataPoints', 'reservedYears') },
     },
   },
   // TODO: Remove deprecated routes (still in use in _legacy)

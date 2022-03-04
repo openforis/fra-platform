@@ -1,11 +1,13 @@
 import { useAppSelector } from '@client/store'
-import { Assessment, Section, CountryStatus } from '@meta/assessment'
+import { Assessment, Section, CountryStatus, SubSection } from '@meta/assessment'
 import { CountryIso, RegionGroup } from '@meta/area'
 
 import { useTranslation } from 'react-i18next'
 import { Strings } from '@core/utils'
+import { useParams } from 'react-router-dom'
 
 export { useCycle } from './useCycle'
+
 // TODO: Move elsewhere <>
 const getLocale = (isoCode: string): string => {
   if (isoCode.includes('zh')) return 'zh-CN'
@@ -40,5 +42,12 @@ export const useRegionGroups = (): Record<string, RegionGroup> =>
   useAppSelector((state) => state.assessment?.regionGroups ?? {})
 
 export const useAssessmentSections = (): Array<Section> => useAppSelector((state) => state.assessment.sections)
+export const useAssessmentSection = (): SubSection => {
+  const sections = useAssessmentSections()
+  const { section: sectionName } = useParams<{ section: string }>()
+  return sections
+    ?.find((section) => section.subSections.find((subSection) => subSection.props.name === sectionName))
+    .subSections.find((subSection) => subSection.props.name === sectionName)
+}
 
 export const useAssessmentCountryStatus = (): CountryStatus => useAppSelector((state) => state.assessment.countryStatus)

@@ -1,14 +1,11 @@
 import { Assessment } from '@meta/assessment'
-import { BaseProtocol, DB, Schemas } from '@server/db'
+import { DB, Schemas } from '@server/db'
 
-export const removeAssessmentSchema = async (
-  params: {
-    assessment: Assessment
-  },
-  client: BaseProtocol = DB
-): Promise<void> => {
-  const { assessment } = params
+export const removeAssessmentSchema = async (props: { assessment: Assessment }): Promise<string> => {
+  const { assessment } = props
   const schemaName = Schemas.getName(assessment)
 
-  await client.query<void>(`drop schema ${schemaName} cascade;`)
+  await DB.query<void>(`drop schema if exists ${schemaName} cascade;`)
+
+  return schemaName
 }

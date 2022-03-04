@@ -1,5 +1,5 @@
 import React from 'react'
-import { useOriginalDataPoint } from '@client/store/data/originalDataPoint'
+import { useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 // import { useAppDispatch } from '@client/store'
 import { useTranslation } from 'react-i18next'
 import NationalClass from './NationalClass'

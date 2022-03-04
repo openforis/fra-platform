@@ -1,11 +1,17 @@
+/* eslint-disable no-alert */
 import React from 'react'
 import { useHistory, useParams } from 'react-router'
 import { AssessmentName } from '@meta/assessment'
-// import { useAppDispatch } from '@client/store'
+import { useAppDispatch } from '@client/store'
 import { useCountryIso } from '@client/hooks'
 import { useTranslation } from 'react-i18next'
 import { BasePaths } from '@client/basePaths'
-// import { useOriginalDataPoint } from '@client/store/data/originalDataPoint'
+import {
+  OriginalDataPointActions,
+  useOriginalDataPoint,
+  useIsOriginalDataPointUpdating,
+} from '@client/store/pages/originalDataPoint'
+import { useAssessment, useCycle } from '@client/store/assessment'
 
 type Props = {
   canEditData: boolean
@@ -13,25 +19,34 @@ type Props = {
 
 const ButtonBar: React.FC<Props> = (props) => {
   const { canEditData } = props
-  // const originalDataPoint = useOriginalDataPoint()
+  const originalDataPoint = useOriginalDataPoint()
 
-  // const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch()
   const history = useHistory()
-  const { assessmentName, section } = useParams<{ assessmentName: AssessmentName; section: string }>()
+  const { assessmentName, cycleName, section } =
+    useParams<{ assessmentName: AssessmentName; cycleName: string; section: string }>()
   const { i18n } = useTranslation()
   const countryIso = useCountryIso()
-  const disabled = true // TODO: useIsAutoSaveSaving() || !originalDataPoint.id
-  const assessmentSectionLink = BasePaths.Assessment.section(countryIso, assessmentName, section)
+  const disabled = !originalDataPoint.id || useIsOriginalDataPointUpdating()
+  const assessment = useAssessment()
+  const cycle = useCycle()
+  const assessmentSectionLink = BasePaths.Assessment.section(countryIso, assessmentName, cycleName, section)
 
   if (!canEditData) {
     return null
   }
 
   const handleDelete = () => {
-    // if (window.confirm(i18n.t('nationalDataPoint.confirmDelete'))) {
-    //   dispatch(OriginalDataPointActions.deleteODP({ id: originalDataPoint.id }))
-    //   history.push(assessmentSectionLink)
-    // }
+    if (window.confirm(i18n.t('nationalDataPoint.confirmDelete'))) {
+      dispatch(
+        OriginalDataPointActions.deleteOriginalDataPoint({
+          assessmentName: assessment.props.name,
+          cycleName: cycle.name,
+          originalDataPoint,
+        })
+      )
+      history.push(assessmentSectionLink)
+    }
   }
 
   return (

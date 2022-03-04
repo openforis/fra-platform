@@ -4,7 +4,9 @@ export { ColType } from './col'
 export { RowType } from './row'
 export { Unit } from './unit'
 export { AssessmentStatus } from './countryStatus'
+export { ODPNationalClassFactory, ODPs, ODPYears } from './originalDataPoint'
 
+export type { ODPNationalClass } from './originalDataPoint'
 export type { ActivityLog } from './activityLog'
 export type { Assessment } from './assessment'
 export type { CountryStatus } from './countryStatus'
@@ -18,3 +20,5 @@ export type { Section, SectionProps, SubSectionProps, SubSection } from './secti
 export type { Settings } from './settings'
 export type { TableProps, Table } from './table'
 export type { TableSectionProps, TableSection } from './tableSection'
+
+export type { AssessmentMetaCache, VariableCache, DependencyCache } from './assessmentMetaCache'

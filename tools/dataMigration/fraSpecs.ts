@@ -125,7 +125,8 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'extentOfForest.totalLandArea',
                 variableNo: 'c',
-                variableName: 'faoStat',
+                variableName: 'totalLandArea',
+                // variableName: 'faoStat',
                 variableExport: 'total_land_area',
               },
               {
@@ -1640,7 +1641,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
         descriptionKey: 'growingStock.supportText',
         tableSpecs: [
           {
-            name: 'growingStock',
+            name: 'growingStockAvg',
             rows: [
               {
                 idx: 'header_0',
@@ -1783,7 +1784,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
       {
         tableSpecs: [
           {
-            name: 'growingStock',
+            name: 'growingStockTotal',
             rows: [
               {
                 idx: 'header_0',
@@ -9362,7 +9363,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
       {
         tableSpecs: [
           {
-            name: '',
+            name: 'sustainableDevelopment15_1_1',
             rows: [
               {
                 idx: 'header_0',
@@ -9460,6 +9461,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
               {
                 idx: 0,
                 type: 'data',
+                variableName: 'forestAreaProportionLandArea2015',
                 cols: [
                   {
                     idx: 'header_0',
@@ -9471,34 +9473,42 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 0,
                     type: 'calculated',
+                    colName: '2000',
                   },
                   {
                     idx: 1,
                     type: 'calculated',
+                    colName: '2010',
                   },
                   {
                     idx: 2,
                     type: 'calculated',
+                    colName: '2015',
                   },
                   {
                     idx: 3,
                     type: 'calculated',
+                    colName: '2016',
                   },
                   {
                     idx: 4,
                     type: 'calculated',
+                    colName: '2017',
                   },
                   {
                     idx: 5,
                     type: 'calculated',
+                    colName: '2018',
                   },
                   {
                     idx: 6,
                     type: 'calculated',
+                    colName: '2019',
                   },
                   {
                     idx: 7,
                     type: 'calculated',
+                    colName: '2020',
                   },
                 ],
                 labelKey: 'sustainableDevelopment.forestAreaProportionLandArea2015',
@@ -9565,7 +9575,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
       {
         tableSpecs: [
           {
-            name: '',
+            name: 'sustainableDevelopment15_2_1_1',
             rows: [
               {
                 idx: 'header_0',
@@ -9657,6 +9667,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
               {
                 idx: 0,
                 type: 'data',
+                variableName: 'forestAreaAnnualNetChangeRate',
                 cols: [
                   {
                     idx: 'header_0',
@@ -9668,30 +9679,37 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 0,
                     type: 'calculated',
+                    colName: '2000-2010',
                   },
                   {
                     idx: 1,
                     type: 'calculated',
+                    colName: '2010-2015',
                   },
                   {
                     idx: 2,
                     type: 'calculated',
+                    colName: '2015-2016',
                   },
                   {
                     idx: 3,
                     type: 'calculated',
+                    colName: '2016-2017',
                   },
                   {
                     idx: 4,
                     type: 'calculated',
+                    colName: '2017-2018',
                   },
                   {
                     idx: 5,
                     type: 'calculated',
+                    colName: '2018-2019',
                   },
                   {
                     idx: 6,
                     type: 'calculated',
+                    colName: '2019-2020',
                   },
                 ],
                 labelKey: 'sustainableDevelopment.forestAreaAnnualNetChangeRate',
@@ -9742,7 +9760,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
       {
         tableSpecs: [
           {
-            name: '',
+            name: 'sustainableDevelopment15_2_1_2',
             rows: [
               {
                 idx: 'header_0',
@@ -9842,6 +9860,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
               {
                 idx: 0,
                 type: 'data',
+                variableName: 'aboveGroundBiomassStockForests',
                 cols: [
                   {
                     idx: 'header_0',
@@ -9853,34 +9872,42 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 0,
                     type: 'calculated',
+                    colName: '2000',
                   },
                   {
                     idx: 1,
                     type: 'calculated',
+                    colName: '2010',
                   },
                   {
                     idx: 2,
                     type: 'calculated',
+                    colName: '2015',
                   },
                   {
                     idx: 3,
                     type: 'calculated',
+                    colName: '2016',
                   },
                   {
                     idx: 4,
                     type: 'calculated',
+                    colName: '2017',
                   },
                   {
                     idx: 5,
                     type: 'calculated',
+                    colName: '2018',
                   },
                   {
                     idx: 6,
                     type: 'calculated',
+                    colName: '2019',
                   },
                   {
                     idx: 7,
                     type: 'calculated',
+                    colName: '2020',
                   },
                 ],
                 labelKey: 'sustainableDevelopment.aboveGroundBiomassStockForests',
@@ -9930,7 +9957,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
       {
         tableSpecs: [
           {
-            name: '',
+            name: 'sustainableDevelopment15_2_1_3',
             rows: [
               {
                 idx: 'header_0',
@@ -10030,6 +10057,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
               {
                 idx: 0,
                 type: 'data',
+                variableName: 'proportionForestAreaLegallyEstablishedProtectedAreas',
                 cols: [
                   {
                     idx: 'header_0',
@@ -10041,34 +10069,42 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 0,
                     type: 'calculated',
+                    colName: '2000',
                   },
                   {
                     idx: 1,
                     type: 'calculated',
+                    colName: '2010',
                   },
                   {
                     idx: 2,
                     type: 'calculated',
+                    colName: '2015',
                   },
                   {
                     idx: 3,
                     type: 'calculated',
+                    colName: '2016',
                   },
                   {
                     idx: 4,
                     type: 'calculated',
+                    colName: '2017',
                   },
                   {
                     idx: 5,
                     type: 'calculated',
+                    colName: '2018',
                   },
                   {
                     idx: 6,
                     type: 'calculated',
+                    colName: '2019',
                   },
                   {
                     idx: 7,
                     type: 'calculated',
+                    colName: '2020',
                   },
                 ],
                 labelKey: 'sustainableDevelopment.proportionForestAreaLegallyEstablishedProtectedAreas',
@@ -10118,7 +10154,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
       {
         tableSpecs: [
           {
-            name: '',
+            name: 'sustainableDevelopment15_2_1_4',
             rows: [
               {
                 idx: 'header_0',
@@ -10218,6 +10254,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
               {
                 idx: 0,
                 type: 'data',
+                variableName: 'proportionForestAreaLongTermForestManagement',
                 cols: [
                   {
                     idx: 'header_0',
@@ -10229,34 +10266,42 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 0,
                     type: 'calculated',
+                    colName: '2000',
                   },
                   {
                     idx: 1,
                     type: 'calculated',
+                    colName: '2010',
                   },
                   {
                     idx: 2,
                     type: 'calculated',
+                    colName: '2015',
                   },
                   {
                     idx: 3,
                     type: 'calculated',
+                    colName: '2016',
                   },
                   {
                     idx: 4,
                     type: 'calculated',
+                    colName: '2017',
                   },
                   {
                     idx: 5,
                     type: 'calculated',
+                    colName: '2018',
                   },
                   {
                     idx: 6,
                     type: 'calculated',
+                    colName: '2019',
                   },
                   {
                     idx: 7,
                     type: 'calculated',
+                    colName: '2020',
                   },
                 ],
                 labelKey: 'sustainableDevelopment.proportionForestAreaLongTermForestManagement',
@@ -10306,7 +10351,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
       {
         tableSpecs: [
           {
-            name: '',
+            name: 'sustainableDevelopment15_2_1_5',
             rows: [
               {
                 idx: 'header_0',
@@ -10406,6 +10451,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
               {
                 idx: 0,
                 type: 'data',
+                variableName: 'forestAreaVerifiedForestManagement',
                 cols: [
                   {
                     idx: 'header_0',
@@ -10417,34 +10463,42 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 0,
                     type: 'calculated',
+                    colName: '2000',
                   },
                   {
                     idx: 1,
                     type: 'calculated',
+                    colName: '2010',
                   },
                   {
                     idx: 2,
                     type: 'calculated',
+                    colName: '2015',
                   },
                   {
                     idx: 3,
                     type: 'calculated',
+                    colName: '2016',
                   },
                   {
                     idx: 4,
                     type: 'calculated',
+                    colName: '2017',
                   },
                   {
                     idx: 5,
                     type: 'calculated',
+                    colName: '2018',
                   },
                   {
                     idx: 6,
                     type: 'calculated',
+                    colName: '2019',
                   },
                   {
                     idx: 7,
                     type: 'calculated',
+                    colName: '2020',
                   },
                 ],
                 labelKey: 'sustainableDevelopment.forestAreaVerifiedForestManagement',

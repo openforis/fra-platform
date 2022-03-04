@@ -4,7 +4,7 @@ module.exports = {
   testPathIgnorePatterns: ['/node_modules/'],
   roots: ['<rootDir>'],
   verbose: true,
-  testMatch: ['**/integration/index.ts'],
+  testMatch: ['**/*.test.ts'],
   moduleDirectories: ['node_modules'],
   moduleNameMapper: {
     '@common/(.*)': '<rootDir>/common/$1',
