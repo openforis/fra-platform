@@ -24,6 +24,8 @@ const gitRevisionPlugin = config.mode === 'production' ? null : new GitRevisionP
 
 const fontCssFileName = 'woff2.css'
 
+const port = process.env.WEB_APP_PORT || 9000
+
 const plugins = [
   ...(gitRevisionPlugin ? [gitRevisionPlugin] : []),
   new MiniCssExtractPlugin({ filename: 'style/styles-[fullhash].css' }),
@@ -82,7 +84,7 @@ const appConfig = {
       },
     ],
     compress: false,
-    port: process.env.WEB_APP_PORT,
+    port,
     historyApiFallback: true,
   },
   module: {
