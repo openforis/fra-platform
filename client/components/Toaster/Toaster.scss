@@ -1,0 +1,71 @@
+@import 'client/style/partials';
+
+.toaster-container {
+  max-width: 80vw;
+  margin: 0 auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  position: fixed;
+  z-index: $z-index-toaster;
+
+  @include min-width($tablet-portrait) {
+    max-width: 50vw;
+  }
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: $spacing-xxs;
+  padding: $spacing-xxs;
+  border: 1px solid;
+  border-radius: $spacing-xxs;
+  color: $text-heading;
+  &.error {
+    border-color: $ui-destructive;
+    background-color: lighten($ui-destructive, 55%);
+    .toast-icon {
+      color: $ui-destructive;
+    }
+  }
+  &.info {
+    border-color: $ui-accent;
+    background-color: lighten($ui-accent, 55%);
+    .toast-icon {
+      color: $ui-accent
+    }
+  }
+  &.success {
+    border-color: $ui-status-accepted;
+    background-color: lighten($ui-status-accepted, 35%);
+    .toast-icon {
+      color: $ui-status-accepted;
+    }
+  }
+  &.warning {
+    border-color: $ui-status-review;
+    background-color: lighten($ui-status-review, 35%);
+    .toast-icon {
+      color: $ui-status-review;
+    }
+  }
+  .toast-icon {
+    margin-right: $spacing-xxs;
+  }
+  .toast-close {
+    margin-left: $spacing-xxs;
+    line-height: 0;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  svg {
+    color: $text-link;
+    min-width: 16px;
+    &:hover {
+      color: rgba($text-link, 0.7);
+    }
+  }
+}

@@ -5,7 +5,9 @@ import { useTranslation } from 'react-i18next'
 import { BasePaths } from '@client/basePaths'
 import { useAppDispatch } from '@client/store'
 import { LoginActions, useInvitation } from '@client/store/login'
-import { LoginValidator } from '@client/pages/Login/utils/LoginValidator'
+import { isError, LoginValidator } from '@client/pages/Login/utils/LoginValidator'
+import { Urls } from '@client/utils/urls'
+import { useToaster } from '@client/hooks/useToaster'
 
 type Props = {
   invitationUuid?: string
@@ -35,26 +37,31 @@ const LoginForm: React.FC<Props> = (props: Props) => {
   }, [])
 
   const onLogin = () => {
-    const fieldErrors = LoginValidator.localValidate(email, password, password2)
+    const fieldErrors = LoginValidator.localValidate(email, password)
     setErrors(fieldErrors)
 
-    if (!fieldErrors.isError) {
+    if (!isError(fieldErrors)) {
       dispatch(
         LoginActions.localLogin({
           email,
           password,
           invitationUuid,
+          history,
         })
       )
-      history.push(BasePaths.Root())
     }
   }
+
+  const loginFailed = Urls.getRequestParam('loginFailed')
+  const { toaster } = useToaster()
+  if (loginFailed) toaster.error(i18n.t('login.notAuthorized'))
 
   if (loginLocal)
     return (
       <div className="login__form">
         <input
           onFocus={() => setErrors({ ...errors, email: null })}
+          name="email"
           value={email}
           disabled={!!invitedUser}
           type="text"

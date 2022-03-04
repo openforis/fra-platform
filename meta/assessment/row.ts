@@ -5,7 +5,7 @@ export enum RowType {
   data = 'data',
   noticeMessage = 'noticeMessage',
   validationMessages = 'validationMessages',
-  // calculated = 'calculated',
+  calculated = 'calculated',
   // decimal = 'decimal',
   // integer = 'integer',
   // text = 'text',
@@ -20,6 +20,7 @@ export interface RowProps {
   linkToSection?: string
   type: RowType
   variableName?: string
+  calculateFn?: string
 }
 
 export interface Row extends CycledPropsObject<RowProps> {

@@ -10,6 +10,7 @@ import { useCountryIso, useIsDataExportView } from '@client/hooks'
 import { useTranslation } from 'react-i18next'
 import { useAppDispatch } from '@client/store'
 import { NavigationActions } from '@client/store/ui/navigation'
+import { useCycle } from '@client/store/assessment'
 // import ReviewStatusMarker from '../ReviewStatusMarker'
 
 type Props = {
@@ -20,6 +21,7 @@ type Props = {
 
 const SectionItemLink: React.FC<Props> = (props) => {
   const { assessmentType, sectionName, prefix } = props
+  const cycle = useCycle()
 
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
@@ -33,7 +35,7 @@ const SectionItemLink: React.FC<Props> = (props) => {
 
   return (
     <NavLink
-      to={BasePaths.Assessment.section(countryIso, assessmentType, sectionName)}
+      to={BasePaths.Assessment.section(countryIso, assessmentType, cycle?.name, sectionName)}
       className="nav-section__item"
       activeClassName="selected"
       onClick={() => {

@@ -1,10 +1,23 @@
 import { BaseProtocol, DB } from '@server/db'
-import { AssessmentRepository } from '@server/repository'
+import { AssessmentRepository, AssessmentCycleRepository } from '@server/repository'
 import { Assessment } from '@meta/assessment'
 
-export const remove = async (props: { assessment: Assessment }, client: BaseProtocol = DB): Promise<{ id: number }> => {
+export const remove = async (
+  props: { assessment: Assessment },
+  client: BaseProtocol = DB
+): Promise<{ schemaName: string; cycleSchemaNames: Array<string> }> => {
   const { assessment } = props
 
-  await AssessmentRepository.removeAssessmentSchema({ assessment }, client)
-  return AssessmentRepository.removeAssessment({ assessment }, client)
+  const schemaName = await AssessmentRepository.removeAssessmentSchema({ assessment })
+
+  const cycleSchemaNames = await Promise.all(
+    assessment.cycles.map((cycle) => AssessmentCycleRepository.removeSchema({ assessment, cycle }))
+  )
+
+  await AssessmentRepository.removeAssessment({ assessment }, client)
+
+  return {
+    schemaName,
+    cycleSchemaNames,
+  }
 }

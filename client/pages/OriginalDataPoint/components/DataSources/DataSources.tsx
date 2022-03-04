@@ -3,10 +3,13 @@ import React from 'react'
 import VerticallyGrowingTextField from '@client/components/VerticallyGrowingTextField'
 import MultiSelect from '@client/components/MultiSelect'
 // import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
+import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
+import { useAppDispatch } from '@client/store'
+import { useAssessment, useCycle } from '@client/store/assessment'
+import { OriginalDataPoint, ODPDataSourceMethod } from '@meta/assessment/originalDataPoint'
 import { useTranslation } from 'react-i18next'
 // import { useCountryIso } from '@client/hooks'
-import { useOriginalDataPoint } from '@client/store/data/originalDataPoint'
-import { ODPDataSourceMethod } from '@meta/assessment/originalDataPoint'
+import { Objects } from '@core/utils'
 
 type Props = {
   canEditData: boolean
@@ -16,10 +19,24 @@ const DataSources: React.FC<Props> = (props) => {
   const { canEditData } = props
   const originalDataPoint = useOriginalDataPoint()
 
+  const dispatch = useAppDispatch()
   const i18n = useTranslation()
   // const countryIso = useCountryIso()
+  const assessment = useAssessment()
+  const cycle = useCycle()
+
   const [printView] = [false] // TODO: usePrintView()
-  const displayReviewIndicator = originalDataPoint.odpId && !printView && canEditData
+  const displayReviewIndicator = originalDataPoint.id && !printView && canEditData
+
+  const updateOriginalDataPoint = (originalDataPointUpdate: OriginalDataPoint) => {
+    dispatch(
+      OriginalDataPointActions.updateOriginalDataPoint({
+        cycleName: cycle.name,
+        assessmentName: assessment.props.name,
+        originalDataPoint: originalDataPointUpdate,
+      })
+    )
+  }
 
   return (
     <div className="odp__section">
@@ -39,10 +56,14 @@ const DataSources: React.FC<Props> = (props) => {
                 <td className="fra-table__cell-left odp__data-source-input-column">
                   <VerticallyGrowingTextField
                     value={originalDataPoint.dataSourceReferences || ''}
-                    // onChange={(event) => {
-                    // const odpUpdate = { ...originalDataPoint, dataSourceReferences: event.target.value }
-                    // dispatch(OriginalDataPointActions.updateODP({ odp: odpUpdate }))
-                    // }}
+                    onChange={(event) => {
+                      const { value } = event.target
+                      const originalDataPointUpdate = {
+                        ...originalDataPoint,
+                        dataSourceReferences: Objects.isEmpty(value) ? null : value,
+                      } as OriginalDataPoint
+                      updateOriginalDataPoint(originalDataPointUpdate)
+                    }}
                     disabled={printView || !canEditData}
                   />
                 </td>
@@ -69,10 +90,10 @@ const DataSources: React.FC<Props> = (props) => {
                     localizationPrefix="nationalDataPoint.dataSourceMethodsOptions"
                     values={originalDataPoint.dataSourceMethods}
                     options={Object.values(ODPDataSourceMethod)}
-                    // onChange={(values: Array<ODPDataSourceMethod>) => {
-                    // const odpUpdate = { ...originalDataPoint, dataSourceMethods: values }
-                    // dispatch(OriginalDataPointActions.updateODP({ odp: odpUpdate }))
-                    // }}
+                    onChange={(values: Array<ODPDataSourceMethod>) => {
+                      const originalDataPointUpdate = { ...originalDataPoint, dataSourceMethods: values }
+                      updateOriginalDataPoint(originalDataPointUpdate)
+                    }}
                   />
                 </td>
                 <td className="fra-table__row-anchor-cell">
@@ -94,10 +115,13 @@ const DataSources: React.FC<Props> = (props) => {
                 <td className="fra-table__cell-left odp__data-source-input-column">
                   <VerticallyGrowingTextField
                     value={originalDataPoint.dataSourceAdditionalComments || ''}
-                    // onChange={(event) => {
-                    // const odpUpdate = { ...originalDataPoint, dataSourceAdditionalComments: event.target.value }
-                    // dispatch(OriginalDataPointActions.updateODP({ odp: odpUpdate }))
-                    // }}
+                    onChange={(event) => {
+                      const originalDataPointUpdate = {
+                        ...originalDataPoint,
+                        dataSourceAdditionalComments: event.target.value,
+                      }
+                      updateOriginalDataPoint(originalDataPointUpdate)
+                    }}
                     disabled={printView || !canEditData}
                   />
                 </td>

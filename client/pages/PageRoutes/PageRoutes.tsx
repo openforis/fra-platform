@@ -14,6 +14,7 @@ import { /* Redirect, */ Route, /* RouteComponentProps, */ Switch } from 'react-
 import Loading from '@client/components/Loading'
 import Landing from '@client/pages/Landing'
 import Login from '@client/pages/Login'
+import Toaster from '@client/components/Toaster'
 import Header from '@client/components/Header'
 import Footer from '@client/components/Footer'
 import Geo from '@client/pages/Geo'
@@ -51,6 +52,7 @@ const PageRoutes: React.FC = () => {
 
   return (
     <>
+      <Toaster />
       <Header />
       {/*
         Render CountrySelect if path matches '/' or '/assessment*'

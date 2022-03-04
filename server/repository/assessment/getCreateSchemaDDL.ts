@@ -119,6 +119,9 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
       create unique index node_uuid_uindex
           on ${assessmentCycleSchemaName}.node (uuid);
           
+      create unique index node_country_iso_col_uuid_row_uuid_uindex
+          on ${assessmentCycleSchemaName}.node (country_iso, col_uuid, row_uuid);
+    
       create table ${assessmentCycleSchemaName}.original_data_point
       (
           id                              bigserial
