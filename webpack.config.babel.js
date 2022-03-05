@@ -115,13 +115,15 @@ const appConfig = {
             loader: 'css-loader',
             options: {
               url: false,
-              import: (url) => {
-                // Don't handle font css file import
-                if (url.includes(fontCssFileName)) {
-                  return false
-                }
+              import: {
+                filter: (url) => {
+                  // Don't handle font css file import
+                  if (url.includes(fontCssFileName)) {
+                    return false
+                  }
 
-                return true
+                  return true
+                },
               },
             },
           },
