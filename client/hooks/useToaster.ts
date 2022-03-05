@@ -19,9 +19,9 @@ export const useToaster = (): Toaster => {
 
   const toaster = {
     error: (message: string, duration?: number) => notify('error', message, duration),
-    info: (message: string, duration?: number) => notify('info', message, duration),
-    success: (message: string, duration?: number) => notify('success', message, duration),
-    warning: (message: string, duration?: number) => notify('warning', message, duration),
+    info: (message: string, duration?: number) => notify('info', message, duration || 5000),
+    success: (message: string, duration?: number) => notify('success', message, duration || 5000),
+    warning: (message: string, duration?: number) => notify('warning', message, duration || 5000),
   }
 
   return { toaster }
