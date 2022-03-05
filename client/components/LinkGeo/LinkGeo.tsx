@@ -6,7 +6,8 @@ const getPath = (countryIso: string) => {
   if (countryIso) {
     return `/${countryIso}/geo`
   }
-  return '/geo'
+  // default to Global
+  return '/WO/geo'
 }
 
 type Props = {
