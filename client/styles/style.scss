@@ -38,9 +38,11 @@ body {
   direction: ltr;
 }
 
-//#main {
-//  overflow-x: hidden;
-//}
+#main {
+  //  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
 
 h1,
 h2,
