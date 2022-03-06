@@ -19,6 +19,8 @@ const LoginForm: React.FC<Props> = (props: Props) => {
   const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
   const history = useHistory()
+  const loginFailed = Urls.getRequestParam('loginFailed')
+  const { toaster } = useToaster()
 
   const { invitedUser } = useInvitation()
 
@@ -29,6 +31,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
   const [errors, setErrors] = useState<Record<string, string>>({})
 
   useEffect(() => {
+    if (loginFailed) toaster.error(i18n.t('login.notAuthorized'))
     dispatch(LoginActions.initLogin())
     if (invitationUuid) {
       dispatch(LoginActions.fetchUserByInvitation(invitationUuid))
@@ -51,10 +54,6 @@ const LoginForm: React.FC<Props> = (props: Props) => {
       )
     }
   }
-
-  const loginFailed = Urls.getRequestParam('loginFailed')
-  const { toaster } = useToaster()
-  if (loginFailed) toaster.error(i18n.t('login.notAuthorized'))
 
   if (loginLocal)
     return (
