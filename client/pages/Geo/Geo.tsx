@@ -1,5 +1,7 @@
 import './geo.scss'
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
+
+import Loading from '@client/components/Loading'
 
 const GeoMap = React.lazy(() => import('./GeoMap'))
 
@@ -20,7 +22,15 @@ const Geo: React.FC = () => {
     }
   }, [])
 
-  return <div className="geo-container">{isRenderAllowed && <GeoMap />}</div>
+  return (
+    <div className="geo-container">
+      {isRenderAllowed && (
+        <Suspense fallback={<Loading />}>
+          <GeoMap />
+        </Suspense>
+      )}
+    </div>
+  )
 }
 
 export default Geo
