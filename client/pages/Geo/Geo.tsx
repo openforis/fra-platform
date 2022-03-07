@@ -1,7 +1,7 @@
 import './geo.scss'
 import React, { useEffect, useState } from 'react'
 
-import GeoMap from './GeoMap'
+const GeoMap = React.lazy(() => import('./GeoMap'))
 
 const Geo: React.FC = () => {
   const [isRenderAllowed, setIsRenderAllowed] = useState(false)
