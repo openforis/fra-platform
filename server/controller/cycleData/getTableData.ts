@@ -24,9 +24,9 @@ export const getTableData = async (
     {
       assessment,
       cycle,
-
       tables,
       countryISOs: [countryIso],
-    }, client)
+    },
+    client
+  )
 }
-

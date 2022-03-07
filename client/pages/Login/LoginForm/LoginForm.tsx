@@ -5,7 +5,9 @@ import { useTranslation } from 'react-i18next'
 import { BasePaths } from '@client/basePaths'
 import { useAppDispatch } from '@client/store'
 import { LoginActions, useInvitation } from '@client/store/login'
-import { LoginValidator } from '@client/pages/Login/utils/LoginValidator'
+import { isError, LoginValidator } from '@client/pages/Login/utils/LoginValidator'
+import { Urls } from '@client/utils/urls'
+import { useToaster } from '@client/hooks/useToaster'
 
 type Props = {
   invitationUuid?: string
@@ -17,6 +19,8 @@ const LoginForm: React.FC<Props> = (props: Props) => {
   const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
   const history = useHistory()
+  const loginFailed = Urls.getRequestParam('loginFailed')
+  const { toaster } = useToaster()
 
   const { invitedUser } = useInvitation()
 
@@ -27,6 +31,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
   const [errors, setErrors] = useState<Record<string, string>>({})
 
   useEffect(() => {
+    if (loginFailed) toaster.error(i18n.t('login.notAuthorized'))
     dispatch(LoginActions.initLogin())
     if (invitationUuid) {
       dispatch(LoginActions.fetchUserByInvitation(invitationUuid))
@@ -35,18 +40,18 @@ const LoginForm: React.FC<Props> = (props: Props) => {
   }, [])
 
   const onLogin = () => {
-    const fieldErrors = LoginValidator.localValidate(email, password, password2)
+    const fieldErrors = LoginValidator.localValidate(email, password)
     setErrors(fieldErrors)
 
-    if (!fieldErrors.isError) {
+    if (!isError(fieldErrors)) {
       dispatch(
         LoginActions.localLogin({
           email,
           password,
           invitationUuid,
+          history,
         })
       )
-      history.push(BasePaths.Root())
     }
   }
 
@@ -55,6 +60,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
       <div className="login__form">
         <input
           onFocus={() => setErrors({ ...errors, email: null })}
+          name="email"
           value={email}
           disabled={!!invitedUser}
           type="text"

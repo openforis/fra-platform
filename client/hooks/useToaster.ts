@@ -14,14 +14,14 @@ type Toaster = {
 export const useToaster = (): Toaster => {
   const dispatch = useAppDispatch()
 
-  const notify = (type: string, message: string) =>
-    dispatch(NotificationActions.addMessage({ id: UUIDs.v4(), type, message, duration: 5000 }))
+  const notify = (type: string, message: string, duration?: number) =>
+    dispatch(NotificationActions.addMessage({ id: UUIDs.v4(), type, message, duration }))
 
   const toaster = {
-    error: (message: string) => notify('error', message),
-    info: (message: string) => notify('info', message),
-    success: (message: string) => notify('success', message),
-    warning: (message: string) => notify('warning', message),
+    error: (message: string, duration?: number) => notify('error', message, duration),
+    info: (message: string, duration?: number) => notify('info', message, duration || 5000),
+    success: (message: string, duration?: number) => notify('success', message, duration || 5000),
+    warning: (message: string, duration?: number) => notify('warning', message, duration || 5000),
   }
 
   return { toaster }

@@ -4,7 +4,7 @@ import { CountryIso } from '@meta/area'
 
 const handleHeader = (header: string) => {
   // Case ex. 1990_2000 => 1990-2000
-  if (/^\d{4}\_\d{4}$/.test(header)) return header.replace('_', '-')
+  if (/^\d{4}_\d{4}$/.test(header)) return header.replace('_', '-')
   return header
 }
 

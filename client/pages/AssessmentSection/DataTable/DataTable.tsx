@@ -2,11 +2,10 @@ import './DataTable.scss'
 import React, { useEffect } from 'react'
 
 import { AssessmentName, Table as TableType } from '@meta/assessment'
-import { AssessmentSectionActions, useAssessmentSection } from '@client/store/pages/assessmentSection'
+import { AssessmentSectionActions, useTableData } from '@client/store/pages/assessmentSection'
 import { useAppDispatch } from '@client/store'
 import { useCountryIso } from '@client/hooks'
 import { useCycle } from '@client/store/assessment'
-import { TableData } from '@meta/data'
 import Table from './Table'
 
 type Props = {
@@ -21,10 +20,10 @@ const DataTable: React.FC<Props> = (props) => {
   const { assessmentName, sectionName, sectionAnchor, table, disabled } = props
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
+  const data = useTableData()
   const cycle = useCycle()
-  const assessmentSection = useAssessmentSection()
   // Data of current section, passed for table
-  const { data = {} as TableData } = assessmentSection
+
   const {
     // props: { name: tableName },
     rows,

@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next'
 
 import { useCountryIso } from '@client/hooks'
 import { TableData } from '@meta/data'
-import { getHeaders } from '@client/pages/Assessment/pages/Section/components/DataTable/utils'
+import { getHeaders } from '@client/pages/AssessmentSection/DataTable/utils'
 import Row from './Row'
 
 type Props = {
