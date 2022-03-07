@@ -1,4 +1,4 @@
-import { Assessment } from '../../../meta/assessment'
+import { Assessment } from '../../../meta/assessment/assessment'
 import { BaseProtocol } from '../../../server/db'
 import { DBNames } from '../_DBNames'
 

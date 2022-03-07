@@ -1,6 +1,8 @@
 import { ITask } from 'pg-promise'
+import { Table } from '../../../meta/assessment/table'
+import { Row, RowType } from '../../../meta/assessment/row'
+import { Col, ColType } from '../../../meta/assessment/col'
 
-import { Col, ColType, Row, RowType, Table } from '../../../meta/assessment'
 import { Objects } from '../../../core/utils'
 
 export const getRows = (client: ITask<any>, schema: string, table: Table): Promise<Array<Row>> =>
@@ -8,7 +10,7 @@ export const getRows = (client: ITask<any>, schema: string, table: Table): Promi
     `select *
      from ${schema}.row
      where table_id = $1
-       and props ->> 'type' in ('${RowType.data}','${RowType.calculated}');`,
+       and props ->> 'type' in ('${RowType.data}', '${RowType.calculated}');`,
     [table.id],
     // @ts-ignore
     Objects.camelize

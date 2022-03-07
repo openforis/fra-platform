@@ -1,6 +1,10 @@
-import { Assessment, Col, ColType, Row, RowType, Table } from '../../../meta/assessment'
+import { Assessment } from '../../../meta/assessment/assessment'
+import { Table } from '../../../meta/assessment/table'
+import { Row, RowType } from '../../../meta/assessment/row'
+import { Col, ColType } from '../../../meta/assessment/col'
+
 import { BaseProtocol } from '../../../server/db'
-import { Objects } from '../../../core/utils'
+import { Objects } from '../../../core/utils/objects'
 import { DBNames } from '../_DBNames'
 
 const years = [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020]
@@ -88,9 +92,9 @@ export const migrateTableWithODP = async (
       if (calculateFn) {
         await client.query(
           `
-            update ${schema}.row r 
-            set props = props || $1::jsonb
-            where r.id = $2`,
+              update ${schema}.row r
+              set props = props || $1::jsonb
+              where r.id = $2`,
           [JSON.stringify({ calculateFn }), row.id]
         )
       }

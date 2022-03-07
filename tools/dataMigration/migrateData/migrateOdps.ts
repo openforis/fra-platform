@@ -1,7 +1,7 @@
 import { ITask } from 'pg-promise'
 
 import * as pgPromise from 'pg-promise'
-import { Assessment } from '../../../meta/assessment'
+import { Assessment } from '../../../meta/assessment/assessment'
 import { DBNames } from '../_DBNames'
 
 export const migrateOdps = async (props: { assessment: Assessment }, client: ITask<any>): Promise<void> => {

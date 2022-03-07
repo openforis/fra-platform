@@ -1,6 +1,9 @@
 import { ITask } from 'pg-promise'
 
-import { Assessment, NodeValue, Table } from '../../../meta/assessment'
+import { Assessment } from '../../../meta/assessment/assessment'
+import { Table } from '../../../meta/assessment/table'
+import { NodeValue } from '../../../meta/assessment/node'
+
 import { NodeRow } from './_getNodeInserts'
 import { Objects } from '../../../core/utils'
 import { getCols, getRows } from './_repos'

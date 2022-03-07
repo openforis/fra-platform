@@ -20,7 +20,7 @@ import { migrateUsersRole } from './migrateUsersRole'
 import { migrateUsersInvitation } from './migrateUsersInvitation'
 import { migrateUsersResetPassword } from './migrateUsersResetPassword'
 import { migrateTablesData } from './migrateData/migrateTablesData'
-// import { migrateOdps } from './migrateData/migrateOdps'
+import { migrateOdps } from './migrateData/migrateOdps'
 import { migrateCountryStatus } from './migrateData/migrateCountryStatus'
 import { generateMetaCache } from './generateMetaCache'
 
@@ -68,8 +68,8 @@ export const migrate = async (props: {
     // insert assessment
     const assessment = await client.one<Assessment>(
       `insert into assessment (props)
-     values ($1::jsonb)
-     returning *;`,
+       values ($1::jsonb)
+       returning *;`,
       [JSON.stringify({ name: assessmentName })]
     )
 
@@ -95,7 +95,7 @@ export const migrate = async (props: {
     await migrateUsersInvitation({ client })
     await migrateUsersResetPassword({ client })
     await migrateTablesData({ assessment }, client)
-    // await migrateOdps({ assessment }, client)
+    await migrateOdps({ assessment }, client)
     await migrateCountryStatus({ assessment }, client)
     await generateMetaCache({ assessment }, client)
 
