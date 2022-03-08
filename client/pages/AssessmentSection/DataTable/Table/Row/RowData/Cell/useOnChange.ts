@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux'
 
 import { Col, Row, Table, NodeValue } from '@meta/assessment'
 import { useCountryIso } from '@client/hooks'
-// import { Functions } from '@core/utils'
 import { useAssessment, useAssessmentSection, useCycle } from '@client/store/assessment'
 import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 
@@ -103,6 +102,5 @@ export default (props: Props): UseOnChange => {
   //   }
   // }
 
-  // TODO Functions.debounce
   return { onChange, onPaste: () => null }
 }

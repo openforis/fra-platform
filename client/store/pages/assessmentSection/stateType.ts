@@ -4,5 +4,4 @@ import { TableData } from '@meta/data'
 export type AssessmentSectionState = {
   data?: TableData
   tableSections?: Array<TableSection>
-  updating: boolean
 }

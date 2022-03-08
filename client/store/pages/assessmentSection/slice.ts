@@ -8,8 +8,6 @@ import { AssessmentSectionState } from './stateType'
 const initialState: AssessmentSectionState = {
   data: null,
   tableSections: [],
-  // TODO: Should this be global for all ajax calls?
-  updating: false,
 }
 
 export const assessmentSectionSlice = createSlice({
@@ -31,15 +29,6 @@ export const assessmentSectionSlice = createSlice({
       const countryData = (state.data && state.data[countryIso]) || {}
       state.data = { ...state.data, [countryIso]: { ...payload[countryIso], ...countryData } }
     })
-
-    builder
-      .addCase(updateNodeValue.fulfilled, (state, { payload }) => {
-        state.updating = false
-        state.data = payload
-      })
-      .addCase(updateNodeValue.pending, (state) => {
-        state.updating = true
-      })
   },
 })
 

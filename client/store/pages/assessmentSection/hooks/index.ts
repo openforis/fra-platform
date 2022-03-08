@@ -6,5 +6,3 @@ export const useTableSections = (): Array<TableSection> =>
   useAppSelector((state) => state.pages.assessmentSection.tableSections)
 
 export const useTableData = (): TableData => useAppSelector((state) => state.pages.assessmentSection.data)
-
-export const useIsTableDataUpdating = (): boolean => useAppSelector((state) => state.pages.assessmentSection.updating)
