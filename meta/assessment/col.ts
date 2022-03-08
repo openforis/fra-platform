@@ -13,12 +13,6 @@ export enum ColType {
   // placeholder = 'placeholder',
 }
 
-export interface ColOption {
-  hidden?: boolean
-  optionName: string
-  type?: ColType
-}
-
 export interface ColProps {
   colName?: string
   colSpan?: number
@@ -26,7 +20,6 @@ export interface ColProps {
   index?: number | string
   rowSpan?: number
   labelKey?: string
-  options?: Array<ColOption>
 }
 
 export interface Col extends CycledPropsObject<ColProps> {
