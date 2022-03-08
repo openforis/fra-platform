@@ -4,6 +4,7 @@ import axios from 'axios'
 import { ApiEndPoint } from '@common/api/endpoint'
 import { CountryIso } from '@meta/area'
 import { AssessmentName, NodeValue, TableData } from '@meta/assessment'
+import { Functions } from '@core/utils'
 // import { TableDatas } from '@meta/data'
 
 export const updateNodeValue = createAsyncThunk<
@@ -23,25 +24,29 @@ export const updateNodeValue = createAsyncThunk<
 >(
   'section/patch/nodeValue',
   async ({ assessmentName, countryIso, colName, cycleName, sectionName, tableName, variableName, value }) => {
-    const { data } = await axios.patch(
-      ApiEndPoint.CycleData.PersistNode.one(),
-      {
-        variableName,
-        value,
-      },
-      {
-        params: {
-          assessmentName,
-          countryIso,
-          colName,
-          cycleName,
-          sectionName,
-          tableName,
-          variableName,
-          value,
-        },
-      }
-    )
+    const { data } = await Functions.debounce(
+      async () =>
+        axios.patch(
+          ApiEndPoint.CycleData.PersistNode.one(),
+          {
+            variableName,
+            value,
+          },
+          {
+            params: {
+              assessmentName,
+              countryIso,
+              colName,
+              cycleName,
+              sectionName,
+              tableName,
+              variableName,
+              value,
+            },
+          }
+        ),
+      800
+    )()
 
     return data?.data
 

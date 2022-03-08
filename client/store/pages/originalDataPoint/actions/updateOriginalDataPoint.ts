@@ -8,7 +8,7 @@ export const updateOriginalDataPoint = createAsyncThunk<
   OriginalDataPoint,
   { assessmentName: string; cycleName: string; originalDataPoint: OriginalDataPoint }
 >('originalDataPoint/put/byId', async ({ assessmentName, cycleName, originalDataPoint }) => {
-  const { data } = await axios.patch(
+  const { data } = await axios.put(
     ApiEndPoint.Assessment.OriginalDataPoint.one(assessmentName, cycleName, String(originalDataPoint.id)),
     {
       originalDataPoint: ODPs.removeNationalClassPlaceHolder(originalDataPoint),

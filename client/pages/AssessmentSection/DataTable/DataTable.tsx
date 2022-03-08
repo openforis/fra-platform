@@ -6,7 +6,6 @@ import { AssessmentSectionActions, useTableData } from '@client/store/pages/asse
 import { useAppDispatch } from '@client/store'
 import { useCountryIso } from '@client/hooks'
 import { useCycle } from '@client/store/assessment'
-// import { useIsTableDataUpdating } from '@client/store/pages/assessmentSection/hooks'
 import Table from './Table'
 
 type Props = {
@@ -23,7 +22,6 @@ const DataTable: React.FC<Props> = (props) => {
   const countryIso = useCountryIso()
   const data = useTableData()
   const cycle = useCycle()
-  // const isTableDataUpdating = useIsTableDataUpdating()
   // Data of current section, passed for table
 
   const {
@@ -63,9 +61,6 @@ const DataTable: React.FC<Props> = (props) => {
       dispatch(AssessmentSectionActions.resetData())
     }
   }, [sectionName])
-
-  // Refetch on update
-  // TODO: Use websocket for this later
 
   if (!data?.[countryIso]) return null
 

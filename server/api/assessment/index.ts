@@ -24,7 +24,7 @@ export const AssessmentApi = {
     express.get(ApiEndPoint.Assessment.OriginalDataPoint.ReservedYears.many(), getReservedYears)
     express.post(ApiEndPoint.Assessment.OriginalDataPoint.one(), createOriginalDataPoint)
     express.delete(ApiEndPoint.Assessment.OriginalDataPoint.one(), deleteOriginalDataPoint)
-    express.patch(ApiEndPoint.Assessment.OriginalDataPoint.one(), updateOriginalDataPoint)
+    express.put(ApiEndPoint.Assessment.OriginalDataPoint.one(), updateOriginalDataPoint)
 
     // TableData
     express.get(ApiEndPoint.Assessment.TableData.one(), getTableData)
