@@ -24,8 +24,15 @@ export const persistNodeValue = async (req: Request, res: Response) => {
       variableName,
       value,
     })
+    // TODO Remove
+    const tableData = await CycleDataController.getTableData({
+      countryIso: countryIso as CountryIso,
+      cycle,
+      assessment,
+      tableNames: [tableName],
+    })
 
-    Requests.sendOk(res)
+    Requests.sendOk(res, tableData)
   } catch (e) {
     Requests.sendErr(res, e)
   }

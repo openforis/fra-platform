@@ -1,5 +1,6 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 import { getTableSections } from '@client/store/pages/assessmentSection/actions/getTableSections'
+import { updateNodeValue } from '@client/store/pages/assessmentSection/actions/updateNodeValue'
 import { CountryIso } from '@meta/area'
 import { getTableData } from './actions/getTableData'
 import { AssessmentSectionState } from './stateType'
@@ -7,6 +8,8 @@ import { AssessmentSectionState } from './stateType'
 const initialState: AssessmentSectionState = {
   data: null,
   tableSections: [],
+  // TODO: Should this be global for all ajax calls?
+  updating: false,
 }
 
 export const assessmentSectionSlice = createSlice({
@@ -28,6 +31,15 @@ export const assessmentSectionSlice = createSlice({
       const countryData = (state.data && state.data[countryIso]) || {}
       state.data = { ...state.data, [countryIso]: { ...payload[countryIso], ...countryData } }
     })
+
+    builder
+      .addCase(updateNodeValue.fulfilled, (state, { payload }) => {
+        state.updating = false
+        state.data = payload
+      })
+      .addCase(updateNodeValue.pending, (state) => {
+        state.updating = true
+      })
   },
 })
 
@@ -35,6 +47,7 @@ export const AssessmentSectionActions = {
   ...assessmentSectionSlice.actions,
   getTableSections,
   getTableData,
+  updateNodeValue,
 }
 
 export default assessmentSectionSlice.reducer as Reducer<AssessmentSectionState>
