@@ -42,7 +42,7 @@ export const useRegionGroups = (): Record<string, RegionGroup> =>
   useAppSelector((state) => state.assessment?.regionGroups ?? {})
 
 export const useAssessmentSections = (): Array<Section> => useAppSelector((state) => state.assessment.sections)
-export const useCurrentAssessmentSubSection = (): SubSection => {
+export const useAssessmentSection = (): SubSection => {
   const sections = useAssessmentSections()
   const { section: sectionName } = useParams<{ section: string }>()
   return sections

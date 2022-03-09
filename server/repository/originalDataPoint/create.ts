@@ -35,15 +35,15 @@ export const create = async (
           data_source_references,
           description,
           national_classes
-        ) values ($1, $2, $3::jsonb, $4, $5, $6, $7::jsonb) returning *;`,
+        ) values ($1, $2, $3, $4::jsonb, $5, $6, $7::jsonb) returning *;`,
     [
       countryIso,
       year,
-      dataSourceAdditionalComments,
-      dataSourceMethods,
-      dataSourceReferences,
-      description,
-      nationalClasses,
+      dataSourceAdditionalComments || '',
+      dataSourceMethods ? JSON.stringify(dataSourceMethods) : '[]',
+      dataSourceReferences || '',
+      description || '',
+      nationalClasses ? JSON.stringify(nationalClasses) : '[]',
     ],
     Objects.camelize
   )

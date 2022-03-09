@@ -9,11 +9,11 @@ export const init = async (req: Request, res: Response) => {
     if (!assessmentName) {
       const settings = await SettingsController.read()
 
-      assessment = await AssessmentController.read({
+      assessment = await AssessmentController.getOne({
         id: settings.defaultAssessmentId,
       })
     } else {
-      assessment = await AssessmentController.read({
+      assessment = await AssessmentController.getOne({
         name: assessmentName,
       })
     }

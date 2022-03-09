@@ -24,6 +24,8 @@ const gitRevisionPlugin = config.mode === 'production' ? null : new GitRevisionP
 
 const fontCssFileName = 'woff2.css'
 
+const port = process.env.WEB_APP_PORT ? process.env.WEB_APP_PORT : 9000
+
 const plugins = [
   ...(gitRevisionPlugin ? [gitRevisionPlugin] : []),
   new MiniCssExtractPlugin({ filename: 'style/styles-[fullhash].css' }),
@@ -78,11 +80,11 @@ const appConfig = {
       {
         // Proxy all server-served routes:
         context: ['/auth', '/img', '/css', '/ckeditor', '/video', '/api', '/definitions'],
-        target: 'http://localhost:9001',
+        target: process.env.APP_URI,
       },
     ],
     compress: false,
-    port: 9000,
+    port,
     historyApiFallback: true,
   },
   module: {

@@ -10,6 +10,7 @@ enum defaults {
   odpId = ':odpId',
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const _generate = (...parts: any[]) => `/${parts.filter(Boolean).join('/')}`
 
 export const BasePaths = {
@@ -53,7 +54,7 @@ export const BasePaths = {
         assessmentName: AssessmentName | defaults.assessmentName = defaults.assessmentName,
         cycleName: string = defaults.cycleName,
         odpId = ':odpId',
-        section: string
+        section: string | defaults.section = defaults.section
       ) => _generate(countryIso, 'assessments', assessmentName, cycleName, 'originalDataPoint', odpId, section),
       tab: (section: string | defaults.section = defaults.section) =>
         _generate(
@@ -75,5 +76,8 @@ export const BasePaths = {
 
   User: {
     root: (id: number | defaults.id = defaults.id) => `/user/${id}`,
+  },
+  Geo: {
+    root: (countryIso: CountryIso | defaults.countryIso | string = defaults.countryIso) => `/${countryIso}/geo`,
   },
 }

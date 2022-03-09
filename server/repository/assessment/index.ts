@@ -2,7 +2,6 @@ import { createAssessmentSchema } from './createAssessmentSchema'
 import { createAssessment } from './createAssessment'
 import { read } from './read'
 import { readSections } from './readSections'
-import { readTableData } from './readTableData'
 import { getSectionMetaData } from './getSectionMetaData'
 import { removeAssessmentSchema } from './removeAssessmentSchema'
 import { removeAssessment } from './removeAssessment'
@@ -11,6 +10,7 @@ import { getRegionGroups } from './getRegionGroups'
 import { getCountryStatus } from './getCountryStatus'
 import { updateCountryStatus } from './updateCountryStatus'
 import { getCreateSchemaDDL, getCreateSchemaCycleDDL } from './getCreateSchemaDDL'
+import { getSection } from './getSection'
 
 export const AssessmentRepository = {
   createAssessment,
@@ -18,7 +18,6 @@ export const AssessmentRepository = {
   read,
   readSections,
   getSectionMetaData,
-  readTableData,
   removeAssessmentSchema,
   removeAssessment,
   getCountryISOs,
@@ -27,4 +26,5 @@ export const AssessmentRepository = {
   updateCountryStatus,
   getCreateSchemaDDL,
   getCreateSchemaCycleDDL,
+  getSection,
 }

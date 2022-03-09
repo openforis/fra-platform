@@ -17,6 +17,7 @@ import Login from '@client/pages/Login'
 import Toaster from '@client/components/Toaster'
 import Header from '@client/components/Header'
 import Footer from '@client/components/Footer'
+import Geo from '@client/pages/Geo'
 // import ErrorComponent from '../../../webapp/components/error/errorComponent'
 
 import { useAppDispatch } from '@client/store'
@@ -75,6 +76,8 @@ const PageRoutes: React.FC = () => {
         />
 
         <Route path={BasePaths.Assessment.root()} component={Assessment} />
+
+        <Route path={BasePaths.Geo.root()} component={Geo} />
 
         {/* <Route */}
         {/*  path={BasePaths.admin} */}

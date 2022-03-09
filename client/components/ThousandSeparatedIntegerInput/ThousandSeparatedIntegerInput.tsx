@@ -1,3 +1,6 @@
+/* eslint-disable react/static-property-placement */
+/* eslint-disable react/no-string-refs */
+/* eslint-disable react/destructuring-assignment */
 import React from 'react'
 import * as R from 'ramda'
 import './ThousandSeparatedIntegerInput.scss'

@@ -1,5 +1,7 @@
+import { TableRepository } from '@server/repository/table'
+
 import { create } from './create'
-import { read } from './read'
+import { getOne, getOneWithCycle } from './getOne'
 import { remove } from './remove'
 import { getCountryISOs } from './getCountryISOs'
 import { getSections } from './getSections'
@@ -7,16 +9,18 @@ import { createOriginalDataPoint } from './createOriginalDataPoint'
 import { removeOriginalDataPoint } from './removeOriginalDataPoint'
 import { updateOriginalDataPoint } from './updateOriginalDataPoint'
 import { getOriginalDataPoint } from './getOriginalDataPoint'
-import { getTableData } from './getTableData'
 import { getSectionMetadata } from './getSectionMetadata'
 import { getRegionGroups } from './getRegionGroups'
 import { createCycle } from './createCycle'
 import { getCountryStatus } from './getCountryStatus'
 import { updateCountryStatus } from './updateCountryStatus'
+import { getReservedYears } from './getReservedYears'
+import { getSection } from './getSection'
 
 export const AssessmentController = {
   create,
-  read,
+  getOne,
+  getOneWithCycle,
   remove,
   getRegionGroups,
   getCountryISOs,
@@ -26,8 +30,10 @@ export const AssessmentController = {
   removeOriginalDataPoint,
   updateOriginalDataPoint,
   getOriginalDataPoint,
-  getTableData,
   createCycle,
   getCountryStatus,
   updateCountryStatus,
+  getReservedYears,
+  getSection,
+  getTable: TableRepository.getOne,
 }

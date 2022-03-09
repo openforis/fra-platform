@@ -4,7 +4,7 @@ import { assessmentParams } from '@test/integration/mock/assessment'
 
 export default (): void =>
   test('Default assessment', async () => {
-    const assessment = await AssessmentController.read({
+    const assessment = await AssessmentController.getOne({
       name: assessmentParams.props.name,
     })
 
