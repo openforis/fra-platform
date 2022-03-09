@@ -2,11 +2,15 @@ import { Request, Response } from 'express'
 import Requests from '@server/utils/requests'
 import { AssessmentController, CycleDataController } from '@server/controller'
 import { CountryIso } from '@meta/area'
+import { NodeValue } from '@meta/assessment'
 
 export const persistNodeValue = async (req: Request, res: Response) => {
   try {
-    const { variableName, value } = req.body
-    const { assessmentName, countryIso, colName, cycleName, tableName } = req.query as Record<string, string>
+    const value = <NodeValue>req.body
+    const { assessmentName, countryIso, colName, cycleName, tableName, variableName } = <Record<string, string>>(
+      req.query
+    )
+    const user = Requests.getRequestUser(req)
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({
       name: assessmentName,
@@ -20,19 +24,12 @@ export const persistNodeValue = async (req: Request, res: Response) => {
       colName,
       cycle,
       tableName,
-      user: Requests.getRequestUser(req),
+      user,
       variableName,
       value,
     })
-    // TODO Remove
-    const tableData = await CycleDataController.getTableData({
-      countryIso: countryIso as CountryIso,
-      cycle,
-      assessment,
-      tableNames: [tableName],
-    })
 
-    Requests.sendOk(res, tableData)
+    Requests.sendOk(res)
   } catch (e) {
     Requests.sendErr(res, e)
   }

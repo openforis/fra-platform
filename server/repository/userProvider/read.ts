@@ -8,7 +8,7 @@ export const read = async (
 ): Promise<UserAuthProvider<{ password: string }>> => {
   const { user, provider } = props
 
-  return client.oneOrNone<UserAuthProvider<{ password: string }>>(
+  return client.one<UserAuthProvider<{ password: string }>>(
     `
         select * from  public.users_auth_provider uap where uap.user_id = $1 and provider = $2;
     `,

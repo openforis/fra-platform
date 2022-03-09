@@ -4,8 +4,8 @@ import { UserProviderRepository } from '@server/repository'
 
 export const read = async (
   props: {
-    provider: AuthProvider,
-    user: User,
+    provider: AuthProvider
+    user: User
   },
   client: BaseProtocol = DB
 ): Promise<UserAuthProvider<{ password: string }>> => {

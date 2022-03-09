@@ -22,8 +22,7 @@ export const googleStrategyVerifyCallback = async (
     } else {
       user = await UserController.read({ user: { email } })
       if (user) {
-        const userProvider = await UserProviderController.read({ user, provider: AuthProvider.google })
-        if (!userProvider) user = null
+        await UserProviderController.read({ user, provider: AuthProvider.google })
       }
     }
 
