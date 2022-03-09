@@ -3,17 +3,26 @@ import axios from 'axios'
 
 import { ApiEndPoint } from '@common/api/endpoint'
 import { Functions } from '@core/utils'
-import { ParamsSetNodeValue, setNodeValue } from './setNodeValue'
+import { AssessmentName, NodeValue } from '@meta/assessment'
+import { CountryIso } from '@meta/area'
 
-const postNodeValueDebounced = Functions.debounce(async (params: ParamsSetNodeValue) => {
+type Params = {
+  assessmentName: AssessmentName
+  countryIso: CountryIso
+  colName: string
+  cycleName: string
+  sectionName: string
+  tableName: string
+  variableName: string
+  value: NodeValue
+}
+
+const patchNodeValue = Functions.debounce(async (params: Params) => {
   const { value, ...rest } = params
   await axios.patch(ApiEndPoint.CycleData.PersistNode.one(), value, { params: rest })
-}, 300)
+}, 250)
 
-export const updateNodeValue = createAsyncThunk<void, ParamsSetNodeValue>(
-  'section/nodeValue/update',
-  async (params, { dispatch }) => {
-    dispatch(setNodeValue(params))
-    postNodeValueDebounced(params)
-  }
-)
+export const updateNodeValue = createAsyncThunk<Params, Params>('section/nodeValue/update', async (params) => {
+  patchNodeValue(params)
+  return params
+})

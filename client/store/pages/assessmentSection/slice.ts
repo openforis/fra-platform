@@ -6,7 +6,6 @@ import { AssessmentSectionState } from './stateType'
 import { getTableSections } from './actions/getTableSections'
 import { updateNodeValue } from './actions/updateNodeValue'
 import { getTableData } from './actions/getTableData'
-import { setNodeValue } from './actions/setNodeValue'
 
 const initialState: AssessmentSectionState = {
   data: null,
@@ -33,7 +32,7 @@ export const assessmentSectionSlice = createSlice({
       state.data = { ...state.data, [countryIso]: { ...payload[countryIso], ...countryData } }
     })
 
-    builder.addCase(setNodeValue, (state, { payload }) => {
+    builder.addCase(updateNodeValue.fulfilled, (state, { payload }) => {
       const { colName, countryIso, tableName, variableName, value } = payload
       state.data = TableDatas.updateDatum({ colName, countryIso, tableName, data: state.data, variableName, value })
     })
