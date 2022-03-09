@@ -5,6 +5,11 @@ export const ApiEndPoint = {
   Init: {
     one: () => apiPath('init'),
   },
+  CycleData: {
+    PersistNode: {
+      one: () => apiPath('cycleData', 'persistNode'),
+    },
+  },
   Assessment: {
     TableData: {
       one: (

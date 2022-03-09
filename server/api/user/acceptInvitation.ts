@@ -1,7 +1,7 @@
 import { Express, Request, Response } from 'express'
 import { ApiEndPoint } from '@common/api/endpoint'
 import Requests from '@server/utils/requests'
-import { UserController } from '@server/controller'
+import { UserController } from '@server/controller/user'
 
 export const UserAcceptInvitation = {
   init: (express: Express): void => {

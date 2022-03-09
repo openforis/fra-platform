@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import Requests from '@server/utils/requests'
 import { CountryIso } from '@meta/area'
 import { CycleDataController } from '@server/controller/cycleData'
-import { AssessmentController } from '@server/controller'
+import { AssessmentController } from '@server/controller/assessment'
 
 export const getTableData = async (req: Request, res: Response) => {
   try {

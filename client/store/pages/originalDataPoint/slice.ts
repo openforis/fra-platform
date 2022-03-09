@@ -1,4 +1,5 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
+
 import { OriginalDataPointState } from './stateType'
 import { getOriginalDataPoint } from './actions/getOriginalDataPoint'
 import { pasteNationalClass } from './actions/pasteNationalClass'
@@ -6,6 +7,7 @@ import { updateNationalClass } from './actions/updateNationalClass'
 import { createOriginalDataPoint } from './actions/createOriginalDataPoint'
 import { deleteOriginalDataPoint } from './actions/deleteOriginalDataPoint'
 import { updateOriginalDataPoint } from './actions/updateOriginalDataPoint'
+import { setOriginalDataPointUpdating } from './actions/setOriginalDataPointUpdating'
 
 const initialState: OriginalDataPointState = { data: null }
 
@@ -21,10 +23,12 @@ export const originalDataPointSlice = createSlice({
     })
     builder.addCase(updateOriginalDataPoint.fulfilled, (state, { payload }) => {
       state.data = payload
-      state.updating = false
     })
     builder.addCase(updateOriginalDataPoint.pending, (state) => {
       state.updating = true
+    })
+    builder.addCase(setOriginalDataPointUpdating, (state, { payload }) => {
+      state.updating = payload
     })
   },
 })
