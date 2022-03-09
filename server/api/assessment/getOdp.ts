@@ -1,6 +1,6 @@
 import { Express, Request, Response } from 'express'
 import { ApiEndPoint } from '@common/api/endpoint'
-import { AssessmentController } from '@server/controller'
+import { AssessmentController } from '@server/controller/assessment'
 import { Requests } from '@server/utils'
 
 export const AssessmentGetOdp = {

@@ -1,8 +1,9 @@
-import { AssessmentController, UserController } from '@server/controller'
+import { AssessmentController } from '@server/controller/assessment'
 import { RoleName, User, UserStatus } from '@meta/user'
 import { Assessment } from '@meta/assessment'
 import { assessmentParams } from '@test/integration/mock/assessment'
 import { userMockTest, userMockUnknown } from '@test/integration/mock/user'
+import { UserController } from '@server/controller/user'
 
 export default (): void =>
   describe('User Invite', () => {

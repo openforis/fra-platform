@@ -1,7 +1,7 @@
 import { Express, Request, Response } from 'express'
 import { ApiEndPoint } from '@common/api/endpoint'
 import Requests from '@server/utils/requests'
-import { AssessmentController } from '@server/controller'
+import { AssessmentController } from '@server/controller/assessment'
 import { AssessmentName } from '@meta/assessment'
 
 export const AssessmentGetSectionMetadata = {

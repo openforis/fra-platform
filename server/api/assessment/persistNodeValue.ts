@@ -1,8 +1,10 @@
 import { Request, Response } from 'express'
 import Requests from '@server/utils/requests'
-import { AssessmentController, CycleDataController } from '@server/controller'
 import { CountryIso } from '@meta/area'
 import { NodeValue } from '@meta/assessment'
+
+import { CycleDataController } from '@server/controller/cycleData'
+import { AssessmentController } from '@server/controller/assessment'
 
 export const persistNodeValue = async (req: Request, res: Response) => {
   try {
