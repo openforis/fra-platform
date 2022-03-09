@@ -61,7 +61,7 @@ const DataSources: React.FC<Props> = (props) => {
                       const originalDataPointUpdate = {
                         ...originalDataPoint,
                         dataSourceReferences: Objects.isEmpty(value) ? null : value,
-                      } as OriginalDataPoint
+                      }
                       updateOriginalDataPoint(originalDataPointUpdate)
                     }}
                     disabled={printView || !canEditData}

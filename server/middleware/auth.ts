@@ -4,7 +4,7 @@ import { Authorizer, Users } from '@meta/user'
 import { AssessmentName } from '@meta/assessment'
 import { CountryIso } from '@meta/area'
 
-import { AssessmentController } from '@server/controller'
+import { AssessmentController } from '@server/controller/assessment'
 import { Requests } from '@server/utils'
 
 const _next = (allowed: boolean, next: NextFunction): void => {

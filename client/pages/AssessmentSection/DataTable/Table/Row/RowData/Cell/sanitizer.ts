@@ -1,45 +1,52 @@
-import {
-  acceptNextDecimal,
-  acceptableAsDecimal,
-  acceptNextInteger,
-  acceptableAsInteger,
-} from '@webapp/utils/numberInput'
-import { ColOptionSpec, TypeSpec } from '@webapp/sectionSpec'
+// import {
+//   acceptNextDecimal,
+//   acceptableAsDecimal,
+//   acceptNextInteger,
+//   acceptableAsInteger,
+// } from '@client/utils/numberInput'
 
-const sanitizerSelectValue = (value: string, valuePrev: string, options?: Array<ColOptionSpec>): string => {
-  const valid = Boolean(options.find((option) => option.optionName === value))
-  if (valid) {
-    return value
-  }
-  return valuePrev
-}
+// import { ColOption, ColType } from '@meta/assessment'
 
-const acceptableFnByType: Record<string, (value: string | number) => boolean> = {
-  [TypeSpec.decimal]: acceptableAsDecimal,
-  [TypeSpec.integer]: acceptableAsInteger,
-}
+// const sanitizerSelectValue = (value: string, valuePrev: string, options?: Array<ColOption>): string => {
+//   const valid = Boolean(options.find((option) => option.optionName === value))
+//   if (valid) {
+//     return value
+//   }
+//   return valuePrev
+// }
 
-const sanitizerFnByType: Record<
-  string,
-  (value: string | number, valuePrev: string | number, options?: Array<ColOptionSpec>) => string
-> = {
-  [TypeSpec.decimal]: acceptNextDecimal,
-  [TypeSpec.integer]: acceptNextInteger,
-  [TypeSpec.select]: sanitizerSelectValue,
-}
+// const acceptableFnByType: Record<string, (value: string | number) => boolean> = {
+//   [ColType.decimal]: acceptableAsDecimal,
+//   [ColType.integer]: acceptableAsInteger,
+// }
 
-export const isAcceptable = (type: TypeSpec, value: string): boolean => {
-  const acceptableFn = acceptableFnByType[type]
-  if (acceptableFn) {
-    return acceptableFn(value)
-  }
-  return true
-}
+// const sanitizerFnByType: Record<
+//   string,
+//   (value: string | number, valuePrev: string | number, options?: Array<ColOption>) => string
+// > = {
+//   [ColType.decimal]: acceptNextDecimal,
+//   [ColType.integer]: acceptNextInteger,
+//   [ColType.select]: sanitizerSelectValue,
+// }
 
-export const sanitize = (type: TypeSpec, value: string, valuePrev: string, options?: Array<ColOptionSpec>): string => {
-  const sanitizerFn = sanitizerFnByType[type]
-  if (sanitizerFn) {
-    return sanitizerFn(value, valuePrev, options)
-  }
-  return value
+// export const isAcceptable = (type: ColType, value: string): boolean => {
+//   const acceptableFn = acceptableFnByType[type]
+//   if (acceptableFn) {
+//     return acceptableFn(value)
+//   }
+//   return true
+// }
+
+// export const sanitize = (type: ColType, value: string, valuePrev: string, options?: Array<ColOption>): string => {
+//   const sanitizerFn = sanitizerFnByType[type]
+//   if (sanitizerFn) {
+//     return sanitizerFn(value, valuePrev, options)
+//   }
+//   return value
+// }
+
+// TODO Implement Sanitizer.sanitize
+
+export const Sanitizer = {
+  sanitize: (props: { value: string }): string => props.value,
 }

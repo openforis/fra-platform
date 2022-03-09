@@ -1,7 +1,8 @@
 import { Express, Request, Response } from 'express'
 import { ApiEndPoint } from '@common/api/endpoint'
 import Requests from '@server/utils/requests'
-import { AssessmentController, SettingsController } from '@server/controller'
+import { AssessmentController } from '@server/controller/assessment'
+import { SettingsController } from '@server/controller/settings'
 
 export const InitGet = {
   init: (express: Express): void => {

@@ -1,8 +1,11 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
-import { getTableSections } from '@client/store/pages/assessmentSection/actions/getTableSections'
 import { CountryIso } from '@meta/area'
-import { getTableData } from './actions/getTableData'
+import { TableDatas } from '@meta/data'
+
 import { AssessmentSectionState } from './stateType'
+import { getTableSections } from './actions/getTableSections'
+import { updateNodeValue } from './actions/updateNodeValue'
+import { getTableData } from './actions/getTableData'
 
 const initialState: AssessmentSectionState = {
   data: null,
@@ -28,6 +31,11 @@ export const assessmentSectionSlice = createSlice({
       const countryData = (state.data && state.data[countryIso]) || {}
       state.data = { ...state.data, [countryIso]: { ...payload[countryIso], ...countryData } }
     })
+
+    builder.addCase(updateNodeValue.fulfilled, (state, { payload }) => {
+      const { colName, countryIso, tableName, variableName, value } = payload
+      state.data = TableDatas.updateDatum({ colName, countryIso, tableName, data: state.data, variableName, value })
+    })
   },
 })
 
@@ -35,6 +43,7 @@ export const AssessmentSectionActions = {
   ...assessmentSectionSlice.actions,
   getTableSections,
   getTableData,
+  updateNodeValue,
 }
 
 export default assessmentSectionSlice.reducer as Reducer<AssessmentSectionState>

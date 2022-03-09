@@ -1,7 +1,7 @@
 import { Response, Request } from 'express'
 import { Requests } from '@server/utils'
 import { CountryIso } from '@core/country'
-import { AssessmentController } from '@server/controller'
+import { AssessmentController } from '@server/controller/assessment'
 
 export const getReservedYears = async (req: Request, res: Response) => {
   try {

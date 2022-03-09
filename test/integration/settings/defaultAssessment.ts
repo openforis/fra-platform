@@ -1,5 +1,5 @@
 import { AssessmentController } from '@server/controller/assessment'
-import { SettingsController } from '@server/controller'
+import { SettingsController } from '@server/controller/settings'
 import { assessmentParams } from '@test/integration/mock/assessment'
 
 export default (): void =>

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import Requests from '@server/utils/requests'
-import { AssessmentController } from '@server/controller'
+import { AssessmentController } from '@server/controller/assessment'
 
 export const createOriginalDataPoint = async (req: Request, res: Response) => {
   try {

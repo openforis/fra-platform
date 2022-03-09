@@ -3,7 +3,7 @@ import { ApiEndPoint } from '@common/api/endpoint'
 import { validEmail } from '@common/userUtils'
 import { Requests } from '@server/utils'
 import { Objects } from '@core/utils'
-import { UserController } from '@server/controller'
+import { UserController } from '@server/controller/user'
 
 export const AuthCreateResetPassword = {
   init: (express: Express): void => {
