@@ -12,6 +12,7 @@ import { useAssessmentSection } from '@client/store/assessment/hooks'
 
 // import SectionHeader from './SectionHeader'
 // import Descriptions from './Descriptions'
+import { useCanEditSection } from '@client/store/user'
 import Descriptions, { GeneralComments } from './Descriptions'
 import Title from './Title'
 import SectionHeader from './SectionHeader'
@@ -28,6 +29,8 @@ const AssessmentSection: React.FC = () => {
 
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
+
+  const canEditSection = useCanEditSection()
 
   // Update section tables' metadata on countryIso or section (url) change
   useEffect(() => {
@@ -46,9 +49,8 @@ const AssessmentSection: React.FC = () => {
 
   const { anchor, showTitle, descriptions, name: sectionName } = assessmentSection.props
 
-  const isSectionDisabled = true // TODO: useSelector(FraState.isSectionEditDisabled(sectionName))
   const panEuropean = assessmentName === AssessmentName.panEuropean
-  const disabled = panEuropean || isSectionDisabled
+  const disabled = panEuropean || !canEditSection
   const [printView, printOnlyTablesView] = [false, false] // TODO: usePrintView()
 
   return (
