@@ -5,6 +5,7 @@ import { BasePaths } from '@client/basePaths'
 import { useTranslation } from 'react-i18next'
 import { useAppDispatch } from '@client/store'
 import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
+import { useCanEditSection } from '@client/store/user'
 import NationalClasses from './components/NationalClasses'
 import OriginalData from './components/OriginalData'
 // import Comments from './components/Comments'
@@ -21,7 +22,7 @@ const OriginalDataPoint: React.FC = () => {
     useParams<{ assessmentName: string; countryIso: string; cycleName: string; odpId: string }>()
 
   // TODO: Handle canEditData
-  const canEditData = false
+  const canEditData = useCanEditSection()
 
   useEffect(() => {
     dispatch(
