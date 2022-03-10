@@ -10,7 +10,7 @@ import { BasePaths } from '@client/basePaths'
 export const createOriginalDataPoint = createAsyncThunk<
   OriginalDataPoint,
   { assessmentName: AssessmentName; cycleName: string; countryIso: CountryIso; history: RouteComponentProps['history'] }
->('originalDataPoint/post', async ({ assessmentName, cycleName, countryIso, history }) => {
+>('originalDataPoint/create', async ({ assessmentName, cycleName, countryIso, history }) => {
   const originalDataPoint = { countryIso } as OriginalDataPoint
   const { data } = await axios.post(ApiEndPoint.Assessment.OriginalDataPoint.one(assessmentName, cycleName), {
     originalDataPoint,

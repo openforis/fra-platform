@@ -24,7 +24,7 @@ const gitRevisionPlugin = config.mode === 'production' ? null : new GitRevisionP
 
 const fontCssFileName = 'woff2.css'
 
-const port = process.env.WEB_APP_PORT || 9000
+const port = process.env.WEB_APP_PORT ? process.env.WEB_APP_PORT : 9000
 
 const plugins = [
   ...(gitRevisionPlugin ? [gitRevisionPlugin] : []),

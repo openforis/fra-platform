@@ -1,8 +1,9 @@
-import { AssessmentController, UserController } from '@server/controller'
 import { Assessment, Cycle, OriginalDataPoint } from '@meta/assessment'
 import { User } from '@meta/user'
 import { assessmentParams, assessmentCycleName, originalDataPoint } from '@test/integration/mock/assessment'
 import { userMockTest } from '@test/integration/mock/user'
+import { AssessmentController } from '@server/controller/assessment'
+import { UserController } from '@server/controller/user'
 
 export default (): void =>
   describe('Original data point', () => {

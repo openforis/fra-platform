@@ -1,7 +1,8 @@
 import { Request } from 'express'
 import { Profile, VerifyFunction } from 'passport-google-oauth'
-import { UserController, UserProviderController } from '@server/controller'
 import { AuthProvider } from '@meta/user'
+import { UserController } from '@server/controller/user'
+import { UserProviderController } from '@server/controller/userProvider'
 
 export const googleStrategyVerifyCallback = async (
   req: Request,
@@ -22,8 +23,7 @@ export const googleStrategyVerifyCallback = async (
     } else {
       user = await UserController.read({ user: { email } })
       if (user) {
-        const userProvider = await UserProviderController.read({ user, provider: AuthProvider.google })
-        if (!userProvider) user = null
+        await UserProviderController.read({ user, provider: AuthProvider.google })
       }
     }
 

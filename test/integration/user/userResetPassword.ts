@@ -1,4 +1,5 @@
-import { UserController, UserProviderController } from '@server/controller'
+import { UserController } from '@server/controller/user'
+import { UserProviderController } from '@server/controller/userProvider'
 import { AuthProvider, User } from '@meta/user'
 import { userMockTest, userMockTestPassword } from '@test/integration/mock/user'
 

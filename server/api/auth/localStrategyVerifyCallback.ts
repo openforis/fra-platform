@@ -2,7 +2,8 @@ import { Objects } from '@core/utils'
 import { validEmail } from '@common/userUtils'
 import { Request } from 'express'
 import { AuthProvider } from '@meta/user/userAuth'
-import { UserController, UserProviderController } from '@server/controller'
+import { UserController } from '@server/controller/user'
+import { UserProviderController } from '@server/controller/userProvider'
 import { passwordCompare, passwordHash } from './utils/passwordUtils'
 
 export const localStrategyVerifyCallback = async (req: Request, email: string, password: string, done: any) => {

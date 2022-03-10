@@ -4,12 +4,12 @@ import { Authorizer, Users } from '@meta/user'
 import { AssessmentName } from '@meta/assessment'
 import { CountryIso } from '@meta/area'
 
-import { AssessmentController } from '@server/controller'
+import { AssessmentController } from '@server/controller/assessment'
 import { Requests } from '@server/utils'
 
 const _next = (allowed: boolean, next: NextFunction): void => {
-  if (allowed) next()
-  next(new Error(`userNotAuthorized`))
+  if (allowed) return next()
+  return next(new Error(`userNotAuthorized`))
 }
 
 export const requireEdit = async (req: Request, _res: Response, next: NextFunction) => {
