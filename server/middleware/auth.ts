@@ -8,8 +8,8 @@ import { AssessmentController } from '@server/controller/assessment'
 import { Requests } from '@server/utils'
 
 const _next = (allowed: boolean, next: NextFunction): void => {
-  if (allowed) next()
-  next(new Error(`userNotAuthorized`))
+  if (allowed) return next()
+  return next(new Error(`userNotAuthorized`))
 }
 
 export const requireEdit = async (req: Request, _res: Response, next: NextFunction) => {
