@@ -3,6 +3,7 @@ import { CountryIso } from '@meta/area'
 import { Authorizer, User, Users } from '@meta/user'
 import { useAppSelector } from '@client/store'
 import { useAssessmentCountryStatus, useAssessmentSection, useCountries } from '@client/store/assessment'
+import { useIsDataLocked } from '@client/store/ui/dataLock'
 
 export const useUser = (): User | undefined => useAppSelector((state) => state.user)
 
@@ -19,11 +20,15 @@ export const useCanEditSection = () => {
   const section = useAssessmentSection()
   const countryIso = useCountryIso()
   const countryStatus = useAssessmentCountryStatus()
+  const isDataLocked = useIsDataLocked()
 
-  return Authorizer.canEdit({
-    section,
-    user,
-    countryIso,
-    countryStatus,
-  })
+  return (
+    !isDataLocked &&
+    Authorizer.canEdit({
+      section,
+      user,
+      countryIso,
+      countryStatus,
+    })
+  )
 }
