@@ -12,7 +12,6 @@ import { useAssessmentSection } from '@client/store/assessment/hooks'
 
 // import SectionHeader from './SectionHeader'
 // import Descriptions from './Descriptions'
-import { useIsDataLocked } from '@client/store/ui/dataLock'
 import { useCanEditSection } from '@client/store/user'
 import Descriptions, { GeneralComments } from './Descriptions'
 import Title from './Title'
@@ -31,7 +30,6 @@ const AssessmentSection: React.FC = () => {
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
 
-  const isDataLocked = useIsDataLocked()
   const canEditSection = useCanEditSection()
 
   // Update section tables' metadata on countryIso or section (url) change
@@ -52,7 +50,7 @@ const AssessmentSection: React.FC = () => {
   const { anchor, showTitle, descriptions, name: sectionName } = assessmentSection.props
 
   const panEuropean = assessmentName === AssessmentName.panEuropean
-  const disabled = isDataLocked || panEuropean || !canEditSection
+  const disabled = panEuropean || !canEditSection
   const [printView, printOnlyTablesView] = [false, false] // TODO: usePrintView()
 
   return (
