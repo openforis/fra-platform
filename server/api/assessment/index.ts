@@ -18,7 +18,7 @@ export const AssessmentApi = {
   init: (express: Express): void => {
     // CountryStatus
     express.get(ApiEndPoint.Assessment.countryStatus(), AuthMiddleware.requireView, getCountryStatus)
-    express.post(ApiEndPoint.Assessment.countryStatus(), postCountryStatus)
+    express.post(ApiEndPoint.Assessment.countryStatus(), AuthMiddleware.requireEdit, postCountryStatus)
 
     // OriginalDataPoint
     express.get(
@@ -27,17 +27,17 @@ export const AssessmentApi = {
       getReservedYears
     )
 
-    express.post(ApiEndPoint.Assessment.OriginalDataPoint.one(), createOriginalDataPoint)
-    express.delete(ApiEndPoint.Assessment.OriginalDataPoint.one(), deleteOriginalDataPoint)
+    express.post(ApiEndPoint.Assessment.OriginalDataPoint.one(), AuthMiddleware.requireEdit, createOriginalDataPoint)
+    express.delete(ApiEndPoint.Assessment.OriginalDataPoint.one(), AuthMiddleware.requireEdit, deleteOriginalDataPoint)
 
     express.get(ApiEndPoint.Assessment.OriginalDataPoint.one(), AuthMiddleware.requireView, getOriginalDataPoint)
-    express.put(ApiEndPoint.Assessment.OriginalDataPoint.one(), updateOriginalDataPoint)
+    express.put(ApiEndPoint.Assessment.OriginalDataPoint.one(), AuthMiddleware.requireEdit, updateOriginalDataPoint)
 
     // TableData
     express.get(ApiEndPoint.Assessment.TableData.one(), AuthMiddleware.requireView, getTableData)
 
     express.get(ApiEndPoint.Assessment.TableData.one(), AuthMiddleware.requireView, getTableData)
-    express.patch(ApiEndPoint.CycleData.PersistNode.one(), persistNodeValue)
+    express.patch(ApiEndPoint.CycleData.PersistNode.one(), AuthMiddleware.requireEdit, persistNodeValue)
 
     // Sections
     express.get(ApiEndPoint.Assessment.sections(), AuthMiddleware.requireView, getSections)
