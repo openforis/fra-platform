@@ -1,9 +1,10 @@
 import { Express } from 'express'
 
-import { DefinitionGet } from './get'
+import { ApiEndPoint } from '@common/api/endpoint'
+import { getDefition } from './get'
 
 export const DefinitionApi = {
   init: (express: Express): void => {
-    DefinitionGet.init(express)
+    express.get(ApiEndPoint._Definitions.get(), getDefition)
   },
 }

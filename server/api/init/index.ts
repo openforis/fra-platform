@@ -1,8 +1,9 @@
 import { Express } from 'express'
-import { InitGet } from '@server/api/init/init'
+import { init } from '@server/api/init/init'
+import { ApiEndPoint } from '@common/api/endpoint'
 
 export const InitApi = {
   init: (express: Express): void => {
-    InitGet.init(express)
+    express.get(ApiEndPoint.Init.one(), init)
   },
 }
