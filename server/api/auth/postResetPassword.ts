@@ -2,7 +2,7 @@ import { Response, Request } from 'express'
 import { validEmail } from '@common/userUtils'
 import { Requests } from '@server/utils'
 import { Objects } from '@core/utils'
-import { UserController } from '@server/controller'
+import { UserController } from '@server/controller/user'
 
 export const postResetPassword = async (req: Request, res: Response) => {
   try {

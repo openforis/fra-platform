@@ -3,7 +3,7 @@ import { validPassword } from '@common/userUtils'
 import { Requests } from '@server/utils'
 import { Objects } from '@core/utils'
 import { passwordHash } from '@server/api/auth/utils/passwordUtils'
-import { UserController } from '@server/controller'
+import { UserController } from '@server/controller/user'
 
 export const postChangePassword = async (req: Request, res: Response) => {
   try {

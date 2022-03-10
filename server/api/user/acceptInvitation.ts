@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import Requests from '@server/utils/requests'
-import { UserController } from '@server/controller'
+import { UserController } from '@server/controller/user'
 
 export const getAcceptInvitation = async (req: Request, res: Response) => {
   const { uuid } = req.params

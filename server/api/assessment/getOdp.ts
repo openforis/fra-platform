@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { AssessmentController } from '@server/controller'
+import { AssessmentController } from '@server/controller/assessment'
 import { Requests } from '@server/utils'
 
 export const getOriginalDataPoint = async (req: Request, res: Response) => {

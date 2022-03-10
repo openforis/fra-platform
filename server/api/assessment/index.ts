@@ -7,6 +7,7 @@ import { getTableData } from './getTableData'
 import { getSectionMetadata } from './getSectionMetadata'
 import { postCountryStatus } from './postCountryStatus'
 
+import { persistNodeValue } from './persistNodeValue'
 import { getReservedYears } from './getReservedYears'
 import { createOriginalDataPoint } from './createOriginalDataPoint'
 import { deleteOriginalDataPoint } from './deleteOriginalDataPoint'
@@ -28,6 +29,7 @@ export const AssessmentApi = {
     express.put(ApiEndPoint.Assessment.OriginalDataPoint.one(), updateOriginalDataPoint)
 
     // TableData
-    // TODO: express.put(ApiEndPoint.Assessment.TableData.one(), updateTableData)
+    express.get(ApiEndPoint.Assessment.TableData.one(), getTableData)
+    express.patch(ApiEndPoint.CycleData.PersistNode.one(), persistNodeValue)
   },
 }
