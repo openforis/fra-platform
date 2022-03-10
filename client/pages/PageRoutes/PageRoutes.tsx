@@ -3,7 +3,7 @@ import '@client/components/CountrySelect/countrySelect.scss'
 import '@client/components/CountrySelect/CountryList/countryList.scss'
 
 import React, { useEffect } from 'react'
-import { /* Redirect, */ Route, /* RouteComponentProps, */ Switch } from 'react-router-dom'
+import { /* Redirect, */ Route, /* RouteComponentProps, */ Switch, useRouteMatch } from 'react-router-dom'
 
 // import { RegionCode } from '../../../core/country'
 // import { FRA, PanEuropean } from '../../../core/assessment'
@@ -35,6 +35,7 @@ const PageRoutes: React.FC = () => {
   const dispatch = useAppDispatch()
   const assessmentLoaded = useAssessment()
   const { i18n } = useTranslation()
+  const shouldRenderCountrySelect = !useRouteMatch([BasePaths.Login.root()])
 
   useEffect(() => {
     // TODO: Add user.language support
@@ -54,12 +55,8 @@ const PageRoutes: React.FC = () => {
     <>
       <Toaster />
       <Header />
-      {/*
-        Render CountrySelect if path matches '/' or '/assessment*'
-      */}
-      <Route exact path={[BasePaths.Root(), BasePaths.Assessment.root()]}>
-        <CountrySelect />
-      </Route>
+
+      {shouldRenderCountrySelect && <CountrySelect />}
 
       {/* <Route */}
       {/*  path={BasePaths.assessmentPrint} */}
