@@ -1,4 +1,5 @@
 import { CountryIso } from '@meta/area'
+
 import { Table, Row, Col, NodeValue } from '@meta/assessment'
 import { TableData } from './tableData'
 
