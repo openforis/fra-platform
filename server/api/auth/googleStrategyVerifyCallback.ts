@@ -30,7 +30,7 @@ export const googleStrategyVerifyCallback = async (
       }
       user = await UserController.acceptInvitation({ user: invitedUser, userRole })
     } else {
-      user = await UserController.read({ user: { email } })
+      user = await UserController.getOne({ user: { email }, emailGoogle: email })
       if (user) {
         await UserProviderController.read({ user, provider: AuthProvider.google })
       }
