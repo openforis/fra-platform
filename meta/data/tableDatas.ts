@@ -1,6 +1,7 @@
 import { CountryIso } from '@meta/area'
 
 import { Table, Row, Col, NodeValue } from '@meta/assessment'
+import { Objects } from '@core/utils'
 import { TableData } from './tableData'
 
 const getTableData = (props: { data: TableData; countryIso: CountryIso; table: Table }) => {
@@ -30,7 +31,6 @@ const getDatum = (props: { data: TableData; countryIso: CountryIso; table: Table
   return getNodeValue({ col, countryIso, data, row, table })?.raw
 }
 
-// TODO: make this smarter
 const updateDatum = (props: {
   data: TableData
   countryIso: CountryIso
@@ -41,10 +41,10 @@ const updateDatum = (props: {
 }): TableData => {
   const { data, countryIso, tableName, variableName, colName, value } = props
   if (!data?.[countryIso]?.[tableName]?.[variableName]?.[colName]) return data
-  const newData = {
-    ...data,
-  }
+  const newData = Objects.cloneDeep(data)
   newData[countryIso][tableName][variableName][colName] = value
+
+  console.log(newData[countryIso][tableName][variableName][colName])
   return newData
 }
 

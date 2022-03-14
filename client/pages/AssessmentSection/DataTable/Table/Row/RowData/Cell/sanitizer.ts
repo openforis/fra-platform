@@ -49,4 +49,5 @@
 
 export const Sanitizer = {
   sanitize: (props: { value: string }): string => props.value,
+  isAcceptable: () => true,
 }
