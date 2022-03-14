@@ -19,6 +19,15 @@ export const googleStrategyVerifyCallback = async (
     const invitationUuid = req.query.state as string
     if (invitationUuid) {
       const { user: invitedUser, userRole } = await UserController.readByInvitation({ invitationUuid })
+      if (invitedUser && invitedUser.status !== 'active') {
+        const provider = {
+          provider: AuthProvider.google,
+          props: {
+            email,
+          },
+        }
+        await UserProviderController.create({ user: invitedUser, provider })
+      }
       user = await UserController.acceptInvitation({ user: invitedUser, userRole })
     } else {
       user = await UserController.read({ user: { email } })
