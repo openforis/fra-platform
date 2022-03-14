@@ -1,6 +1,7 @@
 import { DB } from '@server/db'
-import { AssessmentController, UserController } from '@server/controller'
+import { AssessmentController } from '@server/controller/assessment'
 import { CycleDataController } from '@server/controller/cycleData'
+import { UserController } from '@server/controller/user'
 
 afterAll(async () => {
   await DB.$pool.end()
@@ -22,6 +23,6 @@ describe('Persist value test', () => {
       value: { raw: '12345.67654326543' },
     })
 
-    expect(user.email.toLowerCase()).toBe('cosimo.togna@fao.org')
+    // expect(user.email.toLowerCase()).toBe('something')
   })
 })
