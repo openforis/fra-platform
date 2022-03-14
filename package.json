@@ -6,7 +6,7 @@
     "yarn": ">=1.16.0"
   },
   "scripts": {
-    "migrate-fra": "run-s migrate-fra:migration migrate-fra:post-migration",
+    "migrate-fra": "run-s migrate-fra:migration",
     "migrate-fra:migration": "ts-node tools/dataMigration/index.ts",
     "migrate-fra:post-migration": "yarn jest --no-cache --detectOpenHandles --setupFiles dotenv/config --config test/dataMigration/jest.config.js",
     "build": "yarn build:client && yarn build:server && yarn build:copy",
