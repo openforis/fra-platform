@@ -21,55 +21,36 @@ type Props = {
 export const getTableData = (props: Props, client: BaseProtocol = DB): Promise<TableData> => {
   const { assessment, cycle, countryISOs, tables } = props
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const tableName = Object.keys(tables)[0]
 
   return client.one<TableData>(
     `
-        with data as (
-            ${Object.entries(tables).map(([tableName, tableProps]) => {
-              return `(
-                select ${
-                  tableProps.columns
-                    ? `
-                    d.country_iso,
-                    '${tableName}'::text as table_name,
-                    d.variable_name,
-                    ${tableProps.columns.map((col) => `d."${col}"`).join(`,
-                    `)}
-                    `
-                    : `d.*, '${tableName}'::text as table_name`
-                }
-                from ${schemaCycle}.${tableName} as d
-                where country_iso in ($1:csv)
-                ${
-                  tableProps.variables
-                    ? ` and variable_name in (${tableProps.variables.map((v) => `'${v}'`).join(',')})`
-                    : ''
-                }
-                order by d.country_iso
-              )`
-            }).join(`
-            union
-            `)}
+        with agg1 as (
+            select e.country_iso,
+                   '${tableName}' as table_name,
+                   e.col_name,
+                   jsonb_object_agg(e.variable_name, e.value) as data
+            from ${schemaCycle}.${tableName} e
+            where e.country_iso in ($1:csv)
+                  -- TODO: ADD where condition for variable  and columns
+            group by 1, 2, 3
+            -- TODO: Add union for multiple tables
         ),
-             agg1 as (
-                 select d.country_iso,
-                        d.table_name,
-                        jsonb_object_agg(d.variable_name,
-                                         to_jsonb(d.*) - 'country_iso' - 'variable_name' - 'table_name') as data
-                 from data as d
-                 group by 1, 2
-                 order by 1, 2
-             )
-                ,
              agg2 as (
-                 select d.country_iso,
-                        jsonb_object_agg(d.table_name, to_jsonb(d.data) - 'table_name') as data
-                 from agg1 as d
+                 select a.country_iso,
+                        a.table_name,
+                        jsonb_object_agg(a.col_name, a.data) as data
+                 from agg1 a
+                 group by 1, 2
+             ),
+             agg3 as (
+                 select a.country_iso,
+                        jsonb_object_agg(a.table_name, a.data) as data
+                 from agg2 a
                  group by 1
-                 order by 1
              )
-        select jsonb_object_agg(d.country_iso, d.data) as data
-        from agg2 d
+        select jsonb_object_agg(a.country_iso, a.data) as data
+        from agg3 a;
     `,
     [countryISOs]
   )
