@@ -2,7 +2,9 @@ import * as pgPromise from 'pg-promise'
 import { ITask } from 'pg-promise'
 
 import { Objects } from '../../../core/utils/objects'
-import { Assessment, Table } from '../../../meta/assessment'
+import { Assessment } from '../../../meta/assessment/assessment'
+import { Table } from '../../../meta/assessment/table'
+
 import { DBNames } from '../_DBNames'
 import { _getNodeInserts } from './_getNodeInserts'
 import { getCreateViewDDL } from './_createDataViews'
@@ -14,11 +16,16 @@ export const migrateTablesData = async (props: { assessment: Assessment }, clien
   const { assessment } = props
   const schema = DBNames.getAssessmentSchema(assessment.props.name)
 
-  const countryISOs = await client.map<string>(`select * from ${schema}.country`, [], (o) => o.country_iso)
+  const countryISOs = await client.map<string>(
+    `select *
+                                                from ${schema}.country`,
+    [],
+    (o) => o.country_iso
+  )
   const tables = await client.map<Table>(
     `select *
-       from ${schema}.table
-       order by id`,
+     from ${schema}.table
+     order by id`,
     [],
     // @ts-ignore
     Objects.camelize

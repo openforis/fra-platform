@@ -1,5 +1,8 @@
 import { ITask } from 'pg-promise'
-import { Assessment, RowType, Table } from '../../../meta/assessment'
+import { Assessment } from '../../../meta/assessment/assessment'
+import { Table } from '../../../meta/assessment/table'
+import { RowType } from '../../../meta/assessment/row'
+
 import { DBNames } from '../_DBNames'
 import { getColIndexes, getCols, getRows } from './_repos'
 

@@ -1,3 +1,5 @@
+import { CountryIso } from '@meta/area'
+
 export interface NodeValue {
   raw: string | null
   estimated?: boolean
@@ -5,8 +7,9 @@ export interface NodeValue {
 }
 
 export interface Node {
-  colId: number
-  rowId: number
-  uuid: string
+  colUuid: string
+  countryIso: CountryIso
+  rowUuid: string
   value: NodeValue
+  uuid: string
 }

@@ -1,6 +1,10 @@
 import { ITask } from 'pg-promise'
 
-import { Assessment, Col, NodeValue, RowType, Table } from '../../../meta/assessment'
+import { Assessment } from '../../../meta/assessment/assessment'
+import { Table } from '../../../meta/assessment/table'
+import { RowType } from '../../../meta/assessment/row'
+import { Col } from '../../../meta/assessment/col'
+import { NodeValue } from '../../../meta/assessment/node'
 
 import * as sqlCreator from '../dataTable/dataTableSqlCreator'
 import { DBNames } from '../_DBNames'

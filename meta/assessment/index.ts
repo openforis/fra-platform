@@ -1,6 +1,7 @@
 export { ActivityLogMessage } from './activityLog'
 export { AssessmentName } from './assessmentName'
 export { ColType } from './col'
+export { Cols } from './cols'
 export { RowType } from './row'
 export { Unit } from './unit'
 export { AssessmentStatus } from './countryStatus'

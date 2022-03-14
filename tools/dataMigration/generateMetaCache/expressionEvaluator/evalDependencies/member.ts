@@ -1,6 +1,6 @@
 import { ExpressionNodeEvaluator, MemberExpression } from '@arena/core'
 import { Context } from './context'
-import { VariableCache } from '../../../../../meta/assessment'
+import { VariableCache } from '../../../../../meta/assessment/assessmentMetaCache'
 
 export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpression> {
   evaluate(expressionNode: MemberExpression): any {

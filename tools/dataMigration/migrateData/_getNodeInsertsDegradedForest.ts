@@ -1,6 +1,9 @@
 import { ITask } from 'pg-promise'
 
-import { Assessment, Col, RowType, Table } from '../../../meta/assessment'
+import { Assessment } from '../../../meta/assessment/assessment'
+import { Table } from '../../../meta/assessment/table'
+import { RowType } from '../../../meta/assessment/row'
+import { Col } from '../../../meta/assessment/col'
 
 import { getMapping } from '../dataTable/tableMappings'
 import * as sqlCreator from '../dataTable/dataTableSqlCreator'
