@@ -21,7 +21,7 @@ export const invite = async (
   const schemaName = Schemas.getName(assessment)
 
   return client.tx(async (t) => {
-    let userToInvite = await UserRepository.read({ user: { email } }, client)
+    let userToInvite = await UserRepository.getOne({ user: { email } }, client)
     if (!userToInvite) {
       userToInvite = await UserRepository.create({ user: { email, name: '' } })
     }

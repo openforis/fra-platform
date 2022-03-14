@@ -11,7 +11,7 @@ export const postResetPassword = async (req: Request, res: Response) => {
     if (Objects.isEmpty(email?.trim())) return Requests.send400(res, 'login.emptyEmail')
     if (!validEmail({ email })) return Requests.send400(res, 'login.invalidEmail')
 
-    const user = await UserController.read({ user: { email } })
+    const user = await UserController.getOne({ user: { email } })
     if (!user) return Requests.send400(res, 'login.noMatchingEmail')
 
     const url = Requests.serverUrl(req)

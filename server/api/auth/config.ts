@@ -41,7 +41,7 @@ export const AuthConfig = {
     passport.serializeUser((user: User, done) => done(null, user.id))
 
     passport.deserializeUser((id: number, done) =>
-      UserRepository.read({ user: { id } }).then((user: User) => done(null, user))
+      UserRepository.getOne({ user: { id } }).then((user: User) => done(null, user))
     )
   },
 }

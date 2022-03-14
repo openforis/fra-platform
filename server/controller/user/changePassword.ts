@@ -15,7 +15,7 @@ export const changePassword = async (
   return client.tx(async (t) => {
     const userResetPassword = await UserResetPasswordRepository.read({ uuid: resetPasswordUuid })
     if (!userResetPassword?.active) return null
-    const user = await UserRepository.read({ user: { id: userResetPassword.userId } })
+    const user = await UserRepository.getOne({ user: { id: userResetPassword.userId } })
     if (user.email !== email) return null
     const userAuthProvider = await UserProviderRepository.update({ user: { id: userResetPassword.userId }, password })
     if (!userAuthProvider) return null

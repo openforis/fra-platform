@@ -1,6 +1,6 @@
 import { create } from './create'
 import { update } from './update'
-import { read } from './read'
+import { getOne } from './getOne'
 import { remove } from './remove'
 import { invite } from './invite'
 import { acceptInvitation } from './acceptInvitation'
@@ -11,7 +11,7 @@ import { changePassword } from './changePassword'
 export const UserController = {
   create,
   update,
-  read,
+  getOne,
   remove,
   invite,
   acceptInvitation,

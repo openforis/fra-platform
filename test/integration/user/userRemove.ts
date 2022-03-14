@@ -3,7 +3,7 @@ import { userMockTest } from '@test/integration/mock/user'
 
 export default () =>
   test('Expect user to be removed', async () => {
-    const user = await UserController.read({
+    const user = await UserController.getOne({
       user: userMockTest,
     })
 

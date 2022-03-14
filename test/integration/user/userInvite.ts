@@ -12,7 +12,7 @@ export default (): void =>
 
     beforeAll(async () => {
       assessment = await AssessmentController.getOne({ name: assessmentParams.props.name })
-      user = await UserController.read({ user: { email: userMockTest.email } })
+      user = await UserController.getOne({ user: { email: userMockTest.email } })
     })
 
     it('Invite new user as Collaborator', async () => {
@@ -77,7 +77,7 @@ export default (): void =>
     })
 
     it('User accept invitation as National Correspondant', async () => {
-      let invitedUser = await UserController.read({ user: { email: userMockUnknown.email } })
+      let invitedUser = await UserController.getOne({ user: { email: userMockUnknown.email } })
       const userRole = invitedUser.roles.find(
         (role) => role.countryIso === 'AFG' && role.role === RoleName.NATIONAL_CORRESPONDENT
       )

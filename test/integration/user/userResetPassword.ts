@@ -11,7 +11,7 @@ export default (): void =>
     let resetPasswordUuid: string
 
     beforeAll(async () => {
-      user = await UserController.read({ user: { email: userMockTest.email } })
+      user = await UserController.getOne({ user: { email: userMockTest.email } })
     })
 
     it('Send change password request', async () => {
