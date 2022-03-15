@@ -18,39 +18,46 @@ type Props = {
   tables: TablesCondition
 }
 
+const asQueryStringArray = (arr: any[]) => `(${arr.map((v) => `'${v}'`).join(',')})`
+
 export const getTableData = (props: Props, client: BaseProtocol = DB): Promise<TableData> => {
   const { assessment, cycle, countryISOs, tables } = props
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
-  const tableName = Object.keys(tables)[0]
 
   return client.one<TableData>(
     `
-        with agg1 as (
-            select e.country_iso,
-                   '${tableName}' as table_name,
-                   e.col_name,
-                   jsonb_object_agg(e.variable_name, e.value) as data
-            from ${schemaCycle}.${tableName} e
-            where e.country_iso in ($1:csv)
-                  -- TODO: ADD where condition for variable  and columns
-            group by 1, 2, 3
-            -- TODO: Add union for multiple tables
-        ),
-             agg2 as (
-                 select a.country_iso,
-                        a.table_name,
-                        jsonb_object_agg(a.col_name, a.data) as data
-                 from agg1 a
-                 group by 1, 2
-             ),
-             agg3 as (
-                 select a.country_iso,
-                        jsonb_object_agg(a.table_name, a.data) as data
-                 from agg2 a
-                 group by 1
-             )
-        select jsonb_object_agg(a.country_iso, a.data) as data
-        from agg3 a;
+      with agg1 as (
+          ${Object.entries(tables).map(([tableName, tableProps]) => {
+            return `(
+               select e.country_iso,
+                 '${tableName}' as table_name,
+                 e.col_name,
+                 jsonb_object_agg(e.variable_name, e.value) as data
+          from ${schemaCycle}.${tableName} e
+          where e.country_iso in ($1:csv)
+              ${tableProps?.columns ? `and e.col_name in ${asQueryStringArray(tableProps.columns)}` : ''}
+              ${tableProps?.variables ? `and e.variable_name in ${asQueryStringArray(tableProps.variables)}` : ''}
+          group by 1, 2, 3
+            )`
+          }).join(`
+          union
+          `)}
+      ),
+       agg2 as (
+           select a.country_iso,
+                  a.table_name,
+                  jsonb_object_agg(a.col_name, a.data) as data
+           from agg1 a
+           group by 1, 2
+       ),
+       agg3 as (
+           select a.country_iso,
+                  jsonb_object_agg(a.table_name, a.data) as data
+           from agg2 a
+           group by 1
+       )
+  select jsonb_object_agg(a.country_iso, a.data) as data
+  from agg3 a;
     `,
     [countryISOs]
   )
