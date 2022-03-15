@@ -1,6 +1,6 @@
-import { TableSection } from '../../meta/assessment/tableSection'
-import { Table } from '../../meta/assessment/table'
-import { TableSpec } from '../../webapp/sectionSpec'
+import { TableSection } from '../../../meta/assessment/tableSection'
+import { Table } from '../../../meta/assessment/table'
+import { TableSpec } from '../../../webapp/sectionSpec'
 
 export const getTable = (props: { cycles: Array<string>; tableSpec: TableSpec; tableSection: TableSection }): Table => {
   const { cycles, tableSpec, tableSection } = props

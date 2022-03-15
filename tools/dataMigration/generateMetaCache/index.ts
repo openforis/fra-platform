@@ -1,9 +1,10 @@
-import { Assessment, AssessmentMetaCache, Row } from '../../../meta/assessment'
+import { Assessment } from '../../../meta/assessment/assessment'
+import { VariablesByTableCache, AssessmentMetaCache } from '../../../meta/assessment/assessmentMetaCache'
+import { Row } from '../../../meta/assessment/row'
 import { BaseProtocol } from '../../../server/db'
 import { DBNames } from '../_DBNames'
 import { Objects } from '../../../core/utils'
 import { ExpressionEvaluator } from './expressionEvaluator'
-import { VariablesByTableCache } from '../../../meta/assessment/assessmentMetaCache'
 
 type Props = {
   assessment: Assessment

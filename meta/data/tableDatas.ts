@@ -22,7 +22,7 @@ const getNodeValue = (props: {
   if (!colName) return null
   // const rowName = Objects.camelize(row.props.variableName)
   const { variableName } = row.props
-  return data[countryIso][table.props.name]?.[variableName]?.[colName]
+  return data[countryIso][table.props.name]?.[colName]?.[variableName]
 }
 
 const getDatum = (props: { data: TableData; countryIso: CountryIso; table: Table; row: Row; col: Col }) => {
@@ -44,7 +44,7 @@ const updateDatum = (props: {
   const newData = {
     ...data,
   }
-  newData[countryIso][tableName][variableName][colName] = value
+  newData[countryIso][tableName][colName][variableName] = value
   return newData
 }
 

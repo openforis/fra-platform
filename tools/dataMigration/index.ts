@@ -4,7 +4,8 @@ import { config } from 'dotenv'
 import { Assessment as AssessmentLegacy } from '../../core/assessment/assessment'
 import { FRA } from '../../core/assessment'
 
-import { Assessment, Cycle } from '../../meta/assessment'
+import { Assessment } from '../../meta/assessment/assessment'
+import { Cycle } from '../../meta/assessment/cycle'
 import { SectionSpec } from '../../webapp/sectionSpec'
 import { BaseProtocol, DB } from '../../server/db'
 import { getCreateSchemaCycleDDL, getCreateSchemaDDL } from '../../server/repository/assessment/getCreateSchemaDDL'
@@ -67,8 +68,8 @@ export const migrate = async (props: {
     // insert assessment
     const assessment = await client.one<Assessment>(
       `insert into assessment (props)
-     values ($1::jsonb)
-     returning *;`,
+       values ($1::jsonb)
+       returning *;`,
       [JSON.stringify({ name: assessmentName })]
     )
 

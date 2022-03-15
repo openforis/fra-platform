@@ -1,5 +1,5 @@
-import { SectionSpec } from '../../webapp/sectionSpec'
-import { Section, SubSection } from '../../meta/assessment/section'
+import { SectionSpec } from '../../../webapp/sectionSpec'
+import { Section, SubSection } from '../../../meta/assessment/section'
 
 export const getSection = (props: { cycles: Array<string>; index: number; labelKey: string }): Section => {
   const { cycles, index, labelKey } = props
