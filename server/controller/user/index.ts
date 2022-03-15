@@ -1,6 +1,6 @@
+import { UserRepository } from '@server/repository'
 import { create } from './create'
 import { update } from './update'
-import { getOne } from './getOne'
 import { remove } from './remove'
 import { invite } from './invite'
 import { acceptInvitation } from './acceptInvitation'
@@ -11,7 +11,7 @@ import { changePassword } from './changePassword'
 export const UserController = {
   create,
   update,
-  getOne,
+  getOne: UserRepository.getOne,
   remove,
   invite,
   acceptInvitation,
