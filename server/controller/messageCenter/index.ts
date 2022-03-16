@@ -1,5 +1,7 @@
-import { create } from './create'
+import { addMessage } from './addMessage'
+import { getTopic } from './getTopic'
 
 export const MessageCenterController = {
-  create,
+  addMessage,
+  getTopic,
 }

@@ -2,7 +2,7 @@ import { BaseProtocol, DB } from '@server/db'
 import { Objects } from '@core/utils'
 import { CountryIso } from '@meta/area'
 import { Assessment, Cycle } from '@meta/assessment'
-import { MessageTopic, MessageTopicStatus } from '@meta/topic/topic'
+import { MessageTopic, MessageTopicStatus } from '@meta/messageCenter'
 
 export const create = async (
   props: { countryIso: CountryIso; assessment: Assessment; cycle: Cycle; key: string; status: MessageTopicStatus },
