@@ -1,59 +1,33 @@
-import { ITask } from 'pg-promise'
 import { Assessment } from '../../../meta/assessment/assessment'
 import { Table } from '../../../meta/assessment/table'
-import { RowType } from '../../../meta/assessment/row'
 
 import { DBNames } from '../_DBNames'
-import { getColIndexes, getCols, getRows } from './_repos'
 
-export const getCreateViewDDL = async (
-  props: {
-    assessment: Assessment
-    table: Table
-  },
-  client: ITask<any>
-): Promise<string> => {
+export const getCreateViewDDL = async (props: { assessment: Assessment; table: Table }): Promise<string> => {
   const { assessment, table } = props
 
   const schema = DBNames.getAssessmentSchema(assessment.props.name)
-  const rows = await getRows(client, schema, table)
-  const cols = await getCols(client, schema, table)
-  const rowsData = rows.filter((row) => [RowType.data, RowType.calculated].includes(row.props.type))
-  const colIndexes = getColIndexes(rowsData, cols)
   const schemaCycle = DBNames.getCycleSchema(assessment.props.name, assessment.cycles[0].name)
 
-  const categorySeparator = '@@@@@@@@@@'
-  const getColName = (colIdx: number): string => {
-    const col = cols.find((c) => c.props.index === colIdx)
-    if (!col) {
-      throw new Error(`Column not found. Table ${table.props.name}. Col idx ${colIdx}`)
-    }
-    // return `_${col?.props?.colName ?? ''}_${colIdx}`
-    return `"${col.props.colName ?? ''}"`
-  }
-
   const query = `
-      create view ${schemaCycle}.${table.props.name} as
-      select (regexp_split_to_array(t.cat, '${categorySeparator}'))[1]::varchar(3) as country_iso,
-             (regexp_split_to_array(t.cat, '${categorySeparator}'))[2]::varchar    as variable_name,
-             ${colIndexes.map((colIdx) => `t.${getColName(colIdx)}`).join(', ')}
-      from crosstab(
-              $$
-          select
-              (n.country_iso || '${categorySeparator}' || (r.props->>'variableName'))::varchar as cat,
-              c.props->>'index' as col_index,
-              n.value as value
-          from
-              ${schemaCycle}.node n
-          left join ${schema}.row r
-              on r.uuid = n.row_uuid 
-          left join assessment_fra.col c
-              on c.uuid = n.col_uuid        
-          where
-              n.row_uuid in (${rowsData.map((r) => `'${r.uuid}'`).join(',')})
-          order by 1, 2
-          $$
-         ) as t (cat varchar, ${colIndexes.map((colIdx) => `${getColName(colIdx)} jsonb`).join(', ')})
+  create or replace view ${schemaCycle}.${table.props.name} as
+  (
+  select n.country_iso,
+         r.props ->> 'variableName' as variable_name,
+         c.props ->> 'colName'      as col_name,
+         n.value
+  from ${schemaCycle}.node n
+           left join ${schema}.row r
+                     on r.uuid = n.row_uuid
+           left join ${schema}.col c
+                     on c.uuid = n.col_uuid
+           left join ${schema}."table" t
+                     on t.id = r.table_id
+           where t.props ->> 'name' = '${table.props.name}'
+             and r.props ->> 'type' in ('data', 'calculated')
+           order by 1, 2, 3
+    );
+    
   `
   return query
 }

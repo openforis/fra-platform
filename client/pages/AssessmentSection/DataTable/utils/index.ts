@@ -11,5 +11,5 @@ const handleHeader = (header: string) => {
 export const getHeaders = (data: TableData, countryIso: CountryIso, table: Table): string[] => {
   const dataTable = TableDatas.getTableData({ data, countryIso, table })
   if (!dataTable) return []
-  return Object.keys(Object.values(dataTable)[0]).map(handleHeader)
+  return Object.keys(dataTable).map(handleHeader)
 }
