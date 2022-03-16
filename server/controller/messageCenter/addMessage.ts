@@ -42,7 +42,7 @@ export const addMessage = async (
       )
     }
 
-    const message = await MessageRepository.create({ message: messageText, topicId: messageTopic?.id, user }, t)
+    const message = await MessageRepository.create({ message: messageText, topicId: messageTopic.id, user }, t)
 
     const assessment = await AssessmentRepository.read({ id: messageTopic.assessmentId }, t)
     const schemaName = Schemas.getName(assessment)
