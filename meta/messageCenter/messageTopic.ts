@@ -1,19 +1,9 @@
 import { CountryIso } from '@meta/area'
-import { User } from '@meta/user'
+import { Message } from './message'
 
 export enum MessageTopicStatus {
   opened = 'opened',
   resolved = 'resolved',
-}
-
-export interface Message {
-  id: number
-  topicId: number
-  userId: number
-  message: string
-  deleted: boolean
-  createdTime: string
-  user?: User
 }
 
 export interface MessageTopic {
