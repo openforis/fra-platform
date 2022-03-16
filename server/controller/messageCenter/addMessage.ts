@@ -1,11 +1,11 @@
-import { BaseProtocol, DB } from '@server/db'
+import { BaseProtocol, DB, Schemas } from '@server/db'
 import { CountryIso } from '@meta/area'
 import { ActivityLogMessage, Assessment, Cycle } from '@meta/assessment'
 import { Message, MessageTopicStatus } from '@meta/messageCenter'
 import { User } from '@meta/user'
 import { MessageTopicRepository } from '@server/repository/messageTopic'
 import { MessageRepository } from '@server/repository/message'
-import { ActivityLogRepository } from '@server/repository'
+import { ActivityLogRepository, AssessmentRepository } from '@server/repository'
 
 export const addMessage = async (
   props: {
@@ -44,6 +44,9 @@ export const addMessage = async (
 
     const message = await MessageRepository.create({ message: messageText, topicId: messageTopic?.id, user }, t)
 
+    const assessment = await AssessmentRepository.read({ id: messageTopic.assessmentId }, t)
+    const schemaName = Schemas.getName(assessment)
+
     await ActivityLogRepository.insertActivityLog(
       {
         activityLog: {
@@ -52,7 +55,7 @@ export const addMessage = async (
           message: ActivityLogMessage.messageCreate,
           user,
         },
-        schemaName: 'assessment_fra',
+        schemaName,
       },
       t
     )
