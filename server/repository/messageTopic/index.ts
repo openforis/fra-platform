@@ -1,7 +1,7 @@
 import { create } from './create'
-import { getOne } from './getOne'
+import { getOneOrNone } from './getOneOrNone'
 
 export const MessageTopicRepository = {
   create,
-  getOne,
+  getOneOrNone,
 }

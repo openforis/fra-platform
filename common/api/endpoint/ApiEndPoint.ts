@@ -177,6 +177,9 @@ export const ApiEndPoint = {
     getNew: (countryIso = ':countryIso') => apiPath('userChat', countryIso, 'message', 'new'),
   },
   MessageCenter: {
-    topic: () => apiPath('topic'),
+    topic: {
+      get: () => apiPath('topic'),
+      addMessage: () => apiPath('topic', 'message'),
+    },
   },
 }

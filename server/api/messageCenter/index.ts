@@ -5,7 +5,7 @@ import { addMessage } from './addMessage'
 
 export const MessageCenterApi = {
   init: (express: Express): void => {
-    express.get(ApiEndPoint.MessageCenter.topic(), getTopic)
-    express.post(ApiEndPoint.MessageCenter.topic(), addMessage)
+    express.get(ApiEndPoint.MessageCenter.topic.get(), getTopic)
+    express.post(ApiEndPoint.MessageCenter.topic.addMessage(), addMessage)
   },
 }

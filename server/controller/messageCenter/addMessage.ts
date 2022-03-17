@@ -1,50 +1,41 @@
 import { BaseProtocol, DB, Schemas } from '@server/db'
 import { CountryIso } from '@meta/area'
 import { ActivityLogMessage, Assessment, Cycle } from '@meta/assessment'
-import { Message, MessageTopicStatus } from '@meta/messageCenter'
+import { Message } from '@meta/messageCenter'
 import { User } from '@meta/user'
 import { MessageTopicRepository } from '@server/repository/messageTopic'
 import { MessageRepository } from '@server/repository/message'
-import { ActivityLogRepository, AssessmentRepository } from '@server/repository'
+import { ActivityLogRepository } from '@server/repository'
 
 export const addMessage = async (
   props: {
     message: string
     user: User
-    topicId?: number
-    topic?: {
-      countryIso: CountryIso
-      assessment: Assessment
-      cycle: Cycle
-      key: string
-      status: MessageTopicStatus
-    }
+    countryIso: CountryIso
+    assessment: Assessment
+    cycle: Cycle
+    key?: string
   },
   client: BaseProtocol = DB
 ): Promise<Message> => {
-  const { message: messageText, user, topicId, topic } = props
+  const { message: messageText, user, countryIso, assessment, cycle, key } = props
 
   return client.tx(async (t) => {
-    let messageTopic = null
+    let topic = await MessageTopicRepository.getOneOrNone({ countryIso, assessment, cycle, includeMessages: false })
 
-    if (topicId) messageTopic = await MessageTopicRepository.getOne({ topicId })
-    else if (topic) {
-      const { countryIso, assessment, cycle, key, status } = topic
-      messageTopic = await MessageTopicRepository.create(
+    if (!topic)
+      topic = await MessageTopicRepository.create(
         {
           countryIso,
           assessment,
           cycle,
           key,
-          status,
         },
         t
       )
-    }
 
-    const message = await MessageRepository.create({ message: messageText, topicId: messageTopic.id, user }, t)
+    const message = await MessageRepository.create({ message: messageText, topicId: topic.id, user }, t)
 
-    const assessment = await AssessmentRepository.read({ id: messageTopic.assessmentId }, t)
     const schemaName = Schemas.getName(assessment)
 
     await ActivityLogRepository.insertActivityLog(

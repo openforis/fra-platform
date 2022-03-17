@@ -1,69 +1,58 @@
-CREATE TYPE public.message_topic_status AS ENUM ('opened', 'resolved');
+create type message_topic_status as enum ('opened', 'resolved');
 
-CREATE SEQUENCE message_topic_id_seq INCREMENT 1 START 1;
-
-CREATE TABLE IF NOT EXISTS public.message_topic
+create table message_topic
 (
-    id bigint NOT NULL DEFAULT nextval('message_topic_id_seq'::regclass),
-    country_iso character varying(3) NOT NULL,
-    assessment_id bigint NOT NULL,
-    cycle_uuid uuid NOT NULL,
-    key character varying(256) NOT NULL,
-    status message_topic_status DEFAULT 'opened'::message_topic_status,
-    CONSTRAINT message_topic_pkey PRIMARY KEY (id),
-    CONSTRAINT message_topic_assessment_id_fkey FOREIGN KEY (assessment_id)
-        REFERENCES public.assessment (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE CASCADE
-        NOT VALID,
-    CONSTRAINT message_topic_country_iso_fkey FOREIGN KEY (country_iso)
-        REFERENCES public.country (country_iso) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-        NOT VALID,
-    CONSTRAINT message_topic_cycle_uuid_fkey FOREIGN KEY (cycle_uuid)
-        REFERENCES public.assessment_cycle (uuid) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE CASCADE
-        NOT VALID
+    id            bigserial                             not null
+        constraint message_topic_pk
+            primary key,
+    country_iso   varchar(3)                            not null
+        constraint message_topic_country_country_iso_fk
+            references country
+            on update cascade on delete cascade,
+    assessment_id bigint                                not null
+        constraint message_topic_assessment_id_fk
+            references assessment
+            on update cascade on delete cascade,
+    cycle_id      bigint                                not null
+        constraint message_topic_assessment_cycle_id_fk
+            references assessment_cycle
+            on update cascade on delete cascade,
+    key           varchar(256)                          not null,
+    status        message_topic_status default 'opened' not null
 );
 
-CREATE SEQUENCE message_id_seq INCREMENT 1 START 1;
+create unique index message_topic_assessment_id_cycle_id_country_iso_key_uindex
+    on message_topic (assessment_id, cycle_id, country_iso, key);
 
-CREATE TABLE IF NOT EXISTS public.message
+create table message
 (
-    id bigint NOT NULL DEFAULT nextval('message_id_seq'::regclass),
-    topic_id bigint NOT NULL,
-    user_id bigint NOT NULL,
-    message text,
-    deleted boolean DEFAULT false,
-    created_time timestamp with time zone DEFAULT now(),
-    CONSTRAINT message_pkey PRIMARY KEY (id),
-    CONSTRAINT message_topic_id_fkey FOREIGN KEY (topic_id)
-        REFERENCES public.message_topic (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE CASCADE
-        NOT VALID,
-    CONSTRAINT message_user_id_fkey FOREIGN KEY (user_id)
-        REFERENCES public.users (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE CASCADE
-        NOT VALID
+    id           bigserial                 not null
+        constraint message_pk primary key,
+    topic_id     bigint                    not null
+        constraint message_message_topic_id_fk
+            references message_topic
+            on update cascade on delete cascade,
+    user_id      bigint                    not null
+        constraint message_users_id_fk
+            references users
+            on update cascade on delete cascade,
+    message      text                      not null,
+    deleted      boolean     default false not null,
+    created_time timestamptz default now() not null
 );
 
-CREATE TABLE IF NOT EXISTS public.message_topic_user
+create table message_topic_user
 (
-    topic_id bigint NOT NULL,
-    user_id bigint NOT NULL,
-    last_open_time timestamp with time zone DEFAULT now(),
-    CONSTRAINT message_topic_user_topic_id_fkey FOREIGN KEY (topic_id)
-        REFERENCES public.message_topic (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE CASCADE
-        NOT VALID,
-    CONSTRAINT message_topic_user_user_id_fkey FOREIGN KEY (user_id)
-        REFERENCES public.users (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE CASCADE
-        NOT VALID
+    id             bigserial                 not null
+        constraint message_topic_user_pk
+            primary key,
+    topic_id       bigint                    not null
+        constraint message_topic_user_message_topic_id_fk
+            references message_topic
+            on update cascade on delete cascade,
+    user_id        bigint                    not null
+        constraint message_topic_user_users_id_fk
+            references users
+            on update cascade on delete cascade,
+    last_open_time timestamptz default now() not null
 );

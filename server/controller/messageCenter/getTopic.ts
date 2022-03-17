@@ -1,21 +1,23 @@
 import { BaseProtocol, DB } from '@server/db'
 import { MessageTopic } from '@meta/messageCenter'
+import { CountryIso } from '@meta/area'
 import { MessageTopicRepository } from '@server/repository/messageTopic'
-import { MessageRepository } from '@server/repository/message'
+import { AssessmentController } from '../assessment'
 
 export const getTopic = async (
   props: {
-    topicId: number
+    countryIso: CountryIso
+    assessmentName: string
+    cycleName: string
+    includeMessages?: boolean
   },
   client: BaseProtocol = DB
 ): Promise<MessageTopic> => {
-  const { topicId } = props
+  const { countryIso, assessmentName, cycleName, includeMessages = true } = props
 
-  return client.tx(async (t) => {
-    const messageTopic = await MessageTopicRepository.getOne({ topicId }, t)
+  return client.tx(async () => {
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName })
 
-    messageTopic.messages = await MessageRepository.getByTopic({ topicId }, t)
-
-    return messageTopic
+    return MessageTopicRepository.getOneOrNone({ countryIso, assessment, cycle, includeMessages })
   })
 }

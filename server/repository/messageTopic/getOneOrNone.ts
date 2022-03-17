@@ -1,0 +1,33 @@
+import { BaseProtocol, DB } from '@server/db'
+import { Assessment, Cycle } from '@meta/assessment'
+import { MessageTopic } from '@meta/messageCenter'
+import { Objects } from '@core/utils'
+import { CountryIso } from '@core/country'
+
+export const getOneOrNone = async (
+  props: { countryIso: CountryIso; assessment: Assessment; cycle: Cycle; includeMessages: boolean },
+  client: BaseProtocol = DB
+): Promise<MessageTopic> => {
+  const { countryIso, assessment, cycle, includeMessages } = props
+
+  const query = `
+      select *
+      from public.message_topic
+      where country_iso = $1 and assessment_id = $2 and cycle_id = $3
+    `
+
+  const queryWithMessages = `
+      select t.*,
+      jsonb_agg(to_jsonb(m.*)) as messages
+      from public.message_topic t
+      left join public.message m on m.topic_id = t.id
+      where country_iso = $1 and assessment_id = $2 and cycle_id = $3
+      group by t.id
+    `
+
+  return client.oneOrNone<MessageTopic | undefined>(
+    includeMessages ? queryWithMessages : query,
+    [countryIso, assessment.id, cycle.id],
+    Objects.camelize
+  )
+}

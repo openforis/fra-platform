@@ -10,7 +10,7 @@ export interface MessageTopic {
   id: number
   countryIso: CountryIso
   assessmentId: number
-  cycleUuid: string
+  cycleId: number
   key: string
   status: MessageTopicStatus
   messages?: Array<Message>
