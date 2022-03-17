@@ -13,7 +13,12 @@ const _next = (allowed: boolean, next: NextFunction): void => {
 }
 
 export const requireEdit = async (req: Request, _res: Response, next: NextFunction) => {
-  const { countryIso, assessmentName, cycleName, section: sectionName } = req.params
+  const {
+    countryIso,
+    assessmentName,
+    cycleName,
+    section: sectionName,
+  } = <Record<string, string>>{ ...req.params, ...req.query }
   const name = <AssessmentName>assessmentName
   const user = Requests.getRequestUser(req)
 
