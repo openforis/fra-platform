@@ -13,7 +13,6 @@ export const persistNodeValue = async (req: Request, res: Response) => {
       req.query
     )
     const user = Requests.getRequestUser(req)
-
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({
       name: assessmentName,
       cycleName,
