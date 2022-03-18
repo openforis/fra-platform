@@ -1,0 +1,23 @@
+import { createSlice, Reducer } from '@reduxjs/toolkit'
+import { MessageCenterState } from './stateType'
+
+const initialState: MessageCenterState = {
+  topics: Array<MessageTopic>(),
+}
+
+export const messageCenterSlice = createSlice({
+  name: 'messageCenter',
+  initialState,
+  reducers: {
+    reset: () => initialState,
+    open: (state, action) => {
+      if (state.topics.length < 2) state.topics.push(action.payload)
+    },
+  },
+})
+
+export const MessageCenterActions = {
+  ...messageCenterSlice.actions,
+}
+
+export default messageCenterSlice.reducer as Reducer<MessageCenterState>
