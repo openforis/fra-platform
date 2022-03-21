@@ -3,6 +3,7 @@ import { Assessment, Cycle } from '@meta/assessment'
 import { TableData } from '@meta/data'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
+import { Objects } from '@arena/core'
 
 type Props = {
   assessment: Assessment
@@ -40,6 +41,7 @@ export const getOriginalDataPointData = (props: Props, client: BaseProtocol = DB
         from data d
         group by d.country_iso;
     `,
-    [countryIso]
+    [countryIso],
+    ({ data }) => Objects.camelize(data)
   )
 }

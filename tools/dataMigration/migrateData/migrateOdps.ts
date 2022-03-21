@@ -3,7 +3,6 @@ import { ITask } from 'pg-promise'
 import * as pgPromise from 'pg-promise'
 import { Assessment } from '../../../meta/assessment/assessment'
 import { DBNames } from '../_DBNames'
-import { getCreateODPViewDDL } from './_createOdpView'
 
 export const migrateOdps = async (props: { assessment: Assessment }, client: ITask<any>): Promise<void> => {
   const { assessment } = props
@@ -36,5 +35,4 @@ export const migrateOdps = async (props: { assessment: Assessment }, client: ITa
     `
   })
   await client.query(pgp.helpers.concat(queries))
-  await client.query(getCreateODPViewDDL({ assessment }))
 }

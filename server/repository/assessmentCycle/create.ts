@@ -18,6 +18,12 @@ export const create = async (
     )
   )
 
+  await DB.query(
+    AssessmentRepository.getCreateSchemaCycleOriginalDataPointViewDDL(
+      Schemas.getNameCycle(assessment, { name } as Cycle)
+    )
+  )
+
   const cycle = await client.one<Cycle>(
     `insert into assessment_cycle (assessment_id, name) values ($1, $2) returning *;`,
     [assessment.id, name]

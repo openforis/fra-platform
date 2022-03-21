@@ -37,7 +37,7 @@ export const AssessmentApi = {
     // OriginalDataPoint // table
     express.get(
       ApiEndPoint.Assessment.OriginalDataPoint.TableData.one(),
-      // AuthMiddleware.requireView,
+      AuthMiddleware.requireView,
       getOriginalDataPointData
     )
 
