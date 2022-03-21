@@ -2,6 +2,7 @@ import './MessageCenter.scss'
 import React from 'react'
 import { useTopics } from '@client/store/ui/messageCenter'
 import { MessageTopic } from '@meta/messageCenter'
+import { Objects } from '@core/utils'
 
 type TopicProps = {
   topic: MessageTopic
@@ -27,7 +28,7 @@ const Topic: React.FC<TopicProps> = ({ topic }) => {
 const MessageCenter: React.FC = () => {
   const topics = useTopics()
 
-  if (!topics) return null
+  if (Objects.isEmpty(topics)) return null
 
   return (
     <div className="topic-container">
