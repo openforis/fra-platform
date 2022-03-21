@@ -5,7 +5,7 @@ import { userMockTest } from '@test/integration/mock/user'
 export default () =>
   test('Expect user to be status === inactive', async () => {
     const user = await UserController.getOne({
-      user: userMockTest,
+      email: userMockTest.email,
     })
 
     const inactiveUser = await UserController.update({

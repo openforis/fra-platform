@@ -14,7 +14,7 @@ export const readByInvitation = async (
   return client.tx(async (t) => {
     const userRole = await UserRoleRepository.read({ invitationUuid }, t)
     const assessment = await AssessmentRepository.read({ id: userRole.assessmentId }, t)
-    const user = await UserRepository.getOne({ user: { id: userRole.userId } }, t)
+    const user = await UserRepository.getOne({ id: userRole.userId }, t)
     return {
       userRole,
       assessment,

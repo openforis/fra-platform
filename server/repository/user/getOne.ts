@@ -7,24 +7,34 @@ const fields: Array<string> = ['lang', 'id', 'name', 'status', 'position', 'emai
 const selectFields = fields.map((f) => `u.${f}`).join(',')
 
 export const getOne = async (
-  props: { user: Pick<User, 'email'> | Pick<User, 'id'>; emailGoogle?: string },
+  props: { id: number } | { email: string } | { emailGoogle: string },
   client: BaseProtocol = DB
-): Promise<User> => {
-  const { user, emailGoogle } = props
+): Promise<User | undefined> => {
+  let where = ''
+  let value = ''
 
-  const value = 'email' in user ? user.email : +user.id
-  const where = 'email' in user ? `where lower(trim(u.email)) = trim(lower($1))` : `where u.id = $1`
-  const whereGoogle = `where u.id = (select user_id from public.users_auth_provider where props->>'email' = $1)`
+  if ('id' in props) {
+    where = 'where u.id = $1'
+    value = String(props.id)
+  } else if ('email' in props) {
+    where = 'where lower(trim(u.email)) = trim(lower($1))'
+    value = props.email
+  } else if ('emailGoogle' in props) {
+    where = `where u.id = (select user_id from public.users_auth_provider where props->>'email' = $1)`
+    value = props.emailGoogle
+  } else {
+    throw new Error('Missing parameter')
+  }
 
-  return client.oneOrNone<User>(
+  return client.oneOrNone<User | undefined>(
     `
         select ${selectFields}, jsonb_agg(to_jsonb(ur.*)) as roles
         from public.users u
         left join users_role ur on u.id = ur.user_id
-        ${emailGoogle ? whereGoogle : where}
+        ${where}
         group by ${selectFields}
     `,
-    emailGoogle ? [emailGoogle] : [value],
+    [value],
     Objects.camelize
   )
 }

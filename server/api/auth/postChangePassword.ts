@@ -12,7 +12,7 @@ export const postChangePassword = async (req: Request, res: Response) => {
     if (Objects.isEmpty(password?.trim())) return Requests.send400(res, 'login.noEmptyPassword')
     if (!validPassword(password)) return Requests.send400(res, 'login.passwordError')
 
-    const user = await UserController.getOne({ user: { email } })
+    const user = await UserController.getOne({ email })
     const hash = await passwordHash(password)
     const changed = await UserController.changePassword({
       email: user.email,

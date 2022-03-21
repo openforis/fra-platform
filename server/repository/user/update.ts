@@ -22,5 +22,5 @@ export const update = async (props: { user: User }, client: BaseProtocol = DB): 
     [institution, lang, name, status, position, email, id]
   )
 
-  return getOne({ user: { email } }, client)
+  return getOne({ email }, client)
 }

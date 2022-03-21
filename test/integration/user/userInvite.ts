@@ -77,7 +77,7 @@ export default (): void =>
     })
 
     it('User accept invitation as National Correspondant', async () => {
-      let invitedUser = await UserController.getOne({ user: { email: userMockUnknown.email } })
+      let invitedUser = await UserController.getOne({ email: userMockUnknown.email })
       const userRole = invitedUser.roles.find(
         (role) => role.countryIso === 'AFG' && role.role === RoleName.NATIONAL_CORRESPONDENT
       )
