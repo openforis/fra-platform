@@ -1,4 +1,5 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
+import { MessageTopic } from '@meta/messageCenter'
 import { MessageCenterState } from './stateType'
 
 const initialState: MessageCenterState = {
@@ -11,7 +12,8 @@ export const messageCenterSlice = createSlice({
   reducers: {
     reset: () => initialState,
     open: (state, action) => {
-      if (state.topics.length < 2) state.topics.push(action.payload)
+      if (state.topics.length === 2) state.topics.shift()
+      state.topics.push(action.payload)
     },
   },
 })
