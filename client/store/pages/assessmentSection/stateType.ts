@@ -3,5 +3,6 @@ import { TableData } from '@meta/data'
 
 export type AssessmentSectionState = {
   data?: TableData
+  originalDataPointData?: TableData
   tableSections?: Array<TableSection>
 }
