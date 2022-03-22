@@ -14,14 +14,17 @@ export const addMessage = async (
     countryIso: CountryIso
     assessment: Assessment
     cycle: Cycle
-    key?: string
+    key: string
   },
   client: BaseProtocol = DB
 ): Promise<Message> => {
   const { message: messageText, user, countryIso, assessment, cycle, key } = props
 
   return client.tx(async (t) => {
-    let topic = await MessageTopicRepository.getOneOrNone({ countryIso, assessment, cycle, includeMessages: false })
+    let topic = await MessageTopicRepository.getOneOrNone(
+      { countryIso, assessment, cycle, key, includeMessages: false },
+      client
+    )
 
     if (!topic)
       topic = await MessageTopicRepository.create(

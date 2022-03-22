@@ -5,15 +5,15 @@ import { Objects } from '@core/utils'
 import { CountryIso } from '@core/country'
 
 export const getOneOrNone = async (
-  props: { countryIso: CountryIso; assessment: Assessment; cycle: Cycle; includeMessages: boolean },
+  props: { countryIso: CountryIso; assessment: Assessment; cycle: Cycle; key: string; includeMessages: boolean },
   client: BaseProtocol = DB
 ): Promise<MessageTopic> => {
-  const { countryIso, assessment, cycle, includeMessages } = props
+  const { countryIso, assessment, cycle, key, includeMessages } = props
 
   const query = `
       select *
       from public.message_topic
-      where country_iso = $1 and assessment_id = $2 and cycle_id = $3
+      where country_iso = $1 and assessment_id = $2 and cycle_id = $3 and key = $4
     `
 
   const queryWithMessages = `
@@ -21,13 +21,13 @@ export const getOneOrNone = async (
       jsonb_agg(to_jsonb(m.*)) as messages
       from public.message_topic t
       left join public.message m on m.topic_id = t.id
-      where country_iso = $1 and assessment_id = $2 and cycle_id = $3
+      where country_iso = $1 and assessment_id = $2 and cycle_id = $3 and key = $4
       group by t.id
     `
 
   return client.oneOrNone<MessageTopic | undefined>(
     includeMessages ? queryWithMessages : query,
-    [countryIso, assessment.id, cycle.id],
+    [countryIso, assessment.id, cycle.id, key],
     Objects.camelize
   )
 }

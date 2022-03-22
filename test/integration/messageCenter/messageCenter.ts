@@ -38,16 +38,20 @@ export default (): void =>
         countryIso: 'AFG' as CountryIso,
         assessment,
         cycle: assessmentCycle,
+        key: 'TEST',
       })
 
       const topic = await MessageCenterController.getTopic({
         countryIso: 'AFG' as CountryIso,
         assessmentName: assessment.props.name,
         cycleName: assessmentCycle.name,
+        key: 'TEST',
       })
 
-      expect(createdMessage).toHaveProperty('id')
-      expect(topic).toHaveProperty('id')
+      expect(createdMessage.message).toEqual('This is a test!')
+      expect(topic.key).toEqual('TEST')
       expect(topic.messages).toHaveLength(2)
+      expect(topic.messages[0].message).toEqual('This is a test!')
+      expect(topic.messages[1].message).toEqual('This is another test!')
     })
   })

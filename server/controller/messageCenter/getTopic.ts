@@ -9,15 +9,14 @@ export const getTopic = async (
     countryIso: CountryIso
     assessmentName: string
     cycleName: string
+    key: string
     includeMessages?: boolean
   },
   client: BaseProtocol = DB
 ): Promise<MessageTopic> => {
-  const { countryIso, assessmentName, cycleName, includeMessages = true } = props
+  const { countryIso, assessmentName, cycleName, key, includeMessages = true } = props
 
-  return client.tx(async () => {
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName })
+  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName }, client)
 
-    return MessageTopicRepository.getOneOrNone({ countryIso, assessment, cycle, includeMessages })
-  })
+  return MessageTopicRepository.getOneOrNone({ countryIso, assessment, cycle, key, includeMessages }, client)
 }

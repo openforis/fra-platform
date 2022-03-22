@@ -5,10 +5,11 @@ import { CountryIso } from '@core/country'
 import { AssessmentController } from '@server/controller/assessment'
 
 export const addMessage = async (req: Request, res: Response) => {
-  const { countryIso, assessmentName, cycleName, key } = req.query
-  const { message } = req.body
-  const user = Requests.getRequestUser(req)
   try {
+    const { countryIso, assessmentName, cycleName, key } = req.query
+    const { message } = req.body
+    const user = Requests.getRequestUser(req)
+
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({
       name: String(assessmentName),
       cycleName: String(cycleName),
@@ -23,7 +24,7 @@ export const addMessage = async (req: Request, res: Response) => {
       key: String(key),
     })
 
-    res.send({})
+    Requests.sendOk(res)
   } catch (e) {
     Requests.sendErr(res, e)
   }
