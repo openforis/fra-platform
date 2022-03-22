@@ -1,8 +1,9 @@
 import './MessageCenter.scss'
 import React from 'react'
 import { useTopics } from '@client/store/ui/messageCenter'
-import { MessageTopic } from '@meta/messageCenter'
+import Icon from '@client/components/Icon'
 import { Objects } from '@core/utils'
+import { MessageTopic } from '@meta/messageCenter'
 
 type TopicProps = {
   topic: MessageTopic
@@ -11,15 +12,24 @@ type TopicProps = {
 const Topic: React.FC<TopicProps> = ({ topic }) => {
   return (
     <div className="topic">
-      <div className="topic-header">{topic.key}</div>
-      <div className="topic-body">No comments</div>
+      <div className="topic-header">
+        {topic.key}
+        <div className="topic-close" onClick={() => null} onKeyDown={() => null} role="button" tabIndex={0}>
+          <Icon name="remove" />
+        </div>
+      </div>
+      <div className="topic-body">
+        <div className="no-comments">
+          <Icon className="icon-24" name="chat-46" />
+          <br />
+          No comments
+        </div>
+      </div>
       <div className="topic-footer">
         <textarea />
-        <div>
-          <button className="btn-s btn-secondary" type="submit">
-            Add
-          </button>
-        </div>
+        <button className="btn-s btn-primary" type="submit">
+          Add
+        </button>
       </div>
     </div>
   )
