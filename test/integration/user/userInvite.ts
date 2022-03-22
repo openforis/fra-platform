@@ -12,7 +12,7 @@ export default (): void =>
 
     beforeAll(async () => {
       assessment = await AssessmentController.getOne({ name: assessmentParams.props.name })
-      user = await UserController.getOne({ user: { email: userMockTest.email } })
+      user = await UserController.getOne({ email: userMockTest.email })
     })
 
     it('Invite new user as Collaborator', async () => {
