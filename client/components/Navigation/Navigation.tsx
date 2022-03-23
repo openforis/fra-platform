@@ -17,7 +17,7 @@ const Navigation: React.FC = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(AssessmentActions.getSections({ name: assessment.props.name, cycleName: cycle.name }))
+    dispatch(AssessmentActions.getSections({ countryIso, name: assessment.props.name, cycleName: cycle.name }))
   }, [])
 
   // admin view - navigation is not rendered

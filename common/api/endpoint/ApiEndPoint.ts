@@ -41,8 +41,8 @@ export const ApiEndPoint = {
       },
     },
 
-    sections: (assessmentName = ':assessmentName', cycleName = ':cycleName') =>
-      apiPath('assessment', assessmentName, 'sections', cycleName),
+    sections: (countryIso = ':countryIso', assessmentName = ':assessmentName', cycleName = ':cycleName') =>
+      apiPath('countries', countryIso, 'assessment', assessmentName, 'sections', cycleName),
     countryStatus: (countryIso = ':countryIso', assessmentName = ':assessmentName', cycleName = ':cycleName') =>
       apiPath('country', countryIso, 'assessments', assessmentName, 'cycles', cycleName, 'status'),
 
