@@ -18,7 +18,8 @@ import { getOriginalDataPointData } from './getOriginalDataPointData'
 export const AssessmentApi = {
   init: (express: Express): void => {
     // CountryStatus
-    express.get(ApiEndPoint.Assessment.countryStatus(), AuthMiddleware.requireView, getCountryStatus)
+    // requireView: We don't pass table for countryStatus - always allow read
+    express.get(ApiEndPoint.Assessment.countryStatus(), /* AuthMiddleware.requireView, */ getCountryStatus)
     express.post(ApiEndPoint.Assessment.countryStatus(), AuthMiddleware.requireEdit, postCountryStatus)
 
     // OriginalDataPoint // entry
@@ -48,7 +49,8 @@ export const AssessmentApi = {
     express.patch(ApiEndPoint.CycleData.PersistNode.one(), AuthMiddleware.requireEdit, persistNodeValue)
 
     // Sections
-    express.get(ApiEndPoint.Assessment.sections(), AuthMiddleware.requireView, getSections)
+    // requireView: We don't pass table for sections - always allow read
+    express.get(ApiEndPoint.Assessment.sections(), /* AuthMiddleware.requireView, */ getSections)
     express.get(ApiEndPoint.Assessment.Sections.Metadata.many(), AuthMiddleware.requireView, getSectionMetadata)
   },
 }

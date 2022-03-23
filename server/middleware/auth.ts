@@ -31,6 +31,10 @@ export const requireEdit = async (req: Request, _res: Response, next: NextFuncti
 
 export const requireView = async (req: Request, _res: Response, next: NextFunction) => {
   const { countryIso, assessmentName, cycleName, tableName } = <Record<string, string>>{ ...req.params, ...req.query }
+  if (!countryIso || !assessmentName || !cycleName || !tableName) {
+    next(new Error(`missingParam`))
+  }
+
   const name = <AssessmentName>assessmentName
   const user = Requests.getRequestUser(req)
 
