@@ -16,5 +16,5 @@ export const getOriginalDataPointData = createAsyncThunk<
       cycleName,
     },
   })
-  return data?.data
+  return data
 })
