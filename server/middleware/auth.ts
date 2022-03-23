@@ -30,8 +30,8 @@ export const requireEdit = async (req: Request, _res: Response, next: NextFuncti
 }
 
 export const requireView = async (req: Request, _res: Response, next: NextFunction) => {
-  const { countryIso, assessmentName, cycleName, tableName } = <Record<string, string>>{ ...req.params, ...req.query }
-  if (!countryIso || !assessmentName || !cycleName || !tableName) {
+  const { countryIso, assessmentName, cycleName } = <Record<string, string>>{ ...req.params, ...req.query }
+  if (!countryIso || !assessmentName || !cycleName) {
     next(new Error(`missingParam`))
   }
 
@@ -39,9 +39,8 @@ export const requireView = async (req: Request, _res: Response, next: NextFuncti
   const user = Requests.getRequestUser(req)
 
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ name, cycleName })
-  const table = await AssessmentController.getTable({ assessment, cycle, tableName })
 
-  _next(Authorizer.canView({ user, table, countryIso: countryIso as CountryIso, cycle, assessment }), next)
+  _next(Authorizer.canView({ user, countryIso: countryIso as CountryIso, cycle, assessment }), next)
 }
 
 const requireAdmin = async (req: Request, _res: Response, next: NextFunction) => {
