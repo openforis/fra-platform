@@ -3,13 +3,13 @@ import React, { Suspense } from 'react'
 
 import Loading from '@client/components/Loading'
 
-const GeoMap = React.lazy(() => import('./GeoMap'))
+const GeoMapWrapper = React.lazy(() => import('./GeoMapWrapper'))
 
 const Geo: React.FC = () => {
   return (
     <div className="geo-container">
       <Suspense fallback={<Loading />}>
-        <GeoMap />
+        <GeoMapWrapper />
       </Suspense>
     </div>
   )
