@@ -12,6 +12,7 @@ const initialState: AssessmentSectionState = {
   data: null,
   tableSections: [],
   originalDataPointData: null,
+  showOriginalDataPoint: true,
 }
 
 export const assessmentSectionSlice = createSlice({
@@ -21,6 +22,9 @@ export const assessmentSectionSlice = createSlice({
     reset: () => initialState,
     resetData: (state) => {
       state.data = initialState.data
+    },
+    toggleShowOriginalDataPoint: (state) => {
+      state.showOriginalDataPoint = !state.showOriginalDataPoint
     },
   },
   extraReducers: (builder) => {

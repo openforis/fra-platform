@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom'
 import { useCountryIso } from '@client/hooks'
 import { TableData } from '@meta/data'
 import * as DataTableUtils from '@client/pages/AssessmentSection/DataTable/utils'
-import { useOriginalDataPointYears } from '@client/store/pages/assessmentSection/hooks'
+import { useOriginalDataPointYears, useShowOriginalDatapoints } from '@client/store/pages/assessmentSection/hooks'
 import { BasePaths } from '@client/basePaths'
 import { useCycle } from '@client/store/assessment'
 import Row from './Row'
@@ -27,6 +27,7 @@ type Props = {
 
 const Table: React.FC<Props> = (props) => {
   const { assessmentName, sectionName, sectionAnchor, table, rows, data, disabled } = props
+  const showOriginalDatapoints = useShowOriginalDatapoints()
 
   const cycle = useCycle()
   const { i18n } = useTranslation()
@@ -56,6 +57,9 @@ const Table: React.FC<Props> = (props) => {
                 {row.cols.map((col: Col, colIndex: number) => {
                   const { index, /* idx, className, */ colSpan, rowSpan, labelKey /* labelParams,  label */ } =
                     col.props
+                  const columnName = headers[colIndex]
+
+                  const isOdpHeader = showOriginalDatapoints && table.props.odp && odpYears?.includes(columnName)
 
                   const getColumnName = () => {
                     if (labelKey)
@@ -63,8 +67,7 @@ const Table: React.FC<Props> = (props) => {
                         /* labelParams */
                       })
 
-                    const columnName = headers[colIndex]
-                    if (table.props.odp && odpYears?.includes(columnName))
+                    if (isOdpHeader) {
                       return (
                         <Link
                           className="link"
@@ -78,13 +81,19 @@ const Table: React.FC<Props> = (props) => {
                           {columnName}
                         </Link>
                       )
+                    }
                     return columnName
+                  }
+
+                  let className = `fra-table__header-cell${index === 0 && rowIndex === 0 ? '-left' : ''}`
+                  if (isOdpHeader && rowIndex > 0) {
+                    className = 'odp-header-cell'
                   }
 
                   return (
                     <th
                       key={col.uuid}
-                      className={`fra-table__header-cell${index === 0 && rowIndex === 0 ? '-left' : ''}`}
+                      className={className}
                       colSpan={odp && !colSpan ? DataTableUtils.getODPColSpan({ table, data }) : colSpan}
                       rowSpan={rowSpan}
                     >

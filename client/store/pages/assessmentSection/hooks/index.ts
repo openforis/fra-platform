@@ -3,6 +3,9 @@ import { Table, TableSection } from '@meta/assessment'
 import { useCountryIso } from '@client/hooks'
 import { TableData } from '@meta/data'
 
+export const useShowOriginalDatapoints = () =>
+  useAppSelector((state) => state.pages.assessmentSection.showOriginalDataPoint)
+
 export const useTableSections = (): Array<TableSection> =>
   useAppSelector((state) => state.pages.assessmentSection.tableSections)
 
@@ -10,11 +13,12 @@ export const useTableData = (props: { table: Table }): TableData => {
   const { table } = props
   const countryIso = useCountryIso()
   const { odp } = table.props
+  const showOriginalDatapoints = useShowOriginalDatapoints()
   const tableData = useAppSelector((state) => state.pages.assessmentSection.data)
   const odpData = useAppSelector((state) => state.pages.assessmentSection.originalDataPointData)
 
   if (!tableData) return null
-  if (!odp) return tableData
+  if (!odp || !showOriginalDatapoints) return tableData
 
   const currData = tableData[countryIso][table.props.name]
 
