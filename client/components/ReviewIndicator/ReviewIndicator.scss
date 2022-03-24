@@ -1,0 +1,19 @@
+@import 'client/style/partials';
+
+.review-indicator {
+  align-items: center;
+    cursor: pointer;
+    display: flex;
+    height: 42px;
+    justify-content: center;
+    width: 32px;
+  svg {
+    color: $text-disabled;
+    &:hover {
+      height: $font-xl;
+      width: $font-xl;
+      color: $text-body;
+      transition: all .1s ease-out;
+    }
+  }
+}
