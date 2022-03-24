@@ -34,6 +34,7 @@ const plugins = [
     __DEV__: isDevelopment,
     __BUST__: `"${uuidv4()}"`,
     __GOOGLE_API__: JSON.stringify(process.env.FRA_GOOGLE_API),
+    __GOOGLE_MAPS_API_KEY__: JSON.stringify(process.env.FRA_GOOGLE_MAPS_API_KEY),
     __APPLICATION_VERSION__: gitRevisionPlugin
       ? JSON.stringify(gitRevisionPlugin.version())
       : JSON.stringify(process.env.APP_VERSION),
