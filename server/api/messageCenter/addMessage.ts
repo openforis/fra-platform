@@ -6,13 +6,13 @@ import { AssessmentController } from '@server/controller/assessment'
 
 export const addMessage = async (req: Request, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName, key } = req.query
+    const { countryIso, assessmentName, cycleName, key } = <Record<string, string>>req.query
     const { message } = req.body
     const user = Requests.getRequestUser(req)
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({
-      name: String(assessmentName),
-      cycleName: String(cycleName),
+      name: assessmentName,
+      cycleName,
     })
 
     await MessageCenterController.addMessage({
@@ -21,7 +21,7 @@ export const addMessage = async (req: Request, res: Response) => {
       countryIso: countryIso as CountryIso,
       assessment,
       cycle,
-      key: String(key),
+      key,
     })
 
     Requests.sendOk(res)
