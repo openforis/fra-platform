@@ -12,8 +12,10 @@ export const messageCenterSlice = createSlice({
   reducers: {
     reset: () => initialState,
     open: (state, action) => {
-      if (state.topics.length === 2) state.topics.shift()
-      state.topics.push(action.payload)
+      if (state.topics.filter((topic) => topic.key === action.payload.key).length === 0) {
+        if (state.topics.length === 2) state.topics.shift()
+        state.topics.push(action.payload)
+      }
     },
   },
 })
