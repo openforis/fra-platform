@@ -1,35 +1,24 @@
 import './geoMap.scss'
-import 'ol/ol.css'
-import React, { useEffect, useRef, useState } from 'react'
-import { Map, View } from 'ol'
-import TileLayer from 'ol/layer/Tile'
-import OSM from 'ol/source/OSM'
+import React, { useEffect, useRef } from 'react'
 
-const GeoMap: React.FC = () => {
-  const [map, setMap] = useState<Map>()
-  const mapRef = useRef<Map>()
-  const mapElement = useRef()
+type Props = {
+  center: google.maps.LatLngLiteral
+  zoom: number
+}
 
-  mapRef.current = map
+const GeoMap: React.FC<Props> = (props: Props) => {
+  const { center, zoom } = props
+  const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    // a placeholder background map for now
-    const initialMap = new Map({
-      target: mapElement.current,
-      layers: [
-        new TileLayer({
-          source: new OSM(),
-        }),
-      ],
-      view: new View({
-        center: [0, 0],
-        zoom: 0,
-      }),
+    // eslint-disable-next-line no-new
+    new window.google.maps.Map(ref.current, {
+      center,
+      zoom,
     })
-    setMap(initialMap)
   }, [])
 
-  return <div ref={mapElement} className="geo-map" />
+  return <div ref={ref} id="geo-map" />
 }
 
 export default GeoMap
