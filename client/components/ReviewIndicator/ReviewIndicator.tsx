@@ -27,7 +27,7 @@ const ReviewIndicator = (props: Props) => {
       MessageCenterActions.open({
         countryIso,
         assessmentId: assessment.id,
-        cycleId: cycle.id,
+        cycleId: cycle.uuid,
         title,
         key: Topics.getDataReviewTopicKey(row),
       })
