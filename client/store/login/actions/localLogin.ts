@@ -16,11 +16,12 @@ export const localLogin = createAsyncThunk<
   }
 >('login/post/local', async ({ email, password, invitationUuid, history }, { dispatch }) => {
   const response = await axios.post(
-    `${ApiEndPoint.Auth.Login.local()}${invitationUuid ? `?invitationUuid=${invitationUuid}` : ''}`,
+    ApiEndPoint.Auth.Login.local(),
     {
       email,
       password,
-    }
+    },
+    { params: { invitationUuid } }
   )
 
   if (response.status === 200) {
