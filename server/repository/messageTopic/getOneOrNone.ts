@@ -7,7 +7,7 @@ import { CountryIso } from '@core/country'
 export const getOneOrNone = async (
   props: { countryIso: CountryIso; assessment: Assessment; cycle: Cycle; key: string; includeMessages: boolean },
   client: BaseProtocol = DB
-): Promise<MessageTopic> => {
+): Promise<MessageTopic | undefined> => {
   const { countryIso, assessment, cycle, key, includeMessages } = props
 
   const query = `

@@ -22,20 +22,20 @@ const ReviewIndicator = (props: Props) => {
   const assessment = useAssessment()
   const cycle = useCycle()
 
-  const click = () => {
+  const openTopic = () => {
     dispatch(
-      MessageCenterActions.open({
+      MessageCenterActions.openTopic({
         countryIso,
-        assessmentId: assessment.id,
-        cycleId: cycle.uuid,
-        title,
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
         key: Topics.getDataReviewTopicKey(row),
+        title,
       })
     )
   }
 
   return (
-    <div className="review-indicator" onClick={click} aria-hidden="true" role="button">
+    <div className="review-indicator" onClick={openTopic} aria-hidden="true" role="button">
       <Icon name="circle-add" />
     </div>
   )

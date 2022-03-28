@@ -13,7 +13,7 @@ export const getTopic = async (
     includeMessages?: boolean
   },
   client: BaseProtocol = DB
-): Promise<MessageTopic> => {
+): Promise<MessageTopic | undefined> => {
   const { countryIso, assessmentName, cycleName, key, includeMessages = true } = props
 
   const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName }, client)
