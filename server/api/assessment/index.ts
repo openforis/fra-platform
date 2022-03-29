@@ -13,6 +13,7 @@ import { getReservedYears } from './getReservedYears'
 import { createOriginalDataPoint } from './createOriginalDataPoint'
 import { deleteOriginalDataPoint } from './deleteOriginalDataPoint'
 import { updateOriginalDataPoint } from './updateOriginalDataPoint'
+import { getOriginalDataPointData } from './getOriginalDataPointData'
 
 export const AssessmentApi = {
   init: (express: Express): void => {
@@ -20,7 +21,7 @@ export const AssessmentApi = {
     express.get(ApiEndPoint.Assessment.countryStatus(), AuthMiddleware.requireView, getCountryStatus)
     express.post(ApiEndPoint.Assessment.countryStatus(), AuthMiddleware.requireEdit, postCountryStatus)
 
-    // OriginalDataPoint
+    // OriginalDataPoint // entry
     express.get(
       ApiEndPoint.Assessment.OriginalDataPoint.ReservedYears.many(),
       AuthMiddleware.requireView,
@@ -32,6 +33,13 @@ export const AssessmentApi = {
 
     express.get(ApiEndPoint.Assessment.OriginalDataPoint.one(), AuthMiddleware.requireView, getOriginalDataPoint)
     express.put(ApiEndPoint.Assessment.OriginalDataPoint.one(), AuthMiddleware.requireEdit, updateOriginalDataPoint)
+
+    // OriginalDataPoint // table
+    express.get(
+      ApiEndPoint.Assessment.OriginalDataPoint.TableData.one(),
+      AuthMiddleware.requireView,
+      getOriginalDataPointData
+    )
 
     // TableData
     express.get(ApiEndPoint.Assessment.TableData.one(), AuthMiddleware.requireView, getTableData)
