@@ -5,6 +5,7 @@ import { TableData } from './tableData'
 
 const getTableData = (props: { data: TableData; countryIso: CountryIso; table: Table }) => {
   const { countryIso, table, data } = props
+
   return data[countryIso][table.props.name]
 }
 
@@ -20,7 +21,6 @@ const getNodeValue = (props: {
   if (!dataTable) return null
   const { colName } = col.props
   if (!colName) return null
-  // const rowName = Objects.camelize(row.props.variableName)
   const { variableName } = row.props
   return data[countryIso][table.props.name]?.[colName]?.[variableName]
 }

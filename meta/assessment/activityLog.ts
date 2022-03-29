@@ -9,6 +9,7 @@ export enum ActivityLogMessage {
   userInvited = 'userInvited',
   nodeValueUpdate = 'nodeValueUpdate',
   nodeValueCalculatedUpdate = 'nodeValueCalculatedUpdate',
+  messageCreate = 'messageCreate',
 }
 
 export interface ActivityLog<Target> {
