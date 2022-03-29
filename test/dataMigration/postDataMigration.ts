@@ -1,6 +1,6 @@
 import { Cols, NodeValue, Row, VariableCache } from '@meta/assessment'
 import { Objects } from '@core/utils'
-import { AssessmentController } from '@server/controller'
+import { AssessmentController } from '@server/controller/assessment'
 import { DB, Schemas } from '@server/db'
 import { evalExpression } from '@server/controller/cycleData/persistNodeValue/evalExpression'
 import { ColRepository } from '@server/repository/col'
@@ -43,7 +43,7 @@ describe('Post Data migration', () => {
         variableName: row.props.variableName,
       }))
       const calculatedVariables: Record<string, Record<string, boolean>> = {}
-      const countryISOs = await AssessmentController.getCountryISOs({ name: 'fra' }, client)
+      const countryISOs = await AssessmentController.getCountryISOs({ assessment, cycle }, client)
 
       const hasBeenCalculated = (variable: VariableCache): boolean => {
         const variableToCalc = variablesToCalculate.find(

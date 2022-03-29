@@ -65,15 +65,6 @@ create table ${schemaName}.col
       user_id bigint not null references public.users (id)            on update cascade on delete cascade
   );
 
-  create table ${schemaName}.country
-  (
-      country_iso varchar(3) not null
-          constraint country_fk
-              references country
-              on update cascade on delete cascade,
-      unique (country_iso)
-  );
- 
   create table ${schemaName}.region_group
   (
       id bigserial not null constraint region_group_pkey primary key,
@@ -143,14 +134,27 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
       ALTER TABLE ${assessmentCycleSchemaName}.original_data_point
           ADD CONSTRAINT unique_country_year UNIQUE (country_iso, year);
 
+
+      create table ${assessmentCycleSchemaName}.country
+      (
+          country_iso varchar(3) not null
+              constraint country_fk
+                  references country
+                  on update cascade on delete cascade,
+          config jsonb default null,
+          unique (country_iso)
+      );
+ 
+ 
       create table ${assessmentCycleSchemaName}.country_status
       (
-        country_iso varchar(3) not null references ${assessmentSchemaName}.country (country_iso),
+        country_iso varchar(3) not null references ${assessmentCycleSchemaName}.country (country_iso),
         status assessment_status not null,
         desk_study boolean default false not null,
         constraint unique_country_status_country
         unique (country_iso)
       );
+
   `
 }
 

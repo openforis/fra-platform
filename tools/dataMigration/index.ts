@@ -27,6 +27,7 @@ import { migrateTablesData } from './migrateData/migrateTablesData'
 import { migrateOdps } from './migrateData/migrateOdps'
 import { migrateCountryStatus } from './migrateData/migrateCountryStatus'
 import { generateMetaCache } from './generateMetaCache'
+import { migrateCountries } from './migrateCountries'
 
 config({ path: path.resolve(__dirname, '..', '..', '.env') })
 
@@ -97,6 +98,13 @@ export const migrate = async (props: {
     ])
 
     await migrateMetadata({ assessment, assessmentLegacy, schema, spec, client })
+
+    await Promise.all(
+      cycleNames.map((cycleName) =>
+        migrateCountries({ client, schema: DBNames.getCycleSchema(assessment.props.name, cycleName) })
+      )
+    )
+
     await migrateAreas({ client, schema })
     await migrateUsers({ client })
     await migrateUsersAuthProvider({ client })
