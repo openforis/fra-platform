@@ -1,5 +1,9 @@
 import { createProxyMiddleware } from 'http-proxy-middleware'
+import { Request, Response } from 'express'
+
 import { ApiEndPoint } from '@common/api/endpoint'
+
+const sepalToken = process.env.SEPAL_TOKEN
 
 const options = {
   target: 'https://sepal.io',
@@ -8,44 +12,13 @@ const options = {
     [ApiEndPoint.Geo.sepalProxy()]: '/api/gee',
   },
   connection: 'keep-alive',
-  logLevel: 'debug' as const,
-  // @ts-ignore
-  onProxyReq: (proxyReq: any, req: any, res: any) => {
-    console.log('--------------------------------------------')
-    console.log('ON PROXY REQ')
-    console.log('--------------------------------------------')
-    console.log(proxyReq)
-    console.log('--------------------------------------------')
-    console.log('ON PROXY REQ: REQ')
-    console.log('--------------------------------------------')
-    console.log(req)
-    console.log('--------------------------------------------')
-    console.log('ON PROXY REQ: RES')
-    console.log('--------------------------------------------')
-    console.log(res)
+  onProxyReq: (proxyReq: any) => {
+    proxyReq.setHeader('authorization', `Basic ${sepalToken}`)
   },
-  // @ts-ignore
-  onProxyRes: (proxyReq: any, req: any, res: any) => {
-    console.log('--------------------------------------------')
-    console.log('ON PROXY RES')
-    console.log('--------------------------------------------')
-    console.log(proxyReq)
-    console.log('--------------------------------------------')
-    console.log('ON PROXY RES: REQ')
-    console.log('--------------------------------------------')
-    console.log(req)
-    console.log('--------------------------------------------')
-    console.log('ON PROXY RES: RES')
-    console.log('--------------------------------------------')
-    console.log(res)
-  },
-  // @ts-ignore
-  onError: (err, req, res, target) => {
-    console.error(err)
-    res.writeHead(500, {
-      'Content-Type': 'text/plain',
-    })
-    res.end('Something went wrong. And we are reporting a custom error message.')
+
+  onError: (_err: Error, _req: Request, res: Response) => {
+    res.status(500)
+    res.end('Sepal proxy error')
   },
 }
 
