@@ -1,0 +1,52 @@
+@import 'client/style/partials';
+
+.topic {
+  width: $ui-app-review-width;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  background: white;
+  border-left: $ui-thin-border;
+  box-shadow: 0px 0px 12px 12px $ui-border;
+  margin-right: 32px;
+}
+
+.topic-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px 12px 16px;
+  border-bottom: 1px solid $ui-border;
+  background-color: $ui-bg;
+  font-weight: 700;
+  .topic-close {
+    margin-left: $spacing-xxs;
+    line-height: 0;
+    &:hover {
+      cursor: pointer;
+      .icon {
+        color: $text-disabled;
+      }
+    }
+  }
+}
+
+.topic-body {
+  padding: 12px 16px 12px 16px;
+  .no-comments {
+    color: $text-disabled;
+    text-align: center;
+  }
+}
+
+.topic-footer {
+  padding: 8px 16px 12px;
+  textarea {
+    width: 100%;
+    border-color: $ui-border;
+    resize: none;
+  }
+  button {
+    float: right;
+  }
+}
