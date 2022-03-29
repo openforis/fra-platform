@@ -20,13 +20,14 @@ const DataTable: React.FC<Props> = (props) => {
   const { assessmentName, sectionName, sectionAnchor, table, disabled } = props
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
-  const data = useTableData()
+  const data = useTableData({ table })
   const cycle = useCycle()
   // Data of current section, passed for table
 
   const {
     // props: { name: tableName },
     rows,
+    props: { odp },
     // isSectionDataEmpty,
     // odp,
     // showOdpChart,
@@ -57,6 +58,15 @@ const DataTable: React.FC<Props> = (props) => {
         section: sectionName,
       })
     )
+    if (odp) {
+      dispatch(
+        AssessmentSectionActions.getOriginalDataPointData({
+          assessmentName,
+          countryIso,
+          cycleName: cycle.name,
+        })
+      )
+    }
     return () => {
       dispatch(AssessmentSectionActions.resetData())
     }

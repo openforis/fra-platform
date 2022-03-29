@@ -38,13 +38,11 @@ const Cell: React.FC<Props> = (props) => {
   const countryIso = useCountryIso()
   const datum = TableDatas.getDatum({ data, countryIso, table, row, col })
   const nodeValue = TableDatas.getNodeValue({ data, countryIso, table, row, col })
-
   const className = useClassName(col /* rowIndex */)
 
   const propsOnChange = { table, col, row, nodeValue }
 
   const { onChange, onPaste } = useOnChange(propsOnChange)
-
   const Component = ComponentsByName[col.props.colType]
 
   return (

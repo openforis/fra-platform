@@ -4,10 +4,14 @@ import { AssessmentController } from '@server/controller/assessment'
 
 export const deleteOriginalDataPoint = async (req: Request, res: Response) => {
   try {
-    const { name, cycleName, odpId } = req.params
+    const { assessmentName, cycleName, odpId } = req.params
 
-    const originalDataPoint = await AssessmentController.getOriginalDataPoint({ name, cycleName, odpId: Number(odpId) })
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name, cycleName })
+    const originalDataPoint = await AssessmentController.getOriginalDataPoint({
+      name: assessmentName,
+      cycleName,
+      odpId: Number(odpId),
+    })
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName })
 
     const returnedOriginalDataPoint = await AssessmentController.removeOriginalDataPoint({
       assessment,

@@ -5,11 +5,11 @@ import { AssessmentController } from '@server/controller/assessment'
 import { AssessmentName } from '@meta/assessment'
 
 export const getCountryStatus = async (req: Request, res: Response) => {
-  const { countryIso, name, cycleName } = req.params
   try {
+    const { countryIso, assessmentName, cycleName } = req.params
     const countryStatus = await AssessmentController.getCountryStatus({
       countryIso,
-      name: name as AssessmentName,
+      name: assessmentName as AssessmentName,
       cycleName,
     })
     Requests.send(res, countryStatus)
