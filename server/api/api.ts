@@ -4,7 +4,6 @@ import { AuthApi } from '@server/api/auth'
 import { UserApi } from '@server/api/user'
 import { AssessmentApi } from '@server/api/assessment'
 import { DefinitionApi } from '@server/api/definitions'
-// import { GeoApi } from '@server/api/geo'
 
 /**
  * API Controller
@@ -18,6 +17,5 @@ export const Api = {
     AssessmentApi.init(express)
     DefinitionApi.init(express)
     UserApi.init(express)
-    // GeoApi.init(express)
   },
 }
