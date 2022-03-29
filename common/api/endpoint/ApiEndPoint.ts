@@ -41,14 +41,14 @@ export const ApiEndPoint = {
       },
     },
 
-    sections: (assessmentName = ':assessmentName', cycleName = ':cycleName') =>
-      apiPath('assessment', assessmentName, 'sections', cycleName),
-    countryStatus: (countryIso = ':countryIso', name = ':name', cycleName = ':cycleName') =>
-      apiPath('country', countryIso, 'assessments', name, 'cycles', cycleName, 'status'),
+    sections: (countryIso = ':countryIso', assessmentName = ':assessmentName', cycleName = ':cycleName') =>
+      apiPath('countries', countryIso, 'assessment', assessmentName, 'sections', cycleName),
+    countryStatus: (countryIso = ':countryIso', assessmentName = ':assessmentName', cycleName = ':cycleName') =>
+      apiPath('country', countryIso, 'assessments', assessmentName, 'cycles', cycleName, 'status'),
 
     OriginalDataPoint: {
-      one: (name = ':name', cycleName = ':cycleName', odpId = ':odpId') =>
-        apiPath('assessment', name, 'originalDataPoint', cycleName, odpId),
+      one: (assessmentName = ':assessmentName', cycleName = ':cycleName', odpId = ':odpId') =>
+        apiPath('assessment', assessmentName, 'originalDataPoint', cycleName, odpId),
       ReservedYears: { many: () => apiPath('originalDataPoints', 'reservedYears') },
       TableData: {
         one: () => apiPath('originalDataPoint', 'data'),
