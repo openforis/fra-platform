@@ -50,6 +50,9 @@ export const ApiEndPoint = {
       one: (name = ':name', cycleName = ':cycleName', odpId = ':odpId') =>
         apiPath('assessment', name, 'originalDataPoint', cycleName, odpId),
       ReservedYears: { many: () => apiPath('originalDataPoints', 'reservedYears') },
+      TableData: {
+        one: () => apiPath('originalDataPoint', 'data'),
+      },
     },
   },
   // TODO: Remove deprecated routes (still in use in _legacy)
