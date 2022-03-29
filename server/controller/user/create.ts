@@ -6,7 +6,7 @@ import { UserRepository, UserProviderRepository } from '@server/repository'
 export const create = async (
   props: {
     user: Pick<User, 'name' | 'email'>
-    provider: Pick<UserAuthProvider<{ password: string }>, 'provider' | 'props'>
+    provider: Pick<UserAuthProvider<{ password?: string; email?: string }>, 'provider' | 'props'>
   },
   client: BaseProtocol = DB
 ): Promise<User> => {

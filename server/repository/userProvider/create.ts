@@ -4,7 +4,7 @@ import { User, UserAuthProvider } from '@meta/user'
 import { Objects } from '@core/utils'
 
 export const create = async (
-  props: { provider: Pick<UserAuthProvider<{ password: string }>, 'userId' | 'props' | 'provider'> },
+  props: { provider: Pick<UserAuthProvider<{ password?: string; email?: string }>, 'userId' | 'props' | 'provider'> },
   client: BaseProtocol = DB
 ): Promise<User> => {
   const {

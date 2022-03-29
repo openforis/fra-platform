@@ -1,6 +1,6 @@
 import { BaseProtocol, DB } from '@server/db'
 import { User } from '@meta/user'
-import { read } from './read'
+import { getOne } from './getOne'
 
 export const update = async (props: { user: User }, client: BaseProtocol = DB): Promise<User> => {
   const {
@@ -22,5 +22,5 @@ export const update = async (props: { user: User }, client: BaseProtocol = DB): 
     [institution, lang, name, status, position, email, id]
   )
 
-  return read({ user: { email } }, client)
+  return getOne({ email }, client)
 }
