@@ -13,7 +13,7 @@ export const read = async (
   client.one<Assessment>(
     `
         select ${selectFields},
-               jsonb_agg(to_jsonb(ac.*) - 'id') as cycles
+               jsonb_agg(to_jsonb(ac.*)) as cycles
                 ${props.metaCache ? `, meta_cache` : ''}
         from assessment a
                  left join assessment_cycle ac on a.id = ac.assessment_id
