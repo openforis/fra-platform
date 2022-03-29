@@ -29,7 +29,7 @@ export const localStrategyVerifyCallback = async (req: Request, email: string, p
         }
       }
 
-      let user = await UserController.read({ user: { email } })
+      let user = await UserController.getOne({ email })
 
       if (!user) sendErr('login.noMatchingUser')
 
