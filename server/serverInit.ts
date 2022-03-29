@@ -8,11 +8,13 @@ import * as wwwhisper from 'connect-wwwhisper'
 
 import { Api } from '@server/api'
 import * as cookieParser from 'cookie-parser'
+import { Proxy } from '@server/proxy/proxy'
 import * as resourceCacheControl from './resourceCacheControl'
 import { sendErr } from './utils/requests'
 
 export const serverInit = () => {
   const app = express()
+  Proxy.init(app)
   app.use(wwwhisper(false))
   app.use(cookieParser())
 
