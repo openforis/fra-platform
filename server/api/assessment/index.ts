@@ -48,6 +48,7 @@ export const AssessmentApi = {
     express.patch(ApiEndPoint.CycleData.PersistNode.one(), AuthMiddleware.requireEdit, persistNodeValue)
 
     // Sections
+    // requireView: We don't pass table for sections - always allow read
     express.get(ApiEndPoint.Assessment.sections(), AuthMiddleware.requireView, getSections)
     express.get(ApiEndPoint.Assessment.Sections.Metadata.many(), AuthMiddleware.requireView, getSectionMetadata)
   },
