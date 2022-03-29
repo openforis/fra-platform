@@ -7,6 +7,7 @@ import { AssessmentState } from './assessment/stateType'
 import { LoginState } from './login/stateType'
 import { UserState } from './user/stateType'
 import { NotificationState } from './ui/notification/stateType'
+import { MessageCenter } from './ui/messageCenter/stateType'
 
 export type RootState = {
   assessment: AssessmentState
@@ -22,5 +23,6 @@ export type RootState = {
     navigation: NavigationState
     notification: NotificationState
     dataLock: DataLockState
+    messageCenter: MessageCenter
   }
 }

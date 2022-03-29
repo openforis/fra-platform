@@ -8,7 +8,11 @@ import { Assessment } from '../../meta/assessment/assessment'
 import { Cycle } from '../../meta/assessment/cycle'
 import { SectionSpec } from '../../webapp/sectionSpec'
 import { BaseProtocol, DB } from '../../server/db'
-import { getCreateSchemaCycleDDL, getCreateSchemaDDL } from '../../server/repository/assessment/getCreateSchemaDDL'
+import {
+  getCreateSchemaCycleDDL,
+  getCreateSchemaCycleOriginalDataPointViewDDL,
+  getCreateSchemaDDL,
+} from '../../server/repository/assessment/getCreateSchemaDDL'
 
 import { DBNames } from './_DBNames'
 import { FraSpecs } from './fraSpecs'
@@ -33,6 +37,11 @@ const createCycle = async (assessment: Assessment, cycleName: string, client: Ba
       DBNames.getCycleSchema(assessment.props.name, cycleName)
     )
   )
+
+  await client.query(
+    getCreateSchemaCycleOriginalDataPointViewDDL(DBNames.getCycleSchema(assessment.props.name, cycleName))
+  )
+
   return client.one<Cycle>(
     `insert into assessment_cycle (assessment_id, name)
      values ($1, $2)
