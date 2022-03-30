@@ -5,8 +5,8 @@ import { userMockTest } from '@test/integration/mock/user'
 
 export default () =>
   test('Expect assessment to be created', async () => {
-    const user = await UserController.read({
-      user: userMockTest,
+    const user = await UserController.getOne({
+      email: userMockTest.email,
     })
 
     const assessment = await AssessmentController.create({

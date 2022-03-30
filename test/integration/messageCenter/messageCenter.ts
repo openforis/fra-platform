@@ -10,16 +10,16 @@ import { MessageCenterController } from '@server/controller/messageCenter'
 export default (): void =>
   describe('Message topic tests', () => {
     let assessment: Assessment
-    let assessmentCycle: Cycle
+    let cycle: Cycle
     let user: User
 
     beforeAll(async () => {
-      ;({ assessment, cycle: assessmentCycle } = await AssessmentController.getOneWithCycle({
+      ;({ assessment, cycle } = await AssessmentController.getOneWithCycle({
         name: assessmentParams.props.name,
         cycleName: assessmentCycleName,
       }))
 
-      user = await UserController.read({ user: { email: userMockTest.email } })
+      user = await UserController.getOne({ email: userMockTest.email })
     })
 
     it('Create new Message topic adding a Message', async () => {
@@ -28,7 +28,7 @@ export default (): void =>
         user,
         countryIso: 'AFG' as CountryIso,
         assessment,
-        cycle: assessmentCycle,
+        cycle,
         key: 'TEST',
       })
 
@@ -37,14 +37,14 @@ export default (): void =>
         user,
         countryIso: 'AFG' as CountryIso,
         assessment,
-        cycle: assessmentCycle,
+        cycle,
         key: 'TEST',
       })
 
       const topic = await MessageCenterController.getTopic({
         countryIso: 'AFG' as CountryIso,
-        assessmentName: assessment.props.name,
-        cycleName: assessmentCycle.name,
+        assessment,
+        cycle,
         key: 'TEST',
       })
 

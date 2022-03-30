@@ -18,7 +18,7 @@ export default (): void =>
         cycleName: assessmentCycleName,
       }))
 
-      user = await UserController.read({ user: { email: userMockTest.email } })
+      user = await UserController.getOne({ email: userMockTest.email })
     })
 
     it('Create new Original data point', async () => {

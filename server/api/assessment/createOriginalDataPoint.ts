@@ -4,10 +4,10 @@ import { AssessmentController } from '@server/controller/assessment'
 
 export const createOriginalDataPoint = async (req: Request, res: Response) => {
   try {
-    const { name, cycleName } = req.params
+    const { assessmentName, cycleName } = req.params
     const { originalDataPoint } = req.body
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name, cycleName })
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName })
 
     const returnedOriginalDataPoint = await AssessmentController.createOriginalDataPoint({
       assessment,

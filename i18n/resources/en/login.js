@@ -41,6 +41,7 @@ module.exports = {
   returnHome: 'To return to the home page click',
   returnHomeClick: 'here.',
 
+  alreadyAcceptedInvitation: 'This invitation has already been accepted',
   invitationMessage: 'You have been invited to {{assessment}} {{cycle}} as {{userRole}}',
   acceptInvitation: 'Accept Invitation',
   acceptInvitationWithGoogle: 'Accept Invitation with Google',

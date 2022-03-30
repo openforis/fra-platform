@@ -5,10 +5,14 @@ import { AssessmentName, Col, Row as TypeRow, RowType, Table as TableType } from
 import ButtonTableExport from '@client/components/ButtonTableExport'
 // import CellOdpHeader from './CellOdpHeader'
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
 
 import { useCountryIso } from '@client/hooks'
 import { TableData } from '@meta/data'
-import { getHeaders } from '@client/pages/AssessmentSection/DataTable/utils'
+import * as DataTableUtils from '@client/pages/AssessmentSection/DataTable/utils'
+import { useOriginalDataPointYears, useShowOriginalDatapoints } from '@client/store/pages/assessmentSection/hooks'
+import { BasePaths } from '@client/basePaths'
+import { useCycle } from '@client/store/assessment'
 import Row from './Row'
 
 type Props = {
@@ -23,8 +27,12 @@ type Props = {
 
 const Table: React.FC<Props> = (props) => {
   const { assessmentName, sectionName, sectionAnchor, table, rows, data, disabled } = props
+  const showOriginalDatapoints = useShowOriginalDatapoints()
 
+  const cycle = useCycle()
   const { i18n } = useTranslation()
+  const odpYears = useOriginalDataPointYears()
+
   const [printView] = [false] // usePrintView()
 
   const countryIso = useCountryIso()
@@ -36,8 +44,7 @@ const Table: React.FC<Props> = (props) => {
   const displayTableExportButton = !secondary && !printView && tableRef.current != null
 
   // Get headers from data
-  const headers = getHeaders(data, countryIso, table)
-
+  const headers = DataTableUtils.getHeaders(data, countryIso, table)
   return (
     <div className={`fra-table__container${secondary ? ' fra-secondary-table__wrapper' : ''}`}>
       <div className="fra-table__scroll-wrapper">
@@ -50,19 +57,47 @@ const Table: React.FC<Props> = (props) => {
                 {row.cols.map((col: Col, colIndex: number) => {
                   const { index, /* idx, className, */ colSpan, rowSpan, labelKey /* labelParams,  label */ } =
                     col.props
+                  const columnName = headers[colIndex]
+
+                  const isOdpHeader = showOriginalDatapoints && table.props.odp && odpYears?.includes(columnName)
+
+                  const getColumnName = () => {
+                    if (labelKey)
+                      return i18n.t(labelKey, {
+                        /* labelParams */
+                      })
+
+                    if (isOdpHeader) {
+                      return (
+                        <Link
+                          className="link"
+                          to={BasePaths.Assessment.OriginalDataPoint.one(
+                            countryIso,
+                            assessmentName,
+                            cycle.name,
+                            columnName
+                          )}
+                        >
+                          {columnName}
+                        </Link>
+                      )
+                    }
+                    return columnName
+                  }
+
+                  let className = `fra-table__header-cell${index === 0 && rowIndex === 0 ? '-left' : ''}`
+                  if (isOdpHeader && rowIndex > 0) {
+                    className = 'odp-header-cell'
+                  }
 
                   return (
                     <th
                       key={col.uuid}
-                      className={`fra-table__header-cell${index === 0 && rowIndex === 0 ? '-left' : ''}`}
-                      colSpan={odp && !colSpan ? data.length : colSpan}
+                      className={className}
+                      colSpan={odp && !colSpan ? DataTableUtils.getODPColSpan({ table, data }) : colSpan}
                       rowSpan={rowSpan}
                     >
-                      {labelKey
-                        ? i18n.t(labelKey, {
-                            /* labelParams */
-                          })
-                        : headers[colIndex]}
+                      {getColumnName()}
                     </th>
                   )
                 })}
