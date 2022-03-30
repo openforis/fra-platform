@@ -25,9 +25,7 @@ import { migrateUsersInvitation } from './migrateUsersInvitation'
 import { migrateUsersResetPassword } from './migrateUsersResetPassword'
 import { migrateTablesData } from './migrateData/migrateTablesData'
 import { migrateOdps } from './migrateData/migrateOdps'
-import { migrateCountryStatus } from './migrateData/migrateCountryStatus'
 import { generateMetaCache } from './generateMetaCache'
-import { migrateCountries } from './migrateCountries'
 
 config({ path: path.resolve(__dirname, '..', '..', '.env') })
 
@@ -100,12 +98,11 @@ export const migrate = async (props: {
     await migrateMetadata({ assessment, assessmentLegacy, schema, spec, client })
 
     await Promise.all(
-      cycleNames.map((cycleName) =>
-        migrateCountries({ client, schema: DBNames.getCycleSchema(assessment.props.name, cycleName) })
+      cycleNames.map((cycleName, index: number) =>
+        migrateAreas({ client, schema: DBNames.getCycleSchema(assessment.props.name, cycleName), index })
       )
     )
 
-    await migrateAreas({ client, schema })
     await migrateUsers({ client })
     await migrateUsersAuthProvider({ client })
     await migrateUsersRole({ assessment, client })
@@ -113,7 +110,6 @@ export const migrate = async (props: {
     await migrateUsersResetPassword({ client })
     await migrateTablesData({ assessment }, client)
     await migrateOdps({ assessment }, client)
-    await migrateCountryStatus({ assessment }, client)
     await generateMetaCache({ assessment }, client)
 
     await client.query(

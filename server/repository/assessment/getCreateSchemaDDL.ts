@@ -65,19 +65,6 @@ create table ${schemaName}.col
       user_id bigint not null references public.users (id)            on update cascade on delete cascade
   );
 
-  create table ${schemaName}.region_group
-  (
-      id bigserial not null constraint region_group_pkey primary key,
-      name varchar not null,
-      "order" integer not null
-  );
- 
-  create table ${schemaName}.region
-  (
-    region_group_id bigint references ${schemaName}.region_group (id) on update cascade on delete cascade,
-    region_code varchar references region on update cascade on delete cascade,
-      unique (region_code, region_group_id)
-  );
 `
   return query
 }
@@ -142,19 +129,25 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
                   references country
                   on update cascade on delete cascade,
           config jsonb default null,
+          status assessment_status not null,
+          desk_study boolean default false not null,
           unique (country_iso)
       );
- 
- 
-      create table ${assessmentCycleSchemaName}.country_status
+      
+          
+      create table ${assessmentCycleSchemaName}.region_group
       (
-        country_iso varchar(3) not null references ${assessmentCycleSchemaName}.country (country_iso),
-        status assessment_status not null,
-        desk_study boolean default false not null,
-        constraint unique_country_status_country
-        unique (country_iso)
+          id bigserial not null constraint region_group_pkey primary key,
+          name varchar not null,
+          "order" integer not null
       );
-
+     
+      create table ${assessmentCycleSchemaName}.region
+      (
+        region_group_id bigint references ${assessmentCycleSchemaName}.region_group (id) on update cascade on delete cascade,
+        region_code varchar references region on update cascade on delete cascade,
+          unique (region_code, region_group_id)
+      );
   `
 }
 
