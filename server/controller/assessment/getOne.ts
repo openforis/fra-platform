@@ -8,13 +8,20 @@ export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<A
   return AssessmentRepository.read(props, client)
 }
 
+const _getCycle = (props: { cycleName?: string; assessment: Assessment }) => {
+  const { cycleName, assessment } = props
+  if (cycleName) return assessment.cycles.find((cycle) => cycle.name === cycleName)
+  // Return default cycle if cycleName not defined
+  return assessment.cycles.find((cycle) => cycle.uuid === assessment.props.defaultCycle)
+}
+
 export const getOneWithCycle = async (
-  props: Props & { cycleName: string },
+  props: Props & { cycleName?: string },
   client: BaseProtocol = DB
 ): Promise<{ assessment: Assessment; cycle: Cycle }> => {
   const { cycleName } = props
   const assessment = await AssessmentRepository.read(props, client)
-  const cycle = assessment.cycles.find((cycle) => cycle.name === cycleName)
+  const cycle = _getCycle({ cycleName, assessment })
 
   if (!cycle) {
     throw new Error(`Cycle ${cycleName} not found in assessment ${assessment.props.name}`)

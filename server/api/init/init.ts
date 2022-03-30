@@ -12,12 +12,10 @@ export const init = async (req: Request, res: Response) => {
       const settings = await SettingsController.read()
       ;({ assessment, cycle } = await AssessmentController.getOneWithCycle({
         id: settings.defaultAssessmentId,
-        cycleName: '2020', // TODO fix this
       }))
     } else {
       ;({ assessment, cycle } = await AssessmentController.getOneWithCycle({
         name: assessmentName,
-        cycleName: '2020', // TODO fix this
       }))
     }
 
