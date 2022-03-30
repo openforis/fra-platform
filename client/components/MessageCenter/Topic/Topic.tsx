@@ -44,7 +44,7 @@ const Topic: React.FC<TopicProps> = ({ topic }) => {
   return (
     <div className="topic">
       <div className="topic-header">
-        {topic.key}
+        {topic.title || topic.key}
         <div className="topic-close" onClick={closeTopic} onKeyDown={closeTopic} role="button" tabIndex={0}>
           <Icon name="remove" />
         </div>
