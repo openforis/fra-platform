@@ -8,6 +8,7 @@ import { useAssessment, useCycle } from '@client/store/assessment'
 import { MessageCenterActions } from '@client/store/ui/messageCenter'
 import { MessageTopic } from '@meta/messageCenter'
 import { Objects } from '@core/utils'
+import Message from './Message'
 
 type TopicProps = {
   topic: MessageTopic
@@ -51,6 +52,9 @@ const Topic: React.FC<TopicProps> = ({ topic }) => {
         </div>
       </div>
       <div className="topic-body">
+        {topic.messages.map((message) => (
+          <Message key={message.id} message={message} />
+        ))}
         {Objects.isEmpty(topic.messages) && (
           <div className="no-comments">
             <Icon className="icon-24" name="chat-46" />
