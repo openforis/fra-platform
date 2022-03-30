@@ -20,7 +20,13 @@ export const getOneOrNone = async (
       select t.*,
       jsonb_agg(to_jsonb(m.*)) as messages
       from public.message_topic t
-      left join public.message m on m.topic_id = t.id
+      left join (
+        select msg.*,
+        to_jsonb(u.*) as user
+        from public.message msg
+        left join public.users u on msg.user_id = u.id
+        group by msg.id, u.*
+      ) m on m.topic_id = t.id
       where country_iso = $1 and assessment_id = $2 and cycle_id = $3 and key = $4
       group by t.id
     `

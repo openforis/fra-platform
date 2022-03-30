@@ -16,5 +16,6 @@ export const openTopic = createAsyncThunk<
     ...data,
     title,
     key,
+    messages: data?.messages || [],
   }
 })
