@@ -12,6 +12,9 @@ export const messageCenterSlice = createSlice({
   initialState,
   reducers: {
     reset: () => initialState,
+    closeTopic: (state, action) => {
+      state.topics = state.topics.filter((topic) => topic.key !== action.payload.key)
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(addMessage.fulfilled, (state, { payload }) => {
@@ -29,6 +32,7 @@ export const messageCenterSlice = createSlice({
 })
 
 export const MessageCenterActions = {
+  ...messageCenterSlice.actions,
   addMessage,
   openTopic,
 }

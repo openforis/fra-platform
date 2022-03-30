@@ -21,6 +21,14 @@ const Topic: React.FC<TopicProps> = ({ topic }) => {
   const assessment = useAssessment()
   const cycle = useCycle()
 
+  const closeTopic = () => {
+    dispatch(
+      MessageCenterActions.closeTopic({
+        key: topic.key,
+      })
+    )
+  }
+
   const addMessage = () => {
     dispatch(
       MessageCenterActions.addMessage({
@@ -37,7 +45,7 @@ const Topic: React.FC<TopicProps> = ({ topic }) => {
     <div className="topic">
       <div className="topic-header">
         {topic.key}
-        <div className="topic-close" onClick={() => null} onKeyDown={() => null} role="button" tabIndex={0}>
+        <div className="topic-close" onClick={closeTopic} onKeyDown={closeTopic} role="button" tabIndex={0}>
           <Icon name="remove" />
         </div>
       </div>
