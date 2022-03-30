@@ -21,7 +21,7 @@ export const init = async (req: Request, res: Response) => {
 
     const [countryISOs, regionGroups] = await Promise.all([
       AssessmentController.getCountryISOs({ assessment, cycle }),
-      AssessmentController.getRegionGroups({ name: assessment.props.name }),
+      AssessmentController.getRegionGroups({ assessment, cycle }),
     ])
 
     res.send({

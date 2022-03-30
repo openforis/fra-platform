@@ -7,7 +7,5 @@ export const getCountryISOs = async (
   props: { assessment: Assessment; cycle: Cycle },
   client: BaseProtocol = DB
 ): Promise<Array<CountryIso>> => {
-  const { assessment, cycle } = props
-
-  return AssessmentRepository.getCountryISOs({ assessment, cycle }, client)
+  return AssessmentRepository.getCountryISOs(props, client)
 }
