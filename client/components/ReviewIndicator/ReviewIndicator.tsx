@@ -5,17 +5,15 @@ import Icon from '@client/components/Icon'
 import { useAppDispatch } from '@client/store'
 import { useCountryIso } from '@client/hooks'
 import { useAssessment, useCycle } from '@client/store/assessment'
-import { Row } from '@meta/assessment'
 import { MessageCenterActions } from '@client/store/ui/messageCenter'
-import { Topics } from '@meta/messageCenter'
 
 type Props = {
-  row: Row
   title: string
+  topicKey: string
 }
 
 const ReviewIndicator = (props: Props) => {
-  const { row, title } = props
+  const { title, topicKey } = props
 
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
@@ -29,7 +27,7 @@ const ReviewIndicator = (props: Props) => {
         assessmentId: assessment.id,
         cycleId: cycle.uuid,
         title,
-        key: Topics.getDataReviewTopicKey(row),
+        key: topicKey,
       })
     )
   }

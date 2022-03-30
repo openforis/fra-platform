@@ -3,6 +3,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import ReviewIndicator from '@client/components/ReviewIndicator'
 import { useTopicKeys } from '@client/store/ui/messageCenter/hooks'
+import { Topics } from '@meta/messageCenter'
 import { Props } from '../props'
 // import useClassName from './useClassName'
 import Cell from './Cell'
@@ -81,7 +82,7 @@ const RowData: React.FC<Props> = (props) => {
       ))}
       {!disabled && !secondary && (
         <td className="no-print">
-          <ReviewIndicator row={row} title={colHeaderLabel} />
+          <ReviewIndicator title={colHeaderLabel} topicKey={Topics.getDataReviewTopicKey(row)} />
         </td>
       )}
     </tr>
