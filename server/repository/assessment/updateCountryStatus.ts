@@ -13,7 +13,7 @@ export const updateCountryStatus = async (
 
   return client.oneOrNone<CountryStatus>(
     `
-        update ${assessmentCycleName}.country_status
+        update ${assessmentCycleName}.country
         set status = $2, desk_study = $3
         where country_iso = $1
         returning *;
