@@ -76,6 +76,7 @@ export const ApiEndPoint = {
   User: {
     getByInvitation: (uuid = ':uuid') => apiPath('user', 'invitation', uuid),
     acceptInvitation: (uuid = ':uuid') => apiPath('user', 'invitation', 'accept', uuid),
+    getProfilePicture: (id = ':id') => apiPath('user', 'profilePicture', id),
   },
 
   // Old
