@@ -69,7 +69,7 @@ const Topic: React.FC<TopicProps> = ({ topic }) => {
           placeholder={i18n.t('review.writeComment')}
           onChange={(e) => setMessage(e.target.value)}
         />
-        <button className="btn-s btn-primary" type="submit" onClick={addMessage}>
+        <button className="btn-s btn-primary" disabled={Objects.isEmpty(message)} onClick={addMessage} type="submit">
           {i18n.t('review.add')}
         </button>
       </div>
