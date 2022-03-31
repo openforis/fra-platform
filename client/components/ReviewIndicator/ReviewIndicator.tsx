@@ -20,7 +20,7 @@ const ReviewIndicator = (props: Props) => {
   const assessment = useAssessment()
   const cycle = useCycle()
 
-  const click = () => {
+  const openTopic = () => {
     dispatch(
       MessageCenterActions.open({
         countryIso,
@@ -33,9 +33,9 @@ const ReviewIndicator = (props: Props) => {
   }
 
   return (
-    <div className="review-indicator" onClick={click} aria-hidden="true" role="button">
+    <button className="review-indicator" onClick={openTopic} type="button">
       <Icon name="circle-add" />
-    </div>
+    </button>
   )
 }
 

@@ -1,10 +1,12 @@
 @import 'client/style/partials';
 
 .review-indicator {
+  background: none;
+  border: none;
+  padding: 0;
   align-items: center;
     cursor: pointer;
     display: flex;
-    height: 42px;
     justify-content: center;
     width: 32px;
   svg {
