@@ -3,12 +3,9 @@
 .review-indicator {
   background: none;
   border: none;
-  padding: 0;
-  align-items: center;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    width: 32px;
+  display: flex;
+  justify-content: center;
+  width: 32px;
   svg {
     color: $text-disabled;
     &:hover {
