@@ -180,6 +180,9 @@ export const ApiEndPoint = {
     getAll: (countryIso = ':countryIso') => apiPath('userChat', countryIso, 'message', 'all'),
     getNew: (countryIso = ':countryIso') => apiPath('userChat', countryIso, 'message', 'new'),
   },
+  Geo: {
+    sepalProxy: () => apiPath('geo', 'sepal'),
+  },
   MessageCenter: {
     Topic: {
       get: () => apiPath('topic'),
