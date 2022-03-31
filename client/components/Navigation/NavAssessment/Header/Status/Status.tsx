@@ -11,11 +11,12 @@ import Icon from '@client/components/Icon'
 import PopoverControl, { PopoverItem } from '@client/components/PopoverControl'
 
 import { useAssessmentCountryStatus } from '@client/store/assessment/hooks'
-import { AssessmentName, AssessmentStatus } from '@meta/assessment'
+import { AssessmentName } from '@meta/assessment'
 import { CountryStatusTransitions } from '@meta/assessment/assessments'
 import { Users } from '@meta/user'
 import { useParams } from 'react-router-dom'
 import { AssessmentActions } from '@client/store/assessment'
+import { AssessmentStatus } from '@meta/area/country'
 import StatusConfirm from './StatusConfirm'
 import { StatusTransition } from './types'
 

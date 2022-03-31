@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { ApiEndPoint } from '@common/api/endpoint'
 import { CountryIso } from '@meta/area'
-import { CountryStatus } from '@meta/assessment'
+import { CountryStatus } from '@meta/area/country'
 
 export const postCountryStatus = createAsyncThunk<
   CountryStatus,

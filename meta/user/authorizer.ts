@@ -1,8 +1,9 @@
-import { Assessment, AssessmentStatus, CountryStatus, Cycle, Section } from '@meta/assessment'
+import { Assessment, Cycle, Section } from '@meta/assessment'
 import { User } from '@meta/user/user'
 import { CountryIso } from '@meta/area'
 import { Users } from '@meta/user/users'
 import { Collaborator } from '@meta/user/userRole'
+import { CountryStatus, AssessmentStatus } from '@meta/area/country'
 
 /**
  *  CanView

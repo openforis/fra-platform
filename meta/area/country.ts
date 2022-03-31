@@ -1,5 +1,12 @@
 import { CountryIso } from './countryIso'
 
+// Helper
+export interface CountryStatus {
+  countryIso: CountryIso
+  status: AssessmentStatus
+  deskStudy: boolean
+}
+
 export enum AssessmentStatus {
   editing = 'editing',
   review = 'review',

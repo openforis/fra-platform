@@ -1,10 +1,11 @@
 import { useAppSelector } from '@client/store'
-import { Assessment, Section, CountryStatus, SubSection } from '@meta/assessment'
+import { Assessment, Section, SubSection } from '@meta/assessment'
 import { CountryIso, RegionGroup } from '@meta/area'
 
 import { useTranslation } from 'react-i18next'
 import { Strings } from '@core/utils'
 import { useParams } from 'react-router-dom'
+import { CountryStatus } from '@meta/area/country'
 
 export { useCycle } from './useCycle'
 
