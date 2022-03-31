@@ -2,7 +2,7 @@ import './Message.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Message as MessageType } from '@meta/messageCenter/message'
-import { getRelativeDate } from '@client/utils/relativeDate'
+import { getRelativeDate } from '@core/utils/dates'
 import { ApiEndPoint } from '@common/api/endpoint'
 
 type MessageProps = {
