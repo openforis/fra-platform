@@ -19,7 +19,7 @@ export const messageCenterSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(addMessage.fulfilled, (state, { payload }) => {
       const i = state.topics.findIndex((topic) => topic.key === payload.key)
-      if (i !== -1) state.topics[i] = payload
+      if (i !== -1) state.topics[i] = { ...state.topics[i], ...payload }
     })
 
     builder.addCase(openTopic.fulfilled, (state, { payload }) => {
