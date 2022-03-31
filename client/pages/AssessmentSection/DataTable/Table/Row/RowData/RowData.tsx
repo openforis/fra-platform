@@ -1,8 +1,11 @@
 import React from 'react'
 
 import { useTranslation } from 'react-i18next'
+import ReviewIndicator from '@client/components/ReviewIndicator'
+import { useTopicKeys } from '@client/store/ui/messageCenter/hooks'
+import { Topics } from '@meta/messageCenter'
 import { Props } from '../props'
-import useClassName from './useClassName'
+// import useClassName from './useClassName'
 import Cell from './Cell'
 // import CellOdp from './CellOdp'
 
@@ -11,17 +14,20 @@ const RowData: React.FC<Props> = (props) => {
 
   const i18n = useTranslation()
 
-  const { name: tableName /* odp, secondary */ } = table.props
+  // const { name: tableName /* odp, secondary */ } = table.props
   const secondary = false
   const { cols } = row
-  const { index /* variableName */ } = row.props
+  // const { index /* variableName */ } = row.props
   const colHeader = cols[0]
   // const colHeaderLabel = colHeader.label ? colHeader.label : i18n.t(colHeader.labelKey, colHeader.labelParams)
   const colHeaderLabel = i18n.t(colHeader.props.labelKey)
   const colsData = cols.slice(1, cols.length)
-  const reviewTarget = [tableName, 'row', `${index}`]
-  const className = useClassName(reviewTarget)
+  // const reviewTarget = [tableName, 'row', `${index}`]
+  // const className = useClassName(reviewTarget)
   const colHeaderValue = `${colHeaderLabel}` // `${colHeaderLabel}${colHeader.variableNo ? ` (${colHeader.variableNo})` : ''}`
+
+  const openTopics = useTopicKeys()
+  const className = openTopics.includes(row.uuid) ? 'fra-row-comments__open' : ''
 
   return (
     <tr className={className}>
@@ -74,19 +80,11 @@ const RowData: React.FC<Props> = (props) => {
           row={row}
         />
       ))}
-      <td className="fra-table__row-anchor-cell">
-        <div className="fra-table__review-indicator-anchor">
-          {!disabled && !secondary && (
-            <pre>{`<ReviewIndicator />`}</pre>
-            // <ReviewIndicator
-            //   section={sectionName}
-            //   title={colHeaderLabel}
-            //   target={reviewTarget}
-            //   countryIso={countryIso}
-            // />
-          )}
-        </div>
-      </td>
+      {!disabled && !secondary && (
+        <td className="no-print">
+          <ReviewIndicator title={colHeaderLabel} topicKey={Topics.getDataReviewTopicKey(row)} />
+        </td>
+      )}
     </tr>
   )
 }
