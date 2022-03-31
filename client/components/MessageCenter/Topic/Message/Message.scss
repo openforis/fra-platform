@@ -1,5 +1,13 @@
 @import 'client/style/partials';
 
-.message-author {
+.message {
+  padding: 8px 16px;
+  font-size: $font-s;
+  .message-author {
     font-weight: 700;
+  }
+  .message-time {
+    color: $text-mute;
+    font-size: $font-xs;
+  }
 }
