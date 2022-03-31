@@ -1,6 +1,17 @@
 import { CountryIso } from './countryIso'
 
-export interface CountryConfig {
+export enum AssessmentStatus {
+  editing = 'editing',
+  review = 'review',
+  approval = 'approval',
+  accepted = 'accepted',
+  changing = 'changing',
+}
+
+export interface CountryProps {
+  status: AssessmentStatus
+  deskStudy: boolean
+  forestCharacteristics: { useOriginalDataPoint: boolean }
   certifiedAreas: Record<string, number | string> // type: year: value
   climaticDomainPercents2015: {
     boreal: number
@@ -31,5 +42,5 @@ export interface CountryConfig {
 
 export interface Country {
   countryIso: CountryIso
-  config?: CountryConfig
+  props?: CountryProps
 }

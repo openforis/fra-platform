@@ -10,10 +10,16 @@ export const migrateAreas = async (props: Props): Promise<void> => {
   const { client, schema, index } = props
 
   await client.query(`
-      insert into ${schema}.country (country_iso, config, status, desk_study)
-      select c.country_iso, c.config, ${index === 0 ? 'a.status' : `'editing'`}, ${index === 0 ? 'a.desk_study' : false}
+      insert into ${schema}.country (country_iso, props)
+      select
+          c.country_iso,
+          c.config || jsonb_build_object(
+              'status',  ${index === 0 ? 'a.status' : `'editing'`},
+              'desk_study',  ${index === 0 ? 'a.desk_study' : false},
+              'forestCharacteristics', jsonb_build_object('useOriginalDataPoint', false)
+              ) as props
       from public.country c
-      join  _legacy.assessment a on (c.country_iso = a.country_iso)
+               join  _legacy.assessment a on (c.country_iso = a.country_iso)
       order by country_iso;
   `)
 

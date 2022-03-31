@@ -128,9 +128,7 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
               constraint country_fk
                   references country
                   on update cascade on delete cascade,
-          config jsonb default null,
-          status assessment_status not null,
-          desk_study boolean default false not null,
+          props jsonb default null,
           unique (country_iso)
       );
       

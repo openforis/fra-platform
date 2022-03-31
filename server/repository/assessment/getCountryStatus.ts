@@ -13,7 +13,7 @@ export const getCountryStatus = async (
 
   return client.oneOrNone<CountryStatus>(
     `
-          select country_iso, status, desk_study from ${assessmentCycleName}.country where country_iso = $1
+          select country_iso, props->>status, props->>desk_study from ${assessmentCycleName}.country where country_iso = $1
     `,
     [countryIso],
     Objects.camelize
