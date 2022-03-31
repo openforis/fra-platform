@@ -13,6 +13,7 @@ export const getCol = (props: { cycles: Array<string>; colSpec: ColSpec; row: Ro
       index: colSpec.idx,
       labelKey: colSpec.labelKey,
       colName: colSpec.colName,
+      calculateFn: colSpec?.migration?.calculateFn,
     },
     rowId: row.id,
   }

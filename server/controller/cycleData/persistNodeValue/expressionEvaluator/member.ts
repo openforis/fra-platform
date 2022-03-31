@@ -7,9 +7,12 @@ export class MemberEvaluator extends ArenaMemberEvaluator<Context> {
     const { object, property } = expressionNode
     const { assessment, countryIso, colName, data } = this.context
 
+    // @ts-ignore
     const tableName = Object.keys(assessment.metaCache.variablesByTable).find((table) => table === object.name)
     if (tableName) {
-      return data[countryIso]?.[tableName]?.[property.name]?.[colName]?.raw
+      // @ts-ignore
+      const datum = data[countryIso]?.[tableName]?.[property.name]
+      return datum?.[colName]?.raw
     }
 
     return super.evaluate(expressionNode)

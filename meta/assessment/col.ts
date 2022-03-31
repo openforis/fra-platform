@@ -18,8 +18,10 @@ export interface ColProps {
   colSpan?: number
   colType: ColType
   index?: number | string
-  rowSpan?: number
   labelKey?: string
+  rowSpan?: number
+  // calculated props
+  calculateFn?: string
 }
 
 export interface Col extends CycledPropsObject<ColProps> {

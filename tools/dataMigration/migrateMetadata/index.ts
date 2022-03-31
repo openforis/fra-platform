@@ -93,7 +93,7 @@ export const migrateMetadata = async (props: Props): Promise<void> => {
                   await Promise.all(
                     tableSpec.rows.map(async (rowSpec) => {
                       let row = getRow({ cycles, rowSpec, table })
-                      if (mapping && rowSpec.type === 'data') {
+                      if (mapping && mapping.rows.names[rowIdx] && rowSpec.type === 'data') {
                         row.props.variableName = mapping.rows.names[rowIdx]
                         rowIdx += 1
                       }

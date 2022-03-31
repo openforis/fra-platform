@@ -1,6 +1,6 @@
 import { Cols, NodeValue, Row, VariableCache } from '@meta/assessment'
 import { Objects } from '@core/utils'
-import { AssessmentController } from '@server/controller'
+import { AssessmentController } from '@server/controller/assessment'
 import { DB, Schemas } from '@server/db'
 import { evalExpression } from '@server/controller/cycleData/persistNodeValue/evalExpression'
 import { ColRepository } from '@server/repository/col'
