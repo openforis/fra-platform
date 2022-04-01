@@ -20,13 +20,14 @@ export const evalExpression = async (
   const tables: TablesCondition = {}
   dependencies.forEach((d) => {
     if (!tables[d.tableName]) {
-      tables[d.tableName] = { columns: [colName], variables: [] }
+      tables[d.tableName] = { variables: [] }
     }
     const { variables } = tables[d.tableName]
+    if (!tables[d.tableName]) tables[d.tableName] = {}
     if (!variables.find((v) => v === d.variableName)) {
       variables.push(d.variableName)
     }
-    tables[d.tableName] = { variables, columns: [colName] }
+    tables[d.tableName] = { variables }
   })
 
   let tableData: TableData = data
