@@ -11,10 +11,10 @@ export const evalExpression = async (
   props: Pick<Props, 'cycle' | 'variableName' | 'countryIso' | 'assessment' | 'colName' | 'tableName'> & {
     data?: TableData
     row?: Row
-  },
+  } & { expression: string },
   client: BaseProtocol
 ): Promise<any> => {
-  const { assessment, cycle, countryIso, tableName, variableName, colName, data, row: rowProps } = props
+  const { assessment, cycle, countryIso, tableName, variableName, colName, data, row: rowProps, expression } = props
 
   const dependencies = assessment.metaCache.calculations.dependencies[tableName]?.[variableName] ?? []
   const tables: TablesCondition = {}
@@ -41,6 +41,6 @@ export const evalExpression = async (
     data: tableData,
     colName,
     row,
-    formula: row.props.calculateFn,
+    formula: expression,
   })
 }

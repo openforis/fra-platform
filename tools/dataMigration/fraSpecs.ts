@@ -1040,6 +1040,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 0,
                     type: 'calculated',
+                    colName: '1990_2000',
                     migration: {
                       calculateFn: `(extentOfForest.forestArea['2000'] - extentOfForest.forestArea['1990']) / 10`,
                     },
@@ -1047,6 +1048,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 1,
                     type: 'calculated',
+                    colName: '2000_2010',
                     migration: {
                       calculateFn: `(extentOfForest.forestArea['2010'] - extentOfForest.forestArea['2000']) / 10`,
                     },
@@ -1054,6 +1056,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 2,
                     type: 'calculated',
+                    colName: '2010_2015',
                     migration: {
                       calculateFn: `(extentOfForest.forestArea['2015'] - extentOfForest.forestArea['2010']) / 5`,
                     },
@@ -1061,6 +1064,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 3,
                     type: 'calculated',
+                    colName: '2015_2020',
                     migration: {
                       calculateFn: `(extentOfForest.forestArea['2020'] - extentOfForest.forestArea['2015']) / 5`,
                     },

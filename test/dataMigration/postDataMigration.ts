@@ -1,4 +1,4 @@
-import { Cols, NodeValue, Row, VariableCache } from '@meta/assessment'
+import { Col, Cols, NodeValue, Row, VariableCache } from '@meta/assessment'
 import { Objects } from '@core/utils'
 import { AssessmentController } from '@server/controller/assessment'
 import { DB, Schemas } from '@server/db'
@@ -27,12 +27,18 @@ describe('Post Data migration', () => {
       )
       const schema = Schemas.getName(assessment)
 
-      const rows = await client.map<Row & { tableName: string }>(
-        `select r.*, t.props ->> 'name' as table_name
+      const rows = await client.map<Row & { tableName: string; cols: Array<Col> }>(
+        `
+            select r.*,
+                   t.props ->> 'name' as table_name,
+                   jsonb_agg(c.*)     as cols
             from ${schema}.row r
                      left join ${schema}."table" t
                                on r.table_id = t.id
-            where r.props ->> 'calculateFn' is not null`,
+                     left join ${schema}.col c on r.id = c.row_id
+            where r.props ->> 'calculateFn' is not null
+               or c.props ->> 'calculateFn' is not null
+            group by r.id, r.uuid, r.props, t.props ->> 'name'`,
         [],
         // @ts-ignore
         Objects.camelize
@@ -95,8 +101,9 @@ describe('Post Data migration', () => {
                 const col = cols.find((c) => c.rowId === row.id && c.props.index === colIdx)
                 const { variableName } = row.props
 
+                const expression = row.props.calculateFn ?? col.props.calculateFn
                 const raw = await evalExpression(
-                  { tableName, assessment, colName, countryIso, variableName, cycle, data, row },
+                  { tableName, assessment, colName, countryIso, variableName, cycle, data, row, expression },
                   client
                 )
                 // const nodeProps = { tableName, countryIso, variableName, cycle, colName, assessment }

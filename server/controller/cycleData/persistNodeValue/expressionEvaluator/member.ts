@@ -5,14 +5,21 @@ import { Context } from './context'
 export class MemberEvaluator extends ArenaMemberEvaluator<Context> {
   evaluate(expressionNode: MemberExpression): any {
     const { object, property } = expressionNode
-    const { assessment, countryIso, colName, data } = this.context
+    const { assessment, countryIso, colName: colNameContext, data } = this.context
 
     // @ts-ignore
-    const tableName = Object.keys(assessment.metaCache.variablesByTable).find((table) => table === object.name)
+    const isCol = Boolean(object?.object?.name)
+    // @ts-ignore
+    const objectName = isCol ? object?.object.name : object.name
+    const tableName = Object.keys(assessment.metaCache.variablesByTable).find((table) => table === objectName)
     if (tableName) {
       // @ts-ignore
-      const datum = data[countryIso]?.[tableName]?.[property.name]
-      return datum?.[colName]?.raw
+      const variableName = isCol ? object?.property.name : property.name
+      // @ts-ignore
+      const colName = isCol ? property.value : colNameContext
+
+      const node = data[countryIso]?.[tableName]?.[colName]?.[variableName]
+      return node?.raw
     }
 
     return super.evaluate(expressionNode)
