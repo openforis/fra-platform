@@ -22,10 +22,10 @@ const ReviewIndicator = (props: Props) => {
 
   const openTopic = () => {
     dispatch(
-      MessageCenterActions.open({
+      MessageCenterActions.openTopic({
         countryIso,
-        assessmentId: assessment.id,
-        cycleId: cycle.uuid,
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
         title,
         key: topicKey,
       })
