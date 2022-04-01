@@ -13,5 +13,6 @@ export interface MessageTopic {
   cycleId: number
   key: string
   status: MessageTopicStatus
+  title?: string
   messages?: Array<Message>
 }
