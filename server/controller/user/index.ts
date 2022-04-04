@@ -12,6 +12,7 @@ export const UserController = {
   create,
   update,
   getOne: UserRepository.getOne,
+  getProfilePicture: UserRepository.getProfilePicture,
   remove,
   invite,
   acceptInvitation,
