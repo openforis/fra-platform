@@ -1,5 +1,6 @@
 import { TableRepository } from '@server/repository/table'
 
+import { AssessmentRepository } from '@server/repository'
 import { create } from './create'
 import { getOne, getOneWithCycle } from './getOne'
 import { remove } from './remove'
@@ -32,6 +33,8 @@ export const AssessmentController = {
   getOriginalDataPoint,
   createCycle,
   getCountryStatus,
+  updateCountry: AssessmentRepository.updateCountry,
+  getCountry: AssessmentRepository.getCountry,
   updateCountryStatus,
   getReservedYears,
   getSection,
