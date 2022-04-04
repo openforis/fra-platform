@@ -1,6 +1,7 @@
 import { Assessment } from '../../../meta/assessment/assessment'
-import { VariablesByTableCache, AssessmentMetaCache } from '../../../meta/assessment/assessmentMetaCache'
 import { Row } from '../../../meta/assessment/row'
+import { Col } from '../../../meta/assessment/col'
+import { VariablesByTableCache, AssessmentMetaCache } from '../../../meta/assessment/assessmentMetaCache'
 import { BaseProtocol } from '../../../server/db'
 import { DBNames } from '../_DBNames'
 import { Objects } from '../../../core/utils'
@@ -43,20 +44,34 @@ export const generateMetaCache = async (props: Props, client: BaseProtocol): Pro
     variablesByTable,
   }
 
-  const rows = await client.map<Row & { tableName: string }>(
+  const rows = await client.map<Row & { tableName: string; cols: Array<Col> }>(
     `
-        select r.*, t.props->>'name' as table_name
+        select r.*,
+               t.props ->> 'name' as table_name,
+               jsonb_agg(c.*)     as cols
         from ${schema}.row r
-        left join ${schema}."table" t
-            on r.table_id = t.id
-        where r.props ->> 'calculateFn' is not null`,
+                 left join ${schema}."table" t
+                           on r.table_id = t.id
+                 left join ${schema}.col c on r.id = c.row_id
+        where r.props ->> 'calculateFn' is not null
+           or c.props ->> 'calculateFn' is not null
+        group by r.id, r.uuid, r.props, t.props ->> 'name'`,
     [],
     // @ts-ignore
     Objects.camelize
   )
 
   rows.forEach(({ tableName, ...row }) => {
-    ExpressionEvaluator.evalDependencies({ row, tableName, assessmentMetaCache })
+    const context = { row, tableName, assessmentMetaCache }
+    if (row.props.calculateFn) {
+      ExpressionEvaluator.evalDependencies(row.props.calculateFn, context)
+    } else {
+      row.cols.forEach((col) => {
+        if (col.props.calculateFn) {
+          ExpressionEvaluator.evalDependencies(col.props.calculateFn, context)
+        }
+      })
+    }
   })
 
   return client.query(
