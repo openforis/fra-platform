@@ -23,7 +23,6 @@ export const geoSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(postMosaicOptions.fulfilled, (state, { payload }) => {
-      // @ts-ignore
       state.mosaicUrl = payload.urlTemplate
     })
   },

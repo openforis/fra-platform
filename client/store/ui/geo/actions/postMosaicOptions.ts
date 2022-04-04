@@ -64,7 +64,7 @@ const getReqBody = (mosaicOptions: MosaicOptions) => {
   return body
 }
 
-export const postMosaicOptions = createAsyncThunk<{ templateUrl: string }, MosaicOptions>(
+export const postMosaicOptions = createAsyncThunk<{ urlTemplate: string }, MosaicOptions>(
   'geo/post/mosaic',
   async (mosaicOptions: MosaicOptions) => {
     const body = getReqBody(mosaicOptions)
