@@ -3,7 +3,25 @@ import { BinaryExpression, ExpressionNodeEvaluator } from '@arena/core'
 import { Numbers } from '@core/utils'
 import { Context } from './context'
 
-const operators: { [operator: string]: (a: number, b: number) => BigNumber | null } = {
+const booleanOperators: { [operator: string]: (a: any, b: any) => boolean } = {
+  // Short-circuiting operators
+  '||': (a, b) => a || b,
+  '&&': (a, b) => a && b,
+  '??': (a, b) => a ?? b,
+  // Normal boolean operators:
+  '==': (a, b) => a === b,
+  '!=': (a, b) => a !== b,
+  '<': (a, b) => a < b,
+  '>': (a, b) => a > b,
+  '<=': (a, b) => a <= b,
+  '>=': (a, b) => a >= b,
+  // Only allow one kind of equalities.
+  // some hidden dependencies on === and !==...
+  // '===':  (a, b) => a === b,
+  // '!==':  (a, b) => a !== b,
+}
+
+const arithmeticOperators: { [operator: string]: (a: number, b: number) => BigNumber | null } = {
   '+': (a, b) => Numbers.add(a, b),
   '-': (a, b) => Numbers.sub(a, b),
   '*': (a, b) => Numbers.mul(a, b),
@@ -20,11 +38,16 @@ const operators: { [operator: string]: (a: number, b: number) => BigNumber | nul
   // '>>>': (a, b) => a >>> b,
 }
 
+const binaryOperators = {
+  ...booleanOperators,
+  ...arithmeticOperators,
+}
+
 export class Binary extends ExpressionNodeEvaluator<Context, BinaryExpression> {
   evaluate(expressionNode: BinaryExpression): any {
     const { left, right, operator } = expressionNode
 
-    const fn = operators[operator]
+    const fn = binaryOperators[operator]
     if (!fn) {
       throw new Error(`Boolean ${operator} not supported`)
     }

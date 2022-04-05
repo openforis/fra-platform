@@ -1564,6 +1564,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'otherLandWithTreeCover.total',
                 variableNo: 'a+b+c+d+e',
                 mainCategory: true,
+                variableName: 'otherLandWithTreeCoverTotal',
+                migration: {
+                  calcFormula:
+                    '(otherLandWithTreeCover.palms || 0) + (otherLandWithTreeCover.tree_orchards || 0) + (otherLandWithTreeCover.agroforestry || 0) + (otherLandWithTreeCover.trees_in_urban_settings || 0) + (otherLandWithTreeCover.other || 0)',
+                  colNames: ['1990', '2000', '2010', '2015', '2020'],
+                },
               },
               {
                 idx: 6,
@@ -1600,6 +1606,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'otherLandWithTreeCover.otherLandArea',
                 linkToSection: 'extentOfForest',
+                variableName: 'otherLand',
+                migration: {
+                  calcFormula: 'extentOfForest.otherLand',
+                  colNames: ['1990', '2000', '2010', '2015', '2020'],
+                },
               },
               {
                 idx: 7,
