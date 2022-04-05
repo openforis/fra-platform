@@ -13,8 +13,9 @@ import Icon from '@client/components/Icon'
 import PopoverControl, { PopoverItem } from '@client/components/PopoverControl'
 import { AppDispatch, useAppDispatch } from '@client/store'
 import { UserActions, useUser } from '@client/store/user'
+import { useToaster, ToasterHook } from '@client/hooks/useToaster'
 
-const getLinks = (i18nInstance: i18n, user: User, dispatch: AppDispatch) => {
+const getLinks = (i18nInstance: i18n, user: User, dispatch: AppDispatch, toaster: ToasterHook) => {
   const items: Array<PopoverItem> = [
     {
       content: i18nInstance.t('header.editProfile'),
@@ -33,7 +34,10 @@ const getLinks = (i18nInstance: i18n, user: User, dispatch: AppDispatch) => {
     },
     {
       content: i18nInstance.t('header.logout'),
-      onClick: () => dispatch(UserActions.logout()),
+      onClick: () => {
+        dispatch(UserActions.logout())
+        toaster.toaster.info(i18nInstance.t('login.logoutSuccessful'))
+      },
     }
   )
   return items
@@ -42,13 +46,14 @@ const getLinks = (i18nInstance: i18n, user: User, dispatch: AppDispatch) => {
 const LinksFRA: React.FC = () => {
   const dispatch = useAppDispatch()
   const user = useUser()
+  const toaster = useToaster()
   const { i18n } = useTranslation()
   const isLogin = useIsLogin()
 
   return (
     <>
       {user && (
-        <PopoverControl items={getLinks(i18n, user, dispatch)}>
+        <PopoverControl items={getLinks(i18n, user, dispatch, toaster)}>
           <div className="app-header__menu-item">
             {user.name}
             <Icon className="icon-middle" name="small-down" />
