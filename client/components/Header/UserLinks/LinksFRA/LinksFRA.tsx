@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+
 import { i18n } from 'i18next'
 
 import { User, Users } from '@meta/user'
@@ -9,11 +11,10 @@ import { useIsLogin } from '@client/hooks'
 
 import Icon from '@client/components/Icon'
 import PopoverControl, { PopoverItem } from '@client/components/PopoverControl'
-// import { useAppDispatch } from '@client/store'
-import { useUser } from '@client/store/user'
-import { useTranslation } from 'react-i18next'
+import { AppDispatch, useAppDispatch } from '@client/store'
+import { UserActions, useUser } from '@client/store/user'
 
-const getLinks = (i18nInstance: i18n, user: User /* dispatch: Dispatch<any> */) => {
+const getLinks = (i18nInstance: i18n, user: User, dispatch: AppDispatch) => {
   const items: Array<PopoverItem> = [
     {
       content: i18nInstance.t('header.editProfile'),
@@ -32,15 +33,14 @@ const getLinks = (i18nInstance: i18n, user: User /* dispatch: Dispatch<any> */) 
     },
     {
       content: i18nInstance.t('header.logout'),
-      // TODO: Handle user logout
-      // onClick: () => dispatch(UserActions.logout()),
+      onClick: () => dispatch(UserActions.logout()),
     }
   )
   return items
 }
 
 const LinksFRA: React.FC = () => {
-  // const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch()
   const user = useUser()
   const { i18n } = useTranslation()
   const isLogin = useIsLogin()
@@ -48,7 +48,7 @@ const LinksFRA: React.FC = () => {
   return (
     <>
       {user && (
-        <PopoverControl items={getLinks(i18n, user /* dispatch */)}>
+        <PopoverControl items={getLinks(i18n, user, dispatch)}>
           <div className="app-header__menu-item">
             {user.name}
             <Icon className="icon-middle" name="small-down" />
