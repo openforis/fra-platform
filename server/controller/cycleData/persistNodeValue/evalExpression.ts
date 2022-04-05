@@ -11,22 +11,23 @@ export const evalExpression = async (
   props: Pick<Props, 'cycle' | 'variableName' | 'countryIso' | 'assessment' | 'colName' | 'tableName'> & {
     data?: TableData
     row?: Row
-  },
+  } & { expression: string },
   client: BaseProtocol
 ): Promise<any> => {
-  const { assessment, cycle, countryIso, tableName, variableName, colName, data, row: rowProps } = props
+  const { assessment, cycle, countryIso, tableName, variableName, colName, data, row: rowProps, expression } = props
 
   const dependencies = assessment.metaCache.calculations.dependencies[tableName]?.[variableName] ?? []
   const tables: TablesCondition = {}
   dependencies.forEach((d) => {
     if (!tables[d.tableName]) {
-      tables[d.tableName] = { columns: [colName], variables: [] }
+      tables[d.tableName] = { variables: [] }
     }
     const { variables } = tables[d.tableName]
+    if (!tables[d.tableName]) tables[d.tableName] = {}
     if (!variables.find((v) => v === d.variableName)) {
       variables.push(d.variableName)
     }
-    tables[d.tableName] = { variables, columns: [colName] }
+    tables[d.tableName] = { variables }
   })
 
   let tableData: TableData = data
@@ -41,6 +42,6 @@ export const evalExpression = async (
     data: tableData,
     colName,
     row,
-    formula: row.props.calculateFn,
+    formula: expression,
   })
 }

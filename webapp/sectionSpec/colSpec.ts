@@ -40,4 +40,7 @@ export interface ColSpec {
 
   // migration
   colName?: string
+  migration?: {
+    calculateFn?: string
+  }
 }
