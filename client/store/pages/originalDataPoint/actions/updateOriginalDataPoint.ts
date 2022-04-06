@@ -6,13 +6,19 @@ import { ODPs, OriginalDataPoint } from '@meta/assessment'
 import { Functions } from '@core/utils'
 import { Dispatch } from 'redux'
 import { setOriginalDataPointUpdating } from '@client/store/pages/originalDataPoint/actions/setOriginalDataPointUpdating'
+import { CountryIso } from '@meta/area'
 
-type Params = { assessmentName: string; cycleName: string; originalDataPoint: OriginalDataPoint }
+type Params = {
+  countryIso: CountryIso
+  assessmentName: string
+  cycleName: string
+  originalDataPoint: OriginalDataPoint
+}
 
 const putOriginalDataPoint = Functions.debounce(async (params: Params, dispatch: Dispatch) => {
-  const { assessmentName, cycleName, originalDataPoint } = params
+  const { countryIso, assessmentName, cycleName, originalDataPoint } = params
   await axios.put(
-    ApiEndPoint.Assessment.OriginalDataPoint.one(assessmentName, cycleName, String(originalDataPoint.id)),
+    ApiEndPoint.Assessment.OriginalDataPoint.one(countryIso, assessmentName, cycleName, String(originalDataPoint.id)),
     {
       originalDataPoint: ODPs.removeNationalClassPlaceHolder(originalDataPoint),
     }
