@@ -5,7 +5,7 @@ import Icon from '@client/components/Icon'
 import VerticallyGrowingTextField from '@client/components/VerticallyGrowingTextField'
 // import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { useTranslation } from 'react-i18next'
-// import { useCountryIso } from '@client/hooks'
+import { useCountryIso } from '@client/hooks'
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
@@ -28,7 +28,7 @@ const NationalClass: React.FC<Props> = (props) => {
 
   const dispatch = useAppDispatch()
   const i18n = useTranslation()
-  // const countryIso = useCountryIso()
+  const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
 
@@ -43,6 +43,7 @@ const NationalClass: React.FC<Props> = (props) => {
   const updateOriginalDataPoint = (originalDataPointUpdate: OriginalDataPoint) => {
     dispatch(
       OriginalDataPointActions.updateOriginalDataPoint({
+        countryIso,
         cycleName: cycle.name,
         assessmentName: assessment.props.name,
         originalDataPoint: originalDataPointUpdate,

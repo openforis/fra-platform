@@ -8,7 +8,7 @@ import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { OriginalDataPoint, ODPDataSourceMethod } from '@meta/assessment/originalDataPoint'
 import { useTranslation } from 'react-i18next'
-// import { useCountryIso } from '@client/hooks'
+import { useCountryIso } from '@client/hooks'
 import { Objects } from '@core/utils'
 
 type Props = {
@@ -21,7 +21,7 @@ const DataSources: React.FC<Props> = (props) => {
 
   const dispatch = useAppDispatch()
   const i18n = useTranslation()
-  // const countryIso = useCountryIso()
+  const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
 
@@ -31,6 +31,7 @@ const DataSources: React.FC<Props> = (props) => {
   const updateOriginalDataPoint = (originalDataPointUpdate: OriginalDataPoint) => {
     dispatch(
       OriginalDataPointActions.updateOriginalDataPoint({
+        countryIso,
         cycleName: cycle.name,
         assessmentName: assessment.props.name,
         originalDataPoint: originalDataPointUpdate,
