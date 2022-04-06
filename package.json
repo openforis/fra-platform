@@ -148,7 +148,7 @@
     "webpack-dev-server": "^4.7.4"
   },
   "dependencies": {
-    "@arena/core": "git+https://git@github.com/openforis/arena-core.git#dependencies/date-fns-downgrade",
+    "@arena/core": "git+ssh://git@github.com/openforis/arena-core.git#master",
     "@googlemaps/js-api-loader": "^1.13.10",
     "@googlemaps/react-wrapper": "^1.1.29",
     "@reduxjs/toolkit": "^1.8.1",
@@ -168,7 +168,6 @@
     "connect-wwwhisper": "^0.1.21",
     "cookie-parser": "^1.4.5",
     "core-js": "^3.21.1",
-    "date-fns": "2.22.1",
     "d3": "^7.4.0",
     "d3-interpolate-path": "^2.2.3",
     "d3-tip": "^0.9.1",
