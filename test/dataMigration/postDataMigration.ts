@@ -165,39 +165,41 @@ describe('Post Data migration', () => {
         }
       )
 
-      await Promise.all(
-        rows.map(async ({ tableName, ...row }) => {
-          // const dependencies = assessment.metaCache.calculations.dependencies[tableName]?.[row.props.variableName] ?? []
-          //
-          // await Promise.all(
-          //   dependencies.map(async (dependency) => {
-          //     if (!hasBeenCalculated(dependency)) {
-          //       // await
-          //     }
-          //   })
-          // )
+      for (let i = 0; i < rows.length; i += 1) {
+        const { tableName, ...row } = rows[i]
+        // const dependencies = assessment.metaCache.calculations.dependencies[tableName]?.[row.props.variableName] ?? []
+        //
+        // await Promise.all(
+        //   dependencies.map(async (dependency) => {
+        //     if (!hasBeenCalculated(dependency)) {
+        //       // await
+        //     }
+        //   })
+        // )
 
-          // if (dependencies.length === 0) {
-          const values = await calculateRow({ row, tableName })
-          // const nodes = await client.map<Node>(
-          //   `select * from ${Schemas.getNameCycle(assessment, cycle)}.node`,
-          //   [],
-          //   // @ts-ignore
-          //   Objects.camelize
-          // )
-          // const node = nodes.find(({ colUuid, countryIso, rowUuid }) =>
-          //   values.find(
-          //     (value) => value.col_uuid === colUuid && value.row_uuid === rowUuid && value.country_iso === countryIso
-          //   )
-          // )
-          // if (node) {
-          //   console.log('======= NODE ', node)
-          // }
-          const query = pgp.helpers.insert(values, cs)
-          await client.none(query)
-          // }
-        })
-      )
+        // if (dependencies.length === 0) {
+        // console.log('calculating ', tableName, row.props.variableName)
+        // eslint-disable-next-line no-await-in-loop
+        const values = await calculateRow({ row, tableName })
+        // const nodes = await client.map<Node>(
+        //   `select * from ${Schemas.getNameCycle(assessment, cycle)}.node`,
+        //   [],
+        //   // @ts-ignore
+        //   Objects.camelize
+        // )
+        // const node = nodes.find(({ colUuid, countryIso, rowUuid }) =>
+        //   values.find(
+        //     (value) => value.col_uuid === colUuid && value.row_uuid === rowUuid && value.country_iso === countryIso
+        //   )
+        // )
+        // if (node) {
+        //   console.log('======= NODE ', node)
+        // }
+        const query = pgp.helpers.insert(values, cs)
+        // eslint-disable-next-line no-await-in-loop
+        await client.query(query)
+        // console.log('INSERT DONE ', tableName, row.props.variableName)
+      }
     })
   })
 })
