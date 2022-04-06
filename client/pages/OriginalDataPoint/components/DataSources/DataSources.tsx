@@ -2,7 +2,7 @@ import React from 'react'
 
 import VerticallyGrowingTextField from '@client/components/VerticallyGrowingTextField'
 import MultiSelect from '@client/components/MultiSelect'
-// import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
+import ReviewIndicator from '@client/components/ReviewIndicator'
 import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
@@ -68,18 +68,15 @@ const DataSources: React.FC<Props> = (props) => {
                     disabled={printView || !canEditData}
                   />
                 </td>
-                <td className="fra-table__row-anchor-cell">
-                  {displayReviewIndicator ? (
-                    <div className="odp__review-indicator-row-anchor">
-                      {/* <ReviewIndicator */}
-                      {/*  section="odp" */}
-                      {/*  title={i18n.t('nationalDataPoint.dataSources')} */}
-                      {/*  target={[originalDataPoint.odpId, 'dataSourceReferences']} */}
-                      {/*  countryIso={countryIso} */}
-                      {/* /> */}
-                    </div>
-                  ) : null}
-                </td>
+                {displayReviewIndicator && (
+                  <td className="no-print">
+                    <ReviewIndicator
+                      title={i18n.t('nationalDataPoint.references')}
+                      subtitle={i18n.t('nationalDataPoint.dataSources')}
+                      topicKey={`${originalDataPoint.id}-dataSourceReferences`}
+                    />
+                  </td>
+                )}
               </tr>
 
               <tr>
@@ -97,18 +94,15 @@ const DataSources: React.FC<Props> = (props) => {
                     }}
                   />
                 </td>
-                <td className="fra-table__row-anchor-cell">
-                  {displayReviewIndicator ? (
-                    <div className="odp__review-indicator-row-anchor">
-                      {/* <ReviewIndicator */}
-                      {/*  section="odp" */}
-                      {/*  title={i18n.t('nationalDataPoint.dataSources')} */}
-                      {/*  target={[originalDataPoint.odpId, 'dataSourceMethods']} */}
-                      {/*  countryIso={countryIso} */}
-                      {/* /> */}
-                    </div>
-                  ) : null}
-                </td>
+                {displayReviewIndicator && (
+                  <td className="no-print">
+                    <ReviewIndicator
+                      title={i18n.t('nationalDataPoint.methodsUsed')}
+                      subtitle={i18n.t('nationalDataPoint.dataSources')}
+                      topicKey={`${originalDataPoint.id}-dataSourceMethods`}
+                    />
+                  </td>
+                )}
               </tr>
 
               <tr>
@@ -126,18 +120,15 @@ const DataSources: React.FC<Props> = (props) => {
                     disabled={printView || !canEditData}
                   />
                 </td>
-                <td className="fra-table__row-anchor-cell">
-                  {displayReviewIndicator ? (
-                    <div className="odp__review-indicator-row-anchor">
-                      {/* <ReviewIndicator */}
-                      {/*  section="odp" */}
-                      {/*  title={i18n.t('nationalDataPoint.dataSources')} */}
-                      {/*  target={[originalDataPoint.odpId, 'dataSourceAdditionalComments']} */}
-                      {/*  countryIso={countryIso} */}
-                      {/* /> */}
-                    </div>
-                  ) : null}
-                </td>
+                {displayReviewIndicator && (
+                  <td className="no-print">
+                    <ReviewIndicator
+                      title={i18n.t('nationalDataPoint.additionalComments')}
+                      subtitle={i18n.t('nationalDataPoint.dataSources')}
+                      topicKey={`${originalDataPoint.id}-dataSourceAdditionalComments`}
+                    />
+                  </td>
+                )}
               </tr>
             </tbody>
           </table>
