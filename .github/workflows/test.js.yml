@@ -29,7 +29,7 @@ jobs:
         with:
           node-version: '14.15.0'
 
-      - run: rm yarn.lock && yarn --network-timeout 100000
+      - run: rm yarn.lock && yarn install --network-timeout 1000000
       - run: yarn run-migrations
         env:
           PGHOST: localhost
