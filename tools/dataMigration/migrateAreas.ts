@@ -16,10 +16,11 @@ export const migrateAreas = async (props: Props): Promise<void> => {
           c.config || jsonb_build_object(
               'status',  ${index === 0 ? 'a.status' : `'editing'`},
               'desk_study',  ${index === 0 ? 'a.desk_study' : false},
-              'forestCharacteristics', jsonb_build_object('useOriginalDataPoint', false)
+              'forestCharacteristics', jsonb_build_object('useOriginalDataPoint', dcc.config->>'useOriginalDataPointsInFoc')
               ) as props
       from public.country c
                join  _legacy.assessment a on (c.country_iso = a.country_iso)
+               join  _legacy.dynamic_country_configuration dcc on (c.country_iso = dcc.country_iso)
       order by country_iso;
   `)
 
