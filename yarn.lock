@@ -9,9 +9,9 @@
   dependencies:
     "@jridgewell/trace-mapping" "^0.3.0"
 
-"@arena/core@git+ssh://git@github.com/openforis/arena-core.git#master":
+"@arena/core@git+https://git@github.com/openforis/arena-core.git#master":
   version "0.0.79"
-  resolved "git+ssh://git@github.com/openforis/arena-core.git#55a0a6190dd52f86c0740d292410fe4195c0e17f"
+  resolved "git+https://git@github.com/openforis/arena-core.git#55a0a6190dd52f86c0740d292410fe4195c0e17f"
   dependencies:
     "@esri/proj-codes" "^2.7.0"
     date-fns "^2.28.0"
