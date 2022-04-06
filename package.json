@@ -148,7 +148,7 @@
     "webpack-dev-server": "^4.7.4"
   },
   "dependencies": {
-    "@arena/core": "git+https://git@github.com/openforis/arena-core.git#master",
+    "@arena/core": "git+https://git@github.com/openforis/arena-core.git#dependencies/date-fns-downgrade",
     "@googlemaps/js-api-loader": "^1.13.10",
     "@googlemaps/react-wrapper": "^1.1.29",
     "@reduxjs/toolkit": "^1.8.1",
