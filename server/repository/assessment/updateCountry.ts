@@ -11,7 +11,7 @@ export const updateCountry = async (
 
   const assessmentCycleName = Schemas.getNameCycle(assessment, cycle)
 
-  return client.oneOrNone<Country>(
+  return client.one<Country>(
     `
         update ${assessmentCycleName}.country
         set props = props || $2

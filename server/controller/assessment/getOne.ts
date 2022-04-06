@@ -8,7 +8,7 @@ export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<A
   return AssessmentRepository.read(props, client)
 }
 
-const _getCycle = (props: { cycleName?: string; assessment: Assessment }) => {
+const _getCycle = (props: { cycleName?: string; assessment: Assessment }): Cycle | undefined => {
   const { cycleName, assessment } = props
   if (cycleName) return assessment.cycles.find((cycle) => cycle.name === cycleName)
   // Return default cycle if cycleName not defined

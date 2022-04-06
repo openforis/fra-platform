@@ -4,7 +4,7 @@ import axios from 'axios'
 import { ApiEndPoint } from '@common/api/endpoint'
 import { Country, CountryIso } from '@meta/area'
 
-export const postCountry = createAsyncThunk<
+export const updateCountry = createAsyncThunk<
   Country,
   { countryIso: CountryIso; assessmentName: string; cycleName: string; country: Country }
 >('assessment/post/country', async ({ country, countryIso, assessmentName, cycleName }) => {

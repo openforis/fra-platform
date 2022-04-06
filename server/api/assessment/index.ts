@@ -21,7 +21,7 @@ export const AssessmentApi = {
   init: (express: Express): void => {
     // Country
     express.get(ApiEndPoint.Assessment.country(), AuthMiddleware.requireView, getCountry)
-    express.post(ApiEndPoint.Assessment.country(), AuthMiddleware.requireView, postCountry)
+    express.post(ApiEndPoint.Assessment.country(), AuthMiddleware.requireEdit, postCountry)
 
     // CountryStatus
     express.get(ApiEndPoint.Assessment.countryStatus(), AuthMiddleware.requireView, getCountryStatus)

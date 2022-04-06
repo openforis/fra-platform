@@ -128,7 +128,7 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
               constraint country_fk
                   references country
                   on update cascade on delete cascade,
-          props jsonb default null,
+          props jsonb default '{}'::jsonb,
           unique (country_iso)
       );
       
