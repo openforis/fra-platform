@@ -150,7 +150,7 @@
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.13.10",
     "@googlemaps/react-wrapper": "^1.1.29",
-    "@openforis/arena-core": "^0.0.7",
+    "@openforis/arena-core": "^0.0.79",
     "@reduxjs/toolkit": "^1.8.1",
     "assert": "^2.0.0",
     "axios": "^0.25.0",
