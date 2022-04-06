@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js'
-import { BinaryExpression, ExpressionNodeEvaluator } from '@arena/core'
+import { BinaryExpression, ExpressionNodeEvaluator } from '@openforis/arena-core'
 import { Numbers } from '@core/utils'
 import { Context } from './context'
 
