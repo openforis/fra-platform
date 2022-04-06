@@ -59,6 +59,7 @@ export const getTableData = (props: Props, client: BaseProtocol = DB): Promise<T
   select jsonb_object_agg(a.country_iso, a.data) as data
   from agg3 a;
     `,
-    [countryISOs]
+    [countryISOs],
+    ({ data }) => data
   )
 }
