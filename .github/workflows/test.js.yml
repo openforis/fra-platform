@@ -33,7 +33,7 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           scope: '@openforis'
 
-      - run: rm yarn.lock && yarn cache clean && yarn install --network-timeout 1000000
+      - run: yarn install --network-timeout 1000000
         env:
             NODE_AUTH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
       - run: yarn run-migrations
