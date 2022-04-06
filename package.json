@@ -168,6 +168,7 @@
     "connect-wwwhisper": "^0.1.21",
     "cookie-parser": "^1.4.5",
     "core-js": "^3.21.1",
+    "date-fns": "2.22.1",
     "d3": "^7.4.0",
     "d3-interpolate-path": "^2.2.3",
     "d3-tip": "^0.9.1",
