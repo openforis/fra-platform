@@ -1,4 +1,4 @@
-import { ExpressionContext } from '@arena/core'
+import { ExpressionContext } from '@openforis/arena-core'
 import { AssessmentMetaCache } from '../../../../../meta/assessment/assessmentMetaCache'
 import { Row } from '../../../../../meta/assessment/row'
 

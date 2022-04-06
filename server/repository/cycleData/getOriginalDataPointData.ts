@@ -3,7 +3,7 @@ import { Assessment, Cycle } from '@meta/assessment'
 import { TableData } from '@meta/data'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
-import { Objects } from '@arena/core'
+import { Objects } from '@openforis/arena-core'
 
 type Props = {
   assessment: Assessment
