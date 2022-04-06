@@ -1708,6 +1708,10 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableName: 'naturallyRegeneratingForest',
                 labelKey: 'growingStock.naturallyRegeneratingForest',
                 subcategory: false,
+                migration: {
+                  calcFormula:
+                    '(growingStockTotal.naturallyRegeneratingForest * 1000) / forestCharacteristics.naturalForestArea',
+                },
               },
               {
                 idx: 1,
@@ -1724,6 +1728,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableName: 'plantedForest',
                 labelKey: 'growingStock.plantedForest',
                 subcategory: false,
+                migration: {
+                  calcFormula: '(growingStockTotal.plantedForest * 1000) / forestCharacteristics.plantedForest',
+                },
               },
               {
                 idx: 2,
@@ -1740,6 +1747,10 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableName: 'plantationForest',
                 labelKey: 'growingStock.plantationForest',
                 subcategory: true,
+                migration: {
+                  calcFormula:
+                    '(growingStockTotal.plantationForest * 1000) / forestCharacteristics.plantationForestArea',
+                },
               },
               {
                 idx: 3,
@@ -1756,6 +1767,10 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableName: 'otherPlantedForest',
                 labelKey: 'growingStock.otherPlantedForest',
                 subcategory: true,
+                migration: {
+                  calcFormula:
+                    '(growingStockTotal.otherPlantedForest * 1000) / forestCharacteristics.otherPlantedForestArea',
+                },
               },
               {
                 idx: 4,
@@ -1772,6 +1787,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableName: 'forest',
                 labelKey: 'growingStock.forest',
                 subcategory: false,
+                migration: {
+                  calcFormula: '(growingStockTotal.forest * 1000) / extentOfForest.forestArea',
+                },
               },
               {
                 idx: 5,
@@ -1788,6 +1806,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableName: 'otherWoodedLand',
                 labelKey: 'growingStock.otherWoodedLand',
                 subcategory: false,
+                migration: {
+                  calcFormula: '(growingStockTotal.otherWoodedLand * 1000) / extentOfForest.otherWoodedLand',
+                },
               },
             ],
             tableDataRequired: [],
@@ -1852,6 +1873,10 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableExport: 'naturally_regenerating_forest',
                 labelKey: 'growingStock.naturallyRegeneratingForest',
                 subcategory: false,
+                migration: {
+                  calcFormula:
+                    '(growingStockAvg.naturallyRegeneratingForest * forestCharacteristics.naturalForestArea) / 1000',
+                },
               },
               {
                 idx: 1,
@@ -1869,6 +1894,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableExport: 'planted_forest',
                 labelKey: 'growingStock.plantedForest',
                 subcategory: false,
+                migration: {
+                  calcFormula: '(growingStockAvg.plantedForest * forestCharacteristics.plantedForest) / 1000',
+                },
               },
               {
                 idx: 2,
@@ -1886,6 +1914,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableExport: 'plantation_forest',
                 labelKey: 'growingStock.plantationForest',
                 subcategory: true,
+                migration: {
+                  calcFormula: '(growingStockAvg.plantationForest * forestCharacteristics.plantationForestArea) / 1000',
+                },
               },
               {
                 idx: 3,
@@ -1903,6 +1934,10 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_planted_forest',
                 labelKey: 'growingStock.otherPlantedForest',
                 subcategory: true,
+                migration: {
+                  calcFormula:
+                    '(growingStockAvg.otherPlantedForest * forestCharacteristics.otherPlantedForestArea) / 1000',
+                },
               },
               {
                 idx: 4,
@@ -1921,6 +1956,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'growingStock.forest',
                 subcategory: false,
                 validator: null,
+                migration: {
+                  calcFormula: '(growingStockAvg.forest * extentOfForest.forestArea) / 1000',
+                },
               },
               {
                 idx: 5,
@@ -1939,6 +1977,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'growingStock.otherWoodedLand',
                 subcategory: false,
                 validator: null,
+                migration: {
+                  calcFormula: '(growingStockAvg.otherWoodedLand * extentOfForest.otherWoodedLand) / 1000',
+                },
               },
               {
                 idx: 6,
@@ -2645,6 +2686,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableExport: 'remaining_native',
                 colSpan: 3,
                 mainCategory: true,
+                migration: {
+                  colNames: ['1990', '2000', '2010', '2015', '2020'],
+                },
               },
               {
                 idx: 11,
@@ -2682,6 +2726,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_native',
                 colSpan: 3,
                 mainCategory: true,
+                variableName: 'total_native_placeholder',
+                migration: {
+                  calcFormula:
+                    '(growingStockComposition.native_rank1 || 0) + (growingStockComposition.native_rank2 || 0) + (growingStockComposition.native_rank3 || 0) + (growingStockComposition.native_rank4 || 0) + (growingStockComposition.native_rank5 || 0) + (growingStockComposition.native_rank6 || 0) + (growingStockComposition.native_rank7 || 0) + (growingStockComposition.native_rank8 || 0) + (growingStockComposition.native_rank9 || 0) + (growingStockComposition.native_rank10 || 0) + (growingStockComposition.remaining_native || 0)',
+                  colNames: ['1990', '2000', '2010', '2015', '2020'],
+                },
               },
               {
                 idx: 12,
@@ -3027,6 +3077,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_remaining',
                 colSpan: 3,
                 mainCategory: true,
+                variableName: 'totalIntroduced',
+                migration: {
+                  calcFormula:
+                    '(growingStockComposition.introduced_rank1 || 0) + (growingStockComposition.introduced_rank2 || 0) + (growingStockComposition.introduced_rank3 || 0) + (growingStockComposition.introduced_rank4 || 0) + (growingStockComposition.introduced_rank5 || 0)',
+                  colNames: ['1990', '2000', '2010', '2015', '2020'],
+                },
               },
               {
                 idx: 20,
@@ -3063,6 +3119,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'growingStockComposition.totalGrowingStock',
                 colSpan: 3,
                 mainCategory: true,
+                variableName: 'totalGrowingStock',
+                migration: {
+                  calcFormula:
+                    '(growingStockComposition.total_native_placeholder || 0) + (growingStockComposition.totalIntroduced || 0)',
+                  colNames: ['1990', '2000', '2010', '2015', '2020'],
+                },
               },
               {
                 idx: 21,
