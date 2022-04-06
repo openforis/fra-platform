@@ -11,10 +11,10 @@
 
 "@arena/core@git+https://git@github.com/openforis/arena-core.git#dependencies/date-fns-downgrade":
   version "0.0.78"
-  resolved "git+https://git@github.com/openforis/arena-core.git#b99505b2e680a32f84cd5c0e4941eb1072a3bdcd"
+  resolved "git+https://git@github.com/openforis/arena-core.git#c6725a70312feb10d9d22211b8ae176069ddc983"
   dependencies:
     "@esri/proj-codes" "^2.7.0"
-    date-fns "2.27.0"
+    date-fns "2.22.1"
     jsep "^1.2.0"
     lodash.differencewith "^4.5.0"
     lodash.frompairs "^4.0.1"
@@ -4513,10 +4513,10 @@ data-urls@^2.0.0:
     whatwg-mimetype "^2.3.0"
     whatwg-url "^8.0.0"
 
-date-fns@2.27.0:
-  version "2.27.0"
-  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.27.0.tgz#e1ff3c3ddbbab8a2eaadbb6106be2929a5a2d92b"
-  integrity sha512-sj+J0Mo2p2X1e306MHq282WS4/A8Pz/95GIFcsPNMPMZVI3EUrAdSv90al1k+p74WGLCruMXk23bfEDZa71X9Q==
+date-fns@2.22.1:
+  version "2.22.1"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.22.1.tgz#1e5af959831ebb1d82992bf67b765052d8f0efc4"
+  integrity sha512-yUFPQjrxEmIsMqlHhAhmxkuH769baF21Kk+nZwZGyrMoyLA+LugaQtC0+Tqf9CBUUULWwUJt6Q5ySI3LJDDCGg==
 
 db-migrate-base@^2.3.0:
   version "2.3.1"
