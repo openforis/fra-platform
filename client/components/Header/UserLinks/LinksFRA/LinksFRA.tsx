@@ -35,8 +35,7 @@ const getLinks = (i18nInstance: i18n, user: User, dispatch: AppDispatch, toaster
     {
       content: i18nInstance.t('header.logout'),
       onClick: () => {
-        dispatch(UserActions.logout())
-        toaster.toaster.info(i18nInstance.t('login.logoutSuccessful'))
+        dispatch(UserActions.logout()).then(() => toaster.toaster.info(i18nInstance.t('login.logoutSuccessful')))
       },
     }
   )

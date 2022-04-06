@@ -14,5 +14,6 @@ export interface MessageTopic {
   key: string
   status: MessageTopicStatus
   title?: string
+  subtitle?: string
   messages?: Array<Message>
 }

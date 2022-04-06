@@ -38,6 +38,7 @@ const OriginalDataPoint: React.FC = () => {
       OriginalDataPointActions.getOriginalDataPoint({
         odpId,
         assessmentName,
+        countryIso,
         cycleName,
       })
     )

@@ -23,8 +23,11 @@ const ButtonBar: React.FC<Props> = (props) => {
 
   const dispatch = useAppDispatch()
   const history = useHistory()
-  const { assessmentName, cycleName, section } =
-    useParams<{ assessmentName: AssessmentName; cycleName: string; section: string }>()
+  const { assessmentName, cycleName, section } = useParams<{
+    assessmentName: AssessmentName
+    cycleName: string
+    section: string
+  }>()
   const { i18n } = useTranslation()
   const countryIso = useCountryIso()
   const disabled = !originalDataPoint.id || useIsOriginalDataPointUpdating()
@@ -40,6 +43,7 @@ const ButtonBar: React.FC<Props> = (props) => {
     if (window.confirm(i18n.t('nationalDataPoint.confirmDelete'))) {
       dispatch(
         OriginalDataPointActions.deleteOriginalDataPoint({
+          countryIso,
           assessmentName: assessment.props.name,
           cycleName: cycle.name,
           originalDataPoint,
