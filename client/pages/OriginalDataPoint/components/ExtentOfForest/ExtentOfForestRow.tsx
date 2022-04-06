@@ -2,11 +2,11 @@ import React from 'react'
 import { Numbers } from '@core/utils'
 
 import PercentInput from '@client/components/PercentInput'
-// import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
+import ReviewIndicator from '@client/components/ReviewIndicator'
 import ThousandSeparatedDecimalInput from '@client/components/ThousandSeparatedDecimalInput'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
-// import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 // import { useCountryIso } from '@client/hooks'
 import { useAppDispatch } from '@client/store'
 import { useNationalClassNameComments, useNationalClassValidation } from '../../hooks'
@@ -28,7 +28,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
   const originalDataPoint = useOriginalDataPoint()
 
   const dispatch = useAppDispatch()
-  // const { i18n } = useTranslation()
+  const { i18n } = useTranslation()
   // const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
@@ -148,18 +148,15 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
         <span style={{ marginLeft: '8px' }}>%</span>
       </td>
 
-      <td className="fra-table__row-anchor-cell">
-        {originalDataPoint.id && canEditData && (
-          <div className="odp__review-indicator-row-anchor">
-            {/* <ReviewIndicator
-              section="odp"
-              title={i18n.t('nationalDataPoint.forestCategoriesLabel')}
-              target={target}
-              countryIso={countryIso}
-            /> */}
-          </div>
-        )}
-      </td>
+      {originalDataPoint.id && canEditData && (
+        <td className="no-print">
+          <ReviewIndicator
+            title={name}
+            subtitle={i18n.t('nationalDataPoint.forestCategoriesLabel')}
+            topicKey={`${originalDataPoint.id}-class-${uuid}-value`}
+          />
+        </td>
+      )}
     </tr>
   )
 }

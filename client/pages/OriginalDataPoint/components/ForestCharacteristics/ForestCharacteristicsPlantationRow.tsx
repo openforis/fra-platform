@@ -2,11 +2,11 @@ import React from 'react'
 import { Numbers } from '@core/utils'
 
 import PercentInput from '@client/components/PercentInput'
-// import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
+import ReviewIndicator from '@client/components/ReviewIndicator'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 import { ODPNationalClass } from '@meta/assessment'
-// import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 // import { useCountryIso } from '@client/hooks'
 import { useAppDispatch } from '@client/store'
 import { useNationalClassNameComments, useNationalClassValidation } from '../../hooks'
@@ -25,7 +25,7 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
   const originalDataPoint = useOriginalDataPoint()
 
   const dispatch = useAppDispatch()
-  // const { i18n } = useTranslation()
+  const { i18n } = useTranslation()
   // const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
@@ -83,18 +83,15 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
         />
       </td>
 
-      <td className="fra-table__row-anchor-cell">
-        {originalDataPoint.id && canEditData && (
-          <div className="odp__review-indicator-row-anchor">
-            {/* <ReviewIndicator
-              section="odp"
-              title={i18n.t('nationalDataPoint.plantationForest')}
-              target={target}
-              countryIso={countryIso}
-            /> */}
-          </div>
-        )}
-      </td>
+      {originalDataPoint.id && canEditData && (
+        <td className="no-print">
+          <ReviewIndicator
+            title={name}
+            subtitle={i18n.t('nationalDataPoint.plantationForest')}
+            topicKey={`${originalDataPoint.id}-class-${originalDataPoint.nationalClasses[index].uuid}-plantation_forest_introduced`}
+          />
+        </td>
+      )}
     </tr>
   )
 }

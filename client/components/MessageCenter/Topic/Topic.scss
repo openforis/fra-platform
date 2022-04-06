@@ -18,7 +18,13 @@
   padding: 12px 16px 12px 16px;
   border-bottom: 1px solid $ui-border;
   background-color: $ui-bg;
-  font-weight: 700;
+  .topic-title {
+    font-weight: 700;
+  }
+  .topic-subtitle {
+    font-weight: 100;
+    font-size: $font-xs;
+  }
   .topic-close {
     margin-left: $spacing-xxs;
     line-height: 0;

@@ -47,8 +47,12 @@ export const ApiEndPoint = {
       apiPath('country', countryIso, 'assessments', assessmentName, 'cycles', cycleName, 'status'),
 
     OriginalDataPoint: {
-      one: (assessmentName = ':assessmentName', cycleName = ':cycleName', odpId = ':odpId') =>
-        apiPath('assessment', assessmentName, 'originalDataPoint', cycleName, odpId),
+      one: (
+        countryIso = ':countryIso',
+        assessmentName = ':assessmentName',
+        cycleName = ':cycleName',
+        odpId = ':odpId'
+      ) => apiPath('country', countryIso, 'assessment', assessmentName, 'originalDataPoint', cycleName, odpId),
       ReservedYears: { many: () => apiPath('originalDataPoints', 'reservedYears') },
       TableData: {
         one: () => apiPath('originalDataPoint', 'data'),
