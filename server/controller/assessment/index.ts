@@ -17,6 +17,7 @@ import { getCountryStatus } from './getCountryStatus'
 import { updateCountryStatus } from './updateCountryStatus'
 import { getReservedYears } from './getReservedYears'
 import { getSection } from './getSection'
+import { updateCountry } from './updateCountry'
 
 export const AssessmentController = {
   create,
@@ -33,7 +34,7 @@ export const AssessmentController = {
   getOriginalDataPoint,
   createCycle,
   getCountryStatus,
-  updateCountry: AssessmentRepository.updateCountry,
+  updateCountry,
   getCountry: AssessmentRepository.getCountry,
   updateCountryStatus,
   getReservedYears,

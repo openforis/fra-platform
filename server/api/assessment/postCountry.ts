@@ -15,6 +15,7 @@ export const postCountry = async (req: Request, res: Response) => {
       cycle,
       assessment,
       country,
+      user: Requests.getRequestUser(req),
     })
 
     Requests.send(res, updatedCountry)
