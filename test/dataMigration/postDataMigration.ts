@@ -1,7 +1,7 @@
-import { Col, Cols, NodeValue, Row, VariableCache } from '@meta/assessment'
+import { Assessment, Col, Cols, Cycle, NodeValue, Row, VariableCache } from '@meta/assessment'
 import { Objects } from '@core/utils'
 import { AssessmentController } from '@server/controller/assessment'
-import { DB, Schemas } from '@server/db'
+import { BaseProtocol, DB, Schemas } from '@server/db'
 import { evalExpression } from '@server/controller/cycleData/persistNodeValue/evalExpression'
 import { ColRepository } from '@server/repository/col'
 import { CycleDataRepository, TablesCondition } from '@server/repository/cycleData'
@@ -14,6 +14,29 @@ afterAll(async () => {
 // eslint-disable-next-line camelcase
 export type NodeRow = { country_iso: string; row_uuid: string; col_uuid: string; value: NodeValue }
 
+const deleteWrongCalculatedNodes = async (
+  props: { assessment: Assessment; cycle: Cycle },
+  client: BaseProtocol
+): Promise<void> => {
+  const { assessment, cycle } = props
+  const schemaAssessment = Schemas.getName(assessment)
+  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  return client.query(`
+      delete
+      from ${schemaCycle}.node n
+      where n.id in (
+          select n.id
+          from ${schemaCycle}.node n
+                   left join ${schemaAssessment}.col c
+                             on n.col_uuid = c.uuid
+                   left join ${schemaAssessment}.row r
+                             on r.id = c.row_id
+
+          where r.props ->> 'variableName' = 'total_native_placeholder'
+      );
+  `)
+}
+
 describe('Post Data migration', () => {
   test('Update calculated variables', async () => {
     await DB.tx(async (client) => {
@@ -25,6 +48,7 @@ describe('Post Data migration', () => {
         },
         client
       )
+      await deleteWrongCalculatedNodes({ assessment, cycle }, client)
       const schema = Schemas.getName(assessment)
 
       const rows = await client.map<Row & { tableName: string; cols: Array<Col> }>(
@@ -99,6 +123,7 @@ describe('Post Data migration', () => {
               colIndexes.map(async (colIdx) => {
                 const colName = Cols.getColName({ colIdx, cols })
                 const col = cols.find((c) => c.rowId === row.id && c.props.index === colIdx)
+                if (!col) return
                 const { variableName } = row.props
 
                 const expression = row.props.calculateFn ?? col.props.calculateFn
@@ -167,38 +192,40 @@ describe('Post Data migration', () => {
 
       for (let i = 0; i < rows.length; i += 1) {
         const { tableName, ...row } = rows[i]
-        // const dependencies = assessment.metaCache.calculations.dependencies[tableName]?.[row.props.variableName] ?? []
-        //
-        // await Promise.all(
-        //   dependencies.map(async (dependency) => {
-        //     if (!hasBeenCalculated(dependency)) {
-        //       // await
-        //     }
-        //   })
-        // )
+        if (!['growingStockAvg', 'growingStockTotal'].includes(tableName)) {
+          // const dependencies = assessment.metaCache.calculations.dependencies[tableName]?.[row.props.variableName] ?? []
+          //
+          // await Promise.all(
+          //   dependencies.map(async (dependency) => {
+          //     if (!hasBeenCalculated(dependency)) {
+          //       // await
+          //     }
+          //   })
+          // )
 
-        // if (dependencies.length === 0) {
-        // console.log('calculating ', tableName, row.props.variableName)
-        // eslint-disable-next-line no-await-in-loop
-        const values = await calculateRow({ row, tableName })
-        // const nodes = await client.map<Node>(
-        //   `select * from ${Schemas.getNameCycle(assessment, cycle)}.node`,
-        //   [],
-        //   // @ts-ignore
-        //   Objects.camelize
-        // )
-        // const node = nodes.find(({ colUuid, countryIso, rowUuid }) =>
-        //   values.find(
-        //     (value) => value.col_uuid === colUuid && value.row_uuid === rowUuid && value.country_iso === countryIso
-        //   )
-        // )
-        // if (node) {
-        //   console.log('======= NODE ', node)
-        // }
-        const query = pgp.helpers.insert(values, cs)
-        // eslint-disable-next-line no-await-in-loop
-        await client.query(query)
-        // console.log('INSERT DONE ', tableName, row.props.variableName)
+          // if (dependencies.length === 0) {
+          // console.log('calculating ', tableName, row.props.variableName)
+          // eslint-disable-next-line no-await-in-loop
+          const values = await calculateRow({ row, tableName })
+          // const nodes = await client.map<Node>(
+          //   `select * from ${Schemas.getNameCycle(assessment, cycle)}.node`,
+          //   [],
+          //   // @ts-ignore
+          //   Objects.camelize
+          // )
+          // const node = nodes.find(({ colUuid, countryIso, rowUuid }) =>
+          //   values.find(
+          //     (value) => value.col_uuid === colUuid && value.row_uuid === rowUuid && value.country_iso === countryIso
+          //   )
+          // )
+          // if (node) {
+          //   console.log('======= NODE ', node)
+          // }
+          const query = pgp.helpers.insert(values, cs)
+          // eslint-disable-next-line no-await-in-loop
+          await client.query(query)
+          // console.log('INSERT DONE ', tableName, row.props.variableName)
+        }
       }
     })
   })
