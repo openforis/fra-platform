@@ -33,5 +33,6 @@ export interface RowSpec {
 
   migration?: {
     calcFormula?: string
+    colNames?: Array<string>
   }
 }

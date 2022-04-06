@@ -28,8 +28,14 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '14.18.1'
+          always-auth: true
+          auth-token: ${{secrets.ACCESS_TOKEN}}
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@openforis'
 
-      - run: yarn
+      - run: yarn install --network-timeout 1000000
+        env:
+            NODE_AUTH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
       - run: yarn run-migrations
         env:
           PGHOST: localhost
