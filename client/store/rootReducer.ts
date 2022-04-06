@@ -8,6 +8,7 @@ import NavigationSlice from './ui/navigation/slice'
 import DataLockSlice from './ui/dataLock/slice'
 import NotificationSlice from './ui/notification/slice'
 import MessageCenterSlice from './ui/messageCenter/slice'
+import GeoSlice from './ui/geo/slice'
 
 export default {
   assessment: AssessmentSlice,
@@ -23,4 +24,5 @@ export default {
     dataLock: DataLockSlice,
     messageCenter: MessageCenterSlice,
   }),
+  geo: GeoSlice,
 }
