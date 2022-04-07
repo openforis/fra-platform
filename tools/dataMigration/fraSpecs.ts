@@ -4218,6 +4218,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'designatedManagementObjective.unknown',
                 variableExport: 'no_unknown',
                 variableNo: 'g',
+                variableName: 'no_unknown',
+                migration: {
+                  colNames: ['1990', '2000', '2010', '2015', '2020'],
+                  calcFormula:
+                    'extentOfForest.forestArea - (primaryDesignatedManagementObjective.production || 0)  - (primaryDesignatedManagementObjective.protection_of_soil_and_water || 0)  - (primaryDesignatedManagementObjective.conservation_of_biodiversity || 0)  - (primaryDesignatedManagementObjective.social_services || 0)  - (primaryDesignatedManagementObjective.multiple_use || 0)  - (primaryDesignatedManagementObjective.other || 0)',
+                },
               },
               {
                 idx: 7,
@@ -4254,6 +4260,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'designatedManagementObjective.totalForestArea',
                 linkToSection: 'extentOfForest',
+                variableName: 'totalForestArea',
+                migration: {
+                  colNames: ['1990', '2000', '2010', '2015', '2020'],
+                  calcFormula: 'extentOfForest.forestArea',
+                },
               },
             ],
             tableDataRequired: [

@@ -32,7 +32,7 @@ const deleteWrongCalculatedNodes = async (
                    left join ${schemaAssessment}.row r
                              on r.id = c.row_id
 
-          where r.props ->> 'variableName' = 'total_native_placeholder'
+          where r.props ->> 'variableName' in ('total_native_placeholder', 'no_unknown')
       );
   `)
 }
