@@ -7,10 +7,10 @@ import { CountryIso } from '@meta/area'
 
 export const getOriginalDataPoint = createAsyncThunk<
   OriginalDataPoint,
-  { countryIso: CountryIso; assessmentName: string; cycleName: string; odpId: string }
->('originalDataPoint/get/byId', async ({ countryIso, assessmentName, cycleName, odpId }) => {
+  { countryIso: CountryIso; assessmentName: string; cycleName: string; year: string }
+>('originalDataPoint/get/byYear', async ({ countryIso, assessmentName, cycleName, year }) => {
   const { data } = await axios.get(
-    ApiEndPoint.Assessment.OriginalDataPoint.one(countryIso, assessmentName, cycleName, odpId)
+    ApiEndPoint.Assessment.OriginalDataPoint.one(countryIso, assessmentName, cycleName, year)
   )
   return ODPs.addNationalClassPlaceHolder(data)
 })
