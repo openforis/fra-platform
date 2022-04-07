@@ -32,7 +32,22 @@ const deleteWrongCalculatedNodes = async (
                    left join ${schemaAssessment}.row r
                              on r.id = c.row_id
 
-          where r.props ->> 'variableName' in ('total_native_placeholder', 'no_unknown')
+          where r.props ->> 'variableName' in ('total_native_placeholder', 'no_unknown', 'other_or_unknown')
+      );
+
+      delete
+      from ${schemaCycle}.node n
+      where n.id in (
+          select n.id
+          from ${schemaCycle}.node n
+                   left join ${schemaAssessment}.col c
+                             on n.col_uuid = c.uuid
+                   left join ${schemaAssessment}.row r
+                             on r.id = c.row_id
+                   left join ${schemaAssessment}."table" t
+                             on t.id = r.table_id
+          where r.props ->> 'variableName' = 'other'
+            and t.props ->> 'name' = 'holderOfManagementRights'
       );
   `)
 }

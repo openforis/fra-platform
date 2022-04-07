@@ -5130,6 +5130,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'forestOwnership.otherOrUnknown',
                 variableExport: 'other_or_unknown',
                 variableNo: 'c',
+                variableName: 'other_or_unknown',
+                migration: {
+                  colNames: ['1990', '2000', '2010', '2015'],
+                  calcFormula:
+                    'extentOfForest.forestArea - (forestOwnership.private_ownership || 0) - (forestOwnership.public_ownership || 0)',
+                },
               },
               {
                 idx: 6,
@@ -5162,6 +5168,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'forestOwnership.totalForestArea',
                 linkToSection: 'extentOfForest',
+                variableName: 'totalForestArea',
+                migration: {
+                  colNames: ['1990', '2000', '2010', '2015'],
+                  calcFormula: 'extentOfForest.forestArea',
+                },
               },
               {
                 idx: 7,
@@ -5445,6 +5456,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'holderOfManagementRights.other',
                 variableExport: 'other_or_unknown',
                 variableNo: 'e',
+                variableName: 'other',
+                migration: {
+                  colNames: ['1990', '2000', '2010', '2015'],
+                  calcFormula:
+                    'forestOwnership.public_ownership - (holderOfManagementRights.public_administration || 0) - (holderOfManagementRights.individuals || 0) - (holderOfManagementRights.private_businesses || 0) - (holderOfManagementRights.communities || 0)',
+                },
               },
               {
                 idx: 5,
@@ -5477,6 +5494,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'holderOfManagementRights.totalPublicOwnership',
                 linkToSection: 'forestOwnership',
+                variableName: 'totalPublicOwnership',
+                migration: {
+                  colNames: ['1990', '2000', '2010', '2015'],
+                  calcFormula: 'forestOwnership.public_ownership',
+                },
               },
             ],
             tableDataRequired: [
