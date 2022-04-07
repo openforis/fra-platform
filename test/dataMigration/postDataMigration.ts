@@ -32,9 +32,53 @@ const deleteWrongCalculatedNodes = async (
                    left join ${schemaAssessment}.row r
                              on r.id = c.row_id
 
-          where r.props ->> 'variableName' = 'total_native_placeholder'
+          where r.props ->> 'variableName' in ('total_native_placeholder', 'no_unknown', 'other_or_unknown')
+      );
+
+      delete
+      from ${schemaCycle}.node n
+      where n.id in (
+          select n.id
+          from ${schemaCycle}.node n
+                   left join ${schemaAssessment}.col c
+                             on n.col_uuid = c.uuid
+                   left join ${schemaAssessment}.row r
+                             on r.id = c.row_id
+                   left join ${schemaAssessment}."table" t
+                             on t.id = r.table_id
+          where r.props ->> 'variableName' = 'other'
+            and t.props ->> 'name' = 'holderOfManagementRights'
       );
   `)
+}
+
+const getTotalLandAreaValues = async (client: BaseProtocol): Promise<Array<NodeRow>> => {
+  return client.many<NodeRow>(
+    `
+        select c.country_iso,
+--        c.config -> 'faoStat'      as fao_stat,
+--        t.props ->> 'name'         as table_name,
+--        r.props ->> 'variableName' as variable_name,
+               r.uuid  as row_uuid,
+--        cl.props ->> 'colName'     as col_name,
+               cl.uuid as col_uuid,
+               jsonb_build_object(
+                       'raw', jsonb_extract_path(
+                       c.config, 'faoStat', cl.props ->> 'colName', 'area'
+                   )::varchar
+                   )   as value
+--        c.config -> 'faoStat' ->
+        from country c
+                 left join assessment_fra."table" t
+                           on t.props ->> 'name' = 'extentOfForest'
+                 left join assessment_fra.row r
+                           on r.table_id = t.id
+                               and r.props ->> 'variableName' = 'totalLandArea'
+                 left join assessment_fra.col cl
+                           on r.id = cl.row_id
+                               and cl.props ->> 'colName' is not null
+    `
+  )
 }
 
 describe('Post Data migration', () => {
@@ -142,7 +186,7 @@ describe('Post Data migration', () => {
                   country_iso: countryIso,
                   row_uuid: row.uuid,
                   col_uuid: col.uuid,
-                  value: { raw: String(raw), calculated: true },
+                  value: { raw: raw ? String(raw) : null, calculated: true },
                 }
                 if (
                   values.find(
@@ -190,6 +234,13 @@ describe('Post Data migration', () => {
         }
       )
 
+      // ===== total land area (fao stat)
+      const totalLandAreaValues = await getTotalLandAreaValues(client)
+      const query = pgp.helpers.insert(totalLandAreaValues, cs)
+      // eslint-disable-next-line no-await-in-loop
+      await client.query(query)
+
+      // ===== calculation rows
       for (let i = 0; i < rows.length; i += 1) {
         const { tableName, ...row } = rows[i]
         if (!['growingStockAvg', 'growingStockTotal'].includes(tableName)) {

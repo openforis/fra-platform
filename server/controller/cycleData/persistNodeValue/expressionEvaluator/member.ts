@@ -14,7 +14,7 @@ export class MemberEvaluator extends ArenaMemberEvaluator<Context> {
     const tableName = Object.keys(assessment.metaCache.variablesByTable).find((table) => table === objectName)
     if (tableName) {
       // @ts-ignore
-      const variableName = isCol ? object?.property.name : property.name
+      const variableName = isCol ? object.property.name ?? object.property.value : property.name ?? property.value
       // @ts-ignore
       const colName = isCol ? property.value : colNameContext
 

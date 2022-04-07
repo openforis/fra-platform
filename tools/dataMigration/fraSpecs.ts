@@ -4218,6 +4218,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'designatedManagementObjective.unknown',
                 variableExport: 'no_unknown',
                 variableNo: 'g',
+                variableName: 'no_unknown',
+                migration: {
+                  colNames: ['1990', '2000', '2010', '2015', '2020'],
+                  calcFormula:
+                    'extentOfForest.forestArea - (primaryDesignatedManagementObjective.production || 0)  - (primaryDesignatedManagementObjective.protection_of_soil_and_water || 0)  - (primaryDesignatedManagementObjective.conservation_of_biodiversity || 0)  - (primaryDesignatedManagementObjective.social_services || 0)  - (primaryDesignatedManagementObjective.multiple_use || 0)  - (primaryDesignatedManagementObjective.other || 0)',
+                },
               },
               {
                 idx: 7,
@@ -4254,6 +4260,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'designatedManagementObjective.totalForestArea',
                 linkToSection: 'extentOfForest',
+                variableName: 'totalForestArea',
+                migration: {
+                  colNames: ['1990', '2000', '2010', '2015', '2020'],
+                  calcFormula: 'extentOfForest.forestArea',
+                },
               },
             ],
             tableDataRequired: [
@@ -5119,6 +5130,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'forestOwnership.otherOrUnknown',
                 variableExport: 'other_or_unknown',
                 variableNo: 'c',
+                variableName: 'other_or_unknown',
+                migration: {
+                  colNames: ['1990', '2000', '2010', '2015'],
+                  calcFormula:
+                    'extentOfForest.forestArea - (forestOwnership.private_ownership || 0) - (forestOwnership.public_ownership || 0)',
+                },
               },
               {
                 idx: 6,
@@ -5151,6 +5168,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'forestOwnership.totalForestArea',
                 linkToSection: 'extentOfForest',
+                variableName: 'totalForestArea',
+                migration: {
+                  colNames: ['1990', '2000', '2010', '2015'],
+                  calcFormula: 'extentOfForest.forestArea',
+                },
               },
               {
                 idx: 7,
@@ -5434,6 +5456,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'holderOfManagementRights.other',
                 variableExport: 'other_or_unknown',
                 variableNo: 'e',
+                variableName: 'other',
+                migration: {
+                  colNames: ['1990', '2000', '2010', '2015'],
+                  calcFormula:
+                    'forestOwnership.public_ownership - (holderOfManagementRights.public_administration || 0) - (holderOfManagementRights.individuals || 0) - (holderOfManagementRights.private_businesses || 0) - (holderOfManagementRights.communities || 0)',
+                },
               },
               {
                 idx: 5,
@@ -5466,6 +5494,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'holderOfManagementRights.totalPublicOwnership',
                 linkToSection: 'forestOwnership',
+                variableName: 'totalPublicOwnership',
+                migration: {
+                  colNames: ['1990', '2000', '2010', '2015'],
+                  calcFormula: 'forestOwnership.public_ownership',
+                },
               },
             ],
             tableDataRequired: [
@@ -6124,6 +6157,33 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total',
                 variableNo: 'a+b+c+d',
                 mainCategory: true,
+                variableName: 'total',
+                migration: {
+                  colNames: [
+                    '2000',
+                    '2001',
+                    '2002',
+                    '2003',
+                    '2004',
+                    '2005',
+                    '2006',
+                    '2007',
+                    '2008',
+                    '2009',
+                    '2010',
+                    '2011',
+                    '2012',
+                    '2013',
+                    '2014',
+                    '2015',
+                    '2016',
+                    '2017',
+                  ],
+                  calcFormula: `(disturbances.insects || disturbances.diseases  || disturbances.severe_weather_events  || disturbances.other) 
+                    ? (
+                      (disturbances.insects || 0) + (disturbances.diseases || 0) + (disturbances.severe_weather_events || 0) + (disturbances.other || 0)
+                    ) : null`,
+                },
               },
               {
                 idx: 5,
@@ -6212,6 +6272,30 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'disturbances.totalForestArea',
                 linkToSection: 'extentOfForest',
+                variableName: 'totalForestArea',
+                migration: {
+                  colNames: [
+                    '2000',
+                    '2001',
+                    '2002',
+                    '2003',
+                    '2004',
+                    '2005',
+                    '2006',
+                    '2007',
+                    '2008',
+                    '2009',
+                    '2010',
+                    '2011',
+                    '2012',
+                    '2013',
+                    '2014',
+                    '2015',
+                    '2016',
+                    '2017',
+                  ],
+                  calcFormula: 'extentOfForest.forestArea',
+                },
               },
               {
                 idx: 6,
@@ -9342,6 +9426,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'nonWoodForestProductsRemovals.allOtherPlantProducts',
                 colSpan: 5,
                 mainCategory: true,
+                migration: {
+                  colNames: ['value'],
+                },
               },
               {
                 idx: 11,
@@ -9366,6 +9453,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'nonWoodForestProductsRemovals.allOtherAnimalProducts',
                 colSpan: 5,
                 mainCategory: true,
+                migration: {
+                  colNames: ['value'],
+                },
               },
               {
                 idx: 12,
@@ -9390,6 +9480,21 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'nonWoodForestProductsRemovals.total',
                 colSpan: 5,
                 mainCategory: true,
+                variableName: 'totalValue',
+                migration: {
+                  colNames: ['value'],
+                  calcFormula: `(
+                   nonWoodForestProductsRemovals["1"] || nonWoodForestProductsRemovals["2"] || nonWoodForestProductsRemovals["3"] 
+                   || nonWoodForestProductsRemovals["4"] || nonWoodForestProductsRemovals["5"] || nonWoodForestProductsRemovals["6"] 
+                   || nonWoodForestProductsRemovals["7"] || nonWoodForestProductsRemovals["8"] || nonWoodForestProductsRemovals["9"]
+                   || nonWoodForestProductsRemovals["10"] || nonWoodForestProductsRemovals["all_other_plant_products"] || nonWoodForestProductsRemovals["all_other_animal_products"]
+                   ) ? (
+                    (nonWoodForestProductsRemovals["1"] || 0) + (nonWoodForestProductsRemovals["2"] || 0) + (nonWoodForestProductsRemovals["3"] || 0)
+                    + (nonWoodForestProductsRemovals["4"] || 0) + (nonWoodForestProductsRemovals["5"] || 0) + (nonWoodForestProductsRemovals["6"] || 0)
+                    + (nonWoodForestProductsRemovals["7"] || 0) + (nonWoodForestProductsRemovals["8"] || 0) + (nonWoodForestProductsRemovals["9"] || 0)
+                    + (nonWoodForestProductsRemovals["10"] || 0) + (nonWoodForestProductsRemovals["all_other_plant_products"] || 0) + (nonWoodForestProductsRemovals["all_other_animal_products"] || 0)
+                   ) : null`,
+                },
               },
             ],
             tableDataRequired: [],
