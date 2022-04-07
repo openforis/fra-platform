@@ -34,7 +34,8 @@
     "prepare": "husky install",
     "postinstall": "husky install",
     "prod": "yarn build && yarn start",
-    "pre-commit": "lint-staged && eslint --cache --fix"
+    "pre-commit": "lint-staged && eslint --cache --fix",
+    "heroku-prebuild": "echo \"//npm.pkg.github.com/:_authToken=${NPM_GITHUB_TOKEN}\" >> .npmrc"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.6",
