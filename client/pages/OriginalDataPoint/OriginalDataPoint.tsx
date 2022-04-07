@@ -21,7 +21,7 @@ const OriginalDataPoint: React.FC = () => {
   const history = useHistory()
   const countryIso = useCountryIso()
   const originalDataPoint = useOriginalDataPoint()
-  const { assessmentName, cycleName, odpId } = useParams<{ assessmentName: string; cycleName: string; odpId: string }>()
+  const { assessmentName, cycleName, year } = useParams<{ assessmentName: string; cycleName: string; year: string }>()
 
   const canEditData = useCanEditSection()
 
@@ -36,7 +36,7 @@ const OriginalDataPoint: React.FC = () => {
     )
     dispatch(
       OriginalDataPointActions.getOriginalDataPoint({
-        odpId,
+        year,
         assessmentName,
         countryIso,
         cycleName,
