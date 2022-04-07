@@ -13,6 +13,7 @@ import * as DataTableUtils from '@client/pages/AssessmentSection/DataTable/utils
 import { useOriginalDataPointYears, useShowOriginalDatapoints } from '@client/store/pages/assessmentSection/hooks'
 import { BasePaths } from '@client/basePaths'
 import { useCycle } from '@client/store/assessment'
+import { useAssessmentCountry } from '@client/store/assessment/hooks'
 import Row from './Row'
 
 type Props = {
@@ -42,6 +43,7 @@ const Table: React.FC<Props> = (props) => {
   const rowsData = rows.filter((row) => row.props.type !== RowType.header)
   const tableRef = useRef<HTMLTableElement>(null)
   const displayTableExportButton = !secondary && !printView && tableRef.current != null
+  const country = useAssessmentCountry()
 
   // Get headers from data
   const headers = DataTableUtils.getHeaders(data, countryIso, table)
@@ -59,7 +61,12 @@ const Table: React.FC<Props> = (props) => {
                     col.props
                   const columnName = headers[colIndex]
 
-                  const isOdpHeader = showOriginalDatapoints && table.props.odp && odpYears?.includes(columnName)
+                  const isOdpHeader =
+                    showOriginalDatapoints &&
+                    table.props.odp &&
+                    odpYears?.includes(columnName) &&
+                    table.props.name === 'forestCharacteristics' &&
+                    country.props.forestCharacteristics.useOriginalDataPoint
 
                   const getColumnName = () => {
                     if (labelKey)

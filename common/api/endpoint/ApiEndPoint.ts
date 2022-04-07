@@ -46,6 +46,8 @@ export const ApiEndPoint = {
     countryStatus: (countryIso = ':countryIso', assessmentName = ':assessmentName', cycleName = ':cycleName') =>
       apiPath('country', countryIso, 'assessments', assessmentName, 'cycles', cycleName, 'status'),
 
+    country: () => apiPath('country'),
+
     OriginalDataPoint: {
       one: (
         countryIso = ':countryIso',

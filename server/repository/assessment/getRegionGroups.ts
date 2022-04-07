@@ -1,13 +1,14 @@
-import { BaseProtocol, DB } from '@server/db'
+import { BaseProtocol, DB, Schemas } from '@server/db'
 import { RegionGroup } from '@meta/area'
 import { Objects } from '@core/utils'
+import { Assessment, Cycle } from '@meta/assessment'
 
 export const getRegionGroups = async (
-  props: { name: string },
+  props: { assessment: Assessment; cycle: Cycle },
   client: BaseProtocol = DB
 ): Promise<Array<RegionGroup>> => {
-  const { name } = props
-  const assessmentName = `assessment_${name}`
+  const { assessment, cycle } = props
+  const assessmentName = Schemas.getNameCycle(assessment, cycle)
 
   const { regionGroups } = await client
     .one<RegionGroup>(

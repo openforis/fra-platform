@@ -65,28 +65,6 @@ create table ${schemaName}.col
       user_id bigint not null references public.users (id)            on update cascade on delete cascade
   );
 
-  create table ${schemaName}.country
-  (
-      country_iso varchar(3) not null
-          constraint country_fk
-              references country
-              on update cascade on delete cascade,
-      unique (country_iso)
-  );
- 
-  create table ${schemaName}.region_group
-  (
-      id bigserial not null constraint region_group_pkey primary key,
-      name varchar not null,
-      "order" integer not null
-  );
- 
-  create table ${schemaName}.region
-  (
-    region_group_id bigint references ${schemaName}.region_group (id) on update cascade on delete cascade,
-    region_code varchar references region on update cascade on delete cascade,
-      unique (region_code, region_group_id)
-  );
 `
   return query
 }
@@ -143,13 +121,30 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
       ALTER TABLE ${assessmentCycleSchemaName}.original_data_point
           ADD CONSTRAINT unique_country_year UNIQUE (country_iso, year);
 
-      create table ${assessmentCycleSchemaName}.country_status
+
+      create table ${assessmentCycleSchemaName}.country
       (
-        country_iso varchar(3) not null references ${assessmentSchemaName}.country (country_iso),
-        status assessment_status not null,
-        desk_study boolean default false not null,
-        constraint unique_country_status_country
-        unique (country_iso)
+          country_iso varchar(3) not null
+              constraint country_fk
+                  references country
+                  on update cascade on delete cascade,
+          props jsonb default '{}'::jsonb,
+          unique (country_iso)
+      );
+      
+          
+      create table ${assessmentCycleSchemaName}.region_group
+      (
+          id bigserial not null constraint region_group_pkey primary key,
+          name varchar not null,
+          "order" integer not null
+      );
+     
+      create table ${assessmentCycleSchemaName}.region
+      (
+        region_group_id bigint references ${assessmentCycleSchemaName}.region_group (id) on update cascade on delete cascade,
+        region_code varchar references region on update cascade on delete cascade,
+          unique (region_code, region_group_id)
       );
   `
 }

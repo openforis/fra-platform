@@ -73,7 +73,7 @@ describe('Post Data migration', () => {
         variableName: row.props.variableName,
       }))
       const calculatedVariables: Record<string, Record<string, boolean>> = {}
-      const countryISOs = await AssessmentController.getCountryISOs({ name: 'fra' }, client)
+      const countryISOs = await AssessmentController.getCountryISOs({ assessment, cycle }, client)
 
       const hasBeenCalculated = (variable: VariableCache): boolean => {
         const variableToCalc = variablesToCalculate.find(

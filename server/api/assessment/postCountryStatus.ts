@@ -13,7 +13,7 @@ export const postCountryStatus = async (req: Request, res: Response) => {
     const returnedCountryStatus = await AssessmentController.updateCountryStatus({
       countryStatus,
       countryIso,
-      name: assessmentName as AssessmentName,
+      assessmentName: assessmentName as AssessmentName,
       cycleName,
     })
 
