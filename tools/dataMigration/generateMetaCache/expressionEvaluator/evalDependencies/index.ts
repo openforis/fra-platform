@@ -8,6 +8,8 @@ import { MemberEvaluator } from './member'
 import { ThisEvaluator } from './this'
 import { UnaryEvaluator } from './unary'
 import { Context } from './context'
+import { ConditionalEvaluator } from './conditional'
+import { SequenceEvaluator } from './sequence'
 
 export const evalDependencies = (expression: string, context: Context): void => {
   const evaluators = {
@@ -29,6 +31,10 @@ export const evalDependencies = (expression: string, context: Context): void => 
     [ExpressionNodeType.This]: ThisEvaluator,
     // @ts-ignore
     [ExpressionNodeType.Unary]: UnaryEvaluator,
+    // @ts-ignore
+    [ExpressionNodeType.Conditional]: ConditionalEvaluator,
+    // @ts-ignore
+    [ExpressionNodeType.Sequence]: SequenceEvaluator,
   }
   const evaluator = new JavascriptExpressionEvaluator<Context>([], evaluators)
   evaluator.evaluate(expression, context)

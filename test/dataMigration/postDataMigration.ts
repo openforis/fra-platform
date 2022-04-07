@@ -157,7 +157,7 @@ describe('Post Data migration', () => {
                   country_iso: countryIso,
                   row_uuid: row.uuid,
                   col_uuid: col.uuid,
-                  value: { raw: String(raw), calculated: true },
+                  value: { raw: raw ? String(raw) : null, calculated: true },
                 }
                 if (
                   values.find(
