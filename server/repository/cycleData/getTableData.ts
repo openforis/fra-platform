@@ -37,6 +37,7 @@ export const getTableData = (props: Props, client: BaseProtocol = DB): Promise<T
           where e.country_iso in ($1:csv)
               ${tableProps?.columns ? `and e.col_name in ${asQueryStringArray(tableProps.columns)}` : ''}
               ${tableProps?.variables ? `and e.variable_name in ${asQueryStringArray(tableProps.variables)}` : ''}
+              and e.col_name is not null
           group by 1, 2, 3
             )`
           }).join(`

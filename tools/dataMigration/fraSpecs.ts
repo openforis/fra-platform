@@ -6179,8 +6179,10 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     '2016',
                     '2017',
                   ],
-                  calcFormula:
-                    '(disturbances.insects && disturbances.diseases  && disturbances.severe_weather_events  && disturbances.other) ? ((disturbances.insects || 0) + (disturbances.diseases || 0) + (disturbances.severe_weather_events || 0) + (disturbances.other || 0)) : null',
+                  calcFormula: `(disturbances.insects || disturbances.diseases  || disturbances.severe_weather_events  || disturbances.other) 
+                    ? (
+                      (disturbances.insects || 0) + (disturbances.diseases || 0) + (disturbances.severe_weather_events || 0) + (disturbances.other || 0)
+                    ) : null`,
                 },
               },
               {
@@ -9424,6 +9426,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'nonWoodForestProductsRemovals.allOtherPlantProducts',
                 colSpan: 5,
                 mainCategory: true,
+                migration: {
+                  colNames: ['value'],
+                },
               },
               {
                 idx: 11,
@@ -9448,6 +9453,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'nonWoodForestProductsRemovals.allOtherAnimalProducts',
                 colSpan: 5,
                 mainCategory: true,
+                migration: {
+                  colNames: ['value'],
+                },
               },
               {
                 idx: 12,
@@ -9472,6 +9480,21 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'nonWoodForestProductsRemovals.total',
                 colSpan: 5,
                 mainCategory: true,
+                variableName: 'totalValue',
+                migration: {
+                  colNames: ['value'],
+                  calcFormula: `(
+                   nonWoodForestProductsRemovals["1"] || nonWoodForestProductsRemovals["2"] || nonWoodForestProductsRemovals["3"] 
+                   || nonWoodForestProductsRemovals["4"] || nonWoodForestProductsRemovals["5"] || nonWoodForestProductsRemovals["6"] 
+                   || nonWoodForestProductsRemovals["7"] || nonWoodForestProductsRemovals["8"] || nonWoodForestProductsRemovals["9"]
+                   || nonWoodForestProductsRemovals["10"] || nonWoodForestProductsRemovals["all_other_plant_products"] || nonWoodForestProductsRemovals["all_other_animal_products"]
+                   ) ? (
+                    (nonWoodForestProductsRemovals["1"] || 0) + (nonWoodForestProductsRemovals["2"] || 0) + (nonWoodForestProductsRemovals["3"] || 0)
+                    + (nonWoodForestProductsRemovals["4"] || 0) + (nonWoodForestProductsRemovals["5"] || 0) + (nonWoodForestProductsRemovals["6"] || 0)
+                    + (nonWoodForestProductsRemovals["7"] || 0) + (nonWoodForestProductsRemovals["8"] || 0) + (nonWoodForestProductsRemovals["9"] || 0)
+                    + (nonWoodForestProductsRemovals["10"] || 0) + (nonWoodForestProductsRemovals["all_other_plant_products"] || 0) + (nonWoodForestProductsRemovals["all_other_animal_products"] || 0)
+                   ) : null`,
+                },
               },
             ],
             tableDataRequired: [],
