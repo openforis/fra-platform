@@ -2,8 +2,9 @@ import { useCountryIso } from '@client/hooks'
 import { CountryIso } from '@meta/area'
 import { Authorizer, User, Users } from '@meta/user'
 import { useAppSelector } from '@client/store'
-import { useAssessmentCountryStatus, useAssessmentSection, useCountries } from '@client/store/assessment'
+import { useAssessmentSection, useCountries } from '@client/store/assessment'
 import { useIsDataLocked } from '@client/store/ui/dataLock'
+import { useAssessmentCountry } from '@client/store/assessment/hooks'
 
 export const useUser = (): User | undefined => useAppSelector((state) => state.user)
 
@@ -19,7 +20,7 @@ export const useCanEditSection = () => {
   const user = useUser()
   const section = useAssessmentSection()
   const countryIso = useCountryIso()
-  const countryStatus = useAssessmentCountryStatus()
+  const country = useAssessmentCountry()
   const isDataLocked = useIsDataLocked()
 
   return (
@@ -28,7 +29,7 @@ export const useCanEditSection = () => {
       section,
       user,
       countryIso,
-      countryStatus,
+      status: country.props.status,
     })
   )
 }

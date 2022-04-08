@@ -14,12 +14,12 @@ export const updateCountry = async (
   return client.one<Country>(
     `
         update ${assessmentCycleName}.country
-        set props = props || $2
+        set props = $2
         where country_iso = $1
         returning *;
 
     `,
-    [countryIso, JSON.stringify(country.props)],
+    [countryIso, country.props],
     Objects.camelize
   )
 }

@@ -3,26 +3,26 @@ import { RoleName, User } from '@meta/user'
 import { createI18nPromise } from '@i18n/i18nFactory'
 import { AssessmentName } from '@meta/assessment'
 import { UserRepository } from '@server/repository'
-import { AssessmentStatus, CountryStatus } from '@meta/area/country'
+import { AssessmentStatus } from '@meta/area/country'
 import { sendMail } from './mail'
 
 export const createMail = async (props: {
   countryIso: CountryIso
-  countryStatus: CountryStatus
+  status: AssessmentStatus
   user: User
   recipient: User
   url: string
   message: string
   assessmentName: AssessmentName
 }) => {
-  const { assessmentName, user, url, countryStatus, countryIso, recipient, message } = props
+  const { assessmentName, user, url, status, countryIso, recipient, message } = props
   const i18n = await createI18nPromise(recipient.lang ?? 'en')
 
   const emailLocalizationParameters = {
     country: i18n.t(`area.${countryIso}.listName`),
     serverUrl: url,
     recipientName: recipient.name,
-    status: i18n.t(`assessment.status.${countryStatus.status}.label`),
+    status: i18n.t(`assessment.status.${status}.label`),
     changer: user.name,
     assessment: i18n.t(`assessment.${assessmentName}`),
     message,
@@ -45,10 +45,10 @@ const getCountryUsers = async (props: {
   return UserRepository.readCountryUsersByRole({ countryISOs, roles })
 }
 
-const getRecipients = async (props: { countryISOs: Array<CountryIso>; countryStatus: CountryStatus }) => {
-  const { countryISOs, countryStatus } = props
+const getRecipients = async (props: { countryISOs: Array<CountryIso>; status: AssessmentStatus }) => {
+  const { countryISOs, status } = props
 
-  switch (countryStatus.status) {
+  switch (status) {
     case AssessmentStatus.editing:
       return getCountryUsers({ countryISOs, roles: [RoleName.NATIONAL_CORRESPONDENT] })
     case AssessmentStatus.review:
@@ -65,19 +65,19 @@ const getRecipients = async (props: { countryISOs: Array<CountryIso>; countrySta
 export const assessmentNotifyUsers = async (props: {
   countryIso: CountryIso
   user: User
-  countryStatus: CountryStatus
+  status: AssessmentStatus
   url: string
   message: string
   assessmentName: AssessmentName
 }) => {
-  const { countryIso, user, countryStatus, url, message, assessmentName } = props
-  const recipients = await getRecipients({ countryISOs: [countryIso], countryStatus })
+  const { countryIso, user, status, url, message, assessmentName } = props
+  const recipients = await getRecipients({ countryISOs: [countryIso], status })
   const emailPromises = await recipients.map(async (recipient: User) => {
     return createMail({
       user,
       url,
       recipient,
-      countryStatus,
+      status,
       countryIso,
       assessmentName,
       message,

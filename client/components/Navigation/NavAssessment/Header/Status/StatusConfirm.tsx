@@ -11,7 +11,7 @@ import { useParams } from 'react-router-dom'
 import { AssessmentName } from '@meta/assessment'
 import { useCountryIso } from '@client/hooks'
 import { useAppDispatch } from '@client/store'
-import { useAssessmentCountryStatus } from '@client/store/assessment/hooks'
+import { useAssessmentCountry } from '@client/store/assessment/hooks'
 import { StatusTransition } from './types'
 
 type Props = {
@@ -26,7 +26,7 @@ const StatusConfirm: React.FC<Props> = (props) => {
   const i18n = useTranslation()
   const countryIso = useCountryIso()
   const user = useUser()
-  const countryStatus = useAssessmentCountryStatus()
+  const country = useAssessmentCountry()
 
   const [notifyUsers, setNotifyUsers] = useState<boolean>(true)
 
@@ -72,15 +72,18 @@ const StatusConfirm: React.FC<Props> = (props) => {
           className="btn btn-primary modal-footer__item"
           onClick={() => {
             dispatch(
-              AssessmentActions.postCountryStatus({
+              AssessmentActions.updateCountry({
                 notifyUsers,
-                countryStatus: {
-                  ...countryStatus,
-                  status: status.status,
+                country: {
+                  ...country,
+                  props: {
+                    ...country.props,
+                    status: status.status,
+                  },
                 },
                 countryIso,
                 cycleName,
-                name: assessmentName,
+                assessmentName,
                 message: textareaValue,
               })
             )

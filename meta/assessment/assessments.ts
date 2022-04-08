@@ -1,5 +1,5 @@
 import { CountryIso } from '@meta/area'
-import { AssessmentStatus, CountryStatus } from '@meta/area/country'
+import { AssessmentStatus } from '@meta/area/country'
 import { User, Users } from '../user'
 
 export interface AssessmentStatusTransition {
@@ -7,18 +7,18 @@ export interface AssessmentStatusTransition {
   previous?: AssessmentStatus
 }
 
-export const CountryStatusTransitions = {
+export const AssessmentStatusTransitions = {
   getAllowedTransition: (props: {
-    countryStatus: CountryStatus
+    status: AssessmentStatus
     countryIso: CountryIso
     user: User
   }): AssessmentStatusTransition => {
-    const { countryStatus, countryIso, user } = props
+    const { status, countryIso, user } = props
 
     // collaborator cannot change the status of the assessment
     if (!user || Users.isCollaborator(user, countryIso)) return {}
 
-    switch (countryStatus.status) {
+    switch (status) {
       // in review, only reviewer can do transitions
       case AssessmentStatus.review:
         return Users.isAdministrator(user) || Users.isReviewer(user, countryIso)
