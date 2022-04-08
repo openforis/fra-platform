@@ -1,7 +1,7 @@
-import { Cols, NodeValue, Row, VariableCache } from '@meta/assessment'
+import { Assessment, Col, Cols, Cycle, NodeValue, Row, VariableCache } from '@meta/assessment'
 import { Objects } from '@core/utils'
-import { AssessmentController } from '@server/controller'
-import { DB, Schemas } from '@server/db'
+import { AssessmentController } from '@server/controller/assessment'
+import { BaseProtocol, DB, Schemas } from '@server/db'
 import { evalExpression } from '@server/controller/cycleData/persistNodeValue/evalExpression'
 import { ColRepository } from '@server/repository/col'
 import { CycleDataRepository, TablesCondition } from '@server/repository/cycleData'
@@ -14,6 +14,73 @@ afterAll(async () => {
 // eslint-disable-next-line camelcase
 export type NodeRow = { country_iso: string; row_uuid: string; col_uuid: string; value: NodeValue }
 
+const deleteWrongCalculatedNodes = async (
+  props: { assessment: Assessment; cycle: Cycle },
+  client: BaseProtocol
+): Promise<void> => {
+  const { assessment, cycle } = props
+  const schemaAssessment = Schemas.getName(assessment)
+  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  return client.query(`
+      delete
+      from ${schemaCycle}.node n
+      where n.id in (
+          select n.id
+          from ${schemaCycle}.node n
+                   left join ${schemaAssessment}.col c
+                             on n.col_uuid = c.uuid
+                   left join ${schemaAssessment}.row r
+                             on r.id = c.row_id
+
+          where r.props ->> 'variableName' in ('total_native_placeholder', 'no_unknown', 'other_or_unknown')
+      );
+
+      delete
+      from ${schemaCycle}.node n
+      where n.id in (
+          select n.id
+          from ${schemaCycle}.node n
+                   left join ${schemaAssessment}.col c
+                             on n.col_uuid = c.uuid
+                   left join ${schemaAssessment}.row r
+                             on r.id = c.row_id
+                   left join ${schemaAssessment}."table" t
+                             on t.id = r.table_id
+          where r.props ->> 'variableName' = 'other'
+            and t.props ->> 'name' = 'holderOfManagementRights'
+      );
+  `)
+}
+
+const getTotalLandAreaValues = async (client: BaseProtocol): Promise<Array<NodeRow>> => {
+  return client.many<NodeRow>(
+    `
+        select c.country_iso,
+--        c.config -> 'faoStat'      as fao_stat,
+--        t.props ->> 'name'         as table_name,
+--        r.props ->> 'variableName' as variable_name,
+               r.uuid  as row_uuid,
+--        cl.props ->> 'colName'     as col_name,
+               cl.uuid as col_uuid,
+               jsonb_build_object(
+                       'raw', jsonb_extract_path(
+                       c.config, 'faoStat', cl.props ->> 'colName', 'area'
+                   )::varchar
+                   )   as value
+--        c.config -> 'faoStat' ->
+        from country c
+                 left join assessment_fra."table" t
+                           on t.props ->> 'name' = 'extentOfForest'
+                 left join assessment_fra.row r
+                           on r.table_id = t.id
+                               and r.props ->> 'variableName' = 'totalLandArea'
+                 left join assessment_fra.col cl
+                           on r.id = cl.row_id
+                               and cl.props ->> 'colName' is not null
+    `
+  )
+}
+
 describe('Post Data migration', () => {
   test('Update calculated variables', async () => {
     await DB.tx(async (client) => {
@@ -25,14 +92,21 @@ describe('Post Data migration', () => {
         },
         client
       )
+      await deleteWrongCalculatedNodes({ assessment, cycle }, client)
       const schema = Schemas.getName(assessment)
 
-      const rows = await client.map<Row & { tableName: string }>(
-        `select r.*, t.props ->> 'name' as table_name
+      const rows = await client.map<Row & { tableName: string; cols: Array<Col> }>(
+        `
+            select r.*,
+                   t.props ->> 'name' as table_name,
+                   jsonb_agg(c.*)     as cols
             from ${schema}.row r
                      left join ${schema}."table" t
                                on r.table_id = t.id
-            where r.props ->> 'calculateFn' is not null`,
+                     left join ${schema}.col c on r.id = c.row_id
+            where r.props ->> 'calculateFn' is not null
+               or c.props ->> 'calculateFn' is not null
+            group by r.id, r.uuid, r.props, t.props ->> 'name'`,
         [],
         // @ts-ignore
         Objects.camelize
@@ -43,7 +117,7 @@ describe('Post Data migration', () => {
         variableName: row.props.variableName,
       }))
       const calculatedVariables: Record<string, Record<string, boolean>> = {}
-      const countryISOs = await AssessmentController.getCountryISOs({ name: 'fra' }, client)
+      const countryISOs = await AssessmentController.getCountryISOs({ assessment, cycle }, client)
 
       const hasBeenCalculated = (variable: VariableCache): boolean => {
         const variableToCalc = variablesToCalculate.find(
@@ -93,10 +167,12 @@ describe('Post Data migration', () => {
               colIndexes.map(async (colIdx) => {
                 const colName = Cols.getColName({ colIdx, cols })
                 const col = cols.find((c) => c.rowId === row.id && c.props.index === colIdx)
+                if (!col) return
                 const { variableName } = row.props
 
+                const expression = row.props.calculateFn ?? col.props.calculateFn
                 const raw = await evalExpression(
-                  { tableName, assessment, colName, countryIso, variableName, cycle, data, row },
+                  { tableName, assessment, colName, countryIso, variableName, cycle, data, row, expression },
                   client
                 )
                 // const nodeProps = { tableName, countryIso, variableName, cycle, colName, assessment }
@@ -110,7 +186,7 @@ describe('Post Data migration', () => {
                   country_iso: countryIso,
                   row_uuid: row.uuid,
                   col_uuid: col.uuid,
-                  value: { raw: String(raw) },
+                  value: { raw: raw ? String(raw) : null, calculated: true },
                 }
                 if (
                   values.find(
@@ -158,8 +234,16 @@ describe('Post Data migration', () => {
         }
       )
 
-      await Promise.all(
-        rows.map(async ({ tableName, ...row }) => {
+      // ===== total land area (fao stat)
+      const totalLandAreaValues = await getTotalLandAreaValues(client)
+      const query = pgp.helpers.insert(totalLandAreaValues, cs)
+      // eslint-disable-next-line no-await-in-loop
+      await client.query(query)
+
+      // ===== calculation rows
+      for (let i = 0; i < rows.length; i += 1) {
+        const { tableName, ...row } = rows[i]
+        if (!['growingStockAvg', 'growingStockTotal'].includes(tableName)) {
           // const dependencies = assessment.metaCache.calculations.dependencies[tableName]?.[row.props.variableName] ?? []
           //
           // await Promise.all(
@@ -171,6 +255,8 @@ describe('Post Data migration', () => {
           // )
 
           // if (dependencies.length === 0) {
+          // console.log('calculating ', tableName, row.props.variableName)
+          // eslint-disable-next-line no-await-in-loop
           const values = await calculateRow({ row, tableName })
           // const nodes = await client.map<Node>(
           //   `select * from ${Schemas.getNameCycle(assessment, cycle)}.node`,
@@ -187,10 +273,11 @@ describe('Post Data migration', () => {
           //   console.log('======= NODE ', node)
           // }
           const query = pgp.helpers.insert(values, cs)
-          await client.none(query)
-          // }
-        })
-      )
+          // eslint-disable-next-line no-await-in-loop
+          await client.query(query)
+          // console.log('INSERT DONE ', tableName, row.props.variableName)
+        }
+      }
     })
   })
 })

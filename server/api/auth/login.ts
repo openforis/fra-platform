@@ -1,25 +1,20 @@
 import { Response, Request, NextFunction } from 'express'
 import * as passport from 'passport'
-import { appUri } from '@server/utils/requests'
+import Requests, { appUri } from '@server/utils/requests'
 import * as jwt from 'jsonwebtoken'
 import { User } from '@meta/user'
-
-const authenticationFailed = (req: any, res: any) => {
-  req.logout()
-  res.redirect('/login?loginFailed=true')
-}
 
 export const postLocalLogin = async (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate('local', (err: any, user: User, info: any) => {
     if (err) return next(err)
 
-    if (!user) return res.send(info)
+    if (!user) return res.status(403).send({ error: info.message })
 
     return req.login(user, (err: any) => {
       if (err) next(err)
       const token = jwt.sign({ user }, process.env.TOKEN_SECRET)
       res.cookie('token', token)
-      res.redirect(`${process.env.NODE_ENV === 'development' ? '/' : appUri}`)
+      Requests.sendOk(res)
     })
   })(req, res, next)
 }
@@ -31,12 +26,13 @@ export const getGoogleLogin = (req: Request, res: Response) => {
   })(req, res)
 }
 
-export const getGoogleCallback = (req: any, res: Response, next: NextFunction) => {
+export const getGoogleCallback = (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate('google', { session: false }, (err: any, user: User) => {
     if (err) {
       next(err)
     } else if (!user) {
-      authenticationFailed(req, res)
+      res.clearCookie('token')
+      res.redirect('/login?loginFailed=true')
     } else {
       req.login(user, (err: any) => {
         if (err) next(err)

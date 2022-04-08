@@ -17,7 +17,7 @@ const Comments: React.FC<Props> = (props) => {
 
   // const { i18n } = useTranslation()
   // const countryIso = useCountryIso()
-  const target = [`${originalDataPoint.odpId}`, 'comments']
+  const target = [`${originalDataPoint.id}`, 'comments']
   const className = useNationalClassNameComments(target)
 
   return (

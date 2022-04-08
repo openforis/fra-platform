@@ -44,7 +44,7 @@ export const getParams = (req: Request) =>
 
 export const serverUrl = (req: Request) => (Objects.isEmpty(appUri) ? `${req.protocol}://${req.get('host')}` : appUri)
 
-const getRequestUser = (req: Request) => {
+const getRequestUser = (req: Request): User => {
   const { token } = req.cookies
   let user
   if (token) {

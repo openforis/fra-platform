@@ -6,9 +6,11 @@ export enum ActivityLogMessage {
   originalDataPointCreate = 'originalDataPointCreate',
   originalDataPointUpdate = 'originalDataPointUpdate',
   originalDataPointRemove = 'originalDataPointRemove',
+  updateCountry = 'updateCountry',
   userInvited = 'userInvited',
   nodeValueUpdate = 'nodeValueUpdate',
   nodeValueCalculatedUpdate = 'nodeValueCalculatedUpdate',
+  messageCreate = 'messageCreate',
 }
 
 export interface ActivityLog<Target> {

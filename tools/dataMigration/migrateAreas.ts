@@ -3,17 +3,27 @@ import { BaseProtocol } from '../../server/db'
 type Props = {
   client: BaseProtocol
   schema: string
+  index: number
 }
 
 export const migrateAreas = async (props: Props): Promise<void> => {
-  const { client, schema } = props
+  const { client, schema, index } = props
 
   await client.query(`
-        insert into ${schema}.country (country_iso)
-        select country_iso
-        from country
-        order by country_iso;
-    `)
+      insert into ${schema}.country (country_iso, props)
+      select
+          c.country_iso,
+          c.config || jsonb_build_object(
+              'status',  ${index === 0 ? 'a.status' : `'editing'`},
+              'desk_study',  ${index === 0 ? 'a.desk_study' : false},
+              'forestCharacteristics', jsonb_build_object('useOriginalDataPoint', (dcc.config->>'useOriginalDataPointsInFoc')::boolean)
+              ) as props
+      from public.country c
+               join  _legacy.assessment a on (c.country_iso = a.country_iso)
+               join  _legacy.dynamic_country_configuration dcc on (c.country_iso = dcc.country_iso)
+      order by country_iso;
+  `)
+
   await client.query(`
         insert into ${schema}.region_group (name, "order")
         select name, "order"

@@ -1,13 +1,15 @@
 import { create } from './create'
 import { update } from './update'
-import { read } from './read'
+import { getOne } from './getOne'
+import { getProfilePicture } from './getProfilePicture'
 import { remove } from './remove'
 import { readCountryUsersByRole } from './readCountryUsersByRole'
 
 export const UserRepository = {
   create,
   update,
-  read,
+  getOne,
+  getProfilePicture,
   remove,
   readCountryUsersByRole,
 }

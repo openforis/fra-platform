@@ -13,7 +13,12 @@ const _next = (allowed: boolean, next: NextFunction): void => {
 }
 
 export const requireEdit = async (req: Request, _res: Response, next: NextFunction) => {
-  const { countryIso, assessmentName, cycleName, section: sectionName } = req.params
+  const {
+    countryIso,
+    assessmentName,
+    cycleName,
+    section: sectionName,
+  } = <Record<string, string>>{ ...req.params, ...req.query }
   const name = <AssessmentName>assessmentName
   const user = Requests.getRequestUser(req)
 
@@ -25,14 +30,17 @@ export const requireEdit = async (req: Request, _res: Response, next: NextFuncti
 }
 
 export const requireView = async (req: Request, _res: Response, next: NextFunction) => {
-  const { countryIso, assessmentName, cycleName, tableName } = req.params
+  const { countryIso, assessmentName, cycleName } = <Record<string, string>>{ ...req.params, ...req.query }
+  if (!countryIso || !assessmentName || !cycleName) {
+    next(new Error(`missingParam`))
+  }
+
   const name = <AssessmentName>assessmentName
   const user = Requests.getRequestUser(req)
 
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ name, cycleName })
-  const table = await AssessmentController.getTable({ assessment, cycle, tableName })
 
-  _next(Authorizer.canView({ user, table, countryIso: countryIso as CountryIso, cycle, assessment }), next)
+  _next(Authorizer.canView({ user, countryIso: countryIso as CountryIso, cycle, assessment }), next)
 }
 
 const requireAdmin = async (req: Request, _res: Response, next: NextFunction) => {

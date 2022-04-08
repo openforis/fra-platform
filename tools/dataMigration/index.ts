@@ -8,7 +8,11 @@ import { Assessment } from '../../meta/assessment/assessment'
 import { Cycle } from '../../meta/assessment/cycle'
 import { SectionSpec } from '../../webapp/sectionSpec'
 import { BaseProtocol, DB } from '../../server/db'
-import { getCreateSchemaCycleDDL, getCreateSchemaDDL } from '../../server/repository/assessment/getCreateSchemaDDL'
+import {
+  getCreateSchemaCycleDDL,
+  getCreateSchemaCycleOriginalDataPointViewDDL,
+  getCreateSchemaDDL,
+} from '../../server/repository/assessment/getCreateSchemaDDL'
 
 import { DBNames } from './_DBNames'
 import { FraSpecs } from './fraSpecs'
@@ -21,7 +25,6 @@ import { migrateUsersInvitation } from './migrateUsersInvitation'
 import { migrateUsersResetPassword } from './migrateUsersResetPassword'
 import { migrateTablesData } from './migrateData/migrateTablesData'
 import { migrateOdps } from './migrateData/migrateOdps'
-import { migrateCountryStatus } from './migrateData/migrateCountryStatus'
 import { generateMetaCache } from './generateMetaCache'
 
 config({ path: path.resolve(__dirname, '..', '..', '.env') })
@@ -33,6 +36,11 @@ const createCycle = async (assessment: Assessment, cycleName: string, client: Ba
       DBNames.getCycleSchema(assessment.props.name, cycleName)
     )
   )
+
+  await client.query(
+    getCreateSchemaCycleOriginalDataPointViewDDL(DBNames.getCycleSchema(assessment.props.name, cycleName))
+  )
+
   return client.one<Cycle>(
     `insert into assessment_cycle (assessment_id, name)
      values ($1, $2)
@@ -88,7 +96,13 @@ export const migrate = async (props: {
     ])
 
     await migrateMetadata({ assessment, assessmentLegacy, schema, spec, client })
-    await migrateAreas({ client, schema })
+
+    await Promise.all(
+      cycleNames.map((cycleName, index: number) =>
+        migrateAreas({ client, schema: DBNames.getCycleSchema(assessment.props.name, cycleName), index })
+      )
+    )
+
     await migrateUsers({ client })
     await migrateUsersAuthProvider({ client })
     await migrateUsersRole({ assessment, client })
@@ -96,7 +110,6 @@ export const migrate = async (props: {
     await migrateUsersResetPassword({ client })
     await migrateTablesData({ assessment }, client)
     await migrateOdps({ assessment }, client)
-    await migrateCountryStatus({ assessment }, client)
     await generateMetaCache({ assessment }, client)
 
     await client.query(

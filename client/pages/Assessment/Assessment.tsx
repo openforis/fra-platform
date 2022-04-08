@@ -11,6 +11,7 @@ import { AssessmentActions } from '@client/store/assessment'
 import { useParams } from 'react-router'
 import { AssessmentName } from '@meta/assessment'
 import AssessmentSection from '@client/pages/AssessmentSection'
+import MessageCenter from '@client/components/MessageCenter'
 
 const Assessment: React.FC = () => {
   const navigationVisible = useNavigationVisible()
@@ -21,12 +22,20 @@ const Assessment: React.FC = () => {
 
   useEffect(() => {
     dispatch(AssessmentActions.getCountryStatus({ countryIso, name: assessmentName, cycleName }))
+    dispatch(
+      AssessmentActions.getCountry({
+        countryIso,
+        assessmentName,
+        cycleName,
+      })
+    )
   }, [countryIso])
 
   return (
     <div className={`app-view ${navigationVisible ? ' navigation-on' : ''}`}>
       <Navigation />
 
+      <MessageCenter />
       <Switch>
         {/* <Route path={BasePaths.assessmentHome} component={AssessmentHome} /> */}
         {/* <Route path={BasePaths.assessmentDataDownload} component={AssessmentDataDownload} /> */}

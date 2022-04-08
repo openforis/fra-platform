@@ -2,7 +2,7 @@ import { useAppDispatch } from '@client/store'
 import { NotificationActions } from '@client/store/ui/notification'
 import { UUIDs } from '@core/utils'
 
-type Toaster = {
+export type ToasterHook = {
   toaster: {
     error: (message: string) => void
     info: (message: string) => void
@@ -11,7 +11,7 @@ type Toaster = {
   }
 }
 
-export const useToaster = (): Toaster => {
+export const useToaster = (): ToasterHook => {
   const dispatch = useAppDispatch()
 
   const notify = (type: string, message: string, duration?: number) =>

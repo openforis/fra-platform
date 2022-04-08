@@ -1,4 +1,4 @@
-import { ExpressionNodeEvaluator, MemberExpression } from '@arena/core'
+import { ExpressionNodeEvaluator, MemberExpression } from '@openforis/arena-core'
 import { Context } from './context'
 import { VariableCache } from '../../../../../meta/assessment/assessmentMetaCache'
 
@@ -8,22 +8,30 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
 
     const { assessmentMetaCache, row, tableName } = this.context
 
-    const dependantTable = assessmentMetaCache.calculations.dependants?.[object.name] ?? {}
-    const dependants = dependantTable[property.name] ?? []
+    // @ts-ignore
+    const objectName = object?.object?.name ?? object.name
+    // @ts-ignore
+    const propertyName = object?.property?.name ?? property.name
+
+    const dependantTable = assessmentMetaCache.calculations.dependants?.[objectName] ?? {}
+    const dependants = dependantTable[propertyName] ?? []
     const dependant: VariableCache = { variableName: row.props.variableName, tableName }
     if (!dependants.find((d) => d.variableName === dependant.variableName)) {
       assessmentMetaCache.calculations.dependants = {
         ...assessmentMetaCache.calculations.dependants,
-        [object.name]: {
+        // @ts-ignore
+        [objectName]: {
           ...dependantTable,
-          [property.name]: [...dependants, dependant],
+          // @ts-ignore
+          [propertyName]: [...dependants, dependant],
         },
       }
     }
 
     const dependencyTable = assessmentMetaCache.calculations.dependencies?.[tableName] ?? {}
     const dependencies = dependencyTable[row.props.variableName] ?? []
-    const dependency: VariableCache = { variableName: property.name, tableName: object.name }
+    // @ts-ignore
+    const dependency: VariableCache = { variableName: propertyName, tableName: objectName }
     if (!dependencies.find((d) => d.variableName === dependency.variableName)) {
       assessmentMetaCache.calculations.dependencies = {
         ...assessmentMetaCache.calculations.dependencies,

@@ -8,8 +8,14 @@ import { removeAssessment } from './removeAssessment'
 import { getCountryISOs } from './getCountryISOs'
 import { getRegionGroups } from './getRegionGroups'
 import { getCountryStatus } from './getCountryStatus'
+import { getCountry } from './getCountry'
+import { updateCountry } from './updateCountry'
 import { updateCountryStatus } from './updateCountryStatus'
-import { getCreateSchemaDDL, getCreateSchemaCycleDDL } from './getCreateSchemaDDL'
+import {
+  getCreateSchemaDDL,
+  getCreateSchemaCycleDDL,
+  getCreateSchemaCycleOriginalDataPointViewDDL,
+} from './getCreateSchemaDDL'
 import { getSection } from './getSection'
 
 export const AssessmentRepository = {
@@ -26,5 +32,8 @@ export const AssessmentRepository = {
   updateCountryStatus,
   getCreateSchemaDDL,
   getCreateSchemaCycleDDL,
+  getCreateSchemaCycleOriginalDataPointViewDDL,
   getSection,
+  getCountry,
+  updateCountry,
 }

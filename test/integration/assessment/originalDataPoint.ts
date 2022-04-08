@@ -18,7 +18,7 @@ export default (): void =>
         cycleName: assessmentCycleName,
       }))
 
-      user = await UserController.read({ user: { email: userMockTest.email } })
+      user = await UserController.getOne({ email: userMockTest.email })
     })
 
     it('Create new Original data point', async () => {
@@ -32,7 +32,8 @@ export default (): void =>
       gotOriginalDataPoint = await AssessmentController.getOriginalDataPoint({
         name: assessment.props.name,
         cycleName: assessmentCycleName,
-        odpId: createdOriginalDataPoint.id,
+        year: String(createdOriginalDataPoint.year),
+        countryIso: createdOriginalDataPoint.countryIso,
       })
 
       expect(createdOriginalDataPoint).toHaveProperty('id')
@@ -88,7 +89,8 @@ export default (): void =>
         AssessmentController.getOriginalDataPoint({
           name: assessment.props.name,
           cycleName: assessmentCycleName,
-          odpId: 5,
+          year: '2299',
+          countryIso: 'FIN',
         })
       ).rejects.toThrowError('No data returned from the query.')
     })

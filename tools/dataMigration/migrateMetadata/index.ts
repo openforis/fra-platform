@@ -93,7 +93,7 @@ export const migrateMetadata = async (props: Props): Promise<void> => {
                   await Promise.all(
                     tableSpec.rows.map(async (rowSpec) => {
                       let row = getRow({ cycles, rowSpec, table })
-                      if (mapping && rowSpec.type === 'data') {
+                      if (mapping && mapping.rows.names[rowIdx] && rowSpec.type === 'data') {
                         row.props.variableName = mapping.rows.names[rowIdx]
                         rowIdx += 1
                       }
@@ -111,7 +111,12 @@ export const migrateMetadata = async (props: Props): Promise<void> => {
                       await Promise.all(
                         rowSpec.cols.map(async (colSpec) => {
                           let col = getCol({ cycles, colSpec, row })
-                          if (
+                          const colName = rowSpec.migration?.colNames?.[colIdx]
+                          const withColNameMigration = col.props.colType !== 'header' && colName
+                          if (withColNameMigration) {
+                            col.props.colName = colName
+                            colIdx += 1
+                          } else if (
                             mapping &&
                             rowSpec.type === 'data' &&
                             [
@@ -127,6 +132,7 @@ export const migrateMetadata = async (props: Props): Promise<void> => {
                             col.props.colName = columnMapping.name
                             colIdx += 1
                           }
+
                           col = await client.one<Col>(
                             `insert into ${schema}.col (row_id, props)
                              values ($1, $2::jsonb)

@@ -1,4 +1,4 @@
-import { ExpressionContext, ExpressionNodeEvaluator, LiteralExpression } from '@arena/core'
+import { ExpressionContext, ExpressionNodeEvaluator, LiteralExpression } from '@openforis/arena-core'
 
 export class LiteralEvaluator<C extends ExpressionContext> extends ExpressionNodeEvaluator<C, LiteralExpression> {
   // eslint-disable-next-line class-methods-use-this

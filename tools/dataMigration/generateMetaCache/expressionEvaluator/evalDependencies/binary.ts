@@ -1,4 +1,4 @@
-import { BinaryExpression, ExpressionContext, ExpressionNodeEvaluator } from '@arena/core'
+import { BinaryExpression, ExpressionContext, ExpressionNodeEvaluator } from '@openforis/arena-core'
 
 export class Binary<C extends ExpressionContext> extends ExpressionNodeEvaluator<C, BinaryExpression> {
   evaluate(expressionNode: BinaryExpression): any {

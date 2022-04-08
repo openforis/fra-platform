@@ -16,12 +16,7 @@ export const migrateTablesData = async (props: { assessment: Assessment }, clien
   const { assessment } = props
   const schema = DBNames.getAssessmentSchema(assessment.props.name)
 
-  const countryISOs = await client.map<string>(
-    `select *
-                                                from ${schema}.country`,
-    [],
-    (o) => o.country_iso
-  )
+  const countryISOs = await client.map<string>(`select * from public.country`, [], (o) => o.country_iso)
   const tables = await client.map<Table>(
     `select *
      from ${schema}.table

@@ -1,0 +1,11 @@
+@import 'client/style/partials';
+
+.topic-container {
+  right: 0;
+  height: calc(100vh - $ui-app-header-height);
+  z-index: $z-index-panel-review;
+  flex-shrink: 0;
+  position: fixed;
+  height: calc(100% - $ui-app-header-height - 50px);
+  display: flex;
+}
