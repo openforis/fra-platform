@@ -1,7 +1,7 @@
 import './geoMapMenuMosaic.scss'
 import React, { useEffect } from 'react'
 
-import useGeoMap from '@client/hooks/useGeoMap'
+import { useGeoMap } from '@client/hooks'
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useMosaicOptions, useMosaicUrl, useSelectedPanel } from '@client/store/ui/geo'
 import { MosaicSource } from '@meta/geo'
