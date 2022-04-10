@@ -1,6 +1,6 @@
 import { CountryIso } from '@meta/area'
+import { AssessmentStatus, CountryStatus } from '@meta/area/country'
 import { User, Users } from '../user'
-import { AssessmentStatus, CountryStatus } from './index'
 
 export interface AssessmentStatusTransition {
   next?: AssessmentStatus

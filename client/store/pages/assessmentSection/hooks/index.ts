@@ -2,6 +2,7 @@ import { useAppSelector } from '@client/store'
 import { Table, TableSection } from '@meta/assessment'
 import { useCountryIso } from '@client/hooks'
 import { TableData } from '@meta/data'
+import { useAssessmentCountry } from '@client/store/assessment/hooks'
 
 export const useShowOriginalDatapoints = () =>
   useAppSelector((state) => state.pages.assessmentSection.showOriginalDataPoint)
@@ -14,11 +15,12 @@ export const useTableData = (props: { table: Table }): TableData => {
   const countryIso = useCountryIso()
   const { odp } = table.props
   const showOriginalDatapoints = useShowOriginalDatapoints()
+  const country = useAssessmentCountry()
   const tableData = useAppSelector((state) => state.pages.assessmentSection.data)
   const odpData = useAppSelector((state) => state.pages.assessmentSection.originalDataPointData)
 
   if (!tableData) return null
-  if (!odp || !showOriginalDatapoints) return tableData
+  if (!odp || !showOriginalDatapoints || !country.props.forestCharacteristics.useOriginalDataPoint) return tableData
 
   const currData = tableData[countryIso][table.props.name]
 

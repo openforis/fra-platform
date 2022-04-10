@@ -1,7 +1,8 @@
 import { BaseProtocol, DB, Schemas } from '@server/db'
 import { Objects } from '@core/utils'
 import { CountryIso } from '@meta/area'
-import { AssessmentName, CountryStatus, Cycle } from '@meta/assessment'
+import { AssessmentName, Cycle } from '@meta/assessment'
+import { CountryStatus } from '@meta/area/country'
 
 export const getCountryStatus = async (
   props: { countryIso: CountryIso | string; name: AssessmentName; cycleName: string },
@@ -13,7 +14,7 @@ export const getCountryStatus = async (
 
   return client.oneOrNone<CountryStatus>(
     `
-          select * from ${assessmentCycleName}.country_status where country_iso = $1
+          select country_iso, props->>'status' as status, (props->>'desk_study')::boolean as desk_study from ${assessmentCycleName}.country where country_iso = $1
     `,
     [countryIso],
     Objects.camelize

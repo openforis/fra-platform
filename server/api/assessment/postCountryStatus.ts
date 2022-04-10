@@ -6,14 +6,14 @@ import { MailService } from '@server/service'
 import { CountryIso } from '@meta/area'
 
 export const postCountryStatus = async (req: Request, res: Response) => {
-  const { countryIso, name, cycleName } = req.params
+  const { countryIso, assessmentName, cycleName } = req.params
   const { countryStatus, message } = req.body
   const { notifyUsers } = req.query
   try {
     const returnedCountryStatus = await AssessmentController.updateCountryStatus({
       countryStatus,
       countryIso,
-      name: name as AssessmentName,
+      assessmentName: assessmentName as AssessmentName,
       cycleName,
     })
 
@@ -23,7 +23,7 @@ export const postCountryStatus = async (req: Request, res: Response) => {
         countryIso: countryIso as CountryIso,
         countryStatus: returnedCountryStatus,
         url: Requests.serverUrl(req),
-        assessmentName: name as AssessmentName,
+        assessmentName: assessmentName as AssessmentName,
         message,
       })
     }

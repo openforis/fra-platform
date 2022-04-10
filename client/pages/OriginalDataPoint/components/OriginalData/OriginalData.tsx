@@ -17,8 +17,11 @@ type Props = {
 const OriginalData: React.FC<Props> = (props) => {
   const { canEditData } = props
   // const sections = useAssessmentSections()
-  const { assessmentName, cycleName, odpId } =
-    useParams<{ assessmentName: AssessmentName; cycleName: string; odpId: string }>()
+  const { assessmentName, cycleName, year } = useParams<{
+    assessmentName: AssessmentName
+    cycleName: string
+    year: string
+  }>()
 
   const extentOfForest = {
     name: 'extentOfForest',
@@ -42,7 +45,7 @@ const OriginalData: React.FC<Props> = (props) => {
             countryIso,
             assessmentName,
             cycleName,
-            odpId,
+            year,
             extentOfForest.name
           )}
         >
@@ -56,7 +59,7 @@ const OriginalData: React.FC<Props> = (props) => {
             countryIso,
             assessmentName,
             cycleName,
-            odpId,
+            year,
             forestCharacteristics.name
           )}
         >

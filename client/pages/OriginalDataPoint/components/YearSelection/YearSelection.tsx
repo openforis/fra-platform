@@ -60,6 +60,7 @@ const YearSelection: React.FC<Props> = (props) => {
             } as OriginalDataPoint
             dispatch(
               OriginalDataPointActions.updateOriginalDataPoint({
+                countryIso,
                 cycleName: cycle.name,
                 assessmentName: assessment.props.name,
                 originalDataPoint: originalDataPointUpdate,

@@ -1,16 +1,17 @@
-import { ExpressionNodeType, JavascriptExpressionEvaluator } from '@arena/core'
+import { ExpressionNodeType, JavascriptExpressionEvaluator } from '@openforis/arena-core'
 import { Binary } from './binary'
 import { CallEvaluator } from './call'
 import { CompoundEvaluator } from './compound'
-import { GroupEvaluator } from './group'
 import { IdentifierEvaluator } from './identifier'
 import { LiteralEvaluator } from './literal'
 import { MemberEvaluator } from './member'
 import { ThisEvaluator } from './this'
 import { UnaryEvaluator } from './unary'
 import { Context } from './context'
+import { ConditionalEvaluator } from './conditional'
+import { SequenceEvaluator } from './sequence'
 
-export const evalDependencies = (context: Context): string => {
+export const evalDependencies = (expression: string, context: Context): void => {
   const evaluators = {
     // @ts-ignore
     [ExpressionNodeType.Binary]: Binary,
@@ -18,8 +19,6 @@ export const evalDependencies = (context: Context): string => {
     [ExpressionNodeType.Call]: CallEvaluator,
     // @ts-ignore
     [ExpressionNodeType.Compound]: CompoundEvaluator,
-    // @ts-ignore
-    [ExpressionNodeType.Group]: GroupEvaluator,
     // @ts-ignore
     [ExpressionNodeType.Identifier]: IdentifierEvaluator,
     // @ts-ignore
@@ -32,7 +31,11 @@ export const evalDependencies = (context: Context): string => {
     [ExpressionNodeType.This]: ThisEvaluator,
     // @ts-ignore
     [ExpressionNodeType.Unary]: UnaryEvaluator,
+    // @ts-ignore
+    [ExpressionNodeType.Conditional]: ConditionalEvaluator,
+    // @ts-ignore
+    [ExpressionNodeType.Sequence]: SequenceEvaluator,
   }
   const evaluator = new JavascriptExpressionEvaluator<Context>([], evaluators)
-  return evaluator.evaluate(context.row.props.calculateFn, context)
+  evaluator.evaluate(expression, context)
 }

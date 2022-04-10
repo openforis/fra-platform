@@ -9,11 +9,12 @@ import { MessageCenterActions } from '@client/store/ui/messageCenter'
 
 type Props = {
   title: string
+  subtitle?: string
   topicKey: string
 }
 
 const ReviewIndicator = (props: Props) => {
-  const { title, topicKey } = props
+  const { title, subtitle, topicKey } = props
 
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
@@ -27,6 +28,7 @@ const ReviewIndicator = (props: Props) => {
         assessmentName: assessment.props.name,
         cycleName: cycle.name,
         title,
+        subtitle,
         key: topicKey,
       })
     )
@@ -37,6 +39,10 @@ const ReviewIndicator = (props: Props) => {
       <Icon name="circle-add" />
     </button>
   )
+}
+
+ReviewIndicator.defaultProps = {
+  subtitle: null,
 }
 
 export default ReviewIndicator

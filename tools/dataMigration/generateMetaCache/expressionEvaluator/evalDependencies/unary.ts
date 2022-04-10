@@ -1,4 +1,4 @@
-import { ExpressionContext, ExpressionNodeEvaluator, UnaryExpression } from '@arena/core'
+import { ExpressionContext, ExpressionNodeEvaluator, UnaryExpression } from '@openforis/arena-core'
 
 export class UnaryEvaluator<C extends ExpressionContext> extends ExpressionNodeEvaluator<C, UnaryExpression> {
   evaluate(expressionNode: UnaryExpression): any {

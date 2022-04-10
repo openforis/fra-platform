@@ -1,7 +1,8 @@
 import { BaseProtocol, DB } from '@server/db'
 import { AssessmentRepository } from '@server/repository'
 import { CountryIso } from '@meta/area'
-import { AssessmentName, CountryStatus } from '@meta/assessment'
+import { AssessmentName } from '@meta/assessment'
+import { CountryStatus } from '@meta/area/country'
 
 export const getCountryStatus = async (
   props: { countryIso: CountryIso | string; name: AssessmentName; cycleName: string },
