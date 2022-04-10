@@ -4,6 +4,8 @@ import { AuthMiddleware } from '@server/middleware/auth'
 import { getSections } from './getSections'
 import { getOriginalDataPoint } from './getOdp'
 import { getCountryStatus } from './getCountryStatus'
+import { getCountry } from './getCountry'
+import { postCountry } from './postCountry'
 import { getTableData } from './getTableData'
 import { getSectionMetadata } from './getSectionMetadata'
 import { postCountryStatus } from './postCountryStatus'
@@ -17,6 +19,10 @@ import { getOriginalDataPointData } from './getOriginalDataPointData'
 
 export const AssessmentApi = {
   init: (express: Express): void => {
+    // Country
+    express.get(ApiEndPoint.Assessment.country(), AuthMiddleware.requireView, getCountry)
+    express.post(ApiEndPoint.Assessment.country(), AuthMiddleware.requireEdit, postCountry)
+
     // CountryStatus
     express.get(ApiEndPoint.Assessment.countryStatus(), AuthMiddleware.requireView, getCountryStatus)
     express.post(ApiEndPoint.Assessment.countryStatus(), AuthMiddleware.requireEdit, postCountryStatus)

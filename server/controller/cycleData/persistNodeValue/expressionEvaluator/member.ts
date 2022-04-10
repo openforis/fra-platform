@@ -1,5 +1,5 @@
-import { MemberExpression } from '@arena/core'
-import { MemberEvaluator as ArenaMemberEvaluator } from '@arena/core/dist/expression/javascript/node/member'
+import { MemberExpression } from '@openforis/arena-core'
+import { MemberEvaluator as ArenaMemberEvaluator } from '@openforis/arena-core/dist/expression/javascript/node/member'
 import { Context } from './context'
 
 export class MemberEvaluator extends ArenaMemberEvaluator<Context> {
@@ -14,7 +14,7 @@ export class MemberEvaluator extends ArenaMemberEvaluator<Context> {
     const tableName = Object.keys(assessment.metaCache.variablesByTable).find((table) => table === objectName)
     if (tableName) {
       // @ts-ignore
-      const variableName = isCol ? object?.property.name : property.name
+      const variableName = isCol ? object.property.name ?? object.property.value : property.name ?? property.value
       // @ts-ignore
       const colName = isCol ? property.value : colNameContext
 

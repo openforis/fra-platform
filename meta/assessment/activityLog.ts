@@ -6,6 +6,7 @@ export enum ActivityLogMessage {
   originalDataPointCreate = 'originalDataPointCreate',
   originalDataPointUpdate = 'originalDataPointUpdate',
   originalDataPointRemove = 'originalDataPointRemove',
+  updateCountry = 'updateCountry',
   userInvited = 'userInvited',
   nodeValueUpdate = 'nodeValueUpdate',
   nodeValueCalculatedUpdate = 'nodeValueCalculatedUpdate',

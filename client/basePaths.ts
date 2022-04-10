@@ -7,7 +7,7 @@ enum defaults {
   cycleName = ':cycleName',
   id = ':id',
   section = ':section',
-  odpId = ':odpId',
+  year = ':year',
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -47,15 +47,15 @@ export const BasePaths = {
         countryIso: CountryIso | defaults.countryIso = defaults.countryIso,
         assessmentName: AssessmentName | defaults.assessmentName = defaults.assessmentName,
         cycleName: string = defaults.cycleName,
-        odpId = ':odpId'
-      ) => _generate(countryIso, 'assessments', assessmentName, cycleName, 'originalDataPoint', odpId),
+        year = ':year'
+      ) => _generate(countryIso, 'assessments', assessmentName, cycleName, 'originalDataPoint', year),
       section: (
         countryIso: CountryIso | defaults.countryIso = defaults.countryIso,
         assessmentName: AssessmentName | defaults.assessmentName = defaults.assessmentName,
         cycleName: string = defaults.cycleName,
-        odpId = ':odpId',
+        year = ':year',
         section: string | defaults.section = defaults.section
-      ) => _generate(countryIso, 'assessments', assessmentName, cycleName, 'originalDataPoint', odpId, section),
+      ) => _generate(countryIso, 'assessments', assessmentName, cycleName, 'originalDataPoint', year, section),
       tab: (section: string | defaults.section = defaults.section) =>
         _generate(
           defaults.countryIso,
@@ -63,7 +63,7 @@ export const BasePaths = {
           defaults.assessmentName,
           defaults.cycleName,
           'originalDataPoint',
-          defaults.odpId,
+          defaults.year,
           section
         ),
     },

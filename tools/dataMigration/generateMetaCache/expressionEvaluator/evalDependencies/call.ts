@@ -4,7 +4,7 @@ import {
   ExpressionNode,
   ExpressionNodeEvaluator,
   ExpressionNodeType,
-} from '@arena/core'
+} from '@openforis/arena-core'
 
 export class CallEvaluator<C extends ExpressionContext> extends ExpressionNodeEvaluator<C, CallExpression> {
   evaluate(expressionNode: CallExpression): any {

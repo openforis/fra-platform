@@ -1,12 +1,11 @@
 import { BaseProtocol, DB } from '@server/db'
 import { AssessmentRepository } from '@server/repository'
 import { CountryIso } from '@meta/area'
+import { Assessment, Cycle } from '@meta/assessment'
 
 export const getCountryISOs = async (
-  props: { name: string },
+  props: { assessment: Assessment; cycle: Cycle },
   client: BaseProtocol = DB
 ): Promise<Array<CountryIso>> => {
-  const { name } = props
-
-  return AssessmentRepository.getCountryISOs({ name }, client)
+  return AssessmentRepository.getCountryISOs(props, client)
 }

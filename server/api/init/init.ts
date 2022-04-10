@@ -7,21 +7,21 @@ export const init = async (req: Request, res: Response) => {
   const assessmentName = req.query.name as string
   try {
     let assessment
+    let cycle
     if (!assessmentName) {
       const settings = await SettingsController.read()
-
-      assessment = await AssessmentController.getOne({
+      ;({ assessment, cycle } = await AssessmentController.getOneWithCycle({
         id: settings.defaultAssessmentId,
-      })
+      }))
     } else {
-      assessment = await AssessmentController.getOne({
+      ;({ assessment, cycle } = await AssessmentController.getOneWithCycle({
         name: assessmentName,
-      })
+      }))
     }
 
     const [countryISOs, regionGroups] = await Promise.all([
-      AssessmentController.getCountryISOs({ name: assessment.props.name }),
-      AssessmentController.getRegionGroups({ name: assessment.props.name }),
+      AssessmentController.getCountryISOs({ assessment, cycle }),
+      AssessmentController.getRegionGroups({ assessment, cycle }),
     ])
 
     res.send({

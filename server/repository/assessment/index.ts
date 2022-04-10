@@ -8,6 +8,8 @@ import { removeAssessment } from './removeAssessment'
 import { getCountryISOs } from './getCountryISOs'
 import { getRegionGroups } from './getRegionGroups'
 import { getCountryStatus } from './getCountryStatus'
+import { getCountry } from './getCountry'
+import { updateCountry } from './updateCountry'
 import { updateCountryStatus } from './updateCountryStatus'
 import {
   getCreateSchemaDDL,
@@ -32,4 +34,6 @@ export const AssessmentRepository = {
   getCreateSchemaCycleDDL,
   getCreateSchemaCycleOriginalDataPointViewDDL,
   getSection,
+  getCountry,
+  updateCountry,
 }

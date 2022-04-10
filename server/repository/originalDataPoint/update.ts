@@ -48,5 +48,5 @@ export const update = async (
     ]
   )
 
-  return getOne({ assessment, assessmentCycle, odpId: id }, client)
+  return getOne({ assessment, assessmentCycle, countryIso, year: String(year) }, client)
 }

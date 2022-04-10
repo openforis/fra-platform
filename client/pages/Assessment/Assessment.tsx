@@ -22,6 +22,13 @@ const Assessment: React.FC = () => {
 
   useEffect(() => {
     dispatch(AssessmentActions.getCountryStatus({ countryIso, name: assessmentName, cycleName }))
+    dispatch(
+      AssessmentActions.getCountry({
+        countryIso,
+        assessmentName,
+        cycleName,
+      })
+    )
   }, [countryIso])
 
   return (
