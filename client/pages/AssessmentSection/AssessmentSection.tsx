@@ -22,8 +22,11 @@ const AssessmentSection: React.FC = () => {
   const assessmentSection = useAssessmentSection()
   const tableSections = useTableSections()
 
-  const { assessmentName, cycleName, section } =
-    useParams<{ assessmentName: AssessmentName; cycleName: string; section: string }>()
+  const { assessmentName, cycleName, section } = useParams<{
+    assessmentName: AssessmentName
+    cycleName: string
+    section: string
+  }>()
 
   const { i18n } = useTranslation()
 
