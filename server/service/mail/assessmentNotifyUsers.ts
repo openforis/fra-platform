@@ -1,4 +1,4 @@
-import { CountryIso } from '@meta/area'
+import { Country, CountryIso } from '@meta/area'
 import { RoleName, User } from '@meta/user'
 import { createI18nPromise } from '@i18n/i18nFactory'
 import { AssessmentName } from '@meta/assessment'
@@ -65,12 +65,21 @@ const getRecipients = async (props: { countryISOs: Array<CountryIso>; status: As
 export const assessmentNotifyUsers = async (props: {
   countryIso: CountryIso
   user: User
-  status: AssessmentStatus
+  country: Country
   url: string
   message: string
   assessmentName: AssessmentName
 }) => {
-  const { countryIso, user, status, url, message, assessmentName } = props
+  const {
+    countryIso,
+    user,
+    country: {
+      props: { status },
+    },
+    url,
+    message,
+    assessmentName,
+  } = props
   const recipients = await getRecipients({ countryISOs: [countryIso], status })
   const emailPromises = await recipients.map(async (recipient: User) => {
     return createMail({

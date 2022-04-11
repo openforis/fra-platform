@@ -12,8 +12,7 @@ import { TableData } from '@meta/data'
 import * as DataTableUtils from '@client/pages/AssessmentSection/DataTable/utils'
 import { useOriginalDataPointYears, useShowOriginalDatapoints } from '@client/store/pages/assessmentSection/hooks'
 import { BasePaths } from '@client/basePaths'
-import { useCycle } from '@client/store/assessment'
-import { useAssessmentCountry } from '@client/store/assessment/hooks'
+import { useCycle, useAssessmentCountry } from '@client/store/assessment'
 import Row from './Row'
 
 type Props = {

@@ -6,12 +6,11 @@ import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from '@client/
 import { useTranslation } from 'react-i18next'
 import { useUser } from '@client/store/user'
 import { Users } from '@meta/user'
-import { AssessmentActions } from '@client/store/assessment'
+import { AssessmentActions, useAssessmentCountry } from '@client/store/assessment'
 import { useParams } from 'react-router-dom'
 import { AssessmentName } from '@meta/assessment'
 import { useCountryIso } from '@client/hooks'
 import { useAppDispatch } from '@client/store'
-import { useAssessmentCountry } from '@client/store/assessment/hooks'
 import { StatusTransition } from './types'
 
 type Props = {

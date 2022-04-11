@@ -10,12 +10,11 @@ import { Breakpoints } from '@webapp/utils/breakpoints'
 import Icon from '@client/components/Icon'
 import PopoverControl, { PopoverItem } from '@client/components/PopoverControl'
 
-import { useAssessmentCountry } from '@client/store/assessment/hooks'
+import { useAssessmentCountry, AssessmentActions } from '@client/store/assessment'
 import { AssessmentName } from '@meta/assessment'
 import { AssessmentStatusTransitions } from '@meta/assessment/assessments'
 import { Users } from '@meta/user'
 import { useParams } from 'react-router-dom'
-import { AssessmentActions } from '@client/store/assessment'
 import { AssessmentStatus } from '@meta/area/country'
 import StatusConfirm from './StatusConfirm'
 import { StatusTransition } from './types'
@@ -63,7 +62,7 @@ const Status: React.FC = () => {
   const items: Array<PopoverItem> = []
   if (status !== AssessmentStatus.changing) {
     const { next, previous } = AssessmentStatusTransitions.getAllowedTransition({
-      status: country.props.status,
+      country,
       countryIso,
       user,
     })

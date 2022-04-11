@@ -26,7 +26,7 @@ export const postCountry = async (req: Request, res: Response) => {
       await MailService.assessmentNotifyUsers({
         user: Requests.getRequestUser(req),
         countryIso: countryIso as CountryIso,
-        status: updatedCountry.props.status,
+        country,
         url: Requests.serverUrl(req),
         assessmentName: assessmentName as AssessmentName,
         message,

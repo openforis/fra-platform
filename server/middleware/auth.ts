@@ -26,7 +26,7 @@ export const requireEdit = async (req: Request, _res: Response, next: NextFuncti
   const section = await AssessmentController.getSection({ assessment, cycle, sectionName })
   const country = await AssessmentController.getCountry({ countryIso: countryIso as CountryIso, assessment, cycle })
 
-  _next(Authorizer.canEdit({ user, section, countryIso: countryIso as CountryIso, status: country.props.status }), next)
+  _next(Authorizer.canEdit({ user, section, countryIso: countryIso as CountryIso, country }), next)
 }
 
 export const requireView = async (req: Request, _res: Response, next: NextFunction) => {

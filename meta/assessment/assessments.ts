@@ -1,4 +1,4 @@
-import { CountryIso } from '@meta/area'
+import { Country, CountryIso } from '@meta/area'
 import { AssessmentStatus } from '@meta/area/country'
 import { User, Users } from '../user'
 
@@ -9,11 +9,17 @@ export interface AssessmentStatusTransition {
 
 export const AssessmentStatusTransitions = {
   getAllowedTransition: (props: {
-    status: AssessmentStatus
+    country: Country
     countryIso: CountryIso
     user: User
   }): AssessmentStatusTransition => {
-    const { status, countryIso, user } = props
+    const {
+      country: {
+        props: { status },
+      },
+      countryIso,
+      user,
+    } = props
 
     // collaborator cannot change the status of the assessment
     if (!user || Users.isCollaborator(user, countryIso)) return {}
