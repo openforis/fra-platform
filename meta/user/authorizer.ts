@@ -1,9 +1,9 @@
 import { Assessment, Cycle, Section } from '@meta/assessment'
 import { User } from '@meta/user/user'
-import { CountryIso } from '@meta/area'
+import { Country, CountryIso } from '@meta/area'
 import { Users } from '@meta/user/users'
 import { Collaborator } from '@meta/user/userRole'
-import { CountryStatus, AssessmentStatus } from '@meta/area/country'
+import { AssessmentStatus } from '@meta/area/country'
 
 /**
  *  CanView
@@ -50,20 +50,20 @@ const canView = (props: { countryIso: CountryIso; assessment: Assessment; cycle:
  * @param props.user
  * @returns boolean
  */
-const canEdit = (props: {
-  countryIso: CountryIso
-  section: Section
-  countryStatus: CountryStatus
-  user: User
-}): boolean => {
-  const { section, user, countryIso, countryStatus } = props
+const canEdit = (props: { countryIso: CountryIso; section: Section; country: Country; user: User }): boolean => {
+  const {
+    section,
+    user,
+    countryIso,
+    country: {
+      props: { status },
+    },
+  } = props
   if (!user) return false
   if (Users.isViewer(user, countryIso)) return false
   if (Users.isAdministrator(user)) return true
 
-  const { status } = countryStatus
-
-  // CountryStatus == Editing
+  // country.props.status == Editing
   // And role is NationalCorrespondent or AlternateNationalCorrespondent
   if (
     (Users.isNationalCorrespondent(user, countryIso) || Users.isAlternateNationalCorrespondent(user, countryIso)) &&

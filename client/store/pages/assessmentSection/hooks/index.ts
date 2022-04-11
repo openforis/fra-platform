@@ -2,7 +2,7 @@ import { useAppSelector } from '@client/store'
 import { Table, TableSection } from '@meta/assessment'
 import { useCountryIso } from '@client/hooks'
 import { TableData } from '@meta/data'
-import { useAssessmentCountry } from '@client/store/assessment/hooks'
+import { useAssessmentCountry } from '@client/store/assessment'
 
 export const useShowOriginalDatapoints = () =>
   useAppSelector((state) => state.pages.assessmentSection.showOriginalDataPoint)

@@ -8,7 +8,7 @@ import { AssessmentName } from '@meta/assessment'
 import { useCountryIso } from '@client/hooks'
 import { useAppDispatch } from '@client/store'
 import { AssessmentSectionActions, useTableSections } from '@client/store/pages/assessmentSection'
-import { useAssessmentSection } from '@client/store/assessment/hooks'
+import { useAssessmentSection } from '@client/store/assessment'
 
 // import SectionHeader from './SectionHeader'
 // import Descriptions from './Descriptions'
@@ -22,8 +22,11 @@ const AssessmentSection: React.FC = () => {
   const assessmentSection = useAssessmentSection()
   const tableSections = useTableSections()
 
-  const { assessmentName, cycleName, section } =
-    useParams<{ assessmentName: AssessmentName; cycleName: string; section: string }>()
+  const { assessmentName, cycleName, section } = useParams<{
+    assessmentName: AssessmentName
+    cycleName: string
+    section: string
+  }>()
 
   const { i18n } = useTranslation()
 
@@ -67,8 +70,8 @@ const AssessmentSection: React.FC = () => {
 
       {showTitle && <Title assessmentName={assessmentName} sectionName={sectionName} sectionAnchor={anchor} />}
 
-      {tableSections.map((tableSection, idx) => (
-        <div key={String(idx)}>
+      {tableSections.map((tableSection) => (
+        <div key={String(tableSection.id)}>
           {/* // TODO Missing metadata */}
           {/* {tableSection.titleKey && ( */}
           {/*  <h3 className="subhead assessment-section__table-title">{i18n.t(tableSection.titleKey)}</h3> */}

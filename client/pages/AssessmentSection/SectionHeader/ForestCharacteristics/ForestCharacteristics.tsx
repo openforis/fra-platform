@@ -1,9 +1,8 @@
 import React from 'react'
 import { useUser } from '@client/store/user'
 import { useTranslation } from 'react-i18next'
-import { useAssessment, useAssessmentCountry, useCycle } from '@client/store/assessment/hooks'
+import { useAssessment, useAssessmentCountry, useCycle, AssessmentActions } from '@client/store/assessment'
 import { useDispatch } from 'react-redux'
-import { AssessmentActions } from '@client/store/assessment'
 import { useCountryIso } from '@client/hooks'
 import { Props } from '../props'
 

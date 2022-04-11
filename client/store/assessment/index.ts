@@ -6,5 +6,5 @@ export {
   useAssessmentSections,
   useCycle,
   useAssessmentSection,
-  useAssessmentCountryStatus,
+  useAssessmentCountry,
 } from './hooks'
