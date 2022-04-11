@@ -21,7 +21,6 @@ const Assessment: React.FC = () => {
   const { assessmentName, cycleName } = useParams<{ assessmentName: AssessmentName; cycleName: string }>()
 
   useEffect(() => {
-    dispatch(AssessmentActions.getCountryStatus({ countryIso, name: assessmentName, cycleName }))
     dispatch(
       AssessmentActions.getCountry({
         countryIso,

@@ -13,8 +13,6 @@ import { getOriginalDataPoint } from './getOriginalDataPoint'
 import { getSectionMetadata } from './getSectionMetadata'
 import { getRegionGroups } from './getRegionGroups'
 import { createCycle } from './createCycle'
-import { getCountryStatus } from './getCountryStatus'
-import { updateCountryStatus } from './updateCountryStatus'
 import { getReservedYears } from './getReservedYears'
 import { getSection } from './getSection'
 import { updateCountry } from './updateCountry'
@@ -33,10 +31,8 @@ export const AssessmentController = {
   updateOriginalDataPoint,
   getOriginalDataPoint,
   createCycle,
-  getCountryStatus,
   updateCountry,
   getCountry: AssessmentRepository.getCountry,
-  updateCountryStatus,
   getReservedYears,
   getSection,
   getTable: TableRepository.getOne,

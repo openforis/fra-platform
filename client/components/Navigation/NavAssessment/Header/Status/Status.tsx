@@ -10,12 +10,11 @@ import { Breakpoints } from '@webapp/utils/breakpoints'
 import Icon from '@client/components/Icon'
 import PopoverControl, { PopoverItem } from '@client/components/PopoverControl'
 
-import { useAssessmentCountryStatus } from '@client/store/assessment/hooks'
+import { useAssessmentCountry, AssessmentActions } from '@client/store/assessment'
 import { AssessmentName } from '@meta/assessment'
-import { CountryStatusTransitions } from '@meta/assessment/assessments'
+import { AssessmentStatusTransitions } from '@meta/assessment/assessments'
 import { Users } from '@meta/user'
 import { useParams } from 'react-router-dom'
-import { AssessmentActions } from '@client/store/assessment'
 import { AssessmentStatus } from '@meta/area/country'
 import StatusConfirm from './StatusConfirm'
 import { StatusTransition } from './types'
@@ -25,15 +24,13 @@ const Status: React.FC = () => {
   const countryIso = useCountryIso()
   const { i18n } = useTranslation()
   const user = useUser()
-  const countryStatus = useAssessmentCountryStatus()
+  const country = useAssessmentCountry()
 
   const { assessmentName, cycleName } = useParams<{ assessmentName: AssessmentName; cycleName: string }>()
-
-  const { deskStudy, status } = countryStatus ?? {}
   const [targetStatus, setTargetStatus] = useState<StatusTransition>(null)
 
-  if (!countryStatus) return null
-
+  if (!country) return null
+  const { deskStudy, status } = country.props ?? {}
   const deskStudyItems: Array<PopoverItem> = [
     { divider: true },
     {
@@ -43,25 +40,29 @@ const Status: React.FC = () => {
           <span>{i18n.t('assessment.deskStudy')}</span>
         </div>
       ),
-      onClick: () =>
+      onClick: () => {
         dispatch(
-          AssessmentActions.postCountryStatus({
-            countryStatus: {
-              ...countryStatus,
-              deskStudy: !countryStatus.deskStudy,
+          AssessmentActions.updateCountry({
+            country: {
+              ...country,
+              props: {
+                ...country.props,
+                deskStudy: !country.props.deskStudy,
+              },
             },
             countryIso,
             cycleName,
-            name: assessmentName,
+            assessmentName,
           })
-        ),
+        )
+      },
     },
   ]
 
   const items: Array<PopoverItem> = []
   if (status !== AssessmentStatus.changing) {
-    const { next, previous } = CountryStatusTransitions.getAllowedTransition({
-      countryStatus,
+    const { next, previous } = AssessmentStatusTransitions.getAllowedTransition({
+      country,
       countryIso,
       user,
     })
