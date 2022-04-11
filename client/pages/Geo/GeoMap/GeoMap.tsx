@@ -1,7 +1,7 @@
 import './geoMap.scss'
 import React, { useEffect, useRef, useState } from 'react'
 
-import { MapContext } from '@client/hooks/useGeoMap'
+import { MapContext } from '@client/hooks'
 
 type Props = {
   center: google.maps.LatLngLiteral
