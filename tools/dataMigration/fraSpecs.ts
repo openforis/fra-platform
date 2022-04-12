@@ -9707,6 +9707,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   },
                 ],
                 labelKey: 'sustainableDevelopment.forestAreaProportionLandArea2015',
+                migration: {
+                  calcFormula: 'extentOfForest.forestArea / extentOfForest.totalLandArea * 100',
+                },
               },
             ],
             tableDataRequired: [
@@ -9875,36 +9878,64 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 0,
                     type: 'calculated',
                     colName: '2000-2010',
+                    migration: {
+                      calculateFn:
+                        '(((extentOfForest.forestArea["2010"] / extentOfForest.forestArea["2000"]) ** 0.1) - 1) * 100',
+                    },
                   },
                   {
                     idx: 1,
                     type: 'calculated',
                     colName: '2010-2015',
+                    migration: {
+                      calculateFn:
+                        '(((extentOfForest.forestArea["2015"] / extentOfForest.forestArea["2010"]) ** 0.2) - 1) * 100',
+                    },
                   },
                   {
                     idx: 2,
                     type: 'calculated',
                     colName: '2015-2016',
+                    migration: {
+                      calculateFn:
+                        '((extentOfForest.forestArea["2016"] - extentOfForest.forestArea["2015"]) / extentOfForest.forestArea["2016"]) * 100',
+                    },
                   },
                   {
                     idx: 3,
                     type: 'calculated',
                     colName: '2016-2017',
+                    migration: {
+                      calculateFn:
+                        '((extentOfForest.forestArea["2017"] - extentOfForest.forestArea["2016"]) / extentOfForest.forestArea["2017"]) * 100',
+                    },
                   },
                   {
                     idx: 4,
                     type: 'calculated',
                     colName: '2017-2018',
+                    migration: {
+                      calculateFn:
+                        '((extentOfForest.forestArea["2018"] - extentOfForest.forestArea["2017"]) / extentOfForest.forestArea["2018"]) * 100',
+                    },
                   },
                   {
                     idx: 5,
                     type: 'calculated',
                     colName: '2018-2019',
+                    migration: {
+                      calculateFn:
+                        '((extentOfForest.forestArea["2019"] - extentOfForest.forestArea["2018"]) / extentOfForest.forestArea["2019"]) * 100',
+                    },
                   },
                   {
                     idx: 6,
                     type: 'calculated',
                     colName: '2019-2020',
+                    migration: {
+                      calculateFn:
+                        '((extentOfForest.forestArea["2020"] - extentOfForest.forestArea["2019"]) / extentOfForest.forestArea["2020"]) * 100',
+                    },
                   },
                 ],
                 labelKey: 'sustainableDevelopment.forestAreaAnnualNetChangeRate',
@@ -10106,6 +10137,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   },
                 ],
                 labelKey: 'sustainableDevelopment.aboveGroundBiomassStockForests',
+                migration: {
+                  calcFormula: 'biomassStock.forest_above_ground',
+                },
               },
             ],
             tableDataRequired: [],
@@ -10303,6 +10337,10 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   },
                 ],
                 labelKey: 'sustainableDevelopment.proportionForestAreaLegallyEstablishedProtectedAreas',
+                migration: {
+                  calcFormula:
+                    'forestAreaWithinProtectedAreas.forest_area_within_protected_areas / extentOfForest.forestArea["2015"] * 100',
+                },
               },
             ],
             tableDataRequired: [],
@@ -10500,6 +10538,10 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   },
                 ],
                 labelKey: 'sustainableDevelopment.proportionForestAreaLongTermForestManagement',
+                migration: {
+                  calcFormula:
+                    'Math.min(forestAreaWithinProtectedAreas.forest_area_with_long_term_management_plan / extentOfForest.forestArea["2015"] * 100)',
+                },
               },
             ],
             tableDataRequired: [],
