@@ -5,6 +5,9 @@ import { Wrapper, Status } from '@googlemaps/react-wrapper'
 import Loading from '@client/components/Loading'
 import GeoMap from '../GeoMap'
 import GeoMapMenuMosaic from '../GeoMap/GeoMapMenuMosaic'
+import GeoMapMenuData from '../GeoMap/GeoMapMenuData'
+import GeoMapMenuRecipes from '../GeoMap/GeoMapMenuRecipes'
+import GeoMapMenuStatistics from '../GeoMap/GeoMapMenuStatistics'
 
 // @ts-ignore
 // from webpack DefinePlugin
@@ -21,7 +24,12 @@ const GeoMapWrapper: React.FC = () => {
       case Status.SUCCESS:
         return (
           <GeoMap center={{ lng: 18.6328125, lat: 49.809631563563094 }} zoom={4}>
-            <GeoMapMenuMosaic />
+            <div className="geo-map-menu-container">
+              <GeoMapMenuMosaic />
+              <GeoMapMenuData />
+              <GeoMapMenuRecipes />
+              <GeoMapMenuStatistics />
+            </div>
           </GeoMap>
         )
       // this should never happen
