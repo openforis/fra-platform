@@ -132,7 +132,6 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
           unique (country_iso)
       );
       
-          
       create table ${assessmentCycleSchemaName}.region_group
       (
           id bigserial not null constraint region_group_pkey primary key,
@@ -145,6 +144,17 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
         region_group_id bigint references ${assessmentCycleSchemaName}.region_group (id) on update cascade on delete cascade,
         region_code varchar references region on update cascade on delete cascade,
           unique (region_code, region_group_id)
+      );
+      
+      create table ${assessmentCycleSchemaName}.country_region
+      (
+        country_iso varchar(3) not null
+                  references country
+                  on update cascade on delete cascade,
+        region_code varchar not null
+                  references region 
+                  on update cascade on delete cascade,
+          unique (country_iso, region_code)
       );
   `
 }

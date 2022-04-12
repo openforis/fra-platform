@@ -25,11 +25,18 @@ export const migrateAreas = async (props: Props): Promise<void> => {
   `)
 
   await client.query(`
+    insert into ${schema}.country_region (country_iso, region_code)
+    select c.country_iso, c.region_code
+    from _legacy.country_region c
+  `)
+
+  await client.query(`
         insert into ${schema}.region_group (name, "order")
         select name, "order"
         from _legacy.region_group
         order by "order";
     `)
+
   await client.query(`
         insert into ${schema}.region (region_code, region_group_id)
         select r.region_code,
