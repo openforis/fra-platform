@@ -8,6 +8,8 @@ import { useTranslation } from 'react-i18next'
 import { useCountryIso, useGetRequest } from '@client/hooks'
 import { ApiEndPoint } from '@common/api/endpoint'
 import { Objects } from '@core/utils'
+import { BasePaths } from '@client/basePaths'
+import { useParams } from 'react-router'
 
 // TODO: Handle error
 const years = ['', ...ODPYears]
@@ -19,7 +21,9 @@ type Props = {
 const YearSelection: React.FC<Props> = (props) => {
   const { canEditData } = props
   const originalDataPoint = useOriginalDataPoint()
-
+  const { section } = useParams<{
+    section: string
+  }>()
   const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
   const countryIso = useCountryIso()
@@ -66,6 +70,15 @@ const YearSelection: React.FC<Props> = (props) => {
                 originalDataPoint: originalDataPointUpdate,
               })
             )
+            // Update url but do not push new entry to state
+            const url = BasePaths.Assessment.OriginalDataPoint.section(
+              countryIso,
+              assessment.props.name,
+              cycle.name,
+              value,
+              section
+            )
+            window.history.replaceState(null, null, url)
           }}
         >
           {years.map((year) => (

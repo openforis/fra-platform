@@ -30,6 +30,9 @@ export const originalDataPointSlice = createSlice({
     builder.addCase(setOriginalDataPointUpdating, (state, { payload }) => {
       state.updating = payload
     })
+    builder.addCase(createOriginalDataPoint.fulfilled, (state, { payload }) => {
+      state.data = payload
+    })
   },
 })
 

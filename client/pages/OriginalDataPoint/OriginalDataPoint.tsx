@@ -27,14 +27,16 @@ const OriginalDataPoint: React.FC = () => {
   const canEditData = useCanEditSection()
 
   useEffect(() => {
-    dispatch(
-      OriginalDataPointActions.getOriginalDataPoint({
-        year,
-        assessmentName,
-        countryIso,
-        cycleName,
-      })
-    )
+    if (year !== '-1') {
+      dispatch(
+        OriginalDataPointActions.getOriginalDataPoint({
+          year,
+          assessmentName,
+          countryIso,
+          cycleName,
+        })
+      )
+    }
     return () => {
       dispatch(OriginalDataPointActions.reset())
     }
