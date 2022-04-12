@@ -1,10 +1,10 @@
+import { AssessmentRepository } from '@server/repository/assessment'
+import { CountryRepository } from '@server/repository/country'
 import { TableRepository } from '@server/repository/table'
 
-import { AssessmentRepository } from '@server/repository'
 import { create } from './create'
 import { getOne, getOneWithCycle } from './getOne'
 import { remove } from './remove'
-import { getCountryISOs } from './getCountryISOs'
 import { getSections } from './getSections'
 import { createOriginalDataPoint } from './createOriginalDataPoint'
 import { removeOriginalDataPoint } from './removeOriginalDataPoint'
@@ -23,7 +23,7 @@ export const AssessmentController = {
   getOneWithCycle,
   remove,
   getRegionGroups,
-  getCountryISOs,
+  getCountries: CountryRepository.getMany,
   getSections,
   getSectionMetadata,
   createOriginalDataPoint,
