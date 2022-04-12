@@ -6,16 +6,24 @@ import { Country, CountryIso } from '@meta/area'
 
 export const updateCountry = createAsyncThunk<
   Country,
-  { countryIso: CountryIso; assessmentName: string; cycleName: string; country: Country }
->('assessment/post/country', async ({ country, countryIso, assessmentName, cycleName }) => {
+  {
+    assessmentName: string
+    country: Country
+    countryIso: CountryIso
+    cycleName: string
+    message?: string
+    notifyUsers?: boolean
+  }
+>('assessment/post/country', async ({ country, countryIso, assessmentName, cycleName, notifyUsers, message }) => {
   const { data } = await axios.post(
     ApiEndPoint.Assessment.country(),
-    { country },
+    { country, message },
     {
       params: {
-        countryIso,
         assessmentName,
+        countryIso,
         cycleName,
+        notifyUsers,
       },
     }
   )

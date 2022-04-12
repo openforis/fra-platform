@@ -7,10 +7,8 @@ import { removeAssessmentSchema } from './removeAssessmentSchema'
 import { removeAssessment } from './removeAssessment'
 import { getCountryISOs } from './getCountryISOs'
 import { getRegionGroups } from './getRegionGroups'
-import { getCountryStatus } from './getCountryStatus'
 import { getCountry } from './getCountry'
 import { updateCountry } from './updateCountry'
-import { updateCountryStatus } from './updateCountryStatus'
 import {
   getCreateSchemaDDL,
   getCreateSchemaCycleDDL,
@@ -28,8 +26,6 @@ export const AssessmentRepository = {
   removeAssessment,
   getCountryISOs,
   getRegionGroups,
-  getCountryStatus,
-  updateCountryStatus,
   getCreateSchemaDDL,
   getCreateSchemaCycleDDL,
   getCreateSchemaCycleOriginalDataPointViewDDL,

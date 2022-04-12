@@ -5,7 +5,6 @@ import { Country, CountryIso, RegionGroup } from '@meta/area'
 import { useTranslation } from 'react-i18next'
 import { Strings } from '@core/utils'
 import { useParams } from 'react-router-dom'
-import { CountryStatus } from '@meta/area/country'
 
 export { useCycle } from './useCycle'
 
@@ -51,5 +50,4 @@ export const useAssessmentSection = (): SubSection => {
     .subSections.find((subSection) => subSection.props.name === sectionName)
 }
 
-export const useAssessmentCountryStatus = (): CountryStatus => useAppSelector((state) => state.assessment.countryStatus)
 export const useAssessmentCountry = (): Country => useAppSelector((state) => state.assessment.country)

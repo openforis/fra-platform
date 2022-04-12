@@ -1,10 +1,11 @@
 import './geoMapMenuMosaic.scss'
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 
-import useGeoMap from '@client/hooks/useGeoMap'
+import { useGeoMap } from '@client/hooks'
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useMosaicOptions, useMosaicUrl, useSelectedPanel } from '@client/store/ui/geo'
 import { MosaicSource } from '@meta/geo'
+import GeoMapMenuButton from '../GeoMapMenuButton'
 
 const removeOverlayLayer = (mapLayerId: string, overlayLayers: google.maps.MVCArray) => {
   for (let i = 0; i < overlayLayers.getLength(); i += 1) {
@@ -51,40 +52,29 @@ const GeoMapMenuMosaic: React.FC = () => {
     }
   }, [mosaicOptions])
 
-  const handleClick = () => {
-    if (selectedPanel === 'mosaic') {
-      dispatch(GeoActions.updateSelectedPanel(null))
-    } else {
-      dispatch(GeoActions.updateSelectedPanel('mosaic'))
-    }
-  }
+  const handleClickSource = useCallback(
+    (source: MosaicSource) => {
+      const mosaicOptionsCopy = { ...mosaicOptions }
+      const sources = [...mosaicOptions.sources]
 
-  const handleClickSource = (source: MosaicSource) => {
-    const mosaicOptionsCopy = { ...mosaicOptions }
-    const sources = [...mosaicOptions.sources]
-
-    if (mosaicOptions.sources.includes(source)) {
-      mosaicOptionsCopy.sources = sources.filter((el: MosaicSource) => el !== source)
-      if (mosaicOptionsCopy.sources.length === 0) {
-        removeOverlayLayer('mosaic', map.overlayMapTypes)
+      if (mosaicOptions.sources.includes(source)) {
+        mosaicOptionsCopy.sources = sources.filter((el: MosaicSource) => el !== source)
+        if (mosaicOptionsCopy.sources.length === 0) {
+          removeOverlayLayer('mosaic', map.overlayMapTypes)
+        }
+      } else {
+        sources.push(source)
+        mosaicOptionsCopy.sources = sources
       }
-    } else {
-      sources.push(source)
-      mosaicOptionsCopy.sources = sources
-    }
 
-    dispatch(GeoActions.updateMosaicOptions(mosaicOptionsCopy))
-  }
+      dispatch(GeoActions.updateMosaicOptions(mosaicOptionsCopy))
+    },
+    [mosaicOptions]
+  )
 
   return (
-    <>
-      <button
-        type="button"
-        onClick={handleClick}
-        className={`geo-map-menu-button${selectedPanel === 'mosaic' ? ' selected' : ''}`}
-      >
-        Backgrounds
-      </button>
+    <div className="geo-map-menu-item">
+      <GeoMapMenuButton panel="mosaic" text="Background" />
       {selectedPanel === 'mosaic' && (
         <div className="geo-map-menu-mosaic-select-container">
           <div
@@ -109,7 +99,7 @@ const GeoMapMenuMosaic: React.FC = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   )
 }
 

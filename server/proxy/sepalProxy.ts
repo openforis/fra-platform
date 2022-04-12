@@ -3,7 +3,7 @@ import { Request, Response } from 'express'
 
 import { ApiEndPoint } from '@common/api/endpoint'
 
-const sepalToken = process.env.SEPAL_TOKEN
+const authString = `Basic ${Buffer.from(`${process.env.SEPAL_USER}:${process.env.SEPAL_PASSWORD}`).toString('base64')}`
 
 const options = {
   target: 'https://sepal.io',
@@ -13,7 +13,7 @@ const options = {
   },
   connection: 'keep-alive',
   onProxyReq: (proxyReq: any) => {
-    proxyReq.setHeader('authorization', `Basic ${sepalToken}`)
+    proxyReq.setHeader('authorization', authString)
   },
 
   onError: (_err: Error, _req: Request, res: Response) => {

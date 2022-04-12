@@ -12,8 +12,7 @@ import { TableData } from '@meta/data'
 import * as DataTableUtils from '@client/pages/AssessmentSection/DataTable/utils'
 import { useOriginalDataPointYears, useShowOriginalDatapoints } from '@client/store/pages/assessmentSection/hooks'
 import { BasePaths } from '@client/basePaths'
-import { useCycle } from '@client/store/assessment'
-import { useAssessmentCountry } from '@client/store/assessment/hooks'
+import { useCycle, useAssessmentCountry } from '@client/store/assessment'
 import Row from './Row'
 
 type Props = {
@@ -61,12 +60,10 @@ const Table: React.FC<Props> = (props) => {
                     col.props
                   const columnName = headers[colIndex]
 
-                  const isOdpHeader =
-                    showOriginalDatapoints &&
-                    table.props.odp &&
-                    odpYears?.includes(columnName) &&
-                    table.props.name === 'forestCharacteristics' &&
-                    country.props.forestCharacteristics.useOriginalDataPoint
+                  let isOdpHeader = showOriginalDatapoints && table.props.odp && odpYears?.includes(columnName)
+
+                  if (table.props.name === 'forestCharacteristics')
+                    isOdpHeader = isOdpHeader && country.props.forestCharacteristics.useOriginalDataPoint
 
                   const getColumnName = () => {
                     if (labelKey)
@@ -78,11 +75,12 @@ const Table: React.FC<Props> = (props) => {
                       return (
                         <Link
                           className="link"
-                          to={BasePaths.Assessment.OriginalDataPoint.one(
+                          to={BasePaths.Assessment.OriginalDataPoint.section(
                             countryIso,
                             assessmentName,
                             cycle.name,
-                            columnName
+                            columnName,
+                            table.props.name
                           )}
                         >
                           {columnName}
