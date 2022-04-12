@@ -1,18 +1,16 @@
 import './AssessmentSection.scss'
 
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useParams } from 'react-router'
 import { useTranslation } from 'react-i18next'
 
 import { AssessmentName } from '@meta/assessment'
-import { useCountryIso } from '@client/hooks'
-import { useAppDispatch } from '@client/store'
-import { AssessmentSectionActions, useTableSections } from '@client/store/pages/assessmentSection'
+import { useTableSections } from '@client/store/pages/assessmentSection'
 import { useAssessmentSection } from '@client/store/assessment'
+import { useCanEditSection } from '@client/store/user'
 
 // import SectionHeader from './SectionHeader'
 // import Descriptions from './Descriptions'
-import { useCanEditSection } from '@client/store/user'
 import Descriptions, { GeneralComments } from './Descriptions'
 import Title from './Title'
 import SectionHeader from './SectionHeader'
@@ -22,31 +20,11 @@ const AssessmentSection: React.FC = () => {
   const assessmentSection = useAssessmentSection()
   const tableSections = useTableSections()
 
-  const { assessmentName, cycleName, section } = useParams<{
-    assessmentName: AssessmentName
-    cycleName: string
-    section: string
-  }>()
+  const { assessmentName } = useParams<{ assessmentName: AssessmentName; cycleName: string; section: string }>()
 
   const { i18n } = useTranslation()
 
-  const dispatch = useAppDispatch()
-  const countryIso = useCountryIso()
-
   const canEditSection = useCanEditSection()
-
-  // Update section tables' metadata on countryIso or section (url) change
-  useEffect(() => {
-    dispatch(AssessmentSectionActions.reset())
-    dispatch(
-      AssessmentSectionActions.getTableSections({
-        assessmentName,
-        cycleName,
-        section,
-        countryIso,
-      })
-    )
-  }, [countryIso, section])
 
   if (!assessmentSection) return null
 
