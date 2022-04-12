@@ -5,6 +5,7 @@ import { Country, CountryIso, RegionGroup } from '@meta/area'
 import { useTranslation } from 'react-i18next'
 import { Strings } from '@core/utils'
 import { useParams } from 'react-router-dom'
+import { useCountryIso } from '@client/hooks'
 
 export { useCycle } from './useCycle'
 
@@ -49,4 +50,8 @@ export const useAssessmentSection = (): SubSection => {
     .subSections.find((subSection) => subSection.props.name === sectionName)
 }
 
-export const useAssessmentCountry = (): Country => useAppSelector((state) => state.assessment.country)
+export const useAssessmentCountry = (): Country => {
+  const countryIso = useCountryIso()
+  if (!countryIso) throw new Error(`Unable to find countryIso parameter`)
+  return useAppSelector((state) => state.assessment.countries[countryIso])
+}

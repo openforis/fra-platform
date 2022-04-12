@@ -7,5 +7,4 @@ export interface AssessmentState {
   countries?: Record<CountryIso, Country>
   regionGroups?: Record<string, RegionGroup>
   sections?: Array<Section>
-  country?: Country
 }
