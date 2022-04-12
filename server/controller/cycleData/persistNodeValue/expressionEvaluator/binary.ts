@@ -27,7 +27,7 @@ const arithmeticOperators: { [operator: string]: (a: number, b: number) => BigNu
   '*': (a, b) => Numbers.mul(a, b),
   '/': (a, b) => Numbers.div(a, b),
   '%': (a, b) => Numbers.modulo(a, b),
-  '**': (a, b) => Numbers.pow(a, b),
+  '**': (a, b) => new BigNumber(a ** b),
   // Don't allow bitwise operators:
   // '|':   (a, b) => a | b,
   // '^':   (a, b) => a ^ b,
