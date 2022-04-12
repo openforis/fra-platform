@@ -27,16 +27,15 @@ const getCompareListName =
 
 // </>
 
-const sortCountries = (countries: Array<CountryIso>): Array<CountryIso> => {
+export const useAssessment = (): Assessment => useAppSelector((state) => state.assessment?.assessment)
+
+export const useCountries = (): Array<Country> => {
+  const countries = useAppSelector((state) => state.assessment.countries ?? {}) as Record<CountryIso, Country>
   const { i18n } = useTranslation()
   const compareListName = getCompareListName(i18n)
 
-  return [...countries].sort((c1, c2) => compareListName(c1, c2))
+  return Object.values(countries).sort((c1, c2) => compareListName(c1.countryIso, c2.countryIso))
 }
-
-export const useAssessment = (): Assessment => useAppSelector((state) => state.assessment?.assessment)
-export const useCountries = (): Array<CountryIso> =>
-  sortCountries(useAppSelector((state) => state.assessment?.countryISOs ?? []))
 
 export const useRegionGroups = (): Record<string, RegionGroup> =>
   useAppSelector((state) => state.assessment?.regionGroups ?? {})
