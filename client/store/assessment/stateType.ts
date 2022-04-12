@@ -4,8 +4,7 @@ import { Country, RegionGroup } from '@meta/area'
 
 export interface AssessmentState {
   assessment?: Assessment
-  countryISOs?: Array<CountryIso>
+  countries?: Record<CountryIso, Country>
   regionGroups?: Record<string, RegionGroup>
   sections?: Array<Section>
-  country?: Country
 }

@@ -9,7 +9,7 @@ export const useUser = (): User | undefined => useAppSelector((state) => state.u
 
 export const useUserCountries = (): Array<CountryIso> => {
   const user = useUser()
-  const countries = useCountries()
+  const countries = useCountries().map((c) => c.countryIso)
   const isAdministrator = Users.isAdministrator(user)
   if (isAdministrator) return countries
   return user?.roles.map((role) => role.countryIso)

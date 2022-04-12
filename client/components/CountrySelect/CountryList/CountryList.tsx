@@ -41,7 +41,9 @@ const CountryList: React.FC<Props> = (props: Props) => {
       if (!Array.isArray(countryMap[role.role])) countryMap[role.role] = []
       countryMap[role.role].push(role.countryIso)
     })
-    countryMap[noRole.role] = allCountries.filter((countryIso: CountryIso) => !userCountries?.includes(countryIso))
+    countryMap[noRole.role] = allCountries
+      .map((c) => c.countryIso)
+      .filter((countryIso: CountryIso) => !userCountries?.includes(countryIso))
   }
 
   return (

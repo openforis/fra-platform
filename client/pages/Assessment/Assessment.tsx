@@ -7,7 +7,6 @@ import { AssessmentName } from '@meta/assessment'
 import { Areas } from '@meta/area'
 
 import { useAppDispatch } from '@client/store'
-import { AssessmentActions } from '@client/store/assessment'
 import { useNavigationVisible } from '@client/store/ui/navigation'
 import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import { useCountryIso } from '@client/hooks'
@@ -50,21 +49,8 @@ const SectionWrapper: React.FC = (props) => {
 
 const Assessment: React.FC = () => {
   const navigationVisible = useNavigationVisible()
-  const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const isDataExport = countryIso && !Areas.isISOCountry(countryIso)
-
-  const { assessmentName, cycleName } = useParams<{ assessmentName: AssessmentName; cycleName: string }>()
-
-  useEffect(() => {
-    dispatch(
-      AssessmentActions.getCountry({
-        countryIso,
-        assessmentName,
-        cycleName,
-      })
-    )
-  }, [countryIso])
 
   return (
     <div className={`app-view ${navigationVisible ? ' navigation-on' : ''}`}>

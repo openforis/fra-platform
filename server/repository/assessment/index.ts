@@ -5,7 +5,6 @@ import { readSections } from './readSections'
 import { getSectionMetaData } from './getSectionMetaData'
 import { removeAssessmentSchema } from './removeAssessmentSchema'
 import { removeAssessment } from './removeAssessment'
-import { getCountryISOs } from './getCountryISOs'
 import { getRegionGroups } from './getRegionGroups'
 import { getCountry } from './getCountry'
 import { updateCountry } from './updateCountry'
@@ -24,7 +23,6 @@ export const AssessmentRepository = {
   getSectionMetaData,
   removeAssessmentSchema,
   removeAssessment,
-  getCountryISOs,
   getRegionGroups,
   getCreateSchemaDDL,
   getCreateSchemaCycleDDL,
