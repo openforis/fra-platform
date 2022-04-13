@@ -1,17 +1,18 @@
 import './DataExport.scss'
 import React from 'react'
 
-// import { Objects } from '@core/utils'
+import { Objects } from '@core/utils'
 // import { useDataExportCountries, useDataExportSelection } from '@webapp/store/page/dataExport'
+import { useDataExportCountries } from '@client/store/pages/dataExport'
 
-// import CountrySelect from './CountrySelect'
+import CountrySelect from './CountrySelect'
 // import VariableSelect from './VariableSelect'
 // import ColumnSelect from './ColumnSelect'
 // import ResultsTable from './ResultsTable'
 
 const DataExport: React.FC = () => {
   // const assessmentSection = useParamSection()
-  // const countries = useDataExportCountries()
+  const countries = useDataExportCountries()
   // const selection = useDataExportSelection(assessmentSection)
 
   // const hasSelection =
@@ -19,12 +20,12 @@ const DataExport: React.FC = () => {
   //   !Objects.isEmpty(selection.sections[assessmentSection].columns) &&
   //   !Objects.isEmpty(selection.sections[assessmentSection].variables)
 
-  // if (Objects.isEmpty(countries)) return null
+  if (Objects.isEmpty(countries)) return null
 
   return (
     <div className="app-view__content export">
       <div className="export__form">
-        {/* <CountrySelect /> */}
+        <CountrySelect />
         {/* <VariableSelect /> */}
         {/* <ColumnSelect /> */}
       </div>
