@@ -1,22 +1,21 @@
-import './Assessment.scss'
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router'
 import { Route, Switch } from 'react-router-dom'
 
-import { AssessmentName } from '@meta/assessment'
-import { Areas } from '@meta/area'
-
-import { useAppDispatch } from '@client/store'
-import { useNavigationVisible } from '@client/store/ui/navigation'
-import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
-import { useCountryIso } from '@client/hooks'
 import { BasePaths } from '@client/basePaths'
-
-import Navigation from '@client/components/Navigation'
 import MessageCenter from '@client/components/MessageCenter'
-import OriginalDataPoint from '@client/pages/OriginalDataPoint'
+import Navigation from '@client/components/Navigation'
+import { useCountryIso, useOnUpdate } from '@client/hooks'
 import AssessmentSection from '@client/pages/AssessmentSection'
 import DataExport from '@client/pages/DataExport'
+import OriginalDataPoint from '@client/pages/OriginalDataPoint'
+import { useAppDispatch } from '@client/store'
+import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
+import { useNavigationVisible } from '@client/store/ui/navigation'
+import { Areas } from '@meta/area'
+import { AssessmentName } from '@meta/assessment'
+
+import './Assessment.scss'
 
 const SectionWrapper: React.FC = (props) => {
   const { children } = props
@@ -38,11 +37,13 @@ const SectionWrapper: React.FC = (props) => {
         countryIso,
       })
     )
+  }, [countryIso, assessmentName, cycleName, section])
 
+  useOnUpdate(() => {
     return () => {
       dispatch(AssessmentSectionActions.reset())
     }
-  }, [countryIso, assessmentName, cycleName, section])
+  }, [countryIso, assessmentName, cycleName])
 
   return <>{React.Children.toArray(children)}</>
 }
