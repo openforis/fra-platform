@@ -1,4 +1,4 @@
-import { CycledPropsObject, Col } from './index'
+import { Col, CycledPropsObject } from './index'
 
 export enum RowType {
   header = 'header',
@@ -21,6 +21,10 @@ export interface RowProps {
   type: RowType
   variableName?: string
   calculateFn?: string
+  chart?: {
+    labelKey: string
+    color: string
+  }
 }
 
 export interface Row extends CycledPropsObject<RowProps> {
