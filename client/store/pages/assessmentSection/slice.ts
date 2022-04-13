@@ -1,16 +1,17 @@
-import { createSlice, Reducer } from '@reduxjs/toolkit'
 import { CountryIso } from '@meta/area'
 import { TableDatas } from '@meta/data'
+import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import { AssessmentSectionState } from './stateType'
-import { getTableSections } from './actions/getTableSections'
-import { updateNodeValue } from './actions/updateNodeValue'
-import { getTableData } from './actions/getTableData'
 import { getOriginalDataPointData } from './actions/getOriginalDataPointData'
+import { getTableData } from './actions/getTableData'
+import { getTableSections } from './actions/getTableSections'
+import { setTableSections } from './actions/setTableSections'
+import { updateNodeValue } from './actions/updateNodeValue'
+import { AssessmentSectionState } from './stateType'
 
 const initialState: AssessmentSectionState = {
   data: null,
-  tableSections: [],
+  tableSections: {},
   originalDataPointData: null,
   showOriginalDataPoint: true,
 }
@@ -28,8 +29,9 @@ export const assessmentSectionSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getTableSections.fulfilled, (state, { payload }) => {
-      state.tableSections = payload
+    builder.addCase(setTableSections, (state, { payload }) => {
+      const { sectionName, tableSections } = payload
+      state.tableSections = { ...state.tableSections, [sectionName]: tableSections }
     })
 
     builder.addCase(getTableData.fulfilled, (state, { payload }) => {

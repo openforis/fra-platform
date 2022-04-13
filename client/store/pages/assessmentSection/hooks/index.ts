@@ -1,14 +1,14 @@
-import { useAppSelector } from '@client/store'
-import { Table, TableSection } from '@meta/assessment'
 import { useCountryIso } from '@client/hooks'
-import { TableData } from '@meta/data'
+import { useAppSelector } from '@client/store'
 import { useAssessmentCountry } from '@client/store/assessment'
+import { Table, TableSection } from '@meta/assessment'
+import { TableData } from '@meta/data'
 
 export const useShowOriginalDatapoints = () =>
   useAppSelector((state) => state.pages.assessmentSection.showOriginalDataPoint)
 
-export const useTableSections = (): Array<TableSection> =>
-  useAppSelector((state) => state.pages.assessmentSection.tableSections)
+export const useTableSections = (props: { sectionName: string }): Array<TableSection> =>
+  useAppSelector((state) => state.pages.assessmentSection.tableSections[props.sectionName] ?? [])
 
 export const useTableData = (props: { table: Table }): TableData => {
   const { table } = props
