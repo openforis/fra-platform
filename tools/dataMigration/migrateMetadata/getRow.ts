@@ -1,6 +1,6 @@
-import { RowSpec } from '../../../webapp/sectionSpec'
-import { Table } from '../../../meta/assessment/table'
 import { Row, RowType } from '../../../meta/assessment/row'
+import { Table } from '../../../meta/assessment/table'
+import { RowSpec } from '../../../webapp/sectionSpec'
 
 export const getRow = (props: { cycles: Array<string>; rowSpec: RowSpec; table: Table }): Row => {
   const { cycles, rowSpec, table } = props
@@ -16,6 +16,9 @@ export const getRow = (props: { cycles: Array<string>; rowSpec: RowSpec; table: 
     },
     cols: [],
     tableId: table.id,
+  }
+  if (rowSpec.chartProps) {
+    row.props.chart = rowSpec.chartProps
   }
   return row
 }
