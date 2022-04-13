@@ -10,6 +10,7 @@ import AssessmentSection from '@client/pages/AssessmentSection'
 import DataExport from '@client/pages/DataExport'
 import OriginalDataPoint from '@client/pages/OriginalDataPoint'
 import { useAppDispatch } from '@client/store'
+import { useAssessment } from '@client/store/assessment'
 import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import { useNavigationVisible } from '@client/store/ui/navigation'
 import { Areas } from '@meta/area'
@@ -51,7 +52,10 @@ const SectionWrapper: React.FC = (props) => {
 const Assessment: React.FC = () => {
   const navigationVisible = useNavigationVisible()
   const countryIso = useCountryIso()
+  const assessment = useAssessment()
   const isDataExport = countryIso && !Areas.isISOCountry(countryIso)
+
+  if (!assessment) return null
 
   return (
     <div className={`app-view ${navigationVisible ? ' navigation-on' : ''}`}>
