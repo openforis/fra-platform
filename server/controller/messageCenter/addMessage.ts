@@ -1,11 +1,11 @@
-import { BaseProtocol, DB, Schemas } from '@server/db'
 import { CountryIso } from '@meta/area'
 import { ActivityLogMessage, Assessment, Cycle } from '@meta/assessment'
 import { Message } from '@meta/messageCenter'
 import { User } from '@meta/user'
-import { MessageTopicRepository } from '@server/repository/messageTopic'
-import { MessageRepository } from '@server/repository/message'
-import { ActivityLogRepository } from '@server/repository'
+import { BaseProtocol, DB, Schemas } from '@server/db'
+import { ActivityLogRepository } from '@server/repository/assessment/activityLog'
+import { MessageRepository } from '@server/repository/public/message'
+import { MessageTopicRepository } from '@server/repository/public/messageTopic'
 
 export const addMessage = async (
   props: {

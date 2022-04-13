@@ -1,11 +1,11 @@
+import { User } from '@meta/user'
+import { googleStrategyVerifyCallback } from '@server/api/auth/googleStrategyVerifyCallback'
+import { localStrategyVerifyCallback } from '@server/api/auth/localStrategyVerifyCallback'
+import { UserRepository } from '@server/repository/public/user'
+import { Express } from 'express'
 import * as passport from 'passport'
 import * as GoogleStrategy from 'passport-google-oauth'
-import { UserRepository } from '@server/repository'
-import { User } from '@meta/user'
-import { Express } from 'express'
 import * as passportLocal from 'passport-local'
-import { localStrategyVerifyCallback } from '@server/api/auth/localStrategyVerifyCallback'
-import { googleStrategyVerifyCallback } from '@server/api/auth/googleStrategyVerifyCallback'
 
 export const AuthConfig = {
   init: (app: Express) => {
