@@ -76,7 +76,7 @@ const appConfig = {
   },
   devServer: {
     hot: true,
-    // disableHostCheck: true,
+    allowedHosts: ['fra-data.local'],
     proxy: [
       {
         // Proxy all server-served routes:

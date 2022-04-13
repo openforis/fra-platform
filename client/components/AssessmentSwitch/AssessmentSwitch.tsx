@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { useIsAssessment } from '@client/hooks'
-import { AssessmentName } from '@meta/assessment'
 import { useAssessment } from '@client/store/assessment'
+import { AssessmentName } from '@meta/assessment'
 
 type Props = {
   components: Record<string, React.FC<{ query?: string }>>
@@ -10,14 +10,19 @@ type Props = {
   query?: string
 }
 
+const Placeholder: React.FC<{ query?: string }> = () => {
+  return <div />
+}
+
 const AssessmentSwitch: React.FC<Props> = (props) => {
   const isAssessment = useIsAssessment()
   const assessment = useAssessment()
 
   const { components, defaultKey, ...otherProps } = props
-  const key = isAssessment ? assessment.props.name : defaultKey
+  const key = isAssessment ? assessment?.props?.name : defaultKey
 
-  return React.createElement(components[key], otherProps)
+  const Component = components[key] ?? Placeholder
+  return React.createElement(Component, otherProps)
 }
 
 AssessmentSwitch.defaultProps = {
