@@ -1,7 +1,8 @@
-import { BaseProtocol, DB } from '@server/db'
-import { AssessmentRepository, OriginalDataPointRepository } from '@server/repository'
-import { OriginalDataPoint } from '@meta/assessment'
 import { CountryIso } from '@meta/area'
+import { OriginalDataPoint } from '@meta/assessment'
+import { BaseProtocol, DB } from '@server/db'
+import { AssessmentRepository } from '@server/repository/assessment/assessment'
+import { OriginalDataPointRepository } from '@server/repository/assessmentCycle/originalDataPoint'
 
 export const getOriginalDataPoint = async (
   props: { name: string; cycleName: string; year: string; countryIso: CountryIso },

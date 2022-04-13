@@ -1,8 +1,10 @@
-import { BaseProtocol, DB, Schemas } from '@server/db'
-import { RoleName, User, UserRole } from '@meta/user'
-import { ActivityLogRepository, UserRepository, UserRoleRepository } from '@server/repository'
-import { Assessment, ActivityLogMessage } from '@meta/assessment'
 import { CountryIso } from '@meta/area'
+import { ActivityLogMessage, Assessment } from '@meta/assessment'
+import { RoleName, User, UserRole } from '@meta/user'
+import { BaseProtocol, DB, Schemas } from '@server/db'
+import { ActivityLogRepository } from '@server/repository/assessment/activityLog'
+import { UserRepository } from '@server/repository/public/user'
+import { UserRoleRepository } from '@server/repository/public/userRole'
 import { MailService } from '@server/service'
 
 export const invite = async (

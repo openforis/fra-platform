@@ -1,5 +1,5 @@
 import { BaseProtocol, DB } from '@server/db'
-import { AssessmentRepository } from '@server/repository'
+import { AssessmentRepository } from '@server/repository/assessment/assessment'
 
 export const getSections = async (
   props: { name: string; cycleName: string },

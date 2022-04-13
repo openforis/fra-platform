@@ -1,8 +1,8 @@
-import { BaseProtocol, DB } from '@server/db'
-import { AssessmentRepository, ActivityLogRepository } from '@server/repository'
-import { Assessment, ActivityLogMessage } from '@meta/assessment'
-
+import { ActivityLogMessage, Assessment } from '@meta/assessment'
 import { User } from '@meta/user'
+import { BaseProtocol, DB } from '@server/db'
+import { ActivityLogRepository } from '@server/repository/assessment/activityLog'
+import { AssessmentRepository } from '@server/repository/assessment/assessment'
 
 export const create = async (
   props: { user: User; assessment: Pick<Assessment, 'props'> },

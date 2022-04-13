@@ -1,8 +1,9 @@
-import { BaseProtocol, DB, Schemas } from '@server/db'
-import { ActivityLogRepository, AssessmentRepository } from '@server/repository'
 import { Country, CountryIso } from '@meta/area'
 import { ActivityLogMessage, Assessment, Cycle } from '@meta/assessment'
 import { User } from '@meta/user'
+import { BaseProtocol, DB, Schemas } from '@server/db'
+import { ActivityLogRepository } from '@server/repository/assessment/activityLog'
+import { AssessmentRepository } from '@server/repository/assessment/assessment'
 
 export const updateCountry = async (
   props: {

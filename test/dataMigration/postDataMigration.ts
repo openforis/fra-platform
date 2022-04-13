@@ -1,10 +1,10 @@
-import { Assessment, Col, Cols, Cycle, NodeValue, Row, VariableCache } from '@meta/assessment'
 import { Objects } from '@core/utils'
+import { Assessment, Col, Cols, Cycle, NodeValue, Row, VariableCache } from '@meta/assessment'
 import { AssessmentController } from '@server/controller/assessment'
-import { BaseProtocol, DB, Schemas } from '@server/db'
 import { evalExpression } from '@server/controller/cycleData/persistNodeValue/evalExpression'
-import { ColRepository } from '@server/repository/col'
-import { CycleDataRepository, TablesCondition } from '@server/repository/cycleData'
+import { BaseProtocol, DB, Schemas } from '@server/db'
+import { ColRepository } from '@server/repository/assessment/col'
+import { DataRepository, TablesCondition } from '@server/repository/assessmentCycle/data'
 import * as pgPromise from 'pg-promise'
 
 afterAll(async () => {
@@ -173,7 +173,7 @@ describe('Post Data migration', () => {
         const tables = dependencies.reduce<TablesCondition>((acc, { tableName }) => ({ ...acc, [tableName]: {} }), {})
         const data =
           Object.keys(tables).length > 0
-            ? await CycleDataRepository.getTableData({ assessment, cycle, countryISOs, tables }, client)
+            ? await DataRepository.getTableData({ assessment, cycle, countryISOs, tables }, client)
             : undefined
         // const dependencies = assessment.metaCache.calculations.dependencies[tableName]?.[row.props.variableName] ?? []
         // await Promise.all(

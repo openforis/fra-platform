@@ -1,8 +1,8 @@
-import { BaseProtocol, DB } from '@server/db'
 import { CountryIso } from '@meta/area'
 import { Assessment, Cycle } from '@meta/assessment'
 import { TableData } from '@meta/data'
-import { CycleDataRepository } from '@server/repository/cycleData'
+import { BaseProtocol, DB } from '@server/db'
+import { DataRepository } from '@server/repository/assessmentCycle/data'
 
 export const getTableData = async (
   props: {
@@ -20,7 +20,7 @@ export const getTableData = async (
     tables[tableName] = {}
   })
 
-  return CycleDataRepository.getTableData(
+  return DataRepository.getTableData(
     {
       assessment,
       cycle,

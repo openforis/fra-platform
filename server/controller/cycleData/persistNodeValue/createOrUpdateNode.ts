@@ -1,7 +1,8 @@
 import { ActivityLog, ActivityLogMessage, Node } from '@meta/assessment'
 import { BaseProtocol, Schemas } from '@server/db'
-import { NodeRepository } from '@server/repository/node'
-import { ActivityLogRepository } from '@server/repository'
+import { ActivityLogRepository } from '@server/repository/assessment/activityLog'
+import { NodeRepository } from '@server/repository/assessmentCycle/node'
+
 import { Props } from './props'
 
 export const createOrUpdateNode = async (
