@@ -1,6 +1,7 @@
-import { BaseProtocol, DB } from '@server/db'
 import { RoleName, User, UserRole, UserStatus } from '@meta/user'
-import { UserRepository, UserRoleRepository } from '@server/repository'
+import { BaseProtocol, DB } from '@server/db'
+import { UserRepository } from '@server/repository/public/user'
+import { UserRoleRepository } from '@server/repository/public/userRole'
 
 export const acceptInvitation = async (
   props: {

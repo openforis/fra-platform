@@ -1,6 +1,6 @@
-import { BaseProtocol, DB } from '@server/db'
-import { AssessmentRepository } from '@server/repository'
 import { Assessment, Cycle } from '@meta/assessment'
+import { BaseProtocol, DB } from '@server/db'
+import { AssessmentRepository } from '@server/repository/assessment/assessment'
 
 export const getSection = async (
   props: { assessment: Assessment; cycle: Cycle; sectionName: string },

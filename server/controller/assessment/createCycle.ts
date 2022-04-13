@@ -1,8 +1,8 @@
-import { BaseProtocol, DB, Schemas } from '@server/db'
-import { AssessmentCycleRepository, ActivityLogRepository } from '@server/repository'
-import { Assessment, ActivityLogMessage } from '@meta/assessment'
-
+import { ActivityLogMessage, Assessment } from '@meta/assessment'
 import { User } from '@meta/user'
+import { BaseProtocol, DB, Schemas } from '@server/db'
+import { ActivityLogRepository } from '@server/repository/assessment/activityLog'
+import { CycleRepository } from '@server/repository/assessmentCycle/cycle'
 
 export const createCycle = async (
   props: { user: User; assessment: Assessment; name: string },
@@ -12,7 +12,7 @@ export const createCycle = async (
   const schemaName = Schemas.getName(assessment)
 
   return client.tx(async (t) => {
-    const updatedAssessment = await AssessmentCycleRepository.create({ assessment, name }, t)
+    const updatedAssessment = await CycleRepository.create({ assessment, name }, t)
 
     await ActivityLogRepository.insertActivityLog(
       {

@@ -1,8 +1,8 @@
-import { Request, Response } from 'express'
-import Requests from '@server/utils/requests'
 import { CountryIso } from '@meta/area'
 import { AssessmentController } from '@server/controller/assessment'
-import { CycleDataRepository } from '@server/repository/cycleData'
+import { DataRepository } from '@server/repository/assessmentCycle/data'
+import Requests from '@server/utils/requests'
+import { Request, Response } from 'express'
 
 export const getOriginalDataPointData = async (req: Request, res: Response) => {
   try {
@@ -10,7 +10,7 @@ export const getOriginalDataPointData = async (req: Request, res: Response) => {
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName })
 
-    const table = await CycleDataRepository.getOriginalDataPointData({
+    const table = await DataRepository.getOriginalDataPointData({
       countryIso: countryIso as CountryIso,
       cycle,
       assessment,

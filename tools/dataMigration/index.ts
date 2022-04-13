@@ -1,31 +1,29 @@
 import * as path from 'path'
 import { config } from 'dotenv'
 
-import { Assessment as AssessmentLegacy } from '../../core/assessment/assessment'
 import { FRA } from '../../core/assessment'
-
+import { Assessment as AssessmentLegacy } from '../../core/assessment/assessment'
 import { Assessment } from '../../meta/assessment/assessment'
 import { Cycle } from '../../meta/assessment/cycle'
-import { SectionSpec } from '../../webapp/sectionSpec'
 import { BaseProtocol, DB } from '../../server/db'
 import {
   getCreateSchemaCycleDDL,
   getCreateSchemaCycleOriginalDataPointViewDDL,
   getCreateSchemaDDL,
-} from '../../server/repository/assessment/getCreateSchemaDDL'
-
+} from '../../server/repository/assessment/assessment/getCreateSchemaDDL'
+import { SectionSpec } from '../../webapp/sectionSpec'
+import { migrateOdps } from './migrateData/migrateOdps'
+import { migrateTablesData } from './migrateData/migrateTablesData'
 import { DBNames } from './_DBNames'
 import { FraSpecs } from './fraSpecs'
-import { migrateUsers } from './migrateUsers'
-import { migrateMetadata } from './migrateMetadata'
+import { generateMetaCache } from './generateMetaCache'
 import { migrateAreas } from './migrateAreas'
+import { migrateMetadata } from './migrateMetadata'
+import { migrateUsers } from './migrateUsers'
 import { migrateUsersAuthProvider } from './migrateUsersAuthProvider'
-import { migrateUsersRole } from './migrateUsersRole'
 import { migrateUsersInvitation } from './migrateUsersInvitation'
 import { migrateUsersResetPassword } from './migrateUsersResetPassword'
-import { migrateTablesData } from './migrateData/migrateTablesData'
-import { migrateOdps } from './migrateData/migrateOdps'
-import { generateMetaCache } from './generateMetaCache'
+import { migrateUsersRole } from './migrateUsersRole'
 
 config({ path: path.resolve(__dirname, '..', '..', '.env') })
 
