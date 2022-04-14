@@ -1,7 +1,9 @@
-import { BaseProtocol, DB } from '@server/db'
 import { Assessment } from '@meta/assessment'
-import { User, UserRole, RoleName } from '@meta/user'
-import { AssessmentRepository, UserRepository, UserRoleRepository } from '@server/repository'
+import { RoleName, User, UserRole } from '@meta/user'
+import { BaseProtocol, DB } from '@server/db'
+import { AssessmentRepository } from '@server/repository/assessment/assessment'
+import { UserRepository } from '@server/repository/public/user'
+import { UserRoleRepository } from '@server/repository/public/userRole'
 
 export const readByInvitation = async (
   props: {

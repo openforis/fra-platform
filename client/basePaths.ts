@@ -1,5 +1,5 @@
-import { AssessmentName } from '@meta/assessment'
 import { CountryIso } from '@meta/area'
+import { AssessmentName } from '@meta/assessment'
 
 enum defaults {
   assessmentName = ':assessmentName',

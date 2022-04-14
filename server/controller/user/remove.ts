@@ -1,6 +1,6 @@
-import { BaseProtocol, DB } from '@server/db'
 import { User } from '@meta/user'
-import { UserRepository } from '@server/repository'
+import { BaseProtocol, DB } from '@server/db'
+import { UserRepository } from '@server/repository/public/user'
 
 export const remove = async (
   props: {

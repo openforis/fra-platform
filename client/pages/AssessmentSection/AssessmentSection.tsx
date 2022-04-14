@@ -1,38 +1,34 @@
-import './AssessmentSection.scss'
-
 import React from 'react'
-import { useParams } from 'react-router'
 import { useTranslation } from 'react-i18next'
+import { useParams } from 'react-router'
 
-import { AssessmentName } from '@meta/assessment'
-import { useTableSections } from '@client/store/pages/assessmentSection'
 import { useAssessmentSection } from '@client/store/assessment'
+import { useTableSections } from '@client/store/pages/assessmentSection'
 import { useCanEditSection } from '@client/store/user'
+import { AssessmentName } from '@meta/assessment'
 
+import DataTable from './DataTable'
 // import SectionHeader from './SectionHeader'
 // import Descriptions from './Descriptions'
 import Descriptions, { GeneralComments } from './Descriptions'
-import Title from './Title'
 import SectionHeader from './SectionHeader'
-import DataTable from './DataTable'
+import Title from './Title'
+import './AssessmentSection.scss'
 
 const AssessmentSection: React.FC = () => {
-  const assessmentSection = useAssessmentSection()
-  const tableSections = useTableSections()
-
-  const { assessmentName } = useParams<{ assessmentName: AssessmentName; cycleName: string; section: string }>()
-
   const { i18n } = useTranslation()
-
+  const { assessmentName } = useParams<{ assessmentName: AssessmentName; cycleName: string; section: string }>()
+  const assessmentSection = useAssessmentSection()
+  const tableSections = useTableSections({ sectionName: assessmentSection?.props?.name })
   const canEditSection = useCanEditSection()
+  const [printView, printOnlyTablesView] = [false, false] // TODO: usePrintView()
+
+  const panEuropean = assessmentName === AssessmentName.panEuropean
+  const disabled = panEuropean || !canEditSection
 
   if (!assessmentSection) return null
 
   const { anchor, showTitle, descriptions, name: sectionName } = assessmentSection.props
-
-  const panEuropean = assessmentName === AssessmentName.panEuropean
-  const disabled = panEuropean || !canEditSection
-  const [printView, printOnlyTablesView] = [false, false] // TODO: usePrintView()
 
   return (
     <div className={`app-view__content assessment-section__${sectionName}`}>

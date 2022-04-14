@@ -1,6 +1,8 @@
-import { BaseProtocol, DB } from '@server/db'
 import { UserResetPassword } from '@meta/user'
-import { UserProviderRepository, UserRepository, UserResetPasswordRepository } from '@server/repository'
+import { BaseProtocol, DB } from '@server/db'
+import { UserRepository } from '@server/repository/public/user'
+import { UserProviderRepository } from '@server/repository/public/userProvider'
+import { UserResetPasswordRepository } from '@server/repository/public/userResetPassword'
 
 export const changePassword = async (
   props: {

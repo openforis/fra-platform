@@ -1,12 +1,13 @@
-import { UserRepository } from '@server/repository'
-import { create } from './create'
-import { update } from './update'
-import { remove } from './remove'
-import { invite } from './invite'
+import { UserRepository } from '@server/repository/public/user'
+
 import { acceptInvitation } from './acceptInvitation'
-import { readByInvitation } from './readByInvitation'
-import { createResetPassword } from './createResetPassword'
 import { changePassword } from './changePassword'
+import { create } from './create'
+import { createResetPassword } from './createResetPassword'
+import { invite } from './invite'
+import { readByInvitation } from './readByInvitation'
+import { remove } from './remove'
+import { update } from './update'
 
 export const UserController = {
   create,
