@@ -66,6 +66,13 @@ module.exports = {
             '^@?\\w',
           ],
           [
+            '^@meta(\\/\\w)*',
+            '^@client\\/store(\\/\\w)*',
+            '^@client\\/hooks(\\/\\w)*',
+            '^@client\\components(\\/\\w)*',
+            '^@client(\\/\\w)*',
+          ],
+          [
             '^\\.\\.(?!/?$)',
             '^\\.\\./?$', // Parent imports. Put `..` last.
             '^\\./(?=.*/)(?!/?$)',
