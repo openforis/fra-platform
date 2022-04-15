@@ -1,2 +1,2 @@
-export type { UnitFactor } from './unitSpec'
-export { Unit, UnitConverter, UnitFactors } from './unitSpec'
+export type { UnitFactor } from './unit'
+export { Unit, UnitConverter, UnitFactors } from './unit'
