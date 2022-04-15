@@ -32,8 +32,6 @@ const ChartWrapper = (props: Props) => {
   // on mount and on resize, update width
   useOnResize(onChangeWidth, chartRef)
 
-  console.log(data, width, trends)
-
   return (
     <div ref={chartRef} className="chart__container">
       {width && <ChartContainer data={data} wrapperWidth={width} trends={trends} />}

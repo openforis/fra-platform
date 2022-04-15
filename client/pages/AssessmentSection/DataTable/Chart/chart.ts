@@ -1,5 +1,12 @@
 import * as d3 from 'd3'
-import * as R from 'ramda'
+
+type Trend = {
+  dataSourceMethods: any
+  type: string
+  value: number
+  year: number
+}
+type Trends = Trend[]
 
 export const styles = {
   height: 330,
@@ -26,40 +33,32 @@ export const getXScale = (width: any, data: any) => {
 const yMaxValue = 98765
 // Returns a function that "scales" Y coordinates from the data to fit the chart
 export const getYScale = (data: any) => {
-  console.log('----------', { data })
-  const values: any[] = Object.values(data)
+  const values = Object.values(data)
     .flatMap((x) => Object.values(x))
     .map(Number)
     .filter((d) => d)
   const max = values.length > 0 ? Math.max(...values) : yMaxValue
-  console.log(values, max)
   return d3
     .scaleLinear()
     .domain([0, max])
     .range([styles.height - styles.bottom, styles.top])
 }
 
-export const getChartData = (fra: any, property: any) => {
-  return R.pipe(
-    R.values,
-    R.reject((v: any) => R.isNil(v[property])),
-    R.map((v: any) => ({
-      year: Number(v.year),
-      value: Number(v[property]),
-      type: v.type,
-      estimated: v[`${property}Estimated`],
-      dataSourceMethods: v.dataSourceMethods,
-    }))
-  )(fra)
+export const getChartData = (data: any, property: any) => {
+  const toChartDataObj = (v: any) => ({
+    year: Number(v.year),
+    value: Number(v[property]),
+    type: v.type,
+    estimated: v[`${property}Estimated`],
+    dataSourceMethods: v.dataSourceMethods,
+  })
+  return data.filter((d: Record<string, string>) => !!d[property]).map(toChartDataObj)
 }
 
 export const hasData = (data: any) =>
-  R.pipe(
-    R.map((d: any) => d.length),
-    R.values,
-    R.any((v: any) => v > 0)
-  )(data)
-
-export const getTrendOdps = (trend: any) => R.filter((v: any) => v.type === 'odp', trend)
+  Object.values(data)
+    .map((x: any[]) => x.length > 0)
+    .some((z) => z)
+export const getTrendOdps = (trend: Trends) => trend.filter((t) => t.type === 'odp')
 
 export const defaultTransitionDuration = 400
