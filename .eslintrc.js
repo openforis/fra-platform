@@ -57,6 +57,7 @@ module.exports = {
             '^\\u0000', // Side effect imports.
           ],
           [
+            '^.+\\.s?css$', // Style imports.
             '^react', // `react` related packages come first.
           ],
           [
@@ -65,12 +66,18 @@ module.exports = {
             '^@?\\w',
           ],
           [
+            '^@meta(\\/\\w)*',
+            '^@client\\/store(\\/\\w)*',
+            '^@client\\/hooks(\\/\\w)*',
+            '^@client\\components(\\/\\w)*',
+            '^@client(\\/\\w)*',
+          ],
+          [
             '^\\.\\.(?!/?$)',
             '^\\.\\./?$', // Parent imports. Put `..` last.
             '^\\./(?=.*/)(?!/?$)',
             '^\\.(?!/?$)',
             '^\\./?$', // Other relative imports. Put same-folder imports and `.` last.
-            '^.+\\.s?css$', // Style imports.
           ],
         ],
       },
