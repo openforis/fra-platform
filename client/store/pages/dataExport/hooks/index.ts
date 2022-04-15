@@ -1,14 +1,11 @@
-import { Country, RegionCode } from '@meta/area'
-import { Objects } from '@core/utils'
-
 // import { useCountryIso, useAssessmentType, useCountries, useCountriesPanEuropean } from '@webapp/store/app'
 import { useCountryIso } from '@client/hooks'
-import { useCountries } from '@client/store/assessment'
-
-// import { useHomeCountriesFilter } from '@webapp/store/page/home'
-
-import { DataExportActions, DataExportSelection } from '@client/store/pages/dataExport'
 import { useAppDispatch, useAppSelector } from '@client/store'
+import { useCountries } from '@client/store/assessment'
+import { DataExportActions, DataExportSelection } from '@client/store/pages/dataExport'
+import { useHomeCountriesFilter } from '@client/store/pages/home'
+import { Objects } from '@core/utils'
+import { Areas, Country, RegionCode } from '@meta/area'
 
 export const useDataExportCountries = (): Array<Country> => {
   const dispatch = useAppDispatch()
@@ -21,18 +18,17 @@ export const useDataExportCountries = (): Array<Country> => {
 
   const countryIso = useCountryIso()
   const countriesAll = useCountries()
-  // const countriesFilter = useHomeCountriesFilter()
-  const isRegion = Object.values(RegionCode).includes(countryIso as RegionCode)
+  const countriesFilter = useHomeCountriesFilter()
 
   // initialize data export countries
   if (Objects.isEmpty(countries)) {
     let countriesDataExport = countriesAll
-    if (isRegion) {
+    if (Areas.isRegion(countryIso)) {
       countriesDataExport = countriesAll.filter((country) => country.regionCodes.includes(countryIso as RegionCode))
     }
-    // if (!Objects.isEmpty(countriesFilter)) {
-    //   countriesDataExport = countriesAll.filter((country) => countriesFilter.includes(country.countryIso))
-    // }
+    if (!Objects.isEmpty(countriesFilter)) {
+      countriesDataExport = countriesAll.filter((country) => countriesFilter.includes(country.countryIso))
+    }
 
     dispatch(DataExportActions.updateCountries(countriesDataExport))
   }

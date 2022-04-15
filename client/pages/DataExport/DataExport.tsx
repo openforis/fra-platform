@@ -1,16 +1,21 @@
-import './DataExport.scss'
-import React from 'react'
+import React, { useEffect } from 'react'
 
-import { Objects } from '@core/utils'
+import { useCountryIso } from '@client/hooks'
+import { useAppDispatch } from '@client/store'
 // import { useDataExportCountries, useDataExportSelection } from '@webapp/store/page/dataExport'
-import { useDataExportCountries } from '@client/store/pages/dataExport'
+import { DataExportActions, useDataExportCountries } from '@client/store/pages/dataExport'
+import { Objects } from '@core/utils'
 
 import CountrySelect from './CountrySelect'
+import './DataExport.scss'
 // import VariableSelect from './VariableSelect'
 // import ColumnSelect from './ColumnSelect'
 // import ResultsTable from './ResultsTable'
 
 const DataExport: React.FC = () => {
+  const dispatch = useAppDispatch()
+
+  const countryIso = useCountryIso()
   // const assessmentSection = useParamSection()
   const countries = useDataExportCountries()
   // const selection = useDataExportSelection(assessmentSection)
@@ -19,6 +24,10 @@ const DataExport: React.FC = () => {
   //   !Objects.isEmpty(selection.countryISOs) &&
   //   !Objects.isEmpty(selection.sections[assessmentSection].columns) &&
   //   !Objects.isEmpty(selection.sections[assessmentSection].variables)
+
+  useEffect(() => {
+    dispatch(DataExportActions.reset())
+  }, [countryIso])
 
   if (Objects.isEmpty(countries)) return null
 

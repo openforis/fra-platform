@@ -1,10 +1,9 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
+import { DataExportCountriesAction, DataExportSelectionAction } from './actionTypes'
 // import { AppActions } from '@webapp/store/app'
 // import { HomeActions } from '@webapp/store/page/home'
-
 import { DataExportState } from './stateType'
-import { DataExportCountriesAction, DataExportSelectionAction } from './actionTypes'
 
 const initialState: DataExportState = {
   countries: [],
@@ -18,6 +17,7 @@ export const dataExportSlice = createSlice({
   name: 'dataExport',
   initialState,
   reducers: {
+    reset: () => initialState,
     updateCountries: (state: DataExportState, action: DataExportCountriesAction) => {
       state.countries = action.payload
     },
