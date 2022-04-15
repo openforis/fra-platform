@@ -25,6 +25,10 @@ export interface RowProps {
     labelKey: string
     color: string
   }
+  labelKey?: string
+  labelPrefixKey?: string
+  labelParams?: Record<string, string>
+  variableExport?: string
 }
 
 export interface Row extends CycledPropsObject<RowProps> {
@@ -34,9 +38,7 @@ export interface Row extends CycledPropsObject<RowProps> {
   // calculateFn?: CalculateValue
   // chartProps?: RowChartSpec
   // idx?: string | number
-  // labelKey?: string
-  // labelPrefixKey?: string
-  // labelParams?: Record<string, string>
+
   // label?: string
   // validation messages
   // getValidationMessages?: GetValidationMessages
