@@ -1,10 +1,11 @@
 import './geoMapMenuMosaic.scss'
-import React, { useEffect, useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 
-import { useGeoMap } from '@client/hooks'
+import { MosaicSource } from '@meta/geo'
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useMosaicOptions, useMosaicUrl, useSelectedPanel } from '@client/store/ui/geo'
-import { MosaicSource } from '@meta/geo'
+import { useGeoMap } from '@client/hooks'
+
 import GeoMapMenuButton from '../GeoMapMenuButton'
 
 const removeOverlayLayer = (mapLayerId: string, overlayLayers: google.maps.MVCArray) => {
@@ -87,6 +88,7 @@ const GeoMapMenuMosaic: React.FC = () => {
             <div className={`fra-checkbox${mosaicOptions.sources.includes('sentinel') ? ' checked' : ''}`} />
             <p>Sentinel</p>
           </div>
+          <div className="geo-map-menu-mosaic-separator" />
           <div
             role="checkbox"
             aria-checked={mosaicOptions.sources.includes('landsat')}
