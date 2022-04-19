@@ -1,17 +1,24 @@
 import './DataExport.scss'
-import React from 'react'
+import React, { useEffect } from 'react'
 
-// import { Objects } from '@core/utils'
+import { Objects } from '@core/utils'
+
+import { useAppDispatch } from '@client/store'
 // import { useDataExportCountries, useDataExportSelection } from '@webapp/store/page/dataExport'
+import { DataExportActions, useDataExportCountries } from '@client/store/pages/dataExport'
+import { useCountryIso } from '@client/hooks'
 
-// import CountrySelect from './CountrySelect'
+import CountrySelect from './CountrySelect'
 // import VariableSelect from './VariableSelect'
 // import ColumnSelect from './ColumnSelect'
 // import ResultsTable from './ResultsTable'
 
 const DataExport: React.FC = () => {
+  const dispatch = useAppDispatch()
+
+  const countryIso = useCountryIso()
   // const assessmentSection = useParamSection()
-  // const countries = useDataExportCountries()
+  const countries = useDataExportCountries()
   // const selection = useDataExportSelection(assessmentSection)
 
   // const hasSelection =
@@ -19,12 +26,18 @@ const DataExport: React.FC = () => {
   //   !Objects.isEmpty(selection.sections[assessmentSection].columns) &&
   //   !Objects.isEmpty(selection.sections[assessmentSection].variables)
 
-  // if (Objects.isEmpty(countries)) return null
+  useEffect(() => {
+    return () => {
+      dispatch(DataExportActions.reset())
+    }
+  }, [countryIso])
+
+  if (Objects.isEmpty(countries)) return null
 
   return (
     <div className="app-view__content export">
       <div className="export__form">
-        {/* <CountrySelect /> */}
+        <CountrySelect />
         {/* <VariableSelect /> */}
         {/* <ColumnSelect /> */}
       </div>
