@@ -1,6 +1,7 @@
 import { DataLockState } from '@client/store/ui/dataLock'
 import { AssessmentSectionState } from './pages/assessmentSection'
 import { OriginalDataPointState } from './pages/originalDataPoint'
+import { DataExportState } from './pages/dataExport'
 
 import { NavigationState } from './ui/navigation/stateType'
 import { AssessmentState } from './assessment/stateType'
@@ -18,6 +19,7 @@ export type RootState = {
   pages: {
     originalDataPoint: OriginalDataPointState
     assessmentSection: AssessmentSectionState
+    dataExport: DataExportState
   }
 
   ui: {
