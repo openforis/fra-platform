@@ -13,12 +13,13 @@ type Params = {
   title: string
   subtitle: string
   type: MessageTopicType
+  section?: string
 }
 
 export const openTopic = createAsyncThunk<MessageTopic, Params>(
   'messageCenter/topic/open',
-  async ({ countryIso, assessmentName, cycleName, key, title, subtitle, type }) => {
-    const params = { countryIso, assessmentName, cycleName, key, type }
+  async ({ countryIso, assessmentName, cycleName, key, title, subtitle, type, section }) => {
+    const params = { countryIso, assessmentName, cycleName, key, type, section }
     const { data } = await axios.get(ApiEndPoint.MessageCenter.Topic.get(), { params })
     return { ...data, type, title, subtitle, key, messages: data?.messages || [] }
   }

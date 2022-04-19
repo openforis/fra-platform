@@ -1,6 +1,7 @@
 import './Topic.scss'
 import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useParams } from 'react-router-dom'
 
 import { Objects } from '@core/utils'
 
@@ -25,6 +26,7 @@ const Topic: React.FC<TopicProps> = ({ topic }) => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
+  const { section } = useParams<{ section?: string }>()
 
   const closeTopic = useCallback(() => {
     dispatch(MessageCenterActions.closeTopic({ key: topic.key }))
@@ -39,9 +41,10 @@ const Topic: React.FC<TopicProps> = ({ topic }) => {
         key: topic.key,
         message,
         type: topic.type,
+        section,
       })
     ).then(() => setMessage(''))
-  }, [countryIso, assessment, cycle, topic, message, dispatch])
+  }, [countryIso, assessment, cycle, topic, message, dispatch, section])
 
   return (
     <div className="topic">
