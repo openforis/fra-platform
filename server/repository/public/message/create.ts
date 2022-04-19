@@ -1,21 +1,24 @@
 import { Objects } from '@core/utils'
-import { Message } from '@meta/messageCenter'
+import { BaseProtocol, DB, Schemas } from '@server/db'
+
+import { Assessment, Cycle } from '@meta/assessment'
+import { Message, MessageTopic } from '@meta/messageCenter'
 import { User } from '@meta/user'
-import { BaseProtocol, DB } from '@server/db'
 
 export const create = async (
-  props: { message: string; topicId: number; user: User },
+  props: { assessment: Assessment; cycle: Cycle; message: string; topic: MessageTopic; user: User },
   client: BaseProtocol = DB
 ): Promise<Message> => {
-  const { message, topicId, user } = props
+  const { assessment, cycle, message, topic, user } = props
+  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
   return client.one<Message>(
     `
-        insert into public.message (message, topic_id, user_id)
+        insert into ${schemaCycle}.message (message, topic_id, user_id)
         values ($1, $2, $3)
         returning *;
     `,
-    [message, topicId, user.id],
+    [message, topic.id, user.id],
     Objects.camelize
   )
 }

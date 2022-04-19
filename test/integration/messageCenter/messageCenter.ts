@@ -1,11 +1,13 @@
+import { AssessmentController } from '@server/controller/assessment'
+import { MessageCenterController } from '@server/controller/messageCenter'
+import { UserController } from '@server/controller/user'
+import { assessmentCycleName, assessmentParams } from '@test/integration/mock/assessment'
+import { userMockTest } from '@test/integration/mock/user'
+
 import { CountryIso } from '@meta/area'
 import { Assessment, Cycle } from '@meta/assessment'
+import { MessageTopicType } from '@meta/messageCenter'
 import { User } from '@meta/user'
-import { assessmentParams, assessmentCycleName } from '@test/integration/mock/assessment'
-import { userMockTest } from '@test/integration/mock/user'
-import { AssessmentController } from '@server/controller/assessment'
-import { UserController } from '@server/controller/user'
-import { MessageCenterController } from '@server/controller/messageCenter'
 
 export default (): void =>
   describe('Message topic tests', () => {
@@ -30,6 +32,7 @@ export default (): void =>
         assessment,
         cycle,
         key: 'TEST',
+        type: MessageTopicType.review,
       })
 
       await MessageCenterController.addMessage({
@@ -39,6 +42,7 @@ export default (): void =>
         assessment,
         cycle,
         key: 'TEST',
+        type: MessageTopicType.review,
       })
 
       const topic = await MessageCenterController.getTopic({
@@ -53,5 +57,6 @@ export default (): void =>
       expect(topic.messages).toHaveLength(2)
       expect(topic.messages[0].message).toEqual('This is a test!')
       expect(topic.messages[1].message).toEqual('This is another test!')
+      expect(topic.type).toBe(MessageTopicType.review)
     })
   })
