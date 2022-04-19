@@ -16,8 +16,6 @@ export enum MessageTopicType {
 export interface MessageTopic {
   id: number
   countryIso: CountryIso
-  // assessmentId: number
-  // cycleId: number
   key: string
   status: MessageTopicStatus
   type: MessageTopicType
