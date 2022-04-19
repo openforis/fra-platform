@@ -16,7 +16,8 @@ export const styles = {
 }
 
 export const getChartYears = (data: any[]) => {
-  const years: number[] = Object.values(data)?.flatMap((d: any) => d.year ?? d?.flatMap((x: any) => x.year)) ?? []
+  const handleData = (d) => (Array.isArray(d) ? d.flatMap((x: any) => x.year) : d.year)
+  const years: number[] = Object.values(data).flatMap(handleData)
   const min = Math.min(...years) - 1
   const max = Math.max(...years) + 1
   return { min, max }

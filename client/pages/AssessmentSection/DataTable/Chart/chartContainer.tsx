@@ -1,7 +1,9 @@
+import './style.scss'
 import React, { memo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Objects } from '@core/utils'
+
 import { TableData } from '@meta/data'
 
 import DataTrend from './components/dataTrend'
@@ -12,7 +14,6 @@ import XAxis from './components/xAxis'
 import YAxis from './components/yAxis'
 import * as Chart from './chart'
 import useChartData from './useChartData'
-import './style.scss'
 
 type ChartContainerProps = {
   data: TableData
@@ -26,9 +27,9 @@ type ChartContainerProps = {
 
 const toObject = (x) => {
   const newData = []
-  Object.entries(x).map(([countryIso, countryValues]) => {
-    Object.entries(countryValues).map(([section, sectionValues]) => {
-      Object.entries(sectionValues).map(([year, yearValues]: any[]) => {
+  Object.entries(x).forEach(([countryIso, countryValues]) => {
+    Object.entries(countryValues).forEach(([section, sectionValues]) => {
+      Object.entries(sectionValues).forEach(([year, yearValues]: any[]) => {
         newData.push({
           countryIso,
           section,
