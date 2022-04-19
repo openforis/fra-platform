@@ -1,9 +1,10 @@
 import React, { memo } from 'react'
-import * as R from 'ramda'
-import DataPath from './dataPath'
-import DataPoints from './dataPoints'
+
+import { Objects } from '@core/utils'
 
 import { getTrendOdps } from '../chart'
+import DataPath from './dataPath'
+import DataPoints from './dataPoints'
 
 const hexToRgba = (hex: any, alpha: any) => {
   const hexEscape = hex.replace('#', '')
@@ -23,20 +24,11 @@ type DataTrendProps = {
 
 const DataTrend = (props: DataTrendProps) => {
   const { className, color, data, xScale, yScale }: any = props
-  const prev = (v: any) =>
-    R.pipe(
-      R.filter((d: any) => d.year <= v.year && d.type === 'fra'),
-      R.prepend({}),
-      R.last
-    )(data)
-  const next = (v: any) =>
-    R.pipe(
-      R.filter((d: any) => d.year >= v.year && d.type === 'fra'),
-      R.head,
-      R.defaultTo({})
-    )(data)
-  // @ts-ignore
-  const fra = R.filter((v: any) => (v.type === 'odp' ? prev(v).estimated && next(v).estimated : true), data)
+
+  const prev = (v: any) => data.filter((d: any) => d.year <= v.year && d.type === 'fra') ?? {}
+  const next = (v: any) => data.filter((d: any) => d.year >= v.year && d.type === 'fra') ?? {}
+
+  const fra = data.filter((d) => (d.type === 'dp' ? prev(d).estimated && next(d).estimated : true))
 
   return (
     <g className={className}>
@@ -70,5 +62,6 @@ const DataTrend = (props: DataTrendProps) => {
 }
 
 const areEqual = (prevProps: any, nextProps: any) =>
-  R.equals(prevProps.data, nextProps.data) && prevProps.wrapperWidth === nextProps.wrapperWidth
+  Objects.isEqual(prevProps.data, nextProps.data) && prevProps.wrapperWidth === nextProps.wrapperWidth
+
 export default memo(DataTrend, areEqual)

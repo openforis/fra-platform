@@ -3,7 +3,6 @@ import React, { useEffect, useRef } from 'react'
 import { usePrevious } from '@client/hooks'
 import * as d3 from 'd3'
 import { interpolatePath } from 'd3-interpolate-path'
-import * as R from 'ramda'
 
 import * as Chart from '../chart'
 
@@ -26,13 +25,12 @@ const DataPath = (props: Props) => {
       .y((d: any) => yScale(d.value))
       .curve(d3.curveLinear)(dataPath)
 
-  const getPathDefault = (dataPath: any) =>
-    getPath([
-      // @ts-ignore
-      { year: R.head(dataPath).year, value: 0 },
-      // @ts-ignore
-      { year: R.last(dataPath).year, value: 0 },
+  const getPathDefault = (dataPath: any) => {
+    return getPath([
+      { year: dataPath.at(0).year, value: 0 },
+      { year: dataPath.at(0).year, value: 0 },
     ])
+  }
 
   useEffect(() => {
     const pathElement = pathElementRef.current.getAttribute('d')

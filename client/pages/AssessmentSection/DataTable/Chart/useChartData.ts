@@ -9,7 +9,7 @@ export default (data: any, trends: any, width: any) => {
     {}
   )
   const xScale = Chart.getXScale(width, data)
-  const yScale = Chart.getYScale(data)
+  const yScale = Chart.getYScale(data, trends)
 
   return { chartData: _chartData, xScale, yScale }
 }

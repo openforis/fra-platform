@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next'
 import { Numbers } from '@core/utils/numbers'
 import * as d3 from 'd3'
 import d3Tip from 'd3-tip'
-import * as R from 'ramda'
 
 import { defaultTransitionDuration } from '../chart'
 
@@ -89,14 +88,11 @@ class DataPoint extends Component<Props, {}> {
         {data.dataSourceMethods && (
           <div className="chart__tooltip-methods">
             <div className="chart__tooltip-heading">{(this.props as any).i18n.t('nationalDataPoint.methodsUsed')}</div>
-            {R.map(
-              (dataSourceMethod: any) => (
-                <div key={dataSourceMethod} className="chart__tooltip-data-source">
-                  {(this.props as any).i18n.t(`nationalDataPoint.dataSourceMethodsOptions.${dataSourceMethod}`)}
-                </div>
-              ),
-              data.dataSourceMethods
-            )}
+            {data.dataSourceMethods.map((dataSourceMethod: any) => (
+              <div key={dataSourceMethod} className="chart__tooltip-data-source">
+                {(this.props as any).i18n.t(`nationalDataPoint.dataSourceMethodsOptions.${dataSourceMethod}`)}
+              </div>
+            ))}
           </div>
         )}
       </div>

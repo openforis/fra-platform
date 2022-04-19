@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
+
 import * as d3 from 'd3'
-import * as R from 'ramda'
-import { styles, defaultTransitionDuration } from '../chart'
+
+import { defaultTransitionDuration, styles } from '../chart'
+
 type Props = any
 
 class Legend extends Component {
@@ -16,7 +18,7 @@ class Legend extends Component {
   }
 
   enter(props: any) {
-    R.forEachObjIndexed((data: any, key: any) => {
+    Object.entries(props.data).forEach(([key, data]) => {
       const elem: any = this.refs[key]
       const hasData = data.length > 0
       d3.select(elem)
@@ -27,11 +29,11 @@ class Legend extends Component {
         .delay(100)
         .duration(defaultTransitionDuration)
         .style('opacity', hasData ? '1' : '0')
-    }, props.data)
+    })
   }
 
   update(props: any) {
-    R.forEachObjIndexed((data: any, key: any) => {
+    Object.entries(props.data).forEach(([key, data]) => {
       const elem: any = this.refs[key]
       const hasData = data.length > 0
       d3.select(elem)
@@ -44,7 +46,7 @@ class Legend extends Component {
         .ease(d3.easePolyOut)
         .duration(defaultTransitionDuration)
         .style('opacity', hasData ? '1' : '0')
-    }, props.data)
+    })
   }
 
   render() {

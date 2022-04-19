@@ -40,5 +40,5 @@ export const useOriginalDataPointYears = () => {
   const countryIso = useCountryIso()
   const odpData = useAppSelector((state) => state.pages.assessmentSection.originalDataPointData)
   if (!odpData) return null
-  return Object.keys(odpData[countryIso].originalDataPointValue)
+  return Object.keys(odpData?.[countryIso].originalDataPointValue)
 }

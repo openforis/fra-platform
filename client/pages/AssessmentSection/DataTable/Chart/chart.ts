@@ -16,10 +16,9 @@ export const styles = {
 }
 
 export const getChartYears = (data: any[]) => {
-  const years: number[] = Object.values(data).map((d: any) => d.year)
+  const years: number[] = Object.values(data)?.flatMap((d: any) => d.year ?? d?.flatMap((x: any) => x.year)) ?? []
   const min = Math.min(...years) - 1
   const max = Math.max(...years) + 1
-
   return { min, max }
 }
 
@@ -32,15 +31,16 @@ export const getXScale = (width: any, data: any) => {
 
 const yMaxValue = 98765
 // Returns a function that "scales" Y coordinates from the data to fit the chart
-export const getYScale = (data: any) => {
+export const getYScale = (data: any, trends: any) => {
   const values = Object.values(data)
-    .flatMap((x) => Object.values(x))
+    .flatMap((x: any) => trends.flatMap((t: any) => x[t.name]))
     .map(Number)
     .filter((d) => d)
-  const max = values.length > 0 ? Math.max(...values) : yMaxValue
+  const max = Math.max(...values)
+
   return d3
     .scaleLinear()
-    .domain([0, max])
+    .domain([0, max > 0 ? max : yMaxValue])
     .range([styles.height - styles.bottom, styles.top])
 }
 

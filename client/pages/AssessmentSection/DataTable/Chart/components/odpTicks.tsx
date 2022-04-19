@@ -1,6 +1,8 @@
 import React from 'react'
-import * as d3 from 'd3'
 import ReactDOM from 'react-dom'
+
+import * as d3 from 'd3'
+
 import { defaultTransitionDuration } from '../chart'
 
 type Props = any
