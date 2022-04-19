@@ -15,6 +15,12 @@ export enum RowType {
   placeholder = 'placeholder',
 }
 
+export interface RowLabel {
+  labelKey?: string
+  labelPrefixKey?: string
+  labelParams?: Record<string, string>
+}
+
 export interface RowProps {
   index: number | string
   linkToSection?: string
@@ -25,9 +31,7 @@ export interface RowProps {
     labelKey: string
     color: string
   }
-  labelKey?: string
-  labelPrefixKey?: string
-  labelParams?: Record<string, string>
+  label?: RowLabel
   variableExport?: string
 }
 
