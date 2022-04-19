@@ -1,12 +1,15 @@
-import './DataTable.scss'
 import React, { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 
-import { AssessmentName, Table as TableType } from '@meta/assessment'
-import { AssessmentSectionActions, useTableData } from '@client/store/pages/assessmentSection'
-import { useAppDispatch } from '@client/store'
 import { useCountryIso } from '@client/hooks'
+import { useAppDispatch } from '@client/store'
 import { useCycle } from '@client/store/assessment'
+import { AssessmentSectionActions, useTableData } from '@client/store/pages/assessmentSection'
+import { AssessmentName, Table as TableType } from '@meta/assessment'
+
+import Chart from './Chart'
 import Table from './Table'
+import './DataTable.scss'
 
 type Props = {
   assessmentName: AssessmentName
@@ -18,6 +21,7 @@ type Props = {
 
 const DataTable: React.FC<Props> = (props) => {
   const { assessmentName, sectionName, sectionAnchor, table, disabled } = props
+  const { i18n } = useTranslation()
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const data = useTableData({ table })
@@ -74,23 +78,27 @@ const DataTable: React.FC<Props> = (props) => {
 
   if (!data?.[countryIso]) return null
 
+  const showOdpChart = table.props.odp
+  const printView = false
+  const dataEmpty = false
+
   return (
     <>
-      {/* {showOdpChart && (!printView || !dataEmpty) && ( */}
-      {/*  <> */}
-      {/*    <Chart */}
-      {/*      fra={data} */}
-      {/*      trends={rows */}
-      {/*        .filter((row) => !!row.chartProps) */}
-      {/*        .map((row) => ({ */}
-      {/*          name: row.variableName, */}
-      {/*          label: i18n.t(row.chartProps.labelKey), */}
-      {/*          color: row.chartProps.color, */}
-      {/*        }))} */}
-      {/*    /> */}
-      {/*    <div className="page-break" /> */}
-      {/*  </> */}
-      {/* )} */}
+      {showOdpChart && (!printView || !dataEmpty) && (
+        <>
+          <Chart
+            data={data}
+            trends={rows
+              .filter((row) => !!row.props.chart)
+              .map((row) => ({
+                name: row.props.variableName,
+                label: i18n.t(row.props.chart.labelKey),
+                color: row.props.chart.color,
+              }))}
+          />
+          <div className="page-break" />
+        </>
+      )}
 
       {/* {generateValues && ( */}
       {/*  <GenerateValues */}
