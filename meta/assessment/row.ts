@@ -32,7 +32,6 @@ export interface RowProps {
     color: string
   }
   label?: RowLabel
-  variableExport?: string
 }
 
 export interface Row extends CycledPropsObject<RowProps> {
@@ -42,7 +41,6 @@ export interface Row extends CycledPropsObject<RowProps> {
   // calculateFn?: CalculateValue
   // chartProps?: RowChartSpec
   // idx?: string | number
-
   // label?: string
   // validation messages
   // getValidationMessages?: GetValidationMessages
