@@ -22,13 +22,13 @@ export const getRow = (props: { cycles: Array<string>; rowSpec: RowSpec; table: 
   }
 
   if (rowSpec.labelKey) {
-    row.props.label.labelKey = rowSpec.labelKey
+    row.props.label = { ...row.props.label, labelKey: rowSpec.labelKey }
   }
   if (rowSpec.labelPrefixKey) {
-    row.props.label.labelPrefixKey = rowSpec.labelPrefixKey
+    row.props.label = { ...row.props.label, labelPrefixKey: rowSpec.labelPrefixKey }
   }
   if (rowSpec.labelParams) {
-    row.props.label.labelParams = rowSpec.labelParams
+    row.props.label = { ...row.props.label, labelParams: rowSpec.labelParams }
   }
 
   return row
