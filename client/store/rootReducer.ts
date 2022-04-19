@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import OriginalDataPointSlice from './pages/originalDataPoint/slice'
 import AssessmentSectionSlice from './pages/assessmentSection/slice'
+import DataExportSlice from './pages/dataExport/slice'
 import AssessmentSlice from './assessment/slice'
 import LoginSlice from './login/slice'
 import UserSlice from './user/slice'
@@ -17,6 +18,7 @@ export default {
   pages: combineReducers({
     originalDataPoint: OriginalDataPointSlice,
     assessmentSection: AssessmentSectionSlice,
+    dataExport: DataExportSlice,
   }),
   ui: combineReducers({
     navigation: NavigationSlice,
