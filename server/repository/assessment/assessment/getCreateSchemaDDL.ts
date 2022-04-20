@@ -219,7 +219,7 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
       select c.country_iso,
              c.year,
       --        c.class ->> 'area'                                                     as area,
-             sum((c.class ->> 'area')::numeric * (c.class ->> 'forestPercent')::numeric / 100) as forest,
+             sum((c.class ->> 'area')::numeric * (c.class ->> 'forestPercent')::numeric / 100) as forest_area,
              sum((c.class ->> 'area')::numeric *
                  (c.class ->> 'otherWoodedLandPercent')::numeric / 100)                        as other_wooded_land,
       --        sum((c.class ->> 'area')::numeric *

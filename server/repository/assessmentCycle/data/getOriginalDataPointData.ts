@@ -1,7 +1,9 @@
+import { Objects } from '@openforis/arena-core'
+
 import { CountryIso } from '@meta/area'
 import { Assessment, Cycle } from '@meta/assessment'
 import { TableData } from '@meta/data'
-import { Objects } from '@openforis/arena-core'
+
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
 type Props = {
@@ -21,7 +23,7 @@ export const getOriginalDataPointData = (props: Props, client: BaseProtocol = DB
                    jsonb_object_agg(
                            o.year,
                            json_build_object(
-                                   'forest', json_build_object('raw', o.forest::varchar),
+                                   'forest_area', json_build_object('raw', o.forest_area::varchar),
                                    'other_wooded_land', json_build_object('raw', o.other_wooded_land::varchar),
                                    'natural_forest_area', json_build_object('raw', o.natural_forest_area::varchar),
                                    'plantation_forest_area', json_build_object('raw', o.plantation_forest_area::varchar),
