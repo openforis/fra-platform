@@ -20,5 +20,16 @@ export const getRow = (props: { cycles: Array<string>; rowSpec: RowSpec; table: 
   if (rowSpec.chartProps) {
     row.props.chart = rowSpec.chartProps
   }
+
+  if (rowSpec.labelKey) {
+    row.props.label = { ...row.props.label, key: rowSpec.labelKey }
+  }
+  if (rowSpec.labelPrefixKey) {
+    row.props.label = { ...row.props.label, prefix: rowSpec.labelPrefixKey }
+  }
+  if (rowSpec.labelParams) {
+    row.props.label = { ...row.props.label, params: rowSpec.labelParams }
+  }
+
   return row
 }
