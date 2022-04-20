@@ -1,5 +1,5 @@
-import { Row, RowType } from './row'
 import { Col } from './col'
+import { Row, RowType } from './row'
 
 const getColIndexes = (props: { rows: Array<Row>; cols: Array<Col> }): Array<number> => {
   const { rows, cols } = props

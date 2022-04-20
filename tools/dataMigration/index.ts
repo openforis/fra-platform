@@ -83,13 +83,15 @@ export const migrate = async (props: {
     const schema = DBNames.getAssessmentSchema(assessment.props.name)
     await DB.query(getCreateSchemaDDL(schema))
     assessment.cycles = await Promise.all(cycleNames.map((cycleName) => createCycle(assessment, cycleName, client)))
+
     // Set fra/2020 to published
-    await client.query('update public.assessment_cycle set published = true where id = $1', [assessment.cycles[0].id])
+    const defaultCycle = assessment.cycles.find((c) => c.name === '2020')
+    await client.query('update public.assessment_cycle set published = true where id = $1', [defaultCycle.id])
     await client.query('update public.assessment set props = $2:json::jsonb where id = $1', [
       assessment.id,
       {
         ...assessment.props,
-        defaultCycle: assessment.cycles[0].uuid,
+        defaultCycle: defaultCycle.uuid,
       },
     ])
 
@@ -106,7 +108,11 @@ export const migrate = async (props: {
     await migrateUsersRole({ assessment, client })
     await migrateUsersInvitation({ client })
     await migrateUsersResetPassword({ client })
-    await migrateTablesData({ assessment }, client)
+    await Promise.all(
+      assessment.cycles.map(async (cycle) => {
+        await migrateTablesData({ assessment, cycle }, client)
+      })
+    )
     await migrateOdps({ assessment }, client)
     await generateMetaCache({ assessment }, client)
 
