@@ -65,7 +65,7 @@ const Table: React.FC<Props> = (props) => {
                     isOdpHeader = isOdpHeader && country.props.forestCharacteristics.useOriginalDataPoint
 
                   const getColumnName = () => {
-                    if (label?.key) return i18n.t(label?.key, label.params)
+                    if (label?.key) return i18n.t(label?.key, label?.params)
 
                     if (isOdpHeader) {
                       return (

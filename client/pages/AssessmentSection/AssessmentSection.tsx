@@ -63,7 +63,7 @@ const AssessmentSection: React.FC = () => {
                 table={table}
                 disabled={disabled}
               />
-              {table.props?.print?.pageBreakAfter && <div className="page-break" />}
+              {table.props.print?.pageBreakAfter && <div className="page-break" />}
             </React.Fragment>
           ))}
         </div>
