@@ -29,7 +29,7 @@ const RowData: React.FC<Props> = (props) => {
   // const { index /* variableName */ } = row.props
   const colHeader = cols[0]
   // const colHeaderLabel = colHeader.label ? colHeader.label : i18n.t(colHeader.labelKey, colHeader.labelParams)
-  const colHeaderLabel = i18n.t(colHeader.props?.label?.key, colHeader.props?.label?.params ?? {})
+  const colHeaderLabel = i18n.t(colHeader.props.label?.key, colHeader.props.label?.params ?? {})
   const colsData = cols.slice(1, cols.length)
   // const reviewTarget = [tableName, 'row', `${index}`]
   // const className = useClassName(reviewTarget)
