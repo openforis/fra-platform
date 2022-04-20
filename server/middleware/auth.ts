@@ -1,11 +1,11 @@
-import { NextFunction, Request, Response } from 'express'
-
-import { Authorizer, Users } from '@meta/user'
-import { AssessmentName } from '@meta/assessment'
-import { CountryIso } from '@meta/area'
-
 import { AssessmentController } from '@server/controller/assessment'
 import { Requests } from '@server/utils'
+import { NextFunction, Request, Response } from 'express'
+
+import { CountryIso } from '@meta/area'
+import { AssessmentName } from '@meta/assessment'
+import { MessageTopicType } from '@meta/messageCenter'
+import { Authorizer, Users } from '@meta/user'
 
 const _next = (allowed: boolean, next: NextFunction): void => {
   if (allowed) return next()
@@ -48,8 +48,18 @@ const requireAdmin = async (req: Request, _res: Response, next: NextFunction) =>
   _next(Users.isAdministrator(user), next)
 }
 
+const requireEditMessageTopic = async (req: Request, _res: Response, next: NextFunction) => {
+  const { type } = req.query as Record<string, string>
+  if (type === MessageTopicType.review) {
+    await requireEdit(req, _res, next)
+  } else {
+    next()
+  }
+}
+
 export const AuthMiddleware = {
   requireEdit,
   requireView,
   requireAdmin,
+  requireEditMessageTopic,
 }
