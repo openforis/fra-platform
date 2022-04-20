@@ -1,9 +1,11 @@
 import React from 'react'
-
 import { useTranslation } from 'react-i18next'
-import ReviewIndicator from '@client/components/ReviewIndicator'
-import { useTopicKeys } from '@client/store/ui/messageCenter/hooks'
+
 import { Topics } from '@meta/messageCenter'
+
+import { useTopicKeys } from '@client/store/ui/messageCenter/hooks'
+import ReviewIndicator from '@client/components/ReviewIndicator'
+
 import { Props } from '../props'
 // import useClassName from './useClassName'
 import Cell from './Cell'
@@ -20,7 +22,7 @@ const RowData: React.FC<Props> = (props) => {
   // const { index /* variableName */ } = row.props
   const colHeader = cols[0]
   // const colHeaderLabel = colHeader.label ? colHeader.label : i18n.t(colHeader.labelKey, colHeader.labelParams)
-  const colHeaderLabel = i18n.t(colHeader.props.labelKey)
+  const colHeaderLabel = i18n.t(colHeader.props.label?.key, colHeader.props?.label?.params)
   const colsData = cols.slice(1, cols.length)
   // const reviewTarget = [tableName, 'row', `${index}`]
   // const className = useClassName(reviewTarget)

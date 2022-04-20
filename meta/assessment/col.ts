@@ -1,4 +1,5 @@
-import { CycledPropsObject } from './index'
+import { CycledPropsObject } from './cycle'
+import { Label } from './label'
 
 export enum ColType {
   calculated = 'calculated',
@@ -18,7 +19,7 @@ export interface ColProps {
   colSpan?: number
   colType: ColType
   index?: number | string
-  labelKey?: string
+  label?: Label
   rowSpan?: number
   // calculated props
   calculateFn?: string

@@ -1818,7 +1818,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
             },
             dataExport: false,
             columnsExportAlways: [],
-            odp: true,
+            // odp: true,
             odpVariables: {
               naturallyRegeneratingForest: 'naturallyRegeneratingForest',
               plantedForest: 'plantedForest',
@@ -2009,7 +2009,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
             columnsExportAlways: [],
             columnsExport: [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020],
             unit: 'millionsCubicMeterOverBark',
-            odp: true,
+            // odp: true,
             odpVariables: {
               naturallyRegeneratingForest: 'naturallyRegeneratingForest',
               plantedForest: 'plantedForest',
@@ -9482,6 +9482,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 mainCategory: true,
                 variableName: 'totalValue',
                 migration: {
+                  format: {
+                    integer: true,
+                  },
                   colNames: ['value'],
                   calcFormula: `(
                    nonWoodForestProductsRemovals["1"] || nonWoodForestProductsRemovals["2"] || nonWoodForestProductsRemovals["3"] 

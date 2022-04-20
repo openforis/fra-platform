@@ -30,6 +30,8 @@ export const getRow = (props: { cycles: Array<string>; rowSpec: RowSpec; table: 
   if (rowSpec.labelParams) {
     row.props.label = { ...row.props.label, params: rowSpec.labelParams }
   }
-
+  if (rowSpec.migration?.format) {
+    row.props.format = rowSpec.migration.format
+  }
   return row
 }
