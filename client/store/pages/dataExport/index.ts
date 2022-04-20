@@ -1,4 +1,3 @@
 export { useDataExportCountries, useDataExportSelection } from './hooks'
-
-export type { DataExportState, DataExportSelection } from './stateType'
-export { default as DataExportReducer, DataExportActions } from './slice'
+export { DataExportActions, default as DataExportReducer } from './slice'
+export type { DataExportSelection, DataExportState } from './stateType'

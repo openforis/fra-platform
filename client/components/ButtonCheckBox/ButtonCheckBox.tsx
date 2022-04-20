@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 type Props = {
   onClick: React.MouseEventHandler<HTMLButtonElement>
   label: Array<string> | string
-  labelParam?: string
+  labelParam?: Record<string, string>
   className?: string
   checked: boolean
   suffix?: string

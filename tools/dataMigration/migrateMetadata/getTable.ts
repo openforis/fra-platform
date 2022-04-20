@@ -1,5 +1,5 @@
-import { TableSection } from '../../../meta/assessment/tableSection'
 import { Table } from '../../../meta/assessment/table'
+import { TableSection } from '../../../meta/assessment/tableSection'
 import { TableSpec } from '../../../webapp/sectionSpec'
 
 export const getTable = (props: { cycles: Array<string>; tableSpec: TableSpec; tableSection: TableSection }): Table => {
@@ -11,6 +11,7 @@ export const getTable = (props: { cycles: Array<string>; tableSpec: TableSpec; t
       name: tableSpec.name,
       unit: tableSpec.unit,
       odp: Boolean(tableSpec.odp),
+      dataExport: tableSpec.dataExport,
     },
     rows: [],
     tableSectionId: tableSection.id,

@@ -4,6 +4,7 @@ export interface TableProps {
   name: string
   odp?: boolean
   unit?: Unit
+  dataExport: boolean // TODO: check in the code which dataExport is used. TableSpec or SectionDef
 }
 
 export interface Table extends CycledPropsObject<TableProps> {
