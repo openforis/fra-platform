@@ -1,18 +1,19 @@
 import React, { useRef } from 'react'
-
-import { AssessmentName, Col, Row as TypeRow, RowType, Table as TableType } from '@meta/assessment'
-
-import ButtonTableExport from '@client/components/ButtonTableExport'
 // import CellOdpHeader from './CellOdpHeader'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { useCountryIso } from '@client/hooks'
+import { AssessmentName, Col, Row as TypeRow, RowType, Table as TableType } from '@meta/assessment'
 import { TableData } from '@meta/data'
-import * as DataTableUtils from '@client/pages/AssessmentSection/DataTable/utils'
+
+import { useAssessmentCountry, useCycle } from '@client/store/assessment'
 import { useOriginalDataPointYears, useShowOriginalDatapoints } from '@client/store/pages/assessmentSection/hooks'
+import { useCountryIso } from '@client/hooks'
 import { BasePaths } from '@client/basePaths'
-import { useCycle, useAssessmentCountry } from '@client/store/assessment'
+import ButtonTableExport from '@client/components/ButtonTableExport'
+import Tooltip from '@client/components/Tooltip'
+import * as DataTableUtils from '@client/pages/AssessmentSection/DataTable/utils'
+
 import Row from './Row'
 
 type Props = {
@@ -73,18 +74,20 @@ const Table: React.FC<Props> = (props) => {
 
                     if (isOdpHeader) {
                       return (
-                        <Link
-                          className="link"
-                          to={BasePaths.Assessment.OriginalDataPoint.section(
-                            countryIso,
-                            assessmentName,
-                            cycle.name,
-                            columnName,
-                            table.props.name
-                          )}
-                        >
-                          {columnName}
-                        </Link>
+                        <Tooltip text={i18n.t('nationalDataPoint.clickOnNDP')}>
+                          <Link
+                            className="link"
+                            to={BasePaths.Assessment.OriginalDataPoint.section(
+                              countryIso,
+                              assessmentName,
+                              cycle.name,
+                              columnName,
+                              table.props.name
+                            )}
+                          >
+                            {columnName}
+                          </Link>
+                        </Tooltip>
                       )
                     }
                     return columnName
