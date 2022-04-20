@@ -1,4 +1,5 @@
 import * as pgPromise from 'pg-promise'
+
 import { ProcessEnv } from '../utils/processEnv'
 
 const logger = {
@@ -31,6 +32,7 @@ const configCommon = {
   // Max number of clients in the pool
   max: 30,
   ssl: ProcessEnv.pgSsl ? { rejectUnauthorized: false } : false,
+  // ssl: { rejectUnauthorized: false },
 }
 
 const config = ProcessEnv.dbUrl

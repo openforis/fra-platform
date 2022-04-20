@@ -3,17 +3,20 @@ import { ITask } from 'pg-promise'
 
 import { Objects } from '../../../core/utils/objects'
 import { Assessment } from '../../../meta/assessment/assessment'
+import { Cycle } from '../../../meta/assessment/cycle'
 import { Table } from '../../../meta/assessment/table'
-
 import { DBNames } from '../_DBNames'
-import { _getNodeInserts } from './_getNodeInserts'
 import { getCreateViewDDL } from './_createDataViews'
-import { isBasicTable } from './_repos'
+import { _getNodeInserts } from './_getNodeInserts'
 import { _getNodeInsertsDegradedForest } from './_getNodeInsertsDegradedForest'
+import { isBasicTable } from './_repos'
 import { getNodeInsertsTableWithODP } from './getNodeInsertsTableWithODP'
 
-export const migrateTablesData = async (props: { assessment: Assessment }, client: ITask<any>): Promise<void> => {
-  const { assessment } = props
+export const migrateTablesData = async (
+  props: { assessment: Assessment; cycle: Cycle },
+  client: ITask<any>
+): Promise<void> => {
+  const { assessment, cycle } = props
   const schema = DBNames.getAssessmentSchema(assessment.props.name)
 
   const countryISOs = await client.map<string>(`select * from public.country`, [], (o) => o.country_iso)
@@ -107,7 +110,7 @@ export const migrateTablesData = async (props: { assessment: Assessment }, clien
     ))
   )
   // insert nodes
-  const schemaCycle = DBNames.getCycleSchema(assessment.props.name, assessment.cycles[0].name)
+  const schemaCycle = DBNames.getCycleSchema(assessment.props.name, cycle.name)
   const pgp = pgPromise()
   const cs = new pgp.helpers.ColumnSet(['country_iso', 'row_uuid', 'col_uuid', { name: 'value', cast: 'jsonb' }], {
     table: { table: 'node', schema: schemaCycle },

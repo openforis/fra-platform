@@ -1,8 +1,9 @@
 import { CountryIso } from '@meta/area'
 import { Assessment, Cycle } from '@meta/assessment'
 import { MessageTopic } from '@meta/messageCenter'
+
 import { BaseProtocol, DB } from '@server/db'
-import { MessageTopicRepository } from '@server/repository/public/messageTopic'
+import { MessageTopicRepository } from '@server/repository/assessmentCycle/messageTopic'
 
 export const getTopic = async (
   props: {
