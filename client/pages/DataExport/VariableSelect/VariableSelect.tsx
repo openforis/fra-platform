@@ -5,7 +5,7 @@ import { useParams } from 'react-router'
 
 import { Objects } from '@core/utils'
 
-import { AssessmentName, Row, Table } from '@meta/assessment'
+import { AssessmentName } from '@meta/assessment'
 import { useAppDispatch } from '@client/store'
 import { useTableSections } from '@client/store/pages/assessmentSection'
 import { DataExportActions, DataExportSelection, useDataExportSelection } from '@client/store/pages/dataExport'
@@ -31,12 +31,9 @@ const VariableSelect: React.FC = () => {
 
   const tableSections = useTableSections({ sectionName: assessmentSection })
   if (Objects.isEmpty(tableSections)) return null
-  const { tables } = tableSections[1]
-  // const tables = tableSections.reduce((prev: Array<Table>, curr: TableSection) => [...prev, ...curr.tables], [])
-  const variables = tables.reduce(
-    (prev: Array<Row>, curr: Table) => [...prev, ...curr.rows.filter((row) => !!row.props.variableName)],
-    []
-  )
+  const { tables } = tableSections.find((tableSection) => tableSection.tables.find((table) => table.props.dataExport))
+  const table = tables.find((table) => table.props.dataExport)
+  const variables = table.rows.filter((row) => !!row.props.variableName)
 
   const updateSelection = (variablesUpdate: Array<string>): void => {
     const selectionUpdate: DataExportSelection = {
