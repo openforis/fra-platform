@@ -156,6 +156,56 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
                   on update cascade on delete cascade,
           unique (country_iso, region_code)
       );
+      
+      create table ${assessmentCycleSchemaName}.message_topic
+      (
+          id            bigserial                             not null
+              constraint message_topic_pk
+                  primary key,
+          country_iso   varchar(3)                            not null
+              constraint message_topic_country_country_iso_fk
+                  references country
+                  on update cascade on delete cascade,
+          key           varchar(256)                          not null,
+          status        message_topic_status default 'opened' not null,
+          type          message_topic_type                    not null
+      );
+      
+      create unique index message_topic_country_iso_key_uindex
+          on ${assessmentCycleSchemaName}.message_topic (country_iso, key);
+      
+      create table ${assessmentCycleSchemaName}.message
+      (
+          id           bigserial                 not null
+              constraint message_pk primary key,
+          topic_id     bigint                    not null
+              constraint message_message_topic_id_fk
+                  references ${assessmentCycleSchemaName}.message_topic
+                  on update cascade on delete cascade,
+          user_id      bigint                    not null
+              constraint message_users_id_fk
+                  references users
+                  on update cascade on delete cascade,
+          message      text                      not null,
+          deleted      boolean     default false not null,
+          created_time timestamptz default now() not null
+      );
+      
+      create table ${assessmentCycleSchemaName}.message_topic_user
+      (
+          id             bigserial                 not null
+              constraint message_topic_user_pk
+                  primary key,
+          topic_id       bigint                    not null
+              constraint message_topic_user_message_topic_id_fk
+                  references ${assessmentCycleSchemaName}.message_topic
+                  on update cascade on delete cascade,
+          user_id        bigint                    not null
+              constraint message_topic_user_users_id_fk
+                  references users
+                  on update cascade on delete cascade,
+          last_open_time timestamptz default now() not null
+      );
   `
 }
 

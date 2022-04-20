@@ -1,12 +1,15 @@
 import { Request, Response } from 'express'
-import Requests from '@server/utils/requests'
-import { MessageCenterController } from '@server/controller/messageCenter'
-import { CountryIso } from '@core/country'
+
+import { CountryIso } from '@meta/area'
+import { MessageTopicType } from '@meta/messageCenter'
+
 import { AssessmentController } from '@server/controller/assessment'
+import { MessageCenterController } from '@server/controller/messageCenter'
+import Requests from '@server/utils/requests'
 
 export const addMessage = async (req: Request, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName, key } = <Record<string, string>>req.query
+    const { countryIso, assessmentName, cycleName, key, type } = <Record<string, string>>req.query
     const { message } = req.body
     const user = Requests.getRequestUser(req)
 
@@ -22,6 +25,7 @@ export const addMessage = async (req: Request, res: Response) => {
       assessment,
       cycle,
       key,
+      type: type as MessageTopicType,
     })
 
     Requests.sendOk(res)
