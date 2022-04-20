@@ -3,18 +3,15 @@ import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 import { useParams } from 'react-router'
 
-import { Objects } from '@core/utils'
-
-import { AssessmentName, Col, Cols, ColType, Row } from '@meta/assessment'
+import { AssessmentName } from '@meta/assessment'
 import { useAppDispatch } from '@client/store'
-import { useTableSections } from '@client/store/pages/assessmentSection'
 import { DataExportActions, DataExportSelection, useDataExportSelection } from '@client/store/pages/dataExport'
 import { DataExportActionType } from '@client/store/pages/dataExport/actionTypes'
 import ButtonCheckBox from '@client/components/ButtonCheckBox'
 import { getColumnLabelKeys } from '@client/pages/DataExport/utils'
 import { Breakpoints } from '@client/utils/breakpoints'
 
-const ColumnSelect: React.FC = () => {
+const ColumnSelect: React.FC<{ columns: Array<string> }> = ({ columns }) => {
   const dispatch = useAppDispatch()
   const i18n = useTranslation()
   const { assessmentName, section: assessmentSection } = useParams<{
@@ -23,17 +20,6 @@ const ColumnSelect: React.FC = () => {
   }>()
   const selection = useDataExportSelection(assessmentSection)
   const selectionColumns = selection.sections[assessmentSection].columns
-
-  const tableSections = useTableSections({ sectionName: assessmentSection })
-  if (Objects.isEmpty(tableSections)) return null
-  const { tables } = tableSections.find((tableSection) => tableSection.tables.find((table) => table.props.dataExport))
-  const { rows } = tables.find((table) => table.props.dataExport)
-  const cols = rows.reduce(
-    (prev: Array<Col>, curr: Row) => [...prev, ...curr.cols.filter((col) => col.props.colType !== ColType.header)],
-    []
-  )
-  const colIndexes = Cols.getColIndexes({ rows, cols })
-  const columns = colIndexes.map((colIdx) => Cols.getColName({ colIdx, cols }))
 
   const updateSelection = (columnsUpdate: Array<string>): void => {
     const selectionUpdate: DataExportSelection = {
