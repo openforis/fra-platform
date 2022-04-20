@@ -1,7 +1,6 @@
 import './DataExport.scss'
 import React, { useEffect } from 'react'
 
-// import { useParams } from 'react-router'
 import { Objects } from '@core/utils'
 
 import { useAppDispatch } from '@client/store'
@@ -30,7 +29,9 @@ const DataExport: React.FC = () => {
   //   !Objects.isEmpty(selection.sections[assessmentSection].variables)
 
   useEffect(() => {
-    dispatch(DataExportActions.reset())
+    return () => {
+      dispatch(DataExportActions.reset())
+    }
   }, [countryIso])
 
   if (Objects.isEmpty(countries)) return null

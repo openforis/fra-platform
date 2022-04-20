@@ -1,4 +1,4 @@
-import { createSlice, Reducer } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 import { DataExportCountriesAction, DataExportSelectionAction } from './actionTypes'
 // import { AppActions } from '@webapp/store/app'
@@ -50,4 +50,4 @@ export const DataExportActions = {
   ...dataExportSlice.actions,
 }
 
-export default dataExportSlice.reducer as Reducer<DataExportState>
+export default dataExportSlice.reducer

@@ -16,9 +16,9 @@ export enum RowType {
 }
 
 export interface RowLabel {
-  labelKey?: string
-  labelPrefixKey?: string
-  labelParams?: Record<string, string>
+  key?: string
+  prefix?: string
+  params?: Record<string, string>
 }
 
 export interface RowProps {
