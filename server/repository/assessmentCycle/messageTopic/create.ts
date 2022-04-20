@@ -1,9 +1,10 @@
 import { Objects } from '@core/utils'
-import { BaseProtocol, DB, Schemas } from '@server/db'
 
 import { CountryIso } from '@meta/area'
 import { Assessment, Cycle } from '@meta/assessment'
 import { MessageTopic, MessageTopicType } from '@meta/messageCenter'
+
+import { BaseProtocol, DB, Schemas } from '@server/db'
 
 export const create = async (
   props: { countryIso: CountryIso; assessment: Assessment; cycle: Cycle; key: string; type: MessageTopicType },

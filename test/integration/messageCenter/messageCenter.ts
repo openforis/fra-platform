@@ -1,6 +1,3 @@
-import { AssessmentController } from '@server/controller/assessment'
-import { MessageCenterController } from '@server/controller/messageCenter'
-import { UserController } from '@server/controller/user'
 import { assessmentCycleName, assessmentParams } from '@test/integration/mock/assessment'
 import { userMockTest } from '@test/integration/mock/user'
 
@@ -8,6 +5,10 @@ import { CountryIso } from '@meta/area'
 import { Assessment, Cycle } from '@meta/assessment'
 import { MessageTopicType } from '@meta/messageCenter'
 import { User } from '@meta/user'
+
+import { AssessmentController } from '@server/controller/assessment'
+import { MessageCenterController } from '@server/controller/messageCenter'
+import { UserController } from '@server/controller/user'
 
 export default (): void =>
   describe('Message topic tests', () => {

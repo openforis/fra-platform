@@ -1,11 +1,12 @@
-import { AssessmentController } from '@server/controller/assessment'
-import { Requests } from '@server/utils'
 import { NextFunction, Request, Response } from 'express'
 
 import { CountryIso } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
 import { MessageTopicType } from '@meta/messageCenter'
 import { Authorizer, Users } from '@meta/user'
+
+import { AssessmentController } from '@server/controller/assessment'
+import { Requests } from '@server/utils'
 
 const _next = (allowed: boolean, next: NextFunction): void => {
   if (allowed) return next()

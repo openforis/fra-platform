@@ -3,14 +3,14 @@ import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 import { useParams } from 'react-router'
 
-import { Areas, Country } from '@meta/area'
 import { Functions, Strings } from '@core/utils'
-import { DataExportActions, useDataExportCountries, useDataExportSelection } from '@client/store/pages/dataExport'
-import { Breakpoints } from '@client/utils/breakpoints'
 
-import ButtonCheckBox from '@client/components/ButtonCheckBox'
+import { Areas, Country } from '@meta/area'
 import { useAppDispatch } from '@client/store'
+import { DataExportActions, useDataExportCountries, useDataExportSelection } from '@client/store/pages/dataExport'
 import { DataExportActionType } from '@client/store/pages/dataExport/actionTypes'
+import ButtonCheckBox from '@client/components/ButtonCheckBox'
+import { Breakpoints } from '@client/utils/breakpoints'
 
 const CountrySelect: React.FC = () => {
   const dispatch = useAppDispatch()
