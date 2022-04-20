@@ -5,21 +5,16 @@ import { useParams } from 'react-router'
 
 import { Objects } from '@core/utils'
 
-import { AssessmentName, Row, Table } from '@meta/assessment'
+import { AssessmentName, Col, Row, Table } from '@meta/assessment'
 import { useAppDispatch } from '@client/store'
 import { useTableSections } from '@client/store/pages/assessmentSection'
 import { DataExportActions, DataExportSelection, useDataExportSelection } from '@client/store/pages/dataExport'
 import { DataExportActionType } from '@client/store/pages/dataExport/actionTypes'
 import ButtonCheckBox from '@client/components/ButtonCheckBox'
-import { getVariableLabelKey } from '@client/pages/DataExport/utils'
+import { getColumnLabelKeys } from '@client/pages/DataExport/utils'
 import { Breakpoints } from '@client/utils/breakpoints'
 
-const Heading: Record<string, string> = {
-  [AssessmentName.fra]: 'common.variable',
-  [AssessmentName.panEuropean]: 'panEuropean.variable',
-}
-
-const VariableSelect: React.FC = () => {
+const ColumnSelect: React.FC = () => {
   const dispatch = useAppDispatch()
   const i18n = useTranslation()
   const { assessmentName, section: assessmentSection } = useParams<{
@@ -27,7 +22,10 @@ const VariableSelect: React.FC = () => {
     section: string
   }>()
   const selection = useDataExportSelection(assessmentSection)
-  const selectionVariables = selection.sections[assessmentSection].variables
+  const selectionColumns = selection.sections[assessmentSection].columns
+
+  // const tableSpec = SectionSpecs.getTableSpecExport(assessmentType, assessmentSection)
+  // const columns = tableSpec.columnsExport ?? []
 
   const tableSections = useTableSections({ sectionName: assessmentSection })
   if (Objects.isEmpty(tableSections)) return null
@@ -38,14 +36,20 @@ const VariableSelect: React.FC = () => {
     []
   )
 
-  const updateSelection = (variablesUpdate: Array<string>): void => {
+  const { cols } = variables[0]
+  // const cols = variables.reduce((prev: Array<Col>, curr: Row) => [...prev, ...curr.cols], [])
+  const columns = cols
+    .filter((column) => column.props.colType !== 'header')
+    .reduce((prev: Array<string>, curr: Col) => [...prev, curr.props.colName], [])
+
+  const updateSelection = (columnsUpdate: Array<string>): void => {
     const selectionUpdate: DataExportSelection = {
       ...selection,
       sections: {
         ...selection.sections,
         [assessmentSection]: {
           ...selection.sections[assessmentSection],
-          variables: variablesUpdate,
+          columns: columnsUpdate,
         },
       },
     }
@@ -60,41 +64,32 @@ const VariableSelect: React.FC = () => {
 
   return (
     <div className="export__form-section">
-      <div className="export__form-section-header">
-        <h4>{i18n.t(Heading[assessmentName])}</h4>
+      <div className="export__form-section-header select-all">
+        <h4>{i18n.t('common.column')}</h4>
         <ButtonCheckBox
           className="btn-all"
-          checked={selectionVariables.length > 0 && selectionVariables.length === variables.length}
-          label={selectionVariables.length > 0 ? 'common.unselectAll' : 'common.selectAll'}
-          onClick={() => {
-            updateSelection(
-              selection.sections[assessmentSection].variables.length > 0
-                ? []
-                : variables.map((v) => v.props.variableName)
-            )
-          }}
+          checked={selectionColumns.length > 0 && selectionColumns.length === columns.length}
+          label={selectionColumns.length > 0 ? 'common.unselectAll' : 'common.selectAll'}
+          onClick={() =>
+            updateSelection(selection.sections[assessmentSection].columns.length > 0 ? [] : columns.map(String))
+          }
         />
       </div>
 
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
         <select
           multiple
-          value={selectionVariables}
+          value={selectionColumns}
           onChange={(event) => {
-            const variablesUpdate = Array.from(event.target.selectedOptions, (option) => {
-              return String(option.value)
-            })
-            updateSelection(variablesUpdate)
+            const columnsUpdate = Array.from(event.target.selectedOptions, (option) => String(option.value))
+            updateSelection(columnsUpdate)
           }}
         >
-          {variables.map((variable) => {
-            const { variableName } = variable.props
-            const { labelKey, labelParams, labelPrefixKey } = variable.props.label
-            const label = getVariableLabelKey(labelKey)
-
+          {columns.map((column: string) => {
+            const label = getColumnLabelKeys(column, assessmentSection, assessmentName)
             return (
-              <option key={variableName} value={variableName}>
-                {`${labelPrefixKey ? i18n.t(labelPrefixKey) : ''}${i18n.t(label, labelParams)}`}
+              <option key={column} value={column}>
+                {i18n.t(label)}
               </option>
             )
           })}
@@ -104,24 +99,21 @@ const VariableSelect: React.FC = () => {
         <>
           <div className="divider" />
           <div className="export__form-section-variables">
-            {variables.map((variable) => {
-              const { variableName } = variable.props
-              const { labelKey, labelParams, labelPrefixKey } = variable.props.label
-              const label = getVariableLabelKey(labelKey)
-              const selected = selectionVariables.includes(variableName)
+            {columns.map((column: string) => {
+              const selected = selectionColumns.includes(column)
+              const label = getColumnLabelKeys(column, assessmentSection, assessmentName)
 
               return (
                 <ButtonCheckBox
-                  key={variableName}
+                  key={column}
                   checked={selected}
-                  label={[labelPrefixKey, label]}
-                  labelParam={labelParams}
+                  label={label}
                   onClick={() => {
-                    const variablesUpdate = [...selectionVariables]
-                    if (selected) variablesUpdate.splice(variablesUpdate.indexOf(variableName), 1)
-                    else variablesUpdate.push(variableName)
+                    const columnsUpdate = [...selectionColumns]
+                    if (selected) columnsUpdate.splice(columnsUpdate.indexOf(column), 1)
+                    else columnsUpdate.push(column)
 
-                    updateSelection(variablesUpdate)
+                    updateSelection(columnsUpdate)
                   }}
                 />
               )
@@ -133,4 +125,4 @@ const VariableSelect: React.FC = () => {
   )
 }
 
-export default VariableSelect
+export default ColumnSelect

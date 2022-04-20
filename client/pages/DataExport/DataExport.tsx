@@ -9,9 +9,9 @@ import { useAppDispatch } from '@client/store'
 import { DataExportActions, useDataExportCountries } from '@client/store/pages/dataExport'
 import { useCountryIso } from '@client/hooks'
 
+import ColumnSelect from './ColumnSelect'
 import CountrySelect from './CountrySelect'
 import VariableSelect from './VariableSelect'
-// import ColumnSelect from './ColumnSelect'
 // import ResultsTable from './ResultsTable'
 
 const DataExport: React.FC = () => {
@@ -40,7 +40,7 @@ const DataExport: React.FC = () => {
       <div className="export__form">
         <CountrySelect />
         <VariableSelect />
-        {/* <ColumnSelect /> */}
+        <ColumnSelect />
       </div>
 
       {/* {hasSelection && <ResultsTable />} */}
