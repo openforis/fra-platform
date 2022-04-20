@@ -32,6 +32,10 @@ export interface RowProps {
     color: string
   }
   label?: RowLabel
+  format?: {
+    integer?: boolean
+  }
+  readonly?: boolean
 }
 
 export interface Row extends CycledPropsObject<RowProps> {

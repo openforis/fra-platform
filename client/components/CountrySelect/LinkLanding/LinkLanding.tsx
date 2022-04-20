@@ -15,14 +15,14 @@ const LinkLanding: React.FC = () => {
   const sections = useCountryLandingSections()
   const assessment = useAssessment()
   const cycle = useCycle()
-  const assessmentType = assessment.props.name
+  const assessmentType = assessment?.props?.name
 
   const isActive = (match: any) =>
-    match && (match.isExact || sections.find((section: any) => location.pathname.indexOf(section.name) > 0))
+    match && (match.isExact || sections.find((section: any) => location.pathname.indexOf(section?.name) > 0))
 
   return (
     <NavLink
-      to={BasePaths.Assessment.root(countryIso, assessmentType, cycle.name)}
+      to={BasePaths.Assessment.root(countryIso, assessmentType, cycle?.name)}
       className="country-selection-link-landing"
       activeClassName="selected"
       isActive={isActive}

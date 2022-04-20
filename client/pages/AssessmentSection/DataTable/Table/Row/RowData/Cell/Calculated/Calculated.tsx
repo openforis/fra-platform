@@ -1,18 +1,12 @@
 import React from 'react'
 
+import { Numbers } from '@core/utils'
+
 import { PropsCell } from '../props'
 
-// TODO Support props
-// const Calculated: React.FC<PropsCell> = (props) => {
-const Calculated: React.FC<PropsCell> = () => {
-  // const { col, rowIdx } = props
-  // TODO
-  // const { calculateFn, formatFn } = col
-
-  // const value = useSelector(calculateFn(col.props.index as number, rowIdx))
-  //
-  // return <div>{formatFn(value)}</div>
-  return <div />
+const Calculated: React.FC<PropsCell> = (props) => {
+  const { datum, row } = props
+  return <div>{Numbers.format(Number(datum), row.props?.format?.integer ? 0 : 2)}</div>
 }
 
 export default Calculated

@@ -3,8 +3,10 @@ import { CycledPropsObject, Row, Unit } from './index'
 export interface TableProps {
   name: string
   odp?: boolean
+  print?: { pageBreakAfter: boolean }
+  secondary?: boolean
   unit?: Unit
-  dataExport: boolean // TODO: check in the code which dataExport is used. TableSpec or SectionDef
+  dataExport: boolean
 }
 
 export interface Table extends CycledPropsObject<TableProps> {

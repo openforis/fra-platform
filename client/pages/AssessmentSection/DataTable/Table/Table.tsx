@@ -37,8 +37,7 @@ const Table: React.FC<Props> = (props) => {
   const [printView] = [false] // usePrintView()
 
   const countryIso = useCountryIso()
-  const odp = table.props.odp === true
-  const secondary = false // todo: missing table.props.secondary === true
+  const { odp, secondary } = table.props
   const rowsHeader = rows.filter((row) => row.props.type === RowType.header)
   const rowsData = rows.filter((row) => row.props.type !== RowType.header)
   const tableRef = useRef<HTMLTableElement>(null)
@@ -57,8 +56,7 @@ const Table: React.FC<Props> = (props) => {
             {rowsHeader.map((row: TypeRow, rowIndex: number) => (
               <tr key={row.uuid}>
                 {row.cols.map((col: Col, colIndex: number) => {
-                  const { index, /* idx, className, */ colSpan, rowSpan, labelKey /* labelParams,  label */ } =
-                    col.props
+                  const { index, /* idx, className, */ colSpan, rowSpan, label /* labelParams,  label */ } = col.props
                   const columnName = headers[colIndex]
 
                   let isOdpHeader = showOriginalDatapoints && table.props.odp && odpYears?.includes(columnName)
@@ -67,10 +65,7 @@ const Table: React.FC<Props> = (props) => {
                     isOdpHeader = isOdpHeader && country.props.forestCharacteristics.useOriginalDataPoint
 
                   const getColumnName = () => {
-                    if (labelKey)
-                      return i18n.t(labelKey, {
-                        /* labelParams */
-                      })
+                    if (label?.key) return i18n.t(label?.key, label?.params)
 
                     if (isOdpHeader) {
                       return (

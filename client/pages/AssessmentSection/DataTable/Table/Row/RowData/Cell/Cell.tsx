@@ -60,6 +60,7 @@ const Cell: React.FC<Props> = (props) => {
           col,
           rowIndex,
           onChange,
+          row,
           onPaste: disabled ? () => ({}) : onPaste,
         })}
     </td>

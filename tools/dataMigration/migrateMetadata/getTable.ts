@@ -12,9 +12,13 @@ export const getTable = (props: { cycles: Array<string>; tableSpec: TableSpec; t
       unit: tableSpec.unit,
       odp: Boolean(tableSpec.odp),
       dataExport: tableSpec.dataExport,
+      secondary: tableSpec.secondary,
     },
     rows: [],
     tableSectionId: tableSection.id,
+  }
+  if (tableSpec.print?.pageBreakAfter) {
+    table.props.print = { pageBreakAfter: tableSpec.print.pageBreakAfter }
   }
   return table
 }
