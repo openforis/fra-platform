@@ -1,12 +1,14 @@
-import { useParams } from 'react-router-dom'
+import { useParams, useRouteMatch } from 'react-router-dom'
+
 import { CountryIso } from '@meta/area'
+
 import { useIsHome, useIsLogin } from '@client/hooks/useIsPath'
 
 export const useCountryIso = (): CountryIso => {
-  // TODO: get this from store if not in url
   const { countryIso } = useParams<{ countryIso: CountryIso }>()
+  const match: { params: { countryIso?: CountryIso } } = useRouteMatch({ path: '/:countryIso', strict: true })
 
   if (useIsHome() || useIsLogin()) return null
 
-  return countryIso
+  return countryIso ?? match.params.countryIso
 }
