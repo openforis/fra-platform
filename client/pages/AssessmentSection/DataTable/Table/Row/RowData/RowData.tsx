@@ -1,6 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import classNames from 'classnames'
+
 import { Topics } from '@meta/messageCenter'
 
 import { useTopicKeys } from '@client/store/ui/messageCenter/hooks'
@@ -29,12 +31,16 @@ const RowData: React.FC<Props> = (props) => {
   const colHeaderValue = `${colHeaderLabel}` // `${colHeaderLabel}${colHeader.variableNo ? ` (${colHeader.variableNo})` : ''}`
 
   const openTopics = useTopicKeys()
-  const className = openTopics.includes(row.uuid) ? 'fra-row-comments__open' : ''
-
+  const headerCell = row.props.readonly || row.props.calculateFn || row.cols.find((c) => c.props.calculateFn)
+  const subcategory = colHeaderValue.includes(`…`)
   return (
-    <tr className={className}>
+    <tr className={openTopics.includes(row.uuid) ? 'fra-row-comments__open' : ''}>
       <th
-        className={`fra-table__${colHeaderValue.includes(`…`) ? 'sub' : ''}category-cell`}
+        className={classNames({
+          'fra-table__subcategory-cell': subcategory,
+          'fra-table__category-cell': !subcategory && !headerCell,
+          'fra-table__header-cell-left': !subcategory && headerCell,
+        })}
         colSpan={colHeader.props.colSpan}
         rowSpan={colHeader.props.rowSpan}
       >

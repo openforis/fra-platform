@@ -13,6 +13,7 @@ export const getRow = (props: { cycles: Array<string>; rowSpec: RowSpec; table: 
       type: rowSpec.type as unknown as RowType,
       variableName: rowSpec.variableName, // ?? rowSpec.variableExport,
       calculateFn: rowSpec.migration?.calcFormula,
+      readonly: rowSpec.migration?.readonly,
     },
     cols: [],
     tableId: table.id,

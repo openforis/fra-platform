@@ -128,6 +128,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableName: 'totalLandArea',
                 // variableName: 'faoStat',
                 variableExport: 'total_land_area',
+                migration: {
+                  readonly: true,
+                },
               },
               {
                 idx: 4,

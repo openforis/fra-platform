@@ -35,5 +35,6 @@ export interface RowSpec {
     calcFormula?: string
     colNames?: Array<string>
     format?: { integer?: boolean }
+    readonly?: boolean
   }
 }

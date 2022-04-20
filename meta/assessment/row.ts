@@ -35,6 +35,7 @@ export interface RowProps {
   format?: {
     integer?: boolean
   }
+  readonly?: boolean
 }
 
 export interface Row extends CycledPropsObject<RowProps> {
