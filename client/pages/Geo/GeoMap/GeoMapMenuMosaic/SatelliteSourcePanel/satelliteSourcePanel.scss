@@ -1,0 +1,32 @@
+@import 'client/style/partials';
+
+.geo-map-menu-mosaic-satellite-panel {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 15px 30px;
+
+  > div {
+    flex-direction: row;
+    margin: 15px 0 0 0;
+    height: 50px;
+
+    > p {
+      font-size: $font-xl;
+      text-justify: left;
+      width: 150px;
+      font-weight: bold;
+      margin: 0 0 0 0;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    > div {
+      display: inline-block;
+      vertical-align: middle;
+
+      > input {
+        width: 200px;
+      }
+    }
+  }
+}
