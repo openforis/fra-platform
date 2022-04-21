@@ -1,9 +1,17 @@
 import React from 'react'
-
 import { useTranslation } from 'react-i18next'
-import ReviewIndicator from '@client/components/ReviewIndicator'
-import { useTopicKeys } from '@client/store/ui/messageCenter/hooks'
+import { Link } from 'react-router-dom'
+
+import classNames from 'classnames'
+
 import { Topics } from '@meta/messageCenter'
+
+import { useCycle } from '@client/store/assessment'
+import { useTopicKeys } from '@client/store/ui/messageCenter/hooks'
+import { useCountryIso } from '@client/hooks'
+import { BasePaths } from '@client/basePaths'
+import ReviewIndicator from '@client/components/ReviewIndicator'
+
 import { Props } from '../props'
 // import useClassName from './useClassName'
 import Cell from './Cell'
@@ -13,43 +21,47 @@ const RowData: React.FC<Props> = (props) => {
   const { data, assessmentName, sectionName, table, row, disabled } = props
 
   const i18n = useTranslation()
+  const countryIso = useCountryIso()
+  const cycle = useCycle()
 
-  // const { name: tableName /* odp, secondary */ } = table.props
-  const secondary = false
+  const { secondary } = table.props
   const { cols } = row
   // const { index /* variableName */ } = row.props
   const colHeader = cols[0]
   // const colHeaderLabel = colHeader.label ? colHeader.label : i18n.t(colHeader.labelKey, colHeader.labelParams)
-  const colHeaderLabel = i18n.t(colHeader.props.labelKey)
+  const colHeaderLabel = i18n.t(colHeader.props.label?.key, colHeader.props.label?.params ?? {})
   const colsData = cols.slice(1, cols.length)
   // const reviewTarget = [tableName, 'row', `${index}`]
   // const className = useClassName(reviewTarget)
   const colHeaderValue = `${colHeaderLabel}` // `${colHeaderLabel}${colHeader.variableNo ? ` (${colHeader.variableNo})` : ''}`
 
   const openTopics = useTopicKeys()
-  const className = openTopics.includes(row.uuid) ? 'fra-row-comments__open' : ''
-
+  const headerCell = row.props.readonly || row.props.calculateFn || cols.find((c) => c.props.calculateFn)
+  const subcategory = colHeaderValue.includes(`…`)
   return (
-    <tr className={className}>
+    <tr className={openTopics.includes(row.uuid) ? 'fra-row-comments__open' : ''}>
       <th
-        className={`fra-table__${colHeaderValue.includes(`…`) ? 'sub' : ''}category-cell`}
+        className={classNames({
+          'fra-table__subcategory-cell': subcategory,
+          'fra-table__category-cell': !subcategory && !headerCell,
+          'fra-table__header-cell-left': !subcategory && headerCell,
+        })}
         colSpan={colHeader.props.colSpan}
         rowSpan={colHeader.props.rowSpan}
       >
-        {/* {colHeader.linkToSection ? ( */}
-        {/*  <> */}
-        {/*    <div className="only-print">{colHeaderValue}</div> */}
-        {/*    <Link */}
-        {/*      to={BasePaths.getAssessmentSectionLink(countryIso, assessmentName, colHeader.linkToSection)} */}
-        {/*      className="link no-print" */}
-        {/*    > */}
-        {/*      {colHeaderValue} */}
-        {/*    </Link> */}
-        {/*  </> */}
-        {/* ) : ( */}
-        {/*  colHeaderValue */}
-        {/* )} */}
-        {colHeaderValue}
+        {row.props.linkToSection ? (
+          <>
+            {/* TODO - print view <div className="only-print">{colHeaderValue}</div> */}
+            <Link
+              to={BasePaths.Assessment.section(countryIso, assessmentName, cycle.name, row.props.linkToSection)}
+              className="link no-print"
+            >
+              {colHeaderValue}
+            </Link>
+          </>
+        ) : (
+          colHeaderValue
+        )}
       </th>
       {/* TODO Handle odp */}
       {/* {odp */}

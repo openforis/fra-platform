@@ -1,18 +1,19 @@
 import React, { useRef } from 'react'
-
-import { AssessmentName, Col, Row as TypeRow, RowType, Table as TableType } from '@meta/assessment'
-
-import ButtonTableExport from '@client/components/ButtonTableExport'
 // import CellOdpHeader from './CellOdpHeader'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { useCountryIso } from '@client/hooks'
+import { AssessmentName, Col, Row as TypeRow, RowType, Table as TableType } from '@meta/assessment'
 import { TableData } from '@meta/data'
-import * as DataTableUtils from '@client/pages/AssessmentSection/DataTable/utils'
+
+import { useAssessmentCountry, useCycle } from '@client/store/assessment'
 import { useOriginalDataPointYears, useShowOriginalDatapoints } from '@client/store/pages/assessmentSection/hooks'
+import { useCountryIso } from '@client/hooks'
 import { BasePaths } from '@client/basePaths'
-import { useCycle, useAssessmentCountry } from '@client/store/assessment'
+import ButtonTableExport from '@client/components/ButtonTableExport'
+import Tooltip from '@client/components/Tooltip'
+import * as DataTableUtils from '@client/pages/AssessmentSection/DataTable/utils'
+
 import Row from './Row'
 
 type Props = {
@@ -36,8 +37,7 @@ const Table: React.FC<Props> = (props) => {
   const [printView] = [false] // usePrintView()
 
   const countryIso = useCountryIso()
-  const odp = table.props.odp === true
-  const secondary = false // todo: missing table.props.secondary === true
+  const { odp, secondary } = table.props
   const rowsHeader = rows.filter((row) => row.props.type === RowType.header)
   const rowsData = rows.filter((row) => row.props.type !== RowType.header)
   const tableRef = useRef<HTMLTableElement>(null)
@@ -56,8 +56,7 @@ const Table: React.FC<Props> = (props) => {
             {rowsHeader.map((row: TypeRow, rowIndex: number) => (
               <tr key={row.uuid}>
                 {row.cols.map((col: Col, colIndex: number) => {
-                  const { index, /* idx, className, */ colSpan, rowSpan, labelKey /* labelParams,  label */ } =
-                    col.props
+                  const { index, /* idx, className, */ colSpan, rowSpan, label /* labelParams,  label */ } = col.props
                   const columnName = headers[colIndex]
 
                   let isOdpHeader = showOriginalDatapoints && table.props.odp && odpYears?.includes(columnName)
@@ -66,25 +65,24 @@ const Table: React.FC<Props> = (props) => {
                     isOdpHeader = isOdpHeader && country.props.forestCharacteristics.useOriginalDataPoint
 
                   const getColumnName = () => {
-                    if (labelKey)
-                      return i18n.t(labelKey, {
-                        /* labelParams */
-                      })
+                    if (label?.key) return i18n.t(label?.key, label?.params)
 
                     if (isOdpHeader) {
                       return (
-                        <Link
-                          className="link"
-                          to={BasePaths.Assessment.OriginalDataPoint.section(
-                            countryIso,
-                            assessmentName,
-                            cycle.name,
-                            columnName,
-                            table.props.name
-                          )}
-                        >
-                          {columnName}
-                        </Link>
+                        <Tooltip text={i18n.t('nationalDataPoint.clickOnNDP')}>
+                          <Link
+                            className="link"
+                            to={BasePaths.Assessment.OriginalDataPoint.section(
+                              countryIso,
+                              assessmentName,
+                              cycle.name,
+                              columnName,
+                              table.props.name
+                            )}
+                          >
+                            {columnName}
+                          </Link>
+                        </Tooltip>
                       )
                     }
                     return columnName

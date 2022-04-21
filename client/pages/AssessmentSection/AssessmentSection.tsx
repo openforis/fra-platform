@@ -1,19 +1,18 @@
+import './AssessmentSection.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router'
 
+import { AssessmentName } from '@meta/assessment'
+
 import { useAssessmentSection } from '@client/store/assessment'
 import { useTableSections } from '@client/store/pages/assessmentSection'
 import { useCanEditSection } from '@client/store/user'
-import { AssessmentName } from '@meta/assessment'
 
 import DataTable from './DataTable'
-// import SectionHeader from './SectionHeader'
-// import Descriptions from './Descriptions'
 import Descriptions, { GeneralComments } from './Descriptions'
 import SectionHeader from './SectionHeader'
 import Title from './Title'
-import './AssessmentSection.scss'
 
 const AssessmentSection: React.FC = () => {
   const { i18n } = useTranslation()
@@ -46,15 +45,14 @@ const AssessmentSection: React.FC = () => {
 
       {tableSections.map((tableSection) => (
         <div key={String(tableSection.id)}>
-          {/* // TODO Missing metadata */}
-          {/* {tableSection.titleKey && ( */}
-          {/*  <h3 className="subhead assessment-section__table-title">{i18n.t(tableSection.titleKey)}</h3> */}
-          {/* )} */}
-          {/* {tableSection.descriptionKey && ( */}
-          {/*  <div className="app-view__section-toolbar no-print"> */}
-          {/*    <div className="support-text">{i18n.t(tableSection.descriptionKey)}</div> */}
-          {/*  </div> */}
-          {/* )} */}
+          {tableSection.props.labelKey && (
+            <h3 className="subhead assessment-section__table-title">{i18n.t(tableSection.props.labelKey)}</h3>
+          )}
+          {tableSection.props.descriptionKey && (
+            <div className="app-view__section-toolbar no-print">
+              <div className="support-text">{i18n.t(tableSection.props.descriptionKey)}</div>
+            </div>
+          )}
 
           {tableSection.tables.map((table) => (
             <React.Fragment key={table.props.name}>
@@ -65,7 +63,7 @@ const AssessmentSection: React.FC = () => {
                 table={table}
                 disabled={disabled}
               />
-              {/* {table.props.print.pageBreakAfter && <div className="page-break" />} */}
+              {table.props.print?.pageBreakAfter && <div className="page-break" />}
             </React.Fragment>
           ))}
         </div>

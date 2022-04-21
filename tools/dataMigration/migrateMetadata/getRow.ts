@@ -4,15 +4,17 @@ import { RowSpec } from '../../../webapp/sectionSpec'
 
 export const getRow = (props: { cycles: Array<string>; rowSpec: RowSpec; table: Table }): Row => {
   const { cycles, rowSpec, table } = props
+  const linkToSection = rowSpec.cols?.[0]?.linkToSection
 
   const row: Row = {
     props: {
       cycles,
       index: rowSpec.idx,
-      linkToSection: '', // rowSpec. // TODO
+      linkToSection,
       type: rowSpec.type as unknown as RowType,
       variableName: rowSpec.variableName, // ?? rowSpec.variableExport,
       calculateFn: rowSpec.migration?.calcFormula,
+      readonly: rowSpec.migration?.readonly,
     },
     cols: [],
     tableId: table.id,
@@ -30,6 +32,8 @@ export const getRow = (props: { cycles: Array<string>; rowSpec: RowSpec; table: 
   if (rowSpec.labelParams) {
     row.props.label = { ...row.props.label, params: rowSpec.labelParams }
   }
-
+  if (rowSpec.migration?.format) {
+    row.props.format = rowSpec.migration.format
+  }
   return row
 }

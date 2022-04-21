@@ -4,6 +4,7 @@ export interface NodeValue {
   raw: string | null
   estimated?: boolean
   calculated?: boolean
+  odp?: boolean
 }
 
 export interface Node {
