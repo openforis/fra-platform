@@ -22,7 +22,7 @@ export const createCycle = async (
           user,
         },
         assessment: updatedAssessment,
-        cycle: updatedAssessment.cycles.at(-1), // Last created cycle
+        cycle: updatedAssessment.cycles[updatedAssessment.cycles.length - 1], // Last created cycle
       },
       t
     )

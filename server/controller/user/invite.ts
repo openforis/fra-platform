@@ -12,7 +12,7 @@ export const invite = async (
   props: {
     assessment: Assessment
     countryIso: CountryIso
-    cycleUuid: string
+    cycle: Cycle
     email: string
     roleName: RoleName
     user: User
@@ -20,7 +20,7 @@ export const invite = async (
   },
   client: BaseProtocol = DB
 ): Promise<{ userRole: UserRole<RoleName, any>; user: User }> => {
-  const { email, user, assessment, countryIso, roleName, cycleUuid, url = '' } = props
+  const { email, user, assessment, countryIso, roleName, cycle, url = '' } = props
 
   return client.tx(async (t) => {
     let userToInvite = await UserRepository.getOne({ email }, client)
@@ -34,7 +34,7 @@ export const invite = async (
         assessment,
         country: countryIso,
         role: roleName,
-        cycle: cycleUuid,
+        cycle,
       },
       client
     )
@@ -48,7 +48,7 @@ export const invite = async (
           user,
         },
         assessment,
-        cycle: { uuid: cycleUuid } as Cycle,
+        cycle,
       },
       t
     )

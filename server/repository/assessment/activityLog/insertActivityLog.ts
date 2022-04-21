@@ -14,7 +14,7 @@ export const insertActivityLog = async (
 ): Promise<ActivityLog<any>> => {
   const {
     assessment,
-    cycle = {} as Cycle,
+    cycle,
     activityLog: { user, countryIso, message, section, target },
   } = params
   const schemaName = Schemas.getName(assessment)
@@ -25,7 +25,7 @@ export const insertActivityLog = async (
 
   return client.one<ActivityLog<any>>(
     query,
-    [user.id, countryIso, section, message, JSON.stringify(target), cycle.uuid],
+    [user.id, countryIso, section, message, JSON.stringify(target), cycle ? cycle.uuid : null],
     Objects.camelize
   )
 }

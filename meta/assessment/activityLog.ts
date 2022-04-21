@@ -20,4 +20,5 @@ export interface ActivityLog<Target> {
   section: string
   user: User
   time?: string
+  cycle_uuid?: string
 }
