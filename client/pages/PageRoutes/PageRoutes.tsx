@@ -1,39 +1,35 @@
 // TODO Remove when CountrySelect implemented
-import '@client/components/CountrySelect/countrySelect.scss'
-import '@client/components/CountrySelect/CountryList/countryList.scss'
-
 import React, { useEffect } from 'react'
-import { /* Redirect, */ Route, /* RouteComponentProps, */ Switch, useRouteMatch } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { Route, Switch, useRouteMatch } from 'react-router-dom'
 
+import { BasePaths } from '@client/basePaths'
+import CountrySelect from '@client/components/CountrySelect'
+import Footer from '@client/components/Footer'
+import Header from '@client/components/Header'
+import Toaster from '@client/components/Toaster'
+import Assessment from '@client/pages/Assessment'
+import Geo from '@client/pages/Geo'
 // import { RegionCode } from '../../../core/country'
 // import { FRA, PanEuropean } from '../../../core/assessment'
 // import { useIsLogin } from '../../../webapp/hooks'
 // import { useAppDispatch, useAppSelector } from '../../../webapp/store'
-
 // import DynamicImport from '../../../webapp/components/dynamicImport'
-import Loading from '@client/components/Loading'
 import Landing from '@client/pages/Landing'
 import Login from '@client/pages/Login'
-import Toaster from '@client/components/Toaster'
-import Header from '@client/components/Header'
-import Footer from '@client/components/Footer'
-import Geo from '@client/pages/Geo'
 // import ErrorComponent from '../../../webapp/components/error/errorComponent'
-
 import { useAppDispatch } from '@client/store'
-import { AssessmentActions, useAssessment } from '@client/store/assessment'
-import { BasePaths } from '@client/basePaths'
+import { AssessmentActions } from '@client/store/assessment'
 // import { useIsLogin } from '@client/hooks'
 import { Urls } from '@client/utils'
-import { useTranslation } from 'react-i18next'
-import CountrySelect from '@client/components/CountrySelect'
-import Assessment from '@client/pages/Assessment'
+
 import { useTheme } from './useTheme'
+import '@client/components/CountrySelect/countrySelect.scss'
+import '@client/components/CountrySelect/CountryList/countryList.scss'
 
 const PageRoutes: React.FC = () => {
   useTheme()
   const dispatch = useAppDispatch()
-  const assessmentLoaded = useAssessment()
   const { i18n } = useTranslation()
   const shouldRenderCountrySelect = !useRouteMatch([BasePaths.Login.root()])
 
@@ -46,10 +42,6 @@ const PageRoutes: React.FC = () => {
   useEffect(() => {
     dispatch(AssessmentActions.initApp())
   }, [])
-
-  if (!assessmentLoaded) {
-    return <Loading />
-  }
 
   return (
     <>

@@ -1,5 +1,5 @@
-import { Row } from '../../../meta/assessment/row'
 import { Col, ColType } from '../../../meta/assessment/col'
+import { Row } from '../../../meta/assessment/row'
 import { ColSpec } from '../../../webapp/sectionSpec'
 
 export const getCol = (props: { cycles: Array<string>; colSpec: ColSpec; row: Row }): Col => {
@@ -11,11 +11,18 @@ export const getCol = (props: { cycles: Array<string>; colSpec: ColSpec; row: Ro
       rowSpan: colSpec.rowSpan,
       colType: colSpec.type as unknown as ColType,
       index: colSpec.idx,
-      labelKey: colSpec.labelKey,
       colName: colSpec.colName,
       calculateFn: colSpec.migration?.calculateFn,
     },
     rowId: row.id,
+  }
+  if (colSpec.label || colSpec.labelKey || colSpec.labelParams || colSpec.labelPrefixKey) {
+    col.props.label = {
+      key: colSpec.labelKey,
+      params: colSpec.labelParams,
+      label: colSpec.label,
+      prefixKey: colSpec.labelPrefixKey,
+    }
   }
   return col
 }

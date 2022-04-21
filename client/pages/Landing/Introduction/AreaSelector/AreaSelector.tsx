@@ -22,7 +22,7 @@ export const areas = {
 const AreaSelector: React.FC = () => {
   const { i18n } = useTranslation()
   const regionGroups = useRegionGroups()
-  const countries = useCountries()
+  const countries = useCountries().map((c) => c.countryIso)
   const [dropdownOpened, setDropdownOpened] = useState<string>('')
 
   return (

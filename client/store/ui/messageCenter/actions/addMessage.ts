@@ -1,23 +1,26 @@
-import { createAsyncThunk } from '@reduxjs/toolkit'
-
-import axios from 'axios'
 import { ApiEndPoint } from '@common/api/endpoint'
-import { CountryIso } from '@meta/area'
-import { MessageTopic } from '@meta/messageCenter'
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios'
 
-export const addMessage = createAsyncThunk<
-  MessageTopic,
-  { countryIso: CountryIso; assessmentName: string; cycleName: string; key: string; message: string }
->('messageCenter/topic/addMessage', async ({ countryIso, assessmentName, cycleName, key, message }) => {
-  await axios.post(
-    ApiEndPoint.MessageCenter.Topic.addMessage(),
-    { message },
-    {
-      params: { countryIso, assessmentName, cycleName, key },
-    }
-  )
-  const { data } = await axios.get(ApiEndPoint.MessageCenter.Topic.get(), {
-    params: { countryIso, assessmentName, cycleName, key },
-  })
-  return data
-})
+import { CountryIso } from '@meta/area'
+import { MessageTopic, MessageTopicType } from '@meta/messageCenter'
+
+type Params = {
+  countryIso: CountryIso
+  assessmentName: string
+  cycleName: string
+  key: string
+  message: string
+  type: MessageTopicType
+  section?: string
+}
+
+export const addMessage = createAsyncThunk<MessageTopic, Params>(
+  'messageCenter/topicMessage/add',
+  async ({ countryIso, assessmentName, cycleName, key, message, type, section }) => {
+    const params = { countryIso, assessmentName, cycleName, key, type, section }
+    await axios.post(ApiEndPoint.MessageCenter.Topic.addMessage(), { message }, { params })
+    const { data } = await axios.get(ApiEndPoint.MessageCenter.Topic.get(), { params })
+    return data
+  }
+)

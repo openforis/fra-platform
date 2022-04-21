@@ -1,11 +1,14 @@
 import './ReviewIndicator.scss'
-import React from 'react'
+import React, { useCallback } from 'react'
+import { useParams } from 'react-router-dom'
 
-import Icon from '@client/components/Icon'
+import { MessageTopicType } from '@meta/messageCenter'
+
 import { useAppDispatch } from '@client/store'
-import { useCountryIso } from '@client/hooks'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { MessageCenterActions } from '@client/store/ui/messageCenter'
+import { useCountryIso } from '@client/hooks'
+import Icon from '@client/components/Icon'
 
 type Props = {
   title: string
@@ -20,8 +23,9 @@ const ReviewIndicator = (props: Props) => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
+  const { section } = useParams<{ section?: string }>()
 
-  const openTopic = () => {
+  const openTopic = useCallback(() => {
     dispatch(
       MessageCenterActions.openTopic({
         countryIso,
@@ -30,9 +34,11 @@ const ReviewIndicator = (props: Props) => {
         title,
         subtitle,
         key: topicKey,
+        type: MessageTopicType.review,
+        section,
       })
     )
-  }
+  }, [dispatch, countryIso, assessment, cycle, title, subtitle, topicKey, section])
 
   return (
     <button className="review-indicator" onClick={openTopic} type="button">

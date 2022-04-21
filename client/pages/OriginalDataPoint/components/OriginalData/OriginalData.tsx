@@ -7,6 +7,8 @@ import { useCountryIso } from '@client/hooks'
 import { BasePaths } from '@client/basePaths'
 import { AssessmentName } from '@meta/assessment'
 
+import classNames from 'classnames'
+import { useAssessmentCountry } from '@client/store/assessment'
 import ExtentOfForest from '../ExtentOfForest'
 import ForestCharacteristics from '../ForestCharacteristics'
 
@@ -16,6 +18,7 @@ type Props = {
 
 const OriginalData: React.FC<Props> = (props) => {
   const { canEditData } = props
+  const country = useAssessmentCountry()
   // const sections = useAssessmentSections()
   const { assessmentName, cycleName, year } = useParams<{
     assessmentName: AssessmentName
@@ -31,7 +34,6 @@ const OriginalData: React.FC<Props> = (props) => {
 
   const i18n = useTranslation()
   const countryIso = useCountryIso()
-  // const useOriginalDataPointsInFoc = {} // TODO:  useSelector(CountryState.getConfigUseOriginalDataPointsInFoc)
 
   return (
     <div>
@@ -39,7 +41,7 @@ const OriginalData: React.FC<Props> = (props) => {
 
       <div className="odp__tab-controller">
         <NavLink
-          className="odp__tab-item"
+          className={classNames('odp__tab-item', { disabled: year === '-1' })}
           activeClassName="active"
           to={BasePaths.Assessment.OriginalDataPoint.section(
             countryIso,
@@ -52,8 +54,9 @@ const OriginalData: React.FC<Props> = (props) => {
           {`${extentOfForest.anchor} ${i18n.t('nationalDataPoint.forestCategoriesLabel')}`}
         </NavLink>
         <NavLink
-          // className={`odp__tab-item${useOriginalDataPointsInFoc ? '' : ' disabled'}`}
-          className="odp__tab-item"
+          className={classNames('odp__tab-item', {
+            disabled: year === '-1' || !country.props.forestCharacteristics.useOriginalDataPoint,
+          })}
           activeClassName="active"
           to={BasePaths.Assessment.OriginalDataPoint.section(
             countryIso,

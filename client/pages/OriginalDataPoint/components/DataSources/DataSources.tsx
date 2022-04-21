@@ -39,6 +39,8 @@ const DataSources: React.FC<Props> = (props) => {
     )
   }
 
+  const isDisabled = printView || !canEditData || !originalDataPoint.year
+
   return (
     <div className="odp__section">
       {!printView && <h3 className="subhead">{i18n.t('nationalDataPoint.dataSources')}</h3>}
@@ -65,7 +67,7 @@ const DataSources: React.FC<Props> = (props) => {
                       }
                       updateOriginalDataPoint(originalDataPointUpdate)
                     }}
-                    disabled={printView || !canEditData}
+                    disabled={isDisabled}
                   />
                 </td>
                 {displayReviewIndicator && (
@@ -83,7 +85,7 @@ const DataSources: React.FC<Props> = (props) => {
                 <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.methodsUsed')}</th>
                 <td className="fra-table__cell-left odp__data-source-input-column">
                   <MultiSelect
-                    disabled={printView || !canEditData}
+                    disabled={isDisabled}
                     i18n={i18n}
                     localizationPrefix="nationalDataPoint.dataSourceMethodsOptions"
                     values={originalDataPoint.dataSourceMethods}
@@ -117,7 +119,7 @@ const DataSources: React.FC<Props> = (props) => {
                       }
                       updateOriginalDataPoint(originalDataPointUpdate)
                     }}
-                    disabled={printView || !canEditData}
+                    disabled={isDisabled}
                   />
                 </td>
                 {displayReviewIndicator && (

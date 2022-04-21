@@ -1,10 +1,10 @@
-import { Assessment, Col, Cols, Cycle, NodeValue, Row, VariableCache } from '@meta/assessment'
 import { Objects } from '@core/utils'
+import { Assessment, Col, Cols, Cycle, NodeValue, Row, VariableCache } from '@meta/assessment'
 import { AssessmentController } from '@server/controller/assessment'
-import { BaseProtocol, DB, Schemas } from '@server/db'
 import { evalExpression } from '@server/controller/cycleData/persistNodeValue/evalExpression'
-import { ColRepository } from '@server/repository/col'
-import { CycleDataRepository, TablesCondition } from '@server/repository/cycleData'
+import { BaseProtocol, DB, Schemas } from '@server/db'
+import { ColRepository } from '@server/repository/assessment/col'
+import { DataRepository, TablesCondition } from '@server/repository/assessmentCycle/data'
 import * as pgPromise from 'pg-promise'
 
 afterAll(async () => {
@@ -80,6 +80,34 @@ const getTotalLandAreaValues = async (client: BaseProtocol): Promise<Array<NodeR
     `
   )
 }
+const getCertifiedAreaValues = async (client: BaseProtocol): Promise<Array<NodeRow>> => {
+  return client.many<NodeRow>(
+    `
+        select c.country_iso,
+--        c.config -> 'faoStat'      as fao_stat,
+--        t.props ->> 'name'         as table_name,
+--        r.props ->> 'variableName' as variable_name,
+               r.uuid  as row_uuid,
+--        cl.props ->> 'colName'     as col_name,
+               cl.uuid as col_uuid,
+               jsonb_build_object(
+                       'raw', jsonb_extract_path(
+                       c.config, 'certifiedAreas', cl.props ->> 'colName'
+                   )
+                   )   as value
+--        c.config -> 'faoStat' ->
+        from country c
+                 left join assessment_fra."table" t
+                           on t.props ->> 'name' = 'sustainableDevelopment15_2_1_5'
+                 left join assessment_fra.row r
+                           on r.table_id = t.id
+                               and r.props ->> 'variableName' = 'forestAreaVerifiedForestManagement'
+                 left join assessment_fra.col cl
+                           on r.id = cl.row_id
+                               and cl.props ->> 'colName' is not null
+    `
+  )
+}
 
 describe('Post Data migration', () => {
   test('Update calculated variables', async () => {
@@ -117,7 +145,8 @@ describe('Post Data migration', () => {
         variableName: row.props.variableName,
       }))
       const calculatedVariables: Record<string, Record<string, boolean>> = {}
-      const countryISOs = await AssessmentController.getCountryISOs({ assessment, cycle }, client)
+      const countries = await AssessmentController.getCountries({ assessment, cycle }, client)
+      const countryISOs = countries.map((c) => c.countryIso)
 
       const hasBeenCalculated = (variable: VariableCache): boolean => {
         const variableToCalc = variablesToCalculate.find(
@@ -144,7 +173,7 @@ describe('Post Data migration', () => {
         const tables = dependencies.reduce<TablesCondition>((acc, { tableName }) => ({ ...acc, [tableName]: {} }), {})
         const data =
           Object.keys(tables).length > 0
-            ? await CycleDataRepository.getTableData({ assessment, cycle, countryISOs, tables }, client)
+            ? await DataRepository.getTableData({ assessment, cycle, countryISOs, tables }, client)
             : undefined
         // const dependencies = assessment.metaCache.calculations.dependencies[tableName]?.[row.props.variableName] ?? []
         // await Promise.all(
@@ -236,9 +265,11 @@ describe('Post Data migration', () => {
 
       // ===== total land area (fao stat)
       const totalLandAreaValues = await getTotalLandAreaValues(client)
-      const query = pgp.helpers.insert(totalLandAreaValues, cs)
-      // eslint-disable-next-line no-await-in-loop
-      await client.query(query)
+      await client.query(pgp.helpers.insert(totalLandAreaValues, cs))
+
+      // ===== certified area  - SDG sub ind. 5
+      const certifiedAreaValues = await getCertifiedAreaValues(client)
+      await client.query(pgp.helpers.insert(certifiedAreaValues, cs))
 
       // ===== calculation rows
       for (let i = 0; i < rows.length; i += 1) {

@@ -1,6 +1,6 @@
-import { BaseProtocol, DB } from '@server/db'
 import { User, UserResetPassword } from '@meta/user'
-import { UserResetPasswordRepository } from '@server/repository'
+import { BaseProtocol, DB } from '@server/db'
+import { UserResetPasswordRepository } from '@server/repository/public/userResetPassword'
 import { MailService } from '@server/service'
 
 export const createResetPassword = async (

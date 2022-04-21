@@ -1,8 +1,9 @@
-import { BaseProtocol, DB } from '@server/db'
-import { MessageTopic } from '@meta/messageCenter'
 import { CountryIso } from '@meta/area'
 import { Assessment, Cycle } from '@meta/assessment'
-import { MessageTopicRepository } from '@server/repository/messageTopic'
+import { MessageTopic } from '@meta/messageCenter'
+
+import { BaseProtocol, DB } from '@server/db'
+import { MessageTopicRepository } from '@server/repository/assessmentCycle/messageTopic'
 
 export const getTopic = async (
   props: {

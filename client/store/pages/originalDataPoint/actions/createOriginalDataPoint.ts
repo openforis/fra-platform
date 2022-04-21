@@ -24,7 +24,10 @@ export const createOriginalDataPoint = createAsyncThunk<
     }
   )
   if (data?.id) {
-    history.push(BasePaths.Assessment.OriginalDataPoint.one(countryIso, assessmentName, cycleName, String(data.id)))
+    history.push(
+      // After creating a new OriginalDataPoint, year is null, use -1 (handled in view)
+      BasePaths.Assessment.OriginalDataPoint.section(countryIso, assessmentName, cycleName, '-1', 'extentOfForest')
+    )
   }
   return data
 })

@@ -1,1 +1,1 @@
-export type MapPanel = null | 'mosaic'
+export type MapPanel = null | 'mosaic' | 'data' | 'recipes' | 'statistics'

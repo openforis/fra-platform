@@ -1,9 +1,10 @@
-import { Country, CountryIso } from '@meta/area'
-import { RoleName, User } from '@meta/user'
 import { createI18nPromise } from '@i18n/i18nFactory'
-import { AssessmentName } from '@meta/assessment'
-import { UserRepository } from '@server/repository'
+import { Country, CountryIso } from '@meta/area'
 import { AssessmentStatus } from '@meta/area/country'
+import { AssessmentName } from '@meta/assessment'
+import { RoleName, User } from '@meta/user'
+import { UserRepository } from '@server/repository/public/user'
+
 import { sendMail } from './mail'
 
 export const createMail = async (props: {

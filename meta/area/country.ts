@@ -43,4 +43,5 @@ export interface CountryProps {
 export interface Country {
   countryIso: CountryIso
   props?: CountryProps
+  regionCodes?: Array<string>
 }

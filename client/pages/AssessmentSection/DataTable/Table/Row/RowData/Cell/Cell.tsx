@@ -2,15 +2,17 @@ import React from 'react'
 
 import { AssessmentName, Col, ColType, Row, Table } from '@meta/assessment'
 import { TableData, TableDatas } from '@meta/data'
+
 import { useCountryIso } from '@client/hooks'
+
 import Calculated from './Calculated'
 import Number from './Number'
-import Text from './Text'
+import { PropsCell } from './props'
 import Select from './Select'
+import Text from './Text'
 // import Placeholder from './Placeholder'
 import useClassName from './useClassName'
 import useOnChange from './useOnChange'
-import { PropsCell } from './props'
 
 const ComponentsByName: Record<string, React.FC<PropsCell>> = {
   [ColType.calculated]: Calculated,
@@ -36,8 +38,9 @@ type Props = {
 const Cell: React.FC<Props> = (props) => {
   const { data, assessmentName, sectionName, table, disabled, rowIndex, col, row } = props
   const countryIso = useCountryIso()
-  const datum = TableDatas.getDatum({ data, countryIso, table, row, col })
-  const nodeValue = TableDatas.getNodeValue({ data, countryIso, table, row, col })
+  const params = { data, countryIso, table, row, col }
+  const datum = TableDatas.getDatum(params)
+  const nodeValue = TableDatas.getNodeValue(params)
   const className = useClassName(col /* rowIndex */)
 
   const propsOnChange = { table, col, row, nodeValue, data }
@@ -53,10 +56,11 @@ const Cell: React.FC<Props> = (props) => {
           assessmentName,
           sectionName,
           table,
-          disabled,
+          disabled: disabled || nodeValue?.odp,
           col,
           rowIndex,
           onChange,
+          row,
           onPaste: disabled ? () => ({}) : onPaste,
         })}
     </td>

@@ -1,6 +1,6 @@
 import { CountryIso } from '@meta/area'
+import { Col, NodeValue, Row, Table } from '@meta/assessment'
 
-import { Table, Row, Col, NodeValue } from '@meta/assessment'
 import { TableData } from './tableData'
 
 const getTableData = (props: { data: TableData; countryIso: CountryIso; table: Table }) => {
@@ -49,8 +49,8 @@ const updateDatum = (props: {
 }
 
 export const TableDatas = {
-  getTableData,
   getDatum,
   getNodeValue,
+  getTableData,
   updateDatum,
 }

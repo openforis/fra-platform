@@ -1,4 +1,4 @@
-import { ColSpec, CalculateValue } from './colSpec'
+import { CalculateValue, ColSpec } from './colSpec'
 import { TypeSpec } from './typeSpec'
 import { GetValidationMessages, Validator } from './validation'
 
@@ -15,9 +15,9 @@ export interface RowSpec {
   calculateFn?: CalculateValue
   chartProps?: RowChartSpec
   idx?: string | number
-  // labelKey?: string
-  // labelPrefixKey?: string
-  // labelParams?: Record<string, string>
+  labelKey?: string
+  labelPrefixKey?: string
+  labelParams?: Record<string, string>
   // label?: string
   // validation messages
   getValidationMessages?: GetValidationMessages
@@ -34,5 +34,7 @@ export interface RowSpec {
   migration?: {
     calcFormula?: string
     colNames?: Array<string>
+    format?: { integer?: boolean }
+    readonly?: boolean
   }
 }

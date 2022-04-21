@@ -1,13 +1,14 @@
 import './OriginalDataPoint.scss'
 import React, { useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { BasePaths } from '@client/basePaths'
 import { useTranslation } from 'react-i18next'
+
 import { useAppDispatch } from '@client/store'
 import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 import { useCanEditSection } from '@client/store/user'
-import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
+import { BasePaths } from '@client/basePaths'
 import { useCountryIso } from '@client/hooks'
+
 import NationalClasses from './components/NationalClasses'
 import OriginalData from './components/OriginalData'
 // import Comments from './components/Comments'
@@ -26,25 +27,17 @@ const OriginalDataPoint: React.FC = () => {
   const canEditData = useCanEditSection()
 
   useEffect(() => {
-    dispatch(
-      AssessmentSectionActions.getTableSections({
-        assessmentName,
-        cycleName,
-        section: 'extentOfForest',
-        countryIso,
-      })
-    )
-    dispatch(
-      OriginalDataPointActions.getOriginalDataPoint({
-        year,
-        assessmentName,
-        countryIso,
-        cycleName,
-      })
-    )
+    if (year !== '-1') {
+      dispatch(
+        OriginalDataPointActions.getOriginalDataPoint({
+          year,
+          assessmentName,
+          countryIso,
+          cycleName,
+        })
+      )
+    }
     return () => {
-      dispatch(AssessmentSectionActions.reset())
-
       dispatch(OriginalDataPointActions.reset())
     }
   }, [])

@@ -1,60 +1,33 @@
 import './AssessmentSection.scss'
-
-import React, { useEffect } from 'react'
-import { useParams } from 'react-router'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { useParams } from 'react-router'
 
 import { AssessmentName } from '@meta/assessment'
-import { useCountryIso } from '@client/hooks'
-import { useAppDispatch } from '@client/store'
-import { AssessmentSectionActions, useTableSections } from '@client/store/pages/assessmentSection'
-import { useAssessmentSection } from '@client/store/assessment'
 
-// import SectionHeader from './SectionHeader'
-// import Descriptions from './Descriptions'
+import { useAssessmentSection } from '@client/store/assessment'
+import { useTableSections } from '@client/store/pages/assessmentSection'
 import { useCanEditSection } from '@client/store/user'
-import Descriptions, { GeneralComments } from './Descriptions'
-import Title from './Title'
-import SectionHeader from './SectionHeader'
+
 import DataTable from './DataTable'
+import Descriptions, { GeneralComments } from './Descriptions'
+import SectionHeader from './SectionHeader'
+import Title from './Title'
 
 const AssessmentSection: React.FC = () => {
-  const assessmentSection = useAssessmentSection()
-  const tableSections = useTableSections()
-
-  const { assessmentName, cycleName, section } = useParams<{
-    assessmentName: AssessmentName
-    cycleName: string
-    section: string
-  }>()
-
   const { i18n } = useTranslation()
-
-  const dispatch = useAppDispatch()
-  const countryIso = useCountryIso()
-
+  const { assessmentName } = useParams<{ assessmentName: AssessmentName; cycleName: string; section: string }>()
+  const assessmentSection = useAssessmentSection()
+  const tableSections = useTableSections({ sectionName: assessmentSection?.props?.name })
   const canEditSection = useCanEditSection()
+  const [printView, printOnlyTablesView] = [false, false] // TODO: usePrintView()
 
-  // Update section tables' metadata on countryIso or section (url) change
-  useEffect(() => {
-    dispatch(AssessmentSectionActions.reset())
-    dispatch(
-      AssessmentSectionActions.getTableSections({
-        assessmentName,
-        cycleName,
-        section,
-        countryIso,
-      })
-    )
-  }, [countryIso, section])
+  const panEuropean = assessmentName === AssessmentName.panEuropean
+  const disabled = panEuropean || !canEditSection
 
   if (!assessmentSection) return null
 
   const { anchor, showTitle, descriptions, name: sectionName } = assessmentSection.props
-
-  const panEuropean = assessmentName === AssessmentName.panEuropean
-  const disabled = panEuropean || !canEditSection
-  const [printView, printOnlyTablesView] = [false, false] // TODO: usePrintView()
 
   return (
     <div className={`app-view__content assessment-section__${sectionName}`}>
@@ -72,15 +45,14 @@ const AssessmentSection: React.FC = () => {
 
       {tableSections.map((tableSection) => (
         <div key={String(tableSection.id)}>
-          {/* // TODO Missing metadata */}
-          {/* {tableSection.titleKey && ( */}
-          {/*  <h3 className="subhead assessment-section__table-title">{i18n.t(tableSection.titleKey)}</h3> */}
-          {/* )} */}
-          {/* {tableSection.descriptionKey && ( */}
-          {/*  <div className="app-view__section-toolbar no-print"> */}
-          {/*    <div className="support-text">{i18n.t(tableSection.descriptionKey)}</div> */}
-          {/*  </div> */}
-          {/* )} */}
+          {tableSection.props.labelKey && (
+            <h3 className="subhead assessment-section__table-title">{i18n.t(tableSection.props.labelKey)}</h3>
+          )}
+          {tableSection.props.descriptionKey && (
+            <div className="app-view__section-toolbar no-print">
+              <div className="support-text">{i18n.t(tableSection.props.descriptionKey)}</div>
+            </div>
+          )}
 
           {tableSection.tables.map((table) => (
             <React.Fragment key={table.props.name}>
@@ -91,7 +63,7 @@ const AssessmentSection: React.FC = () => {
                 table={table}
                 disabled={disabled}
               />
-              {/* {table.props.print.pageBreakAfter && <div className="page-break" />} */}
+              {table.props.print?.pageBreakAfter && <div className="page-break" />}
             </React.Fragment>
           ))}
         </div>

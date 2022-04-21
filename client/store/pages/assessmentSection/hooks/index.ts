@@ -1,14 +1,14 @@
-import { useAppSelector } from '@client/store'
 import { Table, TableSection } from '@meta/assessment'
-import { useCountryIso } from '@client/hooks'
 import { TableData } from '@meta/data'
+import { useAppSelector } from '@client/store'
 import { useAssessmentCountry } from '@client/store/assessment'
+import { useCountryIso } from '@client/hooks'
 
 export const useShowOriginalDatapoints = () =>
   useAppSelector((state) => state.pages.assessmentSection.showOriginalDataPoint)
 
-export const useTableSections = (): Array<TableSection> =>
-  useAppSelector((state) => state.pages.assessmentSection.tableSections)
+export const useTableSections = (props: { sectionName: string }): Array<TableSection> =>
+  useAppSelector((state) => state.pages.assessmentSection.tableSections[props.sectionName] ?? [])
 
 export const useTableData = (props: { table: Table }): TableData => {
   const { table } = props
@@ -40,5 +40,5 @@ export const useOriginalDataPointYears = () => {
   const countryIso = useCountryIso()
   const odpData = useAppSelector((state) => state.pages.assessmentSection.originalDataPointData)
   if (!odpData) return null
-  return Object.keys(odpData[countryIso].originalDataPointValue)
+  return Object.keys(odpData[countryIso]?.originalDataPointValue ?? {})
 }

@@ -1,7 +1,8 @@
-import { BaseProtocol, DB, Schemas } from '@server/db'
-import { ActivityLogRepository, OriginalDataPointRepository } from '@server/repository'
-import { Assessment, ActivityLogMessage, Cycle, OriginalDataPoint } from '@meta/assessment'
+import { ActivityLogMessage, Assessment, Cycle, OriginalDataPoint } from '@meta/assessment'
 import { User } from '@meta/user'
+import { BaseProtocol, DB, Schemas } from '@server/db'
+import { ActivityLogRepository } from '@server/repository/assessment/activityLog'
+import { OriginalDataPointRepository } from '@server/repository/assessmentCycle/originalDataPoint'
 
 export const createOriginalDataPoint = async (
   props: {

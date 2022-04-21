@@ -1,11 +1,11 @@
 import { ActivityLogMessage, NodeValue, Row, VariableCache } from '@meta/assessment'
 import { BaseProtocol, DB } from '@server/db'
-import { RowRepository } from '@server/repository/row'
-import { ColRepository } from '@server/repository/col'
+import { ColRepository } from '@server/repository/assessment/col'
+import { RowRepository } from '@server/repository/assessment/row'
 
-import { Props } from './props'
 import { createOrUpdateNode } from './createOrUpdateNode'
 import { evalExpression } from './evalExpression'
+import { Props } from './props'
 
 const evaluateNode = async (
   props: Props & { variableCache: VariableCache; expression: string; row: Row },

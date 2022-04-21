@@ -1,31 +1,29 @@
 import * as path from 'path'
 import { config } from 'dotenv'
 
-import { Assessment as AssessmentLegacy } from '../../core/assessment/assessment'
 import { FRA } from '../../core/assessment'
-
+import { Assessment as AssessmentLegacy } from '../../core/assessment/assessment'
 import { Assessment } from '../../meta/assessment/assessment'
 import { Cycle } from '../../meta/assessment/cycle'
-import { SectionSpec } from '../../webapp/sectionSpec'
 import { BaseProtocol, DB } from '../../server/db'
 import {
   getCreateSchemaCycleDDL,
   getCreateSchemaCycleOriginalDataPointViewDDL,
   getCreateSchemaDDL,
-} from '../../server/repository/assessment/getCreateSchemaDDL'
-
+} from '../../server/repository/assessment/assessment/getCreateSchemaDDL'
+import { SectionSpec } from '../../webapp/sectionSpec'
+import { migrateOdps } from './migrateData/migrateOdps'
+import { migrateTablesData } from './migrateData/migrateTablesData'
 import { DBNames } from './_DBNames'
 import { FraSpecs } from './fraSpecs'
-import { migrateUsers } from './migrateUsers'
-import { migrateMetadata } from './migrateMetadata'
+import { generateMetaCache } from './generateMetaCache'
 import { migrateAreas } from './migrateAreas'
+import { migrateMetadata } from './migrateMetadata'
+import { migrateUsers } from './migrateUsers'
 import { migrateUsersAuthProvider } from './migrateUsersAuthProvider'
-import { migrateUsersRole } from './migrateUsersRole'
 import { migrateUsersInvitation } from './migrateUsersInvitation'
 import { migrateUsersResetPassword } from './migrateUsersResetPassword'
-import { migrateTablesData } from './migrateData/migrateTablesData'
-import { migrateOdps } from './migrateData/migrateOdps'
-import { generateMetaCache } from './generateMetaCache'
+import { migrateUsersRole } from './migrateUsersRole'
 
 config({ path: path.resolve(__dirname, '..', '..', '.env') })
 
@@ -85,13 +83,15 @@ export const migrate = async (props: {
     const schema = DBNames.getAssessmentSchema(assessment.props.name)
     await DB.query(getCreateSchemaDDL(schema))
     assessment.cycles = await Promise.all(cycleNames.map((cycleName) => createCycle(assessment, cycleName, client)))
+
     // Set fra/2020 to published
-    await client.query('update public.assessment_cycle set published = true where id = $1', [assessment.cycles[0].id])
+    const defaultCycle = assessment.cycles.find((c) => c.name === '2020')
+    await client.query('update public.assessment_cycle set published = true where id = $1', [defaultCycle.id])
     await client.query('update public.assessment set props = $2:json::jsonb where id = $1', [
       assessment.id,
       {
         ...assessment.props,
-        defaultCycle: assessment.cycles[0].uuid,
+        defaultCycle: defaultCycle.uuid,
       },
     ])
 
@@ -108,7 +108,11 @@ export const migrate = async (props: {
     await migrateUsersRole({ assessment, client })
     await migrateUsersInvitation({ client })
     await migrateUsersResetPassword({ client })
-    await migrateTablesData({ assessment }, client)
+    await Promise.all(
+      assessment.cycles.map(async (cycle) => {
+        await migrateTablesData({ assessment, cycle }, client)
+      })
+    )
     await migrateOdps({ assessment }, client)
     await generateMetaCache({ assessment }, client)
 
