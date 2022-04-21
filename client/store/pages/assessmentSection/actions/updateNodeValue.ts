@@ -1,10 +1,10 @@
+import { ApiEndPoint } from '@common/api/endpoint'
+import { Functions } from '@core/utils'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { ApiEndPoint } from '@common/api/endpoint'
-import { Functions } from '@core/utils'
-import { AssessmentName, NodeValue } from '@meta/assessment'
 import { CountryIso } from '@meta/area'
+import { AssessmentName, NodeValue } from '@meta/assessment'
 
 type Params = {
   assessmentName: AssessmentName
@@ -19,7 +19,11 @@ type Params = {
 
 const patchNodeValue = Functions.debounce(async (params: Params) => {
   const { value, ...rest } = params
-  await axios.patch(ApiEndPoint.CycleData.PersistNode.one(), value, { params: rest })
+  try {
+    await axios.patch(ApiEndPoint.CycleData.PersistNode.one(), value, { params: rest })
+  } catch (e) {
+    // placeholder to avoid app crash
+  }
 }, 250)
 
 export const updateNodeValue = createAsyncThunk<Params, Params>('section/nodeValue/update', async (params) => {
