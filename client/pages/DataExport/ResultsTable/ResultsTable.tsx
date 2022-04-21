@@ -15,7 +15,7 @@ import ButtonTableExport from '@client/components/ButtonTableExport'
 import { convertValue, formatValue, getColumnLabelKeys } from '@client/pages/DataExport/utils'
 
 import RowFooter from './RowFooter'
-// import Title from './Title'
+import Title from './Title'
 import { useFetchResults } from './useFetchResults'
 
 const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
@@ -101,12 +101,12 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
               </th>
               {variables.map((variable) => (
                 <th key={variable} className="fra-table__header-cell" colSpan={columnsResults.length}>
-                  {/* <Title
+                  <Title
                     baseUnit={baseUnit}
                     variable={variable}
                     onUnitChange={onUnitChange}
                     resultsLoading={resultsLoading}
-                  /> */}
+                  />
                 </th>
               ))}
             </tr>
