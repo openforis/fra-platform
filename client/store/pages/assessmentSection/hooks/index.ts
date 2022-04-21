@@ -1,8 +1,8 @@
-import { useCountryIso } from '@client/hooks'
-import { useAppSelector } from '@client/store'
-import { useAssessmentCountry } from '@client/store/assessment'
 import { Table, TableSection } from '@meta/assessment'
 import { TableData } from '@meta/data'
+import { useAppSelector } from '@client/store'
+import { useAssessmentCountry } from '@client/store/assessment'
+import { useCountryIso } from '@client/hooks'
 
 export const useShowOriginalDatapoints = () =>
   useAppSelector((state) => state.pages.assessmentSection.showOriginalDataPoint)
@@ -40,5 +40,5 @@ export const useOriginalDataPointYears = () => {
   const countryIso = useCountryIso()
   const odpData = useAppSelector((state) => state.pages.assessmentSection.originalDataPointData)
   if (!odpData) return null
-  return Object.keys(odpData[countryIso].originalDataPointValue)
+  return Object.keys(odpData[countryIso]?.originalDataPointValue ?? {})
 }

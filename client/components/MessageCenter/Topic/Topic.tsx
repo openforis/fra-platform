@@ -1,13 +1,18 @@
 import './Topic.scss'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import Icon from '@client/components/Icon'
+import { useParams } from 'react-router-dom'
+
+import { Objects } from '@core/utils'
+
+import { MessageTopic } from '@meta/messageCenter'
+
 import { useAppDispatch } from '@client/store'
-import { useCountryIso } from '@client/hooks'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { MessageCenterActions } from '@client/store/ui/messageCenter'
-import { MessageTopic } from '@meta/messageCenter'
-import { Objects } from '@core/utils'
+import { useCountryIso } from '@client/hooks'
+import Icon from '@client/components/Icon'
+
 import Message from './Message'
 
 type TopicProps = {
@@ -22,16 +27,13 @@ const Topic: React.FC<TopicProps> = ({ topic }) => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
+  const { section } = useParams<{ section?: string }>()
 
-  const closeTopic = () => {
-    dispatch(
-      MessageCenterActions.closeTopic({
-        key: topic.key,
-      })
-    )
-  }
+  const closeTopic = useCallback(() => {
+    dispatch(MessageCenterActions.closeTopic({ key: topic.key }))
+  }, [dispatch, topic])
 
-  const addMessage = () => {
+  const addMessage = useCallback(() => {
     dispatch(
       MessageCenterActions.addMessage({
         countryIso,
@@ -39,9 +41,11 @@ const Topic: React.FC<TopicProps> = ({ topic }) => {
         cycleName: cycle.name,
         key: topic.key,
         message,
+        type: topic.type,
+        section,
       })
     ).then(() => setMessage(''))
-  }
+  }, [countryIso, assessment, cycle, topic, message, dispatch, section])
 
   return (
     <div className="topic">
