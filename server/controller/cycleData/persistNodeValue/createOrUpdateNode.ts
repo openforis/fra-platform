@@ -1,5 +1,6 @@
 import { ActivityLog, ActivityLogMessage, Node } from '@meta/assessment'
-import { BaseProtocol, Schemas } from '@server/db'
+
+import { BaseProtocol } from '@server/db'
 import { ActivityLogRepository } from '@server/repository/assessment/activityLog'
 import { NodeRepository } from '@server/repository/assessmentCycle/node'
 
@@ -9,8 +10,7 @@ export const createOrUpdateNode = async (
   props: Props & { activityLogMessage?: ActivityLogMessage },
   client: BaseProtocol
 ): Promise<Node> => {
-  const { assessment, countryIso, activityLogMessage, user } = props
-  const schemaName = Schemas.getName(assessment)
+  const { assessment, countryIso, activityLogMessage, user, cycle } = props
   const node: Node = await NodeRepository.getOneOrNone(props, client)
 
   const nodeUpdated = await (node ? NodeRepository.update(props, client) : NodeRepository.create(props, client))
@@ -21,6 +21,6 @@ export const createOrUpdateNode = async (
     target: nodeUpdated,
     user,
   }
-  await ActivityLogRepository.insertActivityLog({ schemaName, activityLog }, client)
+  await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, client)
   return nodeUpdated
 }
