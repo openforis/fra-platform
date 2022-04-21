@@ -5,16 +5,16 @@ import { useParams } from 'react-router'
 import { Objects } from '@core/utils'
 
 import { Col, Cols, ColType, Row } from '@meta/assessment'
+
 import { useAppDispatch } from '@client/store'
 import { useTableSections } from '@client/store/pages/assessmentSection'
-// import { useDataExportSelection } from '@client/store/pages/dataExport'
-import { DataExportActions, useDataExportCountries } from '@client/store/pages/dataExport'
+import { DataExportActions, useDataExportCountries, useDataExportSelection } from '@client/store/pages/dataExport'
 import { useCountryIso } from '@client/hooks'
 
 import ColumnSelect from './ColumnSelect'
 import CountrySelect from './CountrySelect'
+import ResultsTable from './ResultsTable'
 import VariableSelect from './VariableSelect'
-// import ResultsTable from './ResultsTable'
 
 const DataExport: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -25,20 +25,22 @@ const DataExport: React.FC = () => {
   }>()
 
   const countries = useDataExportCountries()
-  // const selection = useDataExportSelection(assessmentSection)
+  const selection = useDataExportSelection(assessmentSection)
 
-  // const hasSelection =
-  //   !Objects.isEmpty(selection.countryISOs) &&
-  //   !Objects.isEmpty(selection.sections[assessmentSection].columns) &&
-  //   !Objects.isEmpty(selection.sections[assessmentSection].variables)
+  const hasSelection =
+    !Objects.isEmpty(selection.countryISOs) &&
+    !Objects.isEmpty(selection.sections[assessmentSection].columns) &&
+    !Objects.isEmpty(selection.sections[assessmentSection].variables)
 
   let rows: Array<Row> = []
   let columns: Array<string> = []
+  let tableName = ''
   const tableSections = useTableSections({ sectionName: assessmentSection })
   if (!Objects.isEmpty(tableSections)) {
     // if (Objects.isEmpty(tableSections)) return null
     const { tables } = tableSections.find((tableSection) => tableSection.tables.find((table) => table.props.dataExport))
     const table = tables.find((table) => table.props.dataExport)
+    tableName = table.props.name
     rows = table.rows.filter((row) => !!row.props.variableName)
     const cols = rows.reduce(
       (prev: Array<Col>, curr: Row) => [...prev, ...curr.cols.filter((col) => col.props.colType !== ColType.header)],
@@ -64,7 +66,7 @@ const DataExport: React.FC = () => {
         <ColumnSelect columns={columns} />
       </div>
 
-      {/* {hasSelection && <ResultsTable />} */}
+      {hasSelection && <ResultsTable tableName={tableName} />}
     </div>
   )
 }
