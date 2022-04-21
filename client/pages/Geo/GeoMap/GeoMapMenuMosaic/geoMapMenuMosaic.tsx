@@ -79,6 +79,7 @@ const GeoMapMenuMosaic: React.FC = () => {
       {selectedPanel === 'mosaic' && (
         <div className="geo-map-menu-mosaic-select-container">
           <div
+            className="geo-map-menu-mosaic-select-title"
             role="checkbox"
             aria-checked={mosaicOptions.sources.includes('sentinel')}
             tabIndex={-1}
@@ -90,6 +91,7 @@ const GeoMapMenuMosaic: React.FC = () => {
           </div>
           <div className="geo-map-menu-mosaic-separator" />
           <div
+            className="geo-map-menu-mosaic-select-title"
             role="checkbox"
             aria-checked={mosaicOptions.sources.includes('landsat')}
             tabIndex={-2}

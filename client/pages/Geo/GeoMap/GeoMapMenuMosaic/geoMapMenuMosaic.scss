@@ -2,12 +2,13 @@
 
 .geo-map-menu-button-mosaic {
   &.selected {
-    width: 500px;
+    width: 650px;
   }
 }
 
 .geo-map-menu-mosaic-select-container {
-  > div {
+  > .geo-map-menu-mosaic-select-title {
+    padding: 0 15px;
     display: flex;
     flex-direction: row;
     align-items: center;
