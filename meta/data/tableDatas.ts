@@ -30,7 +30,6 @@ const getDatum = (props: { data: TableData; countryIso: CountryIso; table: Table
   return getNodeValue({ col, countryIso, data, row, table })?.raw
 }
 
-// TODO: make this smarter
 const updateDatum = (props: {
   data: TableData
   countryIso: CountryIso
@@ -40,12 +39,12 @@ const updateDatum = (props: {
   value: NodeValue
 }): TableData => {
   const { data, countryIso, tableName, variableName, colName, value } = props
-  if (!data?.[countryIso]?.[tableName]?.[variableName]?.[colName]) return data
-  const newData = {
-    ...data,
-  }
-  newData[countryIso][tableName][colName][variableName] = value
-  return newData
+  const dataClone = { ...data }
+  if (!data[countryIso]) data[countryIso] = {}
+  if (!data[countryIso][tableName]) data[countryIso][tableName] = {}
+  if (!data[countryIso][tableName][colName]) data[countryIso][tableName][colName] = {}
+  dataClone[countryIso][tableName][colName][variableName] = value
+  return dataClone
 }
 
 export const TableDatas = {
