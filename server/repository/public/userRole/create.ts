@@ -1,7 +1,9 @@
 import { Objects } from '@core/utils'
+
 import { CountryIso } from '@meta/area'
-import { Assessment } from '@meta/assessment'
+import { Assessment, Cycle } from '@meta/assessment'
 import { RoleName, User, UserRole } from '@meta/user'
+
 import { BaseProtocol, DB } from '@server/db'
 
 export const create = async (
@@ -10,7 +12,7 @@ export const create = async (
     assessment: Pick<Assessment, 'id'>
     country: CountryIso
     role: RoleName
-    cycle: string
+    cycle: Cycle
   },
   client: BaseProtocol = DB
 ): Promise<UserRole<RoleName>> => {
@@ -29,7 +31,7 @@ export const create = async (
             values ($1, $2, $3, $4, $5, $6)
             returning *;
     `,
-    [userId, assessmentId, country, role, {}, cycle],
+    [userId, assessmentId, country, role, {}, cycle.uuid],
     Objects.camelize
   )
 }

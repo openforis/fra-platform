@@ -1,7 +1,8 @@
 import { CountryIso } from '@meta/area'
-import { ActivityLogMessage, Assessment } from '@meta/assessment'
+import { ActivityLogMessage, Assessment, Cycle } from '@meta/assessment'
 import { RoleName, User, UserRole } from '@meta/user'
-import { BaseProtocol, DB, Schemas } from '@server/db'
+
+import { BaseProtocol, DB } from '@server/db'
 import { ActivityLogRepository } from '@server/repository/assessment/activityLog'
 import { UserRepository } from '@server/repository/public/user'
 import { UserRoleRepository } from '@server/repository/public/userRole'
@@ -11,7 +12,7 @@ export const invite = async (
   props: {
     assessment: Assessment
     countryIso: CountryIso
-    cycleUuid: string
+    cycle: Cycle
     email: string
     roleName: RoleName
     user: User
@@ -19,8 +20,7 @@ export const invite = async (
   },
   client: BaseProtocol = DB
 ): Promise<{ userRole: UserRole<RoleName, any>; user: User }> => {
-  const { email, user, assessment, countryIso, roleName, cycleUuid, url = '' } = props
-  const schemaName = Schemas.getName(assessment)
+  const { email, user, assessment, countryIso, roleName, cycle, url = '' } = props
 
   return client.tx(async (t) => {
     let userToInvite = await UserRepository.getOne({ email }, client)
@@ -34,7 +34,7 @@ export const invite = async (
         assessment,
         country: countryIso,
         role: roleName,
-        cycle: cycleUuid,
+        cycle,
       },
       client
     )
@@ -47,7 +47,8 @@ export const invite = async (
           message: ActivityLogMessage.userInvited,
           user,
         },
-        schemaName,
+        assessment,
+        cycle,
       },
       t
     )

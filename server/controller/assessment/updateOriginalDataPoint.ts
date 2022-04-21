@@ -1,6 +1,7 @@
 import { ActivityLogMessage, Assessment, Cycle, OriginalDataPoint } from '@meta/assessment'
 import { User } from '@meta/user'
-import { BaseProtocol, DB, Schemas } from '@server/db'
+
+import { BaseProtocol, DB } from '@server/db'
 import { ActivityLogRepository } from '@server/repository/assessment/activityLog'
 import { OriginalDataPointRepository } from '@server/repository/assessmentCycle/originalDataPoint'
 
@@ -14,7 +15,6 @@ export const updateOriginalDataPoint = async (
   client: BaseProtocol = DB
 ): Promise<OriginalDataPoint> => {
   const { assessment, assessmentCycle, originalDataPoint, user } = props
-  const schemaName = Schemas.getName(assessment)
 
   return client.tx(async (t) => {
     const updatedOriginalDataPoint = await OriginalDataPointRepository.update(
@@ -30,7 +30,8 @@ export const updateOriginalDataPoint = async (
           message: ActivityLogMessage.originalDataPointUpdate,
           user,
         },
-        schemaName,
+        assessment,
+        cycle: assessmentCycle,
       },
       t
     )
