@@ -1,25 +1,31 @@
 import { Objects } from '@core/utils'
-import { ActivityLog } from '@meta/assessment'
-import { BaseProtocol, DB } from '@server/db'
+
+import { ActivityLog, Assessment, Cycle } from '@meta/assessment'
+
+import { BaseProtocol, DB, Schemas } from '@server/db'
 
 export const insertActivityLog = async (
   params: {
     activityLog: ActivityLog<any>
-    schemaName: string
+    assessment: Assessment
+    cycle?: Cycle
   },
   client: BaseProtocol = DB
 ): Promise<ActivityLog<any>> => {
   const {
-    schemaName,
+    assessment,
+    cycle = {} as Cycle,
     activityLog: { user, countryIso, message, section, target },
   } = params
+  const schemaName = Schemas.getName(assessment)
+
   const query = `
-    insert into ${schemaName}.activity_log(user_id, country_iso, section, message, target) values ($1, $2, $3, $4, $5::JSONB) returning *;
+    insert into ${schemaName}.activity_log(user_id, country_iso, section, message, target, cycle_uuid) values ($1, $2, $3, $4, $5::JSONB, $6) returning *;
   `
 
   return client.one<ActivityLog<any>>(
     query,
-    [user.id, countryIso, section, message, JSON.stringify(target)],
+    [user.id, countryIso, section, message, JSON.stringify(target), cycle.uuid],
     Objects.camelize
   )
 }

@@ -3,7 +3,7 @@ import { ActivityLogMessage, Assessment, Cycle } from '@meta/assessment'
 import { Message, MessageTopicType } from '@meta/messageCenter'
 import { User } from '@meta/user'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
+import { BaseProtocol, DB } from '@server/db'
 import { ActivityLogRepository } from '@server/repository/assessment/activityLog'
 import { MessageRepository } from '@server/repository/assessmentCycle/message'
 import { MessageTopicRepository } from '@server/repository/assessmentCycle/messageTopic'
@@ -34,8 +34,6 @@ export const addMessage = async (
 
     const message = await MessageRepository.create({ assessment, cycle, message: messageText, topic, user }, t)
 
-    const schemaName = Schemas.getName(assessment)
-
     await ActivityLogRepository.insertActivityLog(
       {
         activityLog: {
@@ -44,7 +42,8 @@ export const addMessage = async (
           message: ActivityLogMessage.messageCreate,
           user,
         },
-        schemaName,
+        assessment,
+        cycle,
       },
       t
     )

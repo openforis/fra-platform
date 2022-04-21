@@ -1,5 +1,6 @@
 import { ActivityLogMessage, Assessment } from '@meta/assessment'
 import { User } from '@meta/user'
+
 import { BaseProtocol, DB } from '@server/db'
 import { ActivityLogRepository } from '@server/repository/assessment/activityLog'
 import { AssessmentRepository } from '@server/repository/assessment/assessment'
@@ -9,7 +10,6 @@ export const create = async (
   client: BaseProtocol = DB
 ): Promise<Assessment> => {
   const { assessment, user } = props
-  const schemaName = await AssessmentRepository.createAssessmentSchema({ assessment }, client)
 
   return client.tx(async (t) => {
     const createdAssessment = await AssessmentRepository.createAssessment({ assessment }, t)
@@ -22,7 +22,7 @@ export const create = async (
           message: ActivityLogMessage.assessmentCreate,
           user,
         },
-        schemaName,
+        assessment: createdAssessment,
       },
       t
     )
