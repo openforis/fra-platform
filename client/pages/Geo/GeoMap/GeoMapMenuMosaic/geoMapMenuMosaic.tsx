@@ -7,6 +7,7 @@ import { GeoActions, useMosaicOptions, useMosaicUrl, useSelectedPanel } from '@c
 import { useGeoMap } from '@client/hooks'
 
 import GeoMapMenuButton from '../GeoMapMenuButton'
+import SatelliteSourcePanel from './SatelliteSourcePanel'
 
 const removeOverlayLayer = (mapLayerId: string, overlayLayers: google.maps.MVCArray) => {
   for (let i = 0; i < overlayLayers.getLength(); i += 1) {
@@ -89,6 +90,7 @@ const GeoMapMenuMosaic: React.FC = () => {
             <div className={`fra-checkbox${mosaicOptions.sources.includes('sentinel') ? ' checked' : ''}`} />
             <p>Sentinel</p>
           </div>
+          <SatelliteSourcePanel />
           <div className="geo-map-menu-mosaic-separator" />
           <div
             className="geo-map-menu-mosaic-select-title"
@@ -101,6 +103,7 @@ const GeoMapMenuMosaic: React.FC = () => {
             <div className={`fra-checkbox${mosaicOptions.sources.includes('landsat') ? ' checked' : ''}`} />
             <p>Landsat</p>
           </div>
+          <SatelliteSourcePanel />
         </div>
       )}
     </div>
