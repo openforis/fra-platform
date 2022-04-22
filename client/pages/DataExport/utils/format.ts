@@ -2,11 +2,11 @@ import { Numbers } from '@core/utils/numbers'
 
 import { CountryIso } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
+import { TableData } from '@meta/data'
 import { Unit, UnitConverter, UnitFactors } from '@meta/dataExport'
 
 import { forestPolicy, isForestPolicySection, isYearRange } from '@client/pages/DataExport/utils/checks'
 // import { getPanEuropeanTableMapping } from '@client/pages/DataExport/utils/panEuropean'
-import { DataExportResults } from '@client/pages/DataExport/utils/types'
 
 const sections: Record<string, string> = {
   designatedManagementObjective: 'primary_designated_management_objective',
@@ -40,7 +40,7 @@ export const formatColumn = (column: string, section: string): string => {
 export const formatValue = (
   column: string,
   countryIso: CountryIso,
-  results: DataExportResults,
+  results: TableData,
   section: string,
   tableName: string,
   variable: string

@@ -3,10 +3,11 @@ import { useEffect } from 'react'
 import { ApiEndPoint } from '@common/api/endpoint'
 
 import { AssessmentName } from '@meta/assessment'
+import { TableData } from '@meta/data'
 
 import { useDataExportSelection } from '@client/store/pages/dataExport'
 import { useGetRequest } from '@client/hooks'
-import { DataExportResults, formatColumn } from '@client/pages/DataExport/utils'
+import { formatColumn } from '@client/pages/DataExport/utils'
 
 type Props = {
   columnsAlwaysExport: Array<string>
@@ -17,7 +18,7 @@ type Props = {
 }
 
 type UseFetchResults = {
-  results: DataExportResults
+  results: TableData
   resultsLoading: boolean
 }
 
