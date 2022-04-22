@@ -7,7 +7,6 @@ import { DataRepository } from '@server/repository/assessmentCycle/data'
 
 export const getTableData = async (
   props: {
-    countryIso: CountryIso
     assessment: Assessment
     cycle: Cycle
     tableNames: Array<string>
@@ -17,7 +16,7 @@ export const getTableData = async (
   },
   client: BaseProtocol = DB
 ): Promise<TableData> => {
-  const { countryIso, tableNames, assessment, cycle, countries, variables, columns } = props
+  const { tableNames, assessment, cycle, countries, variables, columns } = props
 
   const tables: Record<string, { columns: Array<string>; variables: Array<string> }> = {}
   tableNames.forEach((tableName) => {
@@ -29,7 +28,7 @@ export const getTableData = async (
       assessment,
       cycle,
       tables,
-      countryISOs: countries || [countryIso],
+      countryISOs: countries,
     },
     client
   )

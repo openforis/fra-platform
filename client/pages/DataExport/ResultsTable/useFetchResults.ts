@@ -24,21 +24,23 @@ type UseFetchResults = {
 export const useFetchResults = (props: Props): UseFetchResults => {
   const { columnsAlwaysExport, tableName, assessmentSection, assessmentName, cycleName } = props
   const selection = useDataExportSelection(assessmentSection)
-  // const sectionFormatted = Strings.snakeCase(formatSection(assessmentSection, assessmentType))
 
   const {
     data: results = {},
     dispatch: fetchResults,
     loading: resultsLoading,
-  } = useGetRequest(ApiEndPoint.Assessment.TableData.one('AF', assessmentName, cycleName, assessmentSection), {
+  } = useGetRequest(ApiEndPoint.Assessment.TableData.one(), {
     params: {
+      countryIso: selection.countryISOs[0],
+      assessmentName,
+      cycleName,
       tableNames: [tableName],
+      countries: selection.countryISOs,
+      variables: selection.sections[assessmentSection].variables,
       columns: [
         ...columnsAlwaysExport,
         ...selection.sections[assessmentSection].columns.map((column) => formatColumn(column, assessmentSection)),
       ],
-      countries: selection.countryISOs,
-      variables: selection.sections[assessmentSection].variables,
     },
   })
 

@@ -45,6 +45,7 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
   const filteredColumns = columns.filter((column: string) =>
     selection.sections[assessmentSection].columns.includes(column)
   )
+  // TODO
   // const columnsAlwaysExport = tableSpec.columnsExportAlways ?? []
   const columnsAlwaysExport: Array<string> = []
   const columnsResults = [...columnsAlwaysExport, ...filteredColumns]

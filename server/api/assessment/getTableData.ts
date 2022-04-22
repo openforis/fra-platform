@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 
 import { CountryIso } from '@meta/area'
+import { AssessmentName } from '@meta/assessment'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { CycleDataController } from '@server/controller/cycleData'
@@ -8,13 +9,17 @@ import Requests from '@server/utils/requests'
 
 export const getTableData = async (req: Request, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName } = req.params
     const {
+      assessmentName,
+      cycleName,
       tableNames = [],
       countries,
       variables,
       columns,
     } = req.query as {
+      assessmentName: AssessmentName
+      cycleName: string
+      section: string
       tableNames: Array<string>
       countries: Array<CountryIso>
       variables: Array<string>
@@ -24,7 +29,6 @@ export const getTableData = async (req: Request, res: Response) => {
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName })
 
     const table = await CycleDataController.getTableData({
-      countryIso: countryIso as CountryIso,
       cycle,
       assessment,
       tableNames,

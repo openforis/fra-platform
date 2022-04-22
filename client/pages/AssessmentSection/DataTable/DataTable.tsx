@@ -1,15 +1,16 @@
+import './DataTable.scss'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useCountryIso } from '@client/hooks'
+import { AssessmentName, Table as TableType } from '@meta/assessment'
+
 import { useAppDispatch } from '@client/store'
 import { useCycle } from '@client/store/assessment'
 import { AssessmentSectionActions, useTableData } from '@client/store/pages/assessmentSection'
-import { AssessmentName, Table as TableType } from '@meta/assessment'
+import { useCountryIso } from '@client/hooks'
 
 import Chart from './Chart'
 import Table from './Table'
-import './DataTable.scss'
 
 type Props = {
   assessmentName: AssessmentName
@@ -57,9 +58,8 @@ const DataTable: React.FC<Props> = (props) => {
       AssessmentSectionActions.getTableData({
         assessmentName,
         countryIso,
-        tableNames: [table.props.name],
         cycleName: cycle.name,
-        section: sectionName,
+        tableNames: [table.props.name],
       })
     )
     if (odp) {
