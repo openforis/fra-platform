@@ -1,8 +1,10 @@
-import { AssessmentController } from '@server/controller/assessment'
-import { RoleName, User, UserStatus } from '@meta/user'
-import { Assessment } from '@meta/assessment'
 import { assessmentParams } from '@test/integration/mock/assessment'
 import { userMockTest, userMockUnknown } from '@test/integration/mock/user'
+
+import { Assessment } from '@meta/assessment'
+import { RoleName, User, UserStatus } from '@meta/user'
+
+import { AssessmentController } from '@server/controller/assessment'
 import { UserController } from '@server/controller/user'
 
 export default (): void =>
@@ -19,7 +21,7 @@ export default (): void =>
       const { userRole, user: invitedUser } = await UserController.invite({
         assessment,
         countryIso: 'ALB',
-        cycleUuid: assessment.cycles[0].uuid,
+        cycle: assessment.cycles[0],
         email: userMockUnknown.email,
         roleName: RoleName.COLLABORATOR,
         user,
@@ -43,7 +45,7 @@ export default (): void =>
       const { user: invitedUser } = await UserController.invite({
         assessment,
         countryIso: 'AFG',
-        cycleUuid: assessment.cycles[0].uuid,
+        cycle: assessment.cycles[0],
         email: userMockUnknown.email,
         roleName: RoleName.NATIONAL_CORRESPONDENT,
         user,
@@ -67,7 +69,7 @@ export default (): void =>
         UserController.invite({
           assessment,
           countryIso: 'AFG',
-          cycleUuid: assessment.cycles[0].uuid,
+          cycle: assessment.cycles[0],
           email: userMockUnknown.email,
           roleName: RoleName.REVIEWER,
           user,
