@@ -1,5 +1,5 @@
 import './geoMapMenuMosaic.scss'
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import { MosaicSource } from '@meta/geo'
 
@@ -43,6 +43,8 @@ const GeoMapMenuMosaic: React.FC = () => {
   const mosaicUrl = useMosaicUrl()
   const mosaicOptions = useMosaicOptions()
   const map = useGeoMap()
+  const [isOpenSentinel, setIsOpenSentinel] = useState(false)
+  const [isOpenLandsat, setIsOpenLandsat] = useState(false)
 
   useEffect(() => {
     if (mosaicUrl) {
@@ -85,17 +87,21 @@ const GeoMapMenuMosaic: React.FC = () => {
             title="Sentinel"
             checked={mosaicOptions.sources.includes('sentinel')}
             tabIndex={-1}
-            onClick={() => handleClickSource('sentinel')}
+            isOpen={isOpenSentinel}
+            onCheckboxClick={() => handleClickSource('sentinel')}
+            onExpandClick={setIsOpenSentinel}
           />
-          <SatelliteSourcePanel />
+          {isOpenSentinel && <SatelliteSourcePanel />}
           <div className="geo-map-menu-mosaic-separator" />
           <SatelliteSourceHeader
             title="Landsat"
             checked={mosaicOptions.sources.includes('landsat')}
-            tabIndex={-2}
-            onClick={() => handleClickSource('landsat')}
+            tabIndex={-3}
+            isOpen={isOpenLandsat}
+            onCheckboxClick={() => handleClickSource('landsat')}
+            onExpandClick={setIsOpenLandsat}
           />
-          <SatelliteSourcePanel />
+          {isOpenLandsat && <SatelliteSourcePanel />}
         </div>
       )}
     </div>

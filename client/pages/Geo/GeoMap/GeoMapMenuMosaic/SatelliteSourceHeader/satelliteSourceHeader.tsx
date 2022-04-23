@@ -1,20 +1,27 @@
 import './satelliteSourceHeader.scss'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback } from 'react'
 
 import Icon from '@client/components/Icon'
 
 interface Props {
   title: string
   checked: boolean
+  isOpen: boolean
   tabIndex: number
-  onClick: () => void
+  onCheckboxClick: () => void
+  onExpandClick: (isOpen: boolean) => void
 }
 
-const SatelliteSourceHeader: React.FC<Props> = ({ title, checked, tabIndex, onClick }) => {
-  const [isOpen, setIsOpen] = useState(false)
-
-  const handleClick = useCallback(() => {
-    setIsOpen(!isOpen)
+const SatelliteSourceHeader: React.FC<Props> = ({
+  title,
+  checked,
+  isOpen,
+  tabIndex,
+  onCheckboxClick,
+  onExpandClick,
+}) => {
+  const handleExpandClick = useCallback(() => {
+    onExpandClick(!isOpen)
   }, [isOpen])
 
   return (
@@ -24,8 +31,8 @@ const SatelliteSourceHeader: React.FC<Props> = ({ title, checked, tabIndex, onCl
         role="checkbox"
         aria-checked={checked}
         tabIndex={tabIndex}
-        onClick={onClick}
-        onKeyDown={onClick}
+        onClick={onCheckboxClick}
+        onKeyDown={onCheckboxClick}
       >
         <div className={`fra-checkbox${checked ? ' checked' : ''}`} />
         <p>{title}</p>
@@ -33,9 +40,9 @@ const SatelliteSourceHeader: React.FC<Props> = ({ title, checked, tabIndex, onCl
       <div
         className="geo-map-menu-mosaic-icon-expand"
         role="button"
-        onClick={handleClick}
-        tabIndex={tabIndex - 2}
-        onKeyDown={handleClick}
+        onClick={handleExpandClick}
+        tabIndex={tabIndex - 1}
+        onKeyDown={handleExpandClick}
       >
         <Icon name={isOpen ? 'small-up' : 'small-down'} />
       </div>
