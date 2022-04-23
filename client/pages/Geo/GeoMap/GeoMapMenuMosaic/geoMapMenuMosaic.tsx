@@ -84,6 +84,7 @@ const GeoMapMenuMosaic: React.FC = () => {
           <SatelliteSourceHeader
             title="Sentinel"
             checked={mosaicOptions.sources.includes('sentinel')}
+            tabIndex={-1}
             onClick={() => handleClickSource('sentinel')}
           />
           <SatelliteSourcePanel />
@@ -91,6 +92,7 @@ const GeoMapMenuMosaic: React.FC = () => {
           <SatelliteSourceHeader
             title="Landsat"
             checked={mosaicOptions.sources.includes('landsat')}
+            tabIndex={-2}
             onClick={() => handleClickSource('landsat')}
           />
           <SatelliteSourcePanel />
