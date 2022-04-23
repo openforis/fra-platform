@@ -1,1 +1,1 @@
-export { default } from './SatelliteSourcePanel'
+export { default } from './satelliteSourcePanel'
