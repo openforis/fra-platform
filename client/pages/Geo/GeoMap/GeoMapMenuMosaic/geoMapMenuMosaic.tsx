@@ -2,11 +2,13 @@ import './geoMapMenuMosaic.scss'
 import React, { useCallback, useEffect } from 'react'
 
 import { MosaicSource } from '@meta/geo'
+
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useMosaicOptions, useMosaicUrl, useSelectedPanel } from '@client/store/ui/geo'
 import { useGeoMap } from '@client/hooks'
 
 import GeoMapMenuButton from '../GeoMapMenuButton'
+import SatelliteSourceHeader from './SatelliteSourceHeader'
 import SatelliteSourcePanel from './SatelliteSourcePanel'
 
 const removeOverlayLayer = (mapLayerId: string, overlayLayers: google.maps.MVCArray) => {
@@ -78,31 +80,19 @@ const GeoMapMenuMosaic: React.FC = () => {
     <div className="geo-map-menu-item">
       <GeoMapMenuButton panel="mosaic" text="Background" />
       {selectedPanel === 'mosaic' && (
-        <div className="geo-map-menu-mosaic-select-container">
-          <div
-            className="geo-map-menu-mosaic-select-title"
-            role="checkbox"
-            aria-checked={mosaicOptions.sources.includes('sentinel')}
-            tabIndex={-1}
+        <div>
+          <SatelliteSourceHeader
+            title="Sentinel"
+            checked={mosaicOptions.sources.includes('sentinel')}
             onClick={() => handleClickSource('sentinel')}
-            onKeyDown={() => handleClickSource('sentinel')}
-          >
-            <div className={`fra-checkbox${mosaicOptions.sources.includes('sentinel') ? ' checked' : ''}`} />
-            <p>Sentinel</p>
-          </div>
+          />
           <SatelliteSourcePanel />
           <div className="geo-map-menu-mosaic-separator" />
-          <div
-            className="geo-map-menu-mosaic-select-title"
-            role="checkbox"
-            aria-checked={mosaicOptions.sources.includes('landsat')}
-            tabIndex={-2}
+          <SatelliteSourceHeader
+            title="Landsat"
+            checked={mosaicOptions.sources.includes('landsat')}
             onClick={() => handleClickSource('landsat')}
-            onKeyDown={() => handleClickSource('landsat')}
-          >
-            <div className={`fra-checkbox${mosaicOptions.sources.includes('landsat') ? ' checked' : ''}`} />
-            <p>Landsat</p>
-          </div>
+          />
           <SatelliteSourcePanel />
         </div>
       )}

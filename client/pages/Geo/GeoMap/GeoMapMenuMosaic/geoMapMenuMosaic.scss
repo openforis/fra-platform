@@ -6,25 +6,6 @@
   }
 }
 
-.geo-map-menu-mosaic-select-container {
-  > .geo-map-menu-mosaic-select-title {
-    padding: 0 15px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    min-height: 50px;
-
-    > p {
-      font-size: $font-xl;
-      margin: 0 0 0 0;
-    }
-
-    > .fra-checkbox {
-      margin: 0 10px 0 0;
-    }
-  }
-}
-
 .geo-map-menu-mosaic-separator {
   margin: 0 0 15px 0;
   width: 100%;
