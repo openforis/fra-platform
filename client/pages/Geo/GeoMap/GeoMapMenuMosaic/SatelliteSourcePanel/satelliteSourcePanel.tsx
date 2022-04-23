@@ -16,13 +16,13 @@ const SatelliteSourcePanel: React.FC = () => {
       <div>
         <p>Start Date</p>
         <div>
-          <input type="date" />
+          <input type="date" value="2022-01-01" />
         </div>
       </div>
       <div>
         <p>End Date</p>
         <div>
-          <input type="date" />
+          <input type="date" value="2022-03-31" />
         </div>
       </div>
       <div>
