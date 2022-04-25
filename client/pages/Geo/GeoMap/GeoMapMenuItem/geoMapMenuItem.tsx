@@ -1,6 +1,8 @@
 import './geoMapMenuItem.scss'
 import React, { useCallback, useState } from 'react'
 
+import classNames from 'classnames'
+
 import Icon from '@client/components/Icon'
 
 interface Props {
@@ -29,7 +31,7 @@ const GeoMenuItem: React.FC<Props> = ({ title, tabIndex, checked, onCheckboxClic
             onClick={onCheckboxClick}
             onKeyDown={onCheckboxClick}
           >
-            <div className={`fra-checkbox${checked ? ' checked' : ''}`} />
+            <div className={classNames('fra-checkbox', { checked })} />
             <p className="geo-map-menu-item-header-title">{title}</p>
           </div>
         ) : (

@@ -3,7 +3,7 @@
 .geo-map-menu-mosaic-satellite-panel {
   display: flex;
   flex-direction: column;
-  padding: 5px 25px 30px 40px;
+  padding: 5px 25px 30px 25px;
 
   > div {
     flex-direction: row;
@@ -14,7 +14,7 @@
     > p {
       font-size: $font-xl;
       text-justify: left;
-      width: 150px;
+      width: 165px;
       font-weight: bold;
       margin: 0 auto 0 0;
       display: inline-block;
