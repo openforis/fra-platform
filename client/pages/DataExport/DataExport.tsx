@@ -8,7 +8,7 @@ import { Col, Cols, ColType, Row } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { useTableSections } from '@client/store/pages/assessmentSection'
-import { DataExportActions, useDataExportSelection } from '@client/store/pages/dataExport'
+import { DataExportActions, useDataExportCountries, useDataExportSelection } from '@client/store/pages/dataExport'
 import { useCountryIso } from '@client/hooks'
 import { isYearRangeUnderscore } from '@client/pages/DataExport/utils/checks'
 
@@ -25,6 +25,7 @@ const DataExport: React.FC = () => {
     section: string
   }>()
 
+  useDataExportCountries()
   const selection = useDataExportSelection(assessmentSection)
 
   const hasSelection =
