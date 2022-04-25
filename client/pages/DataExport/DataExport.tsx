@@ -8,7 +8,7 @@ import { Col, Cols, ColType, Row } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { useTableSections } from '@client/store/pages/assessmentSection'
-import { DataExportActions, useDataExportCountries, useDataExportSelection } from '@client/store/pages/dataExport'
+import { DataExportActions, useDataExportSelection } from '@client/store/pages/dataExport'
 import { useCountryIso } from '@client/hooks'
 
 import ColumnSelect from './ColumnSelect'
@@ -24,7 +24,6 @@ const DataExport: React.FC = () => {
     section: string
   }>()
 
-  const countries = useDataExportCountries()
   const selection = useDataExportSelection(assessmentSection)
 
   const hasSelection =
@@ -36,10 +35,10 @@ const DataExport: React.FC = () => {
   let columns: Array<string> = []
   let tableName = ''
   const tableSections = useTableSections({ sectionName: assessmentSection })
-  if (!Objects.isEmpty(tableSections)) {
-    // if (Objects.isEmpty(tableSections)) return null
-    const { tables } = tableSections.find((tableSection) => tableSection.tables.find((table) => table.props.dataExport))
-    const table = tables.find((table) => table.props.dataExport)
+  const tableSection = tableSections.find((tableSection) => tableSection.tables.find((table) => table.props.dataExport))
+  const tables = tableSection?.tables
+  const table = tables?.find((table) => table.props.dataExport)
+  if (table) {
     tableName = table.props.name
     rows = table.rows.filter((row) => !!row.props.variableName)
     const cols = rows.reduce(
@@ -55,8 +54,6 @@ const DataExport: React.FC = () => {
       dispatch(DataExportActions.reset())
     }
   }, [countryIso])
-
-  if (Objects.isEmpty(countries)) return null
 
   return (
     <div className="app-view__content export">
