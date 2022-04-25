@@ -36,7 +36,7 @@ export const useFetchResults = (props: Props): UseFetchResults => {
       assessmentName,
       cycleName,
       tableNames: [tableName],
-      countries: selection.countryISOs,
+      countryISOs: selection.countryISOs,
       variables: selection.sections[assessmentSection].variables,
       columns: [
         ...columnsAlwaysExport,

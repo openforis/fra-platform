@@ -13,7 +13,7 @@ export const getTableData = async (req: Request, res: Response) => {
       assessmentName,
       cycleName,
       tableNames = [],
-      countries,
+      countryISOs,
       variables,
       columns,
     } = req.query as {
@@ -21,7 +21,7 @@ export const getTableData = async (req: Request, res: Response) => {
       cycleName: string
       section: string
       tableNames: Array<string>
-      countries: Array<CountryIso>
+      countryISOs: Array<CountryIso>
       variables: Array<string>
       columns: Array<string>
     }
@@ -32,7 +32,7 @@ export const getTableData = async (req: Request, res: Response) => {
       cycle,
       assessment,
       tableNames,
-      countries,
+      countryISOs,
       variables,
       columns,
     })

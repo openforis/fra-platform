@@ -15,7 +15,7 @@ export const getTableData = createAsyncThunk<
       assessmentName,
       cycleName,
       tableNames,
-      countries: [countryIso],
+      countryISOs: [countryIso],
     },
   })
   return data

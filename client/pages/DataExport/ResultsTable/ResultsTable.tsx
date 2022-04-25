@@ -31,16 +31,12 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
   }>()
   const selection = useDataExportSelection(assessmentSection)
   const countries = useDataExportCountries()
-
   const tableSections = useTableSections({ sectionName: assessmentSection })
-  if (Objects.isEmpty(tableSections)) return null
-  const { tables } = tableSections.find((tableSection) => tableSection.tables.find((table) => table.props.dataExport))
-  const baseUnit = tables[0].props.unit
-  const columns = selection.sections[assessmentSection].columns ?? []
 
-  // const tableSpec = SectionSpecs.getTableSpecExport(assessmentType, assessmentSection)
-  // const baseUnit = tableSpec.unit
-  // const columns = tableSpec.columnsExport ?? []
+  const { tables } = tableSections.find((tableSection) => tableSection.tables.find((table) => table.props.dataExport))
+  const table = tables.find((table) => table.props.dataExport)
+  const baseUnit = table?.props?.unit
+  const columns = selection.sections[assessmentSection].columns ?? []
 
   const filteredColumns = columns.filter((column: string) =>
     selection.sections[assessmentSection].columns.includes(column)
@@ -84,6 +80,8 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
       if (!units[variable]) onUnitChange(baseUnit, variable)
     })
   }, [variables])
+
+  if (Objects.isEmpty(tableSections)) return null
 
   return (
     <div className="fra-table__container results-table">

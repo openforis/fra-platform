@@ -10,13 +10,13 @@ export const getTableData = async (
     assessment: Assessment
     cycle: Cycle
     tableNames: Array<string>
-    countries: Array<CountryIso>
+    countryISOs: Array<CountryIso>
     variables: Array<string>
     columns: Array<string>
   },
   client: BaseProtocol = DB
 ): Promise<TableData> => {
-  const { tableNames, assessment, cycle, countries, variables, columns } = props
+  const { tableNames, assessment, cycle, countryISOs, variables, columns } = props
 
   const tables: Record<string, { columns: Array<string>; variables: Array<string> }> = {}
   tableNames.forEach((tableName) => {
@@ -28,7 +28,7 @@ export const getTableData = async (
       assessment,
       cycle,
       tables,
-      countryISOs: countries,
+      countryISOs,
     },
     client
   )
