@@ -4,10 +4,12 @@ import MediaQuery from 'react-responsive'
 import { useParams } from 'react-router'
 
 import { AssessmentName, Row } from '@meta/assessment'
+
 import { useAppDispatch } from '@client/store'
 import { DataExportActions, DataExportSelection, useDataExportSelection } from '@client/store/pages/dataExport'
 import { DataExportActionType } from '@client/store/pages/dataExport/actionTypes'
 import ButtonCheckBox from '@client/components/ButtonCheckBox'
+import DefinitionLink from '@client/components/DefinitionLink'
 import { getVariableLabelKey } from '@client/pages/DataExport/utils'
 import { Breakpoints } from '@client/utils/breakpoints'
 
@@ -49,7 +51,16 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
   return (
     <div className="export__form-section">
       <div className="export__form-section-header">
-        <h4>{i18n.t(Heading[assessmentName])}</h4>
+        <div className="export__form-section-header-withLink">
+          <h4>{i18n.t(Heading[assessmentName])}</h4>
+          <DefinitionLink
+            className="margin-right-big"
+            document="tad"
+            anchor="1a"
+            title={`(${i18n.t('definition.definitionLabel')})`}
+            lang={i18n.i18n.language}
+          />
+        </div>
         <ButtonCheckBox
           className="btn-all"
           checked={selectionVariables.length > 0 && selectionVariables.length === variables.length}
