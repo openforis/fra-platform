@@ -10,6 +10,7 @@ import { useAppDispatch } from '@client/store'
 import { useTableSections } from '@client/store/pages/assessmentSection'
 import { DataExportActions, useDataExportCountries, useDataExportSelection } from '@client/store/pages/dataExport'
 import { useCountryIso } from '@client/hooks'
+import { isYearRangeUnderscore } from '@client/pages/DataExport/utils/checks'
 
 import ColumnSelect from './ColumnSelect'
 import CountrySelect from './CountrySelect'
@@ -47,7 +48,10 @@ const DataExport: React.FC = () => {
       []
     )
     const colIndexes = Cols.getColIndexes({ rows, cols })
-    columns = colIndexes.map((colIdx) => Cols.getColName({ colIdx, cols }))
+    columns = colIndexes.map((colIdx) => {
+      const colName = Cols.getColName({ colIdx, cols })
+      return isYearRangeUnderscore(colName) ? colName.replace('_', '-') : colName
+    })
   }
 
   useEffect(() => {
