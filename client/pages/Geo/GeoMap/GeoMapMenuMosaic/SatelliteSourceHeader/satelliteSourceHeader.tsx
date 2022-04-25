@@ -1,6 +1,8 @@
 import './satelliteSourceHeader.scss'
 import React, { useCallback } from 'react'
 
+import classNames from 'classnames'
+
 import Icon from '@client/components/Icon'
 
 interface Props {
@@ -34,7 +36,7 @@ const SatelliteSourceHeader: React.FC<Props> = ({
         onClick={onCheckboxClick}
         onKeyDown={onCheckboxClick}
       >
-        <div className={`fra-checkbox${checked ? ' checked' : ''}`} />
+        <div className={classNames('fra-checkbox', { checked })} />
         <p>{title}</p>
       </div>
       <div
