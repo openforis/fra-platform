@@ -1,4 +1,4 @@
-import './satelliteSourceHeader.scss'
+import './geoMapMenuItemHeader.scss'
 import React, { useCallback } from 'react'
 
 import Icon from '@client/components/Icon'
@@ -12,7 +12,7 @@ interface Props {
   onExpandClick: (isOpen: boolean) => void
 }
 
-const SatelliteSourceHeader: React.FC<Props> = ({
+const GeoMapMenuItemHeader: React.FC<Props> = ({
   title,
   checked,
   isOpen,
@@ -25,9 +25,9 @@ const SatelliteSourceHeader: React.FC<Props> = ({
   }, [isOpen])
 
   return (
-    <div className="geo-map-menu-mosaic-select-header">
+    <div className="geo-map-menu-item-header">
       <div
-        className="geo-map-menu-mosaic-select-checkbox"
+        className="geo-map-menu-item-header-checkbox"
         role="checkbox"
         aria-checked={checked}
         tabIndex={tabIndex}
@@ -38,7 +38,7 @@ const SatelliteSourceHeader: React.FC<Props> = ({
         <p>{title}</p>
       </div>
       <div
-        className="geo-map-menu-mosaic-icon-expand"
+        className="geo-map-menu-item-header-icon-expand"
         role="button"
         onClick={handleExpandClick}
         tabIndex={tabIndex - 1}
@@ -50,4 +50,4 @@ const SatelliteSourceHeader: React.FC<Props> = ({
   )
 }
 
-export default SatelliteSourceHeader
+export default GeoMapMenuItemHeader
