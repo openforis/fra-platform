@@ -5,20 +5,20 @@ import Icon from '@client/components/Icon'
 
 interface Props {
   title: string
-  checked: boolean
   isOpen: boolean
   tabIndex: number
-  onCheckboxClick: () => void
   onExpandClick: (isOpen: boolean) => void
+  checked?: boolean
+  onCheckboxClick?: () => void
 }
 
 const GeoMapMenuItemHeader: React.FC<Props> = ({
   title,
-  checked,
   isOpen,
   tabIndex,
-  onCheckboxClick,
   onExpandClick,
+  checked,
+  onCheckboxClick,
 }) => {
   const handleExpandClick = useCallback(() => {
     onExpandClick(!isOpen)
@@ -26,17 +26,21 @@ const GeoMapMenuItemHeader: React.FC<Props> = ({
 
   return (
     <div className="geo-map-menu-item-header">
-      <div
-        className="geo-map-menu-item-header-checkbox"
-        role="checkbox"
-        aria-checked={checked}
-        tabIndex={tabIndex}
-        onClick={onCheckboxClick}
-        onKeyDown={onCheckboxClick}
-      >
-        <div className={`fra-checkbox${checked ? ' checked' : ''}`} />
-        <p>{title}</p>
-      </div>
+      {checked !== null ? (
+        <div
+          className="geo-map-menu-item-header-checkbox"
+          role="checkbox"
+          aria-checked={checked}
+          tabIndex={tabIndex}
+          onClick={onCheckboxClick}
+          onKeyDown={onCheckboxClick}
+        >
+          <div className={`fra-checkbox${checked ? ' checked' : ''}`} />
+          <p className="geo-map-menu-item-header-title">{title}</p>
+        </div>
+      ) : (
+        <p className="geo-map-menu-item-header-title">{title}</p>
+      )}
       <div
         className="geo-map-menu-item-header-icon-expand"
         role="button"
@@ -48,6 +52,11 @@ const GeoMapMenuItemHeader: React.FC<Props> = ({
       </div>
     </div>
   )
+}
+
+GeoMapMenuItemHeader.defaultProps = {
+  checked: null,
+  onCheckboxClick: null,
 }
 
 export default GeoMapMenuItemHeader
