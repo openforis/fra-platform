@@ -32,7 +32,7 @@ const SatelliteSourcePanel: React.FC = () => {
           <input type="range" min="0" max="100" value={sliderValue} onChange={handleChange} />
         </div>
       </div>
-      <button type="button" className="btn-s btn-primary geo-map-menu-mosaic-btn-apply">
+      <button type="button" className="btn btn-primary geo-map-menu-mosaic-btn-apply">
         Apply
       </button>
     </div>
