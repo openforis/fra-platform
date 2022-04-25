@@ -89,7 +89,7 @@ const GeoMapMenuMosaic: React.FC = () => {
           >
             <SatelliteSourcePanel />
           </GeoMenuItem>
-          <div className="geo-map-menu-mosaic-separator" />
+          <div className="geo-map-menu-separator" />
           <GeoMenuItem
             title="Landsat"
             checked={mosaicOptions.sources.includes('landsat')}
