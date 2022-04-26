@@ -33,7 +33,7 @@ export const requireEdit = async (req: Request, _res: Response, next: NextFuncti
 export const requireView = async (req: Request, _res: Response, next: NextFunction) => {
   const { countryIso, assessmentName, cycleName } = <Record<string, string>>{ ...req.params, ...req.query }
   if (!countryIso || !assessmentName || !cycleName) {
-    next(new Error(`missingParam`))
+    next(new Error(`missingParam ${JSON.stringify({ countryIso, assessmentName, cycleName })}`))
   }
 
   const name = <AssessmentName>assessmentName
