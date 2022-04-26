@@ -2,24 +2,12 @@
 
 .geo-map-menu-button-mosaic {
   &.selected {
-    width: 500px;
+    width: 650px;
   }
 }
 
-.geo-map-menu-mosaic-select-container {
-  > div {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    min-height: 50px;
-
-    > p {
-      font-size: $font-xl;
-      margin: 0 0 0 0;
-    }
-
-    > .fra-checkbox {
-      margin: 0 10px 0 0;
-    }
-  }
+.geo-map-menu-mosaic-separator {
+  margin: 0;
+  width: 100%;
+  border-top: 1px solid gray;
 }
