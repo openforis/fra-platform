@@ -1,5 +1,5 @@
-import { SectionSpec } from '../../../webapp/sectionSpec'
 import { Section, SubSection } from '../../../meta/assessment/section'
+import { SectionSpec } from '../../../webapp/sectionSpec'
 
 export const getSection = (props: { cycles: Array<string>; index: number; labelKey: string }): Section => {
   const { cycles, index, labelKey } = props
@@ -37,6 +37,9 @@ export const getSubSection = (props: { spec: SectionSpec; cycles: Array<string>;
           typeof spec.descriptions.nationalData === 'boolean' ? (spec.descriptions.nationalData as boolean) : 'withOdp',
       },
     },
+  }
+  if (spec?.dataExport?.included) {
+    section.props.dataExport = spec.dataExport.included
   }
   return section
 }
