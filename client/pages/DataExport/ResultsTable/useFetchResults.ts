@@ -6,7 +6,7 @@ import { AssessmentName } from '@meta/assessment'
 import { TableData } from '@meta/data'
 
 import { useDataExportSelection } from '@client/store/pages/dataExport'
-import { useGetRequest } from '@client/hooks'
+import { useCountryIso, useGetRequest } from '@client/hooks'
 import { formatColumn } from '@client/pages/DataExport/utils'
 
 type Props = {
@@ -25,6 +25,7 @@ type UseFetchResults = {
 export const useFetchResults = (props: Props): UseFetchResults => {
   const { columnsAlwaysExport, tableName, assessmentSection, assessmentName, cycleName } = props
   const selection = useDataExportSelection(assessmentSection)
+  const countryIso = useCountryIso()
 
   const {
     data: results = {},
@@ -32,7 +33,7 @@ export const useFetchResults = (props: Props): UseFetchResults => {
     loading: resultsLoading,
   } = useGetRequest(ApiEndPoint.Assessment.TableData.one(), {
     params: {
-      countryIso: selection.countryISOs[0],
+      countryIso,
       assessmentName,
       cycleName,
       tableNames: [tableName],

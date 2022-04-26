@@ -6,6 +6,7 @@ import { useParams } from 'react-router'
 import { Functions, Strings } from '@core/utils'
 
 import { Areas, Country } from '@meta/area'
+
 import { useAppDispatch } from '@client/store'
 import { DataExportActions, useDataExportCountries, useDataExportSelection } from '@client/store/pages/dataExport'
 import { DataExportActionType } from '@client/store/pages/dataExport/actionTypes'
@@ -24,7 +25,7 @@ const CountrySelect: React.FC = () => {
 
   const getDeskStudyLabel = useCallback((country: Country): string => {
     const { deskStudy } = country.props
-    return deskStudy ? i18n.t('assessment.deskStudy') : null
+    return deskStudy ? `(${i18n.t('assessment.deskStudy')})` : null
   }, [])
 
   const filterCountries = useCallback(() => {
