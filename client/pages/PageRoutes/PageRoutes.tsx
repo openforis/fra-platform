@@ -1,8 +1,13 @@
 // TODO Remove when CountrySelect implemented
+import '@client/components/CountrySelect/countrySelect.scss'
+import '@client/components/CountrySelect/CountryList/countryList.scss'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Route, Switch, useRouteMatch } from 'react-router-dom'
 
+// import ErrorComponent from '../../../webapp/components/error/errorComponent'
+import { useAppDispatch } from '@client/store'
+import { AssessmentActions } from '@client/store/assessment'
 import { BasePaths } from '@client/basePaths'
 import CountrySelect from '@client/components/CountrySelect'
 import Footer from '@client/components/Footer'
@@ -17,15 +22,11 @@ import Geo from '@client/pages/Geo'
 // import DynamicImport from '../../../webapp/components/dynamicImport'
 import Landing from '@client/pages/Landing'
 import Login from '@client/pages/Login'
-// import ErrorComponent from '../../../webapp/components/error/errorComponent'
-import { useAppDispatch } from '@client/store'
-import { AssessmentActions } from '@client/store/assessment'
+import { SocketClient } from '@client/service/socket'
 // import { useIsLogin } from '@client/hooks'
 import { Urls } from '@client/utils'
 
 import { useTheme } from './useTheme'
-import '@client/components/CountrySelect/countrySelect.scss'
-import '@client/components/CountrySelect/CountryList/countryList.scss'
 
 const PageRoutes: React.FC = () => {
   useTheme()
@@ -37,6 +38,12 @@ const PageRoutes: React.FC = () => {
     // TODO: Add user.language support
     const language = Urls.getRequestParam('lang') || localStorage.getItem('i18n/lang') || 'en'
     i18n.changeLanguage(language)
+
+    SocketClient.open()
+
+    return () => {
+      SocketClient.close()
+    }
   }, [])
 
   useEffect(() => {

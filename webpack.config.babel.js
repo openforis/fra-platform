@@ -83,6 +83,11 @@ const appConfig = {
         context: ['/auth', '/img', '/css', '/ckeditor', '/video', '/api', '/definitions'],
         target: process.env.APP_URI,
       },
+      {
+        context: ['/socket.io'],
+        target: process.env.APP_URI, // .replace('http','ws'),
+        ws: true,
+      },
     ],
     compress: false,
     port,

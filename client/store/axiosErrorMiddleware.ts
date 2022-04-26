@@ -1,6 +1,6 @@
+import { UUIDs } from '@core/utils'
 import axios, { AxiosStatic } from 'axios'
 import { Action, Dispatch, Middleware, MiddlewareAPI } from 'redux'
-import { UUIDs } from '@core/utils'
 
 import { NotificationActions } from '@client/store/ui/notification/slice'
 

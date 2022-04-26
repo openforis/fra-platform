@@ -1,14 +1,16 @@
-import { Response, Request, NextFunction } from 'express'
-import * as passport from 'passport'
-import Requests, { appUri } from '@server/utils/requests'
+import { NextFunction, Request, Response } from 'express'
 import * as jwt from 'jsonwebtoken'
+import * as passport from 'passport'
+
 import { User } from '@meta/user'
+
+import Requests, { appUri } from '@server/utils/requests'
 
 export const postLocalLogin = async (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate('local', (err: any, user: User, info: any) => {
     if (err) return next(err)
 
-    if (!user) return res.status(403).send({ error: info.message })
+    if (!user) return next(new Error(info.message))
 
     return req.login(user, (err: any) => {
       if (err) next(err)

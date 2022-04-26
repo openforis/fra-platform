@@ -1,25 +1,28 @@
 import './Topic.scss'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
 import { Objects } from '@core/utils'
 
-import { MessageTopic } from '@meta/messageCenter'
+import { Message, MessageTopic } from '@meta/messageCenter'
+import { Sockets } from '@meta/socket/sockets'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { MessageCenterActions } from '@client/store/ui/messageCenter'
 import { useCountryIso } from '@client/hooks'
 import Icon from '@client/components/Icon'
+import { SocketClient } from '@client/service/socket'
 
-import Message from './Message'
+import MessageComponent from './Message'
 
 type TopicProps = {
   topic: MessageTopic
 }
 
-const Topic: React.FC<TopicProps> = ({ topic }) => {
+const Topic: React.FC<TopicProps> = (props) => {
+  const { topic } = props
   const [message, setMessage] = useState('')
 
   const { i18n } = useTranslation()
@@ -27,15 +30,17 @@ const Topic: React.FC<TopicProps> = ({ topic }) => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
+  const topicEvent = Sockets.getTopicEvent({ assessment, cycle, topic })
+
   const { section } = useParams<{ section?: string }>()
 
   const closeTopic = useCallback(() => {
     dispatch(MessageCenterActions.closeTopic({ key: topic.key }))
   }, [dispatch, topic])
 
-  const addMessage = useCallback(() => {
+  const postMessage = useCallback(() => {
     dispatch(
-      MessageCenterActions.addMessage({
+      MessageCenterActions.postMessage({
         countryIso,
         assessmentName: assessment.props.name,
         cycleName: cycle.name,
@@ -46,6 +51,18 @@ const Topic: React.FC<TopicProps> = ({ topic }) => {
       })
     ).then(() => setMessage(''))
   }, [countryIso, assessment, cycle, topic, message, dispatch, section])
+
+  useEffect(() => {
+    const eventHandler = (args: [message: Message]) => {
+      const [message] = args
+      dispatch(MessageCenterActions.addMessage({ message, topic }))
+    }
+    SocketClient.on(topicEvent, eventHandler)
+
+    return () => {
+      SocketClient.off(topicEvent, eventHandler)
+    }
+  }, [])
 
   return (
     <div className="topic">
@@ -60,7 +77,7 @@ const Topic: React.FC<TopicProps> = ({ topic }) => {
       </div>
       <div className="topic-body">
         {topic.messages.map((message) => (
-          <Message key={message.id} message={message} />
+          <MessageComponent key={message.id} message={message} />
         ))}
         {Objects.isEmpty(topic.messages) && (
           <div className="no-comments">
@@ -76,7 +93,7 @@ const Topic: React.FC<TopicProps> = ({ topic }) => {
           placeholder={i18n.t('review.writeComment')}
           onChange={(e) => setMessage(e.target.value)}
         />
-        <button className="btn-s btn-primary" disabled={Objects.isEmpty(message)} onClick={addMessage} type="submit">
+        <button className="btn-s btn-primary" disabled={Objects.isEmpty(message)} onClick={postMessage} type="submit">
           {i18n.t('review.add')}
         </button>
       </div>

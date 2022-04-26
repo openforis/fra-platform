@@ -13,13 +13,25 @@ export const create = async (
   const { assessment, cycle, message, topic, user } = props
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
-  return client.one<Message>(
+  const { id } = await client.one<{ id: number }>(
     `
         insert into ${schemaCycle}.message (message, topic_id, user_id)
         values ($1, $2, $3)
-        returning *;
+        returning id
     `,
-    [message, topic.id, user.id],
+    [message, topic.id, user.id]
+  )
+
+  return client.one<Message>(
+    `
+        select m.*,
+               to_jsonb(u.*) - 'profile_picture_file' - 'profile_picture_filename' as user
+        from ${schemaCycle}.message m
+                 left join public.users u
+                           on m.user_id = u.id
+        where m.id = $1
+    `,
+    [id],
     Objects.camelize
   )
 }
