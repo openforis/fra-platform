@@ -38,7 +38,7 @@ export const getSubSection = (props: { spec: SectionSpec; cycles: Array<string>;
       },
     },
   }
-  if (spec?.dataExport?.included) {
+  if (spec.dataExport?.included) {
     section.props.dataExport = spec.dataExport.included
   }
   return section
