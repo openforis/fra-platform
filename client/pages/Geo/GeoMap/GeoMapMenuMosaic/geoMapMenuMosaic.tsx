@@ -1,5 +1,5 @@
 import './geoMapMenuMosaic.scss'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect } from 'react'
 
 import { MosaicSource } from '@meta/geo'
 
@@ -8,7 +8,7 @@ import { GeoActions, useMosaicOptions, useMosaicUrl, useSelectedPanel } from '@c
 import { useGeoMap } from '@client/hooks'
 
 import GeoMapMenuButton from '../GeoMapMenuButton'
-import SatelliteSourceHeader from './SatelliteSourceHeader'
+import GeoMenuItem from '../GeoMapMenuItem'
 import SatelliteSourcePanel from './SatelliteSourcePanel'
 
 const removeOverlayLayer = (mapLayerId: string, overlayLayers: google.maps.MVCArray) => {
@@ -43,8 +43,6 @@ const GeoMapMenuMosaic: React.FC = () => {
   const mosaicUrl = useMosaicUrl()
   const mosaicOptions = useMosaicOptions()
   const map = useGeoMap()
-  const [isOpenSentinel, setIsOpenSentinel] = useState(false)
-  const [isOpenLandsat, setIsOpenLandsat] = useState(false)
 
   useEffect(() => {
     if (mosaicUrl) {
@@ -83,25 +81,23 @@ const GeoMapMenuMosaic: React.FC = () => {
       <GeoMapMenuButton panel="mosaic" text="Background" />
       {selectedPanel === 'mosaic' && (
         <div>
-          <SatelliteSourceHeader
+          <GeoMenuItem
             title="Sentinel"
             checked={mosaicOptions.sources.includes('sentinel')}
             tabIndex={-1}
-            isOpen={isOpenSentinel}
             onCheckboxClick={() => handleClickSource('sentinel')}
-            onExpandClick={setIsOpenSentinel}
-          />
-          {isOpenSentinel && <SatelliteSourcePanel />}
-          <div className="geo-map-menu-mosaic-separator" />
-          <SatelliteSourceHeader
+          >
+            <SatelliteSourcePanel />
+          </GeoMenuItem>
+          <div className="geo-map-menu-separator" />
+          <GeoMenuItem
             title="Landsat"
             checked={mosaicOptions.sources.includes('landsat')}
             tabIndex={-3}
-            isOpen={isOpenLandsat}
             onCheckboxClick={() => handleClickSource('landsat')}
-            onExpandClick={setIsOpenLandsat}
-          />
-          {isOpenLandsat && <SatelliteSourcePanel />}
+          >
+            <SatelliteSourcePanel />
+          </GeoMenuItem>
         </div>
       )}
     </div>

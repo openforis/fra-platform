@@ -7,6 +7,12 @@
   flex-direction: column;
 }
 
+.geo-map-menu-separator {
+  margin: 0;
+  width: 100%;
+  border-top: 1px solid gray;
+}
+
 .geo-map-menu-item {
   > div {
     position: absolute;
