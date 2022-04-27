@@ -1,19 +1,20 @@
-import { Express } from 'express'
 import { ApiEndPoint } from '@common/api/endpoint'
-import { AuthMiddleware } from '@server/middleware/auth'
-import { getSections } from './getSections'
-import { getOriginalDataPoint } from './getOdp'
-import { getCountry } from './getCountry'
-import { postCountry } from './postCountry'
-import { getTableData } from './getTableData'
-import { getSectionMetadata } from './getSectionMetadata'
+import { Express } from 'express'
 
-import { persistNodeValue } from './persistNodeValue'
-import { getReservedYears } from './getReservedYears'
+import { AuthMiddleware } from '@server/middleware/auth'
+
 import { createOriginalDataPoint } from './createOriginalDataPoint'
 import { deleteOriginalDataPoint } from './deleteOriginalDataPoint'
-import { updateOriginalDataPoint } from './updateOriginalDataPoint'
+import { getCountry } from './getCountry'
+import { getOriginalDataPoint } from './getOdp'
 import { getOriginalDataPointData } from './getOriginalDataPointData'
+import { getReservedYears } from './getReservedYears'
+import { getSectionMetadata } from './getSectionMetadata'
+import { getSections } from './getSections'
+import { getTableData } from './getTableData'
+import { persistNodeValue } from './persistNodeValue'
+import { postCountry } from './postCountry'
+import { updateOriginalDataPoint } from './updateOriginalDataPoint'
 
 export const AssessmentApi = {
   init: (express: Express): void => {
@@ -42,8 +43,6 @@ export const AssessmentApi = {
     )
 
     // TableData
-    express.get(ApiEndPoint.Assessment.TableData.one(), AuthMiddleware.requireView, getTableData)
-
     express.get(ApiEndPoint.Assessment.TableData.one(), AuthMiddleware.requireView, getTableData)
     express.patch(ApiEndPoint.CycleData.PersistNode.one(), AuthMiddleware.requireEdit, persistNodeValue)
 

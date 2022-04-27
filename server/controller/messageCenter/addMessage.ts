@@ -1,6 +1,6 @@
 import { CountryIso } from '@meta/area'
 import { ActivityLogMessage, Assessment, Cycle } from '@meta/assessment'
-import { Message, MessageTopicType } from '@meta/messageCenter'
+import { Message, MessageTopic, MessageTopicType } from '@meta/messageCenter'
 import { User } from '@meta/user'
 
 import { BaseProtocol, DB } from '@server/db'
@@ -19,7 +19,7 @@ export const addMessage = async (
     type: MessageTopicType
   },
   client: BaseProtocol = DB
-): Promise<Message> => {
+): Promise<{ topic: MessageTopic; message: Message }> => {
   const { message: messageText, user, countryIso, assessment, cycle, key, type } = props
 
   return client.tx(async (t) => {
@@ -48,6 +48,6 @@ export const addMessage = async (
       t
     )
 
-    return message
+    return { topic, message }
   })
 }

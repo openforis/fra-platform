@@ -2,9 +2,11 @@ import { Request, Response } from 'express'
 
 import { CountryIso } from '@meta/area'
 import { MessageTopicType } from '@meta/messageCenter'
+import { Sockets } from '@meta/socket/sockets'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { MessageCenterController } from '@server/controller/messageCenter'
+import { SocketServer } from '@server/service/socket'
 import Requests from '@server/utils/requests'
 
 export const addMessage = async (req: Request, res: Response) => {
@@ -18,7 +20,7 @@ export const addMessage = async (req: Request, res: Response) => {
       cycleName,
     })
 
-    await MessageCenterController.addMessage({
+    const { topic, message: messageCreated } = await MessageCenterController.addMessage({
       message,
       user,
       countryIso: countryIso as CountryIso,
@@ -27,6 +29,8 @@ export const addMessage = async (req: Request, res: Response) => {
       key,
       type: type as MessageTopicType,
     })
+
+    SocketServer.emit(Sockets.getTopicEvent({ assessment, cycle, topic }), messageCreated)
 
     Requests.sendOk(res)
   } catch (e) {

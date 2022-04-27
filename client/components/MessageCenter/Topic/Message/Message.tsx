@@ -1,9 +1,11 @@
 import './Message.scss'
-import React from 'react'
+import React, { useLayoutEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Message as MessageType } from '@meta/messageCenter/message'
-import { getRelativeDate } from '@core/utils/dates'
+
 import { ApiEndPoint } from '@common/api/endpoint'
+import { getRelativeDate } from '@core/utils/dates'
+
+import { Message as MessageType } from '@meta/messageCenter/message'
 
 type MessageProps = {
   message: MessageType
@@ -12,8 +14,14 @@ type MessageProps = {
 const TopicMessage: React.FC<MessageProps> = ({ message }) => {
   const { i18n } = useTranslation()
 
+  const elementRef = useRef<HTMLDivElement>()
+
+  useLayoutEffect(() => {
+    elementRef.current.scrollIntoView()
+  }, [])
+
   return (
-    <div className="message">
+    <div className="message" ref={elementRef}>
       <div className="message-header">
         <img className="message-avatar" src={ApiEndPoint.User.getProfilePicture(String(message.user.id))} alt="" />
         <div className="message-info">

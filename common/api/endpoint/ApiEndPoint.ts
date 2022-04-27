@@ -4,12 +4,7 @@ const apiPath = (...parts: Array<string>): string => joinPaths('api', ...parts)
 export const ApiEndPoint = {
   Assessment: {
     TableData: {
-      one: (
-        countryIso = ':countryIso',
-        assessmentName = ':assessmentName',
-        cycleName = ':cycleName',
-        section = ':section'
-      ) => apiPath('countries', countryIso, 'assessments', assessmentName, 'cycles', cycleName, 'sections', section),
+      one: () => apiPath('assessment', 'tableData'),
     },
     Sections: {
       Metadata: {
