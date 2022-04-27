@@ -1,0 +1,30 @@
+@import 'client/style/partials';
+
+.geo-map-menu-list-element {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-weight: bold;
+}
+
+.geo-map-menu-list-element-checkbox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  > .fra-checkbox {
+    margin: 0 10px 0 5px;
+    cursor: pointer;
+  }
+}
+
+.geo-map-menu-list-element-header {
+  font-size: $font-xl;
+  margin: 0 0 0 5px;
+}
+
+.geo-map-menu-item-header-icon-expand {
+  margin: 0 0 0 auto;
+  padding: 5px 10px 5px 10px;
+  cursor: pointer;
+}
