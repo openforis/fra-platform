@@ -1,5 +1,6 @@
 import { Table, TableSection } from '@meta/assessment'
 import { TableData } from '@meta/data'
+
 import { useAppSelector } from '@client/store'
 import { useAssessmentCountry } from '@client/store/assessment'
 import { useCountryIso } from '@client/hooks'
@@ -25,7 +26,7 @@ export const useTableData = (props: { table: Table }): TableData => {
   const currData = tableData[countryIso][table.props.name]
 
   // Return normal table data if table is not OriginalDataPointTable
-  const currOdpData = odpData?.[countryIso].originalDataPointValue
+  const currOdpData = odpData?.[countryIso]?.originalDataPointValue ?? {}
 
   const tableDataWithODP = <TableData>{
     [countryIso]: {
