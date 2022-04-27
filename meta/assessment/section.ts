@@ -10,6 +10,7 @@ export interface SubSectionProps extends SectionProps {
   descriptions: Descriptions
   name: string
   showTitle: boolean
+  dataExport?: boolean
 }
 
 export interface Section extends CycledPropsObject<SectionProps> {

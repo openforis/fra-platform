@@ -1,16 +1,18 @@
 import * as path from 'path'
-import * as express from 'express'
 import * as bodyParser from 'body-parser'
 import * as compression from 'compression'
+import * as wwwhisper from 'connect-wwwhisper'
+import * as cookieParser from 'cookie-parser'
+import * as express from 'express'
 import * as fileUpload from 'express-fileupload'
 import * as morgan from 'morgan'
-import * as wwwhisper from 'connect-wwwhisper'
 
 import { Api } from '@server/api'
-import * as cookieParser from 'cookie-parser'
 import { Proxy } from '@server/proxy/proxy'
-import * as resourceCacheControl from './resourceCacheControl'
+import { SocketServer } from '@server/service/socket'
+
 import { sendErr } from './utils/requests'
+import * as resourceCacheControl from './resourceCacheControl'
 
 export const serverInit = () => {
   const app = express()
@@ -58,8 +60,9 @@ export const serverInit = () => {
   // allowing to let passportjs to use https in heroku - see https://stackoverflow.com/questions/20739744/passportjs-callback-switch-between-http-and-https
   app.enable('trust proxy')
 
-  app.listen(process.env.PORT, () => {
+  const server = app.listen(process.env.PORT, () => {
     // eslint-disable-next-line no-console
     console.log('FRA Platform server listening on port ', process.env.PORT, ' with pid: ', process.pid)
   })
+  SocketServer.init(server)
 }

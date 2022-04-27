@@ -26,7 +26,7 @@ export default (): void =>
     })
 
     it('Create new Message topic adding a Message', async () => {
-      const createdMessage = await MessageCenterController.addMessage({
+      const { message: createdMessage } = await MessageCenterController.addMessage({
         message: 'This is a test!',
         user,
         countryIso: 'AFG' as CountryIso,

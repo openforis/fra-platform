@@ -5,6 +5,7 @@ const regex = {
 }
 
 export const isYearRange = (range: string): boolean => regex.yearRange.test(range)
+export const isYearRangeUnderscore = (range: string): boolean => regex.yearRangeUnderscore.test(range)
 
 export const isYearWithWord = (column: string): boolean => regex.yearWithWord.test(column)
 

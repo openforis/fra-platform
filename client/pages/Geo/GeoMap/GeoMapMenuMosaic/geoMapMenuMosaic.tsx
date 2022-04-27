@@ -1,11 +1,15 @@
 import './geoMapMenuMosaic.scss'
-import React, { useEffect, useCallback } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
-import { useGeoMap } from '@client/hooks'
+import { MosaicSource } from '@meta/geo'
+
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useMosaicOptions, useMosaicUrl, useSelectedPanel } from '@client/store/ui/geo'
-import { MosaicSource } from '@meta/geo'
+import { useGeoMap } from '@client/hooks'
+
 import GeoMapMenuButton from '../GeoMapMenuButton'
+import SatelliteSourceHeader from './SatelliteSourceHeader'
+import SatelliteSourcePanel from './SatelliteSourcePanel'
 
 const removeOverlayLayer = (mapLayerId: string, overlayLayers: google.maps.MVCArray) => {
   for (let i = 0; i < overlayLayers.getLength(); i += 1) {
@@ -39,6 +43,8 @@ const GeoMapMenuMosaic: React.FC = () => {
   const mosaicUrl = useMosaicUrl()
   const mosaicOptions = useMosaicOptions()
   const map = useGeoMap()
+  const [isOpenSentinel, setIsOpenSentinel] = useState(false)
+  const [isOpenLandsat, setIsOpenLandsat] = useState(false)
 
   useEffect(() => {
     if (mosaicUrl) {
@@ -76,27 +82,26 @@ const GeoMapMenuMosaic: React.FC = () => {
     <div className="geo-map-menu-item">
       <GeoMapMenuButton panel="mosaic" text="Background" />
       {selectedPanel === 'mosaic' && (
-        <div className="geo-map-menu-mosaic-select-container">
-          <div
-            role="checkbox"
-            aria-checked={mosaicOptions.sources.includes('sentinel')}
+        <div>
+          <SatelliteSourceHeader
+            title="Sentinel"
+            checked={mosaicOptions.sources.includes('sentinel')}
             tabIndex={-1}
-            onClick={() => handleClickSource('sentinel')}
-            onKeyDown={() => handleClickSource('sentinel')}
-          >
-            <div className={`fra-checkbox${mosaicOptions.sources.includes('sentinel') ? ' checked' : ''}`} />
-            <p>Sentinel</p>
-          </div>
-          <div
-            role="checkbox"
-            aria-checked={mosaicOptions.sources.includes('landsat')}
-            tabIndex={-2}
-            onClick={() => handleClickSource('landsat')}
-            onKeyDown={() => handleClickSource('landsat')}
-          >
-            <div className={`fra-checkbox${mosaicOptions.sources.includes('landsat') ? ' checked' : ''}`} />
-            <p>Landsat</p>
-          </div>
+            isOpen={isOpenSentinel}
+            onCheckboxClick={() => handleClickSource('sentinel')}
+            onExpandClick={setIsOpenSentinel}
+          />
+          {isOpenSentinel && <SatelliteSourcePanel />}
+          <div className="geo-map-menu-mosaic-separator" />
+          <SatelliteSourceHeader
+            title="Landsat"
+            checked={mosaicOptions.sources.includes('landsat')}
+            tabIndex={-3}
+            isOpen={isOpenLandsat}
+            onCheckboxClick={() => handleClickSource('landsat')}
+            onExpandClick={setIsOpenLandsat}
+          />
+          {isOpenLandsat && <SatelliteSourcePanel />}
         </div>
       )}
     </div>

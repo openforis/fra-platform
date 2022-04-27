@@ -1,17 +1,18 @@
 import './Section.scss'
 import React, { useEffect, useState } from 'react'
-// import { useLocation } from 'react-router-dom'
-
-// import { ReviewStatus } from '@core/reviewStatus'
-
-import { Section } from '@meta/assessment'
 import { useTranslation } from 'react-i18next'
-import { useCountryIso, useIsDataExportView } from '@client/hooks'
+import { useLocation } from 'react-router'
+import { matchPath } from 'react-router-dom'
+
+// import { useLocation } from 'react-router-dom'
+// import { ReviewStatus } from '@core/reviewStatus'
+import { Section } from '@meta/assessment'
+
 import { useAssessment } from '@client/store/assessment'
+import { useCountryIso, useIsDataExportView } from '@client/hooks'
 // import ReviewStatusMarker from './ReviewStatusMarker'
 import { BasePaths } from '@client/basePaths'
-import { matchPath } from 'react-router-dom'
-import { useLocation } from 'react-router'
+
 import SectionItemLink from './SectionItemLink'
 
 type Props = {
@@ -30,15 +31,14 @@ const NavigationSection: React.FC<Props> = (props) => {
   const { pathname } = useLocation()
   // const childStatus = useSelector(ReviewStatusState.getStatusSectionChildren(section))
   const [expanded, setExpanded] = useState(false)
-  //
+
   const sectionLabel = i18n.t(section.props.labelKey)
   const assessmentType = assessment.props.name
-  const children = section.subSections
-  // if (isDataExport) {
-  //   children = children
-  //     .filter((subsection) => SectionSpecs.getSectionSpec(assessmentType, subsection.name)?.dataExport?.included)
-  //     .sort((child1, child2) => child1.anchor.localeCompare(child2.anchor, undefined, { numeric: true }))
-  // }
+  let children = section.subSections
+  if (isDataExport) {
+    children = children.filter((subsection) => subsection?.props?.dataExport)
+    // .sort((child1, child2) => child1.anchor.localeCompare(child2.anchor, undefined, { numeric: true }))
+  }
 
   useEffect(() => {
     setExpanded(showSections)

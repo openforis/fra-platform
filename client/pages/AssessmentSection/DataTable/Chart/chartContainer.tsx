@@ -30,17 +30,19 @@ const toObject = (x) => {
   Object.entries(x).forEach(([countryIso, countryValues]) => {
     Object.entries(countryValues).forEach(([section, sectionValues]) => {
       Object.entries(sectionValues).forEach(([year, yearValues]: any[]) => {
+        // Display chart for section 1a and 1b
+        if (!['extentOfForest', 'forestCharacteristics'].includes(section)) return
         newData.push({
           countryIso,
           section,
           year: Number(year),
           name: year,
-          type: [1990, 2000, 2010, 2015].includes(Number(year)) ? 'odp' : 'fra',
           ...Object.keys(yearValues).reduce(
             (acc, key) => ({
               ...acc,
               [key === 'forest' ? 'forestArea' : key]: yearValues[key].raw,
               [`${key}Estimated`]: yearValues[key].estimated || false,
+              type: yearValues[key].odp ? 'odp' : 'fra',
             }),
             {}
           ),
@@ -54,7 +56,6 @@ const toObject = (x) => {
 const ChartContainer = (props: ChartContainerProps) => {
   const { data: x, trends, wrapperWidth } = props
   const data = toObject(x)
-
   const { i18n } = useTranslation()
   const [printView] = [false] // TODO usePrintView()
   const { xScale, yScale, chartData } = useChartData(data, trends, wrapperWidth)

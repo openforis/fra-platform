@@ -1,9 +1,9 @@
+import { Areas, Country, CountryIso } from '@meta/area'
+import { AssessmentStatus } from '@meta/area/country'
 import { Assessment, Cycle, Section } from '@meta/assessment'
 import { User } from '@meta/user/user'
-import { Country, CountryIso } from '@meta/area'
-import { Users } from '@meta/user/users'
 import { Collaborator } from '@meta/user/userRole'
-import { AssessmentStatus } from '@meta/area/country'
+import { Users } from '@meta/user/users'
 
 /**
  *  CanView
@@ -19,6 +19,7 @@ const canView = (props: { countryIso: CountryIso; assessment: Assessment; cycle:
   const { countryIso, user, cycle } = props
   if (cycle.published) return true
   if (Users.isAdministrator(user)) return true
+  if (Areas.isGlobal(countryIso) || Areas.isRegion(countryIso)) return false
 
   const userHasRoleForCountryInCycle = user?.roles.some((role) => {
     return role.countryIso === countryIso && role.cycleUuid === cycle.uuid
