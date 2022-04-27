@@ -1,14 +1,26 @@
 import './geoMapMenuData.scss'
 import React from 'react'
 
-import GeoMapMenuButton from '../GeoMapMenuButton'
+import { useSelectedPanel } from '@client/store/ui/geo'
 
-// Placeholder for Data Layers menu
+import GeoMapMenuButton from '../GeoMapMenuButton'
+import GeoMenuItem from '../GeoMapMenuItem'
+import MapVisualizerPanel from './MapVisualizerPanel'
 
 const GeoMapMenuData: React.FC = () => {
+  const selectedPanel = useSelectedPanel()
+
   return (
     <div className="geo-map-menu-item">
       <GeoMapMenuButton panel="data" text="Data Layers" />
+      {selectedPanel === 'data' && (
+        <div>
+          <GeoMenuItem title="Map Visualizer" tabIndex={-1}>
+            <MapVisualizerPanel />
+          </GeoMenuItem>
+          <div className="geo-map-menu-separator" />
+        </div>
+      )}
     </div>
   )
 }
