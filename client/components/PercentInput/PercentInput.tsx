@@ -1,8 +1,10 @@
-import React from 'react'
-import * as R from 'ramda'
 import './PercentInput.scss'
-import { acceptableAsDecimal } from '@client/utils/numberInput'
+import React from 'react'
+
 import { Numbers } from '@core/utils'
+import * as R from 'ramda'
+
+import { Sanitizer } from '@client/utils/sanitizer'
 
 type State = any
 type Props = {
@@ -38,7 +40,7 @@ export class PercentInput extends React.Component<Props, State> {
           value={value || ''}
           style={{ opacity: this.state.hasFocus ? '1' : '0' }}
           onChange={(e) => {
-            if (!acceptableAsDecimal(e.target.value)) {
+            if (!Sanitizer.acceptableAsDecimal(e.target.value)) {
               return
             }
             this.setState({ inputValue: e.target.value })

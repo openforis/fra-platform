@@ -1,4 +1,4 @@
-import { Col } from './col'
+import { Col, ColType } from './col'
 import { Row, RowType } from './row'
 
 const getColIndexes = (props: { rows: Array<Row>; cols: Array<Col> }): Array<number> => {
@@ -22,7 +22,20 @@ const getColName = (props: { colIdx: number; cols: Array<Col> }): string => {
   return col.props.colName ?? '' // `"${col.props.colName ?? ''}"`
 }
 
+const isReadOnly = (props: { col: Col; row: Row }): boolean => {
+  const { col, row } = props
+  if (
+    row.props.readonly ||
+    row.props.calculateFn ||
+    col.props.calculateFn ||
+    [ColType.calculated, ColType.header, ColType.noticeMessage].includes(col.props.colType)
+  )
+    return true
+  return false
+}
+
 export const Cols = {
   getColIndexes,
   getColName,
+  isReadOnly,
 }

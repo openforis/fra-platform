@@ -1,12 +1,14 @@
+import { createSlice, Reducer } from '@reduxjs/toolkit'
+
 import { CountryIso } from '@meta/area'
 import { TableDatas } from '@meta/data'
-import { createSlice, Reducer } from '@reduxjs/toolkit'
 
 import { getOriginalDataPointData } from './actions/getOriginalDataPointData'
 import { getTableData } from './actions/getTableData'
 import { getTableSections } from './actions/getTableSections'
 import { setTableSections } from './actions/setTableSections'
 import { updateNodeValue } from './actions/updateNodeValue'
+import { updateNodeValues } from './actions/updateNodeValues'
 import { AssessmentSectionState } from './stateType'
 
 const initialState: AssessmentSectionState = {
@@ -42,13 +44,21 @@ export const assessmentSectionSlice = createSlice({
       }
     })
 
+    builder.addCase(getOriginalDataPointData.fulfilled, (state, { payload }) => {
+      state.originalDataPointData = payload
+    })
+
     builder.addCase(updateNodeValue.fulfilled, (state, { payload }) => {
       const { colName, countryIso, tableName, variableName, value } = payload
       state.data = TableDatas.updateDatum({ colName, countryIso, tableName, data: state.data, variableName, value })
     })
 
-    builder.addCase(getOriginalDataPointData.fulfilled, (state, { payload }) => {
-      state.originalDataPointData = payload
+    builder.addCase(updateNodeValues.pending, (state, { meta }) => {
+      const { countryIso, tableName, values } = meta.arg
+      values.forEach((valueUpdate) => {
+        const { colName, value, variableName } = valueUpdate
+        state.data = TableDatas.updateDatum({ colName, countryIso, tableName, data: state.data, variableName, value })
+      })
     })
   },
 })
@@ -59,6 +69,7 @@ export const AssessmentSectionActions = {
   getTableData,
   getOriginalDataPointData,
   updateNodeValue,
+  updateNodeValues,
 }
 
 export default assessmentSectionSlice.reducer as Reducer<AssessmentSectionState>
