@@ -14,11 +14,8 @@ export const acceptableAsDecimal = (newValue: string, checkNoDecimals = true) =>
   if (newValueTrimmed.includes('e')) return false
   if (!/^(-)?[0-9]*(\.{1}[0-9]*)?$/.test(newValueTrimmed)) return false
   // if (!R.test(/^(-)?[0-9]*(\.{1}[0-9]*)?$/)) return false
-  return (
-    !Number.isNaN(newValueTrimmed) &&
-    isValidDecimalPart(newValueTrimmed, checkNoDecimals) &&
-    Number.isFinite(Number(newValueTrimmed))
-  )
+  const number = Number(newValueTrimmed)
+  return !Number.isNaN(number) && isValidDecimalPart(newValueTrimmed, checkNoDecimals) && Number.isFinite(number)
 }
 
 export const acceptNextDecimal = (newValue: string, currentValue: string) => {

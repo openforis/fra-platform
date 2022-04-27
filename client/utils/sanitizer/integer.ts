@@ -4,9 +4,8 @@ export const acceptableAsInteger = (newValue: string) => {
   const newValueTrimmed = newValue.trim()
   if (newValueTrimmed === '') return true
   if (newValueTrimmed.includes('e')) return false
-  return (
-    !Number.isNaN(newValueTrimmed) && newValueTrimmed.indexOf('.') === -1 && Number.isFinite(Number(newValueTrimmed))
-  )
+  const number = Number(newValueTrimmed)
+  return !Number.isNaN(number) && newValueTrimmed.indexOf('.') === -1 && Number.isFinite(number)
 }
 
 export const acceptNextInteger = (newValue: string, currentValue: string) => {
