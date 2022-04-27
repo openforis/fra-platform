@@ -6,6 +6,10 @@
   top: -24px;
   font-size: $font-xs;
 
+  &.in-review {
+    margin-right: 32px;
+  }
+
   svg.icon {
     width: 12px;
     height: 12px;
