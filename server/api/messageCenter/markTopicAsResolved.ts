@@ -19,7 +19,7 @@ export const markTopicAsResolved = async (req: Request, res: Response) => {
       cycleName,
     })
 
-    const { topic } = await MessageCenterController.changeTopicStatus({
+    const { topic } = await MessageCenterController.updateTopicStatus({
       user,
       countryIso: countryIso as CountryIso,
       assessment,

@@ -7,7 +7,7 @@ import { BaseProtocol, DB } from '@server/db'
 import { ActivityLogRepository } from '@server/repository/assessment/activityLog'
 import { MessageTopicRepository } from '@server/repository/assessmentCycle/messageTopic'
 
-export const changeTopicStatus = async (
+export const updateTopicStatus = async (
   props: {
     user: User
     countryIso: CountryIso
