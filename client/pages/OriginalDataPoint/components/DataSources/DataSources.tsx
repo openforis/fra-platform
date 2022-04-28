@@ -1,15 +1,17 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
-import VerticallyGrowingTextField from '@client/components/VerticallyGrowingTextField'
-import MultiSelect from '@client/components/MultiSelect'
-import ReviewIndicator from '@client/components/ReviewIndicator'
-import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
+import { Objects } from '@core/utils'
+
+import { ODPDataSourceMethod, OriginalDataPoint } from '@meta/assessment/originalDataPoint'
+
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
-import { OriginalDataPoint, ODPDataSourceMethod } from '@meta/assessment/originalDataPoint'
-import { useTranslation } from 'react-i18next'
+import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 import { useCountryIso } from '@client/hooks'
-import { Objects } from '@core/utils'
+import MultiSelect from '@client/components/MultiSelect'
+import ReviewIndicator from '@client/components/ReviewIndicator'
+import VerticallyGrowingTextField from '@client/components/VerticallyGrowingTextField'
 
 type Props = {
   canEditData: boolean
@@ -71,7 +73,7 @@ const DataSources: React.FC<Props> = (props) => {
                   />
                 </td>
                 {displayReviewIndicator && (
-                  <td className="no-print">
+                  <td className="fra-table__review-cell no-print">
                     <ReviewIndicator
                       title={i18n.t('nationalDataPoint.references')}
                       subtitle={i18n.t('nationalDataPoint.dataSources')}
@@ -97,7 +99,7 @@ const DataSources: React.FC<Props> = (props) => {
                   />
                 </td>
                 {displayReviewIndicator && (
-                  <td className="no-print">
+                  <td className="fra-table__review-cell no-print">
                     <ReviewIndicator
                       title={i18n.t('nationalDataPoint.methodsUsed')}
                       subtitle={i18n.t('nationalDataPoint.dataSources')}
@@ -123,7 +125,7 @@ const DataSources: React.FC<Props> = (props) => {
                   />
                 </td>
                 {displayReviewIndicator && (
-                  <td className="no-print">
+                  <td className="fra-table__review-cell no-print">
                     <ReviewIndicator
                       title={i18n.t('nationalDataPoint.additionalComments')}
                       subtitle={i18n.t('nationalDataPoint.dataSources')}

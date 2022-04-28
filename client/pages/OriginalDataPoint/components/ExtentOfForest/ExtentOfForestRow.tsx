@@ -1,14 +1,16 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
+
 import { Numbers } from '@core/utils'
 
+// import { useCountryIso } from '@client/hooks'
+import { useAppDispatch } from '@client/store'
+import { useAssessment, useCycle } from '@client/store/assessment'
+import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 import PercentInput from '@client/components/PercentInput'
 import ReviewIndicator from '@client/components/ReviewIndicator'
 import ThousandSeparatedDecimalInput from '@client/components/ThousandSeparatedDecimalInput'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
-import { useTranslation } from 'react-i18next'
-// import { useCountryIso } from '@client/hooks'
-import { useAppDispatch } from '@client/store'
+
 import { useNationalClassNameComments, useNationalClassValidation } from '../../hooks'
 
 const columns = [
@@ -149,7 +151,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
       </td>
 
       {originalDataPoint.id && canEditData && (
-        <td className="no-print">
+        <td className="fra-table__review-cell no-print">
           <ReviewIndicator
             title={name}
             subtitle={i18n.t('nationalDataPoint.forestCategoriesLabel')}
