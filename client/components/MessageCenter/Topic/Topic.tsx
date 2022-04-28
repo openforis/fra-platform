@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 
 import { Objects } from '@core/utils'
 
-import { Message, MessageTopic } from '@meta/messageCenter'
+import { Message, MessageTopic, MessageTopicStatus } from '@meta/messageCenter'
 import { Sockets } from '@meta/socket/sockets'
 
 import { useAppDispatch } from '@client/store'
@@ -38,6 +38,17 @@ const Topic: React.FC<TopicProps> = (props) => {
     dispatch(MessageCenterActions.closeTopic({ key: topic.key }))
   }, [dispatch, topic])
 
+  const resolveTopic = useCallback(() => {
+    dispatch(
+      MessageCenterActions.markTopicAsResolved({
+        countryIso,
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
+        key: topic.key,
+      })
+    )
+  }, [dispatch, topic])
+
   const postMessage = useCallback(() => {
     dispatch(
       MessageCenterActions.postMessage({
@@ -55,7 +66,7 @@ const Topic: React.FC<TopicProps> = (props) => {
   useEffect(() => {
     const eventHandler = (args: [message: Message]) => {
       const [message] = args
-      dispatch(MessageCenterActions.addMessage({ message, topic }))
+      if (message) dispatch(MessageCenterActions.addMessage({ message, topic }))
     }
     SocketClient.on(topicEvent, eventHandler)
 
