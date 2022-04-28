@@ -7,7 +7,7 @@
   font-size: $font-xs;
 
   &.in-review {
-    margin-right: 32px;
+    margin-right: $spacing-m;
   }
 
   svg.icon {

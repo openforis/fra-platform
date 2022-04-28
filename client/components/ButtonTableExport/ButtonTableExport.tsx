@@ -2,6 +2,8 @@ import './ButtonTableExport.scss'
 import React, { MutableRefObject } from 'react'
 import { CSVLink } from 'react-csv'
 
+import classNames from 'classnames'
+
 import { useIsDataLocked } from '@client/store/ui/dataLock'
 import Icon from '@client/components/Icon'
 
@@ -24,9 +26,10 @@ const ButtonTableExport: React.FC<Props> = (props) => {
 
   return (
     <CSVLink
-      className={`fra-table__btn-export ${inReview ? 'in-review' : ''} btn-xs btn-primary${
-        isLocked && !disabled ? '' : ' disabled'
-      }`}
+      className={classNames('fra-table__btn-export', 'btn-xs', 'btn-primary', 'no-print', {
+        'in-review': inReview,
+        disabled: !isLocked && disabled,
+      })}
       target="_blank"
       filename={`${filename}.csv`}
       data={Utils.getData(tableRef.current)}
