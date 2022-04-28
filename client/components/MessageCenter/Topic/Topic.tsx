@@ -47,7 +47,7 @@ const Topic: React.FC<TopicProps> = (props) => {
         key: topic.key,
       })
     )
-  }, [dispatch, topic])
+  }, [countryIso, assessment, cycle, topic, dispatch])
 
   const postMessage = useCallback(() => {
     dispatch(
