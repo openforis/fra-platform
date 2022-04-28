@@ -21,7 +21,7 @@ export const updateTopicStatus = async (
   const { user, countryIso, assessment, cycle, key, status } = props
 
   return client.tx(async (t) => {
-    const topic = await MessageTopicRepository.update(
+    const topic = await MessageTopicRepository.updateStatus(
       { countryIso, assessment, cycle, key, status, includeMessages: true },
       t
     )

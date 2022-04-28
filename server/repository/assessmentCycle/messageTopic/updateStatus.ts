@@ -6,7 +6,7 @@ import { BaseProtocol, DB, Schemas } from '@server/db'
 
 import { getOneOrNone } from './getOneOrNone'
 
-export const update = async (
+export const updateStatus = async (
   props: {
     countryIso: CountryIso
     assessment: Assessment

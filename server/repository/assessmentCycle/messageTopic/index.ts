@@ -1,9 +1,9 @@
 import { create } from './create'
 import { getOneOrNone } from './getOneOrNone'
-import { update } from './update'
+import { updateStatus } from './updateStatus'
 
 export const MessageTopicRepository = {
   create,
   getOneOrNone,
-  update,
+  updateStatus,
 }
