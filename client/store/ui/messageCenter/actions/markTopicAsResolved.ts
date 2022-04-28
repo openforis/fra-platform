@@ -16,7 +16,7 @@ export const markTopicAsResolved = createAsyncThunk<MessageTopic, Params>(
   'messageCenter/topicMessage/markTopicAsResolved',
   async ({ countryIso, assessmentName, cycleName, key }) => {
     const params = { countryIso, assessmentName, cycleName, key }
-    const { data } = await axios.put(ApiEndPoint.MessageCenter.Topic.markTopicAsResolved(), {}, { params })
+    const { data } = await axios.put(ApiEndPoint.MessageCenter.Topic.resolveTopic(), {}, { params })
     return data
   }
 )

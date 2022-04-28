@@ -12,7 +12,7 @@ export const MessageCenterApi = {
     express.get(ApiEndPoint.MessageCenter.Topic.get(), AuthMiddleware.requireEditMessageTopic, getTopic)
     express.post(ApiEndPoint.MessageCenter.Topic.addMessage(), AuthMiddleware.requireEditMessageTopic, addMessage)
     express.put(
-      ApiEndPoint.MessageCenter.Topic.markTopicAsResolved(),
+      ApiEndPoint.MessageCenter.Topic.resolveTopic(),
       AuthMiddleware.requireEditMessageTopic,
       markTopicAsResolved
     )
