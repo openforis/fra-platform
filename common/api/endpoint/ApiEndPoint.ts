@@ -73,6 +73,7 @@ export const ApiEndPoint = {
     Topic: {
       get: () => apiPath('topic'),
       addMessage: () => apiPath('topic', 'message'),
+      markTopicAsResolved: () => apiPath('topic', 'resolve'),
     },
   },
 

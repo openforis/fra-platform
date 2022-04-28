@@ -5,10 +5,16 @@ import { AuthMiddleware } from '@server/middleware/auth'
 
 import { addMessage } from './addMessage'
 import { getTopic } from './getTopic'
+import { markTopicAsResolved } from './markTopicAsResolved'
 
 export const MessageCenterApi = {
   init: (express: Express): void => {
     express.get(ApiEndPoint.MessageCenter.Topic.get(), AuthMiddleware.requireEditMessageTopic, getTopic)
     express.post(ApiEndPoint.MessageCenter.Topic.addMessage(), AuthMiddleware.requireEditMessageTopic, addMessage)
+    express.put(
+      ApiEndPoint.MessageCenter.Topic.markTopicAsResolved(),
+      AuthMiddleware.requireEditMessageTopic,
+      markTopicAsResolved
+    )
   },
 }

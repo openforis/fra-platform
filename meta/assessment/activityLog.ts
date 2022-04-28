@@ -11,6 +11,7 @@ export enum ActivityLogMessage {
   nodeValueUpdate = 'nodeValueUpdate',
   nodeValueCalculatedUpdate = 'nodeValueCalculatedUpdate',
   messageCreate = 'messageCreate',
+  topicStatusChange = 'topicStatusChange',
 }
 
 export interface ActivityLog<Target> {
