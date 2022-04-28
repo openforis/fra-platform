@@ -2,7 +2,7 @@ import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 
 import { Message, MessageTopic } from '@meta/messageCenter'
 
-import { markTopicAsResolved, openTopic, postMessage } from './actions'
+import { openTopic, postMessage, resolveTopic } from './actions'
 import { MessageCenterState } from './stateType'
 
 const initialState: MessageCenterState = {
@@ -38,7 +38,7 @@ export const messageCenterSlice = createSlice({
 
 export const MessageCenterActions = {
   ...messageCenterSlice.actions,
-  markTopicAsResolved,
+  resolveTopic,
   postMessage,
   openTopic,
 }

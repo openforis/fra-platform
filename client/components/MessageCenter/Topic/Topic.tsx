@@ -40,7 +40,7 @@ const Topic: React.FC<TopicProps> = (props) => {
 
   const resolveTopic = useCallback(() => {
     dispatch(
-      MessageCenterActions.markTopicAsResolved({
+      MessageCenterActions.resolveTopic({
         countryIso,
         assessmentName: assessment.props.name,
         cycleName: cycle.name,
