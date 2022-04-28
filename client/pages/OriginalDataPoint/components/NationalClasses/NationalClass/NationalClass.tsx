@@ -1,15 +1,18 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
+
 import { Objects } from '@core/utils'
 
-import Icon from '@client/components/Icon'
-import VerticallyGrowingTextField from '@client/components/VerticallyGrowingTextField'
-import ReviewIndicator from '@client/components/ReviewIndicator'
-import { useTranslation } from 'react-i18next'
-import { useCountryIso } from '@client/hooks'
+import { ODPs, OriginalDataPoint } from '@meta/assessment'
+
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
-import { ODPs, OriginalDataPoint } from '@meta/assessment'
+import { useCountryIso } from '@client/hooks'
+import Icon from '@client/components/Icon'
+import ReviewIndicator from '@client/components/ReviewIndicator'
+import VerticallyGrowingTextField from '@client/components/VerticallyGrowingTextField'
+
 import { useNationalClassNameComments, useNationalClassValidation } from '../../../hooks'
 
 const columns = [
@@ -143,7 +146,7 @@ const NationalClass: React.FC<Props> = (props) => {
       </td>
 
       {!printView && canEditData && !placeHolder && !Objects.isNil(originalDataPoint.id) && (
-        <td className="no-print">
+        <td className="fra-table__review-cell no-print">
           <ReviewIndicator
             title={name}
             subtitle={i18n.t('nationalDataPoint.nationalDataPoint')}

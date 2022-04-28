@@ -49,7 +49,9 @@ const Table: React.FC<Props> = (props) => {
   return (
     <div className={`fra-table__container${secondary ? ' fra-secondary-table__wrapper' : ''}`}>
       <div className="fra-table__scroll-wrapper">
-        {displayTableExportButton && <ButtonTableExport tableRef={tableRef} filename={sectionAnchor} />}
+        {displayTableExportButton && (
+          <ButtonTableExport tableRef={tableRef} filename={sectionAnchor} inReview={!disabled && !secondary} />
+        )}
 
         <table id={table.props.name} ref={tableRef} className="fra-table data-table">
           <thead>
