@@ -74,6 +74,13 @@ const Topic: React.FC<TopicProps> = (props) => {
         <div className="topic-close" onClick={closeTopic} onKeyDown={closeTopic} role="button" tabIndex={0}>
           <Icon name="remove" />
         </div>
+        {topic.status === MessageTopicStatus.opened && (
+          <div className="topic-review">
+            <button className="btn btn-primary btn-s" onClick={resolveTopic} type="submit">
+              {i18n.t('review.resolve')}
+            </button>
+          </div>
+        )}
       </div>
       <div className="topic-body">
         {topic.messages.map((message) => (
