@@ -9,7 +9,7 @@ import { MessageCenterController } from '@server/controller/messageCenter'
 import { SocketServer } from '@server/service/socket'
 import Requests from '@server/utils/requests'
 
-export const markTopicAsResolved = async (req: Request, res: Response) => {
+export const resolveTopic = async (req: Request, res: Response) => {
   try {
     const { countryIso, assessmentName, cycleName, key } = <Record<string, string>>req.query
     const user = Requests.getRequestUser(req)
