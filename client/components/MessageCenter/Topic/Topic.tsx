@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 
 import { Objects } from '@core/utils'
 
-import { Message, MessageTopic, MessageTopicStatus } from '@meta/messageCenter'
+import { Message, MessageTopic, MessageTopicStatus, MessageTopicType } from '@meta/messageCenter'
 import { Sockets } from '@meta/socket/sockets'
 
 import { useAppDispatch } from '@client/store'
@@ -85,7 +85,7 @@ const Topic: React.FC<TopicProps> = (props) => {
         <div className="topic-close" onClick={closeTopic} onKeyDown={closeTopic} role="button" tabIndex={0}>
           <Icon name="remove" />
         </div>
-        {topic.status === MessageTopicStatus.opened && (
+        {topic.status === MessageTopicStatus.opened && topic.type === MessageTopicType.review && (
           <div className="topic-review">
             <button className="btn btn-primary btn-s" onClick={resolveTopic} type="submit">
               {i18n.t('review.resolve')}
