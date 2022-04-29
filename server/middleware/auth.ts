@@ -58,9 +58,16 @@ const requireEditMessageTopic = async (req: Request, _res: Response, next: NextF
   }
 }
 
+const requireResolveTopic = async (req: Request, _res: Response, next: NextFunction) => {
+  const user = Requests.getRequestUser(req)
+  const { countryIso } = <Record<string, string>>{ ...req.params, ...req.query }
+  _next(Users.isAdministrator(user) || Users.isReviewer(user, countryIso as CountryIso), next)
+}
+
 export const AuthMiddleware = {
   requireEdit,
   requireView,
   requireAdmin,
+  requireResolveTopic,
   requireEditMessageTopic,
 }
