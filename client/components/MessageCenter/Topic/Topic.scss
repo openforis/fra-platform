@@ -12,9 +12,7 @@
 }
 
 .topic-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  position: relative;
   padding: 12px 16px 12px 16px;
   border-bottom: 1px solid $ui-border;
   background-color: $ui-bg;
@@ -26,7 +24,9 @@
     font-size: $font-xs;
   }
   .topic-close {
-    margin-left: $spacing-xxs;
+    position: absolute;
+    right: $spacing-xxs;
+    top: $spacing-xxs;
     line-height: 0;
     &:hover {
       cursor: pointer;
@@ -34,6 +34,9 @@
         color: $text-disabled;
       }
     }
+  }
+  .topic-review {
+    margin-top: $spacing-xxs;
   }
 }
 

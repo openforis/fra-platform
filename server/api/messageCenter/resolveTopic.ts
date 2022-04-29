@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 
 import { CountryIso } from '@meta/area'
-import { MessageTopicType } from '@meta/messageCenter'
+import { MessageTopicStatus } from '@meta/messageCenter'
 import { Sockets } from '@meta/socket/sockets'
 
 import { AssessmentController } from '@server/controller/assessment'
@@ -9,10 +9,9 @@ import { MessageCenterController } from '@server/controller/messageCenter'
 import { SocketServer } from '@server/service/socket'
 import Requests from '@server/utils/requests'
 
-export const addMessage = async (req: Request, res: Response) => {
+export const resolveTopic = async (req: Request, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName, key, type } = <Record<string, string>>req.query
-    const { message } = req.body
+    const { countryIso, assessmentName, cycleName, key } = <Record<string, string>>req.query
     const user = Requests.getRequestUser(req)
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({
@@ -20,17 +19,16 @@ export const addMessage = async (req: Request, res: Response) => {
       cycleName,
     })
 
-    const { topic, message: messageCreated } = await MessageCenterController.addMessage({
-      message,
+    const { topic } = await MessageCenterController.updateTopicStatus({
       user,
       countryIso: countryIso as CountryIso,
       assessment,
       cycle,
       key,
-      type: type as MessageTopicType,
+      status: MessageTopicStatus.resolved,
     })
 
-    SocketServer.emit(Sockets.getTopicEvent({ assessment, cycle, topic }), { message: messageCreated })
+    SocketServer.emit(Sockets.getTopicEvent({ assessment, cycle, topic }), { status: MessageTopicStatus.resolved })
 
     Requests.sendOk(res)
   } catch (e) {
