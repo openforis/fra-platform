@@ -28,7 +28,7 @@ export const resolveTopic = async (req: Request, res: Response) => {
       status: MessageTopicStatus.resolved,
     })
 
-    SocketServer.emit(Sockets.getTopicEvent({ assessment, cycle, topic }))
+    SocketServer.emit(Sockets.getTopicEvent({ assessment, cycle, topic }), { status: MessageTopicStatus.resolved })
 
     Requests.sendOk(res)
   } catch (e) {

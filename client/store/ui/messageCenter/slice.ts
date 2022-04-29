@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 
-import { Message, MessageTopic } from '@meta/messageCenter'
+import { Message, MessageTopic, MessageTopicStatus } from '@meta/messageCenter'
 
 import { openTopic, postMessage, resolveTopic } from './actions'
 import { MessageCenterState } from './stateType'
@@ -23,6 +23,14 @@ export const messageCenterSlice = createSlice({
       if (i !== -1) {
         const topicState = state.topics[i]
         state.topics[i] = { ...topicState, messages: [...topicState.messages, message] }
+      }
+    },
+    changeStatus: (state, action: PayloadAction<{ status: MessageTopicStatus; topic: MessageTopic }>) => {
+      const { status, topic } = action.payload
+      const i = state.topics.findIndex((t) => t.key === topic.key)
+      if (i !== -1) {
+        const topicState = state.topics[i]
+        state.topics[i] = { ...topicState, status }
       }
     },
   },

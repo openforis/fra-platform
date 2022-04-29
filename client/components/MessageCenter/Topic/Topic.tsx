@@ -64,9 +64,10 @@ const Topic: React.FC<TopicProps> = (props) => {
   }, [countryIso, assessment, cycle, topic, message, dispatch, section])
 
   useEffect(() => {
-    const eventHandler = (args: [message: Message]) => {
-      const [message] = args
+    const eventHandler = (args: [{ message: Message; status: MessageTopicStatus }]) => {
+      const [{ message, status }] = args
       if (message) dispatch(MessageCenterActions.addMessage({ message, topic }))
+      else if (status) dispatch(MessageCenterActions.changeStatus({ status, topic }))
     }
     SocketClient.on(topicEvent, eventHandler)
 

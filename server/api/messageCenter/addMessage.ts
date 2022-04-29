@@ -30,7 +30,7 @@ export const addMessage = async (req: Request, res: Response) => {
       type: type as MessageTopicType,
     })
 
-    SocketServer.emit(Sockets.getTopicEvent({ assessment, cycle, topic }), messageCreated)
+    SocketServer.emit(Sockets.getTopicEvent({ assessment, cycle, topic }), { message: messageCreated })
 
     Requests.sendOk(res)
   } catch (e) {
