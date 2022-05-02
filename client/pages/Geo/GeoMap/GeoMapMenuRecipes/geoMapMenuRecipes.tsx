@@ -8,7 +8,7 @@ import GeoMapMenuButton from '../GeoMapMenuButton'
 const GeoMapMenuRecipes: React.FC = () => {
   return (
     <div className="geo-map-menu-item">
-      <GeoMapMenuButton panel="recipes" text="My Recipes" />
+      <GeoMapMenuButton panel="recipes" text="My Recipes" icon="bookmark" />
     </div>
   )
 }

@@ -78,7 +78,7 @@ const GeoMapMenuMosaic: React.FC = () => {
 
   return (
     <div className="geo-map-menu-item">
-      <GeoMapMenuButton panel="mosaic" text="Background" />
+      <GeoMapMenuButton panel="mosaic" text="Background" icon="radar" />
       {selectedPanel === 'mosaic' && (
         <div>
           <GeoMenuItem
