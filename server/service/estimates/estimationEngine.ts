@@ -1,9 +1,14 @@
-import * as assert from 'assert'
 import BigNumber from 'bignumber.js'
 
 import { CountryIso } from '@meta/area'
 
 import { BigNumberInput, Numbers } from '../../../core/utils/numbers'
+
+const assert = (condition: any, message: string) => {
+  if (!condition) {
+    throw message
+  }
+}
 
 interface Deprecated_TableDatum {
   countryIso?: string
