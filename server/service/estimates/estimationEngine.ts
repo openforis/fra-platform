@@ -26,7 +26,7 @@ interface Deprecated_TableDatum {
 type Field = keyof Deprecated_TableDatum
 
 type ValueArray = Array<Deprecated_TableDatum>
-type ODPValueArray = Array<Deprecated_TableDatum & { type: 'odp' }>
+type ODPValueArray = ValueArray // Array<Deprecated_TableDatum & { type: 'odp' }>
 
 type GenerateSpecMethods = 'linear' | 'repeatLast' | 'annualChange' | 'clearTable'
 
