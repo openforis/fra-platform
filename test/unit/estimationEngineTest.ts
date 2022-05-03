@@ -1,6 +1,7 @@
 import { assert } from 'chai'
 import * as R from 'ramda'
-import * as estimationEngine from '../../_legacy_server/eof/estimationEngine'
+
+import * as estimationEngine from '@server/service/estimates/estimationEngine'
 
 const fraYears = [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020]
 
@@ -102,6 +103,7 @@ const expectedEstimations1 = [
 
 describe('estimationEngine', () => {
   it('Interpolates and extrapolates linearly', () => {
+    // @ts-ignore
     const estimated = estimationEngine.estimateFraValues(fraYears, testOdpSet1, {
       method: 'linear',
       fields: ['forestArea', 'otherWoodedLand'],
@@ -109,6 +111,7 @@ describe('estimationEngine', () => {
     assert.deepEqual(expectedEstimations1, estimated)
   })
   it('Extrapolates with repeat last value', () => {
+    // @ts-ignore
     const estimated = estimationEngine.estimateFraValues(fraYears, testOdpSet2, {
       method: 'repeatLast',
       fields: ['forestArea', 'otherWoodedLand'],
@@ -130,6 +133,7 @@ describe('estimationEngine', () => {
   })
 
   it('Extrapolates with annual change rate', () => {
+    // @ts-ignore
     const estimated = estimationEngine.estimateFraValues(fraYears, testOdpSet2, {
       method: 'annualChange',
       changeRates: {

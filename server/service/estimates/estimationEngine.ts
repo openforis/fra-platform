@@ -1,8 +1,11 @@
 import * as assert from 'assert'
+import BigNumber from 'bignumber.js'
 
-import { BigNumberInput, Numbers } from '@core/utils/numbers'
+import { CountryIso } from '@meta/area'
 
-interface ODP {
+import { BigNumberInput, Numbers } from '../../../core/utils/numbers'
+
+interface Deprecated_TableDatum {
   countryIso?: string
   dataSourceAdditionalComments?: string
   dataSourceReferences?: string
@@ -10,7 +13,22 @@ interface ODP {
   id?: string
   odpId?: string
   reservedYears?: Array<number>
-  year?: string
+  year?: number
+  store?: boolean
+  type: 'odp' | 'fra'
+}
+
+type Field = keyof Deprecated_TableDatum
+
+type ValueArray = Array<Deprecated_TableDatum>
+type ODPValueArray = Array<Deprecated_TableDatum & { type: 'odp' }>
+
+type GenerateSpecMethods = 'linear' | 'repeatLast' | 'annualChange' | 'clearTable'
+
+interface GenerateSpec {
+  method: GenerateSpecMethods
+  fields: Array<string>
+  changeRates: Record<keyof Deprecated_TableDatum, { rateFuture: number; ratePast: number }>
 }
 
 export const linearInterpolation = (
@@ -19,7 +37,7 @@ export const linearInterpolation = (
   ya: BigNumberInput,
   xb: BigNumberInput,
   yb: BigNumberInput
-) => Numbers.add(ya, Numbers.div(Numbers.mul(Numbers.sub(yb, ya), Numbers.sub(x, xa)), Numbers.sub(xb, xa)))
+): BigNumber => Numbers.add(ya, Numbers.div(Numbers.mul(Numbers.sub(yb, ya), Numbers.sub(x, xa)), Numbers.sub(xb, xa)))
 
 export const linearExtrapolationForwards = (
   x: BigNumberInput,
@@ -27,7 +45,7 @@ export const linearExtrapolationForwards = (
   ya: BigNumberInput,
   xb: BigNumberInput,
   yb: BigNumberInput
-) => Numbers.add(ya, Numbers.mul(Numbers.div(Numbers.sub(x, xa), Numbers.sub(xb, xa)), Numbers.sub(yb, ya)))
+): BigNumber => Numbers.add(ya, Numbers.mul(Numbers.div(Numbers.sub(x, xa), Numbers.sub(xb, xa)), Numbers.sub(yb, ya)))
 
 export const linearExtrapolationBackwards = (
   x: BigNumberInput,
@@ -35,20 +53,28 @@ export const linearExtrapolationBackwards = (
   ya: BigNumberInput,
   xb: BigNumberInput,
   yb: BigNumberInput
-) => Numbers.add(yb, Numbers.mul(Numbers.div(Numbers.sub(xb, x), Numbers.sub(xb, xa)), Numbers.sub(ya, yb)))
+): BigNumber => Numbers.add(yb, Numbers.mul(Numbers.div(Numbers.sub(xb, x), Numbers.sub(xb, xa)), Numbers.sub(ya, yb)))
 
-export const getNextValues = (year: number, values: any[]) =>
-  values.filter((v: any) => v.year > year).sort((a: any, b: any) => a.year - b.year)
+export const getNextValues = (year: number, values: ValueArray) =>
+  values
+    .filter((v: Deprecated_TableDatum) => v.year > year)
+    .sort((a: Deprecated_TableDatum, b: Deprecated_TableDatum) => a.year - b.year)
 
-export const getPreviousValues = (year: number, values: any[]) =>
+export const getPreviousValues = (year: number, values: ValueArray) =>
   values.filter((v) => v.year < year).sort((a, b) => b.year - a.year)
 
-export const applyEstimationFunction = (year: number, pointA: any, pointB: any, field: any, estFunction: any) => {
-  const estimated = estFunction(year, pointA.year, pointA[field], pointB.year, pointB[field])
-  return estimated < 0 ? '0' : estimated
+export const applyEstimationFunction = (
+  year: number,
+  pointA: Deprecated_TableDatum,
+  pointB: Deprecated_TableDatum,
+  field: Field,
+  estFunction: (...params: any[]) => BigNumber
+): number => {
+  const estimated = Number(estFunction(year, pointA.year, pointA[field], pointB.year, pointB[field]))
+  return Number(estimated < 0 ? '0' : estimated)
 }
 
-export const linearExtrapolation = (year: number, values: any, _: any, field: any) => {
+export const linearExtrapolation = (year: number, values: ValueArray, _: ODPValueArray, field: Field): number => {
   const previous2Values = getPreviousValues(year, values).slice(0, 2)
   const next2Values = getNextValues(year, values).slice(0, 2)
 
@@ -61,26 +87,26 @@ export const linearExtrapolation = (year: number, values: any, _: any, field: an
   return null
 }
 
-export const repeatLastExtrapolation = (year: number, values: any, _: any, field: any) => {
+export const repeatLastExtrapolation = (year: number, values: ValueArray, _: ODPValueArray, field: Field): number => {
   const previousValues = getPreviousValues(year, values)
   const nextValues = getNextValues(year, values)
 
-  if (previousValues.length >= 1) return previousValues[0][field]
-  if (nextValues.length >= 1) return nextValues[0][field]
+  if (previousValues.length >= 1) return previousValues[0][field] as number
+  if (nextValues.length >= 1) return nextValues[0][field] as number
   return null
 }
 
-function clearTableValues(): any {
+const clearTableValues = (): null => {
   return null
 }
 
 export const annualChangeExtrapolation = (
   year: number,
-  _values: any,
-  odpValues: any,
-  field: any,
-  { changeRates }: any
-) => {
+  _values: ValueArray,
+  odpValues: ODPValueArray,
+  field: Field,
+  { changeRates }: GenerateSpec
+): number => {
   assert(changeRates, 'changeRates must be given for annualChange extrapolation method')
 
   const previousValues = getPreviousValues(year, odpValues)
@@ -90,33 +116,45 @@ export const annualChangeExtrapolation = (
     const previousOdpYear = previousOdp.year
     const years = year - previousOdpYear
     const rateFuture = changeRates?.[field]?.rateFuture
-    return rateFuture ? Numbers.add(previousOdp[field], Numbers.mul(rateFuture, years)) : null
+    return rateFuture ? Number(Numbers.add(previousOdp[field] as number, Numbers.mul(rateFuture, years))) : null
   }
   if (nextValues.length >= 1) {
     const nextOdp = nextValues[0]
     const nextOdpYear = nextOdp.year
     const years = nextOdpYear - year
     const ratePast = changeRates?.[field]?.ratePast
-    return ratePast ? Numbers.add(nextOdp[field], Numbers.mul(ratePast * -1, years)) : null
+    return ratePast ? Number(Numbers.add(nextOdp[field] as number, Numbers.mul(ratePast * -1, years))) : null
   }
   return null
 }
 
-export const generateMethods: { [key: string]: any } = {
+export const generateMethods: Record<string, (...params: any[]) => number> = {
   linear: linearExtrapolation,
   repeatLast: repeatLastExtrapolation,
   annualChange: annualChangeExtrapolation,
   clearTable: clearTableValues,
 }
 
-export const extrapolate = (year: number, values: any, odpValues: any, field: any, generateSpec: any) => {
+export const extrapolate = (
+  year: number,
+  values: ValueArray,
+  odpValues: ODPValueArray,
+  field: keyof Deprecated_TableDatum,
+  generateSpec: GenerateSpec
+) => {
   const extrapolationMethod = generateMethods[generateSpec.method]
   assert(extrapolationMethod, `Invalid extrapolation method: ${generateSpec.method}`)
   return extrapolationMethod(year, values, odpValues, field, generateSpec)
 }
 
-export const estimateField = (values: any[] = [], odpValues: any, field: string, year: number, generateSpec: any) => {
-  const odp: { [key: string]: any } | null = values.find((v) => v.year === year)
+export const estimateField = (
+  odpValues: ODPValueArray,
+  field: Field,
+  year: number,
+  generateSpec: GenerateSpec,
+  values: ValueArray = []
+): number => {
+  const odp = values.find((v) => v.year === year)
   const previousValue = getPreviousValues(year, values)[0]
   const nextValue = getNextValues(year, values)[0]
   const noRequiredOdps = generateSpec.method === 'linear' ? 2 : 1
@@ -125,7 +163,7 @@ export const estimateField = (values: any[] = [], odpValues: any, field: string,
     return null
   }
   if (odp) {
-    return odp[field]
+    return Number(odp[field])
   }
   if (previousValue && nextValue) {
     return applyEstimationFunction(year, previousValue, nextValue, field, linearInterpolation)
@@ -133,18 +171,22 @@ export const estimateField = (values: any[] = [], odpValues: any, field: string,
   return extrapolate(year, values, odpValues, field, generateSpec)
 }
 
-export const estimateFraValue = (year: number, values: any, odpValues: any, generateSpec: any) => {
-  const estimateFieldReducer = (newFraObj: any, field: any) => {
+export const estimateFraValue = (
+  year: number,
+  values: ValueArray,
+  odpValues: ODPValueArray,
+  generateSpec: GenerateSpec
+): Deprecated_TableDatum => {
+  const estimateFieldReducer = (newFraObj: Deprecated_TableDatum, field: Field) => {
     const fraEstimatedYears = values.filter((v) => v.store).map((v) => v.year)
 
-    const isEstimatedOdp = (v: any) => v.type === 'odp' && fraEstimatedYears.includes(v.year)
+    const isEstimatedOdp = (v: Deprecated_TableDatum) => v.type === 'odp' && fraEstimatedYears.includes(v.year)
 
     // Filtering out objects with field value null or already estimated
-    const fieldValues = values.filter((v) => !v[field] || !isEstimatedOdp(v))
+    const fieldValues = values.filter((v: Deprecated_TableDatum) => !v[field] || !isEstimatedOdp(v))
 
-    const estValue = estimateField(fieldValues, odpValues, field, year, generateSpec)
+    const estValue = estimateField(odpValues, field, year, generateSpec, fieldValues)
 
-    // @ts-ignore
     return {
       ...newFraObj,
       [field]: Numbers.toFixed(estValue),
@@ -153,38 +195,48 @@ export const estimateFraValue = (year: number, values: any, odpValues: any, gene
   }
 
   return {
-    ...generateSpec.fields.reduce(estimateFieldReducer, {}),
+    ...generateSpec.fields.reduce<Deprecated_TableDatum>(estimateFieldReducer, {} as Deprecated_TableDatum),
     year,
     store: true,
   }
 }
 
-// Pure function, no side-effects
-export const estimateFraValues = (years: Array<number>, odpValues: Array<ODP>, generateSpec: any) => {
-  const estimatedValues = years
-    .reduce<Array<any>>((values, year) => {
+export const estimateFraValues = (
+  years: Array<number>,
+  odpValues: ODPValueArray,
+  generateSpec: GenerateSpec
+): ValueArray => {
+  return years
+    .reduce<ValueArray>((values, year) => {
       const newValue = estimateFraValue(year, values, odpValues, generateSpec)
       return [...values, newValue]
     }, odpValues)
-    .filter((v: any) => v.store)
-    .map((v: any) => {
+    .filter((v: Deprecated_TableDatum): boolean => v.store)
+    .map((v: Deprecated_TableDatum): Deprecated_TableDatum => {
       // eslint-disable-next-line no-param-reassign
       delete v.store
       return v
     })
-
-  return estimatedValues
 }
 
+type FraWriter = (
+  countryIso: CountryIso,
+  year: number,
+  estimatedValues: Deprecated_TableDatum,
+  bool: boolean
+) => Promise<any>
+
 export const estimateAndWrite = async (
-  odps: Array<ODP>,
-  fraWriter: any,
-  countryIso: any,
+  odps: ValueArray,
+  fraWriter: FraWriter,
+  countryIso: CountryIso,
   years: Array<number>,
-  generateSpec: any
+  generateSpec: GenerateSpec
 ) => {
   const estimated = estimateFraValues(years, odps, generateSpec)
   return Promise.all(
-    estimated.map((estimatedValues: any) => fraWriter(countryIso, estimatedValues.year, estimatedValues, true))
+    estimated.map((estimatedValues: Deprecated_TableDatum) =>
+      fraWriter(countryIso, estimatedValues.year, estimatedValues, true)
+    )
   )
 }
