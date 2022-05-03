@@ -232,7 +232,7 @@ type FraWriter = (
 ) => Promise<any>
 
 export const estimateAndWrite = async (
-  odps: ValueArray,
+  odps: ODPValueArray,
   fraWriter: FraWriter,
   countryIso: CountryIso,
   years: Array<number>,
