@@ -8,7 +8,7 @@ import GeoMapMenuButton from '../GeoMapMenuButton'
 const GeoMapMenuStatistics: React.FC = () => {
   return (
     <div className="geo-map-menu-item">
-      <GeoMapMenuButton panel="statistics" text="Statistics" />
+      <GeoMapMenuButton panel="statistics" text="Statistics" icon="histogram" />
     </div>
   )
 }

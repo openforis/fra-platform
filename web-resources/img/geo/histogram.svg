@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 26.2.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY ns_extend "http://ns.adobe.com/Extensibility/1.0/">
+	<!ENTITY ns_ai "http://ns.adobe.com/AdobeIllustrator/10.0/">
+	<!ENTITY ns_graphs "http://ns.adobe.com/Graphs/1.0/">
+	<!ENTITY ns_vars "http://ns.adobe.com/Variables/1.0/">
+	<!ENTITY ns_imrep "http://ns.adobe.com/ImageReplacement/1.0/">
+	<!ENTITY ns_sfw "http://ns.adobe.com/SaveForWeb/1.0/">
+	<!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
+	<!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
+]>
+<svg version="1.1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+	<switch>
+		<foreignObject requiredExtensions="&ns_ai;" x="0" y="0" width="1" height="1">
+			<i:aipgfRef xlink:href="#adobe_illustrator_pgf"></i:aipgfRef>
+		</foreignObject>
+		<g i:extraneous="self">
+			<g id="Layer_1">
+				<g>
+					<g id="Artboard_9">
+						<g id="Group_518" transform="translate(-1116.08 -154.013)">
+							<g id="Group_225" transform="translate(1323.958 232.873)">
+								<g id="Path_276">
+									<path d="M-153.461-25.233h-42.686c-0.47,0-0.851-0.381-0.851-0.851v-39.8c0-0.47,0.381-0.851,0.851-0.851
+									s0.851,0.381,0.851,0.851v38.949h41.835c0.47,0,0.851,0.381,0.851,0.851S-152.991-25.233-153.461-25.233z" />
+								</g>
+								<g id="Rectangle_766">
+									<path d="M-169.064-32.3h-6.833c-0.47,0-0.851-0.381-0.851-0.851V-62.63c0-0.47,0.381-0.851,0.851-0.851h6.833
+									c0.47,0,0.851,0.381,0.851,0.851v29.479C-168.213-32.681-168.594-32.3-169.064-32.3z M-175.046-34.002h5.132v-27.778h-5.132
+									V-34.002z" />
+								</g>
+								<g id="Rectangle_767">
+									<path d="M-181.873-32.3h-6.443c-0.47,0-0.851-0.381-0.851-0.851v-22.003c0-0.47,0.381-0.851,0.851-0.851h6.443
+									c0.47,0,0.851,0.381,0.851,0.851v22.003C-181.022-32.681-181.403-32.3-181.873-32.3z M-187.465-34.002h4.742v-20.302h-4.742
+									V-34.002z" />
+								</g>
+								<g id="Rectangle_768">
+									<path d="M-156.759-32.3h-6.443c-0.47,0-0.851-0.381-0.851-0.851v-22.003c0-0.47,0.381-0.851,0.851-0.851h6.443
+									c0.47,0,0.851,0.381,0.851,0.851v22.003C-155.908-32.681-156.289-32.3-156.759-32.3z M-162.351-34.002h4.742v-20.302h-4.742
+									V-34.002z" />
+								</g>
+							</g>
+						</g>
+					</g>
+				</g>
+			</g>
+			<g id="Layer_2" display="none">
+				<g display="inline">
+					<line fill="none" stroke="#FF0000" stroke-miterlimit="10" x1="79.5" y1="-6.5" x2="0" y2="64" />
+					<line fill="none" stroke="#FF0000" stroke-miterlimit="10" x1="0" y1="-6.5" x2="79.5" y2="64" />
+				</g>
+			</g>
+		</g>
+	</switch>
+</svg>

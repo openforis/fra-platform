@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 26.2.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY ns_extend "http://ns.adobe.com/Extensibility/1.0/">
+	<!ENTITY ns_ai "http://ns.adobe.com/AdobeIllustrator/10.0/">
+	<!ENTITY ns_graphs "http://ns.adobe.com/Graphs/1.0/">
+	<!ENTITY ns_vars "http://ns.adobe.com/Variables/1.0/">
+	<!ENTITY ns_imrep "http://ns.adobe.com/ImageReplacement/1.0/">
+	<!ENTITY ns_sfw "http://ns.adobe.com/SaveForWeb/1.0/">
+	<!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
+	<!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
+]>
+<svg version="1.1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+	<switch>
+		<foreignObject requiredExtensions="&ns_ai;" x="0" y="0" width="1" height="1">
+			<i:aipgfRef xlink:href="#adobe_illustrator_pgf"></i:aipgfRef>
+		</foreignObject>
+		<g i:extraneous="self">
+			<g id="Layer_1">
+				<g>
+					<g id="Artboard_11">
+						<g id="Group_519" transform="translate(4.925 142.493)">
+							<g id="Ellipse_6" transform="translate(7.805 8.641)">
+								<g>
+									<ellipse fill="none" cx="19.299" cy="-118.193" rx="17.519" ry="17.519" />
+								</g>
+								<g>
+									<path d="M19.299-100.674c-9.661,0-17.52-7.859-17.52-17.519s7.859-17.519,17.52-17.519c9.66,0,17.519,7.859,17.519,17.519
+									S28.959-100.674,19.299-100.674z M19.299-133.532c-8.457,0-15.339,6.881-15.339,15.339s6.882,15.339,15.339,15.339
+									s15.338-6.881,15.338-15.339S27.757-133.532,19.299-133.532z" />
+								</g>
+							</g>
+							<g id="Line_4">
+								<path d="M27.56-120.101c-0.603,0-1.09-0.488-1.09-1.09v-14.211c0-0.602,0.488-1.09,1.09-1.09c0.603,0,1.09,0.488,1.09,1.09
+								v14.211C28.65-120.589,28.163-120.101,27.56-120.101z" />
+							</g>
+							<g id="Line_5">
+								<path d="M27.102-83.523c-0.603,0-1.09-0.488-1.09-1.09v-14.293c0-0.602,0.488-1.09,1.09-1.09c0.603,0,1.09,0.488,1.09,1.09
+								v14.293C28.193-84.011,27.705-83.523,27.102-83.523z" />
+							</g>
+							<g id="Line_6">
+								<path d="M16.377-108.918H2.165c-0.603,0-1.09-0.488-1.09-1.09s0.488-1.09,1.09-1.09h14.211c0.603,0,1.09,0.488,1.09,1.09
+								S16.979-108.918,16.377-108.918z" />
+							</g>
+							<g id="Line_7">
+								<path d="M52.955-108.918H38.743c-0.603,0-1.09-0.488-1.09-1.09s0.488-1.09,1.09-1.09h14.211c0.603,0,1.09,0.488,1.09,1.09
+								S53.558-108.918,52.955-108.918z" />
+							</g>
+						</g>
+					</g>
+				</g>
+			</g>
+			<g id="Layer_2" display="none">
+				<g display="inline">
+					<line fill="none" stroke="#FF0000" stroke-miterlimit="10" x1="79.5" y1="-6.5" x2="0" y2="64" />
+					<line fill="none" stroke="#FF0000" stroke-miterlimit="10" x1="0" y1="-6.5" x2="79.5" y2="64" />
+				</g>
+			</g>
+		</g>
+	</switch>
+</svg>
