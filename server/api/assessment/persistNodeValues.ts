@@ -4,10 +4,6 @@ import { Params } from '@client/store/pages/assessmentSection/actions/updateNode
 
 import { AssessmentController } from '@server/controller/assessment'
 import { CycleDataController } from '@server/controller/cycleData'
-// import { CountryIso } from '@meta/area'
-// import { NodeValue } from '@meta/assessment'
-// import { AssessmentController } from '@server/controller/assessment'
-// import { CycleDataController } from '@server/controller/cycleData'
 import Requests from '@server/utils/requests'
 
 export const persistNodeValues = async (req: Request, res: Response) => {
@@ -33,17 +29,6 @@ export const persistNodeValues = async (req: Request, res: Response) => {
         })
       )
     )
-    //
-    // await CycleDataController.persistNodeValue({
-    //   assessment,
-    //   countryIso: countryIso as CountryIso,
-    //   colName,
-    //   cycle,
-    //   tableName,
-    //   user,
-    //   variableName,
-    //   value,
-    // })
 
     Requests.sendOk(res)
   } catch (e) {
