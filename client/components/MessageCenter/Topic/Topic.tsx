@@ -96,15 +96,6 @@ const Topic: React.FC<TopicProps> = (props) => {
         <div className="topic-close" onClick={closeTopic} onKeyDown={closeTopic} role="button" tabIndex={0}>
           <Icon name="remove" />
         </div>
-        {(Users.isAdministrator(user) || Users.isReviewer(user, countryIso)) &&
-          topic.status === MessageTopicStatus.opened &&
-          topic.type === MessageTopicType.review && (
-            <div className="topic-review">
-              <button className="btn btn-primary btn-s" onClick={resolveTopic} type="submit">
-                {i18n.t('review.resolve')}
-              </button>
-            </div>
-          )}
       </div>
       <div className="topic-body">
         {topic.messages.map((message) => (
@@ -119,14 +110,25 @@ const Topic: React.FC<TopicProps> = (props) => {
         )}
       </div>
       <div className="topic-footer">
-        <textarea
-          value={message}
-          placeholder={i18n.t('review.writeComment')}
-          onChange={(e) => setMessage(e.target.value)}
-        />
-        <button className="btn-s btn-primary" disabled={Objects.isEmpty(message)} onClick={postMessage} type="submit">
-          {i18n.t('review.add')}
-        </button>
+        <div className="topic-form">
+          <textarea
+            value={message}
+            placeholder={i18n.t('review.writeComment')}
+            onChange={(e) => setMessage(e.target.value)}
+          />
+          <button className="btn-s btn-primary" disabled={Objects.isEmpty(message)} onClick={postMessage} type="submit">
+            {i18n.t('review.add')}
+          </button>
+        </div>
+        {(Users.isAdministrator(user) || Users.isReviewer(user, countryIso)) &&
+          topic.status === MessageTopicStatus.opened &&
+          topic.type === MessageTopicType.review && (
+            <div className="topic-review">
+              <button className="btn btn-secondary btn-s" onClick={resolveTopic} type="submit">
+                {i18n.t('review.resolve')}
+              </button>
+            </div>
+          )}
       </div>
     </div>
   )
