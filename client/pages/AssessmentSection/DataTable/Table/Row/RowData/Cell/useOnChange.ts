@@ -1,12 +1,12 @@
 import { ChangeEventHandler, ClipboardEventHandler } from 'react'
 import { useDispatch } from 'react-redux'
 
+import { NodesPatchBodyValue } from '@meta/api/cycleData/nodes'
 import { Col, Cols, ColType, NodeValue, Row, RowType, Table } from '@meta/assessment'
 import { TableData, TableDatas } from '@meta/data'
 
 import { useAssessment, useAssessmentSection, useCycle } from '@client/store/assessment'
 import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
-import { ValueUpdate } from '@client/store/pages/assessmentSection/actions/updateNodeValues'
 import { useCountryIso } from '@client/hooks'
 import { Sanitizer } from '@client/utils/sanitizer'
 
@@ -73,7 +73,7 @@ export default (props: Props): UseOnChange => {
     const rowSpecs = table.rows.filter((row) => row.props.type !== RowType.header)
 
     if (rows.length > 0) {
-      const values: Array<ValueUpdate> = []
+      const values: Array<NodesPatchBodyValue> = []
       for (let i = 0; i < rows.length; i += 1) {
         const rowIdxCurrent = i + Number(row.props.index)
         const rowSpec = rowSpecs[rowIdxCurrent]

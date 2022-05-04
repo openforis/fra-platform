@@ -3,25 +3,9 @@ import { Functions } from '@core/utils'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { CountryIso } from '@meta/area'
-import { AssessmentName, NodeValue } from '@meta/assessment'
+import { NodesPatchBody } from '@meta/api/cycleData/nodes'
 
-export type ValueUpdate = {
-  variableName: string
-  colName: string
-  value: NodeValue
-}
-
-export type Params = {
-  assessmentName: AssessmentName
-  cycleName: string
-  sectionName: string
-  countryIso: CountryIso
-  tableName: string
-  values: Array<ValueUpdate>
-}
-
-const patchNodeValues = Functions.debounce(async (params: Params) => {
+const patchNodeValues = Functions.debounce(async (params: NodesPatchBody) => {
   try {
     await axios.patch(ApiEndPoint.CycleData.Nodes.many(), params)
   } catch (e) {
@@ -29,6 +13,6 @@ const patchNodeValues = Functions.debounce(async (params: Params) => {
   }
 }, 250)
 
-export const updateNodeValues = createAsyncThunk<void, Params>('section/nodeValues/update', (params) => {
+export const updateNodeValues = createAsyncThunk<void, NodesPatchBody>('section/nodeValues/update', (params) => {
   patchNodeValues(params)
 })
