@@ -110,16 +110,25 @@ const Topic: React.FC<TopicProps> = (props) => {
         )}
       </div>
       <div className="topic-footer">
-        <div className="topic-form">
-          <textarea
-            value={message}
-            placeholder={i18n.t('review.writeComment')}
-            onChange={(e) => setMessage(e.target.value)}
-          />
-          <button className="btn-s btn-primary" disabled={Objects.isEmpty(message)} onClick={postMessage} type="submit">
-            {i18n.t('review.add')}
-          </button>
-        </div>
+        {(topic.status === MessageTopicStatus.opened ||
+          (topic.status === MessageTopicStatus.resolved &&
+            (Users.isAdministrator(user) || Users.isReviewer(user, countryIso)))) && (
+          <div className="topic-form">
+            <textarea
+              value={message}
+              placeholder={i18n.t('review.writeComment')}
+              onChange={(e) => setMessage(e.target.value)}
+            />
+            <button
+              className="btn-s btn-primary"
+              disabled={Objects.isEmpty(message)}
+              onClick={postMessage}
+              type="submit"
+            >
+              {i18n.t('review.add')}
+            </button>
+          </div>
+        )}
         {(Users.isAdministrator(user) || Users.isReviewer(user, countryIso)) &&
           topic.status === MessageTopicStatus.opened &&
           topic.type === MessageTopicType.review && (
