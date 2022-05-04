@@ -19,7 +19,7 @@ export const requireEdit = async (req: Request, _res: Response, next: NextFuncti
     assessmentName,
     cycleName,
     section: sectionName,
-  } = <Record<string, string>>{ ...req.params, ...req.query }
+  } = <Record<string, string>>{ ...req.params, ...req.query, ...req.body }
   const name = <AssessmentName>assessmentName
   const user = Requests.getRequestUser(req)
 

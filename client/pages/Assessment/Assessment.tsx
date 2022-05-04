@@ -1,22 +1,22 @@
+import './Assessment.scss'
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router'
 import { Route, Switch } from 'react-router-dom'
 
-import { BasePaths } from '@client/basePaths'
-import MessageCenter from '@client/components/MessageCenter'
-import Navigation from '@client/components/Navigation'
-import { useCountryIso, useOnUpdate } from '@client/hooks'
-import AssessmentSection from '@client/pages/AssessmentSection'
-import DataExport from '@client/pages/DataExport'
-import OriginalDataPoint from '@client/pages/OriginalDataPoint'
+import { Areas } from '@meta/area'
+import { AssessmentName } from '@meta/assessment'
+
 import { useAppDispatch } from '@client/store'
 import { useAssessment } from '@client/store/assessment'
 import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import { useNavigationVisible } from '@client/store/ui/navigation'
-import { Areas } from '@meta/area'
-import { AssessmentName } from '@meta/assessment'
-
-import './Assessment.scss'
+import { useCountryIso, useOnUpdate } from '@client/hooks'
+import { BasePaths } from '@client/basePaths'
+import MessageCenter from '@client/components/MessageCenter'
+import Navigation from '@client/components/Navigation'
+import AssessmentSection from '@client/pages/AssessmentSection'
+import DataExport from '@client/pages/DataExport'
+import OriginalDataPoint from '@client/pages/OriginalDataPoint'
 
 const SectionWrapper: React.FC = (props) => {
   const { children } = props
