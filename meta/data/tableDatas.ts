@@ -40,9 +40,9 @@ const updateDatum = (props: {
 }): TableData => {
   const { data, countryIso, tableName, variableName, colName, value } = props
   const dataClone = { ...data }
-  if (!data[countryIso]) data[countryIso] = {}
-  if (!data[countryIso][tableName]) data[countryIso][tableName] = {}
-  if (!data[countryIso][tableName][colName]) data[countryIso][tableName][colName] = {}
+  if (!dataClone[countryIso]) dataClone[countryIso] = {}
+  if (!dataClone[countryIso][tableName]) dataClone[countryIso][tableName] = {}
+  if (!dataClone[countryIso][tableName][colName]) dataClone[countryIso][tableName][colName] = {}
   dataClone[countryIso][tableName][colName][variableName] = value
   return dataClone
 }
