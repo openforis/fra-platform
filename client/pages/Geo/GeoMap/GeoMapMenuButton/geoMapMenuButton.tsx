@@ -2,15 +2,18 @@ import './geoMapMenuButton.scss'
 import React, { useCallback } from 'react'
 
 import { MapPanel } from '@meta/geo'
-import { GeoActions, useSelectedPanel } from '@client/store/ui/geo'
+
 import { useAppDispatch } from '@client/store'
+import { GeoActions, useSelectedPanel } from '@client/store/ui/geo'
+import GeoIcon from '@client/components/GeoIcon'
 
 interface Props {
   panel: MapPanel
   text: string
+  icon: string
 }
 
-const GeoMapMenuButton: React.FC<Props> = ({ panel, text }) => {
+const GeoMapMenuButton: React.FC<Props> = ({ panel, text, icon }) => {
   const selectedPanel = useSelectedPanel()
   const dispatch = useAppDispatch()
 
@@ -28,6 +31,7 @@ const GeoMapMenuButton: React.FC<Props> = ({ panel, text }) => {
       onClick={() => handleClick()}
       className={`geo-map-menu-button geo-map-menu-button-${panel} ${selectedPanel === panel ? ' selected' : ''}`}
     >
+      <GeoIcon name={icon} className="geo-map-menu-button-icon" />
       {text}
     </button>
   )

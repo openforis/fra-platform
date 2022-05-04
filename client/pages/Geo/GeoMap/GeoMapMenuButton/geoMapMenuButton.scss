@@ -6,7 +6,6 @@
   border: 1px solid $ui-border;
   background: $text-body 0% 0% no-repeat padding-box;
   font-size: $font-l;
-  padding: 15px;
   z-index: 2;
   border-color: $ui-border;
   background-color: $text-body;
@@ -14,6 +13,8 @@
   width: $ui-geo-menu-button-width;
   margin: $ui-geo-menu-button-spacing 0 0 0;
   text-align: left;
+  display: flex;
+  align-items: center;
 
   &:hover {
     color: $ui-bg-hover;
@@ -24,7 +25,9 @@
     background-color: $ui-accent;
     color: $ui-bg;
   }
+}
 
-  > p {
-  }
+.geo-map-menu-button-icon {
+  margin: 4px 6px 4px 0;
+  height: 40px;
 }

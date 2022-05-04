@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 
 import { Objects } from '@core/utils'
 
-import { Message, MessageTopic } from '@meta/messageCenter'
+import { Message, MessageTopic, MessageTopicStatus, MessageTopicType } from '@meta/messageCenter'
 import { Sockets } from '@meta/socket/sockets'
 
 import { useAppDispatch } from '@client/store'
@@ -38,6 +38,17 @@ const Topic: React.FC<TopicProps> = (props) => {
     dispatch(MessageCenterActions.closeTopic({ key: topic.key }))
   }, [dispatch, topic])
 
+  const resolveTopic = useCallback(() => {
+    dispatch(
+      MessageCenterActions.resolveTopic({
+        countryIso,
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
+        key: topic.key,
+      })
+    )
+  }, [countryIso, assessment, cycle, topic, dispatch])
+
   const postMessage = useCallback(() => {
     dispatch(
       MessageCenterActions.postMessage({
@@ -53,9 +64,10 @@ const Topic: React.FC<TopicProps> = (props) => {
   }, [countryIso, assessment, cycle, topic, message, dispatch, section])
 
   useEffect(() => {
-    const eventHandler = (args: [message: Message]) => {
-      const [message] = args
-      dispatch(MessageCenterActions.addMessage({ message, topic }))
+    const eventHandler = (args: [{ message: Message; status: MessageTopicStatus }]) => {
+      const [{ message, status }] = args
+      if (message) dispatch(MessageCenterActions.addMessage({ message, topic }))
+      else if (status) dispatch(MessageCenterActions.changeStatus({ status, topic }))
     }
     SocketClient.on(topicEvent, eventHandler)
 
@@ -74,6 +86,13 @@ const Topic: React.FC<TopicProps> = (props) => {
         <div className="topic-close" onClick={closeTopic} onKeyDown={closeTopic} role="button" tabIndex={0}>
           <Icon name="remove" />
         </div>
+        {topic.status === MessageTopicStatus.opened && topic.type === MessageTopicType.review && (
+          <div className="topic-review">
+            <button className="btn btn-primary btn-s" onClick={resolveTopic} type="submit">
+              {i18n.t('review.resolve')}
+            </button>
+          </div>
+        )}
       </div>
       <div className="topic-body">
         {topic.messages.map((message) => (
