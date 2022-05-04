@@ -7,7 +7,6 @@ import { getOriginalDataPointData } from './actions/getOriginalDataPointData'
 import { getTableData } from './actions/getTableData'
 import { getTableSections } from './actions/getTableSections'
 import { setTableSections } from './actions/setTableSections'
-import { updateNodeValue } from './actions/updateNodeValue'
 import { updateNodeValues } from './actions/updateNodeValues'
 import { AssessmentSectionState } from './stateType'
 
@@ -48,11 +47,6 @@ export const assessmentSectionSlice = createSlice({
       state.originalDataPointData = payload
     })
 
-    builder.addCase(updateNodeValue.fulfilled, (state, { payload }) => {
-      const { colName, countryIso, tableName, variableName, value } = payload
-      state.data = TableDatas.updateDatum({ colName, countryIso, tableName, data: state.data, variableName, value })
-    })
-
     builder.addCase(updateNodeValues.pending, (state, { meta }) => {
       const { countryIso, tableName, values } = meta.arg
       values.forEach((valueUpdate) => {
@@ -68,7 +62,6 @@ export const AssessmentSectionActions = {
   getTableSections,
   getTableData,
   getOriginalDataPointData,
-  updateNodeValue,
   updateNodeValues,
 }
 
