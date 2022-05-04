@@ -30,7 +30,8 @@ const Topic: React.FC<TopicProps> = (props) => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
-  const topicEvent = Sockets.getTopicEvent({ assessment, cycle, topic })
+  const messageEvent = Sockets.getTopicMessageEvent({ assessment, cycle, topic })
+  const statusEvent = Sockets.getTopicStatusEvent({ assessment, cycle, topic })
 
   const { section } = useParams<{ section?: string }>()
 
@@ -64,15 +65,20 @@ const Topic: React.FC<TopicProps> = (props) => {
   }, [countryIso, assessment, cycle, topic, message, dispatch, section])
 
   useEffect(() => {
-    const eventHandler = (args: [{ message: Message; status: MessageTopicStatus }]) => {
-      const [{ message, status }] = args
-      if (message) dispatch(MessageCenterActions.addMessage({ message, topic }))
-      else if (status) dispatch(MessageCenterActions.changeStatus({ status, topic }))
+    const newMessageEventHandler = (args: [message: Message]) => {
+      const [message] = args
+      dispatch(MessageCenterActions.addMessage({ message, topic }))
     }
-    SocketClient.on(topicEvent, eventHandler)
+
+    const changeStatusEventHandler = (args: [status: MessageTopicStatus]) => {
+      const [status] = args
+      dispatch(MessageCenterActions.changeStatus({ status, topic }))
+    }
+
+    SocketClient.on(messageEvent, newMessageEventHandler).on(statusEvent, changeStatusEventHandler)
 
     return () => {
-      SocketClient.off(topicEvent, eventHandler)
+      SocketClient.off(messageEvent, newMessageEventHandler).off(statusEvent, changeStatusEventHandler)
     }
   }, [])
 
