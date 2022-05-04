@@ -1,24 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import './countrySelect.scss'
 import React, { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 
 import { getRoleForCountryLabelKey } from '@common/countryRole'
 import { Areas } from '@core/country'
+
+import { useNavigationVisible } from '@client/store/ui/navigation'
+import { useUser } from '@client/store/user'
+import { useCountryIso } from '@client/hooks'
+import Icon from '@client/components/Icon'
+import LinkGeo from '@client/components/LinkGeo'
+import LinkHome from '@client/components/LinkHome'
 import { Breakpoints } from '@client/utils'
 
-import LinkHome from '@client/components/LinkHome'
-import LinkGeo from '@client/components/LinkGeo'
-import { useCountryIso } from '@client/hooks'
-import { useUser } from '@client/store/user'
-
-import { useTranslation } from 'react-i18next'
-import Icon from '@client/components/Icon'
-import { useNavigationVisible } from '@client/store/ui/navigation'
-import LinkLanding from './LinkLanding'
 import CountryList from './CountryList'
+import LinkLanding from './LinkLanding'
 import ToggleNavigationControl from './ToggleNavigationControl'
-import AutoSaveStatus from './AutoSaveStatus'
 
 const findElementRoot = (el: any): any => {
   if (el.parentElement === null) return el
@@ -119,7 +118,7 @@ const CountrySelect: React.FC = () => {
         {open && <CountryList query={query} />}
       </button>
 
-      <AutoSaveStatus />
+      {/* <AutoSaveStatus /> */}
 
       <LinkGeo countryIso={countryIso} />
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>

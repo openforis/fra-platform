@@ -1,5 +1,7 @@
 import { Objects } from '@core/utils'
+
 import { Assessment, Col, ColType } from '@meta/assessment'
+
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
 export const getMany = (
@@ -15,13 +17,13 @@ export const getMany = (
     ? `where c.row_id in (
          select r.id
          from ${schema}.row r
-         where table_id = $1
+         where r.table_id = $1
      )`
     : `where c.row_id = $1`
 
   return client.map<Col>(
     `select *
-     from assessment_fra.col c
+     from ${schema}.col c
      ${where}
        and c.props ->> 'colType' not in ('${ColType.header}', '${ColType.noticeMessage}')`,
     [tableId ?? rowId],

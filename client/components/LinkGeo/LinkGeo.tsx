@@ -2,12 +2,14 @@ import './linkGeo.scss'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
+import { Global } from '@meta/area'
+
 const getPath = (countryIso: string) => {
   if (countryIso) {
     return `/${countryIso}/geo`
   }
   // default to Global
-  return '/WO/geo'
+  return `/${Global.WO}/geo`
 }
 
 type Props = {

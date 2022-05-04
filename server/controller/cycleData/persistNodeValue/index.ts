@@ -1,4 +1,5 @@
 import { ActivityLogMessage, NodeValue, Row, VariableCache } from '@meta/assessment'
+
 import { BaseProtocol, DB } from '@server/db'
 import { ColRepository } from '@server/repository/assessment/col'
 import { RowRepository } from '@server/repository/assessment/row'
@@ -28,7 +29,7 @@ const evaluateNode = async (
 }
 
 export const persistNodeValue = async (props: Props): Promise<void> => {
-  const { assessment, tableName, variableName } = props
+  const { assessment, tableName, variableName, colName } = props
 
   return DB.tx(async (client) => {
     await createOrUpdateNode(props, client)
@@ -40,50 +41,56 @@ export const persistNodeValue = async (props: Props): Promise<void> => {
 
     while (queue.length !== 0) {
       const variableCache = queue.shift()
-      if (
-        visitedVariables.find(
-          (v) => v.tableName === variableCache.tableName && v.variableName === variableCache.variableName
-        )
-      ) {
-        throw new Error(
-          `Circular dependency found ${tableName}.${variableName}->${variableCache.tableName}.${variableCache.variableName}`
-        )
-      }
-
-      // eslint-disable-next-line no-await-in-loop
-      const row: Row = await RowRepository.getOne(
-        { assessment, tableName: variableCache.tableName, variableName: variableCache.variableName },
-        client
+      const visited = visitedVariables.find(
+        (v) => v.tableName === variableCache.tableName && v.variableName === variableCache.variableName
       )
-      const evaluateProps = {
-        ...props,
-        tableName: variableCache.tableName,
-        variableName: variableCache.variableName,
-        variableCache,
-        row,
-      }
-      if (row.props.calculateFn) {
+      // if (visited) {
+      // throw new Error(
+      //   `Circular dependency found ${tableName}.${variableName}->${variableCache.tableName}.${variableCache.variableName}`
+      // )
+      // continue
+      //   console.log('------ variable visited ', variableCache)
+      // }
+
+      if (!visited) {
         // eslint-disable-next-line no-await-in-loop
-        await evaluateNode({ ...evaluateProps, expression: row.props.calculateFn }, client)
-      } else {
+        const row: Row = await RowRepository.getOne(
+          { assessment, tableName: variableCache.tableName, variableName: variableCache.variableName },
+          client
+        )
+        const evaluateProps = {
+          ...props,
+          tableName: variableCache.tableName,
+          variableName: variableCache.variableName,
+          variableCache,
+          row,
+        }
         // eslint-disable-next-line no-await-in-loop
         const cols = await ColRepository.getMany({ assessment, rowId: row.id }, client)
-        // eslint-disable-next-line no-await-in-loop
-        await Promise.all(
-          cols.map(async (col) => {
-            if (col.props.calculateFn) {
-              await evaluateNode(
-                { ...evaluateProps, colName: col.props.colName, expression: col.props.calculateFn },
-                client
-              )
-            }
-          })
+        if (row.props.calculateFn) {
+          // make sure in target table there's a matching column
+          if (cols.find((c) => c.props.colName === colName)) {
+            // eslint-disable-next-line no-await-in-loop
+            await evaluateNode({ ...evaluateProps, expression: row.props.calculateFn }, client)
+          }
+        } else {
+          // eslint-disable-next-line no-await-in-loop
+          await Promise.all(
+            cols.map(async (col) => {
+              if (col.props.calculateFn) {
+                await evaluateNode(
+                  { ...evaluateProps, colName: col.props.colName, expression: col.props.calculateFn },
+                  client
+                )
+              }
+            })
+          )
+        }
+        queue.push(
+          ...(assessment.metaCache.calculations.dependants[variableCache.tableName]?.[variableCache.variableName] ?? [])
         )
+        visitedVariables.push(variableCache)
       }
-      queue.push(
-        ...(assessment.metaCache.calculations.dependants[variableCache.tableName]?.[variableCache.variableName] ?? [])
-      )
-      visitedVariables.push(variableCache)
     }
   })
 }

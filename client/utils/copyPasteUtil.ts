@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { acceptNextInteger, acceptNextDecimal } from './numberInput'
+import { Sanitizer } from '@client/utils/sanitizer'
 
 const parseValue = (raw: any, type: any) => {
   if (type === 'integer') {
-    return acceptNextInteger(raw, null)
+    return Sanitizer.acceptNextInteger(raw, null)
   }
   if (type === 'decimal') {
-    return acceptNextDecimal(raw, null)
+    return Sanitizer.acceptNextDecimal(raw, null)
   }
   return raw
 }

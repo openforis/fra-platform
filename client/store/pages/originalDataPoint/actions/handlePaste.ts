@@ -1,6 +1,8 @@
-import { ODPNationalClass, ODPs, OriginalDataPoint } from '@meta/assessment'
-import { acceptNextDecimal, acceptNextInteger } from '@client/utils/numberInput'
 import { Arrays, Objects } from '@core/utils'
+
+import { ODPNationalClass, ODPs, OriginalDataPoint } from '@meta/assessment'
+
+import { Sanitizer } from '@client/utils/sanitizer'
 
 const handlePaste = (
   columns: Array<{ name: string; type: string }>,
@@ -13,8 +15,8 @@ const handlePaste = (
 ): { updatedOdp: OriginalDataPoint; firstPastedCellData: string } => {
   const sanitizerFor = (type: string) => {
     let sanitizer = (newValue: string, _oldValue: string) => newValue
-    if (type === 'decimal') sanitizer = acceptNextDecimal
-    if (type === 'integer') sanitizer = acceptNextInteger
+    if (type === 'decimal') sanitizer = Sanitizer.acceptNextDecimal
+    if (type === 'integer') sanitizer = Sanitizer.acceptNextInteger
     return sanitizer
   }
 

@@ -56,8 +56,8 @@ export const ApiEndPoint = {
     },
   },
   CycleData: {
-    PersistNode: {
-      one: () => apiPath('cycleData', 'persistNode'),
+    Nodes: {
+      many: () => apiPath('cycleData', 'nodes'),
     },
   },
   Definitions: {
