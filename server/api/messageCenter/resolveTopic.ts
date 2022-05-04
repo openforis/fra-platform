@@ -19,7 +19,7 @@ export const resolveTopic = async (req: Request, res: Response) => {
       cycleName,
     })
 
-    const { topic } = await MessageCenterController.updateTopicStatus({
+    const { topic: topicUpdated } = await MessageCenterController.updateTopicStatus({
       user,
       countryIso: countryIso as CountryIso,
       assessment,
@@ -28,7 +28,22 @@ export const resolveTopic = async (req: Request, res: Response) => {
       status: MessageTopicStatus.resolved,
     })
 
-    SocketServer.emit(Sockets.getTopicStatusEvent({ assessment, cycle, topic }), MessageTopicStatus.resolved)
+    SocketServer.emit(
+      Sockets.getTopicStatusEvent({ assessment, cycle, topic: topicUpdated }),
+      MessageTopicStatus.resolved
+    )
+
+    const { topic, message: messageCreated } = await MessageCenterController.addMessage({
+      message: 'marked as resolved',
+      user,
+      countryIso: countryIso as CountryIso,
+      assessment,
+      cycle,
+      key,
+      type: topicUpdated.type,
+    })
+
+    SocketServer.emit(Sockets.getTopicMessageEvent({ assessment, cycle, topic }), messageCreated)
 
     Requests.sendOk(res)
   } catch (e) {

@@ -16,6 +16,5 @@ export const resolveTopic = createAsyncThunk<void, Params>(
   async ({ countryIso, assessmentName, cycleName, key }) => {
     const params = { countryIso, assessmentName, cycleName, key }
     await axios.put(ApiEndPoint.MessageCenter.Topic.resolveTopic(), {}, { params })
-    await axios.post(ApiEndPoint.MessageCenter.Topic.addMessage(), { message: 'marked as resolved' }, { params })
   }
 )
