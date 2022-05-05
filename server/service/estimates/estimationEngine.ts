@@ -21,6 +21,8 @@ interface Deprecated_TableDatum {
   year?: number
   store?: boolean
   type: 'odp' | 'fra'
+  forestArea?: string
+  otherWoodedLand?: string
 }
 
 type Field = keyof Deprecated_TableDatum
