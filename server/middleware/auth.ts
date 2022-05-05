@@ -2,10 +2,11 @@ import { NextFunction, Request, Response } from 'express'
 
 import { CountryIso } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
-import { MessageTopicType } from '@meta/messageCenter'
+import { MessageTopicStatus } from '@meta/messageCenter'
 import { Authorizer, Users } from '@meta/user'
 
 import { AssessmentController } from '@server/controller/assessment'
+import { MessageCenterController } from '@server/controller/messageCenter'
 import { Requests } from '@server/utils'
 
 const _next = (allowed: boolean, next: NextFunction): void => {
@@ -50,17 +51,30 @@ const requireAdmin = async (req: Request, _res: Response, next: NextFunction) =>
 }
 
 const requireEditMessageTopic = async (req: Request, _res: Response, next: NextFunction) => {
-  const { type } = req.query as Record<string, string>
-  if (type === MessageTopicType.review) {
-    await requireEdit(req, _res, next)
-  } else {
-    next()
+  const { countryIso, assessmentName, cycleName, key } = <Record<string, string>>{
+    ...req.params,
+    ...req.query,
+    ...req.body,
   }
+  const user = Requests.getRequestUser(req)
+
+  const { cycle, assessment } = await AssessmentController.getOneWithCycle({
+    name: assessmentName as AssessmentName,
+    cycleName,
+  })
+  const topic = await MessageCenterController.getTopic({ countryIso: countryIso as CountryIso, assessment, cycle, key })
+
+  _next(
+    topic.status === MessageTopicStatus.opened ||
+      (topic.status === MessageTopicStatus.resolved &&
+        (Users.isAdministrator(user) || Users.isReviewer(user, countryIso as CountryIso))),
+    next
+  )
 }
 
 const requireResolveTopic = async (req: Request, _res: Response, next: NextFunction) => {
-  const user = Requests.getRequestUser(req)
   const { countryIso } = <Record<string, string>>{ ...req.params, ...req.query }
+  const user = Requests.getRequestUser(req)
   _next(Users.isAdministrator(user) || Users.isReviewer(user, countryIso as CountryIso), next)
 }
 
