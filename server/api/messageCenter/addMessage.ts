@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 
 import { CountryIso } from '@meta/area'
-import { MessageTopicType } from '@meta/messageCenter'
+import { MessageTopicStatus, MessageTopicType } from '@meta/messageCenter'
 import { Sockets } from '@meta/socket/sockets'
 
 import { AssessmentController } from '@server/controller/assessment'
@@ -30,7 +30,23 @@ export const addMessage = async (req: Request, res: Response) => {
       type: type as MessageTopicType,
     })
 
-    SocketServer.emit(Sockets.getTopicEvent({ assessment, cycle, topic }), { message: messageCreated })
+    SocketServer.emit(Sockets.getTopicMessageEvent({ assessment, cycle, topic }), messageCreated)
+
+    if (topic.status === MessageTopicStatus.resolved) {
+      const { topic: topicUpdated } = await MessageCenterController.updateTopicStatus({
+        user,
+        countryIso: countryIso as CountryIso,
+        assessment,
+        cycle,
+        key,
+        status: MessageTopicStatus.opened,
+      })
+
+      SocketServer.emit(
+        Sockets.getTopicStatusEvent({ assessment, cycle, topic: topicUpdated }),
+        MessageTopicStatus.opened
+      )
+    }
 
     Requests.sendOk(res)
   } catch (e) {

@@ -7,10 +7,12 @@ import { Objects } from '@core/utils'
 
 import { Message, MessageTopic, MessageTopicStatus, MessageTopicType } from '@meta/messageCenter'
 import { Sockets } from '@meta/socket/sockets'
+import { Users } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { MessageCenterActions } from '@client/store/ui/messageCenter'
+import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import Icon from '@client/components/Icon'
 import { SocketClient } from '@client/service/socket'
@@ -30,7 +32,10 @@ const Topic: React.FC<TopicProps> = (props) => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
-  const topicEvent = Sockets.getTopicEvent({ assessment, cycle, topic })
+  const user = useUser()
+
+  const messageEvent = Sockets.getTopicMessageEvent({ assessment, cycle, topic })
+  const statusEvent = Sockets.getTopicStatusEvent({ assessment, cycle, topic })
 
   const { section } = useParams<{ section?: string }>()
 
@@ -64,15 +69,20 @@ const Topic: React.FC<TopicProps> = (props) => {
   }, [countryIso, assessment, cycle, topic, message, dispatch, section])
 
   useEffect(() => {
-    const eventHandler = (args: [{ message: Message; status: MessageTopicStatus }]) => {
-      const [{ message, status }] = args
-      if (message) dispatch(MessageCenterActions.addMessage({ message, topic }))
-      else if (status) dispatch(MessageCenterActions.changeStatus({ status, topic }))
+    const newMessageEventHandler = (args: [message: Message]) => {
+      const [message] = args
+      dispatch(MessageCenterActions.addMessage({ message, topic }))
     }
-    SocketClient.on(topicEvent, eventHandler)
+
+    const changeStatusEventHandler = (args: [status: MessageTopicStatus]) => {
+      const [status] = args
+      dispatch(MessageCenterActions.changeStatus({ status, topic }))
+    }
+
+    SocketClient.on(messageEvent, newMessageEventHandler).on(statusEvent, changeStatusEventHandler)
 
     return () => {
-      SocketClient.off(topicEvent, eventHandler)
+      SocketClient.off(messageEvent, newMessageEventHandler).off(statusEvent, changeStatusEventHandler)
     }
   }, [])
 
@@ -86,13 +96,6 @@ const Topic: React.FC<TopicProps> = (props) => {
         <div className="topic-close" onClick={closeTopic} onKeyDown={closeTopic} role="button" tabIndex={0}>
           <Icon name="remove" />
         </div>
-        {topic.status === MessageTopicStatus.opened && topic.type === MessageTopicType.review && (
-          <div className="topic-review">
-            <button className="btn btn-primary btn-s" onClick={resolveTopic} type="submit">
-              {i18n.t('review.resolve')}
-            </button>
-          </div>
-        )}
       </div>
       <div className="topic-body">
         {topic.messages.map((message) => (
@@ -107,14 +110,34 @@ const Topic: React.FC<TopicProps> = (props) => {
         )}
       </div>
       <div className="topic-footer">
-        <textarea
-          value={message}
-          placeholder={i18n.t('review.writeComment')}
-          onChange={(e) => setMessage(e.target.value)}
-        />
-        <button className="btn-s btn-primary" disabled={Objects.isEmpty(message)} onClick={postMessage} type="submit">
-          {i18n.t('review.add')}
-        </button>
+        {(topic.status === MessageTopicStatus.opened ||
+          (topic.status === MessageTopicStatus.resolved &&
+            (Users.isAdministrator(user) || Users.isReviewer(user, countryIso)))) && (
+          <div className="topic-form">
+            <textarea
+              value={message}
+              placeholder={i18n.t('review.writeComment')}
+              onChange={(e) => setMessage(e.target.value)}
+            />
+            <button
+              className="btn-s btn-primary"
+              disabled={Objects.isEmpty(message)}
+              onClick={postMessage}
+              type="submit"
+            >
+              {i18n.t('review.add')}
+            </button>
+          </div>
+        )}
+        {(Users.isAdministrator(user) || Users.isReviewer(user, countryIso)) &&
+          topic.status === MessageTopicStatus.opened &&
+          topic.type === MessageTopicType.review && (
+            <div className="topic-review">
+              <button className="btn btn-secondary btn-s" onClick={resolveTopic} type="submit">
+                {i18n.t('review.resolve')}
+              </button>
+            </div>
+          )}
       </div>
     </div>
   )

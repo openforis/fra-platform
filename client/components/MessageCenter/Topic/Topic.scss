@@ -35,15 +35,12 @@
       }
     }
   }
-  .topic-review {
-    margin-top: $spacing-xxs;
-  }
 }
 
 .topic-body {
   flex: 1 1 auto;
   overflow-y: auto;
-  padding: 8px 0;
+  padding: $spacing-xxs 0;
   display: grid;
 
   .no-comments {
@@ -55,16 +52,24 @@
 
 .topic-footer {
   padding: 8px 16px 12px;
-  textarea {
-    width: 100%;
-    border-color: $ui-border;
-    resize: none;
-    padding: 8px;
-    &:focus {
-      outline: none;
+  .topic-form {
+    display: flex;
+    align-items: end;
+    textarea {
+      width: 100%;
+      border-color: $ui-border;
+      resize: none;
+      padding: $spacing-xxs;
+      &:focus {
+        outline: none;
+      }
+    }
+    button {
+      margin-left: $spacing-xxs;
     }
   }
-  button {
+  .topic-review {
     float: right;
+    margin-top: $spacing-xxs;
   }
 }
