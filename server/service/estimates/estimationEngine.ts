@@ -259,25 +259,24 @@ export const EstimationEngine = {
   estimateValues,
 }
 
-//
-// export const estimateFraValues = (
-//   years: Array<number>,
-//   odpValues: ODPValueArray,
-//   generateSpec: GenerateSpec
-// ): ValueArray => {
-//   return years
-//     .reduce<ValueArray>((values, year) => {
-//       const newValue = estimateFraValue(year, values, odpValues, generateSpec)
-//       return [...values, newValue]
-//     }, odpValues)
-//     .filter((v: Deprecated_TableDatum): boolean => v.store)
-//     .map((v: Deprecated_TableDatum): Deprecated_TableDatum => {
-//       // eslint-disable-next-line no-param-reassign
-//       delete v.store
-//       return v
-//     })
-// }
-//
+export const estimateFraValues = (
+  years: Array<number>,
+  odpValues: ODPValueArray,
+  generateSpec: GenerateSpec
+): ValueArray => {
+  return years
+    .reduce<ValueArray>((values, year) => {
+      const newValue = estimateFraValue(year, values, odpValues, generateSpec)
+      return [...values, newValue]
+    }, odpValues)
+    .filter((v: Deprecated_TableDatum): boolean => v.store)
+    .map((v: Deprecated_TableDatum): Deprecated_TableDatum => {
+      // eslint-disable-next-line no-param-reassign
+      delete v.store
+      return v
+    })
+}
+
 // type FraWriter = (
 //   countryIso: CountryIso,
 //   year: number,
