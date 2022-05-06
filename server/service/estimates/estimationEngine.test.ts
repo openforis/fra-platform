@@ -1,8 +1,6 @@
-import { assert } from 'chai'
-import * as R from 'ramda'
-import * as estimationEngine from '../../_legacy_server/eof/estimationEngine'
+import * as estimationEngine from './estimationEngine'
 
-const fraYears = [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020]
+const fraYears = [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020, 2025]
 
 const testOdpSet1 = [
   {
@@ -98,38 +96,55 @@ const expectedEstimations1 = [
     otherWoodedLandEstimated: true,
     year: 2020,
   },
+  {
+    forestArea: '90370.36',
+    forestAreaEstimated: true,
+    otherWoodedLand: '36000.00',
+    otherWoodedLandEstimated: true,
+    year: 2025,
+  },
 ]
 
-describe('estimationEngine', () => {
-  it('Interpolates and extrapolates linearly', () => {
+describe('Estimation Engine test:', () => {
+  test('Interpolates and extrapolates linearly', () => {
+    // @ts-ignore
     const estimated = estimationEngine.estimateFraValues(fraYears, testOdpSet1, {
       method: 'linear',
       fields: ['forestArea', 'otherWoodedLand'],
     })
-    assert.deepEqual(expectedEstimations1, estimated)
+    expect(estimated).toEqual(expectedEstimations1)
   })
-  it('Extrapolates with repeat last value', () => {
+
+  test('Extrapolates with repeat last value', () => {
+    // @ts-ignore
     const estimated = estimationEngine.estimateFraValues(fraYears, testOdpSet2, {
       method: 'repeatLast',
       fields: ['forestArea', 'otherWoodedLand'],
     })
-    assert.deepEqual(
-      [
-        { forestArea: '500.00', otherWoodedLand: '300.00', year: 1990 },
-        { forestArea: '500.00', otherWoodedLand: '300.00', year: 2000 },
-        { forestArea: '497.78', otherWoodedLand: '304.89', year: 2010 },
-        { forestArea: '486.67', otherWoodedLand: '329.33', year: 2015 },
-        { forestArea: '484.45', otherWoodedLand: '334.22', year: 2016 },
-        { forestArea: '482.23', otherWoodedLand: '339.11', year: 2017 },
-        { forestArea: '480.00', otherWoodedLand: '344.00', year: 2018 },
-        { forestArea: '480.00', otherWoodedLand: '344.00', year: 2019 },
-        { forestArea: '480.00', otherWoodedLand: '344.00', year: 2020 },
-      ],
-      R.map(R.pickAll(['forestArea', 'otherWoodedLand', 'year']), estimated)
-    )
+    const expected = [
+      { forestArea: '500.00', otherWoodedLand: '300.00', year: 1990 },
+      { forestArea: '500.00', otherWoodedLand: '300.00', year: 2000 },
+      { forestArea: '497.78', otherWoodedLand: '304.89', year: 2010 },
+      { forestArea: '486.67', otherWoodedLand: '329.33', year: 2015 },
+      { forestArea: '484.45', otherWoodedLand: '334.22', year: 2016 },
+      { forestArea: '482.23', otherWoodedLand: '339.11', year: 2017 },
+      { forestArea: '480.00', otherWoodedLand: '344.00', year: 2018 },
+      { forestArea: '480.00', otherWoodedLand: '344.00', year: 2019 },
+      { forestArea: '480.00', otherWoodedLand: '344.00', year: 2020 },
+      { forestArea: '480.00', otherWoodedLand: '344.00', year: 2025 },
+    ]
+
+    const estimatedPicked = estimated.map(({ forestArea, otherWoodedLand, year }) => ({
+      forestArea,
+      otherWoodedLand,
+      year,
+    }))
+
+    expect(estimatedPicked).toStrictEqual(expected)
   })
 
   it('Extrapolates with annual change rate', () => {
+    // @ts-ignore
     const estimated = estimationEngine.estimateFraValues(fraYears, testOdpSet2, {
       method: 'annualChange',
       changeRates: {
@@ -138,19 +153,24 @@ describe('estimationEngine', () => {
       },
       fields: ['forestArea', 'otherWoodedLand'],
     })
-    assert.deepEqual(
-      [
-        { forestArea: '690.00', otherWoodedLand: '395.00', year: 1990 },
-        { forestArea: '590.00', otherWoodedLand: '345.00', year: 2000 },
-        { forestArea: '497.78', otherWoodedLand: '304.89', year: 2010 },
-        { forestArea: '486.67', otherWoodedLand: '329.33', year: 2015 },
-        { forestArea: '484.45', otherWoodedLand: '334.22', year: 2016 },
-        { forestArea: '482.23', otherWoodedLand: '339.11', year: 2017 },
-        { forestArea: '480.00', otherWoodedLand: '344.00', year: 2018 },
-        { forestArea: '500.00', otherWoodedLand: '354.00', year: 2019 },
-        { forestArea: '520.00', otherWoodedLand: '364.00', year: 2020 },
-      ],
-      R.map(R.pickAll(['forestArea', 'otherWoodedLand', 'year']), estimated)
-    )
+    const expected = [
+      { forestArea: '690.00', otherWoodedLand: '395.00', year: 1990 },
+      { forestArea: '590.00', otherWoodedLand: '345.00', year: 2000 },
+      { forestArea: '497.78', otherWoodedLand: '304.89', year: 2010 },
+      { forestArea: '486.67', otherWoodedLand: '329.33', year: 2015 },
+      { forestArea: '484.45', otherWoodedLand: '334.22', year: 2016 },
+      { forestArea: '482.23', otherWoodedLand: '339.11', year: 2017 },
+      { forestArea: '480.00', otherWoodedLand: '344.00', year: 2018 },
+      { forestArea: '500.00', otherWoodedLand: '354.00', year: 2019 },
+      { forestArea: '520.00', otherWoodedLand: '364.00', year: 2020 },
+      { forestArea: '620.00', otherWoodedLand: '414.00', year: 2025 },
+    ]
+    const estimatedPicked = estimated.map(({ forestArea, otherWoodedLand, year }) => ({
+      forestArea,
+      otherWoodedLand,
+      year,
+    }))
+
+    expect(estimatedPicked).toStrictEqual(expected)
   })
 })
