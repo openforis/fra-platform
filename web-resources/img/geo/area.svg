@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 26.2.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY ns_extend "http://ns.adobe.com/Extensibility/1.0/">
+	<!ENTITY ns_ai "http://ns.adobe.com/AdobeIllustrator/10.0/">
+	<!ENTITY ns_graphs "http://ns.adobe.com/Graphs/1.0/">
+	<!ENTITY ns_vars "http://ns.adobe.com/Variables/1.0/">
+	<!ENTITY ns_imrep "http://ns.adobe.com/ImageReplacement/1.0/">
+	<!ENTITY ns_sfw "http://ns.adobe.com/SaveForWeb/1.0/">
+	<!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
+	<!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
+]>
+<svg version="1.1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+	<switch>
+		<foreignObject requiredExtensions="&ns_ai;" x="0" y="0" width="1" height="1">
+			<i:aipgfRef xlink:href="#adobe_illustrator_pgf"></i:aipgfRef>
+		</foreignObject>
+		<g i:extraneous="self">
+			<g id="Layer_1">
+				<g>
+					<g id="Artboard_13">
+						<g id="Group_525" transform="translate(123.289 124.415)">
+							<g id="Group_520" transform="translate(19.01 21.962)">
+								<g id="Group_215" transform="translate(0 0)">
+									<g id="Group_214">
+										<g id="Line_85">
+											<rect x="-96.054" y="-108.247" width="2.24" height="19.287" />
+										</g>
+										<g id="Path_315">
+											<rect x="-104.509" y="-99.723" width="19.514" height="2.239" />
+										</g>
+										<g id="Path_316">
+											<path d="M-109.688-96.815h-3v-2.239h3V-96.815z M-115.689-96.815h-3v-2.239h3V-96.815z M-121.688-96.815h-3v-2.239h3
+											V-96.815z M-127.688-96.815h-3v-2.239h3V-96.815z M-130.027-100.477h-2.24v-3h2.24V-100.477z M-130.027-106.477h-2.24v-3
+											h2.24V-106.477z M-130.027-112.477h-2.24v-3h2.24V-112.477z M-93.814-112.502h-2.24v-3h2.24V-112.502z M-130.027-118.477
+											h-2.24v-3h2.24V-118.477z M-93.814-118.502h-2.24v-3h2.24V-118.502z M-130.027-124.477h-2.24v-3h2.24V-124.477z
+											 M-93.814-124.502h-2.24v-3h2.24V-124.502z M-130.027-130.477h-2.24v-3h2.24V-130.477z M-93.814-130.502h-2.24v-3h2.24
+											V-130.502z M-96.553-133.763h-3v-2.239h3V-133.763z M-102.553-133.763h-3v-2.239h3V-133.763z M-108.553-133.763h-3v-2.239
+											h3V-133.763z M-114.553-133.763h-3v-2.239h3V-133.763z M-120.553-133.763h-3v-2.239h3V-133.763z M-126.553-133.763h-3
+											v-2.239h3V-133.763z" />
+										</g>
+									</g>
+								</g>
+							</g>
+						</g>
+					</g>
+				</g>
+			</g>
+			<g id="Layer_2" display="none">
+				<g display="inline">
+					<line fill="none" stroke="#FF0000" stroke-miterlimit="10" x1="79.5" y1="-6.5" x2="0" y2="64" />
+					<line fill="none" stroke="#FF0000" stroke-miterlimit="10" x1="0" y1="-6.5" x2="79.5" y2="64" />
+				</g>
+			</g>
+		</g>
+	</switch>
+</svg>

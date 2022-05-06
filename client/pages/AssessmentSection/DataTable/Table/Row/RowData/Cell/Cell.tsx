@@ -43,7 +43,7 @@ const Cell: React.FC<Props> = (props) => {
   const nodeValue = TableDatas.getNodeValue(params)
   const className = useClassName(col /* rowIndex */)
 
-  const propsOnChange = { table, col, row, nodeValue }
+  const propsOnChange = { table, col, row, nodeValue, data }
 
   const { onChange, onPaste } = useOnChange(propsOnChange)
   const Component = ComponentsByName[col.props.colType]

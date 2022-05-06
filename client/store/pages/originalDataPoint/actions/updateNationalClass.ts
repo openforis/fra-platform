@@ -1,6 +1,9 @@
-import { acceptNextDecimal } from '@client/utils/numberInput'
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { OriginalDataPoint, ODPNationalClass, ODPs } from '@meta/assessment'
+
+import { ODPNationalClass, ODPs,OriginalDataPoint } from '@meta/assessment'
+
+import { Sanitizer } from '@client/utils/sanitizer'
+
 import { updateOriginalDataPoint } from './updateOriginalDataPoint'
 
 export const updateNationalClass = createAsyncThunk<
@@ -21,7 +24,7 @@ export const updateNationalClass = createAsyncThunk<
       odp,
       index,
       field,
-      value: acceptNextDecimal(value, prevValue),
+      value: Sanitizer.acceptNextDecimal(value, prevValue),
     })
     dispatch(
       updateOriginalDataPoint({

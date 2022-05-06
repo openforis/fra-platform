@@ -12,7 +12,7 @@ const GeoMapMenuData: React.FC = () => {
 
   return (
     <div className="geo-map-menu-item">
-      <GeoMapMenuButton panel="data" text="Data Layers" />
+      <GeoMapMenuButton panel="data" text="Data Layers" icon="layers" />
       {selectedPanel === 'data' && (
         <div>
           <GeoMenuItem title="Map Visualizer" tabIndex={-1}>

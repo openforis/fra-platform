@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 26.2.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY ns_extend "http://ns.adobe.com/Extensibility/1.0/">
+	<!ENTITY ns_ai "http://ns.adobe.com/AdobeIllustrator/10.0/">
+	<!ENTITY ns_graphs "http://ns.adobe.com/Graphs/1.0/">
+	<!ENTITY ns_vars "http://ns.adobe.com/Variables/1.0/">
+	<!ENTITY ns_imrep "http://ns.adobe.com/ImageReplacement/1.0/">
+	<!ENTITY ns_sfw "http://ns.adobe.com/SaveForWeb/1.0/">
+	<!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
+	<!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
+]>
+<svg version="1.1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+	<switch>
+		<foreignObject requiredExtensions="&ns_ai;" x="0" y="0" width="1" height="1">
+			<i:aipgfRef xlink:href="#adobe_illustrator_pgf"></i:aipgfRef>
+		</foreignObject>
+		<g i:extraneous="self">
+			<g id="Layer_1">
+				<g>
+					<g id="Artboard_7">
+						<g id="Group_517" transform="translate(102.404 69.425) rotate(60)">
+							<g id="Group_14">
+
+								<path id="Path_213" fill="none" stroke="#000000" stroke-width="1.7008" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+								M-84.365,48.345l-5.38,3.452l23.785,14.575l23.823-15.178l-6.495-3.496" />
+
+								<path id="Path_214" fill="none" stroke="#000000" stroke-width="1.7008" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+								M-84.445,38.306l-5.922,4.463l23.846,14.483l23.916-15.213l-6.552-3.656" />
+
+								<path id="Path_215" fill="none" stroke="#000000" stroke-width="1.7008" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+								M-90.066,34.058l22.893-14.9l24.134,14.05l-22.857,14.804L-90.066,34.058z" />
+
+								<line id="Line_8" fill="none" stroke="#000000" stroke-width="1.7008" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="-81.221" y1="39.163" x2="-81.054" y2="48.425" />
+
+								<line id="Line_9" fill="none" stroke="#000000" stroke-width="1.7008" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="-75.063" y1="42.718" x2="-74.892" y2="52.168" />
+
+								<line id="Line_10" fill="none" stroke="#000000" stroke-width="1.7008" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="-68.764" y1="46.376" x2="-68.59" y2="55.996" />
+
+								<line id="Line_11" fill="none" stroke="#000000" stroke-width="1.7008" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="-62.487" y1="45.803" x2="-62.328" y2="54.584" />
+
+								<line id="Line_12" fill="none" stroke="#000000" stroke-width="1.7008" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="-57.588" y1="42.63" x2="-57.428" y2="51.467" />
+
+								<line id="Line_13" fill="none" stroke="#000000" stroke-width="1.7008" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="-51.556" y1="38.723" x2="-51.395" y2="47.63" />
+							</g>
+						</g>
+					</g>
+				</g>
+			</g>
+			<g id="Layer_2" display="none">
+				<g display="inline">
+					<line fill="none" stroke="#FF0000" stroke-miterlimit="10" x1="79.5" y1="-6.5" x2="0" y2="64" />
+					<line fill="none" stroke="#FF0000" stroke-miterlimit="10" x1="0" y1="-6.5" x2="79.5" y2="64" />
+				</g>
+			</g>
+		</g>
+	</switch>
+</svg>
