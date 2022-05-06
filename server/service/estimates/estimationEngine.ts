@@ -1,8 +1,7 @@
+import { BigNumberInput, Numbers } from '@core/utils/numbers'
 import BigNumber from 'bignumber.js'
 
-import { CountryIso } from '@meta/area'
-
-import { BigNumberInput, Numbers } from '../../../core/utils/numbers'
+import { TableData } from '@meta/data'
 
 const assert = (condition: any, message: string) => {
   if (!condition) {
@@ -11,6 +10,8 @@ const assert = (condition: any, message: string) => {
 }
 
 interface Deprecated_TableDatum {
+  forestAreaEstimated?: boolean
+  otherWoodedLandEstimated?: boolean
   countryIso?: string
   dataSourceAdditionalComments?: string
   dataSourceReferences?: string
@@ -35,7 +36,7 @@ type GenerateSpecMethods = 'linear' | 'repeatLast' | 'annualChange' | 'clearTabl
 interface GenerateSpec {
   method: GenerateSpecMethods
   fields: Array<string>
-  changeRates: Record<keyof Deprecated_TableDatum, { rateFuture: number; ratePast: number }>
+  changeRates: Record<string, { rateFuture: number; ratePast: number }>
 }
 
 export const linearInterpolation = (
@@ -147,7 +148,7 @@ export const extrapolate = (
   values: ValueArray,
   odpValues: ODPValueArray,
   field: keyof Deprecated_TableDatum,
-  generateSpec: GenerateSpec
+  generateSpec: Partial<GenerateSpec>
 ) => {
   const extrapolationMethod = generateMethods[generateSpec.method]
   assert(extrapolationMethod, `Invalid extrapolation method: ${generateSpec.method}`)
@@ -158,7 +159,7 @@ export const estimateField = (
   odpValues: ODPValueArray,
   field: Field,
   year: number,
-  generateSpec: GenerateSpec,
+  generateSpec: Partial<GenerateSpec>,
   values: ValueArray = []
 ): number => {
   const odp = values.find((v) => v.year === year)
@@ -182,7 +183,7 @@ export const estimateFraValue = (
   year: number,
   values: ValueArray,
   odpValues: ODPValueArray,
-  generateSpec: GenerateSpec
+  generateSpec: Partial<GenerateSpec>
 ): Deprecated_TableDatum => {
   const estimateFieldReducer = (newFraObj: Deprecated_TableDatum, field: Field) => {
     const fraEstimatedYears = values.filter((v) => v.store).map((v) => v.year)
@@ -208,16 +209,44 @@ export const estimateFraValue = (
   }
 }
 
-export const estimateFraValues = (
+// Fix me
+const translateObjectToOldFormat = (x: any) => {
+  const newData: any = []
+  Object.entries(x).forEach(([countryIso, countryValues]) => {
+    Object.entries(countryValues).forEach(([_section, sectionValues]) => {
+      Object.entries(sectionValues).forEach(([year, yearValues]: any[]) => {
+        newData.push({
+          countryIso,
+          year: Number(year),
+          name: year,
+          ...Object.keys(yearValues).reduce(
+            (acc, key) => ({
+              ...acc,
+              [key === 'forest' ? 'forestArea' : key]: yearValues[key].raw,
+              [`${key}Estimated`]: yearValues[key].estimated || false,
+              type: yearValues[key].odp ? 'odp' : 'fra',
+            }),
+            {}
+          ),
+        })
+      })
+    })
+  })
+  return newData
+}
+
+export const estimateValues = (
   years: Array<number>,
-  odpValues: ODPValueArray,
-  generateSpec: GenerateSpec
+  values: Partial<TableData>,
+  generateSpec: Partial<GenerateSpec>
 ): ValueArray => {
+  const translatedData = translateObjectToOldFormat(values)
+
   return years
     .reduce<ValueArray>((values, year) => {
-      const newValue = estimateFraValue(year, values, odpValues, generateSpec)
+      const newValue = estimateFraValue(year, values, translatedData, generateSpec)
       return [...values, newValue]
-    }, odpValues)
+    }, translatedData)
     .filter((v: Deprecated_TableDatum): boolean => v.store)
     .map((v: Deprecated_TableDatum): Deprecated_TableDatum => {
       // eslint-disable-next-line no-param-reassign
@@ -226,24 +255,47 @@ export const estimateFraValues = (
     })
 }
 
-type FraWriter = (
-  countryIso: CountryIso,
-  year: number,
-  estimatedValues: Deprecated_TableDatum,
-  bool: boolean
-) => Promise<any>
-
-export const estimateAndWrite = async (
-  odps: ODPValueArray,
-  fraWriter: FraWriter,
-  countryIso: CountryIso,
-  years: Array<number>,
-  generateSpec: GenerateSpec
-) => {
-  const estimated = estimateFraValues(years, odps, generateSpec)
-  return Promise.all(
-    estimated.map((estimatedValues: Deprecated_TableDatum) =>
-      fraWriter(countryIso, estimatedValues.year, estimatedValues, true)
-    )
-  )
+export const EstimationEngine = {
+  estimateValues,
 }
+
+//
+// export const estimateFraValues = (
+//   years: Array<number>,
+//   odpValues: ODPValueArray,
+//   generateSpec: GenerateSpec
+// ): ValueArray => {
+//   return years
+//     .reduce<ValueArray>((values, year) => {
+//       const newValue = estimateFraValue(year, values, odpValues, generateSpec)
+//       return [...values, newValue]
+//     }, odpValues)
+//     .filter((v: Deprecated_TableDatum): boolean => v.store)
+//     .map((v: Deprecated_TableDatum): Deprecated_TableDatum => {
+//       // eslint-disable-next-line no-param-reassign
+//       delete v.store
+//       return v
+//     })
+// }
+//
+// type FraWriter = (
+//   countryIso: CountryIso,
+//   year: number,
+//   estimatedValues: Deprecated_TableDatum,
+//   bool: boolean
+// ) => Promise<any>
+//
+// export const estimateAndWrite = async (
+//   odps: ODPValueArray,
+//   fraWriter: FraWriter,
+//   countryIso: CountryIso,
+//   years: Array<number>,
+//   generateSpec: GenerateSpec
+// ) => {
+//   const estimated = estimateFraValues(years, odps, generateSpec)
+//   return Promise.all(
+//     estimated.map((estimatedValues: Deprecated_TableDatum) =>
+//       fraWriter(countryIso, estimatedValues.year, estimatedValues, true)
+//     )
+//   )
+// }

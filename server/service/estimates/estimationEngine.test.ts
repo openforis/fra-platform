@@ -1,36 +1,60 @@
-import * as estimationEngine from './estimationEngine'
+import { EstimationEngine } from './estimationEngine'
 
-const fraYears = [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020, 2025]
+const years = [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020, 2025]
 
-const testOdpSet1 = [
-  {
-    forestArea: 40000,
-    otherWoodedLand: 2000,
-    type: 'odp',
-    year: 1991,
+const mockOriginalDataPointSet1 = {
+  FIN: {
+    originalDataPointValue: {
+      '1991': {
+        forestArea: {
+          odp: true,
+          raw: '40000',
+        },
+        otherWoodedLand: {
+          odp: true,
+          raw: '2000',
+        },
+      },
+      '2018': {
+        forestArea: {
+          odp: true,
+          raw: '80000.00000000000000000000',
+        },
+        otherWoodedLand: {
+          odp: true,
+          raw: '29000.00000000000000000000',
+        },
+      },
+    },
   },
-  {
-    forestArea: 80000,
-    otherWoodedLand: 29000,
-    type: 'odp',
-    year: 2018,
-  },
-]
+}
 
-const testOdpSet2 = [
-  {
-    forestArea: 500,
-    otherWoodedLand: 300,
-    type: 'odp',
-    year: 2009,
+const mockOriginalDataPointSet2 = {
+  FIN: {
+    originalDataPointValue: {
+      '2009': {
+        forestArea: {
+          odp: true,
+          raw: '500',
+        },
+        otherWoodedLand: {
+          odp: true,
+          raw: '300',
+        },
+      },
+      '2018': {
+        forestArea: {
+          odp: true,
+          raw: '480.00000000000000000000',
+        },
+        otherWoodedLand: {
+          odp: true,
+          raw: '344.00000000000000000000',
+        },
+      },
+    },
   },
-  {
-    forestArea: 480,
-    otherWoodedLand: 344,
-    type: 'odp',
-    year: 2018,
-  },
-]
+}
 
 const expectedEstimations1 = [
   {
@@ -107,8 +131,7 @@ const expectedEstimations1 = [
 
 describe('Estimation Engine test:', () => {
   test('Interpolates and extrapolates linearly', () => {
-    // @ts-ignore
-    const estimated = estimationEngine.estimateFraValues(fraYears, testOdpSet1, {
+    const estimated = EstimationEngine.estimateValues(years, mockOriginalDataPointSet1, {
       method: 'linear',
       fields: ['forestArea', 'otherWoodedLand'],
     })
@@ -116,8 +139,7 @@ describe('Estimation Engine test:', () => {
   })
 
   test('Extrapolates with repeat last value', () => {
-    // @ts-ignore
-    const estimated = estimationEngine.estimateFraValues(fraYears, testOdpSet2, {
+    const estimated = EstimationEngine.estimateValues(years, mockOriginalDataPointSet2, {
       method: 'repeatLast',
       fields: ['forestArea', 'otherWoodedLand'],
     })
@@ -134,7 +156,7 @@ describe('Estimation Engine test:', () => {
       { forestArea: '480.00', otherWoodedLand: '344.00', year: 2025 },
     ]
 
-    const estimatedPicked = estimated.map(({ forestArea, otherWoodedLand, year }) => ({
+    const estimatedPicked: any = estimated.map(({ forestArea, otherWoodedLand, year }: any) => ({
       forestArea,
       otherWoodedLand,
       year,
@@ -143,9 +165,8 @@ describe('Estimation Engine test:', () => {
     expect(estimatedPicked).toStrictEqual(expected)
   })
 
-  it('Extrapolates with annual change rate', () => {
-    // @ts-ignore
-    const estimated = estimationEngine.estimateFraValues(fraYears, testOdpSet2, {
+  test('Extrapolates with annual change rate', () => {
+    const estimated = EstimationEngine.estimateValues(years, mockOriginalDataPointSet2, {
       method: 'annualChange',
       changeRates: {
         forestArea: { ratePast: -10, rateFuture: 20 },
@@ -165,7 +186,7 @@ describe('Estimation Engine test:', () => {
       { forestArea: '520.00', otherWoodedLand: '364.00', year: 2020 },
       { forestArea: '620.00', otherWoodedLand: '414.00', year: 2025 },
     ]
-    const estimatedPicked = estimated.map(({ forestArea, otherWoodedLand, year }) => ({
+    const estimatedPicked = estimated.map(({ forestArea, otherWoodedLand, year }: any) => ({
       forestArea,
       otherWoodedLand,
       year,
