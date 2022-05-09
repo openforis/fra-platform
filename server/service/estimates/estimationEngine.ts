@@ -205,11 +205,11 @@ export const estimateFraValue = (
   return {
     ...generateSpec.fields.reduce<Deprecated_TableDatum>(estimateFieldReducer, {} as Deprecated_TableDatum),
     year,
+    countryIso: values[0].countryIso,
     store: true,
   }
 }
 
-// Fix me
 const translateObjectToOldFormat = (x: any) => {
   const newData: any = []
   Object.entries(x).forEach(([countryIso, countryValues]) => {
@@ -235,14 +235,33 @@ const translateObjectToOldFormat = (x: any) => {
   return newData
 }
 
+const translateArrayToObjectFormat = (arr: Deprecated_TableDatum[], section: string, fields: string[]): TableData => {
+  const res: any = {}
+  arr.forEach((tableDatum: Deprecated_TableDatum) => {
+    // { <countryIso>.<sectionName> : {} }
+    if (!res[tableDatum.countryIso]) res[tableDatum.countryIso] = { [section]: {} }
+    fields.forEach((field) => {
+      // { <countryIso>.<sectionName>.<year>.<fieldName> : NodeValue }
+      res[tableDatum.countryIso][section][tableDatum.year] = {
+        ...res[tableDatum.countryIso][section][tableDatum.year],
+        [field]: {
+          raw: tableDatum[field as keyof Deprecated_TableDatum],
+          estimated: true,
+        },
+      }
+    })
+  })
+  return res
+}
+
 export const estimateValues = (
   years: Array<number>,
   values: Partial<TableData>,
-  generateSpec: Partial<GenerateSpec>
-): ValueArray => {
+  generateSpec: Partial<GenerateSpec>,
+  section: string
+): TableData => {
   const translatedData = translateObjectToOldFormat(values)
-
-  return years
+  const result: Deprecated_TableDatum[] = years
     .reduce<ValueArray>((values, year) => {
       const newValue = estimateFraValue(year, values, translatedData, generateSpec)
       return [...values, newValue]
@@ -253,12 +272,17 @@ export const estimateValues = (
       delete v.store
       return v
     })
+
+  return translateArrayToObjectFormat(result, section, generateSpec.fields)
 }
 
 export const EstimationEngine = {
   estimateValues,
 }
 
+/**
+ * @deprecated
+ */
 export const estimateFraValues = (
   years: Array<number>,
   odpValues: ODPValueArray,

@@ -56,142 +56,189 @@ const mockOriginalDataPointSet2 = {
   },
 }
 
-const expectedEstimations1 = [
-  {
-    forestArea: '38518.52',
-    forestAreaEstimated: true,
-    otherWoodedLand: '1000.00',
-    otherWoodedLandEstimated: true,
-    year: 1990,
-  },
-  {
-    forestArea: '53333.33',
-    forestAreaEstimated: true,
-    otherWoodedLand: '11000.00',
-    otherWoodedLandEstimated: true,
-    year: 2000,
-  },
-  {
-    forestArea: '68148.15',
-    forestAreaEstimated: true,
-    otherWoodedLand: '21000.00',
-    otherWoodedLandEstimated: true,
-    year: 2010,
-  },
-  {
-    forestArea: '75555.56',
-    forestAreaEstimated: true,
-    otherWoodedLand: '26000.00',
-    otherWoodedLandEstimated: true,
-    year: 2015,
-  },
-  {
-    forestArea: '77037.04',
-    forestAreaEstimated: true,
-    otherWoodedLand: '27000.00',
-    otherWoodedLandEstimated: true,
-    year: 2016,
-  },
-  {
-    forestArea: '78518.52',
-    forestAreaEstimated: true,
-    otherWoodedLand: '28000.00',
-    otherWoodedLandEstimated: true,
-    year: 2017,
-  },
-  {
-    forestArea: '80000.00',
-    forestAreaEstimated: true,
-    otherWoodedLand: '29000.00',
-    otherWoodedLandEstimated: true,
-    year: 2018,
-  },
-  {
-    forestArea: '81481.48',
-    forestAreaEstimated: true,
-    otherWoodedLand: '30000.00',
-    otherWoodedLandEstimated: true,
-    year: 2019,
-  },
-  {
-    forestArea: '82962.96',
-    forestAreaEstimated: true,
-    otherWoodedLand: '31000.00',
-    otherWoodedLandEstimated: true,
-    year: 2020,
-  },
-  {
-    forestArea: '90370.36',
-    forestAreaEstimated: true,
-    otherWoodedLand: '36000.00',
-    otherWoodedLandEstimated: true,
-    year: 2025,
-  },
-]
-
 describe('Estimation Engine test:', () => {
   test('Interpolates and extrapolates linearly', () => {
-    const estimated = EstimationEngine.estimateValues(years, mockOriginalDataPointSet1, {
-      method: 'linear',
-      fields: ['forestArea', 'otherWoodedLand'],
-    })
-    expect(estimated).toEqual(expectedEstimations1)
+    const estimated = EstimationEngine.estimateValues(
+      years,
+      mockOriginalDataPointSet1,
+      {
+        method: 'linear',
+        fields: ['forestArea', 'otherWoodedLand'],
+      },
+      'extentOfForest'
+    )
+
+    const expected = {
+      FIN: {
+        extentOfForest: {
+          '1990': {
+            forestArea: { estimated: true, raw: '38518.52' },
+            otherWoodedLand: { estimated: true, raw: '1000.00' },
+          },
+          '2000': {
+            forestArea: { estimated: true, raw: '53333.33' },
+            otherWoodedLand: { estimated: true, raw: '11000.00' },
+          },
+          '2010': {
+            forestArea: { estimated: true, raw: '68148.15' },
+            otherWoodedLand: { estimated: true, raw: '21000.00' },
+          },
+          '2015': {
+            forestArea: { estimated: true, raw: '75555.56' },
+            otherWoodedLand: { estimated: true, raw: '26000.00' },
+          },
+          '2016': {
+            forestArea: { estimated: true, raw: '77037.04' },
+            otherWoodedLand: { estimated: true, raw: '27000.00' },
+          },
+          '2017': {
+            forestArea: { estimated: true, raw: '78518.52' },
+            otherWoodedLand: { estimated: true, raw: '28000.00' },
+          },
+          '2018': {
+            forestArea: { estimated: true, raw: '80000.00' },
+            otherWoodedLand: { estimated: true, raw: '29000.00' },
+          },
+          '2019': {
+            forestArea: { estimated: true, raw: '81481.48' },
+            otherWoodedLand: { estimated: true, raw: '30000.00' },
+          },
+          '2020': {
+            forestArea: { estimated: true, raw: '82962.96' },
+            otherWoodedLand: { estimated: true, raw: '31000.00' },
+          },
+          '2025': {
+            forestArea: { estimated: true, raw: '90370.36' },
+            otherWoodedLand: { estimated: true, raw: '36000.00' },
+          },
+        },
+      },
+    }
+
+    expect(estimated).toStrictEqual(expected)
   })
 
   test('Extrapolates with repeat last value', () => {
-    const estimated = EstimationEngine.estimateValues(years, mockOriginalDataPointSet2, {
-      method: 'repeatLast',
-      fields: ['forestArea', 'otherWoodedLand'],
-    })
-    const expected = [
-      { forestArea: '500.00', otherWoodedLand: '300.00', year: 1990 },
-      { forestArea: '500.00', otherWoodedLand: '300.00', year: 2000 },
-      { forestArea: '497.78', otherWoodedLand: '304.89', year: 2010 },
-      { forestArea: '486.67', otherWoodedLand: '329.33', year: 2015 },
-      { forestArea: '484.45', otherWoodedLand: '334.22', year: 2016 },
-      { forestArea: '482.23', otherWoodedLand: '339.11', year: 2017 },
-      { forestArea: '480.00', otherWoodedLand: '344.00', year: 2018 },
-      { forestArea: '480.00', otherWoodedLand: '344.00', year: 2019 },
-      { forestArea: '480.00', otherWoodedLand: '344.00', year: 2020 },
-      { forestArea: '480.00', otherWoodedLand: '344.00', year: 2025 },
-    ]
+    const estimated = EstimationEngine.estimateValues(
+      years,
+      mockOriginalDataPointSet2,
+      {
+        method: 'repeatLast',
+        fields: ['forestArea', 'otherWoodedLand'],
+      },
+      'extentOfForest'
+    )
 
-    const estimatedPicked: any = estimated.map(({ forestArea, otherWoodedLand, year }: any) => ({
-      forestArea,
-      otherWoodedLand,
-      year,
-    }))
+    const expected = {
+      FIN: {
+        extentOfForest: {
+          '1990': {
+            forestArea: { estimated: true, raw: '500.00' },
+            otherWoodedLand: { estimated: true, raw: '300.00' },
+          },
+          '2000': {
+            forestArea: { estimated: true, raw: '500.00' },
+            otherWoodedLand: { estimated: true, raw: '300.00' },
+          },
+          '2010': {
+            forestArea: { estimated: true, raw: '497.78' },
+            otherWoodedLand: { estimated: true, raw: '304.89' },
+          },
+          '2015': {
+            forestArea: { estimated: true, raw: '486.67' },
+            otherWoodedLand: { estimated: true, raw: '329.33' },
+          },
+          '2016': {
+            forestArea: { estimated: true, raw: '484.45' },
+            otherWoodedLand: { estimated: true, raw: '334.22' },
+          },
+          '2017': {
+            forestArea: { estimated: true, raw: '482.23' },
+            otherWoodedLand: { estimated: true, raw: '339.11' },
+          },
+          '2018': {
+            forestArea: { estimated: true, raw: '480.00' },
+            otherWoodedLand: { estimated: true, raw: '344.00' },
+          },
+          '2019': {
+            forestArea: { estimated: true, raw: '480.00' },
+            otherWoodedLand: { estimated: true, raw: '344.00' },
+          },
+          '2020': {
+            forestArea: { estimated: true, raw: '480.00' },
+            otherWoodedLand: { estimated: true, raw: '344.00' },
+          },
+          '2025': {
+            forestArea: { estimated: true, raw: '480.00' },
+            otherWoodedLand: { estimated: true, raw: '344.00' },
+          },
+        },
+      },
+    }
 
-    expect(estimatedPicked).toStrictEqual(expected)
+    expect(estimated).toStrictEqual(expected)
   })
 
   test('Extrapolates with annual change rate', () => {
-    const estimated = EstimationEngine.estimateValues(years, mockOriginalDataPointSet2, {
-      method: 'annualChange',
-      changeRates: {
-        forestArea: { ratePast: -10, rateFuture: 20 },
-        otherWoodedLand: { ratePast: -5, rateFuture: 10 },
+    const estimated = EstimationEngine.estimateValues(
+      years,
+      mockOriginalDataPointSet2,
+      {
+        method: 'annualChange',
+        changeRates: {
+          forestArea: { ratePast: -10, rateFuture: 20 },
+          otherWoodedLand: { ratePast: -5, rateFuture: 10 },
+        },
+        fields: ['forestArea', 'otherWoodedLand'],
       },
-      fields: ['forestArea', 'otherWoodedLand'],
-    })
-    const expected = [
-      { forestArea: '690.00', otherWoodedLand: '395.00', year: 1990 },
-      { forestArea: '590.00', otherWoodedLand: '345.00', year: 2000 },
-      { forestArea: '497.78', otherWoodedLand: '304.89', year: 2010 },
-      { forestArea: '486.67', otherWoodedLand: '329.33', year: 2015 },
-      { forestArea: '484.45', otherWoodedLand: '334.22', year: 2016 },
-      { forestArea: '482.23', otherWoodedLand: '339.11', year: 2017 },
-      { forestArea: '480.00', otherWoodedLand: '344.00', year: 2018 },
-      { forestArea: '500.00', otherWoodedLand: '354.00', year: 2019 },
-      { forestArea: '520.00', otherWoodedLand: '364.00', year: 2020 },
-      { forestArea: '620.00', otherWoodedLand: '414.00', year: 2025 },
-    ]
-    const estimatedPicked = estimated.map(({ forestArea, otherWoodedLand, year }: any) => ({
-      forestArea,
-      otherWoodedLand,
-      year,
-    }))
-
-    expect(estimatedPicked).toStrictEqual(expected)
+      'extentOfForest'
+    )
+    const expected = {
+      FIN: {
+        extentOfForest: {
+          '1990': {
+            forestArea: { estimated: true, raw: '690.00' },
+            otherWoodedLand: { estimated: true, raw: '395.00' },
+          },
+          '2000': {
+            forestArea: { estimated: true, raw: '590.00' },
+            otherWoodedLand: { estimated: true, raw: '345.00' },
+          },
+          '2010': {
+            forestArea: { estimated: true, raw: '497.78' },
+            otherWoodedLand: { estimated: true, raw: '304.89' },
+          },
+          '2015': {
+            forestArea: { estimated: true, raw: '486.67' },
+            otherWoodedLand: { estimated: true, raw: '329.33' },
+          },
+          '2016': {
+            forestArea: { estimated: true, raw: '484.45' },
+            otherWoodedLand: { estimated: true, raw: '334.22' },
+          },
+          '2017': {
+            forestArea: { estimated: true, raw: '482.23' },
+            otherWoodedLand: { estimated: true, raw: '339.11' },
+          },
+          '2018': {
+            forestArea: { estimated: true, raw: '480.00' },
+            otherWoodedLand: { estimated: true, raw: '344.00' },
+          },
+          '2019': {
+            forestArea: { estimated: true, raw: '500.00' },
+            otherWoodedLand: { estimated: true, raw: '354.00' },
+          },
+          '2020': {
+            forestArea: { estimated: true, raw: '520.00' },
+            otherWoodedLand: { estimated: true, raw: '364.00' },
+          },
+          '2025': {
+            forestArea: { estimated: true, raw: '620.00' },
+            otherWoodedLand: { estimated: true, raw: '414.00' },
+          },
+        },
+      },
+    }
+    expect(estimated).toStrictEqual(expected)
   })
 })
