@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import { ODPNationalClass, ODPs,OriginalDataPoint } from '@meta/assessment'
+import { ODPNationalClass, ODPs, OriginalDataPoint } from '@meta/assessment'
 
 import { Sanitizer } from '@client/utils/sanitizer'
 
@@ -28,6 +28,7 @@ export const updateNationalClass = createAsyncThunk<
     })
     dispatch(
       updateOriginalDataPoint({
+        countryIso: updatedOdp.countryIso,
         assessmentName,
         cycleName,
         originalDataPoint: updatedOdp,
