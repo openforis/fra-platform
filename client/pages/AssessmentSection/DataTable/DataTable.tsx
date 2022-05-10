@@ -8,6 +8,7 @@ import { useAppDispatch } from '@client/store'
 import { useCycle } from '@client/store/assessment'
 import { AssessmentSectionActions, useTableData } from '@client/store/pages/assessmentSection'
 import { useCountryIso } from '@client/hooks'
+import GenerateValues from '@client/pages/AssessmentSection/DataTable/GenerateValues'
 
 import Chart from './Chart'
 import Table from './Table'
@@ -82,6 +83,9 @@ const DataTable: React.FC<Props> = (props) => {
   const printView = false
   const dataEmpty = false
 
+  // TODO: Fix showing generateValues
+  const generateValues = table.props.odp
+
   return (
     <>
       {showOdpChart && (!printView || !dataEmpty) && (
@@ -100,15 +104,15 @@ const DataTable: React.FC<Props> = (props) => {
         </>
       )}
 
-      {/* {generateValues && ( */}
-      {/*  <GenerateValues */}
-      {/*    assessmentName={assessmentName} */}
-      {/*    sectionName={sectionName} */}
-      {/*    tableName={tableName} */}
-      {/*    rows={rows} */}
-      {/*    data={data} */}
-      {/*  /> */}
-      {/* )} */}
+      {generateValues && (
+        <GenerateValues
+          assessmentName={assessmentName}
+          sectionName={sectionName}
+          tableName={table.props.name}
+          rows={rows}
+          data={data}
+        />
+      )}
 
       {/* {printView && breakPointsColsPrint?.length > 0 ? ( */}
       {/*  breakPointsColsPrint.map((breakPoint, idx) => { */}
