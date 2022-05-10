@@ -1,15 +1,16 @@
 import { DataLockState } from '@client/store/ui/dataLock'
-import { AssessmentSectionState } from './pages/assessmentSection'
-import { OriginalDataPointState } from './pages/originalDataPoint'
-import { DataExportState } from './pages/dataExport'
 
-import { NavigationState } from './ui/navigation/stateType'
 import { AssessmentState } from './assessment/stateType'
 import { LoginState } from './login/stateType'
-import { UserState } from './user/stateType'
-import { NotificationState } from './ui/notification/stateType'
-import { MessageCenterState } from './ui/messageCenter/stateType'
+import { AssessmentSectionState } from './pages/assessmentSection'
+import { DataExportState } from './pages/dataExport'
+import { OriginalDataPointState } from './pages/originalDataPoint'
 import { GeoState } from './ui/geo/stateType'
+import { MessageCenterState } from './ui/messageCenter/stateType'
+import { NavigationState } from './ui/navigation/stateType'
+import { NotificationState } from './ui/notification/stateType'
+import { ReviewState } from './ui/review'
+import { UserState } from './user/stateType'
 
 export type RootState = {
   assessment: AssessmentState
@@ -27,6 +28,7 @@ export type RootState = {
     notification: NotificationState
     dataLock: DataLockState
     messageCenter: MessageCenterState
+    review: ReviewState
   }
 
   geo: GeoState
