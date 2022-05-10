@@ -15,4 +15,19 @@
       transition: all .1s ease-out;
     }
   }
+  &.opened {
+    svg {
+      color: $ui-accent;
+    }
+  }
+  &.resolved {
+    svg {
+      color: $text-mute;
+    }
+  }
+  &.unread {
+    svg {
+      color: $ui-alert;
+    }
+  }
 }
