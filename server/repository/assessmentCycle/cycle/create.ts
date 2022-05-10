@@ -1,4 +1,5 @@
 import { Assessment, Cycle } from '@meta/assessment'
+
 import { BaseProtocol, DB, Schemas } from '@server/db'
 import { AssessmentRepository } from '@server/repository/assessment/assessment'
 
@@ -14,12 +15,6 @@ export const create = async (
   await DB.query(
     AssessmentRepository.getCreateSchemaCycleDDL(
       Schemas.getName(assessment),
-      Schemas.getNameCycle(assessment, { name } as Cycle)
-    )
-  )
-
-  await DB.query(
-    AssessmentRepository.getCreateSchemaCycleOriginalDataPointViewDDL(
       Schemas.getNameCycle(assessment, { name } as Cycle)
     )
   )

@@ -1,13 +1,17 @@
 import { Assessment } from '../../../meta/assessment/assessment'
+import { Cycle } from '../../../meta/assessment/cycle'
 import { Table } from '../../../meta/assessment/table'
-
 import { DBNames } from '../_DBNames'
 
-export const getCreateViewDDL = async (props: { assessment: Assessment; table: Table }): Promise<string> => {
-  const { assessment, table } = props
+export const getCreateViewDDL = async (props: {
+  assessment: Assessment
+  cycle: Cycle
+  table: Table
+}): Promise<string> => {
+  const { assessment, cycle, table } = props
 
   const schema = DBNames.getAssessmentSchema(assessment.props.name)
-  const schemaCycle = DBNames.getCycleSchema(assessment.props.name, assessment.cycles[0].name)
+  const schemaCycle = DBNames.getCycleSchema(assessment.props.name, cycle.name)
 
   const query = `
   create or replace view ${schemaCycle}.${table.props.name} as
