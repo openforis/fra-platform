@@ -64,12 +64,16 @@ const requireEditMessageTopic = async (req: Request, _res: Response, next: NextF
   })
   const topic = await MessageCenterController.getTopic({ countryIso: countryIso as CountryIso, assessment, cycle, key })
 
-  _next(
-    topic.status === MessageTopicStatus.opened ||
-      (topic.status === MessageTopicStatus.resolved &&
-        (Users.isAdministrator(user) || Users.isReviewer(user, countryIso as CountryIso))),
-    next
-  )
+  if (topic) {
+    _next(
+      topic.status === MessageTopicStatus.opened ||
+        (topic.status === MessageTopicStatus.resolved &&
+          (Users.isAdministrator(user) || Users.isReviewer(user, countryIso as CountryIso))),
+      next
+    )
+  } else {
+    _next(!!user, next)
+  }
 }
 
 const requireResolveTopic = async (req: Request, _res: Response, next: NextFunction) => {
