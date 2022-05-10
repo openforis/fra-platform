@@ -119,7 +119,7 @@ export const migrateTablesData = async (
   await client.none(query)
 
   // create data views
-  const queries = await Promise.all(tables.map((table) => getCreateViewDDL({ assessment, table })))
+  const queries = await Promise.all(tables.map((table) => getCreateViewDDL({ assessment, cycle, table })))
 
   await client.query(pgp.helpers.concat(queries))
 }

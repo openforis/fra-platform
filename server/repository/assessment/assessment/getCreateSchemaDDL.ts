@@ -213,75 +213,83 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
 
 export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSchemaName: string): string => {
   return `
-        create or replace view ${assessmentCycleSchemaName}.original_data_point_data as
+      create or replace view ${assessmentCycleSchemaName}.original_data_point_data as
       with classes as (
-          select o.country_iso, o.year, jsonb_array_elements(o.national_classes) as class
+          select o.country_iso,
+                 o.year,
+                 jsonb_array_elements(o.national_classes) as class
           from ${assessmentCycleSchemaName}.original_data_point o
-      )
-      select c.country_iso,
-             c.year,
-      --        c.class ->> 'area'                                                     as area,
-             sum((c.class ->> 'area')::numeric * (c.class ->> 'forestPercent')::numeric / 100) as forest_area,
-             sum((c.class ->> 'area')::numeric *
-                 (c.class ->> 'otherWoodedLandPercent')::numeric / 100)                        as other_wooded_land,
-      --        sum((c.class ->> 'area')::numeric *
-      --            (
-      --                    100 - coalesce(c.class ->> 'forestPercent', '0')::numeric -
-      --                    coalesce(c.class ->> 'otherWoodedLandPercent', '0')::numeric
-      --                ) / 100)                                                                  as other_land
-             sum(
-                             ((c.class ->> 'area')::numeric * (c.class ->> 'forestPercent')::numeric / 100) * -- forest
-                             (c.class ->> 'forestNaturalPercent')::numeric / 100
-                 )                                                                             as natural_forest_area,
-             sum(
-                             ((c.class ->> 'area')::numeric * (c.class ->> 'forestPercent')::numeric / 100) * -- forest
-                             (c.class ->> 'forestPlantationPercent')::numeric / 100
-                 )                                                                             as plantation_forest_area,
-             sum(
-                             (
-                                         ((c.class ->> 'area')::numeric * (c.class ->> 'forestPercent')::numeric / 100) *
-                                         (c.class ->> 'forestPlantationPercent')::numeric / 100
-                                 ) -- plantation_forest_area
-                             *
-                             (c.class ->> 'forestPlantationIntroducedPercent')::numeric / 100
-                 )                                                                             as plantation_forest_introduced_area,
-             sum(
-                             ((c.class ->> 'area')::numeric * (c.class ->> 'forestPercent')::numeric / 100) * -- forest
-                             (c.class ->> 'otherPlantedForestPercent')::numeric / 100
-                 )                                                                             as other_planted_forest_area,
-             sum(
-                             ((c.class ->> 'area')::numeric * (c.class ->> 'forestPercent')::numeric / 100) * -- forest
-                             (c.class ->> 'forestPlantationPercent')::numeric / 100
-                 ) -- plantation_forest_area
-                 +
-             sum(
-                             ((c.class ->> 'area')::numeric * (c.class ->> 'forestPercent')::numeric / 100) * -- forest
-                             (c.class ->> 'otherPlantedForestPercent')::numeric / 100
-                 ) -- other_planted_forest_area
-                                                                                               as planted_forest,
-             (
-                 sum(
-                                 ((c.class ->> 'area')::numeric * (c.class ->> 'forestPercent')::numeric / 100) * -- forest
-                                 (c.class ->> 'forestNaturalPercent')::numeric / 100
-                     ) -- natural_forest_area
-                 )
-                 +
-             (
-                     sum(
-                                     ((c.class ->> 'area')::numeric * (c.class ->> 'forestPercent')::numeric /
-                                      100) * -- forest
-                                     (c.class ->> 'forestPlantationPercent')::numeric / 100
-                         ) -- plantation_forest_area
-                     +
-                     sum(
-                                     ((c.class ->> 'area')::numeric * (c.class ->> 'forestPercent')::numeric /
-                                      100) * -- forest
-                                     (c.class ->> 'otherPlantedForestPercent')::numeric / 100
-                         ) -- other_planted_forest_area
-                 ) -- planted_forest
-                                                                                               as total
-        from classes c
-        group by c.country_iso, c.year
-        order by c.country_iso, c.year;
+      ),
+           extentofforest as (
+               select f.country_iso,
+                      f.col_name,
+                      jsonb_object_agg(f.variable_name, f.value) as data
+               from ${assessmentCycleSchemaName}.extentofforest f
+               where f.variable_name in ('totalLandArea')
+               group by 1, 2
+           ),
+           raw_values as (
+               select c.country_iso,
+                      c.year,
+                      sum(((c.class ->> 'area'::text)::numeric) * ((c.class ->> 'forestPercent'::text)::numeric) /
+                          100::numeric)                                                                as forest_area,
+                      sum(((c.class ->> 'area'::text)::numeric) *
+                          ((c.class ->> 'otherWoodedLandPercent'::text)::numeric) /
+                          100::numeric)                                                                as other_wooded_land,
+                      sum(((c.class ->> 'area'::text)::numeric) * ((c.class ->> 'forestPercent'::text)::numeric) /
+                          100::numeric *
+                          ((c.class ->> 'forestNaturalPercent'::text)::numeric) /
+                          100::numeric)                                                                as natural_forest_area,
+                      sum(((c.class ->> 'area'::text)::numeric) * ((c.class ->> 'forestPercent'::text)::numeric) /
+                          100::numeric *
+                          ((c.class ->> 'forestPlantationPercent'::text)::numeric) /
+                          100::numeric)                                                                as plantation_forest_area,
+                      sum(((c.class ->> 'area'::text)::numeric) * ((c.class ->> 'forestPercent'::text)::numeric) /
+                          100::numeric *
+                          ((c.class ->> 'forestPlantationPercent'::text)::numeric) / 100::numeric *
+                          ((c.class ->> 'forestPlantationIntroducedPercent'::text)::numeric) /
+                          100::numeric)                                                                as plantation_forest_introduced_area,
+                      sum(((c.class ->> 'area'::text)::numeric) * ((c.class ->> 'forestPercent'::text)::numeric) /
+                          100::numeric *
+                          ((c.class ->> 'otherPlantedForestPercent'::text)::numeric) /
+                          100::numeric)                                                                as other_planted_forest_area,
+                      sum(((c.class ->> 'area'::text)::numeric) * ((c.class ->> 'forestPercent'::text)::numeric) /
+                          100::numeric *
+                          ((c.class ->> 'forestPlantationPercent'::text)::numeric) / 100::numeric) +
+                      sum(((c.class ->> 'area'::text)::numeric) * ((c.class ->> 'forestPercent'::text)::numeric) /
+                          100::numeric *
+                          ((c.class ->> 'otherPlantedForestPercent'::text)::numeric) /
+                          100::numeric)                                                                as planted_forest,
+                      sum(((c.class ->> 'area'::text)::numeric) * ((c.class ->> 'forestPercent'::text)::numeric) /
+                          100::numeric *
+                          ((c.class ->> 'forestNaturalPercent'::text)::numeric) / 100::numeric) +
+                      (sum(((c.class ->> 'area'::text)::numeric) * ((c.class ->> 'forestPercent'::text)::numeric) /
+                           100::numeric *
+                           ((c.class ->> 'forestPlantationPercent'::text)::numeric) / 100::numeric) +
+                       sum(((c.class ->> 'area'::text)::numeric) * ((c.class ->> 'forestPercent'::text)::numeric) /
+                           100::numeric *
+                           ((c.class ->> 'otherPlantedForestPercent'::text)::numeric) / 100::numeric)) as total
+               from classes c
+               group by c.country_iso, c.year
+               order by c.country_iso, c.year)
+      select rv.country_iso,
+             rv.year,
+             rv.forest_area,
+             rv.other_wooded_land,
+             rv.natural_forest_area,
+             rv.plantation_forest_area,
+             rv.plantation_forest_introduced_area,
+             rv.other_planted_forest_area,
+             rv.planted_forest,
+             rv.total,
+             (e.data -> 'totalLandArea' ->> 'raw')::double precision                                         as total_land_area,
+             (e.data -> 'totalLandArea' ->> 'raw')::double precision - rv.forest_area -
+             rv.other_wooded_land                                                                            as other_land,
+             rv.planted_forest + rv.natural_forest_area                                                      as total_forest_area
+      from raw_values rv
+               left join extentofforest e
+                         on e.country_iso = rv.country_iso
+                             and e.col_name = rv.year::text
+      ;
   `
 }

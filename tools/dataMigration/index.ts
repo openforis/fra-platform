@@ -8,7 +8,6 @@ import { Cycle } from '../../meta/assessment/cycle'
 import { BaseProtocol, DB } from '../../server/db'
 import {
   getCreateSchemaCycleDDL,
-  getCreateSchemaCycleOriginalDataPointViewDDL,
   getCreateSchemaDDL,
 } from '../../server/repository/assessment/assessment/getCreateSchemaDDL'
 import { SectionSpec } from '../../webapp/sectionSpec'
@@ -33,10 +32,6 @@ const createCycle = async (assessment: Assessment, cycleName: string, client: Ba
       DBNames.getAssessmentSchema(assessment.props.name),
       DBNames.getCycleSchema(assessment.props.name, cycleName)
     )
-  )
-
-  await client.query(
-    getCreateSchemaCycleOriginalDataPointViewDDL(DBNames.getCycleSchema(assessment.props.name, cycleName))
   )
 
   return client.one<Cycle>(
