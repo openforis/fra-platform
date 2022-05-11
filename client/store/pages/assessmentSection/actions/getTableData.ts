@@ -16,6 +16,7 @@ export const getTableData = createAsyncThunk<
       cycleName,
       tableNames,
       countryISOs: [countryIso],
+      mergeOdp: false,
     },
   })
   return data
