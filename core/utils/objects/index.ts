@@ -6,6 +6,8 @@ import * as isEqual from 'lodash.isequal'
 import * as isFunction from 'lodash.isfunction'
 // @ts-ignore
 import * as isNil from 'lodash.isnil'
+// @ts-ignore
+import * as pick from 'lodash.pick'
 
 import { camelize } from './camelize'
 import { isEmpty } from './isEmpty'
@@ -19,6 +21,7 @@ export const Objects = {
   isEqual,
   isFunction,
   isNil,
+  pick,
   propertyOf,
   setInPath,
 }

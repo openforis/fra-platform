@@ -1,5 +1,5 @@
-import { persistNodeValue } from './persistNodeValue'
 import { getTableData } from './getTableData'
+import { persistNodeValue } from './persistNodeValue'
 
 export const CycleDataController = {
   persistNodeValue,
