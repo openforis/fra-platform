@@ -1,22 +1,20 @@
-import { Assessment } from '../../../meta/assessment/assessment'
-import { TableSection } from '../../../meta/assessment/tableSection'
-import { Table } from '../../../meta/assessment/table'
-import { Row } from '../../../meta/assessment/row'
-import { Col, ColType } from '../../../meta/assessment/col'
-import { SubSection } from '../../../meta/assessment/section'
-
 import { Assessment as AssessmentLegacy } from '../../../core/assessment'
-import { SectionSpec } from '../../../webapp/sectionSpec'
-import { BaseProtocol } from '../../../server/db'
 import { Objects } from '../../../core/utils'
-import { isBasicTable } from '../migrateData/_repos'
+import { Assessment } from '../../../meta/assessment/assessment'
+import { Col, ColType } from '../../../meta/assessment/col'
+import { Row } from '../../../meta/assessment/row'
+import { SubSection } from '../../../meta/assessment/section'
+import { Table } from '../../../meta/assessment/table'
+import { TableSection } from '../../../meta/assessment/tableSection'
+import { BaseProtocol } from '../../../server/db'
+import { SectionSpec } from '../../../webapp/sectionSpec'
 import { getMapping } from '../dataTable/tableMappings'
-
-import { getSection, getSubSection } from './getSection'
-import { getTableSection } from './getTableSection'
-import { getTable } from './getTable'
-import { getRow } from './getRow'
+import { isBasicTable } from '../migrateData/_repos'
 import { getCol } from './getCol'
+import { getRow } from './getRow'
+import { getSection, getSubSection } from './getSection'
+import { getTable } from './getTable'
+import { getTableSection } from './getTableSection'
 import { migrateDegradedForest } from './migrateDegradedForest'
 import { migrateTableWithODP } from './migrateTableWithODP'
 
@@ -77,7 +75,8 @@ export const migrateMetadata = async (props: Props): Promise<void> => {
 
               await Promise.all(
                 tableSectionSpec.tableSpecs.map(async (tableSpec) => {
-                  let table = getTable({ cycles, tableSpec, tableSection })
+                  const mapping = isBasicTable(tableSpec.name) ? getMapping(tableSpec.name) : null
+                  let table = getTable({ cycles, tableSpec, tableSection, mapping })
                   table = await client.one<Table>(
                     `insert into ${schema}."table" (table_section_id, props)
                      values ($1, $2::jsonb)
@@ -86,8 +85,6 @@ export const migrateMetadata = async (props: Props): Promise<void> => {
                     Objects.camelize
                   )
                   tables.push(table)
-
-                  const mapping = isBasicTable(table) ? getMapping(table.props.name) : null
 
                   let rowIdx = 0
                   await Promise.all(

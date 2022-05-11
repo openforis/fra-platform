@@ -1,9 +1,9 @@
 import { ITask } from 'pg-promise'
-import { Table } from '../../../meta/assessment/table'
-import { Row, RowType } from '../../../meta/assessment/row'
-import { Col, ColType } from '../../../meta/assessment/col'
 
 import { Objects } from '../../../core/utils'
+import { Col, ColType } from '../../../meta/assessment/col'
+import { Row, RowType } from '../../../meta/assessment/row'
+import { Table } from '../../../meta/assessment/table'
 
 export const getRows = (client: ITask<any>, schema: string, table: Table): Promise<Array<Row>> =>
   client.map<Row>(
@@ -31,15 +31,9 @@ export const getCols = (client: ITask<any>, schema: string, table: Table): Promi
     Objects.camelize
   )
 
-export const getColIndexes = (rowsData: Row[], cols: Array<Col>): Array<number> => {
-  const maxCols = rowsData.reduce<number>((max, row) => {
-    const colsRow = cols.filter((col) => col.rowId === row.id && col.props.index >= 0)
-    return colsRow.reduce<number>((m, col) => (Number(col.props.index) > m ? Number(col.props.index) : m), max)
-  }, 0)
-  return Array.from(Array(maxCols + 1).keys())
-}
-
-export const isBasicTable = (table: Table): boolean =>
+export const isBasicTable = (tableName: string): boolean =>
+  tableName &&
+  tableName.trim() !== '' &&
   ![
     'extentOfForest',
     'forestCharacteristics',
@@ -52,4 +46,4 @@ export const isBasicTable = (table: Table): boolean =>
     'sustainableDevelopment15_2_1_3',
     'sustainableDevelopment15_2_1_4',
     'sustainableDevelopment15_2_1_5',
-  ].includes(table.props.name) && table.props.name !== ''
+  ].includes(tableName)
