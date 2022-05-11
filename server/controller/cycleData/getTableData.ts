@@ -38,11 +38,9 @@ export const getTableData = async (
       (acc, country) => ({ ...acc, [country.countryIso]: country }),
       {} as Record<CountryIso, Country>
     )
-    for (let i = 0; i < countryISOs.length; i += 1) {
-      const countryIso = countryISOs[i]
+    countryISOs.forEach((countryIso) => {
       const country = countryMap[countryIso]
-      for (let j = 0; j < tableNames.length; j += 1) {
-        const tableName = tableNames[j]
+      tableNames.forEach((tableName) => {
         if (
           tableName === TableNames.extentOfForest ||
           (tableName === TableNames.forestCharacteristics && country.props.forestCharacteristics.useOriginalDataPoint)
@@ -60,8 +58,8 @@ export const getTableData = async (
             }
           }
         }
-      }
-    }
+      })
+    })
   }
 
   return tableData
