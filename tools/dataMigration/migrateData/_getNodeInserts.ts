@@ -1,14 +1,13 @@
 import { ITask } from 'pg-promise'
 
 import { Assessment } from '../../../meta/assessment/assessment'
-import { Table } from '../../../meta/assessment/table'
-import { RowType } from '../../../meta/assessment/row'
 import { Col } from '../../../meta/assessment/col'
 import { NodeValue } from '../../../meta/assessment/node'
-
-import * as sqlCreator from '../dataTable/dataTableSqlCreator'
+import { RowType } from '../../../meta/assessment/row'
+import { Table } from '../../../meta/assessment/table'
 import { DBNames } from '../_DBNames'
-import { getColIndexes, getCols, getRows } from './_repos'
+import * as sqlCreator from '../dataTable/dataTableSqlCreator'
+import { getCols, getRows } from './_repos'
 
 // eslint-disable-next-line camelcase
 export type NodeRow = { country_iso: string; row_uuid: string; col_uuid: string; value: NodeValue }
@@ -33,19 +32,20 @@ export const _getNodeInserts = async (
   const rows = await getRows(client, schema, table)
   const cols = await getCols(client, schema, table)
   const rowsData = rows.filter((row) => row.props.type === RowType.data)
-  const colIndexes = getColIndexes(rowsData, cols)
+  // const colIndexes = getColIndexes(rowsData, cols)
+  const { name: tableName, columnNames } = table.props
 
   const values: Array<NodeRow> = []
   await Promise.all(
     countryISOs.map(async (countryIso) => {
-      const [selectQuery, selectParams] = sqlCreator.createSelect(countryIso, table.props.name, '_legacy')
+      const [selectQuery, selectParams] = sqlCreator.createSelect(countryIso, tableName, '_legacy')
       let data = (await client.manyOrNone<DatumLegacy>(selectQuery, selectParams)) as Array<DatumLegacy>
       if (data.length === 0) data = []
 
       rowsData.forEach((row) => {
         const rowName = row.props.variableName
-        colIndexes.forEach((colIndex) => {
-          const col: Col = cols.find((c) => c.rowId === row.id && c.props.index === colIndex)
+        columnNames.forEach((colName) => {
+          const col: Col = cols.find((c) => c.rowId === row.id && c.props.colName === colName)
           const dataRow = data.find((d) => d.row_name === rowName)
           if (dataRow && col) {
             const datum = dataRow[col.props.colName]

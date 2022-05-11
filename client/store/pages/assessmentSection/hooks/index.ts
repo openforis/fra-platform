@@ -15,10 +15,10 @@ export const useTableData = (props: { table: Table }): TableData => {
   const { table } = props
   const countryIso = useCountryIso()
   const { odp } = table.props
-  const showOriginalDatapoints = useShowOriginalDatapoints()
   const country = useAssessmentCountry()
   const tableData = useAppSelector((state) => state.pages.assessmentSection.data)
   const odpData = useAppSelector((state) => state.pages.assessmentSection.originalDataPointData)
+  const showOriginalDatapoints = useShowOriginalDatapoints()
 
   if (!tableData) return null
   if (!odp || !showOriginalDatapoints || !country.props.forestCharacteristics.useOriginalDataPoint) return tableData
