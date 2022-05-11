@@ -1,6 +1,9 @@
 import { Col, ColType } from './col'
 import { Row, RowType } from './row'
 
+/**
+ * @deprecated - use table.columnNames
+ */
 const getColIndexes = (props: { rows: Array<Row>; cols: Array<Col> }): Array<number> => {
   const { rows, cols } = props
   const maxCols = rows
@@ -35,6 +38,9 @@ const isReadOnly = (props: { col: Col; row: Row }): boolean => {
 }
 
 export const Cols = {
+  /**
+   * @deprecated - use table.columnNames
+   */
   getColIndexes,
   getColName,
   isReadOnly,

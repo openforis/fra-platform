@@ -37,7 +37,9 @@ export const migrateTablesData = async (
   // get node insert values
   const values = (
     await Promise.all(
-      tables.filter(isBasicTable).map(async (table) => _getNodeInserts({ assessment, countryISOs, table }, client))
+      tables
+        .filter((table) => isBasicTable(table.props.name))
+        .map(async (table) => _getNodeInserts({ assessment, countryISOs, table }, client))
     )
   ).flat()
 
