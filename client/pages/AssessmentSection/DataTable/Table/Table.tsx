@@ -28,11 +28,11 @@ type Props = {
 
 const Table: React.FC<Props> = (props) => {
   const { assessmentName, sectionName, sectionAnchor, table, rows, data, disabled } = props
-  const showOriginalDatapoints = useShowOriginalDatapoints()
 
   const cycle = useCycle()
   const { i18n } = useTranslation()
   const odpYears = useOriginalDataPointYears()
+  const showOriginalDatapoints = useShowOriginalDatapoints()
 
   const [printView] = [false] // usePrintView()
 
