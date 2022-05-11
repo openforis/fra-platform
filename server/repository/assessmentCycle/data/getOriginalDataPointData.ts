@@ -8,12 +8,12 @@ import { BaseProtocol, DB, Schemas } from '@server/db'
 
 type Props = {
   assessment: Assessment
-  countryIso: CountryIso
+  countryISOs: Array<CountryIso>
   cycle: Cycle
 }
 
 export const getOriginalDataPointData = (props: Props, client: BaseProtocol = DB): Promise<TableData> => {
-  const { assessment, cycle, countryIso } = props
+  const { assessment, cycle, countryISOs } = props
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
   return client.one<TableData>(
@@ -38,14 +38,14 @@ export const getOriginalDataPointData = (props: Props, client: BaseProtocol = DB
                                )
                        ) as values
         from ${schemaCycle}.original_data_point_data o
-        where o.country_iso = $1
+        where o.year is not null
+          and o.country_iso in ($1:list)
         group by o.country_iso
             )
         select jsonb_object_agg(d.country_iso, json_build_object('original_data_point_value', d.values)) as data
-        from data d
-        group by d.country_iso;
+        from data d;
     `,
-    [countryIso],
+    [countryISOs],
     ({ data }) => Objects.camelize(data)
   )
 }
