@@ -7,10 +7,10 @@ import { User } from '@meta/user'
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
 export const getOdpReviewStatus = async (
-  props: { countryIso: CountryIso; assessment: Assessment; cycle: Cycle; year?: string; user: User },
+  props: { countryIso: CountryIso; assessment: Assessment; cycle: Cycle; odpId?: string; user: User },
   client: BaseProtocol = DB
 ): Promise<Array<ReviewStatus>> => {
-  const { countryIso, assessment, cycle, year, user } = props
+  const { countryIso, assessment, cycle, odpId, user } = props
 
   const cycleSchema = Schemas.getNameCycle(assessment, cycle)
 
@@ -24,11 +24,7 @@ export const getOdpReviewStatus = async (
         from ${cycleSchema}.message m
         left join ${cycleSchema}.message_topic mt
           on mt.id = m.topic_id
-        where mt.key like (
-          select odp.id
-          from ${cycleSchema}.original_data_point odp
-	      where odp.country_iso = $3 and odp.year = $1
-        )::text || '-%'
+        where mt.key like $1 || '-%'
         group by topic_id
       )
       select
@@ -48,7 +44,7 @@ export const getOdpReviewStatus = async (
           on mt.id = m.topic_id
       where mt.country_iso = $3
     `,
-    [year, user.id, countryIso],
+    [odpId, user.id, countryIso],
     (row) => Objects.camelize(row)
   )
 }

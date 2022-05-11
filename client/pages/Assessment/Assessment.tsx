@@ -26,11 +26,10 @@ const SectionWrapper: React.FC = (props) => {
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const user = useUser()
-  const { assessmentName, cycleName, section, year } = useParams<{
+  const { assessmentName, cycleName, section } = useParams<{
     assessmentName: AssessmentName
     cycleName: string
     section: string
-    year: string
   }>()
 
   useEffect(() => {
@@ -46,13 +45,14 @@ const SectionWrapper: React.FC = (props) => {
 
   useEffect(() => {
     if (user) {
-      dispatch(ReviewActions.getReviewStatus({ countryIso, assessmentName, cycleName, section, year }))
+      dispatch(ReviewActions.getReviewStatus({ countryIso, assessmentName, cycleName, section }))
     }
-  }, [countryIso, assessmentName, cycleName, section, year])
+  }, [countryIso, assessmentName, cycleName, section])
 
   useOnUpdate(() => {
     return () => {
       dispatch(AssessmentSectionActions.reset())
+      dispatch(ReviewActions.reset())
     }
   }, [countryIso, assessmentName, cycleName])
 

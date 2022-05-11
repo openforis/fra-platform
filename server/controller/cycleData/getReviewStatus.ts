@@ -11,14 +11,14 @@ export const getReviewStatus = async (
     assessment: Assessment
     cycle: Cycle
     section: string
-    year?: string
     user: User
+    odpId?: string
   },
   client: BaseProtocol = DB
 ): Promise<Array<ReviewStatus>> => {
-  const { year } = props
+  const { odpId } = props
 
-  return year
+  return odpId
     ? MessageTopicUserRepository.getOdpReviewStatus(props, client)
     : MessageTopicUserRepository.getReviewStatus(props, client)
 }
