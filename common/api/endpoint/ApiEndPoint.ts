@@ -33,8 +33,6 @@ export const ApiEndPoint = {
 
     country: () => apiPath('country'),
 
-    review: () => apiPath('review'),
-
     OriginalDataPoint: {
       one: (countryIso = ':countryIso', assessmentName = ':assessmentName', cycleName = ':cycleName', year = ':year') =>
         apiPath('country', countryIso, 'assessment', assessmentName, 'originalDataPoint', cycleName, year),
@@ -43,6 +41,9 @@ export const ApiEndPoint = {
         one: () => apiPath('originalDataPoint', 'data'),
       },
     },
+  },
+  Review: {
+    status: { many: () => apiPath('review', 'status') },
   },
   Auth: {
     changePassword: () => '/auth/local/changePassword',

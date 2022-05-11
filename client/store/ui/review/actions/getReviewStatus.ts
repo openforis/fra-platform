@@ -16,7 +16,7 @@ export const getReviewStatus = createAsyncThunk<Array<ReviewStatus>, Params>(
   'review/get',
   async ({ countryIso, assessmentName, cycleName, section }) => {
     const params = { countryIso, assessmentName, cycleName, section }
-    const { data } = await axios.get(ApiEndPoint.Assessment.review(), { params })
+    const { data } = await axios.get(ApiEndPoint.Review.status.many(), { params })
     return data
   }
 )

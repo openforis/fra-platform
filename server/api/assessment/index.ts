@@ -53,6 +53,6 @@ export const AssessmentApi = {
     express.get(ApiEndPoint.Assessment.Sections.Metadata.many(), AuthMiddleware.requireView, getSectionMetadata)
 
     // Review
-    express.get(ApiEndPoint.Assessment.review(), AuthMiddleware.requireView, getReviewStatus)
+    express.get(ApiEndPoint.Review.status.many(), AuthMiddleware.requireView, getReviewStatus)
   },
 }

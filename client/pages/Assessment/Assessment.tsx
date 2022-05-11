@@ -42,7 +42,9 @@ const SectionWrapper: React.FC = (props) => {
   }, [countryIso, assessmentName, cycleName, section])
 
   useEffect(() => {
-    dispatch(ReviewActions.getReviewStatus({ countryIso, assessmentName, cycleName, section }))
+    if (user) {
+      dispatch(ReviewActions.getReviewStatus({ countryIso, assessmentName, cycleName, section }))
+    }
   }, [countryIso, assessmentName, cycleName, section])
 
   useOnUpdate(() => {

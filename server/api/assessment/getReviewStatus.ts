@@ -12,7 +12,7 @@ export const getReviewStatus = async (req: Request, res: Response) => {
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName })
 
-    const returnedOriginalDataPoint = await CycleDataController.getReviewStatus({
+    const reviewstatus = await CycleDataController.getReviewStatus({
       assessment,
       cycle,
       countryIso: countryIso as CountryIso,
@@ -20,7 +20,7 @@ export const getReviewStatus = async (req: Request, res: Response) => {
       user: Requests.getRequestUser(req),
     })
 
-    Requests.send(res, returnedOriginalDataPoint)
+    Requests.send(res, reviewstatus)
   } catch (e) {
     Requests.sendErr(res, e)
   }
