@@ -32,12 +32,11 @@ export const getReviewStatus = async (
               on t.id = r.table_id
             left join ${schemaName}.table_section ts
               on ts.id = t.table_section_id
-            left join assessment_fra.section as s
+            left join ${schemaName}.section as s
               on s.id = ts.section_id
           where s.props ->> 'name' = $1
         )
         group by topic_id
-
       )
       select
         mt.key,
