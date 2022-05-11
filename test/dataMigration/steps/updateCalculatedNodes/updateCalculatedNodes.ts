@@ -1,6 +1,7 @@
 import { Objects } from '@core/utils'
 import { calculateRow } from '@test/dataMigration/steps/updateCalculatedNodes/calculateRow'
 import { getCertifiedAreaValues } from '@test/dataMigration/steps/updateCalculatedNodes/getCertifiedAreaValues'
+import { getClimaticDomainValues } from '@test/dataMigration/steps/updateCalculatedNodes/getClimaticDomainValues'
 import { getTotalLandAreaValues } from '@test/dataMigration/steps/updateCalculatedNodes/getTotalLandAreaValues'
 import * as pgPromise from 'pg-promise'
 
@@ -66,6 +67,9 @@ export const updateCalculatedNodes = async (
   // ===== certified area  - SDG sub ind. 5
   const certifiedAreaValues = await getCertifiedAreaValues(client)
   await client.query(pgp.helpers.insert(certifiedAreaValues, cs))
+
+  const climaticDomainValues = await getClimaticDomainValues(client)
+  await client.query(pgp.helpers.insert(climaticDomainValues, cs))
 
   // ===== calculation rows
   for (let i = 0; i < rows.length; i += 1) {
