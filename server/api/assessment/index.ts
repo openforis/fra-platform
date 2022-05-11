@@ -14,6 +14,7 @@ import { getSections } from './getSections'
 import { getTableData } from './getTableData'
 import { persistNodeValues } from './persistNodeValues'
 import { postCountry } from './postCountry'
+import { postEstimation } from './postEstimation'
 import { updateOriginalDataPoint } from './updateOriginalDataPoint'
 
 export const AssessmentApi = {
@@ -21,6 +22,9 @@ export const AssessmentApi = {
     // Country
     express.get(ApiEndPoint.Assessment.country(), AuthMiddleware.requireView, getCountry)
     express.post(ApiEndPoint.Assessment.country(), AuthMiddleware.requireEdit, postCountry)
+
+    // Estimation
+    express.post(ApiEndPoint.Assessment.TableData.Estimate.many(), /* AuthMiddleware.requireEdit, */ postEstimation)
 
     // OriginalDataPoint // entry
     express.get(

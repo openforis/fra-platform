@@ -33,10 +33,10 @@ type ODPValueArray = ValueArray // Array<Deprecated_TableDatum & { type: 'odp' }
 
 type GenerateSpecMethods = 'linear' | 'repeatLast' | 'annualChange' | 'clearTable'
 
-interface GenerateSpec {
+export interface GenerateSpec {
   method: GenerateSpecMethods
-  fields: Array<string>
-  changeRates: Record<string, { rateFuture: number; ratePast: number }>
+  fields?: Array<string>
+  changeRates?: Record<string, { rateFuture: number; ratePast: number }>
 }
 
 export const linearInterpolation = (

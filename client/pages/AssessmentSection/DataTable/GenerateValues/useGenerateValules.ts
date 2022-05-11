@@ -4,6 +4,11 @@ import { useTranslation } from 'react-i18next'
 import { AssessmentName, ColType, Row, RowType } from '@meta/assessment'
 import { TableData } from '@meta/data'
 
+import { useAppDispatch } from '@client/store'
+import { useCycle } from '@client/store/assessment'
+import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
+import { useCountryIso } from '@client/hooks'
+
 import { GenerateValuesField } from './field'
 import { Method } from './method'
 
@@ -34,6 +39,9 @@ const useGenerateValues = (
   rows: Array<Row>,
   data: TableData
 ): UseGenerateValues => {
+  const dispatch = useAppDispatch()
+  const countryIso = useCountryIso()
+  const cycle = useCycle()
   const i18n = useTranslation()
   const generating = false // useSelector(AssessmentState.getSectionDataGeneratingValues(assessmentType, sectionName, tableName))
 
@@ -66,20 +74,23 @@ const useGenerateValues = (
             }, {})
           : null
 
-      // Send to backend
-      console.log({ method, changeRates, assessmentName, sectionName, tableName })
-
-      // ref components/Assessment/DataTable/actions/generate.ts
-      // dispatch(
-      //   generateTableData(
-      //     assessmentType,
-      //     sectionName,
-      //     tableName,
-      //     method,
-      //     fieldsToUpdate.map((field) => field.variableName),
-      //     changeRates
-      //   )
-      // )
+      dispatch(
+        AssessmentSectionActions.postEstimate({
+          countryIso,
+          assessmentName,
+          cycleName: cycle.name,
+          method,
+          sectionName,
+          tableName,
+          fields: fields
+            .filter((f) => f.selected)
+            .map(({ annualChangeRates, variableName }) => ({
+              annualChangeRates,
+              variableName,
+              changeRates,
+            })),
+        })
+      )
     }
   }
   const valid = true // Methods.isValid(data, method, fields)

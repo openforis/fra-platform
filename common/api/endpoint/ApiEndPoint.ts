@@ -5,6 +5,9 @@ export const ApiEndPoint = {
   Assessment: {
     TableData: {
       one: () => apiPath('assessment', 'tableData'),
+      Estimate: {
+        many: () => apiPath('assessment', 'tableData', 'estimate'),
+      },
     },
     Sections: {
       Metadata: {

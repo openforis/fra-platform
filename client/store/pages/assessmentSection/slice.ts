@@ -6,6 +6,7 @@ import { TableDatas } from '@meta/data'
 import { getOriginalDataPointData } from './actions/getOriginalDataPointData'
 import { getTableData } from './actions/getTableData'
 import { getTableSections } from './actions/getTableSections'
+import { postEstimate } from './actions/postEstimate'
 import { setTableSections } from './actions/setTableSections'
 import { updateNodeValues } from './actions/updateNodeValues'
 import { AssessmentSectionState } from './stateType'
@@ -63,6 +64,7 @@ export const AssessmentSectionActions = {
   getTableData,
   getOriginalDataPointData,
   updateNodeValues,
+  postEstimate,
 }
 
 export default assessmentSectionSlice.reducer as Reducer<AssessmentSectionState>
