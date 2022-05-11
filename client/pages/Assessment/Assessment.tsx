@@ -11,6 +11,7 @@ import { useAssessment } from '@client/store/assessment'
 import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import { useNavigationVisible } from '@client/store/ui/navigation'
 import { ReviewActions } from '@client/store/ui/review'
+import { useUser } from '@client/store/user'
 import { useCountryIso, useOnUpdate } from '@client/hooks'
 import { BasePaths } from '@client/basePaths'
 import MessageCenter from '@client/components/MessageCenter'
@@ -24,6 +25,7 @@ const SectionWrapper: React.FC = (props) => {
 
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
+  const user = useUser()
   const { assessmentName, cycleName, section } = useParams<{
     assessmentName: AssessmentName
     cycleName: string
