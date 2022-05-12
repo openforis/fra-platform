@@ -68,6 +68,7 @@ const Table: React.FC<Props> = (props) => {
 
                   const getColumnName = () => {
                     if (label?.key) return i18n.t(label?.key, label?.params)
+                    if (typeof label?.label === 'string') return label?.label
 
                     if (isOdpHeader) {
                       return (

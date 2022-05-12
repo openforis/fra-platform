@@ -10,7 +10,7 @@ const Placeholder: React.FC<PropsCell> = (props) => {
   const { label } = col.props
 
   let labelCell = ''
-  if (label?.label) labelCell = label?.label
+  if (typeof label?.label === 'string') labelCell = label?.label
   if (label?.key) labelCell = i18n.t(label?.key, label?.params)
 
   return <div>{labelCell || datum || ''}</div>

@@ -16,7 +16,7 @@ export const getCol = (props: { cycles: Array<string>; colSpec: ColSpec; row: Ro
     },
     rowId: row.id,
   }
-  if (colSpec.label || colSpec.labelKey || colSpec.labelParams || colSpec.labelPrefixKey) {
+  if (typeof colSpec.label === 'string' || colSpec.labelKey || colSpec.labelParams || colSpec.labelPrefixKey) {
     col.props.label = {
       key: colSpec.labelKey,
       params: colSpec.labelParams,
