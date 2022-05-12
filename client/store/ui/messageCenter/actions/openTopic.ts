@@ -25,7 +25,7 @@ export const openTopic = createAsyncThunk<MessageTopic, Params>(
       ...data,
       countryIso,
       key,
-      status: MessageTopicStatus.opened,
+      status: data?.status || MessageTopicStatus.opened,
       type,
       title,
       subtitle,

@@ -2,11 +2,15 @@ import './ReviewIndicator.scss'
 import React, { useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { MessageTopicType } from '@meta/messageCenter'
+import classNames from 'classnames'
+
+import { MessageTopicStatus, MessageTopicType } from '@meta/messageCenter'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { MessageCenterActions } from '@client/store/ui/messageCenter'
+import { useReviewStatus } from '@client/store/ui/review/hooks'
+import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import Icon from '@client/components/Icon'
 
@@ -23,7 +27,14 @@ const ReviewIndicator = (props: Props) => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
+  const user = useUser()
   const { section } = useParams<{ section?: string }>()
+
+  const {
+    messagesCount = 0,
+    status = MessageTopicStatus.opened,
+    lastMessageUserId = user.id,
+  } = useReviewStatus(topicKey)
 
   const openTopic = useCallback(() => {
     dispatch(
@@ -41,8 +52,16 @@ const ReviewIndicator = (props: Props) => {
   }, [dispatch, countryIso, assessment, cycle, title, subtitle, topicKey, section])
 
   return (
-    <button className="review-indicator" onClick={openTopic} type="button">
-      <Icon name="circle-add" />
+    <button
+      className={classNames('review-indicator', {
+        open: messagesCount > 0,
+        unread: lastMessageUserId !== user.id,
+        resolved: status === MessageTopicStatus.resolved,
+      })}
+      onClick={openTopic}
+      type="button"
+    >
+      {messagesCount === 0 ? <Icon name="circle-add" /> : <Icon name="chat-46" />}
     </button>
   )
 }

@@ -45,6 +45,9 @@ export const ApiEndPoint = {
       },
     },
   },
+  Review: {
+    status: { many: () => apiPath('review', 'status') },
+  },
   Auth: {
     changePassword: () => '/auth/local/changePassword',
     loggedInUser: () => apiPath('loggedInUser'),

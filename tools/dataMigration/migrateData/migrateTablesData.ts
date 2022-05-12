@@ -26,7 +26,13 @@ export const migrateTablesData = async (
      order by id`,
     [],
     // @ts-ignore
-    Objects.camelize
+    (table) => {
+      const { props, ...rest } = table
+      return {
+        ...Objects.camelize(rest),
+        props,
+      }
+    }
   )
   const tableDegradedForest = tables.find((t) => t.props.name === 'degradedForest')
   const tableExtentOfForest = tables.find((t) => t.props.name === 'extentOfForest')
@@ -39,12 +45,14 @@ export const migrateTablesData = async (
     await Promise.all(
       tables
         .filter((table) => isBasicTable(table.props.name))
-        .map(async (table) => _getNodeInserts({ assessment, countryISOs, table }, client))
+        .map(async (table) => _getNodeInserts({ assessment, cycle, countryISOs, table }, client))
     )
   ).flat()
 
   // non basic tables insert
-  values.push(...(await _getNodeInsertsDegradedForest({ assessment, countryISOs, table: tableDegradedForest }, client)))
+  values.push(
+    ...(await _getNodeInsertsDegradedForest({ assessment, cycle, countryISOs, table: tableDegradedForest }, client))
+  )
   values.push(
     ...(await getNodeInsertsTableWithODP(
       {

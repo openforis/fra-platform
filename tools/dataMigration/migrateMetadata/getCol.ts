@@ -12,11 +12,12 @@ export const getCol = (props: { cycles: Array<string>; colSpec: ColSpec; row: Ro
       colType: colSpec.type as unknown as ColType,
       index: colSpec.idx,
       colName: colSpec.colName,
+      variableNo: colSpec.variableNo,
       calculateFn: colSpec.migration?.calculateFn,
     },
     rowId: row.id,
   }
-  if (colSpec.label || colSpec.labelKey || colSpec.labelParams || colSpec.labelPrefixKey) {
+  if (typeof colSpec.label === 'string' || colSpec.labelKey || colSpec.labelParams || colSpec.labelPrefixKey) {
     col.props.label = {
       key: colSpec.labelKey,
       params: colSpec.labelParams,

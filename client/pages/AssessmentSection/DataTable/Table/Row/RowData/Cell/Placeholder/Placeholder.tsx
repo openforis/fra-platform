@@ -1,18 +1,18 @@
 import React from 'react'
-
 import { useTranslation } from 'react-i18next'
+
 import { PropsCell } from '../props'
 
 const Placeholder: React.FC<PropsCell> = (props) => {
   const { col, datum } = props
   const { i18n } = useTranslation()
 
-  const { /* label */ labelKey /* labelParams */ } = col.props
+  const { label } = col.props
 
   let labelCell = ''
-  // if (label) labelCell = label
-  if (labelKey) labelCell = i18n.t(labelKey /* labelParams */)
-  //
+  if (typeof label?.label === 'string') labelCell = label?.label
+  if (label?.key) labelCell = i18n.t(label?.key, label?.params)
+
   return <div>{labelCell || datum || ''}</div>
 }
 

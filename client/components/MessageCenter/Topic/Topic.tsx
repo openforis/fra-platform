@@ -129,9 +129,10 @@ const Topic: React.FC<TopicProps> = (props) => {
             </button>
           </div>
         )}
-        {(Users.isAdministrator(user) || Users.isReviewer(user, countryIso)) &&
+        {topic.type === MessageTopicType.review &&
           topic.status === MessageTopicStatus.opened &&
-          topic.type === MessageTopicType.review && (
+          topic.messages.length !== 0 &&
+          (Users.isAdministrator(user) || Users.isReviewer(user, countryIso)) && (
             <div className="topic-review">
               <button className="btn btn-secondary btn-s" onClick={resolveTopic} type="submit">
                 {i18n.t('review.resolve')}

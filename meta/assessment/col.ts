@@ -7,6 +7,7 @@ export enum ColType {
   header = 'header',
   integer = 'integer',
   noticeMessage = 'noticeMessage',
+  placeholder = 'placeholder',
   select = 'select',
   selectYesNo = 'selectYesNo',
   text = 'text',
@@ -21,6 +22,7 @@ export interface ColProps {
   index?: number | string
   label?: Label
   rowSpan?: number
+  variableNo?: string
   // calculated props
   calculateFn?: string
 }
