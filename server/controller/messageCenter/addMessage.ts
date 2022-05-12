@@ -38,9 +38,9 @@ export const addMessage = async (
     if (topic && user) {
       const topicUser = await MessageTopicUserRepository.getOneOrNone({ assessment, cycle, topic, user })
       if (topicUser) {
-        await MessageTopicUserRepository.update({ assessment, cycle, topic, user })
+        await MessageTopicUserRepository.update({ assessment, cycle, topic, user }, t)
       } else {
-        await MessageTopicUserRepository.create({ assessment, cycle, topic, user })
+        await MessageTopicUserRepository.create({ assessment, cycle, topic, user }, t)
       }
     }
 
