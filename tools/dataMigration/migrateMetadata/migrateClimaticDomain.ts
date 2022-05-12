@@ -40,10 +40,6 @@ export const migrateClimaticDomain = async (props: { assessment: Assessment }, c
           where t.props ->> 'name' = 'climaticDomain'
             and c.props ->> 'colName' = 'percentOfForestArea2015Default'
       );
-
-      update assessment_fra."table"
-      set props = jsonb_set(props, '{columnNames}', '["percentOfForestArea2015","percentOfForestArea2015Default"]')
-      where props ->> 'name' = 'climaticDomain';
   `
   )
 }
