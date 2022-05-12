@@ -7,10 +7,10 @@ import { useCountryIso } from '@client/hooks'
 
 import Calculated from './Calculated'
 import Number from './Number'
+import Placeholder from './Placeholder'
 import { PropsCell } from './props'
 import Select from './Select'
 import Text from './Text'
-// import Placeholder from './Placeholder'
 import useClassName from './useClassName'
 import useOnChange from './useOnChange'
 
@@ -21,7 +21,7 @@ const ComponentsByName: Record<string, React.FC<PropsCell>> = {
   [ColType.decimal]: Number,
   [ColType.integer]: Number,
   [ColType.select]: Select,
-  // [ColType.placeholder]: Placeholder,
+  [ColType.placeholder]: Placeholder,
 }
 
 type Props = {
