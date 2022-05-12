@@ -1,19 +1,22 @@
 import './OriginalDataPoint.scss'
 import React, { useEffect } from 'react'
-import { useHistory, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { useHistory, useParams } from 'react-router-dom'
+
+import { AssessmentName } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
-import { useCanEditSection } from '@client/store/user'
-import { BasePaths } from '@client/basePaths'
+import { ReviewActions } from '@client/store/ui/review'
+import { useCanEditSection, useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
+import { BasePaths } from '@client/basePaths'
 
-import NationalClasses from './components/NationalClasses'
-import OriginalData from './components/OriginalData'
+import ButtonBar from './components/ButtonBar'
 // import Comments from './components/Comments'
 import DataSources from './components/DataSources'
-import ButtonBar from './components/ButtonBar'
+import NationalClasses from './components/NationalClasses'
+import OriginalData from './components/OriginalData'
 import YearSelection from './components/YearSelection'
 
 const OriginalDataPoint: React.FC = () => {
@@ -21,8 +24,14 @@ const OriginalDataPoint: React.FC = () => {
   const dispatch = useAppDispatch()
   const history = useHistory()
   const countryIso = useCountryIso()
+  const user = useUser()
   const originalDataPoint = useOriginalDataPoint()
-  const { assessmentName, cycleName, year } = useParams<{ assessmentName: string; cycleName: string; year: string }>()
+  const { assessmentName, cycleName, section, year } = useParams<{
+    assessmentName: AssessmentName
+    cycleName: string
+    section: string
+    year: string
+  }>()
 
   const canEditData = useCanEditSection()
 
@@ -41,6 +50,14 @@ const OriginalDataPoint: React.FC = () => {
       dispatch(OriginalDataPointActions.reset())
     }
   }, [])
+
+  useEffect(() => {
+    if (user) {
+      dispatch(
+        ReviewActions.getReviewStatus({ countryIso, assessmentName, cycleName, section, odpId: originalDataPoint?.id })
+      )
+    }
+  }, [originalDataPoint, countryIso, assessmentName, cycleName, year])
 
   if (!originalDataPoint) return null
 
