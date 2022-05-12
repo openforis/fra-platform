@@ -10,6 +10,8 @@ import { useAppDispatch } from '@client/store'
 import { useAssessment } from '@client/store/assessment'
 import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import { useNavigationVisible } from '@client/store/ui/navigation'
+import { ReviewActions } from '@client/store/ui/review'
+import { useUser } from '@client/store/user'
 import { useCountryIso, useOnUpdate } from '@client/hooks'
 import { BasePaths } from '@client/basePaths'
 import MessageCenter from '@client/components/MessageCenter'
@@ -23,6 +25,7 @@ const SectionWrapper: React.FC = (props) => {
 
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
+  const user = useUser()
   const { assessmentName, cycleName, section } = useParams<{
     assessmentName: AssessmentName
     cycleName: string
@@ -40,9 +43,16 @@ const SectionWrapper: React.FC = (props) => {
     )
   }, [countryIso, assessmentName, cycleName, section])
 
+  useEffect(() => {
+    if (user) {
+      dispatch(ReviewActions.getReviewStatus({ countryIso, assessmentName, cycleName, section }))
+    }
+  }, [countryIso, assessmentName, cycleName, section])
+
   useOnUpdate(() => {
     return () => {
       dispatch(AssessmentSectionActions.reset())
+      dispatch(ReviewActions.reset())
     }
   }, [countryIso, assessmentName, cycleName])
 

@@ -8,6 +8,7 @@ import { Table } from '../../../meta/assessment/table'
 import { TableSection } from '../../../meta/assessment/tableSection'
 import { BaseProtocol } from '../../../server/db'
 import { SectionSpec } from '../../../webapp/sectionSpec'
+import { DBNames } from '../_DBNames'
 import { getMapping } from '../dataTable/tableMappings'
 import { isBasicTable } from '../migrateData/_repos'
 import { getCol } from './getCol'
@@ -15,6 +16,7 @@ import { getRow } from './getRow'
 import { getSection, getSubSection } from './getSection'
 import { getTable } from './getTable'
 import { getTableSection } from './getTableSection'
+import { migrateClimaticDomain } from './migrateClimaticDomain'
 import { migrateDegradedForest } from './migrateDegradedForest'
 import { migrateTableWithODP } from './migrateTableWithODP'
 
@@ -29,6 +31,7 @@ type Props = {
 export const migrateMetadata = async (props: Props): Promise<void> => {
   const { assessment, assessmentLegacy, schema, spec, client } = props
 
+  const assessmentSchema = DBNames.getAssessmentSchema(assessment.props.name)
   const cycles = assessment.cycles.map((c) => c.uuid)
 
   // const sections: Array<SubSection> = []
@@ -41,7 +44,7 @@ export const migrateMetadata = async (props: Props): Promise<void> => {
     Object.entries(assessmentLegacy.sections).map(async ([index, sectionLegacy]) => {
       let section = getSection({ labelKey: sectionLegacy.label, index: Number(index), cycles })
       section = await client.one<SubSection>(
-        `insert into assessment_fra.section (props)
+        `insert into ${assessmentSchema}.section (props)
          values ($1::jsonb)
          returning *`,
         [JSON.stringify(section.props)],
@@ -54,7 +57,7 @@ export const migrateMetadata = async (props: Props): Promise<void> => {
           let subSection = getSubSection({ spec: subSectionSpec, cycles, index: Number(i) })
 
           subSection = await client.one<SubSection>(
-            `insert into assessment_fra.section (parent_id, props)
+            `insert into ${assessmentSchema}.section (parent_id, props)
              values ($1, $2::jsonb)
              returning *`,
             [section.id, JSON.stringify(subSection.props)],
@@ -65,7 +68,7 @@ export const migrateMetadata = async (props: Props): Promise<void> => {
             subSectionSpec.tableSections.map(async (tableSectionSpec) => {
               let tableSection = getTableSection({ cycles, tableSectionSpec, section: subSection })
               tableSection = await client.one<TableSection>(
-                `insert into assessment_fra.table_section (section_id, props)
+                `insert into ${assessmentSchema}.table_section (section_id, props)
                  values ($1, $2::jsonb)
                  returning *;`,
                 [tableSection.sectionId, JSON.stringify(tableSection.props)],
@@ -206,4 +209,5 @@ export const migrateMetadata = async (props: Props): Promise<void> => {
     },
     client
   )
+  await migrateClimaticDomain({ assessment }, client)
 }
