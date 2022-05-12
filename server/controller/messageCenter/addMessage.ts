@@ -7,6 +7,7 @@ import { BaseProtocol, DB } from '@server/db'
 import { ActivityLogRepository } from '@server/repository/assessment/activityLog'
 import { MessageRepository } from '@server/repository/assessmentCycle/message'
 import { MessageTopicRepository } from '@server/repository/assessmentCycle/messageTopic'
+import { MessageTopicUserRepository } from '@server/repository/assessmentCycle/messageTopicUser'
 
 export const addMessage = async (
   props: {
@@ -33,6 +34,15 @@ export const addMessage = async (
     }
 
     const message = await MessageRepository.create({ assessment, cycle, message: messageText, topic, user }, t)
+
+    if (topic && user) {
+      const topicUser = await MessageTopicUserRepository.getOneOrNone({ assessment, cycle, topic, user })
+      if (topicUser) {
+        await MessageTopicUserRepository.update({ assessment, cycle, topic, user })
+      } else {
+        await MessageTopicUserRepository.create({ assessment, cycle, topic, user })
+      }
+    }
 
     await ActivityLogRepository.insertActivityLog(
       {
