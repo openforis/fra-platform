@@ -2,6 +2,7 @@ import { ITask } from 'pg-promise'
 
 import { Assessment } from '../../../meta/assessment/assessment'
 import { Col } from '../../../meta/assessment/col'
+import { Cycle } from '../../../meta/assessment/cycle'
 import { NodeValue } from '../../../meta/assessment/node'
 import { RowType } from '../../../meta/assessment/row'
 import { Table } from '../../../meta/assessment/table'
@@ -22,12 +23,13 @@ export interface DatumLegacy extends Record<string, string> {
 export const _getNodeInserts = async (
   props: {
     assessment: Assessment
+    cycle: Cycle
     countryISOs: Array<string>
     table: Table
   },
   client: ITask<any>
 ): Promise<Array<NodeRow>> => {
-  const { assessment, countryISOs, table } = props
+  const { assessment, cycle, countryISOs, table } = props
   const schema = DBNames.getAssessmentSchema(assessment.props.name)
   const rows = await getRows(client, schema, table)
   const cols = await getCols(client, schema, table)
@@ -44,7 +46,7 @@ export const _getNodeInserts = async (
 
       rowsData.forEach((row) => {
         const rowName = row.props.variableName
-        columnNames.forEach((colName) => {
+        columnNames[cycle.uuid].forEach((colName) => {
           const col: Col = cols.find((c) => c.rowId === row.id && c.props.colName === colName)
           const dataRow = data.find((d) => d.row_name === rowName)
           if (dataRow && col) {

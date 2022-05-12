@@ -8383,6 +8383,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     colSpan: 1,
                     rowSpan: 1,
                     className: 'fra-table__header-cell',
+                    label: '',
                     type: 'header',
                   },
                   {

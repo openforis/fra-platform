@@ -1,5 +1,7 @@
 import { Objects } from '@core/utils'
+
 import { Assessment, Cycle, TableSection } from '@meta/assessment'
+
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
 export const getSectionMetaData = async (
@@ -51,7 +53,12 @@ export const getSectionMetaData = async (
 
       `,
     [section, cycle.uuid],
-    // @ts-ignore
-    Objects.camelize
+    (ts: TableSection) => {
+      const { tables, ...tableSection } = ts
+      return {
+        ...tableSection,
+        tables: tables.map(({ props, ...table }) => ({ ...Objects.camelize(table), props })),
+      }
+    }
   )
 }
