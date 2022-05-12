@@ -22,6 +22,7 @@ export interface ColProps {
   index?: number | string
   label?: Label
   rowSpan?: number
+  variableNo?: string
   // calculated props
   calculateFn?: string
 }

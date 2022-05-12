@@ -28,18 +28,19 @@ const RowData: React.FC<Props> = (props) => {
   const { cols } = row
   // const { index /* variableName */ } = row.props
   const colHeader = cols[0]
-  const colHeaderLabel =
+  let colHeaderLabel =
     typeof colHeader.props.label?.label === 'string'
       ? colHeader.props.label?.label
       : i18n.t(colHeader.props.label?.key, colHeader.props.label?.params ?? {})
+  if (colHeader.props.variableNo) colHeaderLabel = `${colHeaderLabel} (${colHeader.props.variableNo})`
 
   const colsData = cols.slice(1, cols.length)
   // const className = useClassName(reviewTarget)
-  const colHeaderValue = `${colHeaderLabel}` // `${colHeaderLabel}${colHeader.variableNo ? ` (${colHeader.variableNo})` : ''}`
 
   const openTopics = useTopicKeys()
   const headerCell = row.props.readonly || row.props.calculateFn || cols.find((c) => c.props.calculateFn)
-  const subcategory = colHeaderValue.includes(`…`)
+  const subcategory = colHeaderLabel.includes(`…`)
+
   return (
     <tr className={openTopics.includes(row.uuid) ? 'fra-row-comments__open' : ''}>
       <th
@@ -58,11 +59,11 @@ const RowData: React.FC<Props> = (props) => {
               to={BasePaths.Assessment.section(countryIso, assessmentName, cycle.name, row.props.linkToSection)}
               className="link no-print"
             >
-              {colHeaderValue}
+              {colHeaderLabel}
             </Link>
           </>
         ) : (
-          colHeaderValue
+          colHeaderLabel
         )}
       </th>
       {/* TODO Handle odp */}
