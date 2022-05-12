@@ -37,7 +37,7 @@ export const addMessage = async (
     const message = await MessageRepository.create({ assessment, cycle, message: messageText, topic, user }, t)
 
     if (topic && user) {
-      await MessageCenterController.updateTopicReadTime({ assessment, cycle, topic, user }, client)
+      await MessageCenterController.updateTopicReadTime({ assessment, cycle, topic, user }, t)
     }
 
     await ActivityLogRepository.insertActivityLog(
