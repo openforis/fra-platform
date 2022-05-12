@@ -64,7 +64,7 @@ export const calculateRow = async (
   await Promise.all(
     countryISOs.map(async (countryIso) => {
       await Promise.all(
-        table.props.columnNames.map(async (colName) => {
+        table.props.columnNames[cycle.uuid].map(async (colName) => {
           // const colName = Cols.getColName({ colIdx, cols })
           const col = cols.find((c) => c.rowId === row.id && c.props.colName === colName)
           if (!col) return

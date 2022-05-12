@@ -7,18 +7,21 @@ export enum TableNames {
   forestCharacteristics = 'forestCharacteristics',
 }
 
+// array of column names indexed by cycle uuid
+export type TableColumnNames = Record<string, Array<string>>
+
 export interface TableProps {
   name: string
   odp?: boolean
   secondary?: boolean
   unit?: Unit
-  columnNames: Array<string>
+  columnNames: TableColumnNames
   // print
   print?: { pageBreakAfter: boolean }
   // data export
   dataExport: boolean
-  columnsExport?: Array<string | number>
-  columnsExportAlways?: Array<string>
+  columnsExport?: TableColumnNames
+  columnsExportAlways?: TableColumnNames
 }
 
 export interface Table extends CycledPropsObject<TableProps> {

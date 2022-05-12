@@ -79,7 +79,7 @@ export const migrateMetadata = async (props: Props): Promise<void> => {
               await Promise.all(
                 tableSectionSpec.tableSpecs.map(async (tableSpec) => {
                   const mapping = isBasicTable(tableSpec.name) ? getMapping(tableSpec.name) : null
-                  let table = getTable({ cycles, tableSpec, tableSection, mapping })
+                  let table = getTable({ assessment, cycles, tableSpec, tableSection, mapping })
                   table = await client.one<Table>(
                     `insert into ${schema}."table" (table_section_id, props)
                      values ($1, $2::jsonb)
