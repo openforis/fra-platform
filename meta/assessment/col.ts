@@ -7,6 +7,7 @@ export enum ColType {
   header = 'header',
   integer = 'integer',
   noticeMessage = 'noticeMessage',
+  placeholder = 'placeholder',
   select = 'select',
   selectYesNo = 'selectYesNo',
   text = 'text',
