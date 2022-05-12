@@ -23,12 +23,12 @@ export const postEstimation = async (req: Request, res: Response) => {
 
     const tableSpec = await TableRepository.getOne({ assessment, cycle, tableName })
     const originalDataPointValues = await DataRepository.getOriginalDataPointData({
-      countryIso: countryIso as CountryIso,
+      countryISOs: [countryIso as CountryIso],
       cycle,
       assessment,
     })
 
-    const years = tableSpec.props.columnNames.map((column: string) => Number(column))
+    const years = tableSpec.props.columnNames[cycle.uuid].map((column: string) => Number(column))
     const values = originalDataPointValues
     const changeRates: Record<string, { rateFuture: number; ratePast: number }> = {}
     fields.forEach((field) => {
