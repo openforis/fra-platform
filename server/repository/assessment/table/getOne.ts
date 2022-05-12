@@ -1,5 +1,7 @@
 import { Objects } from '@core/utils'
+
 import { Assessment, Cycle, Table } from '@meta/assessment'
+
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
 export const getOne = async (
@@ -9,15 +11,20 @@ export const getOne = async (
   const { assessment, cycle } = props
   const schemaName = Schemas.getName(assessment)
 
-  return client
-    .oneOrNone<Table>(
-      `
+  return client.oneOrNone<Table>(
+    `
           select t.*
           from ${schemaName}.table t
           where props ->> 'name' = $2 
             and props -> 'cycles' ? $1;
       `,
-      [cycle.uuid, props.tableName]
-    )
-    .then(Objects.camelize)
+    [cycle.uuid, props.tableName],
+    (table) => {
+      const { props, ...rest } = table
+      return {
+        ...Objects.camelize(rest),
+        props,
+      }
+    }
+  )
 }
