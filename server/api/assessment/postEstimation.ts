@@ -3,6 +3,7 @@ import { Request, Response } from 'express'
 import { CountryIso } from '@meta/area'
 
 import { AssessmentController } from '@server/controller/assessment'
+import { CycleDataController } from '@server/controller/cycleData'
 import { TableRepository } from '@server/repository/assessment/table'
 import { DataRepository } from '@server/repository/assessmentCycle/data'
 import { EstimationEngine, GenerateSpec } from '@server/service/estimates/estimationEngine'
@@ -46,9 +47,15 @@ export const postEstimation = async (req: Request, res: Response) => {
 
     const estimates = EstimationEngine.estimateValues(years, values, generateSpec as GenerateSpec, sectionName)
 
-    // TODO: Update data, return updated tableData
+    await CycleDataController.persistNodeValues({
+      assessment,
+      cycle,
+      user: Requests.getRequestUser(req),
+      tableData: estimates,
+      tableName: tableSpec.props.name,
+    })
 
-    Requests.send(res, estimates)
+    Requests.sendOk(res)
   } catch (e) {
     Requests.sendErr(res, e)
   }
