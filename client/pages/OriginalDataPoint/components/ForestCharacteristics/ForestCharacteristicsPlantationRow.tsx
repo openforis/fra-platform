@@ -89,6 +89,7 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
       {originalDataPoint.id && canEditData && (
         <td className="fra-table__review-cell no-print">
           <ReviewIndicator
+            section="odp"
             title={name}
             subtitle={i18n.t('nationalDataPoint.plantationForest')}
             topicKey={`${originalDataPoint.id}-class-${originalDataPoint.nationalClasses[index].uuid}-plantation_forest_introduced`}

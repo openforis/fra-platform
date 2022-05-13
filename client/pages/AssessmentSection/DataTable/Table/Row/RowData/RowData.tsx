@@ -97,7 +97,7 @@ const RowData: React.FC<Props> = (props) => {
       ))}
       {!disabled && !secondary && (
         <td className="fra-table__review-cell no-print">
-          <ReviewIndicator title={colHeaderLabel} topicKey={Topics.getDataReviewTopicKey(row)} />
+          <ReviewIndicator section={sectionName} title={colHeaderLabel} topicKey={Topics.getDataReviewTopicKey(row)} />
         </td>
       )}
     </tr>

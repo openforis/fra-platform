@@ -1,6 +1,5 @@
 import './ReviewIndicator.scss'
 import React, { useCallback } from 'react'
-import { useParams } from 'react-router-dom'
 
 import classNames from 'classnames'
 
@@ -18,23 +17,23 @@ type Props = {
   title: string
   subtitle?: string
   topicKey: string
+  section: string
 }
 
 const ReviewIndicator = (props: Props) => {
-  const { title, subtitle, topicKey } = props
+  const { title, subtitle, topicKey, section } = props
 
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
   const user = useUser()
-  const { section } = useParams<{ section?: string }>()
 
   const {
     messagesCount = 0,
     status = MessageTopicStatus.opened,
     lastMessageUserId = user.id,
-  } = useReviewStatus(topicKey)
+  } = useReviewStatus(section, topicKey)
 
   const openTopic = useCallback(() => {
     dispatch(

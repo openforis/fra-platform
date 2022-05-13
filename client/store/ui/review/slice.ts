@@ -3,7 +3,7 @@ import { createSlice, Reducer } from '@reduxjs/toolkit'
 import { getReviewStatus } from './actions'
 import { ReviewState } from './stateType'
 
-const initialState: ReviewState = { statuses: {} }
+const initialState: ReviewState = {}
 
 export const reviewSlice = createSlice({
   name: 'review',
@@ -12,9 +12,14 @@ export const reviewSlice = createSlice({
     reset: () => initialState,
   },
   extraReducers: (builder) => {
-    builder.addCase(getReviewStatus.fulfilled, (state, { payload }) => {
-      state.statuses = {
-        ...state.statuses,
+    builder.addCase(getReviewStatus.fulfilled, (state, action) => {
+      const {
+        meta: { arg },
+        payload,
+      } = action
+      const section = arg.odpId ? 'odp' : arg.section
+      state[section] = {
+        ...state[section],
         ...payload.reduce((accumulator, value) => {
           return { ...accumulator, [value.key]: value }
         }, {}),

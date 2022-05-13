@@ -148,6 +148,7 @@ const NationalClass: React.FC<Props> = (props) => {
       {!printView && canEditData && !placeHolder && !Objects.isNil(originalDataPoint.id) && (
         <td className="fra-table__review-cell no-print">
           <ReviewIndicator
+            section="odp"
             title={name}
             subtitle={i18n.t('nationalDataPoint.nationalDataPoint')}
             topicKey={`${originalDataPoint.id}-class-${originalDataPoint.nationalClasses[index].uuid}-definition`}

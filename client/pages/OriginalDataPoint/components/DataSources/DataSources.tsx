@@ -75,6 +75,7 @@ const DataSources: React.FC<Props> = (props) => {
                 {displayReviewIndicator && (
                   <td className="fra-table__review-cell no-print">
                     <ReviewIndicator
+                      section="odp"
                       title={i18n.t('nationalDataPoint.references')}
                       subtitle={i18n.t('nationalDataPoint.dataSources')}
                       topicKey={`${originalDataPoint.id}-dataSourceReferences`}
@@ -101,6 +102,7 @@ const DataSources: React.FC<Props> = (props) => {
                 {displayReviewIndicator && (
                   <td className="fra-table__review-cell no-print">
                     <ReviewIndicator
+                      section="odp"
                       title={i18n.t('nationalDataPoint.methodsUsed')}
                       subtitle={i18n.t('nationalDataPoint.dataSources')}
                       topicKey={`${originalDataPoint.id}-dataSourceMethods`}
@@ -127,6 +129,7 @@ const DataSources: React.FC<Props> = (props) => {
                 {displayReviewIndicator && (
                   <td className="fra-table__review-cell no-print">
                     <ReviewIndicator
+                      section="odp"
                       title={i18n.t('nationalDataPoint.additionalComments')}
                       subtitle={i18n.t('nationalDataPoint.dataSources')}
                       topicKey={`${originalDataPoint.id}-dataSourceAdditionalComments`}
