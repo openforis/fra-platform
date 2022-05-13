@@ -35,7 +35,7 @@ export const persistNodeValue = async (props: Props): Promise<void> => {
     await createOrUpdateNode(props, client)
 
     const queue: Array<VariableCache> = [
-      ...(assessment.metaCache?.calculations.dependants[tableName]?.[variableName] ?? []),
+      ...(assessment.metaCache.calculations.dependants[tableName]?.[variableName] ?? []),
     ]
     const visitedVariables: Array<VariableCache> = [{ variableName, tableName }]
 
@@ -87,8 +87,7 @@ export const persistNodeValue = async (props: Props): Promise<void> => {
           )
         }
         queue.push(
-          ...(assessment.metaCache?.calculations.dependants[variableCache.tableName]?.[variableCache.variableName] ??
-            [])
+          ...(assessment.metaCache.calculations.dependants[variableCache.tableName]?.[variableCache.variableName] ?? [])
         )
         visitedVariables.push(variableCache)
       }

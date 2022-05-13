@@ -20,7 +20,11 @@ export const postEstimation = async (req: Request, res: Response) => {
         }>
       }
     >req.body
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName })
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({
+      name: assessmentName,
+      cycleName,
+      metaCache: true,
+    })
 
     const tableSpec = await TableRepository.getOne({ assessment, cycle, tableName })
     const originalDataPointValues = await DataRepository.getOriginalDataPointData({
