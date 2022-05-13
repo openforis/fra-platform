@@ -25,7 +25,7 @@ export const AssessmentApi = {
     express.post(ApiEndPoint.Assessment.country(), AuthMiddleware.requireEdit, postCountry)
 
     // Estimation
-    express.post(ApiEndPoint.Assessment.TableData.Estimate.many(), /* AuthMiddleware.requireEdit, */ postEstimation)
+    express.post(ApiEndPoint.Assessment.TableData.Estimate.many(), AuthMiddleware.requireEdit, postEstimation)
 
     // OriginalDataPoint // entry
     express.get(

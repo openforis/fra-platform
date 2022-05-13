@@ -4,37 +4,34 @@ import { CountryIso } from '@meta/area'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { CycleDataController } from '@server/controller/cycleData'
-import { TableRepository } from '@server/repository/assessment/table'
-import { DataRepository } from '@server/repository/assessmentCycle/data'
 import { EstimationEngine, GenerateSpec } from '@server/service/estimates/estimationEngine'
 import Requests from '@server/utils/requests'
 
 export const postEstimation = async (req: Request, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName, sectionName, method, tableName } = <Record<string, string>>req.query
-    const { fields } = <
-      {
+    const { countryIso, assessmentName, cycleName, method, tableName, fields } = <
+      Record<string, string> & {
         fields: Array<{
           annualChangeRates: { past: string; future: string }
           variableName: string
         }>
       }
     >req.body
+
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({
       name: assessmentName,
       cycleName,
       metaCache: true,
     })
 
-    const tableSpec = await TableRepository.getOne({ assessment, cycle, tableName })
-    const originalDataPointValues = await DataRepository.getOriginalDataPointData({
+    const tableSpec = await AssessmentController.getTable({ assessment, cycle, tableName })
+    const originalDataPointValues = await CycleDataController.getOriginalDataPointData({
       countryISOs: [countryIso as CountryIso],
       cycle,
       assessment,
     })
 
     const years = tableSpec.props.columnNames[cycle.uuid].map((column: string) => Number(column))
-    const values = originalDataPointValues
     const changeRates: Record<string, { rateFuture: number; ratePast: number }> = {}
     fields.forEach((field) => {
       changeRates[field.variableName] = {
@@ -49,15 +46,31 @@ export const postEstimation = async (req: Request, res: Response) => {
       changeRates,
     }
 
-    const estimates = EstimationEngine.estimateValues(years, values, generateSpec as GenerateSpec, sectionName)
+    const values = EstimationEngine.estimateValues(
+      years,
+      originalDataPointValues,
+      generateSpec as GenerateSpec,
+      tableSpec.props.name
+    )
 
-    await CycleDataController.persistNodeValues({
-      assessment,
-      cycle,
-      user: Requests.getRequestUser(req),
-      tableData: estimates,
-      tableName: tableSpec.props.name,
-    })
+    if (values.length) {
+      await CycleDataController.persistNodeValues({
+        nodes: {
+          assessment,
+          cycle,
+          values,
+        },
+        user: Requests.getRequestUser(req),
+      })
+    }
+    if (!values.length && method === 'clearTable') {
+      await CycleDataController.clearTable({
+        assessment,
+        cycle,
+        tableName,
+        countryISOs: [countryIso as CountryIso],
+      })
+    }
 
     Requests.sendOk(res)
   } catch (e) {

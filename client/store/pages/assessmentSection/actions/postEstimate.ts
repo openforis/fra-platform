@@ -17,24 +17,17 @@ export const postEstimate = createAsyncThunk<
     tableName: string
   }
 >(
-  'section/post/Estimate',
+  'section/post/estimate',
   async ({ assessmentName, countryIso, sectionName, tableName, method, fields, cycleName }) => {
-    const { data } = await axios.post(
-      ApiEndPoint.Assessment.TableData.Estimate.many(),
-      {
-        fields,
-      },
-      {
-        params: {
-          countryIso,
-          assessmentName,
-          cycleName,
-          method,
-          sectionName,
-          tableName,
-        },
-      }
-    )
+    const { data } = await axios.post(ApiEndPoint.Assessment.TableData.Estimate.many(), {
+      fields,
+      countryIso,
+      assessmentName,
+      cycleName,
+      method,
+      sectionName,
+      tableName,
+    })
     return data
   }
 )
