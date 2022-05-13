@@ -36,7 +36,7 @@ const GenerateValues: React.FC<Props> = (props) => {
   return (
     <div className="app-view__section-toolbar no-print">
       <div className="data-table-generate-values">
-        <select className="select-s" value={method} onChange={(evt) => setMethod(evt.target.value as Method)}>
+        <select className="select-s" value={method ?? ''} onChange={(evt) => setMethod(evt.target.value as Method)}>
           <option value="" disabled hidden>
             {i18n.t('tableWithOdp.placeholderSelect')}
           </option>

@@ -1,6 +1,8 @@
 import { BigNumberInput, Numbers } from '@core/utils/numbers'
 import BigNumber from 'bignumber.js'
 
+import { CountryIso } from '@meta/area'
+import { NodeValue } from '@meta/assessment'
 import { TableData } from '@meta/data'
 
 const assert = (condition: any, message: string) => {
@@ -33,10 +35,10 @@ type ODPValueArray = ValueArray // Array<Deprecated_TableDatum & { type: 'odp' }
 
 type GenerateSpecMethods = 'linear' | 'repeatLast' | 'annualChange' | 'clearTable'
 
-interface GenerateSpec {
+export interface GenerateSpec {
   method: GenerateSpecMethods
-  fields: Array<string>
-  changeRates: Record<string, { rateFuture: number; ratePast: number }>
+  fields?: Array<string>
+  changeRates?: Record<string, { rateFuture: number; ratePast: number }>
 }
 
 export const linearInterpolation = (
@@ -235,20 +237,24 @@ const translateObjectToOldFormat = (x: any) => {
   return newData
 }
 
-const translateArrayToObjectFormat = (arr: Deprecated_TableDatum[], section: string, fields: string[]): TableData => {
-  const res: any = {}
+const formatArray = (
+  arr: Deprecated_TableDatum[],
+  tableName: string,
+  fields: string[]
+): Array<{ countryIso: CountryIso; colName: string; tableName: string; variableName: string; value: NodeValue }> => {
+  const res: any = []
   arr.forEach((tableDatum: Deprecated_TableDatum) => {
-    // { <countryIso>.<sectionName> : {} }
-    if (!res[tableDatum.countryIso]) res[tableDatum.countryIso] = { [section]: {} }
     fields.forEach((field) => {
-      // { <countryIso>.<sectionName>.<year>.<fieldName> : NodeValue }
-      res[tableDatum.countryIso][section][tableDatum.year] = {
-        ...res[tableDatum.countryIso][section][tableDatum.year],
-        [field]: {
+      res.push({
+        countryIso: tableDatum.countryIso,
+        colName: `${tableDatum.year}`,
+        tableName,
+        variableName: field,
+        value: {
           raw: tableDatum[field as keyof Deprecated_TableDatum],
           estimated: true,
         },
-      }
+      })
     })
   })
   return res
@@ -258,8 +264,8 @@ export const estimateValues = (
   years: Array<number>,
   values: Partial<TableData>,
   generateSpec: Partial<GenerateSpec>,
-  section: string
-): TableData => {
+  tableName: string
+): Array<{ countryIso: CountryIso; colName: string; tableName: string; variableName: string; value: NodeValue }> => {
   const translatedData = translateObjectToOldFormat(values)
   const result: Deprecated_TableDatum[] = years
     .reduce<ValueArray>((values, year) => {
@@ -272,8 +278,7 @@ export const estimateValues = (
       delete v.store
       return v
     })
-
-  return translateArrayToObjectFormat(result, section, generateSpec.fields)
+  return formatArray(result, tableName, generateSpec.fields)
 }
 
 export const EstimationEngine = {
