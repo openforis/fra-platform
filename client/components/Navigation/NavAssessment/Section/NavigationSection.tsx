@@ -4,15 +4,14 @@ import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router'
 import { matchPath } from 'react-router-dom'
 
-// import { useLocation } from 'react-router-dom'
-// import { ReviewStatus } from '@core/reviewStatus'
 import { Section } from '@meta/assessment'
 
 import { useAssessment } from '@client/store/assessment'
+import { useSectionReviewStatus } from '@client/store/ui/review/hooks'
 import { useCountryIso, useIsDataExportView } from '@client/hooks'
-// import ReviewStatusMarker from './ReviewStatusMarker'
 import { BasePaths } from '@client/basePaths'
 
+import ReviewStatusMarker from './ReviewStatusMarker'
 import SectionItemLink from './SectionItemLink'
 
 type Props = {
@@ -30,6 +29,8 @@ const NavigationSection: React.FC<Props> = (props) => {
   const isDataExport = useIsDataExportView()
   const { pathname } = useLocation()
   // const childStatus = useSelector(ReviewStatusState.getStatusSectionChildren(section))
+  const sectionReviewStatus = useSectionReviewStatus(section)
+
   const [expanded, setExpanded] = useState(false)
 
   const sectionLabel = i18n.t(section.props.labelKey)
@@ -73,7 +74,7 @@ const NavigationSection: React.FC<Props> = (props) => {
         <div className="nav-section__label">{sectionLabel}</div>
         {!expanded && !isDataExport && (
           <div className="nav-section__status-content">
-            {/* <ReviewStatusMarker status={childStatus as ReviewStatus} /> */}
+            <ReviewStatusMarker status={sectionReviewStatus} />
           </div>
         )}
       </div>
