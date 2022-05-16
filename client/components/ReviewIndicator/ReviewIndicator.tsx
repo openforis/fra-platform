@@ -9,7 +9,6 @@ import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { MessageCenterActions } from '@client/store/ui/messageCenter'
 import { useReviewStatus } from '@client/store/ui/review/hooks'
-import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import Icon from '@client/components/Icon'
 
@@ -27,12 +26,11 @@ const ReviewIndicator = (props: Props) => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
-  const user = useUser()
 
   const {
     messagesCount = 0,
     status = MessageTopicStatus.opened,
-    lastMessageUserId = user.id,
+    hasUnreadMessages = true,
   } = useReviewStatus(section, topicKey)
 
   const openTopic = useCallback(() => {
@@ -54,7 +52,7 @@ const ReviewIndicator = (props: Props) => {
     <button
       className={classNames('review-indicator', {
         open: messagesCount > 0,
-        unread: lastMessageUserId !== user.id,
+        unread: hasUnreadMessages,
         resolved: status === MessageTopicStatus.resolved,
       })}
       onClick={openTopic}
