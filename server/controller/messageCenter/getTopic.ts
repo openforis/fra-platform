@@ -6,7 +6,7 @@ import { User } from '@meta/user'
 import { BaseProtocol, DB } from '@server/db'
 import { MessageTopicRepository } from '@server/repository/assessmentCycle/messageTopic'
 
-import { MessageCenterController } from '.'
+import { updateTopicReadTime } from './updateTopicReadTime'
 
 export const getTopic = async (
   props: {
@@ -27,7 +27,7 @@ export const getTopic = async (
   )
 
   if (topic && user) {
-    await MessageCenterController.updateTopicReadTime({ assessment, cycle, topic, user }, client)
+    await updateTopicReadTime({ assessment, cycle, topic, user }, client)
   }
 
   return topic
