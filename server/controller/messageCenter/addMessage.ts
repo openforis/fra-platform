@@ -8,7 +8,7 @@ import { ActivityLogRepository } from '@server/repository/assessment/activityLog
 import { MessageRepository } from '@server/repository/assessmentCycle/message'
 import { MessageTopicRepository } from '@server/repository/assessmentCycle/messageTopic'
 
-import { MessageCenterController } from '.'
+import { updateTopicReadTime } from './updateTopicReadTime'
 
 export const addMessage = async (
   props: {
@@ -37,7 +37,7 @@ export const addMessage = async (
     const message = await MessageRepository.create({ assessment, cycle, message: messageText, topic, user }, t)
 
     if (topic && user) {
-      await MessageCenterController.updateTopicReadTime({ assessment, cycle, topic, user }, t)
+      await updateTopicReadTime({ assessment, cycle, topic, user }, t)
     }
 
     await ActivityLogRepository.insertActivityLog(
