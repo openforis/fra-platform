@@ -42,9 +42,8 @@ export const getReviewStatus = async (
         mt.key,
         mt.status,
         m.messages_count,
-        m.last_message_time,
         msg.user_id last_message_user_id,
-        mtu.last_open_time
+        m.last_message_time > mtu.last_open_time has_unread_messages
       from m
         left join ${cycleSchema}.message msg
           on m.last_message_time = msg.created_time

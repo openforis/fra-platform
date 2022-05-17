@@ -1,10 +1,9 @@
 import { MessageTopicStatus } from '../messageCenter'
 
 export interface ReviewStatus {
-  key: string
+  key?: string
+  hasUnreadMessages: boolean
   status: MessageTopicStatus
-  messagesCount: number
-  lastMessageTime: number
-  lastMessageUserId: number
-  lastOpenTime: number
+  messagesCount?: number
+  lastMessageUserId?: number
 }

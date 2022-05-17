@@ -41,9 +41,7 @@ const SectionWrapper: React.FC = (props) => {
         countryIso,
       })
     )
-  }, [countryIso, assessmentName, cycleName, section])
 
-  useEffect(() => {
     if (user) {
       dispatch(ReviewActions.getReviewStatus({ countryIso, assessmentName, cycleName, section }))
     }
