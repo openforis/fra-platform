@@ -28,8 +28,7 @@ const NavigationSection: React.FC<Props> = (props) => {
   const assessment = useAssessment()
   const isDataExport = useIsDataExportView()
   const { pathname } = useLocation()
-  // const childStatus = useSelector(ReviewStatusState.getStatusSectionChildren(section))
-  const sectionReviewStatus = useSectionReviewSummary(section)
+  const reviewStatus = useSectionReviewSummary(section.id)
 
   const [expanded, setExpanded] = useState(false)
 
@@ -74,7 +73,7 @@ const NavigationSection: React.FC<Props> = (props) => {
         <div className="nav-section__label">{sectionLabel}</div>
         {!expanded && !isDataExport && (
           <div className="nav-section__status-content">
-            <ReviewStatusMarker status={sectionReviewStatus} />
+            <ReviewStatusMarker status={reviewStatus} />
           </div>
         )}
       </div>
@@ -86,6 +85,7 @@ const NavigationSection: React.FC<Props> = (props) => {
               assessmentType={assessmentType}
               key={subSection.props.anchor}
               sectionName={subSection.props.name}
+              id={subSection.id}
             />
           ))}
       </div>

@@ -1,16 +1,17 @@
-import { ReviewStatus, Section } from '@meta/assessment'
+import { ReviewStatus } from '@meta/assessment'
 import { MessageTopicStatus } from '@meta/messageCenter'
 
 import { useAppSelector } from '@client/store'
 
-const filterBySection = (section: Section) =>
-  useAppSelector((state) => state.ui.review.summary.filter((reviewSummary) => reviewSummary.parentId === section.id))
-
 export const useReviewStatus = (key: string): ReviewStatus =>
   useAppSelector((state) => state.ui.review.statuses[key] || ({} as ReviewStatus))
 
-export const useSectionReviewSummary = (section: Section): ReviewStatus => {
-  const sections = filterBySection(section)
+export const useSectionReviewSummary = (sectionId: number): ReviewStatus => {
+  const sections = useAppSelector((state) =>
+    state.ui.review.summary.filter(
+      (reviewSummary) => reviewSummary.parentId === sectionId || reviewSummary.subSectionId === sectionId
+    )
+  )
 
   return sections.reduce(
     (curr, acc) => {
