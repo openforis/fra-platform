@@ -83,7 +83,7 @@ const useGenerateValues = (
           sectionName,
           tableName,
           fields: fields
-            .filter((f) => f.selected)
+            .filter((f) => (method === 'clearTable' ? f : f.selected))
             .map(({ annualChangeRates, variableName }) => ({
               annualChangeRates,
               variableName,

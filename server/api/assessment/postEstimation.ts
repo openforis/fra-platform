@@ -45,6 +45,7 @@ export const postEstimation = async (req: Request, res: Response): Promise<any> 
         table: tableSpec,
         columnNames: years.filter((year) => !reservedYears.includes(year)).map(String),
         countryISOs: [countryIso as CountryIso],
+        variableNames: fields.map((field) => field.variableName),
       })
       return Requests.sendOk(res)
     }

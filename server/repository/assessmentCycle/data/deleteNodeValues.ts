@@ -9,10 +9,11 @@ type Props = {
   cycle: Cycle
   table: Table
   columnNames: string[]
+  variableNames: string[]
 }
 
 export const deleteNodeValues = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
-  const { assessment, cycle, countryISOs, table, columnNames } = props
+  const { assessment, cycle, countryISOs, table, columnNames, variableNames } = props
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
   const schemaAssessment = Schemas.getName(assessment)
 
@@ -22,7 +23,8 @@ export const deleteNodeValues = async (props: Props, client: BaseProtocol = DB):
                     join ${schemaAssessment}.row r on (t.id = r.table_id)
                     join ${schemaAssessment}.col c on (r.id = c.row_id)
                     where
-                        t.props->>'name' = $3
+                        t.props->>'name' = $4
+                      and r.props->>'variableName' in ($3:csv)
                       and r.props ->> 'readonly' is null and r.props ->> 'type' = 'data'
                       and c.props ->> 'colName' in ($2:csv)
         )
@@ -35,6 +37,6 @@ export const deleteNodeValues = async (props: Props, client: BaseProtocol = DB):
               and n.value ->> 'calculated' is null
         )
     `,
-    [countryISOs, columnNames, table.props.name]
+    [countryISOs, columnNames, variableNames, table.props.name]
   )
 }
