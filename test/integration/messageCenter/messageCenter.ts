@@ -51,6 +51,7 @@ export default (): void =>
         assessment,
         cycle,
         key: 'TEST',
+        user,
       })
 
       expect(createdMessage.message).toEqual('This is a test!')
