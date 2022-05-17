@@ -21,7 +21,8 @@ class XAxis extends Component {
 
   renderAxis(props: any) {
     const chartYears = getChartYears(props.data)
-    const tickValues = [...Array(chartYears.max || 1 - chartYears.min).keys()]
+    if (!chartYears.min || !chartYears.max) return
+    const tickValues = [...Array(chartYears.max - chartYears.min).keys()]
       .map((i) => i + chartYears.min)
       .filter((y) => y % 5 === 0)
 
