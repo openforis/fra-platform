@@ -35,6 +35,7 @@ export const postEstimation = async (req: Request, res: Response): Promise<any> 
 
     if (method === 'clearTable') {
       await CycleDataController.deleteNodeValues({
+        user: Requests.getRequestUser(req),
         assessment,
         cycle,
         table: tableSpec,

@@ -9,6 +9,7 @@ export enum ActivityLogMessage {
   updateCountry = 'updateCountry',
   userInvited = 'userInvited',
   nodeValueUpdate = 'nodeValueUpdate',
+  tableValuesClear = 'tableValuesClear',
   nodeValueCalculatedUpdate = 'nodeValueCalculatedUpdate',
   messageCreate = 'messageCreate',
   topicStatusChange = 'topicStatusChange',
