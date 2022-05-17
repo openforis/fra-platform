@@ -47,6 +47,12 @@ const SectionWrapper: React.FC = (props) => {
     }
   }, [countryIso, assessmentName, cycleName, section])
 
+  useEffect(() => {
+    if (user) {
+      dispatch(ReviewActions.getReviewSummary({ countryIso, assessmentName, cycleName }))
+    }
+  }, [countryIso, assessmentName, cycleName])
+
   useOnUpdate(() => {
     return () => {
       dispatch(AssessmentSectionActions.reset())
