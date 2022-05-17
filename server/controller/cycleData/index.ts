@@ -11,5 +11,5 @@ export const CycleDataController = {
   getReviewStatus,
   persistNodeValues,
   getOriginalDataPointData: DataRepository.getOriginalDataPointData,
-  clearTable: DataRepository.clearTable,
+  deleteNodeValues: DataRepository.deleteNodeValues,
 }
