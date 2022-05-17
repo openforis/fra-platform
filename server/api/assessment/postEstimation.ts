@@ -32,18 +32,13 @@ export const postEstimation = async (req: Request, res: Response): Promise<any> 
     })
 
     const years = tableSpec.props.columnNames[cycle.uuid].map((column: string) => Number(column))
-    const reservedYears = await AssessmentController.getReservedYears({
-      assessment,
-      cycle,
-      countryIso: countryIso as CountryIso,
-    })
 
     if (method === 'clearTable') {
       await CycleDataController.deleteNodeValues({
         assessment,
         cycle,
         table: tableSpec,
-        columnNames: years.filter((year) => !reservedYears.includes(year)).map(String),
+        columnNames: years.map(String),
         countryISOs: [countryIso as CountryIso],
         variableNames: fields.map((field) => field.variableName),
       })
