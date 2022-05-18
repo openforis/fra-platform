@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next'
 import { useMediaQuery } from 'react-responsive'
 import { NavLink } from 'react-router-dom'
 
-import { AssessmentName } from '@meta/assessment'
+import { AssessmentName, SubSection } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
-import { useCycle } from '@client/store/assessment'
+import { useAssessment, useCycle } from '@client/store/assessment'
 import { NavigationActions } from '@client/store/ui/navigation'
 import { useSectionReviewSummary } from '@client/store/ui/review/hooks'
 import { useCountryIso, useIsDataExportView } from '@client/hooks'
@@ -16,29 +16,32 @@ import { Breakpoints } from '@client/utils'
 import ReviewStatusMarker from '../ReviewStatusMarker'
 
 type Props = {
-  assessmentType: AssessmentName
-  sectionName: string
-  prefix: string
-  id: number
+  subSection: SubSection
 }
 
 const SectionItemLink: React.FC<Props> = (props) => {
-  const { assessmentType, sectionName, prefix, id } = props
-  const cycle = useCycle()
+  const { subSection } = props
+  const {
+    id,
+    props: { anchor, name },
+  } = subSection
 
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const { i18n } = useTranslation()
+  const assessment = useAssessment()
+  const cycle = useCycle()
   const isDataExport = useIsDataExportView()
   const laptop = useMediaQuery({ minWidth: Breakpoints.laptop })
   const reviewStatus = useSectionReviewSummary(id)
 
-  const labelPrefix = assessmentType === AssessmentName.panEuropean ? 'panEuropean.' : ''
-  const label = i18n.t(`${labelPrefix}${sectionName}.${sectionName}`)
+  const assessmentName = assessment.props.name
+  const labelPrefix = assessmentName === AssessmentName.panEuropean ? 'panEuropean.' : ''
+  const label = i18n.t(`${labelPrefix}${name}.${name}`)
 
   return (
     <NavLink
-      to={BasePaths.Assessment.section(countryIso, assessmentType, cycle?.name, sectionName)}
+      to={BasePaths.Assessment.section(countryIso, assessmentName, cycle?.name, name)}
       className="nav-section__item"
       activeClassName="selected"
       onClick={() => {
@@ -47,7 +50,7 @@ const SectionItemLink: React.FC<Props> = (props) => {
         }
       }}
     >
-      <div className="nav-section__order">{prefix}</div>
+      <div className="nav-section__order">{anchor}</div>
       <div className="nav-section__label">{label}</div>
       {!isDataExport && (
         <div className="nav-section__status-content">
