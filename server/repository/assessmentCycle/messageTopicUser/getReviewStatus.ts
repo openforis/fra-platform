@@ -25,7 +25,7 @@ export const getReviewStatus = async (
         from ${cycleSchema}.message m
         left join ${cycleSchema}.message_topic mt
           on mt.id = m.topic_id
-        where mt.key in (
+        where not m.deleted and mt.key in (
           select r.uuid::text
           from ${schemaName}.row r
             left join ${schemaName}."table" t
