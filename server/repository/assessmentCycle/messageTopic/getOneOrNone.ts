@@ -17,24 +17,21 @@ export const getOneOrNone = async (
       select t.* ${
         includeMessages
           ? `,
-      jsonb_agg(to_jsonb(m.*)) as messages`
+        jsonb_agg(
+                   to_jsonb(m.*) ||
+                   jsonb_build_object('user', to_jsonb(u.*) - 'profile_picture_file' - 'profile_picture_filename')
+                   order by m.created_time) as messages`
           : ''
       }
       from ${schemaCycle}.message_topic t
           ${
             includeMessages
-              ? `left join (
-        select msg.*,
-        to_jsonb(u.*) - 'profile_picture_file' - 'profile_picture_filename' as user
-        from ${schemaCycle}.message msg
-        left join public.users u 
-          on msg.user_id = u.id
-        group by msg.id, u.*
-      ) m on m.topic_id = t.id`
+              ? `left join ${schemaCycle}.message m on t.id = m.topic_id
+                  left join public.users u on m.user_id = u.id`
               : ''
           }
       where country_iso = $1
-        and key = $2 ${includeMessages ? `group by t.id` : ''}
+        and key = $2 ${includeMessages ? `group by t.id, country_iso, t.key, t.status, t.type` : ''}
   `
 
   return client.oneOrNone<MessageTopic>(query, [countryIso, key], Objects.camelize)

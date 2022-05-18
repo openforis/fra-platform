@@ -34,7 +34,7 @@ export const resolveTopic = async (req: Request, res: Response) => {
     )
 
     const { topic, message: messageCreated } = await MessageCenterController.addMessage({
-      message: 'marked as resolved',
+      message: 'Marked as resolved',
       user,
       countryIso: countryIso as CountryIso,
       assessment,
