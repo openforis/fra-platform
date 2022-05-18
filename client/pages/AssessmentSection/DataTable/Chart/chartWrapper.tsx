@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-import { useOnResize } from '@client/hooks'
-import { elementOffset } from '@client/utils/domUtils'
 import { TableData } from '@meta/data'
+
+import { useOnResize } from '@client/hooks'
+import { DOMs } from '@client/utils/dom'
 
 import ChartContainer from './chartContainer'
 
@@ -23,7 +24,7 @@ const ChartWrapper = (props: Props) => {
     if (printView) {
       setWidth(960)
     } else {
-      const { width: widthUpdate } = elementOffset(chartRef.current)
+      const { width: widthUpdate } = DOMs.elementOffset(chartRef.current)
       setWidth(widthUpdate)
     }
   }

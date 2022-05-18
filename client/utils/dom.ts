@@ -1,4 +1,4 @@
-export const elementOffset = (el: any) => {
+const elementOffset = (el: Element) => {
   if (el) {
     const rect = el.getBoundingClientRect()
 
@@ -18,7 +18,7 @@ export const elementOffset = (el: any) => {
   return {}
 }
 
-export const documentScrollTo = (options: any = { top: 0, left: 0, behavior: 'smooth' }) => {
+const scrollTo = (options: ScrollToOptions = { top: 0, left: 0, behavior: 'smooth' }) => {
   const { documentElement } = document
   if (documentElement.scrollTo) {
     documentElement.scrollTo(options)
@@ -26,4 +26,9 @@ export const documentScrollTo = (options: any = { top: 0, left: 0, behavior: 'sm
     // Non Chromium based Edge version
     documentElement.scrollIntoView(true)
   }
+}
+
+export const DOMs = {
+  elementOffset,
+  scrollTo,
 }
