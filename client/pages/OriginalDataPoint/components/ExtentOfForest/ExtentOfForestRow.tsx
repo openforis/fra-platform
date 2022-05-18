@@ -155,7 +155,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
           <ReviewIndicator
             title={name}
             subtitle={i18n.t('nationalDataPoint.forestCategoriesLabel')}
-            topicKey={`${originalDataPoint.id}-class-${uuid}-value`}
+            topicKey={`${originalDataPoint.id}-class-${uuid}-extentOfForest`}
           />
         </td>
       )}

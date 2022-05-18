@@ -18,6 +18,7 @@ import { FraSpecs } from './fraSpecs'
 import { generateMetaCache } from './generateMetaCache'
 import { migrateAreas } from './migrateAreas'
 import { migrateMetadata } from './migrateMetadata'
+import { migrateReview } from './migrateReview'
 import { migrateUsers } from './migrateUsers'
 import { migrateUsersAuthProvider } from './migrateUsersAuthProvider'
 import { migrateUsersInvitation } from './migrateUsersInvitation'
@@ -110,6 +111,7 @@ export const migrate = async (props: {
     )
     await migrateOdps({ assessment }, client)
     await generateMetaCache({ assessment }, client)
+    await migrateReview({ assessment }, client)
 
     await client.query(
       `delete

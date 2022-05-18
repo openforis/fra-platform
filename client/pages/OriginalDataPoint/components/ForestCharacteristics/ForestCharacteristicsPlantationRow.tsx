@@ -91,7 +91,7 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
           <ReviewIndicator
             title={name}
             subtitle={i18n.t('nationalDataPoint.plantationForest')}
-            topicKey={`${originalDataPoint.id}-class-${originalDataPoint.nationalClasses[index].uuid}-plantation_forest_introduced`}
+            topicKey={`${originalDataPoint.id}-class-${originalDataPoint.nationalClasses[index].uuid}-plantationForestIntroduced`}
           />
         </td>
       )}
