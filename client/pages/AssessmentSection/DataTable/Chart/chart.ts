@@ -18,9 +18,12 @@ export const styles = {
 export const getChartYears = (data: any[]) => {
   const handleData = (d) => (Array.isArray(d) ? d.flatMap((x: any) => x.year) : d.year)
   const years: number[] = Object.values(data).flatMap(handleData)
-  const min = Math.min(...years) - 1
-  const max = Math.max(...years) + 1
-  return { min, max }
+  if (years.length > 0) {
+    const min = Math.min(...years) - 1
+    const max = Math.max(...years) + 1
+    return { min, max }
+  }
+  return {}
 }
 
 // Returns a function that "scales" X coordinates from the data to fit the chart

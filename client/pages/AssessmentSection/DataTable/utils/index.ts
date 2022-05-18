@@ -1,6 +1,6 @@
+import { CountryIso } from '@meta/area'
 import { Table } from '@meta/assessment'
 import { TableData, TableDatas } from '@meta/data'
-import { CountryIso } from '@meta/area'
 
 const handleHeader = (header: string) => {
   // Case ex. 1990_2000 => 1990-2000
