@@ -34,7 +34,19 @@ export const migrateReview = async (props: { assessment: Assessment }, client: B
       from _legacy.fra_comment c
                left join _legacy.fra_user fu on c.user_id = fu.id
                left join users u on lower(trim(fu.email)) = lower(trim(u.email))
-               join ${schemaCycle}.message_topic t on t.id = c.issue_id
+               join ${schemaCycle}.message_topic t on t.id = c.issue_id;
+  `)
 
+  await client.query(`
+      insert into ${schemaCycle}.message_topic_user (topic_id, user_id, last_open_time)
+      select ui.issue_id  as topic_id,
+             u.id         as user_id,
+             ui.read_time as last_open_time
+      from _legacy.user_issue ui
+               left join _legacy.fra_user fu
+                         on ui.user_id = fu.id
+               left join users u
+                         on lower(trim(fu.email)) = lower(trim(u.email))
+               join ${schemaCycle}.message_topic t on t.id = ui.issue_id;
   `)
 }
