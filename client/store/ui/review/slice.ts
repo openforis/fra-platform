@@ -1,9 +1,9 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import { getReviewStatus } from './actions'
+import { getReviewStatus, getReviewSummary } from './actions'
 import { ReviewState } from './stateType'
 
-const initialState: ReviewState = { statuses: {} }
+const initialState: ReviewState = { status: {}, summary: [] }
 
 export const reviewSlice = createSlice({
   name: 'review',
@@ -13,12 +13,16 @@ export const reviewSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getReviewStatus.fulfilled, (state, { payload }) => {
-      state.statuses = {
-        ...state.statuses,
+      state.status = {
+        ...state.status,
         ...payload.reduce((accumulator, value) => {
           return { ...accumulator, [value.key]: value }
         }, {}),
       }
+    })
+
+    builder.addCase(getReviewSummary.fulfilled, (state, { payload }) => {
+      state.summary = payload
     })
   },
 })
@@ -26,6 +30,7 @@ export const reviewSlice = createSlice({
 export const ReviewActions = {
   ...reviewSlice.actions,
   getReviewStatus,
+  getReviewSummary,
 }
 
 export default reviewSlice.reducer as Reducer<ReviewState>

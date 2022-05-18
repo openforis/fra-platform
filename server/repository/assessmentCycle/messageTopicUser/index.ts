@@ -2,6 +2,7 @@ import { create } from './create'
 import { getOdpReviewStatus } from './getOdpReviewStatus'
 import { getOneOrNone } from './getOneOrNone'
 import { getReviewStatus } from './getReviewStatus'
+import { getReviewSummary } from './getReviewSummary'
 import { update } from './update'
 
 export const MessageTopicUserRepository = {
@@ -9,5 +10,6 @@ export const MessageTopicUserRepository = {
   getOdpReviewStatus,
   getOneOrNone,
   getReviewStatus,
+  getReviewSummary,
   update,
 }

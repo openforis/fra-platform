@@ -4,15 +4,14 @@ import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router'
 import { matchPath } from 'react-router-dom'
 
-// import { useLocation } from 'react-router-dom'
-// import { ReviewStatus } from '@core/reviewStatus'
 import { Section } from '@meta/assessment'
 
 import { useAssessment } from '@client/store/assessment'
+import { useSectionReviewSummary } from '@client/store/ui/review/hooks'
 import { useCountryIso, useIsDataExportView } from '@client/hooks'
-// import ReviewStatusMarker from './ReviewStatusMarker'
 import { BasePaths } from '@client/basePaths'
 
+import ReviewStatusMarker from './ReviewStatusMarker'
 import SectionItemLink from './SectionItemLink'
 
 type Props = {
@@ -29,11 +28,12 @@ const NavigationSection: React.FC<Props> = (props) => {
   const assessment = useAssessment()
   const isDataExport = useIsDataExportView()
   const { pathname } = useLocation()
-  // const childStatus = useSelector(ReviewStatusState.getStatusSectionChildren(section))
+  const reviewStatus = useSectionReviewSummary(section.id)
+
   const [expanded, setExpanded] = useState(false)
 
   const sectionLabel = i18n.t(section.props.labelKey)
-  const assessmentType = assessment.props.name
+  const assessmentName = assessment.props.name
   let children = section.subSections
   if (isDataExport) {
     children = children.filter((subsection) => subsection?.props?.dataExport)
@@ -47,7 +47,7 @@ const NavigationSection: React.FC<Props> = (props) => {
   // // On mount check whether the location matches a child path
   useEffect(() => {
     const match = section.subSections.find((subsection) => {
-      const path = BasePaths.Assessment.section(countryIso, assessmentType, subsection.props.name)
+      const path = BasePaths.Assessment.section(countryIso, assessmentName, subsection.props.name)
       return matchPath(pathname, { path })
     })
     if (match) {
@@ -73,20 +73,13 @@ const NavigationSection: React.FC<Props> = (props) => {
         <div className="nav-section__label">{sectionLabel}</div>
         {!expanded && !isDataExport && (
           <div className="nav-section__status-content">
-            {/* <ReviewStatusMarker status={childStatus as ReviewStatus} /> */}
+            <ReviewStatusMarker status={reviewStatus} />
           </div>
         )}
       </div>
       <div className={`nav-section__items-${expanded ? 'visible' : 'hidden'}`}>
         {expanded &&
-          children.map((subSection) => (
-            <SectionItemLink
-              prefix={subSection.props.anchor}
-              assessmentType={assessmentType}
-              key={subSection.props.anchor}
-              sectionName={subSection.props.name}
-            />
-          ))}
+          children.map((subSection) => <SectionItemLink key={subSection.props.anchor} subSection={subSection} />)}
       </div>
     </div>
   )

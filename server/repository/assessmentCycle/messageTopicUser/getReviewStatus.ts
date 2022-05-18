@@ -25,7 +25,7 @@ export const getReviewStatus = async (
         from ${cycleSchema}.message m
         left join ${cycleSchema}.message_topic mt
           on mt.id = m.topic_id
-        where mt.key in (
+        where not m.deleted and mt.key in (
           select r.uuid::text
           from ${schemaName}.row r
             left join ${schemaName}."table" t
@@ -42,9 +42,8 @@ export const getReviewStatus = async (
         mt.key,
         mt.status,
         m.messages_count,
-        m.last_message_time,
         msg.user_id last_message_user_id,
-        mtu.last_open_time
+        m.last_message_time > mtu.last_open_time has_unread_messages
       from m
         left join ${cycleSchema}.message msg
           on m.last_message_time = msg.created_time
