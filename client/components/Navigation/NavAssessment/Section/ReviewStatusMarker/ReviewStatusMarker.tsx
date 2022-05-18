@@ -20,7 +20,7 @@ const ReviewStatusMarker: React.FC<Props> = (props) => {
   return (
     <div
       className={classNames('nav-review-status', {
-        open: !status.hasUnreadMessages,
+        read: !status.hasUnreadMessages,
         unread: status.hasUnreadMessages,
       })}
     />

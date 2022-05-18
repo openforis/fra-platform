@@ -1,7 +1,7 @@
 @import 'webapp/style/partials';
 
 .nav-review-status {
-  &.open {
+  &.read {
     @include mixin-status-base($ui-accent);
   }
   &.unread {
