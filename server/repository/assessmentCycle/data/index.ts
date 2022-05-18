@@ -1,4 +1,4 @@
-import { clearTable } from './clearTable'
+import { deleteNodeValues } from './deleteNodeValues'
 import { getOriginalDataPointData } from './getOriginalDataPointData'
 import { getTableData } from './getTableData'
 
@@ -7,5 +7,5 @@ export type { TablesCondition } from './getTableData'
 export const DataRepository = {
   getTableData,
   getOriginalDataPointData,
-  clearTable,
+  deleteNodeValues,
 }
