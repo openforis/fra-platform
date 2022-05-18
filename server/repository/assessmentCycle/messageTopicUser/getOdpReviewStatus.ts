@@ -24,16 +24,15 @@ export const getOdpReviewStatus = async (
         from ${cycleSchema}.message m
         left join ${cycleSchema}.message_topic mt
           on mt.id = m.topic_id
-        where mt.key like $1 || '-%'
+        where not m.deleted and mt.key like $1 || '-%'
         group by topic_id
       )
       select
         mt.key,
         mt.status,
         m.messages_count,
-        m.last_message_time,
         msg.user_id last_message_user_id,
-        mtu.last_open_time
+        m.last_message_time > mtu.last_open_time has_unread_messages
       from m
         left join ${cycleSchema}.message msg
           on m.last_message_time = msg.created_time

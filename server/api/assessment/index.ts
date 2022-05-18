@@ -10,6 +10,7 @@ import { getOriginalDataPoint } from './getOdp'
 import { getOriginalDataPointData } from './getOriginalDataPointData'
 import { getReservedYears } from './getReservedYears'
 import { getReviewStatus } from './getReviewStatus'
+import { getReviewSummary } from './getReviewSummary'
 import { getSectionMetadata } from './getSectionMetadata'
 import { getSections } from './getSections'
 import { getTableData } from './getTableData'
@@ -58,5 +59,6 @@ export const AssessmentApi = {
 
     // Review
     express.get(ApiEndPoint.Review.status.many(), AuthMiddleware.requireView, getReviewStatus)
+    express.get(ApiEndPoint.Review.summary.many(), AuthMiddleware.requireView, getReviewSummary)
   },
 }

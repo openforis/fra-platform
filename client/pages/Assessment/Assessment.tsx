@@ -32,6 +32,7 @@ const SectionWrapper: React.FC = (props) => {
     section: string
   }>()
 
+  // fetch table sections metadata
   useEffect(() => {
     dispatch(
       AssessmentSectionActions.getTableSections({
@@ -43,12 +44,21 @@ const SectionWrapper: React.FC = (props) => {
     )
   }, [countryIso, assessmentName, cycleName, section])
 
+  // fetch section review status
   useEffect(() => {
     if (user) {
       dispatch(ReviewActions.getReviewStatus({ countryIso, assessmentName, cycleName, section }))
     }
-  }, [countryIso, assessmentName, cycleName, section])
+  }, [countryIso, assessmentName, cycleName, section, user])
 
+  // fetch section summary
+  useEffect(() => {
+    if (user) {
+      dispatch(ReviewActions.getReviewSummary({ countryIso, assessmentName, cycleName }))
+    }
+  }, [countryIso, assessmentName, cycleName, user])
+
+  // reset store
   useOnUpdate(() => {
     return () => {
       dispatch(AssessmentSectionActions.reset())

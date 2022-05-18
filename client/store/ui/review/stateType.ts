@@ -1,7 +1,8 @@
-import { ReviewStatus } from '@meta/assessment/review'
+import { ReviewStatus, ReviewSummary } from '@meta/assessment/review'
 
 export type ReviewState = {
-  statuses: {
+  status: {
     [key: string]: ReviewStatus
   }
+  summary: Array<ReviewSummary>
 }

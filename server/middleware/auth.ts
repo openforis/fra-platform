@@ -62,7 +62,13 @@ const requireEditMessageTopic = async (req: Request, _res: Response, next: NextF
     name: assessmentName as AssessmentName,
     cycleName,
   })
-  const topic = await MessageCenterController.getTopic({ countryIso: countryIso as CountryIso, assessment, cycle, key })
+  const topic = await MessageCenterController.getTopic({
+    countryIso: countryIso as CountryIso,
+    assessment,
+    cycle,
+    key,
+    user,
+  })
 
   if (topic) {
     _next(
