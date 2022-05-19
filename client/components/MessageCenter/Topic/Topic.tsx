@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
 import { Objects } from '@core/utils'
+import classNames from 'classnames'
 
 import { Message, MessageTopic, MessageTopicStatus, MessageTopicType } from '@meta/messageCenter'
 import { Sockets } from '@meta/socket/sockets'
@@ -97,11 +98,10 @@ const Topic: React.FC<TopicProps> = (props) => {
           <Icon name="remove" />
         </div>
       </div>
-      <div className="topic-body">
-        {topic.messages.map((message) => (
-          <MessageComponent key={message.id} message={message} />
-        ))}
-        {Objects.isEmpty(topic.messages) && (
+      <div className={classNames('topic-body', { empty: Objects.isEmpty(topic.messages) })}>
+        {!Objects.isEmpty(topic.messages) ? (
+          topic.messages.map((message) => <MessageComponent key={message.id} message={message} />)
+        ) : (
           <div className="no-comments">
             <Icon className="icon-24" name="chat-46" />
             <br />

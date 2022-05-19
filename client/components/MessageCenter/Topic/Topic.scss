@@ -42,7 +42,10 @@
   overflow-y: auto;
   padding: $spacing-xxs 0;
   display: grid;
-
+  align-content: start;
+  &.empty {
+    align-content: center;
+  }
   .no-comments {
     color: $text-disabled;
     text-align: center;
