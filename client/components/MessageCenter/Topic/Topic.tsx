@@ -108,6 +108,7 @@ const Topic: React.FC<TopicProps> = (props) => {
             {i18n.t('review.noComments')}
           </div>
         )}
+        {topic.loading && <div className="loading">{i18n.t('review.loading')}</div>}
       </div>
       <div className="topic-footer">
         {(topic.status === MessageTopicStatus.opened ||

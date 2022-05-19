@@ -35,11 +35,31 @@ export const messageCenterSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(openTopic.fulfilled, (state, { payload }) => {
-      if (state.topics.filter((topic) => topic.key === payload.key).length === 0) {
+    builder.addCase(openTopic.pending, (state, reducer) => {
+      const {
+        meta: { arg },
+      } = reducer
+
+      const { countryIso, key, title, subtitle, type } = arg
+
+      if (state.topics.filter((topic) => topic.key === key).length === 0) {
         if (state.topics.length === 2) state.topics.shift()
-        state.topics.push(payload)
+        state.topics.push({
+          countryIso,
+          key,
+          title,
+          subtitle,
+          type,
+          status: MessageTopicStatus.resolved,
+          loading: true,
+        })
       }
+    })
+
+    builder.addCase(openTopic.fulfilled, (state, { payload }) => {
+      const { key } = payload
+      const index = state.topics.findIndex((topic) => topic.key === key)
+      state.topics[index] = { ...payload, loading: false }
     })
   },
 })

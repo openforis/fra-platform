@@ -408,6 +408,7 @@ The FRA team
   review: {
     comments: 'Comments',
     noComments: 'No comments',
+    loading: 'Loading',
     resolve: 'Resolve',
     confirmDelete: 'Delete this comment? This cannot be undone.',
     commentDeleted: 'Comment deleted',

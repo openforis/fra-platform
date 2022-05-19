@@ -14,7 +14,6 @@ export enum MessageTopicType {
 }
 
 export interface MessageTopic {
-  id: number
   countryIso: CountryIso
   key: string
   status: MessageTopicStatus
@@ -23,4 +22,5 @@ export interface MessageTopic {
   title?: string
   subtitle?: string
   messages?: Array<Message>
+  loading?: boolean
 }
