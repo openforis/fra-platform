@@ -25,16 +25,21 @@ const getColName = (props: { colIdx: number; cols: Array<Col> }): string => {
   return col.props.colName ?? '' // `"${col.props.colName ?? ''}"`
 }
 
+const isCalculated = (props: { col: Col; row: Row }): boolean => {
+  const { col, row } = props
+  return (
+    row.props?.readonly !== false &&
+    Boolean(row.props.calculateFn || col.props.calculateFn || [ColType.calculated].includes(col.props.colType))
+  )
+}
+
 const isReadOnly = (props: { col: Col; row: Row }): boolean => {
   const { col, row } = props
-  if (
+  return !!(
+    isCalculated(props) ||
     row.props.readonly ||
-    row.props.calculateFn ||
-    col.props.calculateFn ||
-    [ColType.calculated, ColType.header, ColType.noticeMessage].includes(col.props.colType)
+    [ColType.header, ColType.noticeMessage].includes(col.props.colType)
   )
-    return true
-  return false
 }
 
 export const Cols = {
@@ -43,5 +48,6 @@ export const Cols = {
    */
   getColIndexes,
   getColName,
+  isCalculated,
   isReadOnly,
 }
