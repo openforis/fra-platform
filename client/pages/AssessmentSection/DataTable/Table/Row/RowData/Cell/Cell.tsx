@@ -41,7 +41,7 @@ const Cell: React.FC<Props> = (props) => {
   const params = { data, countryIso, table, row, col }
   const datum = TableDatas.getDatum(params)
   const nodeValue = TableDatas.getNodeValue(params)
-  const className = useClassName(col /* rowIndex */)
+  const className = useClassName(col, row)
 
   const propsOnChange = { table, col, row, nodeValue, data }
 
