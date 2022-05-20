@@ -1,5 +1,4 @@
 import React, { useRef } from 'react'
-// import CellOdpHeader from './CellOdpHeader'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
@@ -26,26 +25,96 @@ type Props = {
   disabled: boolean
 }
 
-const Table: React.FC<Props> = (props) => {
-  const { assessmentName, sectionName, sectionAnchor, table, rows, data, disabled } = props
+const Thead = (props: { data: TableData; table: TableType; rows: Array<TypeRow>; assessmentName: AssessmentName }) => {
+  const { table, data, rows, assessmentName } = props
+
+  const countryIso = useCountryIso()
+  const { odp } = table.props
+  const rowsHeader = rows.filter((row) => row.props.type === RowType.header)
 
   const cycle = useCycle()
   const { i18n } = useTranslation()
   const odpYears = useOriginalDataPointYears()
   const showOriginalDatapoints = useShowOriginalDatapoints()
 
+  const country = useAssessmentCountry()
+  // Get headers from data
+  const headers = DataTableUtils.getHeaders(data, countryIso, table)
+  return (
+    <thead>
+      {rowsHeader.map((row: TypeRow, rowIndex: number) => (
+        <tr key={row.uuid}>
+          {row.cols.map((col: Col, colIndex: number) => {
+            // const col = row.cols[colIndex]
+            const { index, /* idx, className, */ colSpan, rowSpan, label /* labelParams,  label */ } = col?.props || {}
+            const columnName = headers[colIndex]
+
+            let isOdpHeader = showOriginalDatapoints && table.props.odp && odpYears?.includes(columnName)
+
+            if (table.props.name === 'forestCharacteristics')
+              isOdpHeader = isOdpHeader && country.props.forestCharacteristics.useOriginalDataPoint
+
+            const getColumnName = () => {
+              if (label?.key) {
+                return i18n.t(label?.key, label?.params)
+              }
+              if (typeof label?.label === 'string') {
+                return label?.label
+              }
+
+              if (isOdpHeader) {
+                return (
+                  <Tooltip text={i18n.t('nationalDataPoint.clickOnNDP')}>
+                    <Link
+                      className="link"
+                      to={BasePaths.Assessment.OriginalDataPoint.section(
+                        countryIso,
+                        assessmentName,
+                        cycle.name,
+                        columnName,
+                        table.props.name
+                      )}
+                    >
+                      {columnName}
+                    </Link>
+                  </Tooltip>
+                )
+              }
+              console.log(2, columnName)
+              return columnName
+            }
+
+            let className = `fra-table__header-cell${index === 0 && rowIndex === 0 ? '-left' : ''}`
+            if (isOdpHeader && rowIndex > 0) {
+              className = 'odp-header-cell'
+            }
+
+            return (
+              <th
+                key={columnName}
+                className={className}
+                colSpan={odp && !colSpan ? DataTableUtils.getODPColSpan({ table, data }) : colSpan}
+                rowSpan={rowSpan}
+              >
+                {getColumnName()}
+              </th>
+            )
+          })}
+        </tr>
+      ))}
+    </thead>
+  )
+}
+
+const Table: React.FC<Props> = (props) => {
+  const { assessmentName, sectionName, sectionAnchor, table, rows, data, disabled } = props
+
   const [printView] = [false] // usePrintView()
 
-  const countryIso = useCountryIso()
-  const { odp, secondary } = table.props
-  const rowsHeader = rows.filter((row) => row.props.type === RowType.header)
+  const { secondary } = table.props
   const rowsData = rows.filter((row) => row.props.type !== RowType.header)
   const tableRef = useRef<HTMLTableElement>(null)
   const displayTableExportButton = !secondary && !printView && tableRef.current != null
-  const country = useAssessmentCountry()
-
-  // Get headers from data
-  const headers = DataTableUtils.getHeaders(data, countryIso, table)
   return (
     <div className={`fra-table__container${secondary ? ' fra-secondary-table__wrapper' : ''}`}>
       <div className="fra-table__scroll-wrapper">
@@ -54,74 +123,7 @@ const Table: React.FC<Props> = (props) => {
         )}
 
         <table id={table.props.name} ref={tableRef} className="fra-table data-table">
-          <thead>
-            {rowsHeader.map((row: TypeRow, rowIndex: number) => (
-              <tr key={row.uuid}>
-                {row.cols.map((col: Col, colIndex: number) => {
-                  const { index, /* idx, className, */ colSpan, rowSpan, label /* labelParams,  label */ } = col.props
-                  const columnName = headers[colIndex]
-
-                  let isOdpHeader = showOriginalDatapoints && table.props.odp && odpYears?.includes(columnName)
-
-                  if (table.props.name === 'forestCharacteristics')
-                    isOdpHeader = isOdpHeader && country.props.forestCharacteristics.useOriginalDataPoint
-
-                  const getColumnName = () => {
-                    if (label?.key) return i18n.t(label?.key, label?.params)
-                    if (typeof label?.label === 'string') return label?.label
-
-                    if (isOdpHeader) {
-                      return (
-                        <Tooltip text={i18n.t('nationalDataPoint.clickOnNDP')}>
-                          <Link
-                            className="link"
-                            to={BasePaths.Assessment.OriginalDataPoint.section(
-                              countryIso,
-                              assessmentName,
-                              cycle.name,
-                              columnName,
-                              table.props.name
-                            )}
-                          >
-                            {columnName}
-                          </Link>
-                        </Tooltip>
-                      )
-                    }
-                    return columnName
-                  }
-
-                  let className = `fra-table__header-cell${index === 0 && rowIndex === 0 ? '-left' : ''}`
-                  if (isOdpHeader && rowIndex > 0) {
-                    className = 'odp-header-cell'
-                  }
-
-                  return (
-                    <th
-                      key={col.uuid}
-                      className={className}
-                      colSpan={odp && !colSpan ? DataTableUtils.getODPColSpan({ table, data }) : colSpan}
-                      rowSpan={rowSpan}
-                    >
-                      {getColumnName()}
-                    </th>
-                  )
-                })}
-              </tr>
-            ))}
-
-            {/* TODO */}
-            {/* {odp && ( */}
-            {/*  <tr> */}
-            {/*    {data.map((datum) => { */}
-            {/*      const datumODP = datum as TableDatumODP */}
-            {/*      return ( */}
-            {/*        <CellOdpHeader key={datumODP.name || datumODP.year} sectionName={sectionName} datum={datumODP} /> */}
-            {/*      ) */}
-            {/*    })} */}
-            {/*  </tr> */}
-            {/* )} */}
-          </thead>
+          <Thead table={table} data={data} rows={rows} assessmentName={assessmentName} />
 
           <tbody>
             {rowsData.map((row: TypeRow) => {
