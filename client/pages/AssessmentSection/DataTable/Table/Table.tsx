@@ -91,10 +91,9 @@ const Table: React.FC<Props> = (props) => {
                     return columnName
                   }
 
-                  let className = `fra-table__header-cell${index === 0 && rowIndex === 0 ? '-left' : ''}`
-                  if (isOdpHeader && rowIndex > 0) {
-                    className = 'odp-header-cell'
-                  }
+                  const headerLeft = (index === 0 && rowIndex === 0) || row.props?.readonly
+                  let className = `fra-table__header-cell${headerLeft ? '-left' : ''}`
+                  if (isOdpHeader && rowIndex > 0) className = 'odp-header-cell'
 
                   return (
                     <th

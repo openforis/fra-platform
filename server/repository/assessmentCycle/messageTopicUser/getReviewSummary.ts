@@ -1,15 +1,16 @@
 import { Objects } from '@core/utils'
 
+import { CountryIso } from '@meta/area'
 import { Assessment, Cycle, ReviewSummary } from '@meta/assessment'
 import { User } from '@meta/user'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
 export const getReviewSummary = async (
-  props: { assessment: Assessment; cycle: Cycle; user: User },
+  props: { countryIso: CountryIso; assessment: Assessment; cycle: Cycle; user: User },
   client: BaseProtocol = DB
 ): Promise<Array<ReviewSummary>> => {
-  const { assessment, cycle, user } = props
+  const { countryIso, assessment, cycle, user } = props
 
   const schemaName = Schemas.getName(assessment)
   const cycleSchema = Schemas.getNameCycle(assessment, cycle)
@@ -56,11 +57,12 @@ export const getReviewSummary = async (
                           left join ${cycleSchema}.message_topic mt
                                     on mt.id = m.topic_id
                  where m.row_number = 1
+                  and mt.country_iso = $3
              )
         select jsonb_agg(s.*) as data
         from summaries s
     `,
-    [cycle.uuid, user.id],
+    [cycle.uuid, user.id, countryIso],
     ({ data }) => Objects.camelize(data)
   )
 }

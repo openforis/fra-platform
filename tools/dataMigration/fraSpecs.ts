@@ -1714,6 +1714,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 migration: {
                   calcFormula:
                     '(growingStockTotal.naturallyRegeneratingForest * 1000) / forestCharacteristics.naturalForestArea',
+                  readonly: false,
                 },
               },
               {
@@ -1733,6 +1734,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 subcategory: false,
                 migration: {
                   calcFormula: '(growingStockTotal.plantedForest * 1000) / forestCharacteristics.plantedForest',
+                  readonly: false,
                 },
               },
               {
@@ -1753,6 +1755,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 migration: {
                   calcFormula:
                     '(growingStockTotal.plantationForest * 1000) / forestCharacteristics.plantationForestArea',
+                  readonly: false,
                 },
               },
               {
@@ -1773,6 +1776,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 migration: {
                   calcFormula:
                     '(growingStockTotal.otherPlantedForest * 1000) / forestCharacteristics.otherPlantedForestArea',
+                  readonly: false,
                 },
               },
               {
@@ -1792,6 +1796,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 subcategory: false,
                 migration: {
                   calcFormula: '(growingStockTotal.forest * 1000) / extentOfForest.forestArea',
+                  readonly: false,
                 },
               },
               {
@@ -1811,6 +1816,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 subcategory: false,
                 migration: {
                   calcFormula: '(growingStockTotal.otherWoodedLand * 1000) / extentOfForest.otherWoodedLand',
+                  readonly: false,
                 },
               },
             ],
@@ -1879,6 +1885,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 migration: {
                   calcFormula:
                     '(growingStockAvg.naturallyRegeneratingForest * forestCharacteristics.naturalForestArea) / 1000',
+                  readonly: false,
                 },
               },
               {
@@ -1899,6 +1906,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 subcategory: false,
                 migration: {
                   calcFormula: '(growingStockAvg.plantedForest * forestCharacteristics.plantedForest) / 1000',
+                  readonly: false,
                 },
               },
               {
@@ -1919,6 +1927,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 subcategory: true,
                 migration: {
                   calcFormula: '(growingStockAvg.plantationForest * forestCharacteristics.plantationForestArea) / 1000',
+                  readonly: false,
                 },
               },
               {
@@ -1940,6 +1949,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 migration: {
                   calcFormula:
                     '(growingStockAvg.otherPlantedForest * forestCharacteristics.otherPlantedForestArea) / 1000',
+                  readonly: false,
                 },
               },
               {
@@ -1961,6 +1971,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 validator: null,
                 migration: {
                   calcFormula: '(growingStockAvg.forest * extentOfForest.forestArea) / 1000',
+                  readonly: false,
                 },
               },
               {
@@ -1982,6 +1993,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 validator: null,
                 migration: {
                   calcFormula: '(growingStockAvg.otherWoodedLand * extentOfForest.otherWoodedLand) / 1000',
+                  readonly: false,
                 },
               },
               {
@@ -2142,6 +2154,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   },
                 ],
                 type: 'header',
+                migration: {
+                  readonly: true,
+                },
               },
               {
                 idx: 0,

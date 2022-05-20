@@ -1,6 +1,6 @@
-import { Col, ColType } from '@meta/assessment'
+import { Col, Cols, ColType, Row } from '@meta/assessment'
 
-export default (col: Col /* rowIdx: number */): string => {
+export default (col: Col, row: Row): string => {
   const { colType /* validator */ } = col.props
   // const user = useUser()
 
@@ -12,11 +12,10 @@ export default (col: Col /* rowIdx: number */): string => {
   // })
 
   let className = 'fra-table__cell'
-  if (colType === ColType.calculated) className = 'fra-table__calculated-cell'
+  if (Cols.isReadOnly({ col, row })) className = 'fra-table__calculated-cell'
   if ([ColType.text, ColType.textarea, ColType.select].includes(colType)) className = 'fra-table__cell-left'
   if (colType === ColType.placeholder) className = 'fra-table__category-cell fra-table__filler-last'
 
   className += valid ? '' : ' validation-error'
-
   return className
 }
