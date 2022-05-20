@@ -13,6 +13,7 @@ import { Users } from '@meta/user'
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { MessageCenterActions } from '@client/store/ui/messageCenter'
+import { ReviewActions } from '@client/store/ui/review'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import Icon from '@client/components/Icon'
@@ -73,11 +74,17 @@ const Topic: React.FC<TopicProps> = (props) => {
     const newMessageEventHandler = (args: [message: Message]) => {
       const [message] = args
       dispatch(MessageCenterActions.addMessage({ message, topic }))
+      dispatch(
+        ReviewActions.getReviewSummary({ countryIso, assessmentName: assessment.props.name, cycleName: cycle.name })
+      )
     }
 
     const changeStatusEventHandler = (args: [status: MessageTopicStatus]) => {
       const [status] = args
       dispatch(MessageCenterActions.changeStatus({ status, topic }))
+      dispatch(
+        ReviewActions.getReviewSummary({ countryIso, assessmentName: assessment.props.name, cycleName: cycle.name })
+      )
     }
 
     SocketClient.on(messageEvent, newMessageEventHandler).on(statusEvent, changeStatusEventHandler)
