@@ -23,4 +23,5 @@ export interface MessageTopic {
   title?: string
   subtitle?: string
   messages?: Array<Message>
+  loading?: boolean
 }
