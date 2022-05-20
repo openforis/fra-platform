@@ -1,10 +1,12 @@
-import { createAsyncThunk } from '@reduxjs/toolkit'
 import { RouteComponentProps } from 'react-router-dom'
 
-import axios from 'axios'
 import { ApiEndPoint } from '@common/api/endpoint'
-import { AssessmentName, OriginalDataPoint } from '@meta/assessment'
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios'
+
 import { CountryIso } from '@meta/area'
+import { AssessmentName, ODPs, OriginalDataPoint } from '@meta/assessment'
+
 import { BasePaths } from '@client/basePaths'
 
 export const createOriginalDataPoint = createAsyncThunk<
@@ -29,5 +31,5 @@ export const createOriginalDataPoint = createAsyncThunk<
       BasePaths.Assessment.OriginalDataPoint.section(countryIso, assessmentName, cycleName, '-1', 'extentOfForest')
     )
   }
-  return data
+  return ODPs.addNationalClassPlaceHolder(data)
 })
