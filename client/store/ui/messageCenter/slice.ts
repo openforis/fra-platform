@@ -45,6 +45,7 @@ export const messageCenterSlice = createSlice({
       if (state.topics.filter((topic) => topic.key === key).length === 0) {
         if (state.topics.length === 2) state.topics.shift()
         state.topics.push({
+          id: -1,
           countryIso,
           key,
           title,
