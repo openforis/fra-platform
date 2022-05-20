@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 import classNames from 'classnames'
 
+import { Cols } from '@meta/assessment'
 import { Topics } from '@meta/messageCenter'
 
 import { useCycle } from '@client/store/assessment'
@@ -38,7 +39,7 @@ const RowData: React.FC<Props> = (props) => {
   // const className = useClassName(reviewTarget)
 
   const openTopics = useTopicKeys()
-  const headerCell = row.props.readonly || row.props.calculateFn || cols.find((c) => c.props.calculateFn)
+  const headerCell = cols.every((col) => Cols.isReadOnly({ row, col }))
   const subcategory = colHeaderLabel.includes(`…`)
 
   return (
