@@ -18,6 +18,9 @@
       flex: 1 1 auto;
       .message-author {
         font-weight: 700;
+        &.author-me {
+          color: darken($ui-accent, 2%);
+        }
       }
       .message-time {
         color: $text-mute;

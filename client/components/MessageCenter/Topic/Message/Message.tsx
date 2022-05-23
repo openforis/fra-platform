@@ -4,14 +4,16 @@ import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from '@common/api/endpoint'
 import { getRelativeDate } from '@core/utils/dates'
+import classNames from 'classnames'
 
 import { Message as MessageType } from '@meta/messageCenter/message'
 
 type MessageProps = {
   message: MessageType
+  isMine: boolean
 }
 
-const TopicMessage: React.FC<MessageProps> = ({ message }) => {
+const TopicMessage: React.FC<MessageProps> = ({ message, isMine = false }) => {
   const { i18n } = useTranslation()
 
   const elementRef = useRef<HTMLDivElement>()
@@ -25,7 +27,7 @@ const TopicMessage: React.FC<MessageProps> = ({ message }) => {
       <div className="message-header">
         <img className="message-avatar" src={ApiEndPoint.User.getProfilePicture(String(message.user.id))} alt="" />
         <div className="message-info">
-          <div className="message-author">{message.user.name}</div>
+          <div className={classNames('message-author', { 'author-me': isMine })}>{message.user.name}</div>
           <div className="message-time">{getRelativeDate(message.createdTime, i18n) || i18n.t('time.aMomentAgo')}</div>
         </div>
       </div>

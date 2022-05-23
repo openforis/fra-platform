@@ -100,7 +100,9 @@ const Topic: React.FC<TopicProps> = (props) => {
       </div>
       <div className={classNames('topic-body', { empty: Objects.isEmpty(topic.messages) })}>
         {!Objects.isEmpty(topic.messages) ? (
-          topic.messages.map((message) => <MessageComponent key={message.id} message={message} />)
+          topic.messages.map((message) => (
+            <MessageComponent key={message.id} message={message} isMine={Number(message.userId) === Number(user.id)} />
+          ))
         ) : (
           <div className="no-comments">
             <Icon className="icon-24" name="chat-46" />
