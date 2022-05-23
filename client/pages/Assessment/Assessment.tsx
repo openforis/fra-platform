@@ -1,12 +1,13 @@
 import './Assessment.scss'
 import React, { useEffect } from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, useParams } from 'react-router-dom'
 
 import { Areas } from '@meta/area'
+import { AssessmentName } from '@meta/assessment'
 import { Sockets } from '@meta/socket/sockets'
 
 import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
+import { useAssessment } from '@client/store/assessment'
 import { useNavigationVisible } from '@client/store/ui/navigation'
 import { ReviewActions } from '@client/store/ui/review'
 import { useCountryIso } from '@client/hooks'
@@ -25,23 +26,25 @@ const Assessment: React.FC = () => {
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const assessment = useAssessment()
-  const cycle = useCycle()
 
-  const reviewSummaryEvent = Sockets.updateReviewSummaryEvent({ countryIso, assessment, cycle })
+  const { assessmentName, cycleName } = useParams<{
+    assessmentName: AssessmentName
+    cycleName: string
+  }>()
+
+  const updateReviewSummaryEvent = Sockets.updateReviewSummaryEvent({ countryIso, assessmentName, cycleName })
 
   const isDataExport = countryIso && !Areas.isISOCountry(countryIso)
 
   useEffect(() => {
     const updateReviewSummaryEventHandler = () => {
-      dispatch(
-        ReviewActions.getReviewSummary({ countryIso, assessmentName: assessment.props.name, cycleName: cycle.name })
-      )
+      dispatch(ReviewActions.getReviewSummary({ countryIso, assessmentName, cycleName }))
     }
 
-    SocketClient.on(reviewSummaryEvent, updateReviewSummaryEventHandler)
+    SocketClient.open().on(updateReviewSummaryEvent, updateReviewSummaryEventHandler)
 
     return () => {
-      SocketClient.off(reviewSummaryEvent, updateReviewSummaryEventHandler)
+      SocketClient.off(updateReviewSummaryEvent, updateReviewSummaryEventHandler)
     }
   }, [])
 

@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 
 import { CountryIso } from '@meta/area'
+import { AssessmentName } from '@meta/assessment'
 import { MessageTopicStatus } from '@meta/messageCenter'
 import { Sockets } from '@meta/socket/sockets'
 
@@ -45,8 +46,13 @@ export const resolveTopic = async (req: Request, res: Response) => {
 
     SocketServer.emit(Sockets.getTopicMessageEvent({ assessment, cycle, topic }), messageCreated)
 
-    SocketServer.emit(Sockets.updateReviewSummaryEvent({ countryIso: countryIso as CountryIso, assessment, cycle }))
-
+    SocketServer.emit(
+      Sockets.updateReviewSummaryEvent({
+        countryIso: countryIso as CountryIso,
+        assessmentName: assessmentName as AssessmentName,
+        cycleName,
+      })
+    )
     Requests.sendOk(res)
   } catch (e) {
     Requests.sendErr(res, e)
