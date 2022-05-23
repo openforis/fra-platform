@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from 'react'
 
-import { usePrevious } from '@client/hooks'
 import * as d3 from 'd3'
 import { interpolatePath } from 'd3-interpolate-path'
+
+import { usePrevious } from '@client/hooks'
 
 import * as Chart from '../chart'
 
@@ -27,8 +28,8 @@ const DataPath = (props: Props) => {
 
   const getPathDefault = (dataPath: any) => {
     return getPath([
-      { year: dataPath.at(0).year, value: 0 },
-      { year: dataPath.at(0).year, value: 0 },
+      { year: dataPath[0].year, value: 0 },
+      { year: dataPath[0].year, value: 0 },
     ])
   }
 
