@@ -28,7 +28,8 @@ type Props = {
 const NationalClass: React.FC<Props> = (props) => {
   const { index, canEditData } = props
   const originalDataPoint = useOriginalDataPoint()
-
+  const { year } = originalDataPoint
+  const disabled = !canEditData || !year
   const dispatch = useAppDispatch()
   const i18n = useTranslation()
   const countryIso = useCountryIso()
@@ -94,7 +95,7 @@ const NationalClass: React.FC<Props> = (props) => {
                   })
                 )
               }}
-              disabled={!canEditData}
+              disabled={disabled}
             />
           )}
 
@@ -141,7 +142,7 @@ const NationalClass: React.FC<Props> = (props) => {
               })
             )
           }}
-          disabled={printView || !canEditData}
+          disabled={printView || disabled}
         />
       </td>
 

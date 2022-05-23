@@ -7,6 +7,7 @@ import { AssessmentName, Table as TableType } from '@meta/assessment'
 import { useAppDispatch } from '@client/store'
 import { useCycle } from '@client/store/assessment'
 import { AssessmentSectionActions, useTableData } from '@client/store/pages/assessmentSection'
+import { useCanEditSection } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import GenerateValues from '@client/pages/AssessmentSection/DataTable/GenerateValues'
 
@@ -28,6 +29,9 @@ const DataTable: React.FC<Props> = (props) => {
   const countryIso = useCountryIso()
   const data = useTableData({ table })
   const cycle = useCycle()
+  const canEditSection = useCanEditSection()
+  const generateValues = canEditSection && table.props.odp
+
   // Data of current section, passed for table
 
   const {
@@ -35,24 +39,18 @@ const DataTable: React.FC<Props> = (props) => {
     rows,
     props: { odp },
     // isSectionDataEmpty,
-    // odp,
     // showOdpChart,
     // canGenerateValues,
     // print,
   } = table
   // const breakPointsColsPrint = print.colBreakPoints
 
-  // const i18n = useI18n()
   // const data = [] // useSelector(getTableData(assessmentName, sectionName, tableName))
   // const dataEmpty: boolean = useSelector(isSectionDataEmpty(assessmentName, sectionName, tableName))
   // const generateValues: boolean = useSelector(
   //   (state) => odp && !disabled && Objects.isFunction(canGenerateValues) && canGenerateValues(state)
   // )
   // const [printView] = usePrintView()
-
-  // if (!data) {
-  //   return null
-  // }
 
   useEffect(() => {
     dispatch(
@@ -82,9 +80,6 @@ const DataTable: React.FC<Props> = (props) => {
   const showOdpChart = table.props.odp
   const printView = false
   const dataEmpty = false
-
-  // TODO: Fix showing generateValues
-  const generateValues = table.props.odp
 
   return (
     <>
