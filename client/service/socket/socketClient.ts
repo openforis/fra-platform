@@ -22,11 +22,7 @@ const open = () => {
   //   closeSocket()
   // }
 
-  if (!socket) {
-    socket = io(window.location.origin)
-  }
-
-  return socket
+  socket = io(window.location.origin)
 
   // on(WebSocketEvents.connectError, (error) => throwError(error.stack))
   // on(WebSocketEvents.error, throwError)

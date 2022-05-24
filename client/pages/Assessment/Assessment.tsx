@@ -1,15 +1,11 @@
 import './Assessment.scss'
-import React, { useEffect } from 'react'
-import { Route, Switch, useParams } from 'react-router-dom'
+import React from 'react'
+import { Route, Switch } from 'react-router-dom'
 
 import { Areas } from '@meta/area'
-import { AssessmentName } from '@meta/assessment'
-import { Sockets } from '@meta/socket/sockets'
 
-import { useAppDispatch } from '@client/store'
 import { useAssessment } from '@client/store/assessment'
 import { useNavigationVisible } from '@client/store/ui/navigation'
-import { ReviewActions } from '@client/store/ui/review'
 import { useCountryIso } from '@client/hooks'
 import { BasePaths } from '@client/basePaths'
 import MessageCenter from '@client/components/MessageCenter'
@@ -17,36 +13,15 @@ import Navigation from '@client/components/Navigation'
 import AssessmentSection from '@client/pages/AssessmentSection'
 import DataExport from '@client/pages/DataExport'
 import OriginalDataPoint from '@client/pages/OriginalDataPoint'
-import { SocketClient } from '@client/service/socket'
 
 import SectionWrapper from './SectionWrapper'
 
 const Assessment: React.FC = () => {
   const navigationVisible = useNavigationVisible()
-  const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const assessment = useAssessment()
 
-  const { assessmentName, cycleName } = useParams<{
-    assessmentName: AssessmentName
-    cycleName: string
-  }>()
-
-  const updateReviewSummaryEvent = Sockets.updateReviewSummaryEvent({ countryIso, assessmentName, cycleName })
-
   const isDataExport = countryIso && !Areas.isISOCountry(countryIso)
-
-  useEffect(() => {
-    const updateReviewSummaryEventHandler = () => {
-      dispatch(ReviewActions.getReviewSummary({ countryIso, assessmentName, cycleName }))
-    }
-
-    SocketClient.open().on(updateReviewSummaryEvent, updateReviewSummaryEventHandler)
-
-    return () => {
-      SocketClient.off(updateReviewSummaryEvent, updateReviewSummaryEventHandler)
-    }
-  }, [])
 
   if (!assessment) return null
 

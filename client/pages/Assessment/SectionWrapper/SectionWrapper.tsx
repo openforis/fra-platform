@@ -2,12 +2,14 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router'
 
 import { AssessmentName } from '@meta/assessment'
+import { Sockets } from '@meta/socket/sockets'
 
 import { useAppDispatch } from '@client/store'
 import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import { ReviewActions } from '@client/store/ui/review'
 import { useUser } from '@client/store/user'
 import { useCountryIso, useOnUpdate } from '@client/hooks'
+import { SocketClient } from '@client/service/socket'
 import { DOMs } from '@client/utils/dom'
 
 const SectionWrapper: React.FC = (props) => {
@@ -21,6 +23,20 @@ const SectionWrapper: React.FC = (props) => {
     cycleName: string
     section: string
   }>()
+
+  const updateReviewSummaryEvent = Sockets.updateReviewSummaryEvent({ countryIso, assessmentName, cycleName })
+
+  useEffect(() => {
+    const updateReviewSummaryEventHandler = () => {
+      dispatch(ReviewActions.getReviewSummary({ countryIso, assessmentName, cycleName }))
+    }
+
+    SocketClient.on(updateReviewSummaryEvent, updateReviewSummaryEventHandler)
+
+    return () => {
+      SocketClient.off(updateReviewSummaryEvent, updateReviewSummaryEventHandler)
+    }
+  }, [])
 
   useEffect(() => {
     // scroll to top
