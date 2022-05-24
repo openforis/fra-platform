@@ -7,7 +7,7 @@ import { useAppDispatch } from '@client/store'
 import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import { ReviewActions } from '@client/store/ui/review'
 import { useUser } from '@client/store/user'
-import { useCountryIso, useOnUpdate } from '@client/hooks'
+import { useCountryIso } from '@client/hooks'
 import { DOMs } from '@client/utils/dom'
 
 const SectionWrapper: React.FC = (props) => {
@@ -43,21 +43,6 @@ const SectionWrapper: React.FC = (props) => {
       dispatch(ReviewActions.getReviewStatus({ countryIso, assessmentName, cycleName, section }))
     }
   }, [countryIso, assessmentName, cycleName, section, user])
-
-  // fetch section summary
-  useEffect(() => {
-    if (user) {
-      dispatch(ReviewActions.getReviewSummary({ countryIso, assessmentName, cycleName }))
-    }
-  }, [countryIso, assessmentName, cycleName, user])
-
-  // reset store
-  useOnUpdate(() => {
-    return () => {
-      dispatch(AssessmentSectionActions.reset())
-      dispatch(ReviewActions.reset())
-    }
-  }, [countryIso, assessmentName, cycleName])
 
   return <>{React.Children.toArray(children)}</>
 }
