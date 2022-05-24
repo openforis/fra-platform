@@ -39,7 +39,7 @@ export default (props: Props): UseOnChange => {
         value,
         type,
         valuePrev: nodeValue.raw,
-        options: col.props?.select?.options,
+        options: col.props.select?.options,
       })
 
       dispatch(
@@ -103,7 +103,7 @@ export default (props: Props): UseOnChange => {
               value,
               type: colSpecType,
               valuePrev: nodeValue.raw,
-              options: colSpec.props?.select?.options,
+              options: colSpec.props.select?.options,
             })
             const nodeValueUpdate = { raw: valueUpdate }
 
