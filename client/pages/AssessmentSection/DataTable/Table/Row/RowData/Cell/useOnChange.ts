@@ -35,7 +35,12 @@ export default (props: Props): UseOnChange => {
   const _persistSanitizedValue = (value: string) => {
     const type = col.props.colType
     if (Sanitizer.isAcceptable({ type, value })) {
-      const valueUpdate = Sanitizer.sanitize({ value, type, valuePrev: nodeValue.raw })
+      const valueUpdate = Sanitizer.sanitize({
+        value,
+        type,
+        valuePrev: nodeValue.raw,
+        options: col.props?.select?.options,
+      })
 
       dispatch(
         AssessmentSectionActions.updateNodeValues({
@@ -94,7 +99,12 @@ export default (props: Props): UseOnChange => {
 
           if (!readOnly && acceptable) {
             const nodeValue = TableDatas.getNodeValue({ data, countryIso, col, row, table })
-            const valueUpdate = Sanitizer.sanitize({ value, type: colSpecType, valuePrev: nodeValue.raw })
+            const valueUpdate = Sanitizer.sanitize({
+              value,
+              type: colSpecType,
+              valuePrev: nodeValue.raw,
+              options: colSpec.props?.select?.options,
+            })
             const nodeValueUpdate = { raw: valueUpdate }
 
             const item = {
