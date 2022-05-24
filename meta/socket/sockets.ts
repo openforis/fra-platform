@@ -2,7 +2,7 @@ import { CountryIso } from '@meta/area'
 import { Assessment, AssessmentName, Cycle } from '@meta/assessment'
 import { MessageTopic } from '@meta/messageCenter'
 
-const updateReviewSummaryEvent = (props: {
+const getUpdateReviewSummaryEvent = (props: {
   countryIso: CountryIso
   assessmentName: AssessmentName
   cycleName: string
@@ -22,7 +22,7 @@ const getTopicStatusEvent = (props: { assessment: Assessment; cycle: Cycle; topi
 }
 
 export const Sockets = {
-  updateReviewSummaryEvent,
+  getUpdateReviewSummaryEvent,
   getTopicMessageEvent,
   getTopicStatusEvent,
 }

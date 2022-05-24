@@ -24,7 +24,7 @@ const SectionWrapper: React.FC = (props) => {
     section: string
   }>()
 
-  const updateReviewSummaryEvent = Sockets.updateReviewSummaryEvent({ countryIso, assessmentName, cycleName })
+  const updateReviewSummaryEvent = Sockets.getUpdateReviewSummaryEvent({ countryIso, assessmentName, cycleName })
 
   useEffect(() => {
     const updateReviewSummaryEventHandler = () => {

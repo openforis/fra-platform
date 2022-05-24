@@ -47,7 +47,7 @@ export const resolveTopic = async (req: Request, res: Response) => {
     SocketServer.emit(Sockets.getTopicMessageEvent({ assessment, cycle, topic }), messageCreated)
 
     SocketServer.emit(
-      Sockets.updateReviewSummaryEvent({
+      Sockets.getUpdateReviewSummaryEvent({
         countryIso: countryIso as CountryIso,
         assessmentName: assessmentName as AssessmentName,
         cycleName,

@@ -50,7 +50,7 @@ export const addMessage = async (req: Request, res: Response) => {
     }
 
     SocketServer.emit(
-      Sockets.updateReviewSummaryEvent({
+      Sockets.getUpdateReviewSummaryEvent({
         countryIso: countryIso as CountryIso,
         assessmentName: assessmentName as AssessmentName,
         cycleName,
