@@ -34,7 +34,7 @@ export const getReviewSummary = async (
                         r.parent_id,
                         m.topic_id,
                         m.created_time                                                as last_message_created_time,
-                        row_number() over (partition by r.row_uuid, r.sub_section_id) as row_number
+                        row_number() over (partition by r.sub_section_id, r.row_uuid) as row_number
                  from r
                           left join ${cycleSchema}.message_topic mt
                                     on r.row_uuid::varchar = mt.key
@@ -63,6 +63,6 @@ export const getReviewSummary = async (
         from summaries s
     `,
     [cycle.uuid, user.id, countryIso],
-    ({ data }) => Objects.camelize(data)
+    ({ data }) => (data ? Objects.camelize(data) : [])
   )
 }
