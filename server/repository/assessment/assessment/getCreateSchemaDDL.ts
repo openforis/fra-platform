@@ -220,13 +220,23 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
                  jsonb_array_elements(o.national_classes) as class
           from ${assessmentCycleSchemaName}.original_data_point o
       ),
+            country_years as (
+               select c.country_iso,
+                      jsonb_object_keys(c.config -> 'faoStat') as year
+               from country c
+               order by c.country_iso
+           ),
            extentofforest as (
-               select f.country_iso,
-                      f.col_name,
-                      jsonb_object_agg(f.variable_name, f.value) as data
-               from ${assessmentCycleSchemaName}.extentofforest f
-               where f.variable_name in ('totalLandArea')
-               group by 1, 2
+              select c.country_iso,
+                    cy.year                   as col_name,
+                    jsonb_build_object('totalLandArea',
+                                       jsonb_build_object(
+                                               'raw', jsonb_extract_path(
+                                               c.config, 'faoStat', cy.year, 'area'
+                                           )::varchar
+                                           )) as data
+             from country c
+                  left join country_years cy on c.country_iso = cy.country_iso
            ),
            raw_values as (
                select c.country_iso,
