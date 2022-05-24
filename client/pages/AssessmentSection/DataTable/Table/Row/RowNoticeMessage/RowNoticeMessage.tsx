@@ -1,6 +1,6 @@
 import React from 'react'
-
 import { useTranslation } from 'react-i18next'
+
 import { Props } from '../props'
 
 const RowNoticeMessage: React.FC<Props> = (props) => {
@@ -12,11 +12,11 @@ const RowNoticeMessage: React.FC<Props> = (props) => {
   return (
     <tr>
       {cols.map((col) => {
-        const { labelKey, rowSpan, colSpan } = col.props
-        const label = labelKey ? i18n.t(labelKey) : null
+        const { label, rowSpan, colSpan } = col.props
+        const message = label?.key ? i18n.t(label?.key) : null
         return (
-          <td key={labelKey} className="fra-table__notice-message-cell" rowSpan={rowSpan} colSpan={colSpan}>
-            {label && <div className="message">{label}</div>}
+          <td key={message} className="fra-table__notice-message-cell" rowSpan={rowSpan} colSpan={colSpan}>
+            {message && <div className="message">{message}</div>}
           </td>
         )
       })}
