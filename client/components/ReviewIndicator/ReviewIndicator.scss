@@ -15,14 +15,14 @@
       transition: all .1s ease-out;
     }
   }
-  &.opened {
+  &.open {
     svg {
       color: $ui-accent;
     }
   }
   &.resolved {
     svg {
-      color: $text-mute;
+      color: $text-disabled;
     }
   }
   &.unread {

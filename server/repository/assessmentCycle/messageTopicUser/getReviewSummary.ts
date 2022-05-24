@@ -41,7 +41,8 @@ export const getReviewSummary = async (
                           left join ${cycleSchema}.message m
                                     on m.topic_id = mt.id
                  where mt.status = 'opened'
-                   and not m.deleted
+                    and not m.deleted
+                    and mt.country_iso = $3
              ),
              summaries as (
                  select m.sub_section_id,
@@ -57,7 +58,6 @@ export const getReviewSummary = async (
                           left join ${cycleSchema}.message_topic mt
                                     on mt.id = m.topic_id
                  where m.row_number = 1
-                  and mt.country_iso = $3
              )
         select jsonb_agg(s.*) as data
         from summaries s
