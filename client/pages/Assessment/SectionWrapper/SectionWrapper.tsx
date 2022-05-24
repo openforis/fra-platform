@@ -27,18 +27,6 @@ const SectionWrapper: React.FC = (props) => {
   const updateReviewSummaryEvent = Sockets.getUpdateReviewSummaryEvent({ countryIso, assessmentName, cycleName })
 
   useEffect(() => {
-    const updateReviewSummaryEventHandler = () => {
-      dispatch(ReviewActions.getReviewSummary({ countryIso, assessmentName, cycleName }))
-    }
-
-    SocketClient.on(updateReviewSummaryEvent, updateReviewSummaryEventHandler)
-
-    return () => {
-      SocketClient.off(updateReviewSummaryEvent, updateReviewSummaryEventHandler)
-    }
-  }, [])
-
-  useEffect(() => {
     // scroll to top
     DOMs.scrollTo()
 
@@ -62,8 +50,19 @@ const SectionWrapper: React.FC = (props) => {
 
   // fetch section summary
   useEffect(() => {
+    const updateReviewSummaryEventHandler = () => {
+      dispatch(ReviewActions.getReviewSummary({ countryIso, assessmentName, cycleName }))
+    }
+
     if (user) {
       dispatch(ReviewActions.getReviewSummary({ countryIso, assessmentName, cycleName }))
+      SocketClient.on(updateReviewSummaryEvent, updateReviewSummaryEventHandler)
+    }
+
+    return () => {
+      if (user) {
+        SocketClient.off(updateReviewSummaryEvent, updateReviewSummaryEventHandler)
+      }
     }
   }, [countryIso, assessmentName, cycleName, user])
 
