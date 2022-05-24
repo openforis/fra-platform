@@ -20,7 +20,6 @@ const Assessment: React.FC = () => {
   const navigationVisible = useNavigationVisible()
   const countryIso = useCountryIso()
   const assessment = useAssessment()
-
   const isDataExport = countryIso && !Areas.isISOCountry(countryIso)
 
   if (!assessment) return null
