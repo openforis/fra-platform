@@ -24,8 +24,6 @@ const SectionWrapper: React.FC = (props) => {
     section: string
   }>()
 
-  const updateReviewSummaryEvent = Sockets.getUpdateReviewSummaryEvent({ countryIso, assessmentName, cycleName })
-
   useEffect(() => {
     // scroll to top
     DOMs.scrollTo()
@@ -50,6 +48,8 @@ const SectionWrapper: React.FC = (props) => {
 
   // fetch section summary
   useEffect(() => {
+    const updateReviewSummaryEvent = Sockets.getUpdateReviewSummaryEvent({ countryIso, assessmentName, cycleName })
+
     const updateReviewSummaryEventHandler = () => {
       dispatch(ReviewActions.getReviewSummary({ countryIso, assessmentName, cycleName }))
     }
