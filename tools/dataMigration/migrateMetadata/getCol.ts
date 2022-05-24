@@ -17,12 +17,26 @@ export const getCol = (props: { cycles: Array<string>; colSpec: ColSpec; row: Ro
     },
     rowId: row.id,
   }
+
+  // label migration
   if (typeof colSpec.label === 'string' || colSpec.labelKey || colSpec.labelParams || colSpec.labelPrefixKey) {
     col.props.label = {
       key: colSpec.labelKey,
       params: colSpec.labelParams,
       label: colSpec.label,
       prefixKey: colSpec.labelPrefixKey,
+    }
+  }
+
+  // select migration
+  if (colSpec.options) {
+    col.props.select = {
+      labelKeyPrefix: colSpec.optionsLabelKeyPrefix,
+      options: colSpec.options.map((o) => ({
+        name: o.optionName,
+        hidden: o.hidden,
+        type: o.type === 'header' ? 'header' : undefined,
+      })),
     }
   }
   return col
