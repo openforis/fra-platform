@@ -11,8 +11,8 @@ import { useRegionGroups } from '@client/store/assessment'
 
 import { checkMatch } from '../utils/checkMatch'
 import { useUserCountryISOs } from './hooks/useUserCountryISOs'
+import CountryListDownload from './CountryListDownload'
 import CountryListRoleSection from './CountryListRoleSection'
-// import CountryListDownload from './CountryListDownload'
 import CountryListRow from './CountryListRow'
 
 type Props = {
@@ -38,7 +38,7 @@ const CountryList: React.FC<Props> = (props: Props) => {
 
   return (
     <div className="country-selection-list">
-      {/* <CountryListDownload /> */}
+      <CountryListDownload />
 
       <div className="country-selection-list__content">
         <div className="country-selection-list__global">

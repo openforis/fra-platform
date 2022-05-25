@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { noRole } from '@common/countryRole'
 
-import { CountryIso, Global, RegionCode } from '@meta/area'
+import { Areas, CountryIso, Global, RegionCode } from '@meta/area'
 
 import { useAssessment, useCountry, useCycle } from '@client/store/assessment'
 import { useCountryIso, useIsHome } from '@client/hooks'
@@ -30,7 +30,7 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
   const isHome = useIsHome()
   const countryNameRef = useRef(null)
 
-  const status = country?.props?.status ?? 'editing'
+  const status = Areas.getStatus(country)
   const selected = countryIso === countryIsoCurrent && !isHome
   const hasRole = role !== noRole.role
 
