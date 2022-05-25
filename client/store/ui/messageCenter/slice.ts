@@ -29,11 +29,10 @@ export const messageCenterSlice = createSlice({
       const { messageId, topicKey } = action.payload
       const i = state.topics.findIndex((t) => t.key === topicKey)
       if (i >= 0) {
-        const messageIndex = state.topics[i].messages.findIndex((m) => m.id === messageId)
+        const messageIndex = state.topics[i].messages.findIndex((m) => String(m.id) === String(messageId))
         if (messageIndex >= 0) {
           state.topics[i].messages[messageIndex].deleted = true
         }
-        // TODO
       }
     },
     changeStatus: (state, action: PayloadAction<{ status: MessageTopicStatus; topic: MessageTopic }>) => {

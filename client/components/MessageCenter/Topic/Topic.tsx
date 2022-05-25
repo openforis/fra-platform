@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom'
 import { Objects } from '@core/utils'
 import classNames from 'classnames'
 
-import { Message, MessageTopic, MessageTopicStatus, MessageTopicType } from '@meta/messageCenter'
+import { Message as MessageType, MessageTopic, MessageTopicStatus, MessageTopicType } from '@meta/messageCenter'
 import { Sockets } from '@meta/socket/sockets'
 import { Users } from '@meta/user'
 
@@ -18,7 +18,7 @@ import { useCountryIso } from '@client/hooks'
 import Icon from '@client/components/Icon'
 import { SocketClient } from '@client/service/socket'
 
-import MessageComponent from './Message'
+import Message from './Message'
 
 type TopicProps = {
   topic: MessageTopic
@@ -67,24 +67,27 @@ const Topic: React.FC<TopicProps> = (props) => {
     ).then(() => setMessage(''))
   }, [countryIso, assessment, cycle, topic, message, dispatch, section])
 
-  const deleteMessage = (id: number) =>
-    dispatch(
-      MessageCenterActions.markMessageDeleted({
-        countryIso,
-        assessmentName: assessment.props.name,
-        cycleName: cycle.name,
-        topicKey: topic.key,
-        messageId: id,
-        section,
-      })
-    )
+  const deleteMessage = useCallback(
+    (id: number) =>
+      dispatch(
+        MessageCenterActions.markMessageDeleted({
+          countryIso,
+          assessmentName: assessment.props.name,
+          cycleName: cycle.name,
+          topicKey: topic.key,
+          messageId: id,
+          section,
+        })
+      ),
+    [countryIso, assessment, cycle, topic, dispatch, section]
+  )
 
   useEffect(() => {
     const messageAddEvent = Sockets.getTopicMessageAddEvent({ assessment, cycle, topic })
     const messageDeleteEvent = Sockets.getTopicMessageDeleteEvent({ assessment, cycle, topic })
     const statusEvent = Sockets.getTopicStatusEvent({ assessment, cycle, topic })
 
-    const newMessageEventHandler = (args: [message: Message]) => {
+    const newMessageEventHandler = (args: [message: MessageType]) => {
       const [message] = args
       dispatch(MessageCenterActions.addMessage({ message, topic }))
     }
@@ -108,7 +111,7 @@ const Topic: React.FC<TopicProps> = (props) => {
         .off(statusEvent, changeStatusEventHandler)
         .off(messageDeleteEvent, deleteMessageEventHandler)
     }
-  }, [])
+  }, [assessment, cycle, topic, dispatch])
 
   return (
     <div className="topic">
@@ -124,7 +127,7 @@ const Topic: React.FC<TopicProps> = (props) => {
       <div className={classNames('topic-body', { empty: Objects.isEmpty(topic.messages) })}>
         {!Objects.isEmpty(topic.messages) ? (
           topic.messages.map((message) => (
-            <MessageComponent
+            <Message
               key={message.id}
               message={message}
               isMine={Number(message.userId) === Number(user.id)}
