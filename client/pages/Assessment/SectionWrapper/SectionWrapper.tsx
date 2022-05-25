@@ -2,12 +2,14 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router'
 
 import { AssessmentName } from '@meta/assessment'
+import { Sockets } from '@meta/socket/sockets'
 
 import { useAppDispatch } from '@client/store'
 import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import { ReviewActions } from '@client/store/ui/review'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
+import { SocketClient } from '@client/service/socket'
 import { DOMs } from '@client/utils/dom'
 
 const SectionWrapper: React.FC = (props) => {
@@ -39,8 +41,21 @@ const SectionWrapper: React.FC = (props) => {
 
   // fetch section review status
   useEffect(() => {
+    const requestReviewStatusEvent = Sockets.getRequestReviewStatusEvent({ countryIso, assessmentName, cycleName })
+
+    const updateReviewStatusEventHandler = () => {
+      dispatch(ReviewActions.getReviewStatus({ countryIso, assessmentName, cycleName, section }))
+    }
+
     if (user) {
       dispatch(ReviewActions.getReviewStatus({ countryIso, assessmentName, cycleName, section }))
+      SocketClient.on(requestReviewStatusEvent, updateReviewStatusEventHandler)
+    }
+
+    return () => {
+      if (user) {
+        SocketClient.off(requestReviewStatusEvent, updateReviewStatusEventHandler)
+      }
     }
   }, [countryIso, assessmentName, cycleName, section, user])
 

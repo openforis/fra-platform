@@ -10,7 +10,7 @@ export const sendRequestReviewUpdateEvents = (props: {
   cycleName: string
   topicKey: string
 }): void => {
-  const { countryIso, assessmentName, cycleName, topicKey } = props
+  const { countryIso, assessmentName, cycleName } = props
   SocketServer.emit(Sockets.getRequestReviewSummaryEvent({ countryIso, assessmentName, cycleName }))
-  SocketServer.emit(Sockets.getRequestReviewStatusEvent({ countryIso, assessmentName, cycleName, topicKey }))
+  SocketServer.emit(Sockets.getRequestReviewStatusEvent({ countryIso, assessmentName, cycleName }))
 }
