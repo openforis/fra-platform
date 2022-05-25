@@ -1,6 +1,6 @@
 import { RegionCode } from './regionCode'
 
 export interface Region {
-  region: RegionCode
+  regionCode: RegionCode
   name: string
 }
