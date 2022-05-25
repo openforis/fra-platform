@@ -63,6 +63,6 @@ export const getReviewSummary = async (
         from summaries s
     `,
     [cycle.uuid, user.id, countryIso],
-    ({ data }) => Objects.camelize(data)
+    ({ data }) => (data ? Objects.camelize(data) : [])
   )
 }
