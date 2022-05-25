@@ -12,6 +12,7 @@ export enum ActivityLogMessage {
   tableValuesClear = 'tableValuesClear',
   nodeValueCalculatedUpdate = 'nodeValueCalculatedUpdate',
   messageCreate = 'messageCreate',
+  messageMarkDeleted = 'messageMarkDeleted',
   topicStatusChange = 'topicStatusChange',
 }
 

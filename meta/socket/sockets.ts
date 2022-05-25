@@ -2,18 +2,33 @@ import { CountryIso } from '@meta/area'
 import { Assessment, AssessmentName, Cycle } from '@meta/assessment'
 import { MessageTopic } from '@meta/messageCenter'
 
-const getUpdateReviewSummaryEvent = (props: {
+const getRequestReviewSummaryEvent = (props: {
   countryIso: CountryIso
   assessmentName: AssessmentName
   cycleName: string
 }) => {
   const { countryIso, assessmentName, cycleName } = props
-  return `${countryIso}-${assessmentName}-${cycleName}-review-summary`
+  return `${countryIso}-${assessmentName}-${cycleName}-request-review-summary`
 }
 
-const getTopicMessageEvent = (props: { assessment: Assessment; cycle: Cycle; topic: MessageTopic }): string => {
+const getRequestReviewStatusEvent = (props: {
+  countryIso: CountryIso
+  assessmentName: AssessmentName
+  cycleName: string
+  sectionName: string
+}) => {
+  const { countryIso, assessmentName, cycleName, sectionName } = props
+  return `${countryIso}-${assessmentName}-${cycleName}-${sectionName}-request-review-status`
+}
+
+const getTopicMessageAddEvent = (props: { assessment: Assessment; cycle: Cycle; topic: MessageTopic }): string => {
   const { assessment, cycle, topic } = props
-  return `${topic.countryIso}-${assessment.props.name}-${cycle.name}-${topic.key}-message`
+  return `${topic.countryIso}-${assessment.props.name}-${cycle.name}-${topic.key}-message-add`
+}
+
+const getTopicMessageDeleteEvent = (props: { assessment: Assessment; cycle: Cycle; topic: MessageTopic }): string => {
+  const { assessment, cycle, topic } = props
+  return `${topic.countryIso}-${assessment.props.name}-${cycle.name}-${topic.key}-message-delete`
 }
 
 const getTopicStatusEvent = (props: { assessment: Assessment; cycle: Cycle; topic: MessageTopic }): string => {
@@ -22,7 +37,9 @@ const getTopicStatusEvent = (props: { assessment: Assessment; cycle: Cycle; topi
 }
 
 export const Sockets = {
-  getUpdateReviewSummaryEvent,
-  getTopicMessageEvent,
+  getRequestReviewSummaryEvent,
+  getRequestReviewStatusEvent,
+  getTopicMessageAddEvent,
+  getTopicMessageDeleteEvent,
   getTopicStatusEvent,
 }

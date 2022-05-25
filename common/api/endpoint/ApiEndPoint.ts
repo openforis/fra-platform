@@ -79,7 +79,7 @@ export const ApiEndPoint = {
   MessageCenter: {
     Topic: {
       get: () => apiPath('topic'),
-      addMessage: () => apiPath('topic', 'message'),
+      getMessage: () => apiPath('topic', 'message'),
       resolveTopic: () => apiPath('topic', 'resolve'),
     },
   },

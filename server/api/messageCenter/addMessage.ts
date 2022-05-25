@@ -10,33 +10,39 @@ import { MessageCenterController } from '@server/controller/messageCenter'
 import { SocketServer } from '@server/service/socket'
 import Requests from '@server/utils/requests'
 
+import { sendRequestReviewUpdateEvents } from './sendRequestReviewUpdateEvents'
+
 export const addMessage = async (req: Request, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName, key, type } = <Record<string, string>>req.query
-    const { message } = req.body
+    const { countryIso, assessmentName, cycleName, key, type, section } = req.query as {
+      countryIso: CountryIso
+      assessmentName: AssessmentName
+      cycleName: string
+      section: string
+      key: string
+      type: MessageTopicType
+    }
     const user = Requests.getRequestUser(req)
+    const { message } = req.body
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({
-      name: assessmentName,
-      cycleName,
-    })
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName })
 
     const { topic, message: messageCreated } = await MessageCenterController.addMessage({
       message,
       user,
-      countryIso: countryIso as CountryIso,
+      countryIso,
       assessment,
       cycle,
       key,
-      type: type as MessageTopicType,
+      type,
     })
 
-    SocketServer.emit(Sockets.getTopicMessageEvent({ assessment, cycle, topic }), messageCreated)
+    SocketServer.emit(Sockets.getTopicMessageAddEvent({ assessment, cycle, topic }), messageCreated)
 
     if (topic.status === MessageTopicStatus.resolved) {
-      const { topic: topicUpdated } = await MessageCenterController.updateTopicStatus({
+      const topicUpdated = await MessageCenterController.updateTopicStatus({
         user,
-        countryIso: countryIso as CountryIso,
+        countryIso,
         assessment,
         cycle,
         key,
@@ -49,13 +55,7 @@ export const addMessage = async (req: Request, res: Response) => {
       )
     }
 
-    SocketServer.emit(
-      Sockets.getUpdateReviewSummaryEvent({
-        countryIso: countryIso as CountryIso,
-        assessmentName: assessmentName as AssessmentName,
-        cycleName,
-      })
-    )
+    sendRequestReviewUpdateEvents({ countryIso, assessmentName, cycleName, sectionName: section, topic })
 
     Requests.sendOk(res)
   } catch (e) {
