@@ -34,7 +34,7 @@ export const getReviewSummary = async (
                         r.parent_id,
                         m.topic_id,
                         m.created_time                                                as last_message_created_time,
-                        row_number() over (partition by r.sub_section_id, r.row_uuid) as row_number
+                        row_number() over (partition by r.row_uuid, r.sub_section_id) as row_number
                  from r
                           left join ${cycleSchema}.message_topic mt
                                     on r.row_uuid::varchar = mt.key
@@ -42,22 +42,24 @@ export const getReviewSummary = async (
                                     on m.topic_id = mt.id
                  where mt.status = 'opened'
                    and not m.deleted
+                   and mt.country_iso = $3
              ),
              summaries as (
                  select m.sub_section_id,
                         m.parent_id,
-                        m.row_uuid as                                  key,
+                        m.row_uuid                                     as key,
                         mt.status,
                         m.last_message_created_time,
                         u.last_open_time,
-                        m.last_message_created_time > u.last_open_time has_unread_messages
+                        u.last_open_time is null
+                            or
+                        m.last_message_created_time > u.last_open_time as has_unread_messages
                  from m
                           left join ${cycleSchema}.message_topic_user u
                                     on u.topic_id = m.topic_id and u.user_id = $2
                           left join ${cycleSchema}.message_topic mt
                                     on mt.id = m.topic_id
                  where m.row_number = 1
-                  and mt.country_iso = $3
              )
         select jsonb_agg(s.*) as data
         from summaries s

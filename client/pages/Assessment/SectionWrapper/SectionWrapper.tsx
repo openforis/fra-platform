@@ -8,7 +8,8 @@ import { useAppDispatch } from '@client/store'
 import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import { ReviewActions } from '@client/store/ui/review'
 import { useUser } from '@client/store/user'
-import { useCountryIso, useOnUpdate } from '@client/hooks'
+import { useCountryIso } from '@client/hooks'
+import MessageCenter from '@client/components/MessageCenter'
 import { SocketClient } from '@client/service/socket'
 import { DOMs } from '@client/utils/dom'
 
@@ -41,40 +42,35 @@ const SectionWrapper: React.FC = (props) => {
 
   // fetch section review status
   useEffect(() => {
-    if (user) {
+    const requestReviewStatusEvent = Sockets.getRequestReviewStatusEvent({
+      countryIso,
+      assessmentName,
+      cycleName,
+      sectionName: section,
+    })
+
+    const updateReviewStatus = () => {
       dispatch(ReviewActions.getReviewStatus({ countryIso, assessmentName, cycleName, section }))
     }
-  }, [countryIso, assessmentName, cycleName, section, user])
-
-  // fetch section summary
-  useEffect(() => {
-    const updateReviewSummaryEvent = Sockets.getUpdateReviewSummaryEvent({ countryIso, assessmentName, cycleName })
-
-    const updateReviewSummaryEventHandler = () => {
-      dispatch(ReviewActions.getReviewSummary({ countryIso, assessmentName, cycleName }))
-    }
 
     if (user) {
-      dispatch(ReviewActions.getReviewSummary({ countryIso, assessmentName, cycleName }))
-      SocketClient.on(updateReviewSummaryEvent, updateReviewSummaryEventHandler)
+      updateReviewStatus()
+      SocketClient.on(requestReviewStatusEvent, updateReviewStatus)
     }
 
     return () => {
       if (user) {
-        SocketClient.off(updateReviewSummaryEvent, updateReviewSummaryEventHandler)
+        SocketClient.off(requestReviewStatusEvent, updateReviewStatus)
       }
     }
-  }, [countryIso, assessmentName, cycleName, user])
+  }, [countryIso, assessmentName, cycleName, section, user])
 
-  // reset store
-  useOnUpdate(() => {
-    return () => {
-      dispatch(AssessmentSectionActions.reset())
-      dispatch(ReviewActions.reset())
-    }
-  }, [countryIso, assessmentName, cycleName])
-
-  return <>{React.Children.toArray(children)}</>
+  return (
+    <>
+      <MessageCenter />
+      {React.Children.toArray(children)}
+    </>
+  )
 }
 
 export default SectionWrapper
