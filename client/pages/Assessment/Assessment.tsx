@@ -10,6 +10,7 @@ import { useCountryIso } from '@client/hooks'
 import { BasePaths } from '@client/basePaths'
 import MessageCenter from '@client/components/MessageCenter'
 import Navigation from '@client/components/Navigation'
+import AssessmentHome from '@client/pages/AssessmentHome'
 import AssessmentSection from '@client/pages/AssessmentSection'
 import DataExport from '@client/pages/DataExport'
 import OriginalDataPoint from '@client/pages/OriginalDataPoint'
@@ -30,7 +31,7 @@ const Assessment: React.FC = () => {
 
       <MessageCenter />
       <Switch>
-        {/* <Route path={BasePaths.assessmentHome} component={AssessmentHome} /> */}
+        <Route path={BasePaths.Assessment.root()} component={AssessmentHome} />
         {/* <Route path={BasePaths.assessmentDataDownload} component={AssessmentDataDownload} /> */}
         <Route
           exact
