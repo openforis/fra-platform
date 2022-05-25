@@ -41,17 +41,19 @@ export const getReviewSummary = async (
                           left join ${cycleSchema}.message m
                                     on m.topic_id = mt.id
                  where mt.status = 'opened'
-                    and not m.deleted
-                    and mt.country_iso = $3
+                   and not m.deleted
+                   and mt.country_iso = $3
              ),
              summaries as (
                  select m.sub_section_id,
                         m.parent_id,
-                        m.row_uuid as                                  key,
+                        m.row_uuid                                     as key,
                         mt.status,
                         m.last_message_created_time,
                         u.last_open_time,
-                        m.last_message_created_time > u.last_open_time has_unread_messages
+                        u.last_open_time is null
+                            or
+                        m.last_message_created_time > u.last_open_time as has_unread_messages
                  from m
                           left join ${cycleSchema}.message_topic_user u
                                     on u.topic_id = m.topic_id and u.user_id = $2
