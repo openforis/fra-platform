@@ -1,5 +1,6 @@
 import './Assessment.scss'
 import React from 'react'
+import { Redirect } from 'react-router'
 import { Route, Switch } from 'react-router-dom'
 
 import { Areas } from '@meta/area'
@@ -31,7 +32,8 @@ const Assessment: React.FC = () => {
 
       <MessageCenter />
       <Switch>
-        <Route path={BasePaths.Assessment.root()} component={AssessmentHome} />
+        <Redirect from={BasePaths.Assessment.root()} to={BasePaths.Assessment.home()} exact />
+        <Route path={BasePaths.Assessment.home()} component={AssessmentHome} />
         {/* <Route path={BasePaths.assessmentDataDownload} component={AssessmentDataDownload} /> */}
         <Route
           exact
