@@ -1,30 +1,38 @@
 import './countryListDownload.scss'
 import React from 'react'
 import { CSVLink } from 'react-csv'
-
-import * as Country from '@common/country/country'
+import { useTranslation } from 'react-i18next'
 
 import Icon from '@webapp/components/icon'
-import { useTranslation } from 'react-i18next'
-import { Dates } from '@client/utils'
-import { useUser } from '@client/store/user'
+
+import { Areas } from '@meta/area'
 import { Users } from '@meta/user'
 
-// TODO
+import { useCountries } from '@client/store/assessment'
+import { useUser, useUserCountries } from '@client/store/user'
+import { Dates } from '@client/utils'
 
 const CountryListDownload: React.FC = () => {
   const user = useUser()
   const { i18n } = useTranslation()
-  const userCountriesAsList: Array<Country> = [] // useUserCountriesAsList()
+  const countries = useCountries()
+  const userCountryISOs = useUserCountries()
 
   if (!Users.isAdministrator(user)) return null
 
-  const data = userCountriesAsList.map((country: any) => ({
-    name: i18n.t(`area.${country.countryIso}.listName`),
-    status: i18n.t(`assessment.status.${Country.getFra2020Assessment(country)}.label`),
-    edited: Dates.getRelativeDate(Country.getLastEdit(country), i18n) || i18n.t('audit.notStarted'),
-    deskStudy: i18n.t(`yesNoTextSelect.${Country.isFra2020DeskStudy(country) ? 'yes' : 'no'}`),
-  }))
+  const data = userCountryISOs.map((countryIso) => {
+    const country = countries.find((c) => c.countryIso === countryIso)
+    const { props, lastEdit } = country
+    const status = Areas.getStatus(country)
+
+    return {
+      name: i18n.t(`area.${countryIso}.listName`),
+      status: i18n.t(`assessment.status.${status}.label`),
+      edited: lastEdit ? Dates.getRelativeDate(country.lastEdit, i18n) : i18n.t('audit.notStarted'),
+      deskStudy: i18n.t(`yesNoTextSelect.${props.deskStudy ? 'yes' : 'no'}`),
+    }
+  })
+
   const headers = [
     { label: i18n.t('admin.country'), key: 'name' },
     { label: i18n.t('countryListing.fra2020'), key: 'status' },

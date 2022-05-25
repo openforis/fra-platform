@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import './countrySelect.scss'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -19,7 +18,7 @@ import CountryList from './CountryList'
 import LinkLanding from './LinkLanding'
 import ToggleNavigationControl from './ToggleNavigationControl'
 
-const findElementRoot = (el: any): any => {
+const findElementRoot = (el: Element): Element => {
   if (el.parentElement === null) return el
   return findElementRoot(el.parentElement)
 }
@@ -33,7 +32,6 @@ const CountrySelect: React.FC = () => {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
 
-  // tslint:disable-next-line: no-empty
   const outsideClick = (evt: any) => {
     const elRoot = findElementRoot(evt.target)
     // We need to check these two, since React can unmount the other element before we get here.
