@@ -26,9 +26,14 @@ const getTopicMessageAddEvent = (props: { assessment: Assessment; cycle: Cycle; 
   return `${topic.countryIso}-${assessment.props.name}-${cycle.name}-${topic.key}-message-add`
 }
 
-const getTopicMessageDeleteEvent = (props: { assessment: Assessment; cycle: Cycle; topic: MessageTopic }): string => {
-  const { assessment, cycle, topic } = props
-  return `${topic.countryIso}-${assessment.props.name}-${cycle.name}-${topic.key}-message-delete`
+const getTopicMessageDeleteEvent = (props: {
+  countryIso: CountryIso
+  assessment: Assessment
+  cycle: Cycle
+  topicKey: string
+}): string => {
+  const { countryIso, assessment, cycle, topicKey } = props
+  return `${countryIso}-${assessment.props.name}-${cycle.name}-${topicKey}-message-delete`
 }
 
 const getTopicStatusEvent = (props: { assessment: Assessment; cycle: Cycle; topic: MessageTopic }): string => {

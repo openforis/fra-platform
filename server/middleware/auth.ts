@@ -82,6 +82,36 @@ const requireEditMessageTopic = async (req: Request, _res: Response, next: NextF
   }
 }
 
+const requireDeleteTopicMessage = async (req: Request, _res: Response, next: NextFunction) => {
+  const { countryIso, assessmentName, cycleName, key, id } = <Record<string, string>>{
+    ...req.params,
+    ...req.query,
+    ...req.body,
+  }
+  const user = Requests.getRequestUser(req)
+
+  const { cycle, assessment } = await AssessmentController.getOneWithCycle({
+    name: assessmentName as AssessmentName,
+    cycleName,
+  })
+
+  const topic = await MessageCenterController.getTopic({
+    countryIso: countryIso as CountryIso,
+    assessment,
+    cycle,
+    key,
+    user,
+    includeMessages: true,
+  })
+
+  if (topic && topic.messages.length > 0) {
+    const message = topic.messages?.filter((message) => message.id === Number(id))
+    _next(!!message, next)
+  } else {
+    next(new Error(`messageNotFound`))
+  }
+}
+
 const requireResolveTopic = async (req: Request, _res: Response, next: NextFunction) => {
   const { countryIso } = <Record<string, string>>{ ...req.params, ...req.query }
   const user = Requests.getRequestUser(req)
@@ -92,6 +122,7 @@ export const AuthMiddleware = {
   requireEdit,
   requireView,
   requireAdmin,
+  requireDeleteTopicMessage,
   requireResolveTopic,
   requireEditMessageTopic,
 }
