@@ -4,6 +4,7 @@ import { Route, Switch, useParams } from 'react-router-dom'
 
 import { Areas } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
+import { Sockets } from '@meta/socket/sockets'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment } from '@client/store/assessment'
@@ -18,6 +19,7 @@ import Navigation from '@client/components/Navigation'
 import AssessmentSection from '@client/pages/AssessmentSection'
 import DataExport from '@client/pages/DataExport'
 import OriginalDataPoint from '@client/pages/OriginalDataPoint'
+import { SocketClient } from '@client/service/socket'
 
 import SectionWrapper from './SectionWrapper'
 
@@ -31,12 +33,25 @@ const Assessment: React.FC = () => {
   const isDataExport = countryIso && !Areas.isISOCountry(countryIso)
 
   useEffect(() => {
+    const requestReviewSummaryEvent = Sockets.getRequestReviewSummaryEvent({ countryIso, assessmentName, cycleName })
+
+    const updateReviewSummaryEventHandler = () => {
+      dispatch(ReviewActions.getReviewSummary({ countryIso, assessmentName, cycleName }))
+    }
+
     if (user) {
       // fetch review summary
       dispatch(ReviewActions.getReviewSummary({ countryIso, assessmentName, cycleName }))
+      SocketClient.on(requestReviewSummaryEvent, updateReviewSummaryEventHandler)
     } else {
       // reset review summary
       dispatch(ReviewActions.reset())
+    }
+
+    return () => {
+      if (user) {
+        SocketClient.off(requestReviewSummaryEvent, updateReviewSummaryEventHandler)
+      }
     }
   }, [countryIso, assessmentName, cycleName, user])
 
