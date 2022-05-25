@@ -35,9 +35,6 @@ const Topic: React.FC<TopicProps> = (props) => {
   const cycle = useCycle()
   const user = useUser()
 
-  const messageEvent = Sockets.getTopicMessageEvent({ assessment, cycle, topic })
-  const statusEvent = Sockets.getTopicStatusEvent({ assessment, cycle, topic })
-
   const { section } = useParams<{ section?: string }>()
 
   const closeTopic = useCallback(() => {
@@ -70,6 +67,9 @@ const Topic: React.FC<TopicProps> = (props) => {
   }, [countryIso, assessment, cycle, topic, message, dispatch, section])
 
   useEffect(() => {
+    const messageAddEvent = Sockets.getTopicMessageAddEvent({ assessment, cycle, topic })
+    const statusEvent = Sockets.getTopicStatusEvent({ assessment, cycle, topic })
+
     const newMessageEventHandler = (args: [message: Message]) => {
       const [message] = args
       dispatch(MessageCenterActions.addMessage({ message, topic }))
@@ -80,10 +80,10 @@ const Topic: React.FC<TopicProps> = (props) => {
       dispatch(MessageCenterActions.changeStatus({ status, topic }))
     }
 
-    SocketClient.on(messageEvent, newMessageEventHandler).on(statusEvent, changeStatusEventHandler)
+    SocketClient.on(messageAddEvent, newMessageEventHandler).on(statusEvent, changeStatusEventHandler)
 
     return () => {
-      SocketClient.off(messageEvent, newMessageEventHandler).off(statusEvent, changeStatusEventHandler)
+      SocketClient.off(messageAddEvent, newMessageEventHandler).off(statusEvent, changeStatusEventHandler)
     }
   }, [])
 
