@@ -13,20 +13,23 @@ import { sendRequestReviewUpdateEvents } from './sendRequestReviewUpdateEvents'
 
 export const markMessageDeleted = async (req: Request, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName, topicKey, id } = req.query as {
+    const { countryIso, assessmentName, cycleName, topicKey, messageId } = req.query as {
       countryIso: CountryIso
       assessmentName: AssessmentName
       cycleName: string
       topicKey: string
-      id: string
+      messageId: string
     }
     const user = Requests.getRequestUser(req)
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName })
 
-    await MessageCenterController.markMessageDeleted({ user, assessment, cycle, id: Number(id) })
+    await MessageCenterController.markMessageDeleted({ user, assessment, cycle, id: Number(messageId) })
 
-    SocketServer.emit(Sockets.getTopicMessageDeleteEvent({ countryIso, assessment, cycle, topicKey }), { topicKey, id })
+    SocketServer.emit(Sockets.getTopicMessageDeleteEvent({ countryIso, assessment, cycle, topicKey }), {
+      topicKey,
+      messageId,
+    })
 
     sendRequestReviewUpdateEvents({ countryIso, assessmentName, cycleName, topicKey })
 

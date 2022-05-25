@@ -83,7 +83,13 @@ const requireEditMessageTopic = async (req: Request, _res: Response, next: NextF
 }
 
 const requireDeleteTopicMessage = async (req: Request, _res: Response, next: NextFunction) => {
-  const { countryIso, assessmentName, cycleName, key, id } = <Record<string, string>>{
+  const {
+    countryIso,
+    assessmentName,
+    cycleName,
+    topicKey: key,
+    id,
+  } = <Record<string, string>>{
     ...req.params,
     ...req.query,
     ...req.body,
@@ -105,7 +111,7 @@ const requireDeleteTopicMessage = async (req: Request, _res: Response, next: Nex
   })
 
   if (topic && topic.messages.length > 0) {
-    const message = topic.messages?.filter((message) => message.id === Number(id))
+    const message = topic.messages.filter((message) => message.id === Number(id))
     _next(!!message, next)
   } else {
     next(new Error(`messageNotFound`))

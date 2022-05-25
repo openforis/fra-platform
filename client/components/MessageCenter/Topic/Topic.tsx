@@ -69,10 +69,11 @@ const Topic: React.FC<TopicProps> = (props) => {
   const deleteMessage = (id: number) =>
     dispatch(
       MessageCenterActions.markMessageDeleted({
+        countryIso,
         assessmentName: assessment.props.name,
         cycleName: cycle.name,
-        messageId: id,
         topicKey: topic.key,
+        messageId: id,
       })
     )
 
