@@ -26,6 +26,11 @@ export const BasePaths = {
       assessmentName: AssessmentName | defaults.assessmentName = defaults.assessmentName,
       cycleName: string = defaults.cycleName
     ) => _generate(countryIso, 'assessments', assessmentName, cycleName),
+    home: (
+      countryIso: CountryIso | defaults.countryIso | string = defaults.countryIso,
+      assessmentName: AssessmentName | defaults.assessmentName = defaults.assessmentName,
+      cycleName: string = defaults.cycleName
+    ) => _generate(countryIso, 'assessments', assessmentName, cycleName, 'home'),
 
     section: (
       countryIso: CountryIso | defaults.countryIso = defaults.countryIso,

@@ -1,5 +1,6 @@
 import './Assessment.scss'
 import React, { useEffect } from 'react'
+import { Redirect } from 'react-router'
 import { Route, Switch, useParams } from 'react-router-dom'
 
 import { Areas } from '@meta/area'
@@ -15,6 +16,7 @@ import { useUser } from '@client/store/user'
 import { useCountryIso, useOnUpdate } from '@client/hooks'
 import { BasePaths } from '@client/basePaths'
 import Navigation from '@client/components/Navigation'
+import AssessmentHome from '@client/pages/AssessmentHome'
 import AssessmentSection from '@client/pages/AssessmentSection'
 import DataExport from '@client/pages/DataExport'
 import OriginalDataPoint from '@client/pages/OriginalDataPoint'
@@ -69,7 +71,8 @@ const Assessment: React.FC = () => {
       <Navigation />
 
       <Switch>
-        {/* <Route path={BasePaths.assessmentHome} component={AssessmentHome} /> */}
+        <Redirect from={BasePaths.Assessment.root()} to={BasePaths.Assessment.home()} exact />
+        <Route path={BasePaths.Assessment.home()} component={AssessmentHome} />
         {/* <Route path={BasePaths.assessmentDataDownload} component={AssessmentDataDownload} /> */}
         <Route
           exact
