@@ -13,9 +13,10 @@ import Icon from '@client/components/Icon'
 type MessageProps = {
   message: MessageType
   isMine: boolean
+  deleteFunc: (id: number) => void
 }
 
-const TopicMessage: React.FC<MessageProps> = ({ message, isMine = false }) => {
+const TopicMessage: React.FC<MessageProps> = ({ message, isMine = false, deleteFunc }) => {
   const { i18n } = useTranslation()
 
   const elementRef = useRef<HTMLDivElement>()
@@ -32,7 +33,11 @@ const TopicMessage: React.FC<MessageProps> = ({ message, isMine = false }) => {
           <div className={classNames('message-author', { 'author-me': isMine })}>{message.user.name}</div>
 
           {isMine && (
-            <button type="button" className="btn-xs btn-secondary btn-remove-msg" onClick={() => null}>
+            <button
+              type="button"
+              className="btn-xs btn-secondary btn-remove-msg"
+              onClick={() => deleteFunc(message.id)}
+            >
               <Icon name="trash-simple" />
             </button>
           )}

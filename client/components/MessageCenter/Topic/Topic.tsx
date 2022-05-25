@@ -66,8 +66,19 @@ const Topic: React.FC<TopicProps> = (props) => {
     ).then(() => setMessage(''))
   }, [countryIso, assessment, cycle, topic, message, dispatch, section])
 
+  const deleteMessage = (id: number) =>
+    dispatch(
+      MessageCenterActions.markMessageDeleted({
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
+        messageId: id,
+        topicKey: topic.key,
+      })
+    )
+
   useEffect(() => {
     const messageAddEvent = Sockets.getTopicMessageAddEvent({ assessment, cycle, topic })
+    const messageDeleteEvent = Sockets.getTopicMessageAddEvent({ assessment, cycle, topic })
     const statusEvent = Sockets.getTopicStatusEvent({ assessment, cycle, topic })
 
     const newMessageEventHandler = (args: [message: Message]) => {
@@ -75,15 +86,24 @@ const Topic: React.FC<TopicProps> = (props) => {
       dispatch(MessageCenterActions.addMessage({ message, topic }))
     }
 
+    const deleteMessageEventHandler = (args: [arg: { messageId: number; topicKey: string }]) => {
+      const { messageId, topicKey } = args[0]
+      dispatch(MessageCenterActions.deleteMessage({ messageId, topicKey }))
+    }
+
     const changeStatusEventHandler = (args: [status: MessageTopicStatus]) => {
       const [status] = args
       dispatch(MessageCenterActions.changeStatus({ status, topic }))
     }
 
-    SocketClient.on(messageAddEvent, newMessageEventHandler).on(statusEvent, changeStatusEventHandler)
+    SocketClient.on(messageAddEvent, newMessageEventHandler)
+      .on(statusEvent, changeStatusEventHandler)
+      .on(messageDeleteEvent, deleteMessageEventHandler)
 
     return () => {
-      SocketClient.off(messageAddEvent, newMessageEventHandler).off(statusEvent, changeStatusEventHandler)
+      SocketClient.off(messageAddEvent, newMessageEventHandler)
+        .off(statusEvent, changeStatusEventHandler)
+        .off(messageDeleteEvent, deleteMessageEventHandler)
     }
   }, [])
 
@@ -101,7 +121,12 @@ const Topic: React.FC<TopicProps> = (props) => {
       <div className={classNames('topic-body', { empty: Objects.isEmpty(topic.messages) })}>
         {!Objects.isEmpty(topic.messages) ? (
           topic.messages.map((message) => (
-            <MessageComponent key={message.id} message={message} isMine={Number(message.userId) === Number(user.id)} />
+            <MessageComponent
+              key={message.id}
+              message={message}
+              isMine={Number(message.userId) === Number(user.id)}
+              deleteFunc={deleteMessage}
+            />
           ))
         ) : (
           <div className="no-comments">
