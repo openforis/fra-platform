@@ -14,7 +14,6 @@ import { ReviewActions } from '@client/store/ui/review'
 import { useUser } from '@client/store/user'
 import { useCountryIso, useOnUpdate } from '@client/hooks'
 import { BasePaths } from '@client/basePaths'
-import MessageCenter from '@client/components/MessageCenter'
 import Navigation from '@client/components/Navigation'
 import AssessmentSection from '@client/pages/AssessmentSection'
 import DataExport from '@client/pages/DataExport'
@@ -69,7 +68,6 @@ const Assessment: React.FC = () => {
     <div className={`app-view ${navigationVisible ? ' navigation-on' : ''}`}>
       <Navigation />
 
-      <MessageCenter />
       <Switch>
         {/* <Route path={BasePaths.assessmentHome} component={AssessmentHome} /> */}
         {/* <Route path={BasePaths.assessmentDataDownload} component={AssessmentDataDownload} /> */}

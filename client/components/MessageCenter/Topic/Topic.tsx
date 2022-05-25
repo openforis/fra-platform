@@ -35,7 +35,7 @@ const Topic: React.FC<TopicProps> = (props) => {
   const cycle = useCycle()
   const user = useUser()
 
-  const { section } = useParams<{ section?: string }>()
+  const { section } = useParams<{ section: string }>()
 
   const closeTopic = useCallback(() => {
     dispatch(MessageCenterActions.closeTopic({ key: topic.key }))
@@ -48,6 +48,7 @@ const Topic: React.FC<TopicProps> = (props) => {
         assessmentName: assessment.props.name,
         cycleName: cycle.name,
         key: topic.key,
+        section,
       })
     )
   }, [countryIso, assessment, cycle, topic, dispatch])
@@ -74,6 +75,7 @@ const Topic: React.FC<TopicProps> = (props) => {
         cycleName: cycle.name,
         topicKey: topic.key,
         messageId: id,
+        section,
       })
     )
 

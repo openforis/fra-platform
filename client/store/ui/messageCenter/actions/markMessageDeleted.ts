@@ -8,6 +8,7 @@ import { AssessmentName } from '@meta/assessment'
 type Params = {
   countryIso: CountryIso
   assessmentName: AssessmentName
+  section: string
   cycleName: string
   topicKey: string
   messageId: number
@@ -15,8 +16,7 @@ type Params = {
 
 export const markMessageDeleted = createAsyncThunk<void, Params>(
   'messageCenter/topicMessage/markDeleted',
-  async ({ countryIso, assessmentName, cycleName, topicKey, messageId }) => {
-    const params = { countryIso, assessmentName, cycleName, topicKey, messageId }
+  async (params) => {
     await axios.delete(ApiEndPoint.MessageCenter.Topic.getMessage(), { params })
   }
 )

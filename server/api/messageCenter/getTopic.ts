@@ -11,10 +11,11 @@ import { sendRequestReviewUpdateEvents } from './sendRequestReviewUpdateEvents'
 
 export const getTopic = async (req: Request, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName, key } = req.query as {
+    const { countryIso, assessmentName, cycleName, key, section } = req.query as {
       countryIso: CountryIso
       assessmentName: AssessmentName
       cycleName: string
+      section: string
       key: string
     }
     const user = Requests.getRequestUser(req)
@@ -30,7 +31,7 @@ export const getTopic = async (req: Request, res: Response) => {
     })
 
     if (topic) {
-      sendRequestReviewUpdateEvents({ countryIso, assessmentName, cycleName, topicKey: key })
+      sendRequestReviewUpdateEvents({ topic, countryIso, assessmentName, cycleName, sectionName: section })
     }
 
     Requests.sendOk(res, topic)

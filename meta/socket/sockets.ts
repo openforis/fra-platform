@@ -15,9 +15,10 @@ const getRequestReviewStatusEvent = (props: {
   countryIso: CountryIso
   assessmentName: AssessmentName
   cycleName: string
+  sectionName: string
 }) => {
-  const { countryIso, assessmentName, cycleName } = props
-  return `${countryIso}-${assessmentName}-${cycleName}-request-review-status`
+  const { countryIso, assessmentName, cycleName, sectionName } = props
+  return `${countryIso}-${assessmentName}-${cycleName}-${sectionName}-request-review-status`
 }
 
 const getTopicMessageAddEvent = (props: { assessment: Assessment; cycle: Cycle; topic: MessageTopic }): string => {

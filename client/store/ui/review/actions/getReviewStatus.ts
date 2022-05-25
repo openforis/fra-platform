@@ -13,11 +13,7 @@ type Params = {
   odpId?: number
 }
 
-export const getReviewStatus = createAsyncThunk<Array<ReviewStatus>, Params>(
-  'review/status/get',
-  async ({ countryIso, assessmentName, cycleName, section, odpId }) => {
-    const params = { countryIso, assessmentName, cycleName, section, odpId }
-    const { data } = await axios.get(ApiEndPoint.Review.status.many(), { params })
-    return data
-  }
-)
+export const getReviewStatus = createAsyncThunk<Array<ReviewStatus>, Params>('review/status/get', async (params) => {
+  const { data } = await axios.get(ApiEndPoint.Review.status.many(), { params })
+  return data
+})

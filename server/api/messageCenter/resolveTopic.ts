@@ -14,9 +14,10 @@ import { sendRequestReviewUpdateEvents } from './sendRequestReviewUpdateEvents'
 
 export const resolveTopic = async (req: Request, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName, key } = req.query as {
+    const { countryIso, assessmentName, cycleName, key, section } = req.query as {
       countryIso: CountryIso
       assessmentName: AssessmentName
+      section: string
       cycleName: string
       key: string
     }
@@ -24,10 +25,7 @@ export const resolveTopic = async (req: Request, res: Response) => {
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName })
 
-    const {
-      topic: topicUpdated,
-      topic: { type },
-    } = await MessageCenterController.updateTopicStatus({
+    const topic = await MessageCenterController.updateTopicStatus({
       user,
       countryIso,
       assessment,
@@ -36,24 +34,21 @@ export const resolveTopic = async (req: Request, res: Response) => {
       status: MessageTopicStatus.resolved,
     })
 
-    SocketServer.emit(
-      Sockets.getTopicStatusEvent({ assessment, cycle, topic: topicUpdated }),
-      MessageTopicStatus.resolved
-    )
+    SocketServer.emit(Sockets.getTopicStatusEvent({ assessment, cycle, topic }), MessageTopicStatus.resolved)
 
-    const { topic, message: messageCreated } = await MessageCenterController.addMessage({
+    const { message } = await MessageCenterController.addMessage({
       message: 'Marked as resolved',
       user,
       countryIso,
       assessment,
       cycle,
       key,
-      type,
+      type: topic.type,
     })
 
-    SocketServer.emit(Sockets.getTopicMessageAddEvent({ assessment, cycle, topic }), messageCreated)
+    SocketServer.emit(Sockets.getTopicMessageAddEvent({ assessment, cycle, topic }), message)
 
-    sendRequestReviewUpdateEvents({ countryIso, assessmentName, cycleName, topicKey: key })
+    sendRequestReviewUpdateEvents({ topic, countryIso, assessmentName, cycleName, sectionName: section })
 
     Requests.sendOk(res)
   } catch (e) {

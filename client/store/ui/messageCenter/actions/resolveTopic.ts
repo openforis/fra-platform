@@ -8,13 +8,10 @@ type Params = {
   countryIso: CountryIso
   assessmentName: string
   cycleName: string
+  section: string
   key: string
 }
 
-export const resolveTopic = createAsyncThunk<void, Params>(
-  'messageCenter/topic/resolve',
-  async ({ countryIso, assessmentName, cycleName, key }) => {
-    const params = { countryIso, assessmentName, cycleName, key }
-    await axios.put(ApiEndPoint.MessageCenter.Topic.resolveTopic(), {}, { params })
-  }
-)
+export const resolveTopic = createAsyncThunk<void, Params>('messageCenter/topic/resolve', async (params) => {
+  await axios.put(ApiEndPoint.MessageCenter.Topic.resolveTopic(), {}, { params })
+})

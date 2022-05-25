@@ -17,8 +17,7 @@ type Params = {
 
 export const postMessage = createAsyncThunk<void, Params>(
   'messageCenter/topicMessage/post',
-  async ({ countryIso, assessmentName, cycleName, key, message, type, section }) => {
-    const params = { countryIso, assessmentName, cycleName, key, type, section }
+  async ({ message, ...params }) => {
     await axios.post(ApiEndPoint.MessageCenter.Topic.getMessage(), { message }, { params })
   }
 )

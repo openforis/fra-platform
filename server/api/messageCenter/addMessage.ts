@@ -14,10 +14,11 @@ import { sendRequestReviewUpdateEvents } from './sendRequestReviewUpdateEvents'
 
 export const addMessage = async (req: Request, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName, key, type } = req.query as {
+    const { countryIso, assessmentName, cycleName, key, type, section } = req.query as {
       countryIso: CountryIso
       assessmentName: AssessmentName
       cycleName: string
+      section: string
       key: string
       type: MessageTopicType
     }
@@ -39,7 +40,7 @@ export const addMessage = async (req: Request, res: Response) => {
     SocketServer.emit(Sockets.getTopicMessageAddEvent({ assessment, cycle, topic }), messageCreated)
 
     if (topic.status === MessageTopicStatus.resolved) {
-      const { topic: topicUpdated } = await MessageCenterController.updateTopicStatus({
+      const topicUpdated = await MessageCenterController.updateTopicStatus({
         user,
         countryIso,
         assessment,
@@ -54,7 +55,7 @@ export const addMessage = async (req: Request, res: Response) => {
       )
     }
 
-    sendRequestReviewUpdateEvents({ countryIso, assessmentName, cycleName, topicKey: key })
+    sendRequestReviewUpdateEvents({ countryIso, assessmentName, cycleName, sectionName: section, topic })
 
     Requests.sendOk(res)
   } catch (e) {

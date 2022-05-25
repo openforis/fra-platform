@@ -9,6 +9,7 @@ import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import { ReviewActions } from '@client/store/ui/review'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
+import MessageCenter from '@client/components/MessageCenter'
 import { SocketClient } from '@client/service/socket'
 import { DOMs } from '@client/utils/dom'
 
@@ -41,25 +42,35 @@ const SectionWrapper: React.FC = (props) => {
 
   // fetch section review status
   useEffect(() => {
-    const requestReviewStatusEvent = Sockets.getRequestReviewStatusEvent({ countryIso, assessmentName, cycleName })
+    const requestReviewStatusEvent = Sockets.getRequestReviewStatusEvent({
+      countryIso,
+      assessmentName,
+      cycleName,
+      sectionName: section,
+    })
 
-    const updateReviewStatusEventHandler = () => {
+    const updateReviewStatus = () => {
       dispatch(ReviewActions.getReviewStatus({ countryIso, assessmentName, cycleName, section }))
     }
 
     if (user) {
-      dispatch(ReviewActions.getReviewStatus({ countryIso, assessmentName, cycleName, section }))
-      SocketClient.on(requestReviewStatusEvent, updateReviewStatusEventHandler)
+      updateReviewStatus()
+      SocketClient.on(requestReviewStatusEvent, updateReviewStatus)
     }
 
     return () => {
       if (user) {
-        SocketClient.off(requestReviewStatusEvent, updateReviewStatusEventHandler)
+        SocketClient.off(requestReviewStatusEvent, updateReviewStatus)
       }
     }
   }, [countryIso, assessmentName, cycleName, section, user])
 
-  return <>{React.Children.toArray(children)}</>
+  return (
+    <>
+      <MessageCenter />
+      {React.Children.toArray(children)}
+    </>
+  )
 }
 
 export default SectionWrapper

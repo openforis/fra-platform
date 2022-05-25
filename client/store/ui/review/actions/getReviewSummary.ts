@@ -11,11 +11,7 @@ type Params = {
   cycleName: string
 }
 
-export const getReviewSummary = createAsyncThunk<Array<ReviewSummary>, Params>(
-  'review/summary/get',
-  async ({ countryIso, assessmentName, cycleName }) => {
-    const params = { countryIso, assessmentName, cycleName }
-    const { data } = await axios.get(ApiEndPoint.Review.summary.many(), { params })
-    return data
-  }
-)
+export const getReviewSummary = createAsyncThunk<Array<ReviewSummary>, Params>('review/summary/get', async (params) => {
+  const { data } = await axios.get(ApiEndPoint.Review.summary.many(), { params })
+  return data
+})
