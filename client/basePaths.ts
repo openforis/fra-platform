@@ -15,9 +15,11 @@ const _generate = (...parts: any[]) => `/${parts.filter(Boolean).join('/')}`
 
 export const BasePaths = {
   Root: () => '/',
+
   Admin: {
     root: () => '/admin',
   },
+
   Assessment: {
     root: (
       countryIso: CountryIso | defaults.countryIso | string = defaults.countryIso,
@@ -68,6 +70,7 @@ export const BasePaths = {
         ),
     },
   },
+
   Login: {
     root: () => '/login',
     resetPassword: () => `/login/resetPassword`,
@@ -77,6 +80,7 @@ export const BasePaths = {
   User: {
     root: (id: number | defaults.id = defaults.id) => `/user/${id}`,
   },
+
   Geo: {
     root: (countryIso: CountryIso | defaults.countryIso | string = defaults.countryIso) => `/${countryIso}/geo`,
   },

@@ -1,10 +1,12 @@
-import { useAppSelector } from '@client/store'
-import { Assessment, Section, SubSection } from '@meta/assessment'
-import { Country, CountryIso, RegionGroup } from '@meta/area'
-
 import { useTranslation } from 'react-i18next'
-import { Strings } from '@core/utils'
 import { useParams } from 'react-router-dom'
+
+import { Strings } from '@core/utils'
+
+import { Country, CountryIso, RegionGroup } from '@meta/area'
+import { Assessment, Section, SubSection } from '@meta/assessment'
+
+import { useAppSelector } from '@client/store'
 import { useCountryIso } from '@client/hooks'
 
 export { useCycle } from './useCycle'
@@ -38,6 +40,15 @@ export const useCountries = (): Array<Country> => {
   return Object.values(countries).sort((c1, c2) => compareListName(c1.countryIso, c2.countryIso))
 }
 
+export const useCountry = (countryIso?: CountryIso): Country =>
+  useAppSelector((state) => state.assessment.countries[countryIso])
+
+export const useAssessmentCountry = (): Country => {
+  const countryIso = useCountryIso()
+  if (!countryIso) throw new Error(`Unable to find countryIso parameter`)
+  return useCountry(countryIso)
+}
+
 export const useRegionGroups = (): Record<string, RegionGroup> =>
   useAppSelector((state) => state.assessment?.regionGroups ?? {})
 
@@ -48,10 +59,4 @@ export const useAssessmentSection = (): SubSection => {
   return sections
     ?.find((section) => section.subSections.find((subSection) => subSection.props.name === sectionName))
     .subSections.find((subSection) => subSection.props.name === sectionName)
-}
-
-export const useAssessmentCountry = (): Country => {
-  const countryIso = useCountryIso()
-  if (!countryIso) throw new Error(`Unable to find countryIso parameter`)
-  return useAppSelector((state) => state.assessment.countries[countryIso])
 }
