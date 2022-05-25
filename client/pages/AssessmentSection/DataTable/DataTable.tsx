@@ -131,7 +131,6 @@ const DataTable: React.FC<Props> = (props) => {
         sectionName={sectionName}
         sectionAnchor={sectionAnchor}
         table={table}
-        rows={rows}
         data={data}
         disabled={disabled}
       />

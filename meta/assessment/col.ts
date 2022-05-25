@@ -15,6 +15,17 @@ export enum ColType {
   // placeholder = 'placeholder',
 }
 
+export interface ColSelectOption {
+  hidden?: boolean
+  name: string
+  type?: 'header' | undefined
+}
+
+export interface ColSelectProps {
+  options: Array<ColSelectOption>
+  labelKeyPrefix?: string
+}
+
 export interface ColProps {
   colName?: string
   colSpan?: number
@@ -25,6 +36,8 @@ export interface ColProps {
   variableNo?: string
   // calculated props
   calculateFn?: string
+  // select props
+  select?: ColSelectProps
 }
 
 export interface Col extends CycledPropsObject<ColProps> {

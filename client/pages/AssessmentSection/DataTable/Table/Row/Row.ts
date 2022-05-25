@@ -1,11 +1,13 @@
 import React from 'react'
 
 import { RowType } from '@meta/assessment'
+
 import { useUser } from '@client/store/user'
-import RowData from './RowData'
-import RowValidation from './RowValidation'
-import RowNoticeMessage from './RowNoticeMessage'
+
 import { Props } from './props'
+import RowData from './RowData'
+import RowNoticeMessage from './RowNoticeMessage'
+import RowValidation from './RowValidation'
 
 const Components: Record<string, React.FC<Props>> = {
   [RowType.data]: RowData,
@@ -19,7 +21,8 @@ const Row: React.FC<Props> = (props) => {
   const user = useUser()
   const { type } = row.props
 
-  if ([RowType.validationMessages, RowType.noticeMessage].includes(type)) return null
+  // TODO: validation
+  if ([RowType.validationMessages].includes(type)) return null
 
   // validation error rows are hidden in public view
   if (type === RowType.validationMessages && !user) {

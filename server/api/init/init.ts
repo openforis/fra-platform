@@ -1,23 +1,16 @@
 import { Request, Response } from 'express'
-import Requests from '@server/utils/requests'
+
 import { AssessmentController } from '@server/controller/assessment'
 import { SettingsController } from '@server/controller/settings'
+import Requests from '@server/utils/requests'
 
 export const init = async (req: Request, res: Response) => {
-  const assessmentName = req.query.name as string
+  const { name } = req.query as { name: string }
+
   try {
-    let assessment
-    let cycle
-    if (!assessmentName) {
-      const settings = await SettingsController.read()
-      ;({ assessment, cycle } = await AssessmentController.getOneWithCycle({
-        id: settings.defaultAssessmentId,
-      }))
-    } else {
-      ;({ assessment, cycle } = await AssessmentController.getOneWithCycle({
-        name: assessmentName,
-      }))
-    }
+    const settings = await SettingsController.read()
+    const props = name ? { name } : { id: settings.defaultAssessmentId }
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle(props)
 
     const [countries, regionGroups] = await Promise.all([
       AssessmentController.getCountries({ assessment, cycle }),

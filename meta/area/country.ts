@@ -1,4 +1,5 @@
 import { CountryIso } from './countryIso'
+import { RegionCode } from './regionCode'
 
 export enum AssessmentStatus {
   editing = 'editing',
@@ -42,6 +43,7 @@ export interface CountryProps {
 
 export interface Country {
   countryIso: CountryIso
+  lastEdit?: string
   props?: CountryProps
-  regionCodes?: Array<string>
+  regionCodes?: Array<RegionCode>
 }

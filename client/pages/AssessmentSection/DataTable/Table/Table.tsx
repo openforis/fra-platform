@@ -1,9 +1,8 @@
 import React, { useRef } from 'react'
-// import CellOdpHeader from './CellOdpHeader'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { AssessmentName, Col, Row as TypeRow, RowType, Table as TableType } from '@meta/assessment'
+import { AssessmentName, Col as TypeCol, Row as TypeRow, RowType, Table as TableType } from '@meta/assessment'
 import { TableData } from '@meta/data'
 
 import { useAssessmentCountry, useCycle } from '@client/store/assessment'
@@ -14,6 +13,7 @@ import ButtonTableExport from '@client/components/ButtonTableExport'
 import Tooltip from '@client/components/Tooltip'
 import * as DataTableUtils from '@client/pages/AssessmentSection/DataTable/utils'
 
+import { parseTable } from './parseTable'
 import Row from './Row'
 
 type Props = {
@@ -21,31 +21,31 @@ type Props = {
   sectionName: string
   sectionAnchor: string
   table: TableType
-  rows: Array<TypeRow>
   data: TableData
   disabled: boolean
 }
 
 const Table: React.FC<Props> = (props) => {
-  const { assessmentName, sectionName, sectionAnchor, table, rows, data, disabled } = props
+  const { assessmentName, sectionName, sectionAnchor, table: tableProps, data, disabled } = props
 
   const cycle = useCycle()
   const { i18n } = useTranslation()
   const odpYears = useOriginalDataPointYears()
   const showOriginalDatapoints = useShowOriginalDatapoints()
 
-  const [printView] = [false] // usePrintView()
-
-  const countryIso = useCountryIso()
-  const { odp, secondary } = table.props
-  const rowsHeader = rows.filter((row) => row.props.type === RowType.header)
-  const rowsData = rows.filter((row) => row.props.type !== RowType.header)
-  const tableRef = useRef<HTMLTableElement>(null)
-  const displayTableExportButton = !secondary && !printView && tableRef.current != null
   const country = useAssessmentCountry()
+  const countryIso = useCountryIso()
+  const [printView] = [false] // usePrintView()
+  const tableRef = useRef<HTMLTableElement>(null)
 
   // Get headers from data
-  const headers = DataTableUtils.getHeaders(data, countryIso, table)
+  const headers = DataTableUtils.getHeaders(data, countryIso, tableProps)
+  const table = parseTable({ headers, table: tableProps })
+  const { odp, secondary } = table.props
+  const rowsHeader = table.rows.filter((row) => row.props.type === RowType.header)
+  const rowsData = table.rows.filter((row) => row.props.type !== RowType.header)
+  const displayTableExportButton = !secondary && !printView && tableRef.current != null
+
   return (
     <div className={`fra-table__container${secondary ? ' fra-secondary-table__wrapper' : ''}`}>
       <div className="fra-table__scroll-wrapper">
@@ -57,7 +57,7 @@ const Table: React.FC<Props> = (props) => {
           <thead>
             {rowsHeader.map((row: TypeRow, rowIndex: number) => (
               <tr key={row.uuid}>
-                {row.cols.map((col: Col, colIndex: number) => {
+                {row.cols.map((col: TypeCol, colIndex: number) => {
                   const { index, /* idx, className, */ colSpan, rowSpan, label /* labelParams,  label */ } = col.props
                   const columnName = headers[colIndex]
 
@@ -108,18 +108,6 @@ const Table: React.FC<Props> = (props) => {
                 })}
               </tr>
             ))}
-
-            {/* TODO */}
-            {/* {odp && ( */}
-            {/*  <tr> */}
-            {/*    {data.map((datum) => { */}
-            {/*      const datumODP = datum as TableDatumODP */}
-            {/*      return ( */}
-            {/*        <CellOdpHeader key={datumODP.name || datumODP.year} sectionName={sectionName} datum={datumODP} /> */}
-            {/*      ) */}
-            {/*    })} */}
-            {/*  </tr> */}
-            {/* )} */}
           </thead>
 
           <tbody>

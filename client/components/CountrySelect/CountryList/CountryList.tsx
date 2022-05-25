@@ -1,54 +1,44 @@
 import './countryList.scss'
 import React from 'react'
-
-import { Areas, CountryIso, Global, RegionCode } from '@meta/area'
-import { noRole } from '@common/countryRole'
-
-import { useCountries, useRegionGroups } from '@client/store/assessment'
 import { useTranslation } from 'react-i18next'
-import { useUser, useUserCountries } from '@client/store/user'
-import { RoleName, Users } from '@meta/user'
-import { checkMatch } from '../utils/checkMatch'
 
-// import CountryListDownload from './CountryListDownload'
-import CountryListRow from './CountryListRow'
+import { noRole } from '@common/countryRole'
+import { i18n } from 'i18next'
+
+import { Areas, Global, Region, RegionCode } from '@meta/area'
+
+import { useRegionGroups } from '@client/store/assessment'
+
+import { checkMatch } from '../utils/checkMatch'
+import { useUserCountryISOs } from './hooks/useUserCountryISOs'
+import CountryListDownload from './CountryListDownload'
 import CountryListRoleSection from './CountryListRoleSection'
+import CountryListRow from './CountryListRow'
 
 type Props = {
   query: string
+}
+
+const filterRegions = (props: { regions: Array<Region>; query: string; i18n: i18n }): Array<Region> => {
+  const { i18n, query, regions } = props
+
+  return regions.filter(({ regionCode }) => {
+    const regionLabel = i18n.t(Areas.getTranslationKey(regionCode))
+    const matchQuery = checkMatch(regionLabel, query)
+    return regionCode !== RegionCode.FE && matchQuery
+  })
 }
 
 const CountryList: React.FC<Props> = (props: Props) => {
   const { query } = props
 
   const { i18n } = useTranslation()
-
-  const allCountries = useCountries()
   const regionGroups = useRegionGroups()
-  const user = useUser()
-  const userCountries = useUserCountries()
-
-  const filterRegions = (regions: any) =>
-    regions
-      .filter((region: any) => checkMatch(i18n.t(Areas.getTranslationKey(region.regionCode)), query))
-      .filter((region: any) => region.regionCode !== RegionCode.FE)
-
-  const countryMap: Record<string, Array<CountryIso>> = {}
-  if (Users.isAdministrator(user)) {
-    countryMap[RoleName.ADMINISTRATOR] = [...userCountries]
-  } else {
-    user?.roles.forEach((role) => {
-      if (!Array.isArray(countryMap[role.role])) countryMap[role.role] = []
-      countryMap[role.role].push(role.countryIso)
-    })
-    countryMap[noRole.role] = allCountries
-      .map((c) => c.countryIso)
-      .filter((countryIso: CountryIso) => !userCountries?.includes(countryIso))
-  }
+  const countryMap = useUserCountryISOs()
 
   return (
     <div className="country-selection-list">
-      {/* <CountryListDownload /> */}
+      <CountryListDownload />
 
       <div className="country-selection-list__content">
         <div className="country-selection-list__global">
@@ -58,13 +48,15 @@ const CountryList: React.FC<Props> = (props: Props) => {
               <hr />
             </>
           )}
-          {Object.entries(regionGroups).map(([order, regionGroup]: any) => {
+
+          {Object.entries(regionGroups).map(([order, regionGroup]) => {
+            const regions = filterRegions({ regions: regionGroup.regions, query, i18n })
             return (
               <div key={order}>
-                {filterRegions(regionGroup.regions).map(({ regionCode }: any) => (
+                {regions.map(({ regionCode }) => (
                   <CountryListRow key={regionCode} role={noRole.role} country={{ countryIso: regionCode }} />
                 ))}
-                {filterRegions(regionGroup.regions).length > 0 && <hr />}
+                {regions.length > 0 && <hr />}
               </div>
             )
           })}
