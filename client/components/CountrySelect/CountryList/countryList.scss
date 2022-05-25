@@ -51,6 +51,10 @@
   min-width: 128px;
   width: 100%;
   white-space: nowrap;
+
+  &.uppercase {
+    text-transform: uppercase;
+  }
 }
 
 .country-selection-list__header,
