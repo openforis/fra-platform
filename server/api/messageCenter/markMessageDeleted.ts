@@ -26,7 +26,15 @@ export const markMessageDeleted = async (req: Request, res: Response) => {
 
     await MessageCenterController.markMessageDeleted({ user, assessment, cycle, id: Number(messageId) })
 
-    SocketServer.emit(Sockets.getTopicMessageDeleteEvent({ countryIso, assessment, cycle, topicKey }), {
+    const topic = await MessageCenterController.getTopic({
+      user,
+      countryIso,
+      assessment,
+      cycle,
+      key: topicKey,
+    })
+
+    SocketServer.emit(Sockets.getTopicMessageDeleteEvent({ assessment, cycle, topic }), {
       topicKey,
       messageId,
     })

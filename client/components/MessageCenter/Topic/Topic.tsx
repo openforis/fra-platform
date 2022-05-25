@@ -79,7 +79,7 @@ const Topic: React.FC<TopicProps> = (props) => {
 
   useEffect(() => {
     const messageAddEvent = Sockets.getTopicMessageAddEvent({ assessment, cycle, topic })
-    const messageDeleteEvent = Sockets.getTopicMessageAddEvent({ assessment, cycle, topic })
+    const messageDeleteEvent = Sockets.getTopicMessageDeleteEvent({ assessment, cycle, topic })
     const statusEvent = Sockets.getTopicStatusEvent({ assessment, cycle, topic })
 
     const newMessageEventHandler = (args: [message: Message]) => {
