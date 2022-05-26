@@ -1,7 +1,7 @@
 @import 'client/style/partials';
 
 .message {
-  padding: 8px 16px;
+  padding: ($spacing-xxs + 2) $spacing-xs;
   font-size: $font-s;
 
   .message-header {
@@ -53,6 +53,10 @@
       height: 13px;
       width: 13px;
     }
+  }
+
+  .message-body {
+    margin-top: $spacing-xxxs + 2;
   }
 }
 
