@@ -10,6 +10,15 @@ enum defaults {
   year = ':year',
 }
 
+export enum AssessmentHomeRouteNames {
+  overview = 'overview',
+  messageBoard = 'messageBoard',
+  contentCheck = 'contentCheck',
+  userManagement = 'userManagement',
+  recentActivity = 'recentActivity',
+  links = 'links',
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const _generate = (...parts: any[]) => `/${parts.filter(Boolean).join('/')}`
 
@@ -26,11 +35,13 @@ export const BasePaths = {
       assessmentName: AssessmentName | defaults.assessmentName = defaults.assessmentName,
       cycleName: string = defaults.cycleName
     ) => _generate(countryIso, 'assessments', assessmentName, cycleName),
+
     home: (
       countryIso: CountryIso | defaults.countryIso | string = defaults.countryIso,
       assessmentName: AssessmentName | defaults.assessmentName = defaults.assessmentName,
-      cycleName: string = defaults.cycleName
-    ) => _generate(countryIso, 'assessments', assessmentName, cycleName, 'home'),
+      cycleName: string = defaults.cycleName,
+      route: AssessmentHomeRouteNames = null
+    ) => _generate(countryIso, 'assessments', assessmentName, cycleName, 'home', route),
 
     section: (
       countryIso: CountryIso | defaults.countryIso = defaults.countryIso,
@@ -38,17 +49,20 @@ export const BasePaths = {
       cycleName: string = defaults.cycleName,
       section: string | defaults.section = defaults.section
     ) => _generate(countryIso, 'assessments', assessmentName, cycleName, section),
+
     dataDownload: (
       countryIso: CountryIso | defaults.countryIso = defaults.countryIso,
       assessmentName: AssessmentName | defaults.assessmentName = defaults.assessmentName,
       cycleName: string = defaults.cycleName
     ) => _generate(countryIso, 'assessments', assessmentName, cycleName, 'dataDownload'),
+
     print: (
       countryIso: CountryIso | defaults.countryIso = defaults.countryIso,
       assessmentName: AssessmentName | defaults.assessmentName = defaults.assessmentName,
       cycleName: string = defaults.cycleName,
       tables = false
     ) => _generate(countryIso, assessmentName, cycleName, 'print', tables && 'tables'),
+
     OriginalDataPoint: {
       one: (
         countryIso: CountryIso | defaults.countryIso = defaults.countryIso,
