@@ -9,6 +9,7 @@ import { Areas, CountryIso } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
 import { Unit } from '@meta/dataExport'
 
+import { useCycle } from '@client/store/assessment'
 import { useTableSections } from '@client/store/pages/assessmentSection'
 import { useDataExportCountries, useDataExportSelection } from '@client/store/pages/dataExport'
 import ButtonTableExport from '@client/components/ButtonTableExport'
@@ -29,6 +30,8 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
     cycleName: string
     section: string
   }>()
+
+  const cycle = useCycle()
   const selection = useDataExportSelection(assessmentSection)
   const countries = useDataExportCountries()
   const tableSections = useTableSections({ sectionName: assessmentSection })
@@ -36,14 +39,13 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
   const { tables } = tableSections.find((tableSection) => tableSection.tables.find((table) => table.props.dataExport))
   const table = tables.find((table) => table.props.dataExport)
   const baseUnit = table?.props?.unit
-  const columns = selection.sections[assessmentSection].columns ?? []
+  const columns = table?.props?.columnsExport[cycle.uuid] ?? []
 
   const filteredColumns = columns.filter((column: string) =>
     selection.sections[assessmentSection].columns.includes(column)
   )
-  // TODO
-  // const columnsAlwaysExport = tableSpec.columnsExportAlways ?? []
-  const columnsAlwaysExport: Array<string> = []
+
+  const columnsAlwaysExport = table?.props?.columnsExportAlways[cycle.uuid] ?? []
   const columnsResults = [...columnsAlwaysExport, ...filteredColumns]
   const { variables } = selection.sections[assessmentSection]
 
