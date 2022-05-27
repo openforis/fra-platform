@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 // import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import Icon from '@client/components/Icon'
-// import StatisticalFactsheets from '@client/pages/StatisticalFactsheets'
+import Dashboard from '@client/pages/Dashboard'
 
 // import CountrySelector from './CountrySelector'
 // import SelectedCountries from './SelectedCountries'
@@ -79,8 +79,7 @@ const FraHome: React.FC = () => {
       {/*    /!* ))} *!/ */}
       {/*  // </Switch> */}
       {/* // ) : ( */}
-      <pre>Statistical Factsheets</pre>
-      {/* <StatisticalFactsheets /> */}
+      <Dashboard />
       {/* // )} */}
     </>
   )
