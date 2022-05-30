@@ -12,7 +12,7 @@ const UserColumn: React.FC<{ user: User; field: keyof User }> = ({ user, field }
   </td>
 )
 
-const UserRoleColumn: React.FC<{ user: User }> = ({ user }) => {
+const UserRolesColumn: React.FC<{ user: User }> = ({ user }) => {
   const { i18n } = useTranslation()
 
   return (
@@ -27,7 +27,7 @@ const UserRoleColumn: React.FC<{ user: User }> = ({ user }) => {
 const UserRow: React.FC<{ user: User }> = ({ user }) => (
   <tr className={classNames({ 'user-list__inactive-user': user.status === UserStatus.inactive })}>
     <UserColumn user={user} field="name" />
-    <UserRoleColumn user={user} />
+    <UserRolesColumn user={user} />
     <UserColumn user={user} field="email" />
   </tr>
 )
@@ -40,7 +40,7 @@ const UsersTableHeadRow: React.FC = () => {
       <tr>
         <th className="user-list__header-cell">{i18n.t('userManagement.name')}</th>
         <th className="user-list__header-cell">{i18n.t('userManagement.role')}</th>
-        <th className="user-list__header-cell">{i18n.t('userManagement.loginEmail')}</th>
+        <th className="user-list__header-cell">{i18n.t('userManagement.email')}</th>
       </tr>
     </thead>
   )
