@@ -39,14 +39,10 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
   const { tables } = tableSections.find((tableSection) => tableSection.tables.find((table) => table.props.dataExport))
   const table = tables.find((table) => table.props.dataExport)
   const baseUnit = table?.props?.unit
-  const columns = table?.props?.columnsExport[cycle.uuid] ?? []
-
-  const filteredColumns = columns.filter((column: string) =>
-    selection.sections[assessmentSection].columns.includes(column)
-  )
+  const columns = selection.sections[assessmentSection].columns ?? []
 
   const columnsAlwaysExport = table?.props?.columnsExportAlways[cycle.uuid] ?? []
-  const columnsResults = [...columnsAlwaysExport, ...filteredColumns]
+  const columnsResults = [...columnsAlwaysExport, ...columns]
   const { variables } = selection.sections[assessmentSection]
 
   const tableRef = useRef(null)
