@@ -10,7 +10,7 @@ type Params = {
 }
 
 export const getCountryUsers = createAsyncThunk<Array<User>, Params>(
-  'userManagement/getCountryUsers',
+  'usermanagement/get/countryUsers',
   async (params) => {
     const { countryIso } = params
     const { data } = await axios.get(ApiEndPoint.User.getByCountry(countryIso))
