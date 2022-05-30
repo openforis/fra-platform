@@ -20,4 +20,5 @@ export const UserController = {
   readByInvitation,
   createResetPassword,
   changePassword,
+  readCountryUsersByRole: UserRepository.readCountryUsersByRole,
 }

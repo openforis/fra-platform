@@ -88,5 +88,6 @@ export const ApiEndPoint = {
     getByInvitation: (uuid = ':uuid') => apiPath('user', 'invitation', uuid),
     acceptInvitation: (uuid = ':uuid') => apiPath('user', 'invitation', 'accept', uuid),
     getProfilePicture: (id = ':id') => apiPath('user', 'profilePicture', id),
+    getByCountry: (countryIso = ':countryIso') => apiPath('user', countryIso),
   },
 }
