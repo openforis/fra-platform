@@ -1,1 +1,30 @@
 @import 'client/style/partials';
+
+.user-list__table {
+  border-collapse: collapse;
+  font-size: $font-s;
+  line-height: 19px;
+  width: 100%;
+  table-layout: fixed;
+  tr {
+    &.user-list__inactive-user {
+      color: $text-disabled;
+      text-decoration: line-through;
+    }
+    td {
+      &.user-list__cell {
+        border: 1px solid transparent;
+        border-bottom-color: $ui-border;
+        padding: 0;
+        height: 1px;
+        text-align: left;
+        position: relative;
+      }
+      .user-list__cell--read-only {
+        cursor: default;
+        padding: 12px 10px;
+        word-break: break-word;
+      }
+    }
+  }
+}

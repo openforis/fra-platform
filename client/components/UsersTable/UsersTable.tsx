@@ -2,26 +2,36 @@ import './UsersTable.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { User } from '@meta/user'
+import classNames from 'classnames'
 
-type UsersTableProps = {
-  users: Array<User>
-}
+import { User, UserStatus } from '@meta/user'
 
-const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
+const UserColumn: React.FC<{ user: User; field: keyof User }> = ({ user, field }) => (
+  <td className="user-list__cell">
+    <div className="user-list__cell--read-only">{user[field] ? user[field] : '\xA0'}</div>
+  </td>
+)
+
+const UserRow: React.FC<{ user: User }> = ({ user }) => (
+  <tr className={classNames({ 'user-list__inactive-user': user.status === UserStatus.inactive })}>
+    <UserColumn user={user} field="name" />
+  </tr>
+)
+
+const UsersTable: React.FC<{ users: Array<User> }> = ({ users }) => {
   const { i18n } = useTranslation()
 
-  return users ? (
+  return users && users.length > 0 ? (
     <table className="user-list__table">
       <tbody>
-        {users.length > 0 ? (
-          users.map((user: User) => <div key={user.id}>{user.email}</div>)
-        ) : (
-          <>{i18n.t('userManagement.noUsers')}</>
-        )}
+        {users.map((user: User) => (
+          <UserRow key={user.id} user={user} />
+        ))}
       </tbody>
     </table>
-  ) : null
+  ) : (
+    <>{i18n.t('userManagement.noUsers')}</>
+  )
 }
 
 export default UsersTable
