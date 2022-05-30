@@ -15,7 +15,7 @@ export const getByCountry = async (req: Request, res: Response) => {
       roles: [RoleName.COLLABORATOR],
     })
 
-    res.send({ users })
+    Requests.sendOk(res, users)
   } catch (e) {
     Requests.sendErr(res, e)
   }
