@@ -6,6 +6,8 @@ import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import { AssessmentHomeRouteNames } from '@client/basePaths'
 
+import ManageCollaboratorsView from '../ManageCollaboratorsView'
+
 type Section = {
   name: AssessmentHomeRouteNames
   component: React.FC
@@ -27,7 +29,7 @@ export const useSections = (): Array<Section> => {
   }
 
   if (Users.getRolesAllowedToEdit({ user, countryIso }).length > 0) {
-    sections.splice(2, 0, { name: AssessmentHomeRouteNames.userManagement, component: Placeholder })
+    sections.splice(2, 0, { name: AssessmentHomeRouteNames.userManagement, component: ManageCollaboratorsView })
   }
 
   if (Users.isAdministrator(user) || Users.isReviewer(user, countryIso)) {
