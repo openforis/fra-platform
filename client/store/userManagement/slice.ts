@@ -4,7 +4,7 @@ import { getCountryUsers } from './actions'
 import { UserManagementState } from './stateType'
 
 const initialState: UserManagementState = {
-  countryUsers: [],
+  users: [],
 }
 
 export const userManagementSlice = createSlice({
@@ -13,7 +13,7 @@ export const userManagementSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getCountryUsers.fulfilled, (state, { payload }) => {
-      state.countryUsers = payload
+      state.users = payload
     })
   },
 })
