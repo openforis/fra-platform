@@ -34,7 +34,8 @@ const Dashboard: React.FC = () => {
         <p className="statistical-factsheets__disclaimer">{i18n.t('disclaimer.statisticalFactsheets')}</p>
       )}
 
-      <div className={`statistical-factsheets${isCountry ? ' country' : ''}`}>
+      {/* <div className={`statistical-factsheets${isCountry ? ' country' : ''}`}> */}
+      <div className="statistical-factsheets country">
         <ForestArea />
         <PrimaryDesignatedManagementObjective />
         {/* TODO */}
