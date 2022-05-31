@@ -5,7 +5,7 @@ import { Areas } from '@core/country'
 
 import { useCountryIso } from '@client/hooks'
 
-import Table from '../components/table'
+import Table from '../components/Table'
 
 const PrimaryDesignatedManagementObjective = () => {
   const i18n = useTranslation()

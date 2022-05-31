@@ -8,7 +8,6 @@ import { Areas } from '@meta/area'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { useCountryIso } from '@client/hooks'
 import { AssessmentHomeRouteNames, BasePaths } from '@client/basePaths'
-import Dashboard from '@client/pages/Dashboard'
 
 import { useSections } from './hooks/useSections'
 import ButtonDownloadStatisticalFactsheets from './ButtonDownloadStatisticalFactsheets'
@@ -55,24 +54,20 @@ const FraHome: React.FC = () => {
           ))}
         </div>
       )}
-      {displayTabs ? (
-        <Switch>
-          <Redirect
-            from={BasePaths.Assessment.home()}
-            to={BasePaths.Assessment.home(countryIso, assessmentName, cycleName, AssessmentHomeRouteNames.overview)}
-            exact
+      <Switch>
+        <Redirect
+          from={BasePaths.Assessment.home()}
+          to={BasePaths.Assessment.home(countryIso, assessmentName, cycleName, AssessmentHomeRouteNames.overview)}
+          exact
+        />
+        {sections.map(({ name, component }) => (
+          <Route
+            key={name}
+            path={BasePaths.Assessment.home(countryIso, assessmentName, cycleName, name)}
+            component={component}
           />
-          {sections.map(({ name, component }) => (
-            <Route
-              key={name}
-              path={BasePaths.Assessment.home(countryIso, assessmentName, cycleName, name)}
-              component={component}
-            />
-          ))}
-        </Switch>
-      ) : (
-        <Dashboard />
-      )}
+        ))}
+      </Switch>
     </>
   )
 }

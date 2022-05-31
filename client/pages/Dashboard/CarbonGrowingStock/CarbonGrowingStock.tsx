@@ -5,7 +5,7 @@ import { Areas } from '@meta/area'
 
 import { useCountryIso } from '@client/hooks'
 
-import Table from '../components/table'
+import Table from '../components/Table'
 
 const CarbonGrowingStock = () => {
   const countryIso = useCountryIso()
@@ -20,6 +20,11 @@ const CarbonGrowingStock = () => {
   const section = 'carbonAndGrowingStock'
 
   // TODO Missing data
+  /*
+  Growing stock (billion m³)
+  Carbon stock in biomass (Gt)?
+  Total carbon stock
+  * */
 
   return (
     <div className="row-m row-table">
