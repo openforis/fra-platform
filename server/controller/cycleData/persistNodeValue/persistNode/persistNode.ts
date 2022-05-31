@@ -4,9 +4,9 @@ import { BaseProtocol } from '@server/db'
 import { ActivityLogRepository } from '@server/repository/assessment/activityLog'
 import { NodeRepository } from '@server/repository/assessmentCycle/node'
 
-import { Props } from './props'
+import { Props } from '../props'
 
-export const createOrUpdateNode = async (
+export const persistNode = async (
   props: Props & { activityLogMessage?: ActivityLogMessage },
   client: BaseProtocol
 ): Promise<Node> => {

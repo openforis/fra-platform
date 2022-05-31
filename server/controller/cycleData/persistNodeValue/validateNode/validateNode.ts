@@ -7,12 +7,14 @@ import { RowRepository } from '@server/repository/assessment/row'
 
 import { evaluateNode } from './evaluateNode'
 
-export const evaluateCalculationDependants = async (props: Props, client: BaseProtocol): Promise<void> => {
+export const validateNode = async (props: Props, client: BaseProtocol): Promise<void> => {
   const { assessment, tableName, variableName, colName } = props
   const queue: Array<VariableCache> = [
-    ...(assessment.metaCache.calculations.dependants[tableName]?.[variableName] ?? []),
+    // ...(assessment.metaCache.calculations.dependants[tableName]?.[variableName] ?? []),
+    { variableName, tableName },
   ]
-  const visitedVariables: Array<VariableCache> = [{ variableName, tableName }]
+  // const visitedVariables: Array<VariableCache> = [{ variableName, tableName }]
+  const visitedVariables: Array<VariableCache> = []
 
   while (queue.length !== 0) {
     const variableCache = queue.shift()
@@ -42,28 +44,35 @@ export const evaluateCalculationDependants = async (props: Props, client: BasePr
       }
       // eslint-disable-next-line no-await-in-loop
       const cols = await ColRepository.getMany({ assessment, rowId: row.id }, client)
-      if (row.props.calculateFn) {
+      if (row.props.validateFn) {
         // make sure in target table there's a matching column
         if (cols.find((c) => c.props.colName === colName)) {
           // eslint-disable-next-line no-await-in-loop
-          await evaluateNode({ ...evaluateProps, expression: row.props.calculateFn }, client)
+          await evaluateNode({ ...evaluateProps, expression: row.props.validateFn }, client)
         }
-      } else {
-        // eslint-disable-next-line no-await-in-loop
-        await Promise.all(
-          cols.map(async (col) => {
-            if (col.props.calculateFn) {
-              await evaluateNode(
-                { ...evaluateProps, colName: col.props.colName, expression: col.props.calculateFn },
-                client
-              )
-            }
-          })
-        )
       }
-      queue.push(
-        ...(assessment.metaCache.calculations.dependants[variableCache.tableName]?.[variableCache.variableName] ?? [])
-      )
+
+      // TODO: check when validation if needed at col level
+      // else {
+      //   // eslint-disable-next-line no-await-in-loop
+      //   await Promise.all(
+      //     cols.map(async (col) => {
+      //       if (col.props.calculateFn) {
+      //         await evaluateNode(
+      //           { ...evaluateProps, colName: col.props.colName, expression: col.props.calculateFn },
+      //           client
+      //         )
+      //       }
+      //     })
+      //   )
+      // }
+      //
+
+      // TODO
+      // queue.push(
+      //   ...(assessment.metaCache.calculations.dependants[variableCache.tableName]?.[variableCache.variableName] ?? [])
+      // )
+
       visitedVariables.push(variableCache)
     }
   }

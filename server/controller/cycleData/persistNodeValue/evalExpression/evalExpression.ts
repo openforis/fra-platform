@@ -1,23 +1,35 @@
-import { Row } from '@meta/assessment'
+import { Row, VariableCache } from '@meta/assessment'
 import { TableData } from '@meta/data'
 
 import { BaseProtocol } from '@server/db'
 import { RowRepository } from '@server/repository/assessment/row'
 import { DataRepository, TablesCondition } from '@server/repository/assessmentCycle/data'
 
-import { ExpressionEvaluator } from './expressionEvaluator'
-import { Props } from './props'
+import { ExpressionEvaluator } from '../expressionEvaluator'
+import { Props } from '../props'
 
 export const evalExpression = async (
   props: Pick<Props, 'cycle' | 'variableName' | 'countryIso' | 'assessment' | 'colName' | 'tableName'> & {
     data?: TableData
     row?: Row
+    dependencies: Array<VariableCache>
   } & { expression: string },
   client: BaseProtocol
 ): Promise<any> => {
-  const { assessment, cycle, countryIso, tableName, variableName, colName, data, row: rowProps, expression } = props
+  const {
+    assessment,
+    cycle,
+    countryIso,
+    tableName,
+    variableName,
+    colName,
+    data,
+    row: rowProps,
+    expression,
+    dependencies = [],
+  } = props
 
-  const dependencies = assessment.metaCache.calculations.dependencies[tableName]?.[variableName] ?? []
+  // const dependencies = assessment.metaCache.calculations.dependencies[tableName]?.[variableName] ?? []
   const tables: TablesCondition = {}
   dependencies.forEach((d) => {
     if (!tables[d.tableName]) {

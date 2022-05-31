@@ -71,8 +71,9 @@ export const calculateRow = async (
           const { variableName } = row.props
 
           const expression = row.props.calculateFn ?? col.props.calculateFn
+          const dependencies = assessment.metaCache.calculations.dependencies[tableName]?.[variableName]
           const raw = await evalExpression(
-            { tableName, assessment, colName, countryIso, variableName, cycle, data, row, expression },
+            { tableName, assessment, colName, countryIso, variableName, cycle, data, row, expression, dependencies },
             client
           )
 

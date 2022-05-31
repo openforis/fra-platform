@@ -69,6 +69,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   labelKey: 'fraClass.forest',
                   color: '#0098a6',
                 },
+                migration: {
+                  validateFn: `isValidForestArea(extentOfForest.forestArea)`,
+                },
               },
               {
                 idx: 1,

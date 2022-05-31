@@ -27,6 +27,7 @@ export interface RowProps {
   type: RowType
   variableName?: string
   calculateFn?: string
+  validateFn?: string
   chart?: {
     labelKey: string
     color: string
