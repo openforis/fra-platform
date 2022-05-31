@@ -1,5 +1,6 @@
 import { Row } from '@meta/assessment'
 import { TableData } from '@meta/data'
+
 import { BaseProtocol } from '@server/db'
 import { RowRepository } from '@server/repository/assessment/row'
 import { DataRepository, TablesCondition } from '@server/repository/assessmentCycle/data'
