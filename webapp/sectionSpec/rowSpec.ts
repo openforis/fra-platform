@@ -36,6 +36,6 @@ export interface RowSpec {
     colNames?: Array<string>
     format?: { integer?: boolean }
     readonly?: boolean
-    validateFn?: string
+    validateFns?: Array<string>
   }
 }

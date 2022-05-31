@@ -1,9 +1,10 @@
-import * as R from 'ramda'
 import { Numbers } from '@core/utils/numbers'
 import * as ExtentOfForestState from '@webapp/sectionSpec/fra/extentOfForest/extentOfForestState'
+import * as R from 'ramda'
 
 // ==== Datum validator functions
 
+// isValidForestAreaComparedTo2015(extentOfForest.forestArea['2015'], extentOfForest.forestArea)
 const forestAreaComparedTo2015Validator = (datum: any) => (state: any) => {
   const { name: year, forestArea } = datum
   const forestArea2015: any = ExtentOfForestState.getForestArea2015Value(year)(state)
@@ -17,6 +18,7 @@ const forestAreaComparedTo2015Validator = (datum: any) => (state: any) => {
   return Numbers.lessThanOrEqualTo(absDifference, tolerance)
 }
 
+// isValidOtherLand
 export const areasNotExceedingTotalLandAreaValidator = (datum: any) => (state: any) => {
   const otherLand = ExtentOfForestState.getOtherLand(datum)(state)
   const faoStatArea = ExtentOfForestState.getFaoStatArea(datum)(state)
@@ -66,6 +68,7 @@ export const getValidationMessages = (data: any) => (state: any) =>
     const messages = []
 
     if (type === 'odp' && R.isNil(forestArea)) {
+      // isValidOdp(extentOfForest.forestArea)
       messages.push({ key: 'extentOfForest.ndpMissingValues' })
     }
 

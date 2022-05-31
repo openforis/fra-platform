@@ -5,7 +5,6 @@ import { AuthMiddleware } from '@server/middleware/auth'
 
 import { createOriginalDataPoint } from './createOriginalDataPoint'
 import { deleteOriginalDataPoint } from './deleteOriginalDataPoint'
-import { getCountry } from './getCountry'
 import { getOriginalDataPoint } from './getOdp'
 import { getOriginalDataPointData } from './getOriginalDataPointData'
 import { getReservedYears } from './getReservedYears'
@@ -22,7 +21,6 @@ import { updateOriginalDataPoint } from './updateOriginalDataPoint'
 export const AssessmentApi = {
   init: (express: Express): void => {
     // Country
-    express.get(ApiEndPoint.Assessment.country(), AuthMiddleware.requireView, getCountry)
     express.post(ApiEndPoint.Assessment.country(), AuthMiddleware.requireEdit, postCountry)
 
     // Estimation

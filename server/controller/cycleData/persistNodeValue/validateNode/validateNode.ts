@@ -44,11 +44,11 @@ export const validateNode = async (props: Props, client: BaseProtocol): Promise<
       }
       // eslint-disable-next-line no-await-in-loop
       const cols = await ColRepository.getMany({ assessment, rowId: row.id }, client)
-      if (row.props.validateFn) {
+      if (row.props.validateFns) {
         // make sure in target table there's a matching column
         if (cols.find((c) => c.props.colName === colName)) {
           // eslint-disable-next-line no-await-in-loop
-          await evaluateNode({ ...evaluateProps, expression: row.props.validateFn }, client)
+          await evaluateNode({ ...evaluateProps, expressions: row.props.validateFns }, client)
         }
       }
 

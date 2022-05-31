@@ -70,7 +70,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   color: '#0098a6',
                 },
                 migration: {
-                  validateFn: `isValidForestArea(extentOfForest.forestArea)`,
+                  validateFns: [
+                    `isValidOdp(extentOfForest.forestArea)`,
+                    // `isValidForestAreaComparedTo2015(extentOfForest.forestArea['2015'], extentOfForest.forestArea)`
+                    // `isValidOtherLand(extentOfForest.otherLand, extentOfForest.totalLandArea)`
+                  ],
                 },
               },
               {
