@@ -4,7 +4,7 @@ import { useAppDispatch } from '@client/store'
 import { UserManagementActions } from '@client/store/userManagement'
 import { useCountryUsers } from '@client/store/userManagement/hooks'
 import { useCountryIso } from '@client/hooks'
-import UsersTable from '@client/components/UsersTable'
+import UserList from '@client/components/UserList'
 
 const ManageCollaboratorsView: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -16,7 +16,7 @@ const ManageCollaboratorsView: React.FC = () => {
     dispatch(UserManagementActions.getCountryUsers({ countryIso }))
   }, [countryIso])
 
-  return <UsersTable users={countryUsers} />
+  return <UserList users={countryUsers} />
 }
 
 export default ManageCollaboratorsView

@@ -1,4 +1,4 @@
-import './UsersTable.scss'
+import './UserList.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -46,7 +46,7 @@ const UsersTableHeadRow: React.FC = () => {
   )
 }
 
-const UsersTable: React.FC<{ users: Array<User> }> = ({ users }) => {
+const UserList: React.FC<{ users: Array<User> }> = ({ users }) => {
   const { i18n } = useTranslation()
 
   return users && users.length > 0 ? (
@@ -63,4 +63,4 @@ const UsersTable: React.FC<{ users: Array<User> }> = ({ users }) => {
   )
 }
 
-export default UsersTable
+export default UserList
