@@ -6,7 +6,7 @@ import { useCountryUsers } from '@client/store/userManagement/hooks'
 import { useCountryIso } from '@client/hooks'
 import UserList from '@client/components/UserList'
 
-const ManageCollaboratorsView: React.FC = () => {
+const Collaborators: React.FC = () => {
   const dispatch = useAppDispatch()
 
   const countryIso = useCountryIso()
@@ -19,4 +19,4 @@ const ManageCollaboratorsView: React.FC = () => {
   return <UserList users={countryUsers} />
 }
 
-export default ManageCollaboratorsView
+export default Collaborators

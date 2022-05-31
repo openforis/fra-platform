@@ -6,7 +6,7 @@ import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import { AssessmentHomeRouteNames } from '@client/basePaths'
 
-import ManageCollaboratorsView from '../ManageCollaboratorsView'
+import Collaborators from '../Collaborators'
 
 type Section = {
   name: AssessmentHomeRouteNames
@@ -29,7 +29,7 @@ export const useSections = (): Array<Section> => {
   }
 
   if (Users.getRolesAllowedToEdit({ user, countryIso }).length > 0) {
-    sections.splice(2, 0, { name: AssessmentHomeRouteNames.userManagement, component: ManageCollaboratorsView })
+    sections.splice(2, 0, { name: AssessmentHomeRouteNames.userManagement, component: Collaborators })
   }
 
   if (Users.isAdministrator(user) || Users.isReviewer(user, countryIso)) {
