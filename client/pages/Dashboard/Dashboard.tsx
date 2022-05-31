@@ -24,6 +24,10 @@ const Dashboard: React.FC = () => {
   const isCountry = Areas.isISOCountry(countryIso)
   const countriesFilter = useHomeCountriesFilter()
 
+  if (!isCountry) {
+    return <pre>Placeholder for region Dashboard</pre>
+  }
+
   return (
     <div>
       {!Objects.isEmpty(countriesFilter) && (
