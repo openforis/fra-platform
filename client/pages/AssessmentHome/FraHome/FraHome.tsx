@@ -54,7 +54,6 @@ const FraHome: React.FC = () => {
           ))}
         </div>
       )}
-
       <Switch>
         <Redirect
           from={BasePaths.Assessment.home()}
