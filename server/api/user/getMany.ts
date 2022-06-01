@@ -7,7 +7,7 @@ import { AssessmentController } from '@server/controller/assessment'
 import { UserController } from '@server/controller/user'
 import Requests from '@server/utils/requests'
 
-export const getUsers = async (req: Request, res: Response) => {
+export const getMany = async (req: Request, res: Response) => {
   const { countryIso, assessmentName, cycleName } = req.query as {
     countryIso: CountryIso
     assessmentName: AssessmentName
