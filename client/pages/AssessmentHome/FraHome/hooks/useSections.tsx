@@ -5,6 +5,7 @@ import { Users } from '@meta/user'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import { AssessmentHomeRouteNames } from '@client/basePaths'
+import Dashboard from '@client/pages/Dashboard'
 
 import Collaborators from '../Collaborators'
 
@@ -20,7 +21,7 @@ const Placeholder: React.FC = () => {
 export const useSections = (): Array<Section> => {
   const user = useUser()
   const countryIso = useCountryIso()
-  const sections: Array<Section> = [{ name: AssessmentHomeRouteNames.overview, component: Placeholder }]
+  const sections: Array<Section> = [{ name: AssessmentHomeRouteNames.overview, component: Dashboard }]
 
   if (user) {
     sections.push({ name: AssessmentHomeRouteNames.messageBoard, component: Placeholder })
