@@ -1,6 +1,6 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import { getCountryUsers } from './actions'
+import { getUsers } from './actions'
 import { UserManagementState } from './stateType'
 
 const initialState: UserManagementState = {
@@ -12,7 +12,7 @@ export const userManagementSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getCountryUsers.fulfilled, (state, { payload }) => {
+    builder.addCase(getUsers.fulfilled, (state, { payload }) => {
       state.users = payload
     })
   },
@@ -20,7 +20,7 @@ export const userManagementSlice = createSlice({
 
 export const UserManagementActions = {
   ...userManagementSlice.actions,
-  getCountryUsers,
+  getUsers,
 }
 
 export default userManagementSlice.reducer as Reducer<UserManagementState>

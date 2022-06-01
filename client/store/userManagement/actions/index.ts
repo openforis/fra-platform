@@ -1,1 +1,1 @@
-export { getCountryUsers } from './getCountryUsers'
+export { getUsers } from './getUsers'
