@@ -63,5 +63,5 @@ export const useAssessmentSection = (): SubSection => {
 
 export const useSecondaryRegion = () => {
   const regionGroups = useRegionGroups()
-  return Object.fromEntries(Object.entries(regionGroups).filter(([_, value]) => value.name === 'secondary'))?.['1']
+  return Object.fromEntries(Object.entries(regionGroups).filter(([_, value]) => value.name === 'secondary'))['1']
 }
