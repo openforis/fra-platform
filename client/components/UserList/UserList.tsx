@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { RoleName, User, UserRole, UserStatus } from '@meta/user'
+import { User, UserStatus } from '@meta/user'
 
 const UserColumn: React.FC<{ user: User; field: keyof User }> = ({ user, field }) => (
   <td className="user-list__cell">
@@ -12,14 +12,11 @@ const UserColumn: React.FC<{ user: User; field: keyof User }> = ({ user, field }
   </td>
 )
 
-const UserRolesColumn: React.FC<{ user: User }> = ({ user }) => {
+const UserRoleColumn: React.FC<{ user: User }> = ({ user }) => {
   const { i18n } = useTranslation()
-
   return (
     <td className="user-list__cell">
-      <div className="user-list__cell--read-only">
-        {user.roles.map((userRole: UserRole<RoleName, void>) => i18n.t(userRole.role)).join(', ')}
-      </div>
+      <div className="user-list__cell--read-only">{i18n.t(`user.roles.${user.roles[0].role.toLocaleLowerCase()}`)}</div>
     </td>
   )
 }
@@ -27,7 +24,7 @@ const UserRolesColumn: React.FC<{ user: User }> = ({ user }) => {
 const UserRow: React.FC<{ user: User }> = ({ user }) => (
   <tr className={classNames({ 'user-list__inactive-user': user.status === UserStatus.inactive })}>
     <UserColumn user={user} field="name" />
-    <UserRolesColumn user={user} />
+    <UserRoleColumn user={user} />
     <UserColumn user={user} field="email" />
   </tr>
 )
