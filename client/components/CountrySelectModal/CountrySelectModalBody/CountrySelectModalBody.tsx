@@ -98,8 +98,8 @@ const CountrySelectModalBody: React.FC<Props> = (props) => {
 
         <MediaQuery minWidth={Breakpoints.laptop}>
           {Object.entries(regionCountries).map(([regionCode, countryISOs]) => (
-            <div key={regionCode} className="edit-user__form-field-region-container">
-              <div className="edit-user__form-field-region-label">{i18n.t(`area.${regionCode}.listName`)}</div>
+            <div key={regionCode} className="form-field-region-container">
+              <div className="form-field-region-label">{i18n.t(`area.${regionCode}.listName`)}</div>
 
               {countryISOs.map((countryIso: string) => {
                 const unselectable = unselectableCountries.includes(countryIso)
@@ -107,14 +107,14 @@ const CountrySelectModalBody: React.FC<Props> = (props) => {
                 return (
                   <div
                     key={countryIso}
-                    className={classNames('edit-user__form-field-country-selector', { disabled: unselectable })}
+                    className={classNames('form-field-country-selector', { disabled: unselectable })}
                     onClick={() => onChange(countryIso)}
                     onKeyUp={() => onChange(countryIso)}
                     role="button"
                     tabIndex={0}
                   >
                     <div className={classNames('fra-checkbox', { checked: selection.includes(countryIso) })} />
-                    <div className="edit-user__form-field-country-label">{i18n.t(`area.${countryIso}.listName`)}</div>
+                    <div className="form-field-country-label">{i18n.t(`area.${countryIso}.listName`)}</div>
                   </div>
                 )
               })}
