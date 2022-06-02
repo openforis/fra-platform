@@ -1,7 +1,9 @@
-import { Express } from 'express'
 import { ApiEndPoint } from '@common/api/endpoint'
-import { getInvitation } from './getInvitation'
+import { Express } from 'express'
+
 import { getAcceptInvitation } from './acceptInvitation'
+import { getInvitation } from './getInvitation'
+import { getMany } from './getMany'
 import { getProfilePicture } from './getProfilePicture'
 
 export const UserApi = {
@@ -9,5 +11,6 @@ export const UserApi = {
     express.get(ApiEndPoint.User.getByInvitation(), getInvitation)
     express.get(ApiEndPoint.User.acceptInvitation(), getAcceptInvitation)
     express.get(ApiEndPoint.User.getProfilePicture(), getProfilePicture)
+    express.get(ApiEndPoint.User.many(), getMany)
   },
 }

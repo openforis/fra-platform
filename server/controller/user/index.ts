@@ -12,6 +12,7 @@ import { update } from './update'
 export const UserController = {
   create,
   update,
+  getMany: UserRepository.getMany,
   getOne: UserRepository.getOne,
   getProfilePicture: UserRepository.getProfilePicture,
   remove,

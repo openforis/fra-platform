@@ -12,6 +12,7 @@ import { NavigationState } from './ui/navigation/stateType'
 import { NotificationState } from './ui/notification/stateType'
 import { ReviewState } from './ui/review'
 import { UserState } from './user/stateType'
+import { UserManagementState } from './userManagement'
 
 export type RootState = {
   assessment: AssessmentState
@@ -32,6 +33,8 @@ export type RootState = {
     notification: NotificationState
     review: ReviewState
   }
+
+  userManagement: UserManagementState
 
   geo: GeoState
 }
