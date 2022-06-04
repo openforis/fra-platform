@@ -52,7 +52,7 @@ export const validateNode = async (props: Props, client: BaseProtocol): Promise<
         }
       }
 
-      // TODO: check when validation if needed at col level
+      // TODO: check if validation is needed at col level
       // else {
       //   // eslint-disable-next-line no-await-in-loop
       //   await Promise.all(

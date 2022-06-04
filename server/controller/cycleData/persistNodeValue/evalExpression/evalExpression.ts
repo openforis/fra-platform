@@ -1,4 +1,5 @@
-import { Row, VariableCache } from '@meta/assessment'
+import { CountryIso } from '@meta/area'
+import { Assessment, Cycle, Row, VariableCache } from '@meta/assessment'
 import { TableData } from '@meta/data'
 
 import { BaseProtocol } from '@server/db'
@@ -6,31 +7,24 @@ import { RowRepository } from '@server/repository/assessment/row'
 import { DataRepository, TablesCondition } from '@server/repository/assessmentCycle/data'
 
 import { ExpressionEvaluator } from '../expressionEvaluator'
-import { Props } from '../props'
 
-export const evalExpression = async (
-  props: Pick<Props, 'cycle' | 'variableName' | 'countryIso' | 'assessment' | 'colName' | 'tableName'> & {
-    data?: TableData
-    row?: Row
-    dependencies: Array<VariableCache>
-  } & { expression: string },
-  client: BaseProtocol
-): Promise<any> => {
-  const {
-    assessment,
-    cycle,
-    countryIso,
-    tableName,
-    variableName,
-    colName,
-    data,
-    row: rowProps,
-    expression,
-    dependencies = [],
-  } = props
+type Props = {
+  assessment: Assessment
+  cycle: Cycle
+  countryIso: CountryIso
+  tableName: string
+  variableName: string
+  colName: string
+  data?: TableData
+  row?: Row
+  dependencies: Array<VariableCache>
+  expression: string
+}
 
-  // const dependencies = assessment.metaCache.calculations.dependencies[tableName]?.[variableName] ?? []
+const getTablesCondition = (props: Props): TablesCondition => {
+  const { dependencies } = props
   const tables: TablesCondition = {}
+
   dependencies.forEach((d) => {
     if (!tables[d.tableName]) {
       tables[d.tableName] = { variables: [] }
@@ -43,16 +37,38 @@ export const evalExpression = async (
     tables[d.tableName] = { variables }
   })
 
-  let tableData: TableData = data
-  if (Object.keys(tables).length > 0 && !tableData)
-    tableData = await DataRepository.getTableData({ assessment, cycle, countryISOs: [countryIso], tables }, client)
-  if (!tableData) tableData = {} as TableData
+  return tables
+}
+
+export const getTableData = async (props: Props, client: BaseProtocol): Promise<TableData> => {
+  const { assessment, cycle, countryIso, data: dataProps } = props
+
+  let tableData: TableData = dataProps
+
+  if (!tableData) {
+    const tables = getTablesCondition(props)
+    if (Object.keys(tables).length > 0) {
+      tableData = await DataRepository.getTableData({ assessment, cycle, countryISOs: [countryIso], tables }, client)
+    }
+  }
+
+  if (!tableData) {
+    tableData = {} as TableData
+  }
+
+  return tableData
+}
+
+export const evalExpression = async <ReturnType>(props: Props, client: BaseProtocol): Promise<ReturnType> => {
+  const { assessment, countryIso, tableName, variableName, colName, row: rowProps, expression } = props
+
+  const data = await getTableData(props, client)
   const row: Row = rowProps || (await RowRepository.getOne({ assessment, tableName, variableName }, client))
 
-  return ExpressionEvaluator.evalFormula({
+  return ExpressionEvaluator.evalFormula<ReturnType>({
     assessment,
     countryIso,
-    data: tableData,
+    data,
     colName,
     row,
     formula: expression,

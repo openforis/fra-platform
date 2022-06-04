@@ -1,5 +1,6 @@
 import { ConditionalExpression, ExpressionNodeEvaluator } from '@openforis/arena-core'
-import { Context } from './context'
+
+import { Context } from '../context'
 
 export class ConditionalEvaluator extends ExpressionNodeEvaluator<Context, ConditionalExpression> {
   evaluate(expressionNode: ConditionalExpression): any {

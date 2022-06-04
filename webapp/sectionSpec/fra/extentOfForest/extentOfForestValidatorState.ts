@@ -18,7 +18,7 @@ const forestAreaComparedTo2015Validator = (datum: any) => (state: any) => {
   return Numbers.lessThanOrEqualTo(absDifference, tolerance)
 }
 
-// isValidOtherLand
+// isValidOtherLand(extentOfForest.otherLand, extentOfForest.totalLandArea)
 export const areasNotExceedingTotalLandAreaValidator = (datum: any) => (state: any) => {
   const otherLand = ExtentOfForestState.getOtherLand(datum)(state)
   const faoStatArea = ExtentOfForestState.getFaoStatArea(datum)(state)

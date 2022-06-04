@@ -1,14 +1,5 @@
 import { CountryIso } from '@meta/area'
-
-export interface NodeValueValidationMessage {
-  key: string
-  params?: Record<string, never>
-}
-
-export interface NodeValueValidation {
-  valid: boolean
-  messages?: Array<NodeValueValidationMessage>
-}
+import { NodeValueValidation } from '@meta/assessment/nodeValueValidation'
 
 export interface NodeValue {
   raw: string | null
