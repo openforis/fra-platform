@@ -6,11 +6,13 @@ import { AssessmentSectionState } from './pages/assessmentSection'
 import { DataExportState } from './pages/dataExport'
 import { OriginalDataPointState } from './pages/originalDataPoint'
 import { GeoState } from './ui/geo/stateType'
+import { HomeState } from './ui/home/stateType'
 import { MessageCenterState } from './ui/messageCenter/stateType'
 import { NavigationState } from './ui/navigation/stateType'
 import { NotificationState } from './ui/notification/stateType'
 import { ReviewState } from './ui/review'
 import { UserState } from './user/stateType'
+import { UserManagementState } from './userManagement'
 
 export type RootState = {
   assessment: AssessmentState
@@ -18,18 +20,21 @@ export type RootState = {
   user: UserState
 
   pages: {
-    originalDataPoint: OriginalDataPointState
     assessmentSection: AssessmentSectionState
     dataExport: DataExportState
+    originalDataPoint: OriginalDataPointState
   }
 
   ui: {
+    dataLock: DataLockState
+    home: HomeState
+    messageCenter: MessageCenterState
     navigation: NavigationState
     notification: NotificationState
-    dataLock: DataLockState
-    messageCenter: MessageCenterState
     review: ReviewState
   }
+
+  userManagement: UserManagementState
 
   geo: GeoState
 }

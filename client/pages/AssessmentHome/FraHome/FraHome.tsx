@@ -11,9 +11,8 @@ import { AssessmentHomeRouteNames, BasePaths } from '@client/basePaths'
 
 import { useSections } from './hooks/useSections'
 import ButtonDownloadStatisticalFactsheets from './ButtonDownloadStatisticalFactsheets'
-
-// import CountrySelector from './CountrySelector'
-// import SelectedCountries from './SelectedCountries'
+import CountrySelector from './CountrySelector'
+import SelectedCountries from './SelectedCountries'
 
 const FraHome: React.FC = () => {
   const { i18n } = useTranslation()
@@ -35,10 +34,10 @@ const FraHome: React.FC = () => {
           <ButtonDownloadStatisticalFactsheets />
         </h1>
 
-        {/* {Areas.isISOGlobal(countryIso) && <CountrySelector />} */}
+        {Areas.isISOGlobal(countryIso) && <CountrySelector />}
       </div>
 
-      {/* {Areas.isISOGlobal(countryIso) && <SelectedCountries />} */}
+      {Areas.isISOGlobal(countryIso) && <SelectedCountries />}
 
       {displayTabs && (
         <div className="landing__page-menu">
@@ -54,7 +53,6 @@ const FraHome: React.FC = () => {
           ))}
         </div>
       )}
-
       <Switch>
         <Redirect
           from={BasePaths.Assessment.home()}
