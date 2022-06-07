@@ -1,14 +1,15 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 
+import { useAppDispatch } from '@client/store'
+import { useAssessment } from '@client/store/assessment'
+import { DataLockActions, useIsDataLocked } from '@client/store/ui/dataLock'
+import { useIsDataExportView } from '@client/hooks'
+import Icon from '@client/components/Icon'
 import { Breakpoints } from '@client/utils'
 
-import Icon from '@client/components/Icon'
-import { useAssessment } from '@client/store/assessment'
-import { useTranslation } from 'react-i18next'
-import { useIsDataExportView } from '@client/hooks'
-import { DataLockActions, useIsDataLocked } from '@client/store/ui/dataLock'
-import { useAppDispatch } from '@client/store'
+import CycleSwitcher from './CycleSwitcher'
 
 type Props = {
   lockEnabled: boolean
@@ -30,7 +31,7 @@ const Title: React.FC<Props> = (props) => {
   return (
     <div className="nav-assessment-header__lock">
       <div>
-        {i18n.t(`assessment.${type}`)}
+        {i18n.t(`assessment.${type}`)} <CycleSwitcher />
         {isDataExportView ? ` - ${i18n.t('common.dataExport')}` : ''}
         {deskStudy && <div className="desk-study">({i18n.t('assessment.deskStudy')})</div>}
       </div>
