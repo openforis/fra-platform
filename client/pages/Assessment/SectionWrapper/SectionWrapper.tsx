@@ -38,6 +38,9 @@ const SectionWrapper: React.FC = (props) => {
         countryIso,
       })
     )
+    return () => {
+      dispatch(AssessmentSectionActions.reset())
+    }
   }, [countryIso, assessmentName, cycleName, section])
 
   // fetch section review status
