@@ -2,6 +2,8 @@ import './InviteUserForm.scss'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import classNames from 'classnames'
+
 import { RoleName, Users } from '@meta/user'
 
 import { useUser } from '@client/store/user'
@@ -9,15 +11,15 @@ import { useCountryIso } from '@client/hooks'
 
 import TextInput from '../TextInput'
 
-const validName = (name: string) => !!name.trim()
-const validRole = (role: string) => !!role
-const validEmail = (email: string) => {
+const validateName = (name: string) => !!name.trim()
+const validateRole = (role: string) => !!role
+const validateEmail = (email: string) => {
   const re =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   return re.test(email)
 }
 
-interface User {
+interface UserToInvite {
   id: number
   name: string
   role?: RoleName
@@ -25,97 +27,64 @@ interface User {
 }
 
 interface UserTextFieldColProps {
-  user: User
-  field: keyof User
-  editing?: boolean
-  readOnly?: boolean
-  updateUser: React.Dispatch<React.SetStateAction<User>>
-  validate: (value: string) => boolean
+  user: UserToInvite
+  field: keyof UserToInvite
+  updateUser: React.Dispatch<React.SetStateAction<UserToInvite>>
+  isValid: boolean
 }
 
-const UserTextFieldCol = ({ user, field, editing, readOnly = false, updateUser, validate }: UserTextFieldColProps) => {
+const UserTextFieldCol = ({ user, field, updateUser, isValid }: UserTextFieldColProps) => {
   const { i18n } = useTranslation()
 
   return (
-    <td className={`user-list__cell ${validate ? '' : 'error'} ${editing ? 'editing' : ''}`}>
-      {editing && (
-        <TextInput
-          placeholder={i18n.t(`userManagement.${field}`)}
-          value={user[field]}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateUser({ ...user, [field]: e.target.value })}
-          disabled={false}
-        />
-      )}
-      {!editing && readOnly && <div className="user-list__cell--read-only">{user[field] ? user[field] : '\xA0'}</div>}{' '}
-      {!editing && !readOnly && <div className="user-list__cell--editable">{user[field]}</div>}
+    <td className={classNames('user-list__cell editing', { error: isValid })}>
+      <TextInput
+        placeholder={i18n.t(`userManagement.${field}`)}
+        value={user[field]}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateUser({ ...user, [field]: e.target.value })}
+        disabled={false}
+      />
     </td>
   )
-}
-
-UserTextFieldCol.defaultProps = {
-  editing: false,
-  readOnly: false,
 }
 
 interface UserRoleSelectColProps {
-  user: User
-  editing?: boolean
-  readOnly?: boolean
-  updateUser: React.Dispatch<React.SetStateAction<User>>
-  validate: (value: string) => boolean
+  user: UserToInvite
+  updateUser: React.Dispatch<React.SetStateAction<UserToInvite>>
+  isValid: boolean
   allowedRoles: Array<RoleName>
 }
 
-const UserRoleSelectCol = ({
-  user,
-  editing = false,
-  readOnly = false,
-  updateUser,
-  validate,
-  allowedRoles,
-}: UserRoleSelectColProps) => {
+const UserRoleSelectCol = ({ user, updateUser, isValid, allowedRoles }: UserRoleSelectColProps) => {
   const { i18n } = useTranslation()
 
   return (
-    <td className={`user-list__cell ${validate ? '' : 'error'} ${editing ? 'editing' : ''}`}>
-      {editing && (
-        <div className="user-list__input-container validation-error-sensitive-field">
-          <select
-            className="fra-table__select"
-            value={user.role}
-            onChange={(e) => updateUser({ ...user, role: e.target.value as RoleName })}
-          >
-            {!user.role ? <option value="">{i18n.t('userManagement.placeholder')}</option> : null}
-            {allowedRoles.map((role: RoleName) => (
-              <option key={role} value={role}>
-                {i18n.t(Users.getI18nRoleLabelKey(role))}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
-      {!editing && readOnly && (
-        <div className="user-list__cell--read-only">{i18n.t(Users.getI18nRoleLabelKey(user.role))}</div>
-      )}
-      {!editing && !readOnly && (
-        <div className="user-list__cell--editable">{i18n.t(Users.getI18nRoleLabelKey(user.role))}</div>
-      )}
+    <td className={classNames('user-list__cell editing error', { error: isValid })}>
+      <div className="user-list__input-container validation-error-sensitive-field">
+        <select
+          className="fra-table__select"
+          value={user.role}
+          onChange={(e) => updateUser({ ...user, role: e.target.value as RoleName })}
+        >
+          {!user.role ? <option value="">{i18n.t('userManagement.placeholder')}</option> : null}
+          {allowedRoles.map((role: RoleName) => (
+            <option key={role} value={role}>
+              {i18n.t(Users.getI18nRoleLabelKey(role))}
+            </option>
+          ))}
+        </select>
+      </div>
     </td>
   )
 }
 
-UserRoleSelectCol.defaultProps = {
-  editing: false,
-  readOnly: false,
-}
-
 const InviteUserForm: React.FC = () => {
-  const [userToInvite, setUserToInvite] = useState<User>({
+  const [userToInvite, setUserToInvite] = useState<UserToInvite>({
     id: -1,
     name: '',
     email: '',
   })
-  const [invalidForm, setInvalidForm] = useState<boolean>(false)
+  const [errors, setErrors] = useState<Record<string, boolean>>({})
 
   const { i18n } = useTranslation()
   const user = useUser()
@@ -123,7 +92,9 @@ const InviteUserForm: React.FC = () => {
 
   return (
     <div className="add-user__container">
-      {invalidForm && <div className="add-user__error-container">{i18n.t('userManagement.formErrors')}</div>}
+      {Object.values(errors).find((value) => !!value) && (
+        <div className="add-user__error-container">{i18n.t('userManagement.formErrors')}</div>
+      )}
 
       <table className="add-user__table">
         <thead>
@@ -135,33 +106,24 @@ const InviteUserForm: React.FC = () => {
         </thead>
         <tbody>
           <tr>
-            <UserTextFieldCol
-              user={userToInvite}
-              field="name"
-              editing
-              updateUser={setUserToInvite}
-              validate={validName}
-            />
+            <UserTextFieldCol user={userToInvite} field="name" updateUser={setUserToInvite} isValid={errors.name} />
             <UserRoleSelectCol
               user={userToInvite}
-              editing
               updateUser={setUserToInvite}
-              validate={validRole}
+              isValid={errors.role}
               allowedRoles={Users.getRolesAllowedToEdit({ user, countryIso })}
             />
-            <UserTextFieldCol
-              user={userToInvite}
-              field="email"
-              editing
-              updateUser={setUserToInvite}
-              validate={validEmail}
-            />
+            <UserTextFieldCol user={userToInvite} field="email" updateUser={setUserToInvite} isValid={errors.email} />
             <td style={{ padding: 0 }}>
               <button
                 className="btn btn-primary"
                 onClick={() => {
-                  setInvalidForm(!(validName(user.name) && validEmail(user.email)))
-                  // if (!invalidForm) addNewUser(countryIso)
+                  const fieldErrors = {
+                    name: !validateName(userToInvite.name),
+                    role: !validateRole(userToInvite.role),
+                    email: !validateEmail(userToInvite.email),
+                  }
+                  setErrors(fieldErrors)
                 }}
                 type="submit"
               >
