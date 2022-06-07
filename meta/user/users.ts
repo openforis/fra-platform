@@ -41,7 +41,7 @@ const getRolesAllowedToEdit = (props: { user: User; countryIso: CountryIso }): A
   return []
 }
 
-const getRoleNameTranslationKey = (userRole: UserRole<RoleName>): string => `user.roles.${userRole.role}`
+const getRoleNameTranslationKey = (role: RoleName): string => `user.roles.${role}`
 
 export const Users = {
   getCountryRole,

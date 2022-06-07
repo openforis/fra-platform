@@ -16,9 +16,7 @@ const UserRoleColumn: React.FC<{ user: User }> = ({ user }) => {
   const { i18n } = useTranslation()
   return (
     <td className="user-list__cell">
-      <div className="user-list__cell--read-only">{i18n.t(Users.getRoleNameTranslationKey(user.roles[0]))}</div>
-
-      <div className="user-list__cell--read-only">{i18n.t(`user.roles.${user.roles[0].role.toLocaleLowerCase()}`)}</div>
+      <div className="user-list__cell--read-only">{i18n.t(Users.getRoleNameTranslationKey(user.roles[0].role))}</div>
     </td>
   )
 }
