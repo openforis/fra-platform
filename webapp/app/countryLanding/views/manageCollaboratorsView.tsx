@@ -24,10 +24,12 @@ import * as AppState from '@webapp/store/app/state'
 import * as UserManagementState from '@webapp/app/user/userManagement/userManagementState'
 import { useCountryIso } from '@webapp/store/app'
 import { RootState } from '@webapp/store/RootState'
+import { useI18n } from '@webapp/hooks'
 
 const ManageCollaboratorsView = (props: any) => {
   const { countryUsers, newUser, allowedRoles, editUserStatus, fetchUsers } = props
   const countryIso = useCountryIso()
+  const i18n = useI18n()
   const { location }: any = useLocation()
   const [editingUserId, setEditingUserId] = useState(null)
 
@@ -56,15 +58,14 @@ const ManageCollaboratorsView = (props: any) => {
 
   return (
     <>
-      <AddUserForm {...props} user={newUser} countryIso={countryIso} />
-      <UsersTable {...props} users={countryUsers} onEditClick={(userId: any) => setEditingUserId(userId)} />
+      <AddUserForm {...props} i18n={i18n} user={newUser} countryIso={countryIso} />
+      <UsersTable {...props} i18n={i18n} users={countryUsers} onEditClick={(userId: any) => setEditingUserId(userId)} />
     </>
   )
 }
 
 // TODO: Refactor: Remove mapStateToProps
 const mapStateToProps = (state: RootState) => ({
-  i18n: AppState.getI18n(state),
   userInfo: state.user,
   allowedRoles: rolesAllowedToChange(AppState.getCountryIso(state), state.user),
   countryUsers: UserManagementState.getCountryUsers(state),
