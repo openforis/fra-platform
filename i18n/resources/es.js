@@ -97,16 +97,23 @@ el resto está localizado en las regiones boreales, templadas y subtropicales.`,
 
   user: {
     roles: {
-      reviewer: 'Evaluador',
-      reviewer_plural: 'Evaluadores',
-      nationalCorrespondent: 'Corresponsal Nacional',
-      nationalCorrespondent_plural: 'Corresponsales Nacionales',
-      alternateNationalCorrespondent: 'Corresponsal Nacional alterno',
-      alternateNationalCorrespondent_plural: 'Corresponsales Nacionales Alternos',
-      collaborator: 'Colaborador',
-      collaborator_plural: 'Colaboradores',
-      administrator: 'Administrador',
+      REVIEWER: 'Evaluador',
+      NATIONAL_CORRESPONDENT: 'Corresponsal Nacional',
+      ALTERNATE_NATIONAL_CORRESPONDENT: 'Corresponsal Nacional alterno',
+      COLLABORATOR: 'Colaborador',
+      ADMINISTRATOR: 'Administrador',
       noRole: 'N/A',
+      // unused?
+      reviewer_plural: 'Evaluadores',
+      nationalCorrespondent_plural: 'Corresponsales Nacionales',
+      alternateNationalCorrespondent_plural: 'Corresponsales Nacionales Alternos',
+      collaborator_plural: 'Collaborators',
+      // deprecated
+      // reviewer: 'Evaluador',
+      // nationalCorrespondent: 'Corresponsal Nacional',
+      // alternateNationalCorrespondent: 'Corresponsal Nacional alterno',
+      // collaborator: 'Colaborador',
+      // administrator: 'Administrador',
     },
   },
 

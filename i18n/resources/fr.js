@@ -95,16 +95,23 @@ des domaines boréal, tempéré et sous-tropical`,
 
   user: {
     roles: {
-      reviewer: 'Examinateur',
-      reviewer_plural: 'Examinateurs',
-      nationalCorrespondent: 'Correspondant national',
-      nationalCorrespondent_plural: 'Correspondants nationaux',
-      alternateNationalCorrespondent: 'Correspondant national alternatif',
-      alternateNationalCorrespondent_plural: 'Correspondants nationaux alternatifs',
-      collaborator: 'Collaborateur',
-      collaborator_plural: 'Collaborateurs',
-      administrator: 'Administrateur',
+      REVIEWER: 'Examinateur',
+      NATIONAL_CORRESPONDENT: 'Correspondant national',
+      ALTERNATE_NATIONAL_CORRESPONDENT: 'Correspondant national alternatif',
+      COLLABORATOR: 'Collaborateur',
+      ADMINISTRATOR: 'Administrateur',
       noRole: 'N/A',
+      // unused?
+      reviewer_plural: 'Examinateurs',
+      nationalCorrespondent_plural: 'Correspondants nationaux',
+      alternateNationalCorrespondent_plural: 'Correspondants nationaux alternatifs',
+      collaborator_plural: 'Collaborateurs',
+      // deprecated
+      // reviewer: 'Examinateur',
+      // nationalCorrespondent: 'Correspondant national',
+      // alternateNationalCorrespondent: 'Correspondant national alternatif',
+      // collaborator: 'Collaborateur',
+      // administrator: 'Administrateur',
     },
   },
 

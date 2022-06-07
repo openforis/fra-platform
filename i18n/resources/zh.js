@@ -102,16 +102,24 @@ module.exports.translation = {
 
   user: {
     roles: {
-      reviewer: '审核人',
-      reviewer_plural: '审核人',
-      nationalCorrespondent: '国家通讯员',
-      nationalCorrespondent_plural: '国家通讯员',
-      alternateNationalCorrespondent: '候补国家通讯员',
-      alternateNationalCorrespondent_plural: '候补国家通讯员',
-      collaborator: '合作者',
-      collaborator_plural: '合作者',
-      administrator: '管理员',
+      REVIEWER: '审核人',
+      NATIONAL_CORRESPONDENT: '国家通讯员',
+      ALTERNATE_NATIONAL_CORRESPONDENT: '候补国家通讯员',
+      COLLABORATOR: '合作者',
+      ADMINISTRATOR: '管理员',
       noRole: '不适用',
+      // unused?
+      reviewer_plural: '审核人',
+      nationalCorrespondent_plural: '国家通讯员',
+      alternateNationalCorrespondent_plural: '候补国家通讯员',
+      collaborator_plural: '合作者',
+      // deprecated
+      // reviewer: '审核人',
+      // nationalCorrespondent: '国家通讯员',
+      // alternateNationalCorrespondent: '候补国家通讯员',
+      // collaborator: '合作者',
+      // administrator: '管理员',
+      // noRole: '不适用',
     },
 
     resetPasswordEmail: {
