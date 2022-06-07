@@ -88,17 +88,17 @@ const UserRoleSelectCol = ({
             {!user.role ? <option value="">{i18n.t('userManagement.placeholder')}</option> : null}
             {allowedRoles.map((role: RoleName) => (
               <option key={role} value={role}>
-                {i18n.t(Users.getRoleNameTranslationKey(role))}
+                {i18n.t(Users.getI18nRoleLabelKey(role))}
               </option>
             ))}
           </select>
         </div>
       )}
       {!editing && readOnly && (
-        <div className="user-list__cell--read-only">{i18n.t(Users.getRoleNameTranslationKey(user.role))}</div>
+        <div className="user-list__cell--read-only">{i18n.t(Users.getI18nRoleLabelKey(user.role))}</div>
       )}
       {!editing && !readOnly && (
-        <div className="user-list__cell--editable">{i18n.t(Users.getRoleNameTranslationKey(user.role))}</div>
+        <div className="user-list__cell--editable">{i18n.t(Users.getI18nRoleLabelKey(user.role))}</div>
       )}
     </td>
   )
