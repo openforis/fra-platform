@@ -11,11 +11,7 @@ export const evaluateNode = async (
 ): Promise<void> => {
   const { assessment, cycle, tableName, variableName, countryIso, colName, row, expressions } = props
 
-  const dependencies = [
-    { tableName: 'extentOfForest', variableName: 'forestArea' },
-    { tableName: 'extentOfForest', variableName: 'otherLand' },
-    { tableName: 'extentOfForest', variableName: 'totalLandArea' },
-  ]
+  const dependencies = assessment.metaCache.validations.dependencies[tableName]?.[variableName]
   const validations = await Promise.all(
     expressions.map((expression) =>
       evalExpression<NodeValueValidation>({ ...props, row, expression, dependencies }, client)
