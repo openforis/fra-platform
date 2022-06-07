@@ -15,6 +15,7 @@ export const getRow = (props: { cycles: Array<string>; rowSpec: RowSpec; table: 
       variableName: rowSpec.variableName, // ?? rowSpec.variableExport,
       calculateFn: rowSpec.migration?.calcFormula,
       readonly: rowSpec.migration?.readonly,
+      validateFns: rowSpec.migration?.validateFns,
     },
     cols: [],
     tableId: table.id,

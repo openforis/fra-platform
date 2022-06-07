@@ -1,4 +1,5 @@
 import { ExpressionNodeEvaluator, SequenceExpression } from '@openforis/arena-core'
+
 import { Context } from './context'
 
 export class SequenceEvaluator extends ExpressionNodeEvaluator<Context, SequenceExpression> {

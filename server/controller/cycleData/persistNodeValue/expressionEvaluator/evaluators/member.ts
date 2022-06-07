@@ -1,6 +1,7 @@
 import { MemberExpression } from '@openforis/arena-core'
 import { MemberEvaluator as ArenaMemberEvaluator } from '@openforis/arena-core/dist/expression/javascript/node/member'
-import { Context } from './context'
+
+import { Context } from '../context'
 
 export class MemberEvaluator extends ArenaMemberEvaluator<Context> {
   evaluate(expressionNode: MemberExpression): any {

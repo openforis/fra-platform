@@ -1,7 +1,8 @@
-import BigNumber from 'bignumber.js'
-import { BinaryExpression, ExpressionNodeEvaluator } from '@openforis/arena-core'
 import { Numbers } from '@core/utils'
-import { Context } from './context'
+import { BinaryExpression, ExpressionNodeEvaluator } from '@openforis/arena-core'
+import BigNumber from 'bignumber.js'
+
+import { Context } from '../context'
 
 const booleanOperators: { [operator: string]: (a: any, b: any) => boolean } = {
   // Short-circuiting operators

@@ -1,5 +1,5 @@
 import { evalDependencies } from './evalDependencies'
 
-export const ExpressionEvaluator = {
+export const DependencyEvaluator = {
   evalDependencies,
 }

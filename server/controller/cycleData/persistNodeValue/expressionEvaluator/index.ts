@@ -1,23 +1,15 @@
-import { ExpressionNodeType, JavascriptExpressionEvaluator } from '@openforis/arena-core'
-import { Context } from './context'
-import { MemberEvaluator } from './member'
-import { Binary } from './binary'
-import { ConditionalEvaluator } from './conditional'
-import { SequenceEvaluator } from './sequence'
+import { JavascriptExpressionEvaluator } from '@openforis/arena-core'
 
-const evalFormula = (props: Context & { formula: string }): any => {
+import { Context } from './context'
+import { evaluators } from './evaluators'
+import { functions } from './functions'
+
+type Props = Context & { formula: string }
+
+const evalFormula = <ReturnType>(props: Props): ReturnType => {
   const { formula, ...context } = props
-  const evaluators = {
-    // @ts-ignore
-    [ExpressionNodeType.Member]: MemberEvaluator,
-    // @ts-ignore
-    [ExpressionNodeType.Binary]: Binary,
-    // @ts-ignore
-    [ExpressionNodeType.Conditional]: ConditionalEvaluator,
-    // @ts-ignore
-    [ExpressionNodeType.Sequence]: SequenceEvaluator,
-  }
-  const evaluator = new JavascriptExpressionEvaluator<Context>([], evaluators)
+
+  const evaluator = new JavascriptExpressionEvaluator<Context>(functions, evaluators)
   return evaluator.evaluate(formula, context)
 }
 
