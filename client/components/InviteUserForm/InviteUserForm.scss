@@ -1,0 +1,89 @@
+@import 'client/style/partials';
+
+.user-list__table {
+  border-collapse: collapse;
+  font-size: $font-s;
+  line-height: 19px;
+  width: 100%;
+  table-layout: fixed;
+}
+.user-list__invitation-row {
+  color: $text-disabled;
+}
+
+.user-list__inactive-user {
+  color: $text-disabled;
+  text-decoration: line-through;
+}
+
+.user-list__header-cell {
+  border-bottom: $ui-thin-border;
+  font-size: $font-m;
+  padding: 12px 10px;
+  text-align: left;
+  overflow-wrap: break-word;
+}
+
+.user-list__cell {
+  border: 1px solid transparent;
+  border-bottom-color: $ui-border;
+  padding: 0;
+  height: 1px;
+  text-align: left;
+  position: relative;
+
+  &.editing {
+    border-color: $ui-border;
+  }
+}
+
+.user-list__input-container {
+  // .mixin-input-container;
+
+  .fra-table__select {
+    width: 100%;
+  }
+}
+
+.add-user__container {
+  background-color: $ui-bg;
+  padding: 20px 8px;
+  margin-bottom: 24px;
+  border-radius: 2px;
+}
+
+.add-user__error-container {
+  background-color: fade($ui-destructive, 10%);
+  color: $ui-destructive;
+  font-weight: bold;
+  padding: 8px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+
+.add-user__table {
+  border-collapse: separate;
+  border-spacing: 10px 0;
+  font-size: $font-s;
+  width: 100%;
+  table-layout: fixed;
+
+  .user-list__header-cell {
+    padding: 0 0 8px 0;
+    border: none;
+  }
+
+  .user-list__cell {
+    background-color: white;
+    border: $ui-thin-border;
+    padding: 0;
+    height: 1px;
+    line-height: 1;
+  }
+
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
+}

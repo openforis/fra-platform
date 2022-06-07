@@ -5,6 +5,7 @@ import { useAssessment, useCycle } from '@client/store/assessment'
 import { UserManagementActions } from '@client/store/userManagement'
 import { useUsers } from '@client/store/userManagement/hooks'
 import { useCountryIso } from '@client/hooks'
+import InviteUserForm from '@client/components/InviteUserForm'
 import UserList from '@client/components/UserList'
 
 const Collaborators: React.FC = () => {
@@ -21,7 +22,12 @@ const Collaborators: React.FC = () => {
     )
   }, [countryIso])
 
-  return <UserList users={users} />
+  return (
+    <>
+      <InviteUserForm />
+      <UserList users={users} />
+    </>
+  )
 }
 
 export default Collaborators
