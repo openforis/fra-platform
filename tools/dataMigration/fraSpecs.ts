@@ -73,7 +73,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   validateFns: [
                     // `isValidOdp(extentOfForest.forestArea)`,
                     // `isValidForestAreaComparedTo2015(extentOfForest.forestArea['2015'], extentOfForest.forestArea)`
-                    `isValidOtherLand(extentOfForest.otherLand, extentOfForest.totalLandArea)`,
+                    `validatorOtherLand(extentOfForest.otherLand, extentOfForest.totalLandArea)`,
                   ],
                 },
               },
@@ -99,7 +99,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   color: '#bf00af',
                 },
                 migration: {
-                  validateFns: [`isValidOtherLand(extentOfForest.otherLand, extentOfForest.totalLandArea)`],
+                  validateFns: [`validatorOtherLand(extentOfForest.otherLand, extentOfForest.totalLandArea)`],
                 },
               },
               {
@@ -120,7 +120,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableName: 'otherLand',
                 variableExport: 'other_land',
                 migration: {
-                  validateFns: [`isValidOtherLand(extentOfForest.otherLand, extentOfForest.totalLandArea)`],
+                  validateFns: [`validatorOtherLand(extentOfForest.otherLand, extentOfForest.totalLandArea)`],
                 },
               },
               {
@@ -431,7 +431,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 subcategory: true,
                 migration: {
                   validateFns: [
-                    `isValidPlantationForestIntroduced(forestCharacteristics.plantationForestArea, forestCharacteristics.plantationForestIntroducedArea)`,
+                    `validatorPlantationForestIntroduced(forestCharacteristics.plantationForestArea, forestCharacteristics.plantationForestIntroducedArea)`,
                   ],
                 },
               },
@@ -472,7 +472,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableNo: 'a+b',
                 variableName: 'totalForestArea', // before it was total
                 migration: {
-                  validateFns: [`isValidTotalForest(extentOfForest.forestArea, forestCharacteristics.totalForestArea)`],
+                  validateFns: [
+                    `validatorTotalForest(extentOfForest.forestArea, forestCharacteristics.totalForestArea)`,
+                  ],
                 },
               },
               {
