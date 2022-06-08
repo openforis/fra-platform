@@ -1,15 +1,16 @@
 import { ExpressionNodeType, JavascriptExpressionEvaluator } from '@openforis/arena-core'
+
 import { Binary } from './binary'
 import { CallEvaluator } from './call'
 import { CompoundEvaluator } from './compound'
+import { ConditionalEvaluator } from './conditional'
+import { Context } from './context'
 import { IdentifierEvaluator } from './identifier'
 import { LiteralEvaluator } from './literal'
 import { MemberEvaluator } from './member'
+import { SequenceEvaluator } from './sequence'
 import { ThisEvaluator } from './this'
 import { UnaryEvaluator } from './unary'
-import { Context } from './context'
-import { ConditionalEvaluator } from './conditional'
-import { SequenceEvaluator } from './sequence'
 
 export const evalDependencies = (expression: string, context: Context): void => {
   const evaluators = {

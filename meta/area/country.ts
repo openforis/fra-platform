@@ -10,35 +10,25 @@ export enum AssessmentStatus {
 }
 
 export interface CountryProps {
-  status: AssessmentStatus
   deskStudy: boolean
-  forestCharacteristics: { useOriginalDataPoint: boolean }
-  certifiedAreas: Record<string, number | string> // type: year: value
-  climaticDomainPercents2015: {
-    boreal: number
-    tropical: number
-    temperate: number
-    subtropical: number
-  }
   domain: string // ex: tropical
-  /*
-    "1980": {
-      "area": 186665,
-      "estimate": true
-    },
-    "1981": {
-      "area": 186665,
-      "estimate": true
-    },
-   */
-  faoStat: Record<
-    string,
-    {
-      area: number
-      estimate: boolean
-    }
-  >
-  fra2015ForestAreas: Record<string, number | string> // type: year: value
+  forestCharacteristics: { useOriginalDataPoint: boolean }
+  status: AssessmentStatus
+  // certifiedAreas: Record<string, number | string> // type: year: value
+  // climaticDomainPercents2015: {
+  //   boreal: number
+  //   tropical: number
+  //   temperate: number
+  //   subtropical: number
+  // }
+  // faoStat: Record<
+  //   string,
+  //   {
+  //     area: number
+  //     estimate: boolean
+  //   }
+  // >
+  // fra2015ForestAreas: Record<string, number | string> // type: year: value
 }
 
 export interface Country {

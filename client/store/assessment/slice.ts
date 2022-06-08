@@ -1,27 +1,24 @@
-import { createSlice, Reducer } from '@reduxjs/toolkit'
-import { Country } from '@meta/area'
+import { createSlice, Reducer, SliceCaseReducers } from '@reduxjs/toolkit'
 
-import { AssessmentState } from './stateType'
-import { initApp } from './actions/initApp'
 import { getSections } from './actions/getSections'
-
+import { initApp } from './actions/initApp'
 import { updateCountry } from './actions/updateCountry'
+import { AssessmentState } from './stateType'
 
-const initialState: AssessmentState = {}
-
-export const assessmentSlice = createSlice({
+export const assessmentSlice = createSlice<AssessmentState, SliceCaseReducers<AssessmentState>>({
   name: 'assessment',
-  initialState,
+  initialState: {},
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(initApp.fulfilled, (state, { payload }) => {
-      state.assessment = payload.assessment
-      // @ts-ignore
-      state.countries = (payload.countries as Array<Country>).reduce(
+      const { assessment, countries, regionGroups } = payload
+
+      state.assessment = assessment
+      state.countries = countries.reduce(
         (countiesAcc, country) => ({ ...countiesAcc, [country.countryIso]: country }),
         {}
       )
-      state.regionGroups = payload.regionGroups
+      state.regionGroups = regionGroups
     })
 
     builder.addCase(getSections.fulfilled, (state, { payload }) => {

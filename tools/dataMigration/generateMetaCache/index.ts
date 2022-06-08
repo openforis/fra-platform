@@ -1,11 +1,11 @@
+import { Objects } from '../../../core/utils'
 import { Assessment } from '../../../meta/assessment/assessment'
-import { Row } from '../../../meta/assessment/row'
+import { AssessmentMetaCache, VariablesByTableCache } from '../../../meta/assessment/assessmentMetaCache'
 import { Col } from '../../../meta/assessment/col'
-import { VariablesByTableCache, AssessmentMetaCache } from '../../../meta/assessment/assessmentMetaCache'
+import { Row } from '../../../meta/assessment/row'
 import { BaseProtocol } from '../../../server/db'
 import { DBNames } from '../_DBNames'
-import { Objects } from '../../../core/utils'
-import { ExpressionEvaluator } from './expressionEvaluator'
+import { DependencyEvaluator } from './dependencyEvaluator'
 
 type Props = {
   assessment: Assessment
@@ -41,6 +41,10 @@ export const generateMetaCache = async (props: Props, client: BaseProtocol): Pro
       dependants: {},
       dependencies: {},
     },
+    validations: {
+      dependants: {},
+      dependencies: {},
+    },
     variablesByTable,
   }
 
@@ -54,6 +58,7 @@ export const generateMetaCache = async (props: Props, client: BaseProtocol): Pro
                            on r.table_id = t.id
                  left join ${schema}.col c on r.id = c.row_id
         where r.props ->> 'calculateFn' is not null
+           or r.props ->> 'validateFns' is not null
            or c.props ->> 'calculateFn' is not null
         group by r.id, r.uuid, r.props, t.props ->> 'name'`,
     [],
@@ -64,13 +69,19 @@ export const generateMetaCache = async (props: Props, client: BaseProtocol): Pro
   rows.forEach(({ tableName, ...row }) => {
     const context = { row, tableName, assessmentMetaCache }
     if (row.props.calculateFn) {
-      ExpressionEvaluator.evalDependencies(row.props.calculateFn, context)
+      DependencyEvaluator.evalDependencies(row.props.calculateFn, { ...context, type: 'calculations' })
     } else {
       row.cols.forEach((col) => {
         if (col.props.calculateFn) {
-          ExpressionEvaluator.evalDependencies(col.props.calculateFn, context)
+          DependencyEvaluator.evalDependencies(col.props.calculateFn, { ...context, type: 'calculations' })
         }
       })
+    }
+
+    if (row.props.validateFns) {
+      row.props.validateFns.forEach((validateFn) =>
+        DependencyEvaluator.evalDependencies(validateFn, { ...context, type: 'validations' })
+      )
     }
   })
 

@@ -1,12 +1,13 @@
 import { ExpressionNodeEvaluator, MemberExpression } from '@openforis/arena-core'
-import { Context } from './context'
+
 import { VariableCache } from '../../../../../meta/assessment/assessmentMetaCache'
+import { Context } from './context'
 
 export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpression> {
   evaluate(expressionNode: MemberExpression): any {
     const { object, property } = expressionNode
 
-    const { assessmentMetaCache, row, tableName } = this.context
+    const { assessmentMetaCache, row, tableName, type } = this.context
 
     // @ts-ignore
     const objectName = object?.object?.name ?? object.name
@@ -14,12 +15,12 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
     const propertyName = object?.property?.name ?? property.name
 
     if (assessmentMetaCache.variablesByTable[objectName]) {
-      const dependantTable = assessmentMetaCache.calculations.dependants?.[objectName] ?? {}
+      const dependantTable = assessmentMetaCache[type].dependants?.[objectName] ?? {}
       const dependants = dependantTable[propertyName] ?? []
       const dependant: VariableCache = { variableName: row.props.variableName, tableName }
       if (!dependants.find((d) => d.variableName === dependant.variableName)) {
-        assessmentMetaCache.calculations.dependants = {
-          ...assessmentMetaCache.calculations.dependants,
+        assessmentMetaCache[type].dependants = {
+          ...assessmentMetaCache[type].dependants,
           // @ts-ignore
           [objectName]: {
             ...dependantTable,
@@ -29,13 +30,13 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
         }
       }
 
-      const dependencyTable = assessmentMetaCache.calculations.dependencies?.[tableName] ?? {}
+      const dependencyTable = assessmentMetaCache[type].dependencies?.[tableName] ?? {}
       const dependencies = dependencyTable[row.props.variableName] ?? []
       // @ts-ignore
       const dependency: VariableCache = { variableName: propertyName, tableName: objectName }
       if (!dependencies.find((d) => d.variableName === dependency.variableName)) {
-        assessmentMetaCache.calculations.dependencies = {
-          ...assessmentMetaCache.calculations.dependencies,
+        assessmentMetaCache[type].dependencies = {
+          ...assessmentMetaCache[type].dependencies,
           [tableName]: {
             ...dependencyTable,
             [row.props.variableName]: [...dependencies, dependency],
