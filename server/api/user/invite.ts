@@ -10,21 +10,38 @@ import { Requests } from '@server/utils'
 
 export const invite = async (req: Request, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName, email, name, roleName } = req.query as {
+    const {
+      countryIso,
+      assessmentName,
+      cycleName,
+      email,
+      name,
+      role: roleName,
+    } = req.query as {
       countryIso: CountryIso
       assessmentName: AssessmentName
       cycleName: string
       email: string
       name: string
-      roleName: RoleName
+      role: RoleName
     }
+
     const user = Requests.getRequestUser(req)
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName })
 
-    UserController.invite({ countryIso, assessment, cycle, name, email, roleName, user, url: '' })
+    const { user: invitedUser } = await UserController.invite({
+      countryIso,
+      assessment,
+      cycle,
+      name,
+      email,
+      roleName,
+      user,
+      url: '',
+    })
 
-    Requests.sendOk(res)
+    Requests.sendOk(res, invitedUser)
   } catch (e) {
     Requests.sendErr(res, e)
   }
