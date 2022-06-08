@@ -6,7 +6,10 @@ import classNames from 'classnames'
 
 import { RoleName, Users } from '@meta/user'
 
+import { useAppDispatch } from '@client/store'
+import { useAssessment, useCycle } from '@client/store/assessment'
 import { useUser } from '@client/store/user'
+import { UserManagementActions } from '@client/store/userManagement'
 import { useCountryIso } from '@client/hooks'
 
 import TextInput from '../TextInput'
@@ -20,7 +23,6 @@ const validateEmail = (email: string) => {
 }
 
 interface UserToInvite {
-  id: number
   name: string
   role?: RoleName
   email: string
@@ -80,15 +82,17 @@ const UserRoleSelectCol = ({ user, updateUser, isValid, allowedRoles }: UserRole
 
 const InviteUserForm: React.FC = () => {
   const [userToInvite, setUserToInvite] = useState<UserToInvite>({
-    id: -1,
     name: '',
     email: '',
   })
   const [errors, setErrors] = useState<Record<string, boolean>>({})
 
   const { i18n } = useTranslation()
-  const user = useUser()
+  const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
+  const assessment = useAssessment()
+  const cycle = useCycle()
+  const user = useUser()
 
   return (
     <div className="add-user__container">
@@ -124,6 +128,18 @@ const InviteUserForm: React.FC = () => {
                     email: !validateEmail(userToInvite.email),
                   }
                   setErrors(fieldErrors)
+
+                  if (!Object.values(fieldErrors).find((value) => !!value))
+                    dispatch(
+                      UserManagementActions.inviteUser({
+                        countryIso,
+                        assessmentName: assessment.props.name,
+                        cycleName: cycle.name,
+                        name: userToInvite.name,
+                        role: userToInvite.role,
+                        email: userToInvite.email,
+                      })
+                    )
                 }}
                 type="submit"
               >
