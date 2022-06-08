@@ -98,6 +98,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   labelKey: 'fraClass.otherWoodedLand',
                   color: '#bf00af',
                 },
+                migration: {
+                  validateFns: [`isValidOtherLand(extentOfForest.otherLand, extentOfForest.totalLandArea)`],
+                },
               },
               {
                 idx: 2,
@@ -116,6 +119,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableNo: 'c-a-b',
                 variableName: 'otherLand',
                 variableExport: 'other_land',
+                migration: {
+                  validateFns: [`isValidOtherLand(extentOfForest.otherLand, extentOfForest.totalLandArea)`],
+                },
               },
               {
                 idx: 3,
@@ -423,6 +429,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableName: 'plantationForestIntroducedArea',
                 variableExport: 'plantation_forest_introduced_area',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `isValidPlantationForestIntroduced(forestCharacteristics.plantationForestArea, forestCharacteristics.plantationForestIntroducedArea)`,
+                  ],
+                },
               },
               {
                 idx: 4,
@@ -460,6 +471,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'forestCharacteristics.total',
                 variableNo: 'a+b',
                 variableName: 'totalForestArea', // before it was total
+                migration: {
+                  validateFns: [`isValidTotalForest(extentOfForest.forestArea, forestCharacteristics.totalForestArea)`],
+                },
               },
               {
                 idx: 6,
