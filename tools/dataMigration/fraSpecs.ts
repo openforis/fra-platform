@@ -971,6 +971,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'forestAreaChange.forestExpansion',
                 variableExport: 'forest_expansion',
                 variableNo: 'a',
+                migration: {
+                  validateFns: [`validatorGreaterThenOrZero(forestAreaChange.forest_expansion)`],
+                },
               },
               {
                 idx: 1,
@@ -1003,6 +1006,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'forestAreaChange.ofWhichAfforestation',
                 variableExport: 'afforestation',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorSubCategory(forestAreaChange.forest_expansion, [forestAreaChange.afforestation, forestAreaChange.natural_expansion])`,
+                  ],
+                },
               },
               {
                 idx: 2,
@@ -1035,6 +1043,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'forestAreaChange.ofWhichNaturalExpansion',
                 variableExport: 'natural_expansion',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorSubCategory(forestAreaChange.forest_expansion, [forestAreaChange.afforestation, forestAreaChange.natural_expansion])`,
+                  ],
+                },
               },
               {
                 idx: 3,
@@ -1068,6 +1081,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'forestAreaChange.deforestation',
                 variableExport: 'deforestation',
                 variableNo: 'b',
+                migration: {
+                  validateFns: [`validatorGreaterThenOrZero(forestAreaChange.deforestation)`],
+                },
               },
               {
                 idx: 4,

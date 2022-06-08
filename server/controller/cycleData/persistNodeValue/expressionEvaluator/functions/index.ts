@@ -1,19 +1,20 @@
 import { ExpressionFunction } from '@openforis/arena-core/dist/expression/function'
 
 import { Context } from '../context'
+import { validatorGreaterThenOrZero } from './validatorGreaterThenOrZero'
 import { validatorNotGreaterThanForest } from './validatorNotGreaterThanForest'
-// 1a
 import { validatorOtherLand } from './validatorOtherLand'
-// 1b
 import { validatorPlantationForestIntroduced } from './validatorPlantationForestIntroduced'
-// 1c
 import { validatorPrimaryForest } from './validatorPrimaryForest'
+import { validatorSubCategory } from './validatorSubCategory'
 import { validatorTotalForest } from './validatorTotalForest'
 
 export const functions: Array<ExpressionFunction<Context>> = [
+  validatorGreaterThenOrZero,
+  validatorNotGreaterThanForest,
   validatorOtherLand,
   validatorPlantationForestIntroduced,
-  validatorTotalForest,
   validatorPrimaryForest,
-  validatorNotGreaterThanForest,
+  validatorSubCategory,
+  validatorTotalForest,
 ]

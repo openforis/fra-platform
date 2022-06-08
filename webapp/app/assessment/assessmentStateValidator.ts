@@ -1,9 +1,9 @@
-import * as R from 'ramda'
-import { Numbers } from '@core/utils/numbers'
 import FRAUtils from '@common/fraUtils'
-
+import { Numbers } from '@core/utils/numbers'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
+import * as R from 'ramda'
 
+// validatorSubCategory(categoryValue,subCategoryValues)
 export const subCategoryValidator =
   (assessmentType: any, sectionName: any, tableName: any, rowTotalIdx: any, rowIdxs: any) =>
   (colIdx: any, rowIdx: any) =>
@@ -21,6 +21,7 @@ export const subCategoryValidator =
     return Numbers.greaterThanWithTolerance(valueCellTotal, valueRowsSum)
   }
 
+// validatorGreaterThenOrZero
 export const positiveOrZeroValidator =
   (assessmentType: any, sectionName: any, tableName: any) => (colIdx: any, rowIdx: any) => (state: any) => {
     const value = R.pipe(
