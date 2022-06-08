@@ -1284,6 +1284,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'annualReforestation.reforestation',
                 variableExport: 'reforestation',
+                migration: {
+                  validateFns: [`validatorGreaterThenOrZero(annualReforestation.reforestation)`],
+                },
               },
               {
                 idx: 1,
