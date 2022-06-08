@@ -1634,6 +1634,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   calcFormula:
                     '(otherLandWithTreeCover.palms || 0) + (otherLandWithTreeCover.tree_orchards || 0) + (otherLandWithTreeCover.agroforestry || 0) + (otherLandWithTreeCover.trees_in_urban_settings || 0) + (otherLandWithTreeCover.other || 0)',
                   colNames: ['1990', '2000', '2010', '2015', '2020'],
+                  validateFns: [
+                    `validatorOtherLandWithTreeCoverTotal(otherLandWithTreeCover.otherLand,otherLandWithTreeCover.otherLandWithTreeCoverTotal)`,
+                  ],
                 },
               },
               {

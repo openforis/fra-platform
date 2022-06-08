@@ -4,6 +4,7 @@ import { Context } from '../context'
 import { validatorGreaterThenOrZero } from './validatorGreaterThenOrZero'
 import { validatorNotGreaterThanForest } from './validatorNotGreaterThanForest'
 import { validatorOtherLand } from './validatorOtherLand'
+import { validatorOtherLandWithTreeCoverTotal } from './validatorOtherLandWithTreeCoverTotal'
 import { validatorPlantationForestIntroduced } from './validatorPlantationForestIntroduced'
 import { validatorPrimaryForest } from './validatorPrimaryForest'
 import { validatorSubCategory } from './validatorSubCategory'
@@ -13,6 +14,7 @@ export const functions: Array<ExpressionFunction<Context>> = [
   validatorGreaterThenOrZero,
   validatorNotGreaterThanForest,
   validatorOtherLand,
+  validatorOtherLandWithTreeCoverTotal,
   validatorPlantationForestIntroduced,
   validatorPrimaryForest,
   validatorSubCategory,
