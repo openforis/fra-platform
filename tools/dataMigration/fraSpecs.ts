@@ -658,6 +658,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'specificForestCategories.primaryForest',
                 variableExport: 'primary_forest',
+                migration: {
+                  validateFns: [
+                    `validatorPrimaryForest(specificForestCategories.primaryForest, forestCharacteristics.naturalForestArea)`,
+                  ],
+                },
               },
               {
                 idx: 1,
@@ -728,6 +733,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'specificForestCategories.bamboo',
                 variableExport: 'bamboo',
+                migration: {
+                  validateFns: [
+                    `validatorNotGreaterThanForest(extentOfForest.forestArea, specificForestCategories.bamboo)`,
+                  ],
+                },
               },
               {
                 idx: 3,
@@ -763,6 +773,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'specificForestCategories.mangroves',
                 variableExport: 'mangroves',
+                migration: {
+                  validateFns: [
+                    `validatorNotGreaterThanForest(extentOfForest.forestArea, specificForestCategories.mangroves)`,
+                  ],
+                },
               },
               {
                 idx: 4,
@@ -798,6 +813,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'specificForestCategories.rubberWood',
                 variableExport: 'rubber_wood',
+                migration: {
+                  validateFns: [
+                    `validatorNotGreaterThanForest(extentOfForest.forestArea, specificForestCategories.rubberWood)`,
+                  ],
+                },
               },
               {
                 idx: 5,
