@@ -11,6 +11,7 @@ import {
   getCreateSchemaDDL,
 } from '../../server/repository/assessment/assessment/getCreateSchemaDDL'
 import { SectionSpec } from '../../webapp/sectionSpec'
+import { migrateAggregates } from './migrateData/migrateAggregates'
 import { migrateOdps } from './migrateData/migrateOdps'
 import { migrateTablesData } from './migrateData/migrateTablesData'
 import { DBNames } from './_DBNames'
@@ -110,6 +111,7 @@ export const migrate = async (props: {
       })
     )
     await migrateOdps({ assessment }, client)
+    await migrateAggregates({ assessment }, client)
     await generateMetaCache({ assessment }, client)
     await migrateReview({ assessment }, client)
 
