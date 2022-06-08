@@ -508,6 +508,7 @@ The FRA team
     edit: 'Edit',
     addUser: 'Add collaborator',
     formErrors: 'There are errors in the form. Please, fix them and submit it again.',
+    userAdded: '{{email}} has been added',
     insufficientPrivileges: 'Insufficient privileges',
     confirmDelete: 'Remove {{user}}?',
     allUsers: 'All collaborators',

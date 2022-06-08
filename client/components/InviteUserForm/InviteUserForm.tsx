@@ -11,6 +11,7 @@ import { useAssessment, useCycle } from '@client/store/assessment'
 import { useUser } from '@client/store/user'
 import { UserManagementActions } from '@client/store/userManagement'
 import { useCountryIso } from '@client/hooks'
+import { useToaster } from '@client/hooks/useToaster'
 
 import TextInput from '../TextInput'
 
@@ -88,6 +89,7 @@ const InviteUserForm: React.FC = () => {
   const [errors, setErrors] = useState<Record<string, boolean>>({})
 
   const { i18n } = useTranslation()
+  const { toaster } = useToaster()
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const assessment = useAssessment()
@@ -139,7 +141,10 @@ const InviteUserForm: React.FC = () => {
                         role: userToInvite.role,
                         email: userToInvite.email,
                       })
-                    )
+                    ).then(() => {
+                      setUserToInvite({ name: '', email: '' })
+                      toaster.info(i18n.t('userManagement.userAdded', { email: userToInvite.email }))
+                    })
                 }}
                 type="submit"
               >

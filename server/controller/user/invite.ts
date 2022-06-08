@@ -40,6 +40,8 @@ export const invite = async (
       client
     )
 
+    userToInvite = await UserRepository.getOne({ email }, client)
+
     await ActivityLogRepository.insertActivityLog(
       {
         activityLog: {
