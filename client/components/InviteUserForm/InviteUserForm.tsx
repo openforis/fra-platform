@@ -67,11 +67,11 @@ const InviteUserForm: React.FC = () => {
   return (
     <div className="invite-user-container">
       {Object.values(errors).find((value) => !!value) && (
-        <div className="add-user__error-container">{i18n.t('userManagement.formErrors')}</div>
+        <div className="add-user__error-container">{i18n.t<string>('userManagement.formErrors')}</div>
       )}
       <div className="invite-user-form">
         <div>
-          <div className="label">{i18n.t('userManagement.name')}</div>
+          <div className="label">{i18n.t<string>('userManagement.name')}</div>
           <input
             onFocus={() => setErrors({ ...errors, name: null })}
             name="name"
@@ -84,21 +84,21 @@ const InviteUserForm: React.FC = () => {
           />
         </div>
         <div>
-          <div className="label">{i18n.t('userManagement.role')}</div>
+          <div className="label">{i18n.t<string>('userManagement.role')}</div>
           <select
             value={userToInvite.role}
             onChange={(e) => setUserToInvite({ ...userToInvite, role: e.target.value as RoleName })}
           >
-            {!userToInvite.role ? <option value="">{i18n.t('userManagement.placeholder')}</option> : null}
+            {!userToInvite.role ? <option value="">{i18n.t<string>('userManagement.placeholder')}</option> : null}
             {Users.getRolesAllowedToEdit({ user, countryIso }).map((role: RoleName) => (
               <option key={role} value={role}>
-                {i18n.t(Users.getI18nRoleLabelKey(role))}
+                {i18n.t<string>(Users.getI18nRoleLabelKey(role))}
               </option>
             ))}
           </select>
         </div>
         <div>
-          <div className="label">{i18n.t('userManagement.email')}</div>
+          <div className="label">{i18n.t<string>('userManagement.email')}</div>
           <input
             onFocus={() => setErrors({ ...errors, email: null })}
             name="email"
@@ -112,7 +112,7 @@ const InviteUserForm: React.FC = () => {
         </div>
         <div>
           <button className="btn btn-primary" onClick={onUserInvite} type="submit">
-            {i18n.t('userManagement.addUser')}
+            {i18n.t<string>('userManagement.addUser')}
           </button>
         </div>
       </div>
