@@ -1,6 +1,7 @@
 import { ExpressionFunction } from '@openforis/arena-core/dist/expression/function'
 
 import { Context } from '../context'
+import { validatorEqualToTotalGrowingStock } from './validatorEqualToTotalGrowingStock'
 import { validatorGreaterThenOrZero } from './validatorGreaterThenOrZero'
 import { validatorNotGreaterThanForest } from './validatorNotGreaterThanForest'
 import { validatorOtherLand } from './validatorOtherLand'
@@ -11,6 +12,7 @@ import { validatorSubCategory } from './validatorSubCategory'
 import { validatorTotalForest } from './validatorTotalForest'
 
 export const functions: Array<ExpressionFunction<Context>> = [
+  validatorEqualToTotalGrowingStock,
   validatorGreaterThenOrZero,
   validatorNotGreaterThanForest,
   validatorOtherLand,
