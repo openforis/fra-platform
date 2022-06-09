@@ -44,8 +44,8 @@ const PrimaryForest = () => {
       },
     ],
     labels: [
-      i18n.t('statisticalFactsheets.rowName.primaryForest'),
-      i18n.t('statisticalFactsheets.rowName.otherForest'),
+      i18n.t<string>('statisticalFactsheets.rowName.primaryForest'),
+      i18n.t<string>('statisticalFactsheets.rowName.otherForest'),
     ],
   }
 

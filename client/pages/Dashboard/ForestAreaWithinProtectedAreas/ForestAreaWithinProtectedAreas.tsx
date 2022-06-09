@@ -45,8 +45,8 @@ const ForestAreaWithinProtectedAreas = () => {
       },
     ],
     labels: [
-      i18n.t('statisticalFactsheets.rowName.forestArea'),
-      i18n.t('statisticalFactsheets.rowName.forestAreaWithinProtectedAreas'),
+      i18n.t<string>('statisticalFactsheets.rowName.forestArea'),
+      i18n.t<string>('statisticalFactsheets.rowName.forestAreaWithinProtectedAreas'),
     ],
   }
 
@@ -59,11 +59,11 @@ const ForestAreaWithinProtectedAreas = () => {
 
   return (
     <div className="row-s">
-      <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
+      <h3 className="header">{i18n.t<string>(`statisticalFactsheets.${section}.title`)}</h3>
       {forestAreaWithinProtectedAreas && forestArea ? (
         <Chart type="pie" data={data} options={options} />
       ) : (
-        <h6 className="header">{i18n.t('statisticalFactsheets.noData')}</h6>
+        <h6 className="header">{i18n.t<string>('statisticalFactsheets.noData')}</h6>
       )}
     </div>
   )

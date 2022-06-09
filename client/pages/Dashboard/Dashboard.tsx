@@ -31,7 +31,7 @@ const Dashboard: React.FC = () => {
   return (
     <div>
       {!Objects.isEmpty(countriesFilter) && (
-        <p className="statistical-factsheets__disclaimer">{i18n.t('disclaimer.statisticalFactsheets')}</p>
+        <p className="statistical-factsheets__disclaimer">{i18n.t<string>('disclaimer.statisticalFactsheets')}</p>
       )}
 
       {/* <div className={`statistical-factsheets${isCountry ? ' country' : ''}`}> */}
