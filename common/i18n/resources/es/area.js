@@ -232,7 +232,7 @@ module.exports = {
   TON: { listName: 'Tonga' },
   TTO: { listName: 'Trinidad y Tabago' },
   TUN: { listName: 'Túnez' },
-  TUR: { listName: 'Türkiye' },
+  TUR: { listName: 'Turquía' },
   TUV: { listName: 'Tuvalu' },
   TZA: { listName: 'República Unida de Tanzanía' },
   UGA: { listName: 'Uganda' },
