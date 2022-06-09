@@ -1,12 +1,11 @@
-import * as R from 'ramda'
-
 import { Numbers } from '@core/utils/numbers'
-
 import * as ExtentOfForestState from '@webapp/sectionSpec/fra/extentOfForest/extentOfForestState'
 import * as ForestCharacteristicsState from '@webapp/sectionSpec/fra/forestCharacteristics/forestCharacteristicsState'
+import * as R from 'ramda'
 
 // ==== Datum validator functions
 
+// isValidPlantationForest
 export const plantationForestValidator = (datum: any) => () => {
   const plantationForest: any = ForestCharacteristicsState.getPlantationForest(datum)()
   const plantationForestIntroduced: any = ForestCharacteristicsState.getPlantationForestIntroduced(datum)()
@@ -20,6 +19,7 @@ export const plantationForestValidator = (datum: any) => () => {
   return Numbers.greaterThan(difference, tolerance)
 }
 
+// isValidTotalForest
 export const totalForestAreaNotEqualToExtentOfForestValidator = (datum: any) => (state: any) => {
   const { name: year } = datum
   const forest = ExtentOfForestState.getForestByYear(year)(state)
