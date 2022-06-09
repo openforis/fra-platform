@@ -5,16 +5,19 @@ import { NodeValueValidation, NodeValueValidationMessage } from '@meta/assessmen
 
 import { Context } from '../context'
 
-export const isValidOtherLand: ExpressionFunction<Context> = {
-  name: 'isValidOtherLand',
+export const validatorPrimaryForest: ExpressionFunction<Context> = {
+  name: 'validatorPrimaryForest',
   minArity: 2,
   executor: () => {
-    return (otherLand?: string, totalLandArea?: string): NodeValueValidation => {
+    return (primaryForest?: string, naturalForestArea?: string): NodeValueValidation => {
       const valid =
-        Objects.isEmpty(otherLand) || Objects.isEmpty(totalLandArea) || Numbers.greaterThanOrEqualTo(otherLand, 0)
+        Objects.isEmpty(primaryForest) ||
+        Objects.isEmpty(naturalForestArea) ||
+        Numbers.greaterThanWithTolerance(naturalForestArea, primaryForest)
+
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
-        : [{ key: 'extentOfForest.fedAreasExceedTotalLandArea' }]
+        : [{ key: 'specificForestCategories.exceedsNaturallyRegeneratingForest' }]
 
       return { valid, messages }
     }
