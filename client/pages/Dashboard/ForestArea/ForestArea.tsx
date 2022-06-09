@@ -17,7 +17,7 @@ const ForestArea = () => {
   const columns = ['1990', '2000', '2010', '2020']
   const countryIso = useCountryIso()
   const isIsoCountry = Areas.isISOCountry(countryIso)
-  const unit = isIsoCountry ? i18n.t('unit.haThousand') : i18n.t('unit.haMillion')
+  const unit = isIsoCountry ? i18n.t<string>('unit.haThousand') : i18n.t<string>('unit.haMillion')
   const tableNames = ['extentOfForest']
   const variable = 'forestArea'
 
@@ -32,7 +32,7 @@ const ForestArea = () => {
     datasets: [
       {
         ...preferences.green,
-        label: i18n.t(`statisticalFactsheets.rowName.${variable}`),
+        label: i18n.t<string>(`statisticalFactsheets.rowName.${variable}`),
         unit,
 
         data: tableNames
@@ -70,13 +70,13 @@ const ForestArea = () => {
   } as unknown as ChartOptions<'bar'>
 
   // @ts-ignore
-  options.scales.xAxes[0].scaleLabel = scaleLabel(i18n.t('common.year'))
+  options.scales.xAxes[0].scaleLabel = scaleLabel(i18n.t<string>('common.year'))
   // @ts-ignore
   options.scales.yAxes[0].scaleLabel = scaleLabel(unit)
 
   return (
     <div className="row-m">
-      <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
+      <h3 className="header">{i18n.t<string>(`statisticalFactsheets.${section}.title`)}</h3>
       {data && <Chart type="bar" options={options} data={data} />}
     </div>
   )

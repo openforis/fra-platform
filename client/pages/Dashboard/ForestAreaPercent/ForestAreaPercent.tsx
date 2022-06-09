@@ -41,7 +41,10 @@ const ForestAreaPercent = () => {
         unit: '%',
       },
     ],
-    labels: [i18n.t('statisticalFactsheets.rowName.forestArea'), i18n.t('statisticalFactsheets.rowName.otherArea')],
+    labels: [
+      i18n.t<string>('statisticalFactsheets.rowName.forestArea'),
+      i18n.t<string>('statisticalFactsheets.rowName.otherArea'),
+    ],
   }
 
   const options: ChartOptions<any> = {
@@ -53,7 +56,7 @@ const ForestAreaPercent = () => {
 
   return (
     <div className="row-s">
-      <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
+      <h3 className="header">{i18n.t<string>(`statisticalFactsheets.${section}.title`)}</h3>
       <Chart type="pie" data={data} options={options} />
     </div>
   )

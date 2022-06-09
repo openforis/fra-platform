@@ -16,7 +16,7 @@ const NaturallyRegeneratingForest = () => {
   const section = 'naturallyRegeneratingForest'
   const columns = ['1990', '2000', '2010', '2020']
   const isIsoCountry = Areas.isISOCountry(countryIso)
-  const unit = isIsoCountry ? i18n.t('unit.haThousand') : i18n.t('unit.haMillion')
+  const unit = isIsoCountry ? i18n.t<string>('unit.haThousand') : i18n.t<string>('unit.haMillion')
   const tableName = 'forestCharacteristics'
   const variables = ['naturalForestArea', 'plantedForest']
 
@@ -33,7 +33,7 @@ const NaturallyRegeneratingForest = () => {
     datasets: variables.map((variable, i) => ({
       // @ts-ignore
       ...preferences[colors[i]],
-      label: i18n.t(`statisticalFactsheets.rowName.${variable}`),
+      label: i18n.t<string>(`statisticalFactsheets.rowName.${variable}`),
       unit,
 
       data: columns.map((column) => tableData?.[countryIso][tableName][column][variable].raw),
@@ -67,13 +67,13 @@ const NaturallyRegeneratingForest = () => {
   } as unknown as ChartOptions<'bar'>
 
   // @ts-ignore
-  options.scales.xAxes[0].scaleLabel = scaleLabel(i18n.t('common.year'))
+  options.scales.xAxes[0].scaleLabel = scaleLabel(i18n.t<string>('common.year'))
   // @ts-ignore
   options.scales.yAxes[0].scaleLabel = scaleLabel(unit)
 
   return (
     <div className="row-l">
-      <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
+      <h3 className="header">{i18n.t<string>(`statisticalFactsheets.${section}.title`)}</h3>
       {loaded && <Chart type="bar" data={data} options={options} />}
     </div>
   )

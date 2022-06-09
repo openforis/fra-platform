@@ -38,7 +38,9 @@ const Table = (props: Props) => {
 
   const t = (value: string | number) => {
     if (!value) return ''
-    return Number.isNaN(+value) ? i18n.t(`statisticalFactsheets.${section}.${value}`) : Numbers.format(Number(value))
+    return Number.isNaN(+value)
+      ? i18n.t<string>(`statisticalFactsheets.${section}.${value}`)
+      : Numbers.format(Number(value))
   }
 
   return (
@@ -63,7 +65,7 @@ const Table = (props: Props) => {
                     if (i === 0)
                       return (
                         <th key={`${variable}-${column}`} className="fra-table__category-cell">
-                          {`${t(variable)} (${i18n.t(`unit.${units[rowIdx]}`)})`}
+                          {`${t(variable)} (${i18n.t<string>(`unit.${units[rowIdx]}`)})`}
                         </th>
                       )
                     // const row = data.find((entry: any) => entry.rowName === tableRow) || {}

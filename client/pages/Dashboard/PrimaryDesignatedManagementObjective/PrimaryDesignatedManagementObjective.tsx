@@ -27,7 +27,7 @@ const PrimaryDesignatedManagementObjective = () => {
 
   return (
     <div className="row-l row-table">
-      <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
+      <h3 className="header">{i18n.t<string>(`statisticalFactsheets.${section}.title`)}</h3>
 
       <Table
         variables={rows}

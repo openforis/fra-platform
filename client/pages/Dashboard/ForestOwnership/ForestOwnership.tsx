@@ -17,7 +17,7 @@ const ForestOwnership = () => {
   const i18n = useTranslation()
   const section = 'forestOwnership'
   const isIsoCountry = Areas.isISOCountry(countryIso)
-  const unit = isIsoCountry ? i18n.t('unit.haThousand') : i18n.t('unit.haMillion')
+  const unit = isIsoCountry ? i18n.t<string>('unit.haThousand') : i18n.t<string>('unit.haMillion')
   const column = '2015'
   const tableName = 'forestOwnership'
   const variables = ['other_or_unknown', 'private_ownership', 'public_ownership']
@@ -50,9 +50,9 @@ const ForestOwnership = () => {
       },
     ],
     labels: [
-      i18n.t('statisticalFactsheets.forestOwnership.public'),
-      i18n.t('statisticalFactsheets.forestOwnership.private'),
-      i18n.t('statisticalFactsheets.rowName.otherOrUnknown'),
+      i18n.t<string>('statisticalFactsheets.forestOwnership.public'),
+      i18n.t<string>('statisticalFactsheets.forestOwnership.private'),
+      i18n.t<string>('statisticalFactsheets.rowName.otherOrUnknown'),
     ],
   }
 
@@ -65,11 +65,11 @@ const ForestOwnership = () => {
 
   return (
     <div className="row-s">
-      <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
+      <h3 className="header">{i18n.t<string>(`statisticalFactsheets.${section}.title`)}</h3>
       {privateOwnership && publicOwnership && otherOrUnknown ? (
         <Chart type="pie" data={data as ChartDataType} options={options} />
       ) : (
-        <h6 className="header">{i18n.t('statisticalFactsheets.noData')}</h6>
+        <h6 className="header">{i18n.t<string>('statisticalFactsheets.noData')}</h6>
       )}
     </div>
   )

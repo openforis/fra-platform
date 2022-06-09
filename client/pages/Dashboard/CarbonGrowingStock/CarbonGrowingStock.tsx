@@ -28,7 +28,7 @@ const CarbonGrowingStock = () => {
 
   return (
     <div className="row-m row-table">
-      <h3 className="header">{i18n.t(`statisticalFactsheets.${tableNames}.title`)}</h3>
+      <h3 className="header">{i18n.t<string>(`statisticalFactsheets.${tableNames}.title`)}</h3>
 
       <Table columns={columns} variables={variables} units={units} tableNames={tableNames} section={section} />
     </div>
