@@ -1951,6 +1951,10 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   calcFormula:
                     '(growingStockAvg.naturallyRegeneratingForest * forestCharacteristics.naturalForestArea) / 1000',
                   readonly: false,
+                  validateFns: [
+                    `validatorSubCategory(growingStockTotal.forest,[growingStockTotal.naturallyRegeneratingForest,growingStockTotal.plantedForest])`,
+                    `validatorEqualToTotalGrowingStock(growingStockTotal.forest, growingStockTotal.naturallyRegeneratingForest + growingStockTotal.plantedForest)`,
+                  ],
                 },
               },
               {
@@ -1972,6 +1976,10 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 migration: {
                   calcFormula: '(growingStockAvg.plantedForest * forestCharacteristics.plantedForest) / 1000',
                   readonly: false,
+                  validateFns: [
+                    `validatorSubCategory(growingStockTotal.forest,[growingStockTotal.naturallyRegeneratingForest,growingStockTotal.plantedForest])`,
+                    `validatorEqualToTotalGrowingStock(growingStockTotal.forest, growingStockTotal.naturallyRegeneratingForest + growingStockTotal.plantedForest)`,
+                  ],
                 },
               },
               {
@@ -1993,6 +2001,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 migration: {
                   calcFormula: '(growingStockAvg.plantationForest * forestCharacteristics.plantationForestArea) / 1000',
                   readonly: false,
+                  validateFns: [
+                    `validatorSubCategory(growingStockTotal.plantedForest,[growingStockTotal.plantationForest,growingStockTotal.otherPlantedForest])`,
+                  ],
                 },
               },
               {
@@ -2015,6 +2026,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   calcFormula:
                     '(growingStockAvg.otherPlantedForest * forestCharacteristics.otherPlantedForestArea) / 1000',
                   readonly: false,
+                  validateFns: [
+                    `validatorSubCategory(growingStockTotal.plantedForest,[growingStockTotal.plantationForest,growingStockTotal.otherPlantedForest])`,
+                  ],
                 },
               },
               {
@@ -3207,6 +3221,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   calcFormula:
                     '(growingStockComposition.total_native_placeholder || 0) + (growingStockComposition.totalIntroduced || 0)',
                   colNames: ['1990', '2000', '2010', '2015', '2020'],
+                  validateFns: [
+                    `validatorEqualToTotalGrowingStock(growingStockTotal.forest, growingStockComposition.totalGrowingStock)`,
+                  ],
                 },
               },
               {
