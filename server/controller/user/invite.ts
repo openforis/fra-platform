@@ -14,18 +14,19 @@ export const invite = async (
     countryIso: CountryIso
     cycle: Cycle
     email: string
+    name?: string
     roleName: RoleName
     user: User
     url?: string // application url
   },
   client: BaseProtocol = DB
-): Promise<{ userRole: UserRole<RoleName, any>; user: User }> => {
-  const { email, user, assessment, countryIso, roleName, cycle, url = '' } = props
+): Promise<{ userRole: UserRole<RoleName>; user: User }> => {
+  const { user, assessment, countryIso, email, name, roleName, cycle, url = '' } = props
 
   return client.tx(async (t) => {
     let userToInvite = await UserRepository.getOne({ email }, client)
     if (!userToInvite) {
-      userToInvite = await UserRepository.create({ user: { email, name: '' } })
+      userToInvite = await UserRepository.create({ user: { email, name: name ?? '' } })
     }
 
     const userRole = await UserRoleRepository.create(
@@ -38,6 +39,8 @@ export const invite = async (
       },
       client
     )
+
+    userToInvite = await UserRepository.getOne({ email }, client)
 
     await ActivityLogRepository.insertActivityLog(
       {

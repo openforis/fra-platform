@@ -1,18 +1,11 @@
 @import 'client/style/partials';
 
 .user-list__table {
-  margin-top: 3rem;
   border-collapse: collapse;
   font-size: $font-s;
   line-height: 19px;
   width: 100%;
   table-layout: fixed;
-  thead {
-    .user-list__header-cell {
-      padding: 0 0 8px 0;
-      border: none;
-    }
-  }
   tr {
     &.user-list__inactive-user {
       color: $text-disabled;
@@ -34,4 +27,12 @@
       }
     }
   }
+}
+
+.user-list__header-cell {
+  border-bottom: $ui-thin-border;
+  font-size: $font-m;
+  padding: 12px 10px;
+  text-align: left;
+  overflow-wrap: break-word;
 }
