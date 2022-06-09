@@ -58,11 +58,11 @@ const PrimaryForest = () => {
 
   return (
     <div className="row-s">
-      <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
+      <h3 className="header">{i18n.t<string>(`statisticalFactsheets.${section}.title`)}</h3>
       {primaryForestAsPercentage ? (
         <Chart type="pie" data={data} options={options} />
       ) : (
-        <h6 className="header">{i18n.t('statisticalFactsheets.noData')}</h6>
+        <h6 className="header">{i18n.t<string>('statisticalFactsheets.noData')}</h6>
       )}
     </div>
   )

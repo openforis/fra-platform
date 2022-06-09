@@ -22,6 +22,7 @@ export default (props: Props) => {
   const cycle = useCycle()
   const url = ApiEndPoint.Assessment.TableData.one()
   const countriesFilter = useHomeCountriesFilter()
+  const isIsoCountry = Areas.isISOCountry(countryIso)
 
   // If we are on 'Global' view and we have filtered countries
   const _level = Areas.isGlobal(countryIso) && !Objects.isEmpty(countriesFilter) ? countriesFilter : [countryIso]
@@ -39,7 +40,8 @@ export default (props: Props) => {
       variables,
       columns,
       countryISOs: _level,
-      mergeOdp: true,
+      mergeOdp: isIsoCountry,
+      aggregate: !isIsoCountry,
     },
   })
 
