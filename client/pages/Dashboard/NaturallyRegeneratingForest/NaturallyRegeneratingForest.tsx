@@ -12,12 +12,13 @@ import { commonOptions, preferences, scaleLabel } from '../utils/preferences'
 
 const NaturallyRegeneratingForest = () => {
   const countryIso = useCountryIso()
+  const isIsoCountry = Areas.isISOCountry(countryIso)
+
   const i18n = useTranslation()
   const section = 'naturallyRegeneratingForest'
   const columns = ['1990', '2000', '2010', '2020']
-  const isIsoCountry = Areas.isISOCountry(countryIso)
   const unit = isIsoCountry ? i18n.t<string>('unit.haThousand') : i18n.t<string>('unit.haMillion')
-  const tableName = 'forestCharacteristics'
+  const tableName = isIsoCountry ? 'forestCharacteristics' : 'aggregate'
   const variables = ['naturalForestArea', 'plantedForest']
 
   const { data: tableData, loaded } = useDashboardData({
@@ -36,7 +37,11 @@ const NaturallyRegeneratingForest = () => {
       label: i18n.t<string>(`statisticalFactsheets.rowName.${variable}`),
       unit,
 
-      data: columns.map((column) => tableData?.[countryIso][tableName][column][variable].raw),
+      data: columns.map((column) => {
+        const raw = tableData?.[countryIso][tableName][column][variable].raw
+        if (isIsoCountry) return raw
+        return raw / 1000
+      }),
     })),
   }
 

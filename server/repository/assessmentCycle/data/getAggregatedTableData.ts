@@ -35,7 +35,7 @@ export const getAggregatedTableData = async (props: Props, client: BaseProtocol 
       with agg0 as (
 
           select ${isRegion ? `'${countryISOs[0]}'` : 'country_iso'} as country_iso,
-                 jsonb_object_agg(x.variable_name, x.raw_sum) as value,
+                 jsonb_object_agg('raw', x.raw_sum) as value,
           col_name,
           variable_name
 

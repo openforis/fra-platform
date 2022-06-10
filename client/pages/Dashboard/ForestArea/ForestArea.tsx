@@ -18,7 +18,7 @@ const ForestArea = () => {
   const countryIso = useCountryIso()
   const isIsoCountry = Areas.isISOCountry(countryIso)
   const unit = isIsoCountry ? i18n.t<string>('unit.haThousand') : i18n.t<string>('unit.haMillion')
-  const tableNames = ['extentOfForest']
+  const tableNames = [isIsoCountry ? 'extentOfForest' : 'aggregate']
   const variable = 'forestArea'
 
   const { data: tableData, loaded } = useDashboardData({
@@ -39,10 +39,11 @@ const ForestArea = () => {
           .map((tableName) => tableData?.[countryIso][tableName])
           .flatMap(Object.values)
           .flatMap(Object.values)
-          .map((nodeValue) => nodeValue.raw),
+          .map(({ raw }) => (!isIsoCountry ? raw / 1000 : raw)),
       },
     ],
   }
+
   const options = {
     ...commonOptions,
     legend: {
@@ -52,13 +53,11 @@ const ForestArea = () => {
       xAxes: [
         {
           stacked: true,
-          scaleLabel: {},
         },
       ],
       yAxes: [
         {
           stacked: true,
-          scaleLabel: {},
           ticks: {
             maxTicksLimit: 6,
             beginAtZero: true,

@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next'
 
 import { ChartOptions } from 'chart.js'
 
+import { Areas } from '@meta/area'
+
 import { useCountryIso } from '@client/hooks'
 import Chart from '@client/components/Chart'
 
@@ -11,12 +13,14 @@ import { ChartColors, commonOptions } from '../utils/preferences'
 
 const PrimaryForest = () => {
   const countryIso = useCountryIso()
+  const isIsoCountry = Areas.isISOCountry(countryIso)
+
   const i18n = useTranslation()
   const section = 'primaryForest'
   const column = '2020'
-  const tableNamePrimary = 'specificForestCategories'
-  const tableNameSecondary = 'extentOfForest'
-  const variables = ['primary_forest', 'totalLandArea']
+  const tableNamePrimary = isIsoCountry ? 'specificForestCategories' : 'aggregate'
+  const tableNameSecondary = isIsoCountry ? 'extentOfForest' : 'aggregate'
+  const variables = ['primary_forest', 'forestArea']
 
   const { data: tableData, loaded } = useDashboardData({
     columns: [column],
@@ -28,7 +32,7 @@ const PrimaryForest = () => {
     return null
   }
 
-  const otherForest = +tableData[countryIso][tableNameSecondary][column].totalLandArea.raw
+  const otherForest = +tableData[countryIso][tableNameSecondary][column].forestArea.raw
   const primaryForest = +tableData[countryIso][tableNamePrimary][column].primary_forest.raw
 
   const primaryForestAsPercentage = 100 * (primaryForest / otherForest)
