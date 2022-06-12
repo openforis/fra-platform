@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { Areas } from '@core/country'
 import { ChartOptions } from 'chart.js'
 
+import { TableNames } from '@meta/assessment'
+
 import { useCountryIso } from '@client/hooks'
 import Chart from '@client/components/Chart'
 import { ChartDataType } from '@client/components/Chart/Chart'
@@ -20,7 +22,7 @@ const ForestOwnership = () => {
   const section = 'forestOwnership'
   const unit = isIsoCountry ? i18n.t<string>('unit.haThousand') : i18n.t<string>('unit.haMillion')
   const column = '2015'
-  const tableName = isIsoCountry ? 'forestOwnership' : 'aggregate'
+  const tableName = isIsoCountry ? TableNames.forestOwnership : TableNames.valueAggregate
   const variables = ['other_or_unknown', 'private_ownership', 'public_ownership']
 
   const { data: tableData, loaded } = useDashboardData({

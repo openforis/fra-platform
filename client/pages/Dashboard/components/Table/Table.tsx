@@ -26,7 +26,7 @@ const Table = (props: Props) => {
   const { columns, variables, tableNames: _tableNames, units, section } = props
   const tableRef = useRef(null)
 
-  const tableNames = isIsoCountry ? _tableNames : ['aggregate']
+  const tableNames = isIsoCountry ? _tableNames : ['value_aggregate']
 
   const { data: tableData, loaded } = useStatisticalFactsheetsState({
     columns,

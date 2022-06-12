@@ -48,12 +48,10 @@ export const getAggregatedTableData = async (props: Props, client: BaseProtocol 
           and va.variable_name in ($3:list)
           group by 1, 2) as x
       group by 3, 4
-
-
       ),
        agg1 as (
                select a.country_iso,
-                 'aggregate' as table_name,
+                 'value_aggregate' as table_name,
                  a.col_name,
                  jsonb_object_agg(a.variable_name, a.value) as data
           from agg0 a

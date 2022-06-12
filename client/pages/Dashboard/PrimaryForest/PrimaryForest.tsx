@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { ChartOptions } from 'chart.js'
 
 import { Areas } from '@meta/area'
+import { TableNames } from '@meta/assessment'
 
 import { useCountryIso } from '@client/hooks'
 import Chart from '@client/components/Chart'
@@ -18,8 +19,8 @@ const PrimaryForest = () => {
   const i18n = useTranslation()
   const section = 'primaryForest'
   const column = '2020'
-  const tableNamePrimary = isIsoCountry ? 'specificForestCategories' : 'aggregate'
-  const tableNameSecondary = isIsoCountry ? 'extentOfForest' : 'aggregate'
+  const tableNamePrimary = isIsoCountry ? TableNames.specificForestCategories : TableNames.valueAggregate
+  const tableNameSecondary = isIsoCountry ? TableNames.extentOfForest : TableNames.valueAggregate
   const variables = ['primary_forest', 'forestArea']
 
   const { data: tableData, loaded } = useDashboardData({

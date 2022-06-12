@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { ChartOptions } from 'chart.js'
 
 import { Areas } from '@meta/area'
+import { TableNames } from '@meta/assessment'
 
 import { useCountryIso } from '@client/hooks'
 import Chart from '@client/components/Chart'
@@ -18,7 +19,7 @@ const ForestAreaPercent = () => {
   const i18n = useTranslation()
   const section = 'forestAreaPercent'
   const column = '2020'
-  const tableName = isIsoCountry ? 'extentOfForest' : 'aggregate'
+  const tableName = isIsoCountry ? TableNames.extentOfForest : TableNames.valueAggregate
   const variables = ['forestArea', 'totalLandArea']
 
   const { data: tableData, loaded } = useDashboardData({

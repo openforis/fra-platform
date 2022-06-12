@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { Areas } from '@core/country'
 import { ChartOptions } from 'chart.js'
 
+import { TableNames } from '@meta/assessment'
+
 import { useCountryIso } from '@client/hooks'
 import Chart from '@client/components/Chart'
 
@@ -18,7 +20,7 @@ const NaturallyRegeneratingForest = () => {
   const section = 'naturallyRegeneratingForest'
   const columns = ['1990', '2000', '2010', '2020']
   const unit = isIsoCountry ? i18n.t<string>('unit.haThousand') : i18n.t<string>('unit.haMillion')
-  const tableName = isIsoCountry ? 'forestCharacteristics' : 'aggregate'
+  const tableName = isIsoCountry ? TableNames.forestCharacteristics : TableNames.valueAggregate
   const variables = ['naturalForestArea', 'plantedForest']
 
   const { data: tableData, loaded } = useDashboardData({
