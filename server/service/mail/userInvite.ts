@@ -1,11 +1,13 @@
-import { CountryIso } from '@meta/area'
 import { createI18nPromise } from '@i18n/i18nFactory'
-import { User, UserRole } from '@meta/user'
+
+import { CountryIso } from '@meta/area'
+import { RoleName, User, UserRole, Users } from '@meta/user'
+
 import { sendMail } from './mail'
 
 export const userInvite = async (props: {
   countryIso: CountryIso
-  role: UserRole<any>
+  role: UserRole<RoleName>
   userToInvite: User
   user: User
   url: string
@@ -17,26 +19,23 @@ export const userInvite = async (props: {
   const link = `${url}/login${role.invitationUuid ? `?invitationUuid=${role.invitationUuid}` : ''}`
 
   const countryName = i18n.t(`area.${countryIso}.listName`)
+  const roleName = i18n.t(Users.getI18nRoleLabelKey(role.role))
+
+  const emailProps = {
+    country: countryName,
+    invitedUser: userToInvite.name,
+    role: roleName,
+    loggedInUser: user.name,
+    link,
+    url,
+  }
 
   const invitationEmail = {
     to: userToInvite.email,
     subject: i18n.t('userManagement.invitationEmail.subject', { country: countryName }),
-    text: i18n.t('userManagement.invitationEmail.textMessage', {
-      country: countryName,
-      invitedUser: userToInvite.name,
-      role: `$t(${role.name})`,
-      loggedInUser: user.name,
-      link,
-      url,
-    }),
-    html: i18n.t('userManagement.invitationEmail.htmlMessage', {
-      country: countryName,
-      invitedUser: userToInvite.name,
-      role: `$t(${role.name})`,
-      loggedInUser: user.name,
-      link,
-      url,
-    }),
+    text: i18n.t('userManagement.invitationEmail.textMessage', emailProps),
+    html: i18n.t('userManagement.invitationEmail.htmlMessage', emailProps),
   }
+
   await sendMail(invitationEmail)
 }
