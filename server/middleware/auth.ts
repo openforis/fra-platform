@@ -130,6 +130,21 @@ const requireInviteUser = async (req: Request, _res: Response, next: NextFunctio
   _next(Users.getRolesAllowedToEdit({ user, countryIso: countryIso as CountryIso }).length > 0, next)
 }
 
+const requireViewUsers = async (req: Request, _res: Response, next: NextFunction) => {
+  const { countryIso, assessmentName, cycleName } = <Record<string, string>>{
+    ...req.params,
+    ...req.query,
+  }
+  const user = Requests.getRequestUser(req)
+
+  const { cycle, assessment } = await AssessmentController.getOneWithCycle({
+    name: assessmentName as AssessmentName,
+    cycleName,
+  })
+
+  _next(Authorizer.canViewUsers({ user, countryIso: countryIso as CountryIso, cycle, assessment }), next)
+}
+
 export const AuthMiddleware = {
   requireEdit,
   requireView,
@@ -138,4 +153,5 @@ export const AuthMiddleware = {
   requireResolveTopic,
   requireEditMessageTopic,
   requireInviteUser,
+  requireViewUsers,
 }

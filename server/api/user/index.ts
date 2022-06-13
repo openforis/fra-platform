@@ -14,7 +14,7 @@ export const UserApi = {
     express.get(ApiEndPoint.User.getByInvitation(), getInvitation)
     express.get(ApiEndPoint.User.acceptInvitation(), getAcceptInvitation)
     express.get(ApiEndPoint.User.getProfilePicture(), getProfilePicture)
-    express.get(ApiEndPoint.User.many(), getMany)
+    express.get(ApiEndPoint.User.many(), AuthMiddleware.requireViewUsers, getMany)
     express.post(ApiEndPoint.User.invite(), AuthMiddleware.requireInviteUser, invite)
   },
 }
