@@ -98,7 +98,13 @@ export default (props: Props): UseOnChange => {
           const acceptable = Sanitizer.isAcceptable({ type: colSpecType, value })
 
           if (!readOnly && acceptable) {
-            const nodeValue = TableDatas.getNodeValue({ data, countryIso, col, row, table })
+            const nodeValue = TableDatas.getNodeValue({
+              data,
+              countryIso,
+              colName: col.props.colName,
+              variableName: row.props.variableName,
+              tableName: table.props.name,
+            })
             const valueUpdate = Sanitizer.sanitize({
               value,
               type: colSpecType,

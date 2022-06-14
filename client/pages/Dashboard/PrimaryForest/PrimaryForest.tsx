@@ -5,6 +5,7 @@ import { ChartOptions } from 'chart.js'
 
 import { Areas } from '@meta/area'
 import { TableNames } from '@meta/assessment'
+import { TableDatas } from '@meta/data'
 
 import { useCountryIso } from '@client/hooks'
 import Chart from '@client/components/Chart'
@@ -33,8 +34,18 @@ const PrimaryForest = () => {
     return null
   }
 
-  const otherForest = +tableData[countryIso][tableNameSecondary][column].forestArea.raw
-  const primaryForest = +tableData[countryIso][tableNamePrimary][column].primary_forest.raw
+  const props = {
+    countryIso,
+    data: tableData,
+    colName: column,
+  }
+
+  const otherForest = Number(
+    TableDatas.getDatum({ ...props, tableName: tableNameSecondary, variableName: 'forestArea' })
+  )
+  const primaryForest = Number(
+    TableDatas.getDatum({ ...props, tableName: tableNamePrimary, variableName: 'primary_forest' })
+  )
 
   const primaryForestAsPercentage = 100 * (primaryForest / otherForest)
 
