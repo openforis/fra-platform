@@ -5,6 +5,7 @@ import { Areas } from '@core/country'
 import { ChartOptions } from 'chart.js'
 
 import { TableNames } from '@meta/assessment'
+import { TableDatas } from '@meta/data'
 
 import { useCountryIso } from '@client/hooks'
 import Chart from '@client/components/Chart'
@@ -34,9 +35,17 @@ const ForestOwnership = () => {
   if (!loaded) {
     return null
   }
-  const privateOwnership = tableData[countryIso][tableName][column].private_ownership.raw
-  const publicOwnership = tableData[countryIso][tableName][column].public_ownership.raw
-  const otherOrUnknown = tableData[countryIso][tableName][column].other_or_unknown.raw
+
+  const props = {
+    countryIso,
+    data: tableData,
+    tableName,
+    colName: column,
+  }
+
+  const privateOwnership = Number(TableDatas.getDatum({ ...props, variableName: 'private_ownership' }))
+  const publicOwnership = Number(TableDatas.getDatum({ ...props, variableName: 'public_ownership' }))
+  const otherOrUnknown = Number(TableDatas.getDatum({ ...props, variableName: 'other_or_unknown' }))
 
   const data = {
     datasets: [

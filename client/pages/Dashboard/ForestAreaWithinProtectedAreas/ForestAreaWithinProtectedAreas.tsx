@@ -5,6 +5,7 @@ import { ChartOptions } from 'chart.js'
 
 import { Areas } from '@meta/area'
 import { TableNames } from '@meta/assessment'
+import { TableDatas } from '@meta/data'
 
 import { useCountryIso } from '@client/hooks'
 import Chart from '@client/components/Chart'
@@ -33,9 +34,18 @@ const ForestAreaWithinProtectedAreas = () => {
     return null
   }
 
-  const forestArea = +tableData[countryIso][tableNameSecondary][column].forestArea.raw
-  const forestAreaWithinProtectedAreas =
-    +tableData[countryIso][tableNamePrimary][column].forest_area_within_protected_areas.raw
+  const props = {
+    colName: column,
+    countryIso,
+    data: tableData,
+  }
+
+  const forestArea = Number(
+    TableDatas.getDatum({ ...props, tableName: tableNameSecondary, variableName: 'forestArea' })
+  )
+  const forestAreaWithinProtectedAreas = Number(
+    TableDatas.getDatum({ ...props, tableName: tableNamePrimary, variableName: 'forest_area_within_protected_areas' })
+  )
 
   const primaryForestAsPercentage = 100 * (forestAreaWithinProtectedAreas / forestArea)
 

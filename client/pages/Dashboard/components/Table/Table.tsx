@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { Areas } from '@core/country'
 import { Numbers } from '@core/utils/numbers'
 
+import { TableDatas } from '@meta/data'
+
 import { useCountryIso } from '@client/hooks'
 import ButtonTableExport from '@client/components/ButtonTableExport'
 
@@ -70,11 +72,17 @@ const Table = (props: Props) => {
                           {`${t(variable)} (${i18n.t<string>(`unit.${units[rowIdx]}`)})`}
                         </th>
                       )
-                    const nodeValue = tableData[countryIso][tableNames[0]][column]?.[variable]
+                    const nodeValue = TableDatas.getNodeValue({
+                      variableName: variable,
+                      tableName: tableNames[0],
+                      colName: column,
+                      data: tableData,
+                      countryIso,
+                    })
 
                     return (
                       <td key={`${variable}-${column}`} className="fra-table__cell">
-                        {formatValue(nodeValue?.raw || '', isIsoCountry, variable) || '-'}
+                        {formatValue(Number(nodeValue?.raw || ''), isIsoCountry, variable) || '-'}
                       </td>
                     )
                   })}

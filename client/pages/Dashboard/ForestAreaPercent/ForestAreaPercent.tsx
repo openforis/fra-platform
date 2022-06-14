@@ -5,6 +5,7 @@ import { ChartOptions } from 'chart.js'
 
 import { Areas } from '@meta/area'
 import { TableNames } from '@meta/assessment'
+import { TableDatas } from '@meta/data'
 
 import { useCountryIso } from '@client/hooks'
 import Chart from '@client/components/Chart'
@@ -32,8 +33,17 @@ const ForestAreaPercent = () => {
     return null
   }
 
-  const forestArea = tableData[countryIso][tableName][column].forestArea.raw
-  const totalLandArea = tableData[countryIso][tableName][isIsoCountry ? column : '2015'].totalLandArea.raw
+  const props = {
+    countryIso,
+    tableName,
+    colName: column,
+    data: tableData,
+  }
+
+  const forestArea = Number(TableDatas.getDatum({ ...props, variableName: 'forestArea' }))
+  const totalLandArea = Number(
+    TableDatas.getDatum({ ...props, colName: isIsoCountry ? props.colName : '2015', variableName: 'totalLandArea' })
+  )
   const forestAreaAsPercentage = 100 * (forestArea / totalLandArea)
 
   const data = {
