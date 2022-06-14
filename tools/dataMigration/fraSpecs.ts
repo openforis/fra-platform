@@ -5111,6 +5111,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'forestOwnership.ofWhichIndividuals',
                 variableExport: 'of_which_by_individuals',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorSubCategory(forestOwnership.private_ownership,[forestOwnership.of_which_by_individuals,forestOwnership.of_which_by_private_businesses,forestOwnership.of_which_by_communities])`,
+                  ],
+                },
               },
               {
                 idx: 2,
@@ -5143,6 +5148,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'forestOwnership.ofWhichPrivateBusinesses',
                 variableExport: 'of_which_by_private_businesses',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorSubCategory(forestOwnership.private_ownership,[forestOwnership.of_which_by_individuals,forestOwnership.of_which_by_private_businesses,forestOwnership.of_which_by_communities])`,
+                  ],
+                },
               },
               {
                 idx: 3,
@@ -5175,6 +5185,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'forestOwnership.ofWhichCommunities',
                 variableExport: 'of_which_by_communities',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorSubCategory(forestOwnership.private_ownership,[forestOwnership.of_which_by_individuals,forestOwnership.of_which_by_private_businesses,forestOwnership.of_which_by_communities])`,
+                  ],
+                },
               },
               {
                 idx: 4,
@@ -5246,6 +5261,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   colNames: ['1990', '2000', '2010', '2015'],
                   calcFormula:
                     'extentOfForest.forestArea - (forestOwnership.private_ownership || 0) - (forestOwnership.public_ownership || 0)',
+                  validateFns: [`validatorGreaterThenOrZero(forestOwnership.other_or_unknown)`],
                 },
               },
               {
