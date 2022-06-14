@@ -4814,6 +4814,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'forestAreaWithinProtectedAreas.header',
                 variableExport: 'forest_area_within_protected_areas',
+                migration: {
+                  validateFns: `validatorNotGreaterThanForest(extentOfForest.forestArea, forestAreaWithinProtectedAreas.forest_area_within_protected_areas)`,
+                },
               },
               {
                 idx: 1,
@@ -4865,6 +4868,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'forestAreaWithinProtectedAreas.forestAreaWithLongTermManagementPlan',
                 variableExport: 'forest_area_with_long_term_management_plan',
+                migration: {
+                  validateFns: `validatorNotGreaterThanForest(extentOfForest.forestArea, forestAreaWithinProtectedAreas.forest_area_with_long_term_management_plan)`,
+                },
               },
               {
                 idx: 2,
@@ -4917,6 +4923,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'forestAreaWithinProtectedAreas.ofWhichInProtectedAreas',
                 variableExport: 'of_which_in_protected_areas',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorSubCategory(forestAreaWithinProtectedAreas.forest_area_with_long_term_management_plan,[forestAreaWithinProtectedAreas.of_which_in_protected_areas])`,
+                  ],
+                },
               },
               {
                 idx: 3,

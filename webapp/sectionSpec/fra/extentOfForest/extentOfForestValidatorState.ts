@@ -51,7 +51,7 @@ export const otherWoodedLandValidator = (datum: any) => (state: any) => {
 
 // ==== Common validator
 
-// validatorNotGreatherThanForest(extentOfForest.forestArea, whaterverVariable)
+// validatorNotGreaterThanForest(extentOfForest.forestArea, whaterverVariable)
 export const lessThanOrEqualToForestValidator = (year: any, value: any) => (state: any) => {
   const forest = ExtentOfForestState.getForestByYear(year)(state)
 
