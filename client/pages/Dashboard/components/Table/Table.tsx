@@ -54,9 +54,9 @@ const Table = (props: Props) => {
         <table ref={tableRef} className="fra-table">
           <thead>
             <tr>
-              {['rowName', ...columns].map((key: any, id) => (
+              {['rowName', ...columns].map((key, id) => (
                 <th key={key} className="fra-table__header-cell">
-                  {id === 0 ? t(key) : key}
+                  {String(id === 0 ? t(key) : key)}
                 </th>
               ))}
             </tr>
@@ -65,7 +65,7 @@ const Table = (props: Props) => {
             {variables.map((variable: string, rowIdx: number) => {
               return (
                 <tr key={variable}>
-                  {['', ...columns].map((column: any, i: any) => {
+                  {['', ...columns].map((column: string, i: any) => {
                     if (i === 0)
                       return (
                         <th key={`${variable}-${column}`} className="fra-table__category-cell">
