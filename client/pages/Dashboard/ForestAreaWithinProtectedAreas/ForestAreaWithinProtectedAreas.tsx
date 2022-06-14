@@ -3,6 +3,9 @@ import { useTranslation } from 'react-i18next'
 
 import { ChartOptions } from 'chart.js'
 
+import { Areas } from '@meta/area'
+import { TableNames } from '@meta/assessment'
+
 import { useCountryIso } from '@client/hooks'
 import Chart from '@client/components/Chart'
 
@@ -11,11 +14,13 @@ import { ChartColors, commonOptions } from '../utils/preferences'
 
 const ForestAreaWithinProtectedAreas = () => {
   const countryIso = useCountryIso()
+  const isIsoCountry = Areas.isISOCountry(countryIso)
+
   const i18n = useTranslation()
   const section = 'forestAreaWithinProtectedAreas'
   const column = '2020'
-  const tableNamePrimary = 'forestAreaWithinProtectedAreas'
-  const tableNameSecondary = 'extentOfForest'
+  const tableNamePrimary = isIsoCountry ? TableNames.forestAreaWithinProtectedAreas : TableNames.valueAggregate
+  const tableNameSecondary = isIsoCountry ? TableNames.extentOfForest : TableNames.valueAggregate
   const variables = ['forest_area_within_protected_areas', 'forestArea']
 
   const { data: tableData, loaded } = useDashboardData({
