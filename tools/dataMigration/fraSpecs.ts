@@ -7366,6 +7366,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'areaOfPermanentForestEstate.areaOfPermanentForestEstate',
                 variableExport: 'area_of_permanent_forest_estate',
+                migration: {
+                  validateFns: [
+                    `validatorNotGreaterThanForest(extentOfForest.forestArea,areaOfPermanentForestEstate.area_of_permanent_forest_estate)`,
+                  ],
+                },
               },
               {
                 idx: 1,
