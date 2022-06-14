@@ -21,11 +21,11 @@ import PrimaryForest from './PrimaryForest'
 const Dashboard: React.FC = () => {
   const i18n = useTranslation()
   const countryIso = useCountryIso()
-  const isCountry = Areas.isISOCountry(countryIso)
+  const isGlobal = Areas.isGlobal(countryIso)
   const countriesFilter = useHomeCountriesFilter()
 
-  if (!isCountry) {
-    return <pre>Placeholder for region Dashboard</pre>
+  if (isGlobal) {
+    return <pre>Placeholder for Global Dashboard</pre>
   }
 
   return (

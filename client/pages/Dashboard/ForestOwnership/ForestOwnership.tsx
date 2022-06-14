@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { Areas } from '@core/country'
 import { ChartOptions } from 'chart.js'
 
+import { TableNames } from '@meta/assessment'
+
 import { useCountryIso } from '@client/hooks'
 import Chart from '@client/components/Chart'
 import { ChartDataType } from '@client/components/Chart/Chart'
@@ -14,12 +16,13 @@ import { ChartColors, commonOptions } from '../utils/preferences'
 
 const ForestOwnership = () => {
   const countryIso = useCountryIso()
+  const isIsoCountry = Areas.isISOCountry(countryIso)
+
   const i18n = useTranslation()
   const section = 'forestOwnership'
-  const isIsoCountry = Areas.isISOCountry(countryIso)
   const unit = isIsoCountry ? i18n.t<string>('unit.haThousand') : i18n.t<string>('unit.haMillion')
   const column = '2015'
-  const tableName = 'forestOwnership'
+  const tableName = isIsoCountry ? TableNames.forestOwnership : TableNames.valueAggregate
   const variables = ['other_or_unknown', 'private_ownership', 'public_ownership']
 
   const { data: tableData, loaded } = useDashboardData({

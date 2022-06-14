@@ -11,9 +11,9 @@ import useStatisticalFactsheetsState from '../../hooks/useDashboardData'
 import { formatValue } from '../../utils/numberUtils'
 
 type Props = {
-  columns: any[]
-  variables: any[]
-  units: any[]
+  columns: string[]
+  variables: string[]
+  units: string[]
   tableNames: string[]
   section: string
 }
@@ -23,8 +23,10 @@ const Table = (props: Props) => {
   const isIsoCountry = Areas.isISOCountry(countryIso)
 
   const i18n = useTranslation()
-  const { columns, variables, tableNames, units, section } = props
+  const { columns, variables, tableNames: _tableNames, units, section } = props
   const tableRef = useRef(null)
+
+  const tableNames = isIsoCountry ? _tableNames : ['value_aggregate']
 
   const { data: tableData, loaded } = useStatisticalFactsheetsState({
     columns,
@@ -68,7 +70,6 @@ const Table = (props: Props) => {
                           {`${t(variable)} (${i18n.t<string>(`unit.${units[rowIdx]}`)})`}
                         </th>
                       )
-                    // const row = data.find((entry: any) => entry.rowName === tableRow) || {}
                     const nodeValue = tableData[countryIso][tableNames[0]][column]?.[variable]
 
                     return (

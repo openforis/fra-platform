@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { ChartOptions } from 'chart.js'
 
 import { Areas } from '@meta/area'
+import { TableNames } from '@meta/assessment'
 
 import { useCountryIso } from '@client/hooks'
 import Chart from '@client/components/Chart'
@@ -18,7 +19,7 @@ const ForestArea = () => {
   const countryIso = useCountryIso()
   const isIsoCountry = Areas.isISOCountry(countryIso)
   const unit = isIsoCountry ? i18n.t<string>('unit.haThousand') : i18n.t<string>('unit.haMillion')
-  const tableNames = ['extentOfForest']
+  const tableNames = [isIsoCountry ? TableNames.extentOfForest : TableNames.valueAggregate]
   const variable = 'forestArea'
 
   const { data: tableData, loaded } = useDashboardData({
@@ -39,10 +40,11 @@ const ForestArea = () => {
           .map((tableName) => tableData?.[countryIso][tableName])
           .flatMap(Object.values)
           .flatMap(Object.values)
-          .map((nodeValue) => nodeValue.raw),
+          .map(({ raw }) => (!isIsoCountry ? raw / 1000 : raw)),
       },
     ],
   }
+
   const options = {
     ...commonOptions,
     legend: {
@@ -52,13 +54,11 @@ const ForestArea = () => {
       xAxes: [
         {
           stacked: true,
-          scaleLabel: {},
         },
       ],
       yAxes: [
         {
           stacked: true,
-          scaleLabel: {},
           ticks: {
             maxTicksLimit: 6,
             beginAtZero: true,
