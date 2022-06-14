@@ -4815,7 +4815,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'forestAreaWithinProtectedAreas.header',
                 variableExport: 'forest_area_within_protected_areas',
                 migration: {
-                  validateFns: `validatorNotGreaterThanForest(extentOfForest.forestArea, forestAreaWithinProtectedAreas.forest_area_within_protected_areas)`,
+                  validateFns: [
+                    `validatorNotGreaterThanForest(extentOfForest.forestArea, forestAreaWithinProtectedAreas.forest_area_within_protected_areas)`,
+                  ],
                 },
               },
               {
@@ -4869,7 +4871,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'forestAreaWithinProtectedAreas.forestAreaWithLongTermManagementPlan',
                 variableExport: 'forest_area_with_long_term_management_plan',
                 migration: {
-                  validateFns: `validatorNotGreaterThanForest(extentOfForest.forestArea, forestAreaWithinProtectedAreas.forest_area_with_long_term_management_plan)`,
+                  validateFns: [
+                    `validatorNotGreaterThanForest(extentOfForest.forestArea, forestAreaWithinProtectedAreas.forest_area_with_long_term_management_plan)`,
+                  ],
                 },
               },
               {
