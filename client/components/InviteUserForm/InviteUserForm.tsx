@@ -67,7 +67,7 @@ const InviteUserForm: React.FC = () => {
   return (
     <div className="invite-user-container">
       {Object.values(errors).find((value) => !!value) && (
-        <div className="add-user__error-container">{i18n.t<string>('userManagement.formErrors')}</div>
+        <div className="invite-user-error-container">{i18n.t<string>('userManagement.formErrors')}</div>
       )}
       <div className="invite-user-form">
         <div>

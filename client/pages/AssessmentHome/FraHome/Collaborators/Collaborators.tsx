@@ -29,7 +29,7 @@ const Collaborators: React.FC = () => {
   return (
     <>
       {Users.getRolesAllowedToEdit({ user, countryIso }).length > 0 && <InviteUserForm />}
-      <UserList users={users} />
+      <UserList users={users} isAdmin={Users.isAdministrator(user)} />
     </>
   )
 }

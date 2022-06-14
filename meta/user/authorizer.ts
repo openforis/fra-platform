@@ -29,6 +29,27 @@ const canView = (props: { countryIso: CountryIso; assessment: Assessment; cycle:
 }
 
 /**
+ *  CanViewUsers
+ *  Admin can view, any other logged user who have a role in that country for that cycle can view
+ *  @param props
+ *  @param props.countryIso
+ *  @param props.cycle
+ *  @param props.User
+ *  @returns boolean
+ */
+const canViewUsers = (props: { countryIso: CountryIso; assessment: Assessment; cycle: Cycle; user: User }): boolean => {
+  const { countryIso, user, cycle } = props
+  if (Users.isAdministrator(user)) return true
+  if (Areas.isGlobal(countryIso) || Areas.isRegion(countryIso)) return false
+
+  const userHasRoleForCountryInCycle = user?.roles.some((role) => {
+    return role.countryIso === countryIso && role.cycleUuid === cycle.uuid
+  })
+
+  return userHasRoleForCountryInCycle
+}
+
+/**
  * CanEdit
  * Viewer or non loggedin user: never
  * Administrator: always
@@ -91,5 +112,6 @@ const canEdit = (props: { countryIso: CountryIso; section: Section; country: Cou
 
 export const Authorizer = {
   canView,
+  canViewUsers,
   canEdit,
 }

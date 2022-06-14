@@ -1,6 +1,8 @@
 import { ApiEndPoint } from '@common/api/endpoint'
 import { Express } from 'express'
 
+import { AuthMiddleware } from '@server/middleware/auth'
+
 import { getAcceptInvitation } from './acceptInvitation'
 import { getInvitation } from './getInvitation'
 import { getMany } from './getMany'
@@ -12,7 +14,7 @@ export const UserApi = {
     express.get(ApiEndPoint.User.getByInvitation(), getInvitation)
     express.get(ApiEndPoint.User.acceptInvitation(), getAcceptInvitation)
     express.get(ApiEndPoint.User.getProfilePicture(), getProfilePicture)
-    express.get(ApiEndPoint.User.many(), getMany)
-    express.post(ApiEndPoint.User.invite(), invite)
+    express.get(ApiEndPoint.User.many(), AuthMiddleware.requireViewUsers, getMany)
+    express.post(ApiEndPoint.User.invite(), AuthMiddleware.requireInviteUser, invite)
   },
 }
