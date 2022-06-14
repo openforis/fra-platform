@@ -6310,6 +6310,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     ? (
                       (disturbances.insects || 0) + (disturbances.diseases || 0) + (disturbances.severe_weather_events || 0) + (disturbances.other || 0)
                     ) : null`,
+                  validateFns: [
+                    `validatorNotGreaterThanForest(extentOfForest.forestArea, (disturbances.insects || 0) + (disturbances.diseases || 0) + (disturbances.severe_weather_events || 0) + (disturbances.other || 0))`,
+                  ],
                 },
               },
               {
@@ -6831,6 +6834,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'areaAffectedByFire.ofWhichForest',
                 variableExport: 'of_which_on_forest',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorSubCategory(areaAffectedByFire.total_land_area_affected_by_fire,[areaAffectedByFire.of_which_on_forest])`,
+                  ],
+                },
               },
               {
                 idx: 2,
