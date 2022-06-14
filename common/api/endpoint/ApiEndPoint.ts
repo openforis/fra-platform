@@ -72,7 +72,7 @@ export const ApiEndPoint = {
   },
   File: {
     Dashboard: {
-      one: (countryIso = ':countryIso', lang = ':lang') => apiPath('file', 'dashboard', countryIso, lang),
+      one: () => apiPath('file', 'dashboard'),
     },
   },
   Geo: {
