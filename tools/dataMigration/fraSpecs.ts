@@ -4814,6 +4814,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'forestAreaWithinProtectedAreas.header',
                 variableExport: 'forest_area_within_protected_areas',
+                migration: {
+                  validateFns: [
+                    `validatorNotGreaterThanForest(extentOfForest.forestArea, forestAreaWithinProtectedAreas.forest_area_within_protected_areas)`,
+                  ],
+                },
               },
               {
                 idx: 1,
@@ -4865,6 +4870,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'forestAreaWithinProtectedAreas.forestAreaWithLongTermManagementPlan',
                 variableExport: 'forest_area_with_long_term_management_plan',
+                migration: {
+                  validateFns: [
+                    `validatorNotGreaterThanForest(extentOfForest.forestArea, forestAreaWithinProtectedAreas.forest_area_with_long_term_management_plan)`,
+                  ],
+                },
               },
               {
                 idx: 2,
@@ -4917,6 +4927,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'forestAreaWithinProtectedAreas.ofWhichInProtectedAreas',
                 variableExport: 'of_which_in_protected_areas',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorSubCategory(forestAreaWithinProtectedAreas.forest_area_with_long_term_management_plan,[forestAreaWithinProtectedAreas.of_which_in_protected_areas])`,
+                  ],
+                },
               },
               {
                 idx: 3,
@@ -5100,6 +5115,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'forestOwnership.ofWhichIndividuals',
                 variableExport: 'of_which_by_individuals',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorSubCategory(forestOwnership.private_ownership,[forestOwnership.of_which_by_individuals,forestOwnership.of_which_by_private_businesses,forestOwnership.of_which_by_communities])`,
+                  ],
+                },
               },
               {
                 idx: 2,
@@ -5132,6 +5152,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'forestOwnership.ofWhichPrivateBusinesses',
                 variableExport: 'of_which_by_private_businesses',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorSubCategory(forestOwnership.private_ownership,[forestOwnership.of_which_by_individuals,forestOwnership.of_which_by_private_businesses,forestOwnership.of_which_by_communities])`,
+                  ],
+                },
               },
               {
                 idx: 3,
@@ -5164,6 +5189,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'forestOwnership.ofWhichCommunities',
                 variableExport: 'of_which_by_communities',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorSubCategory(forestOwnership.private_ownership,[forestOwnership.of_which_by_individuals,forestOwnership.of_which_by_private_businesses,forestOwnership.of_which_by_communities])`,
+                  ],
+                },
               },
               {
                 idx: 4,
@@ -5235,6 +5265,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   colNames: ['1990', '2000', '2010', '2015'],
                   calcFormula:
                     'extentOfForest.forestArea - (forestOwnership.private_ownership || 0) - (forestOwnership.public_ownership || 0)',
+                  validateFns: [`validatorGreaterThenOrZero(forestOwnership.other_or_unknown)`],
                 },
               },
               {
@@ -6283,6 +6314,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     ? (
                       (disturbances.insects || 0) + (disturbances.diseases || 0) + (disturbances.severe_weather_events || 0) + (disturbances.other || 0)
                     ) : null`,
+                  validateFns: [
+                    `validatorNotGreaterThanForest(extentOfForest.forestArea, (disturbances.insects || 0) + (disturbances.diseases || 0) + (disturbances.severe_weather_events || 0) + (disturbances.other || 0))`,
+                  ],
                 },
               },
               {
@@ -6804,6 +6838,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'areaAffectedByFire.ofWhichForest',
                 variableExport: 'of_which_on_forest',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorSubCategory(areaAffectedByFire.total_land_area_affected_by_fire,[areaAffectedByFire.of_which_on_forest])`,
+                  ],
+                },
               },
               {
                 idx: 2,
@@ -7331,6 +7370,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'areaOfPermanentForestEstate.areaOfPermanentForestEstate',
                 variableExport: 'area_of_permanent_forest_estate',
+                migration: {
+                  validateFns: [
+                    `validatorNotGreaterThanForest(extentOfForest.forestArea,areaOfPermanentForestEstate.area_of_permanent_forest_estate)`,
+                  ],
+                },
               },
               {
                 idx: 1,
@@ -7690,6 +7734,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'employment.ofWhichSilviculture',
                 variableExport: 'of_which_silviculture_and_other_forestry_activities',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorSubCategory(employment.employment_in_forestry_and_logging,[employment.of_which_silviculture_and_other_forestry_activities,employment.of_which_logging,employment.of_which_gathering_of_non_wood_forest_products,employment.of_which_support_services_to_forestry])`,
+                  ],
+                },
               },
               {
                 idx: 2,
@@ -7754,6 +7803,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'employment.ofWhichLogging',
                 variableExport: 'of_which_logging',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorSubCategory(employment.employment_in_forestry_and_logging,[employment.of_which_silviculture_and_other_forestry_activities,employment.of_which_logging,employment.of_which_gathering_of_non_wood_forest_products,employment.of_which_support_services_to_forestry])`,
+                  ],
+                },
               },
               {
                 idx: 3,
@@ -7818,6 +7872,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'employment.ofWhichGathering',
                 variableExport: 'of_which_gathering_of_non_wood_forest_products',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorSubCategory(employment.employment_in_forestry_and_logging,[employment.of_which_silviculture_and_other_forestry_activities,employment.of_which_logging,employment.of_which_gathering_of_non_wood_forest_products,employment.of_which_support_services_to_forestry])`,
+                  ],
+                },
               },
               {
                 idx: 4,
@@ -7882,6 +7941,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'employment.ofWhichSupport',
                 variableExport: 'of_which_support_services_to_forestry',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorSubCategory(employment.employment_in_forestry_and_logging,[employment.of_which_silviculture_and_other_forestry_activities,employment.of_which_logging,employment.of_which_gathering_of_non_wood_forest_products,employment.of_which_support_services_to_forestry])`,
+                  ],
+                },
               },
               {
                 idx: 5,
