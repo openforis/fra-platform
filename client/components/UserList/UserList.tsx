@@ -16,42 +16,42 @@ const UserRoleColumn: React.FC<{ user: User }> = ({ user }) => {
   const { i18n } = useTranslation()
   return (
     <td className="user-list__cell">
-      <div className="user-list__cell--read-only">{i18n.t(Users.getI18nRoleLabelKey(user.roles[0].role))}</div>
+      <div className="user-list__cell--read-only">{i18n.t<string>(Users.getI18nRoleLabelKey(user.roles[0].role))}</div>
     </td>
   )
 }
 
-const UserRow: React.FC<{ user: User }> = ({ user }) => (
+const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail }) => (
   <tr className={classNames({ 'user-list__inactive-user': user.status === UserStatus.inactive })}>
     <UserColumn user={user} field="name" />
     <UserRoleColumn user={user} />
-    <UserColumn user={user} field="email" />
+    {showEmail && <UserColumn user={user} field="email" />}
   </tr>
 )
 
-const UsersTableHeadRow: React.FC = () => {
+const UsersTableHeadRow: React.FC<{ showEmail: boolean }> = ({ showEmail }) => {
   const { i18n } = useTranslation()
 
   return (
     <thead>
       <tr>
-        <th className="user-list__header-cell">{i18n.t('userManagement.name')}</th>
-        <th className="user-list__header-cell">{i18n.t('userManagement.role')}</th>
-        <th className="user-list__header-cell">{i18n.t('userManagement.email')}</th>
+        <th className="user-list__header-cell">{i18n.t<string>('userManagement.name')}</th>
+        <th className="user-list__header-cell">{i18n.t<string>('userManagement.role')}</th>
+        {showEmail && <th className="user-list__header-cell">{i18n.t<string>('userManagement.email')}</th>}
       </tr>
     </thead>
   )
 }
 
-const UserList: React.FC<{ users: Array<User> }> = ({ users }) => {
+const UserList: React.FC<{ users: Array<User>; isAdmin: boolean }> = ({ users, isAdmin }) => {
   const { i18n } = useTranslation()
 
   return users && users.length > 0 ? (
     <table className="user-list__table">
-      <UsersTableHeadRow />
+      <UsersTableHeadRow showEmail={isAdmin} />
       <tbody>
         {users.map((user: User) => (
-          <UserRow key={user.id} user={user} />
+          <UserRow key={user.id} user={user} showEmail={isAdmin} />
         ))}
       </tbody>
     </table>
