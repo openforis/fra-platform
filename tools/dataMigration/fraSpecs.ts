@@ -7730,6 +7730,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'employment.ofWhichSilviculture',
                 variableExport: 'of_which_silviculture_and_other_forestry_activities',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorSubCategory(employment.employment_in_forestry_and_logging,[employment.of_which_silviculture_and_other_forestry_activities,employment.of_which_logging,employment.of_which_gathering_of_non_wood_forest_products,employment.of_which_support_services_to_forestry])`,
+                  ],
+                },
               },
               {
                 idx: 2,
@@ -7794,6 +7799,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'employment.ofWhichLogging',
                 variableExport: 'of_which_logging',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorSubCategory(employment.employment_in_forestry_and_logging,[employment.of_which_silviculture_and_other_forestry_activities,employment.of_which_logging,employment.of_which_gathering_of_non_wood_forest_products,employment.of_which_support_services_to_forestry])`,
+                  ],
+                },
               },
               {
                 idx: 3,
@@ -7858,6 +7868,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'employment.ofWhichGathering',
                 variableExport: 'of_which_gathering_of_non_wood_forest_products',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorSubCategory(employment.employment_in_forestry_and_logging,[employment.of_which_silviculture_and_other_forestry_activities,employment.of_which_logging,employment.of_which_gathering_of_non_wood_forest_products,employment.of_which_support_services_to_forestry])`,
+                  ],
+                },
               },
               {
                 idx: 4,
@@ -7922,6 +7937,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'employment.ofWhichSupport',
                 variableExport: 'of_which_support_services_to_forestry',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorSubCategory(employment.employment_in_forestry_and_logging,[employment.of_which_silviculture_and_other_forestry_activities,employment.of_which_logging,employment.of_which_gathering_of_non_wood_forest_products,employment.of_which_support_services_to_forestry])`,
+                  ],
+                },
               },
               {
                 idx: 5,
