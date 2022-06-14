@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { Areas } from '@core/country'
 import { Numbers } from '@core/utils/numbers'
 
+import { TableDatas } from '@meta/data'
+
 import { useCountryIso } from '@client/hooks'
 import ButtonTableExport from '@client/components/ButtonTableExport'
 
@@ -52,9 +54,9 @@ const Table = (props: Props) => {
         <table ref={tableRef} className="fra-table">
           <thead>
             <tr>
-              {['rowName', ...columns].map((key: any, id) => (
+              {['rowName', ...columns].map((key, id) => (
                 <th key={key} className="fra-table__header-cell">
-                  {id === 0 ? t(key) : key}
+                  {String(id === 0 ? t(key) : key)}
                 </th>
               ))}
             </tr>
@@ -63,18 +65,24 @@ const Table = (props: Props) => {
             {variables.map((variable: string, rowIdx: number) => {
               return (
                 <tr key={variable}>
-                  {['', ...columns].map((column: any, i: any) => {
+                  {['', ...columns].map((column: string, i: any) => {
                     if (i === 0)
                       return (
                         <th key={`${variable}-${column}`} className="fra-table__category-cell">
                           {`${t(variable)} (${i18n.t<string>(`unit.${units[rowIdx]}`)})`}
                         </th>
                       )
-                    const nodeValue = tableData[countryIso][tableNames[0]][column]?.[variable]
+                    const nodeValue = TableDatas.getNodeValue({
+                      variableName: variable,
+                      tableName: tableNames[0],
+                      colName: column,
+                      data: tableData,
+                      countryIso,
+                    })
 
                     return (
                       <td key={`${variable}-${column}`} className="fra-table__cell">
-                        {formatValue(nodeValue?.raw || '', isIsoCountry, variable) || '-'}
+                        {formatValue(Number(nodeValue?.raw || ''), isIsoCountry, variable) || '-'}
                       </td>
                     )
                   })}

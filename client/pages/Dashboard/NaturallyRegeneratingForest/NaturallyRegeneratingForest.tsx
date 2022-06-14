@@ -5,6 +5,7 @@ import { Areas } from '@core/country'
 import { ChartOptions } from 'chart.js'
 
 import { TableNames } from '@meta/assessment'
+import { TableDatas } from '@meta/data'
 
 import { useCountryIso } from '@client/hooks'
 import Chart from '@client/components/Chart'
@@ -40,9 +41,15 @@ const NaturallyRegeneratingForest = () => {
       unit,
 
       data: columns.map((column) => {
-        const raw = tableData?.[countryIso][tableName][column][variable].raw
+        const raw = TableDatas.getDatum({
+          data: tableData,
+          colName: column,
+          variableName: variable,
+          countryIso,
+          tableName,
+        })
         if (isIsoCountry) return raw
-        return raw / 1000
+        return Number(raw) / 1000
       }),
     })),
   }

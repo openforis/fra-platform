@@ -5,6 +5,7 @@ import { ChartOptions } from 'chart.js'
 
 import { Areas } from '@meta/area'
 import { TableNames } from '@meta/assessment'
+import { TableDatas } from '@meta/data'
 
 import { useCountryIso } from '@client/hooks'
 import Chart from '@client/components/Chart'
@@ -37,7 +38,7 @@ const ForestArea = () => {
         unit,
 
         data: tableNames
-          .map((tableName) => tableData?.[countryIso][tableName])
+          .map((tableName) => TableDatas.getTableData({ tableName, data: tableData, countryIso }))
           .flatMap(Object.values)
           .flatMap(Object.values)
           .map(({ raw }) => (!isIsoCountry ? raw / 1000 : raw)),

@@ -16,12 +16,23 @@ export const getAggregatedTableData = async (props: Props, client: BaseProtocol 
   const { assessment, countryISOs, cycle, variables, columns } = props
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
   const isRegion = Areas.isRegion(countryISOs[0])
+  const isGlobal = Areas.isGlobal(countryISOs[0])
+  const isArea = isGlobal || isRegion
+
   let _countryISOs: Array<CountryIso>
 
   if (isRegion) {
     _countryISOs = await client.map<CountryIso>(
       `select country_iso from ${schemaCycle}.country_region where region_code = $1`,
       [countryISOs[0]],
+      (res) => res.country_iso
+    )
+  }
+
+  if (isGlobal) {
+    _countryISOs = await client.map<CountryIso>(
+      `select country_iso from ${schemaCycle}.country`,
+      [],
       (res) => res.country_iso
     )
   }
@@ -34,7 +45,7 @@ export const getAggregatedTableData = async (props: Props, client: BaseProtocol 
     `
       with agg0 as (
 
-          select ${isRegion ? `'${countryISOs[0]}'` : 'country_iso'} as country_iso,
+          select ${isArea ? `'${countryISOs[0]}'` : 'country_iso'} as country_iso,
                  jsonb_object_agg('raw', x.raw_sum) as value,
           col_name,
           variable_name
@@ -74,7 +85,7 @@ export const getAggregatedTableData = async (props: Props, client: BaseProtocol 
   select jsonb_object_agg(a.country_iso, a.data) as data
   from agg3 a;
     `,
-    [isRegion ? _countryISOs : countryISOs, _columns, variables],
+    [isArea ? _countryISOs : countryISOs, _columns, variables],
     ({ data }) => data
   )
 }
