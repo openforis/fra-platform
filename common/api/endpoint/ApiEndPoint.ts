@@ -70,6 +70,11 @@ export const ApiEndPoint = {
   Definitions: {
     one: (lang = ':lang', name = ':name') => joinPaths('definitions', lang, name),
   },
+  File: {
+    Dashboard: {
+      one: (countryIso = ':countryIso', lang = ':lang') => apiPath('file', 'dashboard', countryIso, lang),
+    },
+  },
   Geo: {
     sepalProxy: () => apiPath('geo', 'sepal'),
   },
