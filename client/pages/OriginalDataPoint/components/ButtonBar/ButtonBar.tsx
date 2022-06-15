@@ -1,17 +1,19 @@
 /* eslint-disable no-alert */
 import React from 'react'
-import { useHistory, useParams } from 'react-router'
-import { AssessmentName } from '@meta/assessment'
-import { useAppDispatch } from '@client/store'
-import { useCountryIso } from '@client/hooks'
 import { useTranslation } from 'react-i18next'
-import { BasePaths } from '@client/basePaths'
+import { useNavigate, useParams } from 'react-router-dom'
+
+import { AssessmentName } from '@meta/assessment'
+
+import { useAppDispatch } from '@client/store'
+import { useAssessment, useCycle } from '@client/store/assessment'
 import {
   OriginalDataPointActions,
-  useOriginalDataPoint,
   useIsOriginalDataPointUpdating,
+  useOriginalDataPoint,
 } from '@client/store/pages/originalDataPoint'
-import { useAssessment, useCycle } from '@client/store/assessment'
+import { useCountryIso } from '@client/hooks'
+import { BasePaths } from '@client/basePaths'
 
 type Props = {
   canEditData: boolean
@@ -22,7 +24,7 @@ const ButtonBar: React.FC<Props> = (props) => {
   const originalDataPoint = useOriginalDataPoint()
 
   const dispatch = useAppDispatch()
-  const history = useHistory()
+  const navigate = useNavigate()
   const { assessmentName, cycleName, section } = useParams<{
     assessmentName: AssessmentName
     cycleName: string
@@ -49,7 +51,7 @@ const ButtonBar: React.FC<Props> = (props) => {
           originalDataPoint,
         })
       )
-      history.push(assessmentSectionLink)
+      navigate(assessmentSectionLink)
     }
   }
 
@@ -60,7 +62,7 @@ const ButtonBar: React.FC<Props> = (props) => {
         className="btn btn-primary"
         disabled={disabled}
         onClick={() => {
-          history.push(assessmentSectionLink)
+          navigate(assessmentSectionLink)
         }}
       >
         {i18n.t('nationalDataPoint.doneEditing')}

@@ -1,4 +1,4 @@
-import { RouteComponentProps } from 'react-router-dom'
+import { NavigateFunction } from 'react-router-dom'
 
 import { ApiEndPoint } from '@common/api/endpoint'
 import { createAsyncThunk } from '@reduxjs/toolkit'
@@ -15,9 +15,9 @@ export const createOriginalDataPoint = createAsyncThunk<
     countryIso: CountryIso
     assessmentName: AssessmentName
     cycleName: string
-    history: RouteComponentProps['history']
+    navigate: NavigateFunction
   }
->('originalDataPoint/create', async ({ assessmentName, cycleName, countryIso, history }) => {
+>('originalDataPoint/create', async ({ assessmentName, cycleName, countryIso, navigate }) => {
   const originalDataPoint = { countryIso } as OriginalDataPoint
   const { data } = await axios.post(
     ApiEndPoint.Assessment.OriginalDataPoint.one(countryIso, assessmentName, cycleName),
@@ -26,7 +26,7 @@ export const createOriginalDataPoint = createAsyncThunk<
     }
   )
   if (data?.id) {
-    history.push(
+    navigate(
       // After creating a new OriginalDataPoint, year is null, use -1 (handled in view)
       BasePaths.Assessment.OriginalDataPoint.section(countryIso, assessmentName, cycleName, '-1', 'extentOfForest')
     )

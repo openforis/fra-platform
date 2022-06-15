@@ -1,13 +1,13 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 
-import Icon from '@client/components/Icon'
-import { useUser } from '@client/store/user'
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { OriginalDataPointActions } from '@client/store/pages/originalDataPoint'
+import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
+import Icon from '@client/components/Icon'
 
 import { Props } from '../props'
 
@@ -15,7 +15,7 @@ const ExtentOfForest: React.FC<Props> = (props) => {
   const { disabled } = props
 
   const dispatch = useAppDispatch()
-  const history = useHistory()
+  const navigate = useNavigate()
   const { i18n } = useTranslation()
   const assessment = useAssessment()
   const cycle = useCycle()
@@ -30,7 +30,7 @@ const ExtentOfForest: React.FC<Props> = (props) => {
         assessmentName: assessment.props.name,
         cycleName: cycle.name,
         countryIso,
-        history,
+        navigate,
       })
     )
   }
