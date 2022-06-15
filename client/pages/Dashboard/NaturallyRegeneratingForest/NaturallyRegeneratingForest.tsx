@@ -2,6 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Areas } from '@core/country'
+import { Numbers } from '@core/utils'
 import { ChartOptions } from 'chart.js'
 
 import { TableNames } from '@meta/assessment'
@@ -49,7 +50,7 @@ const NaturallyRegeneratingForest = () => {
           tableName,
         })
         if (isIsoCountry) return raw
-        return Number(raw) / 1000
+        return Numbers.div(raw, 1000).toNumber()
       }),
     })),
   }

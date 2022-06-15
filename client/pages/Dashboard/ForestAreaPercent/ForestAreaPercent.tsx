@@ -1,6 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Numbers } from '@core/utils'
 import { ChartOptions } from 'chart.js'
 
 import { Areas } from '@meta/area'
@@ -44,12 +45,12 @@ const ForestAreaPercent = () => {
   const totalLandArea = Number(
     TableDatas.getDatum({ ...props, colName: isIsoCountry ? props.colName : '2015', variableName: 'totalLandArea' })
   )
-  const forestAreaAsPercentage = 100 * (forestArea / totalLandArea)
+  const forestAreaAsPercentage = Numbers.mul(100, Numbers.div(forestArea, totalLandArea)).toNumber()
 
   const data = {
     datasets: [
       {
-        data: [forestAreaAsPercentage, 100 - forestAreaAsPercentage],
+        data: [forestAreaAsPercentage, Numbers.sub(100, forestAreaAsPercentage).toNumber()],
         borderWidth: 0,
         backgroundColor: [ChartColors.green, ChartColors.gray],
         hoverBackgroundColor: [ChartColors.greenHover, ChartColors.grayHover],
