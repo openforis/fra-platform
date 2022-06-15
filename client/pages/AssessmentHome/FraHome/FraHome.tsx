@@ -54,10 +54,14 @@ const FraHome: React.FC = () => {
         </div>
       )}
       <Switch>
-        <Redirect
-          from={BasePaths.Assessment.home()}
-          to={BasePaths.Assessment.home(countryIso, assessmentName, cycleName, AssessmentHomeRouteNames.overview)}
+        <Route
           exact
+          path={BasePaths.Assessment.home()}
+          render={() => (
+            <Redirect
+              to={BasePaths.Assessment.home(countryIso, assessmentName, cycleName, AssessmentHomeRouteNames.overview)}
+            />
+          )}
         />
         {sections.map(({ name, component }) => (
           <Route

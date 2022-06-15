@@ -71,10 +71,10 @@ const OriginalData: React.FC<Props> = (props) => {
       </div>
 
       <Switch>
-        <Redirect
-          from={BasePaths.Assessment.OriginalDataPoint.one()}
-          to={BasePaths.Assessment.OriginalDataPoint.tab(extentOfForest.name)}
+        <Route
           exact
+          path={BasePaths.Assessment.OriginalDataPoint.one()}
+          render={() => <Redirect to={BasePaths.Assessment.OriginalDataPoint.tab(extentOfForest.name)} />}
         />
         <Route path={BasePaths.Assessment.OriginalDataPoint.tab(extentOfForest.name)} exact>
           <ExtentOfForest canEditData={canEditData} />

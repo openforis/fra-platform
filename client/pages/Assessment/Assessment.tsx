@@ -71,7 +71,7 @@ const Assessment: React.FC = () => {
       <Navigation />
 
       <Switch>
-        <Redirect from={BasePaths.Assessment.root()} to={BasePaths.Assessment.home()} exact />
+        <Route exact path={BasePaths.Assessment.root()} render={() => <Redirect to={BasePaths.Assessment.home()} />} />
         <Route path={BasePaths.Assessment.home()} component={AssessmentHome} />
         {/* <Route path={BasePaths.assessmentDataDownload} component={AssessmentDataDownload} /> */}
         <Route
