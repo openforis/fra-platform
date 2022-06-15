@@ -1,6 +1,5 @@
 import { Row, VariableCache } from '@meta/assessment'
 import { NodeUpdates } from '@meta/data'
-import { User } from '@meta/user'
 
 import { BaseProtocol } from '@server/db'
 import { RowRepository } from '@server/repository/assessment/row'
@@ -9,13 +8,12 @@ import { validateNode } from './validateNode'
 
 type Props = {
   nodeUpdates: NodeUpdates
-  user: User
 }
 
 type QueueItem = VariableCache & { colName: string }
 
 export const validateNodeUpdates = async (props: Props, client: BaseProtocol): Promise<void> => {
-  const { nodeUpdates, user } = props
+  const { nodeUpdates } = props
 
   const { assessment, cycle, countryIso, values } = nodeUpdates
   const queue = values.map<QueueItem>(({ tableName, variableName, colName }) => ({ tableName, variableName, colName }))
@@ -49,7 +47,6 @@ export const validateNodeUpdates = async (props: Props, client: BaseProtocol): P
               tableName,
               variableName,
               colName,
-              user,
               row,
             },
             client

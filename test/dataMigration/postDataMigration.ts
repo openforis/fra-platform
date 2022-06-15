@@ -1,5 +1,6 @@
 import { deleteWrongCalculatedNodes } from '@test/dataMigration/steps/deleteWrongCalculatedNodes'
 import { updateCalculatedNodes } from '@test/dataMigration/steps/updateCalculatedNodes/updateCalculatedNodes'
+import { validateNodes } from '@test/dataMigration/steps/validateNodes/validateNodes'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { DB } from '@server/db'
@@ -18,6 +19,8 @@ describe('Post Data migration', () => {
         await deleteWrongCalculatedNodes({ assessment, cycle }, client)
         // eslint-disable-next-line no-await-in-loop
         await updateCalculatedNodes({ assessment, cycle }, client)
+        // eslint-disable-next-line no-await-in-loop
+        await validateNodes({ assessment, cycle }, client)
       }
     })
   })
