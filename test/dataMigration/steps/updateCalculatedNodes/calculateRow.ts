@@ -6,7 +6,6 @@ import { Assessment, Cycle, Row, VariableCache } from '@meta/assessment'
 import { AssessmentController } from '@server/controller/assessment'
 import { evalExpression } from '@server/controller/cycleData/persistNodeValue/evalExpression'
 import { BaseProtocol } from '@server/db'
-import { ColRepository } from '@server/repository/assessment/col'
 import { DataRepository, TablesCondition } from '@server/repository/assessmentCycle/data'
 
 const hasBeenCalculated = (props: {
@@ -60,13 +59,12 @@ export const calculateRow = async (
       : undefined
   const table = await AssessmentController.getTable({ assessment, cycle, tableName })
 
-  const cols = await ColRepository.getMany({ assessment, tableId: row.tableId }, client)
   await Promise.all(
     countryISOs.map(async (countryIso) => {
       await Promise.all(
         table.props.columnNames[cycle.uuid].map(async (colName) => {
           // const colName = Cols.getColName({ colIdx, cols })
-          const col = cols.find((c) => c.rowId === row.id && c.props.colName === colName)
+          const col = row.cols.find((c) => c.props.colName === colName)
           if (!col) return
           const { variableName } = row.props
 
