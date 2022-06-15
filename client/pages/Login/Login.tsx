@@ -1,8 +1,9 @@
 import './login.scss'
 import React, { useEffect } from 'react'
-import { Route, useNavigate } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 
 import { useUser } from '@client/store/user'
+import { ClientRoutes } from '@client/clientRoutes'
 import Partners from '@client/components/Partners'
 import { Urls } from '@client/utils'
 
@@ -24,17 +25,11 @@ const Login: React.FC = () => {
   return (
     <>
       <div className="login">
-        <Route exact path={BasePaths.Login.invitation()}>
-          <Invitation />
-        </Route>
-
-        <Route exact path={BasePaths.Login.root()}>
-          <LoginForm />
-        </Route>
-
-        <Route exact path={BasePaths.Login.resetPassword()}>
-          <ResetPassword />
-        </Route>
+        <Routes>
+          <Route path={ClientRoutes.Login.invitation.path} element={<Invitation />} />
+          <Route path={ClientRoutes.Login.resetPassword.path} element={<ResetPassword />} />
+          <Route path="*" element={<LoginForm />} />
+        </Routes>
 
         <img alt="" src="/img/tucan.svg" className="login__tucan" />
       </div>

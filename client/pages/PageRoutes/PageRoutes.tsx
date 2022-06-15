@@ -3,12 +3,12 @@ import '@client/components/CountrySelect/countrySelect.scss'
 import '@client/components/CountrySelect/CountryList/countryList.scss'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Route, Switch, useRouteMatch } from 'react-router-dom'
+import { Route, Routes, useMatch } from 'react-router-dom'
 
 // import ErrorComponent from '../../../webapp/components/error/errorComponent'
 import { useAppDispatch } from '@client/store'
 import { AssessmentActions } from '@client/store/assessment'
-import { BasePaths } from '@client/basePaths'
+import { ClientRoutes } from '@client/clientRoutes'
 import CountrySelect from '@client/components/CountrySelect'
 import Footer from '@client/components/Footer'
 import Header from '@client/components/Header'
@@ -32,7 +32,7 @@ const PageRoutes: React.FC = () => {
   useTheme()
   const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
-  const shouldRenderCountrySelect = !useRouteMatch([BasePaths.Login.root()])
+  const shouldRenderCountrySelect = !useMatch(ClientRoutes.Login.root)
 
   useEffect(() => {
     // TODO: Add user.language support
@@ -62,18 +62,11 @@ const PageRoutes: React.FC = () => {
       {/*  render={() => <DynamicImport load={() => import('../../../webapp/pages/AssessmentPrint/export')} />} */}
       {/* /> */}
 
-      <Switch>
-        <Route exact path={BasePaths.Root()} component={Landing} />
-
-        <Route
-          exact
-          path={[BasePaths.Login.root(), BasePaths.Login.resetPassword(), BasePaths.Login.invitation()]}
-          component={Login}
-        />
-
-        <Route path={BasePaths.Assessment.root()} component={Assessment} />
-
-        <Route path={BasePaths.Geo.root()} component={Geo} />
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path={ClientRoutes.Login.root.path} element={<Login />} />
+        <Route path={ClientRoutes.Assessment.root.path} element={<Assessment />} />
+        <Route path={ClientRoutes.Geo.root.path} element={<Geo />} />
 
         {/* <Route */}
         {/*  path={BasePaths.admin} */}
@@ -96,7 +89,7 @@ const PageRoutes: React.FC = () => {
         {/*  path={BasePaths.assessment} */}
         {/*  render={() => <DynamicImport key={3} load={() => import('../../../webapp/app/appViewExport')} />} */}
         {/* /> */}
-      </Switch>
+      </Routes>
 
       {/* <ErrorComponent /> */}
       <Footer />

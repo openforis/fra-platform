@@ -1,13 +1,15 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Redirect } from 'react-router'
-import { NavLink, Route, Switch } from 'react-router-dom'
+import { Navigate, NavLink, Route, Routes } from 'react-router-dom'
+
+import classNames from 'classnames'
 
 import { Areas } from '@meta/area'
 
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { useCountryIso } from '@client/hooks'
-import { AssessmentHomeRouteNames, BasePaths } from '@client/basePaths'
+import { AssessmentHomeRouteNames } from '@client/basePaths'
+import { ClientRoutes } from '@client/clientRoutes'
 
 import { useSections } from './hooks/useSections'
 import ButtonDownloadStatisticalFactsheets from './ButtonDownloadStatisticalFactsheets'
@@ -44,33 +46,42 @@ const FraHome: React.FC = () => {
           {sections.map(({ name }) => (
             <NavLink
               key={name}
-              to={BasePaths.Assessment.home(countryIso, assessmentName, cycleName, name)}
-              className="btn landing__page-menu-button"
-              activeClassName="disabled"
+              to={ClientRoutes.Assessment.home.generatePath({ countryIso, assessmentName, cycleName, route: name })}
+              className={(navData) =>
+                classNames('btn landing__page-menu-button', {
+                  disabled: navData.isActive,
+                })
+              }
             >
               {i18n.t(`landing.sections.${name}`)}
             </NavLink>
           ))}
         </div>
       )}
-      <Switch>
-        <Route
-          exact
-          path={BasePaths.Assessment.home()}
-          render={() => (
-            <Redirect
-              to={BasePaths.Assessment.home(countryIso, assessmentName, cycleName, AssessmentHomeRouteNames.overview)}
-            />
-          )}
-        />
+      <Routes>
         {sections.map(({ name, component }) => (
           <Route
             key={name}
-            path={BasePaths.Assessment.home(countryIso, assessmentName, cycleName, name)}
-            component={component}
+            path={ClientRoutes.Assessment.home.generatePath({ countryIso, assessmentName, cycleName, route: name })}
+            element={React.createElement(component, {})}
           />
         ))}
-      </Switch>
+
+        <Route
+          path="*"
+          element={
+            <Navigate
+              to={ClientRoutes.Assessment.home.generatePath({
+                countryIso,
+                assessmentName,
+                cycleName,
+                route: AssessmentHomeRouteNames.overview,
+              })}
+              replace
+            />
+          }
+        />
+      </Routes>
     </>
   )
 }
