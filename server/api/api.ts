@@ -1,10 +1,12 @@
 import { Express } from 'express'
-import { InitApi } from '@server/api/init'
-import { AuthApi } from '@server/api/auth'
-import { UserApi } from '@server/api/user'
+
 import { AssessmentApi } from '@server/api/assessment'
+import { AuthApi } from '@server/api/auth'
 import { DefinitionApi } from '@server/api/definitions'
+import { FileApi } from '@server/api/file'
+import { InitApi } from '@server/api/init'
 import { MessageCenterApi } from '@server/api/messageCenter'
+import { UserApi } from '@server/api/user'
 
 /**
  * API Controller
@@ -17,6 +19,7 @@ export const Api = {
     AuthApi.init(express)
     AssessmentApi.init(express)
     DefinitionApi.init(express)
+    FileApi.init(express)
     UserApi.init(express)
     MessageCenterApi.init(express)
   },
