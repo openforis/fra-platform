@@ -3,12 +3,16 @@ import { CycledPropsObject, Row, Unit } from './index'
 // utility table names
 // e.g. used in getTableData to merge data with odp or fetch correct data for dashboard
 export enum TableNames {
+  carbonStock = 'carbonStock',
   extentOfForest = 'extentOfForest',
-  forestCharacteristics = 'forestCharacteristics',
-  valueAggregate = 'value_aggregate',
   forestAreaWithinProtectedAreas = 'forestAreaWithinProtectedAreas',
+  forestCharacteristics = 'forestCharacteristics',
   forestOwnership = 'forestOwnership',
+  growingStockTotal = 'growingStockTotal',
   specificForestCategories = 'specificForestCategories',
+  totalAreaWithDesignatedManagementObjective = 'totalAreaWithDesignatedManagementObjective',
+
+  valueAggregate = 'value_aggregate',
 }
 
 // array of column names indexed by cycle uuid
