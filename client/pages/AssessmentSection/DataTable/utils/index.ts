@@ -9,7 +9,7 @@ const handleHeader = (header: string) => {
 }
 
 export const getHeaders = (data: TableData, countryIso: CountryIso, table: Table): string[] => {
-  const dataTable = TableDatas.getTableData({ data, countryIso, table })
+  const dataTable = TableDatas.getTableData({ data, countryIso, tableName: table.props.name })
   if (!dataTable) return []
   return Object.keys(dataTable).map(handleHeader)
 }

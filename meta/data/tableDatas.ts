@@ -3,9 +3,15 @@ import { NodeValue } from '@meta/assessment'
 
 import { TableData } from './tableData'
 
-type Props = { data: TableData; countryIso: CountryIso; tableName: string; variableName: string; colName: string }
+type Props = {
+  data: TableData
+  countryIso: CountryIso
+  tableName: string
+  variableName: string
+  colName: string
+}
 
-const getTableData = (props: Partial<Props>) => {
+const getTableData = (props: Pick<Props, 'countryIso' | 'tableName' | 'data'>) => {
   const { countryIso, tableName, data } = props
 
   return data?.[countryIso]?.[tableName] || {}
