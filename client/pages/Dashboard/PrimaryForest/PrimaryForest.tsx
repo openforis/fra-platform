@@ -1,6 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Numbers } from '@core/utils'
 import { ChartOptions } from 'chart.js'
 
 import { Areas } from '@meta/area'
@@ -47,12 +48,12 @@ const PrimaryForest = () => {
     TableDatas.getDatum({ ...props, tableName: tableNamePrimary, variableName: 'primary_forest' })
   )
 
-  const primaryForestAsPercentage = 100 * (primaryForest / otherForest)
+  const primaryForestAsPercentage = Numbers.mul(100, Numbers.div(primaryForest, otherForest)).toNumber()
 
   const data = {
     datasets: [
       {
-        data: [primaryForestAsPercentage, 100 - primaryForestAsPercentage],
+        data: [primaryForestAsPercentage, Numbers.sub(100, primaryForestAsPercentage).toNumber()],
         borderWidth: 0,
         backgroundColor: [ChartColors.green, ChartColors.lightGreen],
         hoverBackgroundColor: [ChartColors.greenHover, ChartColors.lightGreenHover],
