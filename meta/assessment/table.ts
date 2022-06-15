@@ -10,6 +10,7 @@ export enum TableNames {
   forestOwnership = 'forestOwnership',
   growingStockTotal = 'growingStockTotal',
   specificForestCategories = 'specificForestCategories',
+  totalAreaWithDesignatedManagementObjective = 'totalAreaWithDesignatedManagementObjective',
 
   valueAggregate = 'value_aggregate',
 }

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Areas } from '@core/country'
 import { Numbers } from '@core/utils/numbers'
 
+import { TableNames } from '@meta/assessment'
 import { TableData, TableDatas } from '@meta/data'
 
 import { useCountryIso } from '@client/hooks'
@@ -29,7 +30,7 @@ const Table = (props: Props) => {
   const { columns, variables, tableNames: _tableNames, units, section, tableData, loaded } = props
   const tableRef = useRef(null)
 
-  const tableNames = isIsoCountry ? _tableNames : ['value_aggregate']
+  const tableNames = isIsoCountry ? _tableNames : TableNames.valueAggregate
 
   if (!loaded) {
     return null

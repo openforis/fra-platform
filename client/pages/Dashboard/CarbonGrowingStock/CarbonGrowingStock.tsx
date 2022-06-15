@@ -1,6 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Numbers } from '@core/utils'
+
 import { Areas } from '@meta/area'
 import { TableNames } from '@meta/assessment'
 import { TableData, TableDatas } from '@meta/data'
@@ -96,12 +98,13 @@ const CarbonGrowingStock = () => {
       // Carbon stock in biomass (tonnesPerHa)
       const carbonStockBiomassTotal = Number(carbonForestAboveGround) + Number(carbonForestBelowGround)
       // Total carbon stock (tonnesPerHa)
-      const carbonStockTotal =
-        Number(carbonForestAboveGround) +
-        Number(carbonForestBelowGround) +
-        Number(carbonForestDeadwood) +
-        Number(carbonForestLitter) +
-        Number(carbonForestSoil)
+      const carbonStockTotal = Numbers.sum([
+        Number(carbonForestAboveGround),
+        Number(carbonForestBelowGround),
+        Number(carbonForestDeadwood),
+        Number(carbonForestLitter),
+        Number(carbonForestSoil),
+      ])
 
       // [Not calculated] Growing stock (millionsCubicMeterOverBark)
       const growingStockTotal = TableDatas.getDatum({
