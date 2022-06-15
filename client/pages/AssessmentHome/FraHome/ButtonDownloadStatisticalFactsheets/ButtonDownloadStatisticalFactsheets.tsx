@@ -1,8 +1,7 @@
 import './ButtonDownloadStatisticalFactsheets.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { matchPath, useLocation } from 'react-router'
-import { Link } from 'react-router-dom'
+import { Link, matchPath, useLocation } from 'react-router-dom'
 
 import { Areas } from '@meta/area'
 
@@ -26,7 +25,7 @@ const ButtonDownloadStatisticalFactsheets: React.FC = () => {
     cycleName,
     AssessmentHomeRouteNames.overview
   )
-  const matchOverview = matchPath(pathname, { path: overviewPath, exact: true })
+  const matchOverview = matchPath({ path: overviewPath, end: true }, pathname)
   const renderButton = matchOverview && (Areas.isGlobal(countryIso) || Areas.isFRARegion(countryIso))
 
   if (!renderButton) {
