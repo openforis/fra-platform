@@ -50,7 +50,7 @@ export const getTableData = async (
           tableName === TableNames.extentOfForest ||
           (tableName === TableNames.forestCharacteristics && country.props.forestCharacteristics.useOriginalDataPoint)
         ) {
-          if (tableData[countryIso] && tableData[countryIso][tableName] && originalDataPointData[countryIso]) {
+          if (tableData[countryIso] && tableData[countryIso][tableName] && originalDataPointData?.[countryIso]) {
             let { originalDataPointValue } = originalDataPointData[countryIso]
             originalDataPointValue = Objects.pick(originalDataPointValue, columns)
             originalDataPointValue = Object.entries(originalDataPointValue).reduce((acc, [year, value]) => {
