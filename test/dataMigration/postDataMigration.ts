@@ -10,7 +10,7 @@ afterAll(async () => {
 })
 
 describe('Post Data migration', () => {
-  test('Update calculated variables', async () => {
+  test('Update node values', async () => {
     await DB.tx(async (client) => {
       const assessment = await AssessmentController.getOne({ name: 'fra', metaCache: true }, client)
       for (let i = 0; i < assessment.cycles.length; i += 1) {

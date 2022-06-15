@@ -1,6 +1,8 @@
 import { Objects } from '@core/utils'
+import { NodeRow } from '@test/dataMigration/types'
+import * as pgPromise from 'pg-promise'
 
-import { Assessment, Cycle, Node, Row } from '@meta/assessment'
+import { Assessment, Col, Cycle, Node, Row } from '@meta/assessment'
 
 import { CycleDataController } from '@server/controller/cycleData'
 import { validateNode } from '@server/controller/cycleData/persistNodeValue/validateNodeUpdates/validateNode'
@@ -14,13 +16,28 @@ export const validateNodes = async (
   const { assessment, cycle } = props
   const schema = Schemas.getName(assessment)
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const pgp = pgPromise()
+  const cs = new pgp.helpers.ColumnSet(
+    [
+      'country_iso',
+      'row_uuid',
+      'col_uuid',
+      {
+        name: 'value',
+        cast: 'jsonb',
+      },
+    ],
+    {
+      table: { table: 'node', schema: schemaCycle },
+    }
+  )
 
-  const nodes = await client.map<Node & { tableName: string; colName: string; row: Row }>(
+  const nodes = await client.map<Node & { tableName: string; row: Row; col: Col }>(
     `
         select n.*,
                t.props ->> 'name'    as table_name,
-               c.props ->> 'colName' as col_name,
-               to_jsonb(r.*)         as row
+               to_jsonb(r.*)         as row,
+               to_jsonb(c.*)         as col
         from ${schemaCycle}.node n
                  left join ${schema}.row r
                            on n.row_uuid = r.uuid
@@ -56,14 +73,29 @@ export const validateNodes = async (
     aggregate: false,
   })
 
-  await client.tx((t) => {
-    const queries = []
-    while (nodes.length) {
-      const { countryIso, tableName, colName, row } = nodes.shift()
-      const { variableName } = row.props
-      const query = validateNode({ countryIso, assessment, cycle, tableName, variableName, colName, row, data }, t)
-      queries.push(query)
-    }
-    return t.batch(queries)
-  })
+  const values: Array<NodeRow> = []
+  const nodeUUIDs: Array<string> = []
+  while (nodes.length) {
+    const { countryIso, tableName, col, row, value, uuid } = nodes.shift()
+    const { variableName } = row.props
+    const { colName } = col.props
+    nodeUUIDs.push(uuid)
+    // eslint-disable-next-line no-await-in-loop
+    const validation = await validateNode(
+      { countryIso, assessment, cycle, tableName, variableName, colName, row, data },
+      client
+    )
+    values.push({
+      country_iso: countryIso,
+      row_uuid: row.uuid,
+      col_uuid: col.uuid,
+      value: { ...value, validation },
+    })
+  }
+
+  await client.query(
+    `delete from ${schemaCycle}.node n
+        where n.uuid in (${nodeUUIDs.map((uuid) => `'${uuid}'`).join(',')})`
+  )
+  await client.query(pgp.helpers.insert(values, cs))
 }

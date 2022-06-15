@@ -3,6 +3,7 @@ import { NodeUpdates } from '@meta/data'
 
 import { BaseProtocol } from '@server/db'
 import { RowRepository } from '@server/repository/assessment/row'
+import { NodeRepository } from '@server/repository/assessmentCycle/node'
 
 import { validateNode } from './validateNode'
 
@@ -39,7 +40,7 @@ export const validateNodeUpdates = async (props: Props, client: BaseProtocol): P
         // make sure in target table there's a matching column
         if (row.cols.find((c) => c.props.colName === colName)) {
           // eslint-disable-next-line no-await-in-loop
-          await validateNode(
+          const validation = await validateNode(
             {
               assessment,
               cycle,
@@ -49,6 +50,11 @@ export const validateNodeUpdates = async (props: Props, client: BaseProtocol): P
               colName,
               row,
             },
+            client
+          )
+          // eslint-disable-next-line no-await-in-loop
+          await NodeRepository.updateValidation(
+            { assessment, cycle, tableName, variableName, countryIso, colName, validation },
             client
           )
         }
