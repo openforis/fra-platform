@@ -5,10 +5,10 @@ import { Props } from '@server/controller/cycleData/persistNodeValue/props'
 import { BaseProtocol } from '@server/db'
 import { RowRepository } from '@server/repository/assessment/row'
 
-import { evaluateNode } from './evaluateNode'
+import { calculateNode } from './calculateNode'
 
-export const persistCalculationDependants = async (props: Props, client: BaseProtocol): Promise<NodeUpdates> => {
-  const { assessment, cycle, countryIso, tableName, variableName, colName } = props
+export const calculateDependantNodes = async (props: Props, client: BaseProtocol): Promise<NodeUpdates> => {
+  const { assessment, cycle, countryIso, tableName, variableName, colName, user } = props
 
   const nodeUpdates: NodeUpdates = { assessment, cycle, countryIso, values: [] }
   const queue: Array<VariableCache> = [
@@ -36,17 +36,22 @@ export const persistCalculationDependants = async (props: Props, client: BasePro
         client
       )
       const evaluateProps = {
-        ...props,
+        countryIso,
+        assessment,
+        cycle,
+        colName,
+        expression: row.props.calculateFn,
+        row,
         tableName: variableCache.tableName,
         variableName: variableCache.variableName,
-        variableCache,
-        row,
+        user,
       }
+
       if (row.props.calculateFn) {
         // make sure in target table there's a matching column
         if (row.cols.find((c) => c.props.colName === colName)) {
           // eslint-disable-next-line no-await-in-loop
-          const node = await evaluateNode({ ...evaluateProps, expression: row.props.calculateFn }, client)
+          const node = await calculateNode({ ...evaluateProps, expression: row.props.calculateFn }, client)
           nodeUpdates.values.push({
             tableName: evaluateProps.tableName,
             variableName: evaluateProps.variableName,
@@ -59,7 +64,7 @@ export const persistCalculationDependants = async (props: Props, client: BasePro
         await Promise.all(
           row.cols.map(async (col) => {
             if (col.props.calculateFn) {
-              const node = await evaluateNode(
+              const node = await calculateNode(
                 { ...evaluateProps, colName: col.props.colName, expression: col.props.calculateFn },
                 client
               )

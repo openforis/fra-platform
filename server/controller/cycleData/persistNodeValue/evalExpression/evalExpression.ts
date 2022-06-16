@@ -59,6 +59,9 @@ const getTableData = async (props: Props, client: BaseProtocol): Promise<TableDa
   return tableData
 }
 
+/**
+ * @deprecated
+ */
 export const evalExpression = async <ReturnType>(props: Props, client: BaseProtocol): Promise<ReturnType> => {
   const { assessment, countryIso, tableName, variableName, colName, row: rowProps, expression } = props
 
