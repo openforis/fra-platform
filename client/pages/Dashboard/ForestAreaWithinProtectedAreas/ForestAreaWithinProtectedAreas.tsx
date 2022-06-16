@@ -48,12 +48,15 @@ const ForestAreaWithinProtectedAreas = () => {
     TableDatas.getDatum({ ...props, tableName: tableNamePrimary, variableName: 'forest_area_within_protected_areas' })
   )
 
-  const primaryForestAsPercentage = Numbers.mul(100, Numbers.div(forestAreaWithinProtectedAreas, forestArea)).toNumber()
+  const primaryForestAsPercentage = Numbers.mul(
+    100,
+    Numbers.div(forestAreaWithinProtectedAreas, forestArea)
+  )?.toNumber()
 
   const data = {
     datasets: [
       {
-        data: [Numbers.sub(100, primaryForestAsPercentage).toNumber(), primaryForestAsPercentage],
+        data: [Numbers.sub(100, primaryForestAsPercentage)?.toNumber(), primaryForestAsPercentage],
         borderWidth: 0,
         backgroundColor: [ChartColors.green, ChartColors.lightGreen],
         hoverBackgroundColor: [ChartColors.greenHover, ChartColors.lightGreenHover],
