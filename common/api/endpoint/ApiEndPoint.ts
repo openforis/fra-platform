@@ -74,6 +74,9 @@ export const ApiEndPoint = {
     Dashboard: {
       one: () => apiPath('file', 'dashboard'),
     },
+    DataDownload: {
+      one: () => apiPath('file', 'dataDownload'),
+    },
   },
   Geo: {
     sepalProxy: () => apiPath('geo', 'sepal'),

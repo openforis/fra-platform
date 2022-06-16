@@ -16,6 +16,7 @@ import { useUser } from '@client/store/user'
 import { useCountryIso, useOnUpdate } from '@client/hooks'
 import { BasePaths } from '@client/basePaths'
 import Navigation from '@client/components/Navigation'
+import AssessmentDataDownload from '@client/pages/AssessmentDataDownload'
 import AssessmentHome from '@client/pages/AssessmentHome'
 import AssessmentSection from '@client/pages/AssessmentSection'
 import DataExport from '@client/pages/DataExport'
@@ -73,7 +74,7 @@ const Assessment: React.FC = () => {
       <Switch>
         <Redirect from={BasePaths.Assessment.root()} to={BasePaths.Assessment.home()} exact />
         <Route path={BasePaths.Assessment.home()} component={AssessmentHome} />
-        {/* <Route path={BasePaths.assessmentDataDownload} component={AssessmentDataDownload} /> */}
+        <Route path={BasePaths.Assessment.dataDownload()} component={AssessmentDataDownload} />
         <Route
           exact
           path={BasePaths.Assessment.section()}
