@@ -12,7 +12,7 @@ export const persistNodeValue = async (props: Props): Promise<void> => {
     const node = await persistNode(props, client)
 
     const nodeUpdates = await calculateDependantNodes(props, client)
-    nodeUpdates.values.unshift({ tableName, variableName, colName, value: node.value })
+    nodeUpdates.nodes.unshift({ tableName, variableName, colName, value: node.value })
 
     await validateNodeUpdates({ nodeUpdates }, client)
   })

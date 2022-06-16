@@ -61,20 +61,20 @@ export const postEstimation = async (req: Request, res: Response): Promise<any> 
       changeRates,
     }
 
-    const values = EstimationEngine.estimateValues(
+    const nodes = EstimationEngine.estimateValues(
       years,
       originalDataPointValues,
       generateSpec as GenerateSpec,
       tableSpec.props.name
     )
 
-    if (values.length) {
+    if (nodes.length) {
       await CycleDataController.persistNodeValues({
-        nodes: {
+        nodeUpdates: {
           assessment,
           cycle,
           countryIso,
-          values,
+          nodes,
         },
         user: Requests.getRequestUser(req),
       })

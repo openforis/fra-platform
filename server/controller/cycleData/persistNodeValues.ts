@@ -4,17 +4,17 @@ import { User } from '@meta/user'
 import { persistNodeValue } from './persistNodeValue'
 
 interface Props {
-  nodes: NodeUpdates
+  nodeUpdates: NodeUpdates
   user: User
 }
 
 // Wrapper to support persisting full tables
 export const persistNodeValues = async (props: Props): Promise<void> => {
-  const { user, nodes } = props
-  const { assessment, cycle, countryIso, values } = nodes
+  const { user, nodeUpdates } = props
+  const { assessment, cycle, countryIso, nodes } = nodeUpdates
 
   await Promise.all(
-    values.map((nodeUpdate) => {
+    nodes.map((nodeUpdate) => {
       const { tableName, variableName, colName, value } = nodeUpdate
       return persistNodeValue({ user, assessment, cycle, countryIso, tableName, variableName, colName, value })
     })

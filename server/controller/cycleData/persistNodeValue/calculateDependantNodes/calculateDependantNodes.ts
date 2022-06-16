@@ -10,7 +10,7 @@ import { calculateNode } from './calculateNode'
 export const calculateDependantNodes = async (props: Props, client: BaseProtocol): Promise<NodeUpdates> => {
   const { assessment, cycle, countryIso, tableName, variableName, colName, user } = props
 
-  const nodeUpdates: NodeUpdates = { assessment, cycle, countryIso, values: [] }
+  const nodeUpdates: NodeUpdates = { assessment, cycle, countryIso, nodes: [] }
   const queue: Array<VariableCache> = [
     ...(assessment.metaCache.calculations.dependants[tableName]?.[variableName] ?? []),
   ]
@@ -52,7 +52,7 @@ export const calculateDependantNodes = async (props: Props, client: BaseProtocol
         if (row.cols.find((c) => c.props.colName === colName)) {
           // eslint-disable-next-line no-await-in-loop
           const node = await calculateNode({ ...evaluateProps, expression: row.props.calculateFn }, client)
-          nodeUpdates.values.push({
+          nodeUpdates.nodes.push({
             tableName: evaluateProps.tableName,
             variableName: evaluateProps.variableName,
             colName: evaluateProps.colName,
@@ -68,7 +68,7 @@ export const calculateDependantNodes = async (props: Props, client: BaseProtocol
                 { ...evaluateProps, colName: col.props.colName, expression: col.props.calculateFn },
                 client
               )
-              nodeUpdates.values.push({
+              nodeUpdates.nodes.push({
                 tableName: evaluateProps.tableName,
                 variableName: evaluateProps.variableName,
                 colName: evaluateProps.colName,

@@ -16,8 +16,8 @@ type QueueItem = VariableCache & { colName: string }
 export const validateNodeUpdates = async (props: Props, client: BaseProtocol): Promise<void> => {
   const { nodeUpdates } = props
 
-  const { assessment, cycle, countryIso, values } = nodeUpdates
-  const queue = values.map<QueueItem>(({ tableName, variableName, colName }) => ({ tableName, variableName, colName }))
+  const { assessment, cycle, countryIso, nodes } = nodeUpdates
+  const queue = nodes.map<QueueItem>(({ tableName, variableName, colName }) => ({ tableName, variableName, colName }))
   const visitedVariables: Array<VariableCache> = []
 
   while (queue.length !== 0) {

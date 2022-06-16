@@ -12,5 +12,5 @@ export type NodeUpdates = {
   assessment: Assessment
   cycle: Cycle
   countryIso: CountryIso
-  values: Array<NodeUpdate>
+  nodes: Array<NodeUpdate>
 }
