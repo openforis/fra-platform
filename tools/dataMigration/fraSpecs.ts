@@ -71,8 +71,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 },
                 migration: {
                   validateFns: [
-                    // `isValidOdp(extentOfForest.forestArea)`,
-                    // `isValidForestAreaComparedTo2015(extentOfForest.forestArea['2015'], extentOfForest.forestArea)`
+                    `validatorForestAreaComparedTo2015(value_aggregate.forestArea['2015'], extentOfForest.forestArea)`,
                     `validatorOtherLand(extentOfForest.otherLand, extentOfForest.totalLandArea)`,
                   ],
                 },

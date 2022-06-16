@@ -3,6 +3,7 @@ import { Assessment } from '../../../meta/assessment/assessment'
 import { AssessmentMetaCache, VariablesByTableCache } from '../../../meta/assessment/assessmentMetaCache'
 import { Col } from '../../../meta/assessment/col'
 import { Row } from '../../../meta/assessment/row'
+import { TableNames } from '../../../meta/assessment/table'
 import { BaseProtocol } from '../../../server/db'
 import { DBNames } from '../_DBNames'
 import { DependencyEvaluator } from './dependencyEvaluator'
@@ -36,6 +37,16 @@ export const generateMetaCache = async (props: Props, client: BaseProtocol): Pro
     ({ cache }) => cache
   )
 
+  const { data } = await client.one(`
+      with v as (
+          select distinct v.variable_name,
+                          jsonb_build_object('tableName', 'value_aggregate', 'variableName', v.variable_name) as var
+          from ${DBNames.getCycleSchema(assessment.props.name, '2020')}.value_aggregate v
+      )
+      select jsonb_object_agg(v.variable_name, v.var order by v.variable_name) as data
+      from v
+  `)
+
   const assessmentMetaCache: AssessmentMetaCache = {
     calculations: {
       dependants: {},
@@ -45,7 +56,10 @@ export const generateMetaCache = async (props: Props, client: BaseProtocol): Pro
       dependants: {},
       dependencies: {},
     },
-    variablesByTable,
+    variablesByTable: {
+      ...variablesByTable,
+      [TableNames.valueAggregate]: data,
+    },
   }
 
   const rows = await client.map<Row & { tableName: string; cols: Array<Col> }>(
