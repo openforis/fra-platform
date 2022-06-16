@@ -40,7 +40,7 @@ const getTablesCondition = (props: Props): TablesCondition => {
   return tables
 }
 
-export const getTableData = async (props: Props, client: BaseProtocol): Promise<TableData> => {
+const getTableData = async (props: Props, client: BaseProtocol): Promise<TableData> => {
   const { assessment, cycle, countryIso, data: dataProps } = props
 
   let tableData: TableData = dataProps
