@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 
 import { AssessmentName } from '@meta/assessment'
 import { Sockets } from '@meta/socket/sockets'
