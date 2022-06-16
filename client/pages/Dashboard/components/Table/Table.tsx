@@ -81,7 +81,7 @@ const Table = (props: Props) => {
                       : formatValue(Number(nodeValue?.raw || ''), isIsoCountry, variable)
                     return (
                       <td key={`${variable}-${column}`} className="fra-table__cell">
-                        {value || '-'}
+                        {(value !== 'NaN' && value) || '-'}
                       </td>
                     )
                   })}
