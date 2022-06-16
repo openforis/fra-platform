@@ -1,14 +1,8 @@
-import { CountryIso } from '@meta/area'
-import { Assessment, Cycle, NodeValue } from '@meta/assessment'
+import { NodeUpdates } from '@meta/data'
 import { User } from '@meta/user'
 
 import { persistNodeValue } from './persistNodeValue'
 
-type NodeUpdates = {
-  assessment: Assessment
-  cycle: Cycle
-  values: Array<{ countryIso: CountryIso; colName: string; tableName: string; variableName: string; value: NodeValue }>
-}
 interface Props {
   nodes: NodeUpdates
   user: User
@@ -16,18 +10,13 @@ interface Props {
 
 // Wrapper to support persisting full tables
 export const persistNodeValues = async (props: Props): Promise<void> => {
-  const {
-    user,
-    nodes: { assessment, cycle, values },
-  } = props
+  const { user, nodes } = props
+  const { assessment, cycle, countryIso, values } = nodes
 
-  const promises = values.map((value) => {
-    return persistNodeValue({
-      user,
-      ...value,
-      assessment,
-      cycle,
+  await Promise.all(
+    values.map((nodeUpdate) => {
+      const { tableName, variableName, colName, value } = nodeUpdate
+      return persistNodeValue({ user, assessment, cycle, countryIso, tableName, variableName, colName, value })
     })
-  })
-  await Promise.all(promises)
+  )
 }

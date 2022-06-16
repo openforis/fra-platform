@@ -11,6 +11,7 @@ export const postEstimation = async (req: Request, res: Response): Promise<any> 
   try {
     const { countryIso, assessmentName, cycleName, method, tableName, fields } = <
       Record<string, string> & {
+        countryIso: CountryIso
         fields: Array<{
           annualChangeRates: { past: string; future: string }
           variableName: string
@@ -72,6 +73,7 @@ export const postEstimation = async (req: Request, res: Response): Promise<any> 
         nodes: {
           assessment,
           cycle,
+          countryIso,
           values,
         },
         user: Requests.getRequestUser(req),
