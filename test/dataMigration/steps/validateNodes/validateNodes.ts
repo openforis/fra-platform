@@ -2,7 +2,7 @@ import { Objects } from '@core/utils'
 import { NodeRow } from '@test/dataMigration/types'
 import * as pgPromise from 'pg-promise'
 
-import { Assessment, Col, Cycle, Node, Row } from '@meta/assessment'
+import { Assessment, Col, Cycle, Node, Row, TableNames } from '@meta/assessment'
 
 import { CycleDataController } from '@server/controller/cycleData'
 import { validateNode } from '@server/controller/cycleData/persistNodeValue/validateNodeUpdates/validateNode'
@@ -61,6 +61,7 @@ export const validateNodes = async (
     [],
     ({ name }) => name
   )
+  tableNames.push(TableNames.valueAggregate)
 
   const data = await CycleDataController.getTableData({
     assessment,

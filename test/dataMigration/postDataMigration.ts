@@ -23,5 +23,6 @@ describe('Post Data migration', () => {
         await validateNodes({ assessment, cycle }, client)
       }
     })
+    process.exit(0)
   })
 })
