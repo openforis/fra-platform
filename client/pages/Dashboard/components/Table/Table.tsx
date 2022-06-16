@@ -77,7 +77,7 @@ const Table = (props: Props) => {
                       countryIso,
                     })
                     const value = isIsoCountry
-                      ? !Objects.isEmpty(nodeValue.raw) && Number(nodeValue?.raw).toFixed(2)
+                      ? !Objects.isEmpty(nodeValue?.raw) && Number(nodeValue?.raw).toFixed(2)
                       : formatValue(Number(nodeValue?.raw || ''), isIsoCountry, variable)
                     return (
                       <td key={`${variable}-${column}`} className="fra-table__cell">
