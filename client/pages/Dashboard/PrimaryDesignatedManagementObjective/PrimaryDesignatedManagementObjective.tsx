@@ -27,7 +27,7 @@ const PrimaryDesignatedManagementObjective = () => {
     ? ['haThousand', 'haThousand', 'haThousand', 'haThousand', 'haThousand', 'haThousand']
     : ['haMillion', 'haMillion', 'haMillion', 'haMillion', 'haMillion', 'haMillion']
   const section = 'primaryDesignatedManagementObjective'
-  const tableNames = [TableNames.totalAreaWithDesignatedManagementObjective]
+  const tableNames = [TableNames.primaryDesignatedManagementObjective]
 
   const { data: tableData, loaded } = useStatisticalFactsheetsState({
     columns,
