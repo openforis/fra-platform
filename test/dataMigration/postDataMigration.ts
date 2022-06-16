@@ -1,3 +1,4 @@
+import { cleanupCountryProps } from '@test/dataMigration/steps/cleanupCountryProps'
 import { deleteWrongCalculatedNodes } from '@test/dataMigration/steps/deleteWrongCalculatedNodes'
 import { updateCalculatedNodes } from '@test/dataMigration/steps/updateCalculatedNodes/updateCalculatedNodes'
 import { validateNodes } from '@test/dataMigration/steps/validateNodes/validateNodes'
@@ -21,6 +22,8 @@ describe('Post Data migration', () => {
         await updateCalculatedNodes({ assessment, cycle }, client)
         // eslint-disable-next-line no-await-in-loop
         await validateNodes({ assessment, cycle }, client)
+        // eslint-disable-next-line no-await-in-loop
+        await cleanupCountryProps({ assessment, cycle }, client)
       }
     })
     process.exit(0)
