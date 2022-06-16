@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from '@core/utils'
+import { Numbers, Objects } from '@core/utils'
 import { ChartOptions } from 'chart.js'
 
 import { Areas } from '@meta/area'
@@ -76,7 +76,7 @@ const PrimaryForest = () => {
   return (
     <div className="row-s">
       <h3 className="header">{i18n.t<string>(`statisticalFactsheets.${section}.title`)}</h3>
-      {primaryForestAsPercentage ? (
+      {!Objects.isEmpty(primaryForestAsPercentage) ? (
         <Chart type="pie" data={data} options={options} />
       ) : (
         <h6 className="header">{i18n.t<string>('statisticalFactsheets.noData')}</h6>

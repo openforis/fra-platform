@@ -2,6 +2,7 @@ import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Areas } from '@core/country'
+import { Objects } from '@core/utils'
 import { Numbers } from '@core/utils/numbers'
 
 import { TableNames } from '@meta/assessment'
@@ -30,7 +31,7 @@ const Table = (props: Props) => {
   const { columns, variables, tableNames: _tableNames, units, section, tableData, loaded } = props
   const tableRef = useRef(null)
 
-  const tableNames = isIsoCountry ? _tableNames : TableNames.valueAggregate
+  const tableNames = isIsoCountry ? _tableNames : [TableNames.valueAggregate]
 
   if (!loaded) {
     return null
@@ -75,10 +76,12 @@ const Table = (props: Props) => {
                       data: tableData,
                       countryIso,
                     })
-
+                    const value = isIsoCountry
+                      ? !Objects.isEmpty(nodeValue?.raw) && Number(nodeValue?.raw).toFixed(2)
+                      : formatValue(Number(nodeValue?.raw || ''), isIsoCountry, variable)
                     return (
                       <td key={`${variable}-${column}`} className="fra-table__cell">
-                        {formatValue(Number(nodeValue?.raw || ''), isIsoCountry, variable) || '-'}
+                        {value || '-'}
                       </td>
                     )
                   })}

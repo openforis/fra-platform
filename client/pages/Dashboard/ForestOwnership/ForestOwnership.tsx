@@ -78,7 +78,7 @@ const ForestOwnership = () => {
   return (
     <div className="row-s">
       <h3 className="header">{i18n.t<string>(`statisticalFactsheets.${section}.title`)}</h3>
-      {privateOwnership && publicOwnership && otherOrUnknown ? (
+      {privateOwnership || publicOwnership || otherOrUnknown ? (
         <Chart type="pie" data={data as ChartDataType} options={options} />
       ) : (
         <h6 className="header">{i18n.t<string>('statisticalFactsheets.noData')}</h6>
