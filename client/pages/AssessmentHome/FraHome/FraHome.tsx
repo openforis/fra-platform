@@ -32,8 +32,11 @@ const FraHome: React.FC = () => {
     <>
       <div className="landing__page-header space-between">
         <h1 className="landing__page-title title">
-          {i18n.t(`area.${countryIso}.listName`)}
-          <ButtonDownloadStatisticalFactsheets />
+          <>
+            {i18n.t(`area.${countryIso}.listName`)}
+
+            <ButtonDownloadStatisticalFactsheets />
+          </>
         </h1>
 
         {Areas.isISOGlobal(countryIso) && <CountrySelector />}
@@ -53,7 +56,7 @@ const FraHome: React.FC = () => {
                 })
               }
             >
-              {i18n.t(`landing.sections.${name}`)}
+              {i18n.t<string>(`landing.sections.${name}`)}
             </NavLink>
           ))}
         </div>

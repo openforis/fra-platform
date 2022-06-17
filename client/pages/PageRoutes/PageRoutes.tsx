@@ -32,6 +32,7 @@ const PageRoutes: React.FC = () => {
   useTheme()
   const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
+
   const shouldRenderCountrySelect = !useMatch(ClientRoutes.Login.root)
 
   useEffect(() => {
