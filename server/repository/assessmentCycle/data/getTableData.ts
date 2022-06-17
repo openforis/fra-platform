@@ -1,6 +1,7 @@
 import { CountryIso } from '@meta/area'
-import { Assessment, Cycle } from '@meta/assessment'
+import { Assessment, Cycle, VariableCache } from '@meta/assessment'
 import { TableData } from '@meta/data'
+
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
 export type TablesCondition = Record<string, { variables?: Array<string>; columns?: Array<string> }>
@@ -15,12 +16,37 @@ type Props = {
    * e.g. {extentOfForest:{variables:['forestArea'],columns:['1990']"}} --> fetches row forestArea and col 1990 for extentOfForest table
    */
   tables: TablesCondition
+  /**
+   * Merge dependencies to tables condition
+   */
+  dependencies?: Array<VariableCache>
 }
 
 const asQueryStringArray = (arr: any[]) => `(${arr.map((v) => `'${v}'`).join(',')})`
 
+const mergeDependencies = (props: Props): TablesCondition => {
+  const { dependencies, tables } = props
+
+  if (dependencies && dependencies.length) {
+    dependencies.forEach((d) => {
+      if (!tables[d.tableName]) {
+        tables[d.tableName] = { variables: [] }
+      }
+      const { variables } = tables[d.tableName]
+      if (!tables[d.tableName]) tables[d.tableName] = {}
+      if (!variables.find((v) => v === d.variableName)) {
+        variables.push(d.variableName)
+      }
+      tables[d.tableName] = { variables }
+    })
+  }
+
+  return tables
+}
+
 export const getTableData = (props: Props, client: BaseProtocol = DB): Promise<TableData> => {
-  const { assessment, cycle, countryISOs, tables } = props
+  const { assessment, cycle, countryISOs } = props
+  const tables = mergeDependencies(props)
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
   return client.one<TableData>(
