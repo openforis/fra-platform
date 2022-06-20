@@ -39,10 +39,8 @@ export const ClientRoutes = {
     },
 
     OriginalDataPoint: {
-      root: { path: 'originalDataPoint/:year/*' },
-
       section: {
-        path: ':section',
+        path: 'originalDataPoint/:year/:section',
 
         getAbsolutePath: (params: {
           countryIso: CountryIso
@@ -58,8 +56,8 @@ export const ClientRoutes = {
 
   Login: {
     root: { path: '/login/*' },
-    resetPassword: { path: 'resetPassword' },
     invitation: { path: 'invitation' },
+    resetPassword: { path: 'resetPassword' },
   },
 
   Geo: {

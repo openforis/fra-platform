@@ -1,7 +1,7 @@
 import React from 'react'
 // import { useAssessmentSections } from '@client/store/assessment'
 import { useTranslation } from 'react-i18next'
-import { Navigate, NavLink, Route, Routes, useParams } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 
 import classNames from 'classnames'
 
@@ -22,10 +22,11 @@ const OriginalData: React.FC<Props> = (props) => {
   const { canEditData } = props
   const country = useAssessmentCountry()
   // const sections = useAssessmentSections()
-  const { assessmentName, cycleName, year } = useParams<{
+  const { assessmentName, cycleName, year, section } = useParams<{
     assessmentName: AssessmentName
     cycleName: string
     year: string
+    section: string
   }>()
 
   const extentOfForest = {
@@ -39,7 +40,7 @@ const OriginalData: React.FC<Props> = (props) => {
 
   return (
     <div>
-      <h2 className="headline">{i18n.t('nationalDataPoint.reclassificationLabel')}</h2>
+      <h2 className="headline">{i18n.t<string>('nationalDataPoint.reclassificationLabel')}</h2>
 
       <div className="odp__tab-controller">
         <NavLink
@@ -49,7 +50,7 @@ const OriginalData: React.FC<Props> = (props) => {
               active: navData.isActive,
             })
           }
-          to={ClientRoutes.Assessment.OriginalDataPoint.section.generatePath({
+          to={ClientRoutes.Assessment.OriginalDataPoint.section.getAbsolutePath({
             countryIso,
             assessmentName,
             cycleName,
@@ -66,7 +67,7 @@ const OriginalData: React.FC<Props> = (props) => {
               active: navData.isActive,
             })
           }
-          to={ClientRoutes.Assessment.OriginalDataPoint.section.generatePath({
+          to={ClientRoutes.Assessment.OriginalDataPoint.section.getAbsolutePath({
             countryIso,
             assessmentName,
             cycleName,
@@ -78,43 +79,8 @@ const OriginalData: React.FC<Props> = (props) => {
         </NavLink>
       </div>
 
-      <Routes>
-        <Route
-          path={ClientRoutes.Assessment.OriginalDataPoint.section.generatePath({
-            countryIso,
-            assessmentName,
-            cycleName,
-            year,
-            section: extentOfForest.name,
-          })}
-          element={<ExtentOfForest canEditData={canEditData} />}
-        />
-        <Route
-          path={ClientRoutes.Assessment.OriginalDataPoint.section.generatePath({
-            countryIso,
-            assessmentName,
-            cycleName,
-            year,
-            section: forestCharacteristics.name,
-          })}
-          element={<ForestCharacteristics canEditData={canEditData} />}
-        />
-        <Route
-          path="*"
-          element={
-            <Navigate
-              to={ClientRoutes.Assessment.OriginalDataPoint.section.generatePath({
-                countryIso,
-                assessmentName,
-                cycleName,
-                year,
-                section: extentOfForest.name,
-              })}
-              replace
-            />
-          }
-        />
-      </Routes>
+      {section === extentOfForest.name && <ExtentOfForest canEditData={canEditData} />}
+      {section !== extentOfForest.name && <ForestCharacteristics canEditData={canEditData} />}
     </div>
   )
 }
