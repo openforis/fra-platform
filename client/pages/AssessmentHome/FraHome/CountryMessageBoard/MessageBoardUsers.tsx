@@ -6,15 +6,22 @@ import { User } from '@meta/user'
 import { useUser } from '@client/store/user'
 import Icon from '@client/components/Icon'
 
-const profilePictureUri = (_: any) => '#'
-const i18nUserRole = (_: any, __: any) => 'todo'
+const profilePictureUri = (_: any) => {
+  console.log(_, 'todo')
+  return '#'
+}
+const i18nUserRole = (_: any, __: any) => {
+  console.log(_, __, 'todo')
+  return 'todo'
+}
 
 const MessageBoardUsers = () => {
   const i18n = useTranslation()
   const user = useUser()
   const users: Array<User & { active: boolean; chat: Record<string, any>; role: any }> = [user as any]
 
-  if (!users || !user) {
+  if (!user) {
+    // if (!users || !user) {
     return null
   }
 
