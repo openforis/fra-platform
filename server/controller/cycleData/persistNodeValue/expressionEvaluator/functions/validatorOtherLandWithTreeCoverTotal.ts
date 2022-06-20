@@ -6,7 +6,7 @@ import { NodeValueValidation, NodeValueValidationMessage } from '@meta/assessmen
 import { Context } from '../context'
 
 export const validatorOtherLandWithTreeCoverTotal: ExpressionFunction<Context> = {
-  name: 'validatorTotalForest',
+  name: 'validatorOtherLandWithTreeCoverTotal',
   minArity: 2,
   executor: () => {
     return (otherLand?: string, otherLandWithTreeCoverTotal?: string): NodeValueValidation => {

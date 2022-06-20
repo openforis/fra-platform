@@ -11,6 +11,7 @@ export const postEstimation = async (req: Request, res: Response): Promise<any> 
   try {
     const { countryIso, assessmentName, cycleName, method, tableName, fields } = <
       Record<string, string> & {
+        countryIso: CountryIso
         fields: Array<{
           annualChangeRates: { past: string; future: string }
           variableName: string
@@ -60,19 +61,20 @@ export const postEstimation = async (req: Request, res: Response): Promise<any> 
       changeRates,
     }
 
-    const values = EstimationEngine.estimateValues(
+    const nodes = EstimationEngine.estimateValues(
       years,
       originalDataPointValues,
       generateSpec as GenerateSpec,
       tableSpec.props.name
     )
 
-    if (values.length) {
+    if (nodes.length) {
       await CycleDataController.persistNodeValues({
-        nodes: {
+        nodeUpdates: {
           assessment,
           cycle,
-          values,
+          countryIso,
+          nodes,
         },
         user: Requests.getRequestUser(req),
       })

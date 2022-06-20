@@ -1,19 +1,21 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
 
 import { Areas } from '@meta/area'
 
+import { useAssessment, useCycle } from '@client/store/assessment'
 import { useCountryIso } from '@client/hooks'
-import Icon from '@client/components/Icon'
-import { useAssessment } from '@client/store/assessment'
 import { BasePaths } from '@client/basePaths'
+import Icon from '@client/components/Icon'
+
 import NavAssessment from '../NavAssessment'
 
 const NavigationDesktop: React.FC = () => {
   const { i18n } = useTranslation()
   const countryIso = useCountryIso()
   const assessment = useAssessment()
+  const cycle = useCycle()
   const assessmentType = assessment.props.name
 
   return (
@@ -23,7 +25,7 @@ const NavigationDesktop: React.FC = () => {
       {Areas.isGlobal(countryIso) && (
         <Link
           className="btn-s btn-primary nav__bulk-download"
-          to={BasePaths.Assessment.dataDownload(countryIso, assessmentType)}
+          to={BasePaths.Assessment.dataDownload(countryIso, assessmentType, cycle.name)}
         >
           <Icon className="icon-sub icon-white" name="hit-down" />
           {i18n.t('dataDownload.dataDownload')}

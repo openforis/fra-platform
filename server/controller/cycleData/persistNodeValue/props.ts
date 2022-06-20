@@ -1,14 +1,11 @@
 import { CountryIso } from '@meta/area'
-import { Assessment, Cycle, NodeValue } from '@meta/assessment'
+import { Assessment, Cycle } from '@meta/assessment'
+import { NodeUpdate } from '@meta/data'
 import { User } from '@meta/user'
 
 export type Props = {
   countryIso: CountryIso
   assessment: Assessment
   cycle: Cycle
-  tableName: string
-  variableName: string
-  colName: string
-  value: NodeValue
   user: User
-}
+} & NodeUpdate

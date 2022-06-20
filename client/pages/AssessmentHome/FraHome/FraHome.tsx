@@ -12,7 +12,7 @@ import { AssessmentHomeRouteNames } from '@client/basePaths'
 import { ClientRoutes } from '@client/clientRoutes'
 
 import { useSections } from './hooks/useSections'
-import ButtonDownloadStatisticalFactsheets from './ButtonDownloadStatisticalFactsheets'
+import ButtonDownloadDashboard from './ButtonDownloadDashboard'
 import CountrySelector from './CountrySelector'
 import SelectedCountries from './SelectedCountries'
 
@@ -32,11 +32,8 @@ const FraHome: React.FC = () => {
     <>
       <div className="landing__page-header space-between">
         <h1 className="landing__page-title title">
-          <>
-            {i18n.t(`area.${countryIso}.listName`)}
-
-            <ButtonDownloadStatisticalFactsheets />
-          </>
+          {i18n.t<string>(`area.${countryIso}.listName`)}
+          <ButtonDownloadDashboard />
         </h1>
 
         {Areas.isISOGlobal(countryIso) && <CountrySelector />}

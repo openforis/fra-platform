@@ -74,8 +74,7 @@ const DataTable: React.FC<Props> = (props) => {
       dispatch(AssessmentSectionActions.resetData())
     }
   }, [sectionName])
-
-  if (!data?.[countryIso]) return null
+  if (!data) return null
 
   const showOdpChart = table.props.odp
   const printView = false

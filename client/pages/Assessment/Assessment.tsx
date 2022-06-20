@@ -15,6 +15,7 @@ import { useUser } from '@client/store/user'
 import { useCountryIso, useOnUpdate } from '@client/hooks'
 import { ClientRoutes } from '@client/clientRoutes'
 import Navigation from '@client/components/Navigation'
+import AssessmentDataDownload from '@client/pages/AssessmentDataDownload'
 import AssessmentHome from '@client/pages/AssessmentHome'
 import AssessmentSection from '@client/pages/AssessmentSection'
 import DataExport from '@client/pages/DataExport'
@@ -71,6 +72,7 @@ const Assessment: React.FC = () => {
 
       <Routes>
         <Route path={ClientRoutes.Assessment.home.path} element={<AssessmentHome />} />
+        <Route path={ClientRoutes.Assessment.dataDownload.path} element={<AssessmentDataDownload />} />
         {/* <Route exact path={[`${BasePaths.odp}:odpId/`, BasePaths.odp]} component={OriginalDataPoint} /> */}
         <Route element={<SectionWrapper />}>
           <Route

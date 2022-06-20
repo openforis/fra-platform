@@ -3,7 +3,10 @@ import { useTranslation } from 'react-i18next'
 
 import { Areas } from '@core/country'
 
+import { TableNames } from '@meta/assessment'
+
 import { useCountryIso } from '@client/hooks'
+import useStatisticalFactsheetsState from '@client/pages/Dashboard/hooks/useDashboardData'
 
 import Table from '../components/Table'
 
@@ -24,6 +27,13 @@ const PrimaryDesignatedManagementObjective = () => {
     ? ['haThousand', 'haThousand', 'haThousand', 'haThousand', 'haThousand', 'haThousand']
     : ['haMillion', 'haMillion', 'haMillion', 'haMillion', 'haMillion', 'haMillion']
   const section = 'primaryDesignatedManagementObjective'
+  const tableNames = [TableNames.primaryDesignatedManagementObjective]
+
+  const { data: tableData, loaded } = useStatisticalFactsheetsState({
+    columns,
+    tableNames,
+    variables: rows,
+  })
 
   return (
     <div className="row-l row-table">
@@ -34,7 +44,9 @@ const PrimaryDesignatedManagementObjective = () => {
         units={units}
         columns={columns}
         section={section}
-        tableNames={['totalAreaWithDesignatedManagementObjective']}
+        tableNames={tableNames}
+        loaded={loaded}
+        tableData={tableData}
       />
     </div>
   )

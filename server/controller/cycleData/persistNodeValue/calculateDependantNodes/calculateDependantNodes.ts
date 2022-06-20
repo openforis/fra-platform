@@ -1,14 +1,16 @@
 import { Row, VariableCache } from '@meta/assessment'
+import { NodeUpdates } from '@meta/data'
 
 import { Props } from '@server/controller/cycleData/persistNodeValue/props'
 import { BaseProtocol } from '@server/db'
-import { ColRepository } from '@server/repository/assessment/col'
 import { RowRepository } from '@server/repository/assessment/row'
 
-import { evaluateNode } from './evaluateNode'
+import { calculateNode } from './calculateNode'
 
-export const persistCalculationDependants = async (props: Props, client: BaseProtocol): Promise<void> => {
-  const { assessment, tableName, variableName, colName } = props
+export const calculateDependantNodes = async (props: Props, client: BaseProtocol): Promise<NodeUpdates> => {
+  const { assessment, cycle, countryIso, tableName, variableName, colName, user } = props
+
+  const nodeUpdates: NodeUpdates = { assessment, cycle, countryIso, nodes: [] }
   const queue: Array<VariableCache> = [
     ...(assessment.metaCache.calculations.dependants[tableName]?.[variableName] ?? []),
   ]
@@ -30,33 +32,48 @@ export const persistCalculationDependants = async (props: Props, client: BasePro
     if (!visited) {
       // eslint-disable-next-line no-await-in-loop
       const row: Row = await RowRepository.getOne(
-        { assessment, tableName: variableCache.tableName, variableName: variableCache.variableName },
+        { assessment, tableName: variableCache.tableName, variableName: variableCache.variableName, includeCols: true },
         client
       )
       const evaluateProps = {
-        ...props,
+        countryIso,
+        assessment,
+        cycle,
+        colName,
+        expression: row.props.calculateFn,
+        row,
         tableName: variableCache.tableName,
         variableName: variableCache.variableName,
-        variableCache,
-        row,
+        user,
       }
-      // eslint-disable-next-line no-await-in-loop
-      const cols = await ColRepository.getMany({ assessment, rowId: row.id }, client)
+
       if (row.props.calculateFn) {
         // make sure in target table there's a matching column
-        if (cols.find((c) => c.props.colName === colName)) {
+        if (row.cols.find((c) => c.props.colName === colName)) {
           // eslint-disable-next-line no-await-in-loop
-          await evaluateNode({ ...evaluateProps, expression: row.props.calculateFn }, client)
+          const node = await calculateNode({ ...evaluateProps, expression: row.props.calculateFn }, client)
+          nodeUpdates.nodes.push({
+            tableName: evaluateProps.tableName,
+            variableName: evaluateProps.variableName,
+            colName: evaluateProps.colName,
+            value: node.value,
+          })
         }
       } else {
         // eslint-disable-next-line no-await-in-loop
         await Promise.all(
-          cols.map(async (col) => {
+          row.cols.map(async (col) => {
             if (col.props.calculateFn) {
-              await evaluateNode(
+              const node = await calculateNode(
                 { ...evaluateProps, colName: col.props.colName, expression: col.props.calculateFn },
                 client
               )
+              nodeUpdates.nodes.push({
+                tableName: evaluateProps.tableName,
+                variableName: evaluateProps.variableName,
+                colName: evaluateProps.colName,
+                value: node.value,
+              })
             }
           })
         )
@@ -67,4 +84,6 @@ export const persistCalculationDependants = async (props: Props, client: BasePro
       visitedVariables.push(variableCache)
     }
   }
+
+  return nodeUpdates
 }

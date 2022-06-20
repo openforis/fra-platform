@@ -1,7 +1,9 @@
-import './ButtonDownloadStatisticalFactsheets.scss'
+import './ButtonDownloadDashboard.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, matchPath, useLocation } from 'react-router-dom'
+
+import { ApiEndPoint } from '@common/api/endpoint'
 
 import { Areas } from '@meta/area'
 
@@ -10,7 +12,7 @@ import { useCountryIso } from '@client/hooks'
 import { AssessmentHomeRouteNames, BasePaths } from '@client/basePaths'
 import Icon from '@client/components/Icon'
 
-const ButtonDownloadStatisticalFactsheets: React.FC = () => {
+const ButtonDownloadDashboard: React.FC = () => {
   const { pathname } = useLocation()
   const { i18n } = useTranslation()
   const countryIso = useCountryIso()
@@ -35,7 +37,7 @@ const ButtonDownloadStatisticalFactsheets: React.FC = () => {
   return (
     <Link
       className="btn-s btn-primary landing__btn-download"
-      to={`/api/fileRepository/statisticalFactsheets/${countryIso}/${i18n.language}`}
+      to={`${ApiEndPoint.File.Dashboard.one()}?countryIso=${countryIso}&lang=${i18n.language}`}
       target="_top"
     >
       <Icon name="hit-down" className="icon-hit-down icon-white" />
@@ -44,4 +46,4 @@ const ButtonDownloadStatisticalFactsheets: React.FC = () => {
   )
 }
 
-export default ButtonDownloadStatisticalFactsheets
+export default ButtonDownloadDashboard

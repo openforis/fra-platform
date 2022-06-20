@@ -35,6 +35,10 @@ export const ClientRoutes = {
       path: '/:countryIso/assessments/:assessmentName/:cycleName',
     }),
 
+    dataDownload: newInstance<{ countryIso: CountryIso; assessmentName: AssessmentName; cycleName: string }>({
+      path: '/:countryIso/assessments/:assessmentName/:cycleName/dataDownload',
+    }),
+
     home: newInstance<{
       countryIso: CountryIso
       assessmentName: AssessmentName

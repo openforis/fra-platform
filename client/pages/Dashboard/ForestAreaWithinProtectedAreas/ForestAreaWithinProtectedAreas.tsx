@@ -1,6 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Numbers } from '@core/utils'
 import { ChartOptions } from 'chart.js'
 
 import { Areas } from '@meta/area'
@@ -47,12 +48,15 @@ const ForestAreaWithinProtectedAreas = () => {
     TableDatas.getDatum({ ...props, tableName: tableNamePrimary, variableName: 'forest_area_within_protected_areas' })
   )
 
-  const primaryForestAsPercentage = 100 * (forestAreaWithinProtectedAreas / forestArea)
+  const primaryForestAsPercentage = Numbers.mul(
+    100,
+    Numbers.div(forestAreaWithinProtectedAreas, forestArea)
+  )?.toNumber()
 
   const data = {
     datasets: [
       {
-        data: [100 - primaryForestAsPercentage, primaryForestAsPercentage],
+        data: [Numbers.sub(100, primaryForestAsPercentage)?.toNumber(), primaryForestAsPercentage],
         borderWidth: 0,
         backgroundColor: [ChartColors.green, ChartColors.lightGreen],
         hoverBackgroundColor: [ChartColors.greenHover, ChartColors.lightGreenHover],

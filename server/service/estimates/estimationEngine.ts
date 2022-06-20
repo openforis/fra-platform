@@ -1,9 +1,7 @@
 import { BigNumberInput, Numbers } from '@core/utils/numbers'
 import BigNumber from 'bignumber.js'
 
-import { CountryIso } from '@meta/area'
-import { NodeValue } from '@meta/assessment'
-import { TableData } from '@meta/data'
+import { NodeUpdate, TableData } from '@meta/data'
 
 const assert = (condition: any, message: string) => {
   if (!condition) {
@@ -237,20 +235,16 @@ const translateObjectToOldFormat = (x: any) => {
   return newData
 }
 
-const formatArray = (
-  arr: Deprecated_TableDatum[],
-  tableName: string,
-  fields: string[]
-): Array<{ countryIso: CountryIso; colName: string; tableName: string; variableName: string; value: NodeValue }> => {
-  const res: any = []
+const formatArray = (arr: Deprecated_TableDatum[], tableName: string, fields: string[]): Array<NodeUpdate> => {
+  const res: Array<NodeUpdate> = []
   arr.forEach((tableDatum: Deprecated_TableDatum) => {
     fields.forEach((field) => {
       res.push({
-        countryIso: tableDatum.countryIso,
         colName: `${tableDatum.year}`,
         tableName,
         variableName: field,
         value: {
+          // @ts-ignore
           raw: tableDatum[field as keyof Deprecated_TableDatum],
           estimated: true,
         },
@@ -265,7 +259,7 @@ export const estimateValues = (
   values: Partial<TableData>,
   generateSpec: Partial<GenerateSpec>,
   tableName: string
-): Array<{ countryIso: CountryIso; colName: string; tableName: string; variableName: string; value: NodeValue }> => {
+): Array<NodeUpdate> => {
   const translatedData = translateObjectToOldFormat(values)
   const result: Deprecated_TableDatum[] = years
     .reduce<ValueArray>((values, year) => {

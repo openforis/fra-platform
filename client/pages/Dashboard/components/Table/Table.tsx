@@ -2,14 +2,15 @@ import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Areas } from '@core/country'
+import { Objects } from '@core/utils'
 import { Numbers } from '@core/utils/numbers'
 
-import { TableDatas } from '@meta/data'
+import { TableNames } from '@meta/assessment'
+import { TableData, TableDatas } from '@meta/data'
 
 import { useCountryIso } from '@client/hooks'
 import ButtonTableExport from '@client/components/ButtonTableExport'
 
-import useStatisticalFactsheetsState from '../../hooks/useDashboardData'
 import { formatValue } from '../../utils/numberUtils'
 
 type Props = {
@@ -18,6 +19,8 @@ type Props = {
   units: string[]
   tableNames: string[]
   section: string
+  loaded: boolean
+  tableData: TableData
 }
 
 const Table = (props: Props) => {
@@ -25,16 +28,10 @@ const Table = (props: Props) => {
   const isIsoCountry = Areas.isISOCountry(countryIso)
 
   const i18n = useTranslation()
-  const { columns, variables, tableNames: _tableNames, units, section } = props
+  const { columns, variables, tableNames: _tableNames, units, section, tableData, loaded } = props
   const tableRef = useRef(null)
 
-  const tableNames = isIsoCountry ? _tableNames : ['value_aggregate']
-
-  const { data: tableData, loaded } = useStatisticalFactsheetsState({
-    columns,
-    tableNames,
-    variables,
-  })
+  const tableNames = isIsoCountry ? _tableNames : [TableNames.valueAggregate]
 
   if (!loaded) {
     return null
@@ -65,7 +62,7 @@ const Table = (props: Props) => {
             {variables.map((variable: string, rowIdx: number) => {
               return (
                 <tr key={variable}>
-                  {['', ...columns].map((column: string, i: any) => {
+                  {['', ...columns].map((column: string, i: number) => {
                     if (i === 0)
                       return (
                         <th key={`${variable}-${column}`} className="fra-table__category-cell">
@@ -79,10 +76,12 @@ const Table = (props: Props) => {
                       data: tableData,
                       countryIso,
                     })
-
+                    const value = isIsoCountry
+                      ? !Objects.isEmpty(nodeValue?.raw) && Numbers.format(Number(nodeValue?.raw))?.toString()
+                      : formatValue(Number(nodeValue?.raw || ''), isIsoCountry, variable)
                     return (
                       <td key={`${variable}-${column}`} className="fra-table__cell">
-                        {formatValue(Number(nodeValue?.raw || ''), isIsoCountry, variable) || '-'}
+                        {value || '-'}
                       </td>
                     )
                   })}
