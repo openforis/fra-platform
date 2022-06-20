@@ -3,7 +3,7 @@ import '@client/components/CountrySelect/countrySelect.scss'
 import '@client/components/CountrySelect/CountryList/countryList.scss'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Route, Routes, useMatch } from 'react-router-dom'
+import { Navigate, Route, Routes, useMatch } from 'react-router-dom'
 
 // import ErrorComponent from '../../../webapp/components/error/errorComponent'
 import { useAppDispatch } from '@client/store'
@@ -65,9 +65,10 @@ const PageRoutes: React.FC = () => {
 
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path={ClientRoutes.Login.root.path} element={<Login />} />
         <Route path={ClientRoutes.Assessment.root.path} element={<Assessment />} />
+        <Route path={ClientRoutes.Login.root.path} element={<Login />} />
         <Route path={ClientRoutes.Geo.root.path} element={<Geo />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
 
         {/* <Route */}
         {/*  path={BasePaths.admin} */}

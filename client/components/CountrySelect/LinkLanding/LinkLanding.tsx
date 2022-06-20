@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom'
 
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { useCountryIso } from '@client/hooks'
-import { BasePaths } from '@client/basePaths'
+import { ClientRoutes } from '@client/clientRoutes'
 import Icon from '@client/components/Icon'
 
 const LinkLanding: React.FC = () => {
@@ -13,11 +13,16 @@ const LinkLanding: React.FC = () => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
-  const assessmentType = assessment?.props?.name
+
+  if (!assessment || !cycle) return null
 
   return (
     <NavLink
-      to={BasePaths.Assessment.root(countryIso, assessmentType, cycle?.name)}
+      to={ClientRoutes.Assessment.root.getAbsolutePath({
+        countryIso,
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
+      })}
       className="country-selection-link-landing"
     >
       <Icon name="icon-bar-chart" className="icon-sub icon-margin-right" />

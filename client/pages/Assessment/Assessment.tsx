@@ -69,27 +69,16 @@ const Assessment: React.FC = () => {
   return (
     <div className={`app-view ${navigationVisible ? ' navigation-on' : ''}`}>
       <Navigation />
-
       <Routes>
-        <Route path={ClientRoutes.Assessment.home.path} element={<AssessmentHome />} />
+        <Route path={ClientRoutes.Assessment.Home.root.path} element={<AssessmentHome />} />
         <Route path={ClientRoutes.Assessment.dataDownload.path} element={<AssessmentDataDownload />} />
         {/* <Route exact path={[`${BasePaths.odp}:odpId/`, BasePaths.odp]} component={OriginalDataPoint} /> */}
-        <Route element={<SectionWrapper />}>
-          <Route
-            path={ClientRoutes.Assessment.section.path}
-            element={isDataExport ? <DataExport /> : <AssessmentSection />}
-          />
-          <Route path={ClientRoutes.Assessment.OriginalDataPoint.section.path} element={<OriginalDataPoint />} />
-        </Route>
         <Route
-          path={ClientRoutes.Assessment.root.path}
-          element={
-            <Navigate
-              to={ClientRoutes.Assessment.home.generatePath({ countryIso, assessmentName, cycleName, route: null })}
-              replace
-            />
-          }
+          path={ClientRoutes.Assessment.section.path}
+          element={<SectionWrapper>{isDataExport ? <DataExport /> : <AssessmentSection />}</SectionWrapper>}
         />
+        <Route path={ClientRoutes.Assessment.OriginalDataPoint.section.path} element={<OriginalDataPoint />} />
+        <Route path="*" element={<Navigate to="home" replace />} />
       </Routes>
     </div>
   )

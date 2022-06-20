@@ -12,79 +12,57 @@ export enum AssessmentHomeRouteNames {
   links = 'links',
 }
 
-type BasePath<Params> = {
-  path: string
-  generatePath: (params: Params) => string
-}
-
-const newInstance = <Params>(props: { path: string }): BasePath<Params> => {
-  const { path } = props
-  return {
-    path,
-    generatePath: (params: Params) => generatePath(`/${path}`, params),
-  }
-}
-
 export const ClientRoutes = {
   Admin: {
-    root: { path: '/admin' },
+    root: { path: '/admin/*' },
   },
 
   Assessment: {
-    root: newInstance<{ countryIso: CountryIso; assessmentName: AssessmentName; cycleName: string }>({
-      path: '/:countryIso/assessments/:assessmentName/:cycleName',
-    }),
+    root: {
+      path: '/:countryIso/assessments/:assessmentName/:cycleName/*',
 
-    dataDownload: newInstance<{ countryIso: CountryIso; assessmentName: AssessmentName; cycleName: string }>({
-      path: '/:countryIso/assessments/:assessmentName/:cycleName/dataDownload',
-    }),
+      getAbsolutePath: (params: {
+        countryIso: CountryIso
+        assessmentName: AssessmentName
+        cycleName: string
+      }): string => generatePath('/:countryIso/assessments/:assessmentName/:cycleName', params),
+    },
 
-    home: newInstance<{
-      countryIso: CountryIso
-      assessmentName: AssessmentName
-      cycleName: string
-      route?: AssessmentHomeRouteNames
-    }>({
-      path: '/:countryIso/assessments/:assessmentName/:cycleName/home/:route?',
-    }),
+    dataDownload: { path: 'dataDownload' },
 
-    section: newInstance<{
-      countryIso: CountryIso
-      assessmentName: AssessmentName
-      cycleName: string
-      section: string
-    }>({
-      path: '/:countryIso/assessments/:assessmentName/:cycleName/:section',
-    }),
+    section: { path: ':section' },
+
+    Home: {
+      root: { path: 'home/*' },
+
+      route: { path: ':route' },
+    },
 
     OriginalDataPoint: {
-      root: newInstance<{
-        countryIso: CountryIso
-        assessmentName: AssessmentName
-        cycleName: string
-        year: string
-      }>({
-        path: '/:countryIso/assessments/:assessmentName/:cycleName/originalDataPoint/:year',
-      }),
-      section: newInstance<{
-        countryIso: CountryIso
-        assessmentName: AssessmentName
-        cycleName: string
-        year: string
-        section: string
-      }>({
-        path: '/:countryIso/assessments/:assessmentName/:cycleName/originalDataPoint/:year/:section',
-      }),
+      root: { path: 'originalDataPoint/:year/*' },
+
+      section: {
+        path: ':section',
+
+        getAbsolutePath: (params: {
+          countryIso: CountryIso
+          assessmentName: AssessmentName
+          cycleName: string
+          year: string
+          section: string
+        }) =>
+          generatePath('/:countryIso/assessments/:assessmentName/:cycleName/originalDataPoint/:year/:section', params),
+      },
     },
   },
 
   Login: {
-    root: { path: '/login' },
-    resetPassword: { path: '/login/resetPassword' },
-    invitation: { path: '/login/invitation' },
+    root: { path: '/login/*' },
+    resetPassword: { path: 'resetPassword' },
+    invitation: { path: 'invitation' },
   },
 
   Geo: {
-    root: newInstance<{ countryIso: CountryIso }>({ path: '/:countryIso/geo' }),
+    root: { path: '/:countryIso/geo/*' },
   },
 }
