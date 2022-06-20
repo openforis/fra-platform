@@ -30,7 +30,7 @@ const FraHome: React.FC = () => {
     <>
       <div className="landing__page-header space-between">
         <h1 className="landing__page-title title">
-          {i18n.t(`area.${countryIso}.listName`)}
+          {i18n.t<string>(`area.${countryIso}.listName`)}
           <ButtonDownloadDashboard />
         </h1>
 
