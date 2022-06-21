@@ -8,6 +8,7 @@ import { AssessmentHomeRouteNames } from '@client/basePaths'
 import Dashboard from '@client/pages/Dashboard'
 
 import Collaborators from '../Collaborators'
+import CountryMessageBoard from '../CountryMessageBoard'
 
 type Section = {
   name: AssessmentHomeRouteNames
@@ -24,7 +25,7 @@ export const useSections = (): Array<Section> => {
   const sections: Array<Section> = [{ name: AssessmentHomeRouteNames.overview, component: Dashboard }]
 
   if (user) {
-    sections.push({ name: AssessmentHomeRouteNames.messageBoard, component: Placeholder })
+    sections.push({ name: AssessmentHomeRouteNames.messageBoard, component: CountryMessageBoard })
     sections.push({ name: AssessmentHomeRouteNames.recentActivity, component: Placeholder })
     sections.push({ name: AssessmentHomeRouteNames.links, component: Placeholder })
   }
