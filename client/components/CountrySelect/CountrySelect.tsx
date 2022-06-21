@@ -3,8 +3,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 
-import { getRoleForCountryLabelKey } from '@common/countryRole'
 import { Areas } from '@core/country'
+
+import { Users } from '@meta/user'
 
 import { useNavigationVisible } from '@client/store/ui/navigation'
 import { useUser } from '@client/store/user'
@@ -100,7 +101,11 @@ const CountrySelect: React.FC = () => {
               )}
 
               <div className="name">{i18n.t(`area.${countryIso}.listName`)}</div>
-              {user && <div className="user-role">{i18n.t(getRoleForCountryLabelKey(countryIso, user))}</div>}
+              {user && (
+                <div className="user-role">
+                  {i18n.t<string>(Users.getI18nRoleLabelKey(Users.getCountryRole(user, countryIso).role))}
+                </div>
+              )}
             </div>
           )}
 
