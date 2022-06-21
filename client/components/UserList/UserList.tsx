@@ -10,6 +10,7 @@ import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { UserManagementActions } from '@client/store/userManagement'
 import { useCountryIso } from '@client/hooks'
+import { useToaster } from '@client/hooks/useToaster'
 import Icon from '@client/components/Icon'
 
 const UserColumn: React.FC<{ user: User; field: keyof User }> = ({ user, field }) => (
@@ -27,10 +28,11 @@ const UserRoleColumn: React.FC<{ user: User }> = ({ user }) => {
   )
 }
 
-const UserInvitationInfo: React.FC<{ user: User; onClose: any }> = ({ user, onClose }) => {
+const UserInvitationInfo: React.FC<{ user: User; onClose: () => void }> = ({ user, onClose }) => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
+  const { toaster } = useToaster()
   const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
 
@@ -38,7 +40,9 @@ const UserInvitationInfo: React.FC<{ user: User; onClose: any }> = ({ user, onCl
     <div className="user-list__invitation-info">
       <div>
         <div>
-          {i18n.t('userManagement.invitationLink')}: {user.roles[0].invitationUuid}
+          {`${i18n.t('userManagement.invitationLink')}: ${window.location.origin}/login?invitationUuid=${
+            user.roles[0].invitationUuid
+          }`}
         </div>
         <div>
           <button
@@ -51,8 +55,10 @@ const UserInvitationInfo: React.FC<{ user: User; onClose: any }> = ({ user, onCl
                   cycleName: cycle.name,
                   invitationUuid: user.roles[0].invitationUuid,
                 })
-              )
-              onClose()
+              ).then(() => {
+                toaster.success(i18n.t<string>('userManagement.invitationEmailSent'))
+                onClose()
+              })
             }}
             type="button"
           >
