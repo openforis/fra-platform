@@ -4,7 +4,7 @@ import { Users } from '@meta/user'
 
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
-import { AssessmentHomeRouteNames } from '@client/basePaths'
+import { AssessmentHomeRouteNames } from '@client/clientRoutes'
 import Dashboard from '@client/pages/Dashboard'
 
 import Collaborators from '../Collaborators'

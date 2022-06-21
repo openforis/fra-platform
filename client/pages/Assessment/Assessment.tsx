@@ -72,7 +72,6 @@ const Assessment: React.FC = () => {
       <Routes>
         <Route path={ClientRoutes.Assessment.Home.root.path} element={<AssessmentHome />} />
         <Route path={ClientRoutes.Assessment.dataDownload.path} element={<AssessmentDataDownload />} />
-        {/* <Route exact path={[`${BasePaths.odp}:odpId/`, BasePaths.odp]} component={OriginalDataPoint} /> */}
         <Route
           path={ClientRoutes.Assessment.section.path}
           element={<SectionWrapper>{isDataExport ? <DataExport /> : <AssessmentSection />}</SectionWrapper>}

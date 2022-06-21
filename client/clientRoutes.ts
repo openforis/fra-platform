@@ -33,9 +33,23 @@ export const ClientRoutes = {
     section: { path: ':section' },
 
     Home: {
-      root: { path: 'home/*' },
+      root: {
+        path: 'home/*',
 
-      route: { path: ':route' },
+        getAbsolutePath: (params: { countryIso: CountryIso; assessmentName: AssessmentName; cycleName: string }) =>
+          generatePath('/:countryIso/assessments/:assessmentName/:cycleName/home', params),
+      },
+
+      route: {
+        path: ':route',
+
+        getAbsolutePath: (params: {
+          countryIso: CountryIso
+          assessmentName: AssessmentName
+          cycleName: string
+          route: AssessmentHomeRouteNames
+        }) => generatePath('/:countryIso/assessments/:assessmentName/:cycleName/home/:route/', params),
+      },
     },
 
     OriginalDataPoint: {
@@ -62,5 +76,13 @@ export const ClientRoutes = {
 
   Geo: {
     root: { path: '/:countryIso/geo/*' },
+  },
+
+  User: {
+    root: {
+      path: '/user/:id',
+
+      getAbsolutePath: (params: { id: number }) => generatePath('/user/:id', params),
+    },
   },
 }

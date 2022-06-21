@@ -7,7 +7,7 @@ import { useAssessment, useCycle } from '@client/store/assessment'
 import { useIsDataLocked } from '@client/store/ui/dataLock'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
-import { BasePaths } from '@client/basePaths'
+import { ClientRoutes } from '@client/clientRoutes'
 
 const CycleSwitcher = () => {
   const countryIso = useCountryIso()
@@ -31,7 +31,13 @@ const CycleSwitcher = () => {
   if (!canSwitchCycle) return <span>{cycle.name}</span>
 
   const onSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    navigate(BasePaths.Assessment.home(countryIso, assessment.props.name, event.target.value))
+    navigate(
+      ClientRoutes.Assessment.Home.root.getAbsolutePath({
+        countryIso,
+        assessmentName: assessment.props.name,
+        cycleName: event.target.value,
+      })
+    )
   }
 
   return (
