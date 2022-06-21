@@ -1,6 +1,6 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import { getUsers, inviteUser } from './actions'
+import { getUsers, inviteUser, sendInvitationEmail } from './actions'
 import { UserManagementState } from './stateType'
 
 const initialState: UserManagementState = {
@@ -26,6 +26,7 @@ export const UserManagementActions = {
   ...userManagementSlice.actions,
   getUsers,
   inviteUser,
+  sendInvitationEmail,
 }
 
 export default userManagementSlice.reducer as Reducer<UserManagementState>
