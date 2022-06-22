@@ -15,6 +15,7 @@ import { ReviewActions } from '@client/store/ui/review'
 import { useUser } from '@client/store/user'
 import { useCountryIso, useOnUpdate } from '@client/hooks'
 import { BasePaths } from '@client/basePaths'
+import MessageCenter from '@client/components/MessageCenter'
 import Navigation from '@client/components/Navigation'
 import AssessmentDataDownload from '@client/pages/AssessmentDataDownload'
 import AssessmentHome from '@client/pages/AssessmentHome'
@@ -90,6 +91,7 @@ const Assessment: React.FC = () => {
           )}
         />
       </Switch>
+      <MessageCenter />
     </div>
   )
 }

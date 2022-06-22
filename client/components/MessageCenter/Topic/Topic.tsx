@@ -138,10 +138,10 @@ const Topic: React.FC<TopicProps> = (props) => {
           <div className="no-comments">
             <Icon className="icon-24" name="chat-46" />
             <br />
-            {i18n.t('review.noComments')}
+            {i18n.t<string>('review.noComments')}
           </div>
         )}
-        {topic.loading && <div className="loading">{i18n.t('review.loading')}</div>}
+        {topic.loading && <div className="loading">{i18n.t<string>('review.loading')}</div>}
       </div>
       <div className="topic-footer">
         {(topic.status === MessageTopicStatus.opened ||
@@ -159,7 +159,7 @@ const Topic: React.FC<TopicProps> = (props) => {
               onClick={postMessage}
               type="submit"
             >
-              {i18n.t('review.add')}
+              {i18n.t<string>('review.add')}
             </button>
           </div>
         )}
@@ -169,7 +169,7 @@ const Topic: React.FC<TopicProps> = (props) => {
           (Users.isAdministrator(user) || Users.isReviewer(user, countryIso)) && (
             <div className="topic-review">
               <button className="btn btn-secondary btn-s" onClick={resolveTopic} type="submit">
-                {i18n.t('review.resolve')}
+                {i18n.t<string>('review.resolve')}
               </button>
             </div>
           )}

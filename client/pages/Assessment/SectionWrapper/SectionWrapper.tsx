@@ -9,7 +9,6 @@ import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import { ReviewActions } from '@client/store/ui/review'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
-import MessageCenter from '@client/components/MessageCenter'
 import { SocketClient } from '@client/service/socket'
 import { DOMs } from '@client/utils/dom'
 
@@ -68,12 +67,7 @@ const SectionWrapper: React.FC = (props) => {
     }
   }, [countryIso, assessmentName, cycleName, section, user])
 
-  return (
-    <>
-      <MessageCenter />
-      {React.Children.toArray(children)}
-    </>
-  )
+  return <>{React.Children.toArray(children)}</>
 }
 
 export default SectionWrapper

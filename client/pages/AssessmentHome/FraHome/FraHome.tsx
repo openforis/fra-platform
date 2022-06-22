@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Redirect } from 'react-router'
 import { NavLink, Route, Switch } from 'react-router-dom'
 
 import { Areas } from '@meta/area'
 
+import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
+import { UserManagementActions } from '@client/store/userManagement'
 import { useCountryIso } from '@client/hooks'
 import { AssessmentHomeRouteNames, BasePaths } from '@client/basePaths'
 
@@ -16,6 +18,7 @@ import SelectedCountries from './SelectedCountries'
 
 const FraHome: React.FC = () => {
   const { i18n } = useTranslation()
+  const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
@@ -25,6 +28,12 @@ const FraHome: React.FC = () => {
   const { name: cycleName } = cycle
   // tabs are available when user is logged-in and selected area is country
   const displayTabs = sections.length > 1 && Areas.isISOCountry(countryIso)
+
+  useEffect(() => {
+    dispatch(
+      UserManagementActions.getUsers({ countryIso, assessmentName: assessment.props.name, cycleName: cycle.name })
+    )
+  }, [countryIso, cycle, assessment])
 
   return (
     <>
