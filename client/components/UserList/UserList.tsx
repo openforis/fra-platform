@@ -7,9 +7,7 @@ import classNames from 'classnames'
 import { User, Users, UserStatus } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
 import { UserManagementActions } from '@client/store/userManagement'
-import { useCountryIso } from '@client/hooks'
 import { useToaster } from '@client/hooks/useToaster'
 import Icon from '@client/components/Icon'
 
@@ -29,12 +27,9 @@ const UserRoleColumn: React.FC<{ user: User }> = ({ user }) => {
 }
 
 const UserInvitationInfo: React.FC<{ user: User; onClose: () => void }> = ({ user, onClose }) => {
-  const countryIso = useCountryIso()
-  const assessment = useAssessment()
-  const cycle = useCycle()
-  const { toaster } = useToaster()
   const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
+  const { toaster } = useToaster()
 
   return (
     <div className="user-list__invitation-info">
@@ -51,8 +46,6 @@ const UserInvitationInfo: React.FC<{ user: User; onClose: () => void }> = ({ use
               dispatch(
                 UserManagementActions.sendInvitationEmail({
                   countryIso,
-                  assessmentName: assessment.props.name,
-                  cycleName: cycle.name,
                   invitationUuid: user.roles[0].invitationUuid,
                 })
               ).then(() => {
