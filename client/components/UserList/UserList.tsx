@@ -6,6 +6,11 @@ import classNames from 'classnames'
 
 import { User, Users, UserStatus } from '@meta/user'
 
+import { useAppDispatch } from '@client/store'
+import { useUser } from '@client/store/user'
+import { UserManagementActions } from '@client/store/userManagement'
+import { useToaster } from '@client/hooks/useToaster'
+
 import UserInvitationInfo from './UserInvitationInfo'
 
 const UserColumn: React.FC<{ user: User; field: keyof User }> = ({ user, field }) => (
@@ -25,7 +30,10 @@ const UserRoleColumn: React.FC<{ user: User }> = ({ user }) => {
 
 const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail }) => {
   const [showInvitationInfo, setShowInvitationInfo] = useState<boolean>(false)
+  const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
+  const { toaster } = useToaster()
+  const currentUser = useUser()
   return (
     <tr
       className={classNames({
@@ -38,9 +46,31 @@ const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail
       {showEmail && <UserColumn user={user} field="email" />}
       <td className="user-list__cell user-list__edit-column">
         {!user.roles[0].acceptedAt && (
-          <button key={0} className="btn-s btn-link" onClick={() => setShowInvitationInfo(true)} type="button">
-            {i18n.t<string>('userManagement.info')}
-          </button>
+          <>
+            <button key={0} className="btn-s btn-link" onClick={() => setShowInvitationInfo(true)} type="button">
+              {i18n.t<string>('userManagement.info')}
+            </button>
+
+            <button
+              key={1}
+              className="btn-s btn-link-destructive"
+              disabled={currentUser.id === user.id}
+              onClick={async () =>
+                window.confirm(i18n.t('userManagement.confirmDelete', { user: user.name }))
+                  ? dispatch(
+                      UserManagementActions.removeInvitation({
+                        invitationUuid: user.roles[0].invitationUuid,
+                      })
+                    ).then(() => {
+                      toaster.success(i18n.t<string>('userManagement.invitationDeleted'))
+                    })
+                  : null
+              }
+              type="button"
+            >
+              {i18n.t<string>('userManagement.remove')}
+            </button>
+          </>
         )}
         {showInvitationInfo ? <UserInvitationInfo user={user} onClose={() => setShowInvitationInfo(false)} /> : null}
       </td>
