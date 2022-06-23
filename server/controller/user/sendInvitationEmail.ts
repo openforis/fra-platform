@@ -15,17 +15,15 @@ export const sendInvitationEmail = async (
 ): Promise<void> => {
   const { invitationUuid, user, url } = props
 
-  return client.tx(async () => {
-    const userRole = await UserRoleRepository.read({ invitationUuid })
+  const userRole = await UserRoleRepository.read({ invitationUuid }, client)
 
-    const userToInvite = await UserRepository.getOne({ id: userRole.userId })
+  const userToInvite = await UserRepository.getOne({ id: userRole.userId }, client)
 
-    await MailService.userInvite({
-      countryIso: userRole.countryIso,
-      role: userRole,
-      userToInvite,
-      user,
-      url,
-    })
+  await MailService.userInvite({
+    countryIso: userRole.countryIso,
+    role: userRole,
+    userToInvite,
+    user,
+    url,
   })
 }
