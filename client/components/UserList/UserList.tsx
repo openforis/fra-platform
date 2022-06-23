@@ -11,6 +11,7 @@ import { useUser } from '@client/store/user'
 import { UserManagementActions } from '@client/store/userManagement'
 import { useToaster } from '@client/hooks/useToaster'
 
+import ButtonUserListExport from './ButtonUserListExport'
 import UserInvitationInfo from './UserInvitationInfo'
 
 const UserColumn: React.FC<{ user: User; field: keyof User }> = ({ user, field }) => (
@@ -87,7 +88,9 @@ const UsersTableHeadRow: React.FC<{ showEmail: boolean }> = ({ showEmail }) => {
         <th className="user-list__header-cell">{i18n.t<string>('userManagement.name')}</th>
         <th className="user-list__header-cell">{i18n.t<string>('userManagement.role')}</th>
         {showEmail && <th className="user-list__header-cell">{i18n.t<string>('userManagement.email')}</th>}
-        <th className="user-list__header-cell user-list__edit-column">CSV</th>
+        <th className="user-list__header-cell user-list__edit-column">
+          <ButtonUserListExport />
+        </th>
       </tr>
     </thead>
   )
