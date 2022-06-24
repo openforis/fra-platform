@@ -6,6 +6,9 @@ import classNames from 'classnames'
 
 import { User, Users, UserStatus } from '@meta/user'
 
+import { useAppDispatch } from '@client/store'
+import { UserManagementActions } from '@client/store/userManagement'
+
 import UserInvitationInfo from './UserInvitationInfo'
 
 const UserColumn: React.FC<{ user: User; field: keyof User }> = ({ user, field }) => (
@@ -25,6 +28,7 @@ const UserRoleColumn: React.FC<{ user: User }> = ({ user }) => {
 
 const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail }) => {
   const [showInvitationInfo, setShowInvitationInfo] = useState<boolean>(false)
+  const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
   return (
     <tr
@@ -37,9 +41,18 @@ const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail
       <UserRoleColumn user={user} />
       {showEmail && <UserColumn user={user} field="email" />}
       <td className="user-list__cell user-list__edit-column">
-        {!user.roles[0].acceptedAt && (
+        {!user.roles[0].acceptedAt ? (
           <button key={0} className="btn-s btn-link" onClick={() => setShowInvitationInfo(true)} type="button">
             {i18n.t<string>('userManagement.info')}
+          </button>
+        ) : (
+          <button
+            key={1}
+            className="btn-s btn-link"
+            onClick={() => dispatch(UserManagementActions.setUserToEdit(user))}
+            type="button"
+          >
+            {i18n.t<string>('userManagement.edit')}
           </button>
         )}
         {showInvitationInfo ? <UserInvitationInfo user={user} onClose={() => setShowInvitationInfo(false)} /> : null}
