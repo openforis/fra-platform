@@ -1,7 +1,9 @@
 import './linkLanding.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useMatch } from 'react-router-dom'
+
+import classNames from 'classnames'
 
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { useCountryIso } from '@client/hooks'
@@ -23,7 +25,11 @@ const LinkLanding: React.FC = () => {
         assessmentName: assessment.props.name,
         cycleName: cycle.name,
       })}
-      className="country-selection-link-landing"
+      className={() => {
+        return classNames('country-selection-link-landing', {
+          selected: useMatch(ClientRoutes.Assessment.Home.root.absolutePath),
+        })
+      }}
     >
       <Icon name="icon-bar-chart" className="icon-sub icon-margin-right" />
       <div className="nav__link-label">{i18n.t<string>(`area.${countryIso}.listName`)}</div>

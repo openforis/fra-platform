@@ -35,6 +35,7 @@ export const ClientRoutes = {
     Home: {
       root: {
         path: 'home/*',
+        absolutePath: '/:countryIso/assessments/:assessmentName/:cycleName/home/*',
 
         getAbsolutePath: (params: { countryIso: CountryIso; assessmentName: AssessmentName; cycleName: string }) =>
           generatePath('/:countryIso/assessments/:assessmentName/:cycleName/home', params),
