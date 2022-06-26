@@ -57,7 +57,7 @@ const FraHome: React.FC = () => {
               className="btn landing__page-menu-button"
               activeClassName="disabled"
             >
-              {i18n.t(`landing.sections.${name}`)}
+              {i18n.t<string>(`landing.sections.${name}`)}
             </NavLink>
           ))}
         </div>

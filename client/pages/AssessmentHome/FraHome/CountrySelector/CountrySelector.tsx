@@ -38,14 +38,14 @@ const CountrySelector: React.FC = () => {
         countries={countries}
         initialSelection={countriesFilter}
         open={modalOpen}
-        headerLabel={i18n.t('common.select')}
+        headerLabel={i18n.t<string>('common.select')}
         onClose={onClose}
         canSave={canSave}
         excludedRegions={[RegionCode.FE, RegionCode.AT, ...secondaryRegions.regions.map((r: Region) => r.regionCode)]}
         showCount
       />
       <button onClick={() => setModalOpen(true)} className="btn-s btn btn-primary filter-countries" type="button">
-        {i18n.t('common.filterCountries')}
+        {i18n.t<string>('common.filterCountries')}
       </button>
     </div>
   )
