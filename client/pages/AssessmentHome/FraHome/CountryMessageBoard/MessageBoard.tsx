@@ -43,26 +43,21 @@ const MessageBoard = () => {
                 type="button"
                 className="btn-secondary landing__user-btn-message"
                 onClick={() => {
-                  // TODO
-                  const countryMessageBoardOpened = false
-
-                  if (!countryMessageBoardOpened) {
-                    dispatch(
-                      MessageCenterActions.openTopic({
-                        countryIso,
-                        assessmentName: assessment.props.name,
-                        cycleName: cycle.name,
-                        key: countryIso,
-                        type: MessageTopicType.messageBoard,
-                        subtitle: i18n.t<string>('countryMessageBoard.messageBoardDesc'),
-                        title: i18n.t<string>(Areas.getTranslationKey(countryIso)),
-                      })
-                    )
-                  }
+                  dispatch(
+                    MessageCenterActions.openTopic({
+                      countryIso,
+                      assessmentName: assessment.props.name,
+                      cycleName: cycle.name,
+                      key: countryIso,
+                      type: MessageTopicType.messageBoard,
+                      subtitle: i18n.t<string>('countryMessageBoard.messageBoardDesc'),
+                      title: i18n.t<string>(Areas.getTranslationKey(countryIso)),
+                    })
+                  )
                 }}
               >
                 <Icon name="chat-46" className="icon-middle" />
-                {(i18n as any).t('landing.users.message')}
+                {i18n.t<string>('landing.users.message')}
                 {countryMessageBoardUnreadMessages > 0 ? (
                   <div className="landing__user-message-count">{countryMessageBoardUnreadMessages}</div>
                 ) : null}
