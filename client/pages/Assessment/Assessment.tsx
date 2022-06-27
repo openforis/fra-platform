@@ -76,7 +76,14 @@ const Assessment: React.FC = () => {
           path={ClientRoutes.Assessment.section.path}
           element={<SectionWrapper>{isDataExport ? <DataExport /> : <AssessmentSection />}</SectionWrapper>}
         />
-        <Route path={ClientRoutes.Assessment.OriginalDataPoint.section.path} element={<OriginalDataPoint />} />
+        <Route
+          path={ClientRoutes.Assessment.OriginalDataPoint.section.path}
+          element={
+            <SectionWrapper>
+              <OriginalDataPoint />
+            </SectionWrapper>
+          }
+        />
         <Route path="*" element={<Navigate to="home" replace />} />
       </Routes>
     </div>
