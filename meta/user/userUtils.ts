@@ -1,6 +1,7 @@
+import { ApiEndPoint } from '@common/api/endpoint'
 import { Objects } from '@core/utils'
 
-export const profilePictureUri = (userId: any) => `/api/users/user/${userId}/profilePicture`
+export const profilePictureUri = (userId: number) => ApiEndPoint.User.getProfilePicture(String(userId))
 
 // max 1Mb
 export const validProfilePicture = (user: any) => !user.profilePicture || user.profilePicture.size <= 1000000
