@@ -11,7 +11,7 @@ import { useCountryIso } from '@client/hooks'
 // import { persistUser } from '../../actions'
 // import Buttons from './components/Buttons'
 // import CountryRoles from './components/CountryRoles'
-// import ProfilePicture from './components/ProfilePicture'
+import ProfilePicture from './ProfilePicture'
 import TextInputFields from './TextInputFields'
 
 const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
@@ -36,7 +36,7 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
 
   return (
     <div className="edit-user__form-container">
-      {/* <ProfilePicture userId={user.id} onChange={(profilePicture: any) => onChange(profilePicture, 'profilePicture')} /> */}
+      <ProfilePicture userId={user.id} onChange={(profilePicture: any) => onChange(profilePicture, 'profilePicture')} />
 
       <TextInputFields user={user} onChange={onChange} />
 
