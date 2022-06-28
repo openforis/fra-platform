@@ -12,7 +12,6 @@ export const sendInvitationEmail = async (req: Request, res: Response) => {
     await UserController.sendInvitationEmail({
       invitationUuid,
       user,
-      url: '',
     })
 
     Requests.sendOk(res, null)

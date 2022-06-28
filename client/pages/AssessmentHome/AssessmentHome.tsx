@@ -4,6 +4,7 @@ import React from 'react'
 import { AssessmentName } from '@meta/assessment'
 
 import { useAssessment } from '@client/store/assessment'
+import MessageCenter from '@client/components/MessageCenter'
 
 import FraHome from './FraHome'
 
@@ -21,9 +22,12 @@ const AssessmentHome: React.FC = () => {
   }
 
   return (
-    <div className="app-view__content">
-      <Component />
-    </div>
+    <>
+      <MessageCenter />
+      <div className="app-view__content">
+        <Component />
+      </div>
+    </>
   )
 }
 
