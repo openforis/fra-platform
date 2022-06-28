@@ -38,7 +38,6 @@ export const invite = async (req: Request, res: Response) => {
       email,
       roleName,
       user,
-      url: '',
     })
 
     Requests.sendOk(res, invitedUser)
