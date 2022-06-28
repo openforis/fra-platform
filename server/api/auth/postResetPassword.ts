@@ -1,8 +1,9 @@
-import { Response, Request } from 'express'
 import { validEmail } from '@common/userUtils'
-import { Requests } from '@server/utils'
 import { Objects } from '@core/utils'
+import { Request, Response } from 'express'
+
 import { UserController } from '@server/controller/user'
+import { Requests } from '@server/utils'
 
 export const postResetPassword = async (req: Request, res: Response) => {
   try {
@@ -14,8 +15,7 @@ export const postResetPassword = async (req: Request, res: Response) => {
     const user = await UserController.getOne({ email })
     if (!user) return Requests.send400(res, 'login.noMatchingEmail')
 
-    const url = Requests.serverUrl(req)
-    const userResetPassword = await UserController.createResetPassword({ user, url })
+    const userResetPassword = await UserController.createResetPassword({ user })
     if (userResetPassword) return Requests.sendOk(res, { message: 'login.passwordResetSent' })
     return Requests.send400(res, 'login.noMatchingEmail')
   } catch (err) {

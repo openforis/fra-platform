@@ -6,14 +6,10 @@ import { UserRoleRepository } from '@server/repository/public/userRole'
 import { MailService } from '@server/service'
 
 export const sendInvitationEmail = async (
-  props: {
-    invitationUuid: string
-    user: User
-    url?: string // application url
-  },
+  props: { invitationUuid: string; user: User },
   client: BaseProtocol = DB
 ): Promise<void> => {
-  const { invitationUuid, user, url } = props
+  const { invitationUuid, user } = props
 
   const userRole = await UserRoleRepository.read({ invitationUuid }, client)
 
@@ -24,6 +20,6 @@ export const sendInvitationEmail = async (
     role: userRole,
     userToInvite,
     user,
-    url,
+    url: process.env.APP_URI,
   })
 }
