@@ -516,6 +516,7 @@ The FRA team
     tableAccess: 'Table access',
     invitationLink: 'Invitation link',
     sendInvitation: 'Send invitation email',
+    invitationEmailSent: 'An invitation email has been sent',
     invitationEmail: {
       subject: 'FRA platform invitation',
       textMessage: `Dear {{invitedUser}},

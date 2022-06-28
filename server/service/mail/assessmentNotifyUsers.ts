@@ -1,8 +1,10 @@
 import { createI18nPromise } from '@i18n/i18nFactory'
+
 import { Country, CountryIso } from '@meta/area'
 import { AssessmentStatus } from '@meta/area/country'
 import { AssessmentName } from '@meta/assessment'
 import { RoleName, User } from '@meta/user'
+
 import { UserRepository } from '@server/repository/public/user'
 
 import { sendMail } from './mail'
@@ -67,7 +69,6 @@ export const assessmentNotifyUsers = async (props: {
   countryIso: CountryIso
   user: User
   country: Country
-  url: string
   message: string
   assessmentName: AssessmentName
 }) => {
@@ -77,7 +78,6 @@ export const assessmentNotifyUsers = async (props: {
     country: {
       props: { status },
     },
-    url,
     message,
     assessmentName,
   } = props
@@ -85,7 +85,7 @@ export const assessmentNotifyUsers = async (props: {
   const emailPromises = await recipients.map(async (recipient: User) => {
     return createMail({
       user,
-      url,
+      url: process.env.APP_URI,
       recipient,
       status,
       countryIso,

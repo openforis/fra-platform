@@ -1,16 +1,14 @@
 import { User, UserResetPassword } from '@meta/user'
+
 import { BaseProtocol, DB } from '@server/db'
 import { UserResetPasswordRepository } from '@server/repository/public/userResetPassword'
 import { MailService } from '@server/service'
 
 export const createResetPassword = async (
-  props: {
-    user: User
-    url?: string // application url
-  },
+  props: { user: User },
   client: BaseProtocol = DB
 ): Promise<UserResetPassword | null> => {
-  const { user, url = '' } = props
+  const { user } = props
 
   return client.tx(async (t) => {
     const lastUserResetPassword = await UserResetPasswordRepository.getLastByUser({ user })
@@ -22,7 +20,7 @@ export const createResetPassword = async (
       return lastUserResetPassword
     const userResetPassword = await UserResetPasswordRepository.create({ user }, t)
 
-    await MailService.resetPassword({ url, user, userResetPassword })
+    await MailService.resetPassword({ url: process.env.APP_URI, user, userResetPassword })
 
     return userResetPassword
   })
