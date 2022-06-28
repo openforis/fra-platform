@@ -7,6 +7,7 @@ import { Areas } from '@meta/area'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
+import { useUser } from '@client/store/user'
 import { UserManagementActions } from '@client/store/userManagement'
 import { useCountryIso } from '@client/hooks'
 import { AssessmentHomeRouteNames, BasePaths } from '@client/basePaths'
@@ -22,6 +23,7 @@ const FraHome: React.FC = () => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
+  const user = useUser()
 
   const sections = useSections()
   const { name: assessmentName } = assessment.props
@@ -30,10 +32,12 @@ const FraHome: React.FC = () => {
   const displayTabs = sections.length > 1 && Areas.isISOCountry(countryIso)
 
   useEffect(() => {
-    dispatch(
-      UserManagementActions.getUsers({ countryIso, assessmentName: assessment.props.name, cycleName: cycle.name })
-    )
-  }, [countryIso, cycle, assessment])
+    if (user) {
+      dispatch(
+        UserManagementActions.getUsers({ countryIso, assessmentName: assessment.props.name, cycleName: cycle.name })
+      )
+    }
+  }, [countryIso, cycle, assessment, user])
 
   return (
     <>

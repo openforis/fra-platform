@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { ApiEndPoint } from '@common/api/endpoint'
 import classNames from 'classnames'
 
-import { MessageTopicType } from '@meta/messageCenter'
+import { MessageTopicType, Topics } from '@meta/messageCenter'
 import { Users } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
@@ -58,7 +58,7 @@ const MessageBoardUsers = () => {
                           countryIso,
                           assessmentName: assessment.props.name,
                           cycleName: cycle.name,
-                          key: `${user.email}-${_user.email}`,
+                          key: Topics.getMessageBoardChatKey(countryIso, user, _user),
                           type: MessageTopicType.chat,
                           subtitle: i18n.t<string>('landing.users.message'),
                           title: _user.name,

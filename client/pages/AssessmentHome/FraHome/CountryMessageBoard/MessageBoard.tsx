@@ -2,7 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Areas } from '@meta/area'
-import { MessageTopicType } from '@meta/messageCenter'
+import { MessageTopicType, Topics } from '@meta/messageCenter'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
@@ -19,7 +19,7 @@ const MessageBoard = () => {
   const i18n = useTranslation()
   const dispatch = useAppDispatch()
 
-  const countryMessageBoardUnreadMessages = 5
+  const countryMessageBoardUnreadMessages = 0
 
   return (
     <div className="landing__users-container landing__message-board">
@@ -48,9 +48,8 @@ const MessageBoard = () => {
                       countryIso,
                       assessmentName: assessment.props.name,
                       cycleName: cycle.name,
-                      key: countryIso,
+                      key: Topics.getMessageBoardCountryKey(countryIso),
                       type: MessageTopicType.messageBoard,
-                      subtitle: i18n.t<string>('countryMessageBoard.messageBoardDesc'),
                       title: i18n.t<string>(Areas.getTranslationKey(countryIso)),
                     })
                   )
@@ -58,9 +57,9 @@ const MessageBoard = () => {
               >
                 <Icon name="chat-46" className="icon-middle" />
                 {i18n.t<string>('landing.users.message')}
-                {countryMessageBoardUnreadMessages > 0 ? (
+                {countryMessageBoardUnreadMessages > 0 && (
                   <div className="landing__user-message-count">{countryMessageBoardUnreadMessages}</div>
-                ) : null}
+                )}
               </button>
             </div>
           </div>
