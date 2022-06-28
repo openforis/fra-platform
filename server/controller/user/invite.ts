@@ -17,11 +17,10 @@ export const invite = async (
     name?: string
     roleName: RoleName
     user: User
-    url?: string // application url
   },
   client: BaseProtocol = DB
 ): Promise<{ userRole: UserRole<RoleName>; user: User }> => {
-  const { user, assessment, countryIso, email, name, roleName, cycle, url = '' } = props
+  const { user, assessment, countryIso, email, name, roleName, cycle } = props
 
   return client.tx(async (t) => {
     let userToInvite = await UserRepository.getOne({ email }, client)
@@ -61,7 +60,7 @@ export const invite = async (
       role: userRole,
       userToInvite,
       user,
-      url,
+      url: process.env.APP_URI,
     })
 
     return {

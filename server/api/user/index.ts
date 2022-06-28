@@ -8,6 +8,7 @@ import { getInvitation } from './getInvitation'
 import { getMany } from './getMany'
 import { getProfilePicture } from './getProfilePicture'
 import { invite } from './invite'
+import { removeInvitation } from './removeInvitation'
 import { sendInvitationEmail } from './sendInvitationEmail'
 
 export const UserApi = {
@@ -17,6 +18,7 @@ export const UserApi = {
     express.get(ApiEndPoint.User.getProfilePicture(), getProfilePicture)
     express.get(ApiEndPoint.User.many(), AuthMiddleware.requireViewUsers, getMany)
     express.post(ApiEndPoint.User.invite(), AuthMiddleware.requireInviteUser, invite)
+    express.delete(ApiEndPoint.User.removeInvitation(), AuthMiddleware.requireInviteUser, removeInvitation)
     express.get(ApiEndPoint.User.sendInvitationEmail(), AuthMiddleware.requireInviteUser, sendInvitationEmail)
   },
 }

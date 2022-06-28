@@ -42,6 +42,19 @@
           word-break: break-word;
         }
       }
+      .btn-s {
+        svg {
+          margin: 0;
+          height: 13px;
+          width: 13px;
+          color: $ui-accent;
+        }
+        &.btn-link-destructive {
+          svg {
+            color: $ui-destructive;
+          }
+        }
+      }
     }
 
     th, td {

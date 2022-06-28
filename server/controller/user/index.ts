@@ -1,4 +1,5 @@
 import { UserRepository } from '@server/repository/public/user'
+import { UserRoleRepository } from '@server/repository/public/userRole'
 
 import { acceptInvitation } from './acceptInvitation'
 import { changePassword } from './changePassword'
@@ -20,6 +21,7 @@ export const UserController = {
   invite,
   acceptInvitation,
   readByInvitation,
+  removeInvitation: UserRoleRepository.remove,
   sendInvitationEmail,
   createResetPassword,
   changePassword,

@@ -1,5 +1,5 @@
 import './UserList.scss'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
@@ -7,8 +7,11 @@ import classNames from 'classnames'
 import { User, Users, UserStatus } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
+import { useUser } from '@client/store/user'
 import { UserManagementActions } from '@client/store/userManagement'
+import { useToaster } from '@client/hooks/useToaster'
 
+import Icon from '../Icon'
 import UserInvitationInfo from './UserInvitationInfo'
 
 const UserColumn: React.FC<{ user: User; field: keyof User }> = ({ user, field }) => (
@@ -30,6 +33,20 @@ const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail
   const [showInvitationInfo, setShowInvitationInfo] = useState<boolean>(false)
   const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
+  const { toaster } = useToaster()
+  const currentUser = useUser()
+
+  const removeInvitation = useCallback(() => {
+    if (window.confirm(i18n.t('userManagement.confirmDelete', { user: user.name })))
+      dispatch(
+        UserManagementActions.removeInvitation({
+          invitationUuid: user.roles[0].invitationUuid,
+        })
+      ).then(() => {
+        toaster.success(i18n.t<string>('userManagement.invitationDeleted'))
+      })
+  }, [dispatch, user])
+
   return (
     <tr
       className={classNames({
@@ -42,9 +59,28 @@ const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail
       {showEmail && <UserColumn user={user} field="email" />}
       <td className="user-list__cell user-list__edit-column">
         {!user.roles[0].acceptedAt ? (
-          <button key={0} className="btn-s btn-link" onClick={() => setShowInvitationInfo(true)} type="button">
-            {i18n.t<string>('userManagement.info')}
-          </button>
+          <>
+            <button
+              key={0}
+              className="btn-s btn-link"
+              onClick={() => setShowInvitationInfo(true)}
+              title={i18n.t<string>('userManagement.info')}
+              type="button"
+            >
+              <Icon name="round-e-info" />
+            </button>
+
+            <button
+              key={1}
+              className="btn-s btn-link-destructive"
+              disabled={currentUser.id === user.id}
+              onClick={removeInvitation}
+              title={i18n.t<string>('userManagement.remove')}
+              type="button"
+            >
+              <Icon name="trash-simple" />
+            </button>
+          </>
         ) : (
           <button
             key={1}
