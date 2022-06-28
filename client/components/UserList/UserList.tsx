@@ -11,6 +11,7 @@ import { useUser } from '@client/store/user'
 import { UserManagementActions } from '@client/store/userManagement'
 import { useToaster } from '@client/hooks/useToaster'
 
+import Icon from '../Icon'
 import UserInvitationInfo from './UserInvitationInfo'
 
 const UserColumn: React.FC<{ user: User; field: keyof User }> = ({ user, field }) => (
@@ -47,8 +48,14 @@ const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail
       <td className="user-list__cell user-list__edit-column">
         {!user.roles[0].acceptedAt && (
           <>
-            <button key={0} className="btn-s btn-link" onClick={() => setShowInvitationInfo(true)} type="button">
-              {i18n.t<string>('userManagement.info')}
+            <button
+              key={0}
+              className="btn-s btn-link"
+              onClick={() => setShowInvitationInfo(true)}
+              title={i18n.t<string>('userManagement.info')}
+              type="button"
+            >
+              <Icon name="round-e-info" />
             </button>
 
             <button
@@ -66,9 +73,10 @@ const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail
                     })
                   : null
               }
+              title={i18n.t<string>('userManagement.remove')}
               type="button"
             >
-              {i18n.t<string>('userManagement.remove')}
+              <Icon name="trash-simple" />
             </button>
           </>
         )}
