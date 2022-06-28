@@ -1,5 +1,5 @@
 import './UserList.scss'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
@@ -35,6 +35,18 @@ const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail
   const { i18n } = useTranslation()
   const { toaster } = useToaster()
   const currentUser = useUser()
+
+  const removeInvitation = useCallback(() => {
+    if (window.confirm(i18n.t('userManagement.confirmDelete', { user: user.name })))
+      dispatch(
+        UserManagementActions.removeInvitation({
+          invitationUuid: user.roles[0].invitationUuid,
+        })
+      ).then(() => {
+        toaster.success(i18n.t<string>('userManagement.invitationDeleted'))
+      })
+  }, [dispatch, user])
+
   return (
     <tr
       className={classNames({
@@ -62,17 +74,7 @@ const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail
               key={1}
               className="btn-s btn-link-destructive"
               disabled={currentUser.id === user.id}
-              onClick={async () =>
-                window.confirm(i18n.t('userManagement.confirmDelete', { user: user.name }))
-                  ? dispatch(
-                      UserManagementActions.removeInvitation({
-                        invitationUuid: user.roles[0].invitationUuid,
-                      })
-                    ).then(() => {
-                      toaster.success(i18n.t<string>('userManagement.invitationDeleted'))
-                    })
-                  : null
-              }
+              onClick={removeInvitation}
               title={i18n.t<string>('userManagement.remove')}
               type="button"
             >
