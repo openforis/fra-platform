@@ -6,11 +6,27 @@
   line-height: 19px;
   width: 100%;
   table-layout: fixed;
+
   tr {
+    &.user-list__invitation-row {
+      color: $text-disabled;
+    }
+
     &.user-list__inactive-user {
       color: $text-disabled;
       text-decoration: line-through;
     }
+
+    th {
+      &.user-list__header-cell {
+        border-bottom: $ui-thin-border;
+        font-size: $font-m;
+        padding: 12px 10px;
+        text-align: left;
+        overflow-wrap: break-word;
+      }
+    }
+
     td {
       &.user-list__cell {
         border: 1px solid transparent;
@@ -19,20 +35,21 @@
         height: 1px;
         text-align: left;
         position: relative;
-      }
-      .user-list__cell--read-only {
-        cursor: default;
-        padding: 12px 10px;
-        word-break: break-word;
+
+        .user-list__cell--read-only {
+          cursor: default;
+          padding: 12px 10px;
+          word-break: break-word;
+        }
       }
     }
-  }
-}
 
-.user-list__header-cell {
-  border-bottom: $ui-thin-border;
-  font-size: $font-m;
-  padding: 12px 10px;
-  text-align: left;
-  overflow-wrap: break-word;
+    th, td {
+      &.user-list__edit-column {
+        width: 140px;
+        text-align: right;
+      }
+    }
+
+  }
 }

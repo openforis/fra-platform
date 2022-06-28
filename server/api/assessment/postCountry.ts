@@ -1,10 +1,11 @@
 import { Request, Response } from 'express'
 
-import Requests from '@server/utils/requests'
 import { Country, CountryIso } from '@meta/area'
+import { AssessmentName } from '@meta/assessment'
+
 import { AssessmentController } from '@server/controller/assessment'
 import { MailService } from '@server/service'
-import { AssessmentName } from '@meta/assessment'
+import Requests from '@server/utils/requests'
 
 export const postCountry = async (req: Request, res: Response) => {
   try {
@@ -27,7 +28,6 @@ export const postCountry = async (req: Request, res: Response) => {
         user: Requests.getRequestUser(req),
         countryIso: countryIso as CountryIso,
         country,
-        url: Requests.serverUrl(req),
         assessmentName: assessmentName as AssessmentName,
         message,
       })
