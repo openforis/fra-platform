@@ -1,27 +1,31 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { User } from '@meta/user'
+import { ApiEndPoint } from '@common/api/endpoint'
+import classNames from 'classnames'
 
+import { MessageTopicType, Topics } from '@meta/messageCenter'
+import { Users } from '@meta/user'
+
+import { useAppDispatch } from '@client/store'
+import { useAssessment, useCycle } from '@client/store/assessment'
+import { MessageCenterActions } from '@client/store/ui/messageCenter'
 import { useUser } from '@client/store/user'
+import { useUsers } from '@client/store/userManagement/hooks'
+import { useCountryIso } from '@client/hooks'
 import Icon from '@client/components/Icon'
 
-const profilePictureUri = (_: any) => {
-  console.log(_, 'todo')
-  return '#'
-}
-const i18nUserRole = (_: any, __: any) => {
-  console.log(_, __, 'todo')
-  return 'todo'
-}
-
 const MessageBoardUsers = () => {
-  const i18n = useTranslation()
-  const user = useUser()
-  const users: Array<User & { active: boolean; chat: Record<string, any>; role: any }> = [user as any]
+  const countryIso = useCountryIso()
+  const assessment = useAssessment()
+  const cycle = useCycle()
 
-  if (!user) {
-    // if (!users || !user) {
+  const i18n = useTranslation()
+  const dispatch = useAppDispatch()
+  const user = useUser()
+  const users = useUsers()
+
+  if (!users || !user) {
     return null
   }
 
@@ -32,31 +36,44 @@ const MessageBoardUsers = () => {
       </div>
       {users.map((_user) => (
         <div key={_user.id} className="landing__user-outer-container">
-          <div className={`landing__user-container${_user.active ? '' : ' user-list__inactive-user'}`}>
+          <div
+            className={classNames('landing__user-container', {
+              'user-list__inactive-user': _user.status === 'active',
+            })}
+          >
             <div className="landing__user-header">
-              <img alt="" className="landing__user-avatar" src={profilePictureUri(_user.id)} />
+              <img alt="" className="landing__user-avatar" src={ApiEndPoint.User.getProfilePicture(String(_user.id))} />
               <div className="landing__user-info">
                 <div className={`landing__user-name${user.id === _user.id ? ' session-user' : ''}`}>{_user.name}</div>
-                <div className="landing__user-role">{i18nUserRole(i18n, _user.role)}</div>
-                {
-                  // add message button if session user is not equal to current displayed user
-                  user.id !== _user.id ? (
-                    <button
-                      type="button"
-                      className="btn-secondary landing__user-btn-message"
-                      onClick={() => {
-                        // dispatch(closeCountryMessageBoard())
-                        // dispatch(openChat(countryIso, userInfo, user))
-                      }}
-                    >
-                      <Icon name="chat-46" className="icon-middle" />
-                      {i18n.t<string>('landing.users.message')}
-                      {_user.chat.unreadMessages > 0 ? (
-                        <div className="landing__user-message-count">{_user.chat.unreadMessages}</div>
-                      ) : null}
-                    </button>
-                  ) : null
-                }
+                <div className="landing__user-role">
+                  {i18n.t<string>(Users.getI18nRoleLabelKey(Users.getCountryRole(_user, countryIso).role))}
+                </div>
+                {user.id !== _user.id && (
+                  <button
+                    type="button"
+                    className="btn-secondary landing__user-btn-message"
+                    onClick={() => {
+                      dispatch(
+                        MessageCenterActions.openTopic({
+                          countryIso,
+                          assessmentName: assessment.props.name,
+                          cycleName: cycle.name,
+                          key: Topics.getMessageBoardChatKey(countryIso, user, _user),
+                          type: MessageTopicType.chat,
+                          subtitle: i18n.t<string>('landing.users.message'),
+                          title: _user.name,
+                        })
+                      )
+                    }}
+                  >
+                    <Icon name="chat-46" className="icon-middle" />
+                    {i18n.t<string>('landing.users.message')}
+                    {/* // TODO */}
+                    {/* {_user.chat.unreadMessages > 0 ? ( */}
+                    {/*  <div className="landing__user-message-count">{_user.chat.unreadMessages}</div> */}
+                    {/* ) : null} */}
+                  </button>
+                )}
               </div>
             </div>
           </div>
