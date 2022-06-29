@@ -1,12 +1,14 @@
-import React from 'react'
-import { useTranslation } from 'react-i18next'
+import './Cell.scss'
+import React, { useCallback } from 'react'
 
 import { AssessmentName, Col, ColType, NodeValueValidations, Row, Table } from '@meta/assessment'
 import { TableData, TableDatas } from '@meta/data'
+import { Authorizer } from '@meta/user'
 
+import { useAssessmentSection, useCountry } from '@client/store/assessment'
+import { useIsDataLocked } from '@client/store/ui/dataLock'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
-import Tooltip from '@client/components/Tooltip'
 
 import Calculated from './Calculated'
 import Number from './Number'
@@ -42,46 +44,48 @@ const Cell: React.FC<Props> = (props) => {
   const { data, assessmentName, sectionName, table, disabled, rowIndex, col, row } = props
 
   const countryIso = useCountryIso()
+  const country = useCountry(countryIso)
   const user = useUser()
-  const { t } = useTranslation()
+  const section = useAssessmentSection()
+  const dataLocked = useIsDataLocked()
+
   const tableName = table.props.name
   const { variableName } = row.props
   const { colName } = col.props
   const params = { data, countryIso, tableName, variableName, colName }
   const datum = TableDatas.getDatum(params)
   const nodeValue = TableDatas.getNodeValue(params)
-  const valid = !user || NodeValueValidations.isValid(nodeValue)
+  const valid = !Authorizer.canEdit({ countryIso, country, section, user }) || NodeValueValidations.isValid(nodeValue)
 
   const className = useClassName({ col, row, valid })
   const { onChange, onPaste } = useOnChange({ table, col, row, nodeValue, data })
   const Component = Components[col.props.colType]
 
+  const showError = useCallback(() => {
+    if (!valid && dataLocked) {
+      // TODO: implement
+      // console.log('error')
+    }
+  }, [dataLocked, valid])
+
   if (!Component) return null
 
-  const ComponentInstance = (
-    <Component
-      assessmentName={assessmentName}
-      sectionName={sectionName}
-      table={table}
-      disabled={disabled || nodeValue?.odp}
-      rowIndex={rowIndex}
-      col={col}
-      row={row}
-      datum={datum}
-      onChange={onChange}
-      onPaste={onPaste}
-    />
-  )
-
+  // nodeValue.validation.messages.map(({ key, params }) => t(key, params)).join(`\n\r`)
   return (
-    <td className={className}>
-      {valid ? (
-        ComponentInstance
-      ) : (
-        <Tooltip text={nodeValue.validation.messages.map(({ key, params }) => t(key, params)).join(`\n\r`)} error>
-          {ComponentInstance}
-        </Tooltip>
-      )}
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+    <td className={className} onClick={showError} onKeyDown={showError}>
+      <Component
+        assessmentName={assessmentName}
+        sectionName={sectionName}
+        table={table}
+        disabled={disabled || nodeValue?.odp}
+        rowIndex={rowIndex}
+        col={col}
+        row={row}
+        datum={datum}
+        onChange={onChange}
+        onPaste={onPaste}
+      />
     </td>
   )
 }

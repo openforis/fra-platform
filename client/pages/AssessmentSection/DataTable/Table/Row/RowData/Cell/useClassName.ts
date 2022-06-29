@@ -14,7 +14,7 @@ export default (props: Props): string => {
   if (Cols.isReadOnly({ col, row })) className = 'fra-table__calculated-cell'
   if ([ColType.text, ColType.textarea, ColType.select].includes(colType)) className = 'fra-table__cell-left'
   if (colType === ColType.placeholder) className = 'fra-table__category-cell fra-table__filler-last'
-  if (!valid) className += ' validation-error'
+  if (!valid) className += ' validation-error cell-error'
 
   return className
 }
