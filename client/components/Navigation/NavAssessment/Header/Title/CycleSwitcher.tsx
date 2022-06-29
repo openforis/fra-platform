@@ -10,7 +10,7 @@ import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import { BasePaths } from '@client/basePaths'
 
-const CycleSwitcher = () => {
+const CycleSwitcher: React.FC = () => {
   const countryIso = useCountryIso()
   const history = useHistory()
   const cycleCurrent = useCycle()
