@@ -18,13 +18,13 @@ const getLinks = (i18nInstance: i18n, user: User, dispatch: AppDispatch, toaster
   const items: Array<PopoverItem> = [
     {
       content: i18nInstance.t('header.editProfile'),
-      link: ClientRoutes.User.root.getAbsolutePath({ id: user.id }),
+      link: ClientRoutes.User.Root.getLink({ id: user.id }),
     },
   ]
   if (Users.isAdministrator(user)) {
     items.push({
       content: i18nInstance.t('admin.admin'),
-      link: ClientRoutes.Admin.root.path,
+      link: ClientRoutes.Admin.Root.getLink(),
     })
   }
   items.push(
@@ -60,7 +60,7 @@ const LinksFRA: React.FC = () => {
       )}
 
       {!user && !isLogin && (
-        <Link key="admin-link" to={ClientRoutes.Login.root.path} className="app-header__menu-item">
+        <Link key="admin-link" to={ClientRoutes.Login.Root.getLink()} className="app-header__menu-item">
           {i18n.t<string>('common.login')}
         </Link>
       )}

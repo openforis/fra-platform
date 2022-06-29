@@ -3,87 +3,67 @@ import { generatePath } from 'react-router'
 import { CountryIso } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
 
-export enum AssessmentHomeRouteNames {
-  overview = 'overview',
-  messageBoard = 'messageBoard',
-  contentCheck = 'contentCheck',
-  userManagement = 'userManagement',
-  recentActivity = 'recentActivity',
-  links = 'links',
+type ClientRoute<Params> = {
+  path: {
+    absolute: string
+    relative: string
+  }
+  getLink: (params: Params) => string
 }
+
+const newInstance = <Params>(...parts: Array<string>): ClientRoute<Params> => {
+  const absolute = `/${parts.join('/')}`
+  return {
+    path: {
+      absolute,
+      relative: parts[parts.length - 1],
+    },
+    getLink: (params: Params) => generatePath(absolute, params),
+  }
+}
+
+type AssessmentParams = {
+  countryIso: CountryIso
+  assessmentName: AssessmentName
+  cycleName: string
+}
+
+const assessmentParts = [':countryIso', 'assessments', ':assessmentName', ':cycleName']
 
 export const ClientRoutes = {
   Admin: {
+    Root: newInstance<void>('admin'),
     root: { path: '/admin/*' },
   },
-
   Assessment: {
-    root: {
-      path: '/:countryIso/assessments/:assessmentName/:cycleName/*',
-
-      getAbsolutePath: (params: {
-        countryIso: CountryIso
-        assessmentName: AssessmentName
-        cycleName: string
-      }): string => generatePath('/:countryIso/assessments/:assessmentName/:cycleName', params),
-    },
-
-    dataDownload: { path: 'dataDownload' },
-
-    section: { path: ':section' },
-
+    Root: newInstance<AssessmentParams>(...assessmentParts),
     Home: {
-      root: {
-        path: 'home/*',
-        absolutePath: '/:countryIso/assessments/:assessmentName/:cycleName/home/*',
-
-        getAbsolutePath: (params: { countryIso: CountryIso; assessmentName: AssessmentName; cycleName: string }) =>
-          generatePath('/:countryIso/assessments/:assessmentName/:cycleName/home', params),
-      },
-
-      route: {
-        path: ':route',
-
-        getAbsolutePath: (params: {
-          countryIso: CountryIso
-          assessmentName: AssessmentName
-          cycleName: string
-          route: AssessmentHomeRouteNames
-        }) => generatePath('/:countryIso/assessments/:assessmentName/:cycleName/home/:route/', params),
-      },
+      Root: newInstance<AssessmentParams>(...assessmentParts, 'home'),
+      Section: newInstance<AssessmentParams & { section: string }>(...assessmentParts, 'home', ':section'),
     },
-
+    Section: newInstance<AssessmentParams & { section: string }>(...assessmentParts, ':section'),
     OriginalDataPoint: {
-      section: {
-        path: 'originalDataPoint/:year/:section',
-
-        getAbsolutePath: (params: {
-          countryIso: CountryIso
-          assessmentName: AssessmentName
-          cycleName: string
-          year: string
-          section: string
-        }) =>
-          generatePath('/:countryIso/assessments/:assessmentName/:cycleName/originalDataPoint/:year/:section', params),
-      },
+      Section: newInstance<AssessmentParams & { year: string; section: string }>(
+        ...assessmentParts,
+        'originalDataPoint/:year/:section'
+      ),
     },
+    DataDownload: newInstance<AssessmentParams>(...assessmentParts, 'dataDownload'),
+    Print: newInstance<AssessmentParams>(...assessmentParts, 'print'),
+    PrintTables: newInstance<AssessmentParams>(...assessmentParts, 'print', 'tables'),
   },
 
   Login: {
-    root: { path: '/login/*' },
-    invitation: { path: 'invitation' },
-    resetPassword: { path: 'resetPassword' },
+    Root: newInstance<void>('login'),
+    Invitation: newInstance('login', 'invitation'),
+    ResetPassword: newInstance('login', 'resetPassword'),
   },
 
   Geo: {
-    root: { path: '/:countryIso/geo/*' },
+    Root: newInstance(':countryIso', 'geo'),
   },
 
   User: {
-    root: {
-      path: '/user/:id',
-
-      getAbsolutePath: (params: { id: number }) => generatePath('/user/:id', params),
-    },
+    Root: newInstance<{ id: number }>('user', ':id'),
   },
 }

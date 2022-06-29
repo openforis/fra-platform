@@ -50,7 +50,7 @@ const OriginalData: React.FC<Props> = (props) => {
               active: navData.isActive,
             })
           }
-          to={ClientRoutes.Assessment.OriginalDataPoint.section.getAbsolutePath({
+          to={ClientRoutes.Assessment.OriginalDataPoint.Section.getLink({
             countryIso,
             assessmentName,
             cycleName,
@@ -67,7 +67,7 @@ const OriginalData: React.FC<Props> = (props) => {
               active: navData.isActive,
             })
           }
-          to={ClientRoutes.Assessment.OriginalDataPoint.section.getAbsolutePath({
+          to={ClientRoutes.Assessment.OriginalDataPoint.Section.getLink({
             countryIso,
             assessmentName,
             cycleName,

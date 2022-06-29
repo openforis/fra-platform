@@ -32,7 +32,7 @@ const CycleSwitcher = () => {
 
   const onSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     navigate(
-      ClientRoutes.Assessment.Home.root.getAbsolutePath({
+      ClientRoutes.Assessment.Home.Root.getLink({
         countryIso,
         assessmentName: assessment.props.name,
         cycleName: event.target.value,

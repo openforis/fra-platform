@@ -33,7 +33,7 @@ const PageRoutes: React.FC = () => {
   const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
 
-  const shouldRenderCountrySelect = !useMatch(ClientRoutes.Login.root)
+  const shouldRenderCountrySelect = !useMatch(ClientRoutes.Login.Root.path.absolute)
 
   useEffect(() => {
     // TODO: Add user.language support
@@ -65,9 +65,9 @@ const PageRoutes: React.FC = () => {
 
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path={ClientRoutes.Assessment.root.path} element={<Assessment />} />
-        <Route path={ClientRoutes.Login.root.path} element={<Login />} />
-        <Route path={ClientRoutes.Geo.root.path} element={<Geo />} />
+        <Route path={`${ClientRoutes.Assessment.Root.path.absolute}/*`} element={<Assessment />} />
+        <Route path={`${ClientRoutes.Login.Root.path.absolute}/*`} element={<Login />} />
+        <Route path={`${ClientRoutes.Geo.Root.path.absolute}/*`} element={<Geo />} />
         <Route path="*" element={<Navigate to="/" replace />} />
 
         {/* <Route */}

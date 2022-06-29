@@ -42,7 +42,7 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
 
   return (
     <Link
-      to={ClientRoutes.Assessment.root.getAbsolutePath({
+      to={ClientRoutes.Assessment.Root.getLink({
         countryIso: countryIso as CountryIso,
         assessmentName: assessment.props.name,
         cycleName: cycle?.name,

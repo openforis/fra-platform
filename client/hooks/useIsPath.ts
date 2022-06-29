@@ -9,8 +9,9 @@ const useIsPath = ({ path, exact = true }: { path: string; exact?: boolean }): b
 
 export const useIsHome = () => useIsPath({ path: '/' })
 
-export const useIsAssessment = () => useIsPath({ path: ClientRoutes.Assessment.root.path, exact: false })
+export const useIsAssessment = () =>
+  useIsPath({ path: `${ClientRoutes.Assessment.Root.path.absolute}/*`, exact: false })
 
-export const useIsAdmin = () => useIsPath({ path: ClientRoutes.Admin.root.path, exact: false })
+export const useIsAdmin = () => useIsPath({ path: `${ClientRoutes.Admin.Root.path.absolute}/*`, exact: false })
 
-export const useIsLogin = () => useIsPath({ path: ClientRoutes.Login.root.path, exact: false })
+export const useIsLogin = () => useIsPath({ path: `${ClientRoutes.Login.Root.path.absolute}/*`, exact: false })

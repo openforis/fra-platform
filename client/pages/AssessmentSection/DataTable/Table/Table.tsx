@@ -75,7 +75,7 @@ const Table: React.FC<Props> = (props) => {
                         <Tooltip text={i18n.t('nationalDataPoint.clickOnNDP')}>
                           <Link
                             className="link"
-                            to={ClientRoutes.Assessment.OriginalDataPoint.section.getAbsolutePath({
+                            to={ClientRoutes.Assessment.OriginalDataPoint.Section.getLink({
                               countryIso,
                               assessmentName,
                               cycleName: cycle.name,

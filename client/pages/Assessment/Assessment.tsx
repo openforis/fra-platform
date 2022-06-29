@@ -70,14 +70,14 @@ const Assessment: React.FC = () => {
     <div className={`app-view ${navigationVisible ? ' navigation-on' : ''}`}>
       <Navigation />
       <Routes>
-        <Route path={ClientRoutes.Assessment.Home.root.path} element={<AssessmentHome />} />
-        <Route path={ClientRoutes.Assessment.dataDownload.path} element={<AssessmentDataDownload />} />
+        <Route path={`${ClientRoutes.Assessment.Home.Root.path.relative}/*`} element={<AssessmentHome />} />
+        <Route path={ClientRoutes.Assessment.DataDownload.path.relative} element={<AssessmentDataDownload />} />
         <Route
-          path={ClientRoutes.Assessment.section.path}
+          path={ClientRoutes.Assessment.Section.path.relative}
           element={<SectionWrapper>{isDataExport ? <DataExport /> : <AssessmentSection />}</SectionWrapper>}
         />
         <Route
-          path={ClientRoutes.Assessment.OriginalDataPoint.section.path}
+          path={ClientRoutes.Assessment.OriginalDataPoint.Section.path.relative}
           element={
             <SectionWrapper>
               <OriginalDataPoint />
