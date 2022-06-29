@@ -56,7 +56,7 @@ export const ClientRoutes = {
   Login: {
     Root: newInstance<void>('login'),
     Invitation: newInstance('login', 'invitation'),
-    ResetPassword: newInstance('login', 'resetPassword'),
+    ResetPassword: newInstance<void>('login', 'resetPassword'),
   },
 
   Geo: {

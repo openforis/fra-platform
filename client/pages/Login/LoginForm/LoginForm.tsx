@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '@client/store'
 import { LoginActions, useInvitation } from '@client/store/login'
 import { useToaster } from '@client/hooks/useToaster'
-import { BasePaths } from '@client/basePaths'
+import { ClientRoutes } from '@client/clientRoutes'
 import { isError, LoginValidator } from '@client/pages/Login/utils/LoginValidator'
 import { Urls } from '@client/utils/urls'
 
@@ -109,7 +109,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
               </button>
             </div>
 
-            <Link to={BasePaths.Login.resetPassword()} type="button" className="btn-forgot-pwd">
+            <Link to={ClientRoutes.Login.ResetPassword.getLink()} type="button" className="btn-forgot-pwd">
               {i18n.t('login.forgotPassword')}
             </Link>
           </>
