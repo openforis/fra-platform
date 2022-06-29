@@ -20,7 +20,7 @@ const LinkGeo: React.FC<Props> = (props) => {
   const { countryIso } = props
 
   return (
-    <NavLink to={getPath(countryIso)} className="app-header-link-geo" exact>
+    <NavLink end to={getPath(countryIso)} className="app-header-link-geo">
       <p>GEO</p>
     </NavLink>
   )
