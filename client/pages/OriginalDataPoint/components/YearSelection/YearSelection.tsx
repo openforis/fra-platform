@@ -11,7 +11,7 @@ import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 import { useCountryIso, useGetRequest } from '@client/hooks'
-import { BasePaths } from '@client/basePaths'
+import { ClientRoutes } from '@client/clientRoutes'
 
 // TODO: Handle error
 const years = ['', ...ODPYears]
@@ -73,13 +73,13 @@ const YearSelection: React.FC<Props> = (props) => {
               })
             )
             // Update url but do not push new entry to state
-            const url = BasePaths.Assessment.OriginalDataPoint.section(
+            const url = ClientRoutes.Assessment.OriginalDataPoint.Section.getLink({
               countryIso,
-              assessment.props.name,
-              cycle.name,
-              value,
-              section
-            )
+              assessmentName: assessment.props.name,
+              cycleName: cycle.name,
+              year: value,
+              section,
+            })
             window.history.replaceState(null, null, url)
           }}
         >

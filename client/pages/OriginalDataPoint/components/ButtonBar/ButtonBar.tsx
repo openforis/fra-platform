@@ -13,7 +13,7 @@ import {
   useOriginalDataPoint,
 } from '@client/store/pages/originalDataPoint'
 import { useCountryIso } from '@client/hooks'
-import { BasePaths } from '@client/basePaths'
+import { ClientRoutes } from '@client/clientRoutes'
 
 type Props = {
   canEditData: boolean
@@ -35,7 +35,12 @@ const ButtonBar: React.FC<Props> = (props) => {
   const disabled = !originalDataPoint.id || useIsOriginalDataPointUpdating()
   const assessment = useAssessment()
   const cycle = useCycle()
-  const assessmentSectionLink = BasePaths.Assessment.section(countryIso, assessmentName, cycleName, section)
+  const assessmentSectionLink = ClientRoutes.Assessment.Section.getLink({
+    countryIso,
+    assessmentName,
+    cycleName,
+    section,
+  })
 
   if (!canEditData) {
     return null

@@ -10,7 +10,7 @@ import { Topics } from '@meta/messageCenter'
 import { useCycle } from '@client/store/assessment'
 import { useTopicKeys } from '@client/store/ui/messageCenter/hooks'
 import { useCountryIso } from '@client/hooks'
-import { BasePaths } from '@client/basePaths'
+import { ClientRoutes } from '@client/clientRoutes'
 import ReviewIndicator from '@client/components/ReviewIndicator'
 
 import { Props } from '../props'
@@ -57,7 +57,12 @@ const RowData: React.FC<Props> = (props) => {
           <>
             {/* TODO - print view <div className="only-print">{colHeaderValue}</div> */}
             <Link
-              to={BasePaths.Assessment.section(countryIso, assessmentName, cycle.name, row.props.linkToSection)}
+              to={ClientRoutes.Assessment.Section.getLink({
+                countryIso,
+                assessmentName,
+                cycleName: cycle.name,
+                section: row.props.linkToSection,
+              })}
               className="link no-print"
             >
               {colHeaderLabel}

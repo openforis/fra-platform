@@ -9,7 +9,7 @@ import { Areas } from '@meta/area'
 
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { useCountryIso } from '@client/hooks'
-import { AssessmentHomeRouteNames, BasePaths } from '@client/basePaths'
+import { ClientRoutes } from '@client/clientRoutes'
 import Icon from '@client/components/Icon'
 
 const ButtonDownloadDashboard: React.FC = () => {
@@ -21,12 +21,12 @@ const ButtonDownloadDashboard: React.FC = () => {
 
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle
-  const overviewPath = BasePaths.Assessment.home(
+  const overviewPath = ClientRoutes.Assessment.Home.Section.getLink({
     countryIso,
     assessmentName,
     cycleName,
-    AssessmentHomeRouteNames.overview
-  )
+    section: 'overview',
+  })
   const matchOverview = matchPath({ path: overviewPath, end: true }, pathname)
   const renderButton = matchOverview && (Areas.isGlobal(countryIso) || Areas.isFRARegion(countryIso))
 
