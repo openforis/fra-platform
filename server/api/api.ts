@@ -1,11 +1,12 @@
 import { Express } from 'express'
-import { InitApi } from '@server/api/init'
-import { AuthApi } from '@server/api/auth'
-import { UserApi } from '@server/api/user'
-import { AssessmentApi } from '@server/api/assessment'
-import { DefinitionApi } from '@server/api/definitions'
-import { MessageCenterApi } from '@server/api/messageCenter'
 
+import { AssessmentApi } from '@server/api/assessment'
+import { AuthApi } from '@server/api/auth'
+import { DefinitionApi } from '@server/api/definitions'
+import { GeoApi } from '@server/api/geo'
+import { InitApi } from '@server/api/init'
+import { MessageCenterApi } from '@server/api/messageCenter'
+import { UserApi } from '@server/api/user'
 /**
  * API Controller
  * Initialize APIs here
@@ -19,5 +20,6 @@ export const Api = {
     DefinitionApi.init(express)
     UserApi.init(express)
     MessageCenterApi.init(express)
+    GeoApi.init(express)
   },
 }
