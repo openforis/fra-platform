@@ -6,7 +6,7 @@ import { Areas } from '@meta/area'
 
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { useCountryIso } from '@client/hooks'
-import { BasePaths } from '@client/basePaths'
+import { ClientRoutes } from '@client/clientRoutes'
 import Icon from '@client/components/Icon'
 
 import NavAssessment from '../NavAssessment'
@@ -16,7 +16,7 @@ const NavigationDesktop: React.FC = () => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
-  const assessmentType = assessment.props.name
+  const assessmentName = assessment.props.name
 
   return (
     <div className="nav no-print">
@@ -25,10 +25,12 @@ const NavigationDesktop: React.FC = () => {
       {Areas.isGlobal(countryIso) && (
         <Link
           className="btn-s btn-primary nav__bulk-download"
-          to={BasePaths.Assessment.dataDownload(countryIso, assessmentType, cycle.name)}
+          to={ClientRoutes.Assessment.DataDownload.getLink({ countryIso, assessmentName, cycleName: cycle.name })}
         >
-          <Icon className="icon-sub icon-white" name="hit-down" />
-          {i18n.t('dataDownload.dataDownload')}
+          <>
+            <Icon className="icon-sub icon-white" name="hit-down" />
+            {i18n.t('dataDownload.dataDownload')}
+          </>
         </Link>
       )}
     </div>

@@ -71,9 +71,11 @@ const FraHome: React.FC = () => {
       )}
       {displayTabs ? (
         <Switch>
-          <Route exact path={BasePaths.getAssessmentHomeLink(countryIso, FRA.type)}>
-            <Redirect to={overviewPath} />
-          </Route>
+          <Route
+            exact
+            path={BasePaths.getAssessmentHomeLink(countryIso, FRA.type)}
+            render={() => <Redirect to={overviewPath} />}
+          />
           {sections.map(({ name: section, component }: any) => (
             <Route
               key={section}

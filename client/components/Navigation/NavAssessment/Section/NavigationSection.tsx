@@ -1,8 +1,7 @@
 import './Section.scss'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useLocation } from 'react-router'
-import { matchPath } from 'react-router-dom'
+import { matchPath, useLocation } from 'react-router-dom'
 
 import { Section } from '@meta/assessment'
 
@@ -48,7 +47,7 @@ const NavigationSection: React.FC<Props> = (props) => {
   useEffect(() => {
     const match = section.subSections.find((subsection) => {
       const path = BasePaths.Assessment.section(countryIso, assessmentName, subsection.props.name)
-      return matchPath(pathname, { path })
+      return matchPath({ path }, pathname)
     })
     if (match) {
       setExpanded(true)

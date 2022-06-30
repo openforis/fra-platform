@@ -1,20 +1,19 @@
 import React, { useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
+
+import { ApiEndPoint } from '@common/api/endpoint'
 
 import { useAppDispatch } from '@client/store'
 import { LoginActions, useInvitation } from '@client/store/login'
-import { Urls } from '@client/utils'
 import { useUser } from '@client/store/user'
-
-import { BasePaths } from '@client/basePaths'
-import { ApiEndPoint } from '@common/api/endpoint'
 import LoginForm from '@client/pages/Login/LoginForm'
+import { Urls } from '@client/utils'
 
 const Invitation: React.FC = () => {
   const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
-  const history = useHistory()
+  const navigate = useNavigate()
   const loggedUser = useUser()
 
   const invitationUuid = Urls.getRequestParam('invitationUuid')
@@ -24,13 +23,13 @@ const Invitation: React.FC = () => {
     if (invitationUuid) {
       dispatch(LoginActions.fetchUserByInvitation(invitationUuid))
     } else {
-      history.push(BasePaths.Root())
+      navigate('/')
     }
   }, [])
 
   const onAccept = () => {
     dispatch(LoginActions.acceptInvitation(invitationUuid))
-    history.push(BasePaths.Root())
+    navigate('/')
   }
 
   const cycle = assessment?.cycles.find((cycle) => cycle.uuid === userRole.cycleUuid)

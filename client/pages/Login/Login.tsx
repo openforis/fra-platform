@@ -1,11 +1,10 @@
 import './login.scss'
 import React, { useEffect } from 'react'
-import { Route, useHistory } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 
-import Partners from '@client/components/Partners'
-
-import { BasePaths } from '@client/basePaths'
 import { useUser } from '@client/store/user'
+import { ClientRoutes } from '@client/clientRoutes'
+import Partners from '@client/components/Partners'
 import { Urls } from '@client/utils'
 
 import Invitation from './Invitation'
@@ -13,30 +12,24 @@ import LoginForm from './LoginForm'
 import ResetPassword from './ResetPassword'
 
 const Login: React.FC = () => {
-  const history = useHistory()
+  const navigate = useNavigate()
   const user = useUser()
   const invitationUuid = Urls.getRequestParam('invitationUuid')
 
   useEffect(() => {
     if (user && !invitationUuid) {
-      history.push(BasePaths.Root())
+      navigate('/')
     }
   }, [user])
 
   return (
     <>
       <div className="login">
-        <Route exact path={BasePaths.Login.invitation()}>
-          <Invitation />
-        </Route>
-
-        <Route exact path={BasePaths.Login.root()}>
-          <LoginForm />
-        </Route>
-
-        <Route exact path={BasePaths.Login.resetPassword()}>
-          <ResetPassword />
-        </Route>
+        <Routes>
+          <Route path={ClientRoutes.Login.Invitation.path.relative} element={<Invitation />} />
+          <Route path={ClientRoutes.Login.ResetPassword.path.relative} element={<ResetPassword />} />
+          <Route path="*" element={<LoginForm />} />
+        </Routes>
 
         <img alt="" src="/img/tucan.svg" className="login__tucan" />
       </div>
