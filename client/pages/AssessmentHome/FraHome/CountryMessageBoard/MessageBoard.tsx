@@ -1,19 +1,25 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Areas } from '@meta/area'
+import { MessageTopicType, Topics } from '@meta/messageCenter'
+
+import { useAppDispatch } from '@client/store'
+import { useAssessment, useCycle } from '@client/store/assessment'
+import { MessageCenterActions } from '@client/store/ui/messageCenter'
 import { useCountryIso } from '@client/hooks'
 import Icon from '@client/components/Icon'
 
 const MessageBoard = () => {
   const countryIso = useCountryIso()
-  const i18n = useTranslation()
-  // const dispatch = useDispatch()
 
-  // const { countryMessageBoardUnreadMessages, countryMessageBoardOpened } = useSelector((state) => ({
-  //   countryMessageBoardUnreadMessages: LandingState.getCountryMessageBoardUnreadMessages(state),
-  //   countryMessageBoardOpened: MessageBoardState.getCountryMessageBoardOpened(state),
-  // }))
-  const countryMessageBoardUnreadMessages = 5
+  const assessment = useAssessment()
+  const cycle = useCycle()
+
+  const i18n = useTranslation()
+  const dispatch = useAppDispatch()
+
+  const countryMessageBoardUnreadMessages = 0
 
   return (
     <div className="landing__users-container landing__message-board">
@@ -37,18 +43,23 @@ const MessageBoard = () => {
                 type="button"
                 className="btn-secondary landing__user-btn-message"
                 onClick={() => {
-                  // Todo
-                  // if (!countryMessageBoardOpened) {
-                  //   dispatch(openCountryMessageBoard())
-                  //   dispatch(closeChat())
-                  // }
+                  dispatch(
+                    MessageCenterActions.openTopic({
+                      countryIso,
+                      assessmentName: assessment.props.name,
+                      cycleName: cycle.name,
+                      key: Topics.getMessageBoardCountryKey(countryIso),
+                      type: MessageTopicType.messageBoard,
+                      title: i18n.t<string>(Areas.getTranslationKey(countryIso)),
+                    })
+                  )
                 }}
               >
                 <Icon name="chat-46" className="icon-middle" />
-                {(i18n as any).t('landing.users.message')}
-                {countryMessageBoardUnreadMessages > 0 ? (
+                {i18n.t<string>('landing.users.message')}
+                {countryMessageBoardUnreadMessages > 0 && (
                   <div className="landing__user-message-count">{countryMessageBoardUnreadMessages}</div>
-                ) : null}
+                )}
               </button>
             </div>
           </div>

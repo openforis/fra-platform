@@ -11,7 +11,7 @@ type Params = {
   cycleName: string
   key: string
   title: string
-  subtitle: string
+  subtitle?: string
   type: MessageTopicType
   section?: string
 }

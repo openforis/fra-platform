@@ -68,7 +68,7 @@ const CountrySelect: React.FC = () => {
 
       <ToggleNavigationControl />
 
-      <div className="country-select__select-label">{i18n.t('common.selectArea')}</div>
+      <div className="country-select__select-label">{i18n.t<string>('common.selectArea')}</div>
 
       <button
         type="button"
@@ -100,7 +100,7 @@ const CountrySelect: React.FC = () => {
                 />
               )}
 
-              <div className="name">{i18n.t(`area.${countryIso}.listName`)}</div>
+              <div className="name">{i18n.t<string>(`area.${countryIso}.listName`)}</div>
               {user && (
                 <div className="user-role">
                   {i18n.t<string>(Users.getI18nRoleLabelKey(Users.getCountryRole(user, countryIso).role))}
@@ -111,8 +111,8 @@ const CountrySelect: React.FC = () => {
 
           {!countryIso && !open && (
             <>
-              <div className="country-select__select-laptop">- {i18n.t('common.select')} -</div>
-              <div className="country-select__select-mobile">{i18n.t('common.selectArea')}</div>
+              <div className="country-select__select-laptop">{`- ${i18n.t('common.select')} -`}</div>
+              <div className="country-select__select-mobile">{i18n.t<string>('common.selectArea')}</div>
             </>
           )}
         </div>
