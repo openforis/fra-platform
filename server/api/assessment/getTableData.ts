@@ -17,6 +17,7 @@ export const getTableData = async (req: Request, res: Response) => {
       variables,
       columns,
       mergeOdp,
+      aggregate,
     } = req.query as {
       assessmentName: AssessmentName
       cycleName: string
@@ -26,6 +27,7 @@ export const getTableData = async (req: Request, res: Response) => {
       variables: Array<string>
       columns: Array<string>
       mergeOdp: string
+      aggregate: string
     }
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName })
@@ -39,6 +41,7 @@ export const getTableData = async (req: Request, res: Response) => {
       columns,
       // if mergeOdp is not passed, then by default result data includes odp for table 1a and 1b if available
       mergeOdp: !mergeOdp || mergeOdp === 'true',
+      aggregate: aggregate === 'true',
     })
     Requests.send(res, table)
   } catch (e) {

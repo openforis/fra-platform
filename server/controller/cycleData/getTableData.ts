@@ -17,17 +17,22 @@ export const getTableData = async (
     variables: Array<string>
     columns: Array<string>
     mergeOdp: boolean
+    aggregate: boolean
   },
   client: BaseProtocol = DB
 ): Promise<TableData> => {
-  const { tableNames, assessment, cycle, countryISOs, variables, columns, mergeOdp } = props
+  const { tableNames, aggregate, assessment, cycle, countryISOs, variables, columns, mergeOdp } = props
 
   const tables: Record<string, { columns: Array<string>; variables: Array<string> }> = {}
   tableNames.forEach((tableName) => {
     tables[tableName] = { columns, variables }
   })
 
+  if (aggregate)
+    return DataRepository.getAggregatedTableData({ assessment, cycle, countryISOs, variables, columns }, client)
+
   const tableData = await DataRepository.getTableData({ assessment, cycle, tables, countryISOs }, client)
+
   if (
     mergeOdp &&
     (tableNames.includes(TableNames.extentOfForest) || tableNames.includes(TableNames.forestCharacteristics))
@@ -45,7 +50,7 @@ export const getTableData = async (
           tableName === TableNames.extentOfForest ||
           (tableName === TableNames.forestCharacteristics && country.props.forestCharacteristics.useOriginalDataPoint)
         ) {
-          if (tableData[countryIso] && tableData[countryIso][tableName] && originalDataPointData[countryIso]) {
+          if (tableData[countryIso] && tableData[countryIso][tableName] && originalDataPointData?.[countryIso]) {
             let { originalDataPointValue } = originalDataPointData[countryIso]
             originalDataPointValue = Objects.pick(originalDataPointValue, columns)
             originalDataPointValue = Object.entries(originalDataPointValue).reduce((acc, [year, value]) => {

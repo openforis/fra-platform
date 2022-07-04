@@ -71,9 +71,8 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 },
                 migration: {
                   validateFns: [
-                    // `isValidOdp(extentOfForest.forestArea)`,
-                    // `isValidForestAreaComparedTo2015(extentOfForest.forestArea['2015'], extentOfForest.forestArea)`
-                    `isValidOtherLand(extentOfForest.otherLand, extentOfForest.totalLandArea)`,
+                    `validatorForestAreaComparedTo2015(value_aggregate.forestArea['2015'], extentOfForest.forestArea)`,
+                    `validatorOtherLand(extentOfForest.otherLand, extentOfForest.totalLandArea)`,
                   ],
                 },
               },
@@ -98,6 +97,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   labelKey: 'fraClass.otherWoodedLand',
                   color: '#bf00af',
                 },
+                migration: {
+                  validateFns: [`validatorOtherLand(extentOfForest.otherLand, extentOfForest.totalLandArea)`],
+                },
               },
               {
                 idx: 2,
@@ -116,6 +118,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableNo: 'c-a-b',
                 variableName: 'otherLand',
                 variableExport: 'other_land',
+                migration: {
+                  validateFns: [`validatorOtherLand(extentOfForest.otherLand, extentOfForest.totalLandArea)`],
+                },
               },
               {
                 idx: 3,
@@ -423,6 +428,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableName: 'plantationForestIntroducedArea',
                 variableExport: 'plantation_forest_introduced_area',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorPlantationForestIntroduced(forestCharacteristics.plantationForestArea, forestCharacteristics.plantationForestIntroducedArea)`,
+                  ],
+                },
               },
               {
                 idx: 4,
@@ -460,6 +470,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'forestCharacteristics.total',
                 variableNo: 'a+b',
                 variableName: 'totalForestArea', // before it was total
+                migration: {
+                  validateFns: [
+                    `validatorTotalForest(extentOfForest.forestArea, forestCharacteristics.totalForestArea)`,
+                  ],
+                },
               },
               {
                 idx: 6,
@@ -644,6 +659,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'specificForestCategories.primaryForest',
                 variableExport: 'primary_forest',
+                migration: {
+                  validateFns: [
+                    `validatorPrimaryForest(specificForestCategories.primaryForest, forestCharacteristics.naturalForestArea)`,
+                  ],
+                },
               },
               {
                 idx: 1,
@@ -714,6 +734,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'specificForestCategories.bamboo',
                 variableExport: 'bamboo',
+                migration: {
+                  validateFns: [
+                    `validatorNotGreaterThanForest(extentOfForest.forestArea, specificForestCategories.bamboo)`,
+                  ],
+                },
               },
               {
                 idx: 3,
@@ -749,6 +774,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'specificForestCategories.mangroves',
                 variableExport: 'mangroves',
+                migration: {
+                  validateFns: [
+                    `validatorNotGreaterThanForest(extentOfForest.forestArea, specificForestCategories.mangroves)`,
+                  ],
+                },
               },
               {
                 idx: 4,
@@ -784,6 +814,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'specificForestCategories.rubberWood',
                 variableExport: 'rubber_wood',
+                migration: {
+                  validateFns: [
+                    `validatorNotGreaterThanForest(extentOfForest.forestArea, specificForestCategories.rubberWood)`,
+                  ],
+                },
               },
               {
                 idx: 5,
@@ -935,6 +970,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'forestAreaChange.forestExpansion',
                 variableExport: 'forest_expansion',
                 variableNo: 'a',
+                migration: {
+                  validateFns: [`validatorGreaterThenOrZero(forestAreaChange.forest_expansion)`],
+                },
               },
               {
                 idx: 1,
@@ -967,6 +1005,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'forestAreaChange.ofWhichAfforestation',
                 variableExport: 'afforestation',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorSubCategory(forestAreaChange.forest_expansion, [forestAreaChange.afforestation, forestAreaChange.natural_expansion])`,
+                  ],
+                },
               },
               {
                 idx: 2,
@@ -999,6 +1042,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'forestAreaChange.ofWhichNaturalExpansion',
                 variableExport: 'natural_expansion',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorSubCategory(forestAreaChange.forest_expansion, [forestAreaChange.afforestation, forestAreaChange.natural_expansion])`,
+                  ],
+                },
               },
               {
                 idx: 3,
@@ -1032,6 +1080,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'forestAreaChange.deforestation',
                 variableExport: 'deforestation',
                 variableNo: 'b',
+                migration: {
+                  validateFns: [`validatorGreaterThenOrZero(forestAreaChange.deforestation)`],
+                },
               },
               {
                 idx: 4,
@@ -1232,6 +1283,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'annualReforestation.reforestation',
                 variableExport: 'reforestation',
+                migration: {
+                  validateFns: [`validatorGreaterThenOrZero(annualReforestation.reforestation)`],
+                },
               },
               {
                 idx: 1,
@@ -1579,6 +1633,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   calcFormula:
                     '(otherLandWithTreeCover.palms || 0) + (otherLandWithTreeCover.tree_orchards || 0) + (otherLandWithTreeCover.agroforestry || 0) + (otherLandWithTreeCover.trees_in_urban_settings || 0) + (otherLandWithTreeCover.other || 0)',
                   colNames: ['1990', '2000', '2010', '2015', '2020'],
+                  validateFns: [
+                    `validatorOtherLandWithTreeCoverTotal(otherLandWithTreeCover.otherLand,otherLandWithTreeCover.otherLandWithTreeCoverTotal)`,
+                  ],
                 },
               },
               {
@@ -1893,6 +1950,10 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   calcFormula:
                     '(growingStockAvg.naturallyRegeneratingForest * forestCharacteristics.naturalForestArea) / 1000',
                   readonly: false,
+                  validateFns: [
+                    `validatorSubCategory(growingStockTotal.forest,[growingStockTotal.naturallyRegeneratingForest,growingStockTotal.plantedForest])`,
+                    `validatorEqualToTotalGrowingStock(growingStockTotal.forest, growingStockTotal.naturallyRegeneratingForest + growingStockTotal.plantedForest)`,
+                  ],
                 },
               },
               {
@@ -1914,6 +1975,10 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 migration: {
                   calcFormula: '(growingStockAvg.plantedForest * forestCharacteristics.plantedForest) / 1000',
                   readonly: false,
+                  validateFns: [
+                    `validatorSubCategory(growingStockTotal.forest,[growingStockTotal.naturallyRegeneratingForest,growingStockTotal.plantedForest])`,
+                    `validatorEqualToTotalGrowingStock(growingStockTotal.forest, growingStockTotal.naturallyRegeneratingForest + growingStockTotal.plantedForest)`,
+                  ],
                 },
               },
               {
@@ -1935,6 +2000,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 migration: {
                   calcFormula: '(growingStockAvg.plantationForest * forestCharacteristics.plantationForestArea) / 1000',
                   readonly: false,
+                  validateFns: [
+                    `validatorSubCategory(growingStockTotal.plantedForest,[growingStockTotal.plantationForest,growingStockTotal.otherPlantedForest])`,
+                  ],
                 },
               },
               {
@@ -1957,6 +2025,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   calcFormula:
                     '(growingStockAvg.otherPlantedForest * forestCharacteristics.otherPlantedForestArea) / 1000',
                   readonly: false,
+                  validateFns: [
+                    `validatorSubCategory(growingStockTotal.plantedForest,[growingStockTotal.plantationForest,growingStockTotal.otherPlantedForest])`,
+                  ],
                 },
               },
               {
@@ -3149,6 +3220,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   calcFormula:
                     '(growingStockComposition.total_native_placeholder || 0) + (growingStockComposition.totalIntroduced || 0)',
                   colNames: ['1990', '2000', '2010', '2015', '2020'],
+                  validateFns: [
+                    `validatorEqualToTotalGrowingStock(growingStockTotal.forest, growingStockComposition.totalGrowingStock)`,
+                  ],
                 },
               },
               {
@@ -4739,6 +4813,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'forestAreaWithinProtectedAreas.header',
                 variableExport: 'forest_area_within_protected_areas',
+                migration: {
+                  validateFns: [
+                    `validatorNotGreaterThanForest(extentOfForest.forestArea, forestAreaWithinProtectedAreas.forest_area_within_protected_areas)`,
+                  ],
+                },
               },
               {
                 idx: 1,
@@ -4790,6 +4869,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'forestAreaWithinProtectedAreas.forestAreaWithLongTermManagementPlan',
                 variableExport: 'forest_area_with_long_term_management_plan',
+                migration: {
+                  validateFns: [
+                    `validatorNotGreaterThanForest(extentOfForest.forestArea, forestAreaWithinProtectedAreas.forest_area_with_long_term_management_plan)`,
+                  ],
+                },
               },
               {
                 idx: 2,
@@ -4842,6 +4926,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'forestAreaWithinProtectedAreas.ofWhichInProtectedAreas',
                 variableExport: 'of_which_in_protected_areas',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorSubCategory(forestAreaWithinProtectedAreas.forest_area_with_long_term_management_plan,[forestAreaWithinProtectedAreas.of_which_in_protected_areas])`,
+                  ],
+                },
               },
               {
                 idx: 3,
@@ -5025,6 +5114,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'forestOwnership.ofWhichIndividuals',
                 variableExport: 'of_which_by_individuals',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorSubCategory(forestOwnership.private_ownership,[forestOwnership.of_which_by_individuals,forestOwnership.of_which_by_private_businesses,forestOwnership.of_which_by_communities])`,
+                  ],
+                },
               },
               {
                 idx: 2,
@@ -5057,6 +5151,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'forestOwnership.ofWhichPrivateBusinesses',
                 variableExport: 'of_which_by_private_businesses',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorSubCategory(forestOwnership.private_ownership,[forestOwnership.of_which_by_individuals,forestOwnership.of_which_by_private_businesses,forestOwnership.of_which_by_communities])`,
+                  ],
+                },
               },
               {
                 idx: 3,
@@ -5089,6 +5188,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'forestOwnership.ofWhichCommunities',
                 variableExport: 'of_which_by_communities',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorSubCategory(forestOwnership.private_ownership,[forestOwnership.of_which_by_individuals,forestOwnership.of_which_by_private_businesses,forestOwnership.of_which_by_communities])`,
+                  ],
+                },
               },
               {
                 idx: 4,
@@ -5158,8 +5262,10 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableName: 'other_or_unknown',
                 migration: {
                   colNames: ['1990', '2000', '2010', '2015'],
-                  calcFormula:
-                    'extentOfForest.forestArea - (forestOwnership.private_ownership || 0) - (forestOwnership.public_ownership || 0)',
+                  calcFormula: `forestOwnership.private_ownership || forestOwnership.public_ownership 
+                    ? extentOfForest.forestArea - (forestOwnership.private_ownership || 0) - (forestOwnership.public_ownership || 0)
+                    : null`,
+                  validateFns: [`validatorGreaterThenOrZero(forestOwnership.other_or_unknown)`],
                 },
               },
               {
@@ -6208,6 +6314,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     ? (
                       (disturbances.insects || 0) + (disturbances.diseases || 0) + (disturbances.severe_weather_events || 0) + (disturbances.other || 0)
                     ) : null`,
+                  validateFns: [
+                    `validatorNotGreaterThanForest(extentOfForest.forestArea, (disturbances.insects || 0) + (disturbances.diseases || 0) + (disturbances.severe_weather_events || 0) + (disturbances.other || 0))`,
+                  ],
                 },
               },
               {
@@ -6729,6 +6838,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'areaAffectedByFire.ofWhichForest',
                 variableExport: 'of_which_on_forest',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorSubCategory(areaAffectedByFire.total_land_area_affected_by_fire,[areaAffectedByFire.of_which_on_forest])`,
+                  ],
+                },
               },
               {
                 idx: 2,
@@ -7256,6 +7370,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'areaOfPermanentForestEstate.areaOfPermanentForestEstate',
                 variableExport: 'area_of_permanent_forest_estate',
+                migration: {
+                  validateFns: [
+                    `validatorNotGreaterThanForest(extentOfForest.forestArea,areaOfPermanentForestEstate.area_of_permanent_forest_estate)`,
+                  ],
+                },
               },
               {
                 idx: 1,
@@ -7615,6 +7734,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'employment.ofWhichSilviculture',
                 variableExport: 'of_which_silviculture_and_other_forestry_activities',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorSubCategory(employment.employment_in_forestry_and_logging,[employment.of_which_silviculture_and_other_forestry_activities,employment.of_which_logging,employment.of_which_gathering_of_non_wood_forest_products,employment.of_which_support_services_to_forestry])`,
+                  ],
+                },
               },
               {
                 idx: 2,
@@ -7679,6 +7803,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'employment.ofWhichLogging',
                 variableExport: 'of_which_logging',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorSubCategory(employment.employment_in_forestry_and_logging,[employment.of_which_silviculture_and_other_forestry_activities,employment.of_which_logging,employment.of_which_gathering_of_non_wood_forest_products,employment.of_which_support_services_to_forestry])`,
+                  ],
+                },
               },
               {
                 idx: 3,
@@ -7743,6 +7872,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'employment.ofWhichGathering',
                 variableExport: 'of_which_gathering_of_non_wood_forest_products',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorSubCategory(employment.employment_in_forestry_and_logging,[employment.of_which_silviculture_and_other_forestry_activities,employment.of_which_logging,employment.of_which_gathering_of_non_wood_forest_products,employment.of_which_support_services_to_forestry])`,
+                  ],
+                },
               },
               {
                 idx: 4,
@@ -7807,6 +7941,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'employment.ofWhichSupport',
                 variableExport: 'of_which_support_services_to_forestry',
                 subcategory: true,
+                migration: {
+                  validateFns: [
+                    `validatorSubCategory(employment.employment_in_forestry_and_logging,[employment.of_which_silviculture_and_other_forestry_activities,employment.of_which_logging,employment.of_which_gathering_of_non_wood_forest_products,employment.of_which_support_services_to_forestry])`,
+                  ],
+                },
               },
               {
                 idx: 5,

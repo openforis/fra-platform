@@ -58,6 +58,10 @@ export const roleForCountry = (countryIso: any, userInfo: any) => {
   return roleObj
 }
 
+/**
+ * @deprecated.
+ * use Users.getI18nRoleLabelKey
+ */
 export const getRoleForCountryLabelKey = R.pipe(roleForCountry, R.prop('labelKey'))
 
 /**

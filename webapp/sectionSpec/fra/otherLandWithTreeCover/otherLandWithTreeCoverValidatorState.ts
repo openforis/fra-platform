@@ -1,8 +1,8 @@
-import * as R from 'ramda'
-
 import { Numbers } from '@core/utils/numbers'
 import * as OtherLandWithTreeCoverState from '@webapp/sectionSpec/fra/otherLandWithTreeCover/otherLandWithTreeCoverState'
+import * as R from 'ramda'
 
+// validatorOtherLandWithTreeCoverTotal
 export const otherLandWithTreeCoverTotalValidator = (colIdx: any) => (state: any) => {
   const otherLand = OtherLandWithTreeCoverState.getOtherLand(colIdx)(state)
   const otherLandWithTreeCoverTotal = OtherLandWithTreeCoverState.getOtherLandWithTreeCoverTotal(colIdx)(state)

@@ -4,7 +4,7 @@ import * as R from 'ramda'
 
 // ==== Datum validator functions
 
-// isValidForestAreaComparedTo2015(extentOfForest.forestArea['2015'], extentOfForest.forestArea)
+// validatorForestAreaComparedTo2015(extentOfForest.forestArea['2015'], extentOfForest.forestArea)
 const forestAreaComparedTo2015Validator = (datum: any) => (state: any) => {
   const { name: year, forestArea } = datum
   const forestArea2015: any = ExtentOfForestState.getForestArea2015Value(year)(state)
@@ -51,6 +51,7 @@ export const otherWoodedLandValidator = (datum: any) => (state: any) => {
 
 // ==== Common validator
 
+// validatorNotGreaterThanForest(extentOfForest.forestArea, whaterverVariable)
 export const lessThanOrEqualToForestValidator = (year: any, value: any) => (state: any) => {
   const forest = ExtentOfForestState.getForestByYear(year)(state)
 

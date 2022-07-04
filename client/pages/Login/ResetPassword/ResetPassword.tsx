@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
+
+import { Objects } from '@core/utils'
 
 import { useAppDispatch } from '@client/store'
 import { LoginActions } from '@client/store/login'
 import { isError, LoginValidator } from '@client/pages/Login/utils/LoginValidator'
-
 import { Urls } from '@client/utils'
-import { Objects } from '@core/utils'
 
 const ResetPassword: React.FC = () => {
   const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const resetPasswordUuid = Urls.getRequestParam('resetPasswordUuid')
   const paramEmail = Urls.getRequestParam('email')
@@ -27,7 +27,7 @@ const ResetPassword: React.FC = () => {
     setErrors(fieldErrors)
 
     if (!isError(fieldErrors)) {
-      dispatch(LoginActions.createResetPassword({ email, history }))
+      dispatch(LoginActions.createResetPassword({ email, navigate }))
     }
   }
 
@@ -36,7 +36,7 @@ const ResetPassword: React.FC = () => {
     setErrors(fieldErrors)
 
     if (!isError(fieldErrors)) {
-      await dispatch(LoginActions.changePassword({ email, password, resetPasswordUuid, history }))
+      await dispatch(LoginActions.changePassword({ email, password, resetPasswordUuid, navigate }))
     }
   }
 
@@ -76,7 +76,7 @@ const ResetPassword: React.FC = () => {
           {errors.password2 && <span className="login__field-error">{i18n.t(errors.password2)}</span>}
 
           <div style={{ textAlign: 'center' }}>
-            <button className="btn" type="button" onClick={() => history.goBack()}>
+            <button className="btn" type="button" onClick={() => navigate(-1)}>
               {i18n.t('login.cancel')}
             </button>
 
@@ -89,7 +89,7 @@ const ResetPassword: React.FC = () => {
 
       {!resetPasswordUuid && (
         <div style={{ textAlign: 'center' }}>
-          <button className="btn" type="button" onClick={() => history.goBack()}>
+          <button className="btn" type="button" onClick={() => navigate(-1)}>
             {i18n.t('login.cancel')}
           </button>
 

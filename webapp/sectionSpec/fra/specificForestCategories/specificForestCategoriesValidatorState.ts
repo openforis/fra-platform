@@ -1,8 +1,8 @@
 import { FRA } from '@core/assessment'
 import { Numbers } from '@core/utils/numbers'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
-import * as ForestCharacteristicsState from '@webapp/sectionSpec/fra/forestCharacteristics/forestCharacteristicsState'
 import * as ExtentOfForestValidatorState from '@webapp/sectionSpec/fra/extentOfForest/extentOfForestValidatorState'
+import * as ForestCharacteristicsState from '@webapp/sectionSpec/fra/forestCharacteristics/forestCharacteristicsState'
 
 const section = FRA.sections['1'].children.e
 
@@ -23,6 +23,7 @@ export const forestAreaValidator = (colIdx: any, rowIdx: any) => (state: any) =>
     getTableDataCell(colIdx, rowIdx)(state)
   )(state)
 
+// validatorPrimaryForest
 export const primaryForestValidator = (colIdx: any) => (state: any) => {
   const primaryForest = getTableDataCell(colIdx, 3)(state)
   const naturalForest = ForestCharacteristicsState.getNaturalForestByYear(FRA.yearsTable[colIdx])(state)

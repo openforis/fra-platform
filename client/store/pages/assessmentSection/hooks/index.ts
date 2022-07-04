@@ -20,7 +20,7 @@ export const useTableData = (props: { table: Table }): TableData => {
   const odpData = useAppSelector((state) => state.pages.assessmentSection.originalDataPointData)
   const showOriginalDatapoints = useShowOriginalDatapoints()
 
-  if (!tableData) return null
+  if (!tableData) return {} as TableData
   if (!odp || !showOriginalDatapoints || !country.props.forestCharacteristics.useOriginalDataPoint) return tableData
 
   const currData = tableData[countryIso][table.props.name]

@@ -1,7 +1,7 @@
 import './AssessmentSection.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 
 import { AssessmentName } from '@meta/assessment'
 
@@ -46,11 +46,11 @@ const AssessmentSection: React.FC = () => {
       {tableSections.map((tableSection) => (
         <div key={String(tableSection.id)}>
           {tableSection.props.labelKey && (
-            <h3 className="subhead assessment-section__table-title">{i18n.t(tableSection.props.labelKey)}</h3>
+            <h3 className="subhead assessment-section__table-title">{i18n.t<string>(tableSection.props.labelKey)}</h3>
           )}
           {tableSection.props.descriptionKey && (
             <div className="app-view__section-toolbar no-print">
-              <div className="support-text">{i18n.t(tableSection.props.descriptionKey)}</div>
+              <div className="support-text">{i18n.t<string>(tableSection.props.descriptionKey)}</div>
             </div>
           )}
 

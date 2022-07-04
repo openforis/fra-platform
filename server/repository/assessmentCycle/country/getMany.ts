@@ -34,8 +34,7 @@ export const getMany = async (
                 and a.message in (${activityLogMessageUpdates})
             group by 1
         )
-        select c.country_iso,
-               c.props - 'faoStat' - 'certifiedAreas' - 'fra2015ForestAreas' - 'panEuropean' - 'climaticDomainPercents2015' as props,
+        select c.*,
                le.last_edit,
                jsonb_agg(cr.region_code)                                     as region_codes
         from ${cycleSchema}.country c

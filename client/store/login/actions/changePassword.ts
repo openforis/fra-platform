@@ -1,9 +1,8 @@
-import { createAsyncThunk } from '@reduxjs/toolkit'
-import { RouteComponentProps } from 'react-router-dom'
+import { NavigateFunction } from 'react-router-dom'
 
-import axios from 'axios'
 import { ApiEndPoint } from '@common/api/endpoint'
-import { BasePaths } from '@client/basePaths'
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios'
 
 export const changePassword = createAsyncThunk<
   { message?: string; error?: string },
@@ -11,14 +10,14 @@ export const changePassword = createAsyncThunk<
     email: string
     password: string
     resetPasswordUuid: string
-    history: RouteComponentProps['history']
+    navigate: NavigateFunction
   }
->('login/post/changePassword', async ({ email, password, resetPasswordUuid, history }) => {
+>('login/post/changePassword', async ({ email, password, resetPasswordUuid, navigate }) => {
   const { data } = await axios.post(ApiEndPoint.Auth.changePassword(), {
     email,
     password,
     uuid: resetPasswordUuid,
   })
-  if (data?.message) history.push(BasePaths.Root())
+  if (data?.message) navigate('/')
   return data
 })

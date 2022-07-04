@@ -1,20 +1,21 @@
 import './Header.scss'
 import React from 'react'
-import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
+import { Link } from 'react-router-dom'
 
-import { Breakpoints } from '@client/utils'
-
-import Icon from '@client/components/Icon'
-import { useAssessment } from '@client/store/assessment'
+import { Areas } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
+
+import { useAssessment } from '@client/store/assessment'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
-import { Areas } from '@meta/area'
-import { BasePaths } from '@client/basePaths'
-import Title from './Title'
-import Status from './Status'
+import { ClientRoutes } from '@client/clientRoutes'
+import Icon from '@client/components/Icon'
+import { Breakpoints } from '@client/utils'
+
 import ButtonToggleAll from './ButtonToggleAll'
+import Status from './Status'
+import Title from './Title'
 
 type Props = {
   showSections: boolean
@@ -29,8 +30,8 @@ const Header: React.FC<Props> = (props) => {
   const user = useUser()
 
   const isCountry = Areas.isISOCountry(countryIso)
-  const assessmentType = assessment.props.name
-  const isFRA = assessmentType === AssessmentName.fra
+  const assessmentName = assessment.props.name
+  const isFRA = assessmentName === AssessmentName.fra
   const cycleName = '2025' // todo
 
   return (
@@ -43,7 +44,7 @@ const Header: React.FC<Props> = (props) => {
             <div className="links-download">
               <Link
                 className="btn-s btn-secondary"
-                to={BasePaths.Assessment.print(countryIso, assessmentType, cycleName, true)}
+                to={ClientRoutes.Assessment.PrintTables.getLink({ countryIso, assessmentName, cycleName })}
                 target="_blank"
               >
                 <Icon name="small-print" className="icon-margin-left" />
@@ -52,7 +53,7 @@ const Header: React.FC<Props> = (props) => {
 
               <Link
                 className="btn-s btn-secondary"
-                to={BasePaths.Assessment.print(countryIso, assessmentType, cycleName)}
+                to={ClientRoutes.Assessment.Print.getLink({ countryIso, assessmentName, cycleName })}
                 target="_blank"
               >
                 <Icon name="small-print" className="icon-no-margin" />

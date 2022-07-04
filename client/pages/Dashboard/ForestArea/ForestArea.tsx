@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { ChartOptions } from 'chart.js'
 
 import { Areas } from '@meta/area'
+import { TableNames } from '@meta/assessment'
+import { TableDatas } from '@meta/data'
 
 import { useCountryIso } from '@client/hooks'
 import Chart from '@client/components/Chart'
@@ -17,8 +19,8 @@ const ForestArea = () => {
   const columns = ['1990', '2000', '2010', '2020']
   const countryIso = useCountryIso()
   const isIsoCountry = Areas.isISOCountry(countryIso)
-  const unit = isIsoCountry ? i18n.t('unit.haThousand') : i18n.t('unit.haMillion')
-  const tableNames = ['extentOfForest']
+  const unit = isIsoCountry ? i18n.t<string>('unit.haThousand') : i18n.t<string>('unit.haMillion')
+  const tableNames = [isIsoCountry ? TableNames.extentOfForest : TableNames.valueAggregate]
   const variable = 'forestArea'
 
   const { data: tableData, loaded } = useDashboardData({
@@ -32,17 +34,18 @@ const ForestArea = () => {
     datasets: [
       {
         ...preferences.green,
-        label: i18n.t(`statisticalFactsheets.rowName.${variable}`),
+        label: i18n.t<string>(`statisticalFactsheets.rowName.${variable}`),
         unit,
 
         data: tableNames
-          .map((tableName) => tableData?.[countryIso][tableName])
+          .map((tableName) => TableDatas.getTableData({ tableName, data: tableData, countryIso }))
           .flatMap(Object.values)
           .flatMap(Object.values)
-          .map((nodeValue) => nodeValue.raw),
+          .map(({ raw }) => (!isIsoCountry ? raw / 1000 : raw)),
       },
     ],
   }
+
   const options = {
     ...commonOptions,
     legend: {
@@ -52,13 +55,11 @@ const ForestArea = () => {
       xAxes: [
         {
           stacked: true,
-          scaleLabel: {},
         },
       ],
       yAxes: [
         {
           stacked: true,
-          scaleLabel: {},
           ticks: {
             maxTicksLimit: 6,
             beginAtZero: true,
@@ -70,13 +71,13 @@ const ForestArea = () => {
   } as unknown as ChartOptions<'bar'>
 
   // @ts-ignore
-  options.scales.xAxes[0].scaleLabel = scaleLabel(i18n.t('common.year'))
+  options.scales.xAxes[0].scaleLabel = scaleLabel(i18n.t<string>('common.year'))
   // @ts-ignore
   options.scales.yAxes[0].scaleLabel = scaleLabel(unit)
 
   return (
     <div className="row-m">
-      <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
+      <h3 className="header">{i18n.t<string>(`statisticalFactsheets.${section}.title`)}</h3>
       {data && <Chart type="bar" options={options} data={data} />}
     </div>
   )

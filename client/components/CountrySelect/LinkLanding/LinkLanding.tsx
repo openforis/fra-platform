@@ -1,34 +1,38 @@
 import './linkLanding.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink, useMatch } from 'react-router-dom'
+
+import classNames from 'classnames'
 
 import { useAssessment, useCycle } from '@client/store/assessment'
-import { useCountryIso, useCountryLandingSections } from '@client/hooks'
-import { BasePaths } from '@client/basePaths'
+import { useCountryIso } from '@client/hooks'
+import { ClientRoutes } from '@client/clientRoutes'
 import Icon from '@client/components/Icon'
 
 const LinkLanding: React.FC = () => {
   const { i18n } = useTranslation()
   const countryIso = useCountryIso()
-  const location = useLocation()
-  const sections = useCountryLandingSections()
   const assessment = useAssessment()
   const cycle = useCycle()
-  const assessmentType = assessment?.props?.name
 
-  const isActive = (match: any) =>
-    match && (match.isExact || sections.find((section: any) => location.pathname.indexOf(section?.name) > 0))
+  if (!assessment || !cycle) return null
 
   return (
     <NavLink
-      to={BasePaths.Assessment.root(countryIso, assessmentType, cycle?.name)}
-      className="country-selection-link-landing"
-      activeClassName="selected"
-      isActive={isActive}
+      to={ClientRoutes.Assessment.Root.getLink({
+        countryIso,
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
+      })}
+      className={() => {
+        return classNames('country-selection-link-landing', {
+          selected: useMatch(ClientRoutes.Assessment.Home.Root.path.absolute),
+        })
+      }}
     >
       <Icon name="icon-bar-chart" className="icon-sub icon-margin-right" />
-      <div className="nav__link-label">{i18n.t(`area.${countryIso}.listName`)}</div>
+      <div className="nav__link-label">{i18n.t<string>(`area.${countryIso}.listName`)}</div>
     </NavLink>
   )
 }

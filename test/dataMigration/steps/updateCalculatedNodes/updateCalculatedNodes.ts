@@ -5,7 +5,7 @@ import { getClimaticDomainValues } from '@test/dataMigration/steps/updateCalcula
 import { getTotalLandAreaValues } from '@test/dataMigration/steps/updateCalculatedNodes/getTotalLandAreaValues'
 import * as pgPromise from 'pg-promise'
 
-import { Assessment, Col, Cycle, Row, VariableCache } from '@meta/assessment'
+import { Assessment, Cycle, Row, VariableCache } from '@meta/assessment'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { BaseProtocol, Schemas } from '@server/db'
@@ -18,7 +18,7 @@ export const updateCalculatedNodes = async (
 
   const schema = Schemas.getName(assessment)
 
-  const rows = await client.map<Row & { tableName: string; cols: Array<Col> }>(
+  const rows = await client.map<Row & { tableName: string }>(
     `
             select r.*,
                    t.props ->> 'name' as table_name,

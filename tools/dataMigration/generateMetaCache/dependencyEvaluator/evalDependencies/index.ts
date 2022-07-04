@@ -1,5 +1,6 @@
 import { ExpressionNodeType, JavascriptExpressionEvaluator } from '@openforis/arena-core'
 
+import { ArrayEvaluator } from './array'
 import { Binary } from './binary'
 import { CallEvaluator } from './call'
 import { CompoundEvaluator } from './compound'
@@ -14,6 +15,8 @@ import { UnaryEvaluator } from './unary'
 
 export const evalDependencies = (expression: string, context: Context): void => {
   const evaluators = {
+    // @ts-ignore
+    [ExpressionNodeType.Array]: ArrayEvaluator,
     // @ts-ignore
     [ExpressionNodeType.Binary]: Binary,
     // @ts-ignore

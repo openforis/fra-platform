@@ -19,7 +19,7 @@ const SelectedCountries: React.FC = () => {
     <>
       {countriesFilter.map((countryIso: CountryIso) => (
         <span key={countryIso} className="landng__page-country-label">
-          {i18n.t(Areas.getTranslationKey(countryIso))}
+          {i18n.t<string>(Areas.getTranslationKey(countryIso))}
         </span>
       ))}
     </>

@@ -106,18 +106,23 @@ followed by the boreal, temperate and subtropical domains.`,
 
   user: {
     roles: {
-      reviewer: 'Reviewer',
-      reviewer_plural: 'Reviewers',
-      nationalCorrespondent: 'National correspondent',
-      national_correspondent: 'National correspondent',
-      nationalCorrespondent_plural: 'National correspondents',
-      alternateNationalCorrespondent: 'Alternate national correspondent',
-      alternate_national_correspondent: 'Alternate national correspondent',
-      alternateNationalCorrespondent_plural: 'Alternate national correspondents',
-      collaborator: 'Collaborator',
-      collaborator_plural: 'Collaborators',
-      administrator: 'Administrator',
+      REVIEWER: 'Reviewer',
+      NATIONAL_CORRESPONDENT: 'National correspondent',
+      ALTERNATE_NATIONAL_CORRESPONDENT: 'Alternate national correspondent',
+      COLLABORATOR: 'Collaborator',
+      ADMINISTRATOR: 'Administrator',
       noRole: 'N/A',
+      // unused?
+      reviewer_plural: 'Reviewers',
+      nationalCorrespondent_plural: 'National correspondents',
+      alternateNationalCorrespondent_plural: 'Alternate national correspondents',
+      collaborator_plural: 'Collaborators',
+      // deprecated
+      // reviewer: 'Reviewer',
+      // nationalCorrespondent: 'National correspondent',
+      // alternateNationalCorrespondent: 'Alternate national correspondent',
+      // collaborator: 'Collaborator',
+      // administrator: 'Administrator',
     },
 
     resetPasswordEmail: {
@@ -503,6 +508,7 @@ The FRA team
     edit: 'Edit',
     addUser: 'Add collaborator',
     formErrors: 'There are errors in the form. Please, fix them and submit it again.',
+    userAdded: '{{email}} has been added',
     insufficientPrivileges: 'Insufficient privileges',
     confirmDelete: 'Remove {{user}}?',
     allUsers: 'All collaborators',
@@ -510,6 +516,8 @@ The FRA team
     tableAccess: 'Table access',
     invitationLink: 'Invitation link',
     sendInvitation: 'Send invitation email',
+    invitationDeleted: 'The invitation has been deleted',
+    invitationEmailSent: 'An invitation email has been sent',
     invitationEmail: {
       subject: 'FRA platform invitation',
       textMessage: `Dear {{invitedUser}},

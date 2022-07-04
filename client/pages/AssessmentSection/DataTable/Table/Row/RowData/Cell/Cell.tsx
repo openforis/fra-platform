@@ -38,7 +38,13 @@ type Props = {
 const Cell: React.FC<Props> = (props) => {
   const { data, assessmentName, sectionName, table, disabled, rowIndex, col, row } = props
   const countryIso = useCountryIso()
-  const params = { data, countryIso, table, row, col }
+  const params = {
+    data,
+    countryIso,
+    tableName: table.props.name,
+    variableName: row.props.variableName,
+    colName: col.props.colName,
+  }
   const datum = TableDatas.getDatum(params)
   const nodeValue = TableDatas.getNodeValue(params)
   const className = useClassName(col, row)

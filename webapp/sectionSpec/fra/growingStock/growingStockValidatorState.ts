@@ -1,9 +1,8 @@
+import { Numbers } from '@core/utils/numbers'
+import * as GrowingStockState from '@webapp/sectionSpec/fra/growingStock/growingStockState'
 import * as R from 'ramda'
 
-import { Numbers } from '@core/utils/numbers'
-
-import * as GrowingStockState from '@webapp/sectionSpec/fra/growingStock/growingStockState'
-
+// validatorEqualToTotalGrowingStock
 export const equalToTotalGrowingStockValidator = (year: any, value: any) => (state: any) => {
   const totalForest: any = GrowingStockState.getTotalTableValue(year, GrowingStockState.variables.forest)(state)
 
@@ -27,6 +26,7 @@ const subCategoryValidator = (parentVariable: any, childVariables: any) => (datu
   return parentValue ? Numbers.greaterThan(difference, tolerance) : true
 }
 
+// use directly validatorEqualToTotalGrowingStock
 const equalToTotalGrowingStockSubCategoryValidator = (datum: any) => (state: any) => {
   const { year } = datum
 

@@ -70,6 +70,14 @@ export const ApiEndPoint = {
   Definitions: {
     one: (lang = ':lang', name = ':name') => joinPaths('definitions', lang, name),
   },
+  File: {
+    Dashboard: {
+      one: () => apiPath('file', 'dashboard'),
+    },
+    DataDownload: {
+      one: () => apiPath('file', 'dataDownload'),
+    },
+  },
   Geo: {
     sepalProxy: () => apiPath('geo', 'sepal'),
     Layers: {
@@ -89,8 +97,11 @@ export const ApiEndPoint = {
   },
 
   User: {
+    invite: () => apiPath('user', 'invite'),
     getByInvitation: (uuid = ':uuid') => apiPath('user', 'invitation', uuid),
     acceptInvitation: (uuid = ':uuid') => apiPath('user', 'invitation', 'accept', uuid),
+    removeInvitation: (uuid = ':uuid') => apiPath('user', 'invitation', 'remove', uuid),
+    sendInvitationEmail: (uuid = ':uuid') => apiPath('user', 'invitation', 'sendEmail', uuid),
     getProfilePicture: (id = ':id') => apiPath('user', 'profilePicture', id),
     many: () => apiPath('users'),
   },

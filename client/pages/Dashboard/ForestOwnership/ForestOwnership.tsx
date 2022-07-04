@@ -4,6 +4,9 @@ import { useTranslation } from 'react-i18next'
 import { Areas } from '@core/country'
 import { ChartOptions } from 'chart.js'
 
+import { TableNames } from '@meta/assessment'
+import { TableDatas } from '@meta/data'
+
 import { useCountryIso } from '@client/hooks'
 import Chart from '@client/components/Chart'
 import { ChartDataType } from '@client/components/Chart/Chart'
@@ -14,12 +17,13 @@ import { ChartColors, commonOptions } from '../utils/preferences'
 
 const ForestOwnership = () => {
   const countryIso = useCountryIso()
+  const isIsoCountry = Areas.isISOCountry(countryIso)
+
   const i18n = useTranslation()
   const section = 'forestOwnership'
-  const isIsoCountry = Areas.isISOCountry(countryIso)
-  const unit = isIsoCountry ? i18n.t('unit.haThousand') : i18n.t('unit.haMillion')
+  const unit = isIsoCountry ? i18n.t<string>('unit.haThousand') : i18n.t<string>('unit.haMillion')
   const column = '2015'
-  const tableName = 'forestOwnership'
+  const tableName = isIsoCountry ? TableNames.forestOwnership : TableNames.valueAggregate
   const variables = ['other_or_unknown', 'private_ownership', 'public_ownership']
 
   const { data: tableData, loaded } = useDashboardData({
@@ -31,9 +35,17 @@ const ForestOwnership = () => {
   if (!loaded) {
     return null
   }
-  const privateOwnership = tableData[countryIso][tableName][column].private_ownership.raw
-  const publicOwnership = tableData[countryIso][tableName][column].public_ownership.raw
-  const otherOrUnknown = tableData[countryIso][tableName][column].other_or_unknown.raw
+
+  const props = {
+    countryIso,
+    data: tableData,
+    tableName,
+    colName: column,
+  }
+
+  const privateOwnership = Number(TableDatas.getDatum({ ...props, variableName: 'private_ownership' }))
+  const publicOwnership = Number(TableDatas.getDatum({ ...props, variableName: 'public_ownership' }))
+  const otherOrUnknown = Number(TableDatas.getDatum({ ...props, variableName: 'other_or_unknown' }))
 
   const data = {
     datasets: [
@@ -50,9 +62,9 @@ const ForestOwnership = () => {
       },
     ],
     labels: [
-      i18n.t('statisticalFactsheets.forestOwnership.public'),
-      i18n.t('statisticalFactsheets.forestOwnership.private'),
-      i18n.t('statisticalFactsheets.rowName.otherOrUnknown'),
+      i18n.t<string>('statisticalFactsheets.forestOwnership.public'),
+      i18n.t<string>('statisticalFactsheets.forestOwnership.private'),
+      i18n.t<string>('statisticalFactsheets.rowName.otherOrUnknown'),
     ],
   }
 
@@ -65,11 +77,11 @@ const ForestOwnership = () => {
 
   return (
     <div className="row-s">
-      <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
-      {privateOwnership && publicOwnership && otherOrUnknown ? (
+      <h3 className="header">{i18n.t<string>(`statisticalFactsheets.${section}.title`)}</h3>
+      {privateOwnership || publicOwnership || otherOrUnknown ? (
         <Chart type="pie" data={data as ChartDataType} options={options} />
       ) : (
-        <h6 className="header">{i18n.t('statisticalFactsheets.noData')}</h6>
+        <h6 className="header">{i18n.t<string>('statisticalFactsheets.noData')}</h6>
       )}
     </div>
   )

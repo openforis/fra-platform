@@ -107,16 +107,23 @@ module.exports.translation = {
 
   user: {
     roles: {
-      reviewer: 'مُراجع',
-      reviewer_plural: 'مراجعون',
-      nationalCorrespondent: 'مراسل وطني',
-      nationalCorrespondent_plural: 'مراسلون وطنيون',
-      alternateNationalCorrespondent: 'مراسل وطني بديل',
-      alternateNationalCorrespondent_plural: 'مراسلون وطنيون بديلون',
-      collaborator: 'متعاون',
-      collaborator_plural: 'متعاونون',
-      administrator: 'مدير',
+      REVIEWER: 'مُراجع',
+      NATIONAL_CORRESPONDENT: 'مراسل وطني',
+      ALTERNATE_NATIONAL_CORRESPONDENT: 'مراسل وطني بديل',
+      COLLABORATOR: 'متعاون',
+      ADMINISTRATOR: 'مدير',
       noRole: 'غير محدد',
+      // unused?
+      reviewer_plural: 'مراجعون',
+      nationalCorrespondent_plural: 'مراسلون وطنيون',
+      alternateNationalCorrespondent_plural: 'مراسلون وطنيون بديلون',
+      collaborator_plural: 'متعاونون',
+      // deprecated
+      // reviewer: 'مُراجع',
+      // nationalCorrespondent: 'مراسل وطني',
+      // alternateNationalCorrespondent: 'مراسل وطني بديل',
+      // collaborator: 'متعاون',
+      // administrator: 'مدير',
     },
 
     resetPasswordEmail: {

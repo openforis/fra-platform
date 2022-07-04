@@ -1,20 +1,22 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
 
 import { Areas } from '@meta/area'
 
+import { useAssessment, useCycle } from '@client/store/assessment'
 import { useCountryIso } from '@client/hooks'
+import { ClientRoutes } from '@client/clientRoutes'
 import Icon from '@client/components/Icon'
-import { useAssessment } from '@client/store/assessment'
-import { BasePaths } from '@client/basePaths'
+
 import NavAssessment from '../NavAssessment'
 
 const NavigationDesktop: React.FC = () => {
   const { i18n } = useTranslation()
   const countryIso = useCountryIso()
   const assessment = useAssessment()
-  const assessmentType = assessment.props.name
+  const cycle = useCycle()
+  const assessmentName = assessment.props.name
 
   return (
     <div className="nav no-print">
@@ -23,10 +25,12 @@ const NavigationDesktop: React.FC = () => {
       {Areas.isGlobal(countryIso) && (
         <Link
           className="btn-s btn-primary nav__bulk-download"
-          to={BasePaths.Assessment.dataDownload(countryIso, assessmentType)}
+          to={ClientRoutes.Assessment.DataDownload.getLink({ countryIso, assessmentName, cycleName: cycle.name })}
         >
-          <Icon className="icon-sub icon-white" name="hit-down" />
-          {i18n.t('dataDownload.dataDownload')}
+          <>
+            <Icon className="icon-sub icon-white" name="hit-down" />
+            {i18n.t('dataDownload.dataDownload')}
+          </>
         </Link>
       )}
     </div>

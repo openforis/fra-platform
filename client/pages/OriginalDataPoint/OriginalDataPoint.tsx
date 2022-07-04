@@ -1,7 +1,7 @@
 import './OriginalDataPoint.scss'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useHistory, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import { AssessmentName } from '@meta/assessment'
 
@@ -10,7 +10,6 @@ import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pa
 import { ReviewActions } from '@client/store/ui/review'
 import { useCanEditSection, useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
-import { BasePaths } from '@client/basePaths'
 
 import ButtonBar from './components/ButtonBar'
 // import Comments from './components/Comments'
@@ -22,7 +21,7 @@ import YearSelection from './components/YearSelection'
 const OriginalDataPoint: React.FC = () => {
   const { i18n } = useTranslation()
   const dispatch = useAppDispatch()
-  const history = useHistory()
+  const navigate = useNavigate()
   const countryIso = useCountryIso()
   const user = useUser()
   const originalDataPoint = useOriginalDataPoint()
@@ -61,7 +60,7 @@ const OriginalDataPoint: React.FC = () => {
 
   if (!originalDataPoint) return null
 
-  if (originalDataPoint.countryIso !== countryIso) history.push(BasePaths.Root())
+  if (originalDataPoint.countryIso !== countryIso) navigate('/')
 
   return (
     <div className="app-view__content">

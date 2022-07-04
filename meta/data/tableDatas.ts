@@ -1,33 +1,31 @@
 import { CountryIso } from '@meta/area'
-import { Col, NodeValue, Row, Table } from '@meta/assessment'
+import { NodeValue } from '@meta/assessment'
 
 import { TableData } from './tableData'
 
-const getTableData = (props: { data: TableData; countryIso: CountryIso; table: Table }) => {
-  const { countryIso, table, data } = props
-
-  return data[countryIso][table.props.name]
-}
-
-const getNodeValue = (props: {
+type Props = {
   data: TableData
   countryIso: CountryIso
-  table: Table
-  row: Row
-  col: Col
-}): NodeValue => {
-  const { data, countryIso, table, row, col } = props
-  const dataTable = getTableData({ data, countryIso, table })
-  if (!dataTable) return null
-  const { colName } = col.props
-  if (!colName) return null
-  const { variableName } = row.props
-  return data[countryIso][table.props.name]?.[colName]?.[variableName]
+  tableName: string
+  variableName: string
+  colName: string
 }
 
-const getDatum = (props: { data: TableData; countryIso: CountryIso; table: Table; row: Row; col: Col }) => {
-  const { data, countryIso, table, row, col } = props
-  return getNodeValue({ col, countryIso, data, row, table })?.raw
+const getTableData = (props: Pick<Props, 'countryIso' | 'tableName' | 'data'>) => {
+  const { countryIso, tableName, data } = props
+
+  return data?.[countryIso]?.[tableName] || {}
+}
+
+const getNodeValue = (props: Props): NodeValue => {
+  const { data, countryIso, tableName, variableName, colName } = props
+  const tableData = getTableData({ data, countryIso, tableName })
+  if (!colName) return null
+  return tableData[colName]?.[variableName] || ({} as NodeValue)
+}
+
+const getDatum = (props: Props) => {
+  return getNodeValue(props)?.raw
 }
 
 const updateDatum = (props: {

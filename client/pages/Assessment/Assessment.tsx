@@ -1,7 +1,6 @@
 import './Assessment.scss'
 import React, { useEffect } from 'react'
-import { Redirect } from 'react-router'
-import { Route, Switch, useParams } from 'react-router-dom'
+import { Navigate, Route, Routes, useParams } from 'react-router-dom'
 
 import { Areas } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
@@ -14,8 +13,9 @@ import { useNavigationVisible } from '@client/store/ui/navigation'
 import { ReviewActions } from '@client/store/ui/review'
 import { useUser } from '@client/store/user'
 import { useCountryIso, useOnUpdate } from '@client/hooks'
-import { BasePaths } from '@client/basePaths'
+import { ClientRoutes } from '@client/clientRoutes'
 import Navigation from '@client/components/Navigation'
+import AssessmentDataDownload from '@client/pages/AssessmentDataDownload'
 import AssessmentHome from '@client/pages/AssessmentHome'
 import AssessmentSection from '@client/pages/AssessmentSection'
 import DataExport from '@client/pages/DataExport'
@@ -69,26 +69,23 @@ const Assessment: React.FC = () => {
   return (
     <div className={`app-view ${navigationVisible ? ' navigation-on' : ''}`}>
       <Navigation />
-
-      <Switch>
-        <Redirect from={BasePaths.Assessment.root()} to={BasePaths.Assessment.home()} exact />
-        <Route path={BasePaths.Assessment.home()} component={AssessmentHome} />
-        {/* <Route path={BasePaths.assessmentDataDownload} component={AssessmentDataDownload} /> */}
+      <Routes>
+        <Route path={`${ClientRoutes.Assessment.Home.Root.path.relative}/*`} element={<AssessmentHome />} />
+        <Route path={ClientRoutes.Assessment.DataDownload.path.relative} element={<AssessmentDataDownload />} />
         <Route
-          exact
-          path={BasePaths.Assessment.section()}
-          render={() => <SectionWrapper>{isDataExport ? <DataExport /> : <AssessmentSection />}</SectionWrapper>}
+          path={ClientRoutes.Assessment.Section.path.relative}
+          element={<SectionWrapper>{isDataExport ? <DataExport /> : <AssessmentSection />}</SectionWrapper>}
         />
-        {/* <Route exact path={[`${BasePaths.odp}:odpId/`, BasePaths.odp]} component={OriginalDataPoint} /> */}
         <Route
-          path={BasePaths.Assessment.OriginalDataPoint.section()}
-          render={() => (
+          path={ClientRoutes.Assessment.OriginalDataPoint.Section.path.relative}
+          element={
             <SectionWrapper>
               <OriginalDataPoint />
             </SectionWrapper>
-          )}
+          }
         />
-      </Switch>
+        <Route path="*" element={<Navigate to="home" replace />} />
+      </Routes>
     </div>
   )
 }

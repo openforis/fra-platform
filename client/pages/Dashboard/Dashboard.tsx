@@ -9,7 +9,7 @@ import { Areas } from '@meta/area'
 import { useHomeCountriesFilter } from '@client/store/ui/home'
 import { useCountryIso } from '@client/hooks'
 
-// import CarbonGrowingStock from './CarbonGrowingStock'
+import CarbonGrowingStock from './CarbonGrowingStock'
 import ForestArea from './ForestArea'
 import ForestAreaPercent from './ForestAreaPercent'
 import ForestAreaWithinProtectedAreas from './ForestAreaWithinProtectedAreas'
@@ -24,22 +24,15 @@ const Dashboard: React.FC = () => {
   const isCountry = Areas.isISOCountry(countryIso)
   const countriesFilter = useHomeCountriesFilter()
 
-  if (!isCountry) {
-    return <pre>Placeholder for region Dashboard</pre>
-  }
-
   return (
     <div>
       {!Objects.isEmpty(countriesFilter) && (
-        <p className="statistical-factsheets__disclaimer">{i18n.t('disclaimer.statisticalFactsheets')}</p>
+        <p className="statistical-factsheets__disclaimer">{i18n.t<string>('disclaimer.statisticalFactsheets')}</p>
       )}
 
-      {/* <div className={`statistical-factsheets${isCountry ? ' country' : ''}`}> */}
-      <div className="statistical-factsheets country">
+      <div className={`statistical-factsheets${isCountry ? ' country' : ''}`}>
         <ForestArea />
-        <PrimaryDesignatedManagementObjective />
-        {/* TODO */}
-        {/* <CarbonGrowingStock /> */}
+        <CarbonGrowingStock />
 
         <ForestAreaPercent />
         <PrimaryForest />

@@ -4,9 +4,8 @@ import { CountryIso } from '@meta/area'
 import { Assessment, Cycle, Row, VariableCache } from '@meta/assessment'
 
 import { AssessmentController } from '@server/controller/assessment'
-import { evalExpression } from '@server/controller/cycleData/persistNodeValue/evalExpression'
+import { ExpressionEvaluator } from '@server/controller/cycleData/persistNodeValue/expressionEvaluator'
 import { BaseProtocol } from '@server/db'
-import { ColRepository } from '@server/repository/assessment/col'
 import { DataRepository, TablesCondition } from '@server/repository/assessmentCycle/data'
 
 const hasBeenCalculated = (props: {
@@ -60,23 +59,23 @@ export const calculateRow = async (
       : undefined
   const table = await AssessmentController.getTable({ assessment, cycle, tableName })
 
-  const cols = await ColRepository.getMany({ assessment, tableId: row.tableId }, client)
   await Promise.all(
     countryISOs.map(async (countryIso) => {
       await Promise.all(
         table.props.columnNames[cycle.uuid].map(async (colName) => {
           // const colName = Cols.getColName({ colIdx, cols })
-          const col = cols.find((c) => c.rowId === row.id && c.props.colName === colName)
+          const col = row.cols.find((c) => c.props.colName === colName)
           if (!col) return
-          const { variableName } = row.props
 
           const expression = row.props.calculateFn ?? col.props.calculateFn
-          const dependencies = assessment.metaCache.calculations.dependencies[tableName]?.[variableName]
-          const raw = await evalExpression(
-            { tableName, assessment, colName, countryIso, variableName, cycle, data, row, expression, dependencies },
-            client
-          )
-
+          const raw = ExpressionEvaluator.evalFormula<string | undefined>({
+            assessment,
+            countryIso,
+            data,
+            colName,
+            row,
+            formula: expression,
+          })
           const value: NodeRow = {
             country_iso: countryIso,
             row_uuid: row.uuid,

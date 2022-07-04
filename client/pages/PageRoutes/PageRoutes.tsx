@@ -1,29 +1,21 @@
-// TODO Remove when CountrySelect implemented
 import '@client/components/CountrySelect/countrySelect.scss'
 import '@client/components/CountrySelect/CountryList/countryList.scss'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Route, Switch, useRouteMatch } from 'react-router-dom'
+import { Navigate, Route, Routes, useMatch } from 'react-router-dom'
 
-// import ErrorComponent from '../../../webapp/components/error/errorComponent'
 import { useAppDispatch } from '@client/store'
 import { AssessmentActions } from '@client/store/assessment'
-import { BasePaths } from '@client/basePaths'
+import { ClientRoutes } from '@client/clientRoutes'
 import CountrySelect from '@client/components/CountrySelect'
 import Footer from '@client/components/Footer'
 import Header from '@client/components/Header'
 import Toaster from '@client/components/Toaster'
 import Assessment from '@client/pages/Assessment'
 import Geo from '@client/pages/Geo'
-// import { RegionCode } from '../../../core/country'
-// import { FRA, PanEuropean } from '../../../core/assessment'
-// import { useIsLogin } from '../../../webapp/hooks'
-// import { useAppDispatch, useAppSelector } from '../../../webapp/store'
-// import DynamicImport from '../../../webapp/components/dynamicImport'
 import Landing from '@client/pages/Landing'
 import Login from '@client/pages/Login'
 import { SocketClient } from '@client/service/socket'
-// import { useIsLogin } from '@client/hooks'
 import { Urls } from '@client/utils'
 
 import { useTheme } from './useTheme'
@@ -32,7 +24,8 @@ const PageRoutes: React.FC = () => {
   useTheme()
   const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
-  const shouldRenderCountrySelect = !useRouteMatch([BasePaths.Login.root()])
+
+  const shouldRenderCountrySelect = !useMatch(ClientRoutes.Login.Root.path.absolute)
 
   useEffect(() => {
     // TODO: Add user.language support
@@ -62,18 +55,12 @@ const PageRoutes: React.FC = () => {
       {/*  render={() => <DynamicImport load={() => import('../../../webapp/pages/AssessmentPrint/export')} />} */}
       {/* /> */}
 
-      <Switch>
-        <Route exact path={BasePaths.Root()} component={Landing} />
-
-        <Route
-          exact
-          path={[BasePaths.Login.root(), BasePaths.Login.resetPassword(), BasePaths.Login.invitation()]}
-          component={Login}
-        />
-
-        <Route path={BasePaths.Assessment.root()} component={Assessment} />
-
-        <Route path={BasePaths.Geo.root()} component={Geo} />
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path={`${ClientRoutes.Assessment.Root.path.absolute}/*`} element={<Assessment />} />
+        <Route path={`${ClientRoutes.Login.Root.path.absolute}/*`} element={<Login />} />
+        <Route path={`${ClientRoutes.Geo.Root.path.absolute}/*`} element={<Geo />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
 
         {/* <Route */}
         {/*  path={BasePaths.admin} */}
@@ -96,7 +83,7 @@ const PageRoutes: React.FC = () => {
         {/*  path={BasePaths.assessment} */}
         {/*  render={() => <DynamicImport key={3} load={() => import('../../../webapp/app/appViewExport')} />} */}
         {/* /> */}
-      </Switch>
+      </Routes>
 
       {/* <ErrorComponent /> */}
       <Footer />

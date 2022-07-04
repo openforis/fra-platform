@@ -1,0 +1,50 @@
+@import 'client/style/partials';
+
+
+
+.invite-user-container {
+  background-color: $ui-bg;
+  padding: 20px 8px;
+  margin-bottom: 24px;
+  border-radius: 2px;
+
+  .invite-user-error-container {
+    background-color: rgba(208,2,27,.1);
+    color: #d0021b;
+    font-weight: 700;
+    margin-bottom: 16px;
+    padding: 8px;
+    text-align: center;
+  }
+
+  .invite-user-form {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    align-items: end;
+
+    >div {
+      padding: 0 8px;
+    }
+
+    .label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input[type='text'],
+    select {
+      border: $ui-thin-border;
+      padding: 0 8px;
+      font-size: $font-m;
+      height: 34px;
+      outline: none;
+      color: $text-body;
+      width: 100%;
+    }
+
+    button {
+      width: 100%;
+    }
+  }
+}
