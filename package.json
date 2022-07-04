@@ -151,6 +151,7 @@
     "webpack-dev-server": "^4.7.4"
   },
   "dependencies": {
+    "@google/earthengine": "^0.1.316",
     "@googlemaps/js-api-loader": "^1.13.10",
     "@googlemaps/react-wrapper": "^1.1.29",
     "@openforis/arena-core": "^0.0.79",
