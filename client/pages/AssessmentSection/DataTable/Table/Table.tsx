@@ -13,6 +13,7 @@ import ButtonTableExport from '@client/components/ButtonTableExport'
 import Tooltip from '@client/components/Tooltip'
 import * as DataTableUtils from '@client/pages/AssessmentSection/DataTable/utils'
 
+import DataValidations from './DataValidations'
 import { parseTable } from './parseTable'
 import Row from './Row'
 
@@ -126,6 +127,8 @@ const Table: React.FC<Props> = (props) => {
             })}
           </tbody>
         </table>
+
+        <DataValidations table={table} />
       </div>
     </div>
   )

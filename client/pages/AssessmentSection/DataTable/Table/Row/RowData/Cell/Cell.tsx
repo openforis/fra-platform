@@ -2,10 +2,12 @@ import './Cell.scss'
 import React, { useCallback } from 'react'
 
 import { AssessmentName, Col, ColType, NodeValueValidations, Row, Table } from '@meta/assessment'
-import { TableData, TableDatas } from '@meta/data'
+import { NodeUpdate, TableData, TableDatas } from '@meta/data'
 import { Authorizer } from '@meta/user'
 
+import { useAppDispatch } from '@client/store'
 import { useAssessmentSection, useCountry } from '@client/store/assessment'
+import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import { useIsDataLocked } from '@client/store/ui/dataLock'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
@@ -43,6 +45,7 @@ type Props = {
 const Cell: React.FC<Props> = (props) => {
   const { data, assessmentName, sectionName, table, disabled, rowIndex, col, row } = props
 
+  const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const country = useCountry(countryIso)
   const user = useUser()
@@ -57,20 +60,19 @@ const Cell: React.FC<Props> = (props) => {
   const nodeValue = TableDatas.getNodeValue(params)
   const valid = !Authorizer.canEdit({ countryIso, country, section, user }) || NodeValueValidations.isValid(nodeValue)
 
-  const className = useClassName({ col, row, valid })
+  const className = useClassName({ col, row, tableName, valid })
   const { onChange, onPaste } = useOnChange({ table, col, row, nodeValue, data })
   const Component = Components[col.props.colType]
 
   const showError = useCallback(() => {
     if (!valid && dataLocked) {
-      // TODO: implement
-      // console.log('error')
+      const nodeUpdate: NodeUpdate = { tableName, variableName, colName, value: nodeValue }
+      dispatch(AssessmentSectionActions.setNodeValueValidation({ nodeUpdate }))
     }
-  }, [dataLocked, valid])
+  }, [colName, dataLocked, dispatch, nodeValue, tableName, valid, variableName])
 
   if (!Component) return null
 
-  // nodeValue.validation.messages.map(({ key, params }) => t(key, params)).join(`\n\r`)
   return (
     // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
     <td className={className} onClick={showError} onKeyDown={showError}>

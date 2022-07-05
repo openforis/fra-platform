@@ -1,3 +1,5 @@
-.cell-error {
-  //border: 1px solid red !important;
+@import 'client/style/partials';
+
+.data-table .cell-error-highlight {
+  background-color: rgba($ui-destructive, 0.2);
 }

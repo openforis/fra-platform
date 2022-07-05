@@ -1,5 +1,5 @@
 import { Table, TableSection } from '@meta/assessment'
-import { TableData } from '@meta/data'
+import { NodeUpdate, TableData } from '@meta/data'
 
 import { useAppSelector } from '@client/store'
 import { useAssessmentCountry } from '@client/store/assessment'
@@ -43,3 +43,6 @@ export const useOriginalDataPointYears = () => {
   if (!odpData) return null
   return Object.keys(odpData[countryIso]?.originalDataPointValue ?? {})
 }
+
+export const useNodeValueValidation = (props: { tableName: string }): NodeUpdate | undefined =>
+  useAppSelector((state) => state.pages.assessmentSection.nodeValueValidation[props.tableName])
