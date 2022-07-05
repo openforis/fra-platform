@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react'
+import React, { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { Authorizer } from '@meta/user'
@@ -17,18 +17,17 @@ const CycleSwitcher = () => {
   const user = useUser()
   const isDataLocked = useIsDataLocked()
 
+  const assessmentName = assessment.props.name
   const userCycles = assessment.cycles.filter((cycle) => Authorizer.canView({ countryIso, user, cycle, assessment }))
   const canSwitchCycle = user && isDataLocked && userCycles.length > 1
 
-  const onSelectChange = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
-    navigate(
-      ClientRoutes.Assessment.Home.Root.getLink({
-        countryIso,
-        assessmentName: assessment.props.name,
-        cycleName: event.target.value,
-      })
-    )
-  },[assessment.props.name, countryIso, navigate])
+  const onSelectChange = useCallback(
+    (event: React.ChangeEvent<HTMLSelectElement>) => {
+      const cycleName = event.target.value
+      navigate(ClientRoutes.Assessment.Home.Root.getLink({ countryIso, assessmentName, cycleName }))
+    },
+    [assessmentName, countryIso, navigate]
+  )
 
   if (!canSwitchCycle) return <span>{cycleCurrent.name}</span>
 
