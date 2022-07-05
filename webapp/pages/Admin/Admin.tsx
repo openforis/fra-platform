@@ -26,9 +26,7 @@ const Admin = (props: any) => {
       </div>
 
       <Switch>
-        <Route exact path={BasePaths.admin}>
-          <Redirect to={`${url}usersManagement/`} />
-        </Route>
+        <Route exact path={BasePaths.admin} render={() => <Redirect to={`${url}usersManagement/`} />} />
         <Route path={`${path}usersManagement/`}>
           <UsersManagementView {...props} />
         </Route>

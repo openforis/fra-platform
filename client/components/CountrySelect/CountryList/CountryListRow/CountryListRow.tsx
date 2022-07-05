@@ -8,7 +8,7 @@ import { Areas, CountryIso, Global, RegionCode } from '@meta/area'
 
 import { useAssessment, useCountry, useCycle } from '@client/store/assessment'
 import { useCountryIso, useIsHome } from '@client/hooks'
-import { BasePaths } from '@client/basePaths'
+import { ClientRoutes } from '@client/clientRoutes'
 import { Dates } from '@client/utils'
 
 type Props = {
@@ -42,11 +42,15 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
 
   return (
     <Link
-      to={BasePaths.Assessment.root(countryIso, assessment.props.name, cycle?.name)}
+      to={ClientRoutes.Assessment.Root.getLink({
+        countryIso: countryIso as CountryIso,
+        assessmentName: assessment.props.name,
+        cycleName: cycle?.name,
+      })}
       className={`country-selection-list__row${selected ? ' selected' : ''}`}
     >
       <span className="country-selection-list__primary-col" ref={countryNameRef}>
-        {i18n.t(`area.${countryIso}.listName`)}
+        {i18n.t<string>(`area.${countryIso}.listName`)}
       </span>
 
       {hasRole && (

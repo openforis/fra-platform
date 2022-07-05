@@ -1,31 +1,30 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
 
 import { i18n } from 'i18next'
 
 import { User, Users } from '@meta/user'
 
-import { BasePaths } from '@client/basePaths'
-import { useIsLogin } from '@client/hooks'
-
-import Icon from '@client/components/Icon'
-import PopoverControl, { PopoverItem } from '@client/components/PopoverControl'
 import { AppDispatch, useAppDispatch } from '@client/store'
 import { UserActions, useUser } from '@client/store/user'
-import { useToaster, ToasterHook } from '@client/hooks/useToaster'
+import { useIsLogin } from '@client/hooks'
+import { ToasterHook, useToaster } from '@client/hooks/useToaster'
+import { ClientRoutes } from '@client/clientRoutes'
+import Icon from '@client/components/Icon'
+import PopoverControl, { PopoverItem } from '@client/components/PopoverControl'
 
 const getLinks = (i18nInstance: i18n, user: User, dispatch: AppDispatch, toaster: ToasterHook) => {
   const items: Array<PopoverItem> = [
     {
       content: i18nInstance.t('header.editProfile'),
-      link: BasePaths.User.root(user.id),
+      link: ClientRoutes.User.Root.getLink({ id: user.id }),
     },
   ]
   if (Users.isAdministrator(user)) {
     items.push({
       content: i18nInstance.t('admin.admin'),
-      link: BasePaths.Admin.root(),
+      link: ClientRoutes.Admin.Root.getLink(),
     })
   }
   items.push(
@@ -61,8 +60,8 @@ const LinksFRA: React.FC = () => {
       )}
 
       {!user && !isLogin && (
-        <Link key="admin-link" to={BasePaths.Login.root()} className="app-header__menu-item">
-          {i18n.t('common.login')}
+        <Link key="admin-link" to={ClientRoutes.Login.Root.getLink()} className="app-header__menu-item">
+          {i18n.t<string>('common.login')}
         </Link>
       )}
     </>

@@ -3,7 +3,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 
 const LinkHome: React.FC = () => (
-  <NavLink to="/" className="app-header-link-home" exact>
+  <NavLink end to="/" className="app-header-link-home">
     <svg id="Home" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42.789 35.773">
       <path
         id="Path_207"

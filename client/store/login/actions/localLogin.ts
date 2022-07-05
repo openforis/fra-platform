@@ -1,9 +1,9 @@
-import { createAsyncThunk } from '@reduxjs/toolkit'
-import { RouteComponentProps } from 'react-router-dom'
+import { NavigateFunction } from 'react-router-dom'
 
-import axios from 'axios'
 import { ApiEndPoint } from '@common/api/endpoint'
-import { BasePaths } from '@client/basePaths'
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios'
+
 import { initApp } from '@client/store/assessment/actions/initApp'
 
 export const localLogin = createAsyncThunk<
@@ -12,9 +12,9 @@ export const localLogin = createAsyncThunk<
     email: string
     password: string
     invitationUuid?: string
-    history: RouteComponentProps['history']
+    navigate: NavigateFunction
   }
->('login/post/local', async ({ email, password, invitationUuid, history }, { dispatch }) => {
+>('login/post/local', async ({ email, password, invitationUuid, navigate }, { dispatch }) => {
   const response = await axios.post(
     ApiEndPoint.Auth.Login.local(),
     {
@@ -26,6 +26,6 @@ export const localLogin = createAsyncThunk<
 
   if (response.status === 200) {
     dispatch(initApp())
-    history.push(BasePaths.Root())
+    navigate('/')
   }
 })

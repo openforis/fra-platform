@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { useHistory, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { Link, useNavigate } from 'react-router-dom'
 
-import { BasePaths } from '@client/basePaths'
 import { useAppDispatch } from '@client/store'
 import { LoginActions, useInvitation } from '@client/store/login'
+import { useToaster } from '@client/hooks/useToaster'
+import { ClientRoutes } from '@client/clientRoutes'
 import { isError, LoginValidator } from '@client/pages/Login/utils/LoginValidator'
 import { Urls } from '@client/utils/urls'
-import { useToaster } from '@client/hooks/useToaster'
 
 type Props = {
   invitationUuid?: string
@@ -18,7 +18,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
 
   const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
-  const history = useHistory()
+  const navigate = useNavigate()
   const loginFailed = Urls.getRequestParam('loginFailed')
   const { toaster } = useToaster()
 
@@ -49,7 +49,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
           email,
           password,
           invitationUuid,
-          history,
+          navigate,
         })
       )
     }
@@ -109,7 +109,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
               </button>
             </div>
 
-            <Link to={BasePaths.Login.resetPassword()} type="button" className="btn-forgot-pwd">
+            <Link to={ClientRoutes.Login.ResetPassword.getLink()} type="button" className="btn-forgot-pwd">
               {i18n.t('login.forgotPassword')}
             </Link>
           </>

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 
 import { AssessmentName } from '@meta/assessment'
 import { Sockets } from '@meta/socket/sockets'
@@ -13,7 +13,11 @@ import MessageCenter from '@client/components/MessageCenter'
 import { SocketClient } from '@client/service/socket'
 import { DOMs } from '@client/utils/dom'
 
-const SectionWrapper: React.FC = (props) => {
+type Props = {
+  children: JSX.Element
+}
+
+const SectionWrapper: React.FC<Props> = (props) => {
   const { children } = props
 
   const dispatch = useAppDispatch()

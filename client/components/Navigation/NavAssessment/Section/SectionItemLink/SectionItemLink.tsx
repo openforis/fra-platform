@@ -3,14 +3,15 @@ import { useTranslation } from 'react-i18next'
 import { useMediaQuery } from 'react-responsive'
 import { NavLink } from 'react-router-dom'
 
+import classNames from 'classnames'
+
 import { AssessmentName, SubSection } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
+import { useAssessment } from '@client/store/assessment'
 import { NavigationActions } from '@client/store/ui/navigation'
 import { useSectionReviewSummary } from '@client/store/ui/review/hooks'
-import { useCountryIso, useIsDataExportView } from '@client/hooks'
-import { BasePaths } from '@client/basePaths'
+import { useIsDataExportView } from '@client/hooks'
 import { Breakpoints } from '@client/utils'
 
 import ReviewStatusMarker from '../ReviewStatusMarker'
@@ -27,10 +28,8 @@ const SectionItemLink: React.FC<Props> = (props) => {
   } = subSection
 
   const dispatch = useAppDispatch()
-  const countryIso = useCountryIso()
   const { i18n } = useTranslation()
   const assessment = useAssessment()
-  const cycle = useCycle()
   const isDataExport = useIsDataExportView()
   const laptop = useMediaQuery({ minWidth: Breakpoints.laptop })
   const reviewStatus = useSectionReviewSummary(id)
@@ -41,9 +40,12 @@ const SectionItemLink: React.FC<Props> = (props) => {
 
   return (
     <NavLink
-      to={BasePaths.Assessment.section(countryIso, assessmentName, cycle?.name, name)}
-      className="nav-section__item"
-      activeClassName="selected"
+      to={name}
+      className={(navData) =>
+        classNames('nav-section__item', {
+          selected: navData.isActive,
+        })
+      }
       onClick={() => {
         if (!laptop) {
           dispatch(NavigationActions.toggleNavigationVisible())

@@ -1,7 +1,7 @@
 import './ResultsTable.scss'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 
 import { Objects } from '@core/utils'
 

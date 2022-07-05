@@ -1,5 +1,7 @@
-import { getForestCover } from './getForestCover'
+import { authenticateToGee } from './authenticateToGee'
+import { getForestLayer } from './getForestLayer'
 
 export const GeoController = {
-  getForestCover,
+  authenticateToGee,
+  getForestLayer,
 }
