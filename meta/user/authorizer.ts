@@ -73,14 +73,9 @@ const canViewUsers = (props: { countryIso: CountryIso; assessment: Assessment; c
  * @returns boolean
  */
 const canEdit = (props: { countryIso: CountryIso; section: Section; country: Country; user: User }): boolean => {
-  const {
-    section,
-    user,
-    countryIso,
-    country: {
-      props: { status },
-    },
-  } = props
+  const { section, user, countryIso, country } = props
+  const { status } = country.props
+
   if (!user) return false
   if (Users.isViewer(user, countryIso)) return false
   if (Users.isAdministrator(user)) return true

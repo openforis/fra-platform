@@ -1,0 +1,11 @@
+@import 'client/style/partials';
+
+.cycle-switcher {
+  border: unset;
+  background-color: unset;
+  font-weight: inherit;
+  color: inherit;
+  outline: unset;
+  margin-right: $spacing-xxs;
+  margin-left: -$spacing-xxxs;
+}

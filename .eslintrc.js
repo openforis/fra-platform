@@ -10,7 +10,13 @@ module.exports = {
       jsx: true,
     },
   },
-  extends: ['prettier', 'airbnb', 'plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
+  extends: [
+    'prettier',
+    'airbnb',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
+    'plugin:react-hooks/recommended',
+  ],
   env: {
     browser: true,
     commonjs: true,
@@ -18,7 +24,7 @@ module.exports = {
     jest: true,
     node: true,
   },
-  plugins: ['prettier', 'simple-import-sort'],
+  plugins: ['prettier', 'simple-import-sort', 'react-hooks'],
   rules: {
     'no-underscore-dangle': 0,
     'prettier/prettier': 1,
@@ -46,7 +52,8 @@ module.exports = {
     '@typescript-eslint/ban-ts-comment': 'off',
     'no-restricted-exports': 'off',
     'react/function-component-definition': 'off',
-
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'error',
     // simple-import-sort rules
 
     'simple-import-sort/exports': 'error',

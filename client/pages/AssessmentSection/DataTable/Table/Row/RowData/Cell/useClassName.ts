@@ -1,21 +1,31 @@
 import { Col, Cols, ColType, Row } from '@meta/assessment'
 
-export default (col: Col, row: Row): string => {
-  const { colType /* validator */ } = col.props
-  // const user = useUser()
+import { useNodeValueValidation } from '@client/store/pages/assessmentSection'
 
-  const valid = true // TODO useSelector((state) => {
-  // if (!user /* || !validator */) {
-  //   return true
-  // }
-  // return false // validator(col.props.index as number, rowIdx)(state)
-  // })
+type Props = {
+  col: Col
+  row: Row
+  tableName: string
+  valid: boolean
+}
+
+export default (props: Props): string => {
+  const { col, row, tableName, valid } = props
+  const { colType } = col.props
+  const nodeUpdate = useNodeValueValidation({ tableName })
+
+  const errorHighlight =
+    nodeUpdate &&
+    nodeUpdate.tableName === tableName &&
+    nodeUpdate.variableName === row.props.variableName &&
+    nodeUpdate.colName === col.props.colName
 
   let className = 'fra-table__cell'
   if (Cols.isReadOnly({ col, row })) className = 'fra-table__calculated-cell'
   if ([ColType.text, ColType.textarea, ColType.select].includes(colType)) className = 'fra-table__cell-left'
   if (colType === ColType.placeholder) className = 'fra-table__category-cell fra-table__filler-last'
+  if (!valid && !errorHighlight) className += ' validation-error'
+  if (!valid && errorHighlight) className += ' validation-error cell-error-highlight'
 
-  className += valid ? '' : ' validation-error'
   return className
 }
