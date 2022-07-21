@@ -1,5 +1,5 @@
 import { CountryIso } from '@meta/area'
-import { NodeValue } from '@meta/assessment'
+import { NodeValue, NodeValueValidations } from '@meta/assessment'
 
 import { TableData } from './tableData'
 
@@ -45,9 +45,18 @@ const updateDatum = (props: {
   return dataClone
 }
 
+const hasErrors = (props: Pick<Props, 'countryIso' | 'tableName' | 'data'>): boolean => {
+  const { countryIso, tableName, data } = props
+  const tableData = getTableData({ countryIso, tableName, data })
+  return Object.values(tableData).some((values) => {
+    return Object.values(values).some((value) => !NodeValueValidations.isValid(value))
+  })
+}
+
 export const TableDatas = {
   getDatum,
   getNodeValue,
   getTableData,
+  hasErrors,
   updateDatum,
 }
