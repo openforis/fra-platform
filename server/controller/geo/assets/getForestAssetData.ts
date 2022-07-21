@@ -1,23 +1,12 @@
 // @ts-ignore
 import { Image, ImageCollection } from '@google/earthengine'
 
-import { ForestSource } from '@meta/geo'
+import { ForestSource, precalForestAgrSources } from '@meta/geo'
 
-export type AssetData = {
-  year: number
-  scale: number
-  img: any
-  palette: Array<string>
-  citation?: string
-}
-
-export const getForestAssetData = (forestSource: ForestSource): AssetData => {
-  const imcHansen = Image('UMD/hansen/global_forest_change_2021_v1_9')
-  const hforest2000 = imcHansen.select('treecover2000')
-  const lossyear = imcHansen.select('lossyear')
-  const hlost = lossyear.gte(1).and(lossyear.lte(20))
-  const hgain = imcHansen.select('gain')
-
+export const getForestAssetData = (
+  forestSource: ForestSource,
+  gteHansenTreeCoverPerc: 10 | 20 | 30 = 10
+): { year: number; img: Image } => {
   switch (forestSource) {
     case ForestSource.JAXA: {
       const imgForestJAXA = ImageCollection('JAXA/ALOS/PALSAR/YEARLY/FNF')
@@ -27,9 +16,7 @@ export const getForestAssetData = (forestSource: ForestSource): AssetData => {
 
       return {
         year: 2017,
-        scale: 24.7376,
         img: imgForestJAXA,
-        palette: ['purple'],
       }
     }
     case ForestSource.TandemX: {
@@ -37,9 +24,7 @@ export const getForestAssetData = (forestSource: ForestSource): AssetData => {
 
       return {
         year: 2019,
-        scale: 55.6597,
         img: imgForestTANDEMX,
-        palette: ['green'],
       }
     }
     case ForestSource.ESAGlobCover: {
@@ -51,34 +36,15 @@ export const getForestAssetData = (forestSource: ForestSource): AssetData => {
 
       return {
         year: 2009,
-        scale: 309.2208,
         img: imgForestLCESA,
-        palette: ['yellow'],
-        citation: 'https://www.esa.int/ESA_Multimedia/Images/2010/12/ESA_s_2009_global_land_cover_map',
       }
     }
     case ForestSource.GlobeLand: {
-      const imgForestGlobeLand = ImageCollection('users/jhoelicq/globallandcover30/2010') // ToDo use 2020 version?
-        .mosaic()
-        .eq(20)
+      const imgForestGlobeLand = ImageCollection('users/eraviolo/GlobeLand30m_2020').mosaic().eq(20)
 
       return {
-        year: 2010,
-        scale: 30,
+        year: 2020,
         img: imgForestGlobeLand,
-        palette: ['red'],
-        citation: 'https://www.un-spider.org/links-and-resources/data-sources/land-cover-map-globeland-30-ngcc',
-      }
-    }
-    case ForestSource.ESAAfriCover: {
-      const imgForestAfriCoverESA = Image('users/kindgard/ESACCI-LC-L4-LC10-Map-20m-P1Y-2016-v10').eq(1)
-
-      return {
-        year: 2016,
-        scale: 20.6147,
-        img: imgForestAfriCoverESA,
-        palette: ['olive'],
-        citation: 'https://2016africalandcover20m.esrin.esa.int/',
       }
     }
 
@@ -87,10 +53,7 @@ export const getForestAssetData = (forestSource: ForestSource): AssetData => {
 
       return {
         year: 2019,
-        scale: 100,
         img: imgForestCopernicus,
-        palette: ['yellow'],
-        citation: 'https://2016africalandcover20m.esrin.esa.int/',
       }
     }
     case ForestSource.ESRI: {
@@ -98,9 +61,7 @@ export const getForestAssetData = (forestSource: ForestSource): AssetData => {
 
       return {
         year: 2020,
-        scale: 10,
         img: imgForestESRIy2020,
-        palette: ['coral'],
       }
     }
     case ForestSource.ESAWorldCover: {
@@ -109,45 +70,37 @@ export const getForestAssetData = (forestSource: ForestSource): AssetData => {
 
       return {
         year: 2020,
-        scale: 10,
         img: imgForestESAy2020,
-        palette: ['#00ffff'],
       }
     }
 
-    case ForestSource.Hansen10: {
-      const imgForestHansen10 = hforest2000.gte(10).where(hgain.eq(1), 1).where(hlost.eq(1), 0)
+    case ForestSource.Hansen: {
+      const imcHansen = Image('UMD/hansen/global_forest_change_2021_v1_9')
+      const hforest2000 = imcHansen.select('treecover2000')
+      const lossyear = imcHansen.select('lossyear')
+      const hlost = lossyear.gte(1).and(lossyear.lte(20))
+      const hgain = imcHansen.select('gain')
+      const imgForestHansen = hforest2000.gte(gteHansenTreeCoverPerc).where(hgain.eq(1), 1).where(hlost.eq(1), 0)
 
       return {
         year: 2020,
-        scale: 30.92,
-        img: imgForestHansen10,
-        palette: ['#00ff00'],
-      }
-    }
-    case ForestSource.Hansen20: {
-      const imgForestHansen20 = hforest2000.gte(20).where(hgain.eq(1), 1).where(hlost.eq(1), 0)
-
-      return {
-        year: 2020,
-        scale: 30.92,
-        img: imgForestHansen20,
-        palette: ['brown'],
-      }
-    }
-
-    case ForestSource.Hansen30: {
-      const imgForestHansen30 = hforest2000.gte(30).where(hgain.eq(1), 1).where(hlost.eq(1), 0)
-
-      return {
-        year: 2020,
-        scale: 30.92,
-        img: imgForestHansen30,
-        palette: ['silver'],
+        img: imgForestHansen,
       }
     }
 
     default:
       return null
+  }
+}
+
+export const getForestAgrAssetData = (gteHansenTreeCoverPerc: 10 | 20 | 30, gteAgr = 1): { img: Image } => {
+  let imgAddition = Image(0)
+  precalForestAgrSources.forEach(function (source) {
+    const asset = getForestAssetData(source, gteHansenTreeCoverPerc)
+    imgAddition = imgAddition.add(asset.img.unmask())
+  })
+
+  return {
+    img: imgAddition.mask(imgAddition.gte(gteAgr)),
   }
 }

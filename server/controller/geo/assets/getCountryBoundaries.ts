@@ -4,6 +4,6 @@ import { FeatureCollection, Filter } from '@google/earthengine'
 import { CountryIso } from '@meta/area'
 
 export const getCountryBoundaries = (countryIso: CountryIso) => {
-  const ftcUNMap25 = FeatureCollection('users/projectgeffao/World/Borders/UNmap25_CountriesTerritories_BNDA')
-  return ftcUNMap25.filter(Filter.eq('ISO3CD', countryIso))
+  const ftcCountries = FeatureCollection('users/geofra/boundaries/UN_Res0_ADM0_BNDA_CTY_FRA_v1')
+  return ftcCountries.filter(Filter.eq('ISO3CD', countryIso))
 }
