@@ -6,10 +6,10 @@ import { useDispatch } from 'react-redux'
 import { User, UserStatus } from '@meta/user'
 
 import { UserManagementActions } from '@client/store/userManagement'
-import { useCountryIso } from '@client/hooks'
 
+// import { useCountryIso } from '@client/hooks'
+import Buttons from './Buttons'
 // import { persistUser } from '../../actions'
-// import Buttons from './components/Buttons'
 // import CountryRoles from './components/CountryRoles'
 import ProfilePicture from './ProfilePicture'
 import TextInputFields from './TextInputFields'
@@ -17,13 +17,13 @@ import TextInputFields from './TextInputFields'
 const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
   const dispatch = useDispatch()
 
-  const countryIso = useCountryIso()
+  // const countryIso = useCountryIso()
 
   if (!user) return null
 
-  // const onSave = () => {
-  //   if (validate(user).valid) dispatch(persistUser(countryIso, user))
-  // }
+  const onSave = () => {
+    // if (validate(user).valid) dispatch(persistUser(countryIso, user))
+  }
 
   const onChange = (value: string, key: string) => {
     dispatch(
@@ -37,18 +37,23 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
   return (
     <div className="edit-user__form-container">
       <ProfilePicture userId={user.id} onChange={(profilePicture: any) => onChange(profilePicture, 'profilePicture')} />
-
       <TextInputFields user={user} onChange={onChange} />
-
-      {/* <CountryRoles onChange={onChange} user={user} />
+      {/* <CountryRoles onChange={onChange} user={user} /> */}
 
       <Buttons
         user={user}
         userActive={user.status === UserStatus.active}
-        onDeactivate={() => onChange(!UserStatus.active, 'active')}
+        onDeactivate={() =>
+          dispatch(
+            UserManagementActions.setUserToEdit({
+              ...user,
+              status: user.status === UserStatus.active ? UserStatus.inactive : UserStatus.active,
+            })
+          )
+        }
         onCancel={() => dispatch(UserManagementActions.setUserToEdit(null))}
         onSave={onSave}
-      /> */}
+      />
     </div>
   )
 }
