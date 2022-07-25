@@ -7,7 +7,7 @@ import { authenticateToGee } from './authenticateToGee'
 
 type Props = {
   countryIso: CountryIso
-  gteHansenTreeCoverPerc: 10 | 20 | 30
+  gteHansenTreeCoverPerc: number
   gteAgr: number
 }
 

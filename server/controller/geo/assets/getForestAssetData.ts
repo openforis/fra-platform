@@ -5,7 +5,7 @@ import { ForestSource, precalForestAgrSources } from '@meta/geo'
 
 export const getForestAssetData = (
   forestSource: ForestSource,
-  gteHansenTreeCoverPerc: 10 | 20 | 30 = 10
+  gteHansenTreeCoverPerc: number
 ): { year: number; img: Image } => {
   switch (forestSource) {
     case ForestSource.JAXA: {
@@ -93,7 +93,7 @@ export const getForestAssetData = (
   }
 }
 
-export const getForestAgrAssetData = (gteHansenTreeCoverPerc: 10 | 20 | 30, gteAgr = 1): { img: Image } => {
+export const getForestAgrAssetData = (gteHansenTreeCoverPerc = 10, gteAgr = 1): { img: Image } => {
   let imgAddition = Image(0)
   precalForestAgrSources.forEach(function (source) {
     const asset = getForestAssetData(source, gteHansenTreeCoverPerc)
