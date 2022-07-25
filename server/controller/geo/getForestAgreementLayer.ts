@@ -1,5 +1,5 @@
 import { CountryIso } from '@meta/area'
-import { agrPalette, Layer, precalForestAgrSources } from '@meta/geo'
+import { agreementPalette, Layer, precalForestAgreementSources } from '@meta/geo'
 
 import { AssetsController } from '@server/controller/geo/assets/'
 
@@ -8,17 +8,22 @@ import { authenticateToGee } from './authenticateToGee'
 type Props = {
   countryIso: CountryIso
   gteHansenTreeCoverPerc: number
-  gteAgr: number
+  gteAgreementLevel: number
 }
 
 export const getForestAgreementLayer = async (props: Props): Promise<Layer> => {
-  const { countryIso, gteHansenTreeCoverPerc, gteAgr } = props
+  const { countryIso, gteHansenTreeCoverPerc, gteAgreementLevel } = props
+
+  if (gteHansenTreeCoverPerc < 0 || gteHansenTreeCoverPerc > 100)
+    throw Error(`Not valid Hansen tree cover percentage 0-100: ${gteHansenTreeCoverPerc}`)
+  if (gteAgreementLevel < 1 || gteAgreementLevel > precalForestAgreementSources.length)
+    throw Error(`Not valid forest agreement level 1-${precalForestAgreementSources.length}: ${gteAgreementLevel}`)
 
   await authenticateToGee()
 
   const ftcCountry = AssetsController.getCountryBoundaries(countryIso)
-  const asset = AssetsController.getForestAgrAssetData(gteHansenTreeCoverPerc, gteAgr)
-  const palette = agrPalette.slice(0, precalForestAgrSources.length)
+  const asset = AssetsController.getForestAgreementAssetData(gteHansenTreeCoverPerc, gteAgreementLevel)
+  const palette = agreementPalette.slice(0, precalForestAgreementSources.length)
 
   return new Promise((resolve, reject) => {
     asset.img

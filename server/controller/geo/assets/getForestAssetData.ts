@@ -1,7 +1,7 @@
 // @ts-ignore
 import { Image, ImageCollection } from '@google/earthengine'
 
-import { ForestSource, precalForestAgrSources } from '@meta/geo'
+import { ForestSource, precalForestAgreementSources } from '@meta/geo'
 
 export const getForestAssetData = (
   forestSource: ForestSource,
@@ -93,14 +93,14 @@ export const getForestAssetData = (
   }
 }
 
-export const getForestAgrAssetData = (gteHansenTreeCoverPerc = 10, gteAgr = 1): { img: Image } => {
+export const getForestAgreementAssetData = (gteHansenTreeCoverPerc = 10, gteAgreementLevel = 1): { img: Image } => {
   let imgAddition = Image(0)
-  precalForestAgrSources.forEach(function (source) {
+  precalForestAgreementSources.forEach(function (source) {
     const asset = getForestAssetData(source, gteHansenTreeCoverPerc)
     imgAddition = imgAddition.add(asset.img.unmask())
   })
 
   return {
-    img: imgAddition.mask(imgAddition.gte(gteAgr)),
+    img: imgAddition.mask(imgAddition.gte(gteAgreementLevel)),
   }
 }
