@@ -1,5 +1,5 @@
 import './EditUserForm.scss'
-import React from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { validate } from '@common/userUtils'
@@ -26,11 +26,13 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
   const assessment = useAssessment()
   const cycle = useCycle()
 
+  const [profilePicture, setProfilePicture] = useState<File>(null)
+
   if (!user) return null
 
   const onSave = () => {
     if (validate(user).valid) {
-      dispatch(UserManagementActions.updateUser({ user })).then(() => {
+      dispatch(UserManagementActions.updateUser({ user, profilePicture })).then(() => {
         UserManagementActions.getUsers({ countryIso, assessmentName: assessment.props.name, cycleName: cycle.name })
         dispatch(UserManagementActions.setUserToEdit(null))
         toaster.success(i18n.t('userManagement.userAdded', { email: user.email }))
@@ -49,7 +51,7 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
 
   return (
     <div className="edit-user__form-container">
-      <ProfilePicture userId={user.id} onChange={(profilePicture: any) => onChange(profilePicture, 'profilePicture')} />
+      <ProfilePicture userId={user.id} onChange={(profilePicture: File) => setProfilePicture(profilePicture)} />
       <TextInputFields user={user} onChange={onChange} />
       {/* <CountryRoles onChange={onChange} user={user} /> */}
 

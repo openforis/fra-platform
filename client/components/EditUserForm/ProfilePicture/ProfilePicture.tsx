@@ -13,7 +13,7 @@ const ProfilePicture = (props: Props) => {
   const { userId, onChange } = props
 
   const profilePicture = useRef(null)
-  const profilePictureFile = useRef(null)
+  const profilePictureFile = useRef<HTMLInputElement>(null)
 
   const [valid, setValid] = useState(true)
 
