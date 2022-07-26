@@ -23,6 +23,6 @@ export const UserApi = {
     express.post(ApiEndPoint.User.invite(), AuthMiddleware.requireInviteUser, invite)
     express.delete(ApiEndPoint.User.removeInvitation(), AuthMiddleware.requireInviteUser, removeInvitation)
     express.get(ApiEndPoint.User.sendInvitationEmail(), AuthMiddleware.requireInviteUser, sendInvitationEmail)
-    express.put(ApiEndPoint.User.one(), multer().none(), updateUser)
+    express.put(ApiEndPoint.User.one(), multer().single('profilePicture'), updateUser)
   },
 }

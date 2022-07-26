@@ -25,4 +25,5 @@ export const UserController = {
   sendInvitationEmail,
   createResetPassword,
   changePassword,
+  updateProfilePicture: UserRepository.updateProfilePicture,
 }

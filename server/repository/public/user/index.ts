@@ -5,6 +5,7 @@ import { getProfilePicture } from './getProfilePicture'
 import { readCountryUsersByRole } from './readCountryUsersByRole'
 import { remove } from './remove'
 import { update } from './update'
+import { updateProfilePicture } from './updateProfilePicture'
 
 export const UserRepository = {
   create,
@@ -14,4 +15,5 @@ export const UserRepository = {
   getProfilePicture,
   remove,
   readCountryUsersByRole,
+  updateProfilePicture,
 }
