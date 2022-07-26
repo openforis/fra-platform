@@ -1,3 +1,4 @@
+import './CycleSwitcher.scss'
 import React, { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -32,9 +33,11 @@ const CycleSwitcher = () => {
   if (!canSwitchCycle) return <span>{cycleCurrent.name}</span>
 
   return (
-    <select onChange={onSelectChange}>
+    <select className="cycle-switcher" onChange={onSelectChange} value={cycleCurrent.name}>
       {assessment.cycles.map((cycle) => (
-        <option key={cycle.uuid}>{cycle.name}</option>
+        <option key={cycle.uuid} value={cycle.name}>
+          {cycle.name}
+        </option>
       ))}
     </select>
   )

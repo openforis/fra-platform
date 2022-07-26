@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { AssessmentName } from '@meta/assessment'
-import { Sockets } from '@meta/socket/sockets'
+import { Sockets } from '@meta/socket'
 
 import { useAppDispatch } from '@client/store'
 import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
@@ -45,7 +45,7 @@ const SectionWrapper: React.FC<Props> = (props) => {
     return () => {
       dispatch(AssessmentSectionActions.reset())
     }
-  }, [countryIso, assessmentName, cycleName, section])
+  }, [assessmentName, countryIso, cycleName, dispatch, section])
 
   // fetch section review status
   useEffect(() => {
@@ -70,7 +70,7 @@ const SectionWrapper: React.FC<Props> = (props) => {
         SocketClient.off(requestReviewStatusEvent, updateReviewStatus)
       }
     }
-  }, [countryIso, assessmentName, cycleName, section, user])
+  }, [countryIso, assessmentName, cycleName, section, user, dispatch])
 
   return (
     <>

@@ -6,20 +6,21 @@ import { NodeUpdate, TableData, TableDatas } from '@meta/data'
 import { Authorizer } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
-import { useAssessmentSection, useCountry } from '@client/store/assessment'
+import { useAssessmentSection, useCountry, useCycle } from '@client/store/assessment'
 import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import { useIsDataLocked } from '@client/store/ui/dataLock'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 
+import useClassName from './hooks/useClassName'
+import { useListenNodeUpdate } from './hooks/useListenNodeUpdate'
+import useOnChange from './hooks/useOnChange'
 import Calculated from './Calculated'
 import Number from './Number'
 import Placeholder from './Placeholder'
 import { PropsCell } from './props'
 import Select from './Select'
 import Text from './Text'
-import useClassName from './useClassName'
-import useOnChange from './useOnChange'
 
 const Components: Record<string, React.FC<PropsCell>> = {
   [ColType.calculated]: Calculated,
@@ -50,8 +51,10 @@ const Cell: React.FC<Props> = (props) => {
   const country = useCountry(countryIso)
   const user = useUser()
   const section = useAssessmentSection()
+  const cycle = useCycle()
   const dataLocked = useIsDataLocked()
 
+  const cycleName = cycle.name
   const tableName = table.props.name
   const { variableName } = row.props
   const { colName } = col.props
@@ -62,6 +65,8 @@ const Cell: React.FC<Props> = (props) => {
 
   const className = useClassName({ col, row, tableName, valid })
   const { onChange, onPaste } = useOnChange({ table, col, row, nodeValue, data })
+  useListenNodeUpdate({ countryIso, assessmentName, cycleName, tableName, variableName, colName })
+
   const Component = Components[col.props.colType]
 
   const showError = useCallback(() => {
