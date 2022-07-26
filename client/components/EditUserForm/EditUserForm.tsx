@@ -1,13 +1,17 @@
 import './EditUserForm.scss'
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 
-// import { validate } from '@common/userUtils'
+import { validate } from '@common/userUtils'
+
 import { User, UserStatus } from '@meta/user'
 
+import { useAppDispatch } from '@client/store'
+import { useAssessment, useCycle } from '@client/store/assessment'
 import { UserManagementActions } from '@client/store/userManagement'
+import { useCountryIso } from '@client/hooks'
+import { useToaster } from '@client/hooks/useToaster'
 
-// import { useCountryIso } from '@client/hooks'
 import Buttons from './Buttons'
 // import { persistUser } from '../../actions'
 // import CountryRoles from './components/CountryRoles'
@@ -15,14 +19,23 @@ import ProfilePicture from './ProfilePicture'
 import TextInputFields from './TextInputFields'
 
 const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
-  const dispatch = useDispatch()
-
-  // const countryIso = useCountryIso()
+  const dispatch = useAppDispatch()
+  const { i18n } = useTranslation()
+  const { toaster } = useToaster()
+  const countryIso = useCountryIso()
+  const assessment = useAssessment()
+  const cycle = useCycle()
 
   if (!user) return null
 
   const onSave = () => {
-    // if (validate(user).valid) dispatch(persistUser(countryIso, user))
+    if (validate(user).valid) {
+      dispatch(UserManagementActions.updateUser({ user })).then(() => {
+        UserManagementActions.getUsers({ countryIso, assessmentName: assessment.props.name, cycleName: cycle.name })
+        dispatch(UserManagementActions.setUserToEdit(null))
+        toaster.success(i18n.t('userManagement.userAdded', { email: user.email }))
+      })
+    }
   }
 
   const onChange = (value: string, key: string) => {
