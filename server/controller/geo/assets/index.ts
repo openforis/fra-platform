@@ -1,8 +1,8 @@
 import { getCountryBoundaries } from './getCountryBoundaries'
-import { getForestAgrAssetData, getForestAssetData } from './getForestAssetData'
+import { getForestAgreementAssetData, getForestAssetData } from './getForestAssetData'
 
 export const AssetsController = {
   getCountryBoundaries,
   getForestAssetData,
-  getForestAgrAssetData,
+  getForestAgreementAssetData,
 }

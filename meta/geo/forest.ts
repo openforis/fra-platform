@@ -18,7 +18,7 @@ export type Layer = {
   citation?: string
 }
 
-export const precalForestAgrSources: Array<ForestSource> = [
+export const precalForestAgreementSources: Array<ForestSource> = [
   ForestSource.JAXA,
   ForestSource.TandemX,
   ForestSource.GlobeLand,
@@ -26,15 +26,7 @@ export const precalForestAgrSources: Array<ForestSource> = [
   ForestSource.Copernicus,
   ForestSource.ESRI,
   ForestSource.ESAWorldCover,
-  ForestSource.Hansen, // precal with tree cover 10,20,30%
-]
-
-export const precalForestLossAgrSources: Array<ForestSource> = [
-  ForestSource.JAXA,
-  ForestSource.GlobeLand,
-  ForestSource.ESAWorldCover,
-  ForestSource.Hansen,
-  ForestSource.MODIS, //  precal with tree cover 10,20,30,40,50%
+  ForestSource.Hansen, // precal with tree cover gte 10,20,30%
 ]
 
 export const sourcesMetadata = {
@@ -85,7 +77,7 @@ export const sourcesMetadata = {
   },
 }
 
-export const agrPalette = [
+export const agreementPalette = [
   '#baecba', // light shade of green
   '#FF0000', // red
   '#FF8000', // shade of brown
