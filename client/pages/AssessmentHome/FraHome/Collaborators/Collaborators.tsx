@@ -25,13 +25,14 @@ const Collaborators: React.FC = () => {
 
   useEffect(() => {
     dispatch(UserManagementActions.setUserToEdit(null))
-  }, [])
+  }, [dispatch])
 
   useEffect(() => {
-    dispatch(
-      UserManagementActions.getUsers({ countryIso, assessmentName: assessment.props.name, cycleName: cycle.name })
-    )
-  }, [countryIso])
+    if (user)
+      dispatch(
+        UserManagementActions.getUsers({ countryIso, assessmentName: assessment.props.name, cycleName: cycle.name })
+      )
+  }, [countryIso, cycle, assessment, user, dispatch])
 
   return userToEdit ? (
     <EditUserForm user={userToEdit} />
