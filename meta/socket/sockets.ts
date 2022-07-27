@@ -36,10 +36,23 @@ const getTopicStatusEvent = (props: { assessment: Assessment; cycle: Cycle; topi
   return `${topic.countryIso}-${assessment.props.name}-${cycle.name}-${topic.key}-status`
 }
 
+const getNodeUpdateEvent = (props: {
+  countryIso: CountryIso
+  assessmentName: AssessmentName
+  cycleName: string
+  tableName: string
+  variableName: string
+  colName: string
+}): string => {
+  const { countryIso, assessmentName, cycleName, tableName, variableName, colName } = props
+  return `${countryIso}-${assessmentName}-${cycleName}-${tableName}-${variableName}-${colName}-nodeUpdate`
+}
+
 export const Sockets = {
   getRequestReviewSummaryEvent,
   getRequestReviewStatusEvent,
   getTopicMessageAddEvent,
   getTopicMessageDeleteEvent,
   getTopicStatusEvent,
+  getNodeUpdateEvent,
 }

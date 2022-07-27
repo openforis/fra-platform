@@ -4,7 +4,7 @@ import { Navigate, Route, Routes, useParams } from 'react-router-dom'
 
 import { Areas } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
-import { Sockets } from '@meta/socket/sockets'
+import { Sockets } from '@meta/socket'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment } from '@client/store/assessment'
@@ -54,7 +54,7 @@ const Assessment: React.FC = () => {
         SocketClient.off(requestReviewSummaryEvent, updateReviewSummaryEventHandler)
       }
     }
-  }, [countryIso, assessmentName, cycleName, user])
+  }, [countryIso, assessmentName, cycleName, user, dispatch])
 
   // reset review and assessment sectionstore
   useOnUpdate(() => {

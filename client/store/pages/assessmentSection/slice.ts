@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 
 import { CountryIso } from '@meta/area'
-import { NodeUpdate, TableDatas } from '@meta/data'
+import { NodeUpdate, TableData, TableDatas } from '@meta/data'
 
 import { getOriginalDataPointData } from './actions/getOriginalDataPointData'
 import { getTableData } from './actions/getTableData'
@@ -29,6 +29,13 @@ export const assessmentSectionSlice = createSlice({
     },
     toggleShowOriginalDataPoint: (state) => {
       state.showOriginalDataPoint = !state.showOriginalDataPoint
+    },
+    setNodeValue: (state, { payload }: PayloadAction<{ countryIso: CountryIso; nodeUpdate: NodeUpdate }>) => {
+      const { countryIso, nodeUpdate } = payload
+      const { tableName, variableName, colName, value } = nodeUpdate
+      const data = (state.data ?? {}) as TableData
+      const dataUpdate = TableDatas.updateDatum({ data, countryIso, tableName, variableName, colName, value })
+      state.data = { ...data, ...dataUpdate }
     },
     setNodeValueValidation: (state, { payload }: PayloadAction<{ nodeUpdate: NodeUpdate }>) => {
       const { nodeUpdate } = payload

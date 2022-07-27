@@ -3,7 +3,7 @@ import { Request, Response } from 'express'
 import { CountryIso } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
 import { MessageTopicStatus } from '@meta/messageCenter'
-import { Sockets } from '@meta/socket/sockets'
+import { Sockets } from '@meta/socket'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { MessageCenterController } from '@server/controller/messageCenter'

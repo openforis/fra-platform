@@ -1,7 +1,7 @@
 import { CountryIso } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
 import { MessageTopic, MessageTopicType } from '@meta/messageCenter'
-import { Sockets } from '@meta/socket/sockets'
+import { Sockets } from '@meta/socket'
 
 import { SocketServer } from '@server/service/socket'
 
