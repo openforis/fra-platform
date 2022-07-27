@@ -12,8 +12,9 @@ export const getForestLayer = async (req: Request, res: Response) => {
       countryIso: CountryIso
       forestSource: ForestSource
     }
+    const gteHansenTreeCoverPerc = Number(req.params.gteHansenTreeCoverPerc)
 
-    const layer = await GeoController.getForestLayer({ countryIso, forestSource })
+    const layer = await GeoController.getForestLayer({ countryIso, forestSource, gteHansenTreeCoverPerc })
 
     Requests.sendOk(res, layer)
   } catch (e) {

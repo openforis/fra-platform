@@ -14,9 +14,13 @@ type Props = {
 export const getForestAgreementLayer = async (props: Props): Promise<Layer> => {
   const { countryIso, gteHansenTreeCoverPerc, gteAgreementLevel } = props
 
-  if (gteHansenTreeCoverPerc < 0 || gteHansenTreeCoverPerc > 100)
+  if (Number.isNaN(gteHansenTreeCoverPerc) || gteHansenTreeCoverPerc < 0 || gteHansenTreeCoverPerc > 100)
     throw Error(`Not valid Hansen tree cover percentage 0-100: ${gteHansenTreeCoverPerc}`)
-  if (gteAgreementLevel < 1 || gteAgreementLevel > precalForestAgreementSources.length)
+  if (
+    Number.isNaN(gteAgreementLevel) ||
+    gteAgreementLevel < 1 ||
+    gteAgreementLevel > precalForestAgreementSources.length
+  )
     throw Error(`Not valid forest agreement level 1-${precalForestAgreementSources.length}: ${gteAgreementLevel}`)
 
   await authenticateToGee()

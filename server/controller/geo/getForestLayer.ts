@@ -8,7 +8,7 @@ import { authenticateToGee } from './authenticateToGee'
 type Props = {
   countryIso: CountryIso
   forestSource: ForestSource
-  gteHansenTreeCoverPerc?: 10 | 20 | 30
+  gteHansenTreeCoverPerc?: number
 }
 
 export const getForestLayer = async (props: Props): Promise<Layer> => {
