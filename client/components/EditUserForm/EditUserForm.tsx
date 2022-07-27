@@ -33,9 +33,11 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
   const onSave = () => {
     if (validate(user).valid) {
       dispatch(UserManagementActions.updateUser({ user, profilePicture })).then(() => {
-        UserManagementActions.getUsers({ countryIso, assessmentName: assessment.props.name, cycleName: cycle.name })
+        dispatch(
+          UserManagementActions.getUsers({ countryIso, assessmentName: assessment.props.name, cycleName: cycle.name })
+        )
         dispatch(UserManagementActions.setUserToEdit(null))
-        toaster.success(i18n.t('userManagement.userAdded', { email: user.email }))
+        toaster.success(i18n.t('userManagement.userModified', { email: user.email }))
       })
     }
   }
