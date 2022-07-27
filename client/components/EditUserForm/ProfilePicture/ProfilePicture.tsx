@@ -1,11 +1,13 @@
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import classNames from 'classnames'
+
 import { UserUtils } from '@meta/user'
 
 type Props = {
-  onChange: (profilePictureFile: any) => void
-  userId: any
+  onChange: (profilePictureFile: File) => void
+  userId: number
 }
 
 const ProfilePicture = (props: Props) => {
@@ -16,9 +18,6 @@ const ProfilePicture = (props: Props) => {
   const profilePictureFile = useRef<HTMLInputElement>(null)
 
   const [valid, setValid] = useState(true)
-
-  let className = 'edit-user__form-item-picture'
-  if (!valid) className += ' error'
 
   const _onChange = () => {
     const currentFile = profilePictureFile?.current?.files[0]
@@ -35,14 +34,10 @@ const ProfilePicture = (props: Props) => {
     reader.readAsDataURL(currentFile)
   }
 
-  const _onClick = () => {
-    const currentProfilePictureFile = profilePictureFile?.current
-    currentProfilePictureFile?.click()
-    currentProfilePictureFile?.dispatchEvent(new MouseEvent('click'))
-  }
+  const _onClick = () => profilePictureFile?.current?.click()
 
   return (
-    <div className={className}>
+    <div className={classNames('edit-user__form-item-picture', { error: !valid })}>
       <div className="edit-user__form-label" />
       <div className="edit-user__form-field validation-error-sensitive-field">
         <input ref={profilePictureFile} type="file" accept="image/*" style={{ display: 'none' }} onChange={_onChange} />
