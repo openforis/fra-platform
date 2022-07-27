@@ -1,4 +1,4 @@
-import { RouteComponentProps } from 'react-router-dom'
+import { NavigateFunction } from 'react-router-dom'
 
 import { ApiEndPoint } from '@common/api/endpoint'
 import { createAsyncThunk } from '@reduxjs/toolkit'
@@ -7,7 +7,7 @@ import axios from 'axios'
 import { CountryIso } from '@meta/area'
 import { AssessmentName, ODPs, OriginalDataPoint } from '@meta/assessment'
 
-import { BasePaths } from '@client/basePaths'
+import { ClientRoutes } from '@client/clientRoutes'
 
 export const createOriginalDataPoint = createAsyncThunk<
   OriginalDataPoint,
@@ -15,9 +15,9 @@ export const createOriginalDataPoint = createAsyncThunk<
     countryIso: CountryIso
     assessmentName: AssessmentName
     cycleName: string
-    history: RouteComponentProps['history']
+    navigate: NavigateFunction
   }
->('originalDataPoint/create', async ({ assessmentName, cycleName, countryIso, history }) => {
+>('originalDataPoint/create', async ({ assessmentName, cycleName, countryIso, navigate }) => {
   const originalDataPoint = { countryIso } as OriginalDataPoint
   const { data } = await axios.post(
     ApiEndPoint.Assessment.OriginalDataPoint.one(countryIso, assessmentName, cycleName),
@@ -26,9 +26,15 @@ export const createOriginalDataPoint = createAsyncThunk<
     }
   )
   if (data?.id) {
-    history.push(
+    navigate(
       // After creating a new OriginalDataPoint, year is null, use -1 (handled in view)
-      BasePaths.Assessment.OriginalDataPoint.section(countryIso, assessmentName, cycleName, '-1', 'extentOfForest')
+      ClientRoutes.Assessment.OriginalDataPoint.Section.getLink({
+        countryIso,
+        assessmentName,
+        cycleName,
+        year: '-1',
+        section: 'extentOfForest',
+      })
     )
   }
   return ODPs.addNationalClassPlaceHolder(data)

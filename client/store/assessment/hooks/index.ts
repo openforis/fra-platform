@@ -40,7 +40,7 @@ export const useCountries = (): Array<Country> => {
   return Object.values(countries).sort((c1, c2) => compareListName(c1.countryIso, c2.countryIso))
 }
 
-export const useCountry = (countryIso?: CountryIso): Country =>
+export const useCountry = (countryIso: CountryIso): Country =>
   useAppSelector((state) => state.assessment.countries[countryIso])
 
 export const useAssessmentCountry = (): Country => {

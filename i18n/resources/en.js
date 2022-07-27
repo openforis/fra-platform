@@ -1,4 +1,6 @@
 const area = require('./en/area')
+const assessmentSection = require('./en/assessmentSection')
+
 const common = require('./en/common')
 const contentCheck = require('./en/contentCheck')
 const dataDownload = require('./en/dataDownload')
@@ -14,6 +16,9 @@ module.exports.translation = {
   statisticalFactsheets,
   login,
   uc,
+  page: {
+    assessmentSection,
+  },
 
   language: {
     en: 'English',

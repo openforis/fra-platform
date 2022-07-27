@@ -1,9 +1,10 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 
 import { AssessmentName } from '@meta/assessment'
+
 import { useAppDispatch } from '@client/store'
 import { DataExportActions, DataExportSelection, useDataExportSelection } from '@client/store/pages/dataExport'
 import { DataExportActionType } from '@client/store/pages/dataExport/actionTypes'

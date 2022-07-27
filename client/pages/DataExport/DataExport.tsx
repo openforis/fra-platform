@@ -1,6 +1,6 @@
 import './DataExport.scss'
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 
 import { Objects } from '@core/utils'
 

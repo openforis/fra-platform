@@ -80,6 +80,15 @@ export const ApiEndPoint = {
   },
   Geo: {
     sepalProxy: () => apiPath('geo', 'sepal'),
+    Layers: {
+      getForest: (countryIso = ':countryIso', forestSource = ':forestSource') =>
+        apiPath('geo', 'layers', 'forest', countryIso, forestSource),
+      getForestAgreement: (
+        countryIso = ':countryIso',
+        gteHansenTreeCoverPerc = ':gteHansenTreeCoverPerc',
+        gteAgreementLevel = ':gteAgreementLevel'
+      ) => apiPath('geo', 'layers', 'forestAgreement', countryIso, gteHansenTreeCoverPerc, gteAgreementLevel),
+    },
   },
   Init: {
     one: () => apiPath('init'),

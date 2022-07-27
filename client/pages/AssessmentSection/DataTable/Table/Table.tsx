@@ -8,11 +8,12 @@ import { TableData } from '@meta/data'
 import { useAssessmentCountry, useCycle } from '@client/store/assessment'
 import { useOriginalDataPointYears, useShowOriginalDatapoints } from '@client/store/pages/assessmentSection/hooks'
 import { useCountryIso } from '@client/hooks'
-import { BasePaths } from '@client/basePaths'
+import { ClientRoutes } from '@client/clientRoutes'
 import ButtonTableExport from '@client/components/ButtonTableExport'
 import Tooltip from '@client/components/Tooltip'
 import * as DataTableUtils from '@client/pages/AssessmentSection/DataTable/utils'
 
+import DataValidations from './DataValidations'
 import { parseTable } from './parseTable'
 import Row from './Row'
 
@@ -75,13 +76,13 @@ const Table: React.FC<Props> = (props) => {
                         <Tooltip text={i18n.t('nationalDataPoint.clickOnNDP')}>
                           <Link
                             className="link"
-                            to={BasePaths.Assessment.OriginalDataPoint.section(
+                            to={ClientRoutes.Assessment.OriginalDataPoint.Section.getLink({
                               countryIso,
                               assessmentName,
-                              cycle.name,
-                              columnName,
-                              table.props.name
-                            )}
+                              cycleName: cycle.name,
+                              year: columnName,
+                              section: table.props.name,
+                            })}
                           >
                             {columnName}
                           </Link>
@@ -126,6 +127,8 @@ const Table: React.FC<Props> = (props) => {
             })}
           </tbody>
         </table>
+
+        <DataValidations table={table} />
       </div>
     </div>
   )

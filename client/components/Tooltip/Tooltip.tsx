@@ -1,5 +1,4 @@
 import './Tooltip.scss'
-
 import React from 'react'
 
 type Props = {
@@ -8,7 +7,7 @@ type Props = {
   error?: boolean
 }
 
-function Tooltip(props: Props) {
+const Tooltip: React.FC<Props> = (props) => {
   const { text, children, error } = props
 
   return (

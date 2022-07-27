@@ -1,8 +1,15 @@
-import React from 'react'
+import './Cell.scss'
+import React, { useCallback } from 'react'
 
-import { AssessmentName, Col, ColType, Row, Table } from '@meta/assessment'
-import { TableData, TableDatas } from '@meta/data'
+import { AssessmentName, Col, ColType, NodeValueValidations, Row, Table } from '@meta/assessment'
+import { NodeUpdate, TableData, TableDatas } from '@meta/data'
+import { Authorizer } from '@meta/user'
 
+import { useAppDispatch } from '@client/store'
+import { useAssessmentSection, useCountry } from '@client/store/assessment'
+import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
+import { useIsDataLocked } from '@client/store/ui/dataLock'
+import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 
 import Calculated from './Calculated'
@@ -14,7 +21,7 @@ import Text from './Text'
 import useClassName from './useClassName'
 import useOnChange from './useOnChange'
 
-const ComponentsByName: Record<string, React.FC<PropsCell>> = {
+const Components: Record<string, React.FC<PropsCell>> = {
   [ColType.calculated]: Calculated,
   [ColType.text]: Text,
   [ColType.textarea]: Text,
@@ -37,38 +44,50 @@ type Props = {
 
 const Cell: React.FC<Props> = (props) => {
   const { data, assessmentName, sectionName, table, disabled, rowIndex, col, row } = props
+
+  const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
-  const params = {
-    data,
-    countryIso,
-    tableName: table.props.name,
-    variableName: row.props.variableName,
-    colName: col.props.colName,
-  }
+  const country = useCountry(countryIso)
+  const user = useUser()
+  const section = useAssessmentSection()
+  const dataLocked = useIsDataLocked()
+
+  const tableName = table.props.name
+  const { variableName } = row.props
+  const { colName } = col.props
+  const params = { data, countryIso, tableName, variableName, colName }
   const datum = TableDatas.getDatum(params)
   const nodeValue = TableDatas.getNodeValue(params)
-  const className = useClassName(col, row)
+  const valid = !Authorizer.canEdit({ countryIso, country, section, user }) || NodeValueValidations.isValid(nodeValue)
 
-  const propsOnChange = { table, col, row, nodeValue, data }
+  const className = useClassName({ col, row, tableName, valid })
+  const { onChange, onPaste } = useOnChange({ table, col, row, nodeValue, data })
+  const Component = Components[col.props.colType]
 
-  const { onChange, onPaste } = useOnChange(propsOnChange)
-  const Component = ComponentsByName[col.props.colType]
+  const showError = useCallback(() => {
+    if (!valid && dataLocked) {
+      const nodeUpdate: NodeUpdate = { tableName, variableName, colName, value: nodeValue }
+      dispatch(AssessmentSectionActions.setNodeValueValidation({ nodeUpdate }))
+    }
+  }, [colName, dataLocked, dispatch, nodeValue, tableName, valid, variableName])
+
+  if (!Component) return null
 
   return (
-    <td className={className}>
-      {Component &&
-        React.createElement(Component, {
-          datum,
-          assessmentName,
-          sectionName,
-          table,
-          disabled: disabled || nodeValue?.odp,
-          col,
-          rowIndex,
-          onChange,
-          row,
-          onPaste: disabled ? () => ({}) : onPaste,
-        })}
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+    <td className={className} onClick={showError} onKeyDown={showError}>
+      <Component
+        assessmentName={assessmentName}
+        sectionName={sectionName}
+        table={table}
+        disabled={disabled || nodeValue?.odp}
+        rowIndex={rowIndex}
+        col={col}
+        row={row}
+        datum={datum}
+        onChange={onChange}
+        onPaste={onPaste}
+      />
     </td>
   )
 }

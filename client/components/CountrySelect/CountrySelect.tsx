@@ -111,7 +111,7 @@ const CountrySelect: React.FC = () => {
 
           {!countryIso && !open && (
             <>
-              <div className="country-select__select-laptop">- {i18n.t('common.select')} -</div>
+              <div className="country-select__select-laptop">{`- ${i18n.t('common.select')} -`}</div>
               <div className="country-select__select-mobile">{i18n.t<string>('common.selectArea')}</div>
             </>
           )}

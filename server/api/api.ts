@@ -7,6 +7,7 @@ import { FileApi } from '@server/api/file'
 import { InitApi } from '@server/api/init'
 import { MessageCenterApi } from '@server/api/messageCenter'
 import { UserApi } from '@server/api/user'
+import { GeoApi } from '@server/api/geo'
 
 /**
  * API Controller
@@ -22,5 +23,6 @@ export const Api = {
     FileApi.init(express)
     UserApi.init(express)
     MessageCenterApi.init(express)
+    GeoApi.init(express)
   },
 }

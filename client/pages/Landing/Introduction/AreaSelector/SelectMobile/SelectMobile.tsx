@@ -1,11 +1,12 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 
+import { AssessmentName } from '@meta/assessment'
+
+import { BasePaths } from '@client/basePaths'
 import Icon from '@client/components/Icon'
 
-import { useTranslation } from 'react-i18next'
-import { BasePaths } from '@client/basePaths'
-import { AssessmentName } from '@meta/assessment'
 import { areas } from '../AreaSelector'
 
 type Props = {
@@ -17,7 +18,7 @@ type Props = {
 const SelectMobile: React.FC<Props> = (props) => {
   const { area, areaISOs, assessmentType } = props
 
-  const history = useHistory()
+  const navigate = useNavigate()
   const { i18n } = useTranslation()
 
   return (
@@ -25,7 +26,7 @@ const SelectMobile: React.FC<Props> = (props) => {
       <select
         className="btn-country-select"
         onChange={(event) => {
-          history.push(BasePaths.Assessment.root(event.target.value, assessmentType))
+          navigate(BasePaths.Assessment.root(event.target.value, assessmentType))
         }}
       >
         <option>- {i18n.t('common.select')}</option>

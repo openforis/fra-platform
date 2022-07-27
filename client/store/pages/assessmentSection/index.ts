@@ -1,3 +1,9 @@
-export type { AssessmentSectionState } from './stateType'
+export {
+  useNodeValueValidation,
+  useOriginalDataPointYears,
+  useShowOriginalDatapoints,
+  useTableData,
+  useTableSections,
+} from './hooks'
 export { AssessmentSectionActions } from './slice'
-export { useTableSections, useTableData, useShowOriginalDatapoints, useOriginalDataPointYears } from './hooks'
+export type { AssessmentSectionState } from './stateType'

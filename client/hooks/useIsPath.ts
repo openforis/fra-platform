@@ -1,17 +1,17 @@
-import { matchPath, useLocation } from 'react-router'
+import { matchPath, useLocation } from 'react-router-dom'
 
-import { BasePaths } from '@client/basePaths'
+import { ClientRoutes } from '@client/clientRoutes'
 
-const useIsPath = ({ path, exact = true }: any) => {
+const useIsPath = ({ path, exact = true }: { path: string; exact?: boolean }): boolean => {
   const { pathname } = useLocation()
-  return Boolean(matchPath(pathname, { path, exact }))
+  return Boolean(matchPath({ path, end: exact }, pathname))
 }
 
-export const useIsHome = () => useIsPath({ path: BasePaths.Root() })
+export const useIsHome = () => useIsPath({ path: '/' })
 
 export const useIsAssessment = () =>
-  useIsPath({ path: [BasePaths.Assessment.root(), BasePaths.Assessment.section()], exact: false })
+  useIsPath({ path: `${ClientRoutes.Assessment.Root.path.absolute}/*`, exact: false })
 
-export const useIsAdmin = () => useIsPath({ path: BasePaths.Admin.root(), exact: false })
+export const useIsAdmin = () => useIsPath({ path: `${ClientRoutes.Admin.Root.path.absolute}/*`, exact: false })
 
-export const useIsLogin = () => useIsPath({ path: [BasePaths.Login.root(), BasePaths.Login.resetPassword()] })
+export const useIsLogin = () => useIsPath({ path: `${ClientRoutes.Login.Root.path.absolute}/*`, exact: false })
