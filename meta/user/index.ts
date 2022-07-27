@@ -15,4 +15,3 @@ export type {
 } from './userRole'
 export { RoleName } from './userRole'
 export { Users } from './users'
-export { UserUtils } from './userUtils'

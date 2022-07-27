@@ -1,14 +1,14 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Users, UserUtils } from '@meta/user'
+import { User, Users } from '@meta/user'
 
 import { useUser } from '@client/store/user'
 import TextInput from '@client/components/TextInput'
 
 const textInputFields = [
-  { key: 'name', onlyAdmin: true, validator: UserUtils.validName },
-  { key: 'email', validator: UserUtils.validEmail },
+  { key: 'name', onlyAdmin: true, validator: Users.validName },
+  { key: 'email', validator: Users.validEmail },
   { key: 'loginEmail', disabled: true, type: 'google' },
   { key: 'institution' },
   { key: 'position' },
@@ -16,7 +16,7 @@ const textInputFields = [
 
 type Props = {
   onChange: (value: string, key: string) => void
-  user: any
+  user: User
 }
 
 const TextInputFields = (props: Props) => {
@@ -27,10 +27,12 @@ const TextInputFields = (props: Props) => {
   return (
     <>
       {textInputFields.map((inputField) => {
-        const allowed = !inputField.type || inputField.type === user.type
+        // TODO
+        // const allowed = !inputField.type || inputField.type === user.type
+        const allowed = !inputField.type
         if (!allowed) return null
 
-        const value = user?.[inputField.key]
+        const value = user?.[inputField.key as keyof User]
         const valid = inputField.validator?.({ [inputField.key]: value }) ?? true
 
         const disabled = inputField.disabled || (inputField.onlyAdmin && !Users.isAdministrator(userInfo))
@@ -44,7 +46,7 @@ const TextInputFields = (props: Props) => {
             <div className={className}>
               <TextInput
                 value={value}
-                onChange={({ target: { value } }: any) => onChange(value, inputField.key)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value, inputField.key)}
                 disabled={disabled}
               />
             </div>

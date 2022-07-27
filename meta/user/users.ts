@@ -1,3 +1,6 @@
+import { ApiEndPoint } from '@common/api/endpoint'
+import { Objects } from '@core/utils'
+
 import { CountryIso } from '@meta/area'
 
 import type { User } from './user'
@@ -44,6 +47,21 @@ const getRolesAllowedToEdit = (props: { user: User; countryIso: CountryIso }): A
 
 const getI18nRoleLabelKey = (role: RoleName): string => `user.roles.${role}`
 
+export const profilePictureUri = (userId: number) => ApiEndPoint.User.getProfilePicture(String(userId))
+
+// max 1Mb
+export const validProfilePicture = (file: File) => !file || file.size <= 1000000
+
+// validation methods
+export const validName = (user: Partial<User>) => !Objects.isEmpty(user.name)
+export const validRole = (user: Partial<User>) => !Objects.isEmpty(user.roles)
+
+export const validEmail = (user: Partial<User>) => {
+  // const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  const re = /.+@.+/
+  return re.test(user.email)
+}
+
 export const Users = {
   getCountryRole,
 
@@ -56,4 +74,10 @@ export const Users = {
 
   getRolesAllowedToEdit,
   getI18nRoleLabelKey,
+
+  profilePictureUri,
+  validProfilePicture,
+  validName,
+  validRole,
+  validEmail,
 }

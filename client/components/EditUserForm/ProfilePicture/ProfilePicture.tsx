@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { UserUtils } from '@meta/user'
+import { Users } from '@meta/user'
 
 type Props = {
   onChange: (profilePictureFile: File) => void
@@ -23,7 +23,7 @@ const ProfilePicture = (props: Props) => {
     const currentFile = profilePictureFile?.current?.files[0]
     const pictureRef = profilePicture?.current
 
-    setValid(UserUtils.validProfilePicture({ profilePicture: currentFile }))
+    setValid(Users.validProfilePicture(currentFile))
     onChange(currentFile)
 
     // preview image
@@ -41,7 +41,7 @@ const ProfilePicture = (props: Props) => {
       <div className="edit-user__form-label" />
       <div className="edit-user__form-field validation-error-sensitive-field">
         <input ref={profilePictureFile} type="file" accept="image/*" style={{ display: 'none' }} onChange={_onChange} />
-        <img alt="" ref={profilePicture} src={UserUtils.profilePictureUri(userId)} className="edit-user__picture-img" />
+        <img alt="" ref={profilePicture} src={Users.profilePictureUri(userId)} className="edit-user__picture-img" />
         <button className="btn btn-primary btn-xs" onClick={_onClick} type="button">
           {i18n.t<string>('editUser.chooseProfilePicture')}
         </button>
