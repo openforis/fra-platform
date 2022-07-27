@@ -5,11 +5,11 @@ import { BaseProtocol, DB } from '@server/db'
 import { getOne } from './getOne'
 
 export const update = async (
-  props: { user: User; file: Express.Multer.File | null },
+  props: { user: User; profilePicture: Express.Multer.File | null },
   client: BaseProtocol = DB
 ): Promise<User> => {
   const {
-    file,
+    profilePicture,
     user: { institution, lang, name, status, position, email, id },
   } = props
 
@@ -28,9 +28,9 @@ export const update = async (
     [institution, lang, name, status, position, email, id]
   )
 
-  if (file) {
+  if (profilePicture) {
     const {
-      file: { filename, buffer },
+      profilePicture: { filename, buffer },
     } = props
 
     await client.query(
