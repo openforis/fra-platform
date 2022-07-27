@@ -127,7 +127,7 @@ const requireResolveTopic = async (req: Request, _res: Response, next: NextFunct
   _next(Users.isAdministrator(user) || Users.isReviewer(user, countryIso as CountryIso), next)
 }
 
-const requireInviteUser = async (req: Request, _res: Response, next: NextFunction) => {
+const requireEditUser = async (req: Request, _res: Response, next: NextFunction) => {
   const { countryIso } = <Record<string, string>>{ ...req.params, ...req.query }
   const user = Requests.getRequestUser(req)
   _next(Users.getRolesAllowedToEdit({ user, countryIso: countryIso as CountryIso }).length > 0, next)
@@ -155,6 +155,6 @@ export const AuthMiddleware = {
   requireDeleteTopicMessage,
   requireResolveTopic,
   requireEditMessageTopic,
-  requireInviteUser,
+  requireEditUser,
   requireViewUsers,
 }
