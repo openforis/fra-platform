@@ -102,13 +102,12 @@ export const ApiEndPoint = {
   },
 
   User: {
-    one: () => apiPath('user'),
-    invite: () => apiPath('user', 'invite'),
-    getByInvitation: (uuid = ':uuid') => apiPath('user', 'invitation', uuid),
-    acceptInvitation: (uuid = ':uuid') => apiPath('user', 'invitation', 'accept', uuid),
-    removeInvitation: (uuid = ':uuid') => apiPath('user', 'invitation', 'remove', uuid),
-    sendInvitationEmail: (uuid = ':uuid') => apiPath('user', 'invitation', 'sendEmail', uuid),
-    getProfilePicture: (id = ':id') => apiPath('user', 'profilePicture', id),
+    invite: () => apiPath('users', 'invite'),
+    getByInvitation: (uuid = ':uuid') => apiPath('users', 'invitation', uuid),
+    acceptInvitation: (uuid = ':uuid') => apiPath('users', 'invitation', 'accept', uuid),
+    removeInvitation: (uuid = ':uuid') => apiPath('users', 'invitation', 'remove', uuid),
+    sendInvitationEmail: (uuid = ':uuid') => apiPath('users', 'invitation', 'sendEmail', uuid),
+    getProfilePicture: (id = ':id') => apiPath('users', 'profilePicture', id),
     many: () => apiPath('users'),
   },
 }
