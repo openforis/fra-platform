@@ -7,7 +7,7 @@ import { Objects } from '@core/utils'
 import classNames from 'classnames'
 
 import { Message as MessageType, MessageTopic, MessageTopicStatus, MessageTopicType } from '@meta/messageCenter'
-import { Sockets } from '@meta/socket/sockets'
+import { Sockets } from '@meta/socket'
 import { Users } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
@@ -51,7 +51,7 @@ const Topic: React.FC<TopicProps> = (props) => {
         section,
       })
     )
-  }, [countryIso, assessment, cycle, topic, dispatch])
+  }, [assessment.props.name, countryIso, cycle.name, dispatch, section, topic.key])
 
   const postMessage = useCallback(() => {
     dispatch(

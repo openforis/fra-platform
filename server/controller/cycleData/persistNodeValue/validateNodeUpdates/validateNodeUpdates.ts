@@ -1,5 +1,5 @@
-import { Row, VariableCache } from '@meta/assessment'
-import { NodeUpdates } from '@meta/data'
+import { NodeValue, Row, VariableCache } from '@meta/assessment'
+import { NodeUpdate, NodeUpdates } from '@meta/data'
 
 import { BaseProtocol } from '@server/db'
 import { RowRepository } from '@server/repository/assessment/row'
@@ -11,18 +11,19 @@ type Props = {
   nodeUpdates: NodeUpdates
 }
 
-type QueueItem = VariableCache & { colName: string }
+type QueueItem = Omit<NodeUpdate, 'value'> & { value?: NodeValue }
 
-export const validateNodeUpdates = async (props: Props, client: BaseProtocol): Promise<void> => {
+export const validateNodeUpdates = async (props: Props, client: BaseProtocol): Promise<NodeUpdates> => {
   const { nodeUpdates } = props
-
   const { assessment, cycle, countryIso, nodes } = nodeUpdates
-  const queue = nodes.map<QueueItem>(({ tableName, variableName, colName }) => ({ tableName, variableName, colName }))
+
+  const queue: Array<QueueItem> = [...nodes]
   const visitedVariables: Array<VariableCache> = []
+  const nodeUpdatesResult: NodeUpdates = { assessment, cycle, countryIso, nodes: [] }
 
   while (queue.length !== 0) {
-    const variableCache = queue.shift()
-    const { variableName, tableName, colName } = variableCache
+    const queueItem = queue.shift()
+    const { variableName, tableName, colName, value: nodeValue } = queueItem
     // console.log('==== validating ', countryIso, tableName, variableName, colName)
     const visited = visitedVariables.find((v) => v.tableName === tableName && v.variableName === variableName)
     // if (visited) {
@@ -34,6 +35,7 @@ export const validateNodeUpdates = async (props: Props, client: BaseProtocol): P
     // }
 
     if (!visited) {
+      let value: NodeValue = nodeValue
       // eslint-disable-next-line no-await-in-loop
       const row: Row = await RowRepository.getOne({ assessment, tableName, variableName, includeCols: true }, client)
       if (row.props.validateFns) {
@@ -41,22 +43,15 @@ export const validateNodeUpdates = async (props: Props, client: BaseProtocol): P
         if (row.cols.find((c) => c.props.colName === colName)) {
           // eslint-disable-next-line no-await-in-loop
           const validation = await validateNode(
-            {
-              assessment,
-              cycle,
-              countryIso,
-              tableName,
-              variableName,
-              colName,
-              row,
-            },
+            { assessment, cycle, countryIso, tableName, variableName, colName, row },
             client
           )
           // eslint-disable-next-line no-await-in-loop
-          await NodeRepository.updateValidation(
+          const node = await NodeRepository.updateValidation(
             { assessment, cycle, tableName, variableName, countryIso, colName, validation },
             client
           )
+          value = node.value
         }
       }
 
@@ -64,8 +59,10 @@ export const validateNodeUpdates = async (props: Props, client: BaseProtocol): P
         ({ tableName, variableName }) => ({ tableName, variableName, colName })
       )
       queue.push(...dependants)
-
-      visitedVariables.push(variableCache)
+      visitedVariables.push(queueItem)
+      nodeUpdatesResult.nodes.push({ tableName, variableName, colName, value })
     }
   }
+
+  return nodeUpdatesResult
 }
