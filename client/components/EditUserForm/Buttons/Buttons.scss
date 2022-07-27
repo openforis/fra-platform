@@ -1,0 +1,12 @@
+.edit-user__form-item-buttons {
+  margin-top: 20px;
+  height: auto;
+}
+
+.edit-user__form-field-buttons {
+  border: none;
+  .btn {
+    min-width: 80px;
+    margin: 0 6px;
+  }
+}

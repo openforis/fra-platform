@@ -1,3 +1,4 @@
+import './Buttons.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -25,9 +26,9 @@ const Buttons = (props: Props) => {
   return (
     <>
       {showDeactivate && (
-        <div className="edit-user__form-item-buttons">
+        <div className="edit-user__form-item edit-user__form-item-buttons">
           <div className="edit-user__form-label" />
-          <div className="edit-user__form-field-buttons">
+          <div className="edit-user__form-field edit-user__form-field-buttons">
             <button type="button" className="btn btn-secondary" onClick={onDeactivate}>
               {userActive ? i18n.t<string>('editUser.deactivate') : i18n.t<string>('editUser.activate')}
             </button>
@@ -35,9 +36,9 @@ const Buttons = (props: Props) => {
         </div>
       )}
 
-      <div className="edit-user__form-item-buttons">
+      <div className="edit-user__form-item edit-user__form-item-buttons">
         <div className="edit-user__form-label" />
-        <div className="edit-user__form-field-buttons">
+        <div className="edit-user__form-field edit-user__form-field-buttons">
           <button type="button" className="btn btn-secondary" onClick={onCancel}>
             {i18n.t<string>('editUser.cancel')}
           </button>
