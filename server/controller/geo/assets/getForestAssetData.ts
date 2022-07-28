@@ -5,7 +5,7 @@ import { ForestSource, precalForestAgreementSources } from '@meta/geo'
 
 export const getForestAssetData = (
   forestSource: ForestSource,
-  gteHansenTreeCoverPerc: number
+  gteHansenTreeCoverPerc?: number
 ): { year: number; img: Image } => {
   switch (forestSource) {
     case ForestSource.JAXA: {
@@ -75,6 +75,9 @@ export const getForestAssetData = (
     }
 
     case ForestSource.Hansen: {
+      if (Number.isNaN(gteHansenTreeCoverPerc) || gteHansenTreeCoverPerc < 0 || gteHansenTreeCoverPerc > 100)
+        throw Error(`Not valid Hansen tree cover percentage 0-100: ${gteHansenTreeCoverPerc}`)
+
       const imcHansen = Image('UMD/hansen/global_forest_change_2021_v1_9')
       const hforest2000 = imcHansen.select('treecover2000')
       const lossyear = imcHansen.select('lossyear')
