@@ -16,7 +16,7 @@ export const updateUser = createAsyncThunk<void, Params>('usermanagement/post/up
   formData.append('profilePicture', profilePicture)
   formData.append('user', JSON.stringify(user))
 
-  await axios.put(ApiEndPoint.User.one(), formData, {
+  await axios.put(ApiEndPoint.User.many(), formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
