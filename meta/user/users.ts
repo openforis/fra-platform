@@ -62,6 +62,19 @@ export const validEmail = (user: Partial<User>) => {
   return re.test(user.email)
 }
 
+export const validateFields = (user: User) => ({
+  name: validName(user),
+  email: validEmail(user),
+})
+
+export const validate = (user: User) => {
+  const fields = validateFields(user)
+  return {
+    ...fields,
+    isError: Object.values(fields).includes(false),
+  }
+}
+
 export const Users = {
   getCountryRole,
 
@@ -80,4 +93,6 @@ export const Users = {
   validName,
   validRole,
   validEmail,
+  validateFields,
+  validate,
 }

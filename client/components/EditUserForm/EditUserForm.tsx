@@ -1,10 +1,8 @@
 import './EditUserForm.scss'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { validate } from '@common/userUtils'
-
-import { User, UserStatus } from '@meta/user'
+import { User, Users, UserStatus } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
@@ -13,7 +11,6 @@ import { useCountryIso } from '@client/hooks'
 import { useToaster } from '@client/hooks/useToaster'
 
 import Buttons from './Buttons'
-// import { persistUser } from '../../actions'
 // import CountryRoles from './components/CountryRoles'
 import ProfilePicture from './ProfilePicture'
 import TextInputFields from './TextInputFields'
@@ -28,10 +25,8 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
 
   const [profilePicture, setProfilePicture] = useState<File>(null)
 
-  if (!user) return null
-
-  const onSave = () => {
-    if (validate(user).valid) {
+  const saveUser = useCallback(() => {
+    if (!Users.validate(user).isError) {
       dispatch(UserManagementActions.updateUser({ user, profilePicture })).then(() => {
         dispatch(
           UserManagementActions.getUsers({ countryIso, assessmentName: assessment.props.name, cycleName: cycle.name })
@@ -40,36 +35,43 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
         toaster.success(i18n.t('userManagement.userModified', { email: user.email }))
       })
     }
-  }
+  }, [assessment.props.name, countryIso, cycle.name, dispatch, i18n, profilePicture, toaster, user])
 
-  const onChange = (value: string, key: string) => {
+  const changeUser = useCallback(
+    (value: string, key: string) => {
+      dispatch(
+        UserManagementActions.setUserToEdit({
+          ...user,
+          [key]: value,
+        })
+      )
+    },
+    [dispatch, user]
+  )
+
+  const deactivateUser = useCallback(() => {
     dispatch(
       UserManagementActions.setUserToEdit({
         ...user,
-        [key]: value,
+        status: user.status === UserStatus.active ? UserStatus.inactive : UserStatus.active,
       })
     )
-  }
+  }, [dispatch, user])
+
+  if (!user) return null
 
   return (
     <div className="edit-user__form-container">
       <ProfilePicture userId={user.id} onChange={(profilePicture: File) => setProfilePicture(profilePicture)} />
-      <TextInputFields user={user} onChange={onChange} />
+      <TextInputFields user={user} onChange={changeUser} />
       {/* <CountryRoles onChange={onChange} user={user} /> */}
 
       <Buttons
         user={user}
         userActive={user.status === UserStatus.active}
-        onDeactivate={() =>
-          dispatch(
-            UserManagementActions.setUserToEdit({
-              ...user,
-              status: user.status === UserStatus.active ? UserStatus.inactive : UserStatus.active,
-            })
-          )
-        }
+        onDeactivate={deactivateUser}
         onCancel={() => dispatch(UserManagementActions.setUserToEdit(null))}
-        onSave={onSave}
+        onSave={saveUser}
       />
     </div>
   )
