@@ -25,8 +25,8 @@ const FraHome: React.FC = () => {
   const assessment = useAssessment()
   const cycle = useCycle()
   const user = useUser()
-
   const sections = useSections()
+
   // tabs are available when user is logged-in and selected area is country
   const displayTabs = sections.length > 1 && Areas.isISOCountry(countryIso)
 
@@ -36,7 +36,7 @@ const FraHome: React.FC = () => {
         UserManagementActions.getUsers({ countryIso, assessmentName: assessment.props.name, cycleName: cycle.name })
       )
     }
-  }, [countryIso, cycle, assessment, user])
+  }, [countryIso, cycle, assessment, user, dispatch])
 
   return (
     <>

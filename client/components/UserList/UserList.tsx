@@ -59,7 +59,7 @@ const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail
       <UserRoleColumn user={user} />
       {showEmail && <UserColumn user={user} field="email" />}
       <td className="user-list__cell user-list__edit-column">
-        {!user.roles[0].acceptedAt && (
+        {!user.roles[0].acceptedAt ? (
           <>
             <button
               key={0}
@@ -82,6 +82,15 @@ const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail
               <Icon name="trash-simple" />
             </button>
           </>
+        ) : (
+          <button
+            key={1}
+            className="btn-s btn-link"
+            onClick={() => dispatch(UserManagementActions.setUserToEdit(user))}
+            type="button"
+          >
+            {i18n.t<string>('userManagement.edit')}
+          </button>
         )}
         {showInvitationInfo ? <UserInvitationInfo user={user} onClose={() => setShowInvitationInfo(false)} /> : null}
       </td>

@@ -6,7 +6,7 @@ import { User } from '@meta/user'
 
 import { BaseProtocol, DB } from '@server/db'
 
-const fields: Array<string> = ['lang', 'id', 'name', 'status', 'position', 'email']
+const fields: Array<string> = ['lang', 'id', 'name', 'status', 'position', 'email', 'institution']
 
 const selectFields = fields.map((f) => `u.${f}`).join(',')
 
