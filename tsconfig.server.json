@@ -19,6 +19,6 @@
       "@server/*": ["server/*"]
     },
     "target": "es2020",
-    "lib": ["es2020", "esnext"]
+    "lib": ["es2020", "esnext", "dom"]
   }
 }

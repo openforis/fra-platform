@@ -10,6 +10,9 @@ import { getProfilePicture } from './getProfilePicture'
 import { invite } from './invite'
 import { removeInvitation } from './removeInvitation'
 import { sendInvitationEmail } from './sendInvitationEmail'
+import { updateUser } from './updateUser'
+
+import multer = require('multer')
 
 export const UserApi = {
   init: (express: Express): void => {
@@ -17,8 +20,9 @@ export const UserApi = {
     express.get(ApiEndPoint.User.acceptInvitation(), getAcceptInvitation)
     express.get(ApiEndPoint.User.getProfilePicture(), getProfilePicture)
     express.get(ApiEndPoint.User.many(), AuthMiddleware.requireViewUsers, getMany)
-    express.post(ApiEndPoint.User.invite(), AuthMiddleware.requireInviteUser, invite)
-    express.delete(ApiEndPoint.User.removeInvitation(), AuthMiddleware.requireInviteUser, removeInvitation)
-    express.get(ApiEndPoint.User.sendInvitationEmail(), AuthMiddleware.requireInviteUser, sendInvitationEmail)
+    express.post(ApiEndPoint.User.invite(), AuthMiddleware.requireEditUser, invite)
+    express.delete(ApiEndPoint.User.removeInvitation(), AuthMiddleware.requireEditUser, removeInvitation)
+    express.get(ApiEndPoint.User.sendInvitationEmail(), AuthMiddleware.requireEditUser, sendInvitationEmail)
+    express.put(ApiEndPoint.User.many(), AuthMiddleware.requireEditUser, multer().single('profilePicture'), updateUser)
   },
 }

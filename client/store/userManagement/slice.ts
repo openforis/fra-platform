@@ -1,16 +1,21 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import { getUsers, inviteUser, removeInvitation, sendInvitationEmail } from './actions'
+import { getUsers, inviteUser, removeInvitation, sendInvitationEmail, updateUser } from './actions'
 import { UserManagementState } from './stateType'
 
 const initialState: UserManagementState = {
+  userToEdit: null,
   users: [],
 }
 
 export const userManagementSlice = createSlice({
   name: 'userManagement',
   initialState,
-  reducers: {},
+  reducers: {
+    setUserToEdit: (state, { payload }) => {
+      state.userToEdit = payload
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getUsers.fulfilled, (state, { payload }) => {
       state.users = payload
@@ -33,6 +38,7 @@ export const UserManagementActions = {
   inviteUser,
   removeInvitation,
   sendInvitationEmail,
+  updateUser,
 }
 
 export default userManagementSlice.reducer as Reducer<UserManagementState>

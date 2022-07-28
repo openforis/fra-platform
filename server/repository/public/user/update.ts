@@ -1,10 +1,15 @@
 import { User } from '@meta/user'
+
 import { BaseProtocol, DB } from '@server/db'
 
 import { getOne } from './getOne'
 
-export const update = async (props: { user: User }, client: BaseProtocol = DB): Promise<User> => {
+export const update = async (
+  props: { user: User; profilePicture?: Express.Multer.File | null },
+  client: BaseProtocol = DB
+): Promise<User> => {
   const {
+    profilePicture,
     user: { institution, lang, name, status, position, email, id },
   } = props
 
@@ -22,6 +27,22 @@ export const update = async (props: { user: User }, client: BaseProtocol = DB): 
     `,
     [institution, lang, name, status, position, email, id]
   )
+
+  if (profilePicture) {
+    const {
+      profilePicture: { filename, buffer },
+    } = props
+
+    await client.query(
+      `
+        update users set
+            profile_picture_filename = $1,
+            profile_picture_file = $2
+        where id = $3
+    `,
+      [filename, buffer, id]
+    )
+  }
 
   return getOne({ email }, client)
 }
