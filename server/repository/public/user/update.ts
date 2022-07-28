@@ -5,7 +5,7 @@ import { BaseProtocol, DB } from '@server/db'
 import { getOne } from './getOne'
 
 export const update = async (
-  props: { user: User; profilePicture: Express.Multer.File | null },
+  props: { user: User; profilePicture?: Express.Multer.File | null },
   client: BaseProtocol = DB
 ): Promise<User> => {
   const {
