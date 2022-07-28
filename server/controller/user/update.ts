@@ -6,7 +6,7 @@ import { UserRepository } from '@server/repository/public/user'
 export const update = async (
   props: {
     user: User
-    profilePicture: Express.Multer.File | null
+    profilePicture?: Express.Multer.File | null
   },
   client: BaseProtocol = DB
 ): Promise<User> => {
