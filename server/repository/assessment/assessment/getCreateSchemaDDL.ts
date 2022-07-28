@@ -218,8 +218,23 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
           variable_name           varchar(256)                not null,
           col_name                varchar(256)                not null,
           value                   jsonb default '{}'::jsonb
-      )
-
+      );
+      
+      create table ${assessmentCycleSchemaName}.descriptions
+      (
+          id           bigserial
+              constraint descriptions_pk
+                  primary key,
+          country_iso  varchar(3)      not null
+              constraint table_name_country_country_iso_fk
+                  references country
+                  on update cascade on delete cascade,
+          section_name varchar(50)     not null,
+          name         varchar(50)     not null,
+          content      text default '' not null,
+          constraint table_name_pk_2
+              unique (country_iso, section_name, name)
+      );
   `
 }
 
