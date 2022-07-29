@@ -2,7 +2,7 @@ import './EditUserForm.scss'
 import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { User, Users, UserStatus } from '@meta/user'
+import { RoleName, User, UserRole, Users, UserStatus } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
@@ -11,7 +11,7 @@ import { useCountryIso } from '@client/hooks'
 import { useToaster } from '@client/hooks/useToaster'
 
 import Buttons from './Buttons'
-// import CountryRoles from './components/CountryRoles'
+import CountryRoles from './CountryRoles'
 import ProfilePicture from './ProfilePicture'
 import TextInputFields from './TextInputFields'
 
@@ -38,7 +38,7 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
   }, [assessment.props.name, countryIso, cycle.name, dispatch, i18n, profilePicture, toaster, user])
 
   const changeUser = useCallback(
-    (value: string, key: string) => {
+    (value: string | Array<Partial<UserRole<RoleName>>>, key: string) => {
       dispatch(
         UserManagementActions.setUserToEdit({
           ...user,
@@ -64,7 +64,7 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
     <div className="edit-user__form-container">
       <ProfilePicture userId={user.id} onChange={(profilePicture: File) => setProfilePicture(profilePicture)} />
       <TextInputFields user={user} onChange={changeUser} />
-      {/* <CountryRoles onChange={onChange} user={user} /> */}
+      <CountryRoles onChange={changeUser} user={user} />
 
       <Buttons
         user={user}
