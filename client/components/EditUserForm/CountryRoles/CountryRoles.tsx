@@ -1,14 +1,14 @@
 import './CountryRoles.scss'
-import React from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-// import { FRA } from '@core/assessment'
-// import CountrySelectModal from '@webapp/components/CountrySelectModal'
-// import { useCountries } from '@webapp/store/app'
-// import { useSecondaryGroupedRegions } from '@webapp/store/app/hooks'
+import { CountryIso, Region, RegionCode } from '@meta/area'
 import { RoleName, User, UserRole, Users } from '@meta/user'
 
+import { useCountries } from '@client/store/assessment'
+import { useAssessment, useCycle, useSecondaryRegion } from '@client/store/assessment/hooks'
 import { useUser } from '@client/store/user'
+import CountrySelectModal from '@client/components/CountrySelectModal'
 
 // properties used to render ui form fields
 const roles = [
@@ -18,30 +18,48 @@ const roles = [
   RoleName.COLLABORATOR,
 ]
 
+type ModalOptionsProps = {
+  open: boolean
+  initialSelection: Array<string>
+  unselectableCountries: Array<string>
+  role: RoleName | null
+}
+
 type Props = {
   onChange: (value: Array<Partial<UserRole<RoleName>>>, key: string) => void
   user: User
 }
+
 const CountryRole = (props: Props) => {
   const { user, onChange } = props
   const { i18n } = useTranslation()
   const userInfo = useUser()
-  //   const countries: any = useCountries()
-  //   const secondaryRegions = useSecondaryGroupedRegions()
-  //   const initialModalState: any = { open: false, initialSelection: [], unselectableCountries: [], role: '' }
-  //   const [modalOptions, setModalOptions]: any = useState(initialModalState)
+  const countries = useCountries()
+  const assessment = useAssessment()
+  const cycle = useCycle()
+  const secondaryRegions = useSecondaryRegion()
+  const initialModalState: ModalOptionsProps = {
+    open: false,
+    initialSelection: [],
+    unselectableCountries: [],
+    role: null,
+  }
+  const [modalOptions, setModalOptions] = useState<ModalOptionsProps>(initialModalState)
 
-  //   const _onClose = (selection: string[], role: string) => {
-  //     setModalOptions(initialModalState)
+  const _onClose = (selection: Array<string>, role: RoleName) => {
+    setModalOptions(initialModalState)
 
-  //     const arr = selection.map((countryIso) => ({
-  //       countryIso,
-  //       role,
-  //       assessment: FRA.type,
-  //     }))
+    const selectedRoles = selection.map(
+      (countryIso): Partial<UserRole<RoleName>> => ({
+        countryIso: countryIso as CountryIso,
+        role,
+        assessmentId: assessment.id,
+        cycleUuid: cycle.uuid,
+      })
+    )
 
-  //     onChange([...user.roles.filter(({ role: _role }: any) => _role !== role), ...arr], 'roles')
-  //   }
+    onChange([...user.roles.filter(({ role: _role }: UserRole<RoleName>) => _role !== role), ...selectedRoles], 'roles')
+  }
 
   const _toggleAdmin = () => {
     onChange(Users.isAdministrator(user) ? [] : [{ countryIso: null, role: RoleName.ADMINISTRATOR }], 'roles')
@@ -70,21 +88,21 @@ const CountryRole = (props: Props) => {
           const shouldShow = !Users.isAdministrator(user) && (Users.isAdministrator(userInfo) || hasCurrentRole)
           if (!shouldShow) return null
 
-          //   const unselectableCountries = userRoles
-          //     .filter(({ role: _role }: any) => _role !== role)
-          //     .map(({ countryIso }: any) => countryIso)
+          const unselectableCountries = userRoles
+            .filter(({ role: _role }) => _role !== role)
+            .map(({ countryIso }) => countryIso)
 
-          //   const initialSelection = userRoles
-          //     .filter(({ role: _role }: any) => _role === role)
-          //     .map(({ countryIso }: any) => countryIso)
+          const initialSelection = userRoles
+            .filter(({ role: _role }) => _role === role)
+            .map(({ countryIso }) => countryIso)
 
           const _onClick = () => {
-            //     setModalOptions({
-            //       open: true,
-            //       initialSelection,
-            //       unselectableCountries,
-            //       role,
-            //     })
+            setModalOptions({
+              open: true,
+              initialSelection,
+              unselectableCountries,
+              role,
+            })
           }
 
           return (
@@ -111,15 +129,15 @@ const CountryRole = (props: Props) => {
           )
         })}
       </div>
-      {/* <CountrySelectModal
+      <CountrySelectModal
         open={modalOptions.open}
         countries={countries}
-        excludedRegions={secondaryRegions.regions.map((r: any) => r.regionCode)}
-        headerLabel={i18nUserRole(i18n, modalOptions.role)}
+        excludedRegions={[RegionCode.FE, RegionCode.AT, ...secondaryRegions.regions.map((r: Region) => r.regionCode)]}
+        headerLabel={i18n.t(Users.getI18nRoleLabelKey(modalOptions.role as RoleName))}
         onClose={(selection) => _onClose(selection, modalOptions.role)}
         initialSelection={modalOptions.initialSelection}
         unselectableCountries={modalOptions.unselectableCountries}
-      /> */}
+      />
     </div>
   )
 }
