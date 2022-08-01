@@ -28,7 +28,7 @@ export const update = async (
     [institution, lang, name, status, position, email, id]
   )
 
-  client.query(`delete from users_role WHERE user_id = $1`, [id])
+  await client.query(`delete from users_role WHERE user_id = $1`, [id])
 
   const userRolePromises = roles.map((userRole: UserRole<RoleName>) =>
     client.query(
@@ -37,7 +37,7 @@ export const update = async (
     )
   )
 
-  Promise.all(userRolePromises)
+  await Promise.all(userRolePromises)
 
   if (profilePicture) {
     const {
