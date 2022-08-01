@@ -30,12 +30,14 @@ export const update = async (
 
   await client.query(`delete from users_role WHERE user_id = $1`, [id])
 
-  const userRolePromises = roles.map((userRole: UserRole<RoleName>) =>
-    client.query(
-      `insert into users_role (user_id, assessment_id, cycle_uuid, country_iso, role, accepted_at) values ($1, $2, $3, $4, $5, now())`,
-      [id, userRole.assessmentId, userRole.cycleUuid, userRole.countryIso, userRole.role]
+  const userRolePromises = roles
+    .filter((userRole) => !!userRole)
+    .map((userRole: UserRole<RoleName>) =>
+      client.query(
+        `insert into users_role (user_id, assessment_id, cycle_uuid, country_iso, role, accepted_at) values ($1, $2, $3, $4, $5, now())`,
+        [id, userRole.assessmentId, userRole.cycleUuid, userRole.countryIso, userRole.role]
+      )
     )
-  )
 
   await Promise.all(userRolePromises)
 
