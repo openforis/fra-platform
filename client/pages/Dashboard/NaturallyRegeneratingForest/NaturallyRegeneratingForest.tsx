@@ -61,30 +61,19 @@ const NaturallyRegeneratingForest = () => {
       display: false,
     },
     scales: {
-      xAxes: [
-        {
-          stacked: true,
-          scaleLabel: {},
+      x: {
+        scaleLabel: scaleLabel(i18n.t<string>('common.year')),
+      },
+
+      y: {
+        scaleLabel: scaleLabel(unit),
+        ticks: {
+          maxTicksLimit: 6,
+          beginAtZero: true,
         },
-      ],
-      yAxes: [
-        {
-          stacked: true,
-          scaleLabel: {},
-          ticks: {
-            maxTicksLimit: 6,
-            beginAtZero: true,
-            stepSize: 0.75,
-          },
-        },
-      ],
+      },
     },
   } as unknown as ChartOptions<'bar'>
-
-  // @ts-ignore
-  options.scales.xAxes[0].scaleLabel = scaleLabel(i18n.t<string>('common.year'))
-  // @ts-ignore
-  options.scales.yAxes[0].scaleLabel = scaleLabel(unit)
 
   return (
     <div className="row-l">
