@@ -1,4 +1,4 @@
-import { User } from '@meta/user'
+import { RoleName, User, UserRole } from '@meta/user'
 
 import { BaseProtocol, DB } from '@server/db'
 
@@ -10,7 +10,7 @@ export const update = async (
 ): Promise<User> => {
   const {
     profilePicture,
-    user: { institution, lang, name, status, position, email, id },
+    user: { institution, lang, name, status, position, email, id, roles },
   } = props
 
   await client.one<User>(
@@ -27,6 +27,17 @@ export const update = async (
     `,
     [institution, lang, name, status, position, email, id]
   )
+
+  client.query(`delete from users_role WHERE user_id = $1`, [id])
+
+  const userRolePromises = roles.map((userRole: UserRole<RoleName>) =>
+    client.query(
+      `insert into users_role (user_id, assessment_id, cycle_uuid, country_iso, role, accepted_at) values ($1, $2, $3, $4, $5, now())`,
+      [id, userRole.assessmentId, userRole.cycleUuid, userRole.countryIso, userRole.role]
+    )
+  )
+
+  Promise.all(userRolePromises)
 
   if (profilePicture) {
     const {
