@@ -1,6 +1,6 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import { getUsers, inviteUser, removeInvitation, sendInvitationEmail, updateUser } from './actions'
+import { getUsers, getUserToEdit, inviteUser, removeInvitation, sendInvitationEmail, updateUser } from './actions'
 import { UserManagementState } from './stateType'
 
 const initialState: UserManagementState = {
@@ -29,12 +29,17 @@ export const userManagementSlice = createSlice({
       const i = state.users.findIndex((u) => u.id === payload.userId)
       if (i !== -1) state.users.splice(i, 1)
     })
+
+    builder.addCase(getUserToEdit.fulfilled, (state, { payload }) => {
+      state.userToEdit = payload
+    })
   },
 })
 
 export const UserManagementActions = {
   ...userManagementSlice.actions,
   getUsers,
+  getUserToEdit,
   inviteUser,
   removeInvitation,
   sendInvitationEmail,
