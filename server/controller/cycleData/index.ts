@@ -1,8 +1,8 @@
 import { DataRepository } from '@server/repository/assessmentCycle/data'
-
-import { deleteNodeValues } from './deleteNodeValues'
+import { DescriptionRepository } from '@server/repository/assessmentCycle/descriptions'
 import { MessageTopicUserRepository } from '@server/repository/assessmentCycle/messageTopicUser'
 
+import { deleteNodeValues } from './deleteNodeValues'
 import { getReviewStatus } from './getReviewStatus'
 import { getTableData } from './getTableData'
 import { persistNodeValue } from './persistNodeValue'
@@ -16,4 +16,5 @@ export const CycleDataController = {
   getOriginalDataPointData: DataRepository.getOriginalDataPointData,
   deleteNodeValues,
   getReviewSummary: MessageTopicUserRepository.getReviewSummary,
+  getCommentableDescription: DescriptionRepository.getOneOrNone,
 }
