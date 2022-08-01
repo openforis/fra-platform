@@ -52,28 +52,20 @@ const ForestArea = () => {
       display: false,
     },
     scales: {
-      xAxes: [
-        {
-          stacked: true,
+      x: {
+        stacked: true,
+        scaleLabel: scaleLabel(i18n.t<string>('common.year')),
+      },
+      y: {
+        scaleLabel: scaleLabel(unit),
+        stacked: true,
+        ticks: {
+          maxTicksLimit: 6,
+          beginAtZero: true,
         },
-      ],
-      yAxes: [
-        {
-          stacked: true,
-          ticks: {
-            maxTicksLimit: 6,
-            beginAtZero: true,
-            stepSize: 0.75,
-          },
-        },
-      ],
+      },
     },
   } as unknown as ChartOptions<'bar'>
-
-  // @ts-ignore
-  options.scales.xAxes[0].scaleLabel = scaleLabel(i18n.t<string>('common.year'))
-  // @ts-ignore
-  options.scales.yAxes[0].scaleLabel = scaleLabel(unit)
 
   return (
     <div className="row-m">
