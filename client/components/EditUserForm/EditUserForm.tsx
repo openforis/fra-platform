@@ -27,7 +27,15 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
 
   const saveUser = useCallback(() => {
     if (!Users.validate(user).isError) {
-      dispatch(UserManagementActions.updateUser({ user, profilePicture })).then(() => {
+      dispatch(
+        UserManagementActions.updateUser({
+          user,
+          profilePicture,
+          countryIso,
+          assessmentName: assessment.props.name,
+          cycleName: cycle.name,
+        })
+      ).then(() => {
         dispatch(
           UserManagementActions.getUsers({ countryIso, assessmentName: assessment.props.name, cycleName: cycle.name })
         )
