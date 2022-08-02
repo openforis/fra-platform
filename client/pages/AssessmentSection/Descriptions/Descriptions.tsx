@@ -1,10 +1,11 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { Descriptions as DescriptionsType } from '@meta/assessment'
-import { useTranslation } from 'react-i18next'
-import NationalDataDescriptions from './NationalDataDescriptions'
+
 import AnalysisDescriptions from './AnalysisDescriptions'
 import CommentableDescription from './CommentableDescription'
+import NationalDataDescriptions from './NationalDataDescriptions'
 
 type Props = {
   sectionName: string
@@ -14,11 +15,10 @@ type Props = {
 
 const Descriptions: React.FC<Props> = (props: Props) => {
   const { sectionName, descriptions, disabled } = props
-  const { introductoryText /* nationalData, */ /* analysisAndProcessing */ } = descriptions
-
+  const { introductoryText /* nationalData, analysisAndProcessing */ } = descriptions
   const i18n = useTranslation()
   const [printView, printOnlyTablesView] = [false, false] // TODO: usePrintView()
-  const [useNationalData, useAnalysisAndProcessing] = [false, false] // TODO useSelector((state) => {
+  const [useNationalData, useAnalysisAndProcessing] = [true, true] // TODO useSelector((state) => {
   // if (printOnlyTablesView) {
   //   return [false, false]
   // }

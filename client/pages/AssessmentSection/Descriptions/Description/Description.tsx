@@ -2,6 +2,9 @@ import './Description.scss'
 import React, { useState } from 'react'
 
 import { useUser } from '@client/store/user'
+import MarkdownEditor from '@client/components/MarkdownEditor'
+import MarkdownPreview from '@client/components/MarkdownPreview'
+
 import Title from './Title'
 import Toggle from './Toggle'
 import useDescription from './useDescription'
@@ -24,24 +27,27 @@ const Description: React.FC<Props> = (props) => {
   const { value, loading /* onChange */ } = useDescription(name, section, template)
   const [open, setOpen] = useState(false)
 
-  const error = user && showAlertEmptyContent && /* !value && */ !loading
-  // let __html = value || template
-  const __html = value
+  const onChange = console.log
+
+  const error = user && showAlertEmptyContent && !value && !loading
+  const markdown = value || template
   // if (printView) __html = __html?.split('<p>&nbsp;</p>').join('') // Hack to replace empty lines in print view
 
   return (
     <div className="fra-description__header-row">
       <Title error={error} title={title} />
       {!disabled && <Toggle setOpen={setOpen} open={open} />}
-      {open &&
-        {
-          /* `<RichTextEditor value={__html} name={name} onChange={onChange} />` */
-        }}
-      {!open /* && __html */ && <div className="fra-description__preview" dangerouslySetInnerHTML={{ __html }} />}
-      {!open &&
-        /*! __html && */
-
-        showDashEmptyContent && <div>-</div>}
+      {open && (
+        <div className="fra-description__preview">
+          <MarkdownEditor value={markdown} onChange={onChange} />
+        </div>
+      )}
+      {!open && markdown && (
+        <div className="fra-description__preview">
+          <MarkdownPreview value={markdown} />
+        </div>
+      )}
+      {!open && !markdown && showDashEmptyContent && <div>-</div>}
     </div>
   )
 }

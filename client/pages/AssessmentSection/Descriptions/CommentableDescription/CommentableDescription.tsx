@@ -2,6 +2,8 @@ import React from 'react'
 
 import { Objects } from '@core/utils'
 
+import ReviewIndicator from '@client/components/ReviewIndicator'
+
 import Description from '../Description'
 
 type Props = {
@@ -18,7 +20,6 @@ const CommentableDescription: React.FC<Props> = (props) => {
   const { disabled, title, section, name, template, showAlertEmptyContent, showDashEmptyContent } = props
 
   const openCommentThreadTarget = '' // TODO: useSelector(ReviewState.getOpenThreadTarget)
-  // const countryIso = useCountryIso()
 
   return (
     <div className="fra-description">
@@ -40,9 +41,7 @@ const CommentableDescription: React.FC<Props> = (props) => {
         />
       </div>
       <div className="fra-description__review-indicator-wrapper">
-        {!disabled && (
-          <pre>{`<ReviewIndicator section={section} title={title} target={[name]} countryIso={countryIso} />`}</pre>
-        )}
+        {!disabled && <ReviewIndicator title={title} topicKey={name} />}
       </div>
     </div>
   )
