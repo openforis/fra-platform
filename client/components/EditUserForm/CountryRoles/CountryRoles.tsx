@@ -30,7 +30,7 @@ type Props = {
   user: User
 }
 
-const CountryRole = (props: Props) => {
+const CountryRole: React.FC<Props> = (props) => {
   const { user, onChange } = props
   const { i18n } = useTranslation()
   const userInfo = useUser()
@@ -66,12 +66,12 @@ const CountryRole = (props: Props) => {
   }
 
   return (
-    <div className="edit-user__form-item-roles">
+    <div className="edit-user__form-item edit-user__form-item-roles">
       <div className="edit-user__form-label">{i18n.t<string>('editUser.role')}</div>
-      <div className={`edit-user__form-field-roles${Users.validRole(user) ? '' : ' error'}`}>
+      <div className={`edit-user__form-field edit-user__form-field-roles${Users.validRole(user) ? '' : ' error'}`}>
         {Users.isAdministrator(userInfo) && (
           <div
-            className="edit-user__form-field-role-admin edit-user__form-field-role-container validation-error-sensitive-field"
+            className="edit-user__form-field-role edit-user__form-field-role-admin edit-user__form-field-role-container validation-error-sensitive-field"
             onClick={_toggleAdmin}
             aria-hidden="true"
           >
@@ -116,7 +116,7 @@ const CountryRole = (props: Props) => {
                 )}
               </div>
 
-              <div className="edit-user__form-field-role-countries">
+              <div className="edit-user__form-field-role edit-user__form-field-role-countries">
                 {(user.roles || [])
                   .filter((userRole: UserRole<RoleName>) => userRole.role === role)
                   .map((userRole: UserRole<RoleName>) => (
