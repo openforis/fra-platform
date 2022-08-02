@@ -1,5 +1,5 @@
 import './CountryRoles.scss'
-import React, { useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { CountryIso, Region, RegionCode } from '@meta/area'
@@ -38,32 +38,40 @@ const CountryRole: React.FC<Props> = (props) => {
   const assessment = useAssessment()
   const cycle = useCycle()
   const secondaryRegions = useSecondaryRegion()
-  const initialModalState: ModalOptionsProps = {
-    open: false,
-    initialSelection: [],
-    unselectableCountries: [],
-    role: null,
-  }
+  const initialModalState = useMemo(() => {
+    return {
+      open: false,
+      initialSelection: [],
+      unselectableCountries: [],
+      role: null,
+    }
+  }, [])
   const [modalOptions, setModalOptions] = useState<ModalOptionsProps>(initialModalState)
 
-  const _onClose = (selection: Array<string>, role: RoleName) => {
-    setModalOptions(initialModalState)
+  const _onClose = useCallback(
+    (selection: Array<string>, role: RoleName) => {
+      setModalOptions(initialModalState)
 
-    const selectedRoles = selection.map(
-      (countryIso): Partial<UserRole<RoleName>> => ({
-        countryIso: countryIso as CountryIso,
-        role,
-        assessmentId: assessment.id,
-        cycleUuid: cycle.uuid,
-      })
-    )
+      const selectedRoles = selection.map(
+        (countryIso): Partial<UserRole<RoleName>> => ({
+          countryIso: countryIso as CountryIso,
+          role,
+          assessmentId: assessment.id,
+          cycleUuid: cycle.uuid,
+        })
+      )
 
-    onChange([...user.roles.filter(({ role: _role }: UserRole<RoleName>) => _role !== role), ...selectedRoles], 'roles')
-  }
+      onChange(
+        [...user.roles.filter(({ role: _role }: UserRole<RoleName>) => _role !== role), ...selectedRoles],
+        'roles'
+      )
+    },
+    [assessment.id, cycle.uuid, initialModalState, onChange, user.roles]
+  )
 
-  const _toggleAdmin = () => {
+  const _toggleAdmin = useCallback(() => {
     onChange(Users.isAdministrator(user) ? [] : [{ countryIso: null, role: RoleName.ADMINISTRATOR }], 'roles')
-  }
+  }, [onChange, user])
 
   return (
     <div className="edit-user__form-item edit-user__form-item-roles">
