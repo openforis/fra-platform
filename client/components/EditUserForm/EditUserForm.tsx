@@ -40,7 +40,7 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
           UserManagementActions.getUsers({ countryIso, assessmentName: assessment.props.name, cycleName: cycle.name })
         )
         dispatch(UserManagementActions.setUserToEdit(null))
-        toaster.success(i18n.t('userManagement.userModified', { email: user.email }))
+        toaster.success(i18n.t('userManagement.userModified', { user: user.name }))
       })
     }
   }, [assessment.props.name, countryIso, cycle.name, dispatch, i18n, profilePicture, toaster, user])

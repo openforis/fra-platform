@@ -514,7 +514,7 @@ The FRA team
     addUser: 'Add collaborator',
     formErrors: 'There are errors in the form. Please, fix them and submit it again.',
     userAdded: '{{email}} has been added',
-    userModified: '{{email}} has been modified',
+    userModified: '{{user}} has been modified',
     insufficientPrivileges: 'Insufficient privileges',
     confirmDelete: 'Remove {{user}}?',
     allUsers: 'All collaborators',
