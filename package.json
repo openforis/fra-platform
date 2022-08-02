@@ -143,7 +143,7 @@
     "ts-jest": "^27.1.4",
     "ts-migrate": "^0.1.28",
     "ts-node": "^10.7.0",
-    "ts-node-dev": "^1.1.8",
+    "ts-node-dev": "^2.0.0",
     "tscpaths": "^0.0.9",
     "typescript": "^4.6.3",
     "webpack": "^5.71.0",
