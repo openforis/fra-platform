@@ -9,11 +9,10 @@ import { invite } from './invite'
 import { readByInvitation } from './readByInvitation'
 import { remove } from './remove'
 import { sendInvitationEmail } from './sendInvitationEmail'
-import { update } from './update'
 
 export const UserController = {
   create,
-  update,
+  update: UserRepository.update,
   getMany: UserRepository.getMany,
   getOne: UserRepository.getOne,
   getProfilePicture: UserRepository.getProfilePicture,
