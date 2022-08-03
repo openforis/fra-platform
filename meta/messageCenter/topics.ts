@@ -18,7 +18,7 @@ const getCommentableDescriptionKey = (
   cycle: Cycle,
   sectionName: string,
   name: string
-): string => [countryIso, assessment.props.name, cycle.name, sectionName, name].join('_')
+): string => `commentable-description-${[countryIso, assessment.props.name, cycle.name, sectionName, name].join('_')}`
 
 export const Topics = {
   getDataReviewTopicKey,

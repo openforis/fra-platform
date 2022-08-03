@@ -1,5 +1,4 @@
 import { TableSection } from '@meta/assessment'
-import { CommentableDescription } from '@meta/assessment/commentableDescription'
 import { NodeUpdate, TableData } from '@meta/data'
 
 export type AssessmentSectionState = {
@@ -9,5 +8,5 @@ export type AssessmentSectionState = {
   showOriginalDataPoint?: boolean
   // tableName -> nodeUpdate
   nodeValueValidation: Record<string, NodeUpdate>
-  descriptions: Array<CommentableDescription>
+  descriptions: Record<string, Record<string, string>>
 }

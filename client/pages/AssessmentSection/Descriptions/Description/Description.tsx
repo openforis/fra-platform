@@ -1,13 +1,13 @@
 import './Description.scss'
 import React, { useState } from 'react'
 
+import useDescription from '@client/store/pages/assessmentSection/hooks/useDescription'
 import { useUser } from '@client/store/user'
 import MarkdownEditor from '@client/components/MarkdownEditor'
 import MarkdownPreview from '@client/components/MarkdownPreview'
 
 import Title from './Title'
 import Toggle from './Toggle'
-import useDescription from './useDescription'
 
 type Props = {
   disabled?: boolean

@@ -6,11 +6,20 @@ import { CountryIso } from '@meta/area'
 import { CommentableDescription } from '@meta/assessment/commentableDescription'
 
 export const getDescriptions = createAsyncThunk<
-  Array<CommentableDescription>,
+  Record<string, Record<string, string>>,
   { countryIso: CountryIso; assessmentName: string; cycleName: string; section: string }
 >('section/get/descriptions', async ({ countryIso, assessmentName, cycleName, section }) => {
   const { data } = await axios.get(ApiEndPoint.Assessment.Data.descriptions(), {
     params: { countryIso, assessmentName, cycleName, sectionName: section },
   })
-  return data
+
+  const res: Record<string, Record<string, string>> = {}
+
+  data.forEach((description: CommentableDescription) => {
+    const { sectionName, name, content } = description
+    if (!res[sectionName]) res[sectionName] = {}
+    res[sectionName][name] = content
+  })
+
+  return res
 })
