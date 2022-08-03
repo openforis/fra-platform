@@ -24,12 +24,12 @@ const Description: React.FC<Props> = (props) => {
 
   const user = useUser()
   // const [printView] = [false] // TODO: usePrintView()
-  const { value, loading /* onChange */ } = useDescription(name, section, template)
+  const value = useDescription(name, section, template)
   const [open, setOpen] = useState(false)
 
   const onChange = console.log
 
-  const error = user && showAlertEmptyContent && !value && !loading
+  const error = user && showAlertEmptyContent && !value
   const markdown = value || template
   // if (printView) __html = __html?.split('<p>&nbsp;</p>').join('') // Hack to replace empty lines in print view
 

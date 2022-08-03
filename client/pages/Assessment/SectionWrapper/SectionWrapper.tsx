@@ -42,6 +42,15 @@ const SectionWrapper: React.FC<Props> = (props) => {
         countryIso,
       })
     )
+    // fetch table sections descriptions
+    dispatch(
+      AssessmentSectionActions.getDescriptions({
+        assessmentName,
+        cycleName,
+        section,
+        countryIso,
+      })
+    )
     return () => {
       dispatch(AssessmentSectionActions.reset())
     }

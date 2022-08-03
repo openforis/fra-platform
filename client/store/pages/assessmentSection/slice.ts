@@ -3,6 +3,8 @@ import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 import { CountryIso } from '@meta/area'
 import { NodeUpdate, TableData, TableDatas } from '@meta/data'
 
+import { getDescriptions } from '@client/store/pages/assessmentSection/actions/getDescriptions'
+
 import { getOriginalDataPointData } from './actions/getOriginalDataPointData'
 import { getTableData } from './actions/getTableData'
 import { getTableSections } from './actions/getTableSections'
@@ -17,6 +19,7 @@ const initialState: AssessmentSectionState = {
   originalDataPointData: null,
   showOriginalDataPoint: true,
   nodeValueValidation: {},
+  descriptions: [],
 }
 
 export const assessmentSectionSlice = createSlice({
@@ -67,11 +70,16 @@ export const assessmentSectionSlice = createSlice({
         state.data = TableDatas.updateDatum({ colName, countryIso, tableName, data: state.data, variableName, value })
       })
     })
+
+    builder.addCase(getDescriptions.fulfilled, (state, { payload }) => {
+      state.descriptions = payload
+    })
   },
 })
 
 export const AssessmentSectionActions = {
   ...assessmentSectionSlice.actions,
+  getDescriptions,
   getTableSections,
   getTableData,
   getOriginalDataPointData,

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { useDispatch } from 'react-redux'
 
+import { useAppDispatch } from '@client/store'
 import { AssessmentActions, useAssessment, useAssessmentCountry, useCycle } from '@client/store/assessment'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
@@ -13,7 +13,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const user = useUser()
   const i18n = useTranslation()
