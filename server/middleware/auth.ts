@@ -128,7 +128,7 @@ const requireResolveTopic = async (req: Request, _res: Response, next: NextFunct
 }
 
 const requireEditUser = async (req: Request, _res: Response, next: NextFunction) => {
-  const { countryIso } = <Record<string, string>>{ ...req.params, ...req.query }
+  const { countryIso } = <Record<string, string>>{ ...req.params, ...req.query, ...req.body }
   const user = Requests.getRequestUser(req)
   _next(Users.getRolesAllowedToEdit({ user, countryIso: countryIso as CountryIso }).length > 0, next)
 }
