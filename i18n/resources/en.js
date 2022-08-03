@@ -1041,6 +1041,8 @@ The FRA team
     deactivate: 'Deactivate',
     activate: 'Activate',
     picture1MbMax: 'Profile picture cannot exceed 1MB',
+    activated: 'Activated',
+    status: 'Status',
   },
 
   country: {
