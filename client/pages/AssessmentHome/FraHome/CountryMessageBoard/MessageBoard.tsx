@@ -1,5 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+
+import { ApiEndPoint } from '@common/api/endpoint'
+import axios from 'axios'
 
 import { Areas } from '@meta/area'
 import { MessageTopicType, Topics } from '@meta/messageCenter'
@@ -19,7 +22,17 @@ const MessageBoard = () => {
   const i18n = useTranslation()
   const dispatch = useAppDispatch()
 
-  const countryMessageBoardUnreadMessages = 0
+  const [countryMessageBoardUnreadMessages, setCountryMessageBoardUnreadMessages] = useState<number>(0)
+
+  useEffect(() => {
+    const fetchCountryUnreadMessages = async () => {
+      const { data } = await axios.get(ApiEndPoint.MessageCenter.Stats.getCountryMessageBoardUnreadMessages(), {
+        params: { countryIso, assessmentName: assessment.props.name, cycleName: cycle.name },
+      })
+      setCountryMessageBoardUnreadMessages(data?.unreadMessages || 99)
+    }
+    fetchCountryUnreadMessages()
+  }, [assessment, countryIso, cycle])
 
   return (
     <div className="landing__users-container landing__message-board">

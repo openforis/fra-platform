@@ -106,6 +106,9 @@ export const ApiEndPoint = {
       getMessage: () => apiPath('topic', 'message'),
       resolveTopic: () => apiPath('topic', 'resolve'),
     },
+    Stats: {
+      getCountryMessageBoardUnreadMessages: () => apiPath('stats', 'getCountryMessageBoardUnreadMessages'),
+    },
   },
 
   User: {
