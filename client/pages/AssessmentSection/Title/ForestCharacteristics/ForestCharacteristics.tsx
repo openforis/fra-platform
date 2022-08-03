@@ -1,6 +1,6 @@
 import React from 'react'
-
 import { useTranslation } from 'react-i18next'
+
 import { Props } from '../props'
 
 const ForestCharacteristics: React.FC<Props> = (props) => {
@@ -12,7 +12,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
 
   return (
     <>
-      <h2 className="headline no-print">{i18n.t(`${sectionName}.${sectionName}`)}</h2>
+      <h2 className="headline no-print">{i18n.t<string>(`${sectionName}.${sectionName}`)}</h2>
 
       {/* {hasOdps && printView && !printOnlyTablesView && <OriginalDataPointsPrint section={sectionName} />} */}
     </>

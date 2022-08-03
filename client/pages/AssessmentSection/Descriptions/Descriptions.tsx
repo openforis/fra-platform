@@ -1,7 +1,11 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Objects } from '@core/utils'
+
 import { Descriptions as DescriptionsType } from '@meta/assessment'
+
+import { useAppSelector } from '@client/store'
 
 import AnalysisDescriptions from './AnalysisDescriptions'
 import CommentableDescription from './CommentableDescription'
@@ -15,18 +19,18 @@ type Props = {
 
 const Descriptions: React.FC<Props> = (props: Props) => {
   const { sectionName, descriptions, disabled } = props
-  const { introductoryText /* nationalData, analysisAndProcessing */ } = descriptions
+  const { introductoryText, nationalData, analysisAndProcessing } = descriptions
   const i18n = useTranslation()
   const [printView, printOnlyTablesView] = [false, false] // TODO: usePrintView()
-  const [useNationalData, useAnalysisAndProcessing] = [true, true] // TODO useSelector((state) => {
-  // if (printOnlyTablesView) {
-  //   return [false, false]
-  // }
-  // return [
-  //   Objects.isFunction(nationalData) ? nationalData(state) : nationalData,
-  //   Objects.isFunction(analysisAndProcessing) ? analysisAndProcessing(state) : analysisAndProcessing,
-  // ]
-  // })
+  const [useNationalData, useAnalysisAndProcessing] = useAppSelector((state) => {
+    if (printOnlyTablesView) {
+      return [false, false]
+    }
+    return [
+      Objects.isFunction(nationalData) ? nationalData(state) : nationalData,
+      Objects.isFunction(analysisAndProcessing) ? analysisAndProcessing(state) : analysisAndProcessing,
+    ]
+  })
 
   return (
     <>
@@ -51,9 +55,9 @@ const Descriptions: React.FC<Props> = (props: Props) => {
       {introductoryText && (
         <CommentableDescription
           section={sectionName}
-          title={i18n.t('contactPersons.introductoryText')}
+          title={i18n.t<string>('contactPersons.introductoryText')}
           name="introductoryText"
-          template={i18n.t('contactPersons.introductoryTextSupport')}
+          template={i18n.t<string>('contactPersons.introductoryTextSupport')}
           disabled={disabled}
         />
       )}
