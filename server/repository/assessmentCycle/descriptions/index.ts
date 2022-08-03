@@ -1,5 +1,5 @@
-import { getOneOrNone } from './getOneOrNone'
+import { getMany } from './getMany'
 
 export const DescriptionRepository = {
-  getOneOrNone,
+  getMany,
 }
