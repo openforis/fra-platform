@@ -7,8 +7,10 @@ import classNames from 'classnames'
 import { User, Users, UserStatus } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
+import { useAssessment, useCycle } from '@client/store/assessment'
 import { useUser } from '@client/store/user'
 import { UserManagementActions } from '@client/store/userManagement'
+import { useCountryIso } from '@client/hooks'
 import { useToaster } from '@client/hooks/useToaster'
 
 import Icon from '../Icon'
@@ -23,6 +25,7 @@ const UserColumn: React.FC<{ user: User; field: keyof User }> = ({ user, field }
 
 const UserRoleColumn: React.FC<{ user: User }> = ({ user }) => {
   const { i18n } = useTranslation()
+
   return (
     <td className="user-list__cell">
       <div className="user-list__cell--read-only">{i18n.t<string>(Users.getI18nRoleLabelKey(user.roles[0].role))}</div>
@@ -35,6 +38,9 @@ const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail
   const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
   const { toaster } = useToaster()
+  const countryIso = useCountryIso()
+  const assessment = useAssessment()
+  const cycle = useCycle()
   const currentUser = useUser()
 
   const removeInvitation = useCallback(() => {
@@ -46,7 +52,7 @@ const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail
       ).then(() => {
         toaster.success(i18n.t<string>('userManagement.invitationDeleted'))
       })
-  }, [dispatch, user])
+  }, [dispatch, i18n, toaster, user.name, user.roles])
 
   return (
     <tr
@@ -86,7 +92,16 @@ const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail
           <button
             key={1}
             className="btn-s btn-link"
-            onClick={() => dispatch(UserManagementActions.setUserToEdit(user))}
+            onClick={() =>
+              dispatch(
+                UserManagementActions.getUserToEdit({
+                  countryIso,
+                  assessmentName: assessment.props.name,
+                  cycleName: cycle.name,
+                  id: user.id,
+                })
+              )
+            }
             type="button"
           >
             {i18n.t<string>('userManagement.edit')}

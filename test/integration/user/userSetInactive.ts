@@ -1,6 +1,8 @@
-import { UserController } from '@server/controller/user'
-import { UserStatus } from '@meta/user'
 import { userMockTest } from '@test/integration/mock/user'
+
+import { UserStatus } from '@meta/user'
+
+import { UserController } from '@server/controller/user'
 
 export default () =>
   test('Expect user to be status === inactive', async () => {
@@ -9,7 +11,7 @@ export default () =>
     })
 
     const inactiveUser = await UserController.update({
-      user: {
+      userToUpdate: {
         ...user,
         status: UserStatus.inactive,
       },

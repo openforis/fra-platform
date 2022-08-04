@@ -514,7 +514,7 @@ The FRA team
     addUser: 'Add collaborator',
     formErrors: 'There are errors in the form. Please, fix them and submit it again.',
     userAdded: '{{email}} has been added',
-    userModified: '{{email}} has been modified',
+    userModified: '{{user}} has been modified',
     insufficientPrivileges: 'Insufficient privileges',
     confirmDelete: 'Remove {{user}}?',
     allUsers: 'All collaborators',
@@ -1041,6 +1041,8 @@ The FRA team
     deactivate: 'Deactivate',
     activate: 'Activate',
     picture1MbMax: 'Profile picture cannot exceed 1MB',
+    activated: 'Activated',
+    status: 'Status',
   },
 
   country: {

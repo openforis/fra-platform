@@ -116,5 +116,6 @@ export const ApiEndPoint = {
     sendInvitationEmail: (uuid = ':uuid') => apiPath('users', 'invitation', 'sendEmail', uuid),
     getProfilePicture: (id = ':id') => apiPath('users', 'profilePicture', id),
     many: () => apiPath('users'),
+    get: () => apiPath('user'),
   },
 }

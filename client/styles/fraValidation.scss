@@ -1,11 +1,11 @@
 // Validation
 
 @mixin mixin-validation-error(){
-  background-color: fade($ui-destructive, 10%) !important;
+  background-color: rgba($ui-destructive, 0.1) !important;
 }
 
 .validation-error {
-  background-color: fade($ui-destructive, 10%) !important;
+  background-color: rgba($ui-destructive, 0.1) !important;
 }
 
 .error {
