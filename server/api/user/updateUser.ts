@@ -1,7 +1,5 @@
 import { Request, Response } from 'express'
 
-import { Users } from '@meta/user'
-
 import { UserController } from '@server/controller/user'
 import { Requests } from '@server/utils'
 
@@ -12,9 +10,9 @@ export const updateUser = async (req: Request, res: Response) => {
     const user = Requests.getRequestUser(req)
 
     const updatedUser = await UserController.update({
-      user: userToUpdate,
+      userToUpdate,
       profilePicture,
-      isAdministrator: Users.isAdministrator(user),
+      user,
     })
 
     Requests.sendOk(res, updatedUser)
