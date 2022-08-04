@@ -8,7 +8,7 @@ export const update = async (
   props: {
     user: User
     profilePicture?: Express.Multer.File | null
-    isAdministrator: boolean
+    isAdministrator?: boolean
   },
   client: BaseProtocol = DB
 ): Promise<User> => {
