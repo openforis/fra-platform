@@ -1,6 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import classNames from 'classnames'
+
 import { User, Users } from '@meta/user'
 
 import { useUser } from '@client/store/user'
@@ -34,16 +36,12 @@ const TextInputFields = (props: Props) => {
 
         const value = user?.[inputField.key as keyof User]
         const valid = inputField.validator?.({ [inputField.key]: value }) ?? true
-
         const disabled = inputField.disabled || (inputField.onlyAdmin && !Users.isAdministrator(userInfo))
-        let className = 'edit-user__form-field'
-        if (disabled) className += '-disabled'
-        if (!valid) className += ' error'
 
         return (
           <div className="edit-user__form-item" key={inputField.key}>
             <div className="edit-user__form-label">{i18n.t<string>(`editUser.${inputField.key}`)}</div>
-            <div className={className}>
+            <div className={classNames(`edit-user__form-field${disabled ? '-disabled' : ''}`, { error: !valid })}>
               <TextInput
                 value={value}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value, inputField.key)}
