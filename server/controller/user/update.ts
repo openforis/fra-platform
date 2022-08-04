@@ -12,15 +12,15 @@ export const update = async (
   },
   client: BaseProtocol = DB
 ): Promise<User> => {
-  const { user, profilePicture } = props
+  const { userToUpdate, profilePicture, user } = props
 
   return client.tx(async (t) => {
     // TODO: Add activity log entry (public schema?)
 
     if (user && Users.isAdministrator(user)) {
-      UserRoleRepository.update({ user }, t)
+      UserRoleRepository.update({ user: userToUpdate }, t)
     }
 
-    return UserRepository.update({ user, profilePicture }, t)
+    return UserRepository.update({ user: userToUpdate, profilePicture }, t)
   })
 }
