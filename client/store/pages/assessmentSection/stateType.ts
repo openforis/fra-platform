@@ -8,5 +8,6 @@ export type AssessmentSectionState = {
   showOriginalDataPoint?: boolean
   // tableName -> nodeUpdate
   nodeValueValidation: Record<string, NodeUpdate>
+  // sectionName -> name -> content
   descriptions: Record<string, Record<string, string>>
 }

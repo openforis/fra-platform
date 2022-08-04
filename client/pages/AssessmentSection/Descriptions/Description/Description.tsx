@@ -24,7 +24,7 @@ const Description: React.FC<Props> = (props) => {
 
   const user = useUser()
   // const [printView] = [false] // TODO: usePrintView()
-  const value = useDescription(name, section, template)
+  const value = useDescription({ name, sectionName: section, template })
   const [open, setOpen] = useState(false)
 
   const onChange = console.log
