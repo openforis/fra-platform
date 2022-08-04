@@ -33,7 +33,7 @@ const AssessmentSection: React.FC = () => {
     <div className={`app-view__content assessment-section__${sectionName}`}>
       {showTitle && printView && (
         <h2 className="title only-print">
-          {`${printOnlyTablesView ? '' : `${anchor} `}${i18n.t(`${sectionName}.${sectionName}`)}`}
+          {`${printOnlyTablesView ? '' : `${anchor} `}${i18n.t<string>(`${sectionName}.${sectionName}`)}`}
         </h2>
       )}
 

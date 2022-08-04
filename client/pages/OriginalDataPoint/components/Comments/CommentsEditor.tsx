@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react'
-
-// import ckEditorConfig from '@webapp/components/ckEditor/ckEditorConfig'
-import { useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
+import React, { useEffect, useRef, useState } from 'react'
 // import { useAppDispatch } from '@client/store'
 import { useTranslation } from 'react-i18next'
+
+import { useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 
 type Props = {
   canEditData: boolean
@@ -18,6 +17,7 @@ const CommentsEditor: React.FC<Props> = (props) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const descriptionEditor = useRef(null)
 
+  // TODO: CKEditor removed from project, use MarkdownEditor or MarkdownPreview component
   // const initCkeditorChangeListener = () => {
   //   descriptionEditor.current.on('change', (event: any) => {
   //     const odpUpdate = { ...originalDataPoint, description: event.editor.getData() }

@@ -2,6 +2,12 @@ import React from 'react'
 
 import { Objects } from '@core/utils'
 
+import { Topics } from '@meta/messageCenter'
+
+import { useAssessment, useCycle } from '@client/store/assessment'
+import { useCountryIso } from '@client/hooks'
+import ReviewIndicator from '@client/components/ReviewIndicator'
+
 import Description from '../Description'
 
 type Props = {
@@ -16,9 +22,11 @@ type Props = {
 
 const CommentableDescription: React.FC<Props> = (props) => {
   const { disabled, title, section, name, template, showAlertEmptyContent, showDashEmptyContent } = props
+  const countryIso = useCountryIso()
+  const assessment = useAssessment()
+  const cycle = useCycle()
 
   const openCommentThreadTarget = '' // TODO: useSelector(ReviewState.getOpenThreadTarget)
-  // const countryIso = useCountryIso()
 
   return (
     <div className="fra-description">
@@ -41,7 +49,10 @@ const CommentableDescription: React.FC<Props> = (props) => {
       </div>
       <div className="fra-description__review-indicator-wrapper">
         {!disabled && (
-          <pre>{`<ReviewIndicator section={section} title={title} target={[name]} countryIso={countryIso} />`}</pre>
+          <ReviewIndicator
+            title={title}
+            topicKey={Topics.getCommentableDescriptionKey(countryIso, assessment, cycle, section, name)}
+          />
         )}
       </div>
     </div>

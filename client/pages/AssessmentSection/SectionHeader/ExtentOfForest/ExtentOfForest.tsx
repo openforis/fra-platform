@@ -44,7 +44,7 @@ const ExtentOfForest: React.FC<Props> = (props) => {
         style={{ marginRight: 16 }}
       >
         <Icon className="icon-sub icon-white" name="small-add" />
-        {i18n.t('nationalDataPoint.addNationalDataPoint')}
+        {i18n.t<string>('nationalDataPoint.addNationalDataPoint')}
       </button>
       <hr className="no-print" />
     </>

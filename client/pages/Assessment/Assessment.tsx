@@ -7,12 +7,12 @@ import { AssessmentName } from '@meta/assessment'
 import { Sockets } from '@meta/socket'
 
 import { useAppDispatch } from '@client/store'
-import { useAssessment } from '@client/store/assessment'
+import { AssessmentActions, useAssessment } from '@client/store/assessment'
 import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import { useNavigationVisible } from '@client/store/ui/navigation'
 import { ReviewActions } from '@client/store/ui/review'
 import { useUser } from '@client/store/user'
-import { useCountryIso, useOnUpdate } from '@client/hooks'
+import { useCountryIso } from '@client/hooks'
 import { ClientRoutes } from '@client/clientRoutes'
 import Navigation from '@client/components/Navigation'
 import AssessmentDataDownload from '@client/pages/AssessmentDataDownload'
@@ -32,6 +32,16 @@ const Assessment: React.FC = () => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const isDataExport = countryIso && !Areas.isISOCountry(countryIso)
+
+  useEffect(() => {
+    dispatch(AssessmentActions.getSections({ countryIso, name: assessmentName, cycleName }))
+
+    return () => {
+      // reset review and assessment section store
+      dispatch(AssessmentSectionActions.reset())
+      dispatch(ReviewActions.reset())
+    }
+  }, [countryIso, assessmentName, cycleName, dispatch])
 
   useEffect(() => {
     const requestReviewSummaryEvent = Sockets.getRequestReviewSummaryEvent({ countryIso, assessmentName, cycleName })
@@ -55,14 +65,6 @@ const Assessment: React.FC = () => {
       }
     }
   }, [countryIso, assessmentName, cycleName, user, dispatch])
-
-  // reset review and assessment sectionstore
-  useOnUpdate(() => {
-    return () => {
-      dispatch(AssessmentSectionActions.reset())
-      dispatch(ReviewActions.reset())
-    }
-  }, [countryIso, assessmentName, cycleName])
 
   if (!assessment) return null
 

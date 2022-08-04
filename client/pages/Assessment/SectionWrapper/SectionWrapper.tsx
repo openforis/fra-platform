@@ -42,6 +42,7 @@ const SectionWrapper: React.FC<Props> = (props) => {
         countryIso,
       })
     )
+
     return () => {
       dispatch(AssessmentSectionActions.reset())
     }

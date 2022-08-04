@@ -58,7 +58,7 @@ const MessageBoardUsers = () => {
                           countryIso,
                           assessmentName: assessment.props.name,
                           cycleName: cycle.name,
-                          key: Topics.getMessageBoardChatKey(countryIso, user, _user),
+                          key: Topics.getMessageBoardChatKey(user, _user),
                           type: MessageTopicType.chat,
                           subtitle: i18n.t<string>('landing.users.message'),
                           title: _user.name,

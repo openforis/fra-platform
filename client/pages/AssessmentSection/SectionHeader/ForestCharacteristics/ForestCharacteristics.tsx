@@ -1,9 +1,11 @@
 import React from 'react'
-import { useUser } from '@client/store/user'
 import { useTranslation } from 'react-i18next'
-import { useAssessment, useAssessmentCountry, useCycle, AssessmentActions } from '@client/store/assessment'
-import { useDispatch } from 'react-redux'
+
+import { useAppDispatch } from '@client/store'
+import { AssessmentActions, useAssessment, useAssessmentCountry, useCycle } from '@client/store/assessment'
+import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
+
 import { Props } from '../props'
 
 const ForestCharacteristics: React.FC<Props> = (props) => {
@@ -11,7 +13,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const user = useUser()
   const i18n = useTranslation()
@@ -50,8 +52,8 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
         disabled={disabled}
       >
         {forestCharacteristicsHasOdps
-          ? i18n.t('forestCharacteristics.dontUseOriginalDataPoints')
-          : i18n.t('forestCharacteristics.useOriginalDataPoints')}
+          ? i18n.t<string>('forestCharacteristics.dontUseOriginalDataPoints')
+          : i18n.t<string>('forestCharacteristics.useOriginalDataPoints')}
       </button>
       <hr className="no-print" />
     </>
