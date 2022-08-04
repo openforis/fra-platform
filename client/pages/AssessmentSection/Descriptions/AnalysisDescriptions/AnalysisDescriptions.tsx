@@ -1,6 +1,6 @@
 import React from 'react'
-
 import { useTranslation } from 'react-i18next'
+
 import CommentableDescription from '../CommentableDescription'
 
 type Props = {
@@ -17,9 +17,9 @@ const AnalysisDescriptions: React.FC<Props> = (props) => {
 
   return (
     <div className="fra-description__container">
-      <h2 className="headline fra-description__group-header">{i18n.t('description.analysisAndProcessing')}</h2>
+      <h2 className="headline fra-description__group-header">{i18n.t<string>('description.analysisAndProcessing')}</h2>
       <CommentableDescription
-        title={i18n.t('description.estimationAndForecasting')}
+        title={i18n.t<string>('description.estimationAndForecasting')}
         disabled={disabled}
         section={section}
         name="estimationAndForecasting"
@@ -27,7 +27,7 @@ const AnalysisDescriptions: React.FC<Props> = (props) => {
         showDashEmptyContent={showDashEmptyContent}
       />
       <CommentableDescription
-        title={i18n.t('description.reclassification')}
+        title={i18n.t<string>('description.reclassification')}
         disabled={disabled}
         section={section}
         name="reclassification"

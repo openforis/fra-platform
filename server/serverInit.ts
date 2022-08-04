@@ -38,7 +38,6 @@ export const serverInit = () => {
 
   app.use('/img/', express.static(`${__dirname}/../web-resources/img`))
   app.use('/css/', express.static(`${__dirname}/../web-resources/css`))
-  app.use('/ckeditor', express.static(`${__dirname}/../web-resources/ckeditor`))
   app.use('/video', express.static(`${__dirname}/../web-resources/video`))
 
   app.use(fileUpload())

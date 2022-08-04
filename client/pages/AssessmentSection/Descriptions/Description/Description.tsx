@@ -1,10 +1,17 @@
 import './Description.scss'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
+import { useAppDispatch } from '@client/store'
+import { useAssessment, useCycle } from '@client/store/assessment'
+import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
+import useDescription from '@client/store/pages/assessmentSection/hooks/useDescription'
 import { useUser } from '@client/store/user'
+import { useCountryIso } from '@client/hooks'
+import MarkdownEditor from '@client/components/MarkdownEditor'
+import MarkdownPreview from '@client/components/MarkdownPreview'
+
 import Title from './Title'
 import Toggle from './Toggle'
-import useDescription from './useDescription'
 
 type Props = {
   disabled?: boolean
@@ -18,30 +25,49 @@ type Props = {
 
 const Description: React.FC<Props> = (props) => {
   const { title, name, section, template, disabled, showAlertEmptyContent, showDashEmptyContent } = props
+  const dispatch = useAppDispatch()
+  const countryIso = useCountryIso()
+  const assessment = useAssessment()
+  const cycle = useCycle()
 
   const user = useUser()
   // const [printView] = [false] // TODO: usePrintView()
-  const { value, loading /* onChange */ } = useDescription(name, section, template)
+  const value = useDescription({ name, sectionName: section, template })
   const [open, setOpen] = useState(false)
 
-  const error = user && showAlertEmptyContent && /* !value && */ !loading
-  // let __html = value || template
-  const __html = value
+  const onChange = console.log
+
+  const error = user && showAlertEmptyContent && !value
+  const markdown = value || template
   // if (printView) __html = __html?.split('<p>&nbsp;</p>').join('') // Hack to replace empty lines in print view
+
+  useEffect(() => {
+    dispatch(
+      AssessmentSectionActions.getDescription({
+        countryIso,
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
+        sectionName: section,
+        name,
+      })
+    )
+  }, [assessment.props.name, countryIso, cycle.name, dispatch, name, section])
 
   return (
     <div className="fra-description__header-row">
       <Title error={error} title={title} />
       {!disabled && <Toggle setOpen={setOpen} open={open} />}
-      {open &&
-        {
-          /* `<RichTextEditor value={__html} name={name} onChange={onChange} />` */
-        }}
-      {!open /* && __html */ && <div className="fra-description__preview" dangerouslySetInnerHTML={{ __html }} />}
-      {!open &&
-        /*! __html && */
-
-        showDashEmptyContent && <div>-</div>}
+      {open && (
+        <div className="fra-description__preview">
+          <MarkdownEditor value={markdown} onChange={onChange} />
+        </div>
+      )}
+      {!open && markdown && (
+        <div className="fra-description__preview">
+          <MarkdownPreview value={markdown} />
+        </div>
+      )}
+      {!open && !markdown && showDashEmptyContent && <div>-</div>}
     </div>
   )
 }
