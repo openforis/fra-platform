@@ -1,16 +1,16 @@
 import 'dotenv/config'
+
 import path from 'path'
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
-import webpack from 'webpack'
-import { v4 as uuidv4 } from 'uuid'
-
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
-import TerserPlugin from 'terser-webpack-plugin'
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
-import { GitRevisionPlugin } from 'git-revision-webpack-plugin'
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
+import { GitRevisionPlugin } from 'git-revision-webpack-plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import TerserPlugin from 'terser-webpack-plugin'
+import { v4 as uuidv4 } from 'uuid'
+import webpack from 'webpack'
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 
 const buildReport = process.env.BUILD_REPORT === 'true'
 
@@ -80,7 +80,7 @@ const appConfig = {
     proxy: [
       {
         // Proxy all server-served routes:
-        context: ['/auth', '/img', '/css', '/ckeditor', '/video', '/api', '/definitions'],
+        context: ['/auth', '/img', '/css', '/video', '/api', '/definitions'],
         target: process.env.APP_URI,
       },
       {

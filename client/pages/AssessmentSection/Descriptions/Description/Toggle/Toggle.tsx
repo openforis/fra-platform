@@ -24,7 +24,7 @@ const Toggle: React.FC<Props> = (props) => {
         setOpen(!open)
       }}
     >
-      {open ? i18n.t('description.done') : i18n.t('description.edit')}
+      {open ? i18n.t<string>('description.done') : i18n.t<string>('description.edit')}
     </span>
   )
 }

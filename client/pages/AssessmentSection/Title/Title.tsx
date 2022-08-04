@@ -1,8 +1,10 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
+
+import { AssessmentName } from '@meta/assessment'
 
 import DefinitionLink from '@client/components/DefinitionLink'
-import { AssessmentName } from '@meta/assessment'
-import { useTranslation } from 'react-i18next'
+
 import ExtentOfForest from './ExtentOfForest/ExtentOfForest'
 import ForestCharacteristics from './ForestCharacteristics/ForestCharacteristics'
 import TitleWithExcelCalculator from './TitleExcelCalculator'
@@ -23,13 +25,13 @@ export type Props = {
   sectionAnchor: string
 }
 
-const TitleDefault: React.FC<Props> = (props) => {
+const TitleDefault: React.FC<Omit<Props, 'sectionAnchor'>> = (props) => {
   const { assessmentName, sectionName } = props
 
   const { i18n } = useTranslation()
   const prefix = assessmentName === AssessmentName.panEuropean ? 'panEuropean.' : ''
 
-  return <h2 className="headline no-print">{i18n.t(`${prefix}${sectionName}.${sectionName}`)}</h2>
+  return <h2 className="headline no-print">{i18n.t<string>(`${prefix}${sectionName}.${sectionName}`)}</h2>
 }
 
 const Title: React.FC<Props> = (props) => {
@@ -42,7 +44,7 @@ const Title: React.FC<Props> = (props) => {
 
   return (
     <>
-      {React.createElement(Component, { assessmentName, sectionAnchor, sectionName })}
+      {React.createElement(Component, { assessmentName, sectionName })}
 
       {!panEuropean && (
         <div className="app-view__section-toolbar no-print">
@@ -50,14 +52,14 @@ const Title: React.FC<Props> = (props) => {
             className="margin-right-big"
             document="tad"
             anchor={sectionAnchor}
-            title={i18n.t('definition.definitionLabel')}
+            title={i18n.t<string>('definition.definitionLabel')}
             lang={i18n.language}
           />
           <DefinitionLink
             className="align-left"
             document="faq"
             anchor={sectionAnchor}
-            title={i18n.t('definition.faqLabel')}
+            title={i18n.t<string>('definition.faqLabel')}
             lang={i18n.language}
           />
         </div>
