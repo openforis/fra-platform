@@ -48,7 +48,7 @@ const MessageBoard = () => {
                       countryIso,
                       assessmentName: assessment.props.name,
                       cycleName: cycle.name,
-                      key: Topics.getMessageBoardCountryKey(countryIso),
+                      key: Topics.getMessageBoardCountryKey(),
                       type: MessageTopicType.messageBoard,
                       title: i18n.t<string>(Areas.getTranslationKey(countryIso)),
                     })
