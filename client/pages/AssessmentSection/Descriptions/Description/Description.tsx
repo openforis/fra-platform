@@ -1,8 +1,12 @@
 import './Description.scss'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
+import { useAppDispatch } from '@client/store'
+import { useAssessment, useCycle } from '@client/store/assessment'
+import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import useDescription from '@client/store/pages/assessmentSection/hooks/useDescription'
 import { useUser } from '@client/store/user'
+import { useCountryIso } from '@client/hooks'
 import MarkdownEditor from '@client/components/MarkdownEditor'
 import MarkdownPreview from '@client/components/MarkdownPreview'
 
@@ -21,6 +25,10 @@ type Props = {
 
 const Description: React.FC<Props> = (props) => {
   const { title, name, section, template, disabled, showAlertEmptyContent, showDashEmptyContent } = props
+  const dispatch = useAppDispatch()
+  const countryIso = useCountryIso()
+  const assessment = useAssessment()
+  const cycle = useCycle()
 
   const user = useUser()
   // const [printView] = [false] // TODO: usePrintView()
@@ -32,6 +40,18 @@ const Description: React.FC<Props> = (props) => {
   const error = user && showAlertEmptyContent && !value
   const markdown = value || template
   // if (printView) __html = __html?.split('<p>&nbsp;</p>').join('') // Hack to replace empty lines in print view
+
+  useEffect(() => {
+    dispatch(
+      AssessmentSectionActions.getDescription({
+        countryIso,
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
+        sectionName: section,
+        name,
+      })
+    )
+  }, [assessment.props.name, countryIso, cycle.name, dispatch, name, section])
 
   return (
     <div className="fra-description__header-row">

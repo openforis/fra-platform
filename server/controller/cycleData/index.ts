@@ -16,5 +16,5 @@ export const CycleDataController = {
   getOriginalDataPointData: DataRepository.getOriginalDataPointData,
   deleteNodeValues,
   getReviewSummary: MessageTopicUserRepository.getReviewSummary,
-  getDescriptions: DescriptionRepository.getMany,
+  getDescription: DescriptionRepository.getOneOrNone,
 }

@@ -2,11 +2,11 @@ import { CountryIso } from '@core/country'
 import { Objects } from '@core/utils'
 
 import { Assessment, Cycle } from '@meta/assessment'
-import { CommentableDescription, CommentableDescriptionName } from '@meta/assessment/commentableDescription'
+import { CommentableDescriptionName } from '@meta/assessment/commentableDescription'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
-export const getMany = async (
+export const getOneOrNone = async (
   props: {
     countryIso: CountryIso
     assessment: Assessment
@@ -15,14 +15,15 @@ export const getMany = async (
     name?: CommentableDescriptionName
   },
   client: BaseProtocol = DB
-): Promise<Array<CommentableDescription>> => {
+): Promise<string> => {
   const { countryIso, assessment, cycle, sectionName, name = 'generalComments' } = props
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
   const query = `
-      select * from ${schemaCycle}.descriptions
+      select content from ${schemaCycle}.descriptions
       where country_iso = $1
         and section_name = $2
+        and name = $3
       `
-  return client.map<CommentableDescription>(query, [countryIso, sectionName, name], (row) => Objects.camelize(row))
+  return client.oneOrNone<string>(query, [countryIso, sectionName, name], Objects.camelize)
 }

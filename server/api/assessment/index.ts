@@ -5,7 +5,7 @@ import { AuthMiddleware } from '@server/middleware/auth'
 
 import { createOriginalDataPoint } from './createOriginalDataPoint'
 import { deleteOriginalDataPoint } from './deleteOriginalDataPoint'
-import { getDescriptions } from './getDescriptions'
+import { getDescription } from './getDescription'
 import { getOriginalDataPoint } from './getOdp'
 import { getOriginalDataPointData } from './getOriginalDataPointData'
 import { getReservedYears } from './getReservedYears'
@@ -55,7 +55,7 @@ export const AssessmentApi = {
     // requireView: We don't pass table for sections - always allow read
     express.get(ApiEndPoint.Assessment.sections(), AuthMiddleware.requireView, getSections)
     express.get(ApiEndPoint.Assessment.Sections.Metadata.many(), AuthMiddleware.requireView, getSectionMetadata)
-    express.get(ApiEndPoint.Assessment.Data.descriptions(), AuthMiddleware.requireView, getDescriptions)
+    express.get(ApiEndPoint.Assessment.Data.descriptions(), AuthMiddleware.requireView, getDescription)
 
     // Review
     express.get(ApiEndPoint.Review.status.many(), AuthMiddleware.requireView, getReviewStatus)
