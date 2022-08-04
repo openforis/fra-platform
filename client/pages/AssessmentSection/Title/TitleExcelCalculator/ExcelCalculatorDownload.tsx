@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
-import { useCountryIso } from '@client/hooks'
 import { useTranslation } from 'react-i18next'
-import { useUser } from '@client/store/user'
+
 import { Objects } from '@core/utils'
+
+import { useUser } from '@client/store/user'
+import { useCountryIso } from '@client/hooks'
 
 const domains: Array<string> = ['boreal', 'temperate', 'subtropical', 'tropical']
 const getDownloadPath = (countryIso: string, selectedDomain: string, language: string): string =>
@@ -26,14 +28,14 @@ const ExcelCalculatorDownload: React.FC = () => {
         <select className="select-s" value={selectedDomain} onChange={(e) => setSelectedDomain(e.target.value)}>
           {domains.map((domain) => (
             <option value={domain} key={domain}>
-              {i18n.t(`climaticDomain.${domain}`)}
-              {domain === countryDomain && ` (${i18n.t('climaticDomain.selectDefault')})`}
+              {i18n.t<string>(`climaticDomain.${domain}`)}
+              {domain === countryDomain && ` (${i18n.t<string>('climaticDomain.selectDefault')})`}
             </option>
           ))}
         </select>
       )}
       <a className="btn-s btn-primary" href={calculatorFilePath}>
-        {i18n.t('biomassStock.downloadExcel')}
+        {i18n.t<string>('biomassStock.downloadExcel')}
       </a>
     </div>
   )

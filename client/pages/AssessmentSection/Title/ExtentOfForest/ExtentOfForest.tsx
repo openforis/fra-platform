@@ -1,14 +1,16 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { Users } from '@meta/user'
-import { useUser } from '@client/store/user'
-import { useTranslation } from 'react-i18next'
+
 import { useAppDispatch } from '@client/store'
 import {
   AssessmentSectionActions,
   useOriginalDataPointYears,
   useShowOriginalDatapoints,
 } from '@client/store/pages/assessmentSection'
+import { useUser } from '@client/store/user'
+
 import { Props } from '../props'
 
 const ExtentOfForest: React.FC<Props> = (props) => {
@@ -25,7 +27,7 @@ const ExtentOfForest: React.FC<Props> = (props) => {
   return (
     <>
       <h2 className="headline no-print">
-        {i18n.t(`${sectionName}.${sectionName}`)}
+        {i18n.t<string>(`${sectionName}.${sectionName}`)}
         {Users.isAdministrator(user) && hasOdps && (
           <button
             type="button"
@@ -33,7 +35,7 @@ const ExtentOfForest: React.FC<Props> = (props) => {
             style={{ marginLeft: '12px' }}
             onClick={() => dispatch(AssessmentSectionActions.toggleShowOriginalDataPoint())}
           >
-            {i18n.t(`extentOfForest.${showOdps ? 'hideNDPs' : 'showNDPs'}`)}
+            {i18n.t<string>(`extentOfForest.${showOdps ? 'hideNDPs' : 'showNDPs'}`)}
           </button>
         )}
       </h2>
