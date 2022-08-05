@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from '@common/api/endpoint'
-import axios from 'axios'
 
 import { Areas } from '@meta/area'
 import { MessageTopicType, Topics } from '@meta/messageCenter'
@@ -10,7 +9,7 @@ import { MessageTopicType, Topics } from '@meta/messageCenter'
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { MessageCenterActions } from '@client/store/ui/messageCenter'
-import { useCountryIso } from '@client/hooks'
+import { useCountryIso, useGetRequest } from '@client/hooks'
 import Icon from '@client/components/Icon'
 
 const MessageBoard = () => {
@@ -22,17 +21,16 @@ const MessageBoard = () => {
   const i18n = useTranslation()
   const dispatch = useAppDispatch()
 
-  const [countryMessageBoardUnreadMessages, setCountryMessageBoardUnreadMessages] = useState<number>(0)
+  const { data = { unreadMessages: 0 }, dispatch: fetchData } = useGetRequest(
+    ApiEndPoint.MessageCenter.Stats.getCountryMessageBoardUnreadMessages(),
+    {
+      params: { countryIso, assessmentName: assessment.props.name, cycleName: cycle.name },
+    }
+  )
 
   useEffect(() => {
-    const fetchCountryUnreadMessages = async () => {
-      const { data } = await axios.get(ApiEndPoint.MessageCenter.Stats.getCountryMessageBoardUnreadMessages(), {
-        params: { countryIso, assessmentName: assessment.props.name, cycleName: cycle.name },
-      })
-      setCountryMessageBoardUnreadMessages(data?.unreadMessages || 99)
-    }
-    fetchCountryUnreadMessages()
-  }, [assessment, countryIso, cycle])
+    fetchData()
+  }, [countryIso, assessment, cycle])
 
   return (
     <div className="landing__users-container landing__message-board">
@@ -70,9 +68,7 @@ const MessageBoard = () => {
               >
                 <Icon name="chat-46" className="icon-middle" />
                 {i18n.t<string>('landing.users.message')}
-                {countryMessageBoardUnreadMessages > 0 && (
-                  <div className="landing__user-message-count">{countryMessageBoardUnreadMessages}</div>
-                )}
+                {data.unreadMessages > 0 && <div className="landing__user-message-count">{data.unreadMessages}</div>}
               </button>
             </div>
           </div>
