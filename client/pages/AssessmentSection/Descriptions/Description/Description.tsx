@@ -1,5 +1,5 @@
 import './Description.scss'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
@@ -35,7 +35,21 @@ const Description: React.FC<Props> = (props) => {
   const value = useDescription({ name, sectionName: section, template })
   const [open, setOpen] = useState(false)
 
-  const onChange = console.log
+  const onChange = useCallback(
+    (content: string) => {
+      dispatch(
+        AssessmentSectionActions.updateDescription({
+          countryIso,
+          assessmentName: assessment.props.name,
+          cycleName: cycle.name,
+          sectionName: section,
+          name,
+          content,
+        })
+      )
+    },
+    [assessment.props.name, countryIso, cycle.name, dispatch, name, section]
+  )
 
   const error = user && showAlertEmptyContent && !value
   const markdown = value || template
