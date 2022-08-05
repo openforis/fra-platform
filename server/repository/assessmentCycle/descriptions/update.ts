@@ -20,6 +20,7 @@ export const update = async (
   const { countryIso, assessment, cycle, sectionName, name, content } = props
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
+  // insert new | on conflict update
   const query = `
       insert into
           ${schemaCycle}.descriptions (country_iso, section_name, name, content)
