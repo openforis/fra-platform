@@ -17,7 +17,7 @@ const patchDescription = Functions.debounce(
     const { content, ...params } = props
 
     try {
-      await axios.patch(ApiEndPoint.Assessment.Data.descriptions(), { content }, { params })
+      await axios.put(ApiEndPoint.Assessment.Data.descriptions(), { content }, { params })
     } catch (e) {
       // placeholder to avoid app crash
     }

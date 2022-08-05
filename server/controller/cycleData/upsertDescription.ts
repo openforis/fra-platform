@@ -38,7 +38,7 @@ export const upsertDescription = async (
         activityLog: {
           target: { name, description },
           section: sectionName,
-          message: ActivityLogMessage.updateCountryDescription,
+          message: ActivityLogMessage.descriptionUpdate,
           countryIso,
           user,
         },
