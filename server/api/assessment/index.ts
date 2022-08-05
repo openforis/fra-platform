@@ -17,8 +17,8 @@ import { getTableData } from './getTableData'
 import { persistNodeValues } from './persistNodeValues'
 import { postCountry } from './postCountry'
 import { postEstimation } from './postEstimation'
-import { updateDescription } from './updateDescription'
 import { updateOriginalDataPoint } from './updateOriginalDataPoint'
+import { upsertDescription } from './upsertDescription'
 
 export const AssessmentApi = {
   init: (express: Express): void => {
@@ -57,7 +57,7 @@ export const AssessmentApi = {
     express.get(ApiEndPoint.Assessment.sections(), AuthMiddleware.requireView, getSections)
     express.get(ApiEndPoint.Assessment.Sections.Metadata.many(), AuthMiddleware.requireView, getSectionMetadata)
     express.get(ApiEndPoint.Assessment.Data.descriptions(), AuthMiddleware.requireView, getDescription)
-    express.patch(ApiEndPoint.Assessment.Data.descriptions(), AuthMiddleware.requireEdit, updateDescription)
+    express.patch(ApiEndPoint.Assessment.Data.descriptions(), AuthMiddleware.requireEdit, upsertDescription)
 
     // Review
     express.get(ApiEndPoint.Review.status.many(), AuthMiddleware.requireView, getReviewStatus)

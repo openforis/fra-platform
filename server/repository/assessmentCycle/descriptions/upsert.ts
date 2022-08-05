@@ -6,7 +6,7 @@ import { CommentableDescriptionName } from '@meta/assessment/commentableDescript
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
-export const update = async (
+export const upsert = async (
   props: {
     countryIso: CountryIso
     assessment: Assessment

@@ -1,7 +1,7 @@
 import { getOneOrNone } from './getOneOrNone'
-import { update } from './update'
+import { upsert } from './upsert'
 
 export const DescriptionRepository = {
   getOneOrNone,
-  update,
+  update: upsert,
 }

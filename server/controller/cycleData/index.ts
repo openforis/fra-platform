@@ -17,5 +17,5 @@ export const CycleDataController = {
   deleteNodeValues,
   getReviewSummary: MessageTopicUserRepository.getReviewSummary,
   getDescription: DescriptionRepository.getOneOrNone,
-  updateDescription: DescriptionRepository.update,
+  upsertDescription: DescriptionRepository.update,
 }
