@@ -3,5 +3,5 @@ import { upsert } from './upsert'
 
 export const DescriptionRepository = {
   getOneOrNone,
-  update: upsert,
+  upsert,
 }

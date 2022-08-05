@@ -24,6 +24,7 @@ export const upsertDescription = async (req: Request, res: Response) => {
       sectionName,
       name: name as CommentableDescriptionName,
       content,
+      user: Requests.getRequestUser(req),
     })
 
     Requests.send(res, description)

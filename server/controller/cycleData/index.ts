@@ -7,6 +7,7 @@ import { getReviewStatus } from './getReviewStatus'
 import { getTableData } from './getTableData'
 import { persistNodeValue } from './persistNodeValue'
 import { persistNodeValues } from './persistNodeValues'
+import { upsertDescription } from './upsertDescription'
 
 export const CycleDataController = {
   persistNodeValue,
@@ -17,5 +18,5 @@ export const CycleDataController = {
   deleteNodeValues,
   getReviewSummary: MessageTopicUserRepository.getReviewSummary,
   getDescription: DescriptionRepository.getOneOrNone,
-  upsertDescription: DescriptionRepository.update,
+  upsertDescription,
 }
