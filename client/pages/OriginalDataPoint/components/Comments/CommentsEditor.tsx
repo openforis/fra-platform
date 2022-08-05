@@ -1,8 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react'
-// import { useAppDispatch } from '@client/store'
+import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
+import { useAppDispatch } from '@client/store'
+import { useAssessment, useCycle } from '@client/store/assessment'
+import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
+import { useCountryIso } from '@client/hooks'
+import MarkdownEditor from '@client/components/MarkdownEditor'
+import MarkdownPreview from '@client/components/MarkdownPreview'
 
 type Props = {
   canEditData: boolean
@@ -10,52 +14,35 @@ type Props = {
 
 const CommentsEditor: React.FC<Props> = (props) => {
   const { canEditData } = props
-  const originalDataPoint = useOriginalDataPoint()
-  // const dispatch = useAppDispatch()
+  const [open, setOpen] = useState<boolean>(false)
+  const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
-  const [open, setOpen] = useState(false)
-  const textareaRef = useRef<HTMLTextAreaElement>(null)
-  const descriptionEditor = useRef(null)
+  const countryIso = useCountryIso()
+  const originalDataPoint = useOriginalDataPoint()
+  const assessment = useAssessment()
+  const cycle = useCycle()
 
-  // TODO: CKEditor removed from project, use MarkdownEditor or MarkdownPreview component
-  // const initCkeditorChangeListener = () => {
-  //   descriptionEditor.current.on('change', (event: any) => {
-  //     const odpUpdate = { ...originalDataPoint, description: event.editor.getData() }
-  //     dispatch(OriginalDataPointActions.updateODP({ odp: odpUpdate }))
-  //   })
-  // }
-  //
-  // const initCKeditor = () => {
-  //   if (originalDataPoint.odpId) {
-  //     descriptionEditor.current.setData(originalDataPoint.description, { callback: () => initCkeditorChangeListener() })
-  //   } else {
-  //     initCkeditorChangeListener()
-  //   }
-  // }
-  //
-  // useEffect(() => {
-  //   // @ts-ignore
-  //   descriptionEditor.current = CKEDITOR.replace(textareaRef.current, ckEditorConfig)
-  //   // We need to fetch the data only after CKEDITOR instance is ready :(
-  //   // Otherwise there is no guarantee that the setData()-method succeeds in
-  //   // setting pre-existing html-content
-  //   descriptionEditor.current.on('instanceReady', () => initCKeditor())
-  //   return () => {
-  //     descriptionEditor.current.destroy(false)
-  //     descriptionEditor = null
-  //   }
-  // }, [])
-
-  useEffect(() => {
-    if (open) {
-      descriptionEditor.current.focus()
-    }
-  }, [open])
+  const onChange = useCallback(
+    (content: string) => {
+      dispatch(
+        OriginalDataPointActions.updateOriginalDataPoint({
+          countryIso,
+          cycleName: cycle.name,
+          assessmentName: assessment.props.name,
+          originalDataPoint: {
+            ...originalDataPoint,
+            description: content,
+          },
+        })
+      )
+    },
+    [assessment.props.name, countryIso, cycle.name, dispatch, originalDataPoint]
+  )
 
   return (
     <div>
       <div className="fra-description__header-row">
-        <h3 className="subhead fra-description__header">{i18n.t('review.comments')}</h3>
+        <h3 className="subhead fra-description__header">{i18n.t<string>('review.comments')}</h3>
         {canEditData && (
           <div
             className="link fra-description__link"
@@ -64,21 +51,17 @@ const CommentsEditor: React.FC<Props> = (props) => {
             role="button"
             tabIndex={0}
           >
-            {open ? i18n.t('description.done') : i18n.t('description.edit')}
+            {open ? i18n.t<string>('description.done') : i18n.t<string>('description.edit')}
           </div>
         )}
       </div>
-
       <div className="cke_wrapper" style={{ display: open ? 'block' : 'none' }}>
-        <textarea ref={textareaRef} />
+        <MarkdownEditor value={originalDataPoint.description} onChange={onChange} />
       </div>
-
       {originalDataPoint.description && (
-        <div
-          className="fra-description__preview"
-          style={{ display: open ? 'none' : 'block' }}
-          dangerouslySetInnerHTML={{ __html: originalDataPoint.description }}
-        />
+        <div className="fra-description__preview">
+          <MarkdownPreview value={originalDataPoint.description} />
+        </div>
       )}
     </div>
   )
