@@ -1,0 +1,54 @@
+@import 'client/style/partials';
+
+.edit-user__form-item-roles {
+  height: auto;
+}
+
+.edit-user__form-field-roles {
+  flex-direction: column;
+}
+
+.edit-user__form-field-role-container {
+  padding: 12px 0;
+}
+
+.edit-user__form-field-role-container:not(:last-of-type) {
+  border-bottom: $ui-thin-border;
+}
+
+.edit-user__form-field-role {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .role {
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0 6px;
+  }
+}
+
+.edit-user__form-field-role-admin {
+  cursor: pointer;
+}
+
+.edit-user__form-field-country-selector {
+  cursor: pointer;
+  display: flex;
+  padding: 5px;
+  align-items: center;
+
+  .fra-checkbox {
+    margin-right: 4px;
+  }
+
+  &.disabled {
+    cursor: not-allowed !important;
+    color: $text-disabled;
+    pointer-events: none;
+
+    .fra-checkbox {
+      border: 1px solid $ui-border-light;
+    }
+  }
+}

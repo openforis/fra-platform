@@ -1,7 +1,7 @@
 import './linkLanding.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { NavLink, useMatch } from 'react-router-dom'
+import { matchPath, NavLink, useLocation } from 'react-router-dom'
 
 import classNames from 'classnames'
 
@@ -15,6 +15,7 @@ const LinkLanding: React.FC = () => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
+  const { pathname } = useLocation()
 
   if (!assessment || !cycle) return null
 
@@ -27,7 +28,7 @@ const LinkLanding: React.FC = () => {
       })}
       className={() => {
         return classNames('country-selection-link-landing', {
-          selected: useMatch(ClientRoutes.Assessment.Home.Root.path.absolute),
+          selected: matchPath({ path: ClientRoutes.Assessment.Home.Root.path.absolute, end: false }, pathname),
         })
       }}
     >

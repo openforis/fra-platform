@@ -3,13 +3,13 @@ import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 import { CountryIso } from '@meta/area'
 import { NodeUpdate, TableData, TableDatas } from '@meta/data'
 
-import { getDescription } from '@client/store/pages/assessmentSection/actions/getDescription'
-
+import { getDescription } from './actions/getDescription'
 import { getOriginalDataPointData } from './actions/getOriginalDataPointData'
 import { getTableData } from './actions/getTableData'
 import { getTableSections } from './actions/getTableSections'
 import { postEstimate } from './actions/postEstimate'
 import { setTableSections } from './actions/setTableSections'
+import { updateDescription } from './actions/updateDescription'
 import { updateNodeValues } from './actions/updateNodeValues'
 import { AssessmentSectionState } from './stateType'
 
@@ -76,6 +76,13 @@ export const assessmentSectionSlice = createSlice({
       if (!state.descriptions[sectionName]) state.descriptions[sectionName] = {}
       state.descriptions[sectionName][name] = content
     })
+
+    builder.addCase(updateDescription.pending, (state, { meta }) => {
+      const { sectionName, name, content } = meta.arg
+
+      if (!state.descriptions[sectionName]) state.descriptions[sectionName] = {}
+      state.descriptions[sectionName][name] = content
+    })
   },
 })
 
@@ -85,6 +92,7 @@ export const AssessmentSectionActions = {
   getTableSections,
   getTableData,
   getOriginalDataPointData,
+  updateDescription,
   updateNodeValues,
   postEstimate,
 }

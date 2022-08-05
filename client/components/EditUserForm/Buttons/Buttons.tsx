@@ -26,12 +26,17 @@ const Buttons = (props: Props) => {
   return (
     <>
       {showDeactivate && (
-        <div className="edit-user__form-item edit-user__form-item-buttons">
-          <div className="edit-user__form-label" />
-          <div className="edit-user__form-field edit-user__form-field-buttons">
-            <button type="button" className="btn btn-secondary" onClick={onDeactivate}>
-              {userActive ? i18n.t<string>('editUser.deactivate') : i18n.t<string>('editUser.activate')}
-            </button>
+        <div className="edit-user__form-item edit-user__form-item-roles">
+          <div className="edit-user__form-label">{i18n.t<string>('editUser.status')}</div>
+          <div className={`edit-user__form-field edit-user__form-field-roles${Users.validRole(user) ? '' : ' error'}`}>
+            <div
+              className="edit-user__form-field-role edit-user__form-field-role-admin edit-user__form-field-role-container validation-error-sensitive-field"
+              onClick={onDeactivate}
+              aria-hidden="true"
+            >
+              <div className="role">{i18n.t<string>('editUser.activated')}</div>
+              <div className={`fra-checkbox${userActive ? ' checked' : ''}`} />
+            </div>
           </div>
         </div>
       )}

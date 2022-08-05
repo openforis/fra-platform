@@ -7,8 +7,13 @@ export const updateUser = async (req: Request, res: Response) => {
   try {
     const profilePicture = req.file
     const userToUpdate = JSON.parse(req.body.user)
+    const user = Requests.getRequestUser(req)
 
-    const updatedUser = await UserController.update({ user: userToUpdate, profilePicture })
+    const updatedUser = await UserController.update({
+      userToUpdate,
+      profilePicture,
+      user,
+    })
 
     Requests.sendOk(res, updatedUser)
   } catch (e) {
