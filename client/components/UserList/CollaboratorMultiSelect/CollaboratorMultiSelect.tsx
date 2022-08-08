@@ -1,5 +1,5 @@
 import './CollaboratorMultiSelect.scss'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Objects } from '@core/utils'
@@ -26,6 +26,7 @@ type Props = {
 
 const CollaboratorMultiSelect: React.FC<Props> = ({ properties, disabled }) => {
   const { i18n } = useTranslation()
+  const ref = useRef(null)
 
   const [open, setOpen] = useState<boolean>(false)
 
@@ -59,8 +60,20 @@ const CollaboratorMultiSelect: React.FC<Props> = ({ properties, disabled }) => {
 
   const toggleOption = (option: Option): void => (values.includes(option.tableNo) ? removeOption() : addOption())
 
+  const handleClickOutside = (e: MouseEvent) =>
+    ref?.current && ref.current && !ref.current.contains(e.target) && setOpen(false)
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+    }
+  }, [])
+
   return (
     <div
+      ref={ref}
       className={classNames({ 'multi-select': !disabled, 'has-focus': open })}
       onMouseDown={disabled ? null : () => setOpen(!open)}
       onFocus={() => (disabled ? null : setOpen(true))}
