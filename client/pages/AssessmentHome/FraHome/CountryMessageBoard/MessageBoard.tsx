@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from '@common/api/endpoint'
@@ -28,9 +28,9 @@ const MessageBoard = () => {
     }
   )
 
-  useEffect(() => {
-    fetchData()
-  }, [countryIso, assessment, cycle])
+  const fetchRef = useRef(fetchData)
+
+  useEffect(() => fetchRef.current(), [fetchRef])
 
   return (
     <div className="landing__users-container landing__message-board">
