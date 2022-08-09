@@ -108,6 +108,7 @@ export const ApiEndPoint = {
     },
     Stats: {
       getCountryMessageBoardUnreadMessages: () => apiPath('stats', 'getCountryMessageBoardUnreadMessages'),
+      getCountryChatUnreadMessages: () => apiPath('stats', 'getCountryChatUnreadMessages'),
     },
   },
 

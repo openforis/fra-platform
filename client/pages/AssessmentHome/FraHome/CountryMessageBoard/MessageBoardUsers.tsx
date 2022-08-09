@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from '@common/api/endpoint'
@@ -12,7 +12,7 @@ import { useAssessment, useCycle } from '@client/store/assessment'
 import { MessageCenterActions } from '@client/store/ui/messageCenter'
 import { useUser } from '@client/store/user'
 import { useUsers } from '@client/store/userManagement/hooks'
-import { useCountryIso } from '@client/hooks'
+import { useCountryIso, useGetRequest } from '@client/hooks'
 import Icon from '@client/components/Icon'
 
 const MessageBoardUsers = () => {
@@ -24,6 +24,17 @@ const MessageBoardUsers = () => {
   const dispatch = useAppDispatch()
   const user = useUser()
   const users = useUsers()
+
+  const { data: usersUnreadMessages = {}, dispatch: fetchData } = useGetRequest(
+    ApiEndPoint.MessageCenter.Stats.getCountryChatUnreadMessages(),
+    {
+      params: { countryIso, assessmentName: assessment.props.name, cycleName: cycle.name },
+    }
+  )
+
+  const fetchRef = useRef(fetchData)
+
+  useEffect(() => fetchRef.current(), [fetchRef])
 
   if (!users || !user) {
     return null
@@ -68,10 +79,9 @@ const MessageBoardUsers = () => {
                   >
                     <Icon name="chat-46" className="icon-middle" />
                     {i18n.t<string>('landing.users.message')}
-                    {/* // TODO */}
-                    {/* {_user.chat.unreadMessages > 0 ? ( */}
-                    {/*  <div className="landing__user-message-count">{_user.chat.unreadMessages}</div> */}
-                    {/* ) : null} */}
+                    {usersUnreadMessages[_user.id] > 0 && (
+                      <div className="landing__user-message-count">{usersUnreadMessages[_user.id]}</div>
+                    )}
                   </button>
                 )}
               </div>

@@ -1,4 +1,5 @@
 import { create } from './create'
+import { getChatUnreadMessages } from './getChatUnreadMessages'
 import { getOdpReviewStatus } from './getOdpReviewStatus'
 import { getOneOrNone } from './getOneOrNone'
 import { getReviewStatus } from './getReviewStatus'
@@ -12,6 +13,7 @@ export const MessageTopicUserRepository = {
   getOneOrNone,
   getReviewStatus,
   getReviewSummary,
+  getChatUnreadMessages,
   getUnreadMessages,
   update,
 }

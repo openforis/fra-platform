@@ -13,4 +13,5 @@ export const MessageCenterController = {
   updateTopicStatus,
   markMessageDeleted,
   getUnreadMessages: MessageTopicUserRepository.getUnreadMessages,
+  getChatUnreadMessages: MessageTopicUserRepository.getChatUnreadMessages,
 }
