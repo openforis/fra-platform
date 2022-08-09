@@ -20,9 +20,9 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
   const assessment = useAssessment()
   const cycle = useCycle()
   const hasOriginalDataPointData = useHasOriginalDataPointData()
-  const useOriginalDataPoint = country?.props?.forestCharacteristics?.useOriginalDataPoint && hasOriginalDataPointData
+  const useOriginalDataPoint = country?.props?.forestCharacteristics?.useOriginalDataPoint
 
-  if (!user || !useOriginalDataPoint || !country) {
+  if (!user || !hasOriginalDataPointData || !country) {
     return null
   }
 
