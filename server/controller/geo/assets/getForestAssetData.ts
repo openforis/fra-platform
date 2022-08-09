@@ -5,8 +5,11 @@ import { ForestSource, precalForestAgreementSources } from '@meta/geo'
 
 export const getForestAssetData = (
   forestSource: ForestSource,
-  gteHansenTreeCoverPerc?: number
+  gteHansenTreeCoverPerc?: number,
+  onlyProtected?: boolean
 ): { year: number; img: Image } => {
+  let asset = { year: 0, img: Image('') }
+
   switch (forestSource) {
     case ForestSource.JAXA: {
       const imgForestJAXA = ImageCollection('JAXA/ALOS/PALSAR/YEARLY/FNF')
@@ -14,18 +17,20 @@ export const getForestAssetData = (
         .mosaic()
         .eq(1)
 
-      return {
+      asset = {
         year: 2017,
         img: imgForestJAXA,
       }
+      break
     }
     case ForestSource.TandemX: {
       const imgForestTANDEMX = ImageCollection('users/debcysjec/fao_fra/tandem_x_fnf50').mosaic().eq(1)
 
-      return {
+      asset = {
         year: 2019,
         img: imgForestTANDEMX,
       }
+      break
     }
     case ForestSource.ESAGlobCover: {
       const imgLandCoverESA = Image('ESA/GLOBCOVER_L4_200901_200912_V2_3').select('landcover')
@@ -34,44 +39,49 @@ export const getForestAssetData = (
         .and(imgLandCoverESA.lte(101))
         .add(imgLandCoverESA.gte(160).and(imgLandCoverESA.lte(170)))
 
-      return {
+      asset = {
         year: 2009,
         img: imgForestLCESA,
       }
+      break
     }
     case ForestSource.GlobeLand: {
       const imgForestGlobeLand = ImageCollection('users/eraviolo/GlobeLand30m_2020').mosaic().eq(20)
 
-      return {
+      asset = {
         year: 2020,
         img: imgForestGlobeLand,
       }
+      break
     }
 
     case ForestSource.Copernicus: {
       const imgForestCopernicus = Image('users/eraviolo/WORLD/Copernicus_forest_2019_100m').eq(1)
 
-      return {
+      asset = {
         year: 2019,
         img: imgForestCopernicus,
       }
+      break
     }
     case ForestSource.ESRI: {
       const imgForestESRIy2020 = Image('users/cesarnon/World/esri_lulc10_UNCCDcat_World').eq(1)
 
-      return {
+      asset = {
         year: 2020,
         img: imgForestESRIy2020,
       }
+      break
     }
     case ForestSource.ESAWorldCover: {
       const imgESAy2020 = ImageCollection('ESA/WorldCover/v100').first()
       const imgForestESAy2020 = imgESAy2020.eq(10).or(imgESAy2020.eq(95))
 
-      return {
+      asset = {
         year: 2020,
         img: imgForestESAy2020,
       }
+      break
     }
 
     case ForestSource.Hansen: {
@@ -85,15 +95,22 @@ export const getForestAssetData = (
       const hgain = imcHansen.select('gain')
       const imgForestHansen = hforest2000.gte(gteHansenTreeCoverPerc).where(hgain.eq(1), 1).where(hlost.eq(1), 0)
 
-      return {
+      asset = {
         year: 2020,
         img: imgForestHansen,
       }
+      break
     }
 
     default:
       return null
   }
+
+  if (onlyProtected) {
+    const imgNationalProtectedArea = Image('users/projectgeffao/World/PAs_WDPA_image_Bin_30m_World')
+    asset.img = asset.img.mask(imgNationalProtectedArea.eq(1))
+  }
+  return asset
 }
 
 export const getForestAgreementAssetData = (gteHansenTreeCoverPerc = 10, gteAgreementLevel = 1): { img: Image } => {
