@@ -14,14 +14,13 @@ import Icon from '@client/components/Icon'
 
 const MessageBoard = () => {
   const countryIso = useCountryIso()
-
   const assessment = useAssessment()
   const cycle = useCycle()
 
   const i18n = useTranslation()
   const dispatch = useAppDispatch()
 
-  const { data = { unreadMessages: 0 }, dispatch: fetchData } = useGetRequest(
+  const { data: unreadMessages = 0, dispatch: fetchData } = useGetRequest(
     ApiEndPoint.MessageCenter.Stats.getCountryMessageBoardUnreadMessages(),
     {
       params: { countryIso, assessmentName: assessment.props.name, cycleName: cycle.name },
@@ -68,7 +67,7 @@ const MessageBoard = () => {
               >
                 <Icon name="chat-46" className="icon-middle" />
                 {i18n.t<string>('landing.users.message')}
-                {data.unreadMessages > 0 && <div className="landing__user-message-count">{data.unreadMessages}</div>}
+                {unreadMessages > 0 && <div className="landing__user-message-count">{unreadMessages}</div>}
               </button>
             </div>
           </div>

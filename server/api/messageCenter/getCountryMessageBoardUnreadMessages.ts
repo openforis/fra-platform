@@ -18,9 +18,9 @@ export const getCountryMessageBoardUnreadMessages = async (req: Request, res: Re
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName })
 
-    const data = await MessageCenterController.getUnreadMessages({ countryIso, assessment, cycle, user })
+    const { unreadMessages } = await MessageCenterController.getUnreadMessages({ countryIso, assessment, cycle, user })
 
-    Requests.sendOk(res, data)
+    Requests.sendOk(res, unreadMessages)
   } catch (e) {
     Requests.sendErr(res, e)
   }
