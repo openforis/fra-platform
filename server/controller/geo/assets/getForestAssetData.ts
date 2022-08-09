@@ -8,7 +8,7 @@ export const getForestAssetData = (
   gteHansenTreeCoverPerc?: number,
   onlyProtected?: boolean
 ): { year: number; img: Image } => {
-  let asset = { year: 0, img: Image('') }
+  let asset = {} as any
 
   switch (forestSource) {
     case ForestSource.JAXA: {
