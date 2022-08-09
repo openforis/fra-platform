@@ -1,4 +1,4 @@
-import { Table, TableSection } from '@meta/assessment'
+import { NodeValue, Table, TableSection } from '@meta/assessment'
 import { NodeUpdate, TableData } from '@meta/data'
 
 import { useAppSelector } from '@client/store'
@@ -11,13 +11,22 @@ export const useShowOriginalDatapoints = () =>
 export const useTableSections = (props: { sectionName: string }): Array<TableSection> =>
   useAppSelector((state) => state.pages.assessmentSection.tableSections[props.sectionName] ?? [])
 
+const useOriginalDataPointData = (): Record<string, Record<string, NodeValue>> | undefined => {
+  const countryIso = useCountryIso()
+  return useAppSelector(
+    (state) => state.pages.assessmentSection.originalDataPointData?.[countryIso]?.originalDataPointValue
+  )
+}
+
+export const useHasOriginalDataPointData = (): boolean => Object.keys(useOriginalDataPointData() ?? {}).length > 0
+
 export const useTableData = (props: { table: Table }): TableData => {
   const { table } = props
   const countryIso = useCountryIso()
   const { odp } = table.props
   const country = useAssessmentCountry()
   const tableData = useAppSelector((state) => state.pages.assessmentSection.data)
-  const odpData = useAppSelector((state) => state.pages.assessmentSection.originalDataPointData)
+  const odpData = useOriginalDataPointData() ?? {}
   const showOriginalDatapoints = useShowOriginalDatapoints()
 
   if (!tableData) return {} as TableData
@@ -25,16 +34,13 @@ export const useTableData = (props: { table: Table }): TableData => {
 
   const currData = tableData[countryIso][table.props.name]
 
-  // Return normal table data if table is not OriginalDataPointTable
-  const currOdpData = odpData?.[countryIso]?.originalDataPointValue ?? {}
-
-  const tableDataWithODP = <TableData>{
+  const tableDataWithODP = {
     [countryIso]: {
-      [table.props.name]: { ...currData, ...currOdpData },
+      [table.props.name]: { ...currData, ...odpData },
     },
   }
 
-  return tableDataWithODP
+  return tableDataWithODP as TableData
 }
 
 export const useOriginalDataPointYears = () => {
