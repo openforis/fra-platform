@@ -7,7 +7,7 @@ import { User } from '@meta/user'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
-export const getChatUnreadMessages = async (
+export const getUnreadChatMessages = async (
   props: { countryIso: CountryIso; assessment: Assessment; cycle: Cycle; user: User },
   client: BaseProtocol = DB
 ): Promise<Array<{ userId: number; unreadMessages: number }>> => {

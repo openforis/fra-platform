@@ -26,7 +26,7 @@ const MessageBoardUsers = () => {
   const users = useUsers()
 
   const { data: usersUnreadMessages = {}, dispatch: fetchData } = useGetRequest(
-    ApiEndPoint.MessageCenter.Stats.getCountryChatUnreadMessages(),
+    ApiEndPoint.MessageCenter.Stats.getUnreadChatMessages(),
     {
       params: { countryIso, assessmentName: assessment.props.name, cycleName: cycle.name },
     }

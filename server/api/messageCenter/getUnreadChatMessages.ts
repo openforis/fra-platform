@@ -7,7 +7,7 @@ import { AssessmentController } from '@server/controller/assessment'
 import { MessageCenterController } from '@server/controller/messageCenter'
 import Requests from '@server/utils/requests'
 
-export const getCountryChatUnreadMessages = async (req: Request, res: Response) => {
+export const getUnreadChatMessages = async (req: Request, res: Response) => {
   try {
     const { countryIso, assessmentName, cycleName } = req.query as {
       countryIso: CountryIso
@@ -18,7 +18,7 @@ export const getCountryChatUnreadMessages = async (req: Request, res: Response) 
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName })
 
-    const data = await MessageCenterController.getChatUnreadMessages({ countryIso, assessment, cycle, user })
+    const data = await MessageCenterController.getUnreadChatMessages({ countryIso, assessment, cycle, user })
 
     const usersUnreadMessages = data.reduce(
       (acc, item) => ({ ...acc, [item.userId]: item.unreadMessages }),
