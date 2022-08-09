@@ -83,7 +83,7 @@ const CollaboratorMultiSelect: React.FC<Props> = ({ properties, disabled }) => {
         {Objects.isEmpty(values) ? (
           <span className="multi-select__placeholder">{i18n.t<string>('multiSelect.placeholder')}</span>
         ) : (
-          options.map((option) => localizeOption(option)).join(', ')
+          values.map((value) => i18n.t(value)).join(', ')
         )}
       </div>
       {disabled ? null : (
