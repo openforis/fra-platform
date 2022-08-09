@@ -2,6 +2,7 @@ import { Objects } from '@core/utils'
 
 import { CountryIso } from '@meta/area'
 import { Assessment, Cycle } from '@meta/assessment'
+import { MessageTopicType } from '@meta/messageCenter'
 import { User } from '@meta/user'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
@@ -21,20 +22,20 @@ export const getUnreadMessages = async (
         from ${cycleSchema}.message_topic_user mtu
         left join ${cycleSchema}.message_topic mt ON mtu.topic_id = mt.id
         where mt.country_iso = $1
-          and mt.type = 'messageBoard'
-          and mtu.user_id = $2
+          and mt.type = $2
+          and mtu.user_id = $3
       )
       select count(*) as unread_messages
       from ${cycleSchema}.message m
           left join ${cycleSchema}.message_topic mt ON m.topic_id = mt.id
         left join mtu on mtu.topic_id = mt.id
       where mt.country_iso = $1
-        and mt.type = 'messageBoard'
-        and m.user_id != $2
+        and mt.type = $2
+        and m.user_id != $3
         and not m.deleted
         and (mtu.last_open_time is null or m.created_time > mtu.last_open_time);
     `,
-    [countryIso, user.id],
+    [countryIso, MessageTopicType.messageBoard, user.id],
     Objects.camelize
   )
 }
