@@ -12,6 +12,7 @@ import Footer from '@client/components/Footer'
 import Header from '@client/components/Header'
 import Toaster from '@client/components/Toaster'
 import Assessment from '@client/pages/Assessment'
+import AssessmentPrint from '@client/pages/AssessmentPrint'
 import Geo from '@client/pages/Geo'
 import Landing from '@client/pages/Landing'
 import Login from '@client/pages/Login'
@@ -50,12 +51,9 @@ const PageRoutes: React.FC = () => {
 
       {shouldRenderCountrySelect && <CountrySelect />}
 
-      {/* <Route */}
-      {/*  path={BasePaths.assessmentPrint} */}
-      {/*  render={() => <DynamicImport load={() => import('../../../webapp/pages/AssessmentPrint/export')} />} */}
-      {/* /> */}
-
       <Routes>
+        <Route path={ClientRoutes.Assessment.Print.path.absolute} element={<AssessmentPrint />} />
+
         <Route path="/" element={<Landing />} />
         <Route path={`${ClientRoutes.Assessment.Root.path.absolute}/*`} element={<Assessment />} />
         <Route path={`${ClientRoutes.Login.Root.path.absolute}/*`} element={<Login />} />

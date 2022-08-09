@@ -1,9 +1,10 @@
-import { useCountryIso } from '@client/hooks'
 import { CountryIso } from '@meta/area'
 import { Authorizer, User, Users } from '@meta/user'
+
 import { useAppSelector } from '@client/store'
-import { useAssessmentSection, useCountries, useAssessmentCountry } from '@client/store/assessment'
+import { useAssessmentCountry, useAssessmentSection, useCountries } from '@client/store/assessment'
 import { useIsDataLocked } from '@client/store/ui/dataLock'
+import { useCountryIso } from '@client/hooks'
 
 export const useUser = (): User | undefined => useAppSelector((state) => state.user)
 

@@ -1,10 +1,13 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
+
+import { Numbers } from '@core/utils'
+
+import { ODPs } from '@meta/assessment/originalDataPoint'
 
 import { useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
-import { useTranslation } from 'react-i18next'
-import { Numbers } from '@core/utils'
-import { ODPs } from '@meta/assessment/originalDataPoint'
 import DefinitionLink from '@client/components/DefinitionLink'
+
 import ExtentOfForestRow from './ExtentOfForestRow'
 
 type Props = {
