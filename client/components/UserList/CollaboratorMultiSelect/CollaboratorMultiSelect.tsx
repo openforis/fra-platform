@@ -10,15 +10,6 @@ import { CollaboratorProps } from '@meta/user'
 
 import { useAssessmentSections } from '@client/store/assessment'
 
-type Option = {
-  tableNo: string
-  section: string
-  label: string
-}
-
-const optionAll: Option = { tableNo: 'all', section: 'all', label: 'contactPersons.all' }
-const optionNone: Option = { tableNo: 'none', section: 'none', label: 'contactPersons.none' }
-
 type Props = {
   properties: CollaboratorProps
   disabled?: boolean
@@ -32,33 +23,40 @@ const CollaboratorMultiSelect: React.FC<Props> = ({ properties, disabled }) => {
 
   const assessmentSections = useAssessmentSections()
 
-  const options = [
-    optionAll,
-    optionNone,
-    ...assessmentSections
-      .reduce((prev, curr) => [...prev, ...curr.subSections], [])
-      .filter((subSection: SubSection) => subSection.props.anchor)
-      .map((subSection: SubSection): Option => {
-        return {
-          tableNo: subSection.props.anchor,
-          section: '',
-          label: subSection.props.name,
-        }
-      }),
-  ]
-
   const sections = Objects.isEmpty(properties) ? 'none' : properties.sections
 
   const values: Array<string> = typeof sections === 'string' ? [sections] : Object.keys(sections)
 
-  const localizeOption = (option: Option) =>
-    [optionAll.tableNo, optionNone.tableNo].includes(option.tableNo) ? i18n.t(option.label) : option.tableNo
+  const [selectedOptions, setSelectedOptions] = useState<Array<string>>(values)
 
-  const addOption = (): void => null
+  const options = [
+    'all',
+    'none',
+    ...assessmentSections
+      .reduce((prev, curr) => [...prev, ...curr.subSections], [])
+      .filter((subSection: SubSection) => subSection.props.anchor)
+      .map((subSection: SubSection): string => subSection.props.anchor),
+  ]
 
-  const removeOption = (): void => null
+  const localizeOption = (option: string) =>
+    ['all', 'none'].includes(option) ? i18n.t(`contactPersons.${option}`) : option
 
-  const toggleOption = (option: Option): void => (values.includes(option.tableNo) ? removeOption() : addOption())
+  const removeOption = (option: string): void => {
+    if (option === 'all') setSelectedOptions(['none'])
+    else if (option === 'none') setSelectedOptions(['all'])
+    else setSelectedOptions(selectedOptions.filter((opt) => opt !== option))
+  }
+
+  const addOption = (option: string): void => {
+    setSelectedOptions(
+      ['all', 'none'].includes(option)
+        ? [option]
+        : [...selectedOptions.filter((opt) => !['all', 'none'].includes(opt)), option]
+    )
+  }
+
+  const toggleOption = (option: string): void =>
+    selectedOptions.includes(option) ? removeOption(option) : addOption(option)
 
   const handleClickOutside = (e: MouseEvent) =>
     ref?.current && ref.current && !ref.current.contains(e.target) && setOpen(false)
@@ -80,25 +78,25 @@ const CollaboratorMultiSelect: React.FC<Props> = ({ properties, disabled }) => {
       onBlur={() => (disabled ? null : setOpen(false))}
     >
       <div className="multi-select__closed-content">
-        {Objects.isEmpty(values) ? (
+        {Objects.isEmpty(selectedOptions) ? (
           <span className="multi-select__placeholder">{i18n.t<string>('multiSelect.placeholder')}</span>
         ) : (
-          values.map((value) => i18n.t(value)).join(', ')
+          selectedOptions.map((value) => localizeOption(value)).join(', ')
         )}
       </div>
       {disabled ? null : (
         <div className="multi-select__opened-content-anchor">
           {open ? (
             <div className="multi-select__opened">
-              {options.map((option: Option) => (
+              {options.map((option: string) => (
                 <div
                   className="multi-select__opened-item"
-                  key={option.tableNo}
+                  key={option}
                   onClick={() => toggleOption(option)}
                   onMouseDown={(e) => e.stopPropagation()}
                   aria-hidden="true"
                 >
-                  <span className={classNames('fra-checkbox', { checked: values.includes(option.tableNo) })} />
+                  <span className={classNames('fra-checkbox', { checked: selectedOptions.includes(option) })} />
                   <span className="multi-select__opened-item-label">{localizeOption(option)}</span>
                 </div>
               ))}
