@@ -72,22 +72,7 @@ const RowData: React.FC<Props> = (props) => {
           colHeaderLabel
         )}
       </th>
-      {/* TODO Handle odp */}
-      {/* {odp */}
-      {/*  ? data.map((datum: TableDatumODP) => ( */}
-      {/*      <CellOdp */}
-      {/*        key={datum.name || datum.year} */}
-      {/*        assessmentName={assessmentName} */}
-      {/*        sectionName={sectionName} */}
-      {/*        table={table} */}
-      {/*        rowSpec={row} */}
-      {/*        variableName={variableName as keyof TableDatumODP} */}
-      {/*        disabled={disabled} */}
-      {/*        data={data} */}
-      {/*        datum={datum} */}
-      {/*      /> */}
-      {/*    )) */}
-      {/*  : */}
+
       {colsData.map((col) => (
         <Cell
           key={col.uuid}
@@ -101,6 +86,7 @@ const RowData: React.FC<Props> = (props) => {
           row={row}
         />
       ))}
+
       {!disabled && !secondary && (
         <td className="fra-table__review-cell no-print">
           <ReviewIndicator title={colHeaderLabel} topicKey={Topics.getDataReviewTopicKey(row)} />
