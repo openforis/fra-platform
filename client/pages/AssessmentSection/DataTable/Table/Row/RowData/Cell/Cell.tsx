@@ -50,7 +50,7 @@ const Cell: React.FC<Props> = (props) => {
   const countryIso = useCountryIso()
   const country = useCountry(countryIso)
   const user = useUser()
-  const section = useAssessmentSection()
+  const section = useAssessmentSection(sectionName)
   const cycle = useCycle()
   const dataLocked = useIsDataLocked()
 
@@ -64,7 +64,7 @@ const Cell: React.FC<Props> = (props) => {
   const valid = !Authorizer.canEdit({ countryIso, country, section, user }) || NodeValueValidations.isValid(nodeValue)
 
   const className = useClassName({ col, row, tableName, valid })
-  const { onChange, onPaste } = useOnChange({ table, col, row, nodeValue, data })
+  const { onChange, onPaste } = useOnChange({ table, col, row, nodeValue, data, sectionName })
   useListenNodeUpdate({ countryIso, assessmentName, cycleName, tableName, variableName, colName })
 
   const Component = Components[col.props.colType]
