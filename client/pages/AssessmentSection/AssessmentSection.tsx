@@ -8,6 +8,7 @@ import { AssessmentName } from '@meta/assessment'
 import { useAssessmentSection } from '@client/store/assessment'
 import { useTableSections } from '@client/store/pages/assessmentSection'
 import { useCanEditSection } from '@client/store/user'
+import { useIsPrint } from '@client/hooks/useIsPath'
 
 import DataTable from './DataTable'
 import Descriptions, { GeneralComments } from './Descriptions'
@@ -20,7 +21,7 @@ const AssessmentSection: React.FC = () => {
   const assessmentSection = useAssessmentSection()
   const tableSections = useTableSections({ sectionName: assessmentSection?.props?.name })
   const canEditSection = useCanEditSection()
-  const [printView, printOnlyTablesView] = [false, false] // TODO: usePrintView()
+  const { print, onlyTables } = useIsPrint()
 
   const panEuropean = assessmentName === AssessmentName.panEuropean
   const disabled = panEuropean || !canEditSection
@@ -31,9 +32,9 @@ const AssessmentSection: React.FC = () => {
 
   return (
     <div className={`app-view__content assessment-section__${sectionName}`}>
-      {showTitle && printView && (
+      {showTitle && print && (
         <h2 className="title only-print">
-          {`${printOnlyTablesView ? '' : `${anchor} `}${i18n.t<string>(`${sectionName}.${sectionName}`)}`}
+          {`${onlyTables ? '' : `${anchor} `}${i18n.t<string>(`${sectionName}.${sectionName}`)}`}
         </h2>
       )}
 

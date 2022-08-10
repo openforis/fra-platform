@@ -19,7 +19,8 @@ const ExtentOfForest: React.FC<Props> = (props) => {
   const user = useUser()
   const { i18n } = useTranslation()
   const dispatch = useAppDispatch()
-  // const [printView, printOnlyTablesView] = [false, false] // TODO usePrintView()
+  // TODO: OriginalDataPointsPrint
+  // const { print, onlyTables } = useIsPrint()
   const odpYears = useOriginalDataPointYears()
   const hasOdps = Array.isArray(odpYears)
   const showOdps = useShowOriginalDatapoints()
@@ -40,7 +41,7 @@ const ExtentOfForest: React.FC<Props> = (props) => {
         )}
       </h2>
 
-      {/* {hasOdps && printView && !printOnlyTablesView && <OriginalDataPointsPrint section={sectionName} />} */}
+      {/* {hasOdps && print && !printOnlyTablesView && <OriginalDataPointsPrint section={sectionName} />} */}
     </>
   )
 }

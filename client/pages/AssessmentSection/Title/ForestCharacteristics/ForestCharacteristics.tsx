@@ -7,6 +7,8 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
   const { sectionName } = props
 
   const i18n = useTranslation()
+  // TODO: OriginalDataPointsPrint
+  // const { print, onlyTables } = useIsPrint()
   // const [printView, printOnlyTablesView] = [false, false] //TODO: usePrintView()
   // const hasOdps = false // useSelector(ForestCharacteristicsState.hasOriginalDataPoints)
 

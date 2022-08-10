@@ -9,6 +9,7 @@ import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 import { useCountryIso } from '@client/hooks'
+import { useIsPrint } from '@client/hooks/useIsPath'
 import MultiSelect from '@client/components/MultiSelect'
 import ReviewIndicator from '@client/components/ReviewIndicator'
 import VerticallyGrowingTextField from '@client/components/VerticallyGrowingTextField'
@@ -27,8 +28,9 @@ const DataSources: React.FC<Props> = (props) => {
   const assessment = useAssessment()
   const cycle = useCycle()
 
-  const [printView] = [false] // TODO: usePrintView()
-  const displayReviewIndicator = originalDataPoint.id && !printView && canEditData
+  const { print } = useIsPrint()
+
+  const displayReviewIndicator = originalDataPoint.id && !print && canEditData
 
   const updateOriginalDataPoint = (originalDataPointUpdate: OriginalDataPoint) => {
     dispatch(
@@ -41,18 +43,18 @@ const DataSources: React.FC<Props> = (props) => {
     )
   }
 
-  const isDisabled = printView || !canEditData || !originalDataPoint.year
+  const isDisabled = print || !canEditData || !originalDataPoint.year
 
   return (
     <div className="odp__section">
-      {!printView && <h3 className="subhead">{i18n.t('nationalDataPoint.dataSources')}</h3>}
+      {!print && <h3 className="subhead">{i18n.t('nationalDataPoint.dataSources')}</h3>}
 
       <div className="fra-table__container">
         <div className="fra-table__scroll-wrapper odp__data-source-table-wrapper">
           <table className="fra-table">
             <tbody>
               <tr>
-                {printView && (
+                {print && (
                   <th className="fra-table__header-cell odp__year-column" rowSpan={3}>
                     {originalDataPoint.year}
                   </th>

@@ -6,6 +6,7 @@ import { Navigate, Route, Routes, useMatch } from 'react-router-dom'
 
 import { useAppDispatch } from '@client/store'
 import { AssessmentActions } from '@client/store/assessment'
+import { useIsPrint } from '@client/hooks/useIsPath'
 import { ClientRoutes } from '@client/clientRoutes'
 import CountrySelect from '@client/components/CountrySelect'
 import Footer from '@client/components/Footer'
@@ -25,8 +26,9 @@ const PageRoutes: React.FC = () => {
   useTheme()
   const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
+  const { print } = useIsPrint()
 
-  const shouldRenderCountrySelect = !useMatch(ClientRoutes.Login.Root.path.absolute)
+  const shouldRenderCountrySelect = !useMatch(ClientRoutes.Login.Root.path.absolute) && !print
 
   useEffect(() => {
     // TODO: Add user.language support
@@ -47,7 +49,7 @@ const PageRoutes: React.FC = () => {
   return (
     <>
       <Toaster />
-      <Header />
+      {!print && <Header />}
 
       {shouldRenderCountrySelect && <CountrySelect />}
 

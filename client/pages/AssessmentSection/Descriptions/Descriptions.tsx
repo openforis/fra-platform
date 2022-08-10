@@ -6,6 +6,7 @@ import { Objects } from '@core/utils'
 import { Descriptions as DescriptionsType } from '@meta/assessment'
 
 import { useAppSelector } from '@client/store'
+import { useIsPrint } from '@client/hooks/useIsPath'
 
 import AnalysisDescriptions from './AnalysisDescriptions'
 import CommentableDescription from './CommentableDescription'
@@ -21,9 +22,10 @@ const Descriptions: React.FC<Props> = (props: Props) => {
   const { sectionName, descriptions, disabled } = props
   const { introductoryText, nationalData, analysisAndProcessing } = descriptions
   const i18n = useTranslation()
-  const [printView, printOnlyTablesView] = [false, false] // TODO: usePrintView()
+  const { print, onlyTables } = useIsPrint()
+
   const [useNationalData, useAnalysisAndProcessing] = useAppSelector((state) => {
-    if (printOnlyTablesView) {
+    if (onlyTables) {
       return [false, false]
     }
     return [
@@ -38,8 +40,8 @@ const Descriptions: React.FC<Props> = (props: Props) => {
         <NationalDataDescriptions
           section={sectionName}
           disabled={disabled}
-          showAlertEmptyContent={!printView}
-          showDashEmptyContent={printView}
+          showAlertEmptyContent={!print}
+          showDashEmptyContent={print}
         />
       )}
 
@@ -47,8 +49,8 @@ const Descriptions: React.FC<Props> = (props: Props) => {
         <AnalysisDescriptions
           section={sectionName}
           disabled={disabled}
-          showAlertEmptyContent={!printView}
-          showDashEmptyContent={printView}
+          showAlertEmptyContent={!print}
+          showDashEmptyContent={print}
         />
       )}
 
@@ -62,9 +64,7 @@ const Descriptions: React.FC<Props> = (props: Props) => {
         />
       )}
 
-      {printView && !printOnlyTablesView && (useNationalData || useAnalysisAndProcessing) && (
-        <div className="page-break" />
-      )}
+      {print && !onlyTables && (useNationalData || useAnalysisAndProcessing) && <div className="page-break" />}
     </>
   )
 }
