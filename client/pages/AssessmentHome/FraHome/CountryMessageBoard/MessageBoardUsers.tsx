@@ -25,10 +25,15 @@ const MessageBoardUsers = () => {
   const user = useUser()
   const users = useUsers()
 
-  const { data: usersUnreadMessages = {}, dispatch: fetchData } = useGetRequest(
-    ApiEndPoint.MessageCenter.Stats.getUnreadChatMessages(),
+  const { data: unreadMessages = {}, dispatch: fetchData } = useGetRequest(
+    ApiEndPoint.MessageCenter.Topic.getUnreadMessages(),
     {
-      params: { countryIso, assessmentName: assessment.props.name, cycleName: cycle.name },
+      params: {
+        countryIso,
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
+        type: MessageTopicType.chat,
+      },
     }
   )
 
@@ -79,8 +84,10 @@ const MessageBoardUsers = () => {
                   >
                     <Icon name="chat-46" className="icon-middle" />
                     {i18n.t<string>('landing.users.message')}
-                    {usersUnreadMessages[_user.id] > 0 && (
-                      <div className="landing__user-message-count">{usersUnreadMessages[_user.id]}</div>
+                    {unreadMessages[Topics.getMessageBoardChatKey(user, _user)] > 0 && (
+                      <div className="landing__user-message-count">
+                        {unreadMessages[Topics.getMessageBoardChatKey(user, _user)]}
+                      </div>
                     )}
                   </button>
                 )}

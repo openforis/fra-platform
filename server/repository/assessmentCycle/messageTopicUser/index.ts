@@ -3,8 +3,7 @@ import { getOdpReviewStatus } from './getOdpReviewStatus'
 import { getOneOrNone } from './getOneOrNone'
 import { getReviewStatus } from './getReviewStatus'
 import { getReviewSummary } from './getReviewSummary'
-import { getUnreadChatMessages } from './getUnreadChatMessages'
-import { getUnreadMessageBoardMessages } from './getUnreadMessageBoardMessages'
+import { getUnreadMessages } from './getUnreadMessages'
 import { update } from './update'
 
 export const MessageTopicUserRepository = {
@@ -13,7 +12,6 @@ export const MessageTopicUserRepository = {
   getOneOrNone,
   getReviewStatus,
   getReviewSummary,
-  getUnreadChatMessages,
-  getUnreadMessageBoardMessages,
+  getUnreadMessages,
   update,
 }

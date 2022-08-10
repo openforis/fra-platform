@@ -20,10 +20,15 @@ const MessageBoard = () => {
   const i18n = useTranslation()
   const dispatch = useAppDispatch()
 
-  const { data: unreadMessages = 0, dispatch: fetchData } = useGetRequest(
-    ApiEndPoint.MessageCenter.Stats.getUnreadMessageBoardMessages(),
+  const { data: unreadMessages = {}, dispatch: fetchData } = useGetRequest(
+    ApiEndPoint.MessageCenter.Topic.getUnreadMessages(),
     {
-      params: { countryIso, assessmentName: assessment.props.name, cycleName: cycle.name },
+      params: {
+        countryIso,
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
+        type: MessageTopicType.messageBoard,
+      },
     }
   )
 
@@ -67,7 +72,11 @@ const MessageBoard = () => {
               >
                 <Icon name="chat-46" className="icon-middle" />
                 {i18n.t<string>('landing.users.message')}
-                {unreadMessages > 0 && <div className="landing__user-message-count">{unreadMessages}</div>}
+                {unreadMessages[Topics.getMessageBoardCountryKey()] > 0 && (
+                  <div className="landing__user-message-count">
+                    {unreadMessages[Topics.getMessageBoardCountryKey()]}
+                  </div>
+                )}
               </button>
             </div>
           </div>

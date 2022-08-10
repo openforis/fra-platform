@@ -5,8 +5,7 @@ import { AuthMiddleware } from '@server/middleware/auth'
 
 import { addMessage } from './addMessage'
 import { getTopic } from './getTopic'
-import { getUnreadChatMessages } from './getUnreadChatMessages'
-import { getUnreadMessageBoardMessages } from './getUnreadMessageBoardMessages'
+import { getUnreadMessages } from './getUnreadMessages'
 import { markMessageDeleted } from './markMessageDeleted'
 import { resolveTopic } from './resolveTopic'
 
@@ -19,8 +18,7 @@ export const MessageCenterApi = {
       AuthMiddleware.requireDeleteTopicMessage,
       markMessageDeleted
     )
+    express.get(ApiEndPoint.MessageCenter.Topic.getUnreadMessages(), getUnreadMessages)
     express.put(ApiEndPoint.MessageCenter.Topic.resolveTopic(), AuthMiddleware.requireResolveTopic, resolveTopic)
-    express.get(ApiEndPoint.MessageCenter.Stats.getUnreadChatMessages(), getUnreadChatMessages)
-    express.get(ApiEndPoint.MessageCenter.Stats.getUnreadMessageBoardMessages(), getUnreadMessageBoardMessages)
   },
 }
