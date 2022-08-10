@@ -36,6 +36,8 @@ const MessageBoard = () => {
 
   useEffect(() => fetchRef.current(), [fetchRef])
 
+  const topicKey = Topics.getMessageBoardCountryKey()
+
   return (
     <div className="landing__users-container landing__message-board">
       <div className="landing__page-container-header">
@@ -63,7 +65,7 @@ const MessageBoard = () => {
                       countryIso,
                       assessmentName: assessment.props.name,
                       cycleName: cycle.name,
-                      key: Topics.getMessageBoardCountryKey(),
+                      key: topicKey,
                       type: MessageTopicType.messageBoard,
                       title: i18n.t<string>(Areas.getTranslationKey(countryIso)),
                     })
@@ -72,10 +74,8 @@ const MessageBoard = () => {
               >
                 <Icon name="chat-46" className="icon-middle" />
                 {i18n.t<string>('landing.users.message')}
-                {unreadMessages[Topics.getMessageBoardCountryKey()] > 0 && (
-                  <div className="landing__user-message-count">
-                    {unreadMessages[Topics.getMessageBoardCountryKey()]}
-                  </div>
+                {unreadMessages[topicKey] > 0 && (
+                  <div className="landing__user-message-count">{unreadMessages[topicKey]}</div>
                 )}
               </button>
             </div>
