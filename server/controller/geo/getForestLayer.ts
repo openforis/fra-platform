@@ -9,15 +9,16 @@ type Props = {
   countryIso: CountryIso
   forestSource: ForestSource
   gteHansenTreeCoverPerc?: number
+  onlyProtected?: boolean
 }
 
 export const getForestLayer = async (props: Props): Promise<Layer> => {
-  const { countryIso, forestSource, gteHansenTreeCoverPerc } = props
+  const { countryIso, forestSource, gteHansenTreeCoverPerc, onlyProtected } = props
 
   await authenticateToGee()
 
   const ftcCountry = AssetsController.getCountryBoundaries(countryIso)
-  const asset = AssetsController.getForestAssetData(forestSource, gteHansenTreeCoverPerc)
+  const asset = AssetsController.getForestAssetData(forestSource, gteHansenTreeCoverPerc, onlyProtected)
   const metadata = sourcesMetadata[forestSource]
 
   return new Promise((resolve, reject) => {

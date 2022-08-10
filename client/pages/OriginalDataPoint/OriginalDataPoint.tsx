@@ -12,7 +12,7 @@ import { useCanEditSection, useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 
 import ButtonBar from './components/ButtonBar'
-// import Comments from './components/Comments'
+import Comments from './components/Comments'
 import DataSources from './components/DataSources'
 import NationalClasses from './components/NationalClasses'
 import OriginalData from './components/OriginalData'
@@ -65,7 +65,7 @@ const OriginalDataPoint: React.FC = () => {
   return (
     <div className="app-view__content">
       <div className="app-view__page-header">
-        <h1 className="title align-left">{i18n.t('nationalDataPoint.nationalDataPoint')}</h1>
+        <h1 className="title align-left">{i18n.t<string>('nationalDataPoint.nationalDataPoint')}</h1>
         <ButtonBar canEditData={canEditData} />
       </div>
 
@@ -73,7 +73,7 @@ const OriginalDataPoint: React.FC = () => {
       <DataSources canEditData={canEditData} />
       <NationalClasses canEditData={canEditData} />
       <OriginalData canEditData={canEditData} />
-      {/* <Comments canEditData={canEditData} /> */}
+      <Comments canEditData={canEditData} />
 
       <div className="odp__bottom-buttons">
         <ButtonBar canEditData={canEditData} />
