@@ -4,7 +4,7 @@ import React from 'react'
 import MessageBoard from './MessageBoard'
 import MessageBoardUsers from './MessageBoardUsers'
 
-const CountryMessageBoard = () => {
+const CountryMessageBoard: React.FC = () => {
   return (
     <div className="landing__page-container">
       <div className="landing__message-board-container">
