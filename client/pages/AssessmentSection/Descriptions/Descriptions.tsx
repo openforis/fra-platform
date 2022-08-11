@@ -1,11 +1,10 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from '@core/utils'
+import { Descriptions as DescriptionsType, TableNames } from '@meta/assessment'
 
-import { Descriptions as DescriptionsType } from '@meta/assessment'
-
-import { useAppSelector } from '@client/store'
+import { useAssessmentCountry } from '@client/store/assessment'
+import { useHasOriginalDataPointData } from '@client/store/pages/assessmentSection'
 import { useIsPrint } from '@client/hooks/useIsPath'
 
 import AnalysisDescriptions from './AnalysisDescriptions'
@@ -13,30 +12,48 @@ import CommentableDescription from './CommentableDescription'
 import NationalDataDescriptions from './NationalDataDescriptions'
 
 type Props = {
-  sectionName: string
   descriptions: DescriptionsType
   disabled: boolean
+  sectionName: string
+}
+
+const useDescriptions = (props: Props): { nationalData: boolean; analysisAndProcessing: boolean } => {
+  const { descriptions, sectionName } = props
+  // TODO: usePrintView()
+  // if (printOnlyTablesView) {
+  //   return [false, false]
+  // }
+  const country = useAssessmentCountry()
+  const hasOriginalDataPointData = useHasOriginalDataPointData()
+  const useOriginalDataPoint = country?.props?.forestCharacteristics?.useOriginalDataPoint
+
+  const bySections = useMemo<Record<string, boolean>>(
+    () => ({
+      [TableNames.extentOfForest]: !hasOriginalDataPointData,
+      [TableNames.forestCharacteristics]: !hasOriginalDataPointData && useOriginalDataPoint,
+    }),
+    [useOriginalDataPoint, hasOriginalDataPointData]
+  )
+  const bySection = bySections[sectionName]
+
+  return {
+    nationalData: bySection ?? descriptions.nationalData,
+    analysisAndProcessing: bySection ?? descriptions.analysisAndProcessing,
+  }
 }
 
 const Descriptions: React.FC<Props> = (props: Props) => {
-  const { sectionName, descriptions, disabled } = props
-  const { introductoryText, nationalData, analysisAndProcessing } = descriptions
+  const { descriptions, disabled, sectionName } = props
+
   const i18n = useTranslation()
   const { print, onlyTables } = useIsPrint()
 
-  const [useNationalData, useAnalysisAndProcessing] = useAppSelector((state) => {
-    if (onlyTables) {
-      return [false, false]
-    }
-    return [
-      Objects.isFunction(nationalData) ? nationalData(state) : nationalData,
-      Objects.isFunction(analysisAndProcessing) ? analysisAndProcessing(state) : analysisAndProcessing,
-    ]
-  })
+  const { introductoryText } = descriptions
+  const { analysisAndProcessing, nationalData } = useDescriptions(props)
 
   return (
     <>
-      {useNationalData && (
+      {nationalData && (
         <NationalDataDescriptions
           section={sectionName}
           disabled={disabled}
@@ -45,7 +62,7 @@ const Descriptions: React.FC<Props> = (props: Props) => {
         />
       )}
 
-      {useAnalysisAndProcessing && (
+      {analysisAndProcessing && (
         <AnalysisDescriptions
           section={sectionName}
           disabled={disabled}
@@ -57,14 +74,14 @@ const Descriptions: React.FC<Props> = (props: Props) => {
       {introductoryText && (
         <CommentableDescription
           section={sectionName}
-          title={i18n.t<string>('contactPersons.introductoryText')}
+          title={i18n.t('contactPersons.introductoryText')}
           name="introductoryText"
-          template={i18n.t<string>('contactPersons.introductoryTextSupport')}
+          template={i18n.t('contactPersons.introductoryTextSupport')}
           disabled={disabled}
         />
       )}
 
-      {print && !onlyTables && (useNationalData || useAnalysisAndProcessing) && <div className="page-break" />}
+      {print && !onlyTables && (nationalData || analysisAndProcessing) && <div className="page-break" />}
     </>
   )
 }

@@ -1,3 +1,5 @@
+import { UUIDs } from '@core/utils'
+
 import { Col as TypeCol, Row as TypeRow, RowType, Table } from '@meta/assessment'
 
 export const parseTable = (props: { headers: Array<string>; table: Table }): Table => {
@@ -18,19 +20,19 @@ export const parseTable = (props: { headers: Array<string>; table: Table }): Tab
       cols = headers.map<TypeCol>((columnHeader) => {
         let col = row.cols.find((c) => c.props.colName === columnHeader)
         if (!col) {
-          col = { ...row.cols[1], props: { ...row.cols[1].props, colName: columnHeader } }
+          col = { ...row.cols[1], uuid: UUIDs.v4(), props: { ...row.cols[1].props, colName: columnHeader } }
         }
         return col
       })
       if (!headerData) {
-        cols = [{ ...row.cols[0] }, ...cols]
+        cols = [{ ...row.cols[0], uuid: UUIDs.v4() }, ...cols]
       }
     }
 
     if (row.props.type === RowType.header && !headerData) {
       cols = row.cols.map((col) => {
         if (col.props.colSpan > 1) {
-          return { ...col, props: { ...col.props, colSpan: headers.length } }
+          return { ...col, uuid: UUIDs.v4(), props: { ...col.props, colSpan: headers.length } }
         }
         return col
       })

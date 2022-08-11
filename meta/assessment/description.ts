@@ -1,4 +1,4 @@
-export type Description = boolean | 'withOdp'
+export type Description = boolean
 
 export interface Descriptions {
   analysisAndProcessing: Description
