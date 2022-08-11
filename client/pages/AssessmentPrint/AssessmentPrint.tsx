@@ -19,13 +19,10 @@ const AssessmentPrint: React.FC = () => {
   const assessment = useAssessment()
   const cycle = useCycle()
   const countryIso = useCountryIso()
-  // useInitCountry()
-  // const assessmentType = useAssessmentType()
-  // const countryStatusLoaded = useIsCountryStatusLoaded()
+
   const Component = Components[assessment?.props.name]
 
   useEffect(() => {
-    dispatch(AssessmentActions.initApp())
     if (assessment && cycle) {
       dispatch(AssessmentActions.getSections({ countryIso, name: assessment.props.name, cycleName: cycle.name }))
     }
