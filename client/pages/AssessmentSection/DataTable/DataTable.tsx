@@ -79,11 +79,12 @@ const DataTable: React.FC<Props> = (props) => {
   if (!data) return null
 
   const showOdpChart = table.props.odp
-  const dataEmpty = false
+  // const dataEmpty = false
 
   return (
     <>
-      {showOdpChart && (!print || !dataEmpty) && (
+      {/* {showOdpChart && (!print || !dataEmpty) && ( */}
+      {showOdpChart && !print && (
         <>
           <Chart
             data={data}

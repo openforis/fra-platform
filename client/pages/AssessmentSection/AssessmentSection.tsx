@@ -30,7 +30,7 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
   const { i18n } = useTranslation()
   const { assessmentName } = useParams<{ assessmentName: AssessmentName; cycleName: string; section: string }>()
   const assessmentSection = useAssessmentSection(sectionProp)
-  const tableSections = useTableSections({ sectionName: assessmentSection?.props?.name })
+  const tableSections = useTableSections({ sectionName: assessmentSection.props?.name })
   const canEditSection = useCanEditSection(sectionProp)
   const { print, onlyTables } = useIsPrint()
 

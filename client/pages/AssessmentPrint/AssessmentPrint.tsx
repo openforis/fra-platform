@@ -5,7 +5,6 @@ import { AssessmentName } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { AssessmentActions, useAssessment, useCycle } from '@client/store/assessment'
-import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import { useCountryIso } from '@client/hooks'
 import Loading from '@client/components/Loading'
 
@@ -23,8 +22,7 @@ const AssessmentPrint: React.FC = () => {
   // useInitCountry()
   // const assessmentType = useAssessmentType()
   // const countryStatusLoaded = useIsCountryStatusLoaded()
-  const countryStatusLoaded = true
-  const Component = FraPrint // Components[assessment.props.name]
+  const Component = Components[assessment?.props.name]
 
   useEffect(() => {
     dispatch(AssessmentActions.initApp())
@@ -33,7 +31,7 @@ const AssessmentPrint: React.FC = () => {
     }
   }, [assessment?.props.name])
 
-  if (!countryStatusLoaded) {
+  if (!assessment) {
     return <Loading />
   }
 
