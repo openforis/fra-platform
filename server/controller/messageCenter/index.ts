@@ -1,3 +1,5 @@
+import { MessageTopicUserRepository } from '@server/repository/assessmentCycle/messageTopicUser'
+
 import { addMessage } from './addMessage'
 import { getTopic } from './getTopic'
 import { markMessageDeleted } from './markMessageDeleted'
@@ -10,4 +12,5 @@ export const MessageCenterController = {
   updateTopicReadTime,
   updateTopicStatus,
   markMessageDeleted,
+  getUnreadMessages: MessageTopicUserRepository.getUnreadMessages,
 }
