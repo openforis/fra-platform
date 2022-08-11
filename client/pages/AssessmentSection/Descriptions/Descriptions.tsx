@@ -19,10 +19,8 @@ type Props = {
 
 const useDescriptions = (props: Props): { nationalData: boolean; analysisAndProcessing: boolean } => {
   const { descriptions, sectionName } = props
-  // TODO: usePrintView()
-  // if (printOnlyTablesView) {
-  //   return [false, false]
-  // }
+  const { onlyTables } = useIsPrint()
+
   const country = useAssessmentCountry()
   const hasOriginalDataPointData = useHasOriginalDataPointData()
   const useOriginalDataPoint = country?.props?.forestCharacteristics?.useOriginalDataPoint
@@ -34,6 +32,14 @@ const useDescriptions = (props: Props): { nationalData: boolean; analysisAndProc
     }),
     [useOriginalDataPoint, hasOriginalDataPointData]
   )
+
+  if (onlyTables) {
+    return {
+      nationalData: false,
+      analysisAndProcessing: false,
+    }
+  }
+
   const bySection = bySections[sectionName]
 
   return {
