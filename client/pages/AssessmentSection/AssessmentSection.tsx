@@ -53,8 +53,6 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
     }
   }, [tableSections, assessment.props.name, countryIso, cycle.name, dispatch, assessmentSection.props.name, print])
 
-  if (!assessmentSection) return null
-
   const { anchor, showTitle, descriptions, name: sectionName } = assessmentSection.props
 
   return (
