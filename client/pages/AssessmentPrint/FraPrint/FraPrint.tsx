@@ -2,11 +2,11 @@ import './FraPrint.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useAssessmentSections } from '@client/store/assessment'
+import { useAssessmentSections, useCountry } from '@client/store/assessment'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import Loading from '@client/components/Loading'
-import AssessmentPrintSection from '@client/pages/AssessmentPrint/FraPrint/AssessmentPrintSection'
+import AssessmentSection from '@client/pages/AssessmentSection'
 
 import ContactPersons from './ContactPersons'
 import TableOfContent from './TableOfContent'
@@ -14,15 +14,12 @@ import TableOfContent from './TableOfContent'
 const FraPrint: React.FC = () => {
   const countryIso = useCountryIso()
   const i18n = useTranslation()
+  const country = useCountry(countryIso)
 
   const sections = useAssessmentSections()
 
   const { onlyTables } = useIsPrint()
-  // const { dataLoaded } = useFraPrintDataFetch(countryIso)
-  // const assessment: Assessment = useSelector(CountryState.getAssessmentFra2020) as Assessment
-  // const { deskStudy } = assessment
-
-  const deskStudy = true // todo
+  const deskStudy = country?.props?.deskStudy
 
   if (!sections) {
     return <Loading />
@@ -56,7 +53,7 @@ const FraPrint: React.FC = () => {
             {i === 0 && !deskStudy && <ContactPersons />}
 
             {Object.values(section.subSections).map((sectionItem) => {
-              return <AssessmentPrintSection key={sectionItem.uuid} section={sectionItem} />
+              return <AssessmentSection key={sectionItem.uuid} section={sectionItem.props.name} />
             })}
           </div>
         )

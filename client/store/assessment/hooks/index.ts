@@ -41,7 +41,7 @@ export const useCountries = (): Array<Country> => {
 }
 
 export const useCountry = (countryIso: CountryIso): Country =>
-  useAppSelector((state) => state.assessment.countries[countryIso])
+  useAppSelector((state) => state.assessment.countries?.[countryIso])
 
 export const useAssessmentCountry = (): Country => {
   const countryIso = useCountryIso()
