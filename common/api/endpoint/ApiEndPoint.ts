@@ -105,6 +105,7 @@ export const ApiEndPoint = {
     Topic: {
       get: () => apiPath('topic'),
       getMessage: () => apiPath('topic', 'message'),
+      getUnreadMessages: () => apiPath('topic', 'unreadMessages'),
       resolveTopic: () => apiPath('topic', 'resolve'),
     },
   },
