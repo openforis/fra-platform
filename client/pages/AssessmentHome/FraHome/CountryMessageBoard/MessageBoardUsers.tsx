@@ -15,7 +15,7 @@ import { useUsers } from '@client/store/userManagement/hooks'
 import { useCountryIso, useGetRequest } from '@client/hooks'
 import Icon from '@client/components/Icon'
 
-const MessageBoardUsers = () => {
+const MessageBoardUsers: React.FC = () => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()

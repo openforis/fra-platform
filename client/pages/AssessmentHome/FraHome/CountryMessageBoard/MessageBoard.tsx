@@ -12,7 +12,7 @@ import { MessageCenterActions } from '@client/store/ui/messageCenter'
 import { useCountryIso, useGetRequest } from '@client/hooks'
 import Icon from '@client/components/Icon'
 
-const MessageBoard = () => {
+const MessageBoard: React.FC = () => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
