@@ -7,21 +7,23 @@ import { BaseProtocol, DB, Schemas } from '@server/db'
 export const getSectionMetaData = async (
   props: {
     assessment: Assessment
-    section: string
+    sections: Array<string>
     cycle: Cycle
   },
   client: BaseProtocol = DB
 ): Promise<Array<TableSection>> => {
-  const { cycle, section, assessment } = props
+  const { cycle, sections, assessment } = props
   const schemaName = Schemas.getName(assessment)
+
+  // TODO: This query should be optimized to return Record<[sectionName], Array<TableSection>>
 
   return client.map<TableSection>(
     `
         with ts as (
-            select ts.*
+            select ts.*, s.props -> 'name' as section_name
             from ${schemaName}.table_section ts
                      left join ${schemaName}.section s on ts.section_id = s.id
-            where s.props ->> 'name' = $1
+            where s.props ->> 'name' in ($1:list)
               and s.props -> 'cycles' ? $2
               and ts.props -> 'cycles' ? $2
 
@@ -49,14 +51,16 @@ export const getSectionMetaData = async (
                jsonb_agg(t.* order by t.id) as tables
         from "tables" t
                  left join ts on t.table_section_id = ts.id
-        group by ts.id, ts.uuid, ts.props, ts.section_id;
+        group by ts.id, ts.uuid, ts.props, ts.section_id, ts.section_name;
 
       `,
-    [section, cycle.uuid],
+    [sections, cycle.uuid],
     (ts: TableSection) => {
       const { tables, ...tableSection } = ts
       return {
         ...tableSection,
+        // @ts-ignore
+        sectionName: ts.section_name,
         tables: tables.map(({ props, ...table }) => ({ ...Objects.camelize(table), props })),
       }
     }

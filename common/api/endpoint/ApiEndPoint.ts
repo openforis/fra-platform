@@ -2,6 +2,10 @@ const joinPaths = (...parts: Array<string>): string => `/${parts.join('/')}`
 const apiPath = (...parts: Array<string>): string => joinPaths('api', ...parts)
 
 export const ApiEndPoint = {
+  Section: {
+    metadata: () => apiPath('section', 'metadata'),
+  },
+
   Assessment: {
     Data: {
       descriptions: () => apiPath('assessment', 'data', 'descriptions'),
@@ -10,28 +14,6 @@ export const ApiEndPoint = {
       one: () => apiPath('assessment', 'tableData'),
       Estimate: {
         many: () => apiPath('assessment', 'tableData', 'estimate'),
-      },
-    },
-
-    Sections: {
-      Metadata: {
-        many: (
-          countryIso = ':countryIso',
-          assessmentName = ':assessmentName',
-          cycleName = ':cycleName',
-          section = ':section'
-        ) =>
-          apiPath(
-            'countries',
-            countryIso,
-            'assessments',
-            assessmentName,
-            'cycles',
-            cycleName,
-            'sections',
-            section,
-            'metadata'
-          ),
       },
     },
 

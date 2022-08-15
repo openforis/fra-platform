@@ -38,7 +38,7 @@ const SectionWrapper: React.FC<Props> = (props) => {
       AssessmentSectionActions.getTableSections({
         assessmentName,
         cycleName,
-        section,
+        sections: [section],
         countryIso,
       })
     )

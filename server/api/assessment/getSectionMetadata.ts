@@ -1,12 +1,18 @@
+import { Request, Response } from 'express'
+
+import { AssessmentName } from '@meta/assessment'
+
 import { AssessmentController } from '@server/controller/assessment'
 import Requests from '@server/utils/requests'
-import { Request, Response } from 'express'
 
 export const getSectionMetadata = async (req: Request, res: Response) => {
   try {
-    const { assessmentName, section, cycleName } = req.params
+    const { assessmentName, sections, cycleName } = <
+      { sections: Array<string>; assessmentName: AssessmentName; cycleName: string }
+    >req.query
     const { cycle, assessment } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName })
-    const tablesMetadata = await AssessmentController.getSectionMetadata({ assessment, cycle, section })
+
+    const tablesMetadata = await AssessmentController.getSectionMetadata({ assessment, cycle, sections })
 
     Requests.send(res, tablesMetadata)
   } catch (e) {
