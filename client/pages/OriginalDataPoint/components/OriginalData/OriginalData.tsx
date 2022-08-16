@@ -1,11 +1,10 @@
 import React from 'react'
-// import { useAssessmentSections } from '@client/store/assessment'
 import { useTranslation } from 'react-i18next'
 import { NavLink, useParams } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { AssessmentName } from '@meta/assessment'
+import { AssessmentName, OriginalDataPoint } from '@meta/assessment'
 
 import { useAssessmentCountry } from '@client/store/assessment'
 import { useCountryIso } from '@client/hooks'
@@ -16,12 +15,12 @@ import ForestCharacteristics from '../ForestCharacteristics'
 
 type Props = {
   canEditData: boolean
+  originalDataPoint: OriginalDataPoint
 }
 
 const OriginalData: React.FC<Props> = (props) => {
-  const { canEditData } = props
+  const { canEditData, originalDataPoint } = props
   const country = useAssessmentCountry()
-  // const sections = useAssessmentSections()
   const { assessmentName, cycleName, year, section } = useParams<{
     assessmentName: AssessmentName
     cycleName: string
@@ -32,8 +31,8 @@ const OriginalData: React.FC<Props> = (props) => {
   const extentOfForest = {
     name: 'extentOfForest',
     anchor: '1a',
-  } // TODO : sections[0].subSections[0].props.name
-  const forestCharacteristics = { name: 'forestCharacteristics', anchor: '1b' } // FRA.sections['1'].children.b
+  }
+  const forestCharacteristics = { name: 'forestCharacteristics', anchor: '1b' }
 
   const i18n = useTranslation()
   const countryIso = useCountryIso()
@@ -79,8 +78,12 @@ const OriginalData: React.FC<Props> = (props) => {
         </NavLink>
       </div>
 
-      {section === extentOfForest.name && <ExtentOfForest canEditData={canEditData} />}
-      {section !== extentOfForest.name && <ForestCharacteristics canEditData={canEditData} />}
+      {section === extentOfForest.name && (
+        <ExtentOfForest originalDataPoint={originalDataPoint} canEditData={canEditData} />
+      )}
+      {section !== extentOfForest.name && (
+        <ForestCharacteristics originalDataPoint={originalDataPoint} canEditData={canEditData} />
+      )}
     </div>
   )
 }

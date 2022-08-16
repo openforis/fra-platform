@@ -7,7 +7,7 @@ import { ODPs, OriginalDataPoint } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
-import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
+import { OriginalDataPointActions } from '@client/store/pages/originalDataPoint'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import Icon from '@client/components/Icon'
@@ -24,11 +24,11 @@ const columns = [
 type Props = {
   canEditData: boolean
   index: number
+  originalDataPoint: OriginalDataPoint
 }
 
 const NationalClass: React.FC<Props> = (props) => {
-  const { index, canEditData } = props
-  const originalDataPoint = useOriginalDataPoint()
+  const { index, canEditData, originalDataPoint } = props
   const { year } = originalDataPoint
   const disabled = !canEditData || !year
   const dispatch = useAppDispatch()
