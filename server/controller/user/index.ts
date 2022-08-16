@@ -25,5 +25,5 @@ export const UserController = {
   sendInvitationEmail,
   createResetPassword,
   changePassword,
-  updateUserSectionsProp: UserRoleRepository.updateUserSectionsProp,
+  updateTableAccess: UserRoleRepository.updateSectionsProp,
 }

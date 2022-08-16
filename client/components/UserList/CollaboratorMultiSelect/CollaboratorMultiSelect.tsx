@@ -98,7 +98,7 @@ const CollaboratorMultiSelect: React.FC<Props> = ({ user, disabled }) => {
       return
     }
     dispatch(
-      UserManagementActions.updateCountryAccess({
+      UserManagementActions.updateTableAccess({
         id: user.roles[0].id,
         sections: selectedOptions.reduce((prev, curr) => {
           return { ...prev, [curr.value]: true }

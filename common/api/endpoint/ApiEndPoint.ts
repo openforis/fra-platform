@@ -116,7 +116,7 @@ export const ApiEndPoint = {
     removeInvitation: (uuid = ':uuid') => apiPath('users', 'invitation', 'remove', uuid),
     sendInvitationEmail: (uuid = ':uuid') => apiPath('users', 'invitation', 'sendEmail', uuid),
     getProfilePicture: (id = ':id') => apiPath('users', 'profilePicture', id),
-    countryAccess: () => apiPath('users', 'countryAccess'),
+    tableAccess: () => apiPath('users', 'tableAccess'),
     many: () => apiPath('users'),
     get: () => apiPath('user'),
   },
