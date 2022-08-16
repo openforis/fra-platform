@@ -7,21 +7,16 @@ import classNames from 'classnames'
 import { MessageTopicType, Topics } from '@meta/messageCenter'
 import { Users } from '@meta/user'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { MessageCenterActions } from '@client/store/ui/messageCenter'
 import { useUser } from '@client/store/user'
 import { useUsers } from '@client/store/userManagement/hooks'
 import { useCountryIso } from '@client/hooks'
-import Icon from '@client/components/Icon'
 
-const MessageBoardUsers = () => {
+import MessageButton from './MessageButton'
+
+const MessageBoardUsers: React.FC = () => {
   const countryIso = useCountryIso()
-  const assessment = useAssessment()
-  const cycle = useCycle()
 
   const i18n = useTranslation()
-  const dispatch = useAppDispatch()
   const user = useUser()
   const users = useUsers()
 
@@ -44,35 +39,19 @@ const MessageBoardUsers = () => {
             <div className="landing__user-header">
               <img alt="" className="landing__user-avatar" src={ApiEndPoint.User.getProfilePicture(String(_user.id))} />
               <div className="landing__user-info">
-                <div className={`landing__user-name${user.id === _user.id ? ' session-user' : ''}`}>{_user.name}</div>
+                <div className={classNames('landing__user-name', { 'session-user': user.id === _user.id })}>
+                  {_user.name}
+                </div>
                 <div className="landing__user-role">
                   {i18n.t<string>(Users.getI18nRoleLabelKey(Users.getCountryRole(_user, countryIso).role))}
                 </div>
                 {user.id !== _user.id && (
-                  <button
-                    type="button"
-                    className="btn-secondary landing__user-btn-message"
-                    onClick={() => {
-                      dispatch(
-                        MessageCenterActions.openTopic({
-                          countryIso,
-                          assessmentName: assessment.props.name,
-                          cycleName: cycle.name,
-                          key: Topics.getMessageBoardChatKey(user, _user),
-                          type: MessageTopicType.chat,
-                          subtitle: i18n.t<string>('landing.users.message'),
-                          title: _user.name,
-                        })
-                      )
-                    }}
-                  >
-                    <Icon name="chat-46" className="icon-middle" />
-                    {i18n.t<string>('landing.users.message')}
-                    {/* // TODO */}
-                    {/* {_user.chat.unreadMessages > 0 ? ( */}
-                    {/*  <div className="landing__user-message-count">{_user.chat.unreadMessages}</div> */}
-                    {/* ) : null} */}
-                  </button>
+                  <MessageButton
+                    topicKey={Topics.getMessageBoardChatKey(user, _user)}
+                    topicSubtitle={i18n.t<string>('landing.users.message')}
+                    topicTitle={_user.name}
+                    topicType={MessageTopicType.chat}
+                  />
                 )}
               </div>
             </div>
