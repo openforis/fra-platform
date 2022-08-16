@@ -42,7 +42,7 @@ const CollaboratorMultiSelect: React.FC<Props> = ({ user, disabled }) => {
       .reduce((prev, curr) => [...prev, ...curr.subSections], [])
       .filter((subSection: SubSection) => subSection.props.anchor)
       .map((subSection: SubSection): { value: string; label: string } => {
-        return { value: subSection.uuid.replaceAll('-', ''), label: subSection.props.anchor }
+        return { value: subSection.uuid, label: subSection.props.anchor }
       }),
   ]
   const properties = (user.roles[0].props as unknown as CollaboratorProps) || undefined

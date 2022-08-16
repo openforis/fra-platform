@@ -29,5 +29,5 @@ export const getMany = async (
     `,
       [countryIso, assessment.id, cycle.uuid]
     )
-    .then(Objects.camelize)
+    .then((data) => Objects.camelize(data, { skip: ['sections'] }))
 }
