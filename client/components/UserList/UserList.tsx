@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { CollaboratorProps, RoleName, User, Users, UserStatus } from '@meta/user'
+import { RoleName, User, Users, UserStatus } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
@@ -36,11 +36,7 @@ const UserRoleColumn: React.FC<{ user: User }> = ({ user }) => {
 
 const UserTableAccessColumn: React.FC<{ user: User }> = ({ user }) => (
   <td className="user-list__cell">
-    {user.roles[0].role === RoleName.COLLABORATOR ? (
-      <CollaboratorMultiSelect properties={(user.roles[0].props as unknown as CollaboratorProps) || undefined} />
-    ) : (
-      '-'
-    )}
+    {user.roles[0].role === RoleName.COLLABORATOR ? <CollaboratorMultiSelect user={user} /> : '-'}
   </td>
 )
 

@@ -1,6 +1,14 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import { getUsers, getUserToEdit, inviteUser, removeInvitation, sendInvitationEmail, updateUser } from './actions'
+import {
+  getUsers,
+  getUserToEdit,
+  inviteUser,
+  removeInvitation,
+  sendInvitationEmail,
+  updateCountryAccess,
+  updateUser,
+} from './actions'
 import { UserManagementState } from './stateType'
 
 const initialState: UserManagementState = {
@@ -43,6 +51,7 @@ export const UserManagementActions = {
   inviteUser,
   removeInvitation,
   sendInvitationEmail,
+  updateCountryAccess,
   updateUser,
 }
 
