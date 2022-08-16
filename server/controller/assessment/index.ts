@@ -1,6 +1,7 @@
 import { AssessmentRepository } from '@server/repository/assessment/assessment'
 import { TableRepository } from '@server/repository/assessment/table'
 import { CountryRepository } from '@server/repository/assessmentCycle/country'
+import { OriginalDataPointRepository } from '@server/repository/assessmentCycle/originalDataPoint'
 
 import { create } from './create'
 import { createCycle } from './createCycle'
@@ -29,6 +30,7 @@ export const AssessmentController = {
   removeOriginalDataPoint,
   updateOriginalDataPoint,
   getOriginalDataPoint,
+  getOriginalDataPoints: OriginalDataPointRepository.getMany,
   createCycle,
   updateCountry,
   getCountry: AssessmentRepository.getCountry,
