@@ -1,64 +1,110 @@
 import './ContactPersons.scss'
-import React from 'react'
-// import { useSelector } from 'react-redux'
-// import * as R from 'ramda'
-// // @ts-ignore
-// import * as camelize from 'camelize'
-// import useI18n from '@webapp/hooks/useI18n'
-//
-// const ContactPersonsPrintView = () => {
-//   const i18n = useI18n()
-//   const users = useSelector((state) => {
-//     return (state as any).userManagement.countryUsers.filter((u: any) => u.active)
-//   })
-//   return (
-//     <div className="contact-persons-print">
-//       <h2 className="headline">{(i18n as any).t('contactPersons.reportPreparationAndContactPersons')}</h2>
-//       <div className="fra-description__preview">{(i18n as any).t('contactPersons.contactPersonsSupport')}</div>
-//
-//       {users && (
-//         <table className="fra-table">
-//           <thead>
-//             <tr>
-//               <th className="fra-table__header-cell">{(i18n as any).t('userManagement.name')}</th>
-//               <th className="fra-table__header-cell">{(i18n as any).t('editUser.role')}</th>
-//               <th className="fra-table__header-cell">{(i18n as any).t('userManagement.email')}</th>
-//               <th className="fra-table__header-cell">{(i18n as any).t('contactPersons.tables')}</th>
-//             </tr>
-//           </thead>
-//
-//           <tbody>
-//             {users.map((user: any) => (
-//               <tr key={user.id}>
-//                 <td className="fra-table__cell-left">
-//                   <div className="text-input__readonly-view">{user.name}</div>
-//                 </td>
-//                 <td className="fra-table__cell-left">
-//                   <div className="text-input__readonly-view">
-//                     {(i18n as any).t(`user.roles.${camelize(user.role.toLowerCase())}`)}
-//                   </div>
-//                 </td>
-//                 <td className="fra-table__cell-left">
-//                   <div className="text-input__readonly-view">{user.email}</div>
-//                 </td>
-//                 <td className="fra-table__cell-left">
-//                   <div className="text-input__readonly-view">
-//                     {user.tables && !R.isEmpty(user.tables) && user.tables[0].tableNo !== 'all'
-//                       ? user.tables.map(R.prop('tableNo')).join(', ')
-//                       : (i18n as any).t('contactPersons.all')}
-//                   </div>
-//                 </td>
-//               </tr>
-//             ))}
-//           </tbody>
-//         </table>
-//       )}
-//     </div>
-//   )
-// }
+import React, { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+
+import { Objects } from '@core/utils'
+
+import { SubSection } from '@meta/assessment'
+import { CollaboratorProps, User, Users, UserStatus } from '@meta/user'
+
+import { useAppDispatch } from '@client/store'
+import { useAssessment, useAssessmentSections, useCycle } from '@client/store/assessment'
+import { UserManagementActions } from '@client/store/userManagement'
+import { useUsers } from '@client/store/userManagement/hooks'
+import { useCountryIso } from '@client/hooks'
 
 const ContactPersons = () => {
-  return <h1>ContactPersons TODO</h1>
+  const i18n = useTranslation()
+  const dispatch = useAppDispatch()
+  const assessment = useAssessment()
+  const cycle = useCycle()
+  const countryIso = useCountryIso()
+  const assessmentSections = useAssessmentSections()
+
+  const assessmentSectionAnchors = assessmentSections
+    .reduce((prev, curr) => [...prev, ...curr.subSections], [])
+    .filter((subSection: SubSection) => subSection.props.anchor)
+    .reduce((previous, subSection) => {
+      return {
+        ...previous,
+        [subSection.uuid.replaceAll('-', '')]: subSection.props.anchor,
+      }
+    }, {})
+
+  const users = useUsers().filter(
+    (user) =>
+      user.status === UserStatus.active &&
+      !Users.isReviewer(user, countryIso) &&
+      user?.roles?.[0]?.props?.sections !== 'none'
+  )
+
+  const getUserTableAnchors = (user: User) => {
+    if (Users.isCollaborator(user, countryIso)) {
+      const collaboratorProps: CollaboratorProps = user.roles?.[0]?.props
+      const sections = collaboratorProps?.sections
+      // if(sections === 'all')  return i18n.t<string>('contactPersons.all')
+      if (!Objects.isEmpty(sections)) {
+        return Object.keys(sections)
+          .map((sectionUuid) => assessmentSectionAnchors[sectionUuid])
+          .join(', ')
+      }
+    }
+    return i18n.t<string>('contactPersons.all')
+  }
+
+  useEffect(() => {
+    dispatch(
+      UserManagementActions.getUsers({ countryIso, assessmentName: assessment.props.name, cycleName: cycle.name })
+    )
+  }, [assessment.props.name, countryIso, cycle.name, dispatch])
+
+  if (!assessmentSections) return null
+
+  return (
+    <div className="contact-persons-print">
+      <h2 className="headline">{i18n.t<string>('contactPersons.reportPreparationAndContactPersons')}</h2>
+      <div className="fra-description__preview">{i18n.t<string>('contactPersons.contactPersonsSupport')}</div>
+
+      {users && (
+        <table className="fra-table">
+          <thead>
+            <tr>
+              <th className="fra-table__header-cell">{i18n.t<string>('userManagement.name')}</th>
+              <th className="fra-table__header-cell">{i18n.t<string>('editUser.role')}</th>
+              <th className="fra-table__header-cell">{i18n.t<string>('userManagement.email')}</th>
+              <th className="fra-table__header-cell">{i18n.t<string>('contactPersons.tables')}</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {users.map((user) => (
+              <tr key={user.id}>
+                <td className="fra-table__cell-left">
+                  <div className="text-input__readonly-view">{user.name}</div>
+                </td>
+                <td className="fra-table__cell-left">
+                  <div className="text-input__readonly-view">
+                    {i18n.t<string>(Users.getI18nRoleLabelKey(Users.getCountryRole(user, countryIso).role))}
+                  </div>
+                </td>
+                <td className="fra-table__cell-left">
+                  <div className="text-input__readonly-view">{user.email}</div>
+                </td>
+                <td className="fra-table__cell-left">
+                  <div className="text-input__readonly-view">
+                    {getUserTableAnchors(user)}
+                    {/* {user.tables && !R.isEmpty(user.tables) && user.tables[0].tableNo !== 'all' */}
+                    {/* ? user.tables.map(R.prop('tableNo')).join(', ') */}
+                    {/* : i18n.t<string>('contactPersons.all')} */}
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  )
 }
 
 export default ContactPersons
