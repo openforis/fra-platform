@@ -9,14 +9,14 @@ import { setTableSections } from './setTableSections'
 
 export const getTableSections = createAsyncThunk<
   void,
-  { countryIso: CountryIso; assessmentName: string; cycleName: string; sections: Array<string> }
->('section/get/metadata', async ({ countryIso, assessmentName, cycleName, sections }, { dispatch }) => {
-  const { data } = <{ data: Array<TableSection> }>await axios.get(ApiEndPoint.Section.metadata(), {
+  { countryIso: CountryIso; assessmentName: string; cycleName: string; sectionNames: Array<string> }
+>('section/get/metadata', async ({ countryIso, assessmentName, cycleName, sectionNames }, { dispatch }) => {
+  const { data } = <{ data: Array<TableSection> }>await axios.get(ApiEndPoint.Sections.metadata(), {
     params: {
       countryIso,
       assessmentName,
       cycleName,
-      sections,
+      sectionNames,
     },
   })
 

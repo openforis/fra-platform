@@ -7,12 +7,12 @@ import { BaseProtocol, DB, Schemas } from '@server/db'
 export const getSectionMetaData = async (
   props: {
     assessment: Assessment
-    sections: Array<string>
+    sectionNames: Array<string>
     cycle: Cycle
   },
   client: BaseProtocol = DB
 ): Promise<Array<TableSection>> => {
-  const { cycle, sections, assessment } = props
+  const { cycle, sectionNames, assessment } = props
   const schemaName = Schemas.getName(assessment)
 
   // TODO: This query should be optimized to return Record<[sectionName], Array<TableSection>>
@@ -54,7 +54,7 @@ export const getSectionMetaData = async (
         group by ts.id, ts.uuid, ts.props, ts.section_id, ts.section_name;
 
       `,
-    [sections, cycle.uuid],
+    [sectionNames, cycle.uuid],
     (ts: TableSection) => {
       const { tables, ...tableSection } = ts
       return {

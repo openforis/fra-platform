@@ -36,7 +36,7 @@ const FraPrint: React.FC = () => {
         AssessmentSectionActions.getTableSections({
           assessmentName: assessment.props.name,
           cycleName: cycle.name,
-          sections: sectionNames,
+          sectionNames,
           countryIso,
         })
       )

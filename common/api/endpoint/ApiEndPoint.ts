@@ -2,7 +2,7 @@ const joinPaths = (...parts: Array<string>): string => `/${parts.join('/')}`
 const apiPath = (...parts: Array<string>): string => joinPaths('api', ...parts)
 
 export const ApiEndPoint = {
-  Section: {
+  Sections: {
     metadata: () => apiPath('section', 'metadata'),
   },
 
