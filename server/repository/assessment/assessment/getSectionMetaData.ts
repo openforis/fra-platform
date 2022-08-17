@@ -15,7 +15,7 @@ export const getSectionMetaData = async (
   const { cycle, sectionNames, assessment } = props
   const schemaName = Schemas.getName(assessment)
 
-  return client.one<Record<string, Array<TableSection>>>(
+  return client.result<Record<string, Array<TableSection>>>(
     `
         with "row" as (
             select s.props ->> 'name' as section_name,
@@ -64,12 +64,25 @@ export const getSectionMetaData = async (
                  from table_section ts
                  group by ts.section_name
              )
-        select jsonb_object_agg(s.section_name, s.table_sections) as data
+        select *
         from section s
         ;
 
       `,
     [sectionNames, cycle.uuid],
-    (row) => Objects.camelize(row.data)
+    ({ rows }) => {
+      return rows.reduce((prev, current) => {
+        return {
+          ...prev,
+          [current.section_name]: current.table_sections.map((ts: TableSection) => {
+            const { tables, ...tableSection } = ts
+            return {
+              ...tableSection,
+              tables: tables.map(({ props, ...table }) => ({ ...Objects.camelize(table), props })),
+            }
+          }),
+        }
+      }, {})
+    }
   )
 }
