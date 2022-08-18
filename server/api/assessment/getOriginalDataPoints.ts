@@ -13,7 +13,7 @@ export const getOriginalDataPoints = async (req: Request, res: Response) => {
 
     const originalDataPoints = await AssessmentController.getOriginalDataPoints({
       assessment,
-      assessmentCycle: cycle,
+      cycle,
       countryIso: countryIso as CountryIso,
     })
 
