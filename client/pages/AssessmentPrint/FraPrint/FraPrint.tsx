@@ -1,8 +1,10 @@
 import './FraPrint.scss'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useAssessmentSections, useCountry } from '@client/store/assessment'
+import { useAppDispatch } from '@client/store'
+import { useAssessment, useAssessmentSections, useCountry, useCycle } from '@client/store/assessment'
+import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import Loading from '@client/components/Loading'
@@ -15,11 +17,31 @@ const FraPrint: React.FC = () => {
   const countryIso = useCountryIso()
   const i18n = useTranslation()
   const country = useCountry(countryIso)
+  const assessment = useAssessment()
+  const cycle = useCycle()
+  const dispatch = useAppDispatch()
 
   const sections = useAssessmentSections()
 
   const { onlyTables } = useIsPrint()
   const deskStudy = country?.props?.deskStudy
+
+  useEffect(() => {
+    if (sections) {
+      const sectionNames = Object.values(sections).flatMap((section) =>
+        Object.values(section.subSections).flatMap((sectionItem) => sectionItem.props.name)
+      )
+
+      dispatch(
+        AssessmentSectionActions.getTableSections({
+          assessmentName: assessment.props.name,
+          cycleName: cycle.name,
+          sectionNames,
+          countryIso,
+        })
+      )
+    }
+  }, [sections, assessment.props.name, countryIso, cycle.name, dispatch])
 
   if (!sections) {
     return <Loading />
