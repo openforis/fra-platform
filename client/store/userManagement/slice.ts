@@ -6,7 +6,7 @@ import {
   inviteUser,
   removeInvitation,
   sendInvitationEmail,
-  updateTableAccess,
+  updateSectionAuth,
   updateUser,
 } from './actions'
 import { UserManagementState } from './stateType'
@@ -51,7 +51,7 @@ export const UserManagementActions = {
   inviteUser,
   removeInvitation,
   sendInvitationEmail,
-  updateTableAccess,
+  updateSectionAuth,
   updateUser,
 }
 

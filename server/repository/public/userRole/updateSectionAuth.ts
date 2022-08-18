@@ -4,7 +4,7 @@ import { CollaboratorProps, RoleName, UserRole } from '@meta/user'
 
 import { BaseProtocol, DB } from '@server/db'
 
-export const updateSectionsProp = async (
+export const updateSectionAuth = async (
   props: { id: string; sections: Record<string, boolean> },
   client: BaseProtocol = DB
 ): Promise<UserRole<RoleName, CollaboratorProps>> => {
