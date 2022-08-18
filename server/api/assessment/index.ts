@@ -8,6 +8,7 @@ import { deleteOriginalDataPoint } from './deleteOriginalDataPoint'
 import { getDescription } from './getDescription'
 import { getOriginalDataPoint } from './getOdp'
 import { getOriginalDataPointData } from './getOriginalDataPointData'
+import { getOriginalDataPoints } from './getOriginalDataPoints'
 import { getReservedYears } from './getReservedYears'
 import { getReviewStatus } from './getReviewStatus'
 import { getReviewSummary } from './getReviewSummary'
@@ -40,6 +41,8 @@ export const AssessmentApi = {
 
     express.get(ApiEndPoint.Assessment.OriginalDataPoint.one(), AuthMiddleware.requireView, getOriginalDataPoint)
     express.put(ApiEndPoint.Assessment.OriginalDataPoint.one(), AuthMiddleware.requireEdit, updateOriginalDataPoint)
+
+    express.get(ApiEndPoint.Assessment.OriginalDataPoint.many(), AuthMiddleware.requireView, getOriginalDataPoints)
 
     // OriginalDataPoint // table
     express.get(

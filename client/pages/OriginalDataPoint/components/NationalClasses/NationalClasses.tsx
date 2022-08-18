@@ -2,18 +2,19 @@ import React from 'react'
 // import { useAppDispatch } from '@client/store'
 import { useTranslation } from 'react-i18next'
 
-import { useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
+import { OriginalDataPoint } from '@meta/assessment'
+
 import { useIsPrint } from '@client/hooks/useIsPath'
 
 import NationalClass from './NationalClass'
 
 type Props = {
   canEditData: boolean
+  originalDataPoint: OriginalDataPoint
 }
 
 const NationalClasses: React.FC<Props> = (props) => {
-  const { canEditData } = props
-  const originalDataPoint = useOriginalDataPoint()
+  const { canEditData, originalDataPoint } = props
   const { nationalClasses } = originalDataPoint
   // const { nationalClasses, id, year } = originalDataPoint
 
@@ -58,7 +59,12 @@ const NationalClasses: React.FC<Props> = (props) => {
                 <th className="fra-table__header-cell-left">{i18n.t<string>('nationalDataPoint.definition')}</th>
               </tr>
               {nationalClasses.map((nationalClass, idx) => (
-                <NationalClass key={nationalClass.uuid} index={idx} canEditData={canEditData} />
+                <NationalClass
+                  originalDataPoint={originalDataPoint}
+                  key={nationalClass.uuid}
+                  index={idx}
+                  canEditData={canEditData}
+                />
               ))}
             </tbody>
           </table>

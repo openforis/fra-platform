@@ -7,7 +7,7 @@ import { ODPDataSourceMethod, OriginalDataPoint } from '@meta/assessment/origina
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
-import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
+import { OriginalDataPointActions } from '@client/store/pages/originalDataPoint'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import MultiSelect from '@client/components/MultiSelect'
@@ -16,11 +16,11 @@ import VerticallyGrowingTextField from '@client/components/VerticallyGrowingText
 
 type Props = {
   canEditData: boolean
+  originalDataPoint: OriginalDataPoint
 }
 
 const DataSources: React.FC<Props> = (props) => {
-  const { canEditData } = props
-  const originalDataPoint = useOriginalDataPoint()
+  const { canEditData, originalDataPoint } = props
 
   const dispatch = useAppDispatch()
   const i18n = useTranslation()

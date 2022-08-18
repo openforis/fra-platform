@@ -3,9 +3,8 @@ import { useTranslation } from 'react-i18next'
 
 import { Numbers } from '@core/utils'
 
-import { ODPs } from '@meta/assessment/originalDataPoint'
+import { ODPs, OriginalDataPoint } from '@meta/assessment/originalDataPoint'
 
-import { useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import DefinitionLink from '@client/components/DefinitionLink'
 
@@ -13,11 +12,11 @@ import ExtentOfForestRow from './ExtentOfForestRow'
 
 type Props = {
   canEditData: boolean
+  originalDataPoint: OriginalDataPoint
 }
 
 const ExtentOfForest: React.FC<Props> = (props) => {
-  const { canEditData } = props
-  const originalDataPoint = useOriginalDataPoint()
+  const { canEditData, originalDataPoint } = props
 
   const { i18n } = useTranslation()
   const { print } = useIsPrint()
@@ -66,7 +65,12 @@ const ExtentOfForest: React.FC<Props> = (props) => {
               </tr>
 
               {nationalClasses.map((nationalClass, index) => (
-                <ExtentOfForestRow key={nationalClass.name} canEditData={canEditData} index={index} />
+                <ExtentOfForestRow
+                  originalDataPoint={originalDataPoint}
+                  key={nationalClass.name}
+                  canEditData={canEditData}
+                  index={index}
+                />
               ))}
 
               <tr>
