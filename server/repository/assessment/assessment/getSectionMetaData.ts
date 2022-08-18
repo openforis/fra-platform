@@ -7,58 +7,82 @@ import { BaseProtocol, DB, Schemas } from '@server/db'
 export const getSectionMetaData = async (
   props: {
     assessment: Assessment
-    section: string
+    sectionNames: Array<string>
     cycle: Cycle
   },
   client: BaseProtocol = DB
-): Promise<Array<TableSection>> => {
-  const { cycle, section, assessment } = props
+): Promise<Record<string, Array<TableSection>>> => {
+  const { cycle, sectionNames, assessment } = props
   const schemaName = Schemas.getName(assessment)
 
-  return client.map<TableSection>(
+  return client.result<Record<string, Array<TableSection>>>(
     `
-        with ts as (
-            select ts.*
-            from ${schemaName}.table_section ts
+        with "row" as (
+            select s.props ->> 'name' as section_name,
+                   to_jsonb(ts.*)     as table_section,
+                   to_jsonb(t.*)      as "table",
+                   jsonb_set(
+                           to_jsonb(r.*),
+                           '{"cols"}',
+                           jsonb_agg(c.* order by c.id)
+                       )              as row
+            from ${schemaName}.col c
+                     left join ${schemaName}.row r on r.id = c.row_id
+                     left join ${schemaName}."table" t on t.id = r.table_id
+                     left join ${schemaName}.table_section ts on ts.id = t.table_section_id
                      left join ${schemaName}.section s on ts.section_id = s.id
-            where s.props ->> 'name' = $1
-              and s.props -> 'cycles' ? $2
-              and ts.props -> 'cycles' ? $2
-
+                     where s.props ->> 'name' in ($1:list)
+                           and ts.props -> 'cycles' ? $2
+                           and t.props -> 'cycles' ? $2
+                           and r.props -> 'cycles' ? $2
+                           and c.props -> 'cycles' ? $2
+            group by s.props ->> 'name', to_jsonb(ts.*), to_jsonb(t.*), to_jsonb(r.*)
         ),
-             t as (
-                 select t.*
-                 from ${schemaName}."table" t,
-                      ts
-                 where t.table_section_id = ts.id and ts.props -> 'cycles' ? $2 and t.props -> 'cycles' ? $2
+             "table" as (
+                 select r.section_name,
+                        r.table_section,
+                        jsonb_set(
+                                r."table",
+                                '{"rows"}',
+                                jsonb_agg(r.row order by (r.row ->> 'id')::numeric)
+                            ) as "table"
+                 from row r
+                 group by r.section_name, r.table_section, r."table"
              ),
-             rows as (
-                 select r.*, jsonb_agg(c.* order by c.id)  filter ( where c.props -> 'cycles' ? $2 ) as cols
-                 from ${schemaName}.col c
-                          left join ${schemaName}.row r on r.id = c.row_id
-                 where r.table_id in (select t.id from t) and r.props -> 'cycles' ? $2
-                 group by r.id
+             table_section as (
+                 select t.section_name,
+                        jsonb_set(
+                                t.table_section,
+                                '{"tables"}',
+                                jsonb_agg(t."table" order by (t."table" ->> 'id')::numeric)
+                            ) as table_section
+                 from "table" t
+                 group by t.section_name, t.table_section
              ),
-             tables as (
-                 select t.*, jsonb_agg(r.* order by r.id) as rows
-                 from "rows" r
-                          left join t on t.id = r.table_id
-                 group by t.id, t.uuid, t.props, t.table_section_id
+             section as (
+                 select ts.section_name, jsonb_agg(ts.table_section) as table_sections
+                 from table_section ts
+                 group by ts.section_name
              )
-        select ts.*,
-               jsonb_agg(t.* order by t.id) as tables
-        from "tables" t
-                 left join ts on t.table_section_id = ts.id
-        group by ts.id, ts.uuid, ts.props, ts.section_id;
+        select *
+        from section s
+        ;
 
       `,
-    [section, cycle.uuid],
-    (ts: TableSection) => {
-      const { tables, ...tableSection } = ts
-      return {
-        ...tableSection,
-        tables: tables.map(({ props, ...table }) => ({ ...Objects.camelize(table), props })),
-      }
+    [sectionNames, cycle.uuid],
+    ({ rows }) => {
+      return rows.reduce((prev, current) => {
+        return {
+          ...prev,
+          [current.section_name]: current.table_sections.map((ts: TableSection) => {
+            const { tables, ...tableSection } = ts
+            return {
+              ...tableSection,
+              tables: tables.map(({ props, ...table }) => ({ ...Objects.camelize(table), props })),
+            }
+          }),
+        }
+      }, {})
     }
   )
 }
