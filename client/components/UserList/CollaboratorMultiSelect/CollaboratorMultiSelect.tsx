@@ -1,4 +1,4 @@
-import './CollaboratorMultiSelect.scss'
+import '../../MultiSelect/MultiSelect.scss'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
