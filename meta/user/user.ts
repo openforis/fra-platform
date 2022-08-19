@@ -1,4 +1,4 @@
-import { RoleName, UserRole } from './index'
+import { Collaborator, RoleName, UserRole } from './index'
 
 export enum UserStatus {
   invitationPending = 'invitationPending',
@@ -15,6 +15,6 @@ export interface User {
   position?: string
   profilePictureFile?: string
   profilePictureFilename?: string
-  roles: Array<UserRole<RoleName>>
+  roles: Array<UserRole<RoleName> | Collaborator>
   status: UserStatus
 }
