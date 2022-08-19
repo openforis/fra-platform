@@ -6,12 +6,12 @@ export const _walk = (options: { object: any; skip?: string[] }): any => {
     return object
   }
   if (Array.isArray(object)) {
-    return object.map((item) => _walk({ object: item, skip }))
+    return object.map((item) => _walk({ object: item }))
   }
   return Object.entries(object).reduce((objAcc, [key, value]) => {
     const skipped = skip.includes(key)
     const keyTransformed = skipped ? key : _camelCase(key)
-    const valueTransformed: any = skipped ? value : _walk({ object: value, skip })
+    const valueTransformed: any = skipped ? value : _walk({ object: value })
     return { ...objAcc, [keyTransformed]: valueTransformed }
   }, {})
 }
