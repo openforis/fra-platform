@@ -27,7 +27,7 @@ const ContactPersons = () => {
     .reduce((previous, subSection) => {
       return {
         ...previous,
-        [subSection.uuid.replaceAll('-', '')]: subSection.props.anchor,
+        [subSection.uuid]: subSection.props.anchor,
       }
     }, {})
 
