@@ -11,6 +11,7 @@ import { CollaboratorProps, User } from '@meta/user'
 import { useAppDispatch } from '@client/store'
 import { useAssessmentSections } from '@client/store/assessment'
 import { UserManagementActions } from '@client/store/userManagement'
+import { useOnUpdate } from '@client/hooks'
 
 type Option = {
   value: string
@@ -27,7 +28,6 @@ const CollaboratorMultiSelect: React.FC<Props> = ({ user, disabled }) => {
   const { i18n } = useTranslation()
 
   const ref = useRef(null)
-  const firstUpdate = useRef(true)
 
   const [open, setOpen] = useState<boolean>(false)
 
@@ -92,11 +92,7 @@ const CollaboratorMultiSelect: React.FC<Props> = ({ user, disabled }) => {
     }
   }, [])
 
-  useEffect(() => {
-    if (firstUpdate.current) {
-      firstUpdate.current = false
-      return
-    }
+  useOnUpdate(() => {
     dispatch(
       UserManagementActions.updateSectionAuth({
         id: user.roles[0].id,
