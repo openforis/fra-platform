@@ -21,7 +21,7 @@ export const UserApi = {
     express.get(ApiEndPoint.User.getByInvitation(), getInvitation)
     express.get(ApiEndPoint.User.acceptInvitation(), getAcceptInvitation)
     express.get(ApiEndPoint.User.getProfilePicture(), getProfilePicture)
-    express.get(ApiEndPoint.User.many(), getMany)
+    express.get(ApiEndPoint.User.many(), AuthMiddleware.requireView, getMany)
     express.post(ApiEndPoint.User.invite(), AuthMiddleware.requireEditUser, invite)
     express.post(ApiEndPoint.User.sectionAuth(), AuthMiddleware.requireEditUser, updateSectionAuth)
     express.delete(ApiEndPoint.User.removeInvitation(), AuthMiddleware.requireEditUser, removeInvitation)
