@@ -35,6 +35,8 @@ export const ApiEndPoint = {
       },
     },
 
+    activityLog: (countryIso = ':countryIso') => apiPath('assessment', 'activityLog', countryIso),
+
     sections: (countryIso = ':countryIso', assessmentName = ':assessmentName', cycleName = ':cycleName') =>
       apiPath('countries', countryIso, 'assessment', assessmentName, 'sections', cycleName),
 
