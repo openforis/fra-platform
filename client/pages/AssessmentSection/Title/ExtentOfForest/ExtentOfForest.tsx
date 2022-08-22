@@ -35,7 +35,7 @@ const ExtentOfForest: React.FC<Props> = (props) => {
       <h2 className="headline no-print">
         {i18n.t<string>(`${sectionName}.${sectionName}`)}
         {Users.isAdministrator(user) && hasOdps && (
-          <button type="button" className="btn-s btn-secondary" style={{ marginLeft: '12px' }} onClick={onClick}>
+          <button type="button" className="btn-s btn-secondary btn-toggle-odp" onClick={onClick}>
             {i18n.t<string>(`extentOfForest.${showOdps ? 'hideNDPs' : 'showNDPs'}`)}
           </button>
         )}
