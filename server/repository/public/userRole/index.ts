@@ -3,6 +3,7 @@ import { create } from './create'
 import { read } from './read'
 import { remove } from './remove'
 import { update } from './update'
+import { updateSectionAuth } from './updateSectionAuth'
 
 export const UserRoleRepository = {
   acceptInvitation,
@@ -10,4 +11,5 @@ export const UserRoleRepository = {
   read,
   remove,
   update,
+  updateSectionAuth,
 }
