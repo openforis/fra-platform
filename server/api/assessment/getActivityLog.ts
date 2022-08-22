@@ -7,15 +7,16 @@ import { AssessmentController } from '@server/controller/assessment'
 import Requests from '@server/utils/requests'
 
 export const getActivityLog = async (req: Request, res: Response) => {
-  const { assessmentName, countryIso } = req.params as {
-    assessmentName: AssessmentName
-    countryIso: CountryIso
-  }
+  const { countryIso } = req.params as { countryIso: CountryIso }
+
+  const { assessmentName } = req.query as { assessmentName: AssessmentName }
+
   try {
     const assessment = await AssessmentController.getOne({ name: assessmentName })
 
-    const sections = await AssessmentController.getActivityLog({ assessment, countryIso })
-    Requests.send(res, sections)
+    const activityLog = await AssessmentController.getActivityLog({ assessment, countryIso })
+
+    Requests.send(res, activityLog)
   } catch (e) {
     Requests.sendErr(res, e)
   }

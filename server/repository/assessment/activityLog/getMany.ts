@@ -16,13 +16,8 @@ export const getMany = (
   return client.map<ActivityLog<any>>(
     `
       select
-          u.id as user_id,
-          u.name as full_name,
-          u.email,
-          message,
-          section as section_name,
-          target,
-          to_char(time, 'YYYY-MM-DD"T"HH24:MI:ssZ') AS edit_time
+        a.*,
+        jsonb_build_object('user', to_jsonb(u.*) - 'profile_picture_file' - 'profile_picture_filename')
       from (
         select
           user_id, message, section, target, time,
