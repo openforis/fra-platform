@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { User, Users, UserStatus } from '@meta/user'
+import { RoleName, User, Users, UserStatus } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
@@ -15,6 +15,7 @@ import { useToaster } from '@client/hooks/useToaster'
 
 import Icon from '../Icon'
 import ButtonUserListExport from './ButtonUserListExport'
+import CollaboratorMultiSelect from './CollaboratorMultiSelect'
 import UserInvitationInfo from './UserInvitationInfo'
 
 const UserColumn: React.FC<{ user: User; field: keyof User }> = ({ user, field }) => (
@@ -32,6 +33,12 @@ const UserRoleColumn: React.FC<{ user: User }> = ({ user }) => {
     </td>
   )
 }
+
+const UserTableAccessColumn: React.FC<{ user: User }> = ({ user }) => (
+  <td className="user-list__cell">
+    {user.roles[0].role === RoleName.COLLABORATOR ? <CollaboratorMultiSelect user={user} /> : '-'}
+  </td>
+)
 
 const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail }) => {
   const [showInvitationInfo, setShowInvitationInfo] = useState<boolean>(false)
@@ -63,6 +70,7 @@ const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail
     >
       <UserColumn user={user} field="name" />
       <UserRoleColumn user={user} />
+      <UserTableAccessColumn user={user} />
       {showEmail && <UserColumn user={user} field="email" />}
       <td className="user-list__cell user-list__edit-column">
         {!user.roles[0].acceptedAt ? (
@@ -121,6 +129,7 @@ const UsersTableHeadRow: React.FC<{ showEmail: boolean }> = ({ showEmail }) => {
       <tr>
         <th className="user-list__header-cell">{i18n.t<string>('userManagement.name')}</th>
         <th className="user-list__header-cell">{i18n.t<string>('userManagement.role')}</th>
+        <th className="user-list__header-cell">{i18n.t<string>('userManagement.tableAccess')}</th>
         {showEmail && <th className="user-list__header-cell">{i18n.t<string>('userManagement.email')}</th>}
         <th className="user-list__header-cell user-list__edit-column">
           <ButtonUserListExport />
