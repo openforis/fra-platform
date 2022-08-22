@@ -1,15 +1,13 @@
 import './AssessmentSection.scss'
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
 import { AssessmentName } from '@meta/assessment'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useAssessmentSection, useCycle } from '@client/store/assessment'
-import { AssessmentSectionActions, useTableSections } from '@client/store/pages/assessmentSection'
+import { useAssessmentSection } from '@client/store/assessment'
+import { useTableSections } from '@client/store/pages/assessmentSection'
 import { useCanEditSection } from '@client/store/user'
-import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
 
 import DataTable from './DataTable'
@@ -23,35 +21,15 @@ type Props = {
 
 const AssessmentSection: React.FC<Props> = (props: Props) => {
   const { section: sectionProp } = props
-  const assessment = useAssessment()
-  const cycle = useCycle()
-  const countryIso = useCountryIso()
-  const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
   const { assessmentName } = useParams<{ assessmentName: AssessmentName; cycleName: string; section: string }>()
   const assessmentSection = useAssessmentSection(sectionProp)
-  const tableSections = useTableSections({ sectionName: assessmentSection.props?.name })
+  const tableSections = useTableSections({ sectionName: assessmentSection.props.name })
   const canEditSection = useCanEditSection(sectionProp)
   const { print, onlyTables } = useIsPrint()
 
   const panEuropean = assessmentName === AssessmentName.panEuropean
   const disabled = panEuropean || !canEditSection
-
-  const shouldFetchTableSections = useRef(tableSections.length === 0)
-
-  useEffect(() => {
-    if (shouldFetchTableSections.current) {
-      shouldFetchTableSections.current = false
-      dispatch(
-        AssessmentSectionActions.getTableSections({
-          assessmentName: assessment.props.name,
-          cycleName: cycle.name,
-          section: assessmentSection.props.name,
-          countryIso,
-        })
-      )
-    }
-  }, [tableSections, assessment.props.name, countryIso, cycle.name, dispatch, assessmentSection.props.name, print])
 
   const { anchor, showTitle, descriptions, name: sectionName } = assessmentSection.props
 

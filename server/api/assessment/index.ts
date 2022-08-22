@@ -8,6 +8,7 @@ import { deleteOriginalDataPoint } from './deleteOriginalDataPoint'
 import { getDescription } from './getDescription'
 import { getOriginalDataPoint } from './getOdp'
 import { getOriginalDataPointData } from './getOriginalDataPointData'
+import { getOriginalDataPoints } from './getOriginalDataPoints'
 import { getReservedYears } from './getReservedYears'
 import { getReviewStatus } from './getReviewStatus'
 import { getReviewSummary } from './getReviewSummary'
@@ -41,6 +42,8 @@ export const AssessmentApi = {
     express.get(ApiEndPoint.Assessment.OriginalDataPoint.one(), AuthMiddleware.requireView, getOriginalDataPoint)
     express.put(ApiEndPoint.Assessment.OriginalDataPoint.one(), AuthMiddleware.requireEdit, updateOriginalDataPoint)
 
+    express.get(ApiEndPoint.Assessment.OriginalDataPoint.many(), AuthMiddleware.requireView, getOriginalDataPoints)
+
     // OriginalDataPoint // table
     express.get(
       ApiEndPoint.Assessment.OriginalDataPoint.TableData.one(),
@@ -55,7 +58,7 @@ export const AssessmentApi = {
     // Sections
     // requireView: We don't pass table for sections - always allow read
     express.get(ApiEndPoint.Assessment.sections(), AuthMiddleware.requireView, getSections)
-    express.get(ApiEndPoint.Assessment.Sections.Metadata.many(), AuthMiddleware.requireView, getSectionMetadata)
+    express.get(ApiEndPoint.Sections.metadata(), AuthMiddleware.requireView, getSectionMetadata)
     express.get(ApiEndPoint.Assessment.Data.descriptions(), AuthMiddleware.requireView, getDescription)
     express.put(ApiEndPoint.Assessment.Data.descriptions(), AuthMiddleware.requireEdit, upsertDescription)
 
