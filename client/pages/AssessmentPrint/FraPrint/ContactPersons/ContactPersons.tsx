@@ -35,7 +35,7 @@ const ContactPersons = () => {
     (user) =>
       user.status === UserStatus.active &&
       !Users.isReviewer(user, countryIso) &&
-      user?.roles?.[0]?.props?.sections !== 'none'
+      user.roles?.[0]?.props?.sections !== 'none'
   )
 
   const getUserTableAnchors = (user: User) => {
@@ -57,8 +57,6 @@ const ContactPersons = () => {
       UserManagementActions.getUsers({ countryIso, assessmentName: assessment.props.name, cycleName: cycle.name })
     )
   }, [assessment.props.name, countryIso, cycle.name, dispatch])
-
-  if (!assessmentSections) return null
 
   return (
     <div className="contact-persons-print">
