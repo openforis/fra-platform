@@ -3,9 +3,8 @@ import { useTranslation } from 'react-i18next'
 
 import { Numbers } from '@core/utils'
 
-import { ODPs } from '@meta/assessment'
+import { ODPs, OriginalDataPoint } from '@meta/assessment'
 
-import { useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import DefinitionLink from '@client/components/DefinitionLink'
 
@@ -14,11 +13,11 @@ import ForestCharacteristicsRow from './ForestCharacteristicsRow'
 
 type Props = {
   canEditData: boolean
+  originalDataPoint: OriginalDataPoint
 }
 
 const ForestCharacteristics: React.FC<Props> = (props) => {
-  const { canEditData } = props
-  const originalDataPoint = useOriginalDataPoint()
+  const { canEditData, originalDataPoint } = props
 
   const { i18n } = useTranslation()
   const { print } = useIsPrint()
@@ -80,7 +79,12 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
               </tr>
 
               {nationalClasses.map((nationalClass, index) => (
-                <ForestCharacteristicsRow key={nationalClass.name} canEditData={canEditData} index={index} />
+                <ForestCharacteristicsRow
+                  originalDataPoint={originalDataPoint}
+                  key={nationalClass.name}
+                  canEditData={canEditData}
+                  index={index}
+                />
               ))}
 
               <tr>
