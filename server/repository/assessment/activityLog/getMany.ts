@@ -17,7 +17,7 @@ export const getMany = (
     `
       select
         a.*,
-        jsonb_build_object('user', to_jsonb(u.*) - 'profile_picture_file' - 'profile_picture_filename')
+        jsonb_build_object('user', to_jsonb(u.*) - 'profile_picture_file' - 'profile_picture_filename') as user
       from (
         select
           user_id, message, section, target, time,
