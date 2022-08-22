@@ -89,12 +89,7 @@ const ContactPersons = () => {
                   <div className="text-input__readonly-view">{user.email}</div>
                 </td>
                 <td className="fra-table__cell-left">
-                  <div className="text-input__readonly-view">
-                    {getUserTableAnchors(user)}
-                    {/* {user.tables && !R.isEmpty(user.tables) && user.tables[0].tableNo !== 'all' */}
-                    {/* ? user.tables.map(R.prop('tableNo')).join(', ') */}
-                    {/* : i18n.t<string>('contactPersons.all')} */}
-                  </div>
+                  <div className="text-input__readonly-view">{getUserTableAnchors(user)}</div>
                 </td>
               </tr>
             ))}
