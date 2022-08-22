@@ -45,7 +45,7 @@ const CollaboratorMultiSelect: React.FC<Props> = ({ user, disabled }) => {
         return { value: subSection.uuid, label: subSection.props.anchor }
       }),
   ]
-  const properties = (user.roles[0].props as unknown as CollaboratorProps) || undefined
+  const properties = (user.roles[0].props as CollaboratorProps) || undefined
   const sections = Objects.isEmpty(properties) ? 'none' : properties.sections
   const selectedValues: Array<string> = typeof sections === 'string' ? [sections] : Object.keys(sections)
 
