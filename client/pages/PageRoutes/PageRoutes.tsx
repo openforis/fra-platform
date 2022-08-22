@@ -55,6 +55,7 @@ const PageRoutes: React.FC = () => {
 
       <Routes>
         <Route path={ClientRoutes.Assessment.Print.path.absolute} element={<AssessmentPrint />} />
+        <Route path={ClientRoutes.Assessment.PrintTables.path.absolute} element={<AssessmentPrint />} />
 
         <Route path="/" element={<Landing />} />
         <Route path={`${ClientRoutes.Assessment.Root.path.absolute}/*`} element={<Assessment />} />
