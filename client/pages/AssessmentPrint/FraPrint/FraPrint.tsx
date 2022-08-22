@@ -48,9 +48,9 @@ const FraPrint: React.FC = () => {
   }
 
   let title = ''
-  if (onlyTables) title = i18n.t('fraReportPrint.titleTables')
+  if (onlyTables) title = i18n.t('print.titleTables', { cycleName: cycle.name })
   if (!onlyTables && deskStudy) title = `${i18n.t('assessment.fra')} ${i18n.t('assessment.deskStudy')}`
-  if (!onlyTables && !deskStudy) title = i18n.t('fraReportPrint.title')
+  if (!onlyTables && !deskStudy) title = i18n.t('print.title', { cycleName: cycle.name })
 
   return (
     <div>

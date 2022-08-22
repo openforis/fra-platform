@@ -20,18 +20,18 @@ const TableOfContent: React.FC<Props> = (props) => {
       <div className="page-break" />
 
       <div className="disclaimer">
-        <p>{i18n.t<string>('fraReportPrint.disclaimer')}</p>
+        <p>{i18n.t<string>('print.disclaimer')}</p>
         <p>
           {deskStudy
-            ? i18n.t<string>('fraReportPrint.disclaimerGeneratedDeskStudy')
-            : i18n.t<string>('fraReportPrint.disclaimerGenerated')}
+            ? i18n.t<string>('print.disclaimerGeneratedDeskStudy')
+            : i18n.t<string>('print.disclaimerGenerated')}
         </p>
       </div>
 
       <div className="page-break" />
 
       <div>
-        <h2 className="table-of-content__header">{i18n.t<string>('fraReportPrint.tableOfContent')}</h2>
+        <h2 className="table-of-content__header">{i18n.t<string>('print.tableOfContent')}</h2>
 
         <ol className="table-of-content__list">
           {Object.entries(sections).map(([key, section]) => (

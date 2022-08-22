@@ -16,9 +16,7 @@ export const useIsAdmin = () => useIsPath({ path: `${ClientRoutes.Admin.Root.pat
 
 export const useIsLogin = () => useIsPath({ path: `${ClientRoutes.Login.Root.path.absolute}/*`, exact: false })
 
-export const useIsPrint = () => {
-  return {
-    print: useIsPath({ path: `${ClientRoutes.Assessment.Print.path.absolute}/*`, exact: false }),
-    onlyTables: useIsPath({ path: `${ClientRoutes.Assessment.PrintTables.path.absolute}`, exact: true }),
-  }
-}
+export const useIsPrint = () => ({
+  print: useIsPath({ path: `${ClientRoutes.Assessment.Print.path.absolute}/*`, exact: false }),
+  onlyTables: useIsPath({ path: `${ClientRoutes.Assessment.PrintTables.path.absolute}`, exact: true }),
+})
