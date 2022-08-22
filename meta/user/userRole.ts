@@ -9,7 +9,7 @@ export enum RoleName {
   VIEWER = 'VIEWER',
 }
 
-export interface UserRole<N extends RoleName, P = void> {
+export interface UserRole<N extends RoleName, P = undefined> {
   id: number
   assessmentId?: number
   cycleUuid?: string
