@@ -1,3 +1,12 @@
+@import 'client/style/partials';
+
+.assessment-section__extentOfForest {
+  .btn-toggle-odp {
+    margin-left: $spacing-xs;
+  }
+
+}
+
 .assessment-section__degradedForest {
   .fra-table {
     tr:nth-child(2) {
@@ -10,7 +19,7 @@
 
 .assessment-section__sustainableDevelopment {
   .subhead {
-    margin-bottom: 16px;
+    margin-bottom: $spacing-xs;
   }
 
   .fra-secondary-table__wrapper {
