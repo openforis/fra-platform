@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { AssessmentName, Table as TableType } from '@meta/assessment'
+import { TableDatas } from '@meta/data'
 
 import { useAppDispatch } from '@client/store'
 import { useCycle } from '@client/store/assessment'
@@ -25,7 +26,7 @@ type Props = {
 
 const DataTable: React.FC<Props> = (props) => {
   const { assessmentName, sectionName, sectionAnchor, table, disabled } = props
-  const { print } = useIsPrint()
+  const { print, onlyTables } = useIsPrint()
 
   const { i18n } = useTranslation()
   const dispatch = useAppDispatch()
@@ -34,8 +35,6 @@ const DataTable: React.FC<Props> = (props) => {
   const cycle = useCycle()
   const canEditSection = useCanEditSection(sectionName)
   const generateValues = canEditSection && table.props.odp
-
-  // Data of current section, passed for table
 
   const {
     // props: { name: tableName },
@@ -48,8 +47,6 @@ const DataTable: React.FC<Props> = (props) => {
   } = table
   // const breakPointsColsPrint = print.colBreakPoints
 
-  // const data = [] // useSelector(getTableData(assessmentName, sectionName, tableName))
-  // const dataEmpty: boolean = useSelector(isSectionDataEmpty(assessmentName, sectionName, tableName))
   // const generateValues: boolean = useSelector(
   //   (state) => odp && !disabled && Objects.isFunction(canGenerateValues) && canGenerateValues(state)
   // )
@@ -79,12 +76,20 @@ const DataTable: React.FC<Props> = (props) => {
   if (!data) return null
 
   const showOdpChart = table.props.odp
-  // const dataEmpty = false
+
+  const dataEmpty = TableDatas.isTableDataEmpty({
+    data,
+    tableName: table.props.name,
+    countryIso,
+  })
+
+  if (dataEmpty && onlyTables) {
+    return null
+  }
 
   return (
     <>
-      {/* {showOdpChart && (!print || !dataEmpty) && ( */}
-      {showOdpChart && !print && (
+      {showOdpChart && (!print || !dataEmpty) && (
         <>
           <Chart
             data={data}

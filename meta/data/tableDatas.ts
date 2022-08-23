@@ -1,3 +1,5 @@
+import { Objects } from '@core/utils'
+
 import { CountryIso } from '@meta/area'
 import { NodeValue, NodeValueValidations } from '@meta/assessment'
 
@@ -15,6 +17,18 @@ const getTableData = (props: Pick<Props, 'countryIso' | 'tableName' | 'data'>) =
   const { countryIso, tableName, data } = props
 
   return data?.[countryIso]?.[tableName] ?? {}
+}
+
+const isTableDataEmpty = (props: { data: TableData; tableName: string; countryIso: CountryIso }) => {
+  const { data, tableName, countryIso } = props
+  const tableData = getTableData({ data, tableName, countryIso })
+  if (Objects.isEmpty(tableData)) {
+    return true
+  }
+  // Exclude calculated nodes
+  return !Object.values(tableData)
+    .flatMap((rows) => Object.values(rows).filter((nodeValue) => !nodeValue.calculated).length)
+    .every(Boolean)
 }
 
 const getNodeValue = (props: Props): NodeValue => {
@@ -52,4 +66,5 @@ export const TableDatas = {
   getTableData,
   hasErrors,
   updateDatum,
+  isTableDataEmpty,
 }
