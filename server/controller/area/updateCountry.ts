@@ -4,7 +4,7 @@ import { User } from '@meta/user'
 
 import { BaseProtocol, DB } from '@server/db'
 import { ActivityLogRepository } from '@server/repository/assessment/activityLog'
-import { AssessmentRepository } from '@server/repository/assessment/assessment'
+import { CountryRepository } from '@server/repository/assessmentCycle/country'
 
 export const updateCountry = async (
   props: {
@@ -18,7 +18,7 @@ export const updateCountry = async (
 ): Promise<Country> => {
   const { country, countryIso, assessment, cycle, user } = props
   return client.tx(async (t) => {
-    const updatedCountry = await AssessmentRepository.updateCountry(
+    const updatedCountry = await CountryRepository.update(
       {
         country,
         countryIso,
