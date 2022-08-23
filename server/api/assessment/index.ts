@@ -5,7 +5,7 @@ import { AuthMiddleware } from '@server/middleware/auth'
 
 import { createOriginalDataPoint } from './createOriginalDataPoint'
 import { deleteOriginalDataPoint } from './deleteOriginalDataPoint'
-import { getActivityLog } from './getActivityLog'
+import { getActivities } from './getActivities'
 import { getDescription } from './getDescription'
 import { getOriginalDataPoint } from './getOdp'
 import { getOriginalDataPointData } from './getOriginalDataPointData'
@@ -65,6 +65,6 @@ export const AssessmentApi = {
     express.get(ApiEndPoint.Review.summary.many(), AuthMiddleware.requireView, getReviewSummary)
 
     // Activity Log
-    express.get(ApiEndPoint.Assessment.activityLog(), getActivityLog)
+    express.get(ApiEndPoint.Assessment.activityLog(), getActivities)
   },
 }

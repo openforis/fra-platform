@@ -5,7 +5,7 @@ import { ActivityLog, Assessment } from '@meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
-export const getMany = (
+export const getCycleDataActivities = (
   props: { assessment: Assessment; countryIso?: CountryIso },
   client: BaseProtocol = DB
 ): Promise<Array<ActivityLog<any>>> => {

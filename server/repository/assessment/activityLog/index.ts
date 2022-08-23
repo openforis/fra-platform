@@ -1,7 +1,7 @@
-import { getMany } from './getMany'
+import { getCycleDataActivities } from './getCycleDataActivities'
 import { insertActivityLog } from './insertActivityLog'
 
 export const ActivityLogRepository = {
-  getMany,
+  getCycleDataActivities,
   insertActivityLog,
 }

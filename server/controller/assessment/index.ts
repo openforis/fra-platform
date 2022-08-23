@@ -1,4 +1,3 @@
-import { ActivityLogRepository } from '@server/repository/assessment/activityLog'
 import { AssessmentRepository } from '@server/repository/assessment/assessment'
 import { TableRepository } from '@server/repository/assessment/table'
 import { CountryRepository } from '@server/repository/assessmentCycle/country'
@@ -36,5 +35,4 @@ export const AssessmentController = {
   getReservedYears,
   getSection,
   getTable: TableRepository.getOne,
-  getActivityLog: ActivityLogRepository.getMany,
 }
