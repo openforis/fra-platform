@@ -1,4 +1,7 @@
+import './RecentActivityItem.scss'
 import React from 'react'
+
+import { ApiEndPoint } from '@common/api/endpoint'
 
 import { ActivityLog } from '@meta/assessment'
 
@@ -11,7 +14,14 @@ const RecentActivityItem: React.FC<Props> = ({ activityLog }) => {
 
   return (
     <div className="landing__activity-item">
-      <div className="landing__activity-name">{user.name}</div>
+      <img
+        className="landing__activity-avatar"
+        src={ApiEndPoint.User.getProfilePicture(String(user.id))}
+        alt={user.name}
+      />
+      <div className="landing__activity-name">
+        <strong>{user.name}</strong>
+      </div>
     </div>
   )
 }
