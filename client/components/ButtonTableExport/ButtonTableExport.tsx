@@ -5,6 +5,7 @@ import { CSVLink } from 'react-csv'
 import classNames from 'classnames'
 
 import { useIsDataLocked } from '@client/store/ui/dataLock'
+import { useIsPrint } from '@client/hooks/useIsPath'
 import Icon from '@client/components/Icon'
 
 import * as Utils from './utils'
@@ -19,10 +20,10 @@ type Props = {
 const ButtonTableExport: React.FC<Props> = (props) => {
   const { disabled, filename, tableRef, inReview } = props
 
-  const [printView] = [false] //  usePrintView()
+  const { print } = useIsPrint()
   const isLocked = useIsDataLocked()
 
-  if (printView) return null
+  if (print) return null
 
   return (
     <CSVLink

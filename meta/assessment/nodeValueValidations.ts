@@ -11,7 +11,7 @@ const merge = (nodeValueValidations: Array<NodeValueValidation>): NodeValueValid
   return { valid, messages }
 }
 
-const isValid = (nodeValue: NodeValue): boolean => nodeValue.validation?.valid !== false
+const isValid = (nodeValue: NodeValue): boolean => nodeValue?.validation?.valid !== false
 
 export const NodeValueValidations = {
   merge,

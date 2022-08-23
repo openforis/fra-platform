@@ -1,10 +1,10 @@
 import { ChangeEventHandler, ClipboardEventHandler } from 'react'
-import { useDispatch } from 'react-redux'
 
 import { NodesPatchBodyValue } from '@meta/api/cycleData/nodes'
 import { Col, Cols, ColType, NodeValue, Row, RowType, Table } from '@meta/assessment'
 import { TableData, TableDatas } from '@meta/data'
 
+import { useAppDispatch } from '@client/store'
 import { useAssessment, useAssessmentSection, useCycle } from '@client/store/assessment'
 import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import { useCountryIso } from '@client/hooks'
@@ -16,6 +16,7 @@ type Props = {
   col: Col
   nodeValue: NodeValue
   data: TableData
+  sectionName: string
 }
 
 type UseOnChange = {
@@ -24,13 +25,12 @@ type UseOnChange = {
 }
 
 export default (props: Props): UseOnChange => {
-  const dispatch = useDispatch()
+  const { table, col, row, nodeValue, data, sectionName } = props
+  const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const cycle = useCycle()
   const assessment = useAssessment()
-  const assessmentSection = useAssessmentSection()
-
-  const { table, col, row, nodeValue, data } = props
+  const assessmentSection = useAssessmentSection(sectionName)
 
   const _persistSanitizedValue = (value: string) => {
     const type = col.props.colType

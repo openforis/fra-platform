@@ -7,8 +7,9 @@ import { ODPs, OriginalDataPoint } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
-import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
+import { OriginalDataPointActions } from '@client/store/pages/originalDataPoint'
 import { useCountryIso } from '@client/hooks'
+import { useIsPrint } from '@client/hooks/useIsPath'
 import Icon from '@client/components/Icon'
 import ReviewIndicator from '@client/components/ReviewIndicator'
 import VerticallyGrowingTextField from '@client/components/VerticallyGrowingTextField'
@@ -23,11 +24,11 @@ const columns = [
 type Props = {
   canEditData: boolean
   index: number
+  originalDataPoint: OriginalDataPoint
 }
 
 const NationalClass: React.FC<Props> = (props) => {
-  const { index, canEditData } = props
-  const originalDataPoint = useOriginalDataPoint()
+  const { index, canEditData, originalDataPoint } = props
   const { year } = originalDataPoint
   const disabled = !canEditData || !year
   const dispatch = useAppDispatch()
@@ -36,7 +37,7 @@ const NationalClass: React.FC<Props> = (props) => {
   const assessment = useAssessment()
   const cycle = useCycle()
 
-  const [printView] = [false] // usePrintView()
+  const { print } = useIsPrint()
 
   const nationalClass = originalDataPoint.nationalClasses[index]
   const { name, definition, uuid, placeHolder } = nationalClass
@@ -59,7 +60,7 @@ const NationalClass: React.FC<Props> = (props) => {
     <tr className={classNameRowComments}>
       <td className={`fra-table__cell-left odp__nc-table__name ${validation.validClassName === false ? 'error' : ''}`}>
         <div className="odp__nc-table__input-container">
-          {printView ? (
+          {print ? (
             <div className="text-input__readonly-view only-print" style={{ paddingTop: 0, paddingBottom: 0 }}>
               {name || ''}
             </div>
@@ -100,7 +101,7 @@ const NationalClass: React.FC<Props> = (props) => {
           )}
 
           {/* placeHolder-rows can't be removed */}
-          {!placeHolder && canEditData && !printView && (
+          {!placeHolder && canEditData && !print && (
             <button
               type="button"
               className="odp__nc-table__remove"
@@ -142,11 +143,11 @@ const NationalClass: React.FC<Props> = (props) => {
               })
             )
           }}
-          disabled={printView || disabled}
+          disabled={print || disabled}
         />
       </td>
 
-      {!printView && canEditData && !placeHolder && !Objects.isNil(originalDataPoint.id) && (
+      {!print && canEditData && !placeHolder && !Objects.isNil(originalDataPoint.id) && (
         <td className="fra-table__review-cell no-print">
           <ReviewIndicator
             title={name}
