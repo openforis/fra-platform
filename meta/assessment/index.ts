@@ -1,5 +1,6 @@
 export type { ActivityLog } from './activityLog'
 export { ActivityLogMessage } from './activityLog'
+export { ActivityLogs } from './activityLogs'
 export type { Assessment } from './assessment'
 export type { AssessmentMetaCache, DependencyCache, VariableCache } from './assessmentMetaCache'
 export { AssessmentName } from './assessmentName'

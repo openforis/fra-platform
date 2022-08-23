@@ -34,8 +34,8 @@ const RecentActivity: React.FC = () => {
   return (
     <div className="landing__page-container">
       {!Objects.isEmpty(data) ? (
-        data.map((activityLog, index) => {
-          return <RecentActivityItem key={String(index)} activityLog={activityLog} />
+        data.map((activity, index) => {
+          return <RecentActivityItem key={String(index)} activity={activity} />
         })
       ) : (
         <div className="landing__activity-empty">
