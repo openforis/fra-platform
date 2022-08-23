@@ -47,8 +47,8 @@ export const assessmentSectionSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(setTableSections, (state, { payload }) => {
-      const { sectionName, tableSections } = payload
-      state.tableSections = { ...state.tableSections, [sectionName]: tableSections }
+      const { tableSections } = payload
+      state.tableSections = { ...state.tableSections, ...tableSections }
     })
 
     builder.addCase(getTableData.fulfilled, (state, { payload }) => {

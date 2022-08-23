@@ -1,30 +1,34 @@
 import React from 'react'
-import { useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 // import { useAppDispatch } from '@client/store'
 import { useTranslation } from 'react-i18next'
+
+import { OriginalDataPoint } from '@meta/assessment'
+
+import { useIsPrint } from '@client/hooks/useIsPath'
+
 import NationalClass from './NationalClass'
 
 type Props = {
   canEditData: boolean
+  originalDataPoint: OriginalDataPoint
 }
 
 const NationalClasses: React.FC<Props> = (props) => {
-  const { canEditData } = props
-  const originalDataPoint = useOriginalDataPoint()
+  const { canEditData, originalDataPoint } = props
   const { nationalClasses } = originalDataPoint
   // const { nationalClasses, id, year } = originalDataPoint
 
   // const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
-  const [printView] = [false] // TODO: usePrintView()
+  const { print } = useIsPrint()
   // const saving = false // TODO: useIsAutoSaveSaving()
   const copyDisabled = true // TODO: !id || !year || !ODPs.canCopyPreviousValues(originalDataPoint) || saving
 
   return (
     <div className="odp__section">
-      {!printView && (
+      {!print && (
         <div className="odp__section-header">
-          <h3 className="subhead">{i18n.t('nationalDataPoint.nationalClasses')}</h3>
+          <h3 className="subhead">{i18n.t<string>('nationalDataPoint.nationalClasses')}</h3>
           {canEditData && (
             <button
               type="button"
@@ -35,7 +39,7 @@ const NationalClasses: React.FC<Props> = (props) => {
               // dispatch(OriginalDataPointActions.copyPreviousNationalClasses({ id: originalDataPoint.id }))
               // }
             >
-              {i18n.t('nationalDataPoint.copyPreviousValues')}
+              {i18n.t<string>('nationalDataPoint.copyPreviousValues')}
             </button>
           )}
         </div>
@@ -46,16 +50,21 @@ const NationalClasses: React.FC<Props> = (props) => {
           <table className="fra-table odp__nc-table">
             <tbody>
               <tr>
-                {printView && (
+                {print && (
                   <th className="fra-table__header-cell odp__year-column" rowSpan={nationalClasses.length + 1}>
                     {originalDataPoint.year}
                   </th>
                 )}
-                <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.nationalClass')}</th>
-                <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.definition')}</th>
+                <th className="fra-table__header-cell-left">{i18n.t<string>('nationalDataPoint.nationalClass')}</th>
+                <th className="fra-table__header-cell-left">{i18n.t<string>('nationalDataPoint.definition')}</th>
               </tr>
               {nationalClasses.map((nationalClass, idx) => (
-                <NationalClass key={nationalClass.uuid} index={idx} canEditData={canEditData} />
+                <NationalClass
+                  originalDataPoint={originalDataPoint}
+                  key={nationalClass.uuid}
+                  index={idx}
+                  canEditData={canEditData}
+                />
               ))}
             </tbody>
           </table>

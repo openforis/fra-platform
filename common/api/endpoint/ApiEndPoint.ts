@@ -2,6 +2,10 @@ const joinPaths = (...parts: Array<string>): string => `/${parts.join('/')}`
 const apiPath = (...parts: Array<string>): string => joinPaths('api', ...parts)
 
 export const ApiEndPoint = {
+  Sections: {
+    metadata: () => apiPath('section', 'metadata'),
+  },
+
   Assessment: {
     Data: {
       descriptions: () => apiPath('assessment', 'data', 'descriptions'),
@@ -13,28 +17,6 @@ export const ApiEndPoint = {
       },
     },
 
-    Sections: {
-      Metadata: {
-        many: (
-          countryIso = ':countryIso',
-          assessmentName = ':assessmentName',
-          cycleName = ':cycleName',
-          section = ':section'
-        ) =>
-          apiPath(
-            'countries',
-            countryIso,
-            'assessments',
-            assessmentName,
-            'cycles',
-            cycleName,
-            'sections',
-            section,
-            'metadata'
-          ),
-      },
-    },
-
     sections: (countryIso = ':countryIso', assessmentName = ':assessmentName', cycleName = ':cycleName') =>
       apiPath('countries', countryIso, 'assessment', assessmentName, 'sections', cycleName),
 
@@ -43,6 +25,10 @@ export const ApiEndPoint = {
     OriginalDataPoint: {
       one: (countryIso = ':countryIso', assessmentName = ':assessmentName', cycleName = ':cycleName', year = ':year') =>
         apiPath('country', countryIso, 'assessment', assessmentName, 'originalDataPoint', cycleName, year),
+
+      many: (countryIso = ':countryIso', assessmentName = ':assessmentName', cycleName = ':cycleName') =>
+        apiPath('country', countryIso, 'assessment', assessmentName, 'originalDataPoints', cycleName),
+
       ReservedYears: { many: () => apiPath('originalDataPoints', 'reservedYears') },
       TableData: {
         one: () => apiPath('originalDataPoint', 'data'),

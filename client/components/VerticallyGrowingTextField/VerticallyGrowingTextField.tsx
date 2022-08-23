@@ -1,15 +1,18 @@
 import './VerticallyGrowingTextField.scss'
-import React, { forwardRef, useEffect, useRef, MutableRefObject } from 'react'
+import React, { forwardRef, MutableRefObject, useEffect, useRef } from 'react'
+
+import { useIsPrint } from '@client/hooks/useIsPath'
 
 interface Props extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   minWidth?: number
+  disabled?: boolean
 }
 
 const VerticallyGrowingTextField = forwardRef<HTMLTextAreaElement, Props>((props, ref) => {
   const { value, minWidth: minWidthProps, disabled, ...rest } = props
   const minWidth = minWidthProps ? `${minWidthProps}px` : null
 
-  const [printView] = [false] // TODO: usePrintView()
+  const { print } = useIsPrint()
 
   const _textAreaRef = useRef<HTMLTextAreaElement>(null)
   const textAreaRef = (ref as MutableRefObject<HTMLTextAreaElement>) || _textAreaRef
@@ -35,7 +38,7 @@ const VerticallyGrowingTextField = forwardRef<HTMLTextAreaElement, Props>((props
         {...rest}
       />
 
-      {printView && (
+      {print && (
         <div className="text-input__readonly-view only-print" style={{ minWidth }}>
           {value}
         </div>

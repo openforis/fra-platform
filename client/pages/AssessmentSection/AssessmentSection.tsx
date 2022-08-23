@@ -8,32 +8,36 @@ import { AssessmentName } from '@meta/assessment'
 import { useAssessmentSection } from '@client/store/assessment'
 import { useTableSections } from '@client/store/pages/assessmentSection'
 import { useCanEditSection } from '@client/store/user'
+import { useIsPrint } from '@client/hooks/useIsPath'
 
 import DataTable from './DataTable'
 import Descriptions, { GeneralComments } from './Descriptions'
 import SectionHeader from './SectionHeader'
 import Title from './Title'
 
-const AssessmentSection: React.FC = () => {
+type Props = {
+  section?: string
+}
+
+const AssessmentSection: React.FC<Props> = (props: Props) => {
+  const { section: sectionProp } = props
   const { i18n } = useTranslation()
   const { assessmentName } = useParams<{ assessmentName: AssessmentName; cycleName: string; section: string }>()
-  const assessmentSection = useAssessmentSection()
-  const tableSections = useTableSections({ sectionName: assessmentSection?.props?.name })
-  const canEditSection = useCanEditSection()
-  const [printView, printOnlyTablesView] = [false, false] // TODO: usePrintView()
+  const assessmentSection = useAssessmentSection(sectionProp)
+  const tableSections = useTableSections({ sectionName: assessmentSection.props.name })
+  const canEditSection = useCanEditSection(sectionProp)
+  const { print, onlyTables } = useIsPrint()
 
   const panEuropean = assessmentName === AssessmentName.panEuropean
   const disabled = panEuropean || !canEditSection
-
-  if (!assessmentSection) return null
 
   const { anchor, showTitle, descriptions, name: sectionName } = assessmentSection.props
 
   return (
     <div className={`app-view__content assessment-section__${sectionName}`}>
-      {showTitle && printView && (
+      {showTitle && print && (
         <h2 className="title only-print">
-          {`${printOnlyTablesView ? '' : `${anchor} `}${i18n.t<string>(`${sectionName}.${sectionName}`)}`}
+          {`${onlyTables ? '' : `${anchor} `}${i18n.t<string>(`${sectionName}.${sectionName}`)}`}
         </h2>
       )}
 
@@ -74,6 +78,10 @@ const AssessmentSection: React.FC = () => {
       <div className="page-break" />
     </div>
   )
+}
+
+AssessmentSection.defaultProps = {
+  section: undefined,
 }
 
 export default AssessmentSection
