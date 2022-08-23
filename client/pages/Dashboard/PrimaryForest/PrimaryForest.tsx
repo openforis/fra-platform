@@ -48,12 +48,12 @@ const PrimaryForest = () => {
     TableDatas.getDatum({ ...props, tableName: tableNamePrimary, variableName: 'primary_forest' })
   )
 
-  const primaryForestAsPercentage = Numbers.mul(100, Numbers.div(primaryForest, otherForest)).toNumber()
+  const primaryForestAsPercentage = Numbers.mul(100, Numbers.div(primaryForest, otherForest))?.toNumber()
 
   const data = {
     datasets: [
       {
-        data: [primaryForestAsPercentage, Numbers.sub(100, primaryForestAsPercentage).toNumber()],
+        data: [primaryForestAsPercentage, Numbers.sub(100, primaryForestAsPercentage)?.toNumber()],
         borderWidth: 0,
         backgroundColor: [ChartColors.green, ChartColors.lightGreen],
         hoverBackgroundColor: [ChartColors.greenHover, ChartColors.lightGreenHover],
