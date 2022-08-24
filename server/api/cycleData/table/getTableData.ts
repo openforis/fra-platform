@@ -1,13 +1,23 @@
-import { Request, Response } from 'express'
+import { Response } from 'express'
 
+import { CycleDataRequest } from '@meta/api/request'
 import { CountryIso } from '@meta/area'
-import { AssessmentName } from '@meta/assessment'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { CycleDataController } from '@server/controller/cycleData'
 import Requests from '@server/utils/requests'
 
-export const getTableData = async (req: Request, res: Response) => {
+export const getTableData = async (
+  req: CycleDataRequest<{
+    tableNames: Array<string>
+    countryISOs: Array<CountryIso>
+    variables: Array<string>
+    columns: Array<string>
+    mergeOdp: string
+    aggregate: string
+  }>,
+  res: Response
+) => {
   try {
     const {
       assessmentName,
@@ -18,17 +28,7 @@ export const getTableData = async (req: Request, res: Response) => {
       columns,
       mergeOdp,
       aggregate,
-    } = req.query as {
-      assessmentName: AssessmentName
-      cycleName: string
-      section: string
-      tableNames: Array<string>
-      countryISOs: Array<CountryIso>
-      variables: Array<string>
-      columns: Array<string>
-      mergeOdp: string
-      aggregate: string
-    }
+    } = req.query
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 

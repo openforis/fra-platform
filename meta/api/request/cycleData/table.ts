@@ -1,5 +1,11 @@
 import { NodeValue } from '@meta/assessment'
 
+export type EstimateBody = {
+  fields: Array<{ annualChangeRates: { past: string; future: string }; variableName: string }>
+  method: string
+  tableName: string
+}
+
 export type NodesBodyValue = {
   variableName: string
   colName: string
