@@ -6,10 +6,10 @@ import { ActivityLog, Assessment } from '@meta/assessment'
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
 export const getCycleDataActivities = (
-  props: { assessment: Assessment; countryIso?: CountryIso },
+  props: { countryIso: CountryIso; assessment: Assessment; cycleUuid: string },
   client: BaseProtocol = DB
 ): Promise<Array<ActivityLog<any>>> => {
-  const { assessment, countryIso } = props
+  const { countryIso, assessment, cycleUuid } = props
 
   const schema = Schemas.getName(assessment)
 
@@ -24,14 +24,15 @@ export const getCycleDataActivities = (
           rank() OVER (PARTITION BY user_id, message, section ORDER BY time DESC) as rank
         from ${schema}.activity_log a
         where a.country_iso = $1
-          and message != 'deleteComment'
+          and a.cycle_uuid = $2
+          and a.message != 'deleteComment'
       ) as a
       join public.users u on user_id = u.id
       where rank = 1
       order by time desc
       limit 20
     `,
-    [countryIso],
+    [countryIso, cycleUuid],
 
     (row) => Objects.camelize(row)
   )

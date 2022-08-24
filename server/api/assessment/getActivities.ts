@@ -8,14 +8,16 @@ import { CycleDataController } from '@server/controller/cycleData'
 import Requests from '@server/utils/requests'
 
 export const getActivities = async (req: Request, res: Response) => {
-  const { countryIso } = req.params as { countryIso: CountryIso }
-
-  const { assessmentName } = req.query as { assessmentName: AssessmentName }
+  const { countryIso, assessmentName, cycleName } = req.params as {
+    countryIso: CountryIso
+    assessmentName: AssessmentName
+    cycleName: string
+  }
 
   try {
-    const assessment = await AssessmentController.getOne({ name: assessmentName })
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName })
 
-    const activityLog = await CycleDataController.getActivities({ assessment, countryIso })
+    const activityLog = await CycleDataController.getActivities({ countryIso, assessment, cycleUuid: cycle.uuid })
 
     Requests.send(res, activityLog)
   } catch (e) {
