@@ -23,7 +23,7 @@ export const ApiEndPoint = {
       nodes: () => apiPath('cycleData', 'table', 'nodes'),
       // tableData:()=>apiPath('cycleData','table','tableData'),
     },
-    activities: () => apiPath('cycleData', 'activities'),
+    activities: () => apiPath('cycleData', 'activities'), // is it correct?
   },
 
   File: {

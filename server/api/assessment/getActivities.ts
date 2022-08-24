@@ -15,7 +15,7 @@ export const getActivities = async (req: Request, res: Response) => {
   }
 
   try {
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName })
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     const activityLog = await CycleDataController.getActivities({ countryIso, assessment, cycleUuid: cycle.uuid })
 
