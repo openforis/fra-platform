@@ -25,7 +25,7 @@ export const getCycleDataActivities = (
         from ${schema}.activity_log a
         where a.country_iso = $1
           and a.cycle_uuid = $2
-          and a.message not in ('deleteComment', 'updateCountry')
+          and a.message not in ('deleteComment', 'nodeValueCalculatedUpdate', 'updateCountry')
       ) as a
       join public.users u on user_id = u.id
       where rank = 1
