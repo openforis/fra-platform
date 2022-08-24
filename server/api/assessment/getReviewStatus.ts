@@ -1,8 +1,9 @@
 import { Response } from 'express'
 
+import { CycleDataRequest } from '@meta/api/request'
+
 import { AssessmentController } from '@server/controller/assessment'
 import { CycleDataController } from '@server/controller/cycleData'
-import { CycleDataRequest } from '@server/utils/request'
 import Requests from '@server/utils/requests'
 
 export const getReviewStatus = async (req: CycleDataRequest<{ odpId: string }>, res: Response) => {

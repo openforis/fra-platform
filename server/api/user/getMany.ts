@@ -1,8 +1,9 @@
 import { Response } from 'express'
 
+import { CycleRequest } from '@meta/api/request'
+
 import { AssessmentController } from '@server/controller/assessment'
 import { UserController } from '@server/controller/user'
-import { CycleRequest } from '@server/utils/request'
 import Requests from '@server/utils/requests'
 
 export const getMany = async (req: CycleRequest, res: Response) => {

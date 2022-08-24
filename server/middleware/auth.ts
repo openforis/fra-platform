@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 
+import { CycleParams } from '@meta/api/request'
 import { CountryIso } from '@meta/area'
 import { MessageTopicStatus } from '@meta/messageCenter'
 import { Authorizer, Users } from '@meta/user'
@@ -8,7 +9,6 @@ import { AreaController } from '@server/controller/area'
 import { AssessmentController } from '@server/controller/assessment'
 import { MessageCenterController } from '@server/controller/messageCenter'
 import { Requests } from '@server/utils'
-import { CycleParams } from '@server/utils/request'
 
 const _next = (allowed: boolean, next: NextFunction): void => {
   if (allowed) return next()

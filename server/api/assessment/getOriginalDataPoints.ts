@@ -1,9 +1,10 @@
 import { Request, Response } from 'express'
 
+import { CycleDataParams } from '@meta/api/request'
+
 import { AssessmentController } from '@server/controller/assessment'
 import { CycleDataController } from '@server/controller/cycleData'
 import { Requests } from '@server/utils'
-import { CycleDataParams } from '@server/utils/request'
 
 export const getOriginalDataPoints = async (req: Request<CycleDataParams>, res: Response) => {
   try {
