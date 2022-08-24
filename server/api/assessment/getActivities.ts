@@ -8,7 +8,7 @@ import { CycleDataController } from '@server/controller/cycleData'
 import Requests from '@server/utils/requests'
 
 export const getActivities = async (req: Request, res: Response) => {
-  const { countryIso, assessmentName, cycleName } = req.params as {
+  const { countryIso, assessmentName, cycleName } = req.query as {
     countryIso: CountryIso
     assessmentName: AssessmentName
     cycleName: string

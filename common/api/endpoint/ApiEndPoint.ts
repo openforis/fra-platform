@@ -35,9 +35,6 @@ export const ApiEndPoint = {
       },
     },
 
-    activityLog: (countryIso = ':countryIso', assessmentName = ':assessmentName', cycleName = ':cycleName') =>
-      apiPath('country', countryIso, 'assessment', assessmentName, 'activityLog', cycleName),
-
     sections: (countryIso = ':countryIso', assessmentName = ':assessmentName', cycleName = ':cycleName') =>
       apiPath('countries', countryIso, 'assessment', assessmentName, 'sections', cycleName),
 
@@ -73,6 +70,7 @@ export const ApiEndPoint = {
     Nodes: {
       many: () => apiPath('cycleData', 'nodes'),
     },
+    activities: () => apiPath('cycleData', 'activities'),
   },
   Definitions: {
     one: (lang = ':lang', name = ':name') => joinPaths('definitions', lang, name),

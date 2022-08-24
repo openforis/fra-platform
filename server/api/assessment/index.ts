@@ -65,6 +65,6 @@ export const AssessmentApi = {
     express.get(ApiEndPoint.Review.summary.many(), AuthMiddleware.requireView, getReviewSummary)
 
     // Activity Log
-    express.get(ApiEndPoint.Assessment.activityLog(), getActivities)
+    express.get(ApiEndPoint.CycleData.activities(), getActivities)
   },
 }

@@ -19,9 +19,9 @@ const RecentActivity: React.FC = () => {
   const cycle = useCycle()
   const i18n = useTranslation()
 
-  const { data, dispatch: fetchData } = useGetRequest(
-    ApiEndPoint.Assessment.activityLog(countryIso, assessment.props.name, cycle.name)
-  ) as { data: Array<ActivityLog<any>>; dispatch: any }
+  const { data, dispatch: fetchData } = useGetRequest(ApiEndPoint.CycleData.activities(), {
+    params: { countryIso, assessmentName: assessment.props.name, cycleName: cycle.name },
+  }) as { data: Array<ActivityLog<any>>; dispatch: any }
 
   const fetchRef = useRef(fetchData)
 
