@@ -1,7 +1,7 @@
 import { validEmail } from '@common/userUtils'
 import { Objects } from '@core/utils'
+import { Request } from 'express'
 
-import { LoginRequest } from '@meta/api/request'
 import { AuthProvider } from '@meta/user/userAuth'
 
 import { UserController } from '@server/controller/user'
@@ -9,7 +9,7 @@ import { UserProviderController } from '@server/controller/userProvider'
 
 import { passwordCompare, passwordHash } from './utils/passwordUtils'
 
-export const localStrategyVerifyCallback = async (req: LoginRequest, email: string, password: string, done: any) => {
+export const localStrategyVerifyCallback = async (req: Request, email: string, password: string, done: any) => {
   const sendErr = (message: string) => done(null, false, { message })
 
   try {
