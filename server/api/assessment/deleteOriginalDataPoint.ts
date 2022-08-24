@@ -11,7 +11,7 @@ export const deleteOriginalDataPoint = async (req: Request, res: Response) => {
     const { assessmentName, cycleName, year, countryIso } = req.params
 
     const originalDataPoint = await CycleDataController.getOriginalDataPoint({
-      name: assessmentName,
+      assessmentName,
       cycleName,
       year,
       countryIso: countryIso as CountryIso,

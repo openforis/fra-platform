@@ -9,7 +9,7 @@ export const getOriginalDataPoint = async (req: Request, res: Response) => {
   try {
     const { assessmentName, cycleName, year, countryIso } = req.params
     const odp = await CycleDataController.getOriginalDataPoint({
-      name: assessmentName,
+      assessmentName,
       cycleName,
       year,
       countryIso: countryIso as CountryIso,

@@ -33,7 +33,7 @@ export default (): void =>
       })
 
       gotOriginalDataPoint = await CycleDataController.getOriginalDataPoint({
-        name: assessment.props.name,
+        assessmentName: assessment.props.name,
         cycleName: assessmentCycleName,
         year: String(createdOriginalDataPoint.year),
         countryIso: createdOriginalDataPoint.countryIso,
@@ -90,7 +90,7 @@ export default (): void =>
     it('Get not existing Original data point', async () => {
       await expect(
         CycleDataController.getOriginalDataPoint({
-          name: assessment.props.name,
+          assessmentName: assessment.props.name,
           cycleName: assessmentCycleName,
           year: '2299',
           countryIso: 'FIN',
