@@ -12,7 +12,7 @@ export const persistNodeValues = async (req: Request, res: Response) => {
 
     const user = Requests.getRequestUser(req)
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({
-      name: assessmentName,
+      assessmentName,
       cycleName,
       metaCache: true,
     })

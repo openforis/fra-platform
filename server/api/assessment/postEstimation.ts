@@ -20,7 +20,7 @@ export const postEstimation = async (req: Request, res: Response): Promise<any> 
     >req.body
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({
-      name: assessmentName,
+      assessmentName,
       cycleName,
       metaCache: true,
     })

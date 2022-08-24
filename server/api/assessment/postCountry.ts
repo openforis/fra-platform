@@ -14,7 +14,7 @@ export const postCountry = async (req: Request, res: Response) => {
     const { notifyUsers } = req.query
 
     const { country, message } = <{ country: Country; message: string }>req.body
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName })
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     const updatedCountry = await AreaController.updateCountry({
       countryIso: countryIso as CountryIso,

@@ -9,7 +9,7 @@ afterAll(async () => {
 
 describe('Persist value test', () => {
   test('test', async () => {
-    const assessment = await AssessmentController.getOne({ name: 'fra', metaCache: true })
+    const assessment = await AssessmentController.getOne({ assessmentName: 'fra', metaCache: true })
     const user = await UserController.read({ user: { email: 'cosimo.togna@fao.org' } })
 
     await CycleDataController.persistNodeValue({

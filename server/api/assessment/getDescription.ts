@@ -13,7 +13,7 @@ export const getDescription = async (req: Request, res: Response) => {
       Record<string, string> & { countryIso: CountryIso }
     >req.query
 
-    const { cycle, assessment } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName })
+    const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
     const description = await CycleDataController.getDescription({
       countryIso,
       assessment,
