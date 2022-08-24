@@ -1,6 +1,6 @@
 import { ChangeEventHandler, ClipboardEventHandler } from 'react'
 
-import { NodesPatchBodyValue } from '@meta/api/cycleData/nodes'
+import { NodesBodyValue } from '@meta/api/request'
 import { Col, Cols, ColType, NodeValue, Row, RowType, Table } from '@meta/assessment'
 import { TableData, TableDatas } from '@meta/data'
 
@@ -46,7 +46,7 @@ export default (props: Props): UseOnChange => {
         AssessmentSectionActions.updateNodeValues({
           assessmentName: assessment.props.name,
           cycleName: cycle.name,
-          sectionName: assessmentSection.props.name,
+          section: assessmentSection.props.name,
           countryIso,
           tableName: table.props.name,
           values: [
@@ -78,7 +78,7 @@ export default (props: Props): UseOnChange => {
     const rowSpecs = table.rows.filter((row) => row.props.type !== RowType.header)
 
     if (rows.length > 0) {
-      const values: Array<NodesPatchBodyValue> = []
+      const values: Array<NodesBodyValue> = []
       for (let i = 0; i < rows.length; i += 1) {
         const rowIdxCurrent = i + Number(row.props.index)
         const rowSpec = rowSpecs[rowIdxCurrent]
@@ -134,7 +134,7 @@ export default (props: Props): UseOnChange => {
           AssessmentSectionActions.updateNodeValues({
             assessmentName: assessment.props.name,
             cycleName: cycle.name,
-            sectionName: assessmentSection.props.name,
+            section: assessmentSection.props.name,
             countryIso,
             tableName: table.props.name,
             values,

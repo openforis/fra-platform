@@ -15,7 +15,6 @@ import { getReviewSummary } from './getReviewSummary'
 import { getSectionMetadata } from './getSectionMetadata'
 import { getSections } from './getSections'
 import { getTableData } from './getTableData'
-import { persistNodeValues } from './persistNodeValues'
 import { postCountry } from './postCountry'
 import { postEstimation } from './postEstimation'
 import { updateOriginalDataPoint } from './updateOriginalDataPoint'
@@ -53,7 +52,6 @@ export const AssessmentApi = {
 
     // TableData
     express.get(ApiEndPoint.Assessment.TableData.one(), AuthMiddleware.requireView, getTableData)
-    express.patch(ApiEndPoint.CycleData.Nodes.many(), AuthMiddleware.requireEdit, persistNodeValues)
 
     // Sections
     // requireView: We don't pass table for sections - always allow read

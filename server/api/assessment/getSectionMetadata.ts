@@ -1,7 +1,8 @@
 import { Response } from 'express'
 
+import { CycleRequest } from '@meta/api/request'
+
 import { AssessmentController } from '@server/controller/assessment'
-import { CycleRequest } from '@server/utils/request'
 import Requests from '@server/utils/requests'
 
 export const getSectionMetadata = async (req: CycleRequest<{ sectionNames: Array<string> }>, res: Response) => {
