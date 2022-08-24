@@ -8,7 +8,7 @@ export const createResetPassword = createAsyncThunk<
   { message?: string; error?: string },
   { email: string; navigate: NavigateFunction }
 >('login/post/createResetPassword', async ({ email, navigate }) => {
-  const { data } = await axios.post(ApiEndPoint.Auth.ResetPassword.one(), { email })
+  const { data } = await axios.post(ApiEndPoint.Auth.resetPassword(), { email })
   if (data?.message) navigate('/')
   return data
 })

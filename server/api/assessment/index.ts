@@ -15,16 +15,12 @@ import { getReviewSummary } from './getReviewSummary'
 import { getSectionMetadata } from './getSectionMetadata'
 import { getSections } from './getSections'
 import { getTableData } from './getTableData'
-import { postCountry } from './postCountry'
 import { postEstimation } from './postEstimation'
 import { updateOriginalDataPoint } from './updateOriginalDataPoint'
 import { upsertDescription } from './upsertDescription'
 
 export const AssessmentApi = {
   init: (express: Express): void => {
-    // Country
-    express.post(ApiEndPoint.Assessment.country(), AuthMiddleware.requireEdit, postCountry)
-
     // Estimation
     express.post(ApiEndPoint.Assessment.TableData.Estimate.many(), AuthMiddleware.requireEdit, postEstimation)
 
