@@ -7,7 +7,7 @@ import * as pgPromise from 'pg-promise'
 
 import { Assessment, Cycle, Row, VariableCache } from '@meta/assessment'
 
-import { AssessmentController } from '@server/controller/assessment'
+import { AreaController } from '@server/controller/area'
 import { BaseProtocol, Schemas } from '@server/db'
 
 export const updateCalculatedNodes = async (
@@ -20,16 +20,16 @@ export const updateCalculatedNodes = async (
 
   const rows = await client.map<Row & { tableName: string }>(
     `
-            select r.*,
-                   t.props ->> 'name' as table_name,
-                   jsonb_agg(c.*)     as cols
-            from ${schema}.row r
-                     left join ${schema}."table" t
-                               on r.table_id = t.id
-                     left join ${schema}.col c on r.id = c.row_id
-            where r.props ->> 'calculateFn' is not null
-               or c.props ->> 'calculateFn' is not null
-            group by r.id, r.uuid, r.props, t.props ->> 'name'`,
+        select r.*,
+               t.props ->> 'name' as table_name,
+               jsonb_agg(c.*)     as cols
+        from ${schema}.row r
+                 left join ${schema}."table" t
+                           on r.table_id = t.id
+                 left join ${schema}.col c on r.id = c.row_id
+        where r.props ->> 'calculateFn' is not null
+           or c.props ->> 'calculateFn' is not null
+        group by r.id, r.uuid, r.props, t.props ->> 'name'`,
     [],
     // @ts-ignore
     Objects.camelize
@@ -40,7 +40,7 @@ export const updateCalculatedNodes = async (
     variableName: row.props.variableName,
   }))
   const calculatedVariables: Record<string, Record<string, boolean>> = {}
-  const countries = await AssessmentController.getCountries({ assessment, cycle }, client)
+  const countries = await AreaController.getCountries({ assessment, cycle }, client)
   const countryISOs = countries.map((c) => c.countryIso)
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)

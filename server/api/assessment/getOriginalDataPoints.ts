@@ -3,6 +3,7 @@ import { Request, Response } from 'express'
 import { CountryIso } from '@meta/area'
 
 import { AssessmentController } from '@server/controller/assessment'
+import { CycleDataController } from '@server/controller/cycleData'
 import { Requests } from '@server/utils'
 
 export const getOriginalDataPoints = async (req: Request, res: Response) => {
@@ -11,7 +12,7 @@ export const getOriginalDataPoints = async (req: Request, res: Response) => {
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName })
 
-    const originalDataPoints = await AssessmentController.getOriginalDataPoints({
+    const originalDataPoints = await CycleDataController.getOriginalDataPoints({
       assessment,
       cycle,
       countryIso: countryIso as CountryIso,

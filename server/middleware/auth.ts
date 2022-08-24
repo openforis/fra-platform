@@ -5,6 +5,7 @@ import { AssessmentName } from '@meta/assessment'
 import { MessageTopicStatus } from '@meta/messageCenter'
 import { Authorizer, Users } from '@meta/user'
 
+import { AreaController } from '@server/controller/area'
 import { AssessmentController } from '@server/controller/assessment'
 import { MessageCenterController } from '@server/controller/messageCenter'
 import { Requests } from '@server/utils'
@@ -28,7 +29,7 @@ const requireEdit = async (req: Request, _res: Response, next: NextFunction) => 
     cycleName,
   })
   const section = await AssessmentController.getSection({ assessment, cycle, sectionName })
-  const country = await AssessmentController.getCountry({ countryIso: countryIso as CountryIso, assessment, cycle })
+  const country = await AreaController.getCountry({ countryIso: countryIso as CountryIso, assessment, cycle })
 
   _next(Authorizer.canEdit({ user, section, countryIso: countryIso as CountryIso, country }), next)
 }

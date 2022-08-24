@@ -1,13 +1,16 @@
 import { Request, Response } from 'express'
-import Requests from '@server/utils/requests'
-import { AssessmentController } from '@server/controller/assessment'
+
 import { CountryIso } from '@meta/area'
+
+import { AssessmentController } from '@server/controller/assessment'
+import { CycleDataController } from '@server/controller/cycleData'
+import Requests from '@server/utils/requests'
 
 export const deleteOriginalDataPoint = async (req: Request, res: Response) => {
   try {
     const { assessmentName, cycleName, year, countryIso } = req.params
 
-    const originalDataPoint = await AssessmentController.getOriginalDataPoint({
+    const originalDataPoint = await CycleDataController.getOriginalDataPoint({
       name: assessmentName,
       cycleName,
       year,
@@ -15,7 +18,7 @@ export const deleteOriginalDataPoint = async (req: Request, res: Response) => {
     })
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName })
 
-    const returnedOriginalDataPoint = await AssessmentController.removeOriginalDataPoint({
+    const returnedOriginalDataPoint = await CycleDataController.removeOriginalDataPoint({
       assessment,
       assessmentCycle: cycle,
       originalDataPoint,

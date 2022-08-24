@@ -1,7 +1,9 @@
-import { Response, Request } from 'express'
-import { Requests } from '@server/utils'
 import { CountryIso } from '@core/country'
+import { Request, Response } from 'express'
+
 import { AssessmentController } from '@server/controller/assessment'
+import { CycleDataController } from '@server/controller/cycleData'
+import { Requests } from '@server/utils'
 
 export const getReservedYears = async (req: Request, res: Response) => {
   try {
@@ -12,7 +14,7 @@ export const getReservedYears = async (req: Request, res: Response) => {
       cycleName: String(cycleName),
     })
 
-    const years = await AssessmentController.getReservedYears({
+    const years = await CycleDataController.getOriginalDataPointReservedYears({
       countryIso: countryIso as CountryIso,
       assessment,
       cycle,

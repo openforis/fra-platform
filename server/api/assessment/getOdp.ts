@@ -1,12 +1,14 @@
 import { Request, Response } from 'express'
-import { AssessmentController } from '@server/controller/assessment'
-import { Requests } from '@server/utils'
+
 import { CountryIso } from '@meta/area'
+
+import { CycleDataController } from '@server/controller/cycleData'
+import { Requests } from '@server/utils'
 
 export const getOriginalDataPoint = async (req: Request, res: Response) => {
   try {
     const { assessmentName, cycleName, year, countryIso } = req.params
-    const odp = await AssessmentController.getOriginalDataPoint({
+    const odp = await CycleDataController.getOriginalDataPoint({
       name: assessmentName,
       cycleName,
       year,
