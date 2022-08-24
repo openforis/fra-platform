@@ -10,7 +10,7 @@ export const calculateNode = async (
   props: Omit<Props, 'value'> & { expression: string; row: Row },
   client: BaseProtocol
 ): Promise<Node> => {
-  const { countryIso, assessment, cycle, tableName, variableName, colName, expression, row, user } = props
+  const { countryIso, assessment, cycle, section, tableName, variableName, colName, expression, row, user } = props
   const dependencies = assessment.metaCache.calculations.dependencies[tableName]?.[variableName]
   const data = await DataRepository.getTableData(
     { assessment, cycle, countryISOs: [countryIso], tables: {}, dependencies },
@@ -31,6 +31,7 @@ export const calculateNode = async (
       countryIso,
       assessment,
       cycle,
+      section,
       tableName,
       variableName,
       colName,

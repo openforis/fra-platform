@@ -8,7 +8,14 @@ import Requests from '@server/utils/requests'
 
 export const persistNodeValues = async (req: Request, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName, tableName, values } = req.body as NodesPatchBody
+    const {
+      countryIso,
+      assessmentName,
+      cycleName,
+      sectionName: section,
+      tableName,
+      values,
+    } = req.body as NodesPatchBody
 
     const user = Requests.getRequestUser(req)
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({
@@ -23,6 +30,7 @@ export const persistNodeValues = async (req: Request, res: Response) => {
           countryIso,
           assessment,
           cycle,
+          section,
           tableName,
           user,
           ...valueUpdate,
