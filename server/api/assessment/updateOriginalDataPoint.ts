@@ -9,7 +9,7 @@ export const updateOriginalDataPoint = async (req: Request, res: Response) => {
     const { assessmentName, cycleName } = req.params
     const { originalDataPoint } = req.body
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName })
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     const returnedOriginalDataPoint = await CycleDataController.updateOriginalDataPoint({
       assessment,

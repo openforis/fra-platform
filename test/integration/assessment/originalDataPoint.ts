@@ -17,7 +17,7 @@ export default (): void =>
 
     beforeAll(async () => {
       ;({ assessment, cycle: assessmentCycle } = await AssessmentController.getOneWithCycle({
-        name: assessmentParams.props.name,
+        assessmentName: assessmentParams.props.name,
         cycleName: assessmentCycleName,
       }))
 

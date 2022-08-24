@@ -10,7 +10,7 @@ export const init = async (req: Request, res: Response) => {
 
   try {
     const settings = await SettingsController.read()
-    const props = name ? { name } : { id: settings.defaultAssessmentId }
+    const props = name ? { assessmentName: name } : { id: settings.defaultAssessmentId }
     const { assessment, cycle } = await AssessmentController.getOneWithCycle(props)
 
     const [countries, regionGroups] = await Promise.all([

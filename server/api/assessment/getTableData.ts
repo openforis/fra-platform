@@ -30,7 +30,7 @@ export const getTableData = async (req: Request, res: Response) => {
       aggregate: string
     }
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName })
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     const table = await CycleDataController.getTableData({
       cycle,

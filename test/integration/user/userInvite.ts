@@ -13,7 +13,7 @@ export default (): void =>
     let user: User
 
     beforeAll(async () => {
-      assessment = await AssessmentController.getOne({ name: assessmentParams.props.name })
+      assessment = await AssessmentController.getOne({ assessmentName: assessmentParams.props.name })
       user = await UserController.getOne({ email: userMockTest.email })
     })
 

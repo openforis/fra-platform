@@ -20,7 +20,7 @@ export const getTopic = async (req: Request, res: Response) => {
     }
     const user = Requests.getRequestUser(req)
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName })
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     const topic = await MessageCenterController.getTopic({
       user,

@@ -10,7 +10,7 @@ export const getOriginalDataPointData = async (req: Request, res: Response) => {
   try {
     const { countryIso, assessmentName, cycleName } = <Record<string, string>>req.query
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName })
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     const table = await DataRepository.getOriginalDataPointData({
       countryISOs: [countryIso as CountryIso],

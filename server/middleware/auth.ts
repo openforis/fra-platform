@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 
 import { CountryIso } from '@meta/area'
-import { AssessmentName } from '@meta/assessment'
 import { MessageTopicStatus } from '@meta/messageCenter'
 import { Authorizer, Users } from '@meta/user'
 
@@ -9,6 +8,7 @@ import { AreaController } from '@server/controller/area'
 import { AssessmentController } from '@server/controller/assessment'
 import { MessageCenterController } from '@server/controller/messageCenter'
 import { Requests } from '@server/utils'
+import { CycleParams } from '@server/utils/request'
 
 const _next = (allowed: boolean, next: NextFunction): void => {
   if (allowed) return next()
@@ -24,10 +24,7 @@ const requireEdit = async (req: Request, _res: Response, next: NextFunction) => 
   } = <Record<string, string>>{ ...req.params, ...req.query, ...req.body }
   const user = Requests.getRequestUser(req)
 
-  const { cycle, assessment } = await AssessmentController.getOneWithCycle({
-    name: assessmentName as AssessmentName,
-    cycleName,
-  })
+  const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
   const section = await AssessmentController.getSection({ assessment, cycle, sectionName })
   const country = await AreaController.getCountry({ countryIso: countryIso as CountryIso, assessment, cycle })
 
@@ -35,18 +32,15 @@ const requireEdit = async (req: Request, _res: Response, next: NextFunction) => 
 }
 
 const requireView = async (req: Request, _res: Response, next: NextFunction) => {
-  const { countryIso, assessmentName, cycleName } = <Record<string, string>>{ ...req.params, ...req.query }
+  const { countryIso, assessmentName, cycleName } = { ...req.params, ...req.query } as CycleParams
   if (!countryIso || !assessmentName || !cycleName) {
     next(new Error(`missingParam ${JSON.stringify({ countryIso, assessmentName, cycleName })}`))
   }
   const user = Requests.getRequestUser(req)
 
-  const { cycle, assessment } = await AssessmentController.getOneWithCycle({
-    name: assessmentName as AssessmentName,
-    cycleName,
-  })
+  const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-  _next(Authorizer.canView({ user, countryIso: countryIso as CountryIso, cycle, assessment }), next)
+  _next(Authorizer.canView({ user, countryIso, cycle, assessment }), next)
 }
 
 const requireAdmin = async (req: Request, _res: Response, next: NextFunction) => {
@@ -62,10 +56,7 @@ const requireEditMessageTopic = async (req: Request, _res: Response, next: NextF
   }
   const user = Requests.getRequestUser(req)
 
-  const { cycle, assessment } = await AssessmentController.getOneWithCycle({
-    name: assessmentName as AssessmentName,
-    cycleName,
-  })
+  const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
   const topic = await MessageCenterController.getTopic({
     countryIso: countryIso as CountryIso,
     assessment,
@@ -100,10 +91,7 @@ const requireDeleteTopicMessage = async (req: Request, _res: Response, next: Nex
   }
   const user = Requests.getRequestUser(req)
 
-  const { cycle, assessment } = await AssessmentController.getOneWithCycle({
-    name: assessmentName as AssessmentName,
-    cycleName,
-  })
+  const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
   const topic = await MessageCenterController.getTopic({
     countryIso: countryIso as CountryIso,
@@ -141,10 +129,7 @@ const requireViewUsers = async (req: Request, _res: Response, next: NextFunction
   }
   const user = Requests.getRequestUser(req)
 
-  const { cycle, assessment } = await AssessmentController.getOneWithCycle({
-    name: assessmentName as AssessmentName,
-    cycleName,
-  })
+  const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
   _next(Authorizer.canViewUsers({ user, countryIso: countryIso as CountryIso, cycle, assessment }), next)
 }

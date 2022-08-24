@@ -23,7 +23,7 @@ export const markMessageDeleted = async (req: Request, res: Response) => {
     }
     const user = Requests.getRequestUser(req)
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName })
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     await MessageCenterController.markMessageDeleted({ user, assessment, cycle, id: Number(messageId) })
 
