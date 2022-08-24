@@ -19,10 +19,10 @@ export type CycleRequest<QueryParams = any, Body = any> = Request<never, never, 
 export type CycleDataRequest<QueryParams = any, Body = any> = Request<never, never, Body, QueryParams & CycleDataParams>
 
 // init
-export type InitRequest = Request<never, never, never, { name: string }>
+export type { InitRequest } from './init/init'
+
+// auth
+export type { LoginRequest } from './auth/login'
 
 // cycleData
 export type { NodesBody, NodesBodyValue } from './cycleData/table'
-
-// Auth
-export type LoginRequest = Request<unknown, unknown, unknown, { invitationUuid: string; state: string }>
