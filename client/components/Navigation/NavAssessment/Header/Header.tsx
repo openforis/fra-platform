@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { Areas } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
 
-import { useAssessment } from '@client/store/assessment'
+import { useAssessment, useCycle } from '@client/store/assessment'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import { ClientRoutes } from '@client/clientRoutes'
@@ -25,6 +25,7 @@ type Props = {
 const Header: React.FC<Props> = (props) => {
   const { showSections, setShowSections } = props
   const assessment = useAssessment()
+  const cycle = useCycle()
 
   const countryIso = useCountryIso()
   const user = useUser()
@@ -32,7 +33,7 @@ const Header: React.FC<Props> = (props) => {
   const isCountry = Areas.isISOCountry(countryIso)
   const assessmentName = assessment.props.name
   const isFRA = assessmentName === AssessmentName.fra
-  const cycleName = '2025' // todo
+  const cycleName = cycle.name
 
   return (
     <div className="nav-assessment-header">

@@ -1,10 +1,10 @@
 import { ChangeEventHandler, ClipboardEventHandler } from 'react'
-import { useDispatch } from 'react-redux'
 
-import { NodesPatchBodyValue } from '@meta/api/cycleData/nodes'
+import { NodesBodyValue } from '@meta/api/request'
 import { Col, Cols, ColType, NodeValue, Row, RowType, Table } from '@meta/assessment'
 import { TableData, TableDatas } from '@meta/data'
 
+import { useAppDispatch } from '@client/store'
 import { useAssessment, useAssessmentSection, useCycle } from '@client/store/assessment'
 import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import { useCountryIso } from '@client/hooks'
@@ -16,6 +16,7 @@ type Props = {
   col: Col
   nodeValue: NodeValue
   data: TableData
+  sectionName: string
 }
 
 type UseOnChange = {
@@ -24,13 +25,12 @@ type UseOnChange = {
 }
 
 export default (props: Props): UseOnChange => {
-  const dispatch = useDispatch()
+  const { table, col, row, nodeValue, data, sectionName } = props
+  const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const cycle = useCycle()
   const assessment = useAssessment()
-  const assessmentSection = useAssessmentSection()
-
-  const { table, col, row, nodeValue, data } = props
+  const assessmentSection = useAssessmentSection(sectionName)
 
   const _persistSanitizedValue = (value: string) => {
     const type = col.props.colType
@@ -46,7 +46,7 @@ export default (props: Props): UseOnChange => {
         AssessmentSectionActions.updateNodeValues({
           assessmentName: assessment.props.name,
           cycleName: cycle.name,
-          sectionName: assessmentSection.props.name,
+          section: assessmentSection.props.name,
           countryIso,
           tableName: table.props.name,
           values: [
@@ -78,7 +78,7 @@ export default (props: Props): UseOnChange => {
     const rowSpecs = table.rows.filter((row) => row.props.type !== RowType.header)
 
     if (rows.length > 0) {
-      const values: Array<NodesPatchBodyValue> = []
+      const values: Array<NodesBodyValue> = []
       for (let i = 0; i < rows.length; i += 1) {
         const rowIdxCurrent = i + Number(row.props.index)
         const rowSpec = rowSpecs[rowIdxCurrent]
@@ -134,7 +134,7 @@ export default (props: Props): UseOnChange => {
           AssessmentSectionActions.updateNodeValues({
             assessmentName: assessment.props.name,
             cycleName: cycle.name,
-            sectionName: assessmentSection.props.name,
+            section: assessmentSection.props.name,
             countryIso,
             tableName: table.props.name,
             values,

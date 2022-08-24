@@ -1,6 +1,8 @@
 import { Request } from 'express'
 import { Profile, VerifyFunction } from 'passport-google-oauth'
+
 import { AuthProvider } from '@meta/user'
+
 import { UserController } from '@server/controller/user'
 import { UserProviderController } from '@server/controller/userProvider'
 

@@ -5,6 +5,7 @@ import { Descriptions as DescriptionsType, TableNames } from '@meta/assessment'
 
 import { useAssessmentCountry } from '@client/store/assessment'
 import { useHasOriginalDataPointData } from '@client/store/pages/assessmentSection'
+import { useIsPrint } from '@client/hooks/useIsPath'
 
 import AnalysisDescriptions from './AnalysisDescriptions'
 import CommentableDescription from './CommentableDescription'
@@ -18,10 +19,8 @@ type Props = {
 
 const useDescriptions = (props: Props): { nationalData: boolean; analysisAndProcessing: boolean } => {
   const { descriptions, sectionName } = props
-  // TODO: usePrintView()
-  // if (printOnlyTablesView) {
-  //   return [false, false]
-  // }
+  const { onlyTables } = useIsPrint()
+
   const country = useAssessmentCountry()
   const hasOriginalDataPointData = useHasOriginalDataPointData()
   const useOriginalDataPoint = country?.props?.forestCharacteristics?.useOriginalDataPoint
@@ -33,6 +32,14 @@ const useDescriptions = (props: Props): { nationalData: boolean; analysisAndProc
     }),
     [useOriginalDataPoint, hasOriginalDataPointData]
   )
+
+  if (onlyTables) {
+    return {
+      nationalData: false,
+      analysisAndProcessing: false,
+    }
+  }
+
   const bySection = bySections[sectionName]
 
   return {
@@ -45,7 +52,7 @@ const Descriptions: React.FC<Props> = (props: Props) => {
   const { descriptions, disabled, sectionName } = props
 
   const i18n = useTranslation()
-  const [printView, printOnlyTablesView] = [false, false] // TODO: usePrintView()
+  const { print, onlyTables } = useIsPrint()
 
   const { introductoryText } = descriptions
   const { analysisAndProcessing, nationalData } = useDescriptions(props)
@@ -56,8 +63,8 @@ const Descriptions: React.FC<Props> = (props: Props) => {
         <NationalDataDescriptions
           section={sectionName}
           disabled={disabled}
-          showAlertEmptyContent={!printView}
-          showDashEmptyContent={printView}
+          showAlertEmptyContent={!print}
+          showDashEmptyContent={print}
         />
       )}
 
@@ -65,8 +72,8 @@ const Descriptions: React.FC<Props> = (props: Props) => {
         <AnalysisDescriptions
           section={sectionName}
           disabled={disabled}
-          showAlertEmptyContent={!printView}
-          showDashEmptyContent={printView}
+          showAlertEmptyContent={!print}
+          showDashEmptyContent={print}
         />
       )}
 
@@ -80,7 +87,7 @@ const Descriptions: React.FC<Props> = (props: Props) => {
         />
       )}
 
-      {printView && !printOnlyTablesView && (nationalData || analysisAndProcessing) && <div className="page-break" />}
+      {print && !onlyTables && (nationalData || analysisAndProcessing) && <div className="page-break" />}
     </>
   )
 }

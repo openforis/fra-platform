@@ -1,23 +1,24 @@
-import { Request, Response } from 'express'
+import { Response } from 'express'
 
-import { CountryIso } from '@meta/area'
+import { CycleDataRequest } from '@meta/api/request'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { CycleDataController } from '@server/controller/cycleData'
 import Requests from '@server/utils/requests'
 
-export const getReviewStatus = async (req: Request, res: Response) => {
+export const getReviewStatus = async (req: CycleDataRequest<{ odpId: string }>, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName, section, odpId } = <Record<string, string>>req.query
+    const { countryIso, assessmentName, cycleName, section, odpId } = req.query
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName })
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
+    const user = Requests.getRequestUser(req)
     const reviewstatus = await CycleDataController.getReviewStatus({
       assessment,
       cycle,
-      countryIso: countryIso as CountryIso,
+      countryIso,
       section,
-      user: Requests.getRequestUser(req),
+      user,
       odpId,
     })
 

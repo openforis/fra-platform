@@ -6,6 +6,7 @@
   line-height: 19px;
   width: 100%;
   table-layout: fixed;
+  margin-bottom: calc($spacing-xxxl * 14);
 
   tr {
     &.user-list__invitation-row {

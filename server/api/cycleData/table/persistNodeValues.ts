@@ -1,25 +1,19 @@
-import { Request, Response } from 'express'
+import { Response } from 'express'
 
-import { NodesPatchBody } from '@meta/api/cycleData/nodes'
+import { CycleDataRequest, NodesBody } from '@meta/api/request'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { CycleDataController } from '@server/controller/cycleData'
 import Requests from '@server/utils/requests'
 
-export const persistNodeValues = async (req: Request, res: Response) => {
+export const persistNodeValues = async (req: CycleDataRequest<never, NodesBody>, res: Response) => {
   try {
-    const {
-      countryIso,
-      assessmentName,
-      cycleName,
-      sectionName: section,
-      tableName,
-      values,
-    } = req.body as NodesPatchBody
+    const { countryIso, assessmentName, cycleName, section } = req.query
+    const { tableName, values } = req.body
 
     const user = Requests.getRequestUser(req)
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({
-      name: assessmentName,
+      assessmentName,
       cycleName,
       metaCache: true,
     })

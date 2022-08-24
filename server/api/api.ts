@@ -1,13 +1,15 @@
 import { Express } from 'express'
 
-import { AssessmentApi } from '@server/api/assessment'
-import { AuthApi } from '@server/api/auth'
-import { DefinitionApi } from '@server/api/definitions'
-import { FileApi } from '@server/api/file'
-import { InitApi } from '@server/api/init'
-import { MessageCenterApi } from '@server/api/messageCenter'
-import { UserApi } from '@server/api/user'
-import { GeoApi } from '@server/api/geo'
+import { AreaApi } from './area'
+import { AssessmentApi } from './assessment'
+import { AuthApi } from './auth'
+import { CycleDataApi } from './cycleData'
+import { DefinitionApi } from './definitions'
+import { FileApi } from './file'
+import { GeoApi } from './geo'
+import { InitApi } from './init'
+import { MessageCenterApi } from './messageCenter'
+import { UserApi } from './user'
 
 /**
  * API Controller
@@ -17,8 +19,10 @@ import { GeoApi } from '@server/api/geo'
 export const Api = {
   init: (express: Express): void => {
     InitApi.init(express)
+    AreaApi.init(express)
     AuthApi.init(express)
     AssessmentApi.init(express)
+    CycleDataApi.init(express)
     DefinitionApi.init(express)
     FileApi.init(express)
     UserApi.init(express)

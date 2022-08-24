@@ -7,6 +7,7 @@ import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import useDescription from '@client/store/pages/assessmentSection/hooks/useDescription'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
+import { useIsPrint } from '@client/hooks/useIsPath'
 import MarkdownEditor from '@client/components/MarkdownEditor'
 import MarkdownPreview from '@client/components/MarkdownPreview'
 
@@ -31,7 +32,7 @@ const Description: React.FC<Props> = (props) => {
   const cycle = useCycle()
 
   const user = useUser()
-  // const [printView] = [false] // TODO: usePrintView()
+  const { print } = useIsPrint()
   const value = useDescription({ name, sectionName: section, template })
   const [open, setOpen] = useState(false)
 
@@ -52,8 +53,8 @@ const Description: React.FC<Props> = (props) => {
   )
 
   const error = user && showAlertEmptyContent && !value
-  const markdown = value || template
-  // if (printView) __html = __html?.split('<p>&nbsp;</p>').join('') // Hack to replace empty lines in print view
+  let markdown = value || template
+  if (print) markdown = markdown?.split('<p>&nbsp;</p>').join('') // Hack to replace empty lines in print view
 
   useEffect(() => {
     dispatch(

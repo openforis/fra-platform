@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { TableData } from '@meta/data'
 
 import { useOnResize } from '@client/hooks'
+import { useIsPrint } from '@client/hooks/useIsPath'
 import { DOMs } from '@client/utils/dom'
 
 import ChartContainer from './chartContainer'
@@ -15,13 +16,13 @@ type Props = {
 const ChartWrapper = (props: Props) => {
   const { data, trends } = props
 
-  const [printView] = [false] // TODO usePrintView()
+  const { print } = useIsPrint()
 
   const chartRef = useRef(null)
   const [width, setWidth] = useState(null)
 
   const onChangeWidth = () => {
-    if (printView) {
+    if (print) {
       setWidth(960)
     } else {
       const { width: widthUpdate } = DOMs.elementOffset(chartRef.current)

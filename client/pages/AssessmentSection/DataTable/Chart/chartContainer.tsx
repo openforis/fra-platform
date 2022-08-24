@@ -6,6 +6,8 @@ import { Objects } from '@core/utils'
 
 import { TableData } from '@meta/data'
 
+import { useIsPrint } from '@client/hooks/useIsPath'
+
 import DataTrend from './components/dataTrend'
 import Legend from './components/legend'
 import NoDataPlaceholder from './components/noDataPlaceholder'
@@ -57,7 +59,7 @@ const ChartContainer = (props: ChartContainerProps) => {
   const { data: x, trends, wrapperWidth } = props
   const data = toObject(x)
   const { i18n } = useTranslation()
-  const [printView] = [false] // TODO usePrintView()
+  const { print } = useIsPrint()
   const { xScale, yScale, chartData } = useChartData(data, trends, wrapperWidth)
   const { left, height, bottom } = Chart.styles
 
@@ -89,7 +91,7 @@ const ChartContainer = (props: ChartContainerProps) => {
             wrapperWidth={wrapperWidth}
           />
         ))}
-        {!printView && <NoDataPlaceholder data={chartData} i18n={i18n} wrapperWidth={wrapperWidth} />}
+        {!print && <NoDataPlaceholder data={chartData} i18n={i18n} wrapperWidth={wrapperWidth} />}
       </svg>
     </div>
   )

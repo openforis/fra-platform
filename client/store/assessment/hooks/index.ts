@@ -41,7 +41,7 @@ export const useCountries = (): Array<Country> => {
 }
 
 export const useCountry = (countryIso: CountryIso): Country =>
-  useAppSelector((state) => state.assessment.countries[countryIso])
+  useAppSelector((state) => state.assessment.countries?.[countryIso])
 
 export const useAssessmentCountry = (): Country => {
   const countryIso = useCountryIso()
@@ -53,9 +53,11 @@ export const useRegionGroups = (): Record<string, RegionGroup> =>
   useAppSelector((state) => state.assessment?.regionGroups ?? {})
 
 export const useAssessmentSections = (): Array<Section> => useAppSelector((state) => state.assessment.sections)
-export const useAssessmentSection = (): SubSection => {
+export const useAssessmentSection = (sectionNameParam?: string): SubSection => {
   const sections = useAssessmentSections()
-  const { section: sectionName } = useParams<{ section: string }>()
+  const { section: s } = useParams<{ section: string }>()
+  // Prefer optional function param if passed over url param for sectionName
+  const sectionName = sectionNameParam ?? s
   return sections
     ?.find((section) => section.subSections.find((subSection) => subSection.props.name === sectionName))
     .subSections.find((subSection) => subSection.props.name === sectionName)

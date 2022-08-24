@@ -1,8 +1,11 @@
+import { assessmentCycleName, assessmentParams, originalDataPoint } from '@test/integration/mock/assessment'
+import { userMockTest } from '@test/integration/mock/user'
+
 import { Assessment, Cycle, OriginalDataPoint } from '@meta/assessment'
 import { User } from '@meta/user'
-import { assessmentParams, assessmentCycleName, originalDataPoint } from '@test/integration/mock/assessment'
-import { userMockTest } from '@test/integration/mock/user'
+
 import { AssessmentController } from '@server/controller/assessment'
+import { CycleDataController } from '@server/controller/cycleData'
 import { UserController } from '@server/controller/user'
 
 export default (): void =>
@@ -14,7 +17,7 @@ export default (): void =>
 
     beforeAll(async () => {
       ;({ assessment, cycle: assessmentCycle } = await AssessmentController.getOneWithCycle({
-        name: assessmentParams.props.name,
+        assessmentName: assessmentParams.props.name,
         cycleName: assessmentCycleName,
       }))
 
@@ -22,15 +25,15 @@ export default (): void =>
     })
 
     it('Create new Original data point', async () => {
-      const createdOriginalDataPoint = await AssessmentController.createOriginalDataPoint({
+      const createdOriginalDataPoint = await CycleDataController.createOriginalDataPoint({
         assessment,
         assessmentCycle,
         originalDataPoint,
         user,
       })
 
-      gotOriginalDataPoint = await AssessmentController.getOriginalDataPoint({
-        name: assessment.props.name,
+      gotOriginalDataPoint = await CycleDataController.getOriginalDataPoint({
+        assessmentName: assessment.props.name,
         cycleName: assessmentCycleName,
         year: String(createdOriginalDataPoint.year),
         countryIso: createdOriginalDataPoint.countryIso,
@@ -43,7 +46,7 @@ export default (): void =>
     })
 
     it('Edit existing/not existing Original data point', async () => {
-      const editedOriginalDataPoint = await AssessmentController.updateOriginalDataPoint({
+      const editedOriginalDataPoint = await CycleDataController.updateOriginalDataPoint({
         assessment,
         assessmentCycle,
         originalDataPoint: { ...gotOriginalDataPoint, year: 2018 },
@@ -51,7 +54,7 @@ export default (): void =>
       })
 
       await expect(
-        AssessmentController.updateOriginalDataPoint({
+        CycleDataController.updateOriginalDataPoint({
           assessment,
           assessmentCycle,
           originalDataPoint: { ...gotOriginalDataPoint, id: 5, year: 2017 },
@@ -65,7 +68,7 @@ export default (): void =>
     })
 
     it('Remove existing/not existing Original data point', async () => {
-      const removedOriginalDataPoint = await AssessmentController.removeOriginalDataPoint({
+      const removedOriginalDataPoint = await CycleDataController.removeOriginalDataPoint({
         assessment,
         assessmentCycle,
         originalDataPoint: gotOriginalDataPoint,
@@ -73,7 +76,7 @@ export default (): void =>
       })
 
       await expect(
-        AssessmentController.removeOriginalDataPoint({
+        CycleDataController.removeOriginalDataPoint({
           assessment,
           assessmentCycle,
           originalDataPoint: { ...gotOriginalDataPoint, id: 5 },
@@ -86,8 +89,8 @@ export default (): void =>
 
     it('Get not existing Original data point', async () => {
       await expect(
-        AssessmentController.getOriginalDataPoint({
-          name: assessment.props.name,
+        CycleDataController.getOriginalDataPoint({
+          assessmentName: assessment.props.name,
           cycleName: assessmentCycleName,
           year: '2299',
           countryIso: 'FIN',

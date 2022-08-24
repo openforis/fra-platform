@@ -1,15 +1,17 @@
 import { Request, Response } from 'express'
-import Requests from '@server/utils/requests'
+
 import { AssessmentController } from '@server/controller/assessment'
+import { CycleDataController } from '@server/controller/cycleData'
+import Requests from '@server/utils/requests'
 
 export const createOriginalDataPoint = async (req: Request, res: Response) => {
   try {
     const { assessmentName, cycleName } = req.params
     const { originalDataPoint } = req.body
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName })
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-    const returnedOriginalDataPoint = await AssessmentController.createOriginalDataPoint({
+    const returnedOriginalDataPoint = await CycleDataController.createOriginalDataPoint({
       assessment,
       assessmentCycle: cycle,
       originalDataPoint,

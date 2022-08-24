@@ -3,10 +3,11 @@ import { useTranslation } from 'react-i18next'
 
 import { Numbers } from '@core/utils'
 
-// import { useCountryIso } from '@client/hooks'
+import { OriginalDataPoint } from '@meta/assessment'
+
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
-import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
+import { OriginalDataPointActions } from '@client/store/pages/originalDataPoint'
 import PercentInput from '@client/components/PercentInput'
 import ReviewIndicator from '@client/components/ReviewIndicator'
 import ThousandSeparatedDecimalInput from '@client/components/ThousandSeparatedDecimalInput'
@@ -23,15 +24,14 @@ const columns = [
 type Props = {
   canEditData: boolean
   index: number
+  originalDataPoint: OriginalDataPoint
 }
 
 const ExtentOfForestRow: React.FC<Props> = (props) => {
-  const { canEditData, index } = props
-  const originalDataPoint = useOriginalDataPoint()
+  const { canEditData, index, originalDataPoint } = props
 
   const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
-  // const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
 

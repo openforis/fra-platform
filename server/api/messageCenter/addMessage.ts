@@ -25,7 +25,7 @@ export const addMessage = async (req: Request, res: Response) => {
     const user = Requests.getRequestUser(req)
     const { message } = req.body
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ name: assessmentName, cycleName })
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     const { topic, message: messageCreated } = await MessageCenterController.addMessage({
       message,

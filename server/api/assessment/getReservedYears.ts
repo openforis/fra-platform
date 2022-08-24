@@ -1,18 +1,19 @@
-import { Response, Request } from 'express'
-import { Requests } from '@server/utils'
 import { CountryIso } from '@core/country'
-import { AssessmentController } from '@server/controller/assessment'
+import { Response } from 'express'
 
-export const getReservedYears = async (req: Request, res: Response) => {
+import { CycleDataRequest } from '@meta/api/request'
+
+import { AssessmentController } from '@server/controller/assessment'
+import { CycleDataController } from '@server/controller/cycleData'
+import { Requests } from '@server/utils'
+
+export const getReservedYears = async (req: CycleDataRequest, res: Response) => {
   try {
     const { countryIso, assessmentName, cycleName } = req.query
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({
-      name: String(assessmentName),
-      cycleName: String(cycleName),
-    })
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-    const years = await AssessmentController.getReservedYears({
+    const years = await CycleDataController.getOriginalDataPointReservedYears({
       countryIso: countryIso as CountryIso,
       assessment,
       cycle,

@@ -1,11 +1,13 @@
 import { ODPValidationNationalClass } from '@meta/assessment/originalDataPoint'
+
 import { useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
+import { useIsPrint } from '@client/hooks/useIsPath'
 
 export const useNationalClassValidation = (index: number): ODPValidationNationalClass | Record<string, never> => {
-  const [printView] = [false] // TODO: usePrintView()
+  const { print } = useIsPrint()
   const originalDataPoint = useOriginalDataPoint()
 
-  if (printView) {
+  if (print) {
     return {}
   }
 

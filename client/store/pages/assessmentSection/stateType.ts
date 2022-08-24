@@ -4,6 +4,7 @@ import { NodeUpdate, TableData } from '@meta/data'
 export type AssessmentSectionState = {
   data?: TableData
   originalDataPointData?: TableData
+  // sectionName -> tableSections
   tableSections: Record<string, Array<TableSection>>
   showOriginalDataPoint?: boolean
   // tableName -> nodeUpdate

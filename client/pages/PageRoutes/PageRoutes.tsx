@@ -6,12 +6,14 @@ import { Navigate, Route, Routes, useMatch } from 'react-router-dom'
 
 import { useAppDispatch } from '@client/store'
 import { AssessmentActions } from '@client/store/assessment'
+import { useIsPrint } from '@client/hooks/useIsPath'
 import { ClientRoutes } from '@client/clientRoutes'
 import CountrySelect from '@client/components/CountrySelect'
 import Footer from '@client/components/Footer'
 import Header from '@client/components/Header'
 import Toaster from '@client/components/Toaster'
 import Assessment from '@client/pages/Assessment'
+import AssessmentPrint from '@client/pages/AssessmentPrint'
 import Geo from '@client/pages/Geo'
 import Landing from '@client/pages/Landing'
 import Login from '@client/pages/Login'
@@ -24,8 +26,9 @@ const PageRoutes: React.FC = () => {
   useTheme()
   const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
+  const { print } = useIsPrint()
 
-  const shouldRenderCountrySelect = !useMatch(ClientRoutes.Login.Root.path.absolute)
+  const shouldRenderCountrySelect = !useMatch(ClientRoutes.Login.Root.path.absolute) && !print
 
   useEffect(() => {
     // TODO: Add user.language support
@@ -46,16 +49,14 @@ const PageRoutes: React.FC = () => {
   return (
     <>
       <Toaster />
-      <Header />
+      {!print && <Header />}
 
       {shouldRenderCountrySelect && <CountrySelect />}
 
-      {/* <Route */}
-      {/*  path={BasePaths.assessmentPrint} */}
-      {/*  render={() => <DynamicImport load={() => import('../../../webapp/pages/AssessmentPrint/export')} />} */}
-      {/* /> */}
-
       <Routes>
+        <Route path={ClientRoutes.Assessment.Print.path.absolute} element={<AssessmentPrint />} />
+        <Route path={ClientRoutes.Assessment.PrintTables.path.absolute} element={<AssessmentPrint />} />
+
         <Route path="/" element={<Landing />} />
         <Route path={`${ClientRoutes.Assessment.Root.path.absolute}/*`} element={<Assessment />} />
         <Route path={`${ClientRoutes.Login.Root.path.absolute}/*`} element={<Login />} />

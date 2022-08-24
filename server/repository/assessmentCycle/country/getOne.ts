@@ -1,9 +1,11 @@
 import { Objects } from '@core/utils'
+
 import { Country, CountryIso } from '@meta/area'
 import { Assessment, Cycle } from '@meta/assessment'
+
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
-export const getCountry = async (
+export const getOne = async (
   props: { countryIso: CountryIso; assessment: Assessment; cycle: Cycle },
   client: BaseProtocol = DB
 ): Promise<Country> => {

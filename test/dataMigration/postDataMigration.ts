@@ -15,7 +15,7 @@ afterAll(async () => {
 describe('Post Data migration', () => {
   test('Update node values', async () => {
     await DB.tx(async (client) => {
-      const assessment = await AssessmentController.getOne({ name: 'fra', metaCache: true }, client)
+      const assessment = await AssessmentController.getOne({ assessmentName: 'fra', metaCache: true }, client)
       for (let i = 0; i < assessment.cycles.length; i += 1) {
         const cycle = assessment.cycles[i]
         // eslint-disable-next-line no-await-in-loop

@@ -1,8 +1,9 @@
 import { Assessment, Cycle } from '@meta/assessment'
+
 import { BaseProtocol, DB } from '@server/db'
 import { AssessmentRepository } from '@server/repository/assessment/assessment'
 
-type Props = { name: string; metaCache?: boolean } | { id: number; metaCache?: boolean }
+type Props = { assessmentName: string; metaCache?: boolean } | { id: number; metaCache?: boolean }
 
 export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<Assessment> => {
   return AssessmentRepository.read(props, client)

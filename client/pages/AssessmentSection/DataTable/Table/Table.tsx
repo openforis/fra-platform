@@ -8,6 +8,7 @@ import { TableData } from '@meta/data'
 import { useAssessmentCountry, useCycle } from '@client/store/assessment'
 import { useOriginalDataPointYears, useShowOriginalDatapoints } from '@client/store/pages/assessmentSection/hooks'
 import { useCountryIso } from '@client/hooks'
+import { useIsPrint } from '@client/hooks/useIsPath'
 import { ClientRoutes } from '@client/clientRoutes'
 import ButtonTableExport from '@client/components/ButtonTableExport'
 import Tooltip from '@client/components/Tooltip'
@@ -36,7 +37,7 @@ const Table: React.FC<Props> = (props) => {
 
   const country = useAssessmentCountry()
   const countryIso = useCountryIso()
-  const [printView] = [false] // usePrintView()
+  const { print } = useIsPrint()
   const tableRef = useRef<HTMLTableElement>(null)
 
   // Get headers from data
@@ -45,7 +46,7 @@ const Table: React.FC<Props> = (props) => {
   const { odp, secondary } = table.props
   const rowsHeader = table.rows.filter((row) => row.props.type === RowType.header)
   const rowsData = table.rows.filter((row) => row.props.type !== RowType.header)
-  const displayTableExportButton = !secondary && !printView && tableRef.current != null
+  const displayTableExportButton = !secondary && !print && tableRef.current != null
 
   return (
     <div className={`fra-table__container${secondary ? ' fra-secondary-table__wrapper' : ''}`}>
@@ -71,7 +72,7 @@ const Table: React.FC<Props> = (props) => {
                     if (label?.key) return i18n.t(label?.key, label?.params)
                     if (typeof label?.label === 'string') return label?.label
 
-                    if (isOdpHeader) {
+                    if (isOdpHeader && !print) {
                       return (
                         <Tooltip text={i18n.t('nationalDataPoint.clickOnNDP')}>
                           <Link
@@ -94,7 +95,7 @@ const Table: React.FC<Props> = (props) => {
 
                   const headerLeft = (index === 0 && rowIndex === 0) || row.props?.readonly
                   let className = `fra-table__header-cell${headerLeft ? '-left' : ''}`
-                  if (isOdpHeader && rowIndex > 0) className = 'odp-header-cell'
+                  if (isOdpHeader && !print && rowIndex > 0) className = 'odp-header-cell'
 
                   return (
                     <th

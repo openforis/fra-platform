@@ -1,20 +1,23 @@
-import { Request, Response } from 'express'
+import { Response } from 'express'
 
+import { InitRequest } from '@meta/api/request'
+
+import { AreaController } from '@server/controller/area'
 import { AssessmentController } from '@server/controller/assessment'
 import { SettingsController } from '@server/controller/settings'
 import Requests from '@server/utils/requests'
 
-export const init = async (req: Request, res: Response) => {
-  const { name } = req.query as { name: string }
+export const init = async (req: InitRequest, res: Response) => {
+  const { name } = req.query
 
   try {
     const settings = await SettingsController.read()
-    const props = name ? { name } : { id: settings.defaultAssessmentId }
+    const props = name ? { assessmentName: name } : { id: settings.defaultAssessmentId }
     const { assessment, cycle } = await AssessmentController.getOneWithCycle(props)
 
     const [countries, regionGroups] = await Promise.all([
-      AssessmentController.getCountries({ assessment, cycle }),
-      AssessmentController.getRegionGroups({ assessment, cycle }),
+      AreaController.getCountries({ assessment, cycle }),
+      AreaController.getRegionGroups({ assessment, cycle }),
     ])
 
     res.send({

@@ -3,12 +3,14 @@ import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { AssessmentName, Table as TableType } from '@meta/assessment'
+import { TableDatas } from '@meta/data'
 
 import { useAppDispatch } from '@client/store'
 import { useCycle } from '@client/store/assessment'
 import { AssessmentSectionActions, useTableData } from '@client/store/pages/assessmentSection'
 import { useCanEditSection } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
+import { useIsPrint } from '@client/hooks/useIsPath'
 import GenerateValues from '@client/pages/AssessmentSection/DataTable/GenerateValues'
 
 import Chart from './Chart'
@@ -24,15 +26,15 @@ type Props = {
 
 const DataTable: React.FC<Props> = (props) => {
   const { assessmentName, sectionName, sectionAnchor, table, disabled } = props
+  const { print, onlyTables } = useIsPrint()
+
   const { i18n } = useTranslation()
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const data = useTableData({ table })
   const cycle = useCycle()
-  const canEditSection = useCanEditSection()
+  const canEditSection = useCanEditSection(sectionName)
   const generateValues = canEditSection && table.props.odp
-
-  // Data of current section, passed for table
 
   const {
     // props: { name: tableName },
@@ -45,12 +47,9 @@ const DataTable: React.FC<Props> = (props) => {
   } = table
   // const breakPointsColsPrint = print.colBreakPoints
 
-  // const data = [] // useSelector(getTableData(assessmentName, sectionName, tableName))
-  // const dataEmpty: boolean = useSelector(isSectionDataEmpty(assessmentName, sectionName, tableName))
   // const generateValues: boolean = useSelector(
   //   (state) => odp && !disabled && Objects.isFunction(canGenerateValues) && canGenerateValues(state)
   // )
-  // const [printView] = usePrintView()
 
   useEffect(() => {
     dispatch(
@@ -77,12 +76,20 @@ const DataTable: React.FC<Props> = (props) => {
   if (!data) return null
 
   const showOdpChart = table.props.odp
-  const printView = false
-  const dataEmpty = false
+
+  const dataEmpty = TableDatas.isTableDataEmpty({
+    data,
+    tableName: table.props.name,
+    countryIso,
+  })
+
+  if (dataEmpty && onlyTables) {
+    return null
+  }
 
   return (
     <>
-      {showOdpChart && (!printView || !dataEmpty) && (
+      {showOdpChart && (!print || !dataEmpty) && (
         <>
           <Chart
             data={data}
@@ -108,23 +115,6 @@ const DataTable: React.FC<Props> = (props) => {
         />
       )}
 
-      {/* {printView && breakPointsColsPrint?.length > 0 ? ( */}
-      {/*  breakPointsColsPrint.map((breakPoint, idx) => { */}
-      {/*    const rowsSliced = getRowsSliced(breakPointsColsPrint, idx, rows) */}
-      {/*    return ( */}
-      {/*      <Table */}
-      {/*        key={breakPoint} */}
-      {/*        assessmentName={assessmentName} */}
-      {/*        sectionName={sectionName} */}
-      {/*        sectionAnchor={sectionAnchor} */}
-      {/*        table={table} */}
-      {/*        rows={rowsSliced} */}
-      {/*        data={data} */}
-      {/*        disabled={disabled} */}
-      {/*      /> */}
-      {/*    ) */}
-      {/*  }) */}
-      {/* ) : ( */}
       <Table
         assessmentName={assessmentName}
         sectionName={sectionName}
@@ -133,7 +123,6 @@ const DataTable: React.FC<Props> = (props) => {
         data={data}
         disabled={disabled}
       />
-      {/* )} */}
     </>
   )
 }
