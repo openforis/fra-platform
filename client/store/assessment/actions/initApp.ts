@@ -13,6 +13,6 @@ export const initApp = createAsyncThunk<
   },
   void
 >('assessment/get/init', async () => {
-  const { data } = await axios.get(ApiEndPoint.Init.one())
+  const { data } = await axios.get(ApiEndPoint.init())
   return data
 })

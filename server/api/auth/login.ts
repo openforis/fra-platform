@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 import * as jwt from 'jsonwebtoken'
 import * as passport from 'passport'
 
+import { LoginRequest } from '@meta/api/request'
 import { User } from '@meta/user'
 
 import Requests, { appUri } from '@server/utils/requests'
@@ -21,10 +22,10 @@ export const postLocalLogin = async (req: Request, res: Response, next: NextFunc
   })(req, res, next)
 }
 
-export const getGoogleLogin = (req: Request, res: Response) => {
+export const getGoogleLogin = (req: LoginRequest, res: Response) => {
   passport.authenticate('google', {
     scope: ['https://www.googleapis.com/auth/plus.login', 'profile', 'email'],
-    state: req.query.invitationUuid as string,
+    state: req.query.invitationUuid,
   })(req, res)
 }
 

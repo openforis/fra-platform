@@ -18,5 +18,11 @@ export type CycleDataParams = CycleParams & {
 export type CycleRequest<QueryParams = any, Body = any> = Request<never, never, Body, QueryParams & CycleParams>
 export type CycleDataRequest<QueryParams = any, Body = any> = Request<never, never, Body, QueryParams & CycleDataParams>
 
+// init
+export type InitRequest = Request<never, never, never, { name: string }>
+
 // cycleData
 export type { NodesBody, NodesBodyValue } from './cycleData/table'
+
+// Auth
+export type LoginRequest = Request<unknown, unknown, unknown, { invitationUuid: string; state: string }>

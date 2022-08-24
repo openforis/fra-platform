@@ -16,7 +16,7 @@ export const localLogin = createAsyncThunk<
   }
 >('login/post/local', async ({ email, password, invitationUuid, navigate }, { dispatch }) => {
   const response = await axios.post(
-    ApiEndPoint.Auth.Login.local(),
+    ApiEndPoint.Auth.login(),
     {
       email,
       password,
