@@ -1,15 +1,16 @@
 import React from 'react'
 
+import { AssessmentNames } from '@meta/assessment'
+
 import AssessmentSwitch from '@client/components/AssessmentSwitch'
-import { AssessmentName } from '@meta/assessment'
 
 import LinksFRA from './LinksFRA'
 
 const LinksPlaceholder = () => <div />
 
 const Components: Record<string, React.FC> = {
-  [AssessmentName.fra]: LinksFRA,
-  [AssessmentName.panEuropean]: LinksPlaceholder,
+  [AssessmentNames.fra]: LinksFRA,
+  [AssessmentNames.panEuropean]: LinksPlaceholder,
   null: LinksPlaceholder,
 }
 

@@ -32,7 +32,7 @@ export const postCountry = async (
         user: Requests.getRequestUser(req),
         countryIso: countryIso as CountryIso,
         country,
-        assessmentName: assessmentName as AssessmentName,
+        assessmentName,
         message,
       })
     }

@@ -1,8 +1,9 @@
-import { AssessmentName, OriginalDataPoint } from '@meta/assessment'
+import { OriginalDataPoint } from '@meta/assessment'
+import { AssessmentNames } from '@meta/assessment/assessmentName'
 
 export const assessmentParams = {
   props: {
-    name: AssessmentName.fraTest,
+    name: AssessmentNames.fraTest,
   },
 }
 

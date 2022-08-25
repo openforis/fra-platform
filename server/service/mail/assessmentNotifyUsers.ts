@@ -2,7 +2,6 @@ import { createI18nPromise } from '@i18n/i18nFactory'
 
 import { Country, CountryIso } from '@meta/area'
 import { AssessmentStatus } from '@meta/area/country'
-import { AssessmentName } from '@meta/assessment'
 import { RoleName, User } from '@meta/user'
 
 import { UserRepository } from '@server/repository/public/user'
@@ -16,7 +15,7 @@ export const createMail = async (props: {
   recipient: User
   url: string
   message: string
-  assessmentName: AssessmentName
+  assessmentName: string
 }) => {
   const { assessmentName, user, url, status, countryIso, recipient, message } = props
   const i18n = await createI18nPromise(recipient.lang ?? 'en')
@@ -70,7 +69,7 @@ export const assessmentNotifyUsers = async (props: {
   user: User
   country: Country
   message: string
-  assessmentName: AssessmentName
+  assessmentName: string
 }) => {
   const {
     countryIso,

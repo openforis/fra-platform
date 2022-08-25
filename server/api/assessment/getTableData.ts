@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
 
 import { CountryIso } from '@meta/area'
-import { AssessmentName } from '@meta/assessment'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { CycleDataController } from '@server/controller/cycleData'
@@ -19,7 +18,7 @@ export const getTableData = async (req: Request, res: Response) => {
       mergeOdp,
       aggregate,
     } = req.query as {
-      assessmentName: AssessmentName
+      assessmentName: string
       cycleName: string
       section: string
       tableNames: Array<string>
