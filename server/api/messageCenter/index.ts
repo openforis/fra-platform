@@ -11,14 +11,14 @@ import { resolveTopic } from './resolveTopic'
 
 export const MessageCenterApi = {
   init: (express: Express): void => {
-    express.get(ApiEndPoint.MessageCenter.Topic.get(), AuthMiddleware.requireEditMessageTopic, getTopic)
-    express.post(ApiEndPoint.MessageCenter.Topic.getMessage(), AuthMiddleware.requireEditMessageTopic, addMessage)
+    express.get(ApiEndPoint.MessageCenter.topic(), AuthMiddleware.requireEditMessageTopic, getTopic)
+    express.post(ApiEndPoint.MessageCenter.topicMessage(), AuthMiddleware.requireEditMessageTopic, addMessage)
     express.delete(
-      ApiEndPoint.MessageCenter.Topic.getMessage(),
+      ApiEndPoint.MessageCenter.topicMessage(),
       AuthMiddleware.requireDeleteTopicMessage,
       markMessageDeleted
     )
-    express.get(ApiEndPoint.MessageCenter.Topic.getUnreadMessages(), getUnreadMessages)
-    express.put(ApiEndPoint.MessageCenter.Topic.resolveTopic(), AuthMiddleware.requireResolveTopic, resolveTopic)
+    express.get(ApiEndPoint.MessageCenter.topicUnreadMessages(), getUnreadMessages)
+    express.put(ApiEndPoint.MessageCenter.topicResolve(), AuthMiddleware.requireResolveTopic, resolveTopic)
   },
 }

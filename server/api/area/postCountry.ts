@@ -2,7 +2,6 @@ import { Response } from 'express'
 
 import { CycleRequest } from '@meta/api/request'
 import { Country, CountryIso } from '@meta/area'
-import { AssessmentName } from '@meta/assessment'
 
 import { AreaController } from '@server/controller/area'
 import { AssessmentController } from '@server/controller/assessment'

@@ -26,7 +26,7 @@ const ReviewIndicator = (props: Props) => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
-  const { section } = useParams<{ section?: string }>()
+  const { section: sectionName } = useParams<{ section?: string }>()
 
   const { messagesCount = 0, status = MessageTopicStatus.opened, hasUnreadMessages = false } = useReviewStatus(topicKey)
 
@@ -40,10 +40,10 @@ const ReviewIndicator = (props: Props) => {
         subtitle,
         key: topicKey,
         type: MessageTopicType.review,
-        section,
+        sectionName,
       })
     )
-  }, [dispatch, countryIso, assessment, cycle, title, subtitle, topicKey, section])
+  }, [dispatch, countryIso, assessment, cycle, title, subtitle, topicKey, sectionName])
 
   return (
     <button
