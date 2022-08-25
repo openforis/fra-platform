@@ -19,8 +19,8 @@ export const ApiEndPoint = {
 
   CycleData: {
     Review: {
-      status: () => apiPath('review', 'status'),
-      summary: () => apiPath('review', 'summary'),
+      status: () => apiPath('cycleData', 'review', 'status'),
+      summary: () => apiPath('cycleData', 'review', 'summary'),
     },
     Table: {
       estimate: () => apiPath('cycleData', 'table', 'estimate'),
