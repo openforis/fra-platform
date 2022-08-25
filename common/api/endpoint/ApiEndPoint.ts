@@ -18,6 +18,10 @@ export const ApiEndPoint = {
   },
 
   CycleData: {
+    Review: {
+      status: () => apiPath('review', 'status'),
+      summary: () => apiPath('review', 'summary'),
+    },
     Table: {
       estimate: () => apiPath('cycleData', 'table', 'estimate'),
       nodes: () => apiPath('cycleData', 'table', 'nodes'),
@@ -54,10 +58,6 @@ export const ApiEndPoint = {
         one: () => apiPath('originalDataPoint', 'data'),
       },
     },
-  },
-  Review: {
-    status: { many: () => apiPath('review', 'status') },
-    summary: { many: () => apiPath('review', 'summary') },
   },
 
   Geo: {
