@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 
-import { CycleParams } from '@meta/api/request'
+import { CycleDataParams, CycleParams } from '@meta/api/request'
 import { CountryIso } from '@meta/area'
 import { MessageTopicStatus } from '@meta/messageCenter'
 import { Authorizer, Users } from '@meta/user'
@@ -21,14 +21,14 @@ const requireEdit = async (req: Request, _res: Response, next: NextFunction) => 
     assessmentName,
     cycleName,
     section: sectionName,
-  } = <Record<string, string>>{ ...req.params, ...req.query, ...req.body }
+  } = { ...req.params, ...req.query, ...req.body } as CycleDataParams
   const user = Requests.getRequestUser(req)
 
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
   const section = await AssessmentController.getSection({ assessment, cycle, sectionName })
-  const country = await AreaController.getCountry({ countryIso: countryIso as CountryIso, assessment, cycle })
+  const country = await AreaController.getCountry({ countryIso, assessment, cycle })
 
-  _next(Authorizer.canEdit({ user, section, countryIso: countryIso as CountryIso, country }), next)
+  _next(Authorizer.canEdit({ user, section, countryIso, country }), next)
 }
 
 const requireView = async (req: Request, _res: Response, next: NextFunction) => {
