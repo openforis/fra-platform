@@ -31,7 +31,7 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
   const panEuropean = assessmentName === AssessmentNames.panEuropean
   const disabled = panEuropean || !canEditSection
 
-  const { anchor, showTitle, descriptions, name: sectionName } = assessmentSection.props
+  const { anchor, showTitle, descriptions, name: sectionName } = assessmentSection?.props ?? {}
 
   return (
     <div className={`app-view__content assessment-section__${sectionName}`}>
