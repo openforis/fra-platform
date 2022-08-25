@@ -15,16 +15,11 @@ import { getReviewStatus } from './getReviewStatus'
 import { getReviewSummary } from './getReviewSummary'
 import { getSectionMetadata } from './getSectionMetadata'
 import { getSections } from './getSections'
-import { getTableData } from './getTableData'
-import { postEstimation } from './postEstimation'
 import { updateOriginalDataPoint } from './updateOriginalDataPoint'
 import { upsertDescription } from './upsertDescription'
 
 export const AssessmentApi = {
   init: (express: Express): void => {
-    // Estimation
-    express.post(ApiEndPoint.Assessment.TableData.Estimate.many(), AuthMiddleware.requireEdit, postEstimation)
-
     // OriginalDataPoint // entry
     express.get(
       ApiEndPoint.Assessment.OriginalDataPoint.ReservedYears.many(),
@@ -46,9 +41,6 @@ export const AssessmentApi = {
       AuthMiddleware.requireView,
       getOriginalDataPointData
     )
-
-    // TableData
-    express.get(ApiEndPoint.Assessment.TableData.one(), AuthMiddleware.requireView, getTableData)
 
     // Sections
     // requireView: We don't pass table for sections - always allow read
