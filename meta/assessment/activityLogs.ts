@@ -13,7 +13,7 @@ const getLabelActionParams = (activity: ActivityLog<any>, i18n: i18n) => {
   if (user)
     params = {
       user,
-      role: role ? Users.getI18nRoleLabelKey(role) : null,
+      role: role ? i18n.t(Users.getI18nRoleLabelKey(role)) : null,
     }
   else if (assessment)
     params = {
