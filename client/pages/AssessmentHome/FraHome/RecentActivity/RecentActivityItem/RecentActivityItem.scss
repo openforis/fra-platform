@@ -31,7 +31,7 @@
 .landing__activity-name {
   span,
   strong {
-    margin-right: 4px;
+    margin-right: $spacing-xxs;
   }
 }
 
@@ -44,7 +44,7 @@
 
 .landing__activity-empty {
   color: $text-disabled;
-  padding: 48px;
+  padding: $spacing-xl;
   text-align: center;
 }
 
