@@ -1,14 +1,16 @@
 import { Objects } from '@core/utils'
 
-import { Assessment, Section } from '@meta/assessment'
+import { Assessment, Cycle, Section } from '@meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
-export const readSections = async (
-  props: { assessment: Assessment; assessmentCycleUuid: string },
+export const getMany = async (
+  props: { assessment: Assessment; cycle: Cycle },
   client: BaseProtocol = DB
 ): Promise<Array<Section>> => {
-  const schemaName = Schemas.getName(props.assessment)
+  const { assessment, cycle } = props
+  const schemaName = Schemas.getName(assessment)
+
   return client.one<Array<Section>>(
     `
         with ss as (
@@ -33,7 +35,7 @@ export const readSections = async (
         from s
         ;
     `,
-    [props.assessmentCycleUuid],
+    [cycle.uuid],
     ({ data }) => Objects.camelize(data)
   )
 }

@@ -1,21 +1,24 @@
 import { Objects } from '@core/utils'
-import { Assessment, Section } from '@meta/assessment'
+
+import { Assessment, Cycle, Section } from '@meta/assessment'
+
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
-export const getSection = async (
-  props: { assessment: Assessment; assessmentCycleUuid: string; sectionName: string },
+export const getOne = async (
+  props: { assessment: Assessment; cycle: Cycle; sectionName: string },
   client: BaseProtocol = DB
 ): Promise<Section> => {
-  const schemaName = Schemas.getName(props.assessment)
+  const { assessment, cycle, sectionName } = props
+  const schemaName = Schemas.getName(assessment)
   return client
     .oneOrNone<any>(
       `
           select s.*
           from ${schemaName}.section s
-          where props ->> 'name' = $2 
+          where props ->> 'name' = $2
             and props -> 'cycles' ? $1;
       `,
-      [props.assessmentCycleUuid, props.sectionName]
+      [cycle.uuid, sectionName]
     )
     .then(Objects.camelize)
 }

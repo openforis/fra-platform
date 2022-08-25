@@ -8,6 +8,7 @@ import { Authorizer, Users } from '@meta/user'
 import { AreaController } from '@server/controller/area'
 import { AssessmentController } from '@server/controller/assessment'
 import { MessageCenterController } from '@server/controller/messageCenter'
+import { MetadataController } from '@server/controller/metadata'
 import { Requests } from '@server/utils'
 
 const _next = (allowed: boolean, next: NextFunction): void => {
@@ -25,7 +26,7 @@ const requireEdit = async (req: Request, _res: Response, next: NextFunction) => 
   const user = Requests.getRequestUser(req)
 
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-  const section = await AssessmentController.getSection({ assessment, cycle, sectionName })
+  const section = await MetadataController.getSection({ assessment, cycle, sectionName })
   const country = await AreaController.getCountry({ countryIso, assessment, cycle })
 
   _next(Authorizer.canEdit({ user, section, countryIso, country }), next)
