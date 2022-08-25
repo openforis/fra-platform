@@ -12,6 +12,7 @@ export type CycleParams = {
 export type CycleDataParams = CycleParams & {
   // TODO: rename to sectionName
   section: string
+  sectionName: string
 }
 
 // base request

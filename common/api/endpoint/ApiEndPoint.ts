@@ -18,6 +18,8 @@ export const ApiEndPoint = {
   },
 
   CycleData: {
+    descriptions: () => apiPath('cycleData', 'descriptions'),
+
     Table: {
       // estimate:()=>apiPath('cycleData','table','estimate'),
       nodes: () => apiPath('cycleData', 'table', 'nodes'),

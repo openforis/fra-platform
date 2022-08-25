@@ -53,8 +53,8 @@ export const AssessmentApi = {
     // requireView: We don't pass table for sections - always allow read
     express.get(ApiEndPoint.Assessment.sections(), AuthMiddleware.requireView, getSections)
     express.get(ApiEndPoint.Sections.metadata(), AuthMiddleware.requireView, getSectionMetadata)
-    express.get(ApiEndPoint.Assessment.Data.descriptions(), AuthMiddleware.requireView, getDescription)
-    express.put(ApiEndPoint.Assessment.Data.descriptions(), AuthMiddleware.requireEdit, upsertDescription)
+    express.get(ApiEndPoint.CycleData.descriptions(), AuthMiddleware.requireView, getDescription)
+    express.put(ApiEndPoint.CycleData.descriptions(), AuthMiddleware.requireEdit, upsertDescription)
 
     // Review
     express.get(ApiEndPoint.Review.status.many(), AuthMiddleware.requireView, getReviewStatus)
