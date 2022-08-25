@@ -12,7 +12,7 @@ export const getActivities = async (req: CycleDataRequest, res: Response) => {
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-    const activities = await CycleDataController.getActivities({ countryIso, assessment, cycleUuid: cycle.uuid })
+    const activities = await CycleDataController.getActivities({ countryIso, assessment, cycle })
 
     Requests.send(res, activities)
   } catch (e) {

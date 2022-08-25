@@ -1,15 +1,15 @@
 import { Objects } from '@core/utils'
 
 import { CountryIso } from '@meta/area'
-import { ActivityLog, Assessment } from '@meta/assessment'
+import { ActivityLog, Assessment, Cycle } from '@meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
 export const getCycleDataActivities = (
-  props: { countryIso: CountryIso; assessment: Assessment; cycleUuid: string },
+  props: { countryIso: CountryIso; assessment: Assessment; cycle: Cycle },
   client: BaseProtocol = DB
 ): Promise<Array<ActivityLog<any>>> => {
-  const { countryIso, assessment, cycleUuid } = props
+  const { countryIso, assessment, cycle } = props
 
   const schema = Schemas.getName(assessment)
 
@@ -32,7 +32,7 @@ export const getCycleDataActivities = (
       order by time desc
       limit 20
     `,
-    [countryIso, cycleUuid],
+    [countryIso, cycle.uuid],
 
     (row) => Objects.camelize(row)
   )
