@@ -24,9 +24,11 @@ const AssessmentPrint: React.FC = () => {
 
   useEffect(() => {
     if (assessment && cycle) {
-      dispatch(AssessmentActions.getSections({ countryIso, name: assessment.props.name, cycleName: cycle.name }))
+      dispatch(
+        AssessmentActions.getSections({ countryIso, assessmentName: assessment.props.name, cycleName: cycle.name })
+      )
     }
-  }, [assessment?.props.name])
+  }, [assessment, assessment.props.name, countryIso, cycle, dispatch])
 
   if (!assessment) {
     return <Loading />

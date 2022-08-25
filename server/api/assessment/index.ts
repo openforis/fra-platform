@@ -10,8 +10,6 @@ import { getOriginalDataPoint } from './getOdp'
 import { getOriginalDataPointData } from './getOriginalDataPointData'
 import { getOriginalDataPoints } from './getOriginalDataPoints'
 import { getReservedYears } from './getReservedYears'
-import { getSectionMetadata } from './getSectionMetadata'
-import { getSections } from './getSections'
 import { updateOriginalDataPoint } from './updateOriginalDataPoint'
 import { upsertDescription } from './upsertDescription'
 
@@ -39,10 +37,6 @@ export const AssessmentApi = {
       getOriginalDataPointData
     )
 
-    // Sections
-    // requireView: We don't pass table for sections - always allow read
-    express.get(ApiEndPoint.Assessment.sections(), AuthMiddleware.requireView, getSections)
-    express.get(ApiEndPoint.Sections.metadata(), AuthMiddleware.requireView, getSectionMetadata)
     express.get(ApiEndPoint.Assessment.Data.descriptions(), AuthMiddleware.requireView, getDescription)
     express.put(ApiEndPoint.Assessment.Data.descriptions(), AuthMiddleware.requireEdit, upsertDescription)
   },

@@ -34,7 +34,7 @@ const Assessment: React.FC = () => {
   const isDataExport = countryIso && !Areas.isISOCountry(countryIso)
 
   useEffect(() => {
-    dispatch(AssessmentActions.getSections({ countryIso, name: assessmentName, cycleName }))
+    dispatch(AssessmentActions.getSections({ countryIso, assessmentName, cycleName }))
 
     return () => {
       // reset review and assessment section store

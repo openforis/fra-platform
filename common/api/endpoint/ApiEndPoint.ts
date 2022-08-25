@@ -34,17 +34,10 @@ export const ApiEndPoint = {
     dataDownload: () => apiPath('file', 'dataDownload'),
   },
 
-  Sections: {
-    metadata: () => apiPath('section', 'metadata'),
-  },
-
   Assessment: {
     Data: {
       descriptions: () => apiPath('assessment', 'data', 'descriptions'),
     },
-
-    sections: (countryIso = ':countryIso', assessmentName = ':assessmentName', cycleName = ':cycleName') =>
-      apiPath('countries', countryIso, 'assessment', assessmentName, 'sections', cycleName),
 
     OriginalDataPoint: {
       one: (countryIso = ':countryIso', assessmentName = ':assessmentName', cycleName = ':cycleName', year = ':year') =>
@@ -83,6 +76,11 @@ export const ApiEndPoint = {
       getUnreadMessages: () => apiPath('topic', 'unreadMessages'),
       resolveTopic: () => apiPath('topic', 'resolve'),
     },
+  },
+
+  MetaData: {
+    sectionsMetadata: () => apiPath('metadata', 'sections', 'metadata'),
+    sections: () => apiPath('metadata', 'sections'),
   },
 
   User: {

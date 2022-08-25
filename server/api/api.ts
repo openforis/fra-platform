@@ -9,6 +9,7 @@ import { FileApi } from './file'
 import { GeoApi } from './geo'
 import { InitApi } from './init'
 import { MessageCenterApi } from './messageCenter'
+import { MetadataApi } from './metadata'
 import { UserApi } from './user'
 
 /**
@@ -27,6 +28,7 @@ export const Api = {
     FileApi.init(express)
     UserApi.init(express)
     MessageCenterApi.init(express)
+    MetadataApi.init(express)
     GeoApi.init(express)
   },
 }
