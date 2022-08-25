@@ -1,23 +1,16 @@
-import { Request, Response } from 'express'
+import { Response } from 'express'
 
-import { CountryIso } from '@meta/area'
+import { CycleDataRequest, EstimateBody } from '@meta/api/request'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { CycleDataController } from '@server/controller/cycleData'
 import { EstimationEngine, GenerateSpec } from '@server/service/estimates/estimationEngine'
 import Requests from '@server/utils/requests'
 
-export const postEstimation = async (req: Request, res: Response): Promise<any> => {
+export const postEstimation = async (req: CycleDataRequest<never, EstimateBody>, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName, method, tableName, fields } = <
-      Record<string, string> & {
-        countryIso: CountryIso
-        fields: Array<{
-          annualChangeRates: { past: string; future: string }
-          variableName: string
-        }>
-      }
-    >req.body
+    const { countryIso, assessmentName, cycleName } = req.query
+    const { method, tableName, fields } = req.body
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({
       assessmentName,
@@ -27,7 +20,7 @@ export const postEstimation = async (req: Request, res: Response): Promise<any> 
 
     const tableSpec = await AssessmentController.getTable({ assessment, cycle, tableName })
     const originalDataPointValues = await CycleDataController.getOriginalDataPointData({
-      countryISOs: [countryIso as CountryIso],
+      countryISOs: [countryIso],
       cycle,
       assessment,
     })
@@ -41,7 +34,7 @@ export const postEstimation = async (req: Request, res: Response): Promise<any> 
         cycle,
         table: tableSpec,
         columnNames: years.map(String),
-        countryISOs: [countryIso as CountryIso],
+        countryISOs: [countryIso],
         variableNames: fields.map((field) => field.variableName),
       })
       return Requests.sendOk(res)
@@ -70,12 +63,7 @@ export const postEstimation = async (req: Request, res: Response): Promise<any> 
 
     if (nodes.length) {
       await CycleDataController.persistNodeValues({
-        nodeUpdates: {
-          assessment,
-          cycle,
-          countryIso,
-          nodes,
-        },
+        nodeUpdates: { assessment, cycle, countryIso, nodes },
         user: Requests.getRequestUser(req),
       })
     }

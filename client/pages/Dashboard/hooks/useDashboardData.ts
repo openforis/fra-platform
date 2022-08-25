@@ -20,7 +20,7 @@ export default (props: Props) => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
-  const url = ApiEndPoint.Assessment.TableData.one()
+  const url = ApiEndPoint.CycleData.Table.tableData()
   const countriesFilter = useHomeCountriesFilter()
   const isIsoCountry = Areas.isISOCountry(countryIso)
 
@@ -47,7 +47,7 @@ export default (props: Props) => {
 
   useEffect(() => {
     fetchData()
-  }, [countryIso])
+  }, [countryIso, fetchData])
 
   return {
     data,

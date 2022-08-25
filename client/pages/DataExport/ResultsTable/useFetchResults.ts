@@ -31,7 +31,7 @@ export const useFetchResults = (props: Props): UseFetchResults => {
     data: results = {},
     dispatch: fetchResults,
     loading: resultsLoading,
-  } = useGetRequest(ApiEndPoint.Assessment.TableData.one(), {
+  } = useGetRequest(ApiEndPoint.CycleData.Table.tableData(), {
     params: {
       countryIso,
       assessmentName,
@@ -46,7 +46,7 @@ export const useFetchResults = (props: Props): UseFetchResults => {
     },
   })
 
-  useEffect(fetchResults, [selection])
+  useEffect(fetchResults, [fetchResults, selection])
 
   return {
     results,

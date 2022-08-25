@@ -26,4 +26,4 @@ export type { InitRequest } from './init/init'
 export type { LoginRequest } from './auth/login'
 
 // cycleData
-export type { NodesBody, NodesBodyValue } from './cycleData/table'
+export type { EstimateBody, NodesBody, NodesBodyValue } from './cycleData/table'

@@ -21,9 +21,9 @@ export const ApiEndPoint = {
     descriptions: () => apiPath('cycleData', 'descriptions'),
 
     Table: {
-      // estimate:()=>apiPath('cycleData','table','estimate'),
+      estimate: () => apiPath('cycleData', 'table', 'estimate'),
       nodes: () => apiPath('cycleData', 'table', 'nodes'),
-      // tableData:()=>apiPath('cycleData','table','tableData'),
+      tableData: () => apiPath('cycleData', 'table', 'tableData'),
     },
   },
 
@@ -46,12 +46,6 @@ export const ApiEndPoint = {
   Assessment: {
     Data: {
       descriptions: () => apiPath('assessment', 'data', 'descriptions'),
-    },
-    TableData: {
-      one: () => apiPath('assessment', 'tableData'), // cycleData/table/tableData
-      Estimate: {
-        many: () => apiPath('assessment', 'tableData', 'estimate'), // cycleData/table/estimate
-      },
     },
 
     sections: (countryIso = ':countryIso', assessmentName = ':assessmentName', cycleName = ':cycleName') =>
