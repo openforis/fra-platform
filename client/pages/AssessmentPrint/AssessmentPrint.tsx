@@ -20,19 +20,19 @@ const AssessmentPrint: React.FC = () => {
   const cycle = useCycle()
   const countryIso = useCountryIso()
 
-  const Component = Components[assessment?.props.name]
-
   useEffect(() => {
     if (assessment && cycle) {
       dispatch(
         AssessmentActions.getSections({ countryIso, assessmentName: assessment.props.name, cycleName: cycle.name })
       )
     }
-  }, [assessment, assessment.props.name, countryIso, cycle, dispatch])
+  }, [assessment, countryIso, cycle, dispatch])
 
   if (!assessment) {
     return <Loading />
   }
+
+  const Component = Components[assessment.props.name]
 
   return <div className="fra-print__container">{React.createElement(Component)}</div>
 }
