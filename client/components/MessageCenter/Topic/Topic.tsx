@@ -35,7 +35,7 @@ const Topic: React.FC<TopicProps> = (props) => {
   const cycle = useCycle()
   const user = useUser()
 
-  const { section } = useParams<{ section: string }>()
+  const { section: sectionName } = useParams<{ section: string }>()
 
   const closeTopic = useCallback(() => {
     dispatch(MessageCenterActions.closeTopic({ key: topic.key }))
@@ -48,10 +48,10 @@ const Topic: React.FC<TopicProps> = (props) => {
         assessmentName: assessment.props.name,
         cycleName: cycle.name,
         key: topic.key,
-        section,
+        sectionName,
       })
     )
-  }, [assessment.props.name, countryIso, cycle.name, dispatch, section, topic.key])
+  }, [assessment.props.name, countryIso, cycle.name, dispatch, sectionName, topic.key])
 
   const postMessage = useCallback(() => {
     dispatch(
@@ -62,10 +62,10 @@ const Topic: React.FC<TopicProps> = (props) => {
         key: topic.key,
         message,
         type: topic.type,
-        section,
+        sectionName,
       })
     ).then(() => setMessage(''))
-  }, [countryIso, assessment, cycle, topic, message, dispatch, section])
+  }, [countryIso, assessment, cycle, topic, message, dispatch, sectionName])
 
   const deleteMessage = useCallback(
     (id: number) =>
@@ -76,10 +76,10 @@ const Topic: React.FC<TopicProps> = (props) => {
           cycleName: cycle.name,
           topicKey: topic.key,
           messageId: id,
-          section,
+          sectionName,
         })
       ),
-    [countryIso, assessment, cycle, topic, dispatch, section]
+    [countryIso, assessment, cycle, topic, dispatch, sectionName]
   )
 
   useEffect(() => {

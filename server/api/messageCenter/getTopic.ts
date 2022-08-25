@@ -1,7 +1,6 @@
-import { Request, Response } from 'express'
+import { Response } from 'express'
 
-import { CountryIso } from '@meta/area'
-import { AssessmentName } from '@meta/assessment'
+import { CycleDataRequest } from '@meta/api/request'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { MessageCenterController } from '@server/controller/messageCenter'
@@ -9,15 +8,9 @@ import Requests from '@server/utils/requests'
 
 import { sendRequestReviewUpdateEvents } from './sendRequestReviewUpdateEvents'
 
-export const getTopic = async (req: Request, res: Response) => {
+export const getTopic = async (req: CycleDataRequest<{ key: string }>, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName, key, section } = req.query as {
-      countryIso: CountryIso
-      assessmentName: AssessmentName
-      cycleName: string
-      section: string
-      key: string
-    }
+    const { countryIso, assessmentName, cycleName, key, sectionName } = req.query
     const user = Requests.getRequestUser(req)
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
@@ -31,7 +24,7 @@ export const getTopic = async (req: Request, res: Response) => {
     })
 
     if (topic) {
-      sendRequestReviewUpdateEvents({ topic, countryIso, assessmentName, cycleName, sectionName: section })
+      sendRequestReviewUpdateEvents({ topic, countryIso, assessmentName, cycleName, sectionName })
     }
 
     Requests.sendOk(res, topic)

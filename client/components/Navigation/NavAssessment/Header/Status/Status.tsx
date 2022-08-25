@@ -1,21 +1,24 @@
 import React, { useState } from 'react'
-import { useAppDispatch } from '@client/store'
-import { useCountryIso } from '@client/hooks'
 import { useTranslation } from 'react-i18next'
-import { useUser } from '@client/store/user'
 import MediaQuery from 'react-responsive'
-import classNames from 'classnames'
+import { useParams } from 'react-router-dom'
+
 import { Objects } from '@core/utils'
 import { Breakpoints } from '@webapp/utils/breakpoints'
-import Icon from '@client/components/Icon'
-import PopoverControl, { PopoverItem } from '@client/components/PopoverControl'
+import classNames from 'classnames'
 
-import { useAssessmentCountry, AssessmentActions } from '@client/store/assessment'
+import { AssessmentStatus } from '@meta/area/country'
 import { AssessmentName } from '@meta/assessment'
 import { AssessmentStatusTransitions } from '@meta/assessment/assessments'
 import { Users } from '@meta/user'
-import { useParams } from 'react-router-dom'
-import { AssessmentStatus } from '@meta/area/country'
+
+import { useAppDispatch } from '@client/store'
+import { AssessmentActions, useAssessmentCountry } from '@client/store/assessment'
+import { useUser } from '@client/store/user'
+import { useCountryIso } from '@client/hooks'
+import Icon from '@client/components/Icon'
+import PopoverControl, { PopoverItem } from '@client/components/PopoverControl'
+
 import StatusConfirm from './StatusConfirm'
 import { StatusTransition } from './types'
 
@@ -37,7 +40,7 @@ const Status: React.FC = () => {
       content: (
         <div className="popover-control__checkbox-container">
           <span style={{ marginRight: '8px' }} className={classNames('fra-checkbox', { checked: deskStudy })} />
-          <span>{i18n.t('assessment.deskStudy')}</span>
+          <span>{i18n.t<string>('assessment.deskStudy')}</span>
         </div>
       ),
       onClick: () => {
@@ -87,13 +90,13 @@ const Status: React.FC = () => {
       {targetStatus && <StatusConfirm status={targetStatus} onClose={() => setTargetStatus(null)} />}
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
         <div className={`nav-assessment-header__status status-${status}`}>
-          <span>{i18n.t(`assessment.status.${status}.label`)}</span>
+          <span>{i18n.t<string>(`assessment.status.${status}.label`)}</span>
         </div>
       </MediaQuery>
       <MediaQuery minWidth={Breakpoints.laptop}>
         <PopoverControl items={items}>
           <div className={`nav-assessment-header__status status-${status} actionable-${!Objects.isEmpty(items)}`}>
-            <span>{i18n.t(`assessment.status.${status}.label`)}</span>
+            <span>{i18n.t<string>(`assessment.status.${status}.label`)}</span>
             {!Objects.isEmpty(items) && <Icon className="icon-white icon-middle" name="small-down" />}
           </div>
         </PopoverControl>

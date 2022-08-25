@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
 
 import { CountryIso } from '@meta/area'
-import { AssessmentName } from '@meta/assessment'
 import { RoleName } from '@meta/user'
 
 import { AssessmentController } from '@server/controller/assessment'
@@ -19,7 +18,7 @@ export const invite = async (req: Request, res: Response) => {
       role: roleName,
     } = req.query as {
       countryIso: CountryIso
-      assessmentName: AssessmentName
+      assessmentName: string
       cycleName: string
       email: string
       name: string

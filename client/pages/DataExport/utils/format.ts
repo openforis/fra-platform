@@ -1,7 +1,7 @@
 import { Numbers } from '@core/utils/numbers'
 
 import { CountryIso } from '@meta/area'
-import { AssessmentName } from '@meta/assessment'
+import { AssessmentName, AssessmentNames } from '@meta/assessment'
 import { TableData } from '@meta/data'
 import { Unit, UnitConverter, UnitFactors } from '@meta/dataExport'
 
@@ -71,8 +71,8 @@ export const convertValue = (value: string, base: Unit, unit: Unit): string =>
  * @returns {*}
  */
 export const formatSection = (assessmentSection: string, assessmentName: AssessmentName): string => {
-  if (assessmentName === AssessmentName.panEuropean) {
-    return AssessmentName.panEuropean
+  if (assessmentName === AssessmentNames.panEuropean) {
+    return AssessmentNames.panEuropean
     // TODO
     // return getPanEuropeanTableMapping(assessmentSection)
   }

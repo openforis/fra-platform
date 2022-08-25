@@ -1,15 +1,16 @@
 import './header.scss'
 import React from 'react'
 
+import { AssessmentNames } from '@meta/assessment'
+
 import AssessmentSwitch from '@client/components/AssessmentSwitch'
 
-import { AssessmentName } from '@meta/assessment'
-import PanEuropeanHeader from './PanEuropeanHeader'
 import FraHeader from './FraHeader'
+import PanEuropeanHeader from './PanEuropeanHeader'
 
 const Components: any = {
-  [AssessmentName.fra]: FraHeader,
-  [AssessmentName.panEuropean]: PanEuropeanHeader,
+  [AssessmentNames.fra]: FraHeader,
+  [AssessmentNames.panEuropean]: PanEuropeanHeader,
   null: () => <div />,
 }
 

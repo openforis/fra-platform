@@ -32,6 +32,13 @@ export const ApiEndPoint = {
     dataDownload: () => apiPath('file', 'dataDownload'),
   },
 
+  MessageCenter: {
+    topic: () => apiPath('messageCenter', 'topic'),
+    topicMessage: () => apiPath('messageCenter', 'topic', 'message'),
+    topicResolve: () => apiPath('messageCenter', 'topic', 'resolve'),
+    topicUnreadMessages: () => apiPath('messageCenter', 'topic', 'unreadMessages'),
+  },
+
   Sections: {
     metadata: () => apiPath('section', 'metadata'),
   },
@@ -76,14 +83,6 @@ export const ApiEndPoint = {
         gteAgreementLevel = ':gteAgreementLevel'
       ) => apiPath('geo', 'layers', 'forestAgreement', countryIso, gteHansenTreeCoverPerc, gteAgreementLevel),
       getBoundaries: (countryIso = ':countryIso') => apiPath('geo', 'layers', 'boundaries', countryIso),
-    },
-  },
-  MessageCenter: {
-    Topic: {
-      get: () => apiPath('topic'),
-      getMessage: () => apiPath('topic', 'message'),
-      getUnreadMessages: () => apiPath('topic', 'unreadMessages'),
-      resolveTopic: () => apiPath('topic', 'resolve'),
     },
   },
 

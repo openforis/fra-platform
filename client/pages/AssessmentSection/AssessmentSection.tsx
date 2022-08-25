@@ -3,7 +3,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
-import { AssessmentName } from '@meta/assessment'
+import { AssessmentName, AssessmentNames } from '@meta/assessment'
 
 import { useAssessmentSection } from '@client/store/assessment'
 import { useTableSections } from '@client/store/pages/assessmentSection'
@@ -24,14 +24,14 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
   const { i18n } = useTranslation()
   const { assessmentName } = useParams<{ assessmentName: AssessmentName; cycleName: string; section: string }>()
   const assessmentSection = useAssessmentSection(sectionProp)
-  const tableSections = useTableSections({ sectionName: assessmentSection.props.name })
+  const tableSections = useTableSections({ sectionName: assessmentSection?.props.name })
   const canEditSection = useCanEditSection(sectionProp)
   const { print, onlyTables } = useIsPrint()
 
-  const panEuropean = assessmentName === AssessmentName.panEuropean
+  const panEuropean = assessmentName === AssessmentNames.panEuropean
   const disabled = panEuropean || !canEditSection
 
-  const { anchor, showTitle, descriptions, name: sectionName } = assessmentSection.props
+  const { anchor, showTitle, descriptions, name: sectionName } = assessmentSection?.props ?? {}
 
   return (
     <div className={`app-view__content assessment-section__${sectionName}`}>

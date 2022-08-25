@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 import { useParams } from 'react-router-dom'
 
-import { AssessmentName, Row } from '@meta/assessment'
+import { AssessmentName, AssessmentNames, Row } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { DataExportActions, DataExportSelection, useDataExportSelection } from '@client/store/pages/dataExport'
@@ -14,8 +14,8 @@ import { getVariableLabelKey } from '@client/pages/DataExport/utils'
 import { Breakpoints } from '@client/utils/breakpoints'
 
 const Heading: Record<string, string> = {
-  [AssessmentName.fra]: 'common.variable',
-  [AssessmentName.panEuropean]: 'panEuropean.variable',
+  [AssessmentNames.fra]: 'common.variable',
+  [AssessmentNames.panEuropean]: 'panEuropean.variable',
 }
 
 const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {

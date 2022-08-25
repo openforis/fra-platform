@@ -1,4 +1,4 @@
-import { AssessmentName } from '@meta/assessment'
+import { AssessmentName, AssessmentNames } from '@meta/assessment'
 import { Unit } from '@meta/dataExport'
 
 import { isYearWithWord } from './checks'
@@ -47,7 +47,7 @@ export const getUnitLabelKey = (unit: string): string => (unitLabelKeys[unit] ? 
  * @returns {array} - i18n keys
  */
 export const getColumnLabelKeys = (column: string, section: string, assessmentName: AssessmentName): Array<string> => {
-  if (assessmentName === AssessmentName.panEuropean) {
+  if (assessmentName === AssessmentNames.panEuropean) {
     return [`${assessmentName}.${section}.${column}`]
   }
 
