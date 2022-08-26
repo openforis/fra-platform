@@ -5,6 +5,19 @@ import { ActivityLog, Assessment, Cycle } from '@meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
+const acceptedSections = [
+  'acceptInvitation',
+  'addInvitation',
+  'descriptionUpdate',
+  'nodeValueUpdate',
+  'originalDataPointCreate',
+  'originalDataPointRemove',
+  'originalDataPointUpdate',
+  'updateCountry',
+]
+  .map((s) => `'${s}'`)
+  .join(', ')
+
 export const getCycleDataActivities = (
   props: { countryIso: CountryIso; assessment: Assessment; cycle: Cycle },
   client: BaseProtocol = DB
@@ -25,7 +38,7 @@ export const getCycleDataActivities = (
         from ${schema}.activity_log a
         where a.country_iso = $1
           and a.cycle_uuid = $2
-          and a.message not in ('deleteComment', 'nodeValueCalculatedUpdate', 'updateCountry')
+          and a.message in (${acceptedSections})
       ) as a
       join public.users u on user_id = u.id
       where rank = 1
