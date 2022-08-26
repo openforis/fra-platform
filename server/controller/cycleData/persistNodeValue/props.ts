@@ -7,6 +7,6 @@ export type Props = {
   countryIso: CountryIso
   assessment: Assessment
   cycle: Cycle
-  section?: string
+  sectionName?: string
   user: User
 } & NodeUpdate

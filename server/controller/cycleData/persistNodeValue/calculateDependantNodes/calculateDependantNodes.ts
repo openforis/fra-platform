@@ -8,7 +8,7 @@ import { RowRepository } from '@server/repository/assessment/row'
 import { calculateNode } from './calculateNode'
 
 export const calculateDependantNodes = async (props: Props, client: BaseProtocol): Promise<NodeUpdates> => {
-  const { assessment, cycle, countryIso, section, tableName, variableName, colName, user } = props
+  const { assessment, cycle, countryIso, sectionName, tableName, variableName, colName, user } = props
 
   const nodeUpdates: NodeUpdates = { assessment, cycle, countryIso, nodes: [] }
   const queue: Array<VariableCache> = [
@@ -39,7 +39,7 @@ export const calculateDependantNodes = async (props: Props, client: BaseProtocol
         countryIso,
         assessment,
         cycle,
-        section,
+        sectionName,
         colName,
         expression: row.props.calculateFn,
         row,
