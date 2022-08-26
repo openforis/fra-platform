@@ -82,7 +82,7 @@ const Table: React.FC<Props> = (props) => {
                               assessmentName,
                               cycleName: cycle.name,
                               year: columnName,
-                              section: table.props.name,
+                              sectionName: table.props.name,
                             })}
                           >
                             {columnName}

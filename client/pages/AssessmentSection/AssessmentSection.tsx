@@ -22,7 +22,7 @@ type Props = {
 const AssessmentSection: React.FC<Props> = (props: Props) => {
   const { section: sectionProp } = props
   const { i18n } = useTranslation()
-  const { assessmentName } = useParams<{ assessmentName: AssessmentName; cycleName: string; section: string }>()
+  const { assessmentName } = useParams<{ assessmentName: AssessmentName; cycleName: string; sectionName: string }>()
   const assessmentSection = useAssessmentSection(sectionProp)
   const tableSections = useTableSections({ sectionName: assessmentSection?.props.name })
   const canEditSection = useCanEditSection(sectionProp)
@@ -73,7 +73,7 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
         </div>
       ))}
 
-      {descriptions.comments && <GeneralComments section={sectionName} disabled={disabled} />}
+      {descriptions.comments && <GeneralComments sectionName={sectionName} disabled={disabled} />}
 
       <div className="page-break" />
     </div>

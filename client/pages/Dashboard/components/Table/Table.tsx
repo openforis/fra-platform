@@ -18,7 +18,7 @@ type Props = {
   variables: string[]
   units: string[]
   tableNames: string[]
-  section: string
+  sectionName: string
   loaded: boolean
   tableData: TableData
 }
@@ -28,7 +28,7 @@ const Table = (props: Props) => {
   const isIsoCountry = Areas.isISOCountry(countryIso)
 
   const i18n = useTranslation()
-  const { columns, variables, tableNames: _tableNames, units, section, tableData, loaded } = props
+  const { columns, variables, tableNames: _tableNames, units, sectionName, tableData, loaded } = props
   const tableRef = useRef(null)
 
   const tableNames = isIsoCountry ? _tableNames : [TableNames.valueAggregate]
@@ -40,14 +40,14 @@ const Table = (props: Props) => {
   const t = (value: string | number) => {
     if (!value) return ''
     return Number.isNaN(+value)
-      ? i18n.t<string>(`statisticalFactsheets.${section}.${value}`)
+      ? i18n.t<string>(`statisticalFactsheets.${sectionName}.${value}`)
       : Numbers.format(Number(value))
   }
 
   return (
     <div className="fra-table__container">
       <div className="fra-table__scroll-wrapper">
-        <ButtonTableExport tableRef={tableRef} filename={`${section}-${countryIso}`} />
+        <ButtonTableExport tableRef={tableRef} filename={`${sectionName}-${countryIso}`} />
         <table ref={tableRef} className="fra-table">
           <thead>
             <tr>

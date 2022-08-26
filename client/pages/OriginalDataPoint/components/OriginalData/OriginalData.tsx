@@ -21,11 +21,11 @@ type Props = {
 const OriginalData: React.FC<Props> = (props) => {
   const { canEditData, originalDataPoint } = props
   const country = useAssessmentCountry()
-  const { assessmentName, cycleName, year, section } = useParams<{
+  const { assessmentName, cycleName, year, sectionName } = useParams<{
     assessmentName: AssessmentName
     cycleName: string
     year: string
-    section: string
+    sectionName: string
   }>()
 
   const extentOfForest = {
@@ -54,7 +54,7 @@ const OriginalData: React.FC<Props> = (props) => {
             assessmentName,
             cycleName,
             year,
-            section: extentOfForest.name,
+            sectionName: extentOfForest.name,
           })}
         >
           {`${extentOfForest.anchor} ${i18n.t('nationalDataPoint.forestCategoriesLabel')}`}
@@ -71,17 +71,17 @@ const OriginalData: React.FC<Props> = (props) => {
             assessmentName,
             cycleName,
             year,
-            section: forestCharacteristics.name,
+            sectionName: forestCharacteristics.name,
           })}
         >
           {`${forestCharacteristics.anchor} ${i18n.t('nationalDataPoint.forestCharacteristics')}`}
         </NavLink>
       </div>
 
-      {section === extentOfForest.name && (
+      {sectionName === extentOfForest.name && (
         <ExtentOfForest originalDataPoint={originalDataPoint} canEditData={canEditData} />
       )}
-      {section !== extentOfForest.name && (
+      {sectionName !== extentOfForest.name && (
         <ForestCharacteristics originalDataPoint={originalDataPoint} canEditData={canEditData} />
       )}
     </div>

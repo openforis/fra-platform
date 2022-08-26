@@ -4,14 +4,14 @@ import { useTranslation } from 'react-i18next'
 import CommentableDescription from '../CommentableDescription'
 
 type Props = {
-  section: string
+  sectionName: string
   disabled: boolean
   showAlertEmptyContent?: boolean
   showDashEmptyContent?: boolean
 }
 
 const AnalysisDescriptions: React.FC<Props> = (props) => {
-  const { section, disabled, showAlertEmptyContent, showDashEmptyContent } = props
+  const { sectionName, disabled, showAlertEmptyContent, showDashEmptyContent } = props
 
   const { i18n } = useTranslation()
 
@@ -21,7 +21,7 @@ const AnalysisDescriptions: React.FC<Props> = (props) => {
       <CommentableDescription
         title={i18n.t<string>('description.estimationAndForecasting')}
         disabled={disabled}
-        section={section}
+        sectionName={sectionName}
         name="estimationAndForecasting"
         showAlertEmptyContent={showAlertEmptyContent}
         showDashEmptyContent={showDashEmptyContent}
@@ -29,7 +29,7 @@ const AnalysisDescriptions: React.FC<Props> = (props) => {
       <CommentableDescription
         title={i18n.t<string>('description.reclassification')}
         disabled={disabled}
-        section={section}
+        sectionName={sectionName}
         name="reclassification"
         showAlertEmptyContent={showAlertEmptyContent}
         showDashEmptyContent={showDashEmptyContent}

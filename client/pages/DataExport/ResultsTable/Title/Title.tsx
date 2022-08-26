@@ -20,11 +20,11 @@ type Props = {
 const Title: React.FC<Props> = (props) => {
   const { baseUnit, resultsLoading, onUnitChange, variable } = props
   const i18n = useTranslation()
-  const { section: assessmentSection } = useParams<{
-    section: string
+  const { sectionName } = useParams<{
+    sectionName: string
   }>()
 
-  const tableSections = useTableSections({ sectionName: assessmentSection })
+  const tableSections = useTableSections({ sectionName })
   if (!tableSections) return null
   if (Objects.isEmpty(tableSections)) return null
   const { tables } = tableSections.find((tableSection) => tableSection.tables.find((table) => table.props.dataExport))

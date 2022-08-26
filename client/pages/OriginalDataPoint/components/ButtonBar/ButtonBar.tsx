@@ -25,21 +25,22 @@ const ButtonBar: React.FC<Props> = (props) => {
 
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const { assessmentName, cycleName, section } = useParams<{
+  const { assessmentName, cycleName, sectionName } = useParams<{
     assessmentName: AssessmentName
     cycleName: string
-    section: string
+    sectionName: string
   }>()
   const { i18n } = useTranslation()
   const countryIso = useCountryIso()
-  const disabled = !originalDataPoint.id || useIsOriginalDataPointUpdating()
+  const isOriginalDataPointUpdating = useIsOriginalDataPointUpdating()
+  const disabled = !originalDataPoint.id || isOriginalDataPointUpdating
   const assessment = useAssessment()
   const cycle = useCycle()
   const assessmentSectionLink = ClientRoutes.Assessment.Section.getLink({
     countryIso,
     assessmentName,
     cycleName,
-    section,
+    sectionName,
   })
 
   if (!canEditData) {

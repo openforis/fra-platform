@@ -19,13 +19,13 @@ type Props = {
   title: string
   name: string
   template?: string
-  section: string
+  sectionName: string
   showAlertEmptyContent?: boolean
   showDashEmptyContent?: boolean
 }
 
 const Description: React.FC<Props> = (props) => {
-  const { title, name, section, template, disabled, showAlertEmptyContent, showDashEmptyContent } = props
+  const { title, name, sectionName, template, disabled, showAlertEmptyContent, showDashEmptyContent } = props
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const assessment = useAssessment()
@@ -33,7 +33,7 @@ const Description: React.FC<Props> = (props) => {
 
   const user = useUser()
   const { print } = useIsPrint()
-  const value = useDescription({ name, sectionName: section, template })
+  const value = useDescription({ name, sectionName, template })
   const [open, setOpen] = useState(false)
 
   const onChange = useCallback(
@@ -43,13 +43,13 @@ const Description: React.FC<Props> = (props) => {
           countryIso,
           assessmentName: assessment.props.name,
           cycleName: cycle.name,
-          sectionName: section,
+          sectionName,
           name,
           content,
         })
       )
     },
-    [assessment.props.name, countryIso, cycle.name, dispatch, name, section]
+    [assessment.props.name, countryIso, cycle.name, dispatch, name, sectionName]
   )
 
   const error = user && showAlertEmptyContent && !value
@@ -62,11 +62,11 @@ const Description: React.FC<Props> = (props) => {
         countryIso,
         assessmentName: assessment.props.name,
         cycleName: cycle.name,
-        sectionName: section,
+        sectionName,
         name,
       })
     )
-  }, [assessment.props.name, countryIso, cycle.name, dispatch, name, section])
+  }, [assessment.props.name, countryIso, cycle.name, dispatch, name, sectionName])
 
   return (
     <div className="fra-description__header-row">

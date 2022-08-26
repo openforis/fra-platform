@@ -21,27 +21,27 @@ const Heading: Record<string, string> = {
 const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
   const dispatch = useAppDispatch()
   const i18n = useTranslation()
-  const { assessmentName, section: assessmentSection } = useParams<{
+  const { assessmentName, sectionName } = useParams<{
     assessmentName: AssessmentName
-    section: string
+    sectionName: string
   }>()
-  const selection = useDataExportSelection(assessmentSection)
-  const selectionVariables = selection.sections[assessmentSection].variables
+  const selection = useDataExportSelection(sectionName)
+  const selectionVariables = selection.sections[sectionName].variables
 
   const updateSelection = (variablesUpdate: Array<string>): void => {
     const selectionUpdate: DataExportSelection = {
       ...selection,
       sections: {
         ...selection.sections,
-        [assessmentSection]: {
-          ...selection.sections[assessmentSection],
+        [sectionName]: {
+          ...selection.sections[sectionName],
           variables: variablesUpdate,
         },
       },
     }
     dispatch(
       DataExportActions.updateSelection({
-        assessmentSection,
+        sectionName,
         selection: selectionUpdate,
         type: DataExportActionType.selectionUpdate,
       })
@@ -67,9 +67,7 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
           label={selectionVariables.length > 0 ? 'common.unselectAll' : 'common.selectAll'}
           onClick={() => {
             updateSelection(
-              selection.sections[assessmentSection].variables.length > 0
-                ? []
-                : variables.map((v) => v.props.variableName)
+              selection.sections[sectionName].variables.length > 0 ? [] : variables.map((v) => v.props.variableName)
             )
           }}
         />

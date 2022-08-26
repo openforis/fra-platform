@@ -21,29 +21,25 @@ import { useFetchResults } from './useFetchResults'
 
 const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
   const i18n = useTranslation()
-  const {
-    assessmentName,
-    cycleName,
-    section: assessmentSection,
-  } = useParams<{
+  const { assessmentName, cycleName, sectionName } = useParams<{
     assessmentName: AssessmentName
     cycleName: string
-    section: string
+    sectionName: string
   }>()
 
   const cycle = useCycle()
-  const selection = useDataExportSelection(assessmentSection)
+  const selection = useDataExportSelection(sectionName)
   const countries = useDataExportCountries()
-  const tableSections = useTableSections({ sectionName: assessmentSection })
+  const tableSections = useTableSections({ sectionName })
 
   const { tables } = tableSections.find((tableSection) => tableSection.tables.find((table) => table.props.dataExport))
   const table = tables.find((table) => table.props.dataExport)
   const baseUnit = table?.props?.unit
-  const columns = selection.sections[assessmentSection].columns ?? []
+  const columns = selection.sections[sectionName].columns ?? []
 
   const columnsAlwaysExport = table?.props?.columnsExportAlways[cycle.uuid] ?? []
   const columnsResults = [...columnsAlwaysExport, ...columns]
-  const { variables } = selection.sections[assessmentSection]
+  const { variables } = selection.sections[sectionName]
 
   const tableRef = useRef(null)
   const [exportDisabled, setExportDisabled] = useState<boolean>(true)
@@ -55,7 +51,7 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
   const { results, resultsLoading } = useFetchResults({
     columnsAlwaysExport,
     tableName,
-    assessmentSection,
+    assessmentSection: sectionName,
     assessmentName,
     cycleName,
   })
@@ -86,7 +82,7 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
       <div className="fra-table__scroll-wrapper">
         <ButtonTableExport
           tableRef={tableRef}
-          filename={`${assessmentName}-${assessmentSection}`}
+          filename={`${assessmentName}-${sectionName}`}
           disabled={exportDisabled}
         />
 
@@ -111,9 +107,7 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
               {variables.map((_) =>
                 columnsResults.map((column) => (
                   <th key={column} className="fra-table__header-cell">
-                    {getColumnLabelKeys(String(column), assessmentSection, assessmentName).map(
-                      (key) => `${i18n.t(key)} `
-                    )}
+                    {getColumnLabelKeys(String(column), sectionName, assessmentName).map((key) => `${i18n.t(key)} `)}
                   </th>
                 ))
               )}
@@ -137,7 +131,7 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
                         String(column),
                         countryIso as CountryIso,
                         results,
-                        assessmentSection,
+                        sectionName,
                         tableName,
                         variable
                       )

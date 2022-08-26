@@ -23,10 +23,10 @@ const SectionWrapper: React.FC<Props> = (props) => {
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const user = useUser()
-  const { assessmentName, cycleName, section } = useParams<{
+  const { assessmentName, cycleName, sectionName } = useParams<{
     assessmentName: AssessmentName
     cycleName: string
-    section: string
+    sectionName: string
   }>()
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const SectionWrapper: React.FC<Props> = (props) => {
       AssessmentSectionActions.getTableSections({
         assessmentName,
         cycleName,
-        sectionNames: [section],
+        sectionNames: [sectionName],
         countryIso,
       })
     )
@@ -46,7 +46,7 @@ const SectionWrapper: React.FC<Props> = (props) => {
     return () => {
       dispatch(AssessmentSectionActions.reset())
     }
-  }, [assessmentName, countryIso, cycleName, dispatch, section])
+  }, [assessmentName, countryIso, cycleName, dispatch, sectionName])
 
   // fetch section review status
   useEffect(() => {
@@ -54,11 +54,11 @@ const SectionWrapper: React.FC<Props> = (props) => {
       countryIso,
       assessmentName,
       cycleName,
-      sectionName: section,
+      sectionName,
     })
 
     const updateReviewStatus = () => {
-      dispatch(ReviewActions.getReviewStatus({ countryIso, assessmentName, cycleName, section }))
+      dispatch(ReviewActions.getReviewStatus({ countryIso, assessmentName, cycleName, section: sectionName }))
     }
 
     if (user) {
@@ -71,7 +71,7 @@ const SectionWrapper: React.FC<Props> = (props) => {
         SocketClient.off(requestReviewStatusEvent, updateReviewStatus)
       }
     }
-  }, [countryIso, assessmentName, cycleName, section, user, dispatch])
+  }, [countryIso, assessmentName, cycleName, sectionName, user, dispatch])
 
   return (
     <>

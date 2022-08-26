@@ -17,12 +17,11 @@ const _next = (allowed: boolean, next: NextFunction): void => {
 }
 
 const requireEdit = async (req: Request, _res: Response, next: NextFunction) => {
-  const {
-    countryIso,
-    assessmentName,
-    cycleName,
-    section: sectionName,
-  } = { ...req.params, ...req.query, ...req.body } as CycleDataParams
+  const { countryIso, assessmentName, cycleName, sectionName } = {
+    ...req.params,
+    ...req.query,
+    ...req.body,
+  } as CycleDataParams
   const user = Requests.getRequestUser(req)
 
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })

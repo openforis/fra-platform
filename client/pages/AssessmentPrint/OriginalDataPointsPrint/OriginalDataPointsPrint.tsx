@@ -11,11 +11,11 @@ import NationalClasses from '@client/pages/OriginalDataPoint/components/National
 import { useOriginalDataPoints } from './useOriginalDataPoints'
 
 type Props = {
-  section: string
+  sectionName: string
 }
 
 const OriginalDataPointsPrint: React.FC<Props> = (props) => {
-  const { section } = props
+  const { sectionName } = props
 
   const i18n = useTranslation()
   const { originalDataPoints, loading } = useOriginalDataPoints()
@@ -43,7 +43,7 @@ const OriginalDataPointsPrint: React.FC<Props> = (props) => {
       <div className="odp__section-print-mode">
         <h3 className="subhead">{i18n.t('nationalDataPoint.reclassificationLabel')}</h3>
         {originalDataPoints.map((originalDataPoint) => {
-          const Component = section === 'extentOfForest' ? ExtentOfForest : ForestCharacteristics
+          const Component = sectionName === 'extentOfForest' ? ExtentOfForest : ForestCharacteristics
           return React.createElement(Component, {
             key: originalDataPoint.id,
             originalDataPoint,
