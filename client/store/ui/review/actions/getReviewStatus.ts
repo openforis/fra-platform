@@ -14,6 +14,6 @@ type Params = {
 }
 
 export const getReviewStatus = createAsyncThunk<Array<ReviewStatus>, Params>('review/status/get', async (params) => {
-  const { data } = await axios.get(ApiEndPoint.Review.status.many(), { params })
+  const { data } = await axios.get(ApiEndPoint.CycleData.Review.status(), { params })
   return data
 })

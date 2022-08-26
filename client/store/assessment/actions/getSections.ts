@@ -1,14 +1,11 @@
-import { createAsyncThunk } from '@reduxjs/toolkit'
-
-import axios from 'axios'
 import { ApiEndPoint } from '@common/api/endpoint'
-import { Section } from '@meta/assessment'
-import { CountryIso } from '@meta/area'
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios'
 
-export const getSections = createAsyncThunk<
-  Array<Section>,
-  { countryIso: CountryIso; name: string; cycleName: string }
->('assessment/get/sections', async ({ countryIso, name, cycleName }) => {
-  const { data } = await axios.get(ApiEndPoint.Assessment.sections(countryIso, name, cycleName))
+import { CycleParams } from '@meta/api/request'
+import { Section } from '@meta/assessment'
+
+export const getSections = createAsyncThunk<Array<Section>, CycleParams>('assessment/sections/get', async (params) => {
+  const { data } = await axios.get(ApiEndPoint.MetaData.sections(), { params })
   return data
 })
