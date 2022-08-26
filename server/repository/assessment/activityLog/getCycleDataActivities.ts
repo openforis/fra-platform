@@ -1,19 +1,17 @@
 import { Objects } from '@core/utils'
 
 import { CountryIso } from '@meta/area'
-import { ActivityLog, Assessment, Cycle } from '@meta/assessment'
+import { ActivityLog, ActivityLogMessage, Assessment, Cycle } from '@meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
-const acceptedSections = [
-  'acceptInvitation',
-  'addInvitation',
-  'descriptionUpdate',
-  'nodeValueUpdate',
-  'originalDataPointCreate',
-  'originalDataPointRemove',
-  'originalDataPointUpdate',
-  'updateCountry',
+const acceptedMessages = [
+  ActivityLogMessage.descriptionUpdate,
+  ActivityLogMessage.nodeValueUpdate,
+  ActivityLogMessage.originalDataPointCreate,
+  ActivityLogMessage.originalDataPointRemove,
+  ActivityLogMessage.originalDataPointUpdate,
+  ActivityLogMessage.updateCountry,
 ]
   .map((s) => `'${s}'`)
   .join(', ')
@@ -38,7 +36,7 @@ export const getCycleDataActivities = (
         from ${schema}.activity_log a
         where a.country_iso = $1
           and a.cycle_uuid = $2
-          and a.message in (${acceptedSections})
+          and a.message in (${acceptedMessages})
       ) as a
       join public.users u on user_id = u.id
       where rank = 1
