@@ -21,14 +21,14 @@ const Invitation: React.FC = () => {
 
   useEffect(() => {
     if (invitationUuid) {
-      dispatch(LoginActions.fetchUserByInvitation(invitationUuid))
+      dispatch(LoginActions.fetchUserByInvitation({ invitationUuid }))
     } else {
       navigate('/')
     }
   }, [])
 
   const onAccept = () => {
-    dispatch(LoginActions.acceptInvitation(invitationUuid))
+    dispatch(LoginActions.acceptInvitation({ invitationUuid }))
     navigate('/')
   }
 
@@ -37,7 +37,7 @@ const Invitation: React.FC = () => {
   if (userRole?.acceptedAt) {
     return (
       <div className="login__form">
-        <h3>{i18n.t('login.alreadyAcceptedInvitation')}</h3>
+        <h3>{i18n.t<string>('login.alreadyAcceptedInvitation')}</h3>
       </div>
     )
   }
@@ -47,7 +47,7 @@ const Invitation: React.FC = () => {
   return (
     <div className="login__form">
       <h3>
-        {i18n.t('login.invitationMessage', {
+        {i18n.t<string>('login.invitationMessage', {
           assessment: assessment.props.name,
           cycle: cycle.name,
           userRole: userRole.role,
@@ -55,7 +55,7 @@ const Invitation: React.FC = () => {
       </h3>
       {loggedUser && loggedUser.email === invitedUser.email ? (
         <button type="button" className="btn" onClick={onAccept}>
-          {i18n.t('login.acceptInvitation')}
+          {i18n.t<string>('login.acceptInvitation')}
         </button>
       ) : (
         <>
@@ -67,7 +67,7 @@ const Invitation: React.FC = () => {
             className="btn"
             href={`${ApiEndPoint.Auth.google()}${invitationUuid ? `?invitationUuid=${invitationUuid}` : ''}`}
           >
-            {i18n.t('login.acceptInvitationWithGoogle')}
+            {i18n.t<string>('login.acceptInvitationWithGoogle')}
           </a>
         </>
       )}

@@ -1,29 +1,22 @@
-import { Request, Response } from 'express'
+import { Response } from 'express'
 
-import { CountryIso } from '@meta/area'
+import { CycleRequest } from '@meta/api/request'
 import { RoleName } from '@meta/user'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { UserController } from '@server/controller/user'
 import { Requests } from '@server/utils'
 
-export const invite = async (req: Request, res: Response) => {
+export const invite = async (
+  req: CycleRequest<{
+    email: string
+    name: string
+    role: RoleName
+  }>,
+  res: Response
+) => {
   try {
-    const {
-      countryIso,
-      assessmentName,
-      cycleName,
-      email,
-      name,
-      role: roleName,
-    } = req.query as {
-      countryIso: CountryIso
-      assessmentName: string
-      cycleName: string
-      email: string
-      name: string
-      role: RoleName
-    }
+    const { countryIso, assessmentName, cycleName, email, name, role: roleName } = req.query
 
     const user = Requests.getRequestUser(req)
 
