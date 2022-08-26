@@ -4,7 +4,7 @@ import { Assessment, Cycle, TableSection } from '@meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
-export const getSectionMetaData = async (
+export const getManyMetadata = async (
   props: {
     assessment: Assessment
     sectionNames: Array<string>
