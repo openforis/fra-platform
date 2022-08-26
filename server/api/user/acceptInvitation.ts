@@ -1,10 +1,12 @@
 import { Request, Response } from 'express'
-import Requests from '@server/utils/requests'
-import { UserController } from '@server/controller/user'
 
-export const getAcceptInvitation = async (req: Request, res: Response) => {
-  const { uuid } = req.params
+import { UserController } from '@server/controller/user'
+import Requests from '@server/utils/requests'
+
+export const acceptInvitation = async (req: Request, res: Response) => {
   try {
+    const { uuid } = req.params
+
     const { user, userRole } = await UserController.readByInvitation({ invitationUuid: uuid })
     const acceptedUser = await UserController.acceptInvitation({ user, userRole })
     res.send({

@@ -3,7 +3,7 @@ import { Express } from 'express'
 
 import { AuthMiddleware } from '@server/middleware/auth'
 
-import { getAcceptInvitation } from './acceptInvitation'
+import { acceptInvitation } from './acceptInvitation'
 import { getInvitation } from './getInvitation'
 import { getMany } from './getMany'
 import { getProfilePicture } from './getProfilePicture'
@@ -19,7 +19,7 @@ import multer = require('multer')
 export const UserApi = {
   init: (express: Express): void => {
     express.get(ApiEndPoint.User.getByInvitation(), getInvitation)
-    express.get(ApiEndPoint.User.acceptInvitation(), getAcceptInvitation)
+    express.get(ApiEndPoint.User.acceptInvitation(), acceptInvitation)
     express.get(ApiEndPoint.User.getProfilePicture(), getProfilePicture)
     express.get(ApiEndPoint.User.many(), AuthMiddleware.requireView, getMany)
     express.post(ApiEndPoint.User.invite(), AuthMiddleware.requireEditUser, invite)
