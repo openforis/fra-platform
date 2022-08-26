@@ -10,14 +10,14 @@ export const persistNode = async (
   props: Props & { activityLogMessage?: ActivityLogMessage },
   client: BaseProtocol
 ): Promise<Node> => {
-  const { assessment, countryIso, activityLogMessage, user, cycle } = props
+  const { assessment, countryIso, activityLogMessage, user, cycle, sectionName } = props
   const node: Node = await NodeRepository.getOneOrNone(props, client)
 
   const nodeUpdated = await (node ? NodeRepository.update(props, client) : NodeRepository.create(props, client))
   const activityLog: ActivityLog<Node> = {
     countryIso,
     message: activityLogMessage ?? ActivityLogMessage.nodeValueUpdate,
-    section: 'node',
+    section: sectionName,
     target: nodeUpdated,
     user,
   }

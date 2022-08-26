@@ -10,6 +10,7 @@ import { getReviewSummary } from './review/getReviewSummary'
 import { getTableData } from './table/getTableData'
 import { persistNodeValues } from './table/persistNodeValues'
 import { postEstimation } from './table/postEstimation'
+import { getActivities } from './getActivities'
 
 export const CycleDataApi = {
   init: (express: Express): void => {
@@ -25,5 +26,8 @@ export const CycleDataApi = {
     // Review
     express.get(ApiEndPoint.CycleData.Review.status(), AuthMiddleware.requireView, getReviewStatus)
     express.get(ApiEndPoint.CycleData.Review.summary(), AuthMiddleware.requireView, getReviewSummary)
+
+    // Activities
+    express.get(ApiEndPoint.CycleData.activities(), AuthMiddleware.requireView, getActivities)
   },
 }
