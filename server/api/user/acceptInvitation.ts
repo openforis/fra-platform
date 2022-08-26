@@ -1,11 +1,14 @@
-import { Request, Response } from 'express'
-import Requests from '@server/utils/requests'
-import { UserController } from '@server/controller/user'
+import { Response } from 'express'
 
-export const getAcceptInvitation = async (req: Request, res: Response) => {
-  const { uuid } = req.params
+import { CycleRequest } from '@meta/api/request'
+
+import { UserController } from '@server/controller/user'
+import Requests from '@server/utils/requests'
+
+export const getAcceptInvitation = async (req: CycleRequest<{ invitationUuid: string }>, res: Response) => {
+  const { invitationUuid } = req.query
   try {
-    const { user, userRole } = await UserController.readByInvitation({ invitationUuid: uuid })
+    const { user, userRole } = await UserController.readByInvitation({ invitationUuid })
     const acceptedUser = await UserController.acceptInvitation({ user, userRole })
     res.send({
       user: acceptedUser,

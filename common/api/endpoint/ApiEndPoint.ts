@@ -46,6 +46,23 @@ export const ApiEndPoint = {
     metadata: () => apiPath('section', 'metadata'),
   },
 
+  User: {
+    many: () => apiPath('users'),
+    one: () => apiPath('users', 'user'),
+
+    invite: () => apiPath('users', 'invite'),
+    invitation: () => apiPath('users', 'invitation'),
+    invitationAccept: () => apiPath('users', 'invitation', 'accept'),
+    invitationSendEmail: () => apiPath('users', 'invitation', 'sendEmail'),
+
+    profilePicture: (id = ':id') => apiPath('users', 'profilePicture', id),
+    sectionAuth: () => apiPath('users', 'sectionAuth'),
+  },
+
+  /**
+   * @deprecated
+   */
+
   Assessment: {
     Data: {
       descriptions: () => apiPath('assessment', 'data', 'descriptions'),
@@ -85,17 +102,5 @@ export const ApiEndPoint = {
   MetaData: {
     sectionsMetadata: () => apiPath('metadata', 'sections', 'metadata'),
     sections: () => apiPath('metadata', 'sections'),
-  },
-
-  User: {
-    invite: () => apiPath('users', 'invite'),
-    getByInvitation: (uuid = ':uuid') => apiPath('users', 'invitation', uuid),
-    acceptInvitation: (uuid = ':uuid') => apiPath('users', 'invitation', 'accept', uuid),
-    removeInvitation: (uuid = ':uuid') => apiPath('users', 'invitation', 'remove', uuid),
-    sendInvitationEmail: (uuid = ':uuid') => apiPath('users', 'invitation', 'sendEmail', uuid),
-    getProfilePicture: (id = ':id') => apiPath('users', 'profilePicture', id),
-    sectionAuth: () => apiPath('users', 'sectionAuth'),
-    many: () => apiPath('users'),
-    get: () => apiPath('user'),
   },
 }

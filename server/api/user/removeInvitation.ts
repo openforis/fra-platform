@@ -1,11 +1,13 @@
-import { Request, Response } from 'express'
+import { Response } from 'express'
+
+import { CycleRequest } from '@meta/api/request'
 
 import { UserController } from '@server/controller/user'
 import { Requests } from '@server/utils'
 
-export const removeInvitation = async (req: Request, res: Response) => {
+export const removeInvitation = async (req: CycleRequest<{ invitationUuid: string }>, res: Response) => {
   try {
-    const { invitationUuid } = req.query as { invitationUuid: string }
+    const { invitationUuid } = req.query
 
     const userRole = await UserController.removeInvitation({ invitationUuid })
 
