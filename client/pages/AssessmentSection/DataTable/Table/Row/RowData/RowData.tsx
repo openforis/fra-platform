@@ -61,7 +61,7 @@ const RowData: React.FC<Props> = (props) => {
                 countryIso,
                 assessmentName,
                 cycleName: cycle.name,
-                section: row.props.linkToSection,
+                sectionName: row.props.linkToSection,
               })}
               className="link no-print"
             >

@@ -51,7 +51,7 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
   const { results, resultsLoading } = useFetchResults({
     columnsAlwaysExport,
     tableName,
-    assessmentSection: sectionName,
+    sectionName,
     assessmentName,
     cycleName,
   })

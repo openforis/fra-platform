@@ -58,7 +58,7 @@ const SectionWrapper: React.FC<Props> = (props) => {
     })
 
     const updateReviewStatus = () => {
-      dispatch(ReviewActions.getReviewStatus({ countryIso, assessmentName, cycleName, section: sectionName }))
+      dispatch(ReviewActions.getReviewStatus({ countryIso, assessmentName, cycleName, sectionName }))
     }
 
     if (user) {

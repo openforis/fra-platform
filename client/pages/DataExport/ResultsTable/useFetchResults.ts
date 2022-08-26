@@ -12,7 +12,7 @@ import { formatColumn } from '@client/pages/DataExport/utils'
 type Props = {
   columnsAlwaysExport: Array<string>
   tableName: string
-  assessmentSection: string
+  sectionName: string
   assessmentName: AssessmentName
   cycleName: string
 }
@@ -23,8 +23,8 @@ type UseFetchResults = {
 }
 
 export const useFetchResults = (props: Props): UseFetchResults => {
-  const { columnsAlwaysExport, tableName, assessmentSection, assessmentName, cycleName } = props
-  const selection = useDataExportSelection(assessmentSection)
+  const { columnsAlwaysExport, tableName, sectionName, assessmentName, cycleName } = props
+  const selection = useDataExportSelection(sectionName)
   const countryIso = useCountryIso()
 
   const {
@@ -38,10 +38,10 @@ export const useFetchResults = (props: Props): UseFetchResults => {
       cycleName,
       tableNames: [tableName],
       countryISOs: selection.countryISOs,
-      variables: selection.sections[assessmentSection].variables,
+      variables: selection.sections[sectionName].variables,
       columns: [
         ...columnsAlwaysExport,
-        ...selection.sections[assessmentSection].columns.map((column) => formatColumn(column, assessmentSection)),
+        ...selection.sections[sectionName].columns.map((column) => formatColumn(column, sectionName)),
       ],
     },
   })
