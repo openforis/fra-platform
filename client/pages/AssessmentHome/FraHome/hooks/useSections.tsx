@@ -8,6 +8,7 @@ import Dashboard from '@client/pages/Dashboard'
 
 import Collaborators from '../Collaborators'
 import CountryMessageBoard from '../CountryMessageBoard'
+import RecentActivity from '../RecentActivity'
 
 enum SectionNames {
   overview = 'overview',
@@ -34,7 +35,7 @@ export const useSections = (): Array<Section> => {
 
   if (user) {
     sections.push({ name: SectionNames.messageBoard, component: CountryMessageBoard })
-    sections.push({ name: SectionNames.recentActivity, component: Placeholder })
+    sections.push({ name: SectionNames.recentActivity, component: RecentActivity })
     sections.push({ name: SectionNames.links, component: Placeholder })
   }
 
