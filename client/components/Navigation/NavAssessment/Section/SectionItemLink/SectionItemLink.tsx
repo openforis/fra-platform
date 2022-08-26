@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { AssessmentName, SubSection } from '@meta/assessment'
+import { AssessmentNames, SubSection } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment } from '@client/store/assessment'
@@ -35,7 +35,7 @@ const SectionItemLink: React.FC<Props> = (props) => {
   const reviewStatus = useSectionReviewSummary(id)
 
   const assessmentName = assessment.props.name
-  const labelPrefix = assessmentName === AssessmentName.panEuropean ? 'panEuropean.' : ''
+  const labelPrefix = assessmentName === AssessmentNames.panEuropean ? 'panEuropean.' : ''
   const label = i18n.t(`${labelPrefix}${name}.${name}`)
 
   return (

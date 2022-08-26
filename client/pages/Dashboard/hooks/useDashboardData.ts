@@ -47,7 +47,8 @@ export default (props: Props) => {
 
   useEffect(() => {
     fetchData()
-  }, [countryIso, fetchData])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [countryIso])
 
   return {
     data,

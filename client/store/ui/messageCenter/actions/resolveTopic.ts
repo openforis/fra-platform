@@ -2,16 +2,12 @@ import { ApiEndPoint } from '@common/api/endpoint'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { CountryIso } from '@meta/area'
+import { CycleDataParams } from '@meta/api/request'
 
-type Params = {
-  countryIso: CountryIso
-  assessmentName: string
-  cycleName: string
-  section: string
+type Params = CycleDataParams & {
   key: string
 }
 
 export const resolveTopic = createAsyncThunk<void, Params>('messageCenter/topic/resolve', async (params) => {
-  await axios.put(ApiEndPoint.MessageCenter.Topic.resolveTopic(), {}, { params })
+  await axios.put(ApiEndPoint.MessageCenter.topicResolve(), {}, { params })
 })

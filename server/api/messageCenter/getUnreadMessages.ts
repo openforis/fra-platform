@@ -1,20 +1,14 @@
-import { Request, Response } from 'express'
+import { Response } from 'express'
 
-import { CountryIso } from '@meta/area'
-import { AssessmentName } from '@meta/assessment'
+import { CycleRequest } from '@meta/api/request'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { MessageCenterController } from '@server/controller/messageCenter'
 import Requests from '@server/utils/requests'
 
-export const getUnreadMessages = async (req: Request, res: Response) => {
+export const getUnreadMessages = async (req: CycleRequest<{ key: string }>, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName, key } = req.query as {
-      countryIso: CountryIso
-      assessmentName: AssessmentName
-      cycleName: string
-      key: string
-    }
+    const { countryIso, assessmentName, cycleName, key } = req.query
     const user = Requests.getRequestUser(req)
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })

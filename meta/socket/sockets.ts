@@ -38,7 +38,7 @@ const getTopicStatusEvent = (props: { assessment: Assessment; cycle: Cycle; topi
 
 const getNodeUpdateEvent = (props: {
   countryIso: CountryIso
-  assessmentName: AssessmentName
+  assessmentName: string
   cycleName: string
   tableName: string
   variableName: string

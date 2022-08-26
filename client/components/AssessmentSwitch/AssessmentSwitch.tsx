@@ -1,8 +1,9 @@
 import React from 'react'
 
-import { useIsAssessment } from '@client/hooks'
+import { AssessmentNames } from '@meta/assessment'
+
 import { useAssessment } from '@client/store/assessment'
-import { AssessmentName } from '@meta/assessment'
+import { useIsAssessment } from '@client/hooks'
 
 type Props = {
   components: Record<string, React.FC<{ query?: string }>>
@@ -26,7 +27,7 @@ const AssessmentSwitch: React.FC<Props> = (props) => {
 }
 
 AssessmentSwitch.defaultProps = {
-  defaultKey: AssessmentName.fra,
+  defaultKey: AssessmentNames.fra,
   query: null,
 }
 

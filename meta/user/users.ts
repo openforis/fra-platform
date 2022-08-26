@@ -47,7 +47,7 @@ const getRolesAllowedToEdit = (props: { user: User; countryIso: CountryIso }): A
 
 const getI18nRoleLabelKey = (role: RoleName): string => `user.roles.${role}`
 
-export const profilePictureUri = (userId: number) => ApiEndPoint.User.getProfilePicture(String(userId))
+export const profilePictureUri = (userId: number) => ApiEndPoint.User.profilePicture(String(userId))
 
 // max 1Mb
 export const validProfilePicture = (file: File) => !file || file.size <= 1000000

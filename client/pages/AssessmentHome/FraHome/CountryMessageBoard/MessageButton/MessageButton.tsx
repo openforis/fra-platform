@@ -28,7 +28,7 @@ const MessageButton: React.FC<Props> = ({ topicKey, topicSubtitle, topicTitle, t
   const dispatch = useAppDispatch()
 
   const { data: unreadMessages = 0, dispatch: fetchData } = useGetRequest(
-    ApiEndPoint.MessageCenter.Topic.getUnreadMessages(),
+    ApiEndPoint.MessageCenter.topicUnreadMessages(),
     {
       params: {
         countryIso,

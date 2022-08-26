@@ -37,7 +37,7 @@ const MessageBoardUsers: React.FC = () => {
             })}
           >
             <div className="landing__user-header">
-              <img alt="" className="landing__user-avatar" src={ApiEndPoint.User.getProfilePicture(String(_user.id))} />
+              <img alt="" className="landing__user-avatar" src={ApiEndPoint.User.profilePicture(String(_user.id))} />
               <div className="landing__user-info">
                 <div className={classNames('landing__user-name', { 'session-user': user.id === _user.id })}>
                   {_user.name}

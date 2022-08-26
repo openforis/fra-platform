@@ -31,10 +31,10 @@ const LoginForm: React.FC<Props> = (props: Props) => {
   const [errors, setErrors] = useState<Record<string, string>>({})
 
   useEffect(() => {
-    if (loginFailed) toaster.error(i18n.t('login.notAuthorized'))
+    if (loginFailed) toaster.error(i18n.t<string>('login.notAuthorized'))
     dispatch(LoginActions.initLogin())
     if (invitationUuid) {
-      dispatch(LoginActions.fetchUserByInvitation(invitationUuid))
+      dispatch(LoginActions.fetchUserByInvitation({ invitationUuid }))
       setEmail(invitedUser.email)
     }
   }, [])
@@ -64,19 +64,19 @@ const LoginForm: React.FC<Props> = (props: Props) => {
           value={email}
           disabled={!!invitedUser}
           type="text"
-          placeholder={i18n.t('login.email')}
+          placeholder={i18n.t<string>('login.email')}
           onChange={(event) => setEmail(event.target.value)}
         />
-        {errors.email && <span className="login__field-error">{i18n.t(errors.email)}</span>}
+        {errors.email && <span className="login__field-error">{i18n.t<string>(errors.email)}</span>}
 
         <input
           onFocus={() => setErrors({ ...errors, password: null })}
           value={password}
           type="password"
-          placeholder={i18n.t('login.password')}
+          placeholder={i18n.t<string>('login.password')}
           onChange={(event) => setPassword(event.target.value)}
         />
-        {errors.password && <span className="login__field-error">{i18n.t(errors.password)}</span>}
+        {errors.password && <span className="login__field-error">{i18n.t<string>(errors.password)}</span>}
 
         {invitedUser && invitedUser.status !== 'active' && (
           <>
@@ -84,16 +84,16 @@ const LoginForm: React.FC<Props> = (props: Props) => {
               onFocus={() => setErrors({ ...errors, password2: null })}
               value={password2}
               type="password"
-              placeholder={i18n.t('login.repeatPassword')}
+              placeholder={i18n.t<string>('login.repeatPassword')}
               onChange={(event) => setPassword2(event.target.value)}
             />
-            {errors.password2 && <span className="login__field-error">{i18n.t(errors.password2)}</span>}
+            {errors.password2 && <span className="login__field-error">{i18n.t<string>(errors.password2)}</span>}
           </>
         )}
 
         {invitedUser && (
           <button type="button" className="btn" onClick={onLogin}>
-            {i18n.t('login.acceptInvitation')}
+            {i18n.t<string>('login.acceptInvitation')}
           </button>
         )}
 
@@ -101,16 +101,16 @@ const LoginForm: React.FC<Props> = (props: Props) => {
           <>
             <div>
               <button type="button" className="btn" onClick={() => setLoginLocal(false)}>
-                {i18n.t('login.cancel')}
+                {i18n.t<string>('login.cancel')}
               </button>
 
               <button type="button" className="btn" onClick={onLogin}>
-                {i18n.t('login.login')}
+                {i18n.t<string>('login.login')}
               </button>
             </div>
 
             <Link to={ClientRoutes.Login.ResetPassword.getLink()} type="button" className="btn-forgot-pwd">
-              {i18n.t('login.forgotPassword')}
+              {i18n.t<string>('login.forgotPassword')}
             </Link>
           </>
         )}
@@ -120,17 +120,17 @@ const LoginForm: React.FC<Props> = (props: Props) => {
     <div className="login__formWrapper">
       <div>
         <a className="btn" href={`/auth/google${invitationUuid ? `?invitationUuid=${invitationUuid}` : ''}`}>
-          {i18n.t('login.signInGoogle')}
+          {i18n.t<string>('login.signInGoogle')}
         </a>
 
         <button className="btn" type="button" onClick={() => setLoginLocal(true)}>
-          {i18n.t('login.signInFRA')}
+          {i18n.t<string>('login.signInFRA')}
         </button>
       </div>
       <div>
-        <div>{i18n.t('login.accessLimited')}</div>
+        <div>{i18n.t<string>('login.accessLimited')}</div>
         <div>
-          {i18n.t('login.returnHome')} <a href="/">{i18n.t('login.returnHomeClick')}</a>
+          {i18n.t<string>('login.returnHome')} <a href="/">{i18n.t<string>('login.returnHomeClick')}</a>
         </div>
       </div>
     </div>

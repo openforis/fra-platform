@@ -4,7 +4,7 @@ import MediaQuery from 'react-responsive'
 import { Link } from 'react-router-dom'
 
 import { Areas } from '@meta/area'
-import { AssessmentName } from '@meta/assessment'
+import { AssessmentNames } from '@meta/assessment'
 
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { useUser } from '@client/store/user'
@@ -32,7 +32,7 @@ const Header: React.FC<Props> = (props) => {
 
   const isCountry = Areas.isISOCountry(countryIso)
   const assessmentName = assessment.props.name
-  const isFRA = assessmentName === AssessmentName.fra
+  const isFRA = assessmentName === AssessmentNames.fra
   const cycleName = cycle.name
 
   return (

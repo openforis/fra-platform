@@ -1,17 +1,15 @@
-import { Request, Response } from 'express'
+import { Response } from 'express'
 
-import { CountryIso } from '@meta/area'
+import { CycleDataRequest } from '@meta/api/request'
 import { CommentableDescriptionName } from '@meta/assessment/commentableDescription'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { CycleDataController } from '@server/controller/cycleData'
 import Requests from '@server/utils/requests'
 
-export const getDescription = async (req: Request, res: Response) => {
+export const getDescription = async (req: CycleDataRequest<{ name: CommentableDescriptionName }>, res: Response) => {
   try {
-    const { assessmentName, sectionName, cycleName, countryIso, name } = <
-      Record<string, string> & { countryIso: CountryIso }
-    >req.query
+    const { assessmentName, sectionName, cycleName, countryIso, name } = req.query
 
     const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
     const description = await CycleDataController.getDescription({
@@ -19,7 +17,7 @@ export const getDescription = async (req: Request, res: Response) => {
       assessment,
       cycle,
       sectionName,
-      name: name as CommentableDescriptionName,
+      name,
     })
 
     Requests.send(res, description)
