@@ -22,7 +22,7 @@ export const sendErr = (res: any, err?: any, statusCode = 500) => {
   } else if (typeof err === 'string') {
     res.status(statusCode).json({ error: err })
   } else {
-    res.status(statusCode).json({ error: `Could not serve - ${err.message ? err.message : ''}` })
+    res.status(statusCode).json({ error: err.message ? err.message : '' })
   }
 }
 
