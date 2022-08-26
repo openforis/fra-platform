@@ -8,13 +8,14 @@ export enum ActivityLogMessage {
   originalDataPointRemove = 'originalDataPointRemove',
   updateCountry = 'updateCountry',
   descriptionUpdate = 'descriptionUpdate',
-  userInvited = 'userInvited',
   nodeValueUpdate = 'nodeValueUpdate',
   tableValuesClear = 'tableValuesClear',
   nodeValueCalculatedUpdate = 'nodeValueCalculatedUpdate',
   messageCreate = 'messageCreate',
   messageMarkDeleted = 'messageMarkDeleted',
   topicStatusChange = 'topicStatusChange',
+  addInvitation = 'addInvitation',
+  acceptInvitation = 'acceptInvitation',
 }
 
 export interface ActivityLog<Target> {

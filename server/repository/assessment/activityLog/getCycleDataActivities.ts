@@ -6,6 +6,8 @@ import { ActivityLog, ActivityLogMessage, Assessment, Cycle } from '@meta/assess
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
 const acceptedMessages = [
+  ActivityLogMessage.acceptInvitation,
+  ActivityLogMessage.addInvitation,
   ActivityLogMessage.descriptionUpdate,
   ActivityLogMessage.nodeValueUpdate,
   ActivityLogMessage.originalDataPointCreate,
