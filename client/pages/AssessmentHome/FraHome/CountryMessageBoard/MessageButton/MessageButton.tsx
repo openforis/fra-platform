@@ -2,7 +2,7 @@ import './MessageButton.scss'
 import React, { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ApiEndPoint } from '@common/api/endpoint'
+import { ApiEndPoint } from '@meta/api/endpoint'
 
 import { MessageTopicType } from '@meta/messageCenter'
 
