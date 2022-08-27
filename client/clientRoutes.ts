@@ -39,13 +39,13 @@ export const ClientRoutes = {
     Root: newInstance<AssessmentParams>(...assessmentParts),
     Home: {
       Root: newInstance<AssessmentParams>(...assessmentParts, 'home'),
-      Section: newInstance<AssessmentParams & { section: string }>(...assessmentParts, 'home', ':section'),
+      Section: newInstance<AssessmentParams & { sectionName: string }>(...assessmentParts, 'home', ':sectionName'),
     },
-    Section: newInstance<AssessmentParams & { section: string }>(...assessmentParts, ':section'),
+    Section: newInstance<AssessmentParams & { sectionName: string }>(...assessmentParts, ':sectionName'),
     OriginalDataPoint: {
-      Section: newInstance<AssessmentParams & { year: string; section: string }>(
+      Section: newInstance<AssessmentParams & { year: string; sectionName: string }>(
         ...assessmentParts,
-        'originalDataPoint/:year/:section'
+        'originalDataPoint/:year/:sectionName'
       ),
     },
     DataDownload: newInstance<AssessmentParams>(...assessmentParts, 'dataDownload'),

@@ -11,7 +11,6 @@ export type CycleParams = {
 
 export type CycleDataParams = CycleParams & {
   // TODO: rename section to sectionName
-  section?: string
   sectionName: string
 }
 

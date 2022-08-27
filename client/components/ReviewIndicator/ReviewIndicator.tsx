@@ -26,7 +26,7 @@ const ReviewIndicator = (props: Props) => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
-  const { section: sectionName } = useParams<{ section?: string }>()
+  const { sectionName } = useParams<{ sectionName?: string }>()
 
   const { messagesCount = 0, status = MessageTopicStatus.opened, hasUnreadMessages = false } = useReviewStatus(topicKey)
 

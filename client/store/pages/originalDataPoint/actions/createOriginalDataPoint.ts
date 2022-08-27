@@ -33,7 +33,7 @@ export const createOriginalDataPoint = createAsyncThunk<
         assessmentName,
         cycleName,
         year: '-1',
-        section: 'extentOfForest',
+        sectionName: 'extentOfForest',
       })
     )
   }

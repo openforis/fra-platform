@@ -80,7 +80,7 @@ const useGenerateValues = (
           assessmentName,
           cycleName: cycle.name,
           method,
-          section: sectionName,
+          sectionName,
           tableName,
           fields: fields
             .filter((f) => (method === 'clearTable' ? f : f.selected))

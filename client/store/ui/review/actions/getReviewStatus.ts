@@ -9,7 +9,7 @@ type Params = {
   countryIso: CountryIso
   assessmentName: string
   cycleName: string
-  section: string
+  sectionName: string
   odpId?: number
 }
 

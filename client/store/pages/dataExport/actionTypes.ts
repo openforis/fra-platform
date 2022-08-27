@@ -1,6 +1,7 @@
 import { Action } from 'redux'
 
 import { Country } from '@meta/area'
+
 import { DataExportSelection } from '@client/store/pages/dataExport/stateType'
 
 export enum DataExportActionType {
@@ -13,6 +14,6 @@ export interface DataExportCountriesAction extends Action<DataExportActionType.c
 }
 
 export interface DataExportSelectionAction extends Action<DataExportActionType.selectionUpdate> {
-  assessmentSection: string
+  sectionName: string
   selection: DataExportSelection
 }

@@ -23,22 +23,22 @@ const DataExport: React.FC = () => {
   const countryIso = useCountryIso()
   const cycle = useCycle()
 
-  const { section: assessmentSection } = useParams<{
-    section: string
+  const { sectionName } = useParams<{
+    sectionName: string
   }>()
 
   useDataExportCountries()
-  const selection = useDataExportSelection(assessmentSection)
+  const selection = useDataExportSelection(sectionName)
 
   const hasSelection =
     !Objects.isEmpty(selection.countryISOs) &&
-    !Objects.isEmpty(selection.sections[assessmentSection].columns) &&
-    !Objects.isEmpty(selection.sections[assessmentSection].variables)
+    !Objects.isEmpty(selection.sections[sectionName].columns) &&
+    !Objects.isEmpty(selection.sections[sectionName].variables)
 
   let tableName = ''
   let rows: Array<Row> = []
   let columns: Array<string> = []
-  const tableSections = useTableSections({ sectionName: assessmentSection })
+  const tableSections = useTableSections({ sectionName })
   const tableSection = tableSections.find((tableSection) => tableSection.tables.find((table) => table.props.dataExport))
   const tables = tableSection?.tables
   const table = tables?.find((table) => table.props.dataExport)

@@ -6,7 +6,7 @@ enum defaults {
   countryIso = ':countryIso',
   cycleName = ':cycleName',
   id = ':id',
-  section = ':section',
+  sectionName = ':sectionName',
   year = ':year',
 }
 
@@ -47,8 +47,8 @@ export const BasePaths = {
       countryIso: CountryIso | defaults.countryIso = defaults.countryIso,
       assessmentName: AssessmentName | defaults.assessmentName = defaults.assessmentName,
       cycleName: string = defaults.cycleName,
-      section: string | defaults.section = defaults.section
-    ) => _generate(countryIso, 'assessments', assessmentName, cycleName, section),
+      sectionName: string | defaults.sectionName = defaults.sectionName
+    ) => _generate(countryIso, 'assessments', assessmentName, cycleName, sectionName),
 
     dataDownload: (
       countryIso: CountryIso | defaults.countryIso = defaults.countryIso,
@@ -75,9 +75,9 @@ export const BasePaths = {
         assessmentName: AssessmentName | defaults.assessmentName = defaults.assessmentName,
         cycleName: string = defaults.cycleName,
         year = ':year',
-        section: string | defaults.section = defaults.section
-      ) => _generate(countryIso, 'assessments', assessmentName, cycleName, 'originalDataPoint', year, section),
-      tab: (section: string | defaults.section = defaults.section) =>
+        sectionName: string | defaults.sectionName = defaults.sectionName
+      ) => _generate(countryIso, 'assessments', assessmentName, cycleName, 'originalDataPoint', year, sectionName),
+      tab: (sectionName: string | defaults.sectionName = defaults.sectionName) =>
         _generate(
           defaults.countryIso,
           'assessments',
@@ -85,7 +85,7 @@ export const BasePaths = {
           defaults.cycleName,
           'originalDataPoint',
           defaults.year,
-          section
+          sectionName
         ),
     },
   },

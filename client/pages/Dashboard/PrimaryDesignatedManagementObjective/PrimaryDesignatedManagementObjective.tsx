@@ -26,7 +26,7 @@ const PrimaryDesignatedManagementObjective = () => {
   const units = isIsoCountry
     ? ['haThousand', 'haThousand', 'haThousand', 'haThousand', 'haThousand', 'haThousand']
     : ['haMillion', 'haMillion', 'haMillion', 'haMillion', 'haMillion', 'haMillion']
-  const section = 'primaryDesignatedManagementObjective'
+  const sectionName = 'primaryDesignatedManagementObjective'
   const tableNames = [TableNames.primaryDesignatedManagementObjective]
 
   const { data: tableData, loaded } = useStatisticalFactsheetsState({
@@ -37,13 +37,13 @@ const PrimaryDesignatedManagementObjective = () => {
 
   return (
     <div className="row-l row-table">
-      <h3 className="header">{i18n.t<string>(`statisticalFactsheets.${section}.title`)}</h3>
+      <h3 className="header">{i18n.t<string>(`statisticalFactsheets.${sectionName}.title`)}</h3>
 
       <Table
         variables={rows}
         units={units}
         columns={columns}
-        section={section}
+        sectionName={sectionName}
         tableNames={tableNames}
         loaded={loaded}
         tableData={tableData}

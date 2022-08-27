@@ -4,19 +4,19 @@ import { useTranslation } from 'react-i18next'
 import CommentableDescription from '../CommentableDescription'
 
 type Props = {
-  section: string
+  sectionName: string
   disabled: boolean
 }
 
 const GeneralComments: React.FC<Props> = (props) => {
-  const { section, disabled } = props
+  const { sectionName, disabled } = props
 
   const { i18n } = useTranslation()
 
   return (
     <div className="fra-description__container">
       <CommentableDescription
-        section={section}
+        sectionName={sectionName}
         title={i18n.t<string>('description.generalCommentsTitle')}
         name="generalComments"
         disabled={disabled}

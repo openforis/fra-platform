@@ -61,7 +61,7 @@ const Descriptions: React.FC<Props> = (props: Props) => {
     <>
       {nationalData && (
         <NationalDataDescriptions
-          section={sectionName}
+          sectionName={sectionName}
           disabled={disabled}
           showAlertEmptyContent={!print}
           showDashEmptyContent={print}
@@ -70,7 +70,7 @@ const Descriptions: React.FC<Props> = (props: Props) => {
 
       {analysisAndProcessing && (
         <AnalysisDescriptions
-          section={sectionName}
+          sectionName={sectionName}
           disabled={disabled}
           showAlertEmptyContent={!print}
           showDashEmptyContent={print}
@@ -79,7 +79,7 @@ const Descriptions: React.FC<Props> = (props: Props) => {
 
       {introductoryText && (
         <CommentableDescription
-          section={sectionName}
+          sectionName={sectionName}
           title={i18n.t('contactPersons.introductoryText')}
           name="introductoryText"
           template={i18n.t('contactPersons.introductoryTextSupport')}
