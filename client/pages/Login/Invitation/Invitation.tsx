@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
-import { ApiEndPoint } from '@common/api/endpoint'
+import { ApiEndPoint } from '@meta/api/endpoint'
 
 import { useAppDispatch } from '@client/store'
 import { LoginActions, useInvitation } from '@client/store/login'

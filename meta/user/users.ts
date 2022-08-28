@@ -1,4 +1,4 @@
-import { ApiEndPoint } from '@common/api/endpoint'
+import { ApiEndPoint } from '@meta/api/endpoint'
 import { Objects } from '@core/utils'
 
 import { CountryIso } from '@meta/area'

@@ -2,7 +2,7 @@ import './Message.scss'
 import React, { useLayoutEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ApiEndPoint } from '@common/api/endpoint'
+import { ApiEndPoint } from '@meta/api/endpoint'
 import { getRelativeDate } from '@core/utils/dates'
 import classNames from 'classnames'
 

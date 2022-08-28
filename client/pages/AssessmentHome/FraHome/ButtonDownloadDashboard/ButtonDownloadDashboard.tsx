@@ -3,7 +3,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, matchPath, useLocation } from 'react-router-dom'
 
-import { ApiEndPoint } from '@common/api/endpoint'
+import { ApiEndPoint } from '@meta/api/endpoint'
 
 import { Areas } from '@meta/area'
 
