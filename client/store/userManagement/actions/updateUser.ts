@@ -1,20 +1,16 @@
-import { ApiEndPoint } from '@common/api/endpoint'
+import { ApiEndPoint } from '@meta/api/endpoint'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { CountryIso } from '@meta/area'
-import { AssessmentName } from '@meta/assessment'
+import { CycleParams } from '@meta/api/request'
 import { User } from '@meta/user'
 
-type Params = {
+type Params = CycleParams & {
   user: User
   profilePicture: File | null
-  countryIso: CountryIso
-  assessmentName: AssessmentName
-  cycleName: string
 }
 
-export const updateUser = createAsyncThunk<void, Params>('usermanagement/post/update', async (params) => {
+export const updateUser = createAsyncThunk<void, Params>('userManagement/post/update', async (params) => {
   const { user, profilePicture, countryIso, assessmentName, cycleName } = params
 
   const formData = new FormData()

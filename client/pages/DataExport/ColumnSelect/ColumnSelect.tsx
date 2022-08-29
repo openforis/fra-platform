@@ -15,27 +15,27 @@ import { Breakpoints } from '@client/utils/breakpoints'
 const ColumnSelect: React.FC<{ columns: Array<string> }> = ({ columns }) => {
   const dispatch = useAppDispatch()
   const i18n = useTranslation()
-  const { assessmentName, section: assessmentSection } = useParams<{
+  const { assessmentName, sectionName } = useParams<{
     assessmentName: AssessmentName
-    section: string
+    sectionName: string
   }>()
-  const selection = useDataExportSelection(assessmentSection)
-  const selectionColumns = selection.sections[assessmentSection].columns
+  const selection = useDataExportSelection(sectionName)
+  const selectionColumns = selection.sections[sectionName].columns
 
   const updateSelection = (columnsUpdate: Array<string>): void => {
     const selectionUpdate: DataExportSelection = {
       ...selection,
       sections: {
         ...selection.sections,
-        [assessmentSection]: {
-          ...selection.sections[assessmentSection],
+        [sectionName]: {
+          ...selection.sections[sectionName],
           columns: columnsUpdate,
         },
       },
     }
     dispatch(
       DataExportActions.updateSelection({
-        assessmentSection,
+        sectionName,
         selection: selectionUpdate,
         type: DataExportActionType.selectionUpdate,
       })
@@ -50,9 +50,7 @@ const ColumnSelect: React.FC<{ columns: Array<string> }> = ({ columns }) => {
           className="btn-all"
           checked={selectionColumns.length > 0 && selectionColumns.length === columns.length}
           label={selectionColumns.length > 0 ? 'common.unselectAll' : 'common.selectAll'}
-          onClick={() =>
-            updateSelection(selection.sections[assessmentSection].columns.length > 0 ? [] : columns.map(String))
-          }
+          onClick={() => updateSelection(selection.sections[sectionName].columns.length > 0 ? [] : columns.map(String))}
         />
       </div>
 
@@ -66,7 +64,7 @@ const ColumnSelect: React.FC<{ columns: Array<string> }> = ({ columns }) => {
           }}
         >
           {columns.map((column: string) => {
-            const label = getColumnLabelKeys(column, assessmentSection, assessmentName)
+            const label = getColumnLabelKeys(column, sectionName, assessmentName)
             return (
               <option key={column} value={column}>
                 {i18n.t(label)}
@@ -81,7 +79,7 @@ const ColumnSelect: React.FC<{ columns: Array<string> }> = ({ columns }) => {
           <div className="export__form-section-variables">
             {columns.map((column: string) => {
               const selected = selectionColumns.includes(column)
-              const label = getColumnLabelKeys(column, assessmentSection, assessmentName)
+              const label = getColumnLabelKeys(column, sectionName, assessmentName)
 
               return (
                 <ButtonCheckBox

@@ -1,15 +1,10 @@
-import { ApiEndPoint } from '@common/api/endpoint'
+import { ApiEndPoint } from '@meta/api/endpoint'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { CountryIso } from '@meta/area'
-import { AssessmentName } from '@meta/assessment'
+import { CycleDataParams } from '@meta/api/request'
 
-type Params = {
-  countryIso: CountryIso
-  assessmentName: AssessmentName
-  section: string
-  cycleName: string
+type Params = CycleDataParams & {
   topicKey: string
   messageId: number
 }
@@ -17,6 +12,6 @@ type Params = {
 export const markMessageDeleted = createAsyncThunk<void, Params>(
   'messageCenter/topicMessage/markDeleted',
   async (params) => {
-    await axios.delete(ApiEndPoint.MessageCenter.Topic.getMessage(), { params })
+    await axios.delete(ApiEndPoint.MessageCenter.topicMessage(), { params })
   }
 )

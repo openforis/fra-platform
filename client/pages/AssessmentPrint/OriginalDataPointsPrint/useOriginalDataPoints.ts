@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { ApiEndPoint } from '@common/api/endpoint'
+import { ApiEndPoint } from '@meta/api/endpoint'
 
 import { OriginalDataPoint } from '@meta/assessment'
 

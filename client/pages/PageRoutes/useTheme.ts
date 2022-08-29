@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { AssessmentName } from '@meta/assessment'
+import { AssessmentNames } from '@meta/assessment'
 
 import { useAssessment } from '@client/store/assessment'
 import { useIsAssessment } from '@client/hooks'
@@ -12,8 +12,8 @@ const defaultTheme = {
 }
 
 const themes: Record<string, Record<string, string>> = {
-  [AssessmentName.fra]: defaultTheme,
-  [AssessmentName.panEuropean]: {
+  [AssessmentNames.fra]: defaultTheme,
+  [AssessmentNames.panEuropean]: {
     '--ui-accent-light': '#F9E6D6',
     '--ui-bg': '#FFF7F3',
     '--ui-bg-hover': '#FFE9DF',

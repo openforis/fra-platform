@@ -4,14 +4,14 @@ import { useTranslation } from 'react-i18next'
 import CommentableDescription from '../CommentableDescription'
 
 type Props = {
-  section: string
+  sectionName: string
   disabled: boolean
   showAlertEmptyContent?: boolean
   showDashEmptyContent?: boolean
 }
 
 const NationalDataDescriptions: React.FC<Props> = (props) => {
-  const { section, disabled, showAlertEmptyContent, showDashEmptyContent } = props
+  const { sectionName, disabled, showAlertEmptyContent, showDashEmptyContent } = props
 
   const { i18n } = useTranslation()
 
@@ -21,7 +21,7 @@ const NationalDataDescriptions: React.FC<Props> = (props) => {
       <CommentableDescription
         title={i18n.t<string>('description.dataSourcesPlus')}
         disabled={disabled}
-        section={section}
+        sectionName={sectionName}
         name="dataSources"
         showAlertEmptyContent={showAlertEmptyContent}
         showDashEmptyContent={showDashEmptyContent}
@@ -29,7 +29,7 @@ const NationalDataDescriptions: React.FC<Props> = (props) => {
       <CommentableDescription
         title={i18n.t<string>('description.nationalClassificationAndDefinitions')}
         disabled={disabled}
-        section={section}
+        sectionName={sectionName}
         name="nationalClassificationAndDefinitions"
         showAlertEmptyContent={showAlertEmptyContent}
         showDashEmptyContent={showDashEmptyContent}
@@ -37,7 +37,7 @@ const NationalDataDescriptions: React.FC<Props> = (props) => {
       <CommentableDescription
         title={i18n.t<string>('description.originalData')}
         disabled={disabled}
-        section={section}
+        sectionName={sectionName}
         name="originalData"
         showAlertEmptyContent={showAlertEmptyContent}
         showDashEmptyContent={showDashEmptyContent}

@@ -2,7 +2,7 @@ import './MessageButton.scss'
 import React, { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ApiEndPoint } from '@common/api/endpoint'
+import { ApiEndPoint } from '@meta/api/endpoint'
 
 import { MessageTopicType } from '@meta/messageCenter'
 
@@ -28,7 +28,7 @@ const MessageButton: React.FC<Props> = ({ topicKey, topicSubtitle, topicTitle, t
   const dispatch = useAppDispatch()
 
   const { data: unreadMessages = 0, dispatch: fetchData } = useGetRequest(
-    ApiEndPoint.MessageCenter.Topic.getUnreadMessages(),
+    ApiEndPoint.MessageCenter.topicUnreadMessages(),
     {
       params: {
         countryIso,

@@ -25,10 +25,10 @@ const OriginalDataPoint: React.FC = () => {
   const countryIso = useCountryIso()
   const user = useUser()
   const originalDataPoint = useOriginalDataPoint()
-  const { assessmentName, cycleName, section, year } = useParams<{
+  const { assessmentName, cycleName, sectionName, year } = useParams<{
     assessmentName: AssessmentName
     cycleName: string
-    section: string
+    sectionName: string
     year: string
   }>()
 
@@ -53,7 +53,13 @@ const OriginalDataPoint: React.FC = () => {
   useEffect(() => {
     if (user) {
       dispatch(
-        ReviewActions.getReviewStatus({ countryIso, assessmentName, cycleName, section, odpId: originalDataPoint?.id })
+        ReviewActions.getReviewStatus({
+          countryIso,
+          assessmentName,
+          cycleName,
+          sectionName,
+          odpId: originalDataPoint?.id,
+        })
       )
     }
   }, [originalDataPoint, countryIso, assessmentName, cycleName, year])

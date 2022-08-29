@@ -13,7 +13,7 @@ import Description from '../Description'
 type Props = {
   disabled?: boolean
   title: string
-  section: string
+  sectionName: string
   name: string
   template?: string
   showAlertEmptyContent?: boolean
@@ -21,7 +21,7 @@ type Props = {
 }
 
 const CommentableDescription: React.FC<Props> = (props) => {
-  const { disabled, title, section, name, template, showAlertEmptyContent, showDashEmptyContent } = props
+  const { disabled, title, sectionName, name, template, showAlertEmptyContent, showDashEmptyContent } = props
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
@@ -39,7 +39,7 @@ const CommentableDescription: React.FC<Props> = (props) => {
       >
         <Description
           title={title}
-          section={section}
+          sectionName={sectionName}
           name={name}
           template={template}
           disabled={disabled}
@@ -51,7 +51,7 @@ const CommentableDescription: React.FC<Props> = (props) => {
         {!disabled && (
           <ReviewIndicator
             title={title}
-            topicKey={Topics.getCommentableDescriptionKey(countryIso, assessment, cycle, section, name)}
+            topicKey={Topics.getCommentableDescriptionKey(countryIso, assessment, cycle, sectionName, name)}
           />
         )}
       </div>

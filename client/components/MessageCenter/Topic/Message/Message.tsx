@@ -2,7 +2,7 @@ import './Message.scss'
 import React, { useLayoutEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ApiEndPoint } from '@common/api/endpoint'
+import { ApiEndPoint } from '@meta/api/endpoint'
 import { getRelativeDate } from '@core/utils/dates'
 import classNames from 'classnames'
 
@@ -30,7 +30,7 @@ const Message: React.FC<MessageProps> = (props) => {
   return (
     <div className={classNames('message', { deleted })} ref={elementRef}>
       <div className="message-header">
-        <img className="message-avatar" src={ApiEndPoint.User.getProfilePicture(String(message.user.id))} alt="" />
+        <img className="message-avatar" src={ApiEndPoint.User.profilePicture(String(message.user.id))} alt="" />
         <div className="message-info">
           <div className={classNames('message-author', { 'author-me': isMine })}>{message.user.name}</div>
 

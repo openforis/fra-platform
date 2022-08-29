@@ -46,7 +46,7 @@ export default (props: Props): UseOnChange => {
         AssessmentSectionActions.updateNodeValues({
           assessmentName: assessment.props.name,
           cycleName: cycle.name,
-          section: assessmentSection.props.name,
+          sectionName: assessmentSection.props.name,
           countryIso,
           tableName: table.props.name,
           values: [
@@ -134,7 +134,7 @@ export default (props: Props): UseOnChange => {
           AssessmentSectionActions.updateNodeValues({
             assessmentName: assessment.props.name,
             cycleName: cycle.name,
-            section: assessmentSection.props.name,
+            sectionName: assessmentSection.props.name,
             countryIso,
             tableName: table.props.name,
             values,

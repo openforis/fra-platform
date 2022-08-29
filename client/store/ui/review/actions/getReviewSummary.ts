@@ -1,4 +1,4 @@
-import { ApiEndPoint } from '@common/api/endpoint'
+import { ApiEndPoint } from '@meta/api/endpoint'
 import { CountryIso } from '@core/country'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'

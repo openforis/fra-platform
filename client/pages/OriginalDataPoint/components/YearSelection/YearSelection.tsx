@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
-import { ApiEndPoint } from '@common/api/endpoint'
+import { ApiEndPoint } from '@meta/api/endpoint'
 import { Objects } from '@core/utils'
 
 import { ODPYears, OriginalDataPoint } from '@meta/assessment'
@@ -23,8 +23,8 @@ type Props = {
 const YearSelection: React.FC<Props> = (props) => {
   const { canEditData } = props
   const originalDataPoint = useOriginalDataPoint()
-  const { section } = useParams<{
-    section: string
+  const { sectionName } = useParams<{
+    sectionName: string
   }>()
   const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
@@ -78,7 +78,7 @@ const YearSelection: React.FC<Props> = (props) => {
               assessmentName: assessment.props.name,
               cycleName: cycle.name,
               year: value,
-              section,
+              sectionName,
             })
             window.history.replaceState(null, null, url)
           }}

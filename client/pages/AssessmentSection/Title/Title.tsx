@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { AssessmentName } from '@meta/assessment'
+import { AssessmentName, AssessmentNames } from '@meta/assessment'
 
 import DefinitionLink from '@client/components/DefinitionLink'
 
@@ -11,7 +11,7 @@ import TitleWithExcelCalculator from './TitleExcelCalculator'
 
 const Components: Record<string, Record<string, React.FC<Props>>> = {
   // TODO handle this?
-  [AssessmentName.fra]: {
+  [AssessmentNames.fra]: {
     /* Handle these better? */ extentOfForest: ExtentOfForest,
     forestCharacteristics: ForestCharacteristics,
     biomassStock: TitleWithExcelCalculator,
@@ -29,7 +29,7 @@ const TitleDefault: React.FC<Omit<Props, 'sectionAnchor'>> = (props) => {
   const { assessmentName, sectionName } = props
 
   const { i18n } = useTranslation()
-  const prefix = assessmentName === AssessmentName.panEuropean ? 'panEuropean.' : ''
+  const prefix = assessmentName === AssessmentNames.panEuropean ? 'panEuropean.' : ''
 
   return <h2 className="headline no-print">{i18n.t<string>(`${prefix}${sectionName}.${sectionName}`)}</h2>
 }
@@ -38,7 +38,7 @@ const Title: React.FC<Props> = (props) => {
   const { assessmentName, sectionName, sectionAnchor } = props
 
   const { i18n } = useTranslation()
-  const panEuropean = assessmentName === AssessmentName.panEuropean
+  const panEuropean = assessmentName === AssessmentNames.panEuropean
 
   const Component = Components[assessmentName]?.[sectionName] || TitleDefault
 

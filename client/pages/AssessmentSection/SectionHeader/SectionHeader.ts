@@ -1,12 +1,13 @@
 import React from 'react'
 
-import { AssessmentName } from '@meta/assessment'
+import { AssessmentNames } from '@meta/assessment'
+
 import ExtentOfForest from './ExtentOfForest'
 import ForestCharacteristics from './ForestCharacteristics'
 import { Props } from './props'
 
 const Components: Record<string, Record<string, React.FC<Props>>> = {
-  [AssessmentName.fra]: {
+  [AssessmentNames.fra]: {
     extentOfForest: ExtentOfForest,
     forestCharacteristics: ForestCharacteristics,
   },

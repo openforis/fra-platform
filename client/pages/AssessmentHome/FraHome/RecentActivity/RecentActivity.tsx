@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { ApiEndPoint } from '@common/api/endpoint'
+import { ApiEndPoint } from '@meta/api/endpoint'
 import { Objects } from '@core/utils'
 
 import { ActivityLog } from '@meta/assessment'
@@ -33,6 +33,7 @@ const RecentActivity: React.FC = () => {
     <div className="landing__page-container">
       {!Objects.isEmpty(data) ? (
         data.map((activity, index) => {
+          // eslint-disable-next-line react/no-array-index-key
           return <RecentActivityItem key={String(index)} activity={activity} />
         })
       ) : (

@@ -7,10 +7,10 @@ import { User } from '@meta/user'
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
 export const getReviewStatus = async (
-  props: { countryIso: CountryIso; assessment: Assessment; cycle: Cycle; section: string; user: User },
+  props: { countryIso: CountryIso; assessment: Assessment; cycle: Cycle; sectionName: string; user: User },
   client: BaseProtocol = DB
 ): Promise<Array<ReviewStatus>> => {
-  const { countryIso, assessment, cycle, section, user } = props
+  const { countryIso, assessment, cycle, sectionName, user } = props
 
   const schemaName = Schemas.getName(assessment)
   const cycleSchema = Schemas.getNameCycle(assessment, cycle)
@@ -54,7 +54,7 @@ export const getReviewStatus = async (
           on mt.id = m.topic_id
       where mt.country_iso = $3
     `,
-    [section, user.id, countryIso],
+    [sectionName, user.id, countryIso],
     (row) => Objects.camelize(row)
   )
 }

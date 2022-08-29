@@ -1,7 +1,7 @@
 import './style.scss'
 import React, { memo, useEffect } from 'react'
 
-import { AssessmentName } from '@meta/assessment'
+import { AssessmentNames } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { AssessmentActions, useAssessment, useCycle } from '@client/store/assessment'
@@ -11,7 +11,7 @@ import Loading from '@client/components/Loading'
 import FraPrint from './FraPrint'
 
 const Components: Record<string, React.FC> = {
-  [AssessmentName.fra]: FraPrint,
+  [AssessmentNames.fra]: FraPrint,
 }
 
 const AssessmentPrint: React.FC = () => {

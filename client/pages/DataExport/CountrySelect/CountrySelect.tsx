@@ -16,9 +16,9 @@ import { Breakpoints } from '@client/utils/breakpoints'
 const CountrySelect: React.FC = () => {
   const dispatch = useAppDispatch()
   const i18n = useTranslation()
-  const { section: assessmentSection } = useParams<{ section: string }>()
+  const { sectionName } = useParams<{ sectionName: string }>()
   const countries = useDataExportCountries()
-  const selection = useDataExportSelection(assessmentSection)
+  const selection = useDataExportSelection(sectionName)
 
   const [countriesFiltered, setCountriesFiltered] = useState<Array<Country>>(countries)
   const inputRef = useRef(null)
@@ -48,7 +48,7 @@ const CountrySelect: React.FC = () => {
   const updateSelection = (countryISOs: Array<string>): void => {
     dispatch(
       DataExportActions.updateSelection({
-        assessmentSection,
+        sectionName,
         selection: { ...selection, countryISOs },
         type: DataExportActionType.selectionUpdate,
       })

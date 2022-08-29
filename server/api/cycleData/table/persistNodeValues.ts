@@ -8,7 +8,7 @@ import Requests from '@server/utils/requests'
 
 export const persistNodeValues = async (req: CycleDataRequest<never, NodesBody>, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName, section } = req.query
+    const { countryIso, assessmentName, cycleName, sectionName } = req.query
     const { tableName, values } = req.body
 
     const user = Requests.getRequestUser(req)
@@ -24,7 +24,7 @@ export const persistNodeValues = async (req: CycleDataRequest<never, NodesBody>,
           countryIso,
           assessment,
           cycle,
-          sectionName: section,
+          sectionName,
           tableName,
           user,
           ...valueUpdate,

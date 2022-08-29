@@ -1,19 +1,15 @@
-import { ApiEndPoint } from '@common/api/endpoint'
+import { ApiEndPoint } from '@meta/api/endpoint'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { CountryIso } from '@meta/area'
-import { AssessmentName } from '@meta/assessment'
+import { CycleParams } from '@meta/api/request'
 import { User } from '@meta/user'
 
-type Params = {
-  countryIso: CountryIso
-  assessmentName: AssessmentName
-  cycleName: string
+type Params = CycleParams & {
   id: number
 }
 
-export const getUserToEdit = createAsyncThunk<User, Params>('usermanagement/get/userToEdit', async (params) => {
-  const { data } = await axios.get(ApiEndPoint.User.get(), { params })
+export const getUserToEdit = createAsyncThunk<User, Params>('userManagement/get/userToEdit', async (params) => {
+  const { data } = await axios.get(ApiEndPoint.User.one(), { params })
   return data
 })

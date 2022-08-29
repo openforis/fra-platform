@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { ApiEndPoint } from '@common/api/endpoint'
+import { ApiEndPoint } from '@meta/api/endpoint'
 import { Objects } from '@core/utils'
 
 import { Areas } from '@meta/area'
@@ -47,7 +47,8 @@ export default (props: Props) => {
 
   useEffect(() => {
     fetchData()
-  }, [countryIso, fetchData])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [countryIso])
 
   return {
     data,

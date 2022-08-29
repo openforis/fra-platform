@@ -1,7 +1,7 @@
 import './AssessmentHome.scss'
 import React from 'react'
 
-import { AssessmentName } from '@meta/assessment'
+import { AssessmentNames } from '@meta/assessment'
 
 import { useAssessment } from '@client/store/assessment'
 import MessageCenter from '@client/components/MessageCenter'
@@ -9,8 +9,8 @@ import MessageCenter from '@client/components/MessageCenter'
 import FraHome from './FraHome'
 
 const Components: Record<string, React.FC> = {
-  [AssessmentName.fra]: FraHome,
-  [AssessmentName.panEuropean]: () => <div />,
+  [AssessmentNames.fra]: FraHome,
+  [AssessmentNames.panEuropean]: () => <div />,
 }
 
 const AssessmentHome: React.FC = () => {

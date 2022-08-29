@@ -1,8 +1,9 @@
-import { Request, Response } from 'express'
-
-import * as jwt from 'jsonwebtoken'
 import { Objects } from '@core/utils'
+import { Request, Response } from 'express'
+import * as jwt from 'jsonwebtoken'
+
 import { User } from '@meta/user'
+
 import { AccessControlException } from './accessControl'
 
 export const appUri = process.env.APP_URI ? process.env.APP_URI : ''
@@ -44,7 +45,7 @@ export const getParams = (req: Request) =>
 
 export const serverUrl = (req: Request) => (Objects.isEmpty(appUri) ? `${req.protocol}://${req.get('host')}` : appUri)
 
-const getRequestUser = (req: Request): User => {
+const getRequestUser = (req: Request<unknown, unknown, unknown, unknown>): User => {
   const { token } = req.cookies
   let user
   if (token) {

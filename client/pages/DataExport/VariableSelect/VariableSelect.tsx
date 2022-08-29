@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 import { useParams } from 'react-router-dom'
 
-import { AssessmentName, Row } from '@meta/assessment'
+import { AssessmentName, AssessmentNames, Row } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { DataExportActions, DataExportSelection, useDataExportSelection } from '@client/store/pages/dataExport'
@@ -14,34 +14,34 @@ import { getVariableLabelKey } from '@client/pages/DataExport/utils'
 import { Breakpoints } from '@client/utils/breakpoints'
 
 const Heading: Record<string, string> = {
-  [AssessmentName.fra]: 'common.variable',
-  [AssessmentName.panEuropean]: 'panEuropean.variable',
+  [AssessmentNames.fra]: 'common.variable',
+  [AssessmentNames.panEuropean]: 'panEuropean.variable',
 }
 
 const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
   const dispatch = useAppDispatch()
   const i18n = useTranslation()
-  const { assessmentName, section: assessmentSection } = useParams<{
+  const { assessmentName, sectionName } = useParams<{
     assessmentName: AssessmentName
-    section: string
+    sectionName: string
   }>()
-  const selection = useDataExportSelection(assessmentSection)
-  const selectionVariables = selection.sections[assessmentSection].variables
+  const selection = useDataExportSelection(sectionName)
+  const selectionVariables = selection.sections[sectionName].variables
 
   const updateSelection = (variablesUpdate: Array<string>): void => {
     const selectionUpdate: DataExportSelection = {
       ...selection,
       sections: {
         ...selection.sections,
-        [assessmentSection]: {
-          ...selection.sections[assessmentSection],
+        [sectionName]: {
+          ...selection.sections[sectionName],
           variables: variablesUpdate,
         },
       },
     }
     dispatch(
       DataExportActions.updateSelection({
-        assessmentSection,
+        sectionName,
         selection: selectionUpdate,
         type: DataExportActionType.selectionUpdate,
       })
@@ -67,9 +67,7 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
           label={selectionVariables.length > 0 ? 'common.unselectAll' : 'common.selectAll'}
           onClick={() => {
             updateSelection(
-              selection.sections[assessmentSection].variables.length > 0
-                ? []
-                : variables.map((v) => v.props.variableName)
+              selection.sections[sectionName].variables.length > 0 ? [] : variables.map((v) => v.props.variableName)
             )
           }}
         />

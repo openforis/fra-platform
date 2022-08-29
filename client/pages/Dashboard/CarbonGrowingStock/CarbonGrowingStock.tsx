@@ -35,7 +35,7 @@ const CarbonGrowingStock = () => {
     : ['billionCubicMeter', 'gt', 'gt']
   const tableNamesCountry = [TableNames.carbonStock, TableNames.growingStockTotal]
   const tableNames = isIsoCountry ? tableNamesCountry : [TableNames.valueAggregate]
-  const section = 'carbonAndGrowingStock'
+  const sectionName = 'carbonAndGrowingStock'
 
   const { data: _tableData, loaded } = useStatisticalFactsheetsState({
     columns,
@@ -155,7 +155,7 @@ const CarbonGrowingStock = () => {
         variables={variablesRegion}
         units={units}
         tableNames={tableNames}
-        section={section}
+        sectionName={sectionName}
       />
     </div>
   )

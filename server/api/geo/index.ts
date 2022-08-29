@@ -1,4 +1,4 @@
-import { ApiEndPoint } from '@common/api/endpoint'
+import { ApiEndPoint } from '@meta/api/endpoint'
 import { Express } from 'express'
 
 import { getBoundariesLayer } from './getBoundariesLayer'

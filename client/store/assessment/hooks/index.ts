@@ -55,7 +55,7 @@ export const useRegionGroups = (): Record<string, RegionGroup> =>
 export const useAssessmentSections = (): Array<Section> => useAppSelector((state) => state.assessment.sections)
 export const useAssessmentSection = (sectionNameParam?: string): SubSection => {
   const sections = useAssessmentSections()
-  const { section: s } = useParams<{ section: string }>()
+  const { sectionName: s } = useParams<{ sectionName: string }>()
   // Prefer optional function param if passed over url param for sectionName
   const sectionName = sectionNameParam ?? s
   return sections

@@ -18,6 +18,7 @@ export const ApiEndPoint = {
   },
 
   CycleData: {
+    descriptions: () => apiPath('cycleData', 'descriptions'),
     Review: {
       status: () => apiPath('cycleData', 'review', 'status'),
       summary: () => apiPath('cycleData', 'review', 'summary'),
@@ -34,6 +35,34 @@ export const ApiEndPoint = {
     dashboard: () => apiPath('file', 'dashboard'),
     dataDownload: () => apiPath('file', 'dataDownload'),
   },
+
+  MessageCenter: {
+    topic: () => apiPath('messageCenter', 'topic'),
+    topicMessage: () => apiPath('messageCenter', 'topic', 'message'),
+    topicResolve: () => apiPath('messageCenter', 'topic', 'resolve'),
+    topicUnreadMessages: () => apiPath('messageCenter', 'topic', 'unreadMessages'),
+  },
+
+  Sections: {
+    metadata: () => apiPath('section', 'metadata'),
+  },
+
+  User: {
+    many: () => apiPath('users'),
+    one: () => apiPath('users', 'user'),
+
+    invite: () => apiPath('users', 'invite'),
+    invitation: () => apiPath('users', 'invitation'),
+    invitationAccept: () => apiPath('users', 'invitation', 'accept'),
+    invitationSendEmail: () => apiPath('users', 'invitation', 'sendEmail'),
+
+    profilePicture: (id = ':id') => apiPath('users', 'profilePicture', id),
+    sectionAuth: () => apiPath('users', 'sectionAuth'),
+  },
+
+  /**
+   * @deprecated
+   */
 
   Assessment: {
     Data: {
@@ -70,29 +99,9 @@ export const ApiEndPoint = {
       getBoundaries: (countryIso = ':countryIso') => apiPath('geo', 'layers', 'boundaries', countryIso),
     },
   },
-  MessageCenter: {
-    Topic: {
-      get: () => apiPath('topic'),
-      getMessage: () => apiPath('topic', 'message'),
-      getUnreadMessages: () => apiPath('topic', 'unreadMessages'),
-      resolveTopic: () => apiPath('topic', 'resolve'),
-    },
-  },
 
   MetaData: {
     sectionsMetadata: () => apiPath('metadata', 'sections', 'metadata'),
     sections: () => apiPath('metadata', 'sections'),
-  },
-
-  User: {
-    invite: () => apiPath('users', 'invite'),
-    getByInvitation: (uuid = ':uuid') => apiPath('users', 'invitation', uuid),
-    acceptInvitation: (uuid = ':uuid') => apiPath('users', 'invitation', 'accept', uuid),
-    removeInvitation: (uuid = ':uuid') => apiPath('users', 'invitation', 'remove', uuid),
-    sendInvitationEmail: (uuid = ':uuid') => apiPath('users', 'invitation', 'sendEmail', uuid),
-    getProfilePicture: (id = ':id') => apiPath('users', 'profilePicture', id),
-    sectionAuth: () => apiPath('users', 'sectionAuth'),
-    many: () => apiPath('users'),
-    get: () => apiPath('user'),
   },
 }

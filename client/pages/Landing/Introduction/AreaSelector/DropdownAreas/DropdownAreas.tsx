@@ -1,12 +1,14 @@
 import React, { useLayoutEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
-import { RegionCode, RegionGroup } from '@meta/area'
-import Icon from '@client/components/Icon'
 import { useTranslation } from 'react-i18next'
-import { AssessmentName } from '@meta/assessment'
-import { BasePaths } from '@client/basePaths'
+import { Link } from 'react-router-dom'
+
+import { RegionCode, RegionGroup } from '@meta/area'
+import { AssessmentNames } from '@meta/assessment'
 
 import { useCycle } from '@client/store/assessment'
+import { BasePaths } from '@client/basePaths'
+import Icon from '@client/components/Icon'
+
 import { areas } from '../AreaSelector'
 
 type Props = {
@@ -25,7 +27,7 @@ const DropdownAreas = (props: Props) => {
   const { i18n } = useTranslation()
   const buttonRef = useRef<HTMLButtonElement>(null)
   const dialogOpened = dropdownOpened === area
-  const fra = assessmentType === AssessmentName.fra
+  const fra = assessmentType === AssessmentNames.fra
 
   const outsideClick = ({ target }: any) => {
     const button = buttonRef.current
@@ -72,7 +74,7 @@ const DropdownAreas = (props: Props) => {
                               target={fra ? '_self' : '_blank'}
                             >
                               <span className="country-selection-list__primary-col">
-                                {i18n.t(`area.${regionCode}.listName`)}
+                                {i18n.t<string>(`area.${regionCode}.listName`)}
                               </span>
                             </Link>
                           )
@@ -91,7 +93,9 @@ const DropdownAreas = (props: Props) => {
                       className="country-selection-list__row"
                       target={fra ? '_self' : '_blank'}
                     >
-                      <span className="country-selection-list__primary-col">{i18n.t(`area.${iso}.listName`)}</span>
+                      <span className="country-selection-list__primary-col">
+                        {i18n.t<string>(`area.${iso}.listName`)}
+                      </span>
                     </Link>
                   ))}
               </div>

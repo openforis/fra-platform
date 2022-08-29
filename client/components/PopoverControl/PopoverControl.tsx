@@ -1,10 +1,11 @@
+import './popoverControl.scss'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+
 import classNames from 'classnames'
-import './popoverControl.scss'
 
 export type PopoverItem = { divider?: boolean; link?: string; content?: any; onClick?: () => void }
-type Props = { items: Array<PopoverItem> }
+type Props = { items: Array<PopoverItem>; children: JSX.Element }
 
 const PopoverControl: React.FC<Props> = (props) => {
   const { children, items } = props
