@@ -4,6 +4,7 @@ import { Request } from 'express'
 
 import { AuthProvider } from '@meta/user/userAuth'
 
+import { AssessmentController } from '@server/controller/assessment'
 import { UserController } from '@server/controller/user'
 import { UserProviderController } from '@server/controller/userProvider'
 
@@ -45,7 +46,11 @@ export const localStrategyVerifyCallback = async (req: Request, email: string, p
           if (!userRole) {
             sendErr('login.noInvitation')
           } else {
-            user = await UserController.acceptInvitation({ user: invitedUser, userRole })
+            const { assessment, cycle } = await AssessmentController.getOneWithCycle({
+              id: userRole.assessmentId,
+              cycleUuid: userRole.cycleUuid,
+            })
+            user = await UserController.acceptInvitation({ assessment, cycle, user: invitedUser, userRole })
             done(null, user)
           }
         } else {

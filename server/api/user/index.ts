@@ -1,9 +1,10 @@
-import { ApiEndPoint } from '@meta/api/endpoint'
 import { Express } from 'express'
+
+import { ApiEndPoint } from '@meta/api/endpoint'
 
 import { AuthMiddleware } from '@server/middleware/auth'
 
-import { getAcceptInvitation } from './acceptInvitation'
+import { acceptInvitation } from './acceptInvitation'
 import { getInvitation } from './getInvitation'
 import { getMany } from './getMany'
 import { getProfilePicture } from './getProfilePicture'
@@ -27,7 +28,7 @@ export const UserApi = {
 
     express.get(ApiEndPoint.User.invitation(), getInvitation)
     express.delete(ApiEndPoint.User.invitation(), AuthMiddleware.requireEditUser, removeInvitation)
-    express.get(ApiEndPoint.User.invitationAccept(), getAcceptInvitation)
+    express.get(ApiEndPoint.User.invitationAccept(), acceptInvitation)
     express.get(ApiEndPoint.User.invitationSendEmail(), AuthMiddleware.requireEditUser, sendInvitationEmail)
 
     express.get(ApiEndPoint.User.profilePicture(), getProfilePicture)
