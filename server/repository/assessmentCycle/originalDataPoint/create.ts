@@ -1,18 +1,20 @@
 import { Objects } from '@core/utils'
+
 import { Assessment, Cycle, OriginalDataPoint } from '@meta/assessment'
+
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
 export const create = async (
   params: {
     assessment: Assessment
-    assessmentCycle: Cycle
+    cycle: Cycle
     originalDataPoint: OriginalDataPoint
   },
   client: BaseProtocol = DB
 ): Promise<OriginalDataPoint> => {
   const {
     assessment,
-    assessmentCycle,
+    cycle,
     originalDataPoint: {
       countryIso,
       year,
@@ -24,7 +26,7 @@ export const create = async (
     },
   } = params
 
-  const schemaName = Schemas.getNameCycle(assessment, assessmentCycle)
+  const schemaName = Schemas.getNameCycle(assessment, cycle)
   return client.one<OriginalDataPoint>(
     `
         insert into ${schemaName}.original_data_point (

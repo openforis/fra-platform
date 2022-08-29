@@ -2,9 +2,9 @@ import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
 import { Objects } from '@core/utils'
 
+import { ApiEndPoint } from '@meta/api/endpoint'
 import { ODPYears, OriginalDataPoint } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
@@ -35,7 +35,7 @@ const YearSelection: React.FC<Props> = (props) => {
   const classNameYearSelection = '' // TODO: originalDataPoint.validationStatus && !originalDataPoint.validationStatus.year.valid ? 'error' : ''
 
   const { data, dispatch: fetchReservedYears } = useGetRequest(
-    ApiEndPoint.Assessment.OriginalDataPoint.ReservedYears.many(),
+    ApiEndPoint.CycleData.OriginalDataPoint.reservedYears(),
     {
       params: {
         countryIso,
@@ -52,7 +52,7 @@ const YearSelection: React.FC<Props> = (props) => {
 
   return (
     <div className="odp__section">
-      <h3 className="subhead">{i18n.t('nationalDataPoint.referenceYearData')}</h3>
+      <h3 className="subhead">{i18n.t<string>('nationalDataPoint.referenceYearData')}</h3>
       <div className={`odp__year-selection ${classNameYearSelection}`}>
         <select
           disabled={!canEditData}
@@ -85,7 +85,7 @@ const YearSelection: React.FC<Props> = (props) => {
         >
           {years.map((year) => (
             <option key={year} value={year} disabled={reservedYears.includes(Number(year))} hidden={!year}>
-              {year || i18n.t('nationalDataPoint.selectYear')}
+              {year || i18n.t<string>('nationalDataPoint.selectYear')}
             </option>
           ))}
         </select>

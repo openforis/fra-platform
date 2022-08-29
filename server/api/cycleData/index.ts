@@ -1,10 +1,18 @@
-import { ApiEndPoint } from '@meta/api/endpoint'
 import { Express } from 'express'
+
+import { ApiEndPoint } from '@meta/api/endpoint'
 
 import { AuthMiddleware } from '@server/middleware/auth'
 
 import { getDescription } from './descriptions/getDescription'
 import { upsertDescription } from './descriptions/upsertDescription'
+import { createOriginalDataPoint } from './originalDataPoint/createOriginalDataPoint'
+import { deleteOriginalDataPoint } from './originalDataPoint/deleteOriginalDataPoint'
+import { getOriginalDataPoint } from './originalDataPoint/getOdp'
+import { getOriginalDataPointData } from './originalDataPoint/getOriginalDataPointData'
+import { getOriginalDataPoints } from './originalDataPoint/getOriginalDataPoints'
+import { getReservedYears } from './originalDataPoint/getReservedYears'
+import { updateOriginalDataPoint } from './originalDataPoint/updateOriginalDataPoint'
 import { getReviewStatus } from './review/getReviewStatus'
 import { getReviewSummary } from './review/getReviewSummary'
 import { getTableData } from './table/getTableData'
@@ -22,6 +30,19 @@ export const CycleDataApi = {
     // Descriptions
     express.get(ApiEndPoint.CycleData.descriptions(), AuthMiddleware.requireView, getDescription)
     express.put(ApiEndPoint.CycleData.descriptions(), AuthMiddleware.requireEdit, upsertDescription)
+
+    // OriginalDataPoints
+    express.get(ApiEndPoint.CycleData.OriginalDataPoint.reservedYears(), AuthMiddleware.requireView, getReservedYears)
+
+    express.post(ApiEndPoint.CycleData.OriginalDataPoint.one(), AuthMiddleware.requireEdit, createOriginalDataPoint)
+    express.delete(ApiEndPoint.CycleData.OriginalDataPoint.one(), AuthMiddleware.requireEdit, deleteOriginalDataPoint)
+    express.get(ApiEndPoint.CycleData.OriginalDataPoint.one(), AuthMiddleware.requireView, getOriginalDataPoint)
+    express.put(ApiEndPoint.CycleData.OriginalDataPoint.one(), AuthMiddleware.requireEdit, updateOriginalDataPoint)
+
+    express.get(ApiEndPoint.CycleData.OriginalDataPoint.many(), AuthMiddleware.requireView, getOriginalDataPoints)
+
+    // OriginalDataPoint // table
+    express.get(ApiEndPoint.CycleData.OriginalDataPoint.data(), AuthMiddleware.requireView, getOriginalDataPointData)
 
     // Review
     express.get(ApiEndPoint.CycleData.Review.status(), AuthMiddleware.requireView, getReviewStatus)
