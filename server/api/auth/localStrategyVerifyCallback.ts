@@ -1,4 +1,3 @@
-import { validEmail } from '@common/userUtils'
 import { Objects } from '@core/utils'
 import { Request } from 'express'
 
@@ -6,6 +5,7 @@ import { AuthProvider } from '@meta/user/userAuth'
 
 import { UserController } from '@server/controller/user'
 import { UserProviderController } from '@server/controller/userProvider'
+import { validEmail } from '@server/utils/validEmail'
 
 import { passwordCompare, passwordHash } from './utils/passwordUtils'
 

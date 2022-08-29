@@ -2,10 +2,10 @@ import './countryList.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { noRole } from '@common/countryRole'
 import { i18n } from 'i18next'
 
 import { Areas, Global, Region, RegionCode } from '@meta/area'
+import { UserRoles } from '@meta/user/userRoles'
 
 import { useRegionGroups } from '@client/store/assessment'
 
@@ -44,7 +44,7 @@ const CountryList: React.FC<Props> = (props: Props) => {
         <div className="country-selection-list__global">
           {checkMatch(i18n.t(`area.${Global.WO}.listName`), query) && (
             <>
-              <CountryListRow role={noRole.role} country={{ countryIso: Global.WO }} />
+              <CountryListRow role={UserRoles.noRole.role} country={{ countryIso: Global.WO }} />
               <hr />
             </>
           )}
@@ -54,7 +54,7 @@ const CountryList: React.FC<Props> = (props: Props) => {
             return (
               <div key={order}>
                 {regions.map(({ regionCode }) => (
-                  <CountryListRow key={regionCode} role={noRole.role} country={{ countryIso: regionCode }} />
+                  <CountryListRow key={regionCode} role={UserRoles.noRole.role} country={{ countryIso: regionCode }} />
                 ))}
                 {regions.length > 0 && <hr />}
               </div>

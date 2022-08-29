@@ -1,6 +1,6 @@
-import { ApiEndPoint } from '@meta/api/endpoint'
 import { Objects } from '@core/utils'
 
+import { ApiEndPoint } from '@meta/api/endpoint'
 import { CountryIso } from '@meta/area'
 
 import type { User } from './user'
@@ -45,7 +45,7 @@ const getRolesAllowedToEdit = (props: { user: User; countryIso: CountryIso }): A
   return []
 }
 
-const getI18nRoleLabelKey = (role: RoleName): string => `user.roles.${role}`
+const getI18nRoleLabelKey = (role: RoleName | string): string => `user.roles.${role}`
 
 export const profilePictureUri = (userId: number) => ApiEndPoint.User.profilePicture(String(userId))
 

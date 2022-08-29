@@ -1,9 +1,9 @@
-import { validEmail } from '@common/userUtils'
 import { Objects } from '@core/utils'
 import { Request, Response } from 'express'
 
 import { UserController } from '@server/controller/user'
 import { Requests } from '@server/utils'
+import { validEmail } from '@server/utils/validEmail'
 
 export const postResetPassword = async (req: Request, res: Response) => {
   try {

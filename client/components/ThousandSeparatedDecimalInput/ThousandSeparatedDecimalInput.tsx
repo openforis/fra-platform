@@ -1,8 +1,9 @@
-import React from 'react'
-import * as R from 'ramda'
 import './ThousandSeparatedDecimalInput.scss'
-import { formatDecimal } from '@common/numberFormat'
+import React from 'react'
+
+import { Numbers } from '@core/utils'
 import { acceptableAsDecimal } from '@webapp/utils/numberInput'
+import * as R from 'ramda'
 
 type State = any
 type Props = any
@@ -18,7 +19,7 @@ export class ThousandSeparatedDecimalInput extends React.Component<Props, State>
     return (
       <div className="number-input__container validation-error-sensitive-field" ref="wrapper">
         <div className="number-input__readonly-view" style={{ visibility: this.state.hasFocus ? 'hidden' : 'visible' }}>
-          {formatDecimal(numberValue)}
+          {Numbers.format(numberValue, 2)?.toString()}
         </div>
         <input
           type="text"
