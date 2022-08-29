@@ -2,9 +2,25 @@ import { i18n } from 'i18next'
 
 import { Users } from '@meta/user'
 
-import { ActivityLog } from './activityLog'
+import { ActivityLog, ActivityLogMessage } from './activityLog'
 
 // Action
+
+const messageToKey: { [key in keyof typeof ActivityLogMessage]?: string } = {
+  [ActivityLogMessage.originalDataPointCreate]: 'added',
+  [ActivityLogMessage.originalDataPointRemove]: 'deleted',
+  [ActivityLogMessage.originalDataPointUpdate]: 'updated',
+}
+
+const getLabelActionKey = (activity: ActivityLog<any>) => {
+  const { message } = activity
+
+  const key = messageToKey[message]
+  if (key) {
+    return `landing.recentActivity.actions.${key}`
+  }
+  return 'landing.recentActivity.actions.edited'
+}
 
 const getLabelActionParams = (activity: ActivityLog<any>, i18n: i18n) => {
   const { target } = activity
@@ -25,14 +41,13 @@ const getLabelActionParams = (activity: ActivityLog<any>, i18n: i18n) => {
 }
 
 const getLabelAction = (activity: ActivityLog<any>, i18n: i18n) => {
-  const { message } = activity
-  const labelActionKey = `landing.recentActivity.actions.${message}`
+  const labelActionKey = getLabelActionKey(activity)
   const messageParams = getLabelActionParams(activity, i18n)
   const label = i18n.t(labelActionKey, messageParams)
   return label !== labelActionKey ? label : i18n.t('landing.recentActivity.actions.edited')
 }
 
-// Sectiom
+// Section
 
 const getLabelSectionKey = (activity: ActivityLog<any>) => {
   const { section } = activity

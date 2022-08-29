@@ -13,7 +13,7 @@ export const createOriginalDataPoint = async (req: Request, res: Response) => {
 
     const returnedOriginalDataPoint = await CycleDataController.createOriginalDataPoint({
       assessment,
-      assessmentCycle: cycle,
+      cycle,
       originalDataPoint,
       user: Requests.getRequestUser(req),
     })

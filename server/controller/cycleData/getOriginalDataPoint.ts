@@ -12,6 +12,8 @@ export const getOriginalDataPoint = async (
   const { assessmentName, cycleName, year, countryIso } = props
 
   const assessment = await AssessmentRepository.read({ assessmentName })
-  const assessmentCycle = assessment.cycles.find((cycle) => cycle.name === cycleName)
-  return OriginalDataPointRepository.getOne({ assessment, assessmentCycle, year, countryIso }, client)
+
+  const cycle = assessment.cycles.find((cycle) => cycle.name === cycleName)
+
+  return OriginalDataPointRepository.getOne({ assessment, cycle, year, countryIso }, client)
 }

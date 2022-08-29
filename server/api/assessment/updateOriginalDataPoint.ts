@@ -13,7 +13,7 @@ export const updateOriginalDataPoint = async (req: Request, res: Response) => {
 
     const returnedOriginalDataPoint = await CycleDataController.updateOriginalDataPoint({
       assessment,
-      assessmentCycle: cycle,
+      cycle,
       originalDataPoint,
       user: Requests.getRequestUser(req),
     })
