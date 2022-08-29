@@ -19,6 +19,17 @@ export const ApiEndPoint = {
 
   CycleData: {
     descriptions: () => apiPath('cycleData', 'descriptions'),
+
+    OriginalDataPoint: {
+      one: () => apiPath('cycleData', 'originalDataPoints', 'originalDataPoint'),
+
+      // Used for print view
+      many: () => apiPath('cycleData', 'originalDataPoints'),
+
+      // Table Data (1a, 1b)
+      data: () => apiPath('cycleData', 'originalDataPoints', 'data'),
+      reservedYears: () => apiPath('cycleData', 'originalDataPoints', 'reservedYears'),
+    },
     Review: {
       status: () => apiPath('cycleData', 'review', 'status'),
       summary: () => apiPath('cycleData', 'review', 'summary'),
@@ -63,25 +74,6 @@ export const ApiEndPoint = {
   /**
    * @deprecated
    */
-
-  Assessment: {
-    Data: {
-      descriptions: () => apiPath('assessment', 'data', 'descriptions'),
-    },
-
-    OriginalDataPoint: {
-      one: (countryIso = ':countryIso', assessmentName = ':assessmentName', cycleName = ':cycleName', year = ':year') =>
-        apiPath('country', countryIso, 'assessment', assessmentName, 'originalDataPoint', cycleName, year),
-
-      many: (countryIso = ':countryIso', assessmentName = ':assessmentName', cycleName = ':cycleName') =>
-        apiPath('country', countryIso, 'assessment', assessmentName, 'originalDataPoints', cycleName),
-
-      ReservedYears: { many: () => apiPath('originalDataPoints', 'reservedYears') },
-      TableData: {
-        one: () => apiPath('originalDataPoint', 'data'),
-      },
-    },
-  },
 
   Geo: {
     sepalProxy: () => apiPath('geo', 'sepal'),

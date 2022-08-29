@@ -27,7 +27,7 @@ export default (): void =>
     it('Create new Original data point', async () => {
       const createdOriginalDataPoint = await CycleDataController.createOriginalDataPoint({
         assessment,
-        assessmentCycle,
+        cycle: assessmentCycle,
         originalDataPoint,
         user,
       })
@@ -48,7 +48,7 @@ export default (): void =>
     it('Edit existing/not existing Original data point', async () => {
       const editedOriginalDataPoint = await CycleDataController.updateOriginalDataPoint({
         assessment,
-        assessmentCycle,
+        cycle: assessmentCycle,
         originalDataPoint: { ...gotOriginalDataPoint, year: 2018 },
         user,
       })
@@ -56,7 +56,7 @@ export default (): void =>
       await expect(
         CycleDataController.updateOriginalDataPoint({
           assessment,
-          assessmentCycle,
+          cycle: assessmentCycle,
           originalDataPoint: { ...gotOriginalDataPoint, id: 5, year: 2017 },
           user,
         })
@@ -70,7 +70,7 @@ export default (): void =>
     it('Remove existing/not existing Original data point', async () => {
       const removedOriginalDataPoint = await CycleDataController.removeOriginalDataPoint({
         assessment,
-        assessmentCycle,
+        cycle: assessmentCycle,
         originalDataPoint: gotOriginalDataPoint,
         user,
       })
@@ -78,7 +78,7 @@ export default (): void =>
       await expect(
         CycleDataController.removeOriginalDataPoint({
           assessment,
-          assessmentCycle,
+          cycle: assessmentCycle,
           originalDataPoint: { ...gotOriginalDataPoint, id: 5 },
           user,
         })
