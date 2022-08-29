@@ -14,8 +14,8 @@ export enum ActivityLogMessage {
   messageCreate = 'messageCreate',
   messageMarkDeleted = 'messageMarkDeleted',
   topicStatusChange = 'topicStatusChange',
-  addInvitation = 'addInvitation',
-  acceptInvitation = 'acceptInvitation',
+  invitationAdd = 'invitationAdd',
+  invitationAccept = 'invitationAccept',
 }
 
 export interface ActivityLog<Target> {
