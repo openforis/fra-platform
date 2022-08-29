@@ -8,17 +8,17 @@ import { OriginalDataPointRepository } from '@server/repository/assessmentCycle/
 export const updateOriginalDataPoint = async (
   props: {
     assessment: Assessment
-    assessmentCycle: Cycle
+    cycle: Cycle
     originalDataPoint: OriginalDataPoint
     user: User
   },
   client: BaseProtocol = DB
 ): Promise<OriginalDataPoint> => {
-  const { assessment, assessmentCycle, originalDataPoint, user } = props
+  const { assessment, cycle, originalDataPoint, user } = props
 
   return client.tx(async (t) => {
     const updatedOriginalDataPoint = await OriginalDataPointRepository.update(
-      { assessment, assessmentCycle, originalDataPoint },
+      { assessment, cycle, originalDataPoint },
       t
     )
 
@@ -31,7 +31,7 @@ export const updateOriginalDataPoint = async (
           user,
         },
         assessment,
-        cycle: assessmentCycle,
+        cycle,
       },
       t
     )

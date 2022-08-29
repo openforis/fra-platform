@@ -1,18 +1,18 @@
-import { Request, Response } from 'express'
+import { Response } from 'express'
 
-import { CountryIso } from '@meta/area'
+import { CycleRequest } from '@meta/api/request'
 
 import { CycleDataController } from '@server/controller/cycleData'
 import { Requests } from '@server/utils'
 
-export const getOriginalDataPoint = async (req: Request, res: Response) => {
+export const getOriginalDataPoint = async (req: CycleRequest, res: Response) => {
   try {
-    const { assessmentName, cycleName, year, countryIso } = req.params
+    const { assessmentName, cycleName, year, countryIso } = req.query
     const odp = await CycleDataController.getOriginalDataPoint({
       assessmentName,
       cycleName,
       year,
-      countryIso: countryIso as CountryIso,
+      countryIso,
     })
     Requests.send(res, odp)
   } catch (e) {
