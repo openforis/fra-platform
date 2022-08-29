@@ -47,7 +47,7 @@ export const invite = async (
         activityLog: {
           target: { user: userToInvite.name, role: userRole.role },
           section: 'users',
-          message: ActivityLogMessage.addInvitation,
+          message: ActivityLogMessage.invitationAdd,
           countryIso,
           user,
         },

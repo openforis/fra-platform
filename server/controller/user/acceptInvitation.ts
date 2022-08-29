@@ -29,7 +29,7 @@ export const acceptInvitation = async (
         activityLog: {
           target: { user: user.name, role: userRole.role },
           section: 'users',
-          message: ActivityLogMessage.acceptInvitation,
+          message: ActivityLogMessage.invitationAccept,
           countryIso,
           user,
         },
