@@ -1,7 +1,6 @@
 import { Express } from 'express'
 
 import { AreaApi } from './area'
-import { AssessmentApi } from './assessment'
 import { AuthApi } from './auth'
 import { CycleDataApi } from './cycleData'
 import { DefinitionApi } from './definitions'
@@ -22,7 +21,6 @@ export const Api = {
     InitApi.init(express)
     AreaApi.init(express)
     AuthApi.init(express)
-    AssessmentApi.init(express)
     CycleDataApi.init(express)
     DefinitionApi.init(express)
     FileApi.init(express)

@@ -1,28 +1,32 @@
 import { NavigateFunction } from 'react-router-dom'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { CountryIso } from '@meta/area'
-import { AssessmentName, ODPs, OriginalDataPoint } from '@meta/assessment'
+import { ApiEndPoint } from '@meta/api/endpoint'
+import { CycleParams } from '@meta/api/request'
+import { ODPs, OriginalDataPoint } from '@meta/assessment'
 
 import { ClientRoutes } from '@client/clientRoutes'
 
 export const createOriginalDataPoint = createAsyncThunk<
   OriginalDataPoint,
-  {
-    countryIso: CountryIso
-    assessmentName: AssessmentName
-    cycleName: string
+  CycleParams & {
     navigate: NavigateFunction
   }
 >('originalDataPoint/create', async ({ assessmentName, cycleName, countryIso, navigate }) => {
   const originalDataPoint = { countryIso } as OriginalDataPoint
   const { data } = await axios.post(
-    ApiEndPoint.Assessment.OriginalDataPoint.one(countryIso, assessmentName, cycleName),
+    ApiEndPoint.CycleData.OriginalDataPoint.one(),
     {
       originalDataPoint,
+    },
+    {
+      params: {
+        countryIso,
+        assessmentName,
+        cycleName,
+      },
     }
   )
   if (data?.id) {

@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
-
 import { OriginalDataPoint } from '@meta/assessment'
 
 import { useAssessment, useCycle } from '@client/store/assessment'
@@ -16,7 +15,13 @@ export const useOriginalDataPoints = (): { originalDataPoints: Array<OriginalDat
     data: originalDataPoints = [],
     dispatch: fetchResults,
     loading,
-  } = useGetRequest(ApiEndPoint.Assessment.OriginalDataPoint.many(countryIso, assessment.props.name, cycle.name))
+  } = useGetRequest(ApiEndPoint.CycleData.OriginalDataPoint.many(), {
+    params: {
+      countryIso,
+      assessmentName: assessment.props.name,
+      cycleName: cycle.name,
+    },
+  })
 
   useEffect(() => {
     fetchResults()

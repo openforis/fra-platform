@@ -1,13 +1,13 @@
 import { CountryIso } from '@core/country'
 import { Response } from 'express'
 
-import { CycleDataRequest } from '@meta/api/request'
+import { CycleRequest } from '@meta/api/request'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { CycleDataController } from '@server/controller/cycleData'
 import { Requests } from '@server/utils'
 
-export const getReservedYears = async (req: CycleDataRequest, res: Response) => {
+export const getReservedYears = async (req: CycleRequest, res: Response) => {
   try {
     const { countryIso, assessmentName, cycleName } = req.query
 
