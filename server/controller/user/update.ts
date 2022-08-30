@@ -18,7 +18,7 @@ export const update = async (
     // TODO: Add activity log entry (public schema?)
 
     if (user && Users.isAdministrator(user)) {
-      UserRoleRepository.update({ user: userToUpdate }, t)
+      await UserRoleRepository.update({ user: userToUpdate }, t)
     }
 
     return UserRepository.update({ user: userToUpdate, profilePicture }, t)
