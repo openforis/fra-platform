@@ -26,8 +26,9 @@ export const updateOriginalDataPoint = async (
       {
         activityLog: {
           target: updatedOriginalDataPoint,
-          section: 'assessment',
+          section: 'odp',
           message: ActivityLogMessage.originalDataPointUpdate,
+          countryIso: originalDataPoint.countryIso,
           user,
         },
         assessment,
@@ -35,6 +36,7 @@ export const updateOriginalDataPoint = async (
       },
       t
     )
+
     return updatedOriginalDataPoint
   })
 }

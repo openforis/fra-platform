@@ -26,8 +26,9 @@ export const removeOriginalDataPoint = async (
       {
         activityLog: {
           target: removedOriginalDataPoint,
-          section: 'assessment',
+          section: 'odp',
           message: ActivityLogMessage.originalDataPointRemove,
+          countryIso: originalDataPoint.countryIso,
           user,
         },
         assessment,
@@ -35,6 +36,7 @@ export const removeOriginalDataPoint = async (
       },
       t
     )
+
     return removedOriginalDataPoint
   })
 }

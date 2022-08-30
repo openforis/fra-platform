@@ -26,8 +26,9 @@ export const createOriginalDataPoint = async (
       {
         activityLog: {
           target: createdOriginalDataPoint,
-          section: 'assessment',
+          section: 'odp',
           message: ActivityLogMessage.originalDataPointCreate,
+          countryIso: originalDataPoint.countryIso,
           user,
         },
         assessment,
@@ -35,6 +36,7 @@ export const createOriginalDataPoint = async (
       },
       t
     )
+
     return createdOriginalDataPoint
   })
 }

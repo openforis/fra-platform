@@ -16,6 +16,7 @@ export const deleteOriginalDataPoint = async (req: CycleRequest<{ year: string }
       year,
       countryIso,
     })
+
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     const returnedOriginalDataPoint = await CycleDataController.removeOriginalDataPoint({
