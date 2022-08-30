@@ -13,7 +13,7 @@ const acceptedMessages = [
   ActivityLogMessage.originalDataPointCreate,
   ActivityLogMessage.originalDataPointRemove,
   ActivityLogMessage.originalDataPointUpdate,
-  ActivityLogMessage.updateCountry,
+  ActivityLogMessage.assessmentStatusUpdate,
 ]
   .map((s) => `'${s}'`)
   .join(', ')
