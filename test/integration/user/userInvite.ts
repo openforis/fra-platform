@@ -1,7 +1,7 @@
 import { assessmentParams } from '@test/integration/mock/assessment'
 import { userMockTest, userMockUnknown } from '@test/integration/mock/user'
 
-import { Assessment } from '@meta/assessment'
+import { Assessment, Cycle } from '@meta/assessment'
 import { RoleName, User, UserStatus } from '@meta/user'
 
 import { AssessmentController } from '@server/controller/assessment'
@@ -10,18 +10,21 @@ import { UserController } from '@server/controller/user'
 export default (): void =>
   describe('User Invite', () => {
     let assessment: Assessment
+    let cycle: Cycle
     let user: User
 
     beforeAll(async () => {
       assessment = await AssessmentController.getOne({ assessmentName: assessmentParams.props.name })
       user = await UserController.getOne({ email: userMockTest.email })
+      const [first] = assessment.cycles
+      cycle = first
     })
 
     it('Invite new user as Collaborator', async () => {
       const { userRole, user: invitedUser } = await UserController.invite({
         assessment,
         countryIso: 'ALB',
-        cycle: assessment.cycles[0],
+        cycle,
         email: userMockUnknown.email,
         roleName: RoleName.COLLABORATOR,
         user,
@@ -35,7 +38,7 @@ export default (): void =>
       expect(userRole.acceptedAt).toBeNull()
 
       // verify user status is active and he is collaborator of ALB
-      await UserController.acceptInvitation({ user: invitedUser, userRole })
+      await UserController.acceptInvitation({ assessment, cycle, user: invitedUser, userRole })
 
       expect(invitedUser.status).toBe(UserStatus.active)
     })
@@ -44,7 +47,7 @@ export default (): void =>
       const { user: invitedUser } = await UserController.invite({
         assessment,
         countryIso: 'AFG',
-        cycle: assessment.cycles[0],
+        cycle,
         email: userMockUnknown.email,
         roleName: RoleName.NATIONAL_CORRESPONDENT,
         user,
@@ -67,7 +70,7 @@ export default (): void =>
         UserController.invite({
           assessment,
           countryIso: 'AFG',
-          cycle: assessment.cycles[0],
+          cycle,
           email: userMockUnknown.email,
           roleName: RoleName.REVIEWER,
           user,
@@ -83,7 +86,7 @@ export default (): void =>
 
       // UserA accept invitation National Correspondant to AFG
       // verify user status is active and he is collaborator of ALB and National Correspondant of AFG
-      invitedUser = await UserController.acceptInvitation({ user: invitedUser, userRole })
+      invitedUser = await UserController.acceptInvitation({ assessment, cycle, user: invitedUser, userRole })
 
       expect(invitedUser.status).toBe(UserStatus.active)
 

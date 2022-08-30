@@ -24,6 +24,7 @@ export const invite = async (
 
   return client.tx(async (t) => {
     let userToInvite = await UserRepository.getOne({ email }, client)
+
     if (!userToInvite) {
       userToInvite = await UserRepository.create({ user: { email, name: name ?? '' } })
     }
@@ -36,17 +37,18 @@ export const invite = async (
         role: roleName,
         cycle,
       },
-      client
+      t
     )
 
-    userToInvite = await UserRepository.getOne({ email }, client)
+    userToInvite = await UserRepository.getOne({ email }, t)
 
     await ActivityLogRepository.insertActivityLog(
       {
         activityLog: {
-          target: userRole,
-          section: 'assessment',
-          message: ActivityLogMessage.userInvited,
+          target: { user: userToInvite.name, role: userRole.role },
+          section: 'users',
+          message: ActivityLogMessage.invitationAdd,
+          countryIso,
           user,
         },
         assessment,

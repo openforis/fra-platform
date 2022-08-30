@@ -3,6 +3,7 @@ import { Profile, VerifyFunction } from 'passport-google-oauth'
 
 import { AuthProvider } from '@meta/user'
 
+import { AssessmentController } from '@server/controller/assessment'
 import { UserController } from '@server/controller/user'
 import { UserProviderController } from '@server/controller/userProvider'
 
@@ -30,7 +31,11 @@ export const googleStrategyVerifyCallback = async (
         }
         await UserProviderController.create({ user: invitedUser, provider })
       }
-      user = await UserController.acceptInvitation({ user: invitedUser, userRole })
+      const { assessment, cycle } = await AssessmentController.getOneWithCycle({
+        id: userRole.assessmentId,
+        cycleUuid: userRole.cycleUuid,
+      })
+      user = await UserController.acceptInvitation({ assessment, cycle, user: invitedUser, userRole })
     } else {
       user = await UserController.getOne({ emailGoogle: email })
       if (user) {
