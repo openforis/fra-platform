@@ -3,8 +3,7 @@ import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 import { useParams } from 'react-router-dom'
 
-import { Objects } from '@core/utils'
-import { Breakpoints } from '@webapp/utils/breakpoints'
+import { Objects } from '@utils/objects'
 import classNames from 'classnames'
 
 import { AssessmentStatus } from '@meta/area/country'
@@ -18,6 +17,7 @@ import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import Icon from '@client/components/Icon'
 import PopoverControl, { PopoverItem } from '@client/components/PopoverControl'
+import { Breakpoints } from '@client/utils/breakpoints'
 
 import StatusConfirm from './StatusConfirm'
 import { StatusTransition } from './types'

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Dates } from '@core/utils'
+import { Dates } from '@utils/dates'
 
 const RowFooter: React.FC = () => {
   const date = new Date()

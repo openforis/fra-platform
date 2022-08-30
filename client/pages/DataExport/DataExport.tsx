@@ -2,7 +2,7 @@ import './DataExport.scss'
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { Objects } from '@core/utils'
+import { Objects } from '@utils/objects'
 
 import { Row } from '@meta/assessment'
 

@@ -1,5 +1,5 @@
-import { Objects } from '@core/utils'
 import { NodeRow } from '@test/dataMigration/types'
+import { Objects } from '@utils/objects'
 import * as pgPromise from 'pg-promise'
 
 import { Assessment, Col, Cycle, Node, Row, TableNames } from '@meta/assessment'

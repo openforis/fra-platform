@@ -1,15 +1,15 @@
-import { addNationalClassPlaceHolder } from '@core/odp/odps/addNationalClassPlaceHolder'
+import { addNationalClassPlaceHolder } from './addNationalClassPlaceHolder'
 import {
   calcTotalArea,
   calcTotalFieldArea,
   calcTotalLandArea,
   calcTotalSubFieldArea,
   calcTotalSubSubFieldArea,
-} from '@core/odp/odps/calc'
-import { canCopyPreviousValues } from '@core/odp/odps/canCopyPreviousValues'
-import { deleteNationalClass } from '@core/odp/odps/deleteNationalClass'
-import { removeNationalClassPlaceHolder } from '@core/odp/odps/removeNationalClassPlaceHolder'
-import { updateNationalClass } from '@core/odp/odps/updateNationalClass'
+} from './calc'
+import { canCopyPreviousValues } from './canCopyPreviousValues'
+import { deleteNationalClass } from './deleteNationalClass'
+import { removeNationalClassPlaceHolder } from './removeNationalClassPlaceHolder'
+import { updateNationalClass } from './updateNationalClass'
 
 export const ODPs = {
   addNationalClassPlaceHolder,

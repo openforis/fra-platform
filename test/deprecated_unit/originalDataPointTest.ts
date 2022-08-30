@@ -1,6 +1,6 @@
 import { assert } from 'chai'
 
-import { ODP, ODPs } from '@core/odp'
+import { ODP, ODPs } from '../../core/odp'
 
 describe('originalDataPoint', () => {
   it('calculates correct total forest amount', () => {

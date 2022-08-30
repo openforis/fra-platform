@@ -1,5 +1,5 @@
-import { Numbers } from '@core/utils/numbers'
-import { Objects } from '@core/utils'
+import { Numbers } from '@utils/numbers'
+import { Objects } from '@utils/objects'
 
 import { ODP } from '../odp'
 import { ODPNationalClass } from '../odpNationalClass'

@@ -1,4 +1,5 @@
-import { Arrays } from '../utils/arrays'
+import { Arrays } from '@utils/arrays'
+
 import { Assessment, AssessmentType } from './assessment'
 
 export interface AssessmentFRA extends Assessment {

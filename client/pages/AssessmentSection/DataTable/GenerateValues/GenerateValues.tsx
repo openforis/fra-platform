@@ -2,7 +2,7 @@ import './GenerateValues.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from '@core/utils'
+import { Objects } from '@utils/objects'
 
 import { AssessmentName, Row } from '@meta/assessment'
 import { TableData } from '@meta/data'

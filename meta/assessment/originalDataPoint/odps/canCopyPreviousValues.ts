@@ -1,4 +1,5 @@
-import { Objects } from '@core/utils'
+import { Objects } from '@utils/objects'
+
 import { OriginalDataPoint } from '../originalDataPoint'
 
 export const canCopyPreviousValues = (odp: OriginalDataPoint): boolean => {

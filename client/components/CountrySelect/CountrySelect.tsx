@@ -3,8 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 
-import { Areas } from '@core/country'
-
+import { Areas } from '@meta/area'
 import { Users } from '@meta/user'
 
 import { useNavigationVisible } from '@client/store/ui/navigation'

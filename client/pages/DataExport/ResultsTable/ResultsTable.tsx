@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
-import { Objects } from '@core/utils'
+import { Objects } from '@utils/objects'
 
 import { Areas, CountryIso } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'

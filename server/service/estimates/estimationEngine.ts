@@ -1,4 +1,4 @@
-import { BigNumberInput, Numbers } from '@core/utils/numbers'
+import { BigNumberInput, Numbers } from '@utils/numbers'
 import BigNumber from 'bignumber.js'
 
 import { NodeUpdate, TableData } from '@meta/data'

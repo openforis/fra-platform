@@ -1,13 +1,12 @@
 import { ITask } from 'pg-promise'
 
 import { Assessment } from '../../../meta/assessment/assessment'
-import { Table } from '../../../meta/assessment/table'
 import { NodeValue } from '../../../meta/assessment/node'
-
-import { NodeRow } from './_getNodeInserts'
-import { Objects } from '../../../core/utils'
-import { getCols, getRows } from './_repos'
+import { Table } from '../../../meta/assessment/table'
+import { Objects } from '../../../utils'
 import { DBNames } from '../_DBNames'
+import { NodeRow } from './_getNodeInserts'
+import { getCols, getRows } from './_repos'
 
 export const getNodeInsertsTableWithODP = async (
   props: {

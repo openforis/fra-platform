@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from '@core/utils'
+import { Objects } from '@utils/objects'
 
 import DataSources from '@client/pages/OriginalDataPoint/components/DataSources'
 import ExtentOfForest from '@client/pages/OriginalDataPoint/components/ExtentOfForest'

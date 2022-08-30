@@ -1,7 +1,7 @@
-import { CountryIso } from '@core/country'
 import { Response } from 'express'
 
 import { CycleRequest } from '@meta/api/request'
+import { CountryIso } from '@meta/area'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { CycleDataController } from '@server/controller/cycleData'

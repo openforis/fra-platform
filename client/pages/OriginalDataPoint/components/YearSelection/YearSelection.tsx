@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
-import { Objects } from '@core/utils'
+import { Objects } from '@utils/objects'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { ODPYears, OriginalDataPoint } from '@meta/assessment'

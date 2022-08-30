@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
-import { Objects } from '@core/utils'
+import { Objects } from '@utils/objects'
 import classNames from 'classnames'
 
 import { Message as MessageType, MessageTopic, MessageTopicStatus, MessageTopicType } from '@meta/messageCenter'

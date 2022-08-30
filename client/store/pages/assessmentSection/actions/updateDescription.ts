@@ -1,8 +1,8 @@
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { Functions } from '@core/utils'
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import { Functions } from '@utils/functions'
 import axios from 'axios'
 
+import { ApiEndPoint } from '@meta/api/endpoint'
 import { CycleDataParams } from '@meta/api/request'
 
 const patchDescription = Functions.debounce(async (props: CycleDataParams & { name: string; content: string }) => {

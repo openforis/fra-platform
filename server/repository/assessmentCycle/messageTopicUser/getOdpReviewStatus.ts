@@ -1,4 +1,4 @@
-import { Objects } from '@core/utils'
+import { Objects } from '@utils/objects'
 
 import { CountryIso } from '@meta/area'
 import { Assessment, Cycle, ReviewStatus } from '@meta/assessment'

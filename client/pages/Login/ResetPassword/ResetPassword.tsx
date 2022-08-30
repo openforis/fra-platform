@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
-import { Objects } from '@core/utils'
+import { Objects } from '@utils/objects'
 
 import { useAppDispatch } from '@client/store'
 import { LoginActions } from '@client/store/login'

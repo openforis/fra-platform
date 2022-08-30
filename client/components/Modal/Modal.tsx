@@ -1,7 +1,7 @@
 import './Modal.scss'
 import React from 'react'
 
-import Icon from '@webapp/components/icon'
+import Icon from '@client/components/Icon'
 
 export const ModalClose: React.FC<{ onClose(): void }> = ({ onClose }) => (
   <div className="modal-close" onClick={onClose} onKeyDown={onClose} role="button" tabIndex={0}>

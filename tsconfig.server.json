@@ -1,6 +1,6 @@
 {
   "allowSyntheticDefaults": true,
-  "include": ["core", "common", "i18n", "meta", "server"],
+  "include": ["utils", "i18n", "meta", "server"],
   "exclude": ["node_modules"],
   "compilerOptions": {
     "allowJs": true,
@@ -12,8 +12,7 @@
     "outDir": "./dist/",
     "baseUrl": ".",
     "paths": {
-      "@core/*": ["core/*"],
-      "@common/*": ["common/*"],
+      "@utils/*": ["utils/*"],
       "@i18n/*": ["i18n/*"],
       "@meta/*": ["meta/*"],
       "@server/*": ["server/*"]

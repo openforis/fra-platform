@@ -1,10 +1,10 @@
-import { Objects } from '../../../core/utils'
 import { Assessment } from '../../../meta/assessment/assessment'
 import { AssessmentMetaCache, VariablesByTableCache } from '../../../meta/assessment/assessmentMetaCache'
 import { Col } from '../../../meta/assessment/col'
 import { Row } from '../../../meta/assessment/row'
 import { TableNames } from '../../../meta/assessment/table'
 import { BaseProtocol } from '../../../server/db'
+import { Objects } from '../../../utils'
 import { DBNames } from '../_DBNames'
 import { DependencyEvaluator } from './dependencyEvaluator'
 

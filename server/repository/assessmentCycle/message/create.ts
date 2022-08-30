@@ -1,4 +1,4 @@
-import { Objects } from '@core/utils'
+import { Objects } from '@utils/objects'
 
 import { Assessment, Cycle } from '@meta/assessment'
 import { Message, MessageTopic } from '@meta/messageCenter'

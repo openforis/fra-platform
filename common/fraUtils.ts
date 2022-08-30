@@ -1,6 +1,7 @@
+import { Numbers } from '@utils/numbers'
 import * as R from 'ramda'
-import { FRA } from '@core/assessment'
-import { Numbers } from '@core/utils/numbers'
+
+import { FRA } from '../core/assessment'
 
 /**
  * @deprecated

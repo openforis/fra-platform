@@ -1,4 +1,4 @@
-import { UUIDs } from '@core/utils'
+import { UUIDs } from '@utils/uuids'
 import axios, { AxiosStatic } from 'axios'
 import { Action, Dispatch, Middleware, MiddlewareAPI } from 'redux'
 

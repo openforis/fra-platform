@@ -1,6 +1,4 @@
-import { CountryIso } from '@core/country'
-
-import { Country, RegionGroup } from '@meta/area'
+import { Country, CountryIso, RegionGroup } from '@meta/area'
 import { Assessment, Section } from '@meta/assessment'
 
 type Countries = {

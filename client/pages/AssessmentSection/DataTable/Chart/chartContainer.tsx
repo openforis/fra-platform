@@ -2,7 +2,7 @@ import './style.scss'
 import React, { memo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from '@core/utils'
+import { Objects } from '@utils/objects'
 
 import { TableData } from '@meta/data'
 

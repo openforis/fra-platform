@@ -1,5 +1,6 @@
 import { Lang } from '@meta/lang'
-import { AssessmentType } from '@core/assessment'
+
+import { AssessmentType } from '../assessment'
 import { Role } from './role'
 
 export enum UserType {
