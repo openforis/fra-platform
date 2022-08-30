@@ -27,6 +27,7 @@ export const addMessage = async (req: CycleDataRequest<{ key: string; type: Mess
       cycle,
       key,
       type,
+      sectionName,
     })
 
     SocketServer.emit(Sockets.getTopicMessageAddEvent({ assessment, cycle, topic }), messageCreated)
