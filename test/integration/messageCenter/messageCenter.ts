@@ -34,6 +34,7 @@ export default (): void =>
         cycle,
         key: 'TEST',
         type: MessageTopicType.review,
+        sectionName: 'TEST',
       })
 
       await MessageCenterController.addMessage({
@@ -44,6 +45,7 @@ export default (): void =>
         cycle,
         key: 'TEST',
         type: MessageTopicType.review,
+        sectionName: 'TEST',
       })
 
       const topic = await MessageCenterController.getTopic({

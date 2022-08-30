@@ -43,6 +43,7 @@ export const resolveTopic = async (req: Request, res: Response) => {
       cycle,
       key,
       type: topic.type,
+      sectionName,
     })
 
     SocketServer.emit(Sockets.getTopicMessageAddEvent({ assessment, cycle, topic }), message)
