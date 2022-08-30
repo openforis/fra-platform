@@ -1,5 +1,6 @@
+import { Numbers } from '@utils/numbers'
 import * as R from 'ramda'
-import { Numbers } from '@core/utils/numbers'
+
 import { formatDecimal } from './numberFormat'
 
 /**

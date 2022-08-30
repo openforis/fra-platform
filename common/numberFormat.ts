@@ -1,4 +1,4 @@
-import { Numbers } from '@core/utils/numbers'
+import { Numbers } from '@utils/numbers'
 
 export const formatInteger = (num: any) => Numbers.format(num, 0)
 

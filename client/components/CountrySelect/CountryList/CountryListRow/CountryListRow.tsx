@@ -2,9 +2,8 @@ import React, { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { noRole } from '@common/countryRole'
-
 import { Areas, CountryIso, Global, RegionCode } from '@meta/area'
+import { UserRoles } from '@meta/user/userRoles'
 
 import { useAssessment, useCountry, useCycle } from '@client/store/assessment'
 import { useCountryIso, useIsHome } from '@client/hooks'
@@ -32,7 +31,7 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
 
   const status = Areas.getStatus(country)
   const selected = countryIso === countryIsoCurrent && !isHome
-  const hasRole = role !== noRole.role
+  const hasRole = role !== UserRoles.noRole.role
 
   useEffect(() => {
     if (selected) {
@@ -61,7 +60,7 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
           </span>
 
           <span className="country-selection-list__secondary-col">
-            {country.lastEdit ? Dates.getRelativeDate(country.lastEdit, i18n) : i18n.t('audit.notStarted')}
+            {country.lastEdit ? Dates.getRelativeDate(country.lastEdit, i18n) : i18n.t<string>('audit.notStarted')}
           </span>
         </>
       )}
