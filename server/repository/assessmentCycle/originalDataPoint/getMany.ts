@@ -9,8 +9,9 @@ export const getMany = async (
   props: { assessment: Assessment; cycle: Cycle; countryIso: CountryIso },
   client: BaseProtocol = DB
 ): Promise<Array<OriginalDataPoint>> => {
-  const { countryIso } = props
-  const schemaName = Schemas.getNameCycle(props.assessment, props.cycle)
+  const { assessment, cycle, countryIso } = props
+
+  const schemaName = Schemas.getNameCycle(assessment, cycle)
 
   return client.map<OriginalDataPoint>(
     `select * from ${schemaName}.original_data_point where country_iso = $1;`,

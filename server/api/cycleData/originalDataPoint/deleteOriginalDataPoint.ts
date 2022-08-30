@@ -1,17 +1,25 @@
-import { Request, Response } from 'express'
+import { Response } from 'express'
+
+import { CycleRequest } from '@meta/api/request'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { CycleDataController } from '@server/controller/cycleData'
 import Requests from '@server/utils/requests'
 
-export const createOriginalDataPoint = async (req: Request, res: Response) => {
+export const deleteOriginalDataPoint = async (req: CycleRequest<{ year: string }>, res: Response) => {
   try {
-    const { assessmentName, cycleName } = req.params
-    const { originalDataPoint } = req.body
+    const { assessmentName, cycleName, year, countryIso } = req.query
+
+    const originalDataPoint = await CycleDataController.getOriginalDataPoint({
+      assessmentName,
+      cycleName,
+      year,
+      countryIso,
+    })
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-    const returnedOriginalDataPoint = await CycleDataController.createOriginalDataPoint({
+    const returnedOriginalDataPoint = await CycleDataController.removeOriginalDataPoint({
       assessment,
       cycle,
       originalDataPoint,
