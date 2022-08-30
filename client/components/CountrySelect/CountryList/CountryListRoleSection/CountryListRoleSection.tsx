@@ -1,11 +1,11 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { noRole } from '@common/countryRole'
 import { i18n } from 'i18next'
 
 import { Areas, Country, CountryIso } from '@meta/area'
 import { RoleName, Users } from '@meta/user'
+import { UserRoles } from '@meta/user/userRoles'
 
 import { useAssessment, useCountries, useCycle } from '@client/store/assessment'
 import { useUser } from '@client/store/user'
@@ -14,7 +14,7 @@ import { checkMatch } from '../../utils/checkMatch'
 import CountryListRow from '../CountryListRow'
 
 type Props = {
-  role: RoleName
+  role: RoleName | string
   query: string
   countryISOs: Array<CountryIso>
 }
@@ -39,7 +39,7 @@ const CountryListRoleSection: React.FC<Props> = (props: Props) => {
 
   return (
     <div className="country-selection-list__section">
-      {role !== noRole.role && (
+      {role !== UserRoles.noRole.role && (
         <div className="country-selection-list__header">
           <span className="country-selection-list__primary-col">{i18n.t<string>(Users.getI18nRoleLabelKey(role))}</span>
           <span className="country-selection-list__secondary-col uppercase">{`${assessment.props.name} ${cycle.name}`}</span>

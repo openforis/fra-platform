@@ -1,7 +1,6 @@
-import { noRole } from '@common/countryRole'
-
 import { CountryIso } from '@meta/area'
 import { RoleName, Users } from '@meta/user'
+import { UserRoles } from '@meta/user/userRoles'
 
 import { useCountries } from '@client/store/assessment'
 import { useUser, useUserCountries } from '@client/store/user'
@@ -20,7 +19,7 @@ export const useUserCountryISOs = (): Record<string, Array<CountryIso>> => {
       userCountryISOs[role.role].push(role.countryIso)
     })
 
-    userCountryISOs[noRole.role] = allCountries
+    userCountryISOs[UserRoles.noRole.role] = allCountries
       .map((c) => c.countryIso)
       .filter((countryIso: CountryIso) => !userCountries?.includes(countryIso))
   }

@@ -1,9 +1,10 @@
-import { Response, Request } from 'express'
-import { validPassword } from '@common/userUtils'
-import { Requests } from '@server/utils'
 import { Objects } from '@core/utils'
+import { Request, Response } from 'express'
+
 import { passwordHash } from '@server/api/auth/utils/passwordUtils'
 import { UserController } from '@server/controller/user'
+import { Requests } from '@server/utils'
+import { validPassword } from '@server/utils/validPassword'
 
 export const postChangePassword = async (req: Request, res: Response) => {
   try {
