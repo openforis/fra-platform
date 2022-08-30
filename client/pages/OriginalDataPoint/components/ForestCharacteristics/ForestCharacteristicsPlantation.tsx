@@ -1,9 +1,12 @@
 import React from 'react'
-
 import { useTranslation } from 'react-i18next'
-import { useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
+
+import { Numbers } from '@utils/numbers'
+
 import { ODPs } from '@meta/assessment'
-import { Numbers } from '@core/utils'
+
+import { useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
+
 import ForestCharacteristicsPlantationRow from './ForestCharacteristicsPlantationRow'
 
 type Props = {

@@ -2,10 +2,12 @@
 /* eslint-disable react/no-string-refs */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/ban-types */
-import React from 'react'
 import './TextInput.scss'
+import React from 'react'
+
 import { isEmpty } from 'ramda'
-import { elementOffset } from '@webapp/utils/domUtils'
+
+import { DOMs } from '@client/utils/dom'
 
 type State = any
 type Props = {
@@ -26,8 +28,8 @@ export default class TextInput extends React.Component<Props, State> {
     if ((this.props as any).value) {
       const row = (this.refs.readOnlyElement as any).closest('tr')
       if (row) {
-        const { height } = elementOffset(this.refs.readOnlyElement)
-        const { height: rowHeight } = elementOffset(row)
+        const { height } = DOMs.elementOffset(this.refs.readOnlyElement)
+        const { height: rowHeight } = DOMs.elementOffset(row)
         row.style.height = `${Math.max(height, rowHeight, 40)}px`
       }
     }

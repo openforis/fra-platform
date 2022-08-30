@@ -1,4 +1,4 @@
-import { AssessmentStatus } from '@core/assessment'
+import { AssessmentStatus } from '@meta/area/country'
 
 export interface StatusTransition {
   status: AssessmentStatus

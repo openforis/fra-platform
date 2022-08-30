@@ -1,4 +1,5 @@
-import { Arrays, Objects } from '@core/utils'
+import { Arrays } from '@utils/arrays'
+import { Objects } from '@utils/objects'
 
 import { ODPNationalClass, ODPs, OriginalDataPoint } from '@meta/assessment'
 

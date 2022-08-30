@@ -1,8 +1,8 @@
-import { Numbers } from '@core/utils/numbers'
-import { Objects } from '@core/utils'
+import { Numbers } from '@utils/numbers'
+import { Objects } from '@utils/objects'
 
-import { OriginalDataPoint } from '../originalDataPoint'
 import { ODPNationalClass } from '../odpNationalClass'
+import { OriginalDataPoint } from '../originalDataPoint'
 
 export const calcTotalArea = (props: { originalDataPoint: OriginalDataPoint }): number => {
   const { originalDataPoint } = props

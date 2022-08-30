@@ -1,5 +1,6 @@
 import { assert } from 'chai'
-import { Numbers, BigNumberInput } from '@core/utils/numbers'
+
+import { BigNumberInput, Numbers } from '../../utils/numbers'
 
 const array: BigNumberInput[] = [2, 4, 7, 8]
 

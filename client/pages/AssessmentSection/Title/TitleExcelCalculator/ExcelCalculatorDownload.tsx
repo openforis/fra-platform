@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from '@core/utils'
+import { Objects } from '@utils/objects'
 
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'

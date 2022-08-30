@@ -1,7 +1,7 @@
 import './PercentInput.scss'
 import React from 'react'
 
-import { Numbers } from '@core/utils'
+import { Numbers } from '@utils/numbers'
 import * as R from 'ramda'
 
 import { Sanitizer } from '@client/utils/sanitizer'

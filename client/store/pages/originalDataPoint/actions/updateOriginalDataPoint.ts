@@ -1,5 +1,5 @@
-import { Functions } from '@core/utils'
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import { Functions } from '@utils/functions'
 import axios from 'axios'
 import { Dispatch } from 'redux'
 

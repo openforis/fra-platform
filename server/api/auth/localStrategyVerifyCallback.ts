@@ -1,4 +1,4 @@
-import { Objects } from '@core/utils'
+import { Objects } from '@utils/objects'
 import { Request } from 'express'
 
 import { AuthProvider } from '@meta/user/userAuth'

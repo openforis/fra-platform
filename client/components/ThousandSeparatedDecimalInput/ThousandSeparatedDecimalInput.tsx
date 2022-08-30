@@ -1,8 +1,8 @@
 import './ThousandSeparatedDecimalInput.scss'
 import React from 'react'
 
-import { Numbers } from '@core/utils'
-import { acceptableAsDecimal } from '@webapp/utils/numberInput'
+import { acceptableAsDecimal } from '@utils/numberInput'
+import { Numbers } from '@utils/numbers'
 import * as R from 'ramda'
 
 type State = any

@@ -1,4 +1,4 @@
-import { Objects } from '@core/utils'
+import { Objects } from '@utils/objects'
 
 import { Assessment, Cycle, Section } from '@meta/assessment'
 

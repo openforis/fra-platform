@@ -1,10 +1,10 @@
 import * as pgPromise from 'pg-promise'
 import { ITask } from 'pg-promise'
 
-import { Objects } from '../../../core/utils/objects'
 import { Assessment } from '../../../meta/assessment/assessment'
 import { Cycle } from '../../../meta/assessment/cycle'
 import { Table } from '../../../meta/assessment/table'
+import { Objects } from '../../../utils/objects'
 import { DBNames } from '../_DBNames'
 import { getCreateViewDDL } from './_createDataViews'
 import { _getNodeInserts } from './_getNodeInserts'

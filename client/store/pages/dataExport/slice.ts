@@ -1,8 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 import { DataExportCountriesAction, DataExportSelectionAction } from './actionTypes'
-// import { AppActions } from '@webapp/store/app'
-// import { HomeActions } from '@webapp/store/page/home'
 import { DataExportState } from './stateType'
 
 const initialState: DataExportState = {

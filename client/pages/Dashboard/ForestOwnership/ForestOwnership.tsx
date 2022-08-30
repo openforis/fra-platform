@@ -1,9 +1,9 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Areas } from '@core/country'
 import { ChartOptions } from 'chart.js'
 
+import { Areas } from '@meta/area'
 import { TableNames } from '@meta/assessment'
 import { TableDatas } from '@meta/data'
 

@@ -1,8 +1,8 @@
-import { Objects } from '@core/utils'
 import { calculateRow } from '@test/dataMigration/steps/updateCalculatedNodes/calculateRow'
 import { getCertifiedAreaValues } from '@test/dataMigration/steps/updateCalculatedNodes/getCertifiedAreaValues'
 import { getClimaticDomainValues } from '@test/dataMigration/steps/updateCalculatedNodes/getClimaticDomainValues'
 import { getTotalLandAreaValues } from '@test/dataMigration/steps/updateCalculatedNodes/getTotalLandAreaValues'
+import { Objects } from '@utils/objects'
 import * as pgPromise from 'pg-promise'
 
 import { Assessment, Cycle, Row, VariableCache } from '@meta/assessment'

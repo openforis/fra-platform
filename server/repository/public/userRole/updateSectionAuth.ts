@@ -1,4 +1,4 @@
-import { Objects } from '@core/utils'
+import { Objects } from '@utils/objects'
 
 import { CollaboratorProps, RoleName, UserRole } from '@meta/user'
 

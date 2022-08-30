@@ -1,9 +1,9 @@
-import { Objects } from '../../../core/utils/objects'
 import { Assessment } from '../../../meta/assessment/assessment'
 import { Col, ColType } from '../../../meta/assessment/col'
 import { Row, RowType } from '../../../meta/assessment/row'
 import { Table } from '../../../meta/assessment/table'
 import { BaseProtocol } from '../../../server/db'
+import { Objects } from '../../../utils/objects'
 import { DBNames } from '../_DBNames'
 
 const years = [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020]

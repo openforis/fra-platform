@@ -1,4 +1,4 @@
-import { Objects } from '@core/utils'
+import { Objects } from '@utils/objects'
 import { Request, Response } from 'express'
 
 import { UserController } from '@server/controller/user'

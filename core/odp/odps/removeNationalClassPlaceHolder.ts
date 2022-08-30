@@ -1,4 +1,4 @@
-import { ODP } from '@core/odp'
+import { ODP } from '../odp'
 
 export const removeNationalClassPlaceHolder = (odp: ODP): ODP => ({
   ...odp,

@@ -1,7 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers, Objects } from '@core/utils'
+import { Numbers } from '@utils/numbers'
+import { Objects } from '@utils/objects'
 import { ChartOptions } from 'chart.js'
 
 import { Areas } from '@meta/area'

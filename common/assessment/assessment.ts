@@ -1,5 +1,6 @@
 import * as R from 'ramda'
-import { FRA, PanEuropean } from '@core/assessment'
+
+import { FRA, PanEuropean } from '../../core/assessment'
 import { assessmentStatus } from '../assessment'
 
 /**

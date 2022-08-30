@@ -1,8 +1,8 @@
 import React from 'react'
-
-import { Objects } from '@core/utils'
-
 import { useTranslation } from 'react-i18next'
+
+import { Objects } from '@utils/objects'
+
 import { Props } from '../props'
 
 const RowValidation: React.FC<Props> = (/* props */) => {

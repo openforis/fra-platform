@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { Objects } from '@core/utils'
+import { Objects } from '@utils/objects'
 
+import { ApiEndPoint } from '@meta/api/endpoint'
 import { Areas } from '@meta/area'
 
 import { useAssessment, useCycle } from '@client/store/assessment'
