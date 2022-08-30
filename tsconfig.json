@@ -38,12 +38,9 @@
   "include": [
     "utils",
     "client",
-    "core",
-    "common",
     "i18n",
     "meta",
     "server",
-    "webapp",
     "test"
   ]
 }
