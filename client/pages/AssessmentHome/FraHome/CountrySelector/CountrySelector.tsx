@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useDispatch } from 'react-redux'
 
 import { CountryIso, Region, RegionCode } from '@meta/area'
 
+import { useAppDispatch } from '@client/store'
 import { useCountries } from '@client/store/assessment'
 import { useSecondaryRegion } from '@client/store/assessment/hooks'
 import { useHomeCountriesFilter } from '@client/store/ui/home'
@@ -13,7 +13,7 @@ import CountrySelectModal from '@client/components/CountrySelectModal'
 const __MIN_COUNTRIES__ = 9
 
 const CountrySelector: React.FC = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const i18n = useTranslation()
   const countries = useCountries()
   const secondaryRegions = useSecondaryRegion()

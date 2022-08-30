@@ -1,6 +1,6 @@
-import { CountryIso } from '@core/country'
-import { Objects } from '@core/utils'
+import { Objects } from '@utils/objects'
 
+import { CountryIso } from '@meta/area'
 import { Assessment, Cycle } from '@meta/assessment'
 import { MessageTopic } from '@meta/messageCenter'
 

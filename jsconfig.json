@@ -7,9 +7,6 @@
       "@client/*": [
         "./client/*"
       ],
-      "@common/*": [
-        "./common/*"
-      ],
       "@i18n/*": [
         "./i18n/*"
       ],
@@ -19,18 +16,17 @@
       "@server/*": [
         "./server/*"
       ],
-      "@webapp/*": [
-        "./webapp/*"
+      "@utils/*": [
+        "./utils/*"
       ]
     }
   },
   "include": [
+    "utils",
     "client",
-    "common",
     "i18n",
     "meta",
     "server",
-    "webapp",
     "test"
   ]
 }

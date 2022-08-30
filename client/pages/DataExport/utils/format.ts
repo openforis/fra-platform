@@ -1,4 +1,4 @@
-import { Numbers } from '@core/utils/numbers'
+import { Numbers } from '@utils/numbers'
 
 import { CountryIso } from '@meta/area'
 import { AssessmentName, AssessmentNames } from '@meta/assessment'

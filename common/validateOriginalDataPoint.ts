@@ -1,6 +1,7 @@
+import { Numbers } from '@utils/numbers'
 import * as R from 'ramda'
-import { ODP, ODPValidation } from '@core/odp'
-import { Numbers } from '@core/utils/numbers'
+
+import { ODP, ODPValidation } from '../core/odp'
 
 export const validateDataPoint = (odp: ODP): ODPValidation => {
   const defaultTo0 = R.defaultTo(0)

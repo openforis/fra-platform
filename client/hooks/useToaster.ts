@@ -1,6 +1,7 @@
+import { UUIDs } from '@utils/uuids'
+
 import { useAppDispatch } from '@client/store'
 import { NotificationActions } from '@client/store/ui/notification'
-import { UUIDs } from '@core/utils'
 
 export type ToasterHook = {
   toaster: {

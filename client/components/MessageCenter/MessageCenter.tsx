@@ -1,7 +1,10 @@
 import './MessageCenter.scss'
 import React from 'react'
+
+import { Objects } from '@utils/objects'
+
 import { useTopics } from '@client/store/ui/messageCenter'
-import { Objects } from '@core/utils'
+
 import Topic from './Topic'
 
 const MessageCenter: React.FC = () => {

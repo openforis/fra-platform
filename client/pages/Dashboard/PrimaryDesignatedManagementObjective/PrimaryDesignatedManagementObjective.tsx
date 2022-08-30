@@ -1,8 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Areas } from '@core/country'
-
+import { Areas } from '@meta/area'
 import { TableNames } from '@meta/assessment'
 
 import { useCountryIso } from '@client/hooks'

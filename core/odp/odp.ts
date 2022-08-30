@@ -1,4 +1,4 @@
-import { Arrays } from '@core/utils'
+import { Arrays } from '@utils/arrays'
 
 import { ODPDataSourceMethod } from './odpDataSource'
 import { ODPEditStatus } from './odpEditStatus'

@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
-import { Strings } from '@core/utils'
+import { Strings } from '@utils/strings'
 
 import { Country, CountryIso, RegionGroup } from '@meta/area'
 import { Assessment, Section, SubSection } from '@meta/assessment'

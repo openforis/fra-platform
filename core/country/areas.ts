@@ -1,9 +1,11 @@
+import { Strings } from '@utils/strings'
 import { i18n } from 'i18next'
-import { Country } from '@core/country/country'
+
 import { Global } from '@meta/area/global'
-import { Region } from '@core/country/region'
-import { RegionGroup } from '@core/country/regionGroup'
-import { Strings } from '@core/utils'
+
+import { Country } from './country'
+import { Region } from './region'
+import { RegionGroup } from './regionGroup'
 
 const getListName = (isoCode: string, i18n: i18n): string => i18n.t(`area.${isoCode}.listName`)
 

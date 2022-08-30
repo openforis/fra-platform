@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from '@core/utils'
+import { Numbers } from '@utils/numbers'
 
 import { Areas } from '@meta/area'
 import { TableNames } from '@meta/assessment'

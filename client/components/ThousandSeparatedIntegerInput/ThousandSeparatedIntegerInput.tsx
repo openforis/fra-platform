@@ -1,10 +1,11 @@
 /* eslint-disable react/static-property-placement */
 /* eslint-disable react/no-string-refs */
 /* eslint-disable react/destructuring-assignment */
-import React from 'react'
-import * as R from 'ramda'
 import './ThousandSeparatedIntegerInput.scss'
-import { Numbers } from '@core/utils'
+import React from 'react'
+
+import { Numbers } from '@utils/numbers'
+import * as R from 'ramda'
 
 type State = any
 type Props = any

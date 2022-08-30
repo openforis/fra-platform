@@ -1,5 +1,7 @@
-import { Objects } from '@core/utils'
+import { Objects } from '@utils/objects'
+
 import { Settings } from '@meta/assessment'
+
 import { BaseProtocol, DB } from '@server/db'
 
 export const update = async (props: { settings: Settings }, client: BaseProtocol = DB): Promise<Settings> => {

@@ -1,5 +1,6 @@
-import { ApiEndPoint } from '@meta/api/endpoint'
 import { Express } from 'express'
+
+import { ApiEndPoint } from '@meta/api/endpoint'
 
 import { AuthConfig } from './config'
 import { getGoogleCallback, getGoogleLogin, postLocalLogin } from './login'

@@ -1,7 +1,5 @@
 {
   "allowSyntheticDefaults": true,
-  "include": ["client", "core", "common",  "i18n", "meta","server", "webapp", "test"],
-
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
@@ -15,16 +13,37 @@
     "noUnusedParameters": true,
     "outDir": "./dist/",
     "paths": {
-      "@client/*": ["./client/*"],
-      "@core/*": ["./core/*"],
-      "@common/*": ["./common/*"],
-      "@i18n/*": ["./i18n/*"],
-      "@meta/*": ["./meta/*"],
-      "@server/*": ["./server/*"],
-      "@webapp/*": ["./webapp/*"],
-      "@test/*": ["./test/*"]
+      "@client/*": [
+        "./client/*"
+      ],
+      "@i18n/*": [
+        "./i18n/*"
+      ],
+      "@meta/*": [
+        "./meta/*"
+      ],
+      "@server/*": [
+        "./server/*"
+      ],
+      "@test/*": [
+        "./test/*"
+      ],
+      "@utils/*": [
+        "./utils/*"
+      ],
     },
-//    "strict": true,
+    //    "strict": true,
     "target": "ESNext"
-  }
+  },
+  "include": [
+    "utils",
+    "client",
+    "core",
+    "common",
+    "i18n",
+    "meta",
+    "server",
+    "webapp",
+    "test"
+  ]
 }

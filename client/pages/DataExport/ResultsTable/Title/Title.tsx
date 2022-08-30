@@ -2,7 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
-import { Objects } from '@core/utils'
+import { Objects } from '@utils/objects'
 
 import { Row } from '@meta/assessment'
 import { Unit, UnitFactors } from '@meta/dataExport'

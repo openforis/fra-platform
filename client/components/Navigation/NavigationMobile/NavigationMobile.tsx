@@ -1,10 +1,12 @@
 import './NavigationMobile.scss'
 import React from 'react'
+
 import classNames from 'classnames'
 
-import Icon from '@webapp/components/icon'
-import { NavigationActions, useNavigationVisible } from '@client/store/ui/navigation'
 import { useAppDispatch } from '@client/store'
+import { NavigationActions, useNavigationVisible } from '@client/store/ui/navigation'
+import Icon from '@client/components/Icon'
+
 import NavAssessment from '../NavAssessment'
 
 const NavigationMobile: React.FC = () => {

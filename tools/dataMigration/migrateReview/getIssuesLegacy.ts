@@ -1,5 +1,5 @@
-import { Objects } from '../../../core/utils/objects'
 import { BaseProtocol } from '../../../server/db'
+import { Objects } from '../../../utils/objects'
 
 export type IssueLegacy = {
   id: number

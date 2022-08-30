@@ -1,4 +1,4 @@
-import { UUIDs } from '@core/utils'
+import { UUIDs } from '@utils/uuids'
 
 import { Col as TypeCol, Row as TypeRow, RowType, Table } from '@meta/assessment'
 

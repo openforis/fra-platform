@@ -2,7 +2,7 @@ import '../../MultiSelect/MultiSelect.scss'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from '@core/utils'
+import { Objects } from '@utils/objects'
 import classNames from 'classnames'
 
 import { SubSection } from '@meta/assessment'

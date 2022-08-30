@@ -1,5 +1,7 @@
-import { Objects } from '@core/utils'
+import { Objects } from '@utils/objects'
+
 import { Assessment } from '@meta/assessment'
+
 import { BaseProtocol, DB } from '@server/db'
 import { read } from '@server/repository/assessment/assessment/read'
 

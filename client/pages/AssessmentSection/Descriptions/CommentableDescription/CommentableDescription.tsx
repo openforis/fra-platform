@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Objects } from '@core/utils'
+import { Objects } from '@utils/objects'
 
 import { Topics } from '@meta/messageCenter'
 

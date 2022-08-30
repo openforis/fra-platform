@@ -1,4 +1,5 @@
-import { Objects } from '@core/utils'
+import { Objects } from '@utils/objects'
+
 import { ODP } from '../odp'
 
 export const canCopyPreviousValues = (odp: ODP): boolean => {

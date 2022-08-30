@@ -1,10 +1,10 @@
 import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Areas } from '@core/country'
-import { Objects } from '@core/utils'
-import { Numbers } from '@core/utils/numbers'
+import { Numbers } from '@utils/numbers'
+import { Objects } from '@utils/objects'
 
+import { Areas } from '@meta/area'
 import { TableNames } from '@meta/assessment'
 import { TableData, TableDatas } from '@meta/data'
 

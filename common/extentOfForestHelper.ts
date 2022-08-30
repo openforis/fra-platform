@@ -1,5 +1,5 @@
+import { Numbers } from '@utils/numbers'
 import * as R from 'ramda'
-import { Numbers } from '@core/utils/numbers'
 
 /**
  * @deprecated (@use ExtentOfForestState)

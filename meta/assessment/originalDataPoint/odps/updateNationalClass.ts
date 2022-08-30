@@ -1,7 +1,7 @@
-import { Objects } from '@core/utils'
+import { Objects } from '@utils/objects'
 
-import { OriginalDataPoint } from '../originalDataPoint'
 import { ODPNationalClass, ODPNationalClassFactory } from '../odpNationalClass'
+import { OriginalDataPoint } from '../originalDataPoint'
 
 export const updateNationalClass = (props: {
   odp: OriginalDataPoint

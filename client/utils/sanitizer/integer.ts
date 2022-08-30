@@ -1,4 +1,5 @@
-import { Numbers, Objects } from '@core/utils'
+import { Numbers } from '@utils/numbers'
+import { Objects } from '@utils/objects'
 
 export const acceptableAsInteger = (newValue: string) => {
   const newValueTrimmed = newValue.trim()

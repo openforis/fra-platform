@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Numbers } from '@core/utils'
+import { Numbers } from '@utils/numbers'
 
 import { PropsCell } from '../props'
 

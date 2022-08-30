@@ -2,7 +2,8 @@ import './countrySelectModal.scss'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects, Strings } from '@core/utils'
+import { Objects } from '@utils/objects'
+import { Strings } from '@utils/strings'
 
 import { Areas, Country } from '@meta/area'
 
