@@ -15,6 +15,7 @@ const acceptedMessages = [
   ActivityLogMessage.originalDataPointUpdate,
   ActivityLogMessage.assessmentStatusUpdate,
   ActivityLogMessage.messageCreate,
+  ActivityLogMessage.topicStatusChange,
 ]
   .map((s) => `'${s}'`)
   .join(', ')

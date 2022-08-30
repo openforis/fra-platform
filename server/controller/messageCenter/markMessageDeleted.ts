@@ -1,3 +1,4 @@
+import { CountryIso } from '@meta/area'
 import { ActivityLogMessage, Assessment, Cycle } from '@meta/assessment'
 import { User } from '@meta/user'
 
@@ -8,13 +9,15 @@ import { MessageRepository } from '@server/repository/assessmentCycle/message'
 export const markMessageDeleted = async (
   props: {
     user: User
+    countryIso: CountryIso
     assessment: Assessment
     cycle: Cycle
+    sectionName: string
     id: number
   },
   client: BaseProtocol = DB
 ): Promise<void> => {
-  const { assessment, cycle, id, user } = props
+  const { countryIso, assessment, cycle, sectionName, id, user } = props
 
   return client.tx(async (t) => {
     await MessageRepository.markDeleted({ assessment, cycle, id }, t)
@@ -23,8 +26,9 @@ export const markMessageDeleted = async (
       {
         activityLog: {
           target: { id },
-          section: 'messageCenter',
+          section: sectionName,
           message: ActivityLogMessage.messageMarkDeleted,
+          countryIso,
           user,
         },
         assessment,

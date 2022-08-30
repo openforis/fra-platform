@@ -13,12 +13,13 @@ export const updateTopicStatus = async (
     countryIso: CountryIso
     assessment: Assessment
     cycle: Cycle
+    sectionName: string
     key: string
     status: MessageTopicStatus
   },
   client: BaseProtocol = DB
 ): Promise<MessageTopic> => {
-  const { user, countryIso, assessment, cycle, key, status } = props
+  const { user, countryIso, assessment, cycle, sectionName, key, status } = props
 
   return client.tx(async (t) => {
     const topic = await MessageTopicRepository.updateStatus(
@@ -30,8 +31,9 @@ export const updateTopicStatus = async (
       {
         activityLog: {
           target: topic,
-          section: 'messageCenter',
+          section: sectionName,
           message: ActivityLogMessage.topicStatusChange,
+          countryIso,
           user,
         },
         assessment,

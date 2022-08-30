@@ -17,9 +17,9 @@ export const addMessage = async (
     countryIso: CountryIso
     assessment: Assessment
     cycle: Cycle
+    sectionName: string
     key: string
     type: MessageTopicType
-    sectionName: string
   },
   client: BaseProtocol = DB
 ): Promise<{ topic: MessageTopic; message: Message }> => {
@@ -47,6 +47,7 @@ export const addMessage = async (
           target: message,
           section: sectionName,
           message: ActivityLogMessage.messageCreate,
+          countryIso,
           user,
         },
         assessment,
