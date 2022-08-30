@@ -31,17 +31,21 @@ export const updateCountry = async (
     await ActivityLogRepository.insertActivityLog(
       {
         activityLog: {
-          target: updatedCountry,
+          target: {
+            assessment: assessment.props.name,
+            status: country.props.status,
+          },
           section: 'assessment',
-          message: ActivityLogMessage.updateCountry,
+          message: ActivityLogMessage.assessmentStatusUpdate,
           countryIso,
           user,
         },
-        cycle,
         assessment,
+        cycle,
       },
       t
     )
+
     return updatedCountry
   })
 }

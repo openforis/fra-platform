@@ -1,7 +1,7 @@
 import { Response } from 'express'
 
 import { CycleRequest } from '@meta/api/request'
-import { Country, CountryIso } from '@meta/area'
+import { Country } from '@meta/area'
 
 import { AreaController } from '@server/controller/area'
 import { AssessmentController } from '@server/controller/assessment'
@@ -19,7 +19,7 @@ export const postCountry = async (
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     const updatedCountry = await AreaController.updateCountry({
-      countryIso: countryIso as CountryIso,
+      countryIso,
       cycle,
       assessment,
       country,
@@ -29,12 +29,13 @@ export const postCountry = async (
     if (notifyUsers === 'true') {
       await MailService.assessmentNotifyUsers({
         user: Requests.getRequestUser(req),
-        countryIso: countryIso as CountryIso,
+        countryIso,
         country,
         assessmentName,
         message,
       })
     }
+
     Requests.send(res, updatedCountry)
   } catch (e) {
     Requests.sendErr(res, e)

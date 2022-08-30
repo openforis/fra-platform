@@ -10,6 +10,7 @@ const messageToKey: { [key in keyof typeof ActivityLogMessage]?: string } = {
   [ActivityLogMessage.originalDataPointCreate]: 'added',
   [ActivityLogMessage.originalDataPointRemove]: 'deleted',
   [ActivityLogMessage.originalDataPointUpdate]: 'updated',
+  [ActivityLogMessage.assessmentStatusUpdate]: 'updateAssessmentStatus',
 }
 
 const getLabelActionKey = (activity: ActivityLog<any>) => {
