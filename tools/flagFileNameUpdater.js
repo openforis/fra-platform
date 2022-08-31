@@ -4,7 +4,7 @@ const fs = Promise.promisifyAll(require('fs'))
 const csv = Promise.promisifyAll(require('csv'))
 
 const countriesInputCsvFile = 'exampleData/FAOCountriesNOCS_EXPORT.csv'
-const flagDir = '../web-resources/img/flags/1x1'
+const flagDir = '../../web-resources/img/flags/1x1'
 console.log('reading file', countriesInputCsvFile)
 
 const doIt = async () => {
