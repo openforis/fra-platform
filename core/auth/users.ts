@@ -1,6 +1,5 @@
-import { User, UserRole } from '@core/auth/user'
-
 import { Role } from './role'
+import { User, UserRole } from './user'
 
 const isAdministrator = (userInfo: User): boolean =>
   Boolean(userInfo?.roles.find((userRole) => userRole.role === Role.administrator))
