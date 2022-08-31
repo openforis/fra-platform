@@ -17,12 +17,13 @@ export const addMessage = async (
     countryIso: CountryIso
     assessment: Assessment
     cycle: Cycle
+    sectionName: string
     key: string
     type: MessageTopicType
   },
   client: BaseProtocol = DB
 ): Promise<{ topic: MessageTopic; message: Message }> => {
-  const { message: messageText, user, countryIso, assessment, cycle, key, type } = props
+  const { message: messageText, user, countryIso, assessment, cycle, key, type, sectionName } = props
 
   return client.tx(async (t) => {
     let topic = await MessageTopicRepository.getOneOrNone(
@@ -44,8 +45,9 @@ export const addMessage = async (
       {
         activityLog: {
           target: message,
-          section: 'messageCenter',
+          section: sectionName,
           message: ActivityLogMessage.messageCreate,
+          countryIso,
           user,
         },
         assessment,

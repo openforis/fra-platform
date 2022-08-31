@@ -24,7 +24,14 @@ export const markMessageDeleted = async (
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-    await MessageCenterController.markMessageDeleted({ user, assessment, cycle, id: Number(messageId) })
+    await MessageCenterController.markMessageDeleted({
+      user,
+      countryIso,
+      assessment,
+      cycle,
+      sectionName,
+      id: Number(messageId),
+    })
 
     const topic = await MessageCenterController.getTopic({
       user,

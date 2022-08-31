@@ -25,6 +25,7 @@ export const addMessage = async (req: CycleDataRequest<{ key: string; type: Mess
       countryIso,
       assessment,
       cycle,
+      sectionName,
       key,
       type,
     })
@@ -37,6 +38,7 @@ export const addMessage = async (req: CycleDataRequest<{ key: string; type: Mess
         countryIso,
         assessment,
         cycle,
+        sectionName,
         key,
         status: MessageTopicStatus.opened,
       })
