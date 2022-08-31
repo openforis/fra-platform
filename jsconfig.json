@@ -11,5 +11,5 @@
       "@utils/*": ["./src/utils/*"]
     }
   },
-  "include": ["i18n", "client", "meta", "server", "test", "utils"]
+  "include": ["src", "test"]
 }

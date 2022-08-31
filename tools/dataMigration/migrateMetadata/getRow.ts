@@ -1,6 +1,6 @@
-import { Row, RowType } from '../../../meta/assessment/row'
-import { Table } from '../../../meta/assessment/table'
-import { RowSpec } from '../../../webapp/sectionSpec'
+import { RowSpec } from '../../../.src.legacy/webapp/sectionSpec'
+import { Row, RowType } from '../../../src/meta/assessment/row'
+import { Table } from '../../../src/meta/assessment/table'
 
 export const getRow = (props: { cycles: Array<string>; rowSpec: RowSpec; table: Table }): Row => {
   const { cycles, rowSpec, table } = props

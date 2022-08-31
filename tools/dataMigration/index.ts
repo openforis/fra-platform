@@ -1,16 +1,16 @@
 import * as path from 'path'
 import { config } from 'dotenv'
 
-import { FRA } from '../../core/assessment'
-import { Assessment as AssessmentLegacy } from '../../core/assessment/assessment'
-import { Assessment } from '../../meta/assessment/assessment'
-import { Cycle } from '../../meta/assessment/cycle'
-import { BaseProtocol, DB } from '../../server/db'
+import { FRA } from '../../.src.legacy/core/assessment'
+import { Assessment as AssessmentLegacy } from '../../.src.legacy/core/assessment/assessment'
+import { SectionSpec } from '../../.src.legacy/webapp/sectionSpec'
+import { Assessment } from '../../src/meta/assessment/assessment'
+import { Cycle } from '../../src/meta/assessment/cycle'
+import { BaseProtocol, DB } from '../../src/server/db'
 import {
   getCreateSchemaCycleDDL,
   getCreateSchemaDDL,
-} from '../../server/repository/assessment/assessment/getCreateSchemaDDL'
-import { SectionSpec } from '../../webapp/sectionSpec'
+} from '../../src/server/repository/assessment/assessment/getCreateSchemaDDL'
 import { migrateAggregates } from './migrateData/migrateAggregates'
 import { migrateOdps } from './migrateData/migrateOdps'
 import { migrateTablesData } from './migrateData/migrateTablesData'

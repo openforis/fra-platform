@@ -1,5 +1,5 @@
-import { Assessment } from '../../../meta/assessment/assessment'
-import { BaseProtocol } from '../../../server/db'
+import { Assessment } from '../../../src/meta/assessment/assessment'
+import { BaseProtocol } from '../../../src/server/db'
 import { getIssuesLegacy } from './getIssuesLegacy'
 import { getTableRows } from './getTableRows'
 import { MessageTopicRow } from './messageTopicRow'

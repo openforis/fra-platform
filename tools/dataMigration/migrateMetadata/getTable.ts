@@ -1,7 +1,7 @@
-import { Assessment } from '../../../meta/assessment/assessment'
-import { Table, TableColumnNames } from '../../../meta/assessment/table'
-import { TableSection } from '../../../meta/assessment/tableSection'
-import { TableSpec } from '../../../webapp/sectionSpec'
+import { TableSpec } from '../../../.src.legacy/webapp/sectionSpec'
+import { Assessment } from '../../../src/meta/assessment/assessment'
+import { Table, TableColumnNames } from '../../../src/meta/assessment/table'
+import { TableSection } from '../../../src/meta/assessment/tableSection'
 import { TableMapping } from '../dataTable/tableMappings'
 
 const fraYears = ['1990', '2000', '2010', '2015', '2016', '2017', '2018', '2019', '2020']

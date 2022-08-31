@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { SectionSpec } from '../../webapp/sectionSpec'
+import { SectionSpec } from '../../.src.legacy/webapp/sectionSpec'
 
 export const FraSpecs: Record<string, SectionSpec> = {
   contactPersons: {

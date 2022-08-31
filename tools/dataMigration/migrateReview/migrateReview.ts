@@ -1,7 +1,7 @@
 import * as pgPromise from 'pg-promise'
 
-import { Assessment } from '../../../meta/assessment/assessment'
-import { BaseProtocol } from '../../../server/db'
+import { Assessment } from '../../../src/meta/assessment/assessment'
+import { BaseProtocol } from '../../../src/server/db'
 import { DBNames } from '../_DBNames'
 import { getOdpTopics } from './getOdpTopics'
 import { getTableTopics } from './getTableTopics'

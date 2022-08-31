@@ -1,5 +1,5 @@
-import { BaseProtocol } from '../../server/db'
-import { Assessment } from '../../meta/assessment/assessment'
+import { Assessment } from '../../src/meta/assessment/assessment'
+import { BaseProtocol } from '../../src/server/db'
 
 type Props = {
   assessment: Assessment

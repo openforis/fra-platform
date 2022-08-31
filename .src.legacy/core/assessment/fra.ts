@@ -1,4 +1,4 @@
-import { Arrays } from '@utils/arrays'
+import { Arrays } from '../../../src/utils/arrays'
 
 import { Assessment, AssessmentType } from './assessment'
 

@@ -1,9 +1,9 @@
 import { ITask } from 'pg-promise'
 
-import { Col, ColType } from '../../../meta/assessment/col'
-import { Row, RowType } from '../../../meta/assessment/row'
-import { Table } from '../../../meta/assessment/table'
-import { Objects } from '../../../utils'
+import { Col, ColType } from '../../../src/meta/assessment/col'
+import { Row, RowType } from '../../../src/meta/assessment/row'
+import { Table } from '../../../src/meta/assessment/table'
+import { Objects } from '../../../src/utils'
 
 export const getRows = (client: ITask<any>, schema: string, table: Table): Promise<Array<Row>> =>
   client.map<Row>(

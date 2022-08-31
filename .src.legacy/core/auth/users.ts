@@ -1,4 +1,4 @@
-import { User, UserRole } from '@core/auth/user'
+import { User, UserRole } from './user'
 
 import { Role } from './role'
 
