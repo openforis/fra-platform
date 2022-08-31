@@ -1,0 +1,13 @@
+@import 'src/client/style/partials';
+
+.landing__btn-download {
+  margin-left: 12px;
+  display: flex;
+  align-items: center;
+  padding: $spacing-xxxs $spacing-xxs;
+
+  .icon-hit-down {
+    width: 14px;
+    height: 13px;
+  }
+}
