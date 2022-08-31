@@ -1,5 +1,5 @@
 // Mixins used in textInput, thousandSeparatedInput and percentInput
-@import "src/client/styles/config";
+@import 'src/client/styles/config';
 
 @mixin mixin-input-container(){
   display: flex;
