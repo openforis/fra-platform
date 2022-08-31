@@ -45,7 +45,6 @@ jobs:
           PGPASSWORD: frap
       - run: yarn build
       - run: yarn test
-      - run: yarn test:integration
         env:
           PGHOST: localhost
           PGPORT: 5442
