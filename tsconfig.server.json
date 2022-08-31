@@ -1,7 +1,7 @@
 {
   "allowSyntheticDefaults": true,
-  "include": ["utils", "i18n", "meta", "server"],
-  "exclude": ["node_modules"],
+  "include": ["src"],
+  "exclude": ["node_modules", "src/client"],
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
@@ -12,10 +12,10 @@
     "outDir": "./dist/",
     "baseUrl": ".",
     "paths": {
-      "@utils/*": ["utils/*"],
-      "@i18n/*": ["i18n/*"],
-      "@meta/*": ["meta/*"],
-      "@server/*": ["server/*"]
+      "@i18n/*": ["src/i18n/*"],
+      "@meta/*": ["src/meta/*"],
+      "@server/*": ["src/server/*"],
+      "@utils/*": ["src/utils/*"]
     },
     "target": "es2020",
     "lib": ["es2020", "esnext", "dom"]

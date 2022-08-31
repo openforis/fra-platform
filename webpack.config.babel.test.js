@@ -10,12 +10,12 @@ const webpackTestConfig = {
   resolve: {
     extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js', '.js', '.jsx', '.ts', '.tsx'],
     alias: {
-      '@i18n': path.resolve(__dirname, 'i18n/'),
-      '@client': path.resolve(__dirname, 'client/'),
-      '@meta': path.resolve(__dirname, 'meta/'),
-      '@server': path.resolve(__dirname, 'server/'),
+      '@i18n': path.resolve(__dirname, 'src/i18n/'),
+      '@client': path.resolve(__dirname, 'src/client/'),
+      '@meta': path.resolve(__dirname, 'src/meta/'),
+      '@server': path.resolve(__dirname, 'src/server/'),
       '@test': path.resolve(__dirname, 'test/'),
-      '@utils': path.resolve(__dirname, 'utils/'),
+      '@utils': path.resolve(__dirname, 'src/utils/'),
     },
   },
   module: {

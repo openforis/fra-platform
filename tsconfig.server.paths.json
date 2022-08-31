@@ -2,8 +2,8 @@
   "//": "This file is needed for fixing issue with imports: baseUrl is dist instead of .",
   "///": "For more info check: https://github.com/microsoft/TypeScript/issues/10866",
   "allowSyntheticDefaults": true,
-  "include": ["i18n", "meta", "server", "utils"],
-  "exclude": ["node_modules"],
+  "include": ["src"],
+  "exclude": ["node_modules", "src/client"],
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
@@ -14,10 +14,10 @@
     "outDir": "./dist/",
     "baseUrl": "./dist",
     "paths": {
-      "@i18n/*": ["i18n/*"],
-      "@meta/*": ["meta/*"],
-      "@server/*": ["server/*"],
-      "@utils/*": ["utils/*"]
+      "@i18n/*": ["src/i18n/*"],
+      "@meta/*": ["src/meta/*"],
+      "@server/*": ["src/server/*"],
+      "@utils/*": ["src/utils/*"]
     },
     "target": "es2020",
     "lib": ["es2020", "esnext"]
