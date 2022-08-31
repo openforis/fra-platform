@@ -4,29 +4,12 @@
     "target": "es2019",
     "baseUrl": "./",
     "paths": {
-      "@client/*": [
-        "./client/*"
-      ],
-      "@i18n/*": [
-        "./i18n/*"
-      ],
-      "@meta/*": [
-        "./meta/*"
-      ],
-      "@server/*": [
-        "./server/*"
-      ],
-      "@utils/*": [
-        "./utils/*"
-      ]
+      "@i18n/*": ["./i18n/*"],
+      "@client/*": ["./client/*"],
+      "@meta/*": ["./meta/*"],
+      "@server/*": ["./server/*"],
+      "@utils/*": ["./utils/*"]
     }
   },
-  "include": [
-    "utils",
-    "client",
-    "i18n",
-    "meta",
-    "server",
-    "test"
-  ]
+  "include": ["i18n", "client", "meta", "server", "test", "utils"]
 }
