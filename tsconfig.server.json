@@ -1,7 +1,7 @@
 {
   "allowSyntheticDefaults": true,
   "include": ["src"],
-  "exclude": ["node_modules", "src/client"],
+  "exclude": ["node_modules", "src/client", "src/test"],
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
