@@ -1,0 +1,15 @@
+@import 'src/client/style/partials';
+
+.edit-user__form-field-role-countries {
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.edit-user__form-field-country-box {
+  border: $ui-thin-border;
+  padding: 4px 8px;
+  border-radius: 3px;
+  background-color: lighten($ui-bg, 1%);
+  color: darken($text-disabled, 15%);
+  margin: 5px 2.5px 0;
+}

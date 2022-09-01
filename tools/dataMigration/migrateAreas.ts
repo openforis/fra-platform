@@ -1,4 +1,4 @@
-import { BaseProtocol } from '../../server/db'
+import { BaseProtocol } from '../../src/server/db'
 
 type Props = {
   client: BaseProtocol

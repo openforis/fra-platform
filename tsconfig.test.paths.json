@@ -2,10 +2,8 @@
   "//": "This file is needed for fixing issue with imports: baseUrl is dist instead of .",
   "///": "For more info check: https://github.com/microsoft/TypeScript/issues/10866",
   "allowSyntheticDefaults": true,
-  "include": ["utils","core","common", "i18n", "meta", "server",
-    "test/integration"
-  ],
-  "exclude": ["node_modules"],
+  "include": ["src"],
+  "exclude": ["node_modules", "src/client", "test/dataMigration"],
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
@@ -16,13 +14,11 @@
     "outDir": "./dist/",
     "baseUrl": "./dist",
     "paths": {
-      "@i18n/*": ["i18n/*"],
-      "@meta/*": ["meta/*"],
-      "@server/*": ["server/*"],
-      "@test/*": ["test/*"],
-      "@utils/*": ["utils/*"],
-      "@core/*": ["core/*"],
-      "@common/*": ["common/*"]
+      "@i18n/*": ["src/i18n/*"],
+      "@meta/*": ["src/meta/*"],
+      "@server/*": ["src/server/*"],
+      "@test/*": ["src/test/*"],
+      "@utils/*": ["src/utils/*"]
     },
     "target": "es2020",
     "lib": ["es2020", "esnext"]

@@ -1,4 +1,4 @@
-import { BaseProtocol } from '../../server/db'
+import { BaseProtocol } from '../../src/server/db'
 
 export const migrateUsersInvitation = async (props: { client: BaseProtocol }): Promise<void> => {
   const { client } = props

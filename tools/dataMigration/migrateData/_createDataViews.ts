@@ -1,6 +1,6 @@
-import { Assessment } from '../../../meta/assessment/assessment'
-import { Cycle } from '../../../meta/assessment/cycle'
-import { Table } from '../../../meta/assessment/table'
+import { Assessment } from '../../../src/meta/assessment/assessment'
+import { Cycle } from '../../../src/meta/assessment/cycle'
+import { Table } from '../../../src/meta/assessment/table'
 import { DBNames } from '../_DBNames'
 
 export const getCreateViewDDL = async (props: {

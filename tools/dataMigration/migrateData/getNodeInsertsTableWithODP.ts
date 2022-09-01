@@ -1,9 +1,9 @@
 import { ITask } from 'pg-promise'
 
-import { Assessment } from '../../../meta/assessment/assessment'
-import { NodeValue } from '../../../meta/assessment/node'
-import { Table } from '../../../meta/assessment/table'
-import { Objects } from '../../../utils'
+import { Assessment } from '../../../src/meta/assessment/assessment'
+import { NodeValue } from '../../../src/meta/assessment/node'
+import { Table } from '../../../src/meta/assessment/table'
+import { Objects } from '../../../src/utils'
 import { DBNames } from '../_DBNames'
 import { NodeRow } from './_getNodeInserts'
 import { getCols, getRows } from './_repos'
