@@ -1,6 +1,6 @@
 {
   "allowSyntheticDefaults": true,
-  "include": ["src", "test"],
+  "include": ["src"],
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
@@ -18,7 +18,7 @@
       "@client/*": ["./src/client/*"],
       "@meta/*": ["./src/meta/*"],
       "@server/*": ["./src/server/*"],
-      "@test/*": ["./test/*"],
+      "@test/*": ["./src/test/*"],
       "@utils/*": ["./src/utils/*"]
     },
     //    "strict": true,

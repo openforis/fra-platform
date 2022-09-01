@@ -1,6 +1,8 @@
-import { UserController } from '@server/controller/user'
-import { UserStatus, AuthProvider } from '@meta/user'
 import { userMockTest, userMockTestPassword } from '@test/integration/mock/user'
+
+import { AuthProvider, UserStatus } from '@meta/user'
+
+import { UserController } from '@server/controller/user'
 
 export default () =>
   test('Expect user to be created', async () => {

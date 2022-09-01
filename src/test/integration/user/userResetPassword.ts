@@ -1,7 +1,9 @@
+import { userMockTest, userMockTestPassword } from '@test/integration/mock/user'
+
+import { AuthProvider, User } from '@meta/user'
+
 import { UserController } from '@server/controller/user'
 import { UserProviderController } from '@server/controller/userProvider'
-import { AuthProvider, User } from '@meta/user'
-import { userMockTest, userMockTestPassword } from '@test/integration/mock/user'
 
 export default (): void =>
   describe('User Reset Password', () => {

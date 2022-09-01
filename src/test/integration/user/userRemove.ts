@@ -1,5 +1,6 @@
-import { UserController } from '@server/controller/user'
 import { userMockTest } from '@test/integration/mock/user'
+
+import { UserController } from '@server/controller/user'
 
 export default () =>
   test('Expect user to be removed', async () => {

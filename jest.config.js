@@ -10,7 +10,7 @@ module.exports = {
     '@i18n/(.*)': '<rootDir>/src/i18n/$1',
     '@meta/(.*)': '<rootDir>/src/meta/$1',
     '@server/(.*)': '<rootDir>/src/server/$1',
-    '@test/(.*)': '<rootDir>/test/$1',
+    '@test/(.*)': '<rootDir>/src/test/$1',
     '@utils/(.*)': '<rootDir>/src/utils/$1',
   },
   globals: {

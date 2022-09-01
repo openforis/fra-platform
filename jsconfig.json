@@ -11,5 +11,5 @@
       "@utils/*": ["./src/utils/*"]
     }
   },
-  "include": ["src", "test"]
+  "include": ["src"]
 }

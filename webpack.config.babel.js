@@ -63,7 +63,7 @@ const appConfig = {
       '@client': path.resolve(__dirname, 'src/client/'),
       '@meta': path.resolve(__dirname, 'src/meta/'),
       '@server': path.resolve(__dirname, 'src/server/'),
-      '@test': path.resolve(__dirname, 'test/'),
+      '@test': path.resolve(__dirname, 'src/test/'),
       '@utils': path.resolve(__dirname, 'src/utils/'),
     },
   },
