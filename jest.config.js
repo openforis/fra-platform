@@ -8,6 +8,7 @@ module.exports = {
   moduleDirectories: ['node_modules'],
   moduleNameMapper: {
     '@i18n/(.*)': '<rootDir>/src/i18n/$1',
+    '@client/(.*)': '<rootDir>/src/client/$1',
     '@meta/(.*)': '<rootDir>/src/meta/$1',
     '@server/(.*)': '<rootDir>/src/server/$1',
     '@test/(.*)': '<rootDir>/src/test/$1',
