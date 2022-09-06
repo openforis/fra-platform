@@ -6,6 +6,8 @@ export const ApiEndPoint = {
   definitions: (lang = ':lang', name = ':name') => joinPaths('definitions', lang, name),
   Area: {
     country: () => apiPath('country'),
+    file: (id = ':id') => apiPath('country', 'file', id),
+    files: () => apiPath('country', 'files'),
   },
 
   Auth: {
