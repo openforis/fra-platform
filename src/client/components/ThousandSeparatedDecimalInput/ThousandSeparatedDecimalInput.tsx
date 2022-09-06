@@ -1,9 +1,10 @@
 import './ThousandSeparatedDecimalInput.scss'
 import React from 'react'
 
-import { acceptableAsDecimal } from '@utils/numberInput'
 import { Numbers } from '@utils/numbers'
 import * as R from 'ramda'
+
+import { Sanitizer } from '@client/utils/sanitizer'
 
 type State = any
 type Props = any
@@ -30,7 +31,7 @@ export class ThousandSeparatedDecimalInput extends React.Component<Props, State>
           value={value || ''}
           style={{ opacity: this.state.hasFocus ? '1' : '0' }}
           onChange={(e) => {
-            if (!acceptableAsDecimal(e.target.value)) {
+            if (!Sanitizer.acceptableAsDecimal(e.target.value)) {
               return
             }
             this.setState({ inputValue: e.target.value })
