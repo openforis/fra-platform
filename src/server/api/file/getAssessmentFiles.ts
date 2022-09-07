@@ -7,7 +7,7 @@ import { AreaController } from '@server/controller/area'
 import { AssessmentController } from '@server/controller/assessment'
 import { Requests } from '@server/utils'
 
-export const getFiles = async (req: Request, res: Response) => {
+export const getAssessmentFiles = async (req: Request, res: Response) => {
   try {
     const { assessmentName, countryIso } = req.query as { assessmentName: AssessmentName; countryIso: CountryIso }
 

@@ -14,7 +14,7 @@ const Links: React.FC = () => {
   const assessment = useAssessment()
   const i18n = useTranslation()
 
-  const { data, dispatch: fetchData } = useGetRequest(ApiEndPoint.Area.files(), {
+  const { data, dispatch: fetchData } = useGetRequest(ApiEndPoint.File.Assessment.many(), {
     params: { countryIso, assessmentName: assessment.props.name },
   }) as { data: Array<AssessmentFile>; dispatch: any }
 

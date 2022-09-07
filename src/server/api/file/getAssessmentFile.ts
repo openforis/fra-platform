@@ -7,7 +7,7 @@ import { AreaController } from '@server/controller/area'
 import { AssessmentController } from '@server/controller/assessment'
 import Requests from '@server/utils/requests'
 
-export const getFile = async (req: Request, res: Response) => {
+export const getAssessmentFile = async (req: Request, res: Response) => {
   try {
     const { id } = req.params
 
