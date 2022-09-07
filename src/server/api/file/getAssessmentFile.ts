@@ -3,7 +3,6 @@ import { Request, Response } from 'express'
 
 import { AssessmentName } from '@meta/assessment'
 
-import { AreaController } from '@server/controller/area'
 import { AssessmentController } from '@server/controller/assessment'
 import Requests from '@server/utils/requests'
 
@@ -15,7 +14,7 @@ export const getAssessmentFile = async (req: Request, res: Response) => {
 
     const assessment = await AssessmentController.getOne({ assessmentName })
 
-    const assessmentFile = await AreaController.getFile({ assessment, id: Number(id) })
+    const assessmentFile = await AssessmentController.getFile({ assessment, id: Number(id) })
 
     if (assessmentFile && assessmentFile.file) {
       res.end(assessmentFile.file, 'binary')

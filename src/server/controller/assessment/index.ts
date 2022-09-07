@@ -1,3 +1,4 @@
+import { AssessmentFileRepository } from '@server/repository/assessment/file'
 import { TableRepository } from '@server/repository/assessment/table'
 
 import { create } from './create'
@@ -7,9 +8,11 @@ import { remove } from './remove'
 
 export const AssessmentController = {
   create,
+  createCycle,
+  getFile: AssessmentFileRepository.getOne,
+  getFiles: AssessmentFileRepository.getMany,
   getOne,
   getOneWithCycle,
-  remove,
-  createCycle,
   getTable: TableRepository.getOne,
+  remove,
 }
