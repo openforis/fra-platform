@@ -5,7 +5,7 @@ import { Assessment, AssessmentFile } from '@meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
-const fields: Array<string> = ['id', 'uuid', 'country_iso']
+const fields: Array<string> = ['id', 'uuid', 'country_iso', 'file_name']
 
 const selectFields = fields.map((f) => `f.${f}`).join(',')
 
