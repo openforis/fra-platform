@@ -3,6 +3,7 @@ import { User } from '../user'
 export enum ActivityLogMessage {
   assessmentCreate = 'assessmentCreate',
   assessmentCycleCreate = 'assessmentCycleCreate',
+  assessmentFileCreate = 'assessmentFileCreate',
   assessmentStatusUpdate = 'assessmentStatusUpdate',
   originalDataPointCreate = 'originalDataPointCreate',
   originalDataPointUpdate = 'originalDataPointUpdate',
