@@ -5,8 +5,12 @@ import { useTranslation } from 'react-i18next'
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { AssessmentFile } from '@meta/assessment'
 
-import { useAssessment } from '@client/store/assessment'
+import { useAppDispatch } from '@client/store'
+import { useAssessment, useCycle } from '@client/store/assessment'
+import { AssessmentFilesActions } from '@client/store/ui/assessmentFiles'
 import { useCountryIso, useGetRequest } from '@client/hooks'
+import { useToaster } from '@client/hooks/useToaster'
+import Icon from '@client/components/Icon'
 
 const links = [
   {
@@ -19,9 +23,14 @@ const links = [
 ]
 
 const Links: React.FC = () => {
+  const dispatch = useAppDispatch()
+  const { toaster } = useToaster()
   const countryIso = useCountryIso()
   const assessment = useAssessment()
+  const cycle = useCycle()
   const i18n = useTranslation()
+
+  const countryFileRef = useRef<HTMLInputElement>(null)
 
   const { data, dispatch: fetchData } = useGetRequest(ApiEndPoint.File.Assessment.many(), {
     params: { countryIso, assessmentName: assessment.props.name },
@@ -57,6 +66,35 @@ const Links: React.FC = () => {
 
       <div className="landing__page-container-header landing__repository-header">
         <h3>{i18n.t('landing.links.repository')}</h3>
+
+        <input
+          ref={countryFileRef}
+          type="file"
+          style={{ display: 'none' }}
+          onChange={() => {
+            dispatch(
+              AssessmentFilesActions.upload({
+                assessmentName: assessment.props.name,
+                cycleName: cycle.name,
+                countryIso,
+                file: countryFileRef?.current?.files[0],
+              })
+            ).then(() => {
+              toaster.success('')
+            })
+          }}
+        />
+        <button
+          className="btn-s btn-primary"
+          onClick={() => {
+            countryFileRef.current.value = ''
+            countryFileRef.current.dispatchEvent(new MouseEvent('click'))
+          }}
+          type="button"
+        >
+          <Icon className="icon-sub icon-white" name="hit-up" />
+          {i18n.t('landing.links.uploadFile')}
+        </button>
 
         {countryFiles.map((assessmentFile, index) => {
           // eslint-disable-next-line react/no-array-index-key
