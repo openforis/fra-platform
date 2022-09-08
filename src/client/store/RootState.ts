@@ -5,7 +5,6 @@ import { LoginState } from './login/stateType'
 import { AssessmentSectionState } from './pages/assessmentSection'
 import { DataExportState } from './pages/dataExport'
 import { OriginalDataPointState } from './pages/originalDataPoint'
-import { AssessmentFilesState } from './ui/assessmentFiles/stateType'
 import { GeoState } from './ui/geo/stateType'
 import { HomeState } from './ui/home/stateType'
 import { MessageCenterState } from './ui/messageCenter/stateType'
@@ -27,7 +26,6 @@ export type RootState = {
   }
 
   ui: {
-    assessmentFiles: AssessmentFilesState
     dataLock: DataLockState
     home: HomeState
     messageCenter: MessageCenterState
