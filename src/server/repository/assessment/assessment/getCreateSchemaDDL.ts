@@ -70,7 +70,7 @@ create table ${schemaName}.col
 create table ${schemaName}.file
 (
     id               bigserial NOT NULL,
-    uuid             uuid  default uuid_generate_v4(),
+    uuid             uuid default uuid_generate_v4() NOT NULL,
     country_iso      varchar(3) references public.country,
     file_name        varchar(250) NOT NULL,
     file             bytea NOT NULL
