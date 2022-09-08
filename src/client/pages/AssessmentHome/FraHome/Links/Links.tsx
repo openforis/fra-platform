@@ -2,13 +2,11 @@ import './Links.scss'
 import React, { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { AssessmentFile } from '@meta/assessment'
-
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { AssessmentFilesActions } from '@client/store/ui/assessmentFiles'
-import { useCountryIso, useGetRequest } from '@client/hooks'
+import { useAssessmentFiles } from '@client/store/ui/assessmentFiles/hooks'
+import { useCountryIso } from '@client/hooks'
 import { useToaster } from '@client/hooks/useToaster'
 import Icon from '@client/components/Icon'
 
@@ -29,21 +27,22 @@ const Links: React.FC = () => {
   const assessment = useAssessment()
   const cycle = useCycle()
   const i18n = useTranslation()
+  const assessmentFiles = useAssessmentFiles()
 
   const countryFileRef = useRef<HTMLInputElement>(null)
 
-  const { data, dispatch: fetchData } = useGetRequest(ApiEndPoint.File.Assessment.many(), {
-    params: { countryIso, assessmentName: assessment.props.name },
-  }) as { data: Array<AssessmentFile>; dispatch: any }
+  const countryFiles = assessmentFiles[countryIso] || []
+  const globalFiles = assessmentFiles.globals
 
-  const fetchRef = useRef(fetchData)
-
-  useEffect(() => fetchRef.current(), [fetchRef])
-
-  if (!data) return null
-
-  const countryFiles = data.filter((f) => f.countryIso === countryIso)
-  const globalFiles = data.filter((f) => !f.countryIso)
+  useEffect(() => {
+    dispatch(
+      AssessmentFilesActions.getFiles({
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
+        countryIso,
+      })
+    )
+  }, [assessment, cycle, countryIso, dispatch])
 
   return (
     <div className="landing__page-container">
