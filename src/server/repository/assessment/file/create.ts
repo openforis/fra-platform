@@ -5,8 +5,6 @@ import { Assessment, AssessmentFile } from '@meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
-import { getOne } from './getOne'
-
 export const create = async (
   props: { assessment: Assessment; countryIso?: CountryIso; file: Express.Multer.File },
   client: BaseProtocol = DB
@@ -19,13 +17,11 @@ export const create = async (
 
   const schemaName = Schemas.getName(assessment)
 
-  const assessmenFile = await client.one<AssessmentFile>(
+  return client.one<AssessmentFile>(
     `
       insert into ${schemaName}.file (country_iso, file_name, file) values ($1, $2, $3) returning *
     `,
     [countryIso, originalname, buffer],
     Objects.camelize
   )
-
-  return getOne({ assessment, id: assessmenFile.id }, client)
 }

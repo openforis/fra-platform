@@ -18,7 +18,14 @@ export const getMany = async (
   const schemaName = Schemas.getName(assessment)
 
   return client.map<AssessmentFile>(
-    `select ${selectFields} from ${schemaName}.file f where f.country_iso = $1;`,
+    `
+      select
+        ${selectFields}
+      from ${schemaName}.file f
+      where
+        f.country_iso = $1
+        or f.country_iso is null;
+    `,
     [countryIso],
     (row) => Objects.camelize(row)
   )

@@ -23,10 +23,5 @@ export const getOne = async (
 
   const schemaName = Schemas.getName(assessment)
 
-  return client.oneOrNone<AssessmentFile | undefined>(
-    `select * from ${schemaName}.file f 
-        ${where}
-    `,
-    [value]
-  )
+  return client.oneOrNone<AssessmentFile | undefined>(`select * from ${schemaName}.file f  ${where}`, [value])
 }
