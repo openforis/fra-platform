@@ -59,10 +59,14 @@ const Links: React.FC = () => {
         </div>
       ))}
 
-      {globalFiles.map((assessmentFile, index) => {
+      {globalFiles.map((assessmentFile, index) => (
         // eslint-disable-next-line react/no-array-index-key
-        return <div key={String(index)}>{assessmentFile.fileName}</div>
-      })}
+        <div key={index} className="landing__link-container">
+          <a href={`/api/fileRepository/${countryIso}/file/${assessmentFile.id}`} target="_blank" rel="noreferrer">
+            {assessmentFile.fileName}
+          </a>
+        </div>
+      ))}
 
       <div className="landing__page-container-header landing__repository-header">
         <h3>{i18n.t('landing.links.repository')}</h3>
@@ -95,12 +99,16 @@ const Links: React.FC = () => {
           <Icon className="icon-sub icon-white" name="hit-up" />
           {i18n.t('landing.links.uploadFile')}
         </button>
-
-        {countryFiles.map((assessmentFile, index) => {
-          // eslint-disable-next-line react/no-array-index-key
-          return <div key={String(index)}>{assessmentFile.fileName}</div>
-        })}
       </div>
+
+      {countryFiles.map((assessmentFile, index) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <div key={index} className="landing__link-container">
+          <a href={`/api/fileRepository/${countryIso}/file/${assessmentFile.id}`} target="_blank" rel="noreferrer">
+            {assessmentFile.fileName}
+          </a>
+        </div>
+      ))}
     </div>
   )
 }
