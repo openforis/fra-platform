@@ -17,4 +17,5 @@ export const AssessmentController = {
   getOneWithCycle,
   getTable: TableRepository.getOne,
   remove,
+  removeFile: AssessmentFileRepository.remove,
 }

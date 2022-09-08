@@ -7,6 +7,7 @@ import { getFile } from './get'
 import { getAssessmentFile } from './getAssessmentFile'
 import { getAssessmentFiles } from './getAssessmentFiles'
 import { getDataDownloadFile } from './getDataDownloadFile'
+import { removeAssessmentFile } from './removeAssessmentFile'
 import multer = require('multer')
 
 export const FileApi = {
@@ -19,5 +20,6 @@ export const FileApi = {
     express.put(ApiEndPoint.File.Assessment.many(), multer().single('file'), createAssessmentFile)
     express.get(ApiEndPoint.File.Assessment.many(), getAssessmentFiles)
     express.get(ApiEndPoint.File.Assessment.one(), getAssessmentFile)
+    express.delete(ApiEndPoint.File.Assessment.one(), removeAssessmentFile)
   },
 }
