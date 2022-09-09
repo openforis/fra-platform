@@ -1,9 +1,9 @@
-import * as path from 'path'
 import { Request, Response } from 'express'
 
 import { AssessmentName } from '@meta/assessment'
 
 import { AssessmentController } from '@server/controller/assessment'
+import { FileController } from '@server/controller/file'
 import Requests from '@server/utils/requests'
 
 export const getAssessmentFile = async (req: Request, res: Response) => {
@@ -14,12 +14,12 @@ export const getAssessmentFile = async (req: Request, res: Response) => {
 
     const assessment = await AssessmentController.getOne({ assessmentName })
 
-    const assessmentFile = await AssessmentController.getFile({ assessment, id: Number(id) })
+    const assessmentFile = await FileController.getAssessmentFile({ assessment, id: Number(id) })
 
     if (assessmentFile && assessmentFile.file) {
       res.end(assessmentFile.file, 'binary')
     } else {
-      res.sendFile(path.resolve(__dirname, '..', '..', 'static', 'avatar.png'))
+      Requests.sendErr(res)
     }
   } catch (e) {
     Requests.sendErr(res, e)

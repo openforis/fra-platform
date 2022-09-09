@@ -3,6 +3,7 @@ import { Request, Response } from 'express'
 import { AssessmentName } from '@meta/assessment'
 
 import { AssessmentController } from '@server/controller/assessment'
+import { FileController } from '@server/controller/file'
 import Requests from '@server/utils/requests'
 
 export const removeAssessmentFile = async (req: Request, res: Response) => {
@@ -13,7 +14,7 @@ export const removeAssessmentFile = async (req: Request, res: Response) => {
 
     const assessment = await AssessmentController.getOne({ assessmentName })
 
-    await AssessmentController.removeFile({ assessment, id: Number(id) })
+    await FileController.removeAssessmentFile({ assessment, id: Number(id) })
 
     Requests.sendOk(res)
   } catch (e) {

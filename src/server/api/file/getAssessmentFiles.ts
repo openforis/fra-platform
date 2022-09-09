@@ -4,6 +4,7 @@ import { CountryIso } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
 
 import { AssessmentController } from '@server/controller/assessment'
+import { FileController } from '@server/controller/file'
 import { Requests } from '@server/utils'
 
 export const getAssessmentFiles = async (req: Request, res: Response) => {
@@ -12,7 +13,7 @@ export const getAssessmentFiles = async (req: Request, res: Response) => {
 
     const assessment = await AssessmentController.getOne({ assessmentName })
 
-    const files = await AssessmentController.getFiles({
+    const files = await FileController.getAssessmentFiles({
       assessment,
       countryIso,
     })
