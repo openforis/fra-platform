@@ -17,6 +17,7 @@ export const getAssessmentFile = async (req: Request, res: Response) => {
     const assessmentFile = await FileController.getAssessmentFile({ assessment, id: Number(id) })
 
     if (assessmentFile && assessmentFile.file) {
+      res.setHeader('Content-Disposition', `attachment; filename=${assessmentFile.fileName}`)
       res.end(assessmentFile.file, 'binary')
     } else {
       Requests.sendErr(res)
