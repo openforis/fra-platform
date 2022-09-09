@@ -1,6 +1,8 @@
 import './Links.scss'
-import React, { useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
+
+import { CountryIso } from '@meta/area'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
@@ -34,6 +36,29 @@ const Links: React.FC = () => {
   const countryFiles = assessmentFiles[countryIso] || []
   const globalFiles = assessmentFiles.globals
 
+  const uploadAssessmentFile = useCallback(
+    (countryIso?: CountryIso) => {
+      dispatch(
+        AssessmentFilesActions.upload({
+          assessmentName: assessment.props.name,
+          cycleName: cycle.name,
+          countryIso,
+          file: countryFileRef?.current?.files[0],
+        })
+      ).then(() => {
+        dispatch(
+          AssessmentFilesActions.getFiles({
+            assessmentName: assessment.props.name,
+            cycleName: cycle.name,
+            countryIso,
+          })
+        )
+        toaster.success('')
+      })
+    },
+    [dispatch, assessment.props.name, cycle.name, toaster]
+  )
+
   useEffect(() => {
     dispatch(
       AssessmentFilesActions.getFiles({
@@ -48,6 +73,19 @@ const Links: React.FC = () => {
     <div className="landing__page-container">
       <div className="landing__page-container-header landing__repository-header">
         <h3>{i18n.t('landing.links.links')}</h3>
+
+        <input ref={countryFileRef} type="file" style={{ display: 'none' }} onChange={() => uploadAssessmentFile()} />
+        <button
+          className="btn-s btn-primary"
+          onClick={() => {
+            countryFileRef.current.value = ''
+            countryFileRef.current.dispatchEvent(new MouseEvent('click'))
+          }}
+          type="button"
+        >
+          <Icon className="icon-sub icon-white" name="hit-up" />
+          {i18n.t('landing.links.uploadFile')}
+        </button>
       </div>
 
       {links.map((link) => (
@@ -74,18 +112,7 @@ const Links: React.FC = () => {
           ref={countryFileRef}
           type="file"
           style={{ display: 'none' }}
-          onChange={() => {
-            dispatch(
-              AssessmentFilesActions.upload({
-                assessmentName: assessment.props.name,
-                cycleName: cycle.name,
-                countryIso,
-                file: countryFileRef?.current?.files[0],
-              })
-            ).then(() => {
-              toaster.success('')
-            })
-          }}
+          onChange={() => uploadAssessmentFile(countryIso)}
         />
         <button
           className="btn-s btn-primary"
