@@ -10,7 +10,7 @@ import { Requests } from '@server/utils'
 export const createAssessmentFile = async (req: Request, res: Response) => {
   try {
     const assessmentFile = req.file
-    const countryIso = req.body.countryIso as CountryIso
+    const fileCountryIso = req.body.fileCountryIso as CountryIso | null
     const assessmentName = req.body.assessmentName as AssessmentName
 
     const user = Requests.getRequestUser(req)
@@ -20,7 +20,7 @@ export const createAssessmentFile = async (req: Request, res: Response) => {
     const updatedAssessmentFile = await FileController.createAssessmentFile({
       assessment,
       assessmentFile,
-      countryIso,
+      countryIso: fileCountryIso || null,
       user,
     })
 
