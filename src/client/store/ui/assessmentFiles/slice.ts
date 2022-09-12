@@ -1,6 +1,6 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import { getFiles, upload } from './actions'
+import { deleteFile, getFiles, upload } from './actions'
 import { AssessmentFilesState } from './stateType'
 
 const initialState: AssessmentFilesState = {
@@ -28,6 +28,7 @@ export const assessmentFilesSlice = createSlice({
 
 export const AssessmentFilesActions = {
   ...assessmentFilesSlice.actions,
+  deleteFile,
   getFiles,
   upload,
 }

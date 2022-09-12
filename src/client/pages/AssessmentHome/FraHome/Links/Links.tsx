@@ -54,10 +54,33 @@ const Links: React.FC = () => {
             countryIso,
           })
         )
-        toaster.success('')
+        toaster.success(i18n.t('landing.links.fileUploaded'))
       })
     },
-    [dispatch, assessment.props.name, cycle.name, toaster]
+    [dispatch, assessment.props.name, cycle.name, toaster, i18n]
+  )
+
+  const deleteAssessmentFile = useCallback(
+    (uuid: string) => {
+      dispatch(
+        AssessmentFilesActions.deleteFile({
+          assessmentName: assessment.props.name,
+          cycleName: cycle.name,
+          countryIso,
+          uuid,
+        })
+      ).then(() => {
+        dispatch(
+          AssessmentFilesActions.getFiles({
+            assessmentName: assessment.props.name,
+            cycleName: cycle.name,
+            countryIso,
+          })
+        )
+        toaster.success(i18n.t('landing.links.fileDeleted'))
+      })
+    },
+    [dispatch, assessment.props.name, cycle.name, countryIso, toaster, i18n]
   )
 
   useEffect(() => {
@@ -107,6 +130,17 @@ const Links: React.FC = () => {
           >
             {assessmentFile.fileName}
           </a>
+          <button
+            type="button"
+            className="btn-xs landing__btn-remove-file"
+            onClick={() =>
+              window.confirm(i18n.t('landing.links.confirmDelete', { file: assessmentFile.fileName }))
+                ? deleteAssessmentFile(assessmentFile.uuid)
+                : null
+            }
+          >
+            <Icon className="icon-no-margin" name="trash-simple" />
+          </button>
         </div>
       ))}
 
@@ -142,6 +176,17 @@ const Links: React.FC = () => {
           >
             {assessmentFile.fileName}
           </a>
+          <button
+            type="button"
+            className="btn-xs landing__btn-remove-file"
+            onClick={() =>
+              window.confirm(i18n.t('landing.links.confirmDelete', { file: assessmentFile.fileName }))
+                ? deleteAssessmentFile(assessmentFile.uuid)
+                : null
+            }
+          >
+            <Icon className="icon-no-margin" name="trash-simple" />
+          </button>
         </div>
       ))}
     </div>
