@@ -17,7 +17,7 @@ export const createAssessmentFile = async (req: Request, res: Response) => {
 
     const assessment = await AssessmentController.getOne({ assessmentName })
 
-    const updatedAssessmentFile = await FileController.createFile({
+    const updatedAssessmentFile = await FileController.createAssessmentFile({
       assessment,
       assessmentFile,
       countryIso,

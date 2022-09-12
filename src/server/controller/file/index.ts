@@ -1,9 +1,9 @@
 import { AssessmentFileRepository } from '@server/repository/assessment/file'
 
-import { createFile } from './createFile'
+import { createAssessmentFile } from './createAssessmentFile'
 
 export const FileController = {
-  createFile,
+  createAssessmentFile,
   getAssessmentFile: AssessmentFileRepository.getOne,
   getAssessmentFiles: AssessmentFileRepository.getMany,
   removeAssessmentFile: AssessmentFileRepository.remove,
