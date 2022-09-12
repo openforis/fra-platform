@@ -4,6 +4,7 @@ import { CountryIso } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
 
 import { AssessmentController } from '@server/controller/assessment'
+import { FileController } from '@server/controller/file'
 import { Requests } from '@server/utils'
 
 export const createAssessmentFile = async (req: Request, res: Response) => {
@@ -16,7 +17,7 @@ export const createAssessmentFile = async (req: Request, res: Response) => {
 
     const assessment = await AssessmentController.getOne({ assessmentName })
 
-    const updatedAssessmentFile = await AssessmentController.createFile({
+    const updatedAssessmentFile = await FileController.createFile({
       assessment,
       assessmentFile,
       countryIso,
