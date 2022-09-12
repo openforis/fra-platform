@@ -26,7 +26,7 @@ export const createAssessmentFile = async (
     await ActivityLogRepository.insertActivityLog(
       {
         activityLog: {
-          target: { filename: createdAssessmentFile.fileName },
+          target: { fileName: createdAssessmentFile.fileName },
           section: 'assessment',
           message: ActivityLogMessage.assessmentFileCreate,
           countryIso,
