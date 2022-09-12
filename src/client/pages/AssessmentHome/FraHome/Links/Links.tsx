@@ -2,6 +2,7 @@ import './Links.scss'
 import React, { useCallback, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { ApiEndPoint } from '@meta/api/endpoint'
 import { CountryIso } from '@meta/area'
 
 import { useAppDispatch } from '@client/store'
@@ -99,7 +100,11 @@ const Links: React.FC = () => {
       {globalFiles.map((assessmentFile, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <div key={index} className="landing__link-container">
-          <a href={`/api/fileRepository/${countryIso}/file/${assessmentFile.uuid}`} target="_blank" rel="noreferrer">
+          <a
+            href={`${ApiEndPoint.File.Assessment.one(assessmentFile.uuid)}?assessmentName=${assessment.props.name}`}
+            target="_blank"
+            rel="noreferrer"
+          >
             {assessmentFile.fileName}
           </a>
         </div>
@@ -130,7 +135,11 @@ const Links: React.FC = () => {
       {countryFiles.map((assessmentFile, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <div key={index} className="landing__link-container">
-          <a href={`/api/fileRepository/${countryIso}/file/${assessmentFile.uuid}`} target="_blank" rel="noreferrer">
+          <a
+            href={`${ApiEndPoint.File.Assessment.one(assessmentFile.uuid)}?assessmentName=${assessment.props.name}`}
+            target="_blank"
+            rel="noreferrer"
+          >
             {assessmentFile.fileName}
           </a>
         </div>
