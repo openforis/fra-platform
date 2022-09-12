@@ -33,18 +33,20 @@ const Links: React.FC = () => {
   const assessmentFiles = useAssessmentFiles()
 
   const countryFileRef = useRef<HTMLInputElement>(null)
+  const globalFileRef = useRef<HTMLInputElement>(null)
 
   const countryFiles = assessmentFiles[countryIso] || []
   const globalFiles = assessmentFiles.globals
 
   const uploadAssessmentFile = useCallback(
-    (countryIso?: CountryIso) => {
+    (fileCountryIso?: CountryIso) => {
       dispatch(
         AssessmentFilesActions.upload({
           assessmentName: assessment.props.name,
           cycleName: cycle.name,
           countryIso,
-          file: countryFileRef?.current?.files[0],
+          file: countryIso ? countryFileRef?.current?.files[0] : globalFileRef?.current?.files[0],
+          fileCountryIso,
         })
       ).then(() => {
         dispatch(
@@ -57,7 +59,7 @@ const Links: React.FC = () => {
         toaster.success(i18n.t('landing.links.fileUploaded'))
       })
     },
-    [dispatch, assessment.props.name, cycle.name, toaster, i18n]
+    [dispatch, assessment.props.name, cycle.name, countryIso, toaster, i18n]
   )
 
   const deleteAssessmentFile = useCallback(
@@ -98,12 +100,12 @@ const Links: React.FC = () => {
       <div className="landing__page-container-header landing__repository-header">
         <h3>{i18n.t('landing.links.links')}</h3>
 
-        <input ref={countryFileRef} type="file" style={{ display: 'none' }} onChange={() => uploadAssessmentFile()} />
+        <input ref={globalFileRef} type="file" style={{ display: 'none' }} onChange={() => uploadAssessmentFile()} />
         <button
           className="btn-s btn-primary"
           onClick={() => {
-            countryFileRef.current.value = ''
-            countryFileRef.current.dispatchEvent(new MouseEvent('click'))
+            globalFileRef.current.value = ''
+            globalFileRef.current.dispatchEvent(new MouseEvent('click'))
           }}
           type="button"
         >
