@@ -9,49 +9,50 @@ export const ApiEndPoint = {
   },
 
   Auth: {
-    changePassword: () => apiPath('auth', 'changePassword'),
+    changePassword: () => apiPath('auth', 'change-password'),
     google: () => apiPath('auth', 'google'),
     googleCallback: () => apiPath('auth', 'google', 'callback'),
     login: () => joinPaths('auth', 'login'),
     logout: () => joinPaths('auth', 'logout'),
-    resetPassword: () => joinPaths('auth', 'local', 'resetPassword'),
+    resetPassword: () => joinPaths('auth', 'local', 'reset-password'),
   },
 
   CycleData: {
-    descriptions: () => apiPath('cycleData', 'descriptions'),
+    descriptions: () => apiPath('cycle-data', 'descriptions'),
 
     OriginalDataPoint: {
-      one: () => apiPath('cycleData', 'originalDataPoints', 'originalDataPoint'),
+      one: () => apiPath('cycle-data', 'original-data-points', 'original-data-point'),
 
       // Used for print view
-      many: () => apiPath('cycleData', 'originalDataPoints'),
+      many: () => apiPath('cycle-data', 'original-data-points'),
 
       // Table Data (1a, 1b)
-      data: () => apiPath('cycleData', 'originalDataPoints', 'data'),
-      reservedYears: () => apiPath('cycleData', 'originalDataPoints', 'reservedYears'),
+      data: () => apiPath('cycle-data', 'original-data-points', 'data'),
+      reservedYears: () => apiPath('cycle-data', 'original-data-points', 'reserved-years'),
     },
     Review: {
-      status: () => apiPath('cycleData', 'review', 'status'),
-      summary: () => apiPath('cycleData', 'review', 'summary'),
+      status: () => apiPath('cycle-data', 'review', 'status'),
+      summary: () => apiPath('cycle-data', 'review', 'summary'),
     },
     Table: {
-      estimate: () => apiPath('cycleData', 'table', 'estimate'),
-      nodes: () => apiPath('cycleData', 'table', 'nodes'),
-      tableData: () => apiPath('cycleData', 'table', 'tableData'),
+      estimate: () => apiPath('cycle-data', 'table', 'estimate'),
+      nodes: () => apiPath('cycle-data', 'table', 'nodes'),
+      tableData: () => apiPath('cycle-data', 'table', 'table-data'),
     },
-    activities: () => apiPath('cycleData', 'activities'), // is it correct?
+    activities: () => apiPath('cycle-data', 'activities'), // is it correct?
   },
 
   File: {
     dashboard: () => apiPath('file', 'dashboard'),
-    dataDownload: () => apiPath('file', 'dataDownload'),
+    dataDownload: () => apiPath('file', 'data-download'),
+    bulkDownload: () => apiPath('file', 'bulk-download'),
   },
 
   MessageCenter: {
-    topic: () => apiPath('messageCenter', 'topic'),
-    topicMessage: () => apiPath('messageCenter', 'topic', 'message'),
-    topicResolve: () => apiPath('messageCenter', 'topic', 'resolve'),
-    topicUnreadMessages: () => apiPath('messageCenter', 'topic', 'unreadMessages'),
+    topic: () => apiPath('message-center', 'topic'),
+    topicMessage: () => apiPath('message-center', 'topic', 'message'),
+    topicResolve: () => apiPath('message-center', 'topic', 'resolve'),
+    topicUnreadMessages: () => apiPath('message-center', 'topic', 'unread-messages'),
   },
 
   Sections: {
@@ -65,10 +66,10 @@ export const ApiEndPoint = {
     invite: () => apiPath('users', 'invite'),
     invitation: () => apiPath('users', 'invitation'),
     invitationAccept: () => apiPath('users', 'invitation', 'accept'),
-    invitationSendEmail: () => apiPath('users', 'invitation', 'sendEmail'),
+    invitationSendEmail: () => apiPath('users', 'invitation', 'send-email'),
 
-    profilePicture: (id = ':id') => apiPath('users', 'profilePicture', id),
-    sectionAuth: () => apiPath('users', 'sectionAuth'),
+    profilePicture: (id = ':id') => apiPath('users', 'profile-picture', id),
+    sectionAuth: () => apiPath('users', 'section-auth'),
   },
 
   /**
