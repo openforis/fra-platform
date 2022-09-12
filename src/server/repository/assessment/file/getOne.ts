@@ -10,5 +10,9 @@ export const getOne = async (
 
   const schemaName = Schemas.getName(assessment)
 
-  return client.oneOrNone<AssessmentFile | undefined>(`select * from ${schemaName}.file where uuid = $1`, [uuid])
+  return client.oneOrNone<AssessmentFile | undefined>(
+    `select * from ${schemaName}.file where uuid = $1`,
+    [uuid],
+    (row) => ({ ...row, fileName: row.file_name })
+  )
 }

@@ -20,7 +20,7 @@ export const getAssessmentFile = async (req: CycleRequest, res: Response) => {
       res.setHeader('Content-Disposition', `attachment; filename=${assessmentFile.fileName}`)
       res.end(assessmentFile.file, 'binary')
     } else {
-      Requests.sendErr(res)
+      Requests.send404(res)
     }
   } catch (e) {
     Requests.sendErr(res, e)
