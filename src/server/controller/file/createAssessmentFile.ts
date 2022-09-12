@@ -6,7 +6,7 @@ import { BaseProtocol, DB } from '@server/db'
 import { ActivityLogRepository } from '@server/repository/assessment/activityLog'
 import { AssessmentFileRepository } from '@server/repository/assessment/file'
 
-export const createFile = async (
+export const createAssessmentFile = async (
   props: {
     assessment: Assessment
     countryIso?: CountryIso

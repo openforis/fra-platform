@@ -8,13 +8,13 @@ import Requests from '@server/utils/requests'
 
 export const getAssessmentFile = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params
+    const { uuid } = req.params
 
     const { assessmentName } = req.query as { assessmentName: AssessmentName }
 
     const assessment = await AssessmentController.getOne({ assessmentName })
 
-    const assessmentFile = await FileController.getAssessmentFile({ assessment, id: Number(id) })
+    const assessmentFile = await FileController.getAssessmentFile({ assessment, uuid })
 
     if (assessmentFile && assessmentFile.file) {
       res.setHeader('Content-Disposition', `attachment; filename=${assessmentFile.fileName}`)
