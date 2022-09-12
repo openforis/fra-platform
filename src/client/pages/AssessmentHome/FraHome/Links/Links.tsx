@@ -99,7 +99,7 @@ const Links: React.FC = () => {
       {globalFiles.map((assessmentFile, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <div key={index} className="landing__link-container">
-          <a href={`/api/fileRepository/${countryIso}/file/${assessmentFile.id}`} target="_blank" rel="noreferrer">
+          <a href={`/api/fileRepository/${countryIso}/file/${assessmentFile.uuid}`} target="_blank" rel="noreferrer">
             {assessmentFile.fileName}
           </a>
         </div>
@@ -130,7 +130,7 @@ const Links: React.FC = () => {
       {countryFiles.map((assessmentFile, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <div key={index} className="landing__link-container">
-          <a href={`/api/fileRepository/${countryIso}/file/${assessmentFile.id}`} target="_blank" rel="noreferrer">
+          <a href={`/api/fileRepository/${countryIso}/file/${assessmentFile.uuid}`} target="_blank" rel="noreferrer">
             {assessmentFile.fileName}
           </a>
         </div>
