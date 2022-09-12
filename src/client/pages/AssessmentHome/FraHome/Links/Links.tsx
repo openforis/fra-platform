@@ -113,34 +113,41 @@ const Links: React.FC = () => {
       </div>
 
       {links.map((link) => (
-        <div key={link.key} className="landing__link-container">
-          <a href={link.href} target="_blank" rel="noreferrer">
-            {i18n.t(`landing.links.${link.key}`)}
-          </a>
+        <div key={link.key} className="landing__activity-item">
+          <div className="landing__activity">
+            <a className="link" href={link.href} rel="noreferrer" target="_blank">
+              {i18n.t(`landing.links.${link.key}`)}
+            </a>
+          </div>
         </div>
       ))}
 
       {globalFiles.map((assessmentFile, index) => (
         // eslint-disable-next-line react/no-array-index-key
-        <div key={index} className="landing__link-container">
-          <a
-            href={`${ApiEndPoint.File.Assessment.one(assessmentFile.uuid)}?assessmentName=${assessment.props.name}`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {assessmentFile.fileName}
-          </a>
-          <button
-            type="button"
-            className="btn-xs landing__btn-remove-file"
-            onClick={() =>
-              window.confirm(i18n.t('landing.links.confirmDelete', { file: assessmentFile.fileName }))
-                ? deleteAssessmentFile(assessmentFile.uuid)
-                : null
-            }
-          >
-            <Icon className="icon-no-margin" name="trash-simple" />
-          </button>
+        <div key={index} className="landing__activity-item">
+          <div className="landing__activity">
+            <a
+              className="link"
+              href={`${ApiEndPoint.File.Assessment.one(assessmentFile.uuid)}?assessmentName=${assessment.props.name}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {assessmentFile.fileName}
+            </a>
+          </div>
+          <div className="landing__activity-time">
+            <button
+              type="button"
+              className="btn-xs"
+              onClick={() =>
+                window.confirm(i18n.t('landing.links.confirmDelete', { file: assessmentFile.fileName }))
+                  ? deleteAssessmentFile(assessmentFile.uuid)
+                  : null
+              }
+            >
+              <Icon className="icon-no-margin" name="trash-simple" />
+            </button>
+          </div>
         </div>
       ))}
 
@@ -168,25 +175,30 @@ const Links: React.FC = () => {
 
       {countryFiles.map((assessmentFile, index) => (
         // eslint-disable-next-line react/no-array-index-key
-        <div key={index} className="landing__link-container">
-          <a
-            href={`${ApiEndPoint.File.Assessment.one(assessmentFile.uuid)}?assessmentName=${assessment.props.name}`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {assessmentFile.fileName}
-          </a>
-          <button
-            type="button"
-            className="btn-xs landing__btn-remove-file"
-            onClick={() =>
-              window.confirm(i18n.t('landing.links.confirmDelete', { file: assessmentFile.fileName }))
-                ? deleteAssessmentFile(assessmentFile.uuid)
-                : null
-            }
-          >
-            <Icon className="icon-no-margin" name="trash-simple" />
-          </button>
+        <div key={index} className="landing__activity-item">
+          <div className="landing__activity">
+            <a
+              className="link"
+              href={`${ApiEndPoint.File.Assessment.one(assessmentFile.uuid)}?assessmentName=${assessment.props.name}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {assessmentFile.fileName}
+            </a>
+          </div>
+          <div className="landing__activity-time">
+            <button
+              type="button"
+              className="btn-xs"
+              onClick={() =>
+                window.confirm(i18n.t('landing.links.confirmDelete', { file: assessmentFile.fileName }))
+                  ? deleteAssessmentFile(assessmentFile.uuid)
+                  : null
+              }
+            >
+              <Icon className="icon-no-margin" name="trash-simple" />
+            </button>
+          </div>
         </div>
       ))}
     </div>
