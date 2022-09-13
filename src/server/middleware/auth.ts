@@ -134,6 +134,16 @@ const requireViewUsers = async (req: Request, _res: Response, next: NextFunction
   _next(Authorizer.canViewUsers({ user, countryIso: countryIso as CountryIso, cycle, assessment }), next)
 }
 
+const requireEditAssessmentFile = async (req: Request, _res: Response, next: NextFunction) => {
+  const { countryIso } = <Record<string, string>>{ ...req.params, ...req.query, ...req.body }
+  const user = Requests.getRequestUser(req)
+  if (!countryIso) {
+    _next(Users.isAdministrator(user), next)
+  } else {
+    _next(Users.getRolesAllowedToEdit({ user, countryIso: countryIso as CountryIso }).length > 0, next)
+  }
+}
+
 export const AuthMiddleware = {
   requireEdit,
   requireView,
@@ -143,4 +153,5 @@ export const AuthMiddleware = {
   requireEditMessageTopic,
   requireEditUser,
   requireViewUsers,
+  requireEditAssessmentFile,
 }

@@ -5,7 +5,7 @@ export const ApiEndPoint = {
   init: () => apiPath('init'),
   definitions: (lang = ':lang', name = ':name') => joinPaths('definitions', lang, name),
   Area: {
-    country: () => apiPath('country'),
+    country: () => apiPath('area', 'country'),
   },
 
   Auth: {
@@ -19,6 +19,7 @@ export const ApiEndPoint = {
 
   CycleData: {
     descriptions: () => apiPath('cycle-data', 'descriptions'),
+    activities: () => apiPath('cycle-data', 'activities'),
 
     OriginalDataPoint: {
       one: () => apiPath('cycle-data', 'original-data-points', 'original-data-point'),
@@ -39,13 +40,16 @@ export const ApiEndPoint = {
       nodes: () => apiPath('cycle-data', 'table', 'nodes'),
       tableData: () => apiPath('cycle-data', 'table', 'table-data'),
     },
-    activities: () => apiPath('cycle-data', 'activities'), // is it correct?
   },
 
   File: {
     dashboard: () => apiPath('file', 'dashboard'),
     dataDownload: () => apiPath('file', 'data-download'),
     bulkDownload: () => apiPath('file', 'bulk-download'),
+    Assessment: {
+      one: (uuid = ':uuid') => apiPath('file', 'assessment', uuid),
+      many: () => apiPath('file', 'assessment'),
+    },
   },
 
   MessageCenter: {
