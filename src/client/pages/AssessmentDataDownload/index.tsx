@@ -27,11 +27,15 @@ const AssessmentDataDownload: React.FC = () => {
       </div>
 
       <div className="data-download">
-        <div>{i18n.t<string>('dataDownload.bulkDownload')}</div>
-        <a className="btn-s btn-primary nav__bulk-download" href={href}>
-          <Icon className="icon-sub icon-white" name="hit-down" />
-          ZIP
-        </a>
+        {cycle.published && (
+          <>
+            <div>{i18n.t<string>('dataDownload.bulkDownload')}</div>
+            <a className="btn-s btn-primary nav__bulk-download" href={href}>
+              <Icon className="icon-sub icon-white" name="hit-down" />
+              ZIP
+            </a>
+          </>
+        )}
 
         {resources.map((resource) => (
           <React.Fragment key={String(resource.labelKey)}>

@@ -335,6 +335,9 @@ export const getBulkDownload = async (req: CycleRequest, res: Response) => {
   try {
     const { assessmentName, cycleName } = req.query
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+    if (!cycle.published) {
+      Requests.sendErr(res)
+    }
 
     const files = await Promise.all([
       getAnnualContent({
