@@ -7,9 +7,9 @@ import { remove } from './remove'
 
 export const AssessmentController = {
   create,
+  createCycle,
   getOne,
   getOneWithCycle,
-  remove,
-  createCycle,
   getTable: TableRepository.getOne,
+  remove,
 }
