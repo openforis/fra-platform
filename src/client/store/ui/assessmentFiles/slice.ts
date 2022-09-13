@@ -28,9 +28,19 @@ export const assessmentFilesSlice = createSlice({
       const {
         meta: { arg },
       } = reducer
-      const { countryIso, uuid } = arg
-      if (countryIso) state[countryIso] = state[countryIso].filter((f) => f.uuid !== uuid)
+      const { fileCountryIso, uuid } = arg
+      if (fileCountryIso) state[fileCountryIso] = state[fileCountryIso].filter((f) => f.uuid !== uuid)
       else state.globals = state.globals.filter((f) => f.uuid !== uuid)
+    })
+
+    builder.addCase(upload.fulfilled, (state, reducer) => {
+      const {
+        meta: { arg },
+        payload,
+      } = reducer
+      const { fileCountryIso } = arg
+      if (fileCountryIso) state[fileCountryIso].push(payload)
+      else state.globals.push(payload)
     })
   },
 })

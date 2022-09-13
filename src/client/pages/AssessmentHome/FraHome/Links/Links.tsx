@@ -66,13 +66,14 @@ const Links: React.FC = () => {
   )
 
   const deleteAssessmentFile = useCallback(
-    (uuid: string) => {
+    (uuid: string, fileCountryIso?: CountryIso) => {
       dispatch(
         AssessmentFilesActions.deleteFile({
           assessmentName: assessment.props.name,
           cycleName: cycle.name,
           countryIso,
           uuid,
+          fileCountryIso,
         })
       ).then(() => {
         toaster.success(i18n.t('landing.links.fileDeleted'))
@@ -203,7 +204,7 @@ const Links: React.FC = () => {
               className="btn-xs"
               onClick={() =>
                 window.confirm(i18n.t('landing.links.confirmDelete', { file: assessmentFile.fileName }))
-                  ? deleteAssessmentFile(assessmentFile.uuid)
+                  ? deleteAssessmentFile(assessmentFile.uuid, countryIso)
                   : null
               }
             >

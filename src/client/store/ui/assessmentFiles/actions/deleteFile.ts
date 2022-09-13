@@ -3,9 +3,11 @@ import axios from 'axios'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { CycleParams } from '@meta/api/request'
+import { CountryIso } from '@meta/area'
 
 type Params = CycleParams & {
   uuid: string
+  fileCountryIso?: CountryIso
 }
 
 export const deleteFile = createAsyncThunk<void, Params>('assessment/files/delete', async (params) => {

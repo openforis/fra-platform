@@ -7,7 +7,7 @@ import { CountryIso } from '@meta/area'
 
 type Params = CycleParams & {
   file: File | null
-  fileCountryIso: CountryIso | null
+  fileCountryIso?: CountryIso
 }
 
 export const upload = createAsyncThunk<void, Params>('assessmentFiles/put/upload', async (params) => {
