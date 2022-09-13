@@ -22,11 +22,11 @@ export const FileApi = {
     express.put(
       ApiEndPoint.File.Assessment.many(),
       multer().single('file'),
-      AuthMiddleware.requireEdit,
+      AuthMiddleware.requireEditAssessmentFile,
       createAssessmentFile
     )
     express.get(ApiEndPoint.File.Assessment.many(), AuthMiddleware.requireView, getAssessmentFiles)
     express.get(ApiEndPoint.File.Assessment.one(), AuthMiddleware.requireView, getAssessmentFile)
-    express.delete(ApiEndPoint.File.Assessment.one(), AuthMiddleware.requireEdit, removeAssessmentFile)
+    express.delete(ApiEndPoint.File.Assessment.one(), AuthMiddleware.requireEditAssessmentFile, removeAssessmentFile)
   },
 }
