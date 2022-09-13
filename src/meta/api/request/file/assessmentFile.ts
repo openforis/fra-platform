@@ -3,5 +3,5 @@ import { AssessmentName } from '@meta/assessment'
 
 export type AssessmentFileBody = {
   assessmentName: AssessmentName
-  fileCountryIso: CountryIso | null
+  countryIso?: CountryIso
 }
