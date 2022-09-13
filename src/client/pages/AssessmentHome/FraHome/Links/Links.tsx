@@ -4,11 +4,13 @@ import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { CountryIso } from '@meta/area'
+import { Users } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { AssessmentFilesActions } from '@client/store/ui/assessmentFiles'
 import { useAssessmentFiles } from '@client/store/ui/assessmentFiles/hooks'
+import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import { useToaster } from '@client/hooks/useToaster'
 import Icon from '@client/components/Icon'
@@ -31,6 +33,7 @@ const Links: React.FC = () => {
   const cycle = useCycle()
   const i18n = useTranslation()
   const assessmentFiles = useAssessmentFiles()
+  const user = useUser()
 
   const countryFileRef = useRef<HTMLInputElement>(null)
   const globalFileRef = useRef<HTMLInputElement>(null)
