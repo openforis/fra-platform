@@ -72,13 +72,6 @@ const Links: React.FC = () => {
           uuid,
         })
       ).then(() => {
-        dispatch(
-          AssessmentFilesActions.getFiles({
-            assessmentName: assessment.props.name,
-            cycleName: cycle.name,
-            countryIso,
-          })
-        )
         toaster.success(i18n.t('landing.links.fileDeleted'))
       })
     },

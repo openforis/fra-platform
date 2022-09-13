@@ -23,6 +23,15 @@ export const assessmentFilesSlice = createSlice({
       state[countryIso] = countryFiles
       state.globals = globalFiles
     })
+
+    builder.addCase(deleteFile.fulfilled, (state, reducer) => {
+      const {
+        meta: { arg },
+      } = reducer
+      const { countryIso, uuid } = arg
+      if (countryIso) state[countryIso] = state[countryIso].filter((f) => f.uuid !== uuid)
+      else state.globals = state.globals.filter((f) => f.uuid !== uuid)
+    })
   },
 })
 
