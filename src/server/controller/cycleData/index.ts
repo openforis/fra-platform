@@ -6,6 +6,7 @@ import { OriginalDataPointRepository } from '@server/repository/assessmentCycle/
 
 import { createOriginalDataPoint } from './createOriginalDataPoint'
 import { deleteNodeValues } from './deleteNodeValues'
+import { getBulkDownload } from './getBulkDownload'
 import { getOriginalDataPoint } from './getOriginalDataPoint'
 import { getOriginalDataPointReservedYears } from './getOriginalDataPointReservedYears'
 import { getReviewStatus } from './getReviewStatus'
@@ -38,4 +39,5 @@ export const CycleDataController = {
   getDescription: DescriptionRepository.getOneOrNone,
   upsertDescription,
   getActivities: ActivityLogRepository.getCycleDataActivities,
+  getBulkDownload,
 }
