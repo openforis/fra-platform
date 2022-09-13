@@ -93,18 +93,27 @@ const Links: React.FC = () => {
       <div className="landing__page-container-header landing__repository-header">
         <h3>{i18n.t('landing.links.links')}</h3>
 
-        <input ref={globalFileRef} type="file" style={{ display: 'none' }} onChange={() => uploadAssessmentFile()} />
-        <button
-          className="btn-s btn-primary"
-          onClick={() => {
-            globalFileRef.current.value = ''
-            globalFileRef.current.dispatchEvent(new MouseEvent('click'))
-          }}
-          type="button"
-        >
-          <Icon className="icon-sub icon-white" name="hit-up" />
-          {i18n.t('landing.links.uploadFile')}
-        </button>
+        {Users.isAdministrator(user) && (
+          <>
+            <input
+              ref={globalFileRef}
+              type="file"
+              style={{ display: 'none' }}
+              onChange={() => uploadAssessmentFile()}
+            />
+            <button
+              className="btn-s btn-primary"
+              onClick={() => {
+                globalFileRef.current.value = ''
+                globalFileRef.current.dispatchEvent(new MouseEvent('click'))
+              }}
+              type="button"
+            >
+              <Icon className="icon-sub icon-white" name="hit-up" />
+              {i18n.t('landing.links.uploadFile')}
+            </button>
+          </>
+        )}
       </div>
 
       {links.map((link) => (
@@ -149,23 +158,27 @@ const Links: React.FC = () => {
       <div className="landing__page-container-header landing__repository-header">
         <h3>{i18n.t('landing.links.repository')}</h3>
 
-        <input
-          ref={countryFileRef}
-          type="file"
-          style={{ display: 'none' }}
-          onChange={() => uploadAssessmentFile(countryIso)}
-        />
-        <button
-          className="btn-s btn-primary"
-          onClick={() => {
-            countryFileRef.current.value = ''
-            countryFileRef.current.dispatchEvent(new MouseEvent('click'))
-          }}
-          type="button"
-        >
-          <Icon className="icon-sub icon-white" name="hit-up" />
-          {i18n.t('landing.links.uploadFile')}
-        </button>
+        {Users.getRolesAllowedToEdit({ user, countryIso }).length > 0 && (
+          <>
+            <input
+              ref={countryFileRef}
+              type="file"
+              style={{ display: 'none' }}
+              onChange={() => uploadAssessmentFile(countryIso)}
+            />
+            <button
+              className="btn-s btn-primary"
+              onClick={() => {
+                countryFileRef.current.value = ''
+                countryFileRef.current.dispatchEvent(new MouseEvent('click'))
+              }}
+              type="button"
+            >
+              <Icon className="icon-sub icon-white" name="hit-up" />
+              {i18n.t('landing.links.uploadFile')}
+            </button>
+          </>
+        )}
       </div>
 
       {countryFiles.map((assessmentFile, index) => (
