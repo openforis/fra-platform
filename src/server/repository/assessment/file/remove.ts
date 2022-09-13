@@ -1,14 +1,20 @@
-import { Assessment } from '@meta/assessment'
+import { Objects } from '@utils/objects'
+
+import { Assessment, AssessmentFile } from '@meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
 export const remove = async (
   props: { assessment: Assessment; uuid: string },
   client: BaseProtocol = DB
-): Promise<{ fileName: string }> => {
+): Promise<AssessmentFile | undefined> => {
   const { assessment, uuid } = props
 
   const schemaName = Schemas.getName(assessment)
 
-  return client.one(`delete from ${schemaName}.file where uuid = $1 returning file_name;`, [uuid])
+  return client.one<AssessmentFile | undefined>(
+    `delete from ${schemaName}.file where uuid = $1 returning id, uuid, country_iso, file_name;`,
+    [uuid],
+    Objects.camelize
+  )
 }

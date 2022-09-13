@@ -4,13 +4,14 @@ import axios from 'axios'
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { CycleParams } from '@meta/api/request'
 import { CountryIso } from '@meta/area'
+import { AssessmentFile } from '@meta/assessment'
 
 type Params = CycleParams & {
   file: File | null
   fileCountryIso?: CountryIso
 }
 
-export const upload = createAsyncThunk<void, Params>('assessmentFiles/put/upload', async (params) => {
+export const upload = createAsyncThunk<AssessmentFile, Params>('assessmentFiles/put/upload', async (params) => {
   const { countryIso, assessmentName, cycleName, file, fileCountryIso } = params
 
   const formData = new FormData()
@@ -20,9 +21,11 @@ export const upload = createAsyncThunk<void, Params>('assessmentFiles/put/upload
   formData.append('file', file)
   if (fileCountryIso) formData.append('fileCountryIso', fileCountryIso)
 
-  await axios.put(ApiEndPoint.File.Assessment.many(), formData, {
+  const { data } = await axios.put(ApiEndPoint.File.Assessment.many(), formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
   })
+
+  return data
 })

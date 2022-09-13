@@ -52,13 +52,6 @@ const Links: React.FC = () => {
           fileCountryIso,
         })
       ).then(() => {
-        dispatch(
-          AssessmentFilesActions.getFiles({
-            assessmentName: assessment.props.name,
-            cycleName: cycle.name,
-            countryIso,
-          })
-        )
         toaster.success(i18n.t('landing.links.fileUploaded'))
       })
     },
