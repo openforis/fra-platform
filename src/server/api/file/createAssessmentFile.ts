@@ -1,5 +1,6 @@
-import { Request, Response } from 'express'
+import { Response } from 'express'
 
+import { CycleRequest } from '@meta/api/request'
 import { CountryIso } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
 
@@ -7,11 +8,14 @@ import { AssessmentController } from '@server/controller/assessment'
 import { FileController } from '@server/controller/file'
 import { Requests } from '@server/utils'
 
-export const createAssessmentFile = async (req: Request, res: Response) => {
+export const createAssessmentFile = async (
+  req: CycleRequest<void, { assessmentName: AssessmentName; fileCountryIso: CountryIso | null }>,
+  res: Response
+) => {
   try {
     const assessmentFile = req.file
-    const fileCountryIso = req.body.fileCountryIso as CountryIso | null
-    const assessmentName = req.body.assessmentName as AssessmentName
+
+    const { assessmentName, fileCountryIso } = req.body
 
     const user = Requests.getRequestUser(req)
 
