@@ -1,19 +1,22 @@
-import { Request, Response } from 'express'
+import { Response } from 'express'
 
-import { AssessmentName } from '@meta/assessment'
+import { CycleRequest } from '@meta/api/request'
 
 import { AssessmentController } from '@server/controller/assessment'
+import { FileController } from '@server/controller/file'
 import Requests from '@server/utils/requests'
 
-export const removeAssessmentFile = async (req: Request, res: Response) => {
+export const removeAssessmentFile = async (req: CycleRequest, res: Response) => {
   try {
-    const { id } = req.params
+    const { uuid } = req.params
 
-    const { assessmentName } = req.query as { assessmentName: AssessmentName }
+    const user = Requests.getRequestUser(req)
+
+    const { assessmentName } = req.query
 
     const assessment = await AssessmentController.getOne({ assessmentName })
 
-    await AssessmentController.removeFile({ assessment, id: Number(id) })
+    await FileController.removeAssessmentFile({ assessment, uuid, user })
 
     Requests.sendOk(res)
   } catch (e) {

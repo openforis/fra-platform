@@ -1,25 +1,26 @@
-import * as path from 'path'
-import { Request, Response } from 'express'
+import { Response } from 'express'
 
-import { AssessmentName } from '@meta/assessment'
+import { CycleRequest } from '@meta/api/request'
 
 import { AssessmentController } from '@server/controller/assessment'
+import { FileController } from '@server/controller/file'
 import Requests from '@server/utils/requests'
 
-export const getAssessmentFile = async (req: Request, res: Response) => {
+export const getAssessmentFile = async (req: CycleRequest, res: Response) => {
   try {
-    const { id } = req.params
+    const { uuid } = req.params
 
-    const { assessmentName } = req.query as { assessmentName: AssessmentName }
+    const { assessmentName } = req.query
 
     const assessment = await AssessmentController.getOne({ assessmentName })
 
-    const assessmentFile = await AssessmentController.getFile({ assessment, id: Number(id) })
+    const assessmentFile = await FileController.getAssessmentFile({ assessment, uuid })
 
     if (assessmentFile && assessmentFile.file) {
+      res.setHeader('Content-Disposition', `attachment; filename=${assessmentFile.fileName}`)
       res.end(assessmentFile.file, 'binary')
     } else {
-      res.sendFile(path.resolve(__dirname, '..', '..', 'static', 'avatar.png'))
+      Requests.send404(res)
     }
   } catch (e) {
     Requests.sendErr(res, e)

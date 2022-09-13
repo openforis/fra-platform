@@ -47,7 +47,7 @@ export const ApiEndPoint = {
     dataDownload: () => apiPath('file', 'dataDownload'),
 
     Assessment: {
-      one: (id = ':id') => apiPath('file', 'assessment', id),
+      one: (uuid = ':uuid') => apiPath('file', 'assessment', uuid),
       many: () => apiPath('file', 'assessment'),
     },
   },
