@@ -1,6 +1,6 @@
+import { BulkDownload } from './bulkDownload'
 import { deleteNodeValues } from './deleteNodeValues'
 import { getAggregatedTableData } from './getAggregatedTableData'
-import { getBulkDownload } from './getBulkDownload'
 import { getOriginalDataPointData } from './getOriginalDataPointData'
 import { getTableData } from './getTableData'
 
@@ -11,5 +11,5 @@ export const DataRepository = {
   getOriginalDataPointData,
   deleteNodeValues,
   getAggregatedTableData,
-  getBulkDownload,
+  BulkDownload,
 }

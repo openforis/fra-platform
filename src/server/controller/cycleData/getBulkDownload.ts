@@ -41,9 +41,9 @@ const handleContent = async (content: Array<Record<string, string>>) => {
 }
 
 const contentMap = {
-  FRA_Years: DataRepository.getBulkDownload.getFraYearsData,
-  Interval: DataRepository.getBulkDownload.getIntervalData,
-  Annual: DataRepository.getBulkDownload.getAnnualData,
+  FRA_Years: DataRepository.BulkDownload.getFraYearsData,
+  Interval: DataRepository.BulkDownload.getIntervalData,
+  Annual: DataRepository.BulkDownload.getAnnualData,
 }
 
 export const getBulkDownload = (props: { assessment: Assessment; cycle: Cycle }) => {

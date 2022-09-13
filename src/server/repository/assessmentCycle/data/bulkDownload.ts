@@ -223,7 +223,7 @@ from ${schemaCycle}.country cc
   )
 }
 
-export const getBulkDownload = {
+export const BulkDownload = {
   getAnnualData,
   getIntervalData,
   getFraYearsData,

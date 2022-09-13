@@ -16,9 +16,9 @@ import multer = require('multer')
 export const FileApi = {
   init: (express: Express): void => {
     // Dashboard
-    express.get(ApiEndPoint.File.dashboard(), getFile)
-    express.get(ApiEndPoint.File.dataDownload(), getDataDownloadFile)
-    express.get(ApiEndPoint.File.bulkDownload(), getBulkDownload)
+    express.get(ApiEndPoint.File.dashboard(), AuthMiddleware.requireView, getFile)
+    express.get(ApiEndPoint.File.dataDownload(), AuthMiddleware.requireView, getDataDownloadFile)
+    express.get(ApiEndPoint.File.bulkDownload(), AuthMiddleware.requireView, getBulkDownload)
 
     // Files
     express.put(
