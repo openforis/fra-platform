@@ -10,11 +10,13 @@ export const removeAssessmentFile = async (req: CycleRequest, res: Response) => 
   try {
     const { uuid } = req.params
 
+    const user = Requests.getRequestUser(req)
+
     const { assessmentName } = req.query
 
     const assessment = await AssessmentController.getOne({ assessmentName })
 
-    await FileController.removeAssessmentFile({ assessment, uuid })
+    await FileController.removeAssessmentFile({ assessment, uuid, user })
 
     Requests.sendOk(res)
   } catch (e) {
