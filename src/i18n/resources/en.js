@@ -271,7 +271,9 @@ The FRA team fra@fao.org
       fraGeoSpatialTools: 'FRA Geospatial tools',
       repository: 'Repository',
       uploadFile: 'Upload a file',
+      fileUploaded: 'File successfully uploaded',
       confirmDelete: 'Delete {{file}}? This cannot be undone.',
+      fileDeleted: 'File successfully deleted',
     },
     dataExport: {
       downloadData: 'Download data',
