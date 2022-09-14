@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 
+import { ApiEndPoint } from '@meta/api/endpoint'
+
 import { useAppDispatch } from '@client/store'
 import { LoginActions, useInvitation } from '@client/store/login'
 import { useToaster } from '@client/hooks/useToaster'
@@ -35,9 +37,12 @@ const LoginForm: React.FC<Props> = (props: Props) => {
     dispatch(LoginActions.initLogin())
     if (invitationUuid) {
       dispatch(LoginActions.fetchUserByInvitation({ invitationUuid }))
-      setEmail(invitedUser.email)
     }
-  }, [])
+  }, [dispatch, i18n, invitationUuid, loginFailed, toaster])
+
+  useEffect(() => {
+    setEmail(invitedUser.email)
+  }, [invitedUser])
 
   const onLogin = () => {
     const fieldErrors = LoginValidator.localValidate(email, password)
@@ -119,7 +124,10 @@ const LoginForm: React.FC<Props> = (props: Props) => {
   return (
     <div className="login__formWrapper">
       <div>
-        <a className="btn" href={`/auth/google${invitationUuid ? `?invitationUuid=${invitationUuid}` : ''}`}>
+        <a
+          className="btn"
+          href={`${ApiEndPoint.Auth.google()}${invitationUuid ? `?invitationUuid=${invitationUuid}` : ''}`}
+        >
           {i18n.t<string>('login.signInGoogle')}
         </a>
 
