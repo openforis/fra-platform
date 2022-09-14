@@ -19,7 +19,7 @@ export const create = async (
 
   return client.one<AssessmentFile>(
     `
-      insert into ${schemaName}.file (country_iso, file_name, file) values ($1, $2, $3) returning *
+      insert into ${schemaName}.file (country_iso, file_name, file) values ($1, $2, $3) returning id, uuid, country_iso, file_name;
     `,
     [countryIso, originalname, buffer],
     Objects.camelize

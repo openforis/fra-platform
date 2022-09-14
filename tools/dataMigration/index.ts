@@ -20,6 +20,7 @@ import { generateMetaCache } from './generateMetaCache'
 import { migrateActivityLog } from './migrateActivityLog'
 import { migrateAreas } from './migrateAreas'
 import { migrateMetadata } from './migrateMetadata'
+import { migrateRepository } from './migrateRepository'
 import { migrateReview } from './migrateReview'
 import { migrateUsers } from './migrateUsers'
 import { migrateUsersAuthProvider } from './migrateUsersAuthProvider'
@@ -94,6 +95,7 @@ export const migrate = async (props: {
     ])
 
     await migrateMetadata({ assessment, assessmentLegacy, schema, spec, client })
+    await migrateRepository({ assessment, client })
 
     await Promise.all(
       cycleNames.map((cycleName, index: number) =>
