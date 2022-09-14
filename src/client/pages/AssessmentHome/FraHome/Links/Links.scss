@@ -1,51 +1,7 @@
 @import 'src/client/style/partials';
 
-// .landing__link-container {
-//   padding: 20px 40px;
-//   border: 1px solid $ui-border-light;
-//   background-color: #f8f8f8;
-//   margin: 12px 1%;
-//   flex: 0 1 31%;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   position: relative;
-
-//   a {
-//     background-color: transparent;
-//     line-height: 20px;
-//     text-align: center;
-//     text-decoration: none;
-//     transition: all 0.1s ease-out;
-//     font-weight: bold;
-//     color: $text-mute;
-
-//     &:hover {
-//       color: $ui-accent;
-//     }
-//   }
-// }
-
-// .landing__btn-remove-file {
-//   position: absolute;
-//   top: 0;
-//   right: 0;
-//   background-color: transparent;
-//   padding: 4px;
-//   border-color: $ui-border-light;
-//   border-top: none !important;
-//   border-right: none !important;
-//   border-radius: 0 !important;
-//   margin: 0;
-
-//   &:hover {
-//     background-color: rgba(208, 2, 27, 0.1);
-//   }
-// }
-
 .landing__repository-header {
-  // @extend .landing__page-container-header;
-  margin-top: 24px;
+  margin-top: $spacing-s;
   display: flex;
   justify-content: center;
   align-items: center;

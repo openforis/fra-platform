@@ -12,7 +12,7 @@ export const remove = async (
 
   const schemaName = Schemas.getName(assessment)
 
-  return client.one<AssessmentFile | undefined>(
+  return client.oneOrNone<AssessmentFile | undefined>(
     `delete from ${schemaName}.file where uuid = $1 returning id, uuid, country_iso, file_name;`,
     [uuid],
     Objects.camelize
