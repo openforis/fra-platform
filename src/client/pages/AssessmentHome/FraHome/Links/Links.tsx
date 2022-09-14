@@ -48,7 +48,7 @@ const Links: React.FC = () => {
           assessmentName: assessment.props.name,
           cycleName: cycle.name,
           countryIso,
-          file: countryIso ? countryFileRef?.current?.files[0] : globalFileRef?.current?.files[0],
+          file: fileCountryIso ? countryFileRef?.current?.files[0] : globalFileRef?.current?.files[0],
           fileCountryIso,
         })
       ).then(() => {
