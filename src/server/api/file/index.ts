@@ -2,6 +2,7 @@ import { Express } from 'express'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 
+import { getBulkDownload } from '@server/api/file/getBulkDownload'
 import { AuthMiddleware } from '@server/middleware/auth'
 
 import { createAssessmentFile } from './createAssessmentFile'
@@ -15,8 +16,9 @@ import multer = require('multer')
 export const FileApi = {
   init: (express: Express): void => {
     // Dashboard
-    express.get(ApiEndPoint.File.dashboard(), getFile)
-    express.get(ApiEndPoint.File.dataDownload(), getDataDownloadFile)
+    express.get(ApiEndPoint.File.dashboard(), AuthMiddleware.requireView, getFile)
+    express.get(ApiEndPoint.File.dataDownload(), AuthMiddleware.requireView, getDataDownloadFile)
+    express.get(ApiEndPoint.File.bulkDownload(), AuthMiddleware.requireView, getBulkDownload)
 
     // Files
     express.put(
