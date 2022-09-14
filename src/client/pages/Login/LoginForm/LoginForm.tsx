@@ -41,8 +41,8 @@ const LoginForm: React.FC<Props> = (props: Props) => {
   }, [dispatch, i18n, invitationUuid, loginFailed, toaster])
 
   useEffect(() => {
-    setEmail(invitedUser.email)
-  }, [invitedUser])
+    if (invitedUser?.email) setEmail(invitedUser.email)
+  }, [invitedUser?.email])
 
   const onLogin = () => {
     const fieldErrors = LoginValidator.localValidate(email, password)
