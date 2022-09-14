@@ -129,7 +129,9 @@ const Links: React.FC = () => {
           <div className="landing__activity">
             <a
               className="link"
-              href={`${ApiEndPoint.File.Assessment.one(assessmentFile.uuid)}?assessmentName=${assessment.props.name}`}
+              href={`${ApiEndPoint.File.Assessment.one(assessmentFile.uuid)}?countryIso=${countryIso}&assessmentName=${
+                assessment.props.name
+              }&cycleName=${cycle.name}`}
               target="_blank"
               rel="noreferrer"
             >
@@ -184,7 +186,9 @@ const Links: React.FC = () => {
           <div className="landing__activity">
             <a
               className="link"
-              href={`${ApiEndPoint.File.Assessment.one(assessmentFile.uuid)}?assessmentName=${assessment.props.name}`}
+              href={`${ApiEndPoint.File.Assessment.one(assessmentFile.uuid)}?countryIso=${countryIso}&assessmentName=${
+                assessment.props.name
+              }&cycleName=${cycle.name}`}
               target="_blank"
               rel="noreferrer"
             >
