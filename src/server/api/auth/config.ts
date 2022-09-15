@@ -1,11 +1,14 @@
-import { User } from '@meta/user'
-import { googleStrategyVerifyCallback } from '@server/api/auth/googleStrategyVerifyCallback'
-import { localStrategyVerifyCallback } from '@server/api/auth/localStrategyVerifyCallback'
-import { UserRepository } from '@server/repository/public/user'
 import { Express } from 'express'
 import * as passport from 'passport'
 import * as GoogleStrategy from 'passport-google-oauth'
 import * as passportLocal from 'passport-local'
+
+import { ApiEndPoint } from '@meta/api/endpoint'
+import { User } from '@meta/user'
+
+import { googleStrategyVerifyCallback } from '@server/api/auth/googleStrategyVerifyCallback'
+import { localStrategyVerifyCallback } from '@server/api/auth/localStrategyVerifyCallback'
+import { UserRepository } from '@server/repository/public/user'
 
 export const AuthConfig = {
   init: (app: Express) => {
@@ -18,7 +21,7 @@ export const AuthConfig = {
         {
           clientID: process.env.FRA_GOOGLE_CLIENT_ID,
           clientSecret: process.env.FRA_GOOGLE_CLIENT_SECRET,
-          callbackURL: `/auth/google/callback`,
+          callbackURL: ApiEndPoint.Auth.googleCallback(),
           passReqToCallback: true,
         },
         googleStrategyVerifyCallback
