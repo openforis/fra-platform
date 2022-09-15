@@ -26,18 +26,23 @@ export interface ColSelectProps {
   labelKeyPrefix?: string
 }
 
+export interface ColStyle {
+  colSpan?: number
+  rowSpan?: number
+}
+
 export interface ColProps {
   colName?: string
-  colSpan?: number
   colType: ColType
   index?: number | string
   label?: Label
-  rowSpan?: number
   variableNo?: string
   // calculated props
   calculateFn?: string
   // select props
   select?: ColSelectProps
+  // style by cycle uuid
+  style: Record<string, ColStyle>
 }
 
 export interface Col extends CycledPropsObject<ColProps> {
