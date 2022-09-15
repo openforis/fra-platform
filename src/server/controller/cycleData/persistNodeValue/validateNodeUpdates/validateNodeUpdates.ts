@@ -51,7 +51,7 @@ export const validateNodeUpdates = async (props: Props, client: BaseProtocol): P
             { assessment, cycle, tableName, variableName, countryIso, colName, validation },
             client
           )
-          value = node.value
+          value = node?.value
         }
       }
 
@@ -60,7 +60,9 @@ export const validateNodeUpdates = async (props: Props, client: BaseProtocol): P
       )
       queue.push(...dependants)
       visitedVariables.push(queueItem)
-      nodeUpdatesResult.nodes.push({ tableName, variableName, colName, value })
+      if (value) {
+        nodeUpdatesResult.nodes.push({ tableName, variableName, colName, value })
+      }
     }
   }
 
