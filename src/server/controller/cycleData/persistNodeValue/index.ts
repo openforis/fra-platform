@@ -1,3 +1,4 @@
+import { ActivityLogMessage } from '@meta/assessment'
 import { Sockets } from '@meta/socket'
 
 import { DB } from '@server/db'
@@ -8,7 +9,7 @@ import { calculateDependantNodes } from './calculateDependantNodes'
 import { Props } from './props'
 import { validateNodeUpdates } from './validateNodeUpdates'
 
-export const persistNodeValue = async (props: Props): Promise<void> => {
+export const persistNodeValue = async (props: Props & { activityLogMessage?: ActivityLogMessage }): Promise<void> => {
   const { tableName, variableName, colName } = props
 
   return DB.tx(async (client) => {
