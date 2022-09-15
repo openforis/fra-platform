@@ -1,6 +1,7 @@
 import { add2025Columns } from '@test/dataMigration/steps/add2025Columns/add2025Columns'
 import { cleanupCountryProps } from '@test/dataMigration/steps/cleanupCountryProps'
 import { deleteWrongCalculatedNodes } from '@test/dataMigration/steps/deleteWrongCalculatedNodes'
+import { metadataFix } from '@test/dataMigration/steps/metadataFix/metadataFix'
 import { migrateDescriptions } from '@test/dataMigration/steps/migrateDescriptions'
 import { migrateMessageBoard } from '@test/dataMigration/steps/migrateMessageBoard'
 import { updateCalculatedNodes } from '@test/dataMigration/steps/updateCalculatedNodes/updateCalculatedNodes'
@@ -31,6 +32,7 @@ describe('Post Data migration', () => {
       await migrateDescriptions({ assessment }, client)
       await migrateMessageBoard({ assessment }, client)
       await add2025Columns({ assessment }, client)
+      await metadataFix({ assessment }, client)
     })
     process.exit(0)
   })

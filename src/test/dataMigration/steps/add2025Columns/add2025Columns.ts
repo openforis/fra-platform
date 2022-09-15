@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Objects } from '@utils/objects'
 import * as pgPromise from 'pg-promise'
 
@@ -93,9 +92,13 @@ export const add2025Columns = async (props: Props, client: BaseProtocol): Promis
           index,
           cycles: [cycle.uuid],
           colName,
-          colSpan: 1,
           colType: dataRow ? ColType.decimal : ColType.header,
-          rowSpan: 1,
+          style: {
+            [cycle.uuid]: {
+              colSpan: 1,
+              rowSpan: 1,
+            },
+          },
         },
         row_id: row.id,
       }
