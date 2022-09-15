@@ -100,7 +100,7 @@ const Table: React.FC<Props> = (props) => {
                     <th
                       key={col.uuid}
                       className={className}
-                      colSpan={odp && !colSpan ? getODPColSpan({ table, data }) : colSpan}
+                      colSpan={odp && !colSpan ? getODPColSpan({ headers, table, data }) : colSpan}
                       rowSpan={rowSpan}
                     >
                       {getColumnName()}
