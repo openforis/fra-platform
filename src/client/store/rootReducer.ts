@@ -5,6 +5,7 @@ import LoginSlice from './login/slice'
 import AssessmentSectionSlice from './pages/assessmentSection/slice'
 import DataExportSlice from './pages/dataExport/slice'
 import OriginalDataPointSlice from './pages/originalDataPoint/slice'
+import assessmentFilesSlice from './ui/assessmentFiles/slice'
 import DataLockSlice from './ui/dataLock/slice'
 import GeoSlice from './ui/geo/slice'
 import HomeSlice from './ui/home/slice'
@@ -25,6 +26,7 @@ export default {
     originalDataPoint: OriginalDataPointSlice,
   }),
   ui: combineReducers({
+    assessmentFiles: assessmentFilesSlice,
     dataLock: DataLockSlice,
     home: HomeSlice,
     messageCenter: MessageCenterSlice,
