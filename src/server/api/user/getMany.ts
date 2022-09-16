@@ -6,7 +6,7 @@ import { AssessmentController } from '@server/controller/assessment'
 import { UserController } from '@server/controller/user'
 import Requests from '@server/utils/requests'
 
-export const getMany = async (req: CycleRequest<{ print?: boolean }>, res: Response) => {
+export const getMany = async (req: CycleRequest<{ print: boolean }>, res: Response) => {
   const { countryIso, assessmentName, cycleName, print } = req.query
 
   try {
