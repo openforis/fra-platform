@@ -6,7 +6,7 @@ import { AssessmentController } from '@server/controller/assessment'
 import { UserController } from '@server/controller/user'
 import Requests from '@server/utils/requests'
 
-export const getMany = async (req: CycleRequest<{ print: boolean }>, res: Response) => {
+export const getMany = async (req: CycleRequest<{ print: string }>, res: Response) => {
   const { countryIso, assessmentName, cycleName, print } = req.query
 
   try {
@@ -18,7 +18,7 @@ export const getMany = async (req: CycleRequest<{ print: boolean }>, res: Respon
       cycle,
     })
 
-    if (print)
+    if (print && print === 'true')
       users = users.filter((user) => !(process.env.FRA_REPORT_COLLABORATORS_EXCLUDED ?? []).includes(user.email))
 
     Requests.sendOk(res, users)
