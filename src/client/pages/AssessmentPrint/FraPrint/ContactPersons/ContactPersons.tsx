@@ -54,7 +54,12 @@ const ContactPersons = () => {
 
   useEffect(() => {
     dispatch(
-      UserManagementActions.getUsers({ countryIso, assessmentName: assessment.props.name, cycleName: cycle.name })
+      UserManagementActions.getUsers({
+        countryIso,
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
+        print: true,
+      })
     )
   }, [assessment.props.name, countryIso, cycle.name, dispatch])
 
