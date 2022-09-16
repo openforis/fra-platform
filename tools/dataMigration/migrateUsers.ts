@@ -18,7 +18,7 @@ export const migrateUsers = async (props: { client: BaseProtocol }): Promise<voi
         where email = 'akabroj2@yahoo.fr'
           and lang = 'en';
 
-        update fra_audit
+        update _legacy.fra_audit
         set user_login_email = 'agrimediambient@gmail.com'
         where user_email = 'agrimediambient@ordino.ad';
 

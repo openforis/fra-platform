@@ -8,6 +8,7 @@ import { BaseProtocol, DB, Schemas } from '@server/db'
 const acceptedMessages = [
   ActivityLogMessage.invitationAccept,
   ActivityLogMessage.invitationAdd,
+  ActivityLogMessage.invitationRemove,
   ActivityLogMessage.descriptionUpdate,
   ActivityLogMessage.nodeValueUpdate,
   ActivityLogMessage.originalDataPointCreate,
