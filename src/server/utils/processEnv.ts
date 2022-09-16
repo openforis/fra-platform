@@ -19,6 +19,8 @@ export const ProcessEnv = {
 
   nodeEnv: process.env.NODE_ENV || NodeEnv.development,
 
+  fraReportCollaboratorsExcluded: JSON.parse(process.env.FRA_REPORT_COLLABORATORS_EXCLUDED ?? '[]'),
+
   // DB
   dbUrl,
   pgUser,
