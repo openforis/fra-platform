@@ -4,7 +4,9 @@ import { ApiEndPoint } from '@common/api/endpoint'
 export const AuthLogout = {
   init: (express: Express): void => {
     express.post(ApiEndPoint.Auth.logout(), (req: Request, res: Response): void => {
-      req.logout(() => res.json({}))
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      req.logout(() => {})
+      res.json({})
     })
   },
 }
