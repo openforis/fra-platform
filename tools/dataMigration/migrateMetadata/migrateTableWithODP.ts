@@ -1,5 +1,5 @@
 import { Assessment } from '../../../src/meta/assessment/assessment'
-import { Col, ColType } from '../../../src/meta/assessment/col'
+import { Col, ColStyle, ColType } from '../../../src/meta/assessment/col'
 import { Row, RowType } from '../../../src/meta/assessment/row'
 import { Table } from '../../../src/meta/assessment/table'
 import { BaseProtocol } from '../../../src/server/db'
@@ -53,11 +53,17 @@ export const migrateTableWithODP = async (
     [JSON.stringify(rowHeader.props), table.id],
     Objects.camelize
   )
+
+  const style = cycles.reduce<Record<string, ColStyle>>(
+    (cyclesAgg, cycle) => ({ ...cyclesAgg, [cycle]: { colSpan: 1, rowSpan: 1 } }),
+    {}
+  )
+
   // insert cols header
   await Promise.all(
     years.map((year, index) => {
       const col: Col = {
-        props: { cycles, colType: ColType.header, colName: `${year}`, colSpan: 1, rowSpan: 1, index },
+        props: { cycles, colType: ColType.header, colName: `${year}`, style, index },
         rowId: rowHeader.id,
       }
       return client.one<Col>(
@@ -102,7 +108,7 @@ export const migrateTableWithODP = async (
       return Promise.all(
         years.map((year, index) => {
           const col: Col = {
-            props: { cycles, colType: ColType.decimal, colName: `${year}`, colSpan: 1, rowSpan: 1, index },
+            props: { cycles, colType: ColType.decimal, colName: `${year}`, style, index },
             rowId: row.id,
           }
 

@@ -1,12 +1,23 @@
 import { UUIDs } from '@utils/uuids'
 
-import { Col as TypeCol, Row as TypeRow, RowType, Table } from '@meta/assessment'
+import { Col as TypeCol, Cycle, Row as TypeRow, RowType, Table } from '@meta/assessment'
 
-export const parseTable = (props: { headers: Array<string>; table: Table }): Table => {
-  const { headers, table } = props
+const getHeaders = (props: { cycle: Cycle; table: Table }): string[] => {
+  const { cycle, table } = props
+  const headers = table.props.columnNames[cycle.uuid]
+  return headers.map((header) => {
+    // Case ex. 1990_2000 => 1990-2000
+    if (/^\d{4}_\d{4}$/.test(header)) return header.replace('_', '-')
+    return header
+  })
+}
+
+export const parseTable = (props: { cycle: Cycle; table: Table }): { headers: Array<string>; table: Table } => {
+  const { cycle, table } = props
+  const headers = getHeaders(props)
 
   if (!table.props.odp) {
-    return table
+    return { headers, table }
   }
 
   const isHeaderData = (row: TypeRow): boolean =>
@@ -31,7 +42,8 @@ export const parseTable = (props: { headers: Array<string>; table: Table }): Tab
 
     if (row.props.type === RowType.header && !headerData) {
       cols = row.cols.map((col) => {
-        if (col.props.colSpan > 1) {
+        const style = col.props.style[cycle.uuid]
+        if (style.colSpan > 1) {
           return { ...col, uuid: UUIDs.v4(), props: { ...col.props, colSpan: headers.length } }
         }
         return col
@@ -41,5 +53,5 @@ export const parseTable = (props: { headers: Array<string>; table: Table }): Tab
     return { ...row, cols }
   })
 
-  return { ...table, rows }
+  return { headers, table: { ...table, rows } }
 }

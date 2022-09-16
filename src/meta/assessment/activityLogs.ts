@@ -14,6 +14,9 @@ const messageToKey: { [key in keyof typeof ActivityLogMessage]?: string } = {
   [ActivityLogMessage.messageCreate]: 'commented',
   [ActivityLogMessage.messageMarkDeleted]: 'deleted',
   [ActivityLogMessage.topicStatusChange]: 'resolved',
+  [ActivityLogMessage.invitationAccept]: 'acceptInvitation',
+  [ActivityLogMessage.invitationAdd]: 'addInvitation',
+  [ActivityLogMessage.invitationRemove]: 'removeInvitation',
 }
 
 const getLabelActionKey = (activity: ActivityLog<any>) => {
@@ -29,7 +32,7 @@ const getLabelActionKey = (activity: ActivityLog<any>) => {
 const getLabelActionParams = (activity: ActivityLog<any>, i18n: i18n) => {
   const { target } = activity
   let params = {}
-  const { user, role, assessment, status, file } = target
+  const { user, role, assessment, status, file } = target ?? {}
   if (user)
     params = {
       user,

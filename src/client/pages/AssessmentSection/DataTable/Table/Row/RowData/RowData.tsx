@@ -34,6 +34,7 @@ const RowData: React.FC<Props> = (props) => {
       ? colHeader.props.label?.label
       : i18n.t(colHeader.props.label?.key, colHeader.props.label?.params ?? {})
   if (colHeader.props.variableNo) colHeaderLabel = `${colHeaderLabel} (${colHeader.props.variableNo})`
+  const colHeaderStyle = Cols.getStyle({ col: colHeader, cycle })
 
   const colsData = cols.slice(1, cols.length)
   // const className = useClassName(reviewTarget)
@@ -50,8 +51,8 @@ const RowData: React.FC<Props> = (props) => {
           'fra-table__category-cell': !subcategory && !headerCell,
           'fra-table__header-cell-left': !subcategory && headerCell,
         })}
-        colSpan={colHeader.props.colSpan}
-        rowSpan={colHeader.props.rowSpan}
+        colSpan={colHeaderStyle.colSpan}
+        rowSpan={colHeaderStyle.rowSpan}
       >
         {row.props.linkToSection ? (
           <>
