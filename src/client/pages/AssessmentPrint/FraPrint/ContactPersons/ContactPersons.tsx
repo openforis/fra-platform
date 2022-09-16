@@ -33,7 +33,7 @@ const ContactPersons = () => {
 
   const users = useUsers().filter(
     (user) =>
-      user.status === UserStatus.active &&
+      [UserStatus.active, UserStatus.invitationPending].includes(user.status) &&
       !Users.isReviewer(user, countryIso) &&
       user.roles?.[0]?.props?.sections !== 'none'
   )
@@ -54,7 +54,12 @@ const ContactPersons = () => {
 
   useEffect(() => {
     dispatch(
-      UserManagementActions.getUsers({ countryIso, assessmentName: assessment.props.name, cycleName: cycle.name })
+      UserManagementActions.getUsers({
+        countryIso,
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
+        print: true,
+      })
     )
   }, [assessment.props.name, countryIso, cycle.name, dispatch])
 
