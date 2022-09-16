@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { AssessmentName, Col as TypeCol, Row as TypeRow, RowType, Table as TableType } from '@meta/assessment'
+import { AssessmentName, Col as TypeCol, Cols, Row as TypeRow, RowType, Table as TableType } from '@meta/assessment'
 import { TableData } from '@meta/data'
 
 import { useAssessmentCountry, useCycle } from '@client/store/assessment'
@@ -12,10 +12,10 @@ import { useIsPrint } from '@client/hooks/useIsPath'
 import { ClientRoutes } from '@client/clientRoutes'
 import ButtonTableExport from '@client/components/ButtonTableExport'
 import Tooltip from '@client/components/Tooltip'
-import * as DataTableUtils from '@client/pages/AssessmentSection/DataTable/utils'
 
+import { getODPColSpan } from './utils/getODPColSpan'
+import { parseTable } from './utils/parseTable'
 import DataValidations from './DataValidations'
-import { parseTable } from './parseTable'
 import Row from './Row'
 
 type Props = {
@@ -40,9 +40,7 @@ const Table: React.FC<Props> = (props) => {
   const { print } = useIsPrint()
   const tableRef = useRef<HTMLTableElement>(null)
 
-  // Get headers from data
-  const headers = DataTableUtils.getHeaders(data, countryIso, tableProps)
-  const table = parseTable({ headers, table: tableProps })
+  const { headers, table } = parseTable({ cycle, table: tableProps })
   const { odp, secondary } = table.props
   const rowsHeader = table.rows.filter((row) => row.props.type === RowType.header)
   const rowsData = table.rows.filter((row) => row.props.type !== RowType.header)
@@ -60,7 +58,8 @@ const Table: React.FC<Props> = (props) => {
             {rowsHeader.map((row: TypeRow, rowIndex: number) => (
               <tr key={row.uuid}>
                 {row.cols.map((col: TypeCol, colIndex: number) => {
-                  const { index, /* idx, className, */ colSpan, rowSpan, label /* labelParams,  label */ } = col.props
+                  const { index, label } = col.props
+                  const { colSpan, rowSpan } = Cols.getStyle({ cycle, col })
                   const columnName = headers[colIndex]
 
                   let isOdpHeader = showOriginalDatapoints && table.props.odp && odpYears?.includes(columnName)
@@ -101,7 +100,7 @@ const Table: React.FC<Props> = (props) => {
                     <th
                       key={col.uuid}
                       className={className}
-                      colSpan={odp && !colSpan ? DataTableUtils.getODPColSpan({ table, data }) : colSpan}
+                      colSpan={odp && !colSpan ? getODPColSpan({ headers, table, data }) : colSpan}
                       rowSpan={rowSpan}
                     >
                       {getColumnName()}

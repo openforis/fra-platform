@@ -1,19 +1,22 @@
 import { ColSpec } from '../../../.src.legacy/webapp/sectionSpec'
-import { Col, ColType } from '../../../src/meta/assessment/col'
+import { Col, ColStyle, ColType } from '../../../src/meta/assessment/col'
 import { Row } from '../../../src/meta/assessment/row'
 
 export const getCol = (props: { cycles: Array<string>; colSpec: ColSpec; row: Row }): Col => {
   const { colSpec, cycles, row } = props
+  const style = cycles.reduce<Record<string, ColStyle>>(
+    (styleAgg, cycle) => ({ ...styleAgg, [cycle]: { colSpan: colSpec.colSpan, rowSpan: colSpec.rowSpan } }),
+    {}
+  )
   const col: Col = {
     props: {
       cycles,
-      colSpan: colSpec.colSpan,
-      rowSpan: colSpec.rowSpan,
       colType: colSpec.type as unknown as ColType,
       index: colSpec.idx,
       colName: colSpec.colName,
       variableNo: colSpec.variableNo,
       calculateFn: colSpec.migration?.calculateFn,
+      style,
     },
     rowId: row.id,
   }

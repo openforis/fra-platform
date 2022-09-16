@@ -1,19 +1,7 @@
-import { Col, ColType } from './col'
-import { Row, RowType } from './row'
+import { Cycle } from '@meta/assessment/cycle'
 
-/**
- * @deprecated - use table.columnNames
- */
-const getColIndexes = (props: { rows: Array<Row>; cols: Array<Col> }): Array<number> => {
-  const { rows, cols } = props
-  const maxCols = rows
-    .filter((row) => [RowType.data, RowType.calculated].includes(row.props.type))
-    .reduce<number>((max, row) => {
-      const colsRow = cols.filter((col) => col.rowId === row.id && col.props.index >= 0)
-      return colsRow.reduce<number>((m, col) => (Number(col.props.index) > m ? Number(col.props.index) : m), max)
-    }, 0)
-  return Array.from(Array(maxCols + 1).keys())
-}
+import { Col, ColStyle, ColType } from './col'
+import { Row } from './row'
 
 const getColName = (props: { colIdx: number; cols: Array<Col> }): string => {
   const { colIdx, cols } = props
@@ -42,12 +30,15 @@ const isReadOnly = (props: { col: Col; row: Row }): boolean => {
   )
 }
 
+const getStyle = (props: { cycle: Cycle; col: Col }): ColStyle => {
+  const { col, cycle } = props
+  const { style = {} } = col.props
+  return style[cycle.uuid] ?? { colSpan: undefined, rowSpan: undefined }
+}
+
 export const Cols = {
-  /**
-   * @deprecated - use table.columnNames
-   */
-  getColIndexes,
   getColName,
   isCalculated,
   isReadOnly,
+  getStyle,
 }

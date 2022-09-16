@@ -17,46 +17,40 @@ export const migrateUsersRole = async (props: Props): Promise<void> => {
         drop materialized view if exists _temp;
 
         create materialized view _temp as
-        with r as (
-            select cca.user_id,
-                   cca.country_iso,
-                   jsonb_array_elements((cca.tables -> 'tables')::jsonb) as tables
-            from _legacy.collaborators_country_access cca
-        ),
-             d as (
-                 select r.country_iso,
-                        r.tables ->> 'section'::varchar as section_name,
-                        r.tables ->> 'tableNo'::varchar as table_no,
-                        s.uuid                          as section_uuid,
-                        u.id                            as user_id,
-                        u_l.email,
-                        u_l.id                          as user_id_legacy
-                 from r
-                          left join assessment_fra.section s
-                                    on r.tables -> 'tableNo' = s.props -> 'anchor'
-                          left join _legacy.fra_user u_l on r.user_id = u_l.id
-                          left join users u on u_l.email = u.email
-             ),
-             q as (
-                 select d.country_iso,
-                        d.user_id,
-                        d.user_id_legacy,
-                        d.email,
-                        jsonb_object_agg(
-                                case
-                                    when d.section_name = 'all' then 'all'
-                                    when d.section_name = 'none' then 'none'
-                                    else
-                                        d.section_uuid::varchar end,
-                                true
-                            )
-                            as sections
-                 from d
-                 group by d.country_iso,
+        with r as (select cca.user_id,
+                          cca.country_iso,
+                          jsonb_array_elements((cca.tables -> 'tables')::jsonb) as tables
+                   from _legacy.collaborators_country_access cca),
+             d as (select r.country_iso,
+                          r.tables ->> 'section'::varchar as section_name,
+                          r.tables ->> 'tableNo'::varchar as table_no,
+                          s.uuid                          as section_uuid,
+                          u.id                            as user_id,
+                          u_l.email,
+                          u_l.id                          as user_id_legacy
+                   from r
+                            left join assessment_fra.section s
+                                      on r.tables -> 'tableNo' = s.props -> 'anchor'
+                            left join _legacy.fra_user u_l on r.user_id = u_l.id
+                            left join users u on u_l.email = u.email),
+             q as (select d.country_iso,
                           d.user_id,
                           d.user_id_legacy,
-                          d.email
-             )
+                          d.email,
+                          jsonb_object_agg(
+                                  case
+                                      when d.section_name = 'all' then 'all'
+                                      when d.section_name = 'none' then 'none'
+                                      else
+                                          d.section_uuid::varchar end,
+                                  true
+                              )
+                              as sections
+                   from d
+                   group by d.country_iso,
+                            d.user_id,
+                            d.user_id_legacy,
+                            d.email)
         select q.country_iso,
                q.user_id,
                q.user_id_legacy,

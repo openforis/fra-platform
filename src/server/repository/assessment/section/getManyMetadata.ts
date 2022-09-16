@@ -70,15 +70,25 @@ export const getManyMetadata = async (
 
       `,
     [sectionNames, cycle.uuid],
-    ({ rows }) => {
-      return rows.reduce((prev, current) => {
+    (result) => {
+      return result.rows.reduce((prev, current) => {
         return {
           ...prev,
           [current.section_name]: current.table_sections.map((ts: TableSection) => {
             const { tables, ...tableSection } = ts
             return {
               ...tableSection,
-              tables: tables.map(({ props, ...table }) => ({ ...Objects.camelize(table), props })),
+              tables: tables.map(({ props, rows, ...table }) => ({
+                ...Objects.camelize(table),
+                props,
+                rows: rows.map(({ cols, ...row }) => ({
+                  ...Objects.camelize(row),
+                  cols: cols.map(({ props: { style, ...otherProps }, ...col }) => ({
+                    ...Objects.camelize(col),
+                    props: { ...Objects.camelize(otherProps), style },
+                  })),
+                })),
+              })),
             }
           }),
         }
