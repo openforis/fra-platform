@@ -2,6 +2,24 @@ import { Assessment, Cycle } from '@meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
+const climaticDomainQuery = (schemaCycle: string) => `
+    select country_iso,
+           coalesce(max(case when variable_name = 'boreal' and col_name = 'percentOfForestArea2015' then value ->> 'raw' end),
+                    max(case when variable_name = 'boreal' and col_name = 'percentOfForestArea2015Default' then value ->> 'raw' end)
+               )       as "boreal",
+           coalesce(max(case when variable_name = 'sub_tropical' and col_name = 'percentOfForestArea2015' then value ->> 'raw' end),
+                    max(case when variable_name = 'sub_tropical' and col_name = 'percentOfForestArea2015Default' then value ->> 'raw' end)
+               )       as "sub_tropical",
+           coalesce(max(case when variable_name = 'temperate' and col_name = 'percentOfForestArea2015' then value ->> 'raw' end),
+                    max(case when variable_name = 'temperate' and col_name = 'percentOfForestArea2015Default' then value ->> 'raw' end)
+               )       as "temperate",
+           coalesce(max(case when variable_name = 'tropical' and col_name = 'percentOfForestArea2015' then value ->> 'raw' end),
+                    max(case when variable_name = 'tropical' and col_name = 'percentOfForestArea2015Default' then value ->> 'raw' end)
+               )       as "tropical"
+    from ${schemaCycle}.climaticdomain
+    group by country_iso
+        `
+
 const getAnnualData = async (
   props: { assessment: Assessment; cycle: Cycle },
   client: BaseProtocol = DB
@@ -28,13 +46,7 @@ const getAnnualData = async (
         from ${schemaCycle}.areaaffectedbyfire
         where variable_name in ('total_land_area_affected_by_fire', 'of_which_on_forest')
         group by 1, 2),
-            climaticdomain as (select country_iso,
-            max(case when variable_name = 'boreal' then value ->> 'raw' end)       as "boreal",
-            max(case when variable_name = 'sub_tropical' then value ->> 'raw' end) as "sub_tropical",
-            max(case when variable_name = 'temperate' then value ->> 'raw' end)    as "temperate",
-            max(case when variable_name = 'tropical' then value ->> 'raw' end)     as "tropical"
-        from ${schemaCycle}.climaticdomain
-        group by country_iso),
+        climaticdomain as (${climaticDomainQuery(schemaCycle)}),
             _regions as (select cr.country_iso, array_to_string(ARRAY_AGG(distinct cr.region_code), ';') as regions
         from ${schemaCycle}.country_region cr
         group by cr.country_iso),
@@ -58,7 +70,7 @@ const getAnnualData = async (
                boreal,
                temperate,
                tropical,
-               sub_tropical,
+               sub_tropical as subtropical,
                insects                          as "5a_insect",
                diseases                         as "5a_diseases",
                severe_weather_events            as "5a_weather",
@@ -71,6 +83,7 @@ const getAnnualData = async (
                  join climaticdomain c using (country_iso)
                  left join disturbances d using (country_iso, year)
                  left join fire f using (country_iso, year)
+        where cc.country_iso not ilike 'X%'
 
 
     `,
@@ -99,16 +112,10 @@ const getIntervalData = async (
                      max(case when variable_name = 'afforestation' then value ->> 'raw' end)               as "afforestation",
                      max(case when variable_name = 'natural_expansion' then value ->> 'raw' end)               as "natural_expansion",
                      max(case when variable_name = 'deforestation' then value ->> 'raw' end)               as "deforestation"
-              from ${schemaCycle}.areaaffectedbyfire
+              from ${schemaCycle}.forestareachange
               where variable_name in ('afforestation', 'deforestation', 'forest_expansion', 'natural_expansion')
               group by 1, 2),
-     climaticdomain as (select country_iso,
-                               max(case when variable_name = 'boreal' then value ->> 'raw' end)       as "boreal",
-                               max(case when variable_name = 'sub_tropical' then value ->> 'raw' end) as "sub_tropical",
-                               max(case when variable_name = 'temperate' then value ->> 'raw' end)    as "temperate",
-                               max(case when variable_name = 'tropical' then value ->> 'raw' end)     as "tropical"
-                        from ${schemaCycle}.climaticdomain
-                        group by country_iso),
+     climaticdomain as (${climaticDomainQuery(schemaCycle)}),
      _regions as (select cr.country_iso, array_to_string(ARRAY_AGG(distinct cr.region_code), ';') as regions
                   from ${schemaCycle}.country_region cr
                   group by cr.country_iso),
@@ -132,7 +139,7 @@ select r.regions,
        boreal,
        temperate,
        tropical,
-       sub_tropical,
+       sub_tropical as subtropical,
        forest_expansion as "1d_expansion",
        afforestation as "1d_afforestation",
        natural_expansion as "1d_nat_exp",
@@ -144,6 +151,7 @@ from ${schemaCycle}.country cc
          join climaticdomain c using (country_iso)
          left join annualreforestation ar using (country_iso, year)
          left join forestareachange fac using (country_iso, year)
+        where cc.country_iso not ilike 'X%'
     `,
     []
   )
@@ -174,13 +182,7 @@ with extentofforest as (select country_iso,
                           from ${schemaCycle}.forestcharacteristics
                           where variable_name in ('naturalForestArea', 'plantedForest', 'plantationForestArea' )
                           group by 1, 2),
-     climaticdomain as (select country_iso,
-                               max(case when variable_name = 'boreal' then value ->> 'raw' end)       as "boreal",
-                               max(case when variable_name = 'sub_tropical' then value ->> 'raw' end) as "sub_tropical",
-                               max(case when variable_name = 'temperate' then value ->> 'raw' end)    as "temperate",
-                               max(case when variable_name = 'tropical' then value ->> 'raw' end)     as "tropical"
-                        from ${schemaCycle}.climaticdomain
-                        group by country_iso),
+     climaticdomain as (${climaticDomainQuery(schemaCycle)}),
      _regions as (select cr.country_iso, array_to_string(ARRAY_AGG(distinct cr.region_code), ';') as regions
                   from ${schemaCycle}.country_region cr
                   group by cr.country_iso),
@@ -205,7 +207,7 @@ select r.regions,
        boreal,
        temperate,
        tropical,
-       sub_tropical,
+       sub_tropical as subtropical,
        forestArea as "1a_forestArea",
        otherWoodedLand as "1a_otherWoodedLand",
        totalLandArea as "1a_landArea",
@@ -218,6 +220,8 @@ from ${schemaCycle}.country cc
          join climaticdomain c using (country_iso)
          left join extentofforest eof using (country_iso, year)
          left join forestcharacteristics fc using (country_iso, year)
+        where cc.country_iso not ilike 'X%'
+
     `,
     []
   )
