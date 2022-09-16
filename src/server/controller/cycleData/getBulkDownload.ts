@@ -18,7 +18,7 @@ const _getFileName = (name: string): string => {
 }
 
 // eslint-disable-next-line camelcase
-const handleResult = ({ regions, country_iso, ...row }: Record<string, string>, i18n: i18nType) => {
+const handleResult = ({ regions, country_iso, year, ...row }: Record<string, string>, i18n: i18nType) => {
   const _translate = (key: string) => i18n.t<string>(Areas.getTranslationKey(key as RegionCode | CountryIso))
 
   const _handleRegions = (regions: string): string => {
@@ -28,8 +28,9 @@ const handleResult = ({ regions, country_iso, ...row }: Record<string, string>, 
   return {
     regions: _handleRegions(regions),
     // eslint-disable-next-line camelcase
-    iso3: country_iso,
-    name: _translate(country_iso),
+    iso3: `"${country_iso}"`,
+    name: `"${_translate(country_iso)}"`,
+    year: `"${year.replace('_', '-')}"`,
     ...row,
   }
 }
