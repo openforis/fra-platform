@@ -17,6 +17,7 @@ import { migrateTablesData } from './migrateData/migrateTablesData'
 import { DBNames } from './_DBNames'
 import { FraSpecs } from './fraSpecs'
 import { generateMetaCache } from './generateMetaCache'
+import { migrateActivityLog } from './migrateActivityLog'
 import { migrateAreas } from './migrateAreas'
 import { migrateMetadata } from './migrateMetadata'
 import { migrateRepository } from './migrateRepository'
@@ -116,6 +117,7 @@ export const migrate = async (props: {
     await migrateAggregates({ assessment }, client)
     await generateMetaCache({ assessment }, client)
     await migrateReview({ assessment }, client)
+    await migrateActivityLog({ assessment }, client)
 
     await client.query(
       `delete
