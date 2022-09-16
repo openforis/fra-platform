@@ -31,18 +31,14 @@ const ContactPersons = () => {
       }
     }, {})
 
-  const users = useUsers().filter(
-    (user) =>
-      user.status === UserStatus.active &&
-      !Users.isReviewer(user, countryIso) &&
-      user.roles?.[0]?.props?.sections !== 'none'
-  )
+  const users = useUsers().filter((user) => user.status === UserStatus.active && !Users.isReviewer(user, countryIso))
 
   const getUserTableAnchors = (user: User) => {
     if (Users.isCollaborator(user, countryIso)) {
       const collaboratorProps: CollaboratorProps = user.roles?.[0]?.props
       const sections = collaboratorProps?.sections
-      // if(sections === 'all')  return i18n.t<string>('contactPersons.all')
+      // if(sections === 'all') return i18n.t<string>('contactPersons.all')
+      if (sections === 'none') return i18n.t<string>('contactPersons.none')
       if (!Objects.isEmpty(sections)) {
         return Object.keys(sections)
           .map((sectionUuid) => assessmentSectionAnchors[sectionUuid])
