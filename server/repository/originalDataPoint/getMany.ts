@@ -18,7 +18,7 @@ export const getManyNormalized = async (
                o.forest_area,
                o.natural_forest_area,
                o.other_planted_forest_area,
-               o.other_wooded_land_area,
+               o.other_wooded_land_area as other_wooded_land,
                o.plantation_forest_area,
                o.plantation_forest_introduced_area,
                'odp' as type
