@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
-
 import { AssessmentName } from '@meta/assessment'
 import { TableData } from '@meta/data'
 
@@ -46,7 +45,8 @@ export const useFetchResults = (props: Props): UseFetchResults => {
     },
   })
 
-  useEffect(fetchResults, [fetchResults, selection])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(fetchResults, [selection])
 
   return {
     results,
