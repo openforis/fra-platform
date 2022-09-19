@@ -1,5 +1,5 @@
 import './countrySelectModalBody.scss'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 
@@ -17,10 +17,16 @@ type Props = {
   excludedRegions: Array<string>
   onChange: (countryIso: string) => void
   onChangeAll: (countryISOs: Array<string>) => void
+  onChangeMany: (countryISOs: Array<string>, selectAll: boolean) => void
 }
 
 const CountrySelectModalBody: React.FC<Props> = (props) => {
-  const { countries, onChange, onChangeAll, selection, unselectableCountries, excludedRegions } = props
+  const { countries, onChange, onChangeAll, onChangeMany, selection, unselectableCountries, excludedRegions } = props
+  const allSelectedInRegion = useMemo(
+    () => (region: string[], selection: string[]) =>
+      region.every((v) => selection.includes(v) || unselectableCountries.includes(v)),
+    [unselectableCountries]
+  )
 
   const i18n = useTranslation()
 
@@ -100,6 +106,20 @@ const CountrySelectModalBody: React.FC<Props> = (props) => {
           {Object.entries(regionCountries).map(([regionCode, countryISOs]) => (
             <div key={regionCode} className="form-field-region-container">
               <div className="form-field-region-label">{i18n.t(`area.${regionCode}.listName`)}</div>
+
+              <div
+                className="form-field-country-selector"
+                onClick={() => onChangeMany(countryISOs, !allSelectedInRegion(countryISOs, selection))}
+                onKeyUp={() => onChangeMany(countryISOs, !allSelectedInRegion(countryISOs, selection))}
+                role="button"
+                tabIndex={0}
+              >
+                <div className={classNames('fra-checkbox', { checked: allSelectedInRegion(countryISOs, selection) })} />
+                <div className="form-field-country-label">
+                  {i18n.t(`${allSelectedInRegion(countryISOs, selection) ? 'common.unselectAll' : 'common.selectAll'}`)}
+                </div>
+              </div>
+              <hr />
 
               {countryISOs.map((countryIso: string) => {
                 const unselectable = unselectableCountries.includes(countryIso)
