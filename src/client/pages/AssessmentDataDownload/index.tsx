@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { useAssessment, useCycle } from '@client/store/assessment'
+import { useCountryIso } from '@client/hooks'
 import Icon from '@client/components/Icon'
 import { DOMs } from '@client/utils/dom'
 
@@ -15,10 +16,11 @@ const AssessmentDataDownload: React.FC = () => {
   const { i18n } = useTranslation()
   const assessment = useAssessment()
   const cycle = useCycle()
+  const countryIso = useCountryIso()
 
   useEffect(DOMs.scrollTo, [])
 
-  const href = `/api/file/bulk-download?assessmentName=${assessment.props.name}&cycleName=${cycle.name}`
+  const href = `/api/file/bulk-download?assessmentName=${assessment.props.name}&cycleName=${cycle.name}&countryIso=${countryIso}`
 
   return (
     <div className="app-view__content">

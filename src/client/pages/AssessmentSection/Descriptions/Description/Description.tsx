@@ -5,6 +5,7 @@ import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import useDescription from '@client/store/pages/assessmentSection/hooks/useDescription'
+import { useIsDataLocked } from '@client/store/ui/dataLock'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
@@ -34,6 +35,7 @@ const Description: React.FC<Props> = (props) => {
   const user = useUser()
   const { print } = useIsPrint()
   const value = useDescription({ name, sectionName, template })
+  const isDataLocked = useIsDataLocked()
   const [open, setOpen] = useState(false)
 
   const onChange = useCallback(
@@ -67,6 +69,12 @@ const Description: React.FC<Props> = (props) => {
       })
     )
   }, [assessment.props.name, countryIso, cycle.name, dispatch, name, sectionName])
+
+  useEffect(() => {
+    if (open && isDataLocked) {
+      setOpen(!isDataLocked)
+    }
+  }, [isDataLocked, open])
 
   return (
     <div className="fra-description__header-row">
