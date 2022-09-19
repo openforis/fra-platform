@@ -31,8 +31,8 @@ export type CollaboratorProps = {
   /**
    * all = all sections enabled for editing
    * none = no sections enabled for editing
-   * Record<string, boolean> = key is sectionUuid, value if true enabled for editing, disabled otherwise
+   * Record<string, { tableData: boolean, descriptions: boolean }> = key is sectionUuid, value contains an object which specifies permission by key
    */
-  sections: 'all' | 'none' | Record<string, boolean>
+  sections: 'all' | 'none' | Record<string, { tableData: boolean; descriptions: boolean }>
 }
 export type Collaborator = UserRole<RoleName.COLLABORATOR, CollaboratorProps>

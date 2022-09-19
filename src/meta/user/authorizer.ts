@@ -72,8 +72,14 @@ const canViewUsers = (props: { countryIso: CountryIso; assessment: Assessment; c
  * @param props.user
  * @returns boolean
  */
-const canEdit = (props: { countryIso: CountryIso; section: Section; country: Country; user: User }): boolean => {
-  const { section, user, countryIso, country } = props
+const canEdit = (props: {
+  countryIso: CountryIso
+  section: Section
+  country: Country
+  user: User
+  checkPermission?: 'tableData' | 'descriptions'
+}): boolean => {
+  const { section, user, countryIso, country, checkPermission = 'tableData' } = props
   const { status } = country.props
 
   if (!user) return false
@@ -95,7 +101,7 @@ const canEdit = (props: { countryIso: CountryIso; section: Section; country: Cou
     if (!userSections) return true
     if (userSections === 'none') return false
     if (userSections === 'all') return true
-    return userSections[section.uuid] === true
+    return userSections?.[section.uuid]?.[checkPermission] === true
   }
 
   if (Users.isReviewer(user, countryIso)) {

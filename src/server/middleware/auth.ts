@@ -17,18 +17,30 @@ const _next = (allowed: boolean, next: NextFunction): void => {
 }
 
 const requireEdit = async (req: Request, _res: Response, next: NextFunction) => {
-  const { countryIso, assessmentName, cycleName, sectionName } = {
+  const { countryIso, assessmentName, cycleName, sectionName, checkPermission } = {
     ...req.params,
     ...req.query,
     ...req.body,
-  } as CycleDataParams
+  } as CycleDataParams & { checkPermission?: 'tableData' | 'descriptions' }
   const user = Requests.getRequestUser(req)
 
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
   const section = await MetadataController.getSection({ assessment, cycle, sectionName })
   const country = await AreaController.getCountry({ countryIso, assessment, cycle })
 
-  _next(Authorizer.canEdit({ user, section, countryIso, country }), next)
+  _next(Authorizer.canEdit({ user, section, countryIso, country, checkPermission }), next)
+}
+
+const requireEditDescriptions = async (req: Request, _res: Response, next: NextFunction) => {
+  const _req = req
+  _req.body.checkPermission = 'descriptions'
+  return requireEdit(_req, _res, next)
+}
+
+const requireEditTableData = async (req: Request, _res: Response, next: NextFunction) => {
+  const _req = req
+  _req.body.checkPermission = 'tableData'
+  return requireEdit(_req, _res, next)
 }
 
 const requireView = async (req: Request, _res: Response, next: NextFunction) => {
@@ -146,6 +158,8 @@ const requireEditAssessmentFile = async (req: Request, _res: Response, next: Nex
 
 export const AuthMiddleware = {
   requireEdit,
+  requireEditDescriptions,
+  requireEditTableData,
   requireView,
   requireAdmin,
   requireDeleteTopicMessage,
