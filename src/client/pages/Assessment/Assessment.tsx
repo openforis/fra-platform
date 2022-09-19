@@ -14,6 +14,7 @@ import { ReviewActions } from '@client/store/ui/review'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import { ClientRoutes } from '@client/clientRoutes'
+import CountrySelect from '@client/components/CountrySelect'
 import Navigation from '@client/components/Navigation'
 import AssessmentDataDownload from '@client/pages/AssessmentDataDownload'
 import AssessmentHome from '@client/pages/AssessmentHome'
@@ -69,26 +70,29 @@ const Assessment: React.FC = () => {
   if (!assessment) return null
 
   return (
-    <div className={`app-view ${navigationVisible ? ' navigation-on' : ''}`}>
-      <Navigation />
-      <Routes>
-        <Route path={`${ClientRoutes.Assessment.Home.Root.path.relative}/*`} element={<AssessmentHome />} />
-        <Route path={ClientRoutes.Assessment.DataDownload.path.relative} element={<AssessmentDataDownload />} />
-        <Route
-          path={ClientRoutes.Assessment.Section.path.relative}
-          element={<SectionWrapper>{isDataExport ? <DataExport /> : <AssessmentSection />}</SectionWrapper>}
-        />
-        <Route
-          path={ClientRoutes.Assessment.OriginalDataPoint.Section.path.relative}
-          element={
-            <SectionWrapper>
-              <OriginalDataPoint />
-            </SectionWrapper>
-          }
-        />
-        <Route path="*" element={<Navigate to="home" replace />} />
-      </Routes>
-    </div>
+    <>
+      <CountrySelect />
+      <div className={`app-view ${navigationVisible ? ' navigation-on' : ''}`}>
+        <Navigation />
+        <Routes>
+          <Route path={`${ClientRoutes.Assessment.Home.Root.path.relative}/*`} element={<AssessmentHome />} />
+          <Route path={ClientRoutes.Assessment.DataDownload.path.relative} element={<AssessmentDataDownload />} />
+          <Route
+            path={ClientRoutes.Assessment.Section.path.relative}
+            element={<SectionWrapper>{isDataExport ? <DataExport /> : <AssessmentSection />}</SectionWrapper>}
+          />
+          <Route
+            path={ClientRoutes.Assessment.OriginalDataPoint.Section.path.relative}
+            element={
+              <SectionWrapper>
+                <OriginalDataPoint />
+              </SectionWrapper>
+            }
+          />
+          <Route path="*" element={<Navigate to="home" replace />} />
+        </Routes>
+      </div>
+    </>
   )
 }
 
