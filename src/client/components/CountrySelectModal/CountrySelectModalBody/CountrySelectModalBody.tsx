@@ -1,5 +1,5 @@
 import './countrySelectModalBody.scss'
-import React, { useMemo, useState } from 'react'
+import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 
@@ -22,32 +22,18 @@ type Props = {
 
 const CountrySelectModalBody: React.FC<Props> = (props) => {
   const { countries, onChange, onChangeAll, onChangeMany, selection, unselectableCountries, excludedRegions } = props
-  const allSelectedInRegion = useMemo(
-    () => (region: string[], selection: string[]) =>
+  const allSelectedInRegion = useCallback(
+    (region: string[], selection: string[]) =>
       region.every((v) => selection.includes(v) || unselectableCountries.includes(v)),
     [unselectableCountries]
   )
 
-  const i18n = useTranslation()
-
-  const [selectionByRegions, setSelectionByRegions] = useState<Record<string, Array<string>>>(
-    countries.reduce<Record<string, Array<string>>>((accumulator, country) => {
-      const { countryIso, regionCodes } = country
-      regionCodes.forEach((regionCode: string) => {
-        const excluded = excludedRegions.includes(regionCode)
-        if (!excluded) {
-          if (!Array.isArray(accumulator[regionCode])) {
-            // eslint-disable-next-line no-param-reassign
-            accumulator[regionCode] = []
-          }
-          if (selection.includes(countryIso)) {
-            accumulator[regionCode].push(countryIso)
-          }
-        }
-      })
-      return accumulator
-    }, {})
+  const allRegionCountriesDisabled = useCallback(
+    (countryISOs: string[]) => countryISOs.every((countryIso) => unselectableCountries.includes(countryIso)),
+    [unselectableCountries]
   )
+
+  const i18n = useTranslation()
 
   // Sort given countries (from props) to hashmap: {regionCode}: [{countryIso},..]
   const regionCountries: Record<string, Array<string>> = countries.reduce<Record<string, Array<string>>>(
@@ -77,16 +63,41 @@ const CountrySelectModalBody: React.FC<Props> = (props) => {
             <div key={regionCode}>
               <div>
                 <strong>{i18n.t(`area.${regionCode}.listName`)}</strong>
+                {!allRegionCountriesDisabled(countryISOs) && (
+                  <div
+                    className="form-field-country-selector"
+                    onClick={() => {
+                      const newSelection = allSelectedInRegion(countryISOs, selection)
+                        ? selection.filter((countryIso) => !countryISOs.includes(countryIso))
+                        : countryISOs.concat(selection)
+                      onChangeAll(newSelection)
+                    }}
+                    onKeyUp={() => onChangeAll(countryISOs)}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <div
+                      className={classNames('fra-checkbox', {
+                        checked: allSelectedInRegion(countryISOs, selection),
+                        disabled: countryISOs.every((countryIso) => unselectableCountries.includes(countryIso)),
+                      })}
+                    />
+                    <div className="form-field-country-label">
+                      {i18n.t(
+                        `${allSelectedInRegion(countryISOs, selection) ? 'common.unselectAll' : 'common.selectAll'}`
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
               <select
                 multiple
-                value={selectionByRegions[regionCode]}
+                value={countryISOs.filter((countryIso) => selection.includes(countryIso))}
                 onChange={(event) => {
-                  const countryISOs = Array.from(event.target.selectedOptions, (option) => String(option.value))
-                  const selectionByRegionsUpdate = { ...selectionByRegions, [regionCode]: countryISOs }
-                  const countryISOsAll = Object.values(selectionByRegionsUpdate).flat()
-                  onChangeAll(countryISOsAll)
-                  setSelectionByRegions(selectionByRegionsUpdate)
+                  const currentSelection = Array.from(event.target.selectedOptions, (option) => String(option.value))
+                  onChangeAll(
+                    selection.filter((countryIso) => !countryISOs.includes(countryIso)).concat(currentSelection)
+                  )
                 }}
               >
                 {countryISOs.map((countryIso: string) => {
@@ -107,18 +118,26 @@ const CountrySelectModalBody: React.FC<Props> = (props) => {
             <div key={regionCode} className="form-field-region-container">
               <div className="form-field-region-label">{i18n.t(`area.${regionCode}.listName`)}</div>
 
-              <div
-                className="form-field-country-selector"
-                onClick={() => onChangeMany(countryISOs, !allSelectedInRegion(countryISOs, selection))}
-                onKeyUp={() => onChangeMany(countryISOs, !allSelectedInRegion(countryISOs, selection))}
-                role="button"
-                tabIndex={0}
-              >
-                <div className={classNames('fra-checkbox', { checked: allSelectedInRegion(countryISOs, selection) })} />
-                <div className="form-field-country-label">
-                  {i18n.t(`${allSelectedInRegion(countryISOs, selection) ? 'common.unselectAll' : 'common.selectAll'}`)}
+              {!allRegionCountriesDisabled(countryISOs) && (
+                <div
+                  className="form-field-country-selector"
+                  onClick={() => onChangeMany(countryISOs, !allSelectedInRegion(countryISOs, selection))}
+                  onKeyUp={() => onChangeMany(countryISOs, !allSelectedInRegion(countryISOs, selection))}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <div
+                    className={classNames('fra-checkbox', {
+                      checked: allSelectedInRegion(countryISOs, selection),
+                    })}
+                  />
+                  <div className="form-field-country-label">
+                    {i18n.t(
+                      `${allSelectedInRegion(countryISOs, selection) ? 'common.unselectAll' : 'common.selectAll'}`
+                    )}
+                  </div>
                 </div>
-              </div>
+              )}
               <hr />
 
               {countryISOs.map((countryIso: string) => {
