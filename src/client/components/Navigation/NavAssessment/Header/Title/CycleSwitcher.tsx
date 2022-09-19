@@ -30,7 +30,7 @@ const CycleSwitcher = () => {
     [assessmentName, countryIso, navigate]
   )
 
-  if (!canSwitchCycle) return <span>{cycleCurrent.name}</span>
+  if (!canSwitchCycle) return <span className="cycle-switcher-locked">{cycleCurrent.name}</span>
 
   return (
     <select className="cycle-switcher" onChange={onSelectChange} value={cycleCurrent.name}>
