@@ -1,9 +1,10 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
+import { useIsDataLocked } from '@client/store/ui/dataLock'
 import { useCountryIso } from '@client/hooks'
 import MarkdownEditor from '@client/components/MarkdownEditor'
 import MarkdownPreview from '@client/components/MarkdownPreview'
@@ -21,6 +22,7 @@ const CommentsEditor: React.FC<Props> = (props) => {
   const originalDataPoint = useOriginalDataPoint()
   const assessment = useAssessment()
   const cycle = useCycle()
+  const isDataLocked = useIsDataLocked()
 
   const onChange = useCallback(
     (content: string) => {
@@ -38,6 +40,11 @@ const CommentsEditor: React.FC<Props> = (props) => {
     },
     [assessment.props.name, countryIso, cycle.name, dispatch, originalDataPoint]
   )
+  useEffect(() => {
+    if (open && isDataLocked) {
+      setOpen(!isDataLocked)
+    }
+  }, [isDataLocked, open])
 
   return (
     <div>
