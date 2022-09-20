@@ -3,27 +3,32 @@ import React from 'react'
 
 import Icon from '@client/components/Icon'
 
+type PropsChildren = {
+  children: React.ReactNode | React.ReactNode[]
+}
+
 export const ModalClose: React.FC<{ onClose(): void }> = ({ onClose }) => (
   <div className="modal-close" onClick={onClose} onKeyDown={onClose} role="button" tabIndex={0}>
     <Icon name="remove" />
   </div>
 )
 
-export const ModalHeader: React.FC = ({ children }) => (
+export const ModalHeader: React.FC<PropsChildren> = ({ children }) => (
   <div className="modal-header">{React.Children.toArray(children)}</div>
 )
 
-export const ModalBody: React.FC = ({ children }) => (
+export const ModalBody: React.FC<PropsChildren> = ({ children }) => (
   <div className="modal-body">{React.Children.toArray(children)}</div>
 )
 
-export const ModalFooter: React.FC = ({ children }) => (
+export const ModalFooter: React.FC<PropsChildren> = ({ children }) => (
   <div className="modal-footer">{React.Children.toArray(children)}</div>
 )
 
 type Props = {
   className?: string
   isOpen?: boolean
+  children: React.ReactNode | React.ReactNode[]
 }
 
 export const Modal: React.FC<Props> = ({ children, isOpen, className = '' }: any) => {
