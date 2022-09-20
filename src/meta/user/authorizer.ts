@@ -101,7 +101,7 @@ const canEdit = (props: {
     if (!userSections) return true
     if (userSections === 'none') return false
     if (userSections === 'all') return true
-    return userSections?.[section.uuid]?.[checkPermission] === true
+    return userSections[section.uuid]?.[checkPermission] === true
   }
 
   if (Users.isReviewer(user, countryIso)) {
