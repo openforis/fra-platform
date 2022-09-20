@@ -1,92 +1,115 @@
-export const getFraYearsDataQuery = (schemaCycle: string) => `-- 1
-with extentofforest as (select country_iso,
-                               col_name                                                                  as year,
-                               max(case when variable_name = 'forestArea' then value ->> 'raw' end)      as forestArea,
-                               max(case when variable_name = 'otherWoodedLand' then value ->> 'raw' end) as otherWoodedLand,
-                               max(case when variable_name = 'totalLandArea' then value ->> 'raw' end)   as totalLandArea
-                        from ${schemaCycle}.extentofforest
-                        where variable_name in ('forestArea', 'otherWoodedLand', 'totalLandArea')
-                        group by 1, 2),
-     forestcharacteristics as (select country_iso,
-                                      col_name                                                                         as year,
-                                      max(case when variable_name = 'naturalForestArea' then value ->> 'raw' end)      as naturalForestArea,
-                                      max(case when variable_name = 'plantedForest' then value ->> 'raw' end)          as plantedForest,
-                                      max(case when variable_name = 'plantationForestArea' then value ->> 'raw' end)   as plantationForestArea,
-                                      max(case when variable_name = 'otherPlantedForestArea' then value ->> 'raw' end) as otherPlantedForestArea,
-                                      max(case
-                                              when variable_name = 'plantationForestIntroducedArea'
-                                                  then value ->> 'raw' end)                                            as plantationForestIntroducedArea
-                               from ${schemaCycle}.forestcharacteristics
-                               where variable_name in ('naturalForestArea', 'plantedForest', 'plantationForestArea',
-                                                       'otherPlantedForestArea', 'plantationForestIntroducedArea')
-                               group by 1, 2),
-     specificforestcategories as (select country_iso,
-                                         col_name                                                                        as year,
-                                         max(case when variable_name = 'bamboo' then value ->> 'raw' end)                as bamboo,
-                                         max(case when variable_name = 'mangroves' then value ->> 'raw' end)             as mangroves,
-                                         max(case when variable_name = 'primary_forest' then value ->> 'raw' end)        as primary_forest,
-                                         max(case when variable_name = 'rubber_wood' then value ->> 'raw' end)           as rubber_wood,
-                                         max(case when variable_name = 'temporarily_unstocked' then value ->> 'raw' end) as temporarily_unstocked
-                                  from ${schemaCycle}.specificforestcategories
-                                  where variable_name in (
-                                                          'bamboo', 'mangroves', 'primary_forest', 'rubber_wood',
-                                                          'temporarily_unstocked'
-                                      )
-                                  group by 1, 2),
-     otherlandwithtreecover as (select country_iso,
-                                       col_name                                                                          as year,
-                                       max(case when variable_name = 'agroforestry' then value ->> 'raw' end)            as agroforestry,
-                                       max(case when variable_name = 'other' then value ->> 'raw' end)                   as other,
-                                       max(case when variable_name = 'palms' then value ->> 'raw' end)                   as palms,
-                                       max(case when variable_name = 'tree_orchards' then value ->> 'raw' end)           as tree_orchards,
-                                       max(case when variable_name = 'trees_in_urban_settings' then value ->> 'raw' end) as trees_in_urban_settings
-                                from ${schemaCycle}.otherlandwithtreecover
-                                where variable_name in (
-                                                        'agroforestry', 'other', 'palms', 'tree_orchards',
-                                                        'trees_in_urban_settings'
-                                    )
-                                group by 1, 2),
--- 2
-     growingstockavg as (select country_iso,
-                                col_name                                                                     as year,
-                                max(case when variable_name = 'forest' then value ->> 'raw' end)             as forest,
-                                max(case
-                                        when variable_name = 'naturallyRegeneratingForest'
-                                            then value ->> 'raw' end)                                        as naturallyRegeneratingForest,
-                                max(case when variable_name = 'otherPlantedForest' then value ->> 'raw' end) as otherPlantedForest,
-                                max(case when variable_name = 'otherWoodedLand' then value ->> 'raw' end)    as otherWoodedLand,
-                                max(case when variable_name = 'plantationForest' then value ->> 'raw' end)   as plantationForest,
-                                max(case when variable_name = 'plantedForest' then value ->> 'raw' end)      as plantedForest
-                         from ${schemaCycle}.growingstockavg
-                         where variable_name in (
-                                                 'forest',
-                                                 'naturallyRegeneratingForest',
-                                                 'otherPlantedForest',
-                                                 'otherWoodedLand',
-                                                 'plantationForest',
-                                                 'plantedForest'
-                             )
-                         group by 1, 2),
-     growingstocktotal as (select country_iso,
-                                  col_name                                                                     as year,
-                                  max(case when variable_name = 'forest' then value ->> 'raw' end)             as forest,
-                                  max(case
-                                          when variable_name = 'naturallyRegeneratingForest'
-                                              then value ->> 'raw' end)                                        as naturallyRegeneratingForest,
-                                  max(case when variable_name = 'otherPlantedForest' then value ->> 'raw' end) as otherPlantedForest,
-                                  max(case when variable_name = 'otherWoodedLand' then value ->> 'raw' end)    as otherWoodedLand,
-                                  max(case when variable_name = 'plantationForest' then value ->> 'raw' end)   as plantationForest,
-                                  max(case when variable_name = 'plantedForest' then value ->> 'raw' end)      as plantedForest
-                           from ${schemaCycle}.growingstocktotal
-                           where variable_name in (
-                                                   'forest',
-                                                   'naturallyRegeneratingForest',
-                                                   'otherPlantedForest',
-                                                   'otherWoodedLand',
-                                                   'plantationForest',
-                                                   'plantedForest'
-                               )
-                           group by 1, 2),
+type TableType = {
+  tableName: string
+  variableNames: Record<string, string>
+}
+
+type Props = {
+  schemaCycle: string
+  table: TableType
+}
+
+const getTableQuery = (props: Props) => {
+  const { schemaCycle, table } = props
+
+  return `
+  ${table.tableName} as (select country_iso,
+                                col_name                        as year,
+                               ${Object.keys(table.variableNames)
+                                 .map(
+                                   (variableName) =>
+                                     `max(case when variable_name = '${variableName}' then value ->> 'raw' end)      as ${variableName}`
+                                 )
+                                 .join(',\n')}
+                        from ${schemaCycle}.${table.tableName}
+                        where variable_name in (${Object.keys(table.variableNames)
+                          .map((variableName) => `'${variableName}'`)
+                          .join(', ')})
+                        group by 1, 2)
+  `
+}
+
+const tables: Array<TableType> = [
+  // Section
+  // 1
+
+  {
+    tableName: 'extentofforest',
+    variableNames: {
+      forestArea: '1a_forestArea',
+      otherWoodedLand: '1a_otherWoodedLand',
+      totalLandArea: '1a_landArea',
+    },
+  },
+  {
+    tableName: 'forestcharacteristics',
+    variableNames: {
+      naturalForestArea: '1b_naturallyRegeneratingForest',
+      plantedForest: '1b_plantedForest',
+      plantationForestArea: '1b_plantationForest',
+      plantationForestIntroducedArea: '1b_plantationForestIntroduced',
+      otherPlantedForestArea: '1b_otherPlantedForest',
+    },
+  },
+  {
+    tableName: 'specificforestcategories',
+    variableNames: {
+      primary_forest: '1c_primary',
+      temporarily_unstocked: '1c_tempUnstocked',
+      bamboo: '1c_bamboos',
+      mangroves: '1c_mangroves',
+      rubber_wood: '1c_rubber',
+    },
+  },
+
+  {
+    tableName: 'otherlandwithtreecover',
+    variableNames: {
+      palms: '1f_palms',
+      tree_orchards: '1f_treeOrchards',
+      agroforestry: '1f_agroforestry',
+      other: '1f_other',
+      trees_in_urban_settings: '1f_treesUrbanSettings',
+    },
+  },
+  // 2
+  {
+    tableName: 'growingstockavg',
+    variableNames: {
+      naturallyRegeneratingForest: '2a_gs_ha_nat_reg',
+      forest: '2a_gs_ha_forest',
+      plantationForest: '2a_gs_ha_plantation',
+      plantedForest: '2a_gs_ha_planted',
+      otherWoodedLand: '2a_gs_ha_owl',
+      otherPlantedForest: '2a_gs_ha_other_planted',
+    },
+  },
+  {
+    tableName: 'growingstocktotal',
+    variableNames: {
+      naturallyRegeneratingForest: '2a_gs_tot_nat_reg',
+      plantedForest: '2a_gs_tot_planted',
+      plantationForest: '2a_gs_tot_plantation',
+      otherPlantedForest: '2a_gs_tot_other_planted',
+      forest: '2a_gs_tot_forest',
+      otherWoodedLand: '2a_gs_tot_owl',
+    },
+  },
+]
+
+const getJoinClause = (tables: Array<TableType>) =>
+  tables.map((table) => `left join ${table.tableName} using (country_iso, year)`).join('\n')
+
+const getSelectClause = (tables: Array<TableType>) =>
+  tables
+    .map((table) =>
+      Object.entries(table.variableNames)
+        .map(([field, as]) => `${table.tableName}.${field} as "${as}"`)
+        .join(', \n')
+    )
+    .join(',\n')
+
+export const getFraYearsDataQuery = (schemaCycle: string) => `
+with ${tables.map((table) => getTableQuery({ schemaCycle, table })).join(', ')},
      growingstockcomposition as (select country_iso,
                                         col_name                                                                    as year,
                                         max(case when variable_name = 'native_rank1' then value ->> 'raw' end)      as native_rank1,
@@ -563,42 +586,8 @@ select r.regions,
        temperate,
        tropical,
        sub_tropical                                                 as subtropical,
---     1
-       eof.forestArea                                               as "1a_forestArea",
-       eof.otherWoodedLand                                          as "1a_otherWoodedLand",
-       eof.totalLandArea                                            as "1a_landArea",
-
-       fc.naturalForestArea                                         as "1b_naturallyRegeneratingForest",
-       fc.plantedForest                                             as "1b_plantedForest",
-       fc.plantationForestArea                                      as "1b_plantationForest",
-       fc.plantationForestIntroducedArea                            as "1b_plantationForestIntroduced",
-       fc.otherPlantedForestArea                                    as "1b_otherPlantedForest",
-
-       sfc.primary_forest                                           as "1c_primary",
-       sfc.temporarily_unstocked                                    as "1c_tempUnstocked",
-       sfc.bamboo                                                   as "1c_bamboos",
-       sfc.mangroves                                                as "1c_mangroves",
-       sfc.rubber_wood                                              as "1c_rubber",
-
-       olwtc.palms                                                  as "1f_palms",
-       olwtc.tree_orchards                                          as "1f_treeOrchards",
-       olwtc.agroforestry                                           as "1f_agroforestry",
-       olwtc.other                                                  as "1f_other",
-       olwtc.trees_in_urban_settings                                as "1f_treesUrbanSettings",
---     2
-       gsavg.naturallyRegeneratingForest                            as "2a_gs_ha_nat_reg",
-       gsavg.forest                                                 as "2a_gs_ha_forest",
-       gsavg.plantationForest                                       as "2a_gs_ha_plantation",
-       gsavg.plantedForest                                          as "2a_gs_ha_planted",
-       gsavg.otherPlantedForest                                     as "2a_gs_ha_other_planted",
-       gsavg.otherWoodedLand                                        as "2a_gs_ha_owl",
-
-       gstotal.naturallyRegeneratingForest                          as "2a_gs_tot_nat_reg",
-       gstotal.plantedForest                                        as "2a_gs_tot_planted",
-       gstotal.plantationForest                                     as "2a_gs_tot_plantation",
-       gstotal.otherPlantedForest                                   as "2a_gs_tot_other_planted",
-       gstotal.forest                                               as "2a_gs_tot_forest",
-       gstotal.otherWoodedLand                                      as "2a_gs_tot_owl",
+    
+        ${getSelectClause(tables)},
 
        gscomposition.native_rank1                                   as "2b_native_#1",
        gscomposition.native_rank2                                   as "2b_native_#2",
@@ -725,15 +714,9 @@ from ${schemaCycle}.country cc
          join _regions r using (country_iso)
          join _years y using (country_iso)
          join climaticdomain c using (country_iso)
+         
+         ${getJoinClause(tables)}
 
---       1
-         left join extentofforest eof using (country_iso, year)
-         left join forestcharacteristics fc using (country_iso, year)
-         left join specificforestcategories sfc using (country_iso, year)
-         left join otherlandwithtreecover olwtc using (country_iso, year)
---       2
-         left join growingstockavg gsavg using (country_iso, year)
-         left join growingstocktotal gstotal using (country_iso, year)
          left join growingstockcomposition gscomposition using (country_iso, year)
 
          left join biomassstock bms using (country_iso, year)
