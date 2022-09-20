@@ -75,6 +75,18 @@ const CountrySelectModal: React.FC<Props> = (props) => {
     onChange('', selectionUpdate)
   }
 
+  const _onChangeMany = (countryISOs: Array<string>, selectAll: boolean): void => {
+    if (selectAll) {
+      const selectionUpdate = [...countryISOs, ...selection].filter((v) => !unselectableCountries.includes(v))
+      setSelection(selectionUpdate)
+      onChange('', selectionUpdate)
+    } else {
+      const selectionUpdate: Array<string> = selection.filter((v) => !countryISOs.includes(v))
+      setSelection(selectionUpdate)
+      onChange('', selectionUpdate)
+    }
+  }
+
   const _onClose = () => {
     onClose(selection)
     setSelection([])
@@ -109,6 +121,7 @@ const CountrySelectModal: React.FC<Props> = (props) => {
         countries={countriesFiltered}
         onChange={_onChange}
         onChangeAll={_onChangeAll}
+        onChangeMany={_onChangeMany}
         selection={selection}
         unselectableCountries={unselectableCountries}
         excludedRegions={excludedRegions}
