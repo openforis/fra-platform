@@ -9,6 +9,7 @@ import { useAssessmentSection } from '@client/store/assessment'
 import { useTableSections } from '@client/store/pages/assessmentSection'
 import { useCanEditSection } from '@client/store/user'
 import { useIsPrint } from '@client/hooks/useIsPath'
+import { BasePaths } from '@client/basePaths'
 
 import DataTable from './DataTable'
 import Descriptions, { GeneralComments } from './Descriptions'
@@ -32,6 +33,8 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
   const disabled = panEuropean || !canEditSection
 
   const { anchor, showTitle, descriptions, name: sectionName } = assessmentSection?.props ?? {}
+
+  if (!assessmentSection) window.location.href = BasePaths.Root()
 
   return (
     <div className={`app-view__content assessment-section__${sectionName}`}>
