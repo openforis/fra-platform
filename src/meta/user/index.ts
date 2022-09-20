@@ -13,5 +13,5 @@ export type {
   UserRole,
   Viewer,
 } from './userRole'
-export { RoleName } from './userRole'
+export { CollaboratorEditPropertyType, RoleName } from './userRole'
 export { Users } from './users'

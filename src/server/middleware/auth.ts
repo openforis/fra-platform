@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express'
 import { CycleDataParams, CycleParams } from '@meta/api/request'
 import { CountryIso } from '@meta/area'
 import { MessageTopicStatus } from '@meta/messageCenter'
-import { Authorizer, Users } from '@meta/user'
+import { Authorizer, CollaboratorEditPropertyType, Users } from '@meta/user'
 
 import { AreaController } from '@server/controller/area'
 import { AssessmentController } from '@server/controller/assessment'
@@ -21,7 +21,7 @@ const requireEdit = async (req: Request, _res: Response, next: NextFunction) => 
     ...req.params,
     ...req.query,
     ...req.body,
-  } as CycleDataParams & { checkPermission?: 'tableData' | 'descriptions' }
+  } as CycleDataParams & { checkPermission?: CollaboratorEditPropertyType }
   const user = Requests.getRequestUser(req)
 
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
@@ -33,13 +33,13 @@ const requireEdit = async (req: Request, _res: Response, next: NextFunction) => 
 
 const requireEditDescriptions = async (req: Request, _res: Response, next: NextFunction) => {
   const _req = req
-  _req.body.checkPermission = 'descriptions'
+  _req.body.checkPermission = CollaboratorEditPropertyType.descriptions
   return requireEdit(_req, _res, next)
 }
 
 const requireEditTableData = async (req: Request, _res: Response, next: NextFunction) => {
   const _req = req
-  _req.body.checkPermission = 'tableData'
+  _req.body.checkPermission = CollaboratorEditPropertyType.tableData
   return requireEdit(_req, _res, next)
 }
 

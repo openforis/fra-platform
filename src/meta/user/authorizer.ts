@@ -2,7 +2,7 @@ import { Areas, Country, CountryIso } from '@meta/area'
 import { AssessmentStatus } from '@meta/area/country'
 import { Assessment, Cycle, Section } from '@meta/assessment'
 import { User } from '@meta/user/user'
-import { Collaborator } from '@meta/user/userRole'
+import { Collaborator, CollaboratorEditPropertyType } from '@meta/user/userRole'
 import { Users } from '@meta/user/users'
 
 /**
@@ -77,9 +77,9 @@ const canEdit = (props: {
   section: Section
   country: Country
   user: User
-  checkPermission?: 'tableData' | 'descriptions'
+  checkPermission?: CollaboratorEditPropertyType
 }): boolean => {
-  const { section, user, countryIso, country, checkPermission = 'tableData' } = props
+  const { section, user, countryIso, country, checkPermission = CollaboratorEditPropertyType.tableData } = props
   const { status } = country.props
 
   if (!user) return false
