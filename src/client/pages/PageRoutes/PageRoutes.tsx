@@ -2,13 +2,12 @@ import '@client/components/CountrySelect/countrySelect.scss'
 import '@client/components/CountrySelect/CountryList/countryList.scss'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Navigate, Route, Routes, useMatch } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 
 import { useAppDispatch } from '@client/store'
 import { AssessmentActions } from '@client/store/assessment'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import { ClientRoutes } from '@client/clientRoutes'
-import CountrySelect from '@client/components/CountrySelect'
 import Footer from '@client/components/Footer'
 import Header from '@client/components/Header'
 import Toaster from '@client/components/Toaster'
@@ -27,8 +26,6 @@ const PageRoutes: React.FC = () => {
   const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
   const { print } = useIsPrint()
-
-  const shouldRenderCountrySelect = !useMatch(ClientRoutes.Login.Root.path.absolute) && !print
 
   useEffect(() => {
     // TODO: Add user.language support
@@ -50,8 +47,6 @@ const PageRoutes: React.FC = () => {
     <>
       <Toaster />
       {!print && <Header />}
-
-      {shouldRenderCountrySelect && <CountrySelect />}
 
       <Routes>
         <Route path={ClientRoutes.Assessment.Print.path.absolute} element={<AssessmentPrint />} />
