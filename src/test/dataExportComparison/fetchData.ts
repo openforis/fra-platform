@@ -2,7 +2,7 @@ import { Strings } from '@utils/strings'
 import axios from 'axios'
 
 import { countryISOs } from '@test/dataExportComparison/countryIsos'
-import { columnsLegacyMapping, tableLegacyMapping } from '@test/dataExportComparison/legacyMapping'
+import { columnsLegacyMapping, columnsMapping, tableLegacyMapping } from '@test/dataExportComparison/legacyMapping'
 import { ColName, DataLegacy, DataLocal, MetadataLegacy, VariableName } from '@test/dataExportComparison/types'
 
 export const fetchData = async (props: {
@@ -38,7 +38,7 @@ export const fetchData = async (props: {
         countryISOs,
         tableNames: [tableName],
         variables,
-        columns,
+        columns: columnsMapping[tableName] ? Object.values(columnsMapping[tableName]) : columns,
       },
     }),
   ])

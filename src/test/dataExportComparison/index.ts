@@ -1,6 +1,8 @@
 import * as fs from 'fs/promises'
 import * as JSON2CSV from 'json2csv'
 
+import { TableDatas } from '@meta/data'
+
 import { DB } from '@server/db'
 
 import { compareValue } from '@test/dataExportComparison/compareValue'
@@ -42,7 +44,8 @@ describe('Data Export comparison', () => {
           } else {
             const hasOnlyDataLegacy = countryDataLegacy && !countryDataLocal
             const hasOnlyDataLocal = !countryDataLegacy && countryDataLocal
-            if (hasOnlyDataLegacy || hasOnlyDataLocal) {
+            const hasDataLocalEmpty = TableDatas.isTableDataEmpty({ data: dataLocal, tableName, countryIso })
+            if (hasOnlyDataLegacy || (hasOnlyDataLocal && !hasDataLocalEmpty)) {
               const diff: ValueDiff = {
                 countryIso,
                 tableName,

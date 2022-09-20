@@ -1,12 +1,12 @@
-import { NodeRow } from '@test/dataMigration/types'
-
 import { CountryIso } from '@meta/area'
 import { Assessment, Cycle, Row, VariableCache } from '@meta/assessment'
 
 import { AssessmentController } from '@server/controller/assessment'
+import { CycleDataController } from '@server/controller/cycleData'
 import { ExpressionEvaluator } from '@server/controller/cycleData/persistNodeValue/expressionEvaluator'
 import { BaseProtocol } from '@server/db'
-import { DataRepository, TablesCondition } from '@server/repository/assessmentCycle/data'
+
+import { NodeRow } from '@test/dataMigration/types'
 
 const hasBeenCalculated = (props: {
   variable: VariableCache
@@ -52,10 +52,22 @@ export const calculateRow = async (
   // console.log('====== calculating ', tableName, row.props.variableName)
   const dependencies: Array<VariableCache> =
     assessment.metaCache.calculations.dependencies[tableName]?.[row.props.variableName] ?? []
-  const tables = dependencies.reduce<TablesCondition>((acc, { tableName }) => ({ ...acc, [tableName]: {} }), {})
   const data =
-    Object.keys(tables).length > 0
-      ? await DataRepository.getTableData({ assessment, cycle, countryISOs, tables }, client)
+    dependencies.length > 0
+      ? await CycleDataController.getTableData(
+          {
+            assessment,
+            cycle,
+            countryISOs,
+            dependencies,
+            aggregate: false,
+            columns: [],
+            mergeOdp: true,
+            tableNames: [],
+            variables: [],
+          },
+          client
+        )
       : undefined
   const table = await AssessmentController.getTable({ assessment, cycle, tableName })
 

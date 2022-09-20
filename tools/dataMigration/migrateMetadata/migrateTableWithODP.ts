@@ -13,7 +13,7 @@ const calculateFNs: Record<string, Record<string, string>> = {
     otherLand: 'extentOfForest.totalLandArea - extentOfForest.forestArea - extentOfForest.otherWoodedLand',
   },
   forestCharacteristics: {
-    plantedForest: 'forestCharacteristics.plantationForestArea + forestCharacteristics.plantationForestIntroducedArea',
+    plantedForest: 'forestCharacteristics.plantationForestArea + forestCharacteristics.otherPlantedForestArea',
     totalForestArea:
       'forestCharacteristics.naturalForestArea + forestCharacteristics.plantationForestArea + forestCharacteristics.plantationForestIntroducedArea + forestCharacteristics.otherPlantedForestArea',
     forestArea: 'extentOfForest.forestArea',
