@@ -14,45 +14,51 @@
   }
 
   hr {
-    margin: $spacing-xxxs;
+    margin: $spacing-xxxs 0;
   }
 
-.form-field-country-label {
-  flex: 0 1 100%;
-}
-
-.form-field-region-container {
-  display: flex;
-  flex: 0 1 15%;
-  flex-flow: column;
-}
-
-.form-field-region-label {
-  font-weight: bold;
-  margin-bottom: 10px;
-  padding-left: 15px;
-}
-
-.form-field-country-selector {
-  cursor: pointer;
-  display: flex;
-  padding: 5px;
-  align-items: center;
-
-  .fra-checkbox {
-    margin-right: 4px;
+  .form-field-country-label {
+    flex: 0 1 100%;
   }
 
-  &.disabled {
-    cursor: not-allowed !important;
-    color: $text-disabled;
-    pointer-events: none;
+  .form-field-region-container {
+    display: flex;
+    flex: 0 1 15%;
+    flex-flow: column;
+  }
 
+  .form-field-region-label {
+    font-weight: bold;
+    margin-right: $spacing-xxxs;
+  }
+
+  .form-field-region-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    min-height: 40px;
+  }
+
+  .form-field-country-selector {
+    cursor: pointer;
+    display: flex;
+    padding: 5px;
+    align-items: center;
+    min-width: 83px;
     .fra-checkbox {
-      border: 1px solid $ui-border-light;
+      margin-right: 4px;
+    }
+
+    &.disabled {
+      cursor: not-allowed !important;
+      color: $text-disabled;
+      pointer-events: none;
+
+      .fra-checkbox {
+        border: 1px solid $ui-border-light;
+      }
     }
   }
-}
 
 
 }

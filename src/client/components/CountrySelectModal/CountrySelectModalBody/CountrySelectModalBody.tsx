@@ -63,32 +63,37 @@ const CountrySelectModalBody: React.FC<Props> = (props) => {
             <div key={regionCode}>
               <div>
                 <strong>{i18n.t(`area.${regionCode}.listName`)}</strong>
-                {!allRegionCountriesDisabled(countryISOs) && (
+
+                <div
+                  className={classNames('form-field-country-selector', {
+                    disabled: allRegionCountriesDisabled(countryISOs),
+                  })}
+                  onClick={() => {
+                    const newSelection = allSelectedInRegion(countryISOs, selection)
+                      ? selection.filter((countryIso) => !countryISOs.includes(countryIso))
+                      : countryISOs.concat(selection)
+                    onChangeAll(newSelection)
+                  }}
+                  onKeyUp={() => onChangeAll(countryISOs)}
+                  role="button"
+                  tabIndex={0}
+                >
                   <div
-                    className="form-field-country-selector"
-                    onClick={() => {
-                      const newSelection = allSelectedInRegion(countryISOs, selection)
-                        ? selection.filter((countryIso) => !countryISOs.includes(countryIso))
-                        : countryISOs.concat(selection)
-                      onChangeAll(newSelection)
-                    }}
-                    onKeyUp={() => onChangeAll(countryISOs)}
-                    role="button"
-                    tabIndex={0}
-                  >
-                    <div
-                      className={classNames('fra-checkbox', {
-                        checked: allSelectedInRegion(countryISOs, selection),
-                        disabled: countryISOs.every((countryIso) => unselectableCountries.includes(countryIso)),
-                      })}
-                    />
-                    <div className="form-field-country-label">
-                      {i18n.t(
-                        `${allSelectedInRegion(countryISOs, selection) ? 'common.unselectAll' : 'common.selectAll'}`
-                      )}
-                    </div>
+                    className={classNames('fra-checkbox', {
+                      checked: allSelectedInRegion(countryISOs, selection) && !allRegionCountriesDisabled(countryISOs),
+                      disabled: countryISOs.every((countryIso) => unselectableCountries.includes(countryIso)),
+                    })}
+                  />
+                  <div className="form-field-country-label">
+                    {i18n.t(
+                      `${
+                        allSelectedInRegion(countryISOs, selection) && !allRegionCountriesDisabled(countryISOs)
+                          ? 'common.unselectAll'
+                          : 'common.selectAll'
+                      }`
+                    )}
                   </div>
-                )}
+                </div>
               </div>
               <select
                 multiple
@@ -116,11 +121,13 @@ const CountrySelectModalBody: React.FC<Props> = (props) => {
         <MediaQuery minWidth={Breakpoints.laptop}>
           {Object.entries(regionCountries).map(([regionCode, countryISOs]) => (
             <div key={regionCode} className="form-field-region-container">
-              <div className="form-field-region-label">{i18n.t(`area.${regionCode}.listName`)}</div>
+              <div className="form-field-region-wrapper">
+                <div className="form-field-region-label">{i18n.t(`area.${regionCode}.listName`)}</div>
 
-              {!allRegionCountriesDisabled(countryISOs) && (
                 <div
-                  className="form-field-country-selector"
+                  className={classNames('form-field-country-selector', {
+                    disabled: allRegionCountriesDisabled(countryISOs),
+                  })}
                   onClick={() => onChangeMany(countryISOs, !allSelectedInRegion(countryISOs, selection))}
                   onKeyUp={() => onChangeMany(countryISOs, !allSelectedInRegion(countryISOs, selection))}
                   role="button"
@@ -128,16 +135,21 @@ const CountrySelectModalBody: React.FC<Props> = (props) => {
                 >
                   <div
                     className={classNames('fra-checkbox', {
-                      checked: allSelectedInRegion(countryISOs, selection),
+                      checked: allSelectedInRegion(countryISOs, selection) && !allRegionCountriesDisabled(countryISOs),
                     })}
                   />
                   <div className="form-field-country-label">
                     {i18n.t(
-                      `${allSelectedInRegion(countryISOs, selection) ? 'common.unselectAll' : 'common.selectAll'}`
+                      `${
+                        allSelectedInRegion(countryISOs, selection) && !allRegionCountriesDisabled(countryISOs)
+                          ? 'common.unselectAll'
+                          : 'common.selectAll'
+                      }`
                     )}
                   </div>
                 </div>
-              )}
+              </div>
+
               <hr />
 
               {countryISOs.map((countryIso: string) => {
