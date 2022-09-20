@@ -44,5 +44,6 @@ export interface ColSpec {
   colName?: string
   migration?: {
     calculateFn?: string
+    forceColName?: boolean
   }
 }
