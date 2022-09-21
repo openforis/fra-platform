@@ -34,10 +34,22 @@ export const CycleDataApi = {
     // OriginalDataPoints
     express.get(ApiEndPoint.CycleData.OriginalDataPoint.reservedYears(), AuthMiddleware.requireView, getReservedYears)
 
-    express.post(ApiEndPoint.CycleData.OriginalDataPoint.one(), AuthMiddleware.requireEdit, createOriginalDataPoint)
-    express.delete(ApiEndPoint.CycleData.OriginalDataPoint.one(), AuthMiddleware.requireEdit, deleteOriginalDataPoint)
+    express.post(
+      ApiEndPoint.CycleData.OriginalDataPoint.one(),
+      AuthMiddleware.requireEditTableData,
+      createOriginalDataPoint
+    )
+    express.delete(
+      ApiEndPoint.CycleData.OriginalDataPoint.one(),
+      AuthMiddleware.requireEditTableData,
+      deleteOriginalDataPoint
+    )
     express.get(ApiEndPoint.CycleData.OriginalDataPoint.one(), AuthMiddleware.requireView, getOriginalDataPoint)
-    express.put(ApiEndPoint.CycleData.OriginalDataPoint.one(), AuthMiddleware.requireEdit, updateOriginalDataPoint)
+    express.put(
+      ApiEndPoint.CycleData.OriginalDataPoint.one(),
+      AuthMiddleware.requireEditTableData,
+      updateOriginalDataPoint
+    )
 
     express.get(ApiEndPoint.CycleData.OriginalDataPoint.many(), AuthMiddleware.requireView, getOriginalDataPoints)
 

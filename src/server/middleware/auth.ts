@@ -157,7 +157,6 @@ const requireEditAssessmentFile = async (req: Request, _res: Response, next: Nex
 }
 
 export const AuthMiddleware = {
-  requireEdit,
   requireEditDescriptions,
   requireEditTableData,
   requireView,
