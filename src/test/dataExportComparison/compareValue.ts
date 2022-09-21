@@ -2,7 +2,7 @@ import { Numbers } from '@utils/numbers'
 
 import { CountryIso } from '@meta/area'
 
-import { columnsLegacyMapping, columnsMapping } from '@test/dataExportComparison/legacyMapping'
+import { columnsLegacyMapping } from '@test/dataExportComparison/legacyMapping'
 import {
   DataLegacy,
   DataLocal,
@@ -58,10 +58,9 @@ export const compareValue = (props: {
   const variablesLegacy = metadataLegacy[tableName].variables
   const variableLegacy = variablesLegacy.find((v) => v.name === variable)?.exportName ?? variable
   const columnLegacy = columnsLegacyMapping[tableName]?.[column] ?? column
-  const columnLocal = columnsMapping[tableName]?.[column] ?? column
 
   const valueLegacy = dataLegacy?.[countryIso]?.[variableLegacy]?.[columnLegacy]
-  const valueLocal = dataLocal?.[countryIso]?.[tableName]?.[columnLocal]?.[variable]?.raw
+  const valueLocal = dataLocal?.[countryIso]?.[tableName]?.[column]?.[variable]?.raw
 
   const skipError = skips[tableName] && skips[tableName].includes(variable)
 

@@ -6,7 +6,6 @@ import { TableData } from '@meta/data'
 
 import { useDataExportSelection } from '@client/store/pages/dataExport'
 import { useCountryIso, useGetRequest } from '@client/hooks'
-import { formatColumn } from '@client/pages/DataExport/utils'
 
 type Props = {
   columnsAlwaysExport: Array<string>
@@ -38,10 +37,7 @@ export const useFetchResults = (props: Props): UseFetchResults => {
       tableNames: [tableName],
       countryISOs: selection.countryISOs,
       variables: selection.sections[sectionName].variables,
-      columns: [
-        ...columnsAlwaysExport,
-        ...selection.sections[sectionName].columns.map((column) => formatColumn(column, sectionName)),
-      ],
+      columns: [...columnsAlwaysExport, ...selection.sections[sectionName].columns],
     },
   })
 

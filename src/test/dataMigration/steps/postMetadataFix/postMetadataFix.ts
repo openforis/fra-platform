@@ -54,4 +54,42 @@ export const postMetadataFix = async (props: Props, client: BaseProtocol): Promi
       where id = d.col_id
       ;
   `)
+
+  // fix forestPolicy
+  await client.query(`
+      update ${schema}."table" t
+      set props = jsonb_set(
+              t.props,
+              '{columnNames}',
+              '{
+                "${cycle2025.uuid}": [
+                  "national_yes_no",
+                  "sub_national_yes_no"
+                ],
+                "${cycle2020.uuid}": [
+                  "national_yes_no",
+                  "sub_national_yes_no"
+                ]
+              }'
+          )
+      where t.props ->> 'name' in ('forestPolicy')
+      ;
+      update ${schema}."table" t
+      set props = jsonb_set(
+              t.props,
+              '{columnsExport}',
+              '{
+                "${cycle2025.uuid}": [
+                  "national_yes_no",
+                  "sub_national_yes_no"
+                ],
+                "${cycle2020.uuid}": [
+                  "national_yes_no",
+                  "sub_national_yes_no"
+                ]
+              }'
+          )
+      where t.props ->> 'name' in ('forestPolicy')
+      ;
+  `)
 }
