@@ -19,9 +19,9 @@ export const getMetadata = async (): Promise<MetadataLocal> => {
                           left join ${schema}.table_section ts on ts.id = t.table_section_id
                           left join ${schema}.section s on s.id = ts.section_id
                           left join ${schema}.row r on t.id = r.table_id
-                 where (s.props -> 'dataExport')::boolean
-                   and (t.props -> 'dataExport')::boolean
-                   and r.props ->> 'variableName' is not null
+                 where (s.props ->> 'dataExport')::boolean
+                   and (t.props ->> 'dataExport')::boolean
+                   and (r.props -> 'variableName') is not null
                  group by 1, 2)
       select jsonb_object_agg(d.name, jsonb_build_object('columns', d.columns, 'variables', d.variables)) as metadata
       from d
