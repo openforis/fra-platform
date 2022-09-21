@@ -16,7 +16,7 @@ const _next = (allowed: boolean, next: NextFunction): void => {
   return next(new Error(`userNotAuthorized`))
 }
 
-const requireEdit = async (req: Request, _: Response, next: NextFunction) => {
+const requireEdit = async (req: Request, next: NextFunction) => {
   const { countryIso, assessmentName, cycleName, sectionName, checkPermission } = {
     ...req.params,
     ...req.query,
@@ -34,13 +34,13 @@ const requireEdit = async (req: Request, _: Response, next: NextFunction) => {
 const requireEditDescriptions = async (req: Request, _res: Response, next: NextFunction) => {
   const _req = req
   _req.body.checkPermission = CollaboratorEditPropertyType.descriptions
-  return requireEdit(_req, _res, next)
+  return requireEdit(_req, next)
 }
 
 const requireEditTableData = async (req: Request, _res: Response, next: NextFunction) => {
   const _req = req
   _req.body.checkPermission = CollaboratorEditPropertyType.tableData
-  return requireEdit(_req, _res, next)
+  return requireEdit(_req, next)
 }
 
 const requireView = async (req: Request, _res: Response, next: NextFunction) => {
