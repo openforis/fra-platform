@@ -5,7 +5,7 @@ import { AssessmentName, AssessmentNames } from '@meta/assessment'
 import { TableData } from '@meta/data'
 import { Unit, UnitConverter, UnitFactors } from '@meta/dataExport'
 
-import { forestPolicy, isForestPolicySection, isYearRange } from '@client/pages/DataExport/utils/checks'
+import { forestPolicy, isForestPolicySection } from '@client/pages/DataExport/utils/checks'
 // import { getPanEuropeanTableMapping } from '@client/pages/DataExport/utils/panEuropean'
 
 const sections: Record<string, string> = {
@@ -21,9 +21,6 @@ const sections: Record<string, string> = {
 export const formatColumn = (column: string, section: string): string => {
   if (isForestPolicySection(section)) {
     return forestPolicy[column]
-  }
-  if (isYearRange(column)) {
-    return column.replace('-', '_')
   }
   return column
 }
@@ -48,12 +45,11 @@ export const formatValue = (
   let columnKey = column
 
   if (isForestPolicySection(section)) columnKey = forestPolicy[column]
-  if (isYearRange(column)) columnKey = column.replace('-', '_')
 
   let value = results?.[countryIso]?.[tableName]?.[columnKey]?.[variable]?.raw
 
   // Convert value to string and check if it's a number
-  if (!Number.isNaN(+value)) value = Numbers.format(value)
+  if (!Number.isNaN(+value)) value = Numbers.format(Number(value))
   if (value === 'NaN') value = ''
 
   return { columnKey, value }

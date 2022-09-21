@@ -4,9 +4,6 @@ const regex = {
   yearWithWord: /\d{4}_\w{4}/,
 }
 
-export const isYearRange = (range: string): boolean => regex.yearRange.test(range)
-export const isYearRangeUnderscore = (range: string): boolean => regex.yearRangeUnderscore.test(range)
-
 export const isYearWithWord = (column: string): boolean => regex.yearWithWord.test(column)
 
 // View specific

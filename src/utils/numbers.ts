@@ -78,7 +78,7 @@ const toFixed = (value: number | BigNumber, precision = 2): string | null =>
 const toString = (value: number | BigNumber): null | string =>
   Objects.isEmpty(value) ? null : toBigNumber(value).toString()
 
-const format = (value: number | BigNumber, precision = 2): BigNumber | string =>
+const format = (value: number | BigNumber, precision = 2): string | null =>
   Objects.isEmpty(value) ? null : toBigNumber(value).toFormat(precision)
 
 const { max, min } = BigNumber
