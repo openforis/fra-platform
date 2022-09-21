@@ -1,25 +1,8 @@
 import { Assessment, Cycle } from '@meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
-import { getFraYearsDataQuery } from '@server/repository/assessmentCycle/data/getFraYearsDataQuery'
-
-const climaticDomainQuery = (schemaCycle: string) => `
-    select country_iso,
-           coalesce(max(case when variable_name = 'boreal' and col_name = 'percentOfForestArea2015' then value ->> 'raw' end),
-                    max(case when variable_name = 'boreal' and col_name = 'percentOfForestArea2015Default' then value ->> 'raw' end)
-               )       as "boreal",
-           coalesce(max(case when variable_name = 'sub_tropical' and col_name = 'percentOfForestArea2015' then value ->> 'raw' end),
-                    max(case when variable_name = 'sub_tropical' and col_name = 'percentOfForestArea2015Default' then value ->> 'raw' end)
-               )       as "sub_tropical",
-           coalesce(max(case when variable_name = 'temperate' and col_name = 'percentOfForestArea2015' then value ->> 'raw' end),
-                    max(case when variable_name = 'temperate' and col_name = 'percentOfForestArea2015Default' then value ->> 'raw' end)
-               )       as "temperate",
-           coalesce(max(case when variable_name = 'tropical' and col_name = 'percentOfForestArea2015' then value ->> 'raw' end),
-                    max(case when variable_name = 'tropical' and col_name = 'percentOfForestArea2015Default' then value ->> 'raw' end)
-               )       as "tropical"
-    from ${schemaCycle}.climaticdomain
-    group by country_iso
-        `
+import { getClimaticDomainQuery } from '@server/repository/assessmentCycle/data/query/getClimaticDomainQuery'
+import { getFraYearsDataQuery } from '@server/repository/assessmentCycle/data/query/getFraYearsDataQuery'
 
 const getAnnualData = async (
   props: { assessment: Assessment; cycle: Cycle },
@@ -47,7 +30,7 @@ const getAnnualData = async (
         from ${schemaCycle}.areaaffectedbyfire
         where variable_name in ('total_land_area_affected_by_fire', 'of_which_on_forest')
         group by 1, 2),
-        climaticdomain as (${climaticDomainQuery(schemaCycle)}),
+        climaticdomain as (${getClimaticDomainQuery(schemaCycle)}),
             _regions as (select cr.country_iso, array_to_string(ARRAY_AGG(distinct cr.region_code), ';') as regions
         from ${schemaCycle}.country_region cr
         group by cr.country_iso),
@@ -116,7 +99,7 @@ const getIntervalData = async (
               from ${schemaCycle}.forestareachange
               where variable_name in ('afforestation', 'deforestation', 'forest_expansion', 'natural_expansion')
               group by 1, 2),
-     climaticdomain as (${climaticDomainQuery(schemaCycle)}),
+     climaticdomain as (${getClimaticDomainQuery(schemaCycle)}),
      _regions as (select cr.country_iso, array_to_string(ARRAY_AGG(distinct cr.region_code), ';') as regions
                   from ${schemaCycle}.country_region cr
                   group by cr.country_iso),
