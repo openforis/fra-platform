@@ -5,14 +5,16 @@ import { Navigate, Route, Routes, useParams } from 'react-router-dom'
 import { Areas } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
 import { Sockets } from '@meta/socket'
+import { Authorizer } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
-import { AssessmentActions, useAssessment } from '@client/store/assessment'
+import { AssessmentActions, useAssessment, useCycle } from '@client/store/assessment'
 import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import { useNavigationVisible } from '@client/store/ui/navigation'
 import { ReviewActions } from '@client/store/ui/review'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
+import { BasePaths } from '@client/basePaths'
 import { ClientRoutes } from '@client/clientRoutes'
 import CountrySelect from '@client/components/CountrySelect'
 import Navigation from '@client/components/Navigation'
@@ -32,6 +34,7 @@ const Assessment: React.FC = () => {
   const navigationVisible = useNavigationVisible()
   const countryIso = useCountryIso()
   const assessment = useAssessment()
+  const cycle = useCycle()
   const isDataExport = countryIso && !Areas.isISOCountry(countryIso)
 
   useEffect(() => {
@@ -68,6 +71,8 @@ const Assessment: React.FC = () => {
   }, [countryIso, assessmentName, cycleName, user, dispatch])
 
   if (!assessment) return null
+
+  if (!Authorizer.canView({ countryIso, assessment, cycle, user })) window.location.href = BasePaths.Root()
 
   return (
     <>
