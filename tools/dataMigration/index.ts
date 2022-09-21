@@ -11,11 +11,11 @@ import {
   getCreateSchemaCycleDDL,
   getCreateSchemaDDL,
 } from '../../src/server/repository/assessment/assessment/getCreateSchemaDDL'
+import { FraSpecs } from '../../src/test/sectionSpec/fraSpecs'
 import { migrateAggregates } from './migrateData/migrateAggregates'
 import { migrateOdps } from './migrateData/migrateOdps'
 import { migrateTablesData } from './migrateData/migrateTablesData'
 import { DBNames } from './_DBNames'
-import { FraSpecs } from './fraSpecs'
 import { generateMetaCache } from './generateMetaCache'
 import { migrateActivityLog } from './migrateActivityLog'
 import { migrateAreas } from './migrateAreas'

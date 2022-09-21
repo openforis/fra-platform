@@ -1,8 +1,16 @@
-import { NodeRow } from '@test/dataMigration/types'
+import { Cycle } from '@meta/assessment'
 
 import { BaseProtocol } from '@server/db'
 
-export const getCertifiedAreaValues = async (client: BaseProtocol): Promise<Array<NodeRow>> => {
+import { NodeRow } from '@test/dataMigration/types'
+
+export const getCertifiedAreaValues = async (
+  props: { cycle: Cycle },
+  client: BaseProtocol
+): Promise<Array<NodeRow>> => {
+  const { cycle } = props
+  const cycleCondition = `props -> 'cycles' ? '${cycle.uuid}'`
+
   return client.many<NodeRow>(
     `
         select c.country_iso,
@@ -27,6 +35,9 @@ export const getCertifiedAreaValues = async (client: BaseProtocol): Promise<Arra
                  left join assessment_fra.col cl
                            on r.id = cl.row_id
                                and cl.props ->> 'colName' is not null
+        where t.${cycleCondition}
+          and r.${cycleCondition}
+          and cl.${cycleCondition}
     `
   )
 }

@@ -1,14 +1,18 @@
-import { ColSpec } from '../../../.src.legacy/webapp/sectionSpec'
 import { Col, ColStyle, ColType } from '../../../src/meta/assessment/col'
 import { Row } from '../../../src/meta/assessment/row'
+import { ColSpec } from '../../../src/test/sectionSpec'
 
-export const getCol = (props: { cycles: Array<string>; colSpec: ColSpec; row: Row }): Col => {
+export const getCol = (props: {
+  cycles: Array<string>
+  colSpec: ColSpec
+  row: Row
+}): Col & { forceColName?: boolean } => {
   const { colSpec, cycles, row } = props
   const style = cycles.reduce<Record<string, ColStyle>>(
     (styleAgg, cycle) => ({ ...styleAgg, [cycle]: { colSpan: colSpec.colSpan, rowSpan: colSpec.rowSpan } }),
     {}
   )
-  const col: Col = {
+  const col: Col & { forceColName?: boolean } = {
     props: {
       cycles,
       colType: colSpec.type as unknown as ColType,
@@ -41,6 +45,9 @@ export const getCol = (props: { cycles: Array<string>; colSpec: ColSpec; row: Ro
         type: o.type === 'header' ? 'header' : undefined,
       })),
     }
+  }
+  if (colSpec.migration?.forceColName) {
+    col.forceColName = colSpec.migration.forceColName
   }
   return col
 }

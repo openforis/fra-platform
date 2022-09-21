@@ -81,6 +81,7 @@ module.exports = {
             '^@client(\\/\\w)*',
           ],
           ['^@server(\\/\\w)*'],
+          ['^@test(\\/\\w)*'],
           [
             '^\\.\\.(?!/?$)',
             '^\\.\\./?$', // Parent imports. Put `..` last.
