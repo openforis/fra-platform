@@ -16,7 +16,7 @@ const _next = (allowed: boolean, next: NextFunction): void => {
   return next(new Error(`userNotAuthorized`))
 }
 
-const requireEdit = async (req: Request, _res: Response, next: NextFunction) => {
+const requireEdit = async (req: Request, _: Response, next: NextFunction) => {
   const { countryIso, assessmentName, cycleName, sectionName, checkPermission } = {
     ...req.params,
     ...req.query,
