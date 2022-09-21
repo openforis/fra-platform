@@ -1,24 +1,8 @@
 import { Assessment, Cycle } from '@meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
-
-const climaticDomainQuery = (schemaCycle: string) => `
-    select country_iso,
-           coalesce(max(case when variable_name = 'boreal' and col_name = 'percentOfForestArea2015' then value ->> 'raw' end),
-                    max(case when variable_name = 'boreal' and col_name = 'percentOfForestArea2015Default' then value ->> 'raw' end)
-               )       as "boreal",
-           coalesce(max(case when variable_name = 'sub_tropical' and col_name = 'percentOfForestArea2015' then value ->> 'raw' end),
-                    max(case when variable_name = 'sub_tropical' and col_name = 'percentOfForestArea2015Default' then value ->> 'raw' end)
-               )       as "sub_tropical",
-           coalesce(max(case when variable_name = 'temperate' and col_name = 'percentOfForestArea2015' then value ->> 'raw' end),
-                    max(case when variable_name = 'temperate' and col_name = 'percentOfForestArea2015Default' then value ->> 'raw' end)
-               )       as "temperate",
-           coalesce(max(case when variable_name = 'tropical' and col_name = 'percentOfForestArea2015' then value ->> 'raw' end),
-                    max(case when variable_name = 'tropical' and col_name = 'percentOfForestArea2015Default' then value ->> 'raw' end)
-               )       as "tropical"
-    from ${schemaCycle}.climaticdomain
-    group by country_iso
-        `
+import { getClimaticDomainQuery } from '@server/repository/assessmentCycle/data/query/getClimaticDomainQuery'
+import { getFraYearsDataQuery } from '@server/repository/assessmentCycle/data/query/getFraYearsDataQuery'
 
 const getAnnualData = async (
   props: { assessment: Assessment; cycle: Cycle },
@@ -46,7 +30,7 @@ const getAnnualData = async (
         from ${schemaCycle}.areaaffectedbyfire
         where variable_name in ('total_land_area_affected_by_fire', 'of_which_on_forest')
         group by 1, 2),
-        climaticdomain as (${climaticDomainQuery(schemaCycle)}),
+        climaticdomain as (${getClimaticDomainQuery(schemaCycle)}),
             _regions as (select cr.country_iso, array_to_string(ARRAY_AGG(distinct cr.region_code), ';') as regions
         from ${schemaCycle}.country_region cr
         group by cr.country_iso),
@@ -115,7 +99,7 @@ const getIntervalData = async (
               from ${schemaCycle}.forestareachange
               where variable_name in ('afforestation', 'deforestation', 'forest_expansion', 'natural_expansion')
               group by 1, 2),
-     climaticdomain as (${climaticDomainQuery(schemaCycle)}),
+     climaticdomain as (${getClimaticDomainQuery(schemaCycle)}),
      _regions as (select cr.country_iso, array_to_string(ARRAY_AGG(distinct cr.region_code), ';') as regions
                   from ${schemaCycle}.country_region cr
                   group by cr.country_iso),
@@ -164,67 +148,7 @@ const getFraYearsData = async (
   const { assessment, cycle } = props
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
-  return client.many<Record<string, string>>(
-    `
-with extentofforest as (select country_iso,
-                                    col_name                                                                        as year,
-                                    max(case when variable_name = 'forestArea' then value ->> 'raw' end)               as forestArea,
-                                    max(case when variable_name = 'otherWoodedLand' then value ->> 'raw' end)               as otherWoodedLand,
-                                    max(case when variable_name = 'totalLandArea' then value ->> 'raw' end)               as totalLandArea
-                             from ${schemaCycle}.extentofforest
-                             where variable_name in ('forestArea', 'otherWoodedLand', 'totalLandArea' )
-                             group by 1, 2),
-     forestcharacteristics as (select country_iso,
-                                 col_name                                                                                   as year,
-                                 max(case when variable_name = 'naturalForestArea' then value ->> 'raw' end)               as naturalForestArea,
-                                 max(case when variable_name = 'plantedForest' then value ->> 'raw' end)               as plantedForest,
-                                 max(case when variable_name = 'plantationForestArea' then value ->> 'raw' end)               as plantationForestArea
-                          from ${schemaCycle}.forestcharacteristics
-                          where variable_name in ('naturalForestArea', 'plantedForest', 'plantationForestArea' )
-                          group by 1, 2),
-     climaticdomain as (${climaticDomainQuery(schemaCycle)}),
-     _regions as (select cr.country_iso, array_to_string(ARRAY_AGG(distinct cr.region_code), ';') as regions
-                  from ${schemaCycle}.country_region cr
-                  group by cr.country_iso),
-     _years as (
-         select t1.*, t2.*
-         from
-             (
-                 select fc.year from forestcharacteristics fc
-                 union
-                 select eof.year from extentofforest eof
-                 order by 1
-             ) as t1
-                 full join
-             (select c.* from country as c) as t2
-             on true
-         where year in ('1990', '2000', '2010', '2015', '2020')
-         order by 2, 1
-     )
-select r.regions,
-       cc.country_iso,
-       y.year,
-       boreal,
-       temperate,
-       tropical,
-       sub_tropical as subtropical,
-       forestArea as "1a_forestArea",
-       otherWoodedLand as "1a_otherWoodedLand",
-       totalLandArea as "1a_landArea",
-       naturalForestArea as "1b_naturallyRegeneratingForest",
-       plantedForest as "1b_plantedForest",
-    plantationForestArea as "1b_plantationForest"
-from ${schemaCycle}.country cc
-         join _regions r using (country_iso)
-         join _years y using (country_iso)
-         join climaticdomain c using (country_iso)
-         left join extentofforest eof using (country_iso, year)
-         left join forestcharacteristics fc using (country_iso, year)
-        where cc.country_iso not ilike 'X%'
-
-    `,
-    []
-  )
+  return client.many<Record<string, string>>(getFraYearsDataQuery(schemaCycle))
 }
 
 export const BulkDownload = {
