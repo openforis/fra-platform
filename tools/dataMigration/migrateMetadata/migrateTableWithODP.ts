@@ -10,12 +10,16 @@ const years = [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020]
 
 const calculateFNs: Record<string, Record<string, string>> = {
   extentOfForest: {
-    otherLand: 'extentOfForest.totalLandArea - extentOfForest.forestArea - extentOfForest.otherWoodedLand',
+    otherLand:
+      'extentOfForest.totalLandArea - (extentOfForest.forestArea || 0) - (extentOfForest.otherWoodedLand || 0)',
   },
   forestCharacteristics: {
-    plantedForest: 'forestCharacteristics.plantationForestArea + forestCharacteristics.plantationForestIntroducedArea',
-    totalForestArea:
-      'forestCharacteristics.naturalForestArea + forestCharacteristics.plantationForestArea + forestCharacteristics.plantationForestIntroducedArea + forestCharacteristics.otherPlantedForestArea',
+    plantedForest: `(forestCharacteristics.plantationForestArea || forestCharacteristics.otherPlantedForestArea) 
+      ? (forestCharacteristics.plantationForestArea || 0) + (forestCharacteristics.otherPlantedForestArea || 0) 
+      : null`,
+    totalForestArea: `(forestCharacteristics.naturalForestArea || forestCharacteristics.plantationForestArea || forestCharacteristics.plantationForestIntroducedArea || forestCharacteristics.otherPlantedForestArea)
+      ? (forestCharacteristics.naturalForestArea || 0) + (forestCharacteristics.plantationForestArea || 0) + (forestCharacteristics.plantationForestIntroducedArea || 0) + (forestCharacteristics.otherPlantedForestArea || 0)
+      : null`,
     forestArea: 'extentOfForest.forestArea',
   },
 }

@@ -2,7 +2,7 @@ import { Areas, Country, CountryIso } from '@meta/area'
 import { AssessmentStatus } from '@meta/area/country'
 import { Assessment, Cycle, Section } from '@meta/assessment'
 import { User } from '@meta/user/user'
-import { Collaborator } from '@meta/user/userRole'
+import { Collaborator, CollaboratorEditPropertyType } from '@meta/user/userRole'
 import { Users } from '@meta/user/users'
 
 /**
@@ -72,8 +72,14 @@ const canViewUsers = (props: { countryIso: CountryIso; assessment: Assessment; c
  * @param props.user
  * @returns boolean
  */
-const canEdit = (props: { countryIso: CountryIso; section: Section; country: Country; user: User }): boolean => {
-  const { section, user, countryIso, country } = props
+const canEdit = (props: {
+  countryIso: CountryIso
+  section: Section
+  country: Country
+  user: User
+  checkPermission?: CollaboratorEditPropertyType
+}): boolean => {
+  const { section, user, countryIso, country, checkPermission = CollaboratorEditPropertyType.tableData } = props
   const { status } = country.props
 
   if (!user) return false
@@ -95,7 +101,7 @@ const canEdit = (props: { countryIso: CountryIso; section: Section; country: Cou
     if (!userSections) return true
     if (userSections === 'none') return false
     if (userSections === 'all') return true
-    return userSections[section.uuid] === true
+    return userSections[section.uuid]?.[checkPermission] === true
   }
 
   if (Users.isReviewer(user, countryIso)) {

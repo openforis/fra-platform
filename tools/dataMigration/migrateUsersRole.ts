@@ -43,7 +43,7 @@ export const migrateUsersRole = async (props: Props): Promise<void> => {
                                       when d.section_name = 'none' then 'none'
                                       else
                                           d.section_uuid::varchar end,
-                                  true
+                                  '{ "tableData": true, "descriptions": true }'::jsonb
                               )
                               as sections
                    from d
@@ -56,8 +56,8 @@ export const migrateUsersRole = async (props: Props): Promise<void> => {
                q.user_id_legacy,
                q.email,
                case
-                   when q.sections -> 'all' = 'true' then '"all"'::jsonb
-                   when q.sections -> 'none' = 'true' then '"none"'::jsonb
+                   when q.sections -> 'all' is not NULL then '"all"'::jsonb
+                   when q.sections -> 'none' is not NULL then '"none"'::jsonb
                    else q.sections
                    end as sections
         from q

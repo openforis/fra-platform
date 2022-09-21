@@ -112,6 +112,7 @@ export const migrateMetadata = async (props: Props): Promise<void> => {
                         rowSpec.cols.map(async (colSpec) => {
                           let col = getCol({ cycles, colSpec, row })
                           const colName = rowSpec.migration?.colNames?.[colIdx]
+                          const colNameOrig = col.props.colName
                           const withColNameMigration = col.props.colType !== 'header' && colName
                           if (withColNameMigration) {
                             col.props.colName = colName
@@ -132,6 +133,7 @@ export const migrateMetadata = async (props: Props): Promise<void> => {
                             col.props.colName = columnMapping.name
                             colIdx += 1
                           }
+                          if (col.forceColName) col.props.colName = colNameOrig
 
                           col = await client.one<Col>(
                             `insert into ${schema}.col (row_id, props)

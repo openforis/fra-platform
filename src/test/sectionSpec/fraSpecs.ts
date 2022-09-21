@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { SectionSpec } from '../../.src.legacy/webapp/sectionSpec'
+import { SectionSpec } from './sectionSpec'
 
 export const FraSpecs: Record<string, SectionSpec> = {
   contactPersons: {
@@ -3114,22 +3114,42 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 2,
                     type: 'decimal',
+                    colName: '1990',
+                    migration: {
+                      forceColName: true,
+                    },
                   },
                   {
                     idx: 3,
                     type: 'decimal',
+                    colName: '2000',
+                    migration: {
+                      forceColName: true,
+                    },
                   },
                   {
                     idx: 4,
                     type: 'decimal',
+                    colName: '2010',
+                    migration: {
+                      forceColName: true,
+                    },
                   },
                   {
                     idx: 5,
                     type: 'decimal',
+                    colName: '2015',
+                    migration: {
+                      forceColName: true,
+                    },
                   },
                   {
                     idx: 6,
                     type: 'decimal',
+                    colName: '2020',
+                    migration: {
+                      forceColName: true,
+                    },
                   },
                 ],
                 labelKey: 'growingStockComposition.remainingIntroduced',

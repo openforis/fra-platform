@@ -1,10 +1,10 @@
 import { ActivityLogMessage, Node, NodeValue, Row } from '@meta/assessment'
 
+import { getTableData } from '@server/controller/cycleData/getTableData'
 import { ExpressionEvaluator } from '@server/controller/cycleData/persistNodeValue/expressionEvaluator'
 import { persistNode } from '@server/controller/cycleData/persistNodeValue/persistNode/persistNode'
 import { Props } from '@server/controller/cycleData/persistNodeValue/props'
 import { BaseProtocol } from '@server/db'
-import { DataRepository } from '@server/repository/assessmentCycle/data'
 
 export const calculateNode = async (
   props: Omit<Props, 'value'> & { expression: string; row: Row },
@@ -12,8 +12,18 @@ export const calculateNode = async (
 ): Promise<Node> => {
   const { countryIso, assessment, cycle, sectionName, tableName, variableName, colName, expression, row, user } = props
   const dependencies = assessment.metaCache.calculations.dependencies[tableName]?.[variableName]
-  const data = await DataRepository.getTableData(
-    { assessment, cycle, countryISOs: [countryIso], tables: {}, dependencies },
+  const data = await getTableData(
+    {
+      aggregate: false,
+      columns: [],
+      mergeOdp: true,
+      tableNames: [],
+      variables: [],
+      assessment,
+      cycle,
+      countryISOs: [countryIso],
+      dependencies,
+    },
     client
   )
   const rawResult = ExpressionEvaluator.evalFormula<string | undefined>({
