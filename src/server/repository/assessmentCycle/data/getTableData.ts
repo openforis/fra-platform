@@ -34,7 +34,7 @@ const mergeDependencies = (props: Props): TablesCondition => {
       }
       const { variables } = tables[d.tableName]
       if (!tables[d.tableName]) tables[d.tableName] = {}
-      if (!variables.find((v) => v === d.variableName)) {
+      if (d.variableName && !variables.find((v) => v === d.variableName)) {
         variables.push(d.variableName)
       }
       tables[d.tableName] = { variables }
@@ -60,8 +60,16 @@ export const getTableData = (props: Props, client: BaseProtocol = DB): Promise<T
                  jsonb_object_agg(e.variable_name, e.value) as data
           from ${schemaCycle}.${tableName} e
           where e.country_iso in ($1:csv)
-              ${tableProps?.columns ? `and e.col_name in ${asQueryStringArray(tableProps.columns)}` : ''}
-              ${tableProps?.variables ? `and e.variable_name in ${asQueryStringArray(tableProps.variables)}` : ''}
+              ${
+                tableProps?.columns && tableProps?.columns?.length
+                  ? `and e.col_name in ${asQueryStringArray(tableProps.columns)}`
+                  : ''
+              }
+              ${
+                tableProps?.variables && tableProps?.variables?.length
+                  ? `and e.variable_name in ${asQueryStringArray(tableProps.variables)}`
+                  : ''
+              }
               and e.col_name is not null
           group by 1, 2, 3
             )`

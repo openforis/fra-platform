@@ -1,10 +1,26 @@
+import { Arrays } from '@utils/arrays'
 import { UUIDs } from '@utils/uuids'
 
+import { CountryIso } from '@meta/area'
 import { Col as TypeCol, Cycle, Row as TypeRow, RowType, Table } from '@meta/assessment'
+import { TableData } from '@meta/data'
 
-const getHeaders = (props: { cycle: Cycle; table: Table }): string[] => {
-  const { cycle, table } = props
+type Props = {
+  countryIso: CountryIso
+  cycle: Cycle
+  data: TableData
+  showODP: boolean
+  table: Table
+}
+
+const getHeaders = (props: Props): string[] => {
+  const { countryIso, cycle, data, showODP, table } = props
+
   const headers = table.props.columnNames[cycle.uuid]
+  if (table.props.odp && showODP) {
+    const headersDiff = data ? Arrays.difference(Object.keys(data[countryIso]?.[table.props.name] ?? {}), headers) : []
+    return [...headersDiff, ...headers].sort((a, b) => a.localeCompare(b))
+  }
   return headers.map((header) => {
     // Case ex. 1990_2000 => 1990-2000
     if (/^\d{4}_\d{4}$/.test(header)) return header.replace('_', '-')
@@ -12,7 +28,7 @@ const getHeaders = (props: { cycle: Cycle; table: Table }): string[] => {
   })
 }
 
-export const parseTable = (props: { cycle: Cycle; table: Table }): { headers: Array<string>; table: Table } => {
+export const parseTable = (props: Props): { headers: Array<string>; table: Table } => {
   const { cycle, table } = props
   const headers = getHeaders(props)
 

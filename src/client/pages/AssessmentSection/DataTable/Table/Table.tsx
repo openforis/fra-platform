@@ -33,14 +33,14 @@ const Table: React.FC<Props> = (props) => {
   const cycle = useCycle()
   const { i18n } = useTranslation()
   const odpYears = useOriginalDataPointYears()
-  const showOriginalDatapoints = useShowOriginalDatapoints()
+  const showODP = useShowOriginalDatapoints()
 
   const country = useAssessmentCountry()
   const countryIso = useCountryIso()
   const { print } = useIsPrint()
   const tableRef = useRef<HTMLTableElement>(null)
 
-  const { headers, table } = parseTable({ cycle, table: tableProps })
+  const { headers, table } = parseTable({ countryIso, cycle, data, showODP, table: tableProps })
   const { odp, secondary } = table.props
   const rowsHeader = table.rows.filter((row) => row.props.type === RowType.header)
   const rowsData = table.rows.filter((row) => row.props.type !== RowType.header)
@@ -62,7 +62,7 @@ const Table: React.FC<Props> = (props) => {
                   const { colSpan, rowSpan } = Cols.getStyle({ cycle, col })
                   const columnName = headers[colIndex]
 
-                  let isOdpHeader = showOriginalDatapoints && table.props.odp && odpYears?.includes(columnName)
+                  let isOdpHeader = showODP && table.props.odp && odpYears?.includes(columnName)
 
                   if (table.props.name === 'forestCharacteristics')
                     isOdpHeader = isOdpHeader && country.props.forestCharacteristics.useOriginalDataPoint

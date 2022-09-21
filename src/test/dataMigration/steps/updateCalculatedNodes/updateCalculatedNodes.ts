@@ -1,7 +1,3 @@
-import { calculateRow } from '@test/dataMigration/steps/updateCalculatedNodes/calculateRow'
-import { getCertifiedAreaValues } from '@test/dataMigration/steps/updateCalculatedNodes/getCertifiedAreaValues'
-import { getClimaticDomainValues } from '@test/dataMigration/steps/updateCalculatedNodes/getClimaticDomainValues'
-import { getTotalLandAreaValues } from '@test/dataMigration/steps/updateCalculatedNodes/getTotalLandAreaValues'
 import { Objects } from '@utils/objects'
 import * as pgPromise from 'pg-promise'
 
@@ -9,6 +5,11 @@ import { Assessment, Cycle, Row, VariableCache } from '@meta/assessment'
 
 import { AreaController } from '@server/controller/area'
 import { BaseProtocol, Schemas } from '@server/db'
+
+import { calculateRow } from '@test/dataMigration/steps/updateCalculatedNodes/calculateRow'
+import { getCertifiedAreaValues } from '@test/dataMigration/steps/updateCalculatedNodes/getCertifiedAreaValues'
+import { getClimaticDomainValues } from '@test/dataMigration/steps/updateCalculatedNodes/getClimaticDomainValues'
+import { getTotalLandAreaValues } from '@test/dataMigration/steps/updateCalculatedNodes/getTotalLandAreaValues'
 
 export const updateCalculatedNodes = async (
   props: { assessment: Assessment; cycle: Cycle },
@@ -61,14 +62,14 @@ export const updateCalculatedNodes = async (
   )
 
   // ===== total land area (fao stat)
-  const totalLandAreaValues = await getTotalLandAreaValues(client)
+  const totalLandAreaValues = await getTotalLandAreaValues({ cycle }, client)
   await client.query(pgp.helpers.insert(totalLandAreaValues, cs))
 
   // ===== certified area  - SDG sub ind. 5
-  const certifiedAreaValues = await getCertifiedAreaValues(client)
+  const certifiedAreaValues = await getCertifiedAreaValues({ cycle }, client)
   await client.query(pgp.helpers.insert(certifiedAreaValues, cs))
 
-  const climaticDomainValues = await getClimaticDomainValues(client)
+  const climaticDomainValues = await getClimaticDomainValues({ cycle }, client)
   await client.query(pgp.helpers.insert(climaticDomainValues, cs))
 
   // ===== calculation rows
