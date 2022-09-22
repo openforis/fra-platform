@@ -1,49 +1,47 @@
-import { readdirSync, rmSync } from 'fs'
-import * as extract from 'extract-zip'
+import { readdirSync } from 'fs'
+import * as fs from 'fs/promises'
+import * as JSON2CSV from 'json2csv'
 
-import { downloadFile } from '@test/bulkDownloadComparison/downloadFile'
-
-// Get csv file name with timestamp
-const _getFileName = (name: string): string => {
-  const date = new Date()
-  const year = date.getFullYear()
-  const month =
-    (date.getMonth() + 1).toString().length > 1 ? date.getMonth() + 1 : `0${(date.getMonth() + 1).toString()}`
-  const day = date.getDate().toString().length > 1 ? date.getDate() : `0${date.getDate().toString()}`
-  const timestamp = `${year}_${month}_${day}`
-  return `${name}_${timestamp}.csv`
-}
+// import * as extract from 'extract-zip'
+import { compareFiles } from '@test/bulkDownloadComparison/compareFiles'
+// import { downloadFile } from '@test/bulkDownloadComparison/downloadFile'
+import { getFileName } from '@test/bulkDownloadComparison/getFileName'
 
 const fileNames = ['Annual', 'FRA_Years', 'Intervals']
 
 const outPath = `${__dirname}/tmp`
 
-afterAll(() => {
-  rmSync(outPath, { recursive: true, force: true })
-})
+// afterAll(() => {
+//   rmSync(outPath, { recursive: true, force: true })
+// })
 
 describe('Bulk Download comparison', () => {
   test('compare ', async () => {
     // Download files
-    const prodUrl = 'https://fra-data.fao.org/api/export/bulk-download'
-    const localUrl = 'http://localhost:9001/api/file/bulk-download?assessmentName=fra&cycleName=2020&countryIso=WO'
-    const prod = await downloadFile(prodUrl, outPath, 'prod')
-    const local = await downloadFile(localUrl, outPath, 'local')
+    // const legacyUrl = 'https://fra-data.fao.org/api/export/bulk-download'
+    // const localUrl = 'http://localhost:9001/api/file/bulk-download?assessmentName=fra&cycleName=2020&countryIso=WO'
+    // const legacy = await downloadFile(legacyUrl, outPath, 'legacy')
+    // const local = await downloadFile(localUrl, outPath, 'local')
 
     // Extract files
-    await extract(local, { dir: `${outPath}/local` })
-    await extract(prod, { dir: `${outPath}/prod` })
+    // await extract(local, { dir: `${outPath}/local` })
+    // await extract(legacy, { dir: `${outPath}/legacy` })
 
     // Check all needed files exist
     const localFiles = readdirSync(`${outPath}/local`, { withFileTypes: true })
       .filter((item) => !item.isDirectory())
       .map((item) => item.name)
-    const prodFiles = readdirSync(`${outPath}/prod`, { withFileTypes: true })
+    const legacyFiles = readdirSync(`${outPath}/legacy`, { withFileTypes: true })
       .filter((item) => !item.isDirectory())
       .map((item) => item.name)
-
-    const expectedFileNames = fileNames.map((fileName: string) => _getFileName(fileName)).concat('README.txt')
+    const expectedFileNames = fileNames.map((fileName: string) => getFileName(fileName)).concat('README.txt')
     expect(localFiles).toEqual(expectedFileNames)
-    expect(prodFiles).toEqual(expectedFileNames)
+    expect(legacyFiles).toEqual(expectedFileNames)
+
+    // Get diff output
+    const diffs = (await Promise.all(fileNames.map((fileName) => compareFiles(outPath, fileName)))).flat()
+
+    const csv = await JSON2CSV.parseAsync(diffs)
+    await fs.writeFile(`${outPath}/diffs.csv`, csv)
   })
 })
