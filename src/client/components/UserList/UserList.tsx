@@ -54,12 +54,15 @@ const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail
     if (window.confirm(i18n.t('userManagement.confirmDelete', { user: user.name })))
       dispatch(
         UserManagementActions.removeInvitation({
+          countryIso,
+          assessmentName: assessment.props.name,
+          cycleName: cycle.name,
           invitationUuid: user.roles[0].invitationUuid,
         })
       ).then(() => {
         toaster.success(i18n.t<string>('userManagement.invitationDeleted'))
       })
-  }, [dispatch, i18n, toaster, user.name, user.roles])
+  }, [assessment.props.name, countryIso, cycle.name, dispatch, i18n, toaster, user.name, user.roles])
 
   return (
     <tr
