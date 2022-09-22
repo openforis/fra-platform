@@ -8,24 +8,24 @@ import { Requests } from '@server/utils'
 
 export const removeInvitation = async (req: CycleRequest<{ invitationUuid: string }>, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName, invitationUuid } = req.query
+    const { countryIso, invitationUuid } = req.query
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({
-      assessmentName,
-      cycleName,
+    const { assessment, userRole } = await UserController.readByInvitation({ invitationUuid })
+
+    const { cycle } = await AssessmentController.getOneWithCycle({
+      assessmentName: assessment.props.name,
+      cycleUuid: userRole.cycleUuid,
     })
 
-    const user = Requests.getRequestUser(req)
-
-    const userRole = await UserController.removeInvitation({
+    const removedUserRole = await UserController.removeInvitation({
       countryIso,
       assessment,
       cycle,
       invitationUuid,
-      user,
+      user: Requests.getRequestUser(req),
     })
 
-    Requests.sendOk(res, userRole)
+    Requests.sendOk(res, removedUserRole)
   } catch (e) {
     Requests.sendErr(res, e)
   }
