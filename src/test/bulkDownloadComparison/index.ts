@@ -12,8 +12,7 @@ const fileNames = ['Annual', 'FRA_Years', 'Intervals']
 const outPath = `${__dirname}/tmp`
 
 afterAll(() => {
-  rmSync(`${outPath}/legacy`, { recursive: true, force: true })
-  rmSync(`${outPath}/local`, { recursive: true, force: true })
+  rmSync(`${outPath}`, { recursive: true, force: true })
 })
 
 describe('Bulk Download comparison', () => {
@@ -43,6 +42,6 @@ describe('Bulk Download comparison', () => {
     const diffs = (await Promise.all(fileNames.map((fileName) => compareFiles(outPath, fileName)))).flat()
 
     const csv = await JSON2CSV.parseAsync(diffs)
-    await fs.writeFile(`${outPath}/diffs.csv`, csv)
+    await fs.writeFile(`./diffs.csv`, csv)
   })
 })
