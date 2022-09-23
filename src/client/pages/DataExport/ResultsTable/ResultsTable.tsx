@@ -73,6 +73,7 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
     variables.forEach((variable) => {
       if (!units[variable]) onUnitChange(baseUnit, variable)
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [variables])
 
   if (Objects.isEmpty(tableSections)) return null
@@ -131,7 +132,6 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
                         String(column),
                         countryIso as CountryIso,
                         results,
-                        sectionName,
                         tableName,
                         variable
                       )
