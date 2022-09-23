@@ -7242,7 +7242,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
             },
             dataExport: true,
             columnsExportAlways: [],
-            columnsExport: ['national', 'subnational'],
+            columnsExport: ['national_yes_no', 'sub_national_yes_no'],
           },
         ],
       },
