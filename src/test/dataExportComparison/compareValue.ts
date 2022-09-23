@@ -59,8 +59,7 @@ export const compareValue = (props: {
   const columnLegacy = columnsLegacyMapping[tableName]?.[column] ?? column
 
   const valueLegacy = dataLegacy?.[countryIso]?.[variableLegacy]?.[columnLegacy]
-  // TODO: valueLocal should not use columnLegacy but column
-  const valueLocal = dataLocal?.[countryIso]?.[tableName]?.[columnLegacy]?.[variable]?.raw
+  const valueLocal = dataLocal?.[countryIso]?.[tableName]?.[column]?.[variable]?.raw
 
   const skipError = skips[tableName] && skips[tableName].includes(variable)
 

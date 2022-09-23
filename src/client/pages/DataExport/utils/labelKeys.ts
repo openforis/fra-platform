@@ -21,8 +21,8 @@ const unitLabelKeys: Record<string, string> = {
 const columnLabelKeys: Record<string, string> = {
   common_name: 'commonName',
   scientific_name: 'scientificName',
-  national: 'national',
-  subnational: 'subnational',
+  national_yes_no: 'national',
+  sub_national_yes_no: 'subnational',
 }
 
 /**
@@ -46,6 +46,8 @@ export const getUnitLabelKey = (unit: string): string => (unitLabelKeys[unit] ? 
  * @param assessmentType - type, ex. fra2020 / panEuropean
  * @returns {array} - i18n keys
  */
+// TODO: Separate issue. Use column metadata to get column key (see Table.tsx).
+// It requires updating the dataExport columns selection slice
 export const getColumnLabelKeys = (column: string, section: string, assessmentName: AssessmentName): Array<string> => {
   if (assessmentName === AssessmentNames.panEuropean) {
     return [`${assessmentName}.${section}.${column}`]
