@@ -1,6 +1,6 @@
 import { CountryIso } from '@meta/area'
 import { ActivityLogMessage, Assessment, Cycle } from '@meta/assessment'
-import { User } from '@meta/user'
+import { RoleName, User, UserRole } from '@meta/user'
 
 import { BaseProtocol, DB } from '@server/db'
 import { ActivityLogRepository } from '@server/repository/assessment/activityLog'
@@ -16,7 +16,7 @@ export const removeInvitation = async (
     user: User
   },
   client: BaseProtocol = DB
-): Promise<User> => {
+): Promise<UserRole<RoleName>> => {
   const { countryIso, assessment, cycle, invitationUuid, user } = props
 
   return client.tx(async (t) => {
@@ -39,6 +39,6 @@ export const removeInvitation = async (
       t
     )
 
-    return UserRepository.update({ user }, t)
+    return userRole
   })
 }
