@@ -1,31 +1,32 @@
-import { readdirSync } from 'fs'
+import { readdirSync, rmSync } from 'fs'
 import * as fs from 'fs/promises'
+import * as extract from 'extract-zip'
 import * as JSON2CSV from 'json2csv'
 
-// import * as extract from 'extract-zip'
 import { compareFiles } from '@test/bulkDownloadComparison/compareFiles'
-// import { downloadFile } from '@test/bulkDownloadComparison/downloadFile'
+import { downloadFile } from '@test/bulkDownloadComparison/downloadFile'
 import { getFileName } from '@test/bulkDownloadComparison/getFileName'
 
 const fileNames = ['Annual', 'FRA_Years', 'Intervals']
 
 const outPath = `${__dirname}/tmp`
 
-// afterAll(() => {
-//   rmSync(outPath, { recursive: true, force: true })
-// })
+afterAll(() => {
+  rmSync(`${outPath}/legacy`, { recursive: true, force: true })
+  rmSync(`${outPath}/local`, { recursive: true, force: true })
+})
 
 describe('Bulk Download comparison', () => {
   test('compare ', async () => {
     // Download files
-    // const legacyUrl = 'https://fra-data.fao.org/api/export/bulk-download'
-    // const localUrl = 'http://localhost:9001/api/file/bulk-download?assessmentName=fra&cycleName=2020&countryIso=WO'
-    // const legacy = await downloadFile(legacyUrl, outPath, 'legacy')
-    // const local = await downloadFile(localUrl, outPath, 'local')
+    const legacyUrl = 'https://fra-data.fao.org/api/export/bulk-download'
+    const localUrl = 'http://localhost:9001/api/file/bulk-download?assessmentName=fra&cycleName=2020&countryIso=WO'
+    const legacy = await downloadFile(legacyUrl, outPath, 'legacy')
+    const local = await downloadFile(localUrl, outPath, 'local')
 
     // Extract files
-    // await extract(local, { dir: `${outPath}/local` })
-    // await extract(legacy, { dir: `${outPath}/legacy` })
+    await extract(local, { dir: `${outPath}/local` })
+    await extract(legacy, { dir: `${outPath}/legacy` })
 
     // Check all needed files exist
     const localFiles = readdirSync(`${outPath}/local`, { withFileTypes: true })
