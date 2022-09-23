@@ -24,10 +24,12 @@ export const removeInvitation = async (
 
     const invitedUser = await UserRepository.getOne({ id: userRole.userId })
 
+    const { userId, role } = userRole
+
     await ActivityLogRepository.insertActivityLog(
       {
         activityLog: {
-          target: { user: invitedUser.name, role: userRole.role },
+          target: { userId, user: invitedUser.name, role },
           section: 'users',
           message: ActivityLogMessage.invitationRemove,
           countryIso,
