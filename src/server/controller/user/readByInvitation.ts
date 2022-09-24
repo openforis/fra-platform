@@ -1,5 +1,6 @@
 import { Assessment } from '@meta/assessment'
 import { RoleName, User, UserRole } from '@meta/user'
+
 import { BaseProtocol, DB } from '@server/db'
 import { AssessmentRepository } from '@server/repository/assessment/assessment'
 import { UserRepository } from '@server/repository/public/user'
@@ -15,8 +16,11 @@ export const readByInvitation = async (
 
   return client.tx(async (t) => {
     const userRole = await UserRoleRepository.read({ invitationUuid }, t)
+
     const assessment = await AssessmentRepository.read({ id: userRole.assessmentId }, t)
+
     const user = await UserRepository.getOne({ id: userRole.userId }, t)
+
     return {
       userRole,
       assessment,

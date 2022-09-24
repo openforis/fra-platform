@@ -54,17 +54,18 @@ const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail
     if (window.confirm(i18n.t('userManagement.confirmDelete', { user: user.name })))
       dispatch(
         UserManagementActions.removeInvitation({
+          countryIso,
           invitationUuid: user.roles[0].invitationUuid,
         })
       ).then(() => {
         toaster.success(i18n.t<string>('userManagement.invitationDeleted'))
       })
-  }, [dispatch, i18n, toaster, user.name, user.roles])
+  }, [countryIso, dispatch, i18n, toaster, user.name, user.roles])
 
   return (
     <tr
       className={classNames({
-        'user-list__invitation-row': !user.roles[0].acceptedAt,
+        'user-list__invitation-row': user.roles[0].invitationUuid && !user.roles[0].acceptedAt,
         'user-list__inactive-user': user.status === UserStatus.inactive,
       })}
     >
@@ -73,7 +74,7 @@ const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail
       <UserTableAccessColumn user={user} />
       {showEmail && <UserColumn user={user} field="email" />}
       <td className="user-list__cell user-list__edit-column">
-        {!user.roles[0].acceptedAt ? (
+        {user.roles[0].invitationUuid && !user.roles[0].acceptedAt ? (
           <>
             <button
               key={0}

@@ -8,6 +8,7 @@ import { createResetPassword } from './createResetPassword'
 import { invite } from './invite'
 import { readByInvitation } from './readByInvitation'
 import { remove } from './remove'
+import { removeInvitation } from './removeInvitation'
 import { sendInvitationEmail } from './sendInvitationEmail'
 import { update } from './update'
 
@@ -21,7 +22,7 @@ export const UserController = {
   invite,
   acceptInvitation,
   readByInvitation,
-  removeInvitation: UserRoleRepository.remove,
+  removeInvitation,
   sendInvitationEmail,
   createResetPassword,
   changePassword,

@@ -1,35 +1,37 @@
+import { CountryIso } from '@meta/area'
 import { ActivityLogMessage, Assessment, Cycle } from '@meta/assessment'
-import { RoleName, User, UserRole, UserStatus } from '@meta/user'
+import { RoleName, User, UserRole } from '@meta/user'
 
 import { BaseProtocol, DB } from '@server/db'
 import { ActivityLogRepository } from '@server/repository/assessment/activityLog'
 import { UserRepository } from '@server/repository/public/user'
 import { UserRoleRepository } from '@server/repository/public/userRole'
 
-export const acceptInvitation = async (
+export const removeInvitation = async (
   props: {
+    countryIso: CountryIso
     assessment: Assessment
     cycle: Cycle
+    invitationUuid: string
     user: User
-    userRole: UserRole<RoleName>
   },
   client: BaseProtocol = DB
-): Promise<User> => {
-  const { assessment, cycle, user, userRole } = props
+): Promise<UserRole<RoleName>> => {
+  const { countryIso, assessment, cycle, invitationUuid, user } = props
 
   return client.tx(async (t) => {
-    await UserRoleRepository.acceptInvitation({ userRole }, t)
+    const userRole = await UserRoleRepository.remove({ invitationUuid }, t)
 
-    user.status = UserStatus.active
+    const invitedUser = await UserRepository.getOne({ id: userRole.userId })
 
-    const { countryIso, userId, role } = userRole
+    const { userId, role } = userRole
 
     await ActivityLogRepository.insertActivityLog(
       {
         activityLog: {
-          target: { userId, user: user.name, role },
+          target: { userId, user: invitedUser.name, role },
           section: 'users',
-          message: ActivityLogMessage.invitationAccept,
+          message: ActivityLogMessage.invitationRemove,
           countryIso,
           user,
         },
@@ -39,6 +41,6 @@ export const acceptInvitation = async (
       t
     )
 
-    return UserRepository.update({ user }, t)
+    return userRole
   })
 }

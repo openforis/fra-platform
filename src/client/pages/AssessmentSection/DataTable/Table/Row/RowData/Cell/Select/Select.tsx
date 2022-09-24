@@ -6,19 +6,18 @@ import { i18n } from 'i18next'
 import { ColSelectOption } from '@meta/assessment'
 
 import { PropsCell } from '@client/pages/AssessmentSection/DataTable/Table/Row/RowData/Cell/props'
+import { optionNotSelected } from '@client/pages/AssessmentSection/DataTable/Table/Row/RowData/Cell/Select/OptionNotSelected'
 
 const getOptionLabel = (option: ColSelectOption, i18n: i18n, labelKeyPrefix: string): string => {
   const label = i18n.t(`${labelKeyPrefix}.${option.name}`)
   return option.type === 'header' ? `--- ${label} ---` : label
 }
 
-const optionNotSelected: ColSelectOption = { name: 'notSelected', hidden: true }
-
 const Select: React.FC<PropsCell> = (props) => {
   const { onChange, onPaste, col, datum, disabled } = props
   const { options, labelKeyPrefix = 'yesNoTextSelect' } = col.props.select
 
-  const optionSelected = options.find((option) => option.name === datum)
+  const optionSelected = [optionNotSelected, ...options].find((option) => option.name === datum)
   const { i18n } = useTranslation()
 
   if (disabled) {
