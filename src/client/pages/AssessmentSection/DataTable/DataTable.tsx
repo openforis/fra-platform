@@ -72,7 +72,7 @@ const DataTable: React.FC<Props> = (props) => {
     return () => {
       dispatch(AssessmentSectionActions.resetData())
     }
-  }, [sectionName])
+  }, [assessmentName, countryIso, cycle.name, dispatch, odp, sectionName, table.props.name])
   if (!data) return null
 
   const showOdpChart = table.props.odp
@@ -83,7 +83,8 @@ const DataTable: React.FC<Props> = (props) => {
     countryIso,
   })
 
-  if (dataEmpty && onlyTables) {
+  // Always show secondary tables - unless whole section empty (handled in parent)
+  if (dataEmpty && onlyTables && !table.props.secondary) {
     return null
   }
 

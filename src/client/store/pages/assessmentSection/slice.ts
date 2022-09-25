@@ -20,6 +20,8 @@ const initialState: AssessmentSectionState = {
   showOriginalDataPoint: true,
   nodeValueValidation: {},
   descriptions: {},
+
+  dataLoaded: false,
 }
 
 export const assessmentSectionSlice = createSlice({
@@ -57,6 +59,7 @@ export const assessmentSectionSlice = createSlice({
         const countryData = (state.data && state.data[countryIso]) || {}
         state.data = { ...state.data, [countryIso]: { ...payload[countryIso], ...countryData } }
       }
+      state.dataLoaded = true
     })
 
     builder.addCase(getOriginalDataPointData.fulfilled, (state, { payload }) => {
