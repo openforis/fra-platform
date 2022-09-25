@@ -5,10 +5,10 @@ import { matchPath, useLocation } from 'react-router-dom'
 
 import { Section } from '@meta/assessment'
 
-import { useAssessment } from '@client/store/assessment'
+import { useAssessment, useCycle } from '@client/store/assessment'
 import { useSectionReviewSummary } from '@client/store/ui/review/hooks'
 import { useCountryIso, useIsDataExportView } from '@client/hooks'
-import { BasePaths } from '@client/basePaths'
+import { ClientRoutes } from '@client/clientRoutes'
 
 import ReviewStatusMarker from './ReviewStatusMarker'
 import SectionItemLink from './SectionItemLink'
@@ -25,6 +25,7 @@ const NavigationSection: React.FC<Props> = (props) => {
   const { i18n } = useTranslation()
   const countryIso = useCountryIso()
   const assessment = useAssessment()
+  const cycle = useCycle()
   const isDataExport = useIsDataExportView()
   const { pathname } = useLocation()
   const reviewStatus = useSectionReviewSummary(section.id)
@@ -46,13 +47,18 @@ const NavigationSection: React.FC<Props> = (props) => {
   // // On mount check whether the location matches a child path
   useEffect(() => {
     const match = section.subSections.find((subsection) => {
-      const path = BasePaths.Assessment.section(countryIso, assessmentName, subsection.props.name)
+      const path = ClientRoutes.Assessment.Section.getLink({
+        countryIso,
+        cycleName: cycle.name,
+        assessmentName,
+        sectionName: subsection.props.name,
+      })
       return matchPath({ path }, pathname)
     })
     if (match) {
       setExpanded(true)
     }
-  }, [])
+  }, [assessmentName, countryIso, cycle.name, pathname, section.subSections])
 
   if (!children.length) {
     return null

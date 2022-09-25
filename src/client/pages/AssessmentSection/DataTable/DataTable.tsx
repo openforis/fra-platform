@@ -69,9 +69,6 @@ const DataTable: React.FC<Props> = (props) => {
         })
       )
     }
-    return () => {
-      dispatch(AssessmentSectionActions.resetData())
-    }
   }, [assessmentName, countryIso, cycle.name, dispatch, odp, sectionName, table.props.name])
   if (!data) return null
 
