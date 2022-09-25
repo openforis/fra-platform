@@ -13,7 +13,11 @@ const _convertToCSV = (arr: Array<Record<string, string>>): string =>
 // Get csv file name with timestamp
 const _getFileName = (name: string): string => {
   const date = new Date()
-  const timestamp = `${date.getFullYear()}_${date.getMonth() + 1}_${date.getDate()}`
+  const year = date.getFullYear()
+  const month =
+    (date.getMonth() + 1).toString().length > 1 ? date.getMonth() + 1 : `0${(date.getMonth() + 1).toString()}`
+  const day = date.getDate().toString().length > 1 ? date.getDate() : `0${date.getDate().toString()}`
+  const timestamp = `${year}_${month}_${day}`
   return `${name}_${timestamp}.csv`
 }
 
@@ -43,7 +47,7 @@ const handleContent = async (content: Array<Record<string, string>>) => {
 
 const contentMap = {
   FRA_Years: DataRepository.BulkDownload.getFraYearsData,
-  Interval: DataRepository.BulkDownload.getIntervalData,
+  Intervals: DataRepository.BulkDownload.getIntervalData,
   Annual: DataRepository.BulkDownload.getAnnualData,
 }
 
