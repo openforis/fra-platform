@@ -13,7 +13,7 @@ const patchNodeValues = Functions.debounce(async ({ tableName, values, ...params
   } catch (e) {
     // placeholder to avoid app crash
   }
-}, 250)
+}, 1000)
 
 export const updateNodeValues = createAsyncThunk<void, Props>('section/nodeValues/update', (props) => {
   patchNodeValues(props)

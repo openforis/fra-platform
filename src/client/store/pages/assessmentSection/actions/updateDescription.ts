@@ -13,7 +13,7 @@ const patchDescription = Functions.debounce(async (props: CycleDataParams & { na
   } catch (e) {
     // placeholder to avoid app crash
   }
-}, 250)
+}, 1000)
 
 export const updateDescription = createAsyncThunk<void, CycleDataParams & { name: string; content: string }>(
   'section/description/update',

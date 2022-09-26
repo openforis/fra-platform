@@ -29,7 +29,7 @@ const putOriginalDataPoint = Functions.debounce(async (params: Params, dispatch:
     }
   )
   dispatch(setOriginalDataPointUpdating(false))
-}, 250)
+}, 1000)
 
 export const updateOriginalDataPoint = createAsyncThunk<OriginalDataPoint, Params>(
   'originalDataPoint/update',
