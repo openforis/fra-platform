@@ -50,17 +50,16 @@ export const useIsSectionDataEmpty = (tableSections: TableSection[]) => {
   const { data, dataLoaded } = useAppSelector((state) => state.pages.assessmentSection)
 
   const [sectionDataEmpty, setSectionDataEmpty] = useState(false)
-  const sectionTableNames = tableSections.flatMap((ts) => ts.tables.flatMap((t) => t.props.name))
-  const allTablesEmpty = useMemo(
-    () =>
-      sectionTableNames.every((tableName) =>
-        TableDatas.isTableDataEmpty({
-          data,
-          tableName,
-          countryIso,
-        })
-      ),
-    [countryIso, data, sectionTableNames]
+  const sectionTableNames = useMemo(
+    () => tableSections.flatMap((ts) => ts.tables.flatMap((t) => t.props.name)),
+    [tableSections]
+  )
+  const allTablesEmpty = sectionTableNames.every((tableName) =>
+    TableDatas.isTableDataEmpty({
+      data,
+      tableName,
+      countryIso,
+    })
   )
 
   useEffect(() => {
