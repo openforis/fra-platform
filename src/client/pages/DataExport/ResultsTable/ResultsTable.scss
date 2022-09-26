@@ -5,6 +5,7 @@
 
   @include min-width($laptop) {
     flex: 1;
+    width: auto;
   }
 
   .copyright {
