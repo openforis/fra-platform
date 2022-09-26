@@ -2,6 +2,7 @@ import { asQueryStringArray, getEmploymentQuery, getGraduationOfStudentsQuery } 
 import { getAreaOfPermanentForestEstateQuery } from './getAreaOfPermanentForestEstateQuery'
 import { getClimaticDomainQuery } from './getClimaticDomainQuery'
 import { getForestPolicyQuery } from './getForestPolicyQuery'
+import { ODPQuery } from './getODPTableQuery'
 import { getRegionsQuery } from './getRegionsQuery'
 import { getYearsQuery } from './getYearsQuery'
 import { specialTables, tables, TableType } from './tables'
@@ -83,6 +84,10 @@ export const getFraYearsDataQuery = (schemaCycle: string) => `
     areaofpermanentforestestate as (${getAreaOfPermanentForestEstateQuery(schemaCycle)}),
     employment as (${getEmploymentQuery(schemaCycle)}),
     graduationofstudents as (${getGraduationOfStudentsQuery(schemaCycle)}),
+    
+-- tables with original data point
+    ${ODPQuery.extentOfForest.subquery(schemaCycle)},
+    ${ODPQuery.forestCharacteristics.subquery(schemaCycle)},
 
 -- other
      climaticdomain as (${getClimaticDomainQuery(schemaCycle)}),
@@ -95,13 +100,13 @@ select r.regions,
     temperate,
     tropical,
     sub_tropical as subtropical,
-    ${getSelectClause([...tables, ...specialTables])}
+    ${getSelectClause([...ODPQuery.tables, ...tables, ...specialTables])}
 
 from ${schemaCycle}.country cc
     join _regions r using (country_iso)
     join _years y using (country_iso)
     join climaticdomain c using (country_iso)
-    ${getJoinClause(tables)}
+    ${getJoinClause([...ODPQuery.tables, ...tables])}
 -- special cases
     ${getJoinClauseSpecialTables(specialTables)}
 

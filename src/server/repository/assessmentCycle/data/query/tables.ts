@@ -7,24 +7,25 @@ export type TableType = {
 export const tables: Array<TableType> = [
   // Section
   // 1
-  {
-    tableName: 'extentofforest',
-    variableNames: {
-      forestArea: '1a_forestArea',
-      otherWoodedLand: '1a_otherWoodedLand',
-      totalLandArea: '1a_landArea',
-    },
-  },
-  {
-    tableName: 'forestcharacteristics',
-    variableNames: {
-      naturalForestArea: '1b_naturallyRegeneratingForest',
-      plantedForest: '1b_plantedForest',
-      plantationForestArea: '1b_plantationForest',
-      plantationForestIntroducedArea: '1b_plantationForestIntroduced',
-      otherPlantedForestArea: '1b_otherPlantedForest',
-    },
-  },
+  // 1a, 1b handled in getODPTableQuery
+  // {
+  //   tableName: 'extentofforest',
+  //   variableNames: {
+  //     forestArea: '1a_forestArea',
+  //     otherWoodedLand: '1a_otherWoodedLand',
+  //     totalLandArea: '1a_landArea',
+  //   },
+  // },
+  // {
+  //   tableName: 'forestcharacteristics',
+  //   variableNames: {
+  //     naturalForestArea: '1b_naturallyRegeneratingForest',
+  //     plantedForest: '1b_plantedForest',
+  //     plantationForestArea: '1b_plantationForest',
+  //     plantationForestIntroducedArea: '1b_plantationForestIntroduced',
+  //     otherPlantedForestArea: '1b_otherPlantedForest',
+  //   },
+  // },
   {
     tableName: 'specificforestcategories',
     variableNames: {
