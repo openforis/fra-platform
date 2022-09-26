@@ -5,7 +5,7 @@ import { AssessmentName } from '@meta/assessment'
 import { Sockets } from '@meta/socket'
 
 import { useAppDispatch } from '@client/store'
-import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
+import { useGetTableSections } from '@client/store/pages/assessmentSection/hooks/useGetTableSections'
 import { ReviewActions } from '@client/store/ui/review'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
@@ -29,24 +29,12 @@ const SectionWrapper: React.FC<Props> = (props) => {
     sectionName: string
   }>()
 
+  useGetTableSections()
+
   useEffect(() => {
     // scroll to top
     DOMs.scrollTo()
-
-    // fetch table sections metadata
-    dispatch(
-      AssessmentSectionActions.getTableSections({
-        assessmentName,
-        cycleName,
-        sectionNames: [sectionName],
-        countryIso,
-      })
-    )
-
-    return () => {
-      dispatch(AssessmentSectionActions.reset())
-    }
-  }, [assessmentName, countryIso, cycleName, dispatch, sectionName])
+  }, [sectionName])
 
   // fetch section review status
   useEffect(() => {
