@@ -42,10 +42,17 @@ const Assessment: React.FC = () => {
 
     return () => {
       // reset review and assessment section store
-      dispatch(AssessmentSectionActions.reset())
       dispatch(ReviewActions.reset())
     }
   }, [countryIso, assessmentName, cycleName, dispatch])
+
+  // On cycle change, reset metadata, data
+  useEffect(() => {
+    return () => {
+      dispatch(AssessmentSectionActions.resetData())
+      dispatch(AssessmentSectionActions.reset())
+    }
+  }, [cycleName, dispatch])
 
   useEffect(() => {
     const requestReviewSummaryEvent = Sockets.getRequestReviewSummaryEvent({ countryIso, assessmentName, cycleName })
