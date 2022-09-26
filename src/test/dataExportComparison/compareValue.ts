@@ -1,8 +1,7 @@
-import { Numbers } from '@utils/numbers'
-
 import { CountryIso } from '@meta/area'
 
 import { columnsLegacyMapping } from '@test/dataExportComparison/legacyMapping'
+import { parseValue } from '@test/dataExportComparison/parseValue'
 import {
   DataLegacy,
   DataLocal,
@@ -65,7 +64,6 @@ export const compareValue = (props: {
   const skipError = skips[tableName] && skips[tableName].includes(variable)
 
   if (!skipError) {
-    const parseValue = (val: string): number => Math.abs(Number(Numbers.toFixed(Number(val))))
     if (Math.abs(parseValue(valueLocal) - parseValue(valueLegacy)) >= 0.01)
       return {
         countryIso,

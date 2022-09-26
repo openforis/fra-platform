@@ -2,16 +2,30 @@ import { Response } from 'express'
 
 import { CycleRequest } from '@meta/api/request'
 
+import { AssessmentController } from '@server/controller/assessment'
 import { UserController } from '@server/controller/user'
 import { Requests } from '@server/utils'
 
 export const removeInvitation = async (req: CycleRequest<{ invitationUuid: string }>, res: Response) => {
   try {
-    const { invitationUuid } = req.query
+    const { countryIso, invitationUuid } = req.query
 
-    const userRole = await UserController.removeInvitation({ invitationUuid })
+    const { assessment, userRole } = await UserController.readByInvitation({ invitationUuid })
 
-    Requests.sendOk(res, userRole)
+    const { cycle } = await AssessmentController.getOneWithCycle({
+      assessmentName: assessment.props.name,
+      cycleUuid: userRole.cycleUuid,
+    })
+
+    const removedUserRole = await UserController.removeInvitation({
+      countryIso,
+      assessment,
+      cycle,
+      invitationUuid,
+      user: Requests.getRequestUser(req),
+    })
+
+    Requests.sendOk(res, removedUserRole)
   } catch (e) {
     Requests.sendErr(res, e)
   }

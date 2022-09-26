@@ -42,10 +42,12 @@ export const invite = async (
 
     userToInvite = await UserRepository.getOne({ email }, t)
 
+    const { userId, role } = userRole
+
     await ActivityLogRepository.insertActivityLog(
       {
         activityLog: {
-          target: { user: userToInvite.name, role: userRole.role },
+          target: { userId, user: userToInvite.name, role },
           section: 'users',
           message: ActivityLogMessage.invitationAdd,
           countryIso,

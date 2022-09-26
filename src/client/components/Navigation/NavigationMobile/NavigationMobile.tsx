@@ -1,5 +1,5 @@
 import './NavigationMobile.scss'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import classNames from 'classnames'
 
@@ -12,6 +12,11 @@ import NavAssessment from '../NavAssessment'
 const NavigationMobile: React.FC = () => {
   const dispatch = useAppDispatch()
   const navigationVisible = useNavigationVisible()
+
+  // Hide navigation on first mount
+  useEffect(() => {
+    dispatch(NavigationActions.updateNavigationVisible(false))
+  }, [dispatch])
 
   return (
     <div className={classNames('navM', 'no-print', { open: navigationVisible })}>
