@@ -1,0 +1,56 @@
+@import 'src/client/style/partials';
+
+.modal-country-select-body {
+  display: grid;
+  grid-row-gap: $spacing-xxs;
+
+  @include min-width($laptop) {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  select {
+    width: 100%;
+  }
+
+  hr {
+    margin: $spacing-xxxs 0;
+  }
+
+  .form-field-country-label {
+    flex: 0 1 100%;
+  }
+
+  .form-field-region-container {
+    display: flex;
+    flex: 0 1 15%;
+    flex-flow: column;
+  }
+
+  .form-field-region-label {
+    font-weight: bold;
+  }
+
+  .form-field-country-selector {
+    cursor: pointer;
+    display: flex;
+    padding: 5px;
+    align-items: center;
+    min-width: 83px;
+    .fra-checkbox {
+      margin-right: 4px;
+    }
+
+    &.disabled {
+      cursor: not-allowed !important;
+      color: $text-disabled;
+      pointer-events: none;
+
+      .fra-checkbox {
+        border: 1px solid $ui-border-light;
+      }
+    }
+  }
+
+
+}

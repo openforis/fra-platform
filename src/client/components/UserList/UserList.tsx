@@ -13,9 +13,9 @@ import { UserManagementActions } from '@client/store/userManagement'
 import { useCountryIso } from '@client/hooks'
 import { useToaster } from '@client/hooks/useToaster'
 
+import CollaboratorAccessModal from '../CollaboratorAccessModal'
 import Icon from '../Icon'
 import ButtonUserListExport from './ButtonUserListExport'
-import CollaboratorMultiSelect from './CollaboratorMultiSelect'
 import UserInvitationInfo from './UserInvitationInfo'
 
 const UserColumn: React.FC<{ user: User; field: keyof User }> = ({ user, field }) => (
@@ -34,11 +34,39 @@ const UserRoleColumn: React.FC<{ user: User }> = ({ user }) => {
   )
 }
 
-const UserTableAccessColumn: React.FC<{ user: User }> = ({ user }) => (
-  <td className="user-list__cell">
-    {user.roles[0].role === RoleName.COLLABORATOR ? <CollaboratorMultiSelect user={user} /> : '-'}
-  </td>
-)
+const UserTableAccessColumn: React.FC<{ user: User }> = ({ user }) => {
+  const { i18n } = useTranslation()
+
+  const [modalOptions, setModalOptions] = useState<{ open: boolean }>({ open: false })
+
+  const _onClick = () => {
+    setModalOptions({ open: true })
+  }
+
+  const _onClose = () => {
+    setModalOptions({ open: false })
+  }
+
+  return (
+    <td className="user-list__cell">
+      {user.roles[0].role === RoleName.COLLABORATOR ? (
+        <>
+          <button className="btn-xs btn-primary" onClick={_onClick} type="button">
+            {i18n.t<string>('description.edit')}
+          </button>
+          <CollaboratorAccessModal
+            open={modalOptions.open}
+            user={user}
+            headerLabel={i18n.t(Users.getI18nRoleLabelKey(i18n.t(RoleName.COLLABORATOR)))}
+            onClose={_onClose}
+          />
+        </>
+      ) : (
+        '-'
+      )}
+    </td>
+  )
+}
 
 const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail }) => {
   const [showInvitationInfo, setShowInvitationInfo] = useState<boolean>(false)
