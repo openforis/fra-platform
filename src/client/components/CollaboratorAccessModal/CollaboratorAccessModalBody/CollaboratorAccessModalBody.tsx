@@ -98,7 +98,7 @@ const CollaboratorAccessModalBody: React.FC<Props> = ({ user }) => {
               return (
                 <div key={permission} className="form-field-region-container">
                   <div className="form-field-country-selector">
-                    <div className="form-field-region-label">{i18n.t(permission)}</div>
+                    <div className="form-field-region-label">{i18n.t(`userManagement.permissions.${permission}`)}</div>
                   </div>
 
                   <hr />

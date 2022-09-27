@@ -557,6 +557,10 @@ The FRA team fra@fao.org
 {{- url}}
     `,
     },
+    permissions: {
+      tableData: 'Table Data',
+      descriptions: 'Descriptions',
+    },
   },
 
   // FRA 2020 questionare
