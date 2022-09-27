@@ -88,7 +88,7 @@ const CollaboratorAccessModalBody: React.FC<Props> = ({ user }) => {
 
   return (
     <ModalBody>
-      <div className="modal-country-select-body">
+      <div className="modal-collaborator-access-body">
         <MediaQuery maxWidth={Breakpoints.laptop - 1}>
           {Object.entries(permissionOptions).map(
             ([permission, options]: [CollaboratorEditPropertyType, Array<Option>]) => (
@@ -137,10 +137,8 @@ const CollaboratorAccessModalBody: React.FC<Props> = ({ user }) => {
         <MediaQuery minWidth={Breakpoints.laptop}>
           {Object.entries(permissionOptions).map(
             ([permission, options]: [CollaboratorEditPropertyType, Array<Option>]) => (
-              <div key={permission} className="form-field-region-container">
-                <div className="form-field-country-selector">
-                  <div className="form-field-region-label">{i18n.t(`userManagement.permissions.${permission}`)}</div>
-                </div>
+              <div key={permission} className="form-field-container">
+                <div className="form-field-container-label">{i18n.t(`userManagement.permissions.${permission}`)}</div>
 
                 <hr />
 
@@ -150,7 +148,7 @@ const CollaboratorAccessModalBody: React.FC<Props> = ({ user }) => {
                   return (
                     <div
                       key={`${section}-${permission}`}
-                      className="form-field-country-selector"
+                      className="form-field-selector"
                       onClick={() => toggleOption(section, permission)}
                       onMouseDown={(e) => e.stopPropagation()}
                       aria-hidden="true"
@@ -163,7 +161,7 @@ const CollaboratorAccessModalBody: React.FC<Props> = ({ user }) => {
                             selectedSections[section][permission] === true,
                         })}
                       />
-                      <div className="form-field-country-label">{label}</div>
+                      <div className="form-field-label">{label}</div>
                     </div>
                   )
                 })}

@@ -1,6 +1,6 @@
 @import 'src/client/style/partials';
 
-.modal-country-select-body {
+.modal-collaborator-access-body {
   display: grid;
   grid-row-gap: $spacing-xxs;
 
@@ -17,21 +17,23 @@
     margin: $spacing-xxxs 0;
   }
 
-  .form-field-country-label {
+  .form-field-label {
+    text-align: left;
     flex: 0 1 100%;
   }
 
-  .form-field-region-container {
+  .form-field-container {
     display: flex;
     flex: 0 1 15%;
     flex-flow: column;
   }
 
-  .form-field-region-label {
+  .form-field-container-label {
+    text-align: center;
     font-weight: bold;
   }
 
-  .form-field-country-selector {
+  .form-field-selector {
     cursor: pointer;
     display: flex;
     padding: 5px;
