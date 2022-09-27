@@ -80,7 +80,8 @@ const DataTable: React.FC<Props> = (props) => {
     countryIso,
   })
 
-  if (dataEmpty && onlyTables) {
+  // Always show secondary tables - unless whole section empty (handled in parent)
+  if (dataEmpty && onlyTables && !table.props.secondary) {
     return null
   }
 

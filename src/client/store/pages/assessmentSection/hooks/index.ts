@@ -1,5 +1,7 @@
+import { useEffect, useMemo, useState } from 'react'
+
 import { NodeValue, Table, TableSection } from '@meta/assessment'
-import { NodeUpdate, TableData } from '@meta/data'
+import { NodeUpdate, TableData, TableDatas } from '@meta/data'
 
 import { useAppSelector } from '@client/store'
 import { useAssessmentCountry } from '@client/store/assessment'
@@ -41,6 +43,39 @@ export const useTableData = (props: { table: Table }): TableData => {
   }
 
   return tableDataWithODP as TableData
+}
+
+export const useIsSectionDataEmpty = (tableSections: TableSection[]) => {
+  const countryIso = useCountryIso()
+  const { data } = useAppSelector((state) => state.pages.assessmentSection)
+
+  const [sectionDataEmpty, setSectionDataEmpty] = useState(false)
+  const sectionTableNames = useMemo(
+    () => tableSections.flatMap((ts) => ts.tables.flatMap((t) => t.props.name)),
+    [tableSections]
+  )
+
+  const dataLoaded = useMemo(() => Boolean(data?.[countryIso]), [countryIso, data])
+
+  const allTablesEmpty =
+    dataLoaded &&
+    sectionTableNames.every((tableName) =>
+      TableDatas.isTableDataEmpty({
+        data,
+        tableName,
+        countryIso,
+      })
+    )
+
+  useEffect(() => {
+    if (dataLoaded) {
+      setSectionDataEmpty(allTablesEmpty)
+    }
+  }, [allTablesEmpty, dataLoaded])
+
+  if (!dataLoaded) return false
+
+  return sectionDataEmpty
 }
 
 export const useOriginalDataPointYears = () => {

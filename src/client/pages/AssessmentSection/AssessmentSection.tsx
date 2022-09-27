@@ -7,6 +7,7 @@ import { AssessmentName, AssessmentNames } from '@meta/assessment'
 
 import { useAssessmentSection } from '@client/store/assessment'
 import { useTableSections } from '@client/store/pages/assessmentSection'
+import { useIsSectionDataEmpty } from '@client/store/pages/assessmentSection/hooks'
 import { useCanEditSection } from '@client/store/user'
 import { useIsPrint } from '@client/hooks/useIsPath'
 
@@ -33,6 +34,12 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
 
   const { anchor, showTitle, descriptions, name: sectionName } = assessmentSection?.props ?? {}
 
+  // Hide the whole section if no tables have data
+  const isSectionDataEmpty = useIsSectionDataEmpty(tableSections)
+  if (onlyTables && isSectionDataEmpty) {
+    return null
+  }
+
   return (
     <div className={`app-view__content assessment-section__${sectionName}`}>
       {showTitle && print && (
@@ -48,7 +55,7 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
       {showTitle && <Title assessmentName={assessmentName} sectionName={sectionName} sectionAnchor={anchor} />}
 
       {tableSections.map((tableSection) => (
-        <div key={String(tableSection.id)}>
+        <div key={tableSection.uuid}>
           {tableSection.props.labelKey && (
             <h3 className="subhead assessment-section__table-title">{i18n.t<string>(tableSection.props.labelKey)}</h3>
           )}
