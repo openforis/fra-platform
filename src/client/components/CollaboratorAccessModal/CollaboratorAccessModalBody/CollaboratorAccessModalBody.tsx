@@ -9,9 +9,9 @@ import classNames from 'classnames'
 import { SubSection } from '@meta/assessment'
 import { CollaboratorEditPropertyType, CollaboratorProps, User } from '@meta/user'
 
-// import { useAppDispatch } from '@client/store'
+import { useAppDispatch } from '@client/store'
 import { useAssessmentSections } from '@client/store/assessment'
-// import { UserManagementActions } from '@client/store/userManagement'
+import { UserManagementActions } from '@client/store/userManagement'
 import { useOnUpdate } from '@client/hooks'
 import { ModalBody } from '@client/components/Modal'
 import { Breakpoints } from '@client/utils/breakpoints'
@@ -26,17 +26,19 @@ type Props = {
 }
 
 const CollaboratorAccessModalBody: React.FC<Props> = ({ user }) => {
-  // const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch()
   const i18n = useTranslation()
   const assessmentSections = useAssessmentSections()
 
   const options = assessmentSections
     .reduce((prev, curr) => [...prev, ...curr.subSections], [])
     .filter((subSection: SubSection) => subSection.props.anchor)
-    .map((subSection: SubSection): { value: string; label: string } => ({
-      value: subSection.uuid,
-      label: subSection.props.anchor,
-    }))
+    .map(
+      (subSection: SubSection): Option => ({
+        value: subSection.uuid,
+        label: subSection.props.anchor,
+      })
+    )
 
   const permissionOptions: Record<CollaboratorEditPropertyType, Array<Option>> = {
     tableData: options,
@@ -49,86 +51,124 @@ const CollaboratorAccessModalBody: React.FC<Props> = ({ user }) => {
   const [selectedSections, setSelectedSections] = useState(sections)
 
   useOnUpdate(() => {
-    // dispatch(
-    //   UserManagementActions.updateSectionAuth({
-    //     id: user.roles[0].id,
-    //     sections: selectedSections.reduce((prev, curr) => {
-    //       return { ...prev, [curr.value]: true }
-    //     }, {}),
-    //   })
-    // )
+    dispatch(
+      UserManagementActions.updateSectionAuth({
+        id: user.roles[0].id,
+        sections: selectedSections,
+      })
+    )
   }, [selectedSections])
 
-  const removeOption = (permission: string, option: Option): void => {
-    const { value } = option
-    if (value === 'all') setSelectedSections('none')
-    else if (value === 'none') setSelectedSections('all')
+  const removeOption = (section: string, permission: string): void => {
+    if (section === 'all') setSelectedSections('none')
+    else if (section === 'none') setSelectedSections('all')
     else
       setSelectedSections(
         typeof selectedSections !== 'string'
-          ? { ...selectedSections, [value]: { ...selectedSections[value], [permission]: false } }
-          : { [value]: { [permission]: false } }
+          ? { ...selectedSections, [section]: { ...selectedSections[section], [permission]: false } }
+          : { [section]: { [permission]: false } }
       )
   }
 
-  const addOption = (permission: CollaboratorEditPropertyType, option: Option): void => {
-    const { value } = option
-    if (value === 'all') setSelectedSections('all')
-    else if (value === 'none') setSelectedSections('none')
+  const addOption = (section: string, permission: CollaboratorEditPropertyType): void => {
+    if (section === 'all') setSelectedSections('all')
+    else if (section === 'none') setSelectedSections('none')
     else
       setSelectedSections(
         typeof selectedSections !== 'string'
-          ? { ...selectedSections, [value]: { ...selectedSections[value], [permission]: true } }
-          : { [value]: { [permission]: true } }
+          ? { ...selectedSections, [section]: { ...selectedSections[section], [permission]: true } }
+          : { [section]: { [permission]: true } }
       )
   }
 
-  const toggleOption = (permission: CollaboratorEditPropertyType, option: Option): void => {
-    const { value } = option
-    if (typeof selectedSections === 'string' || !selectedSections[value]?.[permission]) addOption(permission, option)
-    else if (selectedSections[value]?.[permission]) removeOption(permission, option)
+  const toggleOption = (section: string, permission: CollaboratorEditPropertyType): void => {
+    if (typeof selectedSections === 'string' || !selectedSections[section]?.[permission]) addOption(section, permission)
+    else if (selectedSections[section]?.[permission]) removeOption(section, permission)
   }
 
   return (
     <ModalBody>
       <div className="modal-country-select-body">
-        <MediaQuery minWidth={Breakpoints.laptop}>
+        <MediaQuery maxWidth={Breakpoints.laptop - 1}>
           {Object.entries(permissionOptions).map(
-            ([permission, options]: [CollaboratorEditPropertyType, Array<Option>]) => {
-              return (
-                <div key={permission} className="form-field-region-container">
-                  <div className="form-field-country-selector">
-                    <div className="form-field-region-label">{i18n.t(`userManagement.permissions.${permission}`)}</div>
-                  </div>
+            ([permission, options]: [CollaboratorEditPropertyType, Array<Option>]) => (
+              <div key={permission}>
+                <strong>{i18n.t(`userManagement.permissions.${permission}`)}</strong>
 
-                  <hr />
+                <select
+                  multiple
+                  value={
+                    typeof selectedSections !== 'string'
+                      ? Object.entries(selectedSections)
+                          .filter(([_, value]) => value[permission] === true)
+                          .map(([key, _]) => key)
+                      : []
+                  }
+                  onChange={(event) => {
+                    const previousValues =
+                      typeof selectedSections !== 'string'
+                        ? Object.entries(selectedSections)
+                            .filter(([_, value]) => value[permission] === true)
+                            .map(([key, _]) => key)
+                        : []
 
+                    const currentValues = Array.from(event.target.selectedOptions, (option) => String(option.value))
+
+                    const section = currentValues.filter((x) => !previousValues.includes(x))[0]
+                    alert(section)
+                    toggleOption(section, permission)
+                  }}
+                >
                   {options.map((option: Option) => {
-                    const { value, label } = option
+                    const { value: section, label } = option
 
                     return (
-                      <div
-                        key={value}
-                        className="form-field-country-selector"
-                        onClick={() => toggleOption(permission, option)}
-                        onMouseDown={(e) => e.stopPropagation()}
-                        aria-hidden="true"
-                      >
-                        <div
-                          className={classNames('fra-checkbox', {
-                            checked:
-                              typeof selectedSections !== 'string' &&
-                              selectedSections[value] &&
-                              selectedSections[value][permission] === true,
-                          })}
-                        />
-                        <div className="form-field-country-label">{label}</div>
-                      </div>
+                      <option key={`${section}-${permission}`} value={section}>
+                        {label}
+                      </option>
                     )
                   })}
+                </select>
+              </div>
+            )
+          )}
+        </MediaQuery>
+
+        <MediaQuery minWidth={Breakpoints.laptop}>
+          {Object.entries(permissionOptions).map(
+            ([permission, options]: [CollaboratorEditPropertyType, Array<Option>]) => (
+              <div key={permission} className="form-field-region-container">
+                <div className="form-field-country-selector">
+                  <div className="form-field-region-label">{i18n.t(`userManagement.permissions.${permission}`)}</div>
                 </div>
-              )
-            }
+
+                <hr />
+
+                {options.map((option: Option) => {
+                  const { value: section, label } = option
+
+                  return (
+                    <div
+                      key={`${section}-${permission}`}
+                      className="form-field-country-selector"
+                      onClick={() => toggleOption(section, permission)}
+                      onMouseDown={(e) => e.stopPropagation()}
+                      aria-hidden="true"
+                    >
+                      <div
+                        className={classNames('fra-checkbox', {
+                          checked:
+                            typeof selectedSections !== 'string' &&
+                            selectedSections[section] &&
+                            selectedSections[section][permission] === true,
+                        })}
+                      />
+                      <div className="form-field-country-label">{label}</div>
+                    </div>
+                  )
+                })}
+              </div>
+            )
           )}
         </MediaQuery>
       </div>

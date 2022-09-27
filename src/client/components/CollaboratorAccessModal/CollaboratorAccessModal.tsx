@@ -1,5 +1,5 @@
 import './collaboratorAccessModal.scss'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
 import { User } from '@meta/user'
 
@@ -10,19 +10,12 @@ import CollaboratorAccessModalBody from './CollaboratorAccessModalBody'
 type Props = {
   user: User
   headerLabel: string
-  onClose: (selection: Array<string>) => void
+  onClose: () => void
   open: boolean
 }
 
 const CollaboratorAccessModal: React.FC<Props> = (props) => {
   const { headerLabel, onClose, open, user } = props
-
-  const [selection, setSelection] = useState<Array<string>>([])
-
-  const _onClose = () => {
-    onClose(selection)
-    setSelection([])
-  }
 
   useEffect(() => {
     if (open) document.body.classList.add('no-scroll')
@@ -30,10 +23,10 @@ const CollaboratorAccessModal: React.FC<Props> = (props) => {
   }, [open])
 
   return (
-    <Modal className="modal-country-select" isOpen={open}>
+    <Modal className="modal-collaborator-access" isOpen={open}>
       <ModalHeader>
         {headerLabel}
-        <ModalClose onClose={_onClose} />
+        <ModalClose onClose={onClose} />
       </ModalHeader>
 
       <CollaboratorAccessModalBody user={user} />
