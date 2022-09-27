@@ -19,23 +19,17 @@ const getTableData = (props: Pick<Props, 'countryIso' | 'tableName' | 'data'>) =
   return data?.[countryIso]?.[tableName] ?? {}
 }
 
-// Exclude calculated nodes
-type Options = {
-  excludeNull: boolean
-}
-
-const isTableDataEmpty = (props: { data: TableData; tableName: string; countryIso: CountryIso; options?: Options }) => {
-  const { data, tableName, countryIso, options } = props
+const isTableDataEmpty = (props: { data: TableData; tableName: string; countryIso: CountryIso }) => {
+  const { data, tableName, countryIso } = props
   const tableData = getTableData({ data, tableName, countryIso })
   if (Objects.isEmpty(tableData)) {
     return true
   }
 
-  const _comparator = (nodeValue: NodeValue) => {
-    return options?.excludeNull ? !nodeValue.calculated && nodeValue.raw !== null : !nodeValue.calculated
-  }
   return !Object.values(tableData)
-    .flatMap((rows) => Object.values(rows).filter((nodeValue) => _comparator(nodeValue)).length)
+    .flatMap(
+      (rows) => Object.values(rows).filter((nodeValue) => !nodeValue.calculated && nodeValue.raw !== null).length
+    )
     .every(Boolean)
 }
 

@@ -11,6 +11,4 @@ export type AssessmentSectionState = {
   nodeValueValidation: Record<string, NodeUpdate>
   // sectionName -> name -> content
   descriptions: Record<string, Record<string, string>>
-
-  dataLoaded: boolean
 }
