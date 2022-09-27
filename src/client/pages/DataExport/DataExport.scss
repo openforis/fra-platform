@@ -6,17 +6,20 @@
   grid-row-gap: $spacing-xl;
 
   @include min-width($laptop) {
-    grid-template-rows: 300px 1fr;
-    grid-row-gap: $spacing-s;
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-s;
   }
 }
 
 .export__form {
   display: grid;
   grid-row-gap: $spacing-xs;
+  position: sticky;
+  left: 0;
 
   @include min-width($laptop) {
-    max-width: 98vw;
+    height: 300px;
     grid-template-columns: repeat(3, 1fr);
     grid-row-gap: unset;
     overflow-y: hidden;
