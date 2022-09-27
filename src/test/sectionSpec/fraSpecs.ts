@@ -3196,7 +3196,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableName: 'totalIntroduced',
                 migration: {
                   calcFormula:
-                    '(growingStockComposition.introduced_rank1 || 0) + (growingStockComposition.introduced_rank2 || 0) + (growingStockComposition.introduced_rank3 || 0) + (growingStockComposition.introduced_rank4 || 0) + (growingStockComposition.introduced_rank5 || 0)',
+                    '(growingStockComposition.introduced_rank1 || 0) + (growingStockComposition.introduced_rank2 || 0) + (growingStockComposition.introduced_rank3 || 0) + (growingStockComposition.introduced_rank4 || 0) + (growingStockComposition.introduced_rank5 || 0) + (growingStockComposition.remaining_introduced_placeholder || 0)',
                   colNames: ['1990', '2000', '2010', '2015', '2020'],
                 },
               },
