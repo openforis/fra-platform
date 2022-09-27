@@ -59,6 +59,7 @@ export const useIsSectionDataEmpty = (tableSections: TableSection[]) => {
       data,
       tableName,
       countryIso,
+      options: { excludeNull: true },
     })
   )
 
