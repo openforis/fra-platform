@@ -115,7 +115,7 @@ const CollaboratorAccessModalBody: React.FC<Props> = ({ user }) => {
                     const currentValues = Array.from(event.target.selectedOptions, (option) => String(option.value))
 
                     const section = currentValues.filter((x) => !previousValues.includes(x))[0]
-                    alert(section)
+
                     toggleOption(section, permission)
                   }}
                 >
