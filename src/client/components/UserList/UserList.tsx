@@ -34,40 +34,6 @@ const UserRoleColumn: React.FC<{ user: User }> = ({ user }) => {
   )
 }
 
-const UserTableAccessColumn: React.FC<{ user: User }> = ({ user }) => {
-  const { i18n } = useTranslation()
-
-  const [modalOptions, setModalOptions] = useState<{ open: boolean }>({ open: false })
-
-  const _onClick = () => {
-    setModalOptions({ open: true })
-  }
-
-  const _onClose = () => {
-    setModalOptions({ open: false })
-  }
-
-  return (
-    <td className="user-list__cell">
-      {user.roles[0].role === RoleName.COLLABORATOR ? (
-        <>
-          <button className="btn-xs btn-primary" onClick={_onClick} type="button">
-            {i18n.t<string>('description.edit')}
-          </button>
-          <CollaboratorAccessModal
-            open={modalOptions.open}
-            user={user}
-            headerLabel={i18n.t(Users.getI18nRoleLabelKey(i18n.t(RoleName.COLLABORATOR)))}
-            onClose={_onClose}
-          />
-        </>
-      ) : (
-        '-'
-      )}
-    </td>
-  )
-}
-
 const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail }) => {
   const [showInvitationInfo, setShowInvitationInfo] = useState<boolean>(false)
   const dispatch = useAppDispatch()
@@ -78,6 +44,15 @@ const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail
   const cycle = useCycle()
   const currentUser = useUser()
 
+  const [modalOptions, setModalOptions] = useState<{ open: boolean }>({ open: false })
+
+  const _onEditPermissionsClick = () => {
+    setModalOptions({ open: true })
+  }
+
+  const _onEditPermissionsClose = () => {
+    setModalOptions({ open: false })
+  }
   const removeInvitation = useCallback(() => {
     if (window.confirm(i18n.t('userManagement.confirmDelete', { user: user.name })))
       dispatch(
@@ -99,9 +74,23 @@ const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail
     >
       <UserColumn user={user} field="name" />
       <UserRoleColumn user={user} />
-      <UserTableAccessColumn user={user} />
       {showEmail && <UserColumn user={user} field="email" />}
       <td className="user-list__cell user-list__edit-column">
+        {user.roles[0].role === RoleName.COLLABORATOR && (
+          <>
+            <button key={1} className="btn-s btn-link" onClick={_onEditPermissionsClick} type="button">
+              {i18n.t<string>('userManagement.editPermissions')}
+            </button>
+
+            <CollaboratorAccessModal
+              open={modalOptions.open}
+              user={user}
+              headerLabel={i18n.t<string>('userManagement.editPermissions')}
+              onClose={_onEditPermissionsClose}
+            />
+          </>
+        )}
+
         {user.roles[0].invitationUuid && !user.roles[0].acceptedAt ? (
           <>
             <button
@@ -158,7 +147,6 @@ const UsersTableHeadRow: React.FC<{ showEmail: boolean }> = ({ showEmail }) => {
       <tr>
         <th className="user-list__header-cell">{i18n.t<string>('userManagement.name')}</th>
         <th className="user-list__header-cell">{i18n.t<string>('userManagement.role')}</th>
-        <th className="user-list__header-cell">{i18n.t<string>('userManagement.tableAccess')}</th>
         {showEmail && <th className="user-list__header-cell">{i18n.t<string>('userManagement.email')}</th>}
         <th className="user-list__header-cell user-list__edit-column">
           <ButtonUserListExport />

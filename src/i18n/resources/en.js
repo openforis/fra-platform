@@ -516,6 +516,7 @@ The FRA team
     remove: 'Remove',
     done: 'Done',
     edit: 'Edit',
+    editPermissions: 'Edit permissions',
     addUser: 'Add collaborator',
     formErrors: 'There are errors in the form. Please, fix them and submit it again.',
     userAdded: '{{email}} has been added',

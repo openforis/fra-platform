@@ -9,7 +9,10 @@ import classNames from 'classnames'
 import { SubSection } from '@meta/assessment'
 import { CollaboratorEditPropertyType, CollaboratorProps, User } from '@meta/user'
 
+// import { useAppDispatch } from '@client/store'
 import { useAssessmentSections } from '@client/store/assessment'
+// import { UserManagementActions } from '@client/store/userManagement'
+import { useOnUpdate } from '@client/hooks'
 import { ModalBody } from '@client/components/Modal'
 import { Breakpoints } from '@client/utils/breakpoints'
 
@@ -20,18 +23,13 @@ type Option = {
 
 type Props = {
   user: User
-  // selection: Array<string>
-  // onChange: (countryIso: string) => void
-  // onChangeAll: (countryISOs: Array<string>) => void
-  // onChangeMany: (countryISOs: Array<string>, selectAll: boolean) => void
 }
 
 const CollaboratorAccessModalBody: React.FC<Props> = ({ user }) => {
+  // const dispatch = useAppDispatch()
   const i18n = useTranslation()
   const assessmentSections = useAssessmentSections()
 
-  // const optionAll = { value: 'all', label: 'all' }
-  // const optionNone = { value: 'none', label: 'none' }
   const options = assessmentSections
     .reduce((prev, curr) => [...prev, ...curr.subSections], [])
     .filter((subSection: SubSection) => subSection.props.anchor)
@@ -50,27 +48,45 @@ const CollaboratorAccessModalBody: React.FC<Props> = ({ user }) => {
 
   const [selectedSections, setSelectedSections] = useState(sections)
 
+  useOnUpdate(() => {
+    // dispatch(
+    //   UserManagementActions.updateSectionAuth({
+    //     id: user.roles[0].id,
+    //     sections: selectedSections.reduce((prev, curr) => {
+    //       return { ...prev, [curr.value]: true }
+    //     }, {}),
+    //   })
+    // )
+  }, [selectedSections])
+
   const removeOption = (permission: string, option: Option): void => {
     const { value } = option
-    if (typeof selectedSections !== 'string')
-      setSelectedSections({ ...selectedSections, [value]: { ...selectedSections[value], [permission]: false } })
-    else if (value === 'all') setSelectedSections('none')
+    if (value === 'all') setSelectedSections('none')
     else if (value === 'none') setSelectedSections('all')
+    else
+      setSelectedSections(
+        typeof selectedSections !== 'string'
+          ? { ...selectedSections, [value]: { ...selectedSections[value], [permission]: false } }
+          : { [value]: { [permission]: false } }
+      )
   }
 
   const addOption = (permission: CollaboratorEditPropertyType, option: Option): void => {
     const { value } = option
-    if (typeof selectedSections !== 'string')
-      setSelectedSections({ ...selectedSections, [value]: { ...selectedSections[value], [permission]: true } })
-    else if (value === 'all') setSelectedSections('none')
-    else if (value === 'none') setSelectedSections('all')
+    if (value === 'all') setSelectedSections('all')
+    else if (value === 'none') setSelectedSections('none')
+    else
+      setSelectedSections(
+        typeof selectedSections !== 'string'
+          ? { ...selectedSections, [value]: { ...selectedSections[value], [permission]: true } }
+          : { [value]: { [permission]: true } }
+      )
   }
 
   const toggleOption = (permission: CollaboratorEditPropertyType, option: Option): void => {
     const { value } = option
-    if (typeof selectedSections !== 'string' && selectedSections[value]?.[permission]) removeOption(permission, option)
-    else if (typeof selectedSections !== 'string' && !selectedSections[value]?.[permission])
-      addOption(permission, option)
+    if (typeof selectedSections === 'string' || !selectedSections[value]?.[permission]) addOption(permission, option)
+    else if (selectedSections[value]?.[permission]) removeOption(permission, option)
   }
 
   return (
