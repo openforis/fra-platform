@@ -1865,7 +1865,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 1,
-                    colSpan: null,
+                    colSpan: 9,
                     rowSpan: 1,
                     labelKey: 'growingStock.avgTableHeader',
                     className: 'fra-table__header-cell',
@@ -2088,7 +2088,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 1,
-                    colSpan: null,
+                    colSpan: 9,
                     rowSpan: 1,
                     labelKey: 'growingStock.totalTableHeader',
                     className: 'fra-table__header-cell',
