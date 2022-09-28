@@ -135,6 +135,40 @@ const CollaboratorAccessModalBody: React.FC<Props> = ({ user }) => {
         </MediaQuery>
 
         <MediaQuery minWidth={Breakpoints.laptop}>
+          <div className="form-field-container">
+            <div className="form-field-container-label">{i18n.t('General')}</div>
+
+            <hr />
+
+            <div
+              className="form-field-selector"
+              onClick={() => null}
+              onMouseDown={(e) => e.stopPropagation()}
+              aria-hidden="true"
+            >
+              <div
+                className={classNames('fra-checkbox', {
+                  checked: selectedSections === 'all',
+                })}
+              />
+              <div className="form-field-label">All</div>
+            </div>
+
+            <div
+              className="form-field-selector"
+              onClick={() => null}
+              onMouseDown={(e) => e.stopPropagation()}
+              aria-hidden="true"
+            >
+              <div
+                className={classNames('fra-checkbox', {
+                  checked: selectedSections === 'none',
+                })}
+              />
+              <div className="form-field-label">None</div>
+            </div>
+          </div>
+
           {Object.entries(permissionOptions).map(
             ([permission, options]: [CollaboratorEditPropertyType, Array<Option>]) => (
               <div key={permission} className="form-field-container">
