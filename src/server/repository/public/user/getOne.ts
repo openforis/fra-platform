@@ -1,6 +1,6 @@
 import { Objects } from '@utils/objects'
 
-import { User } from '@meta/user'
+import { CollaboratorProps, User } from '@meta/user'
 
 import { BaseProtocol, DB } from '@server/db'
 
@@ -28,15 +28,22 @@ export const getOne = async (
     throw new Error('Missing parameter')
   }
 
-  return client.oneOrNone<User | undefined>(
-    `
+  return client
+    .oneOrNone<User | undefined>(
+      `
         select ${selectFields}, jsonb_agg(to_jsonb(ur.*)) as roles
         from public.users u
         left join users_role ur on u.id = ur.user_id
         ${where}
         group by ${selectFields}
     `,
-    [value],
-    Objects.camelize
-  )
+      [value]
+    )
+    .then((data) => ({
+      ...Objects.camelize(data),
+      roles: data.roles.map(({ props, ...role }) => ({
+        ...Objects.camelize(role),
+        props: { ...Objects.camelize(props), sections1: (props as CollaboratorProps).sections },
+      })),
+    }))
 }

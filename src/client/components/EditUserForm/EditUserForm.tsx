@@ -11,6 +11,7 @@ import { useCountryIso } from '@client/hooks'
 import { useToaster } from '@client/hooks/useToaster'
 
 import Buttons from './Buttons'
+import CollaboratorPermissions from './CollaboratorPermissions'
 import CountryRoles from './CountryRoles'
 import ProfilePicture from './ProfilePicture'
 import TextInputFields from './TextInputFields'
@@ -72,6 +73,7 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
     <div className="edit-user__form-container">
       <ProfilePicture userId={user.id} onChange={(profilePicture: File) => setProfilePicture(profilePicture)} />
       <TextInputFields user={user} onChange={changeUser} />
+      {user.roles[0].role === RoleName.COLLABORATOR && <CollaboratorPermissions user={user} />}
       <CountryRoles onChange={changeUser} user={user} />
 
       <Buttons
