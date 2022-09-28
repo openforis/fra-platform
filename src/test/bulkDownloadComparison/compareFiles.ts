@@ -5,7 +5,7 @@ import { readCSV } from '@test/bulkDownloadComparison/readCSV'
 import { RawFile, RawFileRow, Value, ValueDiff } from '@test/bulkDownloadComparison/types'
 import { parseValue } from '@test/dataExportComparison/parseValue'
 
-const skip: Array<string> = ['regions', 'name']
+const skip: Array<string> = ['regions', 'name', '4a_fo_unknown', '3a_prim_no_unknown']
 
 const reduceArray = (file: RawFile): Value =>
   file.reduce<Value>((previousValue: Value, currentValue: RawFileRow) => {
