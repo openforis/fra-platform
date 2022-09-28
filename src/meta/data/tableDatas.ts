@@ -25,9 +25,11 @@ const isTableDataEmpty = (props: { data: TableData; tableName: string; countryIs
   if (Objects.isEmpty(tableData)) {
     return true
   }
-  // Exclude calculated nodes
+
   return !Object.values(tableData)
-    .flatMap((rows) => Object.values(rows).filter((nodeValue) => !nodeValue.calculated).length)
+    .flatMap(
+      (rows) => Object.values(rows).filter((nodeValue) => !nodeValue.calculated && nodeValue.raw !== null).length
+    )
     .every(Boolean)
 }
 
