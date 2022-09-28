@@ -4,10 +4,12 @@ import { i18n as i18nType } from 'i18next'
 import { Areas, CountryIso, RegionCode } from '@meta/area'
 import { Assessment, Cycle } from '@meta/assessment'
 
-import { getAnnualData } from '@server/controller/cycleData/getBulkDownload/getAnnualData'
+import { getContent } from '@server/controller/cycleData/getBulkDownload/getContent'
 import { getFraYearsData } from '@server/controller/cycleData/getBulkDownload/getFRAYearsData'
-import { getIntervalsData } from '@server/controller/cycleData/getBulkDownload/getIntervalsData'
 import { CountryRepository } from '@server/repository/assessmentCycle/country'
+
+import { entries as annualEntries } from './entries/AnnualData'
+import { entries as intervalEntries } from './entries/Intervals'
 
 const _convertToCSV = (arr: Array<Record<string, string>>): string =>
   [Object.keys(arr[0]), ...arr].map((it) => Object.values(it).toString()).join('\n')
@@ -48,21 +50,25 @@ const handleContent = async (content: Array<Record<string, string>>) => {
 export const getBulkDownload = async (props: { assessment: Assessment; cycle: Cycle }) => {
   const { assessment, cycle } = props
   const countries = await CountryRepository.getMany({ assessment, cycle })
-  const annual = await getAnnualData({ assessment, cycle, countries })
-  const intervals = await getIntervalsData({ assessment, cycle, countries })
-  const fraYears = await getFraYearsData({ assessment, cycle, countries })
-  return [
+  const params = { assessment, cycle, countries }
+  const [annual, intervals, fraYears] = await Promise.all([
+    getContent({ ...params, entries: annualEntries }),
+    getContent({ ...params, entries: intervalEntries }),
+    getFraYearsData(params),
+  ])
+
+  return Promise.all([
     {
       fileName: _getFileName('Annual'),
-      content: await handleContent(annual),
+      content: handleContent(annual),
     },
     {
       fileName: _getFileName('Intervals'),
-      content: await handleContent(intervals),
+      content: handleContent(intervals),
     },
     {
       fileName: _getFileName('FRA_Years'),
-      content: await handleContent(fraYears),
+      content: handleContent(fraYears),
     },
-  ]
+  ])
 }

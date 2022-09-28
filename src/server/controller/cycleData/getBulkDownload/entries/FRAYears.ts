@@ -1,6 +1,8 @@
+import { TableNames } from '@meta/assessment'
+
 export const entries = [
   {
-    tableName: 'extentofforest',
+    tableName: TableNames.extentOfForest,
     variables: [
       {
         variableName: 'forestArea',
@@ -17,7 +19,7 @@ export const entries = [
     ],
   },
   {
-    tableName: 'forestcharacteristics',
+    tableName: TableNames.forestCharacteristics,
     variables: [
       {
         variableName: 'naturalForestArea',

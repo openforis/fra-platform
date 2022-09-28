@@ -40,10 +40,7 @@ export const getTableData = async (
   const allTableNames = [...tableNames, ...(dependencies ? dependencies.map((d) => d.tableName) : [])]
   if (
     mergeOdp &&
-    (allTableNames.map((tableName) => tableName.toLowerCase()).includes(TableNames.extentOfForest.toLowerCase()) ||
-      allTableNames
-        .map((tableName) => tableName.toLowerCase())
-        .includes(TableNames.forestCharacteristics.toLowerCase()))
+    (allTableNames.includes(TableNames.extentOfForest) || allTableNames.includes(TableNames.forestCharacteristics))
   ) {
     const originalDataPointData = await DataRepository.getOriginalDataPointData({ assessment, cycle, countryISOs })
     const countries = await CountryRepository.getMany({ assessment, cycle }, client)
@@ -55,9 +52,8 @@ export const getTableData = async (
       const country = countryMap[countryIso]
       allTableNames.forEach((tableName) => {
         if (
-          tableName.toLowerCase() === TableNames.extentOfForest.toLowerCase() ||
-          (tableName.toLowerCase() === TableNames.forestCharacteristics.toLowerCase() &&
-            country.props.forestCharacteristics.useOriginalDataPoint)
+          tableName === TableNames.extentOfForest ||
+          (tableName === TableNames.forestCharacteristics && country.props.forestCharacteristics.useOriginalDataPoint)
         ) {
           if (tableData[countryIso] && tableData[countryIso][tableName] && originalDataPointData?.[countryIso]) {
             let { originalDataPointValue } = originalDataPointData[countryIso]

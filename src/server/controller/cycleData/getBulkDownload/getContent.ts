@@ -1,13 +1,13 @@
-import { entries } from '@server/controller/cycleData/getBulkDownload/entries/Intervals'
+import { climaticDomain } from '@server/controller/cycleData/getBulkDownload/climaticDomain'
+import { getClimaticValue } from '@server/controller/cycleData/getBulkDownload/getClimaticValue'
 import { getData } from '@server/controller/cycleData/getBulkDownload/getData'
 import { getYears } from '@server/controller/cycleData/getBulkDownload/getYears'
+import { Props } from '@server/controller/cycleData/getBulkDownload/props'
 
-import { climaticDomain } from './climaticDomain'
-import { getClimaticValue } from './getClimaticValue'
-import { Props } from './props'
-
-export const getIntervalsData = async (props: Props) => {
-  const { assessment, cycle, countries } = props
+export const getContent = async (
+  props: Props & { entries: { tableName: string; variables: { csvColumn: string; variableName: string }[] }[] }
+) => {
+  const { assessment, cycle, countries, entries } = props
   const climaticData = await climaticDomain(props)
   const tableNames = entries.map(({ tableName }) => tableName)
   const data = await getData({
