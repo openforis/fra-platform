@@ -1,35 +1,12 @@
 import { createI18nPromise } from '@i18n/i18nFactory'
 import { i18n as i18nType } from 'i18next'
 
-//
-// import { Areas, CountryIso, RegionCode } from '@meta/area'
-// import { Assessment, Cycle } from '@meta/assessment'
-//
-// import { DataRepository } from '@server/repository/assessmentCycle/data'
-//
-// // Convert input array to CSV format as string
-//
-// const contentMap = {
-//   FRA_Years: DataRepository.BulkDownload.getFraYearsData,
-//   Intervals: DataRepository.BulkDownload.getIntervalData,
-//   Annual: DataRepository.BulkDownload.getAnnualData,
-// }
-//
-// export const getBulkDownload = (props: { assessment: Assessment; cycle: Cycle }) => {
-//   const promises = Object.entries(contentMap).map(async ([name, f]) => {
-//     const content = await f(props)
-//
-//     return {
-//       fileName: _getFileName(name),
-//       content: await handleContent(content),
-//     }
-//   })
-//   return Promise.all(promises)
-// }
 import { Areas, CountryIso, RegionCode } from '@meta/area'
 import { Assessment, Cycle } from '@meta/assessment'
 
-import { AnnualData } from '@server/controller/cycleData/getBulkDownload/getAnnualData'
+import { getAnnualData } from '@server/controller/cycleData/getBulkDownload/getAnnualData'
+import { getFraYearsData } from '@server/controller/cycleData/getBulkDownload/getFRAYearsData'
+import { getIntervalsData } from '@server/controller/cycleData/getBulkDownload/getIntervalsData'
 import { CountryRepository } from '@server/repository/assessmentCycle/country'
 
 const _convertToCSV = (arr: Array<Record<string, string>>): string =>
@@ -71,11 +48,21 @@ const handleContent = async (content: Array<Record<string, string>>) => {
 export const getBulkDownload = async (props: { assessment: Assessment; cycle: Cycle }) => {
   const { assessment, cycle } = props
   const countries = await CountryRepository.getMany({ assessment, cycle })
-  const zxc = await AnnualData({ assessment, cycle, countries })
+  const annual = await getAnnualData({ assessment, cycle, countries })
+  const intervals = await getIntervalsData({ assessment, cycle, countries })
+  const fraYears = await getFraYearsData({ assessment, cycle, countries })
   return [
     {
       fileName: _getFileName('Annual'),
-      content: await handleContent(zxc),
+      content: await handleContent(annual),
+    },
+    {
+      fileName: _getFileName('Intervals'),
+      content: await handleContent(intervals),
+    },
+    {
+      fileName: _getFileName('FRA_Years'),
+      content: await handleContent(fraYears),
     },
   ]
 }
