@@ -26,11 +26,12 @@ export const getCol = (props: {
   }
 
   // label migration
-  if (typeof colSpec.label === 'string' || colSpec.labelKey || colSpec.labelParams || colSpec.labelPrefixKey) {
+  const colSpecLabel = colSpec.label ? String(colSpec.label) : undefined
+  if (colSpecLabel || colSpec.labelKey || colSpec.labelParams || colSpec.labelPrefixKey) {
     col.props.label = {
       key: colSpec.labelKey,
       params: colSpec.labelParams,
-      label: colSpec.label,
+      label: colSpecLabel,
       prefixKey: colSpec.labelPrefixKey,
     }
   }

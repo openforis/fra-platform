@@ -17,6 +17,8 @@ afterAll(async () => {
 
 describe('Post Data migration', () => {
   test('Update node values', async () => {
+    // eslint-disable-next-line no-console
+    console.log('========== START POST DATA MIGRATION ', new Date().getTime())
     await DB.tx(async (client) => {
       const assessment = await AssessmentController.getOne({ assessmentName: 'fra', metaCache: true }, client)
       await add2025Columns({ assessment }, client)
@@ -36,6 +38,9 @@ describe('Post Data migration', () => {
       await migrateMessageBoard({ assessment }, client)
       await postMetadataFix({ assessment }, client)
     })
+
+    // eslint-disable-next-line no-console
+    console.log('========== END ', new Date().getTime())
     process.exit(0)
   })
 })
