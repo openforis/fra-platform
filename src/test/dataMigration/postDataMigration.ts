@@ -21,6 +21,7 @@ describe('Post Data migration', () => {
     console.log('========== START POST DATA MIGRATION ', new Date().getTime())
     await DB.tx(async (client) => {
       const assessment = await AssessmentController.getOne({ assessmentName: 'fra', metaCache: true }, client)
+      // TODO: remove two below
       await add2025Columns({ assessment }, client)
       await metadataFix({ assessment }, client)
       for (let i = 0; i < assessment.cycles.length; i += 1) {

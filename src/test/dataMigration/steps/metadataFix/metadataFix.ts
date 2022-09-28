@@ -46,11 +46,12 @@ export const metadataFix = async (props: Props, client: BaseProtocol): Promise<v
                      left join ${schema}."table" t
                                on r.table_id = t.id
             where (
-                    (t.props ->> 'name' = 'extentOfForest' and
-                     r.props ->> 'variableName' in ('otherLand', 'totalLandArea'))
-                    or (t.props ->> 'name' = 'forestCharacteristics' and
-                        r.props ->> 'variableName' in ('plantedForest', 'forestArea', 'totalForestArea'))
-                    or
+--                     (t.props ->> 'name' = 'extentOfForest' and
+--                      r.props ->> 'variableName' in ('otherLand', 'totalLandArea'))
+--                     or 
+--                     (t.props ->> 'name' = 'forestCharacteristics' and
+--                         r.props ->> 'variableName' in ('plantedForest', 'forestArea', 'totalForestArea'))
+--                     or
                     (t.props ->> 'name' = 'forestAreaChange' and r.props ->> 'variableName' in ('forestAreaNetChange'))
                     or (t.props ->> 'name' = 'otherLandWithTreeCover' and
                         r.props ->> 'variableName' in ('otherLandWithTreeCoverTotal', 'otherLand'))

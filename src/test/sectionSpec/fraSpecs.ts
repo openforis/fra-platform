@@ -1,6 +1,8 @@
 // @ts-nocheck
 import { SectionSpec } from './sectionSpec'
 
+const fraYears = [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020]
+
 export const FraSpecs: Record<string, SectionSpec> = {
   contactPersons: {
     sectionName: 'contactPersons',
@@ -49,6 +51,17 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 type: 'header',
               },
               {
+                idx: 'header_1',
+                cols: fraYears.map((year, idx) => ({
+                  idx,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  type: 'header',
+                  colName: `${year}`,
+                })),
+                type: 'header',
+              },
+              {
                 idx: 0,
                 type: 'data',
                 cols: [
@@ -60,6 +73,13 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     variableNo: 'a',
                     className: 'fra-table__category-cell',
                   },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'decimal',
+                    colName: `${year}`,
+                  })),
                 ],
                 labelKey: 'extentOfForest.forestArea',
                 variableNo: 'a',
@@ -88,6 +108,13 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     variableNo: 'a',
                     className: 'fra-table__category-cell',
                   },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'decimal',
+                    colName: `${year}`,
+                  })),
                 ],
                 labelKey: 'fraClass.otherWoodedLand',
                 variableNo: 'a',
@@ -113,12 +140,21 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     variableNo: 'c-a-b',
                     className: 'fra-table__header-cell-left',
                   },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'calculated',
+                    colName: `${year}`,
+                  })),
                 ],
                 labelKey: 'fraClass.otherLand',
                 variableNo: 'c-a-b',
                 variableName: 'otherLand',
                 variableExport: 'other_land',
                 migration: {
+                  calcFormula:
+                    'extentOfForest.totalLandArea - (extentOfForest.forestArea || 0) - (extentOfForest.otherWoodedLand || 0)',
                   validateFns: [`validatorOtherLand(extentOfForest.otherLand, extentOfForest.totalLandArea)`],
                 },
               },
@@ -134,6 +170,13 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     variableNo: 'c',
                     className: 'fra-table__header-cell-left',
                   },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'calculated',
+                    colName: `${year}`,
+                  })),
                 ],
                 labelKey: 'extentOfForest.totalLandArea',
                 variableNo: 'c',
@@ -353,6 +396,17 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 type: 'header',
               },
               {
+                idx: 'header_1',
+                cols: fraYears.map((year, idx) => ({
+                  idx,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  type: 'header',
+                  colName: `${year}`,
+                })),
+                type: 'header',
+              },
+              {
                 idx: 0,
                 type: 'data',
                 cols: [
@@ -364,6 +418,13 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     variableNo: 'a',
                     className: 'fra-table__category-cell',
                   },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'decimal',
+                    colName: `${year}`,
+                  })),
                 ],
                 labelKey: 'forestCharacteristics.naturalForestArea',
                 variableNo: 'a',
@@ -386,11 +447,23 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     variableNo: 'b',
                     className: 'fra-table__header-cell-left',
                   },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'calculated',
+                    colName: `${year}`,
+                  })),
                 ],
                 labelKey: 'forestCharacteristics.plantedForest',
                 variableNo: 'b',
                 variableName: 'plantedForest',
                 variableExport: 'planted_forest',
+                migration: {
+                  calcFormula: `(forestCharacteristics.plantationForestArea || forestCharacteristics.otherPlantedForestArea) 
+      ? (forestCharacteristics.plantationForestArea || 0) + (forestCharacteristics.otherPlantedForestArea || 0) 
+      : null`,
+                },
               },
               {
                 idx: 2,
@@ -403,6 +476,13 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'forestCharacteristics.plantationForestArea',
                     className: 'fra-table__category-cell',
                   },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'decimal',
+                    colName: `${year}`,
+                  })),
                 ],
                 labelKey: 'forestCharacteristics.plantationForestArea',
                 variableName: 'plantationForestArea',
@@ -423,6 +503,13 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'forestCharacteristics.plantationForestIntroducedArea',
                     className: 'fra-table__subcategory-cell',
                   },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'decimal',
+                    colName: `${year}`,
+                  })),
                 ],
                 labelKey: 'forestCharacteristics.plantationForestIntroducedArea',
                 variableName: 'plantationForestIntroducedArea',
@@ -445,6 +532,13 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'forestCharacteristics.otherPlantedForestArea',
                     className: 'fra-table__category-cell',
                   },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'decimal',
+                    colName: `${year}`,
+                  })),
                 ],
                 labelKey: 'forestCharacteristics.otherPlantedForestArea',
                 variableName: 'otherPlantedForestArea',
@@ -466,11 +560,21 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     variableNo: 'a+b',
                     className: 'fra-table__header-cell-left',
                   },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'calculated',
+                    colName: `${year}`,
+                  })),
                 ],
                 labelKey: 'forestCharacteristics.total',
                 variableNo: 'a+b',
                 variableName: 'totalForestArea', // before it was total
                 migration: {
+                  calcFormula: `(forestCharacteristics.naturalForestArea || forestCharacteristics.plantationForestArea || forestCharacteristics.plantationForestIntroducedArea || forestCharacteristics.otherPlantedForestArea)
+      ? (forestCharacteristics.naturalForestArea || 0) + (forestCharacteristics.plantationForestArea || 0) + (forestCharacteristics.plantationForestIntroducedArea || 0) + (forestCharacteristics.otherPlantedForestArea || 0)
+      : null`,
                   validateFns: [
                     `validatorTotalForest(extentOfForest.forestArea, forestCharacteristics.totalForestArea)`,
                   ],
@@ -488,10 +592,20 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     linkToSection: 'extentOfForest',
                     className: 'fra-table__header-cell-left',
                   },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'calculated',
+                    colName: `${year}`,
+                  })),
                 ],
                 labelKey: 'forestCharacteristics.totalForestArea',
                 linkToSection: 'extentOfForest',
                 variableName: 'forestArea', // before it was totalForestArea
+                migration: {
+                  calcFormula: 'extentOfForest.forestArea',
+                },
               },
               {
                 idx: 7,
@@ -1761,6 +1875,17 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 type: 'header',
               },
               {
+                idx: 'header_1',
+                cols: fraYears.map((year, idx) => ({
+                  idx,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  type: 'header',
+                  colName: `${year}`,
+                })),
+                type: 'header',
+              },
+              {
                 idx: 0,
                 type: 'data',
                 cols: [
@@ -1771,6 +1896,13 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'growingStock.naturallyRegeneratingForest',
                     className: 'fra-table__category-cell',
                   },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'decimal',
+                    colName: `${year}`,
+                  })),
                 ],
                 variableName: 'naturallyRegeneratingForest',
                 labelKey: 'growingStock.naturallyRegeneratingForest',
@@ -1792,6 +1924,13 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'growingStock.plantedForest',
                     className: 'fra-table__category-cell',
                   },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'decimal',
+                    colName: `${year}`,
+                  })),
                 ],
                 variableName: 'plantedForest',
                 labelKey: 'growingStock.plantedForest',
@@ -1812,6 +1951,13 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'growingStock.plantationForest',
                     className: 'fra-table__subcategory-cell',
                   },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'decimal',
+                    colName: `${year}`,
+                  })),
                 ],
                 variableName: 'plantationForest',
                 labelKey: 'growingStock.plantationForest',
@@ -1833,6 +1979,13 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'growingStock.otherPlantedForest',
                     className: 'fra-table__subcategory-cell',
                   },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'decimal',
+                    colName: `${year}`,
+                  })),
                 ],
                 variableName: 'otherPlantedForest',
                 labelKey: 'growingStock.otherPlantedForest',
@@ -1854,6 +2007,13 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'growingStock.forest',
                     className: 'fra-table__category-cell',
                   },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'decimal',
+                    colName: `${year}`,
+                  })),
                 ],
                 variableName: 'forest',
                 labelKey: 'growingStock.forest',
@@ -1874,6 +2034,13 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'growingStock.otherWoodedLand',
                     className: 'fra-table__category-cell',
                   },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'decimal',
+                    colName: `${year}`,
+                  })),
                 ],
                 variableName: 'otherWoodedLand',
                 labelKey: 'growingStock.otherWoodedLand',
@@ -1931,6 +2098,17 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 type: 'header',
               },
               {
+                idx: 'header_1',
+                cols: fraYears.map((year, idx) => ({
+                  idx,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  type: 'header',
+                  colName: `${year}`,
+                })),
+                type: 'header',
+              },
+              {
                 idx: 0,
                 type: 'data',
                 cols: [
@@ -1941,6 +2119,13 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'growingStock.naturallyRegeneratingForest',
                     className: 'fra-table__category-cell',
                   },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'decimal',
+                    colName: `${year}`,
+                  })),
                 ],
                 variableName: 'naturallyRegeneratingForest',
                 variableExport: 'naturally_regenerating_forest',
@@ -1967,6 +2152,13 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'growingStock.plantedForest',
                     className: 'fra-table__category-cell',
                   },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'decimal',
+                    colName: `${year}`,
+                  })),
                 ],
                 variableName: 'plantedForest',
                 variableExport: 'planted_forest',
@@ -1992,6 +2184,13 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'growingStock.plantationForest',
                     className: 'fra-table__subcategory-cell',
                   },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'decimal',
+                    colName: `${year}`,
+                  })),
                 ],
                 variableName: 'plantationForest',
                 variableExport: 'plantation_forest',
@@ -2016,6 +2215,13 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'growingStock.otherPlantedForest',
                     className: 'fra-table__subcategory-cell',
                   },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'decimal',
+                    colName: `${year}`,
+                  })),
                 ],
                 variableName: 'otherPlantedForest',
                 variableExport: 'other_planted_forest',
@@ -2041,6 +2247,13 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'growingStock.forest',
                     className: 'fra-table__category-cell',
                   },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'decimal',
+                    colName: `${year}`,
+                  })),
                 ],
                 variableName: 'forest',
                 variableExport: 'forest',
@@ -2063,6 +2276,13 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'growingStock.otherWoodedLand',
                     className: 'fra-table__category-cell',
                   },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'decimal',
+                    colName: `${year}`,
+                  })),
                 ],
                 variableName: 'otherWoodedLand',
                 variableExport: 'other_wooded_land',

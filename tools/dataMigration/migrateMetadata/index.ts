@@ -19,7 +19,6 @@ import { getTable } from './getTable'
 import { getTableSection } from './getTableSection'
 import { migrateClimaticDomain } from './migrateClimaticDomain'
 import { migrateDegradedForest } from './migrateDegradedForest'
-import { migrateTableWithODP } from './migrateTableWithODP'
 
 type Props = {
   assessment: Assessment
@@ -192,59 +191,5 @@ export const migrateMetadata = async (props: Props): Promise<void> => {
   `)
 
   await migrateDegradedForest({ assessment }, client)
-  await migrateTableWithODP(
-    {
-      assessment,
-      tableName: 'extentOfForest',
-      variables: ['forestArea', 'otherWoodedLand', 'otherLand', 'totalLandArea'],
-    },
-    client
-  )
-  await migrateTableWithODP(
-    {
-      assessment,
-      tableName: 'forestCharacteristics',
-      variables: [
-        'naturalForestArea',
-        'plantedForest',
-        'plantationForestArea',
-        'plantationForestIntroducedArea',
-        'otherPlantedForestArea',
-        'totalForestArea',
-        'forestArea',
-      ],
-    },
-    client
-  )
-  await migrateTableWithODP(
-    {
-      assessment,
-      tableName: 'growingStockAvg',
-      variables: [
-        'naturallyRegeneratingForest',
-        'plantationForest',
-        'otherPlantedForest',
-        'otherWoodedLand',
-        'plantedForest',
-        'forest',
-      ],
-    },
-    client
-  )
-  await migrateTableWithODP(
-    {
-      assessment,
-      tableName: 'growingStockTotal',
-      variables: [
-        'naturallyRegeneratingForest',
-        'plantationForest',
-        'otherPlantedForest',
-        'otherWoodedLand',
-        'plantedForest',
-        'forest',
-      ],
-    },
-    client
-  )
   await migrateClimaticDomain({ assessment }, client)
 }
