@@ -112,7 +112,36 @@ const CollaboratorAccessModal: React.FC<Props> = (props) => {
   return (
     <Modal className="modal-collaborator-access" isOpen={open}>
       <ModalHeader>
-        {headerLabel}
+        <>
+          {headerLabel}
+          <div
+            className="form-field-selector"
+            onClick={() => setSelectedSections('all')}
+            onMouseDown={(e) => e.stopPropagation()}
+            aria-hidden="true"
+          >
+            <div
+              className={classNames('fra-checkbox', {
+                checked: selectedSections === 'all',
+              })}
+            />
+            <div className="form-field-label">{i18n.t(`contactPersons.all`)}</div>
+          </div>
+          <div
+            className="form-field-selector"
+            onClick={() => setSelectedSections('none')}
+            onMouseDown={(e) => e.stopPropagation()}
+            aria-hidden="true"
+          >
+            <div
+              className={classNames('fra-checkbox', {
+                checked: selectedSections === 'none',
+              })}
+            />
+            <div className="form-field-label">{i18n.t(`contactPersons.none`)}</div>
+          </div>
+        </>
+
         <ModalClose onClose={onClose} />
       </ModalHeader>
 
