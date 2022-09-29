@@ -45,13 +45,21 @@
   }
 }
 
-.modal-collaborator-access-body {
+.form-container {
   display: grid;
   grid-row-gap: $spacing-xxs;
 
   @include min-width($laptop) {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
+  }
+
+  &.inline {
+    grid-template-columns: 50% 50%;
+
+    @include min-width($laptop) {    
+      flex-direction: row;
+    }
   }
 
   select {
@@ -85,6 +93,8 @@
   padding: 5px;
   align-items: center;
   min-width: 83px;
+  justify-content: center;
+
   .fra-checkbox {
     margin-right: 4px;
   }
