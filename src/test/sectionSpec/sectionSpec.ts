@@ -9,6 +9,9 @@ export interface SectionTableSpec {
   tableSpecs: Array<TableSpec>
   titleKey?: string
   descriptionKey?: string
+  migration?: {
+    cycles?: Array<string>
+  }
 }
 
 export interface SectionSpec {

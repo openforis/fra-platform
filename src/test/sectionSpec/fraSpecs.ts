@@ -4884,6 +4884,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
         ],
         titleKey: 'designatedManagementObjective.totalAreaWithDesignatedManagementObjective',
         descriptionKey: 'designatedManagementObjective.totalAreaWithDesignatedManagementObjectiveSupport',
+        migration: {
+          cycles: ['2020'],
+        },
       },
     ],
     showTitle: true,

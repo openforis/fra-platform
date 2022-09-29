@@ -1,7 +1,7 @@
-import { TableSpec } from '../../../.src.legacy/webapp/sectionSpec'
 import { Assessment } from '../../../src/meta/assessment/assessment'
 import { Table, TableColumnNames } from '../../../src/meta/assessment/table'
 import { TableSection } from '../../../src/meta/assessment/tableSection'
+import { TableSpec } from '../../../src/test/sectionSpec'
 import { TableMapping } from '../dataTable/tableMappings'
 import { getCycleUuids } from './utils'
 
@@ -54,7 +54,11 @@ export const getTable = (props: {
   if (!columnNames && mapping) columnNames = mapping.columns.map((col) => col.name)
   const table: Table = {
     props: {
-      cycles: getCycleUuids({ assessment, parentCycleUuids: tableSection.props.cycles }),
+      cycles: getCycleUuids({
+        assessment,
+        parentCycleUuids: tableSection.props.cycles,
+        migration: tableSpec.migration,
+      }),
       name,
       columnNames: getColumnNames(assessment, columnNames),
       unit,
