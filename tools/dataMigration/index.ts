@@ -52,6 +52,8 @@ export const migrate = async (props: {
   cycleNames: Array<string>
   spec: Record<string, SectionSpec>
 }): Promise<void> => {
+  // eslint-disable-next-line no-console
+  console.log('========== START ', new Date().getTime())
   const { assessmentName, assessmentLegacy, cycleNames, spec } = props
 
   // delete old assessment
@@ -94,7 +96,7 @@ export const migrate = async (props: {
       },
     ])
 
-    await migrateMetadata({ assessment, assessmentLegacy, schema, spec, client })
+    await migrateMetadata({ assessment, assessmentLegacy, spec, client })
     await migrateRepository({ assessment, client })
 
     await Promise.all(
