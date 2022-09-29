@@ -20,7 +20,7 @@ export const getSubSection = (props: { assessment: Assessment; spec: SectionSpec
     props: {
       anchor: spec.sectionAnchor,
       name: spec.sectionName,
-      cycles: getCycleUuids({ assessment, migration: spec?.migration }),
+      cycles: getCycleUuids({ assessment, migration: spec.migration }),
       index,
       labelKey: '', // TODO
       showTitle: spec.showTitle,
