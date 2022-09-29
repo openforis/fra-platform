@@ -15,6 +15,7 @@ export const search = async (
         select *
         from ext_data.taxon t
         where t.scientific_name ilike '%$1:value%'
+        order by scientific_name
         limit $2
     `,
     [query, limit],
