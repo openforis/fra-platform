@@ -7483,6 +7483,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
     dataExport: {
       included: true,
     },
+    migration: {
+      cycles: ['2020'],
+    },
   },
   areaOfPermanentForestEstate: {
     sectionName: 'areaOfPermanentForestEstate',
@@ -8248,6 +8251,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
     dataExport: {
       included: true,
     },
+    migration: {
+      cycles: ['2020'],
+    },
   },
   graduationOfStudents: {
     sectionName: 'graduationOfStudents',
@@ -8771,6 +8777,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
     },
     dataExport: {
       included: true,
+    },
+    migration: {
+      cycles: ['2020'],
     },
   },
   nonWoodForestProductsRemovals: {
