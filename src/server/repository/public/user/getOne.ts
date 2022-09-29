@@ -39,11 +39,15 @@ export const getOne = async (
     `,
       [value]
     )
-    .then((data) => ({
-      ...Objects.camelize(data),
-      roles: data.roles.map(({ props, ...role }) => ({
-        ...Objects.camelize(role),
-        props: { ...Objects.camelize(props), sections: (props as CollaboratorProps).sections },
-      })),
-    }))
+    .then((data) =>
+      data
+        ? {
+            ...Objects.camelize(data),
+            roles: data.roles.map(({ props, ...role }) => ({
+              ...Objects.camelize(role),
+              props: { ...Objects.camelize(props), sections: (props as CollaboratorProps).sections },
+            })),
+          }
+        : data
+    )
 }
