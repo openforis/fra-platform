@@ -43,7 +43,7 @@ export const getOne = async (
       ...Objects.camelize(data),
       roles: data.roles.map(({ props, ...role }) => ({
         ...Objects.camelize(role),
-        props: { ...Objects.camelize(props), sections1: (props as CollaboratorProps).sections },
+        props: { ...Objects.camelize(props), sections: (props as CollaboratorProps).sections },
       })),
     }))
 }
