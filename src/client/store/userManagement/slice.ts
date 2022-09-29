@@ -43,8 +43,7 @@ export const userManagementSlice = createSlice({
     })
 
     builder.addCase(updateSectionAuth.fulfilled, (state, { payload }) => {
-      const i = state.users.findIndex((u) => u.id === payload.userId)
-      if (i !== -1) state.users[i].roles[0] = payload
+      state.userToEdit.roles[0] = payload
     })
   },
 })
