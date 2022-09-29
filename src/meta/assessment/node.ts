@@ -7,6 +7,7 @@ export interface NodeValue {
   calculated?: boolean
   odp?: boolean
   validation?: NodeValueValidation
+  taxonCode?: string
 }
 
 export interface Node {
