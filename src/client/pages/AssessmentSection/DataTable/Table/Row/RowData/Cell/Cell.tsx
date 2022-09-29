@@ -24,6 +24,7 @@ import Text from './Text'
 
 const Components: Record<string, React.FC<PropsCell>> = {
   [ColType.calculated]: Calculated,
+  [ColType.taxon]: Text,
   [ColType.text]: Text,
   [ColType.textarea]: Text,
   [ColType.decimal]: Number,
