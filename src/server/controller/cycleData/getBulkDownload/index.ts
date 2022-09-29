@@ -4,9 +4,13 @@ import { i18n as i18nType } from 'i18next'
 import { Areas, CountryIso, RegionCode } from '@meta/area'
 import { Assessment, Cycle } from '@meta/assessment'
 
-import { DataRepository } from '@server/repository/assessmentCycle/data'
+import { getContent } from '@server/controller/cycleData/getBulkDownload/getContent'
+import { getFraYearsData } from '@server/controller/cycleData/getBulkDownload/getFRAYearsData'
+import { CountryRepository } from '@server/repository/assessmentCycle/country'
 
-// Convert input array to CSV format as string
+import { entries as annualEntries } from './entries/AnnualData'
+import { entries as intervalEntries } from './entries/Intervals'
+
 const _convertToCSV = (arr: Array<Record<string, string>>): string =>
   [Object.keys(arr[0]), ...arr].map((it) => Object.values(it).toString()).join('\n')
 
@@ -21,8 +25,7 @@ const _getFileName = (name: string): string => {
   return `${name}_${timestamp}.csv`
 }
 
-// eslint-disable-next-line camelcase
-const handleResult = ({ regions, country_iso, year, ...row }: Record<string, string>, i18n: i18nType) => {
+const handleResult = ({ regions, iso3, name, year, ...row }: Record<string, string>, i18n: i18nType) => {
   const _translate = (key: string) => i18n.t<string>(Areas.getTranslationKey(key as RegionCode | CountryIso))
 
   const _handleRegions = (regions: string): string => {
@@ -31,9 +34,8 @@ const handleResult = ({ regions, country_iso, year, ...row }: Record<string, str
 
   return {
     regions: _handleRegions(regions),
-    // eslint-disable-next-line camelcase
-    iso3: `"${country_iso}"`,
-    name: `"${_translate(country_iso)}"`,
+    iso3: `"${iso3}"`,
+    name: `"${_translate(name)}"`,
     year: `"${year.replace('_', '-')}"`,
     ...row,
   }
@@ -45,20 +47,28 @@ const handleContent = async (content: Array<Record<string, string>>) => {
   return _convertToCSV(res)
 }
 
-const contentMap = {
-  FRA_Years: DataRepository.BulkDownload.getFraYearsData,
-  Intervals: DataRepository.BulkDownload.getIntervalData,
-  Annual: DataRepository.BulkDownload.getAnnualData,
-}
+export const getBulkDownload = async (props: { assessment: Assessment; cycle: Cycle }) => {
+  const { assessment, cycle } = props
+  const countries = await CountryRepository.getMany({ assessment, cycle })
+  const params = { assessment, cycle, countries }
+  const [annual, intervals, fraYears] = await Promise.all([
+    getContent({ ...params, entries: annualEntries }),
+    getContent({ ...params, entries: intervalEntries }),
+    getFraYearsData(params),
+  ])
 
-export const getBulkDownload = (props: { assessment: Assessment; cycle: Cycle }) => {
-  const promises = Object.entries(contentMap).map(async ([name, f]) => {
-    const content = await f(props)
-
-    return {
-      fileName: _getFileName(name),
-      content: await handleContent(content),
-    }
-  })
-  return Promise.all(promises)
+  return Promise.all([
+    {
+      fileName: _getFileName('Annual'),
+      content: handleContent(annual),
+    },
+    {
+      fileName: _getFileName('Intervals'),
+      content: handleContent(intervals),
+    },
+    {
+      fileName: _getFileName('FRA_Years'),
+      content: handleContent(fraYears),
+    },
+  ])
 }
