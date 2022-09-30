@@ -525,7 +525,7 @@ The FRA team
     confirmDelete: 'Remove {{user}}?',
     allUsers: 'All collaborators',
     info: 'Info',
-    tableAccess: 'Table access',
+    permissions: 'Permissions',
     invitationLink: 'Invitation link',
     sendInvitation: 'Send invitation email',
     invitationDeleted: 'The invitation has been deleted',
@@ -557,7 +557,7 @@ The FRA team fra@fao.org
 {{- url}}
     `,
     },
-    permissions: {
+    permissionNames: {
       tableData: 'Table Data',
       descriptions: 'Descriptions',
     },

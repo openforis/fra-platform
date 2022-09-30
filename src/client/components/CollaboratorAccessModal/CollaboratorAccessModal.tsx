@@ -115,7 +115,7 @@ const CollaboratorAccessModal: React.FC<Props> = (props) => {
                       })}
                     />
                     <div className="form-field-container-label">
-                      {i18n.t(`userManagement.permissions.${permission}`)}
+                      {i18n.t(`userManagement.permissionNames.${permission}`)}
                     </div>
                   </div>
 

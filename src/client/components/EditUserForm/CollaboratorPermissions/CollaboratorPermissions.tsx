@@ -52,7 +52,7 @@ const CollaboratorPermissions = (props: Props) => {
 
   return (
     <div className="edit-user__form-item edit-user__form-item-permissions">
-      <div className="edit-user__form-label">{i18n.t<string>('Permissions')}</div>
+      <div className="edit-user__form-label">{i18n.t<string>(`userManagement.permissions`)}</div>
 
       <div className="edit-user__form-field edit-user__form-field-premissions">
         <div className="edit-user__form-field-premission-list">
@@ -60,8 +60,16 @@ const CollaboratorPermissions = (props: Props) => {
             i18n.t<string>(`contactPersons.${sections}`)
           ) : (
             <>
-              {tableDataPermissions !== '' && <div>{`TableData: ${tableDataPermissions}`}</div>}
-              {descriptionsPermissions !== '' && <div>{`Descriptions: ${descriptionsPermissions}`}</div>}
+              {tableDataPermissions !== '' && (
+                <div>
+                  {i18n.t<string>('userManagement.permissionNames.tableData')}: {tableDataPermissions}
+                </div>
+              )}
+              {descriptionsPermissions !== '' && (
+                <div>
+                  {i18n.t<string>('userManagement.permissionNames.descriptions')}: {descriptionsPermissions}
+                </div>
+              )}
             </>
           )}
         </div>
