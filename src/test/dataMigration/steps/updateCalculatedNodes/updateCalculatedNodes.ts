@@ -25,12 +25,12 @@ export const updateCalculatedNodes = async (
                t.props ->> 'name' as table_name,
                jsonb_agg(c.*)     as cols
         from ${schema}.row r
-                 left join ${schema}."table" t
-                           on r.table_id = t.id
+                 left join ${schema}."table" t on r.table_id = t.id
                  left join ${schema}.col c on r.id = c.row_id
         where r.props ->> 'calculateFn' is not null
            or c.props ->> 'calculateFn' is not null
-        group by r.id, r.uuid, r.props, t.props ->> 'name'`,
+        group by r.id, r.uuid, r.props, t.props ->> 'name'
+        order by r.id`,
     [],
     // @ts-ignore
     Objects.camelize
