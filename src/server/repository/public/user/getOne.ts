@@ -11,7 +11,7 @@ const selectFields = fields.map((f) => `u.${f}`).join(',')
 export const getOne = async (
   props: { id: number } | { email: string } | { emailGoogle: string },
   client: BaseProtocol = DB
-): Promise<User | undefined> => {
+): Promise<User> => {
   let where = ''
   let value = ''
 
@@ -29,7 +29,7 @@ export const getOne = async (
   }
 
   return client
-    .oneOrNone<User | undefined>(
+    .oneOrNone<User>(
       `
         select ${selectFields}, jsonb_agg(to_jsonb(ur.*)) as roles
         from public.users u
@@ -39,18 +39,17 @@ export const getOne = async (
     `,
       [value]
     )
-    .then((data) =>
-      data
-        ? {
-            ...Objects.camelize(data),
-            roles:
-              data.roles && data.roles[0] !== null
-                ? data.roles.map(({ props, ...role }) => ({
-                    ...Objects.camelize(role),
-                    props: { ...Objects.camelize(props), sections: (props as CollaboratorProps).sections },
-                  }))
-                : data.roles,
-          }
-        : data
-    )
+    .then((data) => {
+      if (!data) return undefined
+      return {
+        ...Objects.camelize(data),
+        roles:
+          data.roles && data.roles[0] !== null
+            ? data.roles.map(({ props, ...role }) => ({
+                ...Objects.camelize(role),
+                props: { ...Objects.camelize(props), sections: (props as CollaboratorProps).sections },
+              }))
+            : data.roles,
+      }
+    })
 }
