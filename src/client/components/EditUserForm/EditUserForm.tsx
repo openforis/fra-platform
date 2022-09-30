@@ -75,7 +75,7 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
     <div className="edit-user__form-container">
       <ProfilePicture userId={user.id} onChange={(profilePicture: File) => setProfilePicture(profilePicture)} />
       <TextInputFields user={user} onChange={changeUser} />
-      {userRole.role === RoleName.COLLABORATOR && <CollaboratorPermissions userRole={userRole} />}
+      {userRole?.role === RoleName.COLLABORATOR && <CollaboratorPermissions userRole={userRole} />}
       <CountryRoles onChange={changeUser} user={user} />
 
       <Buttons
