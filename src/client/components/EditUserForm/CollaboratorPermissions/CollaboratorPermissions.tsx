@@ -5,17 +5,17 @@ import { useTranslation } from 'react-i18next'
 import { Objects } from '@utils/objects'
 
 import { SubSection } from '@meta/assessment'
-import { CollaboratorProps, User } from '@meta/user'
+import { CollaboratorProps, RoleName, UserRole } from '@meta/user'
 
 import { useAssessmentSections } from '@client/store/assessment'
 import CollaboratorAccessModal from '@client/components/CollaboratorAccessModal'
 
 type Props = {
-  user: User
+  userRole: UserRole<RoleName, CollaboratorProps>
 }
 
 const CollaboratorPermissions = (props: Props) => {
-  const { user } = props
+  const { userRole } = props
   const { i18n } = useTranslation()
 
   const assessmentSections = useAssessmentSections()
@@ -25,7 +25,7 @@ const CollaboratorPermissions = (props: Props) => {
     .filter((subSection: SubSection) => subSection.props.anchor)
     .reduce((prev, curr): Record<string, string> => ({ ...prev, [curr.uuid]: curr.props.anchor }), {})
 
-  const properties = (user.roles[0].props as CollaboratorProps) || undefined
+  const properties = (userRole.props as CollaboratorProps) || undefined
   const sections = Objects.isEmpty(properties) ? 'none' : properties.sections
 
   const tableDataPermissions = Object.entries(sections)
@@ -73,7 +73,7 @@ const CollaboratorPermissions = (props: Props) => {
 
       <CollaboratorAccessModal
         open={modalOptions.open}
-        user={user}
+        userRole={userRole}
         headerLabel={i18n.t<string>('userManagement.editPermissions')}
         onClose={_onEditPermissionsClose}
       />

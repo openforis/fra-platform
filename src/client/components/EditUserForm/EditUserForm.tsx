@@ -69,11 +69,13 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
 
   if (!user) return null
 
+  const userRole = Users.getCountryRole(user, countryIso)
+
   return (
     <div className="edit-user__form-container">
       <ProfilePicture userId={user.id} onChange={(profilePicture: File) => setProfilePicture(profilePicture)} />
       <TextInputFields user={user} onChange={changeUser} />
-      {user.roles[0].role === RoleName.COLLABORATOR && <CollaboratorPermissions user={user} />}
+      {userRole.role === RoleName.COLLABORATOR && <CollaboratorPermissions userRole={userRole} />}
       <CountryRoles onChange={changeUser} user={user} />
 
       <Buttons

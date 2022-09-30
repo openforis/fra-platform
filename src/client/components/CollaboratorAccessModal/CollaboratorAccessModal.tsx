@@ -6,7 +6,7 @@ import { Objects } from '@utils/objects'
 import classNames from 'classnames'
 
 import { SubSection } from '@meta/assessment'
-import { CollaboratorEditPropertyType, CollaboratorProps, User } from '@meta/user'
+import { CollaboratorEditPropertyType, CollaboratorProps, RoleName, UserRole } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessmentSections } from '@client/store/assessment'
@@ -17,14 +17,14 @@ import { Modal, ModalBody, ModalClose, ModalHeader } from '@client/components/Mo
 import { useActions } from './hooks/useActions'
 
 type Props = {
-  user: User
+  userRole: UserRole<RoleName, CollaboratorProps>
   headerLabel: string
   onClose: () => void
   open: boolean
 }
 
 const CollaboratorAccessModal: React.FC<Props> = (props) => {
-  const { headerLabel, onClose, open, user } = props
+  const { headerLabel, onClose, open, userRole } = props
 
   const dispatch = useAppDispatch()
   const i18n = useTranslation()
@@ -40,7 +40,7 @@ const CollaboratorAccessModal: React.FC<Props> = (props) => {
     descriptions: options,
   }
 
-  const properties = (user.roles[0].props as CollaboratorProps) || undefined
+  const properties = (userRole.props as CollaboratorProps) || undefined
   const sections = Objects.isEmpty(properties) ? 'none' : properties.sections
 
   const { selectedSections, setSelectedSections, toggleOption, toggleOptions } = useActions(options, sections)
@@ -48,7 +48,7 @@ const CollaboratorAccessModal: React.FC<Props> = (props) => {
   useOnUpdate(() => {
     dispatch(
       UserManagementActions.updateSectionAuth({
-        id: user.roles[0].id,
+        id: userRole.id,
         sections: selectedSections,
       })
     )
