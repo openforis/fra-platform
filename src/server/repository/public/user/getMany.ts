@@ -11,7 +11,7 @@ const fields: Array<string> = ['lang', 'id', 'name', 'status', 'position', 'emai
 const selectFields = fields.map((f) => `u.${f}`).join(',')
 
 export const getMany = async (
-  props: { countryIso: CountryIso; assessment: Assessment; cycle: Cycle },
+  props: { countryIso?: CountryIso; assessment: Assessment; cycle: Cycle },
   client: BaseProtocol = DB
 ): Promise<Array<User>> => {
   const { countryIso, assessment, cycle } = props
@@ -22,12 +22,12 @@ export const getMany = async (
         select ${selectFields}, jsonb_agg(to_jsonb(ur.*)) as roles
         from public.users u
           join public.users_role ur on (u.id = ur.user_id)
-        where ur.country_iso = $1
-          and ur.assessment_id = $2
-          and ur.cycle_uuid = $3
+        where ur.assessment_id = $1
+          and ur.cycle_uuid = $2
+          ${countryIso ? 'and ur.country_iso = $3' : ''}
         group by ${selectFields}
     `,
-      [countryIso, assessment.id, cycle.uuid]
+      countryIso ? [(assessment.id, cycle.uuid)] : [(assessment.id, cycle.uuid, countryIso)]
     )
     .then((data) =>
       data.map(({ roles, ...user }) => ({
