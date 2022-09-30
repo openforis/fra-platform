@@ -1,5 +1,5 @@
 import './collaboratorAccessModal.scss'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 
@@ -15,6 +15,8 @@ import { UserManagementActions } from '@client/store/userManagement'
 import { useOnUpdate } from '@client/hooks'
 import { Modal, ModalBody, ModalClose, ModalHeader } from '@client/components/Modal'
 import { Breakpoints } from '@client/utils'
+
+import { useActions } from './hooks/useActions'
 
 type Option = {
   value: string
@@ -53,7 +55,7 @@ const CollaboratorAccessModal: React.FC<Props> = (props) => {
   const properties = (user.roles[0].props as CollaboratorProps) || undefined
   const sections = Objects.isEmpty(properties) ? 'none' : properties.sections
 
-  const [selectedSections, setSelectedSections] = useState(sections)
+  const { selectedSections, setSelectedSections, toggleOption, toggleOptions } = useActions(options, sections)
 
   useOnUpdate(() => {
     dispatch(
@@ -63,46 +65,6 @@ const CollaboratorAccessModal: React.FC<Props> = (props) => {
       })
     )
   }, [selectedSections])
-
-  const toggleOptions = (permission: CollaboratorEditPropertyType): void => {
-    const enabled =
-      typeof selectedSections !== 'string'
-        ? Object.entries(selectedSections).filter(([_, section]) => section[permission] === true).length <
-          options.length
-        : true
-    const newSelectedSections = typeof selectedSections !== 'string' ? Objects.cloneDeep(selectedSections) : {}
-    options.forEach((option) => {
-      newSelectedSections[option.value] = { ...newSelectedSections[option.value], [permission]: enabled }
-    })
-    setSelectedSections(newSelectedSections)
-  }
-
-  const removeOption = (section: string, permission: string): void => {
-    if (section === 'all') setSelectedSections('none')
-    else if (section === 'none') setSelectedSections('all')
-    else
-      setSelectedSections(
-        typeof selectedSections !== 'string'
-          ? { ...selectedSections, [section]: { ...selectedSections[section], [permission]: false } }
-          : { [section]: { [permission]: false } }
-      )
-  }
-
-  const addOption = (section: string, permission: CollaboratorEditPropertyType): void => {
-    if (section === 'all') setSelectedSections('all')
-    else if (section === 'none') setSelectedSections('none')
-    else
-      setSelectedSections(
-        typeof selectedSections !== 'string'
-          ? { ...selectedSections, [section]: { ...selectedSections[section], [permission]: true } }
-          : { [section]: { [permission]: true } }
-      )
-  }
-
-  const toggleOption = (section: string, permission: CollaboratorEditPropertyType): void => {
-    if (typeof selectedSections === 'string' || !selectedSections[section]?.[permission]) addOption(section, permission)
-    else if (selectedSections[section]?.[permission]) removeOption(section, permission)
-  }
 
   useEffect(() => {
     if (open) document.body.classList.add('no-scroll')
