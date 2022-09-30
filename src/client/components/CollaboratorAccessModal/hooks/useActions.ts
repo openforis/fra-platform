@@ -5,7 +5,7 @@ import { Objects } from '@utils/objects'
 import { CollaboratorEditPropertyType } from '@meta/user'
 
 export const useActions = (
-  options: Array<{ value: string; label: string }>,
+  options: Record<string, string>,
   sections:
     | 'none'
     | 'all'
@@ -23,11 +23,11 @@ export const useActions = (
     const enabled =
       typeof selectedSections !== 'string'
         ? Object.entries(selectedSections).filter(([_, section]) => section[permission] === true).length <
-          options.length
+          Object.keys(options).length
         : true
     const newSelectedSections = typeof selectedSections !== 'string' ? Objects.cloneDeep(selectedSections) : {}
-    options.forEach((option) => {
-      newSelectedSections[option.value] = { ...newSelectedSections[option.value], [permission]: enabled }
+    Object.entries(options).forEach(([section, _]) => {
+      newSelectedSections[section] = { ...newSelectedSections[section], [permission]: enabled }
     })
     setSelectedSections(newSelectedSections)
   }

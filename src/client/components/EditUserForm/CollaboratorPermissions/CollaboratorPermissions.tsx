@@ -21,9 +21,9 @@ const CollaboratorPermissions = (props: Props) => {
   const assessmentSections = useAssessmentSections()
 
   const options = assessmentSections
-    .reduce((prev, curr) => [...prev, ...curr.subSections], [])
+    .reduce((prev, curr): Array<SubSection> => [...prev, ...curr.subSections], [])
     .filter((subSection: SubSection) => subSection.props.anchor)
-    .reduce((prev, curr) => ({ ...prev, [curr.uuid]: curr.props.anchor }), {})
+    .reduce((prev, curr): Record<string, string> => ({ ...prev, [curr.uuid]: curr.props.anchor }), {})
 
   const properties = (user.roles[0].props as CollaboratorProps) || undefined
   const sections = Objects.isEmpty(properties) ? 'none' : properties.sections

@@ -16,11 +16,6 @@ import { Modal, ModalBody, ModalClose, ModalHeader } from '@client/components/Mo
 
 import { useActions } from './hooks/useActions'
 
-type Option = {
-  value: string
-  label: string
-}
-
 type Props = {
   user: User
   headerLabel: string
@@ -36,16 +31,11 @@ const CollaboratorAccessModal: React.FC<Props> = (props) => {
   const assessmentSections = useAssessmentSections()
 
   const options = assessmentSections
-    .reduce((prev, curr) => [...prev, ...curr.subSections], [])
+    .reduce((prev, curr): Array<SubSection> => [...prev, ...curr.subSections], [])
     .filter((subSection: SubSection) => subSection.props.anchor)
-    .map(
-      (subSection: SubSection): Option => ({
-        value: subSection.uuid,
-        label: subSection.props.anchor,
-      })
-    )
+    .reduce((prev, curr): Record<string, string> => ({ ...prev, [curr.uuid]: curr.props.anchor }), {})
 
-  const permissionOptions: Record<CollaboratorEditPropertyType, Array<Option>> = {
+  const permissionOptions: Record<CollaboratorEditPropertyType, Record<string, string>> = {
     tableData: options,
     descriptions: options,
   }
@@ -108,7 +98,7 @@ const CollaboratorAccessModal: React.FC<Props> = (props) => {
           </div>
           <div className="form-container">
             {Object.entries(permissionOptions).map(
-              ([permission, options]: [CollaboratorEditPropertyType, Array<Option>]) => (
+              ([permission, options]: [CollaboratorEditPropertyType, Record<string, string>]) => (
                 <div key={permission} className="form-field-container">
                   <div
                     className="form-field-selector"
@@ -121,7 +111,7 @@ const CollaboratorAccessModal: React.FC<Props> = (props) => {
                         checked:
                           typeof selectedSections !== 'string' &&
                           Object.entries(selectedSections).filter(([_, section]) => section[permission] === true)
-                            .length >= options.length,
+                            .length >= Object.keys(options).length,
                       })}
                     />
                     <div className="form-field-container-label">
@@ -131,29 +121,25 @@ const CollaboratorAccessModal: React.FC<Props> = (props) => {
 
                   <hr />
 
-                  {options.map((option: Option) => {
-                    const { value: section, label } = option
-
-                    return (
+                  {Object.entries(options).map(([section, label]) => (
+                    <div
+                      key={`${section}-${permission}`}
+                      className="form-field-selector"
+                      onClick={() => toggleOption(section, permission)}
+                      onMouseDown={(e) => e.stopPropagation()}
+                      aria-hidden="true"
+                    >
                       <div
-                        key={`${section}-${permission}`}
-                        className="form-field-selector"
-                        onClick={() => toggleOption(section, permission)}
-                        onMouseDown={(e) => e.stopPropagation()}
-                        aria-hidden="true"
-                      >
-                        <div
-                          className={classNames('fra-checkbox', {
-                            checked:
-                              typeof selectedSections !== 'string' &&
-                              selectedSections[section] &&
-                              selectedSections[section][permission] === true,
-                          })}
-                        />
-                        <div className="form-field-label">{label}</div>
-                      </div>
-                    )
-                  })}
+                        className={classNames('fra-checkbox', {
+                          checked:
+                            typeof selectedSections !== 'string' &&
+                            selectedSections[section] &&
+                            selectedSections[section][permission] === true,
+                        })}
+                      />
+                      <div className="form-field-label">{label}</div>
+                    </div>
+                  ))}
                 </div>
               )
             )}
