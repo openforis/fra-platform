@@ -37,5 +37,6 @@ export interface RowSpec {
     format?: { integer?: boolean }
     readonly?: boolean
     validateFns?: Array<string>
+    cycles?: Array<string>
   }
 }

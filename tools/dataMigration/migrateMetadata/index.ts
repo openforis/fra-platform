@@ -1,7 +1,6 @@
 import * as pgPromise from 'pg-promise'
 
 import { Assessment as AssessmentLegacy } from '../../../.src.legacy/core/assessment'
-import { SectionSpec } from '../../../.src.legacy/webapp/sectionSpec'
 import { Assessment } from '../../../src/meta/assessment/assessment'
 import { ColProps, ColType } from '../../../src/meta/assessment/col'
 import { RowProps } from '../../../src/meta/assessment/row'
@@ -9,6 +8,7 @@ import { SectionProps } from '../../../src/meta/assessment/section'
 import { TableProps } from '../../../src/meta/assessment/table'
 import { TableSectionProps } from '../../../src/meta/assessment/tableSection'
 import { BaseProtocol } from '../../../src/server/db'
+import { SectionSpec } from '../../../src/test/sectionSpec'
 import { DBNames } from '../_DBNames'
 import { getMapping } from '../dataTable/tableMappings'
 import { isBasicTable } from '../migrateData/_repos'
@@ -61,14 +61,14 @@ export const migrateMetadata = async (props: Props): Promise<void> => {
       await Promise.all(
         Object.values(sectionLegacy.children).map(async (subSectionLegacy, i) => {
           const subSectionSpec = spec[subSectionLegacy.name]
-          const subSection = getSubSection({ spec: subSectionSpec, cycles, index: Number(i) })
+          const subSection = getSubSection({ assessment, spec: subSectionSpec, index: Number(i) })
 
           const subSectionInsert = { id: (sectionId += 1), parent_id: sectionInsert.id, props: subSection.props }
           sectionsInsert.push(subSectionInsert)
 
           await Promise.all(
             subSectionSpec.tableSections.map(async (tableSectionSpec) => {
-              const tableSection = getTableSection({ cycles, tableSectionSpec })
+              const tableSection = getTableSection({ assessment, subSection, tableSectionSpec })
               const tableSectionInsert = {
                 id: (tableSectionId += 1),
                 section_id: subSectionInsert.id,
@@ -79,7 +79,7 @@ export const migrateMetadata = async (props: Props): Promise<void> => {
               await Promise.all(
                 tableSectionSpec.tableSpecs.map(async (tableSpec) => {
                   const mapping = isBasicTable(tableSpec.name) ? getMapping(tableSpec.name) : null
-                  const table = getTable({ assessment, cycles, tableSpec, tableSection, mapping })
+                  const table = getTable({ assessment, tableSpec, tableSection, mapping })
                   const tableInsert = {
                     id: (tableId += 1),
                     table_section_id: tableSectionInsert.id,
@@ -90,7 +90,7 @@ export const migrateMetadata = async (props: Props): Promise<void> => {
                   let rowIdx = 0
                   await Promise.all(
                     tableSpec.rows.map(async (rowSpec) => {
-                      const row = getRow({ cycles, rowSpec, table })
+                      const row = getRow({ assessment, rowSpec, table })
                       if (mapping && mapping.rows.names[rowIdx] && rowSpec.type === 'data') {
                         row.props.variableName = mapping.rows.names[rowIdx]
                         rowIdx += 1
@@ -106,7 +106,7 @@ export const migrateMetadata = async (props: Props): Promise<void> => {
                       let colIdx = 0
                       await Promise.all(
                         rowSpec.cols.map(async (colSpec) => {
-                          const col = getCol({ cycles, colSpec, row })
+                          const col = getCol({ assessment, colSpec, row })
                           const colName = rowSpec.migration?.colNames?.[colIdx]
                           const colNameOrig = col.props.colName
                           const withColNameMigration = col.props.colType !== 'header' && colName

@@ -45,5 +45,6 @@ export interface ColSpec {
   migration?: {
     calculateFn?: string
     forceColName?: boolean
+    cycles?: Array<string>
   }
 }
