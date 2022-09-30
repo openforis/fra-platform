@@ -1,5 +1,7 @@
 import { Express } from 'express'
 
+import { ExtDataApi } from '@server/api/extData'
+
 import { AreaApi } from './area'
 import { AuthApi } from './auth'
 import { CycleDataApi } from './cycleData'
@@ -23,6 +25,7 @@ export const Api = {
     AuthApi.init(express)
     CycleDataApi.init(express)
     DefinitionApi.init(express)
+    ExtDataApi.init(express)
     FileApi.init(express)
     UserApi.init(express)
     MessageCenterApi.init(express)
