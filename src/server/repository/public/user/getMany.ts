@@ -27,7 +27,7 @@ export const getMany = async (
           ${countryIso ? 'and ur.country_iso = $3' : ''}
         group by ${selectFields}
     `,
-      countryIso ? [(assessment.id, cycle.uuid)] : [(assessment.id, cycle.uuid, countryIso)]
+      countryIso ? [assessment.id, cycle.uuid, countryIso] : [assessment.id, cycle.uuid]
     )
     .then((data) =>
       data.map(({ roles, ...user }) => ({
