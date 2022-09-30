@@ -1,7 +1,6 @@
 import './collaboratorAccessModal.scss'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import MediaQuery from 'react-responsive'
 
 import { Objects } from '@utils/objects'
 import classNames from 'classnames'
@@ -14,7 +13,6 @@ import { useAssessmentSections } from '@client/store/assessment'
 import { UserManagementActions } from '@client/store/userManagement'
 import { useOnUpdate } from '@client/hooks'
 import { Modal, ModalBody, ModalClose, ModalHeader } from '@client/components/Modal'
-import { Breakpoints } from '@client/utils'
 
 import { useActions } from './hooks/useActions'
 
@@ -109,118 +107,56 @@ const CollaboratorAccessModal: React.FC<Props> = (props) => {
             </div>
           </div>
           <div className="form-container">
-            <MediaQuery maxWidth={Breakpoints.laptop - 1}>
-              {Object.entries(permissionOptions).map(
-                ([permission, options]: [CollaboratorEditPropertyType, Array<Option>]) => (
-                  <div key={permission}>
+            {Object.entries(permissionOptions).map(
+              ([permission, options]: [CollaboratorEditPropertyType, Array<Option>]) => (
+                <div key={permission} className="form-field-container">
+                  <div
+                    className="form-field-selector"
+                    onClick={() => toggleOptions(permission)}
+                    onMouseDown={(e) => e.stopPropagation()}
+                    aria-hidden="true"
+                  >
                     <div
-                      className="form-field-selector"
-                      onClick={() => toggleOptions(permission)}
-                      onMouseDown={(e) => e.stopPropagation()}
-                      aria-hidden="true"
-                    >
-                      <div
-                        className={classNames('fra-checkbox', {
-                          checked:
-                            typeof selectedSections !== 'string' &&
-                            Object.entries(selectedSections).filter(([_, section]) => section[permission] === true)
-                              .length >= options.length,
-                        })}
-                      />
-                      <strong>{i18n.t(`userManagement.permissions.${permission}`)}</strong>
-                    </div>
-
-                    <select
-                      multiple
-                      value={
-                        typeof selectedSections !== 'string'
-                          ? Object.entries(selectedSections)
-                              .filter(([_, value]) => value[permission] === true)
-                              .map(([key, _]) => key)
-                          : []
-                      }
-                      onChange={(event) => {
-                        const previousValues =
-                          typeof selectedSections !== 'string'
-                            ? Object.entries(selectedSections)
-                                .filter(([_, value]) => value[permission] === true)
-                                .map(([key, _]) => key)
-                            : []
-
-                        const currentValues = Array.from(event.target.selectedOptions, (option) => String(option.value))
-
-                        const section = currentValues.filter((x) => !previousValues.includes(x))[0]
-
-                        toggleOption(section, permission)
-                      }}
-                    >
-                      {options.map((option: Option) => {
-                        const { value: section, label } = option
-
-                        return (
-                          <option key={`${section}-${permission}`} value={section}>
-                            {label}
-                          </option>
-                        )
+                      className={classNames('fra-checkbox', {
+                        checked:
+                          typeof selectedSections !== 'string' &&
+                          Object.entries(selectedSections).filter(([_, section]) => section[permission] === true)
+                            .length >= options.length,
                       })}
-                    </select>
-                  </div>
-                )
-              )}
-            </MediaQuery>
-
-            <MediaQuery minWidth={Breakpoints.laptop}>
-              {Object.entries(permissionOptions).map(
-                ([permission, options]: [CollaboratorEditPropertyType, Array<Option>]) => (
-                  <div key={permission} className="form-field-container">
-                    <div
-                      className="form-field-selector"
-                      onClick={() => toggleOptions(permission)}
-                      onMouseDown={(e) => e.stopPropagation()}
-                      aria-hidden="true"
-                    >
-                      <div
-                        className={classNames('fra-checkbox', {
-                          checked:
-                            typeof selectedSections !== 'string' &&
-                            Object.entries(selectedSections).filter(([_, section]) => section[permission] === true)
-                              .length >= options.length,
-                        })}
-                      />
-                      <div className="form-field-container-label">
-                        {i18n.t(`userManagement.permissions.${permission}`)}
-                      </div>
+                    />
+                    <div className="form-field-container-label">
+                      {i18n.t(`userManagement.permissions.${permission}`)}
                     </div>
-
-                    <hr />
-
-                    {options.map((option: Option) => {
-                      const { value: section, label } = option
-
-                      return (
-                        <div
-                          key={`${section}-${permission}`}
-                          className="form-field-selector"
-                          onClick={() => toggleOption(section, permission)}
-                          onMouseDown={(e) => e.stopPropagation()}
-                          aria-hidden="true"
-                        >
-                          <div
-                            className={classNames('fra-checkbox', {
-                              checked:
-                                typeof selectedSections !== 'string' &&
-                                selectedSections[section] &&
-                                selectedSections[section][permission] === true,
-                            })}
-                          />
-                          <div className="form-field-label">{label}</div>
-                        </div>
-                      )
-                    })}
                   </div>
-                )
-              )}
-            </MediaQuery>
+
+                  <hr />
+
+                  {options.map((option: Option) => {
+                    const { value: section, label } = option
+
+                    return (
+                      <div
+                        key={`${section}-${permission}`}
+                        className="form-field-selector"
+                        onClick={() => toggleOption(section, permission)}
+                        onMouseDown={(e) => e.stopPropagation()}
+                        aria-hidden="true"
+                      >
+                        <div
+                          className={classNames('fra-checkbox', {
+                            checked:
+                              typeof selectedSections !== 'string' &&
+                              selectedSections[section] &&
+                              selectedSections[section][permission] === true,
+                          })}
+                        />
+                        <div className="form-field-label">{label}</div>
+                      </div>
+                    )
+                  })}
+                </div>
+              )
+            )}
           </div>
         </>
       </ModalBody>
