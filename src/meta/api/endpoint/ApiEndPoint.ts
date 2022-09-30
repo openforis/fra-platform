@@ -42,6 +42,12 @@ export const ApiEndPoint = {
     },
   },
 
+  ExtData: {
+    Taxa: {
+      search: () => apiPath('ext-data', 'taxa', 'search'),
+    },
+  },
+
   File: {
     dashboard: () => apiPath('file', 'dashboard'),
     dataDownload: () => apiPath('file', 'data-download'),
