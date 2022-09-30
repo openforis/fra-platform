@@ -43,4 +43,7 @@ export interface TableSpec {
   isSectionDataEmpty: GetSectionData
   canGenerateValues?: (state: any) => boolean
   updateTableDataCell: UpdateTableData
+  migration?: {
+    cycles?: Array<string>
+  }
 }

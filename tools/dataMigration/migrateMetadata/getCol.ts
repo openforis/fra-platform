@@ -1,13 +1,16 @@
+import { Assessment } from '../../../src/meta/assessment'
 import { Col, ColStyle, ColType } from '../../../src/meta/assessment/col'
 import { Row } from '../../../src/meta/assessment/row'
 import { ColSpec } from '../../../src/test/sectionSpec'
+import { getCycleUuids } from './utils'
 
 export const getCol = (props: {
-  cycles: Array<string>
+  assessment: Assessment
   colSpec: ColSpec
   row: Row
 }): Col & { forceColName?: boolean } => {
-  const { colSpec, cycles, row } = props
+  const { assessment, colSpec, row } = props
+  const cycles = getCycleUuids({ assessment, migration: colSpec.migration, parentCycleUuids: row.props.cycles })
   const style = cycles.reduce<Record<string, ColStyle>>(
     (styleAgg, cycle) => ({ ...styleAgg, [cycle]: { colSpan: colSpec.colSpan, rowSpan: colSpec.rowSpan } }),
     {}

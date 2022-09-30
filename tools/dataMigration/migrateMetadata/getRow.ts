@@ -1,14 +1,14 @@
-import { RowSpec } from '../../../.src.legacy/webapp/sectionSpec'
-import { Row, RowType } from '../../../src/meta/assessment/row'
-import { Table } from '../../../src/meta/assessment/table'
+import { Assessment, Row, RowType, Table } from '../../../src/meta/assessment'
+import { RowSpec } from '../../../src/test/sectionSpec'
+import { getCycleUuids } from './utils'
 
-export const getRow = (props: { cycles: Array<string>; rowSpec: RowSpec; table: Table }): Row => {
-  const { cycles, rowSpec, table } = props
+export const getRow = (props: { assessment: Assessment; rowSpec: RowSpec; table: Table }): Row => {
+  const { assessment, rowSpec, table } = props
   const linkToSection = rowSpec.cols?.[0]?.linkToSection
 
   const row: Row = {
     props: {
-      cycles,
+      cycles: getCycleUuids({ assessment, parentCycleUuids: table.props.cycles, migration: rowSpec.migration }),
       index: rowSpec.idx,
       linkToSection,
       type: rowSpec.type as unknown as RowType,
