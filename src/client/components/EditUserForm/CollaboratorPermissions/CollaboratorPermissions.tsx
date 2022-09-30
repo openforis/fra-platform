@@ -56,12 +56,12 @@ const CollaboratorPermissions = (props: Props) => {
 
       <div className="edit-user__form-field edit-user__form-field-premissions">
         {typeof sections === 'string' ? (
-          i18n.t(`contactPersons.${sections}`)
+          i18n.t<string>(`contactPersons.${sections}`)
         ) : (
-          <>
+          <div className="edit-user__form-field-premission-list">
             <div>{`TableData: ${tableDataPermissions}`}</div>
             <div>{`Descriptions: ${descriptionsPermissions}`}</div>
-          </>
+          </div>
         )}
         <button className="btn-xs btn-primary" onClick={_onEditPermissionsClick} type="button">
           {i18n.t<string>('userManagement.editPermissions')}
