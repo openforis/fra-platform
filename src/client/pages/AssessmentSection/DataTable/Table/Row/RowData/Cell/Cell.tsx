@@ -20,11 +20,12 @@ import Number from './Number'
 import Placeholder from './Placeholder'
 import { PropsCell } from './props'
 import Select from './Select'
+import Taxon from './Taxon'
 import Text from './Text'
 
 const Components: Record<string, React.FC<PropsCell>> = {
   [ColType.calculated]: Calculated,
-  [ColType.taxon]: Text,
+  [ColType.taxon]: Taxon,
   [ColType.text]: Text,
   [ColType.textarea]: Text,
   [ColType.decimal]: Number,
