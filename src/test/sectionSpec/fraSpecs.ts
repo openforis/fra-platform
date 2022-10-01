@@ -1443,6 +1443,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
     dataExport: {
       included: true,
     },
+    migration: {
+      cycles: ['2020'],
+    },
   },
   otherLandWithTreeCover: {
     sectionName: 'otherLandWithTreeCover',
@@ -4881,6 +4884,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
         ],
         titleKey: 'designatedManagementObjective.totalAreaWithDesignatedManagementObjective',
         descriptionKey: 'designatedManagementObjective.totalAreaWithDesignatedManagementObjectiveSupport',
+        migration: {
+          cycles: ['2020'],
+        },
       },
     ],
     showTitle: true,
@@ -7477,6 +7483,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
     dataExport: {
       included: true,
     },
+    migration: {
+      cycles: ['2020'],
+    },
   },
   areaOfPermanentForestEstate: {
     sectionName: 'areaOfPermanentForestEstate',
@@ -8242,6 +8251,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
     dataExport: {
       included: true,
     },
+    migration: {
+      cycles: ['2020'],
+    },
   },
   graduationOfStudents: {
     sectionName: 'graduationOfStudents',
@@ -8765,6 +8777,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
     },
     dataExport: {
       included: true,
+    },
+    migration: {
+      cycles: ['2020'],
     },
   },
   nonWoodForestProductsRemovals: {
