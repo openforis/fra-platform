@@ -1,8 +1,8 @@
-import { userMockTest } from '@test/integration/mock/user'
-
 import { UserStatus } from '@meta/user'
 
 import { UserController } from '@server/controller/user'
+
+import { userMockTest } from '@test/integration/mock/user'
 
 export default () =>
   test('Expect user to be status === active', async () => {
@@ -15,6 +15,7 @@ export default () =>
         ...user,
         status: UserStatus.active,
       },
+      user,
     })
 
     // Ids match
