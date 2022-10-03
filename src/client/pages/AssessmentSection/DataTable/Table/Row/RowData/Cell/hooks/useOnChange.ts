@@ -1,5 +1,3 @@
-import { ClipboardEventHandler } from 'react'
-
 import { NodesBodyValue } from '@meta/api/request'
 import { Col, Cols, ColType, NodeValue, Row, RowType, Table } from '@meta/assessment'
 import { TableData, TableDatas } from '@meta/data'
@@ -27,8 +25,7 @@ type OnChange = OnChangeTaxon | OnChangeDefault
 
 type UseOnChange = {
   onChange: OnChange
-  // onChange: ChangeEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement> | OnChangeTaxon
-  onPaste: ClipboardEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  onPaste: React.ClipboardEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
 }
 
 export default (props: Props): UseOnChange => {
