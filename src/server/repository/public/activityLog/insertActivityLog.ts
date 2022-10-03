@@ -25,7 +25,15 @@ export const insertActivityLog = async (
 
   return client.one<ActivityLog<any>>(
     query,
-    [user.id, countryIso, section, message, JSON.stringify(target), cycle ? cycle.uuid : null],
+    [
+      user.id,
+      countryIso,
+      section,
+      message,
+      JSON.stringify(target),
+      assessment ? assessment.uuid : null,
+      cycle ? cycle.uuid : null,
+    ],
     Objects.camelize
   )
 }
