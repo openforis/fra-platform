@@ -31,14 +31,12 @@ const CollaboratorPermissions = (props: Props) => {
   const sections = Objects.isEmpty(properties) ? 'none' : properties.sections
 
   const tableDataPermissions = Object.entries(sections)
-    .filter(([_, v]) => v.tableData === true)
-    .map(([k, _]) => options[k])
+    .reduce((prev, [k, v]) => (v.tableData ? [...prev, options[k]] : prev), [])
     .sort()
     .join(', ')
 
   const descriptionsPermissions = Object.entries(sections)
-    .filter(([_, v]) => v.descriptions === true)
-    .map(([k, _]) => options[k])
+    .reduce((prev, [k, v]) => (v.descriptions ? [...prev, options[k]] : prev), [])
     .sort()
     .join(', ')
 
