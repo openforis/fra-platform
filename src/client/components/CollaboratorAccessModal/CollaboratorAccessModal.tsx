@@ -32,8 +32,10 @@ const CollaboratorAccessModal: React.FC<Props> = (props) => {
 
   const options = assessmentSections
     .reduce((prev, curr): Array<SubSection> => [...prev, ...curr.subSections], [])
-    .filter((subSection: SubSection) => subSection.props.anchor)
-    .reduce((prev, curr): Record<string, string> => ({ ...prev, [curr.uuid]: curr.props.anchor }), {})
+    .reduce(
+      (prev, curr): Record<string, string> => (curr.props.anchor ? { ...prev, [curr.uuid]: curr.props.anchor } : prev),
+      {}
+    )
 
   const permissionOptions: Record<CollaboratorEditPropertyType, Record<string, string>> = {
     tableData: options,
