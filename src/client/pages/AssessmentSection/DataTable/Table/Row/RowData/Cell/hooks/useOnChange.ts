@@ -1,8 +1,9 @@
-import { ChangeEventHandler, ClipboardEventHandler } from 'react'
+import { ClipboardEventHandler } from 'react'
 
 import { NodesBodyValue } from '@meta/api/request'
 import { Col, Cols, ColType, NodeValue, Row, RowType, Table } from '@meta/assessment'
 import { TableData, TableDatas } from '@meta/data'
+import { Taxon } from '@meta/extData'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useAssessmentSection, useCycle } from '@client/store/assessment'
@@ -18,29 +19,47 @@ type Props = {
   data: TableData
   sectionName: string
 }
+export type OnChangeTaxon = (value: Taxon | string) => void
+export type OnChangeDefault = (
+  event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+) => void
+type OnChange = OnChangeTaxon | OnChangeDefault
 
 type UseOnChange = {
-  onChange: ChangeEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  onChange: OnChange
+  // onChange: ChangeEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement> | OnChangeTaxon
   onPaste: ClipboardEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
 }
 
 export default (props: Props): UseOnChange => {
   const { table, col, row, nodeValue, data, sectionName } = props
+  const type = col.props.colType
+
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const cycle = useCycle()
   const assessment = useAssessment()
   const assessmentSection = useAssessmentSection(sectionName)
 
-  const _persistSanitizedValue = (value: string) => {
-    const type = col.props.colType
-    if (Sanitizer.isAcceptable({ type, value })) {
+  const _persistSanitizedValue = (value: string | Taxon) => {
+    const _value = typeof value === 'string' ? value : value?.scientificName
+
+    if (Sanitizer.isAcceptable({ type, value: _value })) {
       const valueUpdate = Sanitizer.sanitize({
-        value,
+        value: _value,
         type,
         valuePrev: nodeValue.raw,
         options: col.props.select?.options,
       })
+
+      const nodeValueUpdate = { ...nodeValue, raw: valueUpdate }
+      if (typeof value !== 'string' && value?.code) {
+        nodeValueUpdate.taxonCode = value.code
+      } else {
+        // If previous version had a taxonCode
+        // No inserting raw string
+        delete nodeValueUpdate.taxonCode
+      }
 
       dispatch(
         AssessmentSectionActions.updateNodeValues({
@@ -52,7 +71,7 @@ export default (props: Props): UseOnChange => {
           values: [
             {
               colName: col.props.colName,
-              value: { ...nodeValue, raw: valueUpdate },
+              value: nodeValueUpdate,
               variableName: row.props.variableName,
             },
           ],
@@ -61,8 +80,12 @@ export default (props: Props): UseOnChange => {
     }
   }
 
-  const onChange: ChangeEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement> = (event) => {
+  const onChangeDefault: OnChangeDefault = (event): void => {
     const { value } = event.target
+    _persistSanitizedValue(value)
+  }
+
+  const onChangeTaxon = (value: Taxon | string): void => {
     _persistSanitizedValue(value)
   }
 
@@ -147,5 +170,10 @@ export default (props: Props): UseOnChange => {
     }
   }
 
-  return { onChange, onPaste }
+  const onChange = (type: ColType) => {
+    if (type === ColType.taxon) return onChangeTaxon
+    return onChangeDefault
+  }
+
+  return { onChange: onChange(type) ?? onChangeDefault, onPaste }
 }

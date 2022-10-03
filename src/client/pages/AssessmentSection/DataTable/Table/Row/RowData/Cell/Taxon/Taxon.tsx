@@ -1,45 +1,32 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
-import { Taxon as TaxonType } from '@meta/extData/taxon'
 
-import { useGetRequest } from '@client/hooks'
 import Autocomplete from '@client/components/Autocomplete'
+import { OnChangeTaxon } from '@client/pages/AssessmentSection/DataTable/Table/Row/RowData/Cell/hooks/useOnChange'
 
 import { PropsCell } from '../props'
 
 const Taxon: React.FC<PropsCell> = (props: PropsCell) => {
   const { onChange, datum, disabled } = props
 
-  const [value, setValue] = useState(datum)
-
-  const onQueryChange = (query: string) => {
-    setValue(query)
+  const _onChange: OnChangeTaxon = (value) => {
+    // Handle first load ajax query call of onChange
+    const isSame = value === datum || (typeof value !== 'string' && value?.scientificName === datum)
+    if (isSame || !value) return
+    onChange(value)
   }
 
-  const { data, dispatch: fetchData } = useGetRequest(ApiEndPoint.ExtData.Taxa.search(), {
-    params: {
-      query: value,
-    },
-  })
-
-  useEffect(() => {
-    // TODO: Throttle
-    if (value?.length > 2) fetchData()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value])
-
   return (
-    <div className="fra-table__select-container">
+    <div className="text-input__container validation-error-sensitive-field">
       <Autocomplete
-        onQueryChange={onQueryChange}
-        onChange={onChange}
+        url={ApiEndPoint.ExtData.Taxa.search()}
+        listbox={{
+          displayField: 'scientificName',
+        }}
+        onChange={_onChange}
         disabled={disabled}
-        value={value}
-        options={data?.map(({ scientificName, code }: TaxonType) => ({
-          label: scientificName,
-          value: code,
-        }))}
+        value={datum}
       />
     </div>
   )
