@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { NodesBodyValue } from '@meta/api/request'
 import { Col, Cols, ColType, NodeValue, Row, RowType, Table } from '@meta/assessment'
 import { TableData, TableDatas } from '@meta/data'
