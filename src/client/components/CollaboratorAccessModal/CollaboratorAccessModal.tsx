@@ -17,14 +17,13 @@ import { Modal, ModalBody, ModalClose, ModalHeader } from '@client/components/Mo
 import { useActions } from './hooks/useActions'
 
 type Props = {
-  userRole: UserRole<RoleName, CollaboratorProps>
-  headerLabel: string
   onClose: () => void
   open: boolean
+  userRole: UserRole<RoleName, CollaboratorProps>
 }
 
 const CollaboratorAccessModal: React.FC<Props> = (props) => {
-  const { headerLabel, onClose, open, userRole } = props
+  const { onClose, open, userRole } = props
 
   const dispatch = useAppDispatch()
   const i18n = useTranslation()
@@ -64,13 +63,13 @@ const CollaboratorAccessModal: React.FC<Props> = (props) => {
   return (
     <Modal className="modal-collaborator-access" isOpen={open}>
       <ModalHeader>
-        {headerLabel}
+        {i18n.t<string>('userManagement.editPermissions')}
         <ModalClose onClose={onClose} />
       </ModalHeader>
 
       <ModalBody>
         <>
-          <div className="form-container inline">
+          <div className="form-container">
             <div
               className="form-field-selector"
               onClick={() => setSelectedSections('all')}
