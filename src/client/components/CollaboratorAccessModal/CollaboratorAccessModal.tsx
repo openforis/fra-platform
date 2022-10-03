@@ -72,6 +72,7 @@ const CollaboratorAccessModal: React.FC<Props> = (props) => {
           <div className="form-container">
             {['all', 'none'].map((allOrNone) => (
               <div
+                key={allOrNone}
                 className="form-field-selector"
                 onClick={() => setSelectedSections(allOrNone === 'all' ? 'all' : 'none')}
                 onMouseDown={(e) => e.stopPropagation()}
