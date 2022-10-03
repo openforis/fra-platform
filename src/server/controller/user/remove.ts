@@ -20,7 +20,7 @@ export const remove = async (
     await ActivityLogRepository.insertActivityLog(
       {
         activityLog: {
-          target: { userId: removedUser, user: removedUser.name },
+          target: { userId: removedUser.id, user: removedUser.name },
           section: 'users',
           message: ActivityLogMessage.userRemove,
           user,

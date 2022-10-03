@@ -19,7 +19,7 @@ export const insertActivityLog = async (
   } = params
 
   const query = `
-    insert into public.activity_log(user_id, country_iso, section, message, target, assessment_uuid, cycle_uuid) values ($1, $2, $3, $4, $5::JSONB, $6) returning *;
+    insert into public.activity_log(user_id, country_iso, section, message, target, assessment_uuid, cycle_uuid) values ($1, $2, $3, $4, $5::JSONB, $6, $7) returning *;
   `
 
   return client.one<ActivityLog<any>>(
