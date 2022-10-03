@@ -8,7 +8,7 @@ export const migrateActivityLog = async (props: { assessment: Assessment }, clie
   const cycle = assessment.cycles.find((cycle: Cycle) => cycle.name === '2020')
 
   const query = `
-      insert into activity_log (
+      insert into public.activity_log (
           time, message, country_iso, section, target, user_id, assessment_uuid, cycle_uuid
       )
       select time,
