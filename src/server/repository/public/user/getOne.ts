@@ -1,6 +1,6 @@
 import { Objects } from '@utils/objects'
 
-import { User } from '@meta/user'
+import { CollaboratorProps, User } from '@meta/user'
 
 import { BaseProtocol, DB } from '@server/db'
 
@@ -11,7 +11,7 @@ const selectFields = fields.map((f) => `u.${f}`).join(',')
 export const getOne = async (
   props: { id: number } | { email: string } | { emailGoogle: string },
   client: BaseProtocol = DB
-): Promise<User | undefined> => {
+): Promise<User> => {
   let where = ''
   let value = ''
 
@@ -28,15 +28,28 @@ export const getOne = async (
     throw new Error('Missing parameter')
   }
 
-  return client.oneOrNone<User | undefined>(
-    `
+  return client
+    .oneOrNone<User>(
+      `
         select ${selectFields}, jsonb_agg(to_jsonb(ur.*)) as roles
         from public.users u
         left join users_role ur on u.id = ur.user_id
         ${where}
         group by ${selectFields}
     `,
-    [value],
-    Objects.camelize
-  )
+      [value]
+    )
+    .then((data) => {
+      if (!data) return undefined
+      return {
+        ...Objects.camelize(data),
+        roles:
+          data.roles[0] !== null
+            ? data.roles.map(({ props, ...role }) => ({
+                ...Objects.camelize(role),
+                props: { ...Objects.camelize(props), sections: (props as CollaboratorProps).sections },
+              }))
+            : data.roles,
+      }
+    })
 }
