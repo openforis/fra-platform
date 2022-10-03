@@ -17,17 +17,18 @@ export const remove = async (
   return client.tx(async (t) => {
     const removedUser = await UserRepository.remove({ user: userToRemove }, t)
 
-    await ActivityLogRepository.insertActivityLog(
-      {
-        activityLog: {
-          target: { userId: removedUser.id, user: removedUser.name },
-          section: 'users',
-          message: ActivityLogMessage.userRemove,
-          user,
+    if (user)
+      await ActivityLogRepository.insertActivityLog(
+        {
+          activityLog: {
+            target: { userId: removedUser.id, user: removedUser.name },
+            section: 'users',
+            message: ActivityLogMessage.userRemove,
+            user,
+          },
         },
-      },
-      t
-    )
+        t
+      )
 
     return removedUser
   })
