@@ -1,53 +1,67 @@
+import './Autocomplete.scss'
 import React from 'react'
 
+import axios from 'axios'
+import Turnstone from 'turnstone'
+
 type Props = {
+  // styles: Record of autocomplete class names
+  styles?: Record<string, string>
+  // listbox: Object containing autocomplete options,
+  // mainly used for selecting correct key for displayName for object
+  listbox: Record<string, unknown>
+  // url: Should support query, limit params
+  url: string
   disabled: boolean
+
   value: string
   name?: string
-  onChange: any // React.ChangeEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement> |  React.MouseEventHandler<HTMLOptionElement>
-  onQueryChange: any
-  options?: Array<{
-    value: string
-    label?: string
-  }>
+  onChange: (value: any) => void
 }
 
 const Autocomplete = (props: Props) => {
-  const { value, name, options, disabled, onChange, onQueryChange } = props
+  const { value, disabled, onChange, listbox, url, styles, name } = props
 
   if (disabled) return <div className="text-input__readonly-view ">{value}</div>
 
-  const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onQueryChange(event.target.value)
+  // Set up listbox contents.
+  const defaultListbox = {
+    // should return array with { [listbox.displayField]: value }
+    data: (query: string) => axios.get(`${url}?query=${encodeURIComponent(query)}&limit=10`).then(({ data }) => data),
+  }
+
+  const defaultStyles = {
+    item: 'autocomplete__item',
+    listbox: 'autocomplete__listbox',
+    input: 'text-input__input-field',
+    ...styles,
   }
 
   return (
-    <div>
-      <input
-        onChange={onInputChange}
-        className="text-input__container"
+    <div className={name}>
+      <Turnstone
+        onChange={onChange}
         disabled={disabled}
-        type="text"
+        text={value}
+        onSelect={onChange}
+        styles={{
+          ...defaultStyles,
+          ...styles,
+        }}
         id={name}
-        name={name}
-        list="list"
-        value={value}
-        onBlur={onChange}
+        listbox={{
+          ...defaultListbox,
+          ...listbox,
+        }}
+        typeahead={false}
       />
-      <datalist id="list">
-        {options?.map((option: { value: string; label: string }) => (
-          <option key={value} onClick={onChange} value={option.value} label={option.label}>
-            {option.label ?? option.value}
-          </option>
-        ))}
-      </datalist>
     </div>
   )
 }
 
 Autocomplete.defaultProps = {
+  styles: {},
   name: 'autocomplete',
-  options: undefined, // on data initial load
 }
 
 export default Autocomplete

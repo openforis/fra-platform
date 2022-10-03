@@ -1,0 +1,19 @@
+@import 'src/client/styles/config';
+@import 'src/client/style/partials';
+
+.autocomplete {
+  width: 100%;
+
+  .autocomplete__listbox {
+    color: $text-link;
+    width: 100%;
+    cursor: pointer;
+    background-color: $ui-bg-hover;
+    box-shadow: 0 0 0 1px $text-body;
+  }
+
+
+  .autocomplete__item {
+    background-color: $ui-bg;
+  }
+}
