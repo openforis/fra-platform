@@ -41,6 +41,10 @@ export const userManagementSlice = createSlice({
     builder.addCase(getUserToEdit.fulfilled, (state, { payload }) => {
       state.userToEdit = payload
     })
+
+    builder.addCase(updateSectionAuth.fulfilled, (state, { payload }) => {
+      state.userToEdit.roles[0] = payload
+    })
   },
 })
 
