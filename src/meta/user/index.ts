@@ -8,6 +8,7 @@ export type {
   Administrator,
   Collaborator,
   CollaboratorProps,
+  CollaboratorSectionsProp,
   NationalCorrespondent,
   Reviewer,
   UserRole,

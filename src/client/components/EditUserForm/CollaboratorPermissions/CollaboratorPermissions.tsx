@@ -81,12 +81,7 @@ const CollaboratorPermissions = (props: Props) => {
         </button>
       </div>
 
-      <CollaboratorAccessModal
-        open={modalOptions.open}
-        userRole={userRole}
-        headerLabel={i18n.t<string>('userManagement.editPermissions')}
-        onClose={_onEditPermissionsClose}
-      />
+      <CollaboratorAccessModal open={modalOptions.open} userRole={userRole} onClose={_onEditPermissionsClose} />
     </div>
   )
 }

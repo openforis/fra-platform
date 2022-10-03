@@ -1,13 +1,13 @@
 import { Objects } from '@utils/objects'
 
-import { CollaboratorEditPropertyType, CollaboratorProps, RoleName, UserRole } from '@meta/user'
+import { CollaboratorProps, CollaboratorSectionsProp, RoleName, UserRole } from '@meta/user'
 
 import { BaseProtocol, DB } from '@server/db'
 
 export const updateSectionAuth = async (
   props: {
     id: string
-    sections: 'all' | 'none' | Record<string, { [key in keyof typeof CollaboratorEditPropertyType]?: boolean }>
+    sections: CollaboratorSectionsProp
   },
   client: BaseProtocol = DB
 ): Promise<UserRole<RoleName, CollaboratorProps>> => {

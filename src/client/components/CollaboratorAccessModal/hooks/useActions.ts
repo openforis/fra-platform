@@ -3,20 +3,9 @@ import { useState } from 'react'
 import { Objects } from '@utils/objects'
 
 import { CollaboratorEditPropertyType } from '@meta/user'
+import { CollaboratorSectionsProp } from '@meta/user/userRole'
 
-export const useActions = (
-  options: Record<string, string>,
-  sections:
-    | 'none'
-    | 'all'
-    | Record<
-        string,
-        {
-          readonly tableData?: boolean
-          readonly descriptions?: boolean
-        }
-      >
-) => {
+export const useActions = (options: Record<string, string>, sections: CollaboratorSectionsProp) => {
   const [selectedSections, setSelectedSections] = useState(sections)
 
   const toggleOptions = (permission: CollaboratorEditPropertyType): void => {
