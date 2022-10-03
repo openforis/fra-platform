@@ -31,12 +31,15 @@ export enum CollaboratorEditPropertyType {
   tableData = 'tableData',
   descriptions = 'descriptions',
 }
-export type CollaboratorProps = {
+export type CollaboratorSectionsProp =
   /**
    * all = all sections enabled for editing
    * none = no sections enabled for editing
    * Record<string, { tableData: boolean, descriptions: boolean }> = key is sectionUuid, value contains an object which specifies permission by key
    */
-  sections: 'all' | 'none' | Record<string, { [key in keyof typeof CollaboratorEditPropertyType]?: boolean }>
+  'all' | 'none' | Record<string, { [key in keyof typeof CollaboratorEditPropertyType]?: boolean }>
+
+export type CollaboratorProps = {
+  sections: CollaboratorSectionsProp
 }
 export type Collaborator = UserRole<RoleName.COLLABORATOR, CollaboratorProps>
