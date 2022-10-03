@@ -15,7 +15,6 @@ export default () =>
         ...user,
         status: UserStatus.inactive,
       },
-      user,
     })
 
     // Ids match
