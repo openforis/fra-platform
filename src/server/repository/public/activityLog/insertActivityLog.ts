@@ -7,7 +7,7 @@ import { BaseProtocol, DB } from '@server/db'
 export const insertActivityLog = async (
   params: {
     activityLog: ActivityLog<any>
-    assessment: Assessment
+    assessment?: Assessment
     cycle?: Cycle
   },
   client: BaseProtocol = DB
