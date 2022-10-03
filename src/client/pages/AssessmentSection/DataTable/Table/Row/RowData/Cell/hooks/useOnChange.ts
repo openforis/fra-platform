@@ -170,10 +170,7 @@ export default (props: Props): UseOnChange => {
     }
   }
 
-  const onChange = (type: ColType) => {
-    if (type === ColType.taxon) return onChangeTaxon
-    return onChangeDefault
-  }
+  const onChange = type === ColType.taxon ? onChangeTaxon : onChangeDefault
 
-  return { onChange: onChange(type) ?? onChangeDefault, onPaste }
+  return { onChange, onPaste }
 }
