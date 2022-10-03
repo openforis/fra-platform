@@ -70,32 +70,21 @@ const CollaboratorAccessModal: React.FC<Props> = (props) => {
       <ModalBody>
         <>
           <div className="form-container">
-            <div
-              className="form-field-selector"
-              onClick={() => setSelectedSections('all')}
-              onMouseDown={(e) => e.stopPropagation()}
-              aria-hidden="true"
-            >
+            {['all', 'none'].map((allOrNone) => (
               <div
-                className={classNames('fra-checkbox', {
-                  checked: selectedSections === 'all',
-                })}
-              />
-              <div className="form-field-container-label">{i18n.t(`contactPersons.all`)}</div>
-            </div>
-            <div
-              className="form-field-selector"
-              onClick={() => setSelectedSections('none')}
-              onMouseDown={(e) => e.stopPropagation()}
-              aria-hidden="true"
-            >
-              <div
-                className={classNames('fra-checkbox', {
-                  checked: selectedSections === 'none',
-                })}
-              />
-              <div className="form-field-container-label">{i18n.t(`contactPersons.none`)}</div>
-            </div>
+                className="form-field-selector"
+                onClick={() => setSelectedSections(allOrNone === 'all' ? 'all' : 'none')}
+                onMouseDown={(e) => e.stopPropagation()}
+                aria-hidden="true"
+              >
+                <div
+                  className={classNames('fra-checkbox', {
+                    checked: selectedSections === allOrNone,
+                  })}
+                />
+                <div className="form-field-container-label">{i18n.t(`contactPersons.${allOrNone}`)}</div>
+              </div>
+            ))}
           </div>
           <div className="form-container">
             {Object.entries(permissionOptions).map(
