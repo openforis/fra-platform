@@ -5,11 +5,13 @@ import { useTranslation } from 'react-i18next'
 import { RoleName, User, UserRole, Users } from '@meta/user'
 
 import { useUsers } from '@client/store/userManagement/hooks'
+import { useCountryIso } from '@client/hooks'
 import Icon from '@client/components/Icon'
 
 const ButtonUserListExport = () => {
   const { i18n } = useTranslation()
   const users = useUsers()
+  const countryIso = useCountryIso()
 
   // ==== HEADERS
   const csvRoleHeaders = () => [{ key: 'role', label: i18n.t('userManagement.role') }]
@@ -41,7 +43,7 @@ const ButtonUserListExport = () => {
     }
   }
 
-  const csvTableData = () => users.map((user: User) => csvRowData(user, user.roles[0], false))
+  const csvTableData = () => users.map((user: User) => csvRowData(user, Users.getCountryRole(user, countryIso), false))
 
   return (
     <CSVLink
