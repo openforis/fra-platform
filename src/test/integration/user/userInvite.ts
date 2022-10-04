@@ -99,6 +99,6 @@ export default (): void =>
     })
 
     afterAll(async () => {
-      await UserController.remove({ userToRemove: userMockUnknown })
+      await UserController.remove({ userToRemove: userMockUnknown, user })
     })
   })
