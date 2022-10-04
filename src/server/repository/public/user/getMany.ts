@@ -24,7 +24,17 @@ export const getMany = async (
           join public.users_role ur on (u.id = ur.user_id)
         where ur.assessment_id = $1
           and ur.cycle_uuid = $2
-          ${countryIso ? 'and ur.country_iso = $3' : ''}
+          ${
+            countryIso
+              ? `and u.id in (
+                  select user_id
+                  from public.users_role
+                  where assessment_id = $1
+                    and cycle_uuid = $2
+                    and country_iso = $3
+                )`
+              : ''
+          }
         group by ${selectFields}
     `,
       countryIso ? [assessment.id, cycle.uuid, countryIso] : [assessment.id, cycle.uuid]
