@@ -28,7 +28,8 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
     field: 'forestPercent',
     subField: 'plantationPercent',
   })
-  const hasPlantation = plantationTotal && Numbers.greaterThan(plantationTotal, 0)
+
+  const hasPlantation = plantationTotal && Numbers.greaterThanOrEqualTo(plantationTotal, 0)
 
   return (
     <div className="odp__section">

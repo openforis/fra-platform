@@ -6129,6 +6129,11 @@ find-up@^4.0.0, find-up@^4.1.0:
     locate-path "^5.0.0"
     path-exists "^4.0.0"
 
+first-of-type@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/first-of-type/-/first-of-type-1.0.0.tgz#e3e16e96f15231d65c2ed5499ee5d001244b9024"
+  integrity sha512-dJSXNtPoczg+C5GBU3KW4U14zSK40uz43lNdJeXjv71PoCYdlrXdv8FnLJRFgFmSh7ocP4rvjIJDp4X/Ooz7vQ==
+
 flat-cache@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/flat-cache/-/flat-cache-3.0.4.tgz#61b0338302b2fe9f957dcc32fc2a87f1c3048b11"
@@ -9535,6 +9540,11 @@ natural-compare@^1.4.0:
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==
 
+natural-selection@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/natural-selection/-/natural-selection-1.0.1.tgz#650c3baf38b6124b6fa1251b2fd97850a966397c"
+  integrity sha512-+8ZPOu57Yw2fqAq3XGtdbVkJGwp8k4VYOGqx0Eg91nsKYn/utMOhKc+97jOTxqVcGwVMzCn2Bz6pTWFWGGH5kQ==
+
 needle@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/needle/-/needle-3.1.0.tgz#3bf5cd090c28eb15644181ab6699e027bd6c53c9"
@@ -11768,6 +11778,13 @@ set-value@^2.0.0, set-value@^2.0.1:
     is-plain-object "^2.0.3"
     split-string "^3.0.1"
 
+setify@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/setify/-/setify-1.0.4.tgz#2c7f50c9d474830a4fe2c6ef3586cfe6713b11f4"
+  integrity sha512-8CtOpqS2KtK7P40PeXVYzzDMw+vgrQtdy6QUGamSIFYoKSvB1OrIxnqiGmCD0r7lOm2BIebsqxuNNE+eY1b9Wg==
+  dependencies:
+    natural-selection "^1.0.1"
+
 setimmediate@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/setimmediate/-/setimmediate-1.0.5.tgz#290cbb232e306942d7d7ea9b83732ab7856f8285"
@@ -12112,6 +12129,14 @@ spex@3.2.0:
   resolved "https://registry.yarnpkg.com/spex/-/spex-3.2.0.tgz#fa4a21922407e112624977b445a6d634578a1127"
   integrity sha512-9srjJM7NaymrpwMHvSmpDeIK5GoRMX/Tq0E8aOlDPS54dDnDUIp30DrP9SphMPEETDLzEM9+4qo+KipmbtPecg==
 
+split-match@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/split-match/-/split-match-0.2.2.tgz#827b35af2e0305b54e7a87bed4409cdc1689d3ac"
+  integrity sha512-epdfqxwKjfpD3wE2aXPtwiWvic6z0V7tg+DGEfsH6i/eXdAfia9keoz1XB/Byz7OqSPmUuVM8jy1x8pv+7cH3A==
+  dependencies:
+    escape-string-regexp "^5.0.0"
+    prop-types "^15.8.1"
+
 split-string@^3.0.1, split-string@^3.0.2:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/split-string/-/split-string-3.1.0.tgz#7cb09dda3a86585705c64b39a6466038682e8fe2"
@@ -12429,6 +12454,11 @@ svgo@^2.7.0:
     csso "^4.2.0"
     picocolors "^1.0.0"
     stable "^0.1.8"
+
+swr@^1.1.2:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/swr/-/swr-1.3.0.tgz#c6531866a35b4db37b38b72c45a63171faf9f4e8"
+  integrity sha512-dkghQrOl2ORX9HYrMDtPa7LTVHJjCTeZoB1dqTbnnEDlSvN8JEKpYIYurDfvbQFUUS8Cg8PceFVZNkW0KNNYPw==
 
 symbol-observable@^1.0.3:
   version "1.2.0"
@@ -12833,6 +12863,25 @@ tunnel-ssh@^4.0.0:
     lodash.defaults "^4.1.0"
     ssh2 "1.4.0"
 
+turnstone-recent-searches@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/turnstone-recent-searches/-/turnstone-recent-searches-0.5.0.tgz#3a9ca7b07d91258ece7c270fd82092a4d5e5b4c7"
+  integrity sha512-OFGRM92OKAx467QTYeJXJY5Uj1XhPiMmqiXwL1/wPky38SLXotyxVjFpMvCb8MuGsY61fsJDkF2vsmseae42VA==
+
+turnstone@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/turnstone/-/turnstone-2.2.0.tgz#9eedba9e69df4ef11527fe640e4219590138db82"
+  integrity sha512-/vlU5uOEqZuEaN/4n62uCNbZScGUf0eA2uEoCpy+L5zWR3zpMcYAnASmjlW2lDF+rIXpgeElFTV8z0E98HfG0g==
+  dependencies:
+    escape-string-regexp "^5.0.0"
+    first-of-type "^1.0.0"
+    prop-types "^15.8.1"
+    setify "^1.0.4"
+    split-match "^0.2.2"
+    swr "^1.1.2"
+    turnstone-recent-searches "^0.5.0"
+    use-debounce "^7.0.1"
+
 tweetnacl@^0.14.3:
   version "0.14.5"
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
@@ -13116,6 +13165,11 @@ url@*:
   dependencies:
     punycode "1.3.2"
     querystring "0.2.0"
+
+use-debounce@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/use-debounce/-/use-debounce-7.0.1.tgz#380e6191cc13ad29f8e2149a12b5c37cc2891190"
+  integrity sha512-fOrzIw2wstbAJuv8PC9Vg4XgwyTLEOdq4y/Z3IhVl8DAE4svRcgyEUvrEXu+BMNgMoc3YND6qLT61kkgEKXh7Q==
 
 use-sync-external-store@^1.0.0:
   version "1.2.0"

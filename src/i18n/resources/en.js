@@ -516,6 +516,7 @@ The FRA team
     remove: 'Remove',
     done: 'Done',
     edit: 'Edit',
+    editPermissions: 'Edit permissions',
     addUser: 'Add collaborator',
     formErrors: 'There are errors in the form. Please, fix them and submit it again.',
     userAdded: '{{email}} has been added',
@@ -524,7 +525,7 @@ The FRA team
     confirmDelete: 'Remove {{user}}?',
     allUsers: 'All collaborators',
     info: 'Info',
-    tableAccess: 'Table access',
+    permissions: 'Permissions',
     invitationLink: 'Invitation link',
     sendInvitation: 'Send invitation email',
     invitationDeleted: 'The invitation has been deleted',
@@ -555,6 +556,10 @@ The FRA team fra@fao.org
 <br/>
 {{- url}}
     `,
+    },
+    permissionNames: {
+      tableData: 'Table Data',
+      descriptions: 'Descriptions',
     },
   },
 
