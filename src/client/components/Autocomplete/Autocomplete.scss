@@ -3,17 +3,21 @@
 
 .autocomplete {
   width: 100%;
-
   .autocomplete__listbox {
-    color: $text-link;
+    font-family: $font-family-1;
     width: 100%;
     cursor: pointer;
-    background-color: $ui-bg-hover;
-    box-shadow: 0 0 0 1px $text-body;
+    box-shadow: $shadow-3;
+    background-color: $ui-accent-light;
+    > * {
+      padding: 8px;
+    }
   }
 
 
   .autocomplete__item {
-    background-color: $ui-bg;
+    background-color:white;
+    color: $text-link;
+
   }
 }
