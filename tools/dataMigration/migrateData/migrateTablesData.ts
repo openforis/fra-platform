@@ -19,11 +19,19 @@ export const migrateTablesData = async (
   const { assessment, cycle } = props
   const schema = DBNames.getAssessmentSchema(assessment.props.name)
 
-  const countryISOs = await client.map<string>(`select * from public.country`, [], (o) => o.country_iso)
+  const countryISOs = await client.map<string>(
+    `
+        select *
+        from public.country`,
+    [],
+    (o) => o.country_iso
+  )
+
   const tables = await client.map<Table>(
-    `select *
-     from ${schema}.table
-     order by id`,
+    `select t.*
+     from ${schema}."table" t
+     where t.props -> 'cycles' ? '${cycle.uuid}'
+     order by t.id`,
     [],
     // @ts-ignore
     (table) => {

@@ -31,7 +31,7 @@ const Table: React.FC<Props> = (props) => {
   const { assessmentName, sectionName, sectionAnchor, table: tableProps, data, disabled } = props
 
   const cycle = useCycle()
-  const { i18n } = useTranslation()
+  const { i18n, t } = useTranslation()
   const odpYears = useOriginalDataPointYears()
   const showODP = useShowOriginalDatapoints()
 
@@ -58,7 +58,7 @@ const Table: React.FC<Props> = (props) => {
             {rowsHeader.map((row: TypeRow, rowIndex: number) => (
               <tr key={row.uuid}>
                 {row.cols.map((col: TypeCol, colIndex: number) => {
-                  const { index, label } = col.props
+                  const { index } = col.props
                   const { colSpan, rowSpan } = Cols.getStyle({ cycle, col })
                   const columnName = headers[colIndex]
 
@@ -68,8 +68,7 @@ const Table: React.FC<Props> = (props) => {
                     isOdpHeader = isOdpHeader && country.props.forestCharacteristics.useOriginalDataPoint
 
                   const getColumnName = () => {
-                    if (label?.key) return i18n.t(label?.key, label?.params)
-                    if (typeof label?.label === 'string') return label?.label
+                    const label = Cols.getLabel({ cycle, col, t })
 
                     if (isOdpHeader && !print) {
                       return (
@@ -84,12 +83,13 @@ const Table: React.FC<Props> = (props) => {
                               sectionName: table.props.name,
                             })}
                           >
-                            {columnName}
+                            {label}
                           </Link>
                         </Tooltip>
                       )
                     }
-                    return columnName
+
+                    return label
                   }
 
                   const headerLeft = (index === 0 && rowIndex === 0) || row.props?.readonly

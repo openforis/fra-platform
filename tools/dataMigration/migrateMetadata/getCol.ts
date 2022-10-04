@@ -1,8 +1,6 @@
-import { Assessment } from '../../../src/meta/assessment'
-import { Col, ColStyle, ColType } from '../../../src/meta/assessment/col'
-import { Row } from '../../../src/meta/assessment/row'
+import { Assessment, Col, ColStyle, ColType, Label, Row } from '../../../src/meta/assessment'
 import { ColSpec } from '../../../src/test/sectionSpec'
-import { getCycleUuids } from './utils'
+import { getCycleUuids, getLabels } from './utils'
 
 export const getCol = (props: {
   assessment: Assessment
@@ -12,16 +10,33 @@ export const getCol = (props: {
   const { assessment, colSpec, row } = props
   const cycles = getCycleUuids({ assessment, migration: colSpec.migration, parentCycleUuids: row.props.cycles })
   const style = cycles.reduce<Record<string, ColStyle>>(
-    (styleAgg, cycle) => ({ ...styleAgg, [cycle]: { colSpan: colSpec.colSpan, rowSpan: colSpec.rowSpan } }),
+    (styleAgg, cycle) => ({
+      ...styleAgg,
+      [cycle]: colSpec.migration?.style
+        ? colSpec.migration.style[assessment.cycles.find((c) => c.uuid === cycle).name]
+        : { colSpan: colSpec.colSpan, rowSpan: colSpec.rowSpan },
+    }),
     {}
   )
+  let variableNo
+  if (colSpec.migration?.variableNo) {
+    variableNo = Object.entries(colSpec.migration?.variableNo).reduce<Record<string, string>>(
+      (acc, [cycleName, varNo]) => ({ ...acc, [assessment.cycles.find((c) => c.name === cycleName).uuid]: varNo }),
+      {}
+    )
+  } else if (colSpec.variableNo) {
+    variableNo = cycles.reduce<Record<string, string>>(
+      (styleAgg, cycle) => ({ ...styleAgg, [cycle]: colSpec.variableNo }),
+      {}
+    )
+  }
   const col: Col & { forceColName?: boolean } = {
     props: {
       cycles,
       colType: colSpec.type as unknown as ColType,
       index: colSpec.idx,
       colName: colSpec.colName,
-      variableNo: colSpec.variableNo,
+      variableNo,
       calculateFn: colSpec.migration?.calculateFn,
       style,
     },
@@ -30,13 +45,14 @@ export const getCol = (props: {
 
   // label migration
   const colSpecLabel = colSpec.label ? String(colSpec.label) : undefined
-  if (colSpecLabel || colSpec.labelKey || colSpec.labelParams || colSpec.labelPrefixKey) {
-    col.props.label = {
+  if (colSpecLabel || colSpec.labelKey || colSpec.labelParams || colSpec.labelPrefixKey || colSpec.migration?.label) {
+    const label: Label = {
       key: colSpec.labelKey,
       params: colSpec.labelParams,
       label: colSpecLabel,
       prefixKey: colSpec.labelPrefixKey,
     }
+    col.props.labels = getLabels({ assessment, label, migration: colSpec.migration })
   }
 
   // select migration

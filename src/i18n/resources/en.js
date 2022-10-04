@@ -4,6 +4,7 @@ const assessmentSection = require('./en/assessmentSection')
 const common = require('./en/common')
 const contentCheck = require('./en/contentCheck')
 const dataDownload = require('./en/dataDownload')
+const fra = require('./en/fra')
 const statisticalFactsheets = require('./en/statisticalFactsheets')
 const login = require('./en/login')
 const uc = require('./en/uc')
@@ -14,6 +15,7 @@ module.exports.translation = {
   common,
   contentCheck,
   dataDownload,
+  fra,
   statisticalFactsheets,
   login,
   uc,

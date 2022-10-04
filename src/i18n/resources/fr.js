@@ -1,6 +1,7 @@
 const area = require('./fr/area')
 const common = require('./fr/common')
 const dataDownload = require('./fr/dataDownload')
+const fra = require('./fr/fra')
 const statisticalFactsheets = require('./fr/statisticalFactsheets')
 const login = require('./fr/login')
 const uc = require('./fr/uc')
@@ -9,6 +10,7 @@ module.exports.translation = {
   area,
   common,
   dataDownload,
+  fra,
   statisticalFactsheets,
   login,
   uc,

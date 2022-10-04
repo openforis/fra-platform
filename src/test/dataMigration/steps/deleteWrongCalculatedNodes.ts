@@ -19,7 +19,6 @@ export const deleteWrongCalculatedNodes = async (
                              on n.col_uuid = c.uuid
                    left join ${schemaAssessment}.row r
                              on r.id = c.row_id
-
           where r.props ->> 'variableName' in ('total_native_placeholder', 'no_unknown', 'other_or_unknown')
       );
 

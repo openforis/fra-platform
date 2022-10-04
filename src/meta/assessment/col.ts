@@ -33,17 +33,14 @@ export interface ColStyle {
 }
 
 export interface ColProps {
+  calculateFn?: string
   colName?: string
   colType: ColType
   index?: number | string
-  label?: Label
-  variableNo?: string
-  // calculated props
-  calculateFn?: string
-  // select props
+  labels?: Record<string, Label> // label by cycle uuid
   select?: ColSelectProps
-  // style by cycle uuid
-  style: Record<string, ColStyle>
+  style: Record<string, ColStyle> // style by cycle uuid
+  variableNo?: Record<string, string> // variable number by cycle uuid
 }
 
 export interface Col extends CycledPropsObject<ColProps> {

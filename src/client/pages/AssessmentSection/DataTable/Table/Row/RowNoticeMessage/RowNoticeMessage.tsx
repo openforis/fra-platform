@@ -10,16 +10,15 @@ import { Props } from '../props'
 const RowNoticeMessage: React.FC<Props> = (props) => {
   const { row } = props
 
-  const i18n = useTranslation()
+  const { t } = useTranslation()
   const cycle = useCycle()
   const { cols } = row
 
   return (
     <tr>
       {cols.map((col) => {
-        const { label } = col.props
         const { rowSpan, colSpan } = Cols.getStyle({ col, cycle })
-        const message = label?.key ? i18n.t(label?.key) : null
+        const message = Cols.getLabel({ cycle, col, t })
         return (
           <td key={message} className="fra-table__notice-message-cell" rowSpan={rowSpan} colSpan={colSpan}>
             {message && <div className="message">{message}</div>}

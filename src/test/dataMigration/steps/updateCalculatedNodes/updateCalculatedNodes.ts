@@ -23,12 +23,13 @@ export const updateCalculatedNodes = async (
     `
         select r.*,
                t.props ->> 'name' as table_name,
-               jsonb_agg(c.*)     as cols
+               jsonb_agg(c.*) filter (where c.props -> 'cycles' ? '${cycle.uuid}')     as cols
         from ${schema}.row r
                  left join ${schema}."table" t on r.table_id = t.id
                  left join ${schema}.col c on r.id = c.row_id
-        where r.props ->> 'calculateFn' is not null
-           or c.props ->> 'calculateFn' is not null
+        where t.props -> 'cycles' ? '${cycle.uuid}'
+          and r.props -> 'cycles' ? '${cycle.uuid}'
+          and (r.props ->> 'calculateFn' is not null or c.props ->> 'calculateFn' is not null)
         group by r.id, r.uuid, r.props, t.props ->> 'name'
         order by r.id`,
     [],
