@@ -8,7 +8,7 @@ import { UserRepository } from '@server/repository/public/user'
 export const remove = async (
   props: {
     userToRemove: Pick<User, 'email'>
-    user?: User
+    user: User
   },
   client: BaseProtocol = DB
 ): Promise<User> => {
@@ -17,18 +17,17 @@ export const remove = async (
   return client.tx(async (t) => {
     const removedUser = await UserRepository.remove({ user: userToRemove }, t)
 
-    if (user)
-      await ActivityLogRepository.insertActivityLog(
-        {
-          activityLog: {
-            target: { userId: removedUser.id, user: removedUser.name },
-            section: 'users',
-            message: ActivityLogMessage.userRemove,
-            user,
-          },
+    await ActivityLogRepository.insertActivityLog(
+      {
+        activityLog: {
+          target: { userId: removedUser.id, user: removedUser.name },
+          section: 'users',
+          message: ActivityLogMessage.userRemove,
+          user,
         },
-        t
-      )
+      },
+      t
+    )
 
     return removedUser
   })

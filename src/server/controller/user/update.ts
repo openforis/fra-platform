@@ -10,7 +10,7 @@ export const update = async (
   props: {
     userToUpdate: User
     profilePicture?: Express.Multer.File | null
-    user?: User
+    user: User
   },
   client: BaseProtocol = DB
 ): Promise<User> => {
@@ -23,19 +23,17 @@ export const update = async (
 
     const updatedUser = await UserRepository.update({ user: userToUpdate, profilePicture }, t)
 
-    if (user) {
-      await ActivityLogRepository.insertActivityLog(
-        {
-          activityLog: {
-            target: { userId: updatedUser.id, user: updatedUser.name },
-            section: 'users',
-            message: ActivityLogMessage.userUpdate,
-            user,
-          },
+    await ActivityLogRepository.insertActivityLog(
+      {
+        activityLog: {
+          target: { userId: updatedUser.id, user: updatedUser.name },
+          section: 'users',
+          message: ActivityLogMessage.userUpdate,
+          user,
         },
-        t
-      )
-    }
+      },
+      t
+    )
 
     return updatedUser
   })
