@@ -10,7 +10,7 @@
     box-shadow: $shadow-3;
     background-color: $ui-accent-light;
     > * {
-      padding: 8px;
+      padding: $spacing-xxs;
     }
   }
 
