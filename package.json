@@ -236,6 +236,7 @@
     "socket.io-client": "^4.5.0",
     "to-snake-case": "^1.0.0",
     "tsconfig-paths": "^3.14.1",
+    "turnstone": "^2.2.0",
     "uuid": "^8.3.2",
     "webpack-node-externals": "^3.0.0"
   },

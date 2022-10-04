@@ -20,10 +20,12 @@ import Number from './Number'
 import Placeholder from './Placeholder'
 import { PropsCell } from './props'
 import Select from './Select'
+import Taxon from './Taxon'
 import Text from './Text'
 
 const Components: Record<string, React.FC<PropsCell>> = {
   [ColType.calculated]: Calculated,
+  [ColType.taxon]: Taxon,
   [ColType.text]: Text,
   [ColType.textarea]: Text,
   [ColType.decimal]: Number,
@@ -59,12 +61,11 @@ const Cell: React.FC<Props> = (props) => {
   const { variableName } = row.props
   const { colName } = col.props
   const params = { data, countryIso, tableName, variableName, colName }
-  const datum = TableDatas.getDatum(params)
   const nodeValue = TableDatas.getNodeValue(params)
   const valid = !Authorizer.canEdit({ countryIso, country, section, user }) || NodeValueValidations.isValid(nodeValue)
 
   const className = useClassName({ col, row, tableName, valid })
-  const { onChange, onPaste } = useOnChange({ table, col, row, nodeValue, data, sectionName })
+  const { onChange, onChangeNodeValue, onPaste } = useOnChange({ table, col, row, nodeValue, data, sectionName })
   useListenNodeUpdate({ countryIso, assessmentName, cycleName, tableName, variableName, colName })
 
   const Component = Components[col.props.colType]
@@ -89,8 +90,9 @@ const Cell: React.FC<Props> = (props) => {
         rowIndex={rowIndex}
         col={col}
         row={row}
-        datum={datum}
+        nodeValue={nodeValue}
         onChange={onChange}
+        onChangeNodeValue={onChangeNodeValue}
         onPaste={onPaste}
       />
     </td>

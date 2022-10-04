@@ -123,6 +123,7 @@ export const migrateMetadata = async (props: Props): Promise<void> => {
                               ColType.select,
                               ColType.text,
                               ColType.textarea,
+                              ColType.taxon,
                             ].includes(col.props.colType)
                           ) {
                             const columnMapping = mapping.columns[colIdx]
