@@ -4,6 +4,7 @@ module.exports = {
   area100HaYear: 'Area (1000 ha/year)',
   categoryHeader2020: 'FRA 2020 categories',
   categoryHeader2025: 'FRA 2025 categories',
+  forestArea100HaYear: 'Forest area (1000 ha)',
 
   // tables
   extentOfForest: {

@@ -517,7 +517,6 @@ module.exports.translation = {
     extentOfForest: 'Площадь лесов и прочих лесопокрытых земель',
     estimationAndForecasting: 'Оценка и прогнозирование',
     categoryHeader: 'Категории ОЛР',
-    areaUnitLabel: 'Площадь (1000 га)',
     forestArea: 'Леса',
     chart: {
       placeholderLine1: 'Чтобы начать, добавьте новые национальные отчетные годы и используйте',
@@ -555,7 +554,6 @@ module.exports.translation = {
     forestCharacteristics: 'Характеристики лесов',
     estimationAndForecasting: 'Оценка и прогнозирование',
     categoryHeader: 'Категории ОЛР',
-    areaUnitLabel: 'Площадь лесов (1000 га)',
     naturalForestArea: 'Естественно возобновляемые леса',
     plantationForestArea: 'Плантационные лесные культуры',
     plantationForestIntroducedArea: '…в том числе интродуцированные породы',

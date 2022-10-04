@@ -500,7 +500,6 @@ L'équipe de FRA fra@fao.org
     extentOfForest: 'Étendue des forêts et des autres terres boisées',
     estimationAndForecasting: 'Estimation et prévision',
     categoryHeader: 'Catégories de FRA',
-    areaUnitLabel: 'Superficie (1000 ha)',
     forestArea: 'Forêt',
     chart: {
       placeholderLine1: 'Pour commencer, ajouter de nouveaux points de données nationales et les utiliser',
@@ -541,7 +540,6 @@ L'équipe de FRA fra@fao.org
     forestCharacteristics: 'Caractéristiques des forêts',
     estimationAndForecasting: 'Estimation et prévision',
     categoryHeader: 'Catégories de FRA',
-    areaUnitLabel: 'Superficie forestière (1000 ha)',
     naturalForestArea: 'Forêt naturellement régénérée',
     plantationForestArea: 'Forêt de plantation',
     plantationForestIntroducedArea: "…dont d'espèces introduites",

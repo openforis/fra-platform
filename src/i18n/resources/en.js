@@ -587,7 +587,6 @@ The FRA team fra@fao.org
     extentOfForest: 'Extent of forest and other wooded land',
     estimationAndForecasting: 'Estimation and forecasting',
     categoryHeader: 'FRA categories',
-    areaUnitLabel: 'Area (1000 ha)',
     forestArea: 'Forest',
     chart: {
       placeholderLine1: 'To get started, add new national data points and use',
@@ -625,7 +624,6 @@ The FRA team fra@fao.org
     forestCharacteristics: 'Forest characteristics',
     estimationAndForecasting: 'Estimation and forecasting',
     categoryHeader: 'FRA categories',
-    areaUnitLabel: 'Forest area (1000 ha)',
     naturalForestArea: 'Naturally regenerating forest',
     plantationForestArea: 'Plantation forest',
     plantationForestIntroducedArea: '…of which introduced species',

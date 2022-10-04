@@ -571,7 +571,6 @@ The FRA team
     extentOfForest: 'نطاق الغابة والأرض الحرجية الأخرى',
     estimationAndForecasting: 'تقييمات وتنبؤات',
     categoryHeader: 'فئات تقييم الموارد الحرجية',
-    areaUnitLabel: 'المساحة (1000 هـ)',
     forestArea: 'غابة',
     chart: {
       placeholderLine1: 'للبدء، قم بإضافة نقاط بيانات وطنية جديدة واستخدمها',
@@ -611,7 +610,6 @@ The FRA team
     forestCharacteristics: 'مواصفات الغابات',
     estimationAndForecasting: 'تقييمات وتنبؤات',
     categoryHeader: 'فئات تقييم الموارد الحرجية',
-    areaUnitLabel: 'مساحة الغابة (1000 هـ)',
     naturalForestArea: 'غابة متجددة طبيعياً',
     plantationForestArea: 'غابات مزروعة',
     plantationForestIntroducedArea: '...منها أنواع مدخلة',
