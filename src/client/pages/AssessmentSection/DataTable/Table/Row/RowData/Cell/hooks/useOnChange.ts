@@ -3,7 +3,6 @@ import React from 'react'
 import { NodesBodyValue } from '@meta/api/request'
 import { Col, Cols, ColType, NodeValue, Row, RowType, Table } from '@meta/assessment'
 import { TableData, TableDatas } from '@meta/data'
-import { Taxon } from '@meta/extData'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useAssessmentSection, useCycle } from '@client/store/assessment'
@@ -19,15 +18,14 @@ type Props = {
   data: TableData
   sectionName: string
 }
-export type OnChangeTaxon = (value: Taxon | string) => void
-export type OnChangeDefault = (
-  event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
-) => void
-type OnChange = OnChangeTaxon | OnChangeDefault
+export type OnChangeNodeValue = (value: NodeValue) => void
+export type OnChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void
+export type OnPaste = React.ClipboardEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
 
 type UseOnChange = {
   onChange: OnChange
-  onPaste: React.ClipboardEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  onChangeNodeValue: OnChangeNodeValue
+  onPaste: OnPaste
 }
 
 export default (props: Props): UseOnChange => {
@@ -40,25 +38,14 @@ export default (props: Props): UseOnChange => {
   const assessment = useAssessment()
   const assessmentSection = useAssessmentSection(sectionName)
 
-  const _persistSanitizedValue = (value: string | Taxon) => {
-    const _value = typeof value === 'string' ? value : value?.scientificName
-
-    if (Sanitizer.isAcceptable({ type, value: _value })) {
+  const _persistSanitizedValue = (value: NodeValue) => {
+    if (Sanitizer.isAcceptable({ type, value: value.raw })) {
       const valueUpdate = Sanitizer.sanitize({
-        value: _value,
+        value: value.raw,
         type,
         valuePrev: nodeValue.raw,
         options: col.props.select?.options,
       })
-
-      const nodeValueUpdate = { ...nodeValue, raw: valueUpdate }
-      if (typeof value !== 'string' && value?.code) {
-        nodeValueUpdate.taxonCode = value.code
-      } else {
-        // If previous version had a taxonCode
-        // No inserting raw string
-        delete nodeValueUpdate.taxonCode
-      }
 
       dispatch(
         AssessmentSectionActions.updateNodeValues({
@@ -70,7 +57,7 @@ export default (props: Props): UseOnChange => {
           values: [
             {
               colName: col.props.colName,
-              value: nodeValueUpdate,
+              value: { ...nodeValue, raw: valueUpdate },
               variableName: row.props.variableName,
             },
           ],
@@ -79,16 +66,19 @@ export default (props: Props): UseOnChange => {
     }
   }
 
-  const onChangeDefault: OnChangeDefault = (event): void => {
+  const onChangeNodeValue = (value: NodeValue): void => {
+    _persistSanitizedValue(value)
+  }
+
+  const onChange: OnChange = (event): void => {
     const { value } = event.target
-    _persistSanitizedValue(value)
+    onChangeNodeValue({
+      ...nodeValue,
+      raw: value,
+    })
   }
 
-  const onChangeTaxon = (value: Taxon | string): void => {
-    _persistSanitizedValue(value)
-  }
-
-  const onPaste: ClipboardEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement> = (event) => {
+  const onPaste: React.ClipboardEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement> = (event) => {
     event.stopPropagation()
     event.preventDefault()
 
@@ -169,7 +159,5 @@ export default (props: Props): UseOnChange => {
     }
   }
 
-  const onChange = type === ColType.taxon ? onChangeTaxon : onChangeDefault
-
-  return { onChange, onPaste }
+  return { onChange, onChangeNodeValue, onPaste }
 }

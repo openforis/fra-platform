@@ -66,7 +66,7 @@ const Cell: React.FC<Props> = (props) => {
   const valid = !Authorizer.canEdit({ countryIso, country, section, user }) || NodeValueValidations.isValid(nodeValue)
 
   const className = useClassName({ col, row, tableName, valid })
-  const { onChange, onPaste } = useOnChange({ table, col, row, nodeValue, data, sectionName })
+  const { onChange, onChangeNodeValue, onPaste } = useOnChange({ table, col, row, nodeValue, data, sectionName })
   useListenNodeUpdate({ countryIso, assessmentName, cycleName, tableName, variableName, colName })
 
   const Component = Components[col.props.colType]
@@ -92,7 +92,9 @@ const Cell: React.FC<Props> = (props) => {
         col={col}
         row={row}
         datum={datum}
+        nodeValue={nodeValue}
         onChange={onChange}
+        onChangeNodeValue={onChangeNodeValue}
         onPaste={onPaste}
       />
     </td>
