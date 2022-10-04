@@ -16,7 +16,8 @@ import { useNationalClassNameComments, useNationalClassValidation } from '../../
 
 const columns = [{ name: 'plantationIntroducedPercent', type: 'decimal' }]
 
-const allowedClass = (nc: ODPNationalClass) => Number(nc.plantationPercent) > 0 && Number(nc.forestPercent) > 0
+const allowedClass = (nc: ODPNationalClass) =>
+  nc.plantationPercent !== null && Number(nc.plantationPercent) >= 0 && Number(nc.forestPercent) > 0
 
 type Props = {
   canEditData: boolean
@@ -48,14 +49,18 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
     return null
   }
 
+  // const isPlantationPercentNull = plantationPercent === null
+
+  const isZeroOrNullPlantationIntroduced = plantationIntroduced === null || Numbers.eq(plantationIntroduced, 0)
+
   return (
     <tr className={classNameRowComments}>
       <th className="fra-table__category-cell">{name}</th>
       <th className="fra-table__calculated-sub-cell fra-table__divider">{Numbers.format(plantationIntroduced)}</th>
       <td className={`fra-table__cell ${classNamePercentageValidation}`}>
         <PercentInput
-          disabled={!canEditData}
-          numberValue={plantationIntroducedPercent}
+          disabled={!canEditData || isZeroOrNullPlantationIntroduced}
+          numberValue={isZeroOrNullPlantationIntroduced ? 0 : plantationIntroducedPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             dispatch(
               OriginalDataPointActions.updateNationalClass({
