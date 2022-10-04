@@ -30,5 +30,5 @@ export interface ActivityLog<Target> {
   countryIso?: string
   section: string
   user: User
-  time?: string
+  time: string
 }
