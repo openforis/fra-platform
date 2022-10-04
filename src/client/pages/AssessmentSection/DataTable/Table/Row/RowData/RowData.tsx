@@ -54,7 +54,7 @@ const RowData: React.FC<Props> = (props) => {
       >
         {row.props.linkToSection ? (
           <>
-            {/* TODO - print view <div className="only-print">{colHeaderValue}</div> */}
+            <div className="only-print">{colHeaderLabel}</div>
             <Link
               to={ClientRoutes.Assessment.Section.getLink({
                 countryIso,

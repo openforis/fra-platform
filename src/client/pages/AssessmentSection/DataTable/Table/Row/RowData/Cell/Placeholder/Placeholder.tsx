@@ -14,7 +14,7 @@ const Placeholder: React.FC<PropsCell> = (props) => {
 
   const labelCell = Cols.getLabel({ cycle, col, t })
 
-  return <div>{labelCell || nodeValue.raw || ''}</div>
+  return <div>{labelCell || nodeValue?.raw || ''}</div>
 }
 
 export default Placeholder
