@@ -31,7 +31,7 @@ const Table: React.FC<Props> = (props) => {
   const { assessmentName, sectionName, sectionAnchor, table: tableProps, data, disabled } = props
 
   const cycle = useCycle()
-  const { i18n, t } = useTranslation()
+  const { t } = useTranslation()
   const odpYears = useOriginalDataPointYears()
   const showODP = useShowOriginalDatapoints()
 
@@ -72,7 +72,7 @@ const Table: React.FC<Props> = (props) => {
 
                     if (isOdpHeader && !print) {
                       return (
-                        <Tooltip text={i18n.t('nationalDataPoint.clickOnNDP')}>
+                        <Tooltip text={t('nationalDataPoint.clickOnNDP')}>
                           <Link
                             className="link"
                             to={ClientRoutes.Assessment.OriginalDataPoint.Section.getLink({
