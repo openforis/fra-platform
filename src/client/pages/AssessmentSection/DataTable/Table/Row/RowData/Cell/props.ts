@@ -1,4 +1,6 @@
-import { AssessmentName, Col, Row, Table } from '@meta/assessment'
+import { AssessmentName, Col, NodeValue, Row, Table } from '@meta/assessment'
+
+import { OnChange, OnChangeNodeValue, OnPaste } from './hooks/useOnChange'
 
 export type PropsCell = {
   assessmentName: AssessmentName
@@ -8,7 +10,8 @@ export type PropsCell = {
   rowIndex: number
   col: Col
   row: Row
-  datum: string
-  onChange: any // TODO ChangeEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
-  onPaste: any // TODO ClipboardEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  nodeValue: NodeValue
+  onChange: OnChange
+  onPaste: OnPaste
+  onChangeNodeValue: OnChangeNodeValue
 }
