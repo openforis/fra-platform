@@ -2,25 +2,29 @@ import './UserInvitationInfo.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { User } from '@meta/user'
+import { User, Users } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
 import { UserManagementActions } from '@client/store/userManagement'
+import { useCountryIso } from '@client/hooks'
 import { useToaster } from '@client/hooks/useToaster'
 import Icon from '@client/components/Icon'
 
 const UserInvitationInfo: React.FC<{ user: User; onClose: () => void }> = ({ user, onClose }) => {
   const dispatch = useAppDispatch()
+  const countryIso = useCountryIso()
   const { i18n } = useTranslation()
   const { toaster } = useToaster()
+
+  const { invitationUuid } = Users.getCountryRole(user, countryIso)
 
   return (
     <div className="user-list__invitation-info">
       <div>
         <div>
-          {`${i18n.t('userManagement.invitationLink')}: ${window.location.origin}/login?invitationUuid=${
-            user.roles[0].invitationUuid
-          }`}
+          {`${i18n.t('userManagement.invitationLink')}: ${
+            window.location.origin
+          }/login?invitationUuid=${invitationUuid}`}
         </div>
         <div>
           <button
@@ -28,7 +32,7 @@ const UserInvitationInfo: React.FC<{ user: User; onClose: () => void }> = ({ use
             onClick={async () => {
               dispatch(
                 UserManagementActions.sendInvitationEmail({
-                  invitationUuid: user.roles[0].invitationUuid,
+                  invitationUuid,
                 })
               ).then(() => {
                 toaster.success(i18n.t<string>('userManagement.invitationEmailSent'))
