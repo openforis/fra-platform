@@ -11,7 +11,7 @@ type Props = {
 
   value: string
   name?: string
-  onChange: (value: any) => void
+  onChange: (value: string | any) => void
   maxItems?: number
 }
 
