@@ -52,7 +52,7 @@ export const getTable = (props: {
 
   let columnNames = columnsMap[name]
   if (!columnNames && mapping) columnNames = mapping.columns.map((col) => col.name)
-  const columnNamesMigration = tableSpec?.migration?.columnNames
+  const columnNamesMigration = tableSpec.migration?.columnNames
     ? Object.entries(tableSpec.migration.columnNames).reduce<Record<string, Array<string>>>(
         (acc, [cycleName, columns]) => ({
           ...acc,
