@@ -10,11 +10,11 @@ import Autocomplete from '@client/components/Autocomplete'
 import { PropsCell } from '../props'
 
 const Taxon: React.FC<PropsCell> = (props: PropsCell) => {
-  const { onChangeNodeValue, datum, disabled, nodeValue } = props
+  const { onChangeNodeValue, disabled, nodeValue } = props
   const _onChange = (value: string | TaxonType) => {
     const isString = typeof value === 'string'
     // Handle first load ajax query call of onChange
-    const isSame = value === datum || (!isString && value?.scientificName === datum)
+    const isSame = value === nodeValue.raw || (!isString && value?.scientificName === nodeValue.raw)
     if (isSame || !value) return
 
     const nodeValueUpdate = { ...nodeValue }
@@ -44,7 +44,7 @@ const Taxon: React.FC<PropsCell> = (props: PropsCell) => {
 
   return (
     <div className="text-input__container validation-error-sensitive-field">
-      <Autocomplete listbox={listbox} onChange={_onChange} disabled={disabled} value={datum} />
+      <Autocomplete listbox={listbox} onChange={_onChange} disabled={disabled} value={nodeValue.raw} />
     </div>
   )
 }

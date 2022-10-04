@@ -11,7 +11,6 @@ export type PropsCell = {
   col: Col
   row: Row
   nodeValue: NodeValue
-  datum: string
   onChange: OnChange
   onPaste: OnPaste
   onChangeNodeValue: OnChangeNodeValue

@@ -61,7 +61,6 @@ const Cell: React.FC<Props> = (props) => {
   const { variableName } = row.props
   const { colName } = col.props
   const params = { data, countryIso, tableName, variableName, colName }
-  const datum = TableDatas.getDatum(params)
   const nodeValue = TableDatas.getNodeValue(params)
   const valid = !Authorizer.canEdit({ countryIso, country, section, user }) || NodeValueValidations.isValid(nodeValue)
 
@@ -91,7 +90,6 @@ const Cell: React.FC<Props> = (props) => {
         rowIndex={rowIndex}
         col={col}
         row={row}
-        datum={datum}
         nodeValue={nodeValue}
         onChange={onChange}
         onChangeNodeValue={onChangeNodeValue}
