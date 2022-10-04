@@ -13,7 +13,7 @@ const Placeholder: React.FC<PropsCell> = (props) => {
   if (typeof label?.label === 'string') labelCell = label?.label
   if (label?.key) labelCell = i18n.t(label?.key, label?.params)
 
-  return <div>{labelCell || nodeValue.raw || ''}</div>
+  return <div>{labelCell || nodeValue?.raw || ''}</div>
 }
 
 export default Placeholder
