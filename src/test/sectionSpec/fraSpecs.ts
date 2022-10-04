@@ -143,9 +143,14 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 'header_0',
                     type: 'header',
                     colSpan: 1,
-                    labelKey: 'fraClass.otherLand',
                     variableNo: 'c-a-b',
                     className: 'fra-table__header-cell-left',
+                    migration: {
+                      label: {
+                        '2020': { key: 'fraClass.otherLand' },
+                        '2025': { key: 'fra.extentOfForest.remainingLandArea' },
+                      },
+                    },
                   },
                   ...fraYears.map((year, idx) => ({
                     idx,
@@ -155,7 +160,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     colName: `${year}`,
                   })),
                 ],
-                labelKey: 'fraClass.otherLand',
                 variableNo: 'c-a-b',
                 variableName: 'otherLand',
                 variableExport: 'other_land',
@@ -163,10 +167,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   calcFormula:
                     'extentOfForest.totalLandArea - (extentOfForest.forestArea || 0) - (extentOfForest.otherWoodedLand || 0)',
                   validateFns: [`validatorOtherLand(extentOfForest.otherLand, extentOfForest.totalLandArea)`],
-                  label: {
-                    '2020': 'fraClass.otherLand',
-                    '2025': 'fra.extentOfForest.remainingLandArea',
-                  },
                 },
               },
               {
