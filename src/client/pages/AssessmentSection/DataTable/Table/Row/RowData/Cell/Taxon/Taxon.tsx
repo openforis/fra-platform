@@ -19,7 +19,7 @@ const Taxon: React.FC<PropsCell> = (props: PropsCell) => {
 
     const nodeValueUpdate = { ...nodeValue }
 
-    if (!isString && value?.code) {
+    if (!isString && value.code) {
       nodeValueUpdate.raw = value.scientificName
       nodeValueUpdate.taxonCode = value.code
     }
