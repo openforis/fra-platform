@@ -20,7 +20,7 @@ export const getCol = (props: {
   )
   let variableNo
   if (colSpec.migration?.variableNo) {
-    variableNo = Object.entries(colSpec.migration?.variableNo).reduce<Record<string, string>>(
+    variableNo = Object.entries(colSpec.migration.variableNo).reduce<Record<string, string>>(
       (acc, [cycleName, varNo]) => ({ ...acc, [assessment.cycles.find((c) => c.name === cycleName).uuid]: varNo }),
       {}
     )

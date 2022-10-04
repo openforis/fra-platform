@@ -46,7 +46,7 @@ const getLabel = (props: { cycle: Cycle; col: Col; t: TFunction }): string => {
   let labelString = col.props.colName ?? ''
   if (label) {
     if (label.prefixKey) labelString += t(label.prefixKey)
-    if (label.key) labelString += t(label.key, { ...label?.params })
+    if (label.key) labelString += t(label.key, { ...label.params })
     if (label.label) labelString += label.label
   }
   return labelString
