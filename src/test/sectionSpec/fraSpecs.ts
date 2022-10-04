@@ -2476,7 +2476,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 0,
-                    type: 'text',
+                    type: 'taxon',
                   },
                   {
                     idx: 1,
@@ -2527,7 +2527,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 0,
-                    type: 'text',
+                    type: 'taxon',
                   },
                   {
                     idx: 1,
@@ -2578,7 +2578,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 0,
-                    type: 'text',
+                    type: 'taxon',
                   },
                   {
                     idx: 1,
@@ -2629,7 +2629,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 0,
-                    type: 'text',
+                    type: 'taxon',
                   },
                   {
                     idx: 1,
@@ -2680,7 +2680,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 0,
-                    type: 'text',
+                    type: 'taxon',
                   },
                   {
                     idx: 1,
@@ -2731,7 +2731,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 0,
-                    type: 'text',
+                    type: 'taxon',
                   },
                   {
                     idx: 1,
@@ -2782,7 +2782,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 0,
-                    type: 'text',
+                    type: 'taxon',
                   },
                   {
                     idx: 1,
@@ -2833,7 +2833,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 0,
-                    type: 'text',
+                    type: 'taxon',
                   },
                   {
                     idx: 1,
@@ -2884,7 +2884,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 0,
-                    type: 'text',
+                    type: 'taxon',
                   },
                   {
                     idx: 1,
@@ -2935,7 +2935,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 0,
-                    type: 'text',
+                    type: 'taxon',
                   },
                   {
                     idx: 1,
@@ -3085,7 +3085,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 0,
-                    type: 'text',
+                    type: 'taxon',
                   },
                   {
                     idx: 1,
@@ -3136,7 +3136,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 0,
-                    type: 'text',
+                    type: 'taxon',
                   },
                   {
                     idx: 1,
@@ -3187,7 +3187,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 0,
-                    type: 'text',
+                    type: 'taxon',
                   },
                   {
                     idx: 1,
@@ -3238,7 +3238,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 0,
-                    type: 'text',
+                    type: 'taxon',
                   },
                   {
                     idx: 1,
@@ -3289,7 +3289,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 0,
-                    type: 'text',
+                    type: 'taxon',
                   },
                   {
                     idx: 1,

@@ -1,0 +1,23 @@
+@import 'src/client/styles/config';
+@import 'src/client/style/partials';
+
+.autocomplete {
+  width: 100%;
+  .autocomplete__listbox {
+    font-family: $font-family-1;
+    width: 100%;
+    cursor: pointer;
+    box-shadow: $shadow-3;
+    background-color: $ui-accent-light;
+    > * {
+      padding: $spacing-xxs;
+    }
+  }
+
+
+  .autocomplete__item {
+    background-color:white;
+    color: $text-link;
+
+  }
+}

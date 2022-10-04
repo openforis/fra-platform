@@ -10,6 +10,7 @@ export enum ColType {
   placeholder = 'placeholder',
   select = 'select',
   selectYesNo = 'selectYesNo',
+  taxon = 'taxon',
   text = 'text',
   textarea = 'textarea',
   // placeholder = 'placeholder',
