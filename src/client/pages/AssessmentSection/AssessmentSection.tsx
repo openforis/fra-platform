@@ -8,7 +8,7 @@ import { AssessmentName, AssessmentNames } from '@meta/assessment'
 import { useAssessmentSection } from '@client/store/assessment'
 import { useTableSections } from '@client/store/pages/assessmentSection'
 import { useIsSectionDataEmpty } from '@client/store/pages/assessmentSection/hooks'
-import { useCanEditSection } from '@client/store/user'
+import { useCanEditSectionDescriptions, useCanEditSectionTableData } from '@client/store/user/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
 
 import DataTable from './DataTable'
@@ -26,11 +26,14 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
   const { assessmentName } = useParams<{ assessmentName: AssessmentName; cycleName: string; sectionName: string }>()
   const assessmentSection = useAssessmentSection(sectionProp)
   const tableSections = useTableSections({ sectionName: assessmentSection?.props.name })
-  const canEditSection = useCanEditSection(sectionProp)
+  const canEditSectionTableData = useCanEditSectionTableData(sectionProp)
+  const canEditSectionDescriptions = useCanEditSectionDescriptions(sectionProp)
   const { print, onlyTables } = useIsPrint()
 
   const panEuropean = assessmentName === AssessmentNames.panEuropean
-  const disabled = panEuropean || !canEditSection
+  const disabled = panEuropean || !canEditSectionTableData || canEditSectionDescriptions
+  const disabledTableData = panEuropean || !canEditSectionTableData
+  const disabledDescriptions = panEuropean || !canEditSectionDescriptions
 
   const { anchor, showTitle, descriptions, name: sectionName } = assessmentSection?.props ?? {}
 
@@ -50,7 +53,9 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
 
       <SectionHeader assessmentName={assessmentName} sectionName={sectionName} disabled={disabled} />
 
-      {!panEuropean && <Descriptions sectionName={sectionName} descriptions={descriptions} disabled={disabled} />}
+      {!panEuropean && (
+        <Descriptions sectionName={sectionName} descriptions={descriptions} disabled={disabledDescriptions} />
+      )}
 
       {showTitle && <Title assessmentName={assessmentName} sectionName={sectionName} sectionAnchor={anchor} />}
 
@@ -72,7 +77,7 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
                 sectionName={sectionName}
                 sectionAnchor={anchor}
                 table={table}
-                disabled={disabled}
+                disabled={disabledTableData}
               />
               {table.props.print?.pageBreakAfter && <div className="page-break" />}
             </React.Fragment>
@@ -80,7 +85,7 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
         </div>
       ))}
 
-      {descriptions.comments && <GeneralComments sectionName={sectionName} disabled={disabled} />}
+      {descriptions.comments && <GeneralComments sectionName={sectionName} disabled={canEditSectionDescriptions} />}
 
       <div className="page-break" />
     </div>
