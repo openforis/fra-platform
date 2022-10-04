@@ -1,6 +1,6 @@
 export interface Taxon {
   id: number
-  code: number
+  code: string
   scientificName: string
   family: string
 }

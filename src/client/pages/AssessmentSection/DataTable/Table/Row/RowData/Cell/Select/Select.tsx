@@ -14,16 +14,18 @@ const getOptionLabel = (option: ColSelectOption, i18n: i18n, labelKeyPrefix: str
 }
 
 const Select: React.FC<PropsCell> = (props) => {
-  const { onChange, onPaste, col, datum, disabled } = props
+  const { onChange, onPaste, col, nodeValue, disabled } = props
   const { options, labelKeyPrefix = 'yesNoTextSelect' } = col.props.select
 
-  const optionSelected = [optionNotSelected, ...options].find((option) => option.name === datum)
+  const optionSelected = [optionNotSelected, ...options].find((option) => option.name === nodeValue.raw)
   const { i18n } = useTranslation()
 
   if (disabled) {
     return (
       <div className="text-input__container">
-        <div className="text-input__readonly-view">{datum && getOptionLabel(optionSelected, i18n, labelKeyPrefix)}</div>
+        <div className="text-input__readonly-view">
+          {nodeValue.raw && getOptionLabel(optionSelected, i18n, labelKeyPrefix)}
+        </div>
       </div>
     )
   }
@@ -32,7 +34,7 @@ const Select: React.FC<PropsCell> = (props) => {
     <div className="fra-table__select-container">
       <select
         className="fra-table__select no-print"
-        value={datum ?? optionNotSelected.name}
+        value={nodeValue.raw ?? optionNotSelected.name}
         disabled={disabled}
         onChange={onChange}
         onPaste={onPaste}
@@ -47,7 +49,7 @@ const Select: React.FC<PropsCell> = (props) => {
         })}
       </select>
       <div className="text-input__readonly-view only-print" style={{ textAlign: 'left' }}>
-        {datum && getOptionLabel(optionSelected, i18n, labelKeyPrefix)}
+        {nodeValue.raw && getOptionLabel(optionSelected, i18n, labelKeyPrefix)}
       </div>
     </div>
   )
