@@ -23,6 +23,9 @@ export const update = async (
 
     const updatedUser = await UserRepository.update({ user: userToUpdate, profilePicture }, t)
 
+    // don't save thousands of lines about roles, they are saved separately
+    delete updatedUser.roles
+
     await ActivityLogRepository.insertActivityLog(
       {
         activityLog: {
