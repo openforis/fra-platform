@@ -2,7 +2,7 @@ import './mapVisualizerPanel.scss'
 import React from 'react'
 
 import GeoMapMenuListElement from '../../GeoMapMenuListElement'
-import AgreementLevelsControl from '../MapVisualizerAgreementLevelsControl/mapVisualizerAgreementLevelsControl'
+import AgreementLevelsControl from '../MapVisualizerAgreementLevelsControl'
 
 // Just to display items for demo purposes
 const layers = [

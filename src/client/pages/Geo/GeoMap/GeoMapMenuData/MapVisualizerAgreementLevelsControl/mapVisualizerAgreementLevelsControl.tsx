@@ -3,7 +3,7 @@ import React from 'react'
 
 const AgreementLevelsControl: React.FC = () => {
   return (
-    <div>
+    <div className="geo-map-menu-data-visualizer-agreement-levels-control">
       <p>
         <strong>Choose the agreement level between all map layers</strong>
         <br />
