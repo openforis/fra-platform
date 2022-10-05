@@ -7,7 +7,6 @@ import { RoleName, User, UserRole, Users, UserStatus } from '@meta/user'
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { UserManagementActions } from '@client/store/userManagement'
-import { useIsUserUpdating } from '@client/store/userManagement/hooks'
 import { useCountryIso } from '@client/hooks'
 import { useToaster } from '@client/hooks/useToaster'
 
@@ -24,7 +23,6 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
-  const isUserUpdating = useIsUserUpdating()
 
   const [profilePicture, setProfilePicture] = useState<File>(null)
 
@@ -50,17 +48,19 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
 
   const changeUser = useCallback(
     (value: string | Array<Partial<UserRole<RoleName>>>, key: string) => {
-      dispatch(
-        UserManagementActions.updateUser({
-          user: { ...user, [key]: value },
-          profilePicture,
-          countryIso,
-          assessmentName: assessment.props.name,
-          cycleName: cycle.name,
+      if (!Users.validate(user).isError) {
+        dispatch(
+          UserManagementActions.updateUser({
+            user: { ...user, [key]: value },
+            profilePicture,
+            countryIso,
+            assessmentName: assessment.props.name,
+            cycleName: cycle.name,
+          })
+        ).then(() => {
+          toaster.success(i18n.t('userManagement.userModified', { user: user.name }))
         })
-      ).then(() => {
-        toaster.success(i18n.t('userManagement.userModified', { user: user.name }))
-      })
+      }
     },
     [assessment.props.name, countryIso, cycle.name, dispatch, i18n, profilePicture, toaster, user]
   )
@@ -81,7 +81,7 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
   return (
     <div className="edit-user__form-container">
       <ProfilePicture userId={user.id} onChange={(profilePicture: File) => setProfilePicture(profilePicture)} />
-      <TextInputFields disabled={isUserUpdating} user={user} onChange={changeUser} />
+      <TextInputFields user={user} onChange={changeUser} />
       {userRole?.role === RoleName.COLLABORATOR && <CollaboratorPermissions userRole={userRole} />}
       <CountryRoles onChange={changeUser} user={user} />
 
