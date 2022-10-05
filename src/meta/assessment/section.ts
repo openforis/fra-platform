@@ -6,7 +6,8 @@ export interface SectionProps {
 }
 
 export interface SubSectionProps extends SectionProps {
-  anchor: string
+  anchor?: string
+  anchors: Record<string, string> // anchor by cycle uuid
   descriptions: Descriptions
   name: string
   showTitle: boolean
@@ -18,7 +19,3 @@ export interface Section extends CycledPropsObject<SectionProps> {
 }
 
 export type SubSection = CycledPropsObject<SubSectionProps>
-// assessmentId: number
-// children?: Record<string, AssessmentSectionItem>
-// tableSections?: Array<TableSection>
-// dataExport: boolean // if it's included in data export
