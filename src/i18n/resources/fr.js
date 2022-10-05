@@ -1,6 +1,7 @@
 const area = require('./fr/area')
 const common = require('./fr/common')
 const dataDownload = require('./fr/dataDownload')
+const fra = require('./fr/fra')
 const statisticalFactsheets = require('./fr/statisticalFactsheets')
 const login = require('./fr/login')
 const uc = require('./fr/uc')
@@ -9,6 +10,7 @@ module.exports.translation = {
   area,
   common,
   dataDownload,
+  fra,
   statisticalFactsheets,
   login,
   uc,
@@ -498,7 +500,6 @@ L'équipe de FRA fra@fao.org
     extentOfForest: 'Étendue des forêts et des autres terres boisées',
     estimationAndForecasting: 'Estimation et prévision',
     categoryHeader: 'Catégories de FRA',
-    areaUnitLabel: 'Superficie (1000 ha)',
     forestArea: 'Forêt',
     chart: {
       placeholderLine1: 'Pour commencer, ajouter de nouveaux points de données nationales et les utiliser',
@@ -539,7 +540,6 @@ L'équipe de FRA fra@fao.org
     forestCharacteristics: 'Caractéristiques des forêts',
     estimationAndForecasting: 'Estimation et prévision',
     categoryHeader: 'Catégories de FRA',
-    areaUnitLabel: 'Superficie forestière (1000 ha)',
     naturalForestArea: 'Forêt naturellement régénérée',
     plantationForestArea: 'Forêt de plantation',
     plantationForestIntroducedArea: "…dont d'espèces introduites",

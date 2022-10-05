@@ -1,6 +1,7 @@
 const area = require('./es/area')
 const common = require('./es/common')
 const dataDownload = require('./es/dataDownload')
+const fra = require('./es/fra')
 const statisticalFactsheets = require('./es/statisticalFactsheets')
 const login = require('./es/login')
 const uc = require('./fr/uc')
@@ -10,6 +11,7 @@ module.exports.translation = {
   area,
   common,
   dataDownload,
+  fra,
   statisticalFactsheets,
   login,
   uc,
@@ -500,7 +502,6 @@ El equipo de FRA
     extentOfForest: 'Extensión del bosque y otras tierras boscosas',
     estimationAndForecasting: 'Estimación and proyección',
     categoryHeader: 'Categorías de FRA',
-    areaUnitLabel: 'Área (1000 ha)',
     forestArea: 'Bosque',
     chart: {
       placeholderLine1: 'Para empezar, añada nuevos puntos de datos nacionales y úselos',
@@ -539,7 +540,6 @@ El equipo de FRA
     forestCharacteristics: 'Características de los bosques',
     estimationAndForecasting: 'Estimación y proyección',
     categoryHeader: 'Categorías de FRA',
-    areaUnitLabel: 'Área forestal (1000 ha)',
     naturalForestArea: 'Bosque regenerado de forma natural',
     plantationForestArea: 'Plantación forestal',
     plantationForestIntroducedArea: '…de la cual con especies introducidas',

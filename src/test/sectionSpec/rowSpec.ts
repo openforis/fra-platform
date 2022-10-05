@@ -1,4 +1,4 @@
-import { CalculateValue, ColSpec } from './colSpec'
+import { ColSpec } from './colSpec'
 import { TypeSpec } from './typeSpec'
 import { GetValidationMessages, Validator } from './validation'
 
@@ -12,7 +12,7 @@ export interface RowSpec {
   cols: Array<ColSpec>
   validator?: Validator
   variableName?: string
-  calculateFn?: CalculateValue
+  // calculateFn?: CalculateValue
   chartProps?: RowChartSpec
   idx?: string | number
   labelKey?: string

@@ -52,7 +52,7 @@ const useGenerateValues = (
       .map((row) => {
         const { variableName } = row.props
         const colHeader = row.cols.find((col) => col.props.colType === ColType.header)
-        const { key } = colHeader.props.label
+        const { key } = colHeader.props.labels[cycle.uuid]
         return {
           variableName,
           labelKey: key,

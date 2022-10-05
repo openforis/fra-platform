@@ -1,6 +1,7 @@
 const area = require('./ru/area')
 const common = require('./ru/common')
 const dataDownload = require('./ru/dataDownload')
+const fra = require('./ru/fra')
 const statisticalFactsheets = require('./ru/statisticalFactsheets')
 const login = require('./ru/login')
 const uc = require('./ru/uc')
@@ -10,6 +11,7 @@ module.exports.translation = {
   area,
   common,
   dataDownload,
+  fra,
   statisticalFactsheets,
   login,
   uc,
@@ -515,7 +517,6 @@ module.exports.translation = {
     extentOfForest: 'Площадь лесов и прочих лесопокрытых земель',
     estimationAndForecasting: 'Оценка и прогнозирование',
     categoryHeader: 'Категории ОЛР',
-    areaUnitLabel: 'Площадь (1000 га)',
     forestArea: 'Леса',
     chart: {
       placeholderLine1: 'Чтобы начать, добавьте новые национальные отчетные годы и используйте',
@@ -553,7 +554,6 @@ module.exports.translation = {
     forestCharacteristics: 'Характеристики лесов',
     estimationAndForecasting: 'Оценка и прогнозирование',
     categoryHeader: 'Категории ОЛР',
-    areaUnitLabel: 'Площадь лесов (1000 га)',
     naturalForestArea: 'Естественно возобновляемые леса',
     plantationForestArea: 'Плантационные лесные культуры',
     plantationForestIntroducedArea: '…в том числе интродуцированные породы',

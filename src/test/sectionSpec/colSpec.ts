@@ -1,15 +1,9 @@
-// @ts-ignore
-// eslint-disable-next-line import/no-unresolved
-import { TableDatumODP } from '@core/assessment'
 import BigNumber from 'bignumber.js'
+
+import { ColStyle, Label } from '@meta/assessment'
 
 import { TypeSpec } from './typeSpec'
 import { Validator } from './validation'
-
-export interface CalculateValue {
-  (colIdx: number, rowIdx: number): (state: any) => number | BigNumber
-  (datum: TableDatumODP): (state: any) => number | BigNumber
-}
 
 export type FormatValue = (value: number | string | BigNumber) => string
 
@@ -30,7 +24,6 @@ export interface ColSpec {
   rowSpan?: number
   colSpan?: number
   // left?: boolean // TODO: is it only in factory?
-  calculateFn?: CalculateValue
   validator?: Validator
   formatFn?: FormatValue
   // select
@@ -44,7 +37,10 @@ export interface ColSpec {
   colName?: string
   migration?: {
     calculateFn?: string
-    forceColName?: boolean
     cycles?: Array<string>
+    forceColName?: boolean
+    label?: Record<string, Label>
+    style?: Record<string, ColStyle>
+    variableNo?: Record<string, string>
   }
 }

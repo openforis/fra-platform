@@ -21,7 +21,7 @@ import Cell from './Cell'
 const RowData: React.FC<Props> = (props) => {
   const { data, assessmentName, sectionName, table, row, disabled } = props
 
-  const i18n = useTranslation()
+  const { t } = useTranslation()
   const countryIso = useCountryIso()
   const cycle = useCycle()
 
@@ -29,11 +29,9 @@ const RowData: React.FC<Props> = (props) => {
   const { cols } = row
   // const { index /* variableName */ } = row.props
   const colHeader = cols[0]
-  let colHeaderLabel =
-    typeof colHeader.props.label?.label === 'string'
-      ? colHeader.props.label?.label
-      : i18n.t(colHeader.props.label?.key, colHeader.props.label?.params ?? {})
-  if (colHeader.props.variableNo) colHeaderLabel = `${colHeaderLabel} (${colHeader.props.variableNo})`
+  let colHeaderLabel = Cols.getLabel({ cycle, col: colHeader, t })
+  const variableNo = colHeader.props.variableNo?.[cycle.uuid]
+  if (variableNo) colHeaderLabel = `${colHeaderLabel} (${variableNo})`
   const colHeaderStyle = Cols.getStyle({ col: colHeader, cycle })
 
   const colsData = cols.slice(1, cols.length)
@@ -56,7 +54,7 @@ const RowData: React.FC<Props> = (props) => {
       >
         {row.props.linkToSection ? (
           <>
-            {/* TODO - print view <div className="only-print">{colHeaderValue}</div> */}
+            <div className="only-print">{colHeaderLabel}</div>
             <Link
               to={ClientRoutes.Assessment.Section.getLink({
                 countryIso,
