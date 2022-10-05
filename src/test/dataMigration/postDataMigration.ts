@@ -18,8 +18,9 @@ afterAll(async () => {
 
 describe('Post Data migration', () => {
   test('Update node values', async () => {
+    const start = new Date().getTime()
     // eslint-disable-next-line no-console
-    console.log('========== START POST DATA MIGRATION ', new Date().getTime())
+    console.log('========== START POST DATA MIGRATION ', start)
     await DB.tx(async (client) => {
       const assessment = await AssessmentController.getOne({ assessmentName: 'fra', metaCache: true }, client)
       // TODO: remove two below
@@ -42,8 +43,9 @@ describe('Post Data migration', () => {
       await postMetadataFix({ assessment }, client)
     })
 
+    const end = new Date().getTime()
     // eslint-disable-next-line no-console
-    console.log('========== END ', new Date().getTime())
+    console.log('========== END ', end, 'ELAPSED (s)', (end - start) / 1000)
     process.exit(0)
   })
 })
