@@ -4,8 +4,8 @@ import { CommentableDescriptionName } from '@meta/assessment/commentableDescript
 import { User } from '@meta/user'
 
 import { BaseProtocol, DB } from '@server/db'
-import { ActivityLogRepository } from '@server/repository/assessment/activityLog'
 import { DescriptionRepository } from '@server/repository/assessmentCycle/descriptions'
+import { ActivityLogRepository } from '@server/repository/public/activityLog'
 
 export const upsertDescription = async (
   props: {
