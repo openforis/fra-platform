@@ -17,7 +17,7 @@ export const useUserCountries = (): Array<CountryIso> => {
   return user?.roles.map((role) => role.countryIso)
 }
 
-export const useCanEditSection = (sectionName?: string, permission?: CollaboratorEditPropertyType) => {
+const useCanEditSection = (sectionName?: string, permission?: CollaboratorEditPropertyType) => {
   const user = useUser()
   const section = useAssessmentSection(sectionName)
   const countryIso = useCountryIso()
@@ -38,8 +38,8 @@ export const useCanEditSection = (sectionName?: string, permission?: Collaborato
   )
 }
 
-export const useCanEditSectionTableData = (sectionName?: string) =>
+export const useCanEditTableData = (sectionName?: string) =>
   useCanEditSection(sectionName, CollaboratorEditPropertyType.tableData)
 
-export const useCanEditSectionDescriptions = (sectionName?: string) =>
+export const useCanEditDescriptions = (sectionName?: string) =>
   useCanEditSection(sectionName, CollaboratorEditPropertyType.descriptions)

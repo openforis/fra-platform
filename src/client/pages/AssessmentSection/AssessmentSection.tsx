@@ -3,12 +3,12 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
-import { AssessmentName, AssessmentNames } from '@meta/assessment'
+import { AssessmentName } from '@meta/assessment'
 
 import { useAssessmentSection } from '@client/store/assessment'
 import { useTableSections } from '@client/store/pages/assessmentSection'
 import { useIsSectionDataEmpty } from '@client/store/pages/assessmentSection/hooks'
-import { useCanEditSectionDescriptions, useCanEditSectionTableData } from '@client/store/user/hooks'
+import { useCanEditDescriptions, useCanEditTableData } from '@client/store/user/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
 
 import DataTable from './DataTable'
@@ -26,14 +26,9 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
   const { assessmentName } = useParams<{ assessmentName: AssessmentName; cycleName: string; sectionName: string }>()
   const assessmentSection = useAssessmentSection(sectionProp)
   const tableSections = useTableSections({ sectionName: assessmentSection?.props.name })
-  const canEditSectionTableData = useCanEditSectionTableData(sectionProp)
-  const canEditSectionDescriptions = useCanEditSectionDescriptions(sectionProp)
+  const canEditTableData = useCanEditTableData(sectionProp)
+  const canEditDescriptions = useCanEditDescriptions(sectionProp)
   const { print, onlyTables } = useIsPrint()
-
-  const panEuropean = assessmentName === AssessmentNames.panEuropean
-  const disabled = panEuropean || !canEditSectionTableData || canEditSectionDescriptions
-  const disabledTableData = panEuropean || !canEditSectionTableData
-  const disabledDescriptions = panEuropean || !canEditSectionDescriptions
 
   const { anchor, showTitle, descriptions, name: sectionName } = assessmentSection?.props ?? {}
 
@@ -51,12 +46,9 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
         </h2>
       )}
 
-      <SectionHeader assessmentName={assessmentName} sectionName={sectionName} disabled={disabled} />
+      <SectionHeader assessmentName={assessmentName} sectionName={sectionName} disabled={!canEditTableData} />
 
-      {!panEuropean && (
-        <Descriptions sectionName={sectionName} descriptions={descriptions} disabled={disabledDescriptions} />
-      )}
-
+      <Descriptions sectionName={sectionName} descriptions={descriptions} disabled={!canEditDescriptions} />
       {showTitle && <Title assessmentName={assessmentName} sectionName={sectionName} sectionAnchor={anchor} />}
 
       {tableSections.map((tableSection) => (
@@ -77,7 +69,7 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
                 sectionName={sectionName}
                 sectionAnchor={anchor}
                 table={table}
-                disabled={disabledTableData}
+                disabled={!canEditTableData}
               />
               {table.props.print?.pageBreakAfter && <div className="page-break" />}
             </React.Fragment>
@@ -85,7 +77,7 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
         </div>
       ))}
 
-      {descriptions.comments && <GeneralComments sectionName={sectionName} disabled={canEditSectionDescriptions} />}
+      {descriptions.comments && <GeneralComments sectionName={sectionName} disabled={!canEditDescriptions} />}
 
       <div className="page-break" />
     </div>
