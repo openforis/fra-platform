@@ -2,6 +2,7 @@ const area = require('./zh/area')
 const common = require('./zh/common')
 const contentCheck = require('./zh/contentCheck')
 const dataDownload = require('./zh/dataDownload')
+const fra = require('./zh/fra')
 const statisticalFactsheets = require('./zh/statisticalFactsheets')
 const login = require('./zh/login')
 const uc = require('./zh/uc')
@@ -12,6 +13,7 @@ module.exports.translation = {
   common,
   contentCheck,
   dataDownload,
+  fra,
   statisticalFactsheets,
   login,
   uc,
@@ -562,7 +564,6 @@ FRA工作组 fra@fao.org
     extentOfForest: '森林及其他林地的面积',
     estimationAndForecasting: '估算和预测',
     categoryHeader: 'FRA类别',
-    areaUnitLabel: '面积 (1000 公顷)',
     forestArea: '森林',
     chart: {
       placeholderLine1: '请先添加新的国家数据点，然后使用',
@@ -600,7 +601,6 @@ FRA工作组 fra@fao.org
     forestCharacteristics: '森林特征',
     estimationAndForecasting: '估算和预测',
     categoryHeader: 'FRA类别',
-    areaUnitLabel: '森林面积(1000公顷)',
     naturalForestArea: '天然再生林',
     plantationForestArea: '种植林',
     plantationForestIntroducedArea: '引入外来树种的种植林',

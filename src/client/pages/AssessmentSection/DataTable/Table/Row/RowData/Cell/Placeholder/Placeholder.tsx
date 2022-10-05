@@ -1,17 +1,18 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Cols } from '@meta/assessment'
+
+import { useCycle } from '@client/store/assessment'
+
 import { PropsCell } from '../props'
 
 const Placeholder: React.FC<PropsCell> = (props) => {
   const { col, nodeValue } = props
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
+  const cycle = useCycle()
 
-  const { label } = col.props
-
-  let labelCell = ''
-  if (typeof label?.label === 'string') labelCell = label?.label
-  if (label?.key) labelCell = i18n.t(label?.key, label?.params)
+  const labelCell = Cols.getLabel({ cycle, col, t })
 
   return <div>{labelCell || nodeValue?.raw || ''}</div>
 }
