@@ -26,7 +26,7 @@ export const update = async (
     await ActivityLogRepository.insertActivityLog(
       {
         activityLog: {
-          target: { userId: updatedUser.id, user: updatedUser.name },
+          target: { user: updatedUser },
           section: 'users',
           message: ActivityLogMessage.userUpdate,
           user,
