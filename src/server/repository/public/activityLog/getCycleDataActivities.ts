@@ -3,7 +3,7 @@ import { Objects } from '@utils/objects'
 import { CountryIso } from '@meta/area'
 import { ActivityLog, ActivityLogMessage, Assessment, Cycle } from '@meta/assessment'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
+import { BaseProtocol, DB } from '@server/db'
 
 const acceptedMessages = [
   ActivityLogMessage.invitationAccept,
@@ -27,8 +27,6 @@ export const getCycleDataActivities = (
 ): Promise<Array<ActivityLog<any>>> => {
   const { countryIso, assessment, cycle } = props
 
-  const schema = Schemas.getName(assessment)
-
   return client.map<ActivityLog<any>>(
     `
       select
@@ -38,9 +36,10 @@ export const getCycleDataActivities = (
         select
           user_id, message, section, target, time,
           rank() OVER (PARTITION BY user_id, message, section ORDER BY time DESC) as rank
-        from ${schema}.activity_log a
+        from public.activity_log a
         where a.country_iso = $1
-          and a.cycle_uuid = $2
+          and a.assessment_uuid = $2
+          and a.cycle_uuid = $3
           and a.message in (${acceptedMessages})
       ) as a
       join public.users u on user_id = u.id
@@ -48,7 +47,7 @@ export const getCycleDataActivities = (
       order by time desc
       limit 20
     `,
-    [countryIso, cycle.uuid],
+    [countryIso, assessment.uuid, cycle.uuid],
 
     (row) => Objects.camelize(row)
   )
