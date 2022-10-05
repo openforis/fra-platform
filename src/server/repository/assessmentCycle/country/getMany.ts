@@ -22,14 +22,13 @@ export const getMany = async (
 ): Promise<Array<Country>> => {
   const { assessment, cycle } = props
 
-  const assessmentSchema = Schemas.getName(assessment)
   const cycleSchema = Schemas.getNameCycle(assessment, cycle)
 
   return client.map<Country>(
     `
         with last_edit as (
             select a.country_iso, max(a.time) as last_edit
-            from ${assessmentSchema}.activity_log a
+            from public.activity_log a
             where a.cycle_uuid = $1
                 and a.message in (${activityLogMessageUpdates})
             group by 1

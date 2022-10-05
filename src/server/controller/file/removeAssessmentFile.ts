@@ -2,8 +2,8 @@ import { ActivityLogMessage, Assessment } from '@meta/assessment'
 import { User } from '@meta/user'
 
 import { BaseProtocol, DB } from '@server/db'
-import { ActivityLogRepository } from '@server/repository/assessment/activityLog'
 import { AssessmentFileRepository } from '@server/repository/assessment/file'
+import { ActivityLogRepository } from '@server/repository/public/activityLog'
 
 export const removeAssessmentFile = async (
   props: {

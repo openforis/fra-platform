@@ -1,11 +1,11 @@
-import { assessmentParams } from '@test/integration/mock/assessment'
-import { userMockTest, userMockUnknown } from '@test/integration/mock/user'
-
 import { Assessment, Cycle } from '@meta/assessment'
 import { RoleName, User, UserStatus } from '@meta/user'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { UserController } from '@server/controller/user'
+
+import { assessmentParams } from '@test/integration/mock/assessment'
+import { userMockTest, userMockUnknown } from '@test/integration/mock/user'
 
 export default (): void =>
   describe('User Invite', () => {
@@ -99,6 +99,6 @@ export default (): void =>
     })
 
     afterAll(async () => {
-      await UserController.remove({ user: userMockUnknown })
+      await UserController.remove({ userToRemove: userMockUnknown, user })
     })
   })
