@@ -15,7 +15,7 @@ const GeoMapMenuData: React.FC = () => {
       <GeoMapMenuButton panel="data" text="Data Layers" icon="layers" />
       {selectedPanel === 'data' && (
         <div>
-          <GeoMenuItem title="Map Visualizer" tabIndex={-1}>
+          <GeoMenuItem title="Forest Cover" tabIndex={-1}>
             <MapVisualizerPanel />
           </GeoMenuItem>
           <div className="geo-map-menu-separator" />

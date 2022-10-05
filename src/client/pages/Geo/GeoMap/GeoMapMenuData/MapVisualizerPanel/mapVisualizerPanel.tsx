@@ -2,6 +2,7 @@ import './mapVisualizerPanel.scss'
 import React from 'react'
 
 import GeoMapMenuListElement from '../../GeoMapMenuListElement'
+import AgreementLevelsControl from '../MapVisualizerAgreementLevelsControl/mapVisualizerAgreementLevelsControl'
 
 // Just to display items for demo purposes
 const layers = [
@@ -9,14 +10,15 @@ const layers = [
   { title: 'TanDEM-X (2019)' },
   { title: 'Hansen 10% (2020)' },
   { title: 'GlobeLand (2010)' },
+  { title: 'Data Layer 5' },
+  { title: 'Data Layer 6' },
+  { title: 'Data Layer 7' },
+  { title: 'Data Layer 8' },
 ]
 
 const SatelliteSourcePanel: React.FC = () => {
   return (
     <div className="geo-map-menu-data-visualizer-panel">
-      <button type="button" className="btn geo-map-menu-data-btn-upload">
-        Upload Map
-      </button>
       <p>Choose Layers</p>
       <div className="geo-map-menu-data-visualizer-panel-layers">
         {layers.map((layer, index) => (
@@ -28,8 +30,8 @@ const SatelliteSourcePanel: React.FC = () => {
             onCheckboxClick={() => null}
           />
         ))}
+        <AgreementLevelsControl />
       </div>
-
       <div className="geo-map-menu-data-container-btn">
         <button type="button" className="btn btn-secondary geo-map-menu-data-btn-recipe">
           Save Recipe
