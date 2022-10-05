@@ -4,7 +4,6 @@ export enum RowType {
   header = 'header',
   data = 'data',
   noticeMessage = 'noticeMessage',
-  validationMessages = 'validationMessages',
   calculated = 'calculated',
   // decimal = 'decimal',
   // integer = 'integer',
