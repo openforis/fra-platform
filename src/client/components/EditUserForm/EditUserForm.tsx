@@ -7,6 +7,7 @@ import { RoleName, User, UserRole, Users, UserStatus } from '@meta/user'
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { UserManagementActions } from '@client/store/userManagement'
+import { useIsUserUpdating } from '@client/store/userManagement/hooks'
 import { useCountryIso } from '@client/hooks'
 import { useToaster } from '@client/hooks/useToaster'
 
@@ -23,39 +24,45 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
+  const isUserUpdating = useIsUserUpdating()
 
   const [profilePicture, setProfilePicture] = useState<File>(null)
 
-  const saveUser = useCallback(() => {
-    if (!Users.validate(user).isError) {
+  // const saveUser = useCallback(() => {
+  //   if (!Users.validate(user).isError) {
+  //     dispatch(
+  //       UserManagementActions.updateUser({
+  //         user,
+  //         profilePicture,
+  //         countryIso,
+  //         assessmentName: assessment.props.name,
+  //         cycleName: cycle.name,
+  //       })
+  //     ).then(() => {
+  //       dispatch(
+  //         UserManagementActions.getUsers({ countryIso, assessmentName: assessment.props.name, cycleName: cycle.name })
+  //       )
+  //       dispatch(UserManagementActions.setUserToEdit(null))
+  //       toaster.success(i18n.t('userManagement.userModified', { user: user.name }))
+  //     })
+  //   }
+  // }, [assessment.props.name, countryIso, cycle.name, dispatch, i18n, profilePicture, toaster, user])
+
+  const changeUser = useCallback(
+    (value: string | Array<Partial<UserRole<RoleName>>>, key: string) => {
       dispatch(
         UserManagementActions.updateUser({
-          user,
+          user: { ...user, [key]: value },
           profilePicture,
           countryIso,
           assessmentName: assessment.props.name,
           cycleName: cycle.name,
         })
       ).then(() => {
-        dispatch(
-          UserManagementActions.getUsers({ countryIso, assessmentName: assessment.props.name, cycleName: cycle.name })
-        )
-        dispatch(UserManagementActions.setUserToEdit(null))
         toaster.success(i18n.t('userManagement.userModified', { user: user.name }))
       })
-    }
-  }, [assessment.props.name, countryIso, cycle.name, dispatch, i18n, profilePicture, toaster, user])
-
-  const changeUser = useCallback(
-    (value: string | Array<Partial<UserRole<RoleName>>>, key: string) => {
-      dispatch(
-        UserManagementActions.setUserToEdit({
-          ...user,
-          [key]: value,
-        })
-      )
     },
-    [dispatch, user]
+    [assessment.props.name, countryIso, cycle.name, dispatch, i18n, profilePicture, toaster, user]
   )
 
   const deactivateUser = useCallback(() => {
@@ -74,7 +81,7 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
   return (
     <div className="edit-user__form-container">
       <ProfilePicture userId={user.id} onChange={(profilePicture: File) => setProfilePicture(profilePicture)} />
-      <TextInputFields user={user} onChange={changeUser} />
+      <TextInputFields disabled={isUserUpdating} user={user} onChange={changeUser} />
       {userRole?.role === RoleName.COLLABORATOR && <CollaboratorPermissions userRole={userRole} />}
       <CountryRoles onChange={changeUser} user={user} />
 
@@ -83,7 +90,7 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
         userActive={user.status === UserStatus.active}
         onDeactivate={deactivateUser}
         onCancel={() => dispatch(UserManagementActions.setUserToEdit(null))}
-        onSave={saveUser}
+        onSave={() => null}
       />
     </div>
   )

@@ -45,6 +45,13 @@ export const userManagementSlice = createSlice({
     builder.addCase(updateSectionAuth.fulfilled, (state, { payload }) => {
       state.userToEdit.roles[0] = payload
     })
+
+    builder.addCase(updateUser.fulfilled, (state, { meta }) => {
+      const { user } = meta.arg
+      state.userToEdit = { ...state.userToEdit, ...user }
+      const i = state.users.findIndex((u) => u.id === user.id)
+      if (i !== -1) state.users[i] = { ...state.users[i], ...user }
+    })
   },
 })
 
