@@ -1,8 +1,8 @@
-import { ActivityLogRepository } from '@server/repository/assessment/activityLog'
 import { DataRepository } from '@server/repository/assessmentCycle/data'
 import { DescriptionRepository } from '@server/repository/assessmentCycle/descriptions'
 import { MessageTopicUserRepository } from '@server/repository/assessmentCycle/messageTopicUser'
 import { OriginalDataPointRepository } from '@server/repository/assessmentCycle/originalDataPoint'
+import { ActivityLogRepository } from '@server/repository/public/activityLog'
 
 import { createOriginalDataPoint } from './createOriginalDataPoint'
 import { deleteNodeValues } from './deleteNodeValues'

@@ -20,7 +20,7 @@ export const fetchData = async (props: {
   const tableNameLegacy = tableLegacyMapping[tableName] ?? Strings.snakeCase(tableName)
 
   const urlLegacy = `https://fra-data.fao.org/api/export/fra2020/${tableNameLegacy}`
-  const urlLocal = `http://localhost:9001/api/cycle-data/table/table-data`
+  const urlLocal = `http://localhost:9000/api/cycle-data/table/table-data`
 
   const [{ data: dataLegacy }, { data: dataLocal }] = await Promise.all([
     axios.get<DataLegacy>(urlLegacy, {

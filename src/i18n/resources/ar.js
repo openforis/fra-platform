@@ -2,6 +2,7 @@ const area = require('./ar/area')
 const common = require('./ar/common')
 const contentCheck = require('./ar/contentCheck')
 const dataDownload = require('./ar/dataDownload')
+const fra = require('./ar/fra')
 const statisticalFactsheets = require('./ar/statisticalFactsheets')
 const login = require('./ar/login')
 const uc = require('./ar/uc')
@@ -12,6 +13,7 @@ module.exports.translation = {
   common,
   contentCheck,
   dataDownload,
+  fra,
   statisticalFactsheets,
   login,
   uc,
@@ -569,7 +571,6 @@ The FRA team
     extentOfForest: 'نطاق الغابة والأرض الحرجية الأخرى',
     estimationAndForecasting: 'تقييمات وتنبؤات',
     categoryHeader: 'فئات تقييم الموارد الحرجية',
-    areaUnitLabel: 'المساحة (1000 هـ)',
     forestArea: 'غابة',
     chart: {
       placeholderLine1: 'للبدء، قم بإضافة نقاط بيانات وطنية جديدة واستخدمها',
@@ -609,7 +610,6 @@ The FRA team
     forestCharacteristics: 'مواصفات الغابات',
     estimationAndForecasting: 'تقييمات وتنبؤات',
     categoryHeader: 'فئات تقييم الموارد الحرجية',
-    areaUnitLabel: 'مساحة الغابة (1000 هـ)',
     naturalForestArea: 'غابة متجددة طبيعياً',
     plantationForestArea: 'غابات مزروعة',
     plantationForestIntroducedArea: '...منها أنواع مدخلة',

@@ -1,4 +1,3 @@
-import { NodeRow } from '@test/dataMigration/types'
 import { Objects } from '@utils/objects'
 import * as pgPromise from 'pg-promise'
 
@@ -8,6 +7,8 @@ import { CycleDataController } from '@server/controller/cycleData'
 import { validateNode } from '@server/controller/cycleData/persistNodeValue/validateNodeUpdates/validateNode'
 import { BaseProtocol, Schemas } from '@server/db'
 import { CountryRepository } from '@server/repository/assessmentCycle/country'
+
+import { NodeRow } from '@test/dataMigration/types'
 
 export const validateNodes = async (
   props: { assessment: Assessment; cycle: Cycle },
@@ -35,9 +36,9 @@ export const validateNodes = async (
   const nodes = await client.map<Node & { tableName: string; row: Row; col: Col }>(
     `
         select n.*,
-               t.props ->> 'name'    as table_name,
-               to_jsonb(r.*)         as row,
-               to_jsonb(c.*)         as col
+               t.props ->> 'name' as table_name,
+               to_jsonb(r.*)      as row,
+               to_jsonb(c.*)      as col
         from ${schemaCycle}.node n
                  left join ${schema}.row r
                            on n.row_uuid = r.uuid
@@ -45,7 +46,10 @@ export const validateNodes = async (
                            on n.col_uuid = c.uuid
                  left join ${schema}."table" t
                            on r.table_id = t.id
-        where r.props ->> 'validateFns' is not null
+        where t.props -> 'cycles' ? '${cycle.uuid}'
+          and r.props -> 'cycles' ? '${cycle.uuid}'
+          and r.props ->> 'validateFns' is not null
+          and c.props -> 'cycles' ? '${cycle.uuid}'
     `,
     [],
     // @ts-ignore
@@ -55,9 +59,10 @@ export const validateNodes = async (
   const countries = await CountryRepository.getMany({ assessment, cycle }, client)
   const countryISOs = countries.map((c) => c.countryIso)
   const tableNames = await client.map<string>(
-    `select distinct t.props->>'name' as name
-    from ${schema}."table" t
-    where t.props->>'name' is not null`,
+    `select distinct t.props ->> 'name' as name
+     from ${schema}."table" t
+     where t.props ->> 'name' is not null
+       and t.props -> 'cycles' ? '${cycle.uuid}'`,
     [],
     ({ name }) => name
   )
@@ -95,8 +100,9 @@ export const validateNodes = async (
   }
 
   await client.query(
-    `delete from ${schemaCycle}.node n
-        where n.uuid in (${nodeUUIDs.map((uuid) => `'${uuid}'`).join(',')})`
+    `delete
+     from ${schemaCycle}.node n
+     where n.uuid in (${nodeUUIDs.map((uuid) => `'${uuid}'`).join(',')})`
   )
   await client.query(pgp.helpers.insert(values, cs))
 }
