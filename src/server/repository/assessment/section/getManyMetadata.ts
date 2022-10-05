@@ -83,9 +83,9 @@ export const getManyMetadata = async (
                 props,
                 rows: rows.map(({ cols, ...row }) => ({
                   ...Objects.camelize(row),
-                  cols: cols.map(({ props: { style, ...otherProps }, ...col }) => ({
+                  cols: cols.map(({ props: { labels, style, variableNo, ...otherProps }, ...col }) => ({
                     ...Objects.camelize(col),
-                    props: { ...Objects.camelize(otherProps), style },
+                    props: { ...Objects.camelize(otherProps), labels, style, variableNo },
                   })),
                 })),
               })),

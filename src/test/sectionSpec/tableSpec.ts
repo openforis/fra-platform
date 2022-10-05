@@ -45,5 +45,6 @@ export interface TableSpec {
   updateTableDataCell: UpdateTableData
   migration?: {
     cycles?: Array<string>
+    columnNames?: Record<string, Array<string>>
   }
 }
