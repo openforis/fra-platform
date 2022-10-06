@@ -5,10 +5,10 @@ import { NavLink } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { AssessmentNames, SubSection, SubSections } from '@meta/assessment'
+import { Labels, SubSection, SubSections } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
+import { useCycle } from '@client/store/assessment'
 import { NavigationActions } from '@client/store/ui/navigation'
 import { useSectionReviewSummary } from '@client/store/ui/review/hooks'
 import { useIsDataExportView } from '@client/hooks'
@@ -27,16 +27,11 @@ const SectionItemLink: React.FC<Props> = (props) => {
   const { name } = subSection.props
 
   const dispatch = useAppDispatch()
-  const { i18n } = useTranslation()
-  const assessment = useAssessment()
+  const { t } = useTranslation()
   const cycle = useCycle()
   const isDataExport = useIsDataExportView()
   const laptop = useMediaQuery({ minWidth: Breakpoints.laptop })
   const reviewStatus = useSectionReviewSummary(id)
-
-  const assessmentName = assessment.props.name
-  const labelPrefix = assessmentName === AssessmentNames.panEuropean ? 'panEuropean.' : ''
-  const label = i18n.t(`${labelPrefix}${name}.${name}`)
 
   return (
     <NavLink
@@ -53,7 +48,7 @@ const SectionItemLink: React.FC<Props> = (props) => {
       }}
     >
       <div className="nav-section__order">{SubSections.getAnchor({ cycle, subSection })}</div>
-      <div className="nav-section__label">{label}</div>
+      <div className="nav-section__label">{Labels.getLabel({ cycle, labels: subSection.props.labels, t })}</div>
       {!isDataExport && (
         <div className="nav-section__status-content">
           <ReviewStatusMarker status={reviewStatus} />

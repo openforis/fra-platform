@@ -1113,6 +1113,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
     dataExport: {
       included: true,
     },
+    migration: {
+      label: {
+        '2020': { key: 'specificForestCategories.specificForestCategories' },
+        '2025': { key: 'fra.specificForestCategories.specificForestCategories2025' },
+      },
+    },
   },
   forestAreaChange: {
     sectionName: 'forestAreaChange',

@@ -1,3 +1,5 @@
+import { Label } from '@meta/assessment'
+
 import { DescriptionsSpec } from './descriptionsSpec'
 import { TableSpec } from './tableSpec'
 
@@ -24,5 +26,6 @@ export interface SectionSpec {
   migration?: {
     cycles?: Array<string>
     anchors?: Record<string, string>
+    label?: Record<string, Label>
   }
 }

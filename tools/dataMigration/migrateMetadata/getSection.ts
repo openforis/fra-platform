@@ -35,8 +35,11 @@ export const getSubSection = (props: { assessment: Assessment; spec: SectionSpec
       name: spec.sectionName,
       cycles: getCycleUuids({ assessment, migration: spec.migration }),
       index,
-      labelKey: '', // TODO
-      labels: {},
+      labels: getLabels({
+        assessment,
+        label: { key: `${spec.sectionName}.${spec.sectionName}` },
+        migration: spec.migration,
+      }),
       showTitle: spec.showTitle,
       descriptions: {
         analysisAndProcessing: Boolean(spec.descriptions.analysisAndProcessing),
