@@ -1216,7 +1216,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_expansion',
                 variableNo: 'a',
                 migration: {
-                  validateFns: [`validatorGreaterThenOrZero(forestAreaChange.forest_expansion)`],
+                  validateFns: [`validatorGreaterThanOrZero(forestAreaChange.forest_expansion)`],
                 },
               },
               {
@@ -1326,7 +1326,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableExport: 'deforestation',
                 variableNo: 'b',
                 migration: {
-                  validateFns: [`validatorGreaterThenOrZero(forestAreaChange.deforestation)`],
+                  validateFns: [`validatorGreaterThanOrZero(forestAreaChange.deforestation)`],
                 },
               },
               {
@@ -1529,7 +1529,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'annualReforestation.reforestation',
                 variableExport: 'reforestation',
                 migration: {
-                  validateFns: [`validatorGreaterThenOrZero(annualReforestation.reforestation)`],
+                  validateFns: [`validatorGreaterThanOrZero(annualReforestation.reforestation)`],
                 },
               },
               {
@@ -5651,7 +5651,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   calcFormula: `forestOwnership.private_ownership || forestOwnership.public_ownership 
                     ? extentOfForest.forestArea - (forestOwnership.private_ownership || 0) - (forestOwnership.public_ownership || 0)
                     : null`,
-                  validateFns: [`validatorGreaterThenOrZero(forestOwnership.other_or_unknown)`],
+                  validateFns: [`validatorGreaterThanOrZero(forestOwnership.other_or_unknown)`],
                 },
               },
               {

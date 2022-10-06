@@ -6,8 +6,8 @@ import { NodeValueValidation, NodeValueValidationMessage } from '@meta/assessmen
 
 import { Context } from '../context'
 
-export const validatorGreaterThenOrZero: ExpressionFunction<Context> = {
-  name: 'validatorGreaterThenOrZero',
+export const validatorGreaterThanOrZero: ExpressionFunction<Context> = {
+  name: 'validatorGreaterThanOrZero',
   minArity: 1,
   executor: () => {
     return (value?: string): NodeValueValidation => {
