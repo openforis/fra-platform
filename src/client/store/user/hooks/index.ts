@@ -1,5 +1,5 @@
 import { CountryIso } from '@meta/area'
-import { Authorizer, User, Users } from '@meta/user'
+import { Authorizer, CollaboratorEditPropertyType, User, Users } from '@meta/user'
 
 import { useAppSelector } from '@client/store'
 import { useAssessmentCountry, useAssessmentSection, useCountries } from '@client/store/assessment'
@@ -17,7 +17,7 @@ export const useUserCountries = (): Array<CountryIso> => {
   return user?.roles.map((role) => role.countryIso)
 }
 
-export const useCanEditSection = (sectionName?: string) => {
+const useCanEditSection = (sectionName?: string, permission?: CollaboratorEditPropertyType) => {
   const user = useUser()
   const section = useAssessmentSection(sectionName)
   const countryIso = useCountryIso()
@@ -33,6 +33,13 @@ export const useCanEditSection = (sectionName?: string) => {
       user,
       countryIso,
       country,
+      permission,
     })
   )
 }
+
+export const useCanEditTableData = (sectionName?: string) =>
+  useCanEditSection(sectionName, CollaboratorEditPropertyType.tableData)
+
+export const useCanEditDescriptions = (sectionName?: string) =>
+  useCanEditSection(sectionName, CollaboratorEditPropertyType.descriptions)

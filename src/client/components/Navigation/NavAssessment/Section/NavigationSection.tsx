@@ -83,8 +83,7 @@ const NavigationSection: React.FC<Props> = (props) => {
         )}
       </div>
       <div className={`nav-section__items-${expanded ? 'visible' : 'hidden'}`}>
-        {expanded &&
-          children.map((subSection) => <SectionItemLink key={subSection.props.anchor} subSection={subSection} />)}
+        {expanded && children.map((subSection) => <SectionItemLink key={subSection.uuid} subSection={subSection} />)}
       </div>
     </div>
   )

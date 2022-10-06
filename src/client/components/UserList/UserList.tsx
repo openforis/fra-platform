@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
+import { CountryIso } from '@meta/area'
 import { User, Users, UserStatus } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
@@ -23,12 +24,14 @@ const UserColumn: React.FC<{ user: User; field: keyof User }> = ({ user, field }
   </td>
 )
 
-const UserRoleColumn: React.FC<{ user: User }> = ({ user }) => {
+const UserRoleColumn: React.FC<{ user: User; countryIso: CountryIso }> = ({ user, countryIso }) => {
   const { i18n } = useTranslation()
 
   return (
     <td className="user-list__cell">
-      <div className="user-list__cell--read-only">{i18n.t<string>(Users.getI18nRoleLabelKey(user.roles[0].role))}</div>
+      <div className="user-list__cell--read-only">
+        {i18n.t<string>(Users.getI18nRoleLabelKey(Users.getCountryRole(user, countryIso).role))}
+      </div>
     </td>
   )
 }
@@ -65,7 +68,7 @@ const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail
       })}
     >
       <UserColumn user={user} field="name" />
-      <UserRoleColumn user={user} />
+      <UserRoleColumn user={user} countryIso={countryIso} />
       {showEmail && <UserColumn user={user} field="email" />}
       <td className="user-list__cell user-list__edit-column">
         {invitationUuid && !acceptedAt ? (
