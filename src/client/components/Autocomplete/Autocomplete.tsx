@@ -1,6 +1,7 @@
 import './Autocomplete.scss'
 import React from 'react'
 
+// @ts-ignore turnstone doesn't support typings
 import Turnstone from 'turnstone'
 
 type Props = {
