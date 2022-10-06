@@ -5,66 +5,51 @@
   height: 100%;
 
   .modal-content {
-      margin: $spacing-m $spacing-s;
-      width: calc(100% - #{$spacing-s * 2});
-    }
+    margin: $spacing-m $spacing-s;
+    width: calc(100% - #{$spacing-s * 2});
+  }
+
+  .modal-header {
+    height: $spacing-xl;
+  }
 
   .modal-body {
-    overflow-y: auto;
-    height: calc(100vh - 87px - 85px);
-  }
-}
+    overflow-y: hidden;
+    padding: unset;
+    height: calc(100vh - #{$spacing-m * 2} - #{$spacing-xl}); // 100vh - margin(top and bottom) - header height
+    display: grid;
+    align-content: start;
+    justify-content: center;
+    grid-template-rows: repeat(2, $spacing-m) 1fr;
 
-.form-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: $spacing-xs;
-
-  select {
-    width: 100%;
-  }
-
-  hr {
-    margin: $spacing-xxxs 0;
-  }
-
-  .form-field-label {
-    text-align: left;
-    flex: 0 1 100%;
-  }
-
-  .form-field-container {
-    display: flex;
-    flex: 0 1 25%;
-    flex-flow: column;
-  }
-}
-
-.form-field-container-label {
-  text-align: left;
-  font-weight: bold;
-}
-
-.form-field-selector {
-  cursor: pointer;
-  display: flex;
-  padding: 5px;
-  align-items: center;
-  min-width: 83px;
-  justify-content: center;
-
-  .fra-checkbox {
-    margin-right: 4px;
-  }
-
-  &.disabled {
-    cursor: not-allowed !important;
-    color: $text-disabled;
-    pointer-events: none;
-
-    .fra-checkbox {
-      border: 1px solid $ui-border-light;
+    @include min-width($laptop) {
+      grid-template-columns: 512px;
     }
+  }
+
+  .label-bold {
+    font-weight: bold;
+  }
+
+  .form-container {
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+    grid-template-columns: repeat(2, auto);
+  }
+
+  .permissions-container {
+    @include min-width($laptop) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .permissions-header-container {
+    margin-top: $spacing-xxxs;
+    border-bottom: 1px solid $ui-border;
+  }
+
+  .permissions-options-container {
+    overflow-y: auto;
   }
 }

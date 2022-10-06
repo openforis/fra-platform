@@ -1,17 +1,15 @@
 import './collaboratorAccessModal.scss'
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from '@utils/objects'
-import classNames from 'classnames'
-
-import { SubSection } from '@meta/assessment'
+import { SubSections } from '@meta/assessment'
 import { CollaboratorEditPropertyType, CollaboratorProps, RoleName, UserRole } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
-import { useAssessmentSections } from '@client/store/assessment'
+import { useAssessmentSections, useCycle } from '@client/store/assessment'
 import { UserManagementActions } from '@client/store/userManagement'
 import { useOnUpdate } from '@client/hooks'
+import ButtonCheckBox from '@client/components/ButtonCheckBox'
 import { Modal, ModalBody, ModalClose, ModalHeader } from '@client/components/Modal'
 
 import { useActions } from './hooks/useActions'
@@ -22,29 +20,20 @@ type Props = {
   userRole: UserRole<RoleName, CollaboratorProps>
 }
 
+const permissionTypes = [CollaboratorEditPropertyType.tableData, CollaboratorEditPropertyType.descriptions]
+
 const CollaboratorAccessModal: React.FC<Props> = (props) => {
   const { onClose, open, userRole } = props
 
+  const { t } = useTranslation()
   const dispatch = useAppDispatch()
-  const i18n = useTranslation()
-  const assessmentSections = useAssessmentSections()
+  const cycle = useCycle()
+  const sections = useAssessmentSections()
 
-  const options = assessmentSections
-    .reduce((prev, curr): Array<SubSection> => [...prev, ...curr.subSections], [])
-    .reduce(
-      (prev, curr): Record<string, string> => (curr.props.anchor ? { ...prev, [curr.uuid]: curr.props.anchor } : prev),
-      {}
-    )
+  const options = useMemo(() => SubSections.getAnchorsByUuid({ cycle, sections }), [cycle, sections])
+  const optionEntries = useMemo(() => Object.entries(options).sort((a, b) => a[1].localeCompare(b[1])), [options])
 
-  const permissionOptions: Record<CollaboratorEditPropertyType, Record<string, string>> = {
-    tableData: options,
-    descriptions: options,
-  }
-
-  const properties = (userRole.props as CollaboratorProps) || undefined
-  const sections = Objects.isEmpty(properties) ? 'none' : properties.sections
-
-  const { selectedSections, setSelectedSections, toggleOption, toggleOptions } = useActions(options, sections)
+  const { selectedSections, setSelectedSections, toggleOption, toggleOptions } = useActions({ options, userRole })
 
   useOnUpdate(() => {
     dispatch(
@@ -63,79 +52,60 @@ const CollaboratorAccessModal: React.FC<Props> = (props) => {
   return (
     <Modal className="modal-collaborator-access" isOpen={open}>
       <ModalHeader>
-        {i18n.t<string>('userManagement.editPermissions')}
+        {t('userManagement.editPermissions')}
         <ModalClose onClose={onClose} />
       </ModalHeader>
 
       <ModalBody>
-        <>
-          <div className="form-container">
-            {['all', 'none'].map((allOrNone) => (
-              <div
-                key={allOrNone}
-                className="form-field-selector"
-                onClick={() => setSelectedSections(allOrNone === 'all' ? 'all' : 'none')}
-                onMouseDown={(e) => e.stopPropagation()}
-                aria-hidden="true"
-              >
-                <div
-                  className={classNames('fra-checkbox', {
-                    checked: selectedSections === allOrNone,
-                  })}
-                />
-                <div className="form-field-container-label">{i18n.t(`contactPersons.${allOrNone}`)}</div>
-              </div>
-            ))}
-          </div>
-          <div className="form-container">
-            {Object.entries(permissionOptions).map(
-              ([permission, options]: [CollaboratorEditPropertyType, Record<string, string>]) => (
-                <div key={permission} className="form-field-container">
-                  <div
-                    className="form-field-selector"
-                    onClick={() => toggleOptions(permission)}
-                    onMouseDown={(e) => e.stopPropagation()}
-                    aria-hidden="true"
-                  >
-                    <div
-                      className={classNames('fra-checkbox', {
-                        checked:
-                          typeof selectedSections !== 'string' &&
-                          Object.entries(selectedSections).filter(([_, section]) => section[permission] === true)
-                            .length >= Object.keys(options).length,
-                      })}
-                    />
-                    <div className="form-field-container-label">
-                      {i18n.t(`userManagement.permissionNames.${permission}`)}
-                    </div>
-                  </div>
+        <div className="form-container">
+          {['all', 'none'].map((allOrNone) => (
+            <ButtonCheckBox
+              key={allOrNone}
+              checked={selectedSections === allOrNone}
+              className="label-bold"
+              label={`contactPersons.${allOrNone}`}
+              onClick={() => setSelectedSections(allOrNone === 'all' ? 'all' : 'none')}
+            />
+          ))}
+        </div>
 
-                  <hr />
+        <div className="form-container permissions-header-container permissions-container">
+          {permissionTypes.map((permission) => {
+            const checked =
+              typeof selectedSections !== 'string' &&
+              Object.values(selectedSections).filter((p) => p[permission]).length === Object.keys(options).length
+            return (
+              <ButtonCheckBox
+                key={permission}
+                checked={checked}
+                className="label-bold"
+                label={`userManagement.permissionNames.${permission}`}
+                onClick={() => toggleOptions(permission, !checked)}
+              />
+            )
+          })}
+        </div>
 
-                  {Object.entries(options).map(([section, label]) => (
-                    <div
-                      key={`${section}-${permission}`}
-                      className="form-field-selector"
-                      onClick={() => toggleOption(section, permission)}
-                      onMouseDown={(e) => e.stopPropagation()}
-                      aria-hidden="true"
-                    >
-                      <div
-                        className={classNames('fra-checkbox', {
-                          checked:
-                            typeof selectedSections !== 'string' &&
-                            selectedSections[section] &&
-                            selectedSections[section][permission] === true,
-                        })}
-                      />
-                      <div className="form-field-label">{label}</div>
-                    </div>
-                  ))}
-                </div>
-              )
-            )}
-          </div>
-        </>
+        <div className="form-container permissions-container permissions-options-container">
+          {permissionTypes.map((permission) => (
+            <div key={permission}>
+              {optionEntries.map(([section, label]) => {
+                const checked =
+                  typeof selectedSections !== 'string' &&
+                  selectedSections[section] &&
+                  selectedSections[section][permission] === true
+                return (
+                  <ButtonCheckBox
+                    key={`${section}-${permission}`}
+                    checked={checked}
+                    label={label}
+                    onClick={() => toggleOption(section, permission)}
+                  />
+                )
+              })}
+            </div>
+          ))}
+        </div>
       </ModalBody>
     </Modal>
   )

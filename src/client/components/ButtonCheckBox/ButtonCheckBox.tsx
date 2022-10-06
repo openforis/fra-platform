@@ -11,11 +11,12 @@ type Props = {
   suffix?: string
 }
 
-const ButtonCheckBox = (props: Props) => {
+const ButtonCheckBox: React.FC<Props> = (props) => {
   const i18n = useTranslation()
   const { onClick, checked, className, labelParam, suffix } = props
   let { label } = props
   label = Array.isArray(label) ? label : [label]
+
   return (
     <button type="button" className={`btn-s btn-checkbox ${className}`} onClick={onClick}>
       <div className={`fra-checkbox${checked ? ' checked' : ''}`} />
