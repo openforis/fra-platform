@@ -42,6 +42,7 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
   const target = [id, 'class', `${uuid}`, 'forest_charasteristics'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
   const validationStatus = useNationalClassValidation(index)
+  // TODO: Use classNames when validationStatus is implemented
   const classNamePercentageValidation = validationStatus.validFocPercentage === false ? 'error' : ''
 
   if (!allowedClass(nationalClass)) {
