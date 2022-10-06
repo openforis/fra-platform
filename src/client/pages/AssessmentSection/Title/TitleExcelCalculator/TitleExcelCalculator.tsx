@@ -2,15 +2,14 @@ import './TitleExcelCalculator.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Props } from '../props'
 import ExcelCalculatorDownload from './ExcelCalculatorDownload'
 
-type Props = {
-  sectionName: string
-}
-
-const TitleExcelCalculator: React.FC<Props> = (props: Props) => {
-  const { sectionName } = props
+const TitleExcelCalculator: React.FC<Props> = (props) => {
+  const { subSection } = props
   const { i18n } = useTranslation()
+
+  const sectionName = subSection.props.name
 
   return (
     <div className="title-with-excel-calculator">

@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { AssessmentNames, SubSection } from '@meta/assessment'
+import { AssessmentNames, SubSection, SubSections } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
@@ -24,7 +24,7 @@ const SectionItemLink: React.FC<Props> = (props) => {
   const { subSection } = props
 
   const { id } = subSection
-  const { anchors, name } = subSection.props
+  const { name } = subSection.props
 
   const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
@@ -52,7 +52,7 @@ const SectionItemLink: React.FC<Props> = (props) => {
         }
       }}
     >
-      <div className="nav-section__order">{anchors[cycle.uuid]}</div>
+      <div className="nav-section__order">{SubSections.getAnchor({ cycle, subSection })}</div>
       <div className="nav-section__label">{label}</div>
       {!isDataExport && (
         <div className="nav-section__status-content">

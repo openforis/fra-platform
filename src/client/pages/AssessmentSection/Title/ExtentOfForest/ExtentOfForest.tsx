@@ -16,8 +16,7 @@ import OriginalDataPointsPrint from '@client/pages/AssessmentPrint/OriginalDataP
 import { Props } from '../props'
 
 const ExtentOfForest: React.FC<Props> = (props) => {
-  const { sectionName } = props
-
+  const { subSection } = props
   const user = useUser()
   const { i18n } = useTranslation()
   const dispatch = useAppDispatch()
@@ -25,6 +24,8 @@ const ExtentOfForest: React.FC<Props> = (props) => {
   const odpYears = useOriginalDataPointYears()
   const hasOdps = Array.isArray(odpYears)
   const showOdps = useShowOriginalDatapoints()
+
+  const sectionName = subSection.props.name
 
   const onClick = useCallback(() => {
     dispatch(AssessmentSectionActions.toggleShowOriginalDataPoint())
@@ -41,7 +42,7 @@ const ExtentOfForest: React.FC<Props> = (props) => {
         )}
       </h2>
 
-      {hasOdps && print && !onlyTables && <OriginalDataPointsPrint section={sectionName} />}
+      {hasOdps && print && !onlyTables && <OriginalDataPointsPrint sectionName={sectionName} />}
     </>
   )
 }
