@@ -6,7 +6,6 @@ export interface SectionProps {
 }
 
 export interface SubSectionProps extends SectionProps {
-  anchor?: string
   anchors: Record<string, string> // anchor by cycle uuid
   descriptions: Descriptions
   name: string
