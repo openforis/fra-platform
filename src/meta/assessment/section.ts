@@ -2,7 +2,6 @@ import { CycledPropsObject, Descriptions, Label } from './index'
 
 export interface SectionProps {
   index: number
-  labelKey?: string
   labels: Record<string, Label>
 }
 
