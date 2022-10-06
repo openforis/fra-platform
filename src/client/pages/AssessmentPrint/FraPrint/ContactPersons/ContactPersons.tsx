@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from '@utils/objects'
 
-import { SubSection } from '@meta/assessment'
-import { CollaboratorProps, User, Users, UserStatus } from '@meta/user'
+import { SubSections } from '@meta/assessment'
+import { CollaboratorProps, RoleName, User, Users, UserStatus } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useAssessmentSections, useCycle } from '@client/store/assessment'
@@ -13,43 +13,44 @@ import { UserManagementActions } from '@client/store/userManagement'
 import { useUsers } from '@client/store/userManagement/hooks'
 import { useCountryIso } from '@client/hooks'
 
-const ContactPersons = () => {
-  const i18n = useTranslation()
+const allowedRoleNames = [
+  RoleName.COLLABORATOR,
+  RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
+  RoleName.NATIONAL_CORRESPONDENT,
+]
+
+const ContactPersons: React.FC = () => {
+  const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const assessment = useAssessment()
   const cycle = useCycle()
   const countryIso = useCountryIso()
-  const assessmentSections = useAssessmentSections()
+  const sections = useAssessmentSections()
 
-  const assessmentSectionAnchors = assessmentSections
-    .reduce((prev, curr) => [...prev, ...curr.subSections], [])
-    .filter((subSection: SubSection) => subSection.props.anchor)
-    .reduce((previous, subSection) => {
-      return {
-        ...previous,
-        [subSection.uuid]: subSection.props.anchor,
-      }
-    }, {})
+  const sectionAnchors = SubSections.getAnchorsByUuid({ cycle, sections })
 
-  const users = useUsers().filter(
-    (user) =>
-      [UserStatus.active, UserStatus.invitationPending].includes(user.status) &&
-      !Users.isReviewer(user, countryIso) &&
-      user.roles?.[0]?.props?.sections !== 'none'
-  )
+  const users = useUsers().filter((user) => {
+    const userRole = Users.getCountryRole(user, countryIso)
+    return (
+      ([UserStatus.active, UserStatus.invitationPending].includes(user.status) &&
+        allowedRoleNames.includes(userRole.role) &&
+        userRole.role !== RoleName.COLLABORATOR) ||
+      (userRole.props as CollaboratorProps).sections !== 'none'
+    )
+  })
 
   const getUserTableAnchors = (user: User) => {
     if (Users.isCollaborator(user, countryIso)) {
       const collaboratorProps: CollaboratorProps = user.roles?.[0]?.props
       const sections = collaboratorProps?.sections
-      // if(sections === 'all')  return i18n.t<string>('contactPersons.all')
       if (!Objects.isEmpty(sections)) {
         return Object.keys(sections)
-          .map((sectionUuid) => assessmentSectionAnchors[sectionUuid])
+          .map((sectionUuid) => sectionAnchors[sectionUuid])
+          .sort((a, b) => a.localeCompare(b))
           .join(', ')
       }
     }
-    return i18n.t<string>('contactPersons.all')
+    return t('contactPersons.all')
   }
 
   useEffect(() => {
@@ -65,17 +66,17 @@ const ContactPersons = () => {
 
   return (
     <div className="contact-persons-print">
-      <h2 className="headline">{i18n.t<string>('contactPersons.reportPreparationAndContactPersons')}</h2>
-      <div className="fra-description__preview">{i18n.t<string>('contactPersons.contactPersonsSupport')}</div>
+      <h2 className="headline">{t('contactPersons.reportPreparationAndContactPersons')}</h2>
+      <div className="fra-description__preview">{t('contactPersons.contactPersonsSupport')}</div>
 
       {users && (
         <table className="fra-table">
           <thead>
             <tr>
-              <th className="fra-table__header-cell">{i18n.t<string>('userManagement.name')}</th>
-              <th className="fra-table__header-cell">{i18n.t<string>('editUser.role')}</th>
-              <th className="fra-table__header-cell">{i18n.t<string>('userManagement.email')}</th>
-              <th className="fra-table__header-cell">{i18n.t<string>('contactPersons.tables')}</th>
+              <th className="fra-table__header-cell">{t('userManagement.name')}</th>
+              <th className="fra-table__header-cell">{t('editUser.role')}</th>
+              <th className="fra-table__header-cell">{t('userManagement.email')}</th>
+              <th className="fra-table__header-cell">{t('contactPersons.tables')}</th>
             </tr>
           </thead>
 
@@ -87,7 +88,7 @@ const ContactPersons = () => {
                 </td>
                 <td className="fra-table__cell-left">
                   <div className="text-input__readonly-view">
-                    {i18n.t<string>(Users.getI18nRoleLabelKey(Users.getCountryRole(user, countryIso).role))}
+                    {t(Users.getI18nRoleLabelKey(Users.getCountryRole(user, countryIso).role))}
                   </div>
                 </td>
                 <td className="fra-table__cell-left">
@@ -105,4 +106,4 @@ const ContactPersons = () => {
   )
 }
 
-export default ContactPersons
+export default React.memo(ContactPersons)
