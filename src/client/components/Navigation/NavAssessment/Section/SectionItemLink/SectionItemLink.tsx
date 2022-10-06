@@ -8,7 +8,7 @@ import classNames from 'classnames'
 import { AssessmentNames, SubSection } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
-import { useAssessment } from '@client/store/assessment'
+import { useAssessment, useCycle } from '@client/store/assessment'
 import { NavigationActions } from '@client/store/ui/navigation'
 import { useSectionReviewSummary } from '@client/store/ui/review/hooks'
 import { useIsDataExportView } from '@client/hooks'
@@ -22,14 +22,14 @@ type Props = {
 
 const SectionItemLink: React.FC<Props> = (props) => {
   const { subSection } = props
-  const {
-    id,
-    props: { anchor, name },
-  } = subSection
+
+  const { id } = subSection
+  const { anchors, name } = subSection.props
 
   const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
   const assessment = useAssessment()
+  const cycle = useCycle()
   const isDataExport = useIsDataExportView()
   const laptop = useMediaQuery({ minWidth: Breakpoints.laptop })
   const reviewStatus = useSectionReviewSummary(id)
@@ -52,7 +52,7 @@ const SectionItemLink: React.FC<Props> = (props) => {
         }
       }}
     >
-      <div className="nav-section__order">{anchor}</div>
+      <div className="nav-section__order">{anchors[cycle.uuid]}</div>
       <div className="nav-section__label">{label}</div>
       {!isDataExport && (
         <div className="nav-section__status-content">

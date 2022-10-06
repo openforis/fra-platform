@@ -1975,6 +1975,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
     dataExport: {
       included: true,
     },
+    migration: {
+      anchors: {
+        '2020': '1f',
+        '2025': '1e',
+      },
+    },
   },
   growingStock: {
     sectionName: 'growingStock',
@@ -7807,6 +7813,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
     dataExport: {
       included: true,
     },
+    migration: {
+      anchors: {
+        '2020': '6b',
+        '2025': '6a',
+      },
+    },
   },
   employment: {
     sectionName: 'employment',
@@ -10106,6 +10118,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
     },
     dataExport: {
       included: false,
+    },
+    migration: {
+      anchors: {
+        '2020': '7c',
+        '2025': '7a',
+      },
     },
   },
   sustainableDevelopment: {

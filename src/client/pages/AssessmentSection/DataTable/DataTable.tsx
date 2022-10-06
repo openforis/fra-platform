@@ -8,7 +8,7 @@ import { TableDatas } from '@meta/data'
 import { useAppDispatch } from '@client/store'
 import { useCycle } from '@client/store/assessment'
 import { AssessmentSectionActions, useTableData } from '@client/store/pages/assessmentSection'
-import { useCanEditSection } from '@client/store/user'
+import { useCanEditTableData } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import GenerateValues from '@client/pages/AssessmentSection/DataTable/GenerateValues'
@@ -33,8 +33,8 @@ const DataTable: React.FC<Props> = (props) => {
   const countryIso = useCountryIso()
   const data = useTableData({ table })
   const cycle = useCycle()
-  const canEditSection = useCanEditSection(sectionName)
-  const generateValues = canEditSection && table.props.odp
+  const canEditTableData = useCanEditTableData(sectionName)
+  const generateValues = canEditTableData && table.props.odp
 
   const {
     // props: { name: tableName },

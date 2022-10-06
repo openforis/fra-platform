@@ -16,9 +16,22 @@ export const getSection = (props: { cycles: Array<string>; index: number; labelK
 export const getSubSection = (props: { assessment: Assessment; spec: SectionSpec; index: number }): SubSection => {
   const { assessment, spec, index } = props
 
+  const anchors = assessment.cycles.reduce<Record<string, string>>((acc, cycle) => {
+    const accUpdate = { ...acc }
+    if (spec.migration?.anchors) {
+      const anchor = spec.migration.anchors[cycle.name]
+      if (anchor) {
+        accUpdate[cycle.uuid] = anchor
+      }
+    } else {
+      accUpdate[cycle.uuid] = spec.sectionAnchor
+    }
+    return accUpdate
+  }, {})
+
   const section: SubSection = {
     props: {
-      anchor: spec.sectionAnchor,
+      anchors,
       name: spec.sectionName,
       cycles: getCycleUuids({ assessment, migration: spec.migration }),
       index,

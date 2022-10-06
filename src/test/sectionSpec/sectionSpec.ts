@@ -23,5 +23,6 @@ export interface SectionSpec {
   tableSections?: Array<SectionTableSpec>
   migration?: {
     cycles?: Array<string>
+    anchors?: Record<string, string>
   }
 }
