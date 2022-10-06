@@ -3,9 +3,9 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
-import { AssessmentName } from '@meta/assessment'
+import { AssessmentName, SubSections } from '@meta/assessment'
 
-import { useAssessmentSection } from '@client/store/assessment'
+import { useAssessmentSection, useCycle } from '@client/store/assessment'
 import { useTableSections } from '@client/store/pages/assessmentSection'
 import { useIsSectionDataEmpty } from '@client/store/pages/assessmentSection/hooks'
 import { useCanEditDescriptions, useCanEditTableData } from '@client/store/user/hooks'
@@ -24,19 +24,21 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
   const { section: sectionProp } = props
   const { i18n } = useTranslation()
   const { assessmentName } = useParams<{ assessmentName: AssessmentName; cycleName: string; sectionName: string }>()
-  const assessmentSection = useAssessmentSection(sectionProp)
-  const tableSections = useTableSections({ sectionName: assessmentSection?.props.name })
+  const cycle = useCycle()
+  const subSection = useAssessmentSection(sectionProp)
+  const tableSections = useTableSections({ sectionName: subSection?.props.name })
   const canEditTableData = useCanEditTableData(sectionProp)
   const canEditDescriptions = useCanEditDescriptions(sectionProp)
   const { print, onlyTables } = useIsPrint()
 
-  const { anchor, showTitle, descriptions, name: sectionName } = assessmentSection?.props ?? {}
-
+  const { showTitle, descriptions, name: sectionName } = subSection?.props ?? {}
   // Hide the whole section if no tables have data
   const isSectionDataEmpty = useIsSectionDataEmpty(tableSections)
   if (onlyTables && isSectionDataEmpty) {
     return null
   }
+
+  const anchor = SubSections.getAnchor({ cycle, subSection })
 
   return (
     <div className={`app-view__content assessment-section__${sectionName}`}>
@@ -49,7 +51,7 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
       <SectionHeader assessmentName={assessmentName} sectionName={sectionName} disabled={!canEditTableData} />
 
       <Descriptions sectionName={sectionName} descriptions={descriptions} disabled={!canEditDescriptions} />
-      {showTitle && <Title assessmentName={assessmentName} sectionName={sectionName} sectionAnchor={anchor} />}
+      {showTitle && <Title assessmentName={assessmentName} subSection={subSection} />}
 
       {tableSections.map((tableSection) => (
         <div key={tableSection.uuid}>
