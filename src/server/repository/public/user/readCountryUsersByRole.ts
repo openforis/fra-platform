@@ -10,7 +10,7 @@ import { BaseProtocol, DB } from '@server/db'
   We get a list of recipients for Array<<countryIsos>> and Array<<RoleName>>
 */
 
-const fields: Array<string> = ['lang', 'id', 'name', 'status', 'position', 'email']
+const fields: Array<string> = ['lang', 'id', 'name', 'status', 'position', 'email', 'institution']
 
 const selectFields = fields.map((f) => `u.${f}`).join(',')
 
