@@ -2,15 +2,19 @@ import './TableOfContent.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useAssessmentSections } from '@client/store/assessment'
+import { Labels } from '@meta/assessment'
+
+import { useAssessmentSections, useCycle } from '@client/store/assessment'
 
 type Props = {
   deskStudy: boolean
 }
 
 const TableOfContent: React.FC<Props> = (props) => {
-  const i18n = useTranslation()
   const { deskStudy } = props
+
+  const { t } = useTranslation()
+  const cycle = useCycle()
   const sections = useAssessmentSections()
 
   if (!sections) return null
@@ -20,23 +24,19 @@ const TableOfContent: React.FC<Props> = (props) => {
       <div className="page-break" />
 
       <div className="disclaimer">
-        <p>{i18n.t<string>('print.disclaimer')}</p>
-        <p>
-          {deskStudy
-            ? i18n.t<string>('print.disclaimerGeneratedDeskStudy')
-            : i18n.t<string>('print.disclaimerGenerated')}
-        </p>
+        <p>{t('print.disclaimer')}</p>
+        <p>{deskStudy ? t('print.disclaimerGeneratedDeskStudy') : t('print.disclaimerGenerated')}</p>
       </div>
 
       <div className="page-break" />
 
       <div>
-        <h2 className="table-of-content__header">{i18n.t<string>('print.tableOfContent')}</h2>
+        <h2 className="table-of-content__header">{t('print.tableOfContent')}</h2>
 
         <ol className="table-of-content__list">
           {Object.entries(sections).map(([key, section]) => (
             <li key={key} data-idx={key}>
-              <a href={`#section${key}`}>{i18n.t<string>(section.props.labelKey)}</a>
+              <a href={`#section${key}`}>{Labels.getLabel({ cycle, labels: section.props.labels, t })}</a>
             </li>
           ))}
         </ol>
