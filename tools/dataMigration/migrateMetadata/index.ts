@@ -38,7 +38,6 @@ export const migrateMetadata = async (props: Props): Promise<void> => {
   const { assessment, assessmentLegacy, spec, client } = props
 
   const schema = DBNames.getAssessmentSchema(assessment.props.name)
-  const cycles = assessment.cycles.map((c) => c.uuid)
 
   const sectionsInsert: Array<SectionInsert> = []
   const tableSectionsInsert: Array<TableSectionInsert> = []
@@ -54,7 +53,7 @@ export const migrateMetadata = async (props: Props): Promise<void> => {
 
   await Promise.all(
     Object.entries(assessmentLegacy.sections).map(async ([index, sectionLegacy]) => {
-      const section = getSection({ labelKey: sectionLegacy.label, index: Number(index), cycles })
+      const section = getSection({ labelKey: sectionLegacy.label, index: Number(index), assessment })
       const sectionInsert: SectionInsert = { id: (sectionId += 1), parent_id: null, props: section.props }
       sectionsInsert.push(sectionInsert)
 

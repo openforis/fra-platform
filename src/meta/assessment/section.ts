@@ -1,8 +1,8 @@
-import { CycledPropsObject, Descriptions } from './index'
+import { CycledPropsObject, Descriptions, Label } from './index'
 
 export interface SectionProps {
   index: number
-  labelKey: string
+  labels: Record<string, Label>
 }
 
 export interface SubSectionProps extends SectionProps {

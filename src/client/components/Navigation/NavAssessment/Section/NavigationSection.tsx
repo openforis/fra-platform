@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { matchPath, useLocation } from 'react-router-dom'
 
-import { Section } from '@meta/assessment'
+import { Labels, Section } from '@meta/assessment'
 
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { useSectionReviewSummary } from '@client/store/ui/review/hooks'
@@ -22,7 +22,7 @@ type Props = {
 const NavigationSection: React.FC<Props> = (props) => {
   const { section, showSections, prefix } = props
 
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
@@ -32,7 +32,7 @@ const NavigationSection: React.FC<Props> = (props) => {
 
   const [expanded, setExpanded] = useState(false)
 
-  const sectionLabel = i18n.t(section.props.labelKey)
+  const sectionLabel = Labels.getLabel({ cycle, labels: section.props.labels, t })
   const assessmentName = assessment.props.name
   let children = section.subSections
   if (isDataExport) {
