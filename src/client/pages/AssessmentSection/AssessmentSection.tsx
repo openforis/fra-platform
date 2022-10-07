@@ -3,7 +3,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
-import { AssessmentName, SubSections } from '@meta/assessment'
+import { AssessmentName, Labels, SubSections } from '@meta/assessment'
 
 import { useAssessmentSection, useCycle } from '@client/store/assessment'
 import { useTableSections } from '@client/store/pages/assessmentSection'
@@ -22,8 +22,10 @@ type Props = {
 
 const AssessmentSection: React.FC<Props> = (props: Props) => {
   const { section: sectionProp } = props
-  const { i18n } = useTranslation()
+
+  const { t } = useTranslation()
   const { assessmentName } = useParams<{ assessmentName: AssessmentName; cycleName: string; sectionName: string }>()
+
   const cycle = useCycle()
   const subSection = useAssessmentSection(sectionProp)
   const tableSections = useTableSections({ sectionName: subSection?.props.name })
@@ -44,23 +46,23 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
     <div className={`app-view__content assessment-section__${sectionName}`}>
       {showTitle && print && (
         <h2 className="title only-print">
-          {`${onlyTables ? '' : `${anchor} `}${i18n.t<string>(`${sectionName}.${sectionName}`)}`}
+          {`${onlyTables ? '' : `${anchor} `}${Labels.getLabel({ cycle, labels: subSection.props.labels, t })}`}
         </h2>
       )}
 
       <SectionHeader assessmentName={assessmentName} sectionName={sectionName} disabled={!canEditTableData} />
 
       <Descriptions sectionName={sectionName} descriptions={descriptions} disabled={!canEditDescriptions} />
-      {showTitle && <Title assessmentName={assessmentName} subSection={subSection} />}
+      {showTitle && <Title subSection={subSection} />}
 
       {tableSections.map((tableSection) => (
         <div key={tableSection.uuid}>
           {tableSection.props.labelKey && (
-            <h3 className="subhead assessment-section__table-title">{i18n.t<string>(tableSection.props.labelKey)}</h3>
+            <h3 className="subhead assessment-section__table-title">{t(tableSection.props.labelKey)}</h3>
           )}
           {tableSection.props.descriptionKey && (
             <div className="app-view__section-toolbar no-print">
-              <div className="support-text">{i18n.t<string>(tableSection.props.descriptionKey)}</div>
+              <div className="support-text">{t(tableSection.props.descriptionKey)}</div>
             </div>
           )}
 

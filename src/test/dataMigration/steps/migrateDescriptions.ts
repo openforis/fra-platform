@@ -12,8 +12,10 @@ export const migrateDescriptions = async (props: Props, client: BaseProtocol): P
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
   await client.query(`
-      insert into ${schemaCycle}.descriptions (country_iso, section_name, name, content)
-      select d.country_iso, d.section, d.name, d.content
+      insert into ${schemaCycle}.descriptions (country_iso, section_name, name, value)
+      select d.country_iso, d.section, d.name,jsonb_build_object(
+              'text', d.content
+          )
       from _legacy.descriptions d;
   `)
 }

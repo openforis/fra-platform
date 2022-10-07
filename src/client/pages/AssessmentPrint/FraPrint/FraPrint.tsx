@@ -2,6 +2,8 @@ import './FraPrint.scss'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Labels } from '@meta/assessment'
+
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useAssessmentSections, useCountry, useCycle } from '@client/store/assessment'
 import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
@@ -15,7 +17,7 @@ import TableOfContent from './TableOfContent'
 
 const FraPrint: React.FC = () => {
   const countryIso = useCountryIso()
-  const i18n = useTranslation()
+  const { t } = useTranslation()
   const country = useCountry(countryIso)
   const assessment = useAssessment()
   const cycle = useCycle()
@@ -48,14 +50,14 @@ const FraPrint: React.FC = () => {
   }
 
   let title = ''
-  if (onlyTables) title = i18n.t('print.titleTables', { cycleName: cycle.name })
-  if (!onlyTables && deskStudy) title = `${i18n.t('assessment.fra')} ${i18n.t('assessment.deskStudy')}`
-  if (!onlyTables && !deskStudy) title = i18n.t('print.title', { cycleName: cycle.name })
+  if (onlyTables) title = t('print.titleTables', { cycleName: cycle.name })
+  if (!onlyTables && deskStudy) title = `${t('assessment.fra')} ${t('assessment.deskStudy')}`
+  if (!onlyTables && !deskStudy) title = t('print.title', { cycleName: cycle.name })
 
   return (
     <div>
       <div className="fra-print__header">
-        <h1>{i18n.t<string>(`area.${countryIso}.listName`)}</h1>
+        <h1>{t(`area.${countryIso}.listName`)}</h1>
         <h1>{title}</h1>
       </div>
 
@@ -68,7 +70,7 @@ const FraPrint: React.FC = () => {
           <div key={section.uuid} id={`section${key}`}>
             {!onlyTables && (
               <h1 className="title only-print">
-                {i === 0 ? '' : key} {i18n.t<string>(section.props.labelKey)}
+                {i === 0 ? '' : key} {Labels.getLabel({ cycle, labels: section.props.labels, t })}
               </h1>
             )}
 

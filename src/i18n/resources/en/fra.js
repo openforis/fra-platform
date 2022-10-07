@@ -21,4 +21,8 @@ module.exports = {
     primaryForestTropical: '…of which tropical primary forest',
     primaryForestSubTropical: '…of which sub-tropical primary forest',
   },
+
+  specificForestCategories: {
+    specificForestCategories2025: 'Specific forest categories',
+  },
 }

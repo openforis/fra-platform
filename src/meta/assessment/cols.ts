@@ -1,6 +1,7 @@
 import { TFunction } from 'i18next'
 
 import { Cycle } from '@meta/assessment/cycle'
+import { Labels } from '@meta/assessment/labels'
 
 import { Col, ColStyle, ColType } from './col'
 import { Row } from './row'
@@ -40,16 +41,7 @@ const getStyle = (props: { cycle: Cycle; col: Col }): ColStyle => {
 
 const getLabel = (props: { cycle: Cycle; col: Col; t: TFunction }): string => {
   const { cycle, col, t } = props
-  const { labels } = col.props
-  const label = labels?.[cycle.uuid]
-
-  let labelString = col.props.colName ?? ''
-  if (label) {
-    if (label.prefixKey) labelString += t(label.prefixKey)
-    if (label.key) labelString += t(label.key, { ...label.params })
-    if (label.label) labelString += label.label
-  }
-  return labelString
+  return col.props.colName ?? Labels.getLabel({ cycle, labels: col.props.labels, t })
 }
 
 export const Cols = {

@@ -51,7 +51,7 @@ const useDescriptions = (props: Props): { nationalData: boolean; analysisAndProc
 const Descriptions: React.FC<Props> = (props: Props) => {
   const { descriptions, disabled, sectionName } = props
 
-  const i18n = useTranslation()
+  const { t } = useTranslation()
   const { print, onlyTables } = useIsPrint()
 
   const { introductoryText } = descriptions
@@ -80,9 +80,9 @@ const Descriptions: React.FC<Props> = (props: Props) => {
       {introductoryText && (
         <CommentableDescription
           sectionName={sectionName}
-          title={i18n.t('contactPersons.introductoryText')}
+          title={t('contactPersons.introductoryText')}
           name="introductoryText"
-          template={i18n.t('contactPersons.introductoryTextSupport')}
+          template={{ text: t('contactPersons.introductoryTextSupport') }}
           disabled={disabled}
         />
       )}
