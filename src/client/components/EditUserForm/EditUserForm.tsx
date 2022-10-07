@@ -38,9 +38,18 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
     }
   }, [profilePicture, userToEdit])
 
-  const changeUser = useCallback(
-    (value: string | Array<Partial<UserRole<RoleName>>>, key: string) => setUserToEdit({ ...user, [key]: value }),
-    [user]
+  const changeUser = useCallback((value: string, key: string) => setUserToEdit({ ...user, [key]: value }), [user])
+
+  const changeUserRoles = useCallback(
+    (roles: Array<Partial<UserRole<RoleName>>>) => {
+      dispatch(
+        UserManagementActions.updateUserRoles({
+          roles,
+          userId: user.id,
+        })
+      )
+    },
+    [dispatch, user.id]
   )
 
   if (!user) return null
@@ -51,11 +60,11 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
     <div className="edit-user__form-container">
       <ProfilePicture userId={user.id} onChange={(profilePicture: File) => setProfilePicture(profilePicture)} />
 
-      <TextInputFields user={userToEdit} onChange={changeUser} />
+      <TextInputFields onChange={changeUser} user={user} />
 
       {userRole?.role === RoleName.COLLABORATOR && <CollaboratorPermissions userRole={userRole} />}
 
-      <CountryRoles onChange={changeUser} user={user} />
+      <CountryRoles onChange={changeUserRoles} user={user} />
 
       <div className="edit-user__form-item edit-user__form-item-buttons">
         <div className="edit-user__form-label" />

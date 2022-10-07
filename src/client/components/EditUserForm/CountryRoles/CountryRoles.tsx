@@ -28,7 +28,7 @@ type ModalOptionsProps = {
 }
 
 type Props = {
-  onChange: (value: Array<Partial<UserRole<RoleName>>>, key: string) => void
+  onChange: (value: Array<Partial<UserRole<RoleName>>>) => void
   user: User
 }
 
@@ -50,10 +50,8 @@ const CountryRoles: React.FC<Props> = (props) => {
   }, [])
   const [modalOptions, setModalOptions] = useState<ModalOptionsProps>(initialModalState)
 
-  const _onClose = useCallback(
+  const _onChange = useCallback(
     (selection: Array<string>, role: RoleName) => {
-      setModalOptions(initialModalState)
-
       const selectedRoles = selection.map(
         (countryIso): Partial<UserRole<RoleName>> => ({
           countryIso: countryIso as CountryIso,
@@ -63,18 +61,15 @@ const CountryRoles: React.FC<Props> = (props) => {
         })
       )
 
-      onChange(
-        [...user.roles.filter(({ role: _role }: UserRole<RoleName>) => _role !== role), ...selectedRoles],
-        'roles'
-      )
+      onChange([...user.roles.filter(({ role: _role }: UserRole<RoleName>) => _role !== role), ...selectedRoles])
     },
-    [assessment.id, cycle.uuid, initialModalState, onChange, user.roles]
+    [assessment.id, cycle.uuid, onChange, user.roles]
   )
 
   const _toggleAdmin = useCallback(() => {
     // eslint-disable-next-line no-alert
     if (window.confirm(i18n.t('editUser.adminConfirm')))
-      onChange(Users.isAdministrator(user) ? [] : [{ countryIso: null, role: RoleName.ADMINISTRATOR }], 'roles')
+      onChange(Users.isAdministrator(user) ? [] : [{ countryIso: null, role: RoleName.ADMINISTRATOR }])
   }, [i18n, onChange, user])
 
   return (
@@ -125,9 +120,10 @@ const CountryRoles: React.FC<Props> = (props) => {
         countries={countries}
         excludedRegions={[RegionCode.FE, RegionCode.AT, ...secondaryRegions.regions.map((r: Region) => r.regionCode)]}
         headerLabel={i18n.t(Users.getI18nRoleLabelKey(modalOptions.role as RoleName))}
-        onClose={(selection) => _onClose(selection, modalOptions.role)}
+        onClose={() => setModalOptions(initialModalState)}
         initialSelection={modalOptions.initialSelection}
         unselectableCountries={modalOptions.unselectableCountries}
+        onChange={(_, selectionUpdate: Array<string>) => _onChange(selectionUpdate, modalOptions.role)}
         showFooter={false}
       />
     </div>

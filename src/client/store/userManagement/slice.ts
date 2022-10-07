@@ -8,6 +8,7 @@ import {
   sendInvitationEmail,
   updateSectionAuth,
   updateUser,
+  updateUserRoles,
 } from './actions'
 import { UserManagementState } from './stateType'
 
@@ -64,6 +65,7 @@ export const UserManagementActions = {
   sendInvitationEmail,
   updateSectionAuth,
   updateUser,
+  updateUserRoles,
 }
 
 export default userManagementSlice.reducer as Reducer<UserManagementState>
