@@ -22,6 +22,7 @@ type Props = {
   open: boolean
   showCount?: boolean
   unselectableCountries?: Array<string>
+  showFooter?: boolean
 }
 
 const CountrySelectModal: React.FC<Props> = (props) => {
@@ -36,6 +37,7 @@ const CountrySelectModal: React.FC<Props> = (props) => {
     open,
     showCount,
     unselectableCountries,
+    showFooter,
   } = props
 
   const i18n = useTranslation()
@@ -127,15 +129,17 @@ const CountrySelectModal: React.FC<Props> = (props) => {
         excludedRegions={excludedRegions}
       />
 
-      <ModalFooter>
-        <button className="btn btn-secondary" onClick={resetAll} type="button">
-          {i18n.t('common.resetAll')}
-        </button>
+      {showFooter && (
+        <ModalFooter>
+          <button className="btn btn-secondary" onClick={resetAll} type="button">
+            {i18n.t('common.resetAll')}
+          </button>
 
-        <button className="btn btn-primary" disabled={!canSave(selection)} onClick={_onClose} type="button">
-          {i18n.t('common.apply')}
-        </button>
-      </ModalFooter>
+          <button className="btn btn-primary" disabled={!canSave(selection)} onClick={_onApply} type="button">
+            {i18n.t('common.apply')}
+          </button>
+        </ModalFooter>
+      )}
     </Modal>
   )
 }
@@ -147,6 +151,7 @@ CountrySelectModal.defaultProps = {
   onChange: () => ({}),
   showCount: true,
   unselectableCountries: [],
+  showFooter: true,
 }
 
 export default CountrySelectModal

@@ -72,6 +72,7 @@ const CountryRoles: React.FC<Props> = (props) => {
   )
 
   const _toggleAdmin = useCallback(() => {
+    // eslint-disable-next-line no-alert
     if (window.confirm(i18n.t('editUser.adminConfirm')))
       onChange(Users.isAdministrator(user) ? [] : [{ countryIso: null, role: RoleName.ADMINISTRATOR }], 'roles')
   }, [i18n, onChange, user])
@@ -127,6 +128,7 @@ const CountryRoles: React.FC<Props> = (props) => {
         onClose={(selection) => _onClose(selection, modalOptions.role)}
         initialSelection={modalOptions.initialSelection}
         unselectableCountries={modalOptions.unselectableCountries}
+        showFooter={false}
       />
     </div>
   )
