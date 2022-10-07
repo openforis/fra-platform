@@ -22,6 +22,7 @@ export enum ActivityLogMessage {
   invitationRemove = 'invitationRemove',
   userRemove = 'userRemove',
   userUpdate = 'userUpdate',
+  userRolesUpdate = 'userRolesUpdate',
 }
 
 export interface ActivityLog<Target> {
