@@ -72,24 +72,14 @@ const CountryRoles: React.FC<Props> = (props) => {
   )
 
   const _toggleAdmin = useCallback(() => {
-    onChange(Users.isAdministrator(user) ? [] : [{ countryIso: null, role: RoleName.ADMINISTRATOR }], 'roles')
-  }, [onChange, user])
+    if (window.confirm(i18n.t('editUser.adminConfirm')))
+      onChange(Users.isAdministrator(user) ? [] : [{ countryIso: null, role: RoleName.ADMINISTRATOR }], 'roles')
+  }, [i18n, onChange, user])
 
   return (
     <div className="edit-user__form-item edit-user__form-item-roles">
       <div className="edit-user__form-label">{i18n.t<string>('editUser.role')}</div>
       <div className={`edit-user__form-field edit-user__form-field-roles${Users.validRole(user) ? '' : ' error'}`}>
-        {Users.isAdministrator(userInfo) && (
-          <div
-            className="edit-user__form-field-role edit-user__form-field-role-admin edit-user__form-field-role-container validation-error-sensitive-field"
-            onClick={_toggleAdmin}
-            aria-hidden="true"
-          >
-            <div className="role">{i18n.t<string>(Users.getI18nRoleLabelKey(RoleName.ADMINISTRATOR))}</div>
-            <div className={`fra-checkbox${Users.isAdministrator(user) ? ' checked' : ''}`} />
-          </div>
-        )}
-
         {roles.map((role) => {
           const userRoles = user?.roles
           if (!userRoles) return null
@@ -117,6 +107,17 @@ const CountryRoles: React.FC<Props> = (props) => {
 
           return <CountryRole key={role} onClick={_onClick} role={role} user={user} />
         })}
+
+        {Users.isAdministrator(userInfo) && (
+          <div
+            className="edit-user__form-field-role edit-user__form-field-role-admin edit-user__form-field-role-container validation-error-sensitive-field"
+            onClick={_toggleAdmin}
+            aria-hidden="true"
+          >
+            <div className="role">{i18n.t<string>(Users.getI18nRoleLabelKey(RoleName.ADMINISTRATOR))}</div>
+            <div className={`fra-checkbox${Users.isAdministrator(user) ? ' checked' : ''}`} />
+          </div>
+        )}
       </div>
       <CountrySelectModal
         open={modalOptions.open}

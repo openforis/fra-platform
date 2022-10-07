@@ -1054,6 +1054,7 @@ The FRA team
     picture1MbMax: 'Profile picture cannot exceed 1MB',
     activated: 'Activated',
     status: 'Status',
+    adminConfirm: 'Are you sure you want to promote this user to Administrator?',
   },
 
   country: {
