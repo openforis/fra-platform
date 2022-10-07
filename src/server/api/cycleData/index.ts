@@ -28,7 +28,7 @@ export const CycleDataApi = {
     express.post(ApiEndPoint.CycleData.Table.estimate(), AuthMiddleware.requireEditTableData, postEstimation)
 
     // Descriptions
-    express.get(ApiEndPoint.CycleData.descriptions(), getDescription)
+    express.get(ApiEndPoint.CycleData.descriptions(), AuthMiddleware.requireView, getDescription)
     express.put(ApiEndPoint.CycleData.descriptions(), AuthMiddleware.requireEditDescriptions, upsertDescription)
 
     // OriginalDataPoints
