@@ -1,7 +1,7 @@
 import { Response } from 'express'
 
 import { CycleDataRequest } from '@meta/api/request'
-import { CommentableDescriptionName, CommentableDescriptionValue } from '@meta/assessment/commentableDescription'
+import { CommentableDescriptionName, CommentableDescriptionValue } from '@meta/assessment'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { CycleDataController } from '@server/controller/cycleData'

@@ -9,7 +9,12 @@ export { AssessmentNames } from './assessmentName'
 export type { Col, ColProps, ColSelectOption, ColSelectProps, ColStyle } from './col'
 export { ColType } from './col'
 export { Cols } from './cols'
-export type { CommentableDescriptionValue } from './commentableDescription'
+export type {
+  CommentableDescription,
+  CommentableDescriptionName,
+  CommentableDescriptionValue,
+  DataSource,
+} from './commentableDescription'
 export type { Cycle, CycledPropsObject } from './cycle'
 export type { Description, Descriptions } from './description'
 export type { Label } from './label'

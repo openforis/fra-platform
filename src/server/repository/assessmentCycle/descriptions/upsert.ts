@@ -1,8 +1,7 @@
 import { Objects } from '@utils/objects'
 
 import { CountryIso } from '@meta/area'
-import { Assessment, Cycle } from '@meta/assessment'
-import { CommentableDescriptionName, CommentableDescriptionValue } from '@meta/assessment/commentableDescription'
+import { Assessment, CommentableDescriptionName, CommentableDescriptionValue, Cycle } from '@meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
