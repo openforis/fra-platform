@@ -1,5 +1,5 @@
 import './EditUserForm.scss'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { RoleName, User, UserRole, Users } from '@meta/user'
@@ -22,7 +22,9 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
   const cycle = useCycle()
 
   const [profilePicture, setProfilePicture] = useState<File>(null)
-  const [userToEdit, setUserToEdit] = useState<User>(user ?? null)
+  const [userToEdit, setUserToEdit] = useState<User>(null)
+
+  useEffect(() => setUserToEdit(user), [user])
 
   useOnUpdate(() => {
     if (!Users.validate(userToEdit).isError) {
