@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Objects } from '@utils/objects'
 
-import { CommentableDescriptionValue } from '@meta/assessment/commentableDescription'
+import { CommentableDescriptionValue } from '@meta/assessment'
 import { Topics } from '@meta/messageCenter'
 
 import { useAssessment, useCycle } from '@client/store/assessment'

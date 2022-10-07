@@ -1,5 +1,4 @@
-import { TableSection } from '@meta/assessment'
-import { CommentableDescriptionValue } from '@meta/assessment/commentableDescription'
+import { CommentableDescriptionValue, TableSection } from '@meta/assessment'
 import { NodeUpdate, TableData } from '@meta/data'
 
 export type AssessmentSectionState = {

@@ -1,4 +1,4 @@
-import { CommentableDescriptionValue } from '@meta/assessment/commentableDescription'
+import { CommentableDescriptionValue } from '@meta/assessment'
 
 import { useAppSelector } from '@client/store'
 

@@ -4,7 +4,7 @@ import axios from 'axios'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { CycleDataParams } from '@meta/api/request'
-import { CommentableDescriptionValue } from '@meta/assessment/commentableDescription'
+import { CommentableDescriptionValue } from '@meta/assessment'
 
 const patchDescription = Functions.debounce(
   async (props: CycleDataParams & { name: string; value: CommentableDescriptionValue }) => {

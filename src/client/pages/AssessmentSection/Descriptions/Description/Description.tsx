@@ -1,7 +1,7 @@
 import './Description.scss'
 import React, { useCallback, useEffect, useState } from 'react'
 
-import { CommentableDescriptionValue } from '@meta/assessment/commentableDescription'
+import { CommentableDescriptionValue } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
