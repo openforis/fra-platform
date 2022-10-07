@@ -22,7 +22,7 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
   const cycle = useCycle()
 
   const [profilePicture, setProfilePicture] = useState<File>(null)
-  const [userToEdit, setUserToEdit] = useState<User>(user)
+  const [userToEdit, setUserToEdit] = useState<User>(user ?? null)
 
   useOnUpdate(() => {
     if (!Users.validate(userToEdit).isError) {
