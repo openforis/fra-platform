@@ -1,6 +1,8 @@
 import './Description.scss'
 import React, { useCallback, useEffect, useState } from 'react'
 
+import { CommentableDescriptionValue } from '@meta/assessment/commentableDescription'
+
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
@@ -19,7 +21,7 @@ type Props = {
   disabled?: boolean
   title: string
   name: string
-  template?: string
+  template?: CommentableDescriptionValue
   sectionName: string
   showAlertEmptyContent?: boolean
   showDashEmptyContent?: boolean
@@ -47,15 +49,15 @@ const Description: React.FC<Props> = (props) => {
           cycleName: cycle.name,
           sectionName,
           name,
-          content,
+          value: { ...value, text: content },
         })
       )
     },
-    [assessment.props.name, countryIso, cycle.name, dispatch, name, sectionName]
+    [value, assessment.props.name, countryIso, cycle.name, dispatch, name, sectionName]
   )
 
   const error = user && showAlertEmptyContent && !value
-  let markdown = value || template
+  let markdown = value.text || template.text
   if (print) markdown = markdown?.split('<p>&nbsp;</p>').join('') // Hack to replace empty lines in print view
 
   useEffect(() => {
@@ -97,7 +99,7 @@ const Description: React.FC<Props> = (props) => {
 
 Description.defaultProps = {
   disabled: false,
-  template: null,
+  template: { text: null },
   showAlertEmptyContent: false,
   showDashEmptyContent: false,
 }

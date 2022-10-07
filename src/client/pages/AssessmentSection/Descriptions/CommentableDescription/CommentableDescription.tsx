@@ -2,6 +2,7 @@ import React from 'react'
 
 import { Objects } from '@utils/objects'
 
+import { CommentableDescriptionValue } from '@meta/assessment/commentableDescription'
 import { Topics } from '@meta/messageCenter'
 
 import { useAssessment, useCycle } from '@client/store/assessment'
@@ -15,7 +16,7 @@ type Props = {
   title: string
   sectionName: string
   name: string
-  template?: string
+  template?: CommentableDescriptionValue
   showAlertEmptyContent?: boolean
   showDashEmptyContent?: boolean
 }
@@ -61,7 +62,7 @@ const CommentableDescription: React.FC<Props> = (props) => {
 
 CommentableDescription.defaultProps = {
   disabled: false,
-  template: '',
+  template: { text: '' },
   showAlertEmptyContent: false,
   showDashEmptyContent: false,
 }

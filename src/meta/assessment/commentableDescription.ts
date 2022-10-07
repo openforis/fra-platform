@@ -9,11 +9,23 @@ export enum CommentableDescriptionName {
   estimationAndForecasting = 'estimationAndForecasting',
   introductoryText = 'introductoryText',
 }
+export interface DataSource {
+  reference: string
+  type: string
+  fraVariable: string
+  year: string
+  comments: string
+}
+
+export interface CommentableDescriptionValue {
+  text: string
+  dataSources?: Array<DataSource>
+}
 
 export interface CommentableDescription {
   id: number
   countryIso: CountryIso
   sectionName: string
   name: CommentableDescriptionName
-  content: string
+  value: CommentableDescriptionValue
 }
