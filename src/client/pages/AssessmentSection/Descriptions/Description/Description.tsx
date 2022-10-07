@@ -99,7 +99,7 @@ const Description: React.FC<Props> = (props) => {
 
 Description.defaultProps = {
   disabled: false,
-  template: { text: null },
+  template: { text: '' },
   showAlertEmptyContent: false,
   showDashEmptyContent: false,
 }
