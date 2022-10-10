@@ -31,7 +31,7 @@ export const update = async (
         `
           insert into public.users_role (user_id, assessment_id, cycle_uuid, country_iso, role, accepted_at)
           values ($1, $2, $3, $4, $5, now())
-          on conflict (user_id, country_iso, role) do nothing 
+          on conflict (user_id, assessment_id, cycle_uuid, country_iso, role) do nothing 
         `,
         [userId, userRole.assessmentId, userRole.cycleUuid, userRole.countryIso, userRole.role]
       )
