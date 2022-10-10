@@ -135,7 +135,7 @@ const CountrySelectModal: React.FC<Props> = (props) => {
             {i18n.t('common.resetAll')}
           </button>
 
-          <button className="btn btn-primary" disabled={!canSave(selection)} onClick={_onApply} type="button">
+          <button className="btn btn-primary" disabled={!canSave(selection)} onClick={_onClose} type="button">
             {i18n.t('common.apply')}
           </button>
         </ModalFooter>
