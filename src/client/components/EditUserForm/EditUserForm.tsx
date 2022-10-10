@@ -2,7 +2,7 @@ import './EditUserForm.scss'
 import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { RoleName, User, UserRole, Users } from '@meta/user'
+import { RoleName, User, Users } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
@@ -40,18 +40,6 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
 
   const changeUser = useCallback((value: string, key: string) => setUserToEdit({ ...user, [key]: value }), [user])
 
-  const changeUserRoles = useCallback(
-    (roles: Array<Partial<UserRole<RoleName>>>) => {
-      dispatch(
-        UserManagementActions.updateUserRoles({
-          roles,
-          userId: userToEdit.id,
-        })
-      )
-    },
-    [dispatch, userToEdit.id]
-  )
-
   if (!user) return null
 
   const userRole = Users.getCountryRole(user, countryIso)
@@ -64,7 +52,7 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
 
       {userRole?.role === RoleName.COLLABORATOR && <CollaboratorPermissions userRole={userRole} />}
 
-      <CountryRoles onChange={changeUserRoles} user={user} />
+      <CountryRoles user={user} />
 
       <div className="edit-user__form-item edit-user__form-item-buttons">
         <div className="edit-user__form-label" />

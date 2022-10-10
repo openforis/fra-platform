@@ -5,9 +5,11 @@ import { useTranslation } from 'react-i18next'
 import { CountryIso, Region, RegionCode } from '@meta/area'
 import { RoleName, User, UserRole, Users } from '@meta/user'
 
+import { useAppDispatch } from '@client/store'
 import { useCountries } from '@client/store/assessment'
 import { useAssessment, useCycle, useSecondaryRegion } from '@client/store/assessment/hooks'
 import { useUser } from '@client/store/user'
+import { UserManagementActions } from '@client/store/userManagement'
 import CountrySelectModal from '@client/components/CountrySelectModal'
 
 import CountryRole from './CountryRole'
@@ -27,13 +29,8 @@ type ModalOptionsProps = {
   role: RoleName | null
 }
 
-type Props = {
-  onChange: (value: Array<Partial<UserRole<RoleName>>>) => void
-  user: User
-}
-
-const CountryRoles: React.FC<Props> = (props) => {
-  const { user, onChange } = props
+const CountryRoles: React.FC<{ user: User }> = ({ user }) => {
+  const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
   const userInfo = useUser()
   const countries = useCountries()
@@ -61,16 +58,31 @@ const CountryRoles: React.FC<Props> = (props) => {
         })
       )
 
-      onChange([...user.roles.filter(({ role: _role }: UserRole<RoleName>) => _role !== role), ...selectedRoles])
+      const roles = [...user.roles.filter(({ role: _role }: UserRole<RoleName>) => _role !== role), ...selectedRoles]
+
+      dispatch(
+        UserManagementActions.updateUserRoles({
+          roles,
+          userId: user.id,
+        })
+      )
     },
-    [assessment.id, cycle.uuid, onChange, user.roles]
+    [assessment.id, cycle.uuid, dispatch, user.id, user.roles]
   )
 
   const _toggleAdmin = useCallback(() => {
     // eslint-disable-next-line no-alert
-    if (window.confirm(i18n.t('editUser.adminConfirm')))
-      onChange(Users.isAdministrator(user) ? [] : [{ countryIso: null, role: RoleName.ADMINISTRATOR }])
-  }, [i18n, onChange, user])
+    if (window.confirm(i18n.t('editUser.adminConfirm'))) {
+      const roles = Users.isAdministrator(user) ? [] : [{ role: RoleName.ADMINISTRATOR }]
+
+      dispatch(
+        UserManagementActions.updateUserRoles({
+          roles,
+          userId: user.id,
+        })
+      )
+    }
+  }, [dispatch, i18n, user])
 
   return (
     <div className="edit-user__form-item edit-user__form-item-roles">
