@@ -2,7 +2,7 @@ import './EditUserForm.scss'
 import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { RoleName, User, UserRole, Users } from '@meta/user'
+import { RoleName, User, Users } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
@@ -38,10 +38,7 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
     }
   }, [profilePicture, userToEdit])
 
-  const changeUser = useCallback(
-    (value: string | Array<Partial<UserRole<RoleName>>>, key: string) => setUserToEdit({ ...user, [key]: value }),
-    [user]
-  )
+  const changeUser = useCallback((value: string, key: string) => setUserToEdit({ ...user, [key]: value }), [user])
 
   if (!user) return null
 
@@ -51,11 +48,11 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
     <div className="edit-user__form-container">
       <ProfilePicture userId={user.id} onChange={(profilePicture: File) => setProfilePicture(profilePicture)} />
 
-      <TextInputFields user={userToEdit} onChange={changeUser} />
+      <TextInputFields onChange={changeUser} user={user} />
 
       {userRole?.role === RoleName.COLLABORATOR && <CollaboratorPermissions userRole={userRole} />}
 
-      <CountryRoles onChange={changeUser} user={user} />
+      <CountryRoles user={user} />
 
       <div className="edit-user__form-item edit-user__form-item-buttons">
         <div className="edit-user__form-label" />

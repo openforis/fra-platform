@@ -5,9 +5,11 @@ import { useTranslation } from 'react-i18next'
 import { CountryIso, Region, RegionCode } from '@meta/area'
 import { RoleName, User, UserRole, Users } from '@meta/user'
 
+import { useAppDispatch } from '@client/store'
 import { useCountries } from '@client/store/assessment'
 import { useAssessment, useCycle, useSecondaryRegion } from '@client/store/assessment/hooks'
 import { useUser } from '@client/store/user'
+import { UserManagementActions } from '@client/store/userManagement'
 import CountrySelectModal from '@client/components/CountrySelectModal'
 
 import CountryRole from './CountryRole'
@@ -27,13 +29,8 @@ type ModalOptionsProps = {
   role: RoleName | null
 }
 
-type Props = {
-  onChange: (value: Array<Partial<UserRole<RoleName>>>, key: string) => void
-  user: User
-}
-
-const CountryRoles: React.FC<Props> = (props) => {
-  const { user, onChange } = props
+const CountryRoles: React.FC<{ user: User }> = ({ user }) => {
+  const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
   const userInfo = useUser()
   const countries = useCountries()
@@ -50,10 +47,8 @@ const CountryRoles: React.FC<Props> = (props) => {
   }, [])
   const [modalOptions, setModalOptions] = useState<ModalOptionsProps>(initialModalState)
 
-  const _onClose = useCallback(
+  const _onChange = useCallback(
     (selection: Array<string>, role: RoleName) => {
-      setModalOptions(initialModalState)
-
       const selectedRoles = selection.map(
         (countryIso): Partial<UserRole<RoleName>> => ({
           countryIso: countryIso as CountryIso,
@@ -63,33 +58,36 @@ const CountryRoles: React.FC<Props> = (props) => {
         })
       )
 
-      onChange(
-        [...user.roles.filter(({ role: _role }: UserRole<RoleName>) => _role !== role), ...selectedRoles],
-        'roles'
+      const roles = [...user.roles.filter(({ role: _role }: UserRole<RoleName>) => _role !== role), ...selectedRoles]
+
+      dispatch(
+        UserManagementActions.updateUserRoles({
+          roles,
+          userId: user.id,
+        })
       )
     },
-    [assessment.id, cycle.uuid, initialModalState, onChange, user.roles]
+    [assessment.id, cycle.uuid, dispatch, user.id, user.roles]
   )
 
   const _toggleAdmin = useCallback(() => {
-    onChange(Users.isAdministrator(user) ? [] : [{ countryIso: null, role: RoleName.ADMINISTRATOR }], 'roles')
-  }, [onChange, user])
+    // eslint-disable-next-line no-alert
+    if (window.confirm(i18n.t('editUser.adminConfirm'))) {
+      const roles = Users.isAdministrator(user) ? [] : [{ role: RoleName.ADMINISTRATOR }]
+
+      dispatch(
+        UserManagementActions.updateUserRoles({
+          roles,
+          userId: user.id,
+        })
+      )
+    }
+  }, [dispatch, i18n, user])
 
   return (
     <div className="edit-user__form-item edit-user__form-item-roles">
       <div className="edit-user__form-label">{i18n.t<string>('editUser.role')}</div>
       <div className={`edit-user__form-field edit-user__form-field-roles${Users.validRole(user) ? '' : ' error'}`}>
-        {Users.isAdministrator(userInfo) && (
-          <div
-            className="edit-user__form-field-role edit-user__form-field-role-admin edit-user__form-field-role-container validation-error-sensitive-field"
-            onClick={_toggleAdmin}
-            aria-hidden="true"
-          >
-            <div className="role">{i18n.t<string>(Users.getI18nRoleLabelKey(RoleName.ADMINISTRATOR))}</div>
-            <div className={`fra-checkbox${Users.isAdministrator(user) ? ' checked' : ''}`} />
-          </div>
-        )}
-
         {roles.map((role) => {
           const userRoles = user?.roles
           if (!userRoles) return null
@@ -117,15 +115,28 @@ const CountryRoles: React.FC<Props> = (props) => {
 
           return <CountryRole key={role} onClick={_onClick} role={role} user={user} />
         })}
+
+        {Users.isAdministrator(userInfo) && (
+          <div
+            className="edit-user__form-field-role edit-user__form-field-role-admin edit-user__form-field-role-container validation-error-sensitive-field"
+            onClick={_toggleAdmin}
+            aria-hidden="true"
+          >
+            <div className="role">{i18n.t<string>(Users.getI18nRoleLabelKey(RoleName.ADMINISTRATOR))}</div>
+            <div className={`fra-checkbox${Users.isAdministrator(user) ? ' checked' : ''}`} />
+          </div>
+        )}
       </div>
       <CountrySelectModal
         open={modalOptions.open}
         countries={countries}
         excludedRegions={[RegionCode.FE, RegionCode.AT, ...secondaryRegions.regions.map((r: Region) => r.regionCode)]}
         headerLabel={i18n.t(Users.getI18nRoleLabelKey(modalOptions.role as RoleName))}
-        onClose={(selection) => _onClose(selection, modalOptions.role)}
+        onClose={() => setModalOptions(initialModalState)}
         initialSelection={modalOptions.initialSelection}
         unselectableCountries={modalOptions.unselectableCountries}
+        onChange={(_, selectionUpdate: Array<string>) => _onChange(selectionUpdate, modalOptions.role)}
+        showFooter={false}
       />
     </div>
   )
