@@ -1,20 +1,20 @@
 import { Response } from 'express'
 
 import { CycleDataRequest } from '@meta/api/request'
-import { CommentableDescriptionName } from '@meta/assessment/commentableDescription'
+import { CommentableDescriptionName, CommentableDescriptionValue } from '@meta/assessment'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { CycleDataController } from '@server/controller/cycleData'
 import Requests from '@server/utils/requests'
 
 export const upsertDescription = async (
-  req: CycleDataRequest<{ name: CommentableDescriptionName }, { content: string }>,
+  req: CycleDataRequest<{ name: CommentableDescriptionName }, { value: CommentableDescriptionValue }>,
   res: Response
 ) => {
   try {
     const { assessmentName, sectionName, cycleName, countryIso, name } = req.query
 
-    const { content } = req.body
+    const { value } = req.body
 
     const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
@@ -24,7 +24,7 @@ export const upsertDescription = async (
       cycle,
       sectionName,
       name,
-      content,
+      value,
       user: Requests.getRequestUser(req),
     })
 

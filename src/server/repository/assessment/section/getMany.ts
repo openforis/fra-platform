@@ -38,12 +38,13 @@ export const getMany = async (
     [cycle.uuid],
     ({ data }: { data: Array<Omit<Section, 'subSections'> & { sub_sections: Array<SubSection> }> }) => {
       // eslint-disable-next-line camelcase
-      return data.map(({ sub_sections, ...section }) => ({
+      return data.map(({ sub_sections, props: { labels, ...props }, ...section }) => ({
         ...Objects.camelize(section),
+        props: { ...Objects.camelize(props), labels },
         // eslint-disable-next-line camelcase
-        subSections: sub_sections.map(({ props: { anchors, ...props }, ...subSection }) => ({
+        subSections: sub_sections.map(({ props: { anchors, labels, ...props }, ...subSection }) => ({
           ...Objects.camelize(subSection),
-          props: { ...Objects.camelize(props), anchors },
+          props: { ...Objects.camelize(props), anchors, labels },
         })),
       }))
     }

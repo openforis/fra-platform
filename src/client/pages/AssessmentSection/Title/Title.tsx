@@ -1,9 +1,9 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { AssessmentNames, SubSections } from '@meta/assessment'
+import { AssessmentNames, Labels, SubSections } from '@meta/assessment'
 
-import { useCycle } from '@client/store/assessment'
+import { useAssessment, useCycle } from '@client/store/assessment'
 import DefinitionLink from '@client/components/DefinitionLink'
 
 import ExtentOfForest from './ExtentOfForest/ExtentOfForest'
@@ -21,20 +21,22 @@ const Components: Record<string, Record<string, React.FC<Props>>> = {
 }
 
 const TitleDefault: React.FC<Props> = (props) => {
-  const { assessmentName, subSection } = props
-  const { i18n } = useTranslation()
-  const prefix = assessmentName === AssessmentNames.panEuropean ? 'panEuropean.' : ''
-  const sectionName = subSection.props.name
+  const { subSection } = props
 
-  return <h2 className="headline no-print">{i18n.t<string>(`${prefix}${sectionName}.${sectionName}`)}</h2>
+  const cycle = useCycle()
+  const { t } = useTranslation()
+
+  return <h2 className="headline no-print">{Labels.getLabel({ cycle, labels: subSection.props.labels, t })}</h2>
 }
 
 const Title: React.FC<Props> = (props) => {
-  const { assessmentName, subSection } = props
+  const { subSection } = props
 
-  const { i18n } = useTranslation()
+  const assessment = useAssessment()
+  const { i18n, t } = useTranslation()
   const cycle = useCycle()
 
+  const assessmentName = assessment.props.name
   const fra = assessmentName === AssessmentNames.fra
   const sectionName = subSection.props.name
   const anchor = SubSections.getAnchor({ cycle, subSection })
@@ -42,7 +44,7 @@ const Title: React.FC<Props> = (props) => {
 
   return (
     <>
-      {React.createElement(Component, { assessmentName, subSection })}
+      {React.createElement(Component, { subSection })}
 
       {fra && (
         <div className="app-view__section-toolbar no-print">
@@ -50,14 +52,14 @@ const Title: React.FC<Props> = (props) => {
             className="margin-right-big"
             document="tad"
             anchor={anchor}
-            title={i18n.t<string>('definition.definitionLabel')}
+            title={t('definition.definitionLabel')}
             lang={i18n.language}
           />
           <DefinitionLink
             className="align-left"
             document="faq"
             anchor={anchor}
-            title={i18n.t<string>('definition.faqLabel')}
+            title={t('definition.faqLabel')}
             lang={i18n.language}
           />
         </div>
