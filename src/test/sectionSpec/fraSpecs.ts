@@ -908,6 +908,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   validateFns: [
                     `validatorPrimaryForest(specificForestCategories.primaryForest, forestCharacteristics.naturalForestArea)`,
                   ],
+                  cycles: ['2020'],
                 },
               },
               {
@@ -944,6 +945,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'specificForestCategories.temporarilyUnstocked',
                 variableExport: 'temporarily_unstocked',
+                migration: {
+                  cycles: ['2020'],
+                },
               },
               {
                 idx: 2,
@@ -993,8 +997,13 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 'header_0',
                     type: 'header',
                     colSpan: 1,
-                    labelKey: 'specificForestCategories.mangroves',
                     className: 'fra-table__category-cell',
+                    migration: {
+                      label: {
+                        '2020': { key: 'specificForestCategories.mangroves' },
+                        '2025': { key: 'fra.specificForestCategories.mangroves2025' },
+                      },
+                    },
                   },
                   {
                     idx: 0,
@@ -1071,12 +1080,19 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 cols: [
                   {
                     idx: 0,
-                    colSpan: 1,
-                    rowSpan: 2,
-                    labelKey: null,
+                    colSpan: 7,
+                    rowSpan: 1,
                     type: 'noticeMessage',
+                    migration: {
+                      label: {
+                        '2025': { key: 'fra.specificForestCategories.mangrovesDisclaimer' },
+                      },
+                    },
                   },
                 ],
+                migration: {
+                  cycles: ['2025'],
+                },
               },
               {
                 idx: 6,
@@ -1890,6 +1906,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   validateFns: [
                     `validatorOtherLandWithTreeCoverTotal(otherLandWithTreeCover.otherLand,otherLandWithTreeCover.otherLandWithTreeCoverTotal)`,
                   ],
+                  cycles: ['2020'],
                 },
               },
               {
@@ -1925,12 +1942,15 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     type: 'calculated',
                   },
                 ],
-                labelKey: 'otherLandWithTreeCover.otherLandArea',
                 linkToSection: 'extentOfForest',
                 variableName: 'otherLand',
                 migration: {
                   calcFormula: 'extentOfForest.otherLand',
                   colNames: ['1990', '2000', '2010', '2015', '2020'],
+                  label: {
+                    '2020': { key: 'otherLandWithTreeCover.otherLandArea' },
+                    '2025': { key: 'fra.extentOfForest.remainingLandArea' },
+                  },
                 },
               },
               {
