@@ -77,9 +77,9 @@ const canEdit = (props: {
   section: Section
   country: Country
   user: User
-  checkPermission?: CollaboratorEditPropertyType
+  permission?: CollaboratorEditPropertyType
 }): boolean => {
-  const { section, user, countryIso, country, checkPermission = CollaboratorEditPropertyType.tableData } = props
+  const { section, user, countryIso, country, permission = CollaboratorEditPropertyType.tableData } = props
   const { status } = country.props
 
   if (!user) return false
@@ -101,7 +101,7 @@ const canEdit = (props: {
     if (!userSections) return true
     if (userSections === 'none') return false
     if (userSections === 'all') return true
-    return userSections[section.uuid]?.[checkPermission] === true
+    return userSections[section.uuid]?.[permission] === true
   }
 
   if (Users.isReviewer(user, countryIso)) {

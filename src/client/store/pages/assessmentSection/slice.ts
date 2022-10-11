@@ -72,16 +72,16 @@ export const assessmentSectionSlice = createSlice({
     })
 
     builder.addCase(getDescription.fulfilled, (state, { payload }) => {
-      const { name, sectionName, content } = payload
+      const { name, sectionName, value } = payload
       if (!state.descriptions[sectionName]) state.descriptions[sectionName] = {}
-      state.descriptions[sectionName][name] = content
+      state.descriptions[sectionName][name] = value
     })
 
     builder.addCase(updateDescription.pending, (state, { meta }) => {
-      const { sectionName, name, content } = meta.arg
+      const { sectionName, name, value } = meta.arg
 
       if (!state.descriptions[sectionName]) state.descriptions[sectionName] = {}
-      state.descriptions[sectionName][name] = content
+      state.descriptions[sectionName][name] = value
     })
   },
 })

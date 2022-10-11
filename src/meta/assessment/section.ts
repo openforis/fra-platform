@@ -1,12 +1,12 @@
-import { CycledPropsObject, Descriptions } from './index'
+import { CycledPropsObject, Descriptions, Label } from './index'
 
 export interface SectionProps {
   index: number
-  labelKey: string
+  labels: Record<string, Label>
 }
 
 export interface SubSectionProps extends SectionProps {
-  anchor: string
+  anchors: Record<string, string> // anchor by cycle uuid
   descriptions: Descriptions
   name: string
   showTitle: boolean
@@ -18,7 +18,3 @@ export interface Section extends CycledPropsObject<SectionProps> {
 }
 
 export type SubSection = CycledPropsObject<SubSectionProps>
-// assessmentId: number
-// children?: Record<string, AssessmentSectionItem>
-// tableSections?: Array<TableSection>
-// dataExport: boolean // if it's included in data export

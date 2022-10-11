@@ -21,4 +21,10 @@ module.exports = {
     primaryForestTropical: '…of which tropical primary forest',
     primaryForestSubTropical: '…of which sub-tropical primary forest',
   },
+
+  specificForestCategories: {
+    specificForestCategories2025: 'Specific forest categories',
+    mangroves2025: `Mangroves\u00B9`,
+    mangrovesDisclaimer: `\u00B9Note the area of mangroves not only includes Forest but also Other wooded land`,
+  },
 }

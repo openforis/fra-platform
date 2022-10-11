@@ -17,29 +17,29 @@ const _next = (allowed: boolean, next: NextFunction): void => {
 }
 
 const requireEdit = async (req: Request, next: NextFunction) => {
-  const { countryIso, assessmentName, cycleName, sectionName, checkPermission } = {
+  const { countryIso, assessmentName, cycleName, sectionName, permission } = {
     ...req.params,
     ...req.query,
     ...req.body,
-  } as CycleDataParams & { checkPermission?: CollaboratorEditPropertyType }
+  } as CycleDataParams & { permission?: CollaboratorEditPropertyType }
   const user = Requests.getRequestUser(req)
 
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
   const section = await MetadataController.getSection({ assessment, cycle, sectionName })
   const country = await AreaController.getCountry({ countryIso, assessment, cycle })
 
-  _next(Authorizer.canEdit({ user, section, countryIso, country, checkPermission }), next)
+  _next(Authorizer.canEdit({ user, section, countryIso, country, permission }), next)
 }
 
 const requireEditDescriptions = async (req: Request, _res: Response, next: NextFunction) => {
   const _req = req
-  _req.body.checkPermission = CollaboratorEditPropertyType.descriptions
+  _req.body.permission = CollaboratorEditPropertyType.descriptions
   return requireEdit(_req, next)
 }
 
 const requireEditTableData = async (req: Request, _res: Response, next: NextFunction) => {
   const _req = req
-  _req.body.checkPermission = CollaboratorEditPropertyType.tableData
+  _req.body.permission = CollaboratorEditPropertyType.tableData
   return requireEdit(_req, next)
 }
 

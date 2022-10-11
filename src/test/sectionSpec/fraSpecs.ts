@@ -908,6 +908,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   validateFns: [
                     `validatorPrimaryForest(specificForestCategories.primaryForest, forestCharacteristics.naturalForestArea)`,
                   ],
+                  cycles: ['2020'],
                 },
               },
               {
@@ -944,6 +945,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'specificForestCategories.temporarilyUnstocked',
                 variableExport: 'temporarily_unstocked',
+                migration: {
+                  cycles: ['2020'],
+                },
               },
               {
                 idx: 2,
@@ -993,8 +997,13 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 'header_0',
                     type: 'header',
                     colSpan: 1,
-                    labelKey: 'specificForestCategories.mangroves',
                     className: 'fra-table__category-cell',
+                    migration: {
+                      label: {
+                        '2020': { key: 'specificForestCategories.mangroves' },
+                        '2025': { key: 'fra.specificForestCategories.mangroves2025' },
+                      },
+                    },
                   },
                   {
                     idx: 0,
@@ -1071,12 +1080,19 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 cols: [
                   {
                     idx: 0,
-                    colSpan: 1,
-                    rowSpan: 2,
-                    labelKey: null,
+                    colSpan: 7,
+                    rowSpan: 1,
                     type: 'noticeMessage',
+                    migration: {
+                      label: {
+                        '2025': { key: 'fra.specificForestCategories.mangrovesDisclaimer' },
+                      },
+                    },
                   },
                 ],
+                migration: {
+                  cycles: ['2025'],
+                },
               },
               {
                 idx: 6,
@@ -1112,6 +1128,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
     },
     dataExport: {
       included: true,
+    },
+    migration: {
+      label: {
+        '2020': { key: 'specificForestCategories.specificForestCategories' },
+        '2025': { key: 'fra.specificForestCategories.specificForestCategories2025' },
+      },
     },
   },
   forestAreaChange: {
@@ -1216,7 +1238,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_expansion',
                 variableNo: 'a',
                 migration: {
-                  validateFns: [`validatorGreaterThenOrZero(forestAreaChange.forest_expansion)`],
+                  validateFns: [`validatorGreaterThanOrZero(forestAreaChange.forest_expansion)`],
                 },
               },
               {
@@ -1326,7 +1348,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableExport: 'deforestation',
                 variableNo: 'b',
                 migration: {
-                  validateFns: [`validatorGreaterThenOrZero(forestAreaChange.deforestation)`],
+                  validateFns: [`validatorGreaterThanOrZero(forestAreaChange.deforestation)`],
                 },
               },
               {
@@ -1529,7 +1551,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'annualReforestation.reforestation',
                 variableExport: 'reforestation',
                 migration: {
-                  validateFns: [`validatorGreaterThenOrZero(annualReforestation.reforestation)`],
+                  validateFns: [`validatorGreaterThanOrZero(annualReforestation.reforestation)`],
                 },
               },
               {
@@ -1884,6 +1906,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   validateFns: [
                     `validatorOtherLandWithTreeCoverTotal(otherLandWithTreeCover.otherLand,otherLandWithTreeCover.otherLandWithTreeCoverTotal)`,
                   ],
+                  cycles: ['2020'],
                 },
               },
               {
@@ -1919,12 +1942,15 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     type: 'calculated',
                   },
                 ],
-                labelKey: 'otherLandWithTreeCover.otherLandArea',
                 linkToSection: 'extentOfForest',
                 variableName: 'otherLand',
                 migration: {
                   calcFormula: 'extentOfForest.otherLand',
                   colNames: ['1990', '2000', '2010', '2015', '2020'],
+                  label: {
+                    '2020': { key: 'otherLandWithTreeCover.otherLandArea' },
+                    '2025': { key: 'fra.extentOfForest.remainingLandArea' },
+                  },
                 },
               },
               {
@@ -1974,6 +2000,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
     },
     dataExport: {
       included: true,
+    },
+    migration: {
+      anchors: {
+        '2020': '1f',
+        '2025': '1e',
+      },
     },
   },
   growingStock: {
@@ -4694,6 +4726,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableName: 'no_unknown',
                 migration: {
                   colNames: ['1990', '2000', '2010', '2015', '2020'],
+                  validateFns: [`validatorGreaterThanOrZero(primaryDesignatedManagementObjective.no_unknown)`],
                   calcFormula:
                     'extentOfForest.forestArea - (primaryDesignatedManagementObjective.production || 0)  - (primaryDesignatedManagementObjective.protection_of_soil_and_water || 0)  - (primaryDesignatedManagementObjective.conservation_of_biodiversity || 0)  - (primaryDesignatedManagementObjective.social_services || 0)  - (primaryDesignatedManagementObjective.multiple_use || 0)  - (primaryDesignatedManagementObjective.other || 0)',
                 },
@@ -5645,7 +5678,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   calcFormula: `forestOwnership.private_ownership || forestOwnership.public_ownership 
                     ? extentOfForest.forestArea - (forestOwnership.private_ownership || 0) - (forestOwnership.public_ownership || 0)
                     : null`,
-                  validateFns: [`validatorGreaterThenOrZero(forestOwnership.other_or_unknown)`],
+                  validateFns: [`validatorGreaterThanOrZero(forestOwnership.other_or_unknown)`],
                 },
               },
               {
@@ -5970,6 +6003,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableName: 'other',
                 migration: {
                   colNames: ['1990', '2000', '2010', '2015'],
+                  validateFns: [`validatorGreaterThanOrZero(holderOfManagementRights.other)`],
                   calcFormula:
                     'forestOwnership.public_ownership - (holderOfManagementRights.public_administration || 0) - (holderOfManagementRights.individuals || 0) - (holderOfManagementRights.private_businesses || 0) - (holderOfManagementRights.communities || 0)',
                 },
@@ -7806,6 +7840,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
     },
     dataExport: {
       included: true,
+    },
+    migration: {
+      anchors: {
+        '2020': '6b',
+        '2025': '6a',
+      },
     },
   },
   employment: {
@@ -10106,6 +10146,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
     },
     dataExport: {
       included: false,
+    },
+    migration: {
+      anchors: {
+        '2020': '7c',
+        '2025': '7a',
+      },
     },
   },
   sustainableDevelopment: {

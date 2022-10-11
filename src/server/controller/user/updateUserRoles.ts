@@ -1,38 +1,36 @@
 import { ActivityLogMessage } from '@meta/assessment'
-import { User } from '@meta/user'
+import { RoleName, User, UserRole } from '@meta/user'
 
 import { BaseProtocol, DB } from '@server/db'
 import { ActivityLogRepository } from '@server/repository/public/activityLog'
 import { UserRepository } from '@server/repository/public/user'
+import { UserRoleRepository } from '@server/repository/public/userRole'
 
-export const update = async (
+export const updateUserRoles = async (
   props: {
-    userToUpdate: User
-    profilePicture?: Express.Multer.File | null
+    roles: Array<Partial<UserRole<RoleName>>>
+    userId: number
     user: User
   },
   client: BaseProtocol = DB
 ): Promise<User> => {
-  const { userToUpdate, profilePicture, user } = props
+  const { roles, userId, user } = props
 
   return client.tx(async (t) => {
-    const updatedUser = await UserRepository.update({ user: userToUpdate, profilePicture }, t)
-
-    // don't save thousands of lines about roles, they are saved separately
-    delete updatedUser.roles
+    await UserRoleRepository.update({ roles, userId }, t)
 
     await ActivityLogRepository.insertActivityLog(
       {
         activityLog: {
-          target: { user: updatedUser },
+          target: { roles, userId },
           section: 'users',
-          message: ActivityLogMessage.userUpdate,
+          message: ActivityLogMessage.userRolesUpdate,
           user,
         },
       },
       t
     )
 
-    return updatedUser
+    return UserRepository.getOne({ id: userId }, t)
   })
 }

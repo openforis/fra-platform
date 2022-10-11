@@ -1,6 +1,6 @@
 import { Objects } from '@utils/objects'
 
-import { Assessment, Cycle, Section } from '@meta/assessment'
+import { Assessment, Cycle, Section, SubSection } from '@meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
@@ -36,6 +36,17 @@ export const getMany = async (
         ;
     `,
     [cycle.uuid],
-    ({ data }) => Objects.camelize(data)
+    ({ data }: { data: Array<Omit<Section, 'subSections'> & { sub_sections: Array<SubSection> }> }) => {
+      // eslint-disable-next-line camelcase
+      return data.map(({ sub_sections, props: { labels, ...props }, ...section }) => ({
+        ...Objects.camelize(section),
+        props: { ...Objects.camelize(props), labels },
+        // eslint-disable-next-line camelcase
+        subSections: sub_sections.map(({ props: { anchors, labels, ...props }, ...subSection }) => ({
+          ...Objects.camelize(subSection),
+          props: { ...Objects.camelize(props), anchors, labels },
+        })),
+      }))
+    }
   )
 }
