@@ -1917,9 +1917,14 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 'header_0',
                     type: 'header',
                     colSpan: 1,
-                    labelKey: 'otherLandWithTreeCover.otherLandArea',
                     linkToSection: 'extentOfForest',
                     className: 'fra-table__category-cell',
+                    mimgration: {
+                      label: {
+                        '2020': { key: 'otherLandWithTreeCover.otherLandArea' },
+                        '2025': { key: 'fra.extentOfForest.remainingLandArea' },
+                      },
+                    },
                   },
                   {
                     idx: 0,
@@ -1947,10 +1952,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 migration: {
                   calcFormula: 'extentOfForest.otherLand',
                   colNames: ['1990', '2000', '2010', '2015', '2020'],
-                  label: {
-                    '2020': { key: 'otherLandWithTreeCover.otherLandArea' },
-                    '2025': { key: 'fra.extentOfForest.remainingLandArea' },
-                  },
                 },
               },
               {
