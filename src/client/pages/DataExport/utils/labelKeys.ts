@@ -33,7 +33,7 @@ const columnLabelKeys: Record<string, string> = {
 export const getVariableLabelKey = (variable: string): string => {
   // get the last part of the i18n key,
   // ex: foo.bar.other => other
-  const key = variable.split('.').pop()
+  const key = variable?.split('.').pop()
   return variableLabelKeys[key] ? variableLabelKeys[key] : variable
 }
 

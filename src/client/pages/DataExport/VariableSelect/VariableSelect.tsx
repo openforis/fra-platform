@@ -86,8 +86,8 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
         >
           {variables.map((variable) => {
             const { variableName } = variable.props
-            const { key: labelKey, params: labelParams, prefix: labelPrefixKey } = variable.props.label
-            const label = getVariableLabelKey(labelKey)
+            const { key: labelKey, params: labelParams, prefix: labelPrefixKey } = variable.props.label ?? {}
+            const label = getVariableLabelKey(labelKey) ?? variableName
 
             return (
               <option key={variableName} value={variableName}>
@@ -103,8 +103,9 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
           <div className="export__form-section-variables">
             {variables.map((variable) => {
               const { variableName } = variable.props
-              const { key: labelKey, params: labelParams, prefix: labelPrefixKey } = variable.props.label
-              const label = getVariableLabelKey(labelKey)
+              const { key: labelKey, params: labelParams, prefix: labelPrefixKey } = variable.props.label ?? {}
+              const label = getVariableLabelKey(labelKey) ?? variableName
+
               const selected = selectionVariables.includes(variableName)
 
               return (
