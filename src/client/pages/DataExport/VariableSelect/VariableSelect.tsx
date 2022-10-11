@@ -3,14 +3,14 @@ import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 import { useParams } from 'react-router-dom'
 
-import { AssessmentName, AssessmentNames, Row } from '@meta/assessment'
+import { AssessmentName, AssessmentNames, Labels, Row } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
+import { useCycle } from '@client/store/assessment'
 import { DataExportActions, DataExportSelection, useDataExportSelection } from '@client/store/pages/dataExport'
 import { DataExportActionType } from '@client/store/pages/dataExport/actionTypes'
 import ButtonCheckBox from '@client/components/ButtonCheckBox'
 import DefinitionLink from '@client/components/DefinitionLink'
-import { getVariableLabelKey } from '@client/pages/DataExport/utils'
 import { Breakpoints } from '@client/utils/breakpoints'
 
 const Heading: Record<string, string> = {
@@ -20,11 +20,12 @@ const Heading: Record<string, string> = {
 
 const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
   const dispatch = useAppDispatch()
-  const i18n = useTranslation()
+  const { i18n, t } = useTranslation()
   const { assessmentName, sectionName } = useParams<{
     assessmentName: AssessmentName
     sectionName: string
   }>()
+  const cycle = useCycle()
   const selection = useDataExportSelection(sectionName)
   const selectionVariables = selection.sections[sectionName].variables
 
@@ -52,13 +53,13 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
     <div className="export__form-section">
       <div className="export__form-section-header">
         <div className="export__form-section-header-withLink">
-          <h4>{i18n.t(Heading[assessmentName])}</h4>
+          <h4>{t(Heading[assessmentName])}</h4>
           <DefinitionLink
             className="margin-right-big"
             document="tad"
             anchor="1a"
-            title={`(${i18n.t('definition.definitionLabel')})`}
-            lang={i18n.i18n.language}
+            title={`(${t('definition.definitionLabel')})`}
+            lang={i18n.language}
           />
         </div>
         <ButtonCheckBox
@@ -86,12 +87,12 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
         >
           {variables.map((variable) => {
             const { variableName } = variable.props
-            const { key: labelKey, params: labelParams, prefix: labelPrefixKey } = variable.props.label
-            const label = getVariableLabelKey(labelKey)
+
+            const label = Labels.getLabel({ cycle, labels: variable.cols[0].props.labels, t })
 
             return (
               <option key={variableName} value={variableName}>
-                {`${labelPrefixKey ? i18n.t(labelPrefixKey) : ''}${i18n.t(label, labelParams)}`}
+                {label}
               </option>
             )
           })}
@@ -103,16 +104,16 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
           <div className="export__form-section-variables">
             {variables.map((variable) => {
               const { variableName } = variable.props
-              const { key: labelKey, params: labelParams, prefix: labelPrefixKey } = variable.props.label
-              const label = getVariableLabelKey(labelKey)
+
+              const label = Labels.getLabel({ cycle, labels: variable.cols[0].props.labels, t })
+
               const selected = selectionVariables.includes(variableName)
 
               return (
                 <ButtonCheckBox
                   key={variableName}
                   checked={selected}
-                  label={[labelPrefixKey, label]}
-                  labelParam={labelParams}
+                  label={label}
                   onClick={() => {
                     const variablesUpdate = [...selectionVariables]
                     if (selected) variablesUpdate.splice(variablesUpdate.indexOf(variableName), 1)
