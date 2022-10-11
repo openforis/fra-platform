@@ -64,7 +64,9 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
       <td className="fra-table__cell-left">
         <select disabled={disabled} value={dataSource.type} onChange={(event) => _onChange('type', event.target.value)}>
           {dataSourceTypes.map((type) => (
-            <option value={type}>{type}</option>
+            <option key={type} value={type}>
+              {type}
+            </option>
           ))}
         </select>
       </td>
@@ -76,7 +78,9 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
           onChange={(event) => _onChange('fraVariable', event.target.value)}
         >
           {rows.map((row) => (
-            <option value={row}>{row}</option>
+            <option key={row} value={row}>
+              {row}
+            </option>
           ))}
         </select>
       </td>
@@ -84,7 +88,9 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
       <td className="fra-table__cell-left">
         <select disabled={disabled} value={dataSource.year} onChange={(event) => _onChange('year', event.target.value)}>
           {columns.map((column) => (
-            <option value={column}>{column}</option>
+            <option key={column} value={column}>
+              {column}
+            </option>
           ))}
         </select>
       </td>
