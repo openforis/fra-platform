@@ -10,8 +10,14 @@ module.exports = {
   extentOfForest: {
     remainingLandArea: 'Remaining land area',
   },
+
   forestCharacteristics: {
     primaryForest: '…of which primary forest',
+  },
+
+  growingStockComposition: {
+    growingStockPercent: 'Growing stock in forest (% of total)',
+    mostRecentYear: 'Most recent year',
   },
 
   primaryForestByClimaticDomain: {
