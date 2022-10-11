@@ -160,7 +160,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     colName: `${year}`,
                   })),
                 ],
-                labelKey: 'fraClass.otherLand',
                 variableNo: 'c-a-b',
                 variableName: 'otherLand',
                 variableExport: 'other_land',

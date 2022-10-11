@@ -3,11 +3,6 @@ import { Unit } from '@meta/dataExport'
 
 import { isYearWithWord } from './checks'
 
-const variableLabelKeys: Record<string, string> = {
-  other: 'common.other',
-  otherOrUnknown: 'common.unknown',
-}
-
 const unitLabelKeys: Record<string, string> = {
   ha: 'ha',
   kmSq: 'kmSq',
@@ -23,18 +18,6 @@ const columnLabelKeys: Record<string, string> = {
   scientific_name: 'scientificName',
   national_yes_no: 'national',
   sub_national_yes_no: 'subnational',
-}
-
-/**
- * Some variable's might have custom mappings, check for the special cases and return accordingly
- * @param variable - i18n key of format 'foo.bar' to check for custom mapping(s)
- * @returns {*} - return either the original i18nKey or new key from variableI18nMappings
- */
-export const getVariableLabelKey = (variable: string): string => {
-  // get the last part of the i18n key,
-  // ex: foo.bar.other => other
-  const key = variable?.split('.').pop()
-  return variableLabelKeys[key] ? variableLabelKeys[key] : variable
 }
 
 export const getUnitLabelKey = (unit: string): string => (unitLabelKeys[unit] ? `unit.${unitLabelKeys[unit]}` : unit)
