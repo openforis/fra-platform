@@ -4,10 +4,11 @@ import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
+import { ClientRoutes } from '@meta/app'
+
 import { useAppDispatch } from '@client/store'
 import { AssessmentActions } from '@client/store/assessment'
 import { useIsPrint } from '@client/hooks/useIsPath'
-import { ClientRoutes } from '@client/clientRoutes'
 import Footer from '@client/components/Footer'
 import Header from '@client/components/Header'
 import Toaster from '@client/components/Toaster'
@@ -37,10 +38,12 @@ const PageRoutes: React.FC = () => {
     return () => {
       SocketClient.close()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
     dispatch(AssessmentActions.initApp())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

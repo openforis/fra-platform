@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom'
 
 import classNames from 'classnames'
 
+import { ClientRoutes } from '@meta/app'
 import { Cols } from '@meta/assessment'
 import { Topics } from '@meta/messageCenter'
 
 import { useCycle } from '@client/store/assessment'
 import { useTopicKeys } from '@client/store/ui/messageCenter/hooks'
 import { useCountryIso } from '@client/hooks'
-import { ClientRoutes } from '@client/clientRoutes'
 import ReviewIndicator from '@client/components/ReviewIndicator'
 
 import { Props } from '../props'

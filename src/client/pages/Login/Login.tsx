@@ -2,8 +2,9 @@ import './login.scss'
 import React, { useEffect } from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 
+import { ClientRoutes } from '@meta/app'
+
 import { useUser } from '@client/store/user'
-import { ClientRoutes } from '@client/clientRoutes'
 import Partners from '@client/components/Partners'
 import { Urls } from '@client/utils'
 

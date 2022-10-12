@@ -3,12 +3,12 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { matchPath, useLocation } from 'react-router-dom'
 
+import { ClientRoutes } from '@meta/app'
 import { Labels, Section } from '@meta/assessment'
 
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { useSectionReviewSummary } from '@client/store/ui/review/hooks'
 import { useCountryIso, useIsDataExportView } from '@client/hooks'
-import { ClientRoutes } from '@client/clientRoutes'
 
 import ReviewStatusMarker from './ReviewStatusMarker'
 import SectionItemLink from './SectionItemLink'

@@ -5,9 +5,8 @@ import axios from 'axios'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { CycleParams } from '@meta/api/request'
+import { ClientRoutes } from '@meta/app'
 import { ODPs, OriginalDataPoint } from '@meta/assessment'
-
-import { ClientRoutes } from '@client/clientRoutes'
 
 export const createOriginalDataPoint = createAsyncThunk<
   OriginalDataPoint,
