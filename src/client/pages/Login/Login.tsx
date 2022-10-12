@@ -20,7 +20,7 @@ const Login: React.FC = () => {
     if (user && !invitationUuid) {
       navigate('/')
     }
-  }, [user])
+  }, [invitationUuid, navigate, user])
 
   return (
     <>
