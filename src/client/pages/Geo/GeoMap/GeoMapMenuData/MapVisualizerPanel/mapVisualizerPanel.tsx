@@ -1,21 +1,27 @@
 import './mapVisualizerPanel.scss'
 import React from 'react'
 
+import axios from 'axios'
+
 import GeoMapMenuListElement from '../../GeoMapMenuListElement'
 
 // Just to display items for demo purposes
 const layers = [
   { key: 'JAXA', title: 'JAXA (2017)', apiUri: '/api/geo/layers/forest/FIN/JAXA/' },
-  { key: 'TandemX', title: 'TanDEM-X (2019)' },
-  { key: 'GlobeLand', title: 'GloabeLand (2020)' },
-  { key: 'ESAGlobCover', title: 'Global Land Cover ESA (2009)' },
-  { key: 'Copernicus', title: 'Copernicus (2919)' },
-  { key: 'ESRI', title: 'ESRI (2020)' },
-  { key: 'ESAWorldCover', title: 'ESA (2020)' },
-  { key: 'Hansen', title: 'Hansen GFC (2020)' },
+  { key: 'TandemX', title: 'TanDEM-X (2019)', apiUri: '/api/geo/layers/forest/FIN/TandemX/' },
+  { key: 'GlobeLand', title: 'GloabeLand (2020)', apiUri: '/api/geo/layers/forest/FIN/GlobeLand/' },
+  { key: 'ESAGlobCover', title: 'Global Land Cover ESA (2009)', apiUri: '/api/geo/layers/forest/FIN/ESAGlobCover/' },
+  { key: 'Copernicus', title: 'Copernicus (2919)', apiUri: '/api/geo/layers/forest/FIN/Copernicus/' },
+  { key: 'ESRI', title: 'ESRI (2020)', apiUri: '/api/geo/layers/forest/FIN/ESRI/' },
+  { key: 'ESAWorldCover', title: 'ESA (2020)', apiUri: '/api/geo/layers/forest/FIN/ESAWorldCover/' },
+  { key: 'Hansen', title: 'Hansen GFC (2020)', apiUri: '/api/geo/layers/forest/FIN/Hansen/10/' },
 ]
 
-const SatelliteSourcePanel: React.FC = () => {
+const SatelliteSourcePanel: React.FC = (disabled: boolean) => {
+  const onCheckboxClick = async (apiUri: string) => {
+    await axios.get(apiUri)
+  }
+
   return (
     <div className="geo-map-menu-data-visualizer-panel">
       <p>Choose Layers</p>
@@ -24,9 +30,11 @@ const SatelliteSourcePanel: React.FC = () => {
           <GeoMapMenuListElement
             key={layer.key}
             title={layer.title}
+            apiUri={layer.apiUri}
             tabIndex={index * -1 - 1}
             checked={false}
-            onCheckboxClick={() => null}
+            disabled={disabled}
+            onCheckboxClick={() => onCheckboxClick(layer.apiUri)}
           />
         ))}
       </div>
