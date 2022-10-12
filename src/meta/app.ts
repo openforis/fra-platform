@@ -1,6 +1,6 @@
 import { generatePath } from 'react-router'
 
-import { CountryIso } from '@meta/area'
+import { CountryIso, Global } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
 
 type ClientRoute<Params> = {
@@ -40,7 +40,7 @@ export enum AssessmentHomeRouteNames {
 const assessmentParts = [':countryIso', 'assessments', ':assessmentName', ':cycleName']
 
 export const ClientRoutes = {
-  root: { path: '/' },
+  Root: { path: '/' },
 
   Admin: {
     Root: newInstance<void>('admin'),

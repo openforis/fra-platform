@@ -2,7 +2,7 @@ import './UserInvitationInfo.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { BasePaths } from '@meta/basePaths'
+import { ClientRoutes } from '@meta/app'
 import { User, Users } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
@@ -23,9 +23,9 @@ const UserInvitationInfo: React.FC<{ user: User; onClose: () => void }> = ({ use
     <div className="user-list__invitation-info">
       <div>
         <div>
-          {`${i18n.t('userManagement.invitationLink')}: ${
-            window.location.origin
-          }${BasePaths.Login.invitation()}?invitationUuid=${invitationUuid}`}
+          {`${i18n.t('userManagement.invitationLink')}: ${window.location.origin}${
+            ClientRoutes.Login.Invitation.path.absolute
+          }?invitationUuid=${invitationUuid}`}
         </div>
         <div>
           <button
