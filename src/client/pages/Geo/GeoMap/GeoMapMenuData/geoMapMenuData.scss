@@ -1,5 +1,17 @@
 @import 'src/client/style/partials';
 
+.geo-map-menu-item-header-forest-cover {
+  padding: 20px 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  min-height: 50px;
+
+  > .geo-map-menu-item-header-title {
+    margin-top: 20px;
+  }
+}
+
 .geo-map-menu-button-data {
   &.selected {
     width: 650px;
