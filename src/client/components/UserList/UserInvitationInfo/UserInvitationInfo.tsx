@@ -24,7 +24,7 @@ const UserInvitationInfo: React.FC<{ user: User; onClose: () => void }> = ({ use
         <div>
           {`${i18n.t('userManagement.invitationLink')}: ${
             window.location.origin
-          }/login?invitationUuid=${invitationUuid}`}
+          }/login/invitation?invitationUuid=${invitationUuid}`}
         </div>
         <div>
           <button
