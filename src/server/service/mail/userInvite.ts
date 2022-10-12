@@ -1,9 +1,8 @@
 import { createI18nPromise } from '@i18n/i18nFactory'
 
 import { CountryIso } from '@meta/area'
+import { BasePaths } from '@meta/basePaths'
 import { RoleName, User, UserRole, Users } from '@meta/user'
-
-import { BasePaths } from '@client/basePaths'
 
 import { sendMail } from './mail'
 

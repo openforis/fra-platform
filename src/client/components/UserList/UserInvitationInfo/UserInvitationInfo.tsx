@@ -2,13 +2,13 @@ import './UserInvitationInfo.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { BasePaths } from '@meta/basePaths'
 import { User, Users } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
 import { UserManagementActions } from '@client/store/userManagement'
 import { useCountryIso } from '@client/hooks'
 import { useToaster } from '@client/hooks/useToaster'
-import { BasePaths } from '@client/basePaths'
 import Icon from '@client/components/Icon'
 
 const UserInvitationInfo: React.FC<{ user: User; onClose: () => void }> = ({ user, onClose }) => {
