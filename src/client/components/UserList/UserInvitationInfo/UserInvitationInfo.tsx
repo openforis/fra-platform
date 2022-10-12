@@ -8,6 +8,7 @@ import { useAppDispatch } from '@client/store'
 import { UserManagementActions } from '@client/store/userManagement'
 import { useCountryIso } from '@client/hooks'
 import { useToaster } from '@client/hooks/useToaster'
+import { BasePaths } from '@client/basePaths'
 import Icon from '@client/components/Icon'
 
 const UserInvitationInfo: React.FC<{ user: User; onClose: () => void }> = ({ user, onClose }) => {
@@ -24,7 +25,7 @@ const UserInvitationInfo: React.FC<{ user: User; onClose: () => void }> = ({ use
         <div>
           {`${i18n.t('userManagement.invitationLink')}: ${
             window.location.origin
-          }/login/invitation?invitationUuid=${invitationUuid}`}
+          }${BasePaths.Login.invitation()}?invitationUuid=${invitationUuid}`}
         </div>
         <div>
           <button

@@ -3,6 +3,8 @@ import { createI18nPromise } from '@i18n/i18nFactory'
 import { CountryIso } from '@meta/area'
 import { RoleName, User, UserRole, Users } from '@meta/user'
 
+import { BasePaths } from '@client/basePaths'
+
 import { sendMail } from './mail'
 
 export const userInvite = async (props: {
@@ -16,7 +18,9 @@ export const userInvite = async (props: {
 
   const i18n = await createI18nPromise('en')
 
-  const link = `${url}/login/invitation${role.invitationUuid ? `?invitationUuid=${role.invitationUuid}` : ''}`
+  const link = `${url}${BasePaths.Login.invitation()}${
+    role.invitationUuid ? `?invitationUuid=${role.invitationUuid}` : ''
+  }`
 
   const countryName = i18n.t(`area.${countryIso}.listName`)
 
