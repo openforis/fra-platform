@@ -95,11 +95,7 @@ export const ApiEndPoint = {
         forestSource = ':forestSource',
         gteHansenTreeCoverPerc = ':gteHansenTreeCoverPerc?'
       ) => apiPath('geo', 'layers', 'forest', countryIso, forestSource, gteHansenTreeCoverPerc),
-      getForestAgreement: (
-        countryIso = ':countryIso',
-        gteHansenTreeCoverPerc = ':gteHansenTreeCoverPerc',
-        gteAgreementLevel = ':gteAgreementLevel'
-      ) => apiPath('geo', 'layers', 'forestAgreement', countryIso, gteHansenTreeCoverPerc, gteAgreementLevel),
+      getForestAgreement: (countryIso = ':countryIso') => apiPath('geo', 'layers', 'forestAgreement', countryIso),
       getBoundaries: (countryIso = ':countryIso') => apiPath('geo', 'layers', 'boundaries', countryIso),
     },
   },
