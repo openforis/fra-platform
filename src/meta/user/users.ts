@@ -36,11 +36,12 @@ const getRolesAllowedToEdit = (props: { user: User; countryIso: CountryIso }): A
       RoleName.NATIONAL_CORRESPONDENT,
       RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
       RoleName.COLLABORATOR,
+      RoleName.VIEWER,
     ]
   }
 
   if (isNationalCorrespondent(user, countryIso) || isAlternateNationalCorrespondent(user, countryIso)) {
-    return [RoleName.COLLABORATOR]
+    return [RoleName.COLLABORATOR, RoleName.VIEWER]
   }
   return []
 }
