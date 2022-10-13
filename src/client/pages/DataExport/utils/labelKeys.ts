@@ -26,7 +26,7 @@ export const getUnitLabelKey = (unit: string): string => (unitLabelKeys[unit] ? 
  * Returns the possible i18n mapping
  * @param column - column value
  * @param section - url params: current section
- * @param assessmentType - type, ex. fra2020 / panEuropean
+ * @param assessmentName - type, ex. fra2020 / panEuropean
  * @returns {array} - i18n keys
  */
 // TODO: Separate issue. Use column metadata to get column key (see Table.tsx).
