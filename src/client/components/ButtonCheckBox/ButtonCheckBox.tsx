@@ -2,6 +2,8 @@ import './ButtonCheckBox.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import classNames from 'classnames'
+
 type Props = {
   onClick: React.MouseEventHandler<HTMLButtonElement>
   label: Array<string> | string
@@ -19,7 +21,7 @@ const ButtonCheckBox: React.FC<Props> = (props) => {
 
   return (
     <button type="button" className={`btn-s btn-checkbox ${className}`} onClick={onClick}>
-      <div className={`fra-checkbox${checked ? ' checked' : ''}`} />
+      <div className={classNames('fra-checkbox', { checked })} />
       <div>{label.map((key: string) => `${labelParam ? i18n.t(key, labelParam) : i18n.t(key)} `)}</div>
       {suffix && <span className="suffix">{suffix}</span>}
     </button>
