@@ -3878,24 +3878,114 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   colNames: ['growingStockPercent'],
                 },
               },
-              // {
-              //   idx: 12,
-              //   type: 'data',
-              //   cols: [
-              //     {
-              //       idx: 'header_0',
-              //       type: 'header',
-              //       className: 'fra-table__header-cell-left',
-              //       migration:{
-              //         label:{'2025':{key:'growingStockComposition.introducedTreeSpecies'}},
-              //         style:{'2025':{colSpan:4,rowSpan:4}}
-              //       }
-              //     },
-              //   ],
-              //   labelKey: 'growingStockComposition.introducedTreeSpecies',
-              //   colSpan: 8,
-              //   mainCategory: true,
-              // },
+              {
+                idx: 12,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    className: 'fra-table__header-cell-left',
+                    migration: {
+                      label: { '2025': { key: 'growingStockComposition.introducedTreeSpecies' } },
+                      style: { '2025': { colSpan: 4, rowSpan: 1 } },
+                    },
+                  },
+                ],
+                labelKey: 'growingStockComposition.introducedTreeSpecies',
+                colSpan: 8,
+                mainCategory: true,
+              },
+              ...[0, 1, 2, 3, 4].map((idx) => ({
+                idx: idx + 13,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelPrefixKey: 'growingStockComposition.native',
+                    className: 'fra-table__category-cell',
+                    migration: {
+                      label: {
+                        '2025': { key: 'fra.growingStockComposition.rankedPercent', params: { idx: `${idx + 1}` } },
+                      },
+                    },
+                  },
+                  {
+                    idx: 0,
+                    type: 'taxon',
+                    colName: 'scientific_name',
+                  },
+                  {
+                    idx: 1,
+                    type: 'text',
+                    colName: 'common_name',
+                  },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                    colName: 'growingStockPercent',
+                  },
+                ],
+                variableName: `introducedRankPercent${idx + 1}`,
+                migration: {
+                  cycles: ['2025'],
+                },
+              })),
+              {
+                idx: 18,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    className: 'fra-table__header-cell-left',
+                    migration: {
+                      label: { '2025': { key: 'growingStockComposition.remainingIntroduced' } },
+                      style: { '2025': { colSpan: 3, rowSpan: 1 } },
+                    },
+                  },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                    colName: 'growingStockPercent',
+                  },
+                ],
+                variableName: 'remainingIntroducedPercent',
+                colSpan: 3,
+                mainCategory: true,
+                migration: {
+                  colNames: ['growingStockPercent'],
+                },
+              },
+              {
+                idx: 19,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    className: 'fra-table__header-cell-left',
+                    migration: {
+                      label: { '2025': { key: 'fra.growingStockComposition.totalIntroducedPercent' } },
+                      style: { '2025': { colSpan: 3, rowSpan: 1 } },
+                    },
+                  },
+                  {
+                    idx: 2,
+                    type: 'calculated',
+                    colName: 'growingStockPercent',
+                  },
+                ],
+                mainCategory: true,
+                variableName: 'totalIntroducedPercent',
+                migration: {
+                  calcFormula:
+                    '(growingStockComposition2025.introducedRankPercent1 || 0) + (growingStockComposition2025.introducedRankPercent2 || 0) + (growingStockComposition2025.introducedRankPercent3 || 0) + (growingStockComposition2025.introducedRankPercent4 || 0) + (growingStockComposition2025.introducedRankPercent5 || 0) + (growingStockComposition2025.introducedRankPercent6 || 0) + (growingStockComposition2025.introducedRankPercent7 || 0) + (growingStockComposition2025.introducedRankPercent8 || 0) + (growingStockComposition2025.introducedRankPercent9 || 0) + (growingStockComposition2025.introducedRankPercent10 || 0) + (growingStockComposition2025.remainingIntroducedPercent || 0)',
+                  colNames: ['growingStockPercent'],
+                },
+              },
             ],
             tableDataRequired: [
               {
@@ -3911,7 +4001,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
             dataExport: true,
             columnsExportAlways: ['scientific_name', 'common_name'],
             columnsExport: ['growingStockPercent'],
-            unit: 'millionsCubicMeterOverBark',
+            unit: 'growingStockPercent',
             migration: {
               columnNames: {
                 '2025': ['scientific_name', 'common_name', 'growingStockPercent'],

@@ -18,6 +18,7 @@ const columnLabelKeys: Record<string, string> = {
   scientific_name: 'scientificName',
   national_yes_no: 'national',
   sub_national_yes_no: 'subnational',
+  growingStockPercent: 'growingStockPercent',
 }
 
 export const getUnitLabelKey = (unit: string): string => (unitLabelKeys[unit] ? `unit.${unitLabelKeys[unit]}` : unit)
