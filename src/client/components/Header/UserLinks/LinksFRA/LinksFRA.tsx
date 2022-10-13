@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom'
 
 import { i18n } from 'i18next'
 
+import { ClientRoutes } from '@meta/app'
 import { User, Users } from '@meta/user'
 
 import { AppDispatch, useAppDispatch } from '@client/store'
 import { UserActions, useUser } from '@client/store/user'
 import { useIsLogin } from '@client/hooks'
 import { ToasterHook, useToaster } from '@client/hooks/useToaster'
-import { ClientRoutes } from '@client/clientRoutes'
 import Icon from '@client/components/Icon'
 import PopoverControl, { PopoverItem } from '@client/components/PopoverControl'
 

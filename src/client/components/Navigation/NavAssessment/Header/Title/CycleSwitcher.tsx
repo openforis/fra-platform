@@ -2,13 +2,13 @@ import './CycleSwitcher.scss'
 import React, { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { ClientRoutes } from '@meta/app'
 import { Authorizer } from '@meta/user'
 
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { useIsDataLocked } from '@client/store/ui/dataLock'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
-import { ClientRoutes } from '@client/clientRoutes'
 
 const CycleSwitcher = () => {
   const countryIso = useCountryIso()

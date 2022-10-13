@@ -3,13 +3,13 @@ import React from 'react'
 import MediaQuery from 'react-responsive'
 import { Link } from 'react-router-dom'
 
+import { ClientRoutes } from '@meta/app'
 import { Areas } from '@meta/area'
 import { AssessmentNames } from '@meta/assessment'
 
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
-import { ClientRoutes } from '@client/clientRoutes'
 import Icon from '@client/components/Icon'
 import { Breakpoints } from '@client/utils'
 

@@ -4,6 +4,7 @@ import { Navigate, NavLink, Route, Routes } from 'react-router-dom'
 
 import classNames from 'classnames'
 
+import { AssessmentHomeRouteNames } from '@meta/app'
 import { Areas } from '@meta/area'
 
 import { useAppDispatch } from '@client/store'
@@ -11,7 +12,6 @@ import { useAssessment, useCycle } from '@client/store/assessment'
 import { useUser } from '@client/store/user'
 import { UserManagementActions } from '@client/store/userManagement'
 import { useCountryIso } from '@client/hooks'
-import { AssessmentHomeRouteNames } from '@client/basePaths'
 
 import { useSections } from './hooks/useSections'
 import ButtonDownloadDashboard from './ButtonDownloadDashboard'
