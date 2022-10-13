@@ -6,7 +6,6 @@ import { ClientRoutes } from '@meta/app'
 import { RegionCode, RegionGroup } from '@meta/area'
 import { AssessmentName, AssessmentNames } from '@meta/assessment'
 
-import { useCycle } from '@client/store/assessment'
 import Icon from '@client/components/Icon'
 
 import { areas } from '../AreaSelector'
@@ -15,14 +14,13 @@ type Props = {
   area: string
   areaISOs: string[] | Record<string, RegionGroup>
   assessmentName: AssessmentName
+  cycleName: string
   dropdownOpened: string
   setDropdownOpened: (area: string) => void
 }
 
 const DropdownAreas = (props: Props) => {
-  const { area, areaISOs, assessmentName, dropdownOpened, setDropdownOpened } = props
-
-  const cycle = useCycle()
+  const { area, areaISOs, assessmentName, cycleName, dropdownOpened, setDropdownOpened } = props
 
   const { i18n } = useTranslation()
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -73,7 +71,7 @@ const DropdownAreas = (props: Props) => {
                               to={ClientRoutes.Assessment.Root.getLink({
                                 countryIso: regionCode,
                                 assessmentName,
-                                cycleName: cycle?.name,
+                                cycleName,
                               })}
                               className="country-selection-list__row"
                               target={fra ? '_self' : '_blank'}
@@ -97,7 +95,7 @@ const DropdownAreas = (props: Props) => {
                       to={ClientRoutes.Assessment.Root.getLink({
                         countryIso: iso,
                         assessmentName,
-                        cycleName: cycle?.name,
+                        cycleName,
                       })}
                       className="country-selection-list__row"
                       target={fra ? '_self' : '_blank'}
