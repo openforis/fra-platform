@@ -60,7 +60,7 @@ const StatusConfirm: React.FC<Props> = (props) => {
             role="button"
             tabIndex={0}
           >
-            <div className={classNames('fra-checkbox', { checked: notifyUsers })} />
+            <div className={classNames('fra-checkbox', { checked: !notifyUsers })} />
             {i18n.t('navigation.doNotNotifyUsers')}
           </div>
         )}
