@@ -8,7 +8,7 @@ import { ClientRoutes } from '@meta/app'
 import { Global } from '@meta/area'
 import { AssessmentNames } from '@meta/assessment'
 
-import { useCountries, useRegionGroups } from '@client/store/assessment'
+import { useCountries, useCycle, useRegionGroups } from '@client/store/assessment'
 import { Breakpoints } from '@client/utils'
 
 import DropdownAreas from './DropdownAreas'
@@ -22,8 +22,12 @@ export const areas = {
 const AreaSelector: React.FC = () => {
   const { i18n } = useTranslation()
   const regionGroups = useRegionGroups()
+  const cycle = useCycle()
+
   const countries = useCountries().map((c) => c.countryIso)
   const [dropdownOpened, setDropdownOpened] = useState<string>('')
+
+  if (!cycle) return null
 
   return (
     <div className="home-area-selector">
@@ -34,7 +38,7 @@ const AreaSelector: React.FC = () => {
           to={ClientRoutes.Assessment.Root.getLink({
             countryIso: Global.WO,
             assessmentName: AssessmentNames.fra,
-            cycleName: ':cycleName',
+            cycleName: cycle.name,
           })}
         >
           {i18n.t<string>(`area.${Global.WO}.listName`)}
@@ -50,12 +54,18 @@ const AreaSelector: React.FC = () => {
             area={areas.regions}
             areaISOs={regionGroups}
             assessmentName={AssessmentNames.fra}
+            cycleName={cycle.name}
             dropdownOpened={dropdownOpened}
             setDropdownOpened={setDropdownOpened}
           />
         </MediaQuery>
         <MediaQuery maxWidth={Breakpoints.laptop - 1}>
-          <SelectMobile area={areas.regions} areaISOs={regionGroups} assessmentName={AssessmentNames.fra} />
+          <SelectMobile
+            area={areas.regions}
+            areaISOs={regionGroups}
+            assessmentName={AssessmentNames.fra}
+            cycleName={cycle.name}
+          />
         </MediaQuery>
       </div>
 
@@ -68,12 +78,18 @@ const AreaSelector: React.FC = () => {
             area={areas.countries}
             areaISOs={countries}
             assessmentName={AssessmentNames.fra}
+            cycleName={cycle.name}
             dropdownOpened={dropdownOpened}
             setDropdownOpened={setDropdownOpened}
           />
         </MediaQuery>
         <MediaQuery maxWidth={Breakpoints.laptop - 1}>
-          <SelectMobile area={areas.countries} areaISOs={countries} assessmentName={AssessmentNames.fra} />
+          <SelectMobile
+            area={areas.countries}
+            areaISOs={countries}
+            assessmentName={AssessmentNames.fra}
+            cycleName={cycle.name}
+          />
         </MediaQuery>
       </div>
     </div>

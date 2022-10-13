@@ -2,6 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Objects } from '@utils/objects'
+import classNames from 'classnames'
 
 import { GenerateValuesField } from '../field'
 import { Method } from '../method'
@@ -59,7 +60,7 @@ const FieldsOption: React.FC<Props> = (props) => {
                 role="button"
                 aria-label={i18n.t(labelKey)}
                 tabIndex={0}
-                className={`fra-checkbox${selected ? ' checked' : ''}`}
+                className={classNames('fra-checkbox', { checked: selected })}
                 onClick={() => toggleSelected(fieldIdx)}
                 onKeyDown={() => toggleSelected(fieldIdx)}
               />
