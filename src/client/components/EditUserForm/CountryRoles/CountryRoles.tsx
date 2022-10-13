@@ -2,6 +2,8 @@ import './CountryRoles.scss'
 import React, { useCallback, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import classNames from 'classnames'
+
 import { CountryIso, Region, RegionCode } from '@meta/area'
 import { RoleName, User, UserRole, Users } from '@meta/user'
 
@@ -123,7 +125,7 @@ const CountryRoles: React.FC<{ user: User }> = ({ user }) => {
             aria-hidden="true"
           >
             <div className="role">{i18n.t<string>(Users.getI18nRoleLabelKey(RoleName.ADMINISTRATOR))}</div>
-            <div className={`fra-checkbox${Users.isAdministrator(user) ? ' checked' : ''}`} />
+            <div className={classNames('fra-checkbox', { checked: Users.isAdministrator(user) })} />
           </div>
         )}
       </div>

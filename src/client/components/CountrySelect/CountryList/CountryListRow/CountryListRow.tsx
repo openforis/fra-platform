@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
+import classNames from 'classnames'
+
 import { ClientRoutes } from '@meta/app'
 import { Areas, CountryIso, Global, RegionCode } from '@meta/area'
 import { UserRoles } from '@meta/user/userRoles'
@@ -47,7 +49,7 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
         assessmentName: assessment.props.name,
         cycleName: cycle?.name,
       })}
-      className={`country-selection-list__row${selected ? ' selected' : ''}`}
+      className={classNames('country-selection-list__row', { selected })}
     >
       <span className="country-selection-list__primary-col" ref={countryNameRef}>
         {i18n.t<string>(`area.${countryIso}.listName`)}
