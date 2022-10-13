@@ -2,6 +2,8 @@ import './CountryRoles.scss'
 import React, { useCallback, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import classNames from 'classnames'
+
 import { CountryIso, Region, RegionCode } from '@meta/area'
 import { RoleName, User, UserRole, Users } from '@meta/user'
 
@@ -87,7 +89,9 @@ const CountryRoles: React.FC<{ user: User }> = ({ user }) => {
   return (
     <div className="edit-user__form-item edit-user__form-item-roles">
       <div className="edit-user__form-label">{i18n.t<string>('editUser.role')}</div>
-      <div className={`edit-user__form-field edit-user__form-field-roles${Users.validRole(user) ? '' : ' error'}`}>
+      <div
+        className={classNames('edit-user__form-field', 'edit-user__form-field-roles', { error: Users.validRole(user) })}
+      >
         {roles.map((role) => {
           const userRoles = user?.roles
           if (!userRoles) return null
