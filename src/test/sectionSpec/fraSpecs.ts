@@ -2123,6 +2123,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 migration: {
                   calcFormula: '(growingStockTotal.plantedForest * 1000) / forestCharacteristics.plantedForest',
                   readonly: false,
+                  dependantsExclude: [{ tableName: 'forestCharacteristics', variableName: 'plantedForest' }],
                 },
               },
               {
@@ -2151,6 +2152,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   calcFormula:
                     '(growingStockTotal.plantationForest * 1000) / forestCharacteristics.plantationForestArea',
                   readonly: false,
+                  dependantsExclude: [{ tableName: 'forestCharacteristics', variableName: 'plantationForestArea' }],
                 },
               },
               {
@@ -2179,6 +2181,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   calcFormula:
                     '(growingStockTotal.otherPlantedForest * 1000) / forestCharacteristics.otherPlantedForestArea',
                   readonly: false,
+                  dependantsExclude: [{ tableName: 'forestCharacteristics', variableName: 'otherPlantedForestArea' }],
                 },
               },
               {
@@ -2206,6 +2209,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 migration: {
                   calcFormula: '(growingStockTotal.forest * 1000) / extentOfForest.forestArea',
                   readonly: false,
+                  dependantsExclude: [{ tableName: 'extentOfForest', variableName: 'forestArea' }],
                 },
               },
               {
@@ -2233,6 +2237,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 migration: {
                   calcFormula: '(growingStockTotal.otherWoodedLand * 1000) / extentOfForest.otherWoodedLand',
                   readonly: false,
+                  dependantsExclude: [{ tableName: 'extentOfForest', variableName: 'otherWoodedLand' }],
                 },
               },
             ],
