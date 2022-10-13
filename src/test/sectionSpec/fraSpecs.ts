@@ -2568,18 +2568,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 3,
+                    colSpan: 5,
+                    rowSpan: 1,
+                    labelKey: 'growingStockComposition.areaUnitLabel',
                     className: 'fra-table__header-cell',
                     type: 'header',
-                    migration: {
-                      label: {
-                        '2020': { key: 'growingStockComposition.areaUnitLabel' },
-                        '2025': { key: 'fra.growingStockComposition.growingStockPercent' },
-                      },
-                      style: {
-                        '2020': { colSpan: 5, rowSpan: 1 },
-                        '2025': { colSpan: 1, rowSpan: 1 },
-                      },
-                    },
                   },
                 ],
                 type: 'header',
@@ -2594,9 +2587,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: 1990,
                     className: 'fra-table__header-cell',
                     type: 'header',
-                    migration: {
-                      cycles: ['2020'],
-                    },
                   },
                   {
                     idx: 1,
@@ -2605,9 +2595,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: 2000,
                     className: 'fra-table__header-cell',
                     type: 'header',
-                    migration: {
-                      cycles: ['2020'],
-                    },
                   },
                   {
                     idx: 2,
@@ -2616,9 +2603,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: 2010,
                     className: 'fra-table__header-cell',
                     type: 'header',
-                    migration: {
-                      cycles: ['2020'],
-                    },
                   },
                   {
                     idx: 3,
@@ -2627,9 +2611,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: 2015,
                     className: 'fra-table__header-cell',
                     type: 'header',
-                    migration: {
-                      cycles: ['2020'],
-                    },
                   },
                   {
                     idx: 4,
@@ -2638,22 +2619,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: 2020,
                     className: 'fra-table__header-cell',
                     type: 'header',
-                    migration: {
-                      cycles: ['2020'],
-                    },
-                  },
-                  {
-                    idx: 0,
-                    colSpan: 1,
-                    rowSpan: 1,
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                    migration: {
-                      cycles: ['2025'],
-                      label: {
-                        '2025': { key: 'fra.growingStockComposition.mostRecentYear' },
-                      },
-                    },
                   },
                 ],
                 type: 'header',
@@ -2725,9 +2690,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelParams: {
                   idx: 1,
                 },
-                migration: {
-                  cycles: ['2020'],
-                },
               },
               {
                 idx: 1,
@@ -2778,9 +2740,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableExport: 'native_rank2',
                 labelParams: {
                   idx: 2,
-                },
-                migration: {
-                  cycles: ['2020'],
                 },
               },
               {
@@ -2833,9 +2792,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelParams: {
                   idx: 3,
                 },
-                migration: {
-                  cycles: ['2020'],
-                },
               },
               {
                 idx: 3,
@@ -2886,9 +2842,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableExport: 'native_rank4',
                 labelParams: {
                   idx: 4,
-                },
-                migration: {
-                  cycles: ['2020'],
                 },
               },
               {
@@ -2941,9 +2894,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelParams: {
                   idx: 5,
                 },
-                migration: {
-                  cycles: ['2020'],
-                },
               },
               {
                 idx: 5,
@@ -2994,9 +2944,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableExport: 'native_rank6',
                 labelParams: {
                   idx: 6,
-                },
-                migration: {
-                  cycles: ['2020'],
                 },
               },
               {
@@ -3049,9 +2996,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelParams: {
                   idx: 7,
                 },
-                migration: {
-                  cycles: ['2020'],
-                },
               },
               {
                 idx: 7,
@@ -3102,9 +3046,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableExport: 'native_rank8',
                 labelParams: {
                   idx: 8,
-                },
-                migration: {
-                  cycles: ['2020'],
                 },
               },
               {
@@ -3157,9 +3098,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelParams: {
                   idx: 9,
                 },
-                migration: {
-                  cycles: ['2020'],
-                },
               },
               {
                 idx: 9,
@@ -3211,10 +3149,8 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelParams: {
                   idx: 10,
                 },
-                migration: {
-                  cycles: ['2020'],
-                },
               },
+
               {
                 idx: 10,
                 type: 'data',
@@ -3253,7 +3189,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 mainCategory: true,
                 migration: {
                   colNames: ['1990', '2000', '2010', '2015', '2020'],
-                  cycles: ['2020'],
                 },
               },
               {
@@ -3297,7 +3232,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   calcFormula:
                     '(growingStockComposition.native_rank1 || 0) + (growingStockComposition.native_rank2 || 0) + (growingStockComposition.native_rank3 || 0) + (growingStockComposition.native_rank4 || 0) + (growingStockComposition.native_rank5 || 0) + (growingStockComposition.native_rank6 || 0) + (growingStockComposition.native_rank7 || 0) + (growingStockComposition.native_rank8 || 0) + (growingStockComposition.native_rank9 || 0) + (growingStockComposition.native_rank10 || 0) + (growingStockComposition.remaining_native || 0)',
                   colNames: ['1990', '2000', '2010', '2015', '2020'],
-                  cycles: ['2020'],
                 },
               },
               {
@@ -3315,9 +3249,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'growingStockComposition.introducedTreeSpecies',
                 colSpan: 8,
                 mainCategory: true,
-                migration: {
-                  cycles: ['2020'],
-                },
               },
               {
                 idx: 13,
@@ -3368,9 +3299,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableExport: 'introduced_rank1',
                 labelParams: {
                   idx: 1,
-                },
-                migration: {
-                  cycles: ['2020'],
                 },
               },
               {
@@ -3423,9 +3351,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelParams: {
                   idx: 2,
                 },
-                migration: {
-                  cycles: ['2020'],
-                },
               },
               {
                 idx: 15,
@@ -3476,9 +3401,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableExport: 'introduced_rank3',
                 labelParams: {
                   idx: 3,
-                },
-                migration: {
-                  cycles: ['2020'],
                 },
               },
               {
@@ -3531,9 +3453,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelParams: {
                   idx: 4,
                 },
-                migration: {
-                  cycles: ['2020'],
-                },
               },
               {
                 idx: 17,
@@ -3584,9 +3503,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableExport: 'introduced_rank5',
                 labelParams: {
                   idx: 5,
-                },
-                migration: {
-                  cycles: ['2020'],
                 },
               },
               {
@@ -3645,9 +3561,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableExport: 'remaining_introduced_placeholder',
                 colSpan: 3,
                 mainCategory: true,
-                migration: {
-                  cycles: ['2020'],
-                },
               },
               {
                 idx: 19,
@@ -3690,7 +3603,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   calcFormula:
                     '(growingStockComposition.introduced_rank1 || 0) + (growingStockComposition.introduced_rank2 || 0) + (growingStockComposition.introduced_rank3 || 0) + (growingStockComposition.introduced_rank4 || 0) + (growingStockComposition.introduced_rank5 || 0) + (growingStockComposition.remaining_introduced_placeholder || 0)',
                   colNames: ['1990', '2000', '2010', '2015', '2020'],
-                  cycles: ['2020'],
                 },
               },
               {
@@ -3736,7 +3648,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   validateFns: [
                     `validatorEqualToTotalGrowingStock(growingStockTotal.forest, growingStockComposition.totalGrowingStock)`,
                   ],
-                  cycles: ['2020'],
                 },
               },
               {
@@ -3773,6 +3684,232 @@ export const FraSpecs: Record<string, SectionSpec> = {
             columnsExportAlways: ['common_name', 'scientific_name'],
             columnsExport: [1990, 2000, 2010, 2015, 2020],
             unit: 'millionsCubicMeterOverBark',
+            migration: {
+              cycles: ['2020'],
+            },
+          },
+          {
+            name: 'growingStockComposition2025',
+            rows: [
+              {
+                idx: 'header_0',
+                cols: [
+                  {
+                    idx: 0,
+                    colSpan: 1,
+                    rowSpan: 2,
+                    labelKey: 'growingStockComposition.categoryHeader',
+                    className: 'fra-table__header-cell-left',
+                    type: 'header',
+                  },
+                  {
+                    idx: 1,
+                    colSpan: 1,
+                    rowSpan: 2,
+                    labelKey: 'growingStockComposition.scientificName',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  {
+                    idx: 2,
+                    colSpan: 1,
+                    rowSpan: 2,
+                    labelKey: 'growingStockComposition.commonName',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  {
+                    idx: 3,
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: {
+                      label: {
+                        '2025': { key: 'fra.growingStockComposition.growingStockPercent' },
+                      },
+                      style: {
+                        '2025': { colSpan: 1, rowSpan: 1 },
+                      },
+                    },
+                  },
+                ],
+                type: 'header',
+              },
+              {
+                idx: 'header_1',
+                cols: [
+                  {
+                    idx: 0,
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: {
+                      label: {
+                        '2025': { key: 'fra.growingStockComposition.mostRecentYear' },
+                      },
+                      style: {
+                        '2025': { colSpan: 1, rowSpan: 1 },
+                      },
+                    },
+                  },
+                ],
+                type: 'header',
+              },
+              {
+                idx: 'header_2',
+                cols: [
+                  {
+                    idx: 0,
+                    className: 'fra-table__header-cell-left',
+                    type: 'header',
+                    migration: {
+                      label: {
+                        '2025': { key: 'growingStockComposition.nativeTreeSpecies' },
+                      },
+                      style: {
+                        '2025': { colSpan: 4, rowSpan: 1 },
+                      },
+                    },
+                  },
+                ],
+                type: 'header',
+                migration: {
+                  readonly: true,
+                },
+              },
+              ...[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((idx) => ({
+                idx,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelPrefixKey: 'growingStockComposition.native',
+                    className: 'fra-table__category-cell',
+                    migration: {
+                      label: {
+                        '2025': { key: 'fra.growingStockComposition.rankedPercent', params: { idx: `${idx + 1}` } },
+                      },
+                    },
+                  },
+                  {
+                    idx: 0,
+                    type: 'taxon',
+                    colName: 'scientific_name',
+                  },
+                  {
+                    idx: 1,
+                    type: 'text',
+                    colName: 'common_name',
+                  },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                    colName: 'growingStockPercent',
+                  },
+                ],
+                variableName: `nativeRankPercent${idx + 1}`,
+                migration: {
+                  cycles: ['2025'],
+                },
+              })),
+              {
+                idx: 10,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    className: 'fra-table__header-cell-left',
+                    migration: {
+                      label: { '2025': { key: 'growingStockComposition.remainingNative' } },
+                      style: { '2025': { colSpan: 3, rowSpan: 1 } },
+                    },
+                  },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                    colName: 'growingStockPercent',
+                  },
+                ],
+                labelKey: 'growingStockComposition.remainingNative',
+                variableExport: 'remainingNativePercent',
+                variableName: 'remainingNativePercent',
+                colSpan: 3,
+                mainCategory: true,
+                migration: {
+                  colNames: ['growingStockPercent'],
+                },
+              },
+              // {
+              //   idx: 11,
+              //   type: 'data',
+              //   cols: [
+              //     {
+              //       idx: 'header_0',
+              //       type: 'header',
+              //       className: 'fra-table__header-cell-left',
+              //       migration:{
+              //         label:{key:'fra.growingStockComposition.totalNativePercent'},
+              //         style:{colSpan:3,rowSpan:1}
+              //       }
+              //     },
+              //     {
+              //       idx: 2,
+              //       type: 'calculated',
+              //       colName:'growingStockPercent'
+              //     },
+              //   ],
+              //   labelKey: 'growingStockComposition.totalNative',
+              //   variableExport: 'total_native',
+              //   colSpan: 3,
+              //   mainCategory: true,
+              //   variableName: 'totalNativePercent',
+              //   migration: {
+              //     // calcFormula:
+              //     //   '(growingStockComposition2025.nativeRankPercent1 || 0) + (growingStockComposition2025.nativeRankPercent2 || 0) + (growingStockComposition2025.nativeRankPercent3 || 0) + (growingStockComposition2025.nativeRankPercent4 || 0) + (growingStockComposition2025.nativeRankPercent5 || 0) + (growingStockComposition2025.nativeRankPercent6 || 0) + (growingStockComposition2025.nativeRankPercent7 || 0) + (growingStockComposition2025.nativeRankPercent8 || 0) + (growingStockComposition2025.nativeRankPercent9 || 0) + (growingStockComposition2025.nativeRankPercent10 || 0) + (growingStockComposition2025.remainingNativePercent || 0)',
+              //     colNames: ['growingStockPercent'],
+              //   },
+              // },
+              // {
+              //   idx: 12,
+              //   type: 'data',
+              //   cols: [
+              //     {
+              //       idx: 'header_0',
+              //       type: 'header',
+              //       className: 'fra-table__header-cell-left',
+              //       migration:{
+              //         label:{'2025':{key:'growingStockComposition.introducedTreeSpecies'}},
+              //         style:{'2025':{colSpan:4,rowSpan:4}}
+              //       }
+              //     },
+              //   ],
+              //   labelKey: 'growingStockComposition.introducedTreeSpecies',
+              //   colSpan: 8,
+              //   mainCategory: true,
+              // },
+            ],
+            tableDataRequired: [
+              {
+                assessmentType: 'fra2020',
+                sectionName: 'growingStock',
+                tableName: 'growingStock',
+              },
+            ],
+            print: {
+              colBreakPoints: [],
+              pageBreakAfter: false,
+            },
+            dataExport: true,
+            columnsExportAlways: ['scientific_name', 'common_name'],
+            columnsExport: ['growingStockPercent'],
+            unit: 'millionsCubicMeterOverBark',
+            migration: {
+              columnNames: {
+                '2025': ['scientific_name', 'common_name', 'growingStockPercent'],
+              },
+              cycles: ['2025'],
+            },
           },
         ],
       },

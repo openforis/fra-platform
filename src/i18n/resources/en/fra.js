@@ -18,6 +18,7 @@ module.exports = {
   growingStockComposition: {
     growingStockPercent: 'Growing stock in forest (% of total)',
     mostRecentYear: 'Most recent year',
+    rankedPercent: '#{{idx}} Ranked % of total GS',
   },
 
   primaryForestByClimaticDomain: {
