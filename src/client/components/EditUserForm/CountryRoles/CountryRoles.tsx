@@ -90,7 +90,9 @@ const CountryRoles: React.FC<{ user: User }> = ({ user }) => {
     <div className="edit-user__form-item edit-user__form-item-roles">
       <div className="edit-user__form-label">{i18n.t<string>('editUser.role')}</div>
       <div
-        className={classNames('edit-user__form-field', 'edit-user__form-field-roles', { error: Users.validRole(user) })}
+        className={classNames('edit-user__form-field', 'edit-user__form-field-roles', {
+          error: !Users.validRole(user),
+        })}
       >
         {roles.map((role) => {
           const userRoles = user?.roles
