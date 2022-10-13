@@ -22,6 +22,7 @@ export const getMetadata = async (): Promise<MetadataLocal> => {
                  where (s.props ->> 'dataExport')::boolean
                    and (t.props ->> 'dataExport')::boolean
                    and (r.props -> 'variableName') is not null
+                   and t.props -> 'cycles' ? '${cycle.uuid}'
                  group by 1, 2)
       select jsonb_object_agg(d.name, jsonb_build_object('columns', d.columns, 'variables', d.variables)) as metadata
       from d
