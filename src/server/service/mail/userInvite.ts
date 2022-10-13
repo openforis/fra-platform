@@ -1,5 +1,6 @@
 import { createI18nPromise } from '@i18n/i18nFactory'
 
+import { ClientRoutes } from '@meta/app'
 import { CountryIso } from '@meta/area'
 import { RoleName, User, UserRole, Users } from '@meta/user'
 
@@ -16,9 +17,12 @@ export const userInvite = async (props: {
 
   const i18n = await createI18nPromise('en')
 
-  const link = `${url}/login${role.invitationUuid ? `?invitationUuid=${role.invitationUuid}` : ''}`
+  const link = `${url}${ClientRoutes.Login.Invitation.path.absolute}${
+    role.invitationUuid ? `?invitationUuid=${role.invitationUuid}` : ''
+  }`
 
   const countryName = i18n.t(`area.${countryIso}.listName`)
+
   const roleName = i18n.t(Users.getI18nRoleLabelKey(role.role))
 
   const emailProps = {

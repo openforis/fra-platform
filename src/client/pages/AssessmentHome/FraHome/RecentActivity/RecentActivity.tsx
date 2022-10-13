@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom'
 import { Objects } from '@utils/objects'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
+import { ClientRoutes } from '@meta/app'
 import { ActivityLog } from '@meta/assessment'
 
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { useCountryIso, useGetRequest } from '@client/hooks'
-import { ClientRoutes } from '@client/clientRoutes'
 
 import RecentActivityItem from './RecentActivityItem/RecentActivityItem'
 

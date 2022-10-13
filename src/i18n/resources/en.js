@@ -122,6 +122,7 @@ followed by the boreal, temperate and subtropical domains.`,
       ALTERNATE_NATIONAL_CORRESPONDENT: 'Alternate national correspondent',
       COLLABORATOR: 'Collaborator',
       ADMINISTRATOR: 'Administrator',
+      VIEWER: 'Viewer',
       noRole: 'N/A',
       // unused?
       reviewer_plural: 'Reviewers',

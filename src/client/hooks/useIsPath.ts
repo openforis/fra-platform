@@ -1,6 +1,6 @@
 import { matchPath, useLocation } from 'react-router-dom'
 
-import { ClientRoutes } from '@client/clientRoutes'
+import { ClientRoutes } from '@meta/app'
 
 export const useIsPath = ({ path, exact = true }: { path: string; exact?: boolean }): boolean => {
   const { pathname } = useLocation()

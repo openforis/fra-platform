@@ -1,6 +1,6 @@
 import { generatePath } from 'react-router'
 
-import { CountryIso } from '@meta/area'
+import { CountryIso, Global } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
 
 type ClientRoute<Params> = {
@@ -23,23 +23,39 @@ const newInstance = <Params>(...parts: Array<string>): ClientRoute<Params> => {
 }
 
 type AssessmentParams = {
-  countryIso: CountryIso
+  countryIso: CountryIso | Global
   assessmentName: AssessmentName
   cycleName: string
+}
+
+export enum AssessmentHomeRouteNames {
+  overview = 'overview',
+  messageBoard = 'messageBoard',
+  contentCheck = 'contentCheck',
+  userManagement = 'userManagement',
+  recentActivity = 'recentActivity',
+  links = 'links',
 }
 
 const assessmentParts = [':countryIso', 'assessments', ':assessmentName', ':cycleName']
 
 export const ClientRoutes = {
+  Root: { path: '/' },
+
   Admin: {
     Root: newInstance<void>('admin'),
     root: { path: '/admin/*' },
   },
+
   Assessment: {
     Root: newInstance<AssessmentParams>(...assessmentParts),
     Home: {
       Root: newInstance<AssessmentParams>(...assessmentParts, 'home'),
-      Section: newInstance<AssessmentParams & { sectionName: string }>(...assessmentParts, 'home', ':sectionName'),
+      Section: newInstance<AssessmentParams & { sectionName: AssessmentHomeRouteNames }>(
+        ...assessmentParts,
+        'home',
+        ':sectionName'
+      ),
     },
     Section: newInstance<AssessmentParams & { sectionName: string }>(...assessmentParts, ':sectionName'),
     OriginalDataPoint: {
