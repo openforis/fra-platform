@@ -2546,9 +2546,13 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 0,
                     colSpan: 1,
                     rowSpan: 2,
-                    labelKey: 'growingStockComposition.categoryHeader',
                     className: 'fra-table__header-cell-left',
                     type: 'header',
+                    migration: {
+                      label: {
+                        '2020': { key: 'fra.categoryHeader2020' },
+                      },
+                    },
                   },
                   {
                     idx: 1,
@@ -3696,11 +3700,16 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 cols: [
                   {
                     idx: 0,
-                    colSpan: 1,
-                    rowSpan: 2,
-                    labelKey: 'growingStockComposition.categoryHeader',
                     className: 'fra-table__header-cell-left',
                     type: 'header',
+                    migration: {
+                      label: {
+                        '2025': { key: 'fra.categoryHeader2025' },
+                      },
+                      style: {
+                        '2025': { colSpan: 1, rowSpan: 2 },
+                      },
+                    },
                   },
                   {
                     idx: 1,
@@ -3840,36 +3849,35 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   colNames: ['growingStockPercent'],
                 },
               },
-              // {
-              //   idx: 11,
-              //   type: 'data',
-              //   cols: [
-              //     {
-              //       idx: 'header_0',
-              //       type: 'header',
-              //       className: 'fra-table__header-cell-left',
-              //       migration:{
-              //         label:{key:'fra.growingStockComposition.totalNativePercent'},
-              //         style:{colSpan:3,rowSpan:1}
-              //       }
-              //     },
-              //     {
-              //       idx: 2,
-              //       type: 'calculated',
-              //       colName:'growingStockPercent'
-              //     },
-              //   ],
-              //   labelKey: 'growingStockComposition.totalNative',
-              //   variableExport: 'total_native',
-              //   colSpan: 3,
-              //   mainCategory: true,
-              //   variableName: 'totalNativePercent',
-              //   migration: {
-              //     // calcFormula:
-              //     //   '(growingStockComposition2025.nativeRankPercent1 || 0) + (growingStockComposition2025.nativeRankPercent2 || 0) + (growingStockComposition2025.nativeRankPercent3 || 0) + (growingStockComposition2025.nativeRankPercent4 || 0) + (growingStockComposition2025.nativeRankPercent5 || 0) + (growingStockComposition2025.nativeRankPercent6 || 0) + (growingStockComposition2025.nativeRankPercent7 || 0) + (growingStockComposition2025.nativeRankPercent8 || 0) + (growingStockComposition2025.nativeRankPercent9 || 0) + (growingStockComposition2025.nativeRankPercent10 || 0) + (growingStockComposition2025.remainingNativePercent || 0)',
-              //     colNames: ['growingStockPercent'],
-              //   },
-              // },
+              {
+                idx: 11,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    className: 'fra-table__header-cell-left',
+                    migration: {
+                      label: { '2025': { key: 'fra.growingStockComposition.totalNativePercent' } },
+                      style: { '2025': { colSpan: 3, rowSpan: 1 } },
+                    },
+                  },
+                  {
+                    idx: 2,
+                    type: 'calculated',
+                    colName: 'growingStockPercent',
+                  },
+                ],
+                labelKey: 'growingStockComposition.totalNative',
+                colSpan: 3,
+                mainCategory: true,
+                variableName: 'totalNativePercent',
+                migration: {
+                  calcFormula:
+                    '(growingStockComposition2025.nativeRankPercent1 || 0) + (growingStockComposition2025.nativeRankPercent2 || 0) + (growingStockComposition2025.nativeRankPercent3 || 0) + (growingStockComposition2025.nativeRankPercent4 || 0) + (growingStockComposition2025.nativeRankPercent5 || 0) + (growingStockComposition2025.nativeRankPercent6 || 0) + (growingStockComposition2025.nativeRankPercent7 || 0) + (growingStockComposition2025.nativeRankPercent8 || 0) + (growingStockComposition2025.nativeRankPercent9 || 0) + (growingStockComposition2025.nativeRankPercent10 || 0) + (growingStockComposition2025.remainingNativePercent || 0)',
+                  colNames: ['growingStockPercent'],
+                },
+              },
               // {
               //   idx: 12,
               //   type: 'data',

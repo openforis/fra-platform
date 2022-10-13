@@ -19,6 +19,7 @@ module.exports = {
     growingStockPercent: 'Growing stock in forest (% of total)',
     mostRecentYear: 'Most recent year',
     rankedPercent: '#{{idx}} Ranked % of total GS',
+    totalNativePercent: 'TOTAL % of native tree species',
   },
 
   primaryForestByClimaticDomain: {

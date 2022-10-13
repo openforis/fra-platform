@@ -1,10 +1,12 @@
 import { MemberExpression } from '@openforis/arena-core'
 import { MemberEvaluator as ArenaMemberEvaluator } from '@openforis/arena-core/dist/expression/javascript/node/member'
 
+import { TableDatas } from '@meta/data'
+
 import { Context } from '../context'
 
 export class MemberEvaluator extends ArenaMemberEvaluator<Context> {
-  evaluate(expressionNode: MemberExpression): any {
+  evaluate(expressionNode: MemberExpression): string | undefined {
     const { object, property } = expressionNode
     const { assessment, countryIso, colName: colNameContext, data } = this.context
 
@@ -19,8 +21,7 @@ export class MemberEvaluator extends ArenaMemberEvaluator<Context> {
       // @ts-ignore
       const colName = isCol ? property.value : colNameContext
 
-      const node = data[countryIso]?.[tableName]?.[colName]?.[variableName]
-      return node?.raw
+      return TableDatas.getDatum({ data, countryIso, tableName, variableName, colName })
     }
 
     return super.evaluate(expressionNode)
