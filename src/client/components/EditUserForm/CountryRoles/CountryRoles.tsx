@@ -129,7 +129,7 @@ const CountryRoles: React.FC<{ user: User }> = ({ user }) => {
             aria-hidden="true"
           >
             <div className="role">{i18n.t<string>(Users.getI18nRoleLabelKey(RoleName.ADMINISTRATOR))}</div>
-            <div className={`fra-checkbox${Users.isAdministrator(user) ? ' checked' : ''}`} />
+            <div className={classNames('fra-checkbox', { checked: Users.isAdministrator(user) })} />
           </div>
         )}
       </div>
