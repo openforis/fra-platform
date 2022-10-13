@@ -1,9 +1,6 @@
 @import 'src/client/style/partials';
 
 .fra-table__btn-export {
-  position: absolute;
-  right: 1px;
-  top: -24px;
   font-size: $font-xs;
 
   &.in-review {
