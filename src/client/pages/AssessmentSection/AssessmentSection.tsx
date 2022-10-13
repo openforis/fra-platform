@@ -56,7 +56,7 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
       {showTitle && <Title subSection={subSection} />}
 
       {tableSections.map((tableSection) => (
-        <div key={tableSection.uuid}>
+        <React.Fragment key={tableSection.uuid}>
           {tableSection.props.labelKey && (
             <h3 className="subhead assessment-section__table-title">{t(tableSection.props.labelKey)}</h3>
           )}
@@ -78,7 +78,7 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
               {table.props.print?.pageBreakAfter && <div className="page-break" />}
             </React.Fragment>
           ))}
-        </div>
+        </React.Fragment>
       ))}
 
       {descriptions.comments && <GeneralComments sectionName={sectionName} disabled={!canEditDescriptions} />}

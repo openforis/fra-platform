@@ -45,7 +45,7 @@ export const convertValue = (value: string, base: Unit, unit: Unit): string =>
 /**
  * Helper function to handle datamase mapping for table names
  * @param assessmentSection
- * @param assessmentType
+ * @param assessmentName
  * @returns {*}
  */
 export const formatSection = (assessmentSection: string, assessmentName: AssessmentName): string => {
