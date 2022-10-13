@@ -1,10 +1,14 @@
 import { ExpressionNodeEvaluator, MemberExpression } from '@openforis/arena-core'
 
 import { VariableCache } from '../../../../../src/meta/assessment/assessmentMetaCache'
+import { Row } from '../../../../../src/meta/assessment/row'
 import { Context } from './context'
 
 const includesVariableCache = (variables: Array<VariableCache>, variable: VariableCache): boolean =>
   Boolean(variables.find((v) => v.variableName === variable.variableName && v.tableName === variable.tableName))
+
+const excludeDependant = (row: Row, tableName: string, variableName: string): boolean =>
+  Boolean(row.props?.dependantsExclude?.find((v) => v.tableName === tableName && v.variableName === variableName))
 
 export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpression> {
   evaluate(expressionNode: MemberExpression): string {
@@ -21,7 +25,7 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
       const dependantTable = assessmentMetaCache[type].dependants?.[objectName] ?? {}
       const dependants = dependantTable[propertyName] ?? []
       const dependant: VariableCache = { variableName: row.props.variableName, tableName }
-      if (!includesVariableCache(dependants, dependant)) {
+      if (!excludeDependant(row, objectName, propertyName) && !includesVariableCache(dependants, dependant)) {
         assessmentMetaCache[type].dependants = {
           ...assessmentMetaCache[type].dependants,
           // @ts-ignore

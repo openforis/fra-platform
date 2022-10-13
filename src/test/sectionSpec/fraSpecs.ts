@@ -2095,6 +2095,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   calcFormula:
                     '(growingStockTotal.naturallyRegeneratingForest * 1000) / forestCharacteristics.naturalForestArea',
                   readonly: false,
+                  dependantsExclude: [{ tableName: 'forestCharacteristics', variableName: 'naturalForestArea' }],
                 },
               },
               {
