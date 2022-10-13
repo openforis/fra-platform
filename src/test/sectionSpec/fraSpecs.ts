@@ -484,6 +484,39 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 'header_0',
                     type: 'header',
                     colSpan: 1,
+                    labelKey: 'forestCharacteristics.plantedForest',
+                    variableNo: 'b',
+                    className: 'fra-table__header-cell-left',
+                    migration: {
+                      variableNo: { '2020': 'b', '2025': 'b=b1+b2' },
+                    },
+                  },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'calculated',
+                    colName: `${year}`,
+                  })),
+                ],
+                labelKey: 'forestCharacteristics.plantedForest',
+                variableNo: 'b',
+                variableName: 'plantedForest',
+                variableExport: 'planted_forest',
+                migration: {
+                  calcFormula: `(forestCharacteristics.plantationForestArea || forestCharacteristics.otherPlantedForestArea) 
+      ? (forestCharacteristics.plantationForestArea || 0) + (forestCharacteristics.otherPlantedForestArea || 0) 
+      : null`,
+                },
+              },
+              {
+                idx: 3,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
                     labelKey: 'forestCharacteristics.plantationForestArea',
                     className: 'fra-table__category-cell',
                     migration: {
@@ -507,7 +540,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 },
               },
               {
-                idx: 3,
+                idx: 4,
                 type: 'data',
                 cols: [
                   {
@@ -536,7 +569,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 },
               },
               {
-                idx: 4,
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -563,39 +596,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 chartProps: {
                   labelKey: 'forestCharacteristics.otherPlantedForestArea',
                   color: '#f58833',
-                },
-              },
-              {
-                idx: 5,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    labelKey: 'forestCharacteristics.plantedForest',
-                    variableNo: 'b',
-                    className: 'fra-table__header-cell-left',
-                    migration: {
-                      variableNo: { '2020': 'b', '2025': 'b=b1+b2' },
-                    },
-                  },
-                  ...fraYears.map((year, idx) => ({
-                    idx,
-                    colSpan: 1,
-                    rowSpan: 1,
-                    type: 'calculated',
-                    colName: `${year}`,
-                  })),
-                ],
-                labelKey: 'forestCharacteristics.plantedForest',
-                variableNo: 'b',
-                variableName: 'plantedForest',
-                variableExport: 'planted_forest',
-                migration: {
-                  calcFormula: `(forestCharacteristics.plantationForestArea || forestCharacteristics.otherPlantedForestArea) 
-      ? (forestCharacteristics.plantationForestArea || 0) + (forestCharacteristics.otherPlantedForestArea || 0) 
-      : null`,
                 },
               },
               {
@@ -630,33 +630,33 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   ],
                 },
               },
-              {
-                idx: 7,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    labelKey: 'forestCharacteristics.totalForestArea',
-                    linkToSection: 'extentOfForest',
-                    className: 'fra-table__header-cell-left',
-                  },
-                  ...fraYears.map((year, idx) => ({
-                    idx,
-                    colSpan: 1,
-                    rowSpan: 1,
-                    type: 'calculated',
-                    colName: `${year}`,
-                  })),
-                ],
-                labelKey: 'forestCharacteristics.totalForestArea',
-                linkToSection: 'extentOfForest',
-                variableName: 'forestArea', // before it was totalForestArea
-                migration: {
-                  calcFormula: 'extentOfForest.forestArea',
-                },
-              },
+              // {
+              //   idx: 7,
+              //   type: 'data',
+              //   cols: [
+              //     {
+              //       idx: 'header_0',
+              //       type: 'header',
+              //       colSpan: 1,
+              //       labelKey: 'forestCharacteristics.totalForestArea',
+              //       linkToSection: 'extentOfForest',
+              //       className: 'fra-table__header-cell-left',
+              //     },
+              //     ...fraYears.map((year, idx) => ({
+              //       idx,
+              //       colSpan: 1,
+              //       rowSpan: 1,
+              //       type: 'calculated',
+              //       colName: `${year}`,
+              //     })),
+              //   ],
+              //   labelKey: 'forestCharacteristics.totalForestArea',
+              //   linkToSection: 'extentOfForest',
+              //   variableName: 'forestArea', // before it was totalForestArea
+              //   migration: {
+              //     calcFormula: 'extentOfForest.forestArea',
+              //   },
+              // },
               {
                 idx: 8,
                 type: 'noticeMessage',
