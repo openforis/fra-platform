@@ -26,6 +26,14 @@ type Props = {
   onSave: (value: string | any) => void
 }
 
+const AutocompleteItem = (props: { labelKey: string; item: any; inputValue: string }) => {
+  const { item, labelKey, inputValue } = props
+  const input = item[labelKey] ?? item
+  const regExp = new RegExp(inputValue, 'gi')
+  const output = input.replace(regExp, '<b>$&</b>')
+  return <span dangerouslySetInnerHTML={{ __html: output }} />
+}
+
 const Autocomplete: React.FC<Props> = (props: Props) => {
   const { value, items, disabled, name, onInputValueChange, labelKey, onSave } = props
 
@@ -86,7 +94,7 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
                 key={`${item[labelKey] ?? item}${index}`}
                 {...getItemProps({ item, index })}
               >
-                {item[labelKey] ?? item}
+                <AutocompleteItem inputValue={inputValue} item={item} labelKey={labelKey} />
               </div>
             )
           })}

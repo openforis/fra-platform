@@ -26,6 +26,14 @@
       padding: 8px 9px;
       text-decoration: none;
 
+      &:first-child {
+        border-top: 1px solid $text-link;
+
+      }
+
+      &:last-child {
+        border-bottom: 1px solid $text-link;
+      }
       &.selected {
         border-left: 2px solid darken($ui-accent-light, 25%);
         padding: 8px 8px;
@@ -37,15 +45,8 @@
         border-left: 1px solid darken($ui-accent-light, 25%);
         border-right: 1px solid darken($ui-accent-light, 25%);
       }
-    }
-
-    :first-child {
-      border-top: 1px solid $text-link;
 
     }
 
-    :last-child {
-      border-bottom: 1px solid $text-link;
-    }
   }
 }
