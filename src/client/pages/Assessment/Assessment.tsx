@@ -80,7 +80,7 @@ const Assessment: React.FC = () => {
 
   if (!assessment) return null
 
-  if (!Authorizer.canView({ countryIso, assessment, cycle, user })) window.location.href = ClientRoutes.root.path
+  if (!Authorizer.canView({ countryIso, assessment, cycle, user })) window.location.href = ClientRoutes.Root.path
 
   return (
     <>
