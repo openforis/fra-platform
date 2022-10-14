@@ -2,22 +2,50 @@
 @import 'src/client/style/partials';
 
 .autocomplete {
-  width: 100%;
-  .autocomplete__listbox {
-    font-family: $font-family-1;
-    width: 100%;
-    cursor: pointer;
-    box-shadow: $shadow-3;
-    background-color: $ui-accent-light;
-    > * {
-      padding: $spacing-xxs;
+  transition: all .1s ease-out;
+
+  .autocomplete-dropdown {
+    position: absolute;
+    background: white;
+    border-radius: 2px;
+    z-index: 4;
+    top: 100%;
+    left: -1px; // align with top container border
+    min-width: calc(100% + 2px); //2px parent border
+
+    .autocomplete-item {
+      align-items: center;
+      border-left: 1px solid $text-link;
+      border-right: 1px solid $text-link;
+      color: $text-link;
+      cursor: pointer;
+      display: flex;
+      font-weight: normal;
+      justify-content: flex-start;
+      line-height: 16px;
+      padding: 8px 9px;
+      text-decoration: none;
+
+      &.selected {
+        border-left: 2px solid darken($ui-accent-light, 25%);
+        padding: 8px 8px;
+      }
+
+      &.highlighted {
+        padding: 8px 9px;
+        background-color: $ui-accent-light;
+        border-left: 1px solid darken($ui-accent-light, 25%);
+        border-right: 1px solid darken($ui-accent-light, 25%);
+      }
     }
-  }
 
+    :first-child {
+      border-top: 1px solid $text-link;
 
-  .autocomplete__item {
-    background-color:white;
-    color: $text-link;
+    }
 
+    :last-child {
+      border-bottom: 1px solid $text-link;
+    }
   }
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 
 import axios from 'axios'
+import { UseComboboxStateChange } from 'downshift'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { Taxon as TaxonType } from '@meta/extData/taxon'
@@ -11,7 +12,9 @@ import { PropsCell } from '../props'
 
 const Taxon: React.FC<PropsCell> = (props: PropsCell) => {
   const { onChangeNodeValue, disabled, nodeValue } = props
-  const _onChange = (value: string | TaxonType) => {
+  const [items, setItems] = React.useState([])
+
+  const onSave = (value: string | TaxonType) => {
     const isString = typeof value === 'string'
     // Handle first load ajax query call of onChange
     const isSame = value === nodeValue.raw || (!isString && value?.scientificName === nodeValue.raw)
@@ -34,17 +37,29 @@ const Taxon: React.FC<PropsCell> = (props: PropsCell) => {
     onChangeNodeValue(nodeValueUpdate)
   }
 
-  const listbox = {
-    data: (query: string) =>
-      axios
-        .get(`${ApiEndPoint.ExtData.Taxa.search()}?query=${encodeURIComponent(query)}&limit=15`)
-        .then(({ data }) => data),
-    displayField: 'scientificName',
+  const fetchAutocomplete = async (query: string) => {
+    const { data } = await axios.get(`${ApiEndPoint.ExtData.Taxa.search()}?query=${encodeURIComponent(query)}&limit=15`)
+    setItems(data)
+  }
+
+  const onInputValueChange: (changes: UseComboboxStateChange<any>) => void = async ({ inputValue }) => {
+    if (!inputValue) {
+      return
+    }
+    await fetchAutocomplete(inputValue)
   }
 
   return (
     <div className="text-input__container validation-error-sensitive-field">
-      <Autocomplete listbox={listbox} onChange={_onChange} disabled={disabled} value={nodeValue.raw} />
+      <Autocomplete
+        disabled={disabled}
+        items={items}
+        labelKey="scientificName"
+        name="taxon"
+        onInputValueChange={onInputValueChange}
+        onSave={onSave}
+        value={nodeValue.raw}
+      />
     </div>
   )
 }
