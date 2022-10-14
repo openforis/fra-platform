@@ -10,10 +10,11 @@ type Props = {
   forestSource: ForestSource
   gteHansenTreeCoverPerc?: number
   onlyProtected?: boolean
+  opacity?: number
 }
 
 export const getForestLayer = async (props: Props): Promise<Layer> => {
-  const { countryIso, forestSource, gteHansenTreeCoverPerc, onlyProtected } = props
+  const { countryIso, forestSource, gteHansenTreeCoverPerc, onlyProtected, opacity } = props
 
   await authenticateToGee()
 
@@ -25,18 +26,24 @@ export const getForestLayer = async (props: Props): Promise<Layer> => {
     asset.img
       .clip(ftcCountry)
       .selfMask()
-      .getMap({ palette: metadata.palette }, (mapProperties: any, err: any) => {
-        if (err) {
-          reject(err)
-          return
-        }
-        resolve({
-          mapId: mapProperties.mapid,
-          year: asset.year,
-          scale: metadata.scale,
+      .getMap(
+        {
           palette: metadata.palette,
-          citation: metadata.citation,
-        })
-      })
+          opacity: opacity === undefined ? 1 : Number(opacity),
+        },
+        (mapProperties: any, err: any) => {
+          if (err) {
+            reject(err)
+            return
+          }
+          resolve({
+            mapId: mapProperties.mapid,
+            year: asset.year,
+            scale: metadata.scale,
+            palette: metadata.palette,
+            citation: metadata.citation,
+          })
+        }
+      )
   })
 }

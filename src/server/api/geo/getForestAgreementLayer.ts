@@ -6,33 +6,54 @@ import { ForestSource } from '@meta/geo'
 import { GeoController } from '@server/controller/geo'
 import Requests from '@server/utils/requests'
 
-export const getForestAgreementLayer = async (req: Request, res: Response) => {
+export const getForestAgreementLayer = async (
+  req: Request<
+    { countryIso: CountryIso },
+    never,
+    never,
+    { gteAgreementLevel: number; gteHansenTreeCoverPerc: number; layer: Array<string>; opacity: number }
+  >,
+  res: Response
+) => {
   try {
-    const countryIso: CountryIso = req.params.countryIso as CountryIso
-    const gteAgreementLevel = Number(req.query.gteAgreementLevel)
-    const gteHansenTreeCoverPerc = Number(req.query.gteHansenTreeCoverPerc)
-
+    const { countryIso } = req.params
+    const { gteAgreementLevel, gteHansenTreeCoverPerc, layer, opacity } = req.query
     const sourceOptions = Object.values(ForestSource)
 
-    if (Array.isArray(req.query.layer) && req.query.layer.length > 1) {
+    if (Array.isArray(layer) && layer.length > 1) {
       const sourceLayersSet: Set<ForestSource> = new Set([])
-      req.query.layer.forEach((layer) => {
-        if (sourceOptions.includes(layer as unknown as ForestSource))
-          sourceLayersSet.add(ForestSource[layer as unknown as ForestSource])
-        else throw Error(`Not valid forest source for agreement-${layer}`)
+
+      layer.forEach((layerId: string) => {
+        if (sourceOptions.includes(layerId as unknown as ForestSource)) {
+          if (
+            layerId === ForestSource.Hansen &&
+            (gteHansenTreeCoverPerc === undefined ||
+              Number.isNaN(Number(gteHansenTreeCoverPerc)) ||
+              gteHansenTreeCoverPerc < 0 ||
+              gteHansenTreeCoverPerc > 100)
+          )
+            throw Error(`Not valid Hansen tree cover percentage 0-100: ${gteHansenTreeCoverPerc}`)
+
+          sourceLayersSet.add(ForestSource[layerId as unknown as ForestSource])
+        } else throw Error(`Not valid forest source for agreement: ${layerId}`)
       })
       if (sourceLayersSet.size < 2) throw Error(`Not valid forest agreement sources (2 minimum)`)
 
-      if (Number.isNaN(gteAgreementLevel) || gteAgreementLevel < 1 || gteAgreementLevel > sourceLayersSet.size)
+      if (Number.isNaN(Number(gteAgreementLevel)) || gteAgreementLevel < 1 || gteAgreementLevel > sourceLayersSet.size)
         throw Error(`Not valid forest agreement level 1-${sourceLayersSet.size}: ${gteAgreementLevel}`)
 
-      const layer = await GeoController.getForestAgreementLayer({
+      if (opacity !== undefined && (Number.isNaN(Number(opacity)) || opacity < 0 || opacity > 1))
+        throw Error(`Not valid opacity level 0-1: ${opacity}`)
+
+      const agreementLayer = await GeoController.getForestAgreementLayer({
         countryIso,
         sourceLayers: Array.from(sourceLayersSet),
         gteHansenTreeCoverPerc,
         gteAgreementLevel,
+        opacity,
       })
-      Requests.sendOk(res, layer)
+
+      Requests.sendOk(res, agreementLayer)
     } else throw Error(`Not forest agreement sources provided`)
   } catch (e) {
     Requests.sendErr(res, e)
