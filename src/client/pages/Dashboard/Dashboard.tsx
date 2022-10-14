@@ -3,6 +3,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Objects } from '@utils/objects'
+import classNames from 'classnames'
 
 import { Areas } from '@meta/area'
 
@@ -30,7 +31,7 @@ const Dashboard: React.FC = () => {
         <p className="statistical-factsheets__disclaimer">{i18n.t<string>('disclaimer.statisticalFactsheets')}</p>
       )}
 
-      <div className={`statistical-factsheets${isCountry ? ' country' : ''}`}>
+      <div className={classNames('statistical-factsheets', { country: isCountry })}>
         <ForestArea />
         <CarbonGrowingStock />
 

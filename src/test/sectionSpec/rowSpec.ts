@@ -1,3 +1,5 @@
+import { VariableCache } from '@meta/assessment'
+
 import { ColSpec } from './colSpec'
 import { TypeSpec } from './typeSpec'
 import { GetValidationMessages, Validator } from './validation'
@@ -38,5 +40,6 @@ export interface RowSpec {
     readonly?: boolean
     validateFns?: Array<string>
     cycles?: Array<string>
+    dependantsExclude?: Array<VariableCache>
   }
 }

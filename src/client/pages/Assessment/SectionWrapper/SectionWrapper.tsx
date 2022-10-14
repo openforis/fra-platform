@@ -5,6 +5,7 @@ import { AssessmentName } from '@meta/assessment'
 import { Sockets } from '@meta/socket'
 
 import { useAppDispatch } from '@client/store'
+import { useTableSections } from '@client/store/pages/assessmentSection'
 import { useGetTableSections } from '@client/store/pages/assessmentSection/hooks/useGetTableSections'
 import { ReviewActions } from '@client/store/ui/review'
 import { useUser } from '@client/store/user'
@@ -17,18 +18,20 @@ type Props = {
   children: JSX.Element
 }
 
+type SectionParams = {
+  assessmentName: AssessmentName
+  cycleName: string
+  sectionName: string
+}
+
 const SectionWrapper: React.FC<Props> = (props) => {
   const { children } = props
 
+  const { assessmentName, cycleName, sectionName } = useParams<SectionParams>()
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const user = useUser()
-  const { assessmentName, cycleName, sectionName } = useParams<{
-    assessmentName: AssessmentName
-    cycleName: string
-    sectionName: string
-  }>()
-
+  const tableSections = useTableSections({ sectionName })
   useGetTableSections()
 
   useEffect(() => {
@@ -36,7 +39,7 @@ const SectionWrapper: React.FC<Props> = (props) => {
     DOMs.scrollTo()
   }, [sectionName])
 
-  // fetch section review status
+  // subscribe to section review status update
   useEffect(() => {
     const requestReviewStatusEvent = Sockets.getRequestReviewStatusEvent({
       countryIso,
@@ -60,6 +63,8 @@ const SectionWrapper: React.FC<Props> = (props) => {
       }
     }
   }, [countryIso, assessmentName, cycleName, sectionName, user, dispatch])
+
+  if (!tableSections) return null
 
   return (
     <>

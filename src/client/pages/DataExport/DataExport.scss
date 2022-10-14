@@ -17,6 +17,7 @@
   grid-row-gap: $spacing-xs;
   position: sticky;
   left: 0;
+  flex: 1 100%;
 
   @include min-width($laptop) {
     height: 300px;
@@ -99,7 +100,10 @@
     @include min-width($laptop) {
       grid-column-gap: $spacing-s;
       grid-template-columns: repeat(2, auto);
-      justify-content: start;
+
+      :nth-child(3) {
+        grid-column: span 2;
+      }
 
       h4 {
         justify-self: right;
