@@ -11,7 +11,7 @@ export const getForestAgreementLayer = async (
     { countryIso: CountryIso },
     never,
     never,
-    { gteAgreementLevel: number; gteHansenTreeCoverPerc: number; layer: Array<string>; opacity: number }
+    { gteAgreementLevel: number; gteHansenTreeCoverPerc: number; layer: Array<ForestSource>; opacity: number }
   >,
   res: Response
 ) => {
@@ -23,8 +23,8 @@ export const getForestAgreementLayer = async (
     if (Array.isArray(layer) && layer.length > 1) {
       const sourceLayersSet: Set<ForestSource> = new Set([])
 
-      layer.forEach((layerId: string) => {
-        if (sourceOptions.includes(layerId as unknown as ForestSource)) {
+      layer.forEach((layerId) => {
+        if (sourceOptions.includes(layerId)) {
           if (
             layerId === ForestSource.Hansen &&
             (gteHansenTreeCoverPerc === undefined ||
