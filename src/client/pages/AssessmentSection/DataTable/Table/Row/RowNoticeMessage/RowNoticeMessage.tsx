@@ -19,9 +19,12 @@ const RowNoticeMessage: React.FC<Props> = (props) => {
       {cols.map((col) => {
         const { rowSpan, colSpan } = Cols.getStyle({ col, cycle })
         const message = Cols.getLabel({ cycle, col, t })
+
+        if (!message) return null
+
         return (
           <td key={message} className="fra-table__notice-message-cell" rowSpan={rowSpan} colSpan={colSpan}>
-            {message && <div className="message">{message}</div>}
+            <div className="message">{message}</div>
           </td>
         )
       })}

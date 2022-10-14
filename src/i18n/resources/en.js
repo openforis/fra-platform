@@ -92,6 +92,7 @@ followed by the boreal, temperate and subtropical domains.`,
     annualNumberOfVisitsMillion: 'annual number of visits (million)',
     millionNationalCurrency: 'million national currency',
     facilityLengthIn1000Km: 'facility (length in 1000 km)',
+    growingStockPercent: '% of total growing stock in forest',
   },
 
   countrySelection: {
@@ -726,6 +727,7 @@ The FRA team fra@fao.org
     totalIntroduced: 'Total volume of introduced tree species',
     totalGrowingStock: 'Total growing stock',
     rankingYear: 'Ranking year 2015',
+    growingStockPercent: '$t(fra.growingStockComposition.growingStockPercent)',
   },
 
   biomassStock: {
