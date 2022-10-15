@@ -10,10 +10,11 @@ type Props = {
   sourceLayers: Array<ForestSource>
   gteHansenTreeCoverPerc: number
   gteAgreementLevel: number
+  opacity?: number
 }
 
 export const getForestAgreementLayer = async (props: Props): Promise<Layer> => {
-  const { countryIso, sourceLayers, gteHansenTreeCoverPerc, gteAgreementLevel } = props
+  const { countryIso, sourceLayers, gteHansenTreeCoverPerc, gteAgreementLevel, opacity } = props
 
   await authenticateToGee()
 
@@ -25,15 +26,23 @@ export const getForestAgreementLayer = async (props: Props): Promise<Layer> => {
     asset.img
       .clip(ftcCountry)
       .selfMask()
-      .getMap({ palette, min: gteAgreementLevel, max: palette.length }, (mapProperties: any, err: any) => {
-        if (err) {
-          reject(err)
-          return
-        }
-        resolve({
-          mapId: mapProperties.mapid,
+      .getMap(
+        {
           palette,
-        })
-      })
+          min: Number(gteAgreementLevel),
+          max: palette.length,
+          opacity: opacity === undefined ? 1 : Number(opacity),
+        },
+        (mapProperties: any, err: any) => {
+          if (err) {
+            reject(err)
+            return
+          }
+          resolve({
+            mapId: mapProperties.mapid,
+            palette,
+          })
+        }
+      )
   })
 }
