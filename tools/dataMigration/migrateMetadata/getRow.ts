@@ -16,6 +16,7 @@ export const getRow = (props: { assessment: Assessment; rowSpec: RowSpec; table:
       calculateFn: rowSpec.migration?.calcFormula,
       readonly: rowSpec.migration?.readonly,
       validateFns: rowSpec.migration?.validateFns,
+      dependantsExclude: rowSpec.migration?.dependantsExclude,
     },
     cols: [],
     tableId: table.id,
