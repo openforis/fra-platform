@@ -1,6 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
-// Object spreading used by downshift
-
 import './Autocomplete.scss'
 import React, { useEffect, useState } from 'react'
 
@@ -18,7 +15,7 @@ enum UseComboboxStateChangeTypes {
 
 type Props = {
   value: string
-  onInputValueChange: (changes: UseComboboxStateChange<any>) => void
+  onInputValueChange: (inputValue: string) => void
   labelKey: string
   disabled?: boolean
   items: any[]
@@ -58,7 +55,7 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
   const { isOpen, getMenuProps, getInputProps, getComboboxProps, highlightedIndex, getItemProps } = useCombobox({
     onInputValueChange(changes) {
       setInputValue(changes.inputValue)
-      onInputValueChange(changes)
+      onInputValueChange(changes.inputValue)
     },
     items,
     itemToString(item) {
@@ -73,14 +70,17 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
   })
 
   return (
+    // eslint-disable-next-line react/jsx-props-no-spreading
     <div {...getComboboxProps()} className={classNames('autocomplete', { [name]: name })}>
       <TextInput
+        // eslint-disable-next-line react/jsx-props-no-spreading
         {...getInputProps({
           value: inputValue,
           disabled,
           className: 'text-input__input-field',
         })}
       />
+      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <div className="autocomplete-dropdown" {...getMenuProps()}>
         {isOpen &&
           items.map((item, index) => {
@@ -92,6 +92,7 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
                 })}
                 // eslint-disable-next-line react/no-array-index-key
                 key={`${item[labelKey] ?? item}${index}`}
+                // eslint-disable-next-line react/jsx-props-no-spreading
                 {...getItemProps({ item, index })}
               >
                 <AutocompleteItem inputValue={inputValue} item={item} labelKey={labelKey} />

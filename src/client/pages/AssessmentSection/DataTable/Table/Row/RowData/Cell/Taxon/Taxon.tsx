@@ -1,7 +1,6 @@
 import React from 'react'
 
 import axios from 'axios'
-import { UseComboboxStateChange } from 'downshift'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { Taxon as TaxonType } from '@meta/extData/taxon'
@@ -38,11 +37,16 @@ const Taxon: React.FC<PropsCell> = (props: PropsCell) => {
   }
 
   const fetchAutocomplete = async (query: string) => {
-    const { data } = await axios.get(`${ApiEndPoint.ExtData.Taxa.search()}?query=${encodeURIComponent(query)}&limit=15`)
+    const { data } = await axios.get(ApiEndPoint.ExtData.Taxa.search(), {
+      params: {
+        query,
+        limit: 15,
+      },
+    })
     setItems(data)
   }
 
-  const onInputValueChange: (changes: UseComboboxStateChange<any>) => void = async ({ inputValue }) => {
+  const onInputValueChange = async (inputValue: string) => {
     if (!inputValue) {
       return
     }
