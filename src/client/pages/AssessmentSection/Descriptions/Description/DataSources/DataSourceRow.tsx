@@ -9,6 +9,8 @@ import { useCycle } from '@client/store/assessment'
 import { useTableSections } from '@client/store/pages/assessmentSection'
 import Autocomplete from '@client/components/Autocomplete'
 import Icon from '@client/components/Icon'
+import { TableRow } from '@client/components/Table'
+import TableCell from '@client/components/Table/TableCell'
 import VerticallyGrowingTextField from '@client/components/VerticallyGrowingTextField'
 
 type Props = {
@@ -51,8 +53,8 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
     .map((r, index) => t(r.props.label?.key, { idx: index + 1 }))
 
   return (
-    <tr>
-      <td className="fra-table__cell-left">
+    <TableRow>
+      <TableCell>
         <div className="data-source__delete-wrapper">
           {!placeholder && !disabled && (
             <button type="button" onClick={onDelete}>
@@ -65,9 +67,9 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
             value={dataSource.reference}
           />
         </div>
-      </td>
+      </TableCell>
 
-      <td className="fra-table__cell-left">
+      <TableCell>
         <Autocomplete
           withArrow
           disabled={disabled}
@@ -75,9 +77,9 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
           value={dataSource.type}
           items={dataSourceTypeLabelKeys.map((type) => t(`dataSource.${type}`))}
         />
-      </td>
+      </TableCell>
 
-      <td className="fra-table__cell-left">
+      <TableCell>
         <Autocomplete
           withArrow
           disabled={disabled}
@@ -85,9 +87,9 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
           value={dataSource.fraVariable}
           items={rows}
         />
-      </td>
+      </TableCell>
 
-      <td className="fra-table__cell-left">
+      <TableCell>
         <Autocomplete
           withArrow
           disabled={disabled}
@@ -95,14 +97,15 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
           value={dataSource.year}
           items={columns}
         />
-      </td>
-      <td className="fra-table__cell-left">
+      </TableCell>
+
+      <TableCell>
         <VerticallyGrowingTextField
           disabled={disabled}
           onChange={(event) => _onChange('comments', event.target.value)}
         />
-      </td>
-    </tr>
+      </TableCell>
+    </TableRow>
   )
 }
 export default DataSourceRow

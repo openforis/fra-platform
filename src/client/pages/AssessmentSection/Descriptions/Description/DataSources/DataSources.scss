@@ -1,0 +1,23 @@
+@import 'src/client/style/partials';
+
+.data-source__delete-wrapper {
+  display: flex;
+
+  > button {
+    border: 0;
+    background-color: white;
+  }
+
+  > div {
+    width: 100%;
+  }
+
+  textarea:focus {
+    box-shadow: none;
+  }
+
+  &:focus-within {
+    outline: none;
+    box-shadow: 0 0 0 1px $text-body;
+  }
+}

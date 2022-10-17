@@ -1,10 +1,13 @@
+import './DataSources.scss'
 import React, { useCallback } from 'react'
 
 import { Objects } from '@utils/objects'
 
 import { CommentableDescriptionValue, DataSource } from '@meta/assessment'
 
-import DataSourceRow from './DataSourceRow'
+import Table, { TableBody, TableHead, TableRow } from '@client/components/Table'
+import TableCell from '@client/components/Table/TableCell'
+import DataSourceRow from '@client/pages/AssessmentSection/Descriptions/Description/DataSources/DataSourceRow'
 
 type Props = {
   disabled: boolean
@@ -55,17 +58,17 @@ export const DataSources: React.FC<Props> = (props: Props) => {
   if (!dataSources.length && disabled) return null
 
   return (
-    <table className="fra-table data-table">
-      <thead>
-        <tr>
-          <th className="fra-table__header-cell">Reference to data source</th>
-          <th className="fra-table__header-cell">Type of data source</th>
-          <th className="fra-table__header-cell">FRA variable</th>
-          <th className="fra-table__header-cell">Year for data source</th>
-          <th className="fra-table__header-cell">Comments</th>
-        </tr>
-      </thead>
-      <tbody>
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableCell>Reference to data source</TableCell>
+          <TableCell>Type of data source</TableCell>
+          <TableCell>FRA variable</TableCell>
+          <TableCell>Year for data source</TableCell>
+          <TableCell>Comments</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
         {dataSources.concat(disabled ? [] : placeholder).map((dataSource, i) => (
           <DataSourceRow
             onChange={(dataSource: DataSource) => _onChange(dataSource, i)}
@@ -79,8 +82,8 @@ export const DataSources: React.FC<Props> = (props: Props) => {
             onDelete={() => _onDelete(i)}
           />
         ))}
-      </tbody>
-    </table>
+      </TableBody>
+    </Table>
   )
 }
 
