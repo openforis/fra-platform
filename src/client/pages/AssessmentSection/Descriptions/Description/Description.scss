@@ -126,22 +126,22 @@ div.fra-row-comments__open {
 }
 
 .data-source__delete-wrapper {
+  display: flex;
 
-  //> button {
-  //  position: absolute;
-  //  width: 16px;
-  //  height: 16px;
-  //  top: 50%;
-  //  left: 4px;
-  //  margin-top: -8px;
-  //  padding: 0;
-  //  border: none;
-  //}
-  //
-  //>div.vgtf__container {
-  //  position: absolute;
-  //  right: 14px;
-  //  top: 50%;
-  //
-  //}
+
+  > button {
+    border: 0;
+    background-color: white;
+  }
+  > div {
+    width: 100%;
+  }
+  textarea:focus {
+    box-shadow: none;
+  }
+
+  &:focus-within {
+    outline: none;
+    box-shadow: 0 0 0 1px $text-body;
+  }
 }

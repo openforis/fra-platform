@@ -1,10 +1,13 @@
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Objects } from '@utils/objects'
+
 import { DataSource, dataSourceTypes, RowType } from '@meta/assessment'
 
 import { useCycle } from '@client/store/assessment'
 import { useTableSections } from '@client/store/pages/assessmentSection'
+import Autocomplete from '@client/components/Autocomplete'
 import Icon from '@client/components/Icon'
 import VerticallyGrowingTextField from '@client/components/VerticallyGrowingTextField'
 
@@ -39,11 +42,13 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
   const table = tableSections?.[0]?.tables?.[0]
   if (!table) return null
 
-  const columns = table.props.columnNames[cycle.uuid]
+  const columns = table.props.columnNames[cycle.uuid].map((c) =>
+    Number.isInteger(+c) ? c : t(`${sectionName}.${Objects.camelize(c)}`)
+  )
 
   const rows = table.rows
     .filter((row) => row.props.variableName && row.props.type === RowType.data)
-    .map((r) => t(r.props.label?.key))
+    .map((r, index) => t(r.props.label?.key, { idx: index + 1 }))
 
   return (
     <tr>
@@ -61,38 +66,35 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
           />
         </div>
       </td>
-      <td className="fra-table__cell-left">
-        <select disabled={disabled} value={dataSource.type} onChange={(event) => _onChange('type', event.target.value)}>
-          {dataSourceTypes.map((type) => (
-            <option key={type} value={type}>
-              {type}
-            </option>
-          ))}
-        </select>
-      </td>
 
       <td className="fra-table__cell-left">
-        <select
+        <Autocomplete
+          withArrow
           disabled={disabled}
-          value={dataSource.fraVariable}
-          onChange={(event) => _onChange('fraVariable', event.target.value)}
-        >
-          {rows.map((row) => (
-            <option key={row} value={row}>
-              {row}
-            </option>
-          ))}
-        </select>
+          onSave={(value) => _onChange('type', value)}
+          value={dataSource.type}
+          items={dataSourceTypes}
+        />
       </td>
 
       <td className="fra-table__cell-left">
-        <select disabled={disabled} value={dataSource.year} onChange={(event) => _onChange('year', event.target.value)}>
-          {columns.map((column) => (
-            <option key={column} value={column}>
-              {column}
-            </option>
-          ))}
-        </select>
+        <Autocomplete
+          withArrow
+          disabled={disabled}
+          onSave={(value) => _onChange('fraVariable', value)}
+          value={dataSource.fraVariable}
+          items={rows}
+        />
+      </td>
+
+      <td className="fra-table__cell-left">
+        <Autocomplete
+          withArrow
+          disabled={disabled}
+          onSave={(value) => _onChange('year', value)}
+          value={dataSource.year}
+          items={columns}
+        />
       </td>
       <td className="fra-table__cell-left">
         <VerticallyGrowingTextField
