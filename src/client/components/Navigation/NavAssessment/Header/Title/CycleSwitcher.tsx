@@ -3,6 +3,7 @@ import React, { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { ClientRoutes } from '@meta/app'
+import { Areas } from '@meta/area'
 import { Authorizer } from '@meta/user'
 
 import { useAssessment, useCycle } from '@client/store/assessment'
@@ -17,10 +18,11 @@ const CycleSwitcher = () => {
   const assessment = useAssessment()
   const user = useUser()
   const isDataLocked = useIsDataLocked()
+  const isDataExport = countryIso && !Areas.isISOCountry(countryIso)
 
   const assessmentName = assessment.props.name
   const userCycles = assessment.cycles.filter((cycle) => Authorizer.canView({ countryIso, user, cycle, assessment }))
-  const canSwitchCycle = user && isDataLocked && userCycles.length > 1
+  const canSwitchCycle = user && (isDataLocked || isDataExport) && userCycles.length > 1
 
   const onSelectChange = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>) => {
