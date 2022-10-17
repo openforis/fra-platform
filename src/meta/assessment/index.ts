@@ -13,7 +13,7 @@ export type { CommentableDescription, CommentableDescriptionValue, DataSource } 
 export { CommentableDescriptionName } from './commentableDescription'
 export type { Cycle, CycledPropsObject } from './cycle'
 export type { Description, Descriptions } from './description'
-export { dataSourceTypes } from './descriptions'
+export { dataSourceTypeLabelKeys } from './descriptions'
 export type { Label } from './label'
 export { Labels } from './labels'
 export type { Node, NodeValue } from './node'
