@@ -92,6 +92,7 @@ followed by the boreal, temperate and subtropical domains.`,
     annualNumberOfVisitsMillion: 'annual number of visits (million)',
     millionNationalCurrency: 'million national currency',
     facilityLengthIn1000Km: 'facility (length in 1000 km)',
+    growingStockPercent: '% of total growing stock in forest',
   },
 
   countrySelection: {
@@ -121,6 +122,7 @@ followed by the boreal, temperate and subtropical domains.`,
       ALTERNATE_NATIONAL_CORRESPONDENT: 'Alternate national correspondent',
       COLLABORATOR: 'Collaborator',
       ADMINISTRATOR: 'Administrator',
+      VIEWER: 'Viewer',
       noRole: 'N/A',
       // unused?
       reviewer_plural: 'Reviewers',
@@ -725,6 +727,7 @@ The FRA team fra@fao.org
     totalIntroduced: 'Total volume of introduced tree species',
     totalGrowingStock: 'Total growing stock',
     rankingYear: 'Ranking year 2015',
+    growingStockPercent: '$t(fra.growingStockComposition.growingStockPercent)',
   },
 
   biomassStock: {
@@ -1054,6 +1057,7 @@ The FRA team
     picture1MbMax: 'Profile picture cannot exceed 1MB',
     activated: 'Activated',
     status: 'Status',
+    adminConfirm: 'Are you sure you want to promote this user to Administrator?',
   },
 
   country: {

@@ -11,6 +11,7 @@ import { remove } from './remove'
 import { removeInvitation } from './removeInvitation'
 import { sendInvitationEmail } from './sendInvitationEmail'
 import { update } from './update'
+import { updateUserRoles } from './updateUserRoles'
 
 export const UserController = {
   create,
@@ -27,4 +28,5 @@ export const UserController = {
   createResetPassword,
   changePassword,
   updateSectionAuth: UserRoleRepository.updateSectionAuth,
+  updateUserRoles,
 }

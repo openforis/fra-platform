@@ -36,9 +36,10 @@ describe('Post Data migration', () => {
         await validateNodes({ assessment, cycle }, client)
         // eslint-disable-next-line no-await-in-loop
         await cleanupCountryProps({ assessment, cycle }, client)
+        // eslint-disable-next-line no-await-in-loop
+        await migrateDescriptions({ assessment, cycle }, client)
       }
       await migratePrimaryForestData({ assessment }, client)
-      await migrateDescriptions({ assessment }, client)
       await migrateMessageBoard({ assessment }, client)
       await postMetadataFix({ assessment }, client)
     })

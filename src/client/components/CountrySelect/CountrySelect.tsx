@@ -102,7 +102,7 @@ const CountrySelect: React.FC = () => {
               <div className="name">{i18n.t<string>(`area.${countryIso}.listName`)}</div>
               {user && (
                 <div className="user-role">
-                  {i18n.t<string>(Users.getI18nRoleLabelKey(Users.getCountryRole(user, countryIso).role))}
+                  {i18n.t<string>(Users.getI18nRoleLabelKey(Users.getCountryRole(user, countryIso)?.role))}
                 </div>
               )}
             </div>

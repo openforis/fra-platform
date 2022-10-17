@@ -1,7 +1,7 @@
 // @ts-ignore
 import { Image, ImageCollection } from '@google/earthengine'
 
-import { ForestSource, precalForestAgreementSources } from '@meta/geo'
+import { ForestSource } from '@meta/geo'
 
 export const getForestAssetData = (
   forestSource: ForestSource,
@@ -85,15 +85,15 @@ export const getForestAssetData = (
     }
 
     case ForestSource.Hansen: {
-      if (Number.isNaN(gteHansenTreeCoverPerc) || gteHansenTreeCoverPerc < 0 || gteHansenTreeCoverPerc > 100)
-        throw Error(`Not valid Hansen tree cover percentage 0-100: ${gteHansenTreeCoverPerc}`)
-
       const imcHansen = Image('UMD/hansen/global_forest_change_2021_v1_9')
       const hforest2000 = imcHansen.select('treecover2000')
       const lossyear = imcHansen.select('lossyear')
       const hlost = lossyear.gte(1).and(lossyear.lte(20))
       const hgain = imcHansen.select('gain')
-      const imgForestHansen = hforest2000.gte(gteHansenTreeCoverPerc).where(hgain.eq(1), 1).where(hlost.eq(1), 0)
+      const imgForestHansen = hforest2000
+        .gte(Number(gteHansenTreeCoverPerc))
+        .where(hgain.eq(1), 1)
+        .where(hlost.eq(1), 0)
 
       asset = {
         year: 2020,
@@ -113,14 +113,19 @@ export const getForestAssetData = (
   return asset
 }
 
-export const getForestAgreementAssetData = (gteHansenTreeCoverPerc = 10, gteAgreementLevel = 1): { img: Image } => {
+export const getForestAgreementAssetData = (
+  sourceLayers: Array<ForestSource>,
+  gteHansenTreeCoverPerc = 10,
+  gteAgreementLevel = 1
+): { img: Image } => {
   let imgAddition = Image(0)
-  precalForestAgreementSources.forEach(function (source) {
+
+  sourceLayers.forEach(function (source) {
     const asset = getForestAssetData(source, gteHansenTreeCoverPerc)
     imgAddition = imgAddition.add(asset.img.unmask())
   })
 
   return {
-    img: imgAddition.mask(imgAddition.gte(gteAgreementLevel)),
+    img: imgAddition.mask(imgAddition.gte(Number(gteAgreementLevel))),
   }
 }

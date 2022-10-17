@@ -2,6 +2,9 @@ import './Assessment.scss'
 import React, { useEffect } from 'react'
 import { Navigate, Route, Routes, useParams } from 'react-router-dom'
 
+import classNames from 'classnames'
+
+import { ClientRoutes } from '@meta/app'
 import { Areas } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
 import { Sockets } from '@meta/socket'
@@ -14,8 +17,6 @@ import { useNavigationVisible } from '@client/store/ui/navigation'
 import { ReviewActions } from '@client/store/ui/review'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
-import { BasePaths } from '@client/basePaths'
-import { ClientRoutes } from '@client/clientRoutes'
 import CountrySelect from '@client/components/CountrySelect'
 import Navigation from '@client/components/Navigation'
 import AssessmentDataDownload from '@client/pages/AssessmentDataDownload'
@@ -79,12 +80,12 @@ const Assessment: React.FC = () => {
 
   if (!assessment) return null
 
-  if (!Authorizer.canView({ countryIso, assessment, cycle, user })) window.location.href = BasePaths.Root()
+  if (!Authorizer.canView({ countryIso, assessment, cycle, user })) window.location.href = ClientRoutes.Root.path
 
   return (
     <>
       <CountrySelect />
-      <div className={`app-view ${navigationVisible ? ' navigation-on' : ''}`}>
+      <div className={classNames('app-view', { 'navigation-on': navigationVisible })}>
         <Navigation />
         <Routes>
           <Route path={`${ClientRoutes.Assessment.Home.Root.path.relative}/*`} element={<AssessmentHome />} />

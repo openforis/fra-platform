@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
+import { ClientRoutes } from '@meta/app'
 
 import { useAppDispatch } from '@client/store'
 import { LoginActions, useInvitation } from '@client/store/login'
 import { useToaster } from '@client/hooks/useToaster'
-import { ClientRoutes } from '@client/clientRoutes'
 import { isError, LoginValidator } from '@client/pages/Login/utils/LoginValidator'
 import { Urls } from '@client/utils/urls'
 

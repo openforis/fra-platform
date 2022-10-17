@@ -10,8 +10,17 @@ module.exports = {
   extentOfForest: {
     remainingLandArea: 'Remaining land area',
   },
+
   forestCharacteristics: {
     primaryForest: '…of which primary forest',
+  },
+
+  growingStockComposition: {
+    growingStockPercent: 'Growing stock in forest (% of total)',
+    mostRecentYear: 'Most recent year',
+    rankedPercent: '#{{idx}} Ranked % of total GS',
+    totalIntroducedPercent: 'TOTAL % of introduced tree species',
+    totalNativePercent: 'TOTAL % of native tree species',
   },
 
   primaryForestByClimaticDomain: {
@@ -24,5 +33,7 @@ module.exports = {
 
   specificForestCategories: {
     specificForestCategories2025: 'Specific forest categories',
+    mangroves2025: `Mangroves\u00B9`,
+    mangrovesDisclaimer: `\u00B9Note the area of mangroves not only includes Forest but also Other wooded land`,
   },
 }

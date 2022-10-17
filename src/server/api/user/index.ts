@@ -15,6 +15,7 @@ import { sendInvitationEmail } from './sendInvitationEmail'
 import { updateSectionAuth } from './updateSectionAuth'
 import { updateUser } from './updateUser'
 import multer = require('multer')
+import { updateUserRoles } from './updateUserRoles'
 
 export const UserApi = {
   init: (express: Express): void => {
@@ -32,6 +33,7 @@ export const UserApi = {
     express.get(ApiEndPoint.User.invitationSendEmail(), AuthMiddleware.requireEditUser, sendInvitationEmail)
 
     express.get(ApiEndPoint.User.profilePicture(), getProfilePicture)
+    express.post(ApiEndPoint.User.roles(), AuthMiddleware.requireAdmin, updateUserRoles)
     express.post(ApiEndPoint.User.sectionAuth(), AuthMiddleware.requireEditUser, updateSectionAuth)
   },
 }

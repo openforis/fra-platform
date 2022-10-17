@@ -4,11 +4,11 @@ import { NavLink, useParams } from 'react-router-dom'
 
 import classNames from 'classnames'
 
+import { ClientRoutes } from '@meta/app'
 import { AssessmentName, OriginalDataPoint } from '@meta/assessment'
 
 import { useAssessmentCountry } from '@client/store/assessment'
 import { useCountryIso } from '@client/hooks'
-import { ClientRoutes } from '@client/clientRoutes'
 
 import ExtentOfForest from '../ExtentOfForest'
 import ForestCharacteristics from '../ForestCharacteristics'

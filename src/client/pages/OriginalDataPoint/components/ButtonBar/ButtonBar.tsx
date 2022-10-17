@@ -3,6 +3,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 
+import { ClientRoutes } from '@meta/app'
 import { AssessmentName } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
@@ -13,7 +14,6 @@ import {
   useOriginalDataPoint,
 } from '@client/store/pages/originalDataPoint'
 import { useCountryIso } from '@client/hooks'
-import { ClientRoutes } from '@client/clientRoutes'
 
 type Props = {
   canEditData: boolean

@@ -2,11 +2,10 @@ import React, { useLayoutEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
+import { ClientRoutes } from '@meta/app'
 import { RegionCode, RegionGroup } from '@meta/area'
-import { AssessmentNames } from '@meta/assessment'
+import { AssessmentName, AssessmentNames } from '@meta/assessment'
 
-import { useCycle } from '@client/store/assessment'
-import { BasePaths } from '@client/basePaths'
 import Icon from '@client/components/Icon'
 
 import { areas } from '../AreaSelector'
@@ -14,20 +13,19 @@ import { areas } from '../AreaSelector'
 type Props = {
   area: string
   areaISOs: string[] | Record<string, RegionGroup>
-  assessmentType: any
+  assessmentName: AssessmentName
+  cycleName: string
   dropdownOpened: string
   setDropdownOpened: (area: string) => void
 }
 
 const DropdownAreas = (props: Props) => {
-  const { area, areaISOs, assessmentType, dropdownOpened, setDropdownOpened } = props
-
-  const cycle = useCycle()
+  const { area, areaISOs, assessmentName, cycleName, dropdownOpened, setDropdownOpened } = props
 
   const { i18n } = useTranslation()
   const buttonRef = useRef<HTMLButtonElement>(null)
   const dialogOpened = dropdownOpened === area
-  const fra = assessmentType === AssessmentNames.fra
+  const fra = assessmentName === AssessmentNames.fra
 
   const outsideClick = ({ target }: any) => {
     const button = buttonRef.current
@@ -41,6 +39,7 @@ const DropdownAreas = (props: Props) => {
     return () => {
       window.removeEventListener('click', outsideClick)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dialogOpened])
 
   return (
@@ -53,7 +52,7 @@ const DropdownAreas = (props: Props) => {
         setDropdownOpened(dialogOpened ? '' : area)
       }}
     >
-      <div>- {i18n.t('common.select')} -</div>
+      <div>- {i18n.t<string>('common.select')} -</div>
       <Icon name="small-down" />
 
       {dialogOpened && (
@@ -69,7 +68,11 @@ const DropdownAreas = (props: Props) => {
                           regionCode !== RegionCode.FE && (
                             <Link
                               key={regionCode}
-                              to={BasePaths.Assessment.root(regionCode, assessmentType, cycle?.name)}
+                              to={ClientRoutes.Assessment.Root.getLink({
+                                countryIso: regionCode,
+                                assessmentName,
+                                cycleName,
+                              })}
                               className="country-selection-list__row"
                               target={fra ? '_self' : '_blank'}
                             >
@@ -86,10 +89,14 @@ const DropdownAreas = (props: Props) => {
             ) : (
               <div className="country-selection-list__section">
                 {Array.isArray(areaISOs) &&
-                  areaISOs.map((iso) => (
+                  areaISOs.map((iso: any) => (
                     <Link
                       key={iso}
-                      to={BasePaths.Assessment.root(iso, assessmentType, cycle?.name)}
+                      to={ClientRoutes.Assessment.Root.getLink({
+                        countryIso: iso,
+                        assessmentName,
+                        cycleName,
+                      })}
                       className="country-selection-list__row"
                       target={fra ? '_self' : '_blank'}
                     >
