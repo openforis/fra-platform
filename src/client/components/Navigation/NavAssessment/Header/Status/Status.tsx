@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom'
 import { Objects } from '@utils/objects'
 import classNames from 'classnames'
 
+import { Areas } from '@meta/area'
 import { AssessmentStatus } from '@meta/area/country'
 import { AssessmentName } from '@meta/assessment'
 import { AssessmentStatusTransitions } from '@meta/assessment/assessments'
@@ -33,7 +34,8 @@ const Status: React.FC = () => {
   const [targetStatus, setTargetStatus] = useState<StatusTransition>(null)
 
   if (!country) return null
-  const { deskStudy, status } = country.props ?? {}
+  const { deskStudy } = country.props ?? {}
+  const status = Areas.getStatus(country)
   const deskStudyItems: Array<PopoverItem> = [
     { divider: true },
     {
