@@ -94,6 +94,6 @@ export const getTableData = (props: Props, client: BaseProtocol = DB): Promise<T
   from agg3 a;
     `,
     [countryISOs],
-    ({ data }) => data
+    ({ data }) => data ?? {}
   )
 }
