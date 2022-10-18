@@ -7,12 +7,22 @@ import { CycleDataParams, NodesBody } from '@meta/api/request'
 
 type Props = CycleDataParams & NodesBody
 
-const patchNodeValues = async ({ tableName, values, ...params }: Props) => {
-  await axios.patch(ApiEndPoint.CycleData.Table.nodes(), { tableName, values }, { params })
-}
+const patchNodeValues = (id: string) =>
+  Functions.debounce(
+    async ({ tableName, values, ...params }: Props) => {
+      try {
+        await axios.patch(ApiEndPoint.CycleData.Table.nodes(), { tableName, values }, { params })
+      } catch (e) {
+        // placeholder to avoid app crash
+      }
+    },
+    1000,
+    id
+  )
 
-const getDebounceId = ({ values }: Props) => values[0].colName
+const getDebounceId = (props: Props) =>
+  `${props.countryIso}-${props.tableName}-${props.values[0].variableName}-${props.values[0].colName}`
 
-export const updateNodeValues = createAsyncThunk<void, Props>('section/nodeValues/update', (props) =>
-  Functions.debounce(patchNodeValues, getDebounceId(props), 1000)(props)
-)
+export const updateNodeValues = createAsyncThunk<void, Props>('section/nodeValues/update', (props) => {
+  patchNodeValues(getDebounceId(props))(props)
+})
