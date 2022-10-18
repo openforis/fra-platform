@@ -5,7 +5,6 @@ import { Navigate, Route, Routes, useParams } from 'react-router-dom'
 import classNames from 'classnames'
 
 import { ClientRoutes } from '@meta/app'
-import { Areas } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
 import { Sockets } from '@meta/socket'
 import { Authorizer } from '@meta/user'
@@ -16,7 +15,7 @@ import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import { useNavigationVisible } from '@client/store/ui/navigation'
 import { ReviewActions } from '@client/store/ui/review'
 import { useUser } from '@client/store/user'
-import { useCountryIso } from '@client/hooks'
+import { useCountryIso, useIsDataExportView } from '@client/hooks'
 import CountrySelect from '@client/components/CountrySelect'
 import Navigation from '@client/components/Navigation'
 import AssessmentDataDownload from '@client/pages/AssessmentDataDownload'
@@ -36,7 +35,7 @@ const Assessment: React.FC = () => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
-  const isDataExport = countryIso && !Areas.isISOCountry(countryIso)
+  const isDataExportView = useIsDataExportView()
 
   useEffect(() => {
     dispatch(AssessmentActions.getSections({ countryIso, assessmentName, cycleName }))
@@ -92,7 +91,7 @@ const Assessment: React.FC = () => {
           <Route path={ClientRoutes.Assessment.DataDownload.path.relative} element={<AssessmentDataDownload />} />
           <Route
             path={ClientRoutes.Assessment.Section.path.relative}
-            element={<SectionWrapper>{isDataExport ? <DataExport /> : <AssessmentSection />}</SectionWrapper>}
+            element={<SectionWrapper>{isDataExportView ? <DataExport /> : <AssessmentSection />}</SectionWrapper>}
           />
           <Route
             path={ClientRoutes.Assessment.OriginalDataPoint.Section.path.relative}
