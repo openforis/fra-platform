@@ -5,8 +5,8 @@ import { Objects } from '@utils/objects'
 
 import { CommentableDescriptionValue, DataSource } from '@meta/assessment'
 
-import Table, { TableBody, TableHead, TableRow } from '@client/components/Table'
-import TableCell from '@client/components/Table/TableCell'
+import DataGrid from '@client/components/DataGrid'
+import DataColumn from '@client/components/DataGrid/DataColumn'
 import DataSourceRow from '@client/pages/AssessmentSection/Descriptions/Description/DataSources/DataSourceRow'
 
 type Props = {
@@ -58,32 +58,27 @@ export const DataSources: React.FC<Props> = (props: Props) => {
   if (!dataSources.length && disabled) return null
 
   return (
-    <Table>
-      <TableHead>
-        <TableRow>
-          <TableCell>Reference to data source</TableCell>
-          <TableCell>Type of data source</TableCell>
-          <TableCell>FRA variable</TableCell>
-          <TableCell>Year for data source</TableCell>
-          <TableCell>Comments</TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {dataSources.concat(disabled ? [] : placeholder).map((dataSource, i) => (
-          <DataSourceRow
-            onChange={(dataSource: DataSource) => _onChange(dataSource, i)}
-            // eslint-disable-next-line react/no-array-index-key
-            key={`dataSource_${i}`}
-            disabled={disabled}
-            sectionName={sectionName}
-            dataSource={dataSource}
-            // Last item is always placeholder
-            placeholder={i === dataSources.length}
-            onDelete={() => _onDelete(i)}
-          />
-        ))}
-      </TableBody>
-    </Table>
+    <DataGrid className="data-source-grid">
+      <DataColumn head>Reference to data source</DataColumn>
+      <DataColumn head>Type of data source</DataColumn>
+      <DataColumn head>FRA variable</DataColumn>
+      <DataColumn head>Year for data source</DataColumn>
+      <DataColumn head>Comments</DataColumn>
+
+      {dataSources.concat(disabled ? [] : placeholder).map((dataSource, i) => (
+        <DataSourceRow
+          onChange={(dataSource: DataSource) => _onChange(dataSource, i)}
+          // eslint-disable-next-line react/no-array-index-key
+          key={`dataSource_${i}`}
+          disabled={disabled}
+          sectionName={sectionName}
+          dataSource={dataSource}
+          // Last item is always placeholder
+          placeholder={i === dataSources.length}
+          onDelete={() => _onDelete(i)}
+        />
+      ))}
+    </DataGrid>
   )
 }
 

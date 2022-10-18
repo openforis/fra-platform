@@ -1,7 +1,17 @@
 @import 'src/client/style/partials';
 
+.data-source-grid{
+  grid-template-columns: 1fr 1.3fr repeat(3, 1fr);
+}
+
+.data-source-column {
+  position: relative;
+  min-height: 2rem;
+}
+
 .data-source__delete-wrapper {
   display: flex;
+  height: calc(100% + -1px);
 
   > button {
     border: 0;
