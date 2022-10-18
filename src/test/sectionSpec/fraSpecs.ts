@@ -474,6 +474,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableName: 'primaryForest',
                 migration: {
                   cycles: ['2025'],
+                  categoryLevel: 1,
                 },
               },
               {
@@ -566,6 +567,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   validateFns: [
                     `validatorPlantationForestIntroduced(forestCharacteristics.plantationForestArea, forestCharacteristics.plantationForestIntroducedArea)`,
                   ],
+                  categoryLevel: 1,
                 },
               },
               {
@@ -773,6 +775,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: `fra.primaryForestByClimaticDomain.${variableName}`,
                 variableName,
+                migration: {
+                  categoryLevel: 1,
+                },
               })),
             ],
             migration: {
@@ -1287,6 +1292,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   validateFns: [
                     `validatorSubCategory(forestAreaChange.forest_expansion, [forestAreaChange.afforestation, forestAreaChange.natural_expansion])`,
                   ],
+                  categoryLevel: 1,
                 },
               },
               {
@@ -1324,6 +1330,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   validateFns: [
                     `validatorSubCategory(forestAreaChange.forest_expansion, [forestAreaChange.afforestation, forestAreaChange.natural_expansion])`,
                   ],
+                  categoryLevel: 1,
                 },
               },
               {
@@ -5833,6 +5840,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   validateFns: [
                     `validatorSubCategory(forestAreaWithinProtectedAreas.forest_area_with_long_term_management_plan,[forestAreaWithinProtectedAreas.of_which_in_protected_areas])`,
                   ],
+                  categoryLevel: 1,
                 },
               },
               {
@@ -6022,6 +6030,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     `validatorEqualToPrivateForest(forestOwnership.private_ownership,[forestOwnership.of_which_by_individuals,forestOwnership.of_which_by_private_businesses,forestOwnership.of_which_by_communities])`,
                     `validatorSubCategory(forestOwnership.private_ownership,[forestOwnership.of_which_by_individuals,forestOwnership.of_which_by_private_businesses,forestOwnership.of_which_by_communities])`,
                   ],
+                  categoryLevel: 1,
                 },
               },
               {
@@ -6060,6 +6069,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     `validatorEqualToPrivateForest(forestOwnership.private_ownership,[forestOwnership.of_which_by_individuals,forestOwnership.of_which_by_private_businesses,forestOwnership.of_which_by_communities])`,
                     `validatorSubCategory(forestOwnership.private_ownership,[forestOwnership.of_which_by_individuals,forestOwnership.of_which_by_private_businesses,forestOwnership.of_which_by_communities])`,
                   ],
+                  categoryLevel: 1,
                 },
               },
               {
@@ -6098,6 +6108,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     `validatorEqualToPrivateForest(forestOwnership.private_ownership,[forestOwnership.of_which_by_individuals,forestOwnership.of_which_by_private_businesses,forestOwnership.of_which_by_communities])`,
                     `validatorSubCategory(forestOwnership.private_ownership,[forestOwnership.of_which_by_individuals,forestOwnership.of_which_by_private_businesses,forestOwnership.of_which_by_communities])`,
                   ],
+                  categoryLevel: 1,
                 },
               },
               {
@@ -7749,6 +7760,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   validateFns: [
                     `validatorSubCategory(areaAffectedByFire.total_land_area_affected_by_fire,[areaAffectedByFire.of_which_on_forest])`,
                   ],
+                  categoryLevel: 1,
                 },
               },
               {
@@ -8654,6 +8666,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   validateFns: [
                     `validatorSubCategory(employment.employment_in_forestry_and_logging,[employment.of_which_silviculture_and_other_forestry_activities,employment.of_which_logging,employment.of_which_gathering_of_non_wood_forest_products,employment.of_which_support_services_to_forestry])`,
                   ],
+                  categoryLevel: 1,
                 },
               },
               {
@@ -8723,6 +8736,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   validateFns: [
                     `validatorSubCategory(employment.employment_in_forestry_and_logging,[employment.of_which_silviculture_and_other_forestry_activities,employment.of_which_logging,employment.of_which_gathering_of_non_wood_forest_products,employment.of_which_support_services_to_forestry])`,
                   ],
+                  categoryLevel: 1,
                 },
               },
               {
@@ -8792,6 +8806,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   validateFns: [
                     `validatorSubCategory(employment.employment_in_forestry_and_logging,[employment.of_which_silviculture_and_other_forestry_activities,employment.of_which_logging,employment.of_which_gathering_of_non_wood_forest_products,employment.of_which_support_services_to_forestry])`,
                   ],
+                  categoryLevel: 1,
                 },
               },
               {
@@ -8861,6 +8876,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   validateFns: [
                     `validatorSubCategory(employment.employment_in_forestry_and_logging,[employment.of_which_silviculture_and_other_forestry_activities,employment.of_which_logging,employment.of_which_gathering_of_non_wood_forest_products,employment.of_which_support_services_to_forestry])`,
                   ],
+                  categoryLevel: 1,
                 },
               },
               {
