@@ -1,12 +1,17 @@
 @import 'src/client/style/partials';
 
 .data-source-grid{
-  grid-template-columns: 1fr 1.3fr repeat(3, 1fr);
+  grid-template-columns: 1fr 1.3fr repeat(3, 1fr) 0.1fr;
 }
 
 .data-source-column {
   position: relative;
   min-height: 2rem;
+
+}
+.data-source-review-indicator {
+  border: none !important;
+  align-items: flex-end;
 }
 
 .data-source__delete-wrapper {

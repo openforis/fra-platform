@@ -64,6 +64,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
       <DataColumn head>FRA variable</DataColumn>
       <DataColumn head>Year for data source</DataColumn>
       <DataColumn head>Comments</DataColumn>
+      <div className="data-source-review-indicator" />
 
       {dataSources.concat(disabled ? [] : placeholder).map((dataSource, i) => (
         <DataSourceRow
@@ -76,6 +77,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
           // Last item is always placeholder
           placeholder={i === dataSources.length}
           onDelete={() => _onDelete(i)}
+          index={i}
         />
       ))}
     </DataGrid>

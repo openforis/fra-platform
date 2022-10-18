@@ -86,7 +86,7 @@ const Description: React.FC<Props> = (props) => {
       <Title error={error} title={title} />
       {!disabled && <Toggle setOpen={setOpen} open={open} />}
       {isDataSources && (
-        <DataSources description={description} onChange={onChange} disabled={disabled} sectionName={sectionName} />
+        <DataSources description={description} onChange={onChange} disabled={!open} sectionName={sectionName} />
       )}
       {open && (
         <div className="fra-description__preview">

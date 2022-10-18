@@ -7,9 +7,11 @@ import { DataSource, dataSourceTypeLabelKeys, RowType } from '@meta/assessment'
 
 import { useCycle } from '@client/store/assessment'
 import { useTableSections } from '@client/store/pages/assessmentSection'
+import { useCountryIso } from '@client/hooks'
 import Autocomplete from '@client/components/Autocomplete'
 import DataColumn from '@client/components/DataGrid/DataColumn'
 import Icon from '@client/components/Icon'
+import ReviewIndicator from '@client/components/ReviewIndicator'
 import VerticallyGrowingTextField from '@client/components/VerticallyGrowingTextField'
 
 type Props = {
@@ -17,13 +19,15 @@ type Props = {
   dataSource: DataSource
   sectionName: string
   placeholder: boolean
+  index: number
 
   onChange: (dataSource: DataSource) => void
   onDelete: () => void
 }
 
 const DataSourceRow: React.FC<Props> = (props: Props) => {
-  const { disabled, dataSource, sectionName, onChange, placeholder, onDelete } = props
+  const { disabled, dataSource, sectionName, onChange, placeholder, onDelete, index } = props
+  const countryIso = useCountryIso()
   const cycle = useCycle()
   const tableSections = useTableSections({ sectionName })
   const { t } = useTranslation()
@@ -101,7 +105,16 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
         <VerticallyGrowingTextField
           disabled={disabled}
           onChange={(event) => _onChange('comments', event.target.value)}
+          value={dataSource.comments}
         />
+      </DataColumn>
+      <DataColumn className="data-source-review-indicator">
+        {!disabled && (
+          <ReviewIndicator
+            title={`${dataSource.fraVariable} | ${dataSource.year}`}
+            topicKey={`dataSource-${countryIso}-${sectionName}-${index}`}
+          />
+        )}
       </DataColumn>
     </>
   )
