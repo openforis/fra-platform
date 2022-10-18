@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from '@utils/objects'
 
-import { DataSource, dataSourceTypeLabelKeys, RowType } from '@meta/assessment'
+import { DataSource, dataSourceType, RowType } from '@meta/assessment'
 
 import { useCycle } from '@client/store/assessment'
 import { useTableSections } from '@client/store/pages/assessmentSection'
@@ -77,7 +77,7 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
           disabled={disabled}
           onSave={(value) => _onChange('type', value)}
           value={dataSource.type}
-          items={dataSourceTypeLabelKeys.map((type) => t(`dataSource.${type}`))}
+          items={Object.keys(dataSourceType).map((type) => t(`dataSource.${type}`))}
         />
       </DataColumn>
 

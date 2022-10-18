@@ -1,5 +1,6 @@
 import './DataSources.scss'
 import React, { useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { Objects } from '@utils/objects'
 
@@ -26,6 +27,7 @@ const placeholder: DataSource = {
 
 export const DataSources: React.FC<Props> = (props: Props) => {
   const { sectionName, disabled, description, onChange } = props
+  const { t } = useTranslation()
 
   const { dataSources = [] } = description
 
@@ -59,11 +61,12 @@ export const DataSources: React.FC<Props> = (props: Props) => {
 
   return (
     <DataGrid className="data-source-grid">
-      <DataColumn head>Reference to data source</DataColumn>
-      <DataColumn head>Type of data source</DataColumn>
-      <DataColumn head>FRA variable</DataColumn>
-      <DataColumn head>Year for data source</DataColumn>
-      <DataColumn head>Comments</DataColumn>
+      <DataColumn head>{t('dataSource.referenceToTataSource')}</DataColumn>
+      <DataColumn head>{t('dataSource.typeOfDataSource')}</DataColumn>
+      <DataColumn head>{t('dataSource.fraVariable')}</DataColumn>
+      <DataColumn head>{t('dataSource.yearForDataSource')}</DataColumn>
+      <DataColumn head>{t('dataSource.comments')}</DataColumn>
+
       <div className="data-source-review-indicator" />
 
       {dataSources.concat(disabled ? [] : placeholder).map((dataSource, i) => (
