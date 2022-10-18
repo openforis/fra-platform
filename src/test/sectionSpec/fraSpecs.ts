@@ -2106,6 +2106,39 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 'header_0',
                     type: 'header',
                     colSpan: 1,
+                    className: 'fra-table__category-cell',
+                    migration: {
+                      label: {
+                        '2025': { key: 'fra.forestCharacteristics.primaryForest' },
+                      },
+                    },
+                  },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'decimal',
+                    colName: `${year}`,
+                  })),
+                ],
+                variableName: 'primaryForest',
+                labelKey: 'growingStock.primaryForest',
+                subcategory: false,
+                migration: {
+                  cycles: ['2025'],
+                  calcFormula: '(growingStockTotal.primaryForest * 1000) / forestCharacteristics.primaryForest',
+                  readonly: false,
+                  dependantsExclude: [{ tableName: 'forestCharacteristics', variableName: 'primaryForest' }],
+                },
+              },
+              {
+                idx: 2,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
                     labelKey: 'growingStock.plantedForest',
                     className: 'fra-table__category-cell',
                   },
@@ -2127,7 +2160,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 },
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -2156,7 +2189,42 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 },
               },
               {
-                idx: 3,
+                idx: 4,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    className: 'fra-table__category-cell',
+                    migration: {
+                      label: {
+                        '2025': { key: 'fra.forestCharacteristics.plantationForestIntroducedArea2025' },
+                      },
+                    },
+                  },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'decimal',
+                    colName: `${year}`,
+                  })),
+                ],
+                variableName: 'plantationForestIntroducedArea',
+                subcategory: false,
+                migration: {
+                  cycles: ['2025'],
+                  calcFormula:
+                    '(growingStockTotal.plantationForestIntroducedArea * 1000) / forestCharacteristics.plantationForestIntroducedArea',
+                  readonly: false,
+                  dependantsExclude: [
+                    { tableName: 'forestCharacteristics', variableName: 'plantationForestIntroducedArea' },
+                  ],
+                },
+              },
+              {
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -2185,7 +2253,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 },
               },
               {
-                idx: 4,
+                idx: 6,
                 type: 'data',
                 cols: [
                   {
@@ -2213,7 +2281,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 },
               },
               {
-                idx: 5,
+                idx: 7,
                 type: 'data',
                 cols: [
                   {
@@ -2339,6 +2407,39 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 'header_0',
                     type: 'header',
                     colSpan: 1,
+                    className: 'fra-table__category-cell',
+                    migration: {
+                      label: {
+                        '2025': { key: 'fra.forestCharacteristics.primaryForest' },
+                      },
+                    },
+                  },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'decimal',
+                    colName: `${year}`,
+                  })),
+                ],
+                variableName: 'primaryForest',
+                labelKey: 'growingStock.primaryForest',
+                subcategory: false,
+                migration: {
+                  cycles: ['2025'],
+                  calcFormula: '(growingStockAvg.primaryForest * forestCharacteristics.primaryForest) / 1000',
+                  readonly: false,
+                  dependantsExclude: [{ tableName: 'forestCharacteristics', variableName: 'primaryForest' }],
+                },
+              },
+              {
+                idx: 2,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
                     labelKey: 'growingStock.plantedForest',
                     className: 'fra-table__category-cell',
                   },
@@ -2364,7 +2465,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 },
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -2395,7 +2496,42 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 },
               },
               {
-                idx: 3,
+                idx: 4,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    className: 'fra-table__category-cell',
+                    migration: {
+                      label: {
+                        '2025': { key: 'fra.forestCharacteristics.plantationForestIntroducedArea2025' },
+                      },
+                    },
+                  },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'decimal',
+                    colName: `${year}`,
+                  })),
+                ],
+                variableName: 'plantationForestIntroducedArea',
+                subcategory: false,
+                migration: {
+                  cycles: ['2025'],
+                  calcFormula:
+                    '(growingStockAvg.plantationForestIntroducedArea * forestCharacteristics.plantationForestIntroducedArea) / 1000',
+                  readonly: false,
+                  dependantsExclude: [
+                    { tableName: 'forestCharacteristics', variableName: 'plantationForestIntroducedArea' },
+                  ],
+                },
+              },
+              {
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -2427,7 +2563,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 },
               },
               {
-                idx: 4,
+                idx: 6,
                 type: 'data',
                 cols: [
                   {
@@ -2456,7 +2592,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 },
               },
               {
-                idx: 5,
+                idx: 7,
                 type: 'data',
                 cols: [
                   {
