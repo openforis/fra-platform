@@ -1,6 +1,5 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import { getForestOptions } from './actions/getForestOptions'
 import { postMosaicOptions } from './actions/postMosaicOptions'
 import { GeoState } from './stateType'
 
