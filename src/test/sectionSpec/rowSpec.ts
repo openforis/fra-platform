@@ -41,5 +41,6 @@ export interface RowSpec {
     validateFns?: Array<string>
     cycles?: Array<string>
     dependantsExclude?: Array<VariableCache>
+    categoryLevel?: number
   }
 }

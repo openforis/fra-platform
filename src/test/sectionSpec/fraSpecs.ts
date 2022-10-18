@@ -2123,13 +2123,14 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 variableName: 'primaryForest',
                 labelKey: 'growingStock.primaryForest',
-                subcategory: false,
                 migration: {
                   cycles: ['2025'],
                   calcFormula: '(growingStockTotal.primaryForest * 1000) / forestCharacteristics.primaryForest',
                   readonly: false,
                   dependantsExclude: [{ tableName: 'forestCharacteristics', variableName: 'primaryForest' }],
+                  categoryLevel: 1,
                 },
+                subcategory: false,
               },
               {
                 idx: 2,
@@ -2186,6 +2187,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     '(growingStockTotal.plantationForest * 1000) / forestCharacteristics.plantationForestArea',
                   readonly: false,
                   dependantsExclude: [{ tableName: 'forestCharacteristics', variableName: 'plantationForestArea' }],
+                  categoryLevel: 1,
                 },
               },
               {
@@ -2221,6 +2223,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   dependantsExclude: [
                     { tableName: 'forestCharacteristics', variableName: 'plantationForestIntroducedArea' },
                   ],
+                  categoryLevel: 2,
                 },
               },
               {
@@ -2250,6 +2253,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     '(growingStockTotal.otherPlantedForest * 1000) / forestCharacteristics.otherPlantedForestArea',
                   readonly: false,
                   dependantsExclude: [{ tableName: 'forestCharacteristics', variableName: 'otherPlantedForestArea' }],
+                  categoryLevel: 1,
                 },
               },
               {
@@ -2430,6 +2434,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   calcFormula: '(growingStockAvg.primaryForest * forestCharacteristics.primaryForest) / 1000',
                   readonly: false,
                   dependantsExclude: [{ tableName: 'forestCharacteristics', variableName: 'primaryForest' }],
+                  categoryLevel: 1,
                 },
               },
               {
@@ -2493,6 +2498,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   validateFns: [
                     `validatorSubCategory(growingStockTotal.plantedForest,[growingStockTotal.plantationForest,growingStockTotal.otherPlantedForest])`,
                   ],
+                  categoryLevel: 1,
                 },
               },
               {
@@ -2528,6 +2534,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   dependantsExclude: [
                     { tableName: 'forestCharacteristics', variableName: 'plantationForestIntroducedArea' },
                   ],
+                  categoryLevel: 2,
                 },
               },
               {
@@ -2560,6 +2567,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   validateFns: [
                     `validatorSubCategory(growingStockTotal.plantedForest,[growingStockTotal.plantationForest,growingStockTotal.otherPlantedForest])`,
                   ],
+                  categoryLevel: 1,
                 },
               },
               {
