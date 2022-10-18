@@ -14,5 +14,5 @@ const patchNodeValues = async ({ tableName, values, ...params }: Props) => {
 const getDebounceId = ({ values }: Props) => values[0].colName
 
 export const updateNodeValues = createAsyncThunk<void, Props>('section/nodeValues/update', (props) =>
-  Functions.debounce(patchNodeValues, getDebounceId(props), 1000)(props ?? {})
+  Functions.debounce(patchNodeValues, getDebounceId(props), 1000)(props)
 )
