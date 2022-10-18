@@ -8,6 +8,7 @@ import { DataSource, dataSourceTypeLabelKeys, RowType } from '@meta/assessment'
 import { useCycle } from '@client/store/assessment'
 import { useTableSections } from '@client/store/pages/assessmentSection'
 import Autocomplete from '@client/components/Autocomplete'
+import DataColumn from '@client/components/DataGrid/DataColumn'
 import Icon from '@client/components/Icon'
 import VerticallyGrowingTextField from '@client/components/VerticallyGrowingTextField'
 
@@ -51,8 +52,8 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
     .map((r, index) => t(r.props.label?.key, { idx: index + 1 }))
 
   return (
-    <tr>
-      <td className="fra-table__cell-left">
+    <>
+      <DataColumn className="data-source-column">
         <div className="data-source__delete-wrapper">
           {!placeholder && !disabled && (
             <button type="button" onClick={onDelete}>
@@ -65,9 +66,8 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
             value={dataSource.reference}
           />
         </div>
-      </td>
-
-      <td className="fra-table__cell-left">
+      </DataColumn>
+      <DataColumn className="data-source-column">
         <Autocomplete
           withArrow
           disabled={disabled}
@@ -75,9 +75,9 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
           value={dataSource.type}
           items={dataSourceTypeLabelKeys.map((type) => t(`dataSource.${type}`))}
         />
-      </td>
+      </DataColumn>
 
-      <td className="fra-table__cell-left">
+      <DataColumn className="data-source-column">
         <Autocomplete
           withArrow
           disabled={disabled}
@@ -85,9 +85,9 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
           value={dataSource.fraVariable}
           items={rows}
         />
-      </td>
+      </DataColumn>
 
-      <td className="fra-table__cell-left">
+      <DataColumn className="data-source-column">
         <Autocomplete
           withArrow
           disabled={disabled}
@@ -95,14 +95,15 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
           value={dataSource.year}
           items={columns}
         />
-      </td>
-      <td className="fra-table__cell-left">
+      </DataColumn>
+
+      <DataColumn className="data-source-column">
         <VerticallyGrowingTextField
           disabled={disabled}
           onChange={(event) => _onChange('comments', event.target.value)}
         />
-      </td>
-    </tr>
+      </DataColumn>
+    </>
   )
 }
 export default DataSourceRow
