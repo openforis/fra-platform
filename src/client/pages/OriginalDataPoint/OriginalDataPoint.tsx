@@ -62,7 +62,7 @@ const OriginalDataPoint: React.FC = () => {
         })
       )
     }
-  }, [originalDataPoint?.id, countryIso, assessmentName, cycleName, year, user, dispatch, sectionName])
+  }, [originalDataPoint?.id, countryIso, assessmentName, cycleName, user, dispatch, sectionName])
 
   if (!originalDataPoint) return null
 
