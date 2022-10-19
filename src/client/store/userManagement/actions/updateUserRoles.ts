@@ -10,16 +10,20 @@ import { UserManagementActions } from '../slice'
 
 type Params = { roles: Array<Partial<UserRole<RoleName>>>; userId: number }
 
-const postUserRoles = Functions.debounce(async (params: Params, dispatch: Dispatch) => {
-  try {
-    const { data } = await axios.post(ApiEndPoint.User.roles(), params)
+const postUserRoles = Functions.debounce(
+  async (params: Params, dispatch: Dispatch) => {
+    try {
+      const { data } = await axios.post(ApiEndPoint.User.roles(), params)
 
-    dispatch(UserManagementActions.setUserToEdit(data))
-  } catch (e) {
-    // placeholder to avoid app crash
-  }
-  return null
-}, 1000)
+      dispatch(UserManagementActions.setUserToEdit(data))
+    } catch (e) {
+      // placeholder to avoid app crash
+    }
+    return null
+  },
+  1000,
+  'updateUserRoles'
+)
 
 export const updateUserRoles = createAsyncThunk<void, Params>(
   'userManagement/post/countryRoles',
