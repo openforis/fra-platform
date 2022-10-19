@@ -22,6 +22,8 @@ export interface RowLabel {
 
 export interface RowProps {
   calculateFn?: string
+  // if a variable is subcategory, then categoryLevel starts from 1
+  categoryLevel?: number
   chart?: {
     color: string
     labelKey: string
