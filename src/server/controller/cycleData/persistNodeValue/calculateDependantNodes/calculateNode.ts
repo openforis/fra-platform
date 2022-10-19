@@ -37,9 +37,9 @@ export const calculateNode = async (
     formula: expression,
   })
 
-  const roundedResult = Numbers.format(Numbers.toBigNumber(rawResult))
+  const raw = rawResult ? Numbers.format(Numbers.toBigNumber(rawResult)) : null
 
-  const value: NodeValue = { raw: rawResult ? roundedResult : null, calculated: true }
+  const value: NodeValue = { raw, calculated: true }
 
   return persistNode(
     {
