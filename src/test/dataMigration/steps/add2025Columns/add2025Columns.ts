@@ -37,7 +37,7 @@ const tablesNewColumns: Record<string, Array<string>> = {
   // 'graduationOfStudents',
   // 'nonWoodForestProductsRemovals',
   // 'nonWoodForestProductsRemovalsCurrency',
-  sustainableDevelopment15_1_1: ['2005', '2021', '2022', '2023', '2024'],
+  // sustainableDevelopment15_1_1: ['2005', '2021', '2022', '2023', '2024'],
   // 'sustainableDevelopmentAgencyIndicator':['2020-2025','2005-2015','2015-2025'],
   sustainableDevelopment15_2_1_1: ['2020-2025', '2005-2015', '2015-2025'],
   // 'sustainableDevelopmentAgencySubIndicator1',
