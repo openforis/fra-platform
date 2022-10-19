@@ -17,6 +17,7 @@ export const getRow = (props: { assessment: Assessment; rowSpec: RowSpec; table:
       readonly: rowSpec.migration?.readonly,
       validateFns: rowSpec.migration?.validateFns,
       dependantsExclude: rowSpec.migration?.dependantsExclude,
+      categoryLevel: rowSpec.migration?.categoryLevel,
     },
     cols: [],
     tableId: table.id,

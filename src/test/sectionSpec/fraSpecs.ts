@@ -474,6 +474,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableName: 'primaryForest',
                 migration: {
                   cycles: ['2025'],
+                  categoryLevel: 1,
                 },
               },
               {
@@ -566,6 +567,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   validateFns: [
                     `validatorPlantationForestIntroduced(forestCharacteristics.plantationForestArea, forestCharacteristics.plantationForestIntroducedArea)`,
                   ],
+                  categoryLevel: 1,
                 },
               },
               {
@@ -773,6 +775,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: `fra.primaryForestByClimaticDomain.${variableName}`,
                 variableName,
+                migration: {
+                  categoryLevel: 1,
+                },
               })),
             ],
             migration: {
@@ -1287,6 +1292,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   validateFns: [
                     `validatorSubCategory(forestAreaChange.forest_expansion, [forestAreaChange.afforestation, forestAreaChange.natural_expansion])`,
                   ],
+                  categoryLevel: 1,
                 },
               },
               {
@@ -1324,6 +1330,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   validateFns: [
                     `validatorSubCategory(forestAreaChange.forest_expansion, [forestAreaChange.afforestation, forestAreaChange.natural_expansion])`,
                   ],
+                  categoryLevel: 1,
                 },
               },
               {
@@ -2106,6 +2113,40 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 'header_0',
                     type: 'header',
                     colSpan: 1,
+                    className: 'fra-table__category-cell',
+                    migration: {
+                      label: {
+                        '2025': { key: 'fra.forestCharacteristics.primaryForest' },
+                      },
+                    },
+                  },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'decimal',
+                    colName: `${year}`,
+                  })),
+                ],
+                variableName: 'primaryForest',
+                labelKey: 'growingStock.primaryForest',
+                migration: {
+                  cycles: ['2025'],
+                  calcFormula: '(growingStockTotal.primaryForest * 1000) / forestCharacteristics.primaryForest',
+                  readonly: false,
+                  dependantsExclude: [{ tableName: 'forestCharacteristics', variableName: 'primaryForest' }],
+                  categoryLevel: 1,
+                },
+                subcategory: false,
+              },
+              {
+                idx: 2,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
                     labelKey: 'growingStock.plantedForest',
                     className: 'fra-table__category-cell',
                   },
@@ -2127,7 +2168,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 },
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -2153,10 +2194,47 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     '(growingStockTotal.plantationForest * 1000) / forestCharacteristics.plantationForestArea',
                   readonly: false,
                   dependantsExclude: [{ tableName: 'forestCharacteristics', variableName: 'plantationForestArea' }],
+                  categoryLevel: 1,
                 },
               },
               {
-                idx: 3,
+                idx: 4,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    className: 'fra-table__category-cell',
+                    migration: {
+                      label: {
+                        '2025': { key: 'fra.forestCharacteristics.plantationForestIntroducedArea2025' },
+                      },
+                    },
+                  },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'decimal',
+                    colName: `${year}`,
+                  })),
+                ],
+                variableName: 'plantationForestIntroducedArea',
+                subcategory: false,
+                migration: {
+                  cycles: ['2025'],
+                  calcFormula:
+                    '(growingStockTotal.plantationForestIntroducedArea * 1000) / forestCharacteristics.plantationForestIntroducedArea',
+                  readonly: false,
+                  dependantsExclude: [
+                    { tableName: 'forestCharacteristics', variableName: 'plantationForestIntroducedArea' },
+                  ],
+                  categoryLevel: 2,
+                },
+              },
+              {
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -2182,10 +2260,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     '(growingStockTotal.otherPlantedForest * 1000) / forestCharacteristics.otherPlantedForestArea',
                   readonly: false,
                   dependantsExclude: [{ tableName: 'forestCharacteristics', variableName: 'otherPlantedForestArea' }],
+                  categoryLevel: 1,
                 },
               },
               {
-                idx: 4,
+                idx: 6,
                 type: 'data',
                 cols: [
                   {
@@ -2213,7 +2292,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 },
               },
               {
-                idx: 5,
+                idx: 7,
                 type: 'data',
                 cols: [
                   {
@@ -2339,6 +2418,40 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 'header_0',
                     type: 'header',
                     colSpan: 1,
+                    className: 'fra-table__category-cell',
+                    migration: {
+                      label: {
+                        '2025': { key: 'fra.forestCharacteristics.primaryForest' },
+                      },
+                    },
+                  },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'decimal',
+                    colName: `${year}`,
+                  })),
+                ],
+                variableName: 'primaryForest',
+                labelKey: 'growingStock.primaryForest',
+                subcategory: false,
+                migration: {
+                  cycles: ['2025'],
+                  calcFormula: '(growingStockAvg.primaryForest * forestCharacteristics.primaryForest) / 1000',
+                  readonly: false,
+                  dependantsExclude: [{ tableName: 'forestCharacteristics', variableName: 'primaryForest' }],
+                  categoryLevel: 1,
+                },
+              },
+              {
+                idx: 2,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
                     labelKey: 'growingStock.plantedForest',
                     className: 'fra-table__category-cell',
                   },
@@ -2364,7 +2477,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 },
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -2392,10 +2505,47 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   validateFns: [
                     `validatorSubCategory(growingStockTotal.plantedForest,[growingStockTotal.plantationForest,growingStockTotal.otherPlantedForest])`,
                   ],
+                  categoryLevel: 1,
                 },
               },
               {
-                idx: 3,
+                idx: 4,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    className: 'fra-table__category-cell',
+                    migration: {
+                      label: {
+                        '2025': { key: 'fra.forestCharacteristics.plantationForestIntroducedArea2025' },
+                      },
+                    },
+                  },
+                  ...fraYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'decimal',
+                    colName: `${year}`,
+                  })),
+                ],
+                variableName: 'plantationForestIntroducedArea',
+                subcategory: false,
+                migration: {
+                  cycles: ['2025'],
+                  calcFormula:
+                    '(growingStockAvg.plantationForestIntroducedArea * forestCharacteristics.plantationForestIntroducedArea) / 1000',
+                  readonly: false,
+                  dependantsExclude: [
+                    { tableName: 'forestCharacteristics', variableName: 'plantationForestIntroducedArea' },
+                  ],
+                  categoryLevel: 2,
+                },
+              },
+              {
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -2424,10 +2574,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   validateFns: [
                     `validatorSubCategory(growingStockTotal.plantedForest,[growingStockTotal.plantationForest,growingStockTotal.otherPlantedForest])`,
                   ],
+                  categoryLevel: 1,
                 },
               },
               {
-                idx: 4,
+                idx: 6,
                 type: 'data',
                 cols: [
                   {
@@ -2456,7 +2607,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 },
               },
               {
-                idx: 5,
+                idx: 7,
                 type: 'data',
                 cols: [
                   {
@@ -5689,6 +5840,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   validateFns: [
                     `validatorSubCategory(forestAreaWithinProtectedAreas.forest_area_with_long_term_management_plan,[forestAreaWithinProtectedAreas.of_which_in_protected_areas])`,
                   ],
+                  categoryLevel: 1,
                 },
               },
               {
@@ -5878,6 +6030,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     `validatorEqualToPrivateForest(forestOwnership.private_ownership,[forestOwnership.of_which_by_individuals,forestOwnership.of_which_by_private_businesses,forestOwnership.of_which_by_communities])`,
                     `validatorSubCategory(forestOwnership.private_ownership,[forestOwnership.of_which_by_individuals,forestOwnership.of_which_by_private_businesses,forestOwnership.of_which_by_communities])`,
                   ],
+                  categoryLevel: 1,
                 },
               },
               {
@@ -5916,6 +6069,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     `validatorEqualToPrivateForest(forestOwnership.private_ownership,[forestOwnership.of_which_by_individuals,forestOwnership.of_which_by_private_businesses,forestOwnership.of_which_by_communities])`,
                     `validatorSubCategory(forestOwnership.private_ownership,[forestOwnership.of_which_by_individuals,forestOwnership.of_which_by_private_businesses,forestOwnership.of_which_by_communities])`,
                   ],
+                  categoryLevel: 1,
                 },
               },
               {
@@ -5954,6 +6108,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     `validatorEqualToPrivateForest(forestOwnership.private_ownership,[forestOwnership.of_which_by_individuals,forestOwnership.of_which_by_private_businesses,forestOwnership.of_which_by_communities])`,
                     `validatorSubCategory(forestOwnership.private_ownership,[forestOwnership.of_which_by_individuals,forestOwnership.of_which_by_private_businesses,forestOwnership.of_which_by_communities])`,
                   ],
+                  categoryLevel: 1,
                 },
               },
               {
@@ -7605,6 +7760,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   validateFns: [
                     `validatorSubCategory(areaAffectedByFire.total_land_area_affected_by_fire,[areaAffectedByFire.of_which_on_forest])`,
                   ],
+                  categoryLevel: 1,
                 },
               },
               {
@@ -8510,6 +8666,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   validateFns: [
                     `validatorSubCategory(employment.employment_in_forestry_and_logging,[employment.of_which_silviculture_and_other_forestry_activities,employment.of_which_logging,employment.of_which_gathering_of_non_wood_forest_products,employment.of_which_support_services_to_forestry])`,
                   ],
+                  categoryLevel: 1,
                 },
               },
               {
@@ -8579,6 +8736,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   validateFns: [
                     `validatorSubCategory(employment.employment_in_forestry_and_logging,[employment.of_which_silviculture_and_other_forestry_activities,employment.of_which_logging,employment.of_which_gathering_of_non_wood_forest_products,employment.of_which_support_services_to_forestry])`,
                   ],
+                  categoryLevel: 1,
                 },
               },
               {
@@ -8648,6 +8806,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   validateFns: [
                     `validatorSubCategory(employment.employment_in_forestry_and_logging,[employment.of_which_silviculture_and_other_forestry_activities,employment.of_which_logging,employment.of_which_gathering_of_non_wood_forest_products,employment.of_which_support_services_to_forestry])`,
                   ],
+                  categoryLevel: 1,
                 },
               },
               {
@@ -8717,6 +8876,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   validateFns: [
                     `validatorSubCategory(employment.employment_in_forestry_and_logging,[employment.of_which_silviculture_and_other_forestry_activities,employment.of_which_logging,employment.of_which_gathering_of_non_wood_forest_products,employment.of_which_support_services_to_forestry])`,
                   ],
+                  categoryLevel: 1,
                 },
               },
               {
