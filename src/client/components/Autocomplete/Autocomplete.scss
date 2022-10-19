@@ -3,8 +3,18 @@
 
 .autocomplete {
   transition: all .1s ease-out;
-
 }
+
+.autocomplete-input__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  > svg {
+    margin: $spacing-xxs;
+  }
+}
+
 .autocomplete-dropdown {
   position: absolute;
   background: white;
@@ -27,7 +37,7 @@
   font-weight: normal;
   justify-content: flex-start;
   line-height: 16px;
-  padding: 8px 9px;
+  padding: $spacing-xxs 9px;
   text-decoration: none;
 
   &:first-child {
@@ -40,11 +50,11 @@
   }
   &.selected {
     border-left: 2px solid darken($ui-accent-light, 25%);
-    padding: 8px 8px;
+    padding: $spacing-xxs;
   }
 
   &.highlighted {
-    padding: 8px 9px;
+    padding: $spacing-xxs 9px;
     background-color: $ui-accent-light;
     border-left: 1px solid darken($ui-accent-light, 25%);
     border-right: 1px solid darken($ui-accent-light, 25%);
