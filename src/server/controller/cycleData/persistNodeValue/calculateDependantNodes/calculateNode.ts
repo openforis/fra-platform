@@ -1,3 +1,5 @@
+import { Numbers } from '@utils/numbers'
+
 import { ActivityLogMessage, Node, NodeValue, Row } from '@meta/assessment'
 
 import { getTableData } from '@server/controller/cycleData/getTableData'
@@ -34,7 +36,10 @@ export const calculateNode = async (
     row,
     formula: expression,
   })
-  const value: NodeValue = { raw: rawResult ? String(rawResult) : null, calculated: true }
+
+  const roundedResult = Numbers.format(Numbers.toBigNumber(rawResult))
+
+  const value: NodeValue = { raw: rawResult ? roundedResult : null, calculated: true }
 
   return persistNode(
     {

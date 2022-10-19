@@ -6025,7 +6025,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 migration: {
                   colNames: ['1990', '2000', '2010', '2015'],
                   calcFormula: `forestOwnership.private_ownership || forestOwnership.public_ownership 
-                    ? Math.round((extentOfForest.forestArea - (forestOwnership.private_ownership || 0) - (forestOwnership.public_ownership || 0) + Number.EPSILON) * 100) / 100
+                    ? extentOfForest.forestArea - (forestOwnership.private_ownership || 0) - (forestOwnership.public_ownership || 0)
                     : null`,
                   validateFns: [`validatorGreaterThanOrZero(forestOwnership.other_or_unknown)`],
                 },
