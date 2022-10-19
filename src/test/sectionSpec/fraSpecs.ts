@@ -10691,6 +10691,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'sustainableDevelopment.percent',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      style: {
+                        '2020': { colSpan: 8, rowSpan: 1 },
+                        '2025': { colSpan: 13, rowSpan: 1 },
+                      },
+                    },
                   },
                 ],
                 type: 'header',
@@ -10773,7 +10779,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  ['2021', '2022', '2023', '2024'].map((label, idx) => ({
+                  ...['2021', '2022', '2023', '2024'].map((label, idx) => ({
                     idx: idx + 9,
                     colSpan: 1,
                     rowSpan: 1,
@@ -10847,7 +10853,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     type: 'calculated',
                     colName: '2020',
                   },
-                  ['2021', '2022', '2023', '2024'].map((colName, idx) => ({
+                  ...['2021', '2022', '2023', '2024'].map((colName, idx) => ({
                     idx: idx + 9,
                     type: 'calculated',
                     colName,
