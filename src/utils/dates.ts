@@ -1,4 +1,12 @@
-import { parseISO, differenceInMonths, differenceInWeeks, differenceInDays, differenceInHours, format } from 'date-fns'
+import {
+  addMonths,
+  differenceInDays,
+  differenceInHours,
+  differenceInMonths,
+  differenceInWeeks,
+  format,
+  parseISO,
+} from 'date-fns'
 
 export const getRelativeDate = (rawDate: any, i18n: any) => {
   const timestamp = parseISO(rawDate)
@@ -15,6 +23,7 @@ export const getRelativeDate = (rawDate: any, i18n: any) => {
 }
 
 export const Dates = {
+  addMonths,
   format,
   getRelativeDate,
 }
