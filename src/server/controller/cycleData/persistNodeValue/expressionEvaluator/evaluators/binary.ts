@@ -1,5 +1,6 @@
 import { BinaryExpression, ExpressionNodeEvaluator } from '@openforis/arena-core'
 import { Numbers } from '@utils/numbers'
+import { Objects } from '@utils/objects'
 import BigNumber from 'bignumber.js'
 
 import { Context } from '../context'
@@ -28,7 +29,7 @@ const arithmeticOperators: { [operator: string]: (a: number, b: number) => BigNu
   '*': (a, b) => Numbers.mul(a, b),
   '/': (a, b) => Numbers.div(a, b),
   '%': (a, b) => Numbers.modulo(a, b),
-  '**': (a, b) => (a && b ? new BigNumber(a ** b) : null),
+  '**': (a, b) => (Objects.isNil(a) || Objects.isNil(b) ? null : new BigNumber(a ** b)),
   // Don't allow bitwise operators:
   // '|':   (a, b) => a | b,
   // '^':   (a, b) => a ^ b,
