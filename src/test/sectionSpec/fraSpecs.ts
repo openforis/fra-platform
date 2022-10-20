@@ -10694,7 +10694,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     migration: {
                       style: {
                         '2020': { colSpan: 8, rowSpan: 1 },
-                        '2025': { colSpan: 13, rowSpan: 1 },
+                        '2025': { colSpan: 14, rowSpan: 1 },
                       },
                     },
                   },
@@ -10779,7 +10779,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  ...['2021', '2022', '2023', '2024'].map((label, idx) => ({
+                  ...['2021', '2022', '2023', '2024', '2025'].map((label, idx) => ({
                     idx: idx + 9,
                     colSpan: 1,
                     rowSpan: 1,
@@ -10804,6 +10804,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     colSpan: 1,
                     labelKey: 'sustainableDevelopment.forestAreaProportionLandArea2015',
                     className: 'fra-table__category-cell',
+                    migration: {
+                      label: {
+                        '2020': { key: 'sustainableDevelopment.forestAreaProportionLandArea2015' },
+                        '2025': { key: 'fra.sustainableDevelopment.forestAreaProportionLandArea' },
+                      },
+                    },
                   },
                   {
                     idx: 0,
@@ -10853,7 +10859,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     type: 'calculated',
                     colName: '2020',
                   },
-                  ...['2021', '2022', '2023', '2024'].map((colName, idx) => ({
+                  ...['2021', '2022', '2023', '2024', '2025'].map((colName, idx) => ({
                     idx: idx + 9,
                     type: 'calculated',
                     colName,
@@ -10942,9 +10948,18 @@ export const FraSpecs: Record<string, SectionSpec> = {
             dataExport: true,
             columnsExportAlways: [],
             secondary: true,
+            migration: {
+              cycles: ['2020'],
+            },
           },
         ],
         titleKey: 'sustainableDevelopment.sdgIndicator1',
+        migration: {
+          label: {
+            '2020': { key: 'sustainableDevelopment.sdgIndicator1' },
+            '2025': { key: 'fra.sustainableDevelopment.sdgIndicator1_2025' },
+          },
+        },
       },
       {
         tableSpecs: [
@@ -10967,11 +10982,15 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 1,
-                    colSpan: 7,
-                    rowSpan: 1,
                     labelKey: 'sustainableDevelopment.percent',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      style: {
+                        '2020': { colSpan: 7, rowSpan: 1 },
+                        '2025': { colSpan: 10, rowSpan: 1 },
+                      },
+                    },
                   },
                 ],
                 type: 'header',
@@ -11032,6 +11051,39 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     colSpan: 1,
                     rowSpan: 1,
                     label: '2019-2020',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: {
+                      cycles: ['2025'],
+                    },
+                  },
+                  {
+                    idx: 7,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    label: '2020-2025',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: {
+                      cycles: ['2025'],
+                    },
+                  },
+                  {
+                    idx: 8,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    label: '2005-2015',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: {
+                      cycles: ['2025'],
+                    },
+                  },
+                  {
+                    idx: 9,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    label: '2015-2025',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -11113,6 +11165,36 @@ export const FraSpecs: Record<string, SectionSpec> = {
                         '((extentOfForest.forestArea["2020"] - extentOfForest.forestArea["2019"]) / extentOfForest.forestArea["2020"]) * 100',
                     },
                   },
+                  {
+                    idx: 7,
+                    type: 'calculated',
+                    colName: '2020-2025',
+                    migration: {
+                      calculateFn:
+                        '(((extentOfForest.forestArea["2025"] / extentOfForest.forestArea["2020"]) ** 0.2) - 1) * 100',
+                      cycles: ['2025'],
+                    },
+                  },
+                  {
+                    idx: 8,
+                    type: 'calculated',
+                    colName: '2005-2015',
+                    migration: {
+                      calculateFn:
+                        '(((extentOfForest.forestArea["2015"] / extentOfForest.forestArea["2005"]) ** 0.1) - 1) * 100',
+                      cycles: ['2025'],
+                    },
+                  },
+                  {
+                    idx: 9,
+                    type: 'calculated',
+                    colName: '2015-2025',
+                    migration: {
+                      calculateFn:
+                        '(((extentOfForest.forestArea["2025"] / extentOfForest.forestArea["2015"]) ** 0.1) - 1) * 100',
+                      cycles: ['2025'],
+                    },
+                  },
                 ],
                 labelKey: 'sustainableDevelopment.forestAreaAnnualNetChangeRate',
               },
@@ -11124,6 +11206,23 @@ export const FraSpecs: Record<string, SectionSpec> = {
             },
             dataExport: true,
             columnsExportAlways: [],
+            migration: {
+              columnNames: {
+                '2020': ['2000-2010', '2010-2015', '2015-2016', '2016-2017', '2017-2018', '2018-2019', '2019-2020'],
+                '2025': [
+                  '2000-2010',
+                  '2010-2015',
+                  '2015-2016',
+                  '2016-2017',
+                  '2017-2018',
+                  '2018-2019',
+                  '2019-2020',
+                  '2020-2025',
+                  '2005-2015',
+                  '2015-2025',
+                ],
+              },
+            },
           },
           {
             name: 'sustainableDevelopmentAgencySubIndicator1',
@@ -11155,6 +11254,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
             dataExport: true,
             columnsExportAlways: [],
             secondary: true,
+            migration: {
+              cycles: ['2020'],
+            },
           },
         ],
         titleKey: 'sustainableDevelopment.sdgIndicator2',
@@ -11356,6 +11458,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
             dataExport: true,
             columnsExportAlways: [],
             secondary: true,
+            migration: {
+              cycles: ['2020'],
+            },
           },
         ],
       },
@@ -11557,6 +11662,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
             dataExport: true,
             columnsExportAlways: [],
             secondary: true,
+            migration: {
+              cycles: ['2020'],
+            },
           },
         ],
       },
@@ -11758,6 +11866,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
             dataExport: true,
             columnsExportAlways: [],
             secondary: true,
+            migration: {
+              cycles: ['2020'],
+            },
           },
         ],
       },
