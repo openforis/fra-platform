@@ -67,6 +67,7 @@ export const ClientRoutes = {
     DataDownload: newInstance<AssessmentParams>(...assessmentParts, 'dataDownload'),
     Print: newInstance<AssessmentParams>(...assessmentParts, 'print'),
     PrintTables: newInstance<AssessmentParams>(...assessmentParts, 'print', 'tables'),
+    User: newInstance<AssessmentParams & { id: number }>(...assessmentParts, 'user', ':id'),
   },
 
   Login: {

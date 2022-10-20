@@ -10,6 +10,7 @@ import { CountryIso } from '@meta/area'
 import { User, Users, UserStatus } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
+import { useAssessment, useCycle } from '@client/store/assessment'
 import { useUser } from '@client/store/user'
 import { UserManagementActions } from '@client/store/userManagement'
 import { useCountryIso } from '@client/hooks'
@@ -43,6 +44,8 @@ const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail
   const { i18n } = useTranslation()
   const { toaster } = useToaster()
   const countryIso = useCountryIso()
+  const assessment = useAssessment()
+  const cycle = useCycle()
   const currentUser = useUser()
 
   const { acceptedAt, invitationUuid } = Users.getCountryRole(user, countryIso)
@@ -94,7 +97,16 @@ const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail
             </button>
           </>
         ) : (
-          <Link to={ClientRoutes.User.Root.getLink({ id: user.id })} type="button" className="link">
+          <Link
+            to={ClientRoutes.Assessment.User.getLink({
+              countryIso,
+              assessmentName: assessment.props.name,
+              cycleName: cycle.name,
+              id: user.id,
+            })}
+            type="button"
+            className="link"
+          >
             {i18n.t<string>('userManagement.edit')}
           </Link>
         )}
