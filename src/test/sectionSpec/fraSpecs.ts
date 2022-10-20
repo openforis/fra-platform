@@ -10988,7 +10988,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     migration: {
                       style: {
                         '2020': { colSpan: 7, rowSpan: 1 },
-                        '2025': { colSpan: 10, rowSpan: 1 },
+                        '2025': { colSpan: 11, rowSpan: 1 },
                       },
                     },
                   },
@@ -11061,7 +11061,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 7,
                     colSpan: 1,
                     rowSpan: 1,
-                    label: '2020-2025',
+                    label: '',
                     className: 'fra-table__header-cell',
                     type: 'header',
                     migration: {
@@ -11072,7 +11072,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 8,
                     colSpan: 1,
                     rowSpan: 1,
-                    label: '2005-2015',
+                    label: '2020-2025',
                     className: 'fra-table__header-cell',
                     type: 'header',
                     migration: {
@@ -11081,6 +11081,17 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 9,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    label: '2005-2015',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: {
+                      cycles: ['2025'],
+                    },
+                  },
+                  {
+                    idx: 10,
                     colSpan: 1,
                     rowSpan: 1,
                     label: '2015-2025',
@@ -11168,6 +11179,14 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 7,
                     type: 'calculated',
+                    colName: 'placeholder',
+                    migration: {
+                      cycles: ['2025'],
+                    },
+                  },
+                  {
+                    idx: 8,
+                    type: 'calculated',
                     colName: '2020-2025',
                     migration: {
                       calculateFn:
@@ -11176,7 +11195,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     },
                   },
                   {
-                    idx: 8,
+                    idx: 9,
                     type: 'calculated',
                     colName: '2005-2015',
                     migration: {
@@ -11186,7 +11205,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     },
                   },
                   {
-                    idx: 9,
+                    idx: 10,
                     type: 'calculated',
                     colName: '2015-2025',
                     migration: {

@@ -37,4 +37,9 @@ module.exports = {
     mangroves2025: `Mangroves\u00B9`,
     mangrovesDisclaimer: `\u00B9Note the area of mangroves not only includes Forest but also Other wooded land`,
   },
+
+  sustainableDevelopment: {
+    sdgIndicator1_2025: 'SDG Indicator 15.1.1 Forest area as proportion of total land area',
+    forestAreaProportionLandArea: 'Forest area as proportion of total land area',
+  },
 }
