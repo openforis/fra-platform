@@ -7,7 +7,10 @@ import { RowRepository } from '@server/repository/assessment/row'
 
 import { calculateNode } from './calculateNode'
 
-export const calculateDependantNodes = async (props: Props, client: BaseProtocol): Promise<NodeUpdates> => {
+export const calculateDependantNodes = async (
+  props: Omit<Props, 'value'>,
+  client: BaseProtocol
+): Promise<NodeUpdates> => {
   const { assessment, cycle, countryIso, sectionName, tableName, variableName, colName, user } = props
 
   const nodeUpdates: NodeUpdates = { assessment, cycle, countryIso, nodes: [] }
