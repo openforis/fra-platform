@@ -10,7 +10,7 @@ import { UserManagementActions } from '@client/store/userManagement'
 import { useUserToEdit } from '@client/store/userManagement/hooks'
 import EditUserForm from '@client/components/EditUserForm'
 
-const UserPage: React.FC = () => {
+const User: React.FC = () => {
   const dispatch = useAppDispatch()
 
   const user = useUser()
@@ -32,4 +32,4 @@ const UserPage: React.FC = () => {
   )
 }
 
-export default UserPage
+export default User

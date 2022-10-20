@@ -20,7 +20,7 @@ import Login from '@client/pages/Login'
 import { SocketClient } from '@client/service/socket'
 import { Urls } from '@client/utils'
 
-import UserPage from '../User/User'
+import User from '../User/User'
 import { useTheme } from './useTheme'
 
 const PageRoutes: React.FC = () => {
@@ -60,7 +60,7 @@ const PageRoutes: React.FC = () => {
         <Route path={`${ClientRoutes.Assessment.Root.path.absolute}/*`} element={<Assessment />} />
         <Route path={`${ClientRoutes.Login.Root.path.absolute}/*`} element={<Login />} />
         <Route path={`${ClientRoutes.Geo.Root.path.absolute}/*`} element={<Geo />} />
-        <Route path={`${ClientRoutes.User.Root.path.absolute}`} element={<UserPage />} />
+        <Route path={`${ClientRoutes.User.Root.path.absolute}`} element={<User />} />
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
