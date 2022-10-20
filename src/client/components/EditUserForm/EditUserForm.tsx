@@ -14,7 +14,12 @@ import CountryRoles from './CountryRoles'
 import ProfilePicture from './ProfilePicture'
 import TextInputFields from './TextInputFields'
 
-const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
+type Props = {
+  user: User
+  isAdminForm?: boolean
+}
+
+const EditUserForm: React.FC<Props> = ({ user, isAdminForm }) => {
   const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
   const countryIso = useCountryIso()
@@ -52,7 +57,7 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
 
       {userRole?.role === RoleName.COLLABORATOR && <CollaboratorPermissions userRole={userRole} />}
 
-      <CountryRoles user={user} />
+      {isAdminForm && <CountryRoles user={user} />}
 
       <div className="edit-user__form-item edit-user__form-item-buttons">
         <div className="edit-user__form-label" />
@@ -68,6 +73,10 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
       </div>
     </div>
   )
+}
+
+EditUserForm.defaultProps = {
+  isAdminForm: false,
 }
 
 export default EditUserForm
