@@ -7,6 +7,7 @@ import { Sockets } from '@meta/socket'
 import { useAppDispatch } from '@client/store'
 import { useTableSections } from '@client/store/pages/assessmentSection'
 import { useGetTableSections } from '@client/store/pages/assessmentSection/hooks/useGetTableSections'
+import { useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 import { ReviewActions } from '@client/store/ui/review'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
@@ -32,6 +33,7 @@ const SectionWrapper: React.FC<Props> = (props) => {
   const countryIso = useCountryIso()
   const user = useUser()
   const tableSections = useTableSections({ sectionName })
+  const originalDataPoint = useOriginalDataPoint()
   useGetTableSections()
 
   useEffect(() => {
@@ -49,7 +51,15 @@ const SectionWrapper: React.FC<Props> = (props) => {
     })
 
     const updateReviewStatus = () => {
-      dispatch(ReviewActions.getReviewStatus({ countryIso, assessmentName, cycleName, sectionName }))
+      dispatch(
+        ReviewActions.getReviewStatus({
+          countryIso,
+          assessmentName,
+          cycleName,
+          sectionName,
+          odpId: originalDataPoint?.id,
+        })
+      )
     }
 
     if (user) {
@@ -62,7 +72,7 @@ const SectionWrapper: React.FC<Props> = (props) => {
         SocketClient.off(requestReviewStatusEvent, updateReviewStatus)
       }
     }
-  }, [countryIso, assessmentName, cycleName, sectionName, user, dispatch])
+  }, [countryIso, assessmentName, cycleName, sectionName, user, dispatch, originalDataPoint?.id])
 
   if (!tableSections) return null
 

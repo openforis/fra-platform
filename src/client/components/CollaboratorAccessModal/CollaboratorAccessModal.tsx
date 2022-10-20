@@ -72,6 +72,7 @@ const CollaboratorAccessModal: React.FC<Props> = (props) => {
         <div className="form-container permissions-header-container permissions-container">
           {permissionTypes.map((permission) => {
             const checked =
+              selectedSections &&
               typeof selectedSections !== 'string' &&
               Object.values(selectedSections).filter((p) => p[permission]).length === Object.keys(options).length
             return (
@@ -91,6 +92,7 @@ const CollaboratorAccessModal: React.FC<Props> = (props) => {
             <div key={permission}>
               {optionEntries.map(([section, label]) => {
                 const checked =
+                  selectedSections &&
                   typeof selectedSections !== 'string' &&
                   selectedSections[section] &&
                   selectedSections[section][permission] === true

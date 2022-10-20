@@ -39,13 +39,13 @@ const RowData: React.FC<Props> = (props) => {
 
   const openTopics = useTopicKeys()
   const headerCell = cols.every((col) => Cols.isReadOnly({ row, col }))
-  const subcategory = colHeaderLabel.includes(`…`)
+  const subcategory = row.props.categoryLevel > 0
 
   return (
     <tr className={openTopics.includes(row.uuid) ? 'fra-row-comments__open' : ''}>
       <th
         className={classNames({
-          'fra-table__subcategory-cell': subcategory,
+          [`fra-table__subcategory${row.props.categoryLevel}-cell`]: subcategory,
           'fra-table__category-cell': !subcategory && !headerCell,
           'fra-table__header-cell-left': !subcategory && headerCell,
         })}

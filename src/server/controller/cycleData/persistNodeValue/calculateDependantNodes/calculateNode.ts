@@ -34,6 +34,7 @@ export const calculateNode = async (
     row,
     formula: expression,
   })
+
   const value: NodeValue = { raw: rawResult ? String(rawResult) : null, calculated: true }
 
   return persistNode(

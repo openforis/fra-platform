@@ -13,6 +13,7 @@ module.exports = {
 
   forestCharacteristics: {
     primaryForest: '…of which primary forest',
+    plantationForestIntroducedArea2025: '…of which introduced species',
   },
 
   growingStockComposition: {
