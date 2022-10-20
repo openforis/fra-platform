@@ -1,6 +1,5 @@
 import './EditUserForm.scss'
 import React, { useCallback, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import { RoleName, User, Users } from '@meta/user'
 
@@ -21,7 +20,6 @@ type Props = {
 
 const EditUserForm: React.FC<Props> = ({ user, isAdminForm }) => {
   const dispatch = useAppDispatch()
-  const { i18n } = useTranslation()
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
@@ -58,19 +56,6 @@ const EditUserForm: React.FC<Props> = ({ user, isAdminForm }) => {
       {userRole?.role === RoleName.COLLABORATOR && <CollaboratorPermissions userRole={userRole} />}
 
       {isAdminForm && <CountryRoles user={user} />}
-
-      <div className="edit-user__form-item edit-user__form-item-buttons">
-        <div className="edit-user__form-label" />
-        <div className="edit-user__form-field edit-user__form-field-buttons">
-          <button
-            type="button"
-            className="btn btn-secondary"
-            onClick={() => dispatch(UserManagementActions.setUserToEdit(null))}
-          >
-            {i18n.t<string>('editUser.cancel')}
-          </button>
-        </div>
-      </div>
     </div>
   )
 }
