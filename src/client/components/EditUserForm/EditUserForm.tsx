@@ -4,7 +4,6 @@ import React, { useCallback, useState } from 'react'
 import { RoleName, User, Users } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
 import { UserManagementActions } from '@client/store/ui/userManagement'
 import { useCountryIso, useOnUpdate } from '@client/hooks'
 
@@ -21,8 +20,6 @@ type Props = {
 const EditUserForm: React.FC<Props> = ({ user, canEditRoles }) => {
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
-  const assessment = useAssessment()
-  const cycle = useCycle()
 
   const [profilePicture, setProfilePicture] = useState<File>(null)
   const [userToEdit, setUserToEdit] = useState<User>(user)
@@ -34,8 +31,6 @@ const EditUserForm: React.FC<Props> = ({ user, canEditRoles }) => {
           user: userToEdit,
           profilePicture,
           countryIso,
-          assessmentName: assessment.props.name,
-          cycleName: cycle.name,
         })
       )
     }
@@ -49,9 +44,9 @@ const EditUserForm: React.FC<Props> = ({ user, canEditRoles }) => {
 
   return (
     <div className="edit-user__form-container">
-      <ProfilePicture userId={user.id} onChange={(profilePicture: File) => setProfilePicture(profilePicture)} />
+      <ProfilePicture onChange={(profilePicture: File) => setProfilePicture(profilePicture)} userId={user.id} />
 
-      <TextInputFields onChange={changeUser} user={user} />
+      <TextInputFields onChange={changeUser} user={userToEdit} />
 
       {userRole?.role === RoleName.COLLABORATOR && <CollaboratorPermissions userRole={userRole} />}
 
