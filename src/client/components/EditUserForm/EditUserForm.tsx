@@ -5,7 +5,7 @@ import { RoleName, User, Users } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
-import { UserManagementActions } from '@client/store/userManagement'
+import { UserManagementActions } from '@client/store/ui/userManagement'
 import { useCountryIso, useOnUpdate } from '@client/hooks'
 
 import CollaboratorPermissions from './CollaboratorPermissions'
@@ -15,10 +15,10 @@ import TextInputFields from './TextInputFields'
 
 type Props = {
   user: User
-  isAdminForm?: boolean
+  canEditRoles?: boolean
 }
 
-const EditUserForm: React.FC<Props> = ({ user, isAdminForm }) => {
+const EditUserForm: React.FC<Props> = ({ user, canEditRoles }) => {
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const assessment = useAssessment()
@@ -55,13 +55,13 @@ const EditUserForm: React.FC<Props> = ({ user, isAdminForm }) => {
 
       {userRole?.role === RoleName.COLLABORATOR && <CollaboratorPermissions userRole={userRole} />}
 
-      {isAdminForm && <CountryRoles user={user} />}
+      {canEditRoles && <CountryRoles user={user} />}
     </div>
   )
 }
 
 EditUserForm.defaultProps = {
-  isAdminForm: false,
+  canEditRoles: false,
 }
 
 export default EditUserForm
