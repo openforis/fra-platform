@@ -13,6 +13,7 @@ export interface SectionTableSpec {
   descriptionKey?: string
   migration?: {
     cycles?: Array<string>
+    label?: Record<string, Label>
   }
 }
 
