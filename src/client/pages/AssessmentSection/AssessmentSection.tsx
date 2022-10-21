@@ -55,31 +55,33 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
       <Descriptions sectionName={sectionName} descriptions={descriptions} disabled={!canEditDescriptions} />
       {showTitle && <Title subSection={subSection} />}
 
-      {tableSections.map((tableSection) => (
-        <React.Fragment key={tableSection.uuid}>
-          {tableSection.props.labelKey && (
-            <h3 className="subhead assessment-section__table-title">{t(tableSection.props.labelKey)}</h3>
-          )}
-          {tableSection.props.descriptionKey && (
-            <div className="app-view__section-toolbar no-print">
-              <div className="support-text">{t(tableSection.props.descriptionKey)}</div>
-            </div>
-          )}
+      {tableSections.map((tableSection) => {
+        const label = Labels.getLabel({ cycle, labels: tableSection.props.labels, t })
+        const description = Labels.getLabel({ cycle, labels: tableSection.props.descriptions, t })
+        return (
+          <React.Fragment key={tableSection.uuid}>
+            {label && <h3 className="subhead assessment-section__table-title">{label}</h3>}
+            {description && (
+              <div className="app-view__section-toolbar no-print">
+                <div className="support-text">{description}</div>
+              </div>
+            )}
 
-          {tableSection.tables.map((table) => (
-            <React.Fragment key={table.props.name}>
-              <DataTable
-                assessmentName={assessmentName}
-                sectionName={sectionName}
-                sectionAnchor={anchor}
-                table={table}
-                disabled={!canEditTableData}
-              />
-              {table.props.print?.pageBreakAfter && <div className="page-break" />}
-            </React.Fragment>
-          ))}
-        </React.Fragment>
-      ))}
+            {tableSection.tables.map((table) => (
+              <React.Fragment key={table.props.name}>
+                <DataTable
+                  assessmentName={assessmentName}
+                  sectionName={sectionName}
+                  sectionAnchor={anchor}
+                  table={table}
+                  disabled={!canEditTableData}
+                />
+                {table.props.print?.pageBreakAfter && <div className="page-break" />}
+              </React.Fragment>
+            ))}
+          </React.Fragment>
+        )
+      })}
 
       {descriptions.comments && <GeneralComments sectionName={sectionName} disabled={!canEditDescriptions} />}
 
