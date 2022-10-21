@@ -9,8 +9,8 @@ import { Areas } from '@meta/area'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
+import { UserManagementActions } from '@client/store/ui/userManagement'
 import { useUser } from '@client/store/user'
-import { UserManagementActions } from '@client/store/userManagement'
 import { useCountryIso } from '@client/hooks'
 
 import { useSections } from './hooks/useSections'

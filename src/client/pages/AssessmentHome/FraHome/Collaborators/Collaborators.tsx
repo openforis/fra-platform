@@ -2,8 +2,8 @@ import React from 'react'
 
 import { Users } from '@meta/user'
 
+import { useUsers } from '@client/store/ui/userManagement/hooks'
 import { useUser } from '@client/store/user'
-import { useUsers } from '@client/store/userManagement/hooks'
 import { useCountryIso } from '@client/hooks'
 import InviteUserForm from '@client/components/InviteUserForm'
 import UserList from '@client/components/UserList'

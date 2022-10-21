@@ -12,8 +12,8 @@ import { MessageCenterState } from './ui/messageCenter/stateType'
 import { NavigationState } from './ui/navigation/stateType'
 import { NotificationState } from './ui/notification/stateType'
 import { ReviewState } from './ui/review'
+import { UserManagementState } from './ui/userManagement'
 import { UserState } from './user/stateType'
-import { UserManagementState } from './userManagement'
 
 export type RootState = {
   assessment: AssessmentState
@@ -34,9 +34,8 @@ export type RootState = {
     navigation: NavigationState
     notification: NotificationState
     review: ReviewState
+    userManagement: UserManagementState
   }
-
-  userManagement: UserManagementState
 
   geo: GeoState
 }

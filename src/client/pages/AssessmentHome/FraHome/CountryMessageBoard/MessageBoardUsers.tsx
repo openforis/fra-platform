@@ -1,14 +1,14 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
 import classNames from 'classnames'
 
+import { ApiEndPoint } from '@meta/api/endpoint'
 import { MessageTopicType, Topics } from '@meta/messageCenter'
 import { Users } from '@meta/user'
 
+import { useUsers } from '@client/store/ui/userManagement/hooks'
 import { useUser } from '@client/store/user'
-import { useUsers } from '@client/store/userManagement/hooks'
 import { useCountryIso } from '@client/hooks'
 
 import MessageButton from './MessageButton'
