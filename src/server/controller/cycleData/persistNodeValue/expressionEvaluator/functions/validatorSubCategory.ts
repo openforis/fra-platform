@@ -13,9 +13,10 @@ export const validatorSubCategory: ExpressionFunction<Context> = {
     return (categoryValue?: string, subCategoryValues?: Array<string>): NodeValueValidation => {
       const valid =
         Objects.isEmpty(categoryValue) ||
+        !subCategoryValues.every(Boolean) ||
         Numbers.greaterThanWithTolerance(
           categoryValue,
-          Numbers.sum(subCategoryValues?.filter((v) => !Objects.isEmpty(v))) ?? 0
+          Numbers.sum(subCategoryValues?.filter((v) => !Objects.isEmpty(v)))
         )
 
       const messages: Array<NodeValueValidationMessage> = valid
