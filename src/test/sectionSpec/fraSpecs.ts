@@ -6295,9 +6295,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'forestOwnership.totalForestArea',
                     linkToSection: 'extentOfForest',
                     className: 'fra-table__category-cell',
-                    migration: {
-                      variableNo: { '2025': 'a+b+c+d' },
-                    },
                   },
                   {
                     idx: 0,
@@ -6320,8 +6317,50 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 linkToSection: 'extentOfForest',
                 variableName: 'totalForestArea',
                 migration: {
-                  colNames: ['1990', '2000', '2010', '2015', '2020'],
+                  cycles: ['2020'],
+                  colNames: ['1990', '2000', '2010', '2015'],
                   calcFormula: 'extentOfForest.forestArea',
+                },
+              },
+              {
+                idx: 7,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'fra.forestOwnership.total2025',
+                    className: 'fra-table__category-cell',
+                    variableNo: 'a+b+c+d',
+                  },
+                  {
+                    idx: 0,
+                    type: 'calculated',
+                  },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                  },
+                  {
+                    idx: 2,
+                    type: 'calculated',
+                  },
+                  {
+                    idx: 3,
+                    type: 'calculated',
+                  },
+                ],
+                labelKey: 'fra.forestOwnership.total2025',
+                variableName: 'total',
+                migration: {
+                  cycles: ['2025'],
+                  colNames: ['1990', '2000', '2010', '2015', '2020'],
+                  calcFormula:
+                    '(forestOwnership.private_ownership || forestOwnership.public_ownership || forestOwnership.other || forestOwnership.unknown)' +
+                    ' ? (forestOwnership.private_ownership || 0) + (forestOwnership.public_ownership || 0) + (forestOwnership.other || 0) + (forestOwnership.unknown || 0)' +
+                    ' : null',
+                  validateFns: [`validatorNotGreaterThanForest(extentOfForest.forestArea, forestOwnership.total)`],
                 },
               },
               {

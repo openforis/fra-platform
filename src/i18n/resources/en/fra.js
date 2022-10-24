@@ -19,6 +19,7 @@ module.exports = {
     ofWhichCommunities2025: '…of which owned by Indigenous Peoples and local communities',
     other2025: 'Other (specify in comments)',
     unknown2025: 'Unknown',
+    total2025: 'Total',
   },
 
   growingStockComposition: {
