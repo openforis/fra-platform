@@ -8,16 +8,21 @@ import Requests from '@server/utils/requests'
 
 export const getForestLayer = async (
   req: Request<
-    { countryIso: CountryIso; forestSource: ForestSource; gteHansenTreeCoverPerc?: number },
     never,
     never,
-    { onlyProtected: boolean; opacity: number }
+    never,
+    any & {
+      countryIso: CountryIso
+      forestSource: ForestSource
+      gteHansenTreeCoverPerc?: number
+      onlyProtected: boolean
+      opacity: number
+    }
   >,
   res: Response
 ) => {
   try {
-    const { countryIso, forestSource, gteHansenTreeCoverPerc } = req.params
-    const { onlyProtected, opacity } = req.query
+    const { onlyProtected, opacity, countryIso, forestSource, gteHansenTreeCoverPerc } = req.query
 
     if (
       forestSource === ForestSource.Hansen &&

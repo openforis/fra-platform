@@ -7,7 +7,7 @@ import Requests from '@server/utils/requests'
 
 export const getBoundariesLayer = async (req: Request, res: Response) => {
   try {
-    const { countryIso } = req.params as {
+    const { countryIso } = req.query as {
       countryIso: CountryIso
     }
     const layer = await GeoController.getBoundariesLayer({ countryIso })

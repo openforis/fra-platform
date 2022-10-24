@@ -8,16 +8,21 @@ import Requests from '@server/utils/requests'
 
 export const getForestAgreementLayer = async (
   req: Request<
-    { countryIso: CountryIso },
     never,
     never,
-    { gteAgreementLevel: number; gteHansenTreeCoverPerc: number; layer: Array<ForestSource>; opacity: number }
+    never,
+    any & {
+      countryIso: CountryIso
+      gteAgreementLevel: number
+      gteHansenTreeCoverPerc: number
+      layer: Array<ForestSource>
+      opacity: number
+    }
   >,
   res: Response
 ) => {
   try {
-    const { countryIso } = req.params
-    const { gteAgreementLevel, gteHansenTreeCoverPerc, layer, opacity } = req.query
+    const { countryIso, gteAgreementLevel, gteHansenTreeCoverPerc, layer, opacity } = req.query
     const sourceOptions = Object.values(ForestSource)
 
     if (Array.isArray(layer) && layer.length > 1) {
