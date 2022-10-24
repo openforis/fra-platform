@@ -9,8 +9,7 @@ import { CollaboratorProps, RoleName, User, Users, UserStatus } from '@meta/user
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useAssessmentSections, useCycle } from '@client/store/assessment'
-import { UserManagementActions } from '@client/store/ui/userManagement'
-import { useUsers } from '@client/store/ui/userManagement/hooks'
+import { UserManagementActions, useUsers } from '@client/store/ui/userManagement'
 import { useCountryIso } from '@client/hooks'
 
 const allowedRoleNames = [

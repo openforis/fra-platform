@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { RoleName, User, UserRole, Users } from '@meta/user'
 
-import { useUsers } from '@client/store/ui/userManagement/hooks'
+import { useUsers } from '@client/store/ui/userManagement'
 import { useCountryIso } from '@client/hooks'
 import Icon from '@client/components/Icon'
 
