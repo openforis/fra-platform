@@ -15,11 +15,11 @@ module.exports = {
     primaryForest: '…of which primary forest',
     plantationForestIntroducedArea2025: '…of which introduced species',
   },
-
   forestOwnership: {
     ofWhichCommunities2025: '…of which owned by Indigenous Peoples and local communities',
     other2025: 'Other (specify in comments)',
     unknown2025: 'Unknown',
+    total2025: 'Total',
   },
 
   growingStockComposition: {
@@ -28,6 +28,12 @@ module.exports = {
     rankedPercent: '#{{idx}} Ranked % of total GS',
     totalIntroducedPercent: 'TOTAL % of introduced tree species',
     totalNativePercent: 'TOTAL % of native tree species',
+  },
+
+  holderOfManagementRights: {
+    communities2025: 'Indigenous Peoples and local communities',
+    other2025: 'Other (specify in comments)',
+    unknown2025: 'Unknown',
   },
 
   primaryForestByClimaticDomain: {
