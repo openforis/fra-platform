@@ -57,8 +57,7 @@ export const ClientRoutes = {
         ':sectionName'
       ),
       Users: {
-        Root: newInstance<AssessmentParams>(...assessmentParts, 'home', 'users'),
-        User: newInstance<AssessmentParams & { id: number }>(...assessmentParts, 'home', 'users', ':id'),
+        User: newInstance<AssessmentParams>(...assessmentParts, 'home', 'users/:id'),
       },
     },
     Section: newInstance<AssessmentParams & { sectionName: string }>(...assessmentParts, ':sectionName'),
