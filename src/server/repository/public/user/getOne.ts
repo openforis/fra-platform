@@ -40,7 +40,7 @@ export const getOne = async (
       [value]
     )
     .then((data) => {
-      if (!data) return undefined
+      if (!data) return null
       return {
         ...Objects.camelize(data),
         roles:

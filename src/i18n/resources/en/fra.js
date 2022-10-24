@@ -16,6 +16,12 @@ module.exports = {
     plantationForestIntroducedArea2025: '…of which introduced species',
   },
 
+  forestOwnership: {
+    ofWhichCommunities2025: '…of which owned by Indigenous Peoples and local communities',
+    other2025: 'Other (specify in comments)',
+    unknown2025: 'Unknown',
+  },
+
   growingStockComposition: {
     growingStockPercent: 'Growing stock in forest (% of total)',
     mostRecentYear: 'Most recent year',

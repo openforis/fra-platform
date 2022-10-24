@@ -20,6 +20,7 @@ import Login from '@client/pages/Login'
 import { SocketClient } from '@client/service/socket'
 import { Urls } from '@client/utils'
 
+import User from '../User/User'
 import { useTheme } from './useTheme'
 
 const PageRoutes: React.FC = () => {
@@ -52,36 +53,16 @@ const PageRoutes: React.FC = () => {
       {!print && <Header />}
 
       <Routes>
+        <Route path="/" element={<Landing />} />
+
         <Route path={ClientRoutes.Assessment.Print.path.absolute} element={<AssessmentPrint />} />
         <Route path={ClientRoutes.Assessment.PrintTables.path.absolute} element={<AssessmentPrint />} />
-
-        <Route path="/" element={<Landing />} />
         <Route path={`${ClientRoutes.Assessment.Root.path.absolute}/*`} element={<Assessment />} />
         <Route path={`${ClientRoutes.Login.Root.path.absolute}/*`} element={<Login />} />
         <Route path={`${ClientRoutes.Geo.Root.path.absolute}/*`} element={<Geo />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path={`${ClientRoutes.Users.User.path.absolute}`} element={<User />} />
 
-        {/* <Route */}
-        {/*  path={BasePaths.admin} */}
-        {/*  render={() => <DynamicImport key={1} load={() => import('../../../webapp/pages/Admin/export')} />} */}
-        {/* /> */}
-        {/* <Route */}
-        {/*  path={BasePaths.user} */}
-        {/*  render={() => <DynamicImport key={2} load={() => import('../../../webapp/pages/User/export')} />} */}
-        {/* /> */}
-        {/* <Route */}
-        {/*  exact */}
-        {/*  path={BasePaths.countryIso} */}
-        {/*  render={(routeProps: RouteComponentProps<{ countryIso: string }>) => { */}
-        {/*    const { countryIso } = routeProps.match.params */}
-        {/*    const assessmentRedirect = countryIso === RegionCode.FE ? PanEuropean.type : FRA.type */}
-        {/*    return <Redirect to={`${window.location.pathname}${assessmentRedirect}/home`} /> */}
-        {/*  }} */}
-        {/* /> */}
-        {/* <Route */}
-        {/*  path={BasePaths.assessment} */}
-        {/*  render={() => <DynamicImport key={3} load={() => import('../../../webapp/app/appViewExport')} />} */}
-        {/* /> */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
 
       {/* <ErrorComponent /> */}

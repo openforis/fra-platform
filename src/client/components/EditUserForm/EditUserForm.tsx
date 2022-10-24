@@ -1,12 +1,10 @@
 import './EditUserForm.scss'
 import React, { useCallback, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import { RoleName, User, Users } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { UserManagementActions } from '@client/store/userManagement'
+import { UserManagementActions } from '@client/store/ui/userManagement'
 import { useCountryIso, useOnUpdate } from '@client/hooks'
 
 import CollaboratorPermissions from './CollaboratorPermissions'
@@ -14,12 +12,14 @@ import CountryRoles from './CountryRoles'
 import ProfilePicture from './ProfilePicture'
 import TextInputFields from './TextInputFields'
 
-const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
+type Props = {
+  user: User
+  canEditRoles?: boolean
+}
+
+const EditUserForm: React.FC<Props> = ({ user, canEditRoles }) => {
   const dispatch = useAppDispatch()
-  const { i18n } = useTranslation()
   const countryIso = useCountryIso()
-  const assessment = useAssessment()
-  const cycle = useCycle()
 
   const [profilePicture, setProfilePicture] = useState<File>(null)
   const [userToEdit, setUserToEdit] = useState<User>(user)
@@ -31,8 +31,6 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
           user: userToEdit,
           profilePicture,
           countryIso,
-          assessmentName: assessment.props.name,
-          cycleName: cycle.name,
         })
       )
     }
@@ -46,28 +44,19 @@ const EditUserForm: React.FC<{ user: User }> = ({ user }) => {
 
   return (
     <div className="edit-user__form-container">
-      <ProfilePicture userId={user.id} onChange={(profilePicture: File) => setProfilePicture(profilePicture)} />
+      <ProfilePicture onChange={(profilePicture: File) => setProfilePicture(profilePicture)} userId={user.id} />
 
-      <TextInputFields onChange={changeUser} user={user} />
+      <TextInputFields onChange={changeUser} user={userToEdit} />
 
       {userRole?.role === RoleName.COLLABORATOR && <CollaboratorPermissions userRole={userRole} />}
 
-      <CountryRoles user={user} />
-
-      <div className="edit-user__form-item edit-user__form-item-buttons">
-        <div className="edit-user__form-label" />
-        <div className="edit-user__form-field edit-user__form-field-buttons">
-          <button
-            type="button"
-            className="btn btn-secondary"
-            onClick={() => dispatch(UserManagementActions.setUserToEdit(null))}
-          >
-            {i18n.t<string>('editUser.cancel')}
-          </button>
-        </div>
-      </div>
+      {canEditRoles && <CountryRoles user={user} />}
     </div>
   )
+}
+
+EditUserForm.defaultProps = {
+  canEditRoles: false,
 }
 
 export default EditUserForm

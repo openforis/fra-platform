@@ -15,9 +15,8 @@ export const useActions = (props: {
   userRole: UserRole<RoleName, CollaboratorProps>
 }) => {
   const { options, userRole } = props
-  const [selectedSections, setSelectedSections] = useState<CollaboratorSectionsProp>(
-    userRole.props ? userRole.props.sections : 'none'
-  )
+
+  const [selectedSections, setSelectedSections] = useState<CollaboratorSectionsProp>(userRole.props?.sections ?? 'none')
 
   const toggleOptions = (permission: CollaboratorEditPropertyType, checked: boolean): void => {
     const newSelectedSections = typeof selectedSections !== 'string' ? Objects.cloneDeep(selectedSections) : {}
