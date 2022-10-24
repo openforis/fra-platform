@@ -25,7 +25,6 @@ import DataExport from '@client/pages/DataExport'
 import OriginalDataPoint from '@client/pages/OriginalDataPoint'
 import { SocketClient } from '@client/service/socket'
 
-import User from '../User'
 import SectionWrapper from './SectionWrapper'
 
 const Assessment: React.FC = () => {
@@ -102,14 +101,6 @@ const Assessment: React.FC = () => {
               <SectionWrapper>
                 <OriginalDataPoint />
               </SectionWrapper>
-            }
-          />
-          <Route
-            path={`${ClientRoutes.Assessment.Collaborator.Root.path.relative}/*`}
-            element={
-              <Routes>
-                <Route path={ClientRoutes.Assessment.Collaborator.User.path.relative} element={<User />} />
-              </Routes>
             }
           />
 

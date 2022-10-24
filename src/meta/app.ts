@@ -56,6 +56,10 @@ export const ClientRoutes = {
         'home',
         ':sectionName'
       ),
+      Users: {
+        Root: newInstance<AssessmentParams>(...assessmentParts, 'home', 'users'),
+        User: newInstance<AssessmentParams & { id: number }>(...assessmentParts, 'home', 'users', ':id'),
+      },
     },
     Section: newInstance<AssessmentParams & { sectionName: string }>(...assessmentParts, ':sectionName'),
     OriginalDataPoint: {
@@ -67,10 +71,6 @@ export const ClientRoutes = {
     DataDownload: newInstance<AssessmentParams>(...assessmentParts, 'dataDownload'),
     Print: newInstance<AssessmentParams>(...assessmentParts, 'print'),
     PrintTables: newInstance<AssessmentParams>(...assessmentParts, 'print', 'tables'),
-    Collaborator: {
-      Root: newInstance<AssessmentParams>(...assessmentParts, 'user'),
-      User: newInstance<AssessmentParams & { id: number }>(...assessmentParts, 'user', ':id'),
-    },
   },
 
   Login: {
@@ -83,7 +83,7 @@ export const ClientRoutes = {
     Root: newInstance(':countryIso', 'geo'),
   },
 
-  User: {
-    Root: newInstance<{ id: number }>('user', ':id'),
+  Users: {
+    User: newInstance<{ id: number }>('users', ':id'),
   },
 }

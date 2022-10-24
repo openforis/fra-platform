@@ -98,7 +98,7 @@ const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail
           </>
         ) : (
           <Link
-            to={ClientRoutes.Assessment.Collaborator.User.getLink({
+            to={ClientRoutes.Assessment.Home.Users.User.getLink({
               countryIso,
               assessmentName: assessment.props.name,
               cycleName: cycle.name,

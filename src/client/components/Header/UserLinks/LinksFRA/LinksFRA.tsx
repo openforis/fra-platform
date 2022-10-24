@@ -18,7 +18,7 @@ const getLinks = (i18nInstance: i18n, user: User, dispatch: AppDispatch, toaster
   const items: Array<PopoverItem> = [
     {
       content: i18nInstance.t('header.editProfile'),
-      link: ClientRoutes.User.Root.getLink({ id: user.id }),
+      link: ClientRoutes.Users.User.getLink({ id: user.id }),
     },
   ]
   if (Users.isAdministrator(user)) {

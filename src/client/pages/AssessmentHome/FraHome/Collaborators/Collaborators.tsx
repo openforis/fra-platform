@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Users } from '@meta/user'
 
-import { useUsers } from '@client/store/ui/userManagement'
+import { useUsers } from '@client/store/ui/userManagement/hooks'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import InviteUserForm from '@client/components/InviteUserForm'

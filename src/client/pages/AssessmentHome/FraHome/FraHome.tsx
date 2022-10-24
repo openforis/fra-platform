@@ -4,7 +4,7 @@ import { Navigate, NavLink, Route, Routes } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { AssessmentHomeRouteNames } from '@meta/app'
+import { AssessmentHomeRouteNames, ClientRoutes } from '@meta/app'
 import { Areas } from '@meta/area'
 
 import { useAppDispatch } from '@client/store'
@@ -12,6 +12,7 @@ import { useAssessment, useCycle } from '@client/store/assessment'
 import { UserManagementActions } from '@client/store/ui/userManagement'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
+import User from '@client/pages/User'
 
 import { useSections } from './hooks/useSections'
 import ButtonDownloadDashboard from './ButtonDownloadDashboard'
@@ -72,6 +73,16 @@ const FraHome: React.FC = () => {
         {sections.map(({ name, component }) => (
           <Route key={name} path={name} element={React.createElement(component, {})} />
         ))}
+
+        <Route
+          path={`${ClientRoutes.Assessment.Home.Users.Root.path.relative}/*`}
+          element={
+            <Routes>
+              <Route path={ClientRoutes.Assessment.Home.Users.User.path.relative} element={<User />} />
+            </Routes>
+          }
+        />
+
         <Route path="*" element={<Navigate to={AssessmentHomeRouteNames.overview} />} />
       </Routes>
     </>
