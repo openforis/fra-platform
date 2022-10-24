@@ -7,7 +7,7 @@ import { CollaboratorEditPropertyType, CollaboratorProps, RoleName, UserRole } f
 
 import { useAppDispatch } from '@client/store'
 import { useAssessmentSections, useCycle } from '@client/store/assessment'
-import { UserManagementActions } from '@client/store/userManagement'
+import { UserManagementActions } from '@client/store/ui/userManagement'
 import { useOnUpdate } from '@client/hooks'
 import ButtonCheckBox from '@client/components/ButtonCheckBox'
 import { Modal, ModalBody, ModalClose, ModalHeader } from '@client/components/Modal'

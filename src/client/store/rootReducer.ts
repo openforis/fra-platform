@@ -13,8 +13,8 @@ import MessageCenterSlice from './ui/messageCenter/slice'
 import NavigationSlice from './ui/navigation/slice'
 import NotificationSlice from './ui/notification/slice'
 import ReviewSlice from './ui/review/slice'
+import UserManagementSlice from './ui/userManagement/slice'
 import UserSlice from './user/slice'
-import UserManagementSlice from './userManagement/slice'
 
 export default {
   assessment: AssessmentSlice,
@@ -33,7 +33,7 @@ export default {
     navigation: NavigationSlice,
     notification: NotificationSlice,
     review: ReviewSlice,
+    userManagement: UserManagementSlice,
   }),
-  userManagement: UserManagementSlice,
   geo: GeoSlice,
 }

@@ -3,25 +3,24 @@ import { Functions } from '@utils/functions'
 import axios from 'axios'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
-import { CycleParams } from '@meta/api/request'
+import { CountryIso } from '@meta/area'
 import { User } from '@meta/user'
 
-type Params = CycleParams & {
+type Params = {
+  countryIso: CountryIso
   user: User
   profilePicture: File | null
 }
 
 const putUser = Functions.debounce(
   async (props: Params) => {
-    const { user, profilePicture, countryIso, assessmentName, cycleName } = props
+    const { user, profilePicture, countryIso } = props
 
     try {
       const formData = new FormData()
       formData.append('profilePicture', profilePicture)
       formData.append('user', JSON.stringify(user))
       formData.append('countryIso', countryIso)
-      formData.append('assessmentName', assessmentName)
-      formData.append('cycleName', cycleName)
 
       await axios.put(ApiEndPoint.User.many(), formData, {
         headers: {

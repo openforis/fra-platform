@@ -6,7 +6,7 @@ import { ClientRoutes } from '@meta/app'
 import { User, Users } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
-import { UserManagementActions } from '@client/store/userManagement'
+import { UserManagementActions } from '@client/store/ui/userManagement'
 import { useCountryIso } from '@client/hooks'
 import { useToaster } from '@client/hooks/useToaster'
 import Icon from '@client/components/Icon'

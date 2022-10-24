@@ -1,6 +1,7 @@
-import { ApiEndPoint } from '@meta/api/endpoint'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+
+import { ApiEndPoint } from '@meta/api/endpoint'
 
 type Params = { invitationUuid: string }
 
