@@ -6392,6 +6392,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'holderOfManagementRights.categoryHeader',
                     className: 'fra-table__header-cell-left',
                     type: 'header',
+                    migration: {
+                      label: {
+                        '2020': { key: 'fra.categoryHeader2020' },
+                        '2025': { key: 'fra.categoryHeader2025' },
+                      },
+                    },
                   },
                   {
                     idx: 1,
@@ -6507,6 +6513,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'holderOfManagementRights.individuals',
                 variableExport: 'individuals',
                 variableNo: 'b',
+                migration: {
+                  cycles: ['2020'],
+                },
               },
               {
                 idx: 2,
@@ -6519,6 +6528,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'holderOfManagementRights.privateBusinesses',
                     variableNo: 'c',
                     className: 'fra-table__category-cell',
+                    migration: {
+                      variableNo: {
+                        '2020': 'c',
+                        '2025': 'b',
+                      },
+                    },
                   },
                   {
                     idx: 0,
@@ -6540,6 +6555,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'holderOfManagementRights.privateBusinesses',
                 variableExport: 'private_businesses',
                 variableNo: 'c',
+                migration: {
+                  variableNo: {
+                    '2020': 'c',
+                    '2025': 'b',
+                  },
+                },
               },
               {
                 idx: 3,
@@ -6552,6 +6573,16 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'holderOfManagementRights.communities',
                     variableNo: 'd',
                     className: 'fra-table__category-cell',
+                    migration: {
+                      labelKey: {
+                        '2020': 'holderOfManagementRights.communities',
+                        '2025': 'fra.holderOfManagementRights.communities2025',
+                      },
+                      variableNo: {
+                        '2020': 'd',
+                        '2025': 'c',
+                      },
+                    },
                   },
                   {
                     idx: 0,
@@ -6573,6 +6604,16 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'holderOfManagementRights.communities',
                 variableExport: 'communities',
                 variableNo: 'd',
+                migration: {
+                  labelKey: {
+                    '2020': 'holderOfManagementRights.communities',
+                    '2025': 'fra.holderOfManagementRights.communities2025',
+                  },
+                  variableNo: {
+                    '2020': 'd',
+                    '2025': 'c',
+                  },
+                },
               },
               {
                 idx: 4,
@@ -6608,10 +6649,52 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableNo: 'e',
                 variableName: 'other',
                 migration: {
+                  cycles: ['2020'],
                   colNames: ['1990', '2000', '2010', '2015'],
                   validateFns: [`validatorGreaterThanOrZero(holderOfManagementRights.other)`],
                   calcFormula:
                     'forestOwnership.public_ownership - (holderOfManagementRights.public_administration || 0) - (holderOfManagementRights.individuals || 0) - (holderOfManagementRights.private_businesses || 0) - (holderOfManagementRights.communities || 0)',
+                },
+              },
+              {
+                idx: 4,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'fra.holderOfManagementRights.other2025',
+                    variableNo: 'd',
+                    className: 'fra-table__category-cell',
+                    migration: {
+                      cycles: ['2025'],
+                    },
+                  },
+                  {
+                    idx: 0,
+                    type: 'calculated',
+                  },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                  },
+                  {
+                    idx: 2,
+                    type: 'calculated',
+                  },
+                  {
+                    idx: 3,
+                    type: 'calculated',
+                  },
+                ],
+                labelKey: 'fra.holderOfManagementRights.other2025',
+                variableExport: 'other',
+                variableNo: 'd',
+                variableName: 'other',
+                migration: {
+                  cycles: ['2025'],
+                  colNames: ['1990', '2000', '2010', '2015', '2020'],
                 },
               },
               {
@@ -6622,9 +6705,53 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 'header_0',
                     type: 'header',
                     colSpan: 1,
+                    labelKey: 'fra.holderOfManagementRights.unknown2025',
+                    variableNo: 'e',
+                    className: 'fra-table__category-cell',
+                  },
+                  {
+                    idx: 0,
+                    type: 'calculated',
+                  },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                  },
+                  {
+                    idx: 2,
+                    type: 'calculated',
+                  },
+                  {
+                    idx: 3,
+                    type: 'calculated',
+                  },
+                ],
+                labelKey: 'fra.holderOfManagementRights.unknown2025',
+                variableExport: 'unknown',
+                variableNo: 'e',
+                variableName: 'unknown',
+                migration: {
+                  cycles: ['2025'],
+                  colNames: ['1990', '2000', '2010', '2015', '2020'],
+                  validateFns: [`validatorGreaterThanOrZero(holderOfManagementRights.unknown)`],
+                  calcFormula:
+                    'forestOwnership.public_ownership - (holderOfManagementRights.public_administration || 0) - (holderOfManagementRights.private_businesses || 0) - (holderOfManagementRights.communities || 0) -  (holderOfManagementRights.other || 0)',
+                },
+              },
+              {
+                idx: 6,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
                     labelKey: 'holderOfManagementRights.totalPublicOwnership',
                     linkToSection: 'forestOwnership',
                     className: 'fra-table__category-cell',
+                    migration: {
+                      variableNo: { '2025': 'a+b+c+d+e' },
+                    },
                   },
                   {
                     idx: 0,
@@ -6647,7 +6774,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 linkToSection: 'forestOwnership',
                 variableName: 'totalPublicOwnership',
                 migration: {
-                  colNames: ['1990', '2000', '2010', '2015'],
+                  colNames: ['1990', '2000', '2010', '2015', '2020'],
                   calcFormula: 'forestOwnership.public_ownership',
                 },
               },
