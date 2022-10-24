@@ -23,11 +23,11 @@ const User: React.FC = () => {
   const canEditUser = Users.getRolesAllowedToEdit({ user, countryIso }).length > 0
 
   useEffect(() => {
-    dispatch(UserManagementActions.getUserToEdit({ id: Number(userId) }))
+    dispatch(UserManagementActions.getUserToEdit({ id: Number(userId), countryIso }))
     return () => {
       dispatch(UserManagementActions.setUserToEdit(null))
     }
-  }, [dispatch, userId])
+  }, [countryIso, dispatch, userId])
 
   if (!userToEdit) return null
 
