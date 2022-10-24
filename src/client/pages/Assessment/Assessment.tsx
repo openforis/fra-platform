@@ -86,8 +86,10 @@ const Assessment: React.FC = () => {
       <CountrySelect />
       <div className={classNames('app-view', { 'navigation-on': navigationVisible })}>
         <Navigation />
+
         <Routes>
           <Route path={`${ClientRoutes.Assessment.Home.Root.path.relative}/*`} element={<AssessmentHome />} />
+
           <Route path={ClientRoutes.Assessment.DataDownload.path.relative} element={<AssessmentDataDownload />} />
           <Route
             path={ClientRoutes.Assessment.Section.path.relative}
@@ -101,6 +103,7 @@ const Assessment: React.FC = () => {
               </SectionWrapper>
             }
           />
+
           <Route path="*" element={<Navigate to="home" replace />} />
         </Routes>
       </div>
