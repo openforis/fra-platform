@@ -21,7 +21,7 @@ const User: React.FC = () => {
 
   const isAdministrator = Users.isAdministrator(user)
 
-  const canEditUser = isAdministrator || Users.getRolesAllowedToEdit({ user, countryIso }).length > 0
+  const canEditUser = Users.getRolesAllowedToEdit({ user, countryIso }).length > 0
 
   useEffect(() => {
     dispatch(UserManagementActions.getUserToEdit({ id: Number(userId) }))
