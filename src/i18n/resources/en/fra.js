@@ -7,6 +7,12 @@ module.exports = {
   forestArea100HaYear: 'Forest area (1000 ha)',
 
   // tables
+  disturbances: {
+    disturbances2025: 'Forest damage',
+    categoryHeader: 'Predominant cause',
+    areaUnitLabel2025: 'Forest area affected (1000 ha)',
+  },
+
   extentOfForest: {
     remainingLandArea: 'Remaining land area',
   },
@@ -15,6 +21,7 @@ module.exports = {
     primaryForest: '…of which primary forest',
     plantationForestIntroducedArea2025: '…of which introduced species',
   },
+
   forestOwnership: {
     ofWhichCommunities2025: '…of which owned by Indigenous Peoples and local communities',
     other2025: 'Other (specify in comments)',

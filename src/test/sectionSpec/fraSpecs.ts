@@ -6867,6 +6867,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'disturbances.categoryHeader',
                     className: 'fra-table__header-cell-left',
                     type: 'header',
+                    migration: {
+                      label: {
+                        '2020': { key: 'disturbances.categoryHeader' },
+                        '2025': { key: 'fra.disturbances.disturbances2025' },
+                      },
+                    },
                   },
                   {
                     idx: 1,
@@ -6875,6 +6881,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'disturbances.areaUnitLabel',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      label: {
+                        '2020': { key: 'disturbances.areaUnitLabel' },
+                        '2025': { key: 'fra.disturbances.areaUnitLabel2025' },
+                      },
+                    },
                   },
                 ],
                 type: 'header',
@@ -7476,6 +7488,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 mainCategory: true,
                 variableName: 'total',
                 migration: {
+                  cycles: ['2020'],
                   colNames: [
                     '2000',
                     '2001',
@@ -7594,6 +7607,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 linkToSection: 'extentOfForest',
                 variableName: 'totalForestArea',
                 migration: {
+                  cycles: ['2020'],
                   colNames: [
                     '2000',
                     '2001',
@@ -7667,6 +7681,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
     },
     dataExport: {
       included: true,
+    },
+    migration: {
+      label: {
+        '2020': { key: 'disturbances.disturbances' },
+        '2025': { key: 'fra.disturbances.disturbances2025' },
+      },
     },
   },
   areaAffectedByFire: {
