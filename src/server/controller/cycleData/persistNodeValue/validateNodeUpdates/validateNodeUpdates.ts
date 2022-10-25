@@ -25,7 +25,9 @@ export const validateNodeUpdates = async (props: Props, client: BaseProtocol): P
     const queueItem = queue.shift()
     const { variableName, tableName, colName, value: nodeValue } = queueItem
     // console.log('==== validating ', countryIso, tableName, variableName, colName)
-    const visited = visitedVariables.find((v) => v.tableName === tableName && v.variableName === variableName)
+    const visited = visitedVariables.find(
+      (v) => v.tableName === tableName && v.variableName === variableName && v.colName === colName
+    )
     // if (visited) {
     // throw new Error(
     //   `Circular dependency found ${tableName}.${variableName}->${variableCache.tableName}.${variableCache.variableName}`
