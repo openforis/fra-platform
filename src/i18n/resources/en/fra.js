@@ -7,6 +7,10 @@ module.exports = {
   forestArea100HaYear: 'Forest area (1000 ha)',
 
   // tables
+  areaAffectedByFire: {
+    areaUnitLabel2025: 'Area affected (1000 ha)',
+  },
+
   disturbances: {
     disturbances2025: 'Forest damage',
     categoryHeader: 'Predominant cause',

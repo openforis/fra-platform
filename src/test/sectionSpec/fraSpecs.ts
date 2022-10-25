@@ -7708,6 +7708,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'areaAffectedByFire.categoryHeader',
                     className: 'fra-table__header-cell-left',
                     type: 'header',
+                    migration: {
+                      label: {
+                        '2020': { key: 'fra.categoryHeader2020' },
+                        '2025': { key: 'fra.categoryHeader2025' },
+                      },
+                    },
                   },
                   {
                     idx: 1,
@@ -7716,6 +7722,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'areaAffectedByFire.areaUnitLabel',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      label: {
+                        '2020': { key: 'areaAffectedByFire.areaUnitLabel' },
+                        '2025': { key: 'fra.areaAffectedByFire.areaUnitLabel2025' },
+                      },
+                    },
                   },
                 ],
                 type: 'header',
