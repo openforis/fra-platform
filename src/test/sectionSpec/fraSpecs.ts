@@ -4113,10 +4113,10 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     migration: {
                       label: {
-                        '2025': { key: 'fra.growingStockComposition.growingStockPercent' },
+                        '2025': { key: 'fra.growingStockComposition.mostRecentYear' },
                       },
                       style: {
-                        '2025': { colSpan: 1, rowSpan: 1 },
+                        '2025': { colSpan: 2, rowSpan: 1 },
                       },
                     },
                   },
@@ -4132,7 +4132,20 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     migration: {
                       label: {
-                        '2025': { key: 'fra.growingStockComposition.mostRecentYear' },
+                        '2025': { key: 'fra.growingStockComposition.millionCubicMeter' },
+                      },
+                      style: {
+                        '2025': { colSpan: 1, rowSpan: 1 },
+                      },
+                    },
+                  },
+                  {
+                    idx: 1,
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: {
+                      label: {
+                        '2025': { key: 'fra.growingStockComposition.percentOfTotal' },
                       },
                       style: {
                         '2025': { colSpan: 1, rowSpan: 1 },
@@ -4154,7 +4167,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                         '2025': { key: 'growingStockComposition.nativeTreeSpecies' },
                       },
                       style: {
-                        '2025': { colSpan: 4, rowSpan: 1 },
+                        '2025': { colSpan: 5, rowSpan: 1 },
                       },
                     },
                   },
@@ -4176,7 +4189,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__category-cell',
                     migration: {
                       label: {
-                        '2025': { key: 'fra.growingStockComposition.rankedPercent', params: { idx: `${idx + 1}` } },
+                        '2025': { key: 'fra.growingStockComposition.ranked', params: { idx: `${idx + 1}` } },
                       },
                     },
                   },
@@ -4193,10 +4206,15 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 2,
                     type: 'decimal',
+                    colName: 'growingStockMillionCubicMeter',
+                  },
+                  {
+                    idx: 3,
+                    type: 'decimal',
                     colName: 'growingStockPercent',
                   },
                 ],
-                variableName: `nativeRankPercent${idx + 1}`,
+                variableName: `nativeRank${idx + 1}`,
                 migration: {
                   cycles: ['2025'],
                 },
@@ -4217,16 +4235,21 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 2,
                     type: 'decimal',
+                    colName: 'growingStockMillionCubicMeter',
+                  },
+                  {
+                    idx: 3,
+                    type: 'decimal',
                     colName: 'growingStockPercent',
                   },
                 ],
                 labelKey: 'growingStockComposition.remainingNative',
-                variableExport: 'remainingNativePercent',
-                variableName: 'remainingNativePercent',
+                variableExport: 'remainingNative',
+                variableName: 'remainingNative',
                 colSpan: 3,
                 mainCategory: true,
                 migration: {
-                  colNames: ['growingStockPercent'],
+                  colNames: ['growingStockMillionCubicMeter', 'growingStockPercent'],
                 },
               },
               {
@@ -4245,17 +4268,27 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 2,
                     type: 'calculated',
+                    colName: 'growingStockMillionCubicMeter',
+                  },
+                  {
+                    idx: 3,
+                    type: 'calculated',
                     colName: 'growingStockPercent',
                   },
                 ],
                 labelKey: 'growingStockComposition.totalNative',
                 colSpan: 3,
                 mainCategory: true,
-                variableName: 'totalNativePercent',
+                variableName: 'totalNative',
                 migration: {
-                  calcFormula:
-                    '(growingStockComposition2025.nativeRankPercent1 || 0) + (growingStockComposition2025.nativeRankPercent2 || 0) + (growingStockComposition2025.nativeRankPercent3 || 0) + (growingStockComposition2025.nativeRankPercent4 || 0) + (growingStockComposition2025.nativeRankPercent5 || 0) + (growingStockComposition2025.nativeRankPercent6 || 0) + (growingStockComposition2025.nativeRankPercent7 || 0) + (growingStockComposition2025.nativeRankPercent8 || 0) + (growingStockComposition2025.nativeRankPercent9 || 0) + (growingStockComposition2025.nativeRankPercent10 || 0) + (growingStockComposition2025.remainingNativePercent || 0)',
-                  colNames: ['growingStockPercent'],
+                  calcFormula: `${[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                    .map((idx) => `growingStockComposition2025.nativeRank${idx}`)
+                    .join(` || `)} || growingStockComposition2025.remainingNative
+                  ? ${[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                    .map((idx) => `(growingStockComposition2025.nativeRank${idx} || 0)`)
+                    .join(' + ')} + (growingStockComposition2025.remainingNative || 0)
+                  : null`,
+                  colNames: ['growingStockMillionCubicMeter', 'growingStockPercent'],
                 },
               },
               {
@@ -4268,7 +4301,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell-left',
                     migration: {
                       label: { '2025': { key: 'growingStockComposition.introducedTreeSpecies' } },
-                      style: { '2025': { colSpan: 4, rowSpan: 1 } },
+                      style: { '2025': { colSpan: 5, rowSpan: 1 } },
                     },
                   },
                 ],
@@ -4288,7 +4321,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__category-cell',
                     migration: {
                       label: {
-                        '2025': { key: 'fra.growingStockComposition.rankedPercent', params: { idx: `${idx + 1}` } },
+                        '2025': { key: 'fra.growingStockComposition.ranked', params: { idx: `${idx + 1}` } },
                       },
                     },
                   },
@@ -4305,10 +4338,15 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 2,
                     type: 'decimal',
+                    colName: 'growingStockMillionCubicMeter',
+                  },
+                  {
+                    idx: 3,
+                    type: 'decimal',
                     colName: 'growingStockPercent',
                   },
                 ],
-                variableName: `introducedRankPercent${idx + 1}`,
+                variableName: `introducedRank${idx + 1}`,
                 migration: {
                   cycles: ['2025'],
                 },
@@ -4329,14 +4367,19 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 2,
                     type: 'decimal',
+                    colName: 'growingStockMillionCubicMeter',
+                  },
+                  {
+                    idx: 3,
+                    type: 'decimal',
                     colName: 'growingStockPercent',
                   },
                 ],
-                variableName: 'remainingIntroducedPercent',
+                variableName: 'remainingIntroduced',
                 colSpan: 3,
                 mainCategory: true,
                 migration: {
-                  colNames: ['growingStockPercent'],
+                  colNames: ['growingStockMillionCubicMeter', 'growingStockPercent'],
                 },
               },
               {
@@ -4355,15 +4398,25 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 2,
                     type: 'calculated',
+                    colName: 'growingStockMillionCubicMeter',
+                  },
+                  {
+                    idx: 3,
+                    type: 'calculated',
                     colName: 'growingStockPercent',
                   },
                 ],
                 mainCategory: true,
-                variableName: 'totalIntroducedPercent',
+                variableName: 'totalIntroduced',
                 migration: {
-                  calcFormula:
-                    '(growingStockComposition2025.introducedRankPercent1 || 0) + (growingStockComposition2025.introducedRankPercent2 || 0) + (growingStockComposition2025.introducedRankPercent3 || 0) + (growingStockComposition2025.introducedRankPercent4 || 0) + (growingStockComposition2025.introducedRankPercent5 || 0) + (growingStockComposition2025.introducedRankPercent6 || 0) + (growingStockComposition2025.introducedRankPercent7 || 0) + (growingStockComposition2025.introducedRankPercent8 || 0) + (growingStockComposition2025.introducedRankPercent9 || 0) + (growingStockComposition2025.introducedRankPercent10 || 0) + (growingStockComposition2025.remainingIntroducedPercent || 0)',
-                  colNames: ['growingStockPercent'],
+                  calcFormula: `(${[1, 2, 3, 4, 5]
+                    .map((idx) => `growingStockComposition2025.introducedRank${idx}`)
+                    .join(` || `)} || growingStockComposition2025.remainingIntroduced)
+                  ? ${[1, 2, 3, 4, 5]
+                    .map((idx) => `(growingStockComposition2025.introducedRank${idx} || 0)`)
+                    .join(' + ')} + (growingStockComposition2025.remainingIntroduced || 0)
+                  : null`,
+                  colNames: ['growingStockMillionCubicMeter', 'growingStockPercent'],
                 },
               },
             ],

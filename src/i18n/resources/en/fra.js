@@ -42,10 +42,12 @@ module.exports = {
   growingStock: {
     totalForest: 'Total Forest',
   },
+
   growingStockComposition: {
-    growingStockPercent: 'Growing stock in forest (% of total)',
-    mostRecentYear: 'Most recent year',
-    rankedPercent: '#{{idx}} Ranked % of total GS',
+    millionCubicMeter: 'Million m³',
+    mostRecentYear: 'Most recent year:',
+    percentOfTotal: '% of total',
+    ranked: '#{{idx}} Ranked',
     totalIntroducedPercent: 'TOTAL % of introduced tree species',
     totalNativePercent: 'TOTAL % of native tree species',
   },
