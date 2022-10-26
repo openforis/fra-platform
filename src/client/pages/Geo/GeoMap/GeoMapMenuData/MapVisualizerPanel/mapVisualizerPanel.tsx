@@ -101,9 +101,8 @@ const MapVisualizerPanel: React.FC = () => {
       <p>Forest Layers</p>
       <div className="geo-map-menu-data-visualizer-panel-layers">
         {layers.map((layer, index) => (
-          <div>
+          <div key={layer.key}>
             <GeoMapMenuListElement
-              key={layer.key}
               title={layer.title}
               opacity={layer.opacity}
               tabIndex={index * -1 - 1}
