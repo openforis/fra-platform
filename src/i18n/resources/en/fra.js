@@ -39,6 +39,9 @@ module.exports = {
     total2025: 'Total',
   },
 
+  growingStock: {
+    totalForest: 'Total Forest',
+  },
   growingStockComposition: {
     growingStockPercent: 'Growing stock in forest (% of total)',
     mostRecentYear: 'Most recent year',

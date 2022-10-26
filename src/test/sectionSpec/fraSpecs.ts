@@ -2174,6 +2174,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'growingStock.categoryHeader',
                     className: 'fra-table__header-cell-left',
                     type: 'header',
+                    migration: {
+                      label: {
+                        '2020': { key: 'fra.categoryHeader2020' },
+                        '2025': { key: 'fra.categoryHeader2025' },
+                      },
+                    },
                   },
                   {
                     idx: 1,
@@ -2421,6 +2427,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     colSpan: 1,
                     labelKey: 'growingStock.forest',
                     className: 'fra-table__category-cell',
+                    migration: {
+                      label: {
+                        '2020': { key: 'growingStock.forest' },
+                        '2025': { key: 'fra.growingStock.totalForest' },
+                      },
+                    },
                   },
                   ...fraYears.map(({ colName, cycles }, idx) => ({
                     idx,
@@ -2514,6 +2526,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'growingStock.categoryHeader',
                     className: 'fra-table__header-cell-left',
                     type: 'header',
+                    migration: {
+                      label: {
+                        '2020': { key: 'fra.categoryHeader2020' },
+                        '2025': { key: 'fra.categoryHeader2025' },
+                      },
+                    },
                   },
                   {
                     idx: 1,
@@ -2774,6 +2792,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     colSpan: 1,
                     labelKey: 'growingStock.forest',
                     className: 'fra-table__category-cell',
+                    migration: {
+                      label: {
+                        '2020': { key: 'growingStock.forest' },
+                        '2025': { key: 'fra.growingStock.totalForest' },
+                      },
+                    },
                   },
                   ...fraYears.map(({ colName, cycles }, idx) => ({
                     idx,
