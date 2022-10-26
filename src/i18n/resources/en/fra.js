@@ -25,6 +25,10 @@ module.exports = {
     remainingLandArea: 'Remaining land area',
   },
 
+  forestAreaWithinProtectedAreas: {
+    forestAreaWithLongTermManagementPlan2025: 'Forest area with long-term management plan',
+  },
+
   forestCharacteristics: {
     primaryForest: '…of which primary forest',
     plantationForestIntroducedArea2025: '…of which introduced species',
