@@ -11,7 +11,7 @@ const Admin: React.FC = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (Users.isAdministrator(user)) navigate(ClientRoutes.Root.path, { replace: true })
+    if (!Users.isAdministrator(user)) navigate(ClientRoutes.Root.path, { replace: true })
   }, [navigate, user])
 
   if (!user) return null
