@@ -1341,6 +1341,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'forestAreaChange.forestExpansion',
                     variableNo: 'a',
                     className: 'fra-table__category-cell',
+                    migration: {
+                      variableNo: {
+                        '2020': 'a',
+                        '2025': 'a=a1+a2',
+                      },
+                    },
                   },
                   {
                     idx: 0,
@@ -1376,6 +1382,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     colSpan: 1,
                     labelKey: 'forestAreaChange.ofWhichAfforestation',
                     className: 'fra-table__subcategory-cell',
+                    migration: {
+                      variableNo: { '2025': 'a1' },
+                    },
                   },
                   {
                     idx: 0,
@@ -1414,6 +1423,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     colSpan: 1,
                     labelKey: 'forestAreaChange.ofWhichNaturalExpansion',
                     className: 'fra-table__subcategory-cell',
+                    migration: {
+                      variableNo: { '2025': 'a2' },
+                    },
                   },
                   {
                     idx: 0,
