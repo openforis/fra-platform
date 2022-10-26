@@ -10,7 +10,7 @@ interface Props {
   onCheckboxClick?: () => void
 }
 
-const GeoMenuItem: React.FC<Props> = ({ title, tabIndex, checked, onCheckboxClick }) => {
+const GeoMenuItem: React.FC<Props> = ({ title, tabIndex, checked, onCheckboxClick, children }) => {
   return (
     <div>
       <div className="geo-map-menu-list-element">
@@ -30,6 +30,7 @@ const GeoMenuItem: React.FC<Props> = ({ title, tabIndex, checked, onCheckboxClic
           <p className="geo-map-menu-list-element-title">{title}</p>
         )}
       </div>
+      <div className="geo-map-menu-list-element-bottom">{children}</div>
     </div>
   )
 }

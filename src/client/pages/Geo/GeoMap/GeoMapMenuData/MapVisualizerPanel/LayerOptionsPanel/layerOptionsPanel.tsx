@@ -1,39 +1,39 @@
 import './layerOptionsPanel.scss'
 import React, { useCallback, useState } from 'react'
 
-const LayerOptionsPanel: React.FC = () => {
-  const [sliderValue, setSliderValue] = useState(30)
+interface Props {
+  forestLayerOpacity: number
+  opacityChange?: (layerKey: string, opacity: number) => void
+  layerKey: string
+}
 
-  const handleChange = useCallback((event: { target: { value: number } }) => {
-    setSliderValue(event.target.value as number)
-  }, [])
+const LayerOptionsPanel: React.FC<Props> = ({ forestLayerOpacity, opacityChange, layerKey }) => {
+  const thisLayerKey = layerKey
+  const [sliderValue, setSliderValue] = useState(forestLayerOpacity)
+
+  const handleChange = useCallback(
+    (event) => {
+      const newValue = Math.round(event.target.value / 10) / 10
+      setSliderValue(newValue)
+      opacityChange(thisLayerKey, newValue)
+    },
+    [opacityChange, thisLayerKey]
+  )
 
   return (
-    <div className="geo-map-menu-mosaic-satellite-panel">
+    <div className="geo-map-menu-forest-layer-options-panel">
       <div>
-        <p>Start Date</p>
         <div>
-          <input type="date" value="2022-01-01" />
+          <input type="range" min="0" max="100" value={sliderValue * 100} onChange={handleChange} />
+          {`${sliderValue * 100}%`}
         </div>
       </div>
-      <div>
-        <p>End Date</p>
-        <div>
-          <input type="date" value="2022-03-31" />
-        </div>
-      </div>
-      <div>
-        <p>Max Cloud Coverage</p>
-        <div>
-          <div>{`${sliderValue}%`}</div>
-          <input type="range" min="0" max="100" value={sliderValue} onChange={handleChange} />
-        </div>
-      </div>
-      <button type="button" className="btn btn-primary geo-map-menu-mosaic-btn-apply">
-        Apply
-      </button>
     </div>
   )
+}
+
+LayerOptionsPanel.defaultProps = {
+  opacityChange: null,
 }
 
 export default LayerOptionsPanel

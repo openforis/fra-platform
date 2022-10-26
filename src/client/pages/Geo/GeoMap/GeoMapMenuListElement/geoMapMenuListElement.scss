@@ -6,6 +6,13 @@
   align-items: center;
   font-weight: bold;
   padding: 6px 0 4px;
+  
+}
+
+.geo-map-menu-list-element-bottom {
+  flex-basis: 100%;
+  flex-wrap: wrap;
+  width: 100%;
   border-bottom: 1px solid $ui-border;
 }
 
