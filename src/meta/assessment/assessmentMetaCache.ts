@@ -3,7 +3,6 @@ export type VariablesByTableCache = Record<string, Record<string, VariableCache>
 export interface VariableCache {
   tableName: string
   variableName: string
-  colName?: string
 }
 
 export type DependencyCache = {
