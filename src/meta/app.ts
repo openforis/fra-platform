@@ -44,7 +44,6 @@ export const ClientRoutes = {
 
   Admin: {
     Root: newInstance<void>('admin'),
-    root: { path: '/admin/*' },
   },
 
   Assessment: {
