@@ -3,7 +3,7 @@
 .geo-map-menu-forest-layer-options-panel {
   display: flex;
   flex-direction: column;
-  padding: 0px 25px 30px 25px;
+  padding: 0px 25px 0px 25px;
 
   > div {
     flex-direction: row;
@@ -26,7 +26,8 @@
 
       > input {
         width: 200px;
-        margin: 0 0 0 auto;
+        vertical-align: middle;
+        margin: 0 10px 0 auto;
       }
     }
   }
