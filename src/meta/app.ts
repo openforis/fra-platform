@@ -39,7 +39,7 @@ export enum AssessmentHomeRouteNames {
 
 export enum AdminRouteNames {
   userManagement = 'userManagement',
-  dataExport = 'dataExport',
+  // dataExport = 'dataExport',
 }
 
 const assessmentParts = [':countryIso', 'assessments', ':assessmentName', ':cycleName']
