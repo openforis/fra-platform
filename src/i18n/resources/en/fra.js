@@ -11,6 +11,10 @@ module.exports = {
     areaAffected: 'Area affected (1000 ha)',
   },
 
+  climaticDomain: {
+    percentOfForestArea: '% of forest area',
+  },
+
   disturbances: {
     forestDamage: 'Forest damage',
     predominantCause: 'Predominant cause',

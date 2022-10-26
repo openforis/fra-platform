@@ -285,6 +285,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'climaticDomain.percentOfForestArea2015',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      label: {
+                        '2020': { key: 'climaticDomain.percentOfForestArea2015' },
+                        '2025': { key: 'fra.climaticDomain.percentOfForestArea' },
+                      },
+                    },
                   },
                   {
                     idx: 2,
