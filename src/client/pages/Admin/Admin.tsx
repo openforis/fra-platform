@@ -21,22 +21,22 @@ const Admin: React.FC = () => {
     <div className="app-view__content">
       <div className="landing__page-header">
         <h1 className="landing__page-title title">{t('admin.admin')}</h1>
+      </div>
 
-        <div className="landing__page-menu">
-          {sections.map(({ name, labelKey }) => (
-            <NavLink
-              key={name}
-              to={name}
-              className={(navData) =>
-                classNames('btn landing__page-menu-button', {
-                  disabled: navData.isActive,
-                })
-              }
-            >
-              {t(labelKey)}
-            </NavLink>
-          ))}
-        </div>
+      <div className="landing__page-menu">
+        {sections.map(({ name, labelKey }) => (
+          <NavLink
+            key={name}
+            to={name}
+            className={(navData) =>
+              classNames('btn landing__page-menu-button', {
+                disabled: navData.isActive,
+              })
+            }
+          >
+            {t(labelKey)}
+          </NavLink>
+        ))}
       </div>
 
       <Routes>
