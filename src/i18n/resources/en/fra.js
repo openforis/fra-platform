@@ -65,7 +65,7 @@ module.exports = {
   specificForestCategories: {
     specificForestCategories2025: 'Specific forest categories',
     mangroves2025: `Mangroves\u00B9`,
-    mangrovesDisclaimer: `\u00B9Note the area of mangroves not only includes Forest but also Other wooded land`,
+    mangrovesDisclaimer: `\u00B9Includes both Forest and Other wooded land`,
   },
 
   sustainableDevelopment: {
