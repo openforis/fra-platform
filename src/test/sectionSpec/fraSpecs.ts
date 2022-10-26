@@ -572,6 +572,10 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__category-cell',
                     migration: {
                       variableNo: { '2025': 'b1' },
+                      label: {
+                        '2020': { key: 'forestCharacteristics.plantationForestArea' },
+                        '2025': { key: 'fra.forestCharacteristics.ofWhichPlantationForest' },
+                      },
                     },
                   },
                   ...fraYears.map(({ colName, cycles }, idx) => ({
@@ -591,6 +595,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 chartProps: {
                   labelKey: 'forestCharacteristics.plantationForestArea',
                   color: '#bf00af',
+                },
+                migration: {
+                  categoryLevel: 1,
                 },
               },
               {
@@ -623,7 +630,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   validateFns: [
                     `validatorPlantationForestIntroduced(forestCharacteristics.plantationForestArea, forestCharacteristics.plantationForestIntroducedArea)`,
                   ],
-                  categoryLevel: 1,
+                  categoryLevel: 2,
                 },
               },
               {
@@ -638,6 +645,10 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__category-cell',
                     migration: {
                       variableNo: { '2025': 'b2' },
+                      label: {
+                        '2020': { key: 'forestCharacteristics.otherPlantedForestArea' },
+                        '2025': { key: 'fra.forestCharacteristics.ofWhichOtherPlantedForest' },
+                      },
                     },
                   },
                   ...fraYears.map(({ colName, cycles }, idx) => ({
@@ -657,6 +668,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 chartProps: {
                   labelKey: 'forestCharacteristics.otherPlantedForestArea',
                   color: '#f58833',
+                },
+                migration: {
+                  categoryLevel: 1,
                 },
               },
               {
@@ -686,8 +700,8 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableNo: 'a+b',
                 variableName: 'totalForestArea', // before it was total
                 migration: {
-                  calcFormula: `(forestCharacteristics.naturalForestArea || forestCharacteristics.plantationForestArea || forestCharacteristics.plantationForestIntroducedArea || forestCharacteristics.otherPlantedForestArea)
-      ? (forestCharacteristics.naturalForestArea || 0) + (forestCharacteristics.plantationForestArea || 0) + (forestCharacteristics.plantationForestIntroducedArea || 0) + (forestCharacteristics.otherPlantedForestArea || 0)
+                  calcFormula: `(forestCharacteristics.naturalForestArea || forestCharacteristics.plantedForest)
+      ? (forestCharacteristics.naturalForestArea || 0) + (forestCharacteristics.plantedForest || 0)
       : null`,
                   validateFns: [
                     `validatorTotalForest(extentOfForest.forestArea, forestCharacteristics.totalForestArea)`,

@@ -26,6 +26,8 @@ module.exports = {
   },
 
   forestCharacteristics: {
+    ofWhichOtherPlantedForest: '$t(growingStock.otherPlantedForest)',
+    ofWhichPlantationForest: '$t(growingStock.plantationForest)',
     primaryForest: '…of which primary forest',
     plantationForestIntroducedArea2025: '…of which introduced species',
   },
