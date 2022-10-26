@@ -861,6 +861,33 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   categoryLevel: 1,
                 },
               })),
+              {
+                idx: 5,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: `fra.primaryForestByClimaticDomain.totalPrimaryForest`,
+                    className: 'fra-table__subcategory-cell',
+                  },
+                  ...reportYears.map((year, idx) => ({
+                    idx,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    type: 'calculated',
+                    colName: `${year}`,
+                  })),
+                ],
+                variableName: 'totalPrimaryForest',
+                migration: {
+                  categoryLevel: 1,
+                  calcFormula: `(primaryForestByClimaticDomain.primaryForestBoreal || primaryForestByClimaticDomain.primaryForestTemperate || primaryForestByClimaticDomain.primaryForestSubTropical || primaryForestByClimaticDomain.primaryForestTropical)
+                  ? (primaryForestByClimaticDomain.primaryForestBoreal || 0) + (primaryForestByClimaticDomain.primaryForestTemperate || 0) + (primaryForestByClimaticDomain.primaryForestSubTropical || 0) + (primaryForestByClimaticDomain.primaryForestTropical || 0)
+                  : null`,
+                },
+              },
             ],
             migration: {
               cycles: ['2025'],

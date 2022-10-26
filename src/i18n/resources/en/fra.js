@@ -59,6 +59,7 @@ module.exports = {
     primaryForestTemperate: '…of which temperate primary forest',
     primaryForestTropical: '…of which tropical primary forest',
     primaryForestSubTropical: '…of which sub-tropical primary forest',
+    totalPrimaryForest: 'Total',
   },
 
   specificForestCategories: {
