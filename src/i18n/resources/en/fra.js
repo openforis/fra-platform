@@ -7,12 +7,30 @@ module.exports = {
   forestArea100HaYear: 'Forest area (1000 ha)',
 
   // tables
+  areaAffectedByFire: {
+    areaAffected: 'Area affected (1000 ha)',
+  },
+
+  disturbances: {
+    forestDamage: 'Forest damage',
+    predominantCause: 'Predominant cause',
+    forestAreaAffected: 'Forest area affected (1000 ha)',
+  },
+
   extentOfForest: {
     remainingLandArea: 'Remaining land area',
   },
 
   forestCharacteristics: {
     primaryForest: '…of which primary forest',
+    plantationForestIntroducedArea2025: '…of which introduced species',
+  },
+
+  forestOwnership: {
+    ofWhichCommunities2025: '…of which owned by Indigenous Peoples and local communities',
+    other2025: 'Other (specify in comments)',
+    unknown2025: 'Unknown',
+    total2025: 'Total',
   },
 
   growingStockComposition: {
@@ -21,6 +39,12 @@ module.exports = {
     rankedPercent: '#{{idx}} Ranked % of total GS',
     totalIntroducedPercent: 'TOTAL % of introduced tree species',
     totalNativePercent: 'TOTAL % of native tree species',
+  },
+
+  holderOfManagementRights: {
+    communities2025: 'Indigenous Peoples and local communities',
+    other2025: 'Other (specify in comments)',
+    unknown2025: 'Unknown',
   },
 
   primaryForestByClimaticDomain: {
@@ -35,5 +59,10 @@ module.exports = {
     specificForestCategories2025: 'Specific forest categories',
     mangroves2025: `Mangroves\u00B9`,
     mangrovesDisclaimer: `\u00B9Note the area of mangroves not only includes Forest but also Other wooded land`,
+  },
+
+  sustainableDevelopment: {
+    sdgIndicator1_2025: 'SDG Indicator 15.1.1 Forest area as proportion of total land area',
+    forestAreaProportionLandArea: 'Forest area as proportion of total land area',
   },
 }

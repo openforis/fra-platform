@@ -13,7 +13,7 @@ import {
 import { UserManagementState } from './stateType'
 
 const initialState: UserManagementState = {
-  userToEdit: null,
+  user: null,
   users: [],
 }
 
@@ -22,7 +22,7 @@ export const userManagementSlice = createSlice({
   initialState,
   reducers: {
     setUserToEdit: (state, { payload }) => {
-      state.userToEdit = payload
+      state.user = payload
     },
   },
   extraReducers: (builder) => {
@@ -40,16 +40,16 @@ export const userManagementSlice = createSlice({
     })
 
     builder.addCase(getUserToEdit.fulfilled, (state, { payload }) => {
-      state.userToEdit = payload
+      state.user = payload
     })
 
     builder.addCase(updateSectionAuth.fulfilled, (state, { payload }) => {
-      state.userToEdit.roles[0] = payload
+      state.user.roles[0] = payload
     })
 
     builder.addCase(updateUser.fulfilled, (state, { meta }) => {
       const { user } = meta.arg
-      state.userToEdit = { ...state.userToEdit, ...user }
+      state.user = { ...state.user, ...user }
       const i = state.users.findIndex((u) => u.id === user.id)
       if (i !== -1) state.users[i] = { ...state.users[i], ...user }
     })

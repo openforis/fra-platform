@@ -7,7 +7,7 @@ import { CollaboratorEditPropertyType, CollaboratorProps, RoleName, UserRole } f
 
 import { useAppDispatch } from '@client/store'
 import { useAssessmentSections, useCycle } from '@client/store/assessment'
-import { UserManagementActions } from '@client/store/userManagement'
+import { UserManagementActions } from '@client/store/ui/userManagement'
 import { useOnUpdate } from '@client/hooks'
 import ButtonCheckBox from '@client/components/ButtonCheckBox'
 import { Modal, ModalBody, ModalClose, ModalHeader } from '@client/components/Modal'
@@ -72,6 +72,7 @@ const CollaboratorAccessModal: React.FC<Props> = (props) => {
         <div className="form-container permissions-header-container permissions-container">
           {permissionTypes.map((permission) => {
             const checked =
+              selectedSections &&
               typeof selectedSections !== 'string' &&
               Object.values(selectedSections).filter((p) => p[permission]).length === Object.keys(options).length
             return (
@@ -91,6 +92,7 @@ const CollaboratorAccessModal: React.FC<Props> = (props) => {
             <div key={permission}>
               {optionEntries.map(([section, label]) => {
                 const checked =
+                  selectedSections &&
                   typeof selectedSections !== 'string' &&
                   selectedSections[section] &&
                   selectedSections[section][permission] === true

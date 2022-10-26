@@ -13,6 +13,7 @@ import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import MarkdownEditor from '@client/components/MarkdownEditor'
 import MarkdownPreview from '@client/components/MarkdownPreview'
+import DataSources from '@client/pages/AssessmentSection/Descriptions/Description/DataSources/DataSources'
 
 import Title from './Title'
 import Toggle from './Toggle'
@@ -36,12 +37,12 @@ const Description: React.FC<Props> = (props) => {
 
   const user = useUser()
   const { print } = useIsPrint()
-  const value = useDescription({ name, sectionName, template })
+  const description = useDescription({ name, sectionName, template })
   const isDataLocked = useIsDataLocked()
   const [open, setOpen] = useState(false)
 
   const onChange = useCallback(
-    (content: string) => {
+    (value: CommentableDescriptionValue) => {
       dispatch(
         AssessmentSectionActions.updateDescription({
           countryIso,
@@ -49,15 +50,15 @@ const Description: React.FC<Props> = (props) => {
           cycleName: cycle.name,
           sectionName,
           name,
-          value: { ...value, text: content },
+          value,
         })
       )
     },
-    [value, assessment.props.name, countryIso, cycle.name, dispatch, name, sectionName]
+    [assessment.props.name, countryIso, cycle.name, dispatch, name, sectionName]
   )
 
-  const error = user && showAlertEmptyContent && !value
-  let markdown = value.text || template.text
+  const error = user && showAlertEmptyContent && !description
+  let markdown = description.text || template.text
   if (print) markdown = markdown?.split('<p>&nbsp;</p>').join('') // Hack to replace empty lines in print view
 
   useEffect(() => {
@@ -78,13 +79,18 @@ const Description: React.FC<Props> = (props) => {
     }
   }, [isDataLocked, open])
 
+  const isDataSources = name === 'dataSources'
+
   return (
     <div className="fra-description__header-row">
       <Title error={error} title={title} />
       {!disabled && <Toggle setOpen={setOpen} open={open} />}
+      {isDataSources && (
+        <DataSources description={description} onChange={onChange} disabled={!open} sectionName={sectionName} />
+      )}
       {open && (
         <div className="fra-description__preview">
-          <MarkdownEditor value={markdown} onChange={onChange} />
+          <MarkdownEditor value={markdown} onChange={(content) => onChange({ ...description, text: content })} />
         </div>
       )}
       {!open && markdown && (

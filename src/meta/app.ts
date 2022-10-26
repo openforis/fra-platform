@@ -44,7 +44,6 @@ export const ClientRoutes = {
 
   Admin: {
     Root: newInstance<void>('admin'),
-    root: { path: '/admin/*' },
   },
 
   Assessment: {
@@ -56,6 +55,9 @@ export const ClientRoutes = {
         'home',
         ':sectionName'
       ),
+      Users: {
+        User: newInstance<AssessmentParams>(...assessmentParts, 'home', 'users/:id'),
+      },
     },
     Section: newInstance<AssessmentParams & { sectionName: string }>(...assessmentParts, ':sectionName'),
     OriginalDataPoint: {
@@ -79,7 +81,7 @@ export const ClientRoutes = {
     Root: newInstance(':countryIso', 'geo'),
   },
 
-  User: {
-    Root: newInstance<{ id: number }>('user', ':id'),
+  Users: {
+    User: newInstance<{ id: number }>('users', ':id'),
   },
 }

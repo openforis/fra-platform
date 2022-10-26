@@ -37,17 +37,17 @@ const tablesNewColumns: Record<string, Array<string>> = {
   // 'graduationOfStudents',
   // 'nonWoodForestProductsRemovals',
   // 'nonWoodForestProductsRemovalsCurrency',
-  sustainableDevelopment15_1_1: ['2005', '2021', '2022', '2023', '2024'],
+  // sustainableDevelopment15_1_1: ['2005', '2021', '2022', '2023', '2024'],
   // 'sustainableDevelopmentAgencyIndicator':['2020-2025','2005-2015','2015-2025'],
-  sustainableDevelopment15_2_1_1: ['2020-2025', '2005-2015', '2015-2025'],
+  // sustainableDevelopment15_2_1_1: ['2020-2025', '2005-2015', '2015-2025'],
   // 'sustainableDevelopmentAgencySubIndicator1',
-  sustainableDevelopment15_2_1_2: ['2021', '2022', '2023', '2024'],
+  // sustainableDevelopment15_2_1_2: ['2021', '2022', '2023', '2024'],
   // 'sustainableDevelopmentAgencySubIndicator2',
-  sustainableDevelopment15_2_1_3: ['2021', '2022', '2023', '2024'],
+  // sustainableDevelopment15_2_1_3: ['2021', '2022', '2023', '2024'],
   // 'sustainableDevelopmentAgencySubIndicator3',
-  sustainableDevelopment15_2_1_4: ['2021', '2022', '2023', '2024'],
+  // sustainableDevelopment15_2_1_4: ['2021', '2022', '2023', '2024'],
   // 'sustainableDevelopmentAgencySubIndicator4',
-  sustainableDevelopment15_2_1_5: ['2023', '2024', '2025'],
+  // sustainableDevelopment15_2_1_5: ['2023', '2024', '2025'],
 }
 
 export const add2025Columns = async (props: Props, client: BaseProtocol): Promise<void> => {

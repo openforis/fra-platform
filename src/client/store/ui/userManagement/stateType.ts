@@ -1,6 +1,6 @@
 import { User } from '@meta/user'
 
 export interface UserManagementState {
-  userToEdit: User | null
+  user?: User
   users: Array<User>
 }
