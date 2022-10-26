@@ -1,4 +1,4 @@
-import { NodeValue, Row, VariableCache } from '@meta/assessment'
+import { NodeValue, Row } from '@meta/assessment'
 import { NodeUpdate, NodeUpdates } from '@meta/data'
 
 import { BaseProtocol } from '@server/db'
@@ -18,14 +18,16 @@ export const validateNodeUpdates = async (props: Props, client: BaseProtocol): P
   const { assessment, cycle, countryIso, nodes } = nodeUpdates
 
   const queue: Array<QueueItem> = [...nodes]
-  const visitedVariables: Array<VariableCache> = []
+  const visitedVariables: Array<QueueItem> = []
   const nodeUpdatesResult: NodeUpdates = { assessment, cycle, countryIso, nodes: [] }
 
   while (queue.length !== 0) {
     const queueItem = queue.shift()
     const { variableName, tableName, colName, value: nodeValue } = queueItem
     // console.log('==== validating ', countryIso, tableName, variableName, colName)
-    const visited = visitedVariables.find((v) => v.tableName === tableName && v.variableName === variableName)
+    const visited = visitedVariables.find(
+      (v) => v.tableName === tableName && v.variableName === variableName && v.colName === colName
+    )
     // if (visited) {
     // throw new Error(
     //   `Circular dependency found ${tableName}.${variableName}->${variableCache.tableName}.${variableCache.variableName}`
