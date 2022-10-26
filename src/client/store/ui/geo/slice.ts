@@ -24,9 +24,6 @@ export const geoSlice = createSlice({
     updateSelectedPanel: (state, { payload }) => {
       state.selectedPanel = payload
     },
-    updateForestSource: (state, { payload }) => {
-      state.selectedForestSource = payload
-    },
     updateForestOptions: (state, { payload }) => {
       state.forestOptions = payload
     },
@@ -41,7 +38,6 @@ export const geoSlice = createSlice({
 export const GeoActions = {
   ...geoSlice.actions,
   postMosaicOptions,
-  getForestOptions,
 }
 
 export default geoSlice.reducer as Reducer<GeoState>

@@ -1,5 +1,5 @@
 export type { Layer } from './forest'
-export type { ForestOptions, ForestSources } from './forest'
+export type { ForestOptions } from './forest'
 export { agreementPalette, ForestSource, precalForestAgreementSources, sourcesMetadata } from './forest'
 export type { MosaicOptions, MosaicSource } from './mosaic'
 export type { MapPanel } from './ui'

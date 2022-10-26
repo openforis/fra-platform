@@ -5,7 +5,7 @@ import React, { useCallback } from 'react'
 import ee from '@google/earthengine'
 import axios from 'axios'
 
-import { ForestSources, Layer } from '@meta/geo'
+import { ForestSource, Layer } from '@meta/geo'
 
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useForestSourceOptions } from '@client/store/ui/geo'
@@ -65,12 +65,12 @@ const MapVisualizerPanel: React.FC = () => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const onCheckboxClick = useCallback(
-    async (apiUri: string, mapLayerKey: string, source: ForestSources) => {
+    async (apiUri: string, mapLayerKey: string, source: ForestSource) => {
       const forestOptionsCopy = { ...forestOptions }
       const sources = [...forestOptions.sources]
 
       if (checkRemoveOverlayLayer(mapLayerKey, map.overlayMapTypes)) {
-        forestOptionsCopy.sources = sources.filter((el: ForestSources) => el !== source)
+        forestOptionsCopy.sources = sources.filter((el: ForestSource) => el !== source)
         if (!forestOptionsCopy.sources.includes(source)) {
           checkRemoveOverlayLayer(mapLayerKey, map.overlayMapTypes, true)
         }
@@ -107,8 +107,8 @@ const MapVisualizerPanel: React.FC = () => {
               title={layer.title}
               opacity={layer.opacity}
               tabIndex={index * -1 - 1}
-              checked={forestOptions.sources.includes(layer.key as ForestSources)}
-              onCheckboxClick={() => onCheckboxClick(layer.apiUri, layer.key, layer.key as ForestSources)}
+              checked={forestOptions.sources.includes(layer.key as ForestSource)}
+              onCheckboxClick={() => onCheckboxClick(layer.apiUri, layer.key, layer.key as ForestSource)}
             >
               <LayerOptionsPanel
                 forestLayerOpacity={layer.opacity}

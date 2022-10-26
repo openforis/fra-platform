@@ -1,18 +1,6 @@
 export interface ForestOptions {
-  sources: ForestSources[]
+  sources: ForestSource[]
 }
-
-export type ForestSources =
-  | null
-  | 'JAXA'
-  | 'TandemX'
-  | 'GlobeLand'
-  | 'ESAGlobCover'
-  | 'Copernicus'
-  | 'ESRI'
-  | 'ESAWorldCover'
-  | 'Hansen'
-  | 'MODIS'
 
 export enum ForestSource {
   JAXA = 'JAXA',
