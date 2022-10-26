@@ -6870,7 +6870,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     migration: {
                       label: {
                         '2020': { key: 'disturbances.categoryHeader' },
-                        '2025': { key: 'fra.disturbances.disturbances2025' },
+                        '2025': { key: 'fra.disturbances.predominantCause' },
                       },
                     },
                   },
@@ -6884,7 +6884,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     migration: {
                       label: {
                         '2020': { key: 'disturbances.areaUnitLabel' },
-                        '2025': { key: 'fra.disturbances.areaUnitLabel2025' },
+                        '2025': { key: 'fra.disturbances.forestAreaAffected' },
                       },
                     },
                   },
@@ -7685,7 +7685,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
     migration: {
       label: {
         '2020': { key: 'disturbances.disturbances' },
-        '2025': { key: 'fra.disturbances.disturbances2025' },
+        '2025': { key: 'fra.disturbances.forestDamage' },
       },
     },
   },
@@ -7725,7 +7725,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     migration: {
                       label: {
                         '2020': { key: 'areaAffectedByFire.areaUnitLabel' },
-                        '2025': { key: 'fra.areaAffectedByFire.areaUnitLabel2025' },
+                        '2025': { key: 'fra.areaAffectedByFire.areaAffected' },
                       },
                     },
                   },
@@ -8094,6 +8094,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
               2017,
             ],
             unit: 'haThousand',
+            migration: {},
           },
         ],
       },

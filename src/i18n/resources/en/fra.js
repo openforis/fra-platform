@@ -8,13 +8,13 @@ module.exports = {
 
   // tables
   areaAffectedByFire: {
-    areaUnitLabel2025: 'Area affected (1000 ha)',
+    areaAffected: 'Area affected (1000 ha)',
   },
 
   disturbances: {
-    disturbances2025: 'Forest damage',
-    categoryHeader: 'Predominant cause',
-    areaUnitLabel2025: 'Forest area affected (1000 ha)',
+    forestDamage: 'Forest damage',
+    predominantCause: 'Predominant cause',
+    forestAreaAffected: 'Forest area affected (1000 ha)',
   },
 
   extentOfForest: {
