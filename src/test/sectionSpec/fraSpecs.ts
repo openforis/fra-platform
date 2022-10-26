@@ -6867,6 +6867,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'disturbances.categoryHeader',
                     className: 'fra-table__header-cell-left',
                     type: 'header',
+                    migration: {
+                      label: {
+                        '2020': { key: 'disturbances.categoryHeader' },
+                        '2025': { key: 'fra.disturbances.predominantCause' },
+                      },
+                    },
                   },
                   {
                     idx: 1,
@@ -6875,6 +6881,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'disturbances.areaUnitLabel',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      label: {
+                        '2020': { key: 'disturbances.areaUnitLabel' },
+                        '2025': { key: 'fra.disturbances.forestAreaAffected' },
+                      },
+                    },
                   },
                 ],
                 type: 'header',
@@ -7476,6 +7488,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 mainCategory: true,
                 variableName: 'total',
                 migration: {
+                  cycles: ['2020'],
                   colNames: [
                     '2000',
                     '2001',
@@ -7594,6 +7607,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 linkToSection: 'extentOfForest',
                 variableName: 'totalForestArea',
                 migration: {
+                  cycles: ['2020'],
                   colNames: [
                     '2000',
                     '2001',
@@ -7668,6 +7682,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
     dataExport: {
       included: true,
     },
+    migration: {
+      label: {
+        '2020': { key: 'disturbances.disturbances' },
+        '2025': { key: 'fra.disturbances.forestDamage' },
+      },
+    },
   },
   areaAffectedByFire: {
     sectionName: 'areaAffectedByFire',
@@ -7688,6 +7708,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'areaAffectedByFire.categoryHeader',
                     className: 'fra-table__header-cell-left',
                     type: 'header',
+                    migration: {
+                      label: {
+                        '2020': { key: 'fra.categoryHeader2020' },
+                        '2025': { key: 'fra.categoryHeader2025' },
+                      },
+                    },
                   },
                   {
                     idx: 1,
@@ -7696,6 +7722,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'areaAffectedByFire.areaUnitLabel',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      label: {
+                        '2020': { key: 'areaAffectedByFire.areaUnitLabel' },
+                        '2025': { key: 'fra.areaAffectedByFire.areaAffected' },
+                      },
+                    },
                   },
                 ],
                 type: 'header',
@@ -8062,6 +8094,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
               2017,
             ],
             unit: 'haThousand',
+            migration: {},
           },
         ],
       },
