@@ -11,6 +11,10 @@ module.exports = {
     areaAffected: 'Area affected (1000 ha)',
   },
 
+  designatedManagementObjective: {
+    noDesignation: 'No designation',
+    unknown2025: 'Unknown',
+  },
   disturbances: {
     forestDamage: 'Forest damage',
     predominantCause: 'Predominant cause',
