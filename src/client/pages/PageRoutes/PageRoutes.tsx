@@ -5,22 +5,25 @@ import { useTranslation } from 'react-i18next'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
 import { ClientRoutes } from '@meta/app'
+import { Users } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
 import { AssessmentActions } from '@client/store/assessment'
+import { useUser } from '@client/store/user'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import Footer from '@client/components/Footer'
 import Header from '@client/components/Header'
 import Toaster from '@client/components/Toaster'
+import Admin from '@client/pages/Admin'
 import Assessment from '@client/pages/Assessment'
 import AssessmentPrint from '@client/pages/AssessmentPrint'
 import Geo from '@client/pages/Geo'
 import Landing from '@client/pages/Landing'
 import Login from '@client/pages/Login'
+import User from '@client/pages/User'
 import { SocketClient } from '@client/service/socket'
 import { Urls } from '@client/utils'
 
-import User from '../User/User'
 import { useTheme } from './useTheme'
 
 const PageRoutes: React.FC = () => {
@@ -28,6 +31,7 @@ const PageRoutes: React.FC = () => {
   const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
   const { print } = useIsPrint()
+  const user = useUser()
 
   useEffect(() => {
     // TODO: Add user.language support
@@ -57,12 +61,16 @@ const PageRoutes: React.FC = () => {
 
         <Route path={ClientRoutes.Assessment.Print.path.absolute} element={<AssessmentPrint />} />
         <Route path={ClientRoutes.Assessment.PrintTables.path.absolute} element={<AssessmentPrint />} />
+        <Route
+          path={`${ClientRoutes.Admin.Root.path.absolute}/*`}
+          element={Users.isAdministrator(user) ? <Admin /> : <Navigate to={ClientRoutes.Root.path} replace />}
+        />
         <Route path={`${ClientRoutes.Assessment.Root.path.absolute}/*`} element={<Assessment />} />
         <Route path={`${ClientRoutes.Login.Root.path.absolute}/*`} element={<Login />} />
         <Route path={`${ClientRoutes.Geo.Root.path.absolute}/*`} element={<Geo />} />
         <Route path={`${ClientRoutes.Users.User.path.absolute}`} element={<User />} />
 
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<Navigate to={ClientRoutes.Root.path} replace />} />
       </Routes>
 
       {/* <ErrorComponent /> */}
