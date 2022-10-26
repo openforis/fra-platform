@@ -1,9 +1,10 @@
 import './mapVisualizerPanel.scss'
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 // @ts-ignore
 import ee from '@google/earthengine'
 import axios from 'axios'
+import debounce from 'lodash.debounce'
 
 import { ForestSource, Layer } from '@meta/geo'
 
@@ -12,13 +13,14 @@ import { GeoActions, useForestSourceOptions } from '@client/store/ui/geo'
 import { useGeoMap } from '@client/hooks'
 
 import GeoMapMenuListElement from '../../GeoMapMenuListElement'
+// import countryBoundingBoxes from './countryBounds'
 import LayerOptionsPanel from './LayerOptionsPanel'
 
 // Just to display items for demo purposes
 const layers = [
   { key: 'JAXA', title: 'JAXA (2017)', apiUri: '/api/geo/layers/forest/FIN/JAXA/', opacity: 1 },
   { key: 'TandemX', title: 'TanDEM-X (2019)', apiUri: '/api/geo/layers/forest/FIN/TandemX/', opacity: 1 },
-  { key: 'GlobeLand', title: 'GloabeLand (2020)', apiUri: '/api/geo/layers/forest/FIN/GlobeLand/', opacity: 1 },
+  { key: 'GlobeLand', title: 'GlobeLand (2020)', apiUri: '/api/geo/layers/forest/FIN/GlobeLand/', opacity: 1 },
   {
     key: 'ESAGlobCover',
     title: 'Global Land Cover ESA (2009)',
@@ -28,7 +30,7 @@ const layers = [
   { key: 'Copernicus', title: 'Copernicus (2019)', apiUri: '/api/geo/layers/forest/FIN/Copernicus/', opacity: 1 },
   { key: 'ESRI', title: 'ESRI (2020)', apiUri: '/api/geo/layers/forest/FIN/ESRI/', opacity: 1 },
   { key: 'ESAWorldCover', title: 'ESA (2020)', apiUri: '/api/geo/layers/forest/FIN/ESAWorldCover/', opacity: 1 },
-  { key: 'Hansen', title: 'Hansen GFC (2020)', apiUri: '/api/geo/layers/forest/FIN/Hansen/10/', opacity: 1 },
+  { key: 'Hansen', title: 'Hansen GFC (2020)', apiUri: '/api/geo/layers/forest/FIN/Hansen/', opacity: 1 },
 ]
 
 const checkRemoveOverlayLayer = (
@@ -54,12 +56,13 @@ const addOVerlayLayer = (map: google.maps.Map, mapId: string, mapLayerKey: strin
   })
   const overlay = new ee.layers.ImageOverlay(tileSource, { name: mapLayerKey })
   map.overlayMapTypes.push(overlay)
+  // map.panToBounds(new google.maps.LatLngBounds(countryBoundingBoxes["FI"])) // bound to box
 }
 
 const MapVisualizerPanel: React.FC = () => {
   const dispatch = useAppDispatch()
   const forestOptions = useForestSourceOptions()
-
+  const [hansenPercentage, setHansenPercentage] = useState(10)
   const map = useGeoMap()
   // map.addListener('tilesloaded', () => setCheckboxDisabledState(false)) // tilesloaded doesn't wait for custom layers
 
@@ -75,7 +78,9 @@ const MapVisualizerPanel: React.FC = () => {
           checkRemoveOverlayLayer(mapLayerKey, map.overlayMapTypes, true)
         }
       } else {
-        await axios.get(apiUri).then((response) => {
+        let uri = apiUri
+        if (mapLayerKey === 'Hansen') uri += `${hansenPercentage}/`
+        await axios.get(uri).then((response) => {
           const layer: Layer = {
             mapId: response.data.mapId,
             palette: response.data.palette,
@@ -89,7 +94,23 @@ const MapVisualizerPanel: React.FC = () => {
       }
       dispatch(GeoActions.updateForestOptions(forestOptionsCopy))
     },
-    [dispatch, forestOptions, map]
+    [dispatch, forestOptions, hansenPercentage, map]
+  )
+
+  useEffect(() => {
+    // skip function if Hansen layer not selected or on 1st render
+    if (!checkRemoveOverlayLayer('Hansen', map.overlayMapTypes)) return
+    // if Hansen layer present, remove it and make another call with new option
+    checkRemoveOverlayLayer('Hansen', map.overlayMapTypes, true)
+    const layer = layers.filter((layer) => layer.key === 'Hansen')[0]
+    onCheckboxClick(layer.apiUri, layer.key, layer.key as ForestSource)
+  }, [hansenPercentage, map.overlayMapTypes, onCheckboxClick])
+
+  const [debouncedSetHansenPercentage] = useState(() =>
+    debounce(setHansenPercentage, 150, {
+      leading: false,
+      trailing: true,
+    })
   )
 
   const opacityChange = (layerKey: string, opacity: number) => {
@@ -104,15 +125,17 @@ const MapVisualizerPanel: React.FC = () => {
           <div key={layer.key}>
             <GeoMapMenuListElement
               title={layer.title}
-              opacity={layer.opacity}
               tabIndex={index * -1 - 1}
               checked={forestOptions.sources.includes(layer.key as ForestSource)}
               onCheckboxClick={() => onCheckboxClick(layer.apiUri, layer.key, layer.key as ForestSource)}
+              backgroundColor={layer.key.toLowerCase()}
             >
               <LayerOptionsPanel
                 forestLayerOpacity={layer.opacity}
-                opacityChange={(layerKey: string, opacity: number) => opacityChange(layerKey, opacity)}
                 layerKey={layer.key}
+                hansenPercentage={hansenPercentage}
+                opacityChange={(layerKey: string, opacity: number) => opacityChange(layerKey, opacity)}
+                setHansenPercentageCallback={(percentage: number) => debouncedSetHansenPercentage(percentage)}
               />
             </GeoMapMenuListElement>
           </div>

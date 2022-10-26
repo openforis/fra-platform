@@ -8,15 +8,17 @@ interface Props {
   tabIndex: number
   checked?: boolean
   onCheckboxClick?: () => void
+  children?: JSX.Element
+  backgroundColor?: string
 }
 
-const GeoMenuItem: React.FC<Props> = ({ title, tabIndex, checked, onCheckboxClick, children }) => {
+const GeoMenuItem: React.FC<Props> = ({ title, tabIndex, checked, onCheckboxClick, children, backgroundColor }) => {
   return (
     <div>
       <div className="geo-map-menu-list-element">
         {checked !== null ? (
           <div
-            className="geo-map-menu-list-element-checkbox"
+            className={`geo-map-menu-list-element-checkbox ${backgroundColor}`}
             role="checkbox"
             aria-checked={checked}
             tabIndex={tabIndex}
@@ -38,6 +40,8 @@ const GeoMenuItem: React.FC<Props> = ({ title, tabIndex, checked, onCheckboxClic
 GeoMenuItem.defaultProps = {
   checked: null,
   onCheckboxClick: null,
+  children: null,
+  backgroundColor: null,
 }
 
 export default GeoMenuItem

@@ -8,7 +8,7 @@
   > div {
     flex-direction: row;
     margin: 0 0 0 0;
-    height: 40px;
+    min-height: 40px;
     justify-content: space-between;
 
     > p {
@@ -22,12 +22,38 @@
 
     > div {
       display: inline-block;
+      width: 80%;
       vertical-align: middle;
+      margin: 0 0 10px 0;
 
-      > input {
+      input {
         width: 200px;
         vertical-align: middle;
         margin: 0 10px 0 auto;
+      }
+      fieldset {
+        display: flex;
+        flex-direction: row;
+        border: 1px solid $ui-border;
+        justify-content: space-between;
+        > label {
+          display: flex;
+          margin: 10px 0 5px 0;
+          width: 15%;
+          flex-direction: column;
+          > input[type="radio"] {
+            display: flex;
+            padding: 5px;
+            width: 100%;
+            margin-left: 0px;
+            align-self: center;
+          }  
+        }
+      }
+      small {
+        vertical-align: middle;
+        font-size: normal;
+        font-weight: bold;
       }
     }
   }

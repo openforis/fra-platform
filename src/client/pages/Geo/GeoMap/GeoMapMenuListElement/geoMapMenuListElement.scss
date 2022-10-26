@@ -27,6 +27,39 @@
   }
 }
 
+// checkbox background colours
+.jaxa > .checked {
+  background-color: #800080;
+}
+
+.tandemx > .checked {
+  background-color: #008000;
+}
+
+.esaglobcover > .checked {
+  background-color: #FF0000;
+}
+
+.globeland > .checked {
+  background-color: #0000FF;
+}
+
+.copernicus > .checked {
+  background-color: #FFFF00;
+}
+
+.esri > .checked {
+  background-color: #FF7F50;
+}
+
+.esaworldcover > .checked {
+  background-color: #00FFFF;
+}
+
+.hansen > .checked {
+  background-color: #00FF00;
+}
+
 .geo-map-menu-list-element-header {
   font-size: $font-xl;
   margin: 0 0 0 5px;
