@@ -24,7 +24,7 @@ const tablesNewColumns: Record<string, Array<string>> = {
   carbonStock: ['2025'],
   // carbonStockSoilDepth: ['2025'],
   primaryDesignatedManagementObjective: ['2025'],
-  // totalAreaWithDesignatedManagementObjective: ['2025'],
+  totalAreaWithDesignatedManagementObjective: ['2025'],
   forestAreaWithinProtectedAreas: ['2025'],
   forestOwnership: ['2020'],
   holderOfManagementRights: ['2020'],
@@ -123,8 +123,9 @@ export const add2025Columns = async (props: Props, client: BaseProtocol): Promis
         `,
         []
       )
-      await client.query(
-        `update ${schema}.table
+      if (tableName !== 'totalAreaWithDesignatedManagementObjective') {
+        await client.query(
+          `update ${schema}.table
            set props = jsonb_set(
                    props,
                    '{columnsExport,${cycle.uuid}}',
@@ -132,8 +133,9 @@ export const add2025Columns = async (props: Props, client: BaseProtocol): Promis
                )
            where props ->> 'name' = '${tableName}'
           `,
-        []
-      )
+          []
+        )
+      }
     })
   )
 

@@ -15,6 +15,11 @@ module.exports = {
     percentOfForestArea: '% of forest area',
   },
 
+  designatedManagementObjective: {
+    noDesignation: 'No designation',
+    unknown2025: 'Unknown',
+  },
+
   disturbances: {
     forestDamage: 'Forest damage',
     predominantCause: 'Predominant cause',
@@ -23,6 +28,10 @@ module.exports = {
 
   extentOfForest: {
     remainingLandArea: 'Remaining land area',
+  },
+
+  forestAreaWithinProtectedAreas: {
+    forestAreaWithLongTermManagementPlan2025: 'Forest area with long-term management plan',
   },
 
   forestCharacteristics: {

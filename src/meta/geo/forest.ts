@@ -1,3 +1,7 @@
+export interface ForestOptions {
+  sources: ForestSource[]
+}
+
 export enum ForestSource {
   JAXA = 'JAXA',
   TandemX = 'TandemX',
