@@ -11,6 +11,10 @@ module.exports = {
     areaAffected: 'Area affected (1000 ha)',
   },
 
+  designatedManagementObjective: {
+    noDesignation: 'No designation',
+    unknown2025: 'Unknown',
+  },
   disturbances: {
     forestDamage: 'Forest damage',
     predominantCause: 'Predominant cause',
@@ -19,6 +23,10 @@ module.exports = {
 
   extentOfForest: {
     remainingLandArea: 'Remaining land area',
+  },
+
+  forestAreaWithinProtectedAreas: {
+    forestAreaWithLongTermManagementPlan2025: 'Forest area with long-term management plan',
   },
 
   forestCharacteristics: {
