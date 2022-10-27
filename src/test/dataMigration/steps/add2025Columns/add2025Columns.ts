@@ -10,21 +10,21 @@ type Props = {
 }
 
 const tablesNewColumns: Record<string, Array<string>> = {
-  extentOfForest: ['2025'],
+  // extentOfForest: ['2025'],
   // 'climaticDomain',
-  forestCharacteristics: ['2025'],
+  // forestCharacteristics: ['2025'],
   specificForestCategories: ['2025'],
   forestAreaChange: ['2020-2025'],
   annualReforestation: ['2020-2025'],
   otherLandWithTreeCover: ['2025'],
-  growingStockAvg: ['2025'],
-  growingStockTotal: ['2025'],
+  // growingStockAvg: ['2025'],
+  // growingStockTotal: ['2025'],
   // 'growingStockComposition',
   biomassStock: ['2025'],
   carbonStock: ['2025'],
   // carbonStockSoilDepth: ['2025'],
   primaryDesignatedManagementObjective: ['2025'],
-  // totalAreaWithDesignatedManagementObjective: ['2025'],
+  totalAreaWithDesignatedManagementObjective: ['2025'],
   forestAreaWithinProtectedAreas: ['2025'],
   forestOwnership: ['2020'],
   holderOfManagementRights: ['2020'],
@@ -123,7 +123,7 @@ export const add2025Columns = async (props: Props, client: BaseProtocol): Promis
         `,
         []
       )
-      if (!tableName.startsWith('sustainableDevelopment') && tableName !== 'growingStockAvg') {
+      if (tableName !== 'totalAreaWithDesignatedManagementObjective') {
         await client.query(
           `update ${schema}.table
            set props = jsonb_set(
