@@ -4907,6 +4907,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'designatedManagementObjective.categoryHeader',
                     className: 'fra-table__header-cell-left',
                     type: 'header',
+                    migration: {
+                      label: {
+                        '2020': { key: 'fra.categoryHeader2020' },
+                        '2025': { key: 'fra.categoryHeader2025' },
+                      },
+                    },
                   },
                   {
                     idx: 1,
@@ -5225,6 +5231,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableNo: 'g',
                 variableName: 'no_unknown',
                 migration: {
+                  cycles: ['2020'],
                   colNames: ['1990', '2000', '2010', '2015', '2020'],
                   validateFns: [`validatorGreaterThanOrZero(primaryDesignatedManagementObjective.no_unknown)`],
                   calcFormula:
@@ -5232,7 +5239,90 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 },
               },
               {
+                idx: 6,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'fra.designatedManagementObjective.noDesignation',
+                    className: 'fra-table__category-cell',
+                  },
+                  {
+                    idx: 0,
+                    type: 'calculated',
+                  },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                  },
+                  {
+                    idx: 2,
+                    type: 'calculated',
+                  },
+                  {
+                    idx: 3,
+                    type: 'calculated',
+                  },
+                  {
+                    idx: 4,
+                    type: 'calculated',
+                  },
+                ],
+                labelKey: 'fra.designatedManagementObjective.noDesignation',
+                variableExport: 'no_designation',
+                variableName: 'no_designation',
+                migration: {
+                  cycles: ['2025'],
+                  colNames: ['1990', '2000', '2010', '2015', '2020', '2025'],
+                },
+              },
+              {
                 idx: 7,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'fra.designatedManagementObjective.unknown2025',
+                    className: 'fra-table__category-cell',
+                  },
+                  {
+                    idx: 0,
+                    type: 'calculated',
+                  },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                  },
+                  {
+                    idx: 2,
+                    type: 'calculated',
+                  },
+                  {
+                    idx: 3,
+                    type: 'calculated',
+                  },
+                  {
+                    idx: 4,
+                    type: 'calculated',
+                  },
+                ],
+                labelKey: 'fra.designatedManagementObjective.unknown2025',
+                variableExport: 'unknown',
+                variableName: 'unknown',
+                migration: {
+                  cycles: ['2025'],
+                  colNames: ['1990', '2000', '2010', '2015', '2020', '2025'],
+                  // validateFns: [`validatorGreaterThanOrZero(primaryDesignatedManagementObjective.no_unknown)`],
+                  // calcFormula:
+                  //   'extentOfForest.forestArea - (primaryDesignatedManagementObjective.production || 0)  - (primaryDesignatedManagementObjective.protection_of_soil_and_water || 0)  - (primaryDesignatedManagementObjective.conservation_of_biodiversity || 0)  - (primaryDesignatedManagementObjective.social_services || 0)  - (primaryDesignatedManagementObjective.multiple_use || 0)  - (primaryDesignatedManagementObjective.other || 0)',
+                },
+              },
+              {
+                idx: 8,
                 type: 'data',
                 cols: [
                   {
@@ -5308,6 +5398,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'designatedManagementObjective.categoryHeader',
                     className: 'fra-table__header-cell-left',
                     type: 'header',
+                    migration: {
+                      label: {
+                        '2020': { key: 'fra.categoryHeader2020' },
+                        '2025': { key: 'fra.categoryHeader2025' },
+                      },
+                    },
                   },
                   {
                     idx: 1,
@@ -5548,9 +5644,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
         ],
         titleKey: 'designatedManagementObjective.totalAreaWithDesignatedManagementObjective',
         descriptionKey: 'designatedManagementObjective.totalAreaWithDesignatedManagementObjectiveSupport',
-        migration: {
-          cycles: ['2020'],
-        },
       },
     ],
     showTitle: true,
@@ -5583,6 +5676,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'forestAreaWithinProtectedAreas.categoryHeader',
                     className: 'fra-table__header-cell-left',
                     type: 'header',
+                    migration: {
+                      label: {
+                        '2020': { key: 'fra.categoryHeader2020' },
+                        '2025': { key: 'fra.categoryHeader2025' },
+                      },
+                    },
                   },
                   {
                     idx: 1,
@@ -5739,6 +5838,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     colSpan: 1,
                     labelKey: 'forestAreaWithinProtectedAreas.forestAreaWithLongTermManagementPlan',
                     className: 'fra-table__category-cell',
+                    migration: {
+                      label: {
+                        '2020': { key: 'forestAreaWithinProtectedAreas.forestAreaWithLongTermManagementPlan' },
+                        '2025': { key: 'fra.forestAreaWithinProtectedAreas.forestAreaWithLongTermManagementPlan2025' },
+                      },
+                    },
                   },
                   {
                     idx: 0,
@@ -5780,6 +5885,10 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'forestAreaWithinProtectedAreas.forestAreaWithLongTermManagementPlan',
                 variableExport: 'forest_area_with_long_term_management_plan',
                 migration: {
+                  label: {
+                    '2020': { key: 'forestAreaWithinProtectedAreas.forestAreaWithLongTermManagementPlan' },
+                    '2025': { key: 'fra.forestAreaWithinProtectedAreas.forestAreaWithLongTermManagementPlan2025' },
+                  },
                   validateFns: [
                     `validatorNotGreaterThanForest(extentOfForest.forestArea, forestAreaWithinProtectedAreas.forest_area_with_long_term_management_plan)`,
                   ],
