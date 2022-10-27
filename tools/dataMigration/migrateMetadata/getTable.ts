@@ -75,7 +75,7 @@ export const getTable = (props: {
       odp: Boolean(tableSpec.odp),
       secondary,
       dataExport,
-      columnsExport: getColumnNames(assessment, columnsExport),
+      columnsExport: columnNamesMigration ?? getColumnNames(assessment, columnsExport),
       columnsExportAlways: getColumnNames(assessment, columnsExportAlways),
     },
     rows: [],
