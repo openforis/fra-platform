@@ -29,6 +29,7 @@ export const getMany = async (
                           left join ss on ss.parent_id = s.id
                  where s.parent_id is null
                    and props -> 'cycles' ? $1
+                   and ss.sub_sections is not null
                  order by (s.props ->> 'index')::numeric
              )
         select jsonb_agg(s.*) as data
@@ -39,8 +40,6 @@ export const getMany = async (
     ({ data }: { data: Array<Omit<Section, 'subSections'> & { sub_sections: Array<SubSection> }> }) => {
       return (
         data
-          // eslint-disable-next-line camelcase
-          .filter((d) => d.sub_sections?.length > 0)
           // eslint-disable-next-line camelcase
           .map(({ sub_sections, props: { labels, ...props }, ...section }) => ({
             ...Objects.camelize(section),
