@@ -27,11 +27,15 @@ const authenticateToGee = async function () {
   })
 }
 
-export const checkGeeAuthentication = async (_req: Request, _res: Response, next: NextFunction) => {
+const requireLogin = async (_req: Request, _res: Response, next: NextFunction) => {
   try {
     if (data.getAuthToken() === null) await authenticateToGee()
     next()
   } catch (error) {
     next(error)
   }
+}
+
+export const GeeAuthMiddleware = {
+  requireLogin,
 }
