@@ -15,6 +15,17 @@ export const migratePrimaryForestData = async (props: Props, client: BaseProtoco
   const schemaCycle2025 = Schemas.getNameCycle(assessment, cycle2025)
 
   await client.query(`
+      delete
+      from ${schemaCycle2025}.node n
+      where n.id in (select n.id
+                     from ${schemaCycle2025}.node n
+                              left join ${schemaAssessment}.col c on n.col_uuid = c.uuid
+                              left join ${schemaAssessment}.row r on r.id = c.row_id
+                              left join ${schemaAssessment}."table" t on t.id = r.table_id
+                     where r.props ->> 'variableName' = 'totalPrimaryForest'
+                       and t.props ->> 'name' = 'primaryForestByClimaticDomain')
+      ;
+
       insert into ${schemaCycle2025}.node (country_iso, row_uuid, col_uuid, value)
       select n.country_iso,
              r2.uuid,
@@ -25,7 +36,25 @@ export const migratePrimaryForestData = async (props: Props, client: BaseProtoco
                left join ${schemaAssessment}.col c on n.col_uuid = c.uuid
                left join ${schemaAssessment}."table" t on t.id = r.table_id
                left join ${schemaAssessment}.row r2 on r2.props ->> 'variableName' = 'primaryForest'
-               left join ${schemaAssessment}.col c2 on c2.props ->> 'colName' = c.props ->> 'colName' and c2.row_id = r2.id
+               left join ${schemaAssessment}.col c2
+                         on c2.props ->> 'colName' = c.props ->> 'colName' and c2.row_id = r2.id
+      where t.props ->> 'name' = 'specificForestCategories'
+        and r.props ->> 'variableName' = 'primary_forest'
+      order by 4, 3
+      ;
+
+      insert into ${schemaCycle2025}.node (country_iso, row_uuid, col_uuid, value)
+      select n.country_iso,
+             r2.uuid,
+             c2.uuid,
+             n.value
+      from ${schemaCycle2020}.node n
+               left join ${schemaAssessment}.row r on n.row_uuid = r.uuid
+               left join ${schemaAssessment}.col c on n.col_uuid = c.uuid
+               left join ${schemaAssessment}."table" t on t.id = r.table_id
+               left join ${schemaAssessment}.row r2 on r2.props ->> 'variableName' = 'totalPrimaryForest'
+               left join ${schemaAssessment}.col c2
+                         on c2.props ->> 'colName' = c.props ->> 'colName' and c2.row_id = r2.id
       where t.props ->> 'name' = 'specificForestCategories'
         and r.props ->> 'variableName' = 'primary_forest'
       order by 4, 3
