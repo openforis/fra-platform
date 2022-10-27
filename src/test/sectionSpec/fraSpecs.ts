@@ -4433,7 +4433,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
             },
             dataExport: true,
             columnsExportAlways: ['scientific_name', 'common_name'],
-            columnsExport: ['growingStockPercent'],
+            columnsExport: ['growingStockMillionCubicMeter', 'growingStockPercent'],
             unit: 'growingStockPercent',
             migration: {
               columnNames: {
