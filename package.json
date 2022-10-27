@@ -251,7 +251,9 @@
   },
   "lint-staged": {
     "**/*.{ts,tsx}": [
-      "eslint --cache --fix --rule 'no-console:2' ",
+      "eslint --cache --fix --rule 'no-console:2'"
+    ],
+    "**/*.{ts,tsx,scss}": [
       "prettier --write"
     ]
   }

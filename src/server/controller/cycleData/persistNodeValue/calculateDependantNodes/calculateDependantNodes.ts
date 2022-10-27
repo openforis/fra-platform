@@ -75,7 +75,7 @@ export const calculateDependantNodes = async (
               nodeUpdates.nodes.push({
                 tableName: evaluateProps.tableName,
                 variableName: evaluateProps.variableName,
-                colName: evaluateProps.colName,
+                colName: col.props.colName,
                 value: node.value,
               })
             }

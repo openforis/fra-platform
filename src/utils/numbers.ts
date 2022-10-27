@@ -20,6 +20,7 @@ export type BigNumberInput = BigNumber | string | number
 
 const toBigNumber = (value: BigNumberInput = ''): BigNumber => {
   if (value instanceof BigNumber) return value // Do not wrap unnecessarily
+  if (typeof value === 'string' && Objects.isEmpty(value.trim())) return new BigNumber(NaN)
   return new BigNumber(typeof value === 'string' ? value.split(groupSeparator).join('') : value)
 }
 
@@ -79,7 +80,11 @@ const toString = (value: number | BigNumber): null | string =>
   Objects.isEmpty(value) ? null : toBigNumber(value).toString()
 
 const format = (value: number | BigNumber, precision = 2): string | null =>
-  Objects.isEmpty(value) ? null : toBigNumber(value).toFormat(precision)
+  Objects.isEmpty(value)
+    ? null
+    : toBigNumber(value)
+        .toFormat(precision)
+        .replace(/^-0(.00)?$/, '0$1')
 
 const { max, min } = BigNumber
 

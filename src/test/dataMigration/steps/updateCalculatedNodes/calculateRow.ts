@@ -1,5 +1,3 @@
-import { Numbers } from '@utils/numbers'
-
 import { CountryIso } from '@meta/area'
 import { Assessment, Cycle, Row, VariableCache } from '@meta/assessment'
 
@@ -94,7 +92,7 @@ export const calculateRow = async (
             country_iso: countryIso,
             row_uuid: row.uuid,
             col_uuid: col.uuid,
-            value: { raw: raw ? Numbers.format(Numbers.toBigNumber(raw)) : null, calculated: true },
+            value: { raw: raw ? String(raw) : null, calculated: true },
           }
           if (
             values.find(

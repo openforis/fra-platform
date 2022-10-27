@@ -155,7 +155,10 @@ export default (props: Props): UseOnChange => {
       }
     } else {
       const value = clipboardData.getData('text/plain')
-      _persistSanitizedValue(value)
+      _persistSanitizedValue({
+        ...nodeValue,
+        raw: value,
+      })
     }
   }
 
