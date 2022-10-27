@@ -55,6 +55,10 @@ module.exports = {
     unknown2025: 'Unknown',
   },
 
+  nonWoodForestProductsRemovals: {
+    nonWoodForestProductsRemovals2025: 'Non wood forest products removals and value 2020',
+  },
+
   primaryForestByClimaticDomain: {
     primaryForestByClimaticDomain: 'Primary forest by climatic domain',
     primaryForestBoreal: '…of which boreal primary forest',

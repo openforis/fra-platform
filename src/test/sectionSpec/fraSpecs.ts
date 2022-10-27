@@ -8757,10 +8757,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
       included: true,
     },
     migration: {
-      anchors: {
-        '2020': '6b',
-        '2025': '6a',
-      },
+      cycles: ['2020'],
     },
   },
   employment: {
@@ -11067,9 +11064,13 @@ export const FraSpecs: Record<string, SectionSpec> = {
       included: false,
     },
     migration: {
+      label: {
+        '2020': { key: 'nonWoodForestProductsRemovals.nonWoodForestProductsRemovals' },
+        '2025': { key: 'fra.nonWoodForestProductsRemovals.nonWoodForestProductsRemovals2025' },
+      },
       anchors: {
         '2020': '7c',
-        '2025': '7a',
+        '2025': '6a',
       },
     },
   },
@@ -12663,6 +12664,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
     },
     dataExport: {
       included: false,
+    },
+    migration: {
+      anchors: {
+        '2020': '8a',
+        '2025': '7a',
+      },
     },
   },
   contentCheck: {
