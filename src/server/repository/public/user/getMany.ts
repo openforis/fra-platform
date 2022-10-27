@@ -11,10 +11,10 @@ import { fields } from './fields'
 const selectFields = fields.map((f) => `u.${f}`).join(',')
 
 export const getMany = async (
-  props: { countryIso?: CountryIso; assessment: Assessment; cycle: Cycle },
+  props: { countryIso?: CountryIso; assessment: Assessment; cycle: Cycle; limit?: number; offset?: number },
   client: BaseProtocol = DB
 ): Promise<Array<User>> => {
-  const { countryIso, assessment, cycle } = props
+  const { countryIso, assessment, cycle, limit, offset } = props
 
   return client
     .manyOrNone<User>(
@@ -36,6 +36,8 @@ export const getMany = async (
               : ''
           }
         group by ${selectFields}
+        ${limit ? `limit ${limit}` : ''}
+        ${offset ? `offset ${offset}` : ''}
     `,
       countryIso ? [assessment.id, cycle.uuid, countryIso] : [assessment.id, cycle.uuid]
     )
