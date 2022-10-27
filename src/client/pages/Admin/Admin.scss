@@ -1,0 +1,56 @@
+@import 'src/client/style/partials';
+
+.app-view__content {
+  grid-area: content;
+  height: 100%;
+  padding: 28px 32px 48px 32px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.admin__page-header {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+
+  .admin__page-title {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    font-size: $font-xxl;
+  }
+}
+
+.admin__page-menu {
+  display: flex;
+  padding-top: $spacing-xxs;
+  align-items: start;
+  overflow-x: auto;
+
+  .admin__page-menu-button {
+    border-radius: unset;
+    font-size: $font-l;
+    font-weight: normal;
+    margin: 0;
+    color: $text-body;
+    border-top: unset;
+    border-right: unset;
+    border-left: unset;
+    border-bottom: 2px solid $ui-border;
+
+    &:hover {
+      color: $ui-accent;
+    }
+
+    &.disabled,
+    &:disabled {
+      border-bottom-color: $ui-accent;
+      color: $ui-accent;
+      opacity: 1;
+      pointer-events: none;
+    }
+  }
+}
