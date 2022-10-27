@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-
 import axios from 'axios'
+
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { MosaicOptions } from '@meta/geo'
 
@@ -56,7 +56,7 @@ const getReqBody = (mosaicOptions: MosaicOptions) => {
   if (mosaicOptions.sources.includes('sentinel')) {
     sources.SENTINEL = ['SENTINEL_2']
   }
-  if (mosaicOptions.sources.includes('sentinel')) {
+  if (mosaicOptions.sources.includes('landsat')) {
     sources.LANDSAT = ['LANDSAT_9', 'LANDSAT_8']
   }
 
