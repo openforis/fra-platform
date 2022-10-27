@@ -1,5 +1,5 @@
 import { CountryIso } from '@meta/area'
-import { ActivityLogMessage, Assessment, Cycle, OriginalDataPoint } from '@meta/assessment'
+import { ActivityLogMessage, Assessment, Cycle, OriginalDataPoint, TableNames } from '@meta/assessment'
 import { NodeUpdate, NodeUpdates } from '@meta/data'
 import { Sockets } from '@meta/socket'
 import { User } from '@meta/user'
@@ -22,23 +22,19 @@ type updateDependantsProps = {
 }
 
 const handleWebsocket = (nodeUpdatesValidation: NodeUpdates) => {
-  nodeUpdatesValidation.nodes.forEach((nodeUpdate: NodeUpdate) => {
+  const { assessment, cycle, countryIso, nodes } = nodeUpdatesValidation
+  const assessmentName = assessment.props.name
+  const cycleName = cycle.name
+  nodes.forEach((nodeUpdate: NodeUpdate) => {
     const { tableName, variableName, colName, value } = nodeUpdate
-    const propsEvent = {
-      countryIso: nodeUpdatesValidation.countryIso,
-      assessmentName: nodeUpdatesValidation.assessment.props.name,
-      cycleName: nodeUpdatesValidation.cycle.name,
-      tableName,
-      variableName,
-      colName,
-    }
+    const propsEvent = { countryIso, assessmentName, cycleName, tableName, variableName, colName }
     const nodeUpdateEvent = Sockets.getNodeUpdateEvent(propsEvent)
     SocketServer.emit(nodeUpdateEvent, { value })
   })
 }
 
 const updateExtentOfForestDependants = async (props: updateDependantsProps) => {
-  const { countryIso, assessment, user, colName, cycle, updatedOriginalDataPoint, client } = props
+  const { countryIso, assessment, user, colName, cycle, client } = props
 
   const nodeUpdates = await calculateDependantNodes(
     {
@@ -46,16 +42,13 @@ const updateExtentOfForestDependants = async (props: updateDependantsProps) => {
       assessment,
       cycle,
       sectionName: 'extentOfForest',
-      tableName: 'extentOfForest',
+      tableName: TableNames.extentOfForest,
       user,
       colName,
       variableName: 'forestArea',
     },
     client
   )
-
-  const raw = updatedOriginalDataPoint.nationalClasses.find((nc) => nc.name === 'Forest')?.area
-  nodeUpdates.nodes.unshift({ tableName: 'extentOfForest', variableName: 'forestArea', colName, value: { raw } })
 
   const nodeUpdatesValidation = await validateNodeUpdates({ nodeUpdates }, client)
   handleWebsocket(nodeUpdatesValidation)
@@ -79,7 +72,7 @@ const updateForestCharacteristicsDependants = async (props: updateDependantsProp
           assessment,
           cycle,
           sectionName: 'forestCharacteristics',
-          tableName: 'forestCharacteristics',
+          tableName: TableNames.forestCharacteristics,
           user,
           colName,
           variableName,
@@ -106,12 +99,12 @@ export const updateOriginalDataPoint = async (
 ): Promise<OriginalDataPoint> => {
   const { assessment, cycle, originalDataPoint, user } = props
 
-  return client.tx(async (t) => {
-    const updatedOriginalDataPoint = await OriginalDataPointRepository.update(
-      { assessment, cycle, originalDataPoint },
-      t
-    )
+  const updatedOriginalDataPoint = await OriginalDataPointRepository.update(
+    { assessment, cycle, originalDataPoint },
+    client
+  )
 
+  return client.tx(async (t) => {
     const colName = String(updatedOriginalDataPoint.year)
     const { countryIso } = updatedOriginalDataPoint
 
