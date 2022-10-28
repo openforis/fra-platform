@@ -29,3 +29,6 @@ export type { EstimateBody, NodesBody, NodesBodyValue } from './cycleData/table'
 
 // assessmentFile
 export type { AssessmentFileBody } from './file/assessmentFile'
+
+// layers
+export type { ForestAgreementLayerRequest, ForestLayerRequest } from './geo/layer'
