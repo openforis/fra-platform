@@ -18,19 +18,44 @@ import LayerOptionsPanel from './LayerOptionsPanel'
 
 // Just to display items for demo purposes
 const layers = [
-  { key: 'JAXA', title: 'JAXA (2017)', apiUri: '/api/geo/layers/forest/FIN/JAXA/', opacity: 1 },
-  { key: 'TandemX', title: 'TanDEM-X (2019)', apiUri: '/api/geo/layers/forest/FIN/TandemX/', opacity: 1 },
-  { key: 'GlobeLand', title: 'GlobeLand (2020)', apiUri: '/api/geo/layers/forest/FIN/GlobeLand/', opacity: 1 },
+  { key: 'JAXA', title: 'JAXA (2017)', apiUri: '/api/geo/layers/forest/?countryIso=FIN&forestSource=JAXA', opacity: 1 },
+  {
+    key: 'TandemX',
+    title: 'TanDEM-X (2019)',
+    apiUri: '/api/geo/layers/forest/?countryIso=FIN&forestSource=TandemX',
+    opacity: 1,
+  },
+  {
+    key: 'GlobeLand',
+    title: 'GlobeLand (2020)',
+    apiUri: '/api/geo/layers/forest/?countryIso=FIN&forestSource=GlobeLand',
+    opacity: 1,
+  },
   {
     key: 'ESAGlobCover',
     title: 'Global Land Cover ESA (2009)',
-    apiUri: '/api/geo/layers/forest/FIN/ESAGlobCover/',
+    apiUri: '/api/geo/layers/forest/?countryIso=FIN&forestSource=ESAGlobCover',
     opacity: 1,
   },
-  { key: 'Copernicus', title: 'Copernicus (2019)', apiUri: '/api/geo/layers/forest/FIN/Copernicus/', opacity: 1 },
-  { key: 'ESRI', title: 'ESRI (2020)', apiUri: '/api/geo/layers/forest/FIN/ESRI/', opacity: 1 },
-  { key: 'ESAWorldCover', title: 'ESA (2020)', apiUri: '/api/geo/layers/forest/FIN/ESAWorldCover/', opacity: 1 },
-  { key: 'Hansen', title: 'Hansen GFC (2020)', apiUri: '/api/geo/layers/forest/FIN/Hansen/', opacity: 1 },
+  {
+    key: 'Copernicus',
+    title: 'Copernicus (2019)',
+    apiUri: '/api/geo/layers/forest/?countryIso=FIN&forestSource=Copernicus',
+    opacity: 1,
+  },
+  { key: 'ESRI', title: 'ESRI (2020)', apiUri: '/api/geo/layers/forest/?countryIso=FIN&forestSource=ESRI', opacity: 1 },
+  {
+    key: 'ESAWorldCover',
+    title: 'ESA (2020)',
+    apiUri: '/api/geo/layers/forest/?countryIso=FIN&forestSource=ESAWorldCover',
+    opacity: 1,
+  },
+  {
+    key: 'Hansen',
+    title: 'Hansen GFC (2020)',
+    apiUri: '/api/geo/layers/forest/?countryIso=FIN&forestSource=Hansen',
+    opacity: 1,
+  },
 ]
 
 const checkRemoveOverlayLayer = (
@@ -79,7 +104,7 @@ const MapVisualizerPanel: React.FC = () => {
         }
       } else {
         let uri = apiUri
-        if (mapLayerKey === 'Hansen') uri += `${hansenPercentage}/`
+        if (mapLayerKey === 'Hansen') uri += `&gteHansenTreeCoverPerc=${hansenPercentage}`
         await axios.get(uri).then((response) => {
           const layer: Layer = {
             mapId: response.data.mapId,
