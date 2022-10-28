@@ -2,6 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Numbers } from '@utils/numbers'
+import classNames from 'classnames'
 
 import { ODPNationalClass, OriginalDataPoint } from '@meta/assessment'
 
@@ -15,9 +16,9 @@ import { useNationalClassNameComments, useNationalClassValidation } from '../../
 
 const columns = [
   { name: 'area', type: 'decimal' },
-  { name: 'naturalForestPercent', type: 'decimal' },
-  { name: 'plantationPercent', type: 'decimal' },
-  { name: 'otherPlantedPercent', type: 'decimal' },
+  { name: 'forestNaturalPercent', type: 'decimal' },
+  { name: 'forestPlantationPercent', type: 'decimal' },
+  { name: 'otherPlantedForestPercent', type: 'decimal' },
 ]
 
 const allowedClass = (nc: ODPNationalClass) => Number(nc.forestPercent) > 0
@@ -38,12 +39,11 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
 
   const { nationalClasses, id } = originalDataPoint
   const nationalClass = nationalClasses[index]
-  const { name, area, naturalForestPercent, plantationPercent, otherPlantedPercent, uuid } = nationalClass
+  const { name, area, forestNaturalPercent, forestPlantationPercent, otherPlantedForestPercent, uuid } = nationalClass
   const target = [id, 'class', `${uuid}`, 'forest_charasteristics'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
   const validationStatus = useNationalClassValidation(index)
-  // TODO: Use classNames when validationStatus is implemented
-  const classNamePercentageValidation = validationStatus.validFocPercentage === false ? 'error' : ''
+  const errorClass = { error: validationStatus.validFocPercentage === false }
 
   if (!allowedClass(nationalClass)) {
     return null
@@ -55,17 +55,17 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
       <th className="fra-table__calculated-sub-cell fra-table__divider">
         {area && Numbers.format((Number(area) * Number(nationalClass.forestPercent)) / 100)}
       </th>
-      <td className={`fra-table__cell ${classNamePercentageValidation}`}>
+      <td className={classNames('fra-table__cell', errorClass)}>
         <PercentInput
           disabled={!canEditData}
-          numberValue={naturalForestPercent}
+          numberValue={forestNaturalPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             dispatch(
               OriginalDataPointActions.updateNationalClass({
                 odp: originalDataPoint,
                 index,
-                field: 'naturalForestPercent',
-                prevValue: naturalForestPercent,
+                field: 'forestNaturalPercent',
+                prevValue: forestNaturalPercent,
                 value: event.target.value,
                 assessmentName: assessment.props.name,
                 cycleName: cycle.name,
@@ -89,17 +89,17 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
         />
       </td>
 
-      <td className={`fra-table__cell ${classNamePercentageValidation}`}>
+      <td className={classNames('fra-table__cell', errorClass)}>
         <PercentInput
           disabled={!canEditData}
-          numberValue={plantationPercent}
+          numberValue={forestPlantationPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             dispatch(
               OriginalDataPointActions.updateNationalClass({
                 odp: originalDataPoint,
                 index,
-                field: 'plantationPercent',
-                prevValue: plantationPercent,
+                field: 'forestPlantationPercent',
+                prevValue: forestPlantationPercent,
                 value: event.target.value,
                 assessmentName: assessment.props.name,
                 cycleName: cycle.name,
@@ -123,17 +123,17 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
         />
       </td>
 
-      <td className={`fra-table__cell ${classNamePercentageValidation}`}>
+      <td className={classNames('fra-table__cell', errorClass)}>
         <PercentInput
           disabled={!canEditData}
-          numberValue={otherPlantedPercent}
+          numberValue={otherPlantedForestPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             dispatch(
               OriginalDataPointActions.updateNationalClass({
                 odp: originalDataPoint,
                 index,
-                field: 'otherPlantedPercent',
-                prevValue: otherPlantedPercent,
+                field: 'otherPlantedForestPercent',
+                prevValue: otherPlantedForestPercent,
                 value: event.target.value,
                 assessmentName: assessment.props.name,
                 cycleName: cycle.name,
