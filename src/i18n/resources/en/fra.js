@@ -67,6 +67,10 @@ module.exports = {
     unknown2025: 'Unknown',
   },
 
+  nonWoodForestProductsRemovals: {
+    nonWoodForestProductsRemovals2025: 'Non wood forest products removals and value 2020',
+  },
+
   primaryForestByClimaticDomain: {
     primaryForestByClimaticDomain: 'Primary forest by climatic domain',
     primaryForestBoreal: '…of which boreal primary forest',
@@ -85,5 +89,11 @@ module.exports = {
   sustainableDevelopment: {
     sdgIndicator1_2025: 'SDG Indicator 15.1.1 Forest area as proportion of total land area',
     forestAreaProportionLandArea: 'Forest area as proportion of total land area',
+  },
+
+  navigation: {
+    sectionHeaders: {
+      employmentEducationAndNwfp2025: 'NWFP removals and value 2020',
+    },
   },
 }
