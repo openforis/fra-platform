@@ -135,15 +135,15 @@ const requireEditUser = async (req: Request, _res: Response, next: NextFunction)
 }
 
 const requireViewUsers = async (req: Request, _res: Response, next: NextFunction) => {
-  const { countryIso, assessmentName, cycleName } = <Record<string, string>>{
-    ...req.params,
-    ...req.query,
-  }
   const user = Requests.getRequestUser(req)
+
+  if (Users.isAdministrator(user)) next()
+
+  const { countryIso, assessmentName, cycleName } = { ...req.params, ...req.query } as CycleParams
 
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-  _next(Authorizer.canViewUsers({ user, countryIso: countryIso as CountryIso, cycle, assessment }), next)
+  _next(Authorizer.canViewUsers({ user, countryIso, cycle, assessment }), next)
 }
 
 const requireEditAssessmentFile = async (req: Request, _res: Response, next: NextFunction) => {

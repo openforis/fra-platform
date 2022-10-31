@@ -11,7 +11,7 @@ import { fields } from './fields'
 const selectFields = fields.map((f) => `u.${f}`).join(',')
 
 export const getMany = async (
-  props: { countryIso?: CountryIso; assessment: Assessment; cycle: Cycle; limit?: number; offset?: number },
+  props: { countryIso?: CountryIso; assessment?: Assessment; cycle?: Cycle; limit?: number; offset?: number },
   client: BaseProtocol = DB
 ): Promise<Array<User>> => {
   const { countryIso, assessment, cycle, limit, offset } = props
