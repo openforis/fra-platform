@@ -135,11 +135,9 @@ const requireEditUser = async (req: Request, _res: Response, next: NextFunction)
 }
 
 const requireViewUsers = async (req: Request, _res: Response, next: NextFunction) => {
-  const user = Requests.getRequestUser(req)
-
-  if (Users.isAdministrator(user)) next()
-
   const { countryIso, assessmentName, cycleName } = { ...req.params, ...req.query } as CycleParams
+
+  const user = Requests.getRequestUser(req)
 
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
