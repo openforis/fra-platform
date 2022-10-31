@@ -1,15 +1,15 @@
 import { Response } from 'express'
 
-import { UsersRequest } from '@meta/api/request'
+import { CycleRequest } from '@meta/api/request'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { UserController } from '@server/controller/user'
 import { ProcessEnv } from '@server/utils'
 import Requests from '@server/utils/requests'
 
-export const getMany = async (req: UsersRequest<{ print: string; limit?: string; offset?: string }>, res: Response) => {
+export const getMany = async (req: CycleRequest<{ print: string }>, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName, print, limit, offset } = req.query
+    const { countryIso, assessmentName, cycleName, print } = req.query
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
@@ -17,8 +17,6 @@ export const getMany = async (req: UsersRequest<{ print: string; limit?: string;
       countryIso,
       assessment,
       cycle,
-      limit: limit && Number(limit),
-      offset: offset && Number(offset),
     })
 
     if (print && print === 'true')
