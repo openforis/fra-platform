@@ -1,10 +1,14 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
-import { GeoState } from './stateType'
+
 import { postMosaicOptions } from './actions/postMosaicOptions'
+import { GeoState } from './stateType'
 
 const initialState: GeoState = {
   selectedPanel: null,
   mosaicOptions: {
+    sources: [],
+  },
+  forestOptions: {
     sources: [],
   },
   mosaicUrl: '',
@@ -19,6 +23,9 @@ export const geoSlice = createSlice({
     },
     updateSelectedPanel: (state, { payload }) => {
       state.selectedPanel = payload
+    },
+    updateForestOptions: (state, { payload }) => {
+      state.forestOptions = payload
     },
   },
   extraReducers: (builder) => {

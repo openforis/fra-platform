@@ -83,20 +83,12 @@ export const ApiEndPoint = {
     sectionAuth: () => apiPath('users', 'section-auth'),
   },
 
-  /**
-   * @deprecated
-   */
-
   Geo: {
     sepalProxy: () => apiPath('geo', 'sepal'),
     Layers: {
-      getForest: (
-        countryIso = ':countryIso',
-        forestSource = ':forestSource',
-        gteHansenTreeCoverPerc = ':gteHansenTreeCoverPerc?'
-      ) => apiPath('geo', 'layers', 'forest', countryIso, forestSource, gteHansenTreeCoverPerc),
-      getForestAgreement: (countryIso = ':countryIso') => apiPath('geo', 'layers', 'forestAgreement', countryIso),
-      getBoundaries: (countryIso = ':countryIso') => apiPath('geo', 'layers', 'boundaries', countryIso),
+      getForest: () => apiPath('geo', 'layers', 'forest'),
+      getForestAgreement: () => apiPath('geo', 'layers', 'forestAgreement'),
+      getBoundaries: () => apiPath('geo', 'layers', 'boundaries'),
     },
   },
 

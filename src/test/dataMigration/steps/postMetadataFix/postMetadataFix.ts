@@ -92,4 +92,19 @@ export const postMetadataFix = async (props: Props, client: BaseProtocol): Promi
       where t.props ->> 'name' in ('forestPolicy')
       ;
   `)
+
+  // fix navigation labels
+  // -- Employment, education and NWFP
+  await client.query(`
+      update
+          ${schema}.section
+      set props = jsonb_set(
+              props,
+              '{labels,"${cycle2025.uuid}"}',
+              '{ "key": "fra.navigation.sectionHeaders.employmentEducationAndNwfp2025" }'
+          )
+      where parent_id is null
+        and props ->> 'index' = '7'
+        ;
+`)
 }
