@@ -77,9 +77,9 @@ describe('OriginalDataPoint paste test:', () => {
       countryIso,
       nationalClasses: [
         { name: 'Closed forest' },
-        { name: 'Open forest', otherPlantedPercent: '10' },
+        { name: 'Open forest', otherPlantedForestPercent: '10' },
         { name: 'Hardwood plantations' },
-        { name: 'Coconut plantations', otherPlantedPercent: '25' },
+        { name: 'Coconut plantations', otherPlantedForestPercent: '25' },
         { name: '', placeHolder: true },
       ],
     } as OriginalDataPoint
@@ -87,21 +87,21 @@ describe('OriginalDataPoint paste test:', () => {
       { name: 'Closed forest' },
       {
         name: 'Open forest',
-        otherPlantedPercent: '10',
+        otherPlantedForestPercent: '10',
         otherLandPalmsPercent: '10',
         otherLandTreeOrchardsPercent: '20',
       },
       { name: 'Hardwood plantations' },
       {
         name: 'Coconut plantations',
-        otherPlantedPercent: '25',
+        otherPlantedForestPercent: '25',
         otherLandPalmsPercent: '30',
         otherLandTreeOrchardsPercent: '40',
       },
     ] as Array<ODPNationalClass>
     const result = handlePaste(
       otherLandCharacteristicsCols,
-      (nc: ODPNationalClass) => Number(nc.otherPlantedPercent) > 0,
+      (nc: ODPNationalClass) => Number(nc.otherPlantedForestPercent) > 0,
       originalOdp,
       false,
       [
@@ -114,7 +114,7 @@ describe('OriginalDataPoint paste test:', () => {
     expect(
       digOnlyCertainFieldsOutOfOdp(4, result.updatedOdp, [
         'name',
-        'otherPlantedPercent',
+        'otherPlantedForestPercent',
         'otherLandPalmsPercent',
         'otherLandTreeOrchardsPercent',
       ])
