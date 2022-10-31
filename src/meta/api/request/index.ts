@@ -34,9 +34,4 @@ export type { AssessmentFileBody } from './file/assessmentFile'
 export type { ForestAgreementLayerRequest, ForestLayerRequest } from './geo/layer'
 
 // user
-export type UsersRequest<QueryParams = any, Body = any> = Request<
-  never,
-  never,
-  Body,
-  QueryParams & { countryIso?: CountryIso; limit?: string; offset?: string }
->
+export type { UsersRequest } from './admin/users'
