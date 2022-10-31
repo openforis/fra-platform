@@ -8,6 +8,6 @@ import { getUsers } from './getUsers'
 
 export const AdminApi = {
   init: (express: Express): void => {
-    express.put(ApiEndPoint.Admin.users(), AuthMiddleware.requireAdmin, getUsers)
+    express.get(ApiEndPoint.Admin.users(), AuthMiddleware.requireAdmin, getUsers)
   },
 }
