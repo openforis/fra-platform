@@ -38,5 +38,5 @@ export type UsersRequest<QueryParams = any, Body = any> = Request<
   never,
   never,
   Body,
-  QueryParams & { assessmentName?: string; countryIso?: CountryIso; cycleName?: string }
+  QueryParams & { countryIso?: CountryIso; limit?: string; offset?: string }
 >

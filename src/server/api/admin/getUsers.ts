@@ -5,7 +5,7 @@ import { UsersRequest } from '@meta/api/request'
 import { UserController } from '@server/controller/user'
 import Requests from '@server/utils/requests'
 
-export const getUsers = async (req: UsersRequest<{ limit?: string; offset?: string }>, res: Response) => {
+export const getUsers = async (req: UsersRequest, res: Response) => {
   try {
     const { countryIso, limit, offset } = req.query
 
