@@ -1,5 +1,5 @@
 import { CountryIso } from '@meta/area'
-import { ActivityLogMessage, Assessment, Cycle, OriginalDataPoint, TableNames } from '@meta/assessment'
+import { ActivityLogMessage, Assessment, Cycle, ODPs, OriginalDataPoint, TableNames } from '@meta/assessment'
 import { NodeUpdate, NodeUpdates } from '@meta/data'
 import { Sockets } from '@meta/socket'
 import { User } from '@meta/user'
@@ -34,28 +34,41 @@ const handleWebsocket = (nodeUpdatesValidation: NodeUpdates) => {
 }
 
 const updateExtentOfForestDependants = async (props: updateDependantsProps) => {
-  const { countryIso, assessment, user, colName, cycle, client } = props
+  const { countryIso, assessment, user, colName, cycle, client, updatedOriginalDataPoint } = props
 
+  const tableName = TableNames.extentOfForest
+  const variableName = 'forestArea'
   const nodeUpdates = await calculateDependantNodes(
     {
       countryIso,
       assessment,
       cycle,
       sectionName: 'extentOfForest',
-      tableName: TableNames.extentOfForest,
+      tableName,
       user,
       colName,
-      variableName: 'forestArea',
+      variableName,
     },
     client
   )
 
   const nodeUpdatesValidation = await validateNodeUpdates({ nodeUpdates }, client)
+
+  const raw = String(ODPs.calcTotalFieldArea({ originalDataPoint: updatedOriginalDataPoint, field: 'forestPercent' }))
+
+  const i = nodeUpdatesValidation.nodes.findIndex((n) => n.variableName === 'forestArea')
+  nodeUpdatesValidation.nodes[i] = {
+    tableName,
+    variableName,
+    colName,
+    value: { raw, odp: true },
+  }
+
   handleWebsocket(nodeUpdatesValidation)
 }
 
 const updateForestCharacteristicsDependants = async (props: updateDependantsProps) => {
-  const { countryIso, assessment, user, colName, cycle, client } = props
+  const { countryIso, assessment, user, colName, cycle, client, updatedOriginalDataPoint } = props
 
   const variableNames = [
     'naturalForestArea',
@@ -85,7 +98,80 @@ const updateForestCharacteristicsDependants = async (props: updateDependantsProp
   const nodeUpdatesValidations = await Promise.all(
     nodeUpdates.map((nodeUpdate) => validateNodeUpdates({ nodeUpdates: nodeUpdate }, client))
   )
-  nodeUpdatesValidations.forEach((nodeUpdatesValidation) => handleWebsocket(nodeUpdatesValidation))
+  // Merge updates to avoid multiple updates on same node
+  // Base values (assessment, cycle, countryIso) are the same
+  const nodeUpdatesValidationsMerged = nodeUpdatesValidations.shift()
+
+  const _nodeExists = (node: NodeUpdate, nodeList: NodeUpdate[]) => {
+    return nodeList.find(
+      (mergedNode) =>
+        mergedNode.tableName === node.tableName &&
+        mergedNode.variableName === node.variableName &&
+        mergedNode.colName === node.colName
+    )
+  }
+
+  // Merge updates if they don't already exist
+  nodeUpdatesValidations.forEach((nodeValidation) => {
+    nodeValidation.nodes.forEach((currentNode) => {
+      if (!_nodeExists(currentNode, nodeUpdatesValidationsMerged.nodes)) {
+        nodeUpdatesValidationsMerged.nodes.push(currentNode)
+      }
+    })
+  })
+
+  // Add forestCharacteristics variables
+  const tableName = TableNames.forestCharacteristics
+
+  const values: Record<string, string> = {
+    naturalForestArea: String(
+      ODPs.calcTotalSubFieldArea({
+        originalDataPoint: updatedOriginalDataPoint,
+        field: 'forestPercent',
+        subField: 'forestNaturalPercent',
+      })
+    ),
+    plantationForestArea: String(
+      ODPs.calcTotalSubFieldArea({
+        originalDataPoint: updatedOriginalDataPoint,
+        field: 'forestPercent',
+        subField: 'forestPlantationPercent',
+      })
+    ),
+    plantationForestIntroducedArea: String(
+      ODPs.calcTotalSubSubFieldArea({
+        originalDataPoint: updatedOriginalDataPoint,
+        field: 'forestPercent',
+        subField: 'forestPlantationPercent',
+        subSubField: 'forestPlantationIntroducedPercent',
+      })
+    ),
+    otherPlantedForestArea: String(
+      ODPs.calcTotalSubFieldArea({
+        originalDataPoint: updatedOriginalDataPoint,
+        field: 'forestPercent',
+        subField: 'otherPlantedForestPercent',
+      })
+    ),
+  }
+
+  variableNames.forEach((variableName) => {
+    const i = nodeUpdatesValidationsMerged.nodes.findIndex((n) => n.variableName === variableName)
+    const nodeUpdateProps = {
+      tableName,
+      variableName,
+      colName,
+      value: { raw: values[variableName], odp: true },
+    }
+    // Replace if already exists, else prepend
+    if (i > 0) {
+      nodeUpdatesValidationsMerged.nodes[i] = nodeUpdateProps
+    } else {
+      nodeUpdatesValidationsMerged.nodes.unshift(nodeUpdateProps)
+    }
+  })
+
+  handleWebsocket(nodeUpdatesValidationsMerged)
 }
 
 export const updateOriginalDataPoint = async (
