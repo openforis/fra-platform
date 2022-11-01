@@ -37,8 +37,19 @@ export const assessmentSectionSlice = createSlice({
       const { countryIso, nodeUpdate } = payload
       const { tableName, variableName, colName, value } = nodeUpdate
       const data = (state.data ?? {}) as TableData
-      const dataUpdate = TableDatas.updateDatum({ data, countryIso, tableName, variableName, colName, value })
-      state.data = { ...data, ...dataUpdate }
+      const dataUpdateProps = { data, countryIso, tableName, variableName, colName, value }
+      if (value.odp) {
+        // If the value overrides ODP value, update the ODP state
+        const dataUpdate = TableDatas.updateDatum({
+          ...dataUpdateProps,
+          data: state.originalDataPointData,
+          tableName: 'originalDataPointValue',
+        })
+        state.originalDataPointData = { ...state.originalDataPointData, ...dataUpdate }
+      } else {
+        const dataUpdate = TableDatas.updateDatum(dataUpdateProps)
+        state.data = { ...data, ...dataUpdate }
+      }
     },
     setNodeValueValidation: (state, { payload }: PayloadAction<{ nodeUpdate: NodeUpdate }>) => {
       const { nodeUpdate } = payload
