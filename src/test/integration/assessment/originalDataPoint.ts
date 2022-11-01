@@ -8,6 +8,8 @@ import { UserController } from '@server/controller/user'
 import { assessmentCycleName, assessmentParams, originalDataPoint } from '@test/integration/mock/assessment'
 import { userMockTest } from '@test/integration/mock/user'
 
+jest.mock('../../../server/service/socket/socketService')
+
 export default (): void =>
   describe('Original data point', () => {
     let assessment: Assessment
