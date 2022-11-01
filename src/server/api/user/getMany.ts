@@ -8,9 +8,9 @@ import { ProcessEnv } from '@server/utils'
 import Requests from '@server/utils/requests'
 
 export const getMany = async (req: CycleRequest<{ print: string }>, res: Response) => {
-  const { countryIso, assessmentName, cycleName, print } = req.query
-
   try {
+    const { countryIso, assessmentName, cycleName, print } = req.query
+
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     let users = await UserController.getMany({
