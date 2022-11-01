@@ -27,40 +27,40 @@ const UserColumn: React.FC<{ user: User; field: keyof User }> = ({ user, field }
 )
 
 const UserRoleColumn: React.FC<{ user: User; countryIso: CountryIso }> = ({ user, countryIso }) => {
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
 
   return (
     <td className="user-list__cell">
       <div className="user-list__cell--read-only">
-        {i18n.t<string>(Users.getI18nRoleLabelKey(Users.getCountryRole(user, countryIso).role))}
+        {t(Users.getI18nRoleLabelKey(Users.getCountryRole(user, countryIso).role))}
       </div>
     </td>
   )
 }
 
-const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail }) => {
+const UserRow: React.FC<{ user: User }> = ({ user }) => {
   const [showInvitationInfo, setShowInvitationInfo] = useState<boolean>(false)
   const dispatch = useAppDispatch()
-  const { i18n } = useTranslation()
   const { toaster } = useToaster()
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
   const currentUser = useUser()
+  const { t } = useTranslation()
 
   const { acceptedAt, invitationUuid } = Users.getCountryRole(user, countryIso)
 
   const removeInvitation = useCallback(() => {
-    if (window.confirm(i18n.t('userManagement.confirmDelete', { user: user.name })))
+    if (window.confirm(t('userManagement.confirmDelete', { user: user.name })))
       dispatch(
         UserManagementActions.removeInvitation({
           countryIso,
           invitationUuid,
         })
       ).then(() => {
-        toaster.success(i18n.t<string>('userManagement.invitationDeleted'))
+        toaster.success(t('userManagement.invitationDeleted'))
       })
-  }, [countryIso, dispatch, i18n, invitationUuid, toaster, user.name])
+  }, [countryIso, dispatch, t, invitationUuid, toaster, user.name])
 
   return (
     <tr
@@ -71,7 +71,10 @@ const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail
     >
       <UserColumn user={user} field="name" />
       <UserRoleColumn user={user} countryIso={countryIso} />
-      {showEmail && <UserColumn user={user} field="email" />}
+      <UserColumn user={user} field="email" />
+      <td className="user-list__cell">
+        <div className="user-list__cell--read-only">TODO</div>
+      </td>
       <td className="user-list__cell user-list__edit-column">
         {invitationUuid && !acceptedAt ? (
           <>
@@ -79,7 +82,7 @@ const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail
               key={0}
               className="btn-s btn-link"
               onClick={() => setShowInvitationInfo(true)}
-              title={i18n.t<string>('userManagement.info')}
+              title={t('userManagement.info')}
               type="button"
             >
               <Icon name="round-e-info" />
@@ -90,7 +93,7 @@ const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail
               className="btn-s btn-link-destructive"
               disabled={currentUser.id === user.id}
               onClick={removeInvitation}
-              title={i18n.t<string>('userManagement.remove')}
+              title={t('userManagement.remove')}
               type="button"
             >
               <Icon name="trash-simple" />
@@ -107,7 +110,7 @@ const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail
             type="button"
             className="link"
           >
-            {i18n.t<string>('userManagement.edit')}
+            {t('userManagement.edit')}
           </Link>
         )}
         {showInvitationInfo ? <UserInvitationInfo user={user} onClose={() => setShowInvitationInfo(false)} /> : null}
@@ -116,15 +119,46 @@ const UserRow: React.FC<{ user: User; showEmail: boolean }> = ({ user, showEmail
   )
 }
 
-const UsersTableHeadRow: React.FC<{ showEmail: boolean }> = ({ showEmail }) => {
-  const { i18n } = useTranslation()
+const AdminTableUserRow: React.FC<{ user: User }> = ({ user }) => {
+  const { t } = useTranslation()
+
+  const { id, status } = user
+
+  return (
+    <tr
+      className={classNames({
+        'user-list__inactive-user': status === UserStatus.inactive,
+      })}
+    >
+      <UserColumn user={user} field="name" />
+      <td className="user-list__cell">
+        <div className="user-list__cell--read-only">TODO</div>
+      </td>
+      <UserColumn user={user} field="email" />
+      <td className="user-list__cell user-list__edit-column">
+        <Link to={ClientRoutes.Admin.User.getLink({ id })} type="button" className="link">
+          {t('userManagement.edit')}
+        </Link>
+      </td>
+    </tr>
+  )
+}
+
+const UsersTableHeadRow: React.FC<{ showLoginEmail: boolean; showRole: boolean; showRoles: boolean }> = ({
+  showLoginEmail,
+  showRole,
+  showRoles,
+}) => {
+  const { t } = useTranslation()
 
   return (
     <thead>
       <tr>
-        <th className="user-list__header-cell">{i18n.t<string>('userManagement.name')}</th>
-        <th className="user-list__header-cell">{i18n.t<string>('userManagement.role')}</th>
-        {showEmail && <th className="user-list__header-cell">{i18n.t<string>('userManagement.email')}</th>}
+        <th className="user-list__header-cell">{t('userManagement.name')}</th>
+        {showRole && <th className="user-list__header-cell">{t('userManagement.role')}</th>}
+        {showRoles && <th className="user-list__header-cell">TODO</th>}
+        <th className="user-list__header-cell">{t('userManagement.email')}</th>
+        {showLoginEmail && <th className="user-list__header-cell">{t('userManagement.loginEmail')}</th>}
         <th className="user-list__header-cell user-list__edit-column">
           <ButtonUserListExport />
         </th>
@@ -134,19 +168,19 @@ const UsersTableHeadRow: React.FC<{ showEmail: boolean }> = ({ showEmail }) => {
 }
 
 const UserList: React.FC<{ users: Array<User>; isAdmin: boolean }> = ({ users, isAdmin }) => {
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
 
   return users && users.length > 0 ? (
     <table className="user-list__table">
-      <UsersTableHeadRow showEmail={isAdmin} />
+      <UsersTableHeadRow showLoginEmail={!isAdmin} showRole={!isAdmin} showRoles={isAdmin} />
       <tbody>
-        {users.map((user: User) => (
-          <UserRow key={user.id} user={user} showEmail={isAdmin} />
-        ))}
+        {users.map((user: User) =>
+          isAdmin ? <AdminTableUserRow key={user.id} user={user} /> : <UserRow key={user.id} user={user} />
+        )}
       </tbody>
     </table>
   ) : (
-    <>{i18n.t('userManagement.noUsers')}</>
+    <>{t('userManagement.noUsers')}</>
   )
 }
 

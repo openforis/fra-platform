@@ -68,7 +68,7 @@ const PageRoutes: React.FC = () => {
         <Route path={`${ClientRoutes.Assessment.Root.path.absolute}/*`} element={<Assessment />} />
         <Route path={`${ClientRoutes.Login.Root.path.absolute}/*`} element={<Login />} />
         <Route path={`${ClientRoutes.Geo.Root.path.absolute}/*`} element={<Geo />} />
-        <Route path={`${ClientRoutes.Users.User.path.absolute}`} element={<User />} />
+        <Route path={ClientRoutes.Users.User.path.absolute} element={<User />} />
 
         <Route path="*" element={<Navigate to={ClientRoutes.Root.path} replace />} />
       </Routes>
