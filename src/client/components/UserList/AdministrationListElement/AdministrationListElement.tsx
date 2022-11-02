@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom'
 import classNames from 'classnames'
 
 import { ClientRoutes } from '@meta/app'
-import { User, UserStatus } from '@meta/user'
+import { RoleName, User, UserStatus } from '@meta/user'
+import { UserRoles } from '@meta/user/userRoles'
 
 import UserField from '../UserField'
 
@@ -21,9 +22,11 @@ const AdministrationListElement: React.FC<{ user: User }> = ({ user }) => {
       })}
     >
       <UserField user={user} field="name" />
-      <td className="user-list__cell">
-        <div className="user-list__cell--read-only">TODO</div>
-      </td>
+      {UserRoles.roles.map((role: RoleName) => (
+        <td className="user-list__cell">
+          <div className="user-list__cell--read-only">{role}</div>
+        </td>
+      ))}
       <UserField user={user} field="email" />
       <td className="user-list__cell user-list__edit-column">
         <Link to={ClientRoutes.Admin.User.getLink({ id })} type="button" className="link">
