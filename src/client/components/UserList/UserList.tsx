@@ -7,7 +7,12 @@ import { User } from '@meta/user'
 import UserListElement from './UserListElement'
 import UserListHeader from './UserListHeader'
 
-const UserList: React.FC<{ users: Array<User>; isAdmin: boolean }> = ({ users, isAdmin }) => {
+type Props = {
+  users: Array<User>
+  isAdmin?: boolean
+}
+
+const UserList: React.FC<Props> = ({ users, isAdmin }) => {
   const { t } = useTranslation()
 
   return users && users.length > 0 ? (
@@ -15,13 +20,17 @@ const UserList: React.FC<{ users: Array<User>; isAdmin: boolean }> = ({ users, i
       <UserListHeader showLoginEmail={!isAdmin} showRole={!isAdmin} showRoles={isAdmin} />
       <tbody>
         {users.map((user: User) => (
-          <UserListElement isAdmin key={user.id} user={user} />
+          <UserListElement key={user.id} user={user} isAdmin={isAdmin} />
         ))}
       </tbody>
     </table>
   ) : (
     <>{t('userManagement.noUsers')}</>
   )
+}
+
+UserList.defaultProps = {
+  isAdmin: false,
 }
 
 export default UserList

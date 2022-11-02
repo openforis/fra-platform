@@ -19,7 +19,7 @@ import UserInvitationInfo from '../UserInvitationInfo'
 import UserField from './UserField'
 import UserRoleField from './UserRoleField'
 
-const AdminListElement: React.FC<{ user: User }> = ({ user }) => {
+const AdministrationListElement: React.FC<{ user: User }> = ({ user }) => {
   const { t } = useTranslation()
 
   const { id, status } = user
@@ -125,7 +125,7 @@ const CollaboratorListElement: React.FC<{ user: User }> = ({ user }) => {
   )
 }
 
-const UserListElement: React.FC<{ isAdmin: boolean; user: User }> = ({ isAdmin, user }) =>
-  isAdmin ? <AdminListElement user={user} /> : <CollaboratorListElement user={user} />
+const UserListElement: React.FC<{ user: User; isAdmin: boolean }> = ({ user, isAdmin }) =>
+  isAdmin ? <AdministrationListElement user={user} /> : <CollaboratorListElement user={user} />
 
 export default UserListElement
