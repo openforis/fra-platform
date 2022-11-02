@@ -14,35 +14,10 @@ import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import { useToaster } from '@client/hooks/useToaster'
 
-import Icon from '../../Icon'
-import UserInvitationInfo from '../UserInvitationInfo'
-import UserField from './UserField'
-import UserRoleField from './UserRoleField'
-
-const AdministrationListElement: React.FC<{ user: User }> = ({ user }) => {
-  const { t } = useTranslation()
-
-  const { id, status } = user
-
-  return (
-    <tr
-      className={classNames({
-        'user-list__inactive-user': status === UserStatus.inactive,
-      })}
-    >
-      <UserField user={user} field="name" />
-      <td className="user-list__cell">
-        <div className="user-list__cell--read-only">TODO</div>
-      </td>
-      <UserField user={user} field="email" />
-      <td className="user-list__cell user-list__edit-column">
-        <Link to={ClientRoutes.Admin.User.getLink({ id })} type="button" className="link">
-          {t('userManagement.edit')}
-        </Link>
-      </td>
-    </tr>
-  )
-}
+import Icon from '../../../Icon'
+import UserInvitationInfo from '../../UserInvitationInfo'
+import UserField from '../UserField'
+import UserRoleField from '../UserRoleField'
 
 const CollaboratorListElement: React.FC<{ user: User }> = ({ user }) => {
   const [showInvitationInfo, setShowInvitationInfo] = useState<boolean>(false)
@@ -122,7 +97,4 @@ const CollaboratorListElement: React.FC<{ user: User }> = ({ user }) => {
   )
 }
 
-const UserListElement: React.FC<{ user: User; isAdmin: boolean }> = ({ user, isAdmin }) =>
-  isAdmin ? <AdministrationListElement user={user} /> : <CollaboratorListElement user={user} />
-
-export default UserListElement
+export default CollaboratorListElement

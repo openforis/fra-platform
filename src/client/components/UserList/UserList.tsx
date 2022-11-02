@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next'
 
 import { User } from '@meta/user'
 
-import UserListElement from './UserListElement'
+import AdministrationListElement from './UserListElement/AdministrationListElement'
+import CollaboratorListElement from './UserListElement/CollaboratorListElement'
 import UserListHeader from './UserListHeader'
 
 type Props = {
@@ -19,9 +20,9 @@ const UserList: React.FC<Props> = ({ users, isAdmin }) => {
     <table className="user-list__table">
       <UserListHeader isAdmin={isAdmin} />
       <tbody>
-        {users.map((user: User) => (
-          <UserListElement key={user.id} user={user} isAdmin={isAdmin} />
-        ))}
+        {users.map((user: User) =>
+          isAdmin ? <AdministrationListElement user={user} /> : <CollaboratorListElement user={user} />
+        )}
       </tbody>
     </table>
   ) : (
