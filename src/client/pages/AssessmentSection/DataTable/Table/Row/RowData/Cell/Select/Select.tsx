@@ -17,15 +17,15 @@ const Select: React.FC<PropsCell> = (props) => {
   const { onChange, onPaste, col, nodeValue, disabled } = props
   const { options, labelKeyPrefix = 'yesNoTextSelect' } = col.props.select
 
-  const optionSelected = [optionNotSelected, ...options].find((option) => option.name === nodeValue.raw)
+  const value = nodeValue?.raw
+
+  const optionSelected = [optionNotSelected, ...options].find((option) => option.name === value)
   const { i18n } = useTranslation()
 
   if (disabled) {
     return (
       <div className="text-input__container">
-        <div className="text-input__readonly-view">
-          {nodeValue.raw && getOptionLabel(optionSelected, i18n, labelKeyPrefix)}
-        </div>
+        <div className="text-input__readonly-view">{value && getOptionLabel(optionSelected, i18n, labelKeyPrefix)}</div>
       </div>
     )
   }
@@ -34,7 +34,7 @@ const Select: React.FC<PropsCell> = (props) => {
     <div className="fra-table__select-container">
       <select
         className="fra-table__select no-print"
-        value={nodeValue.raw ?? optionNotSelected.name}
+        value={value ?? optionNotSelected.name}
         disabled={disabled}
         onChange={onChange}
         onPaste={onPaste}
@@ -49,7 +49,7 @@ const Select: React.FC<PropsCell> = (props) => {
         })}
       </select>
       <div className="text-input__readonly-view only-print" style={{ textAlign: 'left' }}>
-        {nodeValue.raw && getOptionLabel(optionSelected, i18n, labelKeyPrefix)}
+        {value && getOptionLabel(optionSelected, i18n, labelKeyPrefix)}
       </div>
     </div>
   )
