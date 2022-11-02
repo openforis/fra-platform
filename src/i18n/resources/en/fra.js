@@ -41,6 +41,21 @@ module.exports = {
     total2025: 'Total',
   },
 
+  forestRestoration: {
+    forestRestoration: 'Forest restoration',
+    hasYourCountryForestRestorationCommitments: 'Has your country forest restoration commitments?',
+    isThereALawOrOtherGovernmentMandateInSupportOfRestoration:
+      'Is there a  law or other government mandate in support of restoration?',
+    isThereANationalDefinitionOfRestoration:
+      'Is there a national definition of "restoration" if yes, provide the defintion the monitoring process and results.',
+    whatAreasInNeedOfRestorationHaveBeenIdentified:
+      'What areas in need of restoration have been identified and how have they been identified?',
+    whatAreTheTargetsSetForTheRestoration:
+      'What are the targets set for the restoration? E g xxx hectares by year yyyy',
+    howManyHectaresOfForestHaveBeenRestoredToDate: 'How many hectares of forest have been restored to date?',
+    ifYes: 'If "yes"',
+  },
+
   growingStockComposition: {
     growingStockPercent: 'Growing stock in forest (% of total)',
     mostRecentYear: 'Most recent year',
