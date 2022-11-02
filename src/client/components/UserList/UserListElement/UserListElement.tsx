@@ -78,9 +78,6 @@ const CollaboratorListElement: React.FC<{ user: User }> = ({ user }) => {
       <UserField user={user} field="name" />
       <UserRoleField user={user} countryIso={countryIso} />
       <UserField user={user} field="email" />
-      <td className="user-list__cell">
-        <div className="user-list__cell--read-only">TODO</div>
-      </td>
       <td className="user-list__cell user-list__edit-column">
         {invitationUuid && !acceptedAt ? (
           <>

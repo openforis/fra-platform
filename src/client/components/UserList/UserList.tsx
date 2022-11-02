@@ -17,7 +17,7 @@ const UserList: React.FC<Props> = ({ users, isAdmin }) => {
 
   return users && users.length > 0 ? (
     <table className="user-list__table">
-      <UserListHeader showLoginEmail={!isAdmin} showRole={!isAdmin} showRoles={isAdmin} />
+      <UserListHeader isAdmin={isAdmin} />
       <tbody>
         {users.map((user: User) => (
           <UserListElement key={user.id} user={user} isAdmin={isAdmin} />
