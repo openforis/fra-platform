@@ -31,7 +31,7 @@ export const useTableData = (props: { table: Table }): TableData => {
   const odpData = useOriginalDataPointData() ?? {}
   const showOriginalDatapoints = useShowOriginalDatapoints()
 
-  if (!tableData) return {} as TableData
+  if (!tableData?.[countryIso]) return {} as TableData
   if (!odp || !showOriginalDatapoints || !country.props.forestCharacteristics.useOriginalDataPoint) return tableData
 
   const currData = tableData[countryIso][table.props.name]

@@ -11,10 +11,15 @@ module.exports = {
     areaAffected: 'Area affected (1000 ha)',
   },
 
+  climaticDomain: {
+    percentOfForestArea: '% of forest area',
+  },
+
   designatedManagementObjective: {
     noDesignation: 'No designation',
     unknown2025: 'Unknown',
   },
+
   disturbances: {
     forestDamage: 'Forest damage',
     predominantCause: 'Predominant cause',
@@ -30,6 +35,8 @@ module.exports = {
   },
 
   forestCharacteristics: {
+    ofWhichOtherPlantedForest: '$t(growingStock.otherPlantedForest)',
+    ofWhichPlantationForest: '$t(growingStock.plantationForest)',
     primaryForest: '…of which primary forest',
     plantationForestIntroducedArea2025: '…of which introduced species',
   },
@@ -56,10 +63,15 @@ module.exports = {
     ifYes: 'If "yes"',
   },
 
+  growingStock: {
+    totalForest: 'Total Forest',
+  },
+
   growingStockComposition: {
-    growingStockPercent: 'Growing stock in forest (% of total)',
-    mostRecentYear: 'Most recent year',
-    rankedPercent: '#{{idx}} Ranked % of total GS',
+    millionCubicMeter: 'Million m³',
+    mostRecentYear: 'Most recent year:',
+    percentOfTotal: '% of total',
+    ranked: '#{{idx}} Ranked',
     totalIntroducedPercent: 'TOTAL % of introduced tree species',
     totalNativePercent: 'TOTAL % of native tree species',
   },
@@ -70,22 +82,33 @@ module.exports = {
     unknown2025: 'Unknown',
   },
 
+  nonWoodForestProductsRemovals: {
+    nonWoodForestProductsRemovals2025: 'Non wood forest products removals and value 2020',
+  },
+
   primaryForestByClimaticDomain: {
     primaryForestByClimaticDomain: 'Primary forest by climatic domain',
     primaryForestBoreal: '…of which boreal primary forest',
     primaryForestTemperate: '…of which temperate primary forest',
     primaryForestTropical: '…of which tropical primary forest',
     primaryForestSubTropical: '…of which sub-tropical primary forest',
+    totalPrimaryForest: 'Total',
   },
 
   specificForestCategories: {
     specificForestCategories2025: 'Specific forest categories',
     mangroves2025: `Mangroves\u00B9`,
-    mangrovesDisclaimer: `\u00B9Note the area of mangroves not only includes Forest but also Other wooded land`,
+    mangrovesDisclaimer: `\u00B9Includes both Forest and Other wooded land`,
   },
 
   sustainableDevelopment: {
     sdgIndicator1_2025: 'SDG Indicator 15.1.1 Forest area as proportion of total land area',
     forestAreaProportionLandArea: 'Forest area as proportion of total land area',
+  },
+
+  navigation: {
+    sectionHeaders: {
+      employmentEducationAndNwfp2025: 'NWFP removals and value 2020',
+    },
   },
 }

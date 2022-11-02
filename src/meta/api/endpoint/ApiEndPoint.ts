@@ -4,6 +4,11 @@ const apiPath = (...parts: Array<string>): string => joinPaths('api', ...parts)
 export const ApiEndPoint = {
   init: () => apiPath('init'),
   definitions: (lang = ':lang', name = ':name') => joinPaths('definitions', lang, name),
+
+  Admin: {
+    users: () => apiPath('admin', 'users'),
+  },
+
   Area: {
     country: () => apiPath('area', 'country'),
   },
@@ -83,20 +88,12 @@ export const ApiEndPoint = {
     sectionAuth: () => apiPath('users', 'section-auth'),
   },
 
-  /**
-   * @deprecated
-   */
-
   Geo: {
     sepalProxy: () => apiPath('geo', 'sepal'),
     Layers: {
-      getForest: (
-        countryIso = ':countryIso',
-        forestSource = ':forestSource',
-        gteHansenTreeCoverPerc = ':gteHansenTreeCoverPerc?'
-      ) => apiPath('geo', 'layers', 'forest', countryIso, forestSource, gteHansenTreeCoverPerc),
-      getForestAgreement: (countryIso = ':countryIso') => apiPath('geo', 'layers', 'forestAgreement', countryIso),
-      getBoundaries: (countryIso = ':countryIso') => apiPath('geo', 'layers', 'boundaries', countryIso),
+      getForest: () => apiPath('geo', 'layers', 'forest'),
+      getForestAgreement: () => apiPath('geo', 'layers', 'forestAgreement'),
+      getBoundaries: () => apiPath('geo', 'layers', 'boundaries'),
     },
   },
 

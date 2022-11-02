@@ -10,12 +10,12 @@ export type CycleParams = {
 }
 
 export type CycleDataParams = CycleParams & {
-  // TODO: rename section to sectionName
   sectionName: string
 }
 
-// base request
+// base requests
 export type CycleRequest<QueryParams = any, Body = any> = Request<never, never, Body, QueryParams & CycleParams>
+
 export type CycleDataRequest<QueryParams = any, Body = any> = Request<never, never, Body, QueryParams & CycleDataParams>
 
 // init
@@ -29,3 +29,9 @@ export type { EstimateBody, NodesBody, NodesBodyValue } from './cycleData/table'
 
 // assessmentFile
 export type { AssessmentFileBody } from './file/assessmentFile'
+
+// layers
+export type { ForestAgreementLayerRequest, ForestLayerRequest } from './geo/layer'
+
+// user
+export type { UsersRequest } from './admin/users'

@@ -3,8 +3,6 @@ import { agreementPalette, ForestSource, Layer } from '@meta/geo'
 
 import { AssetsController } from '@server/controller/geo/assets/'
 
-import { authenticateToGee } from './authenticateToGee'
-
 type Props = {
   countryIso: CountryIso
   sourceLayers: Array<ForestSource>
@@ -15,8 +13,6 @@ type Props = {
 
 export const getForestAgreementLayer = async (props: Props): Promise<Layer> => {
   const { countryIso, sourceLayers, gteHansenTreeCoverPerc, gteAgreementLevel, opacity } = props
-
-  await authenticateToGee()
 
   const ftcCountry = AssetsController.getCountryBoundaries(countryIso)
   const asset = AssetsController.getForestAgreementAssetData(sourceLayers, gteHansenTreeCoverPerc, gteAgreementLevel)

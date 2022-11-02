@@ -26,7 +26,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
   const plantationTotal = ODPs.calcTotalSubFieldArea({
     originalDataPoint,
     field: 'forestPercent',
-    subField: 'plantationPercent',
+    subField: 'forestPlantationPercent',
   })
 
   const hasPlantation = plantationTotal && Numbers.greaterThanOrEqualTo(plantationTotal, 0)
@@ -98,7 +98,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
                     ODPs.calcTotalSubFieldArea({
                       originalDataPoint,
                       field: 'forestPercent',
-                      subField: 'naturalForestPercent',
+                      subField: 'forestNaturalPercent',
                     })
                   )}
                 </td>
@@ -107,7 +107,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
                     ODPs.calcTotalSubFieldArea({
                       originalDataPoint,
                       field: 'forestPercent',
-                      subField: 'plantationPercent',
+                      subField: 'forestPlantationPercent',
                     })
                   )}
                 </td>
@@ -116,7 +116,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
                     ODPs.calcTotalSubFieldArea({
                       originalDataPoint,
                       field: 'forestPercent',
-                      subField: 'otherPlantedPercent',
+                      subField: 'otherPlantedForestPercent',
                     })
                   )}
                 </td>

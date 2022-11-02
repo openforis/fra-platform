@@ -37,6 +37,11 @@ export enum AssessmentHomeRouteNames {
   links = 'links',
 }
 
+export enum AdminRouteNames {
+  userManagement = 'userManagement',
+  // dataExport = 'dataExport',
+}
+
 const assessmentParts = [':countryIso', 'assessments', ':assessmentName', ':cycleName']
 
 export const ClientRoutes = {
@@ -44,7 +49,7 @@ export const ClientRoutes = {
 
   Admin: {
     Root: newInstance<void>('admin'),
-    root: { path: '/admin/*' },
+    Section: newInstance<{ sectionName: AssessmentHomeRouteNames }>(':sectionName'),
   },
 
   Assessment: {
