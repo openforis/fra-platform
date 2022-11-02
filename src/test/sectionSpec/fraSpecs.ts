@@ -6277,6 +6277,202 @@ export const FraSpecs: Record<string, SectionSpec> = {
       included: true,
     },
   },
+  forestRestoration: {
+    sectionName: 'forestRestoration',
+    sectionAnchor: '3d',
+    tableSections: [
+      {
+        tableSpecs: [
+          {
+            name: 'forestRestoration',
+            rows: [
+              {
+                idx: 0,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 2,
+                    labelKey: 'fra.forestRestoration.hasYourCountryForestRestorationCommitments',
+                    className: 'fra-table__header-cell-left',
+                  },
+                  {
+                    idx: 0,
+                    type: 'select',
+                    colName: 'answer',
+                    options: [
+                      {
+                        optionName: 'yes',
+                      },
+                      {
+                        optionName: 'no',
+                      },
+                    ],
+                    optionsLabelKeyPrefix: 'yesNoTextSelect',
+                  },
+                ],
+                labelKey: 'fra.forestRestoration.hasYourCountryForestRestorationCommitments',
+                variableExport: 'has_your_country_forest_restoration_commitments',
+                variableName: 'has_your_country_forest_restoration_commitments',
+                colSpan: 2,
+                mainCategory: true,
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    rowSpan: 5,
+                    labelKey: 'fra.forestRestoration.ifYes',
+                    className: 'fra-table__category-cell',
+                  },
+                  {
+                    idx: -1,
+                    type: 'placeholder',
+                    labelKey: 'fra.forestRestoration.isThereALawOrOtherGovernmentMandateInSupportOfRestoration',
+                  },
+                  {
+                    idx: 1,
+                    colName: 'answer',
+                    type: 'textarea',
+                  },
+                ],
+                labelKey: 'fra.forestRestoration.ifYes',
+                variableExport: 'law_or_other_mandate',
+                variableName: 'law_or_other_mandate',
+                rowSpan: 2,
+              },
+              {
+                idx: 2,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'fra.forestRestoration.isThereANationalDefinitionOfRestoration',
+                    className: 'fra-table__category-cell',
+                  },
+                  {
+                    idx: 0,
+                    colName: 'answer',
+                    type: 'textarea',
+                  },
+                ],
+                labelKey: 'fra.forestRestoration.isThereANationalDefinitionOfRestoration',
+                variableExport: 'how_monitored',
+                variableName: 'how_monitored',
+              },
+              {
+                idx: 3,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'fra.forestRestoration.whatAreasInNeedOfRestorationHaveBeenIdentified',
+                    className: 'fra-table__category-cell',
+                  },
+                  {
+                    idx: 0,
+                    type: 'textarea',
+                    colName: 'answer',
+                  },
+                ],
+                labelKey: 'fra.forestRestoration.whatAreasInNeedOfRestorationHaveBeenIdentified',
+                variableName: 'areas_in_need_of_restoration',
+                variableExport: 'areas_in_need_of_restoration',
+              },
+              {
+                idx: 4,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'fra.forestRestoration.whatAreTheTargetsSetForTheRestoration',
+                    className: 'fra-table__category-cell',
+                  },
+                  {
+                    idx: 0,
+                    type: 'textarea',
+                    colName: 'answer',
+                  },
+                ],
+                labelKey: 'fra.forestRestoration.whatAreTheTargetsSetForTheRestoration',
+                variableName: 'restoration_targets',
+                variableExport: 'restoration_targets',
+              },
+              {
+                idx: 5,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'fra.forestRestoration.howManyHectaresOfForestHaveBeenRestoredToDate',
+                    className: 'fra-table__category-cell',
+                  },
+                  {
+                    idx: 0,
+                    type: 'textarea',
+                    colName: 'answer',
+                  },
+                ],
+                labelKey: 'fra.forestRestoration.howManyHectaresOfForestHaveBeenRestoredToDate',
+                variableExport: 'hectares_restored',
+                variableName: 'hectares_restored',
+              },
+            ],
+            tableDataRequired: [],
+            print: {
+              colBreakPoints: [],
+              pageBreakAfter: false,
+            },
+            dataExport: true,
+            columnsExportAlways: [],
+            columnsExport: [
+              'has_your_country_forest_restoration_commitments',
+              'law_or_other_mandate',
+              'how_monitored',
+              'areas_in_need_of_restoration',
+              'restoration_targets',
+              'hectares_restored',
+            ],
+            migration: {
+              columnNames: {
+                '2020': [],
+                '2025': ['national_yes_no', 'sub_national_yes_no'],
+              },
+            },
+          },
+        ],
+      },
+    ],
+    showTitle: true,
+    descriptions: {
+      analysisAndProcessing: false,
+      comments: true,
+      introductoryText: false,
+      nationalData: false,
+    },
+    dataExport: {
+      included: false,
+    },
+    migration: {
+      label: {
+        '2025': { key: 'fra.forestRestoration.forestRestoration' },
+      },
+      cycles: ['2025'],
+    },
+  },
   forestOwnership: {
     sectionName: 'forestOwnership',
     sectionAnchor: '4a',
