@@ -8,7 +8,7 @@ import { useUsers } from '@client/store/ui/userManagement'
 import { useCountryIso } from '@client/hooks'
 import Icon from '@client/components/Icon'
 
-const ButtonUserListExport = () => {
+const UserListButtonExport = () => {
   const { t } = useTranslation()
   const users = useUsers()
   const countryIso = useCountryIso()
@@ -59,4 +59,4 @@ const ButtonUserListExport = () => {
   )
 }
 
-export default ButtonUserListExport
+export default UserListButtonExport
