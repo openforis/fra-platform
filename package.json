@@ -12,7 +12,7 @@
     "migrate-fra:test:persist-node-value": "yarn jest --no-cache --detectOpenHandles --setupFiles dotenv/config --config jest.config.test.js",
     "migrate-fra:data-export:compare": "yarn jest --no-cache --detectOpenHandles --setupFiles dotenv/config --config src/test/dataExportComparison/jest.config.js",
     "migrate-fra:bulk-download:compare": "yarn jest --no-cache --detectOpenHandles --setupFiles dotenv/config --config src/test/bulkDownloadComparison/jest.config.js",
-    "build": "yarn build:client && yarn build:server && yarn build:copy",
+    "build": "yarn build:client && yarn build:server && yarn build:copy && yarn run-migrations",
     "build:server": "yarn tsc --project tsconfig.server.json && yarn tscpaths -v -p tsconfig.server.paths.json -s ./server -o ./dist",
     "build:client": "cross-env NODE_ENV=production webpack --config webpack.config.babel.js",
     "build:copy": "shx cp -Rf src/server/db/migration/* dist/server/db/migration/. && shx cp -Rf web-resources dist/ && shx cp -Rf src/server/static dist/server/",
