@@ -21,7 +21,6 @@ import forestAreaChange from './forestAreaChange'
 import forestAreaWithinProtectedAreas from './forestAreaWithinProtectedAreas'
 import forestOwnership from './forestOwnership'
 import forestPolicy from './forestPolicy'
-import forestRestoration from './forestRestoration'
 import graduationOfStudents from './graduationOfStudents'
 import graduationOfStudentsPrint1 from './graduationOfStudentsPrint1'
 import graduationOfStudentsPrint2 from './graduationOfStudentsPrint2'
@@ -76,7 +75,6 @@ export default {
   sustainableDevelopmentAgencySubIndicator2,
   sustainableDevelopmentAgencySubIndicator3,
   sustainableDevelopmentAgencySubIndicator4,
-  forestRestoration,
 
   // contentCheck
   extent,
