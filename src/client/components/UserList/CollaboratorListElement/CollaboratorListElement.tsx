@@ -14,9 +14,9 @@ import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import { useToaster } from '@client/hooks/useToaster'
 
-import Icon from '../../../Icon'
-import UserInvitationInfo from '../../UserInvitationInfo'
+import Icon from '../../Icon'
 import UserField from '../UserField'
+import UserInvitationInfo from '../UserInvitationInfo'
 import UserRoleField from '../UserRoleField'
 
 const CollaboratorListElement: React.FC<{ user: User }> = ({ user }) => {

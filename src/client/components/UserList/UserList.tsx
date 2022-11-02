@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next'
 
 import { User } from '@meta/user'
 
-import AdministrationListElement from './UserListElement/AdministrationListElement'
-import CollaboratorListElement from './UserListElement/CollaboratorListElement'
+import AdministrationListElement from './AdministrationListElement'
+import CollaboratorListElement from './CollaboratorListElement'
 import UserListHeader from './UserListHeader'
 
 type Props = {
