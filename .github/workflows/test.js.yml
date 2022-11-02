@@ -36,14 +36,21 @@ jobs:
       - run: yarn install --network-timeout 1000000
         env:
             NODE_AUTH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-      - run: yarn run-migrations
+#      - run: yarn run-migrations
+#        env:
+#          PGHOST: localhost
+#          PGPORT: 5442
+#          PGDATABASE: frap-dev
+#          PGUSER: frap
+#          PGPASSWORD: frap
+#     Migrations are run on yarn build
+      - run: yarn build
         env:
           PGHOST: localhost
           PGPORT: 5442
           PGDATABASE: frap-dev
           PGUSER: frap
           PGPASSWORD: frap
-      - run: yarn build
       - run: yarn test
         env:
           PGHOST: localhost
