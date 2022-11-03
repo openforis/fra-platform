@@ -23,7 +23,7 @@ const AdministrationListElement: React.FC<{ user: User }> = ({ user }) => {
     >
       <UserField user={user} field="name" />
       {UserRoles.roles.map((role: RoleName) => (
-        <td className="user-list__cell">
+        <td className="user-list__cell" key={user.id}>
           <div className="user-list__cell--read-only">{role}</div>
         </td>
       ))}

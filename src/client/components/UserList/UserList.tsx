@@ -21,7 +21,11 @@ const UserList: React.FC<Props> = ({ users, isAdmin }) => {
       <UserListHeader isAdmin={isAdmin} />
       <tbody>
         {users.map((user: User) =>
-          isAdmin ? <AdministrationListElement user={user} /> : <CollaboratorListElement user={user} />
+          isAdmin ? (
+            <AdministrationListElement key={user.id} user={user} />
+          ) : (
+            <CollaboratorListElement key={user.id} user={user} />
+          )
         )}
       </tbody>
     </table>
