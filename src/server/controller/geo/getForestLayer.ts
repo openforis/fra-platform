@@ -27,7 +27,7 @@ export const getForestLayer = async (props: Props): Promise<Layer> => {
       .getMap(
         {
           palette: metadata.palette,
-          opacity: opacity === undefined ? 1 : Number(opacity),
+          opacity: opacity === undefined ? 1 : opacity,
         },
         (mapProperties: any, err: any) => {
           if (err) {
