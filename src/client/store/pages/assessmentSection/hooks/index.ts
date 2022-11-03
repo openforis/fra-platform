@@ -79,7 +79,7 @@ export const useIsSectionDataEmpty = (tableSections: TableSection[]) => {
 export const useOriginalDataPointYears = () => {
   const odpData = useOriginalDataPointData()
   if (!odpData) return null
-  return Object.keys(odpData ?? {})
+  return Object.keys(odpData)
 }
 
 export const useNodeValueValidation = (props: { tableName: string }): NodeUpdate | undefined =>

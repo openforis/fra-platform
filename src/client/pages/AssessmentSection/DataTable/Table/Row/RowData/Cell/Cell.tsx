@@ -72,7 +72,7 @@ const Cell: React.FC<Props> = (props) => {
     countryIso,
     assessmentName,
     cycleName,
-    tableName: nodeValue.odp ? 'originalDataPointValue' : tableName,
+    tableName: nodeValue?.odp ? 'originalDataPointValue' : tableName,
     variableName,
     colName,
   })
