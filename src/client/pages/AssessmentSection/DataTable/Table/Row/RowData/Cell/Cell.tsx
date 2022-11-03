@@ -66,7 +66,16 @@ const Cell: React.FC<Props> = (props) => {
 
   const className = useClassName({ col, row, tableName, valid })
   const { onChange, onChangeNodeValue, onPaste } = useOnChange({ table, col, row, nodeValue, data, sectionName })
-  useListenNodeUpdate({ countryIso, assessmentName, cycleName, tableName, variableName, colName })
+
+  // If cell is ODP, listen to odp changes
+  useListenNodeUpdate({
+    countryIso,
+    assessmentName,
+    cycleName,
+    tableName: nodeValue.odp ? 'originalDataPointValue' : tableName,
+    variableName,
+    colName,
+  })
 
   const Component = Components[col.props.colType]
 
