@@ -2,10 +2,10 @@ import { ODPs, TableNames } from '@meta/assessment'
 
 import { calculateDependantNodes } from '@server/controller/cycleData/persistNodeValue/calculateDependantNodes'
 import { validateNodeUpdates } from '@server/controller/cycleData/persistNodeValue/validateNodeUpdates'
-import { updateDependantsProps } from '@server/controller/cycleData/updateOriginalDataPoint/updateDependantsProps'
+import { UpdateDependantsProps } from '@server/controller/cycleData/updateOriginalDataPoint/UpdateDependantsProps'
 
-export const getExtentOfForestDependantUpdates = async (props: updateDependantsProps) => {
-  const { countryIso, assessment, user, colName, cycle, client, updatedOriginalDataPoint } = props
+export const getExtentOfForestDependantUpdates = async (props: UpdateDependantsProps) => {
+  const { countryIso, assessment, user, colName, cycle, client, originalDataPoint } = props
 
   const tableName = TableNames.extentOfForest
   const variableName = 'forestArea'
@@ -25,10 +25,10 @@ export const getExtentOfForestDependantUpdates = async (props: updateDependantsP
 
   const nodeUpdatesValidation = await validateNodeUpdates({ nodeUpdates }, client)
 
-  const raw = String(ODPs.calcTotalFieldArea({ originalDataPoint: updatedOriginalDataPoint, field: 'forestPercent' }))
+  const raw = String(ODPs.calcTotalFieldArea({ originalDataPoint, field: 'forestPercent' }))
 
   nodeUpdatesValidation.nodes.unshift({
-    tableName: 'originalDataPointValue',
+    tableName: TableNames.originalDataPointValue,
     variableName,
     colName,
     value: { raw, odp: true },

@@ -14,6 +14,7 @@ export enum TableNames {
   primaryDesignatedManagementObjective = 'primaryDesignatedManagementObjective',
 
   valueAggregate = 'value_aggregate',
+  originalDataPointValue = 'originalDataPointValue',
 }
 
 // array of column names indexed by cycle uuid

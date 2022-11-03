@@ -1,10 +1,7 @@
 import { ActivityLogMessage, Assessment, Cycle, OriginalDataPoint } from '@meta/assessment'
 import { User } from '@meta/user'
 
-import { getExtentOfForestDependantUpdates } from '@server/controller/cycleData/updateOriginalDataPoint/getExtentOfForestDependantUpdates'
-import { getForestCharacteristicsDependantUpdates } from '@server/controller/cycleData/updateOriginalDataPoint/getForestCharacteristicsDependantUpdates'
-import { handleWebsocket } from '@server/controller/cycleData/updateOriginalDataPoint/handleWebsocket'
-import { mergeUpdates } from '@server/controller/cycleData/updateOriginalDataPoint/mergeUpdates'
+import { updateDependantNodes } from '@server/controller/cycleData/updateOriginalDataPoint/updateDependantNodes'
 import { BaseProtocol, DB } from '@server/db'
 import { OriginalDataPointRepository } from '@server/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from '@server/repository/public/activityLog'
@@ -26,30 +23,7 @@ export const updateOriginalDataPoint = async (
   )
 
   return client.tx(async (t) => {
-    const colName = String(updatedOriginalDataPoint.year)
-    const { countryIso } = updatedOriginalDataPoint
-
-    const extentOfForestUpdates = await getExtentOfForestDependantUpdates({
-      countryIso,
-      assessment,
-      cycle,
-      colName,
-      user,
-      updatedOriginalDataPoint,
-      client: t,
-    })
-
-    const forestCharacteristicsUpdates = await getForestCharacteristicsDependantUpdates({
-      countryIso,
-      assessment,
-      cycle,
-      colName,
-      user,
-      updatedOriginalDataPoint,
-      client: t,
-    })
-
-    handleWebsocket(mergeUpdates(forestCharacteristicsUpdates, extentOfForestUpdates))
+    await updateDependantNodes({ originalDataPoint: updatedOriginalDataPoint, assessment, cycle, user }, t)
 
     await ActivityLogRepository.insertActivityLog(
       {

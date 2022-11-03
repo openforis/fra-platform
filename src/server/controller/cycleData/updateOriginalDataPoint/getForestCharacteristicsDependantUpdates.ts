@@ -3,10 +3,10 @@ import { ODPs, TableNames } from '@meta/assessment'
 import { calculateDependantNodes } from '@server/controller/cycleData/persistNodeValue/calculateDependantNodes'
 import { validateNodeUpdates } from '@server/controller/cycleData/persistNodeValue/validateNodeUpdates'
 import { nodeExists } from '@server/controller/cycleData/updateOriginalDataPoint/nodeExists'
-import { updateDependantsProps } from '@server/controller/cycleData/updateOriginalDataPoint/updateDependantsProps'
+import { UpdateDependantsProps } from '@server/controller/cycleData/updateOriginalDataPoint/UpdateDependantsProps'
 
-export const getForestCharacteristicsDependantUpdates = async (props: updateDependantsProps) => {
-  const { countryIso, assessment, user, colName, cycle, client, updatedOriginalDataPoint } = props
+export const getForestCharacteristicsDependantUpdates = async (props: UpdateDependantsProps) => {
+  const { countryIso, assessment, user, colName, cycle, client, originalDataPoint } = props
 
   const variableNames = [
     'naturalForestArea',
@@ -53,21 +53,21 @@ export const getForestCharacteristicsDependantUpdates = async (props: updateDepe
   const values: Record<string, string> = {
     naturalForestArea: String(
       ODPs.calcTotalSubFieldArea({
-        originalDataPoint: updatedOriginalDataPoint,
+        originalDataPoint,
         field: 'forestPercent',
         subField: 'forestNaturalPercent',
       })
     ),
     plantationForestArea: String(
       ODPs.calcTotalSubFieldArea({
-        originalDataPoint: updatedOriginalDataPoint,
+        originalDataPoint,
         field: 'forestPercent',
         subField: 'forestPlantationPercent',
       })
     ),
     plantationForestIntroducedArea: String(
       ODPs.calcTotalSubSubFieldArea({
-        originalDataPoint: updatedOriginalDataPoint,
+        originalDataPoint,
         field: 'forestPercent',
         subField: 'forestPlantationPercent',
         subSubField: 'forestPlantationIntroducedPercent',
@@ -75,17 +75,16 @@ export const getForestCharacteristicsDependantUpdates = async (props: updateDepe
     ),
     otherPlantedForestArea: String(
       ODPs.calcTotalSubFieldArea({
-        originalDataPoint: updatedOriginalDataPoint,
+        originalDataPoint,
         field: 'forestPercent',
         subField: 'otherPlantedForestPercent',
       })
     ),
   }
 
-  const tableName = 'originalDataPointValue'
   variableNames.forEach((variableName) => {
     const nodeUpdateProps = {
-      tableName,
+      tableName: TableNames.originalDataPointValue,
       variableName,
       colName,
       value: { raw: values[variableName], odp: true },

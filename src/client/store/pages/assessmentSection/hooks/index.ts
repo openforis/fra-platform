@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 
-import { NodeValue, Table, TableSection } from '@meta/assessment'
+import { NodeValue, Table, TableNames, TableSection } from '@meta/assessment'
 import { NodeUpdate, TableData, TableDatas } from '@meta/data'
 
 import { useAppSelector } from '@client/store'
@@ -15,7 +15,9 @@ export const useTableSections = (props: { sectionName: string }): Array<TableSec
 
 const useOriginalDataPointData = (): Record<string, Record<string, NodeValue>> | undefined => {
   const countryIso = useCountryIso()
-  return useAppSelector((state) => state.pages.assessmentSection.data?.[countryIso]?.originalDataPointValue)
+  return useAppSelector(
+    (state) => state.pages.assessmentSection.data?.[countryIso]?.[TableNames.originalDataPointValue]
+  )
 }
 
 export const useHasOriginalDataPointData = (): boolean => Object.keys(useOriginalDataPointData() ?? {}).length > 0

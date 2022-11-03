@@ -4,12 +4,12 @@ import { User } from '@meta/user'
 
 import { BaseProtocol } from '@server/db'
 
-export type updateDependantsProps = {
+export type UpdateDependantsProps = {
   countryIso: CountryIso
   assessment: Assessment
   cycle: Cycle
   user: User
   colName: string
-  updatedOriginalDataPoint: OriginalDataPoint
+  originalDataPoint: OriginalDataPoint
   client: BaseProtocol
 }
