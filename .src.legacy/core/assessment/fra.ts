@@ -128,6 +128,13 @@ export const FRA: AssessmentFRA = {
             forestAreaWithinProtectedAreas: 'forestAreaWithinProtectedAreas',
           },
         },
+        d: {
+          name: 'forestRestoration',
+          anchor: '3d',
+          tables: {
+            forestRestoration: 'forestRestoration',
+          },
+        },
       },
     },
     4: {
