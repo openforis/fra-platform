@@ -15,9 +15,7 @@ export const useTableSections = (props: { sectionName: string }): Array<TableSec
 
 const useOriginalDataPointData = (): Record<string, Record<string, NodeValue>> | undefined => {
   const countryIso = useCountryIso()
-  return useAppSelector(
-    (state) => state.pages.assessmentSection.originalDataPointData?.[countryIso]?.originalDataPointValue
-  )
+  return useAppSelector((state) => state.pages.assessmentSection.data?.[countryIso]?.originalDataPointValue)
 }
 
 export const useHasOriginalDataPointData = (): boolean => Object.keys(useOriginalDataPointData() ?? {}).length > 0
@@ -79,10 +77,9 @@ export const useIsSectionDataEmpty = (tableSections: TableSection[]) => {
 }
 
 export const useOriginalDataPointYears = () => {
-  const countryIso = useCountryIso()
-  const odpData = useAppSelector((state) => state.pages.assessmentSection.originalDataPointData)
+  const odpData = useOriginalDataPointData()
   if (!odpData) return null
-  return Object.keys(odpData[countryIso]?.originalDataPointValue ?? {})
+  return Object.keys(odpData ?? {})
 }
 
 export const useNodeValueValidation = (props: { tableName: string }): NodeUpdate | undefined =>

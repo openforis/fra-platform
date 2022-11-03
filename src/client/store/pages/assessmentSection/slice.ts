@@ -16,7 +16,6 @@ import { AssessmentSectionState } from './stateType'
 const initialState: AssessmentSectionState = {
   data: null,
   tableSections: {},
-  originalDataPointData: null,
   showOriginalDataPoint: true,
   nodeValueValidation: {},
   descriptions: {},
@@ -37,19 +36,8 @@ export const assessmentSectionSlice = createSlice({
       const { countryIso, nodeUpdate } = payload
       const { tableName, variableName, colName, value } = nodeUpdate
       const data = (state.data ?? {}) as TableData
-      const dataUpdateProps = { data, countryIso, tableName, variableName, colName, value }
-      if (value.odp) {
-        // If the value overrides ODP value, update the ODP state
-        const dataUpdate = TableDatas.updateDatum({
-          ...dataUpdateProps,
-          data: state.originalDataPointData,
-          tableName: 'originalDataPointValue',
-        })
-        state.originalDataPointData = { ...state.originalDataPointData, ...dataUpdate }
-      } else {
-        const dataUpdate = TableDatas.updateDatum(dataUpdateProps)
-        state.data = { ...data, ...dataUpdate }
-      }
+      const dataUpdate = TableDatas.updateDatum({ data, countryIso, tableName, variableName, colName, value })
+      state.data = { ...data, ...dataUpdate }
     },
     setNodeValueValidation: (state, { payload }: PayloadAction<{ nodeUpdate: NodeUpdate }>) => {
       const { nodeUpdate } = payload
@@ -71,7 +59,11 @@ export const assessmentSectionSlice = createSlice({
     })
 
     builder.addCase(getOriginalDataPointData.fulfilled, (state, { payload }) => {
-      state.originalDataPointData = payload
+      const countryIso = Object.keys(payload || {})[0] as CountryIso
+      if (countryIso) {
+        const countryData = state.data?.[countryIso] ?? {}
+        state.data = { ...state.data, [countryIso]: { ...countryData, ...payload[countryIso] } }
+      }
     })
 
     builder.addCase(updateNodeValues.pending, (state, { meta }) => {

@@ -58,7 +58,7 @@ const updateExtentOfForestDependants = async (props: updateDependantsProps) => {
 
   const i = nodeUpdatesValidation.nodes.findIndex((n) => n.variableName === 'forestArea')
   nodeUpdatesValidation.nodes[i] = {
-    tableName,
+    tableName: 'originalDataPointValue',
     variableName,
     colName,
     value: { raw, odp: true },
@@ -121,8 +121,6 @@ const updateForestCharacteristicsDependants = async (props: updateDependantsProp
   })
 
   // Add forestCharacteristics variables
-  const tableName = TableNames.forestCharacteristics
-
   const values: Record<string, string> = {
     naturalForestArea: String(
       ODPs.calcTotalSubFieldArea({
@@ -155,6 +153,7 @@ const updateForestCharacteristicsDependants = async (props: updateDependantsProp
     ),
   }
 
+  const tableName = 'originalDataPointValue'
   variableNames.forEach((variableName) => {
     const i = nodeUpdatesValidationsMerged.nodes.findIndex((n) => n.variableName === variableName)
     const nodeUpdateProps = {
