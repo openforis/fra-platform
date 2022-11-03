@@ -5,14 +5,33 @@ import * as wwwhisper from 'connect-wwwhisper'
 import * as cookieParser from 'cookie-parser'
 import * as express from 'express'
 import * as fileUpload from 'express-fileupload'
+import * as jwt from 'jsonwebtoken'
 import * as morgan from 'morgan'
 
+import { User } from '@meta/user'
+
 import { Api } from '@server/api'
+import { UserController } from '@server/controller/user'
 import { Proxy } from '@server/proxy/proxy'
 import { SocketServer } from '@server/service/socket'
 
 import { sendErr } from './utils/requests'
 import * as resourceCacheControl from './resourceCacheControl'
+
+async function validateToken(req: any, res: any, next: any) {
+  const { token } = req.cookies
+  if (!token) return next()
+  const decodedJwt = jwt.decode(token) as Record<string, User>
+  const { user } = decodedJwt
+
+  const validUser = await UserController.getOne({ id: user.id })
+
+  if (!validUser) {
+    res.clearCookie('token')
+    return res.redirect('/')
+  }
+  return next()
+}
 
 export const serverInit = () => {
   const app = express()
@@ -27,6 +46,7 @@ export const serverInit = () => {
   app.use(bodyParser.json({ limit: '5000kb' }))
 
   resourceCacheControl.init(app)
+  app.use(validateToken)
 
   /*
    * Initialize API
