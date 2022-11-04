@@ -86,6 +86,9 @@ module.exports = {
     nonWoodForestProductsRemovals2025: 'Non wood forest products removals and value 2020',
   },
 
+  permanentForestEstate: {
+    permanentForestEstate: '$t(areaOfPermanentForestEstate.areaOfPermanentForestEstate)',
+  },
   primaryForestByClimaticDomain: {
     primaryForestByClimaticDomain: 'Primary forest by climatic domain',
     primaryForestBoreal: '…of which boreal primary forest',
