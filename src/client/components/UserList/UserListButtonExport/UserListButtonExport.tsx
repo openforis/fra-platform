@@ -8,38 +8,38 @@ import { useUsers } from '@client/store/ui/userManagement'
 import { useCountryIso } from '@client/hooks'
 import Icon from '@client/components/Icon'
 
-const ButtonUserListExport = () => {
-  const { i18n } = useTranslation()
+const UserListButtonExport = () => {
+  const { t } = useTranslation()
   const users = useUsers()
   const countryIso = useCountryIso()
 
   // ==== HEADERS
-  const csvRoleHeaders = () => [{ key: 'role', label: i18n.t('userManagement.role') }]
+  const csvRoleHeaders = () => [{ key: 'role', label: t('userManagement.role') }]
 
   const csvHeaders = () => [
-    { key: 'name', label: i18n.t('userManagement.name') },
+    { key: 'name', label: t('userManagement.name') },
     ...csvRoleHeaders(),
-    { key: 'email', label: i18n.t('userManagement.email') },
-    { key: 'loginEmail', label: i18n.t('userManagement.loginEmail') },
+    { key: 'email', label: t('userManagement.email') },
+    { key: 'loginEmail', label: t('userManagement.loginEmail') },
   ]
 
   // ==== TABLE DATA
 
   const csvRowData = (user: User, userRole: UserRole<RoleName, any>, isAdminTable: boolean) => {
-    const roleKey = isAdminTable ? userRole.role : 'role'
+    const roleKey = isAdminTable ? userRole?.role : 'role'
     let roleValue = ''
     if (isAdminTable) {
       roleValue =
-        userRole.role === RoleName.ADMINISTRATOR
-          ? i18n.t(Users.getI18nRoleLabelKey(RoleName.ADMINISTRATOR))
-          : i18n.t(`area.${userRole.countryIso}.listName`)
-    } else roleValue = i18n.t(Users.getI18nRoleLabelKey(userRole.role))
+        userRole?.role === RoleName.ADMINISTRATOR
+          ? t(Users.getI18nRoleLabelKey(RoleName.ADMINISTRATOR))
+          : t(`area.${userRole.countryIso}.listName`)
+    } else roleValue = t(Users.getI18nRoleLabelKey(userRole?.role))
 
     return {
       name: user.name,
-      [roleKey]: `${roleValue}${userRole.invitationUuid ? ` - ${i18n.t('admin.invitationPending')}` : ''}`,
+      [roleKey]: `${roleValue}${userRole?.invitationUuid ? ` - ${t('admin.invitationPending')}` : ''}`,
       email: user.email,
-      loginEmail: userRole.props.email || user.email,
+      loginEmail: userRole?.props.email || user.email,
     }
   }
 
@@ -59,4 +59,4 @@ const ButtonUserListExport = () => {
   )
 }
 
-export default ButtonUserListExport
+export default UserListButtonExport

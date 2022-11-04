@@ -49,7 +49,8 @@ export const ClientRoutes = {
 
   Admin: {
     Root: newInstance<void>('admin'),
-    Section: newInstance<{ sectionName: AssessmentHomeRouteNames }>(':sectionName'),
+    Section: newInstance<{ sectionName: AssessmentHomeRouteNames }>('admin', ':sectionName'),
+    User: newInstance<{ id: number }>('admin', 'users/:id'),
   },
 
   Assessment: {
@@ -62,7 +63,7 @@ export const ClientRoutes = {
         ':sectionName'
       ),
       Users: {
-        User: newInstance<AssessmentParams>(...assessmentParts, 'home', 'users/:id'),
+        User: newInstance<AssessmentParams & { id: number }>(...assessmentParts, 'home', 'users/:id'),
       },
     },
     Section: newInstance<AssessmentParams & { sectionName: string }>(...assessmentParts, ':sectionName'),
