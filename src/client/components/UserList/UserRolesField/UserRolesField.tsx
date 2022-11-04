@@ -11,7 +11,7 @@ const UserRolesField: React.FC<{ roleName: RoleName; user: User }> = ({ roleName
     <td className="user-list__cell">
       <div className="user-list__cell--read-only">
         {user.roles
-          .filter((role) => role.role === roleName)
+          .filter((role) => role.role === roleName && roleName !== RoleName.ADMINISTRATOR)
           .map((role) => t(Areas.getTranslationKey(role.countryIso)))
           .join(', ')}
       </div>
