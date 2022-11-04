@@ -2,7 +2,7 @@ import { RoleName } from './userRole'
 
 const noRole = { role: 'NONE', labelKey: 'user.roles.noRole' }
 
-const roles = [
+const roleNames = [
   RoleName.REVIEWER,
   RoleName.NATIONAL_CORRESPONDENT,
   RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
@@ -12,5 +12,5 @@ const roles = [
 
 export const UserRoles = {
   noRole,
-  roles,
+  roleNames,
 }

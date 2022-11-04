@@ -9,6 +9,7 @@ import { RoleName, User, UserStatus } from '@meta/user'
 import { UserRoles } from '@meta/user/userRoles'
 
 import UserField from '../UserField'
+import UserRolesField from '../UserRolesField'
 
 const AdministrationListElement: React.FC<{ user: User }> = ({ user }) => {
   const { t } = useTranslation()
@@ -22,10 +23,8 @@ const AdministrationListElement: React.FC<{ user: User }> = ({ user }) => {
       })}
     >
       <UserField user={user} field="name" />
-      {UserRoles.roles.map((role: RoleName) => (
-        <td className="user-list__cell" key={user.id}>
-          <div className="user-list__cell--read-only">{role}</div>
-        </td>
+      {UserRoles.roleNames.map((roleName: RoleName) => (
+        <UserRolesField key={roleName} roleName={roleName} user={user} />
       ))}
       <UserField user={user} field="email" />
       <td className="user-list__cell user-list__edit-column">

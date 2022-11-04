@@ -15,9 +15,9 @@ const UserListHeader: React.FC<{ isAdmin: boolean }> = ({ isAdmin }) => {
         <th className="user-list__header-cell">{t('userManagement.name')}</th>
         {!isAdmin && <th className="user-list__header-cell">{t('userManagement.role')}</th>}
         {isAdmin &&
-          UserRoles.roles.map((role: RoleName) => (
-            <th key={role} className="user-list__header-cell">
-              {t(Users.getI18nRoleLabelKey(role))}
+          UserRoles.roleNames.map((roleName: RoleName) => (
+            <th key={roleName} className="user-list__header-cell">
+              {t(Users.getI18nRoleLabelKey(roleName))}
             </th>
           ))}
         <th className="user-list__header-cell">{t('userManagement.email')}</th>
