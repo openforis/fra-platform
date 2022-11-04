@@ -2,11 +2,15 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { RoleName, Users } from '@meta/user'
-import { UserRoles } from '@meta/user/userRoles'
 
 import UserListButtonExport from '../UserListButtonExport'
 
-const UserListHeader: React.FC<{ isAdmin: boolean }> = ({ isAdmin }) => {
+type Props = {
+  isAdmin: boolean
+  roleNames: Array<RoleName>
+}
+
+const UserListHeader: React.FC<Props> = ({ isAdmin, roleNames }) => {
   const { t } = useTranslation()
 
   return (
@@ -15,7 +19,7 @@ const UserListHeader: React.FC<{ isAdmin: boolean }> = ({ isAdmin }) => {
         <th className="user-list__header-cell">{t('userManagement.name')}</th>
         {!isAdmin && <th className="user-list__header-cell">{t('userManagement.role')}</th>}
         {isAdmin &&
-          UserRoles.roleNames.map((roleName: RoleName) => (
+          roleNames.map((roleName: RoleName) => (
             <th key={roleName} className="user-list__header-cell">
               {t(Users.getI18nRoleLabelKey(roleName))}
             </th>

@@ -6,12 +6,16 @@ import classNames from 'classnames'
 
 import { ClientRoutes } from '@meta/app'
 import { RoleName, User, UserStatus } from '@meta/user'
-import { UserRoles } from '@meta/user/userRoles'
 
 import UserField from '../UserField'
 import UserRolesField from '../UserRolesField'
 
-const AdministrationListElement: React.FC<{ user: User }> = ({ user }) => {
+type Props = {
+  roleNames: Array<RoleName>
+  user: User
+}
+
+const AdministrationListElement: React.FC<Props> = ({ roleNames, user }) => {
   const { t } = useTranslation()
 
   const { id, status } = user
@@ -23,7 +27,7 @@ const AdministrationListElement: React.FC<{ user: User }> = ({ user }) => {
       })}
     >
       <UserField user={user} field="name" />
-      {UserRoles.roleNames.map((roleName: RoleName) => (
+      {roleNames.map((roleName: RoleName) => (
         <UserRolesField key={roleName} roleName={roleName} user={user} />
       ))}
       <UserField user={user} field="email" />
