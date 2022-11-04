@@ -5,8 +5,9 @@ import { Navigate, NavLink, Route, Routes } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { AdminRouteNames } from '@meta/app'
+import { AdminRouteNames, ClientRoutes } from '@meta/app'
 
+import User from '../User'
 import UserManagement from './UserManagement'
 
 const sections = [
@@ -43,6 +44,8 @@ const Admin: React.FC = () => {
         {sections.map(({ name, component }) => (
           <Route key={name} path={name} element={React.createElement(component, {})} />
         ))}
+
+        <Route path={ClientRoutes.Admin.User.path.relative} element={<User />} />
 
         <Route path="*" element={<Navigate to={AdminRouteNames.userManagement} replace />} />
       </Routes>
