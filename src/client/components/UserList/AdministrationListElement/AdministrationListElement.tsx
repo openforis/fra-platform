@@ -7,15 +7,12 @@ import classNames from 'classnames'
 import { ClientRoutes } from '@meta/app'
 import { RoleName, User, UserStatus } from '@meta/user'
 
+import { roleNames } from '@client/pages/Admin/UserManagement/utils/roleNames'
+
 import UserField from '../UserField'
 import UserRolesField from '../UserRolesField'
 
-type Props = {
-  roleNames: Array<RoleName>
-  user: User
-}
-
-const AdministrationListElement: React.FC<Props> = ({ roleNames, user }) => {
+const AdministrationListElement: React.FC<{ user: User }> = ({ user }) => {
   const { t } = useTranslation()
 
   const { id, status } = user

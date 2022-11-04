@@ -3,14 +3,11 @@ import { useTranslation } from 'react-i18next'
 
 import { RoleName, Users } from '@meta/user'
 
+import { roleNames } from '@client/pages/Admin/UserManagement/utils/roleNames'
+
 import UserListButtonExport from '../UserListButtonExport'
 
-type Props = {
-  isAdmin: boolean
-  roleNames: Array<RoleName>
-}
-
-const UserListHeader: React.FC<Props> = ({ isAdmin, roleNames }) => {
+const UserListHeader: React.FC<{ isAdmin: boolean }> = ({ isAdmin }) => {
   const { t } = useTranslation()
 
   return (
