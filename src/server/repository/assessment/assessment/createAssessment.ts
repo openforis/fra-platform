@@ -7,7 +7,7 @@ import { read } from '@server/repository/assessment/assessment/read'
 
 export const createAssessment = async (
   params: {
-    assessment: Pick<Assessment, 'props'>
+    assessment: Pick<Assessment, 'props' | 'metaCache'>
   },
   client: BaseProtocol = DB
 ): Promise<Assessment> => {
@@ -15,7 +15,9 @@ export const createAssessment = async (
 
   const assessmentCreated = await client.one<Assessment>(
     `
-    insert into assessment (props) values ('${JSON.stringify(assessment.props)}'::jsonb) returning  *;`,
+    insert into assessment (props, meta_cache) values ('${JSON.stringify(assessment.props)}'::jsonb, '${JSON.stringify(
+      assessment.metaCache ?? {}
+    )}'::jsonb) returning  *;`,
     [],
     Objects.camelize
   )

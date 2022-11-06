@@ -2,6 +2,7 @@ import { OriginalDataPoint } from '@meta/assessment'
 import { AssessmentNames } from '@meta/assessment/assessmentName'
 
 export const assessmentParams = {
+  metaCache: { calculations: { dependants: {}, dependencies: {} } },
   props: {
     name: AssessmentNames.fraTest,
   },

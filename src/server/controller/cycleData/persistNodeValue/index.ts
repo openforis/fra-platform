@@ -1,8 +1,7 @@
 import { ActivityLogMessage } from '@meta/assessment'
-import { Sockets } from '@meta/socket'
 
+import { handleWebsocket } from '@server/controller/cycleData/handleWebsocket'
 import { DB } from '@server/db'
-import { SocketServer } from '@server/service/socket'
 
 import { persistNode } from './persistNode/persistNode'
 import { calculateDependantNodes } from './calculateDependantNodes'
@@ -20,14 +19,6 @@ export const persistNodeValue = async (props: Props & { activityLogMessage?: Act
 
     const nodeUpdatesValidation = await validateNodeUpdates({ nodeUpdates }, client)
 
-    const { assessment, cycle, countryIso, nodes } = nodeUpdatesValidation
-    const assessmentName = assessment.props.name
-    const cycleName = cycle.name
-    nodes.forEach((nodeUpdate) => {
-      const { tableName, variableName, colName, value } = nodeUpdate
-      const propsEvent = { countryIso, assessmentName, cycleName, tableName, variableName, colName }
-      const nodeUpdateEvent = Sockets.getNodeUpdateEvent(propsEvent)
-      SocketServer.emit(nodeUpdateEvent, { value })
-    })
+    handleWebsocket(nodeUpdatesValidation)
   })
 }

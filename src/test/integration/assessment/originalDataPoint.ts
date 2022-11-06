@@ -52,8 +52,6 @@ export default (): void =>
       const editedOriginalDataPoint = await CycleDataController.updateOriginalDataPoint({
         assessment: {
           ...assessment,
-          // Test assessment meta cache is empty
-          metaCache: { ...assessment.metaCache, calculations: { dependants: {}, dependencies: {} } },
         },
         cycle: assessmentCycle,
         originalDataPoint: { ...gotOriginalDataPoint, year: 2018 },

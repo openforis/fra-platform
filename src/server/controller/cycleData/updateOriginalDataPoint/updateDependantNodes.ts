@@ -1,9 +1,9 @@
 import { Assessment, Cycle, OriginalDataPoint } from '@meta/assessment'
 import { User } from '@meta/user'
 
+import { handleWebsocket } from '@server/controller/cycleData/handleWebsocket'
 import { getExtentOfForestDependantUpdates } from '@server/controller/cycleData/updateOriginalDataPoint/getExtentOfForestDependantUpdates'
 import { getForestCharacteristicsDependantUpdates } from '@server/controller/cycleData/updateOriginalDataPoint/getForestCharacteristicsDependantUpdates'
-import { handleWebsocket } from '@server/controller/cycleData/updateOriginalDataPoint/handleWebsocket'
 import { mergeUpdates } from '@server/controller/cycleData/updateOriginalDataPoint/mergeUpdates'
 import { BaseProtocol, DB } from '@server/db'
 

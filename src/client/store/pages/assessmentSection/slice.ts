@@ -59,11 +59,9 @@ export const assessmentSectionSlice = createSlice({
     })
 
     builder.addCase(getOriginalDataPointData.fulfilled, (state, { payload }) => {
-      const countryIso = Object.keys(payload || {})[0] as CountryIso
-      if (countryIso) {
-        const countryData = state.data?.[countryIso] ?? {}
-        state.data = { ...state.data, [countryIso]: { ...countryData, ...payload[countryIso] } }
-      }
+      const countryIso = Object.keys(payload)[0] as CountryIso
+      const countryData = state.data?.[countryIso] ?? {}
+      state.data = { ...state.data, [countryIso]: { ...countryData, ...payload[countryIso] } }
     })
 
     builder.addCase(updateNodeValues.pending, (state, { meta }) => {
