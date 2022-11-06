@@ -11,7 +11,9 @@ type ClientRoute<Params> = {
   getLink: (params: Params) => string
 }
 
-const newInstance = <Params>(...parts: Array<string>): ClientRoute<Params> => {
+const newInstance = <Params extends { [x: string]: string | number | boolean }>(
+  ...parts: Array<string>
+): ClientRoute<Params> => {
   const absolute = `/${parts.join('/')}`
   return {
     path: {
@@ -48,7 +50,7 @@ export const ClientRoutes = {
   Root: { path: '/' },
 
   Admin: {
-    Root: newInstance<void>('admin'),
+    Root: newInstance<undefined>('admin'),
     Section: newInstance<{ sectionName: AssessmentHomeRouteNames }>('admin', ':sectionName'),
     User: newInstance<{ id: number }>('admin', 'users/:id'),
   },
@@ -79,9 +81,9 @@ export const ClientRoutes = {
   },
 
   Login: {
-    Root: newInstance<void>('login'),
+    Root: newInstance<undefined>('login'),
     Invitation: newInstance('login', 'invitation'),
-    ResetPassword: newInstance<void>('login', 'resetPassword'),
+    ResetPassword: newInstance<undefined>('login', 'resetPassword'),
   },
 
   Geo: {
