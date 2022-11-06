@@ -11,7 +11,9 @@ type ClientRoute<Params> = {
   getLink: (params: Params) => string
 }
 
-const newInstance = <Params>(...parts: Array<string>): ClientRoute<Params> => {
+const newInstance = <Params extends { [x: string]: string | number | boolean }>(
+  ...parts: Array<string>
+): ClientRoute<Params> => {
   const absolute = `/${parts.join('/')}`
   return {
     path: {
