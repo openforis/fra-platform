@@ -7,12 +7,14 @@ import Requests from '@server/utils/requests'
 
 export const getUsers = async (req: UsersRequest, res: Response) => {
   try {
-    const { countryIso, limit, offset } = req.query
+    const { countryIso, limit, offset, countries, roles } = req.query
 
     const users = await UserController.getMany({
       countryIso,
       limit: limit && Number(limit),
       offset: offset && Number(offset),
+      countries: countries || [],
+      roles: roles || [],
     })
 
     Requests.sendOk(res, users)
