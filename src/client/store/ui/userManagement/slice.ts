@@ -15,6 +15,11 @@ import { UserManagementState } from './stateType'
 const initialState: UserManagementState = {
   user: null,
   users: [],
+  filters: {
+    countries: [],
+    langs: [],
+    roles: [],
+  },
 }
 
 export const userManagementSlice = createSlice({
