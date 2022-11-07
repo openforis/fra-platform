@@ -109,7 +109,7 @@
     "css-loader": "^6.7.1",
     "css-minimizer-webpack-plugin": "^3.0.2",
     "csv": "^6.0.5",
-    "eslint": "^8.12.0",
+    "eslint": "8.22.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-webpack": "^0.13.1",
