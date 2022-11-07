@@ -1,39 +1,31 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import './UserListFilters.scss'
-import React from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-// import { roleKeys } from '@common/countryRole'
-// import MultiSelect from '@webapp/components/multiSelect'
-// // @ts-ignore
-// import * as camelize from 'camelize'
-import * as R from 'ramda'
-
+import { CountryIso, Region, RegionCode } from '@meta/area'
 import { RoleName } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
+import { useCountries } from '@client/store/assessment'
+import { useSecondaryRegion } from '@client/store/assessment/hooks'
 import { UserManagementActions } from '@client/store/ui/userManagement'
 import { useFilters } from '@client/store/ui/userManagement/hooks'
 import { roleNames } from '@client/pages/Admin/UserManagement/utils/roleNames'
 
+import CountrySelectModal from '../CountrySelectModal'
 import MultiSelect from '../MultiSelect'
-// // @ts-ignore
-// import * as snake from 'to-snake-case'
 
-// import CountrySelectionModal from '../../../../app/user/userManagement/edit/countrySelectionModal'
-
-// const roleToValue = (role: any) => camelize(role.toLowerCase())
-// const valueToRole = (value: any) => snake(value).toUpperCase()
-
-// const roles = R.map(roleToValue, roleKeys)
-
-// type UsersTableFilterState = any
-type Props = any
-
-const UserListFilters: React.FC<Props> = () => {
+const UserListFilters: React.FC = () => {
   const dispatch = useAppDispatch()
   const { i18n, t } = useTranslation()
 
+  const countries = useCountries()
   const filters = useFilters()
+  const secondaryRegions = useSecondaryRegion()
+
+  const [modalOpen, setModalOpen] = useState(false)
 
   return (
     <div className="users__table-filter">
@@ -42,7 +34,6 @@ const UserListFilters: React.FC<Props> = () => {
       </div>
 
       <div className="users__table-filter-container">
-        {/* ROLE */}
         <div className="users__table-filter-item">
           <div className="users__table-filter-item-label">
             <h4>{t('userManagement.role')}</h4>
@@ -60,40 +51,39 @@ const UserListFilters: React.FC<Props> = () => {
           </div>
         </div>
 
-        {/* COUNTRY */}
         <div className="users__table-filter-item">
           <div className="users__table-filter-item-label">
             <h4>{t('admin.country')}</h4>
           </div>
-          {/* <div className="multi-select" onClick={() => this.setState({ filterCountryOpen: true })}>
+          <div className="multi-select" onClick={() => setModalOpen(true)}>
             <div className="multi-select__closed-content">
-              {R.isEmpty(filter.countries) ? (
+              {filters.countries.length === 0 ? (
                 <span className="multi-select__placeholder">{t('multiSelect.placeholder')}</span>
               ) : (
-                filter.countries.map((c: any) => t(`area.${c}.listName`)).join(', ')
+                filters.countries.map((countryIso: CountryIso) => t(`area.${countryIso}.listName`)).join(', ')
               )}
             </div>
-          </div> */}
+          </div>
 
-          {R.path(['state', 'filterCountryOpen'], this) ? (
-            <>test</>
-          ) : // <CountrySelectionModal
-          //   i18n={i18n}
-          //   countries={countries}
-          //   userInfo={userInfo}
-          //   headerLabel=""
-          //   selection={filter.countries}
-          //   unselectableCountries={[]}
-          //   onClose={() => this.setState({ filterCountryOpen: false })}
-          //   toggleCountry={(country: any) => {
-          //     const updateCountries = R.contains(country, filter.countries)
-          //       ? R.remove(R.findIndex(R.equals(country), filter.countries), 1, filter.countries)
-          //       : R.insert(filter.countries.length, country, filter.countries)
-
-          //     onChange(R.assoc('countries', updateCountries, filter))
-          //   }}
-          // />
-          null}
+          {modalOpen ? (
+            <CountrySelectModal
+              open={modalOpen}
+              countries={countries}
+              excludedRegions={[
+                RegionCode.FE,
+                RegionCode.AT,
+                ...secondaryRegions.regions.map((r: Region) => r.regionCode),
+              ]}
+              headerLabel={t('common.select')}
+              onClose={() => setModalOpen(false)}
+              initialSelection={filters.countries}
+              unselectableCountries={[]}
+              onChange={(_, selectionUpdate: Array<string>) => {
+                dispatch(UserManagementActions.updateCountryFilter(selectionUpdate))
+              }}
+              showFooter={false}
+            />
+          ) : null}
         </div>
       </div>
     </div>
