@@ -29,6 +29,9 @@ export const userManagementSlice = createSlice({
     setUserToEdit: (state, { payload }) => {
       state.user = payload
     },
+    updateRolesFilter: (state, { payload }) => {
+      state.filters.roles = payload
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getUsers.fulfilled, (state, { payload }) => {

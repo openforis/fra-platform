@@ -8,6 +8,10 @@ import { useTranslation } from 'react-i18next'
 // import * as camelize from 'camelize'
 import * as R from 'ramda'
 
+import { RoleName } from '@meta/user'
+
+import { useAppDispatch } from '@client/store'
+import { UserManagementActions } from '@client/store/ui/userManagement'
 import { useFilters } from '@client/store/ui/userManagement/hooks'
 import { roleNames } from '@client/pages/Admin/UserManagement/utils/roleNames'
 
@@ -26,6 +30,7 @@ import MultiSelect from '../MultiSelect'
 type Props = any
 
 const UserListFilters: React.FC<Props> = () => {
+  const dispatch = useAppDispatch()
   const { i18n, t } = useTranslation()
 
   const filters = useFilters()
@@ -48,8 +53,8 @@ const UserListFilters: React.FC<Props> = () => {
               localizationPrefix="user.roles"
               values={filters.roles}
               options={roleNames}
-              onChange={() => {
-                console.log('clicked!')
+              onChange={(values: Array<RoleName>) => {
+                dispatch(UserManagementActions.updateRolesFilter(values))
               }}
             />
           </div>
