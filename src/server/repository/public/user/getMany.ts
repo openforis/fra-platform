@@ -17,8 +17,8 @@ export const getMany = async (
     cycle?: Cycle
     limit?: number
     offset?: number
-    countries: Array<CountryIso>
-    roles: Array<RoleName>
+    countries?: Array<CountryIso>
+    roles?: Array<RoleName>
   },
   client: BaseProtocol = DB
 ): Promise<Array<User>> => {
