@@ -49,4 +49,5 @@ export const isBasicTable = (tableName: string): boolean =>
     'primaryForestByClimaticDomain',
     'growingStockComposition2025',
     'forestRestoration',
+    'permanentForestEstate',
   ].includes(tableName)
