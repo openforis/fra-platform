@@ -38,7 +38,7 @@ export const updateOriginalDataPointDependentNodes = async (
 ): Promise<void> => {
   const { assessment, countryIso, cycle, originalDataPoint, user } = props
 
-  for (let i: 0; i < dependencies.length; i += 1) {
+  for (let i = 0; i < dependencies.length; i += 1) {
     const { sectionName, tableName, variableName } = dependencies[i]
 
     const colName = String(originalDataPoint.year)
