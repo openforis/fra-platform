@@ -28,11 +28,8 @@ export const userManagementSlice = createSlice({
     setUserToEdit: (state, { payload }) => {
       state.user = payload
     },
-    updateCountryFilter: (state, { payload }) => {
-      state.filters.countries = payload
-    },
-    updateRolesFilter: (state, { payload }) => {
-      state.filters.roles = payload
+    updateFilters: (state, { payload }) => {
+      state.filters = { ...state.filters, ...payload }
     },
   },
   extraReducers: (builder) => {

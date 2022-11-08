@@ -45,7 +45,7 @@ const UserListFilters: React.FC = () => {
               values={filters.roles}
               options={roleNames}
               onChange={(values: Array<RoleName>) => {
-                dispatch(UserManagementActions.updateRolesFilter(values))
+                dispatch(UserManagementActions.updateFilters({ roles: values }))
               }}
             />
           </div>
@@ -76,7 +76,7 @@ const UserListFilters: React.FC = () => {
             headerLabel={t('common.select')}
             initialSelection={filters.countries}
             onClose={(selectionUpdate: Array<string>) => {
-              dispatch(UserManagementActions.updateCountryFilter(selectionUpdate))
+              dispatch(UserManagementActions.updateFilters({ countries: selectionUpdate }))
               setModalOpen(false)
             }}
             showFooter={false}
