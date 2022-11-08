@@ -1,7 +1,7 @@
 import { Objects } from '@utils/objects'
 import * as pgPromise from 'pg-promise'
 
-import { Assessment, Cycle, Row, VariableCache } from '@meta/assessment'
+import { Assessment, Col, Cycle, Row, VariableCache } from '@meta/assessment'
 
 import { AreaController } from '@server/controller/area'
 import { BaseProtocol, Schemas } from '@server/db'
@@ -36,6 +36,15 @@ export const updateCalculatedNodes = async (
     (row) => {
       return {
         ...Objects.camelize(row),
+        cols: row.cols.map((col: Col) => {
+          return {
+            ...Objects.camelize(col),
+            props: {
+              ...Objects.camelize(col.props),
+              calculateFn: col.props.calculateFn,
+            },
+          }
+        }),
         props: {
           ...Objects.camelize(row.props),
           calculateFn: row.props.calculateFn,

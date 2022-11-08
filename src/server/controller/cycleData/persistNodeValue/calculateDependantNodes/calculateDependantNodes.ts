@@ -64,9 +64,9 @@ export const calculateDependantNodes = async (props: Props, client: BaseProtocol
         // eslint-disable-next-line no-await-in-loop
         await Promise.all(
           row.cols.map(async (col) => {
-            if (col.props.calculateFn) {
+            if (col.props.calculateFn?.[cycle.uuid]) {
               const node = await calculateNode(
-                { ...evaluateProps, colName: col.props.colName, expression: col.props.calculateFn },
+                { ...evaluateProps, colName: col.props.colName, expression: col.props.calculateFn[cycle.uuid] },
                 client
               )
               nodeUpdates.nodes.push({

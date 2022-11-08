@@ -1,4 +1,5 @@
 import { VariableCache } from '@meta/assessment'
+import { CycleUuid } from '@meta/assessment/cycle'
 
 import { ColSpec } from './colSpec'
 import { TypeSpec } from './typeSpec'
@@ -34,13 +35,11 @@ export interface RowSpec {
   variableExport?: string
 
   migration?: {
-    //            string | Record<cycleUuid, string>
-    calcFormula?: string | Record<string, string>
+    calcFormula?: string | Record<CycleUuid, string>
     colNames?: Array<string>
     format?: { integer?: boolean }
     readonly?: boolean
-    //            Array<string> | Record<cycleUuid, Array<string>>
-    validateFns?: Array<string> | Record<string, Array<string>>
+    validateFns?: Array<string> | Record<CycleUuid, Array<string>>
     cycles?: Array<string>
     dependantsExclude?: Array<VariableCache>
     categoryLevel?: number

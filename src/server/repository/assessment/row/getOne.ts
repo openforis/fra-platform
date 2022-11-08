@@ -1,6 +1,6 @@
 import { Objects } from '@utils/objects'
 
-import { Assessment, Row } from '@meta/assessment'
+import { Assessment, Col, Row } from '@meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
@@ -28,7 +28,7 @@ export const getOne = (props: Props, client: BaseProtocol = DB): Promise<Row> =>
     `,
     [variableName, tableName],
     (row) => {
-      return {
+      const _row = {
         ...Objects.camelize(row),
         props: {
           ...Objects.camelize(row.props),
@@ -36,6 +36,18 @@ export const getOne = (props: Props, client: BaseProtocol = DB): Promise<Row> =>
           validateFns: row.props.validateFns,
         },
       }
+      if (includeCols) {
+        _row.cols = row.cols.map((col: Col) => {
+          return {
+            ...Objects.camelize(col),
+            props: {
+              ...Objects.camelize(col.props),
+              calculateFn: col.props.calculateFn,
+            },
+          }
+        })
+      }
+      return _row
     }
   )
 }

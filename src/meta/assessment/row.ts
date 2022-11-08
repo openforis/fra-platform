@@ -1,3 +1,5 @@
+import { CycleUuid } from '@meta/assessment/cycle'
+
 import { Col, CycledPropsObject, VariableCache } from './index'
 
 export enum RowType {
@@ -21,8 +23,7 @@ export interface RowLabel {
 }
 
 export interface RowProps {
-  //            Record<cycleUuid, string>
-  calculateFn?: Record<string, string>
+  calculateFn?: Record<CycleUuid, string>
   // if a variable is subcategory, then categoryLevel starts from 1
   categoryLevel?: number
   chart?: {

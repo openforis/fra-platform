@@ -79,7 +79,7 @@ export const calculateRow = async (
           const col = row.cols.find((c) => c.props.colName === colName)
           if (!col) return
 
-          const expression = row.props.calculateFn?.[cycle.uuid] ?? col.props.calculateFn
+          const expression = row.props.calculateFn?.[cycle.uuid] ?? col.props.calculateFn?.[cycle.uuid]
           const raw = ExpressionEvaluator.evalFormula<string | undefined>({
             assessment,
             countryIso,

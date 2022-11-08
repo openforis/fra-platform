@@ -27,7 +27,14 @@ export const getMany = (
      ${where}
        and c.props ->> 'colType' not in ('${ColType.header}', '${ColType.noticeMessage}')`,
     [tableId ?? rowId],
-    // @ts-ignore
-    Objects.camelize
+    (col) => {
+      return {
+        ...Objects.camelize(col),
+        props: {
+          ...Objects.camelize(col.props),
+          calculateFn: col.props.calculateFn,
+        },
+      }
+    }
   )
 }

@@ -35,8 +35,15 @@ export const getCols = (client: ITask<any>, schema: string, table: Table): Promi
      )
        and c.props ->> 'colType' not in ('${ColType.header}', '${ColType.noticeMessage}')`,
     [table.id],
-    // @ts-ignore
-    Objects.camelize
+    (col) => {
+      return {
+        ...Objects.camelize(col),
+        props: {
+          ...Objects.camelize(col.props),
+          calculateFn: col.props.calculateFn,
+        },
+      }
+    }
   )
 
 export const isBasicTable = (tableName: string): boolean =>
