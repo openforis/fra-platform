@@ -36,6 +36,8 @@ jobs:
       - run: yarn install --network-timeout 1000000
         env:
             NODE_AUTH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
 #      - run: yarn run-migrations
 #        env:
 #          PGHOST: localhost
@@ -58,3 +60,9 @@ jobs:
           PGDATABASE: frap-dev
           PGUSER: frap
           PGPASSWORD: frap
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
