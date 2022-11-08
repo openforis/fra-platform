@@ -17,7 +17,6 @@ const initialState: UserManagementState = {
   users: [],
   filters: {
     countries: [],
-    langs: [],
     roles: [],
   },
 }

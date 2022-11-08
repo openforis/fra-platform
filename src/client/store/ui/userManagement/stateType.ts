@@ -6,7 +6,6 @@ export interface UserManagementState {
   users: Array<User>
   filters: {
     countries: Array<CountryIso>
-    langs: Array<string>
     roles: Array<RoleName>
   }
 }
