@@ -1,5 +1,6 @@
 import { CountryIso } from '@meta/area'
 import { Assessment, Cycle, OriginalDataPoint } from '@meta/assessment'
+import { NodeUpdates } from '@meta/data'
 import { User } from '@meta/user'
 
 import { BaseProtocol } from '@server/db'
@@ -11,6 +12,18 @@ const dependencies: Array<{ sectionName: string; tableName: string; variableName
   { sectionName: 'extentOfForest', tableName: 'extentOfForest', variableName: 'otherLand' },
   { sectionName: 'extentOfForest', tableName: 'extentOfForest', variableName: 'otherWoodedLand' },
   { sectionName: 'extentOfForest', tableName: 'extentOfForest', variableName: 'totalLandArea' },
+
+  { sectionName: 'forestCharacteristics', tableName: 'forestCharacteristics', variableName: 'naturalForestArea' },
+  { sectionName: 'forestCharacteristics', tableName: 'forestCharacteristics', variableName: 'primaryForest' },
+  { sectionName: 'forestCharacteristics', tableName: 'forestCharacteristics', variableName: 'plantedForest' },
+  { sectionName: 'forestCharacteristics', tableName: 'forestCharacteristics', variableName: 'plantationForestArea' },
+  {
+    sectionName: 'forestCharacteristics',
+    tableName: 'forestCharacteristics',
+    variableName: 'plantationForestIntroducedArea',
+  },
+  { sectionName: 'forestCharacteristics', tableName: 'forestCharacteristics', variableName: 'otherPlantedForestArea' },
+  { sectionName: 'forestCharacteristics', tableName: 'forestCharacteristics', variableName: 'totalForestArea' },
 ]
 
 export const updateOriginalDataPointDependentNodes = async (
@@ -28,19 +41,12 @@ export const updateOriginalDataPointDependentNodes = async (
   for (let i: 0; i < dependencies.length; i += 1) {
     const { sectionName, tableName, variableName } = dependencies[i]
 
+    const colName = String(originalDataPoint.year)
+    const nodeUpdates: NodeUpdates = { assessment, cycle, countryIso, nodes: [] }
+
     // eslint-disable-next-line no-await-in-loop
     await calculateAndValidateDependentNodes(
-      {
-        colName: String(originalDataPoint.year),
-        cycle,
-        nodeUpdates: { assessment, cycle, countryIso, nodes: [] },
-        sectionName,
-        tableName,
-        user,
-        variableName,
-        assessment,
-        countryIso,
-      },
+      { colName, cycle, nodeUpdates, sectionName, tableName, user, variableName, assessment, countryIso },
       client
     )
   }
