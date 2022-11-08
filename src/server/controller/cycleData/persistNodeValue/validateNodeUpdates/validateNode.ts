@@ -30,7 +30,7 @@ export const validateNode = async (
       client
     ))
 
-  const validations = row.props.validateFns.map((expression) =>
+  const validations = row.props.validateFns?.[cycle.uuid]?.map((expression) =>
     ExpressionEvaluator.evalFormula<NodeValueValidation>({
       assessment,
       countryIso,

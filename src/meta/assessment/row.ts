@@ -21,7 +21,8 @@ export interface RowLabel {
 }
 
 export interface RowProps {
-  calculateFn?: string
+  //            Record<cycleUuid, string>
+  calculateFn?: Record<string, string>
   // if a variable is subcategory, then categoryLevel starts from 1
   categoryLevel?: number
   chart?: {
@@ -45,7 +46,8 @@ export interface RowProps {
   readonly?: boolean
   type: RowType
   variableName?: string
-  validateFns?: Array<string>
+  //            Record<cycleUuid, Array<string>>
+  validateFns?: Record<string, Array<string>>
 }
 
 export interface Row extends CycledPropsObject<RowProps> {

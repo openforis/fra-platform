@@ -12,8 +12,16 @@ export const getRows = (client: ITask<any>, schema: string, table: Table): Promi
      where table_id = $1
        and props ->> 'type' in ('${RowType.data}', '${RowType.calculated}');`,
     [table.id],
-    // @ts-ignore
-    Objects.camelize
+    (row) => {
+      return {
+        ...Objects.camelize(row),
+        props: {
+          ...Objects.camelize(row.props),
+          calculateFn: row.props.calculateFn,
+          validateFns: row.props.validateFns,
+        },
+      }
+    }
   )
 
 export const getCols = (client: ITask<any>, schema: string, table: Table): Promise<Array<Col>> =>

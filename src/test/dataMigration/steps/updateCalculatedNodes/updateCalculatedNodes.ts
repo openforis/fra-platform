@@ -29,12 +29,20 @@ export const updateCalculatedNodes = async (
                  left join ${schema}.col c on r.id = c.row_id
         where t.props -> 'cycles' ? '${cycle.uuid}'
           and r.props -> 'cycles' ? '${cycle.uuid}'
-          and (r.props ->> 'calculateFn' is not null or c.props ->> 'calculateFn' is not null)
+          and ((r.props ->> 'calculateFn' is not null and r.props -> 'calculateFn' ->> '${cycle.uuid}' is not null) or c.props ->> 'calculateFn' is not null)
         group by r.id, r.uuid, r.props, t.props ->> 'name'
         order by r.id`,
     [],
-    // @ts-ignore
-    Objects.camelize
+    (row) => {
+      return {
+        ...Objects.camelize(row),
+        props: {
+          ...Objects.camelize(row.props),
+          calculateFn: row.props.calculateFn,
+          validateFns: row.props.validateFns,
+        },
+      }
+    }
   )
 
   const variablesToCalculate = rows.map<VariableCache>((row) => ({

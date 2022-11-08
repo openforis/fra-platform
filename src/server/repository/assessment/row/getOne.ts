@@ -27,6 +27,15 @@ export const getOne = (props: Props, client: BaseProtocol = DB): Promise<Row> =>
         ${includeCols ? `group by r.id, r.uuid, r.props` : ''}
     `,
     [variableName, tableName],
-    Objects.camelize
+    (row) => {
+      return {
+        ...Objects.camelize(row),
+        props: {
+          ...Objects.camelize(row.props),
+          calculateFn: row.props.calculateFn,
+          validateFns: row.props.validateFns,
+        },
+      }
+    }
   )
 }

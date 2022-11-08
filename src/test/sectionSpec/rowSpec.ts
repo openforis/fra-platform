@@ -34,11 +34,13 @@ export interface RowSpec {
   variableExport?: string
 
   migration?: {
-    calcFormula?: string
+    //            string | Record<cycleUuid, string>
+    calcFormula?: string | Record<string, string>
     colNames?: Array<string>
     format?: { integer?: boolean }
     readonly?: boolean
-    validateFns?: Array<string>
+    //            Array<string> | Record<cycleUuid, Array<string>>
+    validateFns?: Array<string> | Record<string, Array<string>>
     cycles?: Array<string>
     dependantsExclude?: Array<VariableCache>
     categoryLevel?: number
