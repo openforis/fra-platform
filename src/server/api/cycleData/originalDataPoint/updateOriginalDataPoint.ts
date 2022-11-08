@@ -12,7 +12,7 @@ export const updateOriginalDataPoint = async (
   res: Response
 ) => {
   try {
-    const { assessmentName, cycleName, countryIso } = req.query
+    const { assessmentName, cycleName } = req.query
     const { originalDataPoint } = req.body
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({
@@ -22,7 +22,6 @@ export const updateOriginalDataPoint = async (
     })
 
     const returnedOriginalDataPoint = await CycleDataController.updateOriginalDataPoint({
-      countryIso,
       assessment,
       cycle,
       originalDataPoint,
