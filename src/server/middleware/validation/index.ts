@@ -11,7 +11,7 @@ const validateRequest = (checks: Array<ValidationChain>) => {
     }
 
     const errors = result.array()
-    return res.send(errors)
+    return res.status(400).send(errors)
   }
 }
 
