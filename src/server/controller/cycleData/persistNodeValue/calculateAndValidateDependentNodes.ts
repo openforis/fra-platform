@@ -9,7 +9,7 @@ import { Props } from './props'
 import { validateNodeUpdates } from './validateNodeUpdates'
 
 export const calculateAndValidateDependentNodes = async (
-  props: Props & { nodeUpdates: NodeUpdates },
+  props: Omit<Props, 'value'> & { nodeUpdates: NodeUpdates },
   client: BaseProtocol
 ): Promise<void> => {
   const { assessment, countryIso, cycle } = props

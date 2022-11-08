@@ -12,12 +12,17 @@ export const updateOriginalDataPoint = async (
   res: Response
 ) => {
   try {
-    const { assessmentName, cycleName } = req.query
+    const { assessmentName, cycleName, countryIso } = req.query
     const { originalDataPoint } = req.body
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({
+      assessmentName,
+      cycleName,
+      metaCache: true,
+    })
 
     const returnedOriginalDataPoint = await CycleDataController.updateOriginalDataPoint({
+      countryIso,
       assessment,
       cycle,
       originalDataPoint,
