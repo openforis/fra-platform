@@ -12,7 +12,7 @@ export const validateNode = async (
 ): Promise<NodeValueValidation> => {
   const { assessment, cycle, tableName, variableName, countryIso, colName, row, data: dataProps } = props
 
-  const dependencies = assessment.metaCache.validations.dependencies[tableName]?.[variableName]
+  const dependencies = assessment.metaCache[cycle.uuid].validations.dependencies[tableName]?.[variableName]
   const data =
     dataProps ??
     (await getTableData(
@@ -34,6 +34,7 @@ export const validateNode = async (
     ExpressionEvaluator.evalFormula<NodeValueValidation>({
       assessment,
       countryIso,
+      cycle,
       data,
       colName,
       row,

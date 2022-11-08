@@ -57,7 +57,7 @@ export const validateNodeUpdates = async (props: Props, client: BaseProtocol): P
         }
       }
 
-      const dependants = (assessment.metaCache.validations.dependants[tableName]?.[variableName] ?? []).map(
+      const dependants = (assessment.metaCache[cycle.uuid].validations.dependants[tableName]?.[variableName] ?? []).map(
         ({ tableName, variableName }) => ({ tableName, variableName, colName })
       )
       queue.push(...dependants)

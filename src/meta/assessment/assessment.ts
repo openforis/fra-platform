@@ -12,5 +12,6 @@ export interface Assessment {
   uuid: string
   cycles: Array<Cycle>
   props: AssessmentProps
-  metaCache?: AssessmentMetaCache
+  //          Record<cycleUuid, AssessmentMetaCache>
+  metaCache?: Record<string, AssessmentMetaCache>
 }

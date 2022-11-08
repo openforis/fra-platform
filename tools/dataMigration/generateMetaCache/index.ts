@@ -111,8 +111,10 @@ export const generateMetaCache = async (props: Props, client: BaseProtocol): Pro
   })
 
   return client.query(
-    `update assessment
-     set meta_cache = $1::jsonb`,
+    `
+        update assessment
+        set meta_cache = jsonb_set(meta_cache, '{${cycle.uuid}}', $1::jsonb)
+    `,
     JSON.stringify(assessmentMetaCache)
   )
 }

@@ -12,7 +12,7 @@ export const calculateDependantNodes = async (props: Props, client: BaseProtocol
 
   const nodeUpdates: NodeUpdates = { assessment, cycle, countryIso, nodes: [] }
   const queue: Array<VariableCache> = [
-    ...(assessment.metaCache.calculations.dependants[tableName]?.[variableName] ?? []),
+    ...(assessment.metaCache[cycle.uuid].calculations.dependants[tableName]?.[variableName] ?? []),
   ]
   const visitedVariables: Array<VariableCache> = [{ variableName, tableName }]
 
@@ -80,7 +80,9 @@ export const calculateDependantNodes = async (props: Props, client: BaseProtocol
         )
       }
       queue.push(
-        ...(assessment.metaCache.calculations.dependants[variableCache.tableName]?.[variableCache.variableName] ?? [])
+        ...(assessment.metaCache[cycle.uuid].calculations.dependants[variableCache.tableName]?.[
+          variableCache.variableName
+        ] ?? [])
       )
       visitedVariables.push(variableCache)
     }

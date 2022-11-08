@@ -51,7 +51,7 @@ export const calculateRow = async (
 
   // console.log('====== calculating ', tableName, row.props.variableName)
   const dependencies: Array<VariableCache> =
-    assessment.metaCache.calculations.dependencies[tableName]?.[row.props.variableName] ?? []
+    assessment.metaCache[cycle.uuid].calculations.dependencies[tableName]?.[row.props.variableName] ?? []
   const data =
     dependencies.length > 0
       ? await CycleDataController.getTableData(
@@ -83,6 +83,7 @@ export const calculateRow = async (
           const raw = ExpressionEvaluator.evalFormula<string | undefined>({
             assessment,
             countryIso,
+            cycle,
             data,
             colName,
             row,

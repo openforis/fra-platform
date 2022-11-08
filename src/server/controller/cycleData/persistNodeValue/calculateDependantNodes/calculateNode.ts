@@ -11,7 +11,7 @@ export const calculateNode = async (
   client: BaseProtocol
 ): Promise<Node> => {
   const { countryIso, assessment, cycle, sectionName, tableName, variableName, colName, expression, row, user } = props
-  const dependencies = assessment.metaCache.calculations.dependencies[tableName]?.[variableName]
+  const dependencies = assessment.metaCache[cycle.uuid].calculations.dependencies[tableName]?.[variableName]
   const data = await getTableData(
     {
       aggregate: false,
@@ -29,6 +29,7 @@ export const calculateNode = async (
   const rawResult = ExpressionEvaluator.evalFormula<string | undefined>({
     assessment,
     countryIso,
+    cycle,
     data,
     colName,
     row,
