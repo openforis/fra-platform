@@ -46,7 +46,7 @@ jobs:
 #          PGUSER: frap
 #          PGPASSWORD: frap
 #     Migrations are run on yarn build
-      - run: yarn prod &
+      - run: yarn build
         env:
           PGHOST: localhost
           PGPORT: 5442
