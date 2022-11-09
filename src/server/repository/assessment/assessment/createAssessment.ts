@@ -1,15 +1,9 @@
 import { Objects } from '@utils/objects'
 
-import { Assessment, AssessmentMetaCache } from '@meta/assessment'
+import { Assessment } from '@meta/assessment'
 
 import { BaseProtocol, DB } from '@server/db'
 import { read } from '@server/repository/assessment/assessment/read'
-
-const defaultMetaCache: AssessmentMetaCache = {
-  calculations: { dependants: {}, dependencies: {} },
-  validations: { dependants: {}, dependencies: {} },
-  variablesByTable: {},
-}
 
 export const createAssessment = async (
   params: {
@@ -21,8 +15,8 @@ export const createAssessment = async (
 
   const assessmentCreated = await client.one<Assessment>(
     `
-        insert into assessment (props, meta_cache)
-        values ('${JSON.stringify(assessment.props)}'::jsonb, '${JSON.stringify(defaultMetaCache)}'::jsonb)
+        insert into assessment (props)
+        values ('${JSON.stringify(assessment.props)}'::jsonb)
         returning *;`,
     [],
     Objects.camelize
