@@ -1,5 +1,4 @@
-import { VariableCache } from '@meta/assessment'
-import { CycleUuid } from '@meta/assessment/cycle'
+import { CycleUuid, VariableCache } from '@meta/assessment'
 
 import { ColSpec } from './colSpec'
 import { TypeSpec } from './typeSpec'

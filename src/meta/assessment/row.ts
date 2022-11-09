@@ -1,6 +1,4 @@
-import { CycleUuid } from '@meta/assessment/cycle'
-
-import { Col, CycledPropsObject, VariableCache } from './index'
+import { Col, CycledPropsObject, CycleUuid, VariableCache } from '@meta/assessment'
 
 export enum RowType {
   header = 'header',
@@ -47,8 +45,7 @@ export interface RowProps {
   readonly?: boolean
   type: RowType
   variableName?: string
-  //            Record<cycleUuid, Array<string>>
-  validateFns?: Record<string, Array<string>>
+  validateFns?: Record<CycleUuid, Array<string>>
 }
 
 export interface Row extends CycledPropsObject<RowProps> {
