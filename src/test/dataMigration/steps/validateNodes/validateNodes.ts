@@ -48,12 +48,24 @@ export const validateNodes = async (
                            on r.table_id = t.id
         where t.props -> 'cycles' ? '${cycle.uuid}'
           and r.props -> 'cycles' ? '${cycle.uuid}'
-          and r.props ->> 'validateFns' is not null
+          and (r.props ->> 'validateFns' is not null and r.props -> 'validateFns' ->> '${cycle.uuid}' is not null)
           and c.props -> 'cycles' ? '${cycle.uuid}'
     `,
     [],
     // @ts-ignore
-    Objects.camelize
+    ({ row, ...rest }) => {
+      return {
+        ...Objects.camelize(rest),
+        row: {
+          ...row,
+          props: {
+            ...Objects.camelize(row.props),
+            calculateFn: row.props.calculateFn,
+            validateFns: row.props.validateFns,
+          },
+        },
+      }
+    }
   )
 
   const countries = await CountryRepository.getMany({ assessment, cycle }, client)
