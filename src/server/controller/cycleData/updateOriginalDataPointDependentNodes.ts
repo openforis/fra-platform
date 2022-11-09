@@ -1,5 +1,5 @@
 import { CountryIso } from '@meta/area'
-import { Assessment, Cycle, OriginalDataPoint } from '@meta/assessment'
+import { Assessment, Cycle, OriginalDataPoint, TableNames } from '@meta/assessment'
 import { NodeUpdates } from '@meta/data'
 import { User } from '@meta/user'
 
@@ -8,22 +8,38 @@ import { BaseProtocol } from '@server/db'
 import { calculateAndValidateDependentNodes } from './persistNodeValue/calculateAndValidateDependentNodes'
 
 const dependencies: Array<{ sectionName: string; tableName: string; variableName: string }> = [
-  { sectionName: 'extentOfForest', tableName: 'extentOfForest', variableName: 'forestArea' },
-  { sectionName: 'extentOfForest', tableName: 'extentOfForest', variableName: 'otherLand' },
-  { sectionName: 'extentOfForest', tableName: 'extentOfForest', variableName: 'otherWoodedLand' },
-  { sectionName: 'extentOfForest', tableName: 'extentOfForest', variableName: 'totalLandArea' },
+  { sectionName: 'extentOfForest', tableName: TableNames.extentOfForest, variableName: 'forestArea' },
+  { sectionName: 'extentOfForest', tableName: TableNames.extentOfForest, variableName: 'otherLand' },
+  { sectionName: 'extentOfForest', tableName: TableNames.extentOfForest, variableName: 'otherWoodedLand' },
+  { sectionName: 'extentOfForest', tableName: TableNames.extentOfForest, variableName: 'totalLandArea' },
 
-  { sectionName: 'forestCharacteristics', tableName: 'forestCharacteristics', variableName: 'naturalForestArea' },
-  { sectionName: 'forestCharacteristics', tableName: 'forestCharacteristics', variableName: 'primaryForest' },
-  { sectionName: 'forestCharacteristics', tableName: 'forestCharacteristics', variableName: 'plantedForest' },
-  { sectionName: 'forestCharacteristics', tableName: 'forestCharacteristics', variableName: 'plantationForestArea' },
   {
     sectionName: 'forestCharacteristics',
-    tableName: 'forestCharacteristics',
+    tableName: TableNames.forestCharacteristics,
+    variableName: 'naturalForestArea',
+  },
+  { sectionName: 'forestCharacteristics', tableName: TableNames.forestCharacteristics, variableName: 'primaryForest' },
+  { sectionName: 'forestCharacteristics', tableName: TableNames.forestCharacteristics, variableName: 'plantedForest' },
+  {
+    sectionName: 'forestCharacteristics',
+    tableName: TableNames.forestCharacteristics,
+    variableName: 'plantationForestArea',
+  },
+  {
+    sectionName: 'forestCharacteristics',
+    tableName: TableNames.forestCharacteristics,
     variableName: 'plantationForestIntroducedArea',
   },
-  { sectionName: 'forestCharacteristics', tableName: 'forestCharacteristics', variableName: 'otherPlantedForestArea' },
-  { sectionName: 'forestCharacteristics', tableName: 'forestCharacteristics', variableName: 'totalForestArea' },
+  {
+    sectionName: 'forestCharacteristics',
+    tableName: TableNames.forestCharacteristics,
+    variableName: 'otherPlantedForestArea',
+  },
+  {
+    sectionName: 'forestCharacteristics',
+    tableName: TableNames.forestCharacteristics,
+    variableName: 'totalForestArea',
+  },
 ]
 
 export const updateOriginalDataPointDependentNodes = async (
