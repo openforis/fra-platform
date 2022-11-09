@@ -1,6 +1,6 @@
 import { AssessmentMetaCache } from './assessmentMetaCache'
 import { AssessmentName } from './assessmentName'
-import { Cycle } from './cycle'
+import { Cycle, CycleUuid } from './cycle'
 
 type AssessmentProps = {
   name: AssessmentName // fra or pan_european
@@ -12,5 +12,5 @@ export interface Assessment {
   uuid: string
   cycles: Array<Cycle>
   props: AssessmentProps
-  metaCache?: AssessmentMetaCache
+  metaCache?: Record<CycleUuid, AssessmentMetaCache>
 }

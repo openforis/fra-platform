@@ -15,7 +15,7 @@ export const calculateDependantNodes = async (
 
   const nodeUpdates: NodeUpdates = { assessment, cycle, countryIso, nodes: [] }
   const queue: Array<VariableCache> = [
-    ...(assessment.metaCache.calculations.dependants[tableName]?.[variableName] ?? []),
+    ...(assessment.metaCache[cycle.uuid].calculations.dependants[tableName]?.[variableName] ?? []),
   ]
   const visitedVariables: Array<VariableCache> = [{ variableName, tableName }]
 
@@ -44,18 +44,18 @@ export const calculateDependantNodes = async (
         cycle,
         sectionName,
         colName,
-        expression: row.props.calculateFn,
+        expression: row.props.calculateFn?.[cycle.uuid],
         row,
         tableName: variableCache.tableName,
         variableName: variableCache.variableName,
         user,
       }
 
-      if (row.props.calculateFn) {
+      if (row.props.calculateFn?.[cycle.uuid]) {
         // make sure in target table there's a matching column
         if (row.cols.find((c) => c.props.colName === colName)) {
           // eslint-disable-next-line no-await-in-loop
-          const node = await calculateNode({ ...evaluateProps, expression: row.props.calculateFn }, client)
+          const node = await calculateNode({ ...evaluateProps, expression: row.props.calculateFn[cycle.uuid] }, client)
           nodeUpdates.nodes.push({
             tableName: evaluateProps.tableName,
             variableName: evaluateProps.variableName,
@@ -67,9 +67,9 @@ export const calculateDependantNodes = async (
         // eslint-disable-next-line no-await-in-loop
         await Promise.all(
           row.cols.map(async (col) => {
-            if (col.props.calculateFn) {
+            if (col.props.calculateFn?.[cycle.uuid]) {
               const node = await calculateNode(
-                { ...evaluateProps, colName: col.props.colName, expression: col.props.calculateFn },
+                { ...evaluateProps, colName: col.props.colName, expression: col.props.calculateFn[cycle.uuid] },
                 client
               )
               nodeUpdates.nodes.push({
@@ -83,7 +83,9 @@ export const calculateDependantNodes = async (
         )
       }
       queue.push(
-        ...(assessment.metaCache.calculations.dependants[variableCache.tableName]?.[variableCache.variableName] ?? [])
+        ...(assessment.metaCache[cycle.uuid].calculations.dependants[variableCache.tableName]?.[
+          variableCache.variableName
+        ] ?? [])
       )
       visitedVariables.push(variableCache)
     }
