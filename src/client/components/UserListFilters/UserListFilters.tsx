@@ -11,14 +11,14 @@ import { useAppDispatch } from '@client/store'
 import { useCountries } from '@client/store/assessment'
 import { useSecondaryRegion } from '@client/store/assessment/hooks'
 import { UserManagementActions } from '@client/store/ui/userManagement'
-import { useFilters } from '@client/store/ui/userManagement/hooks'
-import { roleNames } from '@client/pages/Admin/UserManagement/utils/roleNames'
+import { useFilters, useRoleNames } from '@client/store/ui/userManagement/hooks'
 
 import CountrySelectModal from '../CountrySelectModal'
 import MultiSelect from '../MultiSelect'
 
 const UserListFilters: React.FC = () => {
   const dispatch = useAppDispatch()
+  const roleNames = useRoleNames()
   const { i18n, t } = useTranslation()
 
   const countries = useCountries()
