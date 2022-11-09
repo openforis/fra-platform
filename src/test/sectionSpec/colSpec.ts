@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js'
 
-import { ColStyle, Label } from '@meta/assessment'
+import { ColStyle, CycleUuid, Label } from '@meta/assessment'
 
 import { TypeSpec } from './typeSpec'
 import { Validator } from './validation'
@@ -36,7 +36,7 @@ export interface ColSpec {
   // migration
   colName?: string
   migration?: {
-    calculateFn?: string
+    calculateFn?: string | Record<CycleUuid, string>
     cycles?: Array<string>
     forceColName?: boolean
     label?: Record<string, Label>

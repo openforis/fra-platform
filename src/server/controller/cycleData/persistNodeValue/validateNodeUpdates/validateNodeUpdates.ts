@@ -40,7 +40,7 @@ export const validateNodeUpdates = async (props: Props, client: BaseProtocol): P
       let value: NodeValue = nodeValue
       // eslint-disable-next-line no-await-in-loop
       const row: Row = await RowRepository.getOne({ assessment, tableName, variableName, includeCols: true }, client)
-      if (row.props.validateFns) {
+      if (row.props.validateFns?.[cycle.uuid]) {
         // make sure in target table there's a matching column
         if (row.cols.find((c) => c.props.colName === colName)) {
           // eslint-disable-next-line no-await-in-loop
@@ -57,7 +57,7 @@ export const validateNodeUpdates = async (props: Props, client: BaseProtocol): P
         }
       }
 
-      const dependants = (assessment.metaCache.validations.dependants[tableName]?.[variableName] ?? []).map(
+      const dependants = (assessment.metaCache[cycle.uuid].validations.dependants[tableName]?.[variableName] ?? []).map(
         ({ tableName, variableName }) => ({ tableName, variableName, colName })
       )
       queue.push(...dependants)
