@@ -2,6 +2,24 @@ import { Assessment, Col, ColStyle, ColType, Label, Row } from '../../../src/met
 import { ColSpec } from '../../../src/test/sectionSpec'
 import { getCycleUuids, getLabels } from './utils'
 
+const _getCalculateFn = (colSpec: ColSpec, cycles: string[], assessment: Assessment): Record<string, string> => {
+  const calculateFn = colSpec.migration?.calculateFn
+
+  if (!calculateFn) return undefined
+
+  if (typeof calculateFn === 'string') {
+    return cycles.reduce<Record<string, string>>((calcFnAgg, cycle) => ({ ...calcFnAgg, [cycle]: calculateFn }), {})
+  }
+
+  return Object.entries(calculateFn).reduce<Record<string, string>>(
+    (acc, [cycleName, _calculateFn]) => ({
+      ...acc,
+      [assessment.cycles.find((c) => c.name === cycleName).uuid]: _calculateFn,
+    }),
+    {}
+  )
+}
+
 export const getCol = (props: {
   assessment: Assessment
   colSpec: ColSpec
@@ -37,7 +55,7 @@ export const getCol = (props: {
       index: colSpec.idx,
       colName: colSpec.colName,
       variableNo,
-      calculateFn: colSpec.migration?.calculateFn,
+      calculateFn: _getCalculateFn(colSpec, cycles, assessment),
       style,
     },
     rowId: row.id,
