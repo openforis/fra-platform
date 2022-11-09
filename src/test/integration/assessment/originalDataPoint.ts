@@ -1,12 +1,12 @@
-import { assessmentCycleName, assessmentParams, originalDataPoint } from '@test/integration/mock/assessment'
-import { userMockTest } from '@test/integration/mock/user'
-
 import { Assessment, Cycle, OriginalDataPoint } from '@meta/assessment'
 import { User } from '@meta/user'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { CycleDataController } from '@server/controller/cycleData'
 import { UserController } from '@server/controller/user'
+
+import { assessmentCycleName, assessmentParams, originalDataPoint } from '@test/integration/mock/assessment'
+import { userMockTest } from '@test/integration/mock/user'
 
 export default (): void =>
   describe('Original data point', () => {
@@ -19,6 +19,7 @@ export default (): void =>
       ;({ assessment, cycle: assessmentCycle } = await AssessmentController.getOneWithCycle({
         assessmentName: assessmentParams.props.name,
         cycleName: assessmentCycleName,
+        metaCache: true,
       }))
 
       user = await UserController.getOne({ email: userMockTest.email })
