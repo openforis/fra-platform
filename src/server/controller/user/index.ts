@@ -15,6 +15,7 @@ import { updateUserRoles } from './updateUserRoles'
 
 export const UserController = {
   create,
+  count: UserRepository.count,
   update,
   getMany: UserRepository.getMany,
   getOne: UserRepository.getOne,

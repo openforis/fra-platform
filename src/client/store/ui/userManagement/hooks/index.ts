@@ -26,3 +26,6 @@ export const useFilteredRoleNames = (): Array<RoleName> =>
   )
 
 export const useRoleNames = (): Array<RoleName> => roleNames
+
+export const useUsersCount = (): { [key in keyof typeof RoleName | 'totals']?: number } =>
+  useAppSelector((state) => state.ui.userManagement.count)
