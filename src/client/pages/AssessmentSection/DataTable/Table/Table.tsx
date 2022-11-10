@@ -65,7 +65,7 @@ const Table: React.FC<Props> = (props) => {
                   let isOdpHeader = showODP && table.props.odp && !col.props.labels && odpYears?.includes(columnName)
 
                   if (table.props.name === 'forestCharacteristics')
-                    isOdpHeader = isOdpHeader && country.props.forestCharacteristics.useOriginalDataPoint
+                    isOdpHeader = isOdpHeader && country.props.forestCharacteristics[cycle.uuid]?.useOriginalDataPoint
 
                   const getColumnName = () => {
                     const label = Cols.getLabel({ cycle, col, t })

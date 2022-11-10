@@ -7,7 +7,7 @@ import classNames from 'classnames'
 import { ClientRoutes } from '@meta/app'
 import { AssessmentName, OriginalDataPoint } from '@meta/assessment'
 
-import { useAssessmentCountry } from '@client/store/assessment'
+import { useAssessmentCountry, useCycle } from '@client/store/assessment'
 import { useCountryIso } from '@client/hooks'
 
 import ExtentOfForest from '../ExtentOfForest'
@@ -21,6 +21,7 @@ type Props = {
 const OriginalData: React.FC<Props> = (props) => {
   const { canEditData, originalDataPoint } = props
   const country = useAssessmentCountry()
+  const cycle = useCycle()
   const { assessmentName, cycleName, year, sectionName } = useParams<{
     assessmentName: AssessmentName
     cycleName: string
@@ -62,7 +63,7 @@ const OriginalData: React.FC<Props> = (props) => {
         <NavLink
           className={(navData) =>
             classNames('odp__tab-item', {
-              disabled: year === '-1' || !country.props.forestCharacteristics.useOriginalDataPoint,
+              disabled: year === '-1' || !country.props.forestCharacteristics[cycle.uuid]?.useOriginalDataPoint,
               active: navData.isActive,
             })
           }

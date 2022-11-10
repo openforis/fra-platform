@@ -4,7 +4,7 @@ import { NodeValue, Table, TableSection } from '@meta/assessment'
 import { NodeUpdate, TableData, TableDatas } from '@meta/data'
 
 import { useAppSelector } from '@client/store'
-import { useAssessmentCountry } from '@client/store/assessment'
+import { useAssessmentCountry, useCycle } from '@client/store/assessment'
 import { useCountryIso } from '@client/hooks'
 
 export const useShowOriginalDatapoints = () =>
@@ -27,12 +27,14 @@ export const useTableData = (props: { table: Table }): TableData => {
   const countryIso = useCountryIso()
   const { odp } = table.props
   const country = useAssessmentCountry()
+  const cycle = useCycle()
   const tableData = useAppSelector((state) => state.pages.assessmentSection.data)
   const odpData = useOriginalDataPointData() ?? {}
   const showOriginalDatapoints = useShowOriginalDatapoints()
 
   if (!tableData?.[countryIso]) return {} as TableData
-  if (!odp || !showOriginalDatapoints || !country.props.forestCharacteristics.useOriginalDataPoint) return tableData
+  if (!odp || !showOriginalDatapoints || !country.props.forestCharacteristics[cycle.uuid]?.useOriginalDataPoint)
+    return tableData
 
   const currData = tableData[countryIso][table.props.name]
 

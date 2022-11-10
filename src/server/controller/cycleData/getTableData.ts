@@ -53,7 +53,8 @@ export const getTableData = async (
       allTableNames.forEach((tableName) => {
         if (
           tableName === TableNames.extentOfForest ||
-          (tableName === TableNames.forestCharacteristics && country.props.forestCharacteristics.useOriginalDataPoint)
+          (tableName === TableNames.forestCharacteristics &&
+            country.props.forestCharacteristics[cycle.uuid]?.useOriginalDataPoint)
         ) {
           if (tableData[countryIso] && tableData[countryIso][tableName] && originalDataPointData?.[countryIso]) {
             let { originalDataPointValue } = originalDataPointData[countryIso]

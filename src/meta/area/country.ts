@@ -12,7 +12,7 @@ export enum AssessmentStatus {
 export interface CountryProps {
   deskStudy: boolean
   domain: string // ex: tropical
-  forestCharacteristics: { useOriginalDataPoint: boolean }
+  forestCharacteristics: { [cycleUuid: string]: { useOriginalDataPoint: boolean } }
   status: AssessmentStatus
 }
 
