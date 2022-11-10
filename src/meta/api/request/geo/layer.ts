@@ -22,9 +22,9 @@ export type ForestAgreementLayerRequest = Request<
   never,
   {
     countryIso: CountryIso
-    gteAgreementLevel: string
-    gteHansenTreeCoverPerc?: string
+    gteAgreementLevel: any
+    gteHansenTreeCoverPerc?: any
     layer: Array<ForestSource>
-    opacity: string
+    opacity: any
   }
 >

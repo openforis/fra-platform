@@ -18,7 +18,13 @@ export const GeoApi = {
       GeeAuthMiddleware.requireLogin,
       getForestLayer
     )
-    express.get(ApiEndPoint.Geo.Layers.getForestAgreement(), GeeAuthMiddleware.requireLogin, getForestAgreementLayer)
+    express.get(
+      ApiEndPoint.Geo.Layers.getForestAgreement(),
+      ValidationMiddleware.validateRequest(GeoSchemes.forestAgreementLayerSchema),
+      GeeAuthMiddleware.requireLogin,
+      getForestAgreementLayer
+    )
+
     express.get(ApiEndPoint.Geo.Layers.getBoundaries(), GeeAuthMiddleware.requireLogin, getBoundariesLayer)
   },
 }
