@@ -89,7 +89,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 'header_0',
                     type: 'header',
                     colSpan: 1,
-                    labelKey: 'extentOfForest.forestArea',
+                    labelKey: 'fra.extentOfForest.forestArea',
                     variableNo: 'a',
                     className: 'fra-table__category-cell',
                   },
@@ -104,7 +104,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     },
                   })),
                 ],
-                labelKey: 'extentOfForest.forestArea',
+                labelKey: 'fra.extentOfForest.forestArea',
                 variableNo: 'a',
                 variableName: 'forestArea',
                 variableExport: 'forest_area',
@@ -199,7 +199,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 'header_0',
                     type: 'header',
                     colSpan: 1,
-                    labelKey: 'extentOfForest.totalLandArea',
+                    labelKey: 'fra.extentOfForest.totalLandArea',
                     variableNo: 'c',
                     className: 'fra-table__header-cell-left',
                   },
@@ -214,7 +214,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     },
                   })),
                 ],
-                labelKey: 'extentOfForest.totalLandArea',
+                labelKey: 'fra.extentOfForest.totalLandArea',
                 variableNo: 'c',
                 variableName: 'totalLandArea',
                 // variableName: 'faoStat',
@@ -231,7 +231,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 0,
                     colSpan: 1,
                     rowSpan: 2,
-                    labelKey: 'extentOfForest.tableNoticeMessage',
+                    labelKey: 'fra.extentOfForest.tableNoticeMessage',
                     type: 'noticeMessage',
                   },
                 ],
@@ -274,7 +274,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 0,
                     colSpan: 1,
                     rowSpan: 1,
-                    labelKey: 'climaticDomain.climaticDomain',
+                    labelKey: 'fra.climaticDomain.climaticDomain',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -282,12 +282,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 1,
                     colSpan: 1,
                     rowSpan: 1,
-                    labelKey: 'climaticDomain.percentOfForestArea2015',
+                    labelKey: 'fra.climaticDomain.percentOfForestArea2015',
                     className: 'fra-table__header-cell',
                     type: 'header',
                     migration: {
                       label: {
-                        '2020': { key: 'climaticDomain.percentOfForestArea2015' },
+                        '2020': { key: 'fra.climaticDomain.percentOfForestArea2015' },
                         '2025': { key: 'fra.climaticDomain.percentOfForestArea' },
                       },
                     },
@@ -296,7 +296,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 2,
                     colSpan: 1,
                     rowSpan: 1,
-                    labelKey: 'climaticDomain.percentOfForestArea2015Override',
+                    labelKey: 'fra.climaticDomain.percentOfForestArea2015Override',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -311,7 +311,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 'header_0',
                     type: 'header',
                     colSpan: 1,
-                    labelKey: 'climaticDomain.boreal',
+                    labelKey: 'fra.climaticDomain.boreal',
                     className: 'fra-table__category-cell',
                   },
                   {
@@ -323,7 +323,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                 ],
-                labelKey: 'climaticDomain.boreal',
+                labelKey: 'fra.climaticDomain.boreal',
               },
               {
                 idx: 1,
@@ -333,7 +333,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 'header_0',
                     type: 'header',
                     colSpan: 1,
-                    labelKey: 'climaticDomain.temperate',
+                    labelKey: 'fra.climaticDomain.temperate',
                     className: 'fra-table__category-cell',
                   },
                   {
@@ -345,7 +345,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                 ],
-                labelKey: 'climaticDomain.temperate',
+                labelKey: 'fra.climaticDomain.temperate',
               },
               {
                 idx: 2,
@@ -355,7 +355,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 'header_0',
                     type: 'header',
                     colSpan: 1,
-                    labelKey: 'climaticDomain.subtropical',
+                    labelKey: 'fra.climaticDomain.subtropical',
                     className: 'fra-table__category-cell',
                   },
                   {
@@ -367,7 +367,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                 ],
-                labelKey: 'climaticDomain.subtropical',
+                labelKey: 'fra.climaticDomain.subtropical',
               },
               {
                 idx: 3,
@@ -377,7 +377,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 'header_0',
                     type: 'header',
                     colSpan: 1,
-                    labelKey: 'climaticDomain.tropical',
+                    labelKey: 'fra.climaticDomain.tropical',
                     className: 'fra-table__category-cell',
                   },
                   {
@@ -389,7 +389,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                 ],
-                labelKey: 'climaticDomain.tropical',
+                labelKey: 'fra.climaticDomain.tropical',
               },
             ],
             tableDataRequired: [],
@@ -922,7 +922,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 0,
                     colSpan: 1,
                     rowSpan: 2,
-                    labelKey: 'specificForestCategories.categoryHeader',
+                    labelKey: 'fra.specificForestCategories.categoryHeader',
                     className: 'fra-table__header-cell-left',
                     type: 'header',
                     migration: {
@@ -936,7 +936,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 1,
                     colSpan: 5,
                     rowSpan: 1,
-                    labelKey: 'specificForestCategories.areaUnitLabel',
+                    labelKey: 'fra.specificForestCategories.areaUnitLabel',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -997,7 +997,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 'header_0',
                     type: 'header',
                     colSpan: 1,
-                    labelKey: 'specificForestCategories.primaryForest',
+                    labelKey: 'fra.specificForestCategories.primaryForest',
                     className: 'fra-table__category-cell',
                   },
                   {
@@ -1021,7 +1021,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                 ],
-                labelKey: 'specificForestCategories.primaryForest',
+                labelKey: 'fra.specificForestCategories.primaryForest',
                 variableExport: 'primary_forest',
                 migration: {
                   validateFns: [
@@ -1038,7 +1038,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 'header_0',
                     type: 'header',
                     colSpan: 1,
-                    labelKey: 'specificForestCategories.temporarilyUnstocked',
+                    labelKey: 'fra.specificForestCategories.temporarilyUnstocked',
                     className: 'fra-table__category-cell',
                   },
                   {
@@ -1062,7 +1062,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                 ],
-                labelKey: 'specificForestCategories.temporarilyUnstocked',
+                labelKey: 'fra.specificForestCategories.temporarilyUnstocked',
                 variableExport: 'temporarily_unstocked',
                 migration: {
                   cycles: ['2020'],
@@ -1076,7 +1076,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 'header_0',
                     type: 'header',
                     colSpan: 1,
-                    labelKey: 'specificForestCategories.bamboo',
+                    labelKey: 'fra.specificForestCategories.bamboo',
                     className: 'fra-table__category-cell',
                   },
                   {
@@ -1100,7 +1100,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                 ],
-                labelKey: 'specificForestCategories.bamboo',
+                labelKey: 'fra.specificForestCategories.bamboo',
                 variableExport: 'bamboo',
                 migration: {
                   validateFns: [
@@ -1119,7 +1119,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__category-cell',
                     migration: {
                       label: {
-                        '2020': { key: 'specificForestCategories.mangroves' },
+                        '2020': { key: 'fra.specificForestCategories.mangroves' },
                         '2025': { key: 'fra.specificForestCategories.mangroves2025' },
                       },
                     },
@@ -1145,7 +1145,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                 ],
-                labelKey: 'specificForestCategories.mangroves',
+                labelKey: 'fra.specificForestCategories.mangroves',
                 variableExport: 'mangroves',
                 migration: {
                   validateFns: [
@@ -1161,7 +1161,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 'header_0',
                     type: 'header',
                     colSpan: 1,
-                    labelKey: 'specificForestCategories.rubberWood',
+                    labelKey: 'fra.specificForestCategories.rubberWood',
                     className: 'fra-table__category-cell',
                   },
                   {
@@ -1185,7 +1185,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                 ],
-                labelKey: 'specificForestCategories.rubberWood',
+                labelKey: 'fra.specificForestCategories.rubberWood',
                 variableExport: 'rubber_wood',
                 migration: {
                   validateFns: [
@@ -1250,7 +1250,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
     },
     migration: {
       label: {
-        '2020': { key: 'specificForestCategories.specificForestCategories' },
+        '2020': { key: 'fra.specificForestCategories.specificForestCategories' },
         '2025': { key: 'fra.specificForestCategories.specificForestCategories2025' },
       },
     },
@@ -5656,7 +5656,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
             unit: 'haThousand',
           },
         ],
-        titleKey: 'designatedManagementObjective.primaryDesignatedManagementObjective',
+        titleKey: 'fra.designatedManagementObjective.primaryDesignatedManagementObjective',
         descriptionKey: 'designatedManagementObjective.primaryDesignatedManagementObjectiveSupport',
       },
       {
@@ -5918,7 +5918,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
             columnsExportAlways: [],
           },
         ],
-        titleKey: 'designatedManagementObjective.totalAreaWithDesignatedManagementObjective',
+        titleKey: 'fra.designatedManagementObjective.totalAreaWithDesignatedManagementObjective',
         descriptionKey: 'designatedManagementObjective.totalAreaWithDesignatedManagementObjectiveSupport',
       },
     ],
@@ -11732,7 +11732,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
     migration: {
       label: {
         '2020': { key: 'nonWoodForestProductsRemovals.nonWoodForestProductsRemovals' },
-        '2025': { key: 'fra.nonWoodForestProductsRemovals.nonWoodForestProductsRemovals2025' },
+        '2025': { key: 'nonWoodForestProductsRemovals.nonWoodForestProductsRemovals2025' },
       },
       anchors: {
         '2020': '7c',
@@ -12031,7 +12031,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
             },
           },
         ],
-        titleKey: 'sustainableDevelopment.sdgIndicator1',
+        titleKey: 'fra.sustainableDevelopment.sdgIndicator1',
         migration: {
           label: {
             '2020': { key: 'sustainableDevelopment.sdgIndicator1' },
@@ -12357,7 +12357,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
             },
           },
         ],
-        titleKey: 'sustainableDevelopment.sdgIndicator2',
+        titleKey: 'fra.sustainableDevelopment.sdgIndicator2',
       },
       {
         tableSpecs: [

@@ -18,12 +18,12 @@ export const getTableSection = (props: {
       }),
       descriptions: getLabels({
         assessment,
-        label: { key: tableSectionSpec.descriptionKey },
+        label: { key: tableSectionSpec.descriptionKey && `fra.${tableSectionSpec.descriptionKey}` },
         migration: {},
       }),
       labels: getLabels({
         assessment,
-        label: { key: tableSectionSpec.titleKey },
+        label: { key: tableSectionSpec.titleKey && `fra.${tableSectionSpec.titleKey}` },
         migration: tableSectionSpec.migration,
       }),
     },

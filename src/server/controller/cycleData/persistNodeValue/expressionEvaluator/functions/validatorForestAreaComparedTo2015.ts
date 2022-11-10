@@ -18,7 +18,7 @@ export const validatorForestAreaComparedTo2015: ExpressionFunction<Context> = {
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
-        : [{ key: 'extentOfForest.forestAreaDoesNotMatchPreviouslyReported' }]
+        : [{ key: 'fra.extentOfForest.forestAreaDoesNotMatchPreviouslyReported' }]
 
       return { valid, messages }
     }

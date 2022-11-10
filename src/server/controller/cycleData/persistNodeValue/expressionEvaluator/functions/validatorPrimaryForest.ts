@@ -18,7 +18,7 @@ export const validatorPrimaryForest: ExpressionFunction<Context> = {
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
-        : [{ key: 'specificForestCategories.exceedsNaturallyRegeneratingForest' }]
+        : [{ key: 'fra.specificForestCategories.exceedsNaturallyRegeneratingForest' }]
 
       return { valid, messages }
     }

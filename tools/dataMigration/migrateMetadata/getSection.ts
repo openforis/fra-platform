@@ -7,7 +7,7 @@ export const getSection = (props: { assessment: Assessment; index: number; label
   return {
     props: {
       cycles: getCycleUuids({ assessment }),
-      labels: getLabels({ assessment, label: { key: labelKey } }),
+      labels: getLabels({ assessment, label: { key: `fra.${labelKey}` } }),
       index,
     },
   }
@@ -37,7 +37,7 @@ export const getSubSection = (props: { assessment: Assessment; spec: SectionSpec
       index,
       labels: getLabels({
         assessment,
-        label: { key: `${spec.sectionName}.${spec.sectionName}` },
+        label: { key: `fra.${spec.sectionName}.${spec.sectionName}` },
         migration: spec.migration,
       }),
       showTitle: spec.showTitle,

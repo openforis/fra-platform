@@ -15,7 +15,7 @@ export const validatorOtherLand: ExpressionFunction<Context> = {
         Objects.isEmpty(otherLand) || Objects.isEmpty(totalLandArea) || Numbers.greaterThanOrEqualTo(otherLand, 0)
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
-        : [{ key: 'extentOfForest.fedAreasExceedTotalLandArea' }]
+        : [{ key: 'fra.extentOfForest.fedAreasExceedTotalLandArea' }]
 
       return { valid, messages }
     }
