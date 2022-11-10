@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import './UserListFilters.scss'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -54,7 +52,7 @@ const UserListFilters: React.FC = () => {
           <div className="users__table-filter-item-label">
             <h4>{t('admin.country')}</h4>
           </div>
-          <div className="multi-select" onClick={() => setModalOpen(true)}>
+          <div className="multi-select" onClick={() => setModalOpen(true)} aria-hidden="true">
             <div className="multi-select__closed-content">
               {filters.countries.length === 0 ? (
                 <span className="multi-select__placeholder">{t('multiSelect.placeholder')}</span>
