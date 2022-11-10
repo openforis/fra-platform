@@ -2,7 +2,7 @@ import { Objects } from '@utils/objects'
 
 import { CountryIso } from '@meta/area'
 import { Assessment, Cycle } from '@meta/assessment'
-import { CollaboratorProps, User } from '@meta/user'
+import { CollaboratorProps, RoleName, User } from '@meta/user'
 
 import { BaseProtocol, DB } from '@server/db'
 
@@ -11,10 +11,18 @@ import { fields } from './fields'
 const selectFields = fields.map((f) => `u.${f}`).join(',')
 
 export const getMany = async (
-  props: { countryIso?: CountryIso; assessment?: Assessment; cycle?: Cycle; limit?: number; offset?: number },
+  props: {
+    countryIso?: CountryIso
+    assessment?: Assessment
+    cycle?: Cycle
+    limit?: number
+    offset?: number
+    countries?: Array<CountryIso>
+    roles?: Array<RoleName>
+  },
   client: BaseProtocol = DB
 ): Promise<Array<User>> => {
-  const { countryIso, assessment, cycle, limit, offset } = props
+  const { countryIso, assessment, cycle, limit, offset, countries, roles } = props
 
   let query = ''
   let queryParams = []
@@ -43,6 +51,10 @@ export const getMany = async (
     `
     queryParams = countryIso ? [assessment.id, cycle.uuid, countryIso] : [assessment.id, cycle.uuid]
   } else {
+    const selectedCountries = countries.map((countryIso) => `'${countryIso}'`).join(',')
+
+    const selectedRoles = roles.map((roleName) => `'${roleName}'`).join(',')
+
     query = `
         select ${selectFields}, jsonb_agg(to_jsonb(ur.*)) as roles
         from public.users u
@@ -56,6 +68,9 @@ export const getMany = async (
                 )`
               : ''
           }
+        where true
+        ${selectedCountries ? `and ur.country_iso in (${selectedCountries})` : ''}
+        ${selectedRoles ? `and ur.role in (${selectedRoles})` : ''}
         group by ${selectFields}
         ${limit ? `limit ${limit}` : ''}
         ${offset ? `offset ${offset}` : ''}

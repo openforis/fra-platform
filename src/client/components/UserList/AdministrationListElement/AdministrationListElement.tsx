@@ -7,15 +7,14 @@ import classNames from 'classnames'
 import { ClientRoutes } from '@meta/app'
 import { RoleName, User, UserStatus } from '@meta/user'
 
+import { useFilteredRoleNames } from '@client/store/ui/userManagement'
+
 import UserField from '../UserField'
 import UserRolesField from '../UserRolesField'
 
-type Props = {
-  roleNames: Array<RoleName>
-  user: User
-}
+const AdministrationListElement: React.FC<{ user: User }> = ({ user }) => {
+  const filteredRoleNames = useFilteredRoleNames()
 
-const AdministrationListElement: React.FC<Props> = ({ roleNames, user }) => {
   const { t } = useTranslation()
 
   const { id, status } = user
@@ -27,7 +26,7 @@ const AdministrationListElement: React.FC<Props> = ({ roleNames, user }) => {
       })}
     >
       <UserField user={user} field="name" />
-      {roleNames.map((roleName: RoleName) => (
+      {filteredRoleNames.map((roleName: RoleName) => (
         <UserRolesField key={roleName} roleName={roleName} user={user} />
       ))}
       <UserField user={user} field="email" />
