@@ -7,7 +7,7 @@ import classNames from 'classnames'
 import { ClientRoutes } from '@meta/app'
 import { RoleName, User, UserStatus } from '@meta/user'
 
-import { useFilteredRoleNames } from '@client/store/ui/userManagement/hooks'
+import { useFilteredRoleNames } from '@client/store/ui/userManagement'
 
 import UserField from '../UserField'
 import UserRolesField from '../UserRolesField'

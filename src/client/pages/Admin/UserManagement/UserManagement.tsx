@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
 
 import { useAppDispatch } from '@client/store'
-import { UserManagementActions, useUsers } from '@client/store/ui/userManagement'
-import { useFilters } from '@client/store/ui/userManagement/hooks'
+import { useFilters, UserManagementActions, useUsers } from '@client/store/ui/userManagement'
 import UserList from '@client/components/UserList'
 import UserListFilters from '@client/components/UserListFilters'
 

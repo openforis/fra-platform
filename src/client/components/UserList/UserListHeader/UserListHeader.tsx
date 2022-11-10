@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { RoleName, Users } from '@meta/user'
 
-import { useFilteredRoleNames } from '@client/store/ui/userManagement/hooks'
+import { useFilteredRoleNames } from '@client/store/ui/userManagement'
 
 import UserListButtonExport from '../UserListButtonExport'
 
