@@ -7,6 +7,7 @@ export const ApiEndPoint = {
 
   Admin: {
     users: () => apiPath('admin', 'users'),
+    usersCount: () => apiPath('admin', 'users', 'count'),
   },
 
   Area: {
