@@ -1,7 +1,7 @@
 import './Cell.scss'
 import React, { useCallback } from 'react'
 
-import { AssessmentName, Col, ColType, NodeValueValidations, Row, Table } from '@meta/assessment'
+import { AssessmentName, Col, ColType, NodeValueValidations, Row, Table, TableNames } from '@meta/assessment'
 import { NodeUpdate, TableData, TableDatas } from '@meta/data'
 import { Authorizer } from '@meta/user'
 
@@ -66,7 +66,15 @@ const Cell: React.FC<Props> = (props) => {
 
   const className = useClassName({ col, row, tableName, valid })
   const { onChange, onChangeNodeValue, onPaste } = useOnChange({ table, col, row, nodeValue, data, sectionName })
-  useListenNodeUpdate({ countryIso, assessmentName, cycleName, tableName, variableName, colName })
+
+  useListenNodeUpdate({
+    countryIso,
+    assessmentName,
+    cycleName,
+    tableName: nodeValue.odp ? TableNames.originalDataPointValue : tableName,
+    variableName,
+    colName,
+  })
 
   const Component = Components[col.props.colType]
 
