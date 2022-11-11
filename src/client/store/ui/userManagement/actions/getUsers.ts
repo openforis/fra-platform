@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { CountryIso } from '@meta/area'
-import { User } from '@meta/user'
+import { RoleName, User } from '@meta/user'
 
 type Params = {
   countryIso?: CountryIso
@@ -12,6 +12,8 @@ type Params = {
   print?: boolean
   limit?: number
   offset?: number
+  countries?: Array<CountryIso>
+  roles?: Array<RoleName>
 }
 
 export const getUsers = createAsyncThunk<Array<User>, Params>('userManagement/get/users', async (params) => {

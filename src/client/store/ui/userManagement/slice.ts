@@ -15,6 +15,10 @@ import { UserManagementState } from './stateType'
 const initialState: UserManagementState = {
   user: null,
   users: [],
+  filters: {
+    countries: [],
+    roles: [],
+  },
 }
 
 export const userManagementSlice = createSlice({
@@ -23,6 +27,9 @@ export const userManagementSlice = createSlice({
   reducers: {
     setUserToEdit: (state, { payload }) => {
       state.user = payload
+    },
+    updateFilters: (state, { payload }) => {
+      state.filters = { ...state.filters, ...payload }
     },
   },
   extraReducers: (builder) => {

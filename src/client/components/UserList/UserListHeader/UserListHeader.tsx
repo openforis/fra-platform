@@ -3,14 +3,13 @@ import { useTranslation } from 'react-i18next'
 
 import { RoleName, Users } from '@meta/user'
 
+import { useFilteredRoleNames } from '@client/store/ui/userManagement'
+
 import UserListButtonExport from '../UserListButtonExport'
 
-type Props = {
-  isAdmin: boolean
-  roleNames: Array<RoleName>
-}
+const UserListHeader: React.FC<{ isAdmin: boolean }> = ({ isAdmin }) => {
+  const filteredRoleNames = useFilteredRoleNames()
 
-const UserListHeader: React.FC<Props> = ({ isAdmin, roleNames }) => {
   const { t } = useTranslation()
 
   return (
@@ -19,7 +18,7 @@ const UserListHeader: React.FC<Props> = ({ isAdmin, roleNames }) => {
         <th className="user-list__header-cell">{t('userManagement.name')}</th>
         {!isAdmin && <th className="user-list__header-cell">{t('userManagement.role')}</th>}
         {isAdmin &&
-          roleNames.map((roleName: RoleName) => (
+          filteredRoleNames.map((roleName: RoleName) => (
             <th key={roleName} className="user-list__header-cell">
               {t(Users.getI18nRoleLabelKey(roleName))}
             </th>
