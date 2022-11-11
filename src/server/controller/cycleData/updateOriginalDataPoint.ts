@@ -17,11 +17,12 @@ export const updateOriginalDataPoint = async (
 ): Promise<OriginalDataPoint> => {
   const { assessment, cycle, originalDataPoint, user } = props
 
+  const updatedOriginalDataPoint = await OriginalDataPointRepository.update(
+    { assessment, cycle, originalDataPoint },
+    client
+  )
+
   return client.tx(async (t) => {
-    const updatedOriginalDataPoint = await OriginalDataPointRepository.update(
-      { assessment, cycle, originalDataPoint },
-      t
-    )
     const { countryIso } = updatedOriginalDataPoint
 
     await updateOriginalDataPointDependentNodes({ assessment, cycle, countryIso, originalDataPoint, user }, client)

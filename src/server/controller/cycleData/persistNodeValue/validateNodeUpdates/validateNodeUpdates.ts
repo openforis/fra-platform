@@ -1,9 +1,11 @@
-import { NodeValue, Row } from '@meta/assessment'
+import { NodeValue, Row, TableNames } from '@meta/assessment'
 import { NodeUpdate, NodeUpdates } from '@meta/data'
 
 import { BaseProtocol } from '@server/db'
 import { RowRepository } from '@server/repository/assessment/row'
+import { getOriginalDataPointNode } from '@server/repository/assessmentCycle/data/getOriginalDataPointNode'
 import { NodeRepository } from '@server/repository/assessmentCycle/node'
+import { OriginalDataPointRepository } from '@server/repository/assessmentCycle/originalDataPoint'
 
 import { validateNode } from './validateNode'
 
@@ -43,17 +45,46 @@ export const validateNodeUpdates = async (props: Props, client: BaseProtocol): P
       if (row.props.validateFns?.[cycle.uuid]) {
         // make sure in target table there's a matching column
         if (row.cols.find((c) => c.props.colName === colName)) {
-          // eslint-disable-next-line no-await-in-loop
-          const validation = await validateNode(
-            { assessment, cycle, countryIso, tableName, variableName, colName, row },
-            client
-          )
-          // eslint-disable-next-line no-await-in-loop
-          const node = await NodeRepository.updateValidation(
-            { assessment, cycle, tableName, variableName, countryIso, colName, validation },
-            client
-          )
-          value = node?.value
+          let isODPNode = false
+
+          // If we are handling tables 1a or 1b
+          if ([TableNames.extentOfForest, TableNames.forestCharacteristics].includes(tableName as TableNames)) {
+            // eslint-disable-next-line no-await-in-loop
+            const ODPYears = await OriginalDataPointRepository.getReservedYears(
+              { assessment, cycle, countryIso },
+              client
+            )
+
+            // We are on odp node if there is a year for current colName
+            isODPNode = ODPYears.map(String).includes(colName)
+          }
+
+          if (isODPNode) {
+            // Fetch the corresponding ODP value for the node update (used to update tables over websocket)
+            // eslint-disable-next-line no-await-in-loop
+            value = await getOriginalDataPointNode(
+              {
+                assessment,
+                cycle,
+                countryIso,
+                colName,
+                variableName,
+              },
+              client
+            )
+          } else {
+            // eslint-disable-next-line no-await-in-loop
+            const validation = await validateNode(
+              { assessment, cycle, countryIso, tableName, variableName, colName, row },
+              client
+            )
+            // eslint-disable-next-line no-await-in-loop
+            const node = await NodeRepository.updateValidation(
+              { assessment, cycle, tableName, variableName, countryIso, colName, validation },
+              client
+            )
+            value = node?.value
+          }
         }
       }
 
@@ -63,7 +94,13 @@ export const validateNodeUpdates = async (props: Props, client: BaseProtocol): P
       queue.push(...dependants)
       visitedVariables.push(queueItem)
       if (value) {
-        nodeUpdatesResult.nodes.push({ tableName, variableName, colName, value })
+        nodeUpdatesResult.nodes.push({
+          // Assign correct table name if value is ODP value
+          tableName: value.odp ? TableNames.originalDataPointValue : tableName,
+          variableName,
+          colName,
+          value,
+        })
       }
     }
   }
