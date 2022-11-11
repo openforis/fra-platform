@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from '@utils/objects'
 
-import { DataSource, dataSourceType, RowType } from '@meta/assessment'
+import { Cols, DataSource, dataSourceType, RowType } from '@meta/assessment'
 
 import { useCycle } from '@client/store/assessment'
 import { useTableSections } from '@client/store/pages/assessmentSection'
@@ -52,8 +52,8 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
   )
 
   const rows = table.rows
-    .filter((row) => row.props.variableName && row.props.type === RowType.data && row.props.label?.key)
-    .map((r, index) => t(r.props.label?.key, { idx: index + 1 }))
+    .filter((row) => row.props.variableName && row.props.type === RowType.data)
+    .map((r) => t(Cols.getLabel({ cycle, col: r.cols[0], t })))
 
   return (
     <>
