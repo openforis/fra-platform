@@ -52,7 +52,7 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
   )
 
   const rows = table.rows
-    .filter((row) => row.props.variableName && row.props.type === RowType.data)
+    .filter((row) => row.props.variableName && row.props.type === RowType.data && row.props.label?.key)
     .map((r, index) => t(r.props.label?.key, { idx: index + 1 }))
 
   return (
