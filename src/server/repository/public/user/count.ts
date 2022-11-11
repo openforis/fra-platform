@@ -18,6 +18,7 @@ export const count = async (
 
   let query = `
     select count(*) as totals from public.users u
+    where true
     ${selectedCountries ? `and ur.country_iso in (${selectedCountries})` : ''}
     ${selectedRoles ? `and ur.role in (${selectedRoles})` : ''}
   `
