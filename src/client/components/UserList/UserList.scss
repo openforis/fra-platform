@@ -6,7 +6,6 @@
   line-height: 19px;
   width: 100%;
   table-layout: fixed;
-  margin-bottom: calc($spacing-xxxl * 14);
 
   tr {
     &.user-list__invitation-row {
@@ -58,12 +57,12 @@
       }
     }
 
-    th, td {
+    th,
+    td {
       &.user-list__edit-column {
         width: 140px;
         text-align: right;
       }
     }
-
   }
 }
