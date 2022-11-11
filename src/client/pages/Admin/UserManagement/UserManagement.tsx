@@ -1,7 +1,9 @@
+import './UserManagement.scss'
 import React, { useEffect, useState } from 'react'
 
 import { useAppDispatch } from '@client/store'
-import { useFilters, UserManagementActions, useUsers } from '@client/store/ui/userManagement'
+import { useFilters, UserManagementActions, useUsers, useUsersCount } from '@client/store/ui/userManagement'
+import Paginator from '@client/components/Paginator'
 import UserList from '@client/components/UserList'
 import UserListFilters from '@client/components/UserListFilters'
 import UsersCount from '@client/components/UsersCount/UsersCount'
@@ -11,6 +13,7 @@ const UserManagement: React.FC = () => {
 
   const filters = useFilters()
   const users = useUsers()
+  const usersCount = useUsersCount()
 
   const [pageNumber, setPageNumber] = useState(0)
 
@@ -38,7 +41,16 @@ const UserManagement: React.FC = () => {
   return (
     <>
       <UserListFilters />
+
+      <Paginator
+        className="user-paginator"
+        onPageChange={(e) => setPageNumber(e.selected)}
+        pageRangeDisplayed={5}
+        pageCount={Math.ceil(usersCount.totals / 20)}
+      />
+
       <UserList users={users} isAdmin />
+
       <UsersCount />
     </>
   )
