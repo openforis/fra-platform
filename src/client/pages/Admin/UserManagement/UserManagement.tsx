@@ -12,7 +12,7 @@ const UserManagement: React.FC = () => {
   const filters = useFilters()
   const users = useUsers()
 
-  const [pageNum, setPageNum] = useState(0)
+  const [pageNumber, setPageNumber] = useState(0)
 
   useEffect(() => {
     dispatch(
@@ -21,19 +21,19 @@ const UserManagement: React.FC = () => {
         roles: filters.roles,
       })
     )
-    setPageNum(0)
+    setPageNumber(0)
   }, [dispatch, filters.countries, filters.roles])
 
   useEffect(() => {
     dispatch(
       UserManagementActions.getUsers({
         limit: 20,
-        offset: pageNum * 20,
+        offset: pageNumber * 20,
         countries: filters.countries,
         roles: filters.roles,
       })
     )
-  }, [dispatch, filters.countries, filters.roles, pageNum])
+  }, [dispatch, filters.countries, filters.roles, pageNumber])
 
   return (
     <>
