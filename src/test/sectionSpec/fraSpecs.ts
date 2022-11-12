@@ -4475,6 +4475,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'biomassStock.categoryHeader',
                     className: 'fra-table__header-cell-left',
                     type: 'header',
+                    migration: {
+                      label: { '2020': { key: 'fra.categoryHeader2020' } },
+                    },
                   },
                   {
                     idx: 1,
@@ -4745,6 +4748,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'biomassStock.categoryHeader',
                     className: 'fra-table__header-cell-left',
                     type: 'header',
+                    migration: {
+                      label: { '2025': { key: 'fra.categoryHeader2025' } },
+                    },
                   },
                   {
                     idx: 1,
@@ -4753,6 +4759,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'biomassStock.tableHeader',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      label: { '2025': { key: 'fra.biomassStockAvg.forestBiomass' } },
+                    },
                   },
                 ],
                 type: 'header',
@@ -4789,6 +4798,13 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'biomassStock.aboveGround',
                 variableName: 'forest_above_ground',
                 variableExport: 'forest_above_ground',
+                migration: {
+                  calcFormula: {
+                    '2025': '(extentOfForest.forestArea / biomassStockTotal.forest_above_ground) * 1000',
+                  },
+                  readonly: false,
+                  dependantsExclude: [{ tableName: 'extentOfForest', variableName: 'forestArea' }],
+                },
               },
               {
                 idx: 1,
@@ -4810,6 +4826,13 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'biomassStock.belowGround',
                 variableName: 'forest_below_ground',
                 variableExport: 'forest_below_ground',
+                migration: {
+                  calcFormula: {
+                    '2025': '(extentOfForest.forestArea / biomassStockTotal.forest_below_ground) * 1000',
+                  },
+                  readonly: false,
+                  dependantsExclude: [{ tableName: 'extentOfForest', variableName: 'forestArea' }],
+                },
               },
               {
                 idx: 2,
@@ -4831,8 +4854,16 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'biomassStock.deadWood',
                 variableName: 'forest_deadwood',
                 variableExport: 'forest_deadwood',
+                migration: {
+                  calcFormula: {
+                    '2025': '(extentOfForest.forestArea / biomassStockTotal.forest_deadwood) * 1000',
+                  },
+                  readonly: false,
+                  dependantsExclude: [{ tableName: 'extentOfForest', variableName: 'forestArea' }],
+                },
               },
             ],
+            columnsExportAlways: [],
             dataExport: true,
             unit: 'tonnesPerHa',
             migration: {
@@ -4855,6 +4886,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'biomassStock.categoryHeader',
                     className: 'fra-table__header-cell-left',
                     type: 'header',
+                    migration: {
+                      label: { '2025': { key: 'fra.categoryHeader2025' } },
+                    },
                   },
                   {
                     idx: 1,
@@ -4863,6 +4897,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'biomassStock.tableHeader',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      label: { '2025': { key: 'fra.biomassStockTotal.totalForestBiomass' } },
+                    },
                   },
                 ],
                 type: 'header',
@@ -4899,6 +4936,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'biomassStock.aboveGround',
                 variableName: 'forest_above_ground',
                 variableExport: 'forest_above_ground',
+                migration: {
+                  calcFormula: {
+                    '2025': '(extentOfForest.forestArea * biomassStockAvg.forest_above_ground) / 1000',
+                  },
+                  readonly: false,
+                },
               },
               {
                 idx: 1,
@@ -4920,6 +4963,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'biomassStock.belowGround',
                 variableName: 'forest_below_ground',
                 variableExport: 'forest_below_ground',
+                migration: {
+                  calcFormula: {
+                    '2025': '(extentOfForest.forestArea * biomassStockAvg.forest_below_ground) / 1000',
+                  },
+                  readonly: false,
+                },
               },
               {
                 idx: 2,
@@ -4941,10 +4990,16 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'biomassStock.deadWood',
                 variableName: 'forest_deadwood',
                 variableExport: 'forest_deadwood',
+                migration: {
+                  calcFormula: {
+                    '2025': '(extentOfForest.forestArea * biomassStockAvg.forest_deadwood) / 1000',
+                  },
+                  readonly: false,
+                },
               },
             ],
-            dataExport: true,
-            unit: 'tonnesPerHa',
+            dataExport: false,
+            unit: 'millionTonnes',
             migration: {
               cycles: ['2025'],
               columnNames: {
