@@ -11,12 +11,12 @@ module.exports = {
     areaAffected: 'Area affected (1000 ha)',
   },
 
-  biomassStockAvg:{
-    forestBiomass:'Forest Biomass (tones/ha)'
+  biomassStockAvg: {
+    forestBiomass: 'Forest Biomass (tones/ha)',
   },
 
-  biomassStockTotal:{
-    totalForestBiomass:'Total forest Biomass (million tones)'
+  biomassStockTotal: {
+    totalForestBiomass: 'Total forest Biomass (million tones)',
   },
 
   climaticDomain: {
