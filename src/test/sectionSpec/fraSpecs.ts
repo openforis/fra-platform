@@ -143,7 +143,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   })),
                 ],
                 labelKey: 'fraClass.otherWoodedLand',
-                variableNo: 'a',
+                variableNo: 'b',
                 variableName: 'otherWoodedLand',
                 variableExport: 'other_wooded_land',
                 chartProps: {
@@ -4728,6 +4728,229 @@ export const FraSpecs: Record<string, SectionSpec> = {
             columnsExportAlways: [],
             unit: 'tonnesPerHa',
             columnsExport: [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020],
+            migration: {
+              cycles: ['2020'],
+            },
+          },
+          {
+            name: 'biomassStockAvg',
+            rows: [
+              {
+                idx: 'header_0',
+                cols: [
+                  {
+                    idx: 0,
+                    colSpan: 1,
+                    rowSpan: 2,
+                    labelKey: 'biomassStock.categoryHeader',
+                    className: 'fra-table__header-cell-left',
+                    type: 'header',
+                  },
+                  {
+                    idx: 1,
+                    colSpan: reportYears.length,
+                    rowSpan: 1,
+                    labelKey: 'biomassStock.tableHeader',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                ],
+                type: 'header',
+              },
+              {
+                idx: 'header_1',
+                cols: reportYears.map((label, idx) => ({
+                  idx,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  label,
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                })),
+                type: 'header',
+              },
+              {
+                idx: 0,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'biomassStock.aboveGround',
+                    className: 'fra-table__category-cell',
+                  },
+                  ...reportYears.map((colName, idx) => ({
+                    idx,
+                    colName,
+                    type: 'decimal',
+                  })),
+                ],
+                labelKey: 'biomassStock.aboveGround',
+                variableName: 'forest_above_ground',
+                variableExport: 'forest_above_ground',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'biomassStock.belowGround',
+                    className: 'fra-table__category-cell',
+                  },
+                  ...reportYears.map((colName, idx) => ({
+                    idx,
+                    colName,
+                    type: 'decimal',
+                  })),
+                ],
+                labelKey: 'biomassStock.belowGround',
+                variableName: 'forest_below_ground',
+                variableExport: 'forest_below_ground',
+              },
+              {
+                idx: 2,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'biomassStock.deadWood',
+                    className: 'fra-table__category-cell',
+                  },
+                  ...reportYears.map((colName, idx) => ({
+                    idx,
+                    colName,
+                    type: 'decimal',
+                  })),
+                ],
+                labelKey: 'biomassStock.deadWood',
+                variableName: 'forest_deadwood',
+                variableExport: 'forest_deadwood',
+              },
+            ],
+            dataExport: true,
+            unit: 'tonnesPerHa',
+            migration: {
+              cycles: ['2025'],
+              columnNames: {
+                '2025': [...reportYears],
+              },
+            },
+          },
+          {
+            name: 'biomassStockTotal',
+            rows: [
+              {
+                idx: 'header_0',
+                cols: [
+                  {
+                    idx: 0,
+                    colSpan: 1,
+                    rowSpan: 2,
+                    labelKey: 'biomassStock.categoryHeader',
+                    className: 'fra-table__header-cell-left',
+                    type: 'header',
+                  },
+                  {
+                    idx: 1,
+                    colSpan: reportYears.length,
+                    rowSpan: 1,
+                    labelKey: 'biomassStock.tableHeader',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                ],
+                type: 'header',
+              },
+              {
+                idx: 'header_1',
+                cols: reportYears.map((label, idx) => ({
+                  idx,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  label,
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                })),
+                type: 'header',
+              },
+              {
+                idx: 0,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'biomassStock.aboveGround',
+                    className: 'fra-table__category-cell',
+                  },
+                  ...reportYears.map((colName, idx) => ({
+                    idx,
+                    colName,
+                    type: 'decimal',
+                  })),
+                ],
+                labelKey: 'biomassStock.aboveGround',
+                variableName: 'forest_above_ground',
+                variableExport: 'forest_above_ground',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'biomassStock.belowGround',
+                    className: 'fra-table__category-cell',
+                  },
+                  ...reportYears.map((colName, idx) => ({
+                    idx,
+                    colName,
+                    type: 'decimal',
+                  })),
+                ],
+                labelKey: 'biomassStock.belowGround',
+                variableName: 'forest_below_ground',
+                variableExport: 'forest_below_ground',
+              },
+              {
+                idx: 2,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'biomassStock.deadWood',
+                    className: 'fra-table__category-cell',
+                  },
+                  ...reportYears.map((colName, idx) => ({
+                    idx,
+                    colName,
+                    type: 'decimal',
+                  })),
+                ],
+                labelKey: 'biomassStock.deadWood',
+                variableName: 'forest_deadwood',
+                variableExport: 'forest_deadwood',
+              },
+            ],
+            dataExport: true,
+            unit: 'tonnesPerHa',
+            migration: {
+              cycles: ['2025'],
+              columnNames: {
+                '2025': [...reportYears],
+              },
+            },
           },
         ],
       },
@@ -12539,7 +12762,10 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'sustainableDevelopment.aboveGroundBiomassStockForests',
                 migration: {
-                  calcFormula: 'biomassStock.forest_above_ground',
+                  calcFormula: {
+                    '2020': 'biomassStock.forest_above_ground',
+                    '2025': 'biomassStockAvg.forest_above_ground',
+                  },
                 },
               },
             ],
