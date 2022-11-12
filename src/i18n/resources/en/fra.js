@@ -19,6 +19,10 @@ module.exports = {
     totalForestBiomass: 'Total forest Biomass (million tones)',
   },
 
+  carbonStockTotal: {
+    totalForestCarbon: 'Total forest carbon (million tones)',
+  },
+
   climaticDomain: {
     percentOfForestArea: '% of forest area',
   },
