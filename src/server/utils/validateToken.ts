@@ -16,7 +16,6 @@ export async function validateToken(req: Request, res: Response, next: NextFunct
   let valid = tokenUser.email === user.email
 
   if (valid) {
-    // valid = await bcrypt.hash(user.email, 10) }, process.env.TOKEN_SECRET)
     valid = await bcrypt.compare(user.email, validation)
   }
 
