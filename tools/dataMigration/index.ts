@@ -113,11 +113,11 @@ export const migrate = async (props: {
     await Promise.all(
       assessment.cycles.map(async (cycle) => {
         await migrateTablesData({ assessment, cycle }, client)
+        await generateMetaCache({ assessment, cycle }, client)
       })
     )
     await migrateOdps({ assessment }, client)
     await migrateAggregates({ assessment }, client)
-    await generateMetaCache({ assessment }, client)
     await migrateReview({ assessment }, client)
     await migrateActivityLog({ assessment }, client)
 

@@ -1,7 +1,7 @@
 import { Objects } from '@utils/objects'
 import * as pgPromise from 'pg-promise'
 
-import { Assessment, Cycle, Row, VariableCache } from '@meta/assessment'
+import { Assessment, Col, Cycle, Row, VariableCache } from '@meta/assessment'
 
 import { AreaController } from '@server/controller/area'
 import { BaseProtocol, Schemas } from '@server/db'
@@ -29,12 +29,29 @@ export const updateCalculatedNodes = async (
                  left join ${schema}.col c on r.id = c.row_id
         where t.props -> 'cycles' ? '${cycle.uuid}'
           and r.props -> 'cycles' ? '${cycle.uuid}'
-          and (r.props ->> 'calculateFn' is not null or c.props ->> 'calculateFn' is not null)
+          and ((r.props ->> 'calculateFn' is not null and r.props -> 'calculateFn' ->> '${cycle.uuid}' is not null) or c.props ->> 'calculateFn' is not null)
         group by r.id, r.uuid, r.props, t.props ->> 'name'
         order by r.id`,
     [],
-    // @ts-ignore
-    Objects.camelize
+    (row) => {
+      return {
+        ...Objects.camelize(row),
+        cols: row.cols.map((col: Col) => {
+          return {
+            ...Objects.camelize(col),
+            props: {
+              ...Objects.camelize(col.props),
+              calculateFn: col.props.calculateFn,
+            },
+          }
+        }),
+        props: {
+          ...Objects.camelize(row.props),
+          calculateFn: row.props.calculateFn,
+          validateFns: row.props.validateFns,
+        },
+      }
+    }
   )
 
   const variablesToCalculate = rows.map<VariableCache>((row) => ({

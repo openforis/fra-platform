@@ -1,4 +1,5 @@
 export { getUsers } from './getUsers'
+export { getUsersCount } from './getUsersCount'
 export { getUserToEdit } from './getUserToEdit'
 export { inviteUser } from './inviteUser'
 export { removeInvitation } from './removeInvitation'
