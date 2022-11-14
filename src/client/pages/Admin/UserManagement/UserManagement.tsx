@@ -42,14 +42,14 @@ const UserManagement: React.FC = () => {
     <>
       <UserListFilters />
 
+      <UserList users={users} isAdmin />
+
       <Paginator
         className="user-paginator"
-        onPageChange={(e) => setPageNumber(e.selected)}
+        onPageChange={(n) => setPageNumber(n)}
         pageRangeDisplayed={5}
         pageCount={Math.ceil(usersCount.totals / 20)}
       />
-
-      <UserList users={users} isAdmin />
 
       <UsersCount />
     </>

@@ -3,7 +3,7 @@ import ReactPaginate from 'react-paginate'
 
 type Props = {
   className: string
-  onPageChange?(selectedItem: { selected: number }): void
+  onPageChange(pageNumber: number): void
   pageCount: number
   pageRangeDisplayed: number
 }
@@ -13,16 +13,12 @@ const Paginator: React.FC<Props> = ({ className, onPageChange, pageCount, pageRa
     className={className}
     breakLabel="..."
     nextLabel=">"
-    onPageChange={onPageChange}
+    onPageChange={({ selected: pageNumber }) => onPageChange(pageNumber)}
     pageRangeDisplayed={pageRangeDisplayed}
     pageCount={pageCount}
     previousLabel="<"
     renderOnZeroPageCount={null}
   />
 )
-
-Paginator.defaultProps = {
-  onPageChange: () => null,
-}
 
 export default Paginator
