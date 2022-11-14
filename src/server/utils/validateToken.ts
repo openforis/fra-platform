@@ -12,7 +12,8 @@ export async function validateToken(req: Request, res: Response, next: NextFunct
   const decodedJwt = jwt.decode(token) as { user: User; validation: string }
   const { user, validation } = decodedJwt
 
-  let valid = Boolean(await UserController.getOne({ id: user.id }))
+  const tokenUser = await UserController.getOne({ id: user.id })
+  let valid = tokenUser.email === user.email
 
   if (valid) {
     // valid = await bcrypt.hash(user.email, 10) }, process.env.TOKEN_SECRET)
