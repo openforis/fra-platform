@@ -84,8 +84,10 @@ module.exports = {
     mostRecentYear: 'Most recent year:',
     percentOfTotal: '% of total',
     ranked: '#{{idx}} Ranked',
-    totalIntroducedPercent: 'TOTAL % of introduced tree species',
-    totalNativePercent: 'TOTAL % of native tree species',
+    totalGrowingStock: 'Total growing stock',
+    totalIntroducedTreeSpecies: 'TOTAL introduced tree species',
+    totalNativeTreeSpecies: 'TOTAL native tree species',
+    updatedGrowingStockComposition: 'Updated growing stock composition',
   },
 
   holderOfManagementRights: {
