@@ -256,7 +256,7 @@
     "**/*.{ts,tsx}": [
       "eslint --cache --fix --rule 'no-console:2'"
     ],
-    "**/*.{ts,tsx,scss}": [
+    "**/*.{ts,tsx,js,scss}": [
       "prettier --write"
     ]
   }
