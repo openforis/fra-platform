@@ -1,4 +1,5 @@
 import { Dates } from '@utils/dates'
+import * as bcrypt from 'bcrypt'
 import { NextFunction, Request, Response } from 'express'
 import * as jwt from 'jsonwebtoken'
 import * as passport from 'passport'
@@ -8,8 +9,8 @@ import { User } from '@meta/user'
 
 import Requests, { appUri } from '@server/utils/requests'
 
-const setAuthToken = (res: Response, user: User): void => {
-  const token = jwt.sign({ user }, process.env.TOKEN_SECRET)
+const setAuthToken = async (res: Response, user: User): Promise<void> => {
+  const token = jwt.sign({ user, validation: await bcrypt.hash(user.email, 10) }, process.env.TOKEN_SECRET)
   res.cookie('token', token, { expires: Dates.addMonths(new Date(), 12) })
 }
 
@@ -19,9 +20,9 @@ export const postLocalLogin = async (req: Request, res: Response, next: NextFunc
 
     if (!user) return next(new Error(info.message))
 
-    return req.login(user, (err: any) => {
+    return req.login(user, async (err: any) => {
       if (err) next(err)
-      setAuthToken(res, user)
+      await setAuthToken(res, user)
       Requests.sendOk(res)
     })
   })(req, res, next)
