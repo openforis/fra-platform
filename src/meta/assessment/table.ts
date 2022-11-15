@@ -4,6 +4,7 @@ import { CycledPropsObject, Row, Unit } from './index'
 // e.g. used in getTableData to merge data with odp or fetch correct data for dashboard
 export enum TableNames {
   carbonStock = 'carbonStock',
+  carbonStockAvg = 'carbonStockAvg',
   extentOfForest = 'extentOfForest',
   forestAreaWithinProtectedAreas = 'forestAreaWithinProtectedAreas',
   forestCharacteristics = 'forestCharacteristics',
