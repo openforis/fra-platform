@@ -8097,9 +8097,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     variableNo: 'd',
                     className: 'fra-table__category-cell',
                     migration: {
-                      labelKey: {
-                        '2020': 'holderOfManagementRights.communities',
-                        '2025': 'fra.holderOfManagementRights.communities2025',
+                      label: {
+                        '2020': { key: 'holderOfManagementRights.communities' },
+                        '2025': { key: 'fra.holderOfManagementRights.communities2025' },
                       },
                       variableNo: {
                         '2020': 'd',
@@ -8196,25 +8196,25 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 0,
-                    type: 'calculated',
+                    type: 'decimal',
                   },
                   {
                     idx: 1,
-                    type: 'calculated',
+                    type: 'decimal',
                   },
                   {
                     idx: 2,
-                    type: 'calculated',
+                    type: 'decimal',
                   },
                   {
                     idx: 3,
-                    type: 'calculated',
+                    type: 'decimal',
                   },
                 ],
                 labelKey: 'fra.holderOfManagementRights.other2025',
                 variableExport: 'other',
                 variableNo: 'd',
-                variableName: 'other',
+                variableName: 'other2025',
                 migration: {
                   cycles: ['2025'],
                   colNames: ['1990', '2000', '2010', '2015', '2020'],
