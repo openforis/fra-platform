@@ -7,12 +7,19 @@ import { Areas } from '@meta/area'
 import { TableNames } from '@meta/assessment'
 import { TableData, TableDatas } from '@meta/data'
 
+import { useCycle } from '@client/store/assessment'
 import { useCountryIso } from '@client/hooks'
 import useStatisticalFactsheetsState from '@client/pages/Dashboard/hooks/useDashboardData'
 
 import Table from '../components/Table'
 
+const cycleTableName: Record<string, string> = {
+  '2020': TableNames.carbonStock,
+  '2025': TableNames.carbonStockAvg,
+}
+
 const CarbonGrowingStock = () => {
+  const cycle = useCycle()
   const countryIso = useCountryIso()
   const i18n = useTranslation()
   const isIsoCountry = Areas.isISOCountry(countryIso)
@@ -33,7 +40,7 @@ const CarbonGrowingStock = () => {
   const units = isIsoCountry
     ? ['millionsCubicMeterOverBark', 'tonnesPerHa', 'tonnesPerHa']
     : ['billionCubicMeter', 'gt', 'gt']
-  const tableNamesCountry = [TableNames.carbonStock, TableNames.growingStockTotal]
+  const tableNamesCountry = [cycleTableName[cycle.name], TableNames.growingStockTotal]
   const tableNames = isIsoCountry ? tableNamesCountry : [TableNames.valueAggregate]
   const sectionName = 'carbonAndGrowingStock'
 
@@ -55,7 +62,7 @@ const CarbonGrowingStock = () => {
     columns.forEach((colName: string) => {
       const carbonForestAboveGround = TableDatas.getDatum({
         variableName: 'carbon_forest_above_ground',
-        tableName: TableNames.carbonStock,
+        tableName: cycleTableName[cycle.name],
         colName,
         countryIso,
         data: _tableData,
@@ -63,7 +70,7 @@ const CarbonGrowingStock = () => {
 
       const carbonForestBelowGround = TableDatas.getDatum({
         variableName: 'carbon_forest_below_ground',
-        tableName: TableNames.carbonStock,
+        tableName: cycleTableName[cycle.name],
         colName,
         countryIso,
         data: _tableData,
@@ -71,7 +78,7 @@ const CarbonGrowingStock = () => {
 
       const carbonForestDeadwood = TableDatas.getDatum({
         variableName: 'carbon_forest_deadwood',
-        tableName: TableNames.carbonStock,
+        tableName: cycleTableName[cycle.name],
         colName,
         countryIso,
         data: _tableData,
@@ -79,7 +86,7 @@ const CarbonGrowingStock = () => {
 
       const carbonForestLitter = TableDatas.getDatum({
         variableName: 'carbon_forest_litter',
-        tableName: TableNames.carbonStock,
+        tableName: cycleTableName[cycle.name],
         colName,
         countryIso,
         data: _tableData,
@@ -87,7 +94,7 @@ const CarbonGrowingStock = () => {
 
       const carbonForestSoil = TableDatas.getDatum({
         variableName: 'carbon_forest_soil',
-        tableName: TableNames.carbonStock,
+        tableName: cycleTableName[cycle.name],
         colName,
         countryIso,
         data: _tableData,
@@ -119,7 +126,7 @@ const CarbonGrowingStock = () => {
         data: tableData,
         colName,
         countryIso,
-        tableName: TableNames.carbonStock,
+        tableName: cycleTableName[cycle.name],
         variableName: 'carbon_stock_biomass_total',
         value: { raw: String(carbonStockBiomassTotal) },
       })
@@ -128,7 +135,7 @@ const CarbonGrowingStock = () => {
         data: tableData,
         colName,
         countryIso,
-        tableName: TableNames.carbonStock,
+        tableName: cycleTableName[cycle.name],
         variableName: 'carbon_stock_total',
         value: { raw: String(carbonStockTotal) },
       })
@@ -137,7 +144,7 @@ const CarbonGrowingStock = () => {
         data: tableData,
         colName,
         countryIso,
-        tableName: TableNames.carbonStock,
+        tableName: cycleTableName[cycle.name],
         variableName: 'growing_stock_total',
         value: { raw: String(growingStockTotal) },
       })
