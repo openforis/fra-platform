@@ -12,7 +12,7 @@ import {
   getCreateSchemaDDL,
 } from '../../src/server/repository/assessment/assessment/getCreateSchemaDDL'
 // TODO: import PanEuropeanSpecs
-import { FraSpecs } from '../../src/test/sectionSpec/fraSpecs'
+import { PanEuropeanSpecs } from '../../src/test/sectionSpec/PanEuropeanSpecs'
 // import { migrateTablesData } from './migrateData/migrateTablesData'
 import { DBNames } from './_DBNames'
 // import { generateMetaCache } from './generateMetaCache'
@@ -46,6 +46,7 @@ export const migrate = async (props: {
   console.log('========== START ', new Date().getTime())
   const { assessmentName, assessmentLegacy, cycleNames, spec } = props
 
+  // TODO: ==== 1. delete old assessment
   // delete old assessment
   await DB.query(`drop schema if exists ${DBNames.getAssessmentSchema(assessmentName)} cascade;`)
   await Promise.all(
@@ -60,8 +61,10 @@ export const migrate = async (props: {
      where props ->> 'name' = $1`,
     [assessmentName]
   )
+  // TODO: ==== 1 END. delete assessment
 
   await DB.tx(async (client) => {
+    // TODO: ==== 2. create assessment
     // insert assessment
     const assessment = await client.one<Assessment>(
       `insert into assessment (props)
@@ -73,9 +76,12 @@ export const migrate = async (props: {
     // create schema
     const schema = DBNames.getAssessmentSchema(assessment.props.name)
     await DB.query(getCreateSchemaDDL(schema))
+    // TODO: ==== 2 END. create assessment
+
+    // TODO: ==== 3. create cycles
     assessment.cycles = await Promise.all(cycleNames.map((cycleName) => createCycle(assessment, cycleName, client)))
 
-    // Set fra/2020 to published
+    // Set cycle 2020 to published
     const defaultCycle = assessment.cycles.find((c) => c.name === '2020')
     await client.query('update public.assessment_cycle set published = true where id = $1', [defaultCycle.id])
     await client.query('update public.assessment set props = $2:json::jsonb where id = $1', [
@@ -85,52 +91,34 @@ export const migrate = async (props: {
         defaultCycle: defaultCycle.uuid,
       },
     ])
+    // TODO: ==== 3 END. create cycles
 
+    // TODO: ==== 4. migrate metadata
     await migrateMetadata({ assessment, assessmentLegacy, spec, client })
-    // await migrateRepository({ assessment, client })
+    // TODO: ==== 4 END. migrate metadata
 
+    // TODO: below must be checked when reaching migrate data
     // await Promise.all(
     //   cycleNames.map((cycleName, index: number) =>
     //     migrateAreas({ client, schema: DBNames.getCycleSchema(assessment.props.name, cycleName), index })
     //   )
     // )
 
-    // await migrateUsers({ client })
-    // await migrateUsersAuthProvider({ client })
-    // await migrateUsersRole({ assessment, client })
-    // await migrateUsersInvitation({ client })
-    // await migrateUsersResetPassword({ client })
-
-    // TODO: ==== needed - migrate data
+    // TODO: ==== 5. migrate data
     // await Promise.all(
     //   assessment.cycles.map(async (cycle) => {
     //     await migrateTablesData({ assessment, cycle }, client)
     //     await generateMetaCache({ assessment, cycle }, client)
     //   })
     // )
-    // TODO: ==== end needed - migrate data
-
-    // await migrateOdps({ assessment }, client)
-    // await migrateAggregates({ assessment }, client)
-    // await migrateReview({ assessment }, client)
-    // await migrateActivityLog({ assessment }, client)
-
-    // await client.query(
-    //   `delete
-    //    from settings;
-    //   insert into settings (default_assessment_id)
-    //   values ($1)`,
-    //   [assessment.id]
-    // )
+    // TODO: ==== 5 END. migrate data
   })
 }
 
 const assessmentName = 'pan_european'
 const cycleNames = ['2020', '2025']
 
-// TODO:
-// migrate({ assessmentName, cycleNames, spec: PanEuropeanSpecs, assessmentLegacy: PanEuropean })
-migrate({ assessmentName, cycleNames, spec: FraSpecs, assessmentLegacy: PanEuropean })
+migrate({ assessmentName, cycleNames, spec: PanEuropeanSpecs, assessmentLegacy: PanEuropean })
   .then(() => {
     process.exit(0)
   })
