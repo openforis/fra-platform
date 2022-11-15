@@ -30,6 +30,8 @@ export const generateMetaCache = async (props: Props, client: BaseProtocol): Pro
             from ${schema}.row r
                      left join ${schema}."table" t on r.table_id = t.id
             where r.props ->> 'variableName' is not null
+              and t.props -> 'cycles' ? '${cycle.uuid}'
+              and r.props -> 'cycles' ? '${cycle.uuid}'
             group by t.props ->> 'name'
         )
         select jsonb_object_agg(data.table_name, data.variables) as cache
@@ -43,7 +45,7 @@ export const generateMetaCache = async (props: Props, client: BaseProtocol): Pro
       with v as (
           select distinct v.variable_name,
                           jsonb_build_object('tableName', 'value_aggregate', 'variableName', v.variable_name) as var
-          from ${DBNames.getCycleSchema(assessment.props.name, '2020')}.value_aggregate v
+          from ${DBNames.getCycleSchema(assessment.props.name, cycle.name)}.value_aggregate v
       )
       select jsonb_object_agg(v.variable_name, v.var order by v.variable_name) as data
       from v

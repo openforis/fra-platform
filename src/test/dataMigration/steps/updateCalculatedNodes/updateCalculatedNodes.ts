@@ -93,7 +93,7 @@ export const updateCalculatedNodes = async (
   // ===== calculation rows
   for (let i = 0; i < rows.length; i += 1) {
     const { tableName, ...row } = rows[i]
-    if (!['growingStockAvg', 'growingStockTotal'].includes(tableName)) {
+    if (!['growingStockAvg', 'growingStockTotal', 'biomassStockAvg', 'carbonStockAvg'].includes(tableName)) {
       // eslint-disable-next-line no-await-in-loop
       const values = await calculateRow(
         { assessment, cycle, countryISOs, row, tableName, calculatedVariables, variablesToCalculate },
