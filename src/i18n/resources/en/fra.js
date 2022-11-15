@@ -119,6 +119,7 @@ module.exports = {
   },
 
   sustainableDevelopment: {
+    annualForestAreaChangeRate: 'Annual forest area change rate',
     sdgIndicator1_2025: 'SDG Indicator 15.1.1 Forest area as proportion of total land area',
     forestAreaProportionLandArea: 'Forest area as proportion of total land area',
   },
