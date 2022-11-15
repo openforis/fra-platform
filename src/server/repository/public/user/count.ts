@@ -17,14 +17,22 @@ export const count = async (
   const selectedRoles = roles.map((roleName) => `'${roleName}'`).join(',')
 
   let query = `
-    select count(*) as totals from public.users u
+    select count(distinct(u.id)) as totals from public.users u
+      join public.users_role ur on (u.id = ur.user_id)
+    where true
     ${selectedCountries ? `and ur.country_iso in (${selectedCountries})` : ''}
     ${selectedRoles ? `and ur.role in (${selectedRoles})` : ''}
   `
 
   const totals = await client.one<{ totals: number }>(query)
 
-  query = `select role, count(*) as totals from public.users_role ur group by role`
+  query = `
+    select role, count(*) as totals from public.users_role ur
+    where true
+    ${selectedCountries ? `and ur.country_iso in (${selectedCountries})` : ''}
+    ${selectedRoles ? `and ur.role in (${selectedRoles})` : ''}    
+    group by role
+  `
 
   const roleTotals = await client.result<Record<string, Array<{ role: RoleName; totals: number }>>>(
     query,
