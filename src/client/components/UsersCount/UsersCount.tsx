@@ -15,7 +15,7 @@ const UsersCount: React.FC = () => {
     <div className="user-counts__container">
       {roleNames.map((roleName) => (
         <div key={roleName} className="user-counts__item">
-          {`${t(Users.getI18nRoleLabelKey(roleName))} ${usersCount[roleName]}`}
+          {`${t(Users.getI18nRoleLabelKey(roleName))} ${usersCount[roleName] || 0}`}
         </div>
       ))}
     </div>
