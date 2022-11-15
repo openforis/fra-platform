@@ -1,12 +1,14 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Numbers } from '@utils/numbers'
 import { ChartOptions } from 'chart.js'
 
 import { Areas } from '@meta/area'
 import { TableNames } from '@meta/assessment'
 import { TableDatas } from '@meta/data'
 
+import { useCycle } from '@client/store/assessment'
 import { useCountryIso } from '@client/hooks'
 import Chart from '@client/components/Chart'
 import { ChartDataType } from '@client/components/Chart/Chart'
@@ -15,7 +17,14 @@ import useDashboardData from '../hooks/useDashboardData'
 import { formatValue } from '../utils/numberUtils'
 import { ChartColors, commonOptions } from '../utils/preferences'
 
+// Cycle 2025 has separate fields for other and unknown
+const cycleVariables: Record<string, Array<string>> = {
+  '2020': ['other_or_unknown'],
+  '2025': ['other', 'unknown'],
+}
+
 const ForestOwnership = () => {
+  const cycle = useCycle()
   const countryIso = useCountryIso()
   const isIsoCountry = Areas.isISOCountry(countryIso)
 
@@ -24,7 +33,7 @@ const ForestOwnership = () => {
   const unit = isIsoCountry ? i18n.t<string>('unit.haThousand') : i18n.t<string>('unit.haMillion')
   const column = '2015'
   const tableName = isIsoCountry ? TableNames.forestOwnership : TableNames.valueAggregate
-  const variables = ['other_or_unknown', 'private_ownership', 'public_ownership']
+  const variables = [...cycleVariables[cycle.name], 'private_ownership', 'public_ownership']
 
   const { data: tableData, loaded } = useDashboardData({
     columns: [column],
@@ -45,7 +54,13 @@ const ForestOwnership = () => {
 
   const privateOwnership = Number(TableDatas.getDatum({ ...props, variableName: 'private_ownership' }))
   const publicOwnership = Number(TableDatas.getDatum({ ...props, variableName: 'public_ownership' }))
-  const otherOrUnknown = Number(TableDatas.getDatum({ ...props, variableName: 'other_or_unknown' }))
+  const otherOrUnknown =
+    cycle.name === '2020'
+      ? Number(TableDatas.getDatum({ ...props, variableName: 'other_or_unknown' }))
+      : Numbers.sum([
+          Number(TableDatas.getDatum({ ...props, variableName: 'other' })),
+          Number(TableDatas.getDatum({ ...props, variableName: 'unknown' })),
+        ])
 
   const data = {
     datasets: [
