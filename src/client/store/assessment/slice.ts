@@ -9,14 +9,10 @@ export const assessmentSlice = createSlice<AssessmentState, SliceCaseReducers<As
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(initApp.fulfilled, (state, { payload }) => {
-      const { assessment, countries, regionGroups } = payload
+      const { assessment, regionGroups } = payload
 
       state.assessment = assessment
 
-      state.countries = countries.reduce(
-        (countriesAcc, country) => ({ ...countriesAcc, [country.countryIso]: country }),
-        {}
-      )
       state.regionGroups = regionGroups
     })
 

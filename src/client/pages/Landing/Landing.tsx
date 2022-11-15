@@ -1,19 +1,30 @@
 import './landing.scss'
-import React from 'react'
+import React, { useEffect } from 'react'
 
+import { useAppDispatch } from '@client/store'
+import { AssessmentActions } from '@client/store/assessment'
 import CountrySelect from '@client/components/CountrySelect'
 import Partners from '@client/components/Partners'
 
 import Introduction from './Introduction'
 import KeyFindings from './KeyFindings'
 
-const Landing: React.FC = () => (
-  <>
-    <CountrySelect />
-    <Introduction />
-    <KeyFindings />
-    <Partners />
-  </>
-)
+const Landing: React.FC = () => {
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(AssessmentActions.getCountries())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  return (
+    <>
+      <CountrySelect />
+      <Introduction />
+      <KeyFindings />
+      <Partners />
+    </>
+  )
+}
 
 export default Landing

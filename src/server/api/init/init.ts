@@ -8,21 +8,17 @@ import { SettingsController } from '@server/controller/settings'
 import Requests from '@server/utils/requests'
 
 export const init = async (req: InitRequest, res: Response) => {
-  const { name } = req.query
-
   try {
+    const { assessmentName, cycleName } = req.query
+
     const settings = await SettingsController.read()
-    const props = name ? { assessmentName: name } : { id: settings.defaultAssessmentId }
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle(props)
+    const props = assessmentName ? { assessmentName } : { id: settings.defaultAssessmentId }
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ ...props, cycleName })
 
-    const [countries, regionGroups] = await Promise.all([
-      AreaController.getCountries({ assessment, cycle }),
-      AreaController.getRegionGroups({ assessment, cycle }),
-    ])
+    const regionGroups = await AreaController.getRegionGroups({ assessment, cycle })
 
-    res.send({
+    Requests.sendOk(res, {
       assessment,
-      countries,
       regionGroups,
       user: Requests.getRequestUser(req),
     })

@@ -11,9 +11,12 @@ export const initApp = createAsyncThunk<
     countries: Array<Country>
     regionGroups: Record<string, RegionGroup>
   },
-  void
->('assessment/get/init', async () => {
-  const { data } = await axios.get(ApiEndPoint.init())
+  {
+    assessmentName: string
+    cycleName: string
+  } | void
+>('assessment/get/init', async (params) => {
+  const { data } = await axios.get(ApiEndPoint.init(), { params })
   const lang = (await localStorage.getItem('i18n/lang')) ?? data?.user?.lang
   if (lang === 'ar') document.body.classList.add('rtl')
 
