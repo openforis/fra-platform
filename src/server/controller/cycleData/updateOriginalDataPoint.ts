@@ -23,8 +23,6 @@ export const updateOriginalDataPoint = async (
       t
     )
 
-    await updateOriginalDataPointDependentNodes({ assessment, cycle, originalDataPoint, user }, t)
-
     await ActivityLogRepository.insertActivityLog(
       {
         activityLog: {
@@ -39,6 +37,8 @@ export const updateOriginalDataPoint = async (
       },
       t
     )
+
+    await updateOriginalDataPointDependentNodes({ assessment, cycle, originalDataPoint, user }, t)
 
     return updatedOriginalDataPoint
   })
