@@ -13,7 +13,7 @@ const Landing: React.FC = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(AssessmentActions.getCountries())
+    dispatch(AssessmentActions.getAreas())
   }, [dispatch])
 
   return (

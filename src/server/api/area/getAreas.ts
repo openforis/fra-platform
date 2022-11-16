@@ -7,7 +7,7 @@ import { AssessmentController } from '@server/controller/assessment'
 import { SettingsController } from '@server/controller/settings'
 import Requests from '@server/utils/requests'
 
-export const getCountries = async (req: InitRequest, res: Response) => {
+export const getAreas = async (req: InitRequest, res: Response) => {
   try {
     const { assessmentName, cycleName } = req.query
 
@@ -15,9 +15,12 @@ export const getCountries = async (req: InitRequest, res: Response) => {
     const props = assessmentName ? { assessmentName } : { id: settings.defaultAssessmentId }
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ ...props, cycleName })
 
-    const countries = await AreaController.getCountries({ assessment, cycle })
+    const [countries, regionGroups] = await Promise.all([
+      AreaController.getCountries({ assessment, cycle }),
+      AreaController.getRegionGroups({ assessment, cycle }),
+    ])
 
-    Requests.sendOk(res, countries)
+    Requests.sendOk(res, { countries, regionGroups })
   } catch (e) {
     Requests.sendErr(res, e)
   }
