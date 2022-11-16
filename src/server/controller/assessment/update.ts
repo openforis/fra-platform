@@ -10,7 +10,6 @@ export const update = async (
   client: BaseProtocol = DB
 ): Promise<Assessment> => {
   const { assessment, user } = props
-  // await AssessmentRepository.updateAssessmentSchema({ assessment }, client)
 
   return client.tx(async (t) => {
     const updatedAssessment = await AssessmentRepository.updateAssessment({ assessment }, t)
