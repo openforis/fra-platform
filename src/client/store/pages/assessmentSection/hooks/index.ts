@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 
-import { NodeValue, Table, TableSection } from '@meta/assessment'
+import { NodeValue, Table, TableNames, TableSection } from '@meta/assessment'
 import { NodeUpdate, TableData, TableDatas } from '@meta/data'
 
 import { useAppSelector } from '@client/store'
@@ -32,7 +32,12 @@ export const useTableData = (props: { table: Table }): TableData => {
   const showOriginalDatapoints = useShowOriginalDatapoints()
 
   if (!tableData?.[countryIso]) return {} as TableData
-  if (!odp || !showOriginalDatapoints || !country.props.forestCharacteristics.useOriginalDataPoint) return tableData
+  if (
+    !odp ||
+    !showOriginalDatapoints ||
+    (table.props.name === TableNames.forestCharacteristics && !country.props.forestCharacteristics.useOriginalDataPoint)
+  )
+    return tableData
 
   const currData = tableData[countryIso][table.props.name]
 
