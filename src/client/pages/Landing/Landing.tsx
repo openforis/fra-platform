@@ -14,8 +14,7 @@ const Landing: React.FC = () => {
 
   useEffect(() => {
     dispatch(AssessmentActions.getCountries())
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [dispatch])
 
   return (
     <>
