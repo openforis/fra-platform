@@ -6,17 +6,19 @@ import { userMockTest } from '@test/integration/mock/user'
 
 export default (): void =>
   test('Update Assessment Default Cycle', async () => {
-    const { cycle, assessment } = await AssessmentController.getOneWithCycle({
+    const { cycle } = await AssessmentController.getOneWithCycle({
       assessmentName: assessmentParams.props.name,
       cycleName: assessmentCycleName,
+    })
+
+    const assessment = await AssessmentController.getOne({
+      assessmentName: assessmentParams.props.name,
     })
 
     const user = await UserController.getOne({
       email: userMockTest.email,
     })
 
-    assessment.props.defaultCycle = cycle.uuid
-
-    const updatedAssessment = await AssessmentController.updateDefaultCycle({ user, assessment })
+    const updatedAssessment = await AssessmentController.updateDefaultCycle({ user, assessment, cycle })
     expect(updatedAssessment.props.defaultCycle).toBe(cycle.uuid)
   })

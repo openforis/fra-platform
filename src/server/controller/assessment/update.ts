@@ -1,4 +1,4 @@
-import { ActivityLogMessage, Assessment } from '@meta/assessment'
+import { ActivityLogMessage, Assessment, Cycle } from '@meta/assessment'
 import { User } from '@meta/user'
 
 import { BaseProtocol, DB } from '@server/db'
@@ -6,13 +6,13 @@ import { AssessmentRepository } from '@server/repository/assessment/assessment'
 import { ActivityLogRepository } from '@server/repository/public/activityLog'
 
 export const updateDefaultCycle = async (
-  props: { user: User; assessment: Assessment },
+  props: { user: User; assessment: Assessment; cycle: Cycle },
   client: BaseProtocol = DB
 ): Promise<Assessment> => {
-  const { assessment, user } = props
+  const { assessment, user, cycle } = props
 
   return client.tx(async (t) => {
-    const updatedAssessment = await AssessmentRepository.updateDefaultCycle({ assessment }, t)
+    const updatedAssessment = await AssessmentRepository.updateDefaultCycle({ assessment, cycle }, t)
 
     await ActivityLogRepository.insertActivityLog(
       {
