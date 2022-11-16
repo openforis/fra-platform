@@ -46,10 +46,6 @@ const Assessment: React.FC = () => {
     }
   }, [countryIso, assessmentName, cycleName, dispatch])
 
-  useEffect(() => {
-    dispatch(AssessmentActions.getAreas({ assessmentName, cycleName }))
-  }, [assessmentName, cycleName, dispatch])
-
   // On cycle change, reset metadata, data
   useEffect(() => {
     return () => {
