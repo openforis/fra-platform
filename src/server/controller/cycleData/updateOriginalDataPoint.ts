@@ -17,15 +17,13 @@ export const updateOriginalDataPoint = async (
 ): Promise<OriginalDataPoint> => {
   const { assessment, cycle, originalDataPoint, user } = props
 
-  const updatedOriginalDataPoint = await OriginalDataPointRepository.update(
-    { assessment, cycle, originalDataPoint },
-    client
-  )
-
   return client.tx(async (t) => {
-    const { countryIso } = updatedOriginalDataPoint
+    const updatedOriginalDataPoint = await OriginalDataPointRepository.update(
+      { assessment, cycle, originalDataPoint },
+      t
+    )
 
-    await updateOriginalDataPointDependentNodes({ assessment, cycle, countryIso, originalDataPoint, user }, client)
+    await updateOriginalDataPointDependentNodes({ assessment, cycle, originalDataPoint, user }, t)
 
     await ActivityLogRepository.insertActivityLog(
       {

@@ -1,4 +1,3 @@
-import { CountryIso } from '@meta/area'
 import { Assessment, Cycle, OriginalDataPoint, TableNames } from '@meta/assessment'
 import { NodeUpdates } from '@meta/data'
 import { User } from '@meta/user'
@@ -46,13 +45,13 @@ export const updateOriginalDataPointDependentNodes = async (
   props: {
     assessment: Assessment
     cycle: Cycle
-    countryIso: CountryIso
     originalDataPoint: OriginalDataPoint
     user: User
   },
   client: BaseProtocol
 ): Promise<void> => {
-  const { assessment, countryIso, cycle, originalDataPoint, user } = props
+  const { assessment, cycle, originalDataPoint, user } = props
+  const { countryIso } = originalDataPoint
 
   for (let i = 0; i < dependencies.length; i += 1) {
     const { sectionName, tableName, variableName } = dependencies[i]
