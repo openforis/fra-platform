@@ -17,7 +17,7 @@ export const updateAssessment = async (
     `update assessment set props = $1::jsonb where id = $2 returning  *;`,
     [JSON.stringify(assessment.props), assessment.id],
     (assessment) => {
-      return { ...Objects.camelize(assessment), metaCache: assessment.metaCache }
+      return { ...Objects.camelize(assessment), metaCache: assessment.meta_cache }
     }
   )
   return read({ id: assessmentUpdated.id }, client)
