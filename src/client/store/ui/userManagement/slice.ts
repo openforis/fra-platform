@@ -2,6 +2,7 @@ import { createSlice, Reducer } from '@reduxjs/toolkit'
 
 import {
   getUsers,
+  getUsersCount,
   getUserToEdit,
   inviteUser,
   removeInvitation,
@@ -13,6 +14,13 @@ import {
 import { UserManagementState } from './stateType'
 
 const initialState: UserManagementState = {
+  count: {
+    totals: 0,
+  },
+  filters: {
+    countries: [],
+    roles: [],
+  },
   user: null,
   users: [],
 }
@@ -24,10 +32,17 @@ export const userManagementSlice = createSlice({
     setUserToEdit: (state, { payload }) => {
       state.user = payload
     },
+    updateFilters: (state, { payload }) => {
+      state.filters = { ...state.filters, ...payload }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getUsers.fulfilled, (state, { payload }) => {
       state.users = payload
+    })
+
+    builder.addCase(getUsersCount.fulfilled, (state, { payload }) => {
+      state.count = payload
     })
 
     builder.addCase(inviteUser.fulfilled, (state, { payload }) => {
@@ -59,6 +74,7 @@ export const userManagementSlice = createSlice({
 export const UserManagementActions = {
   ...userManagementSlice.actions,
   getUsers,
+  getUsersCount,
   getUserToEdit,
   inviteUser,
   removeInvitation,

@@ -4,8 +4,10 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from '@utils/objects'
 
+import { CountryIso } from '@meta/area'
 import { TableData } from '@meta/data'
 
+import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
 
 import DataTrend from './components/dataTrend'
@@ -27,28 +29,29 @@ type ChartContainerProps = {
   wrapperWidth: number
 }
 
-const toObject = (x) => {
-  const newData = []
-  Object.entries(x).forEach(([countryIso, countryValues]) => {
-    Object.entries(countryValues).forEach(([section, sectionValues]) => {
-      Object.entries(sectionValues).forEach(([year, yearValues]: any[]) => {
-        // Display chart for section 1a and 1b
-        if (!['extentOfForest', 'forestCharacteristics'].includes(section)) return
-        newData.push({
-          countryIso,
-          section,
-          year: Number(year),
-          name: year,
-          ...Object.keys(yearValues).reduce(
-            (acc, key) => ({
-              ...acc,
-              [key === 'forest' ? 'forestArea' : key]: yearValues[key].raw,
-              [`${key}Estimated`]: yearValues[key].estimated || false,
-              type: yearValues[key].odp ? 'odp' : 'fra',
-            }),
-            {}
-          ),
-        })
+const toObject = (tableData: TableData, countryIso: CountryIso): Array<Record<string, string>> => {
+  const newData: Array<Record<string, string>> = []
+  const countryValues = tableData?.[countryIso]
+  if (!countryValues) return []
+
+  Object.entries(countryValues).forEach(([section, sectionValues]) => {
+    Object.entries(sectionValues).forEach(([year, yearValues]: any[]) => {
+      // Display chart for section 1a and 1b
+      if (!['extentOfForest', 'forestCharacteristics'].includes(section)) return
+      newData.push({
+        countryIso,
+        section,
+        year: Number(year),
+        name: year,
+        ...Object.keys(yearValues).reduce(
+          (acc, key) => ({
+            ...acc,
+            [key === 'forest' ? 'forestArea' : key]: yearValues[key].raw,
+            [`${key}Estimated`]: yearValues[key].estimated || false,
+            type: yearValues[key].odp ? 'odp' : 'fra',
+          }),
+          {}
+        ),
       })
     })
   })
@@ -56,8 +59,9 @@ const toObject = (x) => {
 }
 
 const ChartContainer = (props: ChartContainerProps) => {
-  const { data: x, trends, wrapperWidth } = props
-  const data = toObject(x)
+  const { data: _data, trends, wrapperWidth } = props
+  const countryIso = useCountryIso()
+  const data = toObject(_data, countryIso)
   const { i18n } = useTranslation()
   const { print } = useIsPrint()
   const { xScale, yScale, chartData } = useChartData(data, trends, wrapperWidth)

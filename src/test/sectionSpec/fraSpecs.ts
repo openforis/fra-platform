@@ -128,7 +128,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'fraClass.otherWoodedLand',
-                    variableNo: 'a',
+                    variableNo: 'b',
                     className: 'fra-table__category-cell',
                   },
                   ...fraYears.map(({ colName, cycles }, idx) => ({
@@ -143,7 +143,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   })),
                 ],
                 labelKey: 'fraClass.otherWoodedLand',
-                variableNo: 'a',
+                variableNo: 'b',
                 variableName: 'otherWoodedLand',
                 variableExport: 'other_wooded_land',
                 chartProps: {
@@ -4261,7 +4261,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     className: 'fra-table__header-cell-left',
                     migration: {
-                      label: { '2025': { key: 'fra.growingStockComposition.totalNativePercent' } },
+                      label: { '2025': { key: 'fra.growingStockComposition.totalNativeTreeSpecies' } },
                       style: { '2025': { colSpan: 3, rowSpan: 1 } },
                     },
                   },
@@ -4391,7 +4391,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     className: 'fra-table__header-cell-left',
                     migration: {
-                      label: { '2025': { key: 'fra.growingStockComposition.totalIntroducedPercent' } },
+                      label: { '2025': { key: 'fra.growingStockComposition.totalIntroducedTreeSpecies' } },
                       style: { '2025': { colSpan: 3, rowSpan: 1 } },
                     },
                   },
@@ -4415,6 +4415,39 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   ? ${[1, 2, 3, 4, 5]
                     .map((idx) => `(growingStockComposition2025.introducedRank${idx} || 0)`)
                     .join(' + ')} + (growingStockComposition2025.remainingIntroduced || 0)
+                  : null`,
+                  colNames: ['growingStockMillionCubicMeter', 'growingStockPercent'],
+                },
+              },
+              {
+                idx: 20,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    className: 'fra-table__header-cell-left',
+                    migration: {
+                      label: { '2025': { key: 'fra.growingStockComposition.totalGrowingStock' } },
+                      style: { '2025': { colSpan: 3, rowSpan: 1 } },
+                    },
+                  },
+                  {
+                    idx: 2,
+                    type: 'calculated',
+                    colName: 'growingStockMillionCubicMeter',
+                  },
+                  {
+                    idx: 3,
+                    type: 'calculated',
+                    colName: 'growingStockPercent',
+                  },
+                ],
+                mainCategory: true,
+                variableName: 'totalGrowingStock',
+                migration: {
+                  calcFormula: `(growingStockComposition2025.totalNative || growingStockComposition2025.totalIntroduced)
+                  ? (growingStockComposition2025.totalNative || 0) + (growingStockComposition2025.totalIntroduced || 0)
                   : null`,
                   colNames: ['growingStockMillionCubicMeter', 'growingStockPercent'],
                 },
@@ -4455,6 +4488,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
     dataExport: {
       included: true,
     },
+    migration: {
+      label: {
+        '2020': { key: 'growingStockComposition.growingStockComposition' },
+        '2025': { key: 'fra.growingStockComposition.updatedGrowingStockComposition' },
+      },
+    },
   },
   biomassStock: {
     sectionName: 'biomassStock',
@@ -4475,6 +4514,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'biomassStock.categoryHeader',
                     className: 'fra-table__header-cell-left',
                     type: 'header',
+                    migration: {
+                      label: { '2020': { key: 'fra.categoryHeader2020' } },
+                    },
                   },
                   {
                     idx: 1,
@@ -4728,6 +4770,281 @@ export const FraSpecs: Record<string, SectionSpec> = {
             columnsExportAlways: [],
             unit: 'tonnesPerHa',
             columnsExport: [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020],
+            migration: {
+              cycles: ['2020'],
+            },
+          },
+          {
+            name: 'biomassStockAvg',
+            rows: [
+              {
+                idx: 'header_0',
+                cols: [
+                  {
+                    idx: 0,
+                    colSpan: 1,
+                    rowSpan: 2,
+                    labelKey: 'biomassStock.categoryHeader',
+                    className: 'fra-table__header-cell-left',
+                    type: 'header',
+                    migration: {
+                      label: { '2025': { key: 'fra.categoryHeader2025' } },
+                    },
+                  },
+                  {
+                    idx: 1,
+                    colSpan: reportYears.length,
+                    rowSpan: 1,
+                    labelKey: 'biomassStock.tableHeader',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: {
+                      label: { '2025': { key: 'fra.biomassStockAvg.forestBiomass' } },
+                    },
+                  },
+                ],
+                type: 'header',
+              },
+              {
+                idx: 'header_1',
+                cols: reportYears.map((label, idx) => ({
+                  idx,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  label,
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                })),
+                type: 'header',
+              },
+              {
+                idx: 0,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'biomassStock.aboveGround',
+                    className: 'fra-table__category-cell',
+                  },
+                  ...reportYears.map((colName, idx) => ({
+                    idx,
+                    colName,
+                    type: 'decimal',
+                  })),
+                ],
+                labelKey: 'biomassStock.aboveGround',
+                variableName: 'forest_above_ground',
+                variableExport: 'forest_above_ground',
+                migration: {
+                  calcFormula: {
+                    '2025': '(extentOfForest.forestArea / biomassStockTotal.forest_above_ground) * 1000',
+                  },
+                  readonly: false,
+                  dependantsExclude: [{ tableName: 'extentOfForest', variableName: 'forestArea' }],
+                },
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'biomassStock.belowGround',
+                    className: 'fra-table__category-cell',
+                  },
+                  ...reportYears.map((colName, idx) => ({
+                    idx,
+                    colName,
+                    type: 'decimal',
+                  })),
+                ],
+                labelKey: 'biomassStock.belowGround',
+                variableName: 'forest_below_ground',
+                variableExport: 'forest_below_ground',
+                migration: {
+                  calcFormula: {
+                    '2025': '(extentOfForest.forestArea / biomassStockTotal.forest_below_ground) * 1000',
+                  },
+                  readonly: false,
+                  dependantsExclude: [{ tableName: 'extentOfForest', variableName: 'forestArea' }],
+                },
+              },
+              {
+                idx: 2,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'biomassStock.deadWood',
+                    className: 'fra-table__category-cell',
+                  },
+                  ...reportYears.map((colName, idx) => ({
+                    idx,
+                    colName,
+                    type: 'decimal',
+                  })),
+                ],
+                labelKey: 'biomassStock.deadWood',
+                variableName: 'forest_deadwood',
+                variableExport: 'forest_deadwood',
+                migration: {
+                  calcFormula: {
+                    '2025': '(extentOfForest.forestArea / biomassStockTotal.forest_deadwood) * 1000',
+                  },
+                  readonly: false,
+                  dependantsExclude: [{ tableName: 'extentOfForest', variableName: 'forestArea' }],
+                },
+              },
+            ],
+            columnsExportAlways: [],
+            dataExport: true,
+            unit: 'tonnesPerHa',
+            migration: {
+              cycles: ['2025'],
+              columnNames: {
+                '2025': [...reportYears],
+              },
+            },
+          },
+          {
+            name: 'biomassStockTotal',
+            rows: [
+              {
+                idx: 'header_0',
+                cols: [
+                  {
+                    idx: 0,
+                    colSpan: 1,
+                    rowSpan: 2,
+                    labelKey: 'biomassStock.categoryHeader',
+                    className: 'fra-table__header-cell-left',
+                    type: 'header',
+                    migration: {
+                      label: { '2025': { key: 'fra.categoryHeader2025' } },
+                    },
+                  },
+                  {
+                    idx: 1,
+                    colSpan: reportYears.length,
+                    rowSpan: 1,
+                    labelKey: 'biomassStock.tableHeader',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: {
+                      label: { '2025': { key: 'fra.biomassStockTotal.totalForestBiomass' } },
+                    },
+                  },
+                ],
+                type: 'header',
+              },
+              {
+                idx: 'header_1',
+                cols: reportYears.map((label, idx) => ({
+                  idx,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  label,
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                })),
+                type: 'header',
+              },
+              {
+                idx: 0,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'biomassStock.aboveGround',
+                    className: 'fra-table__category-cell',
+                  },
+                  ...reportYears.map((colName, idx) => ({
+                    idx,
+                    colName,
+                    type: 'decimal',
+                  })),
+                ],
+                labelKey: 'biomassStock.aboveGround',
+                variableName: 'forest_above_ground',
+                variableExport: 'forest_above_ground',
+                migration: {
+                  calcFormula: {
+                    '2025': '(extentOfForest.forestArea * biomassStockAvg.forest_above_ground) / 1000',
+                  },
+                  readonly: false,
+                },
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'biomassStock.belowGround',
+                    className: 'fra-table__category-cell',
+                  },
+                  ...reportYears.map((colName, idx) => ({
+                    idx,
+                    colName,
+                    type: 'decimal',
+                  })),
+                ],
+                labelKey: 'biomassStock.belowGround',
+                variableName: 'forest_below_ground',
+                variableExport: 'forest_below_ground',
+                migration: {
+                  calcFormula: {
+                    '2025': '(extentOfForest.forestArea * biomassStockAvg.forest_below_ground) / 1000',
+                  },
+                  readonly: false,
+                },
+              },
+              {
+                idx: 2,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'biomassStock.deadWood',
+                    className: 'fra-table__category-cell',
+                  },
+                  ...reportYears.map((colName, idx) => ({
+                    idx,
+                    colName,
+                    type: 'decimal',
+                  })),
+                ],
+                labelKey: 'biomassStock.deadWood',
+                variableName: 'forest_deadwood',
+                variableExport: 'forest_deadwood',
+                migration: {
+                  calcFormula: {
+                    '2025': '(extentOfForest.forestArea * biomassStockAvg.forest_deadwood) / 1000',
+                  },
+                  readonly: false,
+                },
+              },
+            ],
+            dataExport: false,
+            unit: 'millionTonnes',
+            migration: {
+              cycles: ['2025'],
+              columnNames: {
+                '2025': [...reportYears],
+              },
+            },
           },
         ],
       },
@@ -4762,6 +5079,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'carbonStock.categoryHeader',
                     className: 'fra-table__header-cell-left',
                     type: 'header',
+                    migration: {
+                      label: { '2020': { key: 'fra.categoryHeader2020' } },
+                    },
                   },
                   {
                     idx: 1,
@@ -5117,6 +5437,395 @@ export const FraSpecs: Record<string, SectionSpec> = {
             columnsExportAlways: [],
             unit: 'tonnesPerHa',
             columnsExport: [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020],
+            migration: {
+              cycles: ['2020'],
+            },
+          },
+          {
+            name: 'carbonStockAvg',
+            rows: [
+              {
+                idx: 'header_0',
+                cols: [
+                  {
+                    idx: 0,
+                    colSpan: 1,
+                    rowSpan: 2,
+                    labelKey: 'carbonStock.categoryHeader',
+                    className: 'fra-table__header-cell-left',
+                    type: 'header',
+                    migration: {
+                      label: { '2025': { key: 'fra.categoryHeader2025' } },
+                    },
+                  },
+                  {
+                    idx: 1,
+                    colSpan: reportYears.length,
+                    rowSpan: 1,
+                    labelKey: 'carbonStock.tableHeader',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                ],
+                type: 'header',
+              },
+              {
+                idx: 'header_1',
+                cols: reportYears.map((label, idx) => ({
+                  idx,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  label,
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                })),
+                type: 'header',
+              },
+              {
+                idx: 0,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'carbonStock.carbonAboveGroundBiomass',
+                    className: 'fra-table__category-cell',
+                  },
+                  ...reportYears.map((colName, idx) => ({
+                    idx,
+                    colName,
+                    type: 'decimal',
+                  })),
+                ],
+                variableExport: 'carbon_forest_above_ground',
+                variableName: 'carbon_forest_above_ground',
+                labelKey: 'carbonStock.carbonAboveGroundBiomass',
+                migration: {
+                  calcFormula: {
+                    '2025': '(extentOfForest.forestArea / carbonStockTotal.carbon_forest_above_ground) * 1000',
+                  },
+                  readonly: false,
+                  dependantsExclude: [{ tableName: 'extentOfForest', variableName: 'forestArea' }],
+                },
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'carbonStock.carbonBelowGroundBiomass',
+                    className: 'fra-table__category-cell',
+                  },
+                  ...reportYears.map((colName, idx) => ({
+                    idx,
+                    colName,
+                    type: 'decimal',
+                  })),
+                ],
+                variableExport: 'carbon_forest_below_ground',
+                variableName: 'carbon_forest_below_ground',
+                labelKey: 'carbonStock.carbonBelowGroundBiomass',
+                migration: {
+                  calcFormula: {
+                    '2025': '(extentOfForest.forestArea / carbonStockTotal.carbon_forest_below_ground) * 1000',
+                  },
+                  readonly: false,
+                  dependantsExclude: [{ tableName: 'extentOfForest', variableName: 'forestArea' }],
+                },
+              },
+              {
+                idx: 2,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'carbonStock.carbonDeadwood',
+                    className: 'fra-table__category-cell',
+                  },
+                  ...reportYears.map((colName, idx) => ({
+                    idx,
+                    colName,
+                    type: 'decimal',
+                  })),
+                ],
+                variableExport: 'carbon_forest_deadwood',
+                variableName: 'carbon_forest_deadwood',
+                labelKey: 'carbonStock.carbonDeadwood',
+                migration: {
+                  calcFormula: {
+                    '2025': '(extentOfForest.forestArea / carbonStockTotal.carbon_forest_deadwood) * 1000',
+                  },
+                  readonly: false,
+                  dependantsExclude: [{ tableName: 'extentOfForest', variableName: 'forestArea' }],
+                },
+              },
+              {
+                idx: 3,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'carbonStock.carbonLitter',
+                    className: 'fra-table__category-cell',
+                  },
+                  ...reportYears.map((colName, idx) => ({
+                    idx,
+                    colName,
+                    type: 'decimal',
+                  })),
+                ],
+                variableExport: 'carbon_forest_litter',
+                variableName: 'carbon_forest_litter',
+                labelKey: 'carbonStock.carbonLitter',
+                migration: {
+                  calcFormula: {
+                    '2025': '(extentOfForest.forestArea / carbonStockTotal.carbon_forest_litter) * 1000',
+                  },
+                  readonly: false,
+                  dependantsExclude: [{ tableName: 'extentOfForest', variableName: 'forestArea' }],
+                },
+              },
+              {
+                idx: 4,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'carbonStock.carbonSoil',
+                    className: 'fra-table__category-cell',
+                  },
+                  ...reportYears.map((colName, idx) => ({
+                    idx,
+                    colName,
+                    type: 'decimal',
+                  })),
+                ],
+                variableExport: 'carbon_forest_soil',
+                variableName: 'carbon_forest_soil',
+                labelKey: 'carbonStock.carbonSoil',
+                migration: {
+                  calcFormula: {
+                    '2025': '(extentOfForest.forestArea / carbonStockTotal.carbon_forest_soil) * 1000',
+                  },
+                  readonly: false,
+                  dependantsExclude: [{ tableName: 'extentOfForest', variableName: 'forestArea' }],
+                },
+              },
+            ],
+            tableDataRequired: [],
+            print: {
+              colBreakPoints: [],
+              pageBreakAfter: false,
+            },
+            dataExport: true,
+            columnsExportAlways: [],
+            unit: 'tonnesPerHa',
+            migration: {
+              cycles: ['2025'],
+              columnNames: { '2025': [...reportYears] },
+            },
+          },
+          {
+            name: 'carbonStockTotal',
+            rows: [
+              {
+                idx: 'header_0',
+                cols: [
+                  {
+                    idx: 0,
+                    colSpan: 1,
+                    rowSpan: 2,
+                    labelKey: 'carbonStock.categoryHeader',
+                    className: 'fra-table__header-cell-left',
+                    type: 'header',
+                    migration: {
+                      label: { '2025': { key: 'fra.categoryHeader2025' } },
+                    },
+                  },
+                  {
+                    idx: 1,
+                    colSpan: reportYears.length,
+                    rowSpan: 1,
+                    labelKey: 'carbonStock.tableHeader',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: {
+                      label: { '2025': { key: 'fra.carbonStockTotal.totalForestCarbon' } },
+                    },
+                  },
+                ],
+                type: 'header',
+              },
+              {
+                idx: 'header_1',
+                cols: reportYears.map((label, idx) => ({
+                  idx,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  label,
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                })),
+                type: 'header',
+              },
+              {
+                idx: 0,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'carbonStock.carbonAboveGroundBiomass',
+                    className: 'fra-table__category-cell',
+                  },
+                  ...reportYears.map((colName, idx) => ({
+                    idx,
+                    colName,
+                    type: 'decimal',
+                  })),
+                ],
+                variableExport: 'carbon_forest_above_ground',
+                variableName: 'carbon_forest_above_ground',
+                labelKey: 'carbonStock.carbonAboveGroundBiomass',
+                migration: {
+                  calcFormula: {
+                    '2025': '(extentOfForest.forestArea * carbonStockAvg.carbon_forest_above_ground) / 1000',
+                  },
+                  readonly: false,
+                },
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'carbonStock.carbonBelowGroundBiomass',
+                    className: 'fra-table__category-cell',
+                  },
+                  ...reportYears.map((colName, idx) => ({
+                    idx,
+                    colName,
+                    type: 'decimal',
+                  })),
+                ],
+                variableExport: 'carbon_forest_below_ground',
+                variableName: 'carbon_forest_below_ground',
+                labelKey: 'carbonStock.carbonBelowGroundBiomass',
+                migration: {
+                  calcFormula: {
+                    '2025': '(extentOfForest.forestArea * carbonStockAvg.carbon_forest_below_ground) / 1000',
+                  },
+                  readonly: false,
+                },
+              },
+              {
+                idx: 2,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'carbonStock.carbonDeadwood',
+                    className: 'fra-table__category-cell',
+                  },
+                  ...reportYears.map((colName, idx) => ({
+                    idx,
+                    colName,
+                    type: 'decimal',
+                  })),
+                ],
+                variableExport: 'carbon_forest_deadwood',
+                variableName: 'carbon_forest_deadwood',
+                labelKey: 'carbonStock.carbonDeadwood',
+                migration: {
+                  calcFormula: {
+                    '2025': '(extentOfForest.forestArea * carbonStockAvg.carbon_forest_deadwood) / 1000',
+                  },
+                  readonly: false,
+                },
+              },
+              {
+                idx: 3,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'carbonStock.carbonLitter',
+                    className: 'fra-table__category-cell',
+                  },
+                  ...reportYears.map((colName, idx) => ({
+                    idx,
+                    colName,
+                    type: 'decimal',
+                  })),
+                ],
+                variableExport: 'carbon_forest_litter',
+                variableName: 'carbon_forest_litter',
+                labelKey: 'carbonStock.carbonLitter',
+                migration: {
+                  calcFormula: {
+                    '2025': '(extentOfForest.forestArea * carbonStockAvg.carbon_forest_litter) / 1000',
+                  },
+                  readonly: false,
+                },
+              },
+              {
+                idx: 4,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'carbonStock.carbonSoil',
+                    className: 'fra-table__category-cell',
+                  },
+                  ...reportYears.map((colName, idx) => ({
+                    idx,
+                    colName,
+                    type: 'decimal',
+                  })),
+                ],
+                variableExport: 'carbon_forest_soil',
+                variableName: 'carbon_forest_soil',
+                labelKey: 'carbonStock.carbonSoil',
+                migration: {
+                  calcFormula: {
+                    '2025': '(extentOfForest.forestArea * carbonStockAvg.carbon_forest_soil) / 1000',
+                  },
+                  readonly: false,
+                },
+              },
+            ],
+            tableDataRequired: [],
+            print: {
+              colBreakPoints: [],
+              pageBreakAfter: false,
+            },
+            dataExport: false,
+            columnsExportAlways: [],
+            unit: 'millionTonnes',
+            migration: {
+              cycles: ['2025'],
+              columnNames: { '2025': [...reportYears] },
+            },
           },
           {
             name: 'carbonStockSoilDepth',
@@ -6277,6 +6986,200 @@ export const FraSpecs: Record<string, SectionSpec> = {
       included: true,
     },
   },
+  // permanentForestEstate (3c) (2025) <=> areaOfPermanentForestEstate (6b) (2020)
+  permanentForestEstate: {
+    sectionName: 'permanentForestEstate',
+    sectionAnchor: '3c',
+    tableSections: [
+      {
+        tableSpecs: [
+          {
+            name: 'permanentForestEstate',
+            rows: [
+              {
+                idx: 'header_0',
+                cols: [
+                  {
+                    idx: 0,
+                    colSpan: 1,
+                    rowSpan: 2,
+                    labelKey: 'areaOfPermanentForestEstate.categoryHeader',
+                    className: 'fra-table__header-cell-left',
+                    type: 'header',
+                  },
+                  {
+                    idx: 1,
+                    colSpan: 7,
+                    rowSpan: 1,
+                    labelKey: 'areaOfPermanentForestEstate.areaUnitLabel',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                ],
+                type: 'header',
+              },
+              {
+                idx: 'header_1',
+                cols: [
+                  {
+                    idx: 0,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'areaOfPermanentForestEstate.applicable',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  {
+                    idx: 1,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    label: '1990',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  {
+                    idx: 2,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    label: '2000',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  {
+                    idx: 3,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    label: '2010',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  {
+                    idx: 4,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    label: '2015',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  {
+                    idx: 5,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    label: '2020',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  {
+                    idx: 6,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    label: '2025',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                ],
+                type: 'header',
+              },
+              {
+                idx: 0,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'areaOfPermanentForestEstate.areaOfPermanentForestEstate',
+                    className: 'fra-table__category-cell',
+                  },
+                  {
+                    idx: 0,
+                    type: 'select',
+                    options: [
+                      {
+                        optionName: 'yes',
+                      },
+                      {
+                        optionName: 'no',
+                      },
+                    ],
+                    optionsLabelKeyPrefix: 'yesNoTextSelect',
+                    colName: 'applicable',
+                  },
+                  ...reportYears.map((year, idx) => ({
+                    idx: idx + 1,
+                    type: 'decimal',
+                    colName: year,
+                  })),
+                ],
+                labelKey: 'areaOfPermanentForestEstate.areaOfPermanentForestEstate',
+                variableExport: 'area_of_permanent_forest_estate',
+                variableName: 'area_of_permanent_forest_estate',
+                migration: {
+                  validateFns: [
+                    `validatorNotGreaterThanForest(extentOfForest.forestArea,permanentForestEstate.area_of_permanent_forest_estate)`,
+                  ],
+                },
+              },
+              {
+                idx: 1,
+                type: 'noticeMessage',
+                cols: [
+                  {
+                    idx: 0,
+                    colSpan: 1,
+                    rowSpan: 2,
+                    labelKey: null,
+                    type: 'noticeMessage',
+                  },
+                ],
+              },
+              {
+                idx: 2,
+                type: 'validationMessages',
+                cols: [],
+              },
+            ],
+            tableDataRequired: [
+              {
+                assessmentType: 'fra2020',
+                sectionName: 'extentOfForest',
+                tableName: 'extentOfForest',
+              },
+            ],
+            print: {
+              colBreakPoints: [],
+              pageBreakAfter: false,
+            },
+            dataExport: true,
+            columnsExportAlways: [],
+            unit: 'haThousand',
+            columnsExport: [1990, 2000, 2010, 2015, 2020, 2025],
+            migration: {
+              columnNames: {
+                '2025': ['applicable', '1990', '2000', '2010', '2015', '2020', '2025'],
+              },
+            },
+          },
+        ],
+      },
+    ],
+    showTitle: true,
+    descriptions: {
+      analysisAndProcessing: false,
+      comments: true,
+      introductoryText: false,
+      nationalData: true,
+    },
+    dataExport: {
+      included: true,
+    },
+    migration: {
+      label: {
+        '2025': { key: 'fra.permanentForestEstate.permanentForestEstate' },
+      },
+      cycles: ['2025'],
+    },
+  },
   forestRestoration: {
     sectionName: 'forestRestoration',
     sectionAnchor: '3d',
@@ -7194,9 +8097,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     variableNo: 'd',
                     className: 'fra-table__category-cell',
                     migration: {
-                      labelKey: {
-                        '2020': 'holderOfManagementRights.communities',
-                        '2025': 'fra.holderOfManagementRights.communities2025',
+                      label: {
+                        '2020': { key: 'holderOfManagementRights.communities' },
+                        '2025': { key: 'fra.holderOfManagementRights.communities2025' },
                       },
                       variableNo: {
                         '2020': 'd',
@@ -7293,25 +8196,25 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 0,
-                    type: 'calculated',
+                    type: 'decimal',
                   },
                   {
                     idx: 1,
-                    type: 'calculated',
+                    type: 'decimal',
                   },
                   {
                     idx: 2,
-                    type: 'calculated',
+                    type: 'decimal',
                   },
                   {
                     idx: 3,
-                    type: 'calculated',
+                    type: 'decimal',
                   },
                 ],
                 labelKey: 'fra.holderOfManagementRights.other2025',
                 variableExport: 'other',
                 variableNo: 'd',
-                variableName: 'other',
+                variableName: 'other2025',
                 migration: {
                   cycles: ['2025'],
                   colNames: ['1990', '2000', '2010', '2015', '2020'],
@@ -11577,7 +12480,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     migration: {
                       style: {
                         '2020': { colSpan: 8, rowSpan: 1 },
-                        '2025': { colSpan: 14, rowSpan: 1 },
+                        '2025': { colSpan: 10, rowSpan: 1 },
                       },
                     },
                   },
@@ -11629,6 +12532,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: '2016',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 5,
@@ -11637,6 +12543,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: '2017',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 6,
@@ -11645,6 +12554,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: '2018',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 7,
@@ -11653,6 +12565,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: '2019',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 8,
@@ -11721,21 +12636,33 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 4,
                     type: 'calculated',
                     colName: '2016',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 5,
                     type: 'calculated',
                     colName: '2017',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 6,
                     type: 'calculated',
                     colName: '2018',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 7,
                     type: 'calculated',
                     colName: '2019',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 8,
@@ -11783,22 +12710,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
             migration: {
               columnNames: {
                 '2020': ['2000', '2010', '2015', '2016', '2017', '2018', '2019', '2020'],
-                '2025': [
-                  '2000',
-                  '2005',
-                  '2010',
-                  '2015',
-                  '2016',
-                  '2017',
-                  '2018',
-                  '2019',
-                  '2020',
-                  '2021',
-                  '2022',
-                  '2023',
-                  '2024',
-                  '2025',
-                ],
+                '2025': ['2000', '2005', '2010', '2015', '2020', '2021', '2022', '2023', '2024', '2025'],
               },
             },
           },
@@ -11872,7 +12784,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     migration: {
                       style: {
                         '2020': { colSpan: 7, rowSpan: 1 },
-                        '2025': { colSpan: 11, rowSpan: 1 },
+                        '2025': { colSpan: 6, rowSpan: 1 },
                       },
                     },
                   },
@@ -11905,6 +12817,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: '2015-2016',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 3,
@@ -11913,6 +12828,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: '2016-2017',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 4,
@@ -11921,6 +12839,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: '2017-2018',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 5,
@@ -11929,6 +12850,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: '2018-2019',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 6,
@@ -11938,14 +12862,14 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                     migration: {
-                      cycles: ['2025'],
+                      cycles: ['2020'],
                     },
                   },
                   {
                     idx: 7,
                     colSpan: 1,
                     rowSpan: 1,
-                    label: '',
+                    label: '2015-2020',
                     className: 'fra-table__header-cell',
                     type: 'header',
                     migration: {
@@ -11996,6 +12920,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     colSpan: 1,
                     labelKey: 'sustainableDevelopment.forestAreaAnnualNetChangeRate',
                     className: 'fra-table__category-cell',
+                    migration: {
+                      label: {
+                        '2020': { key: 'sustainableDevelopment.forestAreaAnnualNetChangeRate' },
+                        '2025': { key: 'fra.sustainableDevelopment.annualForestAreaChangeRate' },
+                      },
+                    },
                   },
                   {
                     idx: 0,
@@ -12022,6 +12952,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     migration: {
                       calculateFn:
                         '((extentOfForest.forestArea["2016"] - extentOfForest.forestArea["2015"]) / extentOfForest.forestArea["2016"]) * 100',
+                      cycles: ['2020'],
                     },
                   },
                   {
@@ -12031,6 +12962,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     migration: {
                       calculateFn:
                         '((extentOfForest.forestArea["2017"] - extentOfForest.forestArea["2016"]) / extentOfForest.forestArea["2017"]) * 100',
+                      cycles: ['2020'],
                     },
                   },
                   {
@@ -12040,6 +12972,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     migration: {
                       calculateFn:
                         '((extentOfForest.forestArea["2018"] - extentOfForest.forestArea["2017"]) / extentOfForest.forestArea["2018"]) * 100',
+                      cycles: ['2020'],
                     },
                   },
                   {
@@ -12049,6 +12982,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     migration: {
                       calculateFn:
                         '((extentOfForest.forestArea["2019"] - extentOfForest.forestArea["2018"]) / extentOfForest.forestArea["2019"]) * 100',
+                      cycles: ['2020'],
                     },
                   },
                   {
@@ -12058,13 +12992,16 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     migration: {
                       calculateFn:
                         '((extentOfForest.forestArea["2020"] - extentOfForest.forestArea["2019"]) / extentOfForest.forestArea["2020"]) * 100',
+                      cycles: ['2020'],
                     },
                   },
                   {
                     idx: 7,
                     type: 'calculated',
-                    colName: 'placeholder',
+                    colName: '2015-2020',
                     migration: {
+                      calculateFn:
+                        '(((extentOfForest.forestArea["2020"] / extentOfForest.forestArea["2015"]) ** 0.2) - 1) * 100',
                       cycles: ['2025'],
                     },
                   },
@@ -12112,19 +13049,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
             migration: {
               columnNames: {
                 '2020': ['2000-2010', '2010-2015', '2015-2016', '2016-2017', '2017-2018', '2018-2019', '2019-2020'],
-                '2025': [
-                  '2000-2010',
-                  '2010-2015',
-                  '2015-2016',
-                  '2016-2017',
-                  '2017-2018',
-                  '2018-2019',
-                  '2019-2020',
-                  '',
-                  '2020-2025',
-                  '2005-2015',
-                  '2015-2025',
-                ],
+                '2025': ['2000-2010', '2010-2015', '2015-2020', '2020-2025', '2005-2015', '2015-2025'],
               },
             },
           },
@@ -12194,7 +13119,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     migration: {
                       style: {
                         '2020': { colSpan: 8, rowSpan: 1 },
-                        '2025': { colSpan: 13, rowSpan: 1 },
+                        '2025': { colSpan: 9, rowSpan: 1 },
                       },
                     },
                   },
@@ -12235,6 +13160,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: '2016',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 4,
@@ -12243,6 +13171,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: '2017',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 5,
@@ -12251,6 +13182,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: '2018',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 6,
@@ -12259,6 +13193,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: '2019',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 7,
@@ -12313,21 +13250,33 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'calculated',
                     colName: '2016',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 4,
                     type: 'calculated',
                     colName: '2017',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 5,
                     type: 'calculated',
                     colName: '2018',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 6,
                     type: 'calculated',
                     colName: '2019',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 7,
@@ -12345,7 +13294,10 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'sustainableDevelopment.aboveGroundBiomassStockForests',
                 migration: {
-                  calcFormula: 'biomassStock.forest_above_ground',
+                  calcFormula: {
+                    '2020': 'biomassStock.forest_above_ground',
+                    '2025': 'biomassStockAvg.forest_above_ground',
+                  },
                 },
               },
             ],
@@ -12359,22 +13311,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
             migration: {
               columnNames: {
                 '2020': ['2000', '2010', '2015', '2016', '2017', '2018', '2019', '2020'],
-                '2025': [
-                  '2000',
-                  '2005',
-                  '2010',
-                  '2015',
-                  '2016',
-                  '2017',
-                  '2018',
-                  '2019',
-                  '2020',
-                  '2021',
-                  '2022',
-                  '2023',
-                  '2024',
-                  '2025',
-                ],
+                '2025': ['2000', '2010', '2015', '2020', '2021', '2022', '2023', '2024', '2025'],
               },
             },
           },
@@ -12443,7 +13380,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     migration: {
                       style: {
                         '2020': { colSpan: 8, rowSpan: 1 },
-                        '2025': { colSpan: 13, rowSpan: 1 },
+                        '2025': { colSpan: 10, rowSpan: 1 },
                       },
                     },
                   },
@@ -12457,15 +13394,18 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 0,
                     colSpan: 1,
                     rowSpan: 1,
-                    label: '2000',
+                    label: '1990',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2025'],
+                    },
                   },
                   {
                     idx: 1,
                     colSpan: 1,
                     rowSpan: 1,
-                    label: '2010',
+                    label: '2000',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -12473,7 +13413,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 2,
                     colSpan: 1,
                     rowSpan: 1,
-                    label: '2015',
+                    label: '2010',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -12481,7 +13421,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     colSpan: 1,
                     rowSpan: 1,
-                    label: '2016',
+                    label: '2015',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -12489,28 +13429,48 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 4,
                     colSpan: 1,
                     rowSpan: 1,
-                    label: '2017',
+                    label: '2016',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 5,
                     colSpan: 1,
                     rowSpan: 1,
-                    label: '2018',
+                    label: '2017',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 6,
                     colSpan: 1,
                     rowSpan: 1,
-                    label: '2019',
+                    label: '2018',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 7,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    label: '2019',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
+                  },
+                  {
+                    idx: 8,
                     colSpan: 1,
                     rowSpan: 1,
                     label: '2020',
@@ -12518,7 +13478,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                   },
                   ...['2021', '2022', '2023', '2024', '2025'].map((label, idx) => ({
-                    idx: idx + 8,
+                    idx: idx + 9,
                     colSpan: 1,
                     rowSpan: 1,
                     label,
@@ -12546,45 +13506,65 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 0,
                     type: 'calculated',
-                    colName: '2000',
+                    colName: '1990',
+                    migration: {
+                      cycles: ['2025'],
+                    },
                   },
                   {
                     idx: 1,
                     type: 'calculated',
-                    colName: '2010',
+                    colName: '2000',
                   },
                   {
                     idx: 2,
                     type: 'calculated',
-                    colName: '2015',
+                    colName: '2010',
                   },
                   {
                     idx: 3,
                     type: 'calculated',
-                    colName: '2016',
+                    colName: '2015',
                   },
                   {
                     idx: 4,
                     type: 'calculated',
-                    colName: '2017',
+                    colName: '2016',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 5,
                     type: 'calculated',
-                    colName: '2018',
+                    colName: '2017',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 6,
                     type: 'calculated',
-                    colName: '2019',
+                    colName: '2018',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 7,
                     type: 'calculated',
+                    colName: '2019',
+                    migration: {
+                      cycles: ['2020'],
+                    },
+                  },
+                  {
+                    idx: 8,
+                    type: 'calculated',
                     colName: '2020',
                   },
                   ...['2021', '2022', '2023', '2024', '2025'].map((colName, idx) => ({
-                    idx: idx + 8,
+                    idx: idx + 9,
                     type: 'calculated',
                     colName: '2020',
                     migration: {
@@ -12609,22 +13589,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
             migration: {
               columnNames: {
                 '2020': ['2000', '2010', '2015', '2016', '2017', '2018', '2019', '2020'],
-                '2025': [
-                  '2000',
-                  '2005',
-                  '2010',
-                  '2015',
-                  '2016',
-                  '2017',
-                  '2018',
-                  '2019',
-                  '2020',
-                  '2021',
-                  '2022',
-                  '2023',
-                  '2024',
-                  '2025',
-                ],
+                '2025': ['1990', '2000', '2010', '2015', '2020', '2021', '2022', '2023', '2024', '2025'],
               },
             },
           },
@@ -12693,7 +13658,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     migration: {
                       style: {
                         '2020': { colSpan: 8, rowSpan: 1 },
-                        '2025': { colSpan: 13, rowSpan: 1 },
+                        '2025': { colSpan: 9, rowSpan: 1 },
                       },
                     },
                   },
@@ -12734,6 +13699,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: '2016',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 4,
@@ -12742,6 +13710,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: '2017',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 5,
@@ -12750,6 +13721,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: '2018',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 6,
@@ -12758,6 +13732,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: '2019',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 7,
@@ -12812,21 +13789,33 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'calculated',
                     colName: '2016',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 4,
                     type: 'calculated',
                     colName: '2017',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 5,
                     type: 'calculated',
                     colName: '2018',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 6,
                     type: 'calculated',
                     colName: '2019',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 7,
@@ -12859,22 +13848,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
             migration: {
               columnNames: {
                 '2020': ['2000', '2010', '2015', '2016', '2017', '2018', '2019', '2020'],
-                '2025': [
-                  '2000',
-                  '2005',
-                  '2010',
-                  '2015',
-                  '2016',
-                  '2017',
-                  '2018',
-                  '2019',
-                  '2020',
-                  '2021',
-                  '2022',
-                  '2023',
-                  '2024',
-                  '2025',
-                ],
+                '2025': ['2000', '2010', '2015', '2020', '2021', '2022', '2023', '2024', '2025'],
               },
             },
           },
@@ -12943,7 +13917,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     migration: {
                       style: {
                         '2020': { colSpan: 8, rowSpan: 1 },
-                        '2025': { colSpan: 13, rowSpan: 1 },
+                        '2025': { colSpan: 9, rowSpan: 1 },
                       },
                     },
                   },
@@ -12984,6 +13958,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: '2016',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 4,
@@ -12992,6 +13969,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: '2017',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 5,
@@ -13000,6 +13980,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: '2018',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 6,
@@ -13008,6 +13991,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: '2019',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 7,
@@ -13062,21 +14048,33 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'calculated',
                     colName: '2016',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 4,
                     type: 'calculated',
                     colName: '2017',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 5,
                     type: 'calculated',
                     colName: '2018',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 6,
                     type: 'calculated',
                     colName: '2019',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 7,
@@ -13105,22 +14103,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
             migration: {
               columnNames: {
                 '2020': ['2000', '2010', '2015', '2016', '2017', '2018', '2019', '2020'],
-                '2025': [
-                  '2000',
-                  '2005',
-                  '2010',
-                  '2015',
-                  '2016',
-                  '2017',
-                  '2018',
-                  '2019',
-                  '2020',
-                  '2021',
-                  '2022',
-                  '2023',
-                  '2024',
-                  '2025',
-                ],
+                '2025': ['2000', '2010', '2015', '2020', '2021', '2022', '2023', '2024', '2025'],
               },
             },
           },
