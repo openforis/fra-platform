@@ -5,7 +5,7 @@ import { Assessment } from '@meta/assessment'
 import { BaseProtocol, DB } from '@server/db'
 import { read } from '@server/repository/assessment/assessment/read'
 
-export const updateAssessment = async (
+export const updateDefaultCycle = async (
   params: {
     assessment: Assessment
   },
@@ -14,8 +14,8 @@ export const updateAssessment = async (
   const { assessment } = params
 
   const assessmentUpdated = await client.one<Assessment>(
-    `update assessment set props = $1::jsonb where id = $2 returning  *;`,
-    [JSON.stringify(assessment.props), assessment.id],
+    `update assessment set props = props || '{"defaultCycle": $1~}' where id = $2 returning  *;`,
+    [assessment.props.defaultCycle, assessment.id],
     (assessment) => {
       return { ...Objects.camelize(assessment), metaCache: assessment.meta_cache }
     }

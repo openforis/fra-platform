@@ -4,7 +4,7 @@ import { create } from './create'
 import { createCycle } from './createCycle'
 import { getOne, getOneWithCycle } from './getOne'
 import { remove } from './remove'
-import { update } from './update'
+import { updateDefaultCycle } from './update'
 
 export const AssessmentController = {
   create,
@@ -13,5 +13,5 @@ export const AssessmentController = {
   getOneWithCycle,
   getTable: TableRepository.getOne,
   remove,
-  update,
+  updateDefaultCycle,
 }

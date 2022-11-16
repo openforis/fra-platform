@@ -8,7 +8,7 @@ import {
 import { read } from './read'
 import { removeAssessment } from './removeAssessment'
 import { removeAssessmentSchema } from './removeAssessmentSchema'
-import { updateAssessment } from './updateAssessment'
+import { updateDefaultCycle } from './updateAssessment'
 
 export const AssessmentRepository = {
   createAssessment,
@@ -19,5 +19,5 @@ export const AssessmentRepository = {
   getCreateSchemaDDL,
   getCreateSchemaCycleDDL,
   getCreateSchemaCycleOriginalDataPointViewDDL,
-  updateAssessment,
+  updateDefaultCycle,
 }

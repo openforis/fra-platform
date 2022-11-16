@@ -5,14 +5,14 @@ import { BaseProtocol, DB } from '@server/db'
 import { AssessmentRepository } from '@server/repository/assessment/assessment'
 import { ActivityLogRepository } from '@server/repository/public/activityLog'
 
-export const update = async (
+export const updateDefaultCycle = async (
   props: { user: User; assessment: Assessment },
   client: BaseProtocol = DB
 ): Promise<Assessment> => {
   const { assessment, user } = props
 
   return client.tx(async (t) => {
-    const updatedAssessment = await AssessmentRepository.updateAssessment({ assessment }, t)
+    const updatedAssessment = await AssessmentRepository.updateDefaultCycle({ assessment }, t)
 
     await ActivityLogRepository.insertActivityLog(
       {
@@ -22,7 +22,7 @@ export const update = async (
           message: ActivityLogMessage.assessmentUpdate,
           user,
         },
-        assessment: updatedAssessment,
+        assessment,
       },
       t
     )
