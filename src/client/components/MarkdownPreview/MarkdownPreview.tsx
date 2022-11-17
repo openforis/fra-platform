@@ -1,7 +1,6 @@
 import React from 'react'
 
 import MDEditor from '@uiw/react-md-editor'
-import rehypeSanitize from 'rehype-sanitize'
 
 type Props = {
   value: string
@@ -9,7 +8,7 @@ type Props = {
 
 const MarkdownPreview: React.FC<Props> = (props) => {
   const { value } = props
-  return <MDEditor.Markdown rehypePlugins={[rehypeSanitize]} source={value} />
+  return <MDEditor.Markdown disallowedElements={['script']} source={value} />
 }
 
 export default MarkdownPreview

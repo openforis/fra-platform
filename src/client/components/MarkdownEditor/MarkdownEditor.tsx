@@ -1,7 +1,6 @@
 import React from 'react'
 
 import MDEditor, { commands, ContextStore } from '@uiw/react-md-editor'
-import rehypeSanitize from 'rehype-sanitize'
 
 type Props = {
   value: string
@@ -27,11 +26,10 @@ const MarkdownEditor: React.FC<Props> = (props) => {
     <MDEditor
       commands={defaultCommands}
       previewOptions={{
-        rehypePlugins: [[rehypeSanitize]],
+        disallowedElements: ['script'],
       }}
       value={value}
       onChange={onChange}
-      style={{ whiteSpace: 'pre-wrap' }}
     />
   )
 }
