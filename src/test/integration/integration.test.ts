@@ -3,6 +3,7 @@ import { DB } from '@server/db'
 import assessmentCreate from '@test/integration/assessment/createAssessment'
 import originalDataPoint from '@test/integration/assessment/originalDataPoint'
 import assessmentRemove from '@test/integration/assessment/removeAssessment'
+import updateAssessmentDefaultCycle from '@test/integration/assessment/updateAssessmentDefaultCycle'
 import messageCenter from '@test/integration/messageCenter/messageCenter'
 import settingsDefaultAssessment from '@test/integration/settings/defaultAssessment'
 import userInvite from '@test/integration/user/userInvite'
@@ -22,6 +23,7 @@ describe('Metadata integration test', () => {
   // assessment
   assessmentCreate()
   settingsDefaultAssessment()
+  updateAssessmentDefaultCycle()
 
   // user
   userInvite()

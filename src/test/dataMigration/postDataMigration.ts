@@ -3,6 +3,7 @@ import { DB } from '@server/db'
 
 import { add2025Columns } from '@test/dataMigration/steps/add2025Columns/add2025Columns'
 import { cleanupCountryProps } from '@test/dataMigration/steps/cleanupCountryProps'
+import { deleteAtlantisData } from '@test/dataMigration/steps/deleteAtlantisData/deleteAtlantisData'
 import { deleteInvalid2025Nodes } from '@test/dataMigration/steps/deleteInvalid2025Nodes/deleteInvalid2025Nodes'
 import { deleteWrongCalculatedNodes } from '@test/dataMigration/steps/deleteWrongCalculatedNodes'
 import { metadataFix } from '@test/dataMigration/steps/metadataFix/metadataFix'
@@ -46,6 +47,7 @@ describe('Post Data migration', () => {
       await migrateMessageBoard({ assessment }, client)
       await postMetadataFix({ assessment }, client)
       await deleteInvalid2025Nodes({ assessment }, client)
+      await deleteAtlantisData({ assessment }, client)
     })
 
     const end = new Date().getTime()
