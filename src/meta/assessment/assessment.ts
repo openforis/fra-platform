@@ -2,7 +2,7 @@ import { AssessmentMetaCache } from './assessmentMetaCache'
 import { AssessmentName } from './assessmentName'
 import { Cycle, CycleUuid } from './cycle'
 
-type AssessmentProps = {
+export type AssessmentProps = {
   name: AssessmentName // fra or pan_european
   defaultCycle?: string
 }
