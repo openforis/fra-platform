@@ -5,18 +5,18 @@ import { AssetsController } from '@server/controller/geo/assets/'
 
 type Props = {
   countryIso: CountryIso
-  sourceLayers: Array<ForestSource>
-  gteHansenTreeCoverPerc: number
+  layer: Array<ForestSource>
+  gteHansenTreeCoverPerc?: number
   gteAgreementLevel: number
   opacity?: number
 }
 
 export const getForestAgreementLayer = async (props: Props): Promise<Layer> => {
-  const { countryIso, sourceLayers, gteHansenTreeCoverPerc, gteAgreementLevel, opacity } = props
+  const { countryIso, layer, gteHansenTreeCoverPerc, gteAgreementLevel, opacity } = props
 
   const ftcCountry = AssetsController.getCountryBoundaries(countryIso)
-  const asset = AssetsController.getForestAgreementAssetData(sourceLayers, gteHansenTreeCoverPerc, gteAgreementLevel)
-  const palette = agreementPalette.slice(gteAgreementLevel - 1, sourceLayers.length)
+  const asset = AssetsController.getForestAgreementAssetData(layer, gteHansenTreeCoverPerc, gteAgreementLevel)
+  const palette = agreementPalette.slice(gteAgreementLevel - 1, layer.length)
 
   return new Promise((resolve, reject) => {
     asset.img
@@ -25,9 +25,9 @@ export const getForestAgreementLayer = async (props: Props): Promise<Layer> => {
       .getMap(
         {
           palette,
-          min: Number(gteAgreementLevel),
+          min: gteAgreementLevel,
           max: palette.length,
-          opacity: opacity === undefined ? 1 : Number(opacity),
+          opacity,
         },
         (mapProperties: any, err: any) => {
           if (err) {
