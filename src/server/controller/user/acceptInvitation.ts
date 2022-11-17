@@ -1,5 +1,6 @@
 import { ActivityLogMessage, Assessment, Cycle } from '@meta/assessment'
 import { RoleName, User, UserRole, UserStatus } from '@meta/user'
+import { UserRoles } from '@meta/user/userRoles'
 
 import { BaseProtocol, DB } from '@server/db'
 import { ActivityLogRepository } from '@server/repository/public/activityLog'
@@ -18,6 +19,8 @@ export const acceptInvitation = async (
   const { assessment, cycle, user, userRole } = props
 
   return client.tx(async (t) => {
+    if (UserRoles.isInvitationExpired(userRole)) throw new Error('Invitation has expired')
+
     await UserRoleRepository.acceptInvitation({ userRole }, t)
 
     user.status = UserStatus.active
