@@ -16,7 +16,6 @@ import { AssessmentSectionState } from './stateType'
 const initialState: AssessmentSectionState = {
   data: null,
   tableSections: {},
-  originalDataPointData: null,
   showOriginalDataPoint: true,
   nodeValueValidation: {},
   descriptions: {},
@@ -60,7 +59,9 @@ export const assessmentSectionSlice = createSlice({
     })
 
     builder.addCase(getOriginalDataPointData.fulfilled, (state, { payload }) => {
-      state.originalDataPointData = payload
+      const countryIso = Object.keys(payload)[0] as CountryIso
+      const countryData = state.data?.[countryIso] ?? {}
+      state.data = { ...state.data, [countryIso]: { ...countryData, ...payload[countryIso] } }
     })
 
     builder.addCase(updateNodeValues.pending, (state, { meta }) => {
