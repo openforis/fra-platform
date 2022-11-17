@@ -11,12 +11,8 @@ import {
   getCreateSchemaCycleDDL,
   getCreateSchemaDDL,
 } from '../../src/server/repository/assessment/assessment/getCreateSchemaDDL'
-// TODO: import PanEuropeanSpecs
 import { PanEuropeanSpecs } from '../../src/test/sectionSpec/PanEuropeanSpecs'
-// import { migrateTablesData } from './migrateData/migrateTablesData'
 import { DBNames } from './_DBNames'
-// import { generateMetaCache } from './generateMetaCache'
-import { migrateMetadata } from './migrateMetadata'
 
 config({ path: path.resolve(__dirname, '..', '..', '.env') })
 
@@ -44,10 +40,9 @@ export const migrate = async (props: {
 }): Promise<void> => {
   // eslint-disable-next-line no-console
   console.log('========== START ', new Date().getTime())
-  const { assessmentName, assessmentLegacy, cycleNames, spec } = props
+  const { assessmentName, cycleNames } = props
 
-  // TODO: ==== 1. delete old assessment
-  // delete old assessment
+  // ==== 1. delete old assessment
   await DB.query(`drop schema if exists ${DBNames.getAssessmentSchema(assessmentName)} cascade;`)
   await Promise.all(
     cycleNames.map((cycleName) =>
@@ -61,11 +56,8 @@ export const migrate = async (props: {
      where props ->> 'name' = $1`,
     [assessmentName]
   )
-  // TODO: ==== 1 END. delete assessment
-
   await DB.tx(async (client) => {
-    // TODO: ==== 2. create assessment
-    // insert assessment
+    // ==== 2. create assessment
     const assessment = await client.one<Assessment>(
       `insert into assessment (props)
        values ($1::jsonb)
@@ -76,9 +68,9 @@ export const migrate = async (props: {
     // create schema
     const schema = DBNames.getAssessmentSchema(assessment.props.name)
     await DB.query(getCreateSchemaDDL(schema))
-    // TODO: ==== 2 END. create assessment
+    // ==== 2 END. create assessment
 
-    // TODO: ==== 3. create cycles
+    // ==== 3. create cycles
     assessment.cycles = await Promise.all(cycleNames.map((cycleName) => createCycle(assessment, cycleName, client)))
 
     // Set cycle 2020 to published
@@ -91,27 +83,7 @@ export const migrate = async (props: {
         defaultCycle: defaultCycle.uuid,
       },
     ])
-    // TODO: ==== 3 END. create cycles
-
-    // TODO: ==== 4. migrate metadata
-    await migrateMetadata({ assessment, assessmentLegacy, spec, client })
-    // TODO: ==== 4 END. migrate metadata
-
-    // TODO: below must be checked when reaching migrate data
-    // await Promise.all(
-    //   cycleNames.map((cycleName, index: number) =>
-    //     migrateAreas({ client, schema: DBNames.getCycleSchema(assessment.props.name, cycleName), index })
-    //   )
-    // )
-
-    // TODO: ==== 5. migrate data
-    // await Promise.all(
-    //   assessment.cycles.map(async (cycle) => {
-    //     await migrateTablesData({ assessment, cycle }, client)
-    //     await generateMetaCache({ assessment, cycle }, client)
-    //   })
-    // )
-    // TODO: ==== 5 END. migrate data
+    // ==== 3 END. create cycles
   })
 }
 
@@ -120,6 +92,8 @@ const cycleNames = ['2020', '2025']
 
 migrate({ assessmentName, cycleNames, spec: PanEuropeanSpecs, assessmentLegacy: PanEuropean })
   .then(() => {
+    // eslint-disable-next-line no-console
+    console.log('========== END ', new Date().getTime())
     process.exit(0)
   })
   .catch((e) => {
