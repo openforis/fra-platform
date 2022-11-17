@@ -26,7 +26,7 @@ const MarkdownEditor: React.FC<Props> = (props) => {
     <MDEditor
       commands={defaultCommands}
       previewOptions={{
-        rehypePlugins: [],
+        disallowedElements: ['script'],
       }}
       value={value}
       onChange={onChange}
