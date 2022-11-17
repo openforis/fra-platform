@@ -42,7 +42,10 @@ export const getTableData = async (
     mergeOdp &&
     (allTableNames.includes(TableNames.extentOfForest) || allTableNames.includes(TableNames.forestCharacteristics))
   ) {
-    const originalDataPointData = await DataRepository.getOriginalDataPointData({ assessment, cycle, countryISOs })
+    const originalDataPointData = await DataRepository.getOriginalDataPointData(
+      { assessment, cycle, countryISOs },
+      client
+    )
     const countries = await CountryRepository.getMany({ assessment, cycle }, client)
     const countryMap = countries.reduce<Record<CountryIso, Country>>(
       (acc, country) => ({ ...acc, [country.countryIso]: country }),

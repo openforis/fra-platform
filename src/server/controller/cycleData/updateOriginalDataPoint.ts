@@ -5,6 +5,8 @@ import { BaseProtocol, DB } from '@server/db'
 import { OriginalDataPointRepository } from '@server/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from '@server/repository/public/activityLog'
 
+import { updateOriginalDataPointDependentNodes } from './updateOriginalDataPointDependentNodes'
+
 export const updateOriginalDataPoint = async (
   props: {
     assessment: Assessment
@@ -36,6 +38,8 @@ export const updateOriginalDataPoint = async (
       },
       t
     )
+
+    await updateOriginalDataPointDependentNodes({ assessment, cycle, originalDataPoint, user }, t)
 
     return updatedOriginalDataPoint
   })

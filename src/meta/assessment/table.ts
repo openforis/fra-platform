@@ -10,10 +10,12 @@ export enum TableNames {
   forestCharacteristics = 'forestCharacteristics',
   forestOwnership = 'forestOwnership',
   growingStockTotal = 'growingStockTotal',
+  // Used to append ODP data to tableData
+  originalDataPointValue = 'originalDataPointValue',
+  primaryDesignatedManagementObjective = 'primaryDesignatedManagementObjective',
   specificForestCategories = 'specificForestCategories',
   totalAreaWithDesignatedManagementObjective = 'totalAreaWithDesignatedManagementObjective',
-  primaryDesignatedManagementObjective = 'primaryDesignatedManagementObjective',
-
+  // Used for dashboard
   valueAggregate = 'value_aggregate',
 }
 

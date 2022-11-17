@@ -1,4 +1,4 @@
-import { NodeValue, Row } from '@meta/assessment'
+import { NodeValue, Row, TableNames } from '@meta/assessment'
 import { NodeUpdate, NodeUpdates } from '@meta/data'
 
 import { BaseProtocol } from '@server/db'
@@ -63,7 +63,13 @@ export const validateNodeUpdates = async (props: Props, client: BaseProtocol): P
       queue.push(...dependants)
       visitedVariables.push(queueItem)
       if (value) {
-        nodeUpdatesResult.nodes.push({ tableName, variableName, colName, value })
+        nodeUpdatesResult.nodes.push({
+          // Assign correct table name if value is ODP value
+          tableName: value.odp ? TableNames.originalDataPointValue : tableName,
+          variableName,
+          colName,
+          value,
+        })
       }
     }
   }

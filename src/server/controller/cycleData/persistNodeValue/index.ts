@@ -1,33 +1,24 @@
 import { ActivityLogMessage } from '@meta/assessment'
-import { Sockets } from '@meta/socket'
+import { NodeUpdates } from '@meta/data'
 
+import { calculateAndValidateDependentNodes } from '@server/controller/cycleData/persistNodeValue/calculateAndValidateDependentNodes'
 import { DB } from '@server/db'
-import { SocketServer } from '@server/service/socket'
 
 import { persistNode } from './persistNode/persistNode'
-import { calculateDependantNodes } from './calculateDependantNodes'
 import { Props } from './props'
-import { validateNodeUpdates } from './validateNodeUpdates'
 
 export const persistNodeValue = async (props: Props & { activityLogMessage?: ActivityLogMessage }): Promise<void> => {
-  const { tableName, variableName, colName } = props
+  const { assessment, colName, countryIso, cycle, tableName, variableName } = props
 
   return DB.tx(async (client) => {
     const node = await persistNode(props, client)
 
-    const nodeUpdates = await calculateDependantNodes(props, client)
-    nodeUpdates.nodes.unshift({ tableName, variableName, colName, value: node.value })
-
-    const nodeUpdatesValidation = await validateNodeUpdates({ nodeUpdates }, client)
-
-    const { assessment, cycle, countryIso, nodes } = nodeUpdatesValidation
-    const assessmentName = assessment.props.name
-    const cycleName = cycle.name
-    nodes.forEach((nodeUpdate) => {
-      const { tableName, variableName, colName, value } = nodeUpdate
-      const propsEvent = { countryIso, assessmentName, cycleName, tableName, variableName, colName }
-      const nodeUpdateEvent = Sockets.getNodeUpdateEvent(propsEvent)
-      SocketServer.emit(nodeUpdateEvent, { value })
-    })
+    const nodeUpdates: NodeUpdates = {
+      assessment,
+      countryIso,
+      cycle,
+      nodes: [{ tableName, variableName, colName, value: node.value }],
+    }
+    await calculateAndValidateDependentNodes({ ...props, nodeUpdates }, client)
   })
 }
