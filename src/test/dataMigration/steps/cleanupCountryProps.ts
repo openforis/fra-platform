@@ -8,6 +8,15 @@ export const cleanupCountryProps = async (props: { assessment: Assessment; cycle
   await client.query(`
       update
           ${schemaCycle}.country
-      set props = props - 'faoStat' - 'certifiedAreas' - 'fra2015ForestAreas' - 'panEuropean' - 'climaticDomainPercents2015'
+      set props = props - 'faoStat' - 'certifiedAreas' - 'fra2015ForestAreas' - 'panEuropean' -
+                  'climaticDomainPercents2015';
+
+      ${
+        cycle.name === '2025'
+          ? `update ${schemaCycle}.country
+                         set props = jsonb_set(props, '{status}', '"editing"');
+                      `
+          : ''
+      }
   `)
 }
