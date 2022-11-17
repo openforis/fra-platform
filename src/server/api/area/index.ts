@@ -11,6 +11,6 @@ export const AreaApi = {
   init: (express: Express): void => {
     // Country
     express.post(ApiEndPoint.Area.country(), AuthMiddleware.requireEditTableData, postCountry)
-    express.get(ApiEndPoint.Area.areas(), getAreas)
+    express.get(ApiEndPoint.Area.areas(), AuthMiddleware.requireGetAreas, getAreas)
   },
 }

@@ -154,6 +154,13 @@ const requireEditAssessmentFile = async (req: Request, _res: Response, next: Nex
   }
 }
 
+const requireGetAreas = async (req: Request, _res: Response, next: NextFunction) => {
+  const { assessmentName, cycleName } = <Record<string, string>>{ ...req.params, ...req.query, ...req.body }
+  const user = Requests.getRequestUser(req)
+  if (!user) _next(!assessmentName && !cycleName, next)
+  else _next(!!user, next)
+}
+
 export const AuthMiddleware = {
   requireEditDescriptions,
   requireEditTableData,
@@ -165,4 +172,5 @@ export const AuthMiddleware = {
   requireEditUser,
   requireViewUsers,
   requireEditAssessmentFile,
+  requireGetAreas,
 }
