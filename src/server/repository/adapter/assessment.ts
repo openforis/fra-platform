@@ -1,12 +1,12 @@
 import { Objects } from '@utils/objects'
 
-import { Assessment, AssessmentProps } from '@meta/assessment'
+import { Assessment, AssessmentMetaCache, AssessmentProps } from '@meta/assessment'
 
 interface AssessmentDB {
   id: number
   uuid: string
   props: AssessmentProps
-  meta_cache: AssessmentProps
+  meta_cache: AssessmentMetaCache
 }
 
 export const AssessmentAdapter = (assessment: AssessmentDB): Assessment => {
