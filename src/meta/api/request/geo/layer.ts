@@ -10,9 +10,9 @@ export type ForestLayerRequest = Request<
   {
     countryIso: CountryIso
     forestSource: ForestSource
-    gteHansenTreeCoverPerc?: string
-    onlyProtected: string
-    opacity: string
+    gteHansenTreeCoverPerc?: any
+    onlyProtected: any
+    opacity: any
   }
 >
 
@@ -22,9 +22,9 @@ export type ForestAgreementLayerRequest = Request<
   never,
   {
     countryIso: CountryIso
-    gteAgreementLevel: string
-    gteHansenTreeCoverPerc?: string
+    gteAgreementLevel: any
+    gteHansenTreeCoverPerc?: any
     layer: Array<ForestSource>
-    opacity: string
+    opacity: any
   }
 >
