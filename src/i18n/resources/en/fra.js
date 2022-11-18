@@ -49,6 +49,18 @@ module.exports = {
     carbonSoil: 'Soil carbon',
     soilDepthHeading: 'Soil depth (cm) used for soil carbon estimates',
   },
+  biomassStockAvg: {
+    forestBiomass: 'Forest Biomass (tones/ha)',
+  },
+
+  biomassStockTotal: {
+    totalForestBiomass: 'Total forest Biomass (million tones)',
+  },
+
+  carbonStockTotal: {
+    totalForestCarbon: 'Total forest carbon (million tones)',
+  },
+
   climaticDomain: {
     percentOfForestArea: '% of forest area',
     climaticDomain: 'Climatic domain',
@@ -280,6 +292,9 @@ module.exports = {
     ranked: '#{{idx}} Ranked',
     totalIntroducedPercent: 'TOTAL % of introduced tree species',
     totalNativePercent: 'TOTAL % of native tree species',
+    totalIntroducedTreeSpecies: 'TOTAL introduced tree species',
+    totalNativeTreeSpecies: 'TOTAL native tree species',
+    updatedGrowingStockComposition: 'Updated growing stock composition',
 
     native: 'Native',
     introduced: 'Introduced',
@@ -404,6 +419,7 @@ module.exports = {
     rubberWood: 'Rubber wood',
   },
   sustainableDevelopment: {
+    annualForestAreaChangeRate: 'Annual forest area change rate',
     sdgIndicator1_2025: 'SDG Indicator 15.1.1 Forest area as proportion of total land area',
     forestAreaProportionLandArea: 'Forest area as proportion of total land area',
 

@@ -1,0 +1,1 @@
+export { AssessmentAdapter } from './assessment'

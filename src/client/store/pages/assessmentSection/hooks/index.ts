@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 
-import { NodeValue, Table, TableSection } from '@meta/assessment'
+import { NodeValue, Table, TableNames, TableSection } from '@meta/assessment'
 import { NodeUpdate, TableData, TableDatas } from '@meta/data'
 
 import { useAppSelector } from '@client/store'
@@ -16,7 +16,7 @@ export const useTableSections = (props: { sectionName: string }): Array<TableSec
 const useOriginalDataPointData = (): Record<string, Record<string, NodeValue>> | undefined => {
   const countryIso = useCountryIso()
   return useAppSelector(
-    (state) => state.pages.assessmentSection.originalDataPointData?.[countryIso]?.originalDataPointValue
+    (state) => state.pages.assessmentSection.data?.[countryIso]?.[TableNames.originalDataPointValue]
   )
 }
 
@@ -32,7 +32,12 @@ export const useTableData = (props: { table: Table }): TableData => {
   const showOriginalDatapoints = useShowOriginalDatapoints()
 
   if (!tableData?.[countryIso]) return {} as TableData
-  if (!odp || !showOriginalDatapoints || !country.props.forestCharacteristics.useOriginalDataPoint) return tableData
+  if (
+    !odp ||
+    !showOriginalDatapoints ||
+    (table.props.name === TableNames.forestCharacteristics && !country.props.forestCharacteristics.useOriginalDataPoint)
+  )
+    return tableData
 
   const currData = tableData[countryIso][table.props.name]
 
@@ -79,10 +84,9 @@ export const useIsSectionDataEmpty = (tableSections: TableSection[]) => {
 }
 
 export const useOriginalDataPointYears = () => {
-  const countryIso = useCountryIso()
-  const odpData = useAppSelector((state) => state.pages.assessmentSection.originalDataPointData)
+  const odpData = useOriginalDataPointData()
   if (!odpData) return null
-  return Object.keys(odpData[countryIso]?.originalDataPointValue ?? {})
+  return Object.keys(odpData)
 }
 
 export const useNodeValueValidation = (props: { tableName: string }): NodeUpdate | undefined =>

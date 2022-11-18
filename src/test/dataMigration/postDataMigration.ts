@@ -3,9 +3,11 @@ import { DB } from '@server/db'
 
 import { add2025Columns } from '@test/dataMigration/steps/add2025Columns/add2025Columns'
 import { cleanupCountryProps } from '@test/dataMigration/steps/cleanupCountryProps'
+import { deleteAtlantisData } from '@test/dataMigration/steps/deleteAtlantisData/deleteAtlantisData'
 import { deleteInvalid2025Nodes } from '@test/dataMigration/steps/deleteInvalid2025Nodes/deleteInvalid2025Nodes'
 import { deleteWrongCalculatedNodes } from '@test/dataMigration/steps/deleteWrongCalculatedNodes'
 import { metadataFix } from '@test/dataMigration/steps/metadataFix/metadataFix'
+import { migrateBiomassAndCarbonStockData } from '@test/dataMigration/steps/migrateBiomassAndCarbonStockData'
 import { migrateDescriptions } from '@test/dataMigration/steps/migrateDescriptions'
 import { migrateMessageBoard } from '@test/dataMigration/steps/migrateMessageBoard'
 import { migratePrimaryForestData } from '@test/dataMigration/steps/migratePrimaryForestData'
@@ -27,6 +29,7 @@ describe('Post Data migration', () => {
       // TODO: remove two below
       await add2025Columns({ assessment }, client)
       await metadataFix({ assessment }, client)
+      await migrateBiomassAndCarbonStockData({ assessment }, client)
       for (let i = 0; i < assessment.cycles.length; i += 1) {
         const cycle = assessment.cycles[i]
         // eslint-disable-next-line no-await-in-loop
@@ -44,6 +47,7 @@ describe('Post Data migration', () => {
       await migrateMessageBoard({ assessment }, client)
       await postMetadataFix({ assessment }, client)
       await deleteInvalid2025Nodes({ assessment }, client)
+      await deleteAtlantisData({ assessment }, client)
     })
 
     const end = new Date().getTime()

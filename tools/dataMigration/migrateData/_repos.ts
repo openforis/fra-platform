@@ -65,4 +65,8 @@ export const isBasicTable = (tableName: string): boolean =>
     'growingStockComposition2025',
     'forestRestoration',
     'permanentForestEstate',
+    'biomassStockAvg',
+    'biomassStockTotal',
+    'carbonStockAvg',
+    'carbonStockTotal',
   ].includes(tableName)
