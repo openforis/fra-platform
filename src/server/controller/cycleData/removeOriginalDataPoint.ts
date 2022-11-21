@@ -1,9 +1,12 @@
 import { ActivityLogMessage, Assessment, Cycle, OriginalDataPoint } from '@meta/assessment'
+import { Sockets } from '@meta/socket'
 import { User } from '@meta/user'
 
+import { updateOriginalDataPointDependentNodes } from '@server/controller/cycleData/updateOriginalDataPointDependentNodes'
 import { BaseProtocol, DB } from '@server/db'
 import { OriginalDataPointRepository } from '@server/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from '@server/repository/public/activityLog'
+import { SocketServer } from '@server/service/socket'
 
 export const removeOriginalDataPoint = async (
   props: {
@@ -36,6 +39,15 @@ export const removeOriginalDataPoint = async (
       },
       t
     )
+
+    await updateOriginalDataPointDependentNodes({ assessment, cycle, originalDataPoint, user }, t)
+
+    const nodeUpdateEvent = Sockets.getODPDeleteEvent({
+      assessmentName: assessment.props.name,
+      cycleName: cycle.name,
+      countryIso: originalDataPoint.countryIso,
+    })
+    SocketServer.emit(nodeUpdateEvent, { countryIso: originalDataPoint.countryIso, year: originalDataPoint.year })
 
     return removedOriginalDataPoint
   })
