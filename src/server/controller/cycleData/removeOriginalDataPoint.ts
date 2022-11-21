@@ -2,11 +2,12 @@ import { ActivityLogMessage, Assessment, Cycle, OriginalDataPoint } from '@meta/
 import { Sockets } from '@meta/socket'
 import { User } from '@meta/user'
 
-import { updateOriginalDataPointDependentNodes } from '@server/controller/cycleData/updateOriginalDataPointDependentNodes'
 import { BaseProtocol, DB } from '@server/db'
 import { OriginalDataPointRepository } from '@server/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from '@server/repository/public/activityLog'
 import { SocketServer } from '@server/service/socket'
+
+import { updateOriginalDataPointDependentNodes } from './updateOriginalDataPointDependentNodes'
 
 export const removeOriginalDataPoint = async (
   props: {

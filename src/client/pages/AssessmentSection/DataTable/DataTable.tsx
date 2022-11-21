@@ -12,10 +12,10 @@ import { useCanEditTableData } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import GenerateValues from '@client/pages/AssessmentSection/DataTable/GenerateValues'
-import { useODPDeleteListener } from '@client/pages/AssessmentSection/DataTable/useODPDeleteListener'
 
 import Chart from './Chart'
 import Table from './Table'
+import { useODPDeleteListener } from './useODPDeleteListener'
 
 type Props = {
   assessmentName: AssessmentName
