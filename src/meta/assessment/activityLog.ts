@@ -24,6 +24,7 @@ export enum ActivityLogMessage {
   userRemove = 'userRemove',
   userUpdate = 'userUpdate',
   userRolesUpdate = 'userRolesUpdate',
+  sectionCreate = 'sectionCreate',
 }
 
 export interface ActivityLog<Target> {
