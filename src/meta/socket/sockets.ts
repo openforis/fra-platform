@@ -36,6 +36,11 @@ const getTopicStatusEvent = (props: { assessment: Assessment; cycle: Cycle; topi
   return `${topic.countryIso}-${assessment.props.name}-${cycle.name}-${topic.key}-status`
 }
 
+const getODPDeleteEvent = (props: { countryIso: CountryIso; assessmentName: string; cycleName: string }) => {
+  const { assessmentName, cycleName, countryIso } = props
+  return `${countryIso}-${assessmentName}-${cycleName}-odpDelete`
+}
+
 const getNodeUpdateEvent = (props: {
   countryIso: CountryIso
   assessmentName: string
@@ -49,6 +54,7 @@ const getNodeUpdateEvent = (props: {
 }
 
 export const Sockets = {
+  getODPDeleteEvent,
   getRequestReviewSummaryEvent,
   getRequestReviewStatusEvent,
   getTopicMessageAddEvent,
