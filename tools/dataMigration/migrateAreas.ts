@@ -48,6 +48,11 @@ export const migrateAreas = async (props: Props): Promise<void> => {
       order by "order";
   `)
 
+  let condition = '!='
+  if (schema.includes('pan_european')) {
+    condition = 'LIKE'
+  }
+
   await client.query(`
       insert into ${schema}.region (region_code, region_group_id)
       select cr.region_code,
