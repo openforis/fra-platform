@@ -45,6 +45,7 @@ module.exports = {
   invitationMessage: 'You have been invited to {{assessment}} {{cycle}} as {{userRole}}',
   acceptInvitation: 'Accept Invitation',
   acceptInvitationWithGoogle: 'Accept Invitation with Google',
+  invitationExpired: 'This invitation has expired',
 
   logoutSuccessful: 'You have successfully logged out',
 }
