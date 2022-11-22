@@ -13,6 +13,7 @@ import {
 } from '../../src/server/repository/assessment/assessment/getCreateSchemaDDL'
 import { PanEuropeanSpecs } from '../../src/test/sectionSpec/PanEuropeanSpecs'
 import { DBNames } from './_DBNames'
+import { migrateMetadata } from './migrateMetadata'
 
 config({ path: path.resolve(__dirname, '..', '..', '.env') })
 
@@ -40,7 +41,7 @@ export const migrate = async (props: {
 }): Promise<void> => {
   // eslint-disable-next-line no-console
   console.log('========== START ', new Date().getTime())
-  const { assessmentName, cycleNames } = props
+  const { assessmentName, assessmentLegacy, cycleNames, spec } = props
 
   // ==== 1. delete old assessment
   await DB.query(`drop schema if exists ${DBNames.getAssessmentSchema(assessmentName)} cascade;`)
@@ -84,6 +85,10 @@ export const migrate = async (props: {
       },
     ])
     // ==== 3 END. create cycles
+
+    // ==== 4. migrate metadata
+    await migrateMetadata({ assessment, assessmentLegacy, spec, client })
+    // ==== 4 END. migrate metadata
   })
 }
 
