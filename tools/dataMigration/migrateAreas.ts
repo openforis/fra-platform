@@ -37,6 +37,11 @@ export const migrateAreas = async (props: Props): Promise<void> => {
       order by "order";
   `)
 
+  let condition = '!='
+  if (schema.includes('pan_european')) {
+    condition = 'LIKE'
+  }
+
   await client.query(`
       insert into ${schema}.region (region_code, region_group_id)
       select r.region_code,
@@ -46,7 +51,7 @@ export const migrateAreas = async (props: Props): Promise<void> => {
                          on r.region_code = r_l.region_code
                left join _legacy.region_group rg_l on r_l.region_group = rg_l.id
                left join ${schema}.region_group rg on rg_l.name = rg.name
-      where r.region_code != 'FE'
+      where r.region_code ${condition} 'FE'
       order by r.region_code;
   `)
 }

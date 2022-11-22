@@ -13,6 +13,7 @@ import {
 } from '../../src/server/repository/assessment/assessment/getCreateSchemaDDL'
 import { PanEuropeanSpecs } from '../../src/test/sectionSpec/PanEuropeanSpecs'
 import { DBNames } from './_DBNames'
+import { migrateAreas } from './migrateAreas'
 import { migrateMetadata } from './migrateMetadata'
 
 config({ path: path.resolve(__dirname, '..', '..', '.env') })
@@ -89,6 +90,12 @@ export const migrate = async (props: {
     // ==== 4. migrate metadata
     await migrateMetadata({ assessment, assessmentLegacy, spec, client })
     // ==== 4 END. migrate metadata
+
+    await Promise.all(
+      cycleNames.map((cycleName, index: number) =>
+        migrateAreas({ client, schema: DBNames.getCycleSchema(assessment.props.name, cycleName), index })
+      )
+    )
   })
 }
 
