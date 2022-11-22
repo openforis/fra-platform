@@ -42,7 +42,7 @@ export const migrateActivityLog = async (props: { assessment: Assessment }, clie
        '${assessment.uuid}' as assessment_uuid,
        '${cycle.uuid}' as cycle_uuid
         from _legacy.fra_audit a
-                 join public.users u on (user_login_email = email)
+                 join public.users u on (user_email = email)
         where a.message in ('acceptInvitation',
                 'addInvitation',
                 'createComment',
