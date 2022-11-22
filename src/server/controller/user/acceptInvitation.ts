@@ -6,6 +6,7 @@ import { BaseProtocol, DB } from '@server/db'
 import { ActivityLogRepository } from '@server/repository/public/activityLog'
 import { UserRepository } from '@server/repository/public/user'
 import { UserRoleRepository } from '@server/repository/public/userRole'
+import { ProcessEnv } from '@server/utils'
 
 export const acceptInvitation = async (
   props: {
@@ -19,7 +20,8 @@ export const acceptInvitation = async (
   const { assessment, cycle, user, userRole } = props
 
   return client.tx(async (t) => {
-    if (UserRoles.isInvitationExpired(userRole)) throw new Error('Invitation has expired')
+    if (UserRoles.isInvitationExpired(userRole, ProcessEnv.invitationExpiryPeriod))
+      throw new Error('Invitation has expired')
 
     await UserRoleRepository.acceptInvitation({ userRole }, t)
 

@@ -1,9 +1,7 @@
 import { RoleName, UserRole } from './userRole'
 
-const expiryPeriod = 604800000
-
-export const isInvitationExpired = (userRole: UserRole<RoleName>) =>
-  new Date().getTime() - Date.parse(userRole.invitedAt) > expiryPeriod
+export const isInvitationExpired = (userRole: UserRole<RoleName>, expiryPeriod: number) =>
+  new Date().getTime() - Date.parse(userRole.invitedAt) > expiryPeriod * 86400000
 
 const noRole = { role: 'NONE', labelKey: 'user.roles.noRole' }
 
