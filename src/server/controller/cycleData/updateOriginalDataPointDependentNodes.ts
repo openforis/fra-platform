@@ -4,54 +4,11 @@ import { Sockets } from '@meta/socket'
 import { User } from '@meta/user'
 
 import { getTableData } from '@server/controller/cycleData/getTableData'
+import { originalDataPointVariables } from '@server/controller/cycleData/originalDataPointVariables'
 import { BaseProtocol } from '@server/db'
 import { SocketServer } from '@server/service/socket'
 
 import { calculateAndValidateDependentNodes } from './persistNodeValue/calculateAndValidateDependentNodes'
-
-// To further expand
-type OriginalDataPointVariable = {
-  // metadata properties
-  sectionName: string
-  tableName: string
-  variableName: string
-}
-
-const originalDataPointVariables: Array<OriginalDataPointVariable> = [
-  // 1a
-  { sectionName: 'extentOfForest', tableName: TableNames.extentOfForest, variableName: 'forestArea' },
-  { sectionName: 'extentOfForest', tableName: TableNames.extentOfForest, variableName: 'otherLand' },
-  { sectionName: 'extentOfForest', tableName: TableNames.extentOfForest, variableName: 'otherWoodedLand' },
-  { sectionName: 'extentOfForest', tableName: TableNames.extentOfForest, variableName: 'totalLandArea' },
-  // 1b
-  {
-    sectionName: 'forestCharacteristics',
-    tableName: TableNames.forestCharacteristics,
-    variableName: 'naturalForestArea',
-  },
-  { sectionName: 'forestCharacteristics', tableName: TableNames.forestCharacteristics, variableName: 'primaryForest' },
-  { sectionName: 'forestCharacteristics', tableName: TableNames.forestCharacteristics, variableName: 'plantedForest' },
-  {
-    sectionName: 'forestCharacteristics',
-    tableName: TableNames.forestCharacteristics,
-    variableName: 'plantationForestArea',
-  },
-  {
-    sectionName: 'forestCharacteristics',
-    tableName: TableNames.forestCharacteristics,
-    variableName: 'plantationForestIntroducedArea',
-  },
-  {
-    sectionName: 'forestCharacteristics',
-    tableName: TableNames.forestCharacteristics,
-    variableName: 'otherPlantedForestArea',
-  },
-  {
-    sectionName: 'forestCharacteristics',
-    tableName: TableNames.forestCharacteristics,
-    variableName: 'totalForestArea',
-  },
-]
 
 export const updateOriginalDataPointDependentNodes = async (
   props: {
