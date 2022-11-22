@@ -20,7 +20,7 @@ export const acceptInvitation = async (
   const { assessment, cycle, user, userRole } = props
 
   return client.tx(async (t) => {
-    if (UserRoles.isInvitationExpired(userRole, ProcessEnv.invitationExpiryPeriod))
+    if (UserRoles.isInvitationExpired(userRole, ProcessEnv.invitationExpiryDays))
       throw new Error('login.invitationExpired')
 
     await UserRoleRepository.acceptInvitation({ userRole }, t)
