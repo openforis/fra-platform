@@ -2,17 +2,20 @@ import { createI18nPromise } from '@i18n/i18nFactory'
 
 import { ClientRoutes } from '@meta/app'
 import { CountryIso } from '@meta/area'
+import { AssessmentName } from '@meta/assessment'
 import { RoleName, User, UserRole, Users } from '@meta/user'
 
 import { sendMail } from './mail'
 
 export const userInvite = async (props: {
   countryIso: CountryIso
+  assessmentName: AssessmentName
+  cycleName: string
   role: UserRole<RoleName>
   userToInvite: User
   url: string
 }) => {
-  const { countryIso, role, userToInvite, url } = props
+  const { countryIso, assessmentName, cycleName, role, userToInvite, url } = props
 
   const i18n = await createI18nPromise('en')
 
@@ -26,6 +29,8 @@ export const userInvite = async (props: {
 
   const emailProps = {
     country: countryName,
+    assessmentName,
+    cycleName,
     invitedUser: userToInvite.name,
     role: roleName,
     link,

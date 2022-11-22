@@ -61,6 +61,8 @@ export const invite = async (
 
     await MailService.userInvite({
       countryIso,
+      assessmentName: assessment.props.name,
+      cycleName: cycle.name,
       role: userRole,
       userToInvite,
       url: process.env.APP_URI,
