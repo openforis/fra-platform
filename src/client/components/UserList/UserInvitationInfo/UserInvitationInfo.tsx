@@ -31,7 +31,7 @@ const UserInvitationInfo: React.FC<{ user: User; onClose: () => void }> = ({ use
           <button
             className="btn-s btn-link"
             onClick={async () => {
-              dispatch(UserManagementActions.sendInvitationEmail({ invitationUuid })).then(() => {
+              dispatch(UserManagementActions.sendInvitationEmail({ countryIso, invitationUuid })).then(() => {
                 toaster.success(i18n.t<string>('userManagement.invitationEmailSent'))
                 onClose()
               })
