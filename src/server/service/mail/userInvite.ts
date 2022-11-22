@@ -10,10 +10,9 @@ export const userInvite = async (props: {
   countryIso: CountryIso
   role: UserRole<RoleName>
   userToInvite: User
-  user: User
   url: string
 }) => {
-  const { countryIso, role, userToInvite, user, url } = props
+  const { countryIso, role, userToInvite, url } = props
 
   const i18n = await createI18nPromise('en')
 
@@ -29,7 +28,6 @@ export const userInvite = async (props: {
     country: countryName,
     invitedUser: userToInvite.name,
     role: roleName,
-    loggedInUser: user.name,
     link,
     url,
   }

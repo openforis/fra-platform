@@ -63,7 +63,6 @@ export const invite = async (
       countryIso,
       role: userRole,
       userToInvite,
-      user,
       url: process.env.APP_URI,
     })
 
