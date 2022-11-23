@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { ClientRoutes } from '@meta/app'
+import { UserStatus } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
 import { LoginActions, useInvitation } from '@client/store/login'
@@ -83,7 +84,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
         />
         {errors.password && <span className="login__field-error">{i18n.t<string>(errors.password)}</span>}
 
-        {invitedUser && invitedUser.status !== 'active' && (
+        {invitedUser?.status === UserStatus.invitationPending && (
           <>
             <input
               onFocus={() => setErrors({ ...errors, password2: null })}
@@ -103,24 +104,25 @@ const LoginForm: React.FC<Props> = (props: Props) => {
         )}
 
         {!invitedUser && (
-          <>
-            <div>
-              <button type="button" className="btn" onClick={() => setLoginLocal(false)}>
-                {i18n.t<string>('login.cancel')}
-              </button>
+          <div>
+            <button type="button" className="btn" onClick={() => setLoginLocal(false)}>
+              {i18n.t<string>('login.cancel')}
+            </button>
 
-              <button type="button" className="btn" onClick={onLogin}>
-                {i18n.t<string>('login.login')}
-              </button>
-            </div>
+            <button type="button" className="btn" onClick={onLogin}>
+              {i18n.t<string>('login.login')}
+            </button>
+          </div>
+        )}
 
-            <Link to={ClientRoutes.Login.ResetPassword.getLink()} type="button" className="btn-forgot-pwd">
-              {i18n.t<string>('login.forgotPassword')}
-            </Link>
-          </>
+        {invitedUser?.status !== UserStatus.invitationPending && (
+          <Link to={ClientRoutes.Login.ResetPassword.getLink()} type="button" className="btn-forgot-pwd">
+            {i18n.t<string>('login.forgotPassword')}
+          </Link>
         )}
       </div>
     )
+
   return (
     <div className="login__formWrapper">
       <div>
