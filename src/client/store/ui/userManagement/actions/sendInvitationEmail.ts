@@ -2,12 +2,15 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
+import { CountryIso } from '@meta/area'
+import { RoleName, UserRole } from '@meta/user'
 
-type Params = { invitationUuid: string }
+type Params = { countryIso: CountryIso; invitationUuid: string }
 
-export const sendInvitationEmail = createAsyncThunk<void, Params>(
+export const sendInvitationEmail = createAsyncThunk<UserRole<RoleName>, Params>(
   'userManagement/post/sendInvitationEmail',
   async (params) => {
-    await axios.get(ApiEndPoint.User.invitationSendEmail(), { params })
+    const { data } = await axios.get(ApiEndPoint.User.invitationSendEmail(), { params })
+    return data
   }
 )
