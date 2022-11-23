@@ -21,6 +21,8 @@ export const ProcessEnv = {
 
   fraReportCollaboratorsExcluded: JSON.parse(process.env.FRA_REPORT_COLLABORATORS_EXCLUDED ?? '[]'),
 
+  invitationExpiryDays: Number(process.env.INVITATION_EXPIRY_DAYS) || 7,
+
   // DB
   dbUrl,
   pgUser,

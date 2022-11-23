@@ -455,7 +455,7 @@ El equipo de FRA
       subject: 'Invitación a la plataforma de FRA',
       textMessage: `Estimado/a {{invitedUser}},
 
-Ha sido invitado/a a acceder a la plataforma de FRA como {{role}} para {{country}}.
+Ha sido invitado/a a acceder {{assessmentName}} {{cycleName}} como {{role}} para {{country}}.
 
 Acepte esta invitación y acceda a la plataforma en la siguiente dirección URL:
 {{- link}}
@@ -467,7 +467,7 @@ El equipo de FRA
     `,
       htmlMessage: `Estimado/a {{invitedUser}},
 <br/><br/>
-Ha sido invitado/a a acceder a la plataforma de FRA como {{role}} para {{country}}.
+Ha sido invitado/a a acceder {{assessmentName}} {{cycleName}} como {{role}} para {{country}}.
 <br/><br/>
 <b><a href="{{- link}}">Acepte esta invitación y acceda a la plataforma</a></b>
 <br/><br/>

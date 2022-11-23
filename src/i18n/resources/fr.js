@@ -453,7 +453,7 @@ L'équipe de FRA
       subject: 'Invitation à la plateforme de FRA',
       textMessage: `Cher {{invitedUser}},
 
-Vous avez été invité à accéder à la plateforme de FRA comme {{role}} pour le/la {{country}}.
+Vous avez été invité à accéder {{assessmentName}} {{cycleName}} comme {{role}} pour le/la {{country}}.
 
 Acceptez cette invitation et accédez à cette plateforme à l'adresse suivante:
 {{- link}}
@@ -465,7 +465,7 @@ L'équipe de FRA fra@fao.org
     `,
       htmlMessage: `Cher {{invitedUser}},
 <br/><br/>
-Vous avez été invité à accéder à la plateforme de FRA comme {{role}} pour le/la {{country}}.
+Vous avez été invité à accéder {{assessmentName}} {{cycleName}} comme {{role}} pour le/la {{country}}.
 <br/><br/>
 <b><a href="{{- link}}">Acceptez cette invitation et accédez à la plateforme</a></b>
 <br/><br/>
