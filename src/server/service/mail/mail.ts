@@ -1,8 +1,10 @@
 import * as nodemailer from 'nodemailer'
 
+import { ProcessEnv } from '@server/utils'
+
+import { assessmentNotifyUsers } from './assessmentNotifyUsers'
 import { resetPassword } from './resetPassword'
 import { userInvite } from './userInvite'
-import { assessmentNotifyUsers } from './assessmentNotifyUsers'
 
 const mailTransport = nodemailer.createTransport({
   host: process.env.FRA_MAIL_HOST,
@@ -27,7 +29,7 @@ export interface MailServiceEmail {
 }
 
 export const sendMail = async (email: MailServiceEmail) => {
-  if (process.env.NODE_ENV !== 'test') {
+  if (ProcessEnv.nodeEnv !== 'test') {
     await mailTransport.sendMail({ ...emailDefaults, ...email })
   }
 }

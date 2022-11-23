@@ -11,9 +11,7 @@ export const remove = async (
   const { invitationUuid } = props
 
   return client.oneOrNone<UserRole<RoleName>>(
-    `
-        delete from public.users_role where invitation_uuid = $1 returning *;
-    `,
+    'delete from public.users_role where invitation_uuid = $1 returning *;',
     [invitationUuid],
     Objects.camelize
   )
