@@ -1,5 +1,5 @@
 // To further expand
-import { TableNames } from '@meta/assessment'
+import { TableNames, VariableCache } from '@meta/assessment'
 
 type Variable = {
   // metadata properties
@@ -42,3 +42,11 @@ export const originalDataPointVariables: Array<Variable> = [
     variableName: 'totalForestArea',
   },
 ]
+
+// Find given variable from ODPVariables
+export const isODPVariable = (variable: VariableCache): boolean => {
+  return originalDataPointVariables.some((odpVariable) => {
+    const keys: Array<keyof VariableCache> = ['tableName', 'variableName']
+    return keys.every((key) => variable[key] === odpVariable[key])
+  })
+}

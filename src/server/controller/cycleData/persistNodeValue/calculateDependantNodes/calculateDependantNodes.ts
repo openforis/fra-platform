@@ -9,10 +9,10 @@ import { RowRepository } from '@server/repository/assessment/row'
 import { calculateNode } from './calculateNode'
 
 export const calculateDependantNodes = async (
-  props: Omit<Props, 'value'>,
+  props: Omit<Props, 'value'> & { isODP?: boolean },
   client: BaseProtocol
 ): Promise<NodeUpdates> => {
-  const { assessment, cycle, countryIso, sectionName, tableName, variableName, colName, user } = props
+  const { assessment, cycle, countryIso, sectionName, tableName, variableName, colName, user, isODP } = props
 
   const nodeUpdates: NodeUpdates = { assessment, cycle, countryIso, nodes: [] }
   const queue: Array<VariableCache> = await getDependants({
@@ -22,6 +22,7 @@ export const calculateDependantNodes = async (
     tableName,
     colName,
     countryIso,
+    isODP,
   })
   const visitedVariables: Array<VariableCache> = [{ variableName, tableName }]
 
@@ -101,7 +102,7 @@ export const calculateDependantNodes = async (
         )
       }
       // eslint-disable-next-line no-await-in-loop
-      queue.push(...(await getDependants({ assessment, cycle, countryIso, colName, ...variableCache })))
+      queue.push(...(await getDependants({ assessment, cycle, countryIso, colName, isODP, ...variableCache })))
 
       visitedVariables.push(variableCache)
     }

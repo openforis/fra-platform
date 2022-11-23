@@ -33,7 +33,18 @@ export const updateOriginalDataPointDependentNodes = async (
 
       // eslint-disable-next-line no-await-in-loop
       await calculateAndValidateDependentNodes(
-        { colName, cycle, nodeUpdates, sectionName, tableName, user, variableName, assessment, countryIso },
+        {
+          colName,
+          cycle,
+          nodeUpdates,
+          sectionName,
+          tableName,
+          user,
+          variableName,
+          assessment,
+          countryIso,
+          isODP: true,
+        },
         client
       )
     }

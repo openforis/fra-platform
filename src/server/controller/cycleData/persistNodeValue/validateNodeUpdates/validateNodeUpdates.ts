@@ -10,12 +10,13 @@ import { validateNode } from './validateNode'
 
 type Props = {
   nodeUpdates: NodeUpdates
+  isODP: boolean
 }
 
 type QueueItem = Omit<NodeUpdate, 'value'> & { value?: NodeValue }
 
 export const validateNodeUpdates = async (props: Props, client: BaseProtocol): Promise<NodeUpdates> => {
-  const { nodeUpdates } = props
+  const { nodeUpdates, isODP } = props
   const { assessment, cycle, countryIso, nodes } = nodeUpdates
 
   const queue: Array<QueueItem> = [...nodes]
@@ -58,10 +59,10 @@ export const validateNodeUpdates = async (props: Props, client: BaseProtocol): P
         }
       }
 
-      // eslint-disable-next-line no-await-in-loop
-      const dependants = (await getDependants({ tableName, variableName, assessment, cycle, colName, countryIso })).map(
-        ({ tableName, variableName }) => ({ tableName, variableName, colName })
-      )
+      const dependants = // eslint-disable-next-line no-await-in-loop
+        (await getDependants({ tableName, variableName, assessment, cycle, colName, countryIso, isODP })).map(
+          ({ tableName, variableName }) => ({ tableName, variableName, colName })
+        )
       queue.push(...dependants)
       visitedVariables.push(queueItem)
       if (value) {
