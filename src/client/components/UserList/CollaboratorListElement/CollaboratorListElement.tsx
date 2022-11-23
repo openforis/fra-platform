@@ -6,6 +6,7 @@ import classNames from 'classnames'
 
 import { ClientRoutes } from '@meta/app'
 import { User, Users, UserStatus } from '@meta/user'
+import { UserRoles } from '@meta/user/userRoles'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
@@ -29,7 +30,9 @@ const CollaboratorListElement: React.FC<{ user: User }> = ({ user }) => {
   const currentUser = useUser()
   const { t } = useTranslation()
 
-  const { acceptedAt, invitationUuid } = Users.getCountryRole(user, countryIso)
+  const userRole = Users.getCountryRole(user, countryIso)
+
+  const { acceptedAt, invitationUuid } = userRole
 
   const removeInvitation = useCallback(() => {
     if (window.confirm(t('userManagement.confirmDelete', { user: user.name })))
@@ -58,7 +61,9 @@ const CollaboratorListElement: React.FC<{ user: User }> = ({ user }) => {
           <>
             <button
               key={0}
-              className="btn-s btn-link"
+              className={classNames('btn-s btn-link', {
+                'btn-link-destructive': UserRoles.isInvitationExpired(userRole),
+              })}
               onClick={() => setShowInvitationInfo(true)}
               title={t('userManagement.info')}
               type="button"
