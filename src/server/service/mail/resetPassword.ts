@@ -13,7 +13,7 @@ export const resetPassword = async (props: { url: string; user: User; userResetP
     userResetPassword.uuid ? `?resetPasswordUuid=${userResetPassword.uuid}` : ''
   }`
 
-  const emailProps = { link, url }
+  const emailProps = { link, url, user }
 
   const resetPasswordEmail = {
     to: user.email,
