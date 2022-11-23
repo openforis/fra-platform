@@ -8,6 +8,10 @@ type Props = {
 
 export const migrateAreas = async (props: Props): Promise<void> => {
   const { client, schema, index } = props
+  let countryCondition = ''
+  if (schema.includes('pan_european')) {
+    countryCondition = `where cr.region_code LIKE 'FE'`
+  }
 
   await client.query(`
       insert into ${schema}.country (country_iso, props)
@@ -21,13 +25,16 @@ export const migrateAreas = async (props: Props): Promise<void> => {
       from public.country c
                left join _legacy.assessment a on (c.country_iso = a.country_iso)
                left join _legacy.dynamic_country_configuration dcc on (c.country_iso = dcc.country_iso)
+               left join _legacy.country_region cr on (c.country_iso = cr.country_iso)
+      ${countryCondition}
       order by country_iso;
   `)
 
   await client.query(`
       insert into ${schema}.country_region (country_iso, region_code)
-      select c.country_iso, c.region_code
-      from _legacy.country_region c
+      select cr.country_iso, cr.region_code
+      from _legacy.country_region cr
+      ${countryCondition}
   `)
 
   await client.query(`
