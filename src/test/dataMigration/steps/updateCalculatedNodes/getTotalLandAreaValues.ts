@@ -20,11 +20,10 @@ export const getTotalLandAreaValues = async (
                r.uuid  as row_uuid,
 --        cl.props ->> 'colName'     as col_name,
                cl.uuid as col_uuid,
-               jsonb_build_object(
-                       'raw', jsonb_extract_path(
-                       c.config, 'faoStat', cl.props ->> 'colName', 'area'
-                   )::varchar
-                   )   as value
+            CASE
+               WHEN cl.props->>'colName' != '2025' THEN jsonb_build_object('raw', jsonb_extract_path(c.config, 'faoStat', cl.props ->> 'colName', 'area')::varchar)
+               ELSE jsonb_build_object('raw', (select c.config->'faoStat'->'2020'->>'area'))
+            END AS value
 --        c.config -> 'faoStat' ->
         from country c
                  left join assessment_fra."table" t
