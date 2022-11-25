@@ -1,5 +1,5 @@
 import './mapVisualizerAgreementLevelsControl.scss'
-import React from 'react'
+import React, { useCallback } from 'react'
 
 import axios from 'axios'
 
@@ -30,15 +30,18 @@ const AgreementLevelsControl: React.FC = () => {
    * Handle agreement level selection
    * @param {number} level The agreement level
    */
-  const handleAgreementLevelSelection = async (level: number): Promise<void> => {
-    const layerQuery = forestOptions.sources.map((name) => `&layer=${name}`).join('')
-    const uri = `/api/geo/layers/forestAgreement/?countryIso=FIN${layerQuery}&gteAgreementLevel=${level}`
+  const handleAgreementLevelSelection = useCallback(
+    async (level: number): Promise<void> => {
+      const layerQuery = forestOptions.sources.map((name) => `&layer=${name}`).join('')
+      const uri = `/api/geo/layers/forestAgreement/?countryIso=FIN${layerQuery}&gteAgreementLevel=${level}`
 
-    await axios.get<Layer>(uri).then((response) => {
-      const { mapId } = response.data
-      addAgreementLayer(map, mapId)
-    })
-  }
+      await axios.get<Layer>(uri).then((response) => {
+        const { mapId } = response.data
+        addAgreementLayer(map, mapId)
+      })
+    },
+    [forestOptions.sources, map]
+  )
 
   return (
     <div className="geo-map-menu-data-visualizer-agreement-levels-control">
