@@ -6,6 +6,12 @@
   align-items: center;
   font-weight: bold;
   padding: 6px 0 4px;
+}
+
+.geo-map-menu-list-element-bottom {
+  flex-basis: 100%;
+  flex-wrap: wrap;
+  width: 100%;
   border-bottom: 1px solid $ui-border;
 }
 
@@ -18,6 +24,39 @@
     margin: 0 10px 0 5px;
     cursor: pointer;
   }
+}
+
+// checkbox background colours
+.jaxa > .checked {
+  background-color: #800080;
+}
+
+.tandemx > .checked {
+  background-color: #008000;
+}
+
+.esaglobcover > .checked {
+  background-color: #ff0000;
+}
+
+.globeland > .checked {
+  background-color: #0000ff;
+}
+
+.copernicus > .checked {
+  background-color: #ffff00;
+}
+
+.esri > .checked {
+  background-color: #ff7f50;
+}
+
+.esaworldcover > .checked {
+  background-color: #00ffff;
+}
+
+.hansen > .checked {
+  background-color: #00ff00;
 }
 
 .geo-map-menu-list-element-header {

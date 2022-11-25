@@ -12,8 +12,16 @@ export const getRows = (client: ITask<any>, schema: string, table: Table): Promi
      where table_id = $1
        and props ->> 'type' in ('${RowType.data}', '${RowType.calculated}');`,
     [table.id],
-    // @ts-ignore
-    Objects.camelize
+    (row) => {
+      return {
+        ...Objects.camelize(row),
+        props: {
+          ...Objects.camelize(row.props),
+          calculateFn: row.props.calculateFn,
+          validateFns: row.props.validateFns,
+        },
+      }
+    }
   )
 
 export const getCols = (client: ITask<any>, schema: string, table: Table): Promise<Array<Col>> =>
@@ -27,8 +35,15 @@ export const getCols = (client: ITask<any>, schema: string, table: Table): Promi
      )
        and c.props ->> 'colType' not in ('${ColType.header}', '${ColType.noticeMessage}')`,
     [table.id],
-    // @ts-ignore
-    Objects.camelize
+    (col) => {
+      return {
+        ...Objects.camelize(col),
+        props: {
+          ...Objects.camelize(col.props),
+          calculateFn: col.props.calculateFn,
+        },
+      }
+    }
   )
 
 export const isBasicTable = (tableName: string): boolean =>
@@ -46,4 +61,12 @@ export const isBasicTable = (tableName: string): boolean =>
     'sustainableDevelopment15_2_1_3',
     'sustainableDevelopment15_2_1_4',
     'sustainableDevelopment15_2_1_5',
+    'primaryForestByClimaticDomain',
+    'growingStockComposition2025',
+    'forestRestoration',
+    'permanentForestEstate',
+    'biomassStockAvg',
+    'biomassStockTotal',
+    'carbonStockAvg',
+    'carbonStockTotal',
   ].includes(tableName)

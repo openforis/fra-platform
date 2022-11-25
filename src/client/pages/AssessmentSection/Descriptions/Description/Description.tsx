@@ -1,15 +1,19 @@
 import './Description.scss'
 import React, { useCallback, useEffect, useState } from 'react'
 
+import { CommentableDescriptionValue } from '@meta/assessment'
+
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import useDescription from '@client/store/pages/assessmentSection/hooks/useDescription'
+import { useIsDataLocked } from '@client/store/ui/dataLock'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import MarkdownEditor from '@client/components/MarkdownEditor'
 import MarkdownPreview from '@client/components/MarkdownPreview'
+import DataSources from '@client/pages/AssessmentSection/Descriptions/Description/DataSources/DataSources'
 
 import Title from './Title'
 import Toggle from './Toggle'
@@ -18,7 +22,7 @@ type Props = {
   disabled?: boolean
   title: string
   name: string
-  template?: string
+  template?: CommentableDescriptionValue
   sectionName: string
   showAlertEmptyContent?: boolean
   showDashEmptyContent?: boolean
@@ -33,11 +37,12 @@ const Description: React.FC<Props> = (props) => {
 
   const user = useUser()
   const { print } = useIsPrint()
-  const value = useDescription({ name, sectionName, template })
+  const description = useDescription({ name, sectionName, template })
+  const isDataLocked = useIsDataLocked()
   const [open, setOpen] = useState(false)
 
   const onChange = useCallback(
-    (content: string) => {
+    (value: CommentableDescriptionValue) => {
       dispatch(
         AssessmentSectionActions.updateDescription({
           countryIso,
@@ -45,15 +50,15 @@ const Description: React.FC<Props> = (props) => {
           cycleName: cycle.name,
           sectionName,
           name,
-          content,
+          value,
         })
       )
     },
     [assessment.props.name, countryIso, cycle.name, dispatch, name, sectionName]
   )
 
-  const error = user && showAlertEmptyContent && !value
-  let markdown = value || template
+  const error = user && showAlertEmptyContent && !description
+  let markdown = description.text || template.text
   if (print) markdown = markdown?.split('<p>&nbsp;</p>').join('') // Hack to replace empty lines in print view
 
   useEffect(() => {
@@ -68,13 +73,24 @@ const Description: React.FC<Props> = (props) => {
     )
   }, [assessment.props.name, countryIso, cycle.name, dispatch, name, sectionName])
 
+  useEffect(() => {
+    if (open && isDataLocked) {
+      setOpen(!isDataLocked)
+    }
+  }, [isDataLocked, open])
+
+  const isDataSources = name === 'dataSources'
+
   return (
     <div className="fra-description__header-row">
       <Title error={error} title={title} />
       {!disabled && <Toggle setOpen={setOpen} open={open} />}
+      {isDataSources && (
+        <DataSources description={description} onChange={onChange} disabled={!open} sectionName={sectionName} />
+      )}
       {open && (
         <div className="fra-description__preview">
-          <MarkdownEditor value={markdown} onChange={onChange} />
+          <MarkdownEditor value={markdown} onChange={(content) => onChange({ ...description, text: content })} />
         </div>
       )}
       {!open && markdown && (
@@ -89,7 +105,7 @@ const Description: React.FC<Props> = (props) => {
 
 Description.defaultProps = {
   disabled: false,
-  template: null,
+  template: { text: '' },
   showAlertEmptyContent: false,
   showDashEmptyContent: false,
 }

@@ -11,14 +11,16 @@ import {
   getCreateSchemaCycleDDL,
   getCreateSchemaDDL,
 } from '../../src/server/repository/assessment/assessment/getCreateSchemaDDL'
+import { FraSpecs } from '../../src/test/sectionSpec/fraSpecs'
 import { migrateAggregates } from './migrateData/migrateAggregates'
 import { migrateOdps } from './migrateData/migrateOdps'
 import { migrateTablesData } from './migrateData/migrateTablesData'
 import { DBNames } from './_DBNames'
-import { FraSpecs } from './fraSpecs'
 import { generateMetaCache } from './generateMetaCache'
+import { migrateActivityLog } from './migrateActivityLog'
 import { migrateAreas } from './migrateAreas'
 import { migrateMetadata } from './migrateMetadata'
+import { migrateRepository } from './migrateRepository'
 import { migrateReview } from './migrateReview'
 import { migrateUsers } from './migrateUsers'
 import { migrateUsersAuthProvider } from './migrateUsersAuthProvider'
@@ -50,6 +52,8 @@ export const migrate = async (props: {
   cycleNames: Array<string>
   spec: Record<string, SectionSpec>
 }): Promise<void> => {
+  // eslint-disable-next-line no-console
+  console.log('========== START ', new Date().getTime())
   const { assessmentName, assessmentLegacy, cycleNames, spec } = props
 
   // delete old assessment
@@ -92,7 +96,8 @@ export const migrate = async (props: {
       },
     ])
 
-    await migrateMetadata({ assessment, assessmentLegacy, schema, spec, client })
+    await migrateMetadata({ assessment, assessmentLegacy, spec, client })
+    await migrateRepository({ assessment, client })
 
     await Promise.all(
       cycleNames.map((cycleName, index: number) =>
@@ -108,12 +113,13 @@ export const migrate = async (props: {
     await Promise.all(
       assessment.cycles.map(async (cycle) => {
         await migrateTablesData({ assessment, cycle }, client)
+        await generateMetaCache({ assessment, cycle }, client)
       })
     )
     await migrateOdps({ assessment }, client)
     await migrateAggregates({ assessment }, client)
-    await generateMetaCache({ assessment }, client)
     await migrateReview({ assessment }, client)
+    await migrateActivityLog({ assessment }, client)
 
     await client.query(
       `delete

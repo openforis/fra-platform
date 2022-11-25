@@ -5,7 +5,9 @@ import { AssessmentName } from '@meta/assessment'
 import { Sockets } from '@meta/socket'
 
 import { useAppDispatch } from '@client/store'
-import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
+import { useTableSections } from '@client/store/pages/assessmentSection'
+import { useGetTableSections } from '@client/store/pages/assessmentSection/hooks/useGetTableSections'
+import { useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 import { ReviewActions } from '@client/store/ui/review'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
@@ -17,38 +19,29 @@ type Props = {
   children: JSX.Element
 }
 
+type SectionParams = {
+  assessmentName: AssessmentName
+  cycleName: string
+  sectionName: string
+}
+
 const SectionWrapper: React.FC<Props> = (props) => {
   const { children } = props
 
+  const { assessmentName, cycleName, sectionName } = useParams<SectionParams>()
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const user = useUser()
-  const { assessmentName, cycleName, sectionName } = useParams<{
-    assessmentName: AssessmentName
-    cycleName: string
-    sectionName: string
-  }>()
+  const tableSections = useTableSections({ sectionName })
+  const originalDataPoint = useOriginalDataPoint()
+  useGetTableSections()
 
   useEffect(() => {
     // scroll to top
     DOMs.scrollTo()
+  }, [sectionName])
 
-    // fetch table sections metadata
-    dispatch(
-      AssessmentSectionActions.getTableSections({
-        assessmentName,
-        cycleName,
-        sectionNames: [sectionName],
-        countryIso,
-      })
-    )
-
-    return () => {
-      dispatch(AssessmentSectionActions.reset())
-    }
-  }, [assessmentName, countryIso, cycleName, dispatch, sectionName])
-
-  // fetch section review status
+  // subscribe to section review status update
   useEffect(() => {
     const requestReviewStatusEvent = Sockets.getRequestReviewStatusEvent({
       countryIso,
@@ -58,7 +51,15 @@ const SectionWrapper: React.FC<Props> = (props) => {
     })
 
     const updateReviewStatus = () => {
-      dispatch(ReviewActions.getReviewStatus({ countryIso, assessmentName, cycleName, sectionName }))
+      dispatch(
+        ReviewActions.getReviewStatus({
+          countryIso,
+          assessmentName,
+          cycleName,
+          sectionName,
+          odpId: originalDataPoint?.id,
+        })
+      )
     }
 
     if (user) {
@@ -71,7 +72,9 @@ const SectionWrapper: React.FC<Props> = (props) => {
         SocketClient.off(requestReviewStatusEvent, updateReviewStatus)
       }
     }
-  }, [countryIso, assessmentName, cycleName, sectionName, user, dispatch])
+  }, [countryIso, assessmentName, cycleName, sectionName, user, dispatch, originalDataPoint?.id])
+
+  if (!tableSections) return null
 
   return (
     <>

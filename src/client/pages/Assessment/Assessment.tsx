@@ -2,18 +2,21 @@ import './Assessment.scss'
 import React, { useEffect } from 'react'
 import { Navigate, Route, Routes, useParams } from 'react-router-dom'
 
-import { Areas } from '@meta/area'
+import classNames from 'classnames'
+
+import { ClientRoutes } from '@meta/app'
 import { AssessmentName } from '@meta/assessment'
 import { Sockets } from '@meta/socket'
+import { Authorizer } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
-import { AssessmentActions, useAssessment } from '@client/store/assessment'
+import { AssessmentActions, useAssessment, useAssessmentSections, useCycle } from '@client/store/assessment'
 import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import { useNavigationVisible } from '@client/store/ui/navigation'
 import { ReviewActions } from '@client/store/ui/review'
 import { useUser } from '@client/store/user'
-import { useCountryIso } from '@client/hooks'
-import { ClientRoutes } from '@client/clientRoutes'
+import { useCountryIso, useIsDataExportView } from '@client/hooks'
+import CountrySelect from '@client/components/CountrySelect'
 import Navigation from '@client/components/Navigation'
 import AssessmentDataDownload from '@client/pages/AssessmentDataDownload'
 import AssessmentHome from '@client/pages/AssessmentHome'
@@ -31,17 +34,26 @@ const Assessment: React.FC = () => {
   const navigationVisible = useNavigationVisible()
   const countryIso = useCountryIso()
   const assessment = useAssessment()
-  const isDataExport = countryIso && !Areas.isISOCountry(countryIso)
+  const assessmentSections = useAssessmentSections()
+  const cycle = useCycle()
+  const isDataExportView = useIsDataExportView()
 
   useEffect(() => {
     dispatch(AssessmentActions.getSections({ countryIso, assessmentName, cycleName }))
 
     return () => {
       // reset review and assessment section store
-      dispatch(AssessmentSectionActions.reset())
       dispatch(ReviewActions.reset())
     }
   }, [countryIso, assessmentName, cycleName, dispatch])
+
+  // On cycle change, reset metadata, data
+  useEffect(() => {
+    return () => {
+      dispatch(AssessmentSectionActions.resetData())
+      dispatch(AssessmentSectionActions.reset())
+    }
+  }, [cycleName, dispatch])
 
   useEffect(() => {
     const requestReviewSummaryEvent = Sockets.getRequestReviewSummaryEvent({ countryIso, assessmentName, cycleName })
@@ -66,29 +78,37 @@ const Assessment: React.FC = () => {
     }
   }, [countryIso, assessmentName, cycleName, user, dispatch])
 
-  if (!assessment) return null
+  if (!assessment || !assessmentSections) return null
+
+  if (!Authorizer.canView({ countryIso, assessment, cycle, user })) window.location.href = ClientRoutes.Root.path
 
   return (
-    <div className={`app-view ${navigationVisible ? ' navigation-on' : ''}`}>
-      <Navigation />
-      <Routes>
-        <Route path={`${ClientRoutes.Assessment.Home.Root.path.relative}/*`} element={<AssessmentHome />} />
-        <Route path={ClientRoutes.Assessment.DataDownload.path.relative} element={<AssessmentDataDownload />} />
-        <Route
-          path={ClientRoutes.Assessment.Section.path.relative}
-          element={<SectionWrapper>{isDataExport ? <DataExport /> : <AssessmentSection />}</SectionWrapper>}
-        />
-        <Route
-          path={ClientRoutes.Assessment.OriginalDataPoint.Section.path.relative}
-          element={
-            <SectionWrapper>
-              <OriginalDataPoint />
-            </SectionWrapper>
-          }
-        />
-        <Route path="*" element={<Navigate to="home" replace />} />
-      </Routes>
-    </div>
+    <>
+      <CountrySelect />
+      <div className={classNames('app-view', { 'navigation-on': navigationVisible })}>
+        <Navigation />
+
+        <Routes>
+          <Route path={`${ClientRoutes.Assessment.Home.Root.path.relative}/*`} element={<AssessmentHome />} />
+
+          <Route path={ClientRoutes.Assessment.DataDownload.path.relative} element={<AssessmentDataDownload />} />
+          <Route
+            path={ClientRoutes.Assessment.Section.path.relative}
+            element={<SectionWrapper>{isDataExportView ? <DataExport /> : <AssessmentSection />}</SectionWrapper>}
+          />
+          <Route
+            path={ClientRoutes.Assessment.OriginalDataPoint.Section.path.relative}
+            element={
+              <SectionWrapper>
+                <OriginalDataPoint />
+              </SectionWrapper>
+            }
+          />
+
+          <Route path="*" element={<Navigate to="home" replace />} />
+        </Routes>
+      </div>
+    </>
   )
 }
 

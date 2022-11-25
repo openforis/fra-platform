@@ -14,9 +14,10 @@ import ReviewIndicator from '@client/components/ReviewIndicator'
 
 import { useNationalClassNameComments, useNationalClassValidation } from '../../hooks'
 
-const columns = [{ name: 'plantationIntroducedPercent', type: 'decimal' }]
+const columns = [{ name: 'forestPlantationIntroducedPercent', type: 'decimal' }]
 
-const allowedClass = (nc: ODPNationalClass) => Number(nc.plantationPercent) > 0 && Number(nc.forestPercent) > 0
+const allowedClass = (nc: ODPNationalClass) =>
+  nc.forestPlantationPercent !== null && Number(nc.forestPlantationPercent) >= 0 && Number(nc.forestPercent) > 0
 
 type Props = {
   canEditData: boolean
@@ -35,18 +36,22 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
 
   const { nationalClasses, id } = originalDataPoint
   const nationalClass = nationalClasses[index]
-  const { name, area, forestPercent, plantationPercent, plantationIntroducedPercent, uuid } = nationalClass
+  const { name, area, forestPercent, forestPlantationPercent, forestPlantationIntroducedPercent, uuid } = nationalClass
   const target = [id, 'class', `${uuid}`, 'plantation_forest_introduced'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
   const validationStatus = useNationalClassValidation(index)
   const classNamePercentageValidation = validationStatus.validPlantationIntroducedPercentage === false ? 'error' : ''
   const plantationIntroduced = area
-    ? Numbers.mul(area, Numbers.div(Numbers.mul(plantationPercent, forestPercent), 10000))
+    ? Numbers.mul(area, Numbers.div(Numbers.mul(forestPlantationPercent, forestPercent), 10000))
     : null
 
   if (!allowedClass(nationalClass)) {
     return null
   }
+
+  // const isPlantationPercentNull = forestPlantationPercent === null
+
+  const isZeroOrNullPlantationIntroduced = plantationIntroduced === null || Numbers.eq(plantationIntroduced, 0)
 
   return (
     <tr className={classNameRowComments}>
@@ -54,15 +59,15 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
       <th className="fra-table__calculated-sub-cell fra-table__divider">{Numbers.format(plantationIntroduced)}</th>
       <td className={`fra-table__cell ${classNamePercentageValidation}`}>
         <PercentInput
-          disabled={!canEditData}
-          numberValue={plantationIntroducedPercent}
+          disabled={!canEditData || isZeroOrNullPlantationIntroduced}
+          numberValue={isZeroOrNullPlantationIntroduced ? 0 : forestPlantationIntroducedPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             dispatch(
               OriginalDataPointActions.updateNationalClass({
                 odp: originalDataPoint,
                 index,
-                field: 'plantationIntroducedPercent',
-                prevValue: plantationIntroducedPercent,
+                field: 'forestPlantationIntroducedPercent',
+                prevValue: forestPlantationIntroducedPercent,
                 value: event.target.value,
                 assessmentName: assessment.props.name,
                 cycleName: cycle.name,

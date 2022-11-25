@@ -1,6 +1,7 @@
 const area = require('./fr/area')
 const common = require('./fr/common')
 const dataDownload = require('./fr/dataDownload')
+const fra = require('./fr/fra')
 const statisticalFactsheets = require('./fr/statisticalFactsheets')
 const login = require('./fr/login')
 const uc = require('./fr/uc')
@@ -9,6 +10,7 @@ module.exports.translation = {
   area,
   common,
   dataDownload,
+  fra,
   statisticalFactsheets,
   login,
   uc,
@@ -451,7 +453,7 @@ L'équipe de FRA
       subject: 'Invitation à la plateforme de FRA',
       textMessage: `Cher {{invitedUser}},
 
-Vous avez été invité à accéder à la plateforme de FRA comme {{role}} pour le/la {{country}}.
+Vous avez été invité à accéder {{assessmentName}} {{cycleName}} comme {{role}} pour le/la {{country}}.
 
 Acceptez cette invitation et accédez à cette plateforme à l'adresse suivante:
 {{- link}}
@@ -463,7 +465,7 @@ L'équipe de FRA fra@fao.org
     `,
       htmlMessage: `Cher {{invitedUser}},
 <br/><br/>
-Vous avez été invité à accéder à la plateforme de FRA comme {{role}} pour le/la {{country}}.
+Vous avez été invité à accéder {{assessmentName}} {{cycleName}} comme {{role}} pour le/la {{country}}.
 <br/><br/>
 <b><a href="{{- link}}">Acceptez cette invitation et accédez à la plateforme</a></b>
 <br/><br/>
@@ -498,7 +500,6 @@ L'équipe de FRA fra@fao.org
     extentOfForest: 'Étendue des forêts et des autres terres boisées',
     estimationAndForecasting: 'Estimation et prévision',
     categoryHeader: 'Catégories de FRA',
-    areaUnitLabel: 'Superficie (1000 ha)',
     forestArea: 'Forêt',
     chart: {
       placeholderLine1: 'Pour commencer, ajouter de nouveaux points de données nationales et les utiliser',
@@ -539,7 +540,6 @@ L'équipe de FRA fra@fao.org
     forestCharacteristics: 'Caractéristiques des forêts',
     estimationAndForecasting: 'Estimation et prévision',
     categoryHeader: 'Catégories de FRA',
-    areaUnitLabel: 'Superficie forestière (1000 ha)',
     naturalForestArea: 'Forêt naturellement régénérée',
     plantationForestArea: 'Forêt de plantation',
     plantationForestIntroducedArea: "…dont d'espèces introduites",

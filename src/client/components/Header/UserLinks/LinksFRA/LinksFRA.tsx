@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom'
 
 import { i18n } from 'i18next'
 
+import { ClientRoutes } from '@meta/app'
 import { User, Users } from '@meta/user'
 
 import { AppDispatch, useAppDispatch } from '@client/store'
 import { UserActions, useUser } from '@client/store/user'
 import { useIsLogin } from '@client/hooks'
 import { ToasterHook, useToaster } from '@client/hooks/useToaster'
-import { ClientRoutes } from '@client/clientRoutes'
 import Icon from '@client/components/Icon'
 import PopoverControl, { PopoverItem } from '@client/components/PopoverControl'
 
@@ -18,7 +18,7 @@ const getLinks = (i18nInstance: i18n, user: User, dispatch: AppDispatch, toaster
   const items: Array<PopoverItem> = [
     {
       content: i18nInstance.t('header.editProfile'),
-      link: ClientRoutes.User.Root.getLink({ id: user.id }),
+      link: ClientRoutes.Users.User.getLink({ id: user.id }),
     },
   ]
   if (Users.isAdministrator(user)) {

@@ -48,11 +48,11 @@ const useGenerateValues = (
   const [method, setMethod] = useState<Method>(null)
   const [fields, setFields] = useState<Array<GenerateValuesField>>(
     rows
-      .filter((row) => row.props.type === RowType.data && !row.props.calculateFn && !row.props.readonly)
+      .filter((row) => row.props.type === RowType.data && !row.props.calculateFn?.[cycle.uuid] && !row.props.readonly)
       .map((row) => {
         const { variableName } = row.props
         const colHeader = row.cols.find((col) => col.props.colType === ColType.header)
-        const { key } = colHeader.props.label
+        const { key } = colHeader.props.labels[cycle.uuid]
         return {
           variableName,
           labelKey: key,

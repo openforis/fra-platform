@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
+import { Users } from '@meta/user'
+import { UserRoles } from '@meta/user/userRoles'
 
 import { useAppDispatch } from '@client/store'
 import { LoginActions, useInvitation } from '@client/store/login'
@@ -12,7 +14,7 @@ import { Urls } from '@client/utils'
 
 const Invitation: React.FC = () => {
   const dispatch = useAppDispatch()
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const loggedUser = useUser()
 
@@ -25,7 +27,7 @@ const Invitation: React.FC = () => {
     } else {
       navigate('/')
     }
-  }, [])
+  }, [dispatch, invitationUuid, navigate])
 
   const onAccept = () => {
     dispatch(LoginActions.acceptInvitation({ invitationUuid }))
@@ -37,7 +39,15 @@ const Invitation: React.FC = () => {
   if (userRole?.acceptedAt) {
     return (
       <div className="login__form">
-        <h3>{i18n.t<string>('login.alreadyAcceptedInvitation')}</h3>
+        <h3>{t('login.alreadyAcceptedInvitation')}</h3>
+      </div>
+    )
+  }
+
+  if (userRole && UserRoles.isInvitationExpired(userRole)) {
+    return (
+      <div className="login__form">
+        <h3>{t('login.invitationExpired')}</h3>
       </div>
     )
   }
@@ -47,15 +57,16 @@ const Invitation: React.FC = () => {
   return (
     <div className="login__form">
       <h3>
-        {i18n.t<string>('login.invitationMessage', {
+        {t('login.invitationMessage', {
           assessment: assessment.props.name,
           cycle: cycle.name,
-          userRole: userRole.role,
+          userRole: t(Users.getI18nRoleLabelKey(userRole.role)),
         })}
       </h3>
-      {loggedUser && loggedUser.email === invitedUser.email ? (
+
+      {loggedUser?.email === invitedUser.email ? (
         <button type="button" className="btn" onClick={onAccept}>
-          {i18n.t<string>('login.acceptInvitation')}
+          {t('login.acceptInvitation')}
         </button>
       ) : (
         <>
@@ -67,7 +78,7 @@ const Invitation: React.FC = () => {
             className="btn"
             href={`${ApiEndPoint.Auth.google()}${invitationUuid ? `?invitationUuid=${invitationUuid}` : ''}`}
           >
-            {i18n.t<string>('login.acceptInvitationWithGoogle')}
+            {t('login.acceptInvitationWithGoogle')}
           </a>
         </>
       )}

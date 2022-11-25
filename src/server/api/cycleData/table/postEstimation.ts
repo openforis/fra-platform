@@ -1,6 +1,7 @@
 import { Response } from 'express'
 
 import { CycleDataRequest, EstimateBody } from '@meta/api/request'
+import { ActivityLogMessage } from '@meta/assessment'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { CycleDataController } from '@server/controller/cycleData'
@@ -9,7 +10,7 @@ import Requests from '@server/utils/requests'
 
 export const postEstimation = async (req: CycleDataRequest<never, EstimateBody>, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName } = req.query
+    const { countryIso, assessmentName, cycleName, sectionName } = req.query
     const { method, tableName, fields } = req.body
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({
@@ -65,6 +66,8 @@ export const postEstimation = async (req: CycleDataRequest<never, EstimateBody>,
       await CycleDataController.persistNodeValues({
         nodeUpdates: { assessment, cycle, countryIso, nodes },
         user: Requests.getRequestUser(req),
+        activityLogMessage: ActivityLogMessage.nodeValueEstimate,
+        sectionName,
       })
     }
 

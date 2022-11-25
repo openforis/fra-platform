@@ -1,4 +1,4 @@
-import { ChangeEventHandler, ClipboardEventHandler } from 'react'
+import React from 'react'
 
 import { NodesBodyValue } from '@meta/api/request'
 import { Col, Cols, ColType, NodeValue, Row, RowType, Table } from '@meta/assessment'
@@ -18,27 +18,32 @@ type Props = {
   data: TableData
   sectionName: string
 }
+export type OnChangeNodeValue = (value: NodeValue) => void
+export type OnChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void
+export type OnPaste = React.ClipboardEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
 
 type UseOnChange = {
-  onChange: ChangeEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
-  onPaste: ClipboardEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  onChange: OnChange
+  onChangeNodeValue: OnChangeNodeValue
+  onPaste: OnPaste
 }
 
 export default (props: Props): UseOnChange => {
   const { table, col, row, nodeValue, data, sectionName } = props
+  const type = col.props.colType
+
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const cycle = useCycle()
   const assessment = useAssessment()
   const assessmentSection = useAssessmentSection(sectionName)
 
-  const _persistSanitizedValue = (value: string) => {
-    const type = col.props.colType
-    if (Sanitizer.isAcceptable({ type, value })) {
+  const _persistSanitizedValue = (value: NodeValue) => {
+    if (Sanitizer.isAcceptable({ type, value: value.raw })) {
       const valueUpdate = Sanitizer.sanitize({
-        value,
+        value: value.raw,
         type,
-        valuePrev: nodeValue.raw,
+        valuePrev: nodeValue?.raw,
         options: col.props.select?.options,
       })
 
@@ -61,12 +66,19 @@ export default (props: Props): UseOnChange => {
     }
   }
 
-  const onChange: ChangeEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement> = (event) => {
-    const { value } = event.target
+  const onChangeNodeValue = (value: NodeValue): void => {
     _persistSanitizedValue(value)
   }
 
-  const onPaste: ClipboardEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement> = (event) => {
+  const onChange: OnChange = (event): void => {
+    const { value } = event.target
+    onChangeNodeValue({
+      ...nodeValue,
+      raw: value,
+    })
+  }
+
+  const onPaste: React.ClipboardEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement> = (event) => {
     event.stopPropagation()
     event.preventDefault()
 
@@ -143,9 +155,12 @@ export default (props: Props): UseOnChange => {
       }
     } else {
       const value = clipboardData.getData('text/plain')
-      _persistSanitizedValue(value)
+      _persistSanitizedValue({
+        ...nodeValue,
+        raw: value,
+      })
     }
   }
 
-  return { onChange, onPaste }
+  return { onChange, onChangeNodeValue, onPaste }
 }

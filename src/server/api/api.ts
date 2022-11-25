@@ -1,5 +1,8 @@
 import { Express } from 'express'
 
+import { ExtDataApi } from '@server/api/extData'
+
+import { AdminApi } from './admin'
 import { AreaApi } from './area'
 import { AuthApi } from './auth'
 import { CycleDataApi } from './cycleData'
@@ -19,10 +22,12 @@ import { UserApi } from './user'
 export const Api = {
   init: (express: Express): void => {
     InitApi.init(express)
+    AdminApi.init(express)
     AreaApi.init(express)
     AuthApi.init(express)
     CycleDataApi.init(express)
     DefinitionApi.init(express)
+    ExtDataApi.init(express)
     FileApi.init(express)
     UserApi.init(express)
     MessageCenterApi.init(express)

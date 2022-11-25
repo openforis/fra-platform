@@ -71,8 +71,14 @@
 @include mixin-table-cell(400, right, 10px);
 }
 
-.fra-table__subcategory-cell {
+.fra-table__subcategory1-cell {
 @include mixin-table-cell(400, left, 10px 10px 10px 20px);
+  font-size: $font-xs;
+  color: $text-mute;
+}
+
+.fra-table__subcategory2-cell {
+  @include mixin-table-cell(400, left, 10px 10px 10px 32px);
   font-size: $font-xs;
   color: $text-mute;
 }

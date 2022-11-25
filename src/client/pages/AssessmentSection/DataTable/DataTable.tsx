@@ -8,13 +8,14 @@ import { TableDatas } from '@meta/data'
 import { useAppDispatch } from '@client/store'
 import { useCycle } from '@client/store/assessment'
 import { AssessmentSectionActions, useTableData } from '@client/store/pages/assessmentSection'
-import { useCanEditSection } from '@client/store/user'
+import { useCanEditTableData } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import GenerateValues from '@client/pages/AssessmentSection/DataTable/GenerateValues'
 
 import Chart from './Chart'
 import Table from './Table'
+import { useODPDeleteListener } from './useODPDeleteListener'
 
 type Props = {
   assessmentName: AssessmentName
@@ -33,8 +34,8 @@ const DataTable: React.FC<Props> = (props) => {
   const countryIso = useCountryIso()
   const data = useTableData({ table })
   const cycle = useCycle()
-  const canEditSection = useCanEditSection(sectionName)
-  const generateValues = canEditSection && table.props.odp
+  const canEditTableData = useCanEditTableData(sectionName)
+  const generateValues = canEditTableData && table.props.odp
 
   const {
     // props: { name: tableName },
@@ -50,6 +51,8 @@ const DataTable: React.FC<Props> = (props) => {
   // const generateValues: boolean = useSelector(
   //   (state) => odp && !disabled && Objects.isFunction(canGenerateValues) && canGenerateValues(state)
   // )
+
+  useODPDeleteListener({ assessmentName, cycleName: cycle.name, countryIso })
 
   useEffect(() => {
     dispatch(
@@ -69,10 +72,7 @@ const DataTable: React.FC<Props> = (props) => {
         })
       )
     }
-    return () => {
-      dispatch(AssessmentSectionActions.resetData())
-    }
-  }, [sectionName])
+  }, [assessmentName, countryIso, cycle.name, dispatch, odp, sectionName, table.props.name])
   if (!data) return null
 
   const showOdpChart = table.props.odp
@@ -83,7 +83,8 @@ const DataTable: React.FC<Props> = (props) => {
     countryIso,
   })
 
-  if (dataEmpty && onlyTables) {
+  // Always show secondary tables - unless whole section empty (handled in parent)
+  if (dataEmpty && onlyTables && !table.props.secondary) {
     return null
   }
 

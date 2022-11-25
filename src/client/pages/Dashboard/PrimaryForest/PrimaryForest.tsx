@@ -9,22 +9,35 @@ import { Areas } from '@meta/area'
 import { TableNames } from '@meta/assessment'
 import { TableDatas } from '@meta/data'
 
+import { useCycle } from '@client/store/assessment'
 import { useCountryIso } from '@client/hooks'
 import Chart from '@client/components/Chart'
 
 import useDashboardData from '../hooks/useDashboardData'
 import { ChartColors, commonOptions } from '../utils/preferences'
 
+// PrimaryForest moved in cycle 2025 to forestCharacteristics
+const cycleTableName: Record<string, string> = {
+  '2020': TableNames.specificForestCategories,
+  '2025': TableNames.forestCharacteristics,
+}
+// primary_forest renamed to primaryForest
+const cycleVariableName: Record<string, string> = {
+  '2020': 'primary_forest',
+  '2025': 'primaryForest',
+}
+
 const PrimaryForest = () => {
   const countryIso = useCountryIso()
+  const cycle = useCycle()
   const isIsoCountry = Areas.isISOCountry(countryIso)
 
   const i18n = useTranslation()
   const section = 'primaryForest'
   const column = '2020'
-  const tableNamePrimary = isIsoCountry ? TableNames.specificForestCategories : TableNames.valueAggregate
+  const tableNamePrimary = isIsoCountry ? cycleTableName[cycle.name] : TableNames.valueAggregate
   const tableNameSecondary = isIsoCountry ? TableNames.extentOfForest : TableNames.valueAggregate
-  const variables = ['primary_forest', 'forestArea']
+  const variables = [cycleVariableName[cycle.name], 'forestArea']
 
   const { data: tableData, loaded } = useDashboardData({
     columns: [column],
@@ -46,7 +59,7 @@ const PrimaryForest = () => {
     TableDatas.getDatum({ ...props, tableName: tableNameSecondary, variableName: 'forestArea' })
   )
   const primaryForest = Number(
-    TableDatas.getDatum({ ...props, tableName: tableNamePrimary, variableName: 'primary_forest' })
+    TableDatas.getDatum({ ...props, tableName: tableNamePrimary, variableName: cycleVariableName[cycle.name] })
   )
 
   const primaryForestAsPercentage = Numbers.mul(100, Numbers.div(primaryForest, otherForest))?.toNumber()

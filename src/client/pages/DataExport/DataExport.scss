@@ -6,17 +6,21 @@
   grid-row-gap: $spacing-xl;
 
   @include min-width($laptop) {
-    grid-template-rows: 300px 1fr;
-    grid-row-gap: $spacing-s;
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-s;
   }
 }
 
 .export__form {
   display: grid;
   grid-row-gap: $spacing-xs;
+  position: sticky;
+  left: 0;
+  flex: 1 100%;
 
   @include min-width($laptop) {
-    max-width: 98vw;
+    height: 300px;
     grid-template-columns: repeat(3, 1fr);
     grid-row-gap: unset;
     overflow-y: hidden;
@@ -96,7 +100,10 @@
     @include min-width($laptop) {
       grid-column-gap: $spacing-s;
       grid-template-columns: repeat(2, auto);
-      justify-content: start;
+
+      :nth-child(3) {
+        grid-column: span 2;
+      }
 
       h4 {
         justify-self: right;

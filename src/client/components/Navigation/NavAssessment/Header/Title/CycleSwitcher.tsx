@@ -2,13 +2,13 @@ import './CycleSwitcher.scss'
 import React, { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { ClientRoutes } from '@meta/app'
 import { Authorizer } from '@meta/user'
 
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { useIsDataLocked } from '@client/store/ui/dataLock'
 import { useUser } from '@client/store/user'
-import { useCountryIso } from '@client/hooks'
-import { ClientRoutes } from '@client/clientRoutes'
+import { useCountryIso, useIsDataExportView } from '@client/hooks'
 
 const CycleSwitcher = () => {
   const countryIso = useCountryIso()
@@ -17,10 +17,11 @@ const CycleSwitcher = () => {
   const assessment = useAssessment()
   const user = useUser()
   const isDataLocked = useIsDataLocked()
+  const isDataExportView = useIsDataExportView()
 
   const assessmentName = assessment.props.name
   const userCycles = assessment.cycles.filter((cycle) => Authorizer.canView({ countryIso, user, cycle, assessment }))
-  const canSwitchCycle = user && isDataLocked && userCycles.length > 1
+  const canSwitchCycle = user && (isDataLocked || isDataExportView) && userCycles.length > 1
 
   const onSelectChange = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -30,7 +31,7 @@ const CycleSwitcher = () => {
     [assessmentName, countryIso, navigate]
   )
 
-  if (!canSwitchCycle) return <span>{cycleCurrent.name}</span>
+  if (!canSwitchCycle) return <span className="cycle-switcher-locked">{cycleCurrent.name}</span>
 
   return (
     <select className="cycle-switcher" onChange={onSelectChange} value={cycleCurrent.name}>

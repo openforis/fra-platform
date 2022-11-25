@@ -15,23 +15,22 @@ import { sendInvitationEmail } from './sendInvitationEmail'
 import { updateSectionAuth } from './updateSectionAuth'
 import { updateUser } from './updateUser'
 import multer = require('multer')
+import { updateUserRoles } from './updateUserRoles'
 
 export const UserApi = {
   init: (express: Express): void => {
     express.put(ApiEndPoint.User.many(), multer().single('profilePicture'), AuthMiddleware.requireEditUser, updateUser)
-    express.get(ApiEndPoint.User.many(), AuthMiddleware.requireView, getMany)
-
+    express.get(ApiEndPoint.User.many(), AuthMiddleware.requireViewUsers, getMany)
     express.get(ApiEndPoint.User.one(), AuthMiddleware.requireEditUser, getUser)
 
-    // Invitation
     express.post(ApiEndPoint.User.invite(), AuthMiddleware.requireEditUser, invite)
-
     express.get(ApiEndPoint.User.invitation(), getInvitation)
     express.delete(ApiEndPoint.User.invitation(), AuthMiddleware.requireEditUser, removeInvitation)
     express.get(ApiEndPoint.User.invitationAccept(), acceptInvitation)
     express.get(ApiEndPoint.User.invitationSendEmail(), AuthMiddleware.requireEditUser, sendInvitationEmail)
 
     express.get(ApiEndPoint.User.profilePicture(), getProfilePicture)
+    express.post(ApiEndPoint.User.roles(), AuthMiddleware.requireAdmin, updateUserRoles)
     express.post(ApiEndPoint.User.sectionAuth(), AuthMiddleware.requireEditUser, updateSectionAuth)
   },
 }

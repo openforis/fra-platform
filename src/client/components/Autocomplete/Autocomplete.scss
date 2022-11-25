@@ -1,0 +1,63 @@
+@import 'src/client/styles/config';
+@import 'src/client/style/partials';
+
+.autocomplete {
+  transition: all .1s ease-out;
+}
+
+.autocomplete-input__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  > svg {
+    margin: $spacing-xxs;
+  }
+}
+
+.autocomplete-dropdown {
+  position: absolute;
+  background: white;
+  border-radius: 2px;
+  z-index: 4;
+  top: 100%;
+  left: -1px; // align with top container border
+  min-width: calc(100% + 2px); //2px parent border
+
+
+}
+
+.autocomplete-item {
+  align-items: center;
+  border-left: 1px solid $text-link;
+  border-right: 1px solid $text-link;
+  color: $text-link;
+  cursor: pointer;
+  display: flex;
+  font-weight: normal;
+  justify-content: flex-start;
+  line-height: 16px;
+  padding: $spacing-xxs 9px;
+  text-decoration: none;
+
+  &:first-child {
+    border-top: 1px solid $text-link;
+
+  }
+
+  &:last-child {
+    border-bottom: 1px solid $text-link;
+  }
+  &.selected {
+    border-left: 2px solid darken($ui-accent-light, 25%);
+    padding: $spacing-xxs;
+  }
+
+  &.highlighted {
+    padding: $spacing-xxs 9px;
+    background-color: $ui-accent-light;
+    border-left: 1px solid darken($ui-accent-light, 25%);
+    border-right: 1px solid darken($ui-accent-light, 25%);
+  }
+
+}

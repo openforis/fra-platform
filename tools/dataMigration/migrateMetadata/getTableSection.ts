@@ -1,22 +1,32 @@
-import { SectionTableSpec } from '../../../.src.legacy/webapp/sectionSpec'
-import { SubSection } from '../../../src/meta/assessment/section'
-import { TableSection } from '../../../src/meta/assessment/tableSection'
+import { Assessment, SubSection, TableSection } from '../../../src/meta/assessment'
+import { SectionTableSpec } from '../../../src/test/sectionSpec'
+import { getCycleUuids, getLabels } from './utils'
 
 export const getTableSection = (props: {
-  cycles: Array<string>
+  assessment: Assessment
+  subSection: SubSection
   tableSectionSpec: SectionTableSpec
-  section: SubSection
 }): TableSection => {
-  const { cycles, tableSectionSpec, section } = props
+  const { assessment, subSection, tableSectionSpec } = props
 
   const tableSection: TableSection = {
     props: {
-      cycles,
-      descriptionKey: tableSectionSpec.descriptionKey,
-      labelKey: tableSectionSpec.titleKey,
+      cycles: getCycleUuids({
+        assessment,
+        parentCycleUuids: subSection.props.cycles,
+        migration: tableSectionSpec.migration,
+      }),
+      descriptions: getLabels({
+        assessment,
+        label: { key: tableSectionSpec.descriptionKey },
+        migration: {},
+      }),
+      labels: getLabels({
+        assessment,
+        label: { key: tableSectionSpec.titleKey },
+        migration: tableSectionSpec.migration,
+      }),
     },
-    sectionId: section.id || -1,
-    sectionName: section.props.name,
     tables: [],
   }
   return tableSection

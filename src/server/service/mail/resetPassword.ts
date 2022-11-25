@@ -1,5 +1,7 @@
 import { createI18nPromise } from '@i18n/i18nFactory'
+
 import { User, UserResetPassword } from '@meta/user'
+
 import { sendMail } from './mail'
 
 export const resetPassword = async (props: { url: string; user: User; userResetPassword: UserResetPassword }) => {
@@ -11,17 +13,14 @@ export const resetPassword = async (props: { url: string; user: User; userResetP
     userResetPassword.uuid ? `?resetPasswordUuid=${userResetPassword.uuid}` : ''
   }`
 
+  const emailProps = { link, url, user }
+
   const resetPasswordEmail = {
     to: user.email,
     subject: i18n.t('user.resetPasswordEmail.subject'),
-    text: i18n.t('user.resetPasswordEmail.textMessage', {
-      link,
-      url,
-    }),
-    html: i18n.t('user.resetPasswordEmail.htmlMessage', {
-      link,
-      url,
-    }),
+    text: i18n.t('user.resetPasswordEmail.textMessage', emailProps),
+    html: i18n.t('user.resetPasswordEmail.htmlMessage', emailProps),
   }
+
   await sendMail(resetPasswordEmail)
 }

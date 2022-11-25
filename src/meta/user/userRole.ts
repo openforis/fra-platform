@@ -27,12 +27,19 @@ export type Administrator = UserRole<RoleName.ADMINISTRATOR>
 export type NationalCorrespondent = UserRole<RoleName.NATIONAL_CORRESPONDENT>
 export type Reviewer = UserRole<RoleName.REVIEWER>
 export type Viewer = UserRole<RoleName.VIEWER>
-export type CollaboratorProps = {
+export enum CollaboratorEditPropertyType {
+  tableData = 'tableData',
+  descriptions = 'descriptions',
+}
+export type CollaboratorSectionsProp =
   /**
    * all = all sections enabled for editing
    * none = no sections enabled for editing
-   * Record<string, boolean> = key is sectionUuid, value if true enabled for editing, disabled otherwise
+   * Record<string, { tableData: boolean, descriptions: boolean }> = key is sectionUuid, value contains an object which specifies permission by key
    */
-  sections: 'all' | 'none' | Record<string, boolean>
+  'all' | 'none' | Record<string, { [key in keyof typeof CollaboratorEditPropertyType]?: boolean }>
+
+export type CollaboratorProps = {
+  sections: CollaboratorSectionsProp
 }
 export type Collaborator = UserRole<RoleName.COLLABORATOR, CollaboratorProps>

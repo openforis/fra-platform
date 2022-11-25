@@ -3,12 +3,12 @@ import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import { AssessmentName } from '@meta/assessment'
+import { AssessmentName, TableNames } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 import { ReviewActions } from '@client/store/ui/review'
-import { useCanEditSection, useUser } from '@client/store/user'
+import { useCanEditTableData, useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 
 import ButtonBar from './components/ButtonBar'
@@ -32,7 +32,7 @@ const OriginalDataPoint: React.FC = () => {
     year: string
   }>()
 
-  const canEditData = useCanEditSection()
+  const canEditData = useCanEditTableData(TableNames.extentOfForest)
 
   useEffect(() => {
     if (year !== '-1') {
@@ -62,7 +62,7 @@ const OriginalDataPoint: React.FC = () => {
         })
       )
     }
-  }, [originalDataPoint, countryIso, assessmentName, cycleName, year])
+  }, [originalDataPoint?.id, countryIso, assessmentName, cycleName, user, dispatch, sectionName])
 
   if (!originalDataPoint) return null
 

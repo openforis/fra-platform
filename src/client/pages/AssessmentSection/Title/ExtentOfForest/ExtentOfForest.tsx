@@ -1,9 +1,11 @@
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Labels } from '@meta/assessment'
 import { Users } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
+import { useCycle } from '@client/store/assessment'
 import {
   AssessmentSectionActions,
   useOriginalDataPointYears,
@@ -16,15 +18,18 @@ import OriginalDataPointsPrint from '@client/pages/AssessmentPrint/OriginalDataP
 import { Props } from '../props'
 
 const ExtentOfForest: React.FC<Props> = (props) => {
-  const { sectionName } = props
+  const { subSection } = props
 
-  const user = useUser()
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
   const dispatch = useAppDispatch()
+  const user = useUser()
+  const cycle = useCycle()
   const { print, onlyTables } = useIsPrint()
   const odpYears = useOriginalDataPointYears()
-  const hasOdps = Array.isArray(odpYears)
   const showOdps = useShowOriginalDatapoints()
+
+  const hasOdps = Array.isArray(odpYears)
+  const sectionName = subSection.props.name
 
   const onClick = useCallback(() => {
     dispatch(AssessmentSectionActions.toggleShowOriginalDataPoint())
@@ -33,15 +38,15 @@ const ExtentOfForest: React.FC<Props> = (props) => {
   return (
     <>
       <h2 className="headline no-print">
-        {i18n.t<string>(`${sectionName}.${sectionName}`)}
+        {Labels.getLabel({ cycle, labels: subSection.props.labels, t })}
         {Users.isAdministrator(user) && hasOdps && (
           <button type="button" className="btn-s btn-secondary btn-toggle-odp" onClick={onClick}>
-            {i18n.t<string>(`extentOfForest.${showOdps ? 'hideNDPs' : 'showNDPs'}`)}
+            {t(`extentOfForest.${showOdps ? 'hideNDPs' : 'showNDPs'}`)}
           </button>
         )}
       </h2>
 
-      {hasOdps && print && !onlyTables && <OriginalDataPointsPrint section={sectionName} />}
+      {hasOdps && print && !onlyTables && <OriginalDataPointsPrint sectionName={sectionName} />}
     </>
   )
 }

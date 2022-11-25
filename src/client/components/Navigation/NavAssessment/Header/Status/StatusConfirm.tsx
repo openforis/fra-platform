@@ -1,16 +1,19 @@
 import './StatusConfirm.scss'
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useParams } from 'react-router-dom'
 
+import classNames from 'classnames'
+
+import { AssessmentName } from '@meta/assessment'
+import { Users } from '@meta/user'
+
+import { useAppDispatch } from '@client/store'
+import { AssessmentActions, useAssessmentCountry } from '@client/store/assessment'
+import { useUser } from '@client/store/user'
+import { useCountryIso } from '@client/hooks'
 import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from '@client/components/Modal'
 
-import { useTranslation } from 'react-i18next'
-import { useUser } from '@client/store/user'
-import { Users } from '@meta/user'
-import { AssessmentActions, useAssessmentCountry } from '@client/store/assessment'
-import { useParams } from 'react-router-dom'
-import { AssessmentName } from '@meta/assessment'
-import { useCountryIso } from '@client/hooks'
-import { useAppDispatch } from '@client/store'
 import { StatusTransition } from './types'
 
 type Props = {
@@ -57,7 +60,7 @@ const StatusConfirm: React.FC<Props> = (props) => {
             role="button"
             tabIndex={0}
           >
-            <div className={`fra-checkbox${notifyUsers ? '' : ' checked'}`} />
+            <div className={classNames('fra-checkbox', { checked: !notifyUsers })} />
             {i18n.t('navigation.doNotNotifyUsers')}
           </div>
         )}

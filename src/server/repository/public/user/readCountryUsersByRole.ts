@@ -5,12 +5,12 @@ import { RoleName, User } from '@meta/user'
 
 import { BaseProtocol, DB } from '@server/db'
 
+import { fields } from './fields'
+
 /*
   This is used for mailing service on assessment status change
   We get a list of recipients for Array<<countryIsos>> and Array<<RoleName>>
 */
-
-const fields: Array<string> = ['lang', 'id', 'name', 'status', 'position', 'email']
 
 const selectFields = fields.map((f) => `u.${f}`).join(',')
 

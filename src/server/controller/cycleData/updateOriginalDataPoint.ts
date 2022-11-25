@@ -2,8 +2,10 @@ import { ActivityLogMessage, Assessment, Cycle, OriginalDataPoint } from '@meta/
 import { User } from '@meta/user'
 
 import { BaseProtocol, DB } from '@server/db'
-import { ActivityLogRepository } from '@server/repository/assessment/activityLog'
 import { OriginalDataPointRepository } from '@server/repository/assessmentCycle/originalDataPoint'
+import { ActivityLogRepository } from '@server/repository/public/activityLog'
+
+import { updateOriginalDataPointDependentNodes } from './updateOriginalDataPointDependentNodes'
 
 export const updateOriginalDataPoint = async (
   props: {
@@ -36,6 +38,8 @@ export const updateOriginalDataPoint = async (
       },
       t
     )
+
+    await updateOriginalDataPointDependentNodes({ assessment, cycle, originalDataPoint, user }, t)
 
     return updatedOriginalDataPoint
   })

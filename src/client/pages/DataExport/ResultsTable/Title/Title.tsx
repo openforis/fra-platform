@@ -4,11 +4,12 @@ import { useParams } from 'react-router-dom'
 
 import { Objects } from '@utils/objects'
 
-import { Row } from '@meta/assessment'
+import { Cols, Row } from '@meta/assessment'
 import { Unit, UnitFactors } from '@meta/dataExport'
 
+import { useCycle } from '@client/store/assessment'
 import { useTableSections } from '@client/store/pages/assessmentSection'
-import { getUnitLabelKey, getVariableLabelKey } from '@client/pages/DataExport/utils'
+import { getUnitLabelKey } from '@client/pages/DataExport/utils'
 
 type Props = {
   baseUnit?: Unit
@@ -19,32 +20,28 @@ type Props = {
 
 const Title: React.FC<Props> = (props) => {
   const { baseUnit, resultsLoading, onUnitChange, variable } = props
-  const i18n = useTranslation()
-  const { sectionName } = useParams<{
-    sectionName: string
-  }>()
 
+  const { t } = useTranslation()
+  const { sectionName } = useParams<{ sectionName: string }>()
+  const cycle = useCycle()
   const tableSections = useTableSections({ sectionName })
-  if (!tableSections) return null
-  if (Objects.isEmpty(tableSections)) return null
+
+  if (!tableSections || Objects.isEmpty(tableSections)) return null
+
   const { tables } = tableSections.find((tableSection) => tableSection.tables.find((table) => table.props.dataExport))
   const tableSpec = tables[0]
 
   const rowSpecs = tableSpec.rows.filter((row: Row) => !!row.props.variableName)
   const rowSpecVariable = rowSpecs.find((row: Row) => row.props.variableName === variable)
-
-  const { key: labelKey, params: labelParams, prefixKey: labelPrefixKey } = rowSpecVariable.cols[0].props.label
+  const labelVariable = Cols.getLabel({ cycle, col: rowSpecVariable.cols[0], t })
 
   if (resultsLoading) {
-    return <div>{i18n.t('description.loading')}</div>
+    return <div>{t('description.loading')}</div>
   }
 
   return (
     <>
-      <span>
-        {labelPrefixKey && `${i18n.t(labelPrefixKey)} `}
-        {i18n.t(getVariableLabelKey(labelKey), labelParams)}
-      </span>
+      <span>{labelVariable}</span>
       {Object.keys(UnitFactors).includes(baseUnit) ? (
         <>
           <span> (</span>
@@ -55,13 +52,13 @@ const Title: React.FC<Props> = (props) => {
               onUnitChange(event.target.value as Unit, variable)
             }}
           >
-            <option value={baseUnit}>{i18n.t(getUnitLabelKey(baseUnit))}</option>
+            <option value={baseUnit}>{t(getUnitLabelKey(baseUnit))}</option>
 
             {Object.keys(UnitFactors[baseUnit]).map(
               (unit) =>
                 unit !== baseUnit && (
                   <option key={unit} value={unit}>
-                    {i18n.t(getUnitLabelKey(unit))}
+                    {t(getUnitLabelKey(unit))}
                   </option>
                 )
             )}
@@ -69,7 +66,7 @@ const Title: React.FC<Props> = (props) => {
           <span>)</span>
         </>
       ) : (
-        <span>{baseUnit ? ` (${i18n.t(`unit.${baseUnit}`)})` : ''}</span>
+        <span>{baseUnit ? ` (${t(`unit.${baseUnit}`)})` : ''}</span>
       )}
     </>
   )

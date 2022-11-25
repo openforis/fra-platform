@@ -1,10 +1,17 @@
 import { ExpressionNodeEvaluator, MemberExpression } from '@openforis/arena-core'
 
 import { VariableCache } from '../../../../../src/meta/assessment/assessmentMetaCache'
+import { Row } from '../../../../../src/meta/assessment/row'
 import { Context } from './context'
 
+const includesVariableCache = (variables: Array<VariableCache>, variable: VariableCache): boolean =>
+  Boolean(variables.find((v) => v.variableName === variable.variableName && v.tableName === variable.tableName))
+
+const excludeDependant = (row: Row, tableName: string, variableName: string): boolean =>
+  Boolean(row.props?.dependantsExclude?.find((v) => v.tableName === tableName && v.variableName === variableName))
+
 export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpression> {
-  evaluate(expressionNode: MemberExpression): any {
+  evaluate(expressionNode: MemberExpression): string {
     const { object, property } = expressionNode
 
     const { assessmentMetaCache, row, tableName, type } = this.context
@@ -18,7 +25,7 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
       const dependantTable = assessmentMetaCache[type].dependants?.[objectName] ?? {}
       const dependants = dependantTable[propertyName] ?? []
       const dependant: VariableCache = { variableName: row.props.variableName, tableName }
-      if (!dependants.find((d) => d.variableName === dependant.variableName)) {
+      if (!excludeDependant(row, objectName, propertyName) && !includesVariableCache(dependants, dependant)) {
         assessmentMetaCache[type].dependants = {
           ...assessmentMetaCache[type].dependants,
           // @ts-ignore
@@ -34,7 +41,7 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
       const dependencies = dependencyTable[row.props.variableName] ?? []
       // @ts-ignore
       const dependency: VariableCache = { variableName: propertyName, tableName: objectName }
-      if (!dependencies.find((d) => d.variableName === dependency.variableName)) {
+      if (!includesVariableCache(dependencies, dependency)) {
         assessmentMetaCache[type].dependencies = {
           ...assessmentMetaCache[type].dependencies,
           [tableName]: {

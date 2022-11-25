@@ -4,6 +4,8 @@ const assessmentSection = require('./en/assessmentSection')
 const common = require('./en/common')
 const contentCheck = require('./en/contentCheck')
 const dataDownload = require('./en/dataDownload')
+const dataSource = require('./en/dataSource')
+const fra = require('./en/fra')
 const statisticalFactsheets = require('./en/statisticalFactsheets')
 const login = require('./en/login')
 const uc = require('./en/uc')
@@ -14,6 +16,8 @@ module.exports.translation = {
   common,
   contentCheck,
   dataDownload,
+  dataSource,
+  fra,
   statisticalFactsheets,
   login,
   uc,
@@ -90,6 +94,7 @@ followed by the boreal, temperate and subtropical domains.`,
     annualNumberOfVisitsMillion: 'annual number of visits (million)',
     millionNationalCurrency: 'million national currency',
     facilityLengthIn1000Km: 'facility (length in 1000 km)',
+    growingStockPercent: '% of total growing stock in forest',
   },
 
   countrySelection: {
@@ -119,6 +124,7 @@ followed by the boreal, temperate and subtropical domains.`,
       ALTERNATE_NATIONAL_CORRESPONDENT: 'Alternate national correspondent',
       COLLABORATOR: 'Collaborator',
       ADMINISTRATOR: 'Administrator',
+      VIEWER: 'Viewer',
       noRole: 'N/A',
       // unused?
       reviewer_plural: 'Reviewers',
@@ -271,7 +277,9 @@ The FRA team fra@fao.org
       fraGeoSpatialTools: 'FRA Geospatial tools',
       repository: 'Repository',
       uploadFile: 'Upload a file',
+      fileUploaded: 'File successfully uploaded',
       confirmDelete: 'Delete {{file}}? This cannot be undone.',
+      fileDeleted: 'File successfully deleted',
     },
     dataExport: {
       downloadData: 'Download data',
@@ -514,6 +522,7 @@ The FRA team
     remove: 'Remove',
     done: 'Done',
     edit: 'Edit',
+    editPermissions: 'Edit permissions',
     addUser: 'Add collaborator',
     formErrors: 'There are errors in the form. Please, fix them and submit it again.',
     userAdded: '{{email}} has been added',
@@ -522,7 +531,7 @@ The FRA team
     confirmDelete: 'Remove {{user}}?',
     allUsers: 'All collaborators',
     info: 'Info',
-    tableAccess: 'Table access',
+    permissions: 'Permissions',
     invitationLink: 'Invitation link',
     sendInvitation: 'Send invitation email',
     invitationDeleted: 'The invitation has been deleted',
@@ -531,7 +540,7 @@ The FRA team
       subject: 'FRA platform invitation',
       textMessage: `Dear {{invitedUser}},
 
-You have been invited to access the FRA platform as {{role}} for {{country}}.
+You have been invited to access the {{assessmentName}} {{cycleName}} as {{role}} for {{country}}.
 
 Accept this invitation and access the platform at the following URL:
 {{- link}}
@@ -543,7 +552,7 @@ The FRA team fra@fao.org
     `,
       htmlMessage: `Dear {{invitedUser}},
 <br/><br/>
-You have been invited to access the FRA platform as {{role}} for {{country}}.
+You have been invited to access {{assessmentName}} {{cycleName}} as {{role}} for {{country}}.
 <br/><br/>
 <b><a href="{{- link}}">Accept this invitation and access the platform</a></b>
 <br/><br/>
@@ -553,6 +562,10 @@ The FRA team fra@fao.org
 <br/>
 {{- url}}
     `,
+    },
+    permissionNames: {
+      tableData: 'Table Data',
+      descriptions: 'Descriptions',
     },
   },
 
@@ -578,7 +591,6 @@ The FRA team fra@fao.org
     extentOfForest: 'Extent of forest and other wooded land',
     estimationAndForecasting: 'Estimation and forecasting',
     categoryHeader: 'FRA categories',
-    areaUnitLabel: 'Area (1000 ha)',
     forestArea: 'Forest',
     chart: {
       placeholderLine1: 'To get started, add new national data points and use',
@@ -616,7 +628,6 @@ The FRA team fra@fao.org
     forestCharacteristics: 'Forest characteristics',
     estimationAndForecasting: 'Estimation and forecasting',
     categoryHeader: 'FRA categories',
-    areaUnitLabel: 'Forest area (1000 ha)',
     naturalForestArea: 'Naturally regenerating forest',
     plantationForestArea: 'Plantation forest',
     plantationForestIntroducedArea: '…of which introduced species',
@@ -718,6 +729,7 @@ The FRA team fra@fao.org
     totalIntroduced: 'Total volume of introduced tree species',
     totalGrowingStock: 'Total growing stock',
     rankingYear: 'Ranking year 2015',
+    growingStockPercent: '$t(fra.growingStockComposition.growingStockPercent)',
   },
 
   biomassStock: {
@@ -1011,6 +1023,7 @@ The FRA team
     mustBeEqualToTotalGrowingStock: 'Value should be equal to Total Growing Stock (2a)',
     valuesAreInconsistentWithNetChange: 'Values are inconsistent with Forest area net change',
     valuesAreInconsistent1aOr1b: 'Values are inconsistent with Areas reported in tables 1a or 1b',
+    mustBeEqualToPrivateForest: 'Subcategories sum should be equal to Private Ownership',
   },
 
   emoji: {
@@ -1046,6 +1059,7 @@ The FRA team
     picture1MbMax: 'Profile picture cannot exceed 1MB',
     activated: 'Activated',
     status: 'Status',
+    adminConfirm: 'Are you sure you want to promote this user to Administrator?',
   },
 
   country: {

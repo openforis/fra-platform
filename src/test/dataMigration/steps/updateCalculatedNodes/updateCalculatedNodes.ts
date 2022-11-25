@@ -1,14 +1,15 @@
+import { Objects } from '@utils/objects'
+import * as pgPromise from 'pg-promise'
+
+import { Assessment, Col, Cycle, Row, VariableCache } from '@meta/assessment'
+
+import { AreaController } from '@server/controller/area'
+import { BaseProtocol, Schemas } from '@server/db'
+
 import { calculateRow } from '@test/dataMigration/steps/updateCalculatedNodes/calculateRow'
 import { getCertifiedAreaValues } from '@test/dataMigration/steps/updateCalculatedNodes/getCertifiedAreaValues'
 import { getClimaticDomainValues } from '@test/dataMigration/steps/updateCalculatedNodes/getClimaticDomainValues'
 import { getTotalLandAreaValues } from '@test/dataMigration/steps/updateCalculatedNodes/getTotalLandAreaValues'
-import { Objects } from '@utils/objects'
-import * as pgPromise from 'pg-promise'
-
-import { Assessment, Cycle, Row, VariableCache } from '@meta/assessment'
-
-import { AreaController } from '@server/controller/area'
-import { BaseProtocol, Schemas } from '@server/db'
 
 export const updateCalculatedNodes = async (
   props: { assessment: Assessment; cycle: Cycle },
@@ -22,17 +23,35 @@ export const updateCalculatedNodes = async (
     `
         select r.*,
                t.props ->> 'name' as table_name,
-               jsonb_agg(c.*)     as cols
+               jsonb_agg(c.*) filter (where c.props -> 'cycles' ? '${cycle.uuid}')     as cols
         from ${schema}.row r
-                 left join ${schema}."table" t
-                           on r.table_id = t.id
+                 left join ${schema}."table" t on r.table_id = t.id
                  left join ${schema}.col c on r.id = c.row_id
-        where r.props ->> 'calculateFn' is not null
-           or c.props ->> 'calculateFn' is not null
-        group by r.id, r.uuid, r.props, t.props ->> 'name'`,
+        where t.props -> 'cycles' ? '${cycle.uuid}'
+          and r.props -> 'cycles' ? '${cycle.uuid}'
+          and ((r.props ->> 'calculateFn' is not null and r.props -> 'calculateFn' ->> '${cycle.uuid}' is not null) or c.props ->> 'calculateFn' is not null)
+        group by r.id, r.uuid, r.props, t.props ->> 'name'
+        order by r.id`,
     [],
-    // @ts-ignore
-    Objects.camelize
+    (row) => {
+      return {
+        ...Objects.camelize(row),
+        cols: row.cols.map((col: Col) => {
+          return {
+            ...Objects.camelize(col),
+            props: {
+              ...Objects.camelize(col.props),
+              calculateFn: col.props.calculateFn,
+            },
+          }
+        }),
+        props: {
+          ...Objects.camelize(row.props),
+          calculateFn: row.props.calculateFn,
+          validateFns: row.props.validateFns,
+        },
+      }
+    }
   )
 
   const variablesToCalculate = rows.map<VariableCache>((row) => ({
@@ -61,20 +80,20 @@ export const updateCalculatedNodes = async (
   )
 
   // ===== total land area (fao stat)
-  const totalLandAreaValues = await getTotalLandAreaValues(client)
+  const totalLandAreaValues = await getTotalLandAreaValues({ cycle }, client)
   await client.query(pgp.helpers.insert(totalLandAreaValues, cs))
 
   // ===== certified area  - SDG sub ind. 5
-  const certifiedAreaValues = await getCertifiedAreaValues(client)
+  const certifiedAreaValues = await getCertifiedAreaValues({ cycle }, client)
   await client.query(pgp.helpers.insert(certifiedAreaValues, cs))
 
-  const climaticDomainValues = await getClimaticDomainValues(client)
+  const climaticDomainValues = await getClimaticDomainValues({ cycle }, client)
   await client.query(pgp.helpers.insert(climaticDomainValues, cs))
 
   // ===== calculation rows
   for (let i = 0; i < rows.length; i += 1) {
     const { tableName, ...row } = rows[i]
-    if (!['growingStockAvg', 'growingStockTotal'].includes(tableName)) {
+    if (!['growingStockAvg', 'growingStockTotal', 'biomassStockAvg', 'carbonStockAvg'].includes(tableName)) {
       // eslint-disable-next-line no-await-in-loop
       const values = await calculateRow(
         { assessment, cycle, countryISOs, row, tableName, calculatedVariables, variablesToCalculate },

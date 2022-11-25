@@ -1,4 +1,4 @@
-import { NodeValue, Row, VariableCache } from '@meta/assessment'
+import { NodeValue, Row, TableNames } from '@meta/assessment'
 import { NodeUpdate, NodeUpdates } from '@meta/data'
 
 import { BaseProtocol } from '@server/db'
@@ -18,14 +18,16 @@ export const validateNodeUpdates = async (props: Props, client: BaseProtocol): P
   const { assessment, cycle, countryIso, nodes } = nodeUpdates
 
   const queue: Array<QueueItem> = [...nodes]
-  const visitedVariables: Array<VariableCache> = []
+  const visitedVariables: Array<QueueItem> = []
   const nodeUpdatesResult: NodeUpdates = { assessment, cycle, countryIso, nodes: [] }
 
   while (queue.length !== 0) {
     const queueItem = queue.shift()
     const { variableName, tableName, colName, value: nodeValue } = queueItem
     // console.log('==== validating ', countryIso, tableName, variableName, colName)
-    const visited = visitedVariables.find((v) => v.tableName === tableName && v.variableName === variableName)
+    const visited = visitedVariables.find(
+      (v) => v.tableName === tableName && v.variableName === variableName && v.colName === colName
+    )
     // if (visited) {
     // throw new Error(
     //   `Circular dependency found ${tableName}.${variableName}->${variableCache.tableName}.${variableCache.variableName}`
@@ -38,7 +40,7 @@ export const validateNodeUpdates = async (props: Props, client: BaseProtocol): P
       let value: NodeValue = nodeValue
       // eslint-disable-next-line no-await-in-loop
       const row: Row = await RowRepository.getOne({ assessment, tableName, variableName, includeCols: true }, client)
-      if (row.props.validateFns) {
+      if (row.props.validateFns?.[cycle.uuid]) {
         // make sure in target table there's a matching column
         if (row.cols.find((c) => c.props.colName === colName)) {
           // eslint-disable-next-line no-await-in-loop
@@ -51,16 +53,24 @@ export const validateNodeUpdates = async (props: Props, client: BaseProtocol): P
             { assessment, cycle, tableName, variableName, countryIso, colName, validation },
             client
           )
-          value = node.value
+          value = node?.value
         }
       }
 
-      const dependants = (assessment.metaCache.validations.dependants[tableName]?.[variableName] ?? []).map(
+      const dependants = (assessment.metaCache[cycle.uuid].validations.dependants[tableName]?.[variableName] ?? []).map(
         ({ tableName, variableName }) => ({ tableName, variableName, colName })
       )
       queue.push(...dependants)
       visitedVariables.push(queueItem)
-      nodeUpdatesResult.nodes.push({ tableName, variableName, colName, value })
+      if (value) {
+        nodeUpdatesResult.nodes.push({
+          // Assign correct table name if value is ODP value
+          tableName: value.odp ? TableNames.originalDataPointValue : tableName,
+          variableName,
+          colName,
+          value,
+        })
+      }
     }
   }
 

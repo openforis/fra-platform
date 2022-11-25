@@ -8,6 +8,8 @@ type Props = {
 
 export const migrateAreas = async (props: Props): Promise<void> => {
   const { client, schema, index } = props
+  const isPanEuropean = schema.includes('pan_european')
+  const countryCondition = `cr.region_code ${isPanEuropean ? '=' : '!='} 'FE'`
 
   await client.query(`
       insert into ${schema}.country (country_iso, props)
@@ -21,13 +23,22 @@ export const migrateAreas = async (props: Props): Promise<void> => {
       from public.country c
                left join _legacy.assessment a on (c.country_iso = a.country_iso)
                left join _legacy.dynamic_country_configuration dcc on (c.country_iso = dcc.country_iso)
+          ${
+            isPanEuropean
+              ? `
+      left join _legacy.country_region cr on (c.country_iso = cr.country_iso)
+      where ${countryCondition}"
+      `
+              : ''
+          }
       order by country_iso;
   `)
 
   await client.query(`
       insert into ${schema}.country_region (country_iso, region_code)
-      select c.country_iso, c.region_code
-      from _legacy.country_region c
+      select cr.country_iso, cr.region_code
+      from _legacy.country_region cr
+      where ${countryCondition}
   `)
 
   await client.query(`
@@ -39,14 +50,14 @@ export const migrateAreas = async (props: Props): Promise<void> => {
 
   await client.query(`
       insert into ${schema}.region (region_code, region_group_id)
-      select r.region_code,
+      select cr.region_code,
              rg.id as region_group_id
-      from region r
+      from region cr
                left join _legacy.region r_l
-                         on r.region_code = r_l.region_code
+                         on cr.region_code = r_l.region_code
                left join _legacy.region_group rg_l on r_l.region_group = rg_l.id
                left join ${schema}.region_group rg on rg_l.name = rg.name
-      where r.region_code != 'FE'
-      order by r.region_code;
+      where ${countryCondition}
+      order by cr.region_code;
   `)
 }

@@ -4,54 +4,72 @@ const apiPath = (...parts: Array<string>): string => joinPaths('api', ...parts)
 export const ApiEndPoint = {
   init: () => apiPath('init'),
   definitions: (lang = ':lang', name = ':name') => joinPaths('definitions', lang, name),
+
+  Admin: {
+    users: () => apiPath('admin', 'users'),
+    usersCount: () => apiPath('admin', 'users', 'count'),
+  },
+
   Area: {
-    country: () => apiPath('country'),
+    country: () => apiPath('area', 'country'),
+    areas: () => apiPath('area', 'areas'),
   },
 
   Auth: {
-    changePassword: () => apiPath('auth', 'changePassword'),
+    changePassword: () => apiPath('auth', 'change-password'),
     google: () => apiPath('auth', 'google'),
     googleCallback: () => apiPath('auth', 'google', 'callback'),
     login: () => joinPaths('auth', 'login'),
     logout: () => joinPaths('auth', 'logout'),
-    resetPassword: () => joinPaths('auth', 'local', 'resetPassword'),
+    resetPassword: () => joinPaths('auth', 'local', 'reset-password'),
   },
 
   CycleData: {
-    descriptions: () => apiPath('cycleData', 'descriptions'),
+    descriptions: () => apiPath('cycle-data', 'descriptions'),
+    activities: () => apiPath('cycle-data', 'activities'),
 
     OriginalDataPoint: {
-      one: () => apiPath('cycleData', 'originalDataPoints', 'originalDataPoint'),
+      one: () => apiPath('cycle-data', 'original-data-points', 'original-data-point'),
 
       // Used for print view
-      many: () => apiPath('cycleData', 'originalDataPoints'),
+      many: () => apiPath('cycle-data', 'original-data-points'),
 
       // Table Data (1a, 1b)
-      data: () => apiPath('cycleData', 'originalDataPoints', 'data'),
-      reservedYears: () => apiPath('cycleData', 'originalDataPoints', 'reservedYears'),
+      data: () => apiPath('cycle-data', 'original-data-points', 'data'),
+      reservedYears: () => apiPath('cycle-data', 'original-data-points', 'reserved-years'),
     },
     Review: {
-      status: () => apiPath('cycleData', 'review', 'status'),
-      summary: () => apiPath('cycleData', 'review', 'summary'),
+      status: () => apiPath('cycle-data', 'review', 'status'),
+      summary: () => apiPath('cycle-data', 'review', 'summary'),
     },
     Table: {
-      estimate: () => apiPath('cycleData', 'table', 'estimate'),
-      nodes: () => apiPath('cycleData', 'table', 'nodes'),
-      tableData: () => apiPath('cycleData', 'table', 'tableData'),
+      estimate: () => apiPath('cycle-data', 'table', 'estimate'),
+      nodes: () => apiPath('cycle-data', 'table', 'nodes'),
+      tableData: () => apiPath('cycle-data', 'table', 'table-data'),
     },
-    activities: () => apiPath('cycleData', 'activities'), // is it correct?
+  },
+
+  ExtData: {
+    Taxa: {
+      search: () => apiPath('ext-data', 'taxa', 'search'),
+    },
   },
 
   File: {
     dashboard: () => apiPath('file', 'dashboard'),
-    dataDownload: () => apiPath('file', 'dataDownload'),
+    dataDownload: () => apiPath('file', 'data-download'),
+    bulkDownload: () => apiPath('file', 'bulk-download'),
+    Assessment: {
+      one: (uuid = ':uuid') => apiPath('file', 'assessment', uuid),
+      many: () => apiPath('file', 'assessment'),
+    },
   },
 
   MessageCenter: {
-    topic: () => apiPath('messageCenter', 'topic'),
-    topicMessage: () => apiPath('messageCenter', 'topic', 'message'),
-    topicResolve: () => apiPath('messageCenter', 'topic', 'resolve'),
-    topicUnreadMessages: () => apiPath('messageCenter', 'topic', 'unreadMessages'),
+    topic: () => apiPath('message-center', 'topic'),
+    topicMessage: () => apiPath('message-center', 'topic', 'message'),
+    topicResolve: () => apiPath('message-center', 'topic', 'resolve'),
+    topicUnreadMessages: () => apiPath('message-center', 'topic', 'unread-messages'),
   },
 
   Sections: {
@@ -65,30 +83,19 @@ export const ApiEndPoint = {
     invite: () => apiPath('users', 'invite'),
     invitation: () => apiPath('users', 'invitation'),
     invitationAccept: () => apiPath('users', 'invitation', 'accept'),
-    invitationSendEmail: () => apiPath('users', 'invitation', 'sendEmail'),
+    invitationSendEmail: () => apiPath('users', 'invitation', 'send-email'),
 
-    profilePicture: (id = ':id') => apiPath('users', 'profilePicture', id),
-    sectionAuth: () => apiPath('users', 'sectionAuth'),
+    profilePicture: (id = ':id') => apiPath('users', 'profile-picture', id),
+    roles: () => apiPath('users', 'roles'),
+    sectionAuth: () => apiPath('users', 'section-auth'),
   },
-
-  /**
-   * @deprecated
-   */
 
   Geo: {
     sepalProxy: () => apiPath('geo', 'sepal'),
     Layers: {
-      getForest: (
-        countryIso = ':countryIso',
-        forestSource = ':forestSource',
-        gteHansenTreeCoverPerc = ':gteHansenTreeCoverPerc?'
-      ) => apiPath('geo', 'layers', 'forest', countryIso, forestSource, gteHansenTreeCoverPerc),
-      getForestAgreement: (
-        countryIso = ':countryIso',
-        gteHansenTreeCoverPerc = ':gteHansenTreeCoverPerc',
-        gteAgreementLevel = ':gteAgreementLevel'
-      ) => apiPath('geo', 'layers', 'forestAgreement', countryIso, gteHansenTreeCoverPerc, gteAgreementLevel),
-      getBoundaries: (countryIso = ':countryIso') => apiPath('geo', 'layers', 'boundaries', countryIso),
+      getForest: () => apiPath('geo', 'layers', 'forest'),
+      getForestAgreement: () => apiPath('geo', 'layers', 'forestAgreement'),
+      getBoundaries: () => apiPath('geo', 'layers', 'boundaries'),
     },
   },
 

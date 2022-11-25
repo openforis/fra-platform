@@ -16,11 +16,11 @@ export interface ODPNationalClass {
   definition?: string
   forestPercent?: string
   name?: string
-  naturalForestPercent?: string
-  otherPlantedPercent?: string
+  forestNaturalPercent?: string
+  otherPlantedForestPercent?: string
   otherWoodedLandPercent?: string
   placeHolder?: boolean
-  plantationIntroducedPercent?: string
-  plantationPercent?: string
+  forestPlantationIntroducedPercent?: string
+  forestPlantationPercent?: string
   uuid?: string
 }

@@ -3,11 +3,6 @@ import { Unit } from '@meta/dataExport'
 
 import { isYearWithWord } from './checks'
 
-const variableLabelKeys: Record<string, string> = {
-  other: 'common.other',
-  otherOrUnknown: 'common.unknown',
-}
-
 const unitLabelKeys: Record<string, string> = {
   ha: 'ha',
   kmSq: 'kmSq',
@@ -21,20 +16,9 @@ const unitLabelKeys: Record<string, string> = {
 const columnLabelKeys: Record<string, string> = {
   common_name: 'commonName',
   scientific_name: 'scientificName',
-  national: 'national',
-  subnational: 'subnational',
-}
-
-/**
- * Some variable's might have custom mappings, check for the special cases and return accordingly
- * @param variable - i18n key of format 'foo.bar' to check for custom mapping(s)
- * @returns {*} - return either the original i18nKey or new key from variableI18nMappings
- */
-export const getVariableLabelKey = (variable: string): string => {
-  // get the last part of the i18n key,
-  // ex: foo.bar.other => other
-  const key = variable.split('.').pop()
-  return variableLabelKeys[key] ? variableLabelKeys[key] : variable
+  national_yes_no: 'national',
+  sub_national_yes_no: 'subnational',
+  growingStockPercent: 'growingStockPercent',
 }
 
 export const getUnitLabelKey = (unit: string): string => (unitLabelKeys[unit] ? `unit.${unitLabelKeys[unit]}` : unit)
@@ -43,9 +27,11 @@ export const getUnitLabelKey = (unit: string): string => (unitLabelKeys[unit] ? 
  * Returns the possible i18n mapping
  * @param column - column value
  * @param section - url params: current section
- * @param assessmentType - type, ex. fra2020 / panEuropean
+ * @param assessmentName - type, ex. fra2020 / panEuropean
  * @returns {array} - i18n keys
  */
+// TODO: Separate issue. Use column metadata to get column key (see Table.tsx).
+// It requires updating the dataExport columns selection slice
 export const getColumnLabelKeys = (column: string, section: string, assessmentName: AssessmentName): Array<string> => {
   if (assessmentName === AssessmentNames.panEuropean) {
     return [`${assessmentName}.${section}.${column}`]

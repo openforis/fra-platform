@@ -1,8 +1,8 @@
 export type VariablesByTableCache = Record<string, Record<string, VariableCache>>
 
 export interface VariableCache {
-  variableName: string
   tableName: string
+  variableName: string
 }
 
 export type DependencyCache = {
@@ -17,8 +17,8 @@ export type DependencyCache = {
    *    }
    * }
    */
-  dependants: Record<string, Record<string, Array<VariableCache>>>
   dependencies: Record<string, Record<string, Array<VariableCache>>>
+  dependants: Record<string, Record<string, Array<VariableCache>>>
 }
 
 export interface AssessmentMetaCache {

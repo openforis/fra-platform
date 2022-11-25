@@ -30,7 +30,7 @@ export const update = async (
 
   if (profilePicture) {
     const {
-      profilePicture: { filename, buffer },
+      profilePicture: { originalname, buffer },
     } = props
 
     await client.query(
@@ -40,7 +40,7 @@ export const update = async (
             profile_picture_file = $2
         where id = $3
     `,
-      [filename, buffer, id]
+      [originalname, buffer, id]
     )
   }
 

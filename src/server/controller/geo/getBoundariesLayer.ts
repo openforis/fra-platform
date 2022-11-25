@@ -3,16 +3,12 @@ import { Layer } from '@meta/geo'
 
 import { AssetsController } from '@server/controller/geo/assets'
 
-import { authenticateToGee } from './authenticateToGee'
-
 type Props = {
   countryIso: CountryIso
 }
 
 export const getBoundariesLayer = async (props: Props): Promise<Layer> => {
   const { countryIso } = props
-
-  await authenticateToGee()
 
   const ftcCountry = AssetsController.getCountryBoundaries(countryIso)
 

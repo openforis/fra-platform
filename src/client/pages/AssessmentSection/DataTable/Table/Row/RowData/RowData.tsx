@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom'
 
 import classNames from 'classnames'
 
+import { ClientRoutes } from '@meta/app'
 import { Cols } from '@meta/assessment'
 import { Topics } from '@meta/messageCenter'
 
 import { useCycle } from '@client/store/assessment'
 import { useTopicKeys } from '@client/store/ui/messageCenter/hooks'
 import { useCountryIso } from '@client/hooks'
-import { ClientRoutes } from '@client/clientRoutes'
 import ReviewIndicator from '@client/components/ReviewIndicator'
 
 import { Props } from '../props'
@@ -21,7 +21,7 @@ import Cell from './Cell'
 const RowData: React.FC<Props> = (props) => {
   const { data, assessmentName, sectionName, table, row, disabled } = props
 
-  const i18n = useTranslation()
+  const { t } = useTranslation()
   const countryIso = useCountryIso()
   const cycle = useCycle()
 
@@ -29,33 +29,32 @@ const RowData: React.FC<Props> = (props) => {
   const { cols } = row
   // const { index /* variableName */ } = row.props
   const colHeader = cols[0]
-  let colHeaderLabel =
-    typeof colHeader.props.label?.label === 'string'
-      ? colHeader.props.label?.label
-      : i18n.t(colHeader.props.label?.key, colHeader.props.label?.params ?? {})
-  if (colHeader.props.variableNo) colHeaderLabel = `${colHeaderLabel} (${colHeader.props.variableNo})`
+  let colHeaderLabel = Cols.getLabel({ cycle, col: colHeader, t })
+  const variableNo = colHeader.props.variableNo?.[cycle.uuid]
+  if (variableNo) colHeaderLabel = `${colHeaderLabel} (${variableNo})`
+  const colHeaderStyle = Cols.getStyle({ col: colHeader, cycle })
 
   const colsData = cols.slice(1, cols.length)
   // const className = useClassName(reviewTarget)
 
   const openTopics = useTopicKeys()
   const headerCell = cols.every((col) => Cols.isReadOnly({ row, col }))
-  const subcategory = colHeaderLabel.includes(`…`)
+  const subcategory = row.props.categoryLevel > 0
 
   return (
     <tr className={openTopics.includes(row.uuid) ? 'fra-row-comments__open' : ''}>
       <th
         className={classNames({
-          'fra-table__subcategory-cell': subcategory,
+          [`fra-table__subcategory${row.props.categoryLevel}-cell`]: subcategory,
           'fra-table__category-cell': !subcategory && !headerCell,
           'fra-table__header-cell-left': !subcategory && headerCell,
         })}
-        colSpan={colHeader.props.colSpan}
-        rowSpan={colHeader.props.rowSpan}
+        colSpan={colHeaderStyle.colSpan}
+        rowSpan={colHeaderStyle.rowSpan}
       >
         {row.props.linkToSection ? (
           <>
-            {/* TODO - print view <div className="only-print">{colHeaderValue}</div> */}
+            <div className="only-print">{colHeaderLabel}</div>
             <Link
               to={ClientRoutes.Assessment.Section.getLink({
                 countryIso,

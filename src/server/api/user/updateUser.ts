@@ -6,7 +6,7 @@ import { Requests } from '@server/utils'
 export const updateUser = async (req: Request, res: Response) => {
   try {
     const profilePicture = req.file
-    const userToUpdate = req.body.user
+    const userToUpdate = JSON.parse(req.body.user)
     const user = Requests.getRequestUser(req)
 
     const updatedUser = await UserController.update({

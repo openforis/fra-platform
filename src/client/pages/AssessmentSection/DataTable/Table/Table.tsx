@@ -2,20 +2,20 @@ import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { AssessmentName, Col as TypeCol, Row as TypeRow, RowType, Table as TableType } from '@meta/assessment'
+import { ClientRoutes } from '@meta/app'
+import { AssessmentName, Col as TypeCol, Cols, Row as TypeRow, RowType, Table as TableType } from '@meta/assessment'
 import { TableData } from '@meta/data'
 
 import { useAssessmentCountry, useCycle } from '@client/store/assessment'
 import { useOriginalDataPointYears, useShowOriginalDatapoints } from '@client/store/pages/assessmentSection/hooks'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
-import { ClientRoutes } from '@client/clientRoutes'
 import ButtonTableExport from '@client/components/ButtonTableExport'
 import Tooltip from '@client/components/Tooltip'
-import * as DataTableUtils from '@client/pages/AssessmentSection/DataTable/utils'
 
+import { getODPColSpan } from './utils/getODPColSpan'
+import { parseTable } from './utils/parseTable'
 import DataValidations from './DataValidations'
-import { parseTable } from './parseTable'
 import Row from './Row'
 
 type Props = {
@@ -31,18 +31,16 @@ const Table: React.FC<Props> = (props) => {
   const { assessmentName, sectionName, sectionAnchor, table: tableProps, data, disabled } = props
 
   const cycle = useCycle()
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
   const odpYears = useOriginalDataPointYears()
-  const showOriginalDatapoints = useShowOriginalDatapoints()
+  const showODP = useShowOriginalDatapoints()
 
   const country = useAssessmentCountry()
   const countryIso = useCountryIso()
   const { print } = useIsPrint()
   const tableRef = useRef<HTMLTableElement>(null)
 
-  // Get headers from data
-  const headers = DataTableUtils.getHeaders(data, countryIso, tableProps)
-  const table = parseTable({ headers, table: tableProps })
+  const { headers, table } = parseTable({ countryIso, cycle, data, showODP, table: tableProps })
   const { odp, secondary } = table.props
   const rowsHeader = table.rows.filter((row) => row.props.type === RowType.header)
   const rowsData = table.rows.filter((row) => row.props.type !== RowType.header)
@@ -60,21 +58,21 @@ const Table: React.FC<Props> = (props) => {
             {rowsHeader.map((row: TypeRow, rowIndex: number) => (
               <tr key={row.uuid}>
                 {row.cols.map((col: TypeCol, colIndex: number) => {
-                  const { index, /* idx, className, */ colSpan, rowSpan, label /* labelParams,  label */ } = col.props
+                  const { index } = col.props
+                  const { colSpan, rowSpan } = Cols.getStyle({ cycle, col })
                   const columnName = headers[colIndex]
 
-                  let isOdpHeader = showOriginalDatapoints && table.props.odp && odpYears?.includes(columnName)
+                  let isOdpHeader = showODP && table.props.odp && !col.props.labels && odpYears?.includes(columnName)
 
                   if (table.props.name === 'forestCharacteristics')
                     isOdpHeader = isOdpHeader && country.props.forestCharacteristics.useOriginalDataPoint
 
                   const getColumnName = () => {
-                    if (label?.key) return i18n.t(label?.key, label?.params)
-                    if (typeof label?.label === 'string') return label?.label
+                    const label = Cols.getLabel({ cycle, col, t })
 
                     if (isOdpHeader && !print) {
                       return (
-                        <Tooltip text={i18n.t('nationalDataPoint.clickOnNDP')}>
+                        <Tooltip text={t('nationalDataPoint.clickOnNDP')}>
                           <Link
                             className="link"
                             to={ClientRoutes.Assessment.OriginalDataPoint.Section.getLink({
@@ -85,12 +83,13 @@ const Table: React.FC<Props> = (props) => {
                               sectionName: table.props.name,
                             })}
                           >
-                            {columnName}
+                            {label}
                           </Link>
                         </Tooltip>
                       )
                     }
-                    return columnName
+
+                    return label
                   }
 
                   const headerLeft = (index === 0 && rowIndex === 0) || row.props?.readonly
@@ -101,7 +100,7 @@ const Table: React.FC<Props> = (props) => {
                     <th
                       key={col.uuid}
                       className={className}
-                      colSpan={odp && !colSpan ? DataTableUtils.getODPColSpan({ table, data }) : colSpan}
+                      colSpan={odp && !colSpan ? getODPColSpan({ headers, table, data }) : colSpan}
                       rowSpan={rowSpan}
                     >
                       {getColumnName()}

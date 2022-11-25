@@ -22,6 +22,7 @@ type Props = {
   open: boolean
   showCount?: boolean
   unselectableCountries?: Array<string>
+  showFooter?: boolean
 }
 
 const CountrySelectModal: React.FC<Props> = (props) => {
@@ -36,6 +37,7 @@ const CountrySelectModal: React.FC<Props> = (props) => {
     open,
     showCount,
     unselectableCountries,
+    showFooter,
   } = props
 
   const i18n = useTranslation()
@@ -75,6 +77,18 @@ const CountrySelectModal: React.FC<Props> = (props) => {
     onChange('', selectionUpdate)
   }
 
+  const _onChangeMany = (countryISOs: Array<string>, selectAll: boolean): void => {
+    if (selectAll) {
+      const selectionUpdate = [...countryISOs, ...selection].filter((v) => !unselectableCountries.includes(v))
+      setSelection(selectionUpdate)
+      onChange('', selectionUpdate)
+    } else {
+      const selectionUpdate: Array<string> = selection.filter((v) => !countryISOs.includes(v))
+      setSelection(selectionUpdate)
+      onChange('', selectionUpdate)
+    }
+  }
+
   const _onClose = () => {
     onClose(selection)
     setSelection([])
@@ -109,20 +123,23 @@ const CountrySelectModal: React.FC<Props> = (props) => {
         countries={countriesFiltered}
         onChange={_onChange}
         onChangeAll={_onChangeAll}
+        onChangeMany={_onChangeMany}
         selection={selection}
         unselectableCountries={unselectableCountries}
         excludedRegions={excludedRegions}
       />
 
-      <ModalFooter>
-        <button className="btn btn-secondary" onClick={resetAll} type="button">
-          {i18n.t('common.resetAll')}
-        </button>
+      {showFooter && (
+        <ModalFooter>
+          <button className="btn btn-secondary" onClick={resetAll} type="button">
+            {i18n.t('common.resetAll')}
+          </button>
 
-        <button className="btn btn-primary" disabled={!canSave(selection)} onClick={_onClose} type="button">
-          {i18n.t('common.apply')}
-        </button>
-      </ModalFooter>
+          <button className="btn btn-primary" disabled={!canSave(selection)} onClick={_onClose} type="button">
+            {i18n.t('common.apply')}
+          </button>
+        </ModalFooter>
+      )}
     </Modal>
   )
 }
@@ -134,6 +151,7 @@ CountrySelectModal.defaultProps = {
   onChange: () => ({}),
   showCount: true,
   unselectableCountries: [],
+  showFooter: true,
 }
 
 export default CountrySelectModal

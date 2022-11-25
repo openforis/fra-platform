@@ -14,12 +14,12 @@ type Props = {
   validation: { valid: boolean }
 }
 
-export const updateValidation = (props: Props, client: BaseProtocol = DB): Promise<Node> => {
+export const updateValidation = (props: Props, client: BaseProtocol = DB): Promise<Node | null> => {
   const { assessment, cycle, countryIso, tableName, variableName, colName, validation } = props
   const schema = Schemas.getName(assessment)
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
-  return client.one<Node>(
+  return client.oneOrNone<Node>(
     `
         update ${schemaCycle}.node n
         set value = jsonb_set(value,'{validation}',$1::jsonb)

@@ -54,19 +54,14 @@ create table ${schemaName}.col
     unique(uuid)
 );
 
-  create table ${schemaName}.activity_log
-  (
-      time             timestamp default timezone('UTC'::text, now()) not null,
-      message          text,
-      country_iso      varchar(3) references public.country,
-      section          varchar(250)                                   not null,
-      target           json,
-      id               bigserial                                      not null,
-      user_id          bigint not null references public.users (id)   on update cascade on delete cascade,
-      cycle_uuid       uuid references public.assessment_cycle (uuid) on update cascade on delete cascade
-
-  );
-
+create table ${schemaName}.file
+(
+    id               bigserial NOT NULL,
+    uuid             uuid default uuid_generate_v4() NOT NULL,
+    country_iso      varchar(3) references public.country on update cascade on delete cascade,
+    file_name        varchar(250) NOT NULL,
+    file             bytea NOT NULL
+);
 `
   return query
 }
@@ -222,18 +217,15 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
       
       create table ${assessmentCycleSchemaName}.descriptions
       (
-          id           bigserial
-              constraint descriptions_pk
-                  primary key,
+          id           bigserial       constraint descriptions_pk   primary key,
           country_iso  varchar(3)      not null
               constraint table_name_country_country_iso_fk
                   references country
                   on update cascade on delete cascade,
           section_name varchar(50)     not null,
           name         varchar(50)     not null,
-          content      text default '' not null,
-          constraint table_name_pk_2
-              unique (country_iso, section_name, name)
+          value      jsonb default '{}'::jsonb not null,
+          constraint table_name_pk_2 unique (country_iso, section_name, name)
       );
   `
 }
@@ -289,26 +281,26 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
                       sum(((c.class ->> 'area'::text)::numeric) * ((c.class ->> 'forestPercent'::text)::numeric) /
                           100::numeric *
                           ((c.class ->> 'otherPlantedForestPercent'::text)::numeric) /
-                          100::numeric)                                                                as other_planted_forest_area,
-                      sum(((c.class ->> 'area'::text)::numeric) * ((c.class ->> 'forestPercent'::text)::numeric) /
-                          100::numeric *
-                          ((c.class ->> 'forestPlantationPercent'::text)::numeric) / 100::numeric) +
-                      sum(((c.class ->> 'area'::text)::numeric) * ((c.class ->> 'forestPercent'::text)::numeric) /
-                          100::numeric *
-                          ((c.class ->> 'otherPlantedForestPercent'::text)::numeric) /
-                          100::numeric)                                                                as planted_forest,
-                      sum(((c.class ->> 'area'::text)::numeric) * ((c.class ->> 'forestPercent'::text)::numeric) /
-                          100::numeric *
-                          ((c.class ->> 'forestNaturalPercent'::text)::numeric) / 100::numeric) +
-                      (sum(((c.class ->> 'area'::text)::numeric) * ((c.class ->> 'forestPercent'::text)::numeric) /
-                           100::numeric *
-                           ((c.class ->> 'forestPlantationPercent'::text)::numeric) / 100::numeric) +
-                       sum(((c.class ->> 'area'::text)::numeric) * ((c.class ->> 'forestPercent'::text)::numeric) /
-                           100::numeric *
-                           ((c.class ->> 'otherPlantedForestPercent'::text)::numeric) / 100::numeric)) as total
+                          100::numeric)                                                                as other_planted_forest_area
                from classes c
                group by c.country_iso, c.year
-               order by c.country_iso, c.year)
+               order by c.country_iso, c.year),
+            raw_values_2 as
+            (select rv.*,
+                 case
+                     when rv.plantation_forest_area is not null or rv.other_planted_forest_area is not null
+                         then coalesce(rv.plantation_forest_area, 0) +
+                              coalesce(rv.other_planted_forest_area, 0)
+                     else null
+                     end as planted_forest,
+                 case
+                     when rv.natural_forest_area is not null or rv.plantation_forest_area is not null or
+                          rv.other_planted_forest_area is not null
+                         then coalesce(rv.natural_forest_area, 0) + coalesce(rv.plantation_forest_area, 0) +
+                              coalesce(rv.other_planted_forest_area)
+                     else null
+                     end as total
+          from raw_values rv)
       select rv.country_iso,
              rv.year,
              rv.forest_area,
@@ -320,10 +312,18 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
              rv.planted_forest,
              rv.total,
              (e.data -> 'totalLandArea' ->> 'raw')::double precision                                         as total_land_area,
-             (e.data -> 'totalLandArea' ->> 'raw')::double precision - rv.forest_area -
-             rv.other_wooded_land                                                                            as other_land,
-             rv.planted_forest + rv.natural_forest_area                                                      as total_forest_area
-      from raw_values rv
+             case
+                 when rv.forest_area is not null or rv.other_wooded_land is not null then
+                         (e.data -> 'totalLandArea' ->> 'raw')::double precision - coalesce(rv.forest_area, 0)::double precision -
+                         coalesce(rv.other_wooded_land, 0)::double precision
+                 else null
+                 end                                                               as other_land,
+             case
+                 when rv.planted_forest is not null or rv.natural_forest_area is not null then
+                         coalesce(rv.planted_forest, 0) + coalesce(rv.natural_forest_area, 0)
+                 else null
+                 end                                                               as total_forest_area
+      from raw_values_2 rv
                left join extentofforest e
                          on e.country_iso = rv.country_iso
                              and e.col_name = rv.year::text

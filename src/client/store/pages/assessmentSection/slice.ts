@@ -16,7 +16,6 @@ import { AssessmentSectionState } from './stateType'
 const initialState: AssessmentSectionState = {
   data: null,
   tableSections: {},
-  originalDataPointData: null,
   showOriginalDataPoint: true,
   nodeValueValidation: {},
   descriptions: {},
@@ -44,6 +43,12 @@ export const assessmentSectionSlice = createSlice({
       const { nodeUpdate } = payload
       state.nodeValueValidation[nodeUpdate.tableName] = nodeUpdate
     },
+    deleteOriginalDataPoint: (state, { payload }: PayloadAction<{ countryIso: CountryIso; year: string }>) => {
+      // Delete reference from state for deleted ODP
+      const { countryIso, year } = payload
+      const odpReference = state.data?.[countryIso]?.originalDataPointValue?.[year]
+      if (odpReference) delete state.data?.[countryIso]?.originalDataPointValue?.[year]
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(setTableSections, (state, { payload }) => {
@@ -54,13 +59,15 @@ export const assessmentSectionSlice = createSlice({
     builder.addCase(getTableData.fulfilled, (state, { payload }) => {
       const countryIso = Object.keys(payload || {})[0] as CountryIso
       if (countryIso) {
-        const countryData = (state.data && state.data[countryIso]) || {}
-        state.data = { ...state.data, [countryIso]: { ...payload[countryIso], ...countryData } }
+        const countryData = state.data?.[countryIso] ?? {}
+        state.data = { ...state.data, [countryIso]: { ...countryData, ...payload[countryIso] } }
       }
     })
 
     builder.addCase(getOriginalDataPointData.fulfilled, (state, { payload }) => {
-      state.originalDataPointData = payload
+      const countryIso = Object.keys(payload)[0] as CountryIso
+      const countryData = state.data?.[countryIso] ?? {}
+      state.data = { ...state.data, [countryIso]: { ...countryData, ...payload[countryIso] } }
     })
 
     builder.addCase(updateNodeValues.pending, (state, { meta }) => {
@@ -72,16 +79,16 @@ export const assessmentSectionSlice = createSlice({
     })
 
     builder.addCase(getDescription.fulfilled, (state, { payload }) => {
-      const { name, sectionName, content } = payload
+      const { name, sectionName, value } = payload
       if (!state.descriptions[sectionName]) state.descriptions[sectionName] = {}
-      state.descriptions[sectionName][name] = content
+      state.descriptions[sectionName][name] = value
     })
 
     builder.addCase(updateDescription.pending, (state, { meta }) => {
-      const { sectionName, name, content } = meta.arg
+      const { sectionName, name, value } = meta.arg
 
       if (!state.descriptions[sectionName]) state.descriptions[sectionName] = {}
-      state.descriptions[sectionName][name] = content
+      state.descriptions[sectionName][name] = value
     })
   },
 })

@@ -17,7 +17,11 @@ export const deleteOriginalDataPoint = async (req: CycleRequest<{ year: string }
       countryIso,
     })
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({
+      assessmentName,
+      cycleName,
+      metaCache: true,
+    })
 
     const returnedOriginalDataPoint = await CycleDataController.removeOriginalDataPoint({
       assessment,

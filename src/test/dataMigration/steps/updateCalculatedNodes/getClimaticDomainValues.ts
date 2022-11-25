@@ -1,8 +1,16 @@
-import { NodeRow } from '@test/dataMigration/types'
+import { Cycle } from '@meta/assessment'
 
 import { BaseProtocol } from '@server/db'
 
-export const getClimaticDomainValues = async (client: BaseProtocol): Promise<Array<NodeRow>> => {
+import { NodeRow } from '@test/dataMigration/types'
+
+export const getClimaticDomainValues = async (
+  props: { cycle: Cycle },
+  client: BaseProtocol
+): Promise<Array<NodeRow>> => {
+  const { cycle } = props
+  const cycleCondition = `props -> 'cycles' ? '${cycle.uuid}'`
+
   const query = ['boreal', 'temperate', 'sub_tropical', 'tropical'].map(
     (domain) =>
       `
@@ -28,6 +36,9 @@ export const getClimaticDomainValues = async (client: BaseProtocol): Promise<Arr
                    left join assessment_fra.col cl
                              on r.id = cl.row_id
                                  and cl.props ->> 'colName' = 'percentOfForestArea2015Default'
+          where t.${cycleCondition}
+            and r.${cycleCondition}
+            and cl.${cycleCondition}
       `
   ).join(`
     union

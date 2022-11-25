@@ -1,8 +1,16 @@
-import { NodeRow } from '@test/dataMigration/types'
+import { Cycle } from '@meta/assessment'
 
 import { BaseProtocol } from '@server/db'
 
-export const getTotalLandAreaValues = async (client: BaseProtocol): Promise<Array<NodeRow>> => {
+import { NodeRow } from '@test/dataMigration/types'
+
+export const getTotalLandAreaValues = async (
+  props: { cycle: Cycle },
+  client: BaseProtocol
+): Promise<Array<NodeRow>> => {
+  const { cycle } = props
+  const cycleCondition = `props -> 'cycles' ? '${cycle.uuid}'`
+
   return client.many<NodeRow>(
     `
         select c.country_iso,
@@ -12,11 +20,10 @@ export const getTotalLandAreaValues = async (client: BaseProtocol): Promise<Arra
                r.uuid  as row_uuid,
 --        cl.props ->> 'colName'     as col_name,
                cl.uuid as col_uuid,
-               jsonb_build_object(
-                       'raw', jsonb_extract_path(
-                       c.config, 'faoStat', cl.props ->> 'colName', 'area'
-                   )::varchar
-                   )   as value
+            CASE
+               WHEN cl.props->>'colName' != '2025' THEN jsonb_build_object('raw', jsonb_extract_path(c.config, 'faoStat', cl.props ->> 'colName', 'area')::varchar)
+               ELSE jsonb_build_object('raw', (select c.config->'faoStat'->'2020'->>'area'))
+            END AS value
 --        c.config -> 'faoStat' ->
         from country c
                  left join assessment_fra."table" t
@@ -27,6 +34,9 @@ export const getTotalLandAreaValues = async (client: BaseProtocol): Promise<Arra
                  left join assessment_fra.col cl
                            on r.id = cl.row_id
                                and cl.props ->> 'colName' is not null
+        where t.${cycleCondition}
+          and r.${cycleCondition}
+          and cl.${cycleCondition}
     `
   )
 }

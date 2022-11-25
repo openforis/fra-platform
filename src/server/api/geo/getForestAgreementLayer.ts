@@ -1,17 +1,13 @@
-import { Request, Response } from 'express'
+import { Response } from 'express'
 
-import { CountryIso } from '@meta/area'
+import { ForestAgreementLayerRequest } from '@meta/api/request'
 
 import { GeoController } from '@server/controller/geo'
 import Requests from '@server/utils/requests'
 
-export const getForestAgreementLayer = async (req: Request, res: Response) => {
+export const getForestAgreementLayer = async (req: ForestAgreementLayerRequest, res: Response) => {
   try {
-    const countryIso: CountryIso = req.params.countryIso as CountryIso
-    const gteAgreementLevel = Number(req.params.gteAgreementLevel)
-    const gteHansenTreeCoverPerc = Number(req.params.gteHansenTreeCoverPerc)
-
-    const layer = await GeoController.getForestAgreementLayer({ countryIso, gteHansenTreeCoverPerc, gteAgreementLevel })
+    const layer = await GeoController.getForestAgreementLayer(req.query)
 
     Requests.sendOk(res, layer)
   } catch (e) {

@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 
+import { ApiEndPoint } from '@meta/api/endpoint'
+import { ClientRoutes } from '@meta/app'
+import { UserStatus } from '@meta/user'
+
 import { useAppDispatch } from '@client/store'
 import { LoginActions, useInvitation } from '@client/store/login'
 import { useToaster } from '@client/hooks/useToaster'
-import { ClientRoutes } from '@client/clientRoutes'
 import { isError, LoginValidator } from '@client/pages/Login/utils/LoginValidator'
 import { Urls } from '@client/utils/urls'
 
@@ -35,9 +38,12 @@ const LoginForm: React.FC<Props> = (props: Props) => {
     dispatch(LoginActions.initLogin())
     if (invitationUuid) {
       dispatch(LoginActions.fetchUserByInvitation({ invitationUuid }))
-      setEmail(invitedUser.email)
     }
-  }, [])
+  }, [dispatch, i18n, invitationUuid, loginFailed, toaster])
+
+  useEffect(() => {
+    if (invitedUser?.email) setEmail(invitedUser.email)
+  }, [invitedUser?.email])
 
   const onLogin = () => {
     const fieldErrors = LoginValidator.localValidate(email, password)
@@ -78,7 +84,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
         />
         {errors.password && <span className="login__field-error">{i18n.t<string>(errors.password)}</span>}
 
-        {invitedUser && invitedUser.status !== 'active' && (
+        {invitedUser?.status === UserStatus.invitationPending && (
           <>
             <input
               onFocus={() => setErrors({ ...errors, password2: null })}
@@ -98,28 +104,32 @@ const LoginForm: React.FC<Props> = (props: Props) => {
         )}
 
         {!invitedUser && (
-          <>
-            <div>
-              <button type="button" className="btn" onClick={() => setLoginLocal(false)}>
-                {i18n.t<string>('login.cancel')}
-              </button>
+          <div>
+            <button type="button" className="btn" onClick={() => setLoginLocal(false)}>
+              {i18n.t<string>('login.cancel')}
+            </button>
 
-              <button type="button" className="btn" onClick={onLogin}>
-                {i18n.t<string>('login.login')}
-              </button>
-            </div>
+            <button type="button" className="btn" onClick={onLogin}>
+              {i18n.t<string>('login.login')}
+            </button>
+          </div>
+        )}
 
-            <Link to={ClientRoutes.Login.ResetPassword.getLink()} type="button" className="btn-forgot-pwd">
-              {i18n.t<string>('login.forgotPassword')}
-            </Link>
-          </>
+        {invitedUser?.status !== UserStatus.invitationPending && (
+          <Link to={ClientRoutes.Login.ResetPassword.getLink()} type="button" className="btn-forgot-pwd">
+            {i18n.t<string>('login.forgotPassword')}
+          </Link>
         )}
       </div>
     )
+
   return (
     <div className="login__formWrapper">
       <div>
-        <a className="btn" href={`/auth/google${invitationUuid ? `?invitationUuid=${invitationUuid}` : ''}`}>
+        <a
+          className="btn"
+          href={`${ApiEndPoint.Auth.google()}${invitationUuid ? `?invitationUuid=${invitationUuid}` : ''}`}
+        >
           {i18n.t<string>('login.signInGoogle')}
         </a>
 

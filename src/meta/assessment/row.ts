@@ -1,10 +1,9 @@
-import { Col, CycledPropsObject } from './index'
+import { Col, CycledPropsObject, CycleUuid, VariableCache } from '@meta/assessment'
 
 export enum RowType {
   header = 'header',
   data = 'data',
   noticeMessage = 'noticeMessage',
-  validationMessages = 'validationMessages',
   calculated = 'calculated',
   // decimal = 'decimal',
   // integer = 'integer',
@@ -16,45 +15,40 @@ export enum RowType {
 }
 
 export interface RowLabel {
-  key?: string
   prefix?: string
   params?: Record<string, string>
+  key?: string
 }
 
 export interface RowProps {
-  index: number | string
-  linkToSection?: string
-  type: RowType
-  variableName?: string
-  calculateFn?: string
-  validateFns?: Array<string>
+  calculateFn?: Record<CycleUuid, string>
+  // if a variable is subcategory, then categoryLevel starts from 1
+  categoryLevel?: number
   chart?: {
-    labelKey: string
     color: string
+    labelKey: string
   }
-  label?: RowLabel
+  /**
+   * This property includes the variable dependants which the row should be excluded from.
+   *
+   * e.g. growingStockAvg.naturallyRegeneratingForest has as dependantsExclude [{ tableName: 'forestCharacteristics', variableName: 'naturalForestArea' }].
+   * This means when forestCharacteristics.naturalForestArea is updated, growingStockAvg.naturallyRegeneratingForest will not be updated
+   * even if forestCharacteristics.naturalForestArea is included in its calculation formula.
+   */
+  dependantsExclude?: Array<VariableCache>
   format?: {
     integer?: boolean
   }
+  index: number | string
+  label?: RowLabel // TODO: remove? (check if used - probably not)
+  linkToSection?: string
   readonly?: boolean
+  type: RowType
+  variableName?: string
+  validateFns?: Record<CycleUuid, Array<string>>
 }
 
 export interface Row extends CycledPropsObject<RowProps> {
   cols?: Array<Col>
   tableId: number
-  // validator?: Validator
-  // calculateFn?: CalculateValue
-  // chartProps?: RowChartSpec
-  // idx?: string | number
-  // label?: string
-  // validation messages
-  // getValidationMessages?: GetValidationMessages
-  // row header
-  // mainCategory?: boolean
-  // subcategory?: boolean
-  // variableNo?: string
-  // row notice message
-  // rowSpan?: number
-  // colSpan?: number
-  // variableExport?: string
 }

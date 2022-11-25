@@ -8,10 +8,11 @@ export type {
   Administrator,
   Collaborator,
   CollaboratorProps,
+  CollaboratorSectionsProp,
   NationalCorrespondent,
   Reviewer,
   UserRole,
   Viewer,
 } from './userRole'
-export { RoleName } from './userRole'
+export { CollaboratorEditPropertyType, RoleName } from './userRole'
 export { Users } from './users'

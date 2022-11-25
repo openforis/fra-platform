@@ -6,11 +6,11 @@ import { Link } from 'react-router-dom'
 import classNames from 'classnames'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
+import { ClientRoutes } from '@meta/app'
 import { ActivityLog, ActivityLogs } from '@meta/assessment'
 
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { useCountryIso } from '@client/hooks'
-import { ClientRoutes } from '@client/clientRoutes'
 import { Dates } from '@client/utils'
 
 type Props = {

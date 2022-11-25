@@ -1,4 +1,4 @@
-import { Objects } from '@openforis/arena-core'
+import { Objects } from '@utils/objects'
 
 import { CountryIso } from '@meta/area'
 import { Assessment, Cycle } from '@meta/assessment'

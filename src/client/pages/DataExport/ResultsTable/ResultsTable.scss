@@ -4,7 +4,8 @@
   width: calc(100vw - #{$spacing-m});
 
   @include min-width($laptop) {
-    width: 100%;
+    flex: 1;
+    width: auto;
   }
 
   .copyright {

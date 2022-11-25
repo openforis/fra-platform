@@ -3,7 +3,7 @@ import { ActivityLogMessage, Assessment, Cycle } from '@meta/assessment'
 import { RoleName, User, UserRole } from '@meta/user'
 
 import { BaseProtocol, DB } from '@server/db'
-import { ActivityLogRepository } from '@server/repository/assessment/activityLog'
+import { ActivityLogRepository } from '@server/repository/public/activityLog'
 import { UserRepository } from '@server/repository/public/user'
 import { UserRoleRepository } from '@server/repository/public/userRole'
 import { MailService } from '@server/service'
@@ -42,10 +42,12 @@ export const invite = async (
 
     userToInvite = await UserRepository.getOne({ email }, t)
 
+    const { userId, role } = userRole
+
     await ActivityLogRepository.insertActivityLog(
       {
         activityLog: {
-          target: { user: userToInvite.name, role: userRole.role },
+          target: { userId, user: userToInvite.name, role },
           section: 'users',
           message: ActivityLogMessage.invitationAdd,
           countryIso,
@@ -59,9 +61,10 @@ export const invite = async (
 
     await MailService.userInvite({
       countryIso,
+      assessmentName: assessment.props.name,
+      cycleName: cycle.name,
       role: userRole,
       userToInvite,
-      user,
       url: process.env.APP_URI,
     })
 

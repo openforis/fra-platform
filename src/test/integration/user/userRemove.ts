@@ -1,16 +1,14 @@
-import { userMockTest } from '@test/integration/mock/user'
+import { UserRepository } from '@server/repository/public/user'
 
-import { UserController } from '@server/controller/user'
+import { userMockTest } from '@test/integration/mock/user'
 
 export default () =>
   test('Expect user to be removed', async () => {
-    const user = await UserController.getOne({
+    const user = await UserRepository.getOne({
       email: userMockTest.email,
     })
 
-    const removedUser = await UserController.remove({
-      user,
-    })
+    const removedUser = await UserRepository.remove({ user })
 
     // Ids match
     expect(user).toHaveProperty('id')

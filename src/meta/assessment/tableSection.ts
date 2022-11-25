@@ -1,12 +1,11 @@
-import { CycledPropsObject, Table } from './index'
+import { CycledPropsObject, Label, Table } from './index'
 
 export interface TableSectionProps {
-  descriptionKey?: string
-  labelKey?: string
+  descriptions: Record<string, Label> // label by cycle uuid
+  labels: Record<string, Label> // label by cycle uuid
 }
 
 export interface TableSection extends CycledPropsObject<TableSectionProps> {
-  sectionId: number
-  sectionName: string
+  sectionId?: number
   tables?: Array<Table>
 }

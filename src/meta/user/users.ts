@@ -5,6 +5,7 @@ import { CountryIso } from '@meta/area'
 
 import type { User } from './user'
 import { RoleName, UserRole } from './userRole'
+import { UserRoles } from './userRoles'
 
 const isRole = (user: User, role: RoleName) =>
   Boolean(user?.roles?.find((userRole: UserRole<any>) => userRole.role === role))
@@ -45,7 +46,8 @@ const getRolesAllowedToEdit = (props: { user: User; countryIso: CountryIso }): A
   return []
 }
 
-const getI18nRoleLabelKey = (role: RoleName | string): string => `user.roles.${role}`
+const getI18nRoleLabelKey = (role: RoleName | string): string =>
+  role ? `user.roles.${role}` : UserRoles.noRole.labelKey
 
 export const profilePictureUri = (userId: number) => ApiEndPoint.User.profilePicture(String(userId))
 

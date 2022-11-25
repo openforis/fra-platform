@@ -1,4 +1,4 @@
-import { CycledPropsObject } from './cycle'
+import { CycledPropsObject, CycleUuid } from './cycle'
 import { Label } from './label'
 
 export enum ColType {
@@ -10,6 +10,7 @@ export enum ColType {
   placeholder = 'placeholder',
   select = 'select',
   selectYesNo = 'selectYesNo',
+  taxon = 'taxon',
   text = 'text',
   textarea = 'textarea',
   // placeholder = 'placeholder',
@@ -26,18 +27,20 @@ export interface ColSelectProps {
   labelKeyPrefix?: string
 }
 
-export interface ColProps {
-  colName?: string
+export interface ColStyle {
   colSpan?: number
+  rowSpan?: number
+}
+
+export interface ColProps {
+  calculateFn?: Record<CycleUuid, string>
+  colName?: string
   colType: ColType
   index?: number | string
-  label?: Label
-  rowSpan?: number
-  variableNo?: string
-  // calculated props
-  calculateFn?: string
-  // select props
+  labels?: Record<string, Label> // label by cycle uuid
   select?: ColSelectProps
+  style: Record<string, ColStyle> // style by cycle uuid
+  variableNo?: Record<string, string> // variable number by cycle uuid
 }
 
 export interface Col extends CycledPropsObject<ColProps> {

@@ -1,6 +1,7 @@
 const area = require('./es/area')
 const common = require('./es/common')
 const dataDownload = require('./es/dataDownload')
+const fra = require('./es/fra')
 const statisticalFactsheets = require('./es/statisticalFactsheets')
 const login = require('./es/login')
 const uc = require('./fr/uc')
@@ -10,6 +11,7 @@ module.exports.translation = {
   area,
   common,
   dataDownload,
+  fra,
   statisticalFactsheets,
   login,
   uc,
@@ -453,7 +455,7 @@ El equipo de FRA
       subject: 'Invitación a la plataforma de FRA',
       textMessage: `Estimado/a {{invitedUser}},
 
-Ha sido invitado/a a acceder a la plataforma de FRA como {{role}} para {{country}}.
+Ha sido invitado/a a acceder {{assessmentName}} {{cycleName}} como {{role}} para {{country}}.
 
 Acepte esta invitación y acceda a la plataforma en la siguiente dirección URL:
 {{- link}}
@@ -465,7 +467,7 @@ El equipo de FRA
     `,
       htmlMessage: `Estimado/a {{invitedUser}},
 <br/><br/>
-Ha sido invitado/a a acceder a la plataforma de FRA como {{role}} para {{country}}.
+Ha sido invitado/a a acceder {{assessmentName}} {{cycleName}} como {{role}} para {{country}}.
 <br/><br/>
 <b><a href="{{- link}}">Acepte esta invitación y acceda a la plataforma</a></b>
 <br/><br/>
@@ -500,7 +502,6 @@ El equipo de FRA
     extentOfForest: 'Extensión del bosque y otras tierras boscosas',
     estimationAndForecasting: 'Estimación and proyección',
     categoryHeader: 'Categorías de FRA',
-    areaUnitLabel: 'Área (1000 ha)',
     forestArea: 'Bosque',
     chart: {
       placeholderLine1: 'Para empezar, añada nuevos puntos de datos nacionales y úselos',
@@ -539,7 +540,6 @@ El equipo de FRA
     forestCharacteristics: 'Características de los bosques',
     estimationAndForecasting: 'Estimación y proyección',
     categoryHeader: 'Categorías de FRA',
-    areaUnitLabel: 'Área forestal (1000 ha)',
     naturalForestArea: 'Bosque regenerado de forma natural',
     plantationForestArea: 'Plantación forestal',
     plantationForestIntroducedArea: '…de la cual con especies introducidas',

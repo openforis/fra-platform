@@ -1,25 +1,13 @@
-import { Request, Response } from 'express'
+import { Response } from 'express'
 
-import { CountryIso } from '@meta/area'
-import { ForestSource } from '@meta/geo'
+import { ForestLayerRequest } from '@meta/api/request'
 
 import { GeoController } from '@server/controller/geo'
 import Requests from '@server/utils/requests'
 
-export const getForestLayer = async (req: Request, res: Response) => {
+export const getForestLayer = async (req: ForestLayerRequest, res: Response) => {
   try {
-    const { countryIso, forestSource } = req.params as {
-      countryIso: CountryIso
-      forestSource: ForestSource
-    }
-    const gteHansenTreeCoverPerc = Number(req.params.gteHansenTreeCoverPerc)
-    const { onlyProtected } = req.query
-    const layer = await GeoController.getForestLayer({
-      countryIso,
-      forestSource,
-      gteHansenTreeCoverPerc,
-      onlyProtected: onlyProtected !== undefined,
-    })
+    const layer = await GeoController.getForestLayer(req.query)
 
     Requests.sendOk(res, layer)
   } catch (e) {

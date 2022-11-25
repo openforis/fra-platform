@@ -1,31 +1,76 @@
-import { ColSpec } from '../../../.src.legacy/webapp/sectionSpec'
-import { Col, ColType } from '../../../src/meta/assessment/col'
-import { Row } from '../../../src/meta/assessment/row'
+import { Assessment, Col, ColStyle, ColType, Label, Row } from '../../../src/meta/assessment'
+import { ColSpec } from '../../../src/test/sectionSpec'
+import { getCycleUuids, getLabels } from './utils'
 
-export const getCol = (props: { cycles: Array<string>; colSpec: ColSpec; row: Row }): Col => {
-  const { colSpec, cycles, row } = props
-  const col: Col = {
+const _getCalculateFn = (colSpec: ColSpec, cycles: string[], assessment: Assessment): Record<string, string> => {
+  const calculateFn = colSpec.migration?.calculateFn
+
+  if (!calculateFn) return undefined
+
+  if (typeof calculateFn === 'string') {
+    return cycles.reduce<Record<string, string>>((calcFnAgg, cycle) => ({ ...calcFnAgg, [cycle]: calculateFn }), {})
+  }
+
+  return Object.entries(calculateFn).reduce<Record<string, string>>(
+    (acc, [cycleName, _calculateFn]) => ({
+      ...acc,
+      [assessment.cycles.find((c) => c.name === cycleName).uuid]: _calculateFn,
+    }),
+    {}
+  )
+}
+
+export const getCol = (props: {
+  assessment: Assessment
+  colSpec: ColSpec
+  row: Row
+}): Col & { forceColName?: boolean } => {
+  const { assessment, colSpec, row } = props
+  const cycles = getCycleUuids({ assessment, migration: colSpec.migration, parentCycleUuids: row.props.cycles })
+  const style = cycles.reduce<Record<string, ColStyle>>(
+    (styleAgg, cycle) => ({
+      ...styleAgg,
+      [cycle]: colSpec.migration?.style
+        ? colSpec.migration.style[assessment.cycles.find((c) => c.uuid === cycle).name]
+        : { colSpan: colSpec.colSpan, rowSpan: colSpec.rowSpan },
+    }),
+    {}
+  )
+  let variableNo
+  if (colSpec.migration?.variableNo) {
+    variableNo = Object.entries(colSpec.migration.variableNo).reduce<Record<string, string>>(
+      (acc, [cycleName, varNo]) => ({ ...acc, [assessment.cycles.find((c) => c.name === cycleName).uuid]: varNo }),
+      {}
+    )
+  } else if (colSpec.variableNo) {
+    variableNo = cycles.reduce<Record<string, string>>(
+      (styleAgg, cycle) => ({ ...styleAgg, [cycle]: colSpec.variableNo }),
+      {}
+    )
+  }
+  const col: Col & { forceColName?: boolean } = {
     props: {
       cycles,
-      colSpan: colSpec.colSpan,
-      rowSpan: colSpec.rowSpan,
       colType: colSpec.type as unknown as ColType,
       index: colSpec.idx,
       colName: colSpec.colName,
-      variableNo: colSpec.variableNo,
-      calculateFn: colSpec.migration?.calculateFn,
+      variableNo,
+      calculateFn: _getCalculateFn(colSpec, cycles, assessment),
+      style,
     },
     rowId: row.id,
   }
 
   // label migration
-  if (typeof colSpec.label === 'string' || colSpec.labelKey || colSpec.labelParams || colSpec.labelPrefixKey) {
-    col.props.label = {
+  const colSpecLabel = colSpec.label ? String(colSpec.label) : undefined
+  if (colSpecLabel || colSpec.labelKey || colSpec.labelParams || colSpec.labelPrefixKey || colSpec.migration?.label) {
+    const label: Label = {
       key: colSpec.labelKey,
       params: colSpec.labelParams,
-      label: colSpec.label,
+      label: colSpecLabel,
       prefixKey: colSpec.labelPrefixKey,
     }
+    col.props.labels = getLabels({ assessment, label, migration: colSpec.migration })
   }
 
   // select migration
@@ -38,6 +83,9 @@ export const getCol = (props: { cycles: Array<string>; colSpec: ColSpec; row: Ro
         type: o.type === 'header' ? 'header' : undefined,
       })),
     }
+  }
+  if (colSpec.migration?.forceColName) {
+    col.forceColName = colSpec.migration.forceColName
   }
   return col
 }

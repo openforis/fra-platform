@@ -1,13 +1,11 @@
 import { useEffect } from 'react'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
-
 import { AssessmentName } from '@meta/assessment'
 import { TableData } from '@meta/data'
 
 import { useDataExportSelection } from '@client/store/pages/dataExport'
 import { useCountryIso, useGetRequest } from '@client/hooks'
-import { formatColumn } from '@client/pages/DataExport/utils'
 
 type Props = {
   columnsAlwaysExport: Array<string>
@@ -39,14 +37,12 @@ export const useFetchResults = (props: Props): UseFetchResults => {
       tableNames: [tableName],
       countryISOs: selection.countryISOs,
       variables: selection.sections[sectionName].variables,
-      columns: [
-        ...columnsAlwaysExport,
-        ...selection.sections[sectionName].columns.map((column) => formatColumn(column, sectionName)),
-      ],
+      columns: [...columnsAlwaysExport, ...selection.sections[sectionName].columns],
     },
   })
 
-  useEffect(fetchResults, [fetchResults, selection])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(fetchResults, [selection])
 
   return {
     results,

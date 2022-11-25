@@ -3,8 +3,8 @@ import { ActivityLogMessage, Assessment, Cycle, Table } from '@meta/assessment'
 import { User } from '@meta/user'
 
 import { BaseProtocol, DB } from '@server/db'
-import { ActivityLogRepository } from '@server/repository/assessment/activityLog'
 import { DataRepository } from '@server/repository/assessmentCycle/data'
+import { ActivityLogRepository } from '@server/repository/public/activityLog'
 
 type Props = {
   user: User

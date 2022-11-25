@@ -1,7 +1,5 @@
-import { AssessmentName } from '@meta/assessment'
+import { SubSection } from '@meta/assessment'
 
 export type Props = {
-  assessmentName: AssessmentName
-  sectionName: string
-  sectionAnchor: string
+  subSection: SubSection
 }

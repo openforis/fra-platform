@@ -2,19 +2,22 @@ import './TitleExcelCalculator.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Labels } from '@meta/assessment'
+
+import { useCycle } from '@client/store/assessment'
+
+import { Props } from '../props'
 import ExcelCalculatorDownload from './ExcelCalculatorDownload'
 
-type Props = {
-  sectionName: string
-}
+const TitleExcelCalculator: React.FC<Props> = (props) => {
+  const { subSection } = props
 
-const TitleExcelCalculator: React.FC<Props> = (props: Props) => {
-  const { sectionName } = props
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
+  const cycle = useCycle()
 
   return (
     <div className="title-with-excel-calculator">
-      <h2 className="headline no-print">{i18n.t<string>(`${sectionName}.${sectionName}`)}</h2>
+      <h2 className="headline no-print">{Labels.getLabel({ cycle, labels: subSection.props.labels, t })}</h2>
       <ExcelCalculatorDownload />
     </div>
   )
