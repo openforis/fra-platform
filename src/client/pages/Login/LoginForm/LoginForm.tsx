@@ -128,10 +128,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
   return (
     <div className="login__formWrapper">
       <div>
-        <a
-          className="btn"
-          href={`${ApiEndPoint.Auth.google()}${invitationUuid ? `?invitationUuid=${invitationUuid}` : ''}`}
-        >
+        <a className="btn" href={ApiEndPoint.Auth.google()}>
           {i18n.t<string>('login.signInGoogle')}
         </a>
 
