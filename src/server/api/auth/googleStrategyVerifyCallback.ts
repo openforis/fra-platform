@@ -1,7 +1,7 @@
 import { Request } from 'express'
 import { Profile, VerifyFunction } from 'passport-google-oauth'
 
-import { AuthProvider } from '@meta/user'
+import { AuthProvider, UserStatus } from '@meta/user'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { UserController } from '@server/controller/user'
@@ -22,13 +22,8 @@ export const googleStrategyVerifyCallback = async (
     const invitationUuid = req.query.state as string
     if (invitationUuid) {
       const { user: invitedUser, userRole } = await UserController.readByInvitation({ invitationUuid })
-      if (invitedUser?.status !== 'active') {
-        const provider = {
-          provider: AuthProvider.google,
-          props: {
-            email,
-          },
-        }
+      if (invitedUser?.status === UserStatus.invitationPending) {
+        const provider = { provider: AuthProvider.google, props: { email } }
         await UserProviderController.create({ user: invitedUser, provider })
       }
       const { assessment, cycle } = await AssessmentController.getOneWithCycle({
@@ -39,7 +34,8 @@ export const googleStrategyVerifyCallback = async (
     } else {
       user = await UserController.getOne({ emailGoogle: email })
       if (user) {
-        await UserProviderController.read({ user, provider: AuthProvider.google })
+        const userRole = await UserProviderController.read({ provider: AuthProvider.google, user })
+        if (!userRole) user = null
       }
     }
 
