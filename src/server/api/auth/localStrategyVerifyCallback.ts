@@ -1,7 +1,6 @@
 import { Objects } from '@utils/objects'
 import { Request } from 'express'
 
-import { UserStatus } from '@meta/user'
 import { AuthProvider, AuthProviderLocalProps, UserAuthProvider } from '@meta/user/userAuth'
 
 import { AssessmentController } from '@server/controller/assessment'
@@ -21,6 +20,7 @@ export const localStrategyVerifyCallback = async (req: Request, email: string, p
       sendErr('login.noEmptyPassword')
     } else {
       const invitationUuid = req.query?.invitationUuid as string
+
       if (invitationUuid) {
         const { user: invitedUser, userRole } = await UserController.readByInvitation({ invitationUuid })
 
@@ -29,49 +29,44 @@ export const localStrategyVerifyCallback = async (req: Request, email: string, p
           provider: AuthProvider.local,
         })) as UserAuthProvider<AuthProviderLocalProps>
 
-        if (!userProvider || invitedUser?.status === UserStatus.invitationPending) {
+        if (!userProvider) {
           const provider = { provider: AuthProvider.local, props: { password: await passwordHash(password) } }
-
           userProvider = (await UserProviderController.create({
             user: invitedUser,
             provider,
           })) as UserAuthProvider<AuthProviderLocalProps>
+        }
 
-          const passwordMatch = await passwordCompare(
-            password,
-            userProvider.props.password ? userProvider.props.password : ''
-          )
+        const passwordMatch = await passwordCompare(password, userProvider.props.password)
 
-          if (passwordMatch) {
-            const { assessment, cycle } = await AssessmentController.getOneWithCycle({
-              id: userRole.assessmentId,
-              cycleUuid: userRole.cycleUuid,
-            })
+        if (passwordMatch) {
+          const { assessment, cycle } = await AssessmentController.getOneWithCycle({
+            id: userRole.assessmentId,
+            cycleUuid: userRole.cycleUuid,
+          })
 
-            const user = await UserController.acceptInvitation({ assessment, cycle, user: invitedUser, userRole })
+          const user = await UserController.acceptInvitation({ assessment, cycle, user: invitedUser, userRole })
 
-            done(null, user)
-          }
+          done(null, user)
+        } else {
+          done(null, false, { message: 'login.notAuthorized' })
         }
       } else {
         const user = await UserController.getOne({ email })
 
-        if (!user) sendErr('login.noMatchingUser')
+        if (user) {
+          const userProvider = (await UserProviderController.read({
+            user,
+            provider: AuthProvider.local,
+          })) as UserAuthProvider<AuthProviderLocalProps>
 
-        const userProvider = (await UserProviderController.read({
-          user,
-          provider: AuthProvider.local,
-        })) as UserAuthProvider<AuthProviderLocalProps>
+          const passwordMatch = await passwordCompare(password, userProvider.props.password)
 
-        if (!userProvider) sendErr('login.XXX')
-
-        const passwordMatch = await passwordCompare(
-          password,
-          userProvider.props.password ? userProvider.props.password : ''
-        )
-
-        if (passwordMatch) done(null, user)
-        else sendErr('login.noMatchingUser')
+          if (passwordMatch) done(null, user)
+          else sendErr('login.noMatchingLocalUser')
+        } else {
+          sendErr('login.noMatchingProvider')
+        }
       }
     }
   } catch (e) {
