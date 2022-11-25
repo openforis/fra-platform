@@ -30,10 +30,9 @@ export const localStrategyVerifyCallback = async (req: Request, email: string, p
         })) as UserAuthProvider<AuthProviderLocalProps>
 
         if (!userProvider) {
-          const provider = { provider: AuthProvider.local, props: { password: await passwordHash(password) } }
           userProvider = (await UserProviderController.create({
             user: invitedUser,
-            provider,
+            provider: { provider: AuthProvider.local, props: { password: await passwordHash(password) } },
           })) as UserAuthProvider<AuthProviderLocalProps>
         }
 
@@ -49,7 +48,7 @@ export const localStrategyVerifyCallback = async (req: Request, email: string, p
 
           done(null, user)
         } else {
-          done(null, false, { message: 'login.notAuthorized' })
+          sendErr('login.notAuthorized')
         }
       } else {
         const user = await UserController.getOne({ email })
