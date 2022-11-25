@@ -13,9 +13,9 @@ import { GeoActions, useForestSourceOptions } from '@client/store/ui/geo'
 import { useGeoMap } from '@client/hooks'
 
 import GeoMapMenuListElement from '../../GeoMapMenuListElement'
+import AgreementLevelsControl from '../MapVisualizerAgreementLevelsControl'
 // import countryBoundingBoxes from './countryBounds'
 import LayerOptionsPanel from './LayerOptionsPanel'
-import AgreementLevelsControl from '../MapVisualizerAgreementLevelsControl'
 
 // Just to display items for demo purposes
 const layers = [
