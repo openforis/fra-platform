@@ -1,7 +1,15 @@
 import './mapVisualizerAgreementLevelsControl.scss'
 import React from 'react'
 
+import axios from 'axios'
+
+import { Layer } from '@meta/geo'
+
+import { useForestSourceOptions } from '@client/store/ui/geo'
+import { useGeoMap } from '@client/hooks'
 import Icon from '@client/components/Icon'
+
+import { addAgreementLayer } from '../MapVisualizerPanel/mapVisualizerPanel'
 
 const boxes = [
   { title: '1', disabled: false, checked: true },
@@ -15,6 +23,23 @@ const boxes = [
 ]
 
 const AgreementLevelsControl: React.FC = () => {
+  const map = useGeoMap()
+  const forestOptions = useForestSourceOptions()
+
+  /**
+   * Handle agreement level selection
+   * @param {number} level The agreement level
+   */
+  const handleAgreementLevelSelection = async (level: number): Promise<void> => {
+    const layerQuery = forestOptions.sources.map((name) => `&layer=${name}`).join('')
+    const uri = `/api/geo/layers/forestAgreement/?countryIso=FIN${layerQuery}&gteAgreementLevel=${level}`
+
+    await axios.get<Layer>(uri).then((response) => {
+      const { mapId } = response.data
+      addAgreementLayer(map, mapId)
+    })
+  }
+
   return (
     <div className="geo-map-menu-data-visualizer-agreement-levels-control">
       <p>
@@ -27,8 +52,9 @@ const AgreementLevelsControl: React.FC = () => {
         </small>
       </p>
       <div className="geo-map-menu-data-visualizer-agreement-levels-boxes">
-        {boxes.map((box) => (
-          <div
+        {boxes.map((box, i) => (
+          <button
+            type="button"
             key={box.title}
             className={
               box.disabled
@@ -36,11 +62,12 @@ const AgreementLevelsControl: React.FC = () => {
                 : 'geo-map-menu-data-visualizer-agreement-levels-box'
             }
             aria-disabled={box.disabled}
+            onClick={() => handleAgreementLevelSelection(i + 1)}
           >
             {box.disabled ? <Icon name="alert" /> : <Icon name={box.checked ? 'remove' : 'circle-add'} />}
             <br />
             <p>{box.title}</p>
-          </div>
+          </button>
         ))}
       </div>
     </div>

@@ -85,6 +85,20 @@ const addOVerlayLayer = (map: google.maps.Map, mapId: string, mapLayerKey: strin
   // map.panToBounds(new google.maps.LatLngBounds(countryBoundingBoxes["FI"])) // bound to box
 }
 
+/**
+ * Add an agreement layer to a map
+ * @param {google.maps.Map} map The map to add the layer to
+ * @param {string} mapId The mapId of the layer
+ */
+export const addAgreementLayer = (map: google.maps.Map, mapId: string): void => {
+  const agreementLayerKey = 'Agreement'
+
+  // Remove any existing agreement layer
+  checkRemoveOverlayLayer(agreementLayerKey, map.overlayMapTypes, true)
+
+  addOVerlayLayer(map, mapId, agreementLayerKey)
+}
+
 const MapVisualizerPanel: React.FC = () => {
   const dispatch = useAppDispatch()
   const forestOptions = useForestSourceOptions()
