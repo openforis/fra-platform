@@ -31,24 +31,31 @@ export const googleStrategyVerifyCallback = async (
       })) as UserAuthProvider<AuthProviderGoogleProps>
 
       if (!userProvider) {
-        const provider = { provider: AuthProvider.google, props: { email } }
-        userProvider = (await UserProviderController.create({
-          user: invitedUser,
-          provider,
-        })) as UserAuthProvider<AuthProviderGoogleProps>
+        const googleUser = await UserController.getOne({ emailGoogle: email })
+
+        if (!googleUser) {
+          userProvider = (await UserProviderController.create({
+            user: invitedUser,
+            provider: { provider: AuthProvider.google, props: { email } },
+          })) as UserAuthProvider<AuthProviderGoogleProps>
+        }
       }
 
-      const googleMatch = userProvider.props.email === email
+      if (userProvider) {
+        const googleMatch = userProvider.props.email === email
 
-      if (googleMatch) {
-        const { assessment, cycle } = await AssessmentController.getOneWithCycle({
-          id: userRole.assessmentId,
-          cycleUuid: userRole.cycleUuid,
-        })
+        if (googleMatch) {
+          const { assessment, cycle } = await AssessmentController.getOneWithCycle({
+            id: userRole.assessmentId,
+            cycleUuid: userRole.cycleUuid,
+          })
 
-        user = await UserController.acceptInvitation({ assessment, cycle, user: invitedUser, userRole })
+          user = await UserController.acceptInvitation({ assessment, cycle, user: invitedUser, userRole })
 
-        done(null, user)
+          done(null, user)
+        } else {
+          done(null, false, { message: 'login.notAuthorized' })
+        }
       } else {
         done(null, false, { message: 'login.notAuthorized' })
       }
