@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 
+import { Objects } from '@utils/index'
+
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { ClientRoutes } from '@meta/app'
 import { UserStatus } from '@meta/user'
@@ -22,7 +24,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
   const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
   const navigate = useNavigate()
-  const loginFailed = Urls.getRequestParam('loginFailed')
+  const loginError = Urls.getRequestParam('loginError')
   const { toaster } = useToaster()
 
   const { invitedUser } = useInvitation()
@@ -34,12 +36,12 @@ const LoginForm: React.FC<Props> = (props: Props) => {
   const [errors, setErrors] = useState<Record<string, string>>({})
 
   useEffect(() => {
-    if (loginFailed) toaster.error(i18n.t<string>('login.notAuthorized'))
+    if (!Objects.isEmpty(loginError)) toaster.error(i18n.t<string>(loginError))
     dispatch(LoginActions.initLogin())
     if (invitationUuid) {
       dispatch(LoginActions.fetchUserByInvitation({ invitationUuid }))
     }
-  }, [dispatch, i18n, invitationUuid, loginFailed, toaster])
+  }, [dispatch, i18n, invitationUuid, loginError, toaster])
 
   useEffect(() => {
     if (invitedUser?.email) setEmail(invitedUser.email)
