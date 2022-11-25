@@ -9,7 +9,9 @@ import { useAssessmentSection, useCycle } from '@client/store/assessment'
 import { useTableSections } from '@client/store/pages/assessmentSection'
 import { useIsSectionDataEmpty } from '@client/store/pages/assessmentSection/hooks'
 import { useCanEditDescriptions, useCanEditTableData } from '@client/store/user/hooks'
+import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
+import { useListenAssessmentSection } from '@client/pages/AssessmentSection/useListenAssessmentSection'
 
 import DataTable from './DataTable'
 import Descriptions, { GeneralComments } from './Descriptions'
@@ -27,6 +29,7 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
   const { assessmentName } = useParams<{ assessmentName: AssessmentName; cycleName: string; sectionName: string }>()
 
   const cycle = useCycle()
+  const countryIso = useCountryIso()
   const subSection = useAssessmentSection(sectionProp)
   const tableSections = useTableSections({ sectionName: subSection?.props.name })
   const canEditTableData = useCanEditTableData(sectionProp)
@@ -34,6 +37,9 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
   const { print, onlyTables } = useIsPrint()
 
   const { showTitle, descriptions, name: sectionName } = subSection?.props ?? {}
+
+  useListenAssessmentSection({ assessmentName, cycleName: cycle.name, sectionName, countryIso })
+
   // Hide the whole section if no tables have data
   const isSectionDataEmpty = useIsSectionDataEmpty(tableSections)
   if (onlyTables && isSectionDataEmpty) {

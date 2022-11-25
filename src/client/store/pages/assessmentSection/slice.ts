@@ -39,6 +39,37 @@ export const assessmentSectionSlice = createSlice({
       const dataUpdate = TableDatas.updateDatum({ data, countryIso, tableName, variableName, colName, value })
       state.data = { ...data, ...dataUpdate }
     },
+    // WIP: Evaluate and divide
+    // RFC: What should websocket return?
+    setNodeValues: (
+      state,
+      {
+        payload,
+      }: PayloadAction<{
+        tableName: string
+        countryIso: CountryIso
+        validations: Array<NodeUpdate>
+        nodeUpdates: Array<NodeUpdate>
+      }>
+    ) => {
+      const { nodeUpdates, validations, countryIso } = payload
+
+      nodeUpdates.forEach(({ tableName, variableName, colName, value }) => {
+        // If user has data for the table, update it
+        if (state.data[countryIso]?.[tableName]?.[colName]) {
+          state.data[countryIso][tableName][colName][variableName] = value
+        }
+      })
+
+      // TODO: Evaluate separation in own action, websocket listener
+      validations.forEach(({ tableName, variableName, colName, value }) => {
+        // If user has data for the table, update it
+        if (state.data[countryIso]?.[tableName]?.[colName]) {
+          state.data[countryIso][tableName][colName][variableName].validation = value.validation
+        }
+      })
+    },
+
     setNodeValueValidation: (state, { payload }: PayloadAction<{ nodeUpdate: NodeUpdate }>) => {
       const { nodeUpdate } = payload
       state.nodeValueValidation[nodeUpdate.tableName] = nodeUpdate
