@@ -1,4 +1,4 @@
-import './mapVisualizerAgreementLevelsControl.scss'
+import './MapVisualizerAgreementLevelsControl0.scss'
 import React, { useCallback } from 'react'
 
 import axios from 'axios'
@@ -9,7 +9,7 @@ import { useForestSourceOptions } from '@client/store/ui/geo'
 import { useGeoMap } from '@client/hooks'
 import Icon from '@client/components/Icon'
 
-import { addAgreementLayer } from '../MapVisualizerPanel/mapVisualizerPanel'
+import { addAgreementLayer } from '../MapVisualizerPanel/MapVisualizerPanel0'
 
 const boxes = [
   { title: '1', disabled: false, checked: true },
