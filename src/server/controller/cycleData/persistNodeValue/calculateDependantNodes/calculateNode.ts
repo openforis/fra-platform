@@ -7,16 +7,28 @@ import { Props } from '@server/controller/cycleData/persistNodeValue/props'
 import { BaseProtocol } from '@server/db'
 
 export const calculateNode = async (
-  props: Omit<Props, 'value'> & { expression: string; row: Row },
+  props: Omit<Props, 'value'> & { expression: string; row: Row; mergeOdp: boolean },
   client: BaseProtocol
 ): Promise<Node> => {
-  const { countryIso, assessment, cycle, sectionName, tableName, variableName, colName, expression, row, user } = props
+  const {
+    countryIso,
+    assessment,
+    cycle,
+    sectionName,
+    tableName,
+    variableName,
+    colName,
+    expression,
+    row,
+    user,
+    mergeOdp,
+  } = props
   const dependencies = assessment.metaCache[cycle.uuid].calculations.dependencies[tableName]?.[variableName]
   const data = await getTableData(
     {
       aggregate: false,
       columns: [],
-      mergeOdp: true,
+      mergeOdp,
       tableNames: [],
       variables: [],
       assessment,

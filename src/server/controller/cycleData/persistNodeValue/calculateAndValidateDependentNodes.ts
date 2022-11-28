@@ -11,13 +11,15 @@ import { Props } from './props'
 import { validateNodeUpdates } from './validateNodeUpdates'
 
 export const calculateAndValidateDependentNodes = async (
-  props: Omit<Props, 'value'> & { nodeUpdates: NodeUpdates },
+  props: Omit<Props, 'value'> & { nodeUpdates: NodeUpdates; isODP?: boolean },
   client: BaseProtocol
 ): Promise<void> => {
+  const { isODP } = props
+
   const nodeUpdates = await calculateDependantNodes(props, client)
   nodeUpdates.nodes.unshift(...props.nodeUpdates.nodes)
 
-  const validations = await validateNodeUpdates({ nodeUpdates }, client)
+  const validations = await validateNodeUpdates({ nodeUpdates, isODP }, client)
 
   // Update node values
   const { countryIso, assessment, cycle } = nodeUpdates
