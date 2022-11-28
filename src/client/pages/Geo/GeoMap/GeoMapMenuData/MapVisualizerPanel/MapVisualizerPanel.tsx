@@ -1,4 +1,4 @@
-import './MapVisualizerPanel0.scss'
+import './MapVisualizerPanel.scss'
 import React, { useCallback, useEffect, useState } from 'react'
 
 // @ts-ignore

@@ -1,1 +1,1 @@
-export { default } from './MapVisualizerPanel0'
+export { default } from './MapVisualizerPanel'
