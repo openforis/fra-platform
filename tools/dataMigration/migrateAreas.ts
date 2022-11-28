@@ -8,6 +8,7 @@ type Props = {
 
 export const migrateAreas = async (props: Props): Promise<void> => {
   const { client, schema, index } = props
+
   let countryCondition = ''
   if (schema.includes('pan_european')) {
     countryCondition = `where cr.region_code LIKE 'FE'`
