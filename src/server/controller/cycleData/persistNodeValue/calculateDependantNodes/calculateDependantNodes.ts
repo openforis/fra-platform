@@ -5,19 +5,34 @@ import { Props } from '@server/controller/cycleData/persistNodeValue/props'
 import { BaseProtocol } from '@server/db'
 import { RowRepository } from '@server/repository/assessment/row'
 
+import { getDependants } from '../utils/assessmentMetaCaches'
+import { isODPCell } from '../utils/isODPCell'
 import { calculateNode } from './calculateNode'
 
 export const calculateDependantNodes = async (
-  props: Omit<Props, 'value'>,
+  props: Omit<Props, 'value'> & { isODP?: boolean },
   client: BaseProtocol
 ): Promise<NodeUpdates> => {
-  const { assessment, cycle, countryIso, sectionName, tableName, variableName, colName, user } = props
+  const { assessment, cycle, countryIso, sectionName, tableName, variableName, colName, user, isODP } = props
 
   const nodeUpdates: NodeUpdates = { assessment, cycle, countryIso, nodes: [] }
-  const queue: Array<VariableCache> = [
-    ...(assessment.metaCache[cycle.uuid].calculations.dependants[tableName]?.[variableName] ?? []),
-  ]
+  const queue: Array<VariableCache> = await getDependants(
+    {
+      assessment,
+      cycle,
+      variableName,
+      tableName,
+      colName,
+      countryIso,
+      isODP,
+    },
+    client
+  )
   const visitedVariables: Array<VariableCache> = [{ variableName, tableName }]
+
+  // Don't include ODP data when calculating dependants of ODP cell
+  const _isODPCell = await isODPCell({ colName, tableName, countryIso, cycle, assessment }, client)
+  const mergeOdp = !_isODPCell
 
   while (queue.length !== 0) {
     const variableCache = queue.shift()
@@ -55,7 +70,10 @@ export const calculateDependantNodes = async (
         // make sure in target table there's a matching column
         if (row.cols.find((c) => c.props.colName === colName)) {
           // eslint-disable-next-line no-await-in-loop
-          const node = await calculateNode({ ...evaluateProps, expression: row.props.calculateFn[cycle.uuid] }, client)
+          const node = await calculateNode(
+            { ...evaluateProps, mergeOdp, expression: row.props.calculateFn[cycle.uuid] },
+            client
+          )
           nodeUpdates.nodes.push({
             tableName: evaluateProps.tableName,
             variableName: evaluateProps.variableName,
@@ -69,7 +87,12 @@ export const calculateDependantNodes = async (
           row.cols.map(async (col) => {
             if (col.props.calculateFn?.[cycle.uuid]) {
               const node = await calculateNode(
-                { ...evaluateProps, colName: col.props.colName, expression: col.props.calculateFn[cycle.uuid] },
+                {
+                  ...evaluateProps,
+                  mergeOdp,
+                  colName: col.props.colName,
+                  expression: col.props.calculateFn[cycle.uuid],
+                },
                 client
               )
               nodeUpdates.nodes.push({
@@ -82,11 +105,20 @@ export const calculateDependantNodes = async (
           })
         )
       }
-      queue.push(
-        ...(assessment.metaCache[cycle.uuid].calculations.dependants[variableCache.tableName]?.[
-          variableCache.variableName
-        ] ?? [])
+      // eslint-disable-next-line no-await-in-loop
+      const calculationDependants = await getDependants(
+        {
+          assessment,
+          cycle,
+          countryIso,
+          colName,
+          isODP,
+          ...variableCache,
+        },
+        client
       )
+      queue.push(...calculationDependants)
+
       visitedVariables.push(variableCache)
     }
   }
