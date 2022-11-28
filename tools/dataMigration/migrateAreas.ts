@@ -27,7 +27,7 @@ export const migrateAreas = async (props: Props): Promise<void> => {
             isPanEuropean
               ? `
       left join _legacy.country_region cr on (c.country_iso = cr.country_iso)
-      where ${countryCondition}"
+      where ${countryCondition}
       `
               : ''
           }
