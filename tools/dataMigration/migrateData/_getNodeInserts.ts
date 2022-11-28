@@ -26,10 +26,11 @@ export const _getNodeInserts = async (
     cycle: Cycle
     countryISOs: Array<string>
     table: Table
+    legacySchema: string
   },
   client: ITask<any>
 ): Promise<Array<NodeRow>> => {
-  const { assessment, cycle, countryISOs, table } = props
+  const { assessment, cycle, countryISOs, table, legacySchema } = props
   const schema = DBNames.getAssessmentSchema(assessment.props.name)
   const rows = await getRows(client, schema, table)
   const cols = await getCols(client, schema, table)
@@ -40,7 +41,7 @@ export const _getNodeInserts = async (
   const values: Array<NodeRow> = []
   await Promise.all(
     countryISOs.map(async (countryIso) => {
-      const [selectQuery, selectParams] = sqlCreator.createSelect(countryIso, tableName, '_legacy')
+      const [selectQuery, selectParams] = sqlCreator.createSelect(countryIso, tableName, legacySchema)
       let data = (await client.manyOrNone<DatumLegacy>(selectQuery, selectParams)) as Array<DatumLegacy>
       if (data.length === 0) data = []
 

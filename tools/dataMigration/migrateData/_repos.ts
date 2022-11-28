@@ -27,7 +27,7 @@ export const getRows = (client: ITask<any>, schema: string, table: Table): Promi
 export const getCols = (client: ITask<any>, schema: string, table: Table): Promise<Array<Col>> =>
   client.map<Col>(
     `select *
-     from assessment_fra.col c
+     from ${schema}.col c
      where c.row_id in (
          select r.id
          from ${schema}.row r
