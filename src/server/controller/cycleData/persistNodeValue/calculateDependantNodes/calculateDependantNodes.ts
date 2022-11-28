@@ -1,11 +1,12 @@
 import { Row, VariableCache } from '@meta/assessment'
 import { NodeUpdates } from '@meta/data'
 
-import { getDependants, isODPCell } from '@server/controller/cycleData/persistNodeValue/getDependants'
 import { Props } from '@server/controller/cycleData/persistNodeValue/props'
 import { BaseProtocol } from '@server/db'
 import { RowRepository } from '@server/repository/assessment/row'
 
+import { getDependants } from '../utils/assessmentMetaCaches'
+import { isODPCell } from '../utils/isODPCell'
 import { calculateNode } from './calculateNode'
 
 export const calculateDependantNodes = async (
@@ -15,19 +16,22 @@ export const calculateDependantNodes = async (
   const { assessment, cycle, countryIso, sectionName, tableName, variableName, colName, user, isODP } = props
 
   const nodeUpdates: NodeUpdates = { assessment, cycle, countryIso, nodes: [] }
-  const queue: Array<VariableCache> = await getDependants({
-    assessment,
-    cycle,
-    variableName,
-    tableName,
-    colName,
-    countryIso,
-    isODP,
-  })
+  const queue: Array<VariableCache> = await getDependants(
+    {
+      assessment,
+      cycle,
+      variableName,
+      tableName,
+      colName,
+      countryIso,
+      isODP,
+    },
+    client
+  )
   const visitedVariables: Array<VariableCache> = [{ variableName, tableName }]
 
   // Don't include ODP data when calculating dependants of ODP cell
-  const _isODPCell = await isODPCell({ colName, tableName, variableName, countryIso, cycle, assessment })
+  const _isODPCell = await isODPCell({ colName, tableName, countryIso, cycle, assessment }, client)
   const mergeOdp = !_isODPCell
 
   while (queue.length !== 0) {
@@ -102,7 +106,18 @@ export const calculateDependantNodes = async (
         )
       }
       // eslint-disable-next-line no-await-in-loop
-      queue.push(...(await getDependants({ assessment, cycle, countryIso, colName, isODP, ...variableCache })))
+      const calculationDependants = await getDependants(
+        {
+          assessment,
+          cycle,
+          countryIso,
+          colName,
+          isODP,
+          ...variableCache,
+        },
+        client
+      )
+      queue.push(...calculationDependants)
 
       visitedVariables.push(variableCache)
     }

@@ -1,7 +1,7 @@
 import { NodeValue, Row, TableNames } from '@meta/assessment'
 import { NodeUpdate, NodeUpdates } from '@meta/data'
 
-import { getDependants } from '@server/controller/cycleData/persistNodeValue/getDependants'
+import { getDependants } from '@server/controller/cycleData/persistNodeValue/utils/assessmentMetaCaches'
 import { BaseProtocol } from '@server/db'
 import { RowRepository } from '@server/repository/assessment/row'
 import { NodeRepository } from '@server/repository/assessmentCycle/node'
@@ -59,10 +59,25 @@ export const validateNodeUpdates = async (props: Props, client: BaseProtocol): P
         }
       }
 
-      const dependants = // eslint-disable-next-line no-await-in-loop
-        (await getDependants({ tableName, variableName, assessment, cycle, colName, countryIso, isODP })).map(
-          ({ tableName, variableName }) => ({ tableName, variableName, colName })
-        )
+      // eslint-disable-next-line no-await-in-loop
+      const calculationDependants = await getDependants(
+        {
+          tableName,
+          variableName,
+          assessment,
+          cycle,
+          colName,
+          countryIso,
+          isODP,
+        },
+        client
+      )
+
+      const dependants = calculationDependants.map(({ tableName, variableName }) => ({
+        tableName,
+        variableName,
+        colName,
+      }))
       queue.push(...dependants)
       visitedVariables.push(queueItem)
       if (value) {

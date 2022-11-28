@@ -4,11 +4,11 @@ import { Sockets } from '@meta/socket'
 import { User } from '@meta/user'
 
 import { getTableData } from '@server/controller/cycleData/getTableData'
-import { originalDataPointVariables } from '@server/controller/cycleData/originalDataPointVariables'
 import { BaseProtocol } from '@server/db'
 import { SocketServer } from '@server/service/socket'
 
 import { calculateAndValidateDependentNodes } from './persistNodeValue/calculateAndValidateDependentNodes'
+import { originalDataPointVariables } from './originalDataPointVariables'
 
 export const updateOriginalDataPointDependentNodes = async (
   props: {
