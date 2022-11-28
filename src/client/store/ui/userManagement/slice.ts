@@ -58,6 +58,11 @@ export const userManagementSlice = createSlice({
       state.user = payload
     })
 
+    builder.addCase(sendInvitationEmail.fulfilled, (state, { payload }) => {
+      const i = state.users.findIndex((u) => u.id === payload.userId)
+      if (i !== -1) state.users[i].roles = [payload]
+    })
+
     builder.addCase(updateSectionAuth.fulfilled, (state, { payload }) => {
       state.user.roles[0] = payload
     })

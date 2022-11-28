@@ -8,50 +8,7 @@ import { BaseProtocol } from '@server/db'
 import { SocketServer } from '@server/service/socket'
 
 import { calculateAndValidateDependentNodes } from './persistNodeValue/calculateAndValidateDependentNodes'
-
-// To further expand
-type OriginalDataPointVariable = {
-  // metadata properties
-  sectionName: string
-  tableName: string
-  variableName: string
-}
-
-const originalDataPointVariables: Array<OriginalDataPointVariable> = [
-  // 1a
-  { sectionName: 'extentOfForest', tableName: TableNames.extentOfForest, variableName: 'forestArea' },
-  { sectionName: 'extentOfForest', tableName: TableNames.extentOfForest, variableName: 'otherLand' },
-  { sectionName: 'extentOfForest', tableName: TableNames.extentOfForest, variableName: 'otherWoodedLand' },
-  { sectionName: 'extentOfForest', tableName: TableNames.extentOfForest, variableName: 'totalLandArea' },
-  // 1b
-  {
-    sectionName: 'forestCharacteristics',
-    tableName: TableNames.forestCharacteristics,
-    variableName: 'naturalForestArea',
-  },
-  { sectionName: 'forestCharacteristics', tableName: TableNames.forestCharacteristics, variableName: 'primaryForest' },
-  { sectionName: 'forestCharacteristics', tableName: TableNames.forestCharacteristics, variableName: 'plantedForest' },
-  {
-    sectionName: 'forestCharacteristics',
-    tableName: TableNames.forestCharacteristics,
-    variableName: 'plantationForestArea',
-  },
-  {
-    sectionName: 'forestCharacteristics',
-    tableName: TableNames.forestCharacteristics,
-    variableName: 'plantationForestIntroducedArea',
-  },
-  {
-    sectionName: 'forestCharacteristics',
-    tableName: TableNames.forestCharacteristics,
-    variableName: 'otherPlantedForestArea',
-  },
-  {
-    sectionName: 'forestCharacteristics',
-    tableName: TableNames.forestCharacteristics,
-    variableName: 'totalForestArea',
-  },
-]
+import { originalDataPointVariables } from './originalDataPointVariables'
 
 export const updateOriginalDataPointDependentNodes = async (
   props: {
@@ -76,7 +33,18 @@ export const updateOriginalDataPointDependentNodes = async (
 
       // eslint-disable-next-line no-await-in-loop
       await calculateAndValidateDependentNodes(
-        { colName, cycle, nodeUpdates, sectionName, tableName, user, variableName, assessment, countryIso },
+        {
+          colName,
+          cycle,
+          nodeUpdates,
+          sectionName,
+          tableName,
+          user,
+          variableName,
+          assessment,
+          countryIso,
+          isODP: true,
+        },
         client
       )
     }

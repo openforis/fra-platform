@@ -1,76 +1,84 @@
-import React from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
+
 import * as d3 from 'd3'
-import { hasData, defaultTransitionDuration } from '../chart'
 
-const tucanY = 20
-const tucanWidth = 62
-const tucanHeight = 87
-type Props = any
+import { usePrevious } from '@client/hooks'
 
-class NoDataPlaceholder extends React.Component {
-  props: Props
-  refs: any
+import { defaultTransitionDuration, hasData as _hasData } from '../chart'
 
-  getTucanX() {
-    return ((this.props as any).wrapperWidth - tucanWidth) / 2
+const toucanY = 20
+const toucanWidth = 62
+const toucanHeight = 87
+
+type Props = {
+  wrapperWidth: number
+  data: Record<string, unknown>
+}
+
+const NoDataPlaceholder = (props: Props) => {
+  const { data, wrapperWidth } = props
+  const { t } = useTranslation()
+  const container = useRef(null)
+  const hasData = _hasData(data)
+  const previousHasData = usePrevious(hasData, hasData)
+
+  const _getD3Container = () => {
+    return d3.select(container.current)
   }
 
-  tucan() {
-    return d3.select(this.refs.tucan)
-  }
-
-  hidePlaceholderAnimated() {
-    this.tucan()
+  const hidePlaceholderAnimated = useCallback(() => {
+    _getD3Container()
       .transition()
       .duration(defaultTransitionDuration)
       .delay(100)
       .ease(d3.easeBackInOut)
-      .attr('y', -tucanHeight)
+      .attr('y', -toucanHeight)
       .style('opacity', '0')
       .transition()
       .style('visibility', 'hidden')
-  }
+  }, [])
 
-  hidePlaceholder() {
-    this.tucan().transition().duration(100).style('visibility', 'hidden').style('opacity', '0')
-  }
+  const hidePlaceholder = useCallback(() => {
+    _getD3Container().transition().duration(100).style('visibility', 'hidden').style('opacity', '0')
+  }, [])
 
-  showPlaceholder() {
-    this.tucan().attr('y', tucanY).transition().duration(100).style('visibility', 'visible').style('opacity', '1')
-  }
+  const showPlaceholder = useCallback(() => {
+    _getD3Container().attr('y', toucanY).transition().duration(100).style('visibility', 'visible').style('opacity', '1')
+  }, [])
 
-  componentDidMount() {
-    hasData((this.props as any).data) ? this.hidePlaceholder() : this.showPlaceholder()
-  }
+  useEffect(() => {
+    if (!_hasData(data)) showPlaceholder()
+    else if (!previousHasData && hasData) hidePlaceholderAnimated()
+    else hidePlaceholder()
 
-  componentDidUpdate(prevProps: any, prevState: any) {
-    const prevPropsHaveData = hasData(prevProps.data)
-    const currentPropsHaveData = this.props ? hasData((this.props as any).data) : false
-    if (prevPropsHaveData && !currentPropsHaveData) {
-      this.showPlaceholder()
-    } else if (!prevPropsHaveData && currentPropsHaveData) {
-      this.hidePlaceholderAnimated()
+    return () => {
+      hidePlaceholder()
     }
-  }
+  }, [data, hasData, hidePlaceholder, hidePlaceholderAnimated, previousHasData, showPlaceholder])
 
-  componentWillUnmount() {
-    this.hidePlaceholder()
-  }
+  const centerX = wrapperWidth / 2
+  const textY = toucanY + toucanHeight
 
-  render() {
-    return (
-      <g className="chart__no-data-placeholder" ref="container">
-        <image
-          ref="tucan"
-          href="/img/tucan.svg"
-          width={tucanWidth}
-          height={tucanHeight}
-          x={this.getTucanX()}
-          y={tucanY}
-          style={{ opacity: 0 }}
-        />
+  return (
+    <g className="chart__no-data-placeholder" ref={container}>
+      <image
+        href="/img/tucan.svg"
+        width={toucanWidth}
+        height={toucanHeight}
+        x={(wrapperWidth - toucanWidth) / 2}
+        y={toucanY}
+      />
+      <g>
+        <text dominantBaseline="middle" textAnchor="middle" x={centerX} y={textY + 20}>
+          {t('extentOfForest.chart.placeholderLine1')}
+        </text>
+        <text dominantBaseline="middle" textAnchor="middle" x={centerX} y={textY + 40}>
+          {t('extentOfForest.chart.placeholderLine2')}
+        </text>
       </g>
-    )
-  }
+    </g>
+  )
 }
+
 export default NoDataPlaceholder

@@ -55,6 +55,10 @@ $login-height: 50vh;
   grid-row-gap: 40px;
   min-width: 400px;
 
+  h3 {
+    text-align: center;
+  }
+
   input[type='text'],
   input[type='password'] {
     justify-self: stretch;

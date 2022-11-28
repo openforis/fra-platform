@@ -1,3 +1,3 @@
 import { Request } from 'express'
 
-export type InitRequest = Request<never, never, never, { name: string }>
+export type InitRequest = Request<never, never, never, { assessmentName: string; cycleName?: string }>

@@ -43,6 +43,12 @@ export const assessmentSectionSlice = createSlice({
       const { nodeUpdate } = payload
       state.nodeValueValidation[nodeUpdate.tableName] = nodeUpdate
     },
+    deleteOriginalDataPoint: (state, { payload }: PayloadAction<{ countryIso: CountryIso; year: string }>) => {
+      // Delete reference from state for deleted ODP
+      const { countryIso, year } = payload
+      const odpReference = state.data?.[countryIso]?.originalDataPointValue?.[year]
+      if (odpReference) delete state.data?.[countryIso]?.originalDataPointValue?.[year]
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(setTableSections, (state, { payload }) => {

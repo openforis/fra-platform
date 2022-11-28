@@ -11,14 +11,21 @@ export const persistNodeValue = async (props: Props & { activityLogMessage?: Act
   const { assessment, colName, countryIso, cycle, tableName, variableName } = props
 
   return DB.tx(async (client) => {
-    const node = await persistNode(props, client)
+    try {
+      await client.func('pg_advisory_xact_lock', [1])
 
-    const nodeUpdates: NodeUpdates = {
-      assessment,
-      countryIso,
-      cycle,
-      nodes: [{ tableName, variableName, colName, value: node.value }],
+      const node = await persistNode(props, client)
+
+      const nodeUpdates: NodeUpdates = {
+        assessment,
+        countryIso,
+        cycle,
+        nodes: [{ tableName, variableName, colName, value: node.value }],
+      }
+
+      await calculateAndValidateDependentNodes({ ...props, nodeUpdates }, client)
+    } finally {
+      await client.func('pg_advisory_xact_lock', [1])
     }
-    await calculateAndValidateDependentNodes({ ...props, nodeUpdates }, client)
   })
 }

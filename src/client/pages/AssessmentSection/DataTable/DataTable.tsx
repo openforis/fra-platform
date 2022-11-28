@@ -15,6 +15,7 @@ import GenerateValues from '@client/pages/AssessmentSection/DataTable/GenerateVa
 
 import Chart from './Chart'
 import Table from './Table'
+import { useODPDeleteListener } from './useODPDeleteListener'
 
 type Props = {
   assessmentName: AssessmentName
@@ -50,6 +51,8 @@ const DataTable: React.FC<Props> = (props) => {
   // const generateValues: boolean = useSelector(
   //   (state) => odp && !disabled && Objects.isFunction(canGenerateValues) && canGenerateValues(state)
   // )
+
+  useODPDeleteListener({ assessmentName, cycleName: cycle.name, countryIso })
 
   useEffect(() => {
     dispatch(

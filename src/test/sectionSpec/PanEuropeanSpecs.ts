@@ -10047,7 +10047,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 labelParams: { year: 1990 },
                 variableExport: 'forest_1990',
               },
-              { idx: 6 },
+              // { idx: 6 },
               {
                 idx: 7,
                 type: 'data',
@@ -10143,7 +10143,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 labelParams: { year: 1990 },
                 variableExport: 'other_wooded_land_1990',
               },
-              { idx: 12 },
+              // { idx: 12 },
               {
                 idx: 13,
                 type: 'data',
