@@ -12,7 +12,9 @@ import {
   getCreateSchemaDDL,
 } from '../../src/server/repository/assessment/assessment/getCreateSchemaDDL'
 import { PanEuropeanSpecs } from '../../src/test/sectionSpec/PanEuropeanSpecs'
+import { migrateTablesData } from './migrateData/migrateTablesData'
 import { DBNames } from './_DBNames'
+import { generateMetaCache } from './generateMetaCache'
 import { migrateAreas } from './migrateAreas'
 import { migrateMetadata } from './migrateMetadata'
 
@@ -36,13 +38,14 @@ const createCycle = async (assessment: Assessment, cycleName: string, client: Ba
 
 export const migrate = async (props: {
   assessmentName: string
+  legacySchemaName: string
   assessmentLegacy: AssessmentLegacy
   cycleNames: Array<string>
   spec: Record<string, SectionSpec>
 }): Promise<void> => {
   // eslint-disable-next-line no-console
   console.log('========== START ', new Date().getTime())
-  const { assessmentName, assessmentLegacy, cycleNames, spec } = props
+  const { assessmentName, legacySchemaName, assessmentLegacy, cycleNames, spec } = props
 
   // ==== 1. delete old assessment
   await DB.query(`drop schema if exists ${DBNames.getAssessmentSchema(assessmentName)} cascade;`)
@@ -96,13 +99,23 @@ export const migrate = async (props: {
         migrateAreas({ client, schema: DBNames.getCycleSchema(assessment.props.name, cycleName), index })
       )
     )
+
+    // TODO: ==== 5. migrate data
+    await Promise.all(
+      assessment.cycles.map(async (cycle) => {
+        await migrateTablesData({ assessment, cycle }, client, legacySchemaName)
+        await generateMetaCache({ assessment, cycle }, client)
+      })
+    )
+    // TODO: ==== 5 END. migrate data
   })
 }
 
 const assessmentName = 'pan_european'
 const cycleNames = ['2020', '2025']
+const legacySchemaName = '_legacy_pan_european'
 
-migrate({ assessmentName, cycleNames, spec: PanEuropeanSpecs, assessmentLegacy: PanEuropean })
+migrate({ assessmentName, cycleNames, legacySchemaName, spec: PanEuropeanSpecs, assessmentLegacy: PanEuropean })
   .then(() => {
     // eslint-disable-next-line no-console
     console.log('========== END ', new Date().getTime())
