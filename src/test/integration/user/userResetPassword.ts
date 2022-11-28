@@ -1,9 +1,10 @@
-import { userMockTest, userMockTestPassword } from '@test/integration/mock/user'
-
 import { AuthProvider, User } from '@meta/user'
+import { AuthProviderLocalProps, UserAuthProvider } from '@meta/user/userAuth'
 
 import { UserController } from '@server/controller/user'
 import { UserProviderController } from '@server/controller/userProvider'
+
+import { userMockTest, userMockTestPassword } from '@test/integration/mock/user'
 
 export default (): void =>
   describe('User Reset Password', () => {
@@ -40,7 +41,10 @@ export default (): void =>
     })
 
     it('Verify changed password', async () => {
-      const userAuthProvider = await UserProviderController.read({ user, provider: AuthProvider.local })
+      const userAuthProvider = (await UserProviderController.read({
+        user,
+        provider: AuthProvider.local,
+      })) as UserAuthProvider<AuthProviderLocalProps>
 
       expect(userAuthProvider.props.password).not.toEqual(userMockTestPassword)
       expect(userAuthProvider.props.password).toEqual(userMockTestNewPassword)
