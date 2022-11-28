@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 
 import { CountryIso } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
+import { NodeUpdate } from '@meta/data'
 import { Sockets } from '@meta/socket'
 
 import { useAppDispatch } from '@client/store'
@@ -15,17 +16,21 @@ type Props = {
   sectionName: string
 }
 
-type WebsocketResponse = any // TODO: Add type when known/decided what websocket emits
+type WebsocketResponse = {
+  tableName: string
+  countryIso: CountryIso
+  validations: Array<NodeUpdate>
+}
 
-export const useListenAssessmentSection = (props: Props): void => {
+export const useListenValidationsUpdate = (props: Props): void => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    const nodeUpdateEvent = Sockets.getAssessmentSectionUpdateEvent(props)
+    const nodeUpdateEvent = Sockets.getAssessmentSectionValidationsUpdateEvent(props)
 
     const listener = (args: [WebsocketResponse]): void => {
-      const [{ calculations, validations, ...rest }] = args
-      dispatch(AssessmentSectionActions.setNodeValues({ ...rest, validations, nodeUpdates: calculations }))
+      const [{ validations, ...rest }] = args
+      dispatch(AssessmentSectionActions.setNodeValidations({ ...rest, validations }))
     }
 
     SocketClient.on(nodeUpdateEvent, listener)
