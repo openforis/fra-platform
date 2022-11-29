@@ -18,7 +18,7 @@ export const createResetPassword = createAsyncThunk<
     dispatch(
       NotificationActions.addMessage({
         id: UUIDs.v4(),
-        type: 'success',
+        type: 'info',
         message: data.message,
       } as NotificationMessage)
     )
