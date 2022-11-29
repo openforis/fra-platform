@@ -26,7 +26,7 @@ export const useListenValidationsUpdate = (props: Props): void => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    const nodeUpdateEvent = Sockets.getAssessmentSectionValidationsUpdateEvent(props)
+    const nodeUpdateEvent = Sockets.getNodeValidationsUpdateEvent(props)
 
     const listener = (args: [WebsocketResponse]): void => {
       const [{ validations, ...rest }] = args
