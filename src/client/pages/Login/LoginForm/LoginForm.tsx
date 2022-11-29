@@ -80,7 +80,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
   }
 
   if (loginLocal) {
-    const showPassword2 = userProviders && !userProviders?.includes(AuthProvider.local)
+    const showPassword2 = !userProviders?.includes(AuthProvider.local)
 
     const showForgotPassword = !userProviders || userProviders.includes(AuthProvider.local)
 
