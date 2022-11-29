@@ -35,12 +35,12 @@ export const getGoogleLogin = (req: LoginRequest, res: Response) => {
 }
 
 export const getGoogleCallback = (req: Request, res: Response, next: NextFunction) => {
-  passport.authenticate('google', { session: false }, (err: any, user: User) => {
+  passport.authenticate('google', { session: false }, (err: any, user: User, info: any) => {
     if (err) {
       next(err)
     } else if (!user) {
       res.clearCookie('token')
-      res.redirect('/login?loginFailed=true')
+      res.redirect(`/login?loginError=${info.message}`)
     } else {
       req.login(user, (err: any) => {
         if (err) next(err)

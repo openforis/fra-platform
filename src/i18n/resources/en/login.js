@@ -23,8 +23,11 @@ module.exports = {
   noMatchPasswords: "Passwords don't match",
   noEmptyPassword: 'Password cannot be empty',
   noShortPassword: 'Password too short',
-  noMatchingUser: "We couldn't find any user matching these credentials.\nMake sure you have a valid FRA account.",
   noMatchingEmail: "We couldn't find any user matching this email.\nMake sure you have a valid FRA account.",
+  noMatchingLocalUser:
+    "We couldn't find any user matching these credentials.\nMake sure you have a valid FRA account or reset your password in case you forget or lose it.",
+  noMatchingProvider:
+    "We couldn't find any user matching these credentials.\nMake sure you have a valid FRA account or try another authentication method.",
   passwordError:
     'Password must contain six characters or more and have at least one lower case and one upper case alphabetical character and one number',
   invalidEmail: 'Email not valid',

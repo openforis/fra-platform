@@ -1,6 +1,7 @@
 import { NodeValue, Row, TableNames } from '@meta/assessment'
 import { NodeUpdate, NodeUpdates } from '@meta/data'
 
+import { getDependants } from '@server/controller/cycleData/persistNodeValue/utils/assessmentMetaCaches'
 import { BaseProtocol } from '@server/db'
 import { RowRepository } from '@server/repository/assessment/row'
 import { NodeRepository } from '@server/repository/assessmentCycle/node'
@@ -9,12 +10,13 @@ import { validateNode } from './validateNode'
 
 type Props = {
   nodeUpdates: NodeUpdates
+  isODP: boolean
 }
 
 type QueueItem = Omit<NodeUpdate, 'value'> & { value?: NodeValue }
 
 export const validateNodeUpdates = async (props: Props, client: BaseProtocol): Promise<NodeUpdates> => {
-  const { nodeUpdates } = props
+  const { nodeUpdates, isODP } = props
   const { assessment, cycle, countryIso, nodes } = nodeUpdates
 
   const queue: Array<QueueItem> = [...nodes]
@@ -57,9 +59,25 @@ export const validateNodeUpdates = async (props: Props, client: BaseProtocol): P
         }
       }
 
-      const dependants = (assessment.metaCache[cycle.uuid].validations.dependants[tableName]?.[variableName] ?? []).map(
-        ({ tableName, variableName }) => ({ tableName, variableName, colName })
+      // eslint-disable-next-line no-await-in-loop
+      const calculationDependants = await getDependants(
+        {
+          tableName,
+          variableName,
+          assessment,
+          cycle,
+          colName,
+          countryIso,
+          isODP,
+        },
+        client
       )
+
+      const dependants = calculationDependants.map(({ tableName, variableName }) => ({
+        tableName,
+        variableName,
+        colName,
+      }))
       queue.push(...dependants)
       visitedVariables.push(queueItem)
       if (value) {
