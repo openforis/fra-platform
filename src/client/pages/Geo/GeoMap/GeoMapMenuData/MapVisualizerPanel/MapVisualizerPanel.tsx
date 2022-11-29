@@ -38,7 +38,7 @@ const MapVisualizerPanel: React.FC = () => {
         )
       } else {
         // get the new layer from the server and add it to the map and app state
-        const uri = apiUri + mapLayerKey === 'Hansen' ? `&gteHansenTreeCoverPerc=${hansenPercentage}` : ''
+        const uri = apiUri + (mapLayerKey === 'Hansen' ? `&gteHansenTreeCoverPerc=${hansenPercentage}` : '')
         await axios.get(uri).then((response) => {
           const { mapId } = response.data
           mapControllerRef.current.addEarthEngineLayer(mapLayerKey, mapId)
