@@ -14,6 +14,7 @@ type Props = {
   assessmentName: AssessmentName
   cycleName: string
   sectionName: string
+  canEditTableData: boolean
 }
 
 type WebsocketResponse = {
@@ -23,6 +24,7 @@ type WebsocketResponse = {
 }
 
 export const useListenValidationsUpdate = (props: Props): void => {
+  const { canEditTableData } = props
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -33,9 +35,12 @@ export const useListenValidationsUpdate = (props: Props): void => {
       dispatch(AssessmentSectionActions.setNodeValidations({ ...rest, validations }))
     }
 
-    SocketClient.on(nodeUpdateEvent, listener)
+    if (canEditTableData) {
+      SocketClient.on(nodeUpdateEvent, listener)
+    }
+
     return () => {
       SocketClient.off(nodeUpdateEvent, listener)
     }
-  }, [dispatch, props])
+  }, [canEditTableData, dispatch, props])
 }
