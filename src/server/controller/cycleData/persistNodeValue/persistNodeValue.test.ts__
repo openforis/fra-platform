@@ -13,6 +13,7 @@ describe('Persist value test', () => {
     const user = await UserController.read({ user: { email: 'cosimo.togna@fao.org' } })
 
     await CycleDataController.persistNodeValue({
+      sectionName: 'extentOfForest',
       assessment,
       user,
       countryIso: 'FIN',

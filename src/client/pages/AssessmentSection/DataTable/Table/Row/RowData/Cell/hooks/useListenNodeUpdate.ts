@@ -23,7 +23,7 @@ export const useListenNodeUpdate = (props: Props): void => {
 
   useEffect(() => {
     const { countryIso, tableName, variableName, colName } = props
-    const nodeUpdateEvent = Sockets.getNodeUpdateEvent(props)
+    const nodeUpdateEvent = Sockets.getNodeValueUpdateEvent(props)
 
     const listener = (args: [{ value: NodeValue }]): void => {
       const [{ value }] = args
