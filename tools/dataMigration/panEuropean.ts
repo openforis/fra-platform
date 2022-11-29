@@ -111,7 +111,7 @@ export const migrate = async (props: {
   })
 }
 
-const assessmentName = 'pan_european'
+const assessmentName = 'panEuropean'
 const cycleNames = ['2020', '2025']
 const legacySchemaName = '_legacy_pan_european'
 
