@@ -79,7 +79,11 @@ const LoginForm: React.FC<Props> = (props: Props) => {
     }
   }
 
-  if (loginLocal)
+  if (loginLocal) {
+    const showPassword2 = userProviders && !userProviders?.includes(AuthProvider.local)
+
+    const showForgotPassword = !userProviders || userProviders.includes(AuthProvider.local)
+
     return (
       <div className="login__form">
         <input
@@ -102,7 +106,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
         />
         {errors.password && <span className="login__field-error">{t(errors.password)}</span>}
 
-        {userProviders && !userProviders?.includes(AuthProvider.local) && (
+        {showPassword2 && (
           <>
             <input
               onFocus={() => setErrors({ ...errors, password2: null })}
@@ -116,7 +120,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
         )}
 
         {invitedUser && (
-          <button type="button" className="btn" onClick={onInvitation}>
+          <button type="button" className="btn" onClick={showPassword2 ? onInvitation : onLogin}>
             {t('login.acceptInvitation')}
           </button>
         )}
@@ -133,13 +137,14 @@ const LoginForm: React.FC<Props> = (props: Props) => {
           </div>
         )}
 
-        {(!userProviders || userProviders.includes(AuthProvider.local)) && (
+        {showForgotPassword && (
           <Link to={ClientRoutes.Login.ResetPassword.getLink()} type="button" className="btn-forgot-pwd">
             {t('login.forgotPassword')}
           </Link>
         )}
       </div>
     )
+  }
 
   return (
     <div className="login__formWrapper">
