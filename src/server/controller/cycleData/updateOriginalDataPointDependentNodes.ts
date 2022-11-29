@@ -71,7 +71,7 @@ export const updateOriginalDataPointDependentNodes = async (
     originalDataPointVariables.forEach(({ variableName, tableName }) => {
       const value = TableDatas.getNodeValue({ colName, variableName, tableName, countryIso, data })
       const propsEvent = { countryIso, assessmentName, cycleName, tableName: tableNameTarget, variableName, colName }
-      const nodeUpdateEvent = Sockets.getNodeUpdateEvent(propsEvent)
+      const nodeUpdateEvent = Sockets.getNodeValueUpdateEvent(propsEvent)
       SocketServer.emit(nodeUpdateEvent, { value })
     })
   }
