@@ -1,16 +1,15 @@
 import './MapVisualizerPanel.scss'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 
-// @ts-ignore
-import ee from '@google/earthengine'
 import axios from 'axios'
 import debounce from 'lodash.debounce'
 
-import { ForestSource, Layer } from '@meta/geo'
+import { ForestSource } from '@meta/geo'
 
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useForestSourceOptions } from '@client/store/ui/geo'
 import { useGeoMap } from '@client/hooks'
+import { MapController } from '@client/utils'
 
 import GeoMapMenuListElement from '../../GeoMapMenuListElement'
 import AgreementLevelsControl from '../MapVisualizerAgreementLevelsControl'
@@ -18,132 +17,98 @@ import AgreementLevelsControl from '../MapVisualizerAgreementLevelsControl'
 import LayerOptionsPanel from './LayerOptionsPanel'
 
 // Just to display items for demo purposes
-const layers = [
-  { key: 'JAXA', title: 'JAXA (2017)', apiUri: '/api/geo/layers/forest/?countryIso=FIN&forestSource=JAXA', opacity: 1 },
+const layers: { key: ForestSource; title: string; apiUri: string; opacity: number }[] = [
   {
-    key: 'TandemX',
+    key: ForestSource.JAXA,
+    title: 'JAXA (2017)',
+    apiUri: '/api/geo/layers/forest/?countryIso=FIN&forestSource=JAXA',
+    opacity: 1,
+  },
+  {
+    key: ForestSource.TandemX,
     title: 'TanDEM-X (2019)',
     apiUri: '/api/geo/layers/forest/?countryIso=FIN&forestSource=TandemX',
     opacity: 1,
   },
   {
-    key: 'GlobeLand',
+    key: ForestSource.GlobeLand,
     title: 'GlobeLand (2020)',
     apiUri: '/api/geo/layers/forest/?countryIso=FIN&forestSource=GlobeLand',
     opacity: 1,
   },
   {
-    key: 'ESAGlobCover',
+    key: ForestSource.ESAGlobCover,
     title: 'Global Land Cover ESA (2009)',
     apiUri: '/api/geo/layers/forest/?countryIso=FIN&forestSource=ESAGlobCover',
     opacity: 1,
   },
   {
-    key: 'Copernicus',
+    key: ForestSource.Copernicus,
     title: 'Copernicus (2019)',
     apiUri: '/api/geo/layers/forest/?countryIso=FIN&forestSource=Copernicus',
     opacity: 1,
   },
-  { key: 'ESRI', title: 'ESRI (2020)', apiUri: '/api/geo/layers/forest/?countryIso=FIN&forestSource=ESRI', opacity: 1 },
   {
-    key: 'ESAWorldCover',
+    key: ForestSource.ESRI,
+    title: 'ESRI (2020)',
+    apiUri: '/api/geo/layers/forest/?countryIso=FIN&forestSource=ESRI',
+    opacity: 1,
+  },
+  {
+    key: ForestSource.ESAWorldCover,
     title: 'ESA (2020)',
     apiUri: '/api/geo/layers/forest/?countryIso=FIN&forestSource=ESAWorldCover',
     opacity: 1,
   },
   {
-    key: 'Hansen',
+    key: ForestSource.Hansen,
     title: 'Hansen GFC (2020)',
     apiUri: '/api/geo/layers/forest/?countryIso=FIN&forestSource=Hansen',
     opacity: 1,
   },
 ]
 
-const checkRemoveOverlayLayer = (
-  mapLayerId: string,
-  overlayLayers: google.maps.MVCArray,
-  remove = false,
-  opacity = 1
-) => {
-  for (let i = 0; i < overlayLayers.getLength(); i += 1) {
-    const overlayLayer = overlayLayers.getAt(i)
-    if (overlayLayer.name === mapLayerId) {
-      if (remove) overlayLayers.removeAt(i)
-      overlayLayer.setOpacity(opacity)
-      return true
-    }
-  }
-  return false
-}
-
-const addOVerlayLayer = (map: google.maps.Map, mapId: string, mapLayerKey: string) => {
-  const tileSource = new ee.layers.EarthEngineTileSource({
-    mapid: mapId,
-  })
-  const overlay = new ee.layers.ImageOverlay(tileSource, { name: mapLayerKey })
-  map.overlayMapTypes.push(overlay)
-  // map.panToBounds(new google.maps.LatLngBounds(countryBoundingBoxes["FI"])) // bound to box
-}
-
-/**
- * Add an agreement layer to a map
- * @param {google.maps.Map} map The map to add the layer to
- * @param {string} mapId The mapId of the layer
- */
-export const addAgreementLayer = (map: google.maps.Map, mapId: string): void => {
-  const agreementLayerKey = 'Agreement'
-
-  // Remove any existing agreement layer
-  checkRemoveOverlayLayer(agreementLayerKey, map.overlayMapTypes, true)
-
-  addOVerlayLayer(map, mapId, agreementLayerKey)
-}
-
 const MapVisualizerPanel: React.FC = () => {
   const dispatch = useAppDispatch()
   const forestOptions = useForestSourceOptions()
   const [hansenPercentage, setHansenPercentage] = useState(10)
   const map = useGeoMap()
+  const mapControllerRef = useRef<MapController>(new MapController(map))
   // map.addListener('tilesloaded', () => setCheckboxDisabledState(false)) // tilesloaded doesn't wait for custom layers
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const onCheckboxClick = useCallback(
-    async (apiUri: string, mapLayerKey: string, source: ForestSource) => {
-      const forestOptionsCopy = { ...forestOptions }
-      const sources = [...forestOptions.sources]
+    async (apiUri: string, mapLayerKey: ForestSource) => {
+      const wasExistingLayer = mapControllerRef.current.removeEarthEngineLayer(mapLayerKey)
 
-      if (checkRemoveOverlayLayer(mapLayerKey, map.overlayMapTypes)) {
-        forestOptionsCopy.sources = sources.filter((el: ForestSource) => el !== source)
-        if (!forestOptionsCopy.sources.includes(source)) {
-          checkRemoveOverlayLayer(mapLayerKey, map.overlayMapTypes, true)
-        }
+      if (wasExistingLayer) {
+        // remove the existing layer from the app state
+        dispatch(
+          GeoActions.updateForestOptions({
+            sources: forestOptions.sources.filter((s: ForestSource) => s !== mapLayerKey),
+          })
+        )
       } else {
-        let uri = apiUri
-        if (mapLayerKey === 'Hansen') uri += `&gteHansenTreeCoverPerc=${hansenPercentage}`
+        // get the new layer from the server and add it to the map and app state
+        const uri = apiUri + mapLayerKey === 'Hansen' ? `&gteHansenTreeCoverPerc=${hansenPercentage}` : ''
         await axios.get(uri).then((response) => {
-          const layer: Layer = {
-            mapId: response.data.mapId,
-            palette: response.data.palette,
-            year: response.data.year,
-            citation: response.data.citation,
-          }
-          addOVerlayLayer(map, layer.mapId, mapLayerKey)
-          sources.push(source)
-          forestOptionsCopy.sources = sources
+          const { mapId } = response.data
+          mapControllerRef.current.addEarthEngineLayer(mapLayerKey, mapId)
+          dispatch(GeoActions.updateForestOptions({ sources: [...forestOptions.sources, mapLayerKey] }))
         })
       }
-      dispatch(GeoActions.updateForestOptions(forestOptionsCopy))
     },
-    [dispatch, forestOptions, hansenPercentage, map]
+    [dispatch, forestOptions, hansenPercentage]
   )
 
+  // re-render if Hansen percentage was changed
   useEffect(() => {
     // skip function if Hansen layer not selected or on 1st render
-    if (!checkRemoveOverlayLayer('Hansen', map.overlayMapTypes)) return
-    // if Hansen layer present, remove it and make another call with new option
-    checkRemoveOverlayLayer('Hansen', map.overlayMapTypes, true)
+    const hansenLayerWasRemoved = mapControllerRef.current.removeEarthEngineLayer('Hansen')
+    if (!hansenLayerWasRemoved) return
+
+    // if Hansen layer was present, make another call with new option
     const layer = layers.filter((layer) => layer.key === 'Hansen')[0]
-    onCheckboxClick(layer.apiUri, layer.key, layer.key as ForestSource)
+    onCheckboxClick(layer.apiUri, layer.key)
   }, [hansenPercentage, map.overlayMapTypes, onCheckboxClick])
 
   const [debouncedSetHansenPercentage] = useState(() =>
@@ -154,7 +119,7 @@ const MapVisualizerPanel: React.FC = () => {
   )
 
   const opacityChange = (layerKey: string, opacity: number) => {
-    checkRemoveOverlayLayer(layerKey, map.overlayMapTypes, false, opacity)
+    mapControllerRef.current.setEarthEngineLayerOpacity(layerKey, opacity)
   }
 
   return (
@@ -167,7 +132,7 @@ const MapVisualizerPanel: React.FC = () => {
               title={layer.title}
               tabIndex={index * -1 - 1}
               checked={forestOptions.sources.includes(layer.key as ForestSource)}
-              onCheckboxClick={() => onCheckboxClick(layer.apiUri, layer.key, layer.key as ForestSource)}
+              onCheckboxClick={() => onCheckboxClick(layer.apiUri, layer.key)}
               backgroundColor={layer.key.toLowerCase()}
             >
               <LayerOptionsPanel

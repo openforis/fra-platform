@@ -1,5 +1,5 @@
 import './MapVisualizerAgreementLevelsControl.scss'
-import React, { useCallback } from 'react'
+import React, { useCallback, useRef } from 'react'
 
 import axios from 'axios'
 
@@ -8,8 +8,7 @@ import { Layer } from '@meta/geo'
 import { useForestSourceOptions } from '@client/store/ui/geo'
 import { useGeoMap } from '@client/hooks'
 import Icon from '@client/components/Icon'
-
-import { addAgreementLayer } from '../MapVisualizerPanel/MapVisualizerPanel'
+import { MapController } from '@client/utils'
 
 const boxes = [
   { title: '1', disabled: false, checked: true },
@@ -25,6 +24,7 @@ const boxes = [
 const AgreementLevelsControl: React.FC = () => {
   const map = useGeoMap()
   const forestOptions = useForestSourceOptions()
+  const mapControllerRef = useRef<MapController>(new MapController(map))
 
   /**
    * Handle agreement level selection
@@ -37,10 +37,12 @@ const AgreementLevelsControl: React.FC = () => {
 
       await axios.get<Layer>(uri).then((response) => {
         const { mapId } = response.data
-        addAgreementLayer(map, mapId)
+        const agreementLayerKey = 'Agreement'
+        mapControllerRef.current.removeEarthEngineLayer(agreementLayerKey)
+        mapControllerRef.current.addEarthEngineLayer(agreementLayerKey, mapId)
       })
     },
-    [forestOptions.sources, map]
+    [forestOptions.sources]
   )
 
   return (
