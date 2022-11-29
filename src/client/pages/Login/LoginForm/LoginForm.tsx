@@ -6,7 +6,7 @@ import { Objects } from '@utils/index'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { ClientRoutes } from '@meta/app'
-import { UserStatus } from '@meta/user'
+import { AuthProvider } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
 import { LoginActions, useInvitation } from '@client/store/login'
@@ -27,7 +27,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
   const loginError = Urls.getRequestParam('loginError')
   const { toaster } = useToaster()
 
-  const { invitedUser } = useInvitation()
+  const { invitedUser, userProviders } = useInvitation()
 
   const [loginLocal, setLoginLocal] = useState(false)
   const [email, setEmail] = useState<string>('')
@@ -86,7 +86,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
         />
         {errors.password && <span className="login__field-error">{i18n.t<string>(errors.password)}</span>}
 
-        {invitedUser?.status === UserStatus.invitationPending && (
+        {!userProviders.includes(AuthProvider.local) && (
           <>
             <input
               onFocus={() => setErrors({ ...errors, password2: null })}
@@ -117,7 +117,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
           </div>
         )}
 
-        {invitedUser?.status !== UserStatus.invitationPending && (
+        {userProviders.includes(AuthProvider.local) && (
           <Link to={ClientRoutes.Login.ResetPassword.getLink()} type="button" className="btn-forgot-pwd">
             {i18n.t<string>('login.forgotPassword')}
           </Link>
