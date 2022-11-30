@@ -38,8 +38,8 @@ export const getGoogleCallback = (req: Request, res: Response, next: NextFunctio
     } else {
       req.login(user, (err: any) => {
         if (err) next(err)
-        // TODO setAuthToken(res, user)
-        res.redirect(`${process.env.NODE_ENV === 'development' ? '/' : appUri}`)
+        const token = getAuthToken(user)
+        res.redirect(`${process.env.NODE_ENV === 'development' ? '/' : appUri}?token=${token}`)
       })
     }
   })(req, res, next)
