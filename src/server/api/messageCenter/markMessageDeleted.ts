@@ -20,7 +20,7 @@ export const markMessageDeleted = async (
   try {
     const { countryIso, assessmentName, cycleName, topicKey, messageId, sectionName } = req.query
 
-    const user = Requests.getRequestUser(req)
+    const user = Requests.getUser(req)
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 

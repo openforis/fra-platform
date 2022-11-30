@@ -1,4 +1,5 @@
 import { Express } from 'express'
+import * as passport from 'passport'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 
@@ -21,5 +22,7 @@ export const AuthApi = {
 
     express.post(ApiEndPoint.Auth.changePassword(), postChangePassword)
     express.post(ApiEndPoint.Auth.resetPassword(), postResetPassword)
+
+    express.use(passport.authenticate('jwt', { session: false, passReqToCallback: true }))
   },
 }

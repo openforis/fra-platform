@@ -1,6 +1,5 @@
 import { Objects } from '@utils/objects'
 import { Request, Response } from 'express'
-import * as jwt from 'jsonwebtoken'
 
 import { User } from '@meta/user'
 
@@ -45,14 +44,8 @@ export const getParams = (req: Request) =>
 
 export const serverUrl = (req: Request) => (Objects.isEmpty(appUri) ? `${req.protocol}://${req.get('host')}` : appUri)
 
-const getRequestUser = (req: Request<unknown, unknown, unknown, unknown>): User => {
-  const { token } = req.cookies
-  let user
-  if (token) {
-    const decodedJwt = jwt.decode(token) as Record<string, User>
-    user = decodedJwt.user
-  }
-  return user
+const getUser = (req: Request) => {
+  return req.user as User
 }
 
 export const Requests = {
@@ -70,7 +63,7 @@ export const Requests = {
   serverUrl,
 
   // User
-  getRequestUser,
+  getUser,
 }
 
 export default Requests

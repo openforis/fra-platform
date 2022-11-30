@@ -1,28 +1,22 @@
-import { Dates } from '@utils/dates'
 import { NextFunction, Request, Response } from 'express'
-import * as jwt from 'jsonwebtoken'
 import * as passport from 'passport'
 
 import { LoginRequest } from '@meta/api/request'
 import { User } from '@meta/user'
 
+import { getAuthToken } from '@server/api/auth/utils/getAuthToken'
 import Requests, { appUri } from '@server/utils/requests'
 
-const setAuthToken = (res: Response, user: User): void => {
-  const token = jwt.sign({ user }, process.env.TOKEN_SECRET)
-  res.cookie('token', token, { expires: Dates.addMonths(new Date(), 12) })
-}
-
 export const postLocalLogin = async (req: Request, res: Response, next: NextFunction) => {
-  passport.authenticate('local', (err: any, user: User, info: any) => {
+  passport.authenticate('local', { session: false }, (err: any, user: User, info: any) => {
     if (err) return next(err)
 
     if (!user) return next(new Error(info.message))
 
-    return req.login(user, (err: any) => {
+    return req.login(user, { session: false }, (err: any) => {
       if (err) next(err)
-      setAuthToken(res, user)
-      Requests.sendOk(res)
+      const token = getAuthToken(user)
+      Requests.sendOk(res, { token })
     })
   })(req, res, next)
 }
@@ -44,7 +38,7 @@ export const getGoogleCallback = (req: Request, res: Response, next: NextFunctio
     } else {
       req.login(user, (err: any) => {
         if (err) next(err)
-        setAuthToken(res, user)
+        // TODO setAuthToken(res, user)
         res.redirect(`${process.env.NODE_ENV === 'development' ? '/' : appUri}`)
       })
     }

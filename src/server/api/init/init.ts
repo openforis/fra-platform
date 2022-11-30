@@ -16,7 +16,7 @@ export const init = async (req: InitRequest, res: Response) => {
 
     Requests.sendOk(res, {
       assessment,
-      user: Requests.getRequestUser(req),
+      user: Requests.getUser(req),
     })
   } catch (e) {
     Requests.sendErr(res, e)

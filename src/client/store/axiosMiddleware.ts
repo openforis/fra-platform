@@ -1,5 +1,5 @@
 import { UUIDs } from '@utils/uuids'
-import axios, { AxiosStatic } from 'axios'
+import axios, { AxiosRequestConfig, AxiosStatic } from 'axios'
 import { Action, Dispatch, Middleware, MiddlewareAPI } from 'redux'
 
 import { NotificationActions } from '@client/store/ui/notification/slice'
@@ -17,6 +17,19 @@ const createAxiosMiddleware =
       )
       return Promise.reject(error)
     })
+
+    axios.interceptors.request.use(
+      (config: AxiosRequestConfig) => {
+        const token = localStorage.getItem('jwtToken')
+        // Add 'Authorization' header with token found in localStorage
+        // eslint-disable-next-line no-param-reassign
+        if (token) config.headers.Authorization = `Bearer ${token}`
+        return config
+      },
+      (error: any) => {
+        return Promise.reject(error)
+      }
+    )
 
     return (next: Dispatch) => (action: Action) => next(action)
   }

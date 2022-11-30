@@ -21,10 +21,11 @@ import { UserApi } from './user'
 
 export const Api = {
   init: (express: Express): void => {
+    AuthApi.init(express)
+
     InitApi.init(express)
     AdminApi.init(express)
     AreaApi.init(express)
-    AuthApi.init(express)
     CycleDataApi.init(express)
     DefinitionApi.init(express)
     ExtDataApi.init(express)

@@ -22,7 +22,7 @@ export const removeInvitation = async (req: CycleRequest<{ invitationUuid: strin
       assessment,
       cycle,
       invitationUuid,
-      user: Requests.getRequestUser(req),
+      user: Requests.getUser(req),
     })
 
     Requests.sendOk(res, removedUserRole)

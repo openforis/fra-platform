@@ -25,7 +25,7 @@ export const updateOriginalDataPoint = async (
       assessment,
       cycle,
       originalDataPoint,
-      user: Requests.getRequestUser(req),
+      user: Requests.getUser(req),
     })
 
     Requests.send(res, returnedOriginalDataPoint)
