@@ -1,6 +1,7 @@
-import { matchPath, useLocation } from 'react-router-dom'
+import { matchPath, useLocation, useParams } from 'react-router-dom'
 
 import { ClientRoutes } from '@meta/app'
+import { AssessmentName } from '@meta/assessment'
 
 export const useIsPath = ({ path, exact = true }: { path: string; exact?: boolean }): boolean => {
   const { pathname } = useLocation()
@@ -20,3 +21,10 @@ export const useIsPrint = () => ({
   print: useIsPath({ path: `${ClientRoutes.Assessment.Print.path.absolute}/*`, exact: false }),
   onlyTables: useIsPath({ path: `${ClientRoutes.Assessment.PrintTables.path.absolute}`, exact: true }),
 })
+
+export const useIsPanEuropean = () => {
+  const { assessmentName } = useParams<{ assessmentName: AssessmentName }>()
+  return assessmentName === 'paneuropean' || assessmentName === 'panEuropean'
+}
+
+// Add isPanEuropean - Check Assessment - useParams
