@@ -11,7 +11,7 @@ import { Urls } from '@client/utils'
 
 const ResetPassword: React.FC = () => {
   const dispatch = useAppDispatch()
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
   const navigate = useNavigate()
 
   const resetPasswordUuid = Urls.getRequestParam('resetPasswordUuid')
@@ -42,7 +42,7 @@ const ResetPassword: React.FC = () => {
 
   return (
     <div className="login__form">
-      <h3>{i18n.t('login.forgotPasswordTitle')}</h3>
+      <h3>{t('login.forgotPasswordTitle')}</h3>
 
       <input
         onFocus={() => setErrors({ ...errors, email: null })}
@@ -50,10 +50,10 @@ const ResetPassword: React.FC = () => {
         value={email}
         disabled={!Objects.isEmpty(paramEmail)}
         type="text"
-        placeholder={i18n.t('login.email')}
+        placeholder={t('login.email')}
         onChange={(event) => setEmail(event.target.value)}
       />
-      {errors.email && <span className="login__field-error">{i18n.t(errors.email)}</span>}
+      {errors.email && <span className="login__field-error">{t(errors.email)}</span>}
 
       {resetPasswordUuid && (
         <>
@@ -61,27 +61,27 @@ const ResetPassword: React.FC = () => {
             onFocus={() => setErrors({ ...errors, password: null })}
             value={password}
             type="password"
-            placeholder={i18n.t('login.password')}
+            placeholder={t('login.password')}
             onChange={(event) => setPassword(event.target.value)}
           />
-          {errors.password && <span className="login__field-error">{i18n.t(errors.password)}</span>}
+          {errors.password && <span className="login__field-error">{t(errors.password)}</span>}
 
           <input
             onFocus={() => setErrors({ ...errors, password2: null })}
             value={password2}
             type="password"
-            placeholder={i18n.t('login.repeatPassword')}
+            placeholder={t('login.repeatPassword')}
             onChange={(event) => setPassword2(event.target.value)}
           />
-          {errors.password2 && <span className="login__field-error">{i18n.t(errors.password2)}</span>}
+          {errors.password2 && <span className="login__field-error">{t(errors.password2)}</span>}
 
           <div style={{ textAlign: 'center' }}>
             <button className="btn" type="button" onClick={() => navigate(-1)}>
-              {i18n.t('login.cancel')}
+              {t('login.cancel')}
             </button>
 
             <button className="btn" type="button" onClick={onChangePassword}>
-              {i18n.t('login.changePassword')}
+              {t('login.changePassword')}
             </button>
           </div>
         </>
@@ -90,11 +90,11 @@ const ResetPassword: React.FC = () => {
       {!resetPasswordUuid && (
         <div style={{ textAlign: 'center' }}>
           <button className="btn" type="button" onClick={() => navigate(-1)}>
-            {i18n.t('login.cancel')}
+            {t('login.cancel')}
           </button>
 
           <button className="btn" type="button" onClick={onResetPassword}>
-            {i18n.t('login.resetPassword')}
+            {t('login.resetPassword')}
           </button>
         </div>
       )}

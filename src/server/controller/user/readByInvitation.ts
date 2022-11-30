@@ -1,30 +1,34 @@
 import { Assessment } from '@meta/assessment'
-import { RoleName, User, UserRole } from '@meta/user'
+import { AuthProvider, RoleName, User, UserRole } from '@meta/user'
 
 import { BaseProtocol, DB } from '@server/db'
 import { AssessmentRepository } from '@server/repository/assessment/assessment'
 import { UserRepository } from '@server/repository/public/user'
+import { UserProviderRepository } from '@server/repository/public/userProvider'
 import { UserRoleRepository } from '@server/repository/public/userRole'
 
 export const readByInvitation = async (
-  props: {
-    invitationUuid: string
-  },
+  props: { invitationUuid: string },
   client: BaseProtocol = DB
-): Promise<{ userRole: UserRole<RoleName>; assessment: Assessment; user: User }> => {
+): Promise<{
+  assessment: Assessment
+  user: User
+  userProviders: Array<AuthProvider>
+  userRole: UserRole<RoleName>
+}> => {
   const { invitationUuid } = props
 
-  return client.tx(async (t) => {
-    const userRole = await UserRoleRepository.read({ invitationUuid }, t)
+  const userRole = await UserRoleRepository.read({ invitationUuid }, client)
 
-    const assessment = await AssessmentRepository.read({ id: userRole.assessmentId }, t)
+  const user = await UserRepository.getOne({ id: userRole.userId }, client)
 
-    const user = await UserRepository.getOne({ id: userRole.userId }, t)
+  const userProviders = await UserProviderRepository.getUserProviders({ user }, client)
 
-    return {
-      userRole,
-      assessment,
-      user,
-    }
-  })
+  const assessment = await AssessmentRepository.read({ id: userRole.assessmentId }, client)
+  return {
+    assessment,
+    user,
+    userProviders,
+    userRole,
+  }
 }

@@ -8,7 +8,7 @@ type ClientRoute<Params> = {
     absolute: string
     relative: string
   }
-  getLink: (params: Params) => string
+  getLink: (params?: Params) => string
 }
 
 const newInstance = <Params extends { [x: string]: string | number | boolean }>(
