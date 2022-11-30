@@ -31,8 +31,10 @@ export const AuthApi = {
           // PASS THE ERROR OBJECT TO THE NEXT ROUTE i.e THE APP'S COMMON ERROR HANDLING MIDDLEWARE
           return next(info)
         }
-        // eslint-disable-next-line no-param-reassign
-        req.user = user
+        if (user) {
+          // eslint-disable-next-line no-param-reassign
+          req.user = user
+        }
         return next()
       })(req, res, next)
     })
