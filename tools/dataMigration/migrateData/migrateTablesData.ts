@@ -54,7 +54,7 @@ export const migrateTablesData = async (
     )
   ).flat()
 
-  if (!schema.includes('pan_european')) {
+  if (!schema.includes('paneuropean')) {
     await migrateFRATablesData({ assessment, cycle, countryISOs, tables, values }, client)
   }
 
