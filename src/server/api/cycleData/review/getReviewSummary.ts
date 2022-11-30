@@ -12,7 +12,7 @@ export const getReviewSummary = async (req: CycleRequest, res: Response) => {
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-    const user = Requests.getRequestUser(req)
+    const user = Requests.getUser(req)
     const reviewSummary = await CycleDataController.getReviewSummary({ countryIso, assessment, cycle, user })
 
     Requests.send(res, reviewSummary)

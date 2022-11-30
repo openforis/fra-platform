@@ -10,7 +10,7 @@ export const removeAssessmentFile = async (req: CycleRequest, res: Response) => 
   try {
     const { uuid } = req.params
 
-    const user = Requests.getRequestUser(req)
+    const user = Requests.getUser(req)
 
     const { assessmentName } = req.query
 
