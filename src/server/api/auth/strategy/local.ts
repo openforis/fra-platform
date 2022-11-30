@@ -61,10 +61,15 @@ const localStrategyVerifyCallback = async (req: Request, email: string, password
             user,
             provider: AuthProvider.local,
           })) as UserAuthProvider<AuthProviderLocalProps>
-          const passwordMatch = await passwordCompare(password, userProvider.props.password)
 
-          if (passwordMatch) done(null, user)
-          else sendErr('login.noMatchingLocalUser')
+          if (userProvider) {
+            const passwordMatch = await passwordCompare(password, userProvider.props?.password)
+
+            if (passwordMatch) done(null, user)
+            else sendErr('login.noMatchingLocalUser')
+          } else {
+            sendErr('login.noMatchingProvider')
+          }
         } else {
           sendErr('login.noMatchingProvider')
         }

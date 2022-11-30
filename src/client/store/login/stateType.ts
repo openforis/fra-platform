@@ -1,5 +1,5 @@
 import { Assessment } from '@meta/assessment'
-import { RoleName, User, UserRole } from '@meta/user'
+import { AuthProvider, RoleName, User, UserRole } from '@meta/user'
 
 export interface LoginState {
   login: {
@@ -12,6 +12,7 @@ export interface LoginState {
     assessment?: Assessment
     invitedUser?: User
     userRole?: UserRole<RoleName>
+    userProviders?: Array<AuthProvider>
   }
   resetPassword?: {
     error?: string

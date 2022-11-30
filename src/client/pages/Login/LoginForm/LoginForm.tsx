@@ -6,7 +6,7 @@ import { Objects } from '@utils/index'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { ClientRoutes } from '@meta/app'
-import { UserStatus } from '@meta/user'
+import { AuthProvider } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
 import { LoginActions, useInvitation } from '@client/store/login'
@@ -22,12 +22,12 @@ const LoginForm: React.FC<Props> = (props: Props) => {
   const { invitationUuid } = props
 
   const dispatch = useAppDispatch()
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const loginError = Urls.getRequestParam('loginError')
   const { toaster } = useToaster()
 
-  const { invitedUser } = useInvitation()
+  const { invitedUser, userProviders } = useInvitation()
 
   const [loginLocal, setLoginLocal] = useState(false)
   const [email, setEmail] = useState<string>('')
@@ -36,16 +36,32 @@ const LoginForm: React.FC<Props> = (props: Props) => {
   const [errors, setErrors] = useState<Record<string, string>>({})
 
   useEffect(() => {
-    if (!Objects.isEmpty(loginError)) toaster.error(i18n.t<string>(loginError))
+    if (!Objects.isEmpty(loginError)) toaster.error(t(loginError))
     dispatch(LoginActions.initLogin())
     if (invitationUuid) {
       dispatch(LoginActions.fetchUserByInvitation({ invitationUuid }))
     }
-  }, [dispatch, i18n, invitationUuid, loginError, toaster])
+  }, [dispatch, invitationUuid, loginError, t, toaster])
 
   useEffect(() => {
     if (invitedUser?.email) setEmail(invitedUser.email)
   }, [invitedUser?.email])
+
+  const onInvitation = () => {
+    const fieldErrors = LoginValidator.invitationValidate(email, password, password2)
+    setErrors(fieldErrors)
+
+    if (!isError(fieldErrors)) {
+      dispatch(
+        LoginActions.localLogin({
+          email,
+          password,
+          invitationUuid,
+          navigate,
+        })
+      )
+    }
+  }
 
   const onLogin = () => {
     const fieldErrors = LoginValidator.localValidate(email, password)
@@ -63,7 +79,12 @@ const LoginForm: React.FC<Props> = (props: Props) => {
     }
   }
 
-  if (loginLocal)
+  if (loginLocal) {
+    const showPassword2 =
+      (invitedUser && !userProviders) || (userProviders && !userProviders.includes(AuthProvider.local))
+
+    const showForgotPassword = !userProviders || userProviders.includes(AuthProvider.local)
+
     return (
       <div className="login__form">
         <input
@@ -72,74 +93,76 @@ const LoginForm: React.FC<Props> = (props: Props) => {
           value={email}
           disabled={!!invitedUser}
           type="text"
-          placeholder={i18n.t<string>('login.email')}
+          placeholder={t('login.email')}
           onChange={(event) => setEmail(event.target.value)}
         />
-        {errors.email && <span className="login__field-error">{i18n.t<string>(errors.email)}</span>}
+        {errors.email && <span className="login__field-error">{t(errors.email)}</span>}
 
         <input
           onFocus={() => setErrors({ ...errors, password: null })}
           value={password}
           type="password"
-          placeholder={i18n.t<string>('login.password')}
+          placeholder={t('login.password')}
           onChange={(event) => setPassword(event.target.value)}
         />
-        {errors.password && <span className="login__field-error">{i18n.t<string>(errors.password)}</span>}
+        {errors.password && <span className="login__field-error">{t(errors.password)}</span>}
 
-        {invitedUser?.status === UserStatus.invitationPending && (
+        {showPassword2 && (
           <>
             <input
               onFocus={() => setErrors({ ...errors, password2: null })}
               value={password2}
               type="password"
-              placeholder={i18n.t<string>('login.repeatPassword')}
+              placeholder={t('login.repeatPassword')}
               onChange={(event) => setPassword2(event.target.value)}
             />
-            {errors.password2 && <span className="login__field-error">{i18n.t<string>(errors.password2)}</span>}
+            {errors.password2 && <span className="login__field-error">{t(errors.password2)}</span>}
           </>
         )}
 
         {invitedUser && (
-          <button type="button" className="btn" onClick={onLogin}>
-            {i18n.t<string>('login.acceptInvitation')}
+          <button type="button" className="btn" onClick={showPassword2 ? onInvitation : onLogin}>
+            {t('login.acceptInvitation')}
           </button>
         )}
 
         {!invitedUser && (
           <div>
             <button type="button" className="btn" onClick={() => setLoginLocal(false)}>
-              {i18n.t<string>('login.cancel')}
+              {t('login.cancel')}
             </button>
 
             <button type="button" className="btn" onClick={onLogin}>
-              {i18n.t<string>('login.login')}
+              {t('login.login')}
             </button>
           </div>
         )}
 
-        {invitedUser?.status !== UserStatus.invitationPending && (
+        {showForgotPassword && (
           <Link to={ClientRoutes.Login.ResetPassword.getLink()} type="button" className="btn-forgot-pwd">
-            {i18n.t<string>('login.forgotPassword')}
+            {t('login.forgotPassword')}
           </Link>
         )}
       </div>
     )
+  }
 
   return (
     <div className="login__formWrapper">
       <div>
         <a className="btn" href={ApiEndPoint.Auth.google()}>
-          {i18n.t<string>('login.signInGoogle')}
+          {t('login.signInGoogle')}
         </a>
 
         <button className="btn" type="button" onClick={() => setLoginLocal(true)}>
-          {i18n.t<string>('login.signInFRA')}
+          {t('login.signInFRA')}
         </button>
       </div>
       <div>
-        <div>{i18n.t<string>('login.accessLimited')}</div>
+        <div>{t('login.accessLimited')}</div>
+
         <div>
-          {i18n.t<string>('login.returnHome')} <a href="/">{i18n.t<string>('login.returnHomeClick')}</a>
+          {t('login.returnHome')} <a href="/">{t('login.returnHomeClick')}</a>
         </div>
       </div>
     </div>

@@ -19,7 +19,7 @@ const Invitation: React.FC = () => {
   const loggedUser = useUser()
 
   const invitationUuid = Urls.getRequestParam('invitationUuid')
-  const { userRole, assessment, invitedUser } = useInvitation()
+  const { userRole, assessment, invitedUser, userProviders } = useInvitation()
 
   useEffect(() => {
     if (invitationUuid) {
@@ -63,6 +63,10 @@ const Invitation: React.FC = () => {
           userRole: t(Users.getI18nRoleLabelKey(userRole.role)),
         })}
       </h3>
+
+      {userProviders?.length > 0 && (
+        <h3>{t('login.invitationProvidersRegistered', { authProviderNames: userProviders.join(', ') })}</h3>
+      )}
 
       {loggedUser?.email === invitedUser.email ? (
         <button type="button" className="btn" onClick={onAccept}>
