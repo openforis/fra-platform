@@ -1,3 +1,4 @@
+import { Objects } from '@utils/objects'
 import { Express } from 'express'
 import * as passport from 'passport'
 
@@ -23,6 +24,17 @@ export const AuthApi = {
     express.post(ApiEndPoint.Auth.changePassword(), postChangePassword)
     express.post(ApiEndPoint.Auth.resetPassword(), postResetPassword)
 
-    express.use(passport.authenticate('jwt', { session: false, passReqToCallback: true }))
+    express.use(function (req, res, next) {
+      passport.authenticate('jwt', { session: false }, function (err, user, info) {
+        console.log('passport.authenticate->jwt')
+        // If authentication failed, `user` will be set to false. If an exception occurred, `err` will be set.
+        if (err || !user || Objects.isEmpty(user)) {
+          // PASS THE ERROR OBJECT TO THE NEXT ROUTE i.e THE APP'S COMMON ERROR HANDLING MIDDLEWARE
+          console.log(info)
+          return next(info)
+        }
+        return next()
+      })(req, res, next)
+    })
   },
 }

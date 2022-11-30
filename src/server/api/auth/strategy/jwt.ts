@@ -7,6 +7,7 @@ import { User } from '@meta/user'
 import { UserController } from '@server/controller/user'
 
 const jwtStrategyVerifyCallback = async (_req: Request, { id }: User, done: VerifiedCallback) => {
+  console.log(_req.baseUrl)
   const sendErr = (message: string) => done(null, false, { message })
   try {
     const user = await UserController.getOne({ id })
