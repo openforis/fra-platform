@@ -16,10 +16,7 @@ export const localLogin = createAsyncThunk<
     navigate: NavigateFunction
   }
 >('login/post/local', async ({ email, password, invitationUuid, navigate }, { dispatch }) => {
-  const {
-    status,
-    data: { token },
-  } = await axios.post(
+  const { status } = await axios.post(
     ApiEndPoint.Auth.login(),
     {
       email,
@@ -30,8 +27,6 @@ export const localLogin = createAsyncThunk<
 
   if (status === 200) {
     dispatch(initApp())
-    // Save jwtToken on successful login
-    localStorage.setItem('jwtToken', token)
     navigate('/')
   }
 })
