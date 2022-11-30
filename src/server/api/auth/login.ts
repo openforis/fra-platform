@@ -4,8 +4,9 @@ import * as passport from 'passport'
 import { LoginRequest } from '@meta/api/request'
 import { User } from '@meta/user'
 
-import { getAuthToken } from '@server/api/auth/utils/getAuthToken'
 import Requests, { appUri } from '@server/utils/requests'
+
+import { setAuthToken } from './utils/setAuthToken'
 
 export const postLocalLogin = async (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate('local', { session: false }, (err: any, user: User, info: any) => {
@@ -15,8 +16,8 @@ export const postLocalLogin = async (req: Request, res: Response, next: NextFunc
 
     return req.login(user, { session: false }, (err: any) => {
       if (err) next(err)
-      const token = getAuthToken(user)
-      Requests.sendOk(res, { token })
+      setAuthToken(res, user)
+      Requests.sendOk(res)
     })
   })(req, res, next)
 }
@@ -38,8 +39,8 @@ export const getGoogleCallback = (req: Request, res: Response, next: NextFunctio
     } else {
       req.login(user, (err: any) => {
         if (err) next(err)
-        const token = getAuthToken(user)
-        res.redirect(`${process.env.NODE_ENV === 'development' ? '/' : appUri}?token=${token}`)
+        setAuthToken(res, user)
+        res.redirect(`${process.env.NODE_ENV === 'development' ? '/' : appUri}`)
       })
     }
   })(req, res, next)

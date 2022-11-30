@@ -38,14 +38,6 @@ const PageRoutes: React.FC = () => {
     const language = Urls.getRequestParam('lang') || localStorage.getItem('i18n/lang') || 'en'
     i18n.changeLanguage(language)
 
-    // google authentication hack
-    const token = Urls.getRequestParam('token')
-    if (token) {
-      localStorage.setItem('jwtToken', token)
-
-      window.history.replaceState(null, null, '/')
-    }
-
     SocketClient.open()
 
     return () => {

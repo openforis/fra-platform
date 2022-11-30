@@ -1,13 +1,18 @@
 import { Request } from 'express'
 import { PassportStatic } from 'passport'
-import { ExtractJwt, Strategy, VerifiedCallback } from 'passport-jwt'
+import { Strategy, VerifiedCallback } from 'passport-jwt'
 
 import { User } from '@meta/user'
 
 import { UserController } from '@server/controller/user'
 
+const jwtFromRequest = (req: Request) => {
+  let token = null
+  if (req && req.cookies) token = req.cookies.token
+  return token
+}
+
 const jwtStrategyVerifyCallback = async (_req: Request, { id }: User, done: VerifiedCallback) => {
-  console.log(_req.baseUrl)
   const sendErr = (message: string) => done(null, false, { message })
   try {
     const user = await UserController.getOne({ id })
@@ -21,7 +26,7 @@ export const jwtStrategy = (passport: PassportStatic) => {
   passport.use(
     new Strategy(
       {
-        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        jwtFromRequest,
         secretOrKey: process.env.TOKEN_SECRET,
         passReqToCallback: true,
       },
