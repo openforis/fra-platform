@@ -1,4 +1,5 @@
 import { Express } from 'express'
+import * as passport from 'passport'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 
@@ -21,5 +22,15 @@ export const AuthApi = {
 
     express.post(ApiEndPoint.Auth.changePassword(), postChangePassword)
     express.post(ApiEndPoint.Auth.resetPassword(), postResetPassword)
+
+    express.use(function (req, res, next) {
+      passport.authenticate('jwt', { session: false }, function (err, user, info) {
+        // If authentication failed, `user` will be set to false. If an exception occurred, `err` will be set.
+        if (err) return next(info)
+        // eslint-disable-next-line no-param-reassign
+        if (user) req.user = user
+        return next()
+      })(req, res, next)
+    })
   },
 }

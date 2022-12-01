@@ -7,7 +7,7 @@ export const updateUser = async (req: Request, res: Response) => {
   try {
     const profilePicture = req.file
     const userToUpdate = JSON.parse(req.body.user)
-    const user = Requests.getRequestUser(req)
+    const user = Requests.getUser(req)
 
     const updatedUser = await UserController.update({
       userToUpdate,

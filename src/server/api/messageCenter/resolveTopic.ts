@@ -20,7 +20,7 @@ export const resolveTopic = async (req: Request, res: Response) => {
       cycleName: string
       key: string
     }
-    const user = Requests.getRequestUser(req)
+    const user = Requests.getUser(req)
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 

@@ -28,12 +28,6 @@ export const serverInit = () => {
 
   resourceCacheControl.init(app)
 
-  /*
-   * Initialize API
-   */
-
-  Api.init(app)
-
   app.use(compression({ threshold: 512 }))
 
   app.use('/img/', express.static(`${__dirname}/../../web-resources/img`))
@@ -45,6 +39,11 @@ export const serverInit = () => {
   app.use('/style', express.static(`${__dirname}/../client/style`))
   app.use('/js', express.static(`${__dirname}/../client/js`))
   app.use('/woff2.css', express.static(`${__dirname}/../client/woff2.css`))
+
+  /*
+   * Initialize API
+   */
+  Api.init(app)
 
   app.use('/*', express.static(path.resolve(__dirname, '..', 'client')))
 
