@@ -1704,13 +1704,6 @@
   dependencies:
     "@types/node" "*"
 
-"@types/busboy@*":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@types/busboy/-/busboy-1.5.0.tgz#62681556cbbd2afc8d2efa6bafaa15602f0838b9"
-  integrity sha512-ncOOhwmyFDW76c/Tuvv9MA9VGYUCn8blzyWmzYELcNGDb0WXWLSmFi7hJq25YdRBYJrmMBB5jZZwUjlJe9HCjQ==
-  dependencies:
-    "@types/node" "*"
-
 "@types/chai@^4.2.21":
   version "4.3.3"
   resolved "https://registry.yarnpkg.com/@types/chai/-/chai-4.3.3.tgz#3c90752792660c4b562ad73b3fbd68bf3bc7ae07"
@@ -2030,14 +2023,6 @@
   version "0.0.51"
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.51.tgz#cfd70924a25a3fd32b218e5e420e6897e1ac4f40"
   integrity sha512-CuPgU6f3eT/XgKKPqKd/gLZV1Xmvf1a2R5POBOGQa6uv82xpls89HU5zKeVoyR8XzHd1RGNOlQlvUe3CFkjWNQ==
-
-"@types/express-fileupload@^1.1.7":
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/@types/express-fileupload/-/express-fileupload-1.4.1.tgz#3388b14dedfa877be43bbe0540dcd5e13e963bca"
-  integrity sha512-sbl865h1Sser6SF+efpw2F/+roGISj+PRIbMcGXbtzgJQCBAeeBmoSo7sPge/mBa22ymCHfFPtHFsag/wUxwfg==
-  dependencies:
-    "@types/busboy" "*"
-    "@types/express" "*"
 
 "@types/express-serve-static-core@*", "@types/express-serve-static-core@^4.17.18":
   version "4.17.31"
@@ -3602,7 +3587,7 @@ buffer@^5.2.1, buffer@^5.5.0:
     base64-js "^1.3.1"
     ieee754 "^1.1.13"
 
-busboy@^1.0.0, busboy@^1.6.0:
+busboy@^1.0.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/busboy/-/busboy-1.6.0.tgz#966ea36a9502e43cdb9146962523b92f531f6893"
   integrity sha512-8SFQbg/0hQ9xy3UNTB0YEnsNBbWfhf7RtnzpL7TkBiTBRfrQ9Fxcnz7VJsleJpyp6rVLvXiuORqjlHi5q+PYuA==
@@ -5847,13 +5832,6 @@ expect@^27.5.1:
     jest-get-type "^27.5.1"
     jest-matcher-utils "^27.5.1"
     jest-message-util "^27.5.1"
-
-express-fileupload@^1.3.1:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/express-fileupload/-/express-fileupload-1.4.0.tgz#be9d70a881d6c2b1ce668df86e4f89ddbf238ec7"
-  integrity sha512-RjzLCHxkv3umDeZKeFeMg8w7qe0V09w3B7oGZprr/oO2H/ISCgNzuqzn7gV3HRWb37GjRk429CCpSLS2KNTqMQ==
-  dependencies:
-    busboy "^1.6.0"
 
 express-session@^1.17.2:
   version "1.17.3"

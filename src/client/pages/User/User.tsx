@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
+import { AssessmentName } from '@meta/assessment'
 import { Users } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
@@ -17,7 +18,11 @@ const User: React.FC = () => {
   const user = useUser()
   const userToEdit = useUserToEdit()
 
-  const { id: userId } = useParams<{ id: string }>()
+  const {
+    assessmentName,
+    cycleName,
+    id: userId,
+  } = useParams<{ assessmentName: AssessmentName; cycleName: string; id: string }>()
 
   const isAdministrator = Users.isAdministrator(user)
 
@@ -26,11 +31,18 @@ const User: React.FC = () => {
   useSyncAssessmentPage()
 
   useEffect(() => {
-    dispatch(UserManagementActions.getUserToEdit({ id: Number(userId), countryIso }))
+    dispatch(
+      UserManagementActions.getUserToEdit({
+        assessmentName,
+        countryIso,
+        cycleName,
+        id: Number(userId),
+      })
+    )
     return () => {
       dispatch(UserManagementActions.setUserToEdit(null))
     }
-  }, [countryIso, dispatch, userId])
+  }, [assessmentName, countryIso, cycleName, dispatch, userId])
 
   if (!userToEdit) return null
 

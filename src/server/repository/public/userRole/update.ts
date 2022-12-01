@@ -3,10 +3,10 @@ import { RoleName, UserRole } from '@meta/user'
 import { BaseProtocol, DB } from '@server/db'
 
 export const update = async (
-  props: { roles: Array<Partial<UserRole<RoleName>>>; userId: number },
+  props: { roles: Array<Partial<UserRole<RoleName>>>; userId: number; cycleUuid: string },
   client: BaseProtocol = DB
 ): Promise<void> => {
-  const { roles, userId } = props
+  const { roles, userId, cycleUuid } = props
 
   const doNotDelete = roles
     .reduce((prev, curr) => {
@@ -18,10 +18,10 @@ export const update = async (
   await client.query(
     `
       delete from public.users_role
-      where user_id = $1
+      where user_id = $1 and cycle_uuid = $2
       ${doNotDelete !== '' ? ` and id not in (${doNotDelete})` : ''}
     `,
-    [userId]
+    [userId, cycleUuid]
   )
 
   const userRolePromises = roles
