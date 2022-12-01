@@ -16,10 +16,8 @@ export const useInitApp = () => {
   const appReady = assessment && countries && assessmentSections
 
   useEffect(() => {
-    if (!assessment?.props.name || assessment?.props.name !== assessmentName) {
-      dispatch(AssessmentActions.initApp({ assessmentName }))
-    }
-  }, [assessment?.props.name, assessmentName, dispatch])
+    dispatch(AssessmentActions.initApp({ assessmentName }))
+  }, [assessmentName, dispatch])
 
   useEffect(() => {
     dispatch(AssessmentActions.getAreas({ assessmentName, cycleName }))
