@@ -5,6 +5,7 @@ import { AssessmentName } from '@meta/assessment'
 import { Users } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
+import { useSyncAssessmentPage } from '@client/store/assessment'
 import { useUserToEdit } from '@client/store/ui//userManagement/hooks'
 import { UserManagementActions } from '@client/store/ui/userManagement'
 import { useUser } from '@client/store/user'
@@ -26,6 +27,8 @@ const User: React.FC = () => {
   const isAdministrator = Users.isAdministrator(user)
 
   const canEditUser = Users.getRolesAllowedToEdit({ user, countryIso }).length > 0
+
+  useSyncAssessmentPage()
 
   useEffect(() => {
     dispatch(
