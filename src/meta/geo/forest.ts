@@ -1,5 +1,6 @@
 export interface ForestOptions {
   sources: ForestSource[]
+  fetchedLayers: { [key in ForestSource]?: string }
 }
 
 export enum ForestSource {

@@ -1,6 +1,7 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
 import { postMosaicOptions } from './actions/postMosaicOptions'
+import { getForestLayer } from './actions'
 import { GeoState } from './stateType'
 
 const initialState: GeoState = {
@@ -10,6 +11,7 @@ const initialState: GeoState = {
   },
   forestOptions: {
     sources: [],
+    fetchedLayers: {},
   },
   mosaicUrl: '',
 }
@@ -29,9 +31,13 @@ export const geoSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(postMosaicOptions.fulfilled, (state, { payload }) => {
-      state.mosaicUrl = payload.urlTemplate
-    })
+    builder
+      .addCase(postMosaicOptions.fulfilled, (state, { payload }) => {
+        state.mosaicUrl = payload.urlTemplate
+      })
+      .addCase(getForestLayer.fulfilled, (state, { payload: [mapLayerKey, mapId] }) => {
+        state.forestOptions.fetchedLayers[mapLayerKey] = mapId
+      })
   },
 })
 
