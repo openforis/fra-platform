@@ -8,16 +8,17 @@ import { UserRoleRepository } from '@server/repository/public/userRole'
 
 export const updateUserRoles = async (
   props: {
+    cycleUuid: string
     roles: Array<Partial<UserRole<RoleName>>>
     userId: number
     user: User
   },
   client: BaseProtocol = DB
 ): Promise<User> => {
-  const { roles, userId, user } = props
+  const { cycleUuid, roles, userId, user } = props
 
   return client.tx(async (t) => {
-    await UserRoleRepository.update({ roles, userId }, t)
+    await UserRoleRepository.update({ cycleUuid, roles, userId }, t)
 
     await ActivityLogRepository.insertActivityLog(
       {
@@ -31,6 +32,6 @@ export const updateUserRoles = async (
       t
     )
 
-    return UserRepository.getOne({ id: userId }, t)
+    return UserRepository.getOne({ id: userId, cycleUuid }, t)
   })
 }
