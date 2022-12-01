@@ -26,5 +26,3 @@ export const useIsPanEuropean = () => {
   const { assessmentName } = useParams<{ assessmentName: AssessmentName }>()
   return assessmentName === 'paneuropean' || assessmentName === 'panEuropean'
 }
-
-// Add isPanEuropean - Check Assessment - useParams
