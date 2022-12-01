@@ -7,6 +7,6 @@ export {
   useCountry,
   useCycle,
   useRegionGroups,
-  useSyncDataPage,
+  useSyncAssessmentPage,
 } from './hooks'
 export { AssessmentActions } from './slice'

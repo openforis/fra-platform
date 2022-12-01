@@ -6,7 +6,7 @@ import { AssessmentName } from '@meta/assessment'
 import { useAppDispatch, useAppSelector } from '@client/store'
 import { AssessmentActions, useAssessment, useAssessmentSections } from '@client/store/assessment'
 
-export const useSyncDataPage = (): boolean => {
+export const useSyncAssessmentPage = (): boolean => {
   const dispatch = useAppDispatch()
   const assessment = useAssessment()
   const { assessmentName, cycleName } = useParams<{ assessmentName: AssessmentName; cycleName: string }>()

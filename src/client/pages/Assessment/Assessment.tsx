@@ -10,7 +10,7 @@ import { Sockets } from '@meta/socket'
 import { Authorizer } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
-import { AssessmentActions, useAssessment, useCycle, useSyncDataPage } from '@client/store/assessment'
+import { AssessmentActions, useAssessment, useCycle, useSyncAssessmentPage } from '@client/store/assessment'
 import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import { useNavigationVisible } from '@client/store/ui/navigation'
 import { ReviewActions } from '@client/store/ui/review'
@@ -37,7 +37,7 @@ const Assessment: React.FC = () => {
   const cycle = useCycle()
   const isDataExportView = useIsDataExportView()
 
-  const appReady = useSyncDataPage()
+  const appReady = useSyncAssessmentPage()
 
   useEffect(() => {
     dispatch(AssessmentActions.getSections({ countryIso, assessmentName, cycleName }))
