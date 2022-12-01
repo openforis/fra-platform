@@ -2,14 +2,10 @@ import './countrySelect.scss'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
-import { useParams } from 'react-router-dom'
 
 import { Areas } from '@meta/area'
-import { AssessmentName } from '@meta/assessment'
 import { Users } from '@meta/user'
 
-import { useAppDispatch } from '@client/store'
-import { AssessmentActions } from '@client/store/assessment'
 import { useNavigationVisible } from '@client/store/ui/navigation'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
@@ -28,8 +24,6 @@ const findElementRoot = (el: Element): Element => {
 }
 
 const CountrySelect: React.FC = () => {
-  const { assessmentName, cycleName } = useParams<{ assessmentName: AssessmentName; cycleName: string }>()
-  const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const user = useUser()
   const { i18n } = useTranslation()
@@ -62,10 +56,6 @@ const CountrySelect: React.FC = () => {
   useEffect(() => {
     setQuery('')
   }, [open])
-
-  useEffect(() => {
-    dispatch(AssessmentActions.getAreas({ assessmentName, cycleName }))
-  }, [assessmentName, cycleName, dispatch])
 
   return (
     <div className="country-select">
