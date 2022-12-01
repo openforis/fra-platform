@@ -1,16 +1,19 @@
 import { Objects } from '@utils/objects'
 import { Request } from 'express'
+import { PassportStatic } from 'passport'
+import { VerifiedCallback } from 'passport-jwt'
+import * as passportLocal from 'passport-local'
 
-import { AuthProvider, AuthProviderLocalProps, UserAuthProvider } from '@meta/user/userAuth'
+import { AuthProvider, UserAuthProvider } from '@meta/user'
+import { AuthProviderLocalProps } from '@meta/user/userAuth'
 
+import { passwordCompare, passwordHash } from '@server/api/auth/utils/passwordUtils'
 import { AssessmentController } from '@server/controller/assessment'
 import { UserController } from '@server/controller/user'
 import { UserProviderController } from '@server/controller/userProvider'
 import { validEmail } from '@server/utils/validEmail'
 
-import { passwordCompare, passwordHash } from './utils/passwordUtils'
-
-export const localStrategyVerifyCallback = async (req: Request, email: string, password: string, done: any) => {
+const localStrategyVerifyCallback = async (req: Request, email: string, password: string, done: VerifiedCallback) => {
   const sendErr = (message: string) => done(null, false, { message })
 
   try {
@@ -75,4 +78,19 @@ export const localStrategyVerifyCallback = async (req: Request, email: string, p
   } catch (e) {
     sendErr(`${'login.errorOccurred'}: ${e}`)
   }
+}
+
+export const localStrategy = (passport: PassportStatic) => {
+  const LocalStrategy = passportLocal.Strategy
+
+  passport.use(
+    new LocalStrategy(
+      {
+        usernameField: 'email',
+        passwordField: 'password',
+        passReqToCallback: true,
+      },
+      localStrategyVerifyCallback
+    )
+  )
 }

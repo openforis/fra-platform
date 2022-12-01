@@ -27,7 +27,7 @@ export const deleteOriginalDataPoint = async (req: CycleRequest<{ year: string }
       assessment,
       cycle,
       originalDataPoint,
-      user: Requests.getRequestUser(req),
+      user: Requests.getUser(req),
     })
 
     Requests.send(res, returnedOriginalDataPoint)

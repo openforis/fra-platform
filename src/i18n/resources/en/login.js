@@ -46,6 +46,7 @@ module.exports = {
 
   alreadyAcceptedInvitation: 'This invitation has already been accepted',
   invitationMessage: 'You have been invited to {{assessment}} {{cycle}} as {{userRole}}',
+  invitationProvidersRegistered: 'You already have an account registered with {{authProviderNames}}',
   acceptInvitation: 'Accept Invitation',
   acceptInvitationWithGoogle: 'Accept Invitation with Google',
   invitationExpired: 'This invitation has expired',

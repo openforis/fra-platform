@@ -7,7 +7,7 @@ export const updateUserRoles = async (req: Request, res: Response) => {
   try {
     const { roles, userId } = req.body
 
-    const user = Requests.getRequestUser(req)
+    const user = Requests.getUser(req)
 
     const updatedUser = await UserController.updateUserRoles({
       roles,

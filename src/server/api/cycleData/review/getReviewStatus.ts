@@ -12,7 +12,7 @@ export const getReviewStatus = async (req: CycleDataRequest<{ odpId: string }>, 
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-    const user = Requests.getRequestUser(req)
+    const user = Requests.getUser(req)
     const reviewstatus = await CycleDataController.getReviewStatus({
       assessment,
       cycle,

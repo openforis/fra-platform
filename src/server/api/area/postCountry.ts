@@ -23,12 +23,12 @@ export const postCountry = async (
       cycle,
       assessment,
       country,
-      user: Requests.getRequestUser(req),
+      user: Requests.getUser(req),
     })
 
     if (notifyUsers === 'true') {
       await MailService.assessmentNotifyUsers({
-        user: Requests.getRequestUser(req),
+        user: Requests.getUser(req),
         countryIso,
         country,
         assessmentName,
