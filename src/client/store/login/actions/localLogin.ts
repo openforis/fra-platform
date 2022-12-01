@@ -1,8 +1,9 @@
 import { NavigateFunction } from 'react-router-dom'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+
+import { ApiEndPoint } from '@meta/api/endpoint'
 
 import { initApp } from '@client/store/assessment/actions/initApp'
 
@@ -15,7 +16,7 @@ export const localLogin = createAsyncThunk<
     navigate: NavigateFunction
   }
 >('login/post/local', async ({ email, password, invitationUuid, navigate }, { dispatch }) => {
-  const response = await axios.post(
+  const { status } = await axios.post(
     ApiEndPoint.Auth.login(),
     {
       email,
@@ -24,7 +25,7 @@ export const localLogin = createAsyncThunk<
     { params: { invitationUuid } }
   )
 
-  if (response.status === 200) {
+  if (status === 200) {
     dispatch(initApp())
     navigate('/')
   }
