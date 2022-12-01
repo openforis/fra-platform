@@ -13,7 +13,7 @@ export const read = async (
 
   return client.oneOrNone<UserAuthProvider<AuthProviderGoogleProps | AuthProviderLocalProps>>(
     `
-        select * from  public.users_auth_provider uap where uap.user_id = $1 and provider = $2;
+        select * from public.users_auth_provider where user_id = $1 and provider = $2;
     `,
     [user.id, provider],
     Objects.camelize

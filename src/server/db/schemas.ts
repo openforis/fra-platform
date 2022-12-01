@@ -8,7 +8,10 @@ const getNameCycle = (assessment: Pick<Assessment, 'props'>, cycle: Cycle): stri
   return `assessment_${assessment.props.name}_${cycle.name}`
 }
 
+const getSchemaGeo = () => `geo`
+
 export const Schemas = {
   getName,
   getNameCycle,
+  getSchemaGeo,
 }

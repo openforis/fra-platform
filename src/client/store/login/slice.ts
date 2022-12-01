@@ -1,13 +1,14 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
-import { LoginState } from './stateType'
+
 import {
   acceptInvitation,
+  changePassword,
+  createResetPassword,
   fetchUserByInvitation,
   initLogin,
   localLogin,
-  createResetPassword,
-  changePassword,
 } from './actions'
+import { LoginState } from './stateType'
 
 const initialState: LoginState = {
   login: {},
@@ -30,9 +31,8 @@ export const loginSlice = createSlice({
     })
 
     builder.addCase(fetchUserByInvitation.fulfilled, (state, { payload }) => {
-      state.invitation.userRole = payload.userRole
-      state.invitation.assessment = payload.assessment
-      state.invitation.invitedUser = payload.user
+      const { assessment, user, userRole, userProviders } = payload
+      state.invitation = { assessment, invitedUser: user, userRole, userProviders }
     })
 
     builder.addCase(initLogin.fulfilled, (state, { payload }) => {

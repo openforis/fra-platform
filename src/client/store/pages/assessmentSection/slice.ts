@@ -39,6 +39,26 @@ export const assessmentSectionSlice = createSlice({
       const dataUpdate = TableDatas.updateDatum({ data, countryIso, tableName, variableName, colName, value })
       state.data = { ...data, ...dataUpdate }
     },
+    setNodeValidations: (
+      state,
+      {
+        payload,
+      }: PayloadAction<{
+        tableName: string
+        countryIso: CountryIso
+        validations: Array<NodeUpdate>
+      }>
+    ) => {
+      const { validations, countryIso } = payload
+
+      validations.forEach(({ tableName, variableName, colName, value }) => {
+        // If user has data for the table, update it
+        if (state.data[countryIso]?.[tableName]?.[colName]) {
+          state.data[countryIso][tableName][colName][variableName].validation = value.validation
+        }
+      })
+    },
+
     setNodeValueValidation: (state, { payload }: PayloadAction<{ nodeUpdate: NodeUpdate }>) => {
       const { nodeUpdate } = payload
       state.nodeValueValidation[nodeUpdate.tableName] = nodeUpdate

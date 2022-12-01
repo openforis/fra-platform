@@ -41,7 +41,17 @@ const getODPDeleteEvent = (props: { countryIso: CountryIso; assessmentName: stri
   return `${countryIso}-${assessmentName}-${cycleName}-odpDelete`
 }
 
-const getNodeUpdateEvent = (props: {
+const getNodeValidationsUpdateEvent = (props: {
+  countryIso: CountryIso
+  assessmentName: AssessmentName
+  cycleName: string
+  sectionName: string
+}) => {
+  const { assessmentName, cycleName, countryIso, sectionName } = props
+  return `${assessmentName}-${cycleName}-${countryIso}-${sectionName}-assessmentSectionValidationsUpdate`
+}
+
+const getNodeValueUpdateEvent = (props: {
   countryIso: CountryIso
   assessmentName: string
   cycleName: string
@@ -54,11 +64,12 @@ const getNodeUpdateEvent = (props: {
 }
 
 export const Sockets = {
+  getNodeValidationsUpdateEvent,
+  getNodeValueUpdateEvent,
   getODPDeleteEvent,
-  getRequestReviewSummaryEvent,
   getRequestReviewStatusEvent,
+  getRequestReviewSummaryEvent,
   getTopicMessageAddEvent,
   getTopicMessageDeleteEvent,
   getTopicStatusEvent,
-  getNodeUpdateEvent,
 }
