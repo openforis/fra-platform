@@ -4,7 +4,6 @@ import * as compression from 'compression'
 import * as wwwhisper from 'connect-wwwhisper'
 import * as cookieParser from 'cookie-parser'
 import * as express from 'express'
-import * as fileUpload from 'express-fileupload'
 import * as morgan from 'morgan'
 
 import { Api } from '@server/api'
@@ -33,8 +32,6 @@ export const serverInit = () => {
   app.use('/img/', express.static(`${__dirname}/../../web-resources/img`))
   app.use('/css/', express.static(`${__dirname}/../../web-resources/css`))
   app.use('/video', express.static(`${__dirname}/../../web-resources/video`))
-
-  app.use(fileUpload())
 
   app.use('/style', express.static(`${__dirname}/../client/style`))
   app.use('/js', express.static(`${__dirname}/../client/js`))

@@ -1,13 +1,22 @@
-import { Request, Response } from 'express'
+import { Response } from 'express'
 
+import { CycleRequest } from '@meta/api/request'
+
+import { AssessmentController } from '@server/controller/assessment'
 import { UserController } from '@server/controller/user'
 import Requests from '@server/utils/requests'
 
-export const getUser = async (req: Request, res: Response) => {
-  const { id } = req.query as { id: string }
-
+export const getUser = async (req: CycleRequest<{ id: string }>, res: Response) => {
   try {
-    const user = await UserController.getOne({ id: Number(id) })
+    const { assessmentName, cycleName, id } = req.query
+
+    let cycleUuid = null
+    if (assessmentName && cycleName) {
+      const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+      cycleUuid = cycle.uuid
+    }
+
+    const user = await UserController.getOne({ id: Number(id), cycleUuid })
 
     Requests.sendOk(res, user)
   } catch (e) {
