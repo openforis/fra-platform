@@ -2,13 +2,14 @@ import { Request } from 'express'
 import { PassportStatic } from 'passport'
 import { Strategy, VerifiedCallback } from 'passport-jwt'
 
+import { AuthToken } from '@meta/auth'
 import { User } from '@meta/user'
 
 import { UserController } from '@server/controller/user'
 
 const jwtFromRequest = (req: Request) => {
   let token = null
-  if (req && req.cookies) token = req.cookies.token
+  if (req && req.cookies) token = req.cookies[AuthToken.fraAuthToken]
   return token
 }
 
