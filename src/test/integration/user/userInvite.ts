@@ -1,5 +1,5 @@
 import { Assessment, Cycle } from '@meta/assessment'
-import { RoleName, User, UserStatus } from '@meta/user'
+import { RoleName, User, UserRole, UserStatus } from '@meta/user'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { UserController } from '@server/controller/user'
@@ -12,6 +12,7 @@ export default (): void =>
     let assessment: Assessment
     let cycle: Cycle
     let user: User
+    let userRole: UserRole<RoleName>
 
     beforeAll(async () => {
       assessment = await AssessmentController.getOne({ assessmentName: assessmentParams.props.name })
@@ -44,7 +45,7 @@ export default (): void =>
     })
 
     it('Invite the user as National Correspondant to a country', async () => {
-      const { user: invitedUser } = await UserController.invite({
+      const { user: invitedUser, userRole: invitedUserRole } = await UserController.invite({
         assessment,
         countryIso: 'AFG',
         cycle,
@@ -52,6 +53,8 @@ export default (): void =>
         roleName: RoleName.NATIONAL_CORRESPONDENT,
         user,
       })
+
+      userRole = invitedUserRole
 
       // invite same userA as National Correspondant to AFG
       // verify user status is active and he is only collaborator of ALB
@@ -79,14 +82,11 @@ export default (): void =>
     })
 
     it('User accept invitation as National Correspondant', async () => {
-      let invitedUser = await UserController.getOne({ email: userMockUnknown.email })
-      const userRole = invitedUser.roles.find(
-        (role) => role.countryIso === 'AFG' && role.role === RoleName.NATIONAL_CORRESPONDENT
-      )
+      const { user } = await UserController.readByInvitation({ invitationUuid: userRole.invitationUuid })
 
       // UserA accept invitation National Correspondant to AFG
       // verify user status is active and he is collaborator of ALB and National Correspondant of AFG
-      invitedUser = await UserController.acceptInvitation({ assessment, cycle, user: invitedUser, userRole })
+      const invitedUser = await UserController.acceptInvitation({ assessment, cycle, user, userRole })
 
       expect(invitedUser.status).toBe(UserStatus.active)
 
