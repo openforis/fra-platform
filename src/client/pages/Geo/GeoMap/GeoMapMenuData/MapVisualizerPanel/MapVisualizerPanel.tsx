@@ -76,7 +76,7 @@ const MapVisualizerPanel: React.FC = () => {
             <GeoMapMenuListElement
               title={layer.title}
               tabIndex={index * -1 - 1}
-              checked={forestOptions.sources.includes(layer.key as ForestSource)}
+              checked={forestOptions.sources.includes(layer.key)}
               onCheckboxClick={() => onCheckboxClick(layer.apiUri, layer.key)}
               backgroundColor={layer.key.toLowerCase()}
             >
