@@ -1,9 +1,10 @@
 import { Objects } from '@utils/objects'
 
-import { RegionGroup } from '@meta/area'
+import { RegionCode, RegionGroup } from '@meta/area'
 import { Assessment, Cycle } from '@meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
+import { ProcessEnv } from '@server/utils'
 
 export const getRegionGroups = async (
   props: { assessment: Assessment; cycle: Cycle },
@@ -11,6 +12,12 @@ export const getRegionGroups = async (
 ): Promise<Array<RegionGroup>> => {
   const { assessment, cycle } = props
   const assessmentName = Schemas.getNameCycle(assessment, cycle)
+
+  let atlantis = ''
+
+  if (!ProcessEnv.fraAtlantisAlloawed) {
+    atlantis = `where r.region_code != '${RegionCode.AT}'`
+  }
 
   const { regionGroups } = await client
     .one<RegionGroup>(
@@ -29,6 +36,7 @@ export const getRegionGroups = async (
               from ${assessmentName}.region r
                        join ${assessmentName}.region_group rg on r.region_group_id = rg.id
                        left join region r2 on r.region_code = r2.region_code
+                  ${atlantis}
               group by rg.order, rg.id
           )
           select jsonb_object_agg(r."order", r.region_group) as region_groups
