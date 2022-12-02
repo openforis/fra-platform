@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 import * as passport from 'passport'
 
 import { LoginRequest } from '@meta/api/request'
+import { AuthToken } from '@meta/auth'
 import { User } from '@meta/user'
 
 import Requests, { appUri } from '@server/utils/requests'
@@ -34,7 +35,7 @@ export const getGoogleCallback = (req: Request, res: Response, next: NextFunctio
     if (err) {
       next(err)
     } else if (!user) {
-      res.clearCookie('token')
+      res.clearCookie(AuthToken.fraAuthToken)
       res.redirect(`/login?loginError=${info.message}`)
     } else {
       req.login(user, (err: any) => {
