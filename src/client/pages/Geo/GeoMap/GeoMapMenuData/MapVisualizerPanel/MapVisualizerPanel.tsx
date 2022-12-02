@@ -31,22 +31,18 @@ const MapVisualizerPanel: React.FC = () => {
 
       if (wasExistingLayer) {
         // remove the existing layer from the app state
-        dispatch(
-          GeoActions.updateForestOptions({
-            sources: forestOptions.sources.filter((s: ForestSource) => s !== mapLayerKey),
-          })
-        )
+        dispatch(GeoActions.removeForestLayer(mapLayerKey))
       } else {
         // get the new layer from the server and add it to the map and app state
         const uri = apiUri + (mapLayerKey === 'Hansen' ? `&gteHansenTreeCoverPerc=${hansenPercentage}` : '')
         await axios.get(uri).then((response) => {
           const { mapId } = response.data
           mapControllerRef.current.addEarthEngineLayer(mapLayerKey, mapId)
-          dispatch(GeoActions.updateForestOptions({ sources: [...forestOptions.sources, mapLayerKey] }))
+          dispatch(GeoActions.addForestLayer(mapLayerKey))
         })
       }
     },
-    [dispatch, forestOptions, hansenPercentage]
+    [dispatch, hansenPercentage]
   )
 
   // re-render if Hansen percentage was changed
