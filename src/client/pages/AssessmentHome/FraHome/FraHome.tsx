@@ -18,6 +18,7 @@ import User from '@client/pages/User'
 import { useSections } from './hooks/useSections'
 import ButtonDownloadDashboard from './ButtonDownloadDashboard'
 import CountrySelector from './CountrySelector'
+import FraHomeSections from './FraHomeSections'
 import SelectedCountries from './SelectedCountries'
 
 const FraHome: React.FC = () => {
@@ -58,7 +59,12 @@ const FraHome: React.FC = () => {
           {sections.map(({ name }) => (
             <NavLink
               key={name}
-              to={name}
+              to={ClientRoutes.Assessment.Home.Section.getLink({
+                assessmentName: assessment.props.name,
+                countryIso,
+                cycleName: cycle.name,
+                sectionName: name as unknown as AssessmentHomeRouteNames,
+              })}
               className={(navData) =>
                 classNames('btn landing__page-menu-button', {
                   disabled: navData.isActive,
@@ -71,9 +77,7 @@ const FraHome: React.FC = () => {
         </div>
       )}
       <Routes>
-        {sections.map(({ name, component }) => (
-          <Route key={name} path={name} element={React.createElement(component, {})} />
-        ))}
+        <Route path={`${ClientRoutes.Assessment.Home.Section.path.relative}/*`} element={<FraHomeSections />} />
 
         <Route path={ClientRoutes.Assessment.Home.Users.User.path.relative} element={<User />} />
 

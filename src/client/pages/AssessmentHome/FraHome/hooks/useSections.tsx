@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { AssessmentHomeRouteNames } from '@meta/app'
 import { Users } from '@meta/user'
 
 import { useUser } from '@client/store/user'
@@ -11,17 +12,8 @@ import CountryMessageBoard from '../CountryMessageBoard'
 import Links from '../Links'
 import RecentActivity from '../RecentActivity'
 
-enum SectionNames {
-  overview = 'overview',
-  messageBoard = 'messageBoard',
-  contentCheck = 'contentCheck',
-  userManagement = 'userManagement',
-  recentActivity = 'recentActivity',
-  links = 'links',
-}
-
 type Section = {
-  name: SectionNames
+  name: AssessmentHomeRouteNames
   component: React.FC
 }
 
@@ -32,20 +24,20 @@ const Placeholder: React.FC = () => {
 export const useSections = (): Array<Section> => {
   const user = useUser()
   const countryIso = useCountryIso()
-  const sections: Array<Section> = [{ name: SectionNames.overview, component: Dashboard }]
+  const sections: Array<Section> = [{ name: AssessmentHomeRouteNames.overview, component: Dashboard }]
 
   if (user) {
-    sections.push({ name: SectionNames.messageBoard, component: CountryMessageBoard })
-    sections.push({ name: SectionNames.recentActivity, component: RecentActivity })
-    sections.push({ name: SectionNames.links, component: Links })
+    sections.push({ name: AssessmentHomeRouteNames.messageBoard, component: CountryMessageBoard })
+    sections.push({ name: AssessmentHomeRouteNames.recentActivity, component: RecentActivity })
+    sections.push({ name: AssessmentHomeRouteNames.links, component: Links })
   }
 
   if (Users.getRolesAllowedToEdit({ user, countryIso }).length > 0) {
-    sections.splice(2, 0, { name: SectionNames.userManagement, component: Collaborators })
+    sections.splice(2, 0, { name: AssessmentHomeRouteNames.userManagement, component: Collaborators })
   }
 
   if (Users.isAdministrator(user) || Users.isReviewer(user, countryIso)) {
-    sections.splice(2, 0, { name: SectionNames.contentCheck, component: Placeholder })
+    sections.splice(2, 0, { name: AssessmentHomeRouteNames.contentCheck, component: Placeholder })
   }
 
   return sections
