@@ -39,7 +39,8 @@ export const getOne = async (
         select ${selectFields}, jsonb_agg(to_jsonb(ur.*)) as roles
         from public.users u
         left join users_role ur on u.id = ur.user_id
-        where ${where.join(' ')}
+        -- Only return roles that are accepted or ignore when administrator ('no roles')
+        where (ur.accepted_at is not null or ur.role = 'ADMINISTRATOR') and ${where.join(' ')}
         group by ${selectFields}
     `,
       values
