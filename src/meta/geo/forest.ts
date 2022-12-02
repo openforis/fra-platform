@@ -1,7 +1,14 @@
 export interface ForestOptions {
-  sources: ForestSource[]
+  sources: ForestSourceAndStatus[]
   fetchedLayers: { [key in ForestSource]?: string }
 }
+
+export interface ForestSourceAndStatus {
+  key: ForestSource
+  status: ForestSourceStatus
+}
+
+export type ForestSourceStatus = 'loading' | 'ready'
 
 export enum ForestSource {
   JAXA = 'JAXA',

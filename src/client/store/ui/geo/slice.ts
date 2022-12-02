@@ -1,4 +1,8 @@
+import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice, Reducer } from '@reduxjs/toolkit'
+
+import { ForestSource } from '@meta/geo'
+import { ForestSourceAndStatus } from '@meta/geo/forest'
 
 import { postMosaicOptions } from './actions/postMosaicOptions'
 import { getForestLayer } from './actions'
@@ -29,13 +33,18 @@ export const geoSlice = createSlice({
     updateForestOptions: (state, { payload }) => {
       state.forestOptions = payload
     },
-    addForestLayer: (state, { payload }) => {
+    addForestLayer: (state, { payload }: PayloadAction<ForestSourceAndStatus>) => {
       state.forestOptions.sources.push(payload)
     },
-    removeForestLayer: (state, { payload }) => {
-      const i = state.forestOptions.sources.indexOf(payload)
+    removeForestLayer: (state, { payload }: PayloadAction<ForestSource>) => {
+      const i = state.forestOptions.sources.findIndex(({ key }) => key === payload)
       if (i === -1) return
       state.forestOptions.sources.splice(i, 1)
+    },
+    markForestLayerAsReady: (state, { payload }: PayloadAction<ForestSource>) => {
+      const i = state.forestOptions.sources.findIndex(({ key }) => key === payload)
+      if (i === -1) return
+      state.forestOptions.sources[i].status = 'ready'
     },
   },
   extraReducers: (builder) => {

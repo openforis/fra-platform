@@ -1,13 +1,13 @@
 import './MapVisualizerPanel.scss'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 
-import axios from 'axios'
 import debounce from 'lodash.debounce'
 
 import { ForestSource } from '@meta/geo'
 
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useForestSourceOptions } from '@client/store/ui/geo'
+import { getForestLayer } from '@client/store/ui/geo/actions'
 import { useGeoMap } from '@client/hooks'
 import { MapController } from '@client/utils'
 
@@ -35,15 +35,30 @@ const MapVisualizerPanel: React.FC = () => {
       } else {
         // get the new layer from the server and add it to the map and app state
         const uri = apiUri + (mapLayerKey === 'Hansen' ? `&gteHansenTreeCoverPerc=${hansenPercentage}` : '')
-        await axios.get(uri).then((response) => {
-          const { mapId } = response.data
+        const mapId = forestOptions.fetchedLayers[mapLayerKey]
+        dispatch(GeoActions.addForestLayer({ key: mapLayerKey, status: mapId ? 'ready' : 'loading' }))
+
+        if (mapId) {
           mapControllerRef.current.addEarthEngineLayer(mapLayerKey, mapId)
-          dispatch(GeoActions.addForestLayer(mapLayerKey))
-        })
+        } else {
+          dispatch(getForestLayer({ mapLayerKey, uri }))
+        }
       }
     },
-    [dispatch, hansenPercentage]
+    [forestOptions.fetchedLayers, dispatch, hansenPercentage]
   )
+
+  useEffect(() => {
+    forestOptions.sources
+      .filter(({ status }) => status === 'loading')
+      .forEach(({ key }) => {
+        const mapId = forestOptions.fetchedLayers[key]
+        if (mapId) {
+          dispatch(GeoActions.markForestLayerAsReady(key))
+          mapControllerRef.current.addEarthEngineLayer(key, mapId)
+        }
+      })
+  }, [forestOptions.fetchedLayers, forestOptions.sources, dispatch])
 
   // re-render if Hansen percentage was changed
   useEffect(() => {
@@ -76,7 +91,7 @@ const MapVisualizerPanel: React.FC = () => {
             <GeoMapMenuListElement
               title={layer.title}
               tabIndex={index * -1 - 1}
-              checked={forestOptions.sources.includes(layer.key)}
+              checked={forestOptions.sources.some(({ key }) => key === layer.key)}
               onCheckboxClick={() => onCheckboxClick(layer.apiUri, layer.key)}
               backgroundColor={layer.key.toLowerCase()}
             >
