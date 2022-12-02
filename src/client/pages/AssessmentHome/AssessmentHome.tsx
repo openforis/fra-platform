@@ -7,10 +7,11 @@ import { useAssessment } from '@client/store/assessment'
 import MessageCenter from '@client/components/MessageCenter'
 
 import FraHome from './FraHome'
+import PanEuropeanHome from './PanEuropeanHome'
 
 const Components: Record<string, React.FC> = {
   [AssessmentNames.fra]: FraHome,
-  [AssessmentNames.panEuropean]: () => <div />,
+  [AssessmentNames.panEuropean]: PanEuropeanHome,
 }
 
 const AssessmentHome: React.FC = () => {
