@@ -8,7 +8,7 @@ import { UserController } from '@server/controller/user'
 
 const jwtFromRequest = (req: Request) => {
   let token = null
-  if (req && req.cookies) token = req.cookies.token
+  if (req && req.cookies) token = req.cookies['fra-auth-token']
   return token
 }
 

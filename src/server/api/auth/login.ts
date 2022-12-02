@@ -34,7 +34,7 @@ export const getGoogleCallback = (req: Request, res: Response, next: NextFunctio
     if (err) {
       next(err)
     } else if (!user) {
-      res.clearCookie('token')
+      res.clearCookie('fra-auth-token')
       res.redirect(`/login?loginError=${info.message}`)
     } else {
       req.login(user, (err: any) => {
