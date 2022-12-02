@@ -28,3 +28,13 @@ export type ForestAgreementLayerRequest = Request<
     opacity: any
   }
 >
+
+export type ForestEstimationsRequest = Request<
+  never,
+  never,
+  never,
+  {
+    countryIso: CountryIso
+    year: any
+  }
+>
