@@ -35,7 +35,7 @@ export const geoSlice = createSlice({
     removeForestLayer: (state, { payload }) => {
       const i = state.forestOptions.sources.indexOf(payload)
       if (i === -1) return
-      state.forestOptions.sources.splice(i, 1, payload)
+      state.forestOptions.sources.splice(i, 1)
     },
   },
   extraReducers: (builder) => {
