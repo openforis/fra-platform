@@ -29,7 +29,6 @@ export const GeoApi = {
     express.get(
       ApiEndPoint.Geo.Layers.getEstimations(),
       ValidationMiddleware.validateRequest(GeoSchemes.forestEstimationsSchema),
-      GeeAuthMiddleware.requireLogin,
       getForestEstimations
     )
 
