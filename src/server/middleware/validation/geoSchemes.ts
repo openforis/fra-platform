@@ -87,7 +87,19 @@ export const forestAgreementLayerSchema = [
     .toInt(),
 ]
 
+export const forestEstimationsSchema = [
+  countryIsoQuery,
+  query('year')
+    .exists()
+    .withMessage('validation.errors.requiredValue')
+    .bail()
+    .isInt()
+    .withMessage('validation.errors.invalidValue')
+    .toInt(),
+]
+
 export const GeoSchemes = {
   forestLayerSchema,
   forestAgreementLayerSchema,
+  forestEstimationsSchema,
 }
