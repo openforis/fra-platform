@@ -4,11 +4,17 @@ import axios from 'axios'
 import { Dispatch } from 'redux'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
+import { AssessmentName } from '@meta/assessment'
 import { RoleName, UserRole } from '@meta/user'
 
 import { UserManagementActions } from '../slice'
 
-type Params = { roles: Array<Partial<UserRole<RoleName>>>; userId: number }
+type Params = {
+  assessmentName: AssessmentName
+  cycleName: string
+  roles: Array<Partial<UserRole<RoleName>>>
+  userId: number
+}
 
 const postUserRoles = Functions.debounce(
   async (params: Params, dispatch: Dispatch) => {
