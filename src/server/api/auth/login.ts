@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 import * as passport from 'passport'
 
 import { LoginRequest } from '@meta/api/request'
+import { ClientRoutes } from '@meta/app'
 import { AuthToken } from '@meta/auth'
 import { User } from '@meta/user'
 
@@ -18,7 +19,7 @@ export const postLocalLogin = async (req: Request, res: Response, next: NextFunc
     return req.login(user, { session: false }, (err: any) => {
       if (err) next(err)
       setAuthToken(res, user)
-      Requests.sendOk(res)
+      Requests.sendOk(res, info)
     })
   })(req, res, next)
 }
@@ -31,17 +32,22 @@ export const getGoogleLogin = (req: LoginRequest, res: Response) => {
 }
 
 export const getGoogleCallback = (req: Request, res: Response, next: NextFunction) => {
-  passport.authenticate('google', { session: false }, (err: any, user: User, info: any) => {
+  passport.authenticate('google', { session: false }, (err: any, user: User, msg: any) => {
     if (err) {
       next(err)
     } else if (!user) {
       res.clearCookie(AuthToken.fraAuthToken)
-      res.redirect(`/login?loginError=${info.message}`)
+      res.redirect(`/login?loginError=${msg.message}`)
     } else {
       req.login(user, (err: any) => {
         if (err) next(err)
         setAuthToken(res, user)
-        res.redirect(`${process.env.NODE_ENV === 'development' ? '/' : appUri}`)
+        let redirectUrl = process.env.NODE_ENV === 'development' ? '/' : appUri
+        if (msg?.message) {
+          const data = JSON.parse(msg.message)
+          redirectUrl += ClientRoutes.Assessment.Home.Root.getLink(data)
+        }
+        res.redirect(redirectUrl)
       })
     }
   })(req, res, next)

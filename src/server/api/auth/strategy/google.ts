@@ -55,7 +55,13 @@ const googleStrategyVerifyCallback = async (
 
           user = await UserController.acceptInvitation({ assessment, cycle, user: invitedUser, userRole })
 
-          done(null, user)
+          done(null, user, {
+            message: JSON.stringify({
+              countryIso: userRole.countryIso,
+              assessmentName: assessment.props.name,
+              cycleName: cycle.name,
+            }),
+          })
         } else {
           done(null, false, { message: 'login.notAuthorized' })
         }
