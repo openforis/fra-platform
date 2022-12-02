@@ -3,12 +3,12 @@ import axios from 'axios'
 
 import { ForestSource } from '@meta/geo'
 
-interface Props {
+interface GetForesLayerProps {
   mapLayerKey: ForestSource
   uri: string
 }
 
-export const getForestLayer = createAsyncThunk<[ForestSource, string], Props>(
+export const getForestLayer = createAsyncThunk<[ForestSource, string], GetForesLayerProps>(
   'geo/get/forestLayer',
   async ({ mapLayerKey, uri }) => {
     const {
