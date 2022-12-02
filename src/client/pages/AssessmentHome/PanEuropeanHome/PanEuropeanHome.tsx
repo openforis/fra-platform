@@ -1,21 +1,12 @@
 import './PanEuropeanHome.scss'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
-
-import { useAppDispatch } from '@client/store'
-import { AssessmentActions } from '@client/store/assessment'
 
 const PanEuropeanHome = () => {
   const {
     t,
     i18n: { language },
   } = useTranslation()
-  const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    dispatch(AssessmentActions.initApp({ assessmentName: 'panEuropean' }))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   return (
     <div className="pan-eu-home">

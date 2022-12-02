@@ -1,7 +1,7 @@
 import { matchPath, useLocation, useParams } from 'react-router-dom'
 
 import { ClientRoutes } from '@meta/app'
-import { AssessmentName } from '@meta/assessment'
+import { AssessmentName, AssessmentNames } from '@meta/assessment'
 
 export const useIsPath = ({ path, exact = true }: { path: string; exact?: boolean }): boolean => {
   const { pathname } = useLocation()
@@ -24,5 +24,5 @@ export const useIsPrint = () => ({
 
 export const useIsPanEuropean = () => {
   const { assessmentName } = useParams<{ assessmentName: AssessmentName }>()
-  return assessmentName === 'paneuropean' || assessmentName === 'panEuropean'
+  return assessmentName === AssessmentNames.panEuropean
 }
