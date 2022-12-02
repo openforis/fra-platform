@@ -50,7 +50,7 @@ const NaturallyRegeneratingForest = () => {
           tableName,
         })
         if (isIsoCountry) return raw
-        return Numbers.div(raw, 1000).toNumber()
+        return Numbers.div(raw, 1000)?.toNumber()
       }),
     })),
   }
