@@ -5,14 +5,14 @@ import { BaseProtocol, DB } from '@server/db'
 import { SectionRepository } from '@server/repository/assessment/section'
 import { ActivityLogRepository } from '@server/repository/public/activityLog'
 
-export const create = async (
+export const createSection = async (
   props: { user: User; assessment: Assessment; section: Pick<Section, 'props'> },
   client: BaseProtocol = DB
 ): Promise<Section> => {
   const { user, assessment, section } = props
 
   return client.tx(async (t) => {
-    const createdSection = await SectionRepository.createSection({ section, assessment }, t)
+    const createdSection = await SectionRepository.createAssessmentSection({ section, assessment }, t)
 
     await ActivityLogRepository.insertActivityLog(
       {
