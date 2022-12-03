@@ -49,7 +49,11 @@ const localStrategyVerifyCallback = async (req: Request, email: string, password
 
           const user = await UserController.acceptInvitation({ assessment, cycle, user: invitedUser, userRole })
 
-          done(null, user)
+          done(null, user, {
+            countryIso: userRole.countryIso,
+            assessmentName: assessment.props.name,
+            cycleName: cycle.name,
+          })
         } else {
           sendErr('login.notAuthorized')
         }
