@@ -8,13 +8,15 @@ import type { User } from './user'
 import { RoleName, UserRole } from './userRole'
 import { UserRoles } from './userRoles'
 
-const isAdministrator = (user: User) => user?.roles.some((role) => role.role === RoleName.ADMINISTRATOR)
+const isAdministrator = (user: User) => {
+  return user?.roles?.some((role) => role?.role === RoleName.ADMINISTRATOR)
+}
 
 const getRole = (user: User, countryIso: CountryIso, cycle: Cycle): UserRole<RoleName, any> => {
   if (isAdministrator(user)) return user.roles[0]
 
   return user?.roles?.find(
-    (userRole: UserRole<any>) => userRole.countryIso === countryIso && userRole.cycleUuid === cycle.uuid
+    (userRole: UserRole<any>) => userRole?.countryIso === countryIso && userRole?.cycleUuid === cycle.uuid
   )
 }
 

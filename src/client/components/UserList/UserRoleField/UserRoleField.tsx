@@ -13,7 +13,7 @@ const UserRoleField: React.FC<{ user: User; countryIso: CountryIso }> = ({ user,
   return (
     <td className="user-list__cell">
       <div className="user-list__cell--read-only">
-        {t(Users.getI18nRoleLabelKey(Users.getRole(user, countryIso, cycle).role))}
+        {t(Users.getI18nRoleLabelKey(Users.getRole(user, countryIso, cycle)?.role))}
       </div>
     </td>
   )
