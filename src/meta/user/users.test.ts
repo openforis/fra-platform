@@ -8,7 +8,8 @@ import { Users } from './users'
 const countryIso = 'ATL' as CountryIso
 const cycleUuid = '123-XXX-123'
 
-const getUserInfo = (countryIso: CountryIso, role: RoleName) => ({ id: 1, roles: [{ countryIso, role }] } as User)
+const getUserInfo = (countryIso: CountryIso, role: RoleName) =>
+  ({ id: 1, roles: [{ countryIso, role, cycleUuid }] } as User)
 const cycle = { uuid: cycleUuid } as Cycle
 
 describe('User allowance tests:', () => {
@@ -21,7 +22,7 @@ describe('User allowance tests:', () => {
     expect(res).toHaveLength(5)
   })
 
-  test('National Corrispondent can edit', () => {
+  test('National Correspondent can edit', () => {
     const res = Users.getRolesAllowedToEdit({
       countryIso,
       user: getUserInfo(countryIso, RoleName.NATIONAL_CORRESPONDENT),

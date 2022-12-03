@@ -19,7 +19,7 @@ const getRole = (user: User, countryIso: CountryIso, cycle: Cycle): UserRole<Rol
 }
 
 const isRole = (user: User, role: RoleName, countryIso: CountryIso, cycle: Cycle) =>
-  Boolean(getRole(user, countryIso, cycle)?.name === role)
+  Boolean(getRole(user, countryIso, cycle)?.role === role)
 
 const isCollaborator = (user: User, countryIso: CountryIso, cycle: Cycle) =>
   isRole(user, RoleName.COLLABORATOR, countryIso, cycle)
@@ -46,7 +46,6 @@ const getRolesAllowedToEdit = (props: { user: User; countryIso: CountryIso; cycl
       RoleName.VIEWER,
     ]
   }
-
   if (isNationalCorrespondent(user, countryIso, cycle) || isAlternateNationalCorrespondent(user, countryIso, cycle)) {
     return [RoleName.COLLABORATOR, RoleName.VIEWER]
   }
