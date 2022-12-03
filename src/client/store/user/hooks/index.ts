@@ -2,7 +2,7 @@ import { CountryIso } from '@meta/area'
 import { Authorizer, CollaboratorEditPropertyType, User, Users } from '@meta/user'
 
 import { useAppSelector } from '@client/store'
-import { useAssessmentCountry, useAssessmentSection, useCountries } from '@client/store/assessment'
+import { useAssessmentCountry, useAssessmentSection, useCountries, useCycle } from '@client/store/assessment'
 import { useIsDataLocked } from '@client/store/ui/dataLock'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
@@ -23,6 +23,7 @@ const useCanEditSection = (sectionName?: string, permission?: CollaboratorEditPr
   const countryIso = useCountryIso()
   const country = useAssessmentCountry()
   const isDataLocked = useIsDataLocked()
+  const cycle = useCycle()
   const { print } = useIsPrint()
 
   return (
@@ -34,6 +35,7 @@ const useCanEditSection = (sectionName?: string, permission?: CollaboratorEditPr
       countryIso,
       country,
       permission,
+      cycle,
     })
   )
 }

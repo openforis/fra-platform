@@ -2,34 +2,41 @@ import { Objects } from '@utils/objects'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { CountryIso } from '@meta/area'
+import { Cycle } from '@meta/assessment'
 
 import type { User } from './user'
 import { RoleName, UserRole } from './userRole'
 import { UserRoles } from './userRoles'
 
-const isRole = (user: User, role: RoleName) =>
-  Boolean(user?.roles?.find((userRole: UserRole<any>) => userRole.role === role))
+const isAdministrator = (user: User) => user?.roles.some((role) => role.role === RoleName.ADMINISTRATOR)
 
-const isCountryRole = (user: User, role: RoleName, countryIso: CountryIso) =>
-  Boolean(user?.roles?.find((userRole: UserRole<any>) => userRole.countryIso === countryIso && userRole.role === role))
-
-const isAdministrator = (user: User) => isRole(user, RoleName.ADMINISTRATOR)
-const isCollaborator = (user: User, countryIso: CountryIso) => isCountryRole(user, RoleName.COLLABORATOR, countryIso)
-const isReviewer = (user: User, countryIso: CountryIso) => isCountryRole(user, RoleName.REVIEWER, countryIso)
-const isNationalCorrespondent = (user: User, countryIso: CountryIso) =>
-  isCountryRole(user, RoleName.NATIONAL_CORRESPONDENT, countryIso)
-const isAlternateNationalCorrespondent = (user: User, countryIso: CountryIso) =>
-  isCountryRole(user, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, countryIso)
-const isViewer = (user: User, countryIso: CountryIso) => isCountryRole(user, RoleName.VIEWER, countryIso)
-
-const getCountryRole = (user: User, countryIso: CountryIso): UserRole<RoleName, any> => {
+const getRole = (user: User, countryIso: CountryIso, cycle: Cycle): UserRole<RoleName, any> => {
   if (isAdministrator(user)) return user.roles[0]
 
-  return user?.roles?.find((role) => role.countryIso === countryIso)
+  return user?.roles?.find(
+    (userRole: UserRole<any>) => userRole.countryIso === countryIso && userRole.cycleUuid === cycle.uuid
+  )
 }
 
-const getRolesAllowedToEdit = (props: { user: User; countryIso: CountryIso }): Array<RoleName> => {
-  const { countryIso, user } = props
+const isRole = (user: User, role: RoleName, countryIso: CountryIso, cycle: Cycle) =>
+  Boolean(getRole(user, countryIso, cycle)?.name === role)
+
+const isCollaborator = (user: User, countryIso: CountryIso, cycle: Cycle) =>
+  isRole(user, RoleName.COLLABORATOR, countryIso, cycle)
+
+const isReviewer = (user: User, countryIso: CountryIso, cycle: Cycle) =>
+  isRole(user, RoleName.REVIEWER, countryIso, cycle)
+
+const isNationalCorrespondent = (user: User, countryIso: CountryIso, cycle: Cycle) =>
+  isRole(user, RoleName.NATIONAL_CORRESPONDENT, countryIso, cycle)
+
+const isAlternateNationalCorrespondent = (user: User, countryIso: CountryIso, cycle: Cycle) =>
+  isRole(user, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, countryIso, cycle)
+
+const isViewer = (user: User, countryIso: CountryIso, cycle: Cycle) => isRole(user, RoleName.VIEWER, countryIso, cycle)
+
+const getRolesAllowedToEdit = (props: { user: User; countryIso: CountryIso; cycle: Cycle }): Array<RoleName> => {
+  const { countryIso, cycle, user } = props
   if (isAdministrator(user)) {
     return [
       RoleName.REVIEWER,
@@ -40,7 +47,7 @@ const getRolesAllowedToEdit = (props: { user: User; countryIso: CountryIso }): A
     ]
   }
 
-  if (isNationalCorrespondent(user, countryIso) || isAlternateNationalCorrespondent(user, countryIso)) {
+  if (isNationalCorrespondent(user, countryIso, cycle) || isAlternateNationalCorrespondent(user, countryIso, cycle)) {
     return [RoleName.COLLABORATOR, RoleName.VIEWER]
   }
   return []
@@ -78,7 +85,7 @@ export const validate = (user: User) => {
 }
 
 export const Users = {
-  getCountryRole,
+  getRole,
 
   isAdministrator,
   isCollaborator,
