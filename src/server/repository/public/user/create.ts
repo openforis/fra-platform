@@ -21,5 +21,5 @@ export const create = async (
     Objects.camelize
   )
 
-  return getOne({ id })
+  return getOne({ id }, client)
 }
