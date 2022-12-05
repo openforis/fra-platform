@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { i18n } from 'i18next'
 
 import { Areas, Country, CountryIso } from '@meta/area'
+import { CycleUuid } from '@meta/assessment'
 import { RoleName, Users } from '@meta/user'
 import { UserRoles } from '@meta/user/userRoles'
 
@@ -16,6 +17,7 @@ type Props = {
   role: RoleName | string
   query: string
   countryISOs: Array<CountryIso>
+  cycleUuid: CycleUuid
 }
 
 const matchRegion = (props: { country: Country; i18n: i18n; query: string }): boolean => {
@@ -28,12 +30,12 @@ const matchRegion = (props: { country: Country; i18n: i18n; query: string }): bo
 }
 
 const CountryListRoleSection: React.FC<Props> = (props: Props) => {
-  const { role, countryISOs, query } = props
+  const { role, countryISOs, query, cycleUuid } = props
 
   const { i18n } = useTranslation()
   const countries = useCountries()
   const assessment = useAssessment()
-  const cycle = useCycle()
+  const cycle = useCycle(cycleUuid)
 
   return (
     <div className="country-selection-list__section">
