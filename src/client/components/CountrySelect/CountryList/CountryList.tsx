@@ -70,15 +70,7 @@ const CountryList: React.FC<Props> = (props: Props) => {
 
         {Object.entries(countryMap).map(([role, cycleCountries]) => {
           const countries = cycleCountries[cycle.uuid]
-          return (
-            <CountryListRoleSection
-              cycleUuid={cycle.uuid}
-              key={role}
-              role={role}
-              countryISOs={countries}
-              query={query}
-            />
-          )
+          return <CountryListRoleSection key={role} role={role} countryISOs={countries} query={query} />
         })}
       </div>
     </div>
