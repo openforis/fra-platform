@@ -29,7 +29,7 @@ const ContactPersons: React.FC = () => {
   const sectionAnchors = SubSections.getAnchorsByUuid({ cycle, sections })
 
   const users = useUsers().filter((user) => {
-    const userRole = Users.getCountryRole(user, countryIso)
+    const userRole = Users.getRole(user, countryIso, cycle)
     return (
       ([UserStatus.active, UserStatus.invitationPending].includes(user.status) &&
         allowedRoleNames.includes(userRole.role) &&
@@ -39,7 +39,7 @@ const ContactPersons: React.FC = () => {
   })
 
   const getUserTableAnchors = (user: User) => {
-    if (Users.isCollaborator(user, countryIso)) {
+    if (Users.isCollaborator(user, countryIso, cycle)) {
       const collaboratorProps: CollaboratorProps = user.roles?.[0]?.props
       const sections = collaboratorProps?.sections
       if (!Objects.isEmpty(sections)) {
@@ -87,7 +87,7 @@ const ContactPersons: React.FC = () => {
                 </td>
                 <td className="fra-table__cell-left">
                   <div className="text-input__readonly-view">
-                    {t(Users.getI18nRoleLabelKey(Users.getCountryRole(user, countryIso).role))}
+                    {t(Users.getI18nRoleLabelKey(Users.getRole(user, countryIso, cycle).role))}
                   </div>
                 </td>
                 <td className="fra-table__cell-left">

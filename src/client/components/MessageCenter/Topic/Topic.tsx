@@ -146,7 +146,7 @@ const Topic: React.FC<TopicProps> = (props) => {
       <div className="topic-footer">
         {(topic.status === MessageTopicStatus.opened ||
           (topic.status === MessageTopicStatus.resolved &&
-            (Users.isAdministrator(user) || Users.isReviewer(user, countryIso)))) && (
+            (Users.isAdministrator(user) || Users.isReviewer(user, countryIso, cycle)))) && (
           <div className="topic-form">
             <textarea
               value={message}
@@ -166,7 +166,7 @@ const Topic: React.FC<TopicProps> = (props) => {
         {topic.type === MessageTopicType.review &&
           topic.status === MessageTopicStatus.opened &&
           topic.messages.length !== 0 &&
-          (Users.isAdministrator(user) || Users.isReviewer(user, countryIso)) && (
+          (Users.isAdministrator(user) || Users.isReviewer(user, countryIso, cycle)) && (
             <div className="topic-review">
               <button className="btn btn-secondary btn-s" onClick={resolveTopic} type="submit">
                 {i18n.t<string>('review.resolve')}

@@ -1,7 +1,8 @@
 import { useParams } from 'react-router-dom'
 
+import { Cycle, CycleUuid } from '@meta/assessment'
+
 import { useAppSelector } from '@client/store'
-import { Cycle } from '@meta/assessment'
 
 /**
  * Return current cycle
@@ -9,11 +10,15 @@ import { Cycle } from '@meta/assessment'
  * If not found, take default from <current>assessment.props
  * @returns Cycle
  */
-export const useCycle = (): Cycle | undefined => {
+export const useCycle = (cycleUuid?: CycleUuid): Cycle | undefined => {
   const { cycleName } = useParams<{ cycleName: string }>()
   const defaultCycleUuid = useAppSelector((state) => state.assessment?.assessment?.props.defaultCycle)
   const cycle = useAppSelector((state) => {
     const { cycles } = state.assessment?.assessment ?? { cycles: [] as Array<Cycle> }
+
+    if (cycleUuid) {
+      return cycles.find(({ uuid }) => uuid === cycleUuid)
+    }
 
     if (cycleName) {
       return cycles.find(({ name }) => cycleName === name)
