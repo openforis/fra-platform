@@ -30,7 +30,6 @@ $login-height: 50vh;
     border-radius: 20px;
     margin: 0 12px;
     min-width: 190px;
-    width: 300px;
 
     &:hover {
       color: white;
@@ -55,7 +54,6 @@ $login-height: 50vh;
   display: grid;
   grid-row-gap: 40px;
   min-width: 400px;
-  justify-items: center;
 
   h3 {
     text-align: center;
@@ -104,6 +102,5 @@ $login-height: 50vh;
   .divider {
     border-top: 0.1px solid #7f7f7f;
     margin: 12px;
-    width: 100%;
   }
 }

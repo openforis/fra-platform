@@ -109,7 +109,7 @@ const Invitation: React.FC = () => {
       ) : (
         <div className="login__form">
           {isLocal ? (
-            <div className="login__form">
+            <>
               <input
                 onFocus={() => setErrors({ ...errors, email: null })}
                 name="email"
@@ -152,7 +152,7 @@ const Invitation: React.FC = () => {
               <button type="button" className="btn" onClick={onInvitation}>
                 {t('login.acceptInvitationWithFra')}
               </button>
-            </div>
+            </>
           ) : (
             <button className="btn" type="button" onClick={() => setIsLocal(true)}>
               {t('login.acceptInvitationWithFra')}
