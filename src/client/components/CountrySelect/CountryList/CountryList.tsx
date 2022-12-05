@@ -67,8 +67,8 @@ const CountryList: React.FC<Props> = (props: Props) => {
           })}
         </div>
 
-        {Object.entries(countryMap).map(([cycleUuid, roleCountries]) => {
-          return Object.entries(roleCountries).flatMap(([role, countries]) => {
+        {Object.entries(countryMap).map(([role, cycleCountries]) => {
+          return Object.entries(cycleCountries).flatMap(([cycleUuid, countries]) => {
             return (
               <CountryListRoleSection
                 cycleUuid={cycleUuid}

@@ -1,11 +1,12 @@
 import React, { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 import classNames from 'classnames'
 
 import { ClientRoutes } from '@meta/app'
 import { Areas, CountryIso, Global, RegionCode } from '@meta/area'
+import { CycleUuid } from '@meta/assessment'
 import { UserRoles } from '@meta/user/userRoles'
 
 import { useAssessment, useCountry, useCycle } from '@client/store/assessment'
@@ -15,24 +16,27 @@ import { Dates } from '@client/utils'
 type Props = {
   country: { countryIso: CountryIso | Global | RegionCode }
   role: string
+  cycleUuid?: CycleUuid
 }
 
 const CountryListRow: React.FC<Props> = (props: Props) => {
   const {
     role,
     country: { countryIso },
+    cycleUuid,
   } = props
 
   const { i18n } = useTranslation()
   const assessment = useAssessment()
-  const cycle = useCycle()
+  const { cycleName } = useParams<{ cycleName: string }>()
+  const cycle = useCycle(cycleUuid)
   const country = useCountry(countryIso as CountryIso)
   const countryIsoCurrent = useCountryIso()
   const isHome = useIsHome()
   const countryNameRef = useRef(null)
 
   const status = Areas.getStatus(country)
-  const selected = countryIso === countryIsoCurrent && !isHome
+  const selected = countryIso === countryIsoCurrent && cycleName === cycle.name && !isHome
   const hasRole = role !== UserRoles.noRole.role
 
   useEffect(() => {
@@ -69,6 +73,10 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
       )}
     </Link>
   )
+}
+
+CountryListRow.defaultProps = {
+  cycleUuid: undefined,
 }
 
 export default CountryListRow

@@ -53,7 +53,7 @@ const CountryListRoleSection: React.FC<Props> = (props: Props) => {
         const matchCountry = checkMatch(countryLabel, query) || matchRegion({ country, query, i18n })
 
         if (matchCountry) {
-          return <CountryListRow key={countryIso} role={role} country={{ countryIso }} />
+          return <CountryListRow cycleUuid={cycleUuid} key={countryIso} role={role} country={{ countryIso }} />
         }
 
         return null

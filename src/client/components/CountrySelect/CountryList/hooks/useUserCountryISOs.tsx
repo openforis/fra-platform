@@ -15,22 +15,23 @@ export const useUserCountryISOs = (): Record<CycleUuid, Record<string, Array<Cou
 
   if (Users.isAdministrator(user)) {
     // For admin, show only 'current' cycle countries
-    if (!userCountryISOs[cycle.uuid]) userCountryISOs[cycle.uuid] = {}
-    userCountryISOs[cycle.uuid][RoleName.ADMINISTRATOR] = [...userCountries]
+    if (!userCountryISOs[RoleName.ADMINISTRATOR]) userCountryISOs[RoleName.ADMINISTRATOR] = {}
+    userCountryISOs[RoleName.ADMINISTRATOR][cycle.uuid] = [...userCountries]
   } else {
     user?.roles.forEach((role) => {
-      if (!userCountryISOs[role.cycleUuid]) userCountryISOs[role.cycleUuid] = {}
-      if (!Array.isArray(userCountryISOs[role.cycleUuid][role.role])) userCountryISOs[role.cycleUuid][role.role] = []
-      userCountryISOs[role.cycleUuid][role.role].push(role.countryIso)
+      if (!userCountryISOs[role.role]) userCountryISOs[role.role] = {}
+      if (!Array.isArray(userCountryISOs[role.role][role.cycleUuid])) userCountryISOs[role.role][role.cycleUuid] = []
+      userCountryISOs[role.role][role.cycleUuid].push(role.countryIso)
     })
 
-    if (!userCountryISOs[cycle.uuid]) userCountryISOs[cycle.uuid] = {}
+    if (!userCountryISOs[UserRoles.noRole.role]) userCountryISOs[UserRoles.noRole.role] = {}
 
     // For no user role, show only current cycle countries
-    userCountryISOs[cycle.uuid][UserRoles.noRole.role] = allCountries
+    userCountryISOs[UserRoles.noRole.role][cycle.uuid] = allCountries
       .map((c) => c.countryIso)
       .filter((countryIso: CountryIso) => !userCountries?.includes(countryIso))
   }
 
+  // noRole must be last
   return userCountryISOs
 }
