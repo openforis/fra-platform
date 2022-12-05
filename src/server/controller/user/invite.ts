@@ -40,7 +40,6 @@ export const invite = async (
       t
     )
 
-    // TODO
     userToInvite = await UserRepository.getOne({ email }, t)
 
     const { userId, role } = userRole
