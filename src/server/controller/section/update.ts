@@ -5,7 +5,7 @@ import { BaseProtocol, DB } from '@server/db'
 import { SectionRepository } from '@server/repository/assessment/section'
 import { ActivityLogRepository } from '@server/repository/public/activityLog'
 
-export const updateSection = async (
+export const update = async (
   props: { user: User; assessment: Assessment; section: Section },
   client: BaseProtocol = DB
 ): Promise<Section> => {
