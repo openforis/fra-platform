@@ -6,6 +6,7 @@ import { ClientRoutes } from '@meta/app'
 import { User, Users } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
+import { useCycle } from '@client/store/assessment'
 import { UserManagementActions } from '@client/store/ui/userManagement'
 import { useCountryIso } from '@client/hooks'
 import { useToaster } from '@client/hooks/useToaster'
@@ -14,10 +15,11 @@ import Icon from '@client/components/Icon'
 const UserInvitationInfo: React.FC<{ user: User; onClose: () => void }> = ({ user, onClose }) => {
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
+  const cycle = useCycle()
   const { i18n } = useTranslation()
   const { toaster } = useToaster()
 
-  const { invitationUuid } = Users.getCountryRole(user, countryIso)
+  const { invitationUuid } = Users.getRole(user, countryIso, cycle)
 
   return (
     <div className="user-list__invitation-info">
