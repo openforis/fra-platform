@@ -18,7 +18,7 @@ export const update = async (
     `
       update ${schemaName}.section
       set props = $1::jsonb
-      where id = $2;`,
+      where id = $2 returning *;`,
     [JSON.stringify(section.props), section.id],
     Objects.camelize
   )
