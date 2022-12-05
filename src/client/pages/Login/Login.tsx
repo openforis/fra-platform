@@ -1,4 +1,4 @@
-import './login.scss'
+import './Login.scss'
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 
