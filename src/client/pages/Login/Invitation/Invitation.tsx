@@ -134,7 +134,7 @@ const Invitation: React.FC = () => {
           {t('login.acceptInvitationWithFra')}
         </button>
 
-        <hr />
+        <div className="divider" />
 
         <a
           className="btn"
