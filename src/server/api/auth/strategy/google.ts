@@ -41,6 +41,9 @@ const googleStrategyVerifyCallback = async (
             user: invitedUser,
             provider: { provider: AuthProvider.google, props: { email } },
           })) as UserAuthProvider<AuthProviderGoogleProps>
+        } else if (!(invitedUser.id === googleUser.id)) {
+          done(null, false, { message: 'login.alreadyLinked' })
+          return
         }
       }
 
