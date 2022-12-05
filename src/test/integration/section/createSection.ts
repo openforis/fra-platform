@@ -29,6 +29,6 @@ export default () =>
     expect(section.uuid).toBeTruthy()
 
     expect(section).toHaveProperty('props')
-    expect(section).toHaveProperty('props.labels')
-    expect(section.props.labels).toBe(sectionParams.props.labels)
+    expect(section).toHaveProperty('props.index')
+    expect(section.props.index).toBe(sectionParams.props.index)
   })
