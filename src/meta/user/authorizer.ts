@@ -74,28 +74,30 @@ const canViewUsers = (props: { countryIso: CountryIso; assessment: Assessment; c
  */
 const canEdit = (props: {
   countryIso: CountryIso
+  cycle: Cycle
   section: Section
   country: Country
   user: User
   permission?: CollaboratorEditPropertyType
 }): boolean => {
-  const { section, user, countryIso, country, permission = CollaboratorEditPropertyType.tableData } = props
+  const { cycle, section, user, countryIso, country, permission = CollaboratorEditPropertyType.tableData } = props
   const { status } = country.props
 
   if (!user) return false
-  if (Users.isViewer(user, countryIso)) return false
+  if (Users.isViewer(user, countryIso, cycle)) return false
   if (Users.isAdministrator(user)) return true
 
   // country.props.status == Editing
   // And role is NationalCorrespondent or AlternateNationalCorrespondent
   if (
-    (Users.isNationalCorrespondent(user, countryIso) || Users.isAlternateNationalCorrespondent(user, countryIso)) &&
+    (Users.isNationalCorrespondent(user, countryIso, cycle) ||
+      Users.isAlternateNationalCorrespondent(user, countryIso, cycle)) &&
     status === AssessmentStatus.editing
   )
     return true
 
-  if (Users.isCollaborator(user, countryIso)) {
-    const userRole = Users.getCountryRole(user, countryIso) as Collaborator
+  if (Users.isCollaborator(user, countryIso, cycle)) {
+    const userRole = Users.getRole(user, countryIso, cycle) as Collaborator
 
     const userSections = userRole.props?.sections ?? {}
     if (!userSections) return true
@@ -104,7 +106,7 @@ const canEdit = (props: {
     return userSections[section.uuid]?.[permission] === true
   }
 
-  if (Users.isReviewer(user, countryIso)) {
+  if (Users.isReviewer(user, countryIso, cycle)) {
     return [AssessmentStatus.editing, AssessmentStatus.review].includes(status)
   }
 

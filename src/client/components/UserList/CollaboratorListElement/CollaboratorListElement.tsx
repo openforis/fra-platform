@@ -30,7 +30,7 @@ const CollaboratorListElement: React.FC<{ user: User }> = ({ user }) => {
   const currentUser = useUser()
   const { t } = useTranslation()
 
-  const userRole = Users.getCountryRole(user, countryIso)
+  const userRole = Users.getRole(user, countryIso, cycle)
 
   const { acceptedAt, invitationUuid } = userRole
 

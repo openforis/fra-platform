@@ -45,10 +45,6 @@ export const userManagementSlice = createSlice({
       state.count = payload
     })
 
-    builder.addCase(inviteUser.fulfilled, (state, { payload }) => {
-      state.users.push(payload)
-    })
-
     builder.addCase(removeInvitation.fulfilled, (state, { payload }) => {
       const i = state.users.findIndex((u) => u.id === payload.userId)
       if (i !== -1) state.users.splice(i, 1)
