@@ -14,11 +14,10 @@ export const create = async (
   const { section, assessment } = params
   const schemaName = Schemas.getName(assessment)
 
-  // Change values to values
   return client.one<Section>(
     `
         insert into ${schemaName}.section (props)
-        values ($1::jsonb);`,
+        values ($1::JSONB) returning *;`,
     [JSON.stringify(section.props)],
     Objects.camelize
   )
