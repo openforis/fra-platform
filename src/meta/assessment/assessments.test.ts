@@ -3,12 +3,17 @@ import { AssessmentStatus, Country } from '@meta/area/country'
 import { RoleName, User } from '@meta/user'
 
 import { AssessmentStatusTransition, AssessmentStatusTransitions } from './assessments'
+import { Cycle } from './cycle'
 
 const countryIso = 'ATL' as CountryIso
+const cycleUuid = '123-XXX-123'
 
-const getUserInfo = (countryIso: CountryIso, role: RoleName) => ({ id: 1, roles: [{ countryIso, role }] } as User)
+const getUserInfo = (countryIso: CountryIso, role: RoleName) =>
+  ({ id: 1, roles: [{ countryIso, role, cycleUuid }] } as User)
 
 const getCountry = (countryIso: CountryIso, status: AssessmentStatus) => ({ countryIso, props: { status } } as Country)
+
+const cycle = { uuid: cycleUuid } as Cycle
 
 describe('assessment', () => {
   test('Allows nothing when no role found', () =>
@@ -17,6 +22,7 @@ describe('assessment', () => {
         country: getCountry(countryIso, AssessmentStatus.editing),
         countryIso,
         user: null,
+        cycle,
       })
     ))
 
@@ -27,6 +33,7 @@ describe('assessment', () => {
         country: getCountry(countryIso, AssessmentStatus.editing),
         countryIso,
         user: getUserInfo(countryIso, RoleName.COLLABORATOR),
+        cycle,
       })
     ))
 
@@ -36,6 +43,7 @@ describe('assessment', () => {
         country: getCountry(countryIso, AssessmentStatus.editing),
         countryIso,
         user: getUserInfo(countryIso, RoleName.NATIONAL_CORRESPONDENT),
+        cycle,
       })
     ))
 
@@ -45,6 +53,7 @@ describe('assessment', () => {
         country: getCountry(countryIso, AssessmentStatus.editing),
         countryIso,
         user: getUserInfo(countryIso, RoleName.REVIEWER),
+        cycle,
       })
     ))
 
@@ -54,6 +63,7 @@ describe('assessment', () => {
         country: getCountry(countryIso, AssessmentStatus.editing),
         countryIso,
         user: getUserInfo(countryIso, RoleName.ADMINISTRATOR),
+        cycle,
       })
     ))
 
@@ -64,6 +74,7 @@ describe('assessment', () => {
         country: getCountry(countryIso, AssessmentStatus.review),
         countryIso,
         user: getUserInfo(countryIso, RoleName.COLLABORATOR),
+        cycle,
       })
     ))
 
@@ -73,6 +84,7 @@ describe('assessment', () => {
         country: getCountry(countryIso, AssessmentStatus.review),
         countryIso,
         user: getUserInfo(countryIso, RoleName.NATIONAL_CORRESPONDENT),
+        cycle,
       })
     ))
 
@@ -85,6 +97,7 @@ describe('assessment', () => {
         country: getCountry(countryIso, AssessmentStatus.review),
         countryIso,
         user: getUserInfo(countryIso, RoleName.REVIEWER),
+        cycle,
       })
     ))
 
@@ -97,6 +110,7 @@ describe('assessment', () => {
         country: getCountry(countryIso, AssessmentStatus.review),
         countryIso,
         user: getUserInfo(countryIso, RoleName.ADMINISTRATOR),
+        cycle,
       })
     ))
 
@@ -107,6 +121,7 @@ describe('assessment', () => {
         country: getCountry(countryIso, AssessmentStatus.approval),
         countryIso,
         user: getUserInfo(countryIso, RoleName.COLLABORATOR),
+        cycle,
       })
     ))
 
@@ -116,6 +131,7 @@ describe('assessment', () => {
         country: getCountry(countryIso, AssessmentStatus.approval),
         countryIso,
         user: getUserInfo(countryIso, RoleName.NATIONAL_CORRESPONDENT),
+        cycle,
       })
     ))
 
@@ -125,6 +141,7 @@ describe('assessment', () => {
         country: getCountry(countryIso, AssessmentStatus.approval),
         countryIso,
         user: getUserInfo(countryIso, RoleName.REVIEWER),
+        cycle,
       })
     ))
 
@@ -137,6 +154,7 @@ describe('assessment', () => {
         country: getCountry(countryIso, AssessmentStatus.approval),
         countryIso,
         user: getUserInfo(countryIso, RoleName.ADMINISTRATOR),
+        cycle,
       })
     ))
 
@@ -147,6 +165,7 @@ describe('assessment', () => {
         country: getCountry(countryIso, AssessmentStatus.accepted),
         countryIso,
         user: getUserInfo(countryIso, RoleName.COLLABORATOR),
+        cycle,
       })
     ))
 
@@ -156,6 +175,7 @@ describe('assessment', () => {
         country: getCountry(countryIso, AssessmentStatus.accepted),
         countryIso,
         user: getUserInfo(countryIso, RoleName.NATIONAL_CORRESPONDENT),
+        cycle,
       })
     ))
 
@@ -165,6 +185,7 @@ describe('assessment', () => {
         country: getCountry(countryIso, AssessmentStatus.accepted),
         countryIso,
         user: getUserInfo(countryIso, RoleName.REVIEWER),
+        cycle,
       })
     ))
 
@@ -176,6 +197,7 @@ describe('assessment', () => {
         country: getCountry(countryIso, AssessmentStatus.accepted),
         countryIso,
         user: getUserInfo(countryIso, RoleName.ADMINISTRATOR),
+        cycle,
       })
     ))
 })

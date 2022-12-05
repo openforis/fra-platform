@@ -33,7 +33,7 @@ const FraHome: React.FC = () => {
   const displayTabs = sections.length > 1 && Areas.isISOCountry(countryIso)
 
   useEffect(() => {
-    if (Users.getRolesAllowedToEdit({ user, countryIso }).length > 0) {
+    if (Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0) {
       dispatch(
         UserManagementActions.getUsers({ countryIso, assessmentName: assessment.props.name, cycleName: cycle.name })
       )

@@ -4,6 +4,7 @@ import React, { useCallback, useState } from 'react'
 import { RoleName, User, Users } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
+import { useCycle } from '@client/store/assessment'
 import { UserManagementActions } from '@client/store/ui/userManagement'
 import { useCountryIso, useOnUpdate } from '@client/hooks'
 
@@ -20,6 +21,7 @@ type Props = {
 const EditUserForm: React.FC<Props> = ({ user, canEditRoles }) => {
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
+  const cycle = useCycle()
 
   const [profilePicture, setProfilePicture] = useState<File>(null)
   const [userToEdit, setUserToEdit] = useState<User>(user)
@@ -40,7 +42,7 @@ const EditUserForm: React.FC<Props> = ({ user, canEditRoles }) => {
 
   if (!user) return null
 
-  const userRole = Users.getCountryRole(user, countryIso)
+  const userRole = Users.getRole(user, countryIso, cycle)
 
   return (
     <div className="edit-user__form-container">

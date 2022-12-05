@@ -7,6 +7,7 @@ import { ApiEndPoint } from '@meta/api/endpoint'
 import { MessageTopicType, Topics } from '@meta/messageCenter'
 import { Users } from '@meta/user'
 
+import { useCycle } from '@client/store/assessment'
 import { useUsers } from '@client/store/ui/userManagement'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
@@ -15,6 +16,7 @@ import MessageButton from './MessageButton'
 
 const MessageBoardUsers: React.FC = () => {
   const countryIso = useCountryIso()
+  const cycle = useCycle()
 
   const i18n = useTranslation()
   const user = useUser()
@@ -43,7 +45,7 @@ const MessageBoardUsers: React.FC = () => {
                   {_user.name}
                 </div>
                 <div className="landing__user-role">
-                  {i18n.t<string>(Users.getI18nRoleLabelKey(Users.getCountryRole(_user, countryIso).role))}
+                  {i18n.t<string>(Users.getI18nRoleLabelKey(Users.getRole(_user, countryIso, cycle).role))}
                 </div>
                 {user.id !== _user.id && (
                   <MessageButton
