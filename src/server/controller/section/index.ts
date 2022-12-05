@@ -1,6 +1,6 @@
-import { createSection } from '@server/controller/section/create'
-import { removeSection } from '@server/controller/section/remove'
-import { updateSection } from '@server/controller/section/update'
+import { createSection } from '@server/controller/section/createSection'
+import { removeSection } from '@server/controller/section/removeSection'
+import { updateSection } from '@server/controller/section/updateSection'
 
 export const SectionController = {
   removeSection,

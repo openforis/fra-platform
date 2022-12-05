@@ -4,8 +4,7 @@ import { Assessment, Section } from '@meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
-// Change name to remove
-export const removeAssessmentSection = async (
+export const update = async (
   params: {
     section: Section
     assessment: Assessment
@@ -17,9 +16,10 @@ export const removeAssessmentSection = async (
 
   return client.one<Section>(
     `
-      delete from ${schemaName}.section
-      where id = ${section.id} retuning *;`,
-    [],
+      update ${schemaName}.section
+      set props = $1::jsonb
+      where id = $2;`,
+    [JSON.stringify(section.props), section.id],
     Objects.camelize
   )
 }

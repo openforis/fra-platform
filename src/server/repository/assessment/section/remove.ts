@@ -4,7 +4,7 @@ import { Assessment, Section } from '@meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
-export const updateAssessmentSection = async (
+export const remove = async (
   params: {
     section: Section
     assessment: Assessment
@@ -16,10 +16,9 @@ export const updateAssessmentSection = async (
 
   return client.one<Section>(
     `
-      update ${schemaName}.section
-      set props = '${JSON.stringify(section.props)}'::jsonb
-      where id = ${section.id};`,
-    [],
+      delete from ${schemaName}.section
+      where id = $1 retuning *;`,
+    [section.id],
     Objects.camelize
   )
 }

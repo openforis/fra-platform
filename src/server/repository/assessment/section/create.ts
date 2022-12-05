@@ -4,7 +4,7 @@ import { Assessment, Section } from '@meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
-export const createSection = async (
+export const create = async (
   params: {
     section: Pick<Section, 'props'>
     assessment: Assessment
@@ -18,8 +18,8 @@ export const createSection = async (
   return client.one<Section>(
     `
         insert into ${schemaName}.section (props)
-        values ('${JSON.stringify(section.props)}'::jsonb);`,
-    [],
+        values ($1::jsonb);`,
+    [JSON.stringify(section.props)],
     Objects.camelize
   )
 }

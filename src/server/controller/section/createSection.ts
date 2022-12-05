@@ -12,7 +12,7 @@ export const createSection = async (
   const { user, assessment, section } = props
 
   return client.tx(async (t) => {
-    const createdSection = await SectionRepository.createAssessmentSection({ section, assessment }, t)
+    const createdSection = await SectionRepository.create({ section, assessment }, t)
 
     await ActivityLogRepository.insertActivityLog(
       {
