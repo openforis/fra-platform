@@ -1,15 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
+import { ClientRoutes } from '@meta/app'
 import { Users } from '@meta/user'
 import { UserRoles } from '@meta/user/userRoles'
 
 import { useAppDispatch } from '@client/store'
 import { LoginActions, useInvitation } from '@client/store/login'
 import { useUser } from '@client/store/user'
-import LoginForm from '@client/pages/Login/LoginForm'
+import { isError, LoginValidator } from '@client/pages/Login/utils/LoginValidator'
 import { Urls } from '@client/utils'
 
 const Invitation: React.FC = () => {
@@ -21,6 +22,12 @@ const Invitation: React.FC = () => {
   const invitationUuid = Urls.getRequestParam('invitationUuid')
   const { userRole, assessment, invitedUser, userProviders } = useInvitation()
 
+  const [isLocal, setIsLocal] = useState<boolean>(false)
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [password2, setPassword2] = useState<string>('')
+  const [errors, setErrors] = useState<Record<string, string>>({})
+
   useEffect(() => {
     if (invitationUuid) {
       dispatch(LoginActions.fetchUserByInvitation({ invitationUuid }))
@@ -29,9 +36,29 @@ const Invitation: React.FC = () => {
     }
   }, [dispatch, invitationUuid, navigate])
 
+  useEffect(() => {
+    if (invitedUser?.email) setEmail(invitedUser.email)
+  }, [invitedUser?.email])
+
   const onAccept = () => {
     dispatch(LoginActions.acceptInvitation({ invitationUuid }))
     navigate('/')
+  }
+
+  const onInvitation = () => {
+    const fieldErrors = LoginValidator.invitationValidate(email, password, password2)
+    setErrors(fieldErrors)
+
+    if (!isError(fieldErrors)) {
+      dispatch(
+        LoginActions.localLogin({
+          email,
+          password,
+          invitationUuid,
+          navigate,
+        })
+      )
+    }
   }
 
   const cycle = assessment?.cycles.find((cycle) => cycle.uuid === userRole.cycleUuid)
@@ -54,8 +81,18 @@ const Invitation: React.FC = () => {
 
   if (!invitedUser) return null
 
+  if (isLocal) {
+    return (
+      <div className="login__form">
+        <Link to={ClientRoutes.Login.ResetPassword.getLink()} type="button" className="btn-forgot-pwd">
+          {t('login.forgotPassword')}
+        </Link>
+      </div>
+    )
+  }
+
   return (
-    <div className="login__form">
+    <div className="login__formWrapper">
       <h3>
         {t('login.invitationMessage', {
           assessment: assessment.props.name,
@@ -73,10 +110,10 @@ const Invitation: React.FC = () => {
           {t('login.acceptInvitation')}
         </button>
       ) : (
-        <>
-          <LoginForm invitationUuid={invitationUuid} />
-
-          <hr className="divider" />
+        <div className="login__form">
+          <button className="btn" type="button" onClick={() => setIsLocal(true)}>
+            {t('login.acceptInvitationWithFra')}
+          </button>
 
           <a
             className="btn"
@@ -84,7 +121,15 @@ const Invitation: React.FC = () => {
           >
             {t('login.acceptInvitationWithGoogle')}
           </a>
-        </>
+
+          <div>
+            {t('login.accessLimited')}
+            <br />
+            {t('login.returnHome')} <a href="/">{t('login.returnHomeClick')}</a>
+          </div>
+
+          <hr />
+        </div>
       )}
     </div>
   )

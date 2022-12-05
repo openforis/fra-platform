@@ -105,9 +105,9 @@ const LoginForm: React.FC = () => {
       </div>
 
       <div>
-        <div>{t('login.accessLimited')}</div>
-
         <div>
+          {t('login.accessLimited')}
+          <br />
           {t('login.returnHome')} <a href="/">{t('login.returnHomeClick')}</a>
         </div>
       </div>
