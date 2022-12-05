@@ -1,28 +1,16 @@
 import './login.scss'
-import React, { useEffect } from 'react'
-import { Route, Routes, useNavigate } from 'react-router-dom'
+import React from 'react'
+import { Route, Routes } from 'react-router-dom'
 
 import { ClientRoutes } from '@meta/app'
 
-import { useUser } from '@client/store/user'
 import Partners from '@client/components/Partners'
-import { Urls } from '@client/utils'
 
 import Invitation from './Invitation'
 import LoginForm from './LoginForm'
 import ResetPassword from './ResetPassword'
 
 const Login: React.FC = () => {
-  const navigate = useNavigate()
-  const user = useUser()
-  const invitationUuid = Urls.getRequestParam('invitationUuid')
-
-  useEffect(() => {
-    if (user && !invitationUuid) {
-      navigate('/')
-    }
-  }, [invitationUuid, navigate, user])
-
   return (
     <>
       <div className="login">
@@ -34,6 +22,7 @@ const Login: React.FC = () => {
 
         <img alt="" src="/img/tucan.svg" className="login__tucan" />
       </div>
+
       <Partners />
     </>
   )
