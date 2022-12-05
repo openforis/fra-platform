@@ -6,7 +6,6 @@ import classNames from 'classnames'
 
 import { ClientRoutes } from '@meta/app'
 import { Areas, CountryIso, Global, RegionCode } from '@meta/area'
-import { CycleUuid } from '@meta/assessment'
 import { UserRoles } from '@meta/user/userRoles'
 
 import { useAssessment, useCountry, useCycle } from '@client/store/assessment'
@@ -16,20 +15,18 @@ import { Dates } from '@client/utils'
 type Props = {
   country: { countryIso: CountryIso | Global | RegionCode }
   role: string
-  cycleUuid?: CycleUuid
 }
 
 const CountryListRow: React.FC<Props> = (props: Props) => {
   const {
     role,
     country: { countryIso },
-    cycleUuid,
   } = props
 
   const { i18n } = useTranslation()
   const assessment = useAssessment()
   const { cycleName } = useParams<{ cycleName: string }>()
-  const cycle = useCycle(cycleUuid)
+  const cycle = useCycle()
   const country = useCountry(countryIso as CountryIso)
   const countryIsoCurrent = useCountryIso()
   const isHome = useIsHome()
@@ -73,10 +70,6 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
       )}
     </Link>
   )
-}
-
-CountryListRow.defaultProps = {
-  cycleUuid: undefined,
 }
 
 export default CountryListRow

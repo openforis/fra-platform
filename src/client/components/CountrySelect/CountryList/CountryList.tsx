@@ -7,7 +7,7 @@ import { i18n } from 'i18next'
 import { Areas, Global, Region, RegionCode } from '@meta/area'
 import { UserRoles } from '@meta/user/userRoles'
 
-import { useRegionGroups } from '@client/store/assessment'
+import { useCycle, useRegionGroups } from '@client/store/assessment'
 import { useIsPanEuropean } from '@client/hooks'
 
 import { checkMatch } from '../utils/checkMatch'
@@ -37,6 +37,7 @@ const CountryList: React.FC<Props> = (props: Props) => {
   const regionGroups = useRegionGroups()
   const countryMap = useUserCountryISOs()
   const isPanEuropean = useIsPanEuropean()
+  const cycle = useCycle()
 
   return (
     <div className="country-selection-list">
@@ -68,17 +69,8 @@ const CountryList: React.FC<Props> = (props: Props) => {
         </div>
 
         {Object.entries(countryMap).map(([role, cycleCountries]) => {
-          return Object.entries(cycleCountries).flatMap(([cycleUuid, countries]) => {
-            return (
-              <CountryListRoleSection
-                cycleUuid={cycleUuid}
-                key={role}
-                role={role}
-                countryISOs={countries}
-                query={query}
-              />
-            )
-          })
+          const countries = cycleCountries[cycle.uuid]
+          return <CountryListRoleSection key={role} role={role} countryISOs={countries} query={query} />
         })}
       </div>
     </div>
