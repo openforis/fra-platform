@@ -1,7 +1,10 @@
 export interface ForestOptions {
   sources: ForestSourceAndStatus[]
   fetchedLayers: { [key in ForestSource]?: string }
+  hansenPercentage: HansenPercentage
 }
+
+export type HansenPercentage = 10 | 20 | 30
 
 export interface ForestSourceAndStatus {
   key: ForestSource

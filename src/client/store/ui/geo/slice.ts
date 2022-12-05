@@ -2,7 +2,7 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
 import { ForestSource } from '@meta/geo'
-import { ForestSourceAndStatus } from '@meta/geo/forest'
+import { ForestSourceAndStatus, HansenPercentage } from '@meta/geo/forest'
 
 import { postMosaicOptions } from './actions/postMosaicOptions'
 import { getForestLayer } from './actions'
@@ -16,6 +16,7 @@ const initialState: GeoState = {
   forestOptions: {
     sources: [],
     fetchedLayers: {},
+    hansenPercentage: 10,
   },
   mosaicUrl: '',
 }
@@ -45,6 +46,9 @@ export const geoSlice = createSlice({
       const i = state.forestOptions.sources.findIndex(({ key }) => key === payload)
       if (i === -1) return
       state.forestOptions.sources[i].status = 'ready'
+    },
+    setHansenPercentage: (state, { payload }: PayloadAction<HansenPercentage>) => {
+      state.forestOptions.hansenPercentage = payload
     },
   },
   extraReducers: (builder) => {

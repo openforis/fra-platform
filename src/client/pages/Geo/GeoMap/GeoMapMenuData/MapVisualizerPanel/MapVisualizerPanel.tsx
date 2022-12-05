@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import debounce from 'lodash.debounce'
 
 import { ForestSource } from '@meta/geo'
+import { HansenPercentage } from '@meta/geo/forest'
 
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useForestSourceOptions } from '@client/store/ui/geo'
@@ -20,7 +21,6 @@ import { layers } from '.'
 const MapVisualizerPanel: React.FC = () => {
   const dispatch = useAppDispatch()
   const forestOptions = useForestSourceOptions()
-  const [hansenPercentage, setHansenPercentage] = useState(10)
   const map = useGeoMap()
   const mapControllerRef = useRef<MapController>(new MapController(map))
   // map.addListener('tilesloaded', () => setCheckboxDisabledState(false)) // tilesloaded doesn't wait for custom layers
@@ -34,7 +34,8 @@ const MapVisualizerPanel: React.FC = () => {
         dispatch(GeoActions.removeForestLayer(mapLayerKey))
       } else {
         // get the new layer from the server and add it to the map and app state
-        const uri = apiUri + (mapLayerKey === 'Hansen' ? `&gteHansenTreeCoverPerc=${hansenPercentage}` : '')
+        const uri =
+          apiUri + (mapLayerKey === 'Hansen' ? `&gteHansenTreeCoverPerc=${forestOptions.hansenPercentage}` : '')
         const mapId = forestOptions.fetchedLayers[mapLayerKey]
         dispatch(GeoActions.addForestLayer({ key: mapLayerKey, status: mapId ? 'ready' : 'loading' }))
 
@@ -45,7 +46,7 @@ const MapVisualizerPanel: React.FC = () => {
         }
       }
     },
-    [forestOptions.fetchedLayers, dispatch, hansenPercentage]
+    [forestOptions.fetchedLayers, forestOptions.hansenPercentage, dispatch]
   )
 
   useEffect(() => {
@@ -69,10 +70,10 @@ const MapVisualizerPanel: React.FC = () => {
     // if Hansen layer was present, make another call with new option
     const layer = layers.filter((layer) => layer.key === 'Hansen')[0]
     toggleLayer(layer.apiUri, layer.key)
-  }, [hansenPercentage, map.overlayMapTypes, toggleLayer])
+  }, [forestOptions.hansenPercentage, map.overlayMapTypes, toggleLayer])
 
   const [debouncedSetHansenPercentage] = useState(() =>
-    debounce(setHansenPercentage, 150, {
+    debounce((percentage: HansenPercentage) => dispatch(GeoActions.setHansenPercentage(percentage)), 150, {
       leading: false,
       trailing: true,
     })
@@ -98,9 +99,9 @@ const MapVisualizerPanel: React.FC = () => {
               <LayerOptionsPanel
                 forestLayerOpacity={layer.opacity}
                 layerKey={layer.key}
-                hansenPercentage={hansenPercentage}
+                hansenPercentage={forestOptions.hansenPercentage}
                 opacityChange={(layerKey: string, opacity: number) => opacityChange(layerKey, opacity)}
-                setHansenPercentageCallback={(percentage: number) => debouncedSetHansenPercentage(percentage)}
+                setHansenPercentageCallback={(percentage: HansenPercentage) => debouncedSetHansenPercentage(percentage)}
               />
             </GeoMapMenuListElement>
           </div>
