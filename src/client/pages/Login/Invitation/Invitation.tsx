@@ -86,71 +86,7 @@ const Invitation: React.FC = () => {
 
   if (!invitedUser) return null
 
-  if (isLocal) {
-    const showForgotPassword = !userProviders || userProviders.includes(AuthProvider.local)
-
-    return (
-      <div className="login__form">
-        <input
-          onFocus={() => setErrors({ ...errors, email: null })}
-          name="email"
-          value={email}
-          disabled={!!invitedUser}
-          type="text"
-          placeholder={t('login.email')}
-          onChange={(event) => setEmail(event.target.value)}
-        />
-        {errors.email && <span className="login__field-error">{t(errors.email)}</span>}
-
-        <input
-          onFocus={() => setErrors({ ...errors, password: null })}
-          value={password}
-          type="password"
-          placeholder={t('login.password')}
-          onChange={(event) => setPassword(event.target.value)}
-        />
-        {errors.password && <span className="login__field-error">{t(errors.password)}</span>}
-
-        {showPassword2 && (
-          <>
-            <input
-              onFocus={() => setErrors({ ...errors, password2: null })}
-              value={password2}
-              type="password"
-              placeholder={t('login.repeatPassword')}
-              onChange={(event) => setPassword2(event.target.value)}
-            />
-            {errors.password2 && <span className="login__field-error">{t(errors.password2)}</span>}
-          </>
-        )}
-
-        {showForgotPassword && (
-          <Link to={ClientRoutes.Login.ResetPassword.getLink()} type="button" className="btn-forgot-pwd">
-            {t('login.forgotPassword')}
-          </Link>
-        )}
-
-        <button type="button" className="btn" onClick={onInvitation}>
-          {t('login.acceptInvitationWithFra')}
-        </button>
-
-        <div className="divider" />
-
-        <a
-          className="btn"
-          href={`${ApiEndPoint.Auth.google()}${invitationUuid ? `?invitationUuid=${invitationUuid}` : ''}`}
-        >
-          {t('login.acceptInvitationWithGoogle')}
-        </a>
-
-        <div>
-          {t('login.accessLimited')}
-          <br />
-          {t('login.returnHome')} <a href="/">{t('login.returnHomeClick')}</a>
-        </div>
-      </div>
-    )
-  }
+  const showForgotPassword = !userProviders || userProviders.includes(AuthProvider.local)
 
   return (
     <div className="login__formWrapper">
@@ -172,9 +108,56 @@ const Invitation: React.FC = () => {
         </button>
       ) : (
         <div className="login__form">
-          <button className="btn" type="button" onClick={() => setIsLocal(true)}>
-            {t('login.acceptInvitationWithFra')}
-          </button>
+          {isLocal ? (
+            <div className="login__form">
+              <input
+                onFocus={() => setErrors({ ...errors, email: null })}
+                name="email"
+                value={email}
+                disabled={!!invitedUser}
+                type="text"
+                placeholder={t('login.email')}
+                onChange={(event) => setEmail(event.target.value)}
+              />
+              {errors.email && <span className="login__field-error">{t(errors.email)}</span>}
+
+              <input
+                onFocus={() => setErrors({ ...errors, password: null })}
+                value={password}
+                type="password"
+                placeholder={t('login.password')}
+                onChange={(event) => setPassword(event.target.value)}
+              />
+              {errors.password && <span className="login__field-error">{t(errors.password)}</span>}
+
+              {showPassword2 && (
+                <>
+                  <input
+                    onFocus={() => setErrors({ ...errors, password2: null })}
+                    value={password2}
+                    type="password"
+                    placeholder={t('login.repeatPassword')}
+                    onChange={(event) => setPassword2(event.target.value)}
+                  />
+                  {errors.password2 && <span className="login__field-error">{t(errors.password2)}</span>}
+                </>
+              )}
+
+              {showForgotPassword && (
+                <Link to={ClientRoutes.Login.ResetPassword.getLink()} type="button" className="btn-forgot-pwd">
+                  {t('login.forgotPassword')}
+                </Link>
+              )}
+
+              <button type="button" className="btn" onClick={onInvitation}>
+                {t('login.acceptInvitationWithFra')}
+              </button>
+            </div>
+          ) : (
+            <button className="btn" type="button" onClick={() => setIsLocal(true)}>
+              {t('login.acceptInvitationWithFra')}
+            </button>
+          )}
 
           <div className="divider" />
 
@@ -184,14 +167,14 @@ const Invitation: React.FC = () => {
           >
             {t('login.acceptInvitationWithGoogle')}
           </a>
-
-          <div>
-            {t('login.accessLimited')}
-            <br />
-            {t('login.returnHome')} <a href="/">{t('login.returnHomeClick')}</a>
-          </div>
         </div>
       )}
+
+      <div>
+        {t('login.accessLimited')}
+        <br />
+        {t('login.returnHome')} <a href="/">{t('login.returnHomeClick')}</a>
+      </div>
     </div>
   )
 }
