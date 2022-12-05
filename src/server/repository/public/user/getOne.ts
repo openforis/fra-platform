@@ -22,7 +22,12 @@ export const getOne = async (
     where.push('lower(trim(u.email)) = trim(lower($1))')
     values.push(props.email)
   } else if ('emailGoogle' in props) {
-    where.push(`u.id = (select user_id from public.users_auth_provider where props->>'email' = $1)`)
+    where.push(
+      `u.id = (
+      select user_id from public.users_auth_provider
+      where
+      regexp_replace(props->>'email', '(?<!@gmail)\\.', '', 'g') = regexp_replace($1, '(?<!@gmail)\\.', '', 'g'))`
+    )
     values.push(props.emailGoogle)
   } else {
     throw new Error('Missing parameter')
