@@ -12,9 +12,8 @@ export default () =>
       email: userMockTest.email,
     })
 
-    const assessment = await AssessmentController.create({
-      assessment: assessmentParams,
-      user,
+    const assessment = await AssessmentController.getOne({
+      assessmentName: assessmentParams.props.name,
     })
 
     const section = await SectionController.create({
