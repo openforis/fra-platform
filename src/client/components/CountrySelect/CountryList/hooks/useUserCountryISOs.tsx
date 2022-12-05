@@ -32,6 +32,5 @@ export const useUserCountryISOs = (): Record<CycleUuid, Record<string, Array<Cou
       .filter((countryIso: CountryIso) => !userCountries?.includes(countryIso))
   }
 
-  // noRole must be last
   return userCountryISOs
 }
