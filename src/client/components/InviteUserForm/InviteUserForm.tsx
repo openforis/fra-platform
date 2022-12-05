@@ -59,7 +59,7 @@ const InviteUserForm: React.FC = () => {
           email: userToInvite.email,
         })
       ).then(() => {
-        setUserToInvite({ name: '', email: '' })
+        setUserToInvite({ name: '', email: '', role: '' })
         toaster.info(i18n.t('userManagement.userAdded', { email: userToInvite.email }))
       })
   }

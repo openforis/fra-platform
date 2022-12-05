@@ -23,11 +23,12 @@ export const invite = async (
   const { user, assessment, countryIso, email, name, roleName, cycle } = props
 
   return client.tx(async (t) => {
-    let userToInvite = await UserRepository.getOne({ email }, client)
-
-    if (!userToInvite) {
-      userToInvite = await UserRepository.create({ user: { email, name: name ?? '' } })
-    }
+    // Get user with primary email
+    let userToInvite = await UserRepository.getOne({ email }, t)
+    // If user with primary email not found, check if user has active google login
+    if (!userToInvite) userToInvite = await UserRepository.getOne({ emailGoogle: email }, t)
+    // If neither of above, create new user
+    if (!userToInvite) userToInvite = await UserRepository.create({ user: { email, name: name ?? '' } }, client)
 
     const userRole = await UserRoleRepository.create(
       {
@@ -39,8 +40,6 @@ export const invite = async (
       },
       t
     )
-
-    userToInvite = await UserRepository.getOne({ email }, t)
 
     const { userId, role } = userRole
 
