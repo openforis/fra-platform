@@ -140,6 +140,7 @@ const requireEditUser = async (req: Request, _res: Response, next: NextFunction)
   const isSelf = String(user.id) === id
   if (isSelf) {
     _next(isSelf, next)
+    return
   }
 
   const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
