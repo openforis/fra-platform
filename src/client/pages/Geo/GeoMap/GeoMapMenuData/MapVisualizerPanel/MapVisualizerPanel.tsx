@@ -25,7 +25,7 @@ const MapVisualizerPanel: React.FC = () => {
   const mapControllerRef = useRef<MapController>(new MapController(map))
   // map.addListener('tilesloaded', () => setCheckboxDisabledState(false)) // tilesloaded doesn't wait for custom layers
 
-  const onCheckboxClick = useCallback(
+  const toggleLayer = useCallback(
     async (apiUri: string, mapLayerKey: ForestSource) => {
       const wasExistingLayer = mapControllerRef.current.removeEarthEngineLayer(mapLayerKey)
 
@@ -68,8 +68,8 @@ const MapVisualizerPanel: React.FC = () => {
 
     // if Hansen layer was present, make another call with new option
     const layer = layers.filter((layer) => layer.key === 'Hansen')[0]
-    onCheckboxClick(layer.apiUri, layer.key)
-  }, [hansenPercentage, map.overlayMapTypes, onCheckboxClick])
+    toggleLayer(layer.apiUri, layer.key)
+  }, [hansenPercentage, map.overlayMapTypes, toggleLayer])
 
   const [debouncedSetHansenPercentage] = useState(() =>
     debounce(setHansenPercentage, 150, {
@@ -92,7 +92,7 @@ const MapVisualizerPanel: React.FC = () => {
               title={layer.title}
               tabIndex={index * -1 - 1}
               checked={forestOptions.sources.some(({ key }) => key === layer.key)}
-              onCheckboxClick={() => onCheckboxClick(layer.apiUri, layer.key)}
+              onCheckboxClick={() => toggleLayer(layer.apiUri, layer.key)}
               backgroundColor={layer.key.toLowerCase()}
             >
               <LayerOptionsPanel
