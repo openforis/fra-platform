@@ -142,6 +142,12 @@ const Invitation: React.FC = () => {
         >
           {t('login.acceptInvitationWithGoogle')}
         </a>
+
+        <div>
+          {t('login.accessLimited')}
+          <br />
+          {t('login.returnHome')} <a href="/">{t('login.returnHomeClick')}</a>
+        </div>
       </div>
     )
   }
@@ -170,6 +176,8 @@ const Invitation: React.FC = () => {
             {t('login.acceptInvitationWithFra')}
           </button>
 
+          <div className="divider" />
+
           <a
             className="btn"
             href={`${ApiEndPoint.Auth.google()}${invitationUuid ? `?invitationUuid=${invitationUuid}` : ''}`}
@@ -182,8 +190,6 @@ const Invitation: React.FC = () => {
             <br />
             {t('login.returnHome')} <a href="/">{t('login.returnHomeClick')}</a>
           </div>
-
-          <hr />
         </div>
       )}
     </div>
