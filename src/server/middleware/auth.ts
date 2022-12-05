@@ -144,7 +144,6 @@ const requireEditUser = async (req: Request, _res: Response, next: NextFunction)
   }
 
   const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-
   _next(Users.getRolesAllowedToEdit({ user, countryIso: countryIso as CountryIso, cycle }).length > 0, next)
 }
 
