@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { RoleName, User, UserRole, Users } from '@meta/user'
 
+import { useCycle } from '@client/store/assessment'
 import { useUsers } from '@client/store/ui/userManagement'
 import { useCountryIso } from '@client/hooks'
 import Icon from '@client/components/Icon'
@@ -11,6 +12,7 @@ import Icon from '@client/components/Icon'
 const UserListButtonExport = () => {
   const { t } = useTranslation()
   const users = useUsers()
+  const cycle = useCycle()
   const countryIso = useCountryIso()
 
   // ==== HEADERS
@@ -43,7 +45,7 @@ const UserListButtonExport = () => {
     }
   }
 
-  const csvTableData = () => users.map((user: User) => csvRowData(user, Users.getCountryRole(user, countryIso), false))
+  const csvTableData = () => users.map((user: User) => csvRowData(user, Users.getRole(user, countryIso, cycle), false))
 
   return (
     <CSVLink

@@ -90,7 +90,7 @@ const InviteUserForm: React.FC = () => {
             onChange={(e) => setUserToInvite({ ...userToInvite, role: e.target.value as RoleName })}
           >
             {!userToInvite.role ? <option value="">{i18n.t<string>('userManagement.placeholder')}</option> : null}
-            {Users.getRolesAllowedToEdit({ user, countryIso }).map((role: RoleName) => (
+            {Users.getRolesAllowedToEdit({ user, countryIso, cycle }).map((role: RoleName) => (
               <option key={role} value={role}>
                 {i18n.t<string>(Users.getI18nRoleLabelKey(role))}
               </option>

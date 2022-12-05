@@ -157,7 +157,7 @@ const Links: React.FC = () => {
       <div className="landing__page-container-header landing__repository-header">
         <h3>{i18n.t('landing.links.repository')}</h3>
 
-        {Users.getRolesAllowedToEdit({ user, countryIso }).length > 0 && (
+        {Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0 && (
           <>
             <input
               ref={countryFileRef}

@@ -3,7 +3,9 @@ import axios from 'axios'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { CycleParams } from '@meta/api/request'
-import { RoleName, User } from '@meta/user'
+import { RoleName } from '@meta/user'
+
+import { getUsers } from './getUsers'
 
 type Params = CycleParams & {
   email: string
@@ -11,7 +13,13 @@ type Params = CycleParams & {
   role: RoleName
 }
 
-export const inviteUser = createAsyncThunk<User, Params>('userManagement/post/invitation', async (params) => {
-  const { data } = await axios.post(ApiEndPoint.User.invite(), null, { params })
-  return data
-})
+export const inviteUser = createAsyncThunk<void, Params>(
+  'userManagement/post/invitation',
+  async (params, { dispatch }) => {
+    const { status } = await axios.post(ApiEndPoint.User.invite(), null, { params })
+    if (status === 200) {
+      // Update list of users after inviting a new user
+      dispatch(getUsers(params))
+    }
+  }
+)
