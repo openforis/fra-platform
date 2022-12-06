@@ -33,7 +33,7 @@ const PageRoutes: React.FC = () => {
   useEffect(() => {
     // TODO: Add user.language support
     const language = Urls.getRequestParam('lang') || localStorage.getItem('i18n/lang') || 'en'
-    i18n.changeLanguage(language)
+    if (language !== i18n.language) i18n.changeLanguage(language)
 
     SocketClient.open()
 
