@@ -4,7 +4,6 @@ import { CycleDataRequest, NodesBody } from '@meta/api/request'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { CycleDataController } from '@server/controller/cycleData'
-import { DB } from '@server/db'
 import Requests from '@server/utils/requests'
 
 export const persistNodeValues = async (req: CycleDataRequest<never, NodesBody>, res: Response) => {
@@ -19,22 +18,33 @@ export const persistNodeValues = async (req: CycleDataRequest<never, NodesBody>,
       metaCache: true,
     })
 
-    await Promise.all(
-      values.map((valueUpdate) =>
-        CycleDataController.persistNodeValue(
-          {
-            countryIso,
-            assessment,
-            cycle,
-            sectionName,
-            tableName,
-            user,
-            ...valueUpdate,
-          },
-          DB
-        )
-      )
-    )
+    await CycleDataController.persistNodeValues({
+      nodeUpdates: {
+        assessment,
+        cycle,
+        countryIso,
+        nodes: values.map(({ colName, value, variableName }) => ({ colName, variableName, value, tableName })),
+      },
+      sectionName,
+      user,
+    })
+
+    // await Promise.all(
+    //   values.map((valueUpdate) =>
+    //     CycleDataController.persistNodeValue(
+    //       {
+    //         countryIso,
+    //         assessment,
+    //         cycle,
+    //         sectionName,
+    //         tableName,
+    //         user,
+    //         ...valueUpdate,
+    //       },
+    //       DB
+    //     )
+    //   )
+    // )
 
     Requests.sendOk(res)
   } catch (e) {

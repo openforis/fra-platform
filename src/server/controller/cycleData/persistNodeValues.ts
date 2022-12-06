@@ -18,25 +18,31 @@ export const persistNodeValues = async (props: Props & { activityLogMessage?: Ac
   const { assessment, cycle, countryIso, nodes } = nodeUpdates
 
   await DB.tx(async (client) => {
-    await Promise.all(
-      nodes.map((nodeUpdate) => {
-        const { tableName, variableName, colName, value } = nodeUpdate
-        return persistNodeValue(
-          {
-            user,
-            assessment,
-            cycle,
-            countryIso,
-            tableName,
-            variableName,
-            colName,
-            value,
-            activityLogMessage,
-            sectionName,
-          },
-          client
-        )
-      })
-    )
+    try {
+      await client.func('pg_advisory_xact_lock', [1])
+
+      await Promise.all(
+        nodes.map((nodeUpdate) => {
+          const { tableName, variableName, colName, value } = nodeUpdate
+          return persistNodeValue(
+            {
+              user,
+              assessment,
+              cycle,
+              countryIso,
+              tableName,
+              variableName,
+              colName,
+              value,
+              activityLogMessage,
+              sectionName,
+            },
+            client
+          )
+        })
+      )
+    } finally {
+      await client.func('pg_advisory_xact_lock', [1])
+    }
   })
 }
