@@ -17,6 +17,7 @@ module.exports = {
   forgotPasswordTitle: 'Enter your email and submit the form to receive instructions via email',
   forgotPassword: 'Forgot your password?',
 
+  alreadyLinked: 'The selected google account is already linked to another user',
   notAuthorized: 'User not authorized',
   errorOccurred: 'Error occurred',
   noInvitation: 'Invitation not found',
