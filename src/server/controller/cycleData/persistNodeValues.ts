@@ -2,6 +2,8 @@ import { ActivityLogMessage } from '@meta/assessment'
 import { NodeUpdates } from '@meta/data'
 import { User } from '@meta/user'
 
+import { DB } from '@server/db'
+
 import { persistNodeValue } from './persistNodeValue'
 
 interface Props {
@@ -15,21 +17,26 @@ export const persistNodeValues = async (props: Props & { activityLogMessage?: Ac
   const { user, nodeUpdates, activityLogMessage, sectionName } = props
   const { assessment, cycle, countryIso, nodes } = nodeUpdates
 
-  await Promise.all(
-    nodes.map((nodeUpdate) => {
-      const { tableName, variableName, colName, value } = nodeUpdate
-      return persistNodeValue({
-        user,
-        assessment,
-        cycle,
-        countryIso,
-        tableName,
-        variableName,
-        colName,
-        value,
-        activityLogMessage,
-        sectionName,
+  await DB.tx(async (client) => {
+    await Promise.all(
+      nodes.map((nodeUpdate) => {
+        const { tableName, variableName, colName, value } = nodeUpdate
+        return persistNodeValue(
+          {
+            user,
+            assessment,
+            cycle,
+            countryIso,
+            tableName,
+            variableName,
+            colName,
+            value,
+            activityLogMessage,
+            sectionName,
+          },
+          client
+        )
       })
-    })
-  )
+    )
+  })
 }
