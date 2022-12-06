@@ -1,5 +1,5 @@
 import './GenerateValues.scss'
-import React from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Objects } from '@utils/objects'
@@ -30,10 +30,11 @@ const GenerateValues: React.FC<Props> = (props) => {
     rows,
     data
   )
+  const [buttonEnabled, setButtonEnabled] = useState<boolean>(true)
   const isMethodClearTable = method === Method.clearTable
   let buttonLabel = 'tableWithOdp.generateFraValues'
   if (isMethodClearTable) buttonLabel = 'tableWithOdp.clearTable'
-  if (isEstimationPending) buttonLabel = 'tableWithOdp.generatingFraValues'
+  if (isEstimationPending || !buttonEnabled) buttonLabel = 'tableWithOdp.generatingFraValues'
 
   return (
     <div className="app-view__section-toolbar no-print">
@@ -52,8 +53,14 @@ const GenerateValues: React.FC<Props> = (props) => {
         <button
           type="button"
           className={`btn-s ${isMethodClearTable ? 'btn-secondary' : 'btn-primary'}`}
-          disabled={isEstimationPending || !valid}
-          onClick={generateValues}
+          disabled={isEstimationPending || !valid || !buttonEnabled}
+          onClick={() => {
+            setButtonEnabled(false)
+            generateValues()
+            setTimeout(() => {
+              setButtonEnabled(true)
+            }, 30_000)
+          }}
         >
           {i18n.t(buttonLabel)}
         </button>
