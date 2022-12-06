@@ -6,62 +6,37 @@ import { Objects } from '@utils/index'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { ClientRoutes } from '@meta/app'
-import { AuthProvider } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
-import { LoginActions, useInvitation } from '@client/store/login'
+import { LoginActions } from '@client/store/login'
+import { useUser } from '@client/store/user'
 import { useToaster } from '@client/hooks/useToaster'
 import { isError, LoginValidator } from '@client/pages/Login/utils/LoginValidator'
 import { Urls } from '@client/utils/urls'
 
-type Props = {
-  invitationUuid?: string
-}
-
-const LoginForm: React.FC<Props> = (props: Props) => {
-  const { invitationUuid } = props
-
+const LoginForm: React.FC = () => {
   const dispatch = useAppDispatch()
-  const { t } = useTranslation()
   const navigate = useNavigate()
-  const loginError = Urls.getRequestParam('loginError')
+  const user = useUser()
+  const { t } = useTranslation()
   const { toaster } = useToaster()
 
-  const { invitedUser, userProviders } = useInvitation()
+  const loginError = Urls.getRequestParam('loginError')
 
-  const [loginLocal, setLoginLocal] = useState(false)
+  const [isLocal, setIsLocal] = useState<boolean>(false)
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
-  const [password2, setPassword2] = useState<string>('')
   const [errors, setErrors] = useState<Record<string, string>>({})
 
   useEffect(() => {
-    if (!Objects.isEmpty(loginError)) toaster.error(t(loginError))
-    dispatch(LoginActions.initLogin())
-    if (invitationUuid) {
-      dispatch(LoginActions.fetchUserByInvitation({ invitationUuid }))
-    }
-  }, [dispatch, invitationUuid, loginError, t, toaster])
+    if (user) navigate('/')
+  }, [navigate, user])
 
   useEffect(() => {
-    if (invitedUser?.email) setEmail(invitedUser.email)
-  }, [invitedUser?.email])
+    if (!Objects.isEmpty(loginError)) toaster.error(t(loginError))
 
-  const onInvitation = () => {
-    const fieldErrors = LoginValidator.invitationValidate(email, password, password2)
-    setErrors(fieldErrors)
-
-    if (!isError(fieldErrors)) {
-      dispatch(
-        LoginActions.localLogin({
-          email,
-          password,
-          invitationUuid,
-          navigate,
-        })
-      )
-    }
-  }
+    dispatch(LoginActions.initLogin())
+  }, [dispatch, loginError, t, toaster])
 
   const onLogin = () => {
     const fieldErrors = LoginValidator.localValidate(email, password)
@@ -72,26 +47,19 @@ const LoginForm: React.FC<Props> = (props: Props) => {
         LoginActions.localLogin({
           email,
           password,
-          invitationUuid,
           navigate,
         })
       )
     }
   }
 
-  if (loginLocal) {
-    const showPassword2 =
-      (invitedUser && !userProviders) || (userProviders && !userProviders.includes(AuthProvider.local))
-
-    const showForgotPassword = !userProviders || userProviders.includes(AuthProvider.local)
-
+  if (isLocal) {
     return (
       <div className="login__form">
         <input
           onFocus={() => setErrors({ ...errors, email: null })}
           name="email"
           value={email}
-          disabled={!!invitedUser}
           type="text"
           placeholder={t('login.email')}
           onChange={(event) => setEmail(event.target.value)}
@@ -107,42 +75,19 @@ const LoginForm: React.FC<Props> = (props: Props) => {
         />
         {errors.password && <span className="login__field-error">{t(errors.password)}</span>}
 
-        {showPassword2 && (
-          <>
-            <input
-              onFocus={() => setErrors({ ...errors, password2: null })}
-              value={password2}
-              type="password"
-              placeholder={t('login.repeatPassword')}
-              onChange={(event) => setPassword2(event.target.value)}
-            />
-            {errors.password2 && <span className="login__field-error">{t(errors.password2)}</span>}
-          </>
-        )}
-
-        {invitedUser && (
-          <button type="button" className="btn" onClick={showPassword2 ? onInvitation : onLogin}>
-            {t('login.acceptInvitation')}
+        <div>
+          <button type="button" className="btn" onClick={() => setIsLocal(false)}>
+            {t('login.cancel')}
           </button>
-        )}
 
-        {!invitedUser && (
-          <div>
-            <button type="button" className="btn" onClick={() => setLoginLocal(false)}>
-              {t('login.cancel')}
-            </button>
+          <button type="button" className="btn" onClick={onLogin}>
+            {t('login.login')}
+          </button>
+        </div>
 
-            <button type="button" className="btn" onClick={onLogin}>
-              {t('login.login')}
-            </button>
-          </div>
-        )}
-
-        {showForgotPassword && (
-          <Link to={ClientRoutes.Login.ResetPassword.getLink()} type="button" className="btn-forgot-pwd">
-            {t('login.forgotPassword')}
-          </Link>
-        )}
+        <Link to={ClientRoutes.Login.ResetPassword.getLink()} type="button" className="btn-forgot-pwd">
+          {t('login.forgotPassword')}
+        </Link>
       </div>
     )
   }
@@ -154,23 +99,20 @@ const LoginForm: React.FC<Props> = (props: Props) => {
           {t('login.signInGoogle')}
         </a>
 
-        <button className="btn" type="button" onClick={() => setLoginLocal(true)}>
+        <button className="btn" type="button" onClick={() => setIsLocal(true)}>
           {t('login.signInFRA')}
         </button>
       </div>
-      <div>
-        <div>{t('login.accessLimited')}</div>
 
+      <div>
         <div>
+          {t('login.accessLimited')}
+          <br />
           {t('login.returnHome')} <a href="/">{t('login.returnHomeClick')}</a>
         </div>
       </div>
     </div>
   )
-}
-
-LoginForm.defaultProps = {
-  invitationUuid: null,
 }
 
 export default LoginForm
