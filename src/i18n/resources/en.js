@@ -310,6 +310,9 @@ The FRA team fra@fao.org
       },
     },
   },
+  messageBoard: {
+    messageBoard: '$t(landing.sections.messageBoard)',
+  },
   userChat: {
     chatHeader: 'Messages with {{user}}',
     noMessages: 'No messages',

@@ -75,7 +75,7 @@ const hasSectionLink = (activity: ActivityLog<any>) => {
 const isSectionLinkDisabled = (activity: ActivityLog<any>) => {
   const { section } = activity
   const labelSectionKey = getLabelSectionKey(activity)
-  return ['odp', 'fileRepository'].includes(section) || labelSectionKey === 'dashboard.actions.deleted'
+  return ['fileRepository', 'messageBoard', 'odp'].includes(section) || labelSectionKey === 'dashboard.actions.deleted'
 }
 
 const getLabelSection = (activity: ActivityLog<any>, i18n: i18n) => {
