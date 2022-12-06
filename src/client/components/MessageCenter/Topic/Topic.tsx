@@ -35,7 +35,8 @@ const Topic: React.FC<TopicProps> = (props) => {
   const cycle = useCycle()
   const user = useUser()
 
-  const { sectionName } = useParams<{ sectionName: string }>()
+  let sectionName = useParams<{ sectionName: string }>()?.sectionName
+  if (topic.type === MessageTopicType.messageBoard) sectionName = 'messageBoard'
 
   const closeTopic = useCallback(() => {
     dispatch(MessageCenterActions.closeTopic({ key: topic.key }))
