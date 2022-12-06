@@ -4,21 +4,26 @@ import axios from 'axios'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { CountryIso } from '@meta/area'
+import { AssessmentName } from '@meta/assessment'
 import { User } from '@meta/user'
 
 type Params = {
+  assessmentName?: AssessmentName
   countryIso: CountryIso
+  cycleName?: string
   user: User
   profilePicture: File | null
 }
 
 const putUser = Functions.debounce(
   async (props: Params) => {
-    const { user, profilePicture, countryIso } = props
+    const { user, profilePicture, assessmentName, countryIso, cycleName } = props
 
     try {
       const formData = new FormData()
+      formData.append('assessmentName', assessmentName)
       formData.append('countryIso', countryIso)
+      formData.append('cycleName', cycleName)
       formData.append('id', String(user.id))
       formData.append('profilePicture', profilePicture)
       formData.append('user', JSON.stringify(user))
