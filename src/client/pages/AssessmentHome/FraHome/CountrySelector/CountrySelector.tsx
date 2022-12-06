@@ -41,7 +41,7 @@ const CountrySelector: React.FC = () => {
         headerLabel={i18n.t<string>('common.select')}
         onClose={onClose}
         canSave={canSave}
-        excludedRegions={[RegionCode.FE, RegionCode.AT, ...secondaryRegions.regions.map((r: Region) => r.regionCode)]}
+        excludedRegions={[RegionCode.FE, ...secondaryRegions.regions.map((r: Region) => r.regionCode)]}
         showCount
       />
       <button onClick={() => setModalOpen(true)} className="btn-s btn btn-primary filter-countries" type="button">
