@@ -4,7 +4,7 @@ import React, { useCallback, useState } from 'react'
 import { RoleName, User, Users } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
-import { useCycle } from '@client/store/assessment'
+import { useAssessment, useCycle } from '@client/store/assessment'
 import { UserManagementActions } from '@client/store/ui/userManagement'
 import { useCountryIso, useOnUpdate } from '@client/hooks'
 
@@ -20,6 +20,7 @@ type Props = {
 
 const EditUserForm: React.FC<Props> = ({ user, canEditRoles }) => {
   const dispatch = useAppDispatch()
+  const assessment = useAssessment()
   const countryIso = useCountryIso()
   const cycle = useCycle()
 
@@ -30,6 +31,8 @@ const EditUserForm: React.FC<Props> = ({ user, canEditRoles }) => {
     if (!Users.validate(userToEdit).isError) {
       dispatch(
         UserManagementActions.updateUser({
+          assessmentName: assessment?.props?.name,
+          cycleName: cycle?.name,
           user: userToEdit,
           profilePicture,
           countryIso,
