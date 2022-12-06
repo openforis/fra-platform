@@ -34,6 +34,7 @@ module.exports = {
   emptyEmail: 'Email cannot be empty',
   noLongerValid: 'Ooops. It looks like your request is not longer valid.',
 
+  noActiveAccount: 'The account is not active. Make sure you have accepted any pending invitation',
   passwordResetSent:
     "The request to reset your password has been successfully submitted.\nYou'll be shortly receiving an email with instructions",
   passwordChanged: 'Password has been changed',

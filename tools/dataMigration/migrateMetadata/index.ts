@@ -61,7 +61,6 @@ export const migrateMetadata = async (props: Props): Promise<void> => {
         Object.values(sectionLegacy.children).map(async (subSectionLegacy, i) => {
           const subSectionSpec = spec[subSectionLegacy.name]
           const subSection = getSubSection({ assessment, spec: subSectionSpec, index: Number(i) })
-
           const subSectionInsert = { id: (sectionId += 1), parent_id: sectionInsert.id, props: subSection.props }
           sectionsInsert.push(subSectionInsert)
 

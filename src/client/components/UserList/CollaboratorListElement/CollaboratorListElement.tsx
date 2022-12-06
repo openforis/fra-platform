@@ -30,7 +30,7 @@ const CollaboratorListElement: React.FC<{ user: User }> = ({ user }) => {
   const currentUser = useUser()
   const { t } = useTranslation()
 
-  const userRole = Users.getCountryRole(user, countryIso)
+  const userRole = Users.getRole(user, countryIso, cycle)
 
   const { acceptedAt, invitationUuid } = userRole
 
@@ -38,13 +38,15 @@ const CollaboratorListElement: React.FC<{ user: User }> = ({ user }) => {
     if (window.confirm(t('userManagement.confirmDelete', { user: user.name })))
       dispatch(
         UserManagementActions.removeInvitation({
+          assessmentName: assessment.props.name,
+          cycleName: cycle.name,
           countryIso,
           invitationUuid,
         })
       ).then(() => {
         toaster.success(t('userManagement.invitationDeleted'))
       })
-  }, [countryIso, dispatch, t, invitationUuid, toaster, user.name])
+  }, [t, user.name, dispatch, assessment.props.name, cycle.name, countryIso, invitationUuid, toaster])
 
   return (
     <tr

@@ -6,6 +6,7 @@ import MediaQuery from 'react-responsive'
 import { Areas } from '@meta/area'
 import { Users } from '@meta/user'
 
+import { useCycle } from '@client/store/assessment'
 import { useNavigationVisible } from '@client/store/ui/navigation'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
@@ -24,6 +25,7 @@ const findElementRoot = (el: Element): Element => {
 }
 
 const CountrySelect: React.FC = () => {
+  const cycle = useCycle()
   const countryIso = useCountryIso()
   const user = useUser()
   const { i18n } = useTranslation()
@@ -100,9 +102,9 @@ const CountrySelect: React.FC = () => {
               )}
 
               <div className="name">{i18n.t<string>(`area.${countryIso}.listName`)}</div>
-              {user && (
+              {user && Areas.isISOCountry(countryIso) && (
                 <div className="user-role">
-                  {i18n.t<string>(Users.getI18nRoleLabelKey(Users.getCountryRole(user, countryIso)?.role))}
+                  {i18n.t<string>(Users.getI18nRoleLabelKey(Users.getRole(user, countryIso, cycle)?.role))}
                 </div>
               )}
             </div>
@@ -129,4 +131,5 @@ const CountrySelect: React.FC = () => {
     </div>
   )
 }
+
 export default CountrySelect

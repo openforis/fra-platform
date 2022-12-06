@@ -4,6 +4,7 @@ import { Country } from '@meta/area'
 import { ActivityLogMessage, Assessment, Cycle } from '@meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
+import { ProcessEnv } from '@server/utils'
 
 const activityLogMessageUpdates = [
   ActivityLogMessage.nodeValueUpdate,
@@ -24,6 +25,12 @@ export const getMany = async (
 
   const cycleSchema = Schemas.getNameCycle(assessment, cycle)
 
+  let atlantis = ''
+
+  if (!ProcessEnv.fraAtlantisAlloawed) {
+    atlantis = `where c.country_iso not like 'X%'`
+  }
+
   return client.map<Country>(
     `
         with last_edit as (
@@ -41,6 +48,7 @@ export const getMany = async (
                            on c.country_iso = cr.country_iso
                  left join last_edit le
                            on c.country_iso = le.country_iso
+        ${atlantis}
         group by 1, 2, 3
         order by 1
     `,

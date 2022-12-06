@@ -15,6 +15,7 @@ export const getSection = (props: { assessment: Assessment; index: number; label
 
 export const getSubSection = (props: { assessment: Assessment; spec: SectionSpec; index: number }): SubSection => {
   const { assessment, spec, index } = props
+  const isPanEuropean = assessment.props.name === 'panEuropean'
 
   const anchors = assessment.cycles.reduce<Record<string, string>>((acc, cycle) => {
     const accUpdate = { ...acc }
@@ -37,7 +38,7 @@ export const getSubSection = (props: { assessment: Assessment; spec: SectionSpec
       index,
       labels: getLabels({
         assessment,
-        label: { key: `${spec.sectionName}.${spec.sectionName}` },
+        label: { key: `${isPanEuropean ? 'panEuropean.' : ''}${spec.sectionName}.${spec.sectionName}` },
         migration: spec.migration,
       }),
       showTitle: spec.showTitle,

@@ -3,6 +3,7 @@ import React from 'react'
 import { AssessmentHomeRouteNames } from '@meta/app'
 import { Users } from '@meta/user'
 
+import { useCycle } from '@client/store/assessment'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import Dashboard from '@client/pages/Dashboard'
@@ -24,6 +25,8 @@ const Placeholder: React.FC = () => {
 export const useSections = (): Array<Section> => {
   const user = useUser()
   const countryIso = useCountryIso()
+  const cycle = useCycle()
+
   const sections: Array<Section> = [{ name: AssessmentHomeRouteNames.overview, component: Dashboard }]
 
   if (user) {
@@ -32,11 +35,11 @@ export const useSections = (): Array<Section> => {
     sections.push({ name: AssessmentHomeRouteNames.links, component: Links })
   }
 
-  if (Users.getRolesAllowedToEdit({ user, countryIso }).length > 0) {
+  if (Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0) {
     sections.splice(2, 0, { name: AssessmentHomeRouteNames.userManagement, component: Collaborators })
   }
 
-  if (Users.isAdministrator(user) || Users.isReviewer(user, countryIso)) {
+  if (Users.isAdministrator(user) || Users.isReviewer(user, countryIso, cycle)) {
     sections.splice(2, 0, { name: AssessmentHomeRouteNames.contentCheck, component: Placeholder })
   }
 

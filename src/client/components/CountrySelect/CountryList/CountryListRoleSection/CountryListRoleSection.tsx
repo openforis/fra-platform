@@ -8,7 +8,6 @@ import { RoleName, Users } from '@meta/user'
 import { UserRoles } from '@meta/user/userRoles'
 
 import { useAssessment, useCountries, useCycle } from '@client/store/assessment'
-import { useUser } from '@client/store/user'
 
 import { checkMatch } from '../../utils/checkMatch'
 import CountryListRow from '../CountryListRow'
@@ -32,7 +31,6 @@ const CountryListRoleSection: React.FC<Props> = (props: Props) => {
   const { role, countryISOs, query } = props
 
   const { i18n } = useTranslation()
-  const user = useUser()
   const countries = useCountries()
   const assessment = useAssessment()
   const cycle = useCycle()
@@ -50,9 +48,7 @@ const CountryListRoleSection: React.FC<Props> = (props: Props) => {
       {countryISOs.map((countryIso) => {
         const countryLabel = i18n.t(Areas.getTranslationKey(countryIso))
         const country = countries.find((c) => c.countryIso === countryIso)
-        const matchCountry =
-          (user || !countryIso.startsWith('X')) &&
-          (checkMatch(countryLabel, query) || matchRegion({ country, query, i18n }))
+        const matchCountry = checkMatch(countryLabel, query) || matchRegion({ country, query, i18n })
 
         if (matchCountry) {
           return <CountryListRow key={countryIso} role={role} country={{ countryIso }} />

@@ -12,7 +12,7 @@ export enum RoleName {
 export interface UserRole<N extends RoleName, P = undefined> {
   id: number
   assessmentId?: number
-  cycleUuid?: string
+  cycleUuid: string
   countryIso?: CountryIso
   name: N
   props: P

@@ -5,7 +5,7 @@ import { AssessmentName } from '@meta/assessment'
 import { Users } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
-import { useSyncAssessmentPage } from '@client/store/assessment'
+import { useCycle, useSyncAssessmentPage } from '@client/store/assessment'
 import { useUserToEdit } from '@client/store/ui//userManagement/hooks'
 import { UserManagementActions } from '@client/store/ui/userManagement'
 import { useUser } from '@client/store/user'
@@ -15,6 +15,7 @@ import EditUserForm from '@client/components/EditUserForm'
 const User: React.FC = () => {
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
+  const cycle = useCycle()
   const user = useUser()
   const userToEdit = useUserToEdit()
 
@@ -26,7 +27,9 @@ const User: React.FC = () => {
 
   const isAdministrator = Users.isAdministrator(user)
 
-  const canEditUser = Users.getRolesAllowedToEdit({ user, countryIso }).length > 0
+  const isSelf = String(user?.id) === userId
+
+  const canEditUser = isSelf || Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0
 
   useSyncAssessmentPage()
 
