@@ -7,6 +7,8 @@ import { useAppSelector } from '@client/store'
 import { useAssessmentCountry } from '@client/store/assessment'
 import { useCountryIso } from '@client/hooks'
 
+export { useIsEstimationPending } from './useIsEstimatePending'
+
 export const useShowOriginalDatapoints = () =>
   useAppSelector((state) => state.pages.assessmentSection.showOriginalDataPoint)
 

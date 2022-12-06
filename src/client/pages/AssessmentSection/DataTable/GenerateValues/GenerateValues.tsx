@@ -23,8 +23,7 @@ const GenerateValues: React.FC<Props> = (props) => {
   const { assessmentName, sectionName, tableName, rows, data } = props
 
   const i18n = useTranslation()
-  // const { method, setMethod, fields, setFields, valid, generating, generateValues } = useGenerateValues(
-  const { method, setMethod, fields, setFields, valid, generateValues } = useGenerateValues(
+  const { method, setMethod, fields, setFields, valid, generateValues, isEstimationPending } = useGenerateValues(
     assessmentName,
     sectionName,
     tableName,
@@ -32,12 +31,15 @@ const GenerateValues: React.FC<Props> = (props) => {
     data
   )
   const isMethodClearTable = method === Method.clearTable
+  let buttonLabel = 'tableWithOdp.generateFraValues'
+  if (isMethodClearTable) buttonLabel = 'tableWithOdp.clearTable'
+  if (isEstimationPending) buttonLabel = 'tableWithOdp.generatingFraValues'
 
   return (
     <div className="app-view__section-toolbar no-print">
       <div className="data-table-generate-values">
         <select className="select-s" value={method ?? ''} onChange={(evt) => setMethod(evt.target.value as Method)}>
-          <option value="" disabled hidden>
+          <option value="" disabled>
             {i18n.t('tableWithOdp.placeholderSelect')}
           </option>
           <option value={Method.linear}>{i18n.t('tableWithOdp.linearExtrapolation')}</option>
@@ -50,11 +52,10 @@ const GenerateValues: React.FC<Props> = (props) => {
         <button
           type="button"
           className={`btn-s ${isMethodClearTable ? 'btn-secondary' : 'btn-primary'}`}
-          // disabled={generating || !valid}
-          disabled={!valid}
+          disabled={isEstimationPending || !valid}
           onClick={generateValues}
         >
-          {isMethodClearTable ? i18n.t('tableWithOdp.clearTable') : i18n.t('tableWithOdp.generateFraValues')}
+          {i18n.t(buttonLabel)}
         </button>
 
         {!Objects.isEmpty(method) && !isMethodClearTable && (

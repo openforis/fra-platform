@@ -6,7 +6,7 @@ import { TableData } from '@meta/data'
 
 import { useAppDispatch } from '@client/store'
 import { useCycle } from '@client/store/assessment'
-import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
+import { AssessmentSectionActions, useIsEstimationPending } from '@client/store/pages/assessmentSection'
 import { useCountryIso } from '@client/hooks'
 
 import { GenerateValuesField } from './field'
@@ -16,7 +16,7 @@ export interface UseGenerateValues {
   method: Method
   fields: Array<GenerateValuesField>
   generateValues: () => void
-  generating: boolean
+  isEstimationPending: boolean
   setFields: (fields: Array<GenerateValuesField>) => void
   setMethod: (method: Method) => void
   valid: boolean
@@ -43,7 +43,7 @@ const useGenerateValues = (
   const countryIso = useCountryIso()
   const cycle = useCycle()
   const i18n = useTranslation()
-  const generating = false // useSelector(AssessmentState.getSectionDataGeneratingValues(assessmentType, sectionName, tableName))
+  const isEstimationPending = useIsEstimationPending()
 
   const [method, setMethod] = useState<Method>(null)
   const [fields, setFields] = useState<Array<GenerateValuesField>>(
@@ -102,7 +102,7 @@ const useGenerateValues = (
     fields,
     setFields,
     valid,
-    generating,
+    isEstimationPending,
     generateValues,
   }
 }
