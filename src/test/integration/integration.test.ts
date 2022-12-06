@@ -6,6 +6,7 @@ import assessmentRemove from '@test/integration/assessment/removeAssessment'
 import updateAssessmentDefaultCycle from '@test/integration/assessment/updateAssessmentDefaultCycle'
 import messageCenter from '@test/integration/messageCenter/messageCenter'
 import sectionCreate from '@test/integration/section/createSection'
+import sectionRemove from '@test/integration/section/removeSection'
 import sectionUpdate from '@test/integration/section/updateSection'
 import settingsDefaultAssessment from '@test/integration/settings/defaultAssessment'
 import userInvite from '@test/integration/user/userInvite'
@@ -31,6 +32,7 @@ describe('Metadata integration test', () => {
 
   sectionCreate()
   sectionUpdate()
+  sectionRemove()
 
   // user
   userInvite()
