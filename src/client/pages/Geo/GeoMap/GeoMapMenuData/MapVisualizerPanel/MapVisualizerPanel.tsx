@@ -1,7 +1,5 @@
 import './MapVisualizerPanel.scss'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-
-import debounce from 'lodash.debounce'
+import React, { useCallback, useEffect, useRef } from 'react'
 
 import { ForestSource } from '@meta/geo'
 import { HansenPercentage } from '@meta/geo/forest'
@@ -72,13 +70,6 @@ const MapVisualizerPanel: React.FC = () => {
     toggleLayer(layer.apiUri, layer.key)
   }, [forestOptions.hansenPercentage, map.overlayMapTypes, toggleLayer])
 
-  const [debouncedSetHansenPercentage] = useState(() =>
-    debounce((percentage: HansenPercentage) => dispatch(GeoActions.setHansenPercentage(percentage)), 150, {
-      leading: false,
-      trailing: true,
-    })
-  )
-
   const opacityChange = (layerKey: string, opacity: number) => {
     mapControllerRef.current.setEarthEngineLayerOpacity(layerKey, opacity)
   }
@@ -101,7 +92,9 @@ const MapVisualizerPanel: React.FC = () => {
                 layerKey={layer.key}
                 hansenPercentage={forestOptions.hansenPercentage}
                 opacityChange={(layerKey: string, opacity: number) => opacityChange(layerKey, opacity)}
-                setHansenPercentageCallback={(percentage: HansenPercentage) => debouncedSetHansenPercentage(percentage)}
+                setHansenPercentageCallback={(percentage: HansenPercentage) =>
+                  dispatch(GeoActions.setHansenPercentage(percentage))
+                }
               />
             </GeoMapMenuListElement>
           </div>
