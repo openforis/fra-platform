@@ -2,7 +2,6 @@ import './MapVisualizerPanel.scss'
 import React, { useCallback, useEffect, useRef } from 'react'
 
 import { ForestSource } from '@meta/geo'
-import { HansenPercentage } from '@meta/geo/forest'
 
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useForestSourceOptions } from '@client/store/ui/geo'
@@ -90,11 +89,7 @@ const MapVisualizerPanel: React.FC = () => {
               <LayerOptionsPanel
                 forestLayerOpacity={layer.opacity}
                 layerKey={layer.key}
-                hansenPercentage={forestOptions.hansenPercentage}
                 opacityChange={(layerKey: string, opacity: number) => opacityChange(layerKey, opacity)}
-                setHansenPercentageCallback={(percentage: HansenPercentage) =>
-                  dispatch(GeoActions.setHansenPercentage(percentage))
-                }
               />
             </GeoMapMenuListElement>
           </div>

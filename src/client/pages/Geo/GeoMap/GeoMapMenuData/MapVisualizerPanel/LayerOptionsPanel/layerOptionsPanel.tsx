@@ -1,39 +1,30 @@
 import './layerOptionsPanel.scss'
 import React, { useCallback, useState } from 'react'
 
+import { hansenPercentages } from '@meta/geo/forest'
+
+import { useAppDispatch } from '@client/store'
+import { GeoActions, useForestSourceOptions } from '@client/store/ui/geo'
+
 interface Props {
   forestLayerOpacity: number
-  hansenPercentage: number
   opacityChange?: (layerKey: string, opacity: number) => void
-  setHansenPercentageCallback?: (percentage: number) => void
   layerKey: string
 }
 
-const LayerOptionsPanel: React.FC<Props> = ({
-  forestLayerOpacity,
-  layerKey,
-  hansenPercentage,
-  opacityChange,
-  setHansenPercentageCallback,
-}) => {
+const LayerOptionsPanel: React.FC<Props> = ({ forestLayerOpacity, layerKey, opacityChange }) => {
+  const dispatch = useAppDispatch()
+  const forestOptions = useForestSourceOptions()
   const thisLayerKey = layerKey
   const [sliderValue, setSliderValue] = useState(forestLayerOpacity)
 
   const handleChange = useCallback(
-    (event) => {
-      const newValue = Math.round(event.target.value / 10) / 10
+    (event: React.FormEvent<HTMLInputElement>) => {
+      const newValue = Math.round(Number(event.currentTarget.value) / 10) / 10
       setSliderValue(newValue)
       opacityChange(thisLayerKey, newValue)
     },
     [opacityChange, thisLayerKey]
-  )
-
-  const handleHansenChange = useCallback(
-    (event) => {
-      const newValue = Math.round(event.target.value / 10) * 10
-      setHansenPercentageCallback(newValue)
-    },
-    [setHansenPercentageCallback]
   )
 
   return (
@@ -46,39 +37,21 @@ const LayerOptionsPanel: React.FC<Props> = ({
             <div>
               <p>Select Hansen percentage:</p>
               <fieldset>
-                <label htmlFor="10">
-                  <input
-                    type="radio"
-                    checked={hansenPercentage === 10}
-                    name="hansenPercentageRadio"
-                    id="10"
-                    value={10}
-                    onChange={handleHansenChange}
-                  />
-                  <small>10%</small>
-                </label>
-                <label htmlFor="20">
-                  <input
-                    type="radio"
-                    checked={hansenPercentage === 20}
-                    name="hansenPercentageRadio"
-                    id="20"
-                    value={20}
-                    onChange={handleHansenChange}
-                  />
-                  <small>20%</small>
-                </label>
-                <label htmlFor="30">
-                  <input
-                    type="radio"
-                    checked={hansenPercentage === 30}
-                    name="hansenPercentageRadio"
-                    id="30"
-                    value={30}
-                    onChange={handleHansenChange}
-                  />
-                  <small>30%</small>
-                </label>
+                {hansenPercentages.map((percentage) => {
+                  const id = `hansenPercentage-${percentage}`
+                  return (
+                    <label htmlFor={id}>
+                      <input
+                        key={id}
+                        type="radio"
+                        checked={forestOptions.hansenPercentage === percentage}
+                        id={id}
+                        onChange={() => dispatch(GeoActions.setHansenPercentage(percentage))}
+                      />
+                      <small>{percentage} %</small>
+                    </label>
+                  )
+                })}
               </fieldset>
             </div>
           ) : null}
@@ -90,7 +63,6 @@ const LayerOptionsPanel: React.FC<Props> = ({
 
 LayerOptionsPanel.defaultProps = {
   opacityChange: null,
-  setHansenPercentageCallback: null,
 }
 
 export default LayerOptionsPanel

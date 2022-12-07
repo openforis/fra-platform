@@ -4,7 +4,9 @@ export interface ForestOptions {
   hansenPercentage: HansenPercentage
 }
 
-export type HansenPercentage = 10 | 20 | 30
+export const hansenPercentages = [10, 20, 30] as const
+
+export type HansenPercentage = typeof hansenPercentages[number]
 
 export interface ForestSourceAndStatus {
   key: ForestSource
