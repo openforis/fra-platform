@@ -64,7 +64,7 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
           </span>
 
           <span className="country-selection-list__secondary-col">
-            {country.lastEdit ? Dates.getRelativeDate(country.lastEdit, i18n) : i18n.t<string>('audit.notStarted')}
+            {country?.lastEdit ? Dates.getRelativeDate(country.lastEdit, i18n) : i18n.t<string>('audit.notStarted')}
           </span>
         </>
       )}
