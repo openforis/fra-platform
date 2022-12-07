@@ -19,9 +19,11 @@ export const useUserCountryISOs = (): Record<CycleUuid, Record<string, Array<Cou
     userCountryISOs[RoleName.ADMINISTRATOR][cycle.uuid] = [...userCountries]
   } else {
     user?.roles.forEach((role) => {
-      if (!userCountryISOs[role.role]) userCountryISOs[role.role] = {}
-      if (!Array.isArray(userCountryISOs[role.role][role.cycleUuid])) userCountryISOs[role.role][role.cycleUuid] = []
-      userCountryISOs[role.role][role.cycleUuid].push(role.countryIso)
+      if (role.cycleUuid === cycle.uuid) {
+        if (!userCountryISOs[role.role]) userCountryISOs[role.role] = {}
+        if (!Array.isArray(userCountryISOs[role.role][role.cycleUuid])) userCountryISOs[role.role][role.cycleUuid] = []
+        userCountryISOs[role.role][role.cycleUuid].push(role.countryIso)
+      }
     })
 
     if (!userCountryISOs[UserRoles.noRole.role]) userCountryISOs[UserRoles.noRole.role] = {}
