@@ -16,7 +16,7 @@ export const remove = async (
 
   return client.one<Section>(
     `
-      delete from ${schemaName}.section where id = ($1) OR parent_id = ($1) returning *;`,
+      delete from ${schemaName}.section where id = ($1) returning *;`,
     [+section.id],
     Objects.camelize
   )
