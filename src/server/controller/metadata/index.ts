@@ -1,6 +1,7 @@
 import { SectionRepository } from '@server/repository/assessment/section'
 
 import { createSection } from './createSection'
+import { createSubSection } from './createSubSection'
 import { removeSection } from './removeSection'
 import { updateSection } from './updateSection'
 
@@ -10,5 +11,6 @@ export const MetadataController = {
   getSectionsMetadata: SectionRepository.getManyMetadata,
   removeSection,
   createSection,
+  createSubSection,
   updateSection,
 }

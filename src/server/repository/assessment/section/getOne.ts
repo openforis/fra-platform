@@ -10,8 +10,6 @@ export const getOne = async (
     | { assessment: Assessment; cycle: Cycle; id: number },
   client: BaseProtocol = DB
 ): Promise<Section> => {
-  // const { assessment, cycle, sectionName } = props
-
   const schemaName = Schemas.getName(props.assessment)
   return client
     .one<any>(

@@ -5,6 +5,7 @@ import originalDataPoint from '@test/integration/assessment/originalDataPoint'
 import assessmentRemove from '@test/integration/assessment/removeAssessment'
 import updateAssessmentDefaultCycle from '@test/integration/assessment/updateAssessmentDefaultCycle'
 import messageCenter from '@test/integration/messageCenter/messageCenter'
+import sectionCreateChild from '@test/integration/section/createChildSection'
 import sectionCreate from '@test/integration/section/createSection'
 import sectionRemove from '@test/integration/section/removeSection'
 import sectionUpdate from '@test/integration/section/updateSection'
@@ -31,6 +32,7 @@ describe('Metadata integration test', () => {
   // section
 
   sectionCreate()
+  sectionCreateChild()
   sectionUpdate()
   sectionRemove()
 

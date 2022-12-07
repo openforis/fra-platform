@@ -1,4 +1,4 @@
-import { create } from './create'
+import { create, createSubSection } from './create'
 import { getMany } from './getMany'
 import { getManyMetadata } from './getManyMetadata'
 import { getOne } from './getOne'
@@ -10,6 +10,7 @@ export const SectionRepository = {
   getManyMetadata,
   getOne,
   create,
+  createSubSection,
   remove,
   update,
 }
