@@ -17,7 +17,7 @@ import VerticallyGrowingTextField from '@client/components/VerticallyGrowingText
 import { useNationalClassNameComments, useNationalClassValidation } from '../../../hooks'
 
 const columns = [
-  { name: 'className', type: 'text' },
+  { name: 'name', type: 'text' },
   { name: 'definition', type: 'text' },
 ]
 
