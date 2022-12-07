@@ -3,7 +3,7 @@ import { getMany } from './getMany'
 import { getManyMetadata } from './getManyMetadata'
 import { getOne } from './getOne'
 import { remove } from './remove'
-import { update } from './update'
+import { update, updateSubSection } from './update'
 
 export const SectionRepository = {
   getMany,
@@ -13,4 +13,5 @@ export const SectionRepository = {
   createSubSection,
   remove,
   update,
+  updateSubSection,
 }

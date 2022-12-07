@@ -4,6 +4,7 @@ import { createSection } from './createSection'
 import { createSubSection } from './createSubSection'
 import { removeSection } from './removeSection'
 import { updateSection } from './updateSection'
+import { updateSubSection } from './updateSubSection'
 
 export const MetadataController = {
   getSection: SectionRepository.getOne,
@@ -13,4 +14,5 @@ export const MetadataController = {
   createSection,
   createSubSection,
   updateSection,
+  updateSubSection,
 }
