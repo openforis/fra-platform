@@ -34,7 +34,7 @@ const MapVisualizerPanel: React.FC = () => {
       }
 
       // get the new layer from the server and add it to the map and app state
-      const isHansen = mapLayerKey === 'Hansen'
+      const isHansen = mapLayerKey === ForestSource.Hansen
       const source: ForestSourceWithOptions = {
         key: mapLayerKey,
         options: isHansen ? { gteHansenTreeCoverPerc: forestOptions.hansenPercentage.toString() } : {},
@@ -60,7 +60,7 @@ const MapVisualizerPanel: React.FC = () => {
     forestOptions.selected
       .filter(({ status }) => status === 'loading')
       .forEach(({ key: mapLayerKey }) => {
-        const key = mapLayerKey + (mapLayerKey === 'Hansen' ? `__${forestOptions.hansenPercentage}` : '')
+        const key = mapLayerKey + (mapLayerKey === ForestSource.Hansen ? `__${forestOptions.hansenPercentage}` : '')
         const mapId = forestOptions.fetchedLayers[key]
         if (mapId) {
           dispatch(GeoActions.markForestLayerAsReady(mapLayerKey))
@@ -72,11 +72,11 @@ const MapVisualizerPanel: React.FC = () => {
   // re-render if Hansen percentage was changed
   useEffect(() => {
     // skip function if Hansen layer not selected or on 1st render
-    const hansenLayerWasRemoved = mapControllerRef.current.removeEarthEngineLayer('Hansen')
+    const hansenLayerWasRemoved = mapControllerRef.current.removeEarthEngineLayer(ForestSource.Hansen)
     if (!hansenLayerWasRemoved) return
 
     // if Hansen layer was present, make another call with new option
-    const layer = layers.filter((layer) => layer.key === 'Hansen')[0]
+    const layer = layers.filter((layer) => layer.key === ForestSource.Hansen)[0]
     toggleLayer(layer.apiUri, layer.key, true)
   }, [forestOptions.hansenPercentage, map.overlayMapTypes, toggleLayer])
 

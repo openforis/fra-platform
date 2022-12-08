@@ -1,7 +1,7 @@
 import './LayerOptionsPanel.scss'
 import React, { useCallback, useState } from 'react'
 
-import { hansenPercentages } from '@meta/geo/forest'
+import { ForestSource, hansenPercentages } from '@meta/geo/forest'
 
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useForestSourceOptions } from '@client/store/ui/geo'
@@ -33,7 +33,7 @@ const LayerOptionsPanel: React.FC<Props> = ({ forestLayerOpacity, layerKey, opac
         <div>
           <input type="range" min="0" max="100" value={sliderValue * 100} onChange={handleChange} />
           <small>{`${sliderValue * 100}%`}</small>
-          {layerKey === 'Hansen' ? (
+          {layerKey === ForestSource.Hansen ? (
             <div>
               <p>Select Hansen percentage:</p>
               <fieldset>
