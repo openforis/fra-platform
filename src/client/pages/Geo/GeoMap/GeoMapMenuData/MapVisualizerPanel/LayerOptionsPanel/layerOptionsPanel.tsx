@@ -40,9 +40,8 @@ const LayerOptionsPanel: React.FC<Props> = ({ forestLayerOpacity, layerKey, opac
                 {hansenPercentages.map((percentage) => {
                   const id = `hansenPercentage-${percentage}`
                   return (
-                    <label htmlFor={id}>
+                    <label htmlFor={id} key={id}>
                       <input
-                        key={id}
                         type="radio"
                         checked={forestOptions.hansenPercentage === percentage}
                         id={id}
