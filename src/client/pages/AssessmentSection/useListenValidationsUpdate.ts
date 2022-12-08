@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { CountryIso } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
-import { NodeUpdate } from '@meta/data'
+import { NodeUpdates } from '@meta/data'
 import { Sockets } from '@meta/socket'
 
 import { useAppDispatch } from '@client/store'
@@ -17,22 +17,17 @@ type Props = {
   canEditTableData: boolean
 }
 
-type WebsocketResponse = {
-  tableName: string
-  countryIso: CountryIso
-  validations: Array<NodeUpdate>
-}
-
 export const useListenValidationsUpdate = (props: Props): void => {
+  const { countryIso } = props
   const { canEditTableData } = props
   const dispatch = useAppDispatch()
 
   useEffect(() => {
     const nodeUpdateEvent = Sockets.getNodeValidationsUpdateEvent(props)
 
-    const listener = (args: [WebsocketResponse]): void => {
-      const [{ validations, ...rest }] = args
-      dispatch(AssessmentSectionActions.setNodeValidations({ ...rest, validations }))
+    const listener = (args: [{ validations: NodeUpdates }]): void => {
+      const [{ validations }] = args
+      dispatch(AssessmentSectionActions.setNodeValues({ countryIso, nodeUpdates: validations }))
     }
 
     if (canEditTableData) {
@@ -42,5 +37,5 @@ export const useListenValidationsUpdate = (props: Props): void => {
     return () => {
       SocketClient.off(nodeUpdateEvent, listener)
     }
-  }, [canEditTableData, dispatch, props])
+  }, [countryIso, canEditTableData, dispatch, props])
 }

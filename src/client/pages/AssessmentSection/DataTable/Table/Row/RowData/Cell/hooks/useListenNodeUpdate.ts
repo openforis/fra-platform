@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 
 import { CountryIso } from '@meta/area'
-import { AssessmentName, NodeValue } from '@meta/assessment'
-import { NodeUpdate } from '@meta/data'
+import { AssessmentName } from '@meta/assessment'
+import { NodeUpdates } from '@meta/data'
 import { Sockets } from '@meta/socket'
 
 import { useAppDispatch } from '@client/store'
@@ -22,13 +22,12 @@ export const useListenNodeUpdate = (props: Props): void => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    const { countryIso, tableName, variableName, colName } = props
-    const nodeUpdateEvent = Sockets.getNodeValueUpdateEvent(props)
+    const { countryIso } = props
+    const nodeUpdateEvent = Sockets.getNodeValuesUpdateEvent(props)
 
-    const listener = (args: [{ value: NodeValue }]): void => {
-      const [{ value }] = args
-      const nodeUpdate: NodeUpdate = { tableName, variableName, colName, value }
-      dispatch(AssessmentSectionActions.setNodeValue({ countryIso, nodeUpdate }))
+    const listener = (args: [{ nodeUpdates: NodeUpdates }]): void => {
+      const [{ nodeUpdates }] = args
+      dispatch(AssessmentSectionActions.setNodeValues({ countryIso, nodeUpdates }))
     }
 
     SocketClient.on(nodeUpdateEvent, listener)

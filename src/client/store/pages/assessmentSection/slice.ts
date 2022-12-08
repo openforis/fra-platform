@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 
 import { CountryIso } from '@meta/area'
-import { NodeUpdate, TableData, TableDatas } from '@meta/data'
+import { NodeUpdate, NodeUpdates, TableData, TableDatas } from '@meta/data'
 
 import { getDescription } from './actions/getDescription'
 import { getOriginalDataPointData } from './actions/getOriginalDataPointData'
@@ -32,33 +32,26 @@ export const assessmentSectionSlice = createSlice({
     toggleShowOriginalDataPoint: (state) => {
       state.showOriginalDataPoint = !state.showOriginalDataPoint
     },
-    setNodeValue: (state, { payload }: PayloadAction<{ countryIso: CountryIso; nodeUpdate: NodeUpdate }>) => {
-      const { countryIso, nodeUpdate } = payload
-      const { tableName, variableName, colName, value } = nodeUpdate
-      const data = (state.data ?? {}) as TableData
-      const dataUpdate = TableDatas.updateDatum({ data, countryIso, tableName, variableName, colName, value })
-      state.data = { ...data, ...dataUpdate }
-    },
-    setNodeValidations: (
+
+    setNodeValues: (
       state,
       {
         payload,
       }: PayloadAction<{
-        tableName: string
         countryIso: CountryIso
-        validations: Array<NodeUpdate>
+        nodeUpdates: NodeUpdates
       }>
     ) => {
-      const { validations, countryIso } = payload
+      const { nodeUpdates, countryIso } = payload
 
-      validations.forEach(({ tableName, variableName, colName, value }) => {
+      nodeUpdates.nodes.forEach(({ tableName, variableName, colName, value }) => {
         // If user has data for the table, update it
         if (state.data[countryIso]?.[tableName]?.[colName]) {
-          state.data[countryIso][tableName][colName][variableName].validation = value.validation
+          const data = (state.data ?? {}) as TableData
+          TableDatas.updateDatum({ data, countryIso, tableName, variableName, colName, value })
         }
       })
     },
-
     setNodeValueValidation: (state, { payload }: PayloadAction<{ nodeUpdate: NodeUpdate }>) => {
       const { nodeUpdate } = payload
       state.nodeValueValidation[nodeUpdate.tableName] = nodeUpdate
