@@ -27,6 +27,7 @@ const putOriginalDataPoint = Functions.debounce(
           countryIso,
           assessmentName,
           cycleName,
+          sectionName: 'extentOfForest',
         },
       }
     )
