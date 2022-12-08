@@ -12,6 +12,7 @@ import sectionUpdate from '@test/integration/section/updateSection'
 import sectionUpdateChild from '@test/integration/section/updateSubSection'
 import settingsDefaultAssessment from '@test/integration/settings/defaultAssessment'
 import tableSectionCreate from '@test/integration/tableSection/createTableSection'
+import tableSectionRemove from '@test/integration/tableSection/removeTableSection'
 import tableSectionUpdate from '@test/integration/tableSection/updateTableSection'
 import userInvite from '@test/integration/user/userInvite'
 import userRemove from '@test/integration/user/userRemove'
@@ -42,6 +43,7 @@ describe('Metadata integration test', () => {
   // tableSection
   tableSectionCreate()
   tableSectionUpdate()
+  tableSectionRemove()
 
   // user
   userInvite()
