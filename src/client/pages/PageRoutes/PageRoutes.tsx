@@ -7,8 +7,6 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { ClientRoutes } from '@meta/app'
 import { Users } from '@meta/user'
 
-import { useAppDispatch } from '@client/store'
-import { AssessmentActions } from '@client/store/assessment'
 import { useUser } from '@client/store/user'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import Footer from '@client/components/Footer'
@@ -28,7 +26,6 @@ import { useTheme } from './useTheme'
 
 const PageRoutes: React.FC = () => {
   useTheme()
-  const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
   const { print } = useIsPrint()
   const user = useUser()
@@ -36,18 +33,13 @@ const PageRoutes: React.FC = () => {
   useEffect(() => {
     // TODO: Add user.language support
     const language = Urls.getRequestParam('lang') || localStorage.getItem('i18n/lang') || 'en'
-    i18n.changeLanguage(language)
+    if (language !== i18n.language) i18n.changeLanguage(language)
 
     SocketClient.open()
 
     return () => {
       SocketClient.close()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  useEffect(() => {
-    dispatch(AssessmentActions.initApp())
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 import classNames from 'classnames'
 
@@ -25,6 +25,7 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
 
   const { i18n } = useTranslation()
   const assessment = useAssessment()
+  const { cycleName } = useParams<{ cycleName: string }>()
   const cycle = useCycle()
   const country = useCountry(countryIso as CountryIso)
   const countryIsoCurrent = useCountryIso()
@@ -32,7 +33,7 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
   const countryNameRef = useRef(null)
 
   const status = Areas.getStatus(country)
-  const selected = countryIso === countryIsoCurrent && !isHome
+  const selected = countryIso === countryIsoCurrent && cycleName === cycle.name && !isHome
   const hasRole = role !== UserRoles.noRole.role
 
   useEffect(() => {
@@ -63,7 +64,7 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
           </span>
 
           <span className="country-selection-list__secondary-col">
-            {country.lastEdit ? Dates.getRelativeDate(country.lastEdit, i18n) : i18n.t<string>('audit.notStarted')}
+            {country?.lastEdit ? Dates.getRelativeDate(country.lastEdit, i18n) : i18n.t<string>('audit.notStarted')}
           </span>
         </>
       )}

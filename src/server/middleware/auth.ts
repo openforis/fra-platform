@@ -22,13 +22,13 @@ const requireEdit = async (req: Request, next: NextFunction) => {
     ...req.query,
     ...req.body,
   } as CycleDataParams & { permission?: CollaboratorEditPropertyType }
-  const user = Requests.getRequestUser(req)
+  const user = Requests.getUser(req)
 
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
   const section = await MetadataController.getSection({ assessment, cycle, sectionName })
   const country = await AreaController.getCountry({ countryIso, assessment, cycle })
 
-  _next(Authorizer.canEdit({ user, section, countryIso, country, permission }), next)
+  _next(Authorizer.canEdit({ user, section, countryIso, country, cycle, permission }), next)
 }
 
 const requireEditDescriptions = async (req: Request, _res: Response, next: NextFunction) => {
@@ -48,7 +48,7 @@ const requireView = async (req: Request, _res: Response, next: NextFunction) => 
   if (!countryIso || !assessmentName || !cycleName) {
     next(new Error(`missingParam ${JSON.stringify({ countryIso, assessmentName, cycleName })}`))
   }
-  const user = Requests.getRequestUser(req)
+  const user = Requests.getUser(req)
 
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
@@ -56,7 +56,7 @@ const requireView = async (req: Request, _res: Response, next: NextFunction) => 
 }
 
 const requireAdmin = async (req: Request, _res: Response, next: NextFunction) => {
-  const user = Requests.getRequestUser(req)
+  const user = Requests.getUser(req)
   _next(Users.isAdministrator(user), next)
 }
 
@@ -66,7 +66,7 @@ const requireEditMessageTopic = async (req: Request, _res: Response, next: NextF
     ...req.query,
     ...req.body,
   }
-  const user = Requests.getRequestUser(req)
+  const user = Requests.getUser(req)
 
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
   const topic = await MessageCenterController.getTopic({
@@ -81,7 +81,7 @@ const requireEditMessageTopic = async (req: Request, _res: Response, next: NextF
     _next(
       topic.status === MessageTopicStatus.opened ||
         (topic.status === MessageTopicStatus.resolved &&
-          (Users.isAdministrator(user) || Users.isReviewer(user, countryIso as CountryIso))),
+          (Users.isAdministrator(user) || Users.isReviewer(user, countryIso as CountryIso, cycle))),
       next
     )
   } else {
@@ -101,7 +101,7 @@ const requireDeleteTopicMessage = async (req: Request, _res: Response, next: Nex
     ...req.query,
     ...req.body,
   }
-  const user = Requests.getRequestUser(req)
+  const user = Requests.getUser(req)
 
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
@@ -123,21 +123,40 @@ const requireDeleteTopicMessage = async (req: Request, _res: Response, next: Nex
 }
 
 const requireResolveTopic = async (req: Request, _res: Response, next: NextFunction) => {
-  const { countryIso } = <Record<string, string>>{ ...req.params, ...req.query }
-  const user = Requests.getRequestUser(req)
-  _next(Users.isAdministrator(user) || Users.isReviewer(user, countryIso as CountryIso), next)
+  const { countryIso, cycleName, assessmentName } = <Record<string, string>>{ ...req.params, ...req.query }
+  const user = Requests.getUser(req)
+  const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+
+  _next(Users.isAdministrator(user) || Users.isReviewer(user, countryIso as CountryIso, cycle), next)
 }
 
 const requireEditUser = async (req: Request, _res: Response, next: NextFunction) => {
-  const { countryIso } = <Record<string, string>>{ ...req.params, ...req.query, ...req.body }
-  const user = Requests.getRequestUser(req)
-  _next(Users.getRolesAllowedToEdit({ user, countryIso: countryIso as CountryIso }).length > 0, next)
+  const { countryIso, id, cycleName, assessmentName } = <Record<string, string>>{
+    ...req.params,
+    ...req.query,
+    ...req.body,
+  }
+
+  const user = Requests.getUser(req)
+
+  const isSelf = String(user.id) === id
+  const isAdministrator = Users.isAdministrator(user)
+
+  if (isAdministrator) {
+    _next(isAdministrator, next)
+  } else if (isSelf) {
+    _next(isSelf, next)
+  } else {
+    const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+
+    _next(Users.getRolesAllowedToEdit({ user, countryIso: countryIso as CountryIso, cycle }).length > 0, next)
+  }
 }
 
 const requireViewUsers = async (req: Request, _res: Response, next: NextFunction) => {
   const { countryIso, assessmentName, cycleName } = { ...req.params, ...req.query } as CycleParams
 
-  const user = Requests.getRequestUser(req)
+  const user = Requests.getUser(req)
 
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
@@ -145,12 +164,14 @@ const requireViewUsers = async (req: Request, _res: Response, next: NextFunction
 }
 
 const requireEditAssessmentFile = async (req: Request, _res: Response, next: NextFunction) => {
-  const { countryIso } = <Record<string, string>>{ ...req.params, ...req.query, ...req.body }
-  const user = Requests.getRequestUser(req)
+  const { countryIso, cycleName, assessmentName } = <Record<string, string>>{ ...req.params, ...req.query, ...req.body }
+  const user = Requests.getUser(req)
+  const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+
   if (!countryIso) {
     _next(Users.isAdministrator(user), next)
   } else {
-    _next(Users.getRolesAllowedToEdit({ user, countryIso: countryIso as CountryIso }).length > 0, next)
+    _next(Users.getRolesAllowedToEdit({ user, countryIso: countryIso as CountryIso, cycle }).length > 0, next)
   }
 }
 

@@ -12,7 +12,7 @@ export const createAssessmentFile = async (req: CycleRequest<never, AssessmentFi
 
     const { assessmentName, countryIso } = req.body
 
-    const user = Requests.getRequestUser(req)
+    const user = Requests.getUser(req)
 
     const assessment = await AssessmentController.getOne({ assessmentName })
 

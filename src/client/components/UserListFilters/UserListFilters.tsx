@@ -65,11 +65,7 @@ const UserListFilters: React.FC = () => {
           <CountrySelectModal
             open={modalOpen}
             countries={countries}
-            excludedRegions={[
-              RegionCode.FE,
-              RegionCode.AT,
-              ...secondaryRegions.regions.map((r: Region) => r.regionCode),
-            ]}
+            excludedRegions={[RegionCode.FE, ...secondaryRegions.regions.map((r: Region) => r.regionCode)]}
             headerLabel={t('common.select')}
             initialSelection={filters.countries}
             onClose={(selectionUpdate: Array<string>) => {

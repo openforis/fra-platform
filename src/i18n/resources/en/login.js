@@ -17,6 +17,7 @@ module.exports = {
   forgotPasswordTitle: 'Enter your email and submit the form to receive instructions via email',
   forgotPassword: 'Forgot your password?',
 
+  alreadyLinked: 'The selected google account is already linked to another user',
   notAuthorized: 'User not authorized',
   errorOccurred: 'Error occurred',
   noInvitation: 'Invitation not found',
@@ -34,6 +35,8 @@ module.exports = {
   emptyEmail: 'Email cannot be empty',
   noLongerValid: 'Ooops. It looks like your request is not longer valid.',
 
+  noActiveAccount: 'The account is not active. Make sure you have accepted any pending invitation',
+  googleOnlyAccount: 'The account is associated with Google authentication',
   passwordResetSent:
     "The request to reset your password has been successfully submitted.\nYou'll be shortly receiving an email with instructions",
   passwordChanged: 'Password has been changed',
@@ -48,6 +51,7 @@ module.exports = {
   invitationMessage: 'You have been invited to {{assessment}} {{cycle}} as {{userRole}}',
   invitationProvidersRegistered: 'You already have an account registered with {{authProviderNames}}',
   acceptInvitation: 'Accept Invitation',
+  acceptInvitationWithFra: 'Accept Invitation with FRA',
   acceptInvitationWithGoogle: 'Accept Invitation with Google',
   invitationExpired: 'This invitation has expired',
 

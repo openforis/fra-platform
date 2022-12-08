@@ -13,7 +13,7 @@ import { AssessmentStatusTransitions } from '@meta/assessment/assessments'
 import { Users } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
-import { AssessmentActions, useAssessmentCountry } from '@client/store/assessment'
+import { AssessmentActions, useAssessmentCountry, useCycle } from '@client/store/assessment'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import Icon from '@client/components/Icon'
@@ -29,6 +29,7 @@ const Status: React.FC = () => {
   const { i18n } = useTranslation()
   const user = useUser()
   const country = useAssessmentCountry()
+  const cycle = useCycle()
 
   const { assessmentName, cycleName } = useParams<{ assessmentName: AssessmentName; cycleName: string }>()
   const [targetStatus, setTargetStatus] = useState<StatusTransition>(null)
@@ -70,6 +71,7 @@ const Status: React.FC = () => {
       country,
       countryIso,
       user,
+      cycle,
     })
 
     if (next) {

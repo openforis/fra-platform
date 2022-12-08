@@ -25,7 +25,7 @@ export const upsertDescription = async (
       sectionName,
       name,
       value,
-      user: Requests.getRequestUser(req),
+      user: Requests.getUser(req),
     })
 
     Requests.send(res, description)

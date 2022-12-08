@@ -30,7 +30,7 @@ export const postEstimation = async (req: CycleDataRequest<never, EstimateBody>,
 
     if (method === 'clearTable') {
       await CycleDataController.deleteNodeValues({
-        user: Requests.getRequestUser(req),
+        user: Requests.getUser(req),
         assessment,
         cycle,
         table: tableSpec,
@@ -65,7 +65,7 @@ export const postEstimation = async (req: CycleDataRequest<never, EstimateBody>,
     if (nodes.length) {
       await CycleDataController.persistNodeValues({
         nodeUpdates: { assessment, cycle, countryIso, nodes },
-        user: Requests.getRequestUser(req),
+        user: Requests.getUser(req),
         activityLogMessage: ActivityLogMessage.nodeValueEstimate,
         sectionName,
       })

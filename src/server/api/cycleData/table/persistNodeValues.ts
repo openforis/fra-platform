@@ -11,7 +11,7 @@ export const persistNodeValues = async (req: CycleDataRequest<never, NodesBody>,
     const { countryIso, assessmentName, cycleName, sectionName } = req.query
     const { tableName, values } = req.body
 
-    const user = Requests.getRequestUser(req)
+    const user = Requests.getUser(req)
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({
       assessmentName,
       cycleName,

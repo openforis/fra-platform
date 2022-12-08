@@ -1,15 +1,24 @@
 import { Request, Response } from 'express'
 
+import { AssessmentName } from '@meta/assessment'
+
+import { AssessmentController } from '@server/controller/assessment'
 import { UserController } from '@server/controller/user'
 import { Requests } from '@server/utils'
 
-export const updateUserRoles = async (req: Request, res: Response) => {
+export const updateUserRoles = async (
+  req: Request<{ assessmentName: AssessmentName; cycleName: string; id: string }>,
+  res: Response
+) => {
   try {
-    const { roles, userId } = req.body
+    const { assessmentName, cycleName, roles, userId } = req.body
 
-    const user = Requests.getRequestUser(req)
+    const user = Requests.getUser(req)
+
+    const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     const updatedUser = await UserController.updateUserRoles({
+      cycleUuid: cycle.uuid,
       roles,
       userId,
       user,

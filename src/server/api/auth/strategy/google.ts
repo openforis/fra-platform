@@ -1,6 +1,9 @@
 import { Request } from 'express'
+import { PassportStatic } from 'passport'
+import * as GoogleStrategy from 'passport-google-oauth'
 import { Profile, VerifyFunction } from 'passport-google-oauth'
 
+import { ApiEndPoint } from '@meta/api/endpoint'
 import { AuthProvider, UserAuthProvider } from '@meta/user'
 import { AuthProviderGoogleProps } from '@meta/user/userAuth'
 
@@ -8,7 +11,7 @@ import { AssessmentController } from '@server/controller/assessment'
 import { UserController } from '@server/controller/user'
 import { UserProviderController } from '@server/controller/userProvider'
 
-export const googleStrategyVerifyCallback = async (
+const googleStrategyVerifyCallback = async (
   req: Request,
   _accessToken: string,
   _refreshToken: string,
@@ -38,6 +41,9 @@ export const googleStrategyVerifyCallback = async (
             user: invitedUser,
             provider: { provider: AuthProvider.google, props: { email } },
           })) as UserAuthProvider<AuthProviderGoogleProps>
+        } else if (invitedUser.id !== googleUser.id) {
+          done(null, false, { message: 'login.alreadyLinked' })
+          return
         }
       }
 
@@ -52,7 +58,13 @@ export const googleStrategyVerifyCallback = async (
 
           user = await UserController.acceptInvitation({ assessment, cycle, user: invitedUser, userRole })
 
-          done(null, user)
+          done(null, user, {
+            message: JSON.stringify({
+              countryIso: userRole.countryIso,
+              assessmentName: assessment.props.name,
+              cycleName: cycle.name,
+            }),
+          })
         } else {
           done(null, false, { message: 'login.notAuthorized' })
         }
@@ -68,4 +80,20 @@ export const googleStrategyVerifyCallback = async (
   } catch (e) {
     done(null, false, { message: `${'login.errorOccurred'}: ${e}` })
   }
+}
+
+export const googleStrategy = (passport: PassportStatic) => {
+  const GoogleOAuth2Strategy = GoogleStrategy.OAuth2Strategy
+
+  passport.use(
+    new GoogleOAuth2Strategy(
+      {
+        clientID: process.env.FRA_GOOGLE_CLIENT_ID,
+        clientSecret: process.env.FRA_GOOGLE_CLIENT_SECRET,
+        callbackURL: ApiEndPoint.Auth.googleCallback(),
+        passReqToCallback: true,
+      },
+      googleStrategyVerifyCallback
+    )
+  )
 }

@@ -64,12 +64,14 @@ const CountryRoles: React.FC<{ user: User }> = ({ user }) => {
 
       dispatch(
         UserManagementActions.updateUserRoles({
+          assessmentName: assessment.props.name,
+          cycleName: cycle.name,
           roles,
           userId: user.id,
         })
       )
     },
-    [assessment.id, cycle.uuid, dispatch, user.id, user.roles]
+    [assessment.id, assessment.props.name, cycle.name, cycle.uuid, dispatch, user.id, user.roles]
   )
 
   const _toggleAdmin = useCallback(() => {
@@ -79,12 +81,14 @@ const CountryRoles: React.FC<{ user: User }> = ({ user }) => {
 
       dispatch(
         UserManagementActions.updateUserRoles({
+          assessmentName: assessment.props.name,
+          cycleName: cycle.name,
           roles,
           userId: user.id,
         })
       )
     }
-  }, [dispatch, i18n, user])
+  }, [assessment.props.name, cycle.name, dispatch, i18n, user])
 
   return (
     <div className="edit-user__form-item edit-user__form-item-roles">
@@ -136,7 +140,7 @@ const CountryRoles: React.FC<{ user: User }> = ({ user }) => {
       <CountrySelectModal
         open={modalOptions.open}
         countries={countries}
-        excludedRegions={[RegionCode.FE, RegionCode.AT, ...secondaryRegions.regions.map((r: Region) => r.regionCode)]}
+        excludedRegions={[RegionCode.FE, ...secondaryRegions.regions.map((r: Region) => r.regionCode)]}
         headerLabel={i18n.t(Users.getI18nRoleLabelKey(modalOptions.role as RoleName))}
         onClose={() => setModalOptions(initialModalState)}
         initialSelection={modalOptions.initialSelection}

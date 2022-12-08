@@ -9,23 +9,33 @@ import { fields } from './fields'
 const selectFields = fields.map((f) => `u.${f}`).join(',')
 
 export const getOne = async (
-  props: { id: number } | { email: string } | { emailGoogle: string },
+  props: ({ id: number } | { email: string } | { emailGoogle: string }) & { cycleUuid?: string },
   client: BaseProtocol = DB
 ): Promise<User> => {
-  let where = ''
-  let value = ''
+  const where = []
+  const values = []
 
   if ('id' in props) {
-    where = 'where u.id = $1'
-    value = String(props.id)
+    where.push('u.id = $1')
+    values.push(String(props.id))
   } else if ('email' in props) {
-    where = 'where lower(trim(u.email)) = trim(lower($1))'
-    value = props.email
+    where.push('lower(trim(u.email)) = trim(lower($1))')
+    values.push(props.email)
   } else if ('emailGoogle' in props) {
-    where = `where u.id = (select user_id from public.users_auth_provider where props->>'email' = $1)`
-    value = props.emailGoogle
+    where.push(
+      `u.id = (
+      select user_id from public.users_auth_provider
+      where
+      regexp_replace(props->>'email', '(?<!@gmail)\\.', '', 'g') = regexp_replace($1, '(?<!@gmail)\\.', '', 'g'))`
+    )
+    values.push(props.emailGoogle)
   } else {
     throw new Error('Missing parameter')
+  }
+
+  if (props.cycleUuid) {
+    where.push('and ur.cycle_uuid = $2')
+    values.push(props.cycleUuid)
   }
 
   return client
@@ -33,11 +43,11 @@ export const getOne = async (
       `
         select ${selectFields}, jsonb_agg(to_jsonb(ur.*)) as roles
         from public.users u
-        left join users_role ur on u.id = ur.user_id
-        ${where}
+        left join users_role ur on u.id = ur.user_id and (ur.accepted_at is not null or ur.invited_at is null or ur.role = 'ADMINISTRATOR')
+        where ${where.join(' ')}
         group by ${selectFields}
     `,
-      [value]
+      values
     )
     .then((data) => {
       if (!data) return null

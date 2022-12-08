@@ -18,7 +18,7 @@ export const invite = async (
   try {
     const { countryIso, assessmentName, cycleName, email, name, role: roleName } = req.query
 
-    const user = Requests.getRequestUser(req)
+    const user = Requests.getUser(req)
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 

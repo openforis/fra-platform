@@ -7,7 +7,8 @@ import { i18n } from 'i18next'
 import { Areas, Global, Region, RegionCode } from '@meta/area'
 import { UserRoles } from '@meta/user/userRoles'
 
-import { useRegionGroups } from '@client/store/assessment'
+import { useCycle, useRegionGroups } from '@client/store/assessment'
+import { useIsPanEuropean } from '@client/hooks'
 
 import { checkMatch } from '../utils/checkMatch'
 import { useUserCountryISOs } from './hooks/useUserCountryISOs'
@@ -35,6 +36,8 @@ const CountryList: React.FC<Props> = (props: Props) => {
   const { i18n } = useTranslation()
   const regionGroups = useRegionGroups()
   const countryMap = useUserCountryISOs()
+  const isPanEuropean = useIsPanEuropean()
+  const cycle = useCycle()
 
   return (
     <div className="country-selection-list">
@@ -42,9 +45,12 @@ const CountryList: React.FC<Props> = (props: Props) => {
 
       <div className="country-selection-list__content">
         <div className="country-selection-list__global">
-          {checkMatch(i18n.t(`area.${Global.WO}.listName`), query) && (
+          {checkMatch(i18n.t(`area.${isPanEuropean ? RegionCode.FE : Global.WO}.listName`), query) && (
             <>
-              <CountryListRow role={UserRoles.noRole.role} country={{ countryIso: Global.WO }} />
+              <CountryListRow
+                role={UserRoles.noRole.role}
+                country={{ countryIso: isPanEuropean ? RegionCode.FE : Global.WO }}
+              />
               <hr />
             </>
           )}
@@ -62,7 +68,8 @@ const CountryList: React.FC<Props> = (props: Props) => {
           })}
         </div>
 
-        {Object.entries(countryMap).map(([role, countries]) => {
+        {Object.entries(countryMap).map(([role, cycleCountries]) => {
+          const countries = cycleCountries[cycle.uuid]
           return <CountryListRoleSection key={role} role={role} countryISOs={countries} query={query} />
         })}
       </div>
