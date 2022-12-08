@@ -1,8 +1,7 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import { ForestSource } from '@meta/geo'
-import { ForestSourceAndStatus, HansenPercentage } from '@meta/geo/forest'
+import { ForestSource, ForestSourceKeyAndStatus, HansenPercentage } from '@meta/geo/forest'
 
 import { postMosaicOptions } from './actions/postMosaicOptions'
 import { getForestLayer } from './actions'
@@ -14,7 +13,7 @@ const initialState: GeoState = {
     sources: [],
   },
   forestOptions: {
-    sources: [],
+    selected: [],
     fetchedLayers: {},
     hansenPercentage: 10,
   },
@@ -34,18 +33,18 @@ export const geoSlice = createSlice({
     updateForestOptions: (state, { payload }) => {
       state.forestOptions = payload
     },
-    addForestLayer: (state, { payload }: PayloadAction<ForestSourceAndStatus>) => {
-      state.forestOptions.sources.push(payload)
+    addForestLayer: (state, { payload }: PayloadAction<ForestSourceKeyAndStatus>) => {
+      state.forestOptions.selected.push(payload)
     },
     removeForestLayer: (state, { payload }: PayloadAction<ForestSource>) => {
-      const i = state.forestOptions.sources.findIndex(({ key }) => key === payload)
+      const i = state.forestOptions.selected.findIndex(({ key }) => key === payload)
       if (i === -1) return
-      state.forestOptions.sources.splice(i, 1)
+      state.forestOptions.selected.splice(i, 1)
     },
     markForestLayerAsReady: (state, { payload }: PayloadAction<ForestSource>) => {
-      const i = state.forestOptions.sources.findIndex(({ key }) => key === payload)
+      const i = state.forestOptions.selected.findIndex(({ key }) => key === payload)
       if (i === -1) return
-      state.forestOptions.sources[i].status = 'ready'
+      state.forestOptions.selected[i].status = 'ready'
     },
     setHansenPercentage: (state, { payload }: PayloadAction<HansenPercentage>) => {
       state.forestOptions.hansenPercentage = payload
@@ -56,8 +55,8 @@ export const geoSlice = createSlice({
       .addCase(postMosaicOptions.fulfilled, (state, { payload }) => {
         state.mosaicUrl = payload.urlTemplate
       })
-      .addCase(getForestLayer.fulfilled, (state, { payload: [mapLayerKey, mapId] }) => {
-        state.forestOptions.fetchedLayers[mapLayerKey] = mapId
+      .addCase(getForestLayer.fulfilled, (state, { payload: [key, mapId] }) => {
+        state.forestOptions.fetchedLayers[key] = mapId
       })
   },
 })

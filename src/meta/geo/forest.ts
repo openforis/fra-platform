@@ -1,6 +1,6 @@
 export interface ForestOptions {
-  sources: ForestSourceAndStatus[]
-  fetchedLayers: { [key in ForestSource]?: string }
+  selected: ForestSourceKeyAndStatus[]
+  fetchedLayers: { [key: string]: string }
   hansenPercentage: HansenPercentage
 }
 
@@ -8,7 +8,14 @@ export const hansenPercentages = [10, 20, 30] as const
 
 export type HansenPercentage = typeof hansenPercentages[number]
 
-export interface ForestSourceAndStatus {
+export interface ForestSourceWithOptions {
+  key: ForestSource
+  options: {
+    [key: string]: string
+  }
+}
+
+export interface ForestSourceKeyAndStatus {
   key: ForestSource
   status: ForestSourceStatus
 }

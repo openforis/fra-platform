@@ -32,7 +32,7 @@ const AgreementLevelsControl: React.FC = () => {
    */
   const handleAgreementLevelSelection = useCallback(
     async (level: number): Promise<void> => {
-      const layerQuery = forestOptions.sources.map(({ key }) => `&layer=${key}`).join('')
+      const layerQuery = forestOptions.selected.map(({ key }) => `&layer=${key}`).join('')
       const uri = `/api/geo/layers/forestAgreement/?countryIso=FIN${layerQuery}&gteAgreementLevel=${level}`
 
       await axios.get<Layer>(uri).then((response) => {
@@ -42,7 +42,7 @@ const AgreementLevelsControl: React.FC = () => {
         mapControllerRef.current.addEarthEngineLayer(agreementLayerKey, mapId)
       })
     },
-    [forestOptions.sources]
+    [forestOptions.selected]
   )
 
   return (

@@ -2,6 +2,7 @@ import './MapVisualizerPanel.scss'
 import React, { useCallback, useEffect, useRef } from 'react'
 
 import { ForestSource } from '@meta/geo'
+import { ForestSourceWithOptions } from '@meta/geo/forest'
 
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useForestSourceOptions } from '@client/store/ui/geo'
@@ -23,40 +24,50 @@ const MapVisualizerPanel: React.FC = () => {
   // map.addListener('tilesloaded', () => setCheckboxDisabledState(false)) // tilesloaded doesn't wait for custom layers
 
   const toggleLayer = useCallback(
-    async (apiUri: string, mapLayerKey: ForestSource) => {
+    async (apiUri: string, mapLayerKey: ForestSource, forceAddLayer = false) => {
       const wasExistingLayer = mapControllerRef.current.removeEarthEngineLayer(mapLayerKey)
 
       if (wasExistingLayer) {
         // remove the existing layer from the app state
         dispatch(GeoActions.removeForestLayer(mapLayerKey))
-      } else {
-        // get the new layer from the server and add it to the map and app state
-        const uri =
-          apiUri + (mapLayerKey === 'Hansen' ? `&gteHansenTreeCoverPerc=${forestOptions.hansenPercentage}` : '')
-        const mapId = forestOptions.fetchedLayers[mapLayerKey]
-        dispatch(GeoActions.addForestLayer({ key: mapLayerKey, status: mapId ? 'ready' : 'loading' }))
+        if (!forceAddLayer) return
+      }
 
-        if (mapId) {
-          mapControllerRef.current.addEarthEngineLayer(mapLayerKey, mapId)
-        } else {
-          dispatch(getForestLayer({ mapLayerKey, uri }))
-        }
+      // get the new layer from the server and add it to the map and app state
+      const isHansen = mapLayerKey === 'Hansen'
+      const source: ForestSourceWithOptions = {
+        key: mapLayerKey,
+        options: isHansen ? { gteHansenTreeCoverPerc: forestOptions.hansenPercentage.toString() } : {},
+      }
+      const query = Object.entries(source.options)
+        .map(([key, value]) => `&${key}=${value}`)
+        .join('')
+      const uri = `${apiUri}${query}`
+      const key = mapLayerKey + (isHansen ? `__${forestOptions.hansenPercentage}` : '')
+      const mapId = forestOptions.fetchedLayers[key]
+      dispatch(GeoActions.addForestLayer({ key: mapLayerKey, status: mapId ? 'ready' : 'loading' }))
+
+      if (mapId) {
+        mapControllerRef.current.addEarthEngineLayer(mapLayerKey, mapId)
+      } else {
+        dispatch(getForestLayer({ key, uri }))
       }
     },
     [forestOptions.fetchedLayers, forestOptions.hansenPercentage, dispatch]
   )
 
   useEffect(() => {
-    forestOptions.sources
+    forestOptions.selected
       .filter(({ status }) => status === 'loading')
-      .forEach(({ key }) => {
+      .forEach(({ key: mapLayerKey }) => {
+        const key = mapLayerKey + (mapLayerKey === 'Hansen' ? `__${forestOptions.hansenPercentage}` : '')
         const mapId = forestOptions.fetchedLayers[key]
         if (mapId) {
-          dispatch(GeoActions.markForestLayerAsReady(key))
-          mapControllerRef.current.addEarthEngineLayer(key, mapId)
+          dispatch(GeoActions.markForestLayerAsReady(mapLayerKey))
+          mapControllerRef.current.addEarthEngineLayer(mapLayerKey, mapId)
         }
       })
-  }, [forestOptions.fetchedLayers, forestOptions.sources, dispatch])
+  }, [forestOptions.fetchedLayers, forestOptions.selected, forestOptions.hansenPercentage, dispatch])
 
   // re-render if Hansen percentage was changed
   useEffect(() => {
@@ -66,7 +77,7 @@ const MapVisualizerPanel: React.FC = () => {
 
     // if Hansen layer was present, make another call with new option
     const layer = layers.filter((layer) => layer.key === 'Hansen')[0]
-    toggleLayer(layer.apiUri, layer.key)
+    toggleLayer(layer.apiUri, layer.key, true)
   }, [forestOptions.hansenPercentage, map.overlayMapTypes, toggleLayer])
 
   const opacityChange = (layerKey: string, opacity: number) => {
@@ -82,7 +93,7 @@ const MapVisualizerPanel: React.FC = () => {
             <GeoMapMenuListElement
               title={layer.title}
               tabIndex={index * -1 - 1}
-              checked={forestOptions.sources.some(({ key }) => key === layer.key)}
+              checked={forestOptions.selected.some(({ key }) => key === layer.key)}
               onCheckboxClick={() => toggleLayer(layer.apiUri, layer.key)}
               backgroundColor={layer.key.toLowerCase()}
             >

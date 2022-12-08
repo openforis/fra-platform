@@ -1,19 +1,17 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { ForestSource } from '@meta/geo'
-
-interface GetForesLayerProps {
-  mapLayerKey: ForestSource
+interface GetForestLayerProps {
+  key: string
   uri: string
 }
 
-export const getForestLayer = createAsyncThunk<[ForestSource, string], GetForesLayerProps>(
+export const getForestLayer = createAsyncThunk<[string, string], GetForestLayerProps>(
   'geo/get/forestLayer',
-  async ({ mapLayerKey, uri }) => {
+  async ({ key, uri }) => {
     const {
       data: { mapId },
     } = await axios.get(uri)
-    return [mapLayerKey, mapId]
+    return [key, mapId]
   }
 )
