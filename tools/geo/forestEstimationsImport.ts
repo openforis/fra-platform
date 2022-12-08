@@ -18,10 +18,7 @@ config({ path: path.resolve(__dirname, '..', '..', '.env') })
 
 export const forestIndicatorsImport = async (): Promise<void> => {
   // eslint-disable-next-line no-console
-  const args = process.argv.slice(2)
-
-  const path = args[0]
-  const content = await fs.readFile(path)
+  const content = await fs.readFile(path.resolve(__dirname, 'FRA_236_ISO_GEE.geojson'))
   const response: Response = JSON.parse(content.toString())
 
   const values = response.features.map((d) => {
@@ -29,12 +26,20 @@ export const forestIndicatorsImport = async (): Promise<void> => {
     const { iso3, ...data } = properties
     return { country_iso: iso3, year: 2020, data }
   })
+
   const schema = 'geo'
   const pgp = pgPromise()
   const cs = new pgp.helpers.ColumnSet(['country_iso', 'year', { name: 'data', cast: 'jsonb' }], {
     table: { table: 'forest_estimations', schema },
   })
-  const query = pgp.helpers.insert(values, cs)
+
+  const onConflict = ` ON CONFLICT(country_iso, year) DO UPDATE SET ${cs.assignColumns({
+    from: 'EXCLUDED',
+    skip: ['country_iso', 'year'],
+  })}`
+
+  const query = pgp.helpers.insert(values, cs) + onConflict
+
   await DB.none(query)
 }
 

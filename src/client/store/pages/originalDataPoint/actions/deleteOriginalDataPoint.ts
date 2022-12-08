@@ -14,6 +14,7 @@ export const deleteOriginalDataPoint = createAsyncThunk<void, CycleParams & { or
         assessmentName,
         cycleName,
         year,
+        sectionName: 'extentOfForest',
       },
     })
   }

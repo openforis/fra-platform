@@ -25,6 +25,7 @@ export const createOriginalDataPoint = createAsyncThunk<
         countryIso,
         assessmentName,
         cycleName,
+        sectionName: 'extentOfForest',
       },
     }
   )
