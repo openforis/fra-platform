@@ -1,5 +1,5 @@
 import { Assessment, Cycle, OriginalDataPoint, TableNames } from '@meta/assessment'
-import { NodeUpdates, TableDatas } from '@meta/data'
+import { TableDatas } from '@meta/data'
 import { Sockets } from '@meta/socket'
 import { User } from '@meta/user'
 
@@ -7,7 +7,7 @@ import { getTableData } from '@server/controller/cycleData/getTableData'
 import { BaseProtocol } from '@server/db'
 import { SocketServer } from '@server/service/socket'
 
-import { calculateAndValidateDependentNodes } from './persistNodeValue/calculateAndValidateDependentNodes'
+import { calculateAndValidateDependentNodes } from './persistNodeValues/calculateAndValidateDependentNodes'
 import { originalDataPointVariables } from './originalDataPointVariables'
 
 export const updateOriginalDataPointDependentNodes = async (
@@ -29,14 +29,11 @@ export const updateOriginalDataPointDependentNodes = async (
     for (let i = 0; i < originalDataPointVariables.length; i += 1) {
       const { sectionName, tableName, variableName } = originalDataPointVariables[i]
 
-      const nodeUpdates: NodeUpdates = { assessment, cycle, countryIso, nodes: [] }
-
       // eslint-disable-next-line no-await-in-loop
       await calculateAndValidateDependentNodes(
         {
           colName,
           cycle,
-          nodeUpdates,
           sectionName,
           tableName,
           user,

@@ -29,23 +29,6 @@ export const persistNodeValues = async (req: CycleDataRequest<never, NodesBody>,
       user,
     })
 
-    // await Promise.all(
-    //   values.map((valueUpdate) =>
-    //     CycleDataController.persistNodeValue(
-    //       {
-    //         countryIso,
-    //         assessment,
-    //         cycle,
-    //         sectionName,
-    //         tableName,
-    //         user,
-    //         ...valueUpdate,
-    //       },
-    //       DB
-    //     )
-    //   )
-    // )
-
     Requests.sendOk(res)
   } catch (e) {
     Requests.sendErr(res, e)

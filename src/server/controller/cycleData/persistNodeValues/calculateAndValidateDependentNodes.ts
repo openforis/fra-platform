@@ -1,23 +1,23 @@
 import { Objects } from '@utils/objects'
 
-import { NodeUpdates } from '@meta/data'
+import { NodeUpdate } from '@meta/data'
 import { Sockets } from '@meta/socket'
 
 import { BaseProtocol } from '@server/db'
 import { SocketServer } from '@server/service/socket'
 
 import { calculateDependantNodes } from './calculateDependantNodes'
-import { Props } from './props'
+import { PersistNodeValueProps } from './props'
 import { validateNodeUpdates } from './validateNodeUpdates'
 
 export const calculateAndValidateDependentNodes = async (
-  props: Omit<Props, 'value'> & { nodeUpdates: NodeUpdates; isODP?: boolean },
+  props: Omit<PersistNodeValueProps, 'value'> & { sourceNode?: NodeUpdate; isODP?: boolean },
   client: BaseProtocol
 ): Promise<void> => {
-  const { isODP, sectionName } = props
+  const { isODP, sectionName, sourceNode } = props
 
   const nodeUpdates = await calculateDependantNodes(props, client)
-  nodeUpdates.nodes.unshift(...props.nodeUpdates.nodes)
+  if (sourceNode) nodeUpdates.nodes.unshift(sourceNode)
 
   const validations = await validateNodeUpdates({ nodeUpdates, isODP }, client)
 
