@@ -5,26 +5,27 @@ import { BaseProtocol, DB } from '@server/db'
 import { SectionRepository } from '@server/repository/assessment/section'
 import { ActivityLogRepository } from '@server/repository/public/activityLog'
 
-export const remove = async (
-  props: { assessment: Assessment; section: Section; user?: User },
+export const createSection = async (
+  props: { user: User; assessment: Assessment; section: Pick<Section, 'props'> },
   client: BaseProtocol = DB
-): Promise<void> => {
-  const { assessment, section, user } = props
+): Promise<Section> => {
+  const { user, assessment, section } = props
 
   return client.tx(async (t) => {
-    const deletedSection = await SectionRepository.remove({ assessment, section }, t)
+    const createdSection = await SectionRepository.create({ section, assessment }, t)
 
     await ActivityLogRepository.insertActivityLog(
       {
         activityLog: {
-          target: { deletedSection },
+          target: createdSection,
           section: 'section',
-          message: ActivityLogMessage.sectionDelete,
+          message: ActivityLogMessage.sectionCreate,
           user,
         },
         assessment,
       },
       t
     )
+    return createdSection
   })
 }
