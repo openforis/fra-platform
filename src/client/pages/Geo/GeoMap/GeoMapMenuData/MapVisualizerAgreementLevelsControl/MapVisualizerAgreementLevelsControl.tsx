@@ -3,7 +3,7 @@ import React, { useCallback, useRef } from 'react'
 
 import axios from 'axios'
 
-import { Layer } from '@meta/geo'
+import { ForestSource, Layer } from '@meta/geo'
 
 import { useForestSourceOptions } from '@client/store/ui/geo'
 import { useGeoMap } from '@client/hooks'
@@ -33,7 +33,10 @@ const AgreementLevelsControl: React.FC = () => {
   const handleAgreementLevelSelection = useCallback(
     async (level: number): Promise<void> => {
       const layerQuery = forestOptions.selected.map(({ key }) => `&layer=${key}`).join('')
-      const uri = `/api/geo/layers/forestAgreement/?countryIso=FIN${layerQuery}&gteAgreementLevel=${level}`
+      const hansenQuery = forestOptions.selected.some(({ key }) => key === ForestSource.Hansen)
+        ? `&gteHansenTreeCoverPerc=${forestOptions.hansenPercentage}`
+        : ''
+      const uri = `/api/geo/layers/forestAgreement/?countryIso=FIN${layerQuery}&gteAgreementLevel=${level}${hansenQuery}`
 
       await axios.get<Layer>(uri).then((response) => {
         const { mapId } = response.data
@@ -42,7 +45,7 @@ const AgreementLevelsControl: React.FC = () => {
         mapControllerRef.current.addEarthEngineLayer(agreementLayerKey, mapId)
       })
     },
-    [forestOptions.selected]
+    [forestOptions.selected, forestOptions.hansenPercentage]
   )
 
   return (
