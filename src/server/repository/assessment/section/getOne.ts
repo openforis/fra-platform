@@ -12,7 +12,7 @@ export const getOne = async (
 ): Promise<Section> => {
   const schemaName = Schemas.getName(props.assessment)
   return client
-    .one<any>(
+    .oneOrNone<Section>(
       `
           select s.*
           from ${schemaName}.section s
