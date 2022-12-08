@@ -18,11 +18,7 @@ config({ path: path.resolve(__dirname, '..', '..', '.env') })
 
 export const forestIndicatorsImport = async (): Promise<void> => {
   // eslint-disable-next-line no-console
-  const args = process.argv.slice(2)
-
-  const fileName = args[0]
-
-  const content = await fs.readFile(path.resolve(__dirname, fileName))
+  const content = await fs.readFile(path.resolve(__dirname, 'FRA_236_ISO_GEE.geojson'))
   const response: Response = JSON.parse(content.toString())
 
   const values = response.features.map((d) => {
