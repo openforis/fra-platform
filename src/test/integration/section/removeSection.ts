@@ -6,13 +6,13 @@ import { assessmentParams } from '@test/integration/mock/assessment'
 import { sectionParams } from '@test/integration/mock/section'
 import { userMockTest } from '@test/integration/mock/user'
 
-export default () =>
-  test('Expect section to be created', async () => {
+export default () => {
+  return test('Expect section to be removed', async () => {
     const user = await UserController.getOne({
       email: userMockTest.email,
     })
 
-    const assessment = await AssessmentController.getOne({
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({
       assessmentName: assessmentParams.props.name,
     })
 
@@ -22,12 +22,18 @@ export default () =>
       section: sectionParams,
     })
 
-    expect(section).toHaveProperty('id')
-    expect(section.id).toBeTruthy()
-    expect(section).toHaveProperty('uuid')
-    expect(section.uuid).toBeTruthy()
+    await MetadataController.removeSection({
+      assessment,
+      user,
+      section,
+    })
 
-    expect(section).toHaveProperty('props')
-    expect(section).toHaveProperty('props.index')
-    expect(section.props.index).toBe(sectionParams.props.index)
+    await expect(
+      MetadataController.getSection({
+        assessment,
+        cycle,
+        id: section.id,
+      })
+    ).rejects.toThrowError()
   })
+}
