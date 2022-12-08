@@ -1,4 +1,4 @@
-import { Objects } from '@utils/objects'
+// import { Objects } from '@utils/objects'
 
 import { NodeUpdates } from '@meta/data'
 import { Sockets } from '@meta/socket'
@@ -8,18 +8,18 @@ import { SocketServer } from '@server/service/socket'
 
 import { calculateDependantNodes } from './calculateDependantNodes'
 import { Props } from './props'
-import { validateNodeUpdates } from './validateNodeUpdates'
+// import { validateNodeUpdates } from './validateNodeUpdates'
 
 export const calculateAndValidateDependentNodes = async (
   props: Omit<Props, 'value'> & { nodeUpdates: NodeUpdates; isODP?: boolean },
   client: BaseProtocol
 ): Promise<void> => {
-  const { isODP, sectionName } = props
+  // const { isODP, sectionName } = props
 
   const nodeUpdates = await calculateDependantNodes(props, client)
   nodeUpdates.nodes.unshift(...props.nodeUpdates.nodes)
 
-  const validations = await validateNodeUpdates({ nodeUpdates, isODP }, client)
+  // const validations = await validateNodeUpdates({ nodeUpdates, isODP }, client)
 
   // Update node values
   const { countryIso, assessment, cycle } = nodeUpdates
@@ -37,11 +37,11 @@ export const calculateAndValidateDependentNodes = async (
   })
 
   // Update validations
-  if (!Objects.isEmpty(validations.nodes)) {
-    const nodeValidationsUpdateEvent = Sockets.getNodeValidationsUpdateEvent({ ...propsEvent, sectionName })
-    SocketServer.emit(nodeValidationsUpdateEvent, {
-      ...propsEvent,
-      validations: validations.nodes,
-    })
-  }
+  // if (!Objects.isEmpty(validations.nodes)) {
+  //   const nodeValidationsUpdateEvent = Sockets.getNodeValidationsUpdateEvent({ ...propsEvent, sectionName })
+  //   SocketServer.emit(nodeValidationsUpdateEvent, {
+  //     ...propsEvent,
+  //     validations: validations.nodes,
+  //   })
+  // }
 }
