@@ -34,6 +34,7 @@ export const geoSlice = createSlice({
       state.forestOptions = payload
     },
     addForestLayer: (state, { payload }: PayloadAction<ForestSourceKeyAndStatus>) => {
+      if (state.forestOptions.selected.find(({ key }) => key === payload.key)) return // Avoid duplicates
       state.forestOptions.selected.push(payload)
     },
     removeForestLayer: (state, { payload }: PayloadAction<ForestSource>) => {
