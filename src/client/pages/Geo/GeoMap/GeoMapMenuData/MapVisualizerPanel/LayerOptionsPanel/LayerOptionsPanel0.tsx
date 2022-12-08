@@ -1,4 +1,4 @@
-import './layerOptionsPanel.scss'
+import './LayerOptionsPanel0.scss'
 import React, { useCallback, useState } from 'react'
 
 import { hansenPercentages } from '@meta/geo/forest'
