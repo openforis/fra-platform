@@ -4,6 +4,7 @@ import { CountryIso } from '@meta/area'
 import { Assessment, Cycle } from '@meta/assessment'
 
 import { DB } from '@server/db'
+import { ProcessEnv } from '@server/utils'
 
 import { calculateAndValidateDependentNodes } from './calculateAndValidateDependentNodes'
 import { PersistNodeValuesProps } from './props'
@@ -24,14 +25,14 @@ export const getInstance = (props: {
   if (queue) return queue
 
   queue = new Queue<DependantsUpdateProps>(key, {
-    redis: 'redis://127.0.0.1:6379',
+    redis: ProcessEnv.redisUrl,
     settings: { maxStalledCount: 0, lockDuration: 60000 },
   })
   queue.process(1, async (job) => {
     // const time = new Date().getTime()
     // console.log(
     //   '====== processing  job for ',
-    //   job.data,
+    //   job.data.nodeUpdates.nodes.length,
     // )
     const { nodeUpdates, isODP, sectionName, user } = job.data
     const { assessment, cycle, countryIso, nodes } = nodeUpdates

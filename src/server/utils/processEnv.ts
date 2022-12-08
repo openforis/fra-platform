@@ -32,4 +32,6 @@ export const ProcessEnv = {
   pgPort: Number(pgPort),
   pgDatabase,
   pgSsl: process.env.PGSSL === 'true',
+
+  redisUrl: process.env.REDIS_URL ?? 'redis://127.0.0.1:6379',
 }
