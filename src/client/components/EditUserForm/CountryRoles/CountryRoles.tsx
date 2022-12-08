@@ -140,7 +140,7 @@ const CountryRoles: React.FC<{ user: User }> = ({ user }) => {
       <CountrySelectModal
         open={modalOptions.open}
         countries={countries}
-        excludedRegions={[RegionCode.FE, RegionCode.AT, ...secondaryRegions.regions.map((r: Region) => r.regionCode)]}
+        excludedRegions={[RegionCode.FE, ...secondaryRegions.regions.map((r: Region) => r.regionCode)]}
         headerLabel={i18n.t(Users.getI18nRoleLabelKey(modalOptions.role as RoleName))}
         onClose={() => setModalOptions(initialModalState)}
         initialSelection={modalOptions.initialSelection}

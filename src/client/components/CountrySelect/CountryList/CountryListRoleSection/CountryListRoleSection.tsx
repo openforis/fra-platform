@@ -45,7 +45,7 @@ const CountryListRoleSection: React.FC<Props> = (props: Props) => {
         </div>
       )}
 
-      {countryISOs.map((countryIso) => {
+      {countryISOs?.map((countryIso) => {
         const countryLabel = i18n.t(Areas.getTranslationKey(countryIso))
         const country = countries.find((c) => c.countryIso === countryIso)
         const matchCountry = checkMatch(countryLabel, query) || matchRegion({ country, query, i18n })

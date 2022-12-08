@@ -136,16 +136,21 @@ const requireEditUser = async (req: Request, _res: Response, next: NextFunction)
     ...req.query,
     ...req.body,
   }
+
   const user = Requests.getUser(req)
+
   const isSelf = String(user.id) === id
-  if (isSelf) {
+  const isAdministrator = Users.isAdministrator(user)
+
+  if (isAdministrator) {
+    _next(isAdministrator, next)
+  } else if (isSelf) {
     _next(isSelf, next)
-    return
+  } else {
+    const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+
+    _next(Users.getRolesAllowedToEdit({ user, countryIso: countryIso as CountryIso, cycle }).length > 0, next)
   }
-
-  const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-
-  _next(Users.getRolesAllowedToEdit({ user, countryIso: countryIso as CountryIso, cycle }).length > 0, next)
 }
 
 const requireViewUsers = async (req: Request, _res: Response, next: NextFunction) => {

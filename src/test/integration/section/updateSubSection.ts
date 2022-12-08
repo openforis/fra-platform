@@ -3,7 +3,7 @@ import { MetadataController } from '@server/controller/metadata'
 import { UserController } from '@server/controller/user'
 
 import { assessmentParams } from '@test/integration/mock/assessment'
-import { sectionParams } from '@test/integration/mock/section'
+import { subSectionParams } from '@test/integration/mock/section'
 import { userMockTest } from '@test/integration/mock/user'
 
 export default () => {
@@ -16,20 +16,21 @@ export default () => {
       assessmentName: assessmentParams.props.name,
     })
 
-    const section = await MetadataController.createSection({
+    const subSection = await MetadataController.createSubSection({
       assessment,
       user,
-      section: sectionParams,
+      section: subSectionParams,
+      parentSectionId: 1,
     })
 
-    const sectionUpdated = await MetadataController.updateSection({
+    const sectionUpdated = await MetadataController.updateSubSection({
       assessment,
       user,
       section: {
-        ...section,
+        ...subSection,
         props: {
-          ...section.props,
-          index: 2222,
+          ...subSection.props,
+          name: 'update_name',
         },
       },
     })
@@ -40,7 +41,7 @@ export default () => {
     expect(sectionUpdated.uuid).toBeTruthy()
 
     expect(sectionUpdated).toHaveProperty('props')
-    expect(sectionUpdated).toHaveProperty('props.index')
-    expect(sectionUpdated.props.index).toBe(2222)
+    expect(sectionUpdated).toHaveProperty('props.name')
+    expect(sectionUpdated.props.name).toBe('update_name')
   })
 }

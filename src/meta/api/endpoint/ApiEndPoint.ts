@@ -59,6 +59,7 @@ export const ApiEndPoint = {
     dashboard: () => apiPath('file', 'dashboard'),
     dataDownload: () => apiPath('file', 'data-download'),
     bulkDownload: () => apiPath('file', 'bulk-download'),
+    userGuide: (language = ':language') => apiPath('file', 'user-guide', language),
     Assessment: {
       one: (uuid = ':uuid') => apiPath('file', 'assessment', uuid),
       many: () => apiPath('file', 'assessment'),
