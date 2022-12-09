@@ -31,6 +31,7 @@ export enum ActivityLogMessage {
   tableSectionUpdate = 'tableSectionUpdate',
   tableSectionDelete = 'tableSectionDelete',
   tableCreate = 'tableCreate',
+  tableUpdate = 'tableUpdate',
 }
 
 export interface ActivityLog<Target> {

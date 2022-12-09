@@ -9,6 +9,7 @@ import { removeSection } from './removeSection'
 import { removeTableSection } from './removeTableSection'
 import { updateSection } from './updateSection'
 import { updateSubSection } from './updateSubSection'
+import { updateTable } from './updateTable'
 import { updateTableSection } from './updateTableSection'
 
 export const MetadataController = {
@@ -25,4 +26,5 @@ export const MetadataController = {
   updateTableSection,
   removeTableSection,
   createTable,
+  updateTable,
 }
