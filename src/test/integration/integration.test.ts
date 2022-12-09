@@ -5,9 +5,15 @@ import originalDataPoint from '@test/integration/assessment/originalDataPoint'
 import assessmentRemove from '@test/integration/assessment/removeAssessment'
 import updateAssessmentDefaultCycle from '@test/integration/assessment/updateAssessmentDefaultCycle'
 import messageCenter from '@test/integration/messageCenter/messageCenter'
+import sectionCreateChild from '@test/integration/section/createChildSection'
 import sectionCreate from '@test/integration/section/createSection'
+import sectionRemove from '@test/integration/section/removeSection'
 import sectionUpdate from '@test/integration/section/updateSection'
+import sectionUpdateChild from '@test/integration/section/updateSubSection'
 import settingsDefaultAssessment from '@test/integration/settings/defaultAssessment'
+import tableSectionCreate from '@test/integration/tableSection/createTableSection'
+import tableSectionRemove from '@test/integration/tableSection/removeTableSection'
+import tableSectionUpdate from '@test/integration/tableSection/updateTableSection'
 import userInvite from '@test/integration/user/userInvite'
 import userRemove from '@test/integration/user/userRemove'
 import userResetPassword from '@test/integration/user/userResetPassword'
@@ -28,9 +34,16 @@ describe('Metadata integration test', () => {
   updateAssessmentDefaultCycle()
 
   // section
-
   sectionCreate()
+  sectionCreateChild()
   sectionUpdate()
+  sectionUpdateChild()
+  sectionRemove()
+
+  // tableSection
+  tableSectionCreate()
+  tableSectionUpdate()
+  tableSectionRemove()
 
   // user
   userInvite()

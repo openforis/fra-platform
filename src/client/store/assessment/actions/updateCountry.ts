@@ -1,7 +1,7 @@
-import { ApiEndPoint } from '@meta/api/endpoint'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
+import { ApiEndPoint } from '@meta/api/endpoint'
 import { Country, CountryIso } from '@meta/area'
 
 export const updateCountry = createAsyncThunk<
@@ -13,19 +13,24 @@ export const updateCountry = createAsyncThunk<
     cycleName: string
     message?: string
     notifyUsers?: boolean
+    sectionName: string
   }
->('assessment/post/country', async ({ country, countryIso, assessmentName, cycleName, notifyUsers, message }) => {
-  const { data } = await axios.post(
-    ApiEndPoint.Area.country(),
-    { country, message },
-    {
-      params: {
-        assessmentName,
-        countryIso,
-        cycleName,
-        notifyUsers,
-      },
-    }
-  )
-  return data
-})
+>(
+  'assessment/post/country',
+  async ({ sectionName, country, countryIso, assessmentName, cycleName, notifyUsers, message }) => {
+    const { data } = await axios.post(
+      ApiEndPoint.Area.country(),
+      { country, message },
+      {
+        params: {
+          assessmentName,
+          countryIso,
+          cycleName,
+          notifyUsers,
+          sectionName,
+        },
+      }
+    )
+    return data
+  }
+)

@@ -1,5 +1,5 @@
 import { AssessmentController } from '@server/controller/assessment'
-import { SectionController } from '@server/controller/section'
+import { MetadataController } from '@server/controller/metadata'
 import { UserController } from '@server/controller/user'
 
 import { assessmentParams } from '@test/integration/mock/assessment'
@@ -16,7 +16,7 @@ export default () =>
       assessmentName: assessmentParams.props.name,
     })
 
-    const section = await SectionController.create({
+    const section = await MetadataController.createSection({
       assessment,
       user,
       section: sectionParams,

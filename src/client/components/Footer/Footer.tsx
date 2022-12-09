@@ -1,8 +1,11 @@
 import './footer.scss'
 import React from 'react'
-
 import { useTranslation } from 'react-i18next'
+
+import { ApiEndPoint } from '@meta/api/endpoint'
+
 import { useUser } from '@client/store/user'
+
 import SendFeedback from './components/SendFeedback'
 
 const links = [
@@ -24,7 +27,7 @@ const links = [
   },
 ]
 const Footer: React.FC = () => {
-  const { i18n } = useTranslation()
+  const { i18n, t } = useTranslation()
   const user = useUser()
   const { language } = i18n
 
@@ -36,7 +39,7 @@ const Footer: React.FC = () => {
             {i !== 0 && <div className="separator" />}
 
             <a target="_blank" rel="noreferrer" href={`${link.to}${language}`}>
-              {i18n.t(link.key)}
+              {t(link.key)}
             </a>
           </React.Fragment>
         ))}
@@ -44,8 +47,8 @@ const Footer: React.FC = () => {
         {user && (
           <>
             <div className="separator" />
-            <a target="_top" href={`/api/fileRepository/userGuide/${language}`}>
-              {i18n.t('footer.userGuide')}
+            <a target="_top" href={`${ApiEndPoint.File.userGuide(language)}`}>
+              {t('footer.userGuide')}
             </a>
           </>
         )}
@@ -54,7 +57,7 @@ const Footer: React.FC = () => {
 
         <div className="separator" />
         <a target="_blank" href={`https://www.fao.org/contact-us/terms/db-terms-of-use/${language}`} rel="noreferrer">
-          {i18n.t('footer.licenses')}
+          {t('footer.licenses')}
         </a>
       </div>
 
