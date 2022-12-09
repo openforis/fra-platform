@@ -37,7 +37,6 @@ export const calculateAndValidateDependentNodes = async (
   if (!Objects.isEmpty(validations.nodes)) {
     const nodeValidationsUpdateEvent = Sockets.getNodeValidationsUpdateEvent({ ...propsEvent, sectionName })
     SocketServer.emit(nodeValidationsUpdateEvent, {
-      ...propsEvent,
       validations,
     })
   }
