@@ -1,1 +1,1 @@
-export { default } from './layerOptionsPanel'
+export { default } from './LayerOptionsPanel'
