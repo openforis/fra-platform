@@ -6,13 +6,15 @@ import classNames from 'classnames'
 
 import { ForestSource, Layer } from '@meta/geo'
 
-import { useForestSourceOptions } from '@client/store/ui/geo'
+import { useAppDispatch } from '@client/store'
+import { GeoActions, useForestSourceOptions } from '@client/store/ui/geo'
 import { useGeoMap } from '@client/hooks'
 import { MapController } from '@client/utils'
 
 import { layers } from '../MapVisualizerPanel'
 
 const AgreementLevelsControl: React.FC = () => {
+  const dispatch = useAppDispatch()
   const map = useGeoMap()
   const forestOptions = useForestSourceOptions()
   const mapControllerRef = useRef<MapController>(new MapController(map))
@@ -35,8 +37,10 @@ const AgreementLevelsControl: React.FC = () => {
         mapControllerRef.current.removeEarthEngineLayer(agreementLayerKey)
         mapControllerRef.current.addEarthEngineLayer(agreementLayerKey, mapId)
       })
+
+      dispatch(GeoActions.setAgreementLevel(level))
     },
-    [forestOptions.selected, forestOptions.hansenPercentage]
+    [forestOptions.selected, forestOptions.hansenPercentage, dispatch]
   )
 
   return (

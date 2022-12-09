@@ -51,6 +51,9 @@ export const geoSlice = createSlice({
     setHansenPercentage: (state, { payload }: PayloadAction<HansenPercentage>) => {
       state.forestOptions.hansenPercentage = payload
     },
+    setAgreementLevel: (state, { payload }: PayloadAction<number>) => {
+      state.forestOptions.agreementLevel = payload
+    },
   },
   extraReducers: (builder) => {
     builder
