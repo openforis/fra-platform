@@ -12,15 +12,15 @@ import { PersistNodeValuesProps } from './props'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import IORedis from 'ioredis'
 
-try {
   const connection = new IORedis(
-    'redis://default:JNeyNVJRVHl6qPJKN3HMNKBCv90de53P@redis-15608.c269.eu-west-1-3.ec2.cloud.redislabs.com:15608',
-    // { tls: { rejectUnauthorized: false } }
+    ProcessEnv.redisUrl,
+    // { tls: { rejectUnauthorized: false }, sentinelTLS: { rejectUnauthorized: false } }
   )
+// try {
   console.log('==== connection ', connection)
-} catch (e) {
-  console.log('====== error in connection ', e)
-}
+// } catch (e) {
+//   console.log('====== error in connection ', e)
+// }
 
 type DependantsUpdateProps = PersistNodeValuesProps & { isODP?: boolean }
 
@@ -39,7 +39,7 @@ export const getInstance = (props: {
 
   console.log('====== redis url ', ProcessEnv.redisUrl)
   queue = new Queue<DependantsUpdateProps>(key, ProcessEnv.redisUrl, {
-    redis: { tls: { rejectUnauthorized: false }, enableTLSForSentinelMode: false },
+    // redis: { tls: { rejectUnauthorized: false }, enableTLSForSentinelMode: false },
     settings: { maxStalledCount: 0, lockDuration: 60000 },
   })
   queue
@@ -82,9 +82,9 @@ export const getInstance = (props: {
       console.log('====== error in process queue ', e)
     })
 
-  // queue.on('error', (error) => {
-  // console.log('%%%%%%%%%%%% ERROR ', error)
-  // })
+  queue.on('error', (error) => {
+  console.log('%%%%%%%%%%%% ERROR ', error)
+  })
 
   queues[key] = queue
 
