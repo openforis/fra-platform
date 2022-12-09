@@ -5,22 +5,10 @@ import { Assessment, Cycle } from '@meta/assessment'
 
 import { DB } from '@server/db'
 import { ProcessEnv } from '@server/utils'
+import { Logger } from '@server/utils/logger'
 
 import { calculateAndValidateDependentNodes } from './calculateAndValidateDependentNodes'
 import { PersistNodeValuesProps } from './props'
-
-// eslint-disable-next-line import/no-extraneous-dependencies
-import IORedis from 'ioredis'
-
-  const connection = new IORedis(
-    ProcessEnv.redisUrl,
-    // { tls: { rejectUnauthorized: false }, sentinelTLS: { rejectUnauthorized: false } }
-  )
-// try {
-  console.log('==== connection ', connection)
-// } catch (e) {
-//   console.log('====== error in connection ', e)
-// }
 
 type DependantsUpdateProps = PersistNodeValuesProps & { isODP?: boolean }
 
@@ -37,18 +25,14 @@ export const getInstance = (props: {
 
   if (queue) return queue
 
-  console.log('====== redis url ', ProcessEnv.redisUrl)
   queue = new Queue<DependantsUpdateProps>(key, ProcessEnv.redisUrl, {
-    // redis: { tls: { rejectUnauthorized: false }, enableTLSForSentinelMode: false },
     settings: { maxStalledCount: 0, lockDuration: 60000 },
   })
   queue
     .process(1, async (job) => {
-      // const time = new Date().getTime()
-      // console.log(
-      //   '====== processing  job for ',
-      //   job.data.nodeUpdates.nodes.length,
-      // )
+      const time = new Date().getTime()
+      Logger.info(`====== processing job ${job.id}. ${job.data.nodeUpdates.nodes.length} nodes.`)
+
       const { nodeUpdates, isODP, sectionName, user } = job.data
       const { assessment, cycle, countryIso, nodes } = nodeUpdates
       await DB.tx(async (client) => {
@@ -73,17 +57,17 @@ export const getInstance = (props: {
         )
       })
 
-      // console.log('====== END processing done ', (new Date().getTime() - time) / 1000,__dirname)
+      Logger.info(`====== END processing job ${job.id} in ${(new Date().getTime() - time) / 1000} seconds.`)
       // await job.moveToCompleted()
       return Promise.resolve()
       // done()
     })
-    .catch((e) => {
-      console.log('====== error in process queue ', e)
+    .catch((error) => {
+      Logger.error(`%%%%%%%%%%%% ERROR IN PROCESS QUEUE ${error}`)
     })
 
   queue.on('error', (error) => {
-  console.log('%%%%%%%%%%%% ERROR ', error)
+    Logger.error(`%%%%%%%%%%%% ERROR IN QUEUE ${error}`)
   })
 
   queues[key] = queue

@@ -4,6 +4,7 @@ import { NodeUpdate } from '@meta/data'
 import { PersistNodeValuesProps } from '@server/controller/cycleData/persistNodeValues/props'
 import { QueueFactory } from '@server/controller/cycleData/persistNodeValues/queueFactory'
 import { DB } from '@server/db'
+import { Logger } from '@server/utils/logger'
 
 import { persistNode } from './persistNode'
 
@@ -49,7 +50,7 @@ export const persistNodeValues = async (
 
       // console.log('==== UPDATED ', persistedNodes.length, 'nodes')
     } catch (error) {
-      console.log('====== error ', error)
+      Logger.error(error)
       throw error
     } finally {
       await client.func('pg_advisory_xact_lock', [1])
