@@ -40,6 +40,7 @@ export const persistNodeValues = async (
         })
       )
       await QueueFactory.getInstance({ assessment, cycle, countryIso }).add(
+        'updateDependencies',
         {
           nodeUpdates: { assessment, cycle, countryIso, nodes: persistedNodes },
           sectionName,
@@ -48,7 +49,7 @@ export const persistNodeValues = async (
         { removeOnComplete: true }
       )
 
-      // console.log('==== UPDATED ', persistedNodes.length, 'nodes')
+      Logger.debug(`[persistNodeValues] ${persistedNodes.length} nodes added to updateDependencies queue`)
     } catch (error) {
       Logger.error(error)
       throw error
