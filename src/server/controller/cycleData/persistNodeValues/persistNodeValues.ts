@@ -50,6 +50,7 @@ export const persistNodeValues = async (
       // console.log('==== UPDATED ', persistedNodes.length, 'nodes')
     } catch (error) {
       console.log('====== error ', error)
+      throw error
     } finally {
       await client.func('pg_advisory_xact_lock', [1])
     }
