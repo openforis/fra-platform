@@ -16,6 +16,7 @@ const initialState: GeoState = {
     selected: [],
     fetchedLayers: {},
     hansenPercentage: 10,
+    agreementLayerSelected: false,
     agreementLevel: 1,
   },
   mosaicUrl: '',
@@ -50,6 +51,9 @@ export const geoSlice = createSlice({
     },
     setHansenPercentage: (state, { payload }: PayloadAction<HansenPercentage>) => {
       state.forestOptions.hansenPercentage = payload
+    },
+    setAgreementLayerSelected: (state, { payload }: PayloadAction<boolean>) => {
+      state.forestOptions.agreementLayerSelected = payload
     },
     setAgreementLevel: (state, { payload }: PayloadAction<number>) => {
       state.forestOptions.agreementLevel = payload

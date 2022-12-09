@@ -2,6 +2,7 @@ export interface ForestOptions {
   selected: ForestSourceKeyAndStatus[]
   fetchedLayers: { [key: string]: string }
   hansenPercentage: HansenPercentage
+  agreementLayerSelected: boolean
   agreementLevel: number
 }
 
