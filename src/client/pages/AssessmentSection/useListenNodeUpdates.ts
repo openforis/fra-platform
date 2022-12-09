@@ -13,29 +13,23 @@ type Props = {
   countryIso: CountryIso
   assessmentName: AssessmentName
   cycleName: string
-  sectionName: string
-  canEditTableData: boolean
 }
 
-export const useListenValidationsUpdate = (props: Props): void => {
-  const { countryIso } = props
-  const { canEditTableData } = props
+export const useListenNodeUpdates = (props: Props): void => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    const nodeUpdateEvent = Sockets.getNodeValidationsUpdateEvent(props)
+    const { countryIso } = props
+    const nodeUpdateEvent = Sockets.getNodeValuesUpdateEvent(props)
 
-    const listener = (args: [{ validations: NodeUpdates }]): void => {
-      const [{ validations }] = args
-      dispatch(AssessmentSectionActions.setNodeValues({ countryIso, nodeUpdates: validations }))
+    const listener = (args: [{ nodeUpdates: NodeUpdates }]): void => {
+      const [{ nodeUpdates }] = args
+      dispatch(AssessmentSectionActions.setNodeValues({ countryIso, nodeUpdates }))
     }
 
-    if (canEditTableData) {
-      SocketClient.on(nodeUpdateEvent, listener)
-    }
-
+    SocketClient.on(nodeUpdateEvent, listener)
     return () => {
       SocketClient.off(nodeUpdateEvent, listener)
     }
-  }, [countryIso, canEditTableData, dispatch, props])
+  }, [dispatch, props])
 }

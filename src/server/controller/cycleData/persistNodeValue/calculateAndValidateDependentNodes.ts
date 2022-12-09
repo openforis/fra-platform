@@ -30,18 +30,14 @@ export const calculateAndValidateDependentNodes = async (
     cycleName: cycle.name,
   }
 
-  nodeUpdates.nodes.forEach((nodeUpdate) => {
-    const { tableName, variableName, colName, value } = nodeUpdate
-    const nodeUpdateEvent = Sockets.getNodeValueUpdateEvent({ ...propsEvent, tableName, variableName, colName })
-    SocketServer.emit(nodeUpdateEvent, { value })
-  })
+  const nodeUpdateEvent = Sockets.getNodeValuesUpdateEvent(propsEvent)
+  SocketServer.emit(nodeUpdateEvent, { nodeUpdates })
 
   // Update validations
   if (!Objects.isEmpty(validations.nodes)) {
     const nodeValidationsUpdateEvent = Sockets.getNodeValidationsUpdateEvent({ ...propsEvent, sectionName })
     SocketServer.emit(nodeValidationsUpdateEvent, {
-      ...propsEvent,
-      validations: validations.nodes,
+      validations,
     })
   }
 }
