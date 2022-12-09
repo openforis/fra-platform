@@ -13,7 +13,6 @@ type Props = {
   countryIso: CountryIso
   assessmentName: AssessmentName
   cycleName: string
-  tableName: string
 }
 
 export const useListenNodeUpdates = (props: Props): void => {

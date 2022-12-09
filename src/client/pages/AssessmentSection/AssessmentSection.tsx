@@ -11,6 +11,7 @@ import { useIsSectionDataEmpty } from '@client/store/pages/assessmentSection/hoo
 import { useCanEditDescriptions, useCanEditTableData } from '@client/store/user/hooks'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
+import { useListenNodeUpdates } from '@client/pages/AssessmentSection/DataTable/Table/Row/RowData/Cell/hooks/useListenNodeUpdates'
 import { useListenValidationsUpdate } from '@client/pages/AssessmentSection/useListenValidationsUpdate'
 
 import DataTable from './DataTable'
@@ -39,6 +40,11 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
   const { showTitle, descriptions, name: sectionName } = subSection?.props ?? {}
 
   useListenValidationsUpdate({ assessmentName, cycleName: cycle.name, sectionName, countryIso, canEditTableData })
+  useListenNodeUpdates({
+    countryIso,
+    assessmentName,
+    cycleName: cycle.name,
+  })
 
   // Hide the whole section if no tables have data
   const isSectionDataEmpty = useIsSectionDataEmpty(tableSections)

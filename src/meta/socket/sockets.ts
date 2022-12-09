@@ -55,10 +55,9 @@ const getNodeValuesUpdateEvent = (props: {
   countryIso: CountryIso
   assessmentName: string
   cycleName: string
-  tableName: string
 }): string => {
-  const { countryIso, assessmentName, cycleName, tableName } = props
-  return `${countryIso}-${assessmentName}-${cycleName}-${tableName}-nodeUpdates`
+  const { countryIso, assessmentName, cycleName } = props
+  return `${countryIso}-${assessmentName}-${cycleName}-nodeUpdates`
 }
 
 export const Sockets = {

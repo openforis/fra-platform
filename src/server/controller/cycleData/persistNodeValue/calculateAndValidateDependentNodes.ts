@@ -30,10 +30,7 @@ export const calculateAndValidateDependentNodes = async (
     cycleName: cycle.name,
   }
 
-  const nodeUpdateEvent = Sockets.getNodeValuesUpdateEvent({
-    ...propsEvent,
-    tableName: props.tableName,
-  })
+  const nodeUpdateEvent = Sockets.getNodeValuesUpdateEvent(propsEvent)
   SocketServer.emit(nodeUpdateEvent, { nodeUpdates })
 
   // Update validations

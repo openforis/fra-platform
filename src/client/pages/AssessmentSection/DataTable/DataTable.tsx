@@ -12,7 +12,6 @@ import { useCanEditTableData } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import GenerateValues from '@client/pages/AssessmentSection/DataTable/GenerateValues'
-import { useListenNodeUpdates } from '@client/pages/AssessmentSection/DataTable/Table/Row/RowData/Cell/hooks/useListenNodeUpdates'
 
 import Chart from './Chart'
 import Table from './Table'
@@ -52,13 +51,6 @@ const DataTable: React.FC<Props> = (props) => {
   // const generateValues: boolean = useSelector(
   //   (state) => odp && !disabled && Objects.isFunction(canGenerateValues) && canGenerateValues(state)
   // )
-
-  useListenNodeUpdates({
-    countryIso,
-    assessmentName,
-    cycleName: cycle.name,
-    tableName: table.props.name,
-  })
 
   useODPDeleteListener({ assessmentName, cycleName: cycle.name, countryIso })
 
