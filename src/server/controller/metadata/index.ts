@@ -3,6 +3,7 @@ import { TableSectionRepository } from '@server/repository/assessment/tableSecti
 
 import { createSection } from './createSection'
 import { createSubSection } from './createSubSection'
+import { createTable } from './createTable'
 import { createTableSection } from './createTableSection'
 import { removeSection } from './removeSection'
 import { removeTableSection } from './removeTableSection'
@@ -23,4 +24,5 @@ export const MetadataController = {
   createTableSection,
   updateTableSection,
   removeTableSection,
+  createTable,
 }
