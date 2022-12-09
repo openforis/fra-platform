@@ -34,5 +34,6 @@ export const ProcessEnv = {
   pgMaxConnections: Number(process.env.PG_MAX_CONNECTIONS ?? 20),
   pgSsl: process.env.PGSSL === 'true',
 
-  redisUrl: process.env.REDIS_URL ?? 'redis://127.0.0.1:6379',
+  // process.env.REDISCLOUD_URL -> heroku Redis Enterprise Cloud add-ons
+  redisUrl: process.env.REDISCLOUD_URL ?? process.env.REDIS_URL ?? 'redis://127.0.0.1:6379',
 }
