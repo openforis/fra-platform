@@ -15,7 +15,7 @@ import IORedis from 'ioredis'
 try {
   const connection = new IORedis(
     'redis://default:JNeyNVJRVHl6qPJKN3HMNKBCv90de53P@redis-15608.c269.eu-west-1-3.ec2.cloud.redislabs.com:15608',
-    { tls: { rejectUnauthorized: false } }
+    // { tls: { rejectUnauthorized: false } }
   )
   console.log('==== connection ', connection)
 } catch (e) {
