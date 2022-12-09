@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 
 import { CountryIso } from '@meta/area'
-import { NodeUpdate, NodeUpdates, TableData, TableDatas } from '@meta/data'
+import { NodeUpdate, NodeUpdates, TableDatas } from '@meta/data'
 
 import { getDescription } from './actions/getDescription'
 import { getOriginalDataPointData } from './actions/getOriginalDataPointData'
@@ -47,7 +47,6 @@ export const assessmentSectionSlice = createSlice({
       nodeUpdates.nodes.forEach(({ tableName, variableName, colName, value }) => {
         // If user has data for the table, update it
         if (state.data[countryIso]?.[tableName]?.[colName]) {
-          const data = (state.data ?? {}) as TableData
           TableDatas.updateDatum({ data, countryIso, tableName, variableName, colName, value })
         }
       })
