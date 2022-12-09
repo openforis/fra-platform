@@ -16,6 +16,7 @@ const initialState: GeoState = {
     selected: [],
     fetchedLayers: {},
     hansenPercentage: 10,
+    agreementLevel: 1,
   },
   mosaicUrl: '',
 }
