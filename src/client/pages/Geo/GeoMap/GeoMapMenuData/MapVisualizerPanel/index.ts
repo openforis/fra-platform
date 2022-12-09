@@ -1,1 +1,2 @@
-export { default } from './mapVisualizerPanel'
+export { layers } from './layers'
+export { default } from './MapVisualizerPanel'
