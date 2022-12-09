@@ -2,24 +2,15 @@ import './MapVisualizerAgreementLevelsControl.scss'
 import React, { useCallback, useRef } from 'react'
 
 import axios from 'axios'
+import classNames from 'classnames'
 
 import { ForestSource, Layer } from '@meta/geo'
 
 import { useForestSourceOptions } from '@client/store/ui/geo'
 import { useGeoMap } from '@client/hooks'
-import Icon from '@client/components/Icon'
 import { MapController } from '@client/utils'
 
-const boxes = [
-  { title: '1', disabled: false, checked: true },
-  { title: '2', disabled: false, checked: true },
-  { title: '3', disabled: false, checked: true },
-  { title: '4', disabled: false, checked: false },
-  { title: '5', disabled: true, checked: false },
-  { title: '6', disabled: true, checked: false },
-  { title: '7', disabled: true, checked: false },
-  { title: '8', disabled: true, checked: false },
-]
+import { layers } from '../MapVisualizerPanel'
 
 const AgreementLevelsControl: React.FC = () => {
   const map = useGeoMap()
@@ -60,23 +51,26 @@ const AgreementLevelsControl: React.FC = () => {
         </small>
       </p>
       <div className="geo-map-menu-data-visualizer-agreement-levels-boxes">
-        {boxes.map((box, i) => (
-          <button
-            type="button"
-            key={box.title}
-            className={
-              box.disabled
-                ? 'geo-map-menu-data-visualizer-agreement-levels-box disabled'
-                : 'geo-map-menu-data-visualizer-agreement-levels-box'
-            }
-            aria-disabled={box.disabled}
-            onClick={() => handleAgreementLevelSelection(i + 1)}
-          >
-            {box.disabled ? <Icon name="alert" /> : <Icon name={box.checked ? 'remove' : 'circle-add'} />}
-            <br />
-            <p>{box.title}</p>
-          </button>
-        ))}
+        {Array(layers.length)
+          .fill(undefined)
+          .map((_, i) => {
+            const level = i + 1
+            const id = `agreement-${level}`
+            const disabled = level > forestOptions.selected.length
+            return (
+              <span className={classNames('geo-map-menu-data-visualizer-agreement-level', { disabled })} key={level}>
+                <input
+                  id={id}
+                  className="geo-map-menu-data-visualizer-agreement-levels-box"
+                  type="checkbox"
+                  checked={level <= forestOptions.agreementLevel}
+                  disabled={disabled}
+                  onChange={() => handleAgreementLevelSelection(level)}
+                />
+                <label htmlFor={id}>{level}</label>
+              </span>
+            )
+          })}
       </div>
     </div>
   )
