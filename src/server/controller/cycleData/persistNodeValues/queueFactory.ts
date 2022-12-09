@@ -31,7 +31,7 @@ export const getInstance = (props: {
   queue
     .process(1, async (job) => {
       const time = new Date().getTime()
-      Logger.info(`====== processing job ${job.id}. ${job.data.nodeUpdates.nodes.length} nodes.`)
+      Logger.debug(`====== processing job ${job.id}. ${job.data.nodeUpdates.nodes.length} nodes.`)
 
       const { nodeUpdates, isODP, sectionName, user } = job.data
       const { assessment, cycle, countryIso, nodes } = nodeUpdates
@@ -57,7 +57,7 @@ export const getInstance = (props: {
         )
       })
 
-      Logger.info(`====== END processing job ${job.id} in ${(new Date().getTime() - time) / 1000} seconds.`)
+      Logger.debug(`====== END processing job ${job.id} in ${(new Date().getTime() - time) / 1000} seconds.`)
       // await job.moveToCompleted()
       return Promise.resolve()
       // done()
