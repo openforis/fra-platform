@@ -1,6 +1,26 @@
 export interface ForestOptions {
-  sources: ForestSource[]
+  selected: ForestSourceKeyAndStatus[]
+  fetchedLayers: { [key: string]: string }
+  hansenPercentage: HansenPercentage
 }
+
+export const hansenPercentages = [10, 20, 30] as const
+
+export type HansenPercentage = typeof hansenPercentages[number]
+
+export interface ForestSourceWithOptions {
+  key: ForestSource
+  options: {
+    [key: string]: string
+  }
+}
+
+export interface ForestSourceKeyAndStatus {
+  key: ForestSource
+  status: ForestSourceStatus
+}
+
+export type ForestSourceStatus = 'loading' | 'ready'
 
 export enum ForestSource {
   JAXA = 'JAXA',
