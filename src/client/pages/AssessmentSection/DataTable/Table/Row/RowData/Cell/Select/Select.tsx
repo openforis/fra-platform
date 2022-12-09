@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { i18n } from 'i18next'
@@ -7,6 +7,7 @@ import { ColSelectOption } from '@meta/assessment'
 
 import { PropsCell } from '@client/pages/AssessmentSection/DataTable/Table/Row/RowData/Cell/props'
 import { optionNotSelected } from '@client/pages/AssessmentSection/DataTable/Table/Row/RowData/Cell/Select/OptionNotSelected'
+import { DOMs } from '@client/utils/dom'
 
 const getOptionLabel = (option: ColSelectOption, i18n: i18n, labelKeyPrefix: string): string => {
   const label = i18n.t(`${labelKeyPrefix}.${option.name}`)
@@ -22,10 +23,25 @@ const Select: React.FC<PropsCell> = (props) => {
   const optionSelected = [optionNotSelected, ...options].find((option) => option.name === value)
   const { i18n } = useTranslation()
 
+  const ref = useRef(null)
+
+  useEffect(() => {
+    if (ref && disabled) {
+      const row = ref.current.closest('tr')
+      if (row) {
+        const { height } = DOMs.elementOffset(ref.current)
+        const { height: rowHeight } = DOMs.elementOffset(row)
+        row.style.height = `${Math.max(height, rowHeight, 40)}px`
+      }
+    }
+  }, [ref, disabled])
+
   if (disabled) {
     return (
       <div className="text-input__container">
-        <div className="text-input__readonly-view">{value && getOptionLabel(optionSelected, i18n, labelKeyPrefix)}</div>
+        <div className="text-input__readonly-view" ref={ref}>
+          {value && getOptionLabel(optionSelected, i18n, labelKeyPrefix)}
+        </div>
       </div>
     )
   }
