@@ -37,6 +37,7 @@
     border: 1px solid #949495;
     border-radius: 3px;
     box-shadow: 0 0 10px 2px #cbc7c7 inset;
+    cursor: pointer;
 
     &::before {
       content: '';
@@ -54,6 +55,7 @@
       background-color: #f8f7f7;
       border-color: #dedfdf;
       box-shadow: 0 0 10px 2px #efeeee inset;
+      cursor: default;
     }
   }
 
