@@ -14,11 +14,9 @@ type Props = {
   assessmentName: AssessmentName
   cycleName: string
   tableName: string
-  variableName: string
-  colName: string
 }
 
-export const useListenNodeUpdate = (props: Props): void => {
+export const useListenNodeUpdates = (props: Props): void => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
