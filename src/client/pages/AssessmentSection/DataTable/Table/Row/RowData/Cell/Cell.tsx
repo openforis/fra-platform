@@ -1,7 +1,7 @@
 import './Cell.scss'
 import React, { useCallback } from 'react'
 
-import { AssessmentName, Col, ColType, NodeValueValidations, Row, Table, TableNames } from '@meta/assessment'
+import { AssessmentName, Col, ColType, NodeValueValidations, Row, Table } from '@meta/assessment'
 import { NodeUpdate, TableData, TableDatas } from '@meta/data'
 import { Authorizer } from '@meta/user'
 
@@ -13,7 +13,6 @@ import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 
 import useClassName from './hooks/useClassName'
-import { useListenNodeUpdate } from './hooks/useListenNodeUpdate'
 import useOnChange from './hooks/useOnChange'
 import Calculated from './Calculated'
 import Number from './Number'
@@ -56,7 +55,6 @@ const Cell: React.FC<Props> = (props) => {
   const cycle = useCycle()
   const dataLocked = useIsDataLocked()
 
-  const cycleName = cycle.name
   const tableName = table.props.name
   const { variableName } = row.props
   const { colName } = col.props
@@ -67,15 +65,6 @@ const Cell: React.FC<Props> = (props) => {
 
   const className = useClassName({ col, row, tableName, valid })
   const { onChange, onChangeNodeValue, onPaste } = useOnChange({ table, col, row, nodeValue, data, sectionName })
-
-  useListenNodeUpdate({
-    countryIso,
-    assessmentName,
-    cycleName,
-    tableName: nodeValue?.odp ? TableNames.originalDataPointValue : tableName,
-    variableName,
-    colName,
-  })
 
   const Component = Components[col.props.colType]
 
