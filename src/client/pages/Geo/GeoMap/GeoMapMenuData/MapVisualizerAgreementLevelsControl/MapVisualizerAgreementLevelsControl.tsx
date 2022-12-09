@@ -50,16 +50,13 @@ const AgreementLevelsControl: React.FC = () => {
 
   return forestOptions.selected.length >= 2 ? (
     <GeoMapMenuListElement
-      title="Agreement level"
+      title="Choose the agreement level between all map layers"
       tabIndex={layers.length * -1 - 1}
       checked={forestOptions.agreementLayerSelected}
       onCheckboxClick={toggleAgreementLayer}
     >
       <div className="geo-map-menu-data-visualizer-agreement-levels-control">
         <p>
-          <strong>Choose the agreement level between all map layers</strong>
-          <br />
-          <br />
           <small>
             Agreement level &rdquo;N&rdquo; means that at least N of selected data sources need to agree that a certain
             pixel is forest area
