@@ -24,7 +24,7 @@ export const getInstance = (props: {
 
   if (queue) return queue
 
-  const worker = new Worker(key, `${__dirname}/workers/calculateAndValidateDependentNodesWorker.js`, {
+  const worker = new Worker(key, `${__dirname}/workers/updateDependenciesWorker`, {
     concurrency: 1,
     maxStalledCount: 0,
     lockDuration: 60_000,
