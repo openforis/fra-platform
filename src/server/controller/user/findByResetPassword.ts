@@ -4,7 +4,7 @@ import { BaseProtocol, DB } from '@server/db'
 import { UserRepository } from '@server/repository/public/user'
 import { UserResetPasswordRepository } from '@server/repository/public/userResetPassword'
 
-export const readByResetPassword = async (
+export const findByResetPassword = async (
   props: { resetPasswordUuid: string },
   client: BaseProtocol = DB
 ): Promise<{

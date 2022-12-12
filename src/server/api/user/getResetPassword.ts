@@ -10,7 +10,7 @@ export const getResetPassword = async (
   try {
     const { resetPasswordUuid } = req.query
 
-    const { user, userResetPassword } = await UserController.readByResetPassword({ resetPasswordUuid })
+    const { user, userResetPassword } = await UserController.findByResetPassword({ resetPasswordUuid })
 
     Requests.sendOk(res, { user, userResetPassword })
   } catch (e) {
