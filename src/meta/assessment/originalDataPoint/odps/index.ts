@@ -8,6 +8,7 @@ import {
 } from './calc'
 import { canCopyPreviousValues } from './canCopyPreviousValues'
 import { deleteNationalClass } from './deleteNationalClass'
+import { getPreviousODPYear } from './getPreviousODPYear'
 import { removeNationalClassPlaceHolder } from './removeNationalClassPlaceHolder'
 import { updateNationalClass } from './updateNationalClass'
 
@@ -22,4 +23,5 @@ export const ODPs = {
   deleteNationalClass,
   removeNationalClassPlaceHolder,
   updateNationalClass,
+  getPreviousODPYear,
 }
