@@ -53,6 +53,13 @@ const ResetPassword: React.FC = () => {
     }
   }
 
+  if (!!resetPasswordUuid && !data?.user?.email)
+    return (
+      <div className="login__form">
+        <h3>{t('login.expired')}</h3>
+      </div>
+    )
+
   return (
     <div className="login__form">
       {!resetPasswordUuid && <h3>{t('login.forgotPasswordTitle')}</h3>}

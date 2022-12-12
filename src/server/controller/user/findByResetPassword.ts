@@ -15,7 +15,7 @@ export const findByResetPassword = async (
 
   const userResetPassword = await UserResetPasswordRepository.read({ uuid: resetPasswordUuid }, client)
 
-  const user = await UserRepository.getOne({ id: userResetPassword.userId }, client)
+  const user = userResetPassword ? await UserRepository.getOne({ id: userResetPassword.userId }, client) : null
 
   return {
     user,
