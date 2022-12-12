@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react'
-// import { useAppDispatch } from '@client/store'
 import { useTranslation } from 'react-i18next'
 
 import { ODPs, OriginalDataPoint } from '@meta/assessment'
@@ -35,7 +34,7 @@ const NationalClasses: React.FC<Props> = (props) => {
   const reservedYears = useOriginalDataPointReservedYears() ?? []
   const hasPreviousYear = Boolean(ODPs.getPreviousODPYear(year, reservedYears))
   const canCopy = ODPs.canCopyPreviousValues(originalDataPoint)
-  // Copying is disabled if: nationalClass(1+) exist, odp doesnt have a year or there is no previous year
+  // Copying is disabled if: nationalClass(1+) exist, odp doesn't have a year or there is no previous year
   const copyDisabled = !canCopy || !year || year === -1 || originalDataPointUpdating || !hasPreviousYear
 
   const onCopyClick = useCallback(() => {
