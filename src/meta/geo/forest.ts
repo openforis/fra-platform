@@ -110,7 +110,7 @@ export const sourcesMetadata = {
 }
 
 export const agreementPalette = [
-  '#baecba', // light shade of green
+  '#FFC0CB', // pink
   '#FF0000', // red
   '#FF8000', // shade of brown
   '#FFFF00', // yellow
