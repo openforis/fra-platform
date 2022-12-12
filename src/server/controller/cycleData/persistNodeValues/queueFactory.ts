@@ -1,9 +1,13 @@
+import { Objects } from '@utils/objects'
 import { Queue, Worker } from 'bullmq'
 import IORedis from 'ioredis'
 
 import { CountryIso } from '@meta/area'
 import { Assessment, Cycle } from '@meta/assessment'
+import { NodeUpdates } from '@meta/data'
+import { Sockets } from '@meta/socket'
 
+import { SocketServer } from '@server/service/socket'
 import { ProcessEnv } from '@server/utils'
 import { Logger } from '@server/utils/logger'
 
@@ -30,9 +34,32 @@ export const getInstance = (props: {
     lockDuration: 60_000,
     connection: new IORedis(ProcessEnv.redisUrl),
   })
-  worker.on('completed', (job, result, prev) => {
-    // TODO pass nodeUpdates to websocket
-    Logger.debug(`[calculateAndValidateDependentNodesWorker] job completed ${job}, ${result}, ${prev}`)
+  worker.on('completed', (_, result: Array<{ nodeUpdates: NodeUpdates; validations: NodeUpdates }>) => {
+    const { assessment, cycle, countryIso } = result[0].nodeUpdates
+    const { nodeUpdates, validations } = result.reduce<{ nodeUpdates: NodeUpdates; validations: NodeUpdates }>(
+      (acc, item) => {
+        acc.nodeUpdates.nodes.push(...item.nodeUpdates.nodes)
+        acc.validations.nodes.push(...item.validations.nodes)
+        return acc
+      },
+      {
+        nodeUpdates: { assessment, cycle, countryIso, nodes: [] },
+        validations: { assessment, cycle, countryIso, nodes: [] },
+      }
+    )
+
+    const propsEvent = { countryIso, assessmentName: assessment.props.name, cycleName: cycle.name }
+    const nodeUpdateEvent = Sockets.getNodeValuesUpdateEvent(propsEvent)
+    SocketServer.emit(nodeUpdateEvent, { nodeUpdates })
+
+    // Update validations
+    if (!Objects.isEmpty(validations.nodes)) {
+      const nodeValidationsUpdateEvent = Sockets.getNodeValidationsUpdateEvent(propsEvent)
+      SocketServer.emit(nodeValidationsUpdateEvent, { validations })
+    }
+    Logger.debug(
+      `[calculateAndValidateDependentNodesWorker] job completed ${nodeUpdates.nodes.length} nodes updated,  ${validations.nodes.length} nodes updated`
+    )
   })
   worker.on('error', (error) => {
     Logger.error(`[calculateAndValidateDependentNodesWorker] job error ${error}`)
@@ -44,6 +71,12 @@ export const getInstance = (props: {
 
   return queue
 }
+
+process.on('SIGTERM', async () => {
+  await Promise.all(Object.values(workers).map((worker) => worker.close()))
+
+  Logger.debug('[calculateAndValidateDependentNodesWorkers] all workers closed')
+})
 
 export const QueueFactory = {
   getInstance,
