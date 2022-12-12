@@ -1,10 +1,10 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
 
+// import { useTranslation } from 'react-i18next'
+// import { Link } from 'react-router-dom'
 import classNames from 'classnames'
 
-import { ClientRoutes } from '@meta/app'
+// import { ClientRoutes } from '@meta/app'
 import { RoleName, User, UserStatus } from '@meta/user'
 
 import { useFilteredRoleNames } from '@client/store/ui/userManagement'
@@ -15,9 +15,11 @@ import UserRolesField from '../UserRolesField'
 const AdministrationListElement: React.FC<{ user: User }> = ({ user }) => {
   const filteredRoleNames = useFilteredRoleNames()
 
-  const { t } = useTranslation()
+  // const { t } = useTranslation()
 
-  const { id, status } = user
+  // const { id, status } = user
+
+  const { status } = user
 
   return (
     <tr
@@ -31,9 +33,9 @@ const AdministrationListElement: React.FC<{ user: User }> = ({ user }) => {
       ))}
       <UserField user={user} field="email" />
       <td className="user-list__cell user-list__edit-column">
-        <Link to={ClientRoutes.Admin.User.getLink({ id })} type="button" className="link">
+        {/* <Link to={ClientRoutes.Admin.User.getLink({ id })} type="button" className="link">
           {t('userManagement.edit')}
-        </Link>
+        </Link> */}
       </td>
     </tr>
   )
