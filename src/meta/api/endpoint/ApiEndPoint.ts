@@ -24,6 +24,10 @@ export const ApiEndPoint = {
     resetPassword: () => joinPaths('auth', 'local', 'reset-password'),
   },
 
+  BiomassStock: {
+    download: () => apiPath('biomassStock', 'download'),
+  },
+
   CycleData: {
     descriptions: () => apiPath('cycle-data', 'descriptions'),
     activities: () => apiPath('cycle-data', 'activities'),

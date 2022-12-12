@@ -12,7 +12,7 @@ const getDownloadPath = (countryIso: string, selectedDomain: string, language: s
 
 const ExcelCalculatorDownload: React.FC = () => {
   const countryIso = useCountryIso()
-  const { i18n } = useTranslation()
+  const { i18n, t } = useTranslation()
   const userInfo = useUser()
   const countryDomain = 'climaticDomain' // TODO useSelector(CountryState.getConfigDomain) as string
   const [selectedDomain, setSelectedDomain] = useState<string>(countryDomain)
@@ -28,14 +28,14 @@ const ExcelCalculatorDownload: React.FC = () => {
         <select className="select-s" value={selectedDomain} onChange={(e) => setSelectedDomain(e.target.value)}>
           {domains.map((domain) => (
             <option value={domain} key={domain}>
-              {i18n.t<string>(`climaticDomain.${domain}`)}
-              {domain === countryDomain && ` (${i18n.t<string>('climaticDomain.selectDefault')})`}
+              {t(`climaticDomain.${domain}`)}
+              {domain === countryDomain && ` (${t('climaticDomain.selectDefault')})`}
             </option>
           ))}
         </select>
       )}
       <a className="btn-s btn-primary" href={calculatorFilePath}>
-        {i18n.t<string>('biomassStock.downloadExcel')}
+        {t('biomassStock.downloadExcel')}
       </a>
     </div>
   )

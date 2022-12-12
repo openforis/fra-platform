@@ -5,6 +5,7 @@ import { ExtDataApi } from '@server/api/extData'
 import { AdminApi } from './admin'
 import { AreaApi } from './area'
 import { AuthApi } from './auth'
+import { BiomassStockApi } from './biomassStock'
 import { CycleDataApi } from './cycleData'
 import { DefinitionApi } from './definitions'
 import { FileApi } from './file'
@@ -22,7 +23,7 @@ import { UserApi } from './user'
 export const Api = {
   init: (express: Express): void => {
     AuthApi.init(express)
-
+    BiomassStockApi.init(express)
     InitApi.init(express)
     AdminApi.init(express)
     AreaApi.init(express)
