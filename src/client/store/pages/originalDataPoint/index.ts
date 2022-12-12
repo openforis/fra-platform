@@ -1,3 +1,3 @@
-export type { OriginalDataPointState } from './stateType'
+export { useIsOriginalDataPointUpdating, useOriginalDataPoint, useOriginalDataPointReservedYears } from './hooks'
 export { OriginalDataPointActions } from './slice'
-export { useOriginalDataPoint, useIsOriginalDataPointUpdating } from './hooks'
+export type { OriginalDataPointState } from './stateType'
