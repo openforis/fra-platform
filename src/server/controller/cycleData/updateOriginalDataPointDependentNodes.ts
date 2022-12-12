@@ -50,7 +50,7 @@ export const updateOriginalDataPointDependentNodes = async (
     const data = await getTableData(
       {
         aggregate: false,
-        columns: [colName],
+        columns: [],
         mergeOdp: true,
         tableNames: [TableNames.extentOfForest, TableNames.forestCharacteristics],
         variables: [],
@@ -65,11 +65,30 @@ export const updateOriginalDataPointDependentNodes = async (
     const assessmentName = assessment.props.name
     const cycleName = cycle.name
     const tableNameTarget = TableNames.originalDataPointValue
-    originalDataPointVariables.forEach(({ variableName, tableName }) => {
-      const value = TableDatas.getNodeValue({ colName, variableName, tableName, countryIso, data })
-      const propsEvent = { countryIso, assessmentName, cycleName, tableName: tableNameTarget, variableName, colName }
-      const nodeUpdateEvent = Sockets.getNodeValueUpdateEvent(propsEvent)
-      SocketServer.emit(nodeUpdateEvent, { value })
-    })
+
+    const propsEvent = { countryIso, assessmentName, cycleName, tableName: tableNameTarget, colName }
+    const nodeUpdateEvent = Sockets.getNodeValuesUpdateEvent(propsEvent)
+
+    const nodeUpdates: NodeUpdates = {
+      assessment,
+      cycle,
+      countryIso,
+      nodes: originalDataPointVariables.map(({ variableName, tableName }) => {
+        return {
+          value: TableDatas.getNodeValue({
+            colName,
+            variableName,
+            tableName,
+            countryIso,
+            data,
+          }),
+          colName,
+          tableName: TableNames.originalDataPointValue,
+          variableName,
+        }
+      }),
+    }
+
+    SocketServer.emit(nodeUpdateEvent, { nodeUpdates })
   }
 }
