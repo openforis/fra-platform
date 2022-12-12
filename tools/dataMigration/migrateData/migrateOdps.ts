@@ -1,5 +1,5 @@
-import { ITask } from 'pg-promise'
 import * as pgPromise from 'pg-promise'
+import { ITask } from 'pg-promise'
 
 import { Assessment } from '../../../src/meta/assessment/assessment'
 import { getCreateSchemaCycleOriginalDataPointViewDDL } from '../../../src/server/repository/assessment/assessment/getCreateSchemaDDL'
@@ -31,7 +31,8 @@ export const migrateOdps = async (props: { assessment: Assessment }, client: ITa
              description,
              national_classes,
              id_legacy
-      from _legacy.original_data_point;
+      from _legacy.original_data_point
+      where year is not null;
       select setval('${schemaCycle}.original_data_point_id_seq', (select max(id) from _legacy.original_data_point), true);
 
       ${getCreateSchemaCycleOriginalDataPointViewDDL(schemaCycle)}

@@ -35,6 +35,16 @@ const OriginalDataPoint: React.FC = () => {
   const canEditData = useCanEditTableData(TableNames.extentOfForest)
 
   useEffect(() => {
+    dispatch(
+      OriginalDataPointActions.getOriginalDataPointReservedYears({
+        countryIso,
+        assessmentName,
+        cycleName,
+      })
+    )
+  }, [assessmentName, countryIso, cycleName, dispatch, originalDataPoint?.year])
+
+  useEffect(() => {
     if (year !== '-1') {
       dispatch(
         OriginalDataPointActions.getOriginalDataPoint({
@@ -48,7 +58,7 @@ const OriginalDataPoint: React.FC = () => {
     return () => {
       dispatch(OriginalDataPointActions.reset())
     }
-  }, [])
+  }, [assessmentName, countryIso, cycleName, dispatch, year])
 
   useEffect(() => {
     if (user) {
