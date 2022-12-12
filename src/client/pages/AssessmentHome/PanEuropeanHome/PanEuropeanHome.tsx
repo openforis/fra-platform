@@ -1,15 +1,46 @@
 import './PanEuropeanHome.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { NavLink } from 'react-router-dom'
+
+import classNames from 'classnames'
+
+import { Areas } from '@meta/area'
+
+import { useCountryIso } from '@client/hooks'
+
+import { useSections } from '../FraHome/hooks/useSections'
 
 const PanEuropeanHome = () => {
   const {
     t,
+    i18n,
     i18n: { language },
   } = useTranslation()
+  const sections = useSections()
+  const countryIso = useCountryIso()
+
+  const displayTabs = sections.length > 1 && Areas.isISOCountry(countryIso)
 
   return (
     <div className="pan-eu-home">
+      {displayTabs && (
+        <div className="landing__page-menu">
+          {sections.map(({ name }) => (
+            <NavLink
+              key={name}
+              to={name}
+              className={(navData) =>
+                classNames('btn landing__page-menu-button', {
+                  disabled: navData.isActive,
+                })
+              }
+            >
+              {i18n.t<string>(`landing.sections.${name}`)}
+            </NavLink>
+          ))}
+        </div>
+      )}
       <p>{t('panEuropean.home.description1')}</p>
       <p>
         {t('panEuropean.home.description2')}{' '}
