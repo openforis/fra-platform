@@ -1,41 +1,50 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from '@utils/objects'
+import { ApiEndPoint } from '@meta/api/endpoint'
+import { Authorizer } from '@meta/user'
 
+import { useAssessment, useAssessmentSection, useCountry, useCycle } from '@client/store/assessment'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 
-const domains: Array<string> = ['boreal', 'temperate', 'subtropical', 'tropical']
-const getDownloadPath = (countryIso: string, selectedDomain: string, language: string): string =>
-  `/api/biomassStock/${countryIso}/${selectedDomain}/${language}/download`
+const domains: Array<string> = ['boreal', 'temperate', 'tropical', 'subtropical']
 
 const ExcelCalculatorDownload: React.FC = () => {
+  const assessment = useAssessment()
   const countryIso = useCountryIso()
-  const { i18n } = useTranslation()
-  const userInfo = useUser()
-  const countryDomain = 'climaticDomain' // TODO useSelector(CountryState.getConfigDomain) as string
-  const [selectedDomain, setSelectedDomain] = useState<string>(countryDomain)
-  const calculatorFilePath = getDownloadPath(countryIso, selectedDomain, i18n.language)
+  const cycle = useCycle()
+  const section = useAssessmentSection()
+  const country = useCountry(countryIso)
 
-  if (!userInfo) {
-    return null
-  }
+  const { i18n, t } = useTranslation()
+  const userInfo = useUser()
+  const countryDomain = country?.props?.domain
+
+  const [selectedDomain, setSelectedDomain] = useState<string>(
+    domains.includes(countryDomain) ? countryDomain : 'boreal'
+  )
+
+  const calculatorFilePath = `${ApiEndPoint.File.biomassStock()}?assessmentName=${
+    assessment?.props?.name
+  }&countryIso=${countryIso}&cycleName=${cycle?.name}&sectionName=${section?.props?.name}&language=${
+    i18n.language
+  }&selectedDomain=${selectedDomain}`
+
+  if (!Authorizer.canEdit({ user: userInfo, countryIso, cycle, country, section })) return null
 
   return (
     <div className="no-print">
-      {!Objects.isEmpty(countryDomain) && (
-        <select className="select-s" value={selectedDomain} onChange={(e) => setSelectedDomain(e.target.value)}>
-          {domains.map((domain) => (
-            <option value={domain} key={domain}>
-              {i18n.t<string>(`climaticDomain.${domain}`)}
-              {domain === countryDomain && ` (${i18n.t<string>('climaticDomain.selectDefault')})`}
-            </option>
-          ))}
-        </select>
-      )}
+      <select className="select-s" value={selectedDomain} onChange={(e) => setSelectedDomain(e.target.value)}>
+        {domains.map((domain) => (
+          <option value={domain} key={domain}>
+            {t(`climaticDomain.${domain}`)}
+            {domain === countryDomain && ` (${t('climaticDomain.selectDefault')})`}
+          </option>
+        ))}
+      </select>
       <a className="btn-s btn-primary" href={calculatorFilePath}>
-        {i18n.t<string>('biomassStock.downloadExcel')}
+        {t('biomassStock.downloadExcel')}
       </a>
     </div>
   )
