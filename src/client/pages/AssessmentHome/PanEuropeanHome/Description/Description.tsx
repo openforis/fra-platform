@@ -7,7 +7,7 @@ const Description: React.FC = () => {
     i18n: { language },
   } = useTranslation()
   return (
-    <>
+    <div className="pan-eu-home">
       <p>{t('panEuropean.home.description1')}</p>
       <p>
         {t('panEuropean.home.description2')}{' '}
@@ -62,7 +62,7 @@ const Description: React.FC = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

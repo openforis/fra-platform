@@ -21,7 +21,7 @@ const PanEuropeanHome = () => {
   const displayTabs = sections.length > 1 && Areas.isISOCountry(countryIso)
 
   return (
-    <div className="pan-eu-home">
+    <>
       {displayTabs && (
         <div className="landing__page-menu">
           {sections.map(({ name }) => (
@@ -48,7 +48,7 @@ const PanEuropeanHome = () => {
 
         <Route path="*" element={<Navigate to={AssessmentHomeRouteNames.overview} />} />
       </Routes>
-    </div>
+    </>
   )
 }
 export default PanEuropeanHome
