@@ -56,6 +56,7 @@ export const ApiEndPoint = {
   },
 
   File: {
+    biomassStock: () => apiPath('file', 'biomass-stock'),
     dashboard: () => apiPath('file', 'dashboard'),
     dataDownload: () => apiPath('file', 'data-download'),
     bulkDownload: () => apiPath('file', 'bulk-download'),
