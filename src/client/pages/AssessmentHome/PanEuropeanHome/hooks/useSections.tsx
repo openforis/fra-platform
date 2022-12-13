@@ -20,7 +20,7 @@ type Section = {
 }
 
 const Placeholder: React.FC = () => {
-  return <div>Home section Placeholder</div>
+  return <div />
 }
 
 export const useSections = (): Array<Section> => {
