@@ -24,10 +24,6 @@ export const ApiEndPoint = {
     resetPassword: () => joinPaths('auth', 'local', 'reset-password'),
   },
 
-  BiomassStock: {
-    download: () => apiPath('biomassStock', 'download'),
-  },
-
   CycleData: {
     descriptions: () => apiPath('cycle-data', 'descriptions'),
     activities: () => apiPath('cycle-data', 'activities'),
@@ -60,6 +56,7 @@ export const ApiEndPoint = {
   },
 
   File: {
+    biomassStock: () => apiPath('file', 'biomass-stock'),
     dashboard: () => apiPath('file', 'dashboard'),
     dataDownload: () => apiPath('file', 'data-download'),
     bulkDownload: () => apiPath('file', 'bulk-download'),

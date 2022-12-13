@@ -9,7 +9,7 @@ import { Requests } from '@server/utils'
 const fileName = 'calculator'
 const availableLanguages = ['en', 'fr', 'es', 'ru']
 
-export const biomassStockDownload = async (req: CycleRequest<{ invitationUuid: string }>, res: Response) => {
+export const getBiomassStockFile = async (req: CycleRequest<{ invitationUuid: string }>, res: Response) => {
   try {
     const countryDomain = req.params.domain
     if (Objects.isEmpty(countryDomain)) {
