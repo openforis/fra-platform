@@ -9,7 +9,7 @@ import { TableData } from '@meta/data'
 
 import FieldsOption from './FieldsOption'
 import { Method } from './method'
-import useGenerateValues from './useGenerateValules'
+import useGenerateValues from './useGenerateValues'
 
 type Props = {
   assessmentName: AssessmentName
