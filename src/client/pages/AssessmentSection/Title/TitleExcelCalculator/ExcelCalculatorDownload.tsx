@@ -9,7 +9,7 @@ import { useCountry } from '@client/store/assessment'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 
-const domains: Array<string> = ['boreal', 'temperate', 'subtropical', 'tropical']
+const domains: Array<string> = ['boreal', 'temperate', 'tropical', 'subtropical']
 
 const getDownloadPath = (countryIso: string, language: string, selectedDomain: string): string =>
   `${ApiEndPoint.File.biomassStock()}?countryIso=${countryIso}&language=${language}&selectedDomain=${selectedDomain}`
@@ -18,7 +18,7 @@ const ExcelCalculatorDownload: React.FC = () => {
   const countryIso = useCountryIso()
   const { i18n, t } = useTranslation()
   const userInfo = useUser()
-  const countryDomain = useCountry(countryIso)?.props?.domain ?? 'tropical'
+  const countryDomain = useCountry(countryIso)?.props?.domain ?? 'boreal'
   const [selectedDomain, setSelectedDomain] = useState<string>(countryDomain)
   const calculatorFilePath = getDownloadPath(countryIso, i18n.language, selectedDomain)
 
@@ -27,7 +27,12 @@ const ExcelCalculatorDownload: React.FC = () => {
   return (
     <div className="no-print">
       {!Objects.isEmpty(countryDomain) && (
-        <select className="select-s" value={selectedDomain} onChange={(e) => setSelectedDomain(e.target.value)}>
+        <select
+          className="select-s"
+          defaultValue={countryDomain}
+          value={selectedDomain}
+          onChange={(e) => setSelectedDomain(e.target.value)}
+        >
           {domains.map((domain) => (
             <option value={domain} key={domain}>
               {t(`climaticDomain.${domain}`)}
