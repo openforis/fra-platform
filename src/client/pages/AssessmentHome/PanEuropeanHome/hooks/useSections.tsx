@@ -8,6 +8,8 @@ import { useCountryIso } from '@client/hooks'
 import Collaborators from '@client/pages/AssessmentHome/FraHome/Collaborators'
 import RecentActivity from '@client/pages/AssessmentHome/FraHome/RecentActivity'
 
+import Description from '../Description'
+
 enum SectionNames {
   overview = 'overview',
   userManagement = 'userManagement',
@@ -19,16 +21,12 @@ type Section = {
   component: React.FC
 }
 
-const Placeholder: React.FC = () => {
-  return <div />
-}
-
 export const useSections = (): Array<Section> => {
   const user = useUser()
   const countryIso = useCountryIso()
   const cycle = useCycle()
 
-  const sections: Array<Section> = [{ name: SectionNames.overview, component: Placeholder }]
+  const sections: Array<Section> = [{ name: SectionNames.overview, component: Description }]
 
   if (user) {
     sections.push({ name: SectionNames.recentActivity, component: RecentActivity })
