@@ -1,14 +1,17 @@
 import './PanEuropeanHome.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { NavLink } from 'react-router-dom'
+import { Navigate, NavLink, Route, Routes } from 'react-router-dom'
 
 import classNames from 'classnames'
 
+import { AssessmentHomeRouteNames, ClientRoutes } from '@meta/app'
 import { Areas } from '@meta/area'
 
 import { useCountryIso } from '@client/hooks'
+import User from '@client/pages/User'
 
+// eslint-disable-next-line import/no-unresolved
 import { useSections } from './hooks/useSections'
 
 const PanEuropeanHome = () => {
@@ -41,6 +44,15 @@ const PanEuropeanHome = () => {
           ))}
         </div>
       )}
+      <Routes>
+        {sections.map(({ name, component }) => (
+          <Route key={name} path={name} element={React.createElement(component, {})} />
+        ))}
+
+        <Route path={ClientRoutes.Assessment.Home.Users.User.path.relative} element={<User />} />
+
+        <Route path="*" element={<Navigate to={AssessmentHomeRouteNames.overview} />} />
+      </Routes>
       <p>{t('panEuropean.home.description1')}</p>
       <p>
         {t('panEuropean.home.description2')}{' '}
