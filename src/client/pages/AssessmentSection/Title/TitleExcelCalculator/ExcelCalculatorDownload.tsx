@@ -24,10 +24,9 @@ const ExcelCalculatorDownload: React.FC = () => {
     domains.includes(countryDomain) ? countryDomain : 'boreal'
   )
 
-  const calculatorFilePath = `${ApiEndPoint.File.biomassStock()}?
-  }&countryIso=${countryIso}&cycleName=${cycle?.name}&sectionName=${section?.props?.name}language=${
-    i18n.language
-  }&selectedDomain=${selectedDomain}`
+  const calculatorFilePath = `${ApiEndPoint.File.biomassStock()}?countryIso=${countryIso}&cycleName=${
+    cycle?.name
+  }&sectionName=${section?.props?.name}language=${i18n.language}&selectedDomain=${selectedDomain}`
 
   if (!Authorizer.canEdit({ user: userInfo, countryIso, cycle, country, section })) return null
 
