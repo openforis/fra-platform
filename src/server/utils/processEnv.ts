@@ -36,7 +36,7 @@ export const ProcessEnv = {
   // Mail variables - fallback to FRA_* for local
   mail: {
     host: process.env.MAILGUN_SMTP_SERVER ?? process.env.FRA_MAIL_HOST,
-    port: Number(process.env.MAILGUN_SMTP_PORT) ?? Number(process.env.FRA_MAIL_PORT),
+    port: Number(process.env.MAILGUN_SMTP_PORT ?? process.env.FRA_MAIL_PORT),
     secure: process.env.FRA_MAIL_SECURE === 'true',
     auth: {
       user: process.env.MAILGUN_SMTP_LOGIN ?? process.env.FRA_MAIL_USER,
