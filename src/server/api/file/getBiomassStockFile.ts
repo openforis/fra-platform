@@ -9,7 +9,6 @@ export const getBiomassStockFile = async (
 ) => {
   try {
     const { language, selectedDomain: domain } = req.query
-
     FileRepository.download(res, fileTypes.biomassStock(domain), language)
   } catch (err) {
     Requests.sendErr(res, err)
