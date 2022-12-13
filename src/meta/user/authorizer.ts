@@ -25,7 +25,7 @@ const canView = (props: { countryIso: CountryIso; assessment: Assessment; cycle:
     return role.countryIso === countryIso && role.cycleUuid === cycle.uuid
   })
 
-  return userHasRoleForCountryInCycle
+  return !!userHasRoleForCountryInCycle
 }
 
 /**

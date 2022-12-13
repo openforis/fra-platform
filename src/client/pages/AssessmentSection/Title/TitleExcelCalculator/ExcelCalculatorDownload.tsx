@@ -2,26 +2,34 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
+import { Authorizer } from '@meta/user'
 
-import { useCountry } from '@client/store/assessment'
+import { useAssessmentSection, useCountry, useCycle } from '@client/store/assessment'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 
 const domains: Array<string> = ['boreal', 'temperate', 'tropical', 'subtropical']
 
-const getDownloadPath = (language: string, selectedDomain: string): string =>
-  `${ApiEndPoint.File.biomassStock()}?&language=${language}&selectedDomain=${selectedDomain}`
-
 const ExcelCalculatorDownload: React.FC = () => {
+  const section = useAssessmentSection()
+
   const countryIso = useCountryIso()
+  const country = useCountry(countryIso)
+  const cycle = useCycle()
   const { i18n, t } = useTranslation()
   const userInfo = useUser()
-  const countryDomain = useCountry(countryIso)?.props?.domain ?? 'boreal'
+  const countryDomain = country?.props?.domain
 
-  const [selectedDomain, setSelectedDomain] = useState<string>(countryDomain)
-  const calculatorFilePath = getDownloadPath(i18n.language, selectedDomain)
+  const [selectedDomain, setSelectedDomain] = useState<string>(
+    domains.includes(countryDomain) ? countryDomain : 'boreal'
+  )
 
-  if (!userInfo) return null
+  const calculatorFilePath = `${ApiEndPoint.File.biomassStock()}?
+  }&countryIso=${countryIso}&cycleName=${cycle?.name}&sectionName=${section?.props?.name}language=${
+    i18n.language
+  }&selectedDomain=${selectedDomain}`
+
+  if (!Authorizer.canEdit({ user: userInfo, countryIso, cycle, country, section })) return null
 
   return (
     <div className="no-print">

@@ -24,7 +24,7 @@ export const FileApi = {
     express.get(ApiEndPoint.File.userGuide(), getUserGuideFile)
 
     // BiomassStock
-    express.get(ApiEndPoint.File.biomassStock(), getBiomassStockFile)
+    express.get(ApiEndPoint.File.biomassStock(), AuthMiddleware.requireEditTableData, getBiomassStockFile)
 
     // Files
     express.put(
