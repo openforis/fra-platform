@@ -87,6 +87,8 @@ export const ApiEndPoint = {
     invitationAccept: () => apiPath('users', 'invitation', 'accept'),
     invitationSendEmail: () => apiPath('users', 'invitation', 'send-email'),
 
+    resetPassword: () => apiPath('users', 'reset-password'),
+
     profilePicture: (id = ':id') => apiPath('users', 'profile-picture', id),
     roles: () => apiPath('users', 'roles'),
     sectionAuth: () => apiPath('users', 'section-auth'),

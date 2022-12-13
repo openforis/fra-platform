@@ -82,7 +82,7 @@ export default (): void =>
     })
 
     it('User accept invitation as National Correspondant', async () => {
-      const { user } = await UserController.readByInvitation({ invitationUuid: userRole.invitationUuid })
+      const { user } = await UserController.findByInvitation({ invitationUuid: userRole.invitationUuid })
 
       // UserA accept invitation National Correspondant to AFG
       // verify user status is active and he is collaborator of ALB and National Correspondant of AFG

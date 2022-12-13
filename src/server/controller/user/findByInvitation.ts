@@ -7,7 +7,7 @@ import { UserRepository } from '@server/repository/public/user'
 import { UserProviderRepository } from '@server/repository/public/userProvider'
 import { UserRoleRepository } from '@server/repository/public/userRole'
 
-export const readByInvitation = async (
+export const findByInvitation = async (
   props: { invitationUuid: string },
   client: BaseProtocol = DB
 ): Promise<{

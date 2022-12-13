@@ -26,7 +26,7 @@ const googleStrategyVerifyCallback = async (
     const invitationUuid = req.query.state as string
 
     if (invitationUuid) {
-      const { user: invitedUser, userRole } = await UserController.readByInvitation({ invitationUuid })
+      const { user: invitedUser, userRole } = await UserController.findByInvitation({ invitationUuid })
 
       let userProvider = (await UserProviderController.read({
         user: invitedUser,
