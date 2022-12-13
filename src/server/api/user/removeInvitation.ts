@@ -10,7 +10,7 @@ export const removeInvitation = async (req: CycleRequest<{ invitationUuid: strin
   try {
     const { countryIso, invitationUuid } = req.query
 
-    const { assessment, userRole } = await UserController.readByInvitation({ invitationUuid })
+    const { assessment, userRole } = await UserController.findByInvitation({ invitationUuid })
 
     const { cycle } = await AssessmentController.getOneWithCycle({
       assessmentName: assessment.props.name,
