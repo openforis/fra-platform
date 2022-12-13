@@ -9,7 +9,7 @@ import { Areas } from '@meta/area'
 
 import { useCountryIso } from '@client/hooks'
 
-import { useSections } from '../FraHome/hooks/useSections'
+import { useSections } from './hooks/useSections'
 
 const PanEuropeanHome = () => {
   const {
