@@ -11,7 +11,6 @@ import { Areas } from '@meta/area'
 import { useCountryIso } from '@client/hooks'
 import User from '@client/pages/User'
 
-// eslint-disable-next-line import/no-unresolved
 import { useSections } from './hooks/useSections'
 
 const PanEuropeanHome = () => {
