@@ -32,4 +32,15 @@ export const ProcessEnv = {
   pgPort: Number(pgPort),
   pgDatabase,
   pgSsl: process.env.PGSSL === 'true',
+
+  // Mail variables - fallback to FRA_* for local
+  mail: {
+    host: process.env.MAILGUN_SMTP_SERVER ?? process.env.FRA_MAIL_HOST,
+    port: Number(process.env.MAILGUN_SMTP_PORT) ?? Number(process.env.FRA_MAIL_PORT),
+    secure: process.env.FRA_MAIL_SECURE === 'true',
+    auth: {
+      user: process.env.MAILGUN_SMTP_LOGIN ?? process.env.FRA_MAIL_USER,
+      pass: process.env.MAILGUN_SMTP_PASSWORD ?? process.env.FRA_MAIL_PASSWORD,
+    },
+  },
 }

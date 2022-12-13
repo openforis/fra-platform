@@ -7,12 +7,12 @@ import { resetPassword } from './resetPassword'
 import { userInvite } from './userInvite'
 
 const mailTransport = nodemailer.createTransport({
-  host: process.env.FRA_MAIL_HOST,
-  port: Number(process.env.FRA_MAIL_PORT),
-  secure: process.env.FRA_MAIL_SECURE === 'true',
+  host: ProcessEnv.mail.host,
+  port: ProcessEnv.mail.port,
+  secure: ProcessEnv.mail.secure,
   auth: {
-    user: process.env.FRA_MAIL_USER,
-    pass: process.env.FRA_MAIL_PASSWORD,
+    user: ProcessEnv.mail.auth.user,
+    pass: ProcessEnv.mail.auth.pass,
   },
 })
 
