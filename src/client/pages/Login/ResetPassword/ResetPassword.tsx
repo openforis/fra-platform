@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
-import { Objects } from '@utils/objects'
+import { ApiEndPoint } from '@meta/api/endpoint'
 
 import { useAppDispatch } from '@client/store'
 import { LoginActions } from '@client/store/login'
+import { useGetRequest } from '@client/hooks'
 import { isError, LoginValidator } from '@client/pages/Login/utils/LoginValidator'
 import { Urls } from '@client/utils'
 
@@ -15,12 +16,24 @@ const ResetPassword: React.FC = () => {
   const navigate = useNavigate()
 
   const resetPasswordUuid = Urls.getRequestParam('resetPasswordUuid')
-  const paramEmail = Urls.getRequestParam('email')
 
-  const [email, setEmail] = useState<string>(paramEmail || '')
+  const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [password2, setPassword2] = useState<string>('')
   const [errors, setErrors] = useState<Record<string, string>>({})
+
+  const { data, dispatch: fetchData } = useGetRequest(ApiEndPoint.User.resetPassword(), {
+    params: { resetPasswordUuid },
+  })
+
+  useEffect(() => {
+    if (resetPasswordUuid) fetchData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resetPasswordUuid])
+
+  useEffect(() => {
+    if (data?.user?.email) setEmail(data.user.email)
+  }, [data])
 
   const onResetPassword = async () => {
     const fieldErrors = LoginValidator.resetPasswordValidate(email)
@@ -40,15 +53,22 @@ const ResetPassword: React.FC = () => {
     }
   }
 
+  if (!!resetPasswordUuid && !data?.user?.email)
+    return (
+      <div className="login__form">
+        <h3>{t('login.expired')}</h3>
+      </div>
+    )
+
   return (
     <div className="login__form">
-      <h3>{t('login.forgotPasswordTitle')}</h3>
+      {!resetPasswordUuid && <h3>{t('login.forgotPasswordTitle')}</h3>}
 
       <input
         onFocus={() => setErrors({ ...errors, email: null })}
         name="email"
+        disabled={!!resetPasswordUuid}
         value={email}
-        disabled={!Objects.isEmpty(paramEmail)}
         type="text"
         placeholder={t('login.email')}
         onChange={(event) => setEmail(event.target.value)}
