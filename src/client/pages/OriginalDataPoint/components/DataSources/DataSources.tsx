@@ -44,7 +44,6 @@ const DataSources: React.FC<Props> = (props) => {
   }
 
   const isDisabled = print || !canEditData || !originalDataPoint.year
-
   return (
     <div className="odp__section">
       {!print && <h3 className="subhead">{i18n.t('nationalDataPoint.dataSources')}</h3>}
@@ -92,7 +91,7 @@ const DataSources: React.FC<Props> = (props) => {
                     disabled={isDisabled}
                     i18n={i18n}
                     localizationPrefix="nationalDataPoint.dataSourceMethodsOptions"
-                    values={originalDataPoint.dataSourceMethods}
+                    values={originalDataPoint.dataSourceMethods ?? []}
                     options={Object.values(ODPDataSourceMethod)}
                     onChange={(values: Array<ODPDataSourceMethod>) => {
                       const originalDataPointUpdate = { ...originalDataPoint, dataSourceMethods: values }
