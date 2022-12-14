@@ -100,7 +100,7 @@ const CountryRoles: React.FC<{ user: User }> = ({ user }) => {
           const userRoles = user?.roles
           if (!userRoles) return null
           // role section is available to administrators or if user has at least one role and it's not administrator
-          const hasCurrentRole = userRoles?.some(({ role: _role }: UserRole<RoleName>) => _role === role)
+          const hasCurrentRole = userRoles.some(({ role: _role }: UserRole<RoleName>) => _role === role)
           const shouldShow = !Users.isAdministrator(user) && (Users.isAdministrator(userInfo) || hasCurrentRole)
           if (!shouldShow) return null
 
