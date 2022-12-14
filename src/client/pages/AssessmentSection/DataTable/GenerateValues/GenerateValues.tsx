@@ -23,7 +23,6 @@ const GenerateValues: React.FC<Props> = (props) => {
   const { assessmentName, sectionName, tableName, rows, data } = props
 
   const i18n = useTranslation()
-  // const { method, setMethod, fields, setFields, valid, generating, generateValues } = useGenerateValues(
   const { method, setMethod, fields, setFields, valid, generateValues } = useGenerateValues(
     assessmentName,
     sectionName,
