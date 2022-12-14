@@ -15,7 +15,9 @@ import { sendInvitationEmail } from './sendInvitationEmail'
 import { updateSectionAuth } from './updateSectionAuth'
 import { updateUser } from './updateUser'
 import multer = require('multer')
+import { demoteToUser } from './demoteToUser'
 import { getResetPassword } from './getResetPassword'
+import { promoteToAdmin } from './promoteToAdmin'
 import { updateUserRoles } from './updateUserRoles'
 
 export const UserApi = {
@@ -29,6 +31,9 @@ export const UserApi = {
     express.delete(ApiEndPoint.User.invitation(), AuthMiddleware.requireEditUser, removeInvitation)
     express.get(ApiEndPoint.User.invitationAccept(), acceptInvitation)
     express.get(ApiEndPoint.User.invitationSendEmail(), AuthMiddleware.requireEditUser, sendInvitationEmail)
+
+    express.post(ApiEndPoint.User.demote(), AuthMiddleware.requireAdmin, demoteToUser)
+    express.post(ApiEndPoint.User.promote(), AuthMiddleware.requireAdmin, promoteToAdmin)
 
     express.get(ApiEndPoint.User.resetPassword(), getResetPassword)
 
