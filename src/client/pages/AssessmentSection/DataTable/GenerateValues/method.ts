@@ -1,3 +1,9 @@
+import { Objects } from '@utils/objects'
+
+import { NodeValue } from '@meta/assessment'
+
+import { GenerateValuesField } from '@client/pages/AssessmentSection/DataTable/GenerateValues/field'
+
 export enum Method {
   placeholder = 'placeholder',
   linear = 'linear',
@@ -6,30 +12,37 @@ export enum Method {
   clearTable = 'clearTable',
 }
 
-// TODO: Update to support our data model
-//
-// export const Methods = {
-//   isValid: (data: TableData, method: Method, fields: Array<GenerateValuesField>): boolean => {
-//     // Clear table doesn't need any fields selected
-//     if (method === Method.clearTable) {
-//       return true
-//     }
-//     const fieldsSelected = fields.filter((field) => field.selected === true)
-//     // method and fields must be selected
-//     if (Objects.isEmpty(method) || Objects.isEmpty(fieldsSelected)) {
-//       return false
-//     }
-//     // Annual change
-//     // check that for all selected fields, past and future chage rates are not empty
-//     if (method === Method.annualChange) {
-//       return fieldsSelected.every((field) => {
-//         const { annualChangeRates } = field
-//         return !Objects.isEmpty(annualChangeRates.past) && !Objects.isEmpty(annualChangeRates.future)
-//       })
-//     }
-//     // Linear or Repeat last require a minimum number of ODP
-//     const noOdpsRequired = method === Method.linear ? 2 : 1
-//     const odps: any = FraUtils.getOdps(data)
-//     return odps.length >= noOdpsRequired
-//   },
-// }
+export const Methods = {
+  isValid: (props: {
+    data?: Record<string, Record<string, NodeValue>>
+    method: Method
+    fields: Array<GenerateValuesField>
+  }): boolean => {
+    const { data, method, fields } = props
+    // Clear table doesn't need any fields selected
+    if (method === Method.clearTable) {
+      return true
+    }
+    const fieldsSelected = fields.filter((field) => field.selected === true)
+
+    // method and fields must be selected
+    if (Objects.isEmpty(method) || Objects.isEmpty(fieldsSelected)) {
+      return false
+    }
+
+    // Annual change
+    // check that for all selected fields, past and future change rates are not empty
+    if (method === Method.annualChange) {
+      return fieldsSelected.every((field) => {
+        const { annualChangeRates } = field
+        return !Objects.isEmpty(annualChangeRates.past) && !Objects.isEmpty(annualChangeRates.future)
+      })
+    }
+
+    // Linear or Repeat last require a minimum number of ODP
+    const minimumODPCount = method === Method.linear ? 2 : 1
+
+    const odps = fieldsSelected.flatMap(({ variableName }) => Object.values(data).filter((d) => d[variableName]?.odp))
+    return odps.length >= minimumODPCount
+  },
+}
