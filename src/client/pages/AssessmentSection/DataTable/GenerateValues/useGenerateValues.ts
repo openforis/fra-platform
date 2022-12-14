@@ -10,7 +10,7 @@ import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import { useCountryIso } from '@client/hooks'
 
 import { GenerateValuesField } from './field'
-import { Method } from './method'
+import { Method, Methods } from './method'
 
 export interface UseGenerateValues {
   method: Method
@@ -93,8 +93,8 @@ const useGenerateValues = (
       )
     }
   }
-  // TODO
-  const valid = true // Methods.isValid(data, method, fields)
+
+  const valid = Methods.isValid({ data: data?.[countryIso]?.[tableName], method, fields })
 
   return {
     method,
