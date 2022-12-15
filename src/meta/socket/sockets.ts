@@ -48,24 +48,21 @@ const getNodeValidationsUpdateEvent = (props: {
   sectionName: string
 }) => {
   const { assessmentName, cycleName, countryIso, sectionName } = props
-  return `${assessmentName}-${cycleName}-${countryIso}-${sectionName}-assessmentSectionValidationsUpdate`
+  return `${countryIso}-${assessmentName}-${cycleName}-${sectionName}-assessmentSectionValidationsUpdate`
 }
 
-const getNodeValueUpdateEvent = (props: {
+const getNodeValuesUpdateEvent = (props: {
   countryIso: CountryIso
   assessmentName: string
   cycleName: string
-  tableName: string
-  variableName: string
-  colName: string
 }): string => {
-  const { countryIso, assessmentName, cycleName, tableName, variableName, colName } = props
-  return `${countryIso}-${assessmentName}-${cycleName}-${tableName}-${variableName}-${colName}-nodeUpdate`
+  const { countryIso, assessmentName, cycleName } = props
+  return `${countryIso}-${assessmentName}-${cycleName}-nodeUpdates`
 }
 
 export const Sockets = {
   getNodeValidationsUpdateEvent,
-  getNodeValueUpdateEvent,
+  getNodeValuesUpdateEvent,
   getODPDeleteEvent,
   getRequestReviewStatusEvent,
   getRequestReviewSummaryEvent,

@@ -11,7 +11,7 @@ export const getOne = async (
   const { assessment, cycle } = props
   const schemaName = Schemas.getName(assessment)
 
-  return client.oneOrNone<Table>(
+  return client.one<Table>(
     `
           select t.*
           from ${schemaName}.table t

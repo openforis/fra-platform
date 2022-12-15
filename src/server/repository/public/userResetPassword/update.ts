@@ -10,7 +10,7 @@ export const update = async (
     active?: boolean
   },
   client: BaseProtocol = DB
-): Promise<UserResetPassword | null> => {
+): Promise<UserResetPassword> => {
   const { uuid, active = false } = props
 
   return client.oneOrNone<UserResetPassword>(
