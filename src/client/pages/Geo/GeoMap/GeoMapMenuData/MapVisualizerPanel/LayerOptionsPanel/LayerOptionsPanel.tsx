@@ -1,25 +1,28 @@
 import './LayerOptionsPanel.scss'
-import React from 'react'
+import React, { useRef } from 'react'
 
 import { ForestSource, hansenPercentages } from '@meta/geo/forest'
 
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useForestSourceOptions } from '@client/store/ui/geo'
+import { useGeoMap } from '@client/hooks'
+import { MapController } from '@client/utils'
 
 interface Props {
-  opacityChange?: (layerKey: string, opacity: number) => void
   layerKey: string
 }
 
-const LayerOptionsPanel: React.FC<Props> = ({ layerKey, opacityChange }) => {
+const LayerOptionsPanel: React.FC<Props> = ({ layerKey }) => {
   const dispatch = useAppDispatch()
   const forestOptions = useForestSourceOptions()
+  const map = useGeoMap()
+  const mapControllerRef = useRef<MapController>(new MapController(map))
   const opacity = forestOptions.opacity[layerKey] || 1
 
   const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
     const newValue = Math.round(Number(event.currentTarget.value) / 10) / 10
     dispatch(GeoActions.setOpacity({ key: layerKey, opacity: newValue }))
-    opacityChange(layerKey, newValue)
+    mapControllerRef.current.setEarthEngineLayerOpacity(layerKey, newValue)
   }
 
   return (
@@ -53,10 +56,6 @@ const LayerOptionsPanel: React.FC<Props> = ({ layerKey, opacityChange }) => {
       </div>
     </div>
   )
-}
-
-LayerOptionsPanel.defaultProps = {
-  opacityChange: null,
 }
 
 export default LayerOptionsPanel
