@@ -9,6 +9,7 @@ import {
   sendInvitationEmail,
   updateSectionAuth,
   updateUser,
+  updateUserAdminRole,
   updateUserRoles,
 } from './actions'
 import { UserManagementState } from './stateType'
@@ -54,6 +55,10 @@ export const userManagementSlice = createSlice({
       state.user = payload
     })
 
+    builder.addCase(updateUserAdminRole.fulfilled, (state, { payload }) => {
+      state.user = payload
+    })
+
     builder.addCase(sendInvitationEmail.fulfilled, (state, { payload }) => {
       const i = state.users.findIndex((u) => u.id === payload.userId)
       if (i !== -1) state.users[i].roles = [payload]
@@ -82,6 +87,7 @@ export const UserManagementActions = {
   sendInvitationEmail,
   updateSectionAuth,
   updateUser,
+  updateUserAdminRole,
   updateUserRoles,
 }
 
