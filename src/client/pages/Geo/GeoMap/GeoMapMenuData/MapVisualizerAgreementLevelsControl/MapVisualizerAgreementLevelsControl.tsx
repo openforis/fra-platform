@@ -1,5 +1,5 @@
 import './MapVisualizerAgreementLevelsControl.scss'
-import React, { useCallback, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 import axios from 'axios'
 import classNames from 'classnames'
@@ -21,39 +21,58 @@ const AgreementLevelsControl: React.FC = () => {
   const mapControllerRef = useRef<MapController>(new MapController(map))
 
   /**
-   * Handle agreement level selection
-   * @param {number} level The agreement level
+   * Toggle agreement layer
    */
-  const handleAgreementLevelSelection = useCallback(
-    async (level: number): Promise<void> => {
-      const layerQuery = forestOptions.selected.map(({ key }) => `&layer=${key}`).join('')
-      const hansenQuery = forestOptions.selected.some(({ key }) => key === ForestSource.Hansen)
-        ? `&gteHansenTreeCoverPerc=${forestOptions.hansenPercentage}`
-        : ''
-      const uri = `/api/geo/layers/forestAgreement/?countryIso=FIN${layerQuery}&gteAgreementLevel=${level}${hansenQuery}`
+  useEffect(() => {
+    const agreementLayerKey = 'Agreement'
 
-      await axios.get<Layer>(uri).then((response) => {
-        const { mapId } = response.data
-        const agreementLayerKey = 'Agreement'
-        mapControllerRef.current.removeEarthEngineLayer(agreementLayerKey)
-        mapControllerRef.current.addEarthEngineLayer(agreementLayerKey, mapId)
-      })
+    // If any of the dependencies changes and there is an existing agreement layer on the
+    // map, the layer is no longer valid, so remove it. If there is no existing agreement
+    // layer, it's still safe to call `removeEarthEngineLayer`, it'll just do nothing and
+    // return `false`.
+    mapControllerRef.current.removeEarthEngineLayer(agreementLayerKey)
 
-      dispatch(GeoActions.setAgreementLevel(level))
-    },
-    [forestOptions.selected, forestOptions.hansenPercentage, dispatch]
-  )
+    // If the agreement level is greater than the number of selected layers, reset the
+    // agreement state.
+    if (forestOptions.agreementLevel > forestOptions.selected.length) {
+      dispatch(GeoActions.setAgreementLayerSelected(false))
+      dispatch(GeoActions.setAgreementLevel(1))
+      return
+    }
 
-  const toggleAgreementLayer = () => {
-    dispatch(GeoActions.setAgreementLayerSelected(!forestOptions.agreementLayerSelected))
-  }
+    // If the agreement layer is not selected, don't render anything.
+    if (!forestOptions.agreementLayerSelected) {
+      return
+    }
+
+    // Otherwise, fetch the new agreement layer and add it to the map.
+
+    const layerQuery = forestOptions.selected.map(({ key }) => `&layer=${key}`).join('')
+    const agreementLevelQuery = `&gteAgreementLevel=${forestOptions.agreementLevel}`
+    const hansenQuery = forestOptions.selected.some(({ key }) => key === ForestSource.Hansen)
+      ? `&gteHansenTreeCoverPerc=${forestOptions.hansenPercentage}`
+      : ''
+    const uri = `/api/geo/layers/forestAgreement/?countryIso=FIN${layerQuery}${agreementLevelQuery}${hansenQuery}`
+
+    // TODO: cache the mapId to reduce server calls?
+    axios.get<Layer>(uri).then((response) => {
+      const { mapId } = response.data
+      mapControllerRef.current.addEarthEngineLayer(agreementLayerKey, mapId)
+    })
+  }, [
+    forestOptions.agreementLayerSelected,
+    forestOptions.agreementLevel,
+    forestOptions.selected,
+    forestOptions.hansenPercentage,
+    dispatch,
+  ])
 
   return forestOptions.selected.length >= 2 ? (
     <GeoMapMenuListElement
       title="Choose the agreement level between all map layers"
       tabIndex={layers.length * -1 - 1}
       checked={forestOptions.agreementLayerSelected}
-      onCheckboxClick={toggleAgreementLayer}
+      onCheckboxClick={() => dispatch(GeoActions.setAgreementLayerSelected(!forestOptions.agreementLayerSelected))}
     >
       <div className="geo-map-menu-data-visualizer-agreement-levels-control">
         <p>
@@ -77,7 +96,7 @@ const AgreementLevelsControl: React.FC = () => {
                     type="checkbox"
                     checked={level <= forestOptions.agreementLevel}
                     disabled={disabled}
-                    onChange={() => handleAgreementLevelSelection(level)}
+                    onChange={() => dispatch(GeoActions.setAgreementLevel(level))}
                   />
                   <label htmlFor={id}>{level}</label>
                 </span>
