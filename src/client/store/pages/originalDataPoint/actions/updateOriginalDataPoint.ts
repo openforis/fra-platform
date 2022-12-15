@@ -1,19 +1,16 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { Functions } from '@utils/functions'
 import axios from 'axios'
-import { Dispatch } from 'redux'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { CycleParams } from '@meta/api/request'
 import { ODPs, OriginalDataPoint } from '@meta/assessment'
 
-import { setOriginalDataPointUpdating } from '@client/store/pages/originalDataPoint/actions/setOriginalDataPointUpdating'
-
 type Props = CycleParams & {
   originalDataPoint: OriginalDataPoint
 }
 
-const createOriginalDataPoint = async (props: Props, dispatch: Dispatch): Promise<OriginalDataPoint> => {
+const createOriginalDataPoint = async (props: Props): Promise<OriginalDataPoint> => {
   const { countryIso, assessmentName, cycleName, originalDataPoint } = props
 
   const { data } = await axios.post(
@@ -30,12 +27,11 @@ const createOriginalDataPoint = async (props: Props, dispatch: Dispatch): Promis
       },
     }
   )
-  dispatch(setOriginalDataPointUpdating(false))
   return ODPs.addNationalClassPlaceHolder(data)
 }
 
 const putOriginalDataPoint = Functions.debounce(
-  async (props: Props, dispatch: Dispatch) => {
+  async (props: Props) => {
     const { countryIso, assessmentName, cycleName, originalDataPoint } = props
 
     await axios.put(
@@ -52,7 +48,6 @@ const putOriginalDataPoint = Functions.debounce(
         },
       }
     )
-    dispatch(setOriginalDataPointUpdating(false))
   },
   1000,
   'updateOriginalDataPoint'
@@ -60,9 +55,9 @@ const putOriginalDataPoint = Functions.debounce(
 
 export const updateOriginalDataPoint = createAsyncThunk<OriginalDataPoint, Props>(
   'originalDataPoint/update',
-  async (props, { dispatch }) => {
-    if (!props.originalDataPoint.id) return createOriginalDataPoint(props, dispatch)
-    putOriginalDataPoint(props, dispatch)
+  async (props) => {
+    if (!props.originalDataPoint.id) return createOriginalDataPoint(props)
+    putOriginalDataPoint(props)
     return props.originalDataPoint
   }
 )
