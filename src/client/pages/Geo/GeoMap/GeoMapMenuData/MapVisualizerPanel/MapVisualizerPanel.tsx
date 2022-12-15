@@ -98,7 +98,6 @@ const MapVisualizerPanel: React.FC = () => {
               backgroundColor={layer.key.toLowerCase()}
             >
               <LayerOptionsPanel
-                forestLayerOpacity={layer.opacity}
                 layerKey={layer.key}
                 opacityChange={(layerKey: string, opacity: number) => opacityChange(layerKey, opacity)}
               />
