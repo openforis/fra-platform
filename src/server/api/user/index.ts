@@ -16,6 +16,7 @@ import { updateSectionAuth } from './updateSectionAuth'
 import { updateUser } from './updateUser'
 import multer = require('multer')
 import { getResetPassword } from './getResetPassword'
+import { updateUserAdminRole } from './updateUserAdminRole'
 import { updateUserRoles } from './updateUserRoles'
 
 export const UserApi = {
@@ -33,7 +34,9 @@ export const UserApi = {
     express.get(ApiEndPoint.User.resetPassword(), getResetPassword)
 
     express.get(ApiEndPoint.User.profilePicture(), getProfilePicture)
+
     express.post(ApiEndPoint.User.roles(), AuthMiddleware.requireAdmin, updateUserRoles)
+    express.post(ApiEndPoint.User.adminRole(), AuthMiddleware.requireAdmin, updateUserAdminRole)
     express.post(ApiEndPoint.User.sectionAuth(), AuthMiddleware.requireEditUser, updateSectionAuth)
   },
 }

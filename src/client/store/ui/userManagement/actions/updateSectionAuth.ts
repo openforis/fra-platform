@@ -10,7 +10,7 @@ export const updateSectionAuth = createAsyncThunk<
     id: number
     sections: CollaboratorSectionsProp
   }
->('usermanagement/post/countryAccess', async ({ id, sections }) => {
+>('userManagement/post/countryAccess', async ({ id, sections }) => {
   const { data } = await axios.post(ApiEndPoint.User.sectionAuth(), {
     id,
     sections,
