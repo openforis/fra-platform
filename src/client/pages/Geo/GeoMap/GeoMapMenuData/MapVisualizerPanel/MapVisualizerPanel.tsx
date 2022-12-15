@@ -30,6 +30,7 @@ const MapVisualizerPanel: React.FC = () => {
       if (wasExistingLayer) {
         // remove the existing layer from the app state
         dispatch(GeoActions.removeForestLayer(mapLayerKey))
+        dispatch(GeoActions.resetOpacity(mapLayerKey))
         if (!forceAddLayer) return
       }
 
@@ -80,10 +81,6 @@ const MapVisualizerPanel: React.FC = () => {
     toggleLayer(layer.apiUri, layer.key, true)
   }, [forestOptions.hansenPercentage, map.overlayMapTypes, toggleLayer])
 
-  const opacityChange = (layerKey: string, opacity: number) => {
-    mapControllerRef.current.setEarthEngineLayerOpacity(layerKey, opacity)
-  }
-
   return (
     <div className="geo-map-menu-data-visualizer-panel">
       <p>Forest Layers</p>
@@ -97,10 +94,7 @@ const MapVisualizerPanel: React.FC = () => {
               onCheckboxClick={() => toggleLayer(layer.apiUri, layer.key)}
               backgroundColor={layer.key.toLowerCase()}
             >
-              <LayerOptionsPanel
-                layerKey={layer.key}
-                opacityChange={(layerKey: string, opacity: number) => opacityChange(layerKey, opacity)}
-              />
+              <LayerOptionsPanel layerKey={layer.key} />
             </GeoMapMenuListElement>
           </div>
         ))}
