@@ -17,7 +17,7 @@ const LayerOptionsPanel: React.FC<Props> = ({ layerKey }) => {
   const forestOptions = useForestSourceOptions()
   const map = useGeoMap()
   const mapControllerRef = useRef<MapController>(new MapController(map))
-  const opacity = forestOptions.opacity[layerKey] || 1
+  const opacity = forestOptions.opacity[layerKey] !== undefined ? forestOptions.opacity[layerKey] : 1
 
   const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
     const newValue = Math.round(Number(event.currentTarget.value) / 10) / 10
