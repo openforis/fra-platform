@@ -15,6 +15,7 @@ const initialState: GeoState = {
   forestOptions: {
     selected: [],
     fetchedLayers: {},
+    opacity: {},
     hansenPercentage: 10,
     agreementLayerSelected: false,
     agreementLevel: 1,
@@ -48,6 +49,9 @@ export const geoSlice = createSlice({
       const i = state.forestOptions.selected.findIndex(({ key }) => key === payload)
       if (i === -1) return
       state.forestOptions.selected[i].status = 'ready'
+    },
+    setOpacity: (state, { payload: { key, opacity } }: PayloadAction<{ key: string; opacity: number }>) => {
+      state.forestOptions.opacity[key] = opacity
     },
     setHansenPercentage: (state, { payload }: PayloadAction<HansenPercentage>) => {
       state.forestOptions.hansenPercentage = payload
