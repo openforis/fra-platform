@@ -5,6 +5,7 @@ import * as pgPromise from 'pg-promise'
 
 import { CountryIso } from '../../src/meta/area'
 import { DB } from '../../src/server/db'
+import { Objects } from '../../src/utils/objects'
 
 type Response = {
   features: Array<{
@@ -70,7 +71,7 @@ export const forestIndicatorsImport = async (): Promise<void> => {
   const values = response.features.map((d) => {
     const { properties } = d
     const { iso3, year, ...data } = properties
-    return { country_iso: iso3, year, data }
+    return { country_iso: iso3, year, data: Objects.camelize(data) }
   })
 
   const schema = 'geo'
