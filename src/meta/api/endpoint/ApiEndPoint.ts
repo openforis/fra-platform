@@ -91,6 +91,7 @@ export const ApiEndPoint = {
 
     profilePicture: (id = ':id') => apiPath('users', 'profile-picture', id),
     roles: () => apiPath('users', 'roles'),
+    adminRole: () => apiPath('users', 'admin-role'),
     sectionAuth: () => apiPath('users', 'section-auth'),
   },
 
