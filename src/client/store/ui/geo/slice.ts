@@ -53,6 +53,9 @@ export const geoSlice = createSlice({
     setOpacity: (state, { payload: { key, opacity } }: PayloadAction<{ key: string; opacity: number }>) => {
       state.forestOptions.opacity[key] = opacity
     },
+    resetOpacity: (state, { payload }: PayloadAction<string>) => {
+      delete state.forestOptions.opacity[payload]
+    },
     setHansenPercentage: (state, { payload }: PayloadAction<HansenPercentage>) => {
       state.forestOptions.hansenPercentage = payload
     },
