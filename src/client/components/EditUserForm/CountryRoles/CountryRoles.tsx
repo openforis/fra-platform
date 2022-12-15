@@ -1,4 +1,3 @@
-/* eslint-disable no-lonely-if */
 /* eslint-disable no-alert */
 import './CountryRoles.scss'
 import React, { useCallback, useMemo, useState } from 'react'
