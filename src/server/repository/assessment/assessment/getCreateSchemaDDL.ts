@@ -236,8 +236,9 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
       with classes as (
           select o.country_iso,
                  o.year,
-                 jsonb_array_elements(o.national_classes) as class
-          from ${assessmentCycleSchemaName}.original_data_point o
+                 jsonb_array_elements(
+                   case when jsonb_array_length( o.national_classes ) = 0 then '[{}]' else o.national_classes end
+                 ) as class          from ${assessmentCycleSchemaName}.original_data_point o
       ),
             country_years as (
                select c.country_iso,
