@@ -8,7 +8,7 @@ import { UserRoleRepository } from '@server/repository/public/userRole'
 
 export const updateUserRoles = async (
   props: {
-    cycleUuid: string
+    cycleUuid?: string
     roles: Array<Partial<UserRole<RoleName>>>
     userId: number
     user: User
