@@ -2,6 +2,8 @@ export interface ForestOptions {
   selected: ForestSource[]
   fetchedLayers: { [key: string]: string }
   hansenPercentage: HansenPercentage
+  agreementLayerSelected: boolean
+  agreementLevel: number
 }
 
 export const hansenPercentages = [10, 20, 30] as const

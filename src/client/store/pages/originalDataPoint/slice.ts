@@ -7,7 +7,6 @@ import { createOriginalDataPoint } from './actions/createOriginalDataPoint'
 import { deleteOriginalDataPoint } from './actions/deleteOriginalDataPoint'
 import { getOriginalDataPoint } from './actions/getOriginalDataPoint'
 import { pasteNationalClass } from './actions/pasteNationalClass'
-import { setOriginalDataPointUpdating } from './actions/setOriginalDataPointUpdating'
 import { updateNationalClass } from './actions/updateNationalClass'
 import { updateOriginalDataPoint } from './actions/updateOriginalDataPoint'
 import { OriginalDataPointState } from './stateType'
@@ -26,15 +25,14 @@ export const originalDataPointSlice = createSlice({
     })
     builder.addCase(updateOriginalDataPoint.fulfilled, (state, { payload }) => {
       state.data = payload
+      state.updating = false
     })
     builder.addCase(updateOriginalDataPoint.pending, (state) => {
       state.updating = true
     })
-    builder.addCase(setOriginalDataPointUpdating, (state, { payload }) => {
-      state.updating = payload
-    })
     builder.addCase(createOriginalDataPoint.fulfilled, (state, { payload }) => {
       state.data = payload
+      state.updating = false
     })
 
     builder.addCase(getOriginalDataPointReservedYears.fulfilled, (state, { payload }: PayloadAction<Array<number>>) => {
