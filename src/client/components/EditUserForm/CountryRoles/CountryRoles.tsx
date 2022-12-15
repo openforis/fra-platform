@@ -77,14 +77,8 @@ const CountryRoles: React.FC<{ user: User }> = ({ user }) => {
   )
 
   const _toggleAdmin = useCallback(() => {
-    if (Users.isAdministrator(user)) {
-      if (window.confirm(t('editUser.demoteToUser'))) {
-        dispatch(UserManagementActions.demoteToUser({ userId: user.id }))
-      }
-    } else {
-      if (window.confirm(t('editUser.promoteToAdmin'))) {
-        dispatch(UserManagementActions.promoteToAdmin({ userId: user.id }))
-      }
+    if (window.confirm(t(Users.isAdministrator(user) ? 'editUser.demoteToUser' : 'editUser.promoteToAdmin'))) {
+      dispatch(UserManagementActions.updateUserAdminRole({ userId: user.id }))
     }
   }, [dispatch, t, user])
 

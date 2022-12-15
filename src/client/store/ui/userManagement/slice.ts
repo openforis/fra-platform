@@ -1,16 +1,15 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
 import {
-  demoteToUser,
   getUsers,
   getUsersCount,
   getUserToEdit,
   inviteUser,
-  promoteToAdmin,
   removeInvitation,
   sendInvitationEmail,
   updateSectionAuth,
   updateUser,
+  updateUserAdminRole,
   updateUserRoles,
 } from './actions'
 import { UserManagementState } from './stateType'
@@ -39,10 +38,6 @@ export const userManagementSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(demoteToUser.fulfilled, (state, { payload }) => {
-      state.user = payload
-    })
-
     builder.addCase(getUsers.fulfilled, (state, { payload }) => {
       state.users = payload
     })
@@ -60,7 +55,7 @@ export const userManagementSlice = createSlice({
       state.user = payload
     })
 
-    builder.addCase(promoteToAdmin.fulfilled, (state, { payload }) => {
+    builder.addCase(updateUserAdminRole.fulfilled, (state, { payload }) => {
       state.user = payload
     })
 
@@ -84,16 +79,15 @@ export const userManagementSlice = createSlice({
 
 export const UserManagementActions = {
   ...userManagementSlice.actions,
-  demoteToUser,
   getUsers,
   getUsersCount,
   getUserToEdit,
   inviteUser,
-  promoteToAdmin,
   removeInvitation,
   sendInvitationEmail,
   updateSectionAuth,
   updateUser,
+  updateUserAdminRole,
   updateUserRoles,
 }
 

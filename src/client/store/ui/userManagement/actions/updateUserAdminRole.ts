@@ -4,10 +4,10 @@ import axios from 'axios'
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { User } from '@meta/user'
 
-export const demoteToUser = createAsyncThunk<User, { userId: number }>(
-  'userManagement/post/demoteToUser',
+export const updateUserAdminRole = createAsyncThunk<User, { userId: number }>(
+  'userManagement/post/updateUserAdminRole',
   async ({ userId }) => {
-    const { data } = await axios.post(ApiEndPoint.User.demote(), { userId })
+    const { data } = await axios.post(ApiEndPoint.User.adminRole(), { userId })
 
     return data
   }
