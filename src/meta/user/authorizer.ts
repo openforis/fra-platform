@@ -50,7 +50,7 @@ const canViewUsers = (props: { countryIso: CountryIso; assessment: Assessment; c
 }
 
 /**
- * CanEdit
+ * CanEditSections
  * Viewer or non loggedin user: never
  * Administrator: always
  * NationalCorrespondant and AlternateNationalCorrespondant:
@@ -72,7 +72,7 @@ const canViewUsers = (props: { countryIso: CountryIso; assessment: Assessment; c
  * @param props.user
  * @returns boolean
  */
-const canEdit = (props: {
+const canEditSections = (props: {
   countryIso: CountryIso
   cycle: Cycle
   section: Section
@@ -113,8 +113,48 @@ const canEdit = (props: {
   return false
 }
 
+/**
+ * CanEdit
+ * Viewer or non loggedin user: never
+ * Administrator: always
+ * NationalCorrespondant and AlternateNationalCorrespondant:
+ * if status is editing then true
+ * Reviewer:
+ * if status in status ('review','editing') then true
+ * @param props
+ * @param props.assessment
+ * @param props.countryIso
+ * @param props.cycle
+ * @param props.table
+ * @param props.status
+ * @param props.user
+ * @returns boolean
+ */
+const canEdit = (props: { countryIso: CountryIso; cycle: Cycle; country: Country; user: User }): boolean => {
+  const { cycle, user, countryIso, country } = props
+  const { status } = country.props
+
+  if (!user) return false
+  if (Users.isViewer(user, countryIso, cycle)) return false
+  if (Users.isAdministrator(user)) return true
+
+  if (
+    (Users.isNationalCorrespondent(user, countryIso, cycle) ||
+      Users.isAlternateNationalCorrespondent(user, countryIso, cycle)) &&
+    status === AssessmentStatus.editing
+  )
+    return true
+
+  if (Users.isReviewer(user, countryIso, cycle)) {
+    return [AssessmentStatus.editing, AssessmentStatus.review].includes(status)
+  }
+
+  return false
+}
+
 export const Authorizer = {
   canView,
   canViewUsers,
   canEdit,
+  canEditSections,
 }

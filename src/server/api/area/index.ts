@@ -10,7 +10,7 @@ import { postCountry } from './postCountry'
 export const AreaApi = {
   init: (express: Express): void => {
     // Country
-    express.post(ApiEndPoint.Area.country(), AuthMiddleware.requireEditTableData, postCountry)
+    express.post(ApiEndPoint.Area.country(), AuthMiddleware.requireEdit, postCountry)
     express.get(ApiEndPoint.Area.areas(), getAreas)
   },
 }
