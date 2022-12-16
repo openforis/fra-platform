@@ -1,3 +1,5 @@
+import { Objects } from '@utils/objects'
+
 import { CountryIso } from '@meta/area'
 import { ForestEstimations } from '@meta/geo'
 
@@ -16,7 +18,8 @@ export const getOne = async (
           where fe.country_iso = $1
             and fe.year = $2;
       `,
-    [countryIso, year]
+    [countryIso, year],
+    Objects.camelize
   )
   return forestEstimations
 }
