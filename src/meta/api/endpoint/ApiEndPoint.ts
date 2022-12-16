@@ -56,6 +56,7 @@ export const ApiEndPoint = {
   },
 
   File: {
+    biomassStock: () => apiPath('file', 'biomass-stock'),
     dashboard: () => apiPath('file', 'dashboard'),
     dataDownload: () => apiPath('file', 'data-download'),
     bulkDownload: () => apiPath('file', 'bulk-download'),
@@ -86,8 +87,11 @@ export const ApiEndPoint = {
     invitationAccept: () => apiPath('users', 'invitation', 'accept'),
     invitationSendEmail: () => apiPath('users', 'invitation', 'send-email'),
 
+    resetPassword: () => apiPath('users', 'reset-password'),
+
     profilePicture: (id = ':id') => apiPath('users', 'profile-picture', id),
     roles: () => apiPath('users', 'roles'),
+    adminRole: () => apiPath('users', 'admin-role'),
     sectionAuth: () => apiPath('users', 'section-auth'),
   },
 

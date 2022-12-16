@@ -10,7 +10,7 @@ export const acceptInvitation = async (req: CycleRequest<{ invitationUuid: strin
   try {
     const { invitationUuid } = req.query
 
-    const { user, userRole } = await UserController.readByInvitation({ invitationUuid })
+    const { user, userRole } = await UserController.findByInvitation({ invitationUuid })
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({
       id: userRole.assessmentId,

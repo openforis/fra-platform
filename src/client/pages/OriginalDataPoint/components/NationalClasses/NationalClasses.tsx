@@ -1,9 +1,16 @@
-import React from 'react'
-// import { useAppDispatch } from '@client/store'
+import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { OriginalDataPoint } from '@meta/assessment'
+import { ODPs, OriginalDataPoint } from '@meta/assessment'
 
+import { useAppDispatch } from '@client/store'
+import { useAssessment, useCycle } from '@client/store/assessment'
+import {
+  OriginalDataPointActions,
+  useIsOriginalDataPointUpdating,
+  useOriginalDataPointReservedYears,
+} from '@client/store/pages/originalDataPoint'
+import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
 
 import NationalClass from './NationalClass'
@@ -14,15 +21,32 @@ type Props = {
 }
 
 const NationalClasses: React.FC<Props> = (props) => {
+  const countryIso = useCountryIso()
+  const assessment = useAssessment()
+  const cycle = useCycle()
   const { canEditData, originalDataPoint } = props
-  const { nationalClasses } = originalDataPoint
-  // const { nationalClasses, id, year } = originalDataPoint
+  const { nationalClasses, year } = originalDataPoint
 
-  // const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
   const { print } = useIsPrint()
-  // const saving = false // TODO: useIsAutoSaveSaving()
-  const copyDisabled = true // TODO: !id || !year || !ODPs.canCopyPreviousValues(originalDataPoint) || saving
+  const originalDataPointUpdating = useIsOriginalDataPointUpdating()
+  const reservedYears = useOriginalDataPointReservedYears() ?? []
+  const hasPreviousYear = Boolean(ODPs.getPreviousODPYear(year, reservedYears))
+  const canCopy = ODPs.canCopyPreviousValues(originalDataPoint)
+  // Copying is disabled if: nationalClass(1+) exist, odp doesn't have a year or there is no previous year
+  const copyDisabled = !canCopy || !year || year === -1 || originalDataPointUpdating || !hasPreviousYear
+
+  const onCopyClick = useCallback(() => {
+    dispatch(
+      OriginalDataPointActions.copyPreviousNationalClasses({
+        originalDataPoint,
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
+        countryIso,
+      })
+    )
+  }, [assessment.props.name, countryIso, cycle.name, dispatch, originalDataPoint])
 
   return (
     <div className="odp__section">
@@ -34,10 +58,7 @@ const NationalClasses: React.FC<Props> = (props) => {
               type="button"
               className="btn-s btn-primary btn-copy-prev-values"
               disabled={copyDisabled}
-              // onClick={() =>
-              // TODO:
-              // dispatch(OriginalDataPointActions.copyPreviousNationalClasses({ id: originalDataPoint.id }))
-              // }
+              onClick={onCopyClick}
             >
               {i18n.t<string>('nationalDataPoint.copyPreviousValues')}
             </button>

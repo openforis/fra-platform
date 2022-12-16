@@ -9,7 +9,7 @@ import { TableData } from '@meta/data'
 
 import FieldsOption from './FieldsOption'
 import { Method } from './method'
-import useGenerateValues from './useGenerateValules'
+import useGenerateValues from './useGenerateValues'
 
 type Props = {
   assessmentName: AssessmentName
@@ -23,6 +23,7 @@ const GenerateValues: React.FC<Props> = (props) => {
   const { assessmentName, sectionName, tableName, rows, data } = props
 
   const i18n = useTranslation()
+  // const { method, setMethod, fields, setFields, valid, generateValues } = useGenerateValues(
   const { method, setMethod, fields, setFields, valid, generateValues, isEstimationPending } = useGenerateValues(
     assessmentName,
     sectionName,
@@ -62,7 +63,7 @@ const GenerateValues: React.FC<Props> = (props) => {
             }, 15_000)
           }}
         >
-          {i18n.t(buttonLabel)}
+          {buttonLabel}
         </button>
 
         {!Objects.isEmpty(method) && !isMethodClearTable && (

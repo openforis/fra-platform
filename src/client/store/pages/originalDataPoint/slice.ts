@@ -1,15 +1,17 @@
-import { createSlice, Reducer } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 
-import { OriginalDataPointState } from './stateType'
+import { getOriginalDataPointReservedYears } from '@client/store/pages/originalDataPoint/actions/getOriginalDataPointReservedYears'
+
+import { copyPreviousNationalClasses } from './actions/copyPreviousNationalClasses'
+import { createOriginalDataPoint } from './actions/createOriginalDataPoint'
+import { deleteOriginalDataPoint } from './actions/deleteOriginalDataPoint'
 import { getOriginalDataPoint } from './actions/getOriginalDataPoint'
 import { pasteNationalClass } from './actions/pasteNationalClass'
 import { updateNationalClass } from './actions/updateNationalClass'
-import { createOriginalDataPoint } from './actions/createOriginalDataPoint'
-import { deleteOriginalDataPoint } from './actions/deleteOriginalDataPoint'
 import { updateOriginalDataPoint } from './actions/updateOriginalDataPoint'
-import { setOriginalDataPointUpdating } from './actions/setOriginalDataPointUpdating'
+import { OriginalDataPointState } from './stateType'
 
-const initialState: OriginalDataPointState = { data: null }
+const initialState: OriginalDataPointState = { data: null, reservedYears: null }
 
 export const originalDataPointSlice = createSlice({
   name: 'originalDataPoint',
@@ -23,15 +25,18 @@ export const originalDataPointSlice = createSlice({
     })
     builder.addCase(updateOriginalDataPoint.fulfilled, (state, { payload }) => {
       state.data = payload
+      state.updating = false
     })
     builder.addCase(updateOriginalDataPoint.pending, (state) => {
       state.updating = true
     })
-    builder.addCase(setOriginalDataPointUpdating, (state, { payload }) => {
-      state.updating = payload
-    })
     builder.addCase(createOriginalDataPoint.fulfilled, (state, { payload }) => {
       state.data = payload
+      state.updating = false
+    })
+
+    builder.addCase(getOriginalDataPointReservedYears.fulfilled, (state, { payload }: PayloadAction<Array<number>>) => {
+      state.reservedYears = payload
     })
   },
 })
@@ -44,6 +49,8 @@ export const OriginalDataPointActions = {
   createOriginalDataPoint,
   deleteOriginalDataPoint,
   updateOriginalDataPoint,
+  copyPreviousNationalClasses,
+  getOriginalDataPointReservedYears,
 }
 
 export default originalDataPointSlice.reducer as Reducer<OriginalDataPointState>
