@@ -1,7 +1,8 @@
 import React from 'react'
-
 import { useTranslation } from 'react-i18next'
+
 import LanguageSelector, { LanguageSelectorMobile } from '../LanguageSelector'
+import UserLinks from '../UserLinks'
 
 const PanEuropeanHeader: React.FC = () => {
   const { i18n } = useTranslation()
@@ -15,6 +16,7 @@ const PanEuropeanHeader: React.FC = () => {
 
       <div className="app-header__menu">
         <LanguageSelector />
+        <UserLinks />
       </div>
     </div>
   )
