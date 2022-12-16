@@ -16,5 +16,3 @@ export interface PersistNodeValuesProps {
   user: User
   sectionName: string
 }
-
-export type DependantsUpdateProps = PersistNodeValuesProps & { isODP?: boolean }

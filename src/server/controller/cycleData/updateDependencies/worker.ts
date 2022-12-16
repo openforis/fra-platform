@@ -1,12 +1,14 @@
 import { Job } from 'bullmq'
 
+import { NodeUpdates } from '@meta/data'
+
 import { DB } from '@server/db'
 import { Logger } from '@server/utils/logger'
 
-import { calculateAndValidateDependentNodes } from '../calculateAndValidateDependentNodes'
-import { DependantsUpdateProps } from '../props'
+import { UpdateDependenciesProps } from './props'
+import { updateNodeDependencies } from './updateNodeDependencies'
 
-export default async (job: Job<DependantsUpdateProps>) => {
+export default async (job: Job<UpdateDependenciesProps>) => {
   const time = new Date().getTime()
   Logger.debug(
     `[updateDependenciesWorker] job in thread started ${job.id}. ${job.data.nodeUpdates.nodes.length} nodes.`
@@ -14,10 +16,10 @@ export default async (job: Job<DependantsUpdateProps>) => {
 
   const { nodeUpdates, isODP, sectionName, user } = job.data
   const { assessment, cycle, countryIso, nodes } = nodeUpdates
-  const result = await DB.tx(async (client) => {
-    const results = await Promise.all(
+  const results = await DB.tx(async (client) =>
+    Promise.all(
       nodes.map((node) => {
-        return calculateAndValidateDependentNodes(
+        return updateNodeDependencies(
           {
             assessment,
             colName: node.colName,
@@ -34,8 +36,19 @@ export default async (job: Job<DependantsUpdateProps>) => {
         )
       })
     )
-    return results
-  })
+  )
+
+  const result = results.reduce<{ nodeUpdates: NodeUpdates; validations: NodeUpdates }>(
+    (acc, item) => {
+      acc.nodeUpdates.nodes.push(...item.nodeUpdates.nodes)
+      acc.validations.nodes.push(...item.validations.nodes)
+      return acc
+    },
+    {
+      nodeUpdates: { assessment, cycle, countryIso, nodes: [] },
+      validations: { assessment, cycle, countryIso, nodes: [] },
+    }
+  )
 
   Logger.debug(
     `[updateDependenciesWorker] job in thread ended ${job.id} ${job.id} in ${

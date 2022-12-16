@@ -3,9 +3,9 @@ import { ActivityLogMessage, Node, NodeValue, Row } from '@meta/assessment'
 import { getTableData } from '@server/controller/cycleData/getTableData'
 import { BaseProtocol } from '@server/db'
 
+import { persistNode } from '../../persistNodeValues/persistNode'
+import { PersistNodeValueProps } from '../../persistNodeValues/props'
 import { ExpressionEvaluator } from '../expressionEvaluator'
-import { persistNode } from '../persistNode'
-import { PersistNodeValueProps } from '../props'
 
 export const calculateNode = async (
   props: Omit<PersistNodeValueProps, 'value'> & { expression: string; row: Row; mergeOdp: boolean },

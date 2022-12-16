@@ -5,11 +5,11 @@ import { PersistNodeValueProps } from '@server/controller/cycleData/persistNodeV
 import { BaseProtocol } from '@server/db'
 import { RowRepository } from '@server/repository/assessment/row'
 
-import { getDependants } from '../utils/assessmentMetaCaches'
+import { getDependants } from '../utils/getDependants'
 import { isODPCell } from '../utils/isODPCell'
 import { calculateNode } from './calculateNode'
 
-export const calculateDependantNodes = async (
+export const updateCalculationDependencies = async (
   props: Omit<PersistNodeValueProps, 'value'> & { isODP?: boolean },
   client: BaseProtocol
 ): Promise<NodeUpdates> => {

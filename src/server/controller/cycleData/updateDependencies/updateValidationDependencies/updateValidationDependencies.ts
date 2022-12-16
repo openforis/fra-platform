@@ -5,7 +5,7 @@ import { BaseProtocol } from '@server/db'
 import { RowRepository } from '@server/repository/assessment/row'
 import { NodeRepository } from '@server/repository/assessmentCycle/node'
 
-import { getDependants } from '../utils/assessmentMetaCaches'
+import { getDependants } from '../utils/getDependants'
 import { validateNode } from './validateNode'
 
 type Props = {
@@ -15,7 +15,7 @@ type Props = {
 
 type QueueItem = Omit<NodeUpdate, 'value'> & { value?: NodeValue }
 
-export const validateNodeUpdates = async (props: Props, client: BaseProtocol): Promise<NodeUpdates> => {
+export const updateValidationDependencies = async (props: Props, client: BaseProtocol): Promise<NodeUpdates> => {
   const { nodeUpdates, isODP } = props
   const { assessment, cycle, countryIso, nodes } = nodeUpdates
 

@@ -2,7 +2,7 @@ import { ActivityLogMessage } from '@meta/assessment'
 import { NodeUpdate } from '@meta/data'
 
 import { PersistNodeValuesProps } from '@server/controller/cycleData/persistNodeValues/props'
-import { QueueFactory } from '@server/controller/cycleData/persistNodeValues/queueFactory'
+import { UpdateDependenciesQueueFactory } from '@server/controller/cycleData/updateDependencies'
 import { DB } from '@server/db'
 import { Logger } from '@server/utils/logger'
 
@@ -39,7 +39,7 @@ export const persistNodeValues = async (
           return { tableName, variableName, colName, value: node.value }
         })
       )
-      await QueueFactory.getInstance({ assessment, cycle, countryIso }).add(
+      await UpdateDependenciesQueueFactory.getInstance({ assessment, cycle, countryIso }).add(
         'updateDependencies',
         {
           nodeUpdates: { assessment, cycle, countryIso, nodes: persistedNodes },
