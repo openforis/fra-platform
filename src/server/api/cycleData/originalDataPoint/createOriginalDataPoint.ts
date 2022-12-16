@@ -15,6 +15,10 @@ export const createOriginalDataPoint = async (
     const { assessmentName, cycleName } = req.query
     const { originalDataPoint } = req.body
 
+    if (!originalDataPoint.year) {
+      throw new Error(`odpMissingYear`)
+    }
+
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     const returnedOriginalDataPoint = await CycleDataController.createOriginalDataPoint({
