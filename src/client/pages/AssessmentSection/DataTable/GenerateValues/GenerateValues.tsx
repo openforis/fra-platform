@@ -22,8 +22,7 @@ type Props = {
 const GenerateValues: React.FC<Props> = (props) => {
   const { assessmentName, sectionName, tableName, rows, data } = props
 
-  const i18n = useTranslation()
-  // const { method, setMethod, fields, setFields, valid, generateValues } = useGenerateValues(
+  const { t } = useTranslation()
   const { method, setMethod, fields, setFields, valid, generateValues, isEstimationPending } = useGenerateValues(
     assessmentName,
     sectionName,
@@ -42,13 +41,13 @@ const GenerateValues: React.FC<Props> = (props) => {
       <div className="data-table-generate-values">
         <select className="select-s" value={method ?? ''} onChange={(evt) => setMethod(evt.target.value as Method)}>
           <option value="" disabled>
-            {i18n.t('tableWithOdp.placeholderSelect')}
+            {t('tableWithOdp.placeholderSelect')}
           </option>
-          <option value={Method.linear}>{i18n.t('tableWithOdp.linearExtrapolation')}</option>
-          <option value={Method.repeatLast}>{i18n.t('tableWithOdp.repeatLastExtrapolation')}</option>
-          <option value={Method.annualChange}>{i18n.t('tableWithOdp.annualChangeExtrapolation')}</option>
+          <option value={Method.linear}>{t('tableWithOdp.linearExtrapolation')}</option>
+          <option value={Method.repeatLast}>{t('tableWithOdp.repeatLastExtrapolation')}</option>
+          <option value={Method.annualChange}>{t('tableWithOdp.annualChangeExtrapolation')}</option>
           <option disabled>---</option>
-          <option value={Method.clearTable}>{i18n.t('tableWithOdp.clearTable')}</option>
+          <option value={Method.clearTable}>{t('tableWithOdp.clearTable')}</option>
         </select>
 
         <button
@@ -63,7 +62,7 @@ const GenerateValues: React.FC<Props> = (props) => {
             }, 15_000)
           }}
         >
-          {buttonLabel}
+          {t(buttonLabel)}
         </button>
 
         {!Objects.isEmpty(method) && !isMethodClearTable && (
