@@ -1,22 +1,18 @@
 import React, { useRef } from 'react'
-import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
 
-import { ClientRoutes } from '@meta/app'
-import { AssessmentName, Col as TypeCol, Cols, Row as TypeRow, RowType, Table as TableType } from '@meta/assessment'
+import { AssessmentName, Table as TableType } from '@meta/assessment'
 import { TableData } from '@meta/data'
 
-import { useAssessmentCountry, useCycle } from '@client/store/assessment'
-import { useOriginalDataPointYears, useShowOriginalDatapoints } from '@client/store/pages/assessmentSection/hooks'
+import { useCycle } from '@client/store/assessment'
+import { useShowOriginalDatapoints } from '@client/store/pages/assessmentSection/hooks'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import ButtonTableExport from '@client/components/ButtonTableExport'
-import Tooltip from '@client/components/Tooltip'
+import TableBody from '@client/pages/AssessmentSection/DataTable/Table/TableBody'
+import TableHead from '@client/pages/AssessmentSection/DataTable/Table/TableHead'
 
-import { getODPColSpan } from './utils/getODPColSpan'
 import { parseTable } from './utils/parseTable'
 import DataValidations from './DataValidations'
-import Row from './Row'
 
 type Props = {
   assessmentName: AssessmentName
@@ -31,19 +27,14 @@ const Table: React.FC<Props> = (props) => {
   const { assessmentName, sectionName, sectionAnchor, table: tableProps, data, disabled } = props
 
   const cycle = useCycle()
-  const { t } = useTranslation()
-  const odpYears = useOriginalDataPointYears()
   const showODP = useShowOriginalDatapoints()
 
-  const country = useAssessmentCountry()
   const countryIso = useCountryIso()
   const { print } = useIsPrint()
   const tableRef = useRef<HTMLTableElement>(null)
 
   const { headers, table } = parseTable({ countryIso, cycle, data, showODP, table: tableProps })
-  const { odp, secondary } = table.props
-  const rowsHeader = table.rows.filter((row) => row.props.type === RowType.header)
-  const rowsData = table.rows.filter((row) => row.props.type !== RowType.header)
+  const { secondary } = table.props
   const displayTableExportButton = !secondary && !print && tableRef.current != null
 
   return (
@@ -54,78 +45,14 @@ const Table: React.FC<Props> = (props) => {
         )}
 
         <table id={table.props.name} ref={tableRef} className="fra-table data-table">
-          <thead>
-            {rowsHeader.map((row: TypeRow, rowIndex: number) => (
-              <tr key={row.uuid}>
-                {row.cols.map((col: TypeCol, colIndex: number) => {
-                  const { index } = col.props
-                  const { colSpan, rowSpan } = Cols.getStyle({ cycle, col })
-                  const columnName = headers[colIndex]
-
-                  let isOdpHeader = showODP && table.props.odp && !col.props.labels && odpYears?.includes(columnName)
-
-                  if (table.props.name === 'forestCharacteristics')
-                    isOdpHeader = isOdpHeader && country.props.forestCharacteristics.useOriginalDataPoint
-
-                  const getColumnName = () => {
-                    const label = Cols.getLabel({ cycle, col, t })
-
-                    if (isOdpHeader && !print) {
-                      return (
-                        <Tooltip text={t('nationalDataPoint.clickOnNDP')}>
-                          <Link
-                            className="link"
-                            to={ClientRoutes.Assessment.OriginalDataPoint.Section.getLink({
-                              countryIso,
-                              assessmentName,
-                              cycleName: cycle.name,
-                              year: columnName,
-                              sectionName: table.props.name,
-                            })}
-                          >
-                            {label}
-                          </Link>
-                        </Tooltip>
-                      )
-                    }
-
-                    return label
-                  }
-
-                  const headerLeft = (index === 0 && rowIndex === 0) || row.props?.readonly
-                  let className = `fra-table__header-cell${headerLeft ? '-left' : ''}`
-                  if (isOdpHeader && !print && rowIndex > 0) className = 'odp-header-cell'
-
-                  return (
-                    <th
-                      key={col.uuid}
-                      className={className}
-                      colSpan={odp && !colSpan ? getODPColSpan({ headers, table, data }) : colSpan}
-                      rowSpan={rowSpan}
-                    >
-                      {getColumnName()}
-                    </th>
-                  )
-                })}
-              </tr>
-            ))}
-          </thead>
-
-          <tbody>
-            {rowsData.map((row: TypeRow) => {
-              return (
-                <Row
-                  key={row.uuid}
-                  assessmentName={assessmentName}
-                  sectionName={sectionName}
-                  table={table}
-                  data={data}
-                  row={row}
-                  disabled={disabled}
-                />
-              )
-            })}
-          </tbody>
+          <TableHead data={data} assessmentName={assessmentName} headers={headers} table={table} />
+          <TableBody
+            data={data}
+            sectionName={sectionName}
+            table={table}
+            assessmentName={assessmentName}
+            disabled={disabled}
+          />
         </table>
 
         <DataValidations table={table} />
