@@ -30,7 +30,6 @@ const MapVisualizerPanel: React.FC = () => {
       if (wasExistingLayer) {
         // remove the existing layer from the app state
         dispatch(GeoActions.removeForestLayer(mapLayerKey))
-        dispatch(GeoActions.resetOpacity(mapLayerKey))
         if (!forceAddLayer) return
       }
 

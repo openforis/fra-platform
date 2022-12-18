@@ -44,6 +44,9 @@ export const geoSlice = createSlice({
       const i = state.forestOptions.selected.findIndex(({ key }) => key === payload)
       if (i === -1) return
       state.forestOptions.selected.splice(i, 1)
+
+      // Reset opacity
+      delete state.forestOptions.opacity[payload]
     },
     markForestLayerAsReady: (state, { payload }: PayloadAction<ForestSource>) => {
       const i = state.forestOptions.selected.findIndex(({ key }) => key === payload)
@@ -52,9 +55,6 @@ export const geoSlice = createSlice({
     },
     setOpacity: (state, { payload: { key, opacity } }: PayloadAction<{ key: string; opacity: number }>) => {
       state.forestOptions.opacity[key] = opacity
-    },
-    resetOpacity: (state, { payload }: PayloadAction<string>) => {
-      delete state.forestOptions.opacity[payload]
     },
     setHansenPercentage: (state, { payload }: PayloadAction<HansenPercentage>) => {
       state.forestOptions.hansenPercentage = payload
