@@ -5,9 +5,11 @@ import { Numbers } from '@utils/numbers'
 
 import { ODPs, OriginalDataPoint } from '@meta/assessment'
 
+import { useCycle } from '@client/store/assessment'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import DefinitionLink from '@client/components/DefinitionLink'
 
+import ForestCharacteristicsNaturallyRegenerating from './ForestCharacteristicsNaturallyRegenerating'
 import ForestCharacteristicsPlantation from './ForestCharacteristicsPlantation'
 import ForestCharacteristicsRow from './ForestCharacteristicsRow'
 
@@ -17,6 +19,8 @@ type Props = {
 }
 
 const ForestCharacteristics: React.FC<Props> = (props) => {
+  const cycle = useCycle()
+
   const { canEditData, originalDataPoint } = props
 
   const { i18n } = useTranslation()
@@ -28,8 +32,18 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
     field: 'forestPercent',
     subField: 'forestPlantationPercent',
   })
+  const naturallyRegeneratingForestTotal = ODPs.calcTotalSubFieldArea({
+    originalDataPoint,
+    field: 'forestPercent',
+    subField: 'forestNaturalPercent',
+  })
 
   const hasPlantation = plantationTotal && Numbers.greaterThanOrEqualTo(plantationTotal, 0)
+  // Display primary_forest only for ODP/Cycle2025
+  const hasNaturallyRegeneratingForest =
+    cycle.name === '2025' &&
+    naturallyRegeneratingForestTotal &&
+    Numbers.greaterThanOrEqualTo(naturallyRegeneratingForestTotal, 0)
 
   return (
     <div className="odp__section">
@@ -127,6 +141,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
       </div>
 
       {hasPlantation && <ForestCharacteristicsPlantation canEditData={canEditData} />}
+      {hasNaturallyRegeneratingForest && <ForestCharacteristicsNaturallyRegenerating canEditData={canEditData} />}
     </div>
   )
 }

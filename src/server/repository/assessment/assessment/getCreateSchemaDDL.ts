@@ -281,6 +281,11 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
                           100::numeric)                                                                as plantation_forest_introduced_area,
                       sum(((c.class ->> 'area'::text)::numeric) * ((c.class ->> 'forestPercent'::text)::numeric) /
                           100::numeric *
+                          ((c.class ->> 'forestNaturalPercent'::text)::numeric) / 100::numeric *
+                          ((c.class ->> 'forestNaturalPercentOfWhichPrimaryForestPercent'::text)::numeric) /
+                          100::numeric)                                                                as primary_forest,
+                      sum(((c.class ->> 'area'::text)::numeric) * ((c.class ->> 'forestPercent'::text)::numeric) /
+                          100::numeric *
                           ((c.class ->> 'otherPlantedForestPercent'::text)::numeric) /
                           100::numeric)                                                                as other_planted_forest_area
                from classes c

@@ -5,7 +5,7 @@ import { VariableCache } from '@meta/assessment/assessmentMetaCache'
 import { Cycle } from '@meta/assessment/cycle'
 import { TableNames } from '@meta/assessment/table'
 
-import { isODPVariable } from '@server/controller/cycleData/originalDataPointVariables'
+import { isODPVariable } from '@server/controller/cycleData/getOriginalDataPointVariables'
 import { BaseProtocol } from '@server/db'
 
 import { isODPCell } from './isODPCell'
@@ -36,7 +36,7 @@ export const getDependants = async (props: Props, client: BaseProtocol): Promise
   // Case1
   if (isODP) {
     // Exclude all odp variables
-    return dependants.filter((variable) => !isODPVariable(variable))
+    return dependants.filter((variable) => !isODPVariable(props.cycle, variable))
   }
 
   // Case2
