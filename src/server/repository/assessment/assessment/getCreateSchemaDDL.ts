@@ -282,7 +282,7 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
                       sum(((c.class ->> 'area'::text)::numeric) * ((c.class ->> 'forestPercent'::text)::numeric) /
                           100::numeric *
                           ((c.class ->> 'forestNaturalPercent'::text)::numeric) / 100::numeric *
-                          ((c.class ->> 'forestNaturalPercentOfWhichPrimaryForestPercent'::text)::numeric) /
+                          ((c.class ->> 'forestNaturalForestOfWhichPrimaryForestPercent'::text)::numeric) /
                           100::numeric)                                                                as primary_forest,
                       sum(((c.class ->> 'area'::text)::numeric) * ((c.class ->> 'forestPercent'::text)::numeric) /
                           100::numeric *
@@ -328,7 +328,8 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
                  when rv.planted_forest is not null or rv.natural_forest_area is not null then
                          coalesce(rv.planted_forest, 0) + coalesce(rv.natural_forest_area, 0)
                  else null
-                 end                                                               as total_forest_area
+                 end                                                               as total_forest_area,
+             rv.primary_forest
       from raw_values_2 rv
                left join extentofforest e
                          on e.country_iso = rv.country_iso

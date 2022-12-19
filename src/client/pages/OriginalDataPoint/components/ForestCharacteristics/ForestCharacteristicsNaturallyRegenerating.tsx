@@ -63,7 +63,7 @@ const ForestCharacteristicsNaturallyRegenerating: React.FC<Props> = (props) => {
                       originalDataPoint,
                       field: 'forestPercent',
                       subField: 'forestNaturalPercent',
-                      subSubField: 'forestNaturalPercentOfWhichPrimaryForestPercent',
+                      subSubField: 'forestNaturalForestOfWhichPrimaryForestPercent',
                     })
                   )}
               </td>

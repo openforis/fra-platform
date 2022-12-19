@@ -13,7 +13,7 @@ import ReviewIndicator from '@client/components/ReviewIndicator'
 
 import { useNationalClassNameComments, useNationalClassValidation } from '../../hooks'
 
-const columns = [{ name: 'forestNaturalPercentOfWhichPrimaryForestPercent', type: 'decimal' }]
+const columns = [{ name: 'forestNaturalForestOfWhichPrimaryForestPercent', type: 'decimal' }]
 
 const allowedClass = (nc: ODPNationalClass) =>
   nc.forestNaturalPercent !== null && Number(nc.forestNaturalPercent) >= 0 && Number(nc.forestPercent) > 0
@@ -34,7 +34,7 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
 
   const { nationalClasses, id } = originalDataPoint
   const nationalClass = nationalClasses[index]
-  const { name, area, forestPercent, forestNaturalPercent, forestNaturalPercentOfWhichPrimaryForestPercent, uuid } =
+  const { name, area, forestPercent, forestNaturalPercent, forestNaturalForestOfWhichPrimaryForestPercent, uuid } =
     nationalClass
   const target = [id, 'class', `${uuid}`, 'naturally_regenerating_forest_of_which_primary_forest'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
@@ -57,14 +57,14 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
       <td className={`fra-table__cell ${classNamePercentageValidation}`}>
         <PercentInput
           disabled={!canEditData || isZeroOrNullPrimaryForest}
-          numberValue={isZeroOrNullPrimaryForest ? 0 : forestNaturalPercentOfWhichPrimaryForestPercent}
+          numberValue={isZeroOrNullPrimaryForest ? 0 : forestNaturalForestOfWhichPrimaryForestPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             dispatch(
               OriginalDataPointActions.updateNationalClass({
                 odp: originalDataPoint,
                 index,
-                field: 'forestNaturalPercentOfWhichPrimaryForestPercent',
-                prevValue: forestNaturalPercentOfWhichPrimaryForestPercent,
+                field: 'forestNaturalForestOfWhichPrimaryForestPercent',
+                prevValue: forestNaturalForestOfWhichPrimaryForestPercent,
                 value: event.target.value,
                 assessmentName: assessment.props.name,
                 cycleName: cycle.name,
