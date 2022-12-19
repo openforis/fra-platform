@@ -26,7 +26,7 @@ export const getForestAgreementLayer = async (props: Props): Promise<Layer> => {
         {
           palette,
           min: gteAgreementLevel,
-          max: palette.length,
+          max: layer.length,
           opacity,
         },
         (mapProperties: any, err: any) => {
