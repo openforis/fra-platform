@@ -32,9 +32,9 @@ const AgreementLevelsControl: React.FC = () => {
     // return `false`.
     mapControllerRef.current.removeEarthEngineLayer(agreementLayerKey)
 
-    // If the agreement level is greater than the number of selected layers, reset the
-    // agreement state.
-    if (forestOptions.agreementLevel > forestOptions.selected.length) {
+    // If less than two sources are selected or the agreement level is greater than the
+    // number of selected layers, reset the agreement state.
+    if (forestOptions.selected.length < 2 || forestOptions.agreementLevel > forestOptions.selected.length) {
       dispatch(GeoActions.setAgreementLayerSelected(false))
       dispatch(GeoActions.setAgreementLevel(1))
       return
