@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import './CountryRoles.scss'
 import React, { useCallback, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -33,7 +34,7 @@ type ModalOptionsProps = {
 
 const CountryRoles: React.FC<{ user: User }> = ({ user }) => {
   const dispatch = useAppDispatch()
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
   const userInfo = useUser()
   const countries = useCountries()
   const assessment = useAssessment()
@@ -75,24 +76,14 @@ const CountryRoles: React.FC<{ user: User }> = ({ user }) => {
   )
 
   const _toggleAdmin = useCallback(() => {
-    // eslint-disable-next-line no-alert
-    if (window.confirm(i18n.t('editUser.adminConfirm'))) {
-      const roles = Users.isAdministrator(user) ? [] : [{ role: RoleName.ADMINISTRATOR }]
-
-      dispatch(
-        UserManagementActions.updateUserRoles({
-          assessmentName: assessment.props.name,
-          cycleName: cycle.name,
-          roles,
-          userId: user.id,
-        })
-      )
+    if (window.confirm(t(Users.isAdministrator(user) ? 'editUser.demoteToUser' : 'editUser.promoteToAdmin'))) {
+      dispatch(UserManagementActions.updateUserAdminRole({ userId: user.id }))
     }
-  }, [assessment.props.name, cycle.name, dispatch, i18n, user])
+  }, [dispatch, t, user])
 
   return (
     <div className="edit-user__form-item edit-user__form-item-roles">
-      <div className="edit-user__form-label">{i18n.t<string>('editUser.role')}</div>
+      <div className="edit-user__form-label">{t('editUser.role')}</div>
       <div
         className={classNames('edit-user__form-field', 'edit-user__form-field-roles', {
           error: !Users.validRole(user),
@@ -132,16 +123,20 @@ const CountryRoles: React.FC<{ user: User }> = ({ user }) => {
             onClick={_toggleAdmin}
             aria-hidden="true"
           >
-            <div className="role">{i18n.t<string>(Users.getI18nRoleLabelKey(RoleName.ADMINISTRATOR))}</div>
+            <div className="role">{t(Users.getI18nRoleLabelKey(RoleName.ADMINISTRATOR))}</div>
             <div className={classNames('fra-checkbox', { checked: Users.isAdministrator(user) })} />
           </div>
         )}
       </div>
+
       <CountrySelectModal
         open={modalOptions.open}
         countries={countries}
-        excludedRegions={[RegionCode.FE, ...secondaryRegions.regions.map((r: Region) => r.regionCode)]}
-        headerLabel={i18n.t(Users.getI18nRoleLabelKey(modalOptions.role as RoleName))}
+        excludedRegions={[
+          RegionCode.FE,
+          ...(secondaryRegions ? secondaryRegions.regions.map((r: Region) => r.regionCode) : []),
+        ]}
+        headerLabel={t(Users.getI18nRoleLabelKey(modalOptions.role as RoleName))}
         onClose={() => setModalOptions(initialModalState)}
         initialSelection={modalOptions.initialSelection}
         unselectableCountries={modalOptions.unselectableCountries}

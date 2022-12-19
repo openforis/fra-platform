@@ -25,7 +25,7 @@ const localStrategyVerifyCallback = async (req: Request, email: string, password
       const invitationUuid = req.query?.invitationUuid as string
 
       if (invitationUuid) {
-        const { user: invitedUser, userRole } = await UserController.readByInvitation({ invitationUuid })
+        const { user: invitedUser, userRole } = await UserController.findByInvitation({ invitationUuid })
 
         let userProvider = (await UserProviderController.read({
           user: invitedUser,

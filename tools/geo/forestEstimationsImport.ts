@@ -4,13 +4,60 @@ import { config } from 'dotenv'
 import * as pgPromise from 'pg-promise'
 
 import { CountryIso } from '../../src/meta/area'
-import { ForestEstimationsData } from '../../src/meta/geo'
 import { DB } from '../../src/server/db'
+import { Objects } from '../../src/utils/objects'
 
 type Response = {
   features: Array<{
     geometry: any
-    properties: ForestEstimationsData & { iso3: CountryIso }
+    properties: {
+      fa_agreement_esri_esa_glo_hansen10_gte_1: number
+      fa_agreement_esri_esa_glo_hansen10_gte_2: number
+      fa_agreement_esri_esa_glo_hansen10_gte_3: number
+      fa_agreement_esri_esa_glo_hansen10_gte_4: number
+      fa_agreement_esri_esa_gte_1: number
+      fa_agreement_esri_esa_gte_2: number
+      fa_agreement_hansen10_gte_1: number
+      fa_agreement_hansen10_gte_2: number
+      fa_agreement_hansen10_gte_3: number
+      fa_agreement_hansen10_gte_4: number
+      fa_agreement_hansen10_gte_5: number
+      fa_agreement_hansen10_gte_6: number
+      fa_agreement_hansen10_gte_7: number
+      fa_agreement_hansen10_gte_8: number
+      fa_agreement_hansen20_gte_1: number
+      fa_agreement_hansen20_gte_2: number
+      fa_agreement_hansen20_gte_3: number
+      fa_agreement_hansen20_gte_4: number
+      fa_agreement_hansen20_gte_5: number
+      fa_agreement_hansen20_gte_6: number
+      fa_agreement_hansen20_gte_7: number
+      fa_agreement_hansen20_gte_8: number
+      fa_agreement_hansen30_gte_1: number
+      fa_agreement_hansen30_gte_2: number
+      fa_agreement_hansen30_gte_3: number
+      fa_agreement_hansen30_gte_4: number
+      fa_agreement_hansen30_gte_5: number
+      fa_agreement_hansen30_gte_6: number
+      fa_agreement_hansen30_gte_7: number
+      fa_agreement_hansen30_gte_8: number
+      fa_copernicus: number
+      fa_esa_2009: number
+      fa_esa_2020: number
+      fa_esri: number
+      fa_globeland: number
+      fa_hansen10: number
+      fa_hansen20: number
+      fa_hansen30: number
+      fa_jaxa: number
+      fa_tandemx: number
+      fra_1a_forestArea: number
+      fra_1a_landArea: number
+      fra_3b_protected: number
+      iso3: CountryIso
+      total_area_ha: number
+      year: number
+    }
   }>
 }
 
@@ -23,8 +70,8 @@ export const forestIndicatorsImport = async (): Promise<void> => {
 
   const values = response.features.map((d) => {
     const { properties } = d
-    const { iso3, ...data } = properties
-    return { country_iso: iso3, year: 2020, data }
+    const { iso3, year, ...data } = properties
+    return { country_iso: iso3, year, data: Objects.camelize(data) }
   })
 
   const schema = 'geo'
