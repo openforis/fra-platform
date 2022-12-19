@@ -1,6 +1,13 @@
 import { ForestSource } from '@meta/geo'
 
-export const layers: { key: ForestSource; title: string; apiUri: string; opacity: number }[] = [
+export interface Layer {
+  key: ForestSource
+  title: string
+  apiUri: string
+  opacity: number
+}
+
+export const layers: Layer[] = [
   {
     key: ForestSource.JAXA,
     title: 'JAXA (2017)',

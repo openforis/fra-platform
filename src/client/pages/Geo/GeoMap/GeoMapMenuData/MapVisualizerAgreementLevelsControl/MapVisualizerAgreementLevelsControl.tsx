@@ -47,9 +47,9 @@ const AgreementLevelsControl: React.FC = () => {
 
     // Otherwise, fetch the new agreement layer and add it to the map.
 
-    const layerQuery = forestOptions.selected.map(({ key }) => `&layer=${key}`).join('')
+    const layerQuery = forestOptions.selected.map((key) => `&layer=${key}`).join('')
     const agreementLevelQuery = `&gteAgreementLevel=${forestOptions.agreementLevel}`
-    const hansenQuery = forestOptions.selected.some(({ key }) => key === ForestSource.Hansen)
+    const hansenQuery = forestOptions.selected.includes(ForestSource.Hansen)
       ? `&gteHansenTreeCoverPerc=${forestOptions.hansenPercentage}`
       : ''
     const uri = `/api/geo/layers/forestAgreement/?countryIso=FIN${layerQuery}${agreementLevelQuery}${hansenQuery}`
