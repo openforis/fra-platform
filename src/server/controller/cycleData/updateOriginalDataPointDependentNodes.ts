@@ -1,15 +1,14 @@
-// @ts-nocheck
 // import { Assessment, Cycle, OriginalDataPoint, TableNames } from '@meta/assessment'
 import { Assessment, Cycle, OriginalDataPoint } from '@meta/assessment'
-// import { TableDatas } from '@meta/data'
+// import { NodeUpdates, TableDatas } from '@meta/data'
 // import { Sockets } from '@meta/socket'
 import { User } from '@meta/user'
 
 // import { getTableData } from '@server/controller/cycleData/getTableData'
 import { BaseProtocol } from '@server/db'
 // import { SocketServer } from '@server/service/socket'
-// import { calculateAndValidateDependentNodes } from './persistNodeValues/calculateAndValidateDependentNodes'
-// import { originalDataPointVariables } from './originalDataPointVariables'
+// import { calculateAndValidateDependentNodes } from './persistNodeValue/calculateAndValidateDependentNodes'
+// import { getOriginalDataPointVariables } from './getOriginalDataPointVariables'
 import { Logger } from '@server/utils/logger'
 
 export const updateOriginalDataPointDependentNodes = async (
@@ -22,20 +21,24 @@ export const updateOriginalDataPointDependentNodes = async (
   client: BaseProtocol
 ): Promise<void> => {
   // const { assessment, cycle, originalDataPoint, user } = props
-  Logger.debug(client, props)
+  Logger.debug(`${props}${client}`)
   // if (originalDataPoint.year) {
   //   const { countryIso } = originalDataPoint
   //   const colName = String(originalDataPoint.year)
+  //   const originalDataPointVariables = getOriginalDataPointVariables(cycle)
   //
   //   // calculate and validate all odp variables
   //   for (let i = 0; i < originalDataPointVariables.length; i += 1) {
   //     const { sectionName, tableName, variableName } = originalDataPointVariables[i]
+  //
+  //     const nodeUpdates: NodeUpdates = { assessment, cycle, countryIso, nodes: [] }
   //
   //     // eslint-disable-next-line no-await-in-loop
   //     await calculateAndValidateDependentNodes(
   //       {
   //         colName,
   //         cycle,
+  //         nodeUpdates,
   //         sectionName,
   //         tableName,
   //         user,
