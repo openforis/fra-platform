@@ -180,7 +180,7 @@ The FRA team fra@fao.org
     naturallyRegeneratingForest: 'Naturally regenerating forest',
     plantationForest: 'Plantation forest',
     ofWhichIntroduced: '…of which introduced',
-    ofWhichPrimaryForest: '…of which primary forest',
+    ofWhichPrimaryForest: '$t(fra.forestCharacteristics.primaryForest)',
     otherPlantedForest: 'Other planted forest',
     totalForest: 'Total forest',
   },

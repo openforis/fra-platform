@@ -140,8 +140,8 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
         </div>
       </div>
 
-      {hasPlantation && <ForestCharacteristicsPlantation canEditData={canEditData} />}
       {hasNaturallyRegeneratingForest && <ForestCharacteristicsNaturallyRegenerating canEditData={canEditData} />}
+      {hasPlantation && <ForestCharacteristicsPlantation canEditData={canEditData} />}
     </div>
   )
 }
