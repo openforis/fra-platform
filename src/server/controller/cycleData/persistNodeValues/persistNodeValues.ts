@@ -1,12 +1,12 @@
 import { ActivityLogMessage } from '@meta/assessment'
 import { NodeUpdate } from '@meta/data'
 
-import { PersistNodeValuesProps } from '@server/controller/cycleData/persistNodeValues/props'
-import { UpdateDependenciesQueueFactory } from '@server/controller/cycleData/updateDependencies'
+import { scheduleUpdateDependencies } from '@server/controller/cycleData/updateDependencies'
 import { DB } from '@server/db'
 import { Logger } from '@server/utils/logger'
 
 import { persistNode } from './persistNode'
+import { PersistNodeValuesProps } from './props'
 
 export const persistNodeValues = async (
   props: PersistNodeValuesProps & { activityLogMessage?: ActivityLogMessage }
@@ -39,17 +39,11 @@ export const persistNodeValues = async (
           return { tableName, variableName, colName, value: node.value }
         })
       )
-      await UpdateDependenciesQueueFactory.getInstance({ assessment, cycle, countryIso }).add(
-        'updateDependencies',
-        {
-          nodeUpdates: { assessment, cycle, countryIso, nodes: persistedNodes },
-          sectionName,
-          user,
-        },
-        { removeOnComplete: true }
-      )
-
-      Logger.debug(`[persistNodeValues] ${persistedNodes.length} nodes added to updateDependencies queue`)
+      await scheduleUpdateDependencies({
+        nodeUpdates: { assessment, cycle, countryIso, nodes: persistedNodes },
+        sectionName,
+        user,
+      })
     } catch (error) {
       Logger.error(error)
       throw error

@@ -26,7 +26,7 @@ export default async (job: Job<UpdateDependenciesProps>) => {
             countryIso,
             cycle,
             isODP,
-            sourceNode: node,
+            sourceNode: isODP ? undefined : node,
             sectionName,
             tableName: node.tableName,
             user,
