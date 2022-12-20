@@ -7,7 +7,6 @@ import { getTableData } from '@server/controller/cycleData/getTableData'
 import { scheduleUpdateDependencies } from '@server/controller/cycleData/updateDependencies'
 import { BaseProtocol } from '@server/db'
 import { SocketServer } from '@server/service/socket'
-import { Logger } from '@server/utils/logger'
 
 import { getOriginalDataPointVariables } from './getOriginalDataPointVariables'
 
@@ -21,8 +20,8 @@ export const updateOriginalDataPointDependentNodes = async (
   client: BaseProtocol
 ): Promise<void> => {
   const { assessment, cycle, originalDataPoint, user } = props
-  Logger.debug(`${props}${client}`)
   const { countryIso, year } = originalDataPoint
+
   if (year) {
     const colName = String(year)
     const originalDataPointVariables = getOriginalDataPointVariables(cycle)

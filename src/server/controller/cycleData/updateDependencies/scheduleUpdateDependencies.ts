@@ -1,8 +1,8 @@
 import { Job } from 'bullmq'
 
-import { UpdateDependenciesProps } from '@server/controller/cycleData/updateDependencies/props'
 import { Logger } from '@server/utils/logger'
 
+import { UpdateDependenciesProps } from './props'
 import { UpdateDependenciesQueueFactory } from './queueFactory'
 
 export const scheduleUpdateDependencies = (props: UpdateDependenciesProps): Promise<Job<UpdateDependenciesProps>> => {

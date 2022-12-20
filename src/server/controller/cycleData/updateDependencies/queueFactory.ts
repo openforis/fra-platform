@@ -13,7 +13,7 @@ import { WorkerFactory } from './workerFactory'
 const queues: Record<string, Queue<UpdateDependenciesProps>> = {}
 const workers: Record<string, Worker<UpdateDependenciesProps>> = {}
 
-export const getInstance = (props: {
+const getInstance = (props: {
   assessment: Assessment
   cycle: Cycle
   countryIso: CountryIso
