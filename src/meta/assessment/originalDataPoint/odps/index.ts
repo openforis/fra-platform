@@ -11,6 +11,7 @@ import { deleteNationalClass } from './deleteNationalClass'
 import { getPreviousODPYear } from './getPreviousODPYear'
 import { removeNationalClassPlaceHolder } from './removeNationalClassPlaceHolder'
 import { updateNationalClass } from './updateNationalClass'
+import { validateNationalClass, validateYear } from './validateODP'
 
 export const ODPs = {
   addNationalClassPlaceHolder,
@@ -24,4 +25,7 @@ export const ODPs = {
   removeNationalClassPlaceHolder,
   updateNationalClass,
   getPreviousODPYear,
+  // Validate
+  validateYear,
+  validateNationalClass,
 }
