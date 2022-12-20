@@ -6,9 +6,9 @@ import { SubSections } from '@meta/assessment'
 import { CollaboratorEditPropertyType, CollaboratorProps, RoleName, UserRole } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
-import { useAssessmentSections, useCycle } from '@client/store/assessment'
+import { useAssessment, useAssessmentSections, useCycle } from '@client/store/assessment'
 import { UserManagementActions } from '@client/store/ui/userManagement'
-import { useOnUpdate } from '@client/hooks'
+import { useCountryIso, useOnUpdate } from '@client/hooks'
 import ButtonCheckBox from '@client/components/ButtonCheckBox'
 import { Modal, ModalBody, ModalClose, ModalHeader } from '@client/components/Modal'
 
@@ -27,7 +27,9 @@ const CollaboratorAccessModal: React.FC<Props> = (props) => {
 
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
+  const assessment = useAssessment()
   const cycle = useCycle()
+  const countryIso = useCountryIso()
   const sections = useAssessmentSections()
 
   const options = useMemo(() => SubSections.getAnchorsByUuid({ cycle, sections }), [cycle, sections])
@@ -40,6 +42,11 @@ const CollaboratorAccessModal: React.FC<Props> = (props) => {
       UserManagementActions.updateSectionAuth({
         id: userRole.id,
         sections: selectedSections,
+        params: {
+          assessmentName: assessment.props.name,
+          cycleName: cycle.name,
+          countryIso,
+        },
       })
     )
   }, [selectedSections])
