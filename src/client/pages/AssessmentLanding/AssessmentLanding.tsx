@@ -23,11 +23,13 @@ const AssessmentLanding: React.FC = () => {
 
   return (
     <Routes>
-      <Route path={ClientRoutes.Cycle.path.relative} element={<CycleLanding />} />
+      <Route path={ClientRoutes.Assessments.Cycle.path.relative} element={<CycleLanding />} />
 
       <Route
         path="*"
-        element={<Navigate to={ClientRoutes.Cycle.getLink({ assessmentName, cycleName: cycle.name })} replace />}
+        element={
+          <Navigate to={ClientRoutes.Assessments.Cycle.getLink({ assessmentName, cycleName: cycle.name })} replace />
+        }
       />
     </Routes>
   )

@@ -80,13 +80,20 @@ export const ClientRoutes = {
     PrintTables: newInstance<AssessmentParams>(...assessmentParts, 'print', 'tables'),
   },
 
-  Assessments: newInstance<{ assessmentName: AssessmentName }>('assessments', ':assessmentName'),
-
-  Cycle: newInstance<{ assessmentName: AssessmentName; cycleName: string }>(
-    'assessments',
-    ':assessmentName',
-    ':cycleName'
-  ),
+  Assessments: {
+    Assessment: newInstance<{ assessmentName: AssessmentName }>('assessments', ':assessmentName'),
+    Cycle: newInstance<{ assessmentName: AssessmentName; cycleName: string }>(
+      'assessments',
+      ':assessmentName',
+      ':cycleName'
+    ),
+    Country: newInstance<{ assessmentName: AssessmentName; cycleName: string; countryIso: CountryIso }>(
+      'assessments',
+      ':assessmentName',
+      ':cycleName',
+      ':countryIso'
+    ),
+  },
 
   Login: {
     Root: newInstance<undefined>('login'),
