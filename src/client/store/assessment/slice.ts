@@ -1,6 +1,6 @@
 import { createSlice, Reducer, SliceCaseReducers } from '@reduxjs/toolkit'
 
-import { getAreas, getSections, initApp, updateCountry } from './actions'
+import { getAreas, getAssessment, getSections, initApp, updateCountry } from './actions'
 import { AssessmentState } from './stateType'
 
 export const assessmentSlice = createSlice<AssessmentState, SliceCaseReducers<AssessmentState>>({
@@ -25,6 +25,10 @@ export const assessmentSlice = createSlice<AssessmentState, SliceCaseReducers<As
       state.regionGroups = regionGroups
     })
 
+    builder.addCase(getAssessment.fulfilled, (state, { payload }) => {
+      state.assessment = payload
+    })
+
     builder.addCase(getSections.fulfilled, (state, { payload }) => {
       state.sections = payload
     })
@@ -37,6 +41,7 @@ export const assessmentSlice = createSlice<AssessmentState, SliceCaseReducers<As
 
 export const AssessmentActions = {
   initApp,
+  getAssessment,
   getAreas,
   getSections,
   updateCountry,

@@ -1,23 +1,29 @@
 import './landing.scss'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { Navigate, Route, Routes } from 'react-router-dom'
 
-import { useSyncAssessmentPage } from '@client/store/assessment'
-import CountrySelect from '@client/components/CountrySelect'
-import Partners from '@client/components/Partners'
+import { ClientRoutes } from '@meta/app'
 
-import Introduction from './Introduction'
-import KeyFindings from './KeyFindings'
+import { useAppDispatch } from '@client/store'
+import { AssessmentActions, useAssessment } from '@client/store/assessment'
 
 const Landing: React.FC = () => {
-  useSyncAssessmentPage()
+  const dispatch = useAppDispatch()
+  const assessment = useAssessment()
+
+  useEffect(() => {
+    dispatch(AssessmentActions.getAssessment())
+  }, [dispatch])
+
+  if (!assessment) return null
 
   return (
-    <>
-      <CountrySelect />
-      <Introduction />
-      <KeyFindings />
-      <Partners />
-    </>
+    <Routes>
+      <Route
+        path="*"
+        element={<Navigate to={ClientRoutes.Assessments.getLink({ assessmentName: assessment.props.name })} replace />}
+      />
+    </Routes>
   )
 }
 

@@ -15,6 +15,10 @@ export const ApiEndPoint = {
     areas: () => apiPath('area', 'areas'),
   },
 
+  Assessment: {
+    one: () => apiPath('assessment'),
+  },
+
   Auth: {
     changePassword: () => apiPath('auth', 'change-password'),
     google: () => apiPath('auth', 'google'),

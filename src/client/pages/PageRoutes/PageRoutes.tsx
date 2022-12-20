@@ -16,12 +16,13 @@ import Admin from '@client/pages/Admin'
 import Assessment from '@client/pages/Assessment'
 import AssessmentPrint from '@client/pages/AssessmentPrint'
 import Geo from '@client/pages/Geo'
-import Landing from '@client/pages/Landing'
 import Login from '@client/pages/Login'
 import User from '@client/pages/User'
 import { SocketClient } from '@client/service/socket'
 import { Urls } from '@client/utils'
 
+import AssessmentLanding from '../AssessmentLanding'
+import Landing from '../Landing'
 import { useTheme } from './useTheme'
 
 const PageRoutes: React.FC = () => {
@@ -50,6 +51,8 @@ const PageRoutes: React.FC = () => {
 
       <Routes>
         <Route path="/" element={<Landing />} />
+
+        <Route path={`${ClientRoutes.Assessments.path.absolute}/*`} element={<AssessmentLanding />} />
 
         <Route path={ClientRoutes.Assessment.Print.path.absolute} element={<AssessmentPrint />} />
         <Route path={ClientRoutes.Assessment.PrintTables.path.absolute} element={<AssessmentPrint />} />

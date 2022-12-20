@@ -80,6 +80,14 @@ export const ClientRoutes = {
     PrintTables: newInstance<AssessmentParams>(...assessmentParts, 'print', 'tables'),
   },
 
+  Assessments: newInstance<{ assessmentName: AssessmentName }>('assessments', ':assessmentName'),
+
+  Cycle: newInstance<{ assessmentName: AssessmentName; cycleName: string }>(
+    'assessments',
+    ':assessmentName',
+    ':cycleName'
+  ),
+
   Login: {
     Root: newInstance<undefined>('login'),
     Invitation: newInstance('login', 'invitation'),
