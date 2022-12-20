@@ -34,7 +34,8 @@ export const getOriginalDataPointData = (props: Props, client: BaseProtocol = DB
                                    'total', json_build_object('raw', o.total::varchar, 'odp', true),
                                    'total_land_area', json_build_object('raw', o.total_land_area::varchar, 'odp', true),
                                    'other_land', json_build_object('raw', o.other_land::varchar, 'odp', true),
-                                   'total_forest_area', json_build_object('raw', o.total_forest_area::varchar, 'odp', true)
+                                   'total_forest_area', json_build_object('raw', o.total_forest_area::varchar, 'odp', true),
+                                   'primary_forest', json_build_object('raw', o.primary_forest::varchar, 'odp', true)
                                )
                        ) as values
         from ${schemaCycle}.original_data_point_data o
