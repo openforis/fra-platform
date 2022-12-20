@@ -1,5 +1,5 @@
 // To further expand
-import { TableNames, VariableCache } from '@meta/assessment'
+import { Cycle, TableNames, VariableCache } from '@meta/assessment'
 
 type Variable = {
   // metadata properties
@@ -43,9 +43,23 @@ export const originalDataPointVariables: Array<Variable> = [
   },
 ]
 
+export const getOriginalDataPointVariables = (cycle: Cycle) => {
+  if (cycle.name === '2025') {
+    return [
+      ...originalDataPointVariables,
+      {
+        sectionName: 'forestCharacteristics',
+        tableName: TableNames.forestCharacteristics,
+        variableName: 'primaryForest',
+      },
+    ]
+  }
+  return originalDataPointVariables
+}
+
 // Find given variable from ODPVariables
-export const isODPVariable = (variable: VariableCache): boolean => {
-  return originalDataPointVariables.some((odpVariable) => {
+export const isODPVariable = (cycle: Cycle, variable: VariableCache): boolean => {
+  return getOriginalDataPointVariables(cycle).some((odpVariable) => {
     const keys: Array<keyof VariableCache> = ['tableName', 'variableName']
     return keys.every((key) => variable[key] === odpVariable[key])
   })

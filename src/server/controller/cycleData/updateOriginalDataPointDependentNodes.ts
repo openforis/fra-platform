@@ -8,7 +8,7 @@ import { BaseProtocol } from '@server/db'
 import { SocketServer } from '@server/service/socket'
 
 import { calculateAndValidateDependentNodes } from './persistNodeValue/calculateAndValidateDependentNodes'
-import { originalDataPointVariables } from './originalDataPointVariables'
+import { getOriginalDataPointVariables } from './getOriginalDataPointVariables'
 
 export const updateOriginalDataPointDependentNodes = async (
   props: {
@@ -24,6 +24,7 @@ export const updateOriginalDataPointDependentNodes = async (
   if (originalDataPoint.year) {
     const { countryIso } = originalDataPoint
     const colName = String(originalDataPoint.year)
+    const originalDataPointVariables = getOriginalDataPointVariables(cycle)
 
     // calculate and validate all odp variables
     for (let i = 0; i < originalDataPointVariables.length; i += 1) {
