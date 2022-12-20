@@ -2,8 +2,9 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Numbers } from '@utils/numbers'
+import classNames from 'classnames'
 
-import { ODPNationalClass } from '@meta/assessment'
+import { ODPNationalClass, ODPs } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
@@ -11,7 +12,7 @@ import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pa
 import PercentInput from '@client/components/PercentInput'
 import ReviewIndicator from '@client/components/ReviewIndicator'
 
-import { useNationalClassNameComments, useNationalClassValidation } from '../../hooks'
+import { useNationalClassNameComments } from '../../hooks'
 
 const columns = [{ name: 'forestNaturalForestOfWhichPrimaryForestPercent', type: 'decimal' }]
 
@@ -38,8 +39,8 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
     nationalClass
   const target = [id, 'class', `${uuid}`, 'naturally_regenerating_forest_of_which_primary_forest'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
-  const validationStatus = useNationalClassValidation(index)
-  const classNamePercentageValidation = validationStatus.validPlantationIntroducedPercentage === false ? 'error' : ''
+  const nationalClassValidation = ODPs.validateNationalClass(originalDataPoint, index)
+
   const ofWhichPrimary = area
     ? Numbers.mul(area, Numbers.div(Numbers.mul(forestNaturalPercent, forestPercent), 10000))
     : null
@@ -54,7 +55,11 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
     <tr className={classNameRowComments}>
       <th className="fra-table__category-cell">{name}</th>
       <th className="fra-table__calculated-sub-cell fra-table__divider">{Numbers.format(ofWhichPrimary)}</th>
-      <td className={`fra-table__cell ${classNamePercentageValidation}`}>
+      <td
+        className={classNames(`fra-table__cell`, {
+          error: !nationalClassValidation.validPrimaryForest,
+        })}
+      >
         <PercentInput
           disabled={!canEditData || isZeroOrNullPrimaryForest}
           numberValue={isZeroOrNullPrimaryForest ? 0 : forestNaturalForestOfWhichPrimaryForestPercent}
