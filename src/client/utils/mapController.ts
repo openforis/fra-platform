@@ -12,7 +12,13 @@ export class MapController {
     this.map = map
   }
 
-  addEarthEngineLayer(mapLayerKey: string, mapId: string): void {
+  addEarthEngineLayer(mapLayerKey: string, mapId: string, overwrite = false): void {
+    if (overwrite) {
+      this.removeEarthEngineLayer(mapLayerKey)
+    } else if (this.getEarthEngineLayer(mapLayerKey)) {
+      return // avoid duplicates
+    }
+
     const tileSource = new ee.layers.EarthEngineTileSource({
       mapid: mapId,
     })
