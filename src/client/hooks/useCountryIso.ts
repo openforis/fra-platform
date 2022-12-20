@@ -6,7 +6,7 @@ import { useIsHome, useIsLogin } from '@client/hooks/useIsPath'
 
 export const useCountryIso = (): CountryIso => {
   const { countryIso } = useParams<{ countryIso: CountryIso }>()
-  const match = useMatch(':countryIso/*')
+  const match = useMatch('assessments/:assessmentName/:cycleName/:countryIso/*')
 
   const isLogin = useIsLogin()
   const isHome = useIsHome()

@@ -45,7 +45,7 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
 
   return (
     <Link
-      to={ClientRoutes.Assessment.Root.getLink({
+      to={ClientRoutes.Assessments.Country.getLink({
         countryIso: countryIso as CountryIso,
         assessmentName: assessment.props.name,
         cycleName: cycle?.name,

@@ -60,7 +60,7 @@ const PageRoutes: React.FC = () => {
           path={`${ClientRoutes.Admin.Root.path.absolute}/*`}
           element={Users.isAdministrator(user) ? <Admin /> : <Navigate to={ClientRoutes.Root.path} replace />}
         />
-        <Route path={`${ClientRoutes.Assessment.Root.path.absolute}/*`} element={<Assessment />} />
+        <Route path={`${ClientRoutes.Assessments.Country.path.absolute}/*`} element={<Assessment />} />
         <Route path={`${ClientRoutes.Login.Root.path.absolute}/*`} element={<Login />} />
         <Route path={`${ClientRoutes.Geo.Root.path.absolute}/*`} element={<Geo />} />
         <Route path={ClientRoutes.Users.User.path.absolute} element={<User />} />
