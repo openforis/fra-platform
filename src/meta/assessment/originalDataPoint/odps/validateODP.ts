@@ -46,6 +46,13 @@ const _validForestPlantationIntroducedPercent = (nationalClass: ODPNationalClass
   if (+nationalClass.forestPlantationIntroducedPercent <= 0) return true
   return ltE100(+nationalClass.forestPlantationIntroducedPercent)
 }
+// == Forest plantation introduced percentage (forestPlantationIntroducedPercent)
+// should be less than or equal to 100
+
+const _validPrimaryForest = (nationalClass: ODPNationalClass) => {
+  if (+nationalClass.forestNaturalForestOfWhichPrimaryForestPercent <= 0) return true
+  return ltE100(+nationalClass.forestNaturalForestOfWhichPrimaryForestPercent)
+}
 
 type NationalClassValidation = {
   error: boolean
@@ -54,6 +61,7 @@ type NationalClassValidation = {
   validExtentOfForestPercentage: boolean
   validForestCharacteristicsPercentage: boolean
   validForestPlantationIntroducedPercent: boolean
+  validPrimaryForest: boolean
 }
 export const validateNationalClass = (originalDataPoint: OriginalDataPoint, index: number): NationalClassValidation => {
   const nationalClass = originalDataPoint?.nationalClasses?.[index]
@@ -65,6 +73,7 @@ export const validateNationalClass = (originalDataPoint: OriginalDataPoint, inde
   const validExtentOfForestPercentage = _validExtentOfForestPercentage(nationalClass)
   const validForestCharacteristicsPercentage = _validForestCharacteristicsPercentage(nationalClass)
   const validForestPlantationIntroducedPercent = _validForestPlantationIntroducedPercent(nationalClass)
+  const validPrimaryForest = _validPrimaryForest(nationalClass)
 
   return {
     error: !(
@@ -72,12 +81,14 @@ export const validateNationalClass = (originalDataPoint: OriginalDataPoint, inde
       validArea &&
       validExtentOfForestPercentage &&
       validForestCharacteristicsPercentage &&
-      validForestPlantationIntroducedPercent
+      validForestPlantationIntroducedPercent &&
+      validPrimaryForest
     ),
     validClassName,
     validArea,
     validExtentOfForestPercentage,
     validForestCharacteristicsPercentage,
     validForestPlantationIntroducedPercent,
+    validPrimaryForest,
   }
 }
