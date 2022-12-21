@@ -45,10 +45,10 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
 
   return (
     <Link
-      to={ClientRoutes.Assessments.Country.getLink({
-        countryIso: countryIso as CountryIso,
+      to={ClientRoutes.Assessment.Root.getLink({
         assessmentName: assessment.props.name,
         cycleName: cycle?.name,
+        countryIso: countryIso as CountryIso,
       })}
       className={classNames('country-selection-list__row', { selected })}
     >

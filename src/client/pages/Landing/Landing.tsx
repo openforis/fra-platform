@@ -23,7 +23,7 @@ const Landing: React.FC = () => {
         path="*"
         element={
           <Navigate
-            to={ClientRoutes.Assessments.Assessment.getLink({ assessmentName: assessment.props.name })}
+            to={ClientRoutes.Assessment.AssessmentLanding.getLink({ assessmentName: assessment.props.name })}
             replace
           />
         }

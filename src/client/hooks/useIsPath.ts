@@ -8,10 +8,10 @@ export const useIsPath = ({ path, exact = true }: { path: string; exact?: boolea
   return Boolean(matchPath({ path, end: exact }, pathname))
 }
 
-export const useIsHome = () => useIsPath({ path: ClientRoutes.Assessments.Cycle.path.absolute })
+export const useIsHome = () => useIsPath({ path: ClientRoutes.Assessment.CycleLanding.path.absolute })
 
 export const useIsAssessment = () =>
-  useIsPath({ path: `${ClientRoutes.Assessments.Country.path.absolute}/*`, exact: false })
+  useIsPath({ path: `${ClientRoutes.Assessment.Root.path.absolute}/*`, exact: false })
 
 export const useIsAdmin = () => useIsPath({ path: `${ClientRoutes.Admin.Root.path.absolute}/*`, exact: false })
 
