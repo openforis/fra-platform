@@ -17,6 +17,10 @@ const AssessmentLanding: React.FC = () => {
 
   useEffect(() => {
     dispatch(AssessmentActions.initApp({ assessmentName, cycleName }))
+
+    return () => {
+      dispatch(AssessmentActions.reset())
+    }
   }, [assessmentName, cycleName, dispatch])
 
   if (!cycle) return null
