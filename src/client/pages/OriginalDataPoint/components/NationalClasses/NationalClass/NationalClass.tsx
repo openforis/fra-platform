@@ -2,6 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Objects } from '@utils/objects'
+import classNames from 'classnames'
 
 import { ODPs, OriginalDataPoint } from '@meta/assessment'
 
@@ -14,7 +15,7 @@ import Icon from '@client/components/Icon'
 import ReviewIndicator from '@client/components/ReviewIndicator'
 import VerticallyGrowingTextField from '@client/components/VerticallyGrowingTextField'
 
-import { useNationalClassNameComments, useNationalClassValidation } from '../../../hooks'
+import { useNationalClassNameComments } from '../../../hooks'
 
 const columns = [
   { name: 'name', type: 'text' },
@@ -43,7 +44,7 @@ const NationalClass: React.FC<Props> = (props) => {
   const { name, definition, uuid, placeHolder } = nationalClass
   const target = [originalDataPoint.id, 'class', `${uuid}`, 'definition'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
-  const validation = useNationalClassValidation(index)
+  const nationalClassValidation = ODPs.validateNationalClass(originalDataPoint, index)
 
   const updateOriginalDataPoint = (originalDataPointUpdate: OriginalDataPoint) => {
     dispatch(
@@ -58,7 +59,11 @@ const NationalClass: React.FC<Props> = (props) => {
 
   return (
     <tr className={classNameRowComments}>
-      <td className={`fra-table__cell-left odp__nc-table__name ${validation.validClassName === false ? 'error' : ''}`}>
+      <td
+        className={classNames(`fra-table__cell-left odp__nc-table__name`, {
+          error: !nationalClassValidation.validClassName,
+        })}
+      >
         <div className="odp__nc-table__input-container">
           {print ? (
             <div className="text-input__readonly-view only-print" style={{ paddingTop: 0, paddingBottom: 0 }}>
