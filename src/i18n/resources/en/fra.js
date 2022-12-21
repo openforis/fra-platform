@@ -28,6 +28,10 @@ module.exports = {
     percentOfForestArea: '% of forest area',
   },
 
+  contactPersons: {
+    expectedDateForNextCountryReportUpdate: 'Expected date/year for next update of the country report',
+  },
+
   designatedManagementObjective: {
     noDesignation: 'No designation',
     unknown2025: 'Unknown',

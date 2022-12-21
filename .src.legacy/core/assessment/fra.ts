@@ -23,6 +23,9 @@ export const FRA: AssessmentFRA = {
         a: {
           name: 'contactPersons',
           anchor: '',
+          tables: {
+            contactPersons: 'contactPersons',
+          },
         },
       },
     },

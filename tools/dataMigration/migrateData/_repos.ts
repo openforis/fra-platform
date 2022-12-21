@@ -50,6 +50,7 @@ export const isBasicTable = (tableName: string): boolean =>
   tableName &&
   tableName.trim() !== '' &&
   ![
+    'contactPersons',
     'extentOfForest',
     'forestCharacteristics',
     'growingStockAvg',

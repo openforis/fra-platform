@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import { Descriptions as DescriptionsType, TableNames } from '@meta/assessment'
 
@@ -8,10 +7,10 @@ import { useHasOriginalDataPointData } from '@client/store/pages/assessmentSecti
 import { useIsPrint } from '@client/hooks/useIsPath'
 
 import AnalysisDescriptions from './AnalysisDescriptions'
-import CommentableDescription from './CommentableDescription'
 import NationalDataDescriptions from './NationalDataDescriptions'
 
 type Props = {
+  // eslint-disable-next-line react/no-unused-prop-types
   descriptions: DescriptionsType
   disabled: boolean
   sectionName: string
@@ -49,12 +48,10 @@ const useDescriptions = (props: Props): { nationalData: boolean; analysisAndProc
 }
 
 const Descriptions: React.FC<Props> = (props: Props) => {
-  const { descriptions, disabled, sectionName } = props
+  const { disabled, sectionName } = props
 
-  const { t } = useTranslation()
   const { print, onlyTables } = useIsPrint()
 
-  const { introductoryText } = descriptions
   const { analysisAndProcessing, nationalData } = useDescriptions(props)
 
   return (
@@ -74,16 +71,6 @@ const Descriptions: React.FC<Props> = (props: Props) => {
           disabled={disabled}
           showAlertEmptyContent={!print}
           showDashEmptyContent={print}
-        />
-      )}
-
-      {introductoryText && (
-        <CommentableDescription
-          sectionName={sectionName}
-          title={t('contactPersons.introductoryText')}
-          name="introductoryText"
-          template={{ text: t('contactPersons.introductoryTextSupport') }}
-          disabled={disabled}
         />
       )}
 
