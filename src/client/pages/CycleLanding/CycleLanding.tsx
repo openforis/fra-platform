@@ -20,6 +20,7 @@ const CycleLanding: React.FC = () => {
 
   useEffect(() => {
     dispatch(AssessmentActions.getAreas({ assessmentName, cycleName }))
+    dispatch(AssessmentActions.getSections({ assessmentName, cycleName }))
   }, [assessmentName, cycleName, dispatch])
 
   if (!assessment) return null
