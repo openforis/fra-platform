@@ -60,7 +60,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 1,
                     colSpan: null,
                     rowSpan: 1,
-                    labelKey: 'fra.area100HaYear',
+                    labelKey: 'fra.area100Ha',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },

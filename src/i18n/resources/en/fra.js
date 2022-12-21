@@ -2,6 +2,7 @@
 module.exports = {
   // common
   area100HaYear: 'Area (1000 ha/year)',
+  area100Ha: 'Area (1000 ha)',
   categoryHeader2020: 'FRA 2020 categories',
   categoryHeader2025: 'FRA 2025 categories',
   forestArea100HaYear: 'Forest area (1000 ha)',
