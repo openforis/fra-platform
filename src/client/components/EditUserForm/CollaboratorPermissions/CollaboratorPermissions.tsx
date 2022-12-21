@@ -23,7 +23,7 @@ const CollaboratorPermissions = (props: Props) => {
   const options = SubSections.getAnchorsByUuid({ cycle, sections })
 
   const properties = (userRole.props as CollaboratorProps) || undefined
-  const sectionPermissions = Objects.isEmpty(properties) ? 'none' : properties.sections ?? 'none'
+  const sectionPermissions = Objects.isEmpty(properties) ? 'all' : properties.sections ?? 'none'
 
   const tableDataPermissions = Object.entries(sectionPermissions)
     .reduce((prev, [k, v]) => (v.tableData ? [...prev, options[k]] : prev), [])

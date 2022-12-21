@@ -10,7 +10,7 @@ const LinksPlaceholder = () => <div />
 
 const Components: Record<string, React.FC> = {
   [AssessmentNames.fra]: LinksFRA,
-  [AssessmentNames.panEuropean]: LinksPlaceholder,
+  [AssessmentNames.panEuropean]: LinksFRA,
   null: LinksPlaceholder,
 }
 

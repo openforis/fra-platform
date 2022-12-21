@@ -153,7 +153,7 @@ const requireEditUser = async (req: Request, _res: Response, next: NextFunction)
 
   const user = Requests.getUser(req)
 
-  const isSelf = String(user.id) === id
+  const isSelf = String(user?.id) === id
   const isAdministrator = Users.isAdministrator(user)
 
   if (isAdministrator) {

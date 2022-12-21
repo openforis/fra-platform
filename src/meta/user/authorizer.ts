@@ -1,3 +1,5 @@
+import { Objects } from '@utils/objects'
+
 import { Areas, Country, CountryIso } from '@meta/area'
 import { AssessmentStatus } from '@meta/area/country'
 import { Assessment, Cycle, Section } from '@meta/assessment'
@@ -87,8 +89,6 @@ const canEditSections = (props: {
   if (Users.isViewer(user, countryIso, cycle)) return false
   if (Users.isAdministrator(user)) return true
 
-  // country.props.status == Editing
-  // And role is NationalCorrespondent or AlternateNationalCorrespondent
   if (
     (Users.isNationalCorrespondent(user, countryIso, cycle) ||
       Users.isAlternateNationalCorrespondent(user, countryIso, cycle)) &&
@@ -96,11 +96,11 @@ const canEditSections = (props: {
   )
     return true
 
-  if (Users.isCollaborator(user, countryIso, cycle)) {
+  if (Users.isCollaborator(user, countryIso, cycle) && status === AssessmentStatus.editing) {
     const userRole = Users.getRole(user, countryIso, cycle) as Collaborator
 
     const userSections = userRole.props?.sections ?? {}
-    if (!userSections) return true
+    if (Objects.isEmpty(userSections)) return true
     if (userSections === 'none') return false
     if (userSections === 'all') return true
     return userSections[section.uuid]?.[permission] === true

@@ -1,4 +1,4 @@
-import './geoMapMenuListElement.scss'
+import './GeoMapMenuListElement.scss'
 import React from 'react'
 
 import classNames from 'classnames'
