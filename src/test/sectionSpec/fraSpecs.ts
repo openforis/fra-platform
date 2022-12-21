@@ -6721,6 +6721,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: 2016,
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 5,
@@ -6729,6 +6732,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: 2017,
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 6,
@@ -6737,6 +6743,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: 2018,
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 7,
@@ -6745,6 +6754,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: 2019,
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 8,
@@ -6787,18 +6799,30 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 4,
                     type: 'decimal',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 5,
                     type: 'decimal',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 6,
                     type: 'decimal',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 7,
                     type: 'decimal',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 8,
@@ -6849,18 +6873,30 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 4,
                     type: 'decimal',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 5,
                     type: 'decimal',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 6,
                     type: 'decimal',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 7,
                     type: 'decimal',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 8,
@@ -6909,18 +6945,30 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 4,
                     type: 'decimal',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 5,
                     type: 'decimal',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 6,
                     type: 'decimal',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 7,
                     type: 'decimal',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 8,
