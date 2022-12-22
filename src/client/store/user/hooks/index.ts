@@ -29,7 +29,7 @@ const useCanEditSection = (sectionName?: string, permission?: CollaboratorEditPr
   return (
     !print &&
     !isDataLocked &&
-    Authorizer.canEditSections({
+    Authorizer.canEditData({
       country,
       cycle,
       permission,

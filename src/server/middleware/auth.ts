@@ -27,10 +27,10 @@ const requireEditAssessmentStatus = async (req: Request, _res: Response, next: N
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
   const country = await AreaController.getCountry({ countryIso, assessment, cycle })
 
-  _next(Authorizer.canEdit({ country, cycle, user }), next)
+  _next(Authorizer.canEditAssessmentStatus({ country, cycle, user }), next)
 }
 
-const requireEditSection = async (req: Request, next: NextFunction) => {
+const requireEditData = async (req: Request, next: NextFunction) => {
   const { assessmentName, countryIso, cycleName, permission, sectionName } = {
     ...req.params,
     ...req.query,
@@ -42,19 +42,19 @@ const requireEditSection = async (req: Request, next: NextFunction) => {
   const country = await AreaController.getCountry({ countryIso, assessment, cycle })
   const section = await MetadataController.getSection({ assessment, cycle, sectionName })
 
-  _next(Authorizer.canEditSections({ country, cycle, permission, section, user }), next)
+  _next(Authorizer.canEditData({ country, cycle, permission, section, user }), next)
 }
 
 const requireEditDescriptions = async (req: Request, _res: Response, next: NextFunction) => {
   const _req = req
   _req.body.permission = CollaboratorEditPropertyType.descriptions
-  return requireEditSection(_req, next)
+  return requireEditData(_req, next)
 }
 
 const requireEditTableData = async (req: Request, _res: Response, next: NextFunction) => {
   const _req = req
   _req.body.permission = CollaboratorEditPropertyType.tableData
-  return requireEditSection(_req, next)
+  return requireEditData(_req, next)
 }
 
 const requireView = async (req: Request, _res: Response, next: NextFunction) => {

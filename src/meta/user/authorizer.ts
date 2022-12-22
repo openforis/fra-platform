@@ -52,7 +52,7 @@ const canViewUsers = (props: { countryIso: CountryIso; assessment: Assessment; c
 }
 
 /**
- * CanEditSections
+ * CanEditData
  * Viewer or non loggedin user: never
  * Administrator: always
  * NationalCorrespondant and AlternateNationalCorrespondant:
@@ -73,7 +73,7 @@ const canViewUsers = (props: { countryIso: CountryIso; assessment: Assessment; c
  * @param props.user
  * @returns boolean
  */
-const canEditSections = (props: {
+const canEditData = (props: {
   cycle: Cycle
   section: Section
   country: Country
@@ -113,7 +113,7 @@ const canEditSections = (props: {
 }
 
 /**
- * CanEdit
+ * CanEditAssessmentStatus
  * Viewer or non loggedin user: never
  * Administrator: always
  * NationalCorrespondant and AlternateNationalCorrespondant:
@@ -126,7 +126,7 @@ const canEditSections = (props: {
  * @param props.user
  * @returns boolean
  */
-const canEdit = (props: { country: Country; cycle: Cycle; user: User }): boolean => {
+const canEditAssessmentStatus = (props: { country: Country; cycle: Cycle; user: User }): boolean => {
   const { country, cycle, user } = props
   const { countryIso } = country
   const { status } = country.props
@@ -152,6 +152,6 @@ const canEdit = (props: { country: Country; cycle: Cycle; user: User }): boolean
 export const Authorizer = {
   canView,
   canViewUsers,
-  canEdit,
-  canEditSections,
+  canEditAssessmentStatus,
+  canEditData,
 }
