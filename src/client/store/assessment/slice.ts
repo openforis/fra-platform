@@ -12,12 +12,6 @@ export const assessmentSlice = createSlice({
     reset: () => initialState,
   },
   extraReducers: (builder) => {
-    builder.addCase(initApp.fulfilled, (state, { payload }) => {
-      const { assessment } = payload
-
-      state.assessment = assessment
-    })
-
     builder.addCase(getAreas.fulfilled, (state, { payload }) => {
       const { countries, regionGroups } = payload
 
