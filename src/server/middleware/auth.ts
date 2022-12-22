@@ -27,7 +27,7 @@ const requireEditAssessmentStatus = async (req: Request, _res: Response, next: N
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
   const country = await AreaController.getCountry({ countryIso, assessment, cycle })
 
-  _next(Authorizer.canEditAssessmentStatus({ user, countryIso, country, cycle }), next)
+  _next(Authorizer.canEdit({ user, countryIso, country, cycle }), next)
 }
 
 const requireEditSection = async (req: Request, next: NextFunction) => {

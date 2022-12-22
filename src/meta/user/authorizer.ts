@@ -130,12 +130,7 @@ const canEditSections = (props: {
  * @param props.user
  * @returns boolean
  */
-const canEditAssessmentStatus = (props: {
-  countryIso: CountryIso
-  cycle: Cycle
-  country: Country
-  user: User
-}): boolean => {
+const canEdit = (props: { countryIso: CountryIso; cycle: Cycle; country: Country; user: User }): boolean => {
   const { cycle, user, countryIso, country } = props
   const { status } = country.props
 
@@ -160,6 +155,6 @@ const canEditAssessmentStatus = (props: {
 export const Authorizer = {
   canView,
   canViewUsers,
-  canEditAssessmentStatus,
+  canEdit,
   canEditSections,
 }
