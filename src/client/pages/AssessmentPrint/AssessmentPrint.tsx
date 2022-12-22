@@ -15,9 +15,7 @@ const Components: Record<string, React.FC> = {
 const AssessmentPrint: React.FC = () => {
   const assessment = useAssessment()
 
-  if (!assessment) {
-    return <Loading />
-  }
+  if (!assessment) return <Loading />
 
   const Component = Components[assessment.props.name]
 
