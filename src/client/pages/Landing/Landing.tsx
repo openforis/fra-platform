@@ -1,4 +1,3 @@
-import './landing.scss'
 import React, { useEffect } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
