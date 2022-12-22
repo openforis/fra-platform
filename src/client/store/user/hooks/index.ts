@@ -4,7 +4,6 @@ import { Authorizer, CollaboratorEditPropertyType, User, Users } from '@meta/use
 import { useAppSelector } from '@client/store'
 import { useAssessmentCountry, useAssessmentSection, useCountries, useCycle } from '@client/store/assessment'
 import { useIsDataLocked } from '@client/store/ui/dataLock'
-import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
 
 export const useUser = (): User | undefined => useAppSelector((state) => state.user)
@@ -22,7 +21,6 @@ export const useUserCountries = (): Array<CountryIso> => {
 const useCanEditSection = (sectionName?: string, permission?: CollaboratorEditPropertyType) => {
   const user = useUser()
   const section = useAssessmentSection(sectionName)
-  const countryIso = useCountryIso()
   const country = useAssessmentCountry()
   const isDataLocked = useIsDataLocked()
   const cycle = useCycle()
@@ -32,12 +30,11 @@ const useCanEditSection = (sectionName?: string, permission?: CollaboratorEditPr
     !print &&
     !isDataLocked &&
     Authorizer.canEditSections({
+      country,
+      cycle,
+      permission,
       section,
       user,
-      countryIso,
-      country,
-      permission,
-      cycle,
     })
   )
 }

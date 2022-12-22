@@ -61,8 +61,7 @@ const Cell: React.FC<Props> = (props) => {
   const params = { data, countryIso, tableName, variableName, colName }
   const nodeValue = TableDatas.getNodeValue(params)
   const valid =
-    !Authorizer.canEditSections({ countryIso, country, section, user, cycle }) ||
-    NodeValueValidations.isValid(nodeValue)
+    !Authorizer.canEditSections({ country, cycle, section, user }) || NodeValueValidations.isValid(nodeValue)
 
   const className = useClassName({ col, row, tableName, valid })
   const { onChange, onChangeNodeValue, onPaste } = useOnChange({ table, col, row, nodeValue, data, sectionName })

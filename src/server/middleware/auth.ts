@@ -17,7 +17,7 @@ const _next = (allowed: boolean, next: NextFunction): void => {
 }
 
 const requireEditAssessmentStatus = async (req: Request, _res: Response, next: NextFunction) => {
-  const { countryIso, assessmentName, cycleName } = {
+  const { assessmentName, countryIso, cycleName } = {
     ...req.params,
     ...req.query,
     ...req.body,
@@ -27,11 +27,11 @@ const requireEditAssessmentStatus = async (req: Request, _res: Response, next: N
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
   const country = await AreaController.getCountry({ countryIso, assessment, cycle })
 
-  _next(Authorizer.canEdit({ user, countryIso, country, cycle }), next)
+  _next(Authorizer.canEdit({ country, cycle, user }), next)
 }
 
 const requireEditSection = async (req: Request, next: NextFunction) => {
-  const { countryIso, assessmentName, cycleName, sectionName, permission } = {
+  const { assessmentName, countryIso, cycleName, permission, sectionName } = {
     ...req.params,
     ...req.query,
     ...req.body,
@@ -42,7 +42,7 @@ const requireEditSection = async (req: Request, next: NextFunction) => {
   const country = await AreaController.getCountry({ countryIso, assessment, cycle })
   const section = await MetadataController.getSection({ assessment, cycle, sectionName })
 
-  _next(Authorizer.canEditSections({ user, countryIso, country, cycle, section, permission }), next)
+  _next(Authorizer.canEditSections({ country, cycle, permission, section, user }), next)
 }
 
 const requireEditDescriptions = async (req: Request, _res: Response, next: NextFunction) => {

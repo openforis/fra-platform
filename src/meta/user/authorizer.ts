@@ -66,23 +66,22 @@ const canViewUsers = (props: { countryIso: CountryIso; assessment: Assessment; c
  * Reviewer:
  * if status in status ('review','editing') then true
  * @param props
- * @param props.assessment
- * @param props.countryIso
+ * @param props.country
  * @param props.cycle
- * @param props.table
- * @param props.status
+ * @param props.permission
+ * @param props.section
  * @param props.user
  * @returns boolean
  */
 const canEditSections = (props: {
-  countryIso: CountryIso
   cycle: Cycle
   section: Section
   country: Country
   user: User
   permission?: CollaboratorEditPropertyType
 }): boolean => {
-  const { cycle, section, user, countryIso, country, permission = CollaboratorEditPropertyType.tableData } = props
+  const { country, cycle, permission = CollaboratorEditPropertyType.tableData, section, user } = props
+  const { countryIso } = country
   const { status } = country.props
 
   if (!user) return false
@@ -122,16 +121,14 @@ const canEditSections = (props: {
  * Reviewer:
  * if status in status ('review','editing') then true
  * @param props
- * @param props.assessment
- * @param props.countryIso
+ * @param props.country
  * @param props.cycle
- * @param props.table
- * @param props.status
  * @param props.user
  * @returns boolean
  */
-const canEdit = (props: { countryIso: CountryIso; cycle: Cycle; country: Country; user: User }): boolean => {
-  const { cycle, user, countryIso, country } = props
+const canEdit = (props: { country: Country; cycle: Cycle; user: User }): boolean => {
+  const { country, cycle, user } = props
+  const { countryIso } = country
   const { status } = country.props
 
   if (!user) return false
