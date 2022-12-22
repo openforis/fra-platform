@@ -10,7 +10,7 @@ import { Sockets } from '@meta/socket'
 import { Authorizer } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
-import { AssessmentActions, useAssessment, useCycle, useSyncAssessmentPage } from '@client/store/assessment'
+import { AssessmentActions, useAssessment, useCycle } from '@client/store/assessment'
 import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import { useNavigationVisible } from '@client/store/ui/navigation'
 import { ReviewActions } from '@client/store/ui/review'
@@ -36,8 +36,6 @@ const Assessment: React.FC = () => {
   const assessment = useAssessment()
   const cycle = useCycle()
   const isDataExportView = useIsDataExportView()
-
-  const appReady = useSyncAssessmentPage()
 
   useEffect(() => {
     dispatch(AssessmentActions.getSections({ countryIso, assessmentName, cycleName }))
@@ -78,8 +76,6 @@ const Assessment: React.FC = () => {
       }
     }
   }, [countryIso, assessmentName, cycleName, user, dispatch])
-
-  if (!appReady) return null
 
   if (!Authorizer.canView({ countryIso, assessment, cycle, user })) window.location.href = ClientRoutes.Root.path
 

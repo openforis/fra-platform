@@ -4,7 +4,7 @@ import React, { memo, useEffect } from 'react'
 import { AssessmentNames } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
-import { AssessmentActions, useAssessment, useCycle, useSyncAssessmentPage } from '@client/store/assessment'
+import { AssessmentActions, useAssessment, useCycle } from '@client/store/assessment'
 import { useCountryIso } from '@client/hooks'
 import Loading from '@client/components/Loading'
 
@@ -19,7 +19,6 @@ const AssessmentPrint: React.FC = () => {
   const assessment = useAssessment()
   const cycle = useCycle()
   const countryIso = useCountryIso()
-  useSyncAssessmentPage()
 
   useEffect(() => {
     if (assessment && cycle) {
