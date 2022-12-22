@@ -13,5 +13,5 @@ export const useCountryIso = (): CountryIso => {
 
   if (isHome || isLogin) return null
 
-  return countryIso ?? (match.params.countryIso as CountryIso)
+  return countryIso ?? (match?.params.countryIso as CountryIso) ?? null
 }
