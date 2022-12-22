@@ -25,6 +25,7 @@ import DataExport from '@client/pages/DataExport'
 import OriginalDataPoint from '@client/pages/OriginalDataPoint'
 import { SocketClient } from '@client/service/socket'
 
+import AssessmentPrint from '../AssessmentPrint'
 import SectionWrapper from './SectionWrapper'
 
 const Assessment: React.FC = () => {
@@ -87,6 +88,9 @@ const Assessment: React.FC = () => {
 
         <Routes>
           <Route path={`${ClientRoutes.Assessment.Home.Root.path.relative}/*`} element={<AssessmentHome />} />
+
+          <Route path={ClientRoutes.Assessment.PrintTables.path.relative} element={<AssessmentPrint />} />
+          <Route path={ClientRoutes.Assessment.Print.path.relative} element={<AssessmentPrint />} />
 
           <Route path={ClientRoutes.Assessment.DataDownload.path.relative} element={<AssessmentDataDownload />} />
           <Route

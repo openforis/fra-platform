@@ -15,8 +15,6 @@ import Footer from '@client/components/Footer'
 import Header from '@client/components/Header'
 import Toaster from '@client/components/Toaster'
 import Admin from '@client/pages/Admin'
-import Assessment from '@client/pages/Assessment'
-import AssessmentPrint from '@client/pages/AssessmentPrint'
 import Geo from '@client/pages/Geo'
 import Login from '@client/pages/Login'
 import User from '@client/pages/User'
@@ -59,13 +57,11 @@ const PageRoutes: React.FC = () => {
 
         <Route path={`${ClientRoutes.Assessment.AssessmentLanding.path.absolute}/*`} element={<AssessmentLanding />} />
 
-        <Route path={ClientRoutes.Assessment.Print.path.absolute} element={<AssessmentPrint />} />
-        <Route path={ClientRoutes.Assessment.PrintTables.path.absolute} element={<AssessmentPrint />} />
         <Route
           path={`${ClientRoutes.Admin.Root.path.absolute}/*`}
           element={Users.isAdministrator(user) ? <Admin /> : <Navigate to={ClientRoutes.Root.path} replace />}
         />
-        <Route path={`${ClientRoutes.Assessment.Root.path.absolute}/*`} element={<Assessment />} />
+
         <Route path={`${ClientRoutes.Login.Root.path.absolute}/*`} element={<Login />} />
         <Route path={`${ClientRoutes.Geo.Root.path.absolute}/*`} element={<Geo />} />
         <Route path={ClientRoutes.Users.User.path.absolute} element={<User />} />

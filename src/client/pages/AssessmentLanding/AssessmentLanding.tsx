@@ -1,43 +1,35 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react'
-import { Navigate, Route, Routes, useParams } from 'react-router-dom'
+import { Route, Routes, useParams } from 'react-router-dom'
 
 import { ClientRoutes } from '@meta/app'
 import { AssessmentName } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
-import { AssessmentActions, useCycle } from '@client/store/assessment'
+import { AssessmentActions, useAssessment } from '@client/store/assessment'
 
 import CycleLanding from '../CycleLanding'
 
 const AssessmentLanding: React.FC = () => {
   const dispatch = useAppDispatch()
-  const cycle = useCycle()
+  const assessment = useAssessment()
 
-  const { assessmentName, cycleName } = useParams<{ assessmentName: AssessmentName; cycleName: string }>()
+  const { assessmentName } = useParams<{ assessmentName: AssessmentName }>()
 
   useEffect(() => {
-    dispatch(AssessmentActions.initApp({ assessmentName, cycleName }))
+    if (!assessment || assessment.props.name !== assessmentName)
+      dispatch(AssessmentActions.getAssessment({ assessmentName }))
 
     return () => {
       dispatch(AssessmentActions.reset())
     }
-  }, [assessmentName, cycleName, dispatch])
+  }, [assessmentName, dispatch])
 
-  if (!cycle) return null
+  if (!assessment) return null
 
   return (
     <Routes>
-      <Route path={ClientRoutes.Assessment.CycleLanding.path.relative} element={<CycleLanding />} />
-
-      <Route
-        path="*"
-        element={
-          <Navigate
-            to={ClientRoutes.Assessment.CycleLanding.getLink({ assessmentName, cycleName: cycle.name })}
-            replace
-          />
-        }
-      />
+      <Route path={`${ClientRoutes.Assessment.CycleLanding.path.relative}/*`} element={<CycleLanding />} />
     </Routes>
   )
 }

@@ -83,7 +83,7 @@ export const ClientRoutes = {
     },
     DataDownload: newInstance<AssessmentParams>(...assessmentParts, 'dataDownload'),
     Print: newInstance<AssessmentParams>(...assessmentParts, 'print'),
-    PrintTables: newInstance<AssessmentParams>(...assessmentParts, 'print', 'tables'),
+    PrintTables: newInstance<AssessmentParams>(...assessmentParts, 'printTables'),
   },
 
   Login: {
