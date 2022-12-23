@@ -78,10 +78,6 @@ export const ApiEndPoint = {
     topicUnreadMessages: () => apiPath('message-center', 'topic', 'unread-messages'),
   },
 
-  Sections: {
-    metadata: () => apiPath('section', 'metadata'),
-  },
-
   User: {
     many: () => apiPath('users'),
     one: () => apiPath('users', 'user'),
