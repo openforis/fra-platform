@@ -10,7 +10,6 @@ import AnalysisDescriptions from './AnalysisDescriptions'
 import NationalDataDescriptions from './NationalDataDescriptions'
 
 type Props = {
-  // eslint-disable-next-line react/no-unused-prop-types
   descriptions: DescriptionsType
   disabled: boolean
   sectionName: string
@@ -48,11 +47,15 @@ const useDescriptions = (props: Props): { nationalData: boolean; analysisAndProc
 }
 
 const Descriptions: React.FC<Props> = (props: Props) => {
-  const { disabled, sectionName } = props
+  const { disabled, sectionName, descriptions } = props
 
   const { print, onlyTables } = useIsPrint()
 
-  const { analysisAndProcessing, nationalData } = useDescriptions(props)
+  const { analysisAndProcessing, nationalData } = useDescriptions({
+    descriptions,
+    sectionName,
+    disabled,
+  })
 
   return (
     <>
