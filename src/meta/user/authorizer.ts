@@ -52,7 +52,7 @@ const canViewUsers = (props: { countryIso: CountryIso; assessment: Assessment; c
 }
 
 /**
- * CanEdit
+ * CanEditData
  * Viewer or non loggedin user: never
  * Administrator: always
  * NationalCorrespondant and AlternateNationalCorrespondant:
@@ -66,23 +66,22 @@ const canViewUsers = (props: { countryIso: CountryIso; assessment: Assessment; c
  * Reviewer:
  * if status in status ('review','editing') then true
  * @param props
- * @param props.assessment
- * @param props.countryIso
+ * @param props.country
  * @param props.cycle
- * @param props.table
- * @param props.status
+ * @param props.permission
+ * @param props.section
  * @param props.user
  * @returns boolean
  */
-const canEdit = (props: {
-  countryIso: CountryIso
+const canEditData = (props: {
   cycle: Cycle
   section: Section
   country: Country
   user: User
   permission?: CollaboratorEditPropertyType
 }): boolean => {
-  const { cycle, section, user, countryIso, country, permission = CollaboratorEditPropertyType.tableData } = props
+  const { country, cycle, permission = CollaboratorEditPropertyType.tableData, section, user } = props
+  const { countryIso } = country
   const { status } = country.props
 
   if (!user) return false
@@ -90,11 +89,14 @@ const canEdit = (props: {
   if (Users.isAdministrator(user)) return true
 
   if (
-    (Users.isNationalCorrespondent(user, countryIso, cycle) ||
-      Users.isAlternateNationalCorrespondent(user, countryIso, cycle)) &&
-    status === AssessmentStatus.editing
+    Users.isNationalCorrespondent(user, countryIso, cycle) ||
+    Users.isAlternateNationalCorrespondent(user, countryIso, cycle)
   )
-    return true
+    return status === AssessmentStatus.editing
+
+  if (Users.isReviewer(user, countryIso, cycle)) {
+    return [AssessmentStatus.editing, AssessmentStatus.review].includes(status)
+  }
 
   if (Users.isCollaborator(user, countryIso, cycle) && status === AssessmentStatus.editing) {
     const userRole = Users.getRole(user, countryIso, cycle) as Collaborator
@@ -106,6 +108,38 @@ const canEdit = (props: {
     return userSections[section.uuid]?.[permission] === true
   }
 
+  return false
+}
+
+/**
+ * CanEditCountryProps
+ * Viewer or non loggedin user: never
+ * Administrator: always
+ * NationalCorrespondant and AlternateNationalCorrespondant:
+ * if status is editing then true
+ * Reviewer:
+ * if status in status ('review','editing') then true
+ * @param props
+ * @param props.country
+ * @param props.cycle
+ * @param props.user
+ * @returns boolean
+ */
+const canEditCountryProps = (props: { country: Country; cycle: Cycle; user: User }): boolean => {
+  const { country, cycle, user } = props
+  const { countryIso } = country
+  const { status } = country.props
+
+  if (!user) return false
+  if (Users.isViewer(user, countryIso, cycle)) return false
+  if (Users.isAdministrator(user)) return true
+
+  if (
+    Users.isNationalCorrespondent(user, countryIso, cycle) ||
+    Users.isAlternateNationalCorrespondent(user, countryIso, cycle)
+  )
+    return status === AssessmentStatus.editing
+
   if (Users.isReviewer(user, countryIso, cycle)) {
     return [AssessmentStatus.editing, AssessmentStatus.review].includes(status)
   }
@@ -116,5 +150,6 @@ const canEdit = (props: {
 export const Authorizer = {
   canView,
   canViewUsers,
-  canEdit,
+  canEditCountryProps,
+  canEditData,
 }
