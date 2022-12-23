@@ -16,7 +16,7 @@ const _next = (allowed: boolean, next: NextFunction): void => {
   return next(new Error(`userNotAuthorized`))
 }
 
-const requireEditAssessmentStatus = async (req: Request, _res: Response, next: NextFunction) => {
+const requireEditCountryProps = async (req: Request, _res: Response, next: NextFunction) => {
   const { assessmentName, countryIso, cycleName } = {
     ...req.params,
     ...req.query,
@@ -27,7 +27,7 @@ const requireEditAssessmentStatus = async (req: Request, _res: Response, next: N
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
   const country = await AreaController.getCountry({ countryIso, assessment, cycle })
 
-  _next(Authorizer.canEditAssessmentStatus({ country, cycle, user }), next)
+  _next(Authorizer.canEditCountryProps({ country, cycle, user }), next)
 }
 
 const requireEditData = async (req: Request, next: NextFunction) => {
@@ -190,7 +190,7 @@ const requireEditAssessmentFile = async (req: Request, _res: Response, next: Nex
 }
 
 export const AuthMiddleware = {
-  requireEditAssessmentStatus,
+  requireEditCountryProps,
   requireEditDescriptions,
   requireEditTableData,
   requireView,
