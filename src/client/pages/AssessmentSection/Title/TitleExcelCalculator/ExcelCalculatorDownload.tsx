@@ -31,7 +31,7 @@ const ExcelCalculatorDownload: React.FC = () => {
     i18n.language
   }&selectedDomain=${selectedDomain}`
 
-  if (!Authorizer.canEdit({ user: userInfo, countryIso, cycle, country, section })) return null
+  if (!Authorizer.canEditData({ country, cycle, section, user: userInfo })) return null
 
   return (
     <div className="no-print">
