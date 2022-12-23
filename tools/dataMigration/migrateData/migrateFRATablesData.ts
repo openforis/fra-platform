@@ -17,10 +17,11 @@ export const migrateFRATablesData = async (
   const tableGrowingStockAvg = tables.find((t) => t.props.name === 'growingStockAvg')
   const tableGrowingStockTotal = tables.find((t) => t.props.name === 'growingStockTotal')
 
-  // non basic tables insert
-  values.push(
-    ...(await _getNodeInsertsDegradedForest({ assessment, cycle, countryISOs, table: tableDegradedForest }, client))
-  )
+  // non-basic tables insert
+  if (cycle.name === '2020')
+    values.push(
+      ...(await _getNodeInsertsDegradedForest({ assessment, cycle, countryISOs, table: tableDegradedForest }, client))
+    )
   values.push(
     ...(await getNodeInsertsTableWithODP(
       {

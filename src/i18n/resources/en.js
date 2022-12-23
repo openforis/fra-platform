@@ -836,13 +836,8 @@ The FRA team fra@fao.org
     totalLandAreaAffectedByFire: 'Total land area affected by fire',
     ofWhichForest: '…of which on forest',
   },
-
   degradedForest: {
     degradedForest: 'Degraded forest',
-    doesYourCountryMonitor: 'Does your country monitor area of degraded forest',
-    ifYes: 'If "yes"',
-    whatIsDefinition: 'What is the national definition of "Degraded forest"?',
-    howMonitored: 'Describe the monitoring process and results',
   },
 
   forestPolicy: {

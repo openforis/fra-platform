@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { degradedForest } from './sections/degradedForest'
 import { SectionSpec } from './sectionSpec'
 
 const fraYears: Array<{ colName: string; cycles?: Array<string> }> = [
@@ -19,7 +20,70 @@ export const FraSpecs: Record<string, SectionSpec> = {
   contactPersons: {
     sectionName: 'contactPersons',
     sectionAnchor: '',
-    tableSections: [],
+    tableSections: [
+      {
+        tableSpecs: [
+          {
+            name: 'contactPersons',
+            rows: [
+              {
+                idx: 'header_0',
+                cols: [
+                  {
+                    idx: 0,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: '',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  {
+                    idx: 1,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'common.year',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                ],
+                type: 'header',
+              },
+              {
+                idx: 0,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'fra.contactPersons.expectedDateForNextCountryReportUpdate',
+                    className: 'fra-table__category-cell',
+                  },
+                  {
+                    idx: 0,
+                    type: 'text',
+                    colName: 'expectedDateForNextCountryReportUpdate',
+                  },
+                ],
+                labelKey: 'contactPersons.expectedDateForNextCountryReportUpdate',
+                variableName: 'expectedDateForNextCountryReportUpdate',
+              },
+            ],
+            tableDataRequired: [],
+            print: {
+              colBreakPoints: [],
+              pageBreakAfter: false,
+            },
+            dataExport: false,
+            columnsExportAlways: [],
+            migration: {
+              cycles: ['2025'],
+              columnNames: { '2025': ['year'] },
+            },
+          },
+        ],
+      },
+    ],
     showTitle: false,
     descriptions: {
       analysisAndProcessing: false,
@@ -60,7 +124,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 1,
                     colSpan: null,
                     rowSpan: 1,
-                    labelKey: 'fra.area100HaYear',
+                    labelKey: 'fra.area100Ha',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -6721,6 +6785,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: 2016,
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 5,
@@ -6729,6 +6796,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: 2017,
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 6,
@@ -6737,6 +6807,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: 2018,
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 7,
@@ -6745,6 +6818,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     label: 2019,
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 8,
@@ -6787,18 +6863,30 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 4,
                     type: 'decimal',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 5,
                     type: 'decimal',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 6,
                     type: 'decimal',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 7,
                     type: 'decimal',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 8,
@@ -6849,18 +6937,30 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 4,
                     type: 'decimal',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 5,
                     type: 'decimal',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 6,
                     type: 'decimal',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 7,
                     type: 'decimal',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 8,
@@ -6909,18 +7009,30 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 4,
                     type: 'decimal',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 5,
                     type: 'decimal',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 6,
                     type: 'decimal',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 7,
                     type: 'decimal',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 8,
@@ -9594,113 +9706,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
       included: true,
     },
   },
-  degradedForest: {
-    sectionName: 'degradedForest',
-    sectionAnchor: '5c',
-    tableSections: [
-      {
-        tableSpecs: [
-          {
-            name: 'degradedForest',
-            rows: [
-              {
-                idx: 0,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 2,
-                    labelKey: 'degradedForest.doesYourCountryMonitor',
-                    className: 'fra-table__header-cell-left',
-                  },
-                  {
-                    idx: 0,
-                    type: 'select',
-                    options: [
-                      {
-                        optionName: 'yes',
-                      },
-                      {
-                        optionName: 'no',
-                      },
-                    ],
-                    optionsLabelKeyPrefix: 'yesNoTextSelect',
-                  },
-                ],
-                labelKey: 'degradedForest.doesYourCountryMonitor',
-                variableExport: 'does_country_monitor',
-                colSpan: 2,
-                mainCategory: true,
-              },
-              {
-                idx: 1,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    rowSpan: 2,
-                    labelKey: 'degradedForest.ifYes',
-                    className: 'fra-table__category-cell',
-                  },
-                  {
-                    idx: -1,
-                    type: 'placeholder',
-                    labelKey: 'degradedForest.whatIsDefinition',
-                  },
-                  {
-                    idx: 1,
-                    type: 'textarea',
-                  },
-                ],
-                labelKey: 'degradedForest.ifYes',
-                variableExport: 'national_definition',
-                rowSpan: 2,
-              },
-              {
-                idx: 2,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    labelKey: 'degradedForest.howMonitored',
-                    className: 'fra-table__category-cell',
-                  },
-                  {
-                    idx: 0,
-                    type: 'textarea',
-                  },
-                ],
-                labelKey: 'degradedForest.howMonitored',
-                variableExport: 'how_monitored',
-              },
-            ],
-            tableDataRequired: [],
-            print: {
-              colBreakPoints: [],
-              pageBreakAfter: false,
-            },
-            dataExport: true,
-            columnsExportAlways: [],
-          },
-        ],
-      },
-    ],
-    showTitle: true,
-    descriptions: {
-      analysisAndProcessing: false,
-      comments: true,
-      introductoryText: false,
-      nationalData: false,
-    },
-    dataExport: {
-      included: false,
-    },
-  },
+  degradedForest,
   forestPolicy: {
     sectionName: 'forestPolicy',
     sectionAnchor: '6a',
