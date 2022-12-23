@@ -56,6 +56,8 @@ export const isBasicTable = (tableName: string): boolean =>
     'growingStockAvg',
     'growingStockTotal',
     'degradedForest',
+    'degradedForest2025',
+    'degradedForestMonitoring2025',
     'sustainableDevelopment15_1_1',
     'sustainableDevelopment15_2_1_1',
     'sustainableDevelopment15_2_1_2',

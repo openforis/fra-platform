@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { degradedForest } from './sections/degradedForest'
 import { SectionSpec } from './sectionSpec'
 
 const fraYears: Array<{ colName: string; cycles?: Array<string> }> = [
@@ -9705,113 +9706,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
       included: true,
     },
   },
-  degradedForest: {
-    sectionName: 'degradedForest',
-    sectionAnchor: '5c',
-    tableSections: [
-      {
-        tableSpecs: [
-          {
-            name: 'degradedForest',
-            rows: [
-              {
-                idx: 0,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 2,
-                    labelKey: 'degradedForest.doesYourCountryMonitor',
-                    className: 'fra-table__header-cell-left',
-                  },
-                  {
-                    idx: 0,
-                    type: 'select',
-                    options: [
-                      {
-                        optionName: 'yes',
-                      },
-                      {
-                        optionName: 'no',
-                      },
-                    ],
-                    optionsLabelKeyPrefix: 'yesNoTextSelect',
-                  },
-                ],
-                labelKey: 'degradedForest.doesYourCountryMonitor',
-                variableExport: 'does_country_monitor',
-                colSpan: 2,
-                mainCategory: true,
-              },
-              {
-                idx: 1,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    rowSpan: 2,
-                    labelKey: 'degradedForest.ifYes',
-                    className: 'fra-table__category-cell',
-                  },
-                  {
-                    idx: -1,
-                    type: 'placeholder',
-                    labelKey: 'degradedForest.whatIsDefinition',
-                  },
-                  {
-                    idx: 1,
-                    type: 'textarea',
-                  },
-                ],
-                labelKey: 'degradedForest.ifYes',
-                variableExport: 'national_definition',
-                rowSpan: 2,
-              },
-              {
-                idx: 2,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    labelKey: 'degradedForest.howMonitored',
-                    className: 'fra-table__category-cell',
-                  },
-                  {
-                    idx: 0,
-                    type: 'textarea',
-                  },
-                ],
-                labelKey: 'degradedForest.howMonitored',
-                variableExport: 'how_monitored',
-              },
-            ],
-            tableDataRequired: [],
-            print: {
-              colBreakPoints: [],
-              pageBreakAfter: false,
-            },
-            dataExport: true,
-            columnsExportAlways: [],
-          },
-        ],
-      },
-    ],
-    showTitle: true,
-    descriptions: {
-      analysisAndProcessing: false,
-      comments: true,
-      introductoryText: false,
-      nationalData: false,
-    },
-    dataExport: {
-      included: false,
-    },
-  },
+  degradedForest,
   forestPolicy: {
     sectionName: 'forestPolicy',
     sectionAnchor: '6a',
