@@ -30,8 +30,9 @@ export const postCountry = async (
       await MailService.assessmentNotifyUsers({
         user: Requests.getUser(req),
         countryIso,
-        country,
         assessmentName,
+        country,
+        cycleName,
         message,
       })
     }
