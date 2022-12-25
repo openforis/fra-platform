@@ -6,6 +6,9 @@ import { Navigate, NavLink, Route, Routes } from 'react-router-dom'
 import classNames from 'classnames'
 
 import { AdminRouteNames, ClientRoutes } from '@meta/app'
+import { Users } from '@meta/user'
+
+import { useUser } from '@client/store/user'
 
 import User from '../User'
 import UserManagement from './UserManagement'
@@ -17,6 +20,9 @@ const sections = [
 
 const Admin: React.FC = () => {
   const { t } = useTranslation()
+  const user = useUser()
+
+  if (!Users.isAdministrator(user)) return <Navigate to={ClientRoutes.Root.path} replace />
 
   return (
     <div className="app-view__content">

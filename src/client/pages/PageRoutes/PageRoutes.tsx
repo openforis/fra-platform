@@ -5,11 +5,9 @@ import { useTranslation } from 'react-i18next'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
 import { ClientRoutes } from '@meta/app'
-import { Users } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
 import { AssessmentActions } from '@client/store/assessment'
-import { useUser } from '@client/store/user'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import Footer from '@client/components/Footer'
 import Header from '@client/components/Header'
@@ -30,7 +28,6 @@ const PageRoutes: React.FC = () => {
   useTheme()
   const { i18n } = useTranslation()
   const { print } = useIsPrint()
-  const user = useUser()
 
   useEffect(() => {
     // TODO: Add user.language support
@@ -54,14 +51,8 @@ const PageRoutes: React.FC = () => {
 
       <Routes>
         <Route path="/" element={<Landing />} />
-
         <Route path={`${ClientRoutes.Assessment.AssessmentLanding.path.absolute}/*`} element={<AssessmentLanding />} />
-
-        <Route
-          path={`${ClientRoutes.Admin.Root.path.absolute}/*`}
-          element={Users.isAdministrator(user) ? <Admin /> : <Navigate to={ClientRoutes.Root.path} replace />}
-        />
-
+        <Route path={`${ClientRoutes.Admin.Root.path.absolute}/*`} element={<Admin />} />
         <Route path={`${ClientRoutes.Login.Root.path.absolute}/*`} element={<Login />} />
         <Route path={`${ClientRoutes.Geo.Root.path.absolute}/*`} element={<Geo />} />
         <Route path={ClientRoutes.Users.User.path.absolute} element={<User />} />

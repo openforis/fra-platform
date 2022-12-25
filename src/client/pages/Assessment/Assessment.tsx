@@ -16,7 +16,6 @@ import { useNavigationVisible } from '@client/store/ui/navigation'
 import { ReviewActions } from '@client/store/ui/review'
 import { useUser } from '@client/store/user'
 import { useCountryIso, useIsDataExportView } from '@client/hooks'
-import CountrySelect from '@client/components/CountrySelect'
 import Navigation from '@client/components/Navigation'
 import AssessmentDataDownload from '@client/pages/AssessmentDataDownload'
 import AssessmentHome from '@client/pages/AssessmentHome'
@@ -81,35 +80,32 @@ const Assessment: React.FC = () => {
   if (!Authorizer.canView({ countryIso, assessment, cycle, user })) window.location.href = ClientRoutes.Root.path
 
   return (
-    <>
-      <CountrySelect />
-      <div className={classNames('app-view', { 'navigation-on': navigationVisible })}>
-        <Navigation />
+    <div className={classNames('app-view', { 'navigation-on': navigationVisible })}>
+      <Navigation />
 
-        <Routes>
-          <Route path={`${ClientRoutes.Assessment.Home.Root.path.relative}/*`} element={<AssessmentHome />} />
+      <Routes>
+        <Route path={`${ClientRoutes.Assessment.Home.Root.path.relative}/*`} element={<AssessmentHome />} />
 
-          <Route path={ClientRoutes.Assessment.PrintTables.path.relative} element={<AssessmentPrint />} />
-          <Route path={ClientRoutes.Assessment.Print.path.relative} element={<AssessmentPrint />} />
+        <Route path={ClientRoutes.Assessment.PrintTables.path.relative} element={<AssessmentPrint />} />
+        <Route path={ClientRoutes.Assessment.Print.path.relative} element={<AssessmentPrint />} />
 
-          <Route path={ClientRoutes.Assessment.DataDownload.path.relative} element={<AssessmentDataDownload />} />
-          <Route
-            path={ClientRoutes.Assessment.Section.path.relative}
-            element={<SectionWrapper>{isDataExportView ? <DataExport /> : <AssessmentSection />}</SectionWrapper>}
-          />
-          <Route
-            path={ClientRoutes.Assessment.OriginalDataPoint.Section.path.relative}
-            element={
-              <SectionWrapper>
-                <OriginalDataPoint />
-              </SectionWrapper>
-            }
-          />
+        <Route path={ClientRoutes.Assessment.DataDownload.path.relative} element={<AssessmentDataDownload />} />
+        <Route
+          path={ClientRoutes.Assessment.Section.path.relative}
+          element={<SectionWrapper>{isDataExportView ? <DataExport /> : <AssessmentSection />}</SectionWrapper>}
+        />
+        <Route
+          path={ClientRoutes.Assessment.OriginalDataPoint.Section.path.relative}
+          element={
+            <SectionWrapper>
+              <OriginalDataPoint />
+            </SectionWrapper>
+          }
+        />
 
-          <Route path="*" element={<Navigate to="home" replace />} />
-        </Routes>
-      </div>
-    </>
+        <Route path="*" element={<Navigate to="home" replace />} />
+      </Routes>
+    </div>
   )
 }
 

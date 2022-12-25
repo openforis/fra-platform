@@ -25,6 +25,7 @@ const AssessmentLanding: React.FC = () => {
   useOnUpdate(() => {
     if (assessment && assessment.props.name !== assessmentName) {
       dispatch(AssessmentActions.getAssessment({ assessmentName }))
+
       return () => {
         dispatch(AssessmentActions.reset())
       }
