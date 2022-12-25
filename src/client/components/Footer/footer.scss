@@ -4,7 +4,7 @@ footer {
   position: relative;
   display: grid;
   align-items: center;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr 1fr auto;
   grid-column-gap: $spacing-xs;
   padding: $spacing-xs;
   border-top: $ui-thin-border;
@@ -25,7 +25,7 @@ footer {
   display: flex;
   flex-direction: column;
   .build-version {
-    color: $text-link;
+    color: $ui-status-accepted;
     font-size: $font-xxxs;
   }
 }

@@ -32,7 +32,7 @@ const Footer: React.FC = () => {
   const { language } = i18n
 
   // @ts-ignore
-  const buildVersion = `${__BUILD_DATE__} ${__APPLICATION_VERSION__}`
+  const buildVersion = `${__APPLICATION_VERSION__} | ${__BUILD_DATE__}`
 
   return (
     <footer>
@@ -65,9 +65,12 @@ const Footer: React.FC = () => {
       </div>
 
       <div className="footer__version">
-        <span className="copyright">&copy; FAO, {new Date().getFullYear()}</span>
-        <span className="build-version">{buildVersion}</span>
+        <span className="build-version">
+          {t('footer.platformVersion')} #{buildVersion}
+        </span>
       </div>
+
+      <span className="copyright">&copy; FAO, {new Date().getFullYear()}</span>
     </footer>
   )
 }
