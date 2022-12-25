@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 
 import { ClientRoutes } from '@meta/app'
 
@@ -18,20 +18,13 @@ const Landing: React.FC = () => {
   if (!assessment || !cycle) return null
 
   return (
-    <Routes>
-      <Route
-        path="*"
-        element={
-          <Navigate
-            to={ClientRoutes.Assessment.CycleLanding.getLink({
-              assessmentName: assessment.props.name,
-              cycleName: cycle.name,
-            })}
-            replace
-          />
-        }
-      />
-    </Routes>
+    <Navigate
+      to={ClientRoutes.Assessment.CycleLanding.getLink({
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
+      })}
+      replace
+    />
   )
 }
 

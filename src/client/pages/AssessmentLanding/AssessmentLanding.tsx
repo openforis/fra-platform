@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react'
 import { Route, Routes, useParams } from 'react-router-dom'
 
@@ -7,6 +6,7 @@ import { AssessmentName } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { AssessmentActions, useAssessment } from '@client/store/assessment'
+import { useOnUpdate } from '@client/hooks'
 
 import CycleLanding from '../CycleLanding'
 
@@ -17,13 +17,20 @@ const AssessmentLanding: React.FC = () => {
   const { assessmentName } = useParams<{ assessmentName: AssessmentName }>()
 
   useEffect(() => {
-    if (!assessment || assessment.props.name !== assessmentName)
+    if (!assessment) {
       dispatch(AssessmentActions.getAssessment({ assessmentName }))
-
-    return () => {
-      dispatch(AssessmentActions.reset())
     }
-  }, [assessmentName, dispatch])
+  }, [assessment, assessmentName, dispatch])
+
+  useOnUpdate(() => {
+    if (assessment && assessment.props.name !== assessmentName) {
+      dispatch(AssessmentActions.getAssessment({ assessmentName }))
+      return () => {
+        dispatch(AssessmentActions.reset())
+      }
+    }
+    return undefined
+  }, [assessment, assessmentName, dispatch])
 
   if (!assessment) return null
 

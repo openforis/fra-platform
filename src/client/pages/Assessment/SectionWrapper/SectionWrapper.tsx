@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useLayoutEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { AssessmentName } from '@meta/assessment'
@@ -36,7 +36,7 @@ const SectionWrapper: React.FC<Props> = (props) => {
   const originalDataPoint = useOriginalDataPoint()
   useGetTableSections()
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     // scroll to top
     DOMs.scrollTo()
   }, [sectionName])
