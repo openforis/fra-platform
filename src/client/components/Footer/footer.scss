@@ -15,11 +15,19 @@ footer {
   }
 }
 
-.footer__links,
-.footer__version {
+.footer__links {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+}
+
+.footer__version {
+  display: flex;
+  flex-direction: column;
+  .build-version {
+    color: $text-link;
+    font-size: $font-xxxs;
+  }
 }
 
 footer a {

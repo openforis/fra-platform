@@ -65,9 +65,8 @@ const Footer: React.FC = () => {
       </div>
 
       <div className="footer__version">
-        <span>{buildVersion}</span>
-        <div className="separator" />
         <span className="copyright">&copy; FAO, {new Date().getFullYear()}</span>
+        <span className="build-version">{buildVersion}</span>
       </div>
     </footer>
   )
