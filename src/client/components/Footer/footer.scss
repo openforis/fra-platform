@@ -15,7 +15,8 @@ footer {
   }
 }
 
-.footer__links {
+.footer__links,
+.footer__version {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
