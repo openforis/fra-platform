@@ -29,7 +29,7 @@ const SelectMobile: React.FC<Props> = (props) => {
         className="btn-country-select"
         onChange={(event) => {
           navigate(
-            ClientRoutes.Assessment.Root.getLink({
+            ClientRoutes.Assessment.Cycle.Country.Landing.getLink({
               countryIso: event.target.value as CountryIso,
               assessmentName,
               cycleName,

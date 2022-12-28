@@ -1,4 +1,4 @@
-import './CycleLanding.scss'
+import './Cycle.scss'
 import React, { useEffect } from 'react'
 import { Route, Routes, useParams } from 'react-router-dom'
 
@@ -7,16 +7,19 @@ import { AssessmentName } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { AssessmentActions, useAssessment, useCycle } from '@client/store/assessment'
+import { useIsPrint } from '@client/hooks/useIsPath'
 import CountrySelect from '@client/components/CountrySelect'
+import Header from '@client/components/Header'
 import Partners from '@client/components/Partners'
 
-import Assessment from '../Assessment'
+import Country from '../Country'
 import Introduction from './Introduction'
 import KeyFindings from './KeyFindings'
 
-const CycleLanding: React.FC = () => {
+const Cycle: React.FC = () => {
   const { assessmentName, cycleName } = useParams<{ assessmentName: AssessmentName; cycleName: string }>()
   const dispatch = useAppDispatch()
+  const { print } = useIsPrint()
   const assessment = useAssessment()
   const cycle = useCycle()
 
@@ -29,6 +32,7 @@ const CycleLanding: React.FC = () => {
 
   return (
     <>
+      {!print && <Header />}
       <CountrySelect />
       <Routes>
         <Route
@@ -41,10 +45,10 @@ const CycleLanding: React.FC = () => {
             </>
           }
         />
-        <Route path={`${ClientRoutes.Assessment.Root.path.relative}/*`} element={<Assessment />} />
+        <Route path={`${ClientRoutes.Assessment.Cycle.Country.Landing.path.relative}/*`} element={<Country />} />
       </Routes>
     </>
   )
 }
 
-export default CycleLanding
+export default Cycle

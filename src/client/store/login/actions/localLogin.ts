@@ -29,7 +29,7 @@ export const localLogin = createAsyncThunk<
       let redirectUrl = '/'
 
       if (!Objects.isEmpty(data)) {
-        redirectUrl = ClientRoutes.Assessment.Home.Root.getLink(data)
+        redirectUrl = ClientRoutes.Assessment.Cycle.Country.Home.Root.getLink(data)
       }
 
       navigate(redirectUrl)

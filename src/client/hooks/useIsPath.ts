@@ -8,18 +8,18 @@ export const useIsPath = ({ path, exact = true }: { path: string; exact?: boolea
   return Boolean(matchPath({ path, end: exact }, pathname))
 }
 
-export const useIsCycleLanding = () => useIsPath({ path: ClientRoutes.Assessment.CycleLanding.path.absolute })
+export const useIsCycleLanding = () => useIsPath({ path: ClientRoutes.Assessment.Cycle.Landing.path.absolute })
 
 export const useIsAssessment = () =>
-  useIsPath({ path: `${ClientRoutes.Assessment.Root.path.absolute}/*`, exact: false })
+  useIsPath({ path: `${ClientRoutes.Assessment.Cycle.Country.Landing.path.absolute}/*`, exact: false })
 
 export const useIsAdmin = () => useIsPath({ path: `${ClientRoutes.Admin.Root.path.absolute}/*`, exact: false })
 
 export const useIsLogin = () => useIsPath({ path: `${ClientRoutes.Login.Root.path.absolute}/*`, exact: false })
 
 export const useIsPrint = () => ({
-  print: useIsPath({ path: `${ClientRoutes.Assessment.Print.path.absolute}/*`, exact: false }),
-  onlyTables: useIsPath({ path: `${ClientRoutes.Assessment.PrintTables.path.absolute}`, exact: true }),
+  print: useIsPath({ path: `${ClientRoutes.Assessment.Cycle.Country.Print.path.absolute}/*`, exact: false }),
+  onlyTables: useIsPath({ path: `${ClientRoutes.Assessment.Cycle.Country.PrintTables.path.absolute}`, exact: true }),
 })
 
 export const useIsPanEuropean = () => {

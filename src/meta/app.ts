@@ -55,51 +55,39 @@ export const ClientRoutes = {
     User: newInstance<{ id: number }>('admin', 'users/:id'),
   },
 
-  // TODO: hierarchy should be:
-  // Assessment: {
-  //   Landing: newInstance...
-  //   Cycle: {
-  //      Landing: newInstance...
-  //      Country: {
-  //          DataDownload...
-  //          Landing: newInstance...
-  //          OriginalDataPoint...
-  //          Print...
-  //          Section...
-  //          Users...
-  //      }
-  //   }
-  // }
-
   Assessment: {
-    AssessmentLanding: newInstance<{ assessmentName: AssessmentName }>('assessments', ':assessmentName'),
-    CycleLanding: newInstance<{ assessmentName: AssessmentName; cycleName: string }>(
-      'assessments',
-      ':assessmentName',
-      ':cycleName'
-    ),
-    Root: newInstance<AssessmentParams>(...assessmentParts),
-    Home: {
-      Root: newInstance<AssessmentParams>(...assessmentParts, 'home'),
-      Section: newInstance<AssessmentParams & { sectionName: AssessmentHomeRouteNames }>(
-        ...assessmentParts,
-        'home',
-        ':sectionName'
+    Landing: newInstance<{ assessmentName: AssessmentName }>('assessments', ':assessmentName'),
+    Cycle: {
+      Landing: newInstance<{ assessmentName: AssessmentName; cycleName: string }>(
+        'assessments',
+        ':assessmentName',
+        ':cycleName'
       ),
-      Users: {
-        User: newInstance<AssessmentParams & { id: number }>(...assessmentParts, 'home', 'users/:id'),
+      Country: {
+        DataDownload: newInstance<AssessmentParams>(...assessmentParts, 'dataDownload'),
+        Landing: newInstance<AssessmentParams>(...assessmentParts),
+        Home: {
+          Root: newInstance<AssessmentParams>(...assessmentParts, 'home'),
+          Section: newInstance<AssessmentParams & { sectionName: AssessmentHomeRouteNames }>(
+            ...assessmentParts,
+            'home',
+            ':sectionName'
+          ),
+          Users: {
+            User: newInstance<AssessmentParams & { id: number }>(...assessmentParts, 'home', 'users/:id'),
+          },
+        },
+        OriginalDataPoint: {
+          Section: newInstance<AssessmentParams & { year: string; sectionName: string }>(
+            ...assessmentParts,
+            'originalDataPoint/:year/:sectionName'
+          ),
+        },
+        Print: newInstance<AssessmentParams>(...assessmentParts, 'print'),
+        PrintTables: newInstance<AssessmentParams>(...assessmentParts, 'print', 'tables'),
+        Section: newInstance<AssessmentParams & { sectionName: string }>(...assessmentParts, ':sectionName'),
       },
     },
-    Section: newInstance<AssessmentParams & { sectionName: string }>(...assessmentParts, ':sectionName'),
-    OriginalDataPoint: {
-      Section: newInstance<AssessmentParams & { year: string; sectionName: string }>(
-        ...assessmentParts,
-        'originalDataPoint/:year/:sectionName'
-      ),
-    },
-    DataDownload: newInstance<AssessmentParams>(...assessmentParts, 'dataDownload'),
-    Print: newInstance<AssessmentParams>(...assessmentParts, 'print'),
-    PrintTables: newInstance<AssessmentParams>(...assessmentParts, 'printTables'),
   },
 
   Login: {

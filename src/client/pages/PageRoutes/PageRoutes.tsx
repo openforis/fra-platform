@@ -19,7 +19,7 @@ import User from '@client/pages/User'
 import { SocketClient } from '@client/service/socket'
 import { Urls } from '@client/utils'
 
-import AssessmentLanding from '../AssessmentLanding'
+import Assessment from '../Assessment'
 import Landing from '../Landing'
 import { useTheme } from './useTheme'
 
@@ -51,7 +51,8 @@ const PageRoutes: React.FC = () => {
 
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path={`${ClientRoutes.Assessment.AssessmentLanding.path.absolute}/*`} element={<AssessmentLanding />} />
+
+        <Route path={`${ClientRoutes.Assessment.Landing.path.absolute}/*`} element={<Assessment />} />
         <Route path={`${ClientRoutes.Admin.Root.path.absolute}/*`} element={<Admin />} />
         <Route path={`${ClientRoutes.Login.Root.path.absolute}/*`} element={<Login />} />
         <Route path={`${ClientRoutes.Geo.Root.path.absolute}/*`} element={<Geo />} />
@@ -60,7 +61,6 @@ const PageRoutes: React.FC = () => {
         <Route path="*" element={<Navigate to={ClientRoutes.Root.path} replace />} />
       </Routes>
 
-      {/* <ErrorComponent /> */}
       <Footer />
     </>
   )

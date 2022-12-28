@@ -35,7 +35,7 @@ const AreaSelector: React.FC = () => {
         <img alt="" src="/img/iconGlobal.svg" />
         <Link
           className="home-link m-r"
-          to={ClientRoutes.Assessment.Root.getLink({
+          to={ClientRoutes.Assessment.Cycle.Country.Landing.getLink({
             countryIso: Global.WO,
             assessmentName: AssessmentNames.fra,
             cycleName: cycle.name,

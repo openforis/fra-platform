@@ -56,7 +56,7 @@ const RowData: React.FC<Props> = (props) => {
           <>
             <div className="only-print">{colHeaderLabel}</div>
             <Link
-              to={ClientRoutes.Assessment.Section.getLink({
+              to={ClientRoutes.Assessment.Cycle.Country.Section.getLink({
                 countryIso,
                 assessmentName,
                 cycleName: cycle.name,

@@ -19,7 +19,7 @@ const Landing: React.FC = () => {
 
   return (
     <Navigate
-      to={ClientRoutes.Assessment.CycleLanding.getLink({
+      to={ClientRoutes.Assessment.Cycle.Landing.getLink({
         assessmentName: assessment.props.name,
         cycleName: cycle.name,
       })}
