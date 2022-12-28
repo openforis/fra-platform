@@ -16,8 +16,8 @@ const LinkHome: React.FC = () => {
     <NavLink
       end
       to={ClientRoutes.Assessment.Cycle.Landing.getLink({
-        assessmentName: assessment?.props.name,
-        cycleName: cycle?.name,
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
       })}
       className="app-header-link-home"
     >
