@@ -11,7 +11,6 @@ import { Authorizer } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
 import { AssessmentActions, useAssessment, useCycle } from '@client/store/assessment'
-import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import { useNavigationVisible } from '@client/store/ui/navigation'
 import { ReviewActions } from '@client/store/ui/review'
 import { useUser } from '@client/store/user'
@@ -45,14 +44,6 @@ const Country: React.FC = () => {
       dispatch(ReviewActions.reset())
     }
   }, [countryIso, assessmentName, cycleName, dispatch])
-
-  // On cycle change, reset metadata, data
-  useEffect(() => {
-    return () => {
-      dispatch(AssessmentSectionActions.resetData())
-      dispatch(AssessmentSectionActions.reset())
-    }
-  }, [cycleName, dispatch])
 
   useEffect(() => {
     const requestReviewSummaryEvent = Sockets.getRequestReviewSummaryEvent({ countryIso, assessmentName, cycleName })

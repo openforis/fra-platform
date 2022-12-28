@@ -7,6 +7,7 @@ import { AssessmentName } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { AssessmentActions, useAssessment, useCycle } from '@client/store/assessment'
+import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import CountrySelect from '@client/components/CountrySelect'
 import Header from '@client/components/Header'
@@ -27,6 +28,14 @@ const Cycle: React.FC = () => {
     dispatch(AssessmentActions.getAreas({ assessmentName, cycleName }))
     // TODO: reset areas on return
   }, [assessmentName, cycleName, dispatch])
+
+  // On cycle change, reset metadata, data
+  useEffect(() => {
+    return () => {
+      dispatch(AssessmentSectionActions.resetData())
+      dispatch(AssessmentSectionActions.reset())
+    }
+  }, [cycleName, dispatch])
 
   if (!assessment || !cycle) return null
 
