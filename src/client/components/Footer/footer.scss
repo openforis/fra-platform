@@ -21,6 +21,18 @@ footer {
   align-items: center;
 }
 
+.footer__version {
+  display: flex;
+  grid-column: span 3;
+  padding-top: $spacing-xs;
+  justify-content: center;
+
+  .build-version {
+    color: #bebebe;
+    font-size: $font-xxxs;
+  }
+}
+
 footer a {
   text-decoration: none;
   font-size: $font-xxs - 1;
