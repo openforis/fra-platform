@@ -1,7 +1,7 @@
 import './introduction.scss'
 import React from 'react'
-
 import { useTranslation } from 'react-i18next'
+
 import AreaSelector from './AreaSelector'
 
 const Introduction: React.FC = () => {

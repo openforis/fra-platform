@@ -9,7 +9,7 @@ import { Areas, CountryIso, Global, RegionCode } from '@meta/area'
 import { UserRoles } from '@meta/user/userRoles'
 
 import { useAssessment, useCountry, useCycle } from '@client/store/assessment'
-import { useCountryIso, useIsHome } from '@client/hooks'
+import { useCountryIso, useIsCycleLanding } from '@client/hooks'
 import { Dates } from '@client/utils'
 
 type Props = {
@@ -29,11 +29,11 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
   const cycle = useCycle()
   const country = useCountry(countryIso as CountryIso)
   const countryIsoCurrent = useCountryIso()
-  const isHome = useIsHome()
+  const isCycleLanding = useIsCycleLanding()
   const countryNameRef = useRef(null)
 
   const status = Areas.getStatus(country)
-  const selected = countryIso === countryIsoCurrent && cycleName === cycle.name && !isHome
+  const selected = countryIso === countryIsoCurrent && cycleName === cycle.name && !isCycleLanding
   const hasRole = role !== UserRoles.noRole.role
 
   useEffect(() => {
@@ -45,10 +45,10 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
 
   return (
     <Link
-      to={ClientRoutes.Assessment.Root.getLink({
-        countryIso: countryIso as CountryIso,
+      to={ClientRoutes.Assessment.Cycle.Country.Landing.getLink({
         assessmentName: assessment.props.name,
         cycleName: cycle?.name,
+        countryIso: countryIso as CountryIso,
       })}
       className={classNames('country-selection-list__row', { selected })}
     >

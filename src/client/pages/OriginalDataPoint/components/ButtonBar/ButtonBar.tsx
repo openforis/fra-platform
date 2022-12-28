@@ -36,7 +36,7 @@ const ButtonBar: React.FC<Props> = (props) => {
   const disabled = !originalDataPoint.id || isOriginalDataPointUpdating
   const assessment = useAssessment()
   const cycle = useCycle()
-  const assessmentSectionLink = ClientRoutes.Assessment.Section.getLink({
+  const assessmentSectionLink = ClientRoutes.Assessment.Cycle.Country.Section.getLink({
     countryIso,
     assessmentName,
     cycleName,

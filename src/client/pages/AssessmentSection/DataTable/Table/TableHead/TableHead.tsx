@@ -57,7 +57,7 @@ const TableHead: React.FC<Props> = (props) => {
                   <Tooltip text={t('nationalDataPoint.clickOnNDP')}>
                     <Link
                       className="link"
-                      to={ClientRoutes.Assessment.OriginalDataPoint.Section.getLink({
+                      to={ClientRoutes.Assessment.Cycle.Country.OriginalDataPoint.Section.getLink({
                         countryIso,
                         assessmentName,
                         cycleName: cycle.name,

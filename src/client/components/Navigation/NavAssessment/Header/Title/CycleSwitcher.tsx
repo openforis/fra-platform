@@ -26,7 +26,7 @@ const CycleSwitcher = () => {
   const onSelectChange = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>) => {
       const cycleName = event.target.value
-      navigate(ClientRoutes.Assessment.Home.Root.getLink({ countryIso, assessmentName, cycleName }))
+      navigate(ClientRoutes.Assessment.Cycle.Country.Home.Root.getLink({ countryIso, assessmentName, cycleName }))
     },
     [assessmentName, countryIso, navigate]
   )

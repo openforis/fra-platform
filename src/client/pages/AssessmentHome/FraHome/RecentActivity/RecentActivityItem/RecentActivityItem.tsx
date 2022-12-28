@@ -38,7 +38,7 @@ const RecentActivityItem: React.FC<Props> = ({ activity }) => {
         {ActivityLogs.hasSectionLink(activity) && (
           <Link
             className={classNames('link', { disabled: ActivityLogs.isSectionLinkDisabled(activity) })}
-            to={ClientRoutes.Assessment.Section.getLink({
+            to={ClientRoutes.Assessment.Cycle.Country.Section.getLink({
               countryIso,
               assessmentName: assessment.props.name,
               cycleName: cycle.name,

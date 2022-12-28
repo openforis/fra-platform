@@ -68,7 +68,7 @@ const DropdownAreas = (props: Props) => {
                           regionCode !== RegionCode.FE && (
                             <Link
                               key={regionCode}
-                              to={ClientRoutes.Assessment.Root.getLink({
+                              to={ClientRoutes.Assessment.Cycle.Country.Landing.getLink({
                                 countryIso: regionCode,
                                 assessmentName,
                                 cycleName,
@@ -92,7 +92,7 @@ const DropdownAreas = (props: Props) => {
                   areaISOs.map((iso: any) => (
                     <Link
                       key={iso}
-                      to={ClientRoutes.Assessment.Root.getLink({
+                      to={ClientRoutes.Assessment.Cycle.Country.Landing.getLink({
                         countryIso: iso,
                         assessmentName,
                         cycleName,

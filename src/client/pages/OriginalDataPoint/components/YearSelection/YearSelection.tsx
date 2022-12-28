@@ -66,7 +66,7 @@ const YearSelection: React.FC<Props> = (props) => {
               })
             )
             // Update url but do not push new entry to state
-            const url = ClientRoutes.Assessment.OriginalDataPoint.Section.getLink({
+            const url = ClientRoutes.Assessment.Cycle.Country.OriginalDataPoint.Section.getLink({
               countryIso,
               assessmentName: assessment.props.name,
               cycleName: cycle.name,
