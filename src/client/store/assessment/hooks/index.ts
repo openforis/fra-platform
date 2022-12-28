@@ -10,7 +10,6 @@ import { useAppSelector } from '@client/store'
 import { useCountryIso } from '@client/hooks'
 
 export { useCycle } from './useCycle'
-export { useSyncAssessmentPage } from './useSyncAssessmentPage'
 
 // TODO: Move elsewhere <>
 const getLocale = (isoCode: string): string => {

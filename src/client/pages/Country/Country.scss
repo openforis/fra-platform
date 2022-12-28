@@ -20,7 +20,7 @@
   //  grid-template-columns: $ui-app-navigation-width 1fr;
   //}
 
-  @include min-width($laptop){
+  @include min-width($laptop) {
     grid-template-columns: 0 1fr;
     grid-template-areas: 'navigation content';
 
@@ -65,7 +65,7 @@
   overflow-x: auto;
   overflow-y: hidden;
 
-  @include min-width($laptop){
+  @include min-width($laptop) {
     padding: $spacing-s $spacing-m $spacing-xl $spacing-m;
   }
 }

@@ -45,7 +45,7 @@ export const getGoogleCallback = (req: Request, res: Response, next: NextFunctio
         let redirectUrl = process.env.NODE_ENV === 'development' ? '/' : appUri
         if (msg?.message) {
           const data = JSON.parse(msg.message)
-          redirectUrl += ClientRoutes.Assessment.Home.Root.getLink(data)
+          redirectUrl += ClientRoutes.Assessment.Cycle.Country.Home.Root.getLink(data)
         }
         res.redirect(redirectUrl)
       })

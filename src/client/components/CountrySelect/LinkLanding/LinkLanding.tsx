@@ -22,14 +22,17 @@ const LinkLanding: React.FC = () => {
 
   return (
     <NavLink
-      to={ClientRoutes.Assessment.Root.getLink({
+      to={ClientRoutes.Assessment.Cycle.Country.Landing.getLink({
         countryIso,
         assessmentName: assessment.props.name,
         cycleName: cycle.name,
       })}
       className={() => {
         return classNames('country-selection-link-landing', {
-          selected: matchPath({ path: ClientRoutes.Assessment.Home.Root.path.absolute, end: false }, pathname),
+          selected: matchPath(
+            { path: ClientRoutes.Assessment.Cycle.Country.Home.Root.path.absolute, end: false },
+            pathname
+          ),
         })
       }}
     >

@@ -1,4 +1,5 @@
 export { getAreas } from './getAreas'
+export { getAssessment } from './getAssessment'
 export { getSections } from './getSections'
 export { initApp } from './initApp'
 export { updateCountry } from './updateCountry'

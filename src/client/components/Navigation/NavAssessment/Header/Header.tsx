@@ -45,7 +45,11 @@ const Header: React.FC<Props> = (props) => {
             <div className="links-download">
               <Link
                 className="btn-s btn-secondary"
-                to={ClientRoutes.Assessment.PrintTables.getLink({ countryIso, assessmentName, cycleName })}
+                to={ClientRoutes.Assessment.Cycle.Country.PrintTables.getLink({
+                  countryIso,
+                  assessmentName,
+                  cycleName,
+                })}
                 target="_blank"
               >
                 <Icon name="small-print" className="icon-margin-left" />
@@ -54,7 +58,7 @@ const Header: React.FC<Props> = (props) => {
 
               <Link
                 className="btn-s btn-secondary"
-                to={ClientRoutes.Assessment.Print.getLink({ countryIso, assessmentName, cycleName })}
+                to={ClientRoutes.Assessment.Cycle.Country.Print.getLink({ countryIso, assessmentName, cycleName })}
                 target="_blank"
               >
                 <Icon name="small-print" className="icon-no-margin" />

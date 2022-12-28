@@ -86,7 +86,7 @@ const CollaboratorListElement: React.FC<{ user: User }> = ({ user }) => {
           </>
         ) : (
           <Link
-            to={ClientRoutes.Assessment.Home.Users.User.getLink({
+            to={ClientRoutes.Assessment.Cycle.Country.Home.Users.User.getLink({
               countryIso,
               assessmentName: assessment.props.name,
               cycleName: cycle.name,
