@@ -8,9 +8,7 @@ import { ClientRoutes } from '@meta/app'
 
 import { useAppDispatch } from '@client/store'
 import { AssessmentActions } from '@client/store/assessment'
-import { useIsPrint } from '@client/hooks/useIsPath'
 import Footer from '@client/components/Footer'
-import Header from '@client/components/Header'
 import Toaster from '@client/components/Toaster'
 import Admin from '@client/pages/Admin'
 import Geo from '@client/pages/Geo'
@@ -27,7 +25,6 @@ const PageRoutes: React.FC = () => {
   const dispatch = useAppDispatch()
   useTheme()
   const { i18n } = useTranslation()
-  const { print } = useIsPrint()
 
   useEffect(() => {
     // TODO: Add user.language support
@@ -47,7 +44,6 @@ const PageRoutes: React.FC = () => {
   return (
     <>
       <Toaster />
-      {!print && <Header />}
 
       <Routes>
         <Route path="/" element={<Landing />} />
