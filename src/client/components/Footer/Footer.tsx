@@ -64,13 +64,12 @@ const Footer: React.FC = () => {
         </a>
       </div>
 
+      <span className="copyright">&copy; FAO, {new Date().getFullYear()}</span>
       <div className="footer__version">
         <span className="build-version">
           {t('footer.platformVersion')} #{buildVersion}
         </span>
       </div>
-
-      <span className="copyright">&copy; FAO, {new Date().getFullYear()}</span>
     </footer>
   )
 }
