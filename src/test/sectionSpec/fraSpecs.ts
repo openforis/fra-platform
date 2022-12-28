@@ -7098,203 +7098,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
       included: true,
     },
   },
-  // permanentForestEstate (3c) (2025) <=> areaOfPermanentForestEstate (6b) (2020)
-  permanentForestEstate: {
-    sectionName: 'permanentForestEstate',
-    sectionAnchor: '3c',
-    tableSections: [
-      {
-        tableSpecs: [
-          {
-            name: 'permanentForestEstate',
-            rows: [
-              {
-                idx: 'header_0',
-                cols: [
-                  {
-                    idx: 0,
-                    colSpan: 1,
-                    rowSpan: 2,
-                    labelKey: 'areaOfPermanentForestEstate.categoryHeader',
-                    className: 'fra-table__header-cell-left',
-                    type: 'header',
-                  },
-                  {
-                    idx: 1,
-                    colSpan: 7,
-                    rowSpan: 1,
-                    labelKey: 'areaOfPermanentForestEstate.areaUnitLabel',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                ],
-                type: 'header',
-              },
-              {
-                idx: 'header_1',
-                cols: [
-                  {
-                    idx: 0,
-                    colSpan: 1,
-                    rowSpan: 1,
-                    labelKey: 'areaOfPermanentForestEstate.applicable',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  {
-                    idx: 1,
-                    colSpan: 1,
-                    rowSpan: 1,
-                    label: '1990',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  {
-                    idx: 2,
-                    colSpan: 1,
-                    rowSpan: 1,
-                    label: '2000',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  {
-                    idx: 3,
-                    colSpan: 1,
-                    rowSpan: 1,
-                    label: '2010',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  {
-                    idx: 4,
-                    colSpan: 1,
-                    rowSpan: 1,
-                    label: '2015',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  {
-                    idx: 5,
-                    colSpan: 1,
-                    rowSpan: 1,
-                    label: '2020',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  {
-                    idx: 6,
-                    colSpan: 1,
-                    rowSpan: 1,
-                    label: '2025',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                ],
-                type: 'header',
-              },
-              {
-                idx: 0,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    labelKey: 'areaOfPermanentForestEstate.areaOfPermanentForestEstate',
-                    className: 'fra-table__category-cell',
-                  },
-                  {
-                    idx: 0,
-                    type: 'select',
-                    options: [
-                      {
-                        optionName: 'yes',
-                      },
-                      {
-                        optionName: 'no',
-                      },
-                    ],
-                    optionsLabelKeyPrefix: 'yesNoTextSelect',
-                    colName: 'applicable',
-                  },
-                  ...reportYears.map((year, idx) => ({
-                    idx: idx + 1,
-                    type: 'decimal',
-                    colName: year,
-                  })),
-                ],
-                labelKey: 'areaOfPermanentForestEstate.areaOfPermanentForestEstate',
-                variableExport: 'area_of_permanent_forest_estate',
-                variableName: 'area_of_permanent_forest_estate',
-                migration: {
-                  validateFns: [
-                    `validatorNotGreaterThanForest(extentOfForest.forestArea,permanentForestEstate.area_of_permanent_forest_estate)`,
-                  ],
-                },
-              },
-              {
-                idx: 1,
-                type: 'noticeMessage',
-                cols: [
-                  {
-                    idx: 0,
-                    colSpan: 1,
-                    rowSpan: 2,
-                    labelKey: null,
-                    type: 'noticeMessage',
-                  },
-                ],
-              },
-              {
-                idx: 2,
-                type: 'validationMessages',
-                cols: [],
-              },
-            ],
-            tableDataRequired: [
-              {
-                assessmentType: 'fra2020',
-                sectionName: 'extentOfForest',
-                tableName: 'extentOfForest',
-              },
-            ],
-            print: {
-              colBreakPoints: [],
-              pageBreakAfter: false,
-            },
-            dataExport: true,
-            columnsExportAlways: [],
-            unit: 'haThousand',
-            columnsExport: [1990, 2000, 2010, 2015, 2020, 2025],
-            migration: {
-              columnNames: {
-                '2025': ['applicable', '1990', '2000', '2010', '2015', '2020', '2025'],
-              },
-            },
-          },
-        ],
-      },
-    ],
-    showTitle: true,
-    descriptions: {
-      analysisAndProcessing: false,
-      comments: true,
-      introductoryText: false,
-      nationalData: true,
-    },
-    dataExport: {
-      included: true,
-    },
-    migration: {
-      label: {
-        '2025': { key: 'fra.permanentForestEstate.permanentForestEstate' },
-      },
-      cycles: ['2025'],
-    },
-  },
   forestRestoration: {
     sectionName: 'forestRestoration',
-    sectionAnchor: '3d',
+    sectionAnchor: '3c',
     tableSections: [
       {
         tableSpecs: [
@@ -9947,9 +9753,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
     dataExport: {
       included: true,
     },
-    migration: {
-      cycles: ['2020'],
-    },
   },
   areaOfPermanentForestEstate: {
     sectionName: 'areaOfPermanentForestEstate',
@@ -10136,9 +9939,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
     },
     dataExport: {
       included: true,
-    },
-    migration: {
-      cycles: ['2020'],
     },
   },
   employment: {
@@ -12449,10 +12249,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
         '2020': { key: 'nonWoodForestProductsRemovals.nonWoodForestProductsRemovals' },
         '2025': { key: 'fra.nonWoodForestProductsRemovals.nonWoodForestProductsRemovals2025' },
       },
-      anchors: {
-        '2020': '7c',
-        '2025': '6a',
-      },
     },
   },
   sustainableDevelopment: {
@@ -14125,12 +13921,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
     },
     dataExport: {
       included: false,
-    },
-    migration: {
-      anchors: {
-        '2020': '8a',
-        '2025': '7a',
-      },
     },
   },
   contentCheck: {
