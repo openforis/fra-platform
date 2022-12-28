@@ -3,7 +3,7 @@ name: Deploy to incubator
 on:
   push:
     branches:
-      - 'master-meta'
+      - 'meta/feature/dependencies-updates-in-queue'
 
 jobs:
   build:
