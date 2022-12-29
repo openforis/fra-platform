@@ -8,7 +8,6 @@ import { ClientRoutes } from '@meta/app'
 
 import { useAppDispatch } from '@client/store'
 import { AssessmentActions } from '@client/store/assessment'
-import Footer from '@client/components/Footer'
 import Toaster from '@client/components/Toaster'
 import Admin from '@client/pages/Admin'
 import Geo from '@client/pages/Geo'
@@ -56,8 +55,6 @@ const PageRoutes: React.FC = () => {
 
         <Route path="*" element={<Navigate to={ClientRoutes.Root.path} replace />} />
       </Routes>
-
-      <Footer />
     </>
   )
 }

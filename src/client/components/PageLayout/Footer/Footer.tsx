@@ -1,4 +1,4 @@
-import './footer.scss'
+import './Footer.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
