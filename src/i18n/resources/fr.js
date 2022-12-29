@@ -400,7 +400,6 @@ L'équipe de FRA
     nationalClass: 'Classe nationale',
     nationalClasses: 'Classifications et définitions',
     definition: 'Définition',
-    fraClasses: 'Classes de FRA',
     class: 'Classe',
     area: 'Superficie (1000 ha)',
     total: 'Total',
