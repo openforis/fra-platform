@@ -1,5 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+
 import { useUser } from '@client/store/user'
 /* global  __APPLICATION_VERSION__ */
 
@@ -31,7 +32,7 @@ ${i18n.t('navigation.support.userAgent')}: ${navigator.userAgent}
 
   return (
     <a target="_top" href={`mailto:fra@fao.org?subject=${subject}&body=${body.trim()}`}>
-      {i18n.t('footer.sendFeedback')}
+      {i18n.t<string>('footer.sendFeedback')}
     </a>
   )
 }

@@ -6,7 +6,7 @@ import { ApiEndPoint } from '@meta/api/endpoint'
 
 import { useUser } from '@client/store/user'
 
-import SendFeedback from './components/SendFeedback'
+import SendFeedback from './SendFeedback'
 
 const links = [
   {
