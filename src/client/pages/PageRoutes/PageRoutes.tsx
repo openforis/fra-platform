@@ -1,5 +1,3 @@
-import '@client/components/CountrySelect/countrySelect.scss'
-import '@client/components/CountrySelect/CountryList/countryList.scss'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate, Route, Routes } from 'react-router-dom'

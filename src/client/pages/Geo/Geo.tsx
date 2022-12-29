@@ -1,8 +1,8 @@
 import './geo.scss'
 import React, { Suspense } from 'react'
 
-import CountrySelect from '@client/components/CountrySelect'
 import Loading from '@client/components/Loading'
+import CountrySelect from '@client/components/PageLayout/CountrySelect'
 
 const GeoMapWrapper = React.lazy(() => import('./GeoMapWrapper'))
 

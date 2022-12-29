@@ -1,6 +1,6 @@
 import React from 'react'
 
-import CountrySelect from '../CountrySelect'
+import CountrySelect from './CountrySelect'
 import Footer from './Footer'
 import Header from './Header'
 
