@@ -9,6 +9,7 @@ import { AreaController } from '@server/controller/area'
 import { AssessmentController } from '@server/controller/assessment'
 import { MessageCenterController } from '@server/controller/messageCenter'
 import { MetadataController } from '@server/controller/metadata'
+import { tryCatch } from '@server/middleware/tryCatch'
 import { Requests } from '@server/utils'
 
 const _next = (allowed: boolean, next: NextFunction): void => {
@@ -190,15 +191,15 @@ const requireEditAssessmentFile = async (req: Request, _res: Response, next: Nex
 }
 
 export const AuthMiddleware = {
-  requireEditCountryProps,
-  requireEditDescriptions,
-  requireEditTableData,
-  requireView,
-  requireAdmin,
-  requireDeleteTopicMessage,
-  requireResolveTopic,
-  requireEditMessageTopic,
-  requireEditUser,
-  requireViewUsers,
-  requireEditAssessmentFile,
+  requireEditCountryProps: tryCatch(requireEditCountryProps),
+  requireEditDescriptions: tryCatch(requireEditDescriptions),
+  requireEditTableData: tryCatch(requireEditTableData),
+  requireView: tryCatch(requireView),
+  requireAdmin: tryCatch(requireAdmin),
+  requireDeleteTopicMessage: tryCatch(requireDeleteTopicMessage),
+  requireResolveTopic: tryCatch(requireResolveTopic),
+  requireEditMessageTopic: tryCatch(requireEditMessageTopic),
+  requireEditUser: tryCatch(requireEditUser),
+  requireViewUsers: tryCatch(requireViewUsers),
+  requireEditAssessmentFile: tryCatch(requireEditAssessmentFile),
 }
