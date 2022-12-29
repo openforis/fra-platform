@@ -471,7 +471,6 @@ The FRA team
     nationalClass: 'شريحة وطنية',
     nationalClasses: 'شرائح وتعاريف',
     definition: 'تعريف',
-    fraClasses: 'شرائح تقييم الموارد الحرجية',
     class: 'شريحة',
     area: 'المساحة (1000 هـ)',
     total: 'الإجمالي',
