@@ -456,6 +456,7 @@ The FRA team
     noNationalDataAdded: 'لم تتم إضافة نقطة بيانات وطنية',
     nationalData: 'بيانات وطنية',
     reclassificationLabel: 'بيانات أصلية وإعادة التصنيف',
+    forestCategoriesLabel: 'غابة، أرض حرجية أخرى، أرض أخرى',
     referenceYearData: 'العام المرجعي للبيانات',
     referenceYear: 'العام المرجعي',
     references: 'المراجع',

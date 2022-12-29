@@ -449,6 +449,7 @@ FRA工作组
     noNationalDataAdded: '未添加国家数据',
     nationalData: '国家数据',
     reclassificationLabel: '原始数据和重新分类',
+    forestCategoriesLabel: '森林、其他林地和其他土地',
     referenceYearData: '数据参考年份',
     referenceYear: '参考年份',
     references: '参考',

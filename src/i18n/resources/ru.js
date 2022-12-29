@@ -402,6 +402,7 @@ module.exports.translation = {
     noNationalDataAdded: 'Национальные данные не добавлены',
     nationalData: 'Национальные данные',
     reclassificationLabel: 'Исходные данные и реклассификация',
+    forestCategoriesLabel: 'Леса, прочие лесопокрытые земли и другие земельные площади',
     referenceYearData: 'Отчетный год для данных',
     referenceYear: 'Отчетный год',
     references: 'Справочные материалы',

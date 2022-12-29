@@ -385,6 +385,7 @@ L'équipe de FRA
     noNationalDataAdded: 'Pas de donnée nationale ajoutée',
     nationalData: 'Donnée nationale',
     reclassificationLabel: 'Données de base et reclassification',
+    forestCategoriesLabel: 'Forêt, autre terre boisée et autre terre',
     referenceYearData: 'Année de référence pour les données',
     referenceYear: 'Année de référence',
     references: 'Références',
