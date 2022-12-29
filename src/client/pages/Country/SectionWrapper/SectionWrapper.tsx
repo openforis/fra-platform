@@ -5,6 +5,7 @@ import { AssessmentName } from '@meta/assessment'
 import { Sockets } from '@meta/socket'
 
 import { useAppDispatch } from '@client/store'
+import { useAssessmentSections } from '@client/store/assessment'
 import { useTableSections } from '@client/store/pages/assessmentSection'
 import { useGetTableSections } from '@client/store/pages/assessmentSection/hooks/useGetTableSections'
 import { useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
@@ -32,6 +33,7 @@ const SectionWrapper: React.FC<Props> = (props) => {
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const user = useUser()
+  const sections = useAssessmentSections()
   const tableSections = useTableSections({ sectionName })
   const originalDataPoint = useOriginalDataPoint()
   useGetTableSections()
@@ -74,7 +76,7 @@ const SectionWrapper: React.FC<Props> = (props) => {
     }
   }, [countryIso, assessmentName, cycleName, sectionName, user, dispatch, originalDataPoint?.id])
 
-  if (!tableSections) return null
+  if (!sections || !tableSections) return null
 
   return (
     <>
