@@ -5,6 +5,7 @@ import { Numbers } from '@utils/numbers'
 
 import { ODPs, OriginalDataPoint } from '@meta/assessment/originalDataPoint'
 
+import { useCycle } from '@client/store/assessment'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import DefinitionLink from '@client/components/DefinitionLink'
 
@@ -17,6 +18,7 @@ type Props = {
 
 const ExtentOfForest: React.FC<Props> = (props) => {
   const { canEditData, originalDataPoint } = props
+  const cycle = useCycle()
 
   const { i18n } = useTranslation()
   const { print } = useIsPrint()
@@ -27,7 +29,9 @@ const ExtentOfForest: React.FC<Props> = (props) => {
     <div className="odp__section">
       {!print && (
         <div className="odp__section-header">
-          <h3 className="subhead">{i18n.t<string>('nationalDataPoint.forestCategoriesLabel')}</h3>
+          <h3 className="subhead">
+            {i18n.t<string>(`nationalDataPoint.forestCategoriesLabel${cycle.name === '2025' ? '2025' : ''}`)}
+          </h3>
           <DefinitionLink
             document="tad"
             anchor="1a"
@@ -48,10 +52,10 @@ const ExtentOfForest: React.FC<Props> = (props) => {
                   </th>
                 )}
                 <th className="fra-table__header-cell fra-table__divider" colSpan={2}>
-                  {i18n.t<string>('nationalDataPoint.nationalClasses')}
+                  {i18n.t<string>('nationalDataPoint.nationalClassifications')}
                 </th>
                 <th className="fra-table__header-cell" colSpan={3}>
-                  {i18n.t<string>('nationalDataPoint.fraClasses')}
+                  {i18n.t<string>('nationalDataPoint.categories')}
                 </th>
               </tr>
               <tr>
