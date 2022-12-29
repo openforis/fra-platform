@@ -44,6 +44,10 @@
 }
 
 .app-header__global-fra {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xxs;
+
   font-size: $font-xl;
   text-align: center;
 
