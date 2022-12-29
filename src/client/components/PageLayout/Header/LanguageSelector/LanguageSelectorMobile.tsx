@@ -1,4 +1,4 @@
-import './languageSelectorMobile.scss'
+import './LanguageSelectorMobile.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
