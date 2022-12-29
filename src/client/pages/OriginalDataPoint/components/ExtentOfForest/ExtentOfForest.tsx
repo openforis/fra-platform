@@ -48,10 +48,10 @@ const ExtentOfForest: React.FC<Props> = (props) => {
                   </th>
                 )}
                 <th className="fra-table__header-cell fra-table__divider" colSpan={2}>
-                  {i18n.t<string>('nationalDataPoint.nationalClasses')}
+                  {i18n.t<string>('nationalDataPoint.nationalClassifications')}
                 </th>
                 <th className="fra-table__header-cell" colSpan={3}>
-                  {i18n.t<string>('nationalDataPoint.fraClasses')}
+                  {i18n.t<string>('nationalDataPoint.categories')}
                 </th>
               </tr>
               <tr>
