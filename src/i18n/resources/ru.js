@@ -417,7 +417,6 @@ module.exports.translation = {
     nationalClass: 'Национальный класс',
     nationalClasses: 'Классификации и определения',
     definition: 'Определение',
-    fraClasses: 'Классы ОЛР',
     class: 'Класс',
     area: 'Площадь (1000 га)',
     total: 'Итого',
