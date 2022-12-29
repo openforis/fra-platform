@@ -24,7 +24,7 @@ const LanguageSelector: React.FC = () => {
   return (
     <PopoverControl items={languageSelectionItems}>
       <div className="app-header__menu-item">
-        {i18n.t(`language.${i18n.language}`)}
+        {i18n.t<string>(`language.${i18n.language}`)}
         <Icon className="icon-middle" name="small-down" />
       </div>
     </PopoverControl>
