@@ -19,6 +19,7 @@ const initialState: AssessmentSectionState = {
   showOriginalDataPoint: true,
   nodeValueValidation: {},
   descriptions: {},
+  estimationPending: false,
 }
 
 export const assessmentSectionSlice = createSlice({
@@ -101,6 +102,14 @@ export const assessmentSectionSlice = createSlice({
 
       if (!state.descriptions[sectionName]) state.descriptions[sectionName] = {}
       state.descriptions[sectionName][name] = value
+    })
+
+    builder.addCase(postEstimate.pending, (state) => {
+      state.estimationPending = true
+    })
+
+    builder.addCase(postEstimate.fulfilled, (state) => {
+      state.estimationPending = false
     })
   },
 })

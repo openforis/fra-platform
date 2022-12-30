@@ -7,7 +7,8 @@ type Variable = {
   tableName: string
   variableName: string
 }
-export const originalDataPointVariables: Array<Variable> = [
+
+const originalDataPointVariables: Array<Variable> = [
   // 1a
   { sectionName: 'extentOfForest', tableName: TableNames.extentOfForest, variableName: 'forestArea' },
   { sectionName: 'extentOfForest', tableName: TableNames.extentOfForest, variableName: 'otherLand' },
