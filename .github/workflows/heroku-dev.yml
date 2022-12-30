@@ -1,0 +1,66 @@
+name: Deploy to development
+
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgis/postgis:12-3.0
+        env:
+          POSTGRES_USER: frap
+          POSTGRES_PASSWORD: frap
+          POSTGRES_DB: frap-dev
+        ports:
+          - 5442:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0' # fetch all tags, default 1
+
+      - name: Use Node.js 16.13.0
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16.13.0'
+          always-auth: true
+          auth-token: ${{secrets.ACCESS_TOKEN}}
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@openforis'
+
+      - run: yarn install --network-timeout 1000000
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+
+      - run: yarn build
+        env:
+          PGHOST: localhost
+          PGPORT: 5442
+          PGDATABASE: frap-dev
+          PGUSER: frap
+          PGPASSWORD: frap
+#      - run: yarn test
+#        env:
+#          PGHOST: localhost
+#          PGPORT: 5442
+#          PGDATABASE: frap-dev
+#          PGUSER: frap
+#          PGPASSWORD: frap
+
+      - name: Get the version
+        id: app_version
+        run: echo ::set-output name=APP_VERSION::$(git describe --always --tags)
+
+      - uses: akhileshns/heroku-deploy@v3.6.8 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME_DEVELOPMENT}}
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+        env:
+          HD_APP_VERSION: ${{ steps.app_version.outputs.APP_VERSION }}
