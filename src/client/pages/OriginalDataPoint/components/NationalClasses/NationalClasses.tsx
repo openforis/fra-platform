@@ -52,7 +52,7 @@ const NationalClasses: React.FC<Props> = (props) => {
     <div className="odp__section">
       {!print && (
         <div className="odp__section-header">
-          <h3 className="subhead">{i18n.t<string>('nationalDataPoint.nationalClasses')}</h3>
+          <h3 className="subhead">{i18n.t<string>('nationalDataPoint.nationalClassifications')}</h3>
           {canEditData && (
             <button
               type="button"
@@ -76,7 +76,9 @@ const NationalClasses: React.FC<Props> = (props) => {
                     {originalDataPoint.year}
                   </th>
                 )}
-                <th className="fra-table__header-cell-left">{i18n.t<string>('nationalDataPoint.nationalClass')}</th>
+                <th className="fra-table__header-cell-left">
+                  {i18n.t<string>('nationalDataPoint.nationalClassifications')}
+                </th>
                 <th className="fra-table__header-cell-left">{i18n.t<string>('nationalDataPoint.definition')}</th>
               </tr>
               {nationalClasses.map((nationalClass, idx) => (

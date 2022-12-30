@@ -464,7 +464,6 @@ FRA工作组
     nationalClass: '国家界定的类别',
     nationalClasses: '分类和定义',
     definition: '定义',
-    fraClasses: 'FRA界定的类别',
     class: '类别',
     area: '面积(1000公顷)',
     total: '总计',
