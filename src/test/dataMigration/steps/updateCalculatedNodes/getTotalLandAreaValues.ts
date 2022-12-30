@@ -4,6 +4,8 @@ import { BaseProtocol } from '@server/db'
 
 import { NodeRow } from '@test/dataMigration/types'
 
+import landArea from './landArea'
+
 export const getTotalLandAreaValues = async (
   props: { cycle: Cycle },
   client: BaseProtocol
@@ -11,9 +13,10 @@ export const getTotalLandAreaValues = async (
   const { cycle } = props
   const cycleCondition = `props -> 'cycles' ? '${cycle.uuid}'`
 
-  return client.many<NodeRow>(
+  return client.map<NodeRow>(
     `
         select c.country_iso,
+               cl.props ->> 'colName' as "colName",
 --        c.config -> 'faoStat'      as fao_stat,
 --        t.props ->> 'name'         as table_name,
 --        r.props ->> 'variableName' as variable_name,
@@ -37,6 +40,18 @@ export const getTotalLandAreaValues = async (
         where t.${cycleCondition}
           and r.${cycleCondition}
           and cl.${cycleCondition}
-    `
+    `,
+    [],
+    (result) => {
+      // Ignore atlantis
+      if (/^X\d\d$/.test(result.country_iso) || cycle.name === '2020') return result
+      return {
+        ...result,
+        value: {
+          // @ts-ignore
+          raw: String(landArea[result.country_iso][result.colName]),
+        },
+      }
+    }
   )
 }
