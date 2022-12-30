@@ -1,13 +1,14 @@
 import { ActivityLogMessage, Node, NodeValue, Row } from '@meta/assessment'
 
 import { getTableData } from '@server/controller/cycleData/getTableData'
-import { ExpressionEvaluator } from '@server/controller/cycleData/persistNodeValue/expressionEvaluator'
-import { persistNode } from '@server/controller/cycleData/persistNodeValue/persistNode/persistNode'
-import { Props } from '@server/controller/cycleData/persistNodeValue/props'
 import { BaseProtocol } from '@server/db'
 
+import { persistNode } from '../../persistNodeValues/persistNode'
+import { PersistNodeValueProps } from '../../persistNodeValues/props'
+import { ExpressionEvaluator } from '../expressionEvaluator'
+
 export const calculateNode = async (
-  props: Omit<Props, 'value'> & { expression: string; row: Row; mergeOdp: boolean },
+  props: Omit<PersistNodeValueProps, 'value'> & { expression: string; row: Row; mergeOdp: boolean },
   client: BaseProtocol
 ): Promise<Node> => {
   const {

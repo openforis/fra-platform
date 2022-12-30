@@ -2,12 +2,12 @@ import { NodeValueValidation, NodeValueValidations, Row } from '@meta/assessment
 import { TableData } from '@meta/data'
 
 import { getTableData } from '@server/controller/cycleData/getTableData'
-import { ExpressionEvaluator } from '@server/controller/cycleData/persistNodeValue/expressionEvaluator'
-import { Props } from '@server/controller/cycleData/persistNodeValue/props'
+import { PersistNodeValueProps } from '@server/controller/cycleData/persistNodeValues/props'
+import { ExpressionEvaluator } from '@server/controller/cycleData/updateDependencies/expressionEvaluator'
 import { BaseProtocol } from '@server/db'
 
 export const validateNode = async (
-  props: Omit<Props, 'value' | 'user'> & { row: Row; data?: TableData },
+  props: Omit<PersistNodeValueProps, 'value' | 'user'> & { row: Row; data?: TableData },
   client: BaseProtocol
 ): Promise<NodeValueValidation> => {
   const { assessment, cycle, tableName, variableName, countryIso, colName, row, data: dataProps } = props

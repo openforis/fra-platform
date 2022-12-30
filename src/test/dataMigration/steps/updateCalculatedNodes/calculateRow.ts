@@ -3,7 +3,7 @@ import { Assessment, Cycle, Row, VariableCache } from '@meta/assessment'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { CycleDataController } from '@server/controller/cycleData'
-import { ExpressionEvaluator } from '@server/controller/cycleData/persistNodeValue/expressionEvaluator'
+import { ExpressionEvaluator } from '@server/controller/cycleData/updateDependencies/expressionEvaluator'
 import { BaseProtocol } from '@server/db'
 
 import { NodeRow } from '@test/dataMigration/types'

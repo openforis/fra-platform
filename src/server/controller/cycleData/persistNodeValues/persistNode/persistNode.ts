@@ -4,10 +4,10 @@ import { BaseProtocol } from '@server/db'
 import { NodeRepository } from '@server/repository/assessmentCycle/node'
 import { ActivityLogRepository } from '@server/repository/public/activityLog'
 
-import { Props } from '../props'
+import { PersistNodeValueProps } from '../props'
 
 export const persistNode = async (
-  props: Props & { activityLogMessage?: ActivityLogMessage },
+  props: PersistNodeValueProps & { activityLogMessage?: ActivityLogMessage },
   client: BaseProtocol
 ): Promise<Node> => {
   const { assessment, countryIso, activityLogMessage, user, cycle, sectionName } = props

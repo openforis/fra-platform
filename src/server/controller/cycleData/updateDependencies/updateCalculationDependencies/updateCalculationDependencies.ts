@@ -1,16 +1,16 @@
 import { Row, VariableCache } from '@meta/assessment'
 import { NodeUpdates } from '@meta/data'
 
-import { Props } from '@server/controller/cycleData/persistNodeValue/props'
+import { PersistNodeValueProps } from '@server/controller/cycleData/persistNodeValues/props'
 import { BaseProtocol } from '@server/db'
 import { RowRepository } from '@server/repository/assessment/row'
 
-import { getDependants } from '../utils/assessmentMetaCaches'
+import { getDependants } from '../utils/getDependants'
 import { isODPCell } from '../utils/isODPCell'
 import { calculateNode } from './calculateNode'
 
-export const calculateDependantNodes = async (
-  props: Omit<Props, 'value'> & { isODP?: boolean },
+export const updateCalculationDependencies = async (
+  props: Omit<PersistNodeValueProps, 'value'> & { isODP?: boolean },
   client: BaseProtocol
 ): Promise<NodeUpdates> => {
   const { assessment, cycle, countryIso, sectionName, tableName, variableName, colName, user, isODP } = props

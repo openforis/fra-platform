@@ -647,6 +647,7 @@ The FRA team fra@fao.org
   tableWithOdp: {
     confirmGenerateFraValues: 'Override existing values?',
     generateFraValues: 'Generate values',
+    generatingFraValues: 'Generating...',
     linearExtrapolation: 'Linear',
     repeatLastExtrapolation: 'Repeat last',
     annualChangeExtrapolation: 'Annual change',
