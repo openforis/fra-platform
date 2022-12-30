@@ -1,4 +1,4 @@
-import './footer.scss'
+import './Footer.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -6,7 +6,7 @@ import { ApiEndPoint } from '@meta/api/endpoint'
 
 import { useUser } from '@client/store/user'
 
-import SendFeedback from './components/SendFeedback'
+import SendFeedback from './SendFeedback'
 
 const links = [
   {

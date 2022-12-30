@@ -1,10 +1,10 @@
+import './LanguageSelectorMobile.scss'
 import React from 'react'
-import './languageSelectorMobile.scss'
-
-import { Lang, LanguageCodes } from '@meta/lang'
+import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
-import { useTranslation } from 'react-i18next'
+
+import { Lang, LanguageCodes } from '@meta/lang'
 
 const LanguageSelectorMobile: React.FC = () => {
   // const dispatch = useAppDispatch()
@@ -20,7 +20,7 @@ const LanguageSelectorMobile: React.FC = () => {
           // onClick={() => dispatch(AppActions.switchLanguage(lang))}
           type="button"
         >
-          {i18n.t(`language.${lang}`)}
+          {i18n.t<string>(`language.${lang}`)}
         </button>
       ))}
     </div>

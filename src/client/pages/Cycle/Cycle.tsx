@@ -9,8 +9,7 @@ import { useAppDispatch } from '@client/store'
 import { AssessmentActions, useAssessment, useCycle } from '@client/store/assessment'
 import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
 import { useIsPrint } from '@client/hooks/useIsPath'
-import CountrySelect from '@client/components/CountrySelect'
-import Header from '@client/components/Header'
+import PageLayout from '@client/components/PageLayout'
 import Partners from '@client/components/Partners'
 
 import Country from '../Country'
@@ -40,9 +39,7 @@ const Cycle: React.FC = () => {
   if (!assessment || !cycle) return null
 
   return (
-    <>
-      {!print && <Header />}
-      <CountrySelect />
+    <PageLayout withHeader={!print}>
       <Routes>
         <Route
           path=""
@@ -56,7 +53,7 @@ const Cycle: React.FC = () => {
         />
         <Route path={`${ClientRoutes.Assessment.Cycle.Country.Landing.path.relative}/*`} element={<Country />} />
       </Routes>
-    </>
+    </PageLayout>
   )
 }
 
