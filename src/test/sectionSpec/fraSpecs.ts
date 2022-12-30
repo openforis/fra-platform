@@ -299,6 +299,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     type: 'noticeMessage',
                   },
                 ],
+                migration: {
+                  cycles: ['2020'],
+                },
               },
               {
                 idx: 5,
