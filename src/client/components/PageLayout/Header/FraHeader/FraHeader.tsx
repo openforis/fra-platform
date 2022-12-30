@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next'
 
 import { useCycle } from '@client/store/assessment'
 import LinkHome from '@client/components/LinkHome'
-import CycleSwitcher from '@client/components/Navigation/NavAssessment/Header/Title/CycleSwitcher'
 
+import CycleSwitcher from '../CycleSwitcher'
 import LanguageSelector, { LanguageSelectorMobile } from '../LanguageSelector'
 import UserLinks from '../UserLinks'
 
