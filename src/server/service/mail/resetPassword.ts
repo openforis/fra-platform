@@ -17,7 +17,7 @@ export const resetPassword = async (props: {
 
   const i18n = await createI18nPromise('en')
 
-  const link = `${url}${ClientRoutes.Assessment.Cycle.Login.Invitation.getLink({ assessmentName, cycleName })}${
+  const link = `${url}${ClientRoutes.Assessment.Cycle.Login.ResetPassword.getLink({ assessmentName, cycleName })}${
     userResetPassword.uuid ? `?resetPasswordUuid=${userResetPassword.uuid}` : ''
   }`
 
