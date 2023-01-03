@@ -16,9 +16,9 @@ export default (): void =>
 
     beforeAll(async () => {
       assessment = await AssessmentController.getOne({ assessmentName: assessmentParams.props.name })
-      user = await UserController.getOne({ email: userMockTest.email })
       const [first] = assessment.cycles
       cycle = first
+      user = await UserController.getOne({ email: userMockTest.email })
     })
 
     it('Invite new user as Collaborator', async () => {
