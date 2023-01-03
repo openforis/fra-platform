@@ -24,6 +24,7 @@ import OriginalDataPoint from '@client/pages/OriginalDataPoint'
 import { SocketClient } from '@client/service/socket'
 
 import AssessmentPrint from '../AssessmentPrint'
+import Geo from '../Geo'
 import SectionWrapper from './SectionWrapper'
 
 const Country: React.FC = () => {
@@ -89,6 +90,7 @@ const Country: React.FC = () => {
           path={ClientRoutes.Assessment.Cycle.Country.DataDownload.path.relative}
           element={<AssessmentDataDownload />}
         />
+        <Route path={ClientRoutes.Assessment.Cycle.Country.Geo.path.relative} element={<Geo />} />
         <Route
           path={ClientRoutes.Assessment.Cycle.Country.Section.path.relative}
           element={<SectionWrapper>{isDataExportView ? <DataExport /> : <AssessmentSection />}</SectionWrapper>}

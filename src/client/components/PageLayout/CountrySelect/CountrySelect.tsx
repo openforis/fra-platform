@@ -11,7 +11,6 @@ import { useNavigationVisible } from '@client/store/ui/navigation'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import Icon from '@client/components/Icon'
-import LinkGeo from '@client/components/LinkGeo'
 import LinkHome from '@client/components/LinkHome'
 import { Breakpoints } from '@client/utils'
 
@@ -124,7 +123,6 @@ const CountrySelect: React.FC = () => {
 
       {/* <AutoSaveStatus /> */}
 
-      <LinkGeo countryIso={countryIso} />
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
         <LinkHome />
       </MediaQuery>
