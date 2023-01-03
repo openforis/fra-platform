@@ -6,7 +6,7 @@ import classNames from 'classnames'
 
 import { AssessmentHomeRouteNames, ClientRoutes } from '@meta/app'
 import { Areas } from '@meta/area'
-import { Users } from '@meta/user'
+import { Authorizer } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
@@ -33,7 +33,7 @@ const FraHome: React.FC = () => {
   const displayTabs = sections.length > 1 && Areas.isISOCountry(countryIso)
 
   useEffect(() => {
-    if (Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0) {
+    if (Authorizer.canViewUsers({ countryIso, assessment, cycle, user })) {
       dispatch(
         UserManagementActions.getUsers({ countryIso, assessmentName: assessment.props.name, cycleName: cycle.name })
       )
