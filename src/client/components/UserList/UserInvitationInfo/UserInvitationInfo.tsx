@@ -6,7 +6,7 @@ import { ClientRoutes } from '@meta/app'
 import { User, Users } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
-import { useCycle } from '@client/store/assessment'
+import { useAssessment, useCycle } from '@client/store/assessment'
 import { UserManagementActions } from '@client/store/ui/userManagement'
 import { useCountryIso } from '@client/hooks'
 import { useToaster } from '@client/hooks/useToaster'
@@ -14,6 +14,7 @@ import Icon from '@client/components/Icon'
 
 const UserInvitationInfo: React.FC<{ user: User; onClose: () => void }> = ({ user, onClose }) => {
   const dispatch = useAppDispatch()
+  const assessment = useAssessment()
   const countryIso = useCountryIso()
   const cycle = useCycle()
   const { i18n } = useTranslation()
@@ -25,9 +26,12 @@ const UserInvitationInfo: React.FC<{ user: User; onClose: () => void }> = ({ use
     <div className="user-list__invitation-info">
       <div>
         <div>
-          {`${i18n.t('userManagement.invitationLink')}: ${window.location.origin}${
-            ClientRoutes.Login.Invitation.path.absolute
-          }?invitationUuid=${invitationUuid}`}
+          {`${i18n.t('userManagement.invitationLink')}: ${
+            window.location.origin
+          }${ClientRoutes.Assessment.Cycle.Login.Invitation.getLink({
+            assessmentName: assessment.props.name,
+            cycleName: cycle.name,
+          })}?invitationUuid=${invitationUuid}`}
         </div>
         <div>
           <button
