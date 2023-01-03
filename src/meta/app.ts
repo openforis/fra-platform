@@ -66,6 +66,7 @@ export const ClientRoutes = {
       Country: {
         DataDownload: newInstance<AssessmentParams>(...assessmentParts, 'dataDownload'),
         Landing: newInstance<AssessmentParams>(...assessmentParts),
+        Geo: newInstance<AssessmentParams>(...assessmentParts, 'geo'),
         Home: {
           Root: newInstance<AssessmentParams>(...assessmentParts, 'home'),
           Section: newInstance<AssessmentParams & { sectionName: AssessmentHomeRouteNames }>(
@@ -94,10 +95,6 @@ export const ClientRoutes = {
     Root: newInstance<undefined>('login'),
     Invitation: newInstance('login', 'invitation'),
     ResetPassword: newInstance<undefined>('login', 'resetPassword'),
-  },
-
-  Geo: {
-    Root: newInstance(':countryIso', 'geo'),
   },
 
   Users: {
