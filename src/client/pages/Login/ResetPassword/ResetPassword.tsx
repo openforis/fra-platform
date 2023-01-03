@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { ApiEndPoint } from '@meta/api/endpoint'
 
 import { useAppDispatch } from '@client/store'
+import { useAssessment, useCycle } from '@client/store/assessment'
 import { LoginActions } from '@client/store/login'
 import { useGetRequest } from '@client/hooks'
 import { isError, LoginValidator } from '@client/pages/Login/utils/LoginValidator'
@@ -12,6 +13,9 @@ import { Urls } from '@client/utils'
 
 const ResetPassword: React.FC = () => {
   const dispatch = useAppDispatch()
+  const assessment = useAssessment()
+  const cycle = useCycle()
+
   const { t } = useTranslation()
   const navigate = useNavigate()
 
@@ -40,7 +44,14 @@ const ResetPassword: React.FC = () => {
     setErrors(fieldErrors)
 
     if (!isError(fieldErrors)) {
-      dispatch(LoginActions.createResetPassword({ email, navigate }))
+      dispatch(
+        LoginActions.createResetPassword({
+          assessmentName: assessment.props.name,
+          cycleName: cycle.name,
+          email,
+          navigate,
+        })
+      )
     }
   }
 
