@@ -21,6 +21,8 @@ const acceptedMessages = [
   .map((s) => `'${s}'`)
   .join(', ')
 
+const unacceptedSections = ['chat'].map((s) => `'${s}'`).join(', ')
+
 export const getCycleDataActivities = (
   props: { countryIso: CountryIso; assessment: Assessment; cycle: Cycle },
   client: BaseProtocol = DB
@@ -41,6 +43,7 @@ export const getCycleDataActivities = (
           and a.assessment_uuid = $2
           and a.cycle_uuid = $3
           and a.message in (${acceptedMessages})
+          and a.section not in (${unacceptedSections})
       ) as a
       join public.users u on user_id = u.id
       where rank = 1
