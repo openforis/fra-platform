@@ -8,18 +8,18 @@ import { RoleName, User, UserRole, Users } from '@meta/user'
 import { sendMail } from './mail'
 
 export const userInvite = async (props: {
-  countryIso: CountryIso
   assessmentName: AssessmentName
+  countryIso: CountryIso
   cycleName: string
   role: UserRole<RoleName>
-  userToInvite: User
   url: string
+  userToInvite: User
 }) => {
-  const { countryIso, assessmentName, cycleName, role, userToInvite, url } = props
+  const { assessmentName, countryIso, cycleName, role, url, userToInvite } = props
 
   const i18n = await createI18nPromise('en')
 
-  const link = `${url}${ClientRoutes.Login.Invitation.path.absolute}${
+  const link = `${url}${ClientRoutes.Assessment.Cycle.Login.Invitation.getLink({ assessmentName, cycleName })}${
     role.invitationUuid ? `?invitationUuid=${role.invitationUuid}` : ''
   }`
 
