@@ -69,6 +69,11 @@ export const ClientRoutes = {
           User: newInstance<CycleParams & { id: number }>(...cycleParts, 'admin', 'users/:id'),
         },
       },
+      Login: {
+        Root: newInstance<CycleParams>(...cycleParts, 'login'),
+        Invitation: newInstance<CycleParams>(...cycleParts, 'login', 'invitation'),
+        ResetPassword: newInstance<CycleParams>(...cycleParts, 'login', 'resetPassword'),
+      },
       Users: {
         User: newInstance<CycleParams & { id: number }>(...cycleParts, 'users/:id'),
       },
@@ -98,11 +103,5 @@ export const ClientRoutes = {
         Section: newInstance<AssessmentParams & { sectionName: string }>(...assessmentParts, ':sectionName'),
       },
     },
-  },
-
-  Login: {
-    Root: newInstance<undefined>('login'),
-    Invitation: newInstance('login', 'invitation'),
-    ResetPassword: newInstance<undefined>('login', 'resetPassword'),
   },
 }
