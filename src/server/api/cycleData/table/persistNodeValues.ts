@@ -18,19 +18,16 @@ export const persistNodeValues = async (req: CycleDataRequest<never, NodesBody>,
       metaCache: true,
     })
 
-    await Promise.all(
-      values.map((valueUpdate) =>
-        CycleDataController.persistNodeValue({
-          countryIso,
-          assessment,
-          cycle,
-          sectionName,
-          tableName,
-          user,
-          ...valueUpdate,
-        })
-      )
-    )
+    await CycleDataController.persistNodeValues({
+      nodeUpdates: {
+        assessment,
+        cycle,
+        countryIso,
+        nodes: values.map(({ colName, value, variableName }) => ({ colName, variableName, value, tableName })),
+      },
+      sectionName,
+      user,
+    })
 
     Requests.sendOk(res)
   } catch (e) {
