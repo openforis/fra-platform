@@ -7,7 +7,6 @@ import { ClientRoutes } from '@meta/app'
 import { useAppDispatch } from '@client/store'
 import { AssessmentActions } from '@client/store/assessment'
 import Toaster from '@client/components/Toaster'
-import Admin from '@client/pages/Admin'
 import Login from '@client/pages/Login'
 import User from '@client/pages/User'
 import { SocketClient } from '@client/service/socket'
@@ -45,7 +44,6 @@ const PageRoutes: React.FC = () => {
         <Route path="/" element={<Landing />} />
 
         <Route path={`${ClientRoutes.Assessment.Landing.path.absolute}/*`} element={<Assessment />} />
-        <Route path={`${ClientRoutes.Admin.Root.path.absolute}/*`} element={<Admin />} />
         <Route path={`${ClientRoutes.Login.Root.path.absolute}/*`} element={<Login />} />
         <Route path={ClientRoutes.Users.User.path.absolute} element={<User />} />
 

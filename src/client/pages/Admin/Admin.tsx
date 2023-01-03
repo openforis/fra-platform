@@ -51,7 +51,7 @@ const Admin: React.FC = () => {
           <Route key={name} path={name} element={React.createElement(component, {})} />
         ))}
 
-        <Route path={ClientRoutes.Admin.User.path.relative} element={<User />} />
+        <Route path={ClientRoutes.Assessment.Cycle.Admin.User.path.relative} element={<User />} />
 
         <Route path="*" element={<Navigate to={AdminRouteNames.userManagement} replace />} />
       </Routes>
