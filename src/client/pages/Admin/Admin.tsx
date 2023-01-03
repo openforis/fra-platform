@@ -3,11 +3,13 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate, NavLink, Route, Routes } from 'react-router-dom'
 
+import { Objects } from '@utils/objects'
 import classNames from 'classnames'
 
 import { AdminRouteNames, ClientRoutes } from '@meta/app'
 import { Users } from '@meta/user'
 
+import { useCountries } from '@client/store/assessment'
 import { useUser } from '@client/store/user'
 
 import User from '../User'
@@ -20,9 +22,12 @@ const sections = [
 
 const Admin: React.FC = () => {
   const { t } = useTranslation()
+  const countries = useCountries()
   const user = useUser()
 
   if (!Users.isAdministrator(user)) return <Navigate to={ClientRoutes.Root.path} replace />
+
+  if (Objects.isEmpty(countries)) return null
 
   return (
     <div className="app-view__content">
@@ -51,7 +56,7 @@ const Admin: React.FC = () => {
           <Route key={name} path={name} element={React.createElement(component, {})} />
         ))}
 
-        <Route path={ClientRoutes.Admin.User.path.relative} element={<User />} />
+        <Route path={ClientRoutes.Assessment.Cycle.Admin.Users.User.path.relative} element={<User />} />
 
         <Route path="*" element={<Navigate to={AdminRouteNames.userManagement} replace />} />
       </Routes>

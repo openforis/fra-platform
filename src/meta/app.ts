@@ -24,9 +24,12 @@ const newInstance = <Params extends { [x: string]: string | number | boolean }>(
   }
 }
 
-type AssessmentParams = {
+type CycleParams = {
   assessmentName: AssessmentName
   cycleName: string
+}
+
+type AssessmentParams = CycleParams & {
   countryIso: CountryIso | Global | RegionCode
 }
 
@@ -44,28 +47,35 @@ export enum AdminRouteNames {
   // dataExport = 'dataExport',
 }
 
-const assessmentParts = ['assessments', ':assessmentName', ':cycleName', ':countryIso']
+const cycleParts = ['assessments', ':assessmentName', ':cycleName']
+
+const assessmentParts = cycleParts.concat(':countryIso')
 
 export const ClientRoutes = {
   Root: { path: '/' },
 
-  Admin: {
-    Root: newInstance<undefined>('admin'),
-    Section: newInstance<{ sectionName: AssessmentHomeRouteNames }>('admin', ':sectionName'),
-    User: newInstance<{ id: number }>('admin', 'users/:id'),
-  },
-
   Assessment: {
     Landing: newInstance<{ assessmentName: AssessmentName }>('assessments', ':assessmentName'),
     Cycle: {
-      Landing: newInstance<{ assessmentName: AssessmentName; cycleName: string }>(
-        'assessments',
-        ':assessmentName',
-        ':cycleName'
-      ),
+      Landing: newInstance<CycleParams>('assessments', ':assessmentName', ':cycleName'),
+      Admin: {
+        Root: newInstance<CycleParams>(...cycleParts, 'admin'),
+        Section: newInstance<CycleParams & { sectionName: AssessmentHomeRouteNames }>(
+          ...cycleParts,
+          'admin',
+          ':sectionName'
+        ),
+        Users: {
+          User: newInstance<CycleParams & { id: number }>(...cycleParts, 'admin', 'users/:id'),
+        },
+      },
+      Users: {
+        User: newInstance<CycleParams & { id: number }>(...cycleParts, 'users/:id'),
+      },
       Country: {
         DataDownload: newInstance<AssessmentParams>(...assessmentParts, 'dataDownload'),
         Landing: newInstance<AssessmentParams>(...assessmentParts),
+        Geo: newInstance<AssessmentParams>(...assessmentParts, 'geo'),
         Home: {
           Root: newInstance<AssessmentParams>(...assessmentParts, 'home'),
           Section: newInstance<AssessmentParams & { sectionName: AssessmentHomeRouteNames }>(
@@ -94,13 +104,5 @@ export const ClientRoutes = {
     Root: newInstance<undefined>('login'),
     Invitation: newInstance('login', 'invitation'),
     ResetPassword: newInstance<undefined>('login', 'resetPassword'),
-  },
-
-  Geo: {
-    Root: newInstance(':countryIso', 'geo'),
-  },
-
-  Users: {
-    User: newInstance<{ id: number }>('users', ':id'),
   },
 }
