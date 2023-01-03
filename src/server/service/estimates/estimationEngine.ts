@@ -31,10 +31,10 @@ type Field = keyof Deprecated_TableDatum
 type ValueArray = Array<Deprecated_TableDatum>
 type ODPValueArray = ValueArray // Array<Deprecated_TableDatum & { type: 'odp' }>
 
-type GenerateSpecMethods = 'linear' | 'repeatLast' | 'annualChange' | 'clearTable'
+export type GenerateSpecMethod = 'linear' | 'repeatLast' | 'annualChange' | 'clearTable'
 
 export interface GenerateSpec {
-  method: GenerateSpecMethods
+  method: GenerateSpecMethod
   fields?: Array<string>
   changeRates?: Record<string, { rateFuture: number; ratePast: number }>
 }
