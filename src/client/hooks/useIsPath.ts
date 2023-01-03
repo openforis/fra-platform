@@ -16,6 +16,9 @@ export const useIsAssessment = () =>
 export const useIsAdmin = () =>
   useIsPath({ path: `${ClientRoutes.Assessment.Cycle.Admin.Root.path.absolute}/*`, exact: false })
 
+export const useIsUserEditPage = () =>
+  useIsPath({ path: `${ClientRoutes.Assessment.Cycle.Users.User.path.absolute}/*`, exact: false })
+
 export const useIsLogin = () => useIsPath({ path: `${ClientRoutes.Login.Root.path.absolute}/*`, exact: false })
 
 export const useIsPrint = () => ({

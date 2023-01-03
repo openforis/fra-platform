@@ -27,7 +27,11 @@ const getLinks = (
   const items: Array<PopoverItem> = [
     {
       content: i18nInstance.t('header.editProfile'),
-      link: ClientRoutes.Users.User.getLink({ id: user.id }),
+      link: ClientRoutes.Assessment.Cycle.Users.User.getLink({
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
+        id: user.id,
+      }),
     },
   ]
   if (Users.isAdministrator(user)) {

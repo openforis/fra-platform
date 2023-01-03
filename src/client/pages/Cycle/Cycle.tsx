@@ -8,12 +8,13 @@ import { AssessmentName } from '@meta/assessment'
 import { useAppDispatch } from '@client/store'
 import { AssessmentActions, useAssessment, useCycle } from '@client/store/assessment'
 import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
-import { useIsAdmin, useIsPrint } from '@client/hooks/useIsPath'
+import { useIsAdmin, useIsPrint, useIsUserEditPage } from '@client/hooks/useIsPath'
 import PageLayout from '@client/components/PageLayout'
 import Partners from '@client/components/Partners'
 
 import Admin from '../Admin'
 import Country from '../Country'
+import User from '../User'
 import Introduction from './Introduction'
 import KeyFindings from './KeyFindings'
 
@@ -24,6 +25,7 @@ const Cycle: React.FC = () => {
   const assessment = useAssessment()
   const cycle = useCycle()
   const isAdmin = useIsAdmin()
+  const isUserEditPage = useIsUserEditPage()
 
   useEffect(() => {
     dispatch(AssessmentActions.getAreas({ assessmentName, cycleName }))
@@ -41,7 +43,7 @@ const Cycle: React.FC = () => {
   if (!assessment || !cycle) return null
 
   return (
-    <PageLayout withHeader={!print} withToolbar={!isAdmin}>
+    <PageLayout withHeader={!print} withToolbar={!isAdmin && !isUserEditPage}>
       <Routes>
         <Route
           path=""
@@ -55,6 +57,7 @@ const Cycle: React.FC = () => {
         />
         <Route path={`${ClientRoutes.Assessment.Cycle.Admin.Root.path.relative}/*`} element={<Admin />} />
         <Route path={`${ClientRoutes.Assessment.Cycle.Country.Landing.path.relative}/*`} element={<Country />} />
+        <Route path={ClientRoutes.Assessment.Cycle.Users.User.path.relative} element={<User />} />
       </Routes>
     </PageLayout>
   )

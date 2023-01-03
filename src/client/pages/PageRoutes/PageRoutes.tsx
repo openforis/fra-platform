@@ -8,7 +8,6 @@ import { useAppDispatch } from '@client/store'
 import { AssessmentActions } from '@client/store/assessment'
 import Toaster from '@client/components/Toaster'
 import Login from '@client/pages/Login'
-import User from '@client/pages/User'
 import { SocketClient } from '@client/service/socket'
 import { Urls } from '@client/utils'
 
@@ -45,7 +44,6 @@ const PageRoutes: React.FC = () => {
 
         <Route path={`${ClientRoutes.Assessment.Landing.path.absolute}/*`} element={<Assessment />} />
         <Route path={`${ClientRoutes.Login.Root.path.absolute}/*`} element={<Login />} />
-        <Route path={ClientRoutes.Users.User.path.absolute} element={<User />} />
 
         <Route path="*" element={<Navigate to={ClientRoutes.Root.path} replace />} />
       </Routes>
