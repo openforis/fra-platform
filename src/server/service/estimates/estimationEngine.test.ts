@@ -1,5 +1,10 @@
-import { dataset1, dataset1Result } from './dataset1'
-import { dataset2, dataset2Result } from './dataset2'
+import { dataset1, dataset1Expected } from '@server/service/estimates/datasets/dataset1'
+import { dataset2, dataset2Expected } from '@server/service/estimates/datasets/dataset2'
+import { dataset3, dataset3Expected } from '@server/service/estimates/datasets/dataset3'
+import { dataset4, dataset4Expected } from '@server/service/estimates/datasets/dataset4'
+import { dataset5, dataset5Expected } from '@server/service/estimates/datasets/dataset5'
+import { dataset6, dataset6Expected } from '@server/service/estimates/datasets/dataset6'
+
 import { EstimationEngine, GenerateSpecMethod } from './estimationEngine'
 
 const years = [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020, 2025]
@@ -29,7 +34,7 @@ describe('Estimation Engine test:', () => {
     test('Interpolates and extrapolates linearly', () => {
       const estimated = EstimationEngine.estimateValues(
         years,
-        dataset1.mockOriginalDataPointSet1,
+        dataset1,
         {
           method: 'linear',
           fields: ['forestArea', 'otherWoodedLand'],
@@ -37,14 +42,16 @@ describe('Estimation Engine test:', () => {
         'extentOfForest'
       )
 
-      const expected = dataset1Result['Interpolates and extrapolates linearly']
+      const expected = dataset1Expected['Interpolates and extrapolates linearly']
 
       expect(estimated).toStrictEqual(expected)
     })
+  })
+  describe('dataset2:', () => {
     test('Extrapolates with repeat last value', () => {
       const estimated = EstimationEngine.estimateValues(
         years,
-        dataset1.mockOriginalDataPointSet2,
+        dataset2,
         {
           method: 'repeatLast',
           fields: ['forestArea', 'otherWoodedLand'],
@@ -52,14 +59,14 @@ describe('Estimation Engine test:', () => {
         'extentOfForest'
       )
 
-      const expected = dataset1Result['Extrapolates with repeat last value']
+      const expected = dataset2Expected['Extrapolates with repeat last value']
 
       expect(estimated).toStrictEqual(expected)
     })
     test('Extrapolates with annual change rate', () => {
       const estimated = EstimationEngine.estimateValues(
         years,
-        dataset1.mockOriginalDataPointSet2,
+        dataset2,
         {
           method: 'annualChange',
           changeRates: {
@@ -70,101 +77,104 @@ describe('Estimation Engine test:', () => {
         },
         'extentOfForest'
       )
-      const expected = dataset1Result['Extrapolates with annual change rate']
+      const expected = dataset2Expected['Extrapolates with annual change rate']
       expect(estimated).toStrictEqual(expected)
     })
   })
 
-  describe('dataset2:', () => {
-    test('1 - Linear - {1992, 2002}', () => {
-      const estimated = _estimateWithDefaults(dataset2.mockOriginalDataPointSet1, 'linear')
+  describe('dataset3:', () => {
+    test('Linear - {1992, 2002}', () => {
+      const estimated = _estimateWithDefaults(dataset3, 'linear')
 
-      const expected = dataset2Result['1 - Linear - {1992, 2002}']
-
-      expect(estimated).toStrictEqual(expected)
-    })
-    test('1 - Repeat last - {1992, 2002}', () => {
-      const estimated = _estimateWithDefaults(dataset2.mockOriginalDataPointSet1, 'repeatLast')
-
-      const expected = dataset2Result['1 - Repeat last - {1992, 2002}']
+      const expected = dataset3Expected['Linear - {1992, 2002}']
 
       expect(estimated).toStrictEqual(expected)
     })
+    test('Repeat last - {1992, 2002}', () => {
+      const estimated = _estimateWithDefaults(dataset3, 'repeatLast')
 
+      const expected = dataset3Expected['Repeat last - {1992, 2002}']
+
+      expect(estimated).toStrictEqual(expected)
+    })
+  })
+  describe('dataset4:', () => {
     test('2 - Repeat last - {1992, 2016}', () => {
-      const estimated = _estimateWithDefaults(dataset2.mockOriginalDataPointSet2, 'repeatLast')
+      const estimated = _estimateWithDefaults(dataset4, 'repeatLast')
 
-      const expected = dataset2Result['2 - Repeat last - {1992, 2016}']
+      const expected = dataset4Expected['Repeat last - {1992, 2016}']
 
       expect(estimated).toStrictEqual(expected)
     })
     test('2 - Linear - {1992, 2016}', () => {
-      const estimated = _estimateWithDefaults(dataset2.mockOriginalDataPointSet2, 'linear')
+      const estimated = _estimateWithDefaults(dataset4, 'linear')
 
-      const expected = dataset2Result['2 - Linear - {1992, 2016}']
-
-      expect(estimated).toStrictEqual(expected)
-    })
-
-    test('3 - Linear - {1992, 2016}', () => {
-      const estimated = _estimateWithDefaults(dataset2.mockOriginalDataPointSet3, 'linear')
-
-      const expected = dataset2Result['3 - Linear - {1992, 2016}']
+      const expected = dataset4Expected['Linear - {1992, 2016}']
 
       expect(estimated).toStrictEqual(expected)
     })
-    test('3 - Repeat Last - {1992, 2016}', () => {
-      const estimated = _estimateWithDefaults(dataset2.mockOriginalDataPointSet3, 'repeatLast')
+  })
+  describe('dataset5:', () => {
+    test('Linear - {1992, 2016}', () => {
+      const estimated = _estimateWithDefaults(dataset5, 'linear')
 
-      const expected = dataset2Result['3 - Repeat Last - {1992, 2016}']
+      const expected = dataset5Expected['Linear - {1992, 2016}']
 
       expect(estimated).toStrictEqual(expected)
     })
-    test('3 - Annual Change - {1992, 2016}', () => {
-      const estimated = _estimateWithDefaults(dataset2.mockOriginalDataPointSet3, 'annualChange', {
+    test('Repeat Last - {1992, 2016}', () => {
+      const estimated = _estimateWithDefaults(dataset5, 'repeatLast')
+
+      const expected = dataset5Expected['Repeat Last - {1992, 2016}']
+
+      expect(estimated).toStrictEqual(expected)
+    })
+    test('Annual Change - {1992, 2016}', () => {
+      const estimated = _estimateWithDefaults(dataset5, 'annualChange', {
         forestArea: { ratePast: 200, rateFuture: 300 },
         otherWoodedLand: { ratePast: 300, rateFuture: 500 },
       })
 
-      const expected = dataset2Result['3 - Annual Change - {1992, 2016}']
+      const expected = dataset5Expected['Annual Change - {1992, 2016}']
 
       expect(estimated).toStrictEqual(expected)
     })
-    test('3 - Annual Change - {1992, 2016, negative values ratePast}', () => {
-      const estimated = _estimateWithDefaults(dataset2.mockOriginalDataPointSet3, 'annualChange', {
+    test('Annual Change - {1992, 2016, negative values ratePast}', () => {
+      const estimated = _estimateWithDefaults(dataset5, 'annualChange', {
         forestArea: { ratePast: -200, rateFuture: 300 },
         otherWoodedLand: { ratePast: -300, rateFuture: 500 },
       })
 
-      const expected = dataset2Result['3 - Annual Change - {1992, 2016, negative values ratePast}']
+      const expected = dataset5Expected['Annual Change - {1992, 2016, negative values ratePast}']
 
       expect(estimated).toStrictEqual(expected)
     })
-    test('3 - Annual Change - {1992, 2016, negative values ratePast and rateFuture}', () => {
-      const estimated = _estimateWithDefaults(dataset2.mockOriginalDataPointSet3, 'annualChange', {
+    test('Annual Change - {1992, 2016, negative values ratePast and rateFuture}', () => {
+      const estimated = _estimateWithDefaults(dataset5, 'annualChange', {
         forestArea: { ratePast: -1500, rateFuture: -3560 },
         otherWoodedLand: { ratePast: 501, rateFuture: -960 },
       })
 
-      const expected = dataset2Result['3 - Annual Change - {1992, 2016, negative values ratePast and rateFuture}']
+      const expected = dataset5Expected['Annual Change - {1992, 2016, negative values ratePast and rateFuture}']
 
       expect(estimated).toStrictEqual(expected)
     })
-
-    test('4 - Linear - {1992, 2016}', () => {
-      const estimated = _estimateWithDefaults(dataset2.mockOriginalDataPointSet4, 'linear')
-      const expected = dataset2Result['4 - Linear - {1992, 2016}']
-
-      expect(estimated).toStrictEqual(expected)
-    })
-    test('4 - Repeat last - {1992, 2016}', () => {
-      const estimated = _estimateWithDefaults(dataset2.mockOriginalDataPointSet4, 'repeatLast')
-      const expected = dataset2Result['4 - Repeat last - {1992, 2016}']
+  })
+  describe('dataset6:', () => {
+    test('Linear - {1992, 2016}', () => {
+      const estimated = _estimateWithDefaults(dataset6, 'linear')
+      const expected = dataset6Expected['Linear - {1992, 2016}']
 
       expect(estimated).toStrictEqual(expected)
     })
-    test('4 - Annual Change - {1992, 2016}', () => {
-      const estimated = _estimateWithDefaults(dataset2.mockOriginalDataPointSet4, 'annualChange', {
+    test('Repeat last - {1992, 2016}', () => {
+      const estimated = _estimateWithDefaults(dataset6, 'repeatLast')
+      const expected = dataset6Expected['Repeat last - {1992, 2016}']
+
+      expect(estimated).toStrictEqual(expected)
+    })
+    test('Annual Change - {1992, 2016}', () => {
+      const estimated = _estimateWithDefaults(dataset6, 'annualChange', {
         forestArea: {
           ratePast: -1150,
           rateFuture: 2200,
@@ -175,12 +185,12 @@ describe('Estimation Engine test:', () => {
         },
       })
 
-      const expected = dataset2Result['4 - Annual Change - {1992, 2016}']
+      const expected = dataset6Expected['Annual Change - {1992, 2016}']
 
       expect(estimated).toStrictEqual(expected)
     })
-    test('4 - Annual Change - {1992, 2016} - 2', () => {
-      const estimated = _estimateWithDefaults(dataset2.mockOriginalDataPointSet4, 'annualChange', {
+    test('Annual Change - {1992, 2016} - 2', () => {
+      const estimated = _estimateWithDefaults(dataset6, 'annualChange', {
         forestArea: {
           ratePast: 2500,
           rateFuture: -4500,
@@ -191,7 +201,7 @@ describe('Estimation Engine test:', () => {
         },
       })
 
-      const expected = dataset2Result['4 - Annual Change - {1992, 2016} - 2']
+      const expected = dataset6Expected['Annual Change - {1992, 2016} - 2']
 
       expect(estimated).toStrictEqual(expected)
     })
