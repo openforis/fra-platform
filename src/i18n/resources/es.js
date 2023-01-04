@@ -403,6 +403,7 @@ El equipo de FRA
     nationalClasses: 'Clasificaciones y definiciones',
     definition: 'Definición',
     class: 'Clase',
+    fraClasses: 'Clases de FRA',
     area: 'Área (1000 ha)',
     total: 'Total',
     delete: 'Borrar',

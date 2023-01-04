@@ -20,7 +20,10 @@ const ExtentOfForest: React.FC<Props> = (props) => {
   const { canEditData, originalDataPoint } = props
   const cycle = useCycle()
 
-  const { i18n } = useTranslation()
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation()
   const { print } = useIsPrint()
 
   const nationalClasses = originalDataPoint.nationalClasses.filter((nationalClass) => !nationalClass.placeHolder)
@@ -30,14 +33,9 @@ const ExtentOfForest: React.FC<Props> = (props) => {
       {!print && (
         <div className="odp__section-header">
           <h3 className="subhead">
-            {i18n.t<string>(`nationalDataPoint.forestCategoriesLabel${cycle.name === '2025' ? '2025' : ''}`)}
+            {t(`nationalDataPoint.forestCategoriesLabel${cycle.name === '2025' ? '2025' : ''}`)}
           </h3>
-          <DefinitionLink
-            document="tad"
-            anchor="1a"
-            title={i18n.t<string>('definition.definitionLabel')}
-            lang={i18n.language}
-          />
+          <DefinitionLink document="tad" anchor="1a" title={t('definition.definitionLabel')} lang={language} />
         </div>
       )}
 
@@ -52,20 +50,18 @@ const ExtentOfForest: React.FC<Props> = (props) => {
                   </th>
                 )}
                 <th className="fra-table__header-cell fra-table__divider" colSpan={2}>
-                  {i18n.t<string>('nationalDataPoint.nationalClassifications')}
+                  {t(`nationalDataPoint.${cycle.name === '2025' ? 'nationalClassifications' : 'nationalClasses'}`)}
                 </th>
                 <th className="fra-table__header-cell" colSpan={3}>
-                  {i18n.t<string>('nationalDataPoint.categories')}
+                  {t(`nationalDataPoint.${cycle.name === '2025' ? 'categories' : 'fraClasses'}`)}
                 </th>
               </tr>
               <tr>
-                <th className="fra-table__header-cell-left">{i18n.t<string>('nationalDataPoint.class')}</th>
-                <th className="fra-table__header-cell fra-table__divider">
-                  {i18n.t<string>('nationalDataPoint.area')}
-                </th>
-                <th className="fra-table__header-cell">{i18n.t<string>('fraClass.forest')}</th>
-                <th className="fra-table__header-cell">{i18n.t<string>('fraClass.otherWoodedLand')}</th>
-                <th className="fra-table__header-cell">{i18n.t<string>('fraClass.otherLand')}</th>
+                <th className="fra-table__header-cell-left">{t('nationalDataPoint.class')}</th>
+                <th className="fra-table__header-cell fra-table__divider">{t('nationalDataPoint.area')}</th>
+                <th className="fra-table__header-cell">{t('fraClass.forest')}</th>
+                <th className="fra-table__header-cell">{t('fraClass.otherWoodedLand')}</th>
+                <th className="fra-table__header-cell">{t('fraClass.otherLand')}</th>
               </tr>
 
               {nationalClasses.map((nationalClass, index) => (
@@ -78,7 +74,7 @@ const ExtentOfForest: React.FC<Props> = (props) => {
               ))}
 
               <tr>
-                <th className="fra-table__header-cell-left">{i18n.t<string>('nationalDataPoint.total')}</th>
+                <th className="fra-table__header-cell-left">{t('nationalDataPoint.total')}</th>
                 <td className="fra-table__calculated-cell fra-table__divider">
                   {Numbers.format(ODPs.calcTotalArea({ originalDataPoint }))}
                 </td>
