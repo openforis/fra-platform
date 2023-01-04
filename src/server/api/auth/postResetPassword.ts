@@ -10,7 +10,7 @@ import { validEmail } from '@server/utils/validEmail'
 
 export const postResetPassword = async (req: Request, res: Response) => {
   try {
-    const { email } = req.body
+    const { assessmentName, cycleName, email } = req.body
 
     if (Objects.isEmpty(email?.trim())) return Requests.send400(res, 'login.emptyEmail')
     if (!validEmail({ email })) return Requests.send400(res, 'login.invalidEmail')
@@ -23,7 +23,7 @@ export const postResetPassword = async (req: Request, res: Response) => {
     if (userProviders.includes(AuthProvider.google) && !userProviders.includes(AuthProvider.local))
       return Requests.send400(res, 'login.googleOnlyAccount')
 
-    const userResetPassword = await UserController.createResetPassword({ user })
+    const userResetPassword = await UserController.createResetPassword({ assessmentName, cycleName, user })
     if (userResetPassword) return Requests.sendOk(res, { message: 'login.passwordResetSent' })
 
     return Requests.send400(res, 'login.noMatchingEmail')

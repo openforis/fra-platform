@@ -78,7 +78,14 @@ const LinksFRA: React.FC = () => {
       )}
 
       {!user && !isLogin && (
-        <Link key="admin-link" to={ClientRoutes.Login.Root.getLink()} className="app-header__menu-item">
+        <Link
+          key="admin-link"
+          to={ClientRoutes.Assessment.Cycle.Login.Root.getLink({
+            assessmentName: assessment.props.name,
+            cycleName: cycle.name,
+          })}
+          className="app-header__menu-item"
+        >
           {i18n.t<string>('common.login')}
         </Link>
       )}

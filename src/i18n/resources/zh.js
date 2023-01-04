@@ -135,7 +135,7 @@ module.exports.translation = {
 
 
 请点击以下链接重置您的密码
-{{- link}}}
+{{- link}}
 
 
 谢谢！,
