@@ -148,7 +148,7 @@ We have received a request to reset your password for your FRA account.
 If you didn't make this request, you can safely ignore this email.
 
 Click the following link to reset your password
-{{- link}}}
+{{- link}}
 
 
 Thanks,
