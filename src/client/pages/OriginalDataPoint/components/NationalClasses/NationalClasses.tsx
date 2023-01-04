@@ -28,7 +28,7 @@ const NationalClasses: React.FC<Props> = (props) => {
   const { nationalClasses, year } = originalDataPoint
 
   const dispatch = useAppDispatch()
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
   const { print } = useIsPrint()
   const originalDataPointUpdating = useIsOriginalDataPointUpdating()
   const reservedYears = useOriginalDataPointReservedYears() ?? []
@@ -52,7 +52,9 @@ const NationalClasses: React.FC<Props> = (props) => {
     <div className="odp__section">
       {!print && (
         <div className="odp__section-header">
-          <h3 className="subhead">{i18n.t<string>('nationalDataPoint.nationalClassifications')}</h3>
+          <h3 className="subhead">
+            {t(`nationalDataPoint.${cycle.name === '2025' ? 'nationalClassifications' : 'nationalClasses'}`)}
+          </h3>
           {canEditData && (
             <button
               type="button"
@@ -60,7 +62,7 @@ const NationalClasses: React.FC<Props> = (props) => {
               disabled={copyDisabled}
               onClick={onCopyClick}
             >
-              {i18n.t<string>('nationalDataPoint.copyPreviousValues')}
+              {t('nationalDataPoint.copyPreviousValues')}
             </button>
           )}
         </div>
@@ -77,9 +79,9 @@ const NationalClasses: React.FC<Props> = (props) => {
                   </th>
                 )}
                 <th className="fra-table__header-cell-left">
-                  {i18n.t<string>('nationalDataPoint.nationalClassifications')}
+                  {t(`nationalDataPoint.${cycle.name === '2025' ? 'nationalClassifications' : 'nationalClass'}`)}
                 </th>
-                <th className="fra-table__header-cell-left">{i18n.t<string>('nationalDataPoint.definition')}</th>
+                <th className="fra-table__header-cell-left">{t('nationalDataPoint.definition')}</th>
               </tr>
               {nationalClasses.map((nationalClass, idx) => (
                 <NationalClass

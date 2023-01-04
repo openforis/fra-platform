@@ -470,6 +470,7 @@ The FRA team
     copyPreviousValues: 'نسخ القيم السابقة',
     nationalClass: 'شريحة وطنية',
     nationalClasses: 'شرائح وتعاريف',
+    fraClasses: 'شرائح تقييم الموارد الحرجية',
     definition: 'تعريف',
     class: 'شريحة',
     area: 'المساحة (1000 هـ)',
