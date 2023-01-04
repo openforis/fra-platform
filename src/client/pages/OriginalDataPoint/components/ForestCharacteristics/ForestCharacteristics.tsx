@@ -68,7 +68,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
                   </th>
                 )}
                 <th className="fra-table__header-cell fra-table__divider" colSpan={2}>
-                  {t(t(`nationalDataPoint.${cycle.name === '2025' ? 'nationalClassifications' : 'nationalClasses'}`))}
+                  {t(`nationalDataPoint.${cycle.name === '2025' ? 'nationalClassifications' : 'nationalClasses'}`)}
                 </th>
                 <th className="fra-table__header-cell" colSpan={3}>
                   {t(`nationalDataPoint.${cycle.name === '2025' ? 'categories' : 'fraClasses'}`)}

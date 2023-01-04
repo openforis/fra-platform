@@ -79,7 +79,7 @@ const NationalClasses: React.FC<Props> = (props) => {
                   </th>
                 )}
                 <th className="fra-table__header-cell-left">
-                  {t(t(`nationalDataPoint.${cycle.name === '2025' ? 'nationalClassifications' : 'nationalClass'}`))}
+                  {t(`nationalDataPoint.${cycle.name === '2025' ? 'nationalClassifications' : 'nationalClass'}`)}
                 </th>
                 <th className="fra-table__header-cell-left">{t('nationalDataPoint.definition')}</th>
               </tr>
