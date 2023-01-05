@@ -7,12 +7,7 @@ import { DataLockActions, useIsDataLocked } from '@client/store/ui/dataLock'
 import Icon from '@client/components/Icon'
 import { Breakpoints } from '@client/utils'
 
-type Props = {
-  lockEnabled: boolean
-}
-
-const Lock: React.FC<Props> = (props) => {
-  const { lockEnabled } = props
+const Lock: React.FC = () => {
   const dispatch = useAppDispatch()
 
   const locked = useIsDataLocked()
@@ -20,18 +15,16 @@ const Lock: React.FC<Props> = (props) => {
 
   return (
     <div className="lock-wrapper">
-      {lockEnabled && (
-        <MediaQuery minWidth={Breakpoints.laptop}>
-          <button
-            type="button"
-            className="btn btn-secondary btn-lock"
-            disabled={!canToggleLock}
-            onClick={() => dispatch(DataLockActions.toggleDataLock())}
-          >
-            <Icon name={locked ? 'lock-circle' : 'lock-circle-open'} className="icon-no-margin icon-sub" />
-          </button>
-        </MediaQuery>
-      )}
+      <MediaQuery minWidth={Breakpoints.laptop}>
+        <button
+          type="button"
+          className="btn btn-secondary btn-lock"
+          disabled={!canToggleLock}
+          onClick={() => dispatch(DataLockActions.toggleDataLock())}
+        >
+          <Icon name={locked ? 'lock-circle' : 'lock-circle-open'} className="icon-no-margin icon-sub" />
+        </button>
+      </MediaQuery>
     </div>
   )
 }

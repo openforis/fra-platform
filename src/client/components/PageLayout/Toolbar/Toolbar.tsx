@@ -129,7 +129,7 @@ const CountrySelect: React.FC = () => {
         <MediaQuery minWidth={Breakpoints.laptop}>
           {user && <Status />}
 
-          {user && country && <Lock lockEnabled={Boolean(user && isFRA && isCountry)} />}
+          {user && country && isFRA && isCountry && <Lock />}
 
           <div className="links-download">
             <Link
