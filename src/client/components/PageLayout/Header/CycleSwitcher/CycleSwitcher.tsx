@@ -37,14 +37,14 @@ const CycleSwitcher = () => {
 
   if (!canSwitchCycle) return <span className="cycle-switcher-locked">{currentCycle.name}</span>
 
-  const languageSelectionItems = assessment.cycles.map((cycle: Cycle) => ({
+  const items = assessment.cycles.map((cycle: Cycle) => ({
     content: cycle.name,
     onClick: () => cycleChange(cycle.name),
   }))
 
   return (
     <div className="cycle-switcher">
-      <PopoverControl items={languageSelectionItems}>
+      <PopoverControl items={items}>
         <div className="app-header__menu-item">
           <span>{currentCycle.name}</span>
           <Icon name="small-down" />
