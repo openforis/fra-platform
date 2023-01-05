@@ -17,8 +17,8 @@ import LinkHome from '@client/components/LinkHome'
 import { Breakpoints } from '@client/utils'
 
 import CountryList from './CountryList'
+import Lock from './Lock'
 import Status from './Status'
-import Title from './Title'
 import ToggleNavigationControl from './ToggleNavigationControl'
 
 const findElementRoot = (el: Element): Element => {
@@ -129,7 +129,7 @@ const CountrySelect: React.FC = () => {
         <MediaQuery minWidth={Breakpoints.laptop}>
           {user && <Status />}
 
-          {user && country && <Title lockEnabled={Boolean(user && isFRA && isCountry)} />}
+          {user && country && <Lock lockEnabled={Boolean(user && isFRA && isCountry)} />}
 
           <div className="links-download">
             <Link

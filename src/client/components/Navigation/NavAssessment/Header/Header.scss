@@ -26,27 +26,6 @@
   }
 }
 
-//==== Lock
-.nav-assessment-header__lock {
-  display: flex;
-  align-items: center;
-  margin-left: 12px;
-
-  .desk-study {
-    color: $text-mute;
-    font-size: $font-xs;
-  }
-}
-
-.nav-assessment-header__btn-lock {
-  border: none !important;
-
-  &:disabled {
-    border: none;
-    opacity: 1;
-  }
-}
-
 .nav-assessment-header__status {
   display: inline-block;
   border-radius: 2px;

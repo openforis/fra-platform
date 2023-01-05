@@ -1,0 +1,16 @@
+@import 'src/client/style/partials';
+
+.lock-wrapper {
+  display: flex;
+  align-items: center;
+  margin-left: 12px;
+
+  .btn-lock {
+    border: none !important;
+
+    &:disabled {
+      border: none;
+      opacity: 1;
+    }
+  }
+}

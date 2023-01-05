@@ -1,3 +1,4 @@
+import './Lock.scss'
 import React from 'react'
 import MediaQuery from 'react-responsive'
 
@@ -10,7 +11,7 @@ type Props = {
   lockEnabled: boolean
 }
 
-const Title: React.FC<Props> = (props) => {
+const Lock: React.FC<Props> = (props) => {
   const { lockEnabled } = props
   const dispatch = useAppDispatch()
 
@@ -18,12 +19,12 @@ const Title: React.FC<Props> = (props) => {
   const canToggleLock = true // false // TODO
 
   return (
-    <div className="nav-assessment-header__lock">
+    <div className="lock-wrapper">
       {lockEnabled && (
         <MediaQuery minWidth={Breakpoints.laptop}>
           <button
             type="button"
-            className="btn btn-secondary nav-assessment-header__btn-lock"
+            className="btn btn-secondary btn-lock"
             disabled={!canToggleLock}
             onClick={() => dispatch(DataLockActions.toggleDataLock())}
           >
@@ -35,4 +36,4 @@ const Title: React.FC<Props> = (props) => {
   )
 }
 
-export default Title
+export default Lock
