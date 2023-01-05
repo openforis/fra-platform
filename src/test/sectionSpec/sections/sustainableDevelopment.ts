@@ -879,8 +879,8 @@ export const sustainableDevelopment = {
                 },
                 ...['2021', '2022', '2023', '2024', '2025'].map((colName, idx) => ({
                   idx: idx + 8,
-                  type: 'calculated',
-                  colName: '2020',
+                  type: 'decimal',
+                  colName,
                   migration: {
                     cycles: ['2025'],
                   },
@@ -1159,8 +1159,8 @@ export const sustainableDevelopment = {
                 },
                 ...['2021', '2022', '2023', '2024', '2025'].map((colName, idx) => ({
                   idx: idx + 9,
-                  type: 'calculated',
-                  colName: '2020',
+                  type: 'decimal',
+                  colName,
                   migration: {
                     cycles: ['2025'],
                   },
@@ -1418,8 +1418,8 @@ export const sustainableDevelopment = {
                 },
                 ...['2021', '2022', '2023', '2024', '2025'].map((colName, idx) => ({
                   idx: idx + 8,
-                  type: 'calculated',
-                  colName: '2020',
+                  type: 'decimal',
+                  colName,
                   migration: {
                     cycles: ['2025'],
                   },
