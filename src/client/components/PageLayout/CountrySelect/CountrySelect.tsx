@@ -19,7 +19,6 @@ import Title from '@client/components/Navigation/NavAssessment/Header/Title/Titl
 import { Breakpoints } from '@client/utils'
 
 import CountryList from './CountryList'
-// import LinkLanding from './LinkLanding'
 import ToggleNavigationControl from './ToggleNavigationControl'
 
 const findElementRoot = (el: Element): Element => {
