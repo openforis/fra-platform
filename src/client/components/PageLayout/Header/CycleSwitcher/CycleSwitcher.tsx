@@ -3,12 +3,15 @@ import React, { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { ClientRoutes } from '@meta/app'
+import { Cycle } from '@meta/assessment'
 import { Authorizer } from '@meta/user'
 
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { useIsDataLocked } from '@client/store/ui/dataLock'
 import { useUser } from '@client/store/user'
 import { useCountryIso, useIsDataExportView } from '@client/hooks'
+import Icon from '@client/components/Icon'
+import PopoverControl from '@client/components/PopoverControl'
 
 const CycleSwitcher = () => {
   const countryIso = useCountryIso()
@@ -23,9 +26,8 @@ const CycleSwitcher = () => {
   const userCycles = assessment.cycles.filter((cycle) => Authorizer.canView({ countryIso, user, cycle, assessment }))
   const canSwitchCycle = (isDataLocked || isDataExportView) && userCycles.length > 1
 
-  const onSelectChange = useCallback(
-    (event: React.ChangeEvent<HTMLSelectElement>) => {
-      const cycleName = event.target.value
+  const cycleChange = useCallback(
+    (cycleName: string) => {
       if (countryIso)
         navigate(ClientRoutes.Assessment.Cycle.Country.Landing.getLink({ countryIso, assessmentName, cycleName }))
       else navigate(ClientRoutes.Assessment.Cycle.Landing.getLink({ assessmentName, cycleName }))
@@ -35,14 +37,20 @@ const CycleSwitcher = () => {
 
   if (!canSwitchCycle) return <span className="cycle-switcher-locked">{currentCycle.name}</span>
 
+  const languageSelectionItems = assessment.cycles.map((cycle: Cycle) => ({
+    content: cycle.name,
+    onClick: () => cycleChange(cycle.name),
+  }))
+
   return (
-    <select className="cycle-switcher" onChange={onSelectChange} value={currentCycle.name}>
-      {assessment.cycles.map((cycle) => (
-        <option key={cycle.uuid} value={cycle.name}>
-          {cycle.name}
-        </option>
-      ))}
-    </select>
+    <div className="cycle-switcher">
+      <PopoverControl items={languageSelectionItems}>
+        <div className="app-header__menu-item">
+          <span>{currentCycle.name}</span>
+          <Icon name="small-down" />
+        </div>
+      </PopoverControl>
+    </div>
   )
 }
 
