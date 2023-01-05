@@ -14,11 +14,11 @@ import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import Icon from '@client/components/Icon'
 import LinkHome from '@client/components/LinkHome'
-import Status from '@client/components/Navigation/NavAssessment/Header/Status'
-import Title from '@client/components/Navigation/NavAssessment/Header/Title/Title'
 import { Breakpoints } from '@client/utils'
 
 import CountryList from './CountryList'
+import Status from './Status'
+import Title from './Title'
 import ToggleNavigationControl from './ToggleNavigationControl'
 
 const findElementRoot = (el: Element): Element => {
