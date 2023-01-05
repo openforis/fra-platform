@@ -1,3 +1,4 @@
+import './Status.scss'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
