@@ -1,11 +1,9 @@
 @import 'src/client/style/partials';
 
 .country-select {
-  position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 0;
   z-index: $z-index-area-selector;
-  grid-area: country-selection;
   display: flex;
   align-items: center;
   background-color: var(--ui-bg);
@@ -44,8 +42,8 @@
   justify-content: space-between;
   min-width: 250px;
   padding: 4px 12px;
-  background-color: white;
-  border: $ui-thin-border;
+  background-color: $ui-bg;
+  border: none;
   text-align: left;
   font-size: $font-m;
   font-weight: normal;

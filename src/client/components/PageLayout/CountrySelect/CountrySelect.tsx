@@ -2,20 +2,24 @@ import './countrySelect.scss'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
+import { Link } from 'react-router-dom'
 
+import { ClientRoutes } from '@meta/app'
 import { Areas } from '@meta/area'
+import { AssessmentNames } from '@meta/assessment'
 import { Users } from '@meta/user'
 
-import { useCycle } from '@client/store/assessment'
-import { useNavigationVisible } from '@client/store/ui/navigation'
+import { useAssessment, useCountry, useCycle } from '@client/store/assessment'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import Icon from '@client/components/Icon'
 import LinkHome from '@client/components/LinkHome'
+import Status from '@client/components/Navigation/NavAssessment/Header/Status'
+import Title from '@client/components/Navigation/NavAssessment/Header/Title/Title'
 import { Breakpoints } from '@client/utils'
 
 import CountryList from './CountryList'
-import LinkLanding from './LinkLanding'
+// import LinkLanding from './LinkLanding'
 import ToggleNavigationControl from './ToggleNavigationControl'
 
 const findElementRoot = (el: Element): Element => {
@@ -26,12 +30,19 @@ const findElementRoot = (el: Element): Element => {
 const CountrySelect: React.FC = () => {
   const cycle = useCycle()
   const countryIso = useCountryIso()
+  const country = useCountry(countryIso)
+
   const user = useUser()
-  const { i18n } = useTranslation()
-  const navigationVisible = useNavigationVisible()
+  const { i18n, t } = useTranslation()
   const countrySelectionRef = useRef(null)
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
+
+  const isCountry = Areas.isISOCountry(countryIso)
+  const assessment = useAssessment()
+  const assessmentName = assessment.props.name
+  const isFRA = assessmentName === AssessmentNames.fra
+  const cycleName = cycle.name
 
   const outsideClick = (evt: any) => {
     const elRoot = findElementRoot(evt.target)
@@ -60,68 +71,91 @@ const CountrySelect: React.FC = () => {
 
   return (
     <div className="country-select">
-      {navigationVisible && (
+      <div style={{ display: 'flex', width: '340px' }}>
+        <ToggleNavigationControl />
+
+        <button
+          type="button"
+          className="btn-country-select no-print"
+          ref={countrySelectionRef}
+          onClick={() => setOpen((prevState) => !prevState)}
+        >
+          <div>
+            {open && (
+              <input
+                type="text"
+                className="text-input"
+                // eslint-disable-next-line
+                autoFocus
+                onClick={(event) => event.stopPropagation()}
+                placeholder={i18n.t('emoji.picker.search')}
+                onChange={(event) => setQuery(event.target.value)}
+              />
+            )}
+
+            {countryIso && !open && (
+              <div className="country-select__country">
+                {Areas.isISOCountry(countryIso) && (
+                  <div
+                    className="flag"
+                    style={{
+                      backgroundImage: `url('/img/flags/1x1/${countryIso}.svg')`,
+                    }}
+                  />
+                )}
+
+                <div className="name">{i18n.t<string>(`area.${countryIso}.listName`)}</div>
+                {user && Areas.isISOCountry(countryIso) && (
+                  <div className="user-role">
+                    {i18n.t<string>(Users.getI18nRoleLabelKey(Users.getRole(user, countryIso, cycle)?.role))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {!countryIso && !open && (
+              <>
+                <div className="country-select__select-laptop">{`- ${t('common.selectArea')} -`}</div>
+                <div className="country-select__select-mobile">{`- ${t('common.selectArea')} -`}</div>
+              </>
+            )}
+          </div>
+          <Icon name="small-down" />
+
+          {open && <CountryList query={query} />}
+        </button>
+      </div>
+
+      {isFRA && isCountry && (
         <MediaQuery minWidth={Breakpoints.laptop}>
-          <LinkLanding />
+          {user && <Status />}
+
+          {user && country && <Title lockEnabled={Boolean(user && isFRA && isCountry)} />}
+
+          <div className="links-download">
+            <Link
+              className="btn btn-secondary"
+              to={ClientRoutes.Assessment.Cycle.Country.PrintTables.getLink({
+                countryIso,
+                assessmentName,
+                cycleName,
+              })}
+              target="_blank"
+            >
+              <Icon name="small-print" className="icon-margin-left icon-sub" />
+              <Icon name="icon-table2" className="icon-no-margin icon-sub" />
+            </Link>
+
+            <Link
+              className="btn btn-secondary"
+              to={ClientRoutes.Assessment.Cycle.Country.Print.getLink({ countryIso, assessmentName, cycleName })}
+              target="_blank"
+            >
+              <Icon name="small-print" className="icon-no-margin icon-sub" />
+            </Link>
+          </div>
         </MediaQuery>
       )}
-
-      <ToggleNavigationControl />
-
-      <div className="country-select__select-label">{i18n.t<string>('common.selectArea')}</div>
-
-      <button
-        type="button"
-        className="btn-country-select no-print"
-        ref={countrySelectionRef}
-        onClick={() => setOpen((prevState) => !prevState)}
-      >
-        <div>
-          {open && (
-            <input
-              type="text"
-              className="text-input"
-              // eslint-disable-next-line
-              autoFocus
-              onClick={(event) => event.stopPropagation()}
-              placeholder={i18n.t('emoji.picker.search')}
-              onChange={(event) => setQuery(event.target.value)}
-            />
-          )}
-
-          {countryIso && !open && (
-            <div className="country-select__country">
-              {Areas.isISOCountry(countryIso) && (
-                <div
-                  className="flag"
-                  style={{
-                    backgroundImage: `url('/img/flags/1x1/${countryIso}.svg')`,
-                  }}
-                />
-              )}
-
-              <div className="name">{i18n.t<string>(`area.${countryIso}.listName`)}</div>
-              {user && Areas.isISOCountry(countryIso) && (
-                <div className="user-role">
-                  {i18n.t<string>(Users.getI18nRoleLabelKey(Users.getRole(user, countryIso, cycle)?.role))}
-                </div>
-              )}
-            </div>
-          )}
-
-          {!countryIso && !open && (
-            <>
-              <div className="country-select__select-laptop">{`- ${i18n.t('common.select')} -`}</div>
-              <div className="country-select__select-mobile">{i18n.t<string>('common.selectArea')}</div>
-            </>
-          )}
-        </div>
-        <Icon name="small-down" />
-
-        {open && <CountryList query={query} />}
-      </button>
-
-      {/* <AutoSaveStatus /> */}
 
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
         <LinkHome />

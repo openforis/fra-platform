@@ -1,29 +1,28 @@
 @import 'src/client/style/partials';
 
 .nav-assessment-header {
-  padding: 8px 8px 8px 16px;
-
-  .popover-control__menu {
-    top: 31px;
-  }
-}
-
-.nav-assessment-header__label {
-  font-weight: 700;
-  margin-bottom: 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: $spacing-xxs $spacing-xxs $spacing-xxs $spacing-xs;
+  margin-top: $spacing-xs;
 
-  .links-download {
-    display: flex;
+  .desk-study {
+    color: $text-mute;
+    font-size: $font-xs;
   }
 
-  .btn-s {
-    display: flex;
-    align-items: center;
-    padding: 4px 6px;
-    margin: 0 2px;
+  @include min-width($laptop) {
+    margin-top: 0px;
+  }
+}
+
+.links-download {
+  margin-left: auto;
+  margin-right: 12px;
+
+  .btn {
+    border: none !important;
   }
 }
 
@@ -31,6 +30,7 @@
 .nav-assessment-header__lock {
   display: flex;
   align-items: center;
+  margin-left: 12px;
 
   .desk-study {
     color: $text-mute;
@@ -39,18 +39,12 @@
 }
 
 .nav-assessment-header__btn-lock {
-  margin-left: 5px;
+  border: none !important;
 
   &:disabled {
     border: none;
     opacity: 1;
   }
-}
-
-//====== Status
-.nav-assessment-header__status-container {
-  display: grid;
-  grid-template-columns: repeat(2, 0.5fr);
 }
 
 .nav-assessment-header__status {

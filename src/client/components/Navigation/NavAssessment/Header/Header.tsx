@@ -1,21 +1,14 @@
 import './Header.scss'
 import React from 'react'
-import MediaQuery from 'react-responsive'
-import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
-import { ClientRoutes } from '@meta/app'
 import { Areas } from '@meta/area'
-import { AssessmentNames } from '@meta/assessment'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
+import { useCountry } from '@client/store/assessment'
 import { useUser } from '@client/store/user'
-import { useCountryIso } from '@client/hooks'
-import Icon from '@client/components/Icon'
-import { Breakpoints } from '@client/utils'
+import { useCountryIso, useIsDataExportView } from '@client/hooks'
 
 import ButtonToggleAll from './ButtonToggleAll'
-import Status from './Status'
-import Title from './Title'
 
 type Props = {
   showSections: boolean
@@ -24,54 +17,27 @@ type Props = {
 
 const Header: React.FC<Props> = (props) => {
   const { showSections, setShowSections } = props
-  const assessment = useAssessment()
-  const cycle = useCycle()
-
   const countryIso = useCountryIso()
+  const country = useCountry(countryIso)
+
   const user = useUser()
+  const { t } = useTranslation()
 
   const isCountry = Areas.isISOCountry(countryIso)
-  const assessmentName = assessment.props.name
-  const isFRA = assessmentName === AssessmentNames.fra
-  const cycleName = cycle.name
+  const isDataExportView = useIsDataExportView()
+
+  const { deskStudy } = country.props
 
   return (
     <div className="nav-assessment-header">
-      <div className="nav-assessment-header__label">
-        <Title lockEnabled={Boolean(user && isFRA && isCountry)} />
+      {user && isCountry && (
+        <div>
+          {isDataExportView ? ` - ${t('common.dataExport')}` : ''}
+          {deskStudy && <div className="desk-study">({t('assessment.deskStudy')})</div>}
+        </div>
+      )}
 
-        {isFRA && isCountry && (
-          <MediaQuery minWidth={Breakpoints.laptop}>
-            <div className="links-download">
-              <Link
-                className="btn-s btn-secondary"
-                to={ClientRoutes.Assessment.Cycle.Country.PrintTables.getLink({
-                  countryIso,
-                  assessmentName,
-                  cycleName,
-                })}
-                target="_blank"
-              >
-                <Icon name="small-print" className="icon-margin-left" />
-                <Icon name="icon-table2" className="icon-no-margin" />
-              </Link>
-
-              <Link
-                className="btn-s btn-secondary"
-                to={ClientRoutes.Assessment.Cycle.Country.Print.getLink({ countryIso, assessmentName, cycleName })}
-                target="_blank"
-              >
-                <Icon name="small-print" className="icon-no-margin" />
-              </Link>
-            </div>
-          </MediaQuery>
-        )}
-      </div>
-
-      <div className="nav-assessment-header__status-container">
-        {user && isFRA && isCountry ? <Status /> : <div />}
-        <ButtonToggleAll showSections={showSections} setShowSections={setShowSections} />
-      </div>
+      <ButtonToggleAll showSections={showSections} setShowSections={setShowSections} />
     </div>
   )
 }
