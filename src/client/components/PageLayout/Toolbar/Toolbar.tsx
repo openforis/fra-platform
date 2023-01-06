@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom'
 
 import { ClientRoutes } from '@meta/app'
 import { Areas } from '@meta/area'
-import { AssessmentNames } from '@meta/assessment'
 import { Users } from '@meta/user'
 
 import { useAssessment, useCountry, useCycle } from '@client/store/assessment'
@@ -40,7 +39,6 @@ const Toolbar: React.FC = () => {
   const isCountry = Areas.isISOCountry(countryIso)
   const assessment = useAssessment()
   const assessmentName = assessment.props.name
-  const isFRA = assessmentName === AssessmentNames.fra
   const cycleName = cycle.name
 
   const outsideClick = (evt: any) => {
@@ -125,11 +123,11 @@ const Toolbar: React.FC = () => {
         </button>
       </div>
 
-      {isFRA && isCountry && (
+      {isCountry && (
         <MediaQuery minWidth={Breakpoints.laptop}>
           {user && <Status />}
 
-          {user && country && isFRA && isCountry && <Lock />}
+          {user && country && isCountry && <Lock />}
 
           <div className="links-download">
             <Link
