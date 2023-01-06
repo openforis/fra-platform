@@ -11,7 +11,6 @@ const Lock: React.FC = () => {
   const dispatch = useAppDispatch()
 
   const locked = useIsDataLocked()
-  const canToggleLock = true // false // TODO
 
   return (
     <div className="lock-wrapper">
@@ -19,7 +18,6 @@ const Lock: React.FC = () => {
         <button
           type="button"
           className="btn btn-secondary btn-lock"
-          disabled={!canToggleLock}
           onClick={() => dispatch(DataLockActions.toggleDataLock())}
         >
           <Icon name={locked ? 'lock-circle' : 'lock-circle-open'} className="icon-no-margin icon-sub" />

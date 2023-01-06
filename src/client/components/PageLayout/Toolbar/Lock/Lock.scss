@@ -7,10 +7,5 @@
 
   .btn-lock {
     border: none !important;
-
-    &:disabled {
-      border: none;
-      opacity: 1;
-    }
   }
 }
