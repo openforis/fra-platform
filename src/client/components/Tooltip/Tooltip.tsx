@@ -5,11 +5,10 @@ import classNames from 'classnames'
 
 type Props = {
   text: string
-  children: JSX.Element
   error?: boolean
 }
 
-const Tooltip: React.FC<Props> = (props) => {
+const Tooltip: React.FC<React.PropsWithChildren<Props>> = (props: React.PropsWithChildren<Props>) => {
   const { text, children, error } = props
 
   return (
