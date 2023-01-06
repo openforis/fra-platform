@@ -1,4 +1,23 @@
 // @ts-nocheck
+
+const _interpolateForestAreaProportionLandArea = (idx: number) => {
+  const variable1 = "extentOfForest.forestArea['2020'] / extentOfForest.totalLandArea['2020'] * 100"
+  const variable2 = "extentOfForest.forestArea['2025'] / extentOfForest.totalLandArea['2025'] * 100"
+  // check variables exist
+  //    and interpolate between
+  // else null
+  return `(${variable1} > 0 && ${variable2}) > 0 ? ${variable1} + (${variable2} - ${variable1}) / 5 * ${idx + 1} : null`
+}
+
+const interpolateForestAreaProportionLandArea = (idx: number) => {
+  const variable1 = "sustainableDevelopment15_1_1.forestAreaProportionLandArea2015['2020']"
+  const variable2 = "sustainableDevelopment15_1_1.forestAreaProportionLandArea2015['2025']"
+  // check variables exist
+  //    and interpolate between
+  // else null
+  return `${variable1} + (${variable2} - ${variable1}) / 5 * ${idx + 1}`
+}
+
 export const sustainableDevelopment = {
   sectionName: 'sustainableDevelopment',
   sectionAnchor: '8a',
@@ -263,14 +282,23 @@ export const sustainableDevelopment = {
                     cycles: ['2025'],
                   },
                 },
-                ...['2021', '2022', '2023', '2024', '2025'].map((colName, idx) => ({
+                ...['2021', '2022', '2023', '2024'].map((colName, idx) => ({
                   idx: idx + 9,
                   type: 'decimal',
                   colName,
                   migration: {
                     cycles: ['2025'],
+                    calculateFn: interpolateForestAreaProportionLandArea(idx),
                   },
                 })),
+                {
+                  idx: 14,
+                  type: 'decimal',
+                  colName: '2025',
+                  migration: {
+                    cycles: ['2025'],
+                  },
+                },
               ],
               labelKey: 'sustainableDevelopment.forestAreaProportionLandArea2015',
               migration: {
