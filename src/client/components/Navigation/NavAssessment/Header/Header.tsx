@@ -21,12 +21,12 @@ const Header: React.FC<Props> = (props) => {
 
   const isDataExportView = useIsDataExportView()
 
-  const { deskStudy } = country.props
+  const { deskStudy } = country?.props ?? {}
 
   return (
     <div className="nav-assessment-header">
       <div>
-        {isDataExportView ? ` - ${t('common.dataExport')}` : ''}
+        {isDataExportView ? t('common.dataExport') : ''}
         {deskStudy && <div className="desk-study">({t('assessment.deskStudy')})</div>}
       </div>
 
