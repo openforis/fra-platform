@@ -26,7 +26,7 @@ const findElementRoot = (el: Element): Element => {
   return findElementRoot(el.parentElement)
 }
 
-const CountrySelect: React.FC = () => {
+const Toolbar: React.FC = () => {
   const cycle = useCycle()
   const countryIso = useCountryIso()
   const country = useCountry(countryIso)
@@ -163,4 +163,4 @@ const CountrySelect: React.FC = () => {
   )
 }
 
-export default CountrySelect
+export default Toolbar
