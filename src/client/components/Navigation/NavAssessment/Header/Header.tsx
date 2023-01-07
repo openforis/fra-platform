@@ -6,6 +6,7 @@ import { useCountry } from '@client/store/assessment'
 import { useCountryIso, useIsDataExportView } from '@client/hooks'
 
 import ButtonToggleAll from './ButtonToggleAll'
+import LinkLanding from './LinkLanding'
 
 type Props = {
   showSections: boolean
@@ -25,12 +26,18 @@ const Header: React.FC<Props> = (props) => {
 
   return (
     <div className="nav-assessment-header">
-      <div>
-        {isDataExportView ? t('common.dataExport') : ''}
-        {deskStudy && <div className="desk-study">({t('assessment.deskStudy')})</div>}
+      <div className="nav-assessment-header__toggler">
+        <div>
+          {isDataExportView ? t('common.dataExport') : ''}
+          {deskStudy && <div className="desk-study">({t('assessment.deskStudy')})</div>}
+        </div>
+
+        <ButtonToggleAll showSections={showSections} setShowSections={setShowSections} />
       </div>
 
-      <ButtonToggleAll showSections={showSections} setShowSections={setShowSections} />
+      <LinkLanding />
+
+      <hr />
     </div>
   )
 }
