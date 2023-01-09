@@ -1,21 +1,14 @@
 // @ts-nocheck
 
-const _interpolateForestAreaProportionLandArea = (idx: number) => {
+const interpolateForestAreaProportionLandArea = (idx: number) => {
   const variable1 = "extentOfForest.forestArea['2020'] / extentOfForest.totalLandArea['2020'] * 100"
   const variable2 = "extentOfForest.forestArea['2025'] / extentOfForest.totalLandArea['2025'] * 100"
   // check variables exist
   //    and interpolate between
   // else null
-  return `(${variable1} > 0 && ${variable2}) > 0 ? ${variable1} + (${variable2} - ${variable1}) / 5 * ${idx + 1} : null`
-}
-
-const interpolateForestAreaProportionLandArea = (idx: number) => {
-  const variable1 = "sustainableDevelopment15_1_1.forestAreaProportionLandArea2015['2020']"
-  const variable2 = "sustainableDevelopment15_1_1.forestAreaProportionLandArea2015['2025']"
-  // check variables exist
-  //    and interpolate between
-  // else null
-  return `${variable1} + (${variable2} - ${variable1}) / 5 * ${idx + 1}`
+  return `(${variable1} > 0 && ${variable2}) > 0 ? (${variable1} + ((${variable2} - ${variable1}) / 5 * ${
+    idx + 1
+  })) : null`
 }
 
 export const sustainableDevelopment = {
@@ -183,6 +176,8 @@ export const sustainableDevelopment = {
                   type: 'calculated',
                   colName: '2000',
                   migration: {
+                    calculateFn: 'extentOfForest.forestArea / extentOfForest.totalLandArea * 100',
+
                     cycles: ['2020'],
                   },
                 },
@@ -191,6 +186,8 @@ export const sustainableDevelopment = {
                   type: 'decimal',
                   colName: '2000',
                   migration: {
+                    calculateFn: 'extentOfForest.forestArea / extentOfForest.totalLandArea * 100',
+
                     cycles: ['2025'],
                   },
                 },
@@ -199,6 +196,8 @@ export const sustainableDevelopment = {
                   type: 'decimal',
                   colName: '2005',
                   migration: {
+                    calculateFn: 'extentOfForest.forestArea / extentOfForest.totalLandArea * 100',
+
                     cycles: ['2025'],
                   },
                 },
@@ -207,6 +206,8 @@ export const sustainableDevelopment = {
                   type: 'calculated',
                   colName: '2010',
                   migration: {
+                    calculateFn: 'extentOfForest.forestArea / extentOfForest.totalLandArea * 100',
+
                     cycles: ['2020'],
                   },
                 },
@@ -215,6 +216,8 @@ export const sustainableDevelopment = {
                   type: 'decimal',
                   colName: '2010',
                   migration: {
+                    calculateFn: 'extentOfForest.forestArea / extentOfForest.totalLandArea * 100',
+
                     cycles: ['2025'],
                   },
                 },
@@ -223,6 +226,8 @@ export const sustainableDevelopment = {
                   type: 'calculated',
                   colName: '2015',
                   migration: {
+                    calculateFn: 'extentOfForest.forestArea / extentOfForest.totalLandArea * 100',
+
                     cycles: ['2020'],
                   },
                 },
@@ -231,6 +236,8 @@ export const sustainableDevelopment = {
                   type: 'decimal',
                   colName: '2015',
                   migration: {
+                    calculateFn: 'extentOfForest.forestArea / extentOfForest.totalLandArea * 100',
+
                     cycles: ['2025'],
                   },
                 },
@@ -239,6 +246,8 @@ export const sustainableDevelopment = {
                   type: 'calculated',
                   colName: '2016',
                   migration: {
+                    calculateFn: 'extentOfForest.forestArea / extentOfForest.totalLandArea * 100',
+
                     cycles: ['2020'],
                   },
                 },
@@ -247,6 +256,8 @@ export const sustainableDevelopment = {
                   type: 'calculated',
                   colName: '2017',
                   migration: {
+                    calculateFn: 'extentOfForest.forestArea / extentOfForest.totalLandArea * 100',
+
                     cycles: ['2020'],
                   },
                 },
@@ -255,6 +266,8 @@ export const sustainableDevelopment = {
                   type: 'calculated',
                   colName: '2018',
                   migration: {
+                    calculateFn: 'extentOfForest.forestArea / extentOfForest.totalLandArea * 100',
+
                     cycles: ['2020'],
                   },
                 },
@@ -263,6 +276,8 @@ export const sustainableDevelopment = {
                   type: 'calculated',
                   colName: '2019',
                   migration: {
+                    calculateFn: 'extentOfForest.forestArea / extentOfForest.totalLandArea * 100',
+
                     cycles: ['2020'],
                   },
                 },
@@ -271,6 +286,8 @@ export const sustainableDevelopment = {
                   type: 'calculated',
                   colName: '2020',
                   migration: {
+                    calculateFn: 'extentOfForest.forestArea / extentOfForest.totalLandArea * 100',
+
                     cycles: ['2020'],
                   },
                 },
@@ -279,6 +296,8 @@ export const sustainableDevelopment = {
                   type: 'decimal',
                   colName: '2020',
                   migration: {
+                    calculateFn: 'extentOfForest.forestArea / extentOfForest.totalLandArea * 100',
+
                     cycles: ['2025'],
                   },
                 },
@@ -296,14 +315,15 @@ export const sustainableDevelopment = {
                   type: 'decimal',
                   colName: '2025',
                   migration: {
+                    calculateFn: 'extentOfForest.forestArea / extentOfForest.totalLandArea * 100',
                     cycles: ['2025'],
                   },
                 },
               ],
               labelKey: 'sustainableDevelopment.forestAreaProportionLandArea2015',
-              migration: {
-                calcFormula: 'extentOfForest.forestArea / extentOfForest.totalLandArea * 100',
-              },
+              // migration: {
+              //   calcFormula: 'extentOfForest.forestArea / extentOfForest.totalLandArea * 100',
+              // },
             },
           ],
           tableDataRequired: [
