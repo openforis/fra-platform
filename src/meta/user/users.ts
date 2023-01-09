@@ -37,6 +37,16 @@ const isAlternateNationalCorrespondent = (user: User, countryIso: CountryIso, cy
 
 const isViewer = (user: User, countryIso: CountryIso, cycle: Cycle) => isRole(user, RoleName.VIEWER, countryIso, cycle)
 
+const hasEditorRole = (props: { user: User; countryIso: CountryIso; cycle: Cycle }): boolean => {
+  const { countryIso, cycle, user } = props
+
+  if (isAdministrator(user)) return true
+
+  const role = getRole(user, countryIso, cycle)
+
+  return role && role.name !== RoleName.VIEWER
+}
+
 const getRolesAllowedToEdit = (props: { user: User; countryIso: CountryIso; cycle: Cycle }): Array<RoleName> => {
   const { countryIso, cycle, user } = props
   if (isAdministrator(user)) {
@@ -97,6 +107,7 @@ export const Users = {
 
   getRolesAllowedToEdit,
   getI18nRoleLabelKey,
+  hasEditorRole,
 
   profilePictureUri,
   validProfilePicture,

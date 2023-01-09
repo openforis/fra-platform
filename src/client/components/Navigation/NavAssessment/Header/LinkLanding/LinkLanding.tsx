@@ -1,4 +1,4 @@
-import './linkLanding.scss'
+import './LinkLanding.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { matchPath, NavLink, useLocation } from 'react-router-dom'
@@ -12,11 +12,11 @@ import { useCountryIso } from '@client/hooks'
 import Icon from '@client/components/Icon'
 
 const LinkLanding: React.FC = () => {
-  const { i18n } = useTranslation()
-  const countryIso = useCountryIso()
   const assessment = useAssessment()
+  const countryIso = useCountryIso()
   const cycle = useCycle()
   const { pathname } = useLocation()
+  const { t } = useTranslation()
 
   if (!assessment || !cycle) return null
 
@@ -28,7 +28,7 @@ const LinkLanding: React.FC = () => {
         cycleName: cycle.name,
       })}
       className={() => {
-        return classNames('country-selection-link-landing', {
+        return classNames('nav-section__item', {
           selected: matchPath(
             { path: ClientRoutes.Assessment.Cycle.Country.Home.Root.path.absolute, end: false },
             pathname
@@ -36,8 +36,11 @@ const LinkLanding: React.FC = () => {
         })
       }}
     >
-      <Icon name="icon-bar-chart" className="icon-sub icon-margin-right" />
-      <div className="nav__link-label">{i18n.t<string>(`area.${countryIso}.listName`)}</div>
+      <div className="nav-section__order">
+        <Icon name="icon-bar-chart" className="icon-sub icon-margin-right" />
+      </div>
+
+      <div className="nav-nav-section__label">{t('common.dashboard')}</div>
     </NavLink>
   )
 }
