@@ -26,7 +26,7 @@ const CycleSwitcher = () => {
   const userCycles = assessment.cycles.filter((cycle) => Authorizer.canView({ countryIso, user, cycle, assessment }))
   const canSwitchCycle = (isDataLocked || isDataExportView) && userCycles.length > 1
 
-  const cycleChange = useCallback(
+  const onCycleChange = useCallback(
     (cycleName: string) => {
       if (countryIso)
         navigate(ClientRoutes.Assessment.Cycle.Country.Landing.getLink({ countryIso, assessmentName, cycleName }))
@@ -39,7 +39,7 @@ const CycleSwitcher = () => {
 
   const items = assessment.cycles.map((cycle: Cycle) => ({
     content: cycle.name,
-    onClick: () => cycleChange(cycle.name),
+    onClick: () => onCycleChange(cycle.name),
   }))
 
   return (
