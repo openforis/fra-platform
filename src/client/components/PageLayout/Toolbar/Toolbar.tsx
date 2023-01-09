@@ -127,7 +127,7 @@ const Toolbar: React.FC = () => {
         <MediaQuery minWidth={Breakpoints.laptop}>
           {user && <Status />}
 
-          {user && country && <Lock />}
+          {user && country && Users.hasEditorRole({ user, countryIso, cycle }) && <Lock />}
 
           <div className="links-download">
             <Link
