@@ -8,7 +8,6 @@ import { AssessmentHomeRouteNames, ClientRoutes } from '@meta/app'
 import { Areas } from '@meta/area'
 
 import { useCountryIso } from '@client/hooks'
-import useGetUsers from '@client/hooks/useGetUsers'
 import User from '@client/pages/User'
 
 import { useSections } from './hooks/useSections'
@@ -20,7 +19,6 @@ const FraHome: React.FC = () => {
   const { i18n } = useTranslation()
   const countryIso = useCountryIso()
   const sections = useSections()
-  useGetUsers()
 
   // tabs are available when user is logged-in and selected area is country
   const displayTabs = sections.length > 1 && Areas.isISOCountry(countryIso)
