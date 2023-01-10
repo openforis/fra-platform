@@ -10,7 +10,7 @@ export const read = async (
     user: User
   },
   client: BaseProtocol = DB
-): Promise<UserAuthProvider<AuthProviderGoogleProps | AuthProviderLocalProps>> => {
+): Promise<Array<UserAuthProvider<AuthProviderGoogleProps | AuthProviderLocalProps>>> => {
   const { provider, user } = props
 
   return UserProviderRepository.read({ user, provider }, client)

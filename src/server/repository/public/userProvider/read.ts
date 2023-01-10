@@ -8,14 +8,15 @@ import { BaseProtocol, DB } from '@server/db'
 export const read = async (
   props: { user: User; provider: AuthProvider },
   client: BaseProtocol = DB
-): Promise<UserAuthProvider<AuthProviderGoogleProps | AuthProviderLocalProps>> => {
+): Promise<Array<UserAuthProvider<AuthProviderGoogleProps | AuthProviderLocalProps>>> => {
   const { user, provider } = props
 
-  return client.oneOrNone<UserAuthProvider<AuthProviderGoogleProps | AuthProviderLocalProps>>(
-    `
+  return client
+    .manyOrNone<UserAuthProvider<AuthProviderGoogleProps | AuthProviderLocalProps>>(
+      `
         select * from public.users_auth_provider where user_id = $1 and provider = $2;
     `,
-    [user.id, provider],
-    Objects.camelize
-  )
+      [user.id, provider]
+    )
+    .then(Objects.camelize)
 }

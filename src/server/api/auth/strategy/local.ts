@@ -27,10 +27,12 @@ const localStrategyVerifyCallback = async (req: Request, email: string, password
       if (invitationUuid) {
         const { user: invitedUser, userRole } = await UserController.findByInvitation({ invitationUuid })
 
-        let userProvider = (await UserProviderController.read({
+        const userProviders = (await UserProviderController.read({
           user: invitedUser,
           provider: AuthProvider.local,
-        })) as UserAuthProvider<AuthProviderLocalProps>
+        })) as Array<UserAuthProvider<AuthProviderLocalProps>>
+
+        let userProvider = !Objects.isEmpty(userProviders) ? userProviders[0] : null
 
         if (!userProvider) {
           userProvider = (await UserProviderController.create({
@@ -61,12 +63,14 @@ const localStrategyVerifyCallback = async (req: Request, email: string, password
         const user = await UserController.getOne({ email })
 
         if (user) {
-          const userProvider = (await UserProviderController.read({
+          const userProviders = (await UserProviderController.read({
             user,
             provider: AuthProvider.local,
-          })) as UserAuthProvider<AuthProviderLocalProps>
+          })) as Array<UserAuthProvider<AuthProviderLocalProps>>
 
-          if (userProvider) {
+          if (!Objects.isEmpty(userProviders)) {
+            const [userProvider] = userProviders
+
             const passwordMatch = await passwordCompare(password, userProvider.props?.password)
 
             if (passwordMatch) done(null, user)
