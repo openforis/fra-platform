@@ -23,7 +23,9 @@ const googleStrategyVerifyCallback = async (
 
     let user = null
 
-    const invitationUuid = req.query.state as string
+    const state = JSON.parse(req.query.state as string) ?? {}
+
+    const { invitationUuid } = state
 
     if (invitationUuid) {
       const { user: invitedUser, userRole } = await UserController.findByInvitation({ invitationUuid })
