@@ -21,6 +21,31 @@ const interpolateAboveGroundBiomass = (idx: number) => {
     idx + 1
   })) : null`
 }
+const interpolateForestAreaWithinProtectedAreas = (idx: number) => {
+  const variable1 =
+    "forestAreaWithinProtectedAreas.forest_area_within_protected_areas['2020'] / extentOfForest.forestArea['2015'] * 100"
+  const variable2 =
+    "forestAreaWithinProtectedAreas.forest_area_within_protected_areas['2025'] / extentOfForest.forestArea['2015'] * 100"
+  // check variables exist
+  //    and interpolate between
+  // else null
+  return `(${variable1} > 0 && ${variable2}) > 0 ? (${variable1} + ((${variable2} - ${variable1}) / 5 * ${
+    idx + 1
+  })) : null`
+}
+const interpolateLongTermPlan = (idx: number) => {
+  const variable1 =
+    "Math.min(forestAreaWithinProtectedAreas.forest_area_with_long_term_management_plan['2020'] / extentOfForest.forestArea['2015'] * 100)"
+  const variable2 =
+    "Math.min(forestAreaWithinProtectedAreas.forest_area_with_long_term_management_plan['2025'] / extentOfForest.forestArea['2015'] * 100)"
+
+  // check variables exist
+  //    and interpolate between
+  // else null
+  return `(${variable1} > 0 && ${variable2}) > 0 ? (${variable1} + ((${variable2} - ${variable1}) / 5 * ${
+    idx + 1
+  })) : null`
+}
 
 export const sustainableDevelopment = {
   sectionName: 'sustainableDevelopment',
@@ -1204,22 +1229,36 @@ export const sustainableDevelopment = {
                   colName: '1990',
                   migration: {
                     cycles: ['2025'],
+                    calculateFn:
+                      'forestAreaWithinProtectedAreas.forest_area_within_protected_areas / extentOfForest.forestArea["2015"] * 100',
                   },
                 },
                 {
                   idx: 1,
                   type: 'calculated',
                   colName: '2000',
+                  migration: {
+                    calculateFn:
+                      'forestAreaWithinProtectedAreas.forest_area_within_protected_areas / extentOfForest.forestArea["2015"] * 100',
+                  },
                 },
                 {
                   idx: 2,
                   type: 'calculated',
                   colName: '2010',
+                  migration: {
+                    calculateFn:
+                      'forestAreaWithinProtectedAreas.forest_area_within_protected_areas / extentOfForest.forestArea["2015"] * 100',
+                  },
                 },
                 {
                   idx: 3,
                   type: 'calculated',
                   colName: '2015',
+                  migration: {
+                    calculateFn:
+                      'forestAreaWithinProtectedAreas.forest_area_within_protected_areas / extentOfForest.forestArea["2015"] * 100',
+                  },
                 },
                 {
                   idx: 4,
@@ -1227,6 +1266,8 @@ export const sustainableDevelopment = {
                   colName: '2016',
                   migration: {
                     cycles: ['2020'],
+                    calculateFn:
+                      'forestAreaWithinProtectedAreas.forest_area_within_protected_areas / extentOfForest.forestArea["2015"] * 100',
                   },
                 },
                 {
@@ -1235,6 +1276,8 @@ export const sustainableDevelopment = {
                   colName: '2017',
                   migration: {
                     cycles: ['2020'],
+                    calculateFn:
+                      'forestAreaWithinProtectedAreas.forest_area_within_protected_areas / extentOfForest.forestArea["2015"] * 100',
                   },
                 },
                 {
@@ -1243,6 +1286,8 @@ export const sustainableDevelopment = {
                   colName: '2018',
                   migration: {
                     cycles: ['2020'],
+                    calculateFn:
+                      'forestAreaWithinProtectedAreas.forest_area_within_protected_areas / extentOfForest.forestArea["2015"] * 100',
                   },
                 },
                 {
@@ -1251,27 +1296,40 @@ export const sustainableDevelopment = {
                   colName: '2019',
                   migration: {
                     cycles: ['2020'],
+                    calculateFn:
+                      'forestAreaWithinProtectedAreas.forest_area_within_protected_areas / extentOfForest.forestArea["2015"] * 100',
                   },
                 },
                 {
                   idx: 8,
                   type: 'calculated',
                   colName: '2020',
+                  migration: {
+                    calculateFn:
+                      'forestAreaWithinProtectedAreas.forest_area_within_protected_areas / extentOfForest.forestArea["2015"] * 100',
+                  },
                 },
-                ...['2021', '2022', '2023', '2024', '2025'].map((colName, idx) => ({
+                ...['2021', '2022', '2023', '2024'].map((colName, idx) => ({
                   idx: idx + 9,
                   type: 'decimal',
                   colName,
                   migration: {
                     cycles: ['2025'],
+                    calculateFn: interpolateForestAreaWithinProtectedAreas(idx),
                   },
                 })),
+                {
+                  idx: 13,
+                  type: 'decimal',
+                  colName: '2025',
+                  migration: {
+                    cycles: ['2025'],
+                    calculateFn:
+                      'forestAreaWithinProtectedAreas.forest_area_within_protected_areas / extentOfForest.forestArea["2015"] * 100',
+                  },
+                },
               ],
               labelKey: 'sustainableDevelopment.proportionForestAreaLegallyEstablishedProtectedAreas',
-              migration: {
-                calcFormula:
-                  'forestAreaWithinProtectedAreas.forest_area_within_protected_areas / extentOfForest.forestArea["2015"] * 100',
-              },
             },
           ],
           tableDataRequired: [],
@@ -1469,16 +1527,28 @@ export const sustainableDevelopment = {
                   idx: 0,
                   type: 'calculated',
                   colName: '2000',
+                  migration: {
+                    calculateFn:
+                      'Math.min(forestAreaWithinProtectedAreas.forest_area_with_long_term_management_plan / extentOfForest.forestArea["2015"] * 100)',
+                  },
                 },
                 {
                   idx: 1,
                   type: 'calculated',
                   colName: '2010',
+                  migration: {
+                    calculateFn:
+                      'Math.min(forestAreaWithinProtectedAreas.forest_area_with_long_term_management_plan / extentOfForest.forestArea["2015"] * 100)',
+                  },
                 },
                 {
                   idx: 2,
                   type: 'calculated',
                   colName: '2015',
+                  migration: {
+                    calculateFn:
+                      'Math.min(forestAreaWithinProtectedAreas.forest_area_with_long_term_management_plan / extentOfForest.forestArea["2015"] * 100)',
+                  },
                 },
                 {
                   idx: 3,
@@ -1486,6 +1556,8 @@ export const sustainableDevelopment = {
                   colName: '2016',
                   migration: {
                     cycles: ['2020'],
+                    calculateFn:
+                      'Math.min(forestAreaWithinProtectedAreas.forest_area_with_long_term_management_plan / extentOfForest.forestArea["2015"] * 100)',
                   },
                 },
                 {
@@ -1494,6 +1566,8 @@ export const sustainableDevelopment = {
                   colName: '2017',
                   migration: {
                     cycles: ['2020'],
+                    calculateFn:
+                      'Math.min(forestAreaWithinProtectedAreas.forest_area_with_long_term_management_plan / extentOfForest.forestArea["2015"] * 100)',
                   },
                 },
                 {
@@ -1502,6 +1576,8 @@ export const sustainableDevelopment = {
                   colName: '2018',
                   migration: {
                     cycles: ['2020'],
+                    calculateFn:
+                      'Math.min(forestAreaWithinProtectedAreas.forest_area_with_long_term_management_plan / extentOfForest.forestArea["2015"] * 100)',
                   },
                 },
                 {
@@ -1510,27 +1586,40 @@ export const sustainableDevelopment = {
                   colName: '2019',
                   migration: {
                     cycles: ['2020'],
+                    calculateFn:
+                      'Math.min(forestAreaWithinProtectedAreas.forest_area_with_long_term_management_plan / extentOfForest.forestArea["2015"] * 100)',
                   },
                 },
                 {
                   idx: 7,
                   type: 'calculated',
                   colName: '2020',
+                  migration: {
+                    calculateFn:
+                      'Math.min(forestAreaWithinProtectedAreas.forest_area_with_long_term_management_plan / extentOfForest.forestArea["2015"] * 100)',
+                  },
                 },
-                ...['2021', '2022', '2023', '2024', '2025'].map((colName, idx) => ({
+                ...['2021', '2022', '2023', '2024'].map((colName, idx) => ({
                   idx: idx + 8,
                   type: 'decimal',
                   colName,
                   migration: {
                     cycles: ['2025'],
+                    calculateFn: interpolateLongTermPlan(idx),
                   },
                 })),
+                {
+                  idx: 12,
+                  type: 'decimal',
+                  colName: '2025',
+                  migration: {
+                    cycles: ['2025'],
+                    calculateFn:
+                      'Math.min(forestAreaWithinProtectedAreas.forest_area_with_long_term_management_plan / extentOfForest.forestArea["2015"] * 100)',
+                  },
+                },
               ],
               labelKey: 'sustainableDevelopment.proportionForestAreaLongTermForestManagement',
-              migration: {
-                calcFormula:
-                  'Math.min(forestAreaWithinProtectedAreas.forest_area_with_long_term_management_plan / extentOfForest.forestArea["2015"] * 100)',
-              },
             },
           ],
           tableDataRequired: [],
