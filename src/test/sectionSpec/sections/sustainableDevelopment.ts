@@ -973,7 +973,7 @@ export const sustainableDevelopment = {
                     calculateFn: 'biomassStockAvg.forest_above_ground',
                   },
                 },
-                ...['2021', '2022', '2023', '2024', '2025'].map((colName, idx) => ({
+                ...['2021', '2022', '2023', '2024'].map((colName, idx) => ({
                   idx: idx + 8,
                   type: 'decimal',
                   colName,
@@ -982,6 +982,15 @@ export const sustainableDevelopment = {
                     calculateFn: interpolateAboveGroundBiomass(idx),
                   },
                 })),
+                {
+                  idx: 12,
+                  type: 'calculated',
+                  colName: '2025',
+                  migration: {
+                    cycles: ['2025'],
+                    calculateFn: 'biomassStockAvg.forest_above_ground',
+                  },
+                },
               ],
               labelKey: 'sustainableDevelopment.aboveGroundBiomassStockForests',
             },
@@ -1285,7 +1294,7 @@ export const sustainableDevelopment = {
                 })),
                 {
                   idx: 13,
-                  type: 'decimal',
+                  type: 'calculated',
                   colName: '2025',
                   migration: {
                     cycles: ['2025'],
