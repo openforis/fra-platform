@@ -10,8 +10,7 @@ import { ODPs, OriginalDataPoint } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
-import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
-import { useODPYears } from '@client/store/pages/originalDataPoint/hooks'
+import { OriginalDataPointActions, useODPYears, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 import { useCountryIso } from '@client/hooks'
 
 type Props = {
