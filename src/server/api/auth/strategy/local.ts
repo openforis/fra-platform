@@ -4,7 +4,7 @@ import { PassportStatic } from 'passport'
 import { VerifiedCallback } from 'passport-jwt'
 import * as passportLocal from 'passport-local'
 
-import { AuthProvider, UserAuthProvider } from '@meta/user'
+import { AuthProvider } from '@meta/user'
 import { AuthProviderLocalProps } from '@meta/user/userAuth'
 
 import { passwordCompare, passwordHash } from '@server/api/auth/utils/passwordUtils'
@@ -27,18 +27,18 @@ const localStrategyVerifyCallback = async (req: Request, email: string, password
       if (invitationUuid) {
         const { user: invitedUser, userRole } = await UserController.findByInvitation({ invitationUuid })
 
-        const userProviders = (await UserProviderController.read({
+        const userProviders = await UserProviderController.read<AuthProviderLocalProps>({
           user: invitedUser,
           provider: AuthProvider.local,
-        })) as Array<UserAuthProvider<AuthProviderLocalProps>>
+        })
 
         let userProvider = !Objects.isEmpty(userProviders) ? userProviders[0] : null
 
         if (!userProvider) {
-          userProvider = (await UserProviderController.create({
+          userProvider = await UserProviderController.create<AuthProviderLocalProps>({
             user: invitedUser,
             provider: { provider: AuthProvider.local, props: { password: await passwordHash(password) } },
-          })) as UserAuthProvider<AuthProviderLocalProps>
+          })
         }
 
         const passwordMatch = await passwordCompare(password, userProvider.props.password)
@@ -63,10 +63,10 @@ const localStrategyVerifyCallback = async (req: Request, email: string, password
         const user = await UserController.getOne({ email })
 
         if (user) {
-          const userProviders = (await UserProviderController.read({
+          const userProviders = await UserProviderController.read<AuthProviderLocalProps>({
             user,
             provider: AuthProvider.local,
-          })) as Array<UserAuthProvider<AuthProviderLocalProps>>
+          })
 
           if (!Objects.isEmpty(userProviders)) {
             const [userProvider] = userProviders

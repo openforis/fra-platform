@@ -4,7 +4,7 @@ import * as GoogleStrategy from 'passport-google-oauth'
 import { Profile, VerifyFunction } from 'passport-google-oauth'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
-import { AuthProvider, UserAuthProvider } from '@meta/user'
+import { AuthProvider } from '@meta/user'
 import { AuthProviderGoogleProps } from '@meta/user/userAuth'
 
 import { AssessmentController } from '@server/controller/assessment'
@@ -30,10 +30,10 @@ const googleStrategyVerifyCallback = async (
     if (invitationUuid) {
       const { user: invitedUser, userRole } = await UserController.findByInvitation({ invitationUuid })
 
-      const userProviders = (await UserProviderController.read({
+      const userProviders = await UserProviderController.read<AuthProviderGoogleProps>({
         user: invitedUser,
         provider: AuthProvider.google,
-      })) as Array<UserAuthProvider<AuthProviderGoogleProps>>
+      })
 
       let userProvider = userProviders?.find((up) => up.props.email === email)
 
@@ -41,10 +41,10 @@ const googleStrategyVerifyCallback = async (
         const googleUser = await UserController.getOne({ emailGoogle: email })
 
         if (!googleUser) {
-          userProvider = (await UserProviderController.create({
+          userProvider = await UserProviderController.create<AuthProviderGoogleProps>({
             user: invitedUser,
             provider: { provider: AuthProvider.google, props: { email } },
-          })) as UserAuthProvider<AuthProviderGoogleProps>
+          })
         } else if (invitedUser.id !== googleUser.id) {
           done(null, false, { message: 'login.alreadyLinked' })
           return
