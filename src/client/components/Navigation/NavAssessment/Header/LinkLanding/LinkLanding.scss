@@ -1,9 +1,8 @@
 @import 'src/client/style/partials';
 
 .country-selection-link-landing {
-  @include mixin-nav-secondary-base(12px, true);
+  @include mixin-nav-secondary-base(8px, true);
 
-  height: 100%;
   width: $ui-app-navigation-width;
   border-right: $ui-thin-border;
   align-items: center;

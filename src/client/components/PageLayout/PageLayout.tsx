@@ -1,8 +1,8 @@
 import React from 'react'
 
-import CountrySelect from './CountrySelect'
 import Footer from './Footer'
 import Header from './Header'
+import Toolbar from './Toolbar'
 
 type Props = {
   children: JSX.Element
@@ -16,7 +16,7 @@ const PageLayout: React.FC<Props> = (props) => {
   return (
     <>
       {withHeader && <Header />}
-      {withToolbar && <CountrySelect />}
+      {withToolbar && <Toolbar />}
       {children}
       <Footer />
     </>

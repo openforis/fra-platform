@@ -6,9 +6,15 @@
   font-weight: inherit;
   color: inherit;
   outline: unset;
-  margin-right: $spacing-xxs;
-  margin-left: -$spacing-xxxs;
-}
-.cycle-switcher-locked {
-  margin-right: $spacing-s;
+  font-size: $font-xxl;
+
+  .popover-control__wrapper {
+    .app-header__menu-item {
+      padding: 20px 0px;
+    }
+
+    .popover-control__item {
+      font-size: $font-m;
+    }
+  }
 }
