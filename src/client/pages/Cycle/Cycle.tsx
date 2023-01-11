@@ -21,17 +21,15 @@ import User from '../User'
 import Introduction from './Introduction'
 import KeyFindings from './KeyFindings'
 
-const TopComponents: { [key: AssessmentName]: React.FC } = {
-  [AssessmentNames.fra]: Introduction,
+const Components: { [key: AssessmentName]: React.FC } = {
+  [AssessmentNames.fra]: () => (
+    <>
+      <Introduction />
+      <KeyFindings />
+      <Partners />
+    </>
+  ),
   [AssessmentNames.panEuropean]: Description,
-}
-const MidComponents: { [key: AssessmentName]: React.FC } = {
-  [AssessmentNames.fra]: KeyFindings,
-  [AssessmentNames.panEuropean]: () => <div />,
-}
-const BottomComponents: { [key: AssessmentName]: React.FC } = {
-  [AssessmentNames.fra]: Partners,
-  [AssessmentNames.panEuropean]: () => <div />,
 }
 
 const Cycle: React.FC = () => {
@@ -62,16 +60,7 @@ const Cycle: React.FC = () => {
   return (
     <PageLayout withHeader={!print} withToolbar={!isAdmin && !isLogin && !isUserEditPage}>
       <Routes>
-        <Route
-          path=""
-          element={
-            <>
-              <AssessmentSwitch components={TopComponents} />
-              <AssessmentSwitch components={MidComponents} />
-              <AssessmentSwitch components={BottomComponents} />
-            </>
-          }
-        />
+        <Route path="" element={<AssessmentSwitch components={Components} />} />
         <Route path={`${ClientRoutes.Assessment.Cycle.Admin.Root.path.relative}/*`} element={<Admin />} />
         <Route path={`${ClientRoutes.Assessment.Cycle.Country.Landing.path.relative}/*`} element={<Country />} />
         <Route path={`${ClientRoutes.Assessment.Cycle.Login.Root.path.relative}/*`} element={<Login />} />

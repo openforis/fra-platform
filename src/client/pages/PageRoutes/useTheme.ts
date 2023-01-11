@@ -28,5 +28,5 @@ export const useTheme = () => {
     Object.entries(theme).forEach(([key, value]) => {
       document.documentElement.style.setProperty(key, value)
     })
-  }, [assessment, assessment.props?.name])
+  }, [assessment])
 }
