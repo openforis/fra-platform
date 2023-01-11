@@ -1,9 +1,7 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 
 import { AssessmentNames } from '@meta/assessment'
-
-import { useAssessment } from '@client/store/assessment'
-import { useIsAssessment } from '@client/hooks'
 
 type Props = {
   components: Record<string, React.FC<{ query?: string }>>
@@ -16,11 +14,10 @@ const Placeholder: React.FC<{ query?: string }> = () => {
 }
 
 const AssessmentSwitch: React.FC<Props> = (props) => {
-  const isAssessment = useIsAssessment()
-  const assessment = useAssessment()
+  const { assessmentName } = useParams()
 
   const { components, defaultKey, ...otherProps } = props
-  const key = isAssessment ? assessment?.props?.name : defaultKey
+  const key = assessmentName ?? defaultKey
 
   const Component = components[key] ?? Placeholder
   return React.createElement(Component, otherProps)
