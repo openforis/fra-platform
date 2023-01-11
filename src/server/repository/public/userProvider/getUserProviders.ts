@@ -10,7 +10,7 @@ export const getUserProviders = async (
 
   return client.map<AuthProvider>(
     `
-        select provider from public.users_auth_provider where user_id = $1;
+        select distinct(provider) from public.users_auth_provider where user_id = $1;
     `,
     [user.id],
     (row) => row.provider
