@@ -1,0 +1,71 @@
+@import 'src/client/style/partials';
+
+.geo-map-menu-list-element {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-weight: bold;
+  padding: 6px 0 4px;
+}
+
+.geo-map-menu-list-element-bottom {
+  flex-basis: 100%;
+  flex-wrap: wrap;
+  width: 100%;
+  border-bottom: 1px solid $ui-border;
+}
+
+.geo-map-menu-list-element-checkbox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  > .fra-checkbox {
+    margin: 0 10px 0 5px;
+    cursor: pointer;
+  }
+}
+
+// checkbox background colours
+.jaxa > .checked {
+  background-color: #800080;
+}
+
+.tandemx > .checked {
+  background-color: #008000;
+}
+
+.esaglobcover > .checked {
+  background-color: #ff0000;
+}
+
+.globeland > .checked {
+  background-color: #0000ff;
+}
+
+.copernicus > .checked {
+  background-color: #ffff00;
+}
+
+.esri > .checked {
+  background-color: #ff7f50;
+}
+
+.esaworldcover > .checked {
+  background-color: #00ffff;
+}
+
+.hansen > .checked {
+  background-color: #00ff00;
+}
+
+.geo-map-menu-list-element-header {
+  font-size: $font-xl;
+  margin: 0 0 0 5px;
+}
+
+.geo-map-menu-item-header-icon-expand {
+  margin: 0 0 0 auto;
+  padding: 5px 10px 5px 10px;
+  cursor: pointer;
+}
