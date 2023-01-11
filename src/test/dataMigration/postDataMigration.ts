@@ -12,7 +12,6 @@ import { migrateDescriptions } from '@test/dataMigration/steps/migrateDescriptio
 import { migrateMessageBoard } from '@test/dataMigration/steps/migrateMessageBoard'
 import { migratePrimaryForestData } from '@test/dataMigration/steps/migratePrimaryForestData'
 import { postMetadataFix } from '@test/dataMigration/steps/postMetadataFix/postMetadataFix'
-import { interpolateForestAreaProportion2005 } from '@test/dataMigration/steps/sdg/interpolateForestAreaProportion2005'
 import { updateCalculatedNodes } from '@test/dataMigration/steps/updateCalculatedNodes/updateCalculatedNodes'
 import { validateNodes } from '@test/dataMigration/steps/validateNodes/validateNodes'
 
@@ -49,7 +48,6 @@ describe('Post Data migration', () => {
       await postMetadataFix({ assessment }, client)
       await deleteInvalid2025Nodes({ assessment }, client)
       await deleteAtlantisData({ assessment }, client)
-      await interpolateForestAreaProportion2005({ assessment }, client)
     })
 
     const end = new Date().getTime()
