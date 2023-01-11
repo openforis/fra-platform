@@ -11,12 +11,11 @@ export const read = async (
 ): Promise<Array<UserAuthProvider<AuthProviderGoogleProps | AuthProviderLocalProps>>> => {
   const { user, provider } = props
 
-  return client
-    .manyOrNone<UserAuthProvider<AuthProviderGoogleProps | AuthProviderLocalProps>>(
-      `
+  return client.map<UserAuthProvider<AuthProviderGoogleProps | AuthProviderLocalProps>>(
+    `
         select * from public.users_auth_provider where user_id = $1 and provider = $2;
     `,
-      [user.id, provider]
-    )
-    .then(Objects.camelize)
+    [user.id, provider],
+    (row) => Objects.camelize(row)
+  )
 }
