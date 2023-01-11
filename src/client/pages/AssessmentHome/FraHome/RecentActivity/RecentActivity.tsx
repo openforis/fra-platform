@@ -43,7 +43,7 @@ const RecentActivity: React.FC = () => {
           <p>{i18n.t('landing.recentActivity.noRecentActivityBody')}</p>
           <Link
             className="btn-s btn-primary"
-            to={ClientRoutes.Assessment.Root.getLink({
+            to={ClientRoutes.Assessment.Cycle.Country.Landing.getLink({
               countryIso,
               assessmentName: assessment.props.name,
               cycleName: cycle.name,

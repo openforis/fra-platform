@@ -15,6 +15,10 @@ export const ApiEndPoint = {
     areas: () => apiPath('area', 'areas'),
   },
 
+  Assessment: {
+    one: () => apiPath('assessment'),
+  },
+
   Auth: {
     changePassword: () => apiPath('auth', 'change-password'),
     google: () => apiPath('auth', 'google'),
@@ -72,10 +76,6 @@ export const ApiEndPoint = {
     topicMessage: () => apiPath('message-center', 'topic', 'message'),
     topicResolve: () => apiPath('message-center', 'topic', 'resolve'),
     topicUnreadMessages: () => apiPath('message-center', 'topic', 'unread-messages'),
-  },
-
-  Sections: {
-    metadata: () => apiPath('section', 'metadata'),
   },
 
   User: {

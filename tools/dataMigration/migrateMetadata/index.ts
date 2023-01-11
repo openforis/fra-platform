@@ -125,10 +125,10 @@ export const migrateMetadata = async (props: Props): Promise<void> => {
                             ].includes(col.props.colType)
                           ) {
                             const columnMapping = mapping.columns[colIdx]
-                            col.props.colName = columnMapping.name
+                            col.props.colName = columnMapping?.name
                             colIdx += 1
                           }
-                          if (col.forceColName) col.props.colName = colNameOrig
+                          if (col.forceColName || !col.props.colName) col.props.colName = colNameOrig
 
                           const colInsert = {
                             id: (colId += 1),

@@ -2,16 +2,19 @@ import { useMatch, useParams } from 'react-router-dom'
 
 import { CountryIso } from '@meta/area'
 
-import { useIsHome, useIsLogin } from '@client/hooks/useIsPath'
+import { useIsAdmin, useIsCycleLanding, useIsLogin, useIsUserEditPage } from '@client/hooks/useIsPath'
 
 export const useCountryIso = (): CountryIso => {
   const { countryIso } = useParams<{ countryIso: CountryIso }>()
-  const match = useMatch(':countryIso/*')
 
+  const match = useMatch('assessments/:assessmentName/:cycleName/:countryIso/*')
+
+  const isAdmin = useIsAdmin()
   const isLogin = useIsLogin()
-  const isHome = useIsHome()
+  const isHome = useIsCycleLanding()
+  const isUserEditPage = useIsUserEditPage()
 
-  if (isHome || isLogin) return null
+  if (isAdmin || isHome || isLogin || isUserEditPage) return null
 
-  return countryIso ?? (match.params.countryIso as CountryIso)
+  return countryIso ?? (match?.params.countryIso as CountryIso) ?? null
 }

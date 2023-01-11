@@ -1,512 +1,209 @@
-import { EstimationEngine } from './estimationEngine'
+import { dataset1, dataset1Expected } from '@server/service/estimates/datasets/dataset1'
+import { dataset2, dataset2Expected } from '@server/service/estimates/datasets/dataset2'
+import { dataset3, dataset3Expected } from '@server/service/estimates/datasets/dataset3'
+import { dataset4, dataset4Expected } from '@server/service/estimates/datasets/dataset4'
+import { dataset5, dataset5Expected } from '@server/service/estimates/datasets/dataset5'
+import { dataset6, dataset6Expected } from '@server/service/estimates/datasets/dataset6'
+
+import { EstimationEngine, GenerateSpecMethod } from './estimationEngine'
 
 const years = [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020, 2025]
 
-const mockOriginalDataPointSet1 = {
-  FIN: {
-    originalDataPointValue: {
-      '1991': {
-        forestArea: {
-          odp: true,
-          raw: '40000',
-        },
-        otherWoodedLand: {
-          odp: true,
-          raw: '2000',
-        },
-      },
-      '2018': {
-        forestArea: {
-          odp: true,
-          raw: '80000.00000000000000000000',
-        },
-        otherWoodedLand: {
-          odp: true,
-          raw: '29000.00000000000000000000',
-        },
-      },
-    },
-  },
-}
+const _defaultFields = ['forestArea', 'otherWoodedLand']
+const _defaultTableName = 'extentOfForest'
 
-const mockOriginalDataPointSet2 = {
-  FIN: {
-    originalDataPointValue: {
-      '2009': {
-        forestArea: {
-          odp: true,
-          raw: '500',
-        },
-        otherWoodedLand: {
-          odp: true,
-          raw: '300',
-        },
-      },
-      '2018': {
-        forestArea: {
-          odp: true,
-          raw: '480.00000000000000000000',
-        },
-        otherWoodedLand: {
-          odp: true,
-          raw: '344.00000000000000000000',
-        },
-      },
+const _estimateWithDefaults = (
+  dataset: any,
+  method: GenerateSpecMethod,
+  changeRates: Record<string, { rateFuture: number; ratePast: number }> = undefined
+) => {
+  return EstimationEngine.estimateValues(
+    years,
+    dataset,
+    {
+      method,
+      changeRates,
+      fields: _defaultFields,
     },
-  },
+    _defaultTableName
+  )
 }
 
 describe('Estimation Engine test:', () => {
-  test('Interpolates and extrapolates linearly', () => {
-    const estimated = EstimationEngine.estimateValues(
-      years,
-      mockOriginalDataPointSet1,
-      {
-        method: 'linear',
-        fields: ['forestArea', 'otherWoodedLand'],
-      },
-      'extentOfForest'
-    )
-
-    const expected = [
-      {
-        colName: '1990',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '38518.52' },
-        variableName: 'forestArea',
-      },
-      {
-        colName: '1990',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '1000.00' },
-        variableName: 'otherWoodedLand',
-      },
-      {
-        colName: '2000',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '53333.33' },
-        variableName: 'forestArea',
-      },
-      {
-        colName: '2000',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '11000.00' },
-        variableName: 'otherWoodedLand',
-      },
-      {
-        colName: '2010',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '68148.15' },
-        variableName: 'forestArea',
-      },
-      {
-        colName: '2010',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '21000.00' },
-        variableName: 'otherWoodedLand',
-      },
-      {
-        colName: '2015',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '75555.56' },
-        variableName: 'forestArea',
-      },
-      {
-        colName: '2015',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '26000.00' },
-        variableName: 'otherWoodedLand',
-      },
-      {
-        colName: '2016',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '77037.04' },
-        variableName: 'forestArea',
-      },
-      {
-        colName: '2016',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '27000.00' },
-        variableName: 'otherWoodedLand',
-      },
-      {
-        colName: '2017',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '78518.52' },
-        variableName: 'forestArea',
-      },
-      {
-        colName: '2017',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '28000.00' },
-        variableName: 'otherWoodedLand',
-      },
-      {
-        colName: '2018',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '80000.00' },
-        variableName: 'forestArea',
-      },
-      {
-        colName: '2018',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '29000.00' },
-        variableName: 'otherWoodedLand',
-      },
-      {
-        colName: '2019',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '81481.48' },
-        variableName: 'forestArea',
-      },
-      {
-        colName: '2019',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '30000.00' },
-        variableName: 'otherWoodedLand',
-      },
-      {
-        colName: '2020',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '82962.96' },
-        variableName: 'forestArea',
-      },
-      {
-        colName: '2020',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '31000.00' },
-        variableName: 'otherWoodedLand',
-      },
-      {
-        colName: '2025',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '90370.36' },
-        variableName: 'forestArea',
-      },
-      {
-        colName: '2025',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '36000.00' },
-        variableName: 'otherWoodedLand',
-      },
-    ]
-
-    expect(estimated).toStrictEqual(expected)
-  })
-
-  test('Extrapolates with repeat last value', () => {
-    const estimated = EstimationEngine.estimateValues(
-      years,
-      mockOriginalDataPointSet2,
-      {
-        method: 'repeatLast',
-        fields: ['forestArea', 'otherWoodedLand'],
-      },
-      'extentOfForest'
-    )
-
-    const expected = [
-      {
-        colName: '1990',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '500.00' },
-        variableName: 'forestArea',
-      },
-      {
-        colName: '1990',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '300.00' },
-        variableName: 'otherWoodedLand',
-      },
-      {
-        colName: '2000',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '500.00' },
-        variableName: 'forestArea',
-      },
-      {
-        colName: '2000',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '300.00' },
-        variableName: 'otherWoodedLand',
-      },
-      {
-        colName: '2010',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '497.78' },
-        variableName: 'forestArea',
-      },
-      {
-        colName: '2010',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '304.89' },
-        variableName: 'otherWoodedLand',
-      },
-      {
-        colName: '2015',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '486.67' },
-        variableName: 'forestArea',
-      },
-      {
-        colName: '2015',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '329.33' },
-        variableName: 'otherWoodedLand',
-      },
-      {
-        colName: '2016',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '484.45' },
-        variableName: 'forestArea',
-      },
-      {
-        colName: '2016',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '334.22' },
-        variableName: 'otherWoodedLand',
-      },
-      {
-        colName: '2017',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '482.23' },
-        variableName: 'forestArea',
-      },
-      {
-        colName: '2017',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '339.11' },
-        variableName: 'otherWoodedLand',
-      },
-      {
-        colName: '2018',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '480.00' },
-        variableName: 'forestArea',
-      },
-      {
-        colName: '2018',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '344.00' },
-        variableName: 'otherWoodedLand',
-      },
-      {
-        colName: '2019',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '480.00' },
-        variableName: 'forestArea',
-      },
-      {
-        colName: '2019',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '344.00' },
-        variableName: 'otherWoodedLand',
-      },
-      {
-        colName: '2020',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '480.00' },
-        variableName: 'forestArea',
-      },
-      {
-        colName: '2020',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '344.00' },
-        variableName: 'otherWoodedLand',
-      },
-      {
-        colName: '2025',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '480.00' },
-        variableName: 'forestArea',
-      },
-      {
-        colName: '2025',
-
-        tableName: 'extentOfForest',
-        value: { estimated: true, raw: '344.00' },
-        variableName: 'otherWoodedLand',
-      },
-    ]
-
-    expect(estimated).toStrictEqual(expected)
-  })
-
-  test('Extrapolates with annual change rate', () => {
-    const estimated = EstimationEngine.estimateValues(
-      years,
-      mockOriginalDataPointSet2,
-      {
-        method: 'annualChange',
-        changeRates: {
-          forestArea: { ratePast: -10, rateFuture: 20 },
-          otherWoodedLand: { ratePast: -5, rateFuture: 10 },
+  describe('dataset1:', () => {
+    test('Interpolates and extrapolates linearly', () => {
+      const estimated = EstimationEngine.estimateValues(
+        years,
+        dataset1,
+        {
+          method: 'linear',
+          fields: ['forestArea', 'otherWoodedLand'],
         },
-        fields: ['forestArea', 'otherWoodedLand'],
-      },
-      'extentOfForest'
-    )
-    const expected = [
-      {
-        colName: '1990',
-        tableName: 'extentOfForest',
-        variableName: 'forestArea',
-        value: { raw: '690.00', estimated: true },
-      },
-      {
-        colName: '1990',
-        tableName: 'extentOfForest',
-        variableName: 'otherWoodedLand',
-        value: { raw: '395.00', estimated: true },
-      },
-      {
-        colName: '2000',
-        tableName: 'extentOfForest',
-        variableName: 'forestArea',
-        value: { raw: '590.00', estimated: true },
-      },
-      {
-        colName: '2000',
-        tableName: 'extentOfForest',
-        variableName: 'otherWoodedLand',
-        value: { raw: '345.00', estimated: true },
-      },
-      {
-        colName: '2010',
-        tableName: 'extentOfForest',
-        variableName: 'forestArea',
-        value: { raw: '497.78', estimated: true },
-      },
-      {
-        colName: '2010',
-        tableName: 'extentOfForest',
-        variableName: 'otherWoodedLand',
-        value: { raw: '304.89', estimated: true },
-      },
-      {
-        colName: '2015',
-        tableName: 'extentOfForest',
-        variableName: 'forestArea',
-        value: { raw: '486.67', estimated: true },
-      },
-      {
-        colName: '2015',
-        tableName: 'extentOfForest',
-        variableName: 'otherWoodedLand',
-        value: { raw: '329.33', estimated: true },
-      },
-      {
-        colName: '2016',
-        tableName: 'extentOfForest',
-        variableName: 'forestArea',
-        value: { raw: '484.45', estimated: true },
-      },
-      {
-        colName: '2016',
-        tableName: 'extentOfForest',
-        variableName: 'otherWoodedLand',
-        value: { raw: '334.22', estimated: true },
-      },
-      {
-        colName: '2017',
-        tableName: 'extentOfForest',
-        variableName: 'forestArea',
-        value: { raw: '482.23', estimated: true },
-      },
-      {
-        colName: '2017',
-        tableName: 'extentOfForest',
-        variableName: 'otherWoodedLand',
-        value: { raw: '339.11', estimated: true },
-      },
-      {
-        colName: '2018',
-        tableName: 'extentOfForest',
-        variableName: 'forestArea',
-        value: { raw: '480.00', estimated: true },
-      },
-      {
-        colName: '2018',
-        tableName: 'extentOfForest',
-        variableName: 'otherWoodedLand',
-        value: { raw: '344.00', estimated: true },
-      },
-      {
-        colName: '2019',
-        tableName: 'extentOfForest',
-        variableName: 'forestArea',
-        value: { raw: '500.00', estimated: true },
-      },
-      {
-        colName: '2019',
-        tableName: 'extentOfForest',
-        variableName: 'otherWoodedLand',
-        value: { raw: '354.00', estimated: true },
-      },
-      {
-        colName: '2020',
-        tableName: 'extentOfForest',
-        variableName: 'forestArea',
-        value: { raw: '520.00', estimated: true },
-      },
-      {
-        colName: '2020',
-        tableName: 'extentOfForest',
-        variableName: 'otherWoodedLand',
-        value: { raw: '364.00', estimated: true },
-      },
-      {
-        colName: '2025',
-        tableName: 'extentOfForest',
-        variableName: 'forestArea',
-        value: { raw: '620.00', estimated: true },
-      },
-      {
-        colName: '2025',
-        tableName: 'extentOfForest',
-        variableName: 'otherWoodedLand',
-        value: { raw: '414.00', estimated: true },
-      },
-    ]
-    expect(estimated).toStrictEqual(expected)
+        'extentOfForest'
+      )
+
+      const expected = dataset1Expected['Interpolates and extrapolates linearly']
+
+      expect(estimated).toStrictEqual(expected)
+    })
+  })
+  describe('dataset2:', () => {
+    test('Extrapolates with repeat last value', () => {
+      const estimated = EstimationEngine.estimateValues(
+        years,
+        dataset2,
+        {
+          method: 'repeatLast',
+          fields: ['forestArea', 'otherWoodedLand'],
+        },
+        'extentOfForest'
+      )
+
+      const expected = dataset2Expected['Extrapolates with repeat last value']
+
+      expect(estimated).toStrictEqual(expected)
+    })
+    test('Extrapolates with annual change rate', () => {
+      const estimated = EstimationEngine.estimateValues(
+        years,
+        dataset2,
+        {
+          method: 'annualChange',
+          changeRates: {
+            forestArea: { ratePast: -10, rateFuture: 20 },
+            otherWoodedLand: { ratePast: -5, rateFuture: 10 },
+          },
+          fields: ['forestArea', 'otherWoodedLand'],
+        },
+        'extentOfForest'
+      )
+      const expected = dataset2Expected['Extrapolates with annual change rate']
+      expect(estimated).toStrictEqual(expected)
+    })
+  })
+
+  describe('dataset3:', () => {
+    test('Linear - {1992, 2002}', () => {
+      const estimated = _estimateWithDefaults(dataset3, 'linear')
+
+      const expected = dataset3Expected['Linear - {1992, 2002}']
+
+      expect(estimated).toStrictEqual(expected)
+    })
+    test('Repeat last - {1992, 2002}', () => {
+      const estimated = _estimateWithDefaults(dataset3, 'repeatLast')
+
+      const expected = dataset3Expected['Repeat last - {1992, 2002}']
+
+      expect(estimated).toStrictEqual(expected)
+    })
+  })
+  describe('dataset4:', () => {
+    test('2 - Repeat last - {1992, 2016}', () => {
+      const estimated = _estimateWithDefaults(dataset4, 'repeatLast')
+
+      const expected = dataset4Expected['Repeat last - {1992, 2016}']
+
+      expect(estimated).toStrictEqual(expected)
+    })
+    test('2 - Linear - {1992, 2016}', () => {
+      const estimated = _estimateWithDefaults(dataset4, 'linear')
+
+      const expected = dataset4Expected['Linear - {1992, 2016}']
+
+      expect(estimated).toStrictEqual(expected)
+    })
+  })
+  describe('dataset5:', () => {
+    test('Linear - {1992, 2016}', () => {
+      const estimated = _estimateWithDefaults(dataset5, 'linear')
+
+      const expected = dataset5Expected['Linear - {1992, 2016}']
+
+      expect(estimated).toStrictEqual(expected)
+    })
+    test('Repeat Last - {1992, 2016}', () => {
+      const estimated = _estimateWithDefaults(dataset5, 'repeatLast')
+
+      const expected = dataset5Expected['Repeat Last - {1992, 2016}']
+
+      expect(estimated).toStrictEqual(expected)
+    })
+    test('Annual Change - {1992, 2016}', () => {
+      const estimated = _estimateWithDefaults(dataset5, 'annualChange', {
+        forestArea: { ratePast: 200, rateFuture: 300 },
+        otherWoodedLand: { ratePast: 300, rateFuture: 500 },
+      })
+
+      const expected = dataset5Expected['Annual Change - {1992, 2016}']
+
+      expect(estimated).toStrictEqual(expected)
+    })
+    test('Annual Change - {1992, 2016, negative values ratePast}', () => {
+      const estimated = _estimateWithDefaults(dataset5, 'annualChange', {
+        forestArea: { ratePast: -200, rateFuture: 300 },
+        otherWoodedLand: { ratePast: -300, rateFuture: 500 },
+      })
+
+      const expected = dataset5Expected['Annual Change - {1992, 2016, negative values ratePast}']
+
+      expect(estimated).toStrictEqual(expected)
+    })
+    test('Annual Change - {1992, 2016, negative values ratePast and rateFuture}', () => {
+      const estimated = _estimateWithDefaults(dataset5, 'annualChange', {
+        forestArea: { ratePast: -1500, rateFuture: -3560 },
+        otherWoodedLand: { ratePast: 501, rateFuture: -960 },
+      })
+
+      const expected = dataset5Expected['Annual Change - {1992, 2016, negative values ratePast and rateFuture}']
+
+      expect(estimated).toStrictEqual(expected)
+    })
+  })
+  describe('dataset6:', () => {
+    test('Linear - {1992, 2016}', () => {
+      const estimated = _estimateWithDefaults(dataset6, 'linear')
+      const expected = dataset6Expected['Linear - {1992, 2016}']
+
+      expect(estimated).toStrictEqual(expected)
+    })
+    test('Repeat last - {1992, 2016}', () => {
+      const estimated = _estimateWithDefaults(dataset6, 'repeatLast')
+      const expected = dataset6Expected['Repeat last - {1992, 2016}']
+
+      expect(estimated).toStrictEqual(expected)
+    })
+    test('Annual Change - {1992, 2016}', () => {
+      const estimated = _estimateWithDefaults(dataset6, 'annualChange', {
+        forestArea: {
+          ratePast: -1150,
+          rateFuture: 2200,
+        },
+        otherWoodedLand: {
+          ratePast: 2345,
+          rateFuture: -1500,
+        },
+      })
+
+      const expected = dataset6Expected['Annual Change - {1992, 2016}']
+
+      expect(estimated).toStrictEqual(expected)
+    })
+    test('Annual Change - {1992, 2016} - 2', () => {
+      const estimated = _estimateWithDefaults(dataset6, 'annualChange', {
+        forestArea: {
+          ratePast: 2500,
+          rateFuture: -4500,
+        },
+        otherWoodedLand: {
+          ratePast: -8900,
+          rateFuture: 5890,
+        },
+      })
+
+      const expected = dataset6Expected['Annual Change - {1992, 2016} - 2']
+
+      expect(estimated).toStrictEqual(expected)
+    })
   })
 })

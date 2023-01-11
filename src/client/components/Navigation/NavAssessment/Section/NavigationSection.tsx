@@ -47,7 +47,7 @@ const NavigationSection: React.FC<Props> = (props) => {
   // // On mount check whether the location matches a child path
   useEffect(() => {
     const match = section.subSections.find((subsection) => {
-      const path = ClientRoutes.Assessment.Section.getLink({
+      const path = ClientRoutes.Assessment.Cycle.Country.Section.getLink({
         countryIso,
         cycleName: cycle.name,
         assessmentName,

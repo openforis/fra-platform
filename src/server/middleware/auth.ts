@@ -9,6 +9,7 @@ import { AreaController } from '@server/controller/area'
 import { AssessmentController } from '@server/controller/assessment'
 import { MessageCenterController } from '@server/controller/messageCenter'
 import { MetadataController } from '@server/controller/metadata'
+import { tryCatch } from '@server/middleware/tryCatch'
 import { Requests } from '@server/utils'
 
 const _next = (allowed: boolean, next: NextFunction): void => {
@@ -16,8 +17,22 @@ const _next = (allowed: boolean, next: NextFunction): void => {
   return next(new Error(`userNotAuthorized`))
 }
 
-const requireEdit = async (req: Request, next: NextFunction) => {
-  const { countryIso, assessmentName, cycleName, sectionName, permission } = {
+const requireEditCountryProps = async (req: Request, _res: Response, next: NextFunction) => {
+  const { assessmentName, countryIso, cycleName } = {
+    ...req.params,
+    ...req.query,
+    ...req.body,
+  } as CycleDataParams
+  const user = Requests.getUser(req)
+
+  const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+  const country = await AreaController.getCountry({ countryIso, assessment, cycle })
+
+  _next(Authorizer.canEditCountryProps({ country, cycle, user }), next)
+}
+
+const requireEditData = async (req: Request, next: NextFunction) => {
+  const { assessmentName, countryIso, cycleName, permission, sectionName } = {
     ...req.params,
     ...req.query,
     ...req.body,
@@ -25,22 +40,22 @@ const requireEdit = async (req: Request, next: NextFunction) => {
   const user = Requests.getUser(req)
 
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-  const section = await MetadataController.getSection({ assessment, cycle, sectionName })
   const country = await AreaController.getCountry({ countryIso, assessment, cycle })
+  const section = await MetadataController.getSection({ assessment, cycle, sectionName })
 
-  _next(Authorizer.canEdit({ user, section, countryIso, country, cycle, permission }), next)
+  _next(Authorizer.canEditData({ country, cycle, permission, section, user }), next)
 }
 
 const requireEditDescriptions = async (req: Request, _res: Response, next: NextFunction) => {
   const _req = req
   _req.body.permission = CollaboratorEditPropertyType.descriptions
-  return requireEdit(_req, next)
+  return requireEditData(_req, next)
 }
 
 const requireEditTableData = async (req: Request, _res: Response, next: NextFunction) => {
   const _req = req
   _req.body.permission = CollaboratorEditPropertyType.tableData
-  return requireEdit(_req, next)
+  return requireEditData(_req, next)
 }
 
 const requireView = async (req: Request, _res: Response, next: NextFunction) => {
@@ -176,14 +191,15 @@ const requireEditAssessmentFile = async (req: Request, _res: Response, next: Nex
 }
 
 export const AuthMiddleware = {
-  requireEditDescriptions,
-  requireEditTableData,
-  requireView,
-  requireAdmin,
-  requireDeleteTopicMessage,
-  requireResolveTopic,
-  requireEditMessageTopic,
-  requireEditUser,
-  requireViewUsers,
-  requireEditAssessmentFile,
+  requireEditCountryProps: tryCatch(requireEditCountryProps),
+  requireEditDescriptions: tryCatch(requireEditDescriptions),
+  requireEditTableData: tryCatch(requireEditTableData),
+  requireView: tryCatch(requireView),
+  requireAdmin: tryCatch(requireAdmin),
+  requireDeleteTopicMessage: tryCatch(requireDeleteTopicMessage),
+  requireResolveTopic: tryCatch(requireResolveTopic),
+  requireEditMessageTopic: tryCatch(requireEditMessageTopic),
+  requireEditUser: tryCatch(requireEditUser),
+  requireViewUsers: tryCatch(requireViewUsers),
+  requireEditAssessmentFile: tryCatch(requireEditAssessmentFile),
 }

@@ -67,6 +67,7 @@ followed by the boreal, temperate and subtropical domains.`,
     userGuide: 'User guide',
     sendFeedback: 'Send feedback',
     licenses: 'Licenses',
+    platformVersion: 'Platform version',
   },
 
   unit: {
@@ -147,7 +148,7 @@ We have received a request to reset your password for your FRA account.
 If you didn't make this request, you can safely ignore this email.
 
 Click the following link to reset your password
-{{- link}}}
+{{- link}}
 
 
 Thanks,
@@ -180,6 +181,7 @@ The FRA team fra@fao.org
     naturallyRegeneratingForest: 'Naturally regenerating forest',
     plantationForest: 'Plantation forest',
     ofWhichIntroduced: '…of which introduced',
+    ofWhichPrimaryForest: '$t(fra.forestCharacteristics.primaryForest)',
     otherPlantedForest: 'Other planted forest',
     totalForest: 'Total forest',
   },
@@ -471,6 +473,7 @@ The FRA team
     nationalData: 'National data',
     reclassificationLabel: 'Original data and reclassification',
     forestCategoriesLabel: 'Forest, other wooded land and other land',
+    forestCategoriesLabel2025: 'Forest, other wooded land and remaining land',
     referenceYearData: 'Reference year for the data',
     referenceYear: 'Reference year',
     references: 'References',
@@ -482,11 +485,13 @@ The FRA team
     additionalComments: 'Additional comments',
     edit: 'Edit',
     copyPreviousValues: 'Copy previous values',
+    nationalClassifications: 'National classifications',
     nationalClass: 'National class',
     nationalClasses: 'Classifications and definitions',
     definition: 'Definition',
-    fraClasses: 'FRA classes',
+    categories: 'Categories',
     class: 'Class',
+    fraClasses: 'FRA classes',
     area: 'Area (1000 ha)',
     total: 'Total',
     delete: 'Delete',
@@ -645,6 +650,7 @@ The FRA team fra@fao.org
   tableWithOdp: {
     confirmGenerateFraValues: 'Override existing values?',
     generateFraValues: 'Generate values',
+    generatingFraValues: 'Generating...',
     linearExtrapolation: 'Linear',
     repeatLastExtrapolation: 'Repeat last',
     annualChangeExtrapolation: 'Annual change',
@@ -835,13 +841,8 @@ The FRA team fra@fao.org
     totalLandAreaAffectedByFire: 'Total land area affected by fire',
     ofWhichForest: '…of which on forest',
   },
-
   degradedForest: {
     degradedForest: 'Degraded forest',
-    doesYourCountryMonitor: 'Does your country monitor area of degraded forest',
-    ifYes: 'If "yes"',
-    whatIsDefinition: 'What is the national definition of "Degraded forest"?',
-    howMonitored: 'Describe the monitoring process and results',
   },
 
   forestPolicy: {

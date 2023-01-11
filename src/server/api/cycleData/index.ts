@@ -1,4 +1,6 @@
 import { Express } from 'express'
+// @ts-ignore
+import * as queue from 'express-queue'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 
@@ -25,7 +27,12 @@ export const CycleDataApi = {
     // Table
     express.get(ApiEndPoint.CycleData.Table.tableData(), AuthMiddleware.requireView, getTableData)
     express.patch(ApiEndPoint.CycleData.Table.nodes(), AuthMiddleware.requireEditTableData, persistNodeValues)
-    express.post(ApiEndPoint.CycleData.Table.estimate(), AuthMiddleware.requireEditTableData, postEstimation)
+    express.post(
+      ApiEndPoint.CycleData.Table.estimate(),
+      queue({ activeLimit: 1 }),
+      AuthMiddleware.requireEditTableData,
+      postEstimation
+    )
 
     // Descriptions
     express.get(ApiEndPoint.CycleData.descriptions(), AuthMiddleware.requireView, getDescription)

@@ -15,8 +15,8 @@ const Login: React.FC = () => {
     <>
       <div className="login">
         <Routes>
-          <Route path={ClientRoutes.Login.Invitation.path.relative} element={<Invitation />} />
-          <Route path={ClientRoutes.Login.ResetPassword.path.relative} element={<ResetPassword />} />
+          <Route path={ClientRoutes.Assessment.Cycle.Login.Invitation.path.relative} element={<Invitation />} />
+          <Route path={ClientRoutes.Assessment.Cycle.Login.ResetPassword.path.relative} element={<ResetPassword />} />
           <Route path="*" element={<LoginForm />} />
         </Routes>
 

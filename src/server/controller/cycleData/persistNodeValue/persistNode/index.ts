@@ -1,1 +1,0 @@
-export { persistNode } from './persistNode'

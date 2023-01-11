@@ -2,17 +2,17 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Numbers } from '@utils/numbers'
+import classNames from 'classnames'
 
-import { ODPNationalClass } from '@meta/assessment'
+import { ODPNationalClass, ODPs } from '@meta/assessment'
 
-// import { useCountryIso } from '@client/hooks'
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 import PercentInput from '@client/components/PercentInput'
 import ReviewIndicator from '@client/components/ReviewIndicator'
 
-import { useNationalClassNameComments, useNationalClassValidation } from '../../hooks'
+import { useNationalClassNameComments } from '../../hooks'
 
 const columns = [{ name: 'forestPlantationIntroducedPercent', type: 'decimal' }]
 
@@ -39,8 +39,7 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
   const { name, area, forestPercent, forestPlantationPercent, forestPlantationIntroducedPercent, uuid } = nationalClass
   const target = [id, 'class', `${uuid}`, 'plantation_forest_introduced'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
-  const validationStatus = useNationalClassValidation(index)
-  const classNamePercentageValidation = validationStatus.validPlantationIntroducedPercentage === false ? 'error' : ''
+  const nationalClassValidation = ODPs.validateNationalClass(originalDataPoint, index)
   const plantationIntroduced = area
     ? Numbers.mul(area, Numbers.div(Numbers.mul(forestPlantationPercent, forestPercent), 10000))
     : null
@@ -57,7 +56,11 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
     <tr className={classNameRowComments}>
       <th className="fra-table__category-cell">{name}</th>
       <th className="fra-table__calculated-sub-cell fra-table__divider">{Numbers.format(plantationIntroduced)}</th>
-      <td className={`fra-table__cell ${classNamePercentageValidation}`}>
+      <td
+        className={classNames('fra-table__cell', {
+          error: !nationalClassValidation.validForestPlantationIntroducedPercent,
+        })}
+      >
         <PercentInput
           disabled={!canEditData || isZeroOrNullPlantationIntroduced}
           numberValue={isZeroOrNullPlantationIntroduced ? 0 : forestPlantationIntroducedPercent}
