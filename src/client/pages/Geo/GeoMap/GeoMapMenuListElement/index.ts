@@ -1,1 +1,1 @@
-export { default } from './GeoMapMenuListElement0'
+export { default } from './GeoMapMenuListElement'
