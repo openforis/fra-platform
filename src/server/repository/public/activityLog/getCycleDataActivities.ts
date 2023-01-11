@@ -18,8 +18,6 @@ const acceptedMessages = [
   ActivityLogMessage.messageCreate,
   ActivityLogMessage.topicStatusChange,
 ]
-  .map((s) => `'${s}'`)
-  .join(', ')
 
 export const getCycleDataActivities = (
   props: { countryIso: CountryIso; assessment: Assessment; cycle: Cycle },
@@ -40,14 +38,15 @@ export const getCycleDataActivities = (
         where a.country_iso = $1
           and a.assessment_uuid = $2
           and a.cycle_uuid = $3
-          and a.message in (${acceptedMessages})
+          and a.message in ($4:list)
+          and a.section not in ($5:list)
       ) as a
       join public.users u on user_id = u.id
       where rank = 1
       order by time desc
       limit 20
     `,
-    [countryIso, assessment.uuid, cycle.uuid],
+    [countryIso, assessment.uuid, cycle.uuid, acceptedMessages, ['chat']],
 
     (row) => Objects.camelize(row)
   )

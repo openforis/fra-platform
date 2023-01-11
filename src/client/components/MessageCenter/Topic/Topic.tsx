@@ -36,7 +36,7 @@ const Topic: React.FC<TopicProps> = (props) => {
   const user = useUser()
 
   let sectionName = useParams<{ sectionName: string }>()?.sectionName
-  if (topic.type === MessageTopicType.messageBoard) sectionName = 'messageBoard'
+  if (topic.type !== MessageTopicType.review) sectionName = topic.type
 
   const closeTopic = useCallback(() => {
     dispatch(MessageCenterActions.closeTopic({ key: topic.key }))
