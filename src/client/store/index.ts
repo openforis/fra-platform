@@ -1,3 +1,3 @@
-export { injectReducers, useAppSelector, useAppDispatch } from './store'
-export type { AppDispatch, ActionHandlers } from './store'
 export type { RootState } from './RootState'
+export type { ActionHandlers, AppDispatch } from './store'
+export { injectReducers, useAppDispatch, useAppSelector } from './store'

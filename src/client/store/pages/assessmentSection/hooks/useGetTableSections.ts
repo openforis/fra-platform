@@ -13,7 +13,7 @@ export const useGetTableSections = () => {
   const cycle = useCycle()
   const section = useAssessmentSection()
 
-  const tableSections = useTableSections({ sectionName: section.props.name })
+  const tableSections = useTableSections({ sectionName: section?.props.name })
 
   useEffect(() => {
     // Fetch sections if current section empty
@@ -22,10 +22,10 @@ export const useGetTableSections = () => {
         AssessmentSectionActions.getTableSections({
           assessmentName: assessment.props.name,
           cycleName: cycle.name,
-          sectionNames: [section.props.name],
+          sectionNames: [section?.props.name],
           countryIso,
         })
       )
     }
-  }, [assessment.props.name, countryIso, cycle.name, dispatch, section.props.name, tableSections.length])
+  }, [assessment.props.name, countryIso, cycle.name, dispatch, section?.props.name, tableSections.length])
 }
