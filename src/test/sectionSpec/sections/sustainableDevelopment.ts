@@ -11,7 +11,7 @@ const interpolateForestAreaProportionLandArea = (idx: number) => {
   })) : null`
 }
 
-const interpolateforestAboveGround = (idx: number) => {
+const interpolateAboveGroundBiomass = (idx: number) => {
   const variable1 = "biomassStockAvg.forest_above_ground['2020']"
   const variable2 = "biomassStockAvg.forest_above_ground['2025']"
   // check variables exist
@@ -208,7 +208,6 @@ export const sustainableDevelopment = {
                   colName: '2005',
                   migration: {
                     calculateFn: 'extentOfForest.forestArea / extentOfForest.totalLandArea * 100',
-
                     cycles: ['2025'],
                   },
                 },
@@ -990,7 +989,7 @@ export const sustainableDevelopment = {
                   colName,
                   migration: {
                     cycles: ['2025'],
-                    calculateFn: interpolateforestAboveGround(idx),
+                    calculateFn: interpolateAboveGroundBiomass(idx),
                   },
                 })),
               ],
