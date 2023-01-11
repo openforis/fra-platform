@@ -1,17 +1,18 @@
 import './Tooltip.scss'
 import React from 'react'
 
+import classNames from 'classnames'
+
 type Props = {
   text: string
-  children: any
   error?: boolean
 }
 
-const Tooltip: React.FC<Props> = (props) => {
+const Tooltip: React.FC<React.PropsWithChildren<Props>> = (props: React.PropsWithChildren<Props>) => {
   const { text, children, error } = props
 
   return (
-    <div className={error ? 'error' : ''} data-tooltip={text}>
+    <div className={classNames({ error })} data-tooltip={text}>
       {children}
     </div>
   )

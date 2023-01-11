@@ -19,4 +19,5 @@ module.exports = {
   variable: 'FRA Variable',
   year: 'Year',
   filterCountries: 'Filter countries',
+  dashboard: 'Dashboard',
 }

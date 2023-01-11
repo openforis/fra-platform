@@ -8,8 +8,8 @@ const Description: React.FC = () => {
   } = useTranslation()
   return (
     <div className="pan-eu-home">
-      <p>{t('panEuropean.home.description1')}</p>
-      <p>
+      <p className="description">{t('panEuropean.home.description1')}</p>
+      <p className="description">
         {t('panEuropean.home.description2')}{' '}
         <a href="https://foresteurope.org/state-europes-forests-2020-report/" rel="noreferrer" target="_blank">
           {t('panEuropean.home.stateOfEuropeForest')}

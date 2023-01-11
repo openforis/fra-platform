@@ -10,7 +10,7 @@ import { Sockets } from '@meta/socket'
 import { Authorizer } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
-import { AssessmentActions, useAssessment, useCountry, useCycle } from '@client/store/assessment'
+import { AssessmentActions, useAssessment, useCycle } from '@client/store/assessment'
 import { useNavigationVisible } from '@client/store/ui/navigation'
 import { ReviewActions } from '@client/store/ui/review'
 import { useUser } from '@client/store/user'
@@ -35,7 +35,6 @@ const Country: React.FC = () => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
-  const country = useCountry(countryIso)
   const isDataExportView = useIsDataExportView()
 
   useEffect(() => {
@@ -70,7 +69,7 @@ const Country: React.FC = () => {
     }
   }, [countryIso, assessmentName, cycleName, user, dispatch])
 
-  if (!country) return null
+  if (!countryIso) return null
 
   if (!Authorizer.canView({ countryIso, assessment, cycle, user })) window.location.href = ClientRoutes.Root.path
 
