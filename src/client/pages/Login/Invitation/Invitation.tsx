@@ -171,7 +171,9 @@ const Invitation: React.FC = () => {
 
           <a
             className="btn"
-            href={`${ApiEndPoint.Auth.google()}${invitationUuid ? `?invitationUuid=${invitationUuid}` : ''}`}
+            href={`${ApiEndPoint.Auth.google()}?assessmentName=${assessment.props.name}&cycleName=${
+              cycle.name
+            }&invitationUuid=${invitationUuid}`}
           >
             {t('login.acceptInvitationWithGoogle')}
           </a>

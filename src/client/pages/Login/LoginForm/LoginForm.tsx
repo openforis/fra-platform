@@ -105,7 +105,10 @@ const LoginForm: React.FC = () => {
   return (
     <div className="login__formWrapper">
       <div>
-        <a className="btn" href={ApiEndPoint.Auth.google()}>
+        <a
+          className="btn"
+          href={`${ApiEndPoint.Auth.google()}?assessmentName=${assessment.props.name}&cycleName=${cycle.name}`}
+        >
           {t('login.signInGoogle')}
         </a>
 

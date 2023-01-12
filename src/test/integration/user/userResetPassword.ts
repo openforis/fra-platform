@@ -1,6 +1,6 @@
 import { Assessment, Cycle } from '@meta/assessment'
 import { AuthProvider, User } from '@meta/user'
-import { AuthProviderLocalProps, UserAuthProvider } from '@meta/user/userAuth'
+import { AuthProviderLocalProps } from '@meta/user/userAuth'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { UserController } from '@server/controller/user'
@@ -58,10 +58,12 @@ export default (): void =>
     })
 
     it('Verify changed password', async () => {
-      const userAuthProvider = (await UserProviderController.read({
+      const userAuthProviders = await UserProviderController.read<AuthProviderLocalProps>({
         user,
         provider: AuthProvider.local,
-      })) as UserAuthProvider<AuthProviderLocalProps>
+      })
+
+      const [userAuthProvider] = userAuthProviders
 
       expect(userAuthProvider.props.password).not.toEqual(userMockTestPassword)
       expect(userAuthProvider.props.password).toEqual(userMockTestNewPassword)
