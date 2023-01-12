@@ -6,19 +6,12 @@ import { Objects } from '@utils/objects'
 import classNames from 'classnames'
 
 import { ClientRoutes } from '@meta/app'
-import { ODPs, ODPYears, OriginalDataPoint } from '@meta/assessment'
+import { ODPs, OriginalDataPoint } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
-import {
-  OriginalDataPointActions,
-  useOriginalDataPoint,
-  useOriginalDataPointReservedYears,
-} from '@client/store/pages/originalDataPoint'
+import { OriginalDataPointActions, useODPYears, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 import { useCountryIso } from '@client/hooks'
-
-// TODO: Handle error
-const years = ['', ...ODPYears]
 
 type Props = {
   canEditData: boolean
@@ -27,16 +20,14 @@ type Props = {
 const YearSelection: React.FC<Props> = (props) => {
   const { canEditData } = props
   const originalDataPoint = useOriginalDataPoint()
-  const { sectionName } = useParams<{
-    sectionName: string
-  }>()
+  const { sectionName } = useParams<{ sectionName: string }>()
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
-  const reservedYears = useOriginalDataPointReservedYears() ?? []
 
+  const { years, reservedYears } = useODPYears(cycle)
   const validYear = ODPs.validateYear(originalDataPoint)
 
   return (
