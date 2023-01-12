@@ -6,11 +6,14 @@ import { AreaController } from '@server/controller/area'
 import { AssessmentController } from '@server/controller/assessment'
 import Requests from '@server/utils/requests'
 
-export const postCountryProp = async (req: CycleRequest<never, { useOriginalDataPoint: boolean }>, res: Response) => {
+export const postCountryProp = async (
+  req: CycleRequest<never, { [propName: string]: { useOriginalDataPoint: boolean } }>,
+  res: Response
+) => {
   try {
     const { assessmentName, cycleName, countryIso } = req.query
 
-    const { useOriginalDataPoint } = req.body
+    const { countryProp } = req.body
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
@@ -18,7 +21,7 @@ export const postCountryProp = async (req: CycleRequest<never, { useOriginalData
 
     const countryToUpdate = {
       ...country,
-      props: { ...country.props, forestCharacteristics: { useOriginalDataPoint } },
+      props: { ...country.props, ...countryProp },
     }
 
     const updatedCountry = await AreaController.updateCountry({

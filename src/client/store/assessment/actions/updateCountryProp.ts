@@ -12,25 +12,22 @@ export const updateCountryProp = createAsyncThunk<
     countryIso: CountryIso
     cycleName: string
     sectionName: string
-    useOriginalDataPoint: boolean
+    countryProp: { [propName: string]: { useOriginalDataPoint: boolean } }
   }
->(
-  'assessment/post/countryProp',
-  async ({ assessmentName, countryIso, cycleName, sectionName, useOriginalDataPoint }) => {
-    const { data } = await axios.patch(
-      ApiEndPoint.Area.countryProp(),
-      {
-        useOriginalDataPoint,
+>('assessment/post/countryProp', async ({ assessmentName, countryIso, cycleName, sectionName, countryProp }) => {
+  const { data } = await axios.patch(
+    ApiEndPoint.Area.countryProp(),
+    {
+      countryProp,
+    },
+    {
+      params: {
+        assessmentName,
+        countryIso,
+        cycleName,
+        sectionName,
       },
-      {
-        params: {
-          assessmentName,
-          countryIso,
-          cycleName,
-          sectionName,
-        },
-      }
-    )
-    return data
-  }
-)
+    }
+  )
+  return data
+})

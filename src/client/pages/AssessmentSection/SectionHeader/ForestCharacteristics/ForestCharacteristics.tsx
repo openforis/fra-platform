@@ -12,7 +12,7 @@ import { Props } from '../props'
 const ForestCharacteristics: React.FC<Props> = (props) => {
   const { disabled } = props
 
-  const i18n = useTranslation()
+  const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const user = useUser()
   const countryIso = useCountryIso()
@@ -38,16 +38,21 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
               countryIso,
               cycleName: cycle.name,
               sectionName: 'forestCharacteristics',
-              useOriginalDataPoint: !country.props.forestCharacteristics.useOriginalDataPoint,
+              countryProp: {
+                forestCharacteristics: {
+                  useOriginalDataPoint: !country.props.forestCharacteristics.useOriginalDataPoint,
+                },
+              },
             })
           )
         }
         disabled={disabled}
       >
         {useOriginalDataPoint
-          ? i18n.t<string>('forestCharacteristics.dontUseOriginalDataPoints')
-          : i18n.t<string>('forestCharacteristics.useOriginalDataPoints')}
+          ? t('forestCharacteristics.dontUseOriginalDataPoints')
+          : t('forestCharacteristics.useOriginalDataPoints')}
       </button>
+
       <hr className="no-print" />
     </>
   )
