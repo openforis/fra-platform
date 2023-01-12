@@ -10,7 +10,7 @@ import { Sockets } from '@meta/socket'
 import { Authorizer } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
-import { AssessmentActions, useAssessment, useCycle } from '@client/store/assessment'
+import { AssessmentActions, useAssessment, useCycle, useIsAppInitialized } from '@client/store/assessment'
 import { useNavigationVisible } from '@client/store/ui/navigation'
 import { ReviewActions } from '@client/store/ui/review'
 import { useUser } from '@client/store/user'
@@ -36,6 +36,7 @@ const Country: React.FC = () => {
   const assessment = useAssessment()
   const cycle = useCycle()
   const isDataExportView = useIsDataExportView()
+  const isAppInitialized = useIsAppInitialized()
 
   useEffect(() => {
     dispatch(AssessmentActions.getSections({ countryIso, assessmentName, cycleName }))
@@ -71,7 +72,8 @@ const Country: React.FC = () => {
 
   if (!countryIso) return null
 
-  if (!Authorizer.canView({ countryIso, assessment, cycle, user })) window.location.href = ClientRoutes.Root.path
+  if (isAppInitialized && !Authorizer.canView({ countryIso, assessment, cycle, user }))
+    window.location.href = ClientRoutes.Root.path
 
   return (
     <div className={classNames('app-view', { 'navigation-on': navigationVisible })}>
