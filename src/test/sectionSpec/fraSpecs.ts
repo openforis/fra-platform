@@ -8966,6 +8966,12 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     labelKey: 'areaOfPermanentForestEstate.categoryHeader',
                     className: 'fra-table__header-cell-left',
                     type: 'header',
+                    migration: {
+                      label: {
+                        '2020': { key: 'fra.categoryHeader2020' },
+                        '2025': { key: 'fra.categoryHeader2025' },
+                      },
+                    },
                   },
                   {
                     idx: 1,
