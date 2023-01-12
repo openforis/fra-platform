@@ -11438,6 +11438,10 @@ export const FraSpecs: Record<string, SectionSpec> = {
       included: false,
     },
     migration: {
+      anchors: {
+        '2020': '7c',
+        '2025': '7a',
+      },
       label: {
         '2020': { key: 'nonWoodForestProductsRemovals.nonWoodForestProductsRemovals' },
         '2025': { key: 'fra.nonWoodForestProductsRemovals.nonWoodForestProductsRemovals2025' },
