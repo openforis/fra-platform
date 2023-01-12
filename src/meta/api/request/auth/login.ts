@@ -1,3 +1,10 @@
 import { Request } from 'express'
 
-export type LoginRequest = Request<unknown, unknown, unknown, { invitationUuid: string; state: string }>
+import { AssessmentName } from '@meta/assessment'
+
+export type LoginRequest = Request<
+  unknown,
+  unknown,
+  unknown,
+  { assessmentName: AssessmentName; cycleName: string; invitationUuid: string }
+>
