@@ -27,26 +27,39 @@ export const postLocalLogin = async (req: Request, res: Response, next: NextFunc
 export const getGoogleLogin = (req: LoginRequest, res: Response) => {
   passport.authenticate('google', {
     scope: ['https://www.googleapis.com/auth/plus.login', 'profile', 'email'],
-    state: req.query.invitationUuid,
+    state: JSON.stringify({
+      assessmentName: req.query.assessmentName,
+      cycleName: req.query.cycleName,
+      invitationUuid: req.query.invitationUuid,
+    }),
   })(req, res)
 }
 
 export const getGoogleCallback = (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate('google', { session: false }, (err: any, user: User, msg: any) => {
+    const state = JSON.parse(req.query.state as string) ?? {}
+
+    const { assessmentName, cycleName } = state
+
     if (err) {
       next(err)
     } else if (!user) {
       res.clearCookie(AuthToken.fraAuthToken)
-      res.redirect(`/login?loginError=${msg.message}`)
+      res.redirect(
+        `${ClientRoutes.Assessment.Cycle.Login.Root.getLink({
+          assessmentName,
+          cycleName,
+        })}?loginError=${msg.message}`
+      )
     } else {
       req.login(user, (err: any) => {
         if (err) next(err)
         setAuthToken(res, user)
         let redirectUrl = process.env.NODE_ENV === 'development' ? '/' : appUri
-        if (msg?.message) {
-          const data = JSON.parse(msg.message)
-          redirectUrl += ClientRoutes.Assessment.Cycle.Country.Home.Root.getLink(data)
-        }
+        redirectUrl += `${ClientRoutes.Assessment.Cycle.Landing.getLink({
+          assessmentName,
+          cycleName,
+        })}`
         res.redirect(redirectUrl)
       })
     }

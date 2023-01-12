@@ -20,16 +20,15 @@ export const readCountryUsersByRole = async (
 ): Promise<Array<User>> => {
   const { countryISOs, roles } = props
 
-  return client
-    .manyOrNone<User>(
-      `
+  return client.map<User>(
+    `
         select ${selectFields}, jsonb_agg(to_jsonb(ur.*)) as roles
         from public.users u join users_role ur on (u.id = ur.user_id)
         where ur.country_iso in ($1:csv) and ur.role in ($2:csv)
         group by ${selectFields}
 
     `,
-      [countryISOs, roles]
-    )
-    .then(Objects.camelize)
+    [countryISOs, roles],
+    (row) => Objects.camelize(row)
+  )
 }
