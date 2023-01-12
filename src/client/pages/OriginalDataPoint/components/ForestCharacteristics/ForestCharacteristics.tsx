@@ -5,7 +5,7 @@ import { Numbers } from '@utils/numbers'
 
 import { ODPs, OriginalDataPoint } from '@meta/assessment'
 
-import { useCycle } from '@client/store/assessment'
+import { useAssessment, useCycle } from '@client/store/assessment'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import DefinitionLink from '@client/components/DefinitionLink'
 
@@ -19,6 +19,7 @@ type Props = {
 }
 
 const ForestCharacteristics: React.FC<Props> = (props) => {
+  const assessment = useAssessment()
   const cycle = useCycle()
 
   const { canEditData, originalDataPoint } = props
@@ -53,7 +54,14 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
       {!print && (
         <div className="odp__section-header">
           <h3 className="subhead">{t('nationalDataPoint.forestCharacteristics')}</h3>
-          <DefinitionLink document="tad" anchor="1b" title={t('definition.definitionLabel')} lang={language} />
+          <DefinitionLink
+            assessmentName={assessment.props.name}
+            cycleName={cycle.name}
+            document="tad"
+            anchor="1b"
+            title={t('definition.definitionLabel')}
+            lang={language}
+          />
         </div>
       )}
 
