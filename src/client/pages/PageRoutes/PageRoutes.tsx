@@ -5,7 +5,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { ClientRoutes } from '@meta/app'
 
 import { useAppDispatch } from '@client/store'
-import { AssessmentActions } from '@client/store/assessment'
+import { AssessmentActions, useIsAppInitialized } from '@client/store/assessment'
 import Toaster from '@client/components/Toaster'
 import { SocketClient } from '@client/service/socket'
 import { Urls } from '@client/utils'
@@ -16,6 +16,8 @@ import { useTheme } from './useTheme'
 
 const PageRoutes: React.FC = () => {
   const dispatch = useAppDispatch()
+  const isAppInitialized = useIsAppInitialized()
+
   useTheme()
   const { i18n } = useTranslation()
 
@@ -33,6 +35,8 @@ const PageRoutes: React.FC = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  if (!isAppInitialized) return null
 
   return (
     <>
