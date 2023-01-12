@@ -33,7 +33,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
         className={`btn btn-${useOriginalDataPoint ? 'secondary' : 'primary'} no-print`}
         onClick={() =>
           dispatch(
-            AssessmentActions.updateCountryProperty({
+            AssessmentActions.updateCountryProp({
               assessmentName: assessment.props.name,
               countryIso,
               cycleName: cycle.name,

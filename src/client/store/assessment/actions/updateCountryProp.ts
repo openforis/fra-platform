@@ -5,7 +5,7 @@ import { ApiEndPoint } from '@meta/api/endpoint'
 import { Country, CountryIso } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
 
-export const updateCountryProperty = createAsyncThunk<
+export const updateCountryProp = createAsyncThunk<
   Country,
   {
     assessmentName: AssessmentName
@@ -15,18 +15,19 @@ export const updateCountryProperty = createAsyncThunk<
     useOriginalDataPoint: boolean
   }
 >(
-  'assessment/post/countryProperty',
+  'assessment/post/countryProp',
   async ({ assessmentName, countryIso, cycleName, sectionName, useOriginalDataPoint }) => {
-    const { data } = await axios.post(
-      ApiEndPoint.Area.countryProperty(),
-      {},
+    const { data } = await axios.patch(
+      ApiEndPoint.Area.countryProp(),
+      {
+        useOriginalDataPoint,
+      },
       {
         params: {
           assessmentName,
           countryIso,
           cycleName,
           sectionName,
-          useOriginalDataPoint,
         },
       }
     )
