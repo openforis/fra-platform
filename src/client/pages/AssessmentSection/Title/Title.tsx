@@ -37,6 +37,7 @@ const Title: React.FC<Props> = (props) => {
   const cycle = useCycle()
 
   const assessmentName = assessment.props.name
+  const cycleName = cycle.name
   const fra = assessmentName === AssessmentNames.fra
   const sectionName = subSection.props.name
   const anchor = SubSections.getAnchor({ cycle, subSection })
@@ -49,6 +50,8 @@ const Title: React.FC<Props> = (props) => {
       {fra && (
         <div className="app-view__section-toolbar no-print">
           <DefinitionLink
+            assessmentName={assessmentName}
+            cycleName={cycleName}
             className="margin-right-big"
             document="tad"
             anchor={anchor}
@@ -56,6 +59,8 @@ const Title: React.FC<Props> = (props) => {
             lang={i18n.language}
           />
           <DefinitionLink
+            assessmentName={assessmentName}
+            cycleName={cycleName}
             className="align-left"
             document="faq"
             anchor={anchor}

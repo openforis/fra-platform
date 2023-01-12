@@ -55,6 +55,8 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
         <div className="export__form-section-header-withLink">
           <h4>{t(Heading[assessmentName])}</h4>
           <DefinitionLink
+            assessmentName={assessmentName}
+            cycleName={cycle.name}
             className="margin-right-big"
             document="tad"
             anchor="1a"
