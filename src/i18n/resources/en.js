@@ -1139,6 +1139,7 @@ The FRA team
       other_wooded_land: 'Other wooded land - {{year}}',
       total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
       other_land: 'Other land - {{year}}',
+      remaining_land_area: 'Remaining land area - {{year}}',
       _of_which_with_tree_cover: '… of which with tree cover - {{year}}',
     },
 
