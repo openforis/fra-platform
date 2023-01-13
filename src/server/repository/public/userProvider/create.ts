@@ -1,21 +1,20 @@
 import { Objects } from '@utils/objects'
 
 import { UserAuthProvider } from '@meta/user'
-import { AuthProviderGoogleProps, AuthProviderLocalProps } from '@meta/user/userAuth'
 
 import { BaseProtocol, DB } from '@server/db'
 
-export const create = async (
+export const create = async <P>(
   props: {
-    provider: Pick<UserAuthProvider<AuthProviderGoogleProps | AuthProviderLocalProps>, 'userId' | 'props' | 'provider'>
+    provider: Pick<UserAuthProvider<P>, 'userId' | 'props' | 'provider'>
   },
   client: BaseProtocol = DB
-): Promise<UserAuthProvider<AuthProviderGoogleProps | AuthProviderLocalProps>> => {
+): Promise<UserAuthProvider<P>> => {
   const {
     provider: { provider: authProvider, props: providerProps, userId },
   } = props
 
-  return client.one<UserAuthProvider<AuthProviderGoogleProps | AuthProviderLocalProps>>(
+  return client.one<UserAuthProvider<P>>(
     `
         insert into public.users_auth_provider (user_id, provider, props) values ($1, $2, $3::jsonb) returning *;
     `,

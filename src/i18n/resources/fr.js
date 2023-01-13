@@ -375,7 +375,7 @@ L'équipe de FRA
     nationalData: 'Données nationales',
     analysisAndProcessing: 'Analyse et traitement des données nationales',
     estimationAndForecasting: 'Estimation et prévision',
-    reclassification: 'Reclassification dans les catégories de FRA 2020',
+    reclassification: 'Reclassification dans les catégories de FRA {{cycleName}}',
   },
 
   nationalDataPoint: {

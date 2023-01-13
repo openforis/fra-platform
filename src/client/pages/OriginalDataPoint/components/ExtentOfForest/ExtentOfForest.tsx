@@ -5,7 +5,7 @@ import { Numbers } from '@utils/numbers'
 
 import { ODPs, OriginalDataPoint } from '@meta/assessment/originalDataPoint'
 
-import { useCycle } from '@client/store/assessment'
+import { useAssessment, useCycle } from '@client/store/assessment'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import DefinitionLink from '@client/components/DefinitionLink'
 
@@ -18,6 +18,7 @@ type Props = {
 
 const ExtentOfForest: React.FC<Props> = (props) => {
   const { canEditData, originalDataPoint } = props
+  const assessment = useAssessment()
   const cycle = useCycle()
 
   const {
@@ -35,7 +36,14 @@ const ExtentOfForest: React.FC<Props> = (props) => {
           <h3 className="subhead">
             {t(`nationalDataPoint.forestCategoriesLabel${cycle.name === '2025' ? '2025' : ''}`)}
           </h3>
-          <DefinitionLink document="tad" anchor="1a" title={t('definition.definitionLabel')} lang={language} />
+          <DefinitionLink
+            assessmentName={assessment.props.name}
+            cycleName={cycle.name}
+            document="tad"
+            anchor="1a"
+            title={t('definition.definitionLabel')}
+            lang={language}
+          />
         </div>
       )}
 

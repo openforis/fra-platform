@@ -10,4 +10,6 @@ export interface AssessmentState {
   countries?: Countries
   regionGroups?: Record<string, RegionGroup>
   sections?: Array<Section>
+
+  appInitialized: boolean
 }

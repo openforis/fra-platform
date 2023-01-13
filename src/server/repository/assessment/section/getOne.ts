@@ -11,15 +11,14 @@ export const getOne = async (
   client: BaseProtocol = DB
 ): Promise<Section> => {
   const schemaName = Schemas.getName(props.assessment)
-  return client
-    .one<any>(
-      `
+  return client.one<Section>(
+    `
           select s.*
           from ${schemaName}.section s
           where ${'sectionName' in props ? `s.props->>'name' = $2` : `s.id = $2`}
             and props -> 'cycles' ? $1;
       `,
-      [props.cycle.uuid, 'sectionName' in props ? props.sectionName : props.id]
-    )
-    .then(Objects.camelize)
+    [props.cycle.uuid, 'sectionName' in props ? props.sectionName : props.id],
+    Objects.camelize
+  )
 }

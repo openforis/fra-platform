@@ -1,8 +1,12 @@
-import React from 'react'
 import './DefinitionLink.scss'
+import React from 'react'
+
+import { ApiEndPoint } from '@meta/api/endpoint'
 import { Lang } from '@meta/lang'
 
 type Props = {
+  assessmentName: string
+  cycleName: string
   className?: string
   document: string
   anchor: string
@@ -11,12 +15,16 @@ type Props = {
 }
 
 const DefinitionLink: React.FC<Props> = (props: Props) => {
-  const { className, document, anchor, title, lang } = props
+  const { className, document, anchor, title, lang, assessmentName, cycleName } = props
   return (
     <div
       className={`definition-link ${className} no-print`}
       onClick={() =>
-        window.open(`/definitions/${lang}/${document}${anchor ? `#${anchor}` : ''}`, document, 'height=640,width=360')
+        window.open(
+          `${ApiEndPoint.definitions(lang, document, assessmentName, cycleName)}${anchor ? `#${anchor}` : ''}`,
+          document,
+          'height=640,width=360'
+        )
       }
     >
       {title}
