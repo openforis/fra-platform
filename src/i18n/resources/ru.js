@@ -392,7 +392,7 @@ module.exports.translation = {
     nationalData: 'Национальные данные',
     analysisAndProcessing: 'Анализ и обработка национальных данных',
     estimationAndForecasting: 'Оценка и прогнозирование',
-    reclassification: 'Реклассификация в категории ОЛР-2020',
+    reclassification: 'Реклассификация в категории ОЛР-{{cycleName}}',
   },
 
   nationalDataPoint: {
