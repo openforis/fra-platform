@@ -5,26 +5,27 @@ import { ApiEndPoint } from '@meta/api/endpoint'
 import { Country, CountryIso } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
 
-export const updateCountry = createAsyncThunk<
+export const updateCountryProp = createAsyncThunk<
   Country,
   {
     assessmentName: AssessmentName
-    country: Country
     countryIso: CountryIso
     cycleName: string
-    message?: string
-    notifyUsers?: boolean
+    sectionName: string
+    countryProp: { [propName: string]: { useOriginalDataPoint: boolean } }
   }
->('assessment/post/country', async ({ country, countryIso, assessmentName, cycleName, notifyUsers, message }) => {
-  const { data } = await axios.post(
-    ApiEndPoint.Area.country(),
-    { country, message },
+>('assessment/post/countryProp', async ({ assessmentName, countryIso, cycleName, sectionName, countryProp }) => {
+  const { data } = await axios.patch(
+    ApiEndPoint.Area.countryProp(),
+    {
+      countryProp,
+    },
     {
       params: {
         assessmentName,
         countryIso,
         cycleName,
-        notifyUsers,
+        sectionName,
       },
     }
   )

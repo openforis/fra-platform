@@ -33,7 +33,11 @@ const NavigationDesktop: React.FC = () => {
       {Areas.isGlobal(countryIso) && (
         <Link
           className="btn-s btn-primary nav__bulk-download"
-          to={ClientRoutes.Assessment.DataDownload.getLink({ countryIso, assessmentName, cycleName: cycle.name })}
+          to={ClientRoutes.Assessment.Cycle.Country.DataDownload.getLink({
+            countryIso,
+            assessmentName,
+            cycleName: cycle.name,
+          })}
         >
           <>
             <Icon className="icon-sub icon-white" name="hit-down" />

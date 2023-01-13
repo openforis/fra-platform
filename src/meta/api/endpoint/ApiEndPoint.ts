@@ -13,6 +13,7 @@ export const ApiEndPoint = {
 
   Area: {
     country: () => apiPath('area', 'country'),
+    countryProp: () => apiPath('area', 'country', 'prop'),
     areas: () => apiPath('area', 'areas'),
   },
 
