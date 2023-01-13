@@ -6,7 +6,7 @@ import { AreaController } from '@server/controller/area'
 import { AssessmentController } from '@server/controller/assessment'
 import Requests from '@server/utils/requests'
 
-export const postCountryProp = async (
+export const updateCountryProp = async (
   req: CycleRequest<never, { [propName: string]: { useOriginalDataPoint: boolean } }>,
   res: Response
 ) => {

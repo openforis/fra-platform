@@ -6,13 +6,13 @@ import { AuthMiddleware } from '@server/middleware/auth'
 
 import { getAreas } from './getAreas'
 import { postCountry } from './postCountry'
-import { postCountryProp } from './postCountryProp'
+import { updateCountryProp } from './updateCountryProp'
 
 export const AreaApi = {
   init: (express: Express): void => {
     // Country
     express.post(ApiEndPoint.Area.country(), AuthMiddleware.requireEditCountryProps, postCountry)
-    express.patch(ApiEndPoint.Area.countryProp(), AuthMiddleware.requireEditTableData, postCountryProp)
+    express.patch(ApiEndPoint.Area.countryProp(), AuthMiddleware.requireEditTableData, updateCountryProp)
     express.get(ApiEndPoint.Area.areas(), getAreas)
   },
 }
