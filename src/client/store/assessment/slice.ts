@@ -37,8 +37,14 @@ export const assessmentSlice = createSlice({
       state.countries[payload.countryIso] = payload
     })
 
-    builder.addCase(updateCountryProp.fulfilled, (state, { payload }) => {
-      state.countries[payload.countryIso] = payload
+    builder.addCase(updateCountryProp.pending, (state, reducer) => {
+      const {
+        meta: { arg },
+      } = reducer
+
+      const { countryIso, countryProp } = arg
+
+      state.countries[countryIso].props = { ...state.countries[countryIso].props, ...countryProp }
     })
 
     builder.addCase(initApp.pending, (state) => {
