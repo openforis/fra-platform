@@ -1,6 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { useCycle } from '@client/store/assessment'
+
 import CommentableDescription from '../CommentableDescription'
 
 type Props = {
@@ -12,14 +14,15 @@ type Props = {
 
 const AnalysisDescriptions: React.FC<Props> = (props) => {
   const { sectionName, disabled, showAlertEmptyContent, showDashEmptyContent } = props
+  const cycle = useCycle()
 
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
 
   return (
     <div className="fra-description__container">
-      <h2 className="headline fra-description__group-header">{i18n.t<string>('description.analysisAndProcessing')}</h2>
+      <h2 className="headline fra-description__group-header">{t('description.analysisAndProcessing')}</h2>
       <CommentableDescription
-        title={i18n.t<string>('description.estimationAndForecasting')}
+        title={t('description.estimationAndForecasting')}
         disabled={disabled}
         sectionName={sectionName}
         name="estimationAndForecasting"
@@ -27,7 +30,7 @@ const AnalysisDescriptions: React.FC<Props> = (props) => {
         showDashEmptyContent={showDashEmptyContent}
       />
       <CommentableDescription
-        title={i18n.t<string>('description.reclassification')}
+        title={t('description.reclassification', { cycleName: cycle.name })}
         disabled={disabled}
         sectionName={sectionName}
         name="reclassification"
