@@ -446,7 +446,7 @@ The FRA team
     nationalData: 'بيانات وطنية',
     analysisAndProcessing: 'تحليل البيانات الوطنية ومعالجتها',
     estimationAndForecasting: 'التوقعات والتنبؤات',
-    reclassification: 'إعادة التصنيف بما يتوافق وفئات تقييم الموارد الحرجية لعام 2020',
+    reclassification: 'إعادة التصنيف بما يتوافق وفئات تقييم الموارد الحرجية لعام {{cycleName}}',
   },
 
   nationalDataPoint: {

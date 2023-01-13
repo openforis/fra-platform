@@ -1,11 +1,16 @@
-import { marked } from 'marked'
 import * as fs from 'fs'
+import { marked } from 'marked'
 
-const getDefinition = (name: string, lang: string) => {
-  return fs.promises.readFile(`${__dirname}/../../../static/definitions/${lang}/${name}.md`, 'utf8')
+type Props = { assessmentName: string; cycleName: string; lang: string; name: string }
+const getDefinition = (props: Props) => {
+  const { cycleName, name, lang, assessmentName } = props
+  return fs.promises.readFile(
+    `${__dirname}/../../../static/definitions/${assessmentName}/${cycleName}/${lang}/${name}.md`,
+    'utf8'
+  )
 }
-export const getHtml = async (lang: string, name: string): Promise<string> => {
-  const markdown = await getDefinition(name, lang)
+export const getHtml = async (props: Props): Promise<string> => {
+  const markdown = await getDefinition(props)
 
   const toc: Array<Record<string, string>> = []
   const renderer = new marked.Renderer()

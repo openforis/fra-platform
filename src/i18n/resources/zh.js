@@ -439,7 +439,7 @@ FRA工作组
     nationalData: '国家数据',
     analysisAndProcessing: '国家数据分析和处理',
     estimationAndForecasting: '估算和预测',
-    reclassification: '按照FRA 2020 类别进行重新分类',
+    reclassification: '按照FRA {{cycleName}} 类别进行重新分类',
   },
 
   nationalDataPoint: {

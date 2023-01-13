@@ -1,6 +1,10 @@
 @import 'src/client/style/partials';
 
 .pan-eu-home {
+  .description {
+    padding: $spacing-xs;
+  }
+
   .partners {
     padding: 0;
     display: grid;

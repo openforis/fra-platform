@@ -18,7 +18,7 @@ import User from '@client/pages/User'
 
 import { useSections } from './hooks/useSections'
 
-const PanEuropeanHome = () => {
+const PanEuropeanHome: React.FC = () => {
   const { i18n } = useTranslation()
   const sections = useSections()
   const countryIso = useCountryIso()

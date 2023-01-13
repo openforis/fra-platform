@@ -1,9 +1,11 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import { getAreas, getAssessment, getSections, initApp, updateCountry } from './actions'
+import { getAreas, getAssessment, getSections, initApp, updateCountry, updateCountryProp } from './actions'
 import { AssessmentState } from './stateType'
 
-const initialState: AssessmentState = {}
+const initialState: AssessmentState = {
+  appInitialized: false,
+}
 
 export const assessmentSlice = createSlice({
   name: 'assessment',
@@ -34,6 +36,24 @@ export const assessmentSlice = createSlice({
     builder.addCase(updateCountry.fulfilled, (state, { payload }) => {
       state.countries[payload.countryIso] = payload
     })
+
+    builder.addCase(updateCountryProp.pending, (state, reducer) => {
+      const {
+        meta: { arg },
+      } = reducer
+
+      const { countryIso, countryProp } = arg
+
+      state.countries[countryIso].props = { ...state.countries[countryIso].props, ...countryProp }
+    })
+
+    builder.addCase(initApp.pending, (state) => {
+      state.appInitialized = false
+    })
+
+    builder.addCase(initApp.fulfilled, (state) => {
+      state.appInitialized = true
+    })
   },
 })
 
@@ -44,6 +64,7 @@ export const AssessmentActions = {
   getAreas,
   getSections,
   updateCountry,
+  updateCountryProp,
 }
 
 export default assessmentSlice.reducer as Reducer<AssessmentState>

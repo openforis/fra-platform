@@ -3,7 +3,8 @@ const apiPath = (...parts: Array<string>): string => joinPaths('api', ...parts)
 
 export const ApiEndPoint = {
   init: () => apiPath('init'),
-  definitions: (lang = ':lang', name = ':name') => joinPaths('definitions', lang, name),
+  definitions: (lang = ':lang', name = ':name', assessmentName = ':assessmentName', cycleName = ':cycleName') =>
+    joinPaths('definitions', assessmentName, cycleName, lang, name),
 
   Admin: {
     users: () => apiPath('admin', 'users'),
@@ -12,6 +13,7 @@ export const ApiEndPoint = {
 
   Area: {
     country: () => apiPath('area', 'country'),
+    countryProp: () => apiPath('area', 'country', 'prop'),
     areas: () => apiPath('area', 'areas'),
   },
 
