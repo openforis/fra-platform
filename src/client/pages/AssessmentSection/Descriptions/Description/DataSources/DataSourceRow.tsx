@@ -59,7 +59,7 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
   const _allColumnsCalculated = (row: Row) =>
     row.cols.every((col) => [ColType.header, ColType.calculated].includes(col.props.colType))
   const rows = table.rows
-    .filter((row) => row.props.variableName && row.props.type === RowType.data && !_allColumnsCalculated(row))
+    ?.filter((row) => row.props.variableName && row.props.type === RowType.data && !_allColumnsCalculated(row))
     .map((r) => t(Cols.getLabel({ cycle, col: r.cols[0], t })))
 
   return (
