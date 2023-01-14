@@ -572,7 +572,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_land_2025',
               },
               {
-                idx: 29,
+                idx: 34,
                 type: 'data',
                 cols: [
                   {
