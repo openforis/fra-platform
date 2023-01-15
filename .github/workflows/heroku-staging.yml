@@ -1,9 +1,9 @@
-name: Deploy to development
+name: Deploy to staging
 
 on:
   push:
     branches:
-      - 'master'
+      - 'staging'
 
 jobs:
   build:
@@ -25,10 +25,10 @@ jobs:
         with:
           fetch-depth: '0' # fetch all tags, default 1
 
-      - name: Use Node.js 16.13.0
+      - name: Use Node.js 18.12.1
         uses: actions/setup-node@v1
         with:
-          node-version: '16.13.0'
+          node-version: '18.12.1'
           always-auth: true
           auth-token: ${{secrets.ACCESS_TOKEN}}
           registry-url: 'https://npm.pkg.github.com'
