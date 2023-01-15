@@ -1,9 +1,9 @@
 import { CountryIso } from '@meta/area'
 import { Assessment, Cycle, Row, VariableCache } from '@meta/assessment'
 
-import { AssessmentController } from '@server/controller/assessment'
 import { CycleDataController } from '@server/controller/cycleData'
 import { ExpressionEvaluator } from '@server/controller/cycleData/updateDependencies/expressionEvaluator'
+import { MetadataController } from '@server/controller/metadata'
 import { BaseProtocol } from '@server/db'
 
 import { NodeRow } from '@test/dataMigration/types'
@@ -69,7 +69,7 @@ export const calculateRow = async (
           client
         )
       : undefined
-  const table = await AssessmentController.getTable({ assessment, cycle, tableName })
+  const table = await MetadataController.getTable({ assessment, cycle, tableName })
 
   await Promise.all(
     countryISOs.map(async (countryIso) => {

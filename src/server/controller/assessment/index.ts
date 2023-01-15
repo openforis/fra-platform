@@ -1,5 +1,3 @@
-import { TableRepository } from '@server/repository/assessment/table'
-
 import { create } from './create'
 import { createCycle } from './createCycle'
 import { getOne, getOneWithCycle } from './getOne'
@@ -11,7 +9,6 @@ export const AssessmentController = {
   createCycle,
   getOne,
   getOneWithCycle,
-  getTable: TableRepository.getOne,
   remove,
   updateDefaultCycle,
 }
