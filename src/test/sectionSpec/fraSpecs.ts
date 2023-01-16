@@ -58,6 +58,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'contactPersons.expectedDateForNextCountryReportUpdate',
                 variableName: 'expectedDateForNextCountryReportUpdate',
+                migration: {
+                  validateFns: [
+                    `validatorNextCountryReportYear(contactPersons.expectedDateForNextCountryReportUpdate)`,
+                  ],
+                },
               },
             ],
             tableDataRequired: [],
