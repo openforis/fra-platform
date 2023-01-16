@@ -2,7 +2,7 @@
   "license": "UNLICENSED",
   "name": "frap",
   "engines": {
-    "node": "^16.13.0",
+    "node": "^18.12.1",
     "yarn": ">=1.16.0"
   },
   "scripts": {
@@ -256,7 +256,7 @@
   "browserslist": [
     "last 2 versions"
   ],
-  "version": "3.0.0-alpha.1",
+  "version": "3.0.0-alpha.2",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"

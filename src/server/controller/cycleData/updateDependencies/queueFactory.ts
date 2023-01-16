@@ -27,7 +27,11 @@ const getInstance = (props: {
 
   workers[key] = WorkerFactory.newInstance({ key })
 
-  queue = new Queue<UpdateDependenciesProps>(key, { connection: new IORedis(ProcessEnv.redisUrl) })
+  const opts = {
+    connection: new IORedis(ProcessEnv.redisUrl),
+    streams: { events: { maxLen: 10 } },
+  }
+  queue = new Queue<UpdateDependenciesProps>(key, opts)
   queues[key] = queue
 
   return queue
