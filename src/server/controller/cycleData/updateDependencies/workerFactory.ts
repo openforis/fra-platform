@@ -8,16 +8,21 @@ import { Sockets } from '@meta/socket'
 import { SocketServer } from '@server/service/socket'
 import { ProcessEnv } from '@server/utils'
 import { Logger } from '@server/utils/logger'
+import { NodeEnv } from '@server/utils/processEnv'
+
+import workerProcessor from './worker'
 
 const newInstance = (props: { key: string }) => {
   const { key } = props
 
-  const worker = new Worker(key, `${__dirname}/worker`, {
+  const processor = ProcessEnv.nodeEnv === NodeEnv.development ? workerProcessor : `${__dirname}/worker`
+  const opts = {
     concurrency: 1,
-    maxStalledCount: 0,
-    lockDuration: 60_000,
     connection: new IORedis(ProcessEnv.redisUrl),
-  })
+    lockDuration: 60_000,
+    maxStalledCount: 0,
+  }
+  const worker = new Worker(key, processor, opts)
 
   worker.on('completed', (_, result: { nodeUpdates: NodeUpdates; validations: NodeUpdates }) => {
     const { nodeUpdates, validations } = result
