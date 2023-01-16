@@ -45,8 +45,6 @@ export const MultiSelect: React.FC<Props> = (props: Props) => {
 
   if (!values) return null
 
-  // @ts-ignore
-  // @ts-ignore
   return (
     <div
       ref={multiselectRef}
