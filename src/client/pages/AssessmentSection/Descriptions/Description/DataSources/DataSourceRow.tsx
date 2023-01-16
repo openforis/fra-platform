@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Arrays } from '@utils/arrays'
 import { Objects } from '@utils/objects'
 import classNames from 'classnames'
 
@@ -27,8 +28,10 @@ type Props = {
   onDelete: () => void
 }
 const validators: Record<string, (x: string) => boolean> = {
-  // allow year range
-  year: (yearString) => !(Objects.isEmpty(yearString) || yearString.split('-').map(Number).every(Number.isInteger)),
+  // check at least one character exists
+  reference: (referenceString) => !(Objects.isEmpty(referenceString) || /[A-Za-z]/.test(referenceString)),
+  // check that is number
+  year: (yearString) => !(Objects.isEmpty(yearString) || Number.isInteger(Number(yearString))),
 }
 
 const DataSourceRow: React.FC<Props> = (props: Props) => {
@@ -52,10 +55,7 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
   const table = tableSections?.[0]?.tables?.[0]
   if (!table) return null
 
-  const columns = table.rows?.[1].cols.map(
-    (col) => Cols.getLabel({ cycle, col, t })
-    // Number.isInteger(+c) ? c : t(`${sectionName}.${Objects.camelize(c)}`)
-  )
+  const columns = cycle ? Arrays.reverse(Arrays.range(1950, Number(cycle.name))).map(String) : []
 
   const _allColumnsCalculated = (row: Row) =>
     row.cols.every((col) => [ColType.header, ColType.calculated].includes(col.props.colType))
@@ -65,7 +65,9 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
 
   return (
     <>
-      <DataColumn className="data-source-column">
+      <DataColumn
+        className={classNames('data-source-column', { 'validation-error': validators.reference(dataSource.reference) })}
+      >
         <div className="data-source__delete-wrapper">
           {!placeholder && !disabled && (
             <button type="button" onClick={onDelete}>
