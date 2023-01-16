@@ -1,7 +1,7 @@
 @import 'src/client/styles/config';
 
 .fra-checkbox {
-  width: 14px;
+  min-width: 14px;
   height: 14px;
   border-radius: 2px;
   border: 1px solid $ui-border-dark;
