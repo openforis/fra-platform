@@ -64,10 +64,6 @@ const MapVisualizerPanel: React.FC = () => {
     })
   }, [forestOptions.selected, forestOptions.hansenPercentage, forestOptions.fetchedLayers, dispatch])
 
-  const opacityChange = (layerKey: string, opacity: number) => {
-    mapControllerRef.current.setEarthEngineLayerOpacity(layerKey, opacity)
-  }
-
   return (
     <div className="geo-map-menu-data-visualizer-panel">
       <p>Forest Layers</p>
@@ -81,11 +77,7 @@ const MapVisualizerPanel: React.FC = () => {
               onCheckboxClick={() => dispatch(GeoActions.toggleForestLayer(layer.key))}
               backgroundColor={layer.key.toLowerCase()}
             >
-              <LayerOptionsPanel
-                forestLayerOpacity={layer.opacity}
-                layerKey={layer.key}
-                opacityChange={(layerKey: string, opacity: number) => opacityChange(layerKey, opacity)}
-              />
+              <LayerOptionsPanel layerKey={layer.key} />
             </GeoMapMenuListElement>
           </div>
         ))}

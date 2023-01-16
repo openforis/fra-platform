@@ -12,9 +12,8 @@ export const validatorEqualToPrivateForest: ExpressionFunction<Context> = {
   executor: () => {
     return (privateOwnership?: string, subCategoryValues?: Array<string>): NodeValueValidation => {
       const valid =
-        subCategoryValues.some(Objects.isEmpty) ||
         Numbers.eq(privateOwnership, 0) ||
-        Numbers.eq(privateOwnership, Numbers.sum(subCategoryValues))
+        Numbers.eq(privateOwnership, Numbers.sum(subCategoryValues.filter((val) => !Objects.isEmpty(val))))
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
