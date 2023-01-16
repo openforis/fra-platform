@@ -19,7 +19,7 @@ type Props = {
 
 const placeholder: DataSource = {
   type: '',
-  fraVariable: '',
+  fraVariables: [],
   comments: '',
   year: '',
   reference: '',

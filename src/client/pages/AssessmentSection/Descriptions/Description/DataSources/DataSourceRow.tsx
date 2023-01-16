@@ -1,9 +1,11 @@
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Arrays } from '@utils/arrays'
 import { Objects } from '@utils/objects'
+import classNames from 'classnames'
 
-import { Cols, DataSource, dataSourceType, RowType } from '@meta/assessment'
+import { Cols, ColType, DataSource, dataSourceType, Row, RowType } from '@meta/assessment'
 
 import { useCycle } from '@client/store/assessment'
 import { useTableSections } from '@client/store/pages/assessmentSection'
@@ -11,6 +13,7 @@ import { useCountryIso } from '@client/hooks'
 import Autocomplete from '@client/components/Autocomplete'
 import DataColumn from '@client/components/DataGrid/DataColumn'
 import Icon from '@client/components/Icon'
+import MultiSelect from '@client/components/MultiSelect'
 import ReviewIndicator from '@client/components/ReviewIndicator'
 import VerticallyGrowingTextField from '@client/components/VerticallyGrowingTextField'
 
@@ -24,6 +27,14 @@ type Props = {
   onChange: (dataSource: DataSource) => void
   onDelete: () => void
 }
+const validators: Record<string, (x: string) => boolean> = {
+  // check at least one character exists
+  reference: (referenceString) => !(Objects.isEmpty(referenceString) || /[A-Za-z]/.test(referenceString)),
+  // check that is number
+  year: (yearString) => !(Objects.isEmpty(yearString) || Number.isInteger(Number(yearString))),
+  // check at least one character exists
+  comment: (commentString) => !(Objects.isEmpty(commentString) || /[A-Za-z]/.test(commentString)),
+}
 
 const DataSourceRow: React.FC<Props> = (props: Props) => {
   const { disabled, dataSource, sectionName, onChange, placeholder, onDelete, index } = props
@@ -35,7 +46,6 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
   const _onChange = useCallback(
     (field: string, value: string) => {
       if (dataSource[field as keyof DataSource] === value) return
-      if (!value) return
       onChange({
         ...dataSource,
         [field]: value,
@@ -47,17 +57,19 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
   const table = tableSections?.[0]?.tables?.[0]
   if (!table) return null
 
-  const columns = table.props.columnNames[cycle.uuid].map((c) =>
-    Number.isInteger(+c) ? c : t(`${sectionName}.${Objects.camelize(c)}`)
-  )
+  const columns = cycle ? Arrays.reverse(Arrays.range(1950, Number(cycle.name))).map(String) : []
 
+  const _allColumnsCalculated = (row: Row) =>
+    row.cols.every((col) => [ColType.header, ColType.calculated].includes(col.props.colType))
   const rows = table.rows
-    .filter((row) => row.props.variableName && row.props.type === RowType.data)
+    ?.filter((row) => row.props.variableName && row.props.type === RowType.data && !_allColumnsCalculated(row))
     .map((r) => t(Cols.getLabel({ cycle, col: r.cols[0], t })))
 
   return (
     <>
-      <DataColumn className="data-source-column">
+      <DataColumn
+        className={classNames('data-source-column', { 'validation-error': validators.reference(dataSource.reference) })}
+      >
         <div className="data-source__delete-wrapper">
           {!placeholder && !disabled && (
             <button type="button" onClick={onDelete}>
@@ -82,16 +94,19 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
       </DataColumn>
 
       <DataColumn className="data-source-column">
-        <Autocomplete
-          withArrow
+        <MultiSelect
           disabled={disabled}
-          onSave={(value) => _onChange('fraVariable', value)}
-          value={dataSource.fraVariable}
-          items={rows}
+          values={dataSource.fraVariables ?? []}
+          options={rows}
+          onChange={(value: any) => {
+            _onChange('fraVariables', value)
+          }}
         />
       </DataColumn>
 
-      <DataColumn className="data-source-column">
+      <DataColumn
+        className={classNames('data-source-column', { 'validation-error': validators.year(dataSource.year) })}
+      >
         <Autocomplete
           withArrow
           disabled={disabled}
@@ -101,7 +116,10 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
         />
       </DataColumn>
 
-      <DataColumn className="data-source-column">
+      <DataColumn
+        className={classNames('data-source-column', { 'validation-error': validators.comment(dataSource.comments) })}
+      >
+        {' '}
         <VerticallyGrowingTextField
           disabled={disabled}
           onChange={(event) => _onChange('comments', event.target.value)}
@@ -111,7 +129,7 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
       <DataColumn className="data-source-review-indicator">
         {!disabled && (
           <ReviewIndicator
-            title={`${dataSource.fraVariable} | ${dataSource.year}`}
+            title={`${dataSource.fraVariables?.join(', ')} | ${dataSource.year}`}
             topicKey={`dataSource-${countryIso}-${sectionName}-${index}`}
           />
         )}

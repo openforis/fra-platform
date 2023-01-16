@@ -28,7 +28,6 @@
 .multi-select__opened-content-anchor {
   position: relative;
   height: 0;
-  width: 100%;
 }
 
 .multi-select__closed-content {
@@ -39,7 +38,6 @@
 .multi-select__opened {
   position: absolute;
   top: 1px;
-  right: 0;
   left: 0;
   cursor: pointer;
   z-index: $z-index-popover;

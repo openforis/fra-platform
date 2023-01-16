@@ -2,7 +2,12 @@
 @import 'src/client/style/partials';
 
 .autocomplete {
-  transition: all .1s ease-out;
+  transition: all 0.1s ease-out;
+
+  &[aria-expanded='true'] .autocomplete-dropdown {
+    border-top: 1px solid $text-link;
+    border-bottom: 1px solid $text-link;
+  }
 }
 
 .autocomplete-input__wrapper {
@@ -23,14 +28,14 @@
   top: 100%;
   left: -1px; // align with top container border
   min-width: calc(100% + 2px); //2px parent border
-
-
+  max-height: 50vh;
+  overflow-y: scroll;
+  border-right: 1px solid $text-link;
+  border-left: 1px solid $text-link;
 }
 
 .autocomplete-item {
   align-items: center;
-  border-left: 1px solid $text-link;
-  border-right: 1px solid $text-link;
   color: $text-link;
   cursor: pointer;
   display: flex;
@@ -40,14 +45,6 @@
   padding: $spacing-xxs 9px;
   text-decoration: none;
 
-  &:first-child {
-    border-top: 1px solid $text-link;
-
-  }
-
-  &:last-child {
-    border-bottom: 1px solid $text-link;
-  }
   &.selected {
     border-left: 2px solid darken($ui-accent-light, 25%);
     padding: $spacing-xxs;
@@ -59,5 +56,4 @@
     border-left: 1px solid darken($ui-accent-light, 25%);
     border-right: 1px solid darken($ui-accent-light, 25%);
   }
-
 }
