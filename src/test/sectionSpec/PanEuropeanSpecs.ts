@@ -42,6 +42,27 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'panEuropean.forestArea.forest',
+                    labelParams: { year: 2025 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.forestArea.forest',
+                labelParams: { year: 2025 },
+                variableExport: 'forest_2025',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.forestArea.forest',
                     labelParams: { year: 2020 },
                     className: 'fra-table__category-cell',
                   },
@@ -52,7 +73,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2020',
               },
               {
-                idx: 1,
+                idx: 2,
                 type: 'data',
                 cols: [
                   {
@@ -70,7 +91,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2015',
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -88,7 +109,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2010',
               },
               {
-                idx: 3,
+                idx: 4,
                 type: 'data',
                 cols: [
                   {
@@ -106,7 +127,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2005',
               },
               {
-                idx: 4,
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -124,7 +145,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2000',
               },
               {
-                idx: 5,
+                idx: 6,
                 type: 'data',
                 cols: [
                   {
@@ -142,7 +163,28 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_1990',
               },
               {
-                idx: 6,
+                idx: 7,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.forestArea._of_which_available_for_wood_supply',
+                    labelParams: { year: 2025 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                ],
+                labelKey: 'panEuropean.forestArea._of_which_available_for_wood_supply',
+                labelParams: { year: 2025 },
+                migration: {
+                  cycles: ['2025'],
+                },
+                variableExport: '_of_which_available_for_wood_supply_2025',
+              },
+              {
+                idx: 8,
                 type: 'data',
                 cols: [
                   {
@@ -160,7 +202,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: '_of_which_available_for_wood_supply_2020',
               },
               {
-                idx: 7,
+                idx: 9,
                 type: 'data',
                 cols: [
                   {
@@ -178,7 +220,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: '_of_which_available_for_wood_supply_2015',
               },
               {
-                idx: 8,
+                idx: 10,
                 type: 'data',
                 cols: [
                   {
@@ -196,7 +238,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: '_of_which_available_for_wood_supply_2010',
               },
               {
-                idx: 9,
+                idx: 11,
                 type: 'data',
                 cols: [
                   {
@@ -214,7 +256,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: '_of_which_available_for_wood_supply_2005',
               },
               {
-                idx: 10,
+                idx: 12,
                 type: 'data',
                 cols: [
                   {
@@ -232,7 +274,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: '_of_which_available_for_wood_supply_2000',
               },
               {
-                idx: 11,
+                idx: 13,
                 type: 'data',
                 cols: [
                   {
@@ -250,7 +292,28 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: '_of_which_available_for_wood_supply_1990',
               },
               {
-                idx: 12,
+                idx: 14,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.forestArea.other_wooded_land',
+                    labelParams: { year: 2025 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.forestArea.other_wooded_land',
+                labelParams: { year: 2025 },
+                variableExport: 'other_wooded_land_2025',
+              },
+              {
+                idx: 15,
                 type: 'data',
                 cols: [
                   {
@@ -268,7 +331,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2020',
               },
               {
-                idx: 13,
+                idx: 16,
                 type: 'data',
                 cols: [
                   {
@@ -286,7 +349,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2015',
               },
               {
-                idx: 14,
+                idx: 17,
                 type: 'data',
                 cols: [
                   {
@@ -304,7 +367,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2010',
               },
               {
-                idx: 15,
+                idx: 18,
                 type: 'data',
                 cols: [
                   {
@@ -322,7 +385,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2005',
               },
               {
-                idx: 16,
+                idx: 19,
                 type: 'data',
                 cols: [
                   {
@@ -340,7 +403,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2000',
               },
               {
-                idx: 17,
+                idx: 20,
                 type: 'data',
                 cols: [
                   {
@@ -358,7 +421,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_1990',
               },
               {
-                idx: 18,
+                idx: 21,
                 type: 'data',
                 cols: [
                   {
@@ -371,63 +434,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   },
                   { idx: 0, type: 'decimal' },
                 ],
+                migration: {
+                  cycles: ['2020'],
+                },
                 labelKey: 'panEuropean.forestArea.total_forest_and_other_wooded_land',
                 labelParams: { year: 2020 },
                 variableExport: 'total_forest_and_other_wooded_land_2020',
-              },
-              {
-                idx: 19,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.forestArea.total_forest_and_other_wooded_land',
-                    labelParams: { year: 2015 },
-                    className: 'fra-table__category-cell',
-                  },
-                  { idx: 0, type: 'decimal' },
-                ],
-                labelKey: 'panEuropean.forestArea.total_forest_and_other_wooded_land',
-                labelParams: { year: 2015 },
-                variableExport: 'total_forest_and_other_wooded_land_2015',
-              },
-              {
-                idx: 20,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.forestArea.total_forest_and_other_wooded_land',
-                    labelParams: { year: 2010 },
-                    className: 'fra-table__category-cell',
-                  },
-                  { idx: 0, type: 'decimal' },
-                ],
-                labelKey: 'panEuropean.forestArea.total_forest_and_other_wooded_land',
-                labelParams: { year: 2010 },
-                variableExport: 'total_forest_and_other_wooded_land_2010',
-              },
-              {
-                idx: 21,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.forestArea.total_forest_and_other_wooded_land',
-                    labelParams: { year: 2005 },
-                    className: 'fra-table__category-cell',
-                  },
-                  { idx: 0, type: 'decimal' },
-                ],
-                labelKey: 'panEuropean.forestArea.total_forest_and_other_wooded_land',
-                labelParams: { year: 2005 },
-                variableExport: 'total_forest_and_other_wooded_land_2005',
               },
               {
                 idx: 22,
@@ -438,17 +450,83 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'panEuropean.forestArea.total_forest_and_other_wooded_land',
-                    labelParams: { year: 2000 },
+                    labelParams: { year: 2015 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2020'],
+                },
+                labelKey: 'panEuropean.forestArea.total_forest_and_other_wooded_land',
+                labelParams: { year: 2015 },
+                variableExport: 'total_forest_and_other_wooded_land_2015',
+              },
+              {
+                idx: 23,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.forestArea.total_forest_and_other_wooded_land',
+                    labelParams: { year: 2010 },
                     className: 'fra-table__category-cell',
                   },
                   { idx: 0, type: 'decimal' },
                 ],
                 labelKey: 'panEuropean.forestArea.total_forest_and_other_wooded_land',
+                labelParams: { year: 2010 },
+                migration: {
+                  cycles: ['2020'],
+                },
+                variableExport: 'total_forest_and_other_wooded_land_2010',
+              },
+              {
+                idx: 24,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.forestArea.total_forest_and_other_wooded_land',
+                    labelParams: { year: 2005 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2020'],
+                },
+                labelKey: 'panEuropean.forestArea.total_forest_and_other_wooded_land',
+                labelParams: { year: 2005 },
+                variableExport: 'total_forest_and_other_wooded_land_2005',
+              },
+              {
+                idx: 25,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.forestArea.total_forest_and_other_wooded_land',
+                    labelParams: { year: 2000 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2020'],
+                },
+                labelKey: 'panEuropean.forestArea.total_forest_and_other_wooded_land',
                 labelParams: { year: 2000 },
                 variableExport: 'total_forest_and_other_wooded_land_2000',
               },
               {
-                idx: 23,
+                idx: 26,
                 type: 'data',
                 cols: [
                   {
@@ -461,81 +539,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   },
                   { idx: 0, type: 'decimal' },
                 ],
+                migration: {
+                  cycles: ['2020'],
+                },
                 labelKey: 'panEuropean.forestArea.total_forest_and_other_wooded_land',
                 labelParams: { year: 1990 },
                 variableExport: 'total_forest_and_other_wooded_land_1990',
-              },
-              {
-                idx: 24,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.forestArea.other_land',
-                    labelParams: { year: 2020 },
-                    className: 'fra-table__category-cell',
-                  },
-                  { idx: 0, type: 'decimal' },
-                ],
-                labelKey: 'panEuropean.forestArea.other_land',
-                labelParams: { year: 2020 },
-                variableExport: 'other_land_2020',
-              },
-              {
-                idx: 25,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.forestArea.other_land',
-                    labelParams: { year: 2015 },
-                    className: 'fra-table__category-cell',
-                  },
-                  { idx: 0, type: 'decimal' },
-                ],
-                labelKey: 'panEuropean.forestArea.other_land',
-                labelParams: { year: 2015 },
-                variableExport: 'other_land_2015',
-              },
-              {
-                idx: 26,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.forestArea.other_land',
-                    labelParams: { year: 2010 },
-                    className: 'fra-table__category-cell',
-                  },
-                  { idx: 0, type: 'decimal' },
-                ],
-                labelKey: 'panEuropean.forestArea.other_land',
-                labelParams: { year: 2010 },
-                variableExport: 'other_land_2010',
-              },
-              {
-                idx: 27,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.forestArea.other_land',
-                    labelParams: { year: 2005 },
-                    className: 'fra-table__category-cell',
-                  },
-                  { idx: 0, type: 'decimal' },
-                ],
-                labelKey: 'panEuropean.forestArea.other_land',
-                labelParams: { year: 2005 },
-                variableExport: 'other_land_2005',
               },
               {
                 idx: 28,
@@ -545,15 +554,22 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 'header_0',
                     type: 'header',
                     colSpan: 1,
-                    labelKey: 'panEuropean.forestArea.other_land',
-                    labelParams: { year: 2000 },
+                    migration: {
+                      label: {
+                        '2025': { key: 'panEuropean.forestArea.remaining_land_area', params: { year: 2025 } },
+                      },
+                    },
+                    labelParams: { year: 2025 },
                     className: 'fra-table__category-cell',
                   },
                   { idx: 0, type: 'decimal' },
                 ],
+                migration: {
+                  cycles: ['2025'],
+                },
                 labelKey: 'panEuropean.forestArea.other_land',
-                labelParams: { year: 2000 },
-                variableExport: 'other_land_2000',
+                labelParams: { year: 2025 },
+                variableExport: 'other_land_2025',
               },
               {
                 idx: 29,
@@ -563,8 +579,122 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 'header_0',
                     type: 'header',
                     colSpan: 1,
-                    labelKey: 'panEuropean.forestArea.other_land',
-                    labelParams: { year: 1990 },
+                    migration: {
+                      label: {
+                        '2020': { key: 'panEuropean.forestArea.other_land', params: { year: 2020 } },
+                        '2025': { key: 'panEuropean.forestArea.remaining_land_area', params: { year: 2020 } },
+                      },
+                    },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                ],
+                labelKey: 'panEuropean.forestArea.other_land',
+                labelParams: { year: 2020 },
+                variableExport: 'other_land_2020',
+              },
+              {
+                idx: 30,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    migration: {
+                      label: {
+                        '2020': { key: 'panEuropean.forestArea.other_land', params: { year: 2015 } },
+                        '2025': { key: 'panEuropean.forestArea.remaining_land_area', params: { year: 2015 } },
+                      },
+                    },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                ],
+                labelKey: 'panEuropean.forestArea.other_land',
+                labelParams: { year: 2015 },
+                variableExport: 'other_land_2015',
+              },
+              {
+                idx: 31,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    migration: {
+                      label: {
+                        '2020': { key: 'panEuropean.forestArea.other_land', params: { year: 2010 } },
+                        '2025': { key: 'panEuropean.forestArea.remaining_land_area', params: { year: 2010 } },
+                      },
+                    },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                ],
+                labelKey: 'panEuropean.forestArea.other_land',
+                labelParams: { year: 2010 },
+                variableExport: 'other_land_2010',
+              },
+              {
+                idx: 32,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    migration: {
+                      label: {
+                        '2020': { key: 'panEuropean.forestArea.other_land', params: { year: 2005 } },
+                        '2025': { key: 'panEuropean.forestArea.remaining_land_area', params: { year: 2005 } },
+                      },
+                    },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                ],
+                labelKey: 'panEuropean.forestArea.other_land',
+                labelParams: { year: 2005 },
+                variableExport: 'other_land_2005',
+              },
+              {
+                idx: 33,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    migration: {
+                      label: {
+                        '2020': { key: 'panEuropean.forestArea.other_land', params: { year: 2000 } },
+                        '2025': { key: 'panEuropean.forestArea.remaining_land_area', params: { year: 2000 } },
+                      },
+                    },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                ],
+                labelKey: 'panEuropean.forestArea.other_land',
+                labelParams: { year: 2000 },
+                variableExport: 'other_land_2000',
+              },
+              {
+                idx: 34,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    migration: {
+                      label: {
+                        '2020': { key: 'panEuropean.forestArea.other_land', params: { year: 1990 } },
+                        '2025': { key: 'panEuropean.forestArea.remaining_land_area', params: { year: 1990 } },
+                      },
+                    },
                     className: 'fra-table__category-cell',
                   },
                   { idx: 0, type: 'decimal' },
@@ -574,7 +704,28 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_land_1990',
               },
               {
-                idx: 30,
+                idx: 35,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.forestArea._of_which_with_tree_cover',
+                    labelParams: { year: 2025 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.forestArea._of_which_with_tree_cover',
+                labelParams: { year: 2025 },
+                variableExport: '_of_which_with_tree_cover_2025',
+              },
+              {
+                idx: 36,
                 type: 'data',
                 cols: [
                   {
@@ -592,7 +743,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: '_of_which_with_tree_cover_2020',
               },
               {
-                idx: 31,
+                idx: 37,
                 type: 'data',
                 cols: [
                   {
@@ -610,7 +761,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: '_of_which_with_tree_cover_2015',
               },
               {
-                idx: 32,
+                idx: 38,
                 type: 'data',
                 cols: [
                   {
@@ -628,7 +779,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: '_of_which_with_tree_cover_2010',
               },
               {
-                idx: 33,
+                idx: 39,
                 type: 'data',
                 cols: [
                   {
@@ -646,7 +797,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: '_of_which_with_tree_cover_2005',
               },
               {
-                idx: 34,
+                idx: 40,
                 type: 'data',
                 cols: [
                   {
@@ -664,7 +815,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: '_of_which_with_tree_cover_2000',
               },
               {
-                idx: 35,
+                idx: 41,
                 type: 'data',
                 cols: [
                   {
@@ -725,11 +876,15 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 1,
-                    colSpan: 6,
-                    rowSpan: 1,
                     labelKey: 'panEuropean.forestAreaByForestTypes.forestArea1000Ha',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      style: {
+                        '2020': { colSpan: 6, rowSpan: 1 },
+                        '2025': { colSpan: 7, rowSpan: 1 },
+                      },
+                    },
                   },
                 ],
                 type: 'header',
@@ -785,6 +940,15 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
+                  {
+                    idx: 6,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: '2025',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: { cycles: ['2025'] },
+                  },
                 ],
                 type: 'header',
               },
@@ -801,13 +965,11 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   },
                   { idx: 0, type: 'decimal' },
                   { idx: 1, type: 'decimal' },
-                  {
-                    idx: 2,
-                    type: 'decimal',
-                  },
+                  { idx: 2, type: 'decimal' },
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                   { idx: 5, type: 'decimal' },
+                  { idx: 6, type: 'decimal', colName: 'forest_area_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: 'predominantly_coniferous_forest',
                 labelKey: 'panEuropean.forestAreaByForestTypes.predominantly_coniferous_forest',
@@ -832,6 +994,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                   { idx: 5, type: 'decimal' },
+                  { idx: 6, type: 'decimal', colName: 'forest_area_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: 'predominantly_broadleaved_forest',
                 labelKey: 'panEuropean.forestAreaByForestTypes.predominantly_broadleaved_forest',
@@ -856,6 +1019,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                   { idx: 5, type: 'decimal' },
+                  { idx: 6, type: 'decimal', colName: 'forest_area_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: 'mixed_forest',
                 labelKey: 'panEuropean.forestAreaByForestTypes.mixed_forest',
@@ -874,6 +1038,27 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
               'forest_area_2015',
               'forest_area_2020',
             ],
+            migration: {
+              columnNames: {
+                '2020': [
+                  'forest_area_1990',
+                  'forest_area_2000',
+                  'forest_area_2005',
+                  'forest_area_2010',
+                  'forest_area_2015',
+                  'forest_area_2020',
+                ],
+                '2025': [
+                  'forest_area_1990',
+                  'forest_area_2000',
+                  'forest_area_2005',
+                  'forest_area_2010',
+                  'forest_area_2015',
+                  'forest_area_2020',
+                  'forest_area_2025',
+                ],
+              },
+            },
           },
         ],
       },
@@ -973,6 +1158,29 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'panEuropean.growingStock.forest',
+                    labelParams: { year: 2025 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  { idx: 2, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.growingStock.forest',
+                labelParams: { year: 2025 },
+                variableExport: 'forest_2025',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.growingStock.forest',
                     labelParams: { year: 2020 },
                     className: 'fra-table__category-cell',
                   },
@@ -985,7 +1193,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2020',
               },
               {
-                idx: 1,
+                idx: 2,
                 type: 'data',
                 cols: [
                   {
@@ -1005,7 +1213,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2015',
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -1025,7 +1233,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2010',
               },
               {
-                idx: 3,
+                idx: 4,
                 type: 'data',
                 cols: [
                   {
@@ -1045,7 +1253,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2005',
               },
               {
-                idx: 4,
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -1065,7 +1273,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2000',
               },
               {
-                idx: 5,
+                idx: 6,
                 type: 'data',
                 cols: [
                   {
@@ -1085,7 +1293,30 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_1990',
               },
               {
-                idx: 6,
+                idx: 7,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.growingStock._of_which_available_for_wood_supply',
+                    labelParams: { year: 2025 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  { idx: 2, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.growingStock._of_which_available_for_wood_supply',
+                labelParams: { year: 2025 },
+                variableExport: '_of_which_available_for_wood_supply_2025',
+              },
+              {
+                idx: 8,
                 type: 'data',
                 cols: [
                   {
@@ -1105,7 +1336,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: '_of_which_available_for_wood_supply_2020',
               },
               {
-                idx: 7,
+                idx: 9,
                 type: 'data',
                 cols: [
                   {
@@ -1125,7 +1356,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: '_of_which_available_for_wood_supply_2015',
               },
               {
-                idx: 8,
+                idx: 10,
                 type: 'data',
                 cols: [
                   {
@@ -1145,7 +1376,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: '_of_which_available_for_wood_supply_2010',
               },
               {
-                idx: 9,
+                idx: 11,
                 type: 'data',
                 cols: [
                   {
@@ -1165,7 +1396,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: '_of_which_available_for_wood_supply_2005',
               },
               {
-                idx: 10,
+                idx: 12,
                 type: 'data',
                 cols: [
                   {
@@ -1185,7 +1416,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: '_of_which_available_for_wood_supply_2000',
               },
               {
-                idx: 11,
+                idx: 13,
                 type: 'data',
                 cols: [
                   {
@@ -1205,7 +1436,30 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: '_of_which_available_for_wood_supply_1990',
               },
               {
-                idx: 12,
+                idx: 14,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.growingStock.other_wooded_land',
+                    labelParams: { year: 2025 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  { idx: 2, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.growingStock.other_wooded_land',
+                labelParams: { year: 2025 },
+                variableExport: 'other_wooded_land_2025',
+              },
+              {
+                idx: 15,
                 type: 'data',
                 cols: [
                   {
@@ -1225,7 +1479,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2020',
               },
               {
-                idx: 13,
+                idx: 16,
                 type: 'data',
                 cols: [
                   {
@@ -1245,7 +1499,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2015',
               },
               {
-                idx: 14,
+                idx: 17,
                 type: 'data',
                 cols: [
                   {
@@ -1265,7 +1519,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2010',
               },
               {
-                idx: 15,
+                idx: 18,
                 type: 'data',
                 cols: [
                   {
@@ -1285,7 +1539,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2005',
               },
               {
-                idx: 16,
+                idx: 19,
                 type: 'data',
                 cols: [
                   {
@@ -1305,7 +1559,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2000',
               },
               {
-                idx: 17,
+                idx: 20,
                 type: 'data',
                 cols: [
                   {
@@ -1325,7 +1579,30 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_1990',
               },
               {
-                idx: 18,
+                idx: 21,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.growingStock.total_forest_and_other_wooded_land',
+                    labelParams: { year: 2025 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  { idx: 2, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.growingStock.total_forest_and_other_wooded_land',
+                labelParams: { year: 2025 },
+                variableExport: 'total_forest_and_other_wooded_land_2025',
+              },
+              {
+                idx: 22,
                 type: 'data',
                 cols: [
                   {
@@ -1345,7 +1622,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2020',
               },
               {
-                idx: 19,
+                idx: 23,
                 type: 'data',
                 cols: [
                   {
@@ -1365,7 +1642,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2015',
               },
               {
-                idx: 20,
+                idx: 24,
                 type: 'data',
                 cols: [
                   {
@@ -1385,7 +1662,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2010',
               },
               {
-                idx: 21,
+                idx: 25,
                 type: 'data',
                 cols: [
                   {
@@ -1405,7 +1682,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2005',
               },
               {
-                idx: 22,
+                idx: 26,
                 type: 'data',
                 cols: [
                   {
@@ -1425,7 +1702,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2000',
               },
               {
-                idx: 23,
+                idx: 27,
                 type: 'data',
                 cols: [
                   {
@@ -1488,11 +1765,15 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 1,
-                    colSpan: 6,
-                    rowSpan: 1,
                     labelKey: 'panEuropean.growingStockByForestType.growingStockMillionM3OB',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      style: {
+                        '2020': { colSpan: 6, rowSpan: 1 },
+                        '2025': { colSpan: 7, rowSpan: 1 },
+                      },
+                    },
                   },
                 ],
                 type: 'header',
@@ -1548,7 +1829,17 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
+                  {
+                    idx: 6,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: '2025',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: { cycles: ['2025'] },
+                  },
                 ],
+
                 type: 'header',
               },
               {
@@ -1571,6 +1862,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                   { idx: 5, type: 'decimal' },
+                  { idx: 6, type: 'decimal', colName: 'growing_stock_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: 'predominantly_coniferous_forest',
                 labelKey: 'panEuropean.growingStockByForestType.predominantly_coniferous_forest',
@@ -1595,6 +1887,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                   { idx: 5, type: 'decimal' },
+                  { idx: 6, type: 'decimal', colName: 'growing_stock_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: 'predominantly_broadleaved_forest',
                 labelKey: 'panEuropean.growingStockByForestType.predominantly_broadleaved_forest',
@@ -1619,6 +1912,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                   { idx: 5, type: 'decimal' },
+                  { idx: 6, type: 'decimal', colName: 'growing_stock_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: 'mixed_forest',
                 labelKey: 'panEuropean.growingStockByForestType.mixed_forest',
@@ -1637,6 +1931,27 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
               'growing_stock_2015',
               'growing_stock_2020',
             ],
+            migration: {
+              columnNames: {
+                '2020': [
+                  'growing_stock_1990',
+                  'growing_stock_2000',
+                  'growing_stock_2005',
+                  'growing_stock_2010',
+                  'growing_stock_2015',
+                  'growing_stock_2020',
+                ],
+                '2025': [
+                  'growing_stock_1990',
+                  'growing_stock_2000',
+                  'growing_stock_2005',
+                  'growing_stock_2010',
+                  'growing_stock_2015',
+                  'growing_stock_2020',
+                  'growing_stock_2025',
+                ],
+              },
+            },
           },
         ],
       },
@@ -1674,11 +1989,15 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 1,
-                    colSpan: 6,
-                    rowSpan: 1,
                     labelKey: 'panEuropean.growingStockComposition.growingStockInForestMillionM3OB',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      style: {
+                        '2020': { colSpan: 6, rowSpan: 1 },
+                        '2025': { colSpan: 7, rowSpan: 1 },
+                      },
+                    },
                   },
                 ],
                 type: 'header',
@@ -1758,6 +2077,15 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
+                  {
+                    idx: 9,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: '2025',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: { cycles: ['2025'] },
+                  },
                 ],
                 type: 'header',
               },
@@ -1786,6 +2114,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 7, type: 'decimal' },
+                  { idx: 8, type: 'decimal', colName: 'growing_stock_in_forest_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: 'no1_ranked_in_terms_of_volume',
                 labelKey: 'panEuropean.growingStockComposition.no1_ranked_in_terms_of_volume',
@@ -1815,6 +2144,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 7, type: 'decimal' },
+                  { idx: 8, type: 'decimal', colName: 'growing_stock_in_forest_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: 'no2_ranked_in_terms_of_volume',
                 labelKey: 'panEuropean.growingStockComposition.no2_ranked_in_terms_of_volume',
@@ -1844,6 +2174,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 7, type: 'decimal' },
+                  { idx: 8, type: 'decimal', colName: 'growing_stock_in_forest_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: 'no3_ranked_in_terms_of_volume',
                 labelKey: 'panEuropean.growingStockComposition.no3_ranked_in_terms_of_volume',
@@ -1873,6 +2204,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 7, type: 'decimal' },
+                  { idx: 8, type: 'decimal', colName: 'growing_stock_in_forest_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: 'no4_ranked_in_terms_of_volume',
                 labelKey: 'panEuropean.growingStockComposition.no4_ranked_in_terms_of_volume',
@@ -1902,6 +2234,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 7, type: 'decimal' },
+                  { idx: 8, type: 'decimal', colName: 'growing_stock_in_forest_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: 'no5_ranked_in_terms_of_volume',
                 labelKey: 'panEuropean.growingStockComposition.no5_ranked_in_terms_of_volume',
@@ -1931,6 +2264,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 7, type: 'decimal' },
+                  { idx: 8, type: 'decimal', colName: 'growing_stock_in_forest_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: 'no6_ranked_in_terms_of_volume',
                 labelKey: 'panEuropean.growingStockComposition.no6_ranked_in_terms_of_volume',
@@ -1960,6 +2294,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 7, type: 'decimal' },
+                  { idx: 8, type: 'decimal', colName: 'growing_stock_in_forest_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: 'no7_ranked_in_terms_of_volume',
                 labelKey: 'panEuropean.growingStockComposition.no7_ranked_in_terms_of_volume',
@@ -1989,6 +2324,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 7, type: 'decimal' },
+                  { idx: 8, type: 'decimal', colName: 'growing_stock_in_forest_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: 'no8_ranked_in_terms_of_volume',
                 labelKey: 'panEuropean.growingStockComposition.no8_ranked_in_terms_of_volume',
@@ -2018,6 +2354,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 7, type: 'decimal' },
+                  { idx: 8, type: 'decimal', colName: 'growing_stock_in_forest_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: 'no9_ranked_in_terms_of_volume',
                 labelKey: 'panEuropean.growingStockComposition.no9_ranked_in_terms_of_volume',
@@ -2047,6 +2384,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 7, type: 'decimal' },
+                  { idx: 8, type: 'decimal', colName: 'growing_stock_in_forest_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: 'no10_ranked_in_terms_of_volume',
                 labelKey: 'panEuropean.growingStockComposition.no10_ranked_in_terms_of_volume',
@@ -2071,6 +2409,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 5, type: 'decimal' },
                   { idx: 6, type: 'decimal' },
                   { idx: 7, type: 'decimal' },
+                  { idx: 8, type: 'decimal', colName: 'growing_stock_in_forest_2025', migration: { cycles: ['2025'] } },
                 ],
                 labelKey: 'panEuropean.growingStockComposition.remaining',
                 variableExport: 'remaining',
@@ -2096,6 +2435,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 5, type: 'decimal' },
                   { idx: 6, type: 'decimal' },
                   { idx: 7, type: 'decimal' },
+                  { idx: 8, type: 'decimal', colName: 'growing_stock_in_forest_2025', migration: { cycles: ['2025'] } },
                 ],
                 labelKey: 'panEuropean.growingStockComposition.total',
                 variableExport: 'total',
@@ -2116,6 +2456,31 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
               'growing_stock_in_forest_2015',
               'growing_stock_in_forest_2020',
             ],
+            migration: {
+              columnNames: {
+                '2020': [
+                  'scientific_name',
+                  'common_name',
+                  'growing_stock_in_forest_1990',
+                  'growing_stock_in_forest_2000',
+                  'growing_stock_in_forest_2005',
+                  'growing_stock_in_forest_2010',
+                  'growing_stock_in_forest_2015',
+                  'growing_stock_in_forest_2020',
+                ],
+                '2025': [
+                  'scientific_name',
+                  'common_name',
+                  'growing_stock_in_forest_1990',
+                  'growing_stock_in_forest_2000',
+                  'growing_stock_in_forest_2005',
+                  'growing_stock_in_forest_2010',
+                  'growing_stock_in_forest_2015',
+                  'growing_stock_in_forest_2020',
+                  'growing_stock_in_forest_2025',
+                ],
+              },
+            },
           },
         ],
       },
@@ -2240,6 +2605,37 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     colSpan: 1,
                     labelKey:
                       'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.forest_available_for_wood_supply_even_aged_stands_of_which',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey:
+                  'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.forest_available_for_wood_supply_even_aged_stands_of_which',
+                labelParams: { year: 2020 },
+                variableExport: 'forest_available_for_wood_supply_even_aged_stands_of_which_2020',
+                subcategory: false,
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey:
+                      'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.forest_available_for_wood_supply_even_aged_stands_of_which',
                     labelParams: { year: 2015 },
                     className: 'fra-table__category-cell',
                   },
@@ -2259,7 +2655,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: false,
               },
               {
-                idx: 1,
+                idx: 2,
                 type: 'data',
                 cols: [
                   {
@@ -2287,7 +2683,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: false,
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -2315,7 +2711,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: false,
               },
               {
-                idx: 3,
+                idx: 4,
                 type: 'data',
                 cols: [
                   {
@@ -2343,7 +2739,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: false,
               },
               {
-                idx: 4,
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -2371,7 +2767,38 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: false,
               },
               {
-                idx: 5,
+                idx: 6,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey:
+                      'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.predominantly_coniferous_forest',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__subcategory-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey:
+                  'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.predominantly_coniferous_forest',
+                labelParams: { year: 2020 },
+                variableExport: 'predominantly_coniferous_forest_2020',
+                subcategory: true,
+              },
+              {
+                idx: 7,
                 type: 'data',
                 cols: [
                   {
@@ -2399,7 +2826,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: true,
               },
               {
-                idx: 6,
+                idx: 8,
                 type: 'data',
                 cols: [
                   {
@@ -2427,7 +2854,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: true,
               },
               {
-                idx: 7,
+                idx: 9,
                 type: 'data',
                 cols: [
                   {
@@ -2455,7 +2882,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: true,
               },
               {
-                idx: 8,
+                idx: 10,
                 type: 'data',
                 cols: [
                   {
@@ -2483,7 +2910,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: true,
               },
               {
-                idx: 9,
+                idx: 11,
                 type: 'data',
                 cols: [
                   {
@@ -2511,7 +2938,38 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: true,
               },
               {
-                idx: 10,
+                idx: 12,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey:
+                      'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.predominantly_broadleaved_forest',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__subcategory-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey:
+                  'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.predominantly_broadleaved_forest',
+                labelParams: { year: 2020 },
+                variableExport: 'predominantly_broadleaved_forest_2020',
+                subcategory: true,
+              },
+              {
+                idx: 13,
                 type: 'data',
                 cols: [
                   {
@@ -2539,7 +2997,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: true,
               },
               {
-                idx: 11,
+                idx: 14,
                 type: 'data',
                 cols: [
                   {
@@ -2567,7 +3025,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: true,
               },
               {
-                idx: 12,
+                idx: 15,
                 type: 'data',
                 cols: [
                   {
@@ -2595,7 +3053,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: true,
               },
               {
-                idx: 13,
+                idx: 16,
                 type: 'data',
                 cols: [
                   {
@@ -2623,7 +3081,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: true,
               },
               {
-                idx: 14,
+                idx: 17,
                 type: 'data',
                 cols: [
                   {
@@ -2651,7 +3109,38 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: true,
               },
               {
-                idx: 15,
+                idx: 18,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey:
+                      'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.mixed_forest',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__subcategory-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey:
+                  'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.mixed_forest',
+                labelParams: { year: 2020 },
+                variableExport: 'mixed_forest_2020',
+                subcategory: true,
+              },
+              {
+                idx: 19,
                 type: 'data',
                 cols: [
                   {
@@ -2679,7 +3168,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: true,
               },
               {
-                idx: 16,
+                idx: 20,
                 type: 'data',
                 cols: [
                   {
@@ -2707,7 +3196,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: true,
               },
               {
-                idx: 17,
+                idx: 21,
                 type: 'data',
                 cols: [
                   {
@@ -2735,7 +3224,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: true,
               },
               {
-                idx: 18,
+                idx: 22,
                 type: 'data',
                 cols: [
                   {
@@ -2763,7 +3252,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: true,
               },
               {
-                idx: 19,
+                idx: 23,
                 type: 'data',
                 cols: [
                   {
@@ -2912,6 +3401,36 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.forest_even_aged_stands_of_which',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__header-cell-left',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.forest_even_aged_stands_of_which',
+                labelParams: { year: 2020 },
+                variableExport: 'forest_even_aged_stands_of_which_2020',
+                mainCategory: true,
+                subcategory: false,
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.forest_even_aged_stands_of_which',
                     labelParams: { year: 2015 },
                     className: 'fra-table__header-cell-left',
                   },
@@ -2931,7 +3450,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: false,
               },
               {
-                idx: 1,
+                idx: 2,
                 type: 'data',
                 cols: [
                   {
@@ -2958,7 +3477,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: false,
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -2985,7 +3504,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: false,
               },
               {
-                idx: 3,
+                idx: 4,
                 type: 'data',
                 cols: [
                   {
@@ -3012,7 +3531,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: false,
               },
               {
-                idx: 4,
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -3039,7 +3558,37 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: false,
               },
               {
-                idx: 5,
+                idx: 6,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.available_for_wood_supply_of_which',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.available_for_wood_supply_of_which',
+                labelParams: { year: 2020 },
+                variableExport: 'available_for_wood_supply_of_which_2020',
+                mainCategory: false,
+                subcategory: false,
+              },
+              {
+                idx: 7,
                 type: 'data',
                 cols: [
                   {
@@ -3066,7 +3615,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: false,
               },
               {
-                idx: 6,
+                idx: 8,
                 type: 'data',
                 cols: [
                   {
@@ -3093,7 +3642,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: false,
               },
               {
-                idx: 7,
+                idx: 9,
                 type: 'data',
                 cols: [
                   {
@@ -3120,7 +3669,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: false,
               },
               {
-                idx: 8,
+                idx: 10,
                 type: 'data',
                 cols: [
                   {
@@ -3147,7 +3696,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: false,
               },
               {
-                idx: 9,
+                idx: 11,
                 type: 'data',
                 cols: [
                   {
@@ -3174,7 +3723,37 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: false,
               },
               {
-                idx: 10,
+                idx: 12,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.predominantly_coniferous_forest',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__subcategory-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.predominantly_coniferous_forest',
+                labelParams: { year: 2020 },
+                variableExport: 'predominantly_coniferous_forest_2020',
+                mainCategory: false,
+                subcategory: true,
+              },
+              {
+                idx: 13,
                 type: 'data',
                 cols: [
                   {
@@ -3201,7 +3780,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: true,
               },
               {
-                idx: 11,
+                idx: 14,
                 type: 'data',
                 cols: [
                   {
@@ -3228,7 +3807,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: true,
               },
               {
-                idx: 12,
+                idx: 15,
                 type: 'data',
                 cols: [
                   {
@@ -3255,7 +3834,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: true,
               },
               {
-                idx: 13,
+                idx: 16,
                 type: 'data',
                 cols: [
                   {
@@ -3282,7 +3861,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: true,
               },
               {
-                idx: 14,
+                idx: 17,
                 type: 'data',
                 cols: [
                   {
@@ -3309,7 +3888,37 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: true,
               },
               {
-                idx: 15,
+                idx: 18,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.predominantly_broadleaved_forest',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__subcategory-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.predominantly_broadleaved_forest',
+                labelParams: { year: 2020 },
+                variableExport: 'predominantly_broadleaved_forest_2020',
+                mainCategory: false,
+                subcategory: true,
+              },
+              {
+                idx: 19,
                 type: 'data',
                 cols: [
                   {
@@ -3336,7 +3945,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: true,
               },
               {
-                idx: 16,
+                idx: 20,
                 type: 'data',
                 cols: [
                   {
@@ -3363,7 +3972,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: true,
               },
               {
-                idx: 17,
+                idx: 21,
                 type: 'data',
                 cols: [
                   {
@@ -3390,7 +3999,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: true,
               },
               {
-                idx: 18,
+                idx: 22,
                 type: 'data',
                 cols: [
                   {
@@ -3417,7 +4026,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: true,
               },
               {
-                idx: 19,
+                idx: 23,
                 type: 'data',
                 cols: [
                   {
@@ -3444,7 +4053,37 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: true,
               },
               {
-                idx: 20,
+                idx: 24,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.mixed_forest',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__subcategory-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.mixed_forest',
+                labelParams: { year: 2020 },
+                variableExport: 'mixed_forest_2020',
+                mainCategory: false,
+                subcategory: true,
+              },
+              {
+                idx: 25,
                 type: 'data',
                 cols: [
                   {
@@ -3471,7 +4110,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: true,
               },
               {
-                idx: 21,
+                idx: 26,
                 type: 'data',
                 cols: [
                   {
@@ -3498,7 +4137,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: true,
               },
               {
-                idx: 22,
+                idx: 27,
                 type: 'data',
                 cols: [
                   {
@@ -3525,7 +4164,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: true,
               },
               {
-                idx: 23,
+                idx: 28,
                 type: 'data',
                 cols: [
                   {
@@ -3552,7 +4191,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 subcategory: true,
               },
               {
-                idx: 24,
+                idx: 29,
                 type: 'data',
                 cols: [
                   {
@@ -3703,6 +4342,39 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.forest_uneven_aged_stands',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                  {
+                    idx: 5,
+                    type: 'decimal',
+                  },
+                  { idx: 6, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.forest_uneven_aged_stands',
+                labelParams: { year: 2020 },
+                variableExport: 'forest_uneven_aged_stands_2020',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.forest_uneven_aged_stands',
                     labelParams: { year: 2015 },
                     className: 'fra-table__category-cell',
                   },
@@ -3725,7 +4397,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_uneven_aged_stands_2015',
               },
               {
-                idx: 1,
+                idx: 2,
                 type: 'data',
                 cols: [
                   {
@@ -3755,7 +4427,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_uneven_aged_stands_2010',
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -3785,7 +4457,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_uneven_aged_stands_2005',
               },
               {
-                idx: 3,
+                idx: 4,
                 type: 'data',
                 cols: [
                   {
@@ -3815,7 +4487,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_uneven_aged_stands_2000',
               },
               {
-                idx: 4,
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -3845,7 +4517,42 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_uneven_aged_stands_1990',
               },
               {
-                idx: 5,
+                idx: 6,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey:
+                      'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands._of_which_forest_available_for_wood_supply',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                  {
+                    idx: 5,
+                    type: 'decimal',
+                  },
+                  { idx: 6, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey:
+                  'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands._of_which_forest_available_for_wood_supply',
+                labelParams: { year: 2020 },
+                variableExport: '_of_which_forest_available_for_wood_supply_2020',
+              },
+              {
+                idx: 7,
                 type: 'data',
                 cols: [
                   {
@@ -3877,7 +4584,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: '_of_which_forest_available_for_wood_supply_2015',
               },
               {
-                idx: 6,
+                idx: 8,
                 type: 'data',
                 cols: [
                   {
@@ -3909,7 +4616,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: '_of_which_forest_available_for_wood_supply_2010',
               },
               {
-                idx: 7,
+                idx: 9,
                 type: 'data',
                 cols: [
                   {
@@ -3941,7 +4648,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: '_of_which_forest_available_for_wood_supply_2005',
               },
               {
-                idx: 8,
+                idx: 10,
                 type: 'data',
                 cols: [
                   {
@@ -3973,7 +4680,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: '_of_which_forest_available_for_wood_supply_2000',
               },
               {
-                idx: 9,
+                idx: 11,
                 type: 'data',
                 cols: [
                   {
@@ -4141,6 +4848,34 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'panEuropean.carbonStock.forest',
+                    labelParams: { year: 2025 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.carbonStock.forest',
+                labelParams: { year: 2025 },
+                variableExport: 'forest_2025',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.carbonStock.forest',
                     labelParams: { year: 2020 },
                     className: 'fra-table__category-cell',
                   },
@@ -4158,7 +4893,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2020',
               },
               {
-                idx: 1,
+                idx: 2,
                 type: 'data',
                 cols: [
                   {
@@ -4183,7 +4918,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2015',
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -4208,7 +4943,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2010',
               },
               {
-                idx: 3,
+                idx: 4,
                 type: 'data',
                 cols: [
                   {
@@ -4233,7 +4968,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2005',
               },
               {
-                idx: 4,
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -4258,7 +4993,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2000',
               },
               {
-                idx: 5,
+                idx: 6,
                 type: 'data',
                 cols: [
                   {
@@ -4283,7 +5018,35 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_1990',
               },
               {
-                idx: 6,
+                idx: 7,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.carbonStock.other_wooded_land',
+                    labelParams: { year: 2025 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.carbonStock.other_wooded_land',
+                labelParams: { year: 2025 },
+                variableExport: 'other_wooded_land_2025',
+              },
+              {
+                idx: 8,
                 type: 'data',
                 cols: [
                   {
@@ -4308,7 +5071,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2020',
               },
               {
-                idx: 7,
+                idx: 9,
                 type: 'data',
                 cols: [
                   {
@@ -4333,7 +5096,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2015',
               },
               {
-                idx: 8,
+                idx: 10,
                 type: 'data',
                 cols: [
                   {
@@ -4358,7 +5121,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2010',
               },
               {
-                idx: 9,
+                idx: 11,
                 type: 'data',
                 cols: [
                   {
@@ -4383,7 +5146,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2005',
               },
               {
-                idx: 10,
+                idx: 12,
                 type: 'data',
                 cols: [
                   {
@@ -4408,7 +5171,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2000',
               },
               {
-                idx: 11,
+                idx: 13,
                 type: 'data',
                 cols: [
                   {
@@ -4433,7 +5196,35 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_1990',
               },
               {
-                idx: 12,
+                idx: 14,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.carbonStock.total_forest_and_other_wooded_land',
+                    labelParams: { year: 2025 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.carbonStock.total_forest_and_other_wooded_land',
+                labelParams: { year: 2025 },
+                variableExport: 'total_forest_and_other_wooded_land_2025',
+              },
+              {
+                idx: 15,
                 type: 'data',
                 cols: [
                   {
@@ -4458,7 +5249,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2020',
               },
               {
-                idx: 13,
+                idx: 16,
                 type: 'data',
                 cols: [
                   {
@@ -4483,7 +5274,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2015',
               },
               {
-                idx: 14,
+                idx: 17,
                 type: 'data',
                 cols: [
                   {
@@ -4508,7 +5299,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2010',
               },
               {
-                idx: 15,
+                idx: 18,
                 type: 'data',
                 cols: [
                   {
@@ -4533,7 +5324,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2005',
               },
               {
-                idx: 16,
+                idx: 19,
                 type: 'data',
                 cols: [
                   {
@@ -4558,7 +5349,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2000',
               },
               {
-                idx: 17,
+                idx: 20,
                 type: 'data',
                 cols: [
                   {
@@ -4645,6 +5436,48 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'panEuropean.carbonStockInHarvestedWoodProductsHWP.harvested_wood_products',
+                    labelParams: { year: 2025 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.carbonStockInHarvestedWoodProductsHWP.harvested_wood_products',
+                labelParams: { year: 2025 },
+                variableExport: 'harvested_wood_products_2025',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.carbonStockInHarvestedWoodProductsHWP.harvested_wood_products',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.carbonStockInHarvestedWoodProductsHWP.harvested_wood_products',
+                labelParams: { year: 2020 },
+                variableExport: 'harvested_wood_products_2020',
+              },
+              {
+                idx: 2,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.carbonStockInHarvestedWoodProductsHWP.harvested_wood_products',
                     labelParams: { year: 2015 },
                     className: 'fra-table__category-cell',
                   },
@@ -4655,7 +5488,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'harvested_wood_products_2015',
               },
               {
-                idx: 1,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -4673,7 +5506,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'harvested_wood_products_2010',
               },
               {
-                idx: 2,
+                idx: 4,
                 type: 'data',
                 cols: [
                   {
@@ -4691,7 +5524,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'harvested_wood_products_2005',
               },
               {
-                idx: 3,
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -4709,7 +5542,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'harvested_wood_products_2000',
               },
               {
-                idx: 4,
+                idx: 6,
                 type: 'data',
                 cols: [
                   {
@@ -4910,6 +5743,251 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'panEuropean.forestAreaWithDamage.forest',
+                    labelParams: { year: 2022 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                  {
+                    idx: 5,
+                    type: 'decimal',
+                  },
+                  { idx: 6, type: 'decimal' },
+                  { idx: 7, type: 'decimal' },
+                  { idx: 8, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.forestAreaWithDamage.forest',
+                labelParams: { year: 2022 },
+                variableExport: 'forest_2022',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.forestAreaWithDamage.forest',
+                    labelParams: { year: 2021 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                  {
+                    idx: 5,
+                    type: 'decimal',
+                  },
+                  { idx: 6, type: 'decimal' },
+                  { idx: 7, type: 'decimal' },
+                  { idx: 8, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.forestAreaWithDamage.forest',
+                labelParams: { year: 2021 },
+                variableExport: 'forest_2021',
+              },
+              {
+                idx: 2,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.forestAreaWithDamage.forest',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                  {
+                    idx: 5,
+                    type: 'decimal',
+                  },
+                  { idx: 6, type: 'decimal' },
+                  { idx: 7, type: 'decimal' },
+                  { idx: 8, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.forestAreaWithDamage.forest',
+                labelParams: { year: 2020 },
+                variableExport: 'forest_2020',
+              },
+              {
+                idx: 3,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.forestAreaWithDamage.forest',
+                    labelParams: { year: 2019 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                  {
+                    idx: 5,
+                    type: 'decimal',
+                  },
+                  { idx: 6, type: 'decimal' },
+                  { idx: 7, type: 'decimal' },
+                  { idx: 8, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.forestAreaWithDamage.forest',
+                labelParams: { year: 2019 },
+                variableExport: 'forest_2019',
+              },
+              {
+                idx: 4,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.forestAreaWithDamage.forest',
+                    labelParams: { year: 2018 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                  {
+                    idx: 5,
+                    type: 'decimal',
+                  },
+                  { idx: 6, type: 'decimal' },
+                  { idx: 7, type: 'decimal' },
+                  { idx: 8, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.forestAreaWithDamage.forest',
+                labelParams: { year: 2018 },
+                variableExport: 'forest_2018',
+              },
+              {
+                idx: 5,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.forestAreaWithDamage.forest',
+                    labelParams: { year: 2017 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                  {
+                    idx: 5,
+                    type: 'decimal',
+                  },
+                  { idx: 6, type: 'decimal' },
+                  { idx: 7, type: 'decimal' },
+                  { idx: 8, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.forestAreaWithDamage.forest',
+                labelParams: { year: 2017 },
+                variableExport: 'forest_2017',
+              },
+              {
+                idx: 6,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.forestAreaWithDamage.forest',
+                    labelParams: { year: 2016 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                  {
+                    idx: 5,
+                    type: 'decimal',
+                  },
+                  { idx: 6, type: 'decimal' },
+                  { idx: 7, type: 'decimal' },
+                  { idx: 8, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.forestAreaWithDamage.forest',
+                labelParams: { year: 2016 },
+                variableExport: 'forest_2016',
+              },
+              {
+                idx: 7,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.forestAreaWithDamage.forest',
                     labelParams: { year: 2015 },
                     className: 'fra-table__category-cell',
                   },
@@ -4934,7 +6012,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2015',
               },
               {
-                idx: 1,
+                idx: 8,
                 type: 'data',
                 cols: [
                   {
@@ -4966,7 +6044,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2010',
               },
               {
-                idx: 2,
+                idx: 9,
                 type: 'data',
                 cols: [
                   {
@@ -4998,7 +6076,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2005',
               },
               {
-                idx: 3,
+                idx: 10,
                 type: 'data',
                 cols: [
                   {
@@ -5030,7 +6108,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2000',
               },
               {
-                idx: 4,
+                idx: 11,
                 type: 'data',
                 cols: [
                   {
@@ -5062,7 +6140,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_1990',
               },
               {
-                idx: 5,
+                idx: 12,
                 type: 'data',
                 cols: [
                   {
@@ -5094,7 +6172,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2015',
               },
               {
-                idx: 6,
+                idx: 13,
                 type: 'data',
                 cols: [
                   {
@@ -5126,7 +6204,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2010',
               },
               {
-                idx: 7,
+                idx: 14,
                 type: 'data',
                 cols: [
                   {
@@ -5158,7 +6236,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2005',
               },
               {
-                idx: 8,
+                idx: 15,
                 type: 'data',
                 cols: [
                   {
@@ -5190,7 +6268,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2000',
               },
               {
-                idx: 9,
+                idx: 16,
                 type: 'data',
                 cols: [
                   {
@@ -5222,7 +6300,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_1990',
               },
               {
-                idx: 10,
+                idx: 17,
                 type: 'data',
                 cols: [
                   {
@@ -5254,7 +6332,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2015',
               },
               {
-                idx: 11,
+                idx: 18,
                 type: 'data',
                 cols: [
                   {
@@ -5286,7 +6364,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2010',
               },
               {
-                idx: 12,
+                idx: 19,
                 type: 'data',
                 cols: [
                   {
@@ -5318,7 +6396,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2005',
               },
               {
-                idx: 13,
+                idx: 20,
                 type: 'data',
                 cols: [
                   {
@@ -5350,7 +6428,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2000',
               },
               {
-                idx: 14,
+                idx: 21,
                 type: 'data',
                 cols: [
                   {
@@ -5553,6 +6631,45 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'panEuropean.areaWithForestLandDegradation.forest',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                  {
+                    idx: 5,
+                    type: 'decimal',
+                  },
+                  { idx: 6, type: 'decimal' },
+                  { idx: 7, type: 'decimal' },
+                  {
+                    idx: 8,
+                    type: 'decimal',
+                  },
+                  { idx: 9, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.areaWithForestLandDegradation.forest',
+                labelParams: { year: 2020 },
+                variableExport: 'forest_2020',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.areaWithForestLandDegradation.forest',
                     labelParams: { year: 2015 },
                     className: 'fra-table__category-cell',
                   },
@@ -5581,7 +6698,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2015',
               },
               {
-                idx: 1,
+                idx: 2,
                 type: 'data',
                 cols: [
                   {
@@ -5617,7 +6734,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2010',
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -5653,7 +6770,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2005',
               },
               {
-                idx: 3,
+                idx: 4,
                 type: 'data',
                 cols: [
                   {
@@ -5689,7 +6806,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2000',
               },
               {
-                idx: 4,
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -5725,7 +6842,46 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_1990',
               },
               {
-                idx: 5,
+                idx: 6,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.areaWithForestLandDegradation.other_wooded_land',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                  {
+                    idx: 5,
+                    type: 'decimal',
+                  },
+                  { idx: 6, type: 'decimal' },
+                  { idx: 7, type: 'decimal' },
+                  {
+                    idx: 8,
+                    type: 'decimal',
+                  },
+                  { idx: 9, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.areaWithForestLandDegradation.other_wooded_land',
+                labelParams: { year: 2020 },
+                variableExport: 'other_wooded_land_2020',
+              },
+              {
+                idx: 7,
                 type: 'data',
                 cols: [
                   {
@@ -5761,7 +6917,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2015',
               },
               {
-                idx: 6,
+                idx: 8,
                 type: 'data',
                 cols: [
                   {
@@ -5797,7 +6953,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2010',
               },
               {
-                idx: 7,
+                idx: 9,
                 type: 'data',
                 cols: [
                   {
@@ -5833,7 +6989,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2005',
               },
               {
-                idx: 8,
+                idx: 10,
                 type: 'data',
                 cols: [
                   {
@@ -5869,7 +7025,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2000',
               },
               {
-                idx: 9,
+                idx: 11,
                 type: 'data',
                 cols: [
                   {
@@ -5905,7 +7061,46 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_1990',
               },
               {
-                idx: 10,
+                idx: 12,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.areaWithForestLandDegradation.total_forest_and_other_wooded_land',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                  {
+                    idx: 5,
+                    type: 'decimal',
+                  },
+                  { idx: 6, type: 'decimal' },
+                  { idx: 7, type: 'decimal' },
+                  {
+                    idx: 8,
+                    type: 'decimal',
+                  },
+                  { idx: 9, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.areaWithForestLandDegradation.total_forest_and_other_wooded_land',
+                labelParams: { year: 2020 },
+                variableExport: 'total_forest_and_other_wooded_land_2020',
+              },
+              {
+                idx: 13,
                 type: 'data',
                 cols: [
                   {
@@ -5941,7 +7136,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2015',
               },
               {
-                idx: 11,
+                idx: 14,
                 type: 'data',
                 cols: [
                   {
@@ -5977,7 +7172,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2010',
               },
               {
-                idx: 12,
+                idx: 15,
                 type: 'data',
                 cols: [
                   {
@@ -6013,7 +7208,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2005',
               },
               {
-                idx: 13,
+                idx: 16,
                 type: 'data',
                 cols: [
                   {
@@ -6049,7 +7244,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2000',
               },
               {
-                idx: 14,
+                idx: 17,
                 type: 'data',
                 cols: [
                   {
@@ -6283,6 +7478,34 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'panEuropean.incrementAndFellings.forest',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.incrementAndFellings.forest',
+                labelParams: { year: 2020 },
+                variableExport: 'forest_2020',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.incrementAndFellings.forest',
                     labelParams: { year: 2015 },
                     className: 'fra-table__category-cell',
                   },
@@ -6300,7 +7523,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2015',
               },
               {
-                idx: 1,
+                idx: 2,
                 type: 'data',
                 cols: [
                   {
@@ -6325,7 +7548,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2010',
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -6350,7 +7573,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2005',
               },
               {
-                idx: 3,
+                idx: 4,
                 type: 'data',
                 cols: [
                   {
@@ -6375,7 +7598,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2000',
               },
               {
-                idx: 4,
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -6400,7 +7623,35 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_1990',
               },
               {
-                idx: 5,
+                idx: 6,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.incrementAndFellings._of_which_forest_available_for_wood_supply',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.incrementAndFellings._of_which_forest_available_for_wood_supply',
+                labelParams: { year: 2020 },
+                variableExport: '_of_which_forest_available_for_wood_supply_2020',
+              },
+              {
+                idx: 7,
                 type: 'data',
                 cols: [
                   {
@@ -6425,7 +7676,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: '_of_which_forest_available_for_wood_supply_2015',
               },
               {
-                idx: 6,
+                idx: 8,
                 type: 'data',
                 cols: [
                   {
@@ -6450,7 +7701,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: '_of_which_forest_available_for_wood_supply_2010',
               },
               {
-                idx: 7,
+                idx: 9,
                 type: 'data',
                 cols: [
                   {
@@ -6475,7 +7726,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: '_of_which_forest_available_for_wood_supply_2005',
               },
               {
-                idx: 8,
+                idx: 10,
                 type: 'data',
                 cols: [
                   {
@@ -6500,7 +7751,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: '_of_which_forest_available_for_wood_supply_2000',
               },
               {
-                idx: 9,
+                idx: 11,
                 type: 'data',
                 cols: [
                   {
@@ -6668,6 +7919,146 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'panEuropean.removals.roundwood',
+                    labelParams: { year: 2022 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                labelKey: 'panEuropean.removals.roundwood',
+                labelParams: { year: 2022 },
+                migration: {
+                  cycles: ['2025'],
+                },
+                variableExport: 'roundwood_2022',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.removals.roundwood',
+                    labelParams: { year: 2021 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                labelKey: 'panEuropean.removals.roundwood',
+                labelParams: { year: 2021 },
+                migration: {
+                  cycles: ['2025'],
+                },
+                variableExport: 'roundwood_2021',
+              },
+              {
+                idx: 2,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.removals.roundwood',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                labelKey: 'panEuropean.removals.roundwood',
+                labelParams: { year: 2020 },
+                migration: {
+                  cycles: ['2025'],
+                },
+                variableExport: 'roundwood_2020',
+              },
+              {
+                idx: 3,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.removals.roundwood',
+                    labelParams: { year: 2019 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                labelKey: 'panEuropean.removals.roundwood',
+                labelParams: { year: 2019 },
+                migration: {
+                  cycles: ['2025'],
+                },
+                variableExport: 'roundwood_2019',
+              },
+              {
+                idx: 4,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.removals.roundwood',
+                    labelParams: { year: 2018 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                labelKey: 'panEuropean.removals.roundwood',
+                labelParams: { year: 2018 },
+                migration: {
+                  cycles: ['2025'],
+                },
+                variableExport: 'roundwood_2018',
+              },
+              {
+                idx: 5,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.removals.roundwood',
                     labelParams: { year: 2017 },
                     className: 'fra-table__category-cell',
                   },
@@ -6685,7 +8076,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'roundwood_2017',
               },
               {
-                idx: 1,
+                idx: 6,
                 type: 'data',
                 cols: [
                   {
@@ -6710,7 +8101,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'roundwood_2016',
               },
               {
-                idx: 2,
+                idx: 7,
                 type: 'data',
                 cols: [
                   {
@@ -6735,7 +8126,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'roundwood_2015',
               },
               {
-                idx: 3,
+                idx: 8,
                 type: 'data',
                 cols: [
                   {
@@ -6760,7 +8151,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'roundwood_2014',
               },
               {
-                idx: 4,
+                idx: 9,
                 type: 'data',
                 cols: [
                   {
@@ -6785,7 +8176,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'roundwood_2013',
               },
               {
-                idx: 5,
+                idx: 10,
                 type: 'data',
                 cols: [
                   {
@@ -6810,7 +8201,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'roundwood_2012',
               },
               {
-                idx: 6,
+                idx: 11,
                 type: 'data',
                 cols: [
                   {
@@ -6835,7 +8226,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'roundwood_2011',
               },
               {
-                idx: 7,
+                idx: 12,
                 type: 'data',
                 cols: [
                   {
@@ -6860,7 +8251,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'roundwood_2010',
               },
               {
-                idx: 8,
+                idx: 13,
                 type: 'data',
                 cols: [
                   {
@@ -6885,7 +8276,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'roundwood_2009',
               },
               {
-                idx: 9,
+                idx: 14,
                 type: 'data',
                 cols: [
                   {
@@ -6910,7 +8301,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'roundwood_2008',
               },
               {
-                idx: 10,
+                idx: 15,
                 type: 'data',
                 cols: [
                   {
@@ -6935,7 +8326,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'roundwood_2007',
               },
               {
-                idx: 11,
+                idx: 16,
                 type: 'data',
                 cols: [
                   {
@@ -6960,7 +8351,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'roundwood_2006',
               },
               {
-                idx: 12,
+                idx: 17,
                 type: 'data',
                 cols: [
                   {
@@ -6985,7 +8376,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'roundwood_2005',
               },
               {
-                idx: 13,
+                idx: 18,
                 type: 'data',
                 cols: [
                   {
@@ -7010,7 +8401,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'roundwood_2004',
               },
               {
-                idx: 14,
+                idx: 19,
                 type: 'data',
                 cols: [
                   {
@@ -7035,7 +8426,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'roundwood_2003',
               },
               {
-                idx: 15,
+                idx: 20,
                 type: 'data',
                 cols: [
                   {
@@ -7060,7 +8451,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'roundwood_2002',
               },
               {
-                idx: 16,
+                idx: 21,
                 type: 'data',
                 cols: [
                   {
@@ -7085,7 +8476,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'roundwood_2001',
               },
               {
-                idx: 17,
+                idx: 22,
                 type: 'data',
                 cols: [
                   {
@@ -7110,7 +8501,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'roundwood_2000',
               },
               {
-                idx: 18,
+                idx: 23,
                 type: 'data',
                 cols: [
                   {
@@ -7135,7 +8526,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'roundwood_1999',
               },
               {
-                idx: 19,
+                idx: 24,
                 type: 'data',
                 cols: [
                   {
@@ -7160,7 +8551,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'roundwood_1998',
               },
               {
-                idx: 20,
+                idx: 25,
                 type: 'data',
                 cols: [
                   {
@@ -7185,7 +8576,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'roundwood_1997',
               },
               {
-                idx: 21,
+                idx: 26,
                 type: 'data',
                 cols: [
                   {
@@ -7210,7 +8601,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'roundwood_1996',
               },
               {
-                idx: 22,
+                idx: 27,
                 type: 'data',
                 cols: [
                   {
@@ -7235,7 +8626,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'roundwood_1995',
               },
               {
-                idx: 23,
+                idx: 28,
                 type: 'data',
                 cols: [
                   {
@@ -7260,7 +8651,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'roundwood_1994',
               },
               {
-                idx: 24,
+                idx: 29,
                 type: 'data',
                 cols: [
                   {
@@ -7285,7 +8676,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'roundwood_1993',
               },
               {
-                idx: 25,
+                idx: 30,
                 type: 'data',
                 cols: [
                   {
@@ -7310,7 +8701,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'roundwood_1992',
               },
               {
-                idx: 26,
+                idx: 31,
                 type: 'data',
                 cols: [
                   {
@@ -7335,7 +8726,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'roundwood_1991',
               },
               {
-                idx: 27,
+                idx: 32,
                 type: 'data',
                 cols: [
                   {
@@ -7360,7 +8751,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'roundwood_1990',
               },
               {
-                idx: 28,
+                idx: 33,
                 type: 'data',
                 cols: [
                   {
@@ -7385,7 +8776,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'roundwood_1989',
               },
               {
-                idx: 29,
+                idx: 34,
                 type: 'data',
                 cols: [
                   {
@@ -8291,6 +9682,33 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'panEuropean.treeSpeciesComposition.forest',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.treeSpeciesComposition.forest',
+                labelParams: { year: 2020 },
+                variableExport: 'forest_2020',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.treeSpeciesComposition.forest',
                     labelParams: { year: 2015 },
                     className: 'fra-table__category-cell',
                   },
@@ -8307,7 +9725,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2015',
               },
               {
-                idx: 1,
+                idx: 2,
                 type: 'data',
                 cols: [
                   {
@@ -8331,7 +9749,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2010',
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -8355,7 +9773,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2005',
               },
               {
-                idx: 3,
+                idx: 4,
                 type: 'data',
                 cols: [
                   {
@@ -8379,7 +9797,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2000',
               },
               {
-                idx: 4,
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -8403,7 +9821,34 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_1990',
               },
               {
-                idx: 5,
+                idx: 6,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.treeSpeciesComposition.other_wooded_land',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.treeSpeciesComposition.other_wooded_land',
+                labelParams: { year: 2020 },
+                variableExport: 'other_wooded_land_2020',
+              },
+              {
+                idx: 7,
                 type: 'data',
                 cols: [
                   {
@@ -8427,7 +9872,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2015',
               },
               {
-                idx: 6,
+                idx: 8,
                 type: 'data',
                 cols: [
                   {
@@ -8451,7 +9896,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2010',
               },
               {
-                idx: 7,
+                idx: 9,
                 type: 'data',
                 cols: [
                   {
@@ -8475,7 +9920,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2005',
               },
               {
-                idx: 8,
+                idx: 10,
                 type: 'data',
                 cols: [
                   {
@@ -8499,7 +9944,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2000',
               },
               {
-                idx: 9,
+                idx: 11,
                 type: 'data',
                 cols: [
                   {
@@ -8523,7 +9968,34 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_1990',
               },
               {
-                idx: 10,
+                idx: 12,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.treeSpeciesComposition.total_forest_and_other_wooded_land',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.treeSpeciesComposition.total_forest_and_other_wooded_land',
+                labelParams: { year: 2020 },
+                variableExport: 'total_forest_and_other_wooded_land_2020',
+              },
+              {
+                idx: 13,
                 type: 'data',
                 cols: [
                   {
@@ -8547,7 +10019,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2015',
               },
               {
-                idx: 11,
+                idx: 14,
                 type: 'data',
                 cols: [
                   {
@@ -8571,7 +10043,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2010',
               },
               {
-                idx: 12,
+                idx: 15,
                 type: 'data',
                 cols: [
                   {
@@ -8595,7 +10067,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2005',
               },
               {
-                idx: 13,
+                idx: 16,
                 type: 'data',
                 cols: [
                   {
@@ -8619,7 +10091,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2000',
               },
               {
-                idx: 14,
+                idx: 17,
                 type: 'data',
                 cols: [
                   {
@@ -8742,6 +10214,52 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.forest',
+                    labelParams: { year: 2025 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  { idx: 2, type: 'decimal' },
+                ],
+                labelKey: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.forest',
+                labelParams: { year: 2025 },
+                migration: {
+                  cycles: ['2025'],
+                },
+                variableExport: 'forest_2025',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.forest',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  { idx: 2, type: 'decimal' },
+                ],
+                labelKey: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.forest',
+                labelParams: { year: 2020 },
+                migration: {
+                  cycles: ['2025'],
+                },
+                variableExport: 'forest_2020',
+              },
+              {
+                idx: 2,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.forest',
                     labelParams: { year: 2015 },
                     className: 'fra-table__category-cell',
                   },
@@ -8754,7 +10272,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2015',
               },
               {
-                idx: 1,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -8774,7 +10292,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2010',
               },
               {
-                idx: 2,
+                idx: 4,
                 type: 'data',
                 cols: [
                   {
@@ -8794,7 +10312,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2005',
               },
               {
-                idx: 3,
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -8814,7 +10332,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2000',
               },
               {
-                idx: 4,
+                idx: 6,
                 type: 'data',
                 cols: [
                   {
@@ -8967,9 +10485,53 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 'header_0',
                     type: 'header',
                     colSpan: 1,
-                    labelKey: 'panEuropean.annualForestExpansionAndRegeneration.forest',
-                    labelParams: { year: 2015 },
                     className: 'fra-table__category-cell',
+                    migration: {
+                      label: {
+                        '2025': {
+                          key: 'panEuropean.annualForestExpansionAndRegeneration.forest',
+                          params: { year: '2020-2025' },
+                        },
+                      },
+                    },
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.annualForestExpansionAndRegeneration.forest',
+                labelParams: { year: 2020 },
+                variableExport: 'forest_2020',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    className: 'fra-table__category-cell',
+                    migration: {
+                      label: {
+                        '2020': {
+                          key: 'panEuropean.annualForestExpansionAndRegeneration.forest',
+                          params: { year: 2015 },
+                        },
+                        '2025': {
+                          key: 'panEuropean.annualForestExpansionAndRegeneration.forest',
+                          params: { year: '2015-2020' },
+                        },
+                      },
+                    },
                   },
                   { idx: 0, type: 'decimal' },
                   { idx: 1, type: 'decimal' },
@@ -8985,15 +10547,25 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2015',
               },
               {
-                idx: 1,
+                idx: 2,
                 type: 'data',
                 cols: [
                   {
                     idx: 'header_0',
                     type: 'header',
                     colSpan: 1,
-                    labelKey: 'panEuropean.annualForestExpansionAndRegeneration.forest',
-                    labelParams: { year: 2010 },
+                    migration: {
+                      label: {
+                        '2020': {
+                          key: 'panEuropean.annualForestExpansionAndRegeneration.forest',
+                          params: { year: 2010 },
+                        },
+                        '2025': {
+                          key: 'panEuropean.annualForestExpansionAndRegeneration.forest',
+                          params: { year: '2010-2015' },
+                        },
+                      },
+                    },
                     className: 'fra-table__category-cell',
                   },
                   { idx: 0, type: 'decimal' },
@@ -9010,7 +10582,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2010',
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -9030,20 +10602,33 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
+                migration: {
+                  cycles: ['2020'],
+                },
                 labelKey: 'panEuropean.annualForestExpansionAndRegeneration.forest',
                 labelParams: { year: 2005 },
                 variableExport: 'forest_2005',
               },
               {
-                idx: 3,
+                idx: 4,
                 type: 'data',
                 cols: [
                   {
                     idx: 'header_0',
                     type: 'header',
                     colSpan: 1,
-                    labelKey: 'panEuropean.annualForestExpansionAndRegeneration.forest',
-                    labelParams: { year: 2000 },
+                    migration: {
+                      label: {
+                        '2020': {
+                          key: 'panEuropean.annualForestExpansionAndRegeneration.forest',
+                          params: { year: 2000 },
+                        },
+                        '2025': {
+                          key: 'panEuropean.annualForestExpansionAndRegeneration.forest',
+                          params: { year: '2000-2010' },
+                        },
+                      },
+                    },
                     className: 'fra-table__category-cell',
                   },
                   { idx: 0, type: 'decimal' },
@@ -9060,15 +10645,25 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2000',
               },
               {
-                idx: 4,
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
                     idx: 'header_0',
                     type: 'header',
                     colSpan: 1,
-                    labelKey: 'panEuropean.annualForestExpansionAndRegeneration.forest',
-                    labelParams: { year: 1990 },
+                    migration: {
+                      label: {
+                        '2020': {
+                          key: 'panEuropean.annualForestExpansionAndRegeneration.forest',
+                          params: { year: 1990 },
+                        },
+                        '2025': {
+                          key: 'panEuropean.annualForestExpansionAndRegeneration.forest',
+                          params: { year: '1990-2000' },
+                        },
+                      },
+                    },
                     className: 'fra-table__category-cell',
                   },
                   { idx: 0, type: 'decimal' },
@@ -9182,6 +10777,29 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'panEuropean.naturalness.forest',
+                    labelParams: { year: 2025 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  { idx: 2, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.naturalness.forest',
+                labelParams: { year: 2025 },
+                variableExport: 'forest_2025',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.naturalness.forest',
                     labelParams: { year: 2020 },
                     className: 'fra-table__category-cell',
                   },
@@ -9194,7 +10812,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2020',
               },
               {
-                idx: 1,
+                idx: 2,
                 type: 'data',
                 cols: [
                   {
@@ -9214,7 +10832,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2015',
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -9234,7 +10852,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2010',
               },
               {
-                idx: 3,
+                idx: 4,
                 type: 'data',
                 cols: [
                   {
@@ -9254,7 +10872,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2005',
               },
               {
-                idx: 4,
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -9274,7 +10892,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2000',
               },
               {
-                idx: 5,
+                idx: 6,
                 type: 'data',
                 cols: [
                   {
@@ -9294,7 +10912,30 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_1990',
               },
               {
-                idx: 6,
+                idx: 7,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.naturalness.other_wooded_land',
+                    labelParams: { year: 2025 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  { idx: 2, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.naturalness.other_wooded_land',
+                labelParams: { year: 2025 },
+                variableExport: 'other_wooded_land_2025',
+              },
+              {
+                idx: 8,
                 type: 'data',
                 cols: [
                   {
@@ -9314,7 +10955,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2020',
               },
               {
-                idx: 7,
+                idx: 9,
                 type: 'data',
                 cols: [
                   {
@@ -9334,7 +10975,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2015',
               },
               {
-                idx: 8,
+                idx: 10,
                 type: 'data',
                 cols: [
                   {
@@ -9354,7 +10995,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2010',
               },
               {
-                idx: 9,
+                idx: 11,
                 type: 'data',
                 cols: [
                   {
@@ -9374,7 +11015,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2005',
               },
               {
-                idx: 10,
+                idx: 12,
                 type: 'data',
                 cols: [
                   {
@@ -9394,7 +11035,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2000',
               },
               {
-                idx: 11,
+                idx: 13,
                 type: 'data',
                 cols: [
                   {
@@ -9414,7 +11055,30 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_1990',
               },
               {
-                idx: 12,
+                idx: 14,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.naturalness.total_forest_and_other_wooded_land',
+                    labelParams: { year: 2025 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  { idx: 2, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.naturalness.total_forest_and_other_wooded_land',
+                labelParams: { year: 2025 },
+                variableExport: 'total_forest_and_other_wooded_land_2025',
+              },
+              {
+                idx: 15,
                 type: 'data',
                 cols: [
                   {
@@ -9434,7 +11098,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2020',
               },
               {
-                idx: 13,
+                idx: 16,
                 type: 'data',
                 cols: [
                   {
@@ -9454,7 +11118,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2015',
               },
               {
-                idx: 14,
+                idx: 17,
                 type: 'data',
                 cols: [
                   {
@@ -9474,7 +11138,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2010',
               },
               {
-                idx: 15,
+                idx: 18,
                 type: 'data',
                 cols: [
                   {
@@ -9494,7 +11158,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2005',
               },
               {
-                idx: 16,
+                idx: 19,
                 type: 'data',
                 cols: [
                   {
@@ -9514,7 +11178,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2000',
               },
               {
-                idx: 17,
+                idx: 20,
                 type: 'data',
                 cols: [
                   {
@@ -9679,6 +11343,39 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'panEuropean.naturalnessBySubclasses.forest',
+                    labelParams: { year: 2025 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                  {
+                    idx: 5,
+                    type: 'decimal',
+                  },
+                  { idx: 6, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.naturalnessBySubclasses.forest',
+                labelParams: { year: 2025 },
+                variableExport: 'forest_2025',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.naturalnessBySubclasses.forest',
                     labelParams: { year: 2020 },
                     className: 'fra-table__category-cell',
                   },
@@ -9701,7 +11398,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2020',
               },
               {
-                idx: 1,
+                idx: 2,
                 type: 'data',
                 cols: [
                   {
@@ -9731,7 +11428,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2015',
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -9761,7 +11458,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2010',
               },
               {
-                idx: 3,
+                idx: 4,
                 type: 'data',
                 cols: [
                   {
@@ -9791,7 +11488,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2005',
               },
               {
-                idx: 4,
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -9821,7 +11518,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2000',
               },
               {
-                idx: 5,
+                idx: 6,
                 type: 'data',
                 cols: [
                   {
@@ -9942,6 +11639,28 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'panEuropean.introducedTreeSpecies.forest',
+                    labelParams: { year: 2025 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.introducedTreeSpecies.forest',
+                labelParams: { year: 2025 },
+                variableExport: 'forest_2025',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.introducedTreeSpecies.forest',
                     labelParams: { year: 2020 },
                     className: 'fra-table__category-cell',
                   },
@@ -9953,7 +11672,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2020',
               },
               {
-                idx: 1,
+                idx: 2,
                 type: 'data',
                 cols: [
                   {
@@ -9972,7 +11691,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2015',
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -9991,7 +11710,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2010',
               },
               {
-                idx: 3,
+                idx: 4,
                 type: 'data',
                 cols: [
                   {
@@ -10010,7 +11729,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2005',
               },
               {
-                idx: 4,
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -10029,7 +11748,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2000',
               },
               {
-                idx: 5,
+                idx: 6,
                 type: 'data',
                 cols: [
                   {
@@ -10057,6 +11776,47 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'panEuropean.introducedTreeSpecies.other_wooded_land',
+                    labelParams: { year: 2025 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.introducedTreeSpecies.other_wooded_land',
+                labelParams: { year: 2025 },
+                variableExport: 'other_wooded_land_2025',
+              },
+              {
+                idx: 8,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.introducedTreeSpecies.other_wooded_land',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                ],
+                labelKey: 'panEuropean.introducedTreeSpecies.other_wooded_land',
+                labelParams: { year: 2020 },
+                variableExport: 'other_wooded_land_2020',
+              },
+              {
+                idx: 9,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.introducedTreeSpecies.other_wooded_land',
                     labelParams: { year: 2015 },
                     className: 'fra-table__category-cell',
                   },
@@ -10068,7 +11828,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2015',
               },
               {
-                idx: 8,
+                idx: 10,
                 type: 'data',
                 cols: [
                   {
@@ -10087,7 +11847,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2010',
               },
               {
-                idx: 9,
+                idx: 11,
                 type: 'data',
                 cols: [
                   {
@@ -10106,7 +11866,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2005',
               },
               {
-                idx: 10,
+                idx: 12,
                 type: 'data',
                 cols: [
                   {
@@ -10125,7 +11885,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2000',
               },
               {
-                idx: 11,
+                idx: 13,
                 type: 'data',
                 cols: [
                   {
@@ -10145,7 +11905,51 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
               },
               // { idx: 12 },
               {
-                idx: 13,
+                idx: 14,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.introducedTreeSpecies.total_forest_and_other_wooded_land',
+                    labelParams: { year: 2025 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.introducedTreeSpecies.total_forest_and_other_wooded_land',
+                labelParams: { year: 2025 },
+                variableExport: 'total_forest_and_other_wooded_land_2025',
+              },
+              {
+                idx: 15,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.introducedTreeSpecies.total_forest_and_other_wooded_land',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.introducedTreeSpecies.total_forest_and_other_wooded_land',
+                labelParams: { year: 2020 },
+                variableExport: 'total_forest_and_other_wooded_land_2020',
+              },
+              {
+                idx: 16,
                 type: 'data',
                 cols: [
                   {
@@ -10164,7 +11968,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2015',
               },
               {
-                idx: 14,
+                idx: 17,
                 type: 'data',
                 cols: [
                   {
@@ -10183,7 +11987,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2010',
               },
               {
-                idx: 15,
+                idx: 18,
                 type: 'data',
                 cols: [
                   {
@@ -10202,7 +12006,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2005',
               },
               {
-                idx: 16,
+                idx: 19,
                 type: 'data',
                 cols: [
                   {
@@ -10221,7 +12025,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2000',
               },
               {
-                idx: 17,
+                idx: 20,
                 type: 'data',
                 cols: [
                   {
@@ -10291,11 +12095,15 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 2,
-                    colSpan: 3,
-                    rowSpan: 1,
                     labelKey: 'panEuropean.introducedTreeSpecies4_4b.forestAreaOccupied1000Ha',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      style: {
+                        '2020': { colSpan: 3, rowSpan: 1 },
+                        '2025': { colSpan: 5, rowSpan: 1 },
+                      },
+                    },
                   },
                 ],
                 type: 'header',
@@ -10327,6 +12135,24 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
+                  {
+                    idx: 3,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: '2020',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: { cycles: ['2025'] },
+                  },
+                  {
+                    idx: 4,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: '2025',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: { cycles: ['2025'] },
+                  },
                 ],
                 type: 'header',
               },
@@ -10344,10 +12170,9 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 0, type: 'text' },
                   { idx: 1, type: 'decimal' },
                   { idx: 2, type: 'decimal' },
-                  {
-                    idx: 3,
-                    type: 'decimal',
-                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_01',
                 labelKey: 'panEuropean.introducedTreeSpecies4_4b._01',
@@ -10370,6 +12195,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_02',
                 labelKey: 'panEuropean.introducedTreeSpecies4_4b._02',
@@ -10392,6 +12219,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_03',
                 labelKey: 'panEuropean.introducedTreeSpecies4_4b._03',
@@ -10414,6 +12243,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_04',
                 labelKey: 'panEuropean.introducedTreeSpecies4_4b._04',
@@ -10436,6 +12267,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_05',
                 labelKey: 'panEuropean.introducedTreeSpecies4_4b._05',
@@ -10458,6 +12291,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_06',
                 labelKey: 'panEuropean.introducedTreeSpecies4_4b._06',
@@ -10480,6 +12315,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_07',
                 labelKey: 'panEuropean.introducedTreeSpecies4_4b._07',
@@ -10502,6 +12339,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_08',
                 labelKey: 'panEuropean.introducedTreeSpecies4_4b._08',
@@ -10524,6 +12363,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_09',
                 labelKey: 'panEuropean.introducedTreeSpecies4_4b._09',
@@ -10546,6 +12387,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_10',
                 labelKey: 'panEuropean.introducedTreeSpecies4_4b._10',
@@ -10568,6 +12411,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_11',
                 labelKey: 'panEuropean.introducedTreeSpecies4_4b._11',
@@ -10590,6 +12435,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_12',
                 labelKey: 'panEuropean.introducedTreeSpecies4_4b._12',
@@ -10612,6 +12459,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_13',
                 labelKey: 'panEuropean.introducedTreeSpecies4_4b._13',
@@ -10634,6 +12483,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_14',
                 labelKey: 'panEuropean.introducedTreeSpecies4_4b._14',
@@ -10656,6 +12507,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_15',
                 labelKey: 'panEuropean.introducedTreeSpecies4_4b._15',
@@ -10678,6 +12531,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_16',
                 labelKey: 'panEuropean.introducedTreeSpecies4_4b._16',
@@ -10700,6 +12555,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_17',
                 labelKey: 'panEuropean.introducedTreeSpecies4_4b._17',
@@ -10722,6 +12579,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_18',
                 labelKey: 'panEuropean.introducedTreeSpecies4_4b._18',
@@ -10744,6 +12603,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_19',
                 labelKey: 'panEuropean.introducedTreeSpecies4_4b._19',
@@ -10766,6 +12627,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_20',
                 labelKey: 'panEuropean.introducedTreeSpecies4_4b._20',
@@ -10781,6 +12644,24 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
               'forest_area_occupied_2010',
               'forest_area_occupied_2015',
             ],
+            migration: {
+              columnNames: {
+                '2020': [
+                  'scientific_name_of_introduced_tree_species',
+                  'forest_area_occupied_2005',
+                  'forest_area_occupied_2010',
+                  'forest_area_occupied_2015',
+                ],
+                '2025': [
+                  'scientific_name_of_introduced_tree_species',
+                  'forest_area_occupied_2005',
+                  'forest_area_occupied_2010',
+                  'forest_area_occupied_2015',
+                  'forest_area_occupied_2020',
+                  'forest_area_occupied_2025',
+                ],
+              },
+            },
           },
         ],
       },
@@ -10826,11 +12707,15 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 2,
-                    colSpan: 3,
-                    rowSpan: 1,
                     labelKey: 'panEuropean.invasiveTreeSpecies.forestAreaAffected1000Ha',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      style: {
+                        '2020': { colSpan: 3, rowSpan: 1 },
+                        '2025': { colSpan: 5, rowSpan: 1 },
+                      },
+                    },
                   },
                 ],
                 type: 'header',
@@ -10862,6 +12747,24 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
+                  {
+                    idx: 3,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: '2020',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: { cycles: ['2025'] },
+                  },
+                  {
+                    idx: 4,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: '2025',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: { cycles: ['2025'] },
+                  },
                 ],
                 type: 'header',
               },
@@ -10883,6 +12786,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_affected_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_affected_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_01',
                 labelKey: 'panEuropean.invasiveTreeSpecies._01',
@@ -10905,6 +12810,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_affected_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_affected_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_02',
                 labelKey: 'panEuropean.invasiveTreeSpecies._02',
@@ -10927,6 +12834,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_affected_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_affected_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_03',
                 labelKey: 'panEuropean.invasiveTreeSpecies._03',
@@ -10949,6 +12858,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_affected_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_affected_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_04',
                 labelKey: 'panEuropean.invasiveTreeSpecies._04',
@@ -10971,6 +12882,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_affected_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_affected_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_05',
                 labelKey: 'panEuropean.invasiveTreeSpecies._05',
@@ -10993,6 +12906,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_affected_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_affected_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_06',
                 labelKey: 'panEuropean.invasiveTreeSpecies._06',
@@ -11015,6 +12930,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_affected_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_affected_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_07',
                 labelKey: 'panEuropean.invasiveTreeSpecies._07',
@@ -11037,6 +12954,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_affected_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_affected_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_08',
                 labelKey: 'panEuropean.invasiveTreeSpecies._08',
@@ -11059,6 +12978,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_affected_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_affected_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_09',
                 labelKey: 'panEuropean.invasiveTreeSpecies._09',
@@ -11081,6 +13002,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_affected_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_affected_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_10',
                 labelKey: 'panEuropean.invasiveTreeSpecies._10',
@@ -11103,6 +13026,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_affected_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_affected_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_11',
                 labelKey: 'panEuropean.invasiveTreeSpecies._11',
@@ -11125,6 +13050,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_affected_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_affected_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_12',
                 labelKey: 'panEuropean.invasiveTreeSpecies._12',
@@ -11147,6 +13074,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_affected_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_affected_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_13',
                 labelKey: 'panEuropean.invasiveTreeSpecies._13',
@@ -11169,6 +13098,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_affected_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_affected_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_14',
                 labelKey: 'panEuropean.invasiveTreeSpecies._14',
@@ -11191,6 +13122,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_affected_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_affected_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_15',
                 labelKey: 'panEuropean.invasiveTreeSpecies._15',
@@ -11213,6 +13146,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_affected_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_affected_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_16',
                 labelKey: 'panEuropean.invasiveTreeSpecies._16',
@@ -11235,6 +13170,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_affected_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_affected_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_17',
                 labelKey: 'panEuropean.invasiveTreeSpecies._17',
@@ -11257,6 +13194,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_affected_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_affected_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_18',
                 labelKey: 'panEuropean.invasiveTreeSpecies._18',
@@ -11279,6 +13218,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_affected_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_affected_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_19',
                 labelKey: 'panEuropean.invasiveTreeSpecies._19',
@@ -11301,6 +13242,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     type: 'decimal',
                   },
+                  { idx: 4, type: 'decimal', colName: 'forest_area_affected_2020', migration: { cycles: ['2025'] } },
+                  { idx: 5, type: 'decimal', colName: 'forest_area_affected_2025', migration: { cycles: ['2025'] } },
                 ],
                 variableExport: '_20',
                 labelKey: 'panEuropean.invasiveTreeSpecies._20',
@@ -11316,6 +13259,24 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
               'forest_area_affected_2010',
               'forest_area_affected_2015',
             ],
+            migration: {
+              columnNames: {
+                '2020': [
+                  'scientific_name_of_invasive_tree_species',
+                  'forest_area_affected_2005',
+                  'forest_area_affected_2010',
+                  'forest_area_affected_2015',
+                ],
+                '2025': [
+                  'scientific_name_of_invasive_tree_species',
+                  'forest_area_affected_2005',
+                  'forest_area_affected_2010',
+                  'forest_area_affected_2015',
+                  'forest_area_affected_2020',
+                  'forest_area_affected_2025',
+                ],
+              },
+            },
           },
         ],
       },
@@ -11401,6 +13362,29 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'panEuropean.deadwood.forest',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  { idx: 2, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.deadwood.forest',
+                labelParams: { year: 2020 },
+                variableExport: 'forest_2020',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.deadwood.forest',
                     labelParams: { year: 2015 },
                     className: 'fra-table__category-cell',
                   },
@@ -11413,7 +13397,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2015',
               },
               {
-                idx: 1,
+                idx: 2,
                 type: 'data',
                 cols: [
                   {
@@ -11433,7 +13417,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2010',
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -11453,7 +13437,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2005',
               },
               {
-                idx: 3,
+                idx: 4,
                 type: 'data',
                 cols: [
                   {
@@ -11473,7 +13457,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2000',
               },
               {
-                idx: 4,
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -11493,7 +13477,30 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_1990',
               },
               {
-                idx: 5,
+                idx: 6,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.deadwood.other_wooded_land',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  { idx: 2, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.deadwood.other_wooded_land',
+                labelParams: { year: 2020 },
+                variableExport: 'other_wooded_land_2020',
+              },
+              {
+                idx: 7,
                 type: 'data',
                 cols: [
                   {
@@ -11513,7 +13520,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2015',
               },
               {
-                idx: 6,
+                idx: 8,
                 type: 'data',
                 cols: [
                   {
@@ -11533,7 +13540,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2010',
               },
               {
-                idx: 7,
+                idx: 9,
                 type: 'data',
                 cols: [
                   {
@@ -11553,7 +13560,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2005',
               },
               {
-                idx: 8,
+                idx: 10,
                 type: 'data',
                 cols: [
                   {
@@ -11573,7 +13580,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2000',
               },
               {
-                idx: 9,
+                idx: 11,
                 type: 'data',
                 cols: [
                   {
@@ -11593,7 +13600,30 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_1990',
               },
               {
-                idx: 10,
+                idx: 12,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.deadwood.total_forest_and_other_wooded_land',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  { idx: 2, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.deadwood.total_forest_and_other_wooded_land',
+                labelParams: { year: 2020 },
+                variableExport: 'total_forest_and_other_wooded_land_2020',
+              },
+              {
+                idx: 13,
                 type: 'data',
                 cols: [
                   {
@@ -11613,7 +13643,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2015',
               },
               {
-                idx: 11,
+                idx: 14,
                 type: 'data',
                 cols: [
                   {
@@ -11633,7 +13663,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2010',
               },
               {
-                idx: 12,
+                idx: 15,
                 type: 'data',
                 cols: [
                   {
@@ -11653,7 +13683,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2005',
               },
               {
-                idx: 13,
+                idx: 16,
                 type: 'data',
                 cols: [
                   {
@@ -11673,7 +13703,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2000',
               },
               {
-                idx: 14,
+                idx: 17,
                 type: 'data',
                 cols: [
                   {
@@ -11693,7 +13723,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_1990',
               },
               {
-                idx: 15,
+                idx: 18,
                 type: 'data',
                 cols: [
                   {
@@ -11709,7 +13739,30 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 mainCategory: true,
               },
               {
-                idx: 16,
+                idx: 19,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.deadwood.coniferous',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  { idx: 2, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.deadwood.coniferous',
+                labelParams: { year: 2020 },
+                variableExport: 'coniferous_2020',
+              },
+              {
+                idx: 20,
                 type: 'data',
                 cols: [
                   {
@@ -11729,7 +13782,30 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'coniferous_2015',
               },
               {
-                idx: 17,
+                idx: 21,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.deadwood.broadleaved',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  { idx: 2, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.deadwood.broadleaved',
+                labelParams: { year: 2020 },
+                variableExport: 'broadleaved_2020',
+              },
+              {
+                idx: 22,
                 type: 'data',
                 cols: [
                   {
@@ -11870,6 +13946,34 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'panEuropean.threatenedForestSpecies.trees',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.threatenedForestSpecies.trees',
+                labelParams: { year: 2020 },
+                variableExport: 'trees_2020',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.threatenedForestSpecies.trees',
                     labelParams: { year: 2015 },
                     className: 'fra-table__category-cell',
                   },
@@ -11887,7 +13991,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'trees_2015',
               },
               {
-                idx: 1,
+                idx: 2,
                 type: 'data',
                 cols: [
                   {
@@ -11912,7 +14016,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'trees_2010',
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -11937,7 +14041,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'trees_2005',
               },
               {
-                idx: 3,
+                idx: 4,
                 type: 'data',
                 cols: [
                   {
@@ -11962,7 +14066,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'trees_2000',
               },
               {
-                idx: 4,
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -11986,8 +14090,37 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 labelParams: { year: 1990 },
                 variableExport: 'trees_1990',
               },
+
               {
-                idx: 5,
+                idx: 6,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.threatenedForestSpecies.birds',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.threatenedForestSpecies.birds',
+                labelParams: { year: 2020 },
+                variableExport: 'birds_2020',
+              },
+              {
+                idx: 7,
                 type: 'data',
                 cols: [
                   {
@@ -12012,7 +14145,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'birds_2015',
               },
               {
-                idx: 6,
+                idx: 8,
                 type: 'data',
                 cols: [
                   {
@@ -12037,7 +14170,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'birds_2010',
               },
               {
-                idx: 7,
+                idx: 9,
                 type: 'data',
                 cols: [
                   {
@@ -12062,7 +14195,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'birds_2005',
               },
               {
-                idx: 8,
+                idx: 10,
                 type: 'data',
                 cols: [
                   {
@@ -12087,7 +14220,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'birds_2000',
               },
               {
-                idx: 9,
+                idx: 11,
                 type: 'data',
                 cols: [
                   {
@@ -12111,8 +14244,37 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 labelParams: { year: 1990 },
                 variableExport: 'birds_1990',
               },
+
               {
-                idx: 10,
+                idx: 12,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.threatenedForestSpecies.mammals',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.threatenedForestSpecies.mammals',
+                labelParams: { year: 2020 },
+                variableExport: 'mammals_2020',
+              },
+              {
+                idx: 13,
                 type: 'data',
                 cols: [
                   {
@@ -12137,7 +14299,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'mammals_2015',
               },
               {
-                idx: 11,
+                idx: 14,
                 type: 'data',
                 cols: [
                   {
@@ -12162,7 +14324,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'mammals_2010',
               },
               {
-                idx: 12,
+                idx: 15,
                 type: 'data',
                 cols: [
                   {
@@ -12187,7 +14349,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'mammals_2005',
               },
               {
-                idx: 13,
+                idx: 16,
                 type: 'data',
                 cols: [
                   {
@@ -12212,7 +14374,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'mammals_2000',
               },
               {
-                idx: 14,
+                idx: 17,
                 type: 'data',
                 cols: [
                   {
@@ -12236,8 +14398,37 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 labelParams: { year: 1990 },
                 variableExport: 'mammals_1990',
               },
+
               {
-                idx: 15,
+                idx: 18,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.threatenedForestSpecies.other_vertebrates',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.threatenedForestSpecies.other_vertebrates',
+                labelParams: { year: 2020 },
+                variableExport: 'other_vertebrates_2020',
+              },
+              {
+                idx: 19,
                 type: 'data',
                 cols: [
                   {
@@ -12262,7 +14453,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_vertebrates_2015',
               },
               {
-                idx: 16,
+                idx: 20,
                 type: 'data',
                 cols: [
                   {
@@ -12287,7 +14478,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_vertebrates_2010',
               },
               {
-                idx: 17,
+                idx: 21,
                 type: 'data',
                 cols: [
                   {
@@ -12312,7 +14503,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_vertebrates_2005',
               },
               {
-                idx: 18,
+                idx: 22,
                 type: 'data',
                 cols: [
                   {
@@ -12337,7 +14528,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_vertebrates_2000',
               },
               {
-                idx: 19,
+                idx: 23,
                 type: 'data',
                 cols: [
                   {
@@ -12361,8 +14552,37 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 labelParams: { year: 1990 },
                 variableExport: 'other_vertebrates_1990',
               },
+
               {
-                idx: 20,
+                idx: 24,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.threatenedForestSpecies.invertebrates',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.threatenedForestSpecies.invertebrates',
+                labelParams: { year: 2020 },
+                variableExport: 'invertebrates_2020',
+              },
+              {
+                idx: 25,
                 type: 'data',
                 cols: [
                   {
@@ -12387,7 +14607,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'invertebrates_2015',
               },
               {
-                idx: 21,
+                idx: 26,
                 type: 'data',
                 cols: [
                   {
@@ -12412,7 +14632,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'invertebrates_2010',
               },
               {
-                idx: 22,
+                idx: 27,
                 type: 'data',
                 cols: [
                   {
@@ -12437,7 +14657,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'invertebrates_2005',
               },
               {
-                idx: 23,
+                idx: 28,
                 type: 'data',
                 cols: [
                   {
@@ -12462,7 +14682,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'invertebrates_2000',
               },
               {
-                idx: 24,
+                idx: 29,
                 type: 'data',
                 cols: [
                   {
@@ -12486,8 +14706,37 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 labelParams: { year: 1990 },
                 variableExport: 'invertebrates_1990',
               },
+
               {
-                idx: 25,
+                idx: 30,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.threatenedForestSpecies.vascular_plants',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.threatenedForestSpecies.vascular_plants',
+                labelParams: { year: 2020 },
+                variableExport: 'vascular_plants_2020',
+              },
+              {
+                idx: 31,
                 type: 'data',
                 cols: [
                   {
@@ -12512,7 +14761,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'vascular_plants_2015',
               },
               {
-                idx: 26,
+                idx: 32,
                 type: 'data',
                 cols: [
                   {
@@ -12537,7 +14786,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'vascular_plants_2010',
               },
               {
-                idx: 27,
+                idx: 33,
                 type: 'data',
                 cols: [
                   {
@@ -12562,7 +14811,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'vascular_plants_2005',
               },
               {
-                idx: 28,
+                idx: 34,
                 type: 'data',
                 cols: [
                   {
@@ -12587,7 +14836,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'vascular_plants_2000',
               },
               {
-                idx: 29,
+                idx: 35,
                 type: 'data',
                 cols: [
                   {
@@ -12611,8 +14860,37 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 labelParams: { year: 1990 },
                 variableExport: 'vascular_plants_1990',
               },
+
               {
-                idx: 30,
+                idx: 36,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.threatenedForestSpecies.cryptogams_and_fungi',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.threatenedForestSpecies.cryptogams_and_fungi',
+                labelParams: { year: 2020 },
+                variableExport: 'cryptogams_and_fungi_2020',
+              },
+              {
+                idx: 37,
                 type: 'data',
                 cols: [
                   {
@@ -12637,7 +14915,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'cryptogams_and_fungi_2015',
               },
               {
-                idx: 31,
+                idx: 38,
                 type: 'data',
                 cols: [
                   {
@@ -12662,7 +14940,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'cryptogams_and_fungi_2010',
               },
               {
-                idx: 32,
+                idx: 39,
                 type: 'data',
                 cols: [
                   {
@@ -12687,7 +14965,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'cryptogams_and_fungi_2005',
               },
               {
-                idx: 33,
+                idx: 40,
                 type: 'data',
                 cols: [
                   {
@@ -12712,7 +14990,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'cryptogams_and_fungi_2000',
               },
               {
-                idx: 34,
+                idx: 41,
                 type: 'data',
                 cols: [
                   {
@@ -12833,8 +15111,36 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 type: 'header',
               },
+
               {
                 idx: 0,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.protectedForests.forest',
+                    labelParams: { year: 2025 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.protectedForests.forest',
+                labelParams: { year: 2025 },
+                variableExport: 'forest_2025',
+              },
+              {
+                idx: 1,
                 type: 'data',
                 cols: [
                   {
@@ -12858,7 +15164,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2020',
               },
               {
-                idx: 1,
+                idx: 2,
                 type: 'data',
                 cols: [
                   {
@@ -12882,7 +15188,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2015',
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -12906,7 +15212,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2010',
               },
               {
-                idx: 3,
+                idx: 4,
                 type: 'data',
                 cols: [
                   {
@@ -12930,7 +15236,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2005',
               },
               {
-                idx: 4,
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -12954,7 +15260,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2000',
               },
               {
-                idx: 5,
+                idx: 6,
                 type: 'data',
                 cols: [
                   {
@@ -12977,8 +15283,36 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 labelParams: { year: 1990 },
                 variableExport: 'forest_1990',
               },
+
               {
-                idx: 6,
+                idx: 7,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.protectedForests.other_wooded_land',
+                    labelParams: { year: 2025 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.protectedForests.other_wooded_land',
+                labelParams: { year: 2025 },
+                variableExport: 'other_wooded_land_2025',
+              },
+              {
+                idx: 8,
                 type: 'data',
                 cols: [
                   {
@@ -13002,7 +15336,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2020',
               },
               {
-                idx: 7,
+                idx: 9,
                 type: 'data',
                 cols: [
                   {
@@ -13026,7 +15360,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2015',
               },
               {
-                idx: 8,
+                idx: 10,
                 type: 'data',
                 cols: [
                   {
@@ -13050,7 +15384,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2010',
               },
               {
-                idx: 9,
+                idx: 11,
                 type: 'data',
                 cols: [
                   {
@@ -13074,7 +15408,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2005',
               },
               {
-                idx: 10,
+                idx: 12,
                 type: 'data',
                 cols: [
                   {
@@ -13098,7 +15432,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2000',
               },
               {
-                idx: 11,
+                idx: 13,
                 type: 'data',
                 cols: [
                   {
@@ -13121,8 +15455,36 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 labelParams: { year: 1990 },
                 variableExport: 'other_wooded_land_1990',
               },
+
               {
-                idx: 12,
+                idx: 14,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.protectedForests.total_forest_and_other_wooded_land',
+                    labelParams: { year: 2025 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.protectedForests.total_forest_and_other_wooded_land',
+                labelParams: { year: 2025 },
+                variableExport: 'total_forest_and_other_wooded_land_2025',
+              },
+              {
+                idx: 15,
                 type: 'data',
                 cols: [
                   {
@@ -13146,7 +15508,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2020',
               },
               {
-                idx: 13,
+                idx: 16,
                 type: 'data',
                 cols: [
                   {
@@ -13170,7 +15532,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2015',
               },
               {
-                idx: 14,
+                idx: 17,
                 type: 'data',
                 cols: [
                   {
@@ -13194,7 +15556,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2010',
               },
               {
-                idx: 15,
+                idx: 18,
                 type: 'data',
                 cols: [
                   {
@@ -13218,7 +15580,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2005',
               },
               {
-                idx: 16,
+                idx: 19,
                 type: 'data',
                 cols: [
                   {
@@ -13242,7 +15604,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2000',
               },
               {
-                idx: 17,
+                idx: 20,
                 type: 'data',
                 cols: [
                   {
@@ -13360,6 +15722,29 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.forest',
+                    labelParams: { year: 2025 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  { idx: 2, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.forest',
+                labelParams: { year: 2025 },
+                variableExport: 'forest_2025',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.forest',
                     labelParams: { year: 2020 },
                     className: 'fra-table__category-cell',
                   },
@@ -13372,7 +15757,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2020',
               },
               {
-                idx: 1,
+                idx: 2,
                 type: 'data',
                 cols: [
                   {
@@ -13392,7 +15777,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2015',
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -13412,7 +15797,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2010',
               },
               {
-                idx: 3,
+                idx: 4,
                 type: 'data',
                 cols: [
                   {
@@ -13432,7 +15817,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2005',
               },
               {
-                idx: 4,
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -13452,7 +15837,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forest_2000',
               },
               {
-                idx: 5,
+                idx: 6,
                 type: 'data',
                 cols: [
                   {
@@ -13471,8 +15856,32 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 labelParams: { year: 1990 },
                 variableExport: 'forest_1990',
               },
+
               {
-                idx: 6,
+                idx: 7,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.other_wooded_land',
+                    labelParams: { year: 2025 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  { idx: 2, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.other_wooded_land',
+                labelParams: { year: 2025 },
+                variableExport: 'other_wooded_land_2025',
+              },
+              {
+                idx: 8,
                 type: 'data',
                 cols: [
                   {
@@ -13492,7 +15901,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2020',
               },
               {
-                idx: 7,
+                idx: 9,
                 type: 'data',
                 cols: [
                   {
@@ -13512,7 +15921,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2015',
               },
               {
-                idx: 8,
+                idx: 10,
                 type: 'data',
                 cols: [
                   {
@@ -13532,7 +15941,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2010',
               },
               {
-                idx: 9,
+                idx: 11,
                 type: 'data',
                 cols: [
                   {
@@ -13552,7 +15961,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2005',
               },
               {
-                idx: 10,
+                idx: 12,
                 type: 'data',
                 cols: [
                   {
@@ -13572,7 +15981,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2000',
               },
               {
-                idx: 11,
+                idx: 13,
                 type: 'data',
                 cols: [
                   {
@@ -13591,8 +16000,34 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 labelParams: { year: 1990 },
                 variableExport: 'other_wooded_land_1990',
               },
+
               {
-                idx: 12,
+                idx: 14,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey:
+                      'panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.total_forest_and_other_wooded_land',
+                    labelParams: { year: 2025 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  { idx: 2, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey:
+                  'panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.total_forest_and_other_wooded_land',
+                labelParams: { year: 2025 },
+                variableExport: 'total_forest_and_other_wooded_land_2025',
+              },
+              {
+                idx: 15,
                 type: 'data',
                 cols: [
                   {
@@ -13614,7 +16049,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2020',
               },
               {
-                idx: 13,
+                idx: 16,
                 type: 'data',
                 cols: [
                   {
@@ -13636,7 +16071,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2015',
               },
               {
-                idx: 14,
+                idx: 17,
                 type: 'data',
                 cols: [
                   {
@@ -13658,7 +16093,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2010',
               },
               {
-                idx: 15,
+                idx: 18,
                 type: 'data',
                 cols: [
                   {
@@ -13680,7 +16115,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2005',
               },
               {
-                idx: 16,
+                idx: 19,
                 type: 'data',
                 cols: [
                   {
@@ -13702,7 +16137,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2000',
               },
               {
-                idx: 17,
+                idx: 20,
                 type: 'data',
                 cols: [
                   {
@@ -13889,6 +16324,40 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'panEuropean.forestHoldings.in_public_ownership',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                  {
+                    idx: 5,
+                    type: 'decimal',
+                  },
+                  { idx: 6, type: 'decimal' },
+                  { idx: 7, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.forestHoldings.in_public_ownership',
+                labelParams: { year: 2020 },
+                variableExport: 'in_public_ownership_2020',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.forestHoldings.in_public_ownership',
                     labelParams: { year: 2015 },
                     className: 'fra-table__category-cell',
                   },
@@ -13912,7 +16381,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'in_public_ownership_2015',
               },
               {
-                idx: 1,
+                idx: 2,
                 type: 'data',
                 cols: [
                   {
@@ -13943,7 +16412,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'in_public_ownership_2010',
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -13974,7 +16443,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'in_public_ownership_2005',
               },
               {
-                idx: 3,
+                idx: 4,
                 type: 'data',
                 cols: [
                   {
@@ -14005,7 +16474,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'in_public_ownership_2000',
               },
               {
-                idx: 4,
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -14036,7 +16505,41 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'in_public_ownership_1990',
               },
               {
-                idx: 5,
+                idx: 6,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.forestHoldings.in_private_ownership',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                  {
+                    idx: 5,
+                    type: 'decimal',
+                  },
+                  { idx: 6, type: 'decimal' },
+                  { idx: 7, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.forestHoldings.in_private_ownership',
+                labelParams: { year: 2020 },
+                variableExport: 'in_private_ownership_2020',
+              },
+              {
+                idx: 7,
                 type: 'data',
                 cols: [
                   {
@@ -14067,7 +16570,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'in_private_ownership_2015',
               },
               {
-                idx: 6,
+                idx: 8,
                 type: 'data',
                 cols: [
                   {
@@ -14098,7 +16601,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'in_private_ownership_2010',
               },
               {
-                idx: 7,
+                idx: 9,
                 type: 'data',
                 cols: [
                   {
@@ -14129,7 +16632,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'in_private_ownership_2005',
               },
               {
-                idx: 8,
+                idx: 10,
                 type: 'data',
                 cols: [
                   {
@@ -14160,7 +16663,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'in_private_ownership_2000',
               },
               {
-                idx: 9,
+                idx: 11,
                 type: 'data',
                 cols: [
                   {
@@ -14191,7 +16694,41 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'in_private_ownership_1990',
               },
               {
-                idx: 10,
+                idx: 12,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.forestHoldings.other_types_of_ownership_unknown',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                  {
+                    idx: 5,
+                    type: 'decimal',
+                  },
+                  { idx: 6, type: 'decimal' },
+                  { idx: 7, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.forestHoldings.other_types_of_ownership_unknown',
+                labelParams: { year: 2020 },
+                variableExport: 'other_types_of_ownership_unknown_2020',
+              },
+              {
+                idx: 13,
                 type: 'data',
                 cols: [
                   {
@@ -14222,7 +16759,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_types_of_ownership_unknown_2015',
               },
               {
-                idx: 11,
+                idx: 14,
                 type: 'data',
                 cols: [
                   {
@@ -14253,7 +16790,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_types_of_ownership_unknown_2010',
               },
               {
-                idx: 12,
+                idx: 15,
                 type: 'data',
                 cols: [
                   {
@@ -14284,7 +16821,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_types_of_ownership_unknown_2005',
               },
               {
-                idx: 13,
+                idx: 16,
                 type: 'data',
                 cols: [
                   {
@@ -14315,7 +16852,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_types_of_ownership_unknown_2000',
               },
               {
-                idx: 14,
+                idx: 17,
                 type: 'data',
                 cols: [
                   {
@@ -14437,6 +16974,28 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'panEuropean.grossValueAdded.forestry',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.grossValueAdded.forestry',
+                labelParams: { year: 2020 },
+                variableExport: 'forestry_2020',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.grossValueAdded.forestry',
                     labelParams: { year: 2015 },
                     className: 'fra-table__category-cell',
                   },
@@ -14448,7 +17007,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_2015',
               },
               {
-                idx: 1,
+                idx: 2,
                 type: 'data',
                 cols: [
                   {
@@ -14467,7 +17026,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_2010',
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -14486,7 +17045,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_2005',
               },
               {
-                idx: 3,
+                idx: 4,
                 type: 'data',
                 cols: [
                   {
@@ -14505,7 +17064,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_2000',
               },
               {
-                idx: 4,
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -14524,7 +17083,29 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_1990',
               },
               {
-                idx: 5,
+                idx: 6,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.grossValueAdded.manufacture_of_wood_and_articles_in_wood',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.grossValueAdded.manufacture_of_wood_and_articles_in_wood',
+                labelParams: { year: 2020 },
+                variableExport: 'manufacture_of_wood_and_articles_in_wood_2020',
+              },
+              {
+                idx: 7,
                 type: 'data',
                 cols: [
                   {
@@ -14543,7 +17124,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'manufacture_of_wood_and_articles_in_wood_2015',
               },
               {
-                idx: 6,
+                idx: 8,
                 type: 'data',
                 cols: [
                   {
@@ -14562,7 +17143,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'manufacture_of_wood_and_articles_in_wood_2010',
               },
               {
-                idx: 7,
+                idx: 9,
                 type: 'data',
                 cols: [
                   {
@@ -14581,7 +17162,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'manufacture_of_wood_and_articles_in_wood_2005',
               },
               {
-                idx: 8,
+                idx: 10,
                 type: 'data',
                 cols: [
                   {
@@ -14600,7 +17181,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'manufacture_of_wood_and_articles_in_wood_2000',
               },
               {
-                idx: 9,
+                idx: 11,
                 type: 'data',
                 cols: [
                   {
@@ -14619,7 +17200,29 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'manufacture_of_wood_and_articles_in_wood_1990',
               },
               {
-                idx: 10,
+                idx: 12,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.grossValueAdded.manufacture_of_paper_and_paper_products',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.grossValueAdded.manufacture_of_paper_and_paper_products',
+                labelParams: { year: 2020 },
+                variableExport: 'manufacture_of_paper_and_paper_products_2020',
+              },
+              {
+                idx: 13,
                 type: 'data',
                 cols: [
                   {
@@ -14638,7 +17241,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'manufacture_of_paper_and_paper_products_2015',
               },
               {
-                idx: 11,
+                idx: 14,
                 type: 'data',
                 cols: [
                   {
@@ -14657,7 +17260,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'manufacture_of_paper_and_paper_products_2010',
               },
               {
-                idx: 12,
+                idx: 15,
                 type: 'data',
                 cols: [
                   {
@@ -14676,7 +17279,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'manufacture_of_paper_and_paper_products_2005',
               },
               {
-                idx: 13,
+                idx: 16,
                 type: 'data',
                 cols: [
                   {
@@ -14695,7 +17298,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'manufacture_of_paper_and_paper_products_2000',
               },
               {
-                idx: 14,
+                idx: 17,
                 type: 'data',
                 cols: [
                   {
@@ -14796,6 +17399,28 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'panEuropean.factorIncomeAndEntrepreneurialIncome.forestry',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.factorIncomeAndEntrepreneurialIncome.forestry',
+                labelParams: { year: 2020 },
+                variableExport: 'forestry_2020',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.factorIncomeAndEntrepreneurialIncome.forestry',
                     labelParams: { year: 2015 },
                     className: 'fra-table__category-cell',
                   },
@@ -14807,7 +17432,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_2015',
               },
               {
-                idx: 1,
+                idx: 2,
                 type: 'data',
                 cols: [
                   {
@@ -14826,7 +17451,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_2010',
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -14845,7 +17470,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_2005',
               },
               {
-                idx: 3,
+                idx: 4,
                 type: 'data',
                 cols: [
                   {
@@ -14864,7 +17489,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_2000',
               },
               {
-                idx: 4,
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -14985,6 +17610,33 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'panEuropean.totalGrossFixedCapitalFormationInForestsAndForestry.forestry_isic_nace_02',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.totalGrossFixedCapitalFormationInForestsAndForestry.forestry_isic_nace_02',
+                labelParams: { year: 2020 },
+                variableExport: 'forestry_isic_nace_02_2020',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.totalGrossFixedCapitalFormationInForestsAndForestry.forestry_isic_nace_02',
                     labelParams: { year: 2015 },
                     className: 'fra-table__category-cell',
                   },
@@ -15001,7 +17653,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_isic_nace_02_2015',
               },
               {
-                idx: 1,
+                idx: 2,
                 type: 'data',
                 cols: [
                   {
@@ -15025,7 +17677,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_isic_nace_02_2010',
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -15049,7 +17701,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_isic_nace_02_2005',
               },
               {
-                idx: 3,
+                idx: 4,
                 type: 'data',
                 cols: [
                   {
@@ -15073,7 +17725,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_isic_nace_02_2000',
               },
               {
-                idx: 4,
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -15164,6 +17816,27 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'panEuropean.totalFixedCapitalConsumptionInForestsAndForestry.forestry_isic_nace_02',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.totalFixedCapitalConsumptionInForestsAndForestry.forestry_isic_nace_02',
+                labelParams: { year: 2020 },
+                variableExport: 'forestry_isic_nace_02_2020',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.totalFixedCapitalConsumptionInForestsAndForestry.forestry_isic_nace_02',
                     labelParams: { year: 2015 },
                     className: 'fra-table__category-cell',
                   },
@@ -15174,7 +17847,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_isic_nace_02_2015',
               },
               {
-                idx: 1,
+                idx: 2,
                 type: 'data',
                 cols: [
                   {
@@ -15192,7 +17865,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_isic_nace_02_2010',
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -15210,7 +17883,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_isic_nace_02_2005',
               },
               {
-                idx: 3,
+                idx: 4,
                 type: 'data',
                 cols: [
                   {
@@ -15228,7 +17901,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_isic_nace_02_2000',
               },
               {
-                idx: 4,
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -15308,6 +17981,27 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'panEuropean.totalCapitalTransfersInForestsAndForestry.forestry_isic_nace_02',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.totalCapitalTransfersInForestsAndForestry.forestry_isic_nace_02',
+                labelParams: { year: 2020 },
+                variableExport: 'forestry_isic_nace_02_2020',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.totalCapitalTransfersInForestsAndForestry.forestry_isic_nace_02',
                     labelParams: { year: 2015 },
                     className: 'fra-table__category-cell',
                   },
@@ -15318,7 +18012,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_isic_nace_02_2015',
               },
               {
-                idx: 1,
+                idx: 2,
                 type: 'data',
                 cols: [
                   {
@@ -15336,7 +18030,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_isic_nace_02_2010',
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -15354,7 +18048,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_isic_nace_02_2005',
               },
               {
-                idx: 3,
+                idx: 4,
                 type: 'data',
                 cols: [
                   {
@@ -15372,7 +18066,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_isic_nace_02_2000',
               },
               {
-                idx: 4,
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -15519,6 +18213,34 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'panEuropean.employmentByGenderAndAge.forestry',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.employmentByGenderAndAge.forestry',
+                labelParams: { year: 2020 },
+                variableExport: 'forestry_2020',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.employmentByGenderAndAge.forestry',
                     labelParams: { year: 2015 },
                     className: 'fra-table__category-cell',
                   },
@@ -15536,7 +18258,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_2015',
               },
               {
-                idx: 1,
+                idx: 2,
                 type: 'data',
                 cols: [
                   {
@@ -15561,7 +18283,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_2010',
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -15586,7 +18308,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_2005',
               },
               {
-                idx: 3,
+                idx: 4,
                 type: 'data',
                 cols: [
                   {
@@ -15611,7 +18333,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_2000',
               },
               {
-                idx: 4,
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -15636,7 +18358,35 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_1990',
               },
               {
-                idx: 5,
+                idx: 6,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.employmentByGenderAndAge.manufacture_of_wood_and_articles_in_wood',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.employmentByGenderAndAge.manufacture_of_wood_and_articles_in_wood',
+                labelParams: { year: 2020 },
+                variableExport: 'manufacture_of_wood_and_articles_in_wood_2020',
+              },
+              {
+                idx: 7,
                 type: 'data',
                 cols: [
                   {
@@ -15661,7 +18411,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'manufacture_of_wood_and_articles_in_wood_2015',
               },
               {
-                idx: 6,
+                idx: 8,
                 type: 'data',
                 cols: [
                   {
@@ -15686,7 +18436,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'manufacture_of_wood_and_articles_in_wood_2010',
               },
               {
-                idx: 7,
+                idx: 9,
                 type: 'data',
                 cols: [
                   {
@@ -15711,7 +18461,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'manufacture_of_wood_and_articles_in_wood_2005',
               },
               {
-                idx: 8,
+                idx: 10,
                 type: 'data',
                 cols: [
                   {
@@ -15736,7 +18486,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'manufacture_of_wood_and_articles_in_wood_2000',
               },
               {
-                idx: 9,
+                idx: 11,
                 type: 'data',
                 cols: [
                   {
@@ -15761,7 +18511,32 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'manufacture_of_wood_and_articles_in_wood_1990',
               },
               {
-                idx: 10,
+                idx: 12,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.employmentByGenderAndAge.manufacture_of_paper_and_paper_products',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                labelKey: 'panEuropean.employmentByGenderAndAge.manufacture_of_paper_and_paper_products',
+                labelParams: { year: 2020 },
+                variableExport: 'manufacture_of_paper_and_paper_products_2020',
+              },
+              {
+                idx: 13,
                 type: 'data',
                 cols: [
                   {
@@ -15786,7 +18561,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'manufacture_of_paper_and_paper_products_2015',
               },
               {
-                idx: 11,
+                idx: 14,
                 type: 'data',
                 cols: [
                   {
@@ -15811,7 +18586,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'manufacture_of_paper_and_paper_products_2010',
               },
               {
-                idx: 12,
+                idx: 15,
                 type: 'data',
                 cols: [
                   {
@@ -15836,7 +18611,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'manufacture_of_paper_and_paper_products_2005',
               },
               {
-                idx: 13,
+                idx: 16,
                 type: 'data',
                 cols: [
                   {
@@ -15861,7 +18636,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'manufacture_of_paper_and_paper_products_2000',
               },
               {
-                idx: 14,
+                idx: 17,
                 type: 'data',
                 cols: [
                   {
@@ -16015,6 +18790,34 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'panEuropean.employmentByEducationAndJobCharacteristics.forestry',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.employmentByEducationAndJobCharacteristics.forestry',
+                labelParams: { year: 2020 },
+                variableExport: 'forestry_2020',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.employmentByEducationAndJobCharacteristics.forestry',
                     labelParams: { year: 2015 },
                     className: 'fra-table__category-cell',
                   },
@@ -16032,7 +18835,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_2015',
               },
               {
-                idx: 1,
+                idx: 2,
                 type: 'data',
                 cols: [
                   {
@@ -16057,7 +18860,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_2010',
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -16082,7 +18885,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_2005',
               },
               {
-                idx: 3,
+                idx: 4,
                 type: 'data',
                 cols: [
                   {
@@ -16107,7 +18910,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_2000',
               },
               {
-                idx: 4,
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -16132,7 +18935,37 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_1990',
               },
               {
-                idx: 5,
+                idx: 6,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey:
+                      'panEuropean.employmentByEducationAndJobCharacteristics.manufacture_of_wood_and_articles_in_wood',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey:
+                  'panEuropean.employmentByEducationAndJobCharacteristics.manufacture_of_wood_and_articles_in_wood',
+                labelParams: { year: 2020 },
+                variableExport: 'manufacture_of_wood_and_articles_in_wood_2020',
+              },
+              {
+                idx: 7,
                 type: 'data',
                 cols: [
                   {
@@ -16159,7 +18992,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'manufacture_of_wood_and_articles_in_wood_2015',
               },
               {
-                idx: 6,
+                idx: 8,
                 type: 'data',
                 cols: [
                   {
@@ -16186,7 +19019,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'manufacture_of_wood_and_articles_in_wood_2010',
               },
               {
-                idx: 7,
+                idx: 9,
                 type: 'data',
                 cols: [
                   {
@@ -16213,7 +19046,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'manufacture_of_wood_and_articles_in_wood_2005',
               },
               {
-                idx: 8,
+                idx: 10,
                 type: 'data',
                 cols: [
                   {
@@ -16240,7 +19073,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'manufacture_of_wood_and_articles_in_wood_2000',
               },
               {
-                idx: 9,
+                idx: 11,
                 type: 'data',
                 cols: [
                   {
@@ -16267,7 +19100,37 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'manufacture_of_wood_and_articles_in_wood_1990',
               },
               {
-                idx: 10,
+                idx: 12,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey:
+                      'panEuropean.employmentByEducationAndJobCharacteristics.manufacture_of_paper_and_paper_products',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey:
+                  'panEuropean.employmentByEducationAndJobCharacteristics.manufacture_of_paper_and_paper_products',
+                labelParams: { year: 2020 },
+                variableExport: 'manufacture_of_paper_and_paper_products_2020',
+              },
+              {
+                idx: 13,
                 type: 'data',
                 cols: [
                   {
@@ -16294,7 +19157,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'manufacture_of_paper_and_paper_products_2015',
               },
               {
-                idx: 11,
+                idx: 14,
                 type: 'data',
                 cols: [
                   {
@@ -16321,7 +19184,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'manufacture_of_paper_and_paper_products_2010',
               },
               {
-                idx: 12,
+                idx: 15,
                 type: 'data',
                 cols: [
                   {
@@ -16348,7 +19211,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'manufacture_of_paper_and_paper_products_2005',
               },
               {
-                idx: 13,
+                idx: 16,
                 type: 'data',
                 cols: [
                   {
@@ -16375,7 +19238,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'manufacture_of_paper_and_paper_products_2000',
               },
               {
-                idx: 14,
+                idx: 17,
                 type: 'data',
                 cols: [
                   {
@@ -16509,6 +19372,33 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'panEuropean.occupationalAccidents.forestry_isic_nace_02',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.occupationalAccidents.forestry_isic_nace_02',
+                labelParams: { year: 2020 },
+                variableExport: 'forestry_isic_nace_02_2020',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.occupationalAccidents.forestry_isic_nace_02',
                     labelParams: { year: 2015 },
                     className: 'fra-table__category-cell',
                   },
@@ -16525,7 +19415,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_isic_nace_02_2015',
               },
               {
-                idx: 1,
+                idx: 2,
                 type: 'data',
                 cols: [
                   {
@@ -16549,7 +19439,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_isic_nace_02_2010',
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -16573,7 +19463,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_isic_nace_02_2005',
               },
               {
-                idx: 3,
+                idx: 4,
                 type: 'data',
                 cols: [
                   {
@@ -16597,7 +19487,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'forestry_isic_nace_02_2000',
               },
               {
-                idx: 4,
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -17604,6 +20494,24 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
+                  {
+                    idx: 6,
+                    colSpan: 2,
+                    rowSpan: 1,
+                    label: '2019',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: { cycles: ['2025'] },
+                  },
+                  {
+                    idx: 7,
+                    colSpan: 2,
+                    rowSpan: 1,
+                    label: '2021',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: { cycles: ['2025'] },
+                  },
                 ],
                 type: 'header',
               },
@@ -17690,6 +20598,42 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
+                  {
+                    idx: 10,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.totalEnergySupplyFromWood.tj',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: { cycles: ['2025'] },
+                  },
+                  {
+                    idx: 11,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.totalEnergySupplyFromWood._1000_metric_tonnes_dry_matter',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: { cycles: ['2025'] },
+                  },
+                  {
+                    idx: 12,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.totalEnergySupplyFromWood.tj',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: { cycles: ['2025'] },
+                  },
+                  {
+                    idx: 13,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.totalEnergySupplyFromWood._1000_metric_tonnes_dry_matter',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: { cycles: ['2025'] },
+                  },
                 ],
                 type: 'header',
               },
@@ -17718,11 +20662,20 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   },
                   { idx: 6, type: 'decimal' },
                   { idx: 7, type: 'placeholder' },
-                  {
-                    idx: 8,
-                    type: 'decimal',
-                  },
+                  { idx: 8, type: 'decimal' },
                   { idx: 9, type: 'placeholder' },
+                  { idx: 10, type: 'decimal', colName: 'tj_2019', migration: { cycles: ['2025'] } },
+                  {
+                    idx: 11,
+                    type: 'placeholder',
+                    migration: { cycles: ['2025'] },
+                  },
+                  { idx: 12, type: 'decimal', colName: 'tj_2021', migration: { cycles: ['2025'] } },
+                  {
+                    idx: 13,
+                    type: 'placeholder',
+                    migration: { cycles: ['2025'] },
+                  },
                 ],
                 variableExport: 'total_primary_energy_supply',
                 labelKey: 'panEuropean.totalEnergySupplyFromWood.total_primary_energy_supply',
@@ -17759,6 +20712,18 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 9, type: 'placeholder' },
+                  { idx: 10, type: 'decimal', colName: 'tj_2019', migration: { cycles: ['2025'] } },
+                  {
+                    idx: 11,
+                    type: 'placeholder',
+                    migration: { cycles: ['2025'] },
+                  },
+                  { idx: 12, type: 'decimal', colName: 'tj_2021', migration: { cycles: ['2025'] } },
+                  {
+                    idx: 13,
+                    type: 'placeholder',
+                    migration: { cycles: ['2025'] },
+                  },
                 ],
                 variableExport: 'total_renewable_energy_supply',
                 labelKey: 'panEuropean.totalEnergySupplyFromWood.total_renewable_energy_supply',
@@ -17795,6 +20760,20 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 9, type: 'decimal' },
+                  { idx: 10, type: 'decimal', colName: 'tj_2019', migration: { cycles: ['2025'] } },
+                  {
+                    idx: 11,
+                    type: 'decimal',
+                    colName: '_1000_metric_tonnes_dry_matter_2019',
+                    migration: { cycles: ['2025'] },
+                  },
+                  { idx: 12, type: 'decimal', colName: 'tj_2021', migration: { cycles: ['2025'] } },
+                  {
+                    idx: 13,
+                    type: 'decimal',
+                    colName: '_1000_metric_tonnes_dry_matter_2021',
+                    migration: { cycles: ['2025'] },
+                  },
                 ],
                 variableExport: 'total_energy_supply_from_wood',
                 labelKey: 'panEuropean.totalEnergySupplyFromWood.total_energy_supply_from_wood',
@@ -17831,6 +20810,20 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 9, type: 'decimal' },
+                  { idx: 10, type: 'decimal', colName: 'tj_2019', migration: { cycles: ['2025'] } },
+                  {
+                    idx: 11,
+                    type: 'decimal',
+                    colName: '_1000_metric_tonnes_dry_matter_2019',
+                    migration: { cycles: ['2025'] },
+                  },
+                  { idx: 12, type: 'decimal', colName: 'tj_2021', migration: { cycles: ['2025'] } },
+                  {
+                    idx: 13,
+                    type: 'decimal',
+                    colName: '_1000_metric_tonnes_dry_matter_2021',
+                    migration: { cycles: ['2025'] },
+                  },
                 ],
                 variableExport: 'energy_from_direct_wood_fibre_sources',
                 labelKey: 'panEuropean.totalEnergySupplyFromWood.energy_from_direct_wood_fibre_sources',
@@ -17867,6 +20860,20 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 9, type: 'decimal' },
+                  { idx: 10, type: 'decimal', colName: 'tj_2019', migration: { cycles: ['2025'] } },
+                  {
+                    idx: 11,
+                    type: 'decimal',
+                    colName: '_1000_metric_tonnes_dry_matter_2019',
+                    migration: { cycles: ['2025'] },
+                  },
+                  { idx: 12, type: 'decimal', colName: 'tj_2021', migration: { cycles: ['2025'] } },
+                  {
+                    idx: 13,
+                    type: 'decimal',
+                    colName: '_1000_metric_tonnes_dry_matter_2021',
+                    migration: { cycles: ['2025'] },
+                  },
                 ],
                 variableExport: 'of_which_from_forests',
                 labelKey: 'panEuropean.totalEnergySupplyFromWood.of_which_from_forests',
@@ -17903,6 +20910,20 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 9, type: 'decimal' },
+                  { idx: 10, type: 'decimal', colName: 'tj_2019', migration: { cycles: ['2025'] } },
+                  {
+                    idx: 11,
+                    type: 'decimal',
+                    colName: '_1000_metric_tonnes_dry_matter_2019',
+                    migration: { cycles: ['2025'] },
+                  },
+                  { idx: 12, type: 'decimal', colName: 'tj_2021', migration: { cycles: ['2025'] } },
+                  {
+                    idx: 13,
+                    type: 'decimal',
+                    colName: '_1000_metric_tonnes_dry_matter_2021',
+                    migration: { cycles: ['2025'] },
+                  },
                 ],
                 variableExport: 'of_which_from_other_wooded_land',
                 labelKey: 'panEuropean.totalEnergySupplyFromWood.of_which_from_other_wooded_land',
@@ -17939,6 +20960,20 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 9, type: 'decimal' },
+                  { idx: 10, type: 'decimal', colName: 'tj_2019', migration: { cycles: ['2025'] } },
+                  {
+                    idx: 11,
+                    type: 'decimal',
+                    colName: '_1000_metric_tonnes_dry_matter_2019',
+                    migration: { cycles: ['2025'] },
+                  },
+                  { idx: 12, type: 'decimal', colName: 'tj_2021', migration: { cycles: ['2025'] } },
+                  {
+                    idx: 13,
+                    type: 'decimal',
+                    colName: '_1000_metric_tonnes_dry_matter_2021',
+                    migration: { cycles: ['2025'] },
+                  },
                 ],
                 variableExport: 'energy_from_co_products',
                 labelKey: 'panEuropean.totalEnergySupplyFromWood.energy_from_co_products',
@@ -17975,6 +21010,20 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 9, type: 'decimal' },
+                  { idx: 10, type: 'decimal', colName: 'tj_2019', migration: { cycles: ['2025'] } },
+                  {
+                    idx: 11,
+                    type: 'decimal',
+                    colName: '_1000_metric_tonnes_dry_matter_2019',
+                    migration: { cycles: ['2025'] },
+                  },
+                  { idx: 12, type: 'decimal', colName: 'tj_2021', migration: { cycles: ['2025'] } },
+                  {
+                    idx: 13,
+                    type: 'decimal',
+                    colName: '_1000_metric_tonnes_dry_matter_2021',
+                    migration: { cycles: ['2025'] },
+                  },
                 ],
                 variableExport: 'of_which_solid_residues',
                 labelKey: 'panEuropean.totalEnergySupplyFromWood.of_which_solid_residues',
@@ -18011,6 +21060,20 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 9, type: 'decimal' },
+                  { idx: 10, type: 'decimal', colName: 'tj_2019', migration: { cycles: ['2025'] } },
+                  {
+                    idx: 11,
+                    type: 'decimal',
+                    colName: '_1000_metric_tonnes_dry_matter_2019',
+                    migration: { cycles: ['2025'] },
+                  },
+                  { idx: 12, type: 'decimal', colName: 'tj_2021', migration: { cycles: ['2025'] } },
+                  {
+                    idx: 13,
+                    type: 'decimal',
+                    colName: '_1000_metric_tonnes_dry_matter_2021',
+                    migration: { cycles: ['2025'] },
+                  },
                 ],
                 variableExport: 'energy_from_processed_wood_based_fuels',
                 labelKey: 'panEuropean.totalEnergySupplyFromWood.energy_from_processed_wood_based_fuels',
@@ -18047,6 +21110,20 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'placeholder',
                   },
                   { idx: 9, type: 'decimal' },
+                  { idx: 10, type: 'placeholder', migration: { cycles: ['2025'] } },
+                  {
+                    idx: 11,
+                    type: 'decimal',
+                    colName: '_1000_metric_tonnes_dry_matter_2019',
+                    migration: { cycles: ['2025'] },
+                  },
+                  { idx: 12, type: 'placeholder', migration: { cycles: ['2025'] } },
+                  {
+                    idx: 13,
+                    type: 'decimal',
+                    colName: '_1000_metric_tonnes_dry_matter_2021',
+                    migration: { cycles: ['2025'] },
+                  },
                 ],
                 variableExport: 'of_which_imported',
                 labelKey: 'panEuropean.totalEnergySupplyFromWood.of_which_imported',
@@ -18083,6 +21160,20 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 9, type: 'decimal' },
+                  { idx: 10, type: 'decimal', colName: 'tj_2019', migration: { cycles: ['2025'] } },
+                  {
+                    idx: 11,
+                    type: 'decimal',
+                    colName: '_1000_metric_tonnes_dry_matter_2019',
+                    migration: { cycles: ['2025'] },
+                  },
+                  { idx: 12, type: 'decimal', colName: 'tj_2021', migration: { cycles: ['2025'] } },
+                  {
+                    idx: 13,
+                    type: 'decimal',
+                    colName: '_1000_metric_tonnes_dry_matter_2021',
+                    migration: { cycles: ['2025'] },
+                  },
                 ],
                 variableExport: 'energy_from_post_consumer_recovered_wood',
                 labelKey: 'panEuropean.totalEnergySupplyFromWood.energy_from_post_consumer_recovered_wood',
@@ -18119,6 +21210,20 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 9, type: 'decimal' },
+                  { idx: 10, type: 'decimal', colName: 'tj_2019', migration: { cycles: ['2025'] } },
+                  {
+                    idx: 11,
+                    type: 'decimal',
+                    colName: '_1000_metric_tonnes_dry_matter_2019',
+                    migration: { cycles: ['2025'] },
+                  },
+                  { idx: 12, type: 'decimal', colName: 'tj_2021', migration: { cycles: ['2025'] } },
+                  {
+                    idx: 13,
+                    type: 'decimal',
+                    colName: '_1000_metric_tonnes_dry_matter_2021',
+                    migration: { cycles: ['2025'] },
+                  },
                 ],
                 variableExport: 'energy_from_unknown_unspecified_sources',
                 labelKey: 'panEuropean.totalEnergySupplyFromWood.energy_from_unknown_unspecified_sources',
@@ -18142,6 +21247,38 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
               'tj_2015',
               '_1000_metric_tonnes_dry_matter_2015',
             ],
+            migration: {
+              columnNames: {
+                '2020': [
+                  'tj_2007',
+                  '_1000_metric_tonnes_dry_matter_2007',
+                  'tj_2009',
+                  '_1000_metric_tonnes_dry_matter_2009',
+                  'tj_2011',
+                  '_1000_metric_tonnes_dry_matter_2011',
+                  'tj_2013',
+                  '_1000_metric_tonnes_dry_matter_2013',
+                  'tj_2015',
+                  '_1000_metric_tonnes_dry_matter_2015',
+                ],
+                '2025': [
+                  'tj_2007',
+                  '_1000_metric_tonnes_dry_matter_2007',
+                  'tj_2009',
+                  '_1000_metric_tonnes_dry_matter_2009',
+                  'tj_2011',
+                  '_1000_metric_tonnes_dry_matter_2011',
+                  'tj_2013',
+                  '_1000_metric_tonnes_dry_matter_2013',
+                  'tj_2015',
+                  '_1000_metric_tonnes_dry_matter_2015',
+                  'tj_2019',
+                  '_1000_metric_tonnes_dry_matter_2019',
+                  'tj_2021',
+                  '_1000_metric_tonnes_dry_matter_2021',
+                ],
+              },
+            },
           },
         ],
       },
@@ -18244,6 +21381,33 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'panEuropean.accessibilityForRecreation.total_forest_and_other_wooded_land',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.accessibilityForRecreation.total_forest_and_other_wooded_land',
+                labelParams: { year: 2020 },
+                variableExport: 'total_forest_and_other_wooded_land_2020',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.accessibilityForRecreation.total_forest_and_other_wooded_land',
                     labelParams: { year: 2015 },
                     className: 'fra-table__category-cell',
                   },
@@ -18260,7 +21424,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2015',
               },
               {
-                idx: 1,
+                idx: 2,
                 type: 'data',
                 cols: [
                   {
@@ -18284,7 +21448,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2010',
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -18308,7 +21472,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2005',
               },
               {
-                idx: 3,
+                idx: 4,
                 type: 'data',
                 cols: [
                   {
@@ -18332,7 +21496,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2000',
               },
               {
-                idx: 4,
+                idx: 5,
                 type: 'data',
                 cols: [
                   {
@@ -18443,6 +21607,28 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                     colSpan: 1,
                     labelKey: 'panEuropean.intensityOfUse.total_forest_and_other_wooded_land',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.intensityOfUse.total_forest_and_other_wooded_land',
+                labelParams: { year: 2020 },
+                variableExport: 'total_forest_and_other_wooded_land_2020',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.intensityOfUse.total_forest_and_other_wooded_land',
                     labelParams: { year: 2015 },
                     className: 'fra-table__category-cell',
                   },
@@ -18454,7 +21640,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2015',
               },
               {
-                idx: 1,
+                idx: 2,
                 type: 'data',
                 cols: [
                   {
@@ -18473,7 +21659,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2010',
               },
               {
-                idx: 2,
+                idx: 3,
                 type: 'data',
                 cols: [
                   {
@@ -18571,6 +21757,28 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
               },
               {
                 idx: 0,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.recreationFacilities.area_available_for_public_recreation',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.recreationFacilities.area_available_for_public_recreation',
+                labelParams: { year: 2020 },
+                variableExport: 'area_available_for_public_recreation_2020',
+              },
+              {
+                idx: 1,
                 type: 'data',
                 cols: [
                   {

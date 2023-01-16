@@ -17,6 +17,7 @@ const Invitation: React.FC = () => {
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
   const navigate = useNavigate()
+
   const loggedUser = useUser()
 
   const invitationUuid = Urls.getRequestParam('invitationUuid')
@@ -144,7 +145,14 @@ const Invitation: React.FC = () => {
               )}
 
               {showForgotPassword && (
-                <Link to={ClientRoutes.Login.ResetPassword.getLink()} type="button" className="btn-forgot-pwd">
+                <Link
+                  to={ClientRoutes.Assessment.Cycle.Login.ResetPassword.getLink({
+                    assessmentName: assessment.props.name,
+                    cycleName: cycle.name,
+                  })}
+                  type="button"
+                  className="btn-forgot-pwd"
+                >
                   {t('login.forgotPassword')}
                 </Link>
               )}
@@ -163,7 +171,9 @@ const Invitation: React.FC = () => {
 
           <a
             className="btn"
-            href={`${ApiEndPoint.Auth.google()}${invitationUuid ? `?invitationUuid=${invitationUuid}` : ''}`}
+            href={`${ApiEndPoint.Auth.google()}?assessmentName=${assessment.props.name}&cycleName=${
+              cycle.name
+            }&invitationUuid=${invitationUuid}`}
           >
             {t('login.acceptInvitationWithGoogle')}
           </a>

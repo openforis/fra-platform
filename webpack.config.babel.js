@@ -38,6 +38,7 @@ const plugins = [
     __APPLICATION_VERSION__: gitRevisionPlugin
       ? JSON.stringify(gitRevisionPlugin.version())
       : JSON.stringify(process.env.APP_VERSION),
+    __BUILD_DATE__: JSON.stringify(new Date().toISOString().split('T')[0]),
     __URL_STATISTICAL_FACTSHEETS__: JSON.stringify(process.env.URL_STATISTICAL_FACTSHEETS),
   }),
   new CleanWebpackPlugin(),

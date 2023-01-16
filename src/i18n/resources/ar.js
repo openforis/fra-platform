@@ -135,10 +135,10 @@ module.exports.translation = {
       textMessage: `عزيزي {{user}}
 
 تلقينا طلباً بإعادة ضبط كلمة المرور إلى حساب تقييم الموارد الحرجية الخاص بك. إذا لم تقدم هذا الطلب يمكنك تجاهل هذه الرسالة بأمان.
-انقر على الرابط التالي لإعادة ضبط كلمة المرور{{- link}}}
+انقر على الرابط التالي لإعادة ضبط كلمة المرور{{- link}}
 
 Click the following link to reset your password
-{{- link}}}
+{{- link}}
 
 
 شكراً
@@ -446,7 +446,7 @@ The FRA team
     nationalData: 'بيانات وطنية',
     analysisAndProcessing: 'تحليل البيانات الوطنية ومعالجتها',
     estimationAndForecasting: 'التوقعات والتنبؤات',
-    reclassification: 'إعادة التصنيف بما يتوافق وفئات تقييم الموارد الحرجية لعام 2020',
+    reclassification: 'إعادة التصنيف بما يتوافق وفئات تقييم الموارد الحرجية لعام {{cycleName}}',
   },
 
   nationalDataPoint: {
@@ -470,8 +470,8 @@ The FRA team
     copyPreviousValues: 'نسخ القيم السابقة',
     nationalClass: 'شريحة وطنية',
     nationalClasses: 'شرائح وتعاريف',
-    definition: 'تعريف',
     fraClasses: 'شرائح تقييم الموارد الحرجية',
+    definition: 'تعريف',
     class: 'شريحة',
     area: 'المساحة (1000 هـ)',
     total: 'الإجمالي',

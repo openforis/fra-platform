@@ -377,7 +377,7 @@ El equipo de FRA
     nationalData: 'Datos nacionales',
     analysisAndProcessing: 'Análisis y procesamiento de datos nacionales',
     estimationAndForecasting: 'Estimación y proyección',
-    reclassification: 'Reclasificación en categorías de FRA 2020',
+    reclassification: 'Reclasificación en categorías de FRA {{cycleName}}',
   },
 
   nationalDataPoint: {
@@ -402,8 +402,8 @@ El equipo de FRA
     nationalClass: 'Clase nacional',
     nationalClasses: 'Clasificaciones y definiciones',
     definition: 'Definición',
-    fraClasses: 'Clases de FRA',
     class: 'Clase',
+    fraClasses: 'Clases de FRA',
     area: 'Área (1000 ha)',
     total: 'Total',
     delete: 'Borrar',

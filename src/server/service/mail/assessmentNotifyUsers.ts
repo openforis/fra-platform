@@ -1,7 +1,9 @@
 import { createI18nPromise } from '@i18n/i18nFactory'
 
+import { ClientRoutes } from '@meta/app'
 import { Country, CountryIso } from '@meta/area'
 import { AssessmentStatus } from '@meta/area/country'
+import { AssessmentName } from '@meta/assessment'
 import { RoleName, User } from '@meta/user'
 
 import { UserRepository } from '@server/repository/public/user'
@@ -9,20 +11,28 @@ import { UserRepository } from '@server/repository/public/user'
 import { sendMail } from './mail'
 
 export const createMail = async (props: {
-  countryIso: CountryIso
   status: AssessmentStatus
   user: User
   recipient: User
   url: string
   message: string
-  assessmentName: string
+  assessmentName: AssessmentName
+  countryIso: CountryIso
+  cycleName: string
 }) => {
-  const { assessmentName, user, url, status, countryIso, recipient, message } = props
+  const { assessmentName, countryIso, cycleName, user, url, status, recipient, message } = props
+
   const i18n = await createI18nPromise(recipient.lang ?? 'en')
+
+  const link = `${url}${ClientRoutes.Assessment.Cycle.Country.Landing.getLink({
+    assessmentName,
+    countryIso,
+    cycleName,
+  })}`
 
   const emailLocalizationParameters = {
     country: i18n.t(`area.${countryIso}.listName`),
-    serverUrl: url,
+    serverUrl: link,
     recipientName: recipient.name,
     status: i18n.t(`assessment.status.${status}.label`),
     changer: user.name,
@@ -65,30 +75,34 @@ const getRecipients = async (props: { countryISOs: Array<CountryIso>; status: As
 }
 
 export const assessmentNotifyUsers = async (props: {
-  countryIso: CountryIso
   user: User
   country: Country
   message: string
-  assessmentName: string
+  assessmentName: AssessmentName
+  countryIso: CountryIso
+  cycleName: string
 }) => {
   const {
-    countryIso,
     user,
     country: {
       props: { status },
     },
     message,
     assessmentName,
+    countryIso,
+    cycleName,
   } = props
   const recipients = await getRecipients({ countryISOs: [countryIso], status })
+
   const emailPromises = recipients.map(async (recipient: User) => {
     return createMail({
       user,
       url: process.env.APP_URI,
       recipient,
       status,
-      countryIso,
       assessmentName,
+      countryIso,
+      cycleName,
       message,
     })
   })

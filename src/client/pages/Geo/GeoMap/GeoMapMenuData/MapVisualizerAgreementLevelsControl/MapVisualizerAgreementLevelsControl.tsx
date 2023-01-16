@@ -32,9 +32,9 @@ const AgreementLevelsControl: React.FC = () => {
     // return `false`.
     mapControllerRef.current.removeEarthEngineLayer(agreementLayerKey)
 
-    // If the agreement level is greater than the number of selected layers, reset the
-    // agreement state.
-    if (forestOptions.agreementLevel > forestOptions.selected.length) {
+    // If less than two sources are selected or the agreement level is greater than the
+    // number of selected layers, reset the agreement state.
+    if (forestOptions.selected.length < 2 || forestOptions.agreementLevel > forestOptions.selected.length) {
       dispatch(GeoActions.setAgreementLayerSelected(false))
       dispatch(GeoActions.setAgreementLevel(1))
       return
@@ -47,9 +47,9 @@ const AgreementLevelsControl: React.FC = () => {
 
     // Otherwise, fetch the new agreement layer and add it to the map.
 
-    const layerQuery = forestOptions.selected.map(({ key }) => `&layer=${key}`).join('')
+    const layerQuery = forestOptions.selected.map((key) => `&layer=${key}`).join('')
     const agreementLevelQuery = `&gteAgreementLevel=${forestOptions.agreementLevel}`
-    const hansenQuery = forestOptions.selected.some(({ key }) => key === ForestSource.Hansen)
+    const hansenQuery = forestOptions.selected.includes(ForestSource.Hansen)
       ? `&gteHansenTreeCoverPerc=${forestOptions.hansenPercentage}`
       : ''
     const uri = `/api/geo/layers/forestAgreement/?countryIso=FIN${layerQuery}${agreementLevelQuery}${hansenQuery}`

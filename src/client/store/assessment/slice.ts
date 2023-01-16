@@ -1,19 +1,19 @@
-import { createSlice, Reducer, SliceCaseReducers } from '@reduxjs/toolkit'
+import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import { getAreas, getSections, initApp, updateCountry } from './actions'
+import { getAreas, getAssessment, getSections, initApp, updateCountry, updateCountryProp } from './actions'
 import { AssessmentState } from './stateType'
 
-export const assessmentSlice = createSlice<AssessmentState, SliceCaseReducers<AssessmentState>>({
+const initialState: AssessmentState = {
+  appInitialized: false,
+}
+
+export const assessmentSlice = createSlice({
   name: 'assessment',
-  initialState: {},
-  reducers: {},
+  initialState,
+  reducers: {
+    reset: () => initialState,
+  },
   extraReducers: (builder) => {
-    builder.addCase(initApp.fulfilled, (state, { payload }) => {
-      const { assessment } = payload
-
-      state.assessment = assessment
-    })
-
     builder.addCase(getAreas.fulfilled, (state, { payload }) => {
       const { countries, regionGroups } = payload
 
@@ -25,6 +25,10 @@ export const assessmentSlice = createSlice<AssessmentState, SliceCaseReducers<As
       state.regionGroups = regionGroups
     })
 
+    builder.addCase(getAssessment.fulfilled, (state, { payload }) => {
+      state.assessment = payload
+    })
+
     builder.addCase(getSections.fulfilled, (state, { payload }) => {
       state.sections = payload
     })
@@ -32,14 +36,35 @@ export const assessmentSlice = createSlice<AssessmentState, SliceCaseReducers<As
     builder.addCase(updateCountry.fulfilled, (state, { payload }) => {
       state.countries[payload.countryIso] = payload
     })
+
+    builder.addCase(updateCountryProp.pending, (state, reducer) => {
+      const {
+        meta: { arg },
+      } = reducer
+
+      const { countryIso, countryProp } = arg
+
+      state.countries[countryIso].props = { ...state.countries[countryIso].props, ...countryProp }
+    })
+
+    builder.addCase(initApp.pending, (state) => {
+      state.appInitialized = false
+    })
+
+    builder.addCase(initApp.fulfilled, (state) => {
+      state.appInitialized = true
+    })
   },
 })
 
 export const AssessmentActions = {
+  ...assessmentSlice.actions,
   initApp,
+  getAssessment,
   getAreas,
   getSections,
   updateCountry,
+  updateCountryProp,
 }
 
 export default assessmentSlice.reducer as Reducer<AssessmentState>

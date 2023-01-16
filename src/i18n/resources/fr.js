@@ -375,7 +375,7 @@ L'équipe de FRA
     nationalData: 'Données nationales',
     analysisAndProcessing: 'Analyse et traitement des données nationales',
     estimationAndForecasting: 'Estimation et prévision',
-    reclassification: 'Reclassification dans les catégories de FRA 2020',
+    reclassification: 'Reclassification dans les catégories de FRA {{cycleName}}',
   },
 
   nationalDataPoint: {
@@ -400,8 +400,8 @@ L'équipe de FRA
     nationalClass: 'Classe nationale',
     nationalClasses: 'Classifications et définitions',
     definition: 'Définition',
-    fraClasses: 'Classes de FRA',
     class: 'Classe',
+    fraClasses: 'Classes de FRA',
     area: 'Superficie (1000 ha)',
     total: 'Total',
     delete: 'Supprimer',

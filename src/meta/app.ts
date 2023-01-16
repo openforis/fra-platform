@@ -1,6 +1,6 @@
 import { generatePath } from 'react-router'
 
-import { CountryIso, Global } from '@meta/area'
+import { CountryIso, Global, RegionCode } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
 
 type ClientRoute<Params> = {
@@ -24,10 +24,13 @@ const newInstance = <Params extends { [x: string]: string | number | boolean }>(
   }
 }
 
-type AssessmentParams = {
-  countryIso: CountryIso | Global
+type CycleParams = {
   assessmentName: AssessmentName
   cycleName: string
+}
+
+type AssessmentParams = CycleParams & {
+  countryIso: CountryIso | Global | RegionCode
 }
 
 export enum AssessmentHomeRouteNames {
@@ -44,53 +47,61 @@ export enum AdminRouteNames {
   // dataExport = 'dataExport',
 }
 
-const assessmentParts = [':countryIso', 'assessments', ':assessmentName', ':cycleName']
+const cycleParts = ['assessments', ':assessmentName', ':cycleName']
+
+const assessmentParts = cycleParts.concat(':countryIso')
 
 export const ClientRoutes = {
   Root: { path: '/' },
 
-  Admin: {
-    Root: newInstance<undefined>('admin'),
-    Section: newInstance<{ sectionName: AssessmentHomeRouteNames }>('admin', ':sectionName'),
-    User: newInstance<{ id: number }>('admin', 'users/:id'),
-  },
-
   Assessment: {
-    Root: newInstance<AssessmentParams>(...assessmentParts),
-    Home: {
-      Root: newInstance<AssessmentParams>(...assessmentParts, 'home'),
-      Section: newInstance<AssessmentParams & { sectionName: AssessmentHomeRouteNames }>(
-        ...assessmentParts,
-        'home',
-        ':sectionName'
-      ),
+    Landing: newInstance<{ assessmentName: AssessmentName }>('assessments', ':assessmentName'),
+    Cycle: {
+      Landing: newInstance<CycleParams>('assessments', ':assessmentName', ':cycleName'),
+      Admin: {
+        Root: newInstance<CycleParams>(...cycleParts, 'admin'),
+        Section: newInstance<CycleParams & { sectionName: AssessmentHomeRouteNames }>(
+          ...cycleParts,
+          'admin',
+          ':sectionName'
+        ),
+        Users: {
+          User: newInstance<CycleParams & { id: number }>(...cycleParts, 'admin', 'users/:id'),
+        },
+      },
+      Login: {
+        Root: newInstance<CycleParams>(...cycleParts, 'login'),
+        Invitation: newInstance<CycleParams>(...cycleParts, 'login', 'invitation'),
+        ResetPassword: newInstance<CycleParams>(...cycleParts, 'login', 'resetPassword'),
+      },
       Users: {
-        User: newInstance<AssessmentParams & { id: number }>(...assessmentParts, 'home', 'users/:id'),
+        User: newInstance<CycleParams & { id: number }>(...cycleParts, 'users/:id'),
+      },
+      Country: {
+        DataDownload: newInstance<AssessmentParams>(...assessmentParts, 'dataDownload'),
+        Landing: newInstance<AssessmentParams>(...assessmentParts),
+        Geo: newInstance<AssessmentParams>(...assessmentParts, 'geo'),
+        Home: {
+          Root: newInstance<AssessmentParams>(...assessmentParts, 'home'),
+          Section: newInstance<AssessmentParams & { sectionName: AssessmentHomeRouteNames }>(
+            ...assessmentParts,
+            'home',
+            ':sectionName'
+          ),
+          Users: {
+            User: newInstance<AssessmentParams & { id: number }>(...assessmentParts, 'home', 'users/:id'),
+          },
+        },
+        OriginalDataPoint: {
+          Section: newInstance<AssessmentParams & { year: string; sectionName: string }>(
+            ...assessmentParts,
+            'originalDataPoint/:year/:sectionName'
+          ),
+        },
+        Print: newInstance<AssessmentParams>(...assessmentParts, 'print'),
+        PrintTables: newInstance<AssessmentParams>(...assessmentParts, 'print', 'tables'),
+        Section: newInstance<AssessmentParams & { sectionName: string }>(...assessmentParts, ':sectionName'),
       },
     },
-    Section: newInstance<AssessmentParams & { sectionName: string }>(...assessmentParts, ':sectionName'),
-    OriginalDataPoint: {
-      Section: newInstance<AssessmentParams & { year: string; sectionName: string }>(
-        ...assessmentParts,
-        'originalDataPoint/:year/:sectionName'
-      ),
-    },
-    DataDownload: newInstance<AssessmentParams>(...assessmentParts, 'dataDownload'),
-    Print: newInstance<AssessmentParams>(...assessmentParts, 'print'),
-    PrintTables: newInstance<AssessmentParams>(...assessmentParts, 'print', 'tables'),
-  },
-
-  Login: {
-    Root: newInstance<undefined>('login'),
-    Invitation: newInstance('login', 'invitation'),
-    ResetPassword: newInstance<undefined>('login', 'resetPassword'),
-  },
-
-  Geo: {
-    Root: newInstance(':countryIso', 'geo'),
-  },
-
-  Users: {
-    User: newInstance<{ id: number }>('users', ':id'),
   },
 }

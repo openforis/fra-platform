@@ -7,7 +7,7 @@ import classNames from 'classnames'
 import { ClientRoutes } from '@meta/app'
 import { AssessmentName, OriginalDataPoint } from '@meta/assessment'
 
-import { useAssessmentCountry } from '@client/store/assessment'
+import { useAssessmentCountry, useCycle } from '@client/store/assessment'
 import { useCountryIso } from '@client/hooks'
 
 import ExtentOfForest from '../ExtentOfForest'
@@ -20,6 +20,7 @@ type Props = {
 
 const OriginalData: React.FC<Props> = (props) => {
   const { canEditData, originalDataPoint } = props
+  const cycle = useCycle()
   const country = useAssessmentCountry()
   const { assessmentName, cycleName, year, sectionName } = useParams<{
     assessmentName: AssessmentName
@@ -49,7 +50,7 @@ const OriginalData: React.FC<Props> = (props) => {
               active: navData.isActive,
             })
           }
-          to={ClientRoutes.Assessment.OriginalDataPoint.Section.getLink({
+          to={ClientRoutes.Assessment.Cycle.Country.OriginalDataPoint.Section.getLink({
             countryIso,
             assessmentName,
             cycleName,
@@ -57,7 +58,9 @@ const OriginalData: React.FC<Props> = (props) => {
             sectionName: extentOfForest.name,
           })}
         >
-          {`${extentOfForest.anchor} ${i18n.t('nationalDataPoint.forestCategoriesLabel')}`}
+          {`${extentOfForest.anchor} ${i18n.t(
+            `nationalDataPoint.forestCategoriesLabel${cycle.name === '2025' ? '2025' : ''}`
+          )}`}
         </NavLink>
         <NavLink
           className={(navData) =>
@@ -66,7 +69,7 @@ const OriginalData: React.FC<Props> = (props) => {
               active: navData.isActive,
             })
           }
-          to={ClientRoutes.Assessment.OriginalDataPoint.Section.getLink({
+          to={ClientRoutes.Assessment.Cycle.Country.OriginalDataPoint.Section.getLink({
             countryIso,
             assessmentName,
             cycleName,

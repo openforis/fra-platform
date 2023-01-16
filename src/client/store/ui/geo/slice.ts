@@ -1,7 +1,7 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import { ForestSource, ForestSourceKeyAndStatus, HansenPercentage } from '@meta/geo/forest'
+import { ForestSource, HansenPercentage } from '@meta/geo/forest'
 
 import { postMosaicOptions } from './actions/postMosaicOptions'
 import { getForestLayer } from './actions'
@@ -36,22 +36,15 @@ export const geoSlice = createSlice({
     updateForestOptions: (state, { payload }) => {
       state.forestOptions = payload
     },
-    addForestLayer: (state, { payload }: PayloadAction<ForestSourceKeyAndStatus>) => {
-      if (state.forestOptions.selected.find(({ key }) => key === payload.key)) return // Avoid duplicates
-      state.forestOptions.selected.push(payload)
-    },
-    removeForestLayer: (state, { payload }: PayloadAction<ForestSource>) => {
-      const i = state.forestOptions.selected.findIndex(({ key }) => key === payload)
-      if (i === -1) return
-      state.forestOptions.selected.splice(i, 1)
-
-      // Reset opacity
-      delete state.forestOptions.opacity[payload]
-    },
-    markForestLayerAsReady: (state, { payload }: PayloadAction<ForestSource>) => {
-      const i = state.forestOptions.selected.findIndex(({ key }) => key === payload)
-      if (i === -1) return
-      state.forestOptions.selected[i].status = 'ready'
+    toggleForestLayer: (state, { payload }: PayloadAction<ForestSource>) => {
+      const i = state.forestOptions.selected.findIndex((key) => key === payload)
+      if (i === -1) {
+        state.forestOptions.selected.push(payload)
+      } else {
+        state.forestOptions.selected.splice(i, 1)
+        // Reset opacity
+        delete state.forestOptions.opacity[payload]
+      }
     },
     setOpacity: (state, { payload: { key, opacity } }: PayloadAction<{ key: string; opacity: number }>) => {
       state.forestOptions.opacity[key] = opacity

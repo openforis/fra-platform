@@ -5,7 +5,7 @@ import { AssessmentName } from '@meta/assessment'
 import { Users } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
-import { useCycle, useSyncAssessmentPage } from '@client/store/assessment'
+import { useCycle } from '@client/store/assessment'
 import { useUserToEdit } from '@client/store/ui//userManagement/hooks'
 import { UserManagementActions } from '@client/store/ui/userManagement'
 import { useUser } from '@client/store/user'
@@ -30,8 +30,6 @@ const User: React.FC = () => {
   const isSelf = String(user?.id) === userId
 
   const canEditUser = isSelf || Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0
-
-  useSyncAssessmentPage()
 
   useEffect(() => {
     dispatch(

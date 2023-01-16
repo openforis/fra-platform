@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Objects } from '@utils/objects'
+
 import { CountryIso, Region, RegionCode } from '@meta/area'
 
 import { useAppDispatch } from '@client/store'
@@ -31,6 +33,8 @@ const CountrySelector: React.FC = () => {
   }
 
   const canSave = (selectedCountries: Array<string>) => selectedCountries.length >= __MIN_COUNTRIES__
+
+  if (Objects.isEmpty(countries)) return null
 
   return (
     <div className="country-selector">

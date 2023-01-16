@@ -4,7 +4,7 @@ import * as pgPromise from 'pg-promise'
 import { Assessment, Col, Cycle, Node, Row, TableNames } from '@meta/assessment'
 
 import { CycleDataController } from '@server/controller/cycleData'
-import { validateNode } from '@server/controller/cycleData/persistNodeValue/validateNodeUpdates/validateNode'
+import { validateNode } from '@server/controller/cycleData/updateDependencies/updateValidationDependencies/validateNode'
 import { BaseProtocol, Schemas } from '@server/db'
 import { CountryRepository } from '@server/repository/assessmentCycle/country'
 

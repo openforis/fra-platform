@@ -3,21 +3,15 @@ import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
 import { Objects } from '@utils/objects'
+import classNames from 'classnames'
 
 import { ClientRoutes } from '@meta/app'
-import { ODPYears, OriginalDataPoint } from '@meta/assessment'
+import { ODPs, OriginalDataPoint } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
-import {
-  OriginalDataPointActions,
-  useOriginalDataPoint,
-  useOriginalDataPointReservedYears,
-} from '@client/store/pages/originalDataPoint'
+import { OriginalDataPointActions, useODPYears, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 import { useCountryIso } from '@client/hooks'
-
-// TODO: Handle error
-const years = ['', ...ODPYears]
 
 type Props = {
   canEditData: boolean
@@ -26,22 +20,24 @@ type Props = {
 const YearSelection: React.FC<Props> = (props) => {
   const { canEditData } = props
   const originalDataPoint = useOriginalDataPoint()
-  const { sectionName } = useParams<{
-    sectionName: string
-  }>()
+  const { sectionName } = useParams<{ sectionName: string }>()
   const dispatch = useAppDispatch()
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
-  const reservedYears = useOriginalDataPointReservedYears() ?? []
 
-  const classNameYearSelection = '' // TODO: originalDataPoint.validationStatus && !originalDataPoint.validationStatus.year.valid ? 'error' : ''
+  const { years, reservedYears } = useODPYears(cycle)
+  const validYear = ODPs.validateYear(originalDataPoint)
 
   return (
     <div className="odp__section">
-      <h3 className="subhead">{i18n.t<string>('nationalDataPoint.referenceYearData')}</h3>
-      <div className={`odp__year-selection ${classNameYearSelection}`}>
+      <h3 className="subhead">{t('nationalDataPoint.referenceYearData')}</h3>
+      <div
+        className={classNames('odp__year-selection', {
+          error: !validYear,
+        })}
+      >
         <select
           disabled={!canEditData}
           className="select validation-error-sensitive-field"
@@ -61,7 +57,7 @@ const YearSelection: React.FC<Props> = (props) => {
               })
             )
             // Update url but do not push new entry to state
-            const url = ClientRoutes.Assessment.OriginalDataPoint.Section.getLink({
+            const url = ClientRoutes.Assessment.Cycle.Country.OriginalDataPoint.Section.getLink({
               countryIso,
               assessmentName: assessment.props.name,
               cycleName: cycle.name,
@@ -73,7 +69,7 @@ const YearSelection: React.FC<Props> = (props) => {
         >
           {years.map((year) => (
             <option key={year} value={year} disabled={reservedYears.includes(Number(year))} hidden={!year}>
-              {year || i18n.t<string>('nationalDataPoint.selectYear')}
+              {year || t('nationalDataPoint.selectYear')}
             </option>
           ))}
         </select>

@@ -8,6 +8,7 @@ import { ApiEndPoint } from '@meta/api/endpoint'
 import { ClientRoutes } from '@meta/app'
 
 import { useAppDispatch } from '@client/store'
+import { useAssessment, useCycle } from '@client/store/assessment'
 import { LoginActions } from '@client/store/login'
 import { useUser } from '@client/store/user'
 import { useToaster } from '@client/hooks/useToaster'
@@ -17,6 +18,8 @@ import { Urls } from '@client/utils/urls'
 const LoginForm: React.FC = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const assessment = useAssessment()
+  const cycle = useCycle()
   const user = useUser()
   const { t } = useTranslation()
   const { toaster } = useToaster()
@@ -85,7 +88,14 @@ const LoginForm: React.FC = () => {
           </button>
         </div>
 
-        <Link to={ClientRoutes.Login.ResetPassword.getLink()} type="button" className="btn-forgot-pwd">
+        <Link
+          to={ClientRoutes.Assessment.Cycle.Login.ResetPassword.getLink({
+            assessmentName: assessment.props.name,
+            cycleName: cycle.name,
+          })}
+          type="button"
+          className="btn-forgot-pwd"
+        >
           {t('login.forgotPassword')}
         </Link>
       </div>
@@ -95,7 +105,10 @@ const LoginForm: React.FC = () => {
   return (
     <div className="login__formWrapper">
       <div>
-        <a className="btn" href={ApiEndPoint.Auth.google()}>
+        <a
+          className="btn"
+          href={`${ApiEndPoint.Auth.google()}?assessmentName=${assessment.props.name}&cycleName=${cycle.name}`}
+        >
           {t('login.signInGoogle')}
         </a>
 

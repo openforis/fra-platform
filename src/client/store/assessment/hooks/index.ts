@@ -10,7 +10,6 @@ import { useAppSelector } from '@client/store'
 import { useCountryIso } from '@client/hooks'
 
 export { useCycle } from './useCycle'
-export { useSyncAssessmentPage } from './useSyncAssessmentPage'
 
 // TODO: Move elsewhere <>
 const getLocale = (isoCode: string): string => {
@@ -68,3 +67,5 @@ export const useSecondaryRegion = () => {
   const regionGroups = useRegionGroups()
   return Object.fromEntries(Object.entries(regionGroups).filter(([_, value]) => value.name === 'secondary'))['1']
 }
+
+export const useIsAppInitialized = () => useAppSelector((state) => state.assessment.appInitialized)

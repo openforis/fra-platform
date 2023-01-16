@@ -36,8 +36,9 @@ export const parseTable = (props: Props): { headers: Array<string>; table: Table
     return { headers, table }
   }
 
+  // Returns true if we are on header row that contains colNames (eg. '1990' or '% of forest area 2015')
   const isHeaderData = (row: TypeRow): boolean =>
-    row.props.type === RowType.header && headers && headers.length > 0 && row.cols[0].props.colName === headers[0]
+    row.props.type === RowType.header && headers && headers.length > 0 && headers.includes(row.cols[0].props.colName)
 
   const rows = table.rows.map((row) => {
     let cols = row.cols.map((c) => c)

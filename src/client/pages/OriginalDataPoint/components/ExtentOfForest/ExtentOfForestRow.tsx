@@ -2,8 +2,9 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Numbers } from '@utils/numbers'
+import classNames from 'classnames'
 
-import { OriginalDataPoint } from '@meta/assessment'
+import { ODPs, OriginalDataPoint } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
@@ -12,7 +13,7 @@ import PercentInput from '@client/components/PercentInput'
 import ReviewIndicator from '@client/components/ReviewIndicator'
 import ThousandSeparatedDecimalInput from '@client/components/ThousandSeparatedDecimalInput'
 
-import { useNationalClassNameComments, useNationalClassValidation } from '../../hooks'
+import { useNationalClassNameComments } from '../../hooks'
 
 const columns = [
   { name: 'area', type: 'decimal' },
@@ -31,7 +32,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
   const { canEditData, index, originalDataPoint } = props
 
   const dispatch = useAppDispatch()
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
   const assessment = useAssessment()
   const cycle = useCycle()
 
@@ -39,14 +40,16 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
   const { name, area, forestPercent, otherWoodedLandPercent, uuid } = nationalClass
   const target = [originalDataPoint.id, 'class', `${uuid}`, 'value'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
-  const validationStatus = useNationalClassValidation(index)
-  const classNamePercentageValidation = validationStatus.validEofPercentage === false ? 'error' : ''
-  const classNameAreaValidation = validationStatus.validArea === false ? 'error' : ''
+  const nationalClassValidation = ODPs.validateNationalClass(originalDataPoint, index)
 
   return (
     <tr className={classNameRowComments}>
       <th className="fra-table__category-cell">{name}</th>
-      <td className={`fra-table__cell fra-table__divider ${classNameAreaValidation}`}>
+      <td
+        className={classNames(`fra-table__cell fra-table__divider`, {
+          error: !nationalClassValidation.validArea,
+        })}
+      >
         <ThousandSeparatedDecimalInput
           disabled={!canEditData}
           numberValue={area}
@@ -79,7 +82,11 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
         />
       </td>
 
-      <td className={`fra-table__cell ${classNamePercentageValidation}`}>
+      <td
+        className={classNames('fra-table__cell', {
+          error: !nationalClassValidation.validExtentOfForestPercentage,
+        })}
+      >
         <PercentInput
           disabled={!canEditData}
           numberValue={forestPercent}
@@ -112,7 +119,11 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
         />
       </td>
 
-      <td className={`fra-table__cell ${classNamePercentageValidation}`}>
+      <td
+        className={classNames('fra-table__cell', {
+          error: !nationalClassValidation.validExtentOfForestPercentage,
+        })}
+      >
         <PercentInput
           disabled={!canEditData}
           numberValue={otherWoodedLandPercent}
@@ -154,7 +165,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
         <td className="fra-table__review-cell no-print">
           <ReviewIndicator
             title={name}
-            subtitle={i18n.t('nationalDataPoint.forestCategoriesLabel')}
+            subtitle={t(`nationalDataPoint.forestCategoriesLabel${cycle.name === '2025' ? '2025' : ''}`)}
             topicKey={`${originalDataPoint.id}-class-${uuid}-extentOfForest`}
           />
         </td>

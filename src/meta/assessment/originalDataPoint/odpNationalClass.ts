@@ -22,5 +22,6 @@ export interface ODPNationalClass {
   placeHolder?: boolean
   forestPlantationIntroducedPercent?: string
   forestPlantationPercent?: string
+  forestNaturalForestOfWhichPrimaryForestPercent?: string
   uuid?: string
 }

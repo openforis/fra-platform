@@ -13,7 +13,7 @@ export const createOriginalDataPoint = createAsyncThunk<
   }
 >('originalDataPoint/create', async ({ assessmentName, cycleName, countryIso, navigate }) => {
   navigate(
-    ClientRoutes.Assessment.OriginalDataPoint.Section.getLink({
+    ClientRoutes.Assessment.Cycle.Country.OriginalDataPoint.Section.getLink({
       countryIso,
       assessmentName,
       cycleName,

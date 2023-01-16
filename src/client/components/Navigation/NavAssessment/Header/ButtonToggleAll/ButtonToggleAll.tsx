@@ -8,7 +8,7 @@ type Props = {
 
 const ButtonToggleAll: React.FC<Props> = (props) => {
   const { setShowSections, showSections } = props
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
 
   return (
     <button
@@ -16,7 +16,7 @@ const ButtonToggleAll: React.FC<Props> = (props) => {
       onClick={() => setShowSections(!showSections)}
       type="button"
     >
-      {i18n.t(`navigation.${showSections ? 'hideAll' : 'showAll'}`)}
+      {t(`navigation.${showSections ? 'hideAll' : 'showAll'}`)}
     </button>
   )
 }

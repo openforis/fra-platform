@@ -45,10 +45,9 @@ const getNodeValidationsUpdateEvent = (props: {
   countryIso: CountryIso
   assessmentName: AssessmentName
   cycleName: string
-  sectionName: string
 }) => {
-  const { assessmentName, cycleName, countryIso, sectionName } = props
-  return `${countryIso}-${assessmentName}-${cycleName}-${sectionName}-assessmentSectionValidationsUpdate`
+  const { assessmentName, cycleName, countryIso } = props
+  return `${countryIso}-${assessmentName}-${cycleName}-validationsUpdate`
 }
 
 const getNodeValuesUpdateEvent = (props: {

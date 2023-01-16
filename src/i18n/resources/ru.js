@@ -392,7 +392,7 @@ module.exports.translation = {
     nationalData: 'Национальные данные',
     analysisAndProcessing: 'Анализ и обработка национальных данных',
     estimationAndForecasting: 'Оценка и прогнозирование',
-    reclassification: 'Реклассификация в категории ОЛР-2020',
+    reclassification: 'Реклассификация в категории ОЛР-{{cycleName}}',
   },
 
   nationalDataPoint: {
@@ -417,8 +417,8 @@ module.exports.translation = {
     nationalClass: 'Национальный класс',
     nationalClasses: 'Классификации и определения',
     definition: 'Определение',
-    fraClasses: 'Классы ОЛР',
     class: 'Класс',
+    fraClasses: 'Классы ОЛР',
     area: 'Площадь (1000 га)',
     total: 'Итого',
     delete: 'Удалить',

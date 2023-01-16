@@ -2,6 +2,7 @@
 module.exports = {
   // common
   area100HaYear: 'Area (1000 ha/year)',
+  area100Ha: 'Area (1000 ha)',
   categoryHeader2020: 'FRA 2020 categories',
   categoryHeader2025: 'FRA 2025 categories',
   forestArea100HaYear: 'Forest area (1000 ha)',
@@ -25,6 +26,55 @@ module.exports = {
 
   climaticDomain: {
     percentOfForestArea: '% of forest area',
+  },
+
+  contactPersons: {
+    expectedDateForNextCountryReportUpdate: 'Expected date/year for next update of the country report',
+  },
+
+  degradedForest: {
+    // Title
+    degradedForest: 'Degraded forest',
+    degradedForestDefinition: 'Degraded forest definition',
+    forestDegradationMonitoringAndAssessment: 'Forest degradation monitoring and assessment',
+
+    degradedAreaForThatYear: 'Degraded forest area for that year (in 1 000 ha)',
+    doesYourCountryMonitor: 'Does your country monitor area of degraded forest',
+    hasNationalDefinitionOfDegradedForest: 'Has your country a national definition of "Degraded forest"',
+    hasNationalLevelData: 'If national level data are available',
+    howMonitored: 'Describe the monitoring process and results',
+    ifYes: 'If "yes"',
+    whatIsDefinition: 'What is the national definition of "Degraded forest"?',
+    yearOfLatestAssessment: 'Year of latest assessment',
+
+    // Multiple choice
+    // generic
+    other: 'Other (explain in comments)',
+    notSelected: '',
+
+    criteriaOfDegradedForest: 'Criteria applied in the definition of degraded forest',
+    changeInForestStructureDecreaseInForestCanopy: 'Change in forest structure / Decrease in forest canopy',
+    forestDisturbances: 'Forest disturbances',
+    lossOfProductivityAndForestGoods: 'Loss of productivity and forest goods',
+    lossOfForestServices: 'Loss of forest services',
+    lossOfCarbonBiomassAndGrowingStock: 'Loss of carbon, biomass and growing stock',
+    lossOfBiologicalDiversity: 'Loss of biological diversity',
+    soilDamageErosion: 'Soil damage / erosion',
+
+    mainMethods: 'Main methods applied to monitor degraded forest area',
+    fieldInventoryAndObservations: 'Field inventory and observations',
+    wallToWallRemoteSensingMapping: 'Wall-to-wall remote sensing mapping',
+    remoteSensingSurvey: 'Remote sensing survey',
+    expertOpinion: 'Expert opinion',
+    productionHarvestData: 'Production / Harvest data',
+    forestManagementPlanReport: 'Forest management plan report',
+    underDevelopment: 'Under development',
+
+    monitoringScale: 'Monitoring scale',
+    national: 'National',
+    subnational: 'Subnational',
+    biome: 'Biome',
+    standLocal: 'Stand / Local',
   },
 
   designatedManagementObjective: {
@@ -98,10 +148,6 @@ module.exports = {
 
   nonWoodForestProductsRemovals: {
     nonWoodForestProductsRemovals2025: 'Non wood forest products removals and value 2020',
-  },
-
-  permanentForestEstate: {
-    permanentForestEstate: '$t(areaOfPermanentForestEstate.areaOfPermanentForestEstate)',
   },
   primaryForestByClimaticDomain: {
     primaryForestByClimaticDomain: 'Primary forest by climatic domain',

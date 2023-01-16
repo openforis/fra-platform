@@ -23,6 +23,9 @@ export const FRA: AssessmentFRA = {
         a: {
           name: 'contactPersons',
           anchor: '',
+          tables: {
+            contactPersons: 'contactPersons',
+          },
         },
       },
     },
@@ -129,15 +132,8 @@ export const FRA: AssessmentFRA = {
           },
         },
         c: {
-          name: 'permanentForestEstate',
-          anchor: '3c',
-          tables: {
-            permanentForestEstate: 'permanentForestEstate',
-          },
-        },
-        d: {
           name: 'forestRestoration',
-          anchor: '3d',
+          anchor: '3c',
           tables: {
             forestRestoration: 'forestRestoration',
           },

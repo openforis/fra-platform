@@ -1,19 +1,18 @@
 import { User, UserAuthProvider } from '@meta/user'
-import { AuthProviderGoogleProps, AuthProviderLocalProps } from '@meta/user/userAuth'
 
 import { BaseProtocol, DB } from '@server/db'
 import { UserProviderRepository } from '@server/repository/public/userProvider'
 
-export const create = async (
+export const create = async <P>(
   props: {
     user: User
-    provider: Pick<UserAuthProvider<AuthProviderGoogleProps | AuthProviderLocalProps>, 'provider' | 'props'>
+    provider: Pick<UserAuthProvider<P>, 'provider' | 'props'>
   },
   client: BaseProtocol = DB
-): Promise<UserAuthProvider<AuthProviderGoogleProps | AuthProviderLocalProps>> => {
+): Promise<UserAuthProvider<P>> => {
   const { user, provider } = props
 
-  return UserProviderRepository.create(
+  return UserProviderRepository.create<P>(
     {
       provider: {
         ...provider,
