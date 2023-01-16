@@ -16,7 +16,7 @@ import MultiSelect from '../MultiSelect'
 const UserListFilters: React.FC = () => {
   const dispatch = useAppDispatch()
   const roleNames = useRoleNames()
-  const { i18n, t } = useTranslation()
+  const { t } = useTranslation()
 
   const countries = useCountries()
   const filters = useFilters()
@@ -37,7 +37,6 @@ const UserListFilters: React.FC = () => {
           </div>
           <div>
             <MultiSelect
-              i18n={i18n}
               localizationPrefix="user.roles"
               values={filters.roles}
               options={roleNames}

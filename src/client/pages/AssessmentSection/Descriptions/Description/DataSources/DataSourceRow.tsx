@@ -12,6 +12,7 @@ import { useCountryIso } from '@client/hooks'
 import Autocomplete from '@client/components/Autocomplete'
 import DataColumn from '@client/components/DataGrid/DataColumn'
 import Icon from '@client/components/Icon'
+import MultiSelect from '@client/components/MultiSelect'
 import ReviewIndicator from '@client/components/ReviewIndicator'
 import VerticallyGrowingTextField from '@client/components/VerticallyGrowingTextField'
 
@@ -89,12 +90,13 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
       </DataColumn>
 
       <DataColumn className="data-source-column">
-        <Autocomplete
-          withArrow
+        <MultiSelect
           disabled={disabled}
-          onSave={(value) => _onChange('fraVariable', value)}
-          value={dataSource.fraVariable}
-          items={rows}
+          values={dataSource.fraVariables ?? []}
+          options={rows}
+          onChange={(value: any) => {
+            _onChange('fraVariables', value)
+          }}
         />
       </DataColumn>
 
@@ -120,7 +122,7 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
       <DataColumn className="data-source-review-indicator">
         {!disabled && (
           <ReviewIndicator
-            title={`${dataSource.fraVariable} | ${dataSource.year}`}
+            title={`${dataSource.fraVariables?.join(', ')} | ${dataSource.year}`}
             topicKey={`dataSource-${countryIso}-${sectionName}-${index}`}
           />
         )}

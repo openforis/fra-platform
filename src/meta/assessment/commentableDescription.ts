@@ -12,7 +12,7 @@ export enum CommentableDescriptionName {
 export interface DataSource {
   reference: string
   type: string
-  fraVariable: string
+  fraVariables: string[]
   year: string
   comments: string
 }

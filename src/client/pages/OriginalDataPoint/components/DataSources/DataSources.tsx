@@ -89,7 +89,6 @@ const DataSources: React.FC<Props> = (props) => {
                 <td className="fra-table__cell-left odp__data-source-input-column">
                   <MultiSelect
                     disabled={isDisabled}
-                    i18n={i18n}
                     localizationPrefix="nationalDataPoint.dataSourceMethodsOptions"
                     values={originalDataPoint.dataSourceMethods ?? []}
                     options={Object.values(ODPDataSourceMethod)}
