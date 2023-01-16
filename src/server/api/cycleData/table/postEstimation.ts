@@ -5,6 +5,7 @@ import { ActivityLogMessage } from '@meta/assessment'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { CycleDataController } from '@server/controller/cycleData'
+import { MetadataController } from '@server/controller/metadata'
 import { EstimationEngine, GenerateSpec } from '@server/service/estimates/estimationEngine'
 import Requests from '@server/utils/requests'
 
@@ -19,7 +20,7 @@ export const postEstimation = async (req: CycleDataRequest<never, EstimateBody>,
       metaCache: true,
     })
 
-    const tableSpec = await AssessmentController.getTable({ assessment, cycle, tableName })
+    const tableSpec = await MetadataController.getTable({ assessment, cycle, tableName })
     const originalDataPointValues = await CycleDataController.getOriginalDataPointData({
       countryISOs: [countryIso],
       cycle,

@@ -13,6 +13,11 @@ export const scheduleUpdateDependencies = (props: UpdateDependenciesProps): Prom
   return UpdateDependenciesQueueFactory.getInstance({ assessment, cycle, countryIso }).add(
     'updateDependencies',
     props,
-    { removeOnComplete: true }
+    {
+      removeOnComplete: true,
+      removeOnFail: {
+        age: 24 * 3600, // keep up to 24 hours
+      },
+    }
   )
 }
