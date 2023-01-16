@@ -1025,6 +1025,7 @@ The FRA team
     valueMustBePositive: 'Value should be greater than zero',
     emptyField: 'This field is empty',
     mustBeEqualToTotalGrowingStock: 'Value should be equal to Total Growing Stock (2a)',
+    countryReportYearGreaterThanCurrentYear: 'Value should be greater or equal than {{minValue}}',
     valuesAreInconsistentWithNetChange: 'Values are inconsistent with Forest area net change',
     valuesAreInconsistent1aOr1b: 'Values are inconsistent with Areas reported in tables 1a or 1b',
     mustBeEqualToPrivateForest: 'Subcategories sum should be equal to Private Ownership',
