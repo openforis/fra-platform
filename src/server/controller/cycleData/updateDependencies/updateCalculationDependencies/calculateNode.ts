@@ -1,3 +1,5 @@
+import { Objects } from '@utils/objects'
+
 import { ActivityLogMessage, Node, NodeValue, Row } from '@meta/assessment'
 
 import { getTableData } from '@server/controller/cycleData/getTableData'
@@ -49,7 +51,8 @@ export const calculateNode = async (
     formula: expression,
   })
 
-  const value: NodeValue = { raw: rawResult ? String(rawResult) : null, calculated: true }
+  // Objects.isEmpty required to avoid failing on 0
+  const value: NodeValue = { raw: !Objects.isEmpty(rawResult) ? String(rawResult) : null, calculated: true }
 
   return persistNode(
     {

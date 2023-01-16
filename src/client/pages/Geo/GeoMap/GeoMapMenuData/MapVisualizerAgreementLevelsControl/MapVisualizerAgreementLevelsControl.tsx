@@ -19,6 +19,7 @@ const AgreementLevelsControl: React.FC = () => {
   const map = useGeoMap()
   const forestOptions = useForestSourceOptions()
   const mapControllerRef = useRef<MapController>(new MapController(map))
+  const mapIdCache = useRef<{ [key: string]: string }>({})
 
   /**
    * Toggle agreement layer
@@ -54,9 +55,16 @@ const AgreementLevelsControl: React.FC = () => {
       : ''
     const uri = `/api/geo/layers/forestAgreement/?countryIso=FIN${layerQuery}${agreementLevelQuery}${hansenQuery}`
 
-    // TODO: cache the mapId to reduce server calls?
+    // Use cached mapId if available
+    if (mapIdCache.current[uri]) {
+      mapControllerRef.current.addEarthEngineLayer(agreementLayerKey, mapIdCache.current[uri])
+      return
+    }
+
+    // Otherwise, fetch a new map id from server and cache it for later use
     axios.get<Layer>(uri).then((response) => {
       const { mapId } = response.data
+      mapIdCache.current[uri] = mapId
       mapControllerRef.current.addEarthEngineLayer(agreementLayerKey, mapId)
     })
   }, [

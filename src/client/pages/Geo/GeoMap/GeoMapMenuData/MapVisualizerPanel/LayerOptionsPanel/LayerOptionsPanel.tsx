@@ -1,38 +1,36 @@
 import './LayerOptionsPanel.scss'
-import React, { useCallback, useState } from 'react'
+import React, { useRef } from 'react'
 
 import { ForestSource, hansenPercentages } from '@meta/geo/forest'
 
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useForestSourceOptions } from '@client/store/ui/geo'
+import { useGeoMap } from '@client/hooks'
+import { MapController } from '@client/utils'
 
 interface Props {
-  forestLayerOpacity: number
-  opacityChange?: (layerKey: string, opacity: number) => void
   layerKey: string
 }
 
-const LayerOptionsPanel: React.FC<Props> = ({ forestLayerOpacity, layerKey, opacityChange }) => {
+const LayerOptionsPanel: React.FC<Props> = ({ layerKey }) => {
   const dispatch = useAppDispatch()
   const forestOptions = useForestSourceOptions()
-  const thisLayerKey = layerKey
-  const [sliderValue, setSliderValue] = useState(forestLayerOpacity)
+  const map = useGeoMap()
+  const mapControllerRef = useRef<MapController>(new MapController(map))
+  const opacity = forestOptions.opacity[layerKey] !== undefined ? forestOptions.opacity[layerKey] : 1
 
-  const handleChange = useCallback(
-    (event: React.FormEvent<HTMLInputElement>) => {
-      const newValue = Math.round(Number(event.currentTarget.value) / 10) / 10
-      setSliderValue(newValue)
-      opacityChange(thisLayerKey, newValue)
-    },
-    [opacityChange, thisLayerKey]
-  )
+  const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const newValue = Math.round(Number(event.currentTarget.value) / 10) / 10
+    dispatch(GeoActions.setOpacity({ key: layerKey, opacity: newValue }))
+    mapControllerRef.current.setEarthEngineLayerOpacity(layerKey, newValue)
+  }
 
   return (
     <div className="geo-map-menu-forest-layer-options-panel">
       <div>
         <div>
-          <input type="range" min="0" max="100" value={sliderValue * 100} onChange={handleChange} />
-          <small>{`${sliderValue * 100}%`}</small>
+          <input type="range" min="0" max="100" value={opacity * 100} onChange={handleChange} />
+          <small>{`${opacity * 100}%`}</small>
           {layerKey === ForestSource.Hansen ? (
             <div>
               <p>Select Hansen percentage:</p>
@@ -58,10 +56,6 @@ const LayerOptionsPanel: React.FC<Props> = ({ forestLayerOpacity, layerKey, opac
       </div>
     </div>
   )
-}
-
-LayerOptionsPanel.defaultProps = {
-  opacityChange: null,
 }
 
 export default LayerOptionsPanel

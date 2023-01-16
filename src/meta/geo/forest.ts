@@ -1,6 +1,7 @@
 export interface ForestOptions {
   selected: ForestSource[]
   fetchedLayers: { [key: string]: string }
+  opacity: { [key: string]: number }
   hansenPercentage: HansenPercentage
   agreementLayerSelected: boolean
   agreementLevel: number
