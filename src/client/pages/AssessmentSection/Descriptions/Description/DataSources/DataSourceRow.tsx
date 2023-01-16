@@ -32,6 +32,8 @@ const validators: Record<string, (x: string) => boolean> = {
   reference: (referenceString) => !(Objects.isEmpty(referenceString) || /[A-Za-z]/.test(referenceString)),
   // check that is number
   year: (yearString) => !(Objects.isEmpty(yearString) || Number.isInteger(Number(yearString))),
+  // check at least one character exists
+  comment: (commentString) => !(Objects.isEmpty(commentString) || /[A-Za-z]/.test(commentString)),
 }
 
 const DataSourceRow: React.FC<Props> = (props: Props) => {
@@ -114,7 +116,10 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
         />
       </DataColumn>
 
-      <DataColumn className="data-source-column">
+      <DataColumn
+        className={classNames('data-source-column', { 'validation-error': validators.comment(dataSource.comments) })}
+      >
+        {' '}
         <VerticallyGrowingTextField
           disabled={disabled}
           onChange={(event) => _onChange('comments', event.target.value)}
