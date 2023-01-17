@@ -1022,6 +1022,7 @@ The FRA team
     forestAreaDoesNotMatchExtentOfForest: "Doesn't match Forest area (1a)",
     forestAreaExceedsExtentOfForest: 'Exceeds Forest area (1a)',
     otherLandExceedsExtentOfForest: 'Exceeds Other land area (1a)',
+    remainingLandExceedsExtentOfForest: 'Exceeds Remaining land area (1a)',
     valueMustBePositive: 'Value should be greater than zero',
     emptyField: 'This field is empty',
     mustBeEqualToTotalGrowingStock: 'Value should be equal to Total Growing Stock (2a)',
