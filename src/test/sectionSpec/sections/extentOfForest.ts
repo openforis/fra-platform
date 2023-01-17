@@ -2,7 +2,7 @@
 import { fraYears } from '../fraYears'
 import { SectionSpec } from '../sectionSpec'
 
-const validateSumOverride = `validatorNotGreaterOrEqualThan((climaticDomain.boreal || 0) + (climaticDomain.temperate || 0) + (climaticDomain.sub_tropical || 0) + (climaticDomain.tropical || 0), '100')`
+const validateSumOverride = `validatorNotEqualThan((climaticDomain.boreal || 0) + (climaticDomain.temperate || 0) + (climaticDomain.sub_tropical || 0) + (climaticDomain.tropical || 0), '100')`
 
 export const extentOfForest: SectionSpec = {
   sectionName: 'extentOfForest',
@@ -301,7 +301,7 @@ export const extentOfForest: SectionSpec = {
               ],
               labelKey: 'climaticDomain.boreal',
               migration: {
-                validateFns: [`validatorNotGreaterOrEqualThan(climaticDomain.boreal, '100')`, validateSumOverride],
+                validateFns: [`validatorNotGreaterThan(climaticDomain.boreal, '100')`, validateSumOverride],
               },
             },
             {
@@ -326,7 +326,7 @@ export const extentOfForest: SectionSpec = {
               ],
               labelKey: 'climaticDomain.temperate',
               migration: {
-                validateFns: [`validatorNotGreaterOrEqualThan(climaticDomain.temperate, '100')`, validateSumOverride],
+                validateFns: [`validatorNotGreaterThan(climaticDomain.temperate, '100')`, validateSumOverride],
               },
             },
             {
@@ -351,10 +351,7 @@ export const extentOfForest: SectionSpec = {
               ],
               labelKey: 'climaticDomain.subtropical',
               migration: {
-                validateFns: [
-                  `validatorNotGreaterOrEqualThan(climaticDomain.sub_tropical, '100')`,
-                  validateSumOverride,
-                ],
+                validateFns: [`validatorNotGreaterThan(climaticDomain.sub_tropical, '100')`, validateSumOverride],
               },
             },
             {
@@ -379,7 +376,7 @@ export const extentOfForest: SectionSpec = {
               ],
               labelKey: 'climaticDomain.tropical',
               migration: {
-                validateFns: [`validatorNotGreaterOrEqualThan(climaticDomain.tropical, 100)`, validateSumOverride],
+                validateFns: [`validatorNotGreaterThan(climaticDomain.tropical, '100')`, validateSumOverride],
               },
             },
           ],
