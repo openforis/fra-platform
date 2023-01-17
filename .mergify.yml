@@ -5,22 +5,14 @@ queue_rules:
 pull_request_rules:
   - name: Automatic merge using squash
     conditions:
-      - and:
-        - "#approved-reviews-by>=1"
-        - or:
-            - base!=production
-            - base!=staging
+      - base=development
     actions:
       queue:
         method: squash
         name: default
   - name: Automatic merge using merge
     conditions:
-      - and:
-        - "#approved-reviews-by>=1"
-        - or:
-            - base=production
-            - base=staging
+      - base!=development
     actions:
       queue:
         method: merge
