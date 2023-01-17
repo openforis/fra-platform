@@ -7,12 +7,6 @@ import { useCombobox, UseComboboxStateChange } from 'downshift'
 
 import AutocompleteInput from '@client/components/Autocomplete/AutocompleteInput'
 
-// Issue importing enum without 'type' from Downshift; use enum for only used types
-enum UseComboboxStateChangeTypes {
-  InputBlur = '__input_blur__',
-  ItemClick = '__item_click__',
-}
-
 type Props = {
   items: any[]
   onSave: (value: string | any) => void
@@ -46,8 +40,9 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
   // Handle saving on input field blur or item selected
   const _onStateChange: (changes: UseComboboxStateChange<any>) => void = (changes) => {
     if (
-      [UseComboboxStateChangeTypes.InputBlur, UseComboboxStateChangeTypes.ItemClick].includes(
-        changes.type as UseComboboxStateChangeTypes
+      [useCombobox.stateChangeTypes.InputBlur, useCombobox.stateChangeTypes.ItemClick].includes(
+        // @ts-ignore
+        changes.type
       )
     ) {
       onSave(changes.selectedItem ?? inputValue)
