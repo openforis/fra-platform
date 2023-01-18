@@ -478,6 +478,9 @@ export const forestCharacteristics: SectionSpec = {
                 calcFormula: `(primaryForestByClimaticDomain.primaryForestBoreal || primaryForestByClimaticDomain.primaryForestTemperate || primaryForestByClimaticDomain.primaryForestSubTropical || primaryForestByClimaticDomain.primaryForestTropical)
                   ? (primaryForestByClimaticDomain.primaryForestBoreal || 0) + (primaryForestByClimaticDomain.primaryForestTemperate || 0) + (primaryForestByClimaticDomain.primaryForestSubTropical || 0) + (primaryForestByClimaticDomain.primaryForestTropical || 0)
                   : null`,
+                validateFns: [
+                  `validatorSumNotGreaterThan(primaryForestByClimaticDomain.totalPrimaryForest, forestCharacteristics.primaryForest)`,
+                ],
               },
             },
           ],
