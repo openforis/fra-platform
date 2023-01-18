@@ -12,6 +12,8 @@ import { fraYears } from './fraYears'
 import { reportYears } from './reportYears'
 import { SectionSpec } from './sectionSpec'
 
+const validateSumOtherLandWithTreeCover = `validatorRemainingLandWithTreeCoverTotal((otherLandWithTreeCover.palms || 0) + (otherLandWithTreeCover.tree_orchards || 0) + (otherLandWithTreeCover.agroforestry || 0) + (otherLandWithTreeCover.trees_in_urban_settings || 0) + (otherLandWithTreeCover.other || 0), extentOfForest.otherLand)`
+
 export const FraSpecs: Record<string, SectionSpec> = {
   contactPersons,
   extentOfForest,
@@ -968,6 +970,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'otherLandWithTreeCover.palms',
                 variableExport: 'palms',
                 variableNo: 'a',
+                migration: {
+                  validateFns: [validateSumOtherLandWithTreeCover],
+                },
               },
               {
                 idx: 1,
@@ -1005,6 +1010,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'otherLandWithTreeCover.treeorchards',
                 variableExport: 'tree_orchards',
                 variableNo: 'b',
+                migration: {
+                  validateFns: [validateSumOtherLandWithTreeCover],
+                },
               },
               {
                 idx: 2,
@@ -1042,6 +1050,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'otherLandWithTreeCover.agroforestry',
                 variableExport: 'agroforestry',
                 variableNo: 'c',
+                migration: {
+                  validateFns: [validateSumOtherLandWithTreeCover],
+                },
               },
               {
                 idx: 3,
@@ -1079,6 +1090,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'otherLandWithTreeCover.treesinurbansettings',
                 variableExport: 'trees_in_urban_settings',
                 variableNo: 'd',
+                migration: {
+                  validateFns: [validateSumOtherLandWithTreeCover],
+                },
               },
               {
                 idx: 4,
@@ -1116,6 +1130,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'otherLandWithTreeCover.other',
                 variableExport: 'other',
                 variableNo: 'e',
+                migration: {
+                  validateFns: [validateSumOtherLandWithTreeCover],
+                },
               },
               {
                 idx: 5,

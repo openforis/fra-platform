@@ -2,7 +2,7 @@
 import { fraYears } from '../fraYears'
 import { SectionSpec } from '../sectionSpec'
 
-const validateSumOverride = `validatorNotEqualThan((climaticDomain.boreal || 0) + (climaticDomain.temperate || 0) + (climaticDomain.sub_tropical || 0) + (climaticDomain.tropical || 0), '100')`
+const validateSumOverride = `validatorSumNotGreaterThan((climaticDomain.boreal || 0) + (climaticDomain.temperate || 0) + (climaticDomain.sub_tropical || 0) + (climaticDomain.tropical || 0), '100')`
 
 export const extentOfForest: SectionSpec = {
   sectionName: 'extentOfForest',
