@@ -118,3 +118,77 @@ export const agreementPalette = [
   '#800080', // purple
   '#000000', // black
 ]
+
+const forestAgreementRecipes: Array<{
+  layers: Array<ForestSource>
+  gteHansenTreeCoverPerc?: number
+  forestAreaDataProperty: string
+}> = [
+  {
+    layers: [
+      ForestSource.TandemX,
+      ForestSource.JAXA,
+      ForestSource.GlobeLand,
+      ForestSource.ESAGlobCover,
+      ForestSource.Copernicus,
+      ForestSource.ESRI,
+      ForestSource.ESAWorldCover,
+      ForestSource.Hansen,
+    ],
+    gteHansenTreeCoverPerc: 10,
+    forestAreaDataProperty: 'faAgreementHansen10',
+  },
+  {
+    layers: [
+      ForestSource.JAXA,
+      ForestSource.TandemX,
+      ForestSource.GlobeLand,
+      ForestSource.ESAGlobCover,
+      ForestSource.Copernicus,
+      ForestSource.ESRI,
+      ForestSource.ESAWorldCover,
+      ForestSource.Hansen,
+    ],
+    gteHansenTreeCoverPerc: 20,
+    forestAreaDataProperty: 'faAgreementHansen20',
+  },
+  {
+    layers: [
+      ForestSource.JAXA,
+      ForestSource.TandemX,
+      ForestSource.GlobeLand,
+      ForestSource.ESAGlobCover,
+      ForestSource.Copernicus,
+      ForestSource.ESRI,
+      ForestSource.ESAWorldCover,
+      ForestSource.Hansen,
+    ],
+    gteHansenTreeCoverPerc: 30,
+    forestAreaDataProperty: 'faAgreementHansen30',
+  },
+  {
+    layers: [ForestSource.ESRI, ForestSource.ESAWorldCover, ForestSource.GlobeLand, ForestSource.Hansen],
+    gteHansenTreeCoverPerc: 10,
+    forestAreaDataProperty: 'faAgreementEsriEsaGloHansen10',
+  },
+  {
+    layers: [ForestSource.ESRI, ForestSource.ESAWorldCover],
+    forestAreaDataProperty: 'faAgreementEsriEsa',
+  },
+]
+
+export const getRecipeAgreementAreaProperty = (
+  selectedLayers: Array<ForestSource>,
+  gteAgreementLevel: number,
+  gteHansenTreeCoverPerc?: number
+): string => {
+  const recipe = forestAgreementRecipes.find((recipe) => {
+    return (
+      recipe.layers.length === selectedLayers.length &&
+      (recipe.gteHansenTreeCoverPerc === gteHansenTreeCoverPerc || recipe.gteHansenTreeCoverPerc === undefined) &&
+      recipe.layers.every((layer) => selectedLayers.includes(layer))
+    )
+  })
+
+  return recipe === undefined ? null : `${recipe.forestAreaDataProperty}Gte${gteAgreementLevel}`
+}
