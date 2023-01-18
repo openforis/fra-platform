@@ -167,7 +167,7 @@ const forestAgreementRecipes: Array<{
     forestAreaDataProperty: 'faAgreementHansen30',
   },
   {
-    layers: [ForestSource.ESRI, ForestSource.ESAWorldCover, ForestSource.Hansen],
+    layers: [ForestSource.ESRI, ForestSource.ESAWorldCover, ForestSource.GlobeLand, ForestSource.Hansen],
     gteHansenTreeCoverPerc: 10,
     forestAreaDataProperty: 'faAgreementEsriEsaGloHansen10',
   },
@@ -182,15 +182,13 @@ export const getRecipeAgreementAreaProperty = (
   gteAgreementLevel: number,
   gteHansenTreeCoverPerc?: number
 ): string => {
-  for (let i = 0; i < forestAgreementRecipes.length; i += 1) {
-    const recipe = forestAgreementRecipes[i]
-    if (
+  const recipe = forestAgreementRecipes.find((recipe) => {
+    return (
       recipe.layers.length === selectedLayers.length &&
       (recipe.gteHansenTreeCoverPerc === gteHansenTreeCoverPerc || recipe.gteHansenTreeCoverPerc === undefined) &&
       recipe.layers.every((layer) => selectedLayers.includes(layer))
-    ) {
-      return `${recipe.forestAreaDataProperty}Gte${gteAgreementLevel}`
-    }
-  }
-  return null
+    )
+  })
+
+  return recipe === undefined ? null : `${recipe.forestAreaDataProperty}Gte${gteAgreementLevel}`
 }
