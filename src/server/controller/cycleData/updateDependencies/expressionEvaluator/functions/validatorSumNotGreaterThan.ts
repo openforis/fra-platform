@@ -6,8 +6,8 @@ import { NodeValueValidation, NodeValueValidationMessage } from '@meta/assessmen
 
 import { Context } from '../context'
 
-export const validatorNotGreaterThan: ExpressionFunction<Context> = {
-  name: 'validatorNotGreaterThan',
+export const validatorSumNotGreaterThan: ExpressionFunction<Context> = {
+  name: 'validatorSumNotGreaterThan',
   minArity: 2,
   executor: () => {
     return (value?: string, maxValue?: string): NodeValueValidation => {
@@ -15,7 +15,7 @@ export const validatorNotGreaterThan: ExpressionFunction<Context> = {
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
-        : [{ key: 'generalValidation.valueNotGreaterThan', params: { maxValue } }]
+        : [{ key: 'generalValidation.sumNotGreaterThan', params: { maxValue } }]
 
       return { valid, messages }
     }
