@@ -33,6 +33,7 @@ const AgreementLevelsControl: React.FC = () => {
     // layer, it's still safe to call `removeEarthEngineLayer`, it'll just do nothing and
     // return `false`.
     mapControllerRef.current.removeEarthEngineLayer(agreementLayerKey)
+    setCurrentPalette([])
 
     // If less than two sources are selected or the agreement level is greater than the
     // number of selected layers, reset the agreement state.
@@ -106,10 +107,13 @@ const AgreementLevelsControl: React.FC = () => {
               const disabled = level > forestOptions.selected.length
 
               // Agreement layer color legend
+              const agreementLevelOffset = level - forestOptions.agreementLevel
               const style =
-                level >= forestOptions.agreementLevel && level <= forestOptions.selected.length
+                agreementLevelOffset >= 0 &&
+                level <= forestOptions.selected.length &&
+                agreementLevelOffset < currentPalette.length
                   ? {
-                      borderBottom: `10px solid ${currentPalette[level - forestOptions.agreementLevel]}`,
+                      borderBottom: `10px solid ${currentPalette[agreementLevelOffset]}`,
                     }
                   : {}
 
