@@ -1,6 +1,7 @@
 import { Objects } from '@utils/objects'
 
-import { ActivityLogMessage, AssessmentMetaCaches, Node, NodeValue, Row } from '@meta/assessment'
+import { ActivityLogMessage, AssessmentMetaCaches, NodeValue, Row } from '@meta/assessment'
+import { NodeUpdates } from '@meta/data'
 
 import { getTableData } from '@server/controller/cycleData/getTableData'
 import { BaseProtocol } from '@server/db'
@@ -10,9 +11,14 @@ import { PersistNodeValueProps } from '../../persistNodeValues/props'
 import { ExpressionEvaluator } from '../expressionEvaluator'
 
 export const calculateNode = async (
-  props: Omit<PersistNodeValueProps, 'value'> & { expression: string; row: Row; mergeOdp: boolean },
+  props: Omit<PersistNodeValueProps, 'value'> & {
+    formula: string
+    row: Row
+    mergeOdp: boolean
+    nodeUpdates: NodeUpdates
+  },
   client: BaseProtocol
-): Promise<Node> => {
+): Promise<void> => {
   const {
     countryIso,
     assessment,
@@ -21,10 +27,11 @@ export const calculateNode = async (
     tableName,
     variableName,
     colName,
-    expression,
+    formula,
     row,
     user,
     mergeOdp,
+    nodeUpdates,
   } = props
   const dependencies = AssessmentMetaCaches.getCalculationsDependencies({ assessment, cycle, variableName, tableName })
   const data = await getTableData(
@@ -48,13 +55,13 @@ export const calculateNode = async (
     data,
     colName,
     row,
-    formula: expression,
+    formula,
   })
 
   // Objects.isEmpty required to avoid failing on 0
   const value: NodeValue = { raw: !Objects.isEmpty(rawResult) ? String(rawResult) : null, calculated: true }
 
-  return persistNode(
+  const node = await persistNode(
     {
       countryIso,
       assessment,
@@ -69,4 +76,6 @@ export const calculateNode = async (
     },
     client
   )
+  nodeUpdates.nodes.push({ tableName, variableName, colName, value: node.value })
+  // return node
 }

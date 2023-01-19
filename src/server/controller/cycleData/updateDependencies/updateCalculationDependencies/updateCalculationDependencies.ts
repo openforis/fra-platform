@@ -65,7 +65,6 @@ export const updateCalculationDependencies = async (
         cycle,
         sectionName,
         colName,
-        expression: row.props.calculateFn?.[cycle.uuid],
         row,
         tableName: variableCache.tableName,
         variableName: variableCache.variableName,
@@ -76,51 +75,33 @@ export const updateCalculationDependencies = async (
         // make sure in target table there's a matching column
         if (row.cols.find((c) => c.props.colName === colName)) {
           // eslint-disable-next-line no-await-in-loop
-          const node = await calculateNode(
-            { ...evaluateProps, mergeOdp, expression: row.props.calculateFn[cycle.uuid] },
+          await calculateNode(
+            { ...evaluateProps, mergeOdp, formula: row.props.calculateFn[cycle.uuid], nodeUpdates },
             client
           )
-          nodeUpdates.nodes.push({
-            tableName: evaluateProps.tableName,
-            variableName: evaluateProps.variableName,
-            colName: evaluateProps.colName,
-            value: node.value,
-          })
         }
       } else {
         // eslint-disable-next-line no-await-in-loop
         await Promise.all(
           row.cols.map(async (col) => {
             if (col.props.calculateFn?.[cycle.uuid]) {
-              const node = await calculateNode(
+              await calculateNode(
                 {
                   ...evaluateProps,
                   mergeOdp,
                   colName: col.props.colName,
-                  expression: col.props.calculateFn[cycle.uuid],
+                  formula: col.props.calculateFn[cycle.uuid],
+                  nodeUpdates,
                 },
                 client
               )
-              nodeUpdates.nodes.push({
-                tableName: evaluateProps.tableName,
-                variableName: evaluateProps.variableName,
-                colName: col.props.colName,
-                value: node.value,
-              })
             }
           })
         )
       }
       // eslint-disable-next-line no-await-in-loop
       const calculationDependants = await getDependants(
-        {
-          assessment,
-          cycle,
-          countryIso,
-          colName,
-          isODP,
-          ...variableCache,
-        },
+        { assessment, cycle, countryIso, colName, isODP, ...variableCache },
         client
       )
       queue.push(...calculationDependants)
