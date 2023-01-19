@@ -1,5 +1,5 @@
 import './MapVisualizerAgreementLevelsControl.scss'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import axios from 'axios'
 import classNames from 'classnames'
@@ -20,6 +20,7 @@ const AgreementLevelsControl: React.FC = () => {
   const forestOptions = useForestSourceOptions()
   const mapControllerRef = useRef<MapController>(new MapController(map))
   const mapIdCache = useRef<{ [key: string]: string }>({})
+  const [cachedPalette, setCachedPalette] = useState<string[]>([])
 
   /**
    * Toggle agreement layer
@@ -63,8 +64,17 @@ const AgreementLevelsControl: React.FC = () => {
 
     // Otherwise, fetch a new map id from server and cache it for later use
     axios.get<Layer>(uri).then((response) => {
-      const { mapId } = response.data
+      const { mapId, palette } = response.data
+
+      // Cache mapId for later use
       mapIdCache.current[uri] = mapId
+
+      // Update cached palette if new colors available
+      if (palette.length > cachedPalette.length) {
+        setCachedPalette(palette)
+      }
+
+      // Render layer
       mapControllerRef.current.addEarthEngineLayer(agreementLayerKey, mapId)
     })
   }, [
@@ -72,6 +82,7 @@ const AgreementLevelsControl: React.FC = () => {
     forestOptions.agreementLevel,
     forestOptions.selected,
     forestOptions.hansenPercentage,
+    cachedPalette,
     dispatch,
   ])
 
@@ -96,6 +107,17 @@ const AgreementLevelsControl: React.FC = () => {
               const level = i + 1
               const id = `agreement-${level}`
               const disabled = level > forestOptions.selected.length
+
+              // Agreement layer color legend
+              const style =
+                level >= forestOptions.agreementLevel &&
+                level <= forestOptions.selected.length &&
+                i < cachedPalette.length
+                  ? {
+                      borderBottom: `10px solid ${cachedPalette[i]}`,
+                    }
+                  : {}
+
               return (
                 <span className={classNames('geo-map-menu-data-visualizer-agreement-level', { disabled })} key={level}>
                   <input
@@ -105,6 +127,7 @@ const AgreementLevelsControl: React.FC = () => {
                     checked={level <= forestOptions.agreementLevel}
                     disabled={disabled}
                     onChange={() => dispatch(GeoActions.setAgreementLevel(level))}
+                    style={style}
                   />
                   <label htmlFor={id}>{level}</label>
                 </span>
