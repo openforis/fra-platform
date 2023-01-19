@@ -19,8 +19,8 @@ const AgreementLevelsControl: React.FC = () => {
   const map = useGeoMap()
   const forestOptions = useForestSourceOptions()
   const mapControllerRef = useRef<MapController>(new MapController(map))
-  const mapIdCache = useRef<{ [key: string]: string }>({})
-  const [cachedPalette, setCachedPalette] = useState<string[]>([])
+  const agreementLayerCache = useRef<{ [key: string]: Layer }>({})
+  const [currentPalette, setCurrentPalette] = useState<string[]>([])
 
   /**
    * Toggle agreement layer
@@ -57,8 +57,10 @@ const AgreementLevelsControl: React.FC = () => {
     const uri = `/api/geo/layers/forestAgreement/?countryIso=FIN${layerQuery}${agreementLevelQuery}${hansenQuery}`
 
     // Use cached mapId if available
-    if (mapIdCache.current[uri]) {
-      mapControllerRef.current.addEarthEngineLayer(agreementLayerKey, mapIdCache.current[uri])
+    if (agreementLayerCache.current[uri]) {
+      const { mapId, palette } = agreementLayerCache.current[uri]
+      mapControllerRef.current.addEarthEngineLayer(agreementLayerKey, mapId)
+      setCurrentPalette(palette)
       return
     }
 
@@ -67,22 +69,17 @@ const AgreementLevelsControl: React.FC = () => {
       const { mapId, palette } = response.data
 
       // Cache mapId for later use
-      mapIdCache.current[uri] = mapId
-
-      // Update cached palette if new colors available
-      if (palette.length > cachedPalette.length) {
-        setCachedPalette(palette)
-      }
+      agreementLayerCache.current[uri] = { mapId, palette }
 
       // Render layer
       mapControllerRef.current.addEarthEngineLayer(agreementLayerKey, mapId)
+      setCurrentPalette(palette)
     })
   }, [
     forestOptions.agreementLayerSelected,
     forestOptions.agreementLevel,
     forestOptions.selected,
     forestOptions.hansenPercentage,
-    cachedPalette,
     dispatch,
   ])
 
@@ -110,11 +107,9 @@ const AgreementLevelsControl: React.FC = () => {
 
               // Agreement layer color legend
               const style =
-                level >= forestOptions.agreementLevel &&
-                level <= forestOptions.selected.length &&
-                i < cachedPalette.length
+                level >= forestOptions.agreementLevel && level <= forestOptions.selected.length
                   ? {
-                      borderBottom: `10px solid ${cachedPalette[i]}`,
+                      borderBottom: `10px solid ${currentPalette[level - forestOptions.agreementLevel]}`,
                     }
                   : {}
 
