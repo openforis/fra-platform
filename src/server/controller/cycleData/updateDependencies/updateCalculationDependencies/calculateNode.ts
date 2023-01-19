@@ -1,6 +1,6 @@
 import { Objects } from '@utils/objects'
 
-import { ActivityLogMessage, Node, NodeValue, Row } from '@meta/assessment'
+import { ActivityLogMessage, AssessmentMetaCaches, Node, NodeValue, Row } from '@meta/assessment'
 
 import { getTableData } from '@server/controller/cycleData/getTableData'
 import { BaseProtocol } from '@server/db'
@@ -26,7 +26,7 @@ export const calculateNode = async (
     user,
     mergeOdp,
   } = props
-  const dependencies = assessment.metaCache[cycle.uuid].calculations.dependencies[tableName]?.[variableName]
+  const dependencies = AssessmentMetaCaches.getCalculationsDependencies({ assessment, cycle, variableName, tableName })
   const data = await getTableData(
     {
       aggregate: false,

@@ -4,6 +4,7 @@ import { NodeUpdates } from '@meta/data'
 import { PersistNodeValueProps } from '@server/controller/cycleData/persistNodeValues/props'
 import { BaseProtocol } from '@server/db'
 import { RowRepository } from '@server/repository/assessment/row'
+import { Logger } from '@server/utils/logger'
 
 import { getDependants } from '../utils/getDependants'
 import { isODPCell } from '../utils/isODPCell'
@@ -34,8 +35,13 @@ export const updateCalculationDependencies = async (
   const _isODPCell = await isODPCell({ colName, tableName, countryIso, cycle, assessment }, client)
   const mergeOdp = !_isODPCell
 
+  const debugKey = `[updateCalculationDependencies-${[props.tableName, props.variableName, props.colName].join('-')}]`
+  Logger.debug(`${debugKey} initial queue length ${queue.length}`)
+
   while (queue.length !== 0) {
     const variableCache = queue.shift()
+    Logger.debug(`${debugKey} processing queue item ${JSON.stringify(variableCache)}`)
+
     const visited = visitedVariables.find(
       (v) => v.tableName === variableCache.tableName && v.variableName === variableCache.variableName
     )
