@@ -77,5 +77,4 @@ export const calculateNode = async (
     client
   )
   nodeUpdates.nodes.push({ tableName, variableName, colName, value: node.value })
-  // return node
 }
