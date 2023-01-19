@@ -2,7 +2,8 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Objects } from '@utils/objects'
-import classNames from 'classnames'
+
+import ButtonCheckBox from '@client/components/ButtonCheckBox'
 
 import { GenerateValuesField } from '../field'
 import { Method } from '../method'
@@ -54,26 +55,8 @@ const FieldsOption: React.FC<Props> = (props) => {
       {fields.map((field, fieldIdx) => {
         const { variableName, labelKey, selected, annualChangeRates } = field
         return (
-          <React.Fragment key={variableName}>
-            <div className="field">
-              <div
-                role="button"
-                aria-label={i18n.t(labelKey)}
-                tabIndex={0}
-                className={classNames('fra-checkbox', { checked: selected })}
-                onClick={() => toggleSelected(fieldIdx)}
-                onKeyDown={() => toggleSelected(fieldIdx)}
-              />
-              <div
-                role="button"
-                aria-label={i18n.t(labelKey)}
-                tabIndex={0}
-                onClick={() => toggleSelected(fieldIdx)}
-                onKeyDown={() => toggleSelected(fieldIdx)}
-              >
-                {i18n.t(labelKey)}
-              </div>
-            </div>
+          <div className="field" key={variableName}>
+            <ButtonCheckBox checked={selected} label={labelKey} onClick={() => toggleSelected(fieldIdx)} />
 
             {method === Method.annualChange && (
               <div className="annual-change-rates">
@@ -92,7 +75,7 @@ const FieldsOption: React.FC<Props> = (props) => {
                 <div className="annual-change-rates__unit">{i18n.t('tableWithOdp._1000haYear')}</div>
               </div>
             )}
-          </React.Fragment>
+          </div>
         )
       })}
     </>
