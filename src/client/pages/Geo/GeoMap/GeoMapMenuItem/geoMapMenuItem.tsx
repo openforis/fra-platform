@@ -12,7 +12,13 @@ interface Props {
   onCheckboxClick?: () => void
 }
 
-const GeoMenuItem: React.FC<Props> = ({ title, tabIndex, checked, onCheckboxClick, children }) => {
+const GeoMenuItem: React.FC<React.PropsWithChildren<Props>> = ({
+  title,
+  tabIndex,
+  checked,
+  onCheckboxClick,
+  children,
+}) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const handleExpandClick = useCallback(() => {
