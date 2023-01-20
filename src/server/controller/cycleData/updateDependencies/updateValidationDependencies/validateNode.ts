@@ -1,4 +1,4 @@
-import { NodeValueValidation, NodeValueValidations, Row } from '@meta/assessment'
+import { AssessmentMetaCaches, NodeValueValidation, NodeValueValidations, Row } from '@meta/assessment'
 import { TableData } from '@meta/data'
 
 import { getTableData } from '@server/controller/cycleData/getTableData'
@@ -12,7 +12,7 @@ export const validateNode = async (
 ): Promise<NodeValueValidation> => {
   const { assessment, cycle, tableName, variableName, countryIso, colName, row, data: dataProps } = props
 
-  const dependencies = assessment.metaCache[cycle.uuid].validations.dependencies[tableName]?.[variableName]
+  const dependencies = AssessmentMetaCaches.getValidationsDependencies({ assessment, cycle, tableName, variableName })
   const data =
     dataProps ??
     (await getTableData(

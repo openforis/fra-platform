@@ -9,7 +9,7 @@ import { MetadataController } from '@server/controller/metadata'
 import { EstimationEngine, GenerateSpec } from '@server/service/estimates/estimationEngine'
 import Requests from '@server/utils/requests'
 
-export const postEstimation = async (req: CycleDataRequest<never, EstimateBody>, res: Response) => {
+export const estimateValues = async (req: CycleDataRequest<never, EstimateBody>, res: Response) => {
   try {
     const { countryIso, assessmentName, cycleName, sectionName } = req.query
     const { method, tableName, fields } = req.body
