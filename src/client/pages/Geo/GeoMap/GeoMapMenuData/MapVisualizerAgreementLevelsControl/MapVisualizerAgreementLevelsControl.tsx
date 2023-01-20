@@ -13,6 +13,7 @@ import { MapController } from '@client/utils'
 
 import GeoMapMenuListElement from '../../GeoMapMenuListElement'
 import { layers } from '../MapVisualizerPanel'
+import LayerOptionsPanel from '../MapVisualizerPanel/LayerOptionsPanel'
 
 const AgreementLevelsControl: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -21,13 +22,12 @@ const AgreementLevelsControl: React.FC = () => {
   const mapControllerRef = useRef<MapController>(new MapController(map))
   const agreementLayerCache = useRef<{ [key: string]: Layer }>({})
   const [currentPalette, setCurrentPalette] = useState<string[]>([])
+  const agreementLayerKey = 'Agreement'
 
   /**
    * Toggle agreement layer
    */
   useEffect(() => {
-    const agreementLayerKey = 'Agreement'
-
     // If any of the dependencies changes and there is an existing agreement layer on the
     // map, the layer is no longer valid, so remove it. If there is no existing agreement
     // layer, it's still safe to call `removeEarthEngineLayer`, it'll just do nothing and
@@ -91,49 +91,55 @@ const AgreementLevelsControl: React.FC = () => {
       checked={forestOptions.agreementLayerSelected}
       onCheckboxClick={() => dispatch(GeoActions.setAgreementLayerSelected(!forestOptions.agreementLayerSelected))}
     >
-      <div className="geo-map-menu-data-visualizer-agreement-levels-control">
-        <p>
-          <small>
-            Choose the agreement level between all map layers. Agreement level <i>N</i> means that at least <i>N</i> of
-            the selected data sources need to agree that a certain pixel is forest area.
-          </small>
-        </p>
-        <div className="geo-map-menu-data-visualizer-agreement-levels-boxes">
-          {Array(layers.length)
-            .fill(undefined)
-            .map((_, i) => {
-              const level = i + 1
-              const id = `agreement-${level}`
-              const disabled = level > forestOptions.selected.length
+      <>
+        {forestOptions.agreementLayerSelected && <LayerOptionsPanel layerKey={agreementLayerKey} />}
+        <div className="geo-map-menu-data-visualizer-agreement-levels-control">
+          <p>
+            <small>
+              Choose the agreement level between all map layers. Agreement level <i>N</i> means that at least <i>N</i>{' '}
+              of the selected data sources need to agree that a certain pixel is forest area.
+            </small>
+          </p>
+          <div className="geo-map-menu-data-visualizer-agreement-levels-boxes">
+            {Array(layers.length)
+              .fill(undefined)
+              .map((_, i) => {
+                const level = i + 1
+                const id = `agreement-${level}`
+                const disabled = level > forestOptions.selected.length
 
-              // Agreement layer color legend
-              const agreementLevelOffset = level - forestOptions.agreementLevel
-              const style =
-                agreementLevelOffset >= 0 &&
-                level <= forestOptions.selected.length &&
-                agreementLevelOffset < currentPalette.length
-                  ? {
-                      borderBottom: `10px solid ${currentPalette[agreementLevelOffset]}`,
-                    }
-                  : {}
+                // Agreement layer color legend
+                const agreementLevelOffset = level - forestOptions.agreementLevel
+                const style =
+                  agreementLevelOffset >= 0 &&
+                  level <= forestOptions.selected.length &&
+                  agreementLevelOffset < currentPalette.length
+                    ? {
+                        borderBottom: `10px solid ${currentPalette[agreementLevelOffset]}`,
+                      }
+                    : {}
 
-              return (
-                <span className={classNames('geo-map-menu-data-visualizer-agreement-level', { disabled })} key={level}>
-                  <input
-                    id={id}
-                    className="geo-map-menu-data-visualizer-agreement-levels-box"
-                    type="checkbox"
-                    checked={level <= forestOptions.agreementLevel}
-                    disabled={disabled}
-                    onChange={() => dispatch(GeoActions.setAgreementLevel(level))}
-                    style={style}
-                  />
-                  <label htmlFor={id}>{level}</label>
-                </span>
-              )
-            })}
+                return (
+                  <span
+                    className={classNames('geo-map-menu-data-visualizer-agreement-level', { disabled })}
+                    key={level}
+                  >
+                    <input
+                      id={id}
+                      className="geo-map-menu-data-visualizer-agreement-levels-box"
+                      type="checkbox"
+                      checked={level <= forestOptions.agreementLevel}
+                      disabled={disabled}
+                      onChange={() => dispatch(GeoActions.setAgreementLevel(level))}
+                      style={style}
+                    />
+                    <label htmlFor={id}>{level}</label>
+                  </span>
+                )
+              })}
+          </div>
         </div>
-      </div>
+      </>
     </GeoMapMenuListElement>
   ) : null
 }
