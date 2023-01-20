@@ -17,9 +17,9 @@ import { getReservedYears } from './originalDataPoint/getReservedYears'
 import { updateOriginalDataPoint } from './originalDataPoint/updateOriginalDataPoint'
 import { getReviewStatus } from './review/getReviewStatus'
 import { getReviewSummary } from './review/getReviewSummary'
+import { estimateValues } from './table/estimateValues'
 import { getTableData } from './table/getTableData'
 import { persistNodeValues } from './table/persistNodeValues'
-import { postEstimation } from './table/postEstimation'
 import { getActivities } from './getActivities'
 
 export const CycleDataApi = {
@@ -31,7 +31,7 @@ export const CycleDataApi = {
       ApiEndPoint.CycleData.Table.estimate(),
       queue({ activeLimit: 1 }),
       AuthMiddleware.requireEditTableData,
-      postEstimation
+      estimateValues
     )
 
     // Descriptions
