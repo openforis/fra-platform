@@ -1,5 +1,5 @@
 import './MapVisualizerAgreementLevelsControl.scss'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import axios from 'axios'
 import classNames from 'classnames'
@@ -19,7 +19,8 @@ const AgreementLevelsControl: React.FC = () => {
   const map = useGeoMap()
   const forestOptions = useForestSourceOptions()
   const mapControllerRef = useRef<MapController>(new MapController(map))
-  const mapIdCache = useRef<{ [key: string]: string }>({})
+  const agreementLayerCache = useRef<{ [key: string]: Layer }>({})
+  const [currentPalette, setCurrentPalette] = useState<string[]>([])
 
   /**
    * Toggle agreement layer
@@ -32,6 +33,7 @@ const AgreementLevelsControl: React.FC = () => {
     // layer, it's still safe to call `removeEarthEngineLayer`, it'll just do nothing and
     // return `false`.
     mapControllerRef.current.removeEarthEngineLayer(agreementLayerKey)
+    setCurrentPalette([])
 
     // If less than two sources are selected or the agreement level is greater than the
     // number of selected layers, reset the agreement state.
@@ -56,16 +58,23 @@ const AgreementLevelsControl: React.FC = () => {
     const uri = `/api/geo/layers/forestAgreement/?countryIso=FIN${layerQuery}${agreementLevelQuery}${hansenQuery}`
 
     // Use cached mapId if available
-    if (mapIdCache.current[uri]) {
-      mapControllerRef.current.addEarthEngineLayer(agreementLayerKey, mapIdCache.current[uri])
+    if (agreementLayerCache.current[uri]) {
+      const { mapId, palette } = agreementLayerCache.current[uri]
+      mapControllerRef.current.addEarthEngineLayer(agreementLayerKey, mapId)
+      setCurrentPalette(palette)
       return
     }
 
     // Otherwise, fetch a new map id from server and cache it for later use
     axios.get<Layer>(uri).then((response) => {
-      const { mapId } = response.data
-      mapIdCache.current[uri] = mapId
+      const { mapId, palette } = response.data
+
+      // Cache mapId for later use
+      agreementLayerCache.current[uri] = { mapId, palette }
+
+      // Render layer
       mapControllerRef.current.addEarthEngineLayer(agreementLayerKey, mapId)
+      setCurrentPalette(palette)
     })
   }, [
     forestOptions.agreementLayerSelected,
@@ -96,6 +105,18 @@ const AgreementLevelsControl: React.FC = () => {
               const level = i + 1
               const id = `agreement-${level}`
               const disabled = level > forestOptions.selected.length
+
+              // Agreement layer color legend
+              const agreementLevelOffset = level - forestOptions.agreementLevel
+              const style =
+                agreementLevelOffset >= 0 &&
+                level <= forestOptions.selected.length &&
+                agreementLevelOffset < currentPalette.length
+                  ? {
+                      borderBottom: `10px solid ${currentPalette[agreementLevelOffset]}`,
+                    }
+                  : {}
+
               return (
                 <span className={classNames('geo-map-menu-data-visualizer-agreement-level', { disabled })} key={level}>
                   <input
@@ -105,6 +126,7 @@ const AgreementLevelsControl: React.FC = () => {
                     checked={level <= forestOptions.agreementLevel}
                     disabled={disabled}
                     onChange={() => dispatch(GeoActions.setAgreementLevel(level))}
+                    style={style}
                   />
                   <label htmlFor={id}>{level}</label>
                 </span>
