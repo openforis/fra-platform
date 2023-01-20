@@ -78,6 +78,7 @@ export const generateMetaCache = async (props: Props, client: BaseProtocol): Pro
         where (r.props -> 'calculateFn' is not null and r.props -> 'calculateFn' ->> '${cycle.uuid}' is not null)
            or (r.props -> 'validateFns' is not null and r.props -> 'validateFns' ->> '${cycle.uuid}' is not null)
            or (c.props -> 'calculateFn' is not null and c.props -> 'calculateFn' ->> '${cycle.uuid}' is not null)
+           or (c.props -> 'validateFns' is not null and c.props -> 'validateFns' ->> '${cycle.uuid}' is not null)
         group by r.id, r.uuid, r.props, t.props ->> 'name'`,
     [],
     (row) => {
@@ -89,6 +90,7 @@ export const generateMetaCache = async (props: Props, client: BaseProtocol): Pro
             props: {
               ...Objects.camelize(col.props),
               calculateFn: col.props.calculateFn,
+              validateFns: col.props.validateFns,
             },
           }
         }),
@@ -117,6 +119,14 @@ export const generateMetaCache = async (props: Props, client: BaseProtocol): Pro
       row.props.validateFns[cycle.uuid].forEach((validateFn) =>
         DependencyEvaluator.evalDependencies(validateFn, { ...context, type: 'validations' })
       )
+    } else {
+      row.cols.forEach((col) => {
+        if (col.props.validateFns?.[cycle.uuid]) {
+          col.props.validateFns?.[cycle.uuid].forEach((validateFn) => {
+            DependencyEvaluator.evalDependencies(validateFn, { ...context, type: 'calculations' })
+          })
+        }
+      })
     }
   })
 

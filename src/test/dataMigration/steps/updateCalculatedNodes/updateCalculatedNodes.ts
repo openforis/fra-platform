@@ -42,6 +42,7 @@ export const updateCalculatedNodes = async (
             props: {
               ...Objects.camelize(col.props),
               calculateFn: col.props.calculateFn,
+              validateFns: col.props.validateFns,
             },
           }
         }),

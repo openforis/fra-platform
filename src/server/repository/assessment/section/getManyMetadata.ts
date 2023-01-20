@@ -88,10 +88,12 @@ export const getManyMetadata = async (
                     calculateFn: row.props.calculateFn,
                     validateFns: row.props.validateFns,
                   },
-                  cols: cols.map(({ props: { labels, style, variableNo, calculateFn, ...otherProps }, ...col }) => ({
-                    ...Objects.camelize(col),
-                    props: { ...Objects.camelize(otherProps), labels, style, variableNo, calculateFn },
-                  })),
+                  cols: cols.map(
+                    ({ props: { labels, style, variableNo, calculateFn, validateFns, ...otherProps }, ...col }) => ({
+                      ...Objects.camelize(col),
+                      props: { ...Objects.camelize(otherProps), labels, style, variableNo, calculateFn, validateFns },
+                    })
+                  ),
                 })),
               })),
             }

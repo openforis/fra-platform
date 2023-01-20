@@ -33,6 +33,7 @@ export const getMany = (
         props: {
           ...Objects.camelize(col.props),
           calculateFn: col.props.calculateFn,
+          validateFns: col.props.validateFns,
         },
       }
     }
