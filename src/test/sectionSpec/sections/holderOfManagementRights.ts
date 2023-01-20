@@ -362,7 +362,7 @@ export const holderOfManagementRights = {
                 colNames: ['1990', '2000', '2010', '2015', '2020'],
                 validateFns: [`validatorGreaterThanOrZero(holderOfManagementRights.unknown)`],
                 calcFormula:
-                  'forestOwnership.public_ownership - (holderOfManagementRights.public_administration || 0) - (holderOfManagementRights.private_businesses || 0) - (holderOfManagementRights.communities || 0) -  (holderOfManagementRights.other || 0)',
+                  'forestOwnership.public_ownership - (holderOfManagementRights.public_administration || 0) - (holderOfManagementRights.private_businesses || 0) - (holderOfManagementRights.communities || 0) -  (holderOfManagementRights.other2025 || 0)',
               },
             },
             {
