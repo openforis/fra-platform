@@ -4552,23 +4552,23 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 0,
-                    type: 'calculated',
+                    type: 'decimal',
                   },
                   {
                     idx: 1,
-                    type: 'calculated',
+                    type: 'decimal',
                   },
                   {
                     idx: 2,
-                    type: 'calculated',
+                    type: 'decimal',
                   },
                   {
                     idx: 3,
-                    type: 'calculated',
+                    type: 'decimal',
                   },
                   {
                     idx: 4,
-                    type: 'calculated',
+                    type: 'decimal',
                   },
                 ],
                 labelKey: 'fra.designatedManagementObjective.noDesignation',
@@ -4592,23 +4592,23 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 0,
-                    type: 'calculated',
+                    type: 'decimal',
                   },
                   {
                     idx: 1,
-                    type: 'calculated',
+                    type: 'decimal',
                   },
                   {
                     idx: 2,
-                    type: 'calculated',
+                    type: 'decimal',
                   },
                   {
                     idx: 3,
-                    type: 'calculated',
+                    type: 'decimal',
                   },
                   {
                     idx: 4,
-                    type: 'calculated',
+                    type: 'decimal',
                   },
                 ],
                 labelKey: 'fra.designatedManagementObjective.unknown2025',
