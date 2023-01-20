@@ -1,5 +1,12 @@
 @import 'src/client/style/partials';
 
+.statistics {
+  // Makes the statistics divs be the same length as the button.
+  > div {
+    width: 100%;
+  }
+}
+
 .geo-map-menu-button-statistics {
   &.selected {
     width: 700px;
