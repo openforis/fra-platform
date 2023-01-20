@@ -92,7 +92,7 @@ const AgreementLevelsControl: React.FC = () => {
       onCheckboxClick={() => dispatch(GeoActions.setAgreementLayerSelected(!forestOptions.agreementLayerSelected))}
     >
       <>
-        <LayerOptionsPanel layerKey={agreementLayerKey} />
+        {forestOptions.agreementLayerSelected && <LayerOptionsPanel layerKey={agreementLayerKey} />}
         <div className="geo-map-menu-data-visualizer-agreement-levels-control">
           <p>
             <small>
