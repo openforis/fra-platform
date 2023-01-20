@@ -68,19 +68,22 @@ const MapVisualizerPanel: React.FC = () => {
     <div className="geo-map-menu-data-visualizer-panel">
       <p>Forest Layers</p>
       <div className="geo-map-menu-data-visualizer-panel-layers">
-        {layers.map((layer, index) => (
-          <div key={layer.key}>
-            <GeoMapMenuListElement
-              title={layer.title}
-              tabIndex={index * -1 - 1}
-              checked={forestOptions.selected.includes(layer.key)}
-              onCheckboxClick={() => dispatch(GeoActions.toggleForestLayer(layer.key))}
-              backgroundColor={layer.key.toLowerCase()}
-            >
-              <LayerOptionsPanel layerKey={layer.key} />
-            </GeoMapMenuListElement>
-          </div>
-        ))}
+        {layers.map((layer, index) => {
+          const isLayerChecked = forestOptions.selected.includes(layer.key)
+          return (
+            <div key={layer.key}>
+              <GeoMapMenuListElement
+                title={layer.title}
+                tabIndex={index * -1 - 1}
+                checked={isLayerChecked}
+                onCheckboxClick={() => dispatch(GeoActions.toggleForestLayer(layer.key))}
+                backgroundColor={layer.key.toLowerCase()}
+              >
+                {isLayerChecked && <LayerOptionsPanel layerKey={layer.key} />}
+              </GeoMapMenuListElement>
+            </div>
+          )
+        })}
         <AgreementLevelsControl />
       </div>
       <div className="geo-map-menu-data-container-btn">
