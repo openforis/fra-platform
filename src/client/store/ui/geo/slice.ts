@@ -54,6 +54,9 @@ export const geoSlice = createSlice({
     },
     setAgreementLayerSelected: (state, { payload }: PayloadAction<boolean>) => {
       state.forestOptions.agreementLayerSelected = payload
+      if (!payload) {
+        delete state.forestOptions.opacity.Agreement
+      }
     },
     setAgreementLevel: (state, { payload }: PayloadAction<number>) => {
       state.forestOptions.agreementLevel = payload
