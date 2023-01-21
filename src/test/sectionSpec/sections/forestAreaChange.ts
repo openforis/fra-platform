@@ -155,6 +155,7 @@ export const forestAreaChange: SectionSpec = {
               migration: {
                 validateFns: [
                   `validatorSubCategory(forestAreaChange.forest_expansion, [forestAreaChange.afforestation, forestAreaChange.natural_expansion])`,
+                  `validatorEqualToForestExpansion(forestAreaChange.forest_expansion, [forestAreaChange.afforestation, forestAreaChange.natural_expansion])`,
                 ],
                 categoryLevel: 1,
               },
@@ -196,6 +197,7 @@ export const forestAreaChange: SectionSpec = {
               migration: {
                 validateFns: [
                   `validatorSubCategory(forestAreaChange.forest_expansion, [forestAreaChange.afforestation, forestAreaChange.natural_expansion])`,
+                  `validatorEqualToForestExpansion(forestAreaChange.forest_expansion, [forestAreaChange.afforestation, forestAreaChange.natural_expansion])`,
                 ],
                 categoryLevel: 1,
               },

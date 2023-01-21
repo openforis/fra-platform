@@ -1033,6 +1033,7 @@ The FRA team
     valuesAreInconsistentWithNetChange: 'Values are inconsistent with Forest area net change',
     valuesAreInconsistent1aOr1b: 'Values are inconsistent with Areas reported in tables 1a or 1b',
     mustBeEqualToPrivateForest: 'Subcategories sum should be equal to Private Ownership',
+    mustBeEqualToForestExpansion: 'Subcategories sum should be equal to Forest Expansion',
   },
 
   emoji: {
