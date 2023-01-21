@@ -76,44 +76,40 @@ export const updateValidationDependencies = async (props: Props, client: BasePro
           }
         }
       } else {
-        // eslint-disable-next-line no-await-in-loop
-        await Promise.all(
-          row.cols.map(async (col) => {
-            if (col.props.validateFns?.[cycle.uuid]) {
-              // eslint-disable-next-line no-await-in-loop
-              const validation = await validateNode(
-                {
-                  assessment,
-                  cycle,
-                  countryIso,
-                  tableName,
-                  variableName,
-                  colName,
-                  row,
-                  validateFns: col.props.validateFns[cycle.uuid],
-                },
-                client
-              )
+        const col = row.cols.find((col) => col.props.colName === colName)
+        if (col.props.validateFns?.[cycle.uuid]) {
+          // eslint-disable-next-line no-await-in-loop
+          const validation = await validateNode(
+            {
+              assessment,
+              cycle,
+              countryIso,
+              tableName,
+              variableName,
+              colName,
+              row,
+              validateFns: col.props.validateFns[cycle.uuid],
+            },
+            client
+          )
 
-              // eslint-disable-next-line no-await-in-loop
-              const node = await NodeRepository.updateValidation(
-                { assessment, cycle, tableName, variableName, countryIso, colName, validation },
-                client
-              )
+          // eslint-disable-next-line no-await-in-loop
+          const node = await NodeRepository.updateValidation(
+            { assessment, cycle, tableName, variableName, countryIso, colName, validation },
+            client
+          )
 
-              value = node?.value
-              if (value) {
-                nodeUpdatesResult.nodes.push({
-                  // Assign correct table name if value is ODP value
-                  tableName: value.odp ? TableNames.originalDataPointValue : tableName,
-                  variableName,
-                  colName,
-                  value,
-                })
-              }
-            }
-          })
-        )
+          value = node?.value
+          if (value) {
+            nodeUpdatesResult.nodes.push({
+              // Assign correct table name if value is ODP value
+              tableName: value.odp ? TableNames.originalDataPointValue : tableName,
+              variableName,
+              colName,
+              value,
+            })
+          }
+        }
       }
 
       // eslint-disable-next-line no-await-in-loop

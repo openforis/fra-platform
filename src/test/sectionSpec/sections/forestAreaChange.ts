@@ -255,7 +255,15 @@ export const forestAreaChange: SectionSpec = {
                   type: 'calculated',
                   colName: '1990_2000',
                   migration: {
-                    calculateFn: `(extentOfForest.forestArea['2000'] - extentOfForest.forestArea['1990']) / 10`,
+                    calculateFn: {
+                      '2020': `(extentOfForest.forestArea['2000'] - extentOfForest.forestArea['1990']) / 10`,
+                      '2025': 'forestAreaChange.forest_expansion - forestAreaChange.deforestation',
+                    },
+                    validateFns: {
+                      '2025': [
+                        `validatorForestAreaNetChange((extentOfForest.forestArea['2000'] - extentOfForest.forestArea['1990']) / 10, forestAreaChange.forestAreaNetChange)`,
+                      ],
+                    },
                   },
                 },
                 {
@@ -263,7 +271,15 @@ export const forestAreaChange: SectionSpec = {
                   type: 'calculated',
                   colName: '2000_2010',
                   migration: {
-                    calculateFn: `(extentOfForest.forestArea['2010'] - extentOfForest.forestArea['2000']) / 10`,
+                    calculateFn: {
+                      '2020': `(extentOfForest.forestArea['2010'] - extentOfForest.forestArea['2000']) / 10`,
+                      '2025': 'forestAreaChange.forest_expansion - forestAreaChange.deforestation',
+                    },
+                    validateFns: {
+                      '2025': [
+                        `validatorForestAreaNetChange((extentOfForest.forestArea['2010'] - extentOfForest.forestArea['2000']) / 10, forestAreaChange.forestAreaNetChange)`,
+                      ],
+                    },
                   },
                 },
                 {
@@ -271,7 +287,15 @@ export const forestAreaChange: SectionSpec = {
                   type: 'calculated',
                   colName: '2010_2015',
                   migration: {
-                    calculateFn: `(extentOfForest.forestArea['2015'] - extentOfForest.forestArea['2010']) / 5`,
+                    calculateFn: {
+                      '2020': `(extentOfForest.forestArea['2015'] - extentOfForest.forestArea['2010']) / 5`,
+                      '2025': 'forestAreaChange.forest_expansion - forestAreaChange.deforestation',
+                    },
+                    validateFns: {
+                      '2025': [
+                        `validatorForestAreaNetChange((extentOfForest.forestArea['2015'] - extentOfForest.forestArea['2010']) / 5, forestAreaChange.forestAreaNetChange)`,
+                      ],
+                    },
                   },
                 },
                 {
@@ -279,7 +303,15 @@ export const forestAreaChange: SectionSpec = {
                   type: 'calculated',
                   colName: '2015_2020',
                   migration: {
-                    calculateFn: `(extentOfForest.forestArea['2020'] - extentOfForest.forestArea['2015']) / 5`,
+                    calculateFn: {
+                      '2020': `(extentOfForest.forestArea['2020'] - extentOfForest.forestArea['2015']) / 5`,
+                      '2025': 'forestAreaChange.forest_expansion - forestAreaChange.deforestation',
+                    },
+                    validateFns: {
+                      '2025': [
+                        `validatorForestAreaNetChange((extentOfForest.forestArea['2020'] - extentOfForest.forestArea['2015']) / 5, forestAreaChange.forestAreaNetChange)`,
+                      ],
+                    },
                   },
                 },
               ],
