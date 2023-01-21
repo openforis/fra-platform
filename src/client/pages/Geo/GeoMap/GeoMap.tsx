@@ -8,7 +8,8 @@ type Props = {
   zoom: number
 }
 
-const GeoMap: React.FC<Props> = ({ children, center, zoom }) => {
+const GeoMap: React.FC<React.PropsWithChildren<Props>> = (props) => {
+  const { children, center, zoom } = props
   const ref = useRef<HTMLDivElement>(null)
   const [map, setMap] = useState<google.maps.Map>()
 
@@ -22,10 +23,17 @@ const GeoMap: React.FC<Props> = ({ children, center, zoom }) => {
           zoomControl: true,
           rotateControl: true,
           fullscreenControl: true,
+          mapTypeId: google.maps.MapTypeId.HYBRID,
+          mapTypeControl: true,
+          mapTypeControlOptions: {
+            style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+            position: google.maps.ControlPosition.RIGHT_TOP,
+            mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID],
+          },
         })
       )
     }
-  }, [ref, map])
+  }, [ref, map, center, zoom])
 
   return (
     <>
