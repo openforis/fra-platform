@@ -123,7 +123,7 @@ export const generateMetaCache = async (props: Props, client: BaseProtocol): Pro
       row.cols.forEach((col) => {
         if (col.props.validateFns?.[cycle.uuid]) {
           col.props.validateFns?.[cycle.uuid].forEach((validateFn) => {
-            DependencyEvaluator.evalDependencies(validateFn, { ...context, type: 'calculations' })
+            DependencyEvaluator.evalDependencies(validateFn, { ...context, type: 'validations' })
           })
         }
       })

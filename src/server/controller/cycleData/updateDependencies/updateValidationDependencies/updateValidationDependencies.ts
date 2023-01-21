@@ -47,7 +47,16 @@ export const updateValidationDependencies = async (props: Props, client: BasePro
         if (row.cols.find((c) => c.props.colName === colName)) {
           // eslint-disable-next-line no-await-in-loop
           const validation = await validateNode(
-            { assessment, cycle, countryIso, tableName, variableName, colName, row },
+            {
+              assessment,
+              cycle,
+              countryIso,
+              tableName,
+              variableName,
+              colName,
+              row,
+              validateFns: row.props.validateFns?.[cycle.uuid],
+            },
             client
           )
           // eslint-disable-next-line no-await-in-loop
@@ -56,7 +65,55 @@ export const updateValidationDependencies = async (props: Props, client: BasePro
             client
           )
           value = node?.value
+          if (value) {
+            nodeUpdatesResult.nodes.push({
+              // Assign correct table name if value is ODP value
+              tableName: value.odp ? TableNames.originalDataPointValue : tableName,
+              variableName,
+              colName,
+              value,
+            })
+          }
         }
+      } else {
+        // eslint-disable-next-line no-await-in-loop
+        await Promise.all(
+          row.cols.map(async (col) => {
+            if (col.props.validateFns?.[cycle.uuid]) {
+              // eslint-disable-next-line no-await-in-loop
+              const validation = await validateNode(
+                {
+                  assessment,
+                  cycle,
+                  countryIso,
+                  tableName,
+                  variableName,
+                  colName,
+                  row,
+                  validateFns: col.props.validateFns[cycle.uuid],
+                },
+                client
+              )
+
+              // eslint-disable-next-line no-await-in-loop
+              const node = await NodeRepository.updateValidation(
+                { assessment, cycle, tableName, variableName, countryIso, colName, validation },
+                client
+              )
+
+              value = node?.value
+              if (value) {
+                nodeUpdatesResult.nodes.push({
+                  // Assign correct table name if value is ODP value
+                  tableName: value.odp ? TableNames.originalDataPointValue : tableName,
+                  variableName,
+                  colName,
+                  value,
+                })
+              }
+            }
+          })
+        )
       }
 
       // eslint-disable-next-line no-await-in-loop
@@ -80,15 +137,6 @@ export const updateValidationDependencies = async (props: Props, client: BasePro
       }))
       queue.push(...dependants)
       visitedVariables.push(queueItem)
-      if (value) {
-        nodeUpdatesResult.nodes.push({
-          // Assign correct table name if value is ODP value
-          tableName: value.odp ? TableNames.originalDataPointValue : tableName,
-          variableName,
-          colName,
-          value,
-        })
-      }
     }
   }
 

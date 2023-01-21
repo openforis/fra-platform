@@ -48,14 +48,22 @@ export const validateNodes = async (
                            on r.table_id = t.id
         where t.props -> 'cycles' ? '${cycle.uuid}'
           and r.props -> 'cycles' ? '${cycle.uuid}'
-          and (r.props ->> 'validateFns' is not null and r.props -> 'validateFns' ->> '${cycle.uuid}' is not null)
+          and ((c.props ->> 'validateFns' is not null and c.props -> 'validateFns' ->> '${cycle.uuid}' is not null) or (r.props ->> 'validateFns' is not null and r.props -> 'validateFns' ->> '${cycle.uuid}' is not null))
           and c.props -> 'cycles' ? '${cycle.uuid}'
     `,
     [],
     // @ts-ignore
-    ({ row, ...rest }) => {
+    ({ row, col, ...rest }) => {
       return {
         ...Objects.camelize(rest),
+        col: {
+          ...col,
+          props: {
+            ...Objects.camelize(col.props),
+            calculateFn: col.props.calculateFn,
+            validateFns: col.props.validateFns,
+          },
+        },
         row: {
           ...row,
           props: {
@@ -98,9 +106,20 @@ export const validateNodes = async (
     const { variableName } = row.props
     const { colName } = col.props
     nodeUUIDs.push(uuid)
+
     // eslint-disable-next-line no-await-in-loop
     const validation = await validateNode(
-      { countryIso, assessment, cycle, tableName, variableName, colName, row, data },
+      {
+        countryIso,
+        assessment,
+        cycle,
+        tableName,
+        variableName,
+        colName,
+        row,
+        data,
+        validateFns: row.props.validateFns?.[cycle.uuid] ?? col.props.validateFns?.[cycle.uuid],
+      },
       client
     )
     values.push({
