@@ -25,7 +25,7 @@ export const updateValidationDependencies = async (props: Props, client: BasePro
 
   while (queue.length !== 0) {
     const queueItem = queue.shift()
-    const { variableName, tableName, colName, value: nodeValue } = queueItem
+    const { variableName, tableName, colName } = queueItem
     // console.log('==== validating ', countryIso, tableName, variableName, colName)
     const visited = visitedVariables.find(
       (v) => v.tableName === tableName && v.variableName === variableName && v.colName === colName
@@ -39,7 +39,6 @@ export const updateValidationDependencies = async (props: Props, client: BasePro
     // }
 
     if (!visited) {
-      let value: NodeValue = nodeValue
       // eslint-disable-next-line no-await-in-loop
       const row: Row = await RowRepository.getOne({ assessment, tableName, variableName, includeCols: true }, client)
       if (row.props.validateFns?.[cycle.uuid]) {
@@ -64,7 +63,7 @@ export const updateValidationDependencies = async (props: Props, client: BasePro
             { assessment, cycle, tableName, variableName, countryIso, colName, validation },
             client
           )
-          value = node?.value
+          const value: NodeValue = node?.value
           if (value) {
             nodeUpdatesResult.nodes.push({
               // Assign correct table name if value is ODP value
@@ -99,7 +98,7 @@ export const updateValidationDependencies = async (props: Props, client: BasePro
             client
           )
 
-          value = node?.value
+          const value = node?.value
           if (value) {
             nodeUpdatesResult.nodes.push({
               // Assign correct table name if value is ODP value
