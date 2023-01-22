@@ -3,7 +3,7 @@ import { createI18nPromise } from '@i18n/i18nFactory'
 import { ClientRoutes } from '@meta/app'
 import { Country, CountryIso } from '@meta/area'
 import { AssessmentStatus } from '@meta/area/country'
-import { AssessmentName } from '@meta/assessment'
+import { AssessmentName, Cycle } from '@meta/assessment'
 import { RoleName, User } from '@meta/user'
 
 import { UserRepository } from '@server/repository/public/user'
@@ -50,25 +50,26 @@ export const createMail = async (props: {
 
 const getCountryUsers = async (props: {
   countryISOs: Array<CountryIso>
+  cycle: Cycle
   roles: Array<RoleName>
 }): Promise<Array<User>> => {
-  const { countryISOs, roles } = props
+  const { countryISOs, cycle, roles } = props
 
-  return UserRepository.readCountryUsersByRole({ countryISOs, roles })
+  return UserRepository.readCountryUsersByRole({ countryISOs, cycle, roles })
 }
 
-const getRecipients = async (props: { countryISOs: Array<CountryIso>; status: AssessmentStatus }) => {
-  const { countryISOs, status } = props
+const getRecipients = async (props: { countryISOs: Array<CountryIso>; cycle: Cycle; status: AssessmentStatus }) => {
+  const { countryISOs, status, cycle } = props
 
   switch (status) {
     case AssessmentStatus.editing:
-      return getCountryUsers({ countryISOs, roles: [RoleName.NATIONAL_CORRESPONDENT] })
+      return getCountryUsers({ cycle, countryISOs, roles: [RoleName.NATIONAL_CORRESPONDENT] })
     case AssessmentStatus.review:
-      return getCountryUsers({ countryISOs, roles: [RoleName.REVIEWER] })
+      return getCountryUsers({ cycle, countryISOs, roles: [RoleName.REVIEWER] })
     case AssessmentStatus.approval:
-      return getCountryUsers({ countryISOs, roles: [RoleName.ADMINISTRATOR] })
+      return getCountryUsers({ cycle, countryISOs, roles: [RoleName.ADMINISTRATOR] })
     case AssessmentStatus.accepted:
-      return getCountryUsers({ countryISOs, roles: [RoleName.REVIEWER, RoleName.NATIONAL_CORRESPONDENT] })
+      return getCountryUsers({ cycle, countryISOs, roles: [RoleName.REVIEWER, RoleName.NATIONAL_CORRESPONDENT] })
     default:
       return []
   }
@@ -80,7 +81,7 @@ export const assessmentNotifyUsers = async (props: {
   message: string
   assessmentName: AssessmentName
   countryIso: CountryIso
-  cycleName: string
+  cycle: Cycle
 }) => {
   const {
     user,
@@ -90,9 +91,9 @@ export const assessmentNotifyUsers = async (props: {
     message,
     assessmentName,
     countryIso,
-    cycleName,
+    cycle,
   } = props
-  const recipients = await getRecipients({ countryISOs: [countryIso], status })
+  const recipients = await getRecipients({ cycle, countryISOs: [countryIso], status })
 
   const emailPromises = recipients.map(async (recipient: User) => {
     return createMail({
@@ -102,7 +103,7 @@ export const assessmentNotifyUsers = async (props: {
       status,
       assessmentName,
       countryIso,
-      cycleName,
+      cycleName: cycle.name,
       message,
     })
   })
