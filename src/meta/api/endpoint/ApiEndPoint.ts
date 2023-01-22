@@ -84,6 +84,8 @@ export const ApiEndPoint = {
     many: () => apiPath('users'),
     one: () => apiPath('users', 'user'),
 
+    countryStatusChangeRecipients: () => apiPath('users', 'country-status-change', 'recipients'),
+
     invite: () => apiPath('users', 'invite'),
     invitation: () => apiPath('users', 'invitation'),
     invitationAccept: () => apiPath('users', 'invitation', 'accept'),

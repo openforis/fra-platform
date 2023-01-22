@@ -5,6 +5,7 @@ import { Country, CountryIso } from '@meta/area'
 import { AssessmentStatus } from '@meta/area/country'
 import { AssessmentName, Cycle } from '@meta/assessment'
 import { RoleName, User } from '@meta/user'
+import { UserRoles } from '@meta/user/userRoles'
 
 import { UserRepository } from '@server/repository/public/user'
 
@@ -60,19 +61,8 @@ const getCountryUsers = async (props: {
 
 const getRecipients = async (props: { countryISOs: Array<CountryIso>; cycle: Cycle; status: AssessmentStatus }) => {
   const { countryISOs, status, cycle } = props
-
-  switch (status) {
-    case AssessmentStatus.editing:
-      return getCountryUsers({ cycle, countryISOs, roles: [RoleName.NATIONAL_CORRESPONDENT] })
-    case AssessmentStatus.review:
-      return getCountryUsers({ cycle, countryISOs, roles: [RoleName.REVIEWER] })
-    case AssessmentStatus.approval:
-      return getCountryUsers({ cycle, countryISOs, roles: [RoleName.ADMINISTRATOR] })
-    case AssessmentStatus.accepted:
-      return getCountryUsers({ cycle, countryISOs, roles: [RoleName.REVIEWER, RoleName.NATIONAL_CORRESPONDENT] })
-    default:
-      return []
-  }
+  const roles = UserRoles.getRecipientRoles({ status })
+  return getCountryUsers({ cycle, countryISOs, roles })
 }
 
 export const assessmentNotifyUsers = async (props: {

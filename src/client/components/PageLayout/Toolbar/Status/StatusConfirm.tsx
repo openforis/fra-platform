@@ -13,6 +13,8 @@ import { AssessmentActions, useAssessmentCountry } from '@client/store/assessmen
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from '@client/components/Modal'
+import { useRecipients } from '@client/components/PageLayout/Toolbar/Status/useRecipients'
+import UserList from '@client/components/UserList'
 
 import { StatusTransition } from './types'
 
@@ -34,6 +36,8 @@ const StatusConfirm: React.FC<Props> = (props) => {
 
   const [textareaValue, setTextareaValue] = useState<string>('')
   const { assessmentName, cycleName } = useParams<{ assessmentName: AssessmentName; cycleName: string }>()
+
+  const recipients = useRecipients({ status })
 
   return (
     <Modal isOpen>
@@ -64,6 +68,7 @@ const StatusConfirm: React.FC<Props> = (props) => {
             {i18n.t('navigation.doNotNotifyUsers')}
           </div>
         )}
+        {notifyUsers && <UserList readOnly isAdmin={false} users={recipients} />}
       </ModalBody>
 
       <ModalFooter>
