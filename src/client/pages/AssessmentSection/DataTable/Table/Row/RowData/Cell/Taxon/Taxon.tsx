@@ -54,7 +54,7 @@ const Taxon: React.FC<PropsCell> = (props: PropsCell) => {
   }
 
   return (
-    <div className="text-input__container validation-error-sensitive-field">
+    <div title={nodeValue?.raw ?? ''} className="text-input__container validation-error-sensitive-field">
       <Autocomplete
         disabled={disabled}
         items={items}
