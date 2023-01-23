@@ -1,4 +1,5 @@
 import { Express } from 'express'
+import * as multer from 'multer'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 
@@ -17,7 +18,6 @@ import { updateSectionAuth } from './updateSectionAuth'
 import { updateUser } from './updateUser'
 import { updateUserAdminRole } from './updateUserAdminRole'
 import { updateUserRoles } from './updateUserRoles'
-import multer = require('multer')
 
 export const UserApi = {
   init: (express: Express): void => {
