@@ -28,7 +28,7 @@ const MapVisualizerPanel: React.FC = () => {
     const hansenPercentageHasChanged = forestOptions.hansenPercentage !== hansenPercentageOnPreviousMapDraw.current
 
     layers.forEach(({ key: mapLayerKey, apiUri }) => {
-      if (forestOptions.selected.includes(mapLayerKey)) {
+      if (forestOptions.selected.includes(mapLayerKey) && forestOptions.opacity[mapLayerKey] !== 0) {
         // Layer is selected so ensure it's shown on map
 
         const isHansen = mapLayerKey === ForestSource.Hansen
@@ -62,7 +62,13 @@ const MapVisualizerPanel: React.FC = () => {
         mapControllerRef.current.removeEarthEngineLayer(mapLayerKey)
       }
     })
-  }, [forestOptions.selected, forestOptions.hansenPercentage, forestOptions.fetchedLayers, dispatch])
+  }, [
+    forestOptions.selected,
+    forestOptions.hansenPercentage,
+    forestOptions.fetchedLayers,
+    forestOptions.opacity,
+    dispatch,
+  ])
 
   return (
     <div className="geo-map-menu-data-visualizer-panel">

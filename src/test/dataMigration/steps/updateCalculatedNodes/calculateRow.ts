@@ -1,5 +1,5 @@
 import { CountryIso } from '@meta/area'
-import { Assessment, Cycle, Row, VariableCache } from '@meta/assessment'
+import { Assessment, AssessmentMetaCaches, Cycle, Row, VariableCache } from '@meta/assessment'
 
 import { CycleDataController } from '@server/controller/cycleData'
 import { ExpressionEvaluator } from '@server/controller/cycleData/updateDependencies/expressionEvaluator'
@@ -50,8 +50,12 @@ export const calculateRow = async (
   }
 
   // console.log('====== calculating ', tableName, row.props.variableName)
-  const dependencies: Array<VariableCache> =
-    assessment.metaCache[cycle.uuid].calculations.dependencies[tableName]?.[row.props.variableName] ?? []
+  const dependencies = AssessmentMetaCaches.getCalculationsDependencies({
+    assessment,
+    cycle,
+    tableName,
+    variableName: row.props.variableName,
+  })
   const data =
     dependencies.length > 0
       ? await CycleDataController.getTableData(

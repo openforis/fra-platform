@@ -5,20 +5,22 @@ export interface VariableCache {
   variableName: string
 }
 
+/**
+ * {
+ *    [tableName]: {
+ *        [variableName] : [
+ *          {variableName,tableName},
+ *          {...},
+ *          ...
+ *        ]
+ *    }
+ * }
+ */
+export type DependencyRecord = Record<string, Record<string, Array<VariableCache>>>
+
 export type DependencyCache = {
-  /**
-   * {
-   *    [tableName]: {
-   *        [variableName] : [
-   *          {variableName,tableName},
-   *          {...},
-   *          ...
-   *        ]
-   *    }
-   * }
-   */
-  dependencies: Record<string, Record<string, Array<VariableCache>>>
-  dependants: Record<string, Record<string, Array<VariableCache>>>
+  dependencies: DependencyRecord
+  dependants: DependencyRecord
 }
 
 export interface AssessmentMetaCache {
