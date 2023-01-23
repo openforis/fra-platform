@@ -4308,6 +4308,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'designatedManagementObjective.production',
                 variableNo: 'a',
                 variableExport: 'production',
+                migration: {
+                  validateFns: [
+                    `validatorNotGreaterThanForest(extentOfForest.forestArea, primaryDesignatedManagementObjective.production)`,
+                  ],
+                },
               },
               {
                 idx: 1,
@@ -4345,6 +4350,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'designatedManagementObjective.soilWaterProtection',
                 variableNo: 'b',
                 variableExport: 'protection_of_soil_and_water',
+                migration: {
+                  validateFns: [
+                    `validatorNotGreaterThanForest(extentOfForest.forestArea, primaryDesignatedManagementObjective.soilWaterProtection)`,
+                  ],
+                },
               },
               {
                 idx: 2,
@@ -4382,6 +4392,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'designatedManagementObjective.biodiversityConservation',
                 variableNo: 'c',
                 variableExport: 'conservation_of_biodiversity',
+                migration: {
+                  validateFns: [
+                    `validatorNotGreaterThanForest(extentOfForest.forestArea, primaryDesignatedManagementObjective.biodiversityConservation)`,
+                  ],
+                },
               },
               {
                 idx: 3,
@@ -4419,6 +4434,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'designatedManagementObjective.socialServices',
                 variableNo: 'd',
                 variableExport: 'social_services',
+                migration: {
+                  validateFns: [
+                    `validatorNotGreaterThanForest(extentOfForest.forestArea, primaryDesignatedManagementObjective.socialServices)`,
+                  ],
+                },
               },
               {
                 idx: 4,
@@ -4456,6 +4476,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'designatedManagementObjective.multipleUse',
                 variableNo: 'e',
                 variableExport: 'multiple_use',
+                migration: {
+                  validateFns: [
+                    `validatorNotGreaterThanForest(extentOfForest.forestArea, primaryDesignatedManagementObjective.multipleUse)`,
+                  ],
+                },
               },
               {
                 idx: 5,
@@ -4493,6 +4518,11 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 labelKey: 'designatedManagementObjective.other',
                 variableNo: 'f',
                 variableExport: 'other',
+                migration: {
+                  validateFns: [
+                    `validatorNotGreaterThanForest(extentOfForest.forestArea, primaryDesignatedManagementObjective.other)`,
+                  ],
+                },
               },
               {
                 idx: 6,
