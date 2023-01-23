@@ -8,27 +8,21 @@ import { acceptInvitation } from './acceptInvitation'
 import { getInvitation } from './getInvitation'
 import { getMany } from './getMany'
 import { getProfilePicture } from './getProfilePicture'
+import { getResetPassword } from './getResetPassword'
 import { getUser } from './getUser'
 import { invite } from './invite'
 import { removeInvitation } from './removeInvitation'
 import { sendInvitationEmail } from './sendInvitationEmail'
 import { updateSectionAuth } from './updateSectionAuth'
 import { updateUser } from './updateUser'
-import multer = require('multer')
-import { getResetPassword } from './getResetPassword'
-import { getStatusChangeRecipients } from './getStatusChangeRecipients'
 import { updateUserAdminRole } from './updateUserAdminRole'
 import { updateUserRoles } from './updateUserRoles'
+import multer = require('multer')
 
 export const UserApi = {
   init: (express: Express): void => {
     express.put(ApiEndPoint.User.many(), multer().single('profilePicture'), AuthMiddleware.requireEditUser, updateUser)
     express.get(ApiEndPoint.User.many(), AuthMiddleware.requireViewUsers, getMany)
-    express.get(
-      ApiEndPoint.User.countryStatusChangeRecipients(),
-      AuthMiddleware.requireViewUsers,
-      getStatusChangeRecipients
-    )
     express.get(ApiEndPoint.User.one(), AuthMiddleware.requireEditUser, getUser)
 
     express.post(ApiEndPoint.User.invite(), AuthMiddleware.requireEditUser, invite)

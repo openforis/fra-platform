@@ -1,31 +1,15 @@
-import { useEffect } from 'react'
-
-import { ApiEndPoint } from '@meta/api/endpoint'
 import { User } from '@meta/user'
+import { UserRoles } from '@meta/user/userRoles'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useCountryIso, useGetRequest } from '@client/hooks'
+import { useUsers } from '@client/store/ui/userManagement'
+import useGetUsers from '@client/pages/AssessmentHome/hooks/useGetUsers'
 
 import { StatusTransition } from './types'
 
 export const useRecipients = (props: { status: StatusTransition }): Array<User> => {
-  const { status } = props
-  const countryIso = useCountryIso()
-  const cycle = useCycle()
-  const assessment = useAssessment()
-  const { data, dispatch: fetchData } = useGetRequest(ApiEndPoint.User.countryStatusChangeRecipients(), {
-    params: {
-      countryIso,
-      assessmentName: assessment.props.name,
-      cycleName: cycle.name,
-      status: status.status,
-    },
-  })
-
-  useEffect(() => {
-    fetchData()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  return data
+  useGetUsers()
+  const users = useUsers()
+  return users.filter((user) =>
+    user.roles.find((role) => UserRoles.getRecipientRoles(props.status).includes(role.role))
+  )
 }
