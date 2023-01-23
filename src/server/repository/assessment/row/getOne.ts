@@ -1,8 +1,9 @@
 import { Objects } from '@utils/objects'
 
-import { Assessment, Col, Row } from '@meta/assessment'
+import { Assessment, Row } from '@meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
+import { ColAdapter } from '@server/repository/adapter/col'
 
 type Props = {
   assessment: Assessment
@@ -37,16 +38,7 @@ export const getOne = (props: Props, client: BaseProtocol = DB): Promise<Row> =>
         },
       }
       if (includeCols) {
-        _row.cols = row.cols.map((col: Col) => {
-          return {
-            ...Objects.camelize(col),
-            props: {
-              ...Objects.camelize(col.props),
-              calculateFn: col.props.calculateFn,
-              validateFns: col.props.validateFns,
-            },
-          }
-        })
+        _row.cols = row.cols.map(ColAdapter)
       }
       return _row
     }

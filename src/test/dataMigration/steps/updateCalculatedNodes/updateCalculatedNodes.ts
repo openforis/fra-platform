@@ -1,10 +1,11 @@
 import { Objects } from '@utils/objects'
 import * as pgPromise from 'pg-promise'
 
-import { Assessment, Col, Cycle, Row, VariableCache } from '@meta/assessment'
+import { Assessment, Cycle, Row, VariableCache } from '@meta/assessment'
 
 import { AreaController } from '@server/controller/area'
 import { BaseProtocol, Schemas } from '@server/db'
+import { ColAdapter } from '@server/repository/adapter'
 
 import { calculateRow } from '@test/dataMigration/steps/updateCalculatedNodes/calculateRow'
 import { getCertifiedAreaValues } from '@test/dataMigration/steps/updateCalculatedNodes/getCertifiedAreaValues'
@@ -36,16 +37,7 @@ export const updateCalculatedNodes = async (
     (row) => {
       return {
         ...Objects.camelize(row),
-        cols: row.cols.map((col: Col) => {
-          return {
-            ...Objects.camelize(col),
-            props: {
-              ...Objects.camelize(col.props),
-              calculateFn: col.props.calculateFn,
-              validateFns: col.props.validateFns,
-            },
-          }
-        }),
+        cols: row.cols.map(ColAdapter),
         props: {
           ...Objects.camelize(row.props),
           calculateFn: row.props.calculateFn,
