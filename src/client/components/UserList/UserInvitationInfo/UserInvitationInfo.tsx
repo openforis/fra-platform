@@ -33,7 +33,7 @@ const UserInvitationInfo: React.FC<{ user: User; onClose: () => void }> = ({ use
           {`${i18n.t('userManagement.invitationLink')}: ${url}`}
           <button
             title={i18n.t('common.copyToClipboard')}
-            className="btn-copy"
+            className="btn-transparent"
             type="button"
             onClick={() => {
               navigator.clipboard.writeText(url)

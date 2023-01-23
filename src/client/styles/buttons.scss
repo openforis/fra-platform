@@ -1,7 +1,6 @@
 @import 'src/client/styles/config';
 
-
-@mixin mixin-button-base($fontSize, $padding){
+@mixin mixin-button-base($fontSize, $padding) {
   background-color: transparent;
   border-radius: 2px;
   border: solid 1px transparent;
@@ -40,15 +39,15 @@ button:hover {
 }
 
 .btn {
-@include mixin-button-base($font-m, 6px 13px);
+  @include mixin-button-base($font-m, 6px 13px);
 }
 
 .btn-s {
-@include mixin-button-base($font-s, 3px 9px);
+  @include mixin-button-base($font-s, 3px 9px);
 }
 
 .btn-xs {
-@include mixin-button-base($font-xs, 1px 4px);
+  @include mixin-button-base($font-xs, 1px 4px);
 }
 
 .btn-primary {
@@ -127,4 +126,9 @@ button:hover {
   &:hover {
     text-decoration: underline;
   }
+}
+
+.btn-transparent {
+  background-color: transparent;
+  border: none;
 }
