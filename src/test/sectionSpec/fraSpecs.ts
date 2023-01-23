@@ -4352,7 +4352,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableExport: 'protection_of_soil_and_water',
                 migration: {
                   validateFns: [
-                    `validatorNotGreaterThanForest(extentOfForest.forestArea, primaryDesignatedManagementObjective.soilWaterProtection)`,
+                    `validatorNotGreaterThanForest(extentOfForest.forestArea, primaryDesignatedManagementObjective.protection_of_soil_and_water)`,
                   ],
                 },
               },
@@ -4394,7 +4394,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableExport: 'conservation_of_biodiversity',
                 migration: {
                   validateFns: [
-                    `validatorNotGreaterThanForest(extentOfForest.forestArea, primaryDesignatedManagementObjective.biodiversityConservation)`,
+                    `validatorNotGreaterThanForest(extentOfForest.forestArea, primaryDesignatedManagementObjective.conservation_of_biodiversity)`,
                   ],
                 },
               },
@@ -4436,7 +4436,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableExport: 'social_services',
                 migration: {
                   validateFns: [
-                    `validatorNotGreaterThanForest(extentOfForest.forestArea, primaryDesignatedManagementObjective.socialServices)`,
+                    `validatorNotGreaterThanForest(extentOfForest.forestArea, primaryDesignatedManagementObjective.social_services)`,
                   ],
                 },
               },
@@ -4478,7 +4478,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 variableExport: 'multiple_use',
                 migration: {
                   validateFns: [
-                    `validatorNotGreaterThanForest(extentOfForest.forestArea, primaryDesignatedManagementObjective.multipleUse)`,
+                    `validatorNotGreaterThanForest(extentOfForest.forestArea, primaryDesignatedManagementObjective.multiple_use)`,
                   ],
                 },
               },
@@ -4652,7 +4652,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 migration: {
                   cycles: ['2025'],
                   colNames: ['1990', '2000', '2010', '2015', '2020', '2025'],
-                  // validateFns: [`validatorGreaterThanOrZero(primaryDesignatedManagementObjective.no_unknown)`],
+                  validateFns: [`validatorGreaterThanOrZero(primaryDesignatedManagementObjective.unknown)`],
                   calcFormula: `extentOfForest.forestArea
                     ? Math.max(0, extentOfForest.forestArea - (primaryDesignatedManagementObjective.production || 0)  - (primaryDesignatedManagementObjective.protection_of_soil_and_water || 0)  - (primaryDesignatedManagementObjective.conservation_of_biodiversity || 0)  - (primaryDesignatedManagementObjective.social_services || 0)  - (primaryDesignatedManagementObjective.multiple_use || 0)  - (primaryDesignatedManagementObjective.other || 0))
                     : null`,
