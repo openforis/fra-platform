@@ -2,7 +2,7 @@ import { CountryIso } from '@meta/area'
 import { NodeValueValidation } from '@meta/assessment/nodeValueValidation'
 
 export interface NodeValue {
-  raw: string | null
+  raw: any
   estimated?: boolean
   calculated?: boolean
   odp?: boolean

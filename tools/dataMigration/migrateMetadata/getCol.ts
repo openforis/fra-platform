@@ -73,7 +73,7 @@ export const getCol = (props: {
     col.props.labels = getLabels({ assessment, label, migration: colSpec.migration })
   }
 
-  // select migration
+  // select/multiselect migration
   if (colSpec.options) {
     col.props.select = {
       labelKeyPrefix: colSpec.optionsLabelKeyPrefix,

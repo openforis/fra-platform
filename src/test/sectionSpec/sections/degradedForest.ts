@@ -179,7 +179,7 @@ export const degradedForest: SectionSpec = {
                 },
                 {
                   idx: 0,
-                  type: 'select',
+                  type: 'multiselect',
                   options: [
                     { optionName: 'changeInForestStructureDecreaseInForestCanopy' },
                     { optionName: 'forestDisturbances' },
@@ -273,7 +273,7 @@ export const degradedForest: SectionSpec = {
                 },
                 {
                   idx: 1,
-                  type: 'select',
+                  type: 'multiselect',
                   options: [
                     { optionName: 'fieldInventoryAndObservations' },
                     { optionName: 'wallToWallRemoteSensingMapping' },
