@@ -4565,8 +4565,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   cycles: ['2020'],
                   colNames: ['1990', '2000', '2010', '2015', '2020'],
                   validateFns: [`validatorGreaterThanOrZero(primaryDesignatedManagementObjective.no_unknown)`],
-                  calcFormula:
-                    'extentOfForest.forestArea - (primaryDesignatedManagementObjective.production || 0)  - (primaryDesignatedManagementObjective.protection_of_soil_and_water || 0)  - (primaryDesignatedManagementObjective.conservation_of_biodiversity || 0)  - (primaryDesignatedManagementObjective.social_services || 0)  - (primaryDesignatedManagementObjective.multiple_use || 0)  - (primaryDesignatedManagementObjective.other || 0)',
+                  calcFormula: `extentOfForest.forestArea
+                    ? extentOfForest.forestArea - (primaryDesignatedManagementObjective.production || 0)  - (primaryDesignatedManagementObjective.protection_of_soil_and_water || 0)  - (primaryDesignatedManagementObjective.conservation_of_biodiversity || 0)  - (primaryDesignatedManagementObjective.social_services || 0)  - (primaryDesignatedManagementObjective.multiple_use || 0)  - (primaryDesignatedManagementObjective.other || 0)
+                    : null`,
                 },
               },
               {
@@ -4622,23 +4623,27 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 0,
-                    type: 'decimal',
+                    type: 'calculated',
                   },
                   {
                     idx: 1,
-                    type: 'decimal',
+                    type: 'calculated',
                   },
                   {
                     idx: 2,
-                    type: 'decimal',
+                    type: 'calculated',
                   },
                   {
                     idx: 3,
-                    type: 'decimal',
+                    type: 'calculated',
                   },
                   {
                     idx: 4,
-                    type: 'decimal',
+                    type: 'calculated',
+                  },
+                  {
+                    idx: 5,
+                    type: 'calculated',
                   },
                 ],
                 labelKey: 'fra.designatedManagementObjective.unknown2025',
@@ -4648,8 +4653,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   cycles: ['2025'],
                   colNames: ['1990', '2000', '2010', '2015', '2020', '2025'],
                   // validateFns: [`validatorGreaterThanOrZero(primaryDesignatedManagementObjective.no_unknown)`],
-                  // calcFormula:
-                  //   'extentOfForest.forestArea - (primaryDesignatedManagementObjective.production || 0)  - (primaryDesignatedManagementObjective.protection_of_soil_and_water || 0)  - (primaryDesignatedManagementObjective.conservation_of_biodiversity || 0)  - (primaryDesignatedManagementObjective.social_services || 0)  - (primaryDesignatedManagementObjective.multiple_use || 0)  - (primaryDesignatedManagementObjective.other || 0)',
+                  calcFormula: `extentOfForest.forestArea
+                    ? extentOfForest.forestArea - (primaryDesignatedManagementObjective.production || 0)  - (primaryDesignatedManagementObjective.protection_of_soil_and_water || 0)  - (primaryDesignatedManagementObjective.conservation_of_biodiversity || 0)  - (primaryDesignatedManagementObjective.social_services || 0)  - (primaryDesignatedManagementObjective.multiple_use || 0)  - (primaryDesignatedManagementObjective.other || 0)
+                    : null`,
                 },
               },
               {
