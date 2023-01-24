@@ -4566,7 +4566,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   colNames: ['1990', '2000', '2010', '2015', '2020'],
                   validateFns: [`validatorGreaterThanOrZero(primaryDesignatedManagementObjective.no_unknown)`],
                   calcFormula: `extentOfForest.forestArea
-                    ? Math.max(0, extentOfForest.forestArea - (primaryDesignatedManagementObjective.production || 0)  - (primaryDesignatedManagementObjective.protection_of_soil_and_water || 0)  - (primaryDesignatedManagementObjective.conservation_of_biodiversity || 0)  - (primaryDesignatedManagementObjective.social_services || 0)  - (primaryDesignatedManagementObjective.multiple_use || 0)  - (primaryDesignatedManagementObjective.other || 0))
+                    ? Math.max(0, extentOfForest.forestArea - (primaryDesignatedManagementObjective.production || 0) - (primaryDesignatedManagementObjective.protection_of_soil_and_water || 0) - (primaryDesignatedManagementObjective.conservation_of_biodiversity || 0) - (primaryDesignatedManagementObjective.social_services || 0) - (primaryDesignatedManagementObjective.multiple_use || 0) - (primaryDesignatedManagementObjective.other || 0))
                     : null`,
                 },
               },
@@ -4650,7 +4650,7 @@ export const FraSpecs: Record<string, SectionSpec> = {
                   colNames: ['1990', '2000', '2010', '2015', '2020', '2025'],
                   validateFns: [`validatorGreaterThanOrZero(primaryDesignatedManagementObjective.unknown)`],
                   calcFormula: `extentOfForest.forestArea
-                    ? Math.max(0, extentOfForest.forestArea - (primaryDesignatedManagementObjective.production || 0)  - (primaryDesignatedManagementObjective.protection_of_soil_and_water || 0)  - (primaryDesignatedManagementObjective.conservation_of_biodiversity || 0)  - (primaryDesignatedManagementObjective.social_services || 0)  - (primaryDesignatedManagementObjective.multiple_use || 0)  - (primaryDesignatedManagementObjective.other || 0))
+                    ? Math.max(0, extentOfForest.forestArea - (primaryDesignatedManagementObjective.production || 0) - (primaryDesignatedManagementObjective.protection_of_soil_and_water || 0) - (primaryDesignatedManagementObjective.conservation_of_biodiversity || 0) - (primaryDesignatedManagementObjective.social_services || 0) - (primaryDesignatedManagementObjective.multiple_use || 0) - (primaryDesignatedManagementObjective.other || 0))
                     : null`,
                 },
               },
