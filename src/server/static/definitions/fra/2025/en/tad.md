@@ -472,7 +472,7 @@ Explanatory note
 
 1. Includes both profit and non-profit entities and institutions.
 
-### INDIGENOUS PEOPLES AND LOCAL COMMUNITIES 
+### _INDIGENOUS PEOPLES AND LOCAL COMMUNITIES_ 
 
 > **Forest** owned by a group of individuals belonging to the same community residing within or in the vicinity of a forest area or forest owned by communities of indigenous peoples. The community members are co-owners that share exclusive rights and duties and benefits contribute to the community development.
 
@@ -493,11 +493,7 @@ Explanatory notes
 
 ### OTHER TYPES OF OWNERSHIP
 
-> Other kinds of ownership arrangements not covered by **public** or **private ownership** or forest area where ownership is unknown.
-
-Explanatory note
-
-1. Includes areas where ownership is unclear or disputed.
+> Other kinds of ownership arrangements not covered by **public** or **private ownership**.
 
 ### UNKNOWN OWNERSHIP
 
@@ -646,7 +642,7 @@ Explanatory notes
 1. If values are obtained from a point further down the production chain, transport costs and possible handling and/or processing costs should be subtracted whenever possible.
 2. Commercial value refers to actual market value and potential value of both marketed and non-marketed products.
 
---
+---
 
 # 8 Additional terms and definitions
 
