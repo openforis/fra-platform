@@ -17,24 +17,24 @@ type Props = {
 }
 
 export const useListenValidationsUpdate = (props: Props): void => {
-  const { assessmentName, cycleName, countryIso } = props
-  const { canEditTableData } = props
+  const { assessmentName, canEditTableData, cycleName, countryIso } = props
+
   const dispatch = useAppDispatch()
+  const nodeUpdateEvent = Sockets.getNodeValidationsUpdateEvent({ assessmentName, cycleName, countryIso })
 
   useEffect(() => {
-    const nodeUpdateEvent = Sockets.getNodeValidationsUpdateEvent({ assessmentName, cycleName, countryIso })
-
-    const listener = (args: [{ validations: NodeUpdates }]): void => {
-      const [{ validations }] = args
-      dispatch(AssessmentSectionActions.setNodeValues({ countryIso, nodeUpdates: validations }))
-    }
-
     if (canEditTableData) {
-      SocketClient.on(nodeUpdateEvent, listener)
-    }
+      const listener = (args: [{ validations: NodeUpdates }]): void => {
+        const [{ validations }] = args
+        dispatch(AssessmentSectionActions.setNodeValues({ nodeUpdates: validations }))
+      }
 
-    return () => {
-      SocketClient.off(nodeUpdateEvent, listener)
+      SocketClient.on(nodeUpdateEvent, listener)
+
+      return () => {
+        SocketClient.off(nodeUpdateEvent, listener)
+      }
     }
-  }, [assessmentName, cycleName, countryIso, canEditTableData, dispatch])
+    return undefined
+  }, [canEditTableData, dispatch, nodeUpdateEvent])
 }

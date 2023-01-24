@@ -6,7 +6,6 @@ import { AssessmentNames } from '@meta/assessment'
 import { useAssessment } from '@client/store/assessment'
 import MessageCenter from '@client/components/MessageCenter'
 
-import useGetUsers from './hooks/useGetUsers'
 import FraHome from './FraHome'
 import PanEuropeanHome from './PanEuropeanHome'
 
@@ -17,7 +16,6 @@ const Components: Record<string, React.FC> = {
 
 const AssessmentHome: React.FC = () => {
   const assessment = useAssessment()
-  useGetUsers()
 
   const Component = Components[assessment.props.name]
 
