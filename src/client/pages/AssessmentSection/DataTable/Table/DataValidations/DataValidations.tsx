@@ -6,7 +6,6 @@ import { Table } from '@meta/assessment'
 import { TableDatas } from '@meta/data'
 
 import { useNodeValueValidation, useTableData } from '@client/store/pages/assessmentSection'
-import { useIsDataLocked } from '@client/store/ui/dataLock'
 import { useCountryIso } from '@client/hooks'
 import Icon from '@client/components/Icon'
 
@@ -20,12 +19,11 @@ const DataValidations: React.FC<Props> = (props) => {
 
   const { t } = useTranslation()
   const countryIso = useCountryIso()
-  const dataLocked = useIsDataLocked()
   const nodeUpdate = useNodeValueValidation({ tableName })
   const data = useTableData({ table })
   const hasErrors = TableDatas.hasErrors({ countryIso, tableName, data })
 
-  if (!hasErrors || !dataLocked) {
+  if (!hasErrors) {
     return null
   }
 
