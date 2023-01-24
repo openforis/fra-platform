@@ -495,10 +495,6 @@ Explanatory notes
 
 > Other kinds of ownership arrangements not covered by **public** or **private ownership** or forest area where ownership is unknown.
 
-Explanatory note
-
-1. Includes areas where ownership is unclear or disputed.
-
 ### UNKNOWN OWNERSHIP
 
 > Forest area where ownership is unknown.
