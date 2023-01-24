@@ -179,7 +179,7 @@ export const degradedForest: SectionSpec = {
                 },
                 {
                   idx: 0,
-                  type: 'select',
+                  type: 'multiselect',
                   options: [
                     { optionName: 'changeInForestStructureDecreaseInForestCanopy' },
                     { optionName: 'forestDisturbances' },
@@ -273,7 +273,7 @@ export const degradedForest: SectionSpec = {
                 },
                 {
                   idx: 1,
-                  type: 'select',
+                  type: 'multiselect',
                   options: [
                     { optionName: 'fieldInventoryAndObservations' },
                     { optionName: 'wallToWallRemoteSensingMapping' },
@@ -347,6 +347,12 @@ export const degradedForest: SectionSpec = {
               variableExport: 'yearOfLatestAssessment',
               rowSpan: 2,
               variableName: 'yearOfLatestAssessment',
+              migration: {
+                validateFns: [
+                  `validatorIsYear(degradedForestMonitoring2025.yearOfLatestAssessment)`,
+                  `validatorNotGreaterThan(degradedForestMonitoring2025.yearOfLatestAssessment, '2024')`,
+                ],
+              },
             },
             {
               idx: 4,
@@ -361,13 +367,18 @@ export const degradedForest: SectionSpec = {
                 },
                 {
                   idx: 0,
-                  type: 'textarea',
+                  type: 'decimal',
                   colName: 'degradedAreaForThatYear',
                 },
               ],
               labelKey: 'fra.degradedForest.degradedAreaForThatYear',
               variableExport: 'degradedAreaForThatYear',
               variableName: 'degradedAreaForThatYear',
+              migration: {
+                validateFns: [
+                  `validatorTotalForest(extentOfForest.totalLandArea['2025'], degradedForestMonitoring2025.degradedAreaForThatYear)`,
+                ],
+              },
             },
           ],
           tableDataRequired: [],
