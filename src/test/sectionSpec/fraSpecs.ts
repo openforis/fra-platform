@@ -4641,10 +4641,6 @@ export const FraSpecs: Record<string, SectionSpec> = {
                     idx: 4,
                     type: 'calculated',
                   },
-                  {
-                    idx: 5,
-                    type: 'calculated',
-                  },
                 ],
                 labelKey: 'fra.designatedManagementObjective.unknown2025',
                 variableExport: 'unknown',
