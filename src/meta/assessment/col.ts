@@ -35,6 +35,7 @@ export interface ColStyle {
 
 export interface ColProps {
   calculateFn?: Record<CycleUuid, string>
+  validateFns?: Record<CycleUuid, Array<string>>
   colName?: string
   colType: ColType
   index?: number | string

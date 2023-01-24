@@ -3,6 +3,8 @@ import { Objects } from '@utils/objects'
 import { Assessment, Cycle, TableSection } from '@meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
+import { ColAdapter } from '@server/repository/adapter'
+import { ColDB } from '@server/repository/adapter/col'
 
 export const getManyMetadata = async (
   props: {
@@ -88,10 +90,7 @@ export const getManyMetadata = async (
                     calculateFn: row.props.calculateFn,
                     validateFns: row.props.validateFns,
                   },
-                  cols: cols.map(({ props: { labels, style, variableNo, calculateFn, ...otherProps }, ...col }) => ({
-                    ...Objects.camelize(col),
-                    props: { ...Objects.camelize(otherProps), labels, style, variableNo, calculateFn },
-                  })),
+                  cols: cols.map((col) => ColAdapter(col as unknown as ColDB)),
                 })),
               })),
             }
