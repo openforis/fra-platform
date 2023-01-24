@@ -20,18 +20,18 @@ export const calculateNode = async (
   client: BaseProtocol
 ): Promise<void> => {
   const {
-    countryIso,
     assessment,
-    cycle,
-    sectionName,
-    tableName,
-    variableName,
     colName,
+    countryIso,
+    cycle,
     formula,
-    row,
-    user,
     mergeOdp,
     nodeUpdates,
+    row,
+    sectionName,
+    tableName,
+    user,
+    variableName,
   } = props
   const dependencies = AssessmentMetaCaches.getCalculationsDependencies({ assessment, cycle, variableName, tableName })
   const data = await getTableData(

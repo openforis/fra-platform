@@ -8,7 +8,6 @@ import { Authorizer } from '@meta/user'
 import { useAppDispatch } from '@client/store'
 import { useAssessmentSection, useCountry, useCycle } from '@client/store/assessment'
 import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
-import { useIsDataLocked } from '@client/store/ui/dataLock'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 
@@ -53,7 +52,6 @@ const Cell: React.FC<Props> = (props) => {
   const user = useUser()
   const section = useAssessmentSection(sectionName)
   const cycle = useCycle()
-  const dataLocked = useIsDataLocked()
 
   const tableName = table.props.name
   const { variableName } = row.props
@@ -68,11 +66,11 @@ const Cell: React.FC<Props> = (props) => {
   const Component = Components[col.props.colType]
 
   const showError = useCallback(() => {
-    if (!valid && dataLocked) {
+    if (!valid) {
       const nodeUpdate: NodeUpdate = { tableName, variableName, colName, value: nodeValue }
       dispatch(AssessmentSectionActions.setNodeValueValidation({ nodeUpdate }))
     }
-  }, [colName, dataLocked, dispatch, nodeValue, tableName, valid, variableName])
+  }, [colName, dispatch, nodeValue, tableName, valid, variableName])
 
   if (!Component) return null
 
