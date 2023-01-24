@@ -41,8 +41,10 @@ export const Methods = {
 
     // Linear or Repeat last require a minimum number of ODP
     const minimumODPCount = method === Method.linear ? 2 : 1
+    const odpYears = Object.keys(data).filter((year) =>
+      fieldsSelected.every(({ variableName }) => Boolean(data?.[year]?.[variableName]?.odp))
+    )
 
-    const odps = fieldsSelected.flatMap(({ variableName }) => Object.values(data).filter((d) => d[variableName]?.odp))
-    return odps.length >= minimumODPCount
+    return odpYears.length >= minimumODPCount
   },
 }

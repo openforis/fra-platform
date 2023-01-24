@@ -17,19 +17,17 @@ type Props = {
 
 export const useListenNodeUpdates = (props: Props): void => {
   const dispatch = useAppDispatch()
+  const nodeUpdateEvent = Sockets.getNodeValuesUpdateEvent(props)
 
   useEffect(() => {
-    const { countryIso } = props
-    const nodeUpdateEvent = Sockets.getNodeValuesUpdateEvent(props)
-
     const listener = (args: [{ nodeUpdates: NodeUpdates }]): void => {
       const [{ nodeUpdates }] = args
-      dispatch(AssessmentSectionActions.setNodeValues({ countryIso, nodeUpdates }))
+      dispatch(AssessmentSectionActions.setNodeValues({ nodeUpdates }))
     }
 
     SocketClient.on(nodeUpdateEvent, listener)
     return () => {
       SocketClient.off(nodeUpdateEvent, listener)
     }
-  }, [dispatch, props])
+  }, [dispatch, nodeUpdateEvent])
 }
