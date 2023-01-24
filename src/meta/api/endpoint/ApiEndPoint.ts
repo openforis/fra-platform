@@ -100,10 +100,11 @@ export const ApiEndPoint = {
   Geo: {
     sepalProxy: () => apiPath('geo', 'sepal'),
     Layers: {
-      getForest: () => apiPath('geo', 'layers', 'forest'),
-      getForestAgreement: () => apiPath('geo', 'layers', 'forestAgreement'),
-      getBoundaries: () => apiPath('geo', 'layers', 'boundaries'),
-      getEstimations: () => apiPath('geo', 'estimations', 'forest'),
+      forest: () => apiPath('geo', 'layers', 'forest'),
+      forestAgreement: () => apiPath('geo', 'layers', 'forestAgreement'),
+      boundaries: () => apiPath('geo', 'layers', 'boundaries'),
+      estimations: () => apiPath('geo', 'estimations', 'forest'),
+      estimateForestAgreementArea: () => apiPath('geo', 'estimation', 'forestAgreement'),
     },
   },
 

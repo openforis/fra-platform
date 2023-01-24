@@ -15,6 +15,50 @@ const opacityQuery = query('opacity')
   .withMessage('validation.errors.invalidValue')
   .toFloat()
 
+const layerQuery = query('layer')
+  .default([])
+  .customSanitizer((layer) => {
+    if (Array.isArray(layer)) return Array.from(new Set<ForestSource>(layer))
+
+    return [layer]
+  })
+  .custom((layer) => {
+    const sourceOptions = Object.values(ForestSource)
+    if (layer.length >= 2 && layer.every((layerId: any) => sourceOptions.includes(layerId))) {
+      return true
+    }
+    return Promise.reject(Error('validation.errors.invalidValue'))
+  })
+
+const agreementLevelQuery = query('gteAgreementLevel')
+  .exists()
+  .bail()
+  .withMessage('validation.errors.requiredValue')
+  .isInt({ min: 1 })
+  .withMessage('validation.errors.invalidValue')
+  .bail()
+  .custom((value, { req }) => {
+    if (value > req.query.layer.length) {
+      return Promise.reject(Error('validation.errors.invalidValue'))
+    }
+    return true
+  })
+  .toInt()
+
+const hansenTreeCoverPercQuery = query('gteHansenTreeCoverPerc')
+  .customSanitizer((value, { req }) => {
+    if (!req.query.layer.includes(ForestSource.Hansen)) {
+      return 0
+    }
+    return value
+  })
+  .exists()
+  .bail()
+  .withMessage('validation.errors.requiredValue')
+  .isInt({ min: 0, max: 100 })
+  .withMessage('validation.errors.invalidValue')
+  .toInt()
+
 export const forestLayerSchema = [
   countryIsoQuery,
   opacityQuery,
@@ -41,52 +85,17 @@ export const forestLayerSchema = [
 export const forestAgreementLayerSchema = [
   countryIsoQuery,
   opacityQuery,
-
-  query('layer')
-    .default([])
-    .customSanitizer((layer) => {
-      if (Array.isArray(layer)) return Array.from(new Set<ForestSource>(layer))
-
-      return [layer]
-    })
-    .custom((layer) => {
-      const sourceOptions = Object.values(ForestSource)
-      if (layer.length >= 2 && layer.every((layerId: any) => sourceOptions.includes(layerId))) {
-        return true
-      }
-      return Promise.reject(Error('validation.errors.invalidValue'))
-    }),
-
-  query('gteAgreementLevel')
-    .exists()
-    .bail()
-    .withMessage('validation.errors.requiredValue')
-    .isInt({ min: 1 })
-    .withMessage('validation.errors.invalidValue')
-    .bail()
-    .custom((value, { req }) => {
-      if (value > req.query.layer.length) {
-        return Promise.reject(Error('validation.errors.invalidValue'))
-      }
-      return true
-    })
-    .toInt(),
-
-  query('gteHansenTreeCoverPerc')
-    .customSanitizer((value, { req }) => {
-      if (!req.query.layer.includes(ForestSource.Hansen)) {
-        return 0
-      }
-      return value
-    })
-    .exists()
-    .bail()
-    .withMessage('validation.errors.requiredValue')
-    .isInt({ min: 0, max: 100 })
-    .withMessage('validation.errors.invalidValue')
-    .toInt(),
+  layerQuery,
+  agreementLevelQuery,
+  hansenTreeCoverPercQuery,
 ]
-
+export const forestAgreementEstimationSchema = [
+  countryIsoQuery,
+  query('scale').default(100).isFloat({ min: 10, max: 500 }).withMessage('validation.errors.invalidValue').toFloat(),
+  layerQuery,
+  agreementLevelQuery,
+  hansenTreeCoverPercQuery,
+]
 export const forestEstimationsSchema = [
   countryIsoQuery,
   query('year')
@@ -102,4 +111,5 @@ export const GeoSchemes = {
   forestLayerSchema,
   forestAgreementLayerSchema,
   forestEstimationsSchema,
+  forestAgreementEstimationSchema,
 }
