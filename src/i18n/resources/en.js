@@ -612,6 +612,7 @@ The FRA team fra@fao.org
     totalLandArea: 'Total land area',
     fedAreasExceedTotalLandArea: 'Forest area and other wooded land exceed total land area',
     forestAreaDoesNotMatchPreviouslyReported: 'Forest area doesn’t match FRA 2015 area: {{previous}}',
+    forestAreaNetChangeDoesNotMatch: "Forest area net change doesn't match expected value: {{value}}",
     useOriginalDataPoints: 'Use national data points',
     dontUseOriginalDataPoints: 'Don’t use national data points',
     whatIsThis: 'What is this?',
@@ -1032,6 +1033,7 @@ The FRA team
     valuesAreInconsistentWithNetChange: 'Values are inconsistent with Forest area net change',
     valuesAreInconsistent1aOr1b: 'Values are inconsistent with Areas reported in tables 1a or 1b',
     mustBeEqualToPrivateForest: 'Subcategories sum should be equal to Private Ownership',
+    mustBeEqualToForestExpansion: 'Subcategories sum should be equal to Forest Expansion',
   },
 
   emoji: {

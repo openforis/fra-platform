@@ -20,6 +20,28 @@ const _getCalculateFn = (colSpec: ColSpec, cycles: string[], assessment: Assessm
   )
 }
 
+// Return validateFns prop in format Record<cycleUuid, Array<string>>
+const _getValidateFns = (colSpec: ColSpec, cycles: string[], assessment: Assessment): Record<string, Array<string>> => {
+  const validateFns = colSpec.migration?.validateFns
+
+  if (!validateFns) return undefined
+
+  if (Array.isArray(validateFns)) {
+    return cycles.reduce<Record<string, Array<string>>>(
+      (valiteFnsAgg, cycle) => ({ ...valiteFnsAgg, [cycle]: validateFns }),
+      {}
+    )
+  }
+
+  return Object.entries(validateFns).reduce<Record<string, Array<string>>>(
+    (acc, [cycleName, _validateFns]) => ({
+      ...acc,
+      [assessment.cycles.find((c) => c.name === cycleName).uuid]: _validateFns,
+    }),
+    {}
+  )
+}
+
 export const getCol = (props: {
   assessment: Assessment
   colSpec: ColSpec
@@ -48,6 +70,7 @@ export const getCol = (props: {
       {}
     )
   }
+
   const col: Col & { forceColName?: boolean } = {
     props: {
       cycles,
@@ -56,6 +79,7 @@ export const getCol = (props: {
       colName: colSpec.colName,
       variableNo,
       calculateFn: _getCalculateFn(colSpec, cycles, assessment),
+      validateFns: _getValidateFns(colSpec, cycles, assessment),
       style,
     },
     rowId: row.id,

@@ -7,12 +7,12 @@ import { ExpressionEvaluator } from '@server/controller/cycleData/updateDependen
 import { BaseProtocol } from '@server/db'
 
 export const validateNode = async (
-  props: Omit<PersistNodeValueProps, 'value' | 'user'> & { row: Row; data?: TableData },
+  props: Omit<PersistNodeValueProps, 'value' | 'user'> & { row: Row; data?: TableData; validateFns: string[] },
   client: BaseProtocol
 ): Promise<NodeValueValidation> => {
-  const { assessment, cycle, tableName, variableName, countryIso, colName, row, data: dataProps } = props
-
+  const { assessment, colName, countryIso, cycle, data: dataProps, row, tableName, variableName, validateFns } = props
   const dependencies = AssessmentMetaCaches.getValidationsDependencies({ assessment, cycle, tableName, variableName })
+
   const data =
     dataProps ??
     (await getTableData(
@@ -30,8 +30,8 @@ export const validateNode = async (
       client
     ))
 
-  const validations = row.props.validateFns?.[cycle.uuid]?.map((expression) =>
-    ExpressionEvaluator.evalFormula<NodeValueValidation>({
+  const validations = validateFns.map((expression) => {
+    return ExpressionEvaluator.evalFormula<NodeValueValidation>({
       assessment,
       countryIso,
       cycle,
@@ -40,7 +40,7 @@ export const validateNode = async (
       row,
       formula: expression,
     })
-  )
+  })
 
   return NodeValueValidations.merge(validations)
 }
