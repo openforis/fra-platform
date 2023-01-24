@@ -6,19 +6,19 @@ import { NodeValueValidation, NodeValueValidationMessage } from '@meta/assessmen
 
 import { Context } from '../context'
 
-export const validatorTotalForest: ExpressionFunction<Context> = {
-  name: 'validatorTotalForest',
+export const validatorEqualToTotalForest: ExpressionFunction<Context> = {
+  name: 'validatorEqualToTotalForest',
   minArity: 2,
   executor: () => {
-    return (forestArea?: string, totalForestArea?: string): NodeValueValidation => {
+    return (totalForestArea?: string, subCategoryValues?: Array<string>): NodeValueValidation => {
       const valid =
-        Objects.isEmpty(forestArea) ||
         Objects.isEmpty(totalForestArea) ||
-        !Numbers.greaterThanOrEqualTo(Numbers.abs(Numbers.sub(forestArea, totalForestArea)), 1)
+        !subCategoryValues?.every(Boolean) ||
+        Numbers.greaterThanWithTolerance(totalForestArea, Numbers.sum(subCategoryValues))
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
-        : [{ key: 'generalValidation.forestAreaDoesNotMatchExtentOfForest' }]
+        : [{ key: 'generalValidation.mustBeEqualToForestArea11' }]
 
       return { valid, messages }
     }

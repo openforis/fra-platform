@@ -1,6 +1,6 @@
 // @ts-nocheck
-import { SectionSpec } from '@test/sectionSpec'
-import { fraYears } from '@test/sectionSpec/fraYears'
+import { fraYears } from '../fraYears'
+import { SectionSpec } from '../sectionSpec'
 
 export const growingStock: SectionSpec = {
   sectionName: 'growingStock',
@@ -442,7 +442,6 @@ export const growingStock: SectionSpec = {
                   '(growingStockAvg.naturallyRegeneratingForest * forestCharacteristics.naturalForestArea) / 1000',
                 readonly: false,
                 validateFns: [
-                  `validatorSubCategory(growingStockTotal.forest,[growingStockTotal.naturallyRegeneratingForest,growingStockTotal.plantedForest])`,
                   `validatorEqualToTotalGrowingStock(growingStockTotal.forest, growingStockTotal.naturallyRegeneratingForest + growingStockTotal.plantedForest)`,
                 ],
               },
@@ -482,6 +481,9 @@ export const growingStock: SectionSpec = {
                 readonly: false,
                 dependantsExclude: [{ tableName: 'forestCharacteristics', variableName: 'primaryForest' }],
                 categoryLevel: 1,
+                validateFns: [
+                  `validatorSubCategory(growingStockTotal.naturallyRegeneratingForest,[growingStockTotal.primaryForest])`,
+                ],
               },
             },
             {
@@ -514,7 +516,6 @@ export const growingStock: SectionSpec = {
                 calcFormula: '(growingStockAvg.plantedForest * forestCharacteristics.plantedForest) / 1000',
                 readonly: false,
                 validateFns: [
-                  `validatorSubCategory(growingStockTotal.forest,[growingStockTotal.naturallyRegeneratingForest,growingStockTotal.plantedForest])`,
                   `validatorEqualToTotalGrowingStock(growingStockTotal.forest, growingStockTotal.naturallyRegeneratingForest + growingStockTotal.plantedForest)`,
                 ],
               },
@@ -586,6 +587,9 @@ export const growingStock: SectionSpec = {
                 cycles: ['2025'],
                 calcFormula:
                   '(growingStockAvg.plantationForestIntroducedArea * forestCharacteristics.plantationForestIntroducedArea) / 1000',
+                validateFns: [
+                  `validatorSubCategory(growingStockTotal.plantationForest,[growingStockTotal.plantationForestIntroducedArea])`,
+                ],
                 readonly: false,
                 dependantsExclude: [
                   { tableName: 'forestCharacteristics', variableName: 'plantationForestIntroducedArea' },
@@ -664,6 +668,9 @@ export const growingStock: SectionSpec = {
               validator: null,
               migration: {
                 calcFormula: '(growingStockAvg.forest * extentOfForest.forestArea) / 1000',
+                validateFns: [
+                  'validatorEqualToTotalForest(growingStockTotal.forest, [growingStockTotal.naturallyRegeneratingForest,growingStockTotal.plantedForest])',
+                ],
                 readonly: false,
               },
             },

@@ -1,6 +1,4 @@
 // @ts-nocheck
-import { growingStock } from '@test/sectionSpec/sections/growingStock'
-
 import { areaAffectedByFire } from './sections/areaAffectedByFire'
 import { carbonStock } from './sections/carbonStock'
 import { contactPersons } from './sections/contactPersons'
@@ -10,6 +8,7 @@ import { extentOfForest } from './sections/extentOfForest'
 import { forestAreaChange } from './sections/forestAreaChange'
 import { forestCharacteristics } from './sections/forestCharacteristics'
 import { forestOwnership } from './sections/forestOwnership'
+import { growingStock } from './sections/growingStock'
 import { holderOfManagementRights } from './sections/holderOfManagementRights'
 import { sustainableDevelopment } from './sections/sustainableDevelopment'
 import { reportYears } from './reportYears'
