@@ -7,7 +7,7 @@ import { useFilteredRoleNames } from '@client/store/ui/userManagement'
 
 import UserListButtonExport from '../UserListButtonExport'
 
-const UserListHeader: React.FC<{ isAdmin: boolean }> = ({ isAdmin }) => {
+const UserListHeader: React.FC<{ isAdmin: boolean; readOnly: boolean }> = ({ isAdmin, readOnly }) => {
   const filteredRoleNames = useFilteredRoleNames()
 
   const { t } = useTranslation()
@@ -24,9 +24,11 @@ const UserListHeader: React.FC<{ isAdmin: boolean }> = ({ isAdmin }) => {
             </th>
           ))}
         <th className="user-list__header-cell">{t('userManagement.email')}</th>
-        <th className="user-list__header-cell user-list__edit-column">
-          <UserListButtonExport />
-        </th>
+        {!readOnly && (
+          <th className="user-list__header-cell user-list__edit-column">
+            <UserListButtonExport />
+          </th>
+        )}
       </tr>
     </thead>
   )

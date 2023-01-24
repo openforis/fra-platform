@@ -19,6 +19,7 @@ import Navigation from '@client/components/Navigation'
 import AssessmentDataDownload from '@client/pages/AssessmentDataDownload'
 import AssessmentHome from '@client/pages/AssessmentHome'
 import AssessmentSection from '@client/pages/AssessmentSection'
+import useGetUsers from '@client/pages/Country/hooks/useGetUsers'
 import DataExport from '@client/pages/DataExport'
 import OriginalDataPoint from '@client/pages/OriginalDataPoint'
 import { SocketClient } from '@client/service/socket'
@@ -36,6 +37,7 @@ const Country: React.FC = () => {
   const assessment = useAssessment()
   const cycle = useCycle()
   const isDataExportView = useIsDataExportView()
+  useGetUsers()
 
   useEffect(() => {
     dispatch(AssessmentActions.getSections({ countryIso, assessmentName, cycleName }))

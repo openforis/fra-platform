@@ -11,20 +11,21 @@ import UserListHeader from './UserListHeader'
 type Props = {
   users: Array<User>
   isAdmin?: boolean
+  readOnly?: boolean
 }
 
-const UserList: React.FC<Props> = ({ users, isAdmin }) => {
+const UserList: React.FC<Props> = ({ users, isAdmin, readOnly }) => {
   const { t } = useTranslation()
 
   return users && users.length > 0 ? (
     <table className="user-list__table">
-      <UserListHeader isAdmin={isAdmin} />
+      <UserListHeader readOnly={readOnly} isAdmin={isAdmin} />
       <tbody>
         {users.map((user: User) =>
           isAdmin ? (
             <AdministrationListElement key={user.id} user={user} />
           ) : (
-            <CollaboratorListElement key={user.id} user={user} />
+            <CollaboratorListElement readOnly={readOnly} key={user.id} user={user} />
           )
         )}
       </tbody>
@@ -36,6 +37,7 @@ const UserList: React.FC<Props> = ({ users, isAdmin }) => {
 
 UserList.defaultProps = {
   isAdmin: false,
+  readOnly: false,
 }
 
 export default UserList

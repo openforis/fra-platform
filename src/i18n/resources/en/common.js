@@ -20,4 +20,5 @@ module.exports = {
   year: 'Year',
   filterCountries: 'Filter countries',
   dashboard: 'Dashboard',
+  copyToClipboard: 'Copy to clipboard',
 }
