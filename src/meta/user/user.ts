@@ -6,15 +6,23 @@ export enum UserStatus {
   inactive = 'inactive',
 }
 
+export type UserProps = {
+  // old fields
+  name: string
+  lang: string
+  institution?: string
+  position?: string
+  // new fields
+  title?: string
+  surname?: string
+}
+
 export interface User {
   id: number
-  institution?: string
   email: string
-  lang: string
-  name: string
-  position?: string
   profilePictureFile?: string
   profilePictureFilename?: string
+  props: UserProps
   roles: Array<UserRole<RoleName>>
   status: UserStatus
 }
