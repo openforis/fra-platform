@@ -260,7 +260,6 @@ export const sustainableDevelopment = {
                   colName: '2016',
                   migration: {
                     calculateFn: 'extentOfForest.forestArea / extentOfForest.totalLandArea * 100',
-
                     cycles: ['2020'],
                   },
                 },
@@ -270,7 +269,6 @@ export const sustainableDevelopment = {
                   colName: '2017',
                   migration: {
                     calculateFn: 'extentOfForest.forestArea / extentOfForest.totalLandArea * 100',
-
                     cycles: ['2020'],
                   },
                 },
@@ -280,7 +278,6 @@ export const sustainableDevelopment = {
                   colName: '2018',
                   migration: {
                     calculateFn: 'extentOfForest.forestArea / extentOfForest.totalLandArea * 100',
-
                     cycles: ['2020'],
                   },
                 },
@@ -290,7 +287,6 @@ export const sustainableDevelopment = {
                   colName: '2019',
                   migration: {
                     calculateFn: 'extentOfForest.forestArea / extentOfForest.totalLandArea * 100',
-
                     cycles: ['2020'],
                   },
                 },
@@ -870,33 +866,15 @@ export const sustainableDevelopment = {
                   labelKey: 'sustainableDevelopment.aboveGroundBiomassStockForests',
                   className: 'fra-table__category-cell',
                 },
-
                 {
                   idx: 0,
                   type: 'calculated',
                   colName: '2000',
                   migration: {
-                    cycles: ['2020'],
-                    calculateFn: 'biomassStock.forest_above_ground',
-                  },
-                },
-                {
-                  idx: 0,
-                  type: 'calculated',
-                  colName: '2000',
-                  migration: {
-                    cycles: ['2025'],
-                    calculateFn: 'biomassStockAvg.forest_above_ground',
-                  },
-                },
-
-                {
-                  idx: 1,
-                  type: 'calculated',
-                  colName: '2010',
-                  migration: {
-                    cycles: ['2020'],
-                    calculateFn: 'biomassStock.forest_above_ground',
+                    calculateFn: {
+                      '2020': 'biomassStock.forest_above_ground',
+                      '2025': 'biomassStockAvg.forest_above_ground',
+                    },
                   },
                 },
                 {
@@ -904,18 +882,10 @@ export const sustainableDevelopment = {
                   type: 'calculated',
                   colName: '2010',
                   migration: {
-                    cycles: ['2025'],
-                    calculateFn: 'biomassStockAvg.forest_above_ground',
-                  },
-                },
-
-                {
-                  idx: 2,
-                  type: 'calculated',
-                  colName: '2015',
-                  migration: {
-                    cycles: ['2020'],
-                    calculateFn: 'biomassStock.forest_above_ground',
+                    calculateFn: {
+                      '2020': 'biomassStock.forest_above_ground',
+                      '2025': 'biomassStockAvg.forest_above_ground',
+                    },
                   },
                 },
                 {
@@ -923,11 +893,12 @@ export const sustainableDevelopment = {
                   type: 'calculated',
                   colName: '2015',
                   migration: {
-                    cycles: ['2025'],
-                    calculateFn: 'biomassStockAvg.forest_above_ground',
+                    calculateFn: {
+                      '2020': 'biomassStock.forest_above_ground',
+                      '2025': 'biomassStockAvg.forest_above_ground',
+                    },
                   },
                 },
-
                 {
                   idx: 3,
                   type: 'calculated',
@@ -1805,7 +1776,7 @@ export const sustainableDevelopment = {
                 ...['2001', '2002', '2003', '2004', '2005', '2006', '2007', '2008', '2009'].map((colName, idx) => ({
                   idx: idx + 1,
                   type: 'calculated',
-                  colName: '2020',
+                  colName,
                   migration: {
                     cycles: ['2025'],
                   },
