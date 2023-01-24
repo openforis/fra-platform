@@ -32,7 +32,7 @@ export const postCountry = async (
         countryIso,
         assessmentName,
         country,
-        cycleName,
+        cycle,
         message,
       })
     }

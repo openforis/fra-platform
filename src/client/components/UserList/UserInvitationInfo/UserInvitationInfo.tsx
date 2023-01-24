@@ -22,16 +22,25 @@ const UserInvitationInfo: React.FC<{ user: User; onClose: () => void }> = ({ use
 
   const { invitationUuid } = Users.getRole(user, countryIso, cycle)
 
+  const url = `${window.location.origin}${ClientRoutes.Assessment.Cycle.Login.Invitation.getLink({
+    assessmentName: assessment.props.name,
+    cycleName: cycle.name,
+  })}?invitationUuid=${invitationUuid}`
   return (
     <div className="user-list__invitation-info">
       <div>
         <div>
-          {`${i18n.t('userManagement.invitationLink')}: ${
-            window.location.origin
-          }${ClientRoutes.Assessment.Cycle.Login.Invitation.getLink({
-            assessmentName: assessment.props.name,
-            cycleName: cycle.name,
-          })}?invitationUuid=${invitationUuid}`}
+          {`${i18n.t('userManagement.invitationLink')}: ${url}`}
+          <button
+            title={i18n.t('common.copyToClipboard')}
+            className="btn-transparent"
+            type="button"
+            onClick={() => {
+              navigator.clipboard.writeText(url)
+            }}
+          >
+            &#x2398;
+          </button>
         </div>
         <div>
           <button

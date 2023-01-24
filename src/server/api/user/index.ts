@@ -1,4 +1,5 @@
 import { Express } from 'express'
+import * as multer from 'multer'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 
@@ -8,14 +9,13 @@ import { acceptInvitation } from './acceptInvitation'
 import { getInvitation } from './getInvitation'
 import { getMany } from './getMany'
 import { getProfilePicture } from './getProfilePicture'
+import { getResetPassword } from './getResetPassword'
 import { getUser } from './getUser'
 import { invite } from './invite'
 import { removeInvitation } from './removeInvitation'
 import { sendInvitationEmail } from './sendInvitationEmail'
 import { updateSectionAuth } from './updateSectionAuth'
 import { updateUser } from './updateUser'
-import multer = require('multer')
-import { getResetPassword } from './getResetPassword'
 import { updateUserAdminRole } from './updateUserAdminRole'
 import { updateUserRoles } from './updateUserRoles'
 
