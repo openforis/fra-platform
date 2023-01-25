@@ -7,6 +7,7 @@ import { ClientRoutes } from '@meta/app'
 import { useAppDispatch } from '@client/store'
 import { AssessmentActions, useIsAppInitialized } from '@client/store/assessment'
 import Toaster from '@client/components/Toaster'
+import { useUserRedirect } from '@client/pages/PageRoutes/useUserRedirect'
 import { SocketClient } from '@client/service/socket'
 import { Urls } from '@client/utils'
 
@@ -19,6 +20,8 @@ const PageRoutes: React.FC = () => {
   const isAppInitialized = useIsAppInitialized()
 
   useTheme()
+  useUserRedirect()
+
   const { i18n } = useTranslation()
 
   useEffect(() => {
