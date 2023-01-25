@@ -43,6 +43,11 @@ const EditUserForm: React.FC<Props> = ({ user, canEditRoles }) => {
 
   const changeUser = useCallback((value: string, key: string) => setUserToEdit({ ...user, [key]: value }), [user])
 
+  const changeUserProperty = useCallback(
+    (value: string, key: string) => setUserToEdit({ ...user, props: { ...user.props, [key]: value } }),
+    [user]
+  )
+
   if (!user) return null
 
   const userRole = Users.getRole(user, countryIso, cycle)
@@ -51,7 +56,7 @@ const EditUserForm: React.FC<Props> = ({ user, canEditRoles }) => {
     <div className="edit-user__form-container">
       <ProfilePicture onChange={(profilePicture: File) => setProfilePicture(profilePicture)} userId={user.id} />
 
-      <TextInputFields onChange={changeUser} user={userToEdit} />
+      <TextInputFields onChange={changeUser} onChangeProperty={changeUserProperty} user={userToEdit} />
 
       {userRole?.role === RoleName.COLLABORATOR && <CollaboratorPermissions userRole={userRole} />}
 
