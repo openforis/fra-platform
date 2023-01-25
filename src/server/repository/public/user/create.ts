@@ -10,17 +10,14 @@ export const create = async (
   client: BaseProtocol = DB
 ): Promise<User> => {
   const {
-    user: {
-      props: { name },
-      email,
-    },
+    user: { props: userProperties, email },
   } = props
 
   const { id } = await client.one<User>(
     `
-        insert into public.users (name, email) values ($1, $2) returning *;
+        insert into public.users (email, props) values ($1, $2) returning *;
     `,
-    [name, email],
+    [email, userProperties],
     Objects.camelize
   )
 

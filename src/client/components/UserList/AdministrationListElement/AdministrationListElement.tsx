@@ -27,7 +27,9 @@ const AdministrationListElement: React.FC<{ user: User }> = ({ user }) => {
         'user-list__inactive-user': status === UserStatus.inactive,
       })}
     >
-      <UserField user={user} field="name" />
+      <td className="user-list__cell">
+        <div className="user-list__cell--read-only">{user.props.name}</div>
+      </td>
       {filteredRoleNames.map((roleName: RoleName) => (
         <UserRolesField key={roleName} roleName={roleName} user={user} />
       ))}
