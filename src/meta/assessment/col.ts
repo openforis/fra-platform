@@ -8,6 +8,7 @@ export enum ColType {
   integer = 'integer',
   noticeMessage = 'noticeMessage',
   placeholder = 'placeholder',
+  multiselect = 'multiselect',
   select = 'select',
   selectYesNo = 'selectYesNo',
   taxon = 'taxon',

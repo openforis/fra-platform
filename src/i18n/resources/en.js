@@ -1025,6 +1025,7 @@ The FRA team
     otherLandExceedsExtentOfForest: 'Exceeds Other land area (1a)',
     remainingLandExceedsExtentOfForest: 'Exceeds Remaining land area (1a)',
     valueMustBePositive: 'Value should be greater than zero',
+    valueMustBeYear: 'Value should be a valid year',
     emptyField: 'This field is empty',
     mustBeEqualToTotalGrowingStock: 'Value should be equal to Total Growing Stock (2a)',
     countryReportYearGreaterThanCurrentYear: 'Value should be greater or equal than {{minValue}}',
@@ -1034,6 +1035,8 @@ The FRA team
     valuesAreInconsistent1aOr1b: 'Values are inconsistent with Areas reported in tables 1a or 1b',
     mustBeEqualToPrivateForest: 'Subcategories sum should be equal to Private Ownership',
     mustBeEqualToForestExpansion: 'Subcategories sum should be equal to Forest Expansion',
+    mustBeEqualToPlantedForest: 'Subcategories sum should be equal to Planted Forest',
+    mustBeEqualToForestArea: 'Naturally regenerating forest + Planted forest must equal to Total Forest',
   },
 
   emoji: {
