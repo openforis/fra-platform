@@ -9,7 +9,7 @@ export enum UserStatus {
 export type UserProps = {
   // old fields
   name: string
-  lang: string
+  lang?: string
   institution?: string
   position?: string
   // new fields

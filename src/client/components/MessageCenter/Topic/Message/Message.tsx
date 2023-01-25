@@ -32,7 +32,7 @@ const Message: React.FC<MessageProps> = (props) => {
       <div className="message-header">
         <img className="message-avatar" src={ApiEndPoint.User.profilePicture(String(message.user.id))} alt="" />
         <div className="message-info">
-          <div className={classNames('message-author', { 'author-me': isMine })}>{message.user.name}</div>
+          <div className={classNames('message-author', { 'author-me': isMine })}>{message.user.props.name}</div>
 
           {isMine && !deleted && message.message !== 'Marked as resolved' && (
             <button

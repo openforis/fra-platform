@@ -83,7 +83,7 @@ const ContactPersons: React.FC = () => {
             {users.map((user) => (
               <tr key={user.id}>
                 <td className="fra-table__cell-left">
-                  <div className="text-input__readonly-view">{user.name}</div>
+                  <div className="text-input__readonly-view">{user.props.name}</div>
                 </td>
                 <td className="fra-table__cell-left">
                   <div className="text-input__readonly-view">

@@ -32,7 +32,7 @@ export type UserRoleProps = {
   }
 }
 
-export interface UserRole<N extends RoleName, P = UserRoleProps> {
+export interface UserRole<N extends RoleName, P = undefined> {
   id: number
   assessmentId?: number
   cycleUuid: string
@@ -64,7 +64,7 @@ export type CollaboratorSectionsProp =
    */
   'all' | 'none' | Record<string, { [key in keyof typeof CollaboratorEditPropertyType]?: boolean }>
 
-export type CollaboratorProps = UserRoleProps & {
+export type CollaboratorProps = {
   sections: CollaboratorSectionsProp
 }
 

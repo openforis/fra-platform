@@ -35,7 +35,7 @@ const CollaboratorListElement: React.FC<{ user: User; readOnly: boolean }> = ({ 
   const { acceptedAt, invitationUuid } = userRole
 
   const removeInvitation = useCallback(() => {
-    if (window.confirm(t('userManagement.confirmDelete', { user: user.name })))
+    if (window.confirm(t('userManagement.confirmDelete', { user: user.props.name })))
       dispatch(
         UserManagementActions.removeInvitation({
           assessmentName: assessment.props.name,
@@ -46,7 +46,7 @@ const CollaboratorListElement: React.FC<{ user: User; readOnly: boolean }> = ({ 
       ).then(() => {
         toaster.success(t('userManagement.invitationDeleted'))
       })
-  }, [t, user.name, dispatch, assessment.props.name, cycle.name, countryIso, invitationUuid, toaster])
+  }, [t, user.props.name, dispatch, assessment.props.name, cycle.name, countryIso, invitationUuid, toaster])
 
   return (
     <tr
@@ -55,7 +55,9 @@ const CollaboratorListElement: React.FC<{ user: User; readOnly: boolean }> = ({ 
         'user-list__inactive-user': user.status === UserStatus.inactive,
       })}
     >
-      <UserField user={user} field="name" />
+      <td className="user-list__cell">
+        <div className="user-list__cell--read-only">{user.props.name}</div>
+      </td>
       <UserRoleField user={user} countryIso={countryIso} />
       <UserField user={user} field="email" />
       {!readOnly && (

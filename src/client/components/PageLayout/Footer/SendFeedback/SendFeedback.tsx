@@ -13,7 +13,7 @@ const SendFeedback: React.FC = () => {
 
   let userInformationLine = ''
   if (user) {
-    userInformationLine = `${i18n.t('navigation.support.user')}: ${user.name} (${user.id})`
+    userInformationLine = `${i18n.t('navigation.support.user')}: ${user.props.name} (${user.id})`
   }
 
   const body = `

@@ -38,7 +38,7 @@ const UserListButtonExport = () => {
     } else roleValue = t(Users.getI18nRoleLabelKey(userRole?.role))
 
     return {
-      name: user.name,
+      name: user.props.name,
       [roleKey]: `${roleValue}${userRole?.invitationUuid ? ` - ${t('admin.invitationPending')}` : ''}`,
       email: user.email,
       loginEmail: userRole?.props.email || user.email,

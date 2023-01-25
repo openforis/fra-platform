@@ -30,10 +30,10 @@ const RecentActivityItem: React.FC<Props> = ({ activity }) => {
       <img
         className="landing__activity-avatar"
         src={ApiEndPoint.User.profilePicture(String(user.id))}
-        alt={user.name}
+        alt={user.props.name}
       />
       <div className="landing__activity-name">
-        <strong>{user.name}</strong>
+        <strong>{user.props.name}</strong>
         <span>{ActivityLogs.getLabelAction(activity, i18n)}</span>
         {ActivityLogs.hasSectionLink(activity) && (
           <Link
