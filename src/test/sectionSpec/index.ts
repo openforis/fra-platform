@@ -1,4 +1,4 @@
-export type { CalculateValue, ColOptionSpec, ColSpec, FormatValue } from './colSpec'
+export type { ColOptionSpec, ColSpec, FormatValue } from './colSpec'
 export { ColSpecFactory } from './colSpecFactory'
 export type { DescriptionSpec, DescriptionsSpec } from './descriptionsSpec'
 export type { RowChartSpec, RowSpec } from './rowSpec'
