@@ -103,8 +103,10 @@ export const ApiEndPoint = {
       forest: () => apiPath('geo', 'layers', 'forest'),
       forestAgreement: () => apiPath('geo', 'layers', 'forestAgreement'),
       boundaries: () => apiPath('geo', 'layers', 'boundaries'),
-      estimations: () => apiPath('geo', 'estimations', 'forest'),
-      estimateForestAgreementArea: () => apiPath('geo', 'estimation', 'forestAgreement'),
+    },
+    Estimations: {
+      forest: () => apiPath('geo', 'estimations', 'forest'),
+      forestAgreement: () => apiPath('geo', 'estimation', 'forestAgreement'),
     },
   },
 

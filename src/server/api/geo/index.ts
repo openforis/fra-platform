@@ -27,13 +27,13 @@ export const GeoApi = {
     )
 
     express.get(
-      ApiEndPoint.Geo.Layers.estimations(),
+      ApiEndPoint.Geo.Estimations.forest(),
       ValidationMiddleware.validateRequest(GeoSchemes.forestEstimationsSchema),
       getForestEstimations
     )
 
     express.get(
-      ApiEndPoint.Geo.Layers.estimateForestAgreementArea(),
+      ApiEndPoint.Geo.Estimations.forestAgreement(),
       ValidationMiddleware.validateRequest(GeoSchemes.forestAgreementEstimationSchema),
       GeeAuthMiddleware.requireLogin,
       estimateForestAgreementArea
