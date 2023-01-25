@@ -25,8 +25,6 @@ export const metadataFix = async (props: Props, client: BaseProtocol): Promise<v
                     (t.props ->> 'name' = 'forestAreaChange' and r.props ->> 'variableName' in ('forestAreaNetChange'))
                     or (t.props ->> 'name' = 'otherLandWithTreeCover' and
                         r.props ->> 'variableName' in ('otherLandWithTreeCoverTotal', 'otherLand'))
-                    or (t.props ->> 'name' = 'primaryDesignatedManagementObjective' and
-                        r.props ->> 'variableName' in ('no_unknown', 'totalForestArea'))
                     or (t.props ->> 'name' = 'forestOwnership' and
                         r.props ->> 'variableName' in ('other_or_unknown', 'totalForestArea'))
                     or (t.props ->> 'name' = 'holderOfManagementRights' and
@@ -54,5 +52,16 @@ export const metadataFix = async (props: Props, client: BaseProtocol): Promise<v
               and r.props ->> 'variableName' in ('forestAreaNetChange')
               and c.props ->> 'colName' = '2020-2025') as d
       where id = d.col_id;
+
+-- nonWoodForestProductsRemovals
+      update ${schema}.row
+      set props = jsonb_set(row.props, '{variableName}', to_jsonb(d.variable))
+      from (select r.id, 'product_' || (r.props ->> 'variableName'::varchar) as variable
+            from ${schema}.row r
+                     left join ${schema}."table" t on t.id = r.table_id
+            where t.props ->> 'name' = 'nonWoodForestProductsRemovals'
+              and r.props ->> 'type' = 'data'
+              and (r.props ->> 'index')::numeric < 10) as d
+      where d.id = row.id;
   `)
 }
