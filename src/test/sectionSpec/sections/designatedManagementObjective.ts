@@ -1,5 +1,17 @@
 // @ts-nocheck
+import { reportYears } from '../reportYears'
 import { SectionSpec } from '../sectionSpec'
+
+const colsData2025 = reportYears.map((colName, idx) => ({
+  idx,
+  colName,
+  type: 'decimal',
+  ...(colName === '2025' ? { migration: { cycles: ['2025'] } } : {}),
+}))
+const colsCalculated2025 = colsData2025.map((c) => ({ ...c, type: 'calculated' }))
+
+const colsData2020 = colsData2025.filter((c) => c.colName !== '2025')
+const colsCalculated2020 = colsData2020.map((c) => ({ ...c, type: 'calculated' }))
 
 export const designatedManagementObjective: SectionSpec = {
   sectionName: 'designatedManagementObjective',
@@ -29,11 +41,15 @@ export const designatedManagementObjective: SectionSpec = {
                 },
                 {
                   idx: 1,
-                  colSpan: 5,
-                  rowSpan: 1,
                   labelKey: 'designatedManagementObjective.areaUnitLabel',
                   className: 'fra-table__header-cell',
                   type: 'header',
+                  migration: {
+                    style: {
+                      '2020': { colSpan: 5, rowSpan: 1 },
+                      '2025': { colSpan: 6, rowSpan: 1 },
+                    },
+                  },
                 },
               ],
               type: 'header',
@@ -81,6 +97,17 @@ export const designatedManagementObjective: SectionSpec = {
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
+                {
+                  idx: 5,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  label: '2025',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                  migration: {
+                    cycles: ['2025'],
+                  },
+                },
               ],
               type: 'header',
             },
@@ -96,26 +123,7 @@ export const designatedManagementObjective: SectionSpec = {
                   variableNo: 'a',
                   className: 'fra-table__category-cell',
                 },
-                {
-                  idx: 0,
-                  type: 'decimal',
-                },
-                {
-                  idx: 1,
-                  type: 'decimal',
-                },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                {
-                  idx: 3,
-                  type: 'decimal',
-                },
-                {
-                  idx: 4,
-                  type: 'decimal',
-                },
+                ...colsData2025,
               ],
               labelKey: 'designatedManagementObjective.production',
               variableNo: 'a',
@@ -138,26 +146,7 @@ export const designatedManagementObjective: SectionSpec = {
                   variableNo: 'b',
                   className: 'fra-table__category-cell',
                 },
-                {
-                  idx: 0,
-                  type: 'decimal',
-                },
-                {
-                  idx: 1,
-                  type: 'decimal',
-                },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                {
-                  idx: 3,
-                  type: 'decimal',
-                },
-                {
-                  idx: 4,
-                  type: 'decimal',
-                },
+                ...colsData2025,
               ],
               labelKey: 'designatedManagementObjective.soilWaterProtection',
               variableNo: 'b',
@@ -180,26 +169,7 @@ export const designatedManagementObjective: SectionSpec = {
                   variableNo: 'c',
                   className: 'fra-table__category-cell',
                 },
-                {
-                  idx: 0,
-                  type: 'decimal',
-                },
-                {
-                  idx: 1,
-                  type: 'decimal',
-                },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                {
-                  idx: 3,
-                  type: 'decimal',
-                },
-                {
-                  idx: 4,
-                  type: 'decimal',
-                },
+                ...colsData2025,
               ],
               labelKey: 'designatedManagementObjective.biodiversityConservation',
               variableNo: 'c',
@@ -222,26 +192,7 @@ export const designatedManagementObjective: SectionSpec = {
                   variableNo: 'd',
                   className: 'fra-table__category-cell',
                 },
-                {
-                  idx: 0,
-                  type: 'decimal',
-                },
-                {
-                  idx: 1,
-                  type: 'decimal',
-                },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                {
-                  idx: 3,
-                  type: 'decimal',
-                },
-                {
-                  idx: 4,
-                  type: 'decimal',
-                },
+                ...colsData2025,
               ],
               labelKey: 'designatedManagementObjective.socialServices',
               variableNo: 'd',
@@ -264,26 +215,7 @@ export const designatedManagementObjective: SectionSpec = {
                   variableNo: 'e',
                   className: 'fra-table__category-cell',
                 },
-                {
-                  idx: 0,
-                  type: 'decimal',
-                },
-                {
-                  idx: 1,
-                  type: 'decimal',
-                },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                {
-                  idx: 3,
-                  type: 'decimal',
-                },
-                {
-                  idx: 4,
-                  type: 'decimal',
-                },
+                ...colsData2025,
               ],
               labelKey: 'designatedManagementObjective.multipleUse',
               variableNo: 'e',
@@ -306,26 +238,7 @@ export const designatedManagementObjective: SectionSpec = {
                   variableNo: 'f',
                   className: 'fra-table__category-cell',
                 },
-                {
-                  idx: 0,
-                  type: 'decimal',
-                },
-                {
-                  idx: 1,
-                  type: 'decimal',
-                },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                {
-                  idx: 3,
-                  type: 'decimal',
-                },
-                {
-                  idx: 4,
-                  type: 'decimal',
-                },
+                ...colsData2025,
               ],
               labelKey: 'designatedManagementObjective.other',
               variableNo: 'f',
@@ -348,26 +261,7 @@ export const designatedManagementObjective: SectionSpec = {
                   variableNo: 'g',
                   className: 'fra-table__category-cell',
                 },
-                {
-                  idx: 0,
-                  type: 'calculated',
-                },
-                {
-                  idx: 1,
-                  type: 'calculated',
-                },
-                {
-                  idx: 2,
-                  type: 'calculated',
-                },
-                {
-                  idx: 3,
-                  type: 'calculated',
-                },
-                {
-                  idx: 4,
-                  type: 'calculated',
-                },
+                ...colsCalculated2020,
               ],
               labelKey: 'designatedManagementObjective.unknown',
               variableExport: 'no_unknown',
@@ -375,7 +269,6 @@ export const designatedManagementObjective: SectionSpec = {
               variableName: 'no_unknown',
               migration: {
                 cycles: ['2020'],
-                colNames: ['1990', '2000', '2010', '2015', '2020'],
                 validateFns: [`validatorGreaterThanOrZero(primaryDesignatedManagementObjective.no_unknown)`],
                 calcFormula: `extentOfForest.forestArea
                     ? Math.max(0, extentOfForest.forestArea - (primaryDesignatedManagementObjective.production || 0) - (primaryDesignatedManagementObjective.protection_of_soil_and_water || 0) - (primaryDesignatedManagementObjective.conservation_of_biodiversity || 0) - (primaryDesignatedManagementObjective.social_services || 0) - (primaryDesignatedManagementObjective.multiple_use || 0) - (primaryDesignatedManagementObjective.other || 0))
@@ -393,26 +286,7 @@ export const designatedManagementObjective: SectionSpec = {
                   labelKey: 'fra.designatedManagementObjective.noDesignation',
                   className: 'fra-table__category-cell',
                 },
-                {
-                  idx: 0,
-                  type: 'decimal',
-                },
-                {
-                  idx: 1,
-                  type: 'decimal',
-                },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                {
-                  idx: 3,
-                  type: 'decimal',
-                },
-                {
-                  idx: 4,
-                  type: 'decimal',
-                },
+                ...colsData2025,
               ],
               labelKey: 'fra.designatedManagementObjective.noDesignation',
               variableExport: 'no_designation',
@@ -433,26 +307,7 @@ export const designatedManagementObjective: SectionSpec = {
                   labelKey: 'fra.designatedManagementObjective.unknown2025',
                   className: 'fra-table__category-cell',
                 },
-                {
-                  idx: 0,
-                  type: 'calculated',
-                },
-                {
-                  idx: 1,
-                  type: 'calculated',
-                },
-                {
-                  idx: 2,
-                  type: 'calculated',
-                },
-                {
-                  idx: 3,
-                  type: 'calculated',
-                },
-                {
-                  idx: 4,
-                  type: 'calculated',
-                },
+                ...colsCalculated2025,
               ],
               labelKey: 'fra.designatedManagementObjective.unknown2025',
               variableExport: 'unknown',
@@ -462,7 +317,7 @@ export const designatedManagementObjective: SectionSpec = {
                 colNames: ['1990', '2000', '2010', '2015', '2020', '2025'],
                 validateFns: [`validatorGreaterThanOrZero(primaryDesignatedManagementObjective.unknown)`],
                 calcFormula: `extentOfForest.forestArea
-                    ? Math.max(0, extentOfForest.forestArea - (primaryDesignatedManagementObjective.production || 0) - (primaryDesignatedManagementObjective.protection_of_soil_and_water || 0) - (primaryDesignatedManagementObjective.conservation_of_biodiversity || 0) - (primaryDesignatedManagementObjective.social_services || 0) - (primaryDesignatedManagementObjective.multiple_use || 0) - (primaryDesignatedManagementObjective.other || 0))
+                    ? Math.max(0, extentOfForest.forestArea - (primaryDesignatedManagementObjective.production || 0) - (primaryDesignatedManagementObjective.protection_of_soil_and_water || 0) - (primaryDesignatedManagementObjective.conservation_of_biodiversity || 0) - (primaryDesignatedManagementObjective.social_services || 0) - (primaryDesignatedManagementObjective.multiple_use || 0) - (primaryDesignatedManagementObjective.other || 0) - (primaryDesignatedManagementObjective.no_designation || 0))
                     : null`,
               },
             },
@@ -478,32 +333,13 @@ export const designatedManagementObjective: SectionSpec = {
                   linkToSection: 'extentOfForest',
                   className: 'fra-table__category-cell',
                 },
-                {
-                  idx: 0,
-                  type: 'calculated',
-                },
-                {
-                  idx: 1,
-                  type: 'calculated',
-                },
-                {
-                  idx: 2,
-                  type: 'calculated',
-                },
-                {
-                  idx: 3,
-                  type: 'calculated',
-                },
-                {
-                  idx: 4,
-                  type: 'calculated',
-                },
+                ...colsCalculated2025,
               ],
               labelKey: 'designatedManagementObjective.totalForestArea',
               linkToSection: 'extentOfForest',
               variableName: 'totalForestArea',
               migration: {
-                colNames: ['1990', '2000', '2010', '2015', '2020'],
+                colNames: ['1990', '2000', '2010', '2015', '2020', '2025'],
                 calcFormula: 'extentOfForest.forestArea',
                 validateFns: [
                   `validatorNotGreaterThanForest(extentOfForest.forestArea, (primaryDesignatedManagementObjective.production || 0) + (primaryDesignatedManagementObjective.protection_of_soil_and_water || 0) + (primaryDesignatedManagementObjective.conservation_of_biodiversity || 0) + (primaryDesignatedManagementObjective.social_services || 0) + (primaryDesignatedManagementObjective.multiple_use || 0) + (primaryDesignatedManagementObjective.other || 0) + (primaryDesignatedManagementObjective.no_designation || 0) + (primaryDesignatedManagementObjective.unknown || 0))`,
@@ -526,6 +362,12 @@ export const designatedManagementObjective: SectionSpec = {
           columnsExportAlways: [],
           columnsExport: [1990, 2000, 2010, 2015, 2020],
           unit: 'haThousand',
+          migration: {
+            columnNames: {
+              '2020': colsData2020.map((c) => c.colName),
+              '2025': colsData2025.map((c) => c.colName),
+            },
+          },
         },
       ],
       titleKey: 'designatedManagementObjective.primaryDesignatedManagementObjective',
@@ -555,11 +397,15 @@ export const designatedManagementObjective: SectionSpec = {
                 },
                 {
                   idx: 1,
-                  colSpan: 5,
-                  rowSpan: 1,
                   labelKey: 'designatedManagementObjective.areaUnitLabel',
                   className: 'fra-table__header-cell',
                   type: 'header',
+                  migration: {
+                    style: {
+                      '2020': { colSpan: 5, rowSpan: 1 },
+                      '2025': { colSpan: 6, rowSpan: 1 },
+                    },
+                  },
                 },
               ],
               type: 'header',
@@ -607,6 +453,17 @@ export const designatedManagementObjective: SectionSpec = {
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
+                {
+                  idx: 5,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  label: '2025',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                  migration: {
+                    cycles: ['2025'],
+                  },
+                },
               ],
               type: 'header',
             },
@@ -621,26 +478,7 @@ export const designatedManagementObjective: SectionSpec = {
                   labelKey: 'designatedManagementObjective.production',
                   className: 'fra-table__category-cell',
                 },
-                {
-                  idx: 0,
-                  type: 'decimal',
-                },
-                {
-                  idx: 1,
-                  type: 'decimal',
-                },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                {
-                  idx: 3,
-                  type: 'decimal',
-                },
-                {
-                  idx: 4,
-                  type: 'decimal',
-                },
+                ...colsData2025,
               ],
               labelKey: 'designatedManagementObjective.production',
             },
@@ -655,26 +493,7 @@ export const designatedManagementObjective: SectionSpec = {
                   labelKey: 'designatedManagementObjective.soilWaterProtection',
                   className: 'fra-table__category-cell',
                 },
-                {
-                  idx: 0,
-                  type: 'decimal',
-                },
-                {
-                  idx: 1,
-                  type: 'decimal',
-                },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                {
-                  idx: 3,
-                  type: 'decimal',
-                },
-                {
-                  idx: 4,
-                  type: 'decimal',
-                },
+                ...colsData2025,
               ],
               labelKey: 'designatedManagementObjective.soilWaterProtection',
             },
@@ -689,26 +508,7 @@ export const designatedManagementObjective: SectionSpec = {
                   labelKey: 'designatedManagementObjective.biodiversityConservation',
                   className: 'fra-table__category-cell',
                 },
-                {
-                  idx: 0,
-                  type: 'decimal',
-                },
-                {
-                  idx: 1,
-                  type: 'decimal',
-                },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                {
-                  idx: 3,
-                  type: 'decimal',
-                },
-                {
-                  idx: 4,
-                  type: 'decimal',
-                },
+                ...colsData2025,
               ],
               labelKey: 'designatedManagementObjective.biodiversityConservation',
             },
@@ -723,26 +523,7 @@ export const designatedManagementObjective: SectionSpec = {
                   labelKey: 'designatedManagementObjective.socialServices',
                   className: 'fra-table__category-cell',
                 },
-                {
-                  idx: 0,
-                  type: 'decimal',
-                },
-                {
-                  idx: 1,
-                  type: 'decimal',
-                },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                {
-                  idx: 3,
-                  type: 'decimal',
-                },
-                {
-                  idx: 4,
-                  type: 'decimal',
-                },
+                ...colsData2025,
               ],
               labelKey: 'designatedManagementObjective.socialServices',
             },
@@ -757,26 +538,7 @@ export const designatedManagementObjective: SectionSpec = {
                   labelKey: 'designatedManagementObjective.other',
                   className: 'fra-table__category-cell',
                 },
-                {
-                  idx: 0,
-                  type: 'decimal',
-                },
-                {
-                  idx: 1,
-                  type: 'decimal',
-                },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                {
-                  idx: 3,
-                  type: 'decimal',
-                },
-                {
-                  idx: 4,
-                  type: 'decimal',
-                },
+                ...colsData2025,
               ],
               labelKey: 'designatedManagementObjective.other',
             },
@@ -788,6 +550,12 @@ export const designatedManagementObjective: SectionSpec = {
           },
           dataExport: true,
           columnsExportAlways: [],
+          migration: {
+            columnNames: {
+              '2020': colsData2020.map((c) => c.colName),
+              '2025': colsData2025.map((c) => c.colName),
+            },
+          },
         },
       ],
       titleKey: 'designatedManagementObjective.totalAreaWithDesignatedManagementObjective',
