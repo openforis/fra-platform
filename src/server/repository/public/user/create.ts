@@ -6,11 +6,14 @@ import { BaseProtocol, DB } from '@server/db'
 import { getOne } from '@server/repository/public/user/getOne'
 
 export const create = async (
-  props: { user: Pick<User, 'name' | 'email'> },
+  props: { user: Pick<User, 'email' | 'props'> },
   client: BaseProtocol = DB
 ): Promise<User> => {
   const {
-    user: { name, email },
+    user: {
+      props: { name },
+      email,
+    },
   } = props
 
   const { id } = await client.one<User>(

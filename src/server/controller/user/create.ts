@@ -7,7 +7,7 @@ import { UserProviderRepository } from '@server/repository/public/userProvider'
 
 export const create = async (
   props: {
-    user: Pick<User, 'name' | 'email'>
+    user: Pick<User, 'email' | 'props'>
     provider: Pick<UserAuthProvider<AuthProviderGoogleProps | AuthProviderLocalProps>, 'provider' | 'props'>
   },
   client: BaseProtocol = DB
