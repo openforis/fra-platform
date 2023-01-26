@@ -73,18 +73,18 @@ export const profilePictureUri = (userId: number) => ApiEndPoint.User.profilePic
 export const validProfilePicture = (file: File) => !file || file.size <= 1000000
 
 // validation methods
-export const validName = (user: Partial<User>) => !Objects.isEmpty(user.name)
-export const validRole = (user: Partial<User>) => !Objects.isEmpty(user.roles)
+export const validName = (value: string) => !Objects.isEmpty(value)
+export const validRole = (value: string) => !Objects.isEmpty(value)
 
-export const validEmail = (user: Partial<User>) => {
+export const validEmail = (value: string) => {
   // const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   const re = /.+@.+/
-  return re.test(user.email)
+  return re.test(value)
 }
 
 export const validateFields = (user: User) => ({
-  name: validName(user),
-  email: validEmail(user),
+  email: validEmail(user.email),
+  name: validName(user.props.name),
 })
 
 export const validate = (user: User) => {
