@@ -9,6 +9,29 @@ export enum RoleName {
   VIEWER = 'VIEWER',
 }
 
+export type UserRoleProps = {
+  userInfo: {
+    // collaborator
+    professionalTitle?: string
+    organizationalUnit?: string
+    organization?: string
+    // non collaborator
+    address?: {
+      street?: string
+      zipCode?: string
+      poBox?: string
+      city?: string
+      country?: CountryIso
+    }
+    primaryEmail?: string
+    secondaryEmail?: string
+    primaryPhoneNo?: string
+    secondaryPhoneNo?: string
+    skype?: string
+    preferredWayOfContacting?: string
+  }
+}
+
 export interface UserRole<N extends RoleName, P = undefined> {
   id: number
   assessmentId?: number
@@ -27,10 +50,12 @@ export type Administrator = UserRole<RoleName.ADMINISTRATOR>
 export type NationalCorrespondent = UserRole<RoleName.NATIONAL_CORRESPONDENT>
 export type Reviewer = UserRole<RoleName.REVIEWER>
 export type Viewer = UserRole<RoleName.VIEWER>
+
 export enum CollaboratorEditPropertyType {
   tableData = 'tableData',
   descriptions = 'descriptions',
 }
+
 export type CollaboratorSectionsProp =
   /**
    * all = all sections enabled for editing
@@ -42,4 +67,5 @@ export type CollaboratorSectionsProp =
 export type CollaboratorProps = {
   sections: CollaboratorSectionsProp
 }
+
 export type Collaborator = UserRole<RoleName.COLLABORATOR, CollaboratorProps>
