@@ -3,13 +3,15 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import createDebounce from 'redux-debounced'
 
-import axiosMiddleware from './axiosMiddleware'
+import axiosMiddleware from './middleware/axios'
+import { listenerMiddleware } from './middleware/listener'
 import rootReducer from './rootReducer'
 import { RootState } from './RootState'
 
 const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(createDebounce(), axiosMiddleware),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().prepend(listenerMiddleware.middleware).concat(createDebounce(), axiosMiddleware),
 })
 const asyncReducers: any = {}
 
