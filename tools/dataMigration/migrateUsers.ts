@@ -50,7 +50,7 @@ export const migrateUsers = async (props: { client: BaseProtocol }): Promise<voi
                    when u_l.active then 'active'::users_status
                    else 'invitationPending'::users_status
                    end as status,
-               jsonb_build_object('name', u_l.name, 'institution', u_l.institution, 'lang', u_l.lang, 'position', u_l.position) as props
+               jsonb_build_object('name', u_l.name, 'lang', u_l.lang) as props
         from _legacy.fra_user u_l;
     `
   )
