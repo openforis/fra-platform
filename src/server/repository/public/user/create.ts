@@ -1,17 +1,20 @@
 import { Objects } from '@utils/objects'
 
 import { User } from '@meta/user'
+import { UserProps } from '@meta/user/user'
 
 import { BaseProtocol, DB } from '@server/db'
 import { getOne } from '@server/repository/public/user/getOne'
 
 export const create = async (
-  props: { user: Pick<User, 'email' | 'props'> },
+  props: { user: { email: string; props: Partial<UserProps> } },
   client: BaseProtocol = DB
 ): Promise<User> => {
   const {
     user: { props: userProperties, email },
   } = props
+
+  if (!userProperties.lang) userProperties.lang = 'en'
 
   const { id } = await client.one<User>(
     `
