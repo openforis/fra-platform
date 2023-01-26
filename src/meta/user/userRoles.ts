@@ -1,4 +1,5 @@
 import { AssessmentStatus } from '@meta/area/country'
+import { User } from '@meta/user/user'
 
 import { RoleName, UserRole } from './userRole'
 
@@ -25,8 +26,22 @@ const getRecipientRoles = (props: { status: AssessmentStatus }) => {
   }
 }
 
+const getLastRole = (user: User) => {
+  if (!user || !user.roles) return undefined
+
+  const { roles } = user
+  if (roles.length === 1) return roles[0]
+
+  const _roles = [...roles].sort((roleA, roleB) => {
+    return roleB.acceptedAt.localeCompare(roleA.acceptedAt)
+  })
+
+  return _roles[0]
+}
+
 export const UserRoles = {
   isInvitationExpired,
   noRole,
   getRecipientRoles,
+  getLastRole,
 }

@@ -95,14 +95,34 @@ export const validate = (user: User) => {
   }
 }
 
+const isPersonalInfoRequired = (user: User, role: UserRole<RoleName, any>) => {
+  // If no user or user is administrator, not required to fill information
+  if (!user || isAdministrator(user) || !role) return false
+
+  // Only National Correspondant, Alternate NC, and Collaborator required to fill information
+  const hasCorrectRole = [
+    RoleName.NATIONAL_CORRESPONDENT,
+    RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
+    RoleName.COLLABORATOR,
+  ].includes(role.role)
+
+  // Check if user is missing any data in given properties
+  const missingData = ['institution', 'position', 'email', 'name'].some((prop: keyof User) =>
+    Objects.isEmpty(user[prop])
+  )
+
+  return hasCorrectRole && missingData
+}
+
 export const Users = {
   getRole,
 
   isAdministrator,
-  isCollaborator,
-  isReviewer,
-  isNationalCorrespondent,
   isAlternateNationalCorrespondent,
+  isCollaborator,
+  isNationalCorrespondent,
+  isPersonalInfoRequired,
+  isReviewer,
   isViewer,
 
   getRolesAllowedToEdit,
