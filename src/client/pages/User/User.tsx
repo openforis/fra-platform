@@ -1,3 +1,4 @@
+import './User.scss'
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
@@ -11,6 +12,7 @@ import { UserManagementActions } from '@client/store/ui/userManagement'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import EditUserForm from '@client/components/EditUserForm'
+import ButtonContinue from '@client/pages/User/ButtonContinue'
 
 const User: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -48,10 +50,10 @@ const User: React.FC = () => {
   if (!userToEdit) return null
 
   const canEditRoles = isAdministrator && user.id !== userToEdit.id
-
   return (
-    <div className="app-view__content">
+    <div className="app-view__content user-container">
       {canEditUser && <EditUserForm canEditRoles={canEditRoles} user={userToEdit} />}
+      <ButtonContinue />
     </div>
   )
 }

@@ -40,6 +40,7 @@ const putUser = Functions.debounce(
   'updateUser'
 )
 
-export const updateUser = createAsyncThunk<void, Params>('userManagement/put/update', (params) => {
+export const updateUser = createAsyncThunk<Params, Params>('userManagement/put/update', (params) => {
   putUser(params)
+  return params
 })
