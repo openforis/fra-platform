@@ -38,3 +38,15 @@ export type ForestEstimationsRequest = Request<
     year: any
   }
 >
+export type ForestAgreementAreaEstimationRequest = Request<
+  never,
+  never,
+  never,
+  {
+    countryIso: CountryIso
+    gteAgreementLevel: any
+    gteHansenTreeCoverPerc?: any
+    layer: Array<ForestSource>
+    scale: any
+  }
+>
