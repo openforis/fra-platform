@@ -119,12 +119,15 @@ export const agreementPalette = [
   '#000000', // black
 ]
 
-const forestAgreementRecipes: Array<{
+export const forestAgreementRecipes: Array<{
+  labelKey: string
   layers: Array<ForestSource>
   gteHansenTreeCoverPerc?: number
   forestAreaDataProperty: string
+  gteAgreementLevel: number
 }> = [
   {
+    labelKey: 'allAndHansen10',
     layers: [
       ForestSource.TandemX,
       ForestSource.JAXA,
@@ -137,8 +140,10 @@ const forestAgreementRecipes: Array<{
     ],
     gteHansenTreeCoverPerc: 10,
     forestAreaDataProperty: 'faAgreementHansen10',
+    gteAgreementLevel: 1,
   },
   {
+    labelKey: 'allAndHansen20',
     layers: [
       ForestSource.JAXA,
       ForestSource.TandemX,
@@ -151,8 +156,10 @@ const forestAgreementRecipes: Array<{
     ],
     gteHansenTreeCoverPerc: 20,
     forestAreaDataProperty: 'faAgreementHansen20',
+    gteAgreementLevel: 1,
   },
   {
+    labelKey: 'allAndHansen30',
     layers: [
       ForestSource.JAXA,
       ForestSource.TandemX,
@@ -165,15 +172,20 @@ const forestAgreementRecipes: Array<{
     ],
     gteHansenTreeCoverPerc: 30,
     forestAreaDataProperty: 'faAgreementHansen30',
+    gteAgreementLevel: 1,
   },
   {
+    labelKey: 'esriEsaGloblandHansen10',
     layers: [ForestSource.ESRI, ForestSource.ESAWorldCover, ForestSource.GlobeLand, ForestSource.Hansen],
     gteHansenTreeCoverPerc: 10,
     forestAreaDataProperty: 'faAgreementEsriEsaGloHansen10',
+    gteAgreementLevel: 1,
   },
   {
+    labelKey: 'esriEsa',
     layers: [ForestSource.ESRI, ForestSource.ESAWorldCover],
     forestAreaDataProperty: 'faAgreementEsriEsa',
+    gteAgreementLevel: 1,
   },
 ]
 
