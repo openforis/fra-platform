@@ -9,36 +9,40 @@ export enum RoleName {
   VIEWER = 'VIEWER',
 }
 
-export type UserRoleProps = {
-  userInfo: {
-    // collaborator
-    professionalTitle?: string
-    organizationalUnit?: string
-    organization?: string
-    // non collaborator
-    address?: {
-      street?: string
-      zipCode?: string
-      poBox?: string
-      city?: string
-      country?: CountryIso
-    }
-    primaryEmail?: string
-    secondaryEmail?: string
-    primaryPhoneNo?: string
-    secondaryPhoneNo?: string
-    skype?: string
-    preferredWayOfContacting?: string
-  }
+export type UserRoleBaseInfo = {
+  professionalTitle?: string
+  organizationalUnit?: string
+  organization?: string
 }
 
-export interface UserRole<N extends RoleName, P = undefined> {
+export type UserRoleExtendedInfo = UserRoleBaseInfo & {
+  address?: {
+    street?: string
+    zipCode?: string
+    poBox?: string
+    city?: string
+    country?: CountryIso
+  }
+  primaryEmail?: string
+  secondaryEmail?: string
+  primaryPhoneNo?: string
+  secondaryPhoneNo?: string
+  skype?: string
+  preferredWayOfContacting?: string
+}
+
+export interface UserRole<
+  N extends RoleName,
+  P = undefined,
+  I extends UserRoleBaseInfo | UserRoleExtendedInfo = UserRoleExtendedInfo
+> {
   id: number
   assessmentId?: number
   cycleUuid: string
   countryIso?: CountryIso
   name: N
   props: P
+  info: I
   role: RoleName
   userId: number
   invitationUuid: string
@@ -68,4 +72,4 @@ export type CollaboratorProps = {
   sections: CollaboratorSectionsProp
 }
 
-export type Collaborator = UserRole<RoleName.COLLABORATOR, CollaboratorProps>
+export type Collaborator = UserRole<RoleName.COLLABORATOR, CollaboratorProps, UserRoleBaseInfo>
