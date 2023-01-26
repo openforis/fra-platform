@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
 
 import { ClientRoutes } from '@meta/app'
+import { RoleName } from '@meta/user'
 import { UserRoles } from '@meta/user/userRoles'
 
 import { useAppDispatch } from '@client/store'
@@ -29,7 +30,14 @@ const Landing: React.FC = () => {
 
   let url = ClientRoutes.Assessment.Cycle.Landing.getLink(urlParams)
 
-  if (userLastRole && userLastRole.countryIso) {
+  const redirectRoles = [
+    RoleName.REVIEWER,
+    RoleName.NATIONAL_CORRESPONDENT,
+    RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
+    RoleName.COLLABORATOR,
+  ]
+
+  if (userLastRole && userLastRole.countryIso && redirectRoles.includes(userLastRole.role)) {
     url = ClientRoutes.Assessment.Cycle.Country.Home.Root.getLink({
       ...urlParams,
       countryIso: userLastRole.countryIso,
