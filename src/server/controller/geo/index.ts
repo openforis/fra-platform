@@ -1,6 +1,6 @@
 import { getBoundariesLayer } from './getBoundariesLayer'
 import { getForestAgreementLayer } from './getForestAgreementLayer'
-import { getForestEstimations } from './getForestEstimations'
+import { estimateForestAgreementArea, getForestEstimations } from './getForestEstimations'
 import { getForestLayer } from './getForestLayer'
 
 export const GeoController = {
@@ -8,4 +8,5 @@ export const GeoController = {
   getForestAgreementLayer,
   getBoundariesLayer,
   getForestEstimations,
+  estimateForestAgreementArea,
 }

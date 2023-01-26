@@ -8,30 +8,37 @@ import { GeoSchemes } from '@server/middleware/validation/geoSchemes'
 
 import { getBoundariesLayer } from './getBoundariesLayer'
 import { getForestAgreementLayer } from './getForestAgreementLayer'
-import { getForestEstimations } from './getForestEstimations'
+import { estimateForestAgreementArea, getForestEstimations } from './getForestEstimations'
 import { getForestLayer } from './getForestLayer'
 
 export const GeoApi = {
   init: (express: Express): void => {
     express.get(
-      ApiEndPoint.Geo.Layers.getForest(),
+      ApiEndPoint.Geo.Layers.forest(),
       ValidationMiddleware.validateRequest(GeoSchemes.forestLayerSchema),
       GeeAuthMiddleware.requireLogin,
       getForestLayer
     )
     express.get(
-      ApiEndPoint.Geo.Layers.getForestAgreement(),
+      ApiEndPoint.Geo.Layers.forestAgreement(),
       ValidationMiddleware.validateRequest(GeoSchemes.forestAgreementLayerSchema),
       GeeAuthMiddleware.requireLogin,
       getForestAgreementLayer
     )
 
     express.get(
-      ApiEndPoint.Geo.Layers.getEstimations(),
+      ApiEndPoint.Geo.Estimations.forest(),
       ValidationMiddleware.validateRequest(GeoSchemes.forestEstimationsSchema),
       getForestEstimations
     )
 
-    express.get(ApiEndPoint.Geo.Layers.getBoundaries(), GeeAuthMiddleware.requireLogin, getBoundariesLayer)
+    express.get(
+      ApiEndPoint.Geo.Estimations.forestAgreement(),
+      ValidationMiddleware.validateRequest(GeoSchemes.forestAgreementEstimationSchema),
+      GeeAuthMiddleware.requireLogin,
+      estimateForestAgreementArea
+    )
+
+    express.get(ApiEndPoint.Geo.Layers.boundaries(), GeeAuthMiddleware.requireLogin, getBoundariesLayer)
   },
 }
