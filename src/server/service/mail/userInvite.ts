@@ -31,7 +31,7 @@ export const userInvite = async (props: {
     country: countryName,
     assessmentName,
     cycleName,
-    invitedUser: userToInvite.name,
+    invitedUser: userToInvite.props.name,
     role: roleName,
     link,
     url,

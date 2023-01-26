@@ -12,7 +12,9 @@ export const updateUser = async (req: Request, res: Response) => {
     const user = Requests.getUser(req)
 
     if (!Users.isAdministrator(user) && userToUpdate.id !== user.id) {
-      const { name } = await UserController.getOne({ id: userToUpdate.id })
+      const {
+        props: { name },
+      } = await UserController.getOne({ id: userToUpdate.id })
 
       userToUpdate.name = name
     }
