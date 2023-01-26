@@ -119,7 +119,7 @@ export const agreementPalette = [
   '#000000', // black
 ]
 
-const forestAgreementRecipes: Array<{
+export const forestAgreementRecipes: Array<{
   layers: Array<ForestSource>
   gteHansenTreeCoverPerc?: number
   forestAreaDataProperty: string

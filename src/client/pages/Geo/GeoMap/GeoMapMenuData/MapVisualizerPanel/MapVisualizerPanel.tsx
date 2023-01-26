@@ -2,7 +2,7 @@ import './MapVisualizerPanel.scss'
 import React, { useEffect, useRef } from 'react'
 
 import { ForestSource } from '@meta/geo'
-import { ForestSourceWithOptions, HansenPercentage } from '@meta/geo/forest'
+import { forestAgreementRecipes, ForestSourceWithOptions, HansenPercentage } from '@meta/geo/forest'
 
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useForestSourceOptions } from '@client/store/ui/geo'
@@ -72,6 +72,13 @@ const MapVisualizerPanel: React.FC = () => {
 
   return (
     <div className="geo-map-menu-data-visualizer-panel">
+      <p>Recipes</p>
+      <select>
+        <option>custom</option>
+        {forestAgreementRecipes.map((recipe) => (
+          <option key={recipe.forestAreaDataProperty}>{recipe.forestAreaDataProperty}</option>
+        ))}
+      </select>
       <p>Forest Layers</p>
       <div className="geo-map-menu-data-visualizer-panel-layers">
         {layers.map((layer, index) => {
