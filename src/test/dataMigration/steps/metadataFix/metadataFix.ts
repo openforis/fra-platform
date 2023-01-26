@@ -25,8 +25,6 @@ export const metadataFix = async (props: Props, client: BaseProtocol): Promise<v
                     (t.props ->> 'name' = 'forestAreaChange' and r.props ->> 'variableName' in ('forestAreaNetChange'))
                     or (t.props ->> 'name' = 'otherLandWithTreeCover' and
                         r.props ->> 'variableName' in ('otherLandWithTreeCoverTotal', 'otherLand'))
-                    or (t.props ->> 'name' = 'primaryDesignatedManagementObjective' and
-                        r.props ->> 'variableName' in ('no_unknown', 'totalForestArea'))
                     or (t.props ->> 'name' = 'forestOwnership' and
                         r.props ->> 'variableName' in ('other_or_unknown', 'totalForestArea'))
                     or (t.props ->> 'name' = 'holderOfManagementRights' and
