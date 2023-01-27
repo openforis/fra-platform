@@ -21,4 +21,5 @@ module.exports = {
   filterCountries: 'Filter countries',
   dashboard: 'Dashboard',
   copyToClipboard: 'Copy to clipboard',
+  continue: 'Continue',
 }

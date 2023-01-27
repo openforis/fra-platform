@@ -13,12 +13,15 @@ import { Urls } from '@client/utils'
 import Assessment from '../Assessment'
 import Landing from '../Landing'
 import { useTheme } from './useTheme'
+import { useUserRedirect } from './useUserRedirect'
 
 const PageRoutes: React.FC = () => {
   const dispatch = useAppDispatch()
   const isAppInitialized = useIsAppInitialized()
 
   useTheme()
+  useUserRedirect()
+
   const { i18n } = useTranslation()
 
   useEffect(() => {

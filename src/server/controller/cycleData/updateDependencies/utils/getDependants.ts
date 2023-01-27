@@ -12,12 +12,13 @@ import { isODPCell } from './isODPCell'
 
 type Props = {
   assessment: Assessment
+  colName: string
   countryIso: CountryIso
   cycle: Cycle
-  tableName: string
-  variableName: string
-  colName: string
   isODP?: boolean
+  tableName: string
+  type: 'calculations' | 'validations'
+  variableName: string
 }
 
 // Case 1 - ODP Edit: when editing an ODP,
@@ -30,8 +31,11 @@ type Props = {
 // all the other variables should not.
 
 export const getDependants = async (props: Props, client: BaseProtocol): Promise<VariableCache[]> => {
-  const { isODP, ...rest } = props
-  const dependants = AssessmentMetaCaches.getCalculationsDependants(rest)
+  const { isODP, type, ...rest } = props
+  const dependants =
+    type === 'calculations'
+      ? AssessmentMetaCaches.getCalculationsDependants(rest)
+      : AssessmentMetaCaches.getValidationsDependants(rest)
 
   // Case1
   if (isODP) {
