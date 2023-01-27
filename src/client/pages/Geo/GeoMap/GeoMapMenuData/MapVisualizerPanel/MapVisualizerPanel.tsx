@@ -108,6 +108,7 @@ const MapVisualizerPanel: React.FC = () => {
     }
 
     dispatch(GeoActions.setAgreementLayerSelected(true))
+    dispatch(GeoActions.setAgreementLevel(1))
   }, [forestOptions.recipe, dispatch])
 
   const toggleForestLayer = (key: ForestSource) => {
