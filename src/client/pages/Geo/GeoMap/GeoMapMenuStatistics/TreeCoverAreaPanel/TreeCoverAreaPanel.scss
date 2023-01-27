@@ -3,10 +3,10 @@
 .geo-map-menu-statistics-btn-download {
   float: right;
   width: 150px;
-  margin: 2em 4em 2em;
+  margin: $spacing-s $spacing-l $spacing-s;
 }
 
 .table-title {
-  padding: 0 0 2em 3em;
+  padding: 0 0 $spacing-s $spacing-m;
   margin: auto;
 }
