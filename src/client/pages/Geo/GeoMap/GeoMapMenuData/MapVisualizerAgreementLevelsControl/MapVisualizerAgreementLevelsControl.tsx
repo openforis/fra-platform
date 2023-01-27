@@ -89,6 +89,11 @@ const AgreementLevelsControl: React.FC = () => {
     dispatch(GeoActions.setAgreementLayerSelected(selected))
   }
 
+  const setAgreementLevel = (level: number) => {
+    dispatch(GeoActions.setRecipe('custom'))
+    dispatch(GeoActions.setAgreementLevel(level))
+  }
+
   return forestOptions.selected.length >= 2 ? (
     <GeoMapMenuListElement
       title="Agreement layer"
@@ -135,7 +140,7 @@ const AgreementLevelsControl: React.FC = () => {
                       type="checkbox"
                       checked={level <= forestOptions.agreementLevel}
                       disabled={disabled}
-                      onChange={() => dispatch(GeoActions.setAgreementLevel(level))}
+                      onChange={() => setAgreementLevel(level)}
                       style={style}
                     />
                     <label htmlFor={id}>{level}</label>
