@@ -84,12 +84,17 @@ const AgreementLevelsControl: React.FC = () => {
     dispatch,
   ])
 
+  const toggleAgreementLayer = (selected: boolean) => {
+    dispatch(GeoActions.setRecipe('custom'))
+    dispatch(GeoActions.setAgreementLayerSelected(selected))
+  }
+
   return forestOptions.selected.length >= 2 ? (
     <GeoMapMenuListElement
       title="Agreement layer"
       tabIndex={layers.length * -1 - 1}
       checked={forestOptions.agreementLayerSelected}
-      onCheckboxClick={() => dispatch(GeoActions.setAgreementLayerSelected(!forestOptions.agreementLayerSelected))}
+      onCheckboxClick={() => toggleAgreementLayer(!forestOptions.agreementLayerSelected)}
     >
       <>
         {forestOptions.agreementLayerSelected && <LayerOptionsPanel layerKey={agreementLayerKey} />}
