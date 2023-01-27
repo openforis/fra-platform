@@ -122,7 +122,7 @@ export const agreementPalette = [
 
 export const forestAgreementRecipes: Array<{
   layers: Array<ForestSource>
-  gteHansenTreeCoverPerc?: number
+  gteHansenTreeCoverPerc?: HansenPercentage
   forestAreaDataProperty: string
 }> = [
   {
