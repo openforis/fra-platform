@@ -75,13 +75,17 @@ export const geoSlice = createSlice({
     setAgreementLevel: (state, { payload }: PayloadAction<number>) => {
       state.forestOptions.agreementLevel = payload
     },
+    resetAgreementLayer: (state) => {
+      state.forestOptions.agreementLayerSelected = initialState.forestOptions.agreementLayerSelected
+      state.forestOptions.agreementLevel = initialState.forestOptions.agreementLevel
+    },
     setRecipe: (state, { payload }: PayloadAction<string>) => {
       const recipe = forestAgreementRecipes.find((r) => r.forestAreaDataProperty === payload)
       const opacity = 0
       const agreementLevel = 1
 
       // Set the selected recipe
-      state.forestOptions.recipe = recipe.forestAreaDataProperty
+      state.forestOptions.recipe = payload
 
       if (!recipe) return
 
