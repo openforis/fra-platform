@@ -106,6 +106,8 @@ const MapVisualizerPanel: React.FC = () => {
     if (recipe.gteHansenTreeCoverPerc) {
       dispatch(GeoActions.setHansenPercentage(recipe.gteHansenTreeCoverPerc))
     }
+
+    dispatch(GeoActions.setAgreementLayerSelected(true))
   }, [forestOptions.recipe, dispatch])
 
   return (
