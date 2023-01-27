@@ -112,4 +112,5 @@ export const GeoSchemes = {
   forestAgreementLayerSchema,
   forestEstimationsSchema,
   forestAgreementEstimationSchema,
+  countryIsoSchema: [countryIsoQuery],
 }
