@@ -94,23 +94,6 @@ const MapVisualizerPanel: React.FC = () => {
     dispatch,
   ])
 
-  // React to recipe selection
-  useEffect(() => {
-    const recipeKey = forestOptions.recipe
-    const recipe = forestAgreementRecipes.find((r) => r.forestAreaDataProperty === recipeKey)
-
-    if (!recipe) return
-
-    dispatch(GeoActions.setForestLayers({ sources: recipe.layers, opacity: 0 }))
-
-    if (recipe.gteHansenTreeCoverPerc) {
-      dispatch(GeoActions.setHansenPercentage(recipe.gteHansenTreeCoverPerc))
-    }
-
-    dispatch(GeoActions.setAgreementLayerSelected(true))
-    dispatch(GeoActions.setAgreementLevel(1))
-  }, [forestOptions.recipe, dispatch])
-
   const toggleForestLayer = (key: ForestSource) => {
     dispatch(GeoActions.setRecipe('custom'))
     dispatch(GeoActions.toggleForestLayer(key))

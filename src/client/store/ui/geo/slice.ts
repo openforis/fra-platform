@@ -1,7 +1,7 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import { ForestSource, HansenPercentage } from '@meta/geo/forest'
+import { forestAgreementRecipes, ForestSource, HansenPercentage } from '@meta/geo/forest'
 
 import { postMosaicOptions } from './actions/postMosaicOptions'
 import { getForestLayer } from './actions'
@@ -76,7 +76,25 @@ export const geoSlice = createSlice({
       state.forestOptions.agreementLevel = payload
     },
     setRecipe: (state, { payload }: PayloadAction<string>) => {
-      state.forestOptions.recipe = payload
+      const recipe = forestAgreementRecipes.find((r) => r.forestAreaDataProperty === payload)
+      const opacity = 0
+      const agreementLevel = 1
+
+      // Set the selected recipe
+      state.forestOptions.recipe = recipe.forestAreaDataProperty
+
+      if (!recipe) return
+
+      // Select the layers based on the recipe and set their opacity
+      state.forestOptions.selected = recipe.layers
+      state.forestOptions.opacity = Object.fromEntries(state.forestOptions.selected.map((key) => [key, opacity]))
+      // Set Hansen percentage based on the recipe
+      if (recipe.gteHansenTreeCoverPerc) {
+        state.forestOptions.hansenPercentage = recipe.gteHansenTreeCoverPerc
+      }
+      // Select agreement layer and set agreement level
+      state.forestOptions.agreementLayerSelected = true
+      state.forestOptions.agreementLevel = agreementLevel
     },
   },
   extraReducers: (builder) => {
