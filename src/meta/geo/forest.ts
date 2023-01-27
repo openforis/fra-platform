@@ -5,6 +5,7 @@ export interface ForestOptions {
   hansenPercentage: HansenPercentage
   agreementLayerSelected: boolean
   agreementLevel: number
+  recipe: string
 }
 
 export const hansenPercentages = [10, 20, 30] as const

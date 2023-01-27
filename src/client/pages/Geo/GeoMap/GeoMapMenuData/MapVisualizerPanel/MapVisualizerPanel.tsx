@@ -73,10 +73,17 @@ const MapVisualizerPanel: React.FC = () => {
   return (
     <div className="geo-map-menu-data-visualizer-panel">
       <p>Recipes</p>
-      <select>
-        <option>custom</option>
+      <select
+        value={forestOptions.recipe}
+        onChange={(e) => {
+          dispatch(GeoActions.setRecipe(e.target.value))
+        }}
+      >
+        <option value="custom">custom</option>
         {forestAgreementRecipes.map((recipe) => (
-          <option key={recipe.forestAreaDataProperty}>{recipe.forestAreaDataProperty}</option>
+          <option key={recipe.forestAreaDataProperty} value={recipe.forestAreaDataProperty}>
+            {recipe.forestAreaDataProperty}
+          </option>
         ))}
       </select>
       <p>Forest Layers</p>

@@ -19,6 +19,7 @@ const initialState: GeoState = {
     hansenPercentage: 10,
     agreementLayerSelected: false,
     agreementLevel: 1,
+    recipe: 'custom',
   },
   mosaicUrl: '',
 }
@@ -60,6 +61,9 @@ export const geoSlice = createSlice({
     },
     setAgreementLevel: (state, { payload }: PayloadAction<number>) => {
       state.forestOptions.agreementLevel = payload
+    },
+    setRecipe: (state, { payload }: PayloadAction<string>) => {
+      state.forestOptions.recipe = payload
     },
   },
   extraReducers: (builder) => {
