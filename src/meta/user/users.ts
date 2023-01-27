@@ -44,7 +44,7 @@ const hasEditorRole = (props: { user: User; countryIso: CountryIso; cycle: Cycle
 
   const role = getRole(user, countryIso, cycle)
 
-  return role && role.name !== RoleName.VIEWER
+  return role && role.role !== RoleName.VIEWER
 }
 
 const getRolesAllowedToEdit = (props: { user: User; countryIso: CountryIso; cycle: Cycle }): Array<RoleName> => {

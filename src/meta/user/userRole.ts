@@ -9,13 +9,32 @@ export enum RoleName {
   VIEWER = 'VIEWER',
 }
 
-export type UserRoleBaseInfo = {
+export enum UserContactPreferenceMethod {
+  primaryEmail = 'primaryEmail',
+  secondaryEmail = 'secondaryEmail',
+  skype = 'skype',
+  primaryPhone = 'primaryPhone',
+  secondaryPhone = 'secondaryPhone',
+  platformChat = 'platformChat',
+}
+
+export enum UserContactPreferencePhoneOption {
+  signal = 'signal',
+  whatsapp = 'whatsapp',
+}
+
+export type UserContactPreference = {
+  method: UserContactPreferenceMethod
+  phoneOption: UserContactPreferencePhoneOption
+}
+
+export type UserRoleBaseProps = {
   professionalTitle?: string
   organizationalUnit?: string
   organization?: string
 }
 
-export type UserRoleExtendedInfo = UserRoleBaseInfo & {
+export type UserRoleExtendedProps = UserRoleBaseProps & {
   address?: {
     street?: string
     zipCode?: string
@@ -28,31 +47,29 @@ export type UserRoleExtendedInfo = UserRoleBaseInfo & {
   primaryPhoneNo?: string
   secondaryPhoneNo?: string
   skype?: string
-  preferredWayOfContacting?: string
+  preferredWayOfContacting?: UserContactPreference
 }
 
-export interface UserRole<
-  N extends RoleName,
-  P = undefined,
-  I extends UserRoleBaseInfo | UserRoleExtendedInfo = UserRoleExtendedInfo
-> {
+export interface UserRole<Name extends RoleName, Props extends UserRoleBaseProps = undefined, Permissions = undefined> {
   id: number
   assessmentId?: number
   cycleUuid: string
   countryIso?: CountryIso
-  name: N
-  props: P
-  info: I
-  role: RoleName
+  permissions: Props
+  props: Permissions
+  role: Name
   userId: number
   invitationUuid: string
   invitedAt: string
   acceptedAt?: string
 }
 
+export type UserRoleExtended<Name extends RoleName> = UserRole<Name, UserRoleExtendedProps>
+
 export type Administrator = UserRole<RoleName.ADMINISTRATOR>
-export type NationalCorrespondent = UserRole<RoleName.NATIONAL_CORRESPONDENT>
-export type Reviewer = UserRole<RoleName.REVIEWER>
+export type NationalCorrespondent = UserRoleExtended<RoleName.NATIONAL_CORRESPONDENT>
+export type AlternateNationalCorrespondent = UserRoleExtended<RoleName.ALTERNATE_NATIONAL_CORRESPONDENT>
+export type Reviewer = UserRoleExtended<RoleName.REVIEWER>
 export type Viewer = UserRole<RoleName.VIEWER>
 
 export enum CollaboratorEditPropertyType {
@@ -60,7 +77,7 @@ export enum CollaboratorEditPropertyType {
   descriptions = 'descriptions',
 }
 
-export type CollaboratorSectionsProp =
+export type CollaboratorSectionsPermission =
   /**
    * all = all sections enabled for editing
    * none = no sections enabled for editing
@@ -68,8 +85,8 @@ export type CollaboratorSectionsProp =
    */
   'all' | 'none' | Record<string, { [key in keyof typeof CollaboratorEditPropertyType]?: boolean }>
 
-export type CollaboratorProps = {
-  sections: CollaboratorSectionsProp
+export type CollaboratorPermissions = {
+  sections: CollaboratorSectionsPermission
 }
 
-export type Collaborator = UserRole<RoleName.COLLABORATOR, CollaboratorProps, UserRoleBaseInfo>
+export type Collaborator = UserRole<RoleName.COLLABORATOR, UserRoleBaseProps, CollaboratorPermissions>
