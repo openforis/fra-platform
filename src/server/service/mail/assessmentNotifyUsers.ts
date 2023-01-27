@@ -23,7 +23,7 @@ export const createMail = async (props: {
 }) => {
   const { assessmentName, countryIso, cycleName, user, url, status, recipient, message } = props
 
-  const i18n = await createI18nPromise(recipient.lang ?? 'en')
+  const i18n = await createI18nPromise(recipient.props.lang ?? 'en')
 
   const link = `${url}${ClientRoutes.Assessment.Cycle.Country.Landing.getLink({
     assessmentName,
@@ -34,9 +34,9 @@ export const createMail = async (props: {
   const emailLocalizationParameters = {
     country: i18n.t(`area.${countryIso}.listName`),
     serverUrl: link,
-    recipientName: recipient.name,
+    recipientName: recipient.props.name,
     status: i18n.t(`assessment.status.${status}.label`),
-    changer: user.name,
+    changer: user.props.name,
     assessment: i18n.t(`assessment.${assessmentName}`),
     message,
   }
