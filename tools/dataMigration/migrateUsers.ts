@@ -42,19 +42,15 @@ export const migrateUsers = async (props: { client: BaseProtocol }): Promise<voi
         delete
         from users;
 
-        insert into users (institution, lang, profile_picture_filename, name, status, profile_picture_file, position,
-                           email)
-        select u_l.institution,
-               u_l.lang,
+        insert into users (email, profile_picture_file, profile_picture_filename, status, props)
+        select u_l.email,
+               u_l.profile_picture_file,
                u_l.profile_picture_filename,
-               u_l.name,
                case
                    when u_l.active then 'active'::users_status
                    else 'invitationPending'::users_status
                    end as status,
-               u_l.profile_picture_file,
-               u_l.position,
-               u_l.email
+               jsonb_build_object('name', u_l.name, 'lang', u_l.lang) as props
         from _legacy.fra_user u_l;
     `
   )

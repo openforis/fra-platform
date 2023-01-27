@@ -20,11 +20,11 @@ export default () =>
     expect(user).toHaveProperty('id')
     expect(user.id).toBeTruthy()
 
-    expect(user).toHaveProperty('name')
-    expect(user.name).toBe(userMockTest.name)
-
     expect(user).toHaveProperty('email')
     expect(user.email).toBe(userMockTest.email)
+
+    expect(user.props).toHaveProperty('name')
+    expect(user.props.name).toBe(userMockTest.props.name)
 
     expect(user.status).toBe(UserStatus.invitationPending)
   })

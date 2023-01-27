@@ -73,7 +73,7 @@ export const profilePictureUri = (userId: number) => ApiEndPoint.User.profilePic
 export const validProfilePicture = (file: File) => !file || file.size <= 1000000
 
 // validation methods
-export const validName = (user: Partial<User>) => !Objects.isEmpty(user.name)
+export const validName = (user: Partial<User>) => !Objects.isEmpty(user.props.name)
 export const validRole = (user: Partial<User>) => !Objects.isEmpty(user.roles)
 
 export const validEmail = (user: Partial<User>) => {
@@ -83,8 +83,8 @@ export const validEmail = (user: Partial<User>) => {
 }
 
 export const validateFields = (user: User) => ({
-  name: validName(user),
   email: validEmail(user),
+  name: validName(user),
 })
 
 export const validate = (user: User) => {
