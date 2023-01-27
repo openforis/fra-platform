@@ -94,6 +94,16 @@ const MapVisualizerPanel: React.FC = () => {
     dispatch,
   ])
 
+  // React to recipe selection
+  useEffect(() => {
+    const recipeKey = forestOptions.recipe
+    const recipe = forestAgreementRecipes.find((r) => r.forestAreaDataProperty === recipeKey)
+
+    if (!recipe) return
+
+    dispatch(GeoActions.setForestLayers({ sources: recipe.layers, opacity: 0 }))
+  }, [forestOptions.recipe, dispatch])
+
   return (
     <div className="geo-map-menu-data-visualizer-panel">
       <RecipeSelector />

@@ -47,6 +47,19 @@ export const geoSlice = createSlice({
         delete state.forestOptions.opacity[payload]
       }
     },
+    setForestLayers: (
+      state,
+      { payload: { sources, opacity } }: PayloadAction<{ sources: ForestSource[]; opacity?: number }>
+    ) => {
+      state.forestOptions.selected = sources
+      state.forestOptions.opacity = {}
+
+      if (opacity !== undefined) {
+        state.forestOptions.selected.forEach((key) => {
+          state.forestOptions.opacity[key] = opacity
+        })
+      }
+    },
     setOpacity: (state, { payload: { key, opacity } }: PayloadAction<{ key: string; opacity: number }>) => {
       state.forestOptions.opacity[key] = opacity
     },
