@@ -1,5 +1,6 @@
 import './MapVisualizerAgreementLevelsControl.scss'
 import React, { useEffect, useRef, useState } from 'react'
+import { batch } from 'react-redux'
 
 import axios from 'axios'
 import classNames from 'classnames'
@@ -84,13 +85,17 @@ const AgreementLevelsControl: React.FC = () => {
   ])
 
   const toggleAgreementLayer = (selected: boolean) => {
-    dispatch(GeoActions.setRecipe('custom'))
-    dispatch(GeoActions.setAgreementLayerSelected(selected))
+    batch(() => {
+      dispatch(GeoActions.setRecipe('custom'))
+      dispatch(GeoActions.setAgreementLayerSelected(selected))
+    })
   }
 
   const setAgreementLevel = (level: number) => {
-    dispatch(GeoActions.setRecipe('custom'))
-    dispatch(GeoActions.setAgreementLevel(level))
+    batch(() => {
+      dispatch(GeoActions.setRecipe('custom'))
+      dispatch(GeoActions.setAgreementLevel(level))
+    })
   }
 
   return forestOptions.selected.length >= 2 ? (
