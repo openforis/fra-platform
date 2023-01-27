@@ -110,6 +110,11 @@ const MapVisualizerPanel: React.FC = () => {
     dispatch(GeoActions.setAgreementLayerSelected(true))
   }, [forestOptions.recipe, dispatch])
 
+  const toggleForestLayer = (key: ForestSource) => {
+    dispatch(GeoActions.setRecipe('custom'))
+    dispatch(GeoActions.toggleForestLayer(key))
+  }
+
   return (
     <div className="geo-map-menu-data-visualizer-panel">
       <RecipeSelector />
@@ -123,7 +128,7 @@ const MapVisualizerPanel: React.FC = () => {
                 title={layer.title}
                 tabIndex={index * -1 - 1}
                 checked={isLayerChecked}
-                onCheckboxClick={() => dispatch(GeoActions.toggleForestLayer(layer.key))}
+                onCheckboxClick={() => toggleForestLayer(layer.key)}
                 backgroundColor={layer.key.toLowerCase()}
               >
                 {isLayerChecked && <LayerOptionsPanel layerKey={layer.key} />}
