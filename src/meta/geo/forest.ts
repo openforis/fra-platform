@@ -120,11 +120,13 @@ export const agreementPalette = [
   '#000000', // black
 ]
 
-export const forestAgreementRecipes: Array<{
+export interface Recipe {
   layers: Array<ForestSource>
   gteHansenTreeCoverPerc?: HansenPercentage
   forestAreaDataProperty: string
-}> = [
+}
+
+export const forestAgreementRecipes: Array<Recipe> = [
   {
     layers: [
       ForestSource.TandemX,
