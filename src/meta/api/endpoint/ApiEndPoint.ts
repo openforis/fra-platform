@@ -98,6 +98,7 @@ export const ApiEndPoint = {
   },
 
   Geo: {
+    bounds: () => apiPath('geo', 'bounds'),
     sepalProxy: () => apiPath('geo', 'sepal'),
     Layers: {
       forest: () => apiPath('geo', 'layers', 'forest'),
@@ -108,7 +109,6 @@ export const ApiEndPoint = {
       forest: () => apiPath('geo', 'estimations', 'forest'),
       forestAgreement: () => apiPath('geo', 'estimation', 'forestAgreement'),
     },
-    bounds: () => apiPath('geo', 'bounds'),
   },
 
   MetaData: {
