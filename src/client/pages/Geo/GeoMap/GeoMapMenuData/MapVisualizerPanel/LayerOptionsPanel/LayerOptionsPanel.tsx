@@ -1,5 +1,6 @@
 import './LayerOptionsPanel.scss'
 import React, { useRef } from 'react'
+import { batch } from 'react-redux'
 
 import { ForestSource, HansenPercentage, hansenPercentages } from '@meta/geo/forest'
 
@@ -26,8 +27,10 @@ const LayerOptionsPanel: React.FC<Props> = ({ layerKey }) => {
   }
 
   const handleHansenPercentageChange = (percentage: HansenPercentage) => {
-    dispatch(GeoActions.setRecipe('custom'))
-    dispatch(GeoActions.setHansenPercentage(percentage))
+    batch(() => {
+      dispatch(GeoActions.setRecipe('custom'))
+      dispatch(GeoActions.setHansenPercentage(percentage))
+    })
   }
 
   return (
