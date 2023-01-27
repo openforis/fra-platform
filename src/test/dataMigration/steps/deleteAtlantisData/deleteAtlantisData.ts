@@ -10,6 +10,7 @@ export const deleteAtlantisData = async (props: Props, client: BaseProtocol): Pr
   const { assessment } = props
   const cycle2025 = assessment.cycles.find((c) => c.name === '2025')
 
+  const schema = Schemas.getName(assessment)
   const schemaCycle = Schemas.getNameCycle(assessment, cycle2025)
 
   await client.query(
@@ -20,7 +21,14 @@ export const deleteAtlantisData = async (props: Props, client: BaseProtocol): Pr
 
       delete
       from ${schemaCycle}.node d
-      where d.country_iso like $1;
+      where d.country_iso like $1
+        and id not in (select n.id
+                       from ${schemaCycle}.node n
+                                left join ${schema}.row r on n.row_uuid = r.uuid
+                                left join ${schema}."table" t on r.table_id = t.id
+                       where n.country_iso like 'X%'
+                         and t.props ->> 'name' = 'extentOfForest'
+                         and r.props ->> 'variableName' = 'totalLandArea');
 
       delete
       from ${schemaCycle}.message_topic d
