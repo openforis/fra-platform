@@ -1,6 +1,8 @@
 import './TreeCoverAreaPanel.scss'
 import React from 'react'
 
+import { Numbers } from '@utils/numbers'
+
 import StatisticsTable from '../../components/StatisticsTable'
 
 type Props = {
@@ -23,9 +25,7 @@ const TreeCoverAreaPanel: React.FC<Props> = (props: Props) => {
     const sourceName = rowData[0]
     const area = rowData[1]
     const percentage = rowData[2]
-    const formatedArea = Math.round(area)
-      .toString()
-      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',') // Comma separator for thousands.
+    const formatedArea = Numbers.format(area, 0)
     formattedTableData.push([sourceName, formatedArea, percentage])
   })
 
