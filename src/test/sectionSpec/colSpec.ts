@@ -37,6 +37,7 @@ export interface ColSpec {
   colName?: string
   migration?: {
     calculateFn?: string | Record<CycleUuid, string>
+    validateFns?: Array<string> | Record<CycleUuid, Array<string>>
     cycles?: Array<string>
     forceColName?: boolean
     label?: Record<string, Label>

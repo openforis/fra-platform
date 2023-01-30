@@ -1,7 +1,7 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import { ForestSource, HansenPercentage } from '@meta/geo/forest'
+import { forestAgreementRecipes, ForestSource, HansenPercentage } from '@meta/geo/forest'
 
 import { postMosaicOptions } from './actions/postMosaicOptions'
 import { getForestLayer } from './actions'
@@ -19,6 +19,7 @@ const initialState: GeoState = {
     hansenPercentage: 10,
     agreementLayerSelected: false,
     agreementLevel: 1,
+    recipe: 'custom',
   },
   mosaicUrl: '',
 }
@@ -46,6 +47,19 @@ export const geoSlice = createSlice({
         delete state.forestOptions.opacity[payload]
       }
     },
+    setForestLayers: (
+      state,
+      { payload: { sources, opacity } }: PayloadAction<{ sources: ForestSource[]; opacity?: number }>
+    ) => {
+      state.forestOptions.selected = sources
+      state.forestOptions.opacity = {}
+
+      if (opacity !== undefined) {
+        state.forestOptions.selected.forEach((key) => {
+          state.forestOptions.opacity[key] = opacity
+        })
+      }
+    },
     setOpacity: (state, { payload: { key, opacity } }: PayloadAction<{ key: string; opacity: number }>) => {
       state.forestOptions.opacity[key] = opacity
     },
@@ -54,9 +68,37 @@ export const geoSlice = createSlice({
     },
     setAgreementLayerSelected: (state, { payload }: PayloadAction<boolean>) => {
       state.forestOptions.agreementLayerSelected = payload
+      if (!payload) {
+        delete state.forestOptions.opacity.Agreement
+      }
     },
     setAgreementLevel: (state, { payload }: PayloadAction<number>) => {
       state.forestOptions.agreementLevel = payload
+    },
+    resetAgreementLayer: (state) => {
+      state.forestOptions.agreementLayerSelected = initialState.forestOptions.agreementLayerSelected
+      state.forestOptions.agreementLevel = initialState.forestOptions.agreementLevel
+    },
+    setRecipe: (state, { payload }: PayloadAction<string>) => {
+      const recipe = forestAgreementRecipes.find((r) => r.forestAreaDataProperty === payload)
+      const opacity = 0
+      const agreementLevel = 1
+
+      // Set the selected recipe
+      state.forestOptions.recipe = payload
+
+      if (!recipe) return
+
+      // Select the layers based on the recipe and set their opacity
+      state.forestOptions.selected = recipe.layers
+      state.forestOptions.opacity = Object.fromEntries(state.forestOptions.selected.map((key) => [key, opacity]))
+      // Set Hansen percentage based on the recipe
+      if (recipe.gteHansenTreeCoverPerc) {
+        state.forestOptions.hansenPercentage = recipe.gteHansenTreeCoverPerc
+      }
+      // Select agreement layer and set agreement level
+      state.forestOptions.agreementLayerSelected = true
+      state.forestOptions.agreementLevel = agreementLevel
     },
   },
   extraReducers: (builder) => {

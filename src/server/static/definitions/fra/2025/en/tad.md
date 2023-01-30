@@ -1,10 +1,10 @@
-# Terms and definitions
+# Terms and Definitions
 
-_FRA 2020_
+_FRA 2025_
 
 ## Introduction
 
-FAO has been coordinating global forest resources assessments every five to ten years since 1946. The assessments have to a great extent contributed to the improvement of concepts, definitions and methods related to forest resources assessments. 
+The FAO Global Forest Resources Assessments have to a great extent contributed to the improvement of concepts, definitions and methods related to forest resources assessments. 
 
 Strong efforts have been made to harmonize and streamline reporting with other international forest-related processes e.g. within the framework of the Collaborative Partnership on Forest (CPF), as well as with the partner organizations of the Collaborative Forest Resources Questionnaire (CFRQ) and the scientific community, all in order to harmonize and improve forest related definitions and reduce reporting burden on countries. The core definitions build on earlier global assessments to ensure comparability over time. Whenever new definitions are introduced or old definitions modified this is done taking into consideration recommendations from experts in various fora.
 
@@ -12,7 +12,7 @@ Variations in definitions, however minor, will increase the risk of inconsistenc
 
 The global definitions are in a sense compromises and their application is subject to interpretation. Reducing national classifications to a set of global classes is a challenge and sometimes assumptions and approximations must be made. 
 
-In order to compare and combine data from different sources, it is important to use statistics that are collected using comparable terminology, definitions and measurement units. This working paper includes the terms and definitions applied in the country reporting process for FRA 2020 and should be regarded as an authoritative document on the terms and definitions. The working paper can be used in meetings and training at all levels aiming to build national capacity for forest resources assessment and reporting in general.
+In order to compare and combine data from different sources, it is important to use statistics that are collected using comparable terminology, definitions and measurement units. This working paper includes the terms and definitions applied in the country reporting process for FRA 2025 and should be regarded as an authoritative document on the terms and definitions. The working paper can be used in meetings and training at all levels aiming to build national capacity for forest resources assessment and reporting in general.
 
 For more details on FRA Programme, please see: http://www.fao.org/forest-resources-assessment/en/
 
@@ -51,7 +51,7 @@ OR
     - The canopy cover of trees is less than 5 percent but the combined cover of shrubs, bushes and trees is more than 10 percent. Includes areas of shrubs and bushes where no trees are present.
 2. Includes areas with trees that will not reach a height of 5 meters *in situ* and with a canopy cover of 10 percent or more, e.g. some alpine tree vegetation types, arid zone mangroves, etc.
 
-### OTHER LAND
+### REMAINING LAND AREA
 
 > All land that is not classified as **Forest** or **Other wooded land**.
 
@@ -60,6 +60,9 @@ Explanatory notes
 1. For the purpose of reporting to FRA, the "Other land" is calculated by subtracting the area of forest and other wooded land from the total land area (as maintained by FAOSTAT).
 2. Includes agricultural land, meadows and pastures, built-up areas, barren land, land under permanent ice, etc. 
 3. Includes all areas classified under the sub-category "Other land with tree cover".
+
+### CLIMATIC DOMAIN Source:
+http://www.fao.org/docrep/017/ap861e/ap861e00.pdf
 
 ## 1b Forest characteristics
 
@@ -74,6 +77,21 @@ Explanatory notes
 3. Includes coppice from trees originally established through natural regeneration.
 4. Includes naturally regenerated trees of introduced species.
 
+### PRIMARY FOREST
+
+> Naturally regenerating forest of native tree species, where there are no clearly visible indications of human activities and the ecological processes are not significantly disturbed.
+
+Explanatory notes
+1.	Includes both pristine and managed forests that meet the definition. Management practices in primary forests should imply minimum human intervention and aim for the long-term conservation of native vegetation and wildlife habitat.
+2.	Includes forests where Indigenous Peoples and local communities engage in traditional forest stewardship and management/use activities that meet the definition.
+3.	Includes forests with visible  impacts of natural disturbances (such as storms, snow, drought, wildfire or insects , pests and diseases outbreaks)
+4.	Excludes forests where hunting, poaching, trapping, or gathering have caused significant native species loss or disturbance to ecological processes.
+5.	Some key characteristics of primary forests:
+<br>i.	they show natural forest dynamics, such as natural tree species composition, occurrence of dead wood, natural age structure, and natural regeneration processes;
+<br>ii.	the area is large enough and retains a degree of connectivity such that its natural ecological processes are maintained; and
+<br>iii.	there has been no known significant human intervention or the last significant human intervention was long enough ago to have allowed natural ecosystem elements (including species diversity) and functions to  have become re-established.
+
+
 ### PLANTED FOREST
 
 > **Forest** predominantly composed of **trees** established through planting and/or deliberate seeding.
@@ -83,7 +101,7 @@ Explanatory notes
 1. In this context, predominantly means that the planted/seeded trees are expected to constitute more than 50 percent of the growing stock at maturity.
 2. Includes coppice from trees that were originally planted or seeded.
 
-### PLANTATION FOREST
+### PLANTATION FOREST(_Sub-category_ of PLANTED FOREST)
 
 > **Planted Forest** that is intensively managed and meet ALL the following criteria at planting and stand maturity: one or two species, even age class, and regular spacing.
 
@@ -93,11 +111,39 @@ Explanatory notes
 2.	Specifically excludes: forest planted for protection or ecosystem restoration.
 3.	Specifically excludes: Forest established through planting or seeding which at stand maturity resembles or will resemble naturally regenerating forest.
 
-### OTHER PLANTED FOREST
+### PLANTATION FOREST OF INTRODUCED TREE SPECIES (_Sub-category_ of PLANTATION FOREST)
+
+> **Plantation forest** predominantly composed of **introduced tree species**.
+
+Explanatory note
+1. In this context, predominantly means that the planted introduced trees are expected to constitute more than 50 percent of the growing stock at maturity.
+
+### OTHER PLANTED FOREST(_Sub-category_ of PLANTED FOREST)
 
 > **Planted forest** which is not classified as **plantation forest**.
 
-## 1c Annual forest expansion, deforestation and net change
+## 1c Specific forest categories
+
+### BAMBOOS
+
+> **Forest** area with predominant bamboo vegetation.
+
+Explanatory note
+1. In this context, predominantly means that bamboos are expected to constitute more than 50 percent of the growing stock at maturity.
+
+### MANGROVES
+
+> **Forest** and **other wooded land** with mangrove vegetation.
+
+### RUBBER WOOD
+
+> **Forest** area with predominant rubber wood vegetation.
+
+Explanatory note
+1. In this context, predominantly means that rubber wood trees are expected to constitute more than 50 percent of the growing stock at maturity.
+
+
+## 1d Annual forest expansion, deforestation and net change
 
 ### FOREST EXPANSION
 
@@ -128,62 +174,11 @@ Explanatory note
 
 1. The "Forest area net change" is the difference in forest area between two FRA reference years. The net change can be either positive (gain), negative (loss) or zero (no change).
 
-## 1d Annual reforestation
-
-### REFORESTATION
-
-> Re-establishment of forest through planting and/or deliberate seeding on land classified as forest.
-
-Explanatory notes
-
-1. Implies no change of land use.
-2. Includes planting/seeding of temporarily unstocked forest areas as well as planting/seeding of areas with forest cover.
-3. Includes coppice from trees that were originally planted or seeded.
-
-## 1e Specific forest categories
-
-### BAMBOOS
-
-> **Forest** area with predominant bamboo vegetation.
-
-Explanatory note
-
-1. In this context, predominantly means that the planted/seeded trees are expected to constitute more than 50 percent of the growing stock at maturity.
-
-### MANGROVES
-
-> **Forest** and **other wooded land** with mangrove vegetation.
-
-### TEMPORARILY UNSTOCKED AND/OR RECENTLY REGENERATED FOREST
-
-> Forest area which is temporarily unstocked or with trees shorter than 1.3 meters that have not yet reached but are expected to reach a canopy cover of at least 10 percent and tree height of at least 5 meters.
-
-Explanatory notes
-
-1. Includes forest areas that are temporarily unstocked due to clear-cutting as part of forest management practice or natural disasters, and which are expected to be regenerated within 5 years. Local conditions may, in exceptional cases, justify that a longer time frame is used.
-2. Includes areas converted from other land use and with trees shorter than 1.3 meters.
-3. Includes failed plantations.
-
-### PRIMARY FOREST
-
-> **Naturally regenerated forest** of **native tree species**, where there are no clearly visible indications of human activities and the ecological processes are not significantly disturbed.
-
-Explanatory notes
-
-1. Includes both pristine and managed forests that meet the definition.
-2.	Includes forests where indigenous peoples engage in traditional forest stewardship activities that meet the definition.
-3.	Includes forest with visible signs of abiotic damages (such as storm, snow, drought, fire) and biotic damages (such as insects, pests and diseases).
-4.	Excludes forests where hunting, poaching, trapping or gathering have caused significant native species loss or disturbance to ecological processes.
-5.	Some key characteristics of primary forests are:
-    -	they show natural forest dynamics, such as natural tree species composition, occurrence of dead wood, natural age structure and natural regeneration processes; 
-    -	the area is large enough to maintain its natural ecological processes; 
-    -	there has been no known significant human intervention or the last significant human intervention was long enough ago to have allowed the natural species composition and processes to have become re-established.
-
-## 1f Other land with tree cover
+## 1e Other land with tree cover
 
 ### OTHER LAND WITH TREE COVER
 
-> Land classified as **"other land"**, spanning more than 0.5 hectares with a **canopy cover** of more than 10 percent of **trees** able to reach a height of 5 meters at maturity. 
+> Land classified as **"Remaining land area"**, spanning more than 0.5 hectares with a **canopy cover** of more than 10 percent of **trees** able to reach a height of 5 meters at maturity. 
 
 Explanatory notes
 
@@ -195,15 +190,17 @@ Explanatory notes
 6.	The different sub-categories of “other land with tree cover” are exclusive and area reported under one sub-category should not be reported for any other sub-categories.
 7.	Excludes scattered trees with a canopy cover less than 10 percent, small groups of trees covering less than 0.5 hectares and tree lines less than 20 meters wide. 
 
-### PALMS _(Sub-category of OTHER LAND)_
+### _Sub-category_ of OTHER LAND WITH TREE COVER
+
+#### _PALMS_ 
 
 > **Other land tree cover** predominantly composed of palms for production of oil, coconuts or dates.
 
-### TREE ORCHARDS _(Sub-category of OTHER LAND)_
+#### _TREE ORCHARDS_
 
 > **Other land with tree cover** predominantly composed of trees for production of fruits, nuts, or olives.
 
-### AGROFORESTRY _(Sub-category of OTHER LAND)_
+#### _AGROFORESTRY_
 
 > **Other land with tree cover** with agricultural crops and/or pastures/animals.
 
@@ -212,7 +209,7 @@ Explanatory notes
 1. Includes areas with bamboo and palms provided that land use, height and canopy cover criteria are met.
 2. Includes agrisilviculturural, silvopastoral and agrosilvopastoral systems.
 
-### TREES IN URBAN SETTINGS _(Sub-category of OTHER LAND)_
+#### _TREES IN URBAN SETTINGS_
 
 > **Other land with tree cover** such as: urban parks, alleys and gardens.
 
@@ -399,11 +396,15 @@ Explanatory note
 
 1. Countries should specify in comments to the table what areas they have included in this category (e.g. *forest area designated for carbon sequestration*).
 
-### NO/UNKNOWN
+### NO DESIGNATION
 
-> Forest with no or unknown primary management objective.
+> Forest where there is no **primary designated management objective**.
 
-## 3b Forest area within legally established protected areas and forest area with long-term forest management plans
+### UNKNOWN(DESIGNATION)
+
+> Forest where the **primary designated management objective** is unknown.
+
+## 3b Forest area within legally established protected areas and forest area with long-term management plans
 
 ### FOREST AREA WITHIN LEGALLY ESTABLISHED PROTECTED AREAS
 
@@ -413,6 +414,7 @@ Explanatory notes
 
 1. Includes IUCN Categories I а IV.
 2. Excludes IUCN Categories V а VI.
+3. Includes forest area within legally established protected areas whose IUCN category is unknown.
 
 ### FOREST AREA WITH LONG-TERM MANAGEMENT PLAN
 
@@ -425,10 +427,18 @@ Explanatory notes
 3. Includes forest area in protected areas with management plan.
 4. Includes continuously updated management plans.
 
-
-### PROTECTED AREAS _(Sub-category of FOREST AREA WITH LONG-TERM MANAGEMENT PLAN)_
+### PROTECTED AREAS (_Sub-category_ of FOREST AREA WITH LONG-TERM MANAGEMENT PLAN)
 
 > **Forest** area within protected areas that has a long-term (ten years or more) documented management plan, aiming at defined management goals, and which is periodically revised.
+
+## 3c Forest restoration
+
+### RESTORATION
+
+> To be defined by the country.
+
+Explanatory note
+1. Countries should document definition or description of forest restoration and provide information on how this data is being collected.
 
 ---
 
@@ -448,11 +458,13 @@ Explanatory note
 
 > **Forest** owned by individuals, families, communities, private co-operatives, corporations and other business entities, religious and private educational institutions, pension or investment funds, NGOs, nature conservation associations and other private institutions.
 
-### INDIVIDUALS _(Sub-category of PRIVATE OWNERSHIP)_
+### _Sub-category_ of PRIVATE OWNERSHIP
+
+### _INDIVIDUALS_ 
 
 > **Forest** owned by individuals and families.
 
-### PRIVATE BUSINESS ENTITIES AND INSTITUTIONS _(Sub-category of PRIVATE OWNERSHIP)_
+### _PRIVATE BUSINESS ENTITIES AND INSTITUTIONS_
 
 > **Forest** owned by private corporations, co-operatives, companies and other business entities, as well as private organizations such as NGOs, nature conservation associations, and private religious and educational institutions, etc. 
 
@@ -460,13 +472,13 @@ Explanatory note
 
 1. Includes both profit and non-profit entities and institutions.
 
-### LOCAL, TRIBAL AND INDIGENOUS COMMUNITIES 
+### _INDIGENOUS PEOPLES AND LOCAL COMMUNITIES_ 
 
-> **Forest** owned by a group of individuals belonging to the same community residing within or in the vicinity of a forest area or forest owned by communities of indigenous or tribal people. The community members are co-owners that share exclusive rights and duties and benefits contribute to the community development.
+> **Forest** owned by a group of individuals belonging to the same community residing within or in the vicinity of a forest area or forest owned by communities of indigenous peoples. The community members are co-owners that share exclusive rights and duties and benefits contribute to the community development.
 
 Explanatory note
 
-1. Indigenous and tribal people include:
+1. Indigenous Peoples and local communities include:
     - People regarded as indigenous on account of their descent from the population which inhabited the country, or a geographical region to which the country belongs, at a time of conquest or colonization or the establishment of present state boundaries and who, irrespective of their legal status, retain some or all their own social, economic, cultural and political institutions.
     - Tribal people whose social, cultural and economic conditions distinguish them from other sections of the national community, and whose status is regulated wholly or partly by their own customs or traditions or by special laws and regulations.
 
@@ -479,12 +491,15 @@ Explanatory notes
 2. Shareholder corporations that are partially State-owned, are considered as under public ownership when the State holds a majority of the shares.
 3. Public ownership may exclude the possibility to transfer.
 
-### OTHER TYPES OF OWNERSHIP/UKNOWN
+### OTHER TYPES OF OWNERSHIP
 
-> Other kinds of ownership arrangements not covered by **public** or **private ownership** or forest area where ownership is unknown.
+> Other kinds of ownership arrangements not covered by **public** or **private ownership**.
+
+### UNKNOWN OWNERSHIP
+
+> Forest area where ownership is unknown.
 
 Explanatory note
-
 1. Includes areas where ownership is unclear or disputed.
 
 ## 4b Management rights of public forests
@@ -502,47 +517,47 @@ Explanatory notes
 
 > The Public Administration (or institutions or corporations owned by the Public Administration) retains management rights and responsibilities within the limits specified by the legislation.
 
-### INDIVIDUALS / HOUSEHOLDS
-
-> **Forest** management rights and responsibilities are transferred from the Public Administration to individuals or households through long-term leases or management agreements.
-
 ### PRIVATE BUSINESS ENTITIES AND INSTITUTIONS
 
 > **Forest** management rights and responsibilities are transferred from the Public Administration to corporations, other business entities, private co-operatives, private non-profit institutions and associations, etc., through long-term leases or management agreements.
 
-### LOCAL, TRIBAL AND INDIGENOUS COMMUNITIES
+### INDIGENOUS PEOPLES AND LOCAL COMMUNITIES
 
-> **Forest** management rights and responsibilities are transferred from the Public Administration to local communities (including indigenous and tribal communities) through long-term leases or management agreements. 
+> **Forest** management rights and responsibilities are transferred from the Public Administration to local communities and Indigenous Peoples through long-term leases or management agreements. 
 
 ### OTHER FORMS OF MANAGEMENT RIGHTS
 
 > **Forest**s for which the transfer of management rights does not belong to any of the categories mentioned above. 
 
+### UNKNOWN MANAGEMENT RIGHTS
+
+> Management rights of public forest area is unknown.
+
 ---
 
 # 5 Forest disturbances
 
-## 5a Disturbances
+## 5a Forest damage
 
-### DISTURBANCE
+### DAMAGE(To forest)
 
-> Damage caused by any factor (biotic or abiotic) that adversely affects the vigor and productivity of the forest and which is not a direct result of human activities.
+> Disturbance caused by any factor (biotic or abiotic) that adversely affects the vigor and productivity of the forest and which is not a direct result of human activities.
 
 Explanatory note
 
 1.	For the purpose of this reporting table, disturbances exclude forest fires as these are reported on in a separate table.
 
-### DISTURBANCE BY INSECTS
+### DAMAGE BY INSECTS
 
-> Disturbance caused by insect pests.
+> Damage caused by insect pests.
 
-### DISTURBANCE BY DISEASES
+### DAMAGE BY DISEASES
 
-> Disturbance caused by diseases attributable to pathogens, such as bacteria, fungi, phytoplasma or viruses.
+> Damage caused by diseases attributable to pathogens, such as bacteria, fungi, phytoplasma or viruses.
 
-### DISTURBANCES BY SEVERE WEATHER EVENTS
+### DAMAGE BY SEVERE WEATHER EVENTS
 
-> Disturbances caused by abiotic factors, such as snow, storm, droughts, etc.
+> Damage caused by abiotic factors, such as snow, storm, droughts, etc.
 
 ## 5b Area affected by fire
 
@@ -598,9 +613,9 @@ Explanatory note
 
 ---
 
-# 7 NWFP removals and value 2020
+# 7 NWFP removals and value 
 
-## 7a Non Wood Forest Products removals and value
+## 7 NWFP removals and value 
 
 ### NON WOOD FOREST PRODUCT
 
@@ -627,7 +642,7 @@ Explanatory notes
 1. If values are obtained from a point further down the production chain, transport costs and possible handling and/or processing costs should be subtracted whenever possible.
 2. Commercial value refers to actual market value and potential value of both marketed and non-marketed products.
 
---
+---
 
 # 8 Additional terms and definitions
 
@@ -639,10 +654,6 @@ Explanatory notes
 
 1. Cannot exceed 100 percent.
 2. Also called crown closure or crown cover.
-
-### FOREST POLICY
-
-> A set of orientations and principles of actions adopted by public authorities in harmony with national socio-economic and environmental policies in a given country to guide future decisions in relation to the management, use and conservation of **forest** for the benefit of society.
 
 ### SHRUB
 

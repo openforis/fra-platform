@@ -8,6 +8,7 @@ export enum ColType {
   integer = 'integer',
   noticeMessage = 'noticeMessage',
   placeholder = 'placeholder',
+  multiselect = 'multiselect',
   select = 'select',
   selectYesNo = 'selectYesNo',
   taxon = 'taxon',
@@ -34,6 +35,7 @@ export interface ColStyle {
 
 export interface ColProps {
   calculateFn?: Record<CycleUuid, string>
+  validateFns?: Record<CycleUuid, Array<string>>
   colName?: string
   colType: ColType
   index?: number | string

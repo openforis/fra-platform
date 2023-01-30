@@ -24,7 +24,7 @@ const newInstance = (props: { key: string }) => {
   }
   const worker = new Worker(key, processor, opts)
 
-  worker.on('completed', (_, result: { nodeUpdates: NodeUpdates; validations: NodeUpdates }) => {
+  worker.on('completed', (job, result: { nodeUpdates: NodeUpdates; validations: NodeUpdates }) => {
     const { nodeUpdates, validations } = result
     const { assessment, cycle, countryIso } = nodeUpdates
 
@@ -38,7 +38,7 @@ const newInstance = (props: { key: string }) => {
       SocketServer.emit(nodeValidationsUpdateEvent, { validations })
     }
     Logger.debug(
-      `[calculateAndValidateDependentNodesWorker] job completed ${nodeUpdates.nodes.length} nodes updated,  ${validations.nodes.length} nodes updated`
+      `[calculateAndValidateDependentNodesWorker] job-${job.id} completed. ${nodeUpdates.nodes.length} nodes updated,  ${validations.nodes.length} node validations updated`
     )
   })
 

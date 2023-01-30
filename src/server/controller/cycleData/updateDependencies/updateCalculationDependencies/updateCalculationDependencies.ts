@@ -4,6 +4,7 @@ import { NodeUpdates } from '@meta/data'
 import { PersistNodeValueProps } from '@server/controller/cycleData/persistNodeValues/props'
 import { BaseProtocol } from '@server/db'
 import { RowRepository } from '@server/repository/assessment/row'
+import { Logger } from '@server/utils/logger'
 
 import { getDependants } from '../utils/getDependants'
 import { isODPCell } from '../utils/isODPCell'
@@ -17,15 +18,7 @@ export const updateCalculationDependencies = async (
 
   const nodeUpdates: NodeUpdates = { assessment, cycle, countryIso, nodes: [] }
   const queue: Array<VariableCache> = await getDependants(
-    {
-      assessment,
-      cycle,
-      variableName,
-      tableName,
-      colName,
-      countryIso,
-      isODP,
-    },
+    { assessment, cycle, variableName, tableName, colName, countryIso, isODP, type: 'calculations' },
     client
   )
   const visitedVariables: Array<VariableCache> = [{ variableName, tableName }]
@@ -34,8 +27,13 @@ export const updateCalculationDependencies = async (
   const _isODPCell = await isODPCell({ colName, tableName, countryIso, cycle, assessment }, client)
   const mergeOdp = !_isODPCell
 
+  const debugKey = `[updateCalculationDependencies-${[props.tableName, props.variableName, props.colName].join('-')}]`
+  Logger.debug(`${debugKey} initial queue length ${queue.length}`)
+
   while (queue.length !== 0) {
     const variableCache = queue.shift()
+    Logger.debug(`${debugKey} processing queue item ${JSON.stringify(variableCache)}`)
+
     const visited = visitedVariables.find(
       (v) => v.tableName === variableCache.tableName && v.variableName === variableCache.variableName
     )
@@ -59,7 +57,6 @@ export const updateCalculationDependencies = async (
         cycle,
         sectionName,
         colName,
-        expression: row.props.calculateFn?.[cycle.uuid],
         row,
         tableName: variableCache.tableName,
         variableName: variableCache.variableName,
@@ -70,51 +67,33 @@ export const updateCalculationDependencies = async (
         // make sure in target table there's a matching column
         if (row.cols.find((c) => c.props.colName === colName)) {
           // eslint-disable-next-line no-await-in-loop
-          const node = await calculateNode(
-            { ...evaluateProps, mergeOdp, expression: row.props.calculateFn[cycle.uuid] },
+          await calculateNode(
+            { ...evaluateProps, mergeOdp, formula: row.props.calculateFn[cycle.uuid], nodeUpdates },
             client
           )
-          nodeUpdates.nodes.push({
-            tableName: evaluateProps.tableName,
-            variableName: evaluateProps.variableName,
-            colName: evaluateProps.colName,
-            value: node.value,
-          })
         }
       } else {
         // eslint-disable-next-line no-await-in-loop
         await Promise.all(
           row.cols.map(async (col) => {
             if (col.props.calculateFn?.[cycle.uuid]) {
-              const node = await calculateNode(
+              await calculateNode(
                 {
                   ...evaluateProps,
                   mergeOdp,
                   colName: col.props.colName,
-                  expression: col.props.calculateFn[cycle.uuid],
+                  formula: col.props.calculateFn[cycle.uuid],
+                  nodeUpdates,
                 },
                 client
               )
-              nodeUpdates.nodes.push({
-                tableName: evaluateProps.tableName,
-                variableName: evaluateProps.variableName,
-                colName: col.props.colName,
-                value: node.value,
-              })
             }
           })
         )
       }
       // eslint-disable-next-line no-await-in-loop
       const calculationDependants = await getDependants(
-        {
-          assessment,
-          cycle,
-          countryIso,
-          colName,
-          isODP,
-          ...variableCache,
-        },
+        { assessment, cycle, countryIso, colName, isODP, type: 'calculations', ...variableCache },
         client
       )
       queue.push(...calculationDependants)

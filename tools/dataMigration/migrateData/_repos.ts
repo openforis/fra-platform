@@ -41,6 +41,7 @@ export const getCols = (client: ITask<any>, schema: string, table: Table): Promi
         props: {
           ...Objects.camelize(col.props),
           calculateFn: col.props.calculateFn,
+          validateFns: col.props.validateFns,
         },
       }
     }

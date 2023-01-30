@@ -1,3 +1,6 @@
+import { AssessmentStatus } from '@meta/area/country'
+import { User } from '@meta/user/user'
+
 import { RoleName, UserRole } from './userRole'
 
 export const isInvitationExpired = (userRole: UserRole<RoleName>, expiryPeriod?: number) =>
@@ -5,7 +8,40 @@ export const isInvitationExpired = (userRole: UserRole<RoleName>, expiryPeriod?:
 
 const noRole = { role: 'NONE', labelKey: 'user.roles.noRole' }
 
+// Return roles to receive email on country assessment status change
+const getRecipientRoles = (props: { status: AssessmentStatus }) => {
+  const { status } = props
+
+  switch (status) {
+    case AssessmentStatus.editing:
+      return [RoleName.NATIONAL_CORRESPONDENT]
+    case AssessmentStatus.review:
+      return [RoleName.REVIEWER]
+    case AssessmentStatus.approval:
+      return [RoleName.ADMINISTRATOR]
+    case AssessmentStatus.accepted:
+      return [RoleName.REVIEWER, RoleName.NATIONAL_CORRESPONDENT]
+    default:
+      return []
+  }
+}
+
+const getLastRole = (user: User) => {
+  if (!user || !user.roles) return undefined
+
+  const { roles } = user
+  if (roles.length === 1) return roles[0]
+
+  const _roles = [...roles].sort((roleA, roleB) => {
+    return roleB.acceptedAt.localeCompare(roleA.acceptedAt)
+  })
+
+  return _roles[0]
+}
+
 export const UserRoles = {
   isInvitationExpired,
   noRole,
+  getRecipientRoles,
+  getLastRole,
 }

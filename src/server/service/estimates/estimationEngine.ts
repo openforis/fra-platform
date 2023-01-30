@@ -1,4 +1,5 @@
 import { BigNumberInput, Numbers } from '@utils/numbers'
+import { Objects } from '@utils/objects'
 import BigNumber from 'bignumber.js'
 
 import { NodeUpdate, TableData } from '@meta/data'
@@ -120,18 +121,22 @@ export const annualChangeExtrapolation = (
   const previousValues = getPreviousValues(year, odpValues)
   const nextValues = getNextValues(year, odpValues)
   if (previousValues.length >= 1) {
+    const rateFuture = changeRates?.[field]?.rateFuture
+    if (Objects.isNil(rateFuture)) return null
+
     const previousOdp = previousValues.filter((pv) => !!pv[field])?.[0] ?? previousValues[0]
     const previousOdpYear = previousOdp.year
     const years = year - previousOdpYear
-    const rateFuture = changeRates?.[field]?.rateFuture
-    return rateFuture ? Number(Numbers.add(previousOdp[field] as number, Numbers.mul(rateFuture, years))) : null
+    return Number(Numbers.add(previousOdp[field] as number, Numbers.mul(rateFuture, years)))
   }
   if (nextValues.length >= 1) {
+    const ratePast = changeRates?.[field]?.ratePast
+    if (Objects.isNil(ratePast)) return null
+
     const nextOdp = nextValues[0]
     const nextOdpYear = nextOdp.year
     const years = nextOdpYear - year
-    const ratePast = changeRates?.[field]?.ratePast
-    return ratePast ? Number(Numbers.add(nextOdp[field] as number, Numbers.mul(ratePast * -1, years))) : null
+    return Number(Numbers.add(nextOdp[field] as number, Numbers.mul(ratePast * -1, years)))
   }
   return null
 }

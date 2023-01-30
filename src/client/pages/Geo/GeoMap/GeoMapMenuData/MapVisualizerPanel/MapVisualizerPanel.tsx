@@ -2,7 +2,7 @@ import './MapVisualizerPanel.scss'
 import React, { useEffect, useRef } from 'react'
 
 import { ForestSource } from '@meta/geo'
-import { ForestSourceWithOptions, HansenPercentage } from '@meta/geo/forest'
+import { forestAgreementRecipes, ForestSourceWithOptions, HansenPercentage } from '@meta/geo/forest'
 
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useForestSourceOptions } from '@client/store/ui/geo'
@@ -16,6 +16,30 @@ import AgreementLevelsControl from '../MapVisualizerAgreementLevelsControl'
 import LayerOptionsPanel from './LayerOptionsPanel'
 import { layers } from '.'
 
+const RecipeSelector: React.FC = () => {
+  const dispatch = useAppDispatch()
+  const forestOptions = useForestSourceOptions()
+
+  return (
+    <div>
+      <p>Recipes</p>
+      <select
+        value={forestOptions.recipe}
+        onChange={(e) => {
+          dispatch(GeoActions.setRecipe(e.target.value))
+        }}
+      >
+        <option value="custom">custom</option>
+        {forestAgreementRecipes.map((recipe) => (
+          <option key={recipe.forestAreaDataProperty} value={recipe.forestAreaDataProperty}>
+            {recipe.forestAreaDataProperty}
+          </option>
+        ))}
+      </select>
+    </div>
+  )
+}
+
 const MapVisualizerPanel: React.FC = () => {
   const dispatch = useAppDispatch()
   const forestOptions = useForestSourceOptions()
@@ -28,7 +52,7 @@ const MapVisualizerPanel: React.FC = () => {
     const hansenPercentageHasChanged = forestOptions.hansenPercentage !== hansenPercentageOnPreviousMapDraw.current
 
     layers.forEach(({ key: mapLayerKey, apiUri }) => {
-      if (forestOptions.selected.includes(mapLayerKey)) {
+      if (forestOptions.selected.includes(mapLayerKey) && forestOptions.opacity[mapLayerKey] !== 0) {
         // Layer is selected so ensure it's shown on map
 
         const isHansen = mapLayerKey === ForestSource.Hansen
@@ -62,10 +86,22 @@ const MapVisualizerPanel: React.FC = () => {
         mapControllerRef.current.removeEarthEngineLayer(mapLayerKey)
       }
     })
-  }, [forestOptions.selected, forestOptions.hansenPercentage, forestOptions.fetchedLayers, dispatch])
+  }, [
+    forestOptions.selected,
+    forestOptions.hansenPercentage,
+    forestOptions.fetchedLayers,
+    forestOptions.opacity,
+    dispatch,
+  ])
+
+  const toggleForestLayer = (key: ForestSource) => {
+    dispatch(GeoActions.setRecipe('custom'))
+    dispatch(GeoActions.toggleForestLayer(key))
+  }
 
   return (
     <div className="geo-map-menu-data-visualizer-panel">
+      <RecipeSelector />
       <p>Forest Layers</p>
       <div className="geo-map-menu-data-visualizer-panel-layers">
         {layers.map((layer, index) => {
@@ -76,7 +112,7 @@ const MapVisualizerPanel: React.FC = () => {
                 title={layer.title}
                 tabIndex={index * -1 - 1}
                 checked={isLayerChecked}
-                onCheckboxClick={() => dispatch(GeoActions.toggleForestLayer(layer.key))}
+                onCheckboxClick={() => toggleForestLayer(layer.key)}
                 backgroundColor={layer.key.toLowerCase()}
               >
                 {isLayerChecked && <LayerOptionsPanel layerKey={layer.key} />}

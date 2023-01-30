@@ -1,8 +1,7 @@
-import { Objects } from '@utils/objects'
-
 import { Assessment, Col, ColType } from '@meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
+import { ColAdapter } from '@server/repository/adapter/col'
 
 export const getMany = (
   props: { assessment: Assessment; tableId?: number; rowId?: number },
@@ -27,14 +26,6 @@ export const getMany = (
      ${where}
        and c.props ->> 'colType' not in ('${ColType.header}', '${ColType.noticeMessage}')`,
     [tableId ?? rowId],
-    (col) => {
-      return {
-        ...Objects.camelize(col),
-        props: {
-          ...Objects.camelize(col.props),
-          calculateFn: col.props.calculateFn,
-        },
-      }
-    }
+    ColAdapter
   )
 }

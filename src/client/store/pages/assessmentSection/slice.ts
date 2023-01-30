@@ -34,22 +34,12 @@ export const assessmentSectionSlice = createSlice({
       state.showOriginalDataPoint = !state.showOriginalDataPoint
     },
 
-    setNodeValues: (
-      state,
-      {
-        payload,
-      }: PayloadAction<{
-        countryIso: CountryIso
-        nodeUpdates: NodeUpdates
-      }>
-    ) => {
-      const { nodeUpdates, countryIso } = payload
+    setNodeValues: (state, action: PayloadAction<{ nodeUpdates: NodeUpdates }>) => {
+      const { nodeUpdates } = action.payload
+      const { countryIso, nodes } = nodeUpdates
 
-      nodeUpdates.nodes.forEach(({ tableName, variableName, colName, value }) => {
-        // If user has data for the table, update it
-        if (state.data[countryIso]?.[tableName]?.[colName]) {
-          state.data = TableDatas.updateDatum({ data: state.data, countryIso, tableName, variableName, colName, value })
-        }
+      nodes.forEach(({ tableName, variableName, colName, value }) => {
+        state.data = TableDatas.updateDatum({ data: state.data, countryIso, tableName, variableName, colName, value })
       })
     },
     setNodeValueValidation: (state, { payload }: PayloadAction<{ nodeUpdate: NodeUpdate }>) => {

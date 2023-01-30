@@ -1,10 +1,15 @@
 import { ExpressionFunction } from '@openforis/arena-core/dist/expression/function'
 
 import { Context } from '../context'
+import { validatorEqualToForestExpansion } from './validatorEqualToForestExpansion'
+import { validatorEqualToPlantedForest } from './validatorEqualToPlantedForest'
 import { validatorEqualToPrivateForest } from './validatorEqualToPrivateForest'
+import { validatorEqualToTotalForest } from './validatorEqualToTotalForest'
 import { validatorEqualToTotalGrowingStock } from './validatorEqualToTotalGrowingStock'
 import { validatorForestAreaComparedTo2015 } from './validatorForestAreaComparedTo2015'
+import { validatorForestAreaNetChange } from './validatorForestAreaNetChange'
 import { validatorGreaterThanOrZero } from './validatorGreaterThanOrZero'
+import { validatorIsYear } from './validatorIsYear'
 import { validatorNextCountryReportYear } from './validatorNextCountryReportYear'
 import { validatorNotGreaterThan } from './validatorNotGreaterThan'
 import { validatorNotGreaterThanForest } from './validatorNotGreaterThanForest'
@@ -21,6 +26,7 @@ export const functions: Array<ExpressionFunction<Context>> = [
   validatorEqualToTotalGrowingStock,
   validatorForestAreaComparedTo2015,
   validatorNextCountryReportYear,
+  validatorIsYear,
   validatorGreaterThanOrZero,
   validatorNotGreaterThan,
   validatorNotGreaterThanForest,
@@ -33,4 +39,8 @@ export const functions: Array<ExpressionFunction<Context>> = [
   validatorTotalForest,
   validatorEqualToPrivateForest,
   validatorSumNotGreaterThan,
+  validatorForestAreaNetChange,
+  validatorEqualToForestExpansion,
+  validatorEqualToPlantedForest,
+  validatorEqualToTotalForest,
 ]

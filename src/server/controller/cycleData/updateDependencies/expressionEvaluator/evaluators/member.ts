@@ -1,6 +1,7 @@
 import { MemberExpression } from '@openforis/arena-core'
 import { MemberEvaluator as ArenaMemberEvaluator } from '@openforis/arena-core/dist/expression/javascript/node/member'
 
+import { AssessmentMetaCaches } from '@meta/assessment'
 import { TableDatas } from '@meta/data'
 
 import { Context } from '../context'
@@ -14,7 +15,7 @@ export class MemberEvaluator extends ArenaMemberEvaluator<Context> {
     const isCol = Boolean(object?.object?.name)
     // @ts-ignore
     const objectName = isCol ? object?.object.name : object.name
-    const tableName = Object.keys(assessment.metaCache[cycle.uuid].variablesByTable).find(
+    const tableName = Object.keys(AssessmentMetaCaches.getVariablesByTables({ assessment, cycle })).find(
       (table) => table === objectName
     )
     if (tableName) {

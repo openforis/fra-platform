@@ -5,6 +5,7 @@ export interface ForestOptions {
   hansenPercentage: HansenPercentage
   agreementLayerSelected: boolean
   agreementLevel: number
+  recipe: string
 }
 
 export const hansenPercentages = [10, 20, 30] as const
@@ -119,11 +120,13 @@ export const agreementPalette = [
   '#000000', // black
 ]
 
-const forestAgreementRecipes: Array<{
+export interface Recipe {
   layers: Array<ForestSource>
-  gteHansenTreeCoverPerc?: number
+  gteHansenTreeCoverPerc?: HansenPercentage
   forestAreaDataProperty: string
-}> = [
+}
+
+export const forestAgreementRecipes: Array<Recipe> = [
   {
     layers: [
       ForestSource.TandemX,

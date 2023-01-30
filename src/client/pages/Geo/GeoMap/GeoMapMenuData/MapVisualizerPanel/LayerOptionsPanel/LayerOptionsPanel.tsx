@@ -1,7 +1,8 @@
 import './LayerOptionsPanel.scss'
 import React, { useRef } from 'react'
+import { batch } from 'react-redux'
 
-import { ForestSource, hansenPercentages } from '@meta/geo/forest'
+import { ForestSource, HansenPercentage, hansenPercentages } from '@meta/geo/forest'
 
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useForestSourceOptions } from '@client/store/ui/geo'
@@ -25,6 +26,13 @@ const LayerOptionsPanel: React.FC<Props> = ({ layerKey }) => {
     mapControllerRef.current.setEarthEngineLayerOpacity(layerKey, newValue)
   }
 
+  const handleHansenPercentageChange = (percentage: HansenPercentage) => {
+    batch(() => {
+      dispatch(GeoActions.setRecipe('custom'))
+      dispatch(GeoActions.setHansenPercentage(percentage))
+    })
+  }
+
   return (
     <div className="geo-map-menu-forest-layer-options-panel">
       <div>
@@ -43,7 +51,7 @@ const LayerOptionsPanel: React.FC<Props> = ({ layerKey }) => {
                         type="radio"
                         checked={forestOptions.hansenPercentage === percentage}
                         id={id}
-                        onChange={() => dispatch(GeoActions.setHansenPercentage(percentage))}
+                        onChange={() => handleHansenPercentageChange(percentage)}
                       />
                       <small>{percentage} %</small>
                     </label>
