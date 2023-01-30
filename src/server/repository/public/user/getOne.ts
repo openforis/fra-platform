@@ -56,9 +56,12 @@ export const getOne = async (
         ...Objects.camelize(data),
         roles:
           data.roles[0] !== null
-            ? data.roles.map(({ props, ...role }) => ({
+            ? data.roles.map(({ permissions, ...role }) => ({
                 ...Objects.camelize(role),
-                props: { ...Objects.camelize(props), sections: (props as CollaboratorPermissions).sections },
+                permissions: {
+                  ...Objects.camelize(permissions),
+                  sections: (permissions as CollaboratorPermissions).sections,
+                },
               }))
             : [],
       }

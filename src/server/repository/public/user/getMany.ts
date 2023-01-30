@@ -81,9 +81,12 @@ export const getMany = async (
   return client.manyOrNone<User>(query, queryParams).then((data) =>
     data.map(({ roles, ...user }) => ({
       ...Objects.camelize(user),
-      roles: roles.map(({ props, ...role }) => ({
+      roles: roles.map(({ permissions, ...role }) => ({
         ...Objects.camelize(role),
-        props: { ...Objects.camelize(props), sections: (props as CollaboratorPermissions).sections },
+        permissions: {
+          ...Objects.camelize(permissions),
+          sections: (permissions as CollaboratorPermissions).sections,
+        },
       })),
     }))
   )
