@@ -7,8 +7,8 @@ export type { UserResetPassword } from './userResetPassword'
 export type {
   Administrator,
   Collaborator,
-  CollaboratorProps,
-  CollaboratorSectionsProp,
+  CollaboratorPermissions,
+  CollaboratorSectionsPermission,
   NationalCorrespondent,
   Reviewer,
   UserRole,

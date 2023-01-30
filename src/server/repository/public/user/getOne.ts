@@ -1,6 +1,6 @@
 import { Objects } from '@utils/objects'
 
-import { CollaboratorProps, User } from '@meta/user'
+import { CollaboratorPermissions, User } from '@meta/user'
 
 import { BaseProtocol, DB } from '@server/db'
 
@@ -58,7 +58,7 @@ export const getOne = async (
           data.roles[0] !== null
             ? data.roles.map(({ props, ...role }) => ({
                 ...Objects.camelize(role),
-                props: { ...Objects.camelize(props), sections: (props as CollaboratorProps).sections },
+                props: { ...Objects.camelize(props), sections: (props as CollaboratorPermissions).sections },
               }))
             : [],
       }

@@ -2,7 +2,7 @@ import { Objects } from '@utils/objects'
 
 import { CountryIso } from '@meta/area'
 import { Assessment, Cycle } from '@meta/assessment'
-import { CollaboratorProps, RoleName, User } from '@meta/user'
+import { CollaboratorPermissions, RoleName, User } from '@meta/user'
 
 import { BaseProtocol, DB } from '@server/db'
 
@@ -83,7 +83,7 @@ export const getMany = async (
       ...Objects.camelize(user),
       roles: roles.map(({ props, ...role }) => ({
         ...Objects.camelize(role),
-        props: { ...Objects.camelize(props), sections: (props as CollaboratorProps).sections },
+        props: { ...Objects.camelize(props), sections: (props as CollaboratorPermissions).sections },
       })),
     }))
   )
