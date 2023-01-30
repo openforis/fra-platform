@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { createElement, Fragment, useEffect, useState } from 'react'
 
-import MDEditor from '@uiw/react-md-editor'
+import rehypeParse from 'rehype-parse'
 import rehypeRaw from 'rehype-raw'
+import rehypeReact from 'rehype-react'
 import rehypeSanitize from 'rehype-sanitize'
+import { unified } from 'unified'
 
 type Props = {
   value: string
@@ -10,7 +12,21 @@ type Props = {
 
 const MarkdownPreview: React.FC<Props> = (props) => {
   const { value } = props
-  return <MDEditor.Markdown rehypePlugins={[rehypeRaw, rehypeSanitize]} source={value} />
+  const [Content, setContent] = useState<any>(Fragment)
+
+  useEffect(() => {
+    unified()
+      .use(rehypeRaw)
+      .use(rehypeSanitize)
+      .use(rehypeParse, { fragment: true })
+      .use(rehypeReact, { createElement, Fragment })
+      .process(value)
+      .then((file) => {
+        setContent(file.result)
+      })
+  }, [value])
+
+  return Content
 }
 
 export default MarkdownPreview
