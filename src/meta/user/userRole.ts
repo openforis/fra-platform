@@ -25,7 +25,9 @@ export enum UserContactPreferencePhoneOption {
 
 export type UserContactPreference = {
   method: UserContactPreferenceMethod
-  phoneOption: UserContactPreferencePhoneOption
+  options?: {
+    phone?: UserContactPreferencePhoneOption
+  }
 }
 
 export type UserRoleBaseProps = {
@@ -47,7 +49,7 @@ export type UserRoleExtendedProps = UserRoleBaseProps & {
   primaryPhoneNo?: string
   secondaryPhoneNo?: string
   skype?: string
-  preferredWayOfContacting?: UserContactPreference
+  contactPreference?: UserContactPreference
 }
 
 export interface UserRole<Name extends RoleName, Props extends UserRoleBaseProps = undefined, Permissions = undefined> {
@@ -55,8 +57,8 @@ export interface UserRole<Name extends RoleName, Props extends UserRoleBaseProps
   assessmentId?: number
   cycleUuid: string
   countryIso?: CountryIso
-  permissions: Props
-  props: Permissions
+  permissions: Permissions
+  props: Props
   role: Name
   userId: number
   invitationUuid: string
