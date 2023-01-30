@@ -95,6 +95,7 @@ export const ApiEndPoint = {
     roles: () => apiPath('users', 'roles'),
     adminRole: () => apiPath('users', 'admin-role'),
     sectionAuth: () => apiPath('users', 'section-auth'),
+    roleProps: () => apiPath('users', 'role-props'),
   },
 
   Geo: {

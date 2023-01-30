@@ -7,11 +7,11 @@ import { BaseProtocol, DB } from '@server/db'
 export const updateProps = async (
   props: {
     id: string
-    properties: UserRoleBaseProps | UserRoleExtendedProps
+    props: UserRoleBaseProps | UserRoleExtendedProps
   },
   client: BaseProtocol = DB
 ): Promise<UserRole<RoleName>> => {
-  const { id, properties } = props
+  const { id, props: properties } = props
 
   return client.one<UserRole<RoleName>>(
     `
