@@ -1,8 +1,7 @@
-import { Objects } from '@utils/objects'
-
-import { CollaboratorPermissions, CollaboratorSectionsPermission, RoleName, UserRole } from '@meta/user'
+import { CollaboratorSectionsPermission, RoleName, UserRole } from '@meta/user'
 
 import { BaseProtocol, DB } from '@server/db'
+import { UserRoleAdapter } from '@server/repository/adapter'
 
 export const updateSectionAuth = async (
   props: {
@@ -23,11 +22,5 @@ export const updateSectionAuth = async (
     `,
       [JSON.stringify(sections), id]
     )
-    .then((data) => ({
-      ...Objects.camelize(data),
-      permissions: {
-        ...Objects.camelize(data.permissions),
-        sections: (data.permissions as CollaboratorPermissions).sections,
-      },
-    }))
+    .then((data) => UserRoleAdapter(data))
 }

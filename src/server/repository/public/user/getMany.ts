@@ -2,9 +2,10 @@ import { Objects } from '@utils/objects'
 
 import { CountryIso } from '@meta/area'
 import { Assessment, Cycle } from '@meta/assessment'
-import { CollaboratorPermissions, RoleName, User } from '@meta/user'
+import { RoleName, User } from '@meta/user'
 
 import { BaseProtocol, DB } from '@server/db'
+import { UserRoleAdapter } from '@server/repository/adapter'
 
 import { fields } from './fields'
 
@@ -81,13 +82,7 @@ export const getMany = async (
   return client.manyOrNone<User>(query, queryParams).then((data) =>
     data.map(({ roles, ...user }) => ({
       ...Objects.camelize(user),
-      roles: roles.map(({ permissions, ...role }) => ({
-        ...Objects.camelize(role),
-        permissions: {
-          ...Objects.camelize(permissions),
-          sections: (permissions as CollaboratorPermissions).sections,
-        },
-      })),
+      roles: roles.map(UserRoleAdapter),
     }))
   )
 }

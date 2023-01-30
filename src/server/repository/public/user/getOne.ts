@@ -1,8 +1,9 @@
 import { Objects } from '@utils/objects'
 
-import { CollaboratorPermissions, User } from '@meta/user'
+import { User } from '@meta/user'
 
 import { BaseProtocol, DB } from '@server/db'
+import { UserRoleAdapter } from '@server/repository/adapter'
 
 import { fields } from './fields'
 
@@ -54,16 +55,7 @@ export const getOne = async (
       if (!data) return null
       return {
         ...Objects.camelize(data),
-        roles:
-          data.roles[0] !== null
-            ? data.roles.map(({ permissions, ...role }) => ({
-                ...Objects.camelize(role),
-                permissions: {
-                  ...Objects.camelize(permissions),
-                  sections: (permissions as CollaboratorPermissions).sections,
-                },
-              }))
-            : [],
+        roles: data.roles[0] !== null ? data.roles.map(UserRoleAdapter) : [],
       }
     })
 }
