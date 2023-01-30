@@ -1,1 +1,1 @@
-export { default } from './geoMapMenuRecipes'
+export { default } from './GeoMapMenuRecipes'
