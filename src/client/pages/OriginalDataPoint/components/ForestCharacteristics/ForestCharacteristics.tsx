@@ -79,7 +79,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
                   {t(`nationalDataPoint.${cycle.name === '2025' ? 'nationalClassifications' : 'nationalClasses'}`)}
                 </th>
                 <th className="fra-table__header-cell" colSpan={3}>
-                  {t(`nationalDataPoint.${cycle.name === '2025' ? 'categories' : 'fraClasses'}`)}
+                  {t(`nationalDataPoint.fraClasses`)}
                 </th>
               </tr>
 
