@@ -3,13 +3,13 @@ import axios from 'axios'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { CountryIso } from '@meta/area'
-import { CollaboratorProps, CollaboratorSectionsProp, RoleName, UserRole } from '@meta/user'
+import { Collaborator, CollaboratorSectionsPermission } from '@meta/user'
 
 export const updateSectionAuth = createAsyncThunk<
-  UserRole<RoleName, CollaboratorProps>,
+  Collaborator,
   {
     id: number
-    sections: CollaboratorSectionsProp
+    sections: CollaboratorSectionsPermission
     params: {
       assessmentName: string
       cycleName: string

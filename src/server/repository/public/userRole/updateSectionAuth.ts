@@ -1,20 +1,20 @@
 import { Objects } from '@utils/objects'
 
-import { CollaboratorProps, CollaboratorSectionsProp, RoleName, UserRole } from '@meta/user'
+import { Collaborator, CollaboratorPermissions, CollaboratorSectionsPermission } from '@meta/user'
 
 import { BaseProtocol, DB } from '@server/db'
 
 export const updateSectionAuth = async (
   props: {
     id: string
-    sections: CollaboratorSectionsProp
+    sections: CollaboratorSectionsPermission
   },
   client: BaseProtocol = DB
-): Promise<UserRole<RoleName, CollaboratorProps>> => {
+): Promise<Collaborator> => {
   const { id, sections } = props
 
   return client
-    .one<UserRole<RoleName, CollaboratorProps>>(
+    .one<Collaborator>(
       `
         update users_role
         set props = props || jsonb_build_object('sections', $1::jsonb)
@@ -25,6 +25,6 @@ export const updateSectionAuth = async (
     )
     .then((data) => ({
       ...Objects.camelize(data),
-      props: { ...Objects.camelize(props), sections: (props as CollaboratorProps).sections },
+      props: { ...Objects.camelize(props), sections: (props as CollaboratorPermissions).sections },
     }))
 }
