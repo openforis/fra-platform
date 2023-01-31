@@ -9,7 +9,7 @@ import { Areas, CountryIso, Global, RegionCode } from '@meta/area'
 import { UserRoles } from '@meta/user/userRoles'
 
 import { useAssessment, useCountry, useCycle } from '@client/store/assessment'
-import { useCountryIso, useIsCycleLanding } from '@client/hooks'
+import { useCountryIso, useIsCycleLanding, useIsGeoPage } from '@client/hooks'
 import { Dates } from '@client/utils'
 
 type Props = {
@@ -43,9 +43,15 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  // The user should remain in the maps page when changing countries.
+  const IsInGeoPage = useIsGeoPage()
+  const isCountry = Areas.isISOCountry(countryIso)
+  const destinationPath =
+    IsInGeoPage && isCountry ? ClientRoutes.Assessment.Cycle.Country.Geo : ClientRoutes.Assessment.Cycle.Country.Landing
+
   return (
     <Link
-      to={ClientRoutes.Assessment.Cycle.Country.Landing.getLink({
+      to={destinationPath.getLink({
         assessmentName: assessment.props.name,
         cycleName: cycle?.name,
         countryIso: countryIso as CountryIso,

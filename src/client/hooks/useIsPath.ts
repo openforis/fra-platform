@@ -31,3 +31,6 @@ export const useIsPanEuropean = () => {
   const { assessmentName } = useParams<{ assessmentName: AssessmentName }>()
   return assessmentName === AssessmentNames.panEuropean
 }
+
+export const useIsGeoPage = () =>
+  useIsPath({ path: `${ClientRoutes.Assessment.Cycle.Country.Geo.path.absolute}/*`, exact: false })
