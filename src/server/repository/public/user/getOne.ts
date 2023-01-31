@@ -55,7 +55,7 @@ export const getOne = async (
       if (!data) return null
       return {
         ...Objects.camelize(data),
-        roles: (data.roles ?? []).map(UserRoleAdapter),
+        roles: (data.roles[0] !== null ? data.roles : []).map(UserRoleAdapter),
       }
     })
 }
