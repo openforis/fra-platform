@@ -175,6 +175,7 @@ The FRA team fra@fao.org
     forest: 'Forest',
     otherWoodedLand: 'Other wooded land',
     otherLand: 'Other land',
+    remainingLand: 'Remaining land',
   },
 
   fraForestCharacteristicsClass: {

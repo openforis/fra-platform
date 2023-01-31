@@ -38,6 +38,8 @@ const OriginalData: React.FC<Props> = (props) => {
   const i18n = useTranslation()
   const countryIso = useCountryIso()
 
+  if (!country) return null
+
   return (
     <div>
       <h2 className="headline">{i18n.t<string>('nationalDataPoint.reclassificationLabel')}</h2>
