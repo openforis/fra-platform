@@ -1,3 +1,4 @@
+export type { Bounds } from './bounds'
 export type { Layer } from './forest'
 export type { ForestOptions } from './forest'
 export {
