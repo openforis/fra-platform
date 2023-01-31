@@ -98,6 +98,7 @@ export const ApiEndPoint = {
   },
 
   Geo: {
+    bounds: () => apiPath('geo', 'bounds'),
     sepalProxy: () => apiPath('geo', 'sepal'),
     Layers: {
       forest: () => apiPath('geo', 'layers', 'forest'),

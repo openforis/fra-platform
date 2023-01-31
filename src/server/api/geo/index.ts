@@ -7,6 +7,7 @@ import { ValidationMiddleware } from '@server/middleware/validation'
 import { GeoSchemes } from '@server/middleware/validation/geoSchemes'
 
 import { getBoundariesLayer } from './getBoundariesLayer'
+import { getBounds } from './getBounds'
 import { getForestAgreementLayer } from './getForestAgreementLayer'
 import { estimateForestAgreementArea, getForestEstimations } from './getForestEstimations'
 import { getForestLayer } from './getForestLayer'
@@ -38,6 +39,8 @@ export const GeoApi = {
       GeeAuthMiddleware.requireLogin,
       estimateForestAgreementArea
     )
+
+    express.get(ApiEndPoint.Geo.bounds(), ValidationMiddleware.validateRequest(GeoSchemes.countryIsoSchema), getBounds)
 
     express.get(ApiEndPoint.Geo.Layers.boundaries(), GeeAuthMiddleware.requireLogin, getBoundariesLayer)
   },
