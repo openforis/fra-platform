@@ -46,8 +46,8 @@ export type UserRoleExtendedProps = UserRoleBaseProps & {
   }
   primaryEmail?: string
   secondaryEmail?: string
-  primaryPhoneNo?: string
-  secondaryPhoneNo?: string
+  primaryPhoneNumber?: string
+  secondaryPhoneNumber?: string
   skype?: string
   contactPreference?: UserContactPreference
 }
