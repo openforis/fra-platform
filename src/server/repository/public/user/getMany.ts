@@ -57,7 +57,7 @@ export const getMany = async (
     const selectedRoles = roles.map((roleName) => `'${roleName}'`).join(',')
 
     query = `
-        select ${selectFields}, jsonb_agg(to_jsonb(ur.*)) as roles
+        select ${selectFields}, jsonb_agg(to_jsonb(ur.*)  - 'props') as roles
         from public.users u
           join public.users_role ur on (u.id = ur.user_id)
           ${
