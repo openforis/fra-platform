@@ -9533,8 +9533,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                   },
                   {
-                    idx: 1,
                     idx: 'header_1',
+                    colSpan: 1,
                     labelKey: 'panEuropean.countryComments.theRecentAvailableYear',
                     className: 'fra-table__header-cell',
                     type: 'header',
@@ -10300,8 +10300,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                   },
                   {
-                    idx: 1,
                     idx: 'header_1',
+                    colSpan: 1,
                     labelKey: 'panEuropean.countryComments.theRecentAvailableYear',
                     className: 'fra-table__header-cell',
                     type: 'header',
