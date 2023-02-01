@@ -1683,7 +1683,7 @@ export const introducedTreeSpecies = {
               cols: [
                 {
                   idx: 0,
-                  colSpan: 2,
+                  colSpan: 3,
                   rowSpan: 1,
                   labelKey: 'panEuropean.countryComments.theYearAndDataReportedFor2025',
                   className: 'fra-table__header-cell',
@@ -1699,18 +1699,19 @@ export const introducedTreeSpecies = {
                 {
                   idx: 'header_0',
                   colSpan: 1,
+                  rowSpan: 3,
                   labelKey: 'panEuropean.countryComments.howDidYouGenerateValuesFor2025',
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
                 {
-                  idx: 'header_1',
+                  idx: -1,
                   colSpan: 1,
                   labelKey: 'panEuropean.countryComments.theRecentAvailableYear',
                   className: 'fra-table__header-cell',
-                  type: 'header',
+                  type: 'placeholder',
                 },
-                { idx: 0, type: 'decimal' },
+                { idx: 0, type: 'textarea' },
               ],
             },
             {
@@ -1720,18 +1721,11 @@ export const introducedTreeSpecies = {
                 {
                   idx: 'header_0',
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.howDidYouGenerateValuesFor2025',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                {
-                  idx: 'header_1',
-                  colSpan: 1,
                   labelKey: 'panEuropean.countryComments.extrapolation',
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'decimal' },
+                { idx: 0, type: 'textarea' },
               ],
             },
             {
@@ -1741,18 +1735,11 @@ export const introducedTreeSpecies = {
                 {
                   idx: 'header_0',
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.howDidYouGenerateValuesFor2025',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                {
-                  idx: 'header_1',
-                  colSpan: 1,
                   labelKey: 'panEuropean.countryComments.assessmentBasedOnEvidence',
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'decimal' },
+                { idx: 0, type: 'textarea' },
               ],
             },
           ],

@@ -2582,7 +2582,7 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
               cols: [
                 {
                   idx: 0,
-                  colSpan: 2,
+                  colSpan: 3,
                   rowSpan: 1,
                   labelKey: 'panEuropean.countryComments.commentsToInterpretationOfDevelopmentPhases',
                   className: 'fra-table__header-cell',
@@ -2598,18 +2598,19 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
                 {
                   idx: 'header_0',
                   colSpan: 1,
+                  rowSpan: 4,
                   labelKey: 'panEuropean.countryComments.howDidYouInterpretedAndDefineNationally',
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
                 {
-                  idx: 'header_1',
+                  idx: -1,
                   colSpan: 1,
                   labelKey: 'panEuropean.countryComments.regenerationPhase',
                   className: 'fra-table__header-cell',
-                  type: 'header',
+                  type: 'placeholder',
                 },
-                { idx: 0, type: 'decimal' },
+                { idx: 0, type: 'textarea' },
               ],
             },
             {
@@ -2619,18 +2620,11 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
                 {
                   idx: 'header_0',
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.howDidYouInterpretedAndDefineNationally',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                {
-                  idx: 'header_1',
-                  colSpan: 1,
                   labelKey: 'panEuropean.countryComments.intermediatePhase',
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'decimal' },
+                { idx: 0, type: 'textarea' },
               ],
             },
             {
@@ -2640,18 +2634,11 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
                 {
                   idx: 'header_0',
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.howDidYouInterpretedAndDefineNationally',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                {
-                  idx: 'header_1',
-                  colSpan: 1,
                   labelKey: 'panEuropean.countryComments.maturePhase',
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'decimal' },
+                { idx: 0, type: 'textarea' },
               ],
             },
             {
@@ -2659,20 +2646,13 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
               type: 'data',
               cols: [
                 {
-                  idx: 0,
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.howDidYouInterpretedAndDefineNationally',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                {
                   idx: 'header_1',
                   colSpan: 1,
                   labelKey: 'panEuropean.countryComments.unspecified',
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'decimal' },
+                { idx: 0, type: 'textarea' },
               ],
             },
           ],

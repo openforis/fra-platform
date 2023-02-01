@@ -2825,7 +2825,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 'header_0',
                     colSpan: 1,
                     labelKey:
-                      'panEuropean.countryComments.inYourCountry,AreRecentlyDegradedForestAreasLegallyConsideredAsNonForestLand',
+                      'panEuropean.countryComments.inYourCountryAreRecentlyDegradedForestAreasLegallyConsideredAsNonForestLand',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -2840,7 +2840,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 'header_0',
                     colSpan: 1,
                     labelKey:
-                      'panEuropean.countryComments.inYourCountry,AreDegradedNonForestAreasReCategorisedToForestLandWithTheAimToReforestThem',
+                      'panEuropean.countryComments.inYourCountryAreDegradedNonForestAreasReCategorisedToForestLandWithTheAimToReforestThem',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -5323,7 +5323,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey: 'panEuropean.countryComments1St',
+                    labelKey: 'panEuropean.countryComments.first',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -5338,7 +5338,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey: 'panEuropean.countryComments2Nd',
+                    labelKey: 'panEuropean.countryComments.second',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -5353,7 +5353,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey: 'panEuropean.countryComments3Rd',
+                    labelKey: 'panEuropean.countryComments.third',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -5368,7 +5368,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey: 'panEuropean.countryComments4Th',
+                    labelKey: 'panEuropean.countryComments.fourth',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -5383,7 +5383,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey: 'panEuropean.countryComments5Th',
+                    labelKey: 'panEuropean.countryComments.fifth',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -5398,7 +5398,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey: 'panEuropean.countryComments6Th',
+                    labelKey: 'panEuropean.countryComments.sixth',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -5413,7 +5413,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey: 'panEuropean.countryComments7Th',
+                    labelKey: 'panEuropean.countryComments.seventh',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -5428,7 +5428,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey: 'panEuropean.countryComments8Th',
+                    labelKey: 'panEuropean.countryComments.eighth',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -5443,7 +5443,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey: 'panEuropean.countryComments9Th',
+                    labelKey: 'panEuropean.countryComments.ninth',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -5458,7 +5458,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey: 'panEuropean.countryComments10Th',
+                    labelKey: 'panEuropean.countryComments.tenth',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -10279,7 +10279,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 cols: [
                   {
                     idx: 0,
-                    colSpan: 1,
+                    colSpan: 3,
                     rowSpan: 1,
                     labelKey: 'panEuropean.countryComments.theYearAndDataReportedFor2025',
                     className: 'fra-table__header-cell',
@@ -10295,18 +10295,19 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 'header_0',
                     colSpan: 1,
+                    rowSpan: 3,
                     labelKey: 'panEuropean.countryComments.howDidYouGenerateValuesFor2025',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
                   {
-                    idx: 'header_1',
+                    idx: -1,
                     colSpan: 1,
                     labelKey: 'panEuropean.countryComments.theRecentAvailableYear',
                     className: 'fra-table__header-cell',
-                    type: 'header',
+                    type: 'placeholder',
                   },
-                  { idx: 0, type: 'decimal' },
+                  { idx: 0, type: 'textarea' },
                 ],
               },
               {
@@ -10316,18 +10317,11 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.howDidYouGenerateValuesFor2025',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  {
-                    idx: 'header_1',
-                    colSpan: 1,
                     labelKey: 'panEuropean.countryComments.extrapolation',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
+                  { idx: 0, type: 'textarea' },
                 ],
               },
               {
@@ -10337,18 +10331,11 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.howDidYouGenerateValuesFor2025',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  {
-                    idx: 'header_1',
-                    colSpan: 1,
                     labelKey: 'panEuropean.countryComments.assessmentBasedOnEvidence',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
+                  { idx: 0, type: 'textarea' },
                 ],
               },
             ],
