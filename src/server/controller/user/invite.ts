@@ -42,10 +42,13 @@ export const invite = async (
       t
     )
 
-    await UserRoleRepository.updateProps({
-      id: userRole.id,
-      props: { primaryEmail: email, address: { countryIso } },
-    })
+    await UserRoleRepository.updateProps(
+      {
+        id: userRole.id,
+        props: { primaryEmail: email, address: { countryIso } },
+      },
+      t
+    )
 
     const { userId, role } = userRole
 
