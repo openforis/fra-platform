@@ -42,7 +42,7 @@ export type UserRoleExtendedProps = UserRoleBaseProps & {
     zipCode?: string
     poBox?: string
     city?: string
-    country?: CountryIso
+    countryIso?: CountryIso
   }
   primaryEmail?: string
   secondaryEmail?: string
