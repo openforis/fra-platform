@@ -6,7 +6,7 @@ import { BaseProtocol, DB } from '@server/db'
 
 export const updateProps = async (
   props: {
-    id: string
+    id: number
     props: UserRoleBaseProps | UserRoleExtendedProps
   },
   client: BaseProtocol = DB

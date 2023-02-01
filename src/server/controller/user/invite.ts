@@ -38,6 +38,7 @@ export const invite = async (
         country: countryIso,
         role: roleName,
         cycle,
+        props: { primaryEmail: email, address: { countryIso } },
       },
       t
     )
