@@ -43,7 +43,6 @@
     "heroku-prebuild": "echo \"//npm.pkg.github.com/:_authToken=${NPM_GITHUB_TOKEN}\" >> .npmrc",
     "geo:forest-estimations-import": "ts-node tools/geo/forestEstimationsImport.ts",
     "geo:bounds-import": "ts-node tools/geo/boundsImport.ts"
-
   },
   "devDependencies": {
     "@babel/cli": "^7.17.6",
@@ -262,7 +261,7 @@
   "browserslist": [
     "last 2 versions"
   ],
-  "version": "3.0.0-alpha.2",
+  "version": "3.0.0-alpha.3",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
