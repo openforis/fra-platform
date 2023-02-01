@@ -34,6 +34,7 @@
     "test:integration": "yarn jest --no-cache --detectOpenHandles --setupFiles dotenv/config",
     "test:e2e": "playwright test --config ./src/test/e2e/jest-playwright.config.ts",
     "test:watch": "yarn jest --no-cache --detectOpenHandles --watchAll --setupFiles dotenv/config",
+    "preversion": "git diff --quiet || { echo \"Working directory is dirty\"; exit 1; };",
     "postversion": "git push --tags && echo \"Successfully released version $npm_package_version!\"",
     "prepare": "husky install",
     "postinstall": "husky install",
