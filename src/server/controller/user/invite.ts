@@ -38,13 +38,6 @@ export const invite = async (
         country: countryIso,
         role: roleName,
         cycle,
-      },
-      t
-    )
-
-    await UserRoleRepository.updateProps(
-      {
-        id: userRole.id,
         props: { primaryEmail: email, address: { countryIso } },
       },
       t
