@@ -42,6 +42,11 @@ export const invite = async (
       t
     )
 
+    UserRoleRepository.updateProps({
+      id: userRole.id,
+      props: { primaryEmail: email, address: { country: countryIso } },
+    })
+
     const { userId, role } = userRole
 
     await ActivityLogRepository.insertActivityLog(
