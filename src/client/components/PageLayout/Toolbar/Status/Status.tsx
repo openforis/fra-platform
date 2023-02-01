@@ -94,13 +94,13 @@ const Status: React.FC = () => {
     <>
       {targetStatus && <StatusConfirm status={targetStatus} onClose={() => setTargetStatus(null)} />}
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
-        <div className={`nav-assessment-header__status status-${status}`}>
+        <div className={`nav-header__status status-${status}`}>
           <span>{i18n.t<string>(`assessment.status.${status}.label`)}</span>
         </div>
       </MediaQuery>
       <MediaQuery minWidth={Breakpoints.laptop}>
         <PopoverControl items={items}>
-          <div className={`nav-assessment-header__status status-${status} actionable-${!Objects.isEmpty(items)}`}>
+          <div className={`nav-header__status status-${status} actionable-${!Objects.isEmpty(items)}`}>
             <span>{i18n.t<string>(`assessment.status.${status}.label`)}</span>
             {!Objects.isEmpty(items) && <Icon className="icon-white icon-middle" name="small-down" />}
           </div>

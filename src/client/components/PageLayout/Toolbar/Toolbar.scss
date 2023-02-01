@@ -1,15 +1,18 @@
 @import 'src/client/style/partials';
 
-.country-select {
+.toolbar {
   position: sticky;
   top: 0;
   z-index: $z-index-area-selector;
   display: flex;
   align-items: center;
   background-color: var(--ui-bg);
-  border-bottom: $ui-thin-border;
+  //border-bottom: $ui-thin-border;
   height: 50px;
-  box-shadow: 0 2px 4px 0px rgba($text-body, 0.5);
+  //box-shadow: 0 2px 4px 0px rgba($text-body, 0.5);
+  //-webkit-box-shadow: 0 2px 4px 0px $ui-border;
+  box-shadow: 0 0px 4px 1px $ui-border;
+
   width: 100%;
 
   .text-input {
@@ -18,6 +21,12 @@
     font-size: 13px;
     padding: initial;
   }
+}
+
+.country-select {
+  display: flex;
+  width: 340px;
+  margin-right: $spacing-xxs;
 }
 
 .btn-toggle-navigation {
@@ -40,8 +49,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-width: 250px;
-  padding: 4px 12px;
+  width: 100%;
+  margin-right: $spacing-xxs;
+  padding: $spacing-xxxs $spacing-xxs;
   background-color: $ui-bg;
   border: none;
   text-align: left;
@@ -101,11 +111,20 @@
   }
 }
 
-.links-download {
+.toolbar__utils-container {
   margin-left: auto;
   margin-right: 12px;
+  display: flex;
+  align-items: center;
 
   .btn {
     border: none !important;
+  }
+
+  .desk-study {
+    color: $text-link;
+    font-size: $font-l;
+    font-weight: 300;
+    margin-right: $spacing-xs;
   }
 }

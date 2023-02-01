@@ -67,8 +67,8 @@ const Toolbar: React.FC = () => {
   }, [open])
 
   return (
-    <div className="country-select">
-      <div style={{ display: 'flex', width: '340px' }}>
+    <div className="toolbar">
+      <div className="country-select">
         <ToggleNavigationControl />
 
         <button
@@ -124,34 +124,39 @@ const Toolbar: React.FC = () => {
       </div>
 
       {isCountry && (
-        <MediaQuery minWidth={Breakpoints.laptop}>
-          {user && <Status />}
+        <>
+          <MediaQuery minWidth={Breakpoints.laptop}>
+            {user && <Status />}
+            {user && country && Users.hasEditorRole({ user, countryIso, cycle }) && <Lock />}
+          </MediaQuery>
 
-          {user && country && Users.hasEditorRole({ user, countryIso, cycle }) && <Lock />}
+          <div className="toolbar__utils-container">
+            {country?.props?.deskStudy && <div className="desk-study">{t('assessment.deskStudy')}</div>}
 
-          <div className="links-download">
-            <Link
-              className="btn btn-secondary"
-              to={ClientRoutes.Assessment.Cycle.Country.PrintTables.getLink({
-                countryIso,
-                assessmentName,
-                cycleName,
-              })}
-              target="_blank"
-            >
-              <Icon name="small-print" className="icon-margin-left icon-sub" />
-              <Icon name="icon-table2" className="icon-no-margin icon-sub" />
-            </Link>
+            <MediaQuery minWidth={Breakpoints.laptop}>
+              <Link
+                className="btn btn-secondary"
+                to={ClientRoutes.Assessment.Cycle.Country.PrintTables.getLink({
+                  countryIso,
+                  assessmentName,
+                  cycleName,
+                })}
+                target="_blank"
+              >
+                <Icon name="small-print" className="icon-margin-left icon-sub" />
+                <Icon name="icon-table2" className="icon-no-margin icon-sub" />
+              </Link>
 
-            <Link
-              className="btn btn-secondary"
-              to={ClientRoutes.Assessment.Cycle.Country.Print.getLink({ countryIso, assessmentName, cycleName })}
-              target="_blank"
-            >
-              <Icon name="small-print" className="icon-no-margin icon-sub" />
-            </Link>
+              <Link
+                className="btn btn-secondary"
+                to={ClientRoutes.Assessment.Cycle.Country.Print.getLink({ countryIso, assessmentName, cycleName })}
+                target="_blank"
+              >
+                <Icon name="small-print" className="icon-no-margin icon-sub" />
+              </Link>
+            </MediaQuery>
           </div>
-        </MediaQuery>
+        </>
       )}
 
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
