@@ -8,7 +8,7 @@ import { AssessmentName, Labels, SubSections } from '@meta/assessment'
 import { useAssessmentSection, useCycle } from '@client/store/assessment'
 import { useTableSections } from '@client/store/pages/assessmentSection'
 import { useIsSectionDataEmpty } from '@client/store/pages/assessmentSection/hooks'
-import { useCanEditDescriptions, useCanEditTableData } from '@client/store/user/hooks'
+import { useIsEditDescriptionsEnabled, useIsEditTableDataEnabled } from '@client/store/user/hooks'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import CommentableDescription from '@client/pages/AssessmentSection/Descriptions/CommentableDescription'
@@ -33,8 +33,8 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
   const countryIso = useCountryIso()
   const subSection = useAssessmentSection(sectionProp)
   const tableSections = useTableSections({ sectionName: subSection?.props.name })
-  const canEditTableData = useCanEditTableData(sectionProp)
-  const canEditDescriptions = useCanEditDescriptions(sectionProp)
+  const canEditTableData = useIsEditTableDataEnabled(sectionProp)
+  const canEditDescriptions = useIsEditDescriptionsEnabled(sectionProp)
   const { print, onlyTables } = useIsPrint()
 
   const { showTitle, descriptions, name: sectionName } = subSection?.props ?? {}
