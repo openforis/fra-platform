@@ -1,11 +1,13 @@
 import './geoMapWrapper.scss'
 import React from 'react'
-import { Wrapper, Status } from '@googlemaps/react-wrapper'
+
+import { Status, Wrapper } from '@googlemaps/react-wrapper'
 
 import Loading from '@client/components/Loading'
+
 import GeoMap from '../GeoMap'
-import GeoMapMenuMosaic from '../GeoMap/GeoMapMenuMosaic'
 import GeoMapMenuData from '../GeoMap/GeoMapMenuData'
+import GeoMapMenuMosaic from '../GeoMap/GeoMapMenuMosaic'
 import GeoMapMenuRecipes from '../GeoMap/GeoMapMenuRecipes'
 import GeoMapMenuStatistics from '../GeoMap/GeoMapMenuStatistics'
 
@@ -23,7 +25,7 @@ const GeoMapWrapper: React.FC = () => {
         return <p>Error</p>
       case Status.SUCCESS:
         return (
-          <GeoMap center={{ lng: 18.6328125, lat: 49.809631563563094 }} zoom={4}>
+          <GeoMap>
             <div className="geo-map-menu-container">
               <GeoMapMenuMosaic />
               <GeoMapMenuData />

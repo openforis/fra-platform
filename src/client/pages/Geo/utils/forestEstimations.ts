@@ -27,7 +27,7 @@ export const getForestEstimationData = async (
   year: number
 ): Promise<TabularForestEstimationData> => {
   const estimationsData: [string, number, number][] = []
-  const response = await axios.get(ApiEndPoint.Geo.Layers.getEstimations(), { params: { countryIso, year } })
+  const response = await axios.get(ApiEndPoint.Geo.Estimations.forest(), { params: { countryIso, year } })
   const fetchedForestEstimations: ForestEstimations = response.data
 
   if (!fetchedForestEstimations) throw Error('Data unavailable.')
