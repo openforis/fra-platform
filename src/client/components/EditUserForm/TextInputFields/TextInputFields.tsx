@@ -24,13 +24,12 @@ const textInputFields: Array<TextInputFieldProps> = [
 ]
 
 type Props = {
-  onChange: (value: string, key: string) => void
-  onChangeProp: (value: string, key: string) => void
+  onChange: (user: User) => void
   user: User
 }
 
 const TextInputFields = (props: Props) => {
-  const { onChange, onChangeProp, user } = props
+  const { onChange, user } = props
   const { t } = useTranslation()
   const userInfo = useUser()
 
@@ -56,8 +55,8 @@ const TextInputFields = (props: Props) => {
                 value={value}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   inputField.isProperty
-                    ? onChangeProp(e.target.value, inputField.key)
-                    : onChange(e.target.value, inputField.key)
+                    ? onChange({ ...user, props: { ...user.props, [inputField.key]: e.target.value } })
+                    : onChange({ ...user, [inputField.key]: e.target.value })
                 }
                 disabled={!enabled}
               />

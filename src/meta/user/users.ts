@@ -5,7 +5,8 @@ import { CountryIso } from '@meta/area'
 import { Cycle } from '@meta/assessment'
 
 import type { User, UserProps } from './user'
-import { RoleName, UserContactPreference, UserRole, UserRoleBaseProps, UserRoleExtendedProps } from './userRole'
+// import { RoleName, UserContactPreference, UserRole, UserRoleBaseProps, UserRoleExtendedProps } from './userRole'
+import { RoleName, UserRole } from './userRole'
 import { UserRoles } from './userRoles'
 
 const isAdministrator = (user: User) => {
@@ -106,41 +107,42 @@ const isPersonalInfoRequired = (user: User, role: UserRole<RoleName, any>) => {
     RoleName.COLLABORATOR,
   ].includes(role.role)
 
-  const hasExtendedRoleProps = [RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT].includes(
-    role.role
-  )
-
   const missingUserProperties = ['title', 'name', 'surname'].some((propName: keyof UserProps) =>
     Objects.isEmpty(user.props[propName])
   )
 
-  const roleBaseProps = ['professionalTitle', 'organizationalUnit', 'organization']
+  // const hasExtendedRoleProps = [RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT].includes(
+  //   role.role
+  // )
 
-  const roleExtendedProps = roleBaseProps.concat([
-    'primaryEmail',
-    'secondaryEmail',
-    'primaryPhoneNumber',
-    'secondaryPhoneNumber',
-    'skype',
-  ])
+  // const roleBaseProps = ['professionalTitle', 'organizationalUnit', 'organization']
 
-  const validateAddress = (prop: any) =>
-    ['street', 'zipCode', 'poBox', 'city', 'countryIso'].some((propName) => Objects.isEmpty(prop[propName]))
+  // const roleExtendedProps = roleBaseProps.concat([
+  //   'primaryEmail',
+  //   'secondaryEmail',
+  //   'primaryPhoneNumber',
+  //   'secondaryPhoneNumber',
+  //   'skype',
+  // ])
 
-  const validateContactPreference = (prop: UserContactPreference) =>
-    Objects.isEmpty(prop.method) && Objects.isEmpty(prop.options?.phone)
+  // const validateAddress = (prop: any) =>
+  //   ['street', 'zipCode', 'poBox', 'city', 'countryIso'].some((propName) => Objects.isEmpty(prop[propName]))
 
-  const validateExtendedProps = (prop: any, propName: string) => {
-    if (propName === 'address') return validateAddress(prop)
-    if (propName === 'contactPreference') return validateContactPreference(prop)
-    return Objects.isEmpty(prop)
-  }
+  // const validateContactPreference = (prop: UserContactPreference) =>
+  //   Objects.isEmpty(prop.method) && Objects.isEmpty(prop.options?.phone)
 
-  const missingRoleProperties = hasExtendedRoleProps
-    ? roleExtendedProps.some((prop: keyof UserRoleExtendedProps) => Objects.isEmpty(role.props[prop]))
-    : roleBaseProps.some((prop: keyof UserRoleBaseProps) => validateExtendedProps(role.props[prop], prop))
+  // const validateExtendedProps = (prop: any, propName: string) => {
+  //   if (propName === 'address') return validateAddress(prop)
+  //   if (propName === 'contactPreference') return validateContactPreference(prop)
+  //   return Objects.isEmpty(prop)
+  // }
 
-  return hasCorrectRole && !Objects.isEmpty(user.email) && missingUserProperties && missingRoleProperties
+  // const missingRoleProperties = hasExtendedRoleProps
+  //   ? roleExtendedProps.some((prop: keyof UserRoleExtendedProps) => Objects.isEmpty(role.props[prop]))
+  //   : roleBaseProps.some((prop: keyof UserRoleBaseProps) => validateExtendedProps(role.props[prop], prop))
+
+  // return hasCorrectRole && !Objects.isEmpty(user.email) && missingUserProperties && missingRoleProperties
+  return hasCorrectRole && !Objects.isEmpty(user.email) && missingUserProperties
 }
 
 export const Users = {
