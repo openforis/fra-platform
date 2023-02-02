@@ -13,12 +13,11 @@ import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import CommentableDescription from '@client/pages/AssessmentSection/Descriptions/CommentableDescription'
 
+import { useListenNodeUpdates } from './hooks/useListenNodeUpdates'
 import DataTable from './DataTable'
 import Descriptions, { GeneralComments } from './Descriptions'
 import SectionHeader from './SectionHeader'
 import Title from './Title'
-import { useListenNodeUpdates } from './useListenNodeUpdates'
-import { useListenValidationsUpdate } from './useListenValidationsUpdate'
 
 type Props = {
   section?: string
@@ -40,7 +39,7 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
 
   const { showTitle, descriptions, name: sectionName } = subSection?.props ?? {}
 
-  useListenValidationsUpdate({ assessmentName, cycleName: cycle.name, countryIso, canEditTableData })
+  // useListenValidationsUpdate({ assessmentName, cycleName: cycle.name, countryIso, canEditTableData })
   useListenNodeUpdates({ countryIso, assessmentName, cycleName: cycle.name })
 
   // Hide the whole section if no tables have data
