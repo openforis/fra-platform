@@ -9,11 +9,12 @@ export interface ColDB {
   row_id: number
 }
 
-export const ColAdapter = (
-  { props: { labels, style, variableNo, calculateFn, validateFns, ...rest }, ...col }: ColDB,
-  _?: unknown,
-  __?: unknown
-): Col => {
+export const ColAdapter = (colDB: ColDB): Col => {
+  const {
+    props: { labels, style, variableNo, calculateFn, validateFns, ...rest },
+    ...col
+  } = colDB
+
   return {
     ...Objects.camelize(col),
     props: {

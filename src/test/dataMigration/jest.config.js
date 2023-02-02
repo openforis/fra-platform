@@ -7,5 +7,5 @@ module.exports = {
   ...sharedConfig,
   rootDir: path.resolve(__dirname, '..', '..', '..'),
   testMatch: ['<rootDir>/src/test/dataMigration/postDataMigration.ts'],
-  testTimeout: 300000000,
+  testTimeout: 120_000,
 }
