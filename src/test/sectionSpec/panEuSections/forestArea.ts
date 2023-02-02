@@ -1045,86 +1045,727 @@ export const forestArea = {
         },
       ],
     },
-    // {
-    //   tableSpecs: [
-    //     {
-    //       name: 'country_comments_table_1_1a',
-    //       rows: [
-    //         {
-    //           idx: 'header_0',
-    //           cols: [
-    //             {
-    //               idx: 0,
-    //               colSpan: 1,
-    //               rowSpan: 3,
-    //               labelKey: 'panEuropean.forestAreaByForestTypes.category',
-    //               className: 'fra-table__header-cell-left',
-    //               type: 'header',
-    //             },
-    //           ],
-    //           type: 'header',
-    //         },
-    //         {
-    //           idx: 0,
-    //           type: 'data',
-    //           cols: [
-    //             {
-    //               idx: 'header_0',
-    //               type: 'header',
-    //               colSpan: 1,
-    //               labelKey: 'panEuropean.forestAreaByForestTypes.predominantly_coniferous_forest',
-    //               className: 'fra-table__category-cell',
-    //             },
-    //             { idx: 0, type: 'text' },
-    //             { idx: 1, type: 'text' },
-    //           ],
-    //           variableExport: 'predominantly_coniferous_forest',
-    //           labelKey: 'panEuropean.forestAreaByForestTypes.predominantly_coniferous_forest',
-    //         },
-    //         {
-    //           idx: 1,
-    //           type: 'data',
-    //           cols: [
-    //             {
-    //               idx: 'header_0',
-    //               type: 'header',
-    //               colSpan: 1,
-    //               labelKey: 'panEuropean.forestAreaByForestTypes.predominantly_coniferous_forest',
-    //               className: 'fra-table__category-cell',
-    //             },
-    //             { idx: 0, type: 'text' },
-    //             { idx: 1, type: 'text' },
-    //           ],
-    //           variableExport: 'predominantly_broadleaved_forest',
-    //           labelKey: 'panEuropean.forestAreaByForestTypes.predominantly_broadleaved_forest',
-    //         },
-    //         {
-    //           idx: 2,
-    //           type: 'data',
-    //           cols: [
-    //             {
-    //               idx: 'header_0',
-    //               type: 'header',
-    //               colSpan: 1,
-    //               labelKey: 'panEuropean.forestAreaByForestTypes.predominantly_coniferous_forest',
-    //               className: 'fra-table__category-cell',
-    //             },
-    //             { idx: 0, type: 'text' },
-    //             { idx: 1, type: 'text' },
-    //           ],
-    //           variableExport: 'mixed_forest',
-    //           labelKey: 'panEuropean.forestAreaByForestTypes.mixed_forest',
-    //         },
-    //       ],
-    //       tableDataRequired: [],
-    //       print: { colBreakPoints: [], pageBreakAfter: false },
-    //       dataExport: false,
-    //       columnsExportAlways: [],
-    //       unit: 'haThousand',
-    //       columnsExport: ['year_export'],
-    //     },
-    //   ],
-    // },
+    {
+      tableSpecs: [
+        {
+          name: 'country_comments_1_1_1',
+          rows: [
+            {
+              idx: 'header_0',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 3,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.countryComments.theYearAndDataReported',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+              ],
+              type: 'header',
+            },
+            {
+              idx: 0,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  rowSpan: 3,
+                  labelKey: 'panEuropean.countryComments.howDidYouGenerateValues',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                {
+                  idx: -1,
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.theRecentAvailableYear',
+                  className: 'fra-table__header-cell',
+                  type: 'placeholder',
+                },
+                { idx: 1, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 1,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.extrapolation',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 2,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.assessementBasedOnEvidence',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'textarea' },
+              ],
+            },
+          ],
+          tableDataRequired: [],
+          print: { colBreakPoints: [], pageBreakAfter: false },
+          dataExport: true,
+          columnsExportAlways: [],
+          columnsExport: [],
+          migration: {
+            cycles: ['2025'],
+            columnNames: { '2025': ['theYearAndDataReported'] },
+          },
+        },
+      ],
+    },
+    {
+      tableSpecs: [
+        {
+          name: 'country_comments_1_1_2',
+          rows: [
+            {
+              idx: 'header_0',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 3,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.countryComments.approachToReportingOnTheCategoriesOfTheTable11A',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+              ],
+              type: 'header',
+            },
+            {
+              idx: 'header_1',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.countryComments.category',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                {
+                  idx: 1,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.countryComments.areaEstimate',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                {
+                  idx: 2,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.countryComments.comments',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+              ],
+              type: 'header',
+            },
+            {
+              idx: 0,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'decimal' },
+                { idx: 1, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 1,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 2,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 3,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 4,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 5,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 6,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 7,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 8,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 9,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 10,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 11,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 12,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 13,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 14,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 15,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 16,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 17,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 18,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 19,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 20,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 21,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 22,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 23,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 24,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 25,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 26,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 27,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 28,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 29,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 30,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+          ],
+          tableDataRequired: [],
+          print: { colBreakPoints: [], pageBreakAfter: false },
+          dataExport: true,
+          columnsExportAlways: [],
+          columnsExport: [],
+          migration: {
+            cycles: ['2025'],
+            columnNames: {
+              '2025': ['approachToReportingOnTheCategoriesOfTheTable11A'],
+            },
+          },
+        },
+      ],
+    },
+    {
+      tableSpecs: [
+        {
+          name: 'country_comments_1_1_3',
+          rows: [
+            {
+              idx: 'header_0',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.countryComments.category',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                {
+                  idx: 1,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.countryComments.commentsRelateToDataDefinitions',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                {
+                  idx: 2,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.countryComments.commentsOnTrendS',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+              ],
+              type: 'header',
+            },
+            {
+              idx: 0,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forestArea',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'decimal' },
+                { idx: 1, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 1,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.ofWhichAvailableForWoodSupply',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'decimal' },
+                { idx: 1, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 2,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.owlArea',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 3,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forestTypes',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'decimal' },
+                { idx: 1, type: 'decimal' },
+              ],
+            },
+          ],
+          tableDataRequired: [],
+          print: { colBreakPoints: [], pageBreakAfter: false },
+          dataExport: true,
+          columnsExportAlways: [],
+          columnsExport: [],
+          migration: {
+            cycles: ['2025'],
+            columnNames: {
+              '2025': ['category', 'commentsRelateToDataDefinitions', 'commentsOnTrendS'],
+            },
+          },
+        },
+      ],
+    },
   ],
   showTitle: true,
   descriptions: {
