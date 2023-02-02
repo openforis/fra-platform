@@ -18,7 +18,9 @@ type TextInputFieldProps = {
 
 const textInputFields: Array<TextInputFieldProps> = [
   { key: 'email', validator: Users.validEmail },
-  { key: 'name', isProperty: true, onlySelf: true, validator: Users.validName },
+  { key: 'title', isProperty: true, onlySelf: true },
+  { key: 'name', isProperty: true, onlySelf: true },
+  { key: 'surname', isProperty: true, onlySelf: true },
 ]
 
 type Props = {
