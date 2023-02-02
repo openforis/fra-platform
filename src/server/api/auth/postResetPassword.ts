@@ -1,19 +1,18 @@
 import { Objects } from '@utils/objects'
 import { Request, Response } from 'express'
 
-import { AuthProvider, UserStatus } from '@meta/user'
+import { AuthProvider, Users, UserStatus } from '@meta/user'
 
 import { UserController } from '@server/controller/user'
 import { UserProviderController } from '@server/controller/userProvider'
 import { Requests } from '@server/utils'
-import { validEmail } from '@server/utils/validEmail'
 
 export const postResetPassword = async (req: Request, res: Response) => {
   try {
     const { assessmentName, cycleName, email } = req.body
 
     if (Objects.isEmpty(email?.trim())) return Requests.send400(res, 'login.emptyEmail')
-    if (!validEmail({ email })) return Requests.send400(res, 'login.invalidEmail')
+    if (!Users.validEmail({ email })) return Requests.send400(res, 'login.invalidEmail')
 
     const user = await UserController.getOne({ email })
     if (!user) return Requests.send400(res, 'login.noMatchingEmail')
