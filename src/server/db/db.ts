@@ -1,17 +1,13 @@
 import * as pgPromise from 'pg-promise'
 
+import { Logger } from '../utils/logger'
 import { ProcessEnv } from '../utils/processEnv'
-
-const logger = {
-  // eslint-disable-next-line no-console
-  debug: console.debug,
-}
 
 const debugOptions = {
   query: (e: pgPromise.IEventContext) => {
-    logger.debug(`QUERY: ${e.query}`)
+    Logger.debug(`QUERY: ${e.query}`)
     if (e.params) {
-      logger.debug(`PARAMS: ${JSON.stringify(e.params)}`)
+      Logger.debug(`PARAMS: ${JSON.stringify(e.params)}`)
     }
   },
 }
