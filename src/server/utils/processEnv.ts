@@ -1,5 +1,7 @@
 import * as process from 'process'
 
+// const dbUrl ='postgres://otrkzmhxmhoalz:f3dd332dbe8892601db8d6b5e8eb23c6124675bf79ebbbe77b52967246e3128c@ec2-63-35-156-160.eu-west-1.compute.amazonaws.com:5432/dai51cvj1vgs39' // process.env.DATABASE_URL
+
 const dbUrl = process.env.DATABASE_URL
 
 const regExDbUrl = /postgres:\/\/(\w+):(\w+)@([\w-.\d]+):(\d+)\/(\w+)/

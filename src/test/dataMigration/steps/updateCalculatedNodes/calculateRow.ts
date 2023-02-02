@@ -1,8 +1,8 @@
 import { CountryIso } from '@meta/area'
 import { Assessment, AssessmentMetaCaches, Cycle, Row, VariableCache } from '@meta/assessment'
+import { ExpressionEvaluator } from '@meta/expressionEvaluator'
 
 import { CycleDataController } from '@server/controller/cycleData'
-import { ExpressionEvaluator } from '@server/controller/cycleData/updateDependencies/expressionEvaluator'
 import { MetadataController } from '@server/controller/metadata'
 import { BaseProtocol } from '@server/db'
 
