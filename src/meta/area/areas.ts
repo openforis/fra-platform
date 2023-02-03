@@ -9,7 +9,10 @@ const isISOCountry = (isoCode: string): boolean => /^[a-zA-Z0-9]{3}$/.test(isoCo
 const isISOGlobal = (isoCode: string): boolean => isoCode === Global.WO
 const isRegion = (isoCode: string): boolean => Object.values(RegionCode).includes(isoCode as RegionCode)
 const isFRARegion = (isoCode: string): boolean => fraRegionCodes.includes(isoCode as RegionCode)
-const getStatus = (country: Country): AssessmentStatus => country?.props?.status ?? AssessmentStatus.editing
+const getStatus = (country: Country): AssessmentStatus => {
+  if (!country?.lastEdit) return AssessmentStatus.notStarted
+  return country?.props?.status
+}
 
 export const Areas = {
   getTranslationKey,

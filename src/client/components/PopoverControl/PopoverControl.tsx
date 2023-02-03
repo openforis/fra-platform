@@ -39,7 +39,7 @@ const PopoverControl: React.FC<Props> = (props) => {
         })
       )}
 
-      {open && (
+      {open && items.length > 0 && (
         <div className="popover-control__menu">
           {items.map((item, index) => {
             const { divider, link, content, onClick } = item

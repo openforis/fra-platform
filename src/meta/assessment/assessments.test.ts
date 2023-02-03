@@ -11,7 +11,8 @@ const cycleUuid = '123-XXX-123'
 const getUserInfo = (countryIso: CountryIso, role: RoleName) =>
   ({ id: 1, roles: [{ countryIso, role, cycleUuid }] } as User)
 
-const getCountry = (countryIso: CountryIso, status: AssessmentStatus) => ({ countryIso, props: { status } } as Country)
+const getCountry = (countryIso: CountryIso, status: AssessmentStatus) =>
+  ({ countryIso, props: { status }, lastEdit: new Date().toString() } as Country)
 
 const cycle = { uuid: cycleUuid } as Cycle
 

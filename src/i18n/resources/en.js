@@ -127,7 +127,7 @@ followed by the boreal, temperate and subtropical domains.`,
       COLLABORATOR: 'Collaborator',
       ADMINISTRATOR: 'Administrator',
       VIEWER: 'Viewer',
-      noRole: 'N/A',
+      noRole: '',
       // unused?
       reviewer_plural: 'Reviewers',
       nationalCorrespondent_plural: 'National correspondents',
@@ -993,6 +993,9 @@ The FRA team
     status: {
       changing: {
         label: 'Changing…',
+      },
+      notStarted: {
+        label: 'Not started',
       },
       editing: {
         label: 'Editing',
