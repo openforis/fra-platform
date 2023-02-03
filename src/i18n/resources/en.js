@@ -12,8 +12,6 @@ const login = require('./en/login')
 const uc = require('./en/uc')
 const print = require('./en/print')
 
-console.log('panEuropean', panEuropean)
-
 module.exports.translation = {
   area,
   common,
