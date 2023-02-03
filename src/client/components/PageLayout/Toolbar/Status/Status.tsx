@@ -67,7 +67,7 @@ const Status: React.FC = () => {
   ]
 
   const items: Array<PopoverItem> = []
-  if (status !== AssessmentStatus.changing) {
+  if (![AssessmentStatus.changing, AssessmentStatus.notStarted].includes(status)) {
     const { next, previous } = AssessmentStatusTransitions.getAllowedTransition({
       country,
       countryIso,

@@ -2,6 +2,7 @@ import { CountryIso } from './countryIso'
 import { RegionCode } from './regionCode'
 
 export enum AssessmentStatus {
+  notStarted = 'notStarted',
   editing = 'editing',
   review = 'review',
   approval = 'approval',

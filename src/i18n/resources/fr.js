@@ -102,7 +102,7 @@ des domaines boréal, tempéré et sous-tropical`,
       ALTERNATE_NATIONAL_CORRESPONDENT: 'Correspondant national alternatif',
       COLLABORATOR: 'Collaborateur',
       ADMINISTRATOR: 'Administrateur',
-      noRole: 'N/A',
+      noRole: '',
       // unused?
       reviewer_plural: 'Examinateurs',
       nationalCorrespondent_plural: 'Correspondants nationaux',
