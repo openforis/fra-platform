@@ -1,4 +1,4 @@
-import './geoMapMenuRecipes.scss'
+import './GeoMapMenuRecipes.scss'
 import React from 'react'
 
 import GeoMapMenuButton from '../GeoMapMenuButton'

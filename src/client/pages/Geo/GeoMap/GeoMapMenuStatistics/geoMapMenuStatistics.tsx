@@ -27,6 +27,7 @@ const GeoMapMenuStatistics: React.FC = () => {
       const forestEstimations = await getForestEstimationData(countryIso, year)
       data = forestEstimations.data
     } catch (error) {
+      setStatisticsData([])
       setError(error.message)
     }
     setStatisticsData(data)
@@ -48,8 +49,10 @@ const GeoMapMenuStatistics: React.FC = () => {
               <TreeCoverAreaPanel data={statisticsData} countryIso={countryIso} year={year} />
             )}
             {!isLoading && statisticsData.length === 0 && !error && <p>Found no data.</p>}
-            {!isLoading && error && <p>An error has occured while fetching the statistics: {error}</p>}
-            {isLoading && <p>Loading...</p>}
+            {!isLoading && error && (
+              <p className="geo-map-alt-message">An error has occured while fetching the statistics: {error}</p>
+            )}
+            {isLoading && <p className="geo-map-alt-message">Loading...</p>}
           </GeoMenuItem>
           <div className="geo-map-menu-separator" />
           <GeoMenuItem title="Statistical Graphs" checked={null} tabIndex={-3}>
@@ -57,8 +60,10 @@ const GeoMapMenuStatistics: React.FC = () => {
               <StatisticalGraphsPanel data={statisticsData} countryIso={countryIso} year={year} />
             )}
             {!isLoading && statisticsData.length === 0 && !error && <p>Found no data.</p>}
-            {!isLoading && error && <p>An error has occured while fetching the statistics: {error}</p>}
-            {isLoading && <p>Loading...</p>}
+            {!isLoading && error && (
+              <p className="geo-map-alt-message">An error has occured while fetching the statistics: {error}</p>
+            )}
+            {isLoading && <p className="geo-map-alt-message">Loading...</p>}
           </GeoMenuItem>
         </div>
       )}

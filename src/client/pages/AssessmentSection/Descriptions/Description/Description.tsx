@@ -11,7 +11,7 @@ import { useIsDataLocked } from '@client/store/ui/dataLock'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
-import MarkdownEditor from '@client/components/MarkdownEditor'
+import EditorWYSIWYG from '@client/components/EditorWYSIWYG'
 import MarkdownPreview from '@client/components/MarkdownPreview'
 import DataSources from '@client/pages/AssessmentSection/Descriptions/Description/DataSources/DataSources'
 
@@ -90,7 +90,7 @@ const Description: React.FC<Props> = (props) => {
       )}
       {open && (
         <div className="fra-description__preview">
-          <MarkdownEditor value={markdown} onChange={(content) => onChange({ ...description, text: content })} />
+          <EditorWYSIWYG value={markdown} onChange={(content) => onChange({ ...description, text: content })} />
         </div>
       )}
       {!open && markdown && (

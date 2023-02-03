@@ -67,7 +67,7 @@ const YearSelection: React.FC<Props> = (props) => {
             window.history.replaceState(null, null, url)
           }}
         >
-          {years.map((year) => (
+          {['', ...years].map((year) => (
             <option key={year} value={year} disabled={reservedYears.includes(Number(year))} hidden={!year}>
               {year || t('nationalDataPoint.selectYear')}
             </option>

@@ -1196,7 +1196,7 @@ export const nonWoodForestProductsRemovals: SectionSpec = {
   migration: {
     anchors: {
       '2020': '7c',
-      '2025': '7a',
+      '2025': '7',
     },
     label: {
       '2020': { key: 'nonWoodForestProductsRemovals.nonWoodForestProductsRemovals' },

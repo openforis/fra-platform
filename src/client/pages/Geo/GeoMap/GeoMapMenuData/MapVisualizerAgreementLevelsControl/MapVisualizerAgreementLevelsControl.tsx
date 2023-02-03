@@ -1,5 +1,6 @@
 import './MapVisualizerAgreementLevelsControl.scss'
 import React, { useEffect, useRef, useState } from 'react'
+import { batch } from 'react-redux'
 
 import axios from 'axios'
 import classNames from 'classnames'
@@ -38,8 +39,7 @@ const AgreementLevelsControl: React.FC = () => {
     // If less than two sources are selected or the agreement level is greater than the
     // number of selected layers, reset the agreement state.
     if (forestOptions.selected.length < 2 || forestOptions.agreementLevel > forestOptions.selected.length) {
-      dispatch(GeoActions.setAgreementLayerSelected(false))
-      dispatch(GeoActions.setAgreementLevel(1))
+      dispatch(GeoActions.resetAgreementLayer())
       return
     }
 
@@ -84,12 +84,26 @@ const AgreementLevelsControl: React.FC = () => {
     dispatch,
   ])
 
+  const toggleAgreementLayer = (selected: boolean) => {
+    batch(() => {
+      dispatch(GeoActions.setRecipe('custom'))
+      dispatch(GeoActions.setAgreementLayerSelected(selected))
+    })
+  }
+
+  const setAgreementLevel = (level: number) => {
+    batch(() => {
+      dispatch(GeoActions.setRecipe('custom'))
+      dispatch(GeoActions.setAgreementLevel(level))
+    })
+  }
+
   return forestOptions.selected.length >= 2 ? (
     <GeoMapMenuListElement
       title="Agreement layer"
       tabIndex={layers.length * -1 - 1}
       checked={forestOptions.agreementLayerSelected}
-      onCheckboxClick={() => dispatch(GeoActions.setAgreementLayerSelected(!forestOptions.agreementLayerSelected))}
+      onCheckboxClick={() => toggleAgreementLayer(!forestOptions.agreementLayerSelected)}
     >
       <>
         {forestOptions.agreementLayerSelected && <LayerOptionsPanel layerKey={agreementLayerKey} />}
@@ -130,7 +144,7 @@ const AgreementLevelsControl: React.FC = () => {
                       type="checkbox"
                       checked={level <= forestOptions.agreementLevel}
                       disabled={disabled}
-                      onChange={() => dispatch(GeoActions.setAgreementLevel(level))}
+                      onChange={() => setAgreementLevel(level)}
                       style={style}
                     />
                     <label htmlFor={id}>{level}</label>

@@ -112,20 +112,12 @@ export const updateValidationDependencies = async (props: Props, client: BasePro
       }
 
       // eslint-disable-next-line no-await-in-loop
-      const calculationDependants = await getDependants(
-        {
-          tableName,
-          variableName,
-          assessment,
-          cycle,
-          colName,
-          countryIso,
-          isODP,
-        },
+      const variableCaches = await getDependants(
+        { tableName, variableName, assessment, cycle, colName, countryIso, isODP, type: 'validations' },
         client
       )
 
-      const dependants = calculationDependants.map(({ tableName, variableName }) => ({
+      const dependants = variableCaches.map<QueueItem>(({ tableName, variableName }) => ({
         tableName,
         variableName,
         colName,

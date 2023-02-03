@@ -172,7 +172,7 @@ module.exports = {
 
   navigation: {
     sectionHeaders: {
-      employmentEducationAndNwfp2025: 'NWFP removals and value 2020',
+      employmentEducationAndNwfp2025: 'Non wood forest products removals and value 2020',
     },
   },
 }

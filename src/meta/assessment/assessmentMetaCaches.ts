@@ -64,6 +64,11 @@ const getCalculationsDependencies = (props: VariableProps) => {
   return _getDependencies({ dependencyCache: getCalculations({ assessment, cycle }), tableName, variableName })
 }
 
+const getValidationsDependants = (props: VariableProps) => {
+  const { assessment, cycle, tableName, variableName } = props
+  return _getDependants({ dependencyCache: getValidations({ assessment, cycle }), tableName, variableName })
+}
+
 const getValidationsDependencies = (props: VariableProps) => {
   const { assessment, cycle, tableName, variableName } = props
   return _getDependencies({ dependencyCache: getValidations({ assessment, cycle }), tableName, variableName })
@@ -74,6 +79,7 @@ const getVariablesByTables = (props: CycleProps): VariablesByTableCache => getMe
 export const AssessmentMetaCaches = {
   getCalculationsDependants,
   getCalculationsDependencies,
+  getValidationsDependants,
   getValidationsDependencies,
   getVariablesByTables,
 }

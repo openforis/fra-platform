@@ -42,6 +42,11 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
   const classNameRowComments = useNationalClassNameComments(target)
   const nationalClassValidation = ODPs.validateNationalClass(originalDataPoint, index)
 
+  let otherLand = null
+  if (forestPercent || otherWoodedLandPercent) {
+    otherLand = Numbers.format(Numbers.sub(100, Numbers.add(forestPercent ?? 0, otherWoodedLandPercent ?? 0)))
+  }
+
   return (
     <tr className={classNameRowComments}>
       <th className="fra-table__category-cell">{name}</th>
@@ -157,7 +162,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
       </td>
 
       <td className="fra-table__calculated-cell">
-        {Numbers.format(Numbers.sub(100, Numbers.add(forestPercent, otherWoodedLandPercent)))}
+        {otherLand}
         <span style={{ marginLeft: '8px' }}>%</span>
       </td>
 

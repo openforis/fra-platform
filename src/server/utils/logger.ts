@@ -1,6 +1,6 @@
 import * as winston from 'winston'
 
-import { ProcessEnv } from '@server/utils/processEnv'
+import { ProcessEnv } from './processEnv'
 
 const Logger = winston.createLogger({
   level: ProcessEnv.logLevel,
