@@ -42,7 +42,15 @@ export const assessmentSectionSlice = createSlice({
         state.data = TableDatas.updateDatum({ data: state.data, countryIso, tableName, variableName, colName, value })
       })
     },
-    setNodeValueValidation: (state, { payload }: PayloadAction<{ nodeUpdate: NodeUpdate }>) => {
+    setNodeValidations: (state, action: PayloadAction<{ nodeUpdates: NodeUpdates }>) => {
+      const { nodeUpdates } = action.payload
+      const { countryIso, nodes } = nodeUpdates
+
+      nodes.forEach(({ tableName, variableName, colName, value }) => {
+        state.data = TableDatas.updateDatum({ data: state.data, countryIso, tableName, variableName, colName, value })
+      })
+    },
+    setNodeValidationToDisplay: (state, { payload }: PayloadAction<{ nodeUpdate: NodeUpdate }>) => {
       const { nodeUpdate } = payload
       state.nodeValueValidation[nodeUpdate.tableName] = nodeUpdate
     },
