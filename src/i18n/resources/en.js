@@ -1059,7 +1059,9 @@ The FRA team
 
   editUser: {
     chooseProfilePicture: 'Choose picture',
+    title: 'Appellation',
     name: 'Name',
+    surname: 'Surname',
     role: 'Role',
     email: 'Email',
     loginEmail: 'Login',

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import { User, Users } from '@meta/user'
+import { UserProps } from '@meta/user/user'
 
 import { useUser } from '@client/store/user'
 import TextInput from '@client/components/TextInput'
@@ -11,18 +12,19 @@ import TextInput from '@client/components/TextInput'
 type TextInputFieldProps = {
   key: string
   onlySelf?: boolean
-  validator?: (user: Partial<User>) => boolean
+  validator?: (partial: Partial<User> | Partial<UserProps>) => boolean
+  isProperty?: boolean
 }
 
 const textInputFields: Array<TextInputFieldProps> = [
-  { key: 'name', onlySelf: true, validator: Users.validName },
   { key: 'email', validator: Users.validEmail },
-  { key: 'institution' },
-  { key: 'position' },
+  { key: 'title', isProperty: true, onlySelf: true },
+  { key: 'name', isProperty: true, onlySelf: true },
+  { key: 'surname', isProperty: true, onlySelf: true },
 ]
 
 type Props = {
-  onChange: (value: string, key: string) => void
+  onChange: (user: User) => void
   user: User
 }
 
@@ -34,8 +36,12 @@ const TextInputFields = (props: Props) => {
   return (
     <>
       {textInputFields.map((inputField) => {
-        const value = user?.[inputField.key as keyof User]
+        const value = inputField.isProperty
+          ? user?.props[inputField.key as keyof UserProps]
+          : user?.[inputField.key as keyof User]
+
         const valid = inputField.validator?.({ [inputField.key]: value }) ?? true
+
         const enabled =
           !inputField.onlySelf ||
           Users.isAdministrator(userInfo) ||
@@ -47,7 +53,11 @@ const TextInputFields = (props: Props) => {
             <div className={classNames(`edit-user__form-field${enabled ? '' : '-disabled'}`, { error: !valid })}>
               <TextInput
                 value={value}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value, inputField.key)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  inputField.isProperty
+                    ? onChange({ ...user, props: { ...user.props, [inputField.key]: e.target.value } })
+                    : onChange({ ...user, [inputField.key]: e.target.value })
+                }
                 disabled={!enabled}
               />
             </div>
