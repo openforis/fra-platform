@@ -89,10 +89,10 @@ export const ClientRoutes = {
             ':sectionName'
           ),
         },
-        OriginalDataPoints: {
+        OriginalDataPoint: {
           Section: newInstance<AssessmentParams & { year: string; sectionName: string }>(
             ...assessmentParts,
-            'originalDataPoint/:year/:sectionName'
+            'originalDataPoints/:year/:sectionName'
           ),
         },
         Print: newInstance<AssessmentParams>(...assessmentParts, 'print'),
