@@ -70,7 +70,7 @@ const Cell: React.FC<Props> = (props) => {
   const showError = useCallback(() => {
     if (!valid) {
       const nodeUpdate: NodeUpdate = { tableName, variableName, colName, value: nodeValue }
-      dispatch(AssessmentSectionActions.setNodeValueValidation({ nodeUpdate }))
+      dispatch(AssessmentSectionActions.setNodeValidationToDisplay({ nodeUpdate }))
     }
   }, [colName, dispatch, nodeValue, tableName, valid, variableName])
 

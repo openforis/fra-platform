@@ -53,6 +53,12 @@ const updateDatum = (props: Props & { value: NodeValue }): TableData => {
   return dataClone
 }
 
+const updateDatumValidation = (props: Props & Pick<NodeValue, 'validation'>): TableData => {
+  const { validation } = props
+  const value = getNodeValue(props)
+  return updateDatum({ ...props, value: { ...value, validation } })
+}
+
 const hasErrors = (props: Pick<Props, 'countryIso' | 'tableName' | 'data'>): boolean => {
   const { countryIso, tableName, data } = props
   const tableData = getTableData({ countryIso, tableName, data })
@@ -67,5 +73,6 @@ export const TableDatas = {
   getTableData,
   hasErrors,
   updateDatum,
+  updateDatumValidation,
   isTableDataEmpty,
 }

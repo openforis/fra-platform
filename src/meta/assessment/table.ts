@@ -1,4 +1,4 @@
-import { CycledPropsObject, Row, Unit } from './index'
+import { CycledPropsObject, Row, Unit, VariableCache } from './index'
 
 // utility table names
 // e.g. used in getTableData to merge data with odp or fetch correct data for dashboard
@@ -39,5 +39,6 @@ export interface TableProps {
 export interface Table extends CycledPropsObject<TableProps> {
   rows?: Array<Row>
   tableSectionId: number
+  validationDependencies?: Record<string, Array<VariableCache>>
   // odpVariables?: Record<string, string>
 }
