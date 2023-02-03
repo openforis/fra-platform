@@ -841,6 +841,7 @@ export const forestArea = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.forestAreaByForestType',
       tableSpecs: [
         {
           name: 'table_1_1b',
@@ -1046,6 +1047,7 @@ export const forestArea = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.countryComments',
       tableSpecs: [
         {
           name: 'country_comments_1_1_1',

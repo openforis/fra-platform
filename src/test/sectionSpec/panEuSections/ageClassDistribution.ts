@@ -1735,6 +1735,7 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.ageClassDistribution',
       tableSpecs: [
         {
           name: 'table_1_3a2',
@@ -2527,6 +2528,7 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.countryComments',
       tableSpecs: [
         {
           name: 'country_comments_1_3a_1',

@@ -529,6 +529,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
         ],
       },
       {
+        titleKey: 'panEuropean.countryComments.countryComments',
         tableSpecs: [
           {
             name: 'country_comments_1_3b_1',
@@ -1597,6 +1598,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
         ],
       },
       {
+        titleKey: 'panEuropean.countryComments.countryComments',
         tableSpecs: [
           {
             name: 'country_comments_2_4_1',
@@ -2741,6 +2743,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
         ],
       },
       {
+        titleKey: 'panEuropean.countryComments.countryComments',
         tableSpecs: [
           {
             name: 'country_comments_2_5_1',
@@ -3485,6 +3488,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
         ],
       },
       {
+        titleKey: 'panEuropean.countryComments.countryComments',
         tableSpecs: [
           {
             name: 'country_comments_3_1_1',
@@ -4678,6 +4682,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
         ],
       },
       {
+        titleKey: 'panEuropean.countryComments.countryComments',
         tableSpecs: [
           {
             name: 'country_comments_3_2_1',
@@ -5282,6 +5287,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
         ],
       },
       {
+        titleKey: 'panEuropean.countryComments.countryComments',
         tableSpecs: [
           {
             name: 'country_comments_3_3_1',
@@ -5880,6 +5886,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
         ],
       },
       {
+        titleKey: 'panEuropean.countryComments.countryComments',
         tableSpecs: [
           {
             name: 'country_comments_3_4_1',
@@ -6515,6 +6522,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
         ],
       },
       {
+        titleKey: 'panEuropean.countryComments.countryComments',
         tableSpecs: [
           {
             name: 'country_comments_4_1_1',
@@ -7242,6 +7250,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
         ],
       },
       {
+        titleKey: 'panEuropean.countryComments.countryComments',
         tableSpecs: [
           {
             name: 'country_comments_4_5_1',
@@ -8666,6 +8675,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
         ],
       },
       {
+        titleKey: 'panEuropean.countryComments.countryComments',
         tableSpecs: [
           {
             name: 'country_comments_4_8_1',
@@ -9503,6 +9513,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
         ],
       },
       {
+        titleKey: 'panEuropean.countryComments.countryComments',
         tableSpecs: [
           {
             name: 'country_comments_4_9_1',
@@ -10270,6 +10281,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
         ],
       },
       {
+        titleKey: 'panEuropean.countryComments.countryComments',
         tableSpecs: [
           {
             name: 'country_comments_5_1_1',
@@ -11187,6 +11199,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
         ],
       },
       {
+        titleKey: 'panEuropean.countryComments.countryComments',
         tableSpecs: [
           {
             name: 'country_comments_6_1_1',
@@ -11738,6 +11751,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
         ],
       },
       {
+        titleKey: 'panEuropean.countryComments.countryComments',
         tableSpecs: [
           {
             name: 'country_comments_6_2_1',
@@ -12038,6 +12052,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
         ],
       },
       {
+        titleKey: 'panEuropean.countryComments.countryComments',
         tableSpecs: [
           {
             name: 'country_comments_6_3_1',
@@ -12386,6 +12401,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
         ],
       },
       {
+        titleKey: 'panEuropean.countryComments.countryComments',
         tableSpecs: [
           {
             name: 'country_comments_6_1_1',
@@ -14301,6 +14317,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
         ],
       },
       {
+        titleKey: 'panEuropean.countryComments.countryComments',
         tableSpecs: [
           {
             name: 'country_comments_6_9_1',

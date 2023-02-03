@@ -1,11 +1,30 @@
 module.exports = {
   // Country Comments
+  // Titles
+  countryComments: 'Country Comments',
+  forest: 'Forest',
+  forestArea: 'Forest area',
+  forestAreaByForestType: 'Forest area by forest type',
+  growingStock: 'Growing stock',
+  growingStockByForestType: 'Growing stock by forest type',
+  growingStockComposition: 'Growing stock composition',
+  ageClassDistribution: 'Age class distribution (volume of even-aged stands) in forest available for wood supply',
+  carbonStockInHarvestedWoodProductsHWP: 'Carbon stock in harvested wood products (HWP)',
+  annualForestExpansionAndRegeneration: 'Annual forest expansion and regeneration',
+  naturalnessBySubclass: 'Naturalness by subclass',
+  introducedTreeSpecies: 'Introduced tree species',
+  invasiveTreeSpecies: 'Invasive tree species',
+  totalFixedCapitalFormationInForestsAndForestry: 'Total fixed capital formation in forests and forestry',
+  totalFixedCapitalTransfersInForestsAndForestry: 'Total fixed capital transfers in forests and forestry',
+  EmploymentByEducationAndJobCharacteristics: 'Employment by education and job characteristics',
+  intensityOfUse: 'Intensity of use',
+  recreationFacilities: 'Recreation facilities',
+  otherRecreationFacilities: 'Other recreation facilities - pilot reporting (2020)',
+  // Rows and columns
   theYearAndDataReported: 'The year and data reported for 2025',
   howDidYouGenerateValues: 'How did you generate values for 2025',
   theRecentAvailableYear: 'The recent available year',
   extrapolation: 'Extrapolation',
-  forest: 'Forest',
-  forestArea: 'Forest area',
   assessementBasedOnEvidence:
     'assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)',
   approachToReportingOnTheCategoriesOfTheTable11A: 'Approach to reporting on the categories of the Table 1.1a',
@@ -156,7 +175,6 @@ module.exports = {
   naturalExpansionAndRegeneration: 'Natural expansion and regeneration',
   afforestationAndRegenerationByPlantingAndOrSeeding: 'Afforestation and regeneration by planting and/or seeding',
   coppice: 'Coppice',
-  annualForestExpansionAndRegeneration: 'Annual forest expansion and regeneration',
   naturalExpansionOfForestArea: 'Natural expansion of forest area',
   regenerationOfForestArean: 'Regeneration of forest area',
   approachToDelimniateBetweenCategories: 'Approach to delimitate between categories',
@@ -211,7 +229,6 @@ module.exports = {
   soilWaterAndOtherForestEcosystemFunctions: 'Soil, water and other forest ecosystem functions',
   infrastructureAndManagedNaturalResources: 'Infrastructure and managed natural resources',
   minimumSizeOfForestHoldingReportedHa: 'Minimum size of forest holding reported (ha)',
-  countryComments: 'Country comments',
   areaAndNumberOfHoldingsInPrivateOwnership: 'Area and number of holdings in private ownership',
   areaAndNumberOfHoldingsInPublicOwnership: 'Area and number of holdings in public ownership',
   manufactureOfPaperAndPaperProducts: 'Manufacture of paper and paper products',
@@ -253,8 +270,6 @@ module.exports = {
   areaOfForestsAvailableForPublicRecreation: 'Area of forests available for public recreation',
   areaOfForestsPrimarilyDesignatedOrManagedForPublicRecreation:
     'Area of forests primarily designated or managed for public recreation',
-  intensityOfUse: 'Intensity of use',
-  recreationFacilities: 'Recreation facilities',
   inYourCountryAreRecentlyDegradedForestAreasLegallyConsideredAsNonForestLand:
     'In your country are recently degraded forest areas legally considered as non-forest land?',
   inYourCountryAreDegradedNonForestAreasReCategorisedToForestLandWithTheAimToReforestThem:
