@@ -44,7 +44,7 @@ const PanEuropeanHome: React.FC = () => {
           <Route key={name} path={name} element={React.createElement(component, {})} />
         ))}
 
-        <Route path={ClientRoutes.Assessment.Cycle.Country.Home.Users.User.path.relative} element={<User />} />
+        <Route path={ClientRoutes.Assessment.Cycle.Country.Users.User.path.relative} element={<User />} />
 
         <Route path="*" element={<Navigate to={AssessmentHomeRouteNames.overview} />} />
       </Routes>

@@ -35,7 +35,7 @@ const SectionItemLink: React.FC<Props> = (props) => {
 
   return (
     <NavLink
-      to={name}
+      to={`sections/${name}`}
       className={(navData) =>
         classNames('nav-section__item', {
           selected: navData.isActive,
