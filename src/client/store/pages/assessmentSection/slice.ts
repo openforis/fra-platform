@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 
 import { CountryIso } from '@meta/area'
-import { NodeValueValidation } from '@meta/assessment'
 import { NodeUpdate, NodeUpdates, TableDatas } from '@meta/data'
 
 import { getDescription } from './actions/getDescription'
@@ -51,19 +50,7 @@ export const assessmentSectionSlice = createSlice({
         state.data = TableDatas.updateDatum({ data: state.data, countryIso, tableName, variableName, colName, value })
       })
     },
-    setNodeValidation: (
-      state,
-      action: PayloadAction<{
-        colName: string
-        countryIso: CountryIso
-        tableName: string
-        variableName: string
-        validation: NodeValueValidation
-      }>
-    ) => {
-      state.data = TableDatas.updateDatumValidation({ ...action.payload, data: state.data })
-    },
-    setNodeValueValidation: (state, { payload }: PayloadAction<{ nodeUpdate: NodeUpdate }>) => {
+    setNodeValidationToDisplay: (state, { payload }: PayloadAction<{ nodeUpdate: NodeUpdate }>) => {
       const { nodeUpdate } = payload
       state.nodeValueValidation[nodeUpdate.tableName] = nodeUpdate
     },
