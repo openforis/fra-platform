@@ -61,7 +61,7 @@ const MapVisualizerPanel: React.FC = () => {
                 onCheckboxClick={() => toggleForestLayer(layer.key)}
                 backgroundColor={layer.key.toLowerCase()}
               >
-                {isLayerChecked && <LayerOptionsPanel layerKey={layer.key} />}
+                <LayerOptionsPanel layerKey={layer.key} checked={isLayerChecked} />
               </GeoMapMenuListElement>
             </div>
           )

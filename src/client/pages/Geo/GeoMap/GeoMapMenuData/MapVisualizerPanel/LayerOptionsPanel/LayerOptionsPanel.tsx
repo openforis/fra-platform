@@ -11,9 +11,10 @@ import { MapController } from '@client/utils'
 
 interface Props {
   layerKey: string
+  checked: boolean
 }
 
-const LayerOptionsPanel: React.FC<Props> = ({ layerKey }) => {
+const LayerOptionsPanel: React.FC<Props> = ({ layerKey, checked }) => {
   const dispatch = useAppDispatch()
   const forestOptions = useForestSourceOptions()
   const map = useGeoMap()
@@ -34,12 +35,18 @@ const LayerOptionsPanel: React.FC<Props> = ({ layerKey }) => {
   }
 
   return (
-    <div className="geo-map-menu-forest-layer-options-panel">
-      <div>
+    <>
+      <div className="geo-map-menu-forest-layer-opacity-input">
         <div>
-          <input type="range" min="0" max="100" value={opacity * 100} onChange={handleChange} />
+          <input type="range" min="0" max="100" value={opacity * 100} onChange={handleChange} disabled={!checked} />{' '}
+        </div>
+        <div>
           <small>{`${opacity * 100}%`}</small>
-          {layerKey === ForestSource.Hansen ? (
+        </div>
+      </div>
+      {layerKey === ForestSource.Hansen && checked ? (
+        <div className="geo-map-menu-forest-hansen-layer-inputs">
+          <div>
             <div>
               <p>Select Hansen percentage:</p>
               <fieldset>
@@ -59,10 +66,10 @@ const LayerOptionsPanel: React.FC<Props> = ({ layerKey }) => {
                 })}
               </fieldset>
             </div>
-          ) : null}
+          </div>
         </div>
-      </div>
-    </div>
+      ) : null}
+    </>
   )
 }
 
