@@ -27,7 +27,7 @@ export const getManyMetadata = async (
                                       'validationDependencies',
                                       jsonb_extract_path(
                                               a.meta_cache,
-                                              'e9c14a39-ff86-495b-a75e-488657fda81a',
+                                              '${cycle.uuid}',
                                               'validations',
                                               'dependencies', t.props ->> 'name'
                                           )
