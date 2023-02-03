@@ -13,8 +13,6 @@ type Props = {
   data: TableData
 }
 
-// ===================
-
 const TableBody: React.FC<Props> = (props) => {
   const { disabled, table, assessmentName, sectionName, data } = props
   const rowsData = table.rows.filter((row) => row.props.type !== RowType.header)
