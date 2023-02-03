@@ -106,7 +106,7 @@ el resto está localizado en las regiones boreales, templadas y subtropicales.`,
       ALTERNATE_NATIONAL_CORRESPONDENT: 'Corresponsal Nacional alterno',
       COLLABORATOR: 'Colaborador',
       ADMINISTRATOR: 'Administrador',
-      noRole: 'N/A',
+      noRole: '',
       // unused?
       reviewer_plural: 'Evaluadores',
       nationalCorrespondent_plural: 'Corresponsales Nacionales',
