@@ -52,8 +52,10 @@ export const migrate = async (props: {
   cycleNames: Array<string>
   spec: Record<string, SectionSpec>
 }): Promise<void> => {
+  const startTime = new Date()
+  const hhmmss = startTime.toLocaleTimeString('en-GB', { hour12: false })
   // eslint-disable-next-line no-console
-  console.log('========== START ', new Date().getTime())
+  console.log('========== START ', hhmmss)
   const { assessmentName, assessmentLegacy, cycleNames, spec } = props
 
   // delete old assessment
@@ -128,6 +130,9 @@ export const migrate = async (props: {
       values ($1)`,
       [assessment.id]
     )
+    const endTime = new Date()
+    const totalTime = endTime.getTime() - startTime.getTime()
+    console.log('========== END ', endTime.toLocaleTimeString('en-GB', { hour12: false }), ' - ', totalTime / 1000, 's')
   })
 }
 
