@@ -274,4 +274,40 @@ module.exports = {
     'In your country are recently degraded forest areas legally considered as non-forest land?',
   inYourCountryAreDegradedNonForestAreasReCategorisedToForestLandWithTheAimToReforestThem:
     'In your country are degraded non-forest areas re-categorised to forest land with the aim to reforest them?',
+  christmasTreePlantationsOnForestLand: 'Christmas tree plantations on forest land',
+  poplarPlantationsOnForestLand: 'Poplar plantations on forest land',
+  shortRotationForestry: 'Short rotation forestry',
+  shortRotationCoppicesOnForestLand: 'Short rotation coppices on forest land',
+  OfWhichNotAvailableForWoodSupply: 'Of which not available for wood supply',
+  environmentalRestrictions: 'Environmental restrictions',
+  protectedForests: 'Protected forests',
+  productiveForestsDesignatedToProtectKeyHabitatsSpeciesOrOtherNaturalValues:
+    'Productive forests designated to protect key habitats/species or other natural values',
+  protectiveForestsSoilWaterAndOtherEcosystemFunctionsInfrastructureAndManagedNaturalResources:
+    'Protective forests (soil, water and other ecosystem functions, infrastructure and managed natural resources)',
+  socialRestrictions: 'Social restrictions',
+  forestsDesignatedToProtectAestheticHistoricalCulturalOrSpiritualValues:
+    'Forests designated to protect aesthetic, historical, cultural or spiritual values',
+  forestsManagedForRecreationalPurposes: 'Forests managed for recreational purposes',
+  forestsExcludedFromHarvestingByOwnerSDecision: 'Forests excluded from harvesting by owner’s decision',
+  militaryForests: 'Military forests',
+  economicRestrictions: 'Economic restrictions',
+  forestsOfVeryLowProductivityEconomicRevenueOfHarvesting:
+    'Forests of very low productivity (economic revenue of harvesting)',
+  forestsPhysicallyNotAccessibleIncludingSlopeAndSoilCondition:
+    'Forests physically not accessible (including slope and soil condition)',
+  otherPleaseSpecify: 'Other (please specify)',
+  otherWoodedLand: 'Other wooded land',
+  alpineShrublandEGPinusMugo: 'Alpine shrubland (e.g. Pinus mugo)',
+  otherShrublandEGMaquisGarrigueMatorral: 'Other shrubland (e.g. maquis, garrigue, matorral)',
+  otherLandWithTreeCover: 'Other land with tree cover',
+  agroForestrySilvoPastoralAreasEGForRearingIberianBlackPig:
+    'Agro-forestry/silvo-pastoral areas (e.g. for rearing Iberian black pig)',
+  plantationsOfNutProducingTreesOrShrubsEGSweetChestnutsAlmondsWalnutsHazelnuts:
+    'Plantations of nut-producing trees or shrubs (e.g. sweet chestnuts, almonds, walnuts, hazelnuts)',
+  oliveGrovesAndFruitTreeOrchards: 'Olive groves and fruit tree orchards',
+  poplarPlantationsOnAgriculturalLand: 'Poplar plantations on agricultural land',
+  treesInUrbanSettings: 'Trees in urban settings',
+  shortRotationCoppicesOnAgriculturalLand: 'Short rotation coppices on agricultural land',
+  christmasTreePlantationsOnAgriculturalLand: 'Christmas tree plantations on agricultural land',
 }

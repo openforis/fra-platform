@@ -456,7 +456,6 @@ The FRA team
     description: 'Description',
     dataSourcesTitle: 'Data sources, original data & national classification and definitions',
     generalCommentsTitle: 'Comments',
-    panEuCommentsTitle: 'Additional Comments',
     dataSources: 'Data sources',
     dataSourcesPlus: 'Data sources + type of data source eg NFI, etc',
     originalData: 'Original data',
