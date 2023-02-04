@@ -5,7 +5,7 @@ import { Numbers } from '@utils/numbers'
 
 import { ODPs } from '@meta/assessment'
 
-import { useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
+import { useOriginalDataPoint } from '@client/store/ui/originalDataPoint'
 
 import ForestCharacteristicsPlantationRow from './ForestCharacteristicsPlantationRow'
 

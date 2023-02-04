@@ -7,7 +7,7 @@ import { ODPDataSourceMethod, OriginalDataPoint } from '@meta/assessment/origina
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
-import { OriginalDataPointActions } from '@client/store/pages/originalDataPoint'
+import { OriginalDataPointActions } from '@client/store/ui/originalDataPoint'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import MultiSelect from '@client/components/MultiSelect'
