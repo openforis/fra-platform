@@ -9,7 +9,7 @@ import {
   OriginalDataPointActions,
   useIsOriginalDataPointUpdating,
   useOriginalDataPointReservedYears,
-} from '@client/store/pages/originalDataPoint'
+} from '@client/store/ui/originalDataPoint'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
 

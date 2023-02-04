@@ -9,8 +9,8 @@ import { Strings } from '@utils/strings'
 import { Areas, Country } from '@meta/area'
 
 import { useAppDispatch } from '@client/store'
-import { DataExportActions, useDataExportCountries, useDataExportSelection } from '@client/store/pages/dataExport'
-import { DataExportActionType } from '@client/store/pages/dataExport/actionTypes'
+import { DataExportActions, useDataExportCountries, useDataExportSelection } from '@client/store/ui/dataExport'
+import { DataExportActionType } from '@client/store/ui/dataExport/actionTypes'
 import ButtonCheckBox from '@client/components/ButtonCheckBox'
 import { Breakpoints } from '@client/utils/breakpoints'
 

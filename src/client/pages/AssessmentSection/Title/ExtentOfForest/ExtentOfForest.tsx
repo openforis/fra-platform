@@ -10,7 +10,7 @@ import {
   AssessmentSectionActions,
   useOriginalDataPointYears,
   useShowOriginalDatapoints,
-} from '@client/store/pages/assessmentSection'
+} from '@client/store/ui/assessmentSection'
 import { useUser } from '@client/store/user'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import OriginalDataPointsPrint from '@client/pages/AssessmentPrint/OriginalDataPointsPrint'

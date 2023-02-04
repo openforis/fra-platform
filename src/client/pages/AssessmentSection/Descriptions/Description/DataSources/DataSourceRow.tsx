@@ -8,7 +8,7 @@ import classNames from 'classnames'
 import { Cols, ColType, DataSource, dataSourceType, Row, RowType } from '@meta/assessment'
 
 import { useCycle } from '@client/store/assessment'
-import { useTableSections } from '@client/store/pages/assessmentSection'
+import { useTableSections } from '@client/store/ui/assessmentSection'
 import { useCountryIso } from '@client/hooks'
 import Autocomplete from '@client/components/Autocomplete'
 import DataColumn from '@client/components/DataGrid/DataColumn'
