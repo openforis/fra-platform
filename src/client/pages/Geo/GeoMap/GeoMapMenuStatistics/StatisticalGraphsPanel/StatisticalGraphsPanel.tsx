@@ -4,7 +4,7 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { ChartOptions, Plugin } from 'chart.js'
 import Chart from 'chart.js/auto'
 
-import { ForestSource, sourcesMetadata } from '@meta/geo'
+import { ExtraEstimation, extraEstimationsMetadata, ForestSource, sourcesMetadata } from '@meta/geo'
 
 import Icon from '@client/components/Icon'
 import { useDownloadChart } from '@client/pages/Geo/GeoMap/hooks'
@@ -42,12 +42,12 @@ const StatisticalGraphsPanel: React.FC<Props> = (props: Props) => {
   })
 
   const backgroundColors = data.map((row) => {
-    const source = row[0] as ForestSource
-    if (source.toUpperCase().indexOf('REPORTED TO FRA') !== -1) {
-      return '#000000' // Black for the Reported To FRA Bar.
+    const source = row[0] as ForestSource | ExtraEstimation
+    if (Object.values(ExtraEstimation).includes(source as ExtraEstimation)) {
+      return extraEstimationsMetadata[source as ExtraEstimation].palette[0]
     }
-    if (source.toUpperCase().indexOf('HANSEN') === -1) {
-      return sourcesMetadata[source].palette[0]
+    if (source.toUpperCase().indexOf(ForestSource.Hansen.toUpperCase()) === -1) {
+      return sourcesMetadata[source as ForestSource].palette[0]
     }
     return sourcesMetadata.Hansen.palette[0]
   })
