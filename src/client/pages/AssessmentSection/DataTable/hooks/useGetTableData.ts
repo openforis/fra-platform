@@ -4,7 +4,7 @@ import { CountryIso } from '@meta/area'
 import { AssessmentName, Table } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
-import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
+import { AssessmentSectionActions } from '@client/store/ui/assessmentSection'
 import { useCanEdit } from '@client/store/user'
 
 type Props = {

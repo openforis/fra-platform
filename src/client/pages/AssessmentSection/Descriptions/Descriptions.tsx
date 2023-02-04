@@ -3,7 +3,7 @@ import React, { useMemo } from 'react'
 import { Descriptions as DescriptionsType, TableNames } from '@meta/assessment'
 
 import { useAssessmentCountry } from '@client/store/assessment'
-import { useHasOriginalDataPointData } from '@client/store/pages/assessmentSection'
+import { useHasOriginalDataPointData } from '@client/store/ui/assessmentSection'
 import { useIsPrint } from '@client/hooks/useIsPath'
 
 import AnalysisDescriptions from './AnalysisDescriptions'

@@ -6,7 +6,7 @@ import { TableData } from '@meta/data'
 
 import { useAppDispatch } from '@client/store'
 import { useCycle } from '@client/store/assessment'
-import { AssessmentSectionActions, useIsEstimationPending } from '@client/store/pages/assessmentSection'
+import { AssessmentSectionActions, useIsEstimationPending } from '@client/store/ui/assessmentSection'
 import { useCountryIso } from '@client/hooks'
 
 import { GenerateValuesField } from './field'

@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { CountryIso } from '@meta/area'
 import { Sockets } from '@meta/socket'
 
-import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
+import { AssessmentSectionActions } from '@client/store/ui/assessmentSection'
 import { SocketClient } from '@client/service/socket'
 
 // Listen to websocket updates for deleting an odp

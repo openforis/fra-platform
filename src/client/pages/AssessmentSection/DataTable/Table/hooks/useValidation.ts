@@ -17,7 +17,7 @@ import { ExpressionEvaluator } from '@meta/expressionEvaluator'
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { addAppListener } from '@client/store/middleware/listener'
-import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
+import { AssessmentSectionActions } from '@client/store/ui/assessmentSection'
 import { useCountryIso } from '@client/hooks'
 
 export const useValidations = (props: { table: Table }) => {
@@ -66,7 +66,7 @@ export const useValidations = (props: { table: Table }) => {
         ),
         effect: (_, { getState }) => {
           const state = getState()
-          const { data } = state.pages.assessmentSection
+          const { data } = state.ui.assessmentSection
           const nodes: Array<NodeUpdate> = []
 
           rowsData.forEach((row) => {
