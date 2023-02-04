@@ -4,7 +4,7 @@ import { AssessmentName, Table as TableType } from '@meta/assessment'
 import { TableData } from '@meta/data'
 
 import { useCycle } from '@client/store/assessment'
-import { useShowOriginalDatapoints } from '@client/store/pages/assessmentSection/hooks'
+import { useShowOriginalDatapoints } from '@client/store/ui/assessmentSection/hooks'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import ButtonTableExport from '@client/components/ButtonTableExport'

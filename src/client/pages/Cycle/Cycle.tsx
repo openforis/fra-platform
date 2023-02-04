@@ -7,7 +7,7 @@ import { AssessmentName, AssessmentNames } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { AssessmentActions, useAssessment, useCycle } from '@client/store/assessment'
-import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
+import { AssessmentSectionActions } from '@client/store/ui/assessmentSection'
 import { useIsAdmin, useIsLogin, useIsPrint, useIsUserEditPage } from '@client/hooks/useIsPath'
 import AssessmentSwitch from '@client/components/AssessmentSwitch'
 import PageLayout from '@client/components/PageLayout'

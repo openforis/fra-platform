@@ -6,7 +6,7 @@ import { NodeUpdates } from '@meta/data'
 import { Sockets } from '@meta/socket'
 
 import { useAppDispatch } from '@client/store'
-import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
+import { AssessmentSectionActions } from '@client/store/ui/assessmentSection'
 import { SocketClient } from '@client/service/socket'
 
 type Props = {

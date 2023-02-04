@@ -10,16 +10,14 @@ import { useCountryIso } from '@client/hooks'
 export { useIsEstimationPending } from './useIsEstimatePending'
 
 export const useShowOriginalDatapoints = () =>
-  useAppSelector((state) => state.pages.assessmentSection.showOriginalDataPoint)
+  useAppSelector((state) => state.ui.assessmentSection.showOriginalDataPoint)
 
 export const useTableSections = (props: { sectionName: string }): Array<TableSection> =>
-  useAppSelector((state) => state.pages.assessmentSection.tableSections[props.sectionName] ?? [])
+  useAppSelector((state) => state.ui.assessmentSection.tableSections[props.sectionName] ?? [])
 
 const useOriginalDataPointData = (): Record<string, Record<string, NodeValue>> | undefined => {
   const countryIso = useCountryIso()
-  return useAppSelector(
-    (state) => state.pages.assessmentSection.data?.[countryIso]?.[TableNames.originalDataPointValue]
-  )
+  return useAppSelector((state) => state.ui.assessmentSection.data?.[countryIso]?.[TableNames.originalDataPointValue])
 }
 
 export const useHasOriginalDataPointData = (): boolean => Object.keys(useOriginalDataPointData() ?? {}).length > 0
@@ -29,7 +27,7 @@ export const useTableData = (props: { table: Table }): TableData => {
   const countryIso = useCountryIso()
   const { odp } = table.props
   const country = useAssessmentCountry()
-  const tableData = useAppSelector((state) => state.pages.assessmentSection.data)
+  const tableData = useAppSelector((state) => state.ui.assessmentSection.data)
   const odpData = useOriginalDataPointData() ?? {}
   const showOriginalDatapoints = useShowOriginalDatapoints()
 
@@ -54,7 +52,7 @@ export const useTableData = (props: { table: Table }): TableData => {
 
 export const useIsSectionDataEmpty = (tableSections: TableSection[]) => {
   const countryIso = useCountryIso()
-  const { data } = useAppSelector((state) => state.pages.assessmentSection)
+  const { data } = useAppSelector((state) => state.ui.assessmentSection)
 
   const [sectionDataEmpty, setSectionDataEmpty] = useState(false)
   const sectionTableNames = useMemo(
@@ -92,4 +90,4 @@ export const useOriginalDataPointYears = () => {
 }
 
 export const useNodeValueValidation = (props: { tableName: string }): NodeUpdate | undefined =>
-  useAppSelector((state) => state.pages.assessmentSection.nodeValueValidation[props.tableName])
+  useAppSelector((state) => state.ui.assessmentSection.nodeValueValidation[props.tableName])
