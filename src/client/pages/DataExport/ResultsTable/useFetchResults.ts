@@ -4,7 +4,7 @@ import { ApiEndPoint } from '@meta/api/endpoint'
 import { AssessmentName } from '@meta/assessment'
 import { TableData } from '@meta/data'
 
-import { useDataExportSelection } from '@client/store/pages/dataExport'
+import { useDataExportSelection } from '@client/store/ui/dataExport'
 import { useCountryIso, useGetRequest } from '@client/hooks'
 
 type Props = {

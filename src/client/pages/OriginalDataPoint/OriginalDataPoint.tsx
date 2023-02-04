@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { AssessmentName, TableNames } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
-import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
+import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/ui/originalDataPoint'
 import { ReviewActions } from '@client/store/ui/review'
 import { useIsEditTableDataEnabled, useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'

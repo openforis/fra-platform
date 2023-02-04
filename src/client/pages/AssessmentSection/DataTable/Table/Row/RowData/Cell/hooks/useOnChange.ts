@@ -6,7 +6,7 @@ import { TableData, TableDatas } from '@meta/data'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useAssessmentSection, useCycle } from '@client/store/assessment'
-import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
+import { AssessmentSectionActions } from '@client/store/ui/assessmentSection'
 import { useCountryIso } from '@client/hooks'
 import { Sanitizer } from '@client/utils/sanitizer'
 

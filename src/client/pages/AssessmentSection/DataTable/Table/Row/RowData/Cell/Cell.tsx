@@ -7,7 +7,7 @@ import { Authorizer } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessmentSection, useCountry, useCycle } from '@client/store/assessment'
-import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
+import { AssessmentSectionActions } from '@client/store/ui/assessmentSection'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 
