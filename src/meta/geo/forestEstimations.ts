@@ -46,3 +46,17 @@ export interface ForestEstimations {
   data: ForestEstimationsData
   year: number
 }
+
+export enum ExtraEstimation {
+  ReportedToFRA = 'Reported to FRA',
+  PrecalculatedRecipe = 'Forest agreement selected',
+}
+
+export const extraEstimationsMetadata = {
+  [ExtraEstimation.ReportedToFRA]: {
+    palette: ['#000000'], // black
+  },
+  [ExtraEstimation.PrecalculatedRecipe]: {
+    palette: ['#FF00FF'], // fuchsia
+  },
+}
