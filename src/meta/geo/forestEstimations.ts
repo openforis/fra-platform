@@ -1,6 +1,12 @@
 import { CountryIso } from '@meta/area'
 
 export interface ForestEstimationsData {
+  faAgreementEsriEsaGloHansen10Gte1: number
+  faAgreementEsriEsaGloHansen10Gte2: number
+  faAgreementEsriEsaGloHansen10Gte3: number
+  faAgreementEsriEsaGloHansen10Gte4: number
+  faAgreementEsriEsaGte1: number
+  faAgreementEsriEsaGte2: number
   faAgreementHansen10Gte1: number
   faAgreementHansen10Gte2: number
   faAgreementHansen10Gte3: number
