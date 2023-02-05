@@ -20,7 +20,23 @@ const getAnchorsByUuid = (props: { cycle: Cycle; sections: Array<Section> }): Re
   }, {})
 }
 
+const getPrevious = (props: { subSection: SubSection; sections: Array<Section> }): SubSection => {
+  const { subSection, sections } = props
+  const subsections = sections.reduce<Array<SubSection>>((acc, section) => [...acc, ...section.subSections], [])
+  const previousSubsection = subsections.findIndex((s) => s.id === subSection.id) - 1
+  return subsections[previousSubsection]
+}
+
+const getNext = (props: { subSection: SubSection; sections: Array<Section> }): SubSection => {
+  const { subSection, sections } = props
+  const subsections = sections.reduce<Array<SubSection>>((acc, section) => [...acc, ...section.subSections], [])
+  const nextSubsection = subsections.findIndex((s) => s.id === subSection.id) + 1
+  return subsections[nextSubsection]
+}
+
 export const SubSections = {
   getAnchor,
   getAnchorsByUuid,
+  getPrevious,
+  getNext,
 }
