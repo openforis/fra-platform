@@ -8,6 +8,7 @@ export enum UserStatus {
 
 export interface User {
   id: number
+  uuid: string
   institution?: string
   email: string
   lang: string
