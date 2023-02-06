@@ -75,7 +75,7 @@ const LinksFRA: React.FC = () => {
       {user && (
         <PopoverControl items={getLinks(i18n, assessment, countryIso, cycle, user, dispatch, toaster)}>
           <div className="app-header__menu-item">
-            {user.name}
+            {Users.getFullName(user)}
             <Icon className="icon-middle" name="small-down" />
           </div>
         </PopoverControl>
