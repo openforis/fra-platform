@@ -34,9 +34,9 @@ export const fileTypes = {
     downloadName: key.replace(/_/g, ' '),
     fileType,
   }),
-  biomassStock: (domain: string) => ({
+  biomassStock: (assessmentName: string, cycleName: string, domain: string) => ({
     key: `calculator_${domain}`,
-    folder: 'biomassStock',
+    folder: `${assessmentName}/${cycleName}/biomassStock`,
     downloadName: 'BiomassCalculator.xlsx',
     fileType: 'xlsx',
   }),
