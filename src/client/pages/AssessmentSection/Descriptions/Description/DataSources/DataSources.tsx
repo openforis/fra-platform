@@ -22,7 +22,10 @@ const placeholder: DataSource = {
   fraVariables: [],
   comments: '',
   year: '',
-  reference: '',
+  reference: {
+    text: '',
+    link: undefined,
+  },
 }
 
 export const DataSources: React.FC<Props> = (props: Props) => {

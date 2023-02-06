@@ -10,7 +10,10 @@ export enum CommentableDescriptionName {
   introductoryText = 'introductoryText',
 }
 export interface DataSource {
-  reference: string
+  reference: {
+    text: string
+    link?: string
+  }
   type: string
   fraVariables: string[]
   year: string
