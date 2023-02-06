@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { CycleParams } from '@meta/api/request'
-import { ODPs, OriginalDataPoint } from '@meta/assessment'
+import { ODPNationalClass, ODPs, OriginalDataPoint } from '@meta/assessment'
 
 import { RootState } from '@client/store'
 
@@ -30,7 +30,12 @@ export const copyPreviousNationalClasses = createAsyncThunk<
       },
     })
 
-    const updatedOriginalDataPoint = { ...originalDataPoint, nationalClasses: data.nationalClasses }
+    const updatedOriginalDataPoint = {
+      ...originalDataPoint,
+      nationalClasses: data.nationalClasses.map(({ area: _, ...nationalClass }: ODPNationalClass) => ({
+        ...nationalClass,
+      })),
+    }
 
     dispatch(
       updateOriginalDataPoint({
