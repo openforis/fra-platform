@@ -1,37 +1,21 @@
-import axios from 'axios'
-
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { ForestEstimations, ForestEstimationsData, ForestSource, sourcesMetadata } from '@meta/geo'
+import { ExtraEstimation, ForestEstimations, ForestEstimationsData, ForestSource, sourcesMetadata } from '@meta/geo'
 import { hansenPercentages } from '@meta/geo/forest'
 
 /**
- * Type for tabular data, consisting of an array of arrays with
- * source, area, and coverage percentage.
- */
-export type TabularForestEstimationData = {
-  data: [string, number, number][]
-  fra1ALandArea: number // fra1ALandArea reported in thousands of Ha.
-  fra1aForestArea: number // fra1aForestArea reported in thousands of Ha.
-}
-
-/**
- * Makes an API call to get the Forest Estimations in a country in a year,
- * in a tabular way.
+ * Turns the Forest Estimations object into a table, and adds the area reported
+ * to FRA and the recipe layer estimation as rows.
  *
- * @param {string} countryIso The country to query the statistics data.
- * @param {string} year The year to query the statistics data.
+ * @param {ForestEstimations} fetchedForestEstimations Forest Estimations object.
+ * @param {string} recipeLayerName The property name of the recipe.
  * @public
  */
-export const getForestEstimationData = async (
-  countryIso: string,
-  year: number
-): Promise<TabularForestEstimationData> => {
-  const estimationsData: [string, number, number][] = []
-  const response = await axios.get(ApiEndPoint.Geo.Estimations.forest(), { params: { countryIso, year } })
-  const fetchedForestEstimations: ForestEstimations = response.data
-
+export const builForestEstimationsDataTable = (
+  fetchedForestEstimations: ForestEstimations,
+  recipeLayerName: string
+): [string, number, number][] => {
   if (!fetchedForestEstimations) throw Error('Data unavailable.')
 
+  const estimationsData: [string, number, number][] = []
   const fra1ALandArea = fetchedForestEstimations.data.fra1aLandArea
   const reportedFra1aForestArea = fetchedForestEstimations.data.fra1aForestArea
 
@@ -62,11 +46,24 @@ export const getForestEstimationData = async (
     }
   })
 
+  // Adding the precalculated recipe data if available.
+  if (recipeLayerName && recipeLayerName in fetchedForestEstimations.data) {
+    const precalculatedRecipeLabel = ExtraEstimation.PrecalculatedRecipe
+    const precalculatedRecipeAreaEstimation =
+      fetchedForestEstimations.data[recipeLayerName as keyof ForestEstimationsData]
+    const precalculatedRecipeAreaPercentage = (precalculatedRecipeAreaEstimation * 100) / (fra1ALandArea * 1000)
+    estimationsData.push([
+      precalculatedRecipeLabel,
+      precalculatedRecipeAreaEstimation,
+      Number(precalculatedRecipeAreaPercentage.toFixed(2)),
+    ])
+  }
+
   // Adding the reported Forest Area to the data.
+  const reportedToFraLabel = ExtraEstimation.ReportedToFRA
   const reportedFra1aForestAreaHa = reportedFra1aForestArea * 1000 // Normalize to Ha. Instead of Thousands of Ha.
   const fra1aForestAreaPercentage = (reportedFra1aForestAreaHa * 100) / (fra1ALandArea * 1000)
-  const reportedToFraLabel = 'Reported to FRA'
   estimationsData.push([reportedToFraLabel, reportedFra1aForestAreaHa, Number(fra1aForestAreaPercentage.toFixed(2))])
 
-  return { data: estimationsData, fra1ALandArea, fra1aForestArea: reportedFra1aForestArea }
+  return estimationsData
 }
