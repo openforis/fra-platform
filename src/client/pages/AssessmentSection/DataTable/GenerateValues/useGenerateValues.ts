@@ -64,7 +64,7 @@ const useGenerateValues = (
 
   const generateValues = () => {
     if (isTableWithOdpEmpty(data) || window.confirm(i18n.t('tableWithOdp.confirmGenerateFraValues'))) {
-      const fieldsToUpdate = method === Method.clearTable ? fields : fields.filter((field) => field.selected === true)
+      const fieldsToUpdate = fields.filter((field) => field.selected === true)
       const changeRates =
         method === Method.annualChange
           ? fieldsToUpdate.reduce((changeRatesAccumulator, field) => {
@@ -83,7 +83,7 @@ const useGenerateValues = (
           sectionName,
           tableName,
           fields: fields
-            .filter((f) => (method === 'clearTable' ? f : f.selected))
+            .filter((f) => f.selected)
             .map(({ annualChangeRates, variableName }) => ({
               annualChangeRates,
               variableName,
