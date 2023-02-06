@@ -24,6 +24,11 @@
   flex: 0 1 40%;
   display: flex;
   justify-content: center;
+
+  select {
+    width: 100%;
+    border: none;
+  }
 }
 
 .edit-user__form-field-disabled {
