@@ -9,7 +9,6 @@ export enum Method {
   linear = 'linear',
   repeatLast = 'repeatLast',
   annualChange = 'annualChange',
-  clearTable = 'clearTable',
 }
 
 export const Methods = {
@@ -19,10 +18,6 @@ export const Methods = {
     fields: Array<GenerateValuesField>
   }): boolean => {
     const { data, method, fields } = props
-    // Clear table doesn't need any fields selected
-    if (method === Method.clearTable) {
-      return true
-    }
     const fieldsSelected = fields.filter((field) => field.selected === true)
 
     // method and fields must be selected
