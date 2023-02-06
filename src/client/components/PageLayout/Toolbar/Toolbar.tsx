@@ -11,6 +11,7 @@ import { Users } from '@meta/user'
 import { useAssessment, useCountry, useCycle } from '@client/store/assessment'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
+import { useIsPrint } from '@client/hooks/useIsPath'
 import Icon from '@client/components/Icon'
 import LinkHome from '@client/components/LinkHome'
 import { Breakpoints } from '@client/utils'
@@ -29,7 +30,7 @@ const Toolbar: React.FC = () => {
   const cycle = useCycle()
   const countryIso = useCountryIso()
   const country = useCountry(countryIso)
-
+  const { print } = useIsPrint()
   const user = useUser()
   const { i18n, t } = useTranslation()
   const countrySelectionRef = useRef(null)
@@ -65,6 +66,8 @@ const Toolbar: React.FC = () => {
   useEffect(() => {
     setQuery('')
   }, [open])
+
+  if (print) return null
 
   return (
     <div className="country-select">
