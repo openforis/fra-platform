@@ -11,7 +11,7 @@ import { useCountryIso, useOnUpdate } from '@client/hooks'
 import CollaboratorPermissions from './CollaboratorPermissions'
 import CountryRoles from './CountryRoles'
 import ProfilePicture from './ProfilePicture'
-import TextInputFields from './TextInputFields'
+import TextInputField from './TextInputField'
 
 type Props = {
   user: User
@@ -49,7 +49,13 @@ const EditUserForm: React.FC<Props> = ({ user, canEditRoles }) => {
     <div className="edit-user__form-container">
       <ProfilePicture onChange={(profilePicture: File) => setProfilePicture(profilePicture)} userId={user.id} />
 
-      <TextInputFields onChange={setUserToEdit} user={userToEdit} />
+      <TextInputField name="email" onChange={setUserToEdit} user={userToEdit} validator={Users.validEmail} />
+
+      <TextInputField name="title" onChange={setUserToEdit} user={userToEdit} isProperty onlySelf />
+
+      <TextInputField name="name" onChange={setUserToEdit} user={userToEdit} isProperty onlySelf />
+
+      <TextInputField name="surname" onChange={setUserToEdit} user={userToEdit} isProperty onlySelf />
 
       {userRole?.role === RoleName.COLLABORATOR && <CollaboratorPermissions userRole={userRole} />}
 
