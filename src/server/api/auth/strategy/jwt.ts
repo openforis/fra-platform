@@ -13,13 +13,18 @@ const jwtFromRequest = (req: Request) => {
   return token
 }
 
-const jwtStrategyVerifyCallback = async (_req: Request, { id }: User, done: VerifiedCallback) => {
+const jwtStrategyVerifyCallback = async (_req: Request, { uuid }: User, done: VerifiedCallback) => {
   const sendErr = (message: string) => done(null, false, { message })
   try {
-    const user = await UserController.getOne({ id })
+    if (uuid) {
+      throw new Error('login.invalidToken')
+    }
+
+    const user = await UserController.getOne({ uuid })
+
     return done(null, user)
   } catch (e) {
-    return sendErr('login.noUser')
+    return sendErr(e.message ?? 'login.noUser')
   }
 }
 
