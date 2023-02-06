@@ -32,7 +32,7 @@ type Field = keyof Deprecated_TableDatum
 type ValueArray = Array<Deprecated_TableDatum>
 type ODPValueArray = ValueArray // Array<Deprecated_TableDatum & { type: 'odp' }>
 
-export type GenerateSpecMethod = 'linear' | 'repeatLast' | 'annualChange' | 'clearTable'
+export type GenerateSpecMethod = 'linear' | 'repeatLast' | 'annualChange'
 
 export interface GenerateSpec {
   method: GenerateSpecMethod
@@ -105,10 +105,6 @@ export const repeatLastExtrapolation = (year: number, values: ValueArray, _: ODP
   return null
 }
 
-const clearTableValues = (): null => {
-  return null
-}
-
 export const annualChangeExtrapolation = (
   year: number,
   _values: ValueArray,
@@ -145,7 +141,6 @@ export const generateMethods: Record<string, (...params: any[]) => number> = {
   linear: linearExtrapolation,
   repeatLast: repeatLastExtrapolation,
   annualChange: annualChangeExtrapolation,
-  clearTable: clearTableValues,
 }
 
 export const extrapolate = (
@@ -172,7 +167,7 @@ export const estimateField = (
   const nextValue = getNextValues(year, values)[0]
   const noRequiredOdps = generateSpec.method === 'linear' ? 2 : 1
 
-  if (values.length < noRequiredOdps || generateSpec.method === 'clearTable') {
+  if (values.length < noRequiredOdps) {
     return null
   }
   if (odp) {
