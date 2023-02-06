@@ -11,6 +11,7 @@ import { useCountryIso, useOnUpdate } from '@client/hooks'
 import CollaboratorPermissions from './CollaboratorPermissions'
 import CountryRoles from './CountryRoles'
 import ProfilePicture from './ProfilePicture'
+import SelectField from './SelectField'
 import TextInputField from './TextInputField'
 
 type Props = {
@@ -28,17 +29,15 @@ const EditUserForm: React.FC<Props> = ({ user, canEditRoles }) => {
   const [userToEdit, setUserToEdit] = useState<User>(user)
 
   useOnUpdate(() => {
-    if (!Users.validate(userToEdit).isError) {
-      dispatch(
-        UserManagementActions.updateUser({
-          assessmentName: assessment?.props?.name,
-          cycleName: cycle?.name,
-          user: userToEdit,
-          profilePicture,
-          countryIso,
-        })
-      )
-    }
+    dispatch(
+      UserManagementActions.updateUser({
+        assessmentName: assessment?.props?.name,
+        cycleName: cycle?.name,
+        user: userToEdit,
+        profilePicture,
+        countryIso,
+      })
+    )
   }, [profilePicture, userToEdit])
 
   if (!user) return null
@@ -51,7 +50,7 @@ const EditUserForm: React.FC<Props> = ({ user, canEditRoles }) => {
 
       <TextInputField name="email" onChange={setUserToEdit} user={userToEdit} validator={Users.validEmail} />
 
-      <TextInputField name="title" onChange={setUserToEdit} user={userToEdit} isProperty onlySelf />
+      <SelectField name="title" onChange={setUserToEdit} user={userToEdit} isProperty onlySelf />
 
       <TextInputField name="name" onChange={setUserToEdit} user={userToEdit} isProperty onlySelf />
 
