@@ -9,6 +9,6 @@ export default (props: {
 }): CommentableDescriptionValue => {
   const { name, sectionName, template } = props
   return useAppSelector((state) => {
-    return state.pages.assessmentSection.descriptions?.[sectionName]?.[name] ?? template
+    return state.ui.assessmentSection.descriptions?.[sectionName]?.[name] ?? template
   })
 }

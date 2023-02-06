@@ -16,7 +16,7 @@ export const copyPreviousNationalClasses = createAsyncThunk<
   'originalDataPoint/copy/previousNationalClasses',
   async ({ countryIso, assessmentName, cycleName, originalDataPoint }, { dispatch, getState }) => {
     const state = getState()
-    const { reservedYears } = (state as RootState).pages.originalDataPoint
+    const { reservedYears } = (state as RootState).ui.originalDataPoint
     const { year } = originalDataPoint
 
     const previousODPYear = ODPs.getPreviousODPYear(year, reservedYears)

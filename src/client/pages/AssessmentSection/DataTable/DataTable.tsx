@@ -6,7 +6,7 @@ import { AssessmentName, Table as TableType } from '@meta/assessment'
 import { TableDatas } from '@meta/data'
 
 import { useCycle } from '@client/store/assessment'
-import { useTableData } from '@client/store/pages/assessmentSection'
+import { useTableData } from '@client/store/ui/assessmentSection'
 import { useIsEditTableDataEnabled } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'

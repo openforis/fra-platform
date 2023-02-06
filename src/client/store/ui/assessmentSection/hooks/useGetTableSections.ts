@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useAssessmentSection, useCycle } from '@client/store/assessment'
-import { AssessmentSectionActions, useTableSections } from '@client/store/pages/assessmentSection'
+import { AssessmentSectionActions, useTableSections } from '@client/store/ui/assessmentSection'
 import { useCountryIso } from '@client/hooks'
 
 export const useGetTableSections = () => {
