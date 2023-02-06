@@ -3,6 +3,7 @@ import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 import { CountryIso } from '@meta/area'
 import { NodeUpdate, NodeUpdates, TableDatas } from '@meta/data'
 
+import { copyPreviousDatasources } from './actions/copyPreviousDatasources'
 import { getDescription } from './actions/getDescription'
 import { getOriginalDataPointData } from './actions/getOriginalDataPointData'
 import { getTableData } from './actions/getTableData'
@@ -95,6 +96,13 @@ export const assessmentSectionSlice = createSlice({
       state.descriptions[sectionName][name] = value
     })
 
+    builder.addCase(copyPreviousDatasources.fulfilled, (state, { payload }) => {
+      if (!payload) return
+      const { name, sectionName, value } = payload
+      if (!state.descriptions[sectionName]) state.descriptions[sectionName] = {}
+      state.descriptions[sectionName][name] = value
+    })
+
     builder.addCase(updateDescription.pending, (state, { meta }) => {
       const { sectionName, name, value } = meta.arg
 
@@ -121,6 +129,7 @@ export const AssessmentSectionActions = {
   updateDescription,
   updateNodeValues,
   postEstimate,
+  copyPreviousDatasources,
 }
 
 export default assessmentSectionSlice.reducer as Reducer<AssessmentSectionState>

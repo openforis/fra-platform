@@ -8,6 +8,7 @@ import { CommentableDescriptionValue, DataSource } from '@meta/assessment'
 
 import DataGrid from '@client/components/DataGrid'
 import DataColumn from '@client/components/DataGrid/DataColumn'
+import ButtonCopyDataSources from '@client/pages/AssessmentSection/Descriptions/Description/DataSources/ButtonCopyDataSources'
 import DataSourceRow from '@client/pages/AssessmentSection/Descriptions/Description/DataSources/DataSourceRow'
 
 type Props = {
@@ -30,6 +31,7 @@ const placeholder: DataSource = {
 
 export const DataSources: React.FC<Props> = (props: Props) => {
   const { sectionName, disabled, description, onChange } = props
+
   const { t } = useTranslation()
 
   const { dataSources = [] } = description
@@ -61,32 +63,36 @@ export const DataSources: React.FC<Props> = (props: Props) => {
   )
 
   if (!dataSources.length && disabled) return null
+  const copyDisabled = dataSources.length !== 0
 
   return (
-    <DataGrid className="data-source-grid">
-      <DataColumn head>{t('dataSource.referenceToTataSource')}</DataColumn>
-      <DataColumn head>{t('dataSource.typeOfDataSource')}</DataColumn>
-      <DataColumn head>{t('dataSource.fraVariable')}</DataColumn>
-      <DataColumn head>{t('dataSource.yearForDataSource')}</DataColumn>
-      <DataColumn head>{t('dataSource.comments')}</DataColumn>
+    <div className="data-source wrapper">
+      <ButtonCopyDataSources disabled={copyDisabled} sectionName={sectionName} />
+      <DataGrid className="data-source-grid">
+        <DataColumn head>{t('dataSource.referenceToTataSource')}</DataColumn>
+        <DataColumn head>{t('dataSource.typeOfDataSource')}</DataColumn>
+        <DataColumn head>{t('dataSource.fraVariable')}</DataColumn>
+        <DataColumn head>{t('dataSource.yearForDataSource')}</DataColumn>
+        <DataColumn head>{t('dataSource.comments')}</DataColumn>
 
-      <div className="data-source-review-indicator" />
+        <div className="data-source-review-indicator" />
 
-      {dataSources.concat(disabled ? [] : placeholder).map((dataSource, i) => (
-        <DataSourceRow
-          onChange={(dataSource: DataSource) => _onChange(dataSource, i)}
-          // eslint-disable-next-line react/no-array-index-key
-          key={`dataSource_${i}`}
-          disabled={disabled}
-          sectionName={sectionName}
-          dataSource={dataSource}
-          // Last item is always placeholder
-          placeholder={i === dataSources.length}
-          onDelete={() => _onDelete(i)}
-          index={i}
-        />
-      ))}
-    </DataGrid>
+        {dataSources.concat(disabled ? [] : placeholder).map((dataSource, i) => (
+          <DataSourceRow
+            onChange={(dataSource: DataSource) => _onChange(dataSource, i)}
+            // eslint-disable-next-line react/no-array-index-key
+            key={`dataSource_${i}`}
+            disabled={disabled}
+            sectionName={sectionName}
+            dataSource={dataSource}
+            // Last item is always placeholder
+            placeholder={i === dataSources.length}
+            onDelete={() => _onDelete(i)}
+            index={i}
+          />
+        ))}
+      </DataGrid>
+    </div>
   )
 }
 

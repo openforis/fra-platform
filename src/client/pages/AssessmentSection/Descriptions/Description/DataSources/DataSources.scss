@@ -1,5 +1,9 @@
 @import 'src/client/style/partials';
 
+.data-source > .btn-copy-prev-values {
+  margin-top: $spacing-xs;
+}
+
 .data-source-grid {
   grid-template-columns: 1fr 1.3fr repeat(3, 1fr) 0.1fr;
 }
