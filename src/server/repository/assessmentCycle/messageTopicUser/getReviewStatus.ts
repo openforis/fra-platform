@@ -25,17 +25,19 @@ export const getReviewStatus = async (
         from ${cycleSchema}.message m
         left join ${cycleSchema}.message_topic mt
           on mt.id = m.topic_id
-        where not m.deleted and mt.key in (
+        where not m.deleted
+          and (mt.key in (
           select r.uuid::text
-          from ${schemaName}.row r
-            left join ${schemaName}."table" t
-              on t.id = r.table_id
-            left join ${schemaName}.table_section ts
-              on ts.id = t.table_section_id
-            left join ${schemaName}.section as s
-              on s.id = ts.section_id
-          where s.props ->> 'name' = $1
-        )
+            from ${schemaName}.row r
+              left join ${schemaName}."table" t
+                on t.id = r.table_id
+              left join ${schemaName}.table_section ts
+                on ts.id = t.table_section_id
+              left join ${schemaName}.section as s
+                on s.id = ts.section_id
+            where s.props ->> 'name' = $1
+          )
+          or mt.key LIKE '%_${sectionName}_%')
         group by topic_id
       )
       select
