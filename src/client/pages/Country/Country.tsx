@@ -26,6 +26,7 @@ import { SocketClient } from '@client/service/socket'
 
 import AssessmentPrint from '../AssessmentPrint'
 import Geo from '../Geo'
+import User from '../User'
 import SectionWrapper from './SectionWrapper'
 
 const Country: React.FC = () => {
@@ -104,6 +105,8 @@ const Country: React.FC = () => {
             </SectionWrapper>
           }
         />
+
+        <Route path={ClientRoutes.Assessment.Cycle.Country.Users.User.path.relative} element={<User />} />
 
         <Route path="*" element={<Navigate to="home" replace />} />
       </Routes>

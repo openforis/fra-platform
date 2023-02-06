@@ -5,13 +5,14 @@ import { Link } from 'react-router-dom'
 import { i18n } from 'i18next'
 
 import { ClientRoutes } from '@meta/app'
+import { CountryIso, Global } from '@meta/area'
 import { Assessment, Cycle } from '@meta/assessment'
 import { User, Users } from '@meta/user'
 
 import { AppDispatch, useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { UserActions, useUser } from '@client/store/user'
-import { useIsLogin } from '@client/hooks'
+import { useCountryIso, useIsLogin } from '@client/hooks'
 import { ToasterHook, useToaster } from '@client/hooks/useToaster'
 import Icon from '@client/components/Icon'
 import PopoverControl, { PopoverItem } from '@client/components/PopoverControl'
@@ -19,6 +20,7 @@ import PopoverControl, { PopoverItem } from '@client/components/PopoverControl'
 const getLinks = (
   i18nInstance: i18n,
   assessment: Assessment,
+  countryIso: CountryIso,
   cycle: Cycle,
   user: User,
   dispatch: AppDispatch,
@@ -27,8 +29,9 @@ const getLinks = (
   const items: Array<PopoverItem> = [
     {
       content: i18nInstance.t('header.editProfile'),
-      link: ClientRoutes.Assessment.Cycle.Users.User.getLink({
+      link: ClientRoutes.Assessment.Cycle.Country.Users.User.getLink({
         assessmentName: assessment.props.name,
+        countryIso: countryIso ?? Global.WO,
         cycleName: cycle.name,
         id: user.id,
       }),
@@ -59,6 +62,7 @@ const getLinks = (
 
 const LinksFRA: React.FC = () => {
   const assessment = useAssessment()
+  const countryIso = useCountryIso()
   const cycle = useCycle()
   const dispatch = useAppDispatch()
   const user = useUser()
@@ -69,7 +73,7 @@ const LinksFRA: React.FC = () => {
   return (
     <>
       {user && (
-        <PopoverControl items={getLinks(i18n, assessment, cycle, user, dispatch, toaster)}>
+        <PopoverControl items={getLinks(i18n, assessment, countryIso, cycle, user, dispatch, toaster)}>
           <div className="app-header__menu-item">
             {user.name}
             <Icon className="icon-middle" name="small-down" />
