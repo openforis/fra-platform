@@ -9,7 +9,7 @@ import { fields } from './fields'
 const selectFields = fields.map((f) => `u.${f}`).join(',')
 
 export const getOne = async (
-  props: ({ id: number } | { email: string } | { emailGoogle: string }) & { cycleUuid?: string },
+  props: ({ id: number } | { uuid: string } | { email: string } | { emailGoogle: string }) & { cycleUuid?: string },
   client: BaseProtocol = DB
 ): Promise<User> => {
   const where = []
@@ -19,6 +19,9 @@ export const getOne = async (
   if ('id' in props) {
     where.push('u.id = $1')
     values.push(String(props.id))
+  } else if ('uuid' in props) {
+    where.push('u.uuid = $1')
+    values.push(String(props.uuid))
   } else if ('email' in props) {
     where.push('lower(trim(u.email)) = trim(lower($1))')
     values.push(props.email)
