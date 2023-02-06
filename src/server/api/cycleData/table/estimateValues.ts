@@ -29,19 +29,6 @@ export const estimateValues = async (req: CycleDataRequest<never, EstimateBody>,
 
     const years = tableSpec.props.columnNames[cycle.uuid].map((column: string) => Number(column))
 
-    if (method === 'clearTable') {
-      await CycleDataController.deleteNodeValues({
-        user: Requests.getUser(req),
-        assessment,
-        cycle,
-        table: tableSpec,
-        columnNames: years.map(String),
-        countryISOs: [countryIso],
-        variableNames: fields.map((field) => field.variableName),
-      })
-      return Requests.sendOk(res)
-    }
-
     const changeRates: Record<string, { rateFuture: number; ratePast: number }> = {}
     fields.forEach((field) => {
       changeRates[field.variableName] = {
