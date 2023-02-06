@@ -5,6 +5,7 @@ import { Navigate, Route, Routes, useParams } from 'react-router-dom'
 import classNames from 'classnames'
 
 import { ClientRoutes } from '@meta/app'
+import { Areas } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
 import { Sockets } from '@meta/socket'
 import { Authorizer } from '@meta/user'
@@ -73,7 +74,7 @@ const Country: React.FC = () => {
   }, [countryIso, assessmentName, cycleName, user, dispatch])
 
   if (!countryIso) return null
-  if (!country) return null
+  if (Areas.isISOCountry(countryIso) && !country) return null
 
   if (!Authorizer.canView({ countryIso, assessment, cycle, user })) window.location.href = ClientRoutes.Root.path
 
