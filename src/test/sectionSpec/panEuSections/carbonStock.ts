@@ -644,6 +644,7 @@ export const carbonStock = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.carbonStockInHarvestedWoodProductsHWP',
       tableSpecs: [
         {
           name: 'table_1_4b',
@@ -817,6 +818,7 @@ export const carbonStock = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.countryComments',
       tableSpecs: [
         {
           name: 'country_comments_1_4_1',
