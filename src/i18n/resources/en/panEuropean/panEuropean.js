@@ -2,6 +2,7 @@ const countryComments = require('./countryComments')
 
 module.exports = {
   countryComments,
+  panEuCommentsTitle: 'Additional Comments',
   panEuropeanAssessment: 'Joint pan-European dataset',
   variable: 'Variable',
   landing: {
