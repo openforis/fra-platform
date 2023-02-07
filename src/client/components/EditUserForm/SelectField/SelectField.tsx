@@ -15,7 +15,7 @@ type Props = {
   enabled?: boolean
 }
 
-const SelectField = (props: Props) => {
+const SelectField: React.FC<Props> = (props) => {
   const { name, value, options, onChange, validator, enabled } = props
 
   const { t } = useTranslation()

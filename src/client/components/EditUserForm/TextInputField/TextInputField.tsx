@@ -16,7 +16,7 @@ type Props = {
   enabled?: boolean
 }
 
-const TextInputField = (props: Props) => {
+const TextInputField: React.FC<Props> = (props) => {
   const { name, value, onChange, validator, enabled } = props
 
   const { t } = useTranslation()
