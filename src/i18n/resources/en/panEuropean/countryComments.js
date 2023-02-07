@@ -1,11 +1,30 @@
 module.exports = {
   // Country Comments
+  // Titles
+  countryComments: 'Country Comments',
+  forest: 'Forest',
+  forestArea: 'Forest area',
+  forestAreaByForestType: 'Forest area by forest type',
+  growingStock: 'Growing stock',
+  growingStockByForestType: 'Growing stock by forest type',
+  growingStockComposition: 'Growing stock composition',
+  ageClassDistribution: 'Age class distribution (volume of even-aged stands) in forest available for wood supply',
+  carbonStockInHarvestedWoodProductsHWP: 'Carbon stock in harvested wood products (HWP)',
+  annualForestExpansionAndRegeneration: 'Annual forest expansion and regeneration',
+  naturalnessBySubclass: 'Naturalness by subclass',
+  introducedTreeSpecies: 'Introduced tree species',
+  invasiveTreeSpecies: 'Invasive tree species',
+  totalFixedCapitalFormationInForestsAndForestry: 'Total fixed capital formation in forests and forestry',
+  totalFixedCapitalTransfersInForestsAndForestry: 'Total fixed capital transfers in forests and forestry',
+  EmploymentByEducationAndJobCharacteristics: 'Employment by education and job characteristics',
+  intensityOfUse: 'Intensity of use',
+  recreationFacilities: 'Recreation facilities',
+  otherRecreationFacilities: 'Other recreation facilities - pilot reporting (2020)',
+  // Rows and columns
   theYearAndDataReported: 'The year and data reported for 2025',
   howDidYouGenerateValues: 'How did you generate values for 2025',
   theRecentAvailableYear: 'The recent available year',
   extrapolation: 'Extrapolation',
-  forest: 'Forest',
-  forestArea: 'Forest area',
   assessementBasedOnEvidence:
     'assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)',
   approachToReportingOnTheCategoriesOfTheTable11A: 'Approach to reporting on the categories of the Table 1.1a',
@@ -156,7 +175,6 @@ module.exports = {
   naturalExpansionAndRegeneration: 'Natural expansion and regeneration',
   afforestationAndRegenerationByPlantingAndOrSeeding: 'Afforestation and regeneration by planting and/or seeding',
   coppice: 'Coppice',
-  annualForestExpansionAndRegeneration: 'Annual forest expansion and regeneration',
   naturalExpansionOfForestArea: 'Natural expansion of forest area',
   regenerationOfForestArean: 'Regeneration of forest area',
   approachToDelimniateBetweenCategories: 'Approach to delimitate between categories',
@@ -211,7 +229,6 @@ module.exports = {
   soilWaterAndOtherForestEcosystemFunctions: 'Soil, water and other forest ecosystem functions',
   infrastructureAndManagedNaturalResources: 'Infrastructure and managed natural resources',
   minimumSizeOfForestHoldingReportedHa: 'Minimum size of forest holding reported (ha)',
-  countryComments: 'Country comments',
   areaAndNumberOfHoldingsInPrivateOwnership: 'Area and number of holdings in private ownership',
   areaAndNumberOfHoldingsInPublicOwnership: 'Area and number of holdings in public ownership',
   manufactureOfPaperAndPaperProducts: 'Manufacture of paper and paper products',
@@ -253,10 +270,44 @@ module.exports = {
   areaOfForestsAvailableForPublicRecreation: 'Area of forests available for public recreation',
   areaOfForestsPrimarilyDesignatedOrManagedForPublicRecreation:
     'Area of forests primarily designated or managed for public recreation',
-  intensityOfUse: 'Intensity of use',
-  recreationFacilities: 'Recreation facilities',
   inYourCountryAreRecentlyDegradedForestAreasLegallyConsideredAsNonForestLand:
     'In your country are recently degraded forest areas legally considered as non-forest land?',
   inYourCountryAreDegradedNonForestAreasReCategorisedToForestLandWithTheAimToReforestThem:
     'In your country are degraded non-forest areas re-categorised to forest land with the aim to reforest them?',
+  christmasTreePlantationsOnForestLand: 'Christmas tree plantations on forest land',
+  poplarPlantationsOnForestLand: 'Poplar plantations on forest land',
+  shortRotationForestry: 'Short rotation forestry',
+  shortRotationCoppicesOnForestLand: 'Short rotation coppices on forest land',
+  OfWhichNotAvailableForWoodSupply: 'Of which not available for wood supply',
+  environmentalRestrictions: 'Environmental restrictions',
+  protectedForests: 'Protected forests',
+  productiveForestsDesignatedToProtectKeyHabitatsSpeciesOrOtherNaturalValues:
+    'Productive forests designated to protect key habitats/species or other natural values',
+  protectiveForestsSoilWaterAndOtherEcosystemFunctionsInfrastructureAndManagedNaturalResources:
+    'Protective forests (soil, water and other ecosystem functions, infrastructure and managed natural resources)',
+  socialRestrictions: 'Social restrictions',
+  forestsDesignatedToProtectAestheticHistoricalCulturalOrSpiritualValues:
+    'Forests designated to protect aesthetic, historical, cultural or spiritual values',
+  forestsManagedForRecreationalPurposes: 'Forests managed for recreational purposes',
+  forestsExcludedFromHarvestingByOwnerSDecision: 'Forests excluded from harvesting by owner’s decision',
+  militaryForests: 'Military forests',
+  economicRestrictions: 'Economic restrictions',
+  forestsOfVeryLowProductivityEconomicRevenueOfHarvesting:
+    'Forests of very low productivity (economic revenue of harvesting)',
+  forestsPhysicallyNotAccessibleIncludingSlopeAndSoilCondition:
+    'Forests physically not accessible (including slope and soil condition)',
+  otherPleaseSpecify: 'Other (please specify)',
+  otherWoodedLand: 'Other wooded land',
+  alpineShrublandEGPinusMugo: 'Alpine shrubland (e.g. Pinus mugo)',
+  otherShrublandEGMaquisGarrigueMatorral: 'Other shrubland (e.g. maquis, garrigue, matorral)',
+  otherLandWithTreeCover: 'Other land with tree cover',
+  agroForestrySilvoPastoralAreasEGForRearingIberianBlackPig:
+    'Agro-forestry/silvo-pastoral areas (e.g. for rearing Iberian black pig)',
+  plantationsOfNutProducingTreesOrShrubsEGSweetChestnutsAlmondsWalnutsHazelnuts:
+    'Plantations of nut-producing trees or shrubs (e.g. sweet chestnuts, almonds, walnuts, hazelnuts)',
+  oliveGrovesAndFruitTreeOrchards: 'Olive groves and fruit tree orchards',
+  poplarPlantationsOnAgriculturalLand: 'Poplar plantations on agricultural land',
+  treesInUrbanSettings: 'Trees in urban settings',
+  shortRotationCoppicesOnAgriculturalLand: 'Short rotation coppices on agricultural land',
+  christmasTreePlantationsOnAgriculturalLand: 'Christmas tree plantations on agricultural land',
 }

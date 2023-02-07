@@ -15,7 +15,7 @@ import RecentActivity from '../RecentActivity'
 enum SectionNames {
   overview = 'overview',
   messageBoard = 'messageBoard',
-  contentCheck = 'contentCheck',
+  // contentCheck = 'contentCheck',
   userManagement = 'userManagement',
   recentActivity = 'recentActivity',
   links = 'links',
@@ -24,10 +24,6 @@ enum SectionNames {
 type Section = {
   name: SectionNames
   component: React.FC
-}
-
-const Placeholder: React.FC = () => {
-  return <div>Home section Placeholder</div>
 }
 
 export const useSections = (): Array<Section> => {
@@ -47,9 +43,9 @@ export const useSections = (): Array<Section> => {
     sections.splice(2, 0, { name: SectionNames.userManagement, component: Collaborators })
   }
 
-  if (Users.isAdministrator(user) || Users.isReviewer(user, countryIso, cycle)) {
-    sections.splice(2, 0, { name: SectionNames.contentCheck, component: Placeholder })
-  }
+  // if (Users.isAdministrator(user) || Users.isReviewer(user, countryIso, cycle)) {
+  //   sections.splice(2, 0, { name: SectionNames.contentCheck, component: Placeholder })
+  // }
 
   return sections
 }
