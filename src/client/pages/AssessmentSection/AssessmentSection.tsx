@@ -100,7 +100,9 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
           disabled={!canEditDescriptions}
         />
       )}
-      {descriptions.comments && <GeneralComments sectionName={sectionName} disabled={!canEditDescriptions} />}
+      {descriptions.comments && (
+        <GeneralComments assessmentName={assessmentName} sectionName={sectionName} disabled={!canEditDescriptions} />
+      )}
 
       <div className="page-break" />
     </div>

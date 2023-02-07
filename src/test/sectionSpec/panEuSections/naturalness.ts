@@ -501,6 +501,7 @@ export const naturalness = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.naturalnessBySubclass',
       tableSpecs: [
         {
           name: 'table_4_3b',
@@ -846,6 +847,7 @@ export const naturalness = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.countryComments',
       tableSpecs: [
         {
           name: 'country_comments_4_3_1',
