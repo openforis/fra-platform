@@ -6,9 +6,9 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { AssessmentName, TableNames } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
-import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
+import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/ui/originalDataPoint'
 import { ReviewActions } from '@client/store/ui/review'
-import { useCanEditTableData, useUser } from '@client/store/user'
+import { useIsEditTableDataEnabled, useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 
 import ButtonBar from './components/ButtonBar'
@@ -32,7 +32,7 @@ const OriginalDataPoint: React.FC = () => {
     year: string
   }>()
 
-  const canEditData = useCanEditTableData(TableNames.extentOfForest)
+  const canEditData = useIsEditTableDataEnabled(TableNames.extentOfForest)
 
   useEffect(() => {
     dispatch(

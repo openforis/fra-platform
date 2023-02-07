@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { ApiEndPoint } from '@meta/api/endpoint'
 
 import { useUser } from '@client/store/user'
+import { useIsPrint } from '@client/hooks/useIsPath'
 
 import SendFeedback from './SendFeedback'
 
@@ -30,6 +31,9 @@ const Footer: React.FC = () => {
   const { i18n, t } = useTranslation()
   const user = useUser()
   const { language } = i18n
+  const { print } = useIsPrint()
+
+  if (print) return null
 
   // @ts-ignore
   const buildVersion = `${__APPLICATION_VERSION__} | ${__BUILD_DATE__}`

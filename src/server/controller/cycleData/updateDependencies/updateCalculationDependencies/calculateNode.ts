@@ -2,13 +2,13 @@ import { Objects } from '@utils/objects'
 
 import { ActivityLogMessage, AssessmentMetaCaches, NodeValue, Row } from '@meta/assessment'
 import { NodeUpdates } from '@meta/data'
+import { ExpressionEvaluator } from '@meta/expressionEvaluator'
 
 import { getTableData } from '@server/controller/cycleData/getTableData'
 import { BaseProtocol } from '@server/db'
 
 import { persistNode } from '../../persistNodeValues/persistNode'
 import { PersistNodeValueProps } from '../../persistNodeValues/props'
-import { ExpressionEvaluator } from '../expressionEvaluator'
 
 export const calculateNode = async (
   props: Omit<PersistNodeValueProps, 'value'> & {

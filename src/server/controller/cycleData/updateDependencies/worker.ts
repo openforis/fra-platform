@@ -39,22 +39,21 @@ export default async (job: Job<UpdateDependenciesProps>) => {
       )
     )
 
-    const result = results.reduce<{ nodeUpdates: NodeUpdates; validations: NodeUpdates }>(
+    // const result = results.reduce<{ nodeUpdates: NodeUpdates; validations: NodeUpdates }>(
+    const result = results.reduce<{ nodeUpdates: NodeUpdates }>(
       (acc, item) => {
         acc.nodeUpdates.nodes.push(...item.nodeUpdates.nodes)
-        acc.validations.nodes.push(...item.validations.nodes)
+        // acc.validations.nodes.push(...item.validations.nodes)
         return acc
       },
       {
         nodeUpdates: { assessment, cycle, countryIso, nodes: [] },
-        validations: { assessment, cycle, countryIso, nodes: [] },
+        // validations: { assessment, cycle, countryIso, nodes: [] },
       }
     )
 
     Logger.debug(
-      `[updateDependenciesWorker] job in thread ended ${job.id} ${job.id} in ${
-        (new Date().getTime() - time) / 1000
-      } seconds. ${__dirname}`
+      `[updateDependenciesWorker] job-${job.id} in thread ended in ${(new Date().getTime() - time) / 1000} seconds.`
     )
 
     return Promise.resolve(result)

@@ -1,52 +1,23 @@
-import React, { useCallback, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import React from 'react'
 
 import classNames from 'classnames'
 
-import { ClientRoutes } from '@meta/app'
 import { User, Users, UserStatus } from '@meta/user'
-import { UserRoles } from '@meta/user/userRoles'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { UserManagementActions } from '@client/store/ui/userManagement'
-import { useUser } from '@client/store/user'
+import { useCycle } from '@client/store/assessment'
 import { useCountryIso } from '@client/hooks'
-import { useToaster } from '@client/hooks/useToaster'
+import InvitationColumn from '@client/components/UserList/CollaboratorListElement/InvitationColumn'
+import UserEditColumn from '@client/components/UserList/CollaboratorListElement/UserEditColumn'
 
-import Icon from '../../Icon'
 import UserField from '../UserField'
-import UserInvitationInfo from '../UserInvitationInfo'
 import UserRoleField from '../UserRoleField'
 
 const CollaboratorListElement: React.FC<{ user: User; readOnly: boolean }> = ({ user, readOnly }) => {
-  const [showInvitationInfo, setShowInvitationInfo] = useState<boolean>(false)
-  const dispatch = useAppDispatch()
-  const { toaster } = useToaster()
   const countryIso = useCountryIso()
-  const assessment = useAssessment()
   const cycle = useCycle()
-  const currentUser = useUser()
-  const { t } = useTranslation()
 
   const userRole = Users.getRole(user, countryIso, cycle)
-
   const { acceptedAt, invitationUuid } = userRole
-
-  const removeInvitation = useCallback(() => {
-    if (window.confirm(t('userManagement.confirmDelete', { user: user.name })))
-      dispatch(
-        UserManagementActions.removeInvitation({
-          assessmentName: assessment.props.name,
-          cycleName: cycle.name,
-          countryIso,
-          invitationUuid,
-        })
-      ).then(() => {
-        toaster.success(t('userManagement.invitationDeleted'))
-      })
-  }, [t, user.name, dispatch, assessment.props.name, cycle.name, countryIso, invitationUuid, toaster])
 
   return (
     <tr
@@ -61,45 +32,10 @@ const CollaboratorListElement: React.FC<{ user: User; readOnly: boolean }> = ({ 
       {!readOnly && (
         <td className="user-list__cell user-list__edit-column">
           {invitationUuid && !acceptedAt ? (
-            <>
-              <button
-                key={0}
-                className={classNames('btn-s btn-link', {
-                  'btn-link-destructive': UserRoles.isInvitationExpired(userRole),
-                })}
-                onClick={() => setShowInvitationInfo(true)}
-                title={t('userManagement.info')}
-                type="button"
-              >
-                <Icon name="round-e-info" />
-              </button>
-
-              <button
-                key={1}
-                className="btn-s btn-link-destructive"
-                disabled={currentUser.id === user.id}
-                onClick={removeInvitation}
-                title={t('userManagement.remove')}
-                type="button"
-              >
-                <Icon name="trash-simple" />
-              </button>
-            </>
+            <InvitationColumn user={user} userRole={userRole} invitationUuid={invitationUuid} />
           ) : (
-            <Link
-              to={ClientRoutes.Assessment.Cycle.Country.Home.Users.User.getLink({
-                countryIso,
-                assessmentName: assessment.props.name,
-                cycleName: cycle.name,
-                id: user.id,
-              })}
-              type="button"
-              className="link"
-            >
-              {t('userManagement.edit')}
-            </Link>
+            <UserEditColumn user={user} id={user.id} />
           )}
-          {showInvitationInfo ? <UserInvitationInfo user={user} onClose={() => setShowInvitationInfo(false)} /> : null}
         </td>
       )}
     </tr>
