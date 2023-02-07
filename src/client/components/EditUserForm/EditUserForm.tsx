@@ -43,6 +43,7 @@ const EditUserForm: React.FC<Props> = ({ user, canEditRoles }) => {
   useOnUpdate(() => {
     dispatch(
       UserManagementActions.updateRoleProps({
+        id: userInfo.id,
         assessmentName: assessment?.props?.name,
         cycleName: cycle?.name,
         role: roleToEdit,

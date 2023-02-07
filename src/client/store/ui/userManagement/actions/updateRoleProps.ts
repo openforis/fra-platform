@@ -8,6 +8,7 @@ import { AssessmentName } from '@meta/assessment'
 import { UserRole } from '@meta/user/userRole'
 
 type Params = {
+  id: number
   assessmentName: AssessmentName
   countryIso: CountryIso
   cycleName: string

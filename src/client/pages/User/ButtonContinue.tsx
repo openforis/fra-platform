@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 
 import { ClientRoutes } from '@meta/app'
 import { Users } from '@meta/user'
+import { UserRoles } from '@meta/user/userRoles'
 
 import { useUserToEdit } from '@client/store/ui/userManagement/hooks'
 
@@ -12,7 +13,9 @@ const ButtonContinue = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const userToEdit = useUserToEdit()
-  const { routeParams, userLastRole } = location.state ?? {}
+  const { routeParams, userLastRole: _userLastRole } = location.state ?? {}
+
+  const userLastRole = UserRoles.getLastRole(userToEdit) ?? _userLastRole
 
   const isPersonalInfoRequired = Users.isPersonalInfoRequired(userToEdit, userLastRole)
 
