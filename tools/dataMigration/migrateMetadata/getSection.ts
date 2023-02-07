@@ -8,7 +8,7 @@ export const getSection = (props: { assessment: Assessment; index: number; label
   const cycleUuids = getCycleUuids({ assessment })
   return {
     props: {
-      anchors: cycleUuids.reduce((acc, cycleUuid) => ({ ...acc, [cycleUuid]: String(index) }), {}),
+      anchors: cycleUuids.reduce((acc, cycleUuid) => ({ ...acc, [cycleUuid]: String(index === 0 ? '' : index) }), {}),
       cycles: cycleUuids,
       labels: getLabels({ assessment, label: { key: labelKey } }),
       index,
