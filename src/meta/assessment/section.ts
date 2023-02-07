@@ -15,6 +15,9 @@ export interface SubSectionProps extends SectionProps {
 
 export interface Section extends CycledPropsObject<SectionProps> {
   subSections?: Array<SubSection>
+  parentId?: null
 }
 
-export type SubSection = CycledPropsObject<SubSectionProps>
+export interface SubSection extends CycledPropsObject<SubSectionProps> {
+  parentId?: number
+}
