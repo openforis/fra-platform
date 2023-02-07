@@ -1,13 +1,12 @@
-import { ITask } from 'pg-promise'
-
 import { Assessment, Cycle } from '../../../src/meta/assessment'
 import { Table } from '../../../src/meta/assessment/table'
+import { BaseProtocol } from '../../../src/server/db'
 import { _getNodeInsertsDegradedForest } from './_getNodeInsertsDegradedForest'
 import { getNodeInsertsTableWithODP } from './getNodeInsertsTableWithODP'
 
 export const migrateFRATablesData = async (
   props: { assessment: Assessment; cycle: Cycle; countryISOs: string[]; tables: Table[]; values: any[] },
-  client: ITask<any>
+  client: BaseProtocol
 ): Promise<void> => {
   const { assessment, cycle, countryISOs, tables, values } = props
 

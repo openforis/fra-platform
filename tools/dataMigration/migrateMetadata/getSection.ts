@@ -1,12 +1,15 @@
-import { Assessment, Section, SubSection } from '../../../src/meta/assessment'
+import { Assessment } from '../../../src/meta/assessment/assessment'
+import { Section, SubSection } from '../../../src/meta/assessment/section'
 import { SectionSpec } from '../../../src/test/sectionSpec'
 import { getCycleUuids, getLabels } from './utils'
 
 export const getSection = (props: { assessment: Assessment; index: number; labelKey: string }): Section => {
   const { assessment, index, labelKey } = props
+  const cycleUuids = getCycleUuids({ assessment })
   return {
     props: {
-      cycles: getCycleUuids({ assessment }),
+      anchors: cycleUuids.reduce((acc, cycleUuid) => ({ ...acc, [cycleUuid]: String(index) }), {}),
+      cycles: cycleUuids,
       labels: getLabels({ assessment, label: { key: labelKey } }),
       index,
     },

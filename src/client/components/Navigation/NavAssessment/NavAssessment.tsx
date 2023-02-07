@@ -17,13 +17,8 @@ const NavAssessment: React.FC = () => {
     <div className="nav-assessment">
       <Header showSections={showSections} setShowSections={setShowSections} />
 
-      {sections.map((section, index) => (
-        <NavigationSection
-          prefix={Number(index) > 0 ? String(index) : ''}
-          key={section.uuid}
-          section={section}
-          showSections={showSections}
-        />
+      {sections.map((section) => (
+        <NavigationSection key={section.uuid} section={section} showSections={showSections} />
       ))}
     </div>
   )
