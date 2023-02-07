@@ -38,9 +38,10 @@ export const useValidationsAndCalculations = (props: { table: Table }) => {
         dependants: {},
         dependencies: {},
       },
-      variablesByTable: Object.entries(
-        { ...table.validationDependencies, ...table.calculationDependencies } ?? {}
-      ).reduce<VariablesByTableCache>((acc, [_, variables]) => {
+      variablesByTable: Object.entries({
+        ...table.validationDependencies,
+        ...table.calculationDependencies,
+      }).reduce<VariablesByTableCache>((acc, [_, variables]) => {
         variables.forEach((variable) => {
           // eslint-disable-next-line no-param-reassign
           acc[variable.tableName] = { ...acc[variable.tableName], [variable.variableName]: variable }
