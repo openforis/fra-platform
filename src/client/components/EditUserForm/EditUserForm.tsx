@@ -77,7 +77,7 @@ const EditUserForm: React.FC<Props> = ({ user, canEditRoles }) => {
 
       <TextInputField name="surname" value={user.props.surname} onChange={changeUserProp} enabled={enabled} />
 
-      {userRole?.role === RoleName.COLLABORATOR && <CollaboratorPermissions userRole={userRole} />}
+      {canEditRoles && userRole?.role === RoleName.COLLABORATOR && <CollaboratorPermissions userRole={userRole} />}
 
       {canEditRoles && <CountryRoles user={user} />}
     </div>
