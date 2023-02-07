@@ -6,6 +6,7 @@ import { RoleName, User, Users } from '@meta/user'
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { UserManagementActions } from '@client/store/ui/userManagement'
+import { useUser } from '@client/store/user'
 import { useCountryIso, useOnUpdate } from '@client/hooks'
 
 import CollaboratorPermissions from './CollaboratorPermissions'
@@ -24,9 +25,15 @@ const EditUserForm: React.FC<Props> = ({ user, canEditRoles }) => {
   const assessment = useAssessment()
   const countryIso = useCountryIso()
   const cycle = useCycle()
+  const userInfo = useUser()
 
   const [profilePicture, setProfilePicture] = useState<File>(null)
   const [userToEdit, setUserToEdit] = useState<User>(user)
+
+  const changeUser = (name: string, value: string) => setUserToEdit({ ...user, [name]: value })
+
+  const changeUserProp = (name: string, value: string) =>
+    setUserToEdit({ ...user, props: { ...user.props, [name]: value } })
 
   useOnUpdate(() => {
     dispatch(
@@ -44,17 +51,31 @@ const EditUserForm: React.FC<Props> = ({ user, canEditRoles }) => {
 
   const userRole = Users.getRole(user, countryIso, cycle)
 
+  const enabled = Users.isAdministrator(userInfo) || user?.id === userInfo?.id
+
   return (
     <div className="edit-user__form-container">
       <ProfilePicture onChange={(profilePicture: File) => setProfilePicture(profilePicture)} userId={user.id} />
 
-      <TextInputField name="email" onChange={setUserToEdit} user={userToEdit} validator={Users.validEmail} />
+      <TextInputField
+        name="email"
+        value={user.email}
+        onChange={changeUser}
+        validator={Users.validEmail}
+        enabled={enabled}
+      />
 
-      <SelectField name="title" onChange={setUserToEdit} user={userToEdit} isProperty onlySelf />
+      <SelectField
+        name="title"
+        value={user.props.title}
+        options={['Ms', 'Mr', 'Other']}
+        onChange={changeUserProp}
+        enabled={enabled}
+      />
 
-      <TextInputField name="name" onChange={setUserToEdit} user={userToEdit} isProperty onlySelf />
+      <TextInputField name="name" value={user.props.name} onChange={changeUserProp} enabled={enabled} />
 
-      <TextInputField name="surname" onChange={setUserToEdit} user={userToEdit} isProperty onlySelf />
+      <TextInputField name="surname" value={user.props.surname} onChange={changeUserProp} enabled={enabled} />
 
       {userRole?.role === RoleName.COLLABORATOR && <CollaboratorPermissions userRole={userRole} />}
 
