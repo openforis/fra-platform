@@ -12,15 +12,19 @@ interface SectionDB {
 interface SubSectionDB {
   id: number
   uuid: string
+  parent_id?: number
   props: SubSectionProps & { cycles: Array<string> }
 }
 
 export const SubSectionAdapter = (subSection: SubSectionDB): SubSection => {
-  const { props, ...restSubSection } = subSection
+  // eslint-disable-next-line camelcase
+  const { parent_id, props, ...restSubSection } = subSection
   const { anchors, labels, ...restProps } = props
 
   return {
     ...restSubSection,
+    // eslint-disable-next-line camelcase
+    parentId: parent_id,
     props: {
       ...Objects.camelize(restProps),
       anchors,
