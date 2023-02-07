@@ -168,7 +168,6 @@ export const nonWoodForestProductsRemovals: SectionSpec = {
                 },
               ],
               label: '#1',
-              variableName: 'product1',
             },
             {
               idx: 1,
@@ -1127,12 +1126,12 @@ export const nonWoodForestProductsRemovals: SectionSpec = {
                 },
                 colNames: ['value'],
                 calcFormula: `(
-                 nonWoodForestProductsRemovals.product1 || nonWoodForestProductsRemovals.product_2 || nonWoodForestProductsRemovals.product_3 
+                 nonWoodForestProductsRemovals.product_1 || nonWoodForestProductsRemovals.product_2 || nonWoodForestProductsRemovals.product_3 
                  || nonWoodForestProductsRemovals.product_4 || nonWoodForestProductsRemovals.product_5 || nonWoodForestProductsRemovals.product_6 
                  || nonWoodForestProductsRemovals.product_7 || nonWoodForestProductsRemovals.product_8 || nonWoodForestProductsRemovals.product_9
                  || nonWoodForestProductsRemovals.product_10 || nonWoodForestProductsRemovals.all_other_plant_products || nonWoodForestProductsRemovals.all_other_animal_products
                  ) ? (
-                  (nonWoodForestProductsRemovals.product1 || 0) + (nonWoodForestProductsRemovals.product_2 || 0) + (nonWoodForestProductsRemovals.product_3 || 0)
+                  (nonWoodForestProductsRemovals.product_1 || 0) + (nonWoodForestProductsRemovals.product_2 || 0) + (nonWoodForestProductsRemovals.product_3 || 0)
                   + (nonWoodForestProductsRemovals.product_4 || 0) + (nonWoodForestProductsRemovals.product_5 || 0) + (nonWoodForestProductsRemovals.product_6 || 0)
                   + (nonWoodForestProductsRemovals.product_7 || 0) + (nonWoodForestProductsRemovals.product_8 || 0) + (nonWoodForestProductsRemovals.product_9 || 0)
                   + (nonWoodForestProductsRemovals.product_10 || 0) + (nonWoodForestProductsRemovals.all_other_plant_products || 0) + (nonWoodForestProductsRemovals.all_other_animal_products || 0)
