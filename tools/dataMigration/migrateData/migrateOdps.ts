@@ -1,11 +1,11 @@
 import * as pgPromise from 'pg-promise'
-import { ITask } from 'pg-promise'
 
 import { Assessment } from '../../../src/meta/assessment/assessment'
+import { BaseProtocol } from '../../../src/server/db'
 import { getCreateSchemaCycleOriginalDataPointViewDDL } from '../../../src/server/repository/assessment/assessment/getCreateSchemaDDL'
 import { DBNames } from '../_DBNames'
 
-export const migrateOdps = async (props: { assessment: Assessment }, client: ITask<any>): Promise<void> => {
+export const migrateOdps = async (props: { assessment: Assessment }, client: BaseProtocol): Promise<void> => {
   const { assessment } = props
   const pgp = pgPromise()
 

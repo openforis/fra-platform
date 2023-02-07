@@ -1,9 +1,9 @@
 import * as pgPromise from 'pg-promise'
-import { ITask } from 'pg-promise'
 
 import { Assessment } from '../../../src/meta/assessment/assessment'
 import { Cycle } from '../../../src/meta/assessment/cycle'
 import { Table } from '../../../src/meta/assessment/table'
+import { BaseProtocol } from '../../../src/server/db'
 import { Objects } from '../../../src/utils/objects'
 import { DBNames } from '../_DBNames'
 import { getCreateViewDDL } from './_createDataViews'
@@ -15,7 +15,7 @@ import { migrateFRATablesData } from './migrateFRATablesData'
 
 export const migrateTablesData = async (
   props: { assessment: Assessment; cycle: Cycle },
-  client: ITask<any>,
+  client: BaseProtocol,
   legacySchema = '_legacy'
 ): Promise<void> => {
   const { assessment, cycle } = props
