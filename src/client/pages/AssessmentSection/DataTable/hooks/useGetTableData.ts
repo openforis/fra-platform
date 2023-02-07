@@ -30,6 +30,11 @@ export const useGetTableData = (props: Props) => {
         variables.forEach((variable) => tableNamesSet.add(variable.tableName))
       )
     }
+    if (canEdit && table.calculationDependencies) {
+      Object.values(table.calculationDependencies).forEach((variables) =>
+        variables.forEach((variable) => tableNamesSet.add(variable.tableName))
+      )
+    }
     const tableNames = Array.from(tableNamesSet)
 
     dispatch(AssessmentSectionActions.getTableData({ assessmentName, countryIso, cycleName, tableNames }))

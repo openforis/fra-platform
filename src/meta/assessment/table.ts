@@ -40,5 +40,6 @@ export interface Table extends CycledPropsObject<TableProps> {
   rows?: Array<Row>
   tableSectionId: number
   validationDependencies?: Record<string, Array<VariableCache>>
+  calculationDependencies?: Record<string, Array<VariableCache>>
   // odpVariables?: Record<string, string>
 }
