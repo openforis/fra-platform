@@ -658,6 +658,7 @@ export const growingStock = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.growingStockByForestType',
       tableSpecs: [
         {
           name: 'table_1_2b',
@@ -867,6 +868,7 @@ export const growingStock = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.growingStockComposition',
       tableSpecs: [
         {
           name: 'table_1_2c',
@@ -1381,6 +1383,7 @@ export const growingStock = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.countryComments',
       tableSpecs: [
         {
           name: 'country_comments_1_2_1',
