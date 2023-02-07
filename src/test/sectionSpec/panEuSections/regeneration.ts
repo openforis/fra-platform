@@ -225,6 +225,7 @@ export const totalForestAreaByExpansionAndRegenerationType = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.annualForestExpansionAndRegeneration',
       tableSpecs: [
         {
           name: 'table_4_2b',
@@ -542,6 +543,7 @@ export const totalForestAreaByExpansionAndRegenerationType = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.countryComments',
       tableSpecs: [
         {
           name: 'country_comments_4_2_1',

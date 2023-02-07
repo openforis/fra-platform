@@ -235,6 +235,7 @@ export const totalGrossFixedCapitalFormationInForestsAndForestry = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.totalFixedCapitalFormationInForestsAndForestry',
       tableSpecs: [
         {
           name: 'table_6_4b',
@@ -387,6 +388,7 @@ export const totalGrossFixedCapitalFormationInForestsAndForestry = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.totalFixedCapitalTransfersInForestsAndForestry',
       tableSpecs: [
         {
           name: 'table_6_4c',
@@ -539,6 +541,7 @@ export const totalGrossFixedCapitalFormationInForestsAndForestry = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.countryComments',
       tableSpecs: [
         {
           name: 'country_comments_6_4_1',

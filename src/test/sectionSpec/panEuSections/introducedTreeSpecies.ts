@@ -477,6 +477,7 @@ export const introducedTreeSpecies = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.introducedTreeSpecies',
       tableSpecs: [
         {
           name: 'table_4_4b',
@@ -1074,6 +1075,7 @@ export const introducedTreeSpecies = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.invasiveTreeSpecies',
       tableSpecs: [
         {
           name: 'table_4_4c',
@@ -1674,6 +1676,7 @@ export const introducedTreeSpecies = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.countryComments',
       tableSpecs: [
         {
           name: 'country_comments_4_4_1',
