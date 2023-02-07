@@ -41,15 +41,18 @@ export const useValidationsAndCalculations = (props: { table: Table }) => {
       variablesByTable: Object.entries({
         ...table.validationDependencies,
         ...table.calculationDependencies,
-      }).reduce<VariablesByTableCache>((acc, [_, variables]) => {
-        variables.forEach((variable) => {
-          // eslint-disable-next-line no-param-reassign
-          acc[variable.tableName] = { ...acc[variable.tableName], [variable.variableName]: variable }
-        })
-        return acc
-      }, {}),
+      }).reduce<VariablesByTableCache>(
+        (acc, [_, variables]) => {
+          variables.forEach((variable) => {
+            // eslint-disable-next-line no-param-reassign
+            acc[variable.tableName] = { ...acc[variable.tableName], [variable.variableName]: variable }
+          })
+          return acc
+        },
+        { [table.props.name]: {} }
+      ),
     }),
-    [table.calculationDependencies, table.validationDependencies]
+    [table.calculationDependencies, table.validationDependencies, table.props.name]
   )
 
   const assessment: Assessment = useMemo(
