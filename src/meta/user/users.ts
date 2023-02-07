@@ -141,12 +141,15 @@ const isPersonalInfoRequired = (user: User, role: UserRole<RoleName, any>) => {
   //   ? roleExtendedProps.some((prop: keyof UserRoleExtendedProps) => Objects.isEmpty(role.props[prop]))
   //   : roleBaseProps.some((prop: keyof UserRoleBaseProps) => validateExtendedProps(role.props[prop], prop))
 
-  // return hasCorrectRole && !Objects.isEmpty(user.email) && missingUserProperties && missingRoleProperties
-  return hasCorrectRole && !Objects.isEmpty(user.email) && missingUserProperties
+  // return hasCorrectRole && (!validEmail(user) || missingUserProperties || missingRoleProperties)
+  return hasCorrectRole && (!validEmail(user) || missingUserProperties)
 }
+
+const getFullName = (user: User) => [user.props.name, user.props.surname].join(' ')
 
 export const Users = {
   getRole,
+  getFullName,
 
   isAdministrator,
   isAlternateNationalCorrespondent,

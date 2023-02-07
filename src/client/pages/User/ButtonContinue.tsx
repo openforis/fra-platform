@@ -23,7 +23,7 @@ const ButtonContinue = () => {
   if (!location.state?.personalInfoRequired) return null
 
   return (
-    <button type="button" disabled={isPersonalInfoRequired} onClick={onClick} className="btn btn-primary ">
+    <button type="button" disabled={isPersonalInfoRequired} onClick={onClick} className="btn btn-primary">
       {t('common.continue')}
     </button>
   )

@@ -99,7 +99,7 @@ export const ClientRoutes = {
         PrintTables: newInstance<AssessmentParams>(...assessmentParts, 'print', 'tables'),
         Section: newInstance<AssessmentParams & { sectionName: string }>(...assessmentParts, 'sections/:sectionName'),
         Users: {
-          User: newInstance<AssessmentParams & { id: number }>(...assessmentParts, 'home', 'users/:id'),
+          User: newInstance<AssessmentParams & { id: number }>(...assessmentParts, 'users/:id'),
         },
       },
     },
