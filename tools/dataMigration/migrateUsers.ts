@@ -42,8 +42,7 @@ export const migrateUsers = async (props: { client: BaseProtocol }): Promise<voi
         delete
         from users;
 
-        insert into users (institution, lang, profile_picture_filename, name, status, profile_picture_file, position,
-                           email)
+        insert into users (institution, lang, profile_picture_filename, name, status, profile_picture_file, position, email, id)
         select u_l.institution,
                u_l.lang,
                u_l.profile_picture_filename,
@@ -54,7 +53,9 @@ export const migrateUsers = async (props: { client: BaseProtocol }): Promise<voi
                    end as status,
                u_l.profile_picture_file,
                u_l.position,
-               u_l.email
+               u_l.email,
+               -- Avoid possible conflicts with ids from legacy database
+               (u_l.id + 1000000) as id
         from _legacy.fra_user u_l;
     `
   )
