@@ -51,7 +51,7 @@ const EditUserForm: React.FC<Props> = ({ user, canEditRoles }) => {
 
   const userRole = Users.getRole(user, countryIso, cycle)
 
-  const enabled = Users.isAdministrator(userInfo) || user?.id === userInfo?.id
+  const enabled = Users.isAdministrator(userInfo) || user.id === userInfo?.id
 
   return (
     <div className="edit-user__form-container">

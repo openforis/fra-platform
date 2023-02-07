@@ -35,7 +35,7 @@ const CollaboratorListElement: React.FC<{ user: User; readOnly: boolean }> = ({ 
   const { acceptedAt, invitationUuid } = userRole
 
   const removeInvitation = useCallback(() => {
-    if (window.confirm(t('userManagement.confirmDelete', { user: `${user.props.name} ${user.props.surname}` })))
+    if (window.confirm(t('userManagement.confirmDelete', { user: Users.getFullName(user) })))
       dispatch(
         UserManagementActions.removeInvitation({
           assessmentName: assessment.props.name,
@@ -46,17 +46,7 @@ const CollaboratorListElement: React.FC<{ user: User; readOnly: boolean }> = ({ 
       ).then(() => {
         toaster.success(t('userManagement.invitationDeleted'))
       })
-  }, [
-    t,
-    user.props.name,
-    user.props.surname,
-    dispatch,
-    assessment.props.name,
-    cycle.name,
-    countryIso,
-    invitationUuid,
-    toaster,
-  ])
+  }, [t, user, dispatch, assessment.props.name, cycle.name, countryIso, invitationUuid, toaster])
 
   return (
     <tr
