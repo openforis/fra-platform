@@ -16,7 +16,7 @@ const jwtFromRequest = (req: Request) => {
 const jwtStrategyVerifyCallback = async (_req: Request, { uuid }: User, done: VerifiedCallback) => {
   const sendErr = (message: string) => done(null, false, { message })
   try {
-    if (uuid) {
+    if (!uuid) {
       throw new Error('login.invalidToken')
     }
 
