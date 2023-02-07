@@ -566,6 +566,8 @@ export const employmentByGenderAndAge = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.EmploymentByEducationAndJobCharacteristics',
+
       tableSpecs: [
         {
           name: 'table_6_5b',
@@ -1162,6 +1164,7 @@ export const employmentByGenderAndAge = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.countryComments',
       tableSpecs: [
         {
           name: 'country_comments_6_5_1',
