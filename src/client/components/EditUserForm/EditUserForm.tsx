@@ -84,7 +84,7 @@ const EditUserForm: React.FC<Props> = ({ user, canEditRoles }) => {
       <SelectField
         name="title"
         value={user.props.title}
-        options={['Ms', 'Mr', 'Other']}
+        options={{ Ms: 'Ms', Mr: 'Mr', Other: 'Other' }}
         onChange={changeUserProp}
         enabled={enabled}
       />

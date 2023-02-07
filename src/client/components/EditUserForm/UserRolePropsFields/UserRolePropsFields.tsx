@@ -1,7 +1,9 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
-import { RoleName, UserRole } from '@meta/user/userRole'
+import { RoleName, UserContactPreferenceMethod, UserRole } from '@meta/user/userRole'
 
+import SelectField from '../SelectField'
 import TextInputField from '../TextInputField'
 
 type Props = {
@@ -14,6 +16,8 @@ const UserRolePropsFields: React.FC<Props> = (props) => {
   const { role, onChange, enabled } = props
 
   const { props: roleProps } = role
+
+  const { t } = useTranslation()
 
   const changeAddress = (name: string, value: string) => onChange('address', { ...roleProps.address, [name]: value })
 
@@ -80,9 +84,13 @@ const UserRolePropsFields: React.FC<Props> = (props) => {
 
           <TextInputField name="skype" value={roleProps.skype} onChange={onChange} enabled={enabled} />
 
-          <TextInputField
+          <SelectField
             name="contactPreference"
             value={roleProps.contactPreference?.method}
+            options={Object.values(UserContactPreferenceMethod).reduce(
+              (acc, k) => ({ ...acc, [k]: t(`editUser.${k}`) }),
+              {}
+            )}
             onChange={changeContactPreference}
             enabled={enabled}
           />

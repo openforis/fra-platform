@@ -9,7 +9,7 @@ import { UserProps } from '@meta/user/user'
 type Props = {
   name: string
   value: string
-  options: Array<string>
+  options: Record<string, string>
   onChange: (name: string, value: string) => void
   validator?: (partial: Partial<User> | Partial<UserProps>) => boolean
   enabled?: boolean
@@ -27,10 +27,9 @@ const SelectField: React.FC<Props> = (props) => {
       <div className="edit-user__form-label">{t(`editUser.${name}`)}</div>
       <div className={classNames(`edit-user__form-field${enabled ? '' : '-disabled'}`, { error: !valid })}>
         <select value={value} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => onChange(name, e.target.value)}>
-          {!value && <option value=""> </option>}
-          {options.map((title: string) => (
-            <option key={title} value={title}>
-              {title}
+          {Object.entries(options).map(([k, v]) => (
+            <option key={k} value={k}>
+              {v}
             </option>
           ))}
         </select>
