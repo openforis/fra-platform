@@ -17,9 +17,9 @@ export const userSlice = createSlice({
 
     builder.addCase(initApp.fulfilled, (_, { payload }) => payload.user)
 
-    builder.addCase(UserManagementActions.updateUser.fulfilled, (state, { payload }) => {
-      return { ...payload.user, roles: state.roles }
-    })
+    builder.addCase(UserManagementActions.updateUser.fulfilled, (state, { payload }) =>
+      payload.user.id === state.id ? { ...payload.user, roles: state.roles } : state
+    )
 
     builder.addCase(UserManagementActions.updateRoleProps.fulfilled, (state, { meta }) => {
       const { role } = meta.arg
