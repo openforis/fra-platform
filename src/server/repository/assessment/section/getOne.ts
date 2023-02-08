@@ -1,8 +1,7 @@
-import { Objects } from '@utils/objects'
-
 import { Assessment, Cycle, Section } from '@meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
+import { SectionAdapter } from '@server/repository/adapter'
 
 export const getOne = async (
   props:
@@ -13,12 +12,12 @@ export const getOne = async (
   const schemaName = Schemas.getName(props.assessment)
   return client.one<Section>(
     `
-          select s.*
-          from ${schemaName}.section s
-          where ${'sectionName' in props ? `s.props->>'name' = $2` : `s.id = $2`}
-            and props -> 'cycles' ? $1;
-      `,
+        select s.*
+        from ${schemaName}.section s
+        where ${'sectionName' in props ? `s.props->>'name' = $2` : `s.id = $2`}
+          and props -> 'cycles' ? $1;
+    `,
     [props.cycle.uuid, 'sectionName' in props ? props.sectionName : props.id],
-    Objects.camelize
+    SectionAdapter
   )
 }

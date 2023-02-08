@@ -1,8 +1,7 @@
-import { Objects } from '@utils/objects'
-
 import { Assessment, Section, SubSection } from '@meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
+import { SectionAdapter, SubSectionAdapter } from '@server/repository/adapter'
 
 export const create = async (
   params: {
@@ -19,7 +18,7 @@ export const create = async (
         insert into ${schemaName}.section (props)
         values ($1::JSONB) returning *;`,
     [JSON.stringify(section.props)],
-    Objects.camelize
+    SectionAdapter
   )
 }
 
@@ -39,6 +38,6 @@ export const createSubSection = async (
       insert into ${schemaName}.section (props, parent_id)
       values ($1::JSONB, $2) returning *;`,
     [JSON.stringify(section.props), parentSectionId],
-    Objects.camelize
+    SubSectionAdapter
   )
 }
