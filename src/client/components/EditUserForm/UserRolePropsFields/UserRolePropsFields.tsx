@@ -1,9 +1,9 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 
-import { RoleName, UserContactPreferenceMethod, UserRole } from '@meta/user/userRole'
+import { RoleName, UserContactPreference, UserRole } from '@meta/user/userRole'
 
-import SelectField from '../SelectField'
+import ContactMethodField from '../ContactMethodField'
+import PhoneField from '../PhoneField'
 import TextInputField from '../TextInputField'
 
 type Props = {
@@ -17,11 +17,9 @@ const UserRolePropsFields: React.FC<Props> = (props) => {
 
   const { props: roleProps } = role
 
-  const { t } = useTranslation()
-
   const changeAddress = (name: string, value: string) => onChange('address', { ...roleProps.address, [name]: value })
 
-  const changeContactPreference = (name: string, value: string) =>
+  const changeContactPreference = (name: string, value: UserContactPreference) =>
     onChange('contactPreference', { ...roleProps.contactPreference, [name]: value })
 
   return (
@@ -68,14 +66,14 @@ const UserRolePropsFields: React.FC<Props> = (props) => {
             enabled={enabled}
           />
 
-          <TextInputField
+          <PhoneField
             name="primaryPhoneNumber"
             value={roleProps.primaryPhoneNumber}
             onChange={onChange}
             enabled={enabled}
           />
 
-          <TextInputField
+          <PhoneField
             name="secondaryPhoneNumber"
             value={roleProps.secondaryPhoneNumber}
             onChange={onChange}
@@ -84,13 +82,9 @@ const UserRolePropsFields: React.FC<Props> = (props) => {
 
           <TextInputField name="skype" value={roleProps.skype} onChange={onChange} enabled={enabled} />
 
-          <SelectField
+          <ContactMethodField
             name="contactPreference"
-            value={roleProps.contactPreference?.method}
-            options={Object.values(UserContactPreferenceMethod).reduce(
-              (acc, k) => ({ ...acc, [k]: t(`editUser.${k}`) }),
-              {}
-            )}
+            value={roleProps.contactPreference}
             onChange={changeContactPreference}
             enabled={enabled}
           />
