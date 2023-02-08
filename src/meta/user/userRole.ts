@@ -13,8 +13,8 @@ export enum UserContactPreferenceMethod {
   primaryEmail = 'primaryEmail',
   secondaryEmail = 'secondaryEmail',
   skype = 'skype',
-  primaryPhone = 'primaryPhone',
-  secondaryPhone = 'secondaryPhone',
+  primaryPhoneNumber = 'primaryPhoneNumber',
+  secondaryPhoneNumber = 'secondaryPhoneNumber',
   platformChat = 'platformChat',
 }
 
