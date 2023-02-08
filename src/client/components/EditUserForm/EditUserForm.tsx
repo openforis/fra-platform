@@ -1,7 +1,7 @@
 import './EditUserForm.scss'
 import React, { useState } from 'react'
 
-import { RoleName, User, UserRole, Users } from '@meta/user'
+import { Collaborator, RoleName, User, UserRole, Users } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
@@ -10,7 +10,7 @@ import { useUser } from '@client/store/user'
 import { useCountryIso, useOnUpdate } from '@client/hooks'
 
 import CollaboratorPermissions from './CollaboratorPermissions'
-import CountryRoles from './CountryRoles'
+// import CountryRoles from './CountryRoles'
 import ProfilePicture from './ProfilePicture'
 import TextInputField from './TextInputField'
 import TitleField from './TitleField'
@@ -92,9 +92,11 @@ const EditUserForm: React.FC<Props> = ({ user, canEditRoles }) => {
         userRole?.role
       ) && <UserRolePropsFields role={roleToEdit} onChange={changeUserRoleProp} enabled={enabled} />}
 
-      {canEditRoles && userRole?.role === RoleName.COLLABORATOR && <CollaboratorPermissions userRole={userRole} />}
+      {canEditRoles && userRole?.role === RoleName.COLLABORATOR && (
+        <CollaboratorPermissions userRole={userRole as Collaborator} />
+      )}
 
-      {canEditRoles && <CountryRoles user={user} />}
+      {/* {canEditRoles && <CountryRoles user={user} />} */}
     </div>
   )
 }
