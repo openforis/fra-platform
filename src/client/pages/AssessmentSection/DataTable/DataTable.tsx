@@ -10,10 +10,10 @@ import { useTableData } from '@client/store/ui/assessmentSection'
 import { useIsEditTableDataEnabled } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
-import { useValidations } from '@client/pages/AssessmentSection/DataTable/Table/hooks/useValidation'
 
 import { useGetTableData } from './hooks/useGetTableData'
 import { useODPDeleteListener } from './hooks/useODPDeleteListener'
+import { useValidationsAndCalculations } from './hooks/useValidationsAndCalculations'
 import Chart from './Chart'
 import GenerateValues from './GenerateValues'
 import Table from './Table'
@@ -45,7 +45,7 @@ const DataTable: React.FC<Props> = (props) => {
 
   useGetTableData({ assessmentName, countryIso, cycleName, sectionName, table })
   useODPDeleteListener({ assessmentName, countryIso, cycleName })
-  useValidations({ table })
+  useValidationsAndCalculations({ table })
 
   // Always show secondary tables - unless whole section empty (handled in parent)
   if (dataEmpty && onlyTables && !secondary) {

@@ -10,5 +10,6 @@ export interface Context extends ExpressionContext {
   colName: string
   countryIso: CountryIso
   data: TableData
+  formula: string
   row: Row
 }

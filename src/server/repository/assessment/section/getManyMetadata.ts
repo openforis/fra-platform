@@ -31,7 +31,17 @@ export const getManyMetadata = async (
                                               'validations',
                                               'dependencies', t.props ->> 'name'
                                           )
-                                  )              as "table",
+                                  ) 
+                                  ||
+                              jsonb_build_object(
+                                      'calculationDependencies',
+                                      jsonb_extract_path(
+                                              a.meta_cache,
+                                              '${cycle.uuid}',
+                                              'calculations',
+                                              'dependencies', t.props ->> 'name'
+                                          )
+                                  )  as "table",
                               jsonb_set(
                                       to_jsonb(r.*),
                                       '{"cols"}',
