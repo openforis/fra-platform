@@ -40,10 +40,10 @@ const ContactMethodField: React.FC<Props> = (props) => {
 
   const valid = validator?.({ [name]: value }) ?? true
 
-  const [method, setMethod] = useState(value.method)
+  const [method, setMethod] = useState(value?.method)
   const [phoneOption, setPhoneOption] = useState(
     [UserContactPreferenceMethod.primaryPhoneNumber, UserContactPreferenceMethod.secondaryPhoneNumber].includes(
-      value.method
+      value?.method
     )
       ? value.options?.phone
       : ''
