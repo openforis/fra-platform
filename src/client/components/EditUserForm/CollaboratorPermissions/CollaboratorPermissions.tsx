@@ -20,6 +20,18 @@ const CollaboratorPermissions = (props: Props) => {
   const cycle = useCycle()
   const sections = useAssessmentSections()
 
+  const [modalOptions, setModalOptions] = useState<{ open: boolean }>({ open: false })
+
+  const _onEditPermissionsClick = () => {
+    setModalOptions({ open: true })
+  }
+
+  const _onEditPermissionsClose = () => {
+    setModalOptions({ open: false })
+  }
+
+  if (!sections) return null
+
   const options = SubSections.getAnchorsByUuid({ cycle, sections })
 
   const permissions = (userRole.permissions as CollabPermissions) || undefined
@@ -35,16 +47,6 @@ const CollaboratorPermissions = (props: Props) => {
     .reduce((prev, [k, v]) => (v.descriptions ? [...prev, options[k]] : prev), [])
     .sort()
     .join(', ')
-
-  const [modalOptions, setModalOptions] = useState<{ open: boolean }>({ open: false })
-
-  const _onEditPermissionsClick = () => {
-    setModalOptions({ open: true })
-  }
-
-  const _onEditPermissionsClose = () => {
-    setModalOptions({ open: false })
-  }
 
   return (
     <div className="edit-user__form-item edit-user__form-item-permissions">
