@@ -3,15 +3,7 @@ import { useEffect, useMemo } from 'react'
 import { isAnyOf } from '@reduxjs/toolkit'
 import { Objects } from '@utils/objects'
 
-import {
-  Assessment,
-  AssessmentMetaCache,
-  NodeValueValidation,
-  NodeValueValidations,
-  RowType,
-  Table,
-} from '@meta/assessment'
-import { VariablesByTableCache } from '@meta/assessment/assessmentMetaCache'
+import { NodeValueValidation, NodeValueValidations, RowType, Table } from '@meta/assessment'
 import { NodeUpdate, TableDatas } from '@meta/data'
 import { ExpressionEvaluator } from '@meta/expressionEvaluator'
 
@@ -23,42 +15,12 @@ import { useCountryIso } from '@client/hooks'
 
 export const useValidationsAndCalculations = (props: { table: Table }) => {
   const { table } = props
-  const assessmentOrig = useAssessment()
+  const assessment = useAssessment()
   const cycle = useCycle()
   const countryIso = useCountryIso()
   const dispatch = useAppDispatch()
   const rowsData = useMemo(() => table.rows.filter((row) => row.props.type !== RowType.header), [table.rows])
-  const metaCache: AssessmentMetaCache = useMemo(
-    () => ({
-      calculations: {
-        dependants: {},
-        dependencies: {},
-      },
-      validations: {
-        dependants: {},
-        dependencies: {},
-      },
-      variablesByTable: Object.entries({
-        ...table.validationDependencies,
-        ...table.calculationDependencies,
-      }).reduce<VariablesByTableCache>(
-        (acc, [_, variables]) => {
-          variables.forEach((variable) => {
-            // eslint-disable-next-line no-param-reassign
-            acc[variable.tableName] = { ...acc[variable.tableName], [variable.variableName]: variable }
-          })
-          return acc
-        },
-        { [table.props.name]: {} }
-      ),
-    }),
-    [table.calculationDependencies, table.validationDependencies, table.props.name]
-  )
 
-  const assessment: Assessment = useMemo(
-    () => ({ ...assessmentOrig, metaCache: { [cycle.uuid]: metaCache } }),
-    [assessmentOrig, cycle.uuid, metaCache]
-  )
   useEffect(() => {
     const unsubscribe = dispatch(
       addAppListener({

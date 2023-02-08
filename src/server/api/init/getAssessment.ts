@@ -12,7 +12,7 @@ export const getAssessment = async (req: InitRequest, res: Response) => {
 
     const settings = await SettingsController.read()
     const props = assessmentName ? { assessmentName } : { id: settings.defaultAssessmentId }
-    const assessment = await AssessmentController.getOne({ ...props })
+    const assessment = await AssessmentController.getOne({ ...props, metaCache: true })
 
     Requests.sendOk(res, assessment)
   } catch (e) {
