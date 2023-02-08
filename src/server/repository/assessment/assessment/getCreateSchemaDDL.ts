@@ -308,7 +308,7 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
                      end as total
           from raw_values rv),
       total_land_area as (
-        select * from ext_data.node where variable_name = 'totalLandArea'
+        select * from ext_data.node where variable_name = 'totalLandArea' and table_name = 'extentOfForest'
       )
       select rv.country_iso,
              rv.year,
