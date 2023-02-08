@@ -19,8 +19,7 @@ const UserRolePropsFields: React.FC<Props> = (props) => {
 
   const changeAddress = (name: string, value: string) => onChange('address', { ...roleProps.address, [name]: value })
 
-  const changeContactPreference = (name: string, value: UserContactPreference) =>
-    onChange('contactPreference', { ...roleProps.contactPreference, [name]: value })
+  const changeContactPreference = (value: UserContactPreference) => onChange('contactPreference', value)
 
   return (
     <>

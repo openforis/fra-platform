@@ -5,7 +5,14 @@ import { CountryIso } from '@meta/area'
 import { Cycle } from '@meta/assessment'
 
 import type { User, UserProps } from './user'
-import { RoleName, UserContactPreference, UserRole, UserRoleBaseProps, UserRoleExtendedProps } from './userRole'
+import {
+  RoleName,
+  UserContactPreference,
+  UserContactPreferenceMethod,
+  UserRole,
+  UserRoleBaseProps,
+  UserRoleExtendedProps,
+} from './userRole'
 import { UserRoles } from './userRoles'
 
 const isAdministrator = (user: User) => {
@@ -122,13 +129,21 @@ const isPersonalInfoRequired = (user: User, role: UserRole<RoleName, any>) => {
     'primaryPhoneNumber',
     'secondaryPhoneNumber',
     'skype',
+    'contactPreference',
   ])
 
   const validateAddress = (prop: any) =>
     ['street', 'zipCode', 'poBox', 'city', 'countryIso'].some((propName) => Objects.isEmpty(prop[propName]))
 
-  const validateContactPreference = (prop: UserContactPreference) =>
-    Objects.isEmpty(prop.method) && Objects.isEmpty(prop.options?.phone)
+  const validateContactPreference = (prop: UserContactPreference) => {
+    return (
+      ([UserContactPreferenceMethod.primaryPhoneNumber, UserContactPreferenceMethod.secondaryPhoneNumber].includes(
+        prop.method
+      ) &&
+        Objects.isEmpty(prop.options?.phone)) ||
+      Objects.isEmpty(prop.method)
+    )
+  }
 
   const validateExtendedProps = (prop: any, propName: string) => {
     if (propName === 'address') return validateAddress(prop)

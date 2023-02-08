@@ -17,7 +17,7 @@ import { useOnUpdate } from '@client/hooks'
 type Props = {
   name: string
   value: UserContactPreference
-  onChange: (name: string, value: UserContactPreference) => void
+  onChange: (value: UserContactPreference) => void
   validator?: (partial: Partial<User> | Partial<UserProps>) => boolean
   enabled?: boolean
 }
@@ -51,11 +51,12 @@ const ContactMethodField: React.FC<Props> = (props) => {
 
   useOnUpdate(() => {
     const newValue = { method } as UserContactPreference
+
     if (phoneOption) {
       newValue.options = { phone: phoneOption as UserContactPreferencePhoneOption }
     }
 
-    onChange(name, newValue)
+    onChange(newValue)
   }, [method, phoneOption])
 
   return (
