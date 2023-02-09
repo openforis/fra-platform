@@ -28,7 +28,7 @@ const PhoneField: React.FC<Props> = (props) => {
   const [phoneNumber, setPhoneNumber] = useState(value?.split(' ')[1] ?? '')
 
   useOnUpdate(() => {
-    onChange(name, `${prefix} ${phoneNumber}`)
+    onChange(name, prefix === '' || phoneNumber === '' ? '' : `${prefix} ${phoneNumber}`)
   }, [prefix, phoneNumber])
 
   return (
@@ -42,14 +42,14 @@ const PhoneField: React.FC<Props> = (props) => {
         <input
           type="text"
           value={prefix}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPrefix(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPrefix(e.target.value.trim())}
           disabled={!enabled}
         />
 
         <input
           type="text"
           value={phoneNumber}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPhoneNumber(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPhoneNumber(e.target.value.trim())}
           disabled={!enabled}
         />
       </div>
