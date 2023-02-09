@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { CycleDataParams } from '@meta/api/request'
+import { DataSource } from '@meta/assessment'
 
 import { updateDescription } from '@client/store/ui/assessmentSection/actions/updateDescription'
 
@@ -23,7 +24,10 @@ export const copyPreviousDatasources = createAsyncThunk<
 
     dispatch(
       updateDescription({
-        value,
+        value: {
+          ...value,
+          dataSources: value.dataSources?.map(({ fraVariables: _fraVariables, ...rest }: DataSource) => rest),
+        },
         name,
         sectionName,
         assessmentName,
