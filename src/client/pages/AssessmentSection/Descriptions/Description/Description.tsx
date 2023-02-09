@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { CommentableDescriptionValue } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
+import { useAssessment, useAssessmentSection, useCycle } from '@client/store/assessment'
 import { AssessmentSectionActions } from '@client/store/ui/assessmentSection'
 import useDescription from '@client/store/ui/assessmentSection/hooks/useDescription'
 import { useIsDataLocked } from '@client/store/ui/dataLock'
@@ -34,6 +34,8 @@ const Description: React.FC<Props> = (props) => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
+  const section = useAssessmentSection(sectionName)
+  const descriotionsMetadata = section.props.descriptions[cycle.uuid]
 
   const user = useUser()
   const { print } = useIsPrint()
@@ -80,20 +82,32 @@ const Description: React.FC<Props> = (props) => {
   }, [isDataLocked, open])
 
   const isDataSources = name === 'dataSources'
+  const dataSourceHasTable = isDataSources && descriotionsMetadata?.nationalData?.dataSources?.table
+  const dataSourceTextReadOnly = isDataSources && descriotionsMetadata?.nationalData?.dataSources?.text?.readOnly
+
+  const showMarkdownEditor = (!isDataSources && open) || (isDataSources && open && !dataSourceTextReadOnly && markdown)
+
+  const showPreview =
+    // 1. not data source: Show markdown preview if description is not open and it has text
+    (!isDataSources && !open && markdown) ||
+    // 2. data source: Show markdown preview if description is not open and it is not read only
+    (isDataSources && !open && !dataSourceTextReadOnly) ||
+    // 3. data source: Show markdown preview if description is open and it is read only (preview of previous cycle) and has text
+    (isDataSources && open && dataSourceTextReadOnly && markdown)
 
   return (
     <div className="fra-description__header-row">
       <Title error={error} title={title} />
       {!disabled && <Toggle setOpen={setOpen} open={open} />}
-      {isDataSources && (
+      {dataSourceHasTable && (
         <DataSources description={description} onChange={onChange} disabled={!open} sectionName={sectionName} />
       )}
-      {open && (
+      {showMarkdownEditor && (
         <div className="fra-description__preview">
           <EditorWYSIWYG value={markdown} onChange={(content) => onChange({ ...description, text: content })} />
         </div>
       )}
-      {!open && markdown && (
+      {showPreview && (
         <div className="fra-description__preview">
           <MarkdownPreview value={markdown} />
         </div>
