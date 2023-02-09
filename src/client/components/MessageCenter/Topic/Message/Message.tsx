@@ -7,6 +7,7 @@ import classNames from 'classnames'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { Message as MessageType } from '@meta/messageCenter/message'
+import { Users } from '@meta/user'
 
 import Icon from '@client/components/Icon'
 
@@ -32,7 +33,7 @@ const Message: React.FC<MessageProps> = (props) => {
       <div className="message-header">
         <img className="message-avatar" src={ApiEndPoint.User.profilePicture(String(message.user.id))} alt="" />
         <div className="message-info">
-          <div className={classNames('message-author', { 'author-me': isMine })}>{message.user.name}</div>
+          <div className={classNames('message-author', { 'author-me': isMine })}>{Users.getFullName(message.user)}</div>
 
           {isMine && !deleted && message.message !== 'Marked as resolved' && (
             <button

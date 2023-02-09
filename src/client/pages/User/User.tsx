@@ -61,6 +61,7 @@ const User: React.FC = () => {
   if (!userToEdit) return null
 
   const canEditRoles = isAdministrator && user.id !== userToEdit.id
+
   return (
     <div className="app-view__content user-container">
       {canEditUser && <EditUserForm canEditRoles={canEditRoles} user={userToEdit} />}

@@ -7,6 +7,7 @@ import {
   inviteUser,
   removeInvitation,
   sendInvitationEmail,
+  updateRoleProps,
   updateSectionAuth,
   updateUser,
   updateUserAdminRole,
@@ -74,6 +75,12 @@ export const userManagementSlice = createSlice({
       const i = state.users.findIndex((u) => u.id === user.id)
       if (i !== -1) state.users[i] = { ...state.users[i], ...user }
     })
+
+    builder.addCase(updateRoleProps.fulfilled, (state, { meta }) => {
+      const { role } = meta.arg
+      const i = state.user.roles.findIndex((r) => r.id === role.id)
+      if (i !== -1) state.user.roles[i] = { ...state.user.roles[i], ...role }
+    })
   },
 })
 
@@ -89,6 +96,7 @@ export const UserManagementActions = {
   updateUser,
   updateUserAdminRole,
   updateUserRoles,
+  updateRoleProps,
 }
 
 export default userManagementSlice.reducer as Reducer<UserManagementState>

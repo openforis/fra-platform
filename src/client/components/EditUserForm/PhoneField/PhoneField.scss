@@ -1,0 +1,22 @@
+@import 'src/client/style/partials';
+
+.edit-user__form-field {
+  &.edit-user__form-phone-field {
+    border: none;
+    gap: $spacing-xs;
+
+    input {
+      border: 1px solid $ui-border;
+      width: 100%;
+      padding: 10px;
+
+      &:first-child {
+        flex: 1;
+      }
+
+      &:last-child {
+        flex: 4;
+      }
+    }
+  }
+}
